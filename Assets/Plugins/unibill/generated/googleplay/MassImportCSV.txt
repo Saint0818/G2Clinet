@@ -1,0 +1,6 @@
+Product ID,Published State,Purchase Type,Auto Translate,Locale; Title; Description,Auto Fill Prices,Price
+com.outlinegames.100goldcoins.v2.c,published,managed_by_android,false,"en_US;100 Gold Coins;Standard issue coin, 0% gold by volume",true,1990000
+com.outlinegames.sword.c,published,managed_by_android,false,"en_US;Magic Sword;Can slice through time",true,0
+com.outlinegames.250goldcoins,published,managed_by_android,false,"en_US;250 Gold coins;250 Gold coins",true,1000000
+com.outlinegames.unibill.silver.100,published,managed_by_android,false,"en_US;100 silver;100 silver",true,1000000
+com.outlinegames.unibill.silver.500,published,managed_by_android,false,"en_US;500 silver;500 silver",true,1000000
