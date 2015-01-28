@@ -42,7 +42,7 @@ public class FileManager : MonoBehaviour {
 	public static string[] DownloadFiles = {"greatplayers", "stages", "exps", "upgrade", "items", "skills", "traintime", "stores", "tutorial", "logobingo", 
 											"skilleffect", "Updateinfo", "mission", "playerstore", "vip", "stagechapter", "avatars", "talk"};
 	#if Debug
-	public const string URL = "http://172.19.0.17:3100/";
+	public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.debug;
 	#endif
 	

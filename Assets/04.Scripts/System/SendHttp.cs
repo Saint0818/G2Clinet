@@ -10,13 +10,13 @@ public class SendHttp : MonoBehaviour
 	public static string sessionID = "";
 	public static Dictionary<string, string> CookieHeaders = new Dictionary<string, string>();
 
-	public static void Start(){
+	public static void Init(){
 		GameObject gobj = new GameObject(typeof(SendHttp).Name);
 		DontDestroyOnLoad(gobj);
 		Get = gobj.AddComponent<SendHttp>();
 	}
 
-	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = false){
+	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
 		if (checkNetwork()){
 			WWW www = null;
 
