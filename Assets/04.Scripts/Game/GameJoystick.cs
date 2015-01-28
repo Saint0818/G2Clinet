@@ -6,6 +6,7 @@ public class GameJoystick: MonoBehaviour {
 	public GameObject targetPlayer;
 
 	void OnEnable(){
+		EasyTouch.On_TouchDown += On_TouchDown;
 		EasyJoystick.On_JoystickMove += On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd += On_JoystickMoveEnd;
 	}
@@ -18,6 +19,10 @@ public class GameJoystick: MonoBehaviour {
 	void OnDestroy(){
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
+	}
+
+	void On_TouchDown(Gesture gesture){
+		//Manual mode
 	}
 
 	void On_JoystickMove( MovingJoystick move){
