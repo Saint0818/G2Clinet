@@ -60,16 +60,13 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
-	public float basicMoveSpeed = 1;
-	public float WalkSpeed = 0.4f;
+	private float basicMoveSpeed = 10;
 	public bool IsDefense = true;
 	public float curSpeed = 0;
 
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
-
-//		AnimatorStateInfo[] test = Control.
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
@@ -80,30 +77,18 @@ public class PlayerBehaviour : MonoBehaviour
 		if(Mathf.Abs(move.joystickAxis.y)>0)
 			AniState(PlayerState.Run);
 
-//		if (Mathf.Abs(move.joystickAxis.y)>0 && Mathf.Abs(move.joystickAxis.y)<0.5)
-//			SetSpeed(move.joystickAxis.y);
-//		else if (Mathf.Abs(move.joystickAxis.y)>=0.5){
-//			if(IsDefense)
-//				AniState(PlayerState.RunAndDefence);
-//			else
-//				AniState(PlayerState.Run);
-//		}
-
-		Debug.Log("move : " + move.joystickAxis);
 		float angle = move.Axis2Angle(true);
 		int a = 90;
 		Vector3 rotation = new Vector3(0, angle + a, 0);
 		transform.rotation = Quaternion.Euler(rotation);
-		Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * 10;
+		Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * basicMoveSpeed;
 		transform.Translate(translate);	
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)
 	{
-		if(IsDefense)
-			AniState(PlayerState.Defence);
-		else
-			AniState(PlayerState.Idle);
+		SetSpeed(0);
+		AniState(PlayerState.Idle);
 	}
 
 	public void AniState(PlayerState state)
@@ -112,7 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		switch (state) {
 			case PlayerState.Idle:
-//				CloseAllState();
+				CloseAllState();
 			break;
 			case PlayerState.Walk:
 				
