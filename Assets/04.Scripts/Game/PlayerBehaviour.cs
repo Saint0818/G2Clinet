@@ -71,7 +71,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMove(MovingJoystick move)
 	{
-		curSpeed = Mathf.Abs(move.joystickAxis.y);
+		curSpeed = Vector2.Distance(new Vector2 (move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
 		SetSpeed(curSpeed);
 
 		if(Mathf.Abs(move.joystickAxis.y)>0)
