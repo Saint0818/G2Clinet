@@ -70,26 +70,42 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsDefense = true;
 	public float curSpeed = 0;
 	public TeamKind Team;
+	public float jumpHight = 8;
+	private bool canJump = true;
+	private bool canResetJump = false;
 
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
 	}
 
+	void Update()
+	{
+		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+
+		if (canResetJump && Control.GetBool ("IsJump") && gameObject.transform.localPosition.y < 0.1f) {
+			canJump = true;
+			Control.SetBool ("IsJump", false);
+			canResetJump = false;
+		}
+	}
+
 	public void OnJoystickMove(MovingJoystick move)
 	{
-		curSpeed = Vector2.Distance(new Vector2 (move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
-		SetSpeed(curSpeed);
+		if (CheckCanUseControl()) {
+			curSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
+			SetSpeed (curSpeed);
 
-		if(Mathf.Abs(move.joystickAxis.y)>0)
-			AniState(PlayerState.Run);
+			if (Mathf.Abs (move.joystickAxis.y) > 0)
+					AniState (PlayerState.Run);
 
-		float angle = move.Axis2Angle(true);
-		int a = 90;
-		Vector3 rotation = new Vector3(0, angle + a, 0);
-		transform.rotation = Quaternion.Euler(rotation);
-		Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * basicMoveSpeed;
-		transform.Translate(translate);	
+			float angle = move.Axis2Angle (true);
+			int a = 90;
+			Vector3 rotation = new Vector3 (0, angle + a, 0);
+			transform.rotation = Quaternion.Euler (rotation);
+			Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * basicMoveSpeed;
+			transform.Translate (translate);	
+		}
 	}
 
 	public void MoveTo(float X, float Z){
@@ -123,6 +139,10 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool("IsRun", true);
 				Control.SetBool("IsDefence", true);
 			break;
+			case PlayerState.Jumper:
+				Jump();
+				
+			break;
 		}
 	}
 
@@ -136,5 +156,40 @@ public class PlayerBehaviour : MonoBehaviour
 		Control.SetBool("IsRun", false);
 		Control.SetBool("IsDefence", false);
 	}
+
+	private void Jump()
+	{
+		Control.SetBool("IsJump", true);
+		if (canJump)
+		{
+			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+			canJump = false;
+			StartCoroutine ("JumpCoolDown", 1f);
+		}
+	}
+
+	IEnumerator JumpCoolDown(float cdtime)
+	{
+		yield return new WaitForSeconds (cdtime);
+		canResetJump = true;
+		yield return new WaitForSeconds (0.5f);
+		canJump = true;
+
+	}
+
+	private bool CheckCanUseControl()
+	{
+		if (canJump)
+			return true;
+		else
+			return false;
+	}
+
+//	void OnGUI()
+//	{
+//		if (GUI.Button (new Rect (Screen.width - 150, Screen.height - 150, 150, 150), "Jump")) {
+//			AniState(PlayerState.Jumper);
+//		}
+//	}
 
 }

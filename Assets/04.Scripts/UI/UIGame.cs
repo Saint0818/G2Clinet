@@ -39,6 +39,12 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
+		SetBtnFun (UIName + "/Button", DoJump);
+	}
+
+	public void DoJump()
+	{
+		Game.PlayerList [0].AniState (PlayerState.Jumper);
 	}
 	
 	protected override void InitData() {
