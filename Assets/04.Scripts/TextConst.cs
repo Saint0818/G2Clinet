@@ -18,8 +18,7 @@ public static class TextConst
 			Debug.Log("Repeat text key : " + key);
 	}
 
-	public static string S (int index)
-	{
+	public static string S (int index){
 		if(GameText.ContainsKey(index))
 			return GameText[index][ParameterConst.GameLanguage.GetHashCode()];
 		else

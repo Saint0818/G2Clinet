@@ -56,6 +56,12 @@ public static class PlayerActions
     public const string Pass2 = "Pass2";
 }
 
+public enum TeamKind{
+	None = 0,
+	Self = 1,
+	Npc = 2
+}
+
 public class PlayerBehaviour : MonoBehaviour
 {
 	public Animator Control;
@@ -63,6 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float basicMoveSpeed = 10;
 	public bool IsDefense = true;
 	public float curSpeed = 0;
+	public TeamKind Team;
 
 	void Awake()
 	{
@@ -83,6 +90,10 @@ public class PlayerBehaviour : MonoBehaviour
 		transform.rotation = Quaternion.Euler(rotation);
 		Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * basicMoveSpeed;
 		transform.Translate(translate);	
+	}
+
+	public void MoveTo(float X, float Z){
+		gameObject.transform.localPosition = new Vector3 (X, 0, Z);
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)

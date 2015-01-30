@@ -45,6 +45,8 @@ public class Gang2_Start : MonoBehaviour {
 		unibillDemo = gameObject.GetComponent<UnibillDemo>();
 		InitCom ();
 		//CheckVersion ();
+
+		UIGame.UIShow (true);
 	}
 
 	private void InitCom(){
@@ -52,6 +54,7 @@ public class Gang2_Start : MonoBehaviour {
 		TextConst.Init ();
 		SendHttp.Init ();
 		FacebookAPI.Init();
+		ModelManager.Init ();
 	}
 
 	private void initResolution(){

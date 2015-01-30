@@ -81,7 +81,7 @@ public class UI3D : UIBase {
 		if (shooter) 
 		{
 			followTime = 2;
-			ModelManager.Inst.ChangeLayersRecursively(shooter.transform, "UI3D");
+//			ModelManager.Inst.ChangeLayersRecursively(shooter.transform, "UI3D");
 			followPos = shooter.transform.FindChild ("CameraPoint").gameObject;
 			following = true;
 		}
