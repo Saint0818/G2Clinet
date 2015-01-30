@@ -60,7 +60,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
-	private float basicMoveSpeed = 10;
+	public float basicMoveSpeed = 10;
 	public bool IsDefense = true;
 	public float curSpeed = 0;
 
