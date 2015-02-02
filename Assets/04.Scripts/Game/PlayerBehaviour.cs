@@ -30,6 +30,18 @@ public enum PlayerState
 	RunAndDefence = 23
 }
 
+public enum TeamKind{
+	None = 0,
+	Self = 1,
+	Npc = 2
+}
+
+public enum BodyType{
+	Big = 0,
+	Mid = 1,
+	Small = 2
+}
+
 public static class PlayerActions
 {
     public const string Idle = "StayIdle";
@@ -56,14 +68,9 @@ public static class PlayerActions
     public const string Pass2 = "Pass2";
 }
 
-public enum TeamKind{
-	None = 0,
-	Self = 1,
-	Npc = 2
-}
-
 public class PlayerBehaviour : MonoBehaviour
 {
+	private const float MoveCheckValue = 1.5f;
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
 	public float basicMoveSpeed = 10;
@@ -73,6 +80,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public float jumpHight = 8;
 	private bool canJump = true;
 	private bool canResetJump = false;
+	public BodyType Body;
+	public Vector2 mTargetPos = Vector2.zero;
+	public bool Move = false;
+	private int MoveTurn = 0;
+	public int MoveIndex = 0;
 
 	void Awake()
 	{
@@ -109,7 +121,23 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z){
-		gameObject.transform.localPosition = new Vector3 (X, 0, Z);
+		if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
+		    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
+			SetSpeed(0);
+			Move = false;
+			MoveTurn = 0;
+			AniState(PlayerState.Idle);
+			TargetPos = Vector2.zero;
+		}else if(MoveTurn >= 0 && MoveTurn <= 5){
+			Move = true;
+			MoveTurn++;
+			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
+		}else{
+			SetSpeed(1);
+			AniState(PlayerState.Run);
+			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
+			gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
+		}
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)
@@ -185,11 +213,14 @@ public class PlayerBehaviour : MonoBehaviour
 			return false;
 	}
 
-//	void OnGUI()
-//	{
-//		if (GUI.Button (new Rect (Screen.width - 150, Screen.height - 150, 150, 150), "Jump")) {
-//			AniState(PlayerState.Jumper);
-//		}
-//	}
+	public Vector2 TargetPos{
+		set{
+			mTargetPos = value;
+			MoveTurn = 0;
+		}
+		get{
+			return mTargetPos;
+		}
+	}
 
 }

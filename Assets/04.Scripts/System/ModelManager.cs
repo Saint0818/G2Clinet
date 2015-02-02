@@ -26,11 +26,12 @@ public class ModelManager : MonoBehaviour {
 	
 	}
 
-	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team){
+	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, BodyType Body){
 		GameObject Res = Instantiate(PlayerModule) as GameObject;
 		Res.transform.parent = PlayerInfoModel.transform;
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
+		PB.Body = Body;
 		Res.name = Index.ToString();
 		return PB;
 	}
