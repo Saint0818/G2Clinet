@@ -21,7 +21,7 @@ public enum GameAction{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 3;
-	private const int MaxPos = 3;
+	private const int MaxPos = 6;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
@@ -40,9 +40,26 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		BigRunAy [0] = new Vector2 (6, 6.6f);
-		BigRunAy [1] = new Vector2 (0, 0);
-		BigRunAy [2] = new Vector2 (-2.9f, 4.19f);
+		BigRunAy [0] = new Vector2 (0, 15);
+		BigRunAy [1] = new Vector2 (5.2f, 15);
+		BigRunAy [2] = new Vector2 (-4.1f, 15);
+		BigRunAy [3] = new Vector2 (0, 12);
+		BigRunAy [4] = new Vector2 (3.9f, 12);
+		BigRunAy [5] = new Vector2 (-4.1f, 12);
+
+		MidRunAy [0] = new Vector2 (-3.6f, 10);
+		MidRunAy [1] = new Vector2 (4.6f, 10);
+		MidRunAy [2] = new Vector2 (5.5f, 14);
+		MidRunAy [3] = new Vector2 (-4.8f, 14);
+		MidRunAy [4] = new Vector2 (0, 9);
+		MidRunAy [5] = new Vector2 (4.4f, 9);
+
+		SmallRunAy [0] = new Vector2 (0, 5.7f);
+		SmallRunAy [1] = new Vector2 (-5.4f, 8);
+		SmallRunAy [2] = new Vector2 (6.7f, 8.9f);
+		SmallRunAy [3] = new Vector2 (8.2f, 14);
+		SmallRunAy [4] = new Vector2 (-8.2f, 14);
+		SmallRunAy [5] = new Vector2 (4.82f, 4.26f);
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -117,11 +134,24 @@ public class GameController : MonoBehaviour {
 			if(Npc == ballController){
 				//Dunk shoot shoot3 pass move
 
+				if(!Npc.Move){
+					int Index = Random.Range(0, MaxPos);
+					
+					if(Npc.Body == BodyType.Big)
+						Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
+					else if(Npc.Body == BodyType.Mid)
+						Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
+					else if(Npc.Body == BodyType.Small)
+						Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+				}
+				
+				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 			}else{
 				//move sup push
 				float Dis = getDis(ballController, Npc); 
 				int supRate = Random.Range(0, 100) + 1;
 				int pushRate = Random.Range(0, 100) + 1;
+				int ALLYOOP = Random.Range(0, 100) + 1;
 				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
 
 				if(NearPlayer != null && pushRate <= 50){
@@ -133,8 +163,7 @@ public class GameController : MonoBehaviour {
 				}else{
 					//Move
 					if(!Npc.Move){
-//						int Index = Random.Range(0, MaxPos);
-						int Index = Npc.MoveIndex;
+						int Index = Random.Range(0, MaxPos);
 
 						if(Npc.Body == BodyType.Big)
 							Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
@@ -142,9 +171,6 @@ public class GameController : MonoBehaviour {
 							Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
 						else if(Npc.Body == BodyType.Small)
 							Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
-						Npc.MoveIndex++;
-						if(Npc.MoveIndex >= MaxPos)
-							Npc.MoveIndex = 0;
 					}
 
 					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
