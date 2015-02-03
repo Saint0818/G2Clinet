@@ -40,7 +40,9 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
-		SetBtnFun (UIName + "/Button", DoJump);
+		SetBtnFun (UIName + "/ButtonA", DoJump);
+		SetBtnFun (UIName + "/ButtonB", DoJump);
+		SetBtnFun (UIName + "/ButtonC", DoJump);
 	}
 
 	public void DoJump()
@@ -61,6 +63,44 @@ public class UIGame : UIBase {
 			if(Joystick != null)
 				Joystick.targetPlayer = value;
 		}
+	}
+
+	private MovingJoystick Move = new MovingJoystick();
+	private bool IsUseKeyboard = false;
+
+	void Update()
+	{
+		if (Input.GetKey(KeyCode.W)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.y = 1;
+			Move.joystickValue.y = 10;
+		} else if (Input.GetKey (KeyCode.D)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.y = -1;
+			Move.joystickValue.y = -10;
+		} else {
+			Move.joystickAxis.y = 0;
+			Move.joystickValue.y = 0;
+		}
+		
+		if (Input.GetKey (KeyCode.A)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.x = -1;
+			Move.joystickValue.x = -10;
+		} else
+		if (Input.GetKey (KeyCode.S)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.x = 1;
+			Move.joystickValue.x = 10;
+		} else {
+			Move.joystickValue.x = 0;
+			Move.joystickAxis.x = 0;
+		}
+
+		if(IsUseKeyboard)
+			Game.PlayerList [0].OnJoystickMove(Move);
+
+		IsUseKeyboard = false;
 	}
 }
 
