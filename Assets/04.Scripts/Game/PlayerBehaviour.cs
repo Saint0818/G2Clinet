@@ -42,6 +42,12 @@ public enum BodyType{
 	Small = 2
 }
 
+public enum MoveType{
+	BackAndForth = 0,
+	Cycle = 1,
+	Random = 2
+}
+
 public static class PlayerActions
 {
     public const string Idle = "StayIdle";
@@ -68,23 +74,30 @@ public static class PlayerActions
     public const string Pass2 = "Pass2";
 }
 
+public static class ActionFlag{
+	public const int Action_Def = 1;
+	public const int Action_Move = 2;
+}
+
 public class PlayerBehaviour : MonoBehaviour
 {
 	private const float MoveCheckValue = 1.5f;
+	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
+	private int MoveTurn = 0;
+	private Vector2 mTargetPos = Vector2.zero;
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
 	public float basicMoveSpeed = 10;
-	public bool IsDefense = true;
 	public float curSpeed = 0;
 	public TeamKind Team;
 	public float jumpHight = 8;
 	private bool canJump = true;
 	private bool canResetJump = false;
 	public BodyType Body;
-	public Vector2 mTargetPos = Vector2.zero;
-	public bool Move = false;
-	private int MoveTurn = 0;
-	public int MoveIndex = 0;
+	public int MoveIndex = -1;
+	public float WaitMoveTime = 0;
+	public MoveType MoveKind = MoveType.BackAndForth;
+	public int Postion = 0;
 
 	void Awake()
 	{
@@ -124,17 +137,22 @@ public class PlayerBehaviour : MonoBehaviour
 		if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 		    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 			SetSpeed(0);
-			Move = false;
+			DelActionFlag(ActionFlag.Action_Move);
 			MoveTurn = 0;
 			AniState(PlayerState.Idle);
 			TargetPos = Vector2.zero;
-		}else if(MoveTurn >= 0 && MoveTurn <= 5){
-			Move = true;
+			WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
+			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+		}else if(!CheckAction(ActionFlag.Action_Def) && MoveTurn >= 0 && MoveTurn <= 5){
+			AddActionFlag(ActionFlag.Action_Move);
 			MoveTurn++;
 			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
 		}else{
 			SetSpeed(1);
-			AniState(PlayerState.Run);
+			if(CheckAction(ActionFlag.Action_Def))
+				AniState(PlayerState.RunAndDefence);
+			else
+				AniState(PlayerState.Run);
 			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
 			gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
 		}
@@ -172,6 +190,12 @@ public class PlayerBehaviour : MonoBehaviour
 				
 			break;
 		}
+	}
+
+	public void SetDef(){
+		SetSpeed(0);
+		AniState(PlayerState.Defence);
+		AddActionFlag (ActionFlag.Action_Def);
 	}
 
 	public void SetSpeed(float value)
@@ -213,6 +237,18 @@ public class PlayerBehaviour : MonoBehaviour
 			return false;
 	}
 
+	private void AddActionFlag(int Flag){
+		GameFunction.Add_ByteFlag (Flag, ref PlayerActionFlag);
+	}
+
+	private void DelActionFlag(int Flag){
+		GameFunction.Del_ByteFlag (Flag, ref PlayerActionFlag);
+	}
+
+	private bool CheckAction(int Flag){
+		return GameFunction.CheckByteFlag (Flag, PlayerActionFlag);
+	}
+
 	public Vector2 TargetPos{
 		set{
 			mTargetPos = value;
@@ -223,4 +259,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	public bool Move{
+		get{return CheckAction(ActionFlag.Action_Move);}
+	}
 }

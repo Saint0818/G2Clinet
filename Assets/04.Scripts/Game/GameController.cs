@@ -72,7 +72,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void CreateTeam(){
-		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, BodyType.Big));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, BodyType.Big, new Vector3(0, 0, -2), MoveType.Random, 0));
+		//PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Npc, BodyType.Big, new Vector3(0, 0, 2), MoveType.Random, 0));
+		//PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Npc, BodyType.Big, new Vector3(5, 0, 2), MoveType.Random, 0));
 		UIGame.Get.targetPlayer = PlayerList [0];
 	}
 
@@ -86,6 +88,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (PlayerList.Count > 0) {
+			//Action
 			for(int i = 0 ; i < PlayerList.Count; i++){
 				PlayerBehaviour Npc = PlayerList[i];
 
@@ -120,34 +123,60 @@ public class GameController : MonoBehaviour {
 						break;
 					}
 				}
-			}		
+			}
+
+			//Move
+			for(int i = 0 ; i < PlayerList.Count; i++){
+				PlayerBehaviour Npc = PlayerList[i];
+
+				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == ballController){
+					continue;
+				}else{
+					//AI
+					switch(situation){
+					case GameSituation.Opening:
+						
+						break;
+					case GameSituation.AttackA:
+						if(Npc.Team == TeamKind.Self)
+							AIMove(Npc, GameAction.Attack);
+						else 
+							AIMove(Npc, GameAction.Def);				
+						break;
+					case GameSituation.AttackB:
+						if(Npc.Team == TeamKind.Self)
+							AIMove(Npc, GameAction.Def);
+						else 
+							AIMove(Npc, GameAction.Attack);
+						break;
+					case GameSituation.TeeA:
+						
+						break;
+					case GameSituation.TeeB:
+						
+						break;
+					case GameSituation.End:
+						
+						break;
+					}
+				}
+			}
 		}
 	}
 
 	private void AttackAndDef(PlayerBehaviour Npc, GameAction Action){
 		switch(Action){
 		case GameAction.Def:
-			//steal block move
-
+			//steal block push Def
+			Npc.SetDef();
 			break;
 		case GameAction.Attack:
 			if(Npc == ballController){
-				//Dunk shoot shoot3 pass move
+				//Dunk shoot shoot3 pass
 
-				if(!Npc.Move){
-					int Index = Random.Range(0, MaxPos);
-					
-					if(Npc.Body == BodyType.Big)
-						Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-					else if(Npc.Body == BodyType.Mid)
-						Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-					else if(Npc.Body == BodyType.Small)
-						Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
-				}
-				
-				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
+
 			}else{
-				//move sup push
+				//sup push
 				float Dis = getDis(ballController, Npc); 
 				int supRate = Random.Range(0, 100) + 1;
 				int pushRate = Random.Range(0, 100) + 1;
@@ -160,22 +189,30 @@ public class GameController : MonoBehaviour {
 				}else if(Dis >= 1.5f && Dis <= 3 && supRate <= 50){
 					//Sup
 
-				}else{
-					//Move
-					if(!Npc.Move){
-						int Index = Random.Range(0, MaxPos);
-
-						if(Npc.Body == BodyType.Big)
-							Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-						else if(Npc.Body == BodyType.Mid)
-							Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-						else if(Npc.Body == BodyType.Small)
-							Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
-					}
-
-					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 				}
 			}
+			break;
+		}
+	}
+
+	private void AIMove(PlayerBehaviour Npc, GameAction Action){
+		switch(Action){
+		case GameAction.Def:
+			//move
+			for(int i = 0 ; i < PlayerList.Count; i++){
+				if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
+					Npc.TargetPos = new Vector2(PlayerList[i].gameObject.transform.localPosition.x, PlayerList[i].gameObject.transform.localPosition.z);
+					break;
+				}
+			}
+
+			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
+			break;
+		case GameAction.Attack:
+			if(!Npc.Move)
+				SetMovePos(Npc);
+
+			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 			break;
 		}
 	}
@@ -208,6 +245,67 @@ public class GameController : MonoBehaviour {
 					}
 				}
 			}
+		}
+
+		return Result;
+	}
+
+	private Vector2 SetMovePos(PlayerBehaviour Npc){
+		Vector2 Result = Vector2.zero;
+		int Index = 0;
+		switch(Npc.MoveKind){
+		case MoveType.BackAndForth:
+			//0=>1=>2=>3=>2=>1=>0
+			Npc.MoveIndex++;
+			if(Npc.MoveIndex >= (MaxPos * 2) - 2)
+				Npc.MoveIndex = 0;
+
+			if(Npc.MoveIndex >= MaxPos){
+				Index = (MaxPos - 1)* 2 - Npc.MoveIndex;
+
+				if(Npc.Body == BodyType.Big)
+					Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
+				else if(Npc.Body == BodyType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
+				else if(Npc.Body == BodyType.Small)
+					Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+			}else{
+				Index = Npc.MoveIndex;
+
+				if(Npc.Body == BodyType.Big)
+					Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
+				else if(Npc.Body == BodyType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
+				else if(Npc.Body == BodyType.Small)
+					Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+			}
+			break;
+		case MoveType.Cycle:
+			//0=>1=>2=>3=>0=>1=>2=>3
+			Npc.MoveIndex++;
+			if(Npc.MoveIndex >= MaxPos)
+				Npc.MoveIndex = 0;
+
+			Index = Npc.MoveIndex;
+			if(Npc.Body == BodyType.Big)
+				Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
+			else if(Npc.Body == BodyType.Mid)
+				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
+			else if(Npc.Body == BodyType.Small)
+				Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+			break;
+		case MoveType.Random:
+			Index = Random.Range(0, MaxPos);
+			
+			if(Npc.Body == BodyType.Big)
+				Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
+			else if(Npc.Body == BodyType.Mid)
+				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
+			else if(Npc.Body == BodyType.Small)
+				Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+
+			Debug.Log(Index + ":" + Npc.MoveIndex);
+			break;
 		}
 
 		return Result;
