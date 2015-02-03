@@ -252,8 +252,8 @@ public class GameController : MonoBehaviour {
 
 		return Result;
 	}
-<<<<<<< HEAD
-	    public void SetBall(GameObject player)
+
+	public void SetBall(GameObject player)
     {
     	PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour>();
 		if (p) {
@@ -267,7 +267,6 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 		}
     }
-=======
 
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
@@ -327,5 +326,4 @@ public class GameController : MonoBehaviour {
 
 		return Result;
 	}
->>>>>>> FETCH_HEAD
 }
