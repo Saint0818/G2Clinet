@@ -77,6 +77,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsDefense = true;
 	public float curSpeed = 0;
 	public TeamKind Team;
+	public GameObject DummyBall;
 	public float jumpHight = 8;
 	private bool canJump = true;
 	private bool canResetJump = false;
@@ -89,6 +90,7 @@ public class PlayerBehaviour : MonoBehaviour
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
+		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
 	}
 
 	void Update()
@@ -166,17 +168,20 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.RunAndDefence:
 				Control.SetBool("IsRun", true);
 				Control.SetBool("IsDefence", true);
-			break;
+				break;
 			case PlayerState.Jumper:
 				Jump();
-				
-			break;
+				break;
+			case PlayerState.Dribble:
+				Control.SetBool("IsDrible", true);
+				break;
 		}
 	}
 
 	public void SetSpeed(float value)
 	{
 		Control.SetFloat("Speed", value);
+		Control.SetFloat("DribleMoveSpeed", value);
 	}
 
 	private void CloseAllState()

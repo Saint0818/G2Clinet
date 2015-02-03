@@ -212,4 +212,18 @@ public class GameController : MonoBehaviour {
 
 		return Result;
 	}
+	    public void SetBall(GameObject player)
+    {
+    	PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour>();
+		if (p) {
+			SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+			SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
+			SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+			SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
+
+			p.AniState(PlayerState.Dribble);
+			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+			SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+		}
+    }
 }

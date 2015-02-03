@@ -12,6 +12,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     private int crtFloorIndex = -1;
     private int crtLineIndex = -1;
 	private int crtSkyIndex = -1;
+	public GameObject RealBall;
     private GameObject crtStadium;
     private GameObject crtBasket;
 	private GameObject[] crtLine = new GameObject[2];
@@ -41,6 +42,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
         InitLineGroup();
         CheckCollider();
+		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
+		RealBall.name = "ReallBall";
     }
 
     private void InitLineGroup()
@@ -403,6 +406,14 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 //			floorIndex = TeamManager.DStages [stageNo].Floor;
 //			basketIndex = TeamManager.DStages [stageNo].Basket;
 //		}
+
+		//TODO: Temp-------
+		floorIndex = -1;
+		basketIndex = 3;
+		no = 3;
+		CameraMgr.Inst.SetCamMode(CameraMgr.CamMode.HorizontalInGame);
+		RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+		//------------------
 
 		ChangeStadium(no, color);
         ChangeFloor(floorIndex);

@@ -5,7 +5,8 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 	private GameJoystick Joystick = null;
-	private GameController Game;
+	public GameController Game;
+	public bool IsStart = true;
 	
 	public static bool Visible
 	{

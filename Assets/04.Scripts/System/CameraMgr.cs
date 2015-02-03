@@ -61,7 +61,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			if(uiCam && uiCam.animation)
 				uiCam.animation.Stop();
 
-//            mobaCamera = uiCamGp.GetComponentInChildren<Moba_Camera>();
+            mobaCamera = uiCamGp.GetComponentInChildren<Moba_Camera>();
 //            mapColor = uiCam.gameObject.AddComponent<AmplifyColorEffect>();
 //            mapColor.MaskTexture = (Texture2D)Resources.Load("Stadiums/Color/Mask") as Texture2D;
         }
@@ -213,6 +213,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 uiCamGp.SetActive(true);
                 mobaCamera.enabled = false;
                 InitHorizontalInGameCam();
+				uiCam.cullingMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("RealBall");
                 break;
 		case CamMode.RecordShoot3Game:
 				isOpenAutoFocus = false;

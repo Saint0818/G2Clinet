@@ -1,20 +1,38 @@
 fileFormatVersion: 2
-guid: 9bc309ff620a110449d881cad9abb42a
+guid: 2f476ba282793864bb89deee2112ea10
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: S3_B2_1
-    100004: S3_B2_2
-    400000: //RootNode
-    400002: S3_B2_1
-    400004: S3_B2_2
-    2300000: S3_B2_1
-    2300002: S3_B2_2
-    3300000: S3_B2_1
-    3300002: S3_B2_2
-    4300000: S3_B2_1
-    4300002: S3_B2_2
+    100000: DummyMesh_D
+    100002: DummyMesh_L
+    100004: DummyMesh_R
+    100006: DummyMesh_T
+    100008: Mesh_D
+    100010: Mesh_L
+    100012: Mesh_R
+    100014: Mesh_T
+    100016: //RootNode
+    400000: DummyMesh_D
+    400002: DummyMesh_L
+    400004: DummyMesh_R
+    400006: DummyMesh_T
+    400008: Mesh_D
+    400010: Mesh_L
+    400012: Mesh_R
+    400014: Mesh_T
+    400016: //RootNode
+    2300000: Mesh_D
+    2300002: Mesh_L
+    2300004: Mesh_R
+    2300006: Mesh_T
+    3300000: Mesh_D
+    3300002: Mesh_L
+    3300004: Mesh_R
+    3300006: Mesh_T
+    4300000: Mesh_R
+    4300002: Mesh_L
+    4300004: Mesh_T
+    4300006: Mesh_D
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -24,6 +42,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     optimizeGameObjects: 0
+    motionNodeName: 
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -38,8 +57,8 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
-    swapUVChannels: 1
-    generateSecondaryUV: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1

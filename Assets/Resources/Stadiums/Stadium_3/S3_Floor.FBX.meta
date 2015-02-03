@@ -1,20 +1,14 @@
 fileFormatVersion: 2
-guid: 9bc309ff620a110449d881cad9abb42a
+guid: 40a42424822f63e4389deb48cc6d6035
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
-    100002: S3_B2_1
-    100004: S3_B2_2
     400000: //RootNode
-    400002: S3_B2_1
-    400004: S3_B2_2
-    2300000: S3_B2_1
-    2300002: S3_B2_2
-    3300000: S3_B2_1
-    3300002: S3_B2_2
-    4300000: S3_B2_1
-    4300002: S3_B2_2
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: S3_Floor
+    4300002: B3_Floor
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -38,8 +32,8 @@ ModelImporter:
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
-    swapUVChannels: 1
-    generateSecondaryUV: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1

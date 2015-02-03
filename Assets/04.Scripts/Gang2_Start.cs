@@ -55,6 +55,7 @@ public class Gang2_Start : MonoBehaviour {
 		SendHttp.Init ();
 		FacebookAPI.Init();
 		ModelManager.Init ();
+		SceneMgr.Inst.ChangeLevel (3);
 	}
 
 	private void initResolution(){
