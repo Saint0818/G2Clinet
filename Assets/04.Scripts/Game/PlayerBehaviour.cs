@@ -84,6 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private const float MoveCheckValue = 1.5f;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private int MoveTurn = 0;
+	private float Timer = 0;
 	private Vector2 mTargetPos = Vector2.zero;
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
@@ -112,6 +113,14 @@ public class PlayerBehaviour : MonoBehaviour
 			canJump = true;
 			Control.SetBool ("IsJump", false);
 			canResetJump = false;
+		}
+
+		if (Time.time - Timer >= 1){
+			Timer = Time.time;
+			
+			if(WaitMoveTime > 0){
+				WaitMoveTime--;
+			}
 		}
 	}
 

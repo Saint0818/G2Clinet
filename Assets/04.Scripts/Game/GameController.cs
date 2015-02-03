@@ -73,8 +73,8 @@ public class GameController : MonoBehaviour {
 
 	public void CreateTeam(){
 		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, BodyType.Big, new Vector3(0, 0, -2), MoveType.Random, 0));
-		//PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Npc, BodyType.Big, new Vector3(0, 0, 2), MoveType.Random, 0));
-		//PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Npc, BodyType.Big, new Vector3(5, 0, 2), MoveType.Random, 0));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Npc, BodyType.Big, new Vector3(0, 0, 2), MoveType.Random, 0));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Npc, BodyType.Big, new Vector3(5, 0, 2), MoveType.Random, 0));
 		UIGame.Get.targetPlayer = PlayerList [0];
 	}
 
@@ -209,10 +209,13 @@ public class GameController : MonoBehaviour {
 			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 			break;
 		case GameAction.Attack:
-			if(!Npc.Move)
-				SetMovePos(Npc);
+			if(!Npc.Move){
+				if(Npc.WaitMoveTime == 0)
+					SetMovePos(Npc);
+			}
 
-			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
+			if(Npc.WaitMoveTime == 0)
+				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 			break;
 		}
 	}
@@ -303,8 +306,6 @@ public class GameController : MonoBehaviour {
 				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
 			else if(Npc.Body == BodyType.Small)
 				Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
-
-			Debug.Log(Index + ":" + Npc.MoveIndex);
 			break;
 		}
 
