@@ -40,7 +40,7 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
-		SetBtnFun (UIName + "/ButtonA", DoJump);
+		SetBtnFun (UIName + "/ButtonA", DoSteal);
 		SetBtnFun (UIName + "/ButtonB", DoJump);
 		SetBtnFun (UIName + "/ButtonC", DoJump);
 	}
@@ -48,6 +48,11 @@ public class UIGame : UIBase {
 	public void DoJump()
 	{
 		Game.PlayerList [0].AniState (PlayerState.Jumper);
+	}
+
+	public void DoSteal()
+	{
+		Game.PlayerList [0].AniState (PlayerState.Steal);
 	}
 	
 	protected override void InitData() {

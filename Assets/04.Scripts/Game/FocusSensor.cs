@@ -22,8 +22,8 @@ public class FocusSensor : MonoBehaviour
 
 	void OnTriggerEnter(Collider c) 
 	{
-//		if (c.collider.gameObject.tag == "RealBall")
-//		  CameraMgr.Inst.SetFocus (Mode, this.gameObject, c.collider.gameObject, true);
+		if (c.collider.gameObject.tag == "RealBall")
+		  CameraMgr.Inst.SetFocus (Mode, this.gameObject, c.collider.gameObject, true);
 //		else if(c.collider.gameObject.tag == "HandBall") 
 //		  CameraMgr.Inst.SetFocus (Mode, this.gameObject, c.collider.gameObject, false);
 	}

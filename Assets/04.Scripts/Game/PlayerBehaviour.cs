@@ -81,6 +81,11 @@ public static class ActionFlag{
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	private bool canSteal = true;
+	private bool canJump = true;
+	private bool canResetJump = false;
+	private bool stop = false;
+
 	private const float MoveCheckValue = 1;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private int MoveTurn = 0;
@@ -93,8 +98,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public GameObject DummyBall;
 	public float jumpHight = 8;
-	private bool canJump = true;
-	private bool canResetJump = false;
 	public RunDistanceType RunArea;
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
@@ -109,6 +112,16 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update()
 	{
+		if (!canSteal && Control.GetCurrentAnimatorStateInfo (0).IsName ("Steal"))
+		{
+			Control.SetFloat("StealTime", Control.GetCurrentAnimatorStateInfo (0).normalizedTime);
+			if(Control.GetCurrentAnimatorStateInfo (0).normalizedTime > 0.8f) {
+			Control.SetBool ("IsSteal", false);
+			canSteal = true;
+			stop = true;
+			}
+		}
+
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 
 		if (canResetJump && Control.GetBool ("IsJump") && gameObject.transform.localPosition.y < 0.1f) {
@@ -128,7 +141,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMove(MovingJoystick move)
 	{
-		if (CheckCanUseControl()) {
+		if (CheckCanUseControl() || stop) {
 			curSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 			SetSpeed (curSpeed);
 
@@ -218,6 +231,9 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Dribble:
 				Control.SetBool("IsDrible", true);
 				break;
+			case PlayerState.Steal:
+				Steal();
+				break;
 		}
 	}
 
@@ -250,6 +266,16 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	private void Steal()
+	{
+		stop = true;
+		Control.SetBool("IsSteal", true);
+		if (canSteal) 
+		{
+			canSteal = false;
+		}
+	}
+
 	IEnumerator JumpCoolDown(float cdtime)
 	{
 		yield return new WaitForSeconds (cdtime);
@@ -261,7 +287,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CheckCanUseControl()
 	{
-		if (canJump)
+		if (canJump && canSteal)
 			return true;
 		else
 			return false;
