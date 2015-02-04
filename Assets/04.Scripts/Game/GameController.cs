@@ -72,12 +72,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void CreateTeam(){
-		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Short, new Vector3(0, 0, 0), MoveType.BackAndForth, 0));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Mid, new Vector3(0, 0, 0), MoveType.BackAndForth, 0));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, RunDistanceType.Mid, new Vector3(5, 0, -2), MoveType.BackAndForth, 1));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, RunDistanceType.Long, new Vector3(-5, 0, -2), MoveType.Cycle, 2));
 //
 //
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, RunDistanceType.Mid, new Vector3(5, 0, 2), MoveType.Cycle, 1));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, RunDistanceType.Long, new Vector3(-5, 0, 2), MoveType.Random, 2));
 		UIGame.Get.targetPlayer = PlayerList [0];
@@ -180,8 +180,6 @@ public class GameController : MonoBehaviour {
 		case GameAction.Def:
 			//steal push Def
 
-
-
 			Npc.SetDef();
 			break;
 		case GameAction.Attack:
@@ -212,12 +210,17 @@ public class GameController : MonoBehaviour {
 			//move
 			for(int i = 0 ; i < PlayerList.Count; i++){
 				if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
-					Npc.TargetPos = new Vector2(PlayerList[i].gameObject.transform.localPosition.x, PlayerList[i].gameObject.transform.localPosition.z);
+					Vector3 Target = PlayerList[i].gameObject.transform.position;
+
+					if(Npc.Team == TeamKind.Self)
+						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[1].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[1].transform.position.z) / 2)) / 2);
+					else
+						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[0].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[0].transform.position.z) / 2)) / 2);
+
+					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
 					break;
 				}
 			}
-
-			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
 			break;
 		case GameAction.Attack:
 			if(!Npc.Move){
@@ -226,7 +229,7 @@ public class GameController : MonoBehaviour {
 			}
 
 			if(Npc.WaitMoveTime == 0)
-				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y);
+				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
 			break;
 		}
 	}

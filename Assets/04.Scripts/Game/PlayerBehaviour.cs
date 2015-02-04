@@ -144,7 +144,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void MoveTo(float X, float Z){
+	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
 		if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 		    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 			SetSpeed(0);
@@ -152,8 +152,16 @@ public class PlayerBehaviour : MonoBehaviour
 			MoveTurn = 0;
 			AniState(PlayerState.Idle);
 			TargetPos = Vector2.zero;
-			WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
-			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+			if(!CheckAction(ActionFlag.Action_Def)){
+				WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
+				if(Team == TeamKind.Self)
+					rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[0].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[0].transform.localPosition.z));
+				else
+					rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[1].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[1].transform.localPosition.z));
+			}else{
+				WaitMoveTime = 0;
+				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, loolAtZ) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+			}
 		}else if(!CheckAction(ActionFlag.Action_Def) && MoveTurn >= 0 && MoveTurn <= 5){
 			AddActionFlag(ActionFlag.Action_Move);
 			MoveTurn++;
@@ -167,6 +175,14 @@ public class PlayerBehaviour : MonoBehaviour
 			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
 			gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
 		}
+	}
+
+	public void rotateTo(Vector3 targetPosition, bool smooth = true){
+		Vector3 v = new Vector3(targetPosition.x, 0, targetPosition.z);
+		if (smooth)
+			transform.rotation = Quaternion.LookRotation(v);
+		else
+			transform.LookAt(v, Vector3.up);
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)
