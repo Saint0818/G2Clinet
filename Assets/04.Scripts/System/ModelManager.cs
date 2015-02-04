@@ -26,7 +26,7 @@ public class ModelManager : MonoBehaviour {
 	
 	}
 
-	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, BodyType Body, Vector3 BornPos, MoveType MoveKind, int Postion){
+	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, RunDistanceType RanArea, Vector3 BornPos, MoveType MoveKind, int Postion){
 		GameObject Res = Instantiate(PlayerModule) as GameObject;
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
@@ -34,7 +34,7 @@ public class ModelManager : MonoBehaviour {
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
-		PB.Body = Body;
+		PB.RunArea = RanArea;
 		PB.MoveKind = MoveKind;
 		PB.MoveIndex = -1;
 		PB.Postion = Postion;

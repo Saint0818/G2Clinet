@@ -36,10 +36,10 @@ public enum TeamKind{
 	Npc = 2
 }
 
-public enum BodyType{
-	Big = 0,
+public enum RunDistanceType{
+	Short = 0,
 	Mid = 1,
-	Small = 2
+	Long = 2
 }
 
 public enum MoveType{
@@ -81,7 +81,7 @@ public static class ActionFlag{
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	private const float MoveCheckValue = 1.5f;
+	private const float MoveCheckValue = 1;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private int MoveTurn = 0;
 	private float Timer = 0;
@@ -95,7 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float jumpHight = 8;
 	private bool canJump = true;
 	private bool canResetJump = false;
-	public BodyType Body;
+	public RunDistanceType RunArea;
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
 	public MoveType MoveKind = MoveType.BackAndForth;

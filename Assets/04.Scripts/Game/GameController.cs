@@ -28,9 +28,9 @@ public class GameController : MonoBehaviour {
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private int NoAiTime = 0;
-	public Vector2 [] BigRunAy = new Vector2[MaxPos];
+	public Vector2 [] ShortRunAy = new Vector2[MaxPos];
 	public Vector2 [] MidRunAy = new Vector2[MaxPos];
-	public Vector2 [] SmallRunAy = new Vector2[MaxPos];
+	public Vector2 [] LongRunAy = new Vector2[MaxPos];
 
 	void Start () {
 		EasyTouch.On_TouchDown += TouchDown;
@@ -40,12 +40,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		BigRunAy [0] = new Vector2 (0, 15);
-		BigRunAy [1] = new Vector2 (5.2f, 15);
-		BigRunAy [2] = new Vector2 (-4.1f, 15);
-		BigRunAy [3] = new Vector2 (0, 12);
-		BigRunAy [4] = new Vector2 (3.9f, 12);
-		BigRunAy [5] = new Vector2 (-4.1f, 12);
+		ShortRunAy [0] = new Vector2 (0, 15);
+		ShortRunAy [1] = new Vector2 (5.2f, 15);
+		ShortRunAy [2] = new Vector2 (-4.1f, 15);
+		ShortRunAy [3] = new Vector2 (0, 12);
+		ShortRunAy [4] = new Vector2 (3.9f, 12);
+		ShortRunAy [5] = new Vector2 (-4.1f, 12);
 
 		MidRunAy [0] = new Vector2 (-3.6f, 10);
 		MidRunAy [1] = new Vector2 (4.6f, 10);
@@ -54,12 +54,12 @@ public class GameController : MonoBehaviour {
 		MidRunAy [4] = new Vector2 (0, 9);
 		MidRunAy [5] = new Vector2 (4.4f, 9);
 
-		SmallRunAy [0] = new Vector2 (0, 5.7f);
-		SmallRunAy [1] = new Vector2 (-5.4f, 8);
-		SmallRunAy [2] = new Vector2 (6.7f, 8.9f);
-		SmallRunAy [3] = new Vector2 (8.2f, 14);
-		SmallRunAy [4] = new Vector2 (-8.2f, 14);
-		SmallRunAy [5] = new Vector2 (4.82f, 4.26f);
+		LongRunAy [0] = new Vector2 (0, 5.7f);
+		LongRunAy [1] = new Vector2 (-5.4f, 8);
+		LongRunAy [2] = new Vector2 (6.7f, 8.9f);
+		LongRunAy [3] = new Vector2 (8.2f, 14);
+		LongRunAy [4] = new Vector2 (-8.2f, 14);
+		LongRunAy [5] = new Vector2 (4.82f, 4.26f);
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -72,9 +72,14 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void CreateTeam(){
-		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, BodyType.Big, new Vector3(0, 0, -2), MoveType.Random, 0));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Npc, BodyType.Big, new Vector3(0, 0, 2), MoveType.Random, 0));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Npc, BodyType.Big, new Vector3(5, 0, 2), MoveType.Random, 0));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Short, new Vector3(0, 0, 0), MoveType.BackAndForth, 0));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, RunDistanceType.Mid, new Vector3(5, 0, -2), MoveType.BackAndForth, 1));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, RunDistanceType.Long, new Vector3(-5, 0, -2), MoveType.Cycle, 2));
+//
+//
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, RunDistanceType.Mid, new Vector3(5, 0, 2), MoveType.Cycle, 1));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, RunDistanceType.Long, new Vector3(-5, 0, 2), MoveType.Random, 2));
 		UIGame.Get.targetPlayer = PlayerList [0];
 	}
 
@@ -286,21 +291,21 @@ public class GameController : MonoBehaviour {
 			if(Npc.MoveIndex >= MaxPos){
 				Index = (MaxPos - 1)* 2 - Npc.MoveIndex;
 
-				if(Npc.Body == BodyType.Big)
-					Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-				else if(Npc.Body == BodyType.Mid)
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
 					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-				else if(Npc.Body == BodyType.Small)
-					Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
 			}else{
 				Index = Npc.MoveIndex;
 
-				if(Npc.Body == BodyType.Big)
-					Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-				else if(Npc.Body == BodyType.Mid)
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
 					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-				else if(Npc.Body == BodyType.Small)
-					Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
 			}
 			break;
 		case MoveType.Cycle:
@@ -310,22 +315,22 @@ public class GameController : MonoBehaviour {
 				Npc.MoveIndex = 0;
 
 			Index = Npc.MoveIndex;
-			if(Npc.Body == BodyType.Big)
-				Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-			else if(Npc.Body == BodyType.Mid)
+			if(Npc.RunArea == RunDistanceType.Short)
+				Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
+			else if(Npc.RunArea == RunDistanceType.Mid)
 				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-			else if(Npc.Body == BodyType.Small)
-				Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+			else if(Npc.RunArea == RunDistanceType.Long)
+				Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
 			break;
 		case MoveType.Random:
 			Index = Random.Range(0, MaxPos);
 			
-			if(Npc.Body == BodyType.Big)
-				Npc.TargetPos = new Vector2(BigRunAy[Index].x, BigRunAy[Index].y);
-			else if(Npc.Body == BodyType.Mid)
+			if(Npc.RunArea == RunDistanceType.Short)
+				Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
+			else if(Npc.RunArea == RunDistanceType.Mid)
 				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-			else if(Npc.Body == BodyType.Small)
-				Npc.TargetPos = new Vector2(SmallRunAy[Index].x, SmallRunAy[Index].y);
+			else if(Npc.RunArea == RunDistanceType.Long)
+				Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
 			break;
 		}
 
