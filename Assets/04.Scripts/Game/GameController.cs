@@ -165,9 +165,18 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void AttackAndDef(PlayerBehaviour Npc, GameAction Action){
+		int stealRate = Random.Range(0, 100) + 1;
+		int pushRate = Random.Range(0, 100) + 1;
+		int defRate = Random.Range(0, 100) + 1;
+		int supRate = Random.Range(0, 100) + 1;
+		int ALLYOOP = Random.Range(0, 100) + 1;
+
 		switch(Action){
 		case GameAction.Def:
-			//steal block push Def
+			//steal push Def
+
+
+
 			Npc.SetDef();
 			break;
 		case GameAction.Attack:
@@ -178,9 +187,6 @@ public class GameController : MonoBehaviour {
 			}else{
 				//sup push
 				float Dis = getDis(ballController, Npc); 
-				int supRate = Random.Range(0, 100) + 1;
-				int pushRate = Random.Range(0, 100) + 1;
-				int ALLYOOP = Random.Range(0, 100) + 1;
 				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
 
 				if(NearPlayer != null && pushRate <= 50){
@@ -253,8 +259,7 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 
-	public void SetBall(GameObject player)
-    {
+	public void SetBall(GameObject player){
     	PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour>();
 		if (p) {
 			SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;

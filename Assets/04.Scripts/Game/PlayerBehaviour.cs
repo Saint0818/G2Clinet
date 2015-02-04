@@ -273,6 +273,14 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	public void ResetFlag(){
+		for(int i = 0; i < PlayerActionFlag.Length; i++)
+			PlayerActionFlag[i] = 0;
+
+		SetSpeed(0);
+		AniState(PlayerState.Idle);
+	}
+
 	public bool Move{
 		get{return CheckAction(ActionFlag.Action_Move);}
 	}
