@@ -54,6 +54,8 @@ ModelImporter:
     100096: Bip01 Spine1
     100098: Bip01 Spine2
     100100: //RootNode
+    100102: DummyBall
+    100104: DummyHand
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -105,6 +107,8 @@ ModelImporter:
     400096: Bip01 Spine1
     400098: Bip01 Spine2
     400100: //RootNode
+    400102: DummyBall
+    400104: DummyHand
     7400000: Idle
     9500000: //RootNode
   materials:
