@@ -135,6 +135,7 @@ public class PlayerBehaviour : MonoBehaviour
 			canJump = true;
 			Control.SetBool ("IsJump", false);
 			canResetJump = false;
+			DelActionFlag(ActionFlag.Action_IsJump);
 		}
 
 		if (Time.time - Timer >= 1){
@@ -259,13 +260,14 @@ public class PlayerBehaviour : MonoBehaviour
 		Control.SetBool("IsDefence", false);
 	}
 
-	private void Jump()
+	public void Jump()
 	{
 		Control.SetBool("IsJump", true);
 		if (canJump)
 		{
 			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 			canJump = false;
+			AddActionFlag(ActionFlag.Action_IsJump);
 			StartCoroutine ("JumpCoolDown", 1f);
 		}
 	}
@@ -338,7 +340,11 @@ public class PlayerBehaviour : MonoBehaviour
 		gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, lookAtZ) - gameObject.transform.localPosition), time * Time.deltaTime);
 	}
 
-	public bool Move{
+	public bool IsMove{
 		get{return CheckAction(ActionFlag.Action_IsRun);}
+	}
+
+	public bool IsJump{
+		get{return CheckAction(ActionFlag.Action_IsJump);}
 	}
 }

@@ -20,7 +20,7 @@ public enum GameAction{
 
 public class GameController : MonoBehaviour {
 
-	private const int CountBackSecs = 3;
+	private const int CountBackSecs = 4;
 	private const int MaxPos = 6;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
@@ -172,7 +172,6 @@ public class GameController : MonoBehaviour {
 	private void AttackAndDef(PlayerBehaviour Npc, GameAction Action){
 		int stealRate = Random.Range(0, 100) + 1;
 		int pushRate = Random.Range(0, 100) + 1;
-		int defRate = Random.Range(0, 100) + 1;
 		int supRate = Random.Range(0, 100) + 1;
 		int ALLYOOP = Random.Range(0, 100) + 1;
 		float Dis = 0;
@@ -180,7 +179,9 @@ public class GameController : MonoBehaviour {
 		case GameAction.Def:
 			//steal push Def
 			Dis = getDis(ballController, Npc); 
-			if(Dis <= 2 && stealRate < 50){
+			if(Dis <= 1 && pushRate < 50){
+
+			}else if(Dis <= 2 && stealRate < 50){
 				Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
 			}else
 				Npc.SetDef();
@@ -195,7 +196,15 @@ public class GameController : MonoBehaviour {
 				Dis = getDis(ballController, Npc); 
 				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
 
-				if(NearPlayer != null && pushRate <= 50){
+				float ShootPointDis = 0;
+				if(Npc.Team == TeamKind.Self)
+					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+				else
+					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+
+				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+					//Npc.Jump();
+				}else if(NearPlayer != null && pushRate <= 50){
 					//Push
 
 				}else if(Dis >= 1.5f && Dis <= 3 && supRate <= 50){
@@ -215,10 +224,16 @@ public class GameController : MonoBehaviour {
 				if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
 					Vector3 Target = PlayerList[i].gameObject.transform.position;
 
-					if(Npc.Team == TeamKind.Self)
+					float dis = 0;
+					if(Npc.Team == TeamKind.Self){
 						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[1].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[1].transform.position.z) / 2)) / 2);
-					else
+						if(getDis(PlayerList[i], new Vector2(Npc.TargetPos.x, Npc.TargetPos.y)) >= 5)
+							Npc.TargetPos = new Vector2((Target.x + ((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[1].transform.position.x) / 2)) / 2)) /2, (Target.z + ((Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[1].transform.position.z) / 2)) / 2)) / 2);
+					}else{
 						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[0].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[0].transform.position.z) / 2)) / 2);
+						if(getDis(PlayerList[i], new Vector2(Npc.TargetPos.x, Npc.TargetPos.y)) >= 5)
+							Npc.TargetPos = new Vector2((Target.x + ((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[0].transform.position.x) / 2)) / 2)) /2, (Target.z + ((Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[0].transform.position.z) / 2)) / 2)) / 2);
+					}
 
 					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
 					break;
@@ -226,7 +241,7 @@ public class GameController : MonoBehaviour {
 			}
 			break;
 		case GameAction.Attack:
-			if(!Npc.Move){
+			if(!Npc.IsMove){
 				if(Npc.WaitMoveTime == 0)
 					SetMovePos(Npc);
 			}
@@ -237,8 +252,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private float getDis(PlayerBehaviour player1, PlayerBehaviour player2)
-	{
+	private float getDis(PlayerBehaviour player1, PlayerBehaviour player2){
 		if (player1 != null && player2 != null && player1 != player2){
 			Vector3 V1 = player1.transform.position;
 			Vector3 V2 = player2.transform.position;
@@ -247,6 +261,18 @@ public class GameController : MonoBehaviour {
 		} else
 			return -1;
 	}
+
+	private float getDis(PlayerBehaviour player1, Vector2 Target){
+		if (player1 != null && Target != Vector2.zero){
+			Vector3 V1 = new Vector3(Target.x, 0, Target.y);
+			Vector3 V2 = player1.transform.position;
+			V1.y = V2.y;
+			return Vector3.Distance(V1, V2);
+		} else
+			return -1;
+	}
+
+
 
 	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
 		PlayerBehaviour Result = null;
@@ -280,22 +306,22 @@ public class GameController : MonoBehaviour {
 							ChangeSituation(GameSituation.AttackB);
 						else if(situation == GameSituation.AttackB)
 							ChangeSituation(GameSituation.AttackA);
-					}
+					}else
+						ballController.ResetFlag();
 				}
 
-				for(int i = 0; i < PlayerList.Count; i++){
-					if(PlayerList[i] == p){
-						ballController = p;
-						p.AniState (PlayerState.Dribble);
-						SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
-						SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
-						SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
-						SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
-						SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-						SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
-					}else
-						PlayerList[i].ResetFlag();
-				}
+				ballController = p;
+				if(p.IsJump){
+					//ALLYOOP 
+
+				}else
+					p.AniState (PlayerState.Dribble);
+				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
+				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+				SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
+				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 			}
 		}
     }
