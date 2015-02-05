@@ -31,9 +31,8 @@ public enum PlayerState
 }
 
 public enum TeamKind{
-	None = 0,
-	Self = 1,
-	Npc = 2
+	Self = 0,
+	Npc = 1
 }
 
 public enum RunDistanceType{
@@ -79,14 +78,14 @@ public static class ActionFlag{
 	public const int Action_IsDefence = 2;
 	public const int Action_IsBlock = 3;
 	public const int Action_IsJump = 4;
-	public const int Action_IsDrible = 5;
+	public const int Action_IsDribble = 5;
 	public const int Action_IsSteal = 6;
 	public const int Action_IsPass = 7;
 }
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDrible", "IsSteal", "IsPass"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
 	private bool canSteal = true;
 	private bool canJump = true;
 	private bool canResetJump = false;
@@ -231,7 +230,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Jump();
 				break;
 			case PlayerState.Dribble:
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDrible], true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				break;
 			case PlayerState.Steal:
 				Steal(-1, -1);
@@ -343,8 +342,73 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsMove{
 		get{return CheckAction(ActionFlag.Action_IsRun);}
 	}
-
+	
 	public bool IsJump{
 		get{return CheckAction(ActionFlag.Action_IsJump);}
+	}
+
+	public void Shotting()
+	{
+		if (UIGame.Get.Game.ballController.gameObject == gameObject) {
+			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
+//			float ang = ElevationAngle(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);                                                                                                                           
+	
+			SceneMgr.Inst.RealBall.transform.parent = null;
+			SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+			SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+			SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
+		}
+	}
+
+	float ElevationAngle(Vector3 source, Vector3 target)
+	{
+		// find the cannon->target vector:
+		Vector3 dir = target - source;
+		// create a horizontal version of it:
+		Vector3 dirH = new Vector3(dir.x, 0, dir.y);
+		// measure the unsigned angle between them:
+		float ang = Vector3.Angle(dir, dirH);
+		// add the signal (negative is below the cannon):
+		if (dir.y < 0)
+		{ 
+			ang = -ang;
+		}
+		
+		return ang;
+	}
+
+	Vector3 GetVelocity(Vector3 source, Vector3 target, float angle)
+	{
+		try
+		{
+			Vector3 dir = target - source;  // get target direction
+			float h = dir.y;  // get height difference
+			dir.y = 0;  // retain only the horizontal direction
+			float dist = dir.magnitude;  // get horizontal distance
+			float a = angle * Mathf.Deg2Rad;  // convert angle to radians
+			float tan = Mathf.Tan(a);
+			dir.y = dist * tan;  // set dir to the elevation angle
+			if (Mathf.Abs(tan) >= 0.01f)
+			{
+				dist += h / tan;
+			}  // correct for small height differences
+			
+			// calculate the velocity magnitude
+			float sin = Mathf.Sin(2 * a);
+			float vel = 1;
+			if (sin != 0)
+			{
+				float value = Mathf.Abs(dist) * Physics.gravity.magnitude;
+
+				vel = Mathf.Sqrt(value / sin);
+			}
+			
+			return vel * dir.normalized;
+		} catch (Exception e)
+		{
+			Debug.Log(e.ToString());
+			return Vector3.one;
+		}
 	}
 }
