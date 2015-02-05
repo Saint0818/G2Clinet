@@ -268,16 +268,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void SetBall(GameObject player){
-    	PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour>();
-		if (p) {
-			SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
-			SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
-			SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
-			SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
+		if (PlayerList.Count > 1) {
+			PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour> ();
+			for(int i = 0; i < PlayerList.Count; i++)
+			{
+				if(p && PlayerList[i] == p){
+						SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+						SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
+						SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+						SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
 
-			p.AniState(PlayerState.Dribble);
-			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-			SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+						p.AniState (PlayerState.Dribble);
+						SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+						SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+				}
+				else
+					PlayerList[i].ResetFlag();
+			}
 		}
     }
 

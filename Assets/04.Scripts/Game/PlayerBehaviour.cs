@@ -75,12 +75,17 @@ public static class PlayerActions
 }
 
 public static class ActionFlag{
-	public const int Action_Def = 1;
-	public const int Action_Move = 2;
+	public const int Action_IsRun = 1;
+	public const int Action_IsDefence = 2;
+	public const int Action_IsBlock = 3;
+	public const int Action_IsJump = 4;
+	public const int Action_IsDrible = 5;
+	public const int Action_IsSteal = 6;
 }
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDrible", "IsSteal"};
 	private bool canSteal = true;
 	private bool canJump = true;
 	private bool canResetJump = false;
@@ -116,9 +121,10 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			Control.SetFloat("StealTime", Control.GetCurrentAnimatorStateInfo (0).normalizedTime);
 			if(Control.GetCurrentAnimatorStateInfo (0).normalizedTime > 0.8f) {
-			Control.SetBool ("IsSteal", false);
-			canSteal = true;
-			stop = true;
+				Control.SetBool ("IsSteal", false);
+				canSteal = true;
+				stop = true;
+				DelActionFlag(ActionFlag.Action_IsSteal);
 			}
 		}
 
@@ -158,35 +164,37 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
-		if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
-		    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
-			SetSpeed(0);
-			DelActionFlag(ActionFlag.Action_Move);
-			MoveTurn = 0;
-			AniState(PlayerState.Idle);
-			TargetPos = Vector2.zero;
-			if(!CheckAction(ActionFlag.Action_Def)){
-				WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
-				if(Team == TeamKind.Self)
-					rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[0].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[0].transform.localPosition.z));
-				else
-					rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[1].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[1].transform.localPosition.z));
+		if(!CheckAction(ActionFlag.Action_IsSteal) && !CheckAction(ActionFlag.Action_IsJump)){
+			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
+			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
+				SetSpeed(0);
+				DelActionFlag(ActionFlag.Action_IsRun);
+				MoveTurn = 0;
+				AniState(PlayerState.Idle);
+				TargetPos = Vector2.zero;
+				if(!CheckAction(ActionFlag.Action_IsDefence)){
+					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
+					if(Team == TeamKind.Self)
+						rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[0].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[0].transform.localPosition.z));
+					else
+						rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[1].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[1].transform.localPosition.z));
+				}else{
+					WaitMoveTime = 0;
+					gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, loolAtZ) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+				}
+			}else if(!CheckAction(ActionFlag.Action_IsDefence) && MoveTurn >= 0 && MoveTurn <= 5){
+				AddActionFlag(ActionFlag.Action_IsRun);
+				MoveTurn++;
+				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
 			}else{
-				WaitMoveTime = 0;
-				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, loolAtZ) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+				SetSpeed(1);
+				if(CheckAction(ActionFlag.Action_IsDefence))
+					AniState(PlayerState.RunAndDefence);
+				else
+					AniState(PlayerState.Run);
+				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
+				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
 			}
-		}else if(!CheckAction(ActionFlag.Action_Def) && MoveTurn >= 0 && MoveTurn <= 5){
-			AddActionFlag(ActionFlag.Action_Move);
-			MoveTurn++;
-			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
-		}else{
-			SetSpeed(1);
-			if(CheckAction(ActionFlag.Action_Def))
-				AniState(PlayerState.RunAndDefence);
-			else
-				AniState(PlayerState.Run);
-			gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
-			gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
 		}
 	}
 
@@ -240,7 +248,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void SetDef(){
 		SetSpeed(0);
 		AniState(PlayerState.Defence);
-		AddActionFlag (ActionFlag.Action_Def);
+		AddActionFlag (ActionFlag.Action_IsDefence);
 	}
 
 	public void SetSpeed(float value)
@@ -268,10 +276,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void Steal()
 	{
-		stop = true;
-		Control.SetBool("IsSteal", true);
 		if (canSteal) 
 		{
+			stop = true;
+			Control.SetBool("IsSteal", true);
+			AddActionFlag(ActionFlag.Action_IsSteal);
 			canSteal = false;
 		}
 	}
@@ -316,6 +325,10 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void ResetFlag(){
+		for (int i = 1; i < AnimatorStates.Length; i++)
+			if(AnimatorStates[i] != string.Empty)
+				Control.SetBool(AnimatorStates[i], false);
+
 		for(int i = 0; i < PlayerActionFlag.Length; i++)
 			PlayerActionFlag[i] = 0;
 
@@ -324,6 +337,6 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool Move{
-		get{return CheckAction(ActionFlag.Action_Move);}
+		get{return CheckAction(ActionFlag.Action_IsRun);}
 	}
 }
