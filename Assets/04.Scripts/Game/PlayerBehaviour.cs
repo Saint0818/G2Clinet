@@ -81,11 +81,12 @@ public static class ActionFlag{
 	public const int Action_IsJump = 4;
 	public const int Action_IsDrible = 5;
 	public const int Action_IsSteal = 6;
+	public const int Action_IsPass = 7;
 }
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDrible", "IsSteal"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDrible", "IsSteal", "IsPass"};
 	private bool canSteal = true;
 	private bool canJump = true;
 	private bool canResetJump = false;
@@ -216,23 +217,26 @@ public class PlayerBehaviour : MonoBehaviour
 				
 			break;
 			case PlayerState.Run:
-				Control.SetBool("IsRun", true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
 			break;
 			case PlayerState.Defence:
 				Control.SetBool("IsDefence", true);
 				break;
 			case PlayerState.RunAndDefence:
-				Control.SetBool("IsRun", true);
-				Control.SetBool("IsDefence", true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDefence], true);
 				break;
 			case PlayerState.Jumper:
 				Jump();
 				break;
 			case PlayerState.Dribble:
-				Control.SetBool("IsDrible", true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDrible], true);
 				break;
 			case PlayerState.Steal:
 				Steal(-1, -1);
+				break;
+			case PlayerState.Pass:
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
 				break;
 		}
 	}

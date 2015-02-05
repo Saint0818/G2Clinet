@@ -25,14 +25,6 @@ public class BallTrigger : MonoBehaviour
 	}
 	
 	void OnTriggerEnter(Collider other) {
-//		if (other.gameObject.name == "Skill163(Clone)") {
-//			TrackGameObject go = other.gameObject.GetComponent<TrackGameObject>();
-//				if(go && go.isWork)
-//					parentobjRigidbody.AddForce(other.gameObject.transform.forward * 100);
-//
-//			Destroy(other.gameObject);
-//		}
-
 		if (UIGame.Visible){
 			if (other.gameObject.tag == "Player") 
 			{
@@ -51,24 +43,6 @@ public class BallTrigger : MonoBehaviour
 				EffectManager.Get.PlayEffect("BallTouchWall", gameObject.transform.position);
 			}
 		}
-//		else if (UIRecordGame.Visible){
-//			if (other.gameObject.tag == "Player") 
-//			{
-//				if (parentobjRigidbody.isKinematic == false) {
-//					UIRecordGame.Get.Game.SetBall (other.gameObject, true);
-//				}
-//			}
-//			else if (other.gameObject.tag == "Floor") 
-//			{		
-//				if(!RecordGameController.next && UIRecordGame.Get.Game.ballController == null)
-//					UIRecordGame.Get.Game.SetNext();
-//			}
-//			else if (other.gameObject.tag == "Wall") 
-//			{		
-//				if(!RecordGameController.next && UIRecordGame.Get.Game.ballController == null)
-//					UIRecordGame.Get.Game.SetNext();
-//			}
-//		}
 	}
 
 	void Update()
