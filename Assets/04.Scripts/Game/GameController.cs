@@ -97,7 +97,7 @@ public class GameController : MonoBehaviour {
 			for(int i = 0 ; i < PlayerList.Count; i++){
 				PlayerBehaviour Npc = PlayerList[i];
 
-				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == ballController){
+				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == UIGame.Get.targetPlayer){
 					continue;
 				}else{
 					//AI
@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour {
 			for(int i = 0 ; i < PlayerList.Count; i++){
 				PlayerBehaviour Npc = PlayerList[i];
 
-				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == ballController){
+				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == UIGame.Get.targetPlayer){
 					continue;
 				}else{
 					//AI
@@ -175,12 +175,15 @@ public class GameController : MonoBehaviour {
 		int defRate = Random.Range(0, 100) + 1;
 		int supRate = Random.Range(0, 100) + 1;
 		int ALLYOOP = Random.Range(0, 100) + 1;
-
+		float Dis = 0;
 		switch(Action){
 		case GameAction.Def:
 			//steal push Def
-
-			Npc.SetDef();
+			Dis = getDis(ballController, Npc); 
+			if(Dis <= 2 && stealRate < 50){
+				Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+			}else
+				Npc.SetDef();
 			break;
 		case GameAction.Attack:
 			if(Npc == ballController){
@@ -189,7 +192,7 @@ public class GameController : MonoBehaviour {
 
 			}else{
 				//sup push
-				float Dis = getDis(ballController, Npc); 
+				Dis = getDis(ballController, Npc); 
 				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
 
 				if(NearPlayer != null && pushRate <= 50){
@@ -268,22 +271,31 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void SetBall(GameObject player){
-		if (PlayerList.Count > 1) {
+		if (PlayerList.Count > 0) {
 			PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour> ();
-			for(int i = 0; i < PlayerList.Count; i++)
-			{
-				if(p && PlayerList[i] == p){
+			if(p != null){
+				if(ballController != null){
+					if(ballController.Team != p.Team){
+						if(situation == GameSituation.AttackA)
+							ChangeSituation(GameSituation.AttackB);
+						else if(situation == GameSituation.AttackB)
+							ChangeSituation(GameSituation.AttackA);
+					}
+				}
+
+				for(int i = 0; i < PlayerList.Count; i++){
+					if(PlayerList[i] == p){
+						ballController = p;
+						p.AniState (PlayerState.Dribble);
 						SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
 						SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
 						SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
 						SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
-
-						p.AniState (PlayerState.Dribble);
 						SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 						SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+					}else
+						PlayerList[i].ResetFlag();
 				}
-				else
-					PlayerList[i].ResetFlag();
 			}
 		}
     }
@@ -345,5 +357,29 @@ public class GameController : MonoBehaviour {
 		}
 
 		return Result;
+	}
+
+	private void ChangeSituation(GameSituation GS){
+		situation = GS;
+		switch(GS){
+		case GameSituation.Opening:
+			break;
+		case GameSituation.JumpBall:
+			break;
+		case GameSituation.AttackA:
+			for(int i = 0; i < PlayerList.Count; i++)
+				PlayerList[i].ResetFlag();
+			break;
+		case GameSituation.AttackB:
+			for(int i = 0; i < PlayerList.Count; i++)
+				PlayerList[i].ResetFlag();
+			break;
+		case GameSituation.TeeA:
+			break;
+		case GameSituation.TeeB:
+			break;
+		case GameSituation.End:
+			break;
+		}
 	}
 }

@@ -68,6 +68,12 @@ public class UIGame : UIBase {
 			if(Joystick != null)
 				Joystick.targetPlayer = value;
 		}
+		get{
+			if(Joystick != null)
+				return Joystick.targetPlayer;
+			else
+				return null;
+		}
 	}
 
 	private MovingJoystick Move = new MovingJoystick();

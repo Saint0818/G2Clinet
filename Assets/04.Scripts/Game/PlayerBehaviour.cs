@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
-		if(!CheckAction(ActionFlag.Action_IsSteal) && !CheckAction(ActionFlag.Action_IsJump)){
+		if (!CheckAction (ActionFlag.Action_IsSteal) && !CheckAction (ActionFlag.Action_IsJump)) {
 			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 				SetSpeed(0);
@@ -175,35 +175,27 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.Action_IsDefence)){
 					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
 					if(Team == TeamKind.Self)
-						rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[0].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[0].transform.localPosition.z));
+						rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
 					else
-						rotateTo(new Vector3 (SceneMgr.Inst.ShootPoint[1].transform.localPosition.x, 0, SceneMgr.Inst.ShootPoint[1].transform.localPosition.z));
+						rotateTo(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z);
 				}else{
 					WaitMoveTime = 0;
-					gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, loolAtZ) - gameObject.transform.localPosition), 30 * Time.deltaTime);
+					rotateTo(lookAtX, loolAtZ);
 				}
 			}else if(!CheckAction(ActionFlag.Action_IsDefence) && MoveTurn >= 0 && MoveTurn <= 5){
 				AddActionFlag(ActionFlag.Action_IsRun);
 				MoveTurn++;
-				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
+				rotateTo(X, Z, 10);
 			}else{
 				SetSpeed(1);
 				if(CheckAction(ActionFlag.Action_IsDefence))
 					AniState(PlayerState.RunAndDefence);
 				else
 					AniState(PlayerState.Run);
-				gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (X, gameObject.transform.localPosition.y, Z) - gameObject.transform.localPosition), 10 * Time.deltaTime);
+				rotateTo(X, Z, 10);
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
-			}
+			}		
 		}
-	}
-
-	public void rotateTo(Vector3 targetPosition, bool smooth = true){
-		Vector3 v = new Vector3(targetPosition.x, 0, targetPosition.z);
-		if (smooth)
-			transform.rotation = Quaternion.LookRotation(v);
-		else
-			transform.LookAt(v, Vector3.up);
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)
@@ -215,7 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void AniState(PlayerState state)
 	{
 		CloseAllState();
-
+		crtState = state;
 		switch (state) {
 			case PlayerState.Idle:
 				CloseAllState();
@@ -240,7 +232,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool("IsDrible", true);
 				break;
 			case PlayerState.Steal:
-				Steal();
+				Steal(-1, -1);
 				break;
 		}
 	}
@@ -274,13 +266,15 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	private void Steal()
+	public void Steal(float lookAtX, float lookAtZ)
 	{
 		if (canSteal) 
 		{
 			stop = true;
 			Control.SetBool("IsSteal", true);
 			AddActionFlag(ActionFlag.Action_IsSteal);
+			if(lookAtX != -1 && lookAtZ != -1)
+				rotateTo(lookAtX, lookAtZ);
 			canSteal = false;
 		}
 	}
@@ -334,6 +328,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 		SetSpeed(0);
 		AniState(PlayerState.Idle);
+	}
+
+	private void rotateTo(float lookAtX, float lookAtZ, float time = 30){
+		gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, lookAtZ) - gameObject.transform.localPosition), time * Time.deltaTime);
 	}
 
 	public bool Move{
