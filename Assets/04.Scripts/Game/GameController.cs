@@ -138,13 +138,19 @@ public class GameController : MonoBehaviour {
 						if(Npc.Team == TeamKind.Self)
 							AttackAndDef(Npc, GameAction.Attack);
 						else 
-							AttackAndDef(Npc, GameAction.Def);				
+							AttackAndDef(Npc, GameAction.Def);
+
+						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(Npc);
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self)
 							AttackAndDef(Npc, GameAction.Def);
 						else 
 							AttackAndDef(Npc, GameAction.Attack);
+
+						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(Npc);
 						break;
 					case GameSituation.TeeA:
 
@@ -224,41 +230,33 @@ public class GameController : MonoBehaviour {
 					}else
 						Npc.AniState(PlayerState.Defence);
 				}
-			}else{
-				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-					SetBall(Npc);
 			}
 			break;
 		case GameAction.Attack:
-			if(ballController != null){
-				if(Npc == ballController){
-					//Dunk shoot shoot3 pass
-					
-					
-				}else{
-					//sup push
-					Dis = getDis(ballController, Npc); 
-					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
-					
-					float ShootPointDis = 0;
-					if(Npc.Team == TeamKind.Self)
-						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
-					else
-						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
-					
-					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
-						//Npc.Jump();
-					}else if(NearPlayer != null && pushRate < 50){
-						//Push
-						
-					}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
-						//Sup
-						
-					}
-				}
+			if(Npc == ballController){
+				//Dunk shoot shoot3 pass
+				
+				
 			}else{
-				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-					SetBall(Npc);
+				//sup push
+				Dis = getDis(ballController, Npc); 
+				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
+				
+				float ShootPointDis = 0;
+				if(Npc.Team == TeamKind.Self)
+					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+				else
+					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+				
+				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+					//Npc.Jump();
+				}else if(NearPlayer != null && pushRate < 50){
+					//Push
+					
+				}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
+					//Sup
+					
+				}
 			}
 			break;
 		}
@@ -377,7 +375,7 @@ public class GameController : MonoBehaviour {
 
 	public void SetBall(PlayerBehaviour p){
 		if (PlayerList.Count > 0) {
-			if(p != null){
+			if(p != null && situation != GameSituation.End){
 				if(ballController != null){
 					if(ballController.Team != p.Team){
 						if(situation == GameSituation.AttackA)

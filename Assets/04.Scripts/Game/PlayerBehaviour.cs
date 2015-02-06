@@ -271,10 +271,6 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	private void SetDef(){
-		AniState(PlayerState.Defence);
-	}
-
 	public void SetSpeed(float value)
 	{
 		Control.SetFloat("Speed", value);
