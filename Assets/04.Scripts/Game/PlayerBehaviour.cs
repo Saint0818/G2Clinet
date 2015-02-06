@@ -143,7 +143,12 @@ public class PlayerBehaviour : MonoBehaviour
 			SetSpeed (curSpeed);
 
 			if (Mathf.Abs (move.joystickAxis.y) > 0)
-					AniState (PlayerState.Run);
+			{
+				if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
+					AniState(PlayerState.RunAndDrible);
+				else
+					AniState(PlayerState.Run);
+			}
 
 			float angle = move.Axis2Angle (true);
 			int a = 90;
@@ -416,8 +421,8 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool ("IsJump", false);
 				break;
 			case "StealEnd":
-				Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], false);
 				DelActionFlag(ActionFlag.Action_IsSteal);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], false);
 				break;
 			case "ShootDown":
 				UIGame.Get.Game.SetballController();

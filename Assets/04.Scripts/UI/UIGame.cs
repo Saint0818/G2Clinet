@@ -41,7 +41,8 @@ public class UIGame : UIBase {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		SetBtnFun (UIName + "/ButtonA", DoSteal);
-		SetBtnFun (UIName + "/ButtonB", DoJump);
+//		SetBtnFun (UIName + "/ButtonB", DoJump);
+		SetBtnFun (UIName + "/ButtonB", DoBlock);
 		SetBtnFun (UIName + "/ButtonC", DoSkill);
 	}
 
@@ -57,12 +58,17 @@ public class UIGame : UIBase {
 
 	public void DoSkill()
 	{
-		Game.PlayerList [0].DoDunk ();
+		if(Game.ballController)
+		{
+			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.ballController.Team.GetHashCode()].transform.position;
+			Game.PlayerList [0].AniState (PlayerState.Shootting, true, pos.x, pos.z);
+		}
 	}
 
 	public void DoBlock()
 	{
-		Game.PlayerList [0].AniState (PlayerState.Block);
+		Vector3 pos = SceneMgr.Inst.ShootPoint[Game.PlayerList [0].Team.GetHashCode()].transform.position;
+		Game.PlayerList [0].AniState (PlayerState.Block, true, pos.x, pos.z);
 	}
 	
 	protected override void InitData() {
