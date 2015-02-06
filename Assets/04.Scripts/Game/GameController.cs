@@ -127,6 +127,10 @@ public class GameController : MonoBehaviour {
 				}else{
 					//AI
 					switch(situation){
+					case GameSituation.None:
+						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(Npc);
+						break;
 					case GameSituation.Opening:
 
 						break;
