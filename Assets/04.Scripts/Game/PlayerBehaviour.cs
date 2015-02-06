@@ -27,7 +27,8 @@ public enum PlayerState
     Pass2 = 20,
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
-	RunAndDefence = 23
+	RunAndDefence = 23,
+	RunAndDrible = 24
 }
 
 public enum TeamKind{
@@ -190,7 +191,10 @@ public class PlayerBehaviour : MonoBehaviour
 					AniState(PlayerState.RunAndDefence);
 					fracJourney = 0.045f;
 				}else{
-					AniState(PlayerState.Run);
+					if(UIGame.Get.Game.ballController.gameObject == gameObject)
+						AniState(PlayerState.RunAndDrible);
+					else
+						AniState(PlayerState.Run);
 					fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
 				}
 
@@ -211,17 +215,24 @@ public class PlayerBehaviour : MonoBehaviour
 	public void AniState(PlayerState state)
 	{
 		crtState = state;
+		for (int i = 1; i < AnimatorStates.Length; i++)
+			if(AnimatorStates[i] != string.Empty)
+				Control.SetBool(AnimatorStates[i], false);
+
 		switch (state) {
 			case PlayerState.Idle:
-				for (int i = 1; i < AnimatorStates.Length; i++)
-					if(AnimatorStates[i] != string.Empty)
-						Control.SetBool(AnimatorStates[i], false);
 				break;
 			case PlayerState.Walk:
-				
 				break;
 			case PlayerState.Run:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
+				break;
+			case PlayerState.Dribble:
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
+				break;
+			case PlayerState.RunAndDrible:
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				break;
 			case PlayerState.Defence:
 				Control.SetBool("IsDefence", true);
@@ -233,9 +244,6 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Jumper:
 				Jump();
 				break;
-			case PlayerState.Dribble:
-				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
-				break;
 			case PlayerState.Steal:
 				Steal();
 				break;
@@ -244,6 +252,12 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Block:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], true);
+				if(!CheckAction(ActionFlag.Action_IsBlock))
+				{
+					rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
+					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+					AddActionFlag(ActionFlag.Action_IsBlock);
+				}
 				break;
 		}
 	}
@@ -420,7 +434,6 @@ public class PlayerBehaviour : MonoBehaviour
 			case "StealEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], false);
 				DelActionFlag(ActionFlag.Action_IsSteal);
-
 				break;
 			case "ShootDown":
 				DelActionFlag(ActionFlag.Action_IsJump);
@@ -429,6 +442,10 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsJump], false);
 				Debug.Log("ShootDown");
 				break;
+			case "BlockEnd":
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], false);
+				DelActionFlag(ActionFlag.Action_IsBlock);
+			break;
 		}
 	}
 }

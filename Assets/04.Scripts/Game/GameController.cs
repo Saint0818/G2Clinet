@@ -333,6 +333,7 @@ public class GameController : MonoBehaviour {
 	private float getDis(PlayerBehaviour player1, Vector3 Target){
 		if (player1 != null && Target != Vector3.zero){
 			Vector3 V1 = player1.transform.position;
+			V1.y = Target.y;
 			return Vector3.Distance(V1, Target);
 		} else
 			return -1;
@@ -423,11 +424,9 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
-
 	public void SetballController(PlayerBehaviour p = null){
 		ballController = p;
 	}
-
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
 		int Index = 0;
