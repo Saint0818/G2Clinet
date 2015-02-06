@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
 	private const int MaxPos = 6;
-	private const float PickBallDis = 2;
+	private const float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
 	private const float NearEnemyDis = 1;
@@ -123,6 +123,8 @@ public class GameController : MonoBehaviour {
 				PlayerBehaviour Npc = PlayerList[i];
 
 				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == UIGame.Get.targetPlayer){
+					if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						SetBall(Npc);
 					continue;
 				}else{
 					//AI
@@ -333,7 +335,6 @@ public class GameController : MonoBehaviour {
 	private float getDis(PlayerBehaviour player1, Vector3 Target){
 		if (player1 != null && Target != Vector3.zero){
 			Vector3 V1 = player1.transform.position;
-			V1.y = Target.y;
 			return Vector3.Distance(V1, Target);
 		} else
 			return -1;
@@ -409,7 +410,7 @@ public class GameController : MonoBehaviour {
 		switch(state)
 		{
 			case PlayerState.Dribble: 
-				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+//				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = true;
 				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;

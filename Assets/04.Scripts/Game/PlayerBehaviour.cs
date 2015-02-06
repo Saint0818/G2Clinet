@@ -28,7 +28,8 @@ public enum PlayerState
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
 	RunAndDefence = 23,
-	RunAndDrible = 24
+	RunAndDrible = 24,
+	Shootting = 25
 }
 
 public enum TeamKind{
@@ -191,7 +192,7 @@ public class PlayerBehaviour : MonoBehaviour
 					AniState(PlayerState.RunAndDefence);
 					fracJourney = 0.045f;
 				}else{
-					if(UIGame.Get.Game.ballController.gameObject == gameObject)
+					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
 						AniState(PlayerState.RunAndDrible);
 					else
 						AniState(PlayerState.Run);
@@ -247,7 +248,12 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDefence], true);
 				break;
 			case PlayerState.Jumper:
-				Jump();
+				if(!CheckAction(ActionFlag.Action_IsJump))
+				{
+					Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
+					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+					AddActionFlag(ActionFlag.Action_IsJump);
+				}
 				break;
 			case PlayerState.Steal:
 				if(!CheckAction(ActionFlag.Action_IsSteal)){
@@ -263,29 +269,28 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], true);
 				if(!CheckAction(ActionFlag.Action_IsBlock))
 				{
-					rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
-					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+					if(DorotateTo)
+						gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, new Vector3(lookAtX, 3, lookAtZ), 60);
+					else
+						gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+
 					AddActionFlag(ActionFlag.Action_IsBlock);
 				}
 				break;
+
+		case PlayerState.Shootting:
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
+			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+
+			break;
 		}
 	}
 
-	public void SetSpeed(float value)
+	private void SetSpeed(float value)
 	{
 		Control.SetFloat("Speed", value);
 		Control.SetFloat("DribleMoveSpeed", value);
-	}
-
-	public void Jump()
-	{
-		Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
-		if(!CheckAction(ActionFlag.Action_IsJump))
-		{
-			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
-			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-			AddActionFlag(ActionFlag.Action_IsJump);
-		}
 	}
 
 	private bool CheckCanUseControl()
@@ -342,23 +347,10 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return CheckAction(ActionFlag.Action_IsSteal);}
 	}
 
-	public void Shotting()
-	{
-		if (UIGame.Get.Game.ballController.gameObject == gameObject) {
-			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-
-//			float ang = ElevationAngle(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);                                                                                                                           
-	
-			UIGame.Get.Game.SetBallState(PlayerState.Shoot);
-			SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
-		}
-	}
-
 	public void DoDunk()
 	{
 		if (Vector3.Distance (SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < 7f) {
 			float ang = ElevationAngle(gameObject.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);  
-//			gameObject.rigidbody.AddForce(SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position * 100);
 			gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, ang);
 		}
 		else
@@ -428,6 +420,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.Action_IsSteal);
 				break;
 			case "ShootDown":
+				UIGame.Get.Game.SetballController();
 				DelActionFlag(ActionFlag.Action_IsJump);
 				DelActionFlag(ActionFlag.Action_IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsDribble], false);
@@ -437,7 +430,14 @@ public class PlayerBehaviour : MonoBehaviour
 			case "BlockEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], false);
 				DelActionFlag(ActionFlag.Action_IsBlock);
-			break;
+				break;
+			case "Shotting":
+				if (UIGame.Get.Game.ballController.gameObject == gameObject) {
+					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
+					UIGame.Get.Game.SetBallState(PlayerState.Shoot);
+					SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
+				}
+				break;
 		}
 	}
 }
