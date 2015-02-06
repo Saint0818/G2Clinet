@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
 	private const int MaxPos = 6;
+	private const float PickBallDis = 2;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
@@ -178,77 +179,107 @@ public class GameController : MonoBehaviour {
 		switch(Action){
 		case GameAction.Def:
 			//steal push Def
-			Dis = getDis(ballController, Npc); 
-			if(Dis <= 1 && pushRate < 50){
-
-			}else if(Dis <= 2 && stealRate < 50){
-				Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
-			}else
-				Npc.SetDef();
+			if(ballController != null){
+				Dis = getDis(ballController, Npc); 
+				if(Dis <= 1 && pushRate < 50){
+					
+				}else if(Dis <= 2 && stealRate < 50){
+					Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+				}else
+					Npc.SetDef();
+			}else{
+				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+					SetBall(Npc);
+			}
 			break;
 		case GameAction.Attack:
-			if(Npc == ballController){
-				//Dunk shoot shoot3 pass
-
-
-			}else{
-				//sup push
-				Dis = getDis(ballController, Npc); 
-				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
-
-				float ShootPointDis = 0;
-				if(Npc.Team == TeamKind.Self)
-					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
-				else
-					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
-
-				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
-					//Npc.Jump();
-				}else if(NearPlayer != null && pushRate <= 50){
-					//Push
-
-				}else if(Dis >= 1.5f && Dis <= 3 && supRate <= 50){
-					//Sup
-
+			if(ballController != null){
+				if(Npc == ballController){
+					//Dunk shoot shoot3 pass
+					
+					
+				}else{
+					//sup push
+					Dis = getDis(ballController, Npc); 
+					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
+					
+					float ShootPointDis = 0;
+					if(Npc.Team == TeamKind.Self)
+						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+					else
+						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+					
+					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+						//Npc.Jump();
+					}else if(NearPlayer != null && pushRate <= 50){
+						//Push
+						
+					}else if(Dis >= 1.5f && Dis <= 3 && supRate <= 50){
+						//Sup
+						
+					}
 				}
+			}else{
+				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+					SetBall(Npc);
 			}
 			break;
 		}
 	}
 
+	private Vector2 GetTarget(Vector2 A, Vector2 B){
+		return new Vector2 ((A.x + B.x) / 2, (A.y + B.y) / 2);
+	}
+
 	private void AIMove(PlayerBehaviour Npc, GameAction Action){
-		switch(Action){
-		case GameAction.Def:
-			//move
-			for(int i = 0 ; i < PlayerList.Count; i++){
-				if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
-					Vector3 Target = PlayerList[i].gameObject.transform.position;
-
-					float dis = 0;
-					if(Npc.Team == TeamKind.Self){
-						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[1].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[1].transform.position.z) / 2)) / 2);
-						if(getDis(PlayerList[i], new Vector2(Npc.TargetPos.x, Npc.TargetPos.y)) >= 5)
-							Npc.TargetPos = new Vector2((Target.x + ((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[1].transform.position.x) / 2)) / 2)) /2, (Target.z + ((Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[1].transform.position.z) / 2)) / 2)) / 2);
-					}else{
-						Npc.TargetPos = new Vector2((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[0].transform.position.x) / 2)) / 2, (Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[0].transform.position.z) / 2)) / 2);
-						if(getDis(PlayerList[i], new Vector2(Npc.TargetPos.x, Npc.TargetPos.y)) >= 5)
-							Npc.TargetPos = new Vector2((Target.x + ((Target.x + ((Target.x + SceneMgr.Inst.ShootPoint[0].transform.position.x) / 2)) / 2)) /2, (Target.z + ((Target.z + ((Target.z + SceneMgr.Inst.ShootPoint[0].transform.position.z) / 2)) / 2)) / 2);
+		if (ballController == null) {
+			Npc.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
+			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+		}else{
+			switch(Action){
+			case GameAction.Def:
+				//move
+				for(int i = 0 ; i < PlayerList.Count; i++){
+					if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
+						Vector3 Target = PlayerList[i].gameObject.transform.position;
+						
+						if(Npc.Team == TeamKind.Self){
+							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+							for(int j = 0 ; j < 10; j++){
+								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > 2)
+									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
+								else
+									break;
+							}
+							
+							Npc.TargetPos = NewTarget;
+						}else{
+							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+							for(int j = 0 ; j < 10; j++){
+								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > 2)
+									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
+								else
+									break;
+							}
+							
+							Npc.TargetPos = NewTarget;
+						}
+						
+						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
+						break;
 					}
-
-					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
-					break;
 				}
-			}
-			break;
-		case GameAction.Attack:
-			if(!Npc.IsMove){
+				break;
+			case GameAction.Attack:
+				if(!Npc.IsMove){
+					if(Npc.WaitMoveTime == 0)
+						SetMovePos(Npc);
+				}
+				
 				if(Npc.WaitMoveTime == 0)
-					SetMovePos(Npc);
+					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+				break;
 			}
-
-			if(Npc.WaitMoveTime == 0)
-				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
-			break;
 		}
 	}
 
@@ -258,6 +289,14 @@ public class GameController : MonoBehaviour {
 			Vector3 V2 = player2.transform.position;
 			V1.y = V2.y;
 			return Vector3.Distance(V1, V2);
+		} else
+			return -1;
+	}
+
+	private float getDis(PlayerBehaviour player1, Vector3 Target){
+		if (player1 != null && Target != Vector3.zero){
+			Vector3 V1 = player1.transform.position;
+			return Vector3.Distance(V1, Target);
 		} else
 			return -1;
 	}
@@ -296,9 +335,8 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 
-	public void SetBall(GameObject player){
+	public void SetBall(PlayerBehaviour p){
 		if (PlayerList.Count > 0) {
-			PlayerBehaviour p = (PlayerBehaviour)player.GetComponent<PlayerBehaviour> ();
 			if(p != null){
 				if(ballController != null){
 					if(ballController.Team != p.Team){
@@ -308,12 +346,17 @@ public class GameController : MonoBehaviour {
 							ChangeSituation(GameSituation.AttackA);
 					}else
 						ballController.ResetFlag();
+				}else{
+					if(p.Team == TeamKind.Self)
+						ChangeSituation(GameSituation.AttackA);
+					else if(p.Team == TeamKind.Npc)
+						ChangeSituation(GameSituation.AttackB);
 				}
-
-				ballController = p;
+				
+				SetballController(p);
 				if(p.IsJump){
 					//ALLYOOP 
-
+					
 				}else
 					p.AniState (PlayerState.Dribble);
 				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
@@ -324,7 +367,11 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 			}
 		}
-    }
+	}
+
+	public void SetballController(PlayerBehaviour p = null){
+		ballController = p;
+	}
 
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;

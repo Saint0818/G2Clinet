@@ -28,8 +28,7 @@ public class BallTrigger : MonoBehaviour
 		if (UIGame.Visible){
 			if (other.gameObject.tag == "Player") 
 			{
-				if (parentobjRigidbody.isKinematic == false) 
-					UIGame.Get.Game.SetBall (other.gameObject);
+
 			}
 			else 
 			if (other.gameObject.tag == "Floor") 
@@ -52,19 +51,7 @@ public class BallTrigger : MonoBehaviour
 
 	void FixedUpdate ()
 	{	
-		followTarget();
 
-		if (gameObject.transform.position.y <= 0.2) {
-			onFloorTime += Time.deltaTime;
-			if (onFloorTime >= 1) {
-//				HintObject.SetActive(true);
-				SetBoxColliderEnable(true);
-			}
-		} else {
-//			onFloorTime = 0;
-//			if (HintObject.activeInHierarchy) 
-//				HintObject.SetActive(false);
-		}
 	}
 
 	void LateUpdate()
@@ -78,23 +65,6 @@ public class BallTrigger : MonoBehaviour
 
 			if (Mathf.Abs(gameObject.transform.position.z) > 20)
 			    gameObject.transform.position = Vector3.zero;
-		}
-	}
-
-	private void followTarget() {
-		if (parentobjRigidbody && gameObject.activeInHierarchy && !parentobjRigidbody.isKinematic &&
-		    followObject && followObject.activeInHierarchy) {
-				float dis = Vector3.Distance(gameObject.transform.position, followObject.transform.position);
-				if (dis <= 2)
-					UIGame.Get.Game.SetBall (followObject);
-				else
-				if (dis <= 8 && dis > 2) {
-					dis = 8 - dis;
-
-				float moveSpeed = dis * 10;
-				Vector3 delta = followObject.transform.position - transform.position;
-				parentobjRigidbody.AddForce(delta * moveSpeed); 
-			}
 		}
 	}
 

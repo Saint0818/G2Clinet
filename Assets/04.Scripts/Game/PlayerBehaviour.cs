@@ -183,7 +183,7 @@ public class PlayerBehaviour : MonoBehaviour
 					WaitMoveTime = 0;
 					rotateTo(lookAtX, loolAtZ);
 				}
-			}else if(!CheckAction(ActionFlag.Action_IsDefence) && MoveTurn >= 0 && MoveTurn <= 5){
+			}else if(!CheckAction(ActionFlag.Action_IsDefence) && UIGame.Get.Game.ballController != null && MoveTurn >= 0 && MoveTurn <= 5){
 				AddActionFlag(ActionFlag.Action_IsRun);
 				MoveTurn++;
 				rotateTo(X, Z, 10);
@@ -233,7 +233,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				break;
 			case PlayerState.Steal:
-				Steal(-1, -1);
+				Steal();
 				break;
 			case PlayerState.Pass:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
@@ -271,7 +271,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void Steal(float lookAtX, float lookAtZ)
+	public void Steal(float lookAtX = -1, float lookAtZ = -1)
 	{
 		if (canSteal) 
 		{
@@ -350,6 +350,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void Shotting()
 	{
 		if (UIGame.Get.Game.ballController.gameObject == gameObject) {
+			UIGame.Get.Game.SetballController();
 			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
 //			float ang = ElevationAngle(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);                                                                                                                           
