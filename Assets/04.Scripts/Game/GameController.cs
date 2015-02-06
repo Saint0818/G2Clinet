@@ -417,9 +417,11 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
+
 	public void SetballController(PlayerBehaviour p = null){
 		ballController = p;
 	}
+
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
 		int Index = 0;
