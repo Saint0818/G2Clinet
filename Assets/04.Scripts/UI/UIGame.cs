@@ -59,6 +59,11 @@ public class UIGame : UIBase {
 	{
 		Game.PlayerList [0].DoDunk ();
 	}
+
+	public void DoBlock()
+	{
+		Game.PlayerList [0].AniState (PlayerState.Block);
+	}
 	
 	protected override void InitData() {
 		

@@ -117,9 +117,6 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		if(ballController != null)
-			SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
-
 		if (PlayerList.Count > 0) {
 			//Action
 			for(int i = 0 ; i < PlayerList.Count; i++){

@@ -117,27 +117,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update()
 	{
-		if (!canSteal && Control.GetCurrentAnimatorStateInfo (0).IsName ("Steal"))
-		{
-			Control.SetFloat("StealTime", Control.GetCurrentAnimatorStateInfo (0).normalizedTime);
-			if(Control.GetCurrentAnimatorStateInfo (0).normalizedTime > 0.8f) {
-				Control.SetBool ("IsSteal", false);
-				canSteal = true;
-				stop = true;
-				DelActionFlag(ActionFlag.Action_IsSteal);
-			}
-		}
-
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
-
-		if(Control.GetCurrentAnimatorStateInfo (0).IsName ("Steal"))
-
-		if (Control.GetBool ("IsJump") && gameObject.transform.localPosition.y < 0.1f) {
-//			canJump = true;
-			Control.SetBool ("IsJump", false);
-//			canResetJump = false;
-			DelActionFlag(ActionFlag.Action_IsJump);
-		}
 
 		if (Time.time - Timer >= 1){
 			Timer = Time.time;
@@ -204,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void OnJoystickMoveEnd(MovingJoystick move)
 	{
 		SetSpeed(0);
-		if (UIGame.Get.Game.ballController.gameObject == gameObject)
+		if (UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
 			AniState(PlayerState.Dribble);
 		else
 			AniState (PlayerState.Idle);
@@ -221,28 +201,31 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Walk:
 				
-			break;
+				break;
 			case PlayerState.Run:
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
-			break;
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
+				break;
 			case PlayerState.Defence:
 				Control.SetBool("IsDefence", true);
 				break;
 			case PlayerState.RunAndDefence:
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDefence], true);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDefence], true);
 				break;
 			case PlayerState.Jumper:
 				Jump();
 				break;
 			case PlayerState.Dribble:
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				break;
 			case PlayerState.Steal:
 				Steal();
 				break;
 			case PlayerState.Pass:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
+				break;
+			case PlayerState.Block:
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], true);
 				break;
 		}
 	}
@@ -261,28 +244,23 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void Jump()
 	{
-		Control.SetBool("IsJump", true);
+		Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
 		if(!CheckAction(ActionFlag.Action_IsJump))
-//		if (canJump)
 		{
 			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
 			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-//			canJump = false;
 			AddActionFlag(ActionFlag.Action_IsJump);
-//			StartCoroutine ("JumpCoolDown", 1f);
 		}
 	}
 
 	public void Steal(float lookAtX = -1, float lookAtZ = -1)
 	{
-		if (canSteal) 
+		if(!CheckAction(ActionFlag.Action_IsSteal))
 		{
-			stop = true;
-			Control.SetBool("IsSteal", true);
+			Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], true);
 			AddActionFlag(ActionFlag.Action_IsSteal);
 			if(lookAtX != -1 && lookAtZ != -1)
 				rotateTo(lookAtX, lookAtZ);
-			canSteal = false;
 		}
 	}
 
@@ -418,17 +396,22 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void AnimationEvent(string animationName)
 	{
-		switch (animationName) {
+		switch (animationName) 
+		{
 			case "Jumper":
 				Control.SetBool ("IsJump", false);
-			break;
+				break;
+			case "StealEnd":
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], false);
+				DelActionFlag(ActionFlag.Action_IsSteal);
+				break;
 			case "ShootDown":
 				DelActionFlag(ActionFlag.Action_IsJump);
 				DelActionFlag(ActionFlag.Action_IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsJump], false);
 				Debug.Log("ShootDown");
-			break;
+				break;
 		}
 	}
 }
