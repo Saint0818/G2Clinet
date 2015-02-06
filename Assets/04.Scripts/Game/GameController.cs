@@ -315,6 +315,8 @@ public class GameController : MonoBehaviour {
 				
 				if(Npc.WaitMoveTime == 0)
 					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+				else if(Npc == ballController)
+					Npc.AniState(PlayerState.Dribble);
 				break;
 			}
 		}
@@ -424,9 +426,11 @@ public class GameController : MonoBehaviour {
 			break;
 		}
 	}
+
 	public void SetballController(PlayerBehaviour p = null){
 		ballController = p;
 	}
+
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
 		int Index = 0;
