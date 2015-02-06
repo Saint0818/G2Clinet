@@ -106,8 +106,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public RunDistanceType RunArea;
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
+	public float Invincible = 0;
 	public MoveType MoveKind = MoveType.BackAndForth;
 	public int Postion = 0;
+	private float startMoveTime = 0;
+	private float journeyLength = 0;
 
 	void Awake()
 	{
@@ -126,6 +129,9 @@ public class PlayerBehaviour : MonoBehaviour
 				WaitMoveTime--;
 			}
 		}
+
+		if(Time.time >= Invincible)
+			Invincible = 0;
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
@@ -153,6 +159,8 @@ public class PlayerBehaviour : MonoBehaviour
 				SetSpeed(0);
 				DelActionFlag(ActionFlag.Action_IsRun);
 				MoveTurn = 0;
+				startMoveTime = 0;
+				journeyLength = 0;
 				AniState(PlayerState.Idle);
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.Action_IsDefence)){
@@ -169,14 +177,24 @@ public class PlayerBehaviour : MonoBehaviour
 				AddActionFlag(ActionFlag.Action_IsRun);
 				MoveTurn++;
 				rotateTo(X, Z, 10);
+			
+				if(MoveTurn == 1){
+					startMoveTime = Time.time;
+					journeyLength = Vector3.Distance(gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z));
+				}
 			}else{
+				float fracJourney = 0;
 				SetSpeed(1);
-				if(CheckAction(ActionFlag.Action_IsDefence))
-					AniState(PlayerState.RunAndDefence);
-				else
-					AniState(PlayerState.Run);
 				rotateTo(X, Z, 10);
-				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), 0.045f);
+				if(CheckAction(ActionFlag.Action_IsDefence)){
+					AniState(PlayerState.RunAndDefence);
+					fracJourney = 0.045f;
+				}else{
+					AniState(PlayerState.Run);
+					fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
+				}
+
+				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
 			}		
 		}
 	}
@@ -295,8 +313,6 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void ResetFlag(){
-
-
 		for(int i = 0; i < PlayerActionFlag.Length; i++)
 			PlayerActionFlag[i] = 0;
 
@@ -404,6 +420,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case "StealEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], false);
 				DelActionFlag(ActionFlag.Action_IsSteal);
+
 				break;
 			case "ShootDown":
 				DelActionFlag(ActionFlag.Action_IsJump);

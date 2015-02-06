@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour {
 	private const float PickBallDis = 2;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
-	private const float NearEnemyDis = 1.5f;
+	private const float NearEnemyDis = 1;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
@@ -204,17 +204,22 @@ public class GameController : MonoBehaviour {
 		case GameAction.Def:
 			//steal push Def
 			if(ballController != null){
-				Dis = getDis(ballController, Npc); 
-				if(Dis <= PushPlayerDis && pushRate < 50){
-					
-				}else if(Dis <= StealBallDis && stealRate < 50){
-					if(!Npc.IsSteal){
-						Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
-						if(stealRate < 5)
-							SetBall(Npc);
-					}
-				}else
-					Npc.SetDef();
+				Dis = getDis(ballController, Npc);
+
+				if(!Npc.IsSteal){
+					if(Dis <= PushPlayerDis && pushRate < 50){
+						
+					}else if(Dis <= StealBallDis && stealRate < 50 && ballController.Invincible == 0){
+						if(!Npc.IsSteal){
+							Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+							if(stealRate < 5){
+								SetBall(Npc);
+								Npc.Invincible = Time.time + 5;
+							}
+						}
+					}else
+						Npc.SetDef();
+				}
 			}else{
 				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 					SetBall(Npc);
