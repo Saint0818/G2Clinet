@@ -387,23 +387,39 @@ public class GameController : MonoBehaviour {
 				SetballController(p);
 				if(p.IsJump){
 					//ALLYOOP 
-					
+
 				}else
 					p.AniState (PlayerState.Dribble);
-				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
-				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
-				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+
 				SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
-				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+				SetBallState(PlayerState.Dribble);
 			}
 		}
-	}
+    }
 
+	public void SetBallState(PlayerState state)
+	{
+		switch(state)
+		{
+			case PlayerState.Dribble: 
+				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
+				SceneMgr.Inst.RealBall.rigidbody.isKinematic = true;
+				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
+				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(false);
+			break;
+			case PlayerState.Shoot: 
+				SceneMgr.Inst.RealBall.transform.parent = null;
+				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
+			break;
+		}
+	}
 	public void SetballController(PlayerBehaviour p = null){
 		ballController = p;
 	}
-
 	private Vector2 SetMovePos(PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
 		int Index = 0;

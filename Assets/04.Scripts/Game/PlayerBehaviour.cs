@@ -87,7 +87,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
 	private bool canSteal = true;
-	private bool canJump = true;
+//	private bool canJump = true;
 	private bool canResetJump = false;
 	private bool stop = false;
 
@@ -98,7 +98,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private Vector2 mTargetPos = Vector2.zero;
 	public Animator Control;
 	public PlayerState crtState = PlayerState.Idle;
-	public float basicMoveSpeed = 10;
+	public float basicMoveSpeed = 0.5f;
 	public float curSpeed = 0;
 	public TeamKind Team;
 	public GameObject DummyBall;
@@ -130,10 +130,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 
-		if (canResetJump && Control.GetBool ("IsJump") && gameObject.transform.localPosition.y < 0.1f) {
-			canJump = true;
+		if(Control.GetCurrentAnimatorStateInfo (0).IsName ("Steal"))
+
+		if (Control.GetBool ("IsJump") && gameObject.transform.localPosition.y < 0.1f) {
+//			canJump = true;
 			Control.SetBool ("IsJump", false);
-			canResetJump = false;
+//			canResetJump = false;
 			DelActionFlag(ActionFlag.Action_IsJump);
 		}
 
@@ -159,7 +161,7 @@ public class PlayerBehaviour : MonoBehaviour
 			int a = 90;
 			Vector3 rotation = new Vector3 (0, angle + a, 0);
 			transform.rotation = Quaternion.Euler (rotation);
-			Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * basicMoveSpeed;
+			Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * 10 * basicMoveSpeed;
 			transform.Translate (translate);	
 		}
 	}
@@ -202,17 +204,21 @@ public class PlayerBehaviour : MonoBehaviour
 	public void OnJoystickMoveEnd(MovingJoystick move)
 	{
 		SetSpeed(0);
-		AniState(PlayerState.Idle);
+		if (UIGame.Get.Game.ballController.gameObject == gameObject)
+			AniState(PlayerState.Dribble);
+		else
+			AniState (PlayerState.Idle);
 	}
 
 	public void AniState(PlayerState state)
 	{
-		CloseAllState();
 		crtState = state;
 		switch (state) {
 			case PlayerState.Idle:
-				CloseAllState();
-			break;
+				for (int i = 1; i < AnimatorStates.Length; i++)
+					if(AnimatorStates[i] != string.Empty)
+						Control.SetBool(AnimatorStates[i], false);
+				break;
 			case PlayerState.Walk:
 				
 			break;
@@ -253,21 +259,17 @@ public class PlayerBehaviour : MonoBehaviour
 		Control.SetFloat("DribleMoveSpeed", value);
 	}
 
-	private void CloseAllState()
-	{
-		Control.SetBool("IsRun", false);
-		Control.SetBool("IsDefence", false);
-	}
-
 	public void Jump()
 	{
 		Control.SetBool("IsJump", true);
-		if (canJump)
+		if(!CheckAction(ActionFlag.Action_IsJump))
+//		if (canJump)
 		{
+			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
 			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-			canJump = false;
+//			canJump = false;
 			AddActionFlag(ActionFlag.Action_IsJump);
-			StartCoroutine ("JumpCoolDown", 1f);
+//			StartCoroutine ("JumpCoolDown", 1f);
 		}
 	}
 
@@ -284,18 +286,9 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	IEnumerator JumpCoolDown(float cdtime)
-	{
-		yield return new WaitForSeconds (cdtime);
-		canResetJump = true;
-		yield return new WaitForSeconds (0.5f);
-		canJump = true;
-
-	}
-
 	private bool CheckCanUseControl()
 	{
-		if (canJump && canSteal)
+		if (!CheckAction(ActionFlag.Action_IsJump) && canSteal)
 			return true;
 		else
 			return false;
@@ -324,9 +317,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void ResetFlag(){
-		for (int i = 1; i < AnimatorStates.Length; i++)
-			if(AnimatorStates[i] != string.Empty)
-				Control.SetBool(AnimatorStates[i], false);
+
 
 		for(int i = 0; i < PlayerActionFlag.Length; i++)
 			PlayerActionFlag[i] = 0;
@@ -354,16 +345,24 @@ public class PlayerBehaviour : MonoBehaviour
 	public void Shotting()
 	{
 		if (UIGame.Get.Game.ballController.gameObject == gameObject) {
-			UIGame.Get.Game.SetballController();
 			SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
+
 //			float ang = ElevationAngle(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);                                                                                                                           
 	
-			SceneMgr.Inst.RealBall.transform.parent = null;
-			SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
-			SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+			UIGame.Get.Game.SetBallState(PlayerState.Shoot);
 			SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
 		}
+	}
+
+	public void DoDunk()
+	{
+		if (Vector3.Distance (SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < 7f) {
+			float ang = ElevationAngle(gameObject.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);  
+//			gameObject.rigidbody.AddForce(SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position * 100);
+			gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, ang);
+		}
+		else
+			Debug.Log("distance is no enght");
 	}
 
 	float ElevationAngle(Vector3 source, Vector3 target)
@@ -414,6 +413,22 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			Debug.Log(e.ToString());
 			return Vector3.one;
+		}
+	}
+
+	public void AnimationEvent(string animationName)
+	{
+		switch (animationName) {
+			case "Jumper":
+				Control.SetBool ("IsJump", false);
+			break;
+			case "ShootDown":
+				DelActionFlag(ActionFlag.Action_IsJump);
+				DelActionFlag(ActionFlag.Action_IsDribble);
+				Control.SetBool (AnimatorStates[ActionFlag.Action_IsDribble], false);
+				Control.SetBool (AnimatorStates[ActionFlag.Action_IsJump], false);
+				Debug.Log("ShootDown");
+			break;
 		}
 	}
 }

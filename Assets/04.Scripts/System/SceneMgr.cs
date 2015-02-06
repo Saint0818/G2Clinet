@@ -13,6 +13,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     private int crtLineIndex = -1;
 	private int crtSkyIndex = -1;
 	public GameObject RealBall;
+	public BallTrigger RealBallTrigger;
     private GameObject crtStadium;
     private GameObject crtBasket;
 	private GameObject[] crtLine = new GameObject[2];
@@ -43,6 +44,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         InitLineGroup();
         CheckCollider();
 		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
+		RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger>();
 		RealBall.name = "ReallBall";
     }
 
