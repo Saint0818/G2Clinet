@@ -23,15 +23,21 @@ public class GameController : MonoBehaviour {
 	private const int CountBackSecs = 4;
 	private const int MaxPos = 6;
 	private const float PickBallDis = 2;
+	private const float StealBallDis = 2;
+	private const float PushPlayerDis = 1;
+	private const float NearEnemyDis = 1.5f;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private int NoAiTime = 0;
-	public Vector2 [] ShortRunAy = new Vector2[MaxPos];
-	public Vector2 [] MidRunAy = new Vector2[MaxPos];
-	public Vector2 [] LongRunAy = new Vector2[MaxPos];
+	public Vector2 [] ShortRunAy_A = new Vector2[MaxPos];
+	public Vector2 [] MidRunAy_A = new Vector2[MaxPos];
+	public Vector2 [] LongRunAy_A = new Vector2[MaxPos];
+	public Vector2 [] ShortRunAy_B = new Vector2[MaxPos];
+	public Vector2 [] MidRunAy_B = new Vector2[MaxPos];
+	public Vector2 [] LongRunAy_B = new Vector2[MaxPos];
 
 	void Start () {
 		EasyTouch.On_TouchDown += TouchDown;
@@ -41,26 +47,44 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		ShortRunAy [0] = new Vector2 (0, 15);
-		ShortRunAy [1] = new Vector2 (5.2f, 15);
-		ShortRunAy [2] = new Vector2 (-4.1f, 15);
-		ShortRunAy [3] = new Vector2 (0, 12);
-		ShortRunAy [4] = new Vector2 (3.9f, 12);
-		ShortRunAy [5] = new Vector2 (-4.1f, 12);
+		ShortRunAy_A [0] = new Vector2 (0, 15);
+		ShortRunAy_A [1] = new Vector2 (5.2f, 15);
+		ShortRunAy_A [2] = new Vector2 (-4.1f, 15);
+		ShortRunAy_A [3] = new Vector2 (0, 12);
+		ShortRunAy_A [4] = new Vector2 (3.9f, 12);
+		ShortRunAy_A [5] = new Vector2 (-4.1f, 12);
+		ShortRunAy_B [0] = new Vector2 (0, -15);
+		ShortRunAy_B [1] = new Vector2 (5.2f, -15);
+		ShortRunAy_B [2] = new Vector2 (-4.1f, -15);
+		ShortRunAy_B [3] = new Vector2 (0, -12);
+		ShortRunAy_B [4] = new Vector2 (3.9f, -12);
+		ShortRunAy_B [5] = new Vector2 (-4.1f, -12);
 
-		MidRunAy [0] = new Vector2 (-3.6f, 10);
-		MidRunAy [1] = new Vector2 (4.6f, 10);
-		MidRunAy [2] = new Vector2 (5.5f, 14);
-		MidRunAy [3] = new Vector2 (-4.8f, 14);
-		MidRunAy [4] = new Vector2 (0, 9);
-		MidRunAy [5] = new Vector2 (4.4f, 9);
+		MidRunAy_A [0] = new Vector2 (-3.6f, 10);
+		MidRunAy_A [1] = new Vector2 (4.6f, 10);
+		MidRunAy_A [2] = new Vector2 (5.5f, 14);
+		MidRunAy_A [3] = new Vector2 (-4.8f, 14);
+		MidRunAy_A [4] = new Vector2 (0, 9);
+		MidRunAy_A [5] = new Vector2 (4.4f, 9);
+		MidRunAy_B [0] = new Vector2 (-3.6f, -10);
+		MidRunAy_B [1] = new Vector2 (4.6f, -10);
+		MidRunAy_B [2] = new Vector2 (5.5f, -14);
+		MidRunAy_B [3] = new Vector2 (-4.8f, -14);
+		MidRunAy_B [4] = new Vector2 (0, -9);
+		MidRunAy_B [5] = new Vector2 (4.4f, -9);
 
-		LongRunAy [0] = new Vector2 (0, 5.7f);
-		LongRunAy [1] = new Vector2 (-5.4f, 8);
-		LongRunAy [2] = new Vector2 (6.7f, 8.9f);
-		LongRunAy [3] = new Vector2 (8.2f, 14);
-		LongRunAy [4] = new Vector2 (-8.2f, 14);
-		LongRunAy [5] = new Vector2 (4.82f, 4.26f);
+		LongRunAy_A [0] = new Vector2 (0, 5.7f);
+		LongRunAy_A [1] = new Vector2 (-5.4f, 8);
+		LongRunAy_A [2] = new Vector2 (6.7f, 8.9f);
+		LongRunAy_A [3] = new Vector2 (8.2f, 14);
+		LongRunAy_A [4] = new Vector2 (-8.2f, 14);
+		LongRunAy_A [5] = new Vector2 (4.82f, 4.26f);
+		LongRunAy_B [0] = new Vector2 (0, -5.7f);
+		LongRunAy_B [1] = new Vector2 (-5.4f, -8);
+		LongRunAy_B [2] = new Vector2 (6.7f, -8.9f);
+		LongRunAy_B [3] = new Vector2 (8.2f, -14);
+		LongRunAy_B [4] = new Vector2 (-8.2f, -14);
+		LongRunAy_B [5] = new Vector2 (4.82f, -4.26f);
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -92,6 +116,9 @@ public class GameController : MonoBehaviour {
 				NoAiTime--;
 			}
 		}
+
+		if(ballController != null)
+			SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 
 		if (PlayerList.Count > 0) {
 			//Action
@@ -181,10 +208,14 @@ public class GameController : MonoBehaviour {
 			//steal push Def
 			if(ballController != null){
 				Dis = getDis(ballController, Npc); 
-				if(Dis <= 1 && pushRate < 50){
+				if(Dis <= PushPlayerDis && pushRate < 50){
 					
-				}else if(Dis <= 2 && stealRate < 50){
-					Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+				}else if(Dis <= StealBallDis && stealRate < 50){
+					if(!Npc.IsSteal){
+						Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+						if(stealRate < 5)
+							SetBall(Npc);
+					}
 				}else
 					Npc.SetDef();
 			}else{
@@ -201,7 +232,7 @@ public class GameController : MonoBehaviour {
 				}else{
 					//sup push
 					Dis = getDis(ballController, Npc); 
-					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, 1.5f, false);
+					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
 					
 					float ShootPointDis = 0;
 					if(Npc.Team == TeamKind.Self)
@@ -211,10 +242,10 @@ public class GameController : MonoBehaviour {
 					
 					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
 						//Npc.Jump();
-					}else if(NearPlayer != null && pushRate <= 50){
+					}else if(NearPlayer != null && pushRate < 50){
 						//Push
 						
-					}else if(Dis >= 1.5f && Dis <= 3 && supRate <= 50){
+					}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
 						//Sup
 						
 					}
@@ -246,7 +277,7 @@ public class GameController : MonoBehaviour {
 						if(Npc.Team == TeamKind.Self){
 							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
 							for(int j = 0 ; j < 10; j++){
-								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > 2)
+								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
 									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
 								else
 									break;
@@ -256,7 +287,7 @@ public class GameController : MonoBehaviour {
 						}else{
 							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
 							for(int j = 0 ; j < 10; j++){
-								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > 2)
+								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
 									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
 								else
 									break;
@@ -386,21 +417,39 @@ public class GameController : MonoBehaviour {
 			if(Npc.MoveIndex >= MaxPos){
 				Index = (MaxPos - 1)* 2 - Npc.MoveIndex;
 
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
+				if(Npc.Team == TeamKind.Self){
+					if(Npc.RunArea == RunDistanceType.Short)
+						Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Mid)
+						Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Long)
+						Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
+				}else if(Npc.Team == TeamKind.Npc){
+					if(Npc.RunArea == RunDistanceType.Short)
+						Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Mid)
+						Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Long)
+						Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
+				}
 			}else{
 				Index = Npc.MoveIndex;
 
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
+				if(Npc.Team == TeamKind.Self){
+					if(Npc.RunArea == RunDistanceType.Short)
+						Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Mid)
+						Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Long)
+						Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
+				}else if(Npc.Team == TeamKind.Npc){
+					if(Npc.RunArea == RunDistanceType.Short)
+						Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Mid)
+						Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
+					else if(Npc.RunArea == RunDistanceType.Long)
+						Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
+				}
 			}
 			break;
 		case MoveType.Cycle:
@@ -410,22 +459,41 @@ public class GameController : MonoBehaviour {
 				Npc.MoveIndex = 0;
 
 			Index = Npc.MoveIndex;
-			if(Npc.RunArea == RunDistanceType.Short)
-				Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
-			else if(Npc.RunArea == RunDistanceType.Mid)
-				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-			else if(Npc.RunArea == RunDistanceType.Long)
-				Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
+
+			if(Npc.Team == TeamKind.Self){
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
+			}else if(Npc.Team == TeamKind.Npc){
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
+			}
 			break;
 		case MoveType.Random:
 			Index = Random.Range(0, MaxPos);
-			
-			if(Npc.RunArea == RunDistanceType.Short)
-				Npc.TargetPos = new Vector2(ShortRunAy[Index].x, ShortRunAy[Index].y);
-			else if(Npc.RunArea == RunDistanceType.Mid)
-				Npc.TargetPos = new Vector2(MidRunAy[Index].x, MidRunAy[Index].y);
-			else if(Npc.RunArea == RunDistanceType.Long)
-				Npc.TargetPos = new Vector2(LongRunAy[Index].x, LongRunAy[Index].y);
+
+			if(Npc.Team == TeamKind.Self){
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
+			}else if(Npc.Team == TeamKind.Npc){
+				if(Npc.RunArea == RunDistanceType.Short)
+					Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Mid)
+					Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
+				else if(Npc.RunArea == RunDistanceType.Long)
+					Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
+			}
 			break;
 		}
 

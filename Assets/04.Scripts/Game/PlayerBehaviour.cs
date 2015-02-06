@@ -347,6 +347,10 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return CheckAction(ActionFlag.Action_IsJump);}
 	}
 
+	public bool IsSteal{
+		get{return CheckAction(ActionFlag.Action_IsSteal);}
+	}
+
 	public void Shotting()
 	{
 		if (UIGame.Get.Game.ballController.gameObject == gameObject) {
