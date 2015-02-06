@@ -215,14 +215,14 @@ public class GameController : MonoBehaviour {
 						
 					}else if(Dis <= StealBallDis && stealRate < 50 && ballController.Invincible == 0){
 						if(!Npc.IsSteal){
-							Npc.Steal(ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+							Npc.AniState(PlayerState.Steal, true, ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
 							if(stealRate < 5){
 								SetBall(Npc);
 								Npc.Invincible = Time.time + 5;
 							}
 						}
 					}else
-						Npc.SetDef();
+						Npc.AniState(PlayerState.Defence);
 				}
 			}else{
 				if(getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)

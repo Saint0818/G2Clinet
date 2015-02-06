@@ -212,12 +212,15 @@ public class PlayerBehaviour : MonoBehaviour
 			AniState (PlayerState.Idle);
 	}
 
-	public void AniState(PlayerState state)
+	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
 	{
 		crtState = state;
 		for (int i = 1; i < AnimatorStates.Length; i++)
 			if(AnimatorStates[i] != string.Empty)
 				Control.SetBool(AnimatorStates[i], false);
+
+		if(DorotateTo)
+			rotateTo(lookAtX, lookAtZ);
 
 		switch (state) {
 			case PlayerState.Idle:
@@ -236,6 +239,8 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Defence:
 				Control.SetBool("IsDefence", true);
+				SetSpeed(0);
+				AddActionFlag (ActionFlag.Action_IsDefence);
 				break;
 			case PlayerState.RunAndDefence:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
@@ -245,7 +250,11 @@ public class PlayerBehaviour : MonoBehaviour
 				Jump();
 				break;
 			case PlayerState.Steal:
-				Steal();
+				if(!CheckAction(ActionFlag.Action_IsSteal)){
+					Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], true);
+					AddActionFlag(ActionFlag.Action_IsSteal);
+					Debug.LogWarning(1111);
+				}
 				break;
 			case PlayerState.Pass:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
@@ -262,10 +271,8 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void SetDef(){
-		SetSpeed(0);
+	private void SetDef(){
 		AniState(PlayerState.Defence);
-		AddActionFlag (ActionFlag.Action_IsDefence);
 	}
 
 	public void SetSpeed(float value)
@@ -282,17 +289,6 @@ public class PlayerBehaviour : MonoBehaviour
 			rotateTo(SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.x, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position.z);
 			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 			AddActionFlag(ActionFlag.Action_IsJump);
-		}
-	}
-
-	public void Steal(float lookAtX = -1, float lookAtZ = -1)
-	{
-		if(!CheckAction(ActionFlag.Action_IsSteal))
-		{
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], true);
-			AddActionFlag(ActionFlag.Action_IsSteal);
-			if(lookAtX != -1 && lookAtZ != -1)
-				rotateTo(lookAtX, lookAtZ);
 		}
 	}
 
