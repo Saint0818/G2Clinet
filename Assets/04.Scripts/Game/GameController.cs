@@ -89,6 +89,7 @@ public class GameController : MonoBehaviour {
 
 	private void TouchDown (Gesture gesture){
 		NoAiTime = CountBackSecs;
+		ballController.TargetPos = new Vector2 (-100, -100);
 	}
 
 	public void InitGame(){
@@ -207,61 +208,64 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void AttackAndDef(PlayerBehaviour Npc, GameAction Action){
-		int stealRate = Random.Range(0, 100) + 1;
-		int pushRate = Random.Range(0, 100) + 1;
-		int supRate = Random.Range(0, 100) + 1;
-		int ALLYOOP = Random.Range(0, 100) + 1;
-		float Dis = 0;
-		switch(Action){
-		case GameAction.Def:
-			//steal push Def
-			if(ballController != null){
-				Dis = getDis(ballController, Npc);
-
-				if(!Npc.IsSteal){
-					if(Dis <= PushPlayerDis && pushRate < 50){
-						
-					}else if(Dis <= StealBallDis && stealRate < 50 && ballController.Invincible == 0){
-						if(!Npc.IsSteal){
-							Npc.AniState(PlayerState.Steal, true, ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
-							if(stealRate < 5){
-								SetBall(Npc);
-								Npc.Invincible = Time.time + 5;
+		if (ballController != null) {
+			int stealRate = Random.Range(0, 100) + 1;
+			int pushRate = Random.Range(0, 100) + 1;
+			int supRate = Random.Range(0, 100) + 1;
+			int ALLYOOP = Random.Range(0, 100) + 1;
+			float Dis = 0;
+			switch(Action){
+			case GameAction.Def:
+				//steal push Def
+				if(ballController != null){
+					Dis = getDis(ballController, Npc);
+					
+					if(!Npc.IsSteal){
+						if(Dis <= PushPlayerDis && pushRate < 50){
+							
+						}else if(Dis <= StealBallDis && stealRate < 50 && ballController.Invincible == 0 && Npc.CoolDownSteal == 0){
+							if(!Npc.IsSteal){
+								Npc.CoolDownSteal = Time.time + 3;
+								Npc.AniState(PlayerState.Steal, true, ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
+								if(stealRate < 5){
+									SetBall(Npc);
+									Npc.Invincible = Time.time + 5;
+								}
 							}
-						}
-					}else
-						Npc.AniState(PlayerState.Defence);
+						}else
+							Npc.AniState(PlayerState.Defence);
+					}
 				}
-			}
-			break;
-		case GameAction.Attack:
-			if(Npc == ballController){
-				//Dunk shoot shoot3 pass
-				
-				
-			}else{
-				//sup push
-				Dis = getDis(ballController, Npc); 
-				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
-				
-				float ShootPointDis = 0;
-				if(Npc.Team == TeamKind.Self)
-					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
-				else
-					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
-				
-				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
-					Npc.AniState(PlayerState.Jumper);
-					//Npc.Jump();
-				}else if(NearPlayer != null && pushRate < 50){
-					//Push
+				break;
+			case GameAction.Attack:
+				if(Npc == ballController){
+					//Dunk shoot shoot3 pass
 					
-				}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
-					//Sup
 					
+				}else{
+					//sup push
+					Dis = getDis(ballController, Npc); 
+					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
+					
+					float ShootPointDis = 0;
+					if(Npc.Team == TeamKind.Self)
+						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+					else
+						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+					
+					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+						Npc.AniState(PlayerState.Jumper);
+						//Npc.Jump();
+					}else if(NearPlayer != null && pushRate < 50){
+						//Push
+						
+					}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
+						//Sup
+						
+					}
 				}
-			}
-			break;
+				break;
+			}		
 		}
 	}
 
@@ -280,40 +284,31 @@ public class GameController : MonoBehaviour {
 				for(int i = 0 ; i < PlayerList.Count; i++){
 					if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
 						Vector3 Target = PlayerList[i].gameObject.transform.position;
+						Vector3 ShootPoint;
 						
-						if(Npc.Team == TeamKind.Self){
-							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
-							for(int j = 0 ; j < 10; j++){
-								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
-									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
-								else
-									break;
-							}
-							
-							Npc.TargetPos = NewTarget;
-						}else{
-							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
-							for(int j = 0 ; j < 10; j++){
-								if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
-									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
-								else
-									break;
-							}
-							
-							Npc.TargetPos = NewTarget;
+						if(Npc.Team == TeamKind.Self)
+							ShootPoint = SceneMgr.Inst.ShootPoint[1].transform.position;
+						else
+							ShootPoint = SceneMgr.Inst.ShootPoint[0].transform.position;
+
+						Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(ShootPoint.x, ShootPoint.z));
+						for(int j = 0 ; j < 10; j++){
+							if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
+								NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
+							else
+								break;
 						}
 						
+						Npc.TargetPos = NewTarget;
 						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
 						break;
 					}
 				}
 				break;
 			case GameAction.Attack:
-				if(!Npc.IsMove){
-					if(Npc.WaitMoveTime == 0)
-						SetMovePos(Npc);
-				}
-				
+				if(!Npc.IsMove && Npc.WaitMoveTime == 0)
+					SetMovePos(Npc);
+
 				if(Npc.WaitMoveTime == 0)
 					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
 				else if(Npc == ballController)
@@ -350,8 +345,6 @@ public class GameController : MonoBehaviour {
 		} else
 			return -1;
 	}
-
-
 
 	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
 		PlayerBehaviour Result = null;

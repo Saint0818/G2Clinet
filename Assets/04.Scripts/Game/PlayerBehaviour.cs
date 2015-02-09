@@ -111,6 +111,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float Invincible = 0;
 	public MoveType MoveKind = MoveType.BackAndForth;
 	public int Postion = 0;
+	public float CoolDownSteal = 0;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
 
@@ -134,6 +135,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if(Time.time >= Invincible)
 			Invincible = 0;
+
+		if(CoolDownSteal > 0 && Time.time >= CoolDownSteal)
+			CoolDownSteal = 0;
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
@@ -160,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
-		if (!CheckAction (ActionFlag.Action_IsSteal) && !CheckAction (ActionFlag.Action_IsJump)) {
+		if (!CheckAction (ActionFlag.Action_IsSteal) && !CheckAction (ActionFlag.Action_IsJump) && X != -100 && Z != -100) {
 			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 				SetSpeed(0);
@@ -200,7 +204,9 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.RunAndDrible);
 					else
 						AniState(PlayerState.Run);
-					fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
+
+					if(journeyLength != 0)
+						fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
 				}
 
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
@@ -316,6 +322,9 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			mTargetPos = value;
 			MoveTurn = 0;
+			startMoveTime = 0;
+			journeyLength = 0;
+			DelActionFlag(ActionFlag.Action_IsRun);
 		}
 		get{
 			return mTargetPos;
