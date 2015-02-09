@@ -89,7 +89,8 @@ public class GameController : MonoBehaviour {
 
 	private void TouchDown (Gesture gesture){
 		NoAiTime = CountBackSecs;
-		ballController.TargetPos = new Vector2 (-100, -100);
+		if(ballController != null)
+			ballController.TargetPos = new Vector2 (-100, -100);
 	}
 
 	public void InitGame(){
