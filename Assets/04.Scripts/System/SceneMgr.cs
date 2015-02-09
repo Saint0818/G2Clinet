@@ -410,14 +410,14 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 //		}
 
 		//TODO: Temp-------
-		floorIndex = -1;
+		floorIndex = 0;
 		basketIndex = 3;
 		no = 3;
 		CameraMgr.Inst.SetCamMode(CameraMgr.CamMode.HorizontalInGame);
 		RealBall.transform.localPosition = new Vector3 (0, 5, 0);
 		//------------------
 
-		ChangeStadium(no, color);
+//		ChangeStadium(no, color);
         ChangeFloor(floorIndex);
         ChangeBasket(basketIndex);
         CheckCollider();
