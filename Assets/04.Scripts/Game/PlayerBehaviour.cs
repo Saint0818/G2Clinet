@@ -104,7 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float curSpeed = 0;
 	public TeamKind Team;
 	public GameObject DummyBall;
-	public float jumpHight = 8;
+	public float jumpHight = 12;
 	public RunDistanceType RunArea;
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
