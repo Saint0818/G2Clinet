@@ -114,6 +114,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public float CoolDownSteal = 0;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
+	public float AirDrag = 0f;
+	private Vector2 drag = Vector2.zero;
 
 	void Awake()
 	{
@@ -124,6 +126,14 @@ public class PlayerBehaviour : MonoBehaviour
 	void Update()
 	{
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+
+		if (gameObject.transform.localPosition.y > 1f) {
+			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.1f); 
+			gameObject.rigidbody.drag = drag.y;
+		} else {
+			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.1f); 
+			gameObject.rigidbody.drag = drag.y;
+		}
 
 		if (Time.time - Timer >= 1){
 			Timer = Time.time;
@@ -276,6 +286,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
 				break;
 			case PlayerState.Block:
+				AddActionFlag(ActionFlag.Action_IsBlock);
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], true);
 				if(!CheckAction(ActionFlag.Action_IsBlock)){
 					if(DorotateTo)
