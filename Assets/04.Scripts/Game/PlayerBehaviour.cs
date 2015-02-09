@@ -190,12 +190,11 @@ public class PlayerBehaviour : MonoBehaviour
 					journeyLength = Vector3.Distance(gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z));
 				}
 			}else{
-				float fracJourney = 0;
+				float fracJourney = 0.045f;
 				SetSpeed(1);
 				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.Action_IsDefence)){
 					AniState(PlayerState.RunAndDefence);
-					fracJourney = 0.045f;
 				}else{
 					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
 						AniState(PlayerState.RunAndDrible);
@@ -253,8 +252,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDefence], true);
 				break;
 			case PlayerState.Jumper:
-				if(!CheckAction(ActionFlag.Action_IsJump))
-				{
+				if(!CheckAction(ActionFlag.Action_IsJump)){
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
 					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 					AddActionFlag(ActionFlag.Action_IsJump);
@@ -264,7 +262,6 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.Action_IsSteal)){
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsSteal], true);
 					AddActionFlag(ActionFlag.Action_IsSteal);
-					Debug.LogWarning(1111);
 				}
 				break;
 			case PlayerState.Pass:
@@ -272,8 +269,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Block:
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], true);
-				if(!CheckAction(ActionFlag.Action_IsBlock))
-				{
+				if(!CheckAction(ActionFlag.Action_IsBlock)){
 					if(DorotateTo)
 						gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, new Vector3(lookAtX, 3, lookAtZ), 60);
 					else
@@ -282,13 +278,11 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.Action_IsBlock);
 				}
 				break;
-
-		case PlayerState.Shootting:
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
-			Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
-			gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-
-			break;
+			case PlayerState.Shootting:
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
+				Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
+				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				break;
 		}
 	}
 
@@ -419,6 +413,7 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			case "Jumper":
 				Control.SetBool ("IsJump", false);
+				DelActionFlag(ActionFlag.Action_IsJump);
 				break;
 			case "StealEnd":
 				DelActionFlag(ActionFlag.Action_IsSteal);

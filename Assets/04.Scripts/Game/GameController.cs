@@ -251,6 +251,7 @@ public class GameController : MonoBehaviour {
 					ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
 				
 				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+					Npc.AniState(PlayerState.Jumper);
 					//Npc.Jump();
 				}else if(NearPlayer != null && pushRate < 50){
 					//Push
