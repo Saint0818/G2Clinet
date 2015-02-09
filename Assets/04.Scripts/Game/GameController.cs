@@ -529,10 +529,12 @@ public class GameController : MonoBehaviour {
 		case GameSituation.AttackA:
 			for(int i = 0; i < PlayerList.Count; i++)
 				PlayerList[i].ResetFlag();
+			UIGame.Get.ChangeControl(true);
 			break;
 		case GameSituation.AttackB:
 			for(int i = 0; i < PlayerList.Count; i++)
 				PlayerList[i].ResetFlag();
+			UIGame.Get.ChangeControl(false);
 			break;
 		case GameSituation.TeeA:
 			break;

@@ -226,15 +226,16 @@ public class PlayerBehaviour : MonoBehaviour
 	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
 	{
 		crtState = state;
-		for (int i = 1; i < AnimatorStates.Length; i++)
-			if(AnimatorStates[i] != string.Empty)
-				Control.SetBool(AnimatorStates[i], false);
+
 
 		if(DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
 
 		switch (state) {
 			case PlayerState.Idle:
+				for (int i = 1; i < AnimatorStates.Length; i++)
+					if(AnimatorStates[i] != string.Empty)
+						Control.SetBool(AnimatorStates[i], false);
 				break;
 			case PlayerState.Walk:
 				break;
@@ -242,6 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsRun], true);
 				break;
 			case PlayerState.Dribble:
+				AddActionFlag(ActionFlag.Action_IsDribble);
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				break;
 			case PlayerState.RunAndDrible:
@@ -285,10 +287,12 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Shootting:
-				AddActionFlag(ActionFlag.Action_IsJump);
-				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
-				Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
-				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				if(!CheckAction(ActionFlag.Action_IsJump) && CheckAction(ActionFlag.Action_IsDribble))
+				{
+					Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
+					Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
+					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				}
 				break;
 		}
 	}
