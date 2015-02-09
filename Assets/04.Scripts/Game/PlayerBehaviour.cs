@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
-		if (!CheckAction (ActionFlag.Action_IsSteal) && !CheckAction (ActionFlag.Action_IsJump) && X != -100 && Z != -100) {
+		if (!CheckAction (ActionFlag.Action_IsSteal) && !CheckAction (ActionFlag.Action_IsJump)) {
 			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 				SetSpeed(0);
@@ -285,6 +285,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Shootting:
+				AddActionFlag(ActionFlag.Action_IsJump);
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
 				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
@@ -434,6 +435,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.Action_IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsJump], false);
+				DelActionFlag(ActionFlag.Action_IsJump);
 				Debug.Log("ShootDown");
 				break;
 			case "BlockEnd":
