@@ -54,6 +54,8 @@ ModelImporter:
     100096: Bip01 Spine1
     100098: Bip01 Spine2
     100100: //RootNode
+    100102: DummyBall
+    100104: DummyHand
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -105,6 +107,8 @@ ModelImporter:
     400096: Bip01 Spine1
     400098: Bip01 Spine2
     400100: //RootNode
+    400102: DummyBall
+    400104: DummyHand
     7400000: DefenceStay
     9500000: //RootNode
   materials:
@@ -127,7 +131,7 @@ ModelImporter:
       name: DefenceStay
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 25
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -304,6 +308,11 @@ ModelImporter:
       - path: Bip01/Bip01 Pelvis/Bip01 Spine/Bip01 Spine1/Bip01 Spine2/Bip01 Neck/Bip01
           R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01
           R Finger21/Bip01 R Finger22/Bip01 R Finger2Nub
+        weight: 1
+      - path: Bip01/Bip01 Pelvis/Bip01 Spine/Bip01 Spine1/Bip01 Spine2/Bip01 Neck/Bip01
+          R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand
+        weight: 1
+      - path: DummyBall
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
