@@ -291,7 +291,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CheckCanUseControl()
 	{
-		if (!CheckAction(ActionFlag.IsJump))
+		if (!CheckAction(ActionFlag.IsJump) && 
+		    UIGame.Get.Game.situation != GameSituation.TeeA &&
+		    UIGame.Get.Game.situation != GameSituation.TeeB && 
+		    UIGame.Get.Game.situation != GameSituation.End)
 			return true;
 		else
 			return false;
