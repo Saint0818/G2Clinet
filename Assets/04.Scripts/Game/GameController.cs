@@ -21,7 +21,7 @@ public enum GameAction{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
-	private const int MaxPos = 4;
+	private const int MaxPos = 11;
 	private const float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
@@ -32,6 +32,8 @@ public class GameController : MonoBehaviour {
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
+	public PlayerBehaviour ShootController;
+
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private int NoAiTime = 0;
@@ -54,28 +56,71 @@ public class GameController : MonoBehaviour {
 		ShortRunAy_A [1] = new Vector2 (4, 5.9f);
 		ShortRunAy_A [2] = new Vector2 (0, 8);
 		ShortRunAy_A [3] = new Vector2 (-4.9f, 6.2f);
+		ShortRunAy_A [4] = new Vector2 (0, 4.5f);
+		ShortRunAy_A [5] = new Vector2 (4, 5.9f);
+		ShortRunAy_A [6] = new Vector2 (0, 8);
+		ShortRunAy_A [7] = new Vector2 (-4.9f, 6.2f);
+		ShortRunAy_A [8] = new Vector2 (0, 4.5f);
+		ShortRunAy_A [9] = new Vector2 (4, 5.9f);
+		ShortRunAy_A [10] = new Vector2 (0, 8);
 		ShortRunAy_B [0] = new Vector2 (0, -4.5f);
 		ShortRunAy_B [1] = new Vector2 (4, -5.9f);
 		ShortRunAy_B [2] = new Vector2 (0, -8);
 		ShortRunAy_B [3] = new Vector2 (-4.9f, -6.2f);
+		ShortRunAy_B [4] = new Vector2 (0, -4.5f);
+		ShortRunAy_B [5] = new Vector2 (4, -5.9f);
+		ShortRunAy_B [6] = new Vector2 (0, -8);
+		ShortRunAy_B [7] = new Vector2 (-4.9f, -6.2f);
+		ShortRunAy_B [8] = new Vector2 (0, -4.5f);
+		ShortRunAy_B [9] = new Vector2 (4, -5.9f);
+		ShortRunAy_B [10] = new Vector2 (0, -8);
 
-		MidRunAy_A [0] = new Vector2 (5.3f, 10);
-		MidRunAy_A [1] = new Vector2 (1.8f, 13);
-		MidRunAy_A [2] = new Vector2 (1.8f, 8.9f);
-		MidRunAy_A [3] = new Vector2 (5.3f, 13);
-		MidRunAy_B [0] = new Vector2 (5.3f, -10);
-		MidRunAy_B [1] = new Vector2 (1.8f, -13);
-		MidRunAy_B [2] = new Vector2 (1.8f, -8.9f);
-		MidRunAy_B [3] = new Vector2 (5.3f, -13);
+		MidRunAy_A [0] = new Vector2 (5.3f, 10);//5.3, 10
+		MidRunAy_A [1] = new Vector2 (1.8f, 13);//1.8, 13
+		MidRunAy_A [2] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
+		MidRunAy_A [3] = new Vector2 (5.3f, 13);//5.3, 13
+		MidRunAy_A [4] = new Vector2 (3, 14);//3, 14
+		MidRunAy_A [5] = new Vector2 (-5.3f, 10);//-5.3, 10
+		MidRunAy_A [6] = new Vector2 (-1.8f, 13);//-1.8, 13
+		MidRunAy_A [7] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
+		MidRunAy_A [8] = new Vector2 (-5.3f, 13);//-5.3, 13
+		MidRunAy_A [9] = new Vector2 (-5.3f, 10);//-5.3, 10
+		MidRunAy_A [10] = new Vector2 (-2.6f, 13);//-2.6, 13
+		MidRunAy_B [0] = new Vector2 (5.3f, -10);//5.3, 10
+		MidRunAy_B [1] = new Vector2 (1.8f, -13);//1.8, 13
+		MidRunAy_B [2] = new Vector2 (1.8f, -8.9f);//1.8, 8.9
+		MidRunAy_B [3] = new Vector2 (5.3f, -13);//5.3, 13
+		MidRunAy_B [4] = new Vector2 (3, -14);//3, 14
+		MidRunAy_B [5] = new Vector2 (-5.3f, -10);//-5.3, 10
+		MidRunAy_B [6] = new Vector2 (-1.8f, -13);//-1.8, 13
+		MidRunAy_B [7] = new Vector2 (-1.8f, -8.9f);//-1.8, 8.9
+		MidRunAy_B [8] = new Vector2 (-5.3f, -13);//-5.3, 13
+		MidRunAy_B [9] = new Vector2 (-5.3f, -10);//-5.3, 10
+		MidRunAy_B [10] = new Vector2 (-2.6f, -13);//-2.6, 13
 
-		LongRunAy_A [0] = new Vector2 (-5.3f, 10);
-		LongRunAy_A [1] = new Vector2 (-1.8f, 13);
-		LongRunAy_A [2] = new Vector2 (-1.8f, 8.9f);
-		LongRunAy_A [3] = new Vector2 (-5.3f, 13);
-		LongRunAy_B [0] = new Vector2 (-5.3f, -10);
-		LongRunAy_B [1] = new Vector2 (-1.8f, -13);
-		LongRunAy_B [2] = new Vector2 (-1.8f, -8.9f);
-		LongRunAy_B [3] = new Vector2 (-5.3f, -13);
+		LongRunAy_A [0] = new Vector2 (-5.3f, 10);//-5.3, 10
+		LongRunAy_A [1] = new Vector2 (-1.8f, 13);//-1.8, 13
+		LongRunAy_A [2] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
+		LongRunAy_A [3] = new Vector2 (-5.3f, 13);//-5.3, 13
+		LongRunAy_A [4] = new Vector2 (-5.3f, 10);//-5.3, 10
+		LongRunAy_A [5] = new Vector2 (-2.6f, 13);//-2.6, 13
+		LongRunAy_A [6] = new Vector2 (5.3f, 10);//5.3, 10
+		LongRunAy_A [7] = new Vector2 (1.8f, 13);//1.8, 13
+		LongRunAy_A [8] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
+		LongRunAy_A [9] = new Vector2 (5.3f, 13);//5.3, 13
+		LongRunAy_A [10] = new Vector2 (3, 14);//3, 14
+		LongRunAy_B [0] = new Vector2 (-5.3f, -10);//-5.3, 10
+		LongRunAy_B [1] = new Vector2 (-1.8f, -13);//-1.8, 13
+		LongRunAy_B [2] = new Vector2 (-1.8f, -8.9f);//-1.8, 8.9
+		LongRunAy_B [3] = new Vector2 (-5.3f, -13);//-5.3, 13
+		LongRunAy_B [4] = new Vector2 (-5.3f, -10);//-5.3, 10
+		LongRunAy_B [5] = new Vector2 (-2.6f, -13);//-2.6, 13
+		LongRunAy_B [6] = new Vector2 (5.3f, -10);//5.3, 10
+		LongRunAy_B [7] = new Vector2 (1.8f, -13);//1.8, 13
+		LongRunAy_B [8] = new Vector2 (1.8f, -8.9f);//1.8, 8.9
+		LongRunAy_B [9] = new Vector2 (5.3f, -13);//5.3, 13
+		LongRunAy_B [10] = new Vector2 (3, -14);//3, 14
+
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -87,6 +132,8 @@ public class GameController : MonoBehaviour {
 		EffectManager.Get.LoadGameEffect();
 		PlayerList.Clear ();
 		CreateTeam ();
+		ballController = null;
+		ShootController = null;
 	}
 
 	public void CreateTeam(){
@@ -215,8 +262,7 @@ public class GameController : MonoBehaviour {
 						ShootPointDis = getDis(ref Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
 					
 					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
-						Npc.AniState(PlayerState.Jumper);
-						//Npc.Jump();
+						//Npc.AniState(PlayerState.Jumper);
 					}else if(NearPlayer != null && pushRate < 50){
 						//Push
 						

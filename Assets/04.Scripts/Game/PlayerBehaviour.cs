@@ -187,6 +187,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.Action_IsDefence)){
+					SetSpeed(1);
 					AniState(PlayerState.RunAndDefence);
 				}else{
 					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject){
