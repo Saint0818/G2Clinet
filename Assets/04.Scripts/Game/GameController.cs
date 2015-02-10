@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void TouchDown (Gesture gesture){
-		if(UIGame.Get.Joystick.Visible && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+		if(UIGame.Get.Joystick.Visible && (situation == GameSituation.AttackA || situation == GameSituation.AttackB || situation == GameSituation.Opening))
 			NoAiTime = CountBackSecs;
 	}
 
@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour {
 		ShootController = null;
 		Catcher = null;
 		NoAiTime = 0;
+		situation = GameSituation.Opening;
 	}
 
 	public void CreateTeam(){
@@ -128,11 +129,11 @@ public class GameController : MonoBehaviour {
 					//AI
 					switch(situation){
 					case GameSituation.None:
-						if(BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(ref Npc);
+
 						break;
 					case GameSituation.Opening:
-
+						if(!Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(ref Npc);
 						break;
 					case GameSituation.AttackA:
 						if(Npc.Team == TeamKind.Self){
