@@ -22,14 +22,12 @@ public enum PlayerState
     Steal = 14, 
     Underdunk = 15, 
     Dunk1 = 17,
-    ShootStart = 18,
-    Shoot = 19,
     Pass2 = 20,
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
 	RunAndDefence = 23,
 	RunAndDrible = 24,
-	Shootting = 25
+	Shooting = 25
 }
 
 public enum TeamKind{
@@ -49,32 +47,6 @@ public enum MoveType{
 	Random = 2
 }
 
-public static class PlayerActions
-{
-    public const string Idle = "StayIdle";
-    public const string Walk = "Walk";
-    public const string Run = "Run";
-    public const string Block = "Block";
-    public const string Board = "Board";
-    public const string Catch = "Catch";
-    public const string Defence = "Defence";
-    public const string Dribble = "Dribble";
-    public const string Dunk = "Dunk2";
-    public const string Underdunk = "Underdunk";
-    public const string Fall = "Fall";
-    public const string Hookshot = "HookShot";
-    public const string Jumper = "ShootStart";
-    public const string Layup = "Layup";
-    public const string Pass = "Pass";
-    public const string Steal = "Steal";
-    public const string Gangnamstyle = "gangnamstyle";
-    public const string Stay = "Stay";
-    public const string FakeJumper = "FakeJumper";
-    public const string Shoot = "Shoot";
-    public const string ShootStart = "ShootStart";
-    public const string Pass2 = "Pass2";
-}
-
 public static class ActionFlag{
 	public const int Action_IsRun = 1;
 	public const int Action_IsDefence = 2;
@@ -89,9 +61,11 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
 	private bool canSteal = true;
-//	private bool canJump = true;
 	private bool canResetJump = false;
 	private bool stop = false;
+	private float startMoveTime = 0;
+	private float journeyLength = 0;
+	private Vector2 drag = Vector2.zero;
 
 	private const float MoveCheckValue = 1;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
@@ -112,10 +86,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public MoveType MoveKind = MoveType.BackAndForth;
 	public int Postion = 0;
 	public float CoolDownSteal = 0;
-	private float startMoveTime = 0;
-	private float journeyLength = 0;
 	public float AirDrag = 0f;
-	private Vector2 drag = Vector2.zero;
+
 
 	void Awake()
 	{
@@ -128,10 +100,10 @@ public class PlayerBehaviour : MonoBehaviour
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 
 		if (gameObject.transform.localPosition.y > 1f) {
-			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.1f); 
+			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
 			gameObject.rigidbody.drag = drag.y;
 		} else {
-			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.1f); 
+			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
 			gameObject.rigidbody.drag = drag.y;
 		}
 
@@ -237,7 +209,6 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		crtState = state;
 
-
 		if(DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
 
@@ -297,12 +268,11 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.Action_IsBlock);
 				}
 				break;
-			case PlayerState.Shootting:
+			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.Action_IsJump) && CheckAction(ActionFlag.Action_IsDribble))
 				{
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
-					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				}
 				break;
 		}
@@ -451,18 +421,20 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.Action_IsJump], false);
 				DelActionFlag(ActionFlag.Action_IsJump);
-				Debug.Log("ShootDown");
 				break;
 			case "BlockEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.Action_IsBlock], false);
 				DelActionFlag(ActionFlag.Action_IsBlock);
 				break;
-			case "Shotting":
+			case "Shooting":
 				if (UIGame.Get.Game.ballController.gameObject == gameObject) {
 					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
-					UIGame.Get.Game.SetBallState(PlayerState.Shoot);
+					UIGame.Get.Game.SetBallState(PlayerState.Shooting);
 					SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
 				}
+				break;
+			case "ShootJump":
+				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
 		}
 	}

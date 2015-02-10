@@ -27,6 +27,9 @@ public class GameController : MonoBehaviour {
 	private const float PushPlayerDis = 1;
 	private const float NearEnemyDis = 1;
 
+	public bool ShootInto0 = false;
+	public bool ShootInto1 = false;
+
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour ballController;
 	public GameSituation situation = GameSituation.None;
@@ -209,7 +212,7 @@ public class GameController : MonoBehaviour {
 			case GameAction.Attack:
 				if(Npc == ballController){
 					//Dunk shoot shoot3 pass
-					Npc.AniState(PlayerState.Shoot);
+					Npc.AniState(PlayerState.Shooting);
 					
 				}else{
 					//sup push
@@ -384,7 +387,7 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(false);
 			break;
-			case PlayerState.Shoot: 
+			case PlayerState.Shooting: 
 				SceneMgr.Inst.RealBall.transform.parent = null;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
@@ -491,6 +494,17 @@ public class GameController : MonoBehaviour {
 		}
 
 		return Result;
+	}
+
+	public void PlusScore(int team)
+	{
+		ShootInto0 = false;
+		ShootInto1 = false;
+		
+		if (UIGame.Get.IsStart) {
+		
+		}
+
 	}
 
 	private void ChangeSituation(GameSituation GS){

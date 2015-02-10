@@ -4,9 +4,10 @@ using System.Collections;
 public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
-	public GameJoystick Joystick = null;
-	public GameController Game;
 	public bool IsStart = true;
+
+	private GameJoystick Joystick = null;
+	public GameController Game;
 	public GameObject[] ControlButtonGroup= new GameObject[2];
 	
 	public static bool Visible
@@ -70,7 +71,7 @@ public class UIGame : UIBase {
 		if(Game.ballController)
 		{
 			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.ballController.Team.GetHashCode()].transform.position;
-			Game.PlayerList [0].AniState (PlayerState.Shootting, true, pos.x, pos.z);
+			Game.PlayerList [0].AniState (PlayerState.Shooting, true, pos.x, pos.z);
 		}
 	}
 
