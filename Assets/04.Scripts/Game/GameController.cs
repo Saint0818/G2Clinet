@@ -21,7 +21,6 @@ public enum GameAction{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
-	private const int MaxPos = 11;
 	private const float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
@@ -37,12 +36,9 @@ public class GameController : MonoBehaviour {
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private int NoAiTime = 0;
-	public Vector2 [] ShortRunAy_A = new Vector2[MaxPos];
-	public Vector2 [] MidRunAy_A = new Vector2[MaxPos];
-	public Vector2 [] LongRunAy_A = new Vector2[MaxPos];
-	public Vector2 [] ShortRunAy_B = new Vector2[MaxPos];
-	public Vector2 [] MidRunAy_B = new Vector2[MaxPos];
-	public Vector2 [] LongRunAy_B = new Vector2[MaxPos];
+	public Vector2 [] BaseRunAy_A = new Vector2[4];
+	public Vector2 [] BaseRunAy_B = new Vector2[11];
+	public Vector2 [] BaseRunAy_C = new Vector2[11];
 
 	void Start () {
 		EasyTouch.On_TouchDown += TouchDown;
@@ -52,75 +48,34 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		ShortRunAy_A [0] = new Vector2 (0, 4.5f);
-		ShortRunAy_A [1] = new Vector2 (4, 5.9f);
-		ShortRunAy_A [2] = new Vector2 (0, 8);
-		ShortRunAy_A [3] = new Vector2 (-4.9f, 6.2f);
-		ShortRunAy_A [4] = new Vector2 (0, 4.5f);
-		ShortRunAy_A [5] = new Vector2 (4, 5.9f);
-		ShortRunAy_A [6] = new Vector2 (0, 8);
-		ShortRunAy_A [7] = new Vector2 (-4.9f, 6.2f);
-		ShortRunAy_A [8] = new Vector2 (0, 4.5f);
-		ShortRunAy_A [9] = new Vector2 (4, 5.9f);
-		ShortRunAy_A [10] = new Vector2 (0, 8);
-		ShortRunAy_B [0] = new Vector2 (0, -4.5f);
-		ShortRunAy_B [1] = new Vector2 (4, -5.9f);
-		ShortRunAy_B [2] = new Vector2 (0, -8);
-		ShortRunAy_B [3] = new Vector2 (-4.9f, -6.2f);
-		ShortRunAy_B [4] = new Vector2 (0, -4.5f);
-		ShortRunAy_B [5] = new Vector2 (4, -5.9f);
-		ShortRunAy_B [6] = new Vector2 (0, -8);
-		ShortRunAy_B [7] = new Vector2 (-4.9f, -6.2f);
-		ShortRunAy_B [8] = new Vector2 (0, -4.5f);
-		ShortRunAy_B [9] = new Vector2 (4, -5.9f);
-		ShortRunAy_B [10] = new Vector2 (0, -8);
+		BaseRunAy_A [0] = new Vector2 (0, 4.5f);
+		BaseRunAy_A [1] = new Vector2 (4, 5.9f);
+		BaseRunAy_A [2] = new Vector2 (0, 8);
+		BaseRunAy_A [3] = new Vector2 (-4.9f, 6.2f);
 
-		MidRunAy_A [0] = new Vector2 (5.3f, 10);//5.3, 10
-		MidRunAy_A [1] = new Vector2 (1.8f, 13);//1.8, 13
-		MidRunAy_A [2] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
-		MidRunAy_A [3] = new Vector2 (5.3f, 13);//5.3, 13
-		MidRunAy_A [4] = new Vector2 (3, 14);//3, 14
-		MidRunAy_A [5] = new Vector2 (-5.3f, 10);//-5.3, 10
-		MidRunAy_A [6] = new Vector2 (-1.8f, 13);//-1.8, 13
-		MidRunAy_A [7] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
-		MidRunAy_A [8] = new Vector2 (-5.3f, 13);//-5.3, 13
-		MidRunAy_A [9] = new Vector2 (-5.3f, 10);//-5.3, 10
-		MidRunAy_A [10] = new Vector2 (-2.6f, 13);//-2.6, 13
-		MidRunAy_B [0] = new Vector2 (5.3f, -10);//5.3, 10
-		MidRunAy_B [1] = new Vector2 (1.8f, -13);//1.8, 13
-		MidRunAy_B [2] = new Vector2 (1.8f, -8.9f);//1.8, 8.9
-		MidRunAy_B [3] = new Vector2 (5.3f, -13);//5.3, 13
-		MidRunAy_B [4] = new Vector2 (3, -14);//3, 14
-		MidRunAy_B [5] = new Vector2 (-5.3f, -10);//-5.3, 10
-		MidRunAy_B [6] = new Vector2 (-1.8f, -13);//-1.8, 13
-		MidRunAy_B [7] = new Vector2 (-1.8f, -8.9f);//-1.8, 8.9
-		MidRunAy_B [8] = new Vector2 (-5.3f, -13);//-5.3, 13
-		MidRunAy_B [9] = new Vector2 (-5.3f, -10);//-5.3, 10
-		MidRunAy_B [10] = new Vector2 (-2.6f, -13);//-2.6, 13
+		BaseRunAy_B [0] = new Vector2 (5.3f, 10);//5.3, 10
+		BaseRunAy_B [1] = new Vector2 (1.8f, 13);//1.8, 13
+		BaseRunAy_B [2] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
+		BaseRunAy_B [3] = new Vector2 (5.3f, 13);//5.3, 13
+		BaseRunAy_B [4] = new Vector2 (3, 14);//3, 14
+		BaseRunAy_B [5] = new Vector2 (-5.3f, 10);//-5.3, 10
+		BaseRunAy_B [6] = new Vector2 (-1.8f, 13);//-1.8, 13
+		BaseRunAy_B [7] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
+		BaseRunAy_B [8] = new Vector2 (-5.3f, 13);//-5.3, 13
+		BaseRunAy_B [9] = new Vector2 (-5.3f, 10);//-5.3, 10
+		BaseRunAy_B [10] = new Vector2 (-2.6f, 13);//-2.6, 13
 
-		LongRunAy_A [0] = new Vector2 (-5.3f, 10);//-5.3, 10
-		LongRunAy_A [1] = new Vector2 (-1.8f, 13);//-1.8, 13
-		LongRunAy_A [2] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
-		LongRunAy_A [3] = new Vector2 (-5.3f, 13);//-5.3, 13
-		LongRunAy_A [4] = new Vector2 (-5.3f, 10);//-5.3, 10
-		LongRunAy_A [5] = new Vector2 (-2.6f, 13);//-2.6, 13
-		LongRunAy_A [6] = new Vector2 (5.3f, 10);//5.3, 10
-		LongRunAy_A [7] = new Vector2 (1.8f, 13);//1.8, 13
-		LongRunAy_A [8] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
-		LongRunAy_A [9] = new Vector2 (5.3f, 13);//5.3, 13
-		LongRunAy_A [10] = new Vector2 (3, 14);//3, 14
-		LongRunAy_B [0] = new Vector2 (-5.3f, -10);//-5.3, 10
-		LongRunAy_B [1] = new Vector2 (-1.8f, -13);//-1.8, 13
-		LongRunAy_B [2] = new Vector2 (-1.8f, -8.9f);//-1.8, 8.9
-		LongRunAy_B [3] = new Vector2 (-5.3f, -13);//-5.3, 13
-		LongRunAy_B [4] = new Vector2 (-5.3f, -10);//-5.3, 10
-		LongRunAy_B [5] = new Vector2 (-2.6f, -13);//-2.6, 13
-		LongRunAy_B [6] = new Vector2 (5.3f, -10);//5.3, 10
-		LongRunAy_B [7] = new Vector2 (1.8f, -13);//1.8, 13
-		LongRunAy_B [8] = new Vector2 (1.8f, -8.9f);//1.8, 8.9
-		LongRunAy_B [9] = new Vector2 (5.3f, -13);//5.3, 13
-		LongRunAy_B [10] = new Vector2 (3, -14);//3, 14
-
+		BaseRunAy_C [0] = new Vector2 (-5.3f, 10);//-5.3, 10
+		BaseRunAy_C [1] = new Vector2 (-1.8f, 13);//-1.8, 13
+		BaseRunAy_C [2] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
+		BaseRunAy_C [3] = new Vector2 (-5.3f, 13);//-5.3, 13
+		BaseRunAy_C [4] = new Vector2 (-5.3f, 10);//-5.3, 10
+		BaseRunAy_C [5] = new Vector2 (-2.6f, 13);//-2.6, 13
+		BaseRunAy_C [6] = new Vector2 (5.3f, 10);//5.3, 10
+		BaseRunAy_C [7] = new Vector2 (1.8f, 13);//1.8, 13
+		BaseRunAy_C [8] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
+		BaseRunAy_C [9] = new Vector2 (5.3f, 13);//5.3, 13
+		BaseRunAy_C [10] = new Vector2 (3, 14);//3, 14
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -134,17 +89,17 @@ public class GameController : MonoBehaviour {
 		CreateTeam ();
 		ballController = null;
 		ShootController = null;
+		NoAiTime = 0;
 	}
 
 	public void CreateTeam(){
-		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Short, new Vector3(0, 0, 0), MoveType.PingPong, 0));
-		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, RunDistanceType.Mid, new Vector3(5, 0, -2), MoveType.PingPong, 1));
-		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, RunDistanceType.Long, new Vector3(-5, 0, -2), MoveType.PingPong, 2));
-//
-//
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, RunDistanceType.Mid, new Vector3(5, 0, 2), MoveType.Cycle, 1));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, RunDistanceType.Long, new Vector3(-5, 0, 2), MoveType.Random, 2));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, 0));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, new Vector3(5, 0, -2), BaseRunAy_B, MoveType.PingPong, 1));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, new Vector3(-5, 0, -2), BaseRunAy_C, MoveType.PingPong, 2));
+
+		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, new Vector3(0, 0, 2), BaseRunAy_A, MoveType.PingPong, 0));	
+		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, new Vector3(5, 0, 2), BaseRunAy_B, MoveType.PingPong, 1));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, new Vector3(-5, 0, 2), BaseRunAy_C, MoveType.PingPong, 2));
 		UIGame.Get.targetPlayer = PlayerList [0];
 	}
 
@@ -445,89 +400,41 @@ public class GameController : MonoBehaviour {
 		case MoveType.PingPong:
 			//0=>1=>2=>3=>2=>1=>0
 			Npc.MoveIndex++;
-			if(Npc.MoveIndex >= (MaxPos * 2) - 2)
+			if(Npc.MoveIndex >= (Npc.RunPosAy.Length * 2) - 2)
 				Npc.MoveIndex = 0;
 
-			if(Npc.MoveIndex >= MaxPos){
-				Index = (MaxPos - 1)* 2 - Npc.MoveIndex;
-
-				if(Npc.Team == TeamKind.Self){
-					if(Npc.RunArea == RunDistanceType.Short)
-						Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Mid)
-						Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Long)
-						Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
-				}else if(Npc.Team == TeamKind.Npc){
-					if(Npc.RunArea == RunDistanceType.Short)
-						Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Mid)
-						Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Long)
-						Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
-				}
+			if(Npc.MoveIndex >= Npc.RunPosAy.Length){
+				Index = (Npc.RunPosAy.Length - 1)* 2 - Npc.MoveIndex;
+				if(Npc.Team == TeamKind.Self)
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+				else
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
 			}else{
 				Index = Npc.MoveIndex;
-
-				if(Npc.Team == TeamKind.Self){
-					if(Npc.RunArea == RunDistanceType.Short)
-						Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Mid)
-						Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Long)
-						Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
-				}else if(Npc.Team == TeamKind.Npc){
-					if(Npc.RunArea == RunDistanceType.Short)
-						Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Mid)
-						Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
-					else if(Npc.RunArea == RunDistanceType.Long)
-						Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
-				}
+				if(Npc.Team == TeamKind.Self)
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+				else
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
 			}
 			break;
 		case MoveType.Cycle:
 			//0=>1=>2=>3=>0=>1=>2=>3
 			Npc.MoveIndex++;
-			if(Npc.MoveIndex >= MaxPos)
+			if(Npc.MoveIndex >= Npc.RunPosAy.Length)
 				Npc.MoveIndex = 0;
 
 			Index = Npc.MoveIndex;
-
-			if(Npc.Team == TeamKind.Self){
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
-			}else if(Npc.Team == TeamKind.Npc){
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
-			}
+			if(Npc.Team == TeamKind.Self)
+				Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+			else
+				Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
 			break;
 		case MoveType.Random:
-			Index = Random.Range(0, MaxPos);
-
-			if(Npc.Team == TeamKind.Self){
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy_A[Index].x, ShortRunAy_A[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy_A[Index].x, MidRunAy_A[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy_A[Index].x, LongRunAy_A[Index].y);
-			}else if(Npc.Team == TeamKind.Npc){
-				if(Npc.RunArea == RunDistanceType.Short)
-					Npc.TargetPos = new Vector2(ShortRunAy_B[Index].x, ShortRunAy_B[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Mid)
-					Npc.TargetPos = new Vector2(MidRunAy_B[Index].x, MidRunAy_B[Index].y);
-				else if(Npc.RunArea == RunDistanceType.Long)
-					Npc.TargetPos = new Vector2(LongRunAy_B[Index].x, LongRunAy_B[Index].y);
-			}
+			Index = Random.Range(0, Npc.RunPosAy.Length);
+			if(Npc.Team == TeamKind.Self)
+				Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+			else
+				Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
 			break;
 		}
 

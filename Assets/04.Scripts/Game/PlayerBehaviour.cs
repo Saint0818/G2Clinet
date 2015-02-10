@@ -35,12 +35,6 @@ public enum TeamKind{
 	Npc = 1
 }
 
-public enum RunDistanceType{
-	Short = 0,
-	Mid = 1,
-	Long = 2
-}
-
 public enum MoveType{
 	PingPong = 0,
 	Cycle = 1,
@@ -79,7 +73,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public GameObject DummyBall;
 	public float jumpHight = 12;
-	public RunDistanceType RunArea;
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
@@ -87,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public int Postion = 0;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
-
+	public Vector2 [] RunPosAy;
 
 	void Awake()
 	{
