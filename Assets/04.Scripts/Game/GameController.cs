@@ -87,8 +87,9 @@ public class GameController : MonoBehaviour {
 		EffectManager.Get.LoadGameEffect();
 		PlayerList.Clear ();
 		CreateTeam ();
-		ballController = null;
+		BallController = null;
 		ShootController = null;
+		Catcher = null;
 		NoAiTime = 0;
 	}
 
