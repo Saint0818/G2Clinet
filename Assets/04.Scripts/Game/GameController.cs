@@ -21,7 +21,7 @@ public enum GameAction{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
-	private const float PickBallDis = 2.5f;
+	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
 	private const float NearEnemyDis = 1;
@@ -424,6 +424,7 @@ public class GameController : MonoBehaviour {
 
 	public void SetBallController(PlayerBehaviour p = null){
 		BallController = p;
+		Catcher = null;
 	}
 
 	private Vector2 SetMovePos(ref PlayerBehaviour Npc){
