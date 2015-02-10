@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ec45255591fef0459762f4de46a7f29
+guid: b92b7d8cee6022b46a374448e3a5555b
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -109,7 +109,7 @@ ModelImporter:
     400100: //RootNode
     400102: DummyBall
     400104: DummyHand
-    7400000: Move
+    7400000: Dash
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Move
+      name: Dash
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 23
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
