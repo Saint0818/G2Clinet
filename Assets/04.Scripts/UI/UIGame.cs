@@ -70,14 +70,16 @@ public class UIGame : UIBase {
 
 	public void DoPass()
 	{
-		
+		if (Game.BallController && targetPlayer && Game.BallController.Team == 0 && Game.BallController.gameObject != targetPlayer.gameObject) {
+				
+		}
 	}
 
 	public void DoShoot()
 	{
-		if(Game.ballController)
+		if(Game.BallController)
 		{
-			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.ballController.Team.GetHashCode()].transform.position;
+			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.BallController.Team.GetHashCode()].transform.position;
 			Game.PlayerList [0].AniState (PlayerState.Shooting, true, pos.x, pos.z);
 		}
 	}
@@ -89,8 +91,8 @@ public class UIGame : UIBase {
 
 	public void DoSteal()
 	{
-		if(Game.ballController)
-			targetPlayer.AniState (PlayerState.Steal, true, Game.ballController.transform.position.x, Game.ballController.transform.position.z);
+		if(Game.BallController)
+			targetPlayer.AniState (PlayerState.Steal, true, Game.BallController.transform.position.x, Game.BallController.transform.position.z);
 	}
 
 	public void DoSkill()
@@ -102,12 +104,12 @@ public class UIGame : UIBase {
 	{
 		bool isturn = false;
 		Vector3 pos = Vector3.zero;
-		if (Game.ballController) 
+		if (Game.BallController) 
 		{
-			if(Vector3.Distance(targetPlayer.gameObject.transform.position, Game.ballController.gameObject.transform.position) < 5f)
+			if(Vector3.Distance(targetPlayer.gameObject.transform.position, Game.BallController.gameObject.transform.position) < 5f)
 			{
 				isturn = true;
-				pos = Game.ballController.gameObject.transform.position;
+				pos = Game.BallController.gameObject.transform.position;
 
 			}
 		} else 

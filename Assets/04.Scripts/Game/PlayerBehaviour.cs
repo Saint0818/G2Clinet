@@ -54,8 +54,6 @@ public static class ActionFlag{
 public class PlayerBehaviour : MonoBehaviour
 {
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
-	private bool canSteal = true;
-	private bool canResetJump = false;
 	private bool stop = false;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
@@ -126,7 +124,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			if (Mathf.Abs (move.joystickAxis.y) > 0)
 			{
-				if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
+				if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
 					AniState(PlayerState.RunAndDrible);
 				else
 					AniState(PlayerState.Run);
@@ -150,12 +148,12 @@ public class PlayerBehaviour : MonoBehaviour
 				MoveTurn = 0;
 				startMoveTime = 0;
 				journeyLength = 0;
-				AniState(PlayerState.Idle);
+//				AniState(PlayerState.Idle);
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.Action_IsDefence)){
 					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
 
-					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject){
+					if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
 						if(Team == TeamKind.Self)
 							rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
 						else
@@ -166,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
 					WaitMoveTime = 0;
 					rotateTo(lookAtX, loolAtZ);
 				}
-			}else if(!CheckAction(ActionFlag.Action_IsDefence) && UIGame.Get.Game.ballController != null && MoveTurn >= 0 && MoveTurn <= 5){
+			}else if(!CheckAction(ActionFlag.Action_IsDefence) && UIGame.Get.Game.BallController != null && MoveTurn >= 0 && MoveTurn <= 5){
 				AddActionFlag(ActionFlag.Action_IsRun);
 				MoveTurn++;
 				rotateTo(X, Z, 10);
@@ -183,7 +181,7 @@ public class PlayerBehaviour : MonoBehaviour
 					SetSpeed(1);
 					AniState(PlayerState.RunAndDefence);
 				}else{
-					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject){
+					if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
 						SetSpeed(1);
 						AniState(PlayerState.RunAndDrible);
 					}else{
@@ -204,7 +202,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void OnJoystickMoveEnd(MovingJoystick move)
 	{
 		SetSpeed(0);
-		if (UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
+		if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
 			AniState(PlayerState.Dribble);
 		else
 			AniState (PlayerState.Idle);
@@ -259,7 +257,8 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Pass:
-				Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
+				if(!CheckAction(ActionFlag.Action_IsPass))
+					Control.SetBool(AnimatorStates[ActionFlag.Action_IsPass], true);
 				break;
 			case PlayerState.Block:
 				AddActionFlag(ActionFlag.Action_IsBlock);
@@ -293,7 +292,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CheckCanUseControl()
 	{
-		if (!CheckAction(ActionFlag.Action_IsJump) && canSteal)
+		if (!CheckAction(ActionFlag.Action_IsJump))
 			return true;
 		else
 			return false;
@@ -434,7 +433,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.Action_IsBlock);
 				break;
 			case "Shooting":
-				if (UIGame.Get.Game.ballController.gameObject == gameObject) {
+				if (UIGame.Get.Game.BallController.gameObject == gameObject) {
 					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
 					UIGame.Get.Game.SetBallState(PlayerState.Shooting);
 					SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
@@ -442,6 +441,57 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case "ShootJump":
 				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				break;
+			case "Passing":
+				if(UIGame.Get.Game.Catcher)
+				{
+//					float ang = ElevationAngle(realBall.transform.position, UIGame.Get.Game.Catcher.transform.position);                                                                                                                           
+//						float shootAng = 30 + ang;
+//					shootAng = Mathf.Clamp(shootAng, 40, 60);
+//					
+//					Vector3 v = UIGame.Get.Game.Catcher.transform.position;
+//					if (UIGame.Get.Game.Catcher.HasTarget && !UIGame.Get.Game.Catcher.FollowTarget && 
+//					    UIGame.Get.Game.Catcher.rigidbody.velocity != Vector3.zero)
+//					{
+//						v = calculateTrajectory(UIGame.Get.Game.Catcher.transform.position, 
+//						                        UIGame.Get.Game.Catcher.Target, 
+//						                        UIGame.Get.Game.Catcher.rigidbody.velocity, 
+//						                        Vector3.Distance(UIGame.Get.Game.Catcher.transform.position, transform.position));
+//					}
+//					
+//					v.y = 1;
+//					Vector3 v2 = GetVelocity(realBall.transform.position, v, shootAng);
+//					
+//					if (UIGame.Visible && UIGame.Get.Game.situation > 2)
+//					{
+//						v2.x *= 3;
+//						v2.y = 0.3f;
+//						v2.z *= 3;
+//					} else
+//					{
+//						float dis = Vector3.Distance(v, transform.position);
+//						if (dis <= 13)
+//						{
+//							RaycastHit hit;  
+//							LayerMask mask = 1 << LayerMask.NameToLayer("Player");
+//							Vector3 fwd = transform.TransformDirection(Vector3.forward);
+//							bool flag = false;
+//							if (Physics.Raycast(transform.position, fwd, out hit, 40, mask))
+//							{
+//								flag = hit.collider.gameObject.GetComponent<PlayerBehaviour>() != UIGame.Get.Game.CatchController;
+//							}
+//							
+//							if (!flag)
+//							{
+//								v2.x *= 3;
+//								v2.y = 0.3f;
+//								v2.z *= 3;
+//							}
+//						}
+//					}
+//					
+//					realBall.rigidbody.velocity = v2;
+				}
 				break;
 		}
 	}
