@@ -42,7 +42,7 @@ public enum RunDistanceType{
 }
 
 public enum MoveType{
-	BackAndForth = 0,
+	PingPong = 0,
 	Cycle = 1,
 	Random = 2
 }
@@ -83,7 +83,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public int MoveIndex = -1;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public MoveType MoveKind = MoveType.BackAndForth;
+	public MoveType MoveKind = MoveType.PingPong;
 	public int Postion = 0;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
@@ -158,10 +158,14 @@ public class PlayerBehaviour : MonoBehaviour
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.Action_IsDefence)){
 					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
-					if(Team == TeamKind.Self)
-						rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
-					else
-						rotateTo(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z);
+
+					if(UIGame.Get.Game.ballController.gameObject == gameObject){
+						if(Team == TeamKind.Self)
+							rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
+						else
+							rotateTo(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z);
+					}else
+						rotateTo(lookAtX, loolAtZ);
 				}else{
 					WaitMoveTime = 0;
 					rotateTo(lookAtX, loolAtZ);
@@ -177,15 +181,19 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			}else{
 				float fracJourney = 0.045f;
-				SetSpeed(1);
+
 				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.Action_IsDefence)){
 					AniState(PlayerState.RunAndDefence);
 				}else{
-					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject)
+					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject){
+						SetSpeed(1);
 						AniState(PlayerState.RunAndDrible);
-					else
+					}else{
+						SetSpeed(0.3f);
 						AniState(PlayerState.Run);
+					}
+						
 
 					if(journeyLength != 0)
 						fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;

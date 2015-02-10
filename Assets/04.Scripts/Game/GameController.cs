@@ -21,7 +21,7 @@ public enum GameAction{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
-	private const int MaxPos = 6;
+	private const int MaxPos = 4;
 	private const float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
@@ -50,44 +50,32 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		ShortRunAy_A [0] = new Vector2 (0, 15);
-		ShortRunAy_A [1] = new Vector2 (5.2f, 15);
-		ShortRunAy_A [2] = new Vector2 (-4.1f, 15);
-		ShortRunAy_A [3] = new Vector2 (0, 12);
-		ShortRunAy_A [4] = new Vector2 (3.9f, 12);
-		ShortRunAy_A [5] = new Vector2 (-4.1f, 12);
-		ShortRunAy_B [0] = new Vector2 (0, -15);
-		ShortRunAy_B [1] = new Vector2 (5.2f, -15);
-		ShortRunAy_B [2] = new Vector2 (-4.1f, -15);
-		ShortRunAy_B [3] = new Vector2 (0, -12);
-		ShortRunAy_B [4] = new Vector2 (3.9f, -12);
-		ShortRunAy_B [5] = new Vector2 (-4.1f, -12);
+		ShortRunAy_A [0] = new Vector2 (0, 4.5f);
+		ShortRunAy_A [1] = new Vector2 (4, 5.9f);
+		ShortRunAy_A [2] = new Vector2 (0, 8);
+		ShortRunAy_A [3] = new Vector2 (-4.9f, 6.2f);
+		ShortRunAy_B [0] = new Vector2 (0, -4.5f);
+		ShortRunAy_B [1] = new Vector2 (4, -5.9f);
+		ShortRunAy_B [2] = new Vector2 (0, -8);
+		ShortRunAy_B [3] = new Vector2 (-4.9f, -6.2f);
 
-		MidRunAy_A [0] = new Vector2 (-3.6f, 10);
-		MidRunAy_A [1] = new Vector2 (4.6f, 10);
-		MidRunAy_A [2] = new Vector2 (5.5f, 14);
-		MidRunAy_A [3] = new Vector2 (-4.8f, 14);
-		MidRunAy_A [4] = new Vector2 (0, 9);
-		MidRunAy_A [5] = new Vector2 (4.4f, 9);
-		MidRunAy_B [0] = new Vector2 (-3.6f, -10);
-		MidRunAy_B [1] = new Vector2 (4.6f, -10);
-		MidRunAy_B [2] = new Vector2 (5.5f, -14);
-		MidRunAy_B [3] = new Vector2 (-4.8f, -14);
-		MidRunAy_B [4] = new Vector2 (0, -9);
-		MidRunAy_B [5] = new Vector2 (4.4f, -9);
+		MidRunAy_A [0] = new Vector2 (5.3f, 10);
+		MidRunAy_A [1] = new Vector2 (1.8f, 13);
+		MidRunAy_A [2] = new Vector2 (1.8f, 8.9f);
+		MidRunAy_A [3] = new Vector2 (5.3f, 13);
+		MidRunAy_B [0] = new Vector2 (5.3f, -10);
+		MidRunAy_B [1] = new Vector2 (1.8f, -13);
+		MidRunAy_B [2] = new Vector2 (1.8f, -8.9f);
+		MidRunAy_B [3] = new Vector2 (5.3f, -13);
 
-		LongRunAy_A [0] = new Vector2 (0, 5.7f);
-		LongRunAy_A [1] = new Vector2 (-5.4f, 8);
-		LongRunAy_A [2] = new Vector2 (6.7f, 8.9f);
-		LongRunAy_A [3] = new Vector2 (8.2f, 14);
-		LongRunAy_A [4] = new Vector2 (-8.2f, 14);
-		LongRunAy_A [5] = new Vector2 (4.82f, 4.26f);
-		LongRunAy_B [0] = new Vector2 (0, -5.7f);
-		LongRunAy_B [1] = new Vector2 (-5.4f, -8);
-		LongRunAy_B [2] = new Vector2 (6.7f, -8.9f);
-		LongRunAy_B [3] = new Vector2 (8.2f, -14);
-		LongRunAy_B [4] = new Vector2 (-8.2f, -14);
-		LongRunAy_B [5] = new Vector2 (4.82f, -4.26f);
+		LongRunAy_A [0] = new Vector2 (-5.3f, 10);
+		LongRunAy_A [1] = new Vector2 (-1.8f, 13);
+		LongRunAy_A [2] = new Vector2 (-1.8f, 8.9f);
+		LongRunAy_A [3] = new Vector2 (-5.3f, 13);
+		LongRunAy_B [0] = new Vector2 (-5.3f, -10);
+		LongRunAy_B [1] = new Vector2 (-1.8f, -13);
+		LongRunAy_B [2] = new Vector2 (-1.8f, -8.9f);
+		LongRunAy_B [3] = new Vector2 (-5.3f, -13);
 	}
 
 	private void TouchDown (Gesture gesture){
@@ -101,12 +89,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void CreateTeam(){
-		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Mid, new Vector3(0, 0, 0), MoveType.BackAndForth, 0));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, RunDistanceType.Mid, new Vector3(5, 0, -2), MoveType.BackAndForth, 1));
-//		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, RunDistanceType.Long, new Vector3(-5, 0, -2), MoveType.Cycle, 2));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, RunDistanceType.Short, new Vector3(0, 0, 0), MoveType.PingPong, 0));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, RunDistanceType.Mid, new Vector3(5, 0, -2), MoveType.PingPong, 1));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, RunDistanceType.Long, new Vector3(-5, 0, -2), MoveType.PingPong, 2));
 //
 //
-		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
+//		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, RunDistanceType.Short, new Vector3(0, 0, 2), MoveType.BackAndForth, 0));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, RunDistanceType.Mid, new Vector3(5, 0, 2), MoveType.Cycle, 1));
 //		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, RunDistanceType.Long, new Vector3(-5, 0, 2), MoveType.Random, 2));
 		UIGame.Get.targetPlayer = PlayerList [0];
@@ -212,7 +200,7 @@ public class GameController : MonoBehaviour {
 			case GameAction.Attack:
 				if(Npc == ballController){
 					//Dunk shoot shoot3 pass
-					Npc.AniState(PlayerState.Shooting);
+
 					
 				}else{
 					//sup push
@@ -282,9 +270,12 @@ public class GameController : MonoBehaviour {
 				if(!Npc.IsMove && Npc.WaitMoveTime == 0)
 					SetMovePos(ref Npc);
 
-				if(Npc.WaitMoveTime == 0)
-					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
-				else if(Npc == ballController)
+				if(Npc.WaitMoveTime == 0){
+					if(ballController != null && ballController != Npc){
+						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, ballController.transform.position.x, ballController.transform.position.z);
+					}else
+						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+				}else if(Npc == ballController)
 					Npc.AniState(PlayerState.Dribble);
 				break;
 			}
@@ -404,7 +395,7 @@ public class GameController : MonoBehaviour {
 		Vector2 Result = Vector2.zero;
 		int Index = 0;
 		switch(Npc.MoveKind){
-		case MoveType.BackAndForth:
+		case MoveType.PingPong:
 			//0=>1=>2=>3=>2=>1=>0
 			Npc.MoveIndex++;
 			if(Npc.MoveIndex >= (MaxPos * 2) - 2)

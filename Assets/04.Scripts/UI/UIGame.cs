@@ -6,7 +6,7 @@ public class UIGame : UIBase {
 	private const string UIName = "UIGame";
 	public bool IsStart = true;
 
-	private GameJoystick Joystick = null;
+	public GameJoystick Joystick = null;
 	public GameController Game;
 	public GameObject[] ControlButtonGroup= new GameObject[2];
 	
