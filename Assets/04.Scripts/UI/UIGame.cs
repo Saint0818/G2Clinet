@@ -5,6 +5,10 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 	public bool IsStart = true;
+	public int[] MaxScores = {13, 13};
+	public int[] Scores = {0, 0};
+
+	private UILabel[] scoresLabel = new UILabel[2];
 
 	public GameJoystick Joystick = null;
 	public GameController Game;
@@ -43,6 +47,9 @@ public class UIGame : UIBase {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
+
+		scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
+		scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
 
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
@@ -117,9 +124,25 @@ public class UIGame : UIBase {
 		else
 			Game.PlayerList [0].AniState (PlayerState.Block);
 	}
+
+	public void PlusScore(int team, int score)
+	{
+		Scores [team] += score;
+		scoresLabel[team].text = Scores [team].ToString ();
+
+		if (Scores [team] >= MaxScores [team]) {
+			if(team == 0)
+				UIHint.Get.ShowHint("You Win", Color.blue);
+			else
+				UIHint.Get.ShowHint("You Lost", Color.red);
+		}
+	}
 	
 	protected override void InitData() {
-		
+		MaxScores[0] = 13;
+		MaxScores[1] = 13;
+		scoresLabel[0].text = "0";
+		scoresLabel[1].text = "0";
 	}
 	
 	protected override void OnShow(bool isShow) {

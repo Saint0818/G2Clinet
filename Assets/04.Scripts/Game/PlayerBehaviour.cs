@@ -104,7 +104,10 @@ public class PlayerBehaviour : MonoBehaviour
 			gameObject.rigidbody.drag = drag.y;
 		} else {
 			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
-			gameObject.rigidbody.drag = drag.y;
+			if(drag.y >= 0)
+				gameObject.rigidbody.drag = drag.y;
+			else
+				gameObject.rigidbody.drag = 0;
 		}
 
 		if (Time.time - Timer >= 1){

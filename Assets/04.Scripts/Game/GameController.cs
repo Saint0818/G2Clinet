@@ -493,9 +493,8 @@ public class GameController : MonoBehaviour {
 		ShootInto1 = false;
 		
 		if (UIGame.Get.IsStart) {
-		
+			UIGame.Get.PlusScore(team, 2);
 		}
-
 	}
 
 	private void ChangeSituation(GameSituation GS){
