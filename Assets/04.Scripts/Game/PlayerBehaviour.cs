@@ -162,7 +162,7 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.Action_IsDefence)){
 					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
 
-					if(UIGame.Get.Game.ballController.gameObject == gameObject){
+					if(UIGame.Get.Game.ballController && UIGame.Get.Game.ballController.gameObject == gameObject){
 						if(Team == TeamKind.Self)
 							rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
 						else
@@ -282,6 +282,8 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.Action_IsJump) && CheckAction(ActionFlag.Action_IsDribble))
 				{
+					AddActionFlag(ActionFlag.Action_IsJump);
+					AddActionFlag(ActionFlag.Action_IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsDribble], true);
 					Control.SetBool(AnimatorStates[ActionFlag.Action_IsJump], true);
 				}

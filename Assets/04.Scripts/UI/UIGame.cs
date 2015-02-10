@@ -152,7 +152,12 @@ public class UIGame : UIBase {
 	public PlayerBehaviour targetPlayer{
 		set{
 			if(Joystick != null)
+			{
 				Joystick.targetPlayer = value;
+
+				if(EffectManager.Get.SelectEffectScript&& Joystick.targetPlayer.gameObject)
+					EffectManager.Get.SelectEffectScript.SetTarget( Joystick.targetPlayer.gameObject);
+			}
 		}
 		get{
 			if(Joystick != null)

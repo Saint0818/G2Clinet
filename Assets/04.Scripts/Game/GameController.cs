@@ -84,6 +84,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void InitGame(){
+		EffectManager.Get.LoadGameEffect();
 		PlayerList.Clear ();
 		CreateTeam ();
 	}
