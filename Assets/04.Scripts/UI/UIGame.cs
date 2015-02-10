@@ -4,7 +4,7 @@ using System.Collections;
 public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
-	private GameJoystick Joystick = null;
+	public GameJoystick Joystick = null;
 	public GameController Game;
 	public bool IsStart = true;
 	public GameObject[] ControlButtonGroup= new GameObject[2];
@@ -41,6 +41,7 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
+		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");

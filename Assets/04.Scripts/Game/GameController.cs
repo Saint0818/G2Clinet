@@ -88,7 +88,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void TouchDown (Gesture gesture){
-		NoAiTime = CountBackSecs;
+		if(UIGame.Get.Joystick.Visible)
+			NoAiTime = CountBackSecs;
 	}
 
 	public void InitGame(){
@@ -123,36 +124,42 @@ public class GameController : MonoBehaviour {
 				PlayerBehaviour Npc = PlayerList[i];
 
 				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == UIGame.Get.targetPlayer){
-					if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-						SetBall(Npc);
+					if(ballController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						SetBall(ref Npc);
 					continue;
 				}else{
 					//AI
 					switch(situation){
 					case GameSituation.None:
-						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						if(ballController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(ref Npc);
 						break;
 					case GameSituation.Opening:
 
 						break;
 					case GameSituation.AttackA:
-						if(Npc.Team == TeamKind.Self)
-							AttackAndDef(Npc, GameAction.Attack);
-						else 
-							AttackAndDef(Npc, GameAction.Def);
+						if(Npc.Team == TeamKind.Self){
+							AttackAndDef(ref Npc, GameAction.Attack);
+							AIMove(ref Npc, GameAction.Attack);
+						}else{
+							AttackAndDef(ref Npc, GameAction.Def);
+							AIMove(ref Npc, GameAction.Def);
+						}					
 
-						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						if(ballController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(ref Npc);
 						break;
 					case GameSituation.AttackB:
-						if(Npc.Team == TeamKind.Self)
-							AttackAndDef(Npc, GameAction.Def);
-						else 
-							AttackAndDef(Npc, GameAction.Attack);
+						if(Npc.Team == TeamKind.Self){
+							AttackAndDef(ref Npc, GameAction.Def);
+							AIMove(ref Npc, GameAction.Def);
+						}else{
+							AttackAndDef(ref Npc, GameAction.Attack);
+							AIMove(ref Npc, GameAction.Attack);
+						}
 
-						if(ballController == null && getDis(Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						if(ballController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+							SetBall(ref Npc);
 						break;
 					case GameSituation.TeeA:
 
@@ -162,43 +169,6 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.End:
 
-						break;
-					}
-				}
-			}
-
-			//Move
-			for(int i = 0 ; i < PlayerList.Count; i++){
-				PlayerBehaviour Npc = PlayerList[i];
-
-				if(NoAiTime > 0 && Npc.Team == TeamKind.Self && Npc == UIGame.Get.targetPlayer){
-					continue;
-				}else{
-					//AI
-					switch(situation){
-					case GameSituation.Opening:
-						
-						break;
-					case GameSituation.AttackA:
-						if(Npc.Team == TeamKind.Self)
-							AIMove(Npc, GameAction.Attack);
-						else 
-							AIMove(Npc, GameAction.Def);				
-						break;
-					case GameSituation.AttackB:
-						if(Npc.Team == TeamKind.Self)
-							AIMove(Npc, GameAction.Def);
-						else 
-							AIMove(Npc, GameAction.Attack);
-						break;
-					case GameSituation.TeeA:
-						
-						break;
-					case GameSituation.TeeB:
-						
-						break;
-					case GameSituation.End:
-						
 						break;
 					}
 				}
@@ -206,7 +176,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void AttackAndDef(PlayerBehaviour Npc, GameAction Action){
+	private void AttackAndDef(ref PlayerBehaviour Npc, GameAction Action){
 		if (ballController != null) {
 			int stealRate = Random.Range(0, 100) + 1;
 			int pushRate = Random.Range(0, 100) + 1;
@@ -217,7 +187,7 @@ public class GameController : MonoBehaviour {
 			case GameAction.Def:
 				//steal push Def
 				if(ballController != null){
-					Dis = getDis(ballController, Npc);
+					Dis = getDis(ref ballController, ref Npc);
 					
 					if(!Npc.IsSteal){
 						if(Dis <= PushPlayerDis && pushRate < 50){
@@ -227,7 +197,7 @@ public class GameController : MonoBehaviour {
 								Npc.CoolDownSteal = Time.time + 3;
 								Npc.AniState(PlayerState.Steal, true, ballController.gameObject.transform.localPosition.x, ballController.gameObject.transform.localPosition.z);
 								if(stealRate < 5){
-									SetBall(Npc);
+									SetBall(ref Npc);
 									Npc.Invincible = Time.time + 5;
 								}
 							}
@@ -239,18 +209,18 @@ public class GameController : MonoBehaviour {
 			case GameAction.Attack:
 				if(Npc == ballController){
 					//Dunk shoot shoot3 pass
-					
+					Npc.AniState(PlayerState.Shoot);
 					
 				}else{
 					//sup push
-					Dis = getDis(ballController, Npc); 
+					Dis = getDis(ref ballController, ref Npc); 
 					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
 					
 					float ShootPointDis = 0;
 					if(Npc.Team == TeamKind.Self)
-						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
+						ShootPointDis = getDis(ref Npc, new Vector2(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z));
 					else
-						ShootPointDis = getDis(Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
+						ShootPointDis = getDis(ref Npc, new Vector2(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z));
 					
 					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
 						Npc.AniState(PlayerState.Jumper);
@@ -272,7 +242,7 @@ public class GameController : MonoBehaviour {
 		return new Vector2 ((A.x + B.x) / 2, (A.y + B.y) / 2);
 	}
 
-	private void AIMove(PlayerBehaviour Npc, GameAction Action){
+	private void AIMove(ref PlayerBehaviour Npc, GameAction Action){
 		if (ballController == null) {
 			Npc.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
 			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
@@ -284,6 +254,7 @@ public class GameController : MonoBehaviour {
 					if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
 						Vector3 Target = PlayerList[i].gameObject.transform.position;
 						Vector3 ShootPoint;
+						PlayerBehaviour Npc2 = PlayerList[i];
 						
 						if(Npc.Team == TeamKind.Self)
 							ShootPoint = SceneMgr.Inst.ShootPoint[1].transform.position;
@@ -292,7 +263,7 @@ public class GameController : MonoBehaviour {
 
 						Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(ShootPoint.x, ShootPoint.z));
 						for(int j = 0 ; j < 10; j++){
-							if(getDis(PlayerList[i], new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
+							if(getDis(ref Npc2, new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
 								NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
 							else
 								break;
@@ -306,7 +277,7 @@ public class GameController : MonoBehaviour {
 				break;
 			case GameAction.Attack:
 				if(!Npc.IsMove && Npc.WaitMoveTime == 0)
-					SetMovePos(Npc);
+					SetMovePos(ref Npc);
 
 				if(Npc.WaitMoveTime == 0)
 					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
@@ -317,7 +288,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private float getDis(PlayerBehaviour player1, PlayerBehaviour player2){
+	private float getDis(ref PlayerBehaviour player1, ref PlayerBehaviour player2){
 		if (player1 != null && player2 != null && player1 != player2){
 			Vector3 V1 = player1.transform.position;
 			Vector3 V2 = player2.transform.position;
@@ -327,7 +298,7 @@ public class GameController : MonoBehaviour {
 			return -1;
 	}
 
-	private float getDis(PlayerBehaviour player1, Vector3 Target){
+	private float getDis(ref PlayerBehaviour player1, Vector3 Target){
 		if (player1 != null && Target != Vector3.zero){
 			Vector3 V1 = player1.transform.position;
 			return Vector3.Distance(V1, Target);
@@ -335,7 +306,7 @@ public class GameController : MonoBehaviour {
 			return -1;
 	}
 
-	private float getDis(PlayerBehaviour player1, Vector2 Target){
+	private float getDis(ref PlayerBehaviour player1, Vector2 Target){
 		if (player1 != null && Target != Vector2.zero){
 			Vector3 V1 = new Vector3(Target.x, 0, Target.y);
 			Vector3 V2 = player1.transform.position;
@@ -347,17 +318,20 @@ public class GameController : MonoBehaviour {
 
 	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
 		PlayerBehaviour Result = null;
+		PlayerBehaviour Npc = null;
 
 		if (PlayerList.Count > 1) {
 			for(int i = 0 ; i < PlayerList.Count; i++){
+				Npc = PlayerList[i];
+
 				if(SameTeam){
-					if(PlayerList[i] != Self && PlayerList[i].Team == Self.Team && getDis(Self, PlayerList[i]) <= Dis){
-						Result = PlayerList[i];
+					if(PlayerList[i] != Self && PlayerList[i].Team == Self.Team && getDis(ref Self, ref Npc) <= Dis){
+						Result = Npc;
 						break;
 					}
 				}else{
-					if(PlayerList[i] != Self && PlayerList[i].Team != Self.Team && getDis(Self, PlayerList[i]) <= Dis){
-						Result = PlayerList[i];
+					if(PlayerList[i] != Self && PlayerList[i].Team != Self.Team && getDis(ref Self, ref Npc) <= Dis){
+						Result = Npc;
 						break;
 					}
 				}
@@ -367,7 +341,7 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 
-	public void SetBall(PlayerBehaviour p){
+	public void SetBall(ref PlayerBehaviour p){
 		if (PlayerList.Count > 0) {
 			if(p != null && situation != GameSituation.End){
 				if(ballController != null){
@@ -423,7 +397,7 @@ public class GameController : MonoBehaviour {
 		ballController = p;
 	}
 
-	private Vector2 SetMovePos(PlayerBehaviour Npc){
+	private Vector2 SetMovePos(ref PlayerBehaviour Npc){
 		Vector2 Result = Vector2.zero;
 		int Index = 0;
 		switch(Npc.MoveKind){

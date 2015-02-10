@@ -4,6 +4,7 @@ using System.Collections;
 public class GameJoystick: MonoBehaviour {
 	public float MoveSpeed = 10;
 	public PlayerBehaviour targetPlayer;
+	public EasyJoystick Joystick;
 
 	void OnEnable(){
 		EasyJoystick.On_JoystickMove += On_JoystickMove;	
@@ -27,6 +28,10 @@ public class GameJoystick: MonoBehaviour {
 	void On_JoystickMoveEnd (MovingJoystick move)
 	{
 		targetPlayer.OnJoystickMoveEnd (move);
+	}
+
+	public bool Visible{
+		get{return new Vector2(Joystick.JoystickAxis.x, Joystick.JoystickAxis.y) != Vector2.zero;}
 	}
 	
 }
