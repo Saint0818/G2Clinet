@@ -5,6 +5,8 @@ public class ModelManager : MonoBehaviour {
 	public static ModelManager Get;
 	private GameObject PlayerModule = null; 
 	public GameObject PlayerInfoModel = null;
+	private const int avatartCount = 3;
+	private string[] avatarPartName = new string[]{"Body", "Cloth", "Shoes"};
 
 	public static void Init(){
 		GameObject gobj = new GameObject(typeof(ModelManager).Name);
@@ -39,6 +41,41 @@ public class ModelManager : MonoBehaviour {
 		PB.Postion = Postion;
 		PB.RunPosAy = RunPosAy;
 		Res.name = Index.ToString();
+
+		GameStruct.TPlayerAttribute attr = new GameStruct.TPlayerAttribute();
+
+		if ((int)Team == 1) {
+			attr.Cloth = 1;
+			SetAvatar (ref Res, ref attr);
+		} 
+		else
+			SetAvatar (ref Res, ref attr);
+
 		return PB;
+	}
+
+	public void SetAvatar(ref GameObject playerModel, ref GameStruct.TPlayerAttribute attr) {
+		if (playerModel) {
+
+			GameObject[] avatarPart =  new GameObject[avatartCount];
+			int[] avatarIndex = new int[avatartCount];
+
+			avatarIndex[0] = attr.Face; 		//Body
+			avatarIndex[1] = attr.Cloth;  		//Cloth
+			avatarIndex[2] = attr.Shoes;		//Shoes
+
+			for(int i = 0; i < avatarPart.Length; i ++) {
+				avatarPart[i] = playerModel.transform.FindChild(avatarPartName[i]).gameObject;
+
+				if(avatarPart[i])
+				{
+					string path = "Character/PlayerModel_0/Texture/" + avatarPartName[i] + "_" + avatarIndex[i];
+					Texture2D texture = Resources.Load(path) as Texture2D;
+					if (texture) {
+						avatarPart[i].gameObject.renderer.material.mainTexture = texture;
+					}
+				}
+			}
+		}
 	}
 }
