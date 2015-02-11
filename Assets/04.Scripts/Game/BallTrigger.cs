@@ -127,7 +127,7 @@ public class BallTrigger : MonoBehaviour
 			else
 			{
 				followObject = null;
-				UIGame.Get.Game.SetBallController(UIGame.Get.Game.Catcher);
+				UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
 				UIGame.Get.Game.Passing = false;
 			}
 		}

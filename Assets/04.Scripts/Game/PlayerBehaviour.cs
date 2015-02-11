@@ -288,6 +288,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass))
 				{
+					AddActionFlag(ActionFlag.IsPass);
 					Control.SetBool(AnimatorStates[ActionFlag.IsPass], true);
 					UIGame.Get.Game.Passing = true;
 				}
@@ -408,7 +409,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsSteal], false);
 				break;
 			case "ShootDown":
-				UIGame.Get.Game.SetBallController();
+				UIGame.Get.Game.SetBall();
 				DelActionFlag(ActionFlag.IsJump);
 				DelActionFlag(ActionFlag.IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);

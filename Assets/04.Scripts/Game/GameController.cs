@@ -148,7 +148,7 @@ public class GameController : MonoBehaviour {
 					                situation == GameSituation.Opening || 
 					                situation == GameSituation.TeeAPicking))
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(ref Npc);
+							SetBall(Npc);
 					continue;
 				}else{
 					//AI
@@ -158,7 +158,7 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.Opening:
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(ref Npc);
+							SetBall(Npc);
 						break;
 					case GameSituation.AttackA:
 						if(Npc.Team == TeamKind.Self){
@@ -174,7 +174,7 @@ public class GameController : MonoBehaviour {
 						}					
 
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(ref Npc);
+							SetBall(Npc);
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
@@ -190,7 +190,7 @@ public class GameController : MonoBehaviour {
 						}
 
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-							SetBall(ref Npc);
+							SetBall(Npc);
 						break;
 					case GameSituation.TeeAPicking:
 						if(BallController == null){
@@ -198,7 +198,7 @@ public class GameController : MonoBehaviour {
 							if(Npc.Team == TeamKind.Self && Npc.Postion == GamePostion.PF){
 								AIPickupMove(ref Npc);
 								if(getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-									SetBall(ref Npc);
+									SetBall(Npc);
 							}else if(Npc.Team == TeamKind.Npc){
 								BackToDef(ref Npc, TeamKind.Npc);
 							}
@@ -215,7 +215,7 @@ public class GameController : MonoBehaviour {
 								AIPickupMove(ref Npc);
 								
 								if(getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
-									SetBall(ref Npc);
+									SetBall(Npc);
 							}else if(Npc.Team == TeamKind.Self){
 								BackToDef(ref Npc, TeamKind.Self);
 							}
@@ -259,7 +259,7 @@ public class GameController : MonoBehaviour {
 							Npc.CoolDownSteal = Time.time + 3;
 							Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
 							if(stealRate < 20){
-								SetBall(ref Npc);
+								SetBall(Npc);
 								Npc.SetInvincible(5);
 							}
 						}else
@@ -287,7 +287,7 @@ public class GameController : MonoBehaviour {
 					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 						Shooting = true;
-					}else if(passRate < 20){
+					}else if(passRate < 0){
 						int Who = Random.Range(0, 2);
 						int find = 0;
 						for(int j = 0;  j < PlayerList.Count; j++){
@@ -365,9 +365,10 @@ public class GameController : MonoBehaviour {
 					Npc.AniState(PlayerState.Dribble);
 			}else{
 				for(int i = 0; i < PlayerList.Count; i++){
-					if(PlayerList[i].Team == Team && PlayerList[i].Postion == GamePostion.PG){
+					if(PlayerList[i].Team == Team && PlayerList[i].Postion == GamePostion.PG && BallController != PlayerList[i]){
 						Catcher = PlayerList[i];
-						BallController.AniState(PlayerState.Pass, true, Catcher.transform.localPosition.x, Catcher.transform.localPosition.z);
+						if(BallController)
+							BallController.AniState(PlayerState.Pass, true, Catcher.transform.localPosition.x, Catcher.transform.localPosition.z);
 						break;
 					}
 				}
@@ -479,7 +480,7 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 
-	public void SetBall(ref PlayerBehaviour p){
+	public void SetBall(PlayerBehaviour p = null){
 		if (PlayerList.Count > 0) {
 			if(p != null && situation != GameSituation.End){
 				if(BallController != null){
@@ -520,7 +521,8 @@ public class GameController : MonoBehaviour {
 				}
 
 				ShootController = null;
-			}
+			}else
+				SetBallController(p);
 		}
     }
 
@@ -551,7 +553,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void SetBallController(PlayerBehaviour p = null){
+	private void SetBallController(PlayerBehaviour p = null){
 		BallController = p;
 		if(p)
 			SetBallState(PlayerState.Dribble);
