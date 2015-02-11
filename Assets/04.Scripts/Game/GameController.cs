@@ -46,10 +46,10 @@ public class GameController : MonoBehaviour {
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private int NoAiTime = 0;
+
 	public Vector2 [] BaseRunAy_A = new Vector2[4];
 	public Vector2 [] BaseRunAy_B = new Vector2[11];
 	public Vector2 [] BaseRunAy_C = new Vector2[11];
-
 	public Vector2 [] TeePosAy = new Vector2[3];
 	public Vector2 [] TeeBackPosAy = new Vector2[3];
 
@@ -160,8 +160,10 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.AttackA:
 						if(Npc.Team == TeamKind.Self){
-							AttackAndDef(ref Npc, GameAction.Attack);
-							AIMove(ref Npc, GameAction.Attack);
+							if(!Passing && !Shooting){
+								AttackAndDef(ref Npc, GameAction.Attack);
+								AIMove(ref Npc, GameAction.Attack);
+							}
 						}else{
 							if(!Shooting){
 								AttackAndDef(ref Npc, GameAction.Def);
@@ -179,8 +181,10 @@ public class GameController : MonoBehaviour {
 								AIMove(ref Npc, GameAction.Def);
 							}
 						}else{
-							AttackAndDef(ref Npc, GameAction.Attack);
-							AIMove(ref Npc, GameAction.Attack);
+							if(!Passing && !Shooting){
+								AttackAndDef(ref Npc, GameAction.Attack);
+								AIMove(ref Npc, GameAction.Attack);
+							}
 						}
 
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
@@ -272,17 +276,28 @@ public class GameController : MonoBehaviour {
 
 				if(Npc == BallController){
 					//Dunk shoot shoot3 pass
-					if(ShootPointDis <= 2f && DunkRate < 50){
+					if(ShootPointDis <= 2f && DunkRate < 0){
 						Npc.AniState(PlayerState.Dunk);
 						Shooting = true;
-					}else if(ShootPointDis <= 6f && shootRate < 70){
+					}else if(ShootPointDis <= 6f && shootRate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 						Shooting = true;
 					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 						Shooting = true;
-					}else if(passRate < 50){
-
+					}else if(passRate < 20){
+						int Who = Random.Range(0, 2);
+						int find = 0;
+						for(int j = 0;  j < PlayerList.Count; j++){
+							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
+								if(Who == find){
+									Catcher = PlayerList[j];
+									BallController.AniState(PlayerState.Pass);
+									break;
+								}
+								find++;
+							}
+						}
 					}
 				}else{
 					//sup push
@@ -349,8 +364,8 @@ public class GameController : MonoBehaviour {
 			}else{
 				for(int i = 0; i < PlayerList.Count; i++){
 					if(PlayerList[i].Team == Team && PlayerList[i].Postion == GamePostion.PG){
-						PlayerBehaviour Npc2 = PlayerList[i];
-						SetBall(ref Npc2);
+						Catcher = PlayerList[i];
+						BallController.AniState(PlayerState.Pass, true, Catcher.transform.localPosition.x, Catcher.transform.localPosition.z);
 						break;
 					}
 				}

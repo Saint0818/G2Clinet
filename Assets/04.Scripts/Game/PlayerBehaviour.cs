@@ -186,7 +186,7 @@ public class PlayerBehaviour : MonoBehaviour
 					WaitMoveTime = 0;
 					rotateTo(lookAtX, loolAtZ);
 				}
-			}else if(!CheckAction(ActionFlag.IsDefence) && UIGame.Get.Game.BallController != null && MoveTurn >= 0 && MoveTurn <= 5){
+			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && CanMoverotateTo()){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
 				rotateTo(X, Z, 10);
@@ -214,6 +214,17 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
 			}		
 		}
+	}
+
+	private bool CanMoverotateTo(){
+		if(UIGame.Get.Game.BallController != null)
+			return true;
+		else if(Team == TeamKind.Self && (UIGame.Get.Game.situation == GameSituation.TeeB || UIGame.Get.Game.situation == GameSituation.TeeBPicking))
+			return true;
+		else if(Team == TeamKind.Npc && (UIGame.Get.Game.situation == GameSituation.TeeA || UIGame.Get.Game.situation == GameSituation.TeeAPicking))
+			return true;
+		else
+			return false;
 	}
 
 	public void OnJoystickMoveEnd(MovingJoystick move)
@@ -293,7 +304,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Shooting:
-				if(!CheckAction(ActionFlag.IsJump) && CheckAction(ActionFlag.IsDribble))
+				if(!CheckAction(ActionFlag.IsJump) && UIGame.Get.Game.BallController == this)
 				{
 					AddActionFlag(ActionFlag.IsJump);
 					AddActionFlag(ActionFlag.IsDribble);
