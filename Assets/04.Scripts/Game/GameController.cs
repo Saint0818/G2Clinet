@@ -132,6 +132,8 @@ public class GameController : MonoBehaviour {
 
 			if(NoAiTime > 0){
 				NoAiTime--;
+				if(NoAiTime <= 0)
+					EffectManager.Get.SelectEffectScript.SetParticleColor(true);
 			}
 		}
 

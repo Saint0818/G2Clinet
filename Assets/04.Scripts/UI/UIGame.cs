@@ -84,6 +84,7 @@ public class UIGame : UIBase {
 	{
 		if(Game.BallController)
 		{
+			Game.Shooting = true;
 			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.BallController.Team.GetHashCode()].transform.position;
 			Game.PlayerList [0].AniState (PlayerState.Shooting, true, pos.x, pos.z);
 		}

@@ -130,6 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void OnJoystickMove(MovingJoystick move)
 	{
 		if (CheckCanUseControl() || stop) {
+			EffectManager.Get.SelectEffectScript.SetParticleColor(false);
 			curSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 			SetSpeed (curSpeed);
 
