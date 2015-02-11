@@ -53,32 +53,35 @@ public static class ActionFlag{
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	private const float MoveCheckValue = 1;
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
+
+	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
+	private Vector2 drag = Vector2.zero;
+	private Vector2 mTargetPos = Vector2.zero;
 	private bool stop = false;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
-	private Vector2 drag = Vector2.zero;
-
-	private const float MoveCheckValue = 1;
-	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
-	private int MoveTurn = 0;
 	private float Timer = 0;
-	private Vector2 mTargetPos = Vector2.zero;
+	private int MoveTurn = 0;
+
 	public Animator Control;
-	public PlayerState crtState = PlayerState.Idle;
-	public float basicMoveSpeed = 0.5f;
-	public float curSpeed = 0;
 	public TeamKind Team;
 	public GameObject DummyBall;
-	public float jumpHight = 12;
-	public int MoveIndex = -1;
+	public PlayerState crtState = PlayerState.Idle;
+	public MoveType MoveKind = MoveType.PingPong;
+	public GamePostion Postion = GamePostion.PG;
+	public Vector2 [] RunPosAy;
+	public bool ReadyTee = false;
+	public float basicMoveSpeed = 0.5f;
+	public float curSpeed = 0;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public MoveType MoveKind = MoveType.PingPong;
-	public int Postion = 0;
+	public float jumpHight = 12;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
-	public Vector2 [] RunPosAy;
+	public int MoveIndex = -1;
+
 
 	void Awake()
 	{
@@ -150,15 +153,27 @@ public class PlayerBehaviour : MonoBehaviour
 				journeyLength = 0;
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.IsDefence)){
-					WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
-
-					if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
-						if(Team == TeamKind.Self)
-							rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
-						else
-							rotateTo(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z);
-					}else
-						rotateTo(lookAtX, loolAtZ);
+					if(UIGame.Get.Game.situation == GameSituation.TeeA){
+						if(Postion == GamePostion.PF){
+							//Pass ball to PG
+							ReadyTee = true;
+						}
+					}else if(UIGame.Get.Game.situation == GameSituation.TeeB){
+						if(Postion == GamePostion.PF){
+							//Pass ball to PG
+							ReadyTee = true;
+						}
+					}else{
+						WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
+						
+						if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
+							if(Team == TeamKind.Self)
+								rotateTo(SceneMgr.Inst.ShootPoint[0].transform.position.x, SceneMgr.Inst.ShootPoint[0].transform.position.z);
+							else
+								rotateTo(SceneMgr.Inst.ShootPoint[1].transform.position.x, SceneMgr.Inst.ShootPoint[1].transform.position.z);
+						}else
+							rotateTo(lookAtX, loolAtZ);
+					}
 				}else{
 					WaitMoveTime = 0;
 					rotateTo(lookAtX, loolAtZ);
@@ -174,20 +189,15 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			}else{
 				float fracJourney = 0.045f;
-
+				SetSpeed(1);
 				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.IsDefence)){
-					SetSpeed(1);
 					AniState(PlayerState.RunAndDefence);
 				}else{
-					if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
-						SetSpeed(1);
+					if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
 						AniState(PlayerState.RunAndDrible);
-					}else{
-						SetSpeed(0.3f);
+					else
 						AniState(PlayerState.Run);
-					}
-						
 
 					if(journeyLength != 0)
 						fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
@@ -281,6 +291,7 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 					Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
+					UIGame.Get.Game.Shooting = true;
 				}
 				break;
 		}
@@ -294,9 +305,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CheckCanUseControl()
 	{
-		if (!CheckAction(ActionFlag.IsJump) && 
+		if (!CheckAction(ActionFlag.IsJump) &&
+		    UIGame.Get.Game.situation != GameSituation.None &&
 		    UIGame.Get.Game.situation != GameSituation.TeeA &&
 		    UIGame.Get.Game.situation != GameSituation.TeeB && 
+		    UIGame.Get.Game.situation != GameSituation.TeeBPicking &&
 		    UIGame.Get.Game.situation != GameSituation.End)
 			return true;
 		else
@@ -332,6 +345,7 @@ public class PlayerBehaviour : MonoBehaviour
 		for(int i = 0; i < PlayerActionFlag.Length; i++)
 			PlayerActionFlag[i] = 0;
 
+		ReadyTee = false;
 		SetSpeed(0);
 		AniState(PlayerState.Idle);
 	}
@@ -344,10 +358,6 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return CheckAction(ActionFlag.IsRun);}
 	}
 
-	public bool IsPass{
-		get{return CheckAction(ActionFlag.IsPass);}
-	}
-	
 	public bool IsJump{
 		get{return CheckAction(ActionFlag.IsJump);}
 	}
@@ -385,6 +395,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.IsJump], false);
 				DelActionFlag(ActionFlag.IsJump);
+				UIGame.Get.Game.Shooting = false;
 				break;
 			case "BlockEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.IsBlock], false);
@@ -411,7 +422,13 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsPass);
 				DelActionFlag(ActionFlag.IsDribble);
 				break;
-
 		}
+	}
+
+	public void SetInvincible(float time){
+		if(Invincible == 0)
+			Invincible = Time.time + time;
+		else
+			Invincible += time;
 	}
 }

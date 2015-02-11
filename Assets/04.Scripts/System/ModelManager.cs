@@ -26,7 +26,7 @@ public class ModelManager : MonoBehaviour {
 	
 	}
 
-	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, int Postion){
+	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion){
 		GameObject Res = Instantiate(PlayerModule) as GameObject;
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
