@@ -47,27 +47,31 @@ public class BallTrigger : MonoBehaviour
 	public void PassBall(GameObject from , GameObject to)
 	{
 		followObject = to;
+		PlayerBehaviour p = followObject.GetComponent<PlayerBehaviour>();
+		if(p)
+			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, p.DummyBall.transform.position, Random.Range(40, 60));
+		else
+			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, followObject.transform.position, Random.Range(40, 60));
 
 //		if(UIGame.Get.Game.Catcher)
 //		{
-//			float ang = ElevationAngle(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.transform.position);                                                                                                                           
+//			float ang = GameFunction.ElevationAngle(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.transform.position);                                                                                                                           
 //			float shootAng = 30 + ang;
 //			shootAng = Mathf.Clamp(shootAng, 40, 60);
 //			
 //			Vector3 v = UIGame.Get.Game.Catcher.transform.position;
-//			if (UIGame.Get.Game.Catcher.HasTarget && !UIGame.Get.Game.Catcher.FollowTarget && 
-//			    UIGame.Get.Game.Catcher.rigidbody.velocity != Vector3.zero)
+//			if (new Vector3(UIGame.Get.Game.Catcher.TargetPos.x, 2, UIGame.Get.Game.Catcher.TargetPos.y) != Vector3.zero && UIGame.Get.Game.Catcher.rigidbody.velocity != Vector3.zero)
 //			{
-//				v = calculateTrajectory(UIGame.Get.Game.Catcher.transform.position, 
-//				                        UIGame.Get.Game.Catcher.Target, 
+//				v = GameFunction.calculateTrajectory(UIGame.Get.Game.Catcher.transform.position, 
+//				                        UIGame.Get.Game.Catcher.TargetPos, 
 //				                        UIGame.Get.Game.Catcher.rigidbody.velocity, 
 //				                        Vector3.Distance(UIGame.Get.Game.Catcher.transform.position, transform.position));
 //			}
 //			
 //			v.y = 1;
-//			Vector3 v2 = GetVelocity(realBall.transform.position, v, shootAng);
+//			Vector3 v2 = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, v, shootAng);
 //			
-//			if (UIGame.Visible && UIGame.Get.Game.situation > 2)
+//			if (UIGame.Visible && (int)UIGame.Get.Game.situation > 2)
 //			{
 //				v2.x *= 3;
 //				v2.y = 0.3f;
@@ -83,7 +87,7 @@ public class BallTrigger : MonoBehaviour
 //					bool flag = false;
 //					if (Physics.Raycast(transform.position, fwd, out hit, 40, mask))
 //					{
-//						flag = hit.collider.gameObject.GetComponent<PlayerBehaviour>() != UIGame.Get.Game.CatchController;
+//						flag = hit.collider.gameObject.GetComponent<PlayerBehaviour>() != UIGame.Get.Game.Catcher;
 //					}
 //					
 //					if (!flag)
@@ -95,7 +99,7 @@ public class BallTrigger : MonoBehaviour
 //				}
 //			}
 //			
-//			realBall.rigidbody.velocity = v2;
+//			SceneMgr.Inst.RealBall.rigidbody.velocity = v2;
 //		}
 	}
 
@@ -118,14 +122,13 @@ public class BallTrigger : MonoBehaviour
 		gameObject.transform.localPosition = Vector3.zero;
 
 		if (followObject) {
-			if(Vector3.Distance(parentobjRigidbody.gameObject.transform.position, followObject.transform.position) > UIGame.Get.Game.PickBallDis)
-				parentobjRigidbody.gameObject.transform.position = Vector3.Slerp(parentobjRigidbody.gameObject.transform.position, followObject.transform.position, 0.1f);
+			if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, followObject.transform.position) > UIGame.Get.Game.PickBallDis)
+				parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, followObject.transform.position, 0.1f);
 			else
 			{
 				followObject = null;
-				UIGame.Get.Game.SetballController(UIGame.Get.Game.Catcher);
-
-				Debug.Log("SetBall");
+				UIGame.Get.Game.SetBallController(UIGame.Get.Game.Catcher);
+				UIGame.Get.Game.Passing = false;
 			}
 		}
 	}

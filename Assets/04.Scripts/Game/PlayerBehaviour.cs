@@ -257,14 +257,17 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass))
+				{
 					Control.SetBool(AnimatorStates[ActionFlag.IsPass], true);
+					UIGame.Get.Game.Passing = true;
+				}
 				break;
 			case PlayerState.Block:
 				AddActionFlag(ActionFlag.IsBlock);
 				Control.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
 				if(!CheckAction(ActionFlag.IsBlock)){
 					if(DorotateTo)
-						gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, new Vector3(lookAtX, 3, lookAtZ), 60);
+						gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, new Vector3(lookAtX, 3, lookAtZ), 60);
 					else
 						gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 
@@ -356,62 +359,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public void DoDunk()
 	{
 		if (Vector3.Distance (SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < 7f) {
-			float ang = ElevationAngle(gameObject.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);  
-			gameObject.rigidbody.velocity = GetVelocity (gameObject.transform.position, SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, ang);
+			float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position);  
+			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Inst.ShootPoint [Team.GetHashCode ()].transform.position, ang);
 		}
 		else
 			Debug.Log("distance is no enght");
-	}
-
-	float ElevationAngle(Vector3 source, Vector3 target)
-	{
-		// find the cannon->target vector:
-		Vector3 dir = target - source;
-		// create a horizontal version of it:
-		Vector3 dirH = new Vector3(dir.x, 0, dir.y);
-		// measure the unsigned angle between them:
-		float ang = Vector3.Angle(dir, dirH);
-		// add the signal (negative is below the cannon):
-		if (dir.y < 0)
-		{ 
-			ang = -ang;
-		}
-		
-		return ang;
-	}
-
-	Vector3 GetVelocity(Vector3 source, Vector3 target, float angle)
-	{
-		try
-		{
-			Vector3 dir = target - source;  // get target direction
-			float h = dir.y;  // get height difference
-			dir.y = 0;  // retain only the horizontal direction
-			float dist = dir.magnitude;  // get horizontal distance
-			float a = angle * Mathf.Deg2Rad;  // convert angle to radians
-			float tan = Mathf.Tan(a);
-			dir.y = dist * tan;  // set dir to the elevation angle
-			if (Mathf.Abs(tan) >= 0.01f)
-			{
-				dist += h / tan;
-			}  // correct for small height differences
-			
-			// calculate the velocity magnitude
-			float sin = Mathf.Sin(2 * a);
-			float vel = 1;
-			if (sin != 0)
-			{
-				float value = Mathf.Abs(dist) * Physics.gravity.magnitude;
-
-				vel = Mathf.Sqrt(value / sin);
-			}
-			
-			return vel * dir.normalized;
-		} catch (Exception e)
-		{
-			Debug.Log(e.ToString());
-			return Vector3.one;
-		}
 	}
 
 	public void AnimationEvent(string animationName)
@@ -443,63 +395,23 @@ public class PlayerBehaviour : MonoBehaviour
 					UIGame.Get.Game.ShootController = this;
 					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
 					UIGame.Get.Game.SetBallState(PlayerState.Shooting);
-					SceneMgr.Inst.RealBall.rigidbody.velocity = GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
+					SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
 				}
 				break;
 			case "ShootJump":
 				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
 			case "Passing":
-				if(UIGame.Get.Game.Catcher)
-				{
-//					float ang = ElevationAngle(realBall.transform.position, UIGame.Get.Game.Catcher.transform.position);                                                                                                                           
-//						float shootAng = 30 + ang;
-//					shootAng = Mathf.Clamp(shootAng, 40, 60);
-//					
-//					Vector3 v = UIGame.Get.Game.Catcher.transform.position;
-//					if (UIGame.Get.Game.Catcher.HasTarget && !UIGame.Get.Game.Catcher.FollowTarget && 
-//					    UIGame.Get.Game.Catcher.rigidbody.velocity != Vector3.zero)
-//					{
-//						v = calculateTrajectory(UIGame.Get.Game.Catcher.transform.position, 
-//						                        UIGame.Get.Game.Catcher.Target, 
-//						                        UIGame.Get.Game.Catcher.rigidbody.velocity, 
-//						                        Vector3.Distance(UIGame.Get.Game.Catcher.transform.position, transform.position));
-//					}
-//					
-//					v.y = 1;
-//					Vector3 v2 = GetVelocity(realBall.transform.position, v, shootAng);
-//					
-//					if (UIGame.Visible && UIGame.Get.Game.situation > 2)
-//					{
-//						v2.x *= 3;
-//						v2.y = 0.3f;
-//						v2.z *= 3;
-//					} else
-//					{
-//						float dis = Vector3.Distance(v, transform.position);
-//						if (dis <= 13)
-//						{
-//							RaycastHit hit;  
-//							LayerMask mask = 1 << LayerMask.NameToLayer("Player");
-//							Vector3 fwd = transform.TransformDirection(Vector3.forward);
-//							bool flag = false;
-//							if (Physics.Raycast(transform.position, fwd, out hit, 40, mask))
-//							{
-//								flag = hit.collider.gameObject.GetComponent<PlayerBehaviour>() != UIGame.Get.Game.CatchController;
-//							}
-//							
-//							if (!flag)
-//							{
-//								v2.x *= 3;
-//								v2.y = 0.3f;
-//								v2.z *= 3;
-//							}
-//						}
-//					}
-//					
-//					realBall.rigidbody.velocity = v2;
-				}
+				UIGame.Get.Game.SetBallState(PlayerState.Pass);
+				SceneMgr.Inst.RealBallTrigger.PassBall(gameObject, UIGame.Get.Game.Catcher.gameObject); 
 				break;
+			case "PassEnd":
+				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
+				Control.SetBool (AnimatorStates[ActionFlag.IsPass], false);
+				DelActionFlag(ActionFlag.IsPass);
+				DelActionFlag(ActionFlag.IsDribble);
+				break;
+
 		}
 	}
 }

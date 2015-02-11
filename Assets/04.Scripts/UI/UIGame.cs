@@ -70,8 +70,13 @@ public class UIGame : UIBase {
 
 	public void DoPass()
 	{
-		if (Game.BallController && targetPlayer && Game.BallController.Team == 0 && Game.BallController.gameObject != targetPlayer.gameObject) {
-				
+		if (Game.BallController && targetPlayer && Game.BallController.Team == 0) {
+			if(Game.BallController.gameObject == targetPlayer.gameObject)
+				Game.Catcher = Game.PlayerList[1];
+			else
+				Game.Catcher = targetPlayer;
+
+			Game.BallController.AniState(PlayerState.Pass);
 		}
 	}
 

@@ -218,10 +218,10 @@ public class GameController : MonoBehaviour {
 								Npc.Invincible = Time.time + 5;
 							}
 						}else{
-							if(Dis <= 3)
+//							if(Dis <= 3)
 								Npc.AniState(PlayerState.Defence);
-							else
-								Npc.AniState(PlayerState.Idle);
+//							else
+//								Npc.AniState(PlayerState.Idle);
 						}
 							
 					}
@@ -394,8 +394,6 @@ public class GameController : MonoBehaviour {
 				}else
 					p.AniState (PlayerState.Dribble);
 
-				SceneMgr.Inst.RealBall.transform.parent = p.DummyBall.transform;
-				SetBallState(PlayerState.Dribble);
 				ShootController = null;
 			}
 		}
@@ -407,6 +405,7 @@ public class GameController : MonoBehaviour {
 		{
 			case PlayerState.Dribble: 
 //				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
+				SceneMgr.Inst.RealBall.transform.parent = BallController.DummyBall.transform;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = true;
 				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
@@ -419,12 +418,18 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
 			break;
+			case PlayerState.Pass: 
+				SceneMgr.Inst.RealBall.transform.parent = null;
+				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
+				break;
 		}
 	}
 
 	public void SetBallController(PlayerBehaviour p = null){
 		BallController = p;
-		Catcher = null;
+		SetBallState(PlayerState.Dribble);
 	}
 
 	private Vector2 SetMovePos(ref PlayerBehaviour Npc){
