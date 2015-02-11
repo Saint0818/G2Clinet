@@ -174,13 +174,13 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
-							AttackAndDef(ref Npc, GameAction.Def);
-							AIMove(ref Npc, GameAction.Def);
-						}else{
 							if(!Shooting){
-								AttackAndDef(ref Npc, GameAction.Attack);
-								AIMove(ref Npc, GameAction.Attack);
+								AttackAndDef(ref Npc, GameAction.Def);
+								AIMove(ref Npc, GameAction.Def);
 							}
+						}else{
+							AttackAndDef(ref Npc, GameAction.Attack);
+							AIMove(ref Npc, GameAction.Attack);
 						}
 
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
@@ -316,7 +316,7 @@ public class GameController : MonoBehaviour {
 	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team){
 		if(!Npc.IsMove && Npc.WaitMoveTime == 0){
 			if(Team == TeamKind.Self)
-				Npc.TargetPos = new Vector2(TeeBackPosAy[Npc.Postion.GetHashCode()].x, -TeePosAy[Npc.Postion.GetHashCode()].y);
+				Npc.TargetPos = new Vector2(TeeBackPosAy[Npc.Postion.GetHashCode()].x, -TeeBackPosAy[Npc.Postion.GetHashCode()].y);
 			else
 				Npc.TargetPos = TeeBackPosAy[Npc.Postion.GetHashCode()];
 		}
