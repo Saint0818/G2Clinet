@@ -91,7 +91,15 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Update()
 	{
-		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+		if (UIGame.Get.IsStart) {
+			Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+			if (gameObject.transform.localPosition.y > 0.2f) {
+					gameObject.collider.enabled = false;
+			} else {
+				if(gameObject.collider.enabled == false)
+					gameObject.collider.enabled = true;
+			}
+		}
 
 		if (gameObject.transform.localPosition.y > 1f) {
 			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 

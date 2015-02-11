@@ -502,7 +502,6 @@ public class GameController : MonoBehaviour {
 		switch(state)
 		{
 			case PlayerState.Dribble: 
-//				SceneMgr.Inst.RealBall.rigidbody.velocity = Vector3.zero;
 				SceneMgr.Inst.RealBall.transform.parent = BallController.DummyBall.transform;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = false;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = true;
@@ -527,7 +526,8 @@ public class GameController : MonoBehaviour {
 
 	public void SetBallController(PlayerBehaviour p = null){
 		BallController = p;
-		SetBallState(PlayerState.Dribble);
+		if(BallController)
+			SetBallState(PlayerState.Dribble);
 	}
 
 	private Vector2 SetMovePos(ref PlayerBehaviour Npc){
