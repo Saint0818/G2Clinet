@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour {
 	public PlayerBehaviour ShootController;
 	public GameSituation situation = GameSituation.None;
 	private float Timer = 0;
+	private float CoolDownPass = 0;
 	private int NoAiTime = 0;
 
 	public Vector2 [] BaseRunAy_A = new Vector2[4];
@@ -137,6 +138,9 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
+		if(Time.time >= CoolDownPass)
+			CoolDownPass = 0;
+
 		if (PlayerList.Count > 0) {
 			//Action
 			for(int i = 0 ; i < PlayerList.Count; i++){
@@ -206,7 +210,8 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.TeeA:
 						//Tee ball
-						TeeBall(ref Npc, TeamKind.Self);
+						if(!Passing)
+							TeeBall(ref Npc, TeamKind.Self);
 						break;	
 					case GameSituation.TeeBPicking:
 						if(BallController == null){
@@ -223,7 +228,8 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.TeeB:
 						//Tee ball
-						TeeBall(ref Npc, TeamKind.Npc);
+						if(!Passing)
+							TeeBall(ref Npc, TeamKind.Npc);
 						break;					
 					case GameSituation.End:
 
@@ -287,7 +293,7 @@ public class GameController : MonoBehaviour {
 					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 						Shooting = true;
-					}else if(passRate < 0){
+					}else if(passRate < 20 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
 						int find = 0;
 						for(int j = 0;  j < PlayerList.Count; j++){
@@ -295,6 +301,7 @@ public class GameController : MonoBehaviour {
 								if(Who == find){
 									Catcher = PlayerList[j];
 									BallController.AniState(PlayerState.Pass);
+									CoolDownPass = Time.time + 3;
 									break;
 								}
 								find++;
@@ -369,6 +376,8 @@ public class GameController : MonoBehaviour {
 						Catcher = PlayerList[i];
 						if(BallController)
 							BallController.AniState(PlayerState.Pass, true, Catcher.transform.localPosition.x, Catcher.transform.localPosition.z);
+
+						CoolDownPass = Time.time + 1;
 						break;
 					}
 				}
