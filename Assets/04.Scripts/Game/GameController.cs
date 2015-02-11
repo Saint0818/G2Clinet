@@ -508,11 +508,14 @@ public class GameController : MonoBehaviour {
 				}
 				
 				SetBallController(p);
-				if(p.IsJump){
-					//ALLYOOP 
-
-				}else
-					p.AniState (PlayerState.Dribble);
+				if(p){
+					p.WaitMoveTime = 0;
+					if(p.IsJump){
+						//ALLYOOP 
+						
+					}else
+						p.AniState (PlayerState.Dribble);
+				}
 
 				ShootController = null;
 			}
