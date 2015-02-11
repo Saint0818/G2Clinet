@@ -145,7 +145,7 @@ public class GameController : MonoBehaviour {
 					                situation == GameSituation.AttackB || 
 					                situation == GameSituation.Opening || 
 					                situation == GameSituation.TeeAPicking))
-						if(!Shooting && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(ref Npc);
 					continue;
 				}else{
@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour {
 
 						break;
 					case GameSituation.Opening:
-						if(!Shooting && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(ref Npc);
 						break;
 					case GameSituation.AttackA:
@@ -163,11 +163,13 @@ public class GameController : MonoBehaviour {
 							AttackAndDef(ref Npc, GameAction.Attack);
 							AIMove(ref Npc, GameAction.Attack);
 						}else{
-							AttackAndDef(ref Npc, GameAction.Def);
-							AIMove(ref Npc, GameAction.Def);
+							if(!Shooting){
+								AttackAndDef(ref Npc, GameAction.Def);
+								AIMove(ref Npc, GameAction.Def);
+							}
 						}					
 
-						if(!Shooting && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(ref Npc);
 						break;
 					case GameSituation.AttackB:
@@ -175,11 +177,13 @@ public class GameController : MonoBehaviour {
 							AttackAndDef(ref Npc, GameAction.Def);
 							AIMove(ref Npc, GameAction.Def);
 						}else{
-							AttackAndDef(ref Npc, GameAction.Attack);
-							AIMove(ref Npc, GameAction.Attack);
+							if(!Shooting){
+								AttackAndDef(ref Npc, GameAction.Attack);
+								AIMove(ref Npc, GameAction.Attack);
+							}
 						}
 
-						if(!Shooting && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(ref Npc);
 						break;
 					case GameSituation.TeeAPicking:
@@ -270,10 +274,13 @@ public class GameController : MonoBehaviour {
 					//Dunk shoot shoot3 pass
 					if(ShootPointDis <= 2f && DunkRate < 50){
 						Npc.AniState(PlayerState.Dunk);
+						Shooting = true;
 					}else if(ShootPointDis <= 6f && shootRate < 70){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
+						Shooting = true;
 					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
+						Shooting = true;
 					}else if(passRate < 50){
 
 					}
@@ -526,7 +533,7 @@ public class GameController : MonoBehaviour {
 
 	public void SetBallController(PlayerBehaviour p = null){
 		BallController = p;
-		if(BallController)
+		if(p)
 			SetBallState(PlayerState.Dribble);
 	}
 

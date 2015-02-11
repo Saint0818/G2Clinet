@@ -299,7 +299,6 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 					Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
-					UIGame.Get.Game.Shooting = true;
 				}
 				break;
 		}
