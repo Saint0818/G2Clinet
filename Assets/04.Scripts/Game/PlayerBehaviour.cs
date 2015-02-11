@@ -166,12 +166,18 @@ public class PlayerBehaviour : MonoBehaviour
 						if(Postion == GamePostion.PF){
 							//Pass ball to PG
 							ReadyTee = true;
-						}
+						}else
+							AniState(PlayerState.Idle);
 					}else if(UIGame.Get.Game.situation == GameSituation.TeeB){
 						if(Postion == GamePostion.PF){
 							//Pass ball to PG
 							ReadyTee = true;
-						}
+						}else
+							AniState(PlayerState.Idle);
+					}else if(UIGame.Get.Game.situation == GameSituation.TeeAPicking){
+						AniState(PlayerState.Idle);
+					}else if(UIGame.Get.Game.situation == GameSituation.TeeBPicking){
+						AniState(PlayerState.Idle);
 					}else{
 						WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
 						

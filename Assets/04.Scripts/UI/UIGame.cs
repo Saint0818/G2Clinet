@@ -143,6 +143,8 @@ public class UIGame : UIBase {
 				UIHint.Get.ShowHint("You Win", Color.blue);
 			else
 				UIHint.Get.ShowHint("You Lost", Color.red);
+
+			UIGame.Get.Game.ChangeSituation(GameSituation.End);
 		}
 	}
 	

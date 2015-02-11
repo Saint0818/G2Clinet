@@ -171,10 +171,9 @@ public class GameController : MonoBehaviour {
 								AIMove(ref Npc, GameAction.Attack);
 							}
 						}else{
-							if(!Shooting){
-								AttackAndDef(ref Npc, GameAction.Def);
+							AttackAndDef(ref Npc, GameAction.Def);
+							if(!Shooting)
 								AIMove(ref Npc, GameAction.Def);
-							}
 						}					
 
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
@@ -182,10 +181,9 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
-							if(!Shooting){
-								AttackAndDef(ref Npc, GameAction.Def);
+							AttackAndDef(ref Npc, GameAction.Def);
+							if(!Shooting)
 								AIMove(ref Npc, GameAction.Def);
-							}
 						}else{
 							if(!Passing && !Shooting){
 								AttackAndDef(ref Npc, GameAction.Attack);
@@ -203,6 +201,8 @@ public class GameController : MonoBehaviour {
 								AIPickupMove(ref Npc);
 								if(getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 									SetBall(Npc);
+							}else if(Npc.Team == TeamKind.Self){
+								TeeBall(ref Npc, TeamKind.Self);
 							}else if(Npc.Team == TeamKind.Npc){
 								BackToDef(ref Npc, TeamKind.Npc);
 							}
@@ -221,6 +221,8 @@ public class GameController : MonoBehaviour {
 								
 								if(getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 									SetBall(Npc);
+							}else if(Npc.Team == TeamKind.Npc){
+								TeeBall(ref Npc, TeamKind.Npc);
 							}else if(Npc.Team == TeamKind.Self){
 								BackToDef(ref Npc, TeamKind.Self);
 							}
@@ -255,21 +257,30 @@ public class GameController : MonoBehaviour {
 			switch(Action){
 			case GameAction.Def:
 				//steal push Def
-				if(BallController != null){
-					Dis = getDis(ref BallController, ref Npc);
-					
-					if(!Npc.IsSteal){
-						if(Dis <= PushPlayerDis && pushRate < 50){
-							
-						}else if(Dis <= StealBallDis && stealRate < 50 && BallController.Invincible == 0 && Npc.CoolDownSteal == 0){
-							Npc.CoolDownSteal = Time.time + 3;
-							Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
-							if(stealRate < 20){
-								SetBall(Npc);
-								Npc.SetInvincible(5);
-							}
-						}else
-							Npc.AniState(PlayerState.Defence);
+				if(!Shooting){
+					if(BallController != null){
+						Dis = getDis(ref BallController, ref Npc);
+						
+						if(!Npc.IsSteal){
+							if(Dis <= PushPlayerDis && pushRate < 50){
+								
+							}else if(Dis <= StealBallDis && stealRate < 50 && BallController.Invincible == 0 && Npc.CoolDownSteal == 0){
+								Npc.CoolDownSteal = Time.time + 3;
+								Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
+								if(stealRate < 20){
+									SetBall(Npc);
+									Npc.SetInvincible(5);
+								}
+							}else
+								Npc.AniState(PlayerState.Defence);
+						}
+					}
+				}else{
+					if(ShootController){
+						Dis = getDis(ref Npc, ref ShootController);
+						if(Dis <= StealBallDis && !Npc.IsJump){
+							Npc.AniState(PlayerState.Jumper, true, ShootController.transform.localPosition.x, ShootController.transform.localPosition.z);
+						}
 					}
 				}
 				break;
@@ -631,7 +642,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void ChangeSituation(GameSituation GS){
+	public void ChangeSituation(GameSituation GS){
 		situation = GS;
 		switch(GS){
 		case GameSituation.Opening:
@@ -665,7 +676,8 @@ public class GameController : MonoBehaviour {
 
 			break;
 		case GameSituation.End:
-
+			for(int i = 0; i < PlayerList.Count; i++)
+				PlayerList[i].ResetFlag();
 			break;
 		}
 	}
