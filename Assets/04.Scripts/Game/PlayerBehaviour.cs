@@ -430,6 +430,9 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsJump);
 				UIGame.Get.Game.Shooting = false;
 				break;
+			case "Blocking":
+				Debug.Log("Ball is Falling");
+				break;
 			case "BlockEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.IsBlock], false);
 				DelActionFlag(ActionFlag.IsBlock);
