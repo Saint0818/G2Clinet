@@ -52,7 +52,7 @@ public class BallTrigger : MonoBehaviour
 
 	public bool PassBall()
 	{
-		if (UIGame.Get.Game.Catcher) {
+		if (!passing && UIGame.Get.Game.Catcher) {
 			passing = true;
 			UIGame.Get.Game.SetBallState(PlayerState.Pass);
 			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
@@ -81,7 +81,7 @@ public class BallTrigger : MonoBehaviour
 
 		if(passing){
 			if (UIGame.Get.Game.Catcher) {
-				if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
+				if (Vector3.Distance (SceneMgr.Inst.RealBall.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
 					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
 				}else{
 					UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
