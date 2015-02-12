@@ -503,6 +503,7 @@ public class GameController : MonoBehaviour {
 	public void SetBall(PlayerBehaviour p = null){
 		if (PlayerList.Count > 0) {
 			if(p != null && situation != GameSituation.End){
+				Passing = false;
 				if(BallController != null){
 					if(BallController.Team != p.Team){
 						if(situation == GameSituation.AttackA)
@@ -535,7 +536,6 @@ public class GameController : MonoBehaviour {
 					p.WaitMoveTime = 0;
 					if(p.IsJump){
 						//ALLYOOP 
-						
 					}else
 						p.AniState (PlayerState.Dribble);
 				}
@@ -557,13 +557,13 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(false);
-			break;
+				break;
 			case PlayerState.Shooting: 
 				SceneMgr.Inst.RealBall.transform.parent = null;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
-			break;
+				break;
 			case PlayerState.Pass: 
 				SceneMgr.Inst.RealBall.transform.parent = null;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;

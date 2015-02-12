@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public enum PlayerState
 {
     Idle = 0,
-    Walk = 1,   
     Run = 2,            
     Block = 3,  
     Board = 4,  
@@ -256,8 +255,6 @@ public class PlayerBehaviour : MonoBehaviour
 					if(AnimatorStates[i] != string.Empty)
 						Control.SetBool(AnimatorStates[i], false);
 				break;
-			case PlayerState.Walk:
-				break;
 			case PlayerState.Run:
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				break;
@@ -270,7 +267,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
 			case PlayerState.Defence:
-				Control.SetBool("IsDefence", true);
+				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				SetSpeed(0);
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
@@ -294,9 +291,9 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass))
 				{
+					UIGame.Get.Game.Passing = true;
 					AddActionFlag(ActionFlag.IsPass);
 					Control.SetBool(AnimatorStates[ActionFlag.IsPass], true);
-					UIGame.Get.Game.Passing = true;
 				}
 				break;
 			case PlayerState.Block:
@@ -319,8 +316,9 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Shooting:
-				if(!CheckAction(ActionFlag.IsJump) && UIGame.Get.Game.BallController == this)
+				if(!UIGame.Get.Game.Passing && !CheckAction(ActionFlag.IsJump) && UIGame.Get.Game.BallController == this)
 				{
+					UIGame.Get.Game.Shooting = true;
 					AddActionFlag(ActionFlag.IsJump);
 					AddActionFlag(ActionFlag.IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);

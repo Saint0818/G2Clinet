@@ -70,7 +70,7 @@ public class UIGame : UIBase {
 
 	public void DoPass()
 	{
-		if (Game.BallController && targetPlayer && Game.BallController.Team == 0) {
+		if (Game.BallController && !Game.ShootController && targetPlayer && Game.BallController.Team == 0) {
 			if(Game.BallController.gameObject == targetPlayer.gameObject)
 				Game.Catcher = Game.PlayerList[1];
 			else
@@ -84,7 +84,6 @@ public class UIGame : UIBase {
 	{
 		if(Game.BallController)
 		{
-			Game.Shooting = true;
 			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.BallController.Team.GetHashCode()].transform.position;
 			Game.PlayerList [0].AniState (PlayerState.Shooting, true, pos.x, pos.z);
 		}

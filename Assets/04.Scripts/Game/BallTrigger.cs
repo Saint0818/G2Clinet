@@ -57,55 +57,6 @@ public class BallTrigger : MonoBehaviour
 			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, p.DummyBall.transform.position, Random.Range(40, 60));
 		else
 			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, followObject.transform.position, Random.Range(40, 60));
-
-//		if(UIGame.Get.Game.Catcher)
-//		{
-//			float ang = GameFunction.ElevationAngle(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.transform.position);                                                                                                                           
-//			float shootAng = 30 + ang;
-//			shootAng = Mathf.Clamp(shootAng, 40, 60);
-//			
-//			Vector3 v = UIGame.Get.Game.Catcher.transform.position;
-//			if (new Vector3(UIGame.Get.Game.Catcher.TargetPos.x, 2, UIGame.Get.Game.Catcher.TargetPos.y) != Vector3.zero && UIGame.Get.Game.Catcher.rigidbody.velocity != Vector3.zero)
-//			{
-//				v = GameFunction.calculateTrajectory(UIGame.Get.Game.Catcher.transform.position, 
-//				                        UIGame.Get.Game.Catcher.TargetPos, 
-//				                        UIGame.Get.Game.Catcher.rigidbody.velocity, 
-//				                        Vector3.Distance(UIGame.Get.Game.Catcher.transform.position, transform.position));
-//			}
-//			
-//			v.y = 1;
-//			Vector3 v2 = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, v, shootAng);
-//			
-//			if (UIGame.Visible && (int)UIGame.Get.Game.situation > 2)
-//			{
-//				v2.x *= 3;
-//				v2.y = 0.3f;
-//				v2.z *= 3;
-//			} else
-//			{
-//				float dis = Vector3.Distance(v, transform.position);
-//				if (dis <= 13)
-//				{
-//					RaycastHit hit;  
-//					LayerMask mask = 1 << LayerMask.NameToLayer("Player");
-//					Vector3 fwd = transform.TransformDirection(Vector3.forward);
-//					bool flag = false;
-//					if (Physics.Raycast(transform.position, fwd, out hit, 40, mask))
-//					{
-//						flag = hit.collider.gameObject.GetComponent<PlayerBehaviour>() != UIGame.Get.Game.Catcher;
-//					}
-//					
-//					if (!flag)
-//					{
-//						v2.x *= 3;
-//						v2.y = 0.3f;
-//						v2.z *= 3;
-//					}
-//				}
-//			}
-//			
-//			SceneMgr.Inst.RealBall.rigidbody.velocity = v2;
-//		}
 	}
 
 	void LateUpdate()
@@ -133,7 +84,6 @@ public class BallTrigger : MonoBehaviour
 			{
 				followObject = null;
 				UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
-				UIGame.Get.Game.Passing = false;
 			}
 		}
 	}
