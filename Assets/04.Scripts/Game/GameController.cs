@@ -363,12 +363,8 @@ public class GameController : MonoBehaviour {
 				Npc.TargetPos = TeeBackPosAy[Npc.Postion.GetHashCode()];
 		}
 		
-		if(Npc.WaitMoveTime == 0){
-			if(BallController != null && BallController != Npc){
-				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, BallController.transform.position.x, BallController.transform.position.z);
-			}else
-				Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
-		}
+		if(Npc.WaitMoveTime == 0)
+			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
 	}
 
 	private void TeeBall(ref PlayerBehaviour Npc, TeamKind Team){
@@ -382,10 +378,7 @@ public class GameController : MonoBehaviour {
 				}
 				
 				if(Npc.WaitMoveTime == 0){
-					if(BallController != null && BallController != Npc){
-						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, BallController.transform.position.x, BallController.transform.position.z);
-					}else
-						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+					Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
 				}else if(Npc == BallController)
 					Npc.AniState(PlayerState.Dribble);
 			}else{
