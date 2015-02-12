@@ -36,8 +36,6 @@ public class GameController : MonoBehaviour {
 
 	public bool ShootInto0 = false;
 	public bool ShootInto1 = false;
-	public bool Passing = false;
-	public bool Shooting = false;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour BallController;
@@ -166,32 +164,44 @@ public class GameController : MonoBehaviour {
 						break;
 					case GameSituation.AttackA:
 						if(Npc.Team == TeamKind.Self){
-							if(!Passing && !Shooting){
-								AttackAndDef(ref Npc, GameAction.Attack);
-								AIMove(ref Npc, GameAction.Attack);
+							if(!Passing){
+								if(!Shooting){
+									AttackAndDef(ref Npc, GameAction.Attack);
+									AIMove(ref Npc, GameAction.Attack);
+								}else{
+									if(!Npc.IsShooting){
+										AttackAndDef(ref Npc, GameAction.Attack);
+										AIMove(ref Npc, GameAction.Attack);
+									}
+								}
 							}
 						}else{
 							AttackAndDef(ref Npc, GameAction.Def);
-							if(!Shooting)
-								AIMove(ref Npc, GameAction.Def);
+							AIMove(ref Npc, GameAction.Def);
 						}					
 
-						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Shooting && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(Npc);
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
 							AttackAndDef(ref Npc, GameAction.Def);
-							if(!Shooting)
-								AIMove(ref Npc, GameAction.Def);
+							AIMove(ref Npc, GameAction.Def);
 						}else{
-							if(!Passing && !Shooting){
-								AttackAndDef(ref Npc, GameAction.Attack);
-								AIMove(ref Npc, GameAction.Attack);
+							if(!Passing){
+								if(!Shooting){
+									AttackAndDef(ref Npc, GameAction.Attack);
+									AIMove(ref Npc, GameAction.Attack);
+								}else{
+									if(!Npc.IsShooting){
+										AttackAndDef(ref Npc, GameAction.Attack);
+										AIMove(ref Npc, GameAction.Attack);
+									}
+								}
 							}
 						}
 
-						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
+						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && !Shooting && !Passing && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(Npc);
 						break;
 					case GameSituation.TeeAPicking:
@@ -276,9 +286,9 @@ public class GameController : MonoBehaviour {
 						}
 					}
 				}else{
-					if(ShootController){
+					if(ShootController && !Npc.IsJump && !Npc.IsBlock){
 						Dis = getDis(ref Npc, ref ShootController);
-						if(Dis <= StealBallDis && !Npc.IsJump){
+						if(Dis <= StealBallDis){
 							Npc.AniState(PlayerState.Block, true, ShootController.transform.localPosition.x, ShootController.transform.localPosition.z);
 						}
 					}
@@ -297,13 +307,10 @@ public class GameController : MonoBehaviour {
 					//Dunk shoot shoot3 pass
 					if(ShootPointDis <= 2f && DunkRate < 0){
 						Npc.AniState(PlayerState.Dunk);
-						Shooting = true;
 					}else if(ShootPointDis <= 6f && shootRate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-						Shooting = true;
 					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-						Shooting = true;
 					}else if(passRate < 20 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
 						int find = 0;
@@ -503,7 +510,6 @@ public class GameController : MonoBehaviour {
 	public void SetBall(PlayerBehaviour p = null){
 		if (PlayerList.Count > 0) {
 			if(p != null && situation != GameSituation.End){
-				Passing = false;
 				if(BallController != null){
 					if(BallController.Team != p.Team){
 						if(situation == GameSituation.AttackA)
@@ -557,7 +563,7 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 				SceneMgr.Inst.RealBall.transform.localPosition = Vector3.zero;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(false);
-				break;
+			break;
 			case PlayerState.Shooting: 
 				SceneMgr.Inst.RealBall.transform.parent = null;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
@@ -687,6 +693,28 @@ public class GameController : MonoBehaviour {
 			for(int i = 0; i < PlayerList.Count; i++)
 				PlayerList[i].ResetFlag();
 			break;
+		}
+	}
+
+	public bool Shooting{
+		get{
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i].IsShooting)
+					return true;
+			}
+
+			return false;
+		}
+	}
+
+	public bool Passing{
+		get{
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i].IsPass)
+					return true;
+			}
+			
+			return false;
 		}
 	}
 }

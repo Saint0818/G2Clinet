@@ -49,14 +49,13 @@ public class BallTrigger : MonoBehaviour
 		parentobjRigidbody.AddForce (new Vector3 (0, -100, 0));
 	}
 
-	public void PassBall(GameObject from , GameObject to)
+	public bool PassBall()
 	{
-		followObject = to;
-		PlayerBehaviour p = followObject.GetComponent<PlayerBehaviour>();
-		if(p)
-			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, p.DummyBall.transform.position, Random.Range(40, 60));
-		else
-			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, followObject.transform.position, Random.Range(40, 60));
+		if (UIGame.Get.Game.Catcher) {
+			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			return true;
+		}else
+			return false;
 	}
 
 	void LateUpdate()
@@ -77,15 +76,14 @@ public class BallTrigger : MonoBehaviour
 	{
 		gameObject.transform.localPosition = Vector3.zero;
 
-		if (followObject) {
-			if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, followObject.transform.position) > UIGame.Get.Game.PickBallDis)
-				parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, followObject.transform.position, 0.1f);
-			else
-			{
-				followObject = null;
+		if (UIGame.Get.Game.Catcher) {
+			if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
+				parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
+			}else{
 				UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
+				UIGame.Get.Game.Catcher.DelPass();
+				UIGame.Get.Game.Catcher = null;
 			}
 		}
 	}
-	
 }

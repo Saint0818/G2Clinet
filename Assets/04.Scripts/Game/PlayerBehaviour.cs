@@ -48,6 +48,7 @@ public static class ActionFlag{
 	public const int IsDribble = 5;
 	public const int IsSteal = 6;
 	public const int IsPass = 7;
+	public const int IsShooting = 8;
 }
 
 public class PlayerBehaviour : MonoBehaviour
@@ -152,8 +153,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
 		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock)) {
-			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
-			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
+			if ((gameObject.transform.localPosition.x <= TargetPos.x + MoveCheckValue && gameObject.transform.localPosition.x >= TargetPos.x - MoveCheckValue) && 
+			    (gameObject.transform.localPosition.z <= TargetPos.y + MoveCheckValue && gameObject.transform.localPosition.z >= TargetPos.y - MoveCheckValue)) {
 				SetSpeed(0);
 				DelActionFlag(ActionFlag.IsRun);
 				MoveTurn = 0;
@@ -161,21 +162,15 @@ public class PlayerBehaviour : MonoBehaviour
 				journeyLength = 0;
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.IsDefence)){
-					if(UIGame.Get.Game.situation == GameSituation.TeeA){
+					if(UIGame.Get.Game.situation == GameSituation.TeeA ||
+					   UIGame.Get.Game.situation == GameSituation.TeeB){
 						if(Postion == GamePostion.PF){
 							//Pass ball to PG
 							ReadyTee = true;
 						}else
 							AniState(PlayerState.Idle);
-					}else if(UIGame.Get.Game.situation == GameSituation.TeeB){
-						if(Postion == GamePostion.PF){
-							//Pass ball to PG
-							ReadyTee = true;
-						}else
-							AniState(PlayerState.Idle);
-					}else if(UIGame.Get.Game.situation == GameSituation.TeeAPicking){
-						AniState(PlayerState.Idle);
-					}else if(UIGame.Get.Game.situation == GameSituation.TeeBPicking){
+					}else if(UIGame.Get.Game.situation == GameSituation.TeeAPicking ||
+					         UIGame.Get.Game.situation == GameSituation.TeeBPicking){
 						AniState(PlayerState.Idle);
 					}else{
 						WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
@@ -195,7 +190,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && CanMoverotateTo()){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
-				rotateTo(X, Z, 10);
+				rotateTo(lookAtX, loolAtZ, 10);
 			
 				if(MoveTurn == 1){
 					startMoveTime = Time.time;
@@ -204,7 +199,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}else{
 				float fracJourney = 0.045f;
 				SetSpeed(1);
-				rotateTo(X, Z, 10);
+				rotateTo(lookAtX, loolAtZ, 10);
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
 				}else{
@@ -289,9 +284,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Pass:
-				if(!CheckAction(ActionFlag.IsPass))
-				{
-					UIGame.Get.Game.Passing = true;
+				if(!CheckAction(ActionFlag.IsPass)){
 					AddActionFlag(ActionFlag.IsPass);
 					Control.SetBool(AnimatorStates[ActionFlag.IsPass], true);
 				}
@@ -318,7 +311,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Shooting:
 				if(!UIGame.Get.Game.Passing && !CheckAction(ActionFlag.IsJump) && UIGame.Get.Game.BallController == this)
 				{
-					UIGame.Get.Game.Shooting = true;
+					AddActionFlag(ActionFlag.IsShooting);
 					AddActionFlag(ActionFlag.IsJump);
 					AddActionFlag(ActionFlag.IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
@@ -389,6 +382,18 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return CheckAction(ActionFlag.IsRun);}
 	}
 
+	public bool IsShooting{
+		get{return CheckAction(ActionFlag.IsShooting);}
+	}
+
+	public bool IsBlock{
+		get{return CheckAction(ActionFlag.IsBlock);}
+	}
+
+	public bool IsPass{
+		get{return CheckAction(ActionFlag.IsPass);}
+	}
+
 	public bool IsJump{
 		get{return CheckAction(ActionFlag.IsJump);}
 	}
@@ -421,12 +426,12 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case "ShootDown":
 				UIGame.Get.Game.SetBall();
+				DelActionFlag(ActionFlag.IsShooting);
 				DelActionFlag(ActionFlag.IsJump);
 				DelActionFlag(ActionFlag.IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.IsJump], false);
 				DelActionFlag(ActionFlag.IsJump);
-				UIGame.Get.Game.Shooting = false;
 				break;
 			case "Blocking":
 				UIGame.Get.Game.SetBallState(PlayerState.Block);
@@ -436,8 +441,9 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsBlock);
 				break;
 			case "Shooting":
-				if (UIGame.Get.Game.BallController.gameObject == gameObject) {
+				if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject) {
 					UIGame.Get.Game.ShootController = this;
+					UIGame.Get.Game.SetBall();
 					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
 					UIGame.Get.Game.SetBallState(PlayerState.Shooting);
 					SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, SceneMgr.Inst.ShootPoint[Team.GetHashCode()].transform.position, 60);
@@ -446,9 +452,11 @@ public class PlayerBehaviour : MonoBehaviour
 			case "ShootJump":
 				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
-			case "Passing":
-				UIGame.Get.Game.SetBallState(PlayerState.Pass);
-				SceneMgr.Inst.RealBallTrigger.PassBall(gameObject, UIGame.Get.Game.Catcher.gameObject); 
+			case "Passing":				
+				if(!SceneMgr.Inst.RealBallTrigger.PassBall())
+					DelActionFlag(ActionFlag.IsPass);
+				else
+					UIGame.Get.Game.SetBallState(PlayerState.Pass);
 				break;
 			case "PassEnd":
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
@@ -457,6 +465,10 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsDribble);
 				break;
 		}
+	}
+
+	public void DelPass(){
+		DelActionFlag (ActionFlag.IsPass);
 	}
 
 	public void SetInvincible(float time){
