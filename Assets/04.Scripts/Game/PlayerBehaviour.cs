@@ -82,7 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float AirDrag = 0f;
 	public int MoveIndex = -1;
 
-
+	private float PassTime = 0;
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
@@ -120,11 +120,17 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-		if(Time.time >= Invincible)
+		if(Invincible > 0 && Time.time >= Invincible)
 			Invincible = 0;
 
 		if(CoolDownSteal > 0 && Time.time >= CoolDownSteal)
 			CoolDownSteal = 0;
+
+		if (PassTime > 0 && Time.time >= PassTime) {
+			PassTime = 0;
+			DelActionFlag(ActionFlag.IsPass);
+		}
+			
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
@@ -285,6 +291,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass)){
+					PassTime = Time.time + 3;
 					AddActionFlag(ActionFlag.IsPass);
 					Control.SetBool(AnimatorStates[ActionFlag.IsPass], true);
 				}
@@ -451,9 +458,12 @@ public class PlayerBehaviour : MonoBehaviour
 			case "ShootJump":
 				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
-			case "Passing":				
-				if(!SceneMgr.Inst.RealBallTrigger.PassBall())
-					DelActionFlag(ActionFlag.IsPass);
+			case "Passing":			
+				if(PassTime > 0){
+					PassTime = 0;
+					if(!SceneMgr.Inst.RealBallTrigger.PassBall())
+						DelActionFlag(ActionFlag.IsPass);
+				}				
 				break;
 			case "PassEnd":
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);

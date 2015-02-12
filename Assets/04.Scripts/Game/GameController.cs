@@ -279,7 +279,7 @@ public class GameController : MonoBehaviour {
 								Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
 								if(stealRate < 20){
 									SetBall(Npc);
-									Npc.SetInvincible(5);
+									Npc.SetInvincible(7);
 								}
 							}else
 								Npc.AniState(PlayerState.Defence);
@@ -309,7 +309,7 @@ public class GameController : MonoBehaviour {
 						Npc.AniState(PlayerState.Dunk);
 					}else if(ShootPointDis <= 6f && shootRate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-					}else if(ShootPointDis <= 7f && shoot3Rate < 50){
+					}else if(ShootPointDis <= 10.5f && shoot3Rate < 50){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 					}else if(passRate < 20 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
@@ -648,7 +648,13 @@ public class GameController : MonoBehaviour {
 		ShootInto1 = false;
 		
 		if (UIGame.Get.IsStart) {
-			UIGame.Get.PlusScore(team, 2);
+			if(ShootController != null){
+				if(getDis(ref ShootController, SceneMgr.Inst.ShootPoint[ShootController.Team.GetHashCode()].transform.position) >= 9)
+					UIGame.Get.PlusScore(team, 3);
+				else
+					UIGame.Get.PlusScore(team, 2);
+			}else
+				UIGame.Get.PlusScore(team, 2);
 
 			if(team == TeamKind.Self.GetHashCode())
 				ChangeSituation(GameSituation.TeeBPicking);
@@ -658,42 +664,44 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ChangeSituation(GameSituation GS){
-		situation = GS;
-		switch(GS){
-		case GameSituation.Opening:
-
-			break;
-		case GameSituation.JumpBall:
-
-			break;
-		case GameSituation.AttackA:
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
-			UIGame.Get.ChangeControl(true);
-			break;
-		case GameSituation.AttackB:
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
-			UIGame.Get.ChangeControl(false);
-			break;
-		case GameSituation.TeeAPicking:
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
-			break;
-		case GameSituation.TeeA:
-
-			break;
-		case GameSituation.TeeBPicking:
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
-			break;
-		case GameSituation.TeeB:
-
-			break;
-		case GameSituation.End:
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
-			break;
+		if (situation != GameSituation.End) {
+			situation = GS;
+			switch(GS){
+			case GameSituation.Opening:
+				
+				break;
+			case GameSituation.JumpBall:
+				
+				break;
+			case GameSituation.AttackA:
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
+				UIGame.Get.ChangeControl(true);
+				break;
+			case GameSituation.AttackB:
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
+				UIGame.Get.ChangeControl(false);
+				break;
+			case GameSituation.TeeAPicking:
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
+				break;
+			case GameSituation.TeeA:
+				
+				break;
+			case GameSituation.TeeBPicking:
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
+				break;
+			case GameSituation.TeeB:
+				
+				break;
+			case GameSituation.End:
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
+				break;
+			}		
 		}
 	}
 
