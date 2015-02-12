@@ -7,6 +7,7 @@ public class BallTrigger : MonoBehaviour
 	private BoxCollider box;
 	private Rigidbody parentobjRigidbody;
 	private GameObject HintObject;
+	private bool passing = false;
 
 //	private float onFloorTime = 0;
 
@@ -52,6 +53,8 @@ public class BallTrigger : MonoBehaviour
 	public bool PassBall()
 	{
 		if (UIGame.Get.Game.Catcher) {
+			passing = true;
+			UIGame.Get.Game.SetBallState(PlayerState.Pass);
 			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
 			return true;
 		}else
@@ -76,14 +79,19 @@ public class BallTrigger : MonoBehaviour
 	{
 		gameObject.transform.localPosition = Vector3.zero;
 
-		if (UIGame.Get.Game.Catcher) {
-			if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
-				parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
-			}else{
-				UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
-				UIGame.Get.Game.Catcher.DelPass();
-				UIGame.Get.Game.Catcher = null;
+		if(passing){
+			if (UIGame.Get.Game.Catcher) {
+				if (Vector3.Distance (parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
+					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
+				}else{
+					UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
+					UIGame.Get.Game.Catcher.DelPass();
+					UIGame.Get.Game.Catcher = null;
+					passing = false;
+				}
 			}
+			else
+				passing = false;
 		}
 	}
 }

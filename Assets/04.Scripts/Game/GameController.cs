@@ -571,6 +571,7 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Pass: 
+				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 				SceneMgr.Inst.RealBall.transform.parent = null;
 				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;

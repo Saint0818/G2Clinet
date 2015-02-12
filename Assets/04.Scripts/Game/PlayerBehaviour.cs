@@ -425,7 +425,6 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsSteal], false);
 				break;
 			case "ShootDown":
-				UIGame.Get.Game.SetBall();
 				DelActionFlag(ActionFlag.IsShooting);
 				DelActionFlag(ActionFlag.IsJump);
 				DelActionFlag(ActionFlag.IsDribble);
@@ -455,8 +454,6 @@ public class PlayerBehaviour : MonoBehaviour
 			case "Passing":				
 				if(!SceneMgr.Inst.RealBallTrigger.PassBall())
 					DelActionFlag(ActionFlag.IsPass);
-				else
-					UIGame.Get.Game.SetBallState(PlayerState.Pass);
 				break;
 			case "PassEnd":
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
