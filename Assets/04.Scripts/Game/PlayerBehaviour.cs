@@ -152,7 +152,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
-		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump)) {
+		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock)) {
 			if ((gameObject.transform.localPosition.x <= X + MoveCheckValue && gameObject.transform.localPosition.x >= X - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Z + MoveCheckValue && gameObject.transform.localPosition.z >= Z - MoveCheckValue)) {
 				SetSpeed(0);
@@ -300,15 +300,22 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case PlayerState.Block:
-				AddActionFlag(ActionFlag.IsBlock);
-				Control.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
 				if(!CheckAction(ActionFlag.IsBlock)){
-					if(DorotateTo)
-						gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, new Vector3(lookAtX, 3, lookAtZ), 60);
-					else
-						gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-
 					AddActionFlag(ActionFlag.IsBlock);
+					Control.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
+
+					if (UIGame.Get.Game.BallController) 
+					{
+						if(Vector3.Distance(UIGame.Get.targetPlayer.gameObject.transform.position, UIGame.Get.Game.BallController.gameObject.transform.position) < 5f)
+							gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+						else
+							gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, new Vector3(UIGame.Get.Game.BallController.transform.position.x, 7, UIGame.Get.Game.BallController.transform.position.z), 70);
+					} 
+					else 
+					{
+						if(UIGame.Get.Game.ShootController && Vector3.Distance(gameObject.transform.position, SceneMgr.Inst.RealBall.transform.position) < 5)
+							gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, new Vector3(SceneMgr.Inst.RealBall.transform.position.x, 5, SceneMgr.Inst.RealBall.transform.position.z), 70);
+					}
 				}
 				break;
 			case PlayerState.Shooting:

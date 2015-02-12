@@ -108,29 +108,8 @@ public class UIGame : UIBase {
 
 	public void DoBlock()
 	{
-		bool isturn = false;
-		Vector3 pos = Vector3.zero;
-		if (Game.BallController) 
-		{
-			if(Vector3.Distance(targetPlayer.gameObject.transform.position, Game.BallController.gameObject.transform.position) < 5f)
-			{
-				isturn = true;
-				pos = Game.BallController.gameObject.transform.position;
-
-			}
-		} else 
-		{
-			if(SceneMgr.Inst.RealBall.transform.position.y > 2 && Vector3.Distance(targetPlayer.gameObject.transform.position, SceneMgr.Inst.RealBall.transform.position) < 5)
-			{
-				isturn = true;
-				pos = SceneMgr.Inst.RealBall.transform.position;
-			}
-		}
-
-		if(isturn)
-			Game.PlayerList [0].AniState (PlayerState.Block, isturn, pos.x, pos.z);
-		else
-			Game.PlayerList [0].AniState (PlayerState.Block);
+		if(Game.BallController)
+			targetPlayer.AniState (PlayerState.Block, true, Game.BallController.transform.position.x, Game.BallController.transform.position.z);
 	}
 
 	public void PlusScore(int team, int score)

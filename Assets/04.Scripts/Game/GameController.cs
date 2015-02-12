@@ -279,7 +279,7 @@ public class GameController : MonoBehaviour {
 					if(ShootController){
 						Dis = getDis(ref Npc, ref ShootController);
 						if(Dis <= StealBallDis && !Npc.IsJump){
-							Npc.AniState(PlayerState.Jumper, true, ShootController.transform.localPosition.x, ShootController.transform.localPosition.z);
+							Npc.AniState(PlayerState.Block, true, ShootController.transform.localPosition.x, ShootController.transform.localPosition.z);
 						}
 					}
 				}
