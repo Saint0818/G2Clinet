@@ -44,6 +44,11 @@ public class BallTrigger : MonoBehaviour
 		}
 	}
 
+	public void Falling()
+	{
+		parentobjRigidbody.AddForce (new Vector3 (0, -100, 0));
+	}
+
 	public void PassBall(GameObject from , GameObject to)
 	{
 		followObject = to;

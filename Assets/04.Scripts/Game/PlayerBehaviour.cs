@@ -431,7 +431,7 @@ public class PlayerBehaviour : MonoBehaviour
 				UIGame.Get.Game.Shooting = false;
 				break;
 			case "Blocking":
-				Debug.Log("Ball is Falling");
+				UIGame.Get.Game.SetBallState(PlayerState.Block);
 				break;
 			case "BlockEnd":
 				Control.SetBool(AnimatorStates[ActionFlag.IsBlock], false);

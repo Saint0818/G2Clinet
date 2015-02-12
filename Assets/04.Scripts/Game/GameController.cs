@@ -570,6 +570,14 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
 				break;
+			case PlayerState.Block: 
+				SceneMgr.Inst.RealBall.transform.parent = null;
+				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
+				SceneMgr.Inst.RealBallTrigger.Falling();
+				UIHint.Get.ShowHint("Blocking", Color.blue);
+				break;
 		}
 	}
 
