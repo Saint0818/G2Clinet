@@ -53,16 +53,21 @@ public static class ActionFlag{
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public Vector3 Translate;
 	private const float MoveCheckValue = 1;
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
 
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
+	private float MoveMinSpeed = 0.5f;
+	private float dashSpeed = 1.2f;
 	private Vector2 drag = Vector2.zero;
 	private Vector2 mTargetPos = Vector2.zero;
 	private bool stop = false;
+	private bool isJoystick = false;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
 	private int MoveTurn = 0;
+	private float PassTime = 0;
 
 	public Animator Control;
 	public TeamKind Team;
@@ -72,17 +77,16 @@ public class PlayerBehaviour : MonoBehaviour
 	public GamePostion Postion = GamePostion.PG;
 	public Vector2 [] RunPosAy;
 	public bool ReadyTee = false;
-	public float basicMoveSpeed = 0.5f;
-	public float curSpeed = 0;
+	public float BasicMoveSpeed = 1f;
+	public float AnimationSpeed = 0;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public float jumpHight = 12;
+	public float JumpHight = 12;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
-
-	private float PassTime = 0;
+	
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
@@ -92,6 +96,7 @@ public class PlayerBehaviour : MonoBehaviour
 	void Update()
 	{
 		if (UIGame.Get.IsStart) {
+			CalculationAirResistance();
 			Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 			if (gameObject.transform.localPosition.y > 0.2f) {
 					gameObject.collider.enabled = false;
@@ -100,18 +105,7 @@ public class PlayerBehaviour : MonoBehaviour
 					gameObject.collider.enabled = true;
 			}
 		}
-
-		if (gameObject.transform.localPosition.y > 1f) {
-			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
-			gameObject.rigidbody.drag = drag.y;
-		} else {
-			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
-			if(drag.y >= 0)
-				gameObject.rigidbody.drag = drag.y;
-			else
-				gameObject.rigidbody.drag = 0;
-		}
-
+		
 		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
 			WaitMoveTime = 0;
 
@@ -124,39 +118,66 @@ public class PlayerBehaviour : MonoBehaviour
 		if (PassTime > 0 && Time.time >= PassTime) {
 			PassTime = 0;
 			DelActionFlag(ActionFlag.IsPass);
+		}	
+	}
+
+	private void CalculationAirResistance()
+	{
+		if (gameObject.transform.localPosition.y > 1f) {
+			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
+			gameObject.rigidbody.drag = drag.y;
+		} else {
+			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
+			if(drag.y >= 0)
+				gameObject.rigidbody.drag = drag.y;
+			else
+				gameObject.rigidbody.drag = 0;
 		}
-			
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
 	{
 		if (CheckCanUseControl() || stop) {
-			EffectManager.Get.SelectEffectScript.SetParticleColor(false);
-			curSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
-			SetSpeed (curSpeed);
-
-			if (Mathf.Abs (move.joystickAxis.y) > 0)
+			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
+				isJoystick = true;
+				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
+				AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
+				SetSpeed (AnimationSpeed);
+
 				if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
 					AniState(PlayerState.RunAndDrible);
 				else
 					AniState(PlayerState.Run);
-			}
 
-			float angle = move.Axis2Angle (true);
-			int a = 90;
-			Vector3 rotation = new Vector3 (0, angle + a, 0);
-			transform.rotation = Quaternion.Euler (rotation);
-			Vector3 translate = Vector3.forward * Time.deltaTime * curSpeed * 10 * basicMoveSpeed;
-			transform.Translate (translate);	
+				float angle = move.Axis2Angle (true);
+				int a = 90;
+				Vector3 rotation = new Vector3 (0, angle + a, 0);
+				transform.rotation = Quaternion.Euler (rotation);
+				
+				if(AnimationSpeed <= MoveMinSpeed)
+					Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed;
+				else
+					Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * dashSpeed * 10 * BasicMoveSpeed;
+				
+				transform.Translate (Translate);	
+			}
 		}
+	}
+
+	public void OnJoystickMoveEnd(MovingJoystick move)
+	{
+		isJoystick = false;
+		if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
+			AniState(PlayerState.Dribble);
+		else
+			AniState (PlayerState.Idle);
 	}
 
 	public void MoveTo(float X, float Z, float lookAtX, float loolAtZ){
 		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock)) {
 			if ((gameObject.transform.localPosition.x <= TargetPos.x + MoveCheckValue && gameObject.transform.localPosition.x >= TargetPos.x - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= TargetPos.y + MoveCheckValue && gameObject.transform.localPosition.z >= TargetPos.y - MoveCheckValue)) {
-				SetSpeed(0);
 				DelActionFlag(ActionFlag.IsRun);
 				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
 					AniState(PlayerState.Idle);
@@ -201,7 +222,6 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			}else{
 				fracJourney = GetfracJourney();
-				SetSpeed(1);
 				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
@@ -212,7 +232,7 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.Run);
 
 					if(journeyLength != 0)
-						fracJourney = ((Time.time - startMoveTime) * basicMoveSpeed) / journeyLength;
+						fracJourney = ((Time.time - startMoveTime) * 0.5f) / journeyLength;
 				}
 
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
@@ -243,15 +263,6 @@ public class PlayerBehaviour : MonoBehaviour
 			return false;
 	}
 
-	public void OnJoystickMoveEnd(MovingJoystick move)
-	{
-		SetSpeed(0);
-		if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject)
-			AniState(PlayerState.Dribble);
-		else
-			AniState (PlayerState.Idle);
-	}
-
 	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
 	{
 		crtState = state;
@@ -261,6 +272,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		switch (state) {
 			case PlayerState.Idle:
+				SetSpeed(0);
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty)
 						Control.SetBool(AnimatorStates[i], false);
@@ -269,10 +281,12 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				break;
 			case PlayerState.Dribble:
+				SetSpeed(0);
 				AddActionFlag(ActionFlag.IsDribble);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
 			case PlayerState.RunAndDrible:
+				SetSpeed(1);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
@@ -282,13 +296,14 @@ public class PlayerBehaviour : MonoBehaviour
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
 			case PlayerState.RunAndDefence:
+				SetSpeed(1);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				break;
 			case PlayerState.Jumper:
 				if(!CheckAction(ActionFlag.IsJump)){
 					Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
-					gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+					gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 					AddActionFlag(ActionFlag.IsJump);
 				}
 				break;
@@ -313,7 +328,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if (UIGame.Get.Game.BallController) 
 					{
 						if(Vector3.Distance(UIGame.Get.targetPlayer.gameObject.transform.position, UIGame.Get.Game.BallController.gameObject.transform.position) < 5f)
-							gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+							gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 						else
 							gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, new Vector3(UIGame.Get.Game.BallController.transform.position.x, 7, UIGame.Get.Game.BallController.transform.position.z), 70);
 					} 
@@ -465,7 +480,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				break;
 			case "ShootJump":
-				gameObject.rigidbody.AddForce (jumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
 			case "Passing":			
 				if(PassTime > 0){
