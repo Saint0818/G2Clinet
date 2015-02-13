@@ -80,6 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float jumpHight = 12;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
+	public float fracJourney = 0;
 	public int MoveIndex = -1;
 
 	private float PassTime = 0;
@@ -163,6 +164,8 @@ public class PlayerBehaviour : MonoBehaviour
 			    (gameObject.transform.localPosition.z <= TargetPos.y + MoveCheckValue && gameObject.transform.localPosition.z >= TargetPos.y - MoveCheckValue)) {
 				SetSpeed(0);
 				DelActionFlag(ActionFlag.IsRun);
+				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
+					AniState(PlayerState.Idle);
 				MoveTurn = 0;
 				startMoveTime = 0;
 				journeyLength = 0;
@@ -179,7 +182,7 @@ public class PlayerBehaviour : MonoBehaviour
 					         UIGame.Get.Game.situation == GameSituation.TeeBPicking){
 						AniState(PlayerState.Idle);
 					}else{
-						WaitMoveTime = (float)UnityEngine.Random.Range(0, 3);
+						WaitMoveTime = (float)UnityEngine.Random.Range(0, 2);
 						
 						if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
 							if(Team == TeamKind.Self)
@@ -196,16 +199,16 @@ public class PlayerBehaviour : MonoBehaviour
 			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && CanMoverotateTo()){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
-				rotateTo(lookAtX, loolAtZ, 10);
+				rotateTo(X, Z, 10);
 			
 				if(MoveTurn == 1){
 					startMoveTime = Time.time;
 					journeyLength = Vector3.Distance(gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z));
 				}
 			}else{
-				float fracJourney = 0.045f;
+				fracJourney = GetfracJourney();
 				SetSpeed(1);
-				rotateTo(lookAtX, loolAtZ, 10);
+				rotateTo(X, Z, 10);
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
 				}else{
@@ -221,6 +224,18 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
 			}		
 		}
+	}
+
+	private float GetfracJourney(){
+		float Result = 0.045f;
+
+		for (int i = 0; i < UIGame.Get.Game.PlayerList.Count; i++) {
+			if(UIGame.Get.Game.PlayerList[i].Team != Team && UIGame.Get.Game.PlayerList[i].Postion == Postion){
+				Result = UIGame.Get.Game.PlayerList[i].fracJourney;
+			}		
+		}
+
+		return Result;
 	}
 
 	private bool CanMoverotateTo(){
@@ -318,6 +333,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Shooting:
 				if(!UIGame.Get.Game.Passing && !CheckAction(ActionFlag.IsJump) && UIGame.Get.Game.BallController == this)
 				{
+					UIGame.Get.Game.ShootController = this;
 					AddActionFlag(ActionFlag.IsShooting);
 					AddActionFlag(ActionFlag.IsJump);
 					AddActionFlag(ActionFlag.IsDribble);
@@ -447,8 +463,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsBlock);
 				break;
 			case "Shooting":
-				if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject) {
-					UIGame.Get.Game.ShootController = this;
+				if (UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject) {					
 					UIGame.Get.Game.SetBall();
 					SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;                                                                                                                        
 					UIGame.Get.Game.SetBallState(PlayerState.Shooting);

@@ -277,7 +277,7 @@ public class GameController : MonoBehaviour {
 							}else if(Dis <= StealBallDis && stealRate < 50 && BallController.Invincible == 0 && Npc.CoolDownSteal == 0){
 								Npc.CoolDownSteal = Time.time + 3;
 								Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
-								if(stealRate < 20){
+								if(stealRate < 5){
 									SetBall(Npc);
 									Npc.SetInvincible(7);
 								}
@@ -307,18 +307,19 @@ public class GameController : MonoBehaviour {
 					//Dunk shoot shoot3 pass
 					if(ShootPointDis <= 2f && DunkRate < 0){
 						Npc.AniState(PlayerState.Dunk);
-					}else if(ShootPointDis <= 6f && shootRate < 50){
+					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f) || shootRate < 10)){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-					}else if(ShootPointDis <= 10.5f && shoot3Rate < 50){
+					}else if(ShootPointDis <= 10.5f && (!HaveDefPlayer(ref Npc, 1.5f) || shoot3Rate < 3)){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-					}else if(passRate < 20 && CoolDownPass == 0){
+					}else if(passRate < 5 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
 						int find = 0;
 						for(int j = 0;  j < PlayerList.Count; j++){
 							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
 								if(Who == find){
 									Catcher = PlayerList[j];
-									BallController.AniState(PlayerState.Pass);
+									Catcher.AniState(PlayerState.Idle, true, BallController.transform.localPosition.x, BallController.transform.localPosition.z);
+									BallController.AniState(PlayerState.Pass, true, Catcher.transform.localPosition.x, Catcher.transform.localPosition.z);
 									CoolDownPass = Time.time + 3;
 									break;
 								}
@@ -571,12 +572,15 @@ public class GameController : MonoBehaviour {
 				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Block: 
-				SceneMgr.Inst.RealBall.transform.parent = null;
-				SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
-				SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
-				SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
-				SceneMgr.Inst.RealBallTrigger.Falling();
-				UIHint.Get.ShowHint("Blocking", Color.blue);
+				int blockRate = Random.Range(0, 100) + 1;
+				if(blockRate < 30){
+					SceneMgr.Inst.RealBall.transform.parent = null;
+					SceneMgr.Inst.RealBall.rigidbody.isKinematic = false;
+					SceneMgr.Inst.RealBall.rigidbody.useGravity = true;
+					SceneMgr.Inst.RealBallTrigger.SetBoxColliderEnable(true);
+					SceneMgr.Inst.RealBallTrigger.Falling();
+					UIHint.Get.ShowHint("Blocking", Color.blue);
+				}
 				break;
 		}
 	}
@@ -718,5 +722,28 @@ public class GameController : MonoBehaviour {
 			
 			return false;
 		}
+	}
+
+	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float _dis){
+		Vector3 forward = Npc.transform.TransformDirection(Vector3.forward);
+		Vector3 toOther = Vector3.zero;
+		float dot = 0;
+		bool Result = false;
+
+		if (PlayerList.Count > 0) {
+			for (int i = 0; i < PlayerList.Count; i++) {
+				if(PlayerList[i].Team != Npc.Team){
+					toOther = PlayerList[i].transform.position - Npc.transform.position;
+					dot = Vector3.Dot(forward , toOther);
+					if(dot > 0.5f && _dis * _dis < 2 * dot * dot ){
+						//HaveDefPlayer						
+						Result = true;
+						break;
+					}
+				}		
+			}	
+		}
+
+		return Result;
 	}
 }
