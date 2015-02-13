@@ -62,7 +62,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool stop = false;
 	private float startMoveTime = 0;
 	private float journeyLength = 0;
-	private float Timer = 0;
 	private int MoveTurn = 0;
 
 	public Animator Control;
@@ -113,13 +112,8 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.rigidbody.drag = 0;
 		}
 
-		if (Time.time - Timer >= 1){
-			Timer = Time.time;
-			
-			if(WaitMoveTime > 0){
-				WaitMoveTime--;
-			}
-		}
+		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
+			WaitMoveTime = 0;
 
 		if(Invincible > 0 && Time.time >= Invincible)
 			Invincible = 0;
@@ -182,7 +176,7 @@ public class PlayerBehaviour : MonoBehaviour
 					         UIGame.Get.Game.situation == GameSituation.TeeBPicking){
 						AniState(PlayerState.Idle);
 					}else{
-						WaitMoveTime = (float)UnityEngine.Random.Range(0, 2);
+						WaitMoveTime = Time.time + UnityEngine.Random.value;
 						
 						if(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController.gameObject == gameObject){
 							if(Team == TeamKind.Self)
