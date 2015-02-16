@@ -16,7 +16,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public BallTrigger RealBallTrigger;
     private GameObject crtStadium;
     private GameObject crtBasket;
-	private GameObject[] crtLine = new GameObject[2];
+	private GameObject crtLine;
     private GameObject crtLogo;
     private GameObject crtFloor;
     private GameObject crtCollider;
@@ -50,11 +50,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
     private void InitLineGroup()
     {
-        GameObject go = Instantiate(Resources.Load("Prefab/Line")) as GameObject;
-        go.transform.parent = gameObject.transform;
-        crtLine[0] = go.transform.FindChild("Lines_L").gameObject;
-        crtLine[1] = go.transform.FindChild("Lines_R").gameObject;
-        crtLogo = go.transform.FindChild("Logo").gameObject;
+		crtLine = Instantiate(Resources.Load("Prefab/Line")) as GameObject;
+		crtLogo = crtLine.transform.FindChild("Logo").gameObject;
     }
 
     public void CheckCollider()
@@ -155,7 +152,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         crtStadiumIndex = stadiumIndex;
 
         ChangeLightMapping(crtStadiumIndex);
-		CameraMgr.Inst.SetCameraColor(color);
+//		CameraMgr.Inst.SetCameraColor(color);
     }
 
     public void ChangeLightMapping(int index)
@@ -362,14 +359,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             return;
         }
 
-        if (!crtLine[0] || !crtLine[1])
-        {
+		if (!crtLine)
             InitLineGroup();
-        }
 
         Texture tex = Resources.Load(string.Format("Textures/Court/Line{0}", lineIndex)) as Texture;
-        crtLine[0].renderer.material.mainTexture = tex;
-        crtLine[1].renderer.material.mainTexture = tex;
+		crtLine.renderer.material.mainTexture = tex;
     }
 
     public void ChangeLogo(int logoIndex)
@@ -413,7 +407,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		floorIndex = 0;
 		basketIndex = 3;
 		no = 3;
-		CameraMgr.Inst.SetCamMode(CameraMgr.CamMode.HorizontalInGame);
+		CameraMgr.Inst.SetTeamCamera(0);
 		RealBall.transform.localPosition = new Vector3 (0, 5, 0);
 		//------------------
 
