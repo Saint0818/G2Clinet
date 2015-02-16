@@ -179,8 +179,8 @@ public class PlayerBehaviour : MonoBehaviour
 			if ((gameObject.transform.localPosition.x <= TargetPos.x + MoveCheckValue && gameObject.transform.localPosition.x >= TargetPos.x - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= TargetPos.y + MoveCheckValue && gameObject.transform.localPosition.z >= TargetPos.y - MoveCheckValue)) {
 				DelActionFlag(ActionFlag.IsRun);
-//				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
-//					AniState(PlayerState.Idle);
+				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
+					AniState(PlayerState.Idle);
 				MoveTurn = 0;
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.IsDefence)){

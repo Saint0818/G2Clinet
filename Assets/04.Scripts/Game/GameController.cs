@@ -222,6 +222,8 @@ public class GameController : MonoBehaviour {
 						//Tee ball
 						if(!Passing)
 							TeeBall(ref Npc, TeamKind.Self);
+						else if(Npc.Team == TeamKind.Npc)
+							BackToDef(ref Npc, Npc.Team);
 						break;	
 					case GameSituation.TeeBPicking:
 						if(BallController == null){
@@ -242,6 +244,8 @@ public class GameController : MonoBehaviour {
 						//Tee ball
 						if(!Passing)
 							TeeBall(ref Npc, TeamKind.Npc);
+						else if(Npc.Team == TeamKind.Self)
+							BackToDef(ref Npc, Npc.Team);
 						break;					
 					case GameSituation.End:
 
