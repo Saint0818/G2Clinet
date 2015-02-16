@@ -399,39 +399,31 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void NearBall(out PlayerBehaviour A, out PlayerBehaviour B){
-		A = null;
-		B = null;
+	private PlayerBehaviour NearBall(ref PlayerBehaviour Npc){
+		PlayerBehaviour NearPlayer = null;
 
 		for (int i = 0; i < PlayerList.Count; i++) {
-			PlayerBehaviour Npc = PlayerList[i];
-			if(PlayerList[i].Team == TeamKind.Self){
-				if(A == null)
-					A = PlayerList[i];
-				else if(getDis(ref A, SceneMgr.Inst.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position))
-					A = PlayerList[i];
-			}else{
-				if(B == null)
-					B = PlayerList[i];
-				else if(getDis(ref B, SceneMgr.Inst.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position))
-					B = PlayerList[i];
+			PlayerBehaviour Npc1 = PlayerList[i];
+			if(Npc1.Team == Npc.Team){
+				if(NearPlayer == null)
+					NearPlayer = Npc1;
+				else if(getDis(ref NearPlayer, SceneMgr.Inst.RealBall.transform.position) > getDis(ref Npc1, SceneMgr.Inst.RealBall.transform.position))
+					NearPlayer = Npc1;
 			}
 		}
+
+		if(Npc != NearPlayer)
+			NearPlayer = null;
+
+		return NearPlayer;
 	}
 
 	private void AIMove(ref PlayerBehaviour Npc, GameAction Action){
 		if (BallController == null) {
-			PlayerBehaviour A;
-			PlayerBehaviour B;
-			NearBall(out A, out B);
-			if(A){
+			PlayerBehaviour A = NearBall(ref Npc);
+			if(A != null){
 				A.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
 				A.MoveTo(A.TargetPos.x, A.TargetPos.y, A.TargetPos.x, A.TargetPos.y);
-			}
-
-			if(B){
-				B.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
-				B.MoveTo(A.TargetPos.x, B.TargetPos.y, B.TargetPos.x, B.TargetPos.y);
 			}
 		}else{
 			switch(Action){
