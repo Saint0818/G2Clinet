@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour {
 		TeePosAy [1] = new Vector2 (5.6f, -16);
 		TeePosAy [2] = new Vector2 (4, 10);
 
-		TeeBackPosAy[0] = new Vector2 (0, 4.5f);
+		TeeBackPosAy[0] = new Vector2 (0, 8);
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 	}
@@ -399,10 +399,40 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	private void NearBall(out PlayerBehaviour A, out PlayerBehaviour B){
+		A = null;
+		B = null;
+
+		for (int i = 0; i < PlayerList.Count; i++) {
+			PlayerBehaviour Npc = PlayerList[i];
+			if(PlayerList[i].Team == TeamKind.Self){
+				if(A == null)
+					A = PlayerList[i];
+				else if(getDis(ref A, SceneMgr.Inst.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position))
+					A = PlayerList[i];
+			}else{
+				if(B == null)
+					B = PlayerList[i];
+				else if(getDis(ref B, SceneMgr.Inst.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position))
+					B = PlayerList[i];
+			}
+		}
+	}
+
 	private void AIMove(ref PlayerBehaviour Npc, GameAction Action){
 		if (BallController == null) {
-			Npc.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
-			Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
+			PlayerBehaviour A;
+			PlayerBehaviour B;
+			NearBall(out A, out B);
+			if(A){
+				A.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
+				A.MoveTo(A.TargetPos.x, A.TargetPos.y, A.TargetPos.x, A.TargetPos.y);
+			}
+
+			if(B){
+				B.TargetPos = new Vector2(SceneMgr.Inst.RealBall.transform.position.x, SceneMgr.Inst.RealBall.transform.position.z);
+				B.MoveTo(A.TargetPos.x, B.TargetPos.y, B.TargetPos.x, B.TargetPos.y);
+			}
 		}else{
 			switch(Action){
 			case GameAction.Def:
@@ -530,14 +560,26 @@ public class GameController : MonoBehaviour {
 							ChangeSituation(GameSituation.AttackB);
 					}
 				}
-				
+
+				PlayerBehaviour oldp = BallController;
 				SetBallController(p);
 				if(p){
 					p.WaitMoveTime = 0;
 					if(p.IsJump){
 						//ALLYOOP 
-					}else
+					}else{
 						p.AniState (PlayerState.Dribble);
+						p.MoveKind = MoveType.PingPong;
+						if(oldp){
+							int ran = UnityEngine.Random.Range(0, 3);
+							if(ran == MoveType.PingPong.GetHashCode())
+								oldp.MoveKind = MoveType.PingPong;
+							else if(ran == MoveType.Cycle.GetHashCode())
+								oldp.MoveKind = MoveType.Cycle;
+							else if(ran == MoveType.Random.GetHashCode())
+								oldp.MoveKind = MoveType.Random;
+						}
+					}
 				}
 
 				ShootController = null;
@@ -634,6 +676,26 @@ public class GameController : MonoBehaviour {
 			else
 				Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
 			break;
+		case MoveType.Once:
+			//0=>1=>2=>3
+			if(Npc.MoveIndex < Npc.RunPosAy.Length){
+				Npc.MoveIndex++;
+				Index = Npc.MoveIndex;
+				if(Npc.Team == TeamKind.Self)
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+				else
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
+			}else{
+				Index = Npc.RunPosAy.Length - 1;
+				if(Npc.Team == TeamKind.Self)
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
+				else
+					Npc.TargetPos = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
+			}
+			break;
+		case MoveType.Idle:
+			Npc.TargetPos = new Vector2(Npc.transform.localPosition.x, Npc.transform.localPosition.z);
+			break;
 		}
 
 		return Result;
@@ -683,16 +745,19 @@ public class GameController : MonoBehaviour {
 			case GameSituation.TeeAPicking:
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
+
+				NoAiTime = 0;
 				break;
 			case GameSituation.TeeA:
-				
+				NoAiTime = 0;
 				break;
 			case GameSituation.TeeBPicking:
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
+				NoAiTime = 0;
 				break;
 			case GameSituation.TeeB:
-				
+				NoAiTime = 0;
 				break;
 			case GameSituation.End:
 				for(int i = 0; i < PlayerList.Count; i++)

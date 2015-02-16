@@ -37,7 +37,9 @@ public enum TeamKind{
 public enum MoveType{
 	PingPong = 0,
 	Cycle = 1,
-	Random = 2
+	Random = 2,
+	Once = 3,
+	Idle = 4
 }
 
 public static class ActionFlag{
@@ -64,8 +66,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private Vector2 mTargetPos = Vector2.zero;
 	private bool stop = false;
 	private bool isJoystick = false;
-	private float startMoveTime = 0;
-	private float journeyLength = 0;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
 
@@ -179,11 +179,9 @@ public class PlayerBehaviour : MonoBehaviour
 			if ((gameObject.transform.localPosition.x <= TargetPos.x + MoveCheckValue && gameObject.transform.localPosition.x >= TargetPos.x - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= TargetPos.y + MoveCheckValue && gameObject.transform.localPosition.z >= TargetPos.y - MoveCheckValue)) {
 				DelActionFlag(ActionFlag.IsRun);
-				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
-					AniState(PlayerState.Idle);
+//				if(!(UIGame.Get.Game.BallController && UIGame.Get.Game.BallController == this))
+//					AniState(PlayerState.Idle);
 				MoveTurn = 0;
-				startMoveTime = 0;
-				journeyLength = 0;
 				TargetPos = Vector2.zero;
 				if(!CheckAction(ActionFlag.IsDefence)){
 					if(UIGame.Get.Game.situation == GameSituation.TeeA ||
@@ -215,14 +213,9 @@ public class PlayerBehaviour : MonoBehaviour
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
 				rotateTo(X, Z, 10);
-			
-				if(MoveTurn == 1){
-					startMoveTime = Time.time;
-					journeyLength = Vector3.Distance(gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z));
-				}
 			}else{
-				fracJourney = GetfracJourney();
 				rotateTo(X, Z, 10);
+
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
 				}else{
@@ -230,26 +223,16 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.RunAndDrible);
 					else
 						AniState(PlayerState.Run);
-
-					if(journeyLength != 0)
-						fracJourney = ((Time.time - startMoveTime) * 0.5f) / journeyLength;
 				}
 
-				gameObject.transform.localPosition = Vector3.Lerp (gameObject.transform.localPosition, new Vector3 (X, gameObject.transform.localPosition.y, Z), fracJourney);
+				if(AnimationSpeed <= MoveMinSpeed)
+					Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed;
+				else
+					Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * dashSpeed * 10 * BasicMoveSpeed;
+				
+				transform.Translate (Translate);
 			}		
 		}
-	}
-
-	private float GetfracJourney(){
-		float Result = 0.045f;
-
-		for (int i = 0; i < UIGame.Get.Game.PlayerList.Count; i++) {
-			if(UIGame.Get.Game.PlayerList[i].Team != Team && UIGame.Get.Game.PlayerList[i].Postion == Postion){
-				Result = UIGame.Get.Game.PlayerList[i].fracJourney;
-			}		
-		}
-
-		return Result;
 	}
 
 	private bool CanMoverotateTo(){
@@ -388,8 +371,6 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			mTargetPos = value;
 			MoveTurn = 0;
-			startMoveTime = 0;
-			journeyLength = 0;
 			DelActionFlag(ActionFlag.IsRun);
 		}
 		get{
