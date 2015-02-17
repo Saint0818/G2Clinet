@@ -3,10 +3,10 @@ using System.Collections;
 
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
-	private float offsetSpeed = 0.1f;
-	private float focusSpeed = 4f;
-	private Vector3 startPos = new Vector3(-17.5f, 7, 8);
-	private Vector3 focusLimit = new Vector3(10, 0, 20);
+	private float offsetSpeed = 0.5f;
+	private float focusSpeed = 3f;
+	private Vector3 startPos = new Vector3(-18, 7.5f, 0);
+	private Vector3 focusLimit = new Vector3(12, 0, 20);
 	private Vector3 focus;
 	private Vector3[] offsetPos = new Vector3[]{new Vector3(0, 0, -2.5f), new Vector3(0, 0, 2.5f)};
 	private TeamKind curTeam = TeamKind.Self;
@@ -68,11 +68,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void InitCamera()
 	{
 		uiCam.farClipPlane = 130;
-		uiCam.fieldOfView = 30;
+		uiCam.fieldOfView = 35;
 		uiCam.cullingMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("RealBall");
 
 		uiCamOffset.transform.localPosition = Vector3.zero;
-		uiCam.transform.localPosition = new Vector3 (-14.5f, 7, 1.8f);
+		uiCam.transform.localPosition = new Vector3 (-18, 7.5f, 0);
 	}
 
     public void SetFocus(FocusSensor.FocusSensorMode sensorMode, GameObject sensorObj, GameObject ball, bool isReal)
