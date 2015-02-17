@@ -732,11 +732,15 @@ public class GameController : MonoBehaviour {
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
 				UIGame.Get.ChangeControl(true);
+
+				CameraMgr.Inst.SetTeamCamera(TeamKind.Self);
 				break;
 			case GameSituation.AttackB:
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
 				UIGame.Get.ChangeControl(false);
+
+				CameraMgr.Inst.SetTeamCamera(TeamKind.Npc);
 				break;
 			case GameSituation.TeeAPicking:
 				for(int i = 0; i < PlayerList.Count; i++)
