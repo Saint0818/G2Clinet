@@ -81,7 +81,7 @@ public class BallTrigger : MonoBehaviour
 
 		if(passing){
 			if (UIGame.Get.Game.Catcher) {
-				if (Vector3.Distance (SceneMgr.Inst.RealBall.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > UIGame.Get.Game.PickBallDis){
+				if (Vector3.Distance (SceneMgr.Inst.RealBall.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > GameController.PickBallDis){
 					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
 				}else{
 					UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);

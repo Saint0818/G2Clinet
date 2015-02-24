@@ -29,22 +29,23 @@ public enum GamePostion{
 public class GameController : MonoBehaviour {
 
 	private const int CountBackSecs = 4;
-	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
 	private const float NearEnemyDis = 2;
+	public const float PickBallDis = 2.5f;
 
 	public bool ShootInto0 = false;
 	public bool ShootInto1 = false;
+
+	private float Timer = 0;
+	private float CoolDownPass = 0;
+	private int NoAiTime = 0;
 
 	public List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	public PlayerBehaviour BallController;
 	public PlayerBehaviour Catcher;
 	public PlayerBehaviour ShootController;
 	public GameSituation situation = GameSituation.None;
-	private float Timer = 0;
-	private float CoolDownPass = 0;
-	private int NoAiTime = 0;
 
 	public Vector2 [] BaseRunAy_A = new Vector2[4];
 	public Vector2 [] BaseRunAy_B = new Vector2[11];
@@ -89,8 +90,8 @@ public class GameController : MonoBehaviour {
 		BaseRunAy_C [9] = new Vector2 (5.3f, 13);//5.3, 13
 		BaseRunAy_C [10] = new Vector2 (3, 14);//3, 14
 
-		TeePosAy [0] = new Vector2 (4.5f, -11);
-		TeePosAy [1] = new Vector2 (5.6f, -16);
+		TeePosAy [0] = new Vector2 (5.6f, -13);
+		TeePosAy [1] = new Vector2 (6, -19);
 		TeePosAy [2] = new Vector2 (4, 10);
 
 		TeeBackPosAy[0] = new Vector2 (0, 8);
@@ -151,7 +152,6 @@ public class GameController : MonoBehaviour {
 					                situation == GameSituation.TeeAPicking))
 						if(SceneMgr.Inst.RealBall.transform.position.y <= 0.5f && BallController == null && getDis(ref Npc, SceneMgr.Inst.RealBall.transform.position) <= PickBallDis)
 							SetBall(Npc);
-					continue;
 				}else{
 					//AI
 					switch(situation){
@@ -438,22 +438,25 @@ public class GameController : MonoBehaviour {
 						Vector3 Target = PlayerList[i].gameObject.transform.position;
 						Vector3 ShootPoint;
 						PlayerBehaviour Npc2 = PlayerList[i];
-						
-						if(Npc.Team == TeamKind.Self)
-							ShootPoint = SceneMgr.Inst.ShootPoint[1].transform.position;
-						else
-							ShootPoint = SceneMgr.Inst.ShootPoint[0].transform.position;
 
-						Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(ShootPoint.x, ShootPoint.z));
-						for(int j = 0 ; j < 10; j++){
-							if(getDis(ref Npc2, new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
-								NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
+						if (getDis(ref Npc, ref Npc2) > NearEnemyDis){
+							if(Npc.Team == TeamKind.Self)
+								ShootPoint = SceneMgr.Inst.ShootPoint[1].transform.position;
 							else
-								break;
-						}
-						
-						Npc.TargetPos = NewTarget;
-						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, PlayerList[i].transform.position.x, PlayerList[i].transform.position.z);
+								ShootPoint = SceneMgr.Inst.ShootPoint[0].transform.position;
+							
+							Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(ShootPoint.x, ShootPoint.z));
+							for(int j = 0 ; j < 10; j++){
+								if(getDis(ref Npc2, new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
+									NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
+								else
+									break;
+							}
+							
+							Npc.TargetPos = NewTarget;
+							Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc2.transform.position.x, Npc2.transform.position.z);
+						}else
+							Npc.rotateTo(Npc2.transform.position.x, Npc2.transform.position.z);
 						break;
 					}
 				}
@@ -467,7 +470,7 @@ public class GameController : MonoBehaviour {
 						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, BallController.transform.position.x, BallController.transform.position.z);
 					}else
 						Npc.MoveTo(Npc.TargetPos.x, Npc.TargetPos.y, Npc.TargetPos.x, Npc.TargetPos.y);
-				}else if(Npc == BallController)
+				}else if(BallController != null && Npc == BallController)
 					Npc.AniState(PlayerState.Dribble);
 				break;
 			}

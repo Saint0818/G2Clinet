@@ -387,7 +387,7 @@ public class PlayerBehaviour : MonoBehaviour
 		AniState(PlayerState.Idle);
 	}
 
-	private void rotateTo(float lookAtX, float lookAtZ, float time = 30){
+	public void rotateTo(float lookAtX, float lookAtZ, float time = 30){
 		gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(new Vector3 (lookAtX, gameObject.transform.localPosition.y, lookAtZ) - gameObject.transform.localPosition), time * Time.deltaTime);
 	}
 
