@@ -61,6 +61,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			uiCamOffset = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
 			uiCam = uiCamOffset.GetComponentInChildren<Camera>();
 			uiCam.transform.position = startPos;
+			offsetVertor3 = uiCamOffset.transform.position;
 
 			for(int i = 0; i < OffsetPos.Length; i++)
 			{
@@ -125,8 +126,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void HorizontalCameraHandle()
     {
 		//OffsetComputing
-		offsetVertor3 = Vector3.Slerp(uiCamOffset.transform.localPosition, OffsetPos[curTeam.GetHashCode()].transform.localPosition, offsetSpeed);
-		uiCamOffset.transform.localPosition = new Vector3 (uiCamOffset.transform.localPosition.x, uiCamOffset.transform.localPosition.y, offsetVertor3.z);
+		offsetVertor3 = Vector3.Lerp(uiCamOffset.transform.position, OffsetPos[curTeam.GetHashCode()].transform.position, offsetSpeed);
+		uiCamOffset.transform.position = new Vector3 (0, 0, offsetVertor3.z);
 
 		//FocusComputing
 		if (UIGame.Get.Game.ShootController) {
@@ -151,7 +152,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		Quaternion rotation = Quaternion.LookRotation(focusObject.transform.position - uiCam.transform.position, Vector3.up);
 
 		if (IsLongPass) {
-			uiCam.transform.rotation = Quaternion.Slerp (uiCam.transform.rotation, rotation, Time.deltaTime * (focusSpeed + 2f));
+			uiCam.transform.rotation = Quaternion.Slerp (uiCam.transform.rotation, rotation, Time.deltaTime * (focusSpeed + 3f));
 		}
 		else
 			uiCam.transform.rotation = Quaternion.Slerp(uiCam.transform.rotation, rotation, Time.deltaTime * focusSpeed);
