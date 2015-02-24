@@ -34,6 +34,8 @@ public class BallTrigger : MonoBehaviour
 			else 
 			if (other.gameObject.tag == "Floor") 
 			{
+				if(UIGame.Get.Game.ShootController)
+					UIGame.Get.Game.ShootController = null;
 //				followObject = null;
 //				UIGame.Get.Game.ExShooter = null;
 //				UIGame.Get.Game.RushToBall(1);	
@@ -55,7 +57,11 @@ public class BallTrigger : MonoBehaviour
 		if (!passing && UIGame.Get.Game.Catcher) {
 			passing = true;
 			UIGame.Get.Game.SetBallState(PlayerState.Pass);
-			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));
+
+			if(Vector3.Distance(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position) > 15f)
+				CameraMgr.Inst.IsLongPass = true;
+
 			return true;
 		}else
 			return false;
@@ -88,6 +94,7 @@ public class BallTrigger : MonoBehaviour
 					UIGame.Get.Game.Catcher.DelPass();
 					UIGame.Get.Game.Catcher = null;
 					passing = false;
+					CameraMgr.Inst.IsLongPass = false;
 				}
 			}
 			else

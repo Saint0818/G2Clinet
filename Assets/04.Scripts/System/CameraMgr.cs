@@ -3,18 +3,36 @@ using System.Collections;
 
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
-	private float offsetSpeed = 0.5f;
+	private float offsetSpeed = 0.1f;
 	private float focusSpeed = 3f;
+	private float zoomIn = 28;
+	private float zoomNormal = 35f;
+	private float zoomOut = 42;
+	private float zoomTo = 35f;
+
+	private Vector2 zoomVertor2 = new Vector2 (35f, 0);
+	private Vector3 offsetVertor3 = Vector3.zero;
+	private Vector3 focusVertor3 = Vector3.zero;
 	private Vector3 startPos = new Vector3(-18, 7.5f, 0);
 	private Vector3 focusLimit = new Vector3(12, 0, 20);
-	private Vector3 focus;
+	private Vector3 focusRate;
+
 	private Vector3[] offsetPos = new Vector3[]{new Vector3(0, 0, -2.5f), new Vector3(0, 0, 2.5f)};
 	private TeamKind curTeam = TeamKind.Self;
 	private GameObject uiCamOffset;
 
+	public bool IsBallOnFloor = false;
+	public bool IsLongPass = false;
 	public Camera uiCam;
 	public GameObject[] OffsetPos = new GameObject[2];
-	private GameObject focusPos;
+	private GameObject focusObject;
+
+	private enum ZoomType
+	{
+		In,
+		Out,
+		Normal
+	}
 
 	public bool UICamVisible
 	{
@@ -32,13 +50,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		if (uiCamOffset == null)
 		{
-			focusPos = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			focusPos.collider.enabled = false;
-			focusPos.name = "focusPos";
+			focusObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			focusObject.collider.enabled = false;
+			focusObject.name = "focusPos";
+			focusObject.renderer.enabled = false;
 
-			focus = new Vector3(focusLimit.x / 26, 0, focusLimit.z / 36);
-			Debug.Log("focus" + focus);
-			focusPos.transform.position = new Vector3(SceneMgr.Inst.RealBall.transform.position.x * focus.x, SceneMgr.Inst.RealBall.transform.position.y, SceneMgr.Inst.RealBall.transform.position.z * focus.z);
+			focusRate = new Vector3(focusLimit.x / 26, 0, focusLimit.z / 36);
+			focusObject.transform.position = new Vector3(SceneMgr.Inst.RealBall.transform.position.x * focusRate.x, SceneMgr.Inst.RealBall.transform.position.y, SceneMgr.Inst.RealBall.transform.position.z * focusRate.z);
 
 			uiCamOffset = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
 			uiCam = uiCamOffset.GetComponentInChildren<Camera>();
@@ -60,6 +78,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		curTeam = team;
 	}
 
+	public void AddScore(int team)
+	{
+		SetZoom(ZoomType.In);
+	}
+
     public Camera GetUICamera()
     {
         return uiCam;
@@ -68,11 +91,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void InitCamera()
 	{
 		uiCam.farClipPlane = 130;
-		uiCam.fieldOfView = 35;
+		uiCam.fieldOfView = zoomNormal;
 		uiCam.cullingMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("RealBall");
 
 		uiCamOffset.transform.localPosition = Vector3.zero;
-		uiCam.transform.localPosition = new Vector3 (-18, 7.5f, 0);
+		uiCam.transform.localPosition = startPos;
 	}
 
     public void SetFocus(FocusSensor.FocusSensorMode sensorMode, GameObject sensorObj, GameObject ball, bool isReal)
@@ -102,20 +125,55 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void HorizontalCameraHandle()
     {
 		//OffsetComputing
-		uiCamOffset.transform.localPosition = Vector3.Slerp(uiCamOffset.transform.localPosition, OffsetPos[curTeam.GetHashCode()].transform.localPosition, offsetSpeed);
+		offsetVertor3 = Vector3.Slerp(uiCamOffset.transform.localPosition, OffsetPos[curTeam.GetHashCode()].transform.localPosition, offsetSpeed);
+		uiCamOffset.transform.localPosition = new Vector3 (uiCamOffset.transform.localPosition.x, uiCamOffset.transform.localPosition.y, offsetVertor3.z);
+
+		//FocusComputing
+		if (UIGame.Get.Game.ShootController) {
+			focusVertor3 = Vector3.Slerp (focusObject.transform.position, SceneMgr.Inst.ShootPoint [UIGame.Get.Game.ShootController.Team.GetHashCode ()].transform.position, 0.1f);
+			focusObject.transform.position = new Vector3(focusVertor3.x, 2, focusVertor3.z);
+			SetZoom(ZoomType.In);
+		}
+		else
+		{
+			focusObject.transform.position = Vector3.Slerp(focusObject.transform.position, new Vector3 (SceneMgr.Inst.RealBall.transform.position.x * 0.5f, 1.5f, SceneMgr.Inst.RealBall.transform.position.z * 0.55f), 0.1f);
+
+			if( Vector3.Distance(SceneMgr.Inst.RealBall.gameObject.transform.position, CameraMgr.Inst.uiCam.gameObject.transform.position) > 16)
+				SetZoom(ZoomType.Normal);
+			else
+				SetZoom(ZoomType.Out);
+		}
 
 		//ZoomComputing
+		zoomVertor2 = Vector2.Lerp(new Vector2 (uiCam.fieldOfView, 0), new Vector2 (zoomTo, 0), 0.1f);
+		uiCam.fieldOfView = zoomVertor2.x;
 
-//		Debug.LogError ("Ball dis : " + Vector3.Distance (SceneMgr.Inst.RealBall.transform.position, uiCamOffset.transform.position));
-		//FocusComputing
-		if (UIGame.Get.Game.ShootController)
-			focusPos.transform.position = Vector3.Slerp (focusPos.transform.position, SceneMgr.Inst.ShootPoint [UIGame.Get.Game.ShootController.Team.GetHashCode ()].transform.position, 0.1f);
+		Quaternion rotation = Quaternion.LookRotation(focusObject.transform.position - uiCam.transform.position, Vector3.up);
+
+		if (IsLongPass) {
+			uiCam.transform.rotation = Quaternion.Slerp (uiCam.transform.rotation, rotation, Time.deltaTime * (focusSpeed + 2f));
+		}
 		else
-			focusPos.transform.position = new Vector3 (SceneMgr.Inst.RealBall.transform.position.x * 0.5f, 1.5f, SceneMgr.Inst.RealBall.transform.position.z * 0.55f);
-
-		Quaternion rotation = Quaternion.LookRotation(focusPos.transform.position - uiCam.transform.position, Vector3.up);
-		uiCam.transform.rotation = Quaternion.Slerp(uiCam.transform.rotation, rotation, Time.deltaTime * focusSpeed);
+			uiCam.transform.rotation = Quaternion.Slerp(uiCam.transform.rotation, rotation, Time.deltaTime * focusSpeed);
     }
+
+	private void SetZoom(ZoomType type)
+	{
+		switch (type) {
+			case ZoomType.In:
+				if(zoomTo != zoomIn)
+					zoomTo = zoomIn;
+				break;
+			case ZoomType.Normal:
+				if(zoomTo != zoomNormal)
+					zoomTo = zoomNormal;
+				break;
+			case ZoomType.Out:
+				if(zoomTo != zoomOut)
+					zoomTo = zoomOut;
+				break;
+		}
+	}
 
     public override string ResName
     {
