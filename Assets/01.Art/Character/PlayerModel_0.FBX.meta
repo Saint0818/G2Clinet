@@ -6,15 +6,35 @@ ModelImporter:
     100000: Hair
     100002: //RootNode
     100004: PlayerModel_0
+    100006: G_Cloth_0
+    100008: G_Hair_0
+    100010: G_Pants_0
+    100012: G_Shoes_0
     400000: Hair
     400002: //RootNode
     400004: PlayerModel_0
+    400006: G_Cloth_0
+    400008: G_Hair_0
+    400010: G_Pants_0
+    400012: G_Shoes_0
     2300000: Hair
     2300002: PlayerModel_0
+    2300004: G_Cloth_0
+    2300006: G_Hair_0
+    2300008: G_Pants_0
+    2300010: G_Shoes_0
     3300000: Hair
     3300002: PlayerModel_0
+    3300004: G_Cloth_0
+    3300006: G_Hair_0
+    3300008: G_Pants_0
+    3300010: G_Shoes_0
     4300000: PlayerModel_0
     4300002: Hair
+    4300004: G_Pants_0
+    4300006: G_Shoes_0
+    4300008: G_Cloth_0
+    4300010: G_Hair_0
     9500000: //RootNode
   materials:
     importMaterials: 1
