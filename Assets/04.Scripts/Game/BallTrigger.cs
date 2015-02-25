@@ -91,7 +91,7 @@ public class BallTrigger : MonoBehaviour
 					GameController.Get.Catcher.DelPass();
 					GameController.Get.Catcher = null;
 					passing = false;
-					CameraMgr.Inst.IsLongPass = false;
+					CameraMgr.Get.IsLongPass = false;
 				}
 			}
 			else
