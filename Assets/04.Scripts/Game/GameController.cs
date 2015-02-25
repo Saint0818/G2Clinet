@@ -779,6 +779,7 @@ public class GameController : MonoBehaviour {
 	{
 		ShootInto0 = false;
 		ShootInto1 = false;
+		CameraMgr.Inst.AddScore (team);
 		
 		if (IsStart) {
 			if(ShootController != null){
@@ -793,6 +794,8 @@ public class GameController : MonoBehaviour {
 				ChangeSituation(GameSituation.TeeBPicking);
 			else
 				ChangeSituation(GameSituation.TeeAPicking);
+
+			ShootController = null;
 		}
 	}
 
@@ -824,6 +827,8 @@ public class GameController : MonoBehaviour {
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
 
+				CameraMgr.Inst.SetTeamCamera(TeamKind.Self);
+
 				NoAiTime = 0;
 				break;
 			case GameSituation.TeeA:
@@ -832,6 +837,7 @@ public class GameController : MonoBehaviour {
 			case GameSituation.TeeBPicking:
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].ResetFlag();
+				CameraMgr.Inst.SetTeamCamera(TeamKind.Npc);
 				NoAiTime = 0;
 				break;
 			case GameSituation.TeeB:

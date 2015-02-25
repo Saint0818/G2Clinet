@@ -16,7 +16,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Vector3 startPos = new Vector3(-18, 7.5f, 0);
 	private Vector3 focusLimit = new Vector3(12, 0, 20);
 	private Vector3 focusRate;
-
 	private Vector3[] offsetPos = new Vector3[]{new Vector3(0, 0, -2.5f), new Vector3(0, 0, 2.5f)};
 	private TeamKind curTeam = TeamKind.Self;
 	private GameObject uiCamOffset;
