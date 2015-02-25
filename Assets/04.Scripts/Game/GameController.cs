@@ -281,10 +281,6 @@ public class GameController : MonoBehaviour {
 							}else if(Dis <= StealBallDis && stealRate < 50 && BallController.Invincible == 0 && Npc.CoolDownSteal == 0){
 								Npc.CoolDownSteal = Time.time + 3;
 								Npc.AniState(PlayerState.Steal, true, BallController.gameObject.transform.localPosition.x, BallController.gameObject.transform.localPosition.z);
-								if(stealRate < 5){
-									SetBall(Npc);
-									Npc.SetInvincible(7);
-								}
 							}else
 								Npc.AniState(PlayerState.Defence);
 						}
@@ -798,26 +794,27 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float _dis){
-		Vector3 forward = Npc.transform.TransformDirection(Vector3.forward);
-		Vector3 toOther = Vector3.zero;
-		float dot = 0;
+	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float dis){
 		bool Result = false;
-
+		Vector3 lookAtPos;
+		Vector3 relative;
+		float angle;
+		
 		if (PlayerList.Count > 0) {
 			for (int i = 0; i < PlayerList.Count; i++) {
 				if(PlayerList[i].Team != Npc.Team){
-					toOther = PlayerList[i].transform.position - Npc.transform.position;
-					dot = Vector3.Dot(forward , toOther);
-					if(dot > 0.5f && _dis * _dis < 2 * dot * dot ){
-						//HaveDefPlayer						
+					PlayerBehaviour TargetNpc = PlayerList[i];
+					lookAtPos = TargetNpc.transform.position;
+					relative = Npc.transform.InverseTransformPoint(lookAtPos);
+					angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+					if(getDis(ref Npc, ref TargetNpc) <= dis && angle >= 45 && angle <= -45){
 						Result = true;
 						break;
 					}
 				}		
 			}	
 		}
-
+		
 		return Result;
 	}
 }

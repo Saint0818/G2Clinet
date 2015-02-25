@@ -294,6 +294,12 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.IsSteal)){
 					Control.SetBool(AnimatorStates[ActionFlag.IsSteal], true);
 					AddActionFlag(ActionFlag.IsSteal);
+
+					
+					if(UnityEngine.Random.Range(0, 100) + 1 < 10){
+						UIGame.Get.Game.SetBall(this);
+						SetInvincible(7);
+					}
 				}
 				break;
 			case PlayerState.Pass:
