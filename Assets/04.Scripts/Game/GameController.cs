@@ -455,9 +455,9 @@ public class GameController : MonoBehaviour {
 					//Dunk shoot shoot3 pass
 					if(ShootPointDis <= 2f && DunkRate < 0){
 						Npc.AniState(PlayerState.Dunk);
-					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f) || shootRate < 10)){
+					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shootRate < 10)){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
-					}else if(ShootPointDis <= 10.5f && (!HaveDefPlayer(ref Npc, 1.5f) || shoot3Rate < 3)){
+					}else if(ShootPointDis <= 10.5f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shoot3Rate < 3)){
 						Npc.AniState(PlayerState.Shooting, true, pos.x, pos.z);
 					}else if(passRate < 5 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
@@ -474,6 +474,8 @@ public class GameController : MonoBehaviour {
 								find++;
 							}
 						}
+					}else if(HaveDefPlayer(ref Npc, 2, 50)){
+						//Crossover
 					}
 				}else{
 					//sup push
@@ -640,31 +642,6 @@ public class GameController : MonoBehaviour {
 			return Vector3.Distance(V1, V2);
 		} else
 			return -1;
-	}
-
-	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
-		PlayerBehaviour Result = null;
-		PlayerBehaviour Npc = null;
-
-		if (PlayerList.Count > 1) {
-			for(int i = 0 ; i < PlayerList.Count; i++){
-				Npc = PlayerList[i];
-
-				if(SameTeam){
-					if(PlayerList[i] != Self && PlayerList[i].Team == Self.Team && getDis(ref Self, ref Npc) <= Dis){
-						Result = Npc;
-						break;
-					}
-				}else{
-					if(PlayerList[i] != Self && PlayerList[i].Team != Self.Team && getDis(ref Self, ref Npc) <= Dis){
-						Result = Npc;
-						break;
-					}
-				}
-			}
-		}
-
-		return Result;
 	}
 
 	public void SetBall(PlayerBehaviour p = null){
@@ -868,28 +845,54 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float _dis){
-		Vector3 forward = Npc.transform.TransformDirection(Vector3.forward);
-		Vector3 toOther = Vector3.zero;
-		float dot = 0;
+	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float dis, float angle){
 		bool Result = false;
+		Vector3 lookAtPos;
+		Vector3 relative;
+		float mangle;
 		
 		if (PlayerList.Count > 0) {
 			for (int i = 0; i < PlayerList.Count; i++) {
 				if(PlayerList[i].Team != Npc.Team){
-					toOther = PlayerList[i].transform.position - Npc.transform.position;
-					dot = Vector3.Dot(forward , toOther);
-					if(dot > 0.5f && _dis * _dis < 2 * dot * dot ){
-                        //HaveDefPlayer						
-                        Result = true;
+					PlayerBehaviour TargetNpc = PlayerList[i];
+					lookAtPos = TargetNpc.transform.position;
+					relative = Npc.transform.InverseTransformPoint(lookAtPos);
+					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+					if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle && mangle >= -angle){
+						Result = true;
+						break;
+					}
+				}		
+			}	
+		}
+		
+		return Result;
+	}
+	
+	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
+		PlayerBehaviour Result = null;
+		PlayerBehaviour Npc = null;
+		
+		if (PlayerList.Count > 1) {
+			for(int i = 0 ; i < PlayerList.Count; i++){
+				Npc = PlayerList[i];
+				
+				if(SameTeam){
+					if(PlayerList[i] != Self && PlayerList[i].Team == Self.Team && getDis(ref Self, ref Npc) <= Dis){
+                        Result = Npc;
                         break;
                     }
-                }		
-            }	
+                }else{
+                    if(PlayerList[i] != Self && PlayerList[i].Team != Self.Team && getDis(ref Self, ref Npc) <= Dis){
+                        Result = Npc;
+                        break;
+                    }
+                }
+            }
         }
         
         return Result;
-	}
+    }
 
 	public bool IsShooting {
 		get{
