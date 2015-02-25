@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -13,7 +13,7 @@ public class EffectManager : MonoBehaviour
 
 	void Awake()
 	{
-		mShake = CameraMgr.Inst.GetUICamera().gameObject.AddComponent<Shake>();
+		mShake = CameraMgr.Get.GetUICamera().gameObject.AddComponent<Shake>();
 	}
 
 	public void PlayShake()

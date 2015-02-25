@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class FocusSensor : MonoBehaviour 
@@ -23,6 +23,6 @@ public class FocusSensor : MonoBehaviour
 	void OnTriggerEnter(Collider c) 
 	{
 		if (c.collider.gameObject.tag == "RealBall")
-		  CameraMgr.Inst.SetFocus (Mode, this.gameObject, c.collider.gameObject, true);
+		  CameraMgr.Get.SetFocus (Mode, this.gameObject, c.collider.gameObject, true);
 	}
 }

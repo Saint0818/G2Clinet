@@ -1,12 +1,12 @@
-﻿//#define En
+//#define En
 #define zh_TW
 using UnityEngine;
 using System;
 using System.Collections;
 
-public class Gang2_Start : MonoBehaviour {
+public class GameStart : MonoBehaviour {
 
-	public static Gang2_Start Get = null;
+	public static GameStart Get = null;
 	private UnibillDemo unibillDemo = null;
 
 	void Start(){
@@ -41,7 +41,7 @@ public class Gang2_Start : MonoBehaviour {
 		}
 		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
-		Get = GameObject.Find("UI2D").GetComponent<Gang2_Start>();
+		Get = GameObject.Find("UI2D").GetComponent<GameStart>();
 		unibillDemo = gameObject.GetComponent<UnibillDemo>();
 		InitCom ();
 		//CheckVersion ();
@@ -55,7 +55,7 @@ public class Gang2_Start : MonoBehaviour {
 		SendHttp.Init ();
 		FacebookAPI.Init();
 		ModelManager.Init ();
-		SceneMgr.Inst.ChangeLevel (3);
+		SceneMgr.Get.ChangeLevel (3);
 	}
 
 	private void initResolution(){

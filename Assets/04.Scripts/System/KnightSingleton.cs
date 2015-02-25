@@ -22,7 +22,7 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 		}
 	}
 	
-	public static T Inst
+	public static T Get
 	{
 		get
 		{

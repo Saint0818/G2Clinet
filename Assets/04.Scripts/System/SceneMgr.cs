@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 
@@ -247,6 +247,45 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		}
 	}
 
+	public void SetBallState(PlayerState state, PlayerBehaviour player = null)
+	{
+		switch(state)
+		{
+		case PlayerState.Dribble: 
+			RealBall.transform.parent = player.DummyBall.transform;
+			RealBall.rigidbody.useGravity = false;
+			RealBall.rigidbody.isKinematic = true;
+			RealBall.transform.localEulerAngles = Vector3.zero;
+			RealBall.transform.localPosition = Vector3.zero;
+			RealBallTrigger.SetBoxColliderEnable(false);
+			break;
+		case PlayerState.Shooting: 
+			RealBall.transform.parent = null;
+			RealBall.rigidbody.isKinematic = false;
+			RealBall.rigidbody.useGravity = true;
+			RealBallTrigger.SetBoxColliderEnable(true);
+			break;
+		case PlayerState.Pass: 
+			//				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+			RealBall.transform.parent = null;
+			RealBall.rigidbody.isKinematic = false;
+			RealBall.rigidbody.useGravity = true;
+			RealBallTrigger.SetBoxColliderEnable(true);
+			break;
+		case PlayerState.Block: 
+			int blockRate = UnityEngine.Random.Range(0, 100) + 1;
+			if(blockRate < 30){
+				RealBall.transform.parent = null;
+				RealBall.rigidbody.isKinematic = false;
+				RealBall.rigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBallTrigger.Falling();
+				UIHint.Get.ShowHint("Blocking", Color.blue);
+			}
+			break;
+		}
+	}
+
     public void PlayDunk(int team)
     {
         Animation animation;
@@ -407,7 +446,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		floorIndex = 0;
 		basketIndex = 3;
 		no = 3;
-		CameraMgr.Inst.SetTeamCamera(0);
+		CameraMgr.Get.SetTeamCamera(0);
 		RealBall.transform.localPosition = new Vector3 (0, 5, 0);
 		//------------------
 

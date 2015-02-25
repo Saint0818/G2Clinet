@@ -4,15 +4,16 @@ using System.Collections;
 public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
-	public bool IsStart = true;
+
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
-
-	private UILabel[] scoresLabel = new UILabel[2];
+	private bool IsUseKeyboard = false;
 
 	public GameJoystick Joystick = null;
-	public GameController Game;
-	public GameObject[] ControlButtonGroup= new GameObject[2];
+	private MovingJoystick Move = new MovingJoystick();
+
+	private GameObject[] ControlButtonGroup= new GameObject[2];
+	private UILabel[] scoresLabel = new UILabel[2];
 	
 	public static bool Visible
 	{
@@ -29,8 +30,8 @@ public class UIGame : UIBase {
 		if(instance)
 			instance.Show(isShow);
 		else
-			if(isShow)
-				Get.Show(isShow);
+		if(isShow)
+			Get.Show(isShow);
 	}
 	
 	public static UIGame Get
@@ -44,7 +45,6 @@ public class UIGame : UIBase {
 	}
 	
 	protected override void InitCom() {
-		Game = gameObject.AddComponent<GameController>();
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 
@@ -54,61 +54,18 @@ public class UIGame : UIBase {
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
 
-		SetBtnFun (UIName + "Attack/ButtonA", DoPass);
-		SetBtnFun (UIName + "Attack/ButtonB", DoShoot);
-		SetBtnFun (UIName + "Attack/ButtonC", DoSkill);
-		SetBtnFun (UIName + "Defance/ButtonA", DoSteal);
-		SetBtnFun (UIName + "Defance/ButtonB", DoBlock);
-		SetBtnFun (UIName + "Defance/ButtonC", DoSkill);
+		SetBtnFun (UIName + "Attack/ButtonA", GameController.Get.DoPass);
+		SetBtnFun (UIName + "Attack/ButtonB", GameController.Get.DoShoot);
+		SetBtnFun (UIName + "Attack/ButtonC", GameController.Get.DoSkill);
+		SetBtnFun (UIName + "Defance/ButtonA", GameController.Get.DoSteal);
+		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
+		SetBtnFun (UIName + "Defance/ButtonC", GameController.Get.DoSkill);
 	}
 
 	public void ChangeControl(bool IsAttack)
 	{
 		ControlButtonGroup [0].SetActive (IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
-	}
-
-	public void DoPass()
-	{
-		if (Game.BallController && !Game.ShootController && targetPlayer && Game.BallController.Team == 0) {
-			if(Game.BallController.gameObject == targetPlayer.gameObject)
-				Game.Catcher = Game.PlayerList[1];
-			else
-				Game.Catcher = targetPlayer;
-
-			Game.BallController.AniState(PlayerState.Pass);
-		}
-	}
-
-	public void DoShoot()
-	{
-		if(Game.BallController)
-		{
-			Vector3 pos = SceneMgr.Inst.ShootPoint[Game.BallController.Team.GetHashCode()].transform.position;
-			Game.PlayerList [0].AniState (PlayerState.Shooting, true, pos.x, pos.z);
-		}
-	}
-
-	public void DoJump()
-	{
-		targetPlayer.AniState (PlayerState.Jumper);
-	}
-
-	public void DoSteal()
-	{
-		if(Game.BallController)
-			targetPlayer.AniState (PlayerState.Steal, true, Game.BallController.transform.position.x, Game.BallController.transform.position.z);
-	}
-
-	public void DoSkill()
-	{
-
-	}
-
-	public void DoBlock()
-	{
-		if(Game.BallController)
-			targetPlayer.AniState (PlayerState.Block, true, Game.BallController.transform.position.x, Game.BallController.transform.position.z);
 	}
 
 	public void PlusScore(int team, int score)
@@ -122,7 +79,7 @@ public class UIGame : UIBase {
 			else
 				UIHint.Get.ShowHint("You Lost", Color.red);
 
-			UIGame.Get.Game.ChangeSituation(GameSituation.End);
+			GameController.Get.ChangeSituation(GameSituation.End);
 		}
 	}
 	
@@ -136,27 +93,6 @@ public class UIGame : UIBase {
 	protected override void OnShow(bool isShow) {
 		
 	}
-
-	public PlayerBehaviour targetPlayer{
-		set{
-			if(Joystick != null)
-			{
-				Joystick.targetPlayer = value;
-
-				if(EffectManager.Get.SelectEffectScript&& Joystick.targetPlayer.gameObject)
-					EffectManager.Get.SelectEffectScript.SetTarget( Joystick.targetPlayer.gameObject);
-			}
-		}
-		get{
-			if(Joystick != null)
-				return Joystick.targetPlayer;
-			else
-				return null;
-		}
-	}
-
-	private MovingJoystick Move = new MovingJoystick();
-	private bool IsUseKeyboard = false;
 
 	void Update()
 	{
@@ -188,7 +124,7 @@ public class UIGame : UIBase {
 		}
 
 		if(IsUseKeyboard)
-			Game.PlayerList [0].OnJoystickMove(Move);
+			GameController.Get.OnJoystickMove(Move);
 
 		IsUseKeyboard = false;
 	}

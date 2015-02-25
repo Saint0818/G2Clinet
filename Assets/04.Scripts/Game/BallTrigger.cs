@@ -34,8 +34,7 @@ public class BallTrigger : MonoBehaviour
 			else 
 			if (other.gameObject.tag == "Floor") 
 			{
-				if(UIGame.Get.Game.ShootController)
-					UIGame.Get.Game.ShootController = null;
+				GameController.Get.ShootController = null;
 //				followObject = null;
 //				UIGame.Get.Game.ExShooter = null;
 //				UIGame.Get.Game.RushToBall(1);	
@@ -54,14 +53,12 @@ public class BallTrigger : MonoBehaviour
 
 	public bool PassBall()
 	{
-		if (!passing && UIGame.Get.Game.Catcher) {
+		if (!passing && GameController.Get.Catcher) {
 			passing = true;
-			UIGame.Get.Game.SetBallState(PlayerState.Pass);
-			SceneMgr.Inst.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position, Random.Range(40, 60));
-
-			if(Vector3.Distance(SceneMgr.Inst.RealBall.transform.position, UIGame.Get.Game.Catcher.DummyBall.transform.position) > 15f)
-				CameraMgr.Inst.IsLongPass = true;
-
+			SceneMgr.Get.SetBallState(PlayerState.Pass);
+			SceneMgr.Get.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
+				CameraMgr.Get.IsLongPass = true;
 			return true;
 		}else
 			return false;
@@ -86,15 +83,14 @@ public class BallTrigger : MonoBehaviour
 		gameObject.transform.localPosition = Vector3.zero;
 
 		if(passing){
-			if (UIGame.Get.Game.Catcher) {
-				if (Vector3.Distance (SceneMgr.Inst.RealBall.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position) > GameController.PickBallDis){
-					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, UIGame.Get.Game.Catcher.transform.position, 0.1f);
+			if (GameController.Get.Catcher) {
+				if (Vector3.Distance (SceneMgr.Get.RealBall.gameObject.transform.position, GameController.Get.Catcher.transform.position) > GameController.Get.PickBallDis){
+					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, GameController.Get.Catcher.transform.position, 0.1f);
 				}else{
-					UIGame.Get.Game.SetBall(UIGame.Get.Game.Catcher);
-					UIGame.Get.Game.Catcher.DelPass();
-					UIGame.Get.Game.Catcher = null;
+					GameController.Get.SetBall(GameController.Get.Catcher);
+					GameController.Get.Catcher.DelPass();
+					GameController.Get.Catcher = null;
 					passing = false;
-					CameraMgr.Inst.IsLongPass = false;
 				}
 			}
 			else

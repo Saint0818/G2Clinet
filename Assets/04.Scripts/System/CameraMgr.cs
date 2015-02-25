@@ -56,7 +56,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			focusObject.renderer.enabled = false;
 
 			focusRate = new Vector3(focusLimit.x / 26, 0, focusLimit.z / 36);
-			focusObject.transform.position = new Vector3(SceneMgr.Inst.RealBall.transform.position.x * focusRate.x, SceneMgr.Inst.RealBall.transform.position.y, SceneMgr.Inst.RealBall.transform.position.z * focusRate.z);
+			focusObject.transform.position = new Vector3(SceneMgr.Get.RealBall.transform.position.x * focusRate.x, SceneMgr.Get.RealBall.transform.position.y, SceneMgr.Get.RealBall.transform.position.z * focusRate.z);
 
 			uiCamOffset = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
 			uiCam = uiCamOffset.GetComponentInChildren<Camera>();
@@ -130,16 +130,16 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		uiCamOffset.transform.position = new Vector3 (0, 0, offsetVertor3.z);
 
 		//FocusComputing
-		if (UIGame.Get.Game.ShootController) {
-			focusVertor3 = Vector3.Slerp (focusObject.transform.position, SceneMgr.Inst.ShootPoint [UIGame.Get.Game.ShootController.Team.GetHashCode ()].transform.position, 0.1f);
+		if (GameController.Get.ShootController) {
+			focusVertor3 = Vector3.Slerp (focusObject.transform.position, SceneMgr.Get.ShootPoint [GameController.Get.ShootController.Team.GetHashCode ()].transform.position, 0.1f);
 			focusObject.transform.position = new Vector3(focusVertor3.x, 2, focusVertor3.z);
 			SetZoom(ZoomType.In);
 		}
 		else
 		{
-			focusObject.transform.position = Vector3.Slerp(focusObject.transform.position, new Vector3 (SceneMgr.Inst.RealBall.transform.position.x * 0.5f, 1.5f, SceneMgr.Inst.RealBall.transform.position.z * 0.55f), 0.1f);
+			focusObject.transform.position = Vector3.Slerp(focusObject.transform.position, new Vector3 (SceneMgr.Get.RealBall.transform.position.x * 0.5f, 1.5f, SceneMgr.Get.RealBall.transform.position.z * 0.55f), 0.1f);
 
-			if( Vector3.Distance(SceneMgr.Inst.RealBall.gameObject.transform.position, CameraMgr.Inst.uiCam.gameObject.transform.position) > 16)
+			if( Vector3.Distance(SceneMgr.Get.RealBall.gameObject.transform.position, CameraMgr.Get.uiCam.gameObject.transform.position) > 16)
 				SetZoom(ZoomType.Normal);
 			else
 				SetZoom(ZoomType.Out);
