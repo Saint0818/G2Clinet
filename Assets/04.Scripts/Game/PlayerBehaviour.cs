@@ -26,7 +26,8 @@ public enum PlayerState
 	AlleyOop_Dunk = 22,
 	RunAndDefence = 23,
 	RunAndDrible = 24,
-	Shooting = 25
+	Shooting = 25,
+	Catcher = 26
 }
 
 public enum TeamKind{
@@ -51,6 +52,7 @@ public static class ActionFlag{
 	public const int IsSteal = 6;
 	public const int IsPass = 7;
 	public const int IsShooting = 8;
+	public const int IsCatcher = 9;
 }
 
 public struct TMoveData
@@ -158,7 +160,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
 	{
-		if (CheckCanUseControl() || stop) {
+		if (CanMove || stop) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
 				isJoystick = true;
@@ -203,7 +205,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 	public void MoveTo(TMoveData Data, bool First = false){
-		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock) && !GameController.Get.IsPassing) {
+		if (CanMove) {
 			if ((gameObject.transform.localPosition.x <= Data.Target.x + MoveCheckValue && gameObject.transform.localPosition.x >= Data.Target.x - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Data.Target.y + MoveCheckValue && gameObject.transform.localPosition.z >= Data.Target.y - MoveCheckValue)) {
 				MoveTurn = 0;
@@ -303,14 +305,6 @@ public class PlayerBehaviour : MonoBehaviour
 		Control.SetFloat("DribleMoveSpeed", value);
 	}
 
-	private bool CheckCanUseControl()
-	{
-		if (!CheckAction(ActionFlag.IsJump))
-			return true;
-		else
-			return false;
-	}
-
 	private void AddActionFlag(int Flag){
 		GameFunction.Add_ByteFlag (Flag, ref PlayerActionFlag);
 	}
@@ -346,6 +340,13 @@ public class PlayerBehaviour : MonoBehaviour
 			for (int i = 1; i < AnimatorStates.Length; i++)
 				if(AnimatorStates[i] != string.Empty)
 					Control.SetBool(AnimatorStates[i], false);
+			break;
+		case PlayerState.Catcher:
+			SetSpeed(0);
+			for (int i = 1; i < AnimatorStates.Length; i++)
+				if(AnimatorStates[i] != string.Empty)
+					Control.SetBool(AnimatorStates[i], false);
+			AddActionFlag(ActionFlag.IsCatcher);
 			break;
 		case PlayerState.Run:
 			Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
@@ -464,17 +465,24 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public bool IsGrounded{
-		get {
-			if (CheckAction(ActionFlag.IsBlock) || 
-			    CheckAction(ActionFlag.IsJump) || 
-			    CheckAction(ActionFlag.IsSteal) || 
-			    CheckAction(ActionFlag.IsShooting))
-                return false;
-            else
-                return true;
+	public bool CanMove
+	{
+		get{
+			if (!CheckAction (ActionFlag.IsSteal) && 
+			    !CheckAction (ActionFlag.IsJump) && 
+			    !CheckAction(ActionFlag.IsBlock) && 
+			    !CheckAction(ActionFlag.IsPass) && 
+			    !CheckAction(ActionFlag.IsShooting) &&
+			    !CheckAction(ActionFlag.IsCatcher))
+				return true;
+			else
+				return false;
 		}
-    }
+	}
+
+	public void ClearIsCatcher(){
+		DelActionFlag (ActionFlag.IsCatcher);
+	}
     
 	public bool IsDribble{
 		get{return CheckAction(ActionFlag.IsDribble);}

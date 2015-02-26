@@ -329,7 +329,7 @@ public class GameController : MonoBehaviour {
     private void Pass(PlayerBehaviour player) {
 		if (BallOwner && BallOwner.IsDribble) {
 			Catcher = player;
-			Catcher.AniState(PlayerState.Idle, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+			Catcher.AniState(PlayerState.Catcher, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 			BallOwner.AniState(PlayerState.Pass, true, Catcher.transform.position.x, Catcher.transform.position.z);
 		}
 	}
@@ -523,9 +523,9 @@ public class GameController : MonoBehaviour {
 						//Crossover				
 						TMoveData data = new TMoveData(0);
 						if(Dir == 1)
-							data.Target = new Vector2(Npc.transform.position.x - 3, Npc.transform.position.z);
+							data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
 						else
-							data.Target = new Vector2(Npc.transform.position.x + 3, Npc.transform.position.z);
+							data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
 
 						Npc.FirstTargetPos = data;
 						CoolDownCrossover = Time.time + 3;
@@ -750,7 +750,10 @@ public class GameController : MonoBehaviour {
 				}
 
 				PlayerBehaviour oldp = BallOwner;
-				SetBallController(p);
+				BallOwner = p;
+				SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+				p.ClearIsCatcher();
+
 				if(p){
 					p.WaitMoveTime = 0;
 					if(p.IsJump){
@@ -771,16 +774,14 @@ public class GameController : MonoBehaviour {
 				}
 
 				Shooter = null;
-			}else
-				SetBallController(p);
+			}else{
+				BallOwner = p;
+				
+				if(p)
+					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+			}
 		}
     }
-
-	private void SetBallController(PlayerBehaviour p = null){
-		BallOwner = p;
-		if(p)
-			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-	}
 
 	public void BallOnFloor() {
 		SceneMgr.Get.ResetBasketEntra();
@@ -893,8 +894,10 @@ public class GameController : MonoBehaviour {
 	public void ChangeSituation(GameSituation GS){
 		if (situation != GameSituation.End) {
 			situation = GS;
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
+
+			if(situation != GameSituation.TeeA && situation != GameSituation.TeeB)
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
 
 			switch(GS){
 			case GameSituation.Opening:
