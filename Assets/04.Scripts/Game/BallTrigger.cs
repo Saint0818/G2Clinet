@@ -34,10 +34,7 @@ public class BallTrigger : MonoBehaviour
 			else 
 			if (other.gameObject.tag == "Floor") 
 			{
-				GameController.Get.ShootController = null;
-//				followObject = null;
-//				UIGame.Get.Game.ExShooter = null;
-//				UIGame.Get.Game.RushToBall(1);	
+				GameController.Get.BallOnFloor();
 			} else 
 			if (other.gameObject.tag == "Wall") 
 			{

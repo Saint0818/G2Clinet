@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CameraMgr : KnightSingleton<CameraMgr>
@@ -129,8 +129,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		uiCamOffset.transform.position = new Vector3 (0, 0, offsetVertor3.z);
 
 		//FocusComputing
-		if (GameController.Get.ShootController) {
-			focusVertor3 = Vector3.Slerp (focusObject.transform.position, SceneMgr.Get.ShootPoint [GameController.Get.ShootController.Team.GetHashCode ()].transform.position, 0.1f);
+		if (GameController.Get.Shooter) {
+			focusVertor3 = Vector3.Slerp (focusObject.transform.position, SceneMgr.Get.ShootPoint [GameController.Get.Shooter.Team.GetHashCode ()].transform.position, 0.1f);
 			focusObject.transform.position = new Vector3(focusVertor3.x, 2, focusVertor3.z);
 			SetZoom(ZoomType.In);
 		}

@@ -80,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public PlayerState crtState = PlayerState.Idle;
 	public MoveType MoveKind = MoveType.PingPong;
-	public GamePostion Postion = GamePostion.PG;
+	public GamePostion Postion = GamePostion.G;
 	public Vector2 [] RunPosAy;
 	public float BasicMoveSpeed = 1f;
 	public float AnimationSpeed = 0;
@@ -482,6 +482,10 @@ public class PlayerBehaviour : MonoBehaviour
 		}
     }
     
+	public bool IsDribble{
+		get{return CheckAction(ActionFlag.IsDribble);}
+	}
+
     public bool IsMove{
 		get{return CheckAction(ActionFlag.IsRun);}
 	}

@@ -72,15 +72,6 @@ public class UIGame : UIBase {
 	{
 		Scores [team] += score;
 		scoresLabel[team].text = Scores [team].ToString ();
-
-		if (Scores [team] >= MaxScores [team]) {
-			if(team == 0)
-				UIHint.Get.ShowHint("You Win", Color.blue);
-			else
-				UIHint.Get.ShowHint("You Lost", Color.red);
-
-			GameController.Get.ChangeSituation(GameSituation.End);
-		}
 	}
 	
 	protected override void InitData() {

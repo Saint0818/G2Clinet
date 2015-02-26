@@ -31,6 +31,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[] Hood = new GameObject[2];
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] MissPoint = new GameObject[2];
+	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
@@ -71,6 +72,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             DunkPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkPoint_R", crtCollider.name));
             CameraHood[0] = GetGameObjtInCollider(string.Format("{0}/CameraHood/A", crtCollider.name));
             CameraHood[1] = GetGameObjtInCollider(string.Format("{0}/CameraHood/B", crtCollider.name));
+			BasketEntra[0, 0] = GetGameObjtInCollider(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 1] = GetGameObjtInCollider(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[1, 0] = GetGameObjtInCollider(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
 			BallShadow.gameObject.SetActive(false);
 
@@ -284,6 +289,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			}
 			break;
 		}
+	}
+
+	public void ResetBasketEntra() {
+		for (int i = 0; i < 2; i ++)
+			for (int j = 0; j < 2; j ++)
+				BasketEntra[i, j].Into = false;
 	}
 
     public void PlayDunk(int team)

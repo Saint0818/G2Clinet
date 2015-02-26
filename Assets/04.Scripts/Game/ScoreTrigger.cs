@@ -4,37 +4,21 @@ using System.Collections;
 public class ScoreTrigger : MonoBehaviour
 {
 	public int Team;
-    public int intTrigger;
-	public bool trigger0 = false;
-	public bool trigger1 = false;
-    public AudioClip netAudio;
+	public int IntTrigger;
+	public bool Into = false;
 	
     void OnTriggerEnter(Collider c) {
 		if (c.collider.gameObject.tag == "RealBall") {
-			if (UIGame.Visible) 
-			{
-				if(intTrigger == 0)
-				{
-					GameController.Get.ShootInto0 = true;
-					GameController.Get.ShootInto1 = false;
+			if (GameController.Visible) {
+				if(IntTrigger == 0)
+					Into = true;
+				else
+				if(IntTrigger == 1 && SceneMgr.Get.BasketEntra[Team, 0].Into && !SceneMgr.Get.BasketEntra[Team, 1].Into) {
+					Into = true;
+					GameController.Get.PlusScore(Team);
+					SceneMgr.Get.ResetBasketEntra();
 				}
-				else if(intTrigger == 1)
-				{
-					GameController.Get.ShootInto1 = true;
-
-					if(GameController.Get.ShootInto0 == true && GameController.Get.ShootInto1 == true)
-					{
-						audio.clip = netAudio;
-						audio.Play();
-						GameController.Get.PlusScore(Team);
-					}
-				}
-			} 
+			}
 		}
-    }
-	
-	void OnTriggerExit(Collider c) 
-	{
-
     }
 }
