@@ -511,7 +511,9 @@ public class GameController : MonoBehaviour {
 						int find = 0;
 						for(int j = 0;  j < PlayerList.Count; j++){
 							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
-								if(Who == find){
+								PlayerBehaviour anpc = PlayerList[j];
+
+								if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
 									Pass(PlayerList[j]);
 									CoolDownPass = Time.time + 3;
 									break;
