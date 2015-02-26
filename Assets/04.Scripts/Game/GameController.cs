@@ -158,6 +158,7 @@ public class GameController : MonoBehaviour {
 
 		for (int i = 0; i < PlayerList.Count; i ++) {
 			PlayerList[i].OnShoot = OnShoot;
+			PlayerList[i].OnPass = OnPass;
 			PlayerList[i].OnBlock = OnBlock;
 		}
 	}
@@ -296,15 +297,16 @@ public class GameController : MonoBehaviour {
         }
     }
 
-	private void Shoot(PlayerBehaviour player) {
-		if (player == BallOwner) {
+	private void Shoot() {
+		if (BallOwner) {
 			SceneMgr.Get.ResetBasketEntra();
-			player.AniState(PlayerState.Shooting, true, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position.z);
+			BallOwner.AniState(PlayerState.Shooting, true, 
+			                   SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position.x, 
+			                   SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position.z);
         }
 	}
-
         
-    public void OnShoot(PlayerBehaviour player) {
+    public bool OnShoot(PlayerBehaviour player) {
 		if (BallOwner && BallOwner == player) {					
 			Shooter = player;
 			SetBall();
@@ -313,13 +315,16 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.RealBall.rigidbody.velocity = 
 				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
 				                         SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position, 60);
-		}
+
+			return true;
+		} else
+			return false;
 	}
 
 	public void DoShoot()
 	{
-		if (Joysticker && Joysticker == BallOwner)
-			Shoot(Joysticker);
+		if (IsStart && Joysticker && Joysticker == BallOwner)
+			Shoot();
     }
     
     private void Pass(PlayerBehaviour player) {
@@ -330,13 +335,21 @@ public class GameController : MonoBehaviour {
 		}
 	}
     
-    public void OnPass(PlayerBehaviour player) {
-		
+    public bool OnPass(PlayerBehaviour player) {
+		if (Catcher) {
+			SceneMgr.Get.SetBallState(PlayerState.Pass);
+			SceneMgr.Get.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position) > 15f)
+				CameraMgr.Get.IsLongPass = true;
+            
+            return true;
+        }else
+            return false;
     }
 
 	public void DoPass()
 	{
-		if (BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
+		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
 			if(BallOwner == Joysticker)
 				Pass(PlayerList[1]);
 			else
@@ -348,13 +361,13 @@ public class GameController : MonoBehaviour {
         
     }
     
-    public void OnSteal(PlayerBehaviour player) {
-		
+    public bool OnSteal(PlayerBehaviour player) {
+		return true;
     }
 
 	public void DoSteal()
 	{
-		if (BallOwner && BallOwner != Joysticker)
+		if (IsStart && BallOwner && BallOwner != Joysticker)
 			BallOwner.AniState (PlayerState.Steal, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 	}
 
@@ -362,28 +375,29 @@ public class GameController : MonoBehaviour {
 		
 	}
     
-    public void OnBlock(PlayerBehaviour player) {
+    public bool OnBlock(PlayerBehaviour player) {
 		if (BallOwner) {
 			if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
 				player.rigidbody.AddForce (player.JumpHight * transform.up + player.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 			else
-				player.rigidbody.velocity = 
-					GameFunction.GetVelocity (player.transform.position, 
-					                          new Vector3(BallOwner.transform.position.x, 7, 
-					            BallOwner.transform.position.z), 70);
+				player.rigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+					new Vector3(BallOwner.transform.position.x, 7, BallOwner.transform.position.z), 70);
+
+			return true;
 		} 
 		else  {
 			if (Shooter && Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position) < 5)
-				player.rigidbody.velocity = 
-					GameFunction.GetVelocity (player.transform.position, 
-                                              new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, 
+				player.rigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+                    new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, 
                                 SceneMgr.Get.RealBall.transform.position.z), 70);
         }
+
+		return false;
     }
 
 	public void DoBlock()
 	{
-		if (BallOwner)
+		if (IsStart && BallOwner)
 			BallOwner.AniState (PlayerState.Block, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 	}
 
@@ -391,8 +405,8 @@ public class GameController : MonoBehaviour {
         
     }
 	
-	public void OnRebound(PlayerBehaviour player) {
-        
+	public bool OnRebound(PlayerBehaviour player) {
+		return true;
     }
     
     public void DoJump()
@@ -496,11 +510,11 @@ public class GameController : MonoBehaviour {
 				if(Npc == BallOwner){
 					//Dunk shoot shoot3 pass
 					if(ShootPointDis <= 2f && DunkRate < 0){
-						Shoot(Npc);
+						Shoot();
 					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shootRate < 10)){
-						Shoot(Npc);
+						Shoot();
 					}else if(ShootPointDis <= 10.5f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shoot3Rate < 3)){
-						Shoot(Npc);
+						Shoot();
 					}else if(passRate < 5 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
 						int find = 0;

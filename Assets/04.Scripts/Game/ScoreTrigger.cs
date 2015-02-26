@@ -16,7 +16,6 @@ public class ScoreTrigger : MonoBehaviour
 				if(IntTrigger == 1 && SceneMgr.Get.BasketEntra[Team, 0].Into && !SceneMgr.Get.BasketEntra[Team, 1].Into) {
 					Into = true;
 					GameController.Get.PlusScore(Team);
-					SceneMgr.Get.ResetBasketEntra();
 				}
 			}
 		}

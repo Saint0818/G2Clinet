@@ -70,8 +70,9 @@ public struct TMoveData
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	public delegate void OnPlayerAction(PlayerBehaviour player);
+	public delegate bool OnPlayerAction(PlayerBehaviour player);
 	public OnPlayerAction OnShoot = null;
+	public OnPlayerAction OnPass = null;
 	public OnPlayerAction OnBlock = null;
 
     public Vector3 Translate;
@@ -449,11 +450,12 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
 			case "Passing":			
-				if(PassTime > 0){
+				if (PassTime > 0) {
 					PassTime = 0;
 					if(!SceneMgr.Get.RealBallTrigger.PassBall())
 						DelActionFlag(ActionFlag.IsPass);
-				}				
+				}		
+
 				break;
 			case "PassEnd":
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);

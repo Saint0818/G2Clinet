@@ -26,7 +26,7 @@ public class BallTrigger : MonoBehaviour
 	}
 	
 	void OnTriggerEnter(Collider other) {
-		if (UIGame.Visible){
+		if (GameController.Visible){
 			if (other.gameObject.tag == "Player") 
 			{
 
@@ -56,6 +56,7 @@ public class BallTrigger : MonoBehaviour
 			SceneMgr.Get.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
 			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
+
 			return true;
 		}else
 			return false;
