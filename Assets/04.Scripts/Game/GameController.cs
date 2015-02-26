@@ -514,8 +514,11 @@ public class GameController : MonoBehaviour {
 								find++;
 							}
 						}
-					}else if(HaveDefPlayer(ref Npc, 2, 50)){
-						//Crossover
+					}else if(HaveDefPlayer(ref Npc, 1.5f, 50)){
+						//Crossover						
+						TMoveData data = new TMoveData(0);
+						data.Target = new Vector2(Npc.transform.position.x + 1.5f, Npc.transform.position.z);
+						Npc.FirstTargetPos = data;
 					}
 				}else{
 					//sup push
@@ -929,10 +932,18 @@ public class GameController : MonoBehaviour {
 					PlayerBehaviour TargetNpc = PlayerList[i];
 					lookAtPos = TargetNpc.transform.position;
 					relative = Npc.transform.InverseTransformPoint(lookAtPos);
-					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-					if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle && mangle >= -angle){
-						Result = true;
-						break;
+					mangle = Mathf.Abs(Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg);
+
+					if(Npc.Team == TeamKind.Self){
+						if(getDis(ref Npc, ref TargetNpc) <= dis && mangle >= 180 - angle){
+							Result = true;
+							break;
+						}
+					}else if(Npc.Team == TeamKind.Npc){
+						if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle){
+							Result = true;
+							break;
+						}
 					}
 				}		
 			}	

@@ -79,6 +79,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
+	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private float MoveMinSpeed = 0.5f;
 	private float dashSpeed = 1.2f;
@@ -135,7 +136,9 @@ public class PlayerBehaviour : MonoBehaviour
 			DelActionFlag(ActionFlag.IsPass);
 		}	
 
-		if(MoveQueue.Count > 0)
+		if(FirstMoveQueue.Count > 0)
+			MoveTo(FirstMoveQueue.Peek(), true);
+		else if(MoveQueue.Count > 0)
 			MoveTo(MoveQueue.Peek());
 	}
 
@@ -199,8 +202,8 @@ public class PlayerBehaviour : MonoBehaviour
 		DelActionFlag (ActionFlag.IsPass);
     }
 
-	public void MoveTo(TMoveData Data){
-		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock)) {
+	public void MoveTo(TMoveData Data, bool First = false){
+		if (!CheckAction (ActionFlag.IsSteal) && !CheckAction (ActionFlag.IsJump) && !CheckAction(ActionFlag.IsBlock) && !GameController.Get.IsPassing) {
 			if ((gameObject.transform.localPosition.x <= Data.Target.x + MoveCheckValue && gameObject.transform.localPosition.x >= Data.Target.x - MoveCheckValue) && 
 			    (gameObject.transform.localPosition.z <= Data.Target.y + MoveCheckValue && gameObject.transform.localPosition.z >= Data.Target.y - MoveCheckValue)) {
 				MoveTurn = 0;
@@ -210,7 +213,10 @@ public class PlayerBehaviour : MonoBehaviour
 					if(!IsBallOwner)
 						AniState(PlayerState.Idle);
 
-					WaitMoveTime = Time.time + UnityEngine.Random.value;
+					if(First)
+						WaitMoveTime = 0;
+					else
+						WaitMoveTime = Time.time + UnityEngine.Random.value;
 					
 					if(IsBallOwner){
 						if(Team == TeamKind.Self)
@@ -234,7 +240,10 @@ public class PlayerBehaviour : MonoBehaviour
 				if(Data.MoveFinish != null)
 					Data.MoveFinish();
 
-				MoveQueue.Dequeue();
+				if(First)
+					FirstMoveQueue.Dequeue();
+				else
+					MoveQueue.Dequeue();
 			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && !Data.Once){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
@@ -258,11 +267,19 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				transform.Translate (Translate);
 
-				if(Data.Once){
-					MoveQueue.Dequeue();
-					MoveTurn = 0;
-					DelActionFlag(ActionFlag.IsRun);
-				}					
+				if(First){
+					if(Data.Once){
+						FirstMoveQueue.Dequeue();
+						MoveTurn = 0;
+						DelActionFlag(ActionFlag.IsRun);
+					}
+				}else{
+					if(Data.Once){
+						MoveQueue.Dequeue();
+						MoveTurn = 0;
+						DelActionFlag(ActionFlag.IsRun);
+					}
+				}				
 			}		
 		}
 	}
@@ -313,6 +330,7 @@ public class PlayerBehaviour : MonoBehaviour
 		SetSpeed(0);
 		AniState(PlayerState.Idle);
 		MoveQueue.Clear ();
+		FirstMoveQueue.Clear ();
 	}
 
 	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
@@ -493,6 +511,13 @@ public class PlayerBehaviour : MonoBehaviour
 	public TMoveData TargetPos{
 		set{
 			MoveQueue.Enqueue(value);
+		}
+	}
+
+	public TMoveData FirstTargetPos{
+		set{
+			if(FirstMoveQueue.Count == 0)
+				FirstMoveQueue.Enqueue(value);
 		}
 	}
 }
