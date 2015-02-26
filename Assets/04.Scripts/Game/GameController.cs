@@ -517,7 +517,7 @@ public class GameController : MonoBehaviour {
 					}else if(HaveDefPlayer(ref Npc, 1.5f, 50)){
 						//Crossover						
 						TMoveData data = new TMoveData(0);
-						data.Target = new Vector2(Npc.transform.position.x + 1.5f, Npc.transform.position.z);
+						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
 						Npc.FirstTargetPos = data;
 					}
 				}else{
@@ -624,7 +624,8 @@ public class GameController : MonoBehaviour {
 				data.Target = new Vector2(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 				data.Once = true;
 				A.TargetPos = data;
-			}
+			}else
+				Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 		}else{
 			switch(Action){
 			case GameAction.Def:
@@ -934,16 +935,9 @@ public class GameController : MonoBehaviour {
 					relative = Npc.transform.InverseTransformPoint(lookAtPos);
 					mangle = Mathf.Abs(Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg);
 
-					if(Npc.Team == TeamKind.Self){
-						if(getDis(ref Npc, ref TargetNpc) <= dis && mangle >= 180 - angle){
-							Result = true;
-							break;
-						}
-					}else if(Npc.Team == TeamKind.Npc){
-						if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle){
-							Result = true;
-							break;
-						}
+					if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle){
+						Result = true;
+						break;
 					}
 				}		
 			}	
