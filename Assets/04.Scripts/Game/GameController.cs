@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour {
 	private GameSituation situation = GameSituation.None;
 	private float Timer = 0;
 	private float CoolDownPass = 0;
+	private float CoolDownCrossover = 0;
 	private int NoAiTime = 0;
 
 	private Vector2 [] BaseRunAy_A = new Vector2[4];
@@ -176,6 +177,9 @@ public class GameController : MonoBehaviour {
 		
 		if(Time.time >= CoolDownPass)
 			CoolDownPass = 0;
+
+		if(Time.time >= CoolDownCrossover)
+			CoolDownCrossover = 0;
 		
 		handleSituation();
 	}
@@ -330,7 +334,7 @@ public class GameController : MonoBehaviour {
     private void Pass(PlayerBehaviour player) {
 		if (BallOwner && BallOwner.IsDribble) {
 			Catcher = player;
-			Catcher.AniState(PlayerState.Idle, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+			Catcher.AniState(PlayerState.Catcher, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 			BallOwner.AniState(PlayerState.Pass, true, Catcher.transform.position.x, Catcher.transform.position.z);
 		}
 	}
@@ -509,6 +513,7 @@ public class GameController : MonoBehaviour {
 
 				if(Npc == BallOwner){
 					//Dunk shoot shoot3 pass
+					int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 					if(ShootPointDis <= 2f && DunkRate < 0){
 						Shoot();
 					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shootRate < 10)){
@@ -520,7 +525,9 @@ public class GameController : MonoBehaviour {
 						int find = 0;
 						for(int j = 0;  j < PlayerList.Count; j++){
 							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
-								if(Who == find){
+								PlayerBehaviour anpc = PlayerList[j];
+
+								if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
 									Pass(PlayerList[j]);
 									CoolDownPass = Time.time + 3;
 									break;
@@ -528,11 +535,16 @@ public class GameController : MonoBehaviour {
 								find++;
 							}
 						}
-					}else if(HaveDefPlayer(ref Npc, 1.5f, 50)){
-						//Crossover						
+					}else if(Dir != 0 && CoolDownCrossover == 0){
+						//Crossover				
 						TMoveData data = new TMoveData(0);
-						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
+						if(Dir == 1)
+							data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
+						else
+							data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
+
 						Npc.FirstTargetPos = data;
+						CoolDownCrossover = Time.time + 3;
 					}
 				}else{
 					//sup push
@@ -754,7 +766,10 @@ public class GameController : MonoBehaviour {
 				}
 
 				PlayerBehaviour oldp = BallOwner;
-				SetBallController(p);
+				BallOwner = p;
+				SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+				p.ClearIsCatcher();
+
 				if(p){
 					p.WaitMoveTime = 0;
 					if(p.IsJump){
@@ -775,16 +790,14 @@ public class GameController : MonoBehaviour {
 				}
 
 				Shooter = null;
-			}else
-				SetBallController(p);
+			}else{
+				BallOwner = p;
+				
+				if(p)
+					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+			}
 		}
     }
-
-	private void SetBallController(PlayerBehaviour p = null){
-		BallOwner = p;
-		if(p)
-			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-	}
 
 	public void BallOnFloor() {
 		SceneMgr.Get.ResetBasketEntra();
@@ -897,8 +910,10 @@ public class GameController : MonoBehaviour {
 	public void ChangeSituation(GameSituation GS){
 		if (situation != GameSituation.End) {
 			situation = GS;
-			for(int i = 0; i < PlayerList.Count; i++)
-				PlayerList[i].ResetFlag();
+
+			if(situation != GameSituation.TeeA && situation != GameSituation.TeeB)
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].ResetFlag();
 
 			switch(GS){
 			case GameSituation.Opening:
@@ -935,8 +950,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public bool HaveDefPlayer(ref PlayerBehaviour Npc, float dis, float angle){
-		bool Result = false;
+	public int HaveDefPlayer(ref PlayerBehaviour Npc, float dis, float angle){
+		int Result = 0;
 		Vector3 lookAtPos;
 		Vector3 relative;
 		float mangle;
@@ -947,11 +962,16 @@ public class GameController : MonoBehaviour {
 					PlayerBehaviour TargetNpc = PlayerList[i];
 					lookAtPos = TargetNpc.transform.position;
 					relative = Npc.transform.InverseTransformPoint(lookAtPos);
-					mangle = Mathf.Abs(Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg);
+					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 
-					if(getDis(ref Npc, ref TargetNpc) <= dis && mangle <= angle){
-						Result = true;
-						break;
+					if(getDis(ref Npc, ref TargetNpc) <= dis){
+						if(mangle <= angle){
+							Result = 1;
+							break;
+						}else if(mangle >= -angle){
+							Result = 2;
+							break;
+						}
 					}
 				}		
 			}	
