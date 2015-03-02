@@ -101,7 +101,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public GamePostion Postion = GamePostion.G;
 	public Vector2 [] RunPosAy;
 	public float BasicMoveSpeed = 1f;
-	public float AnimationSpeed = 0;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
 	public float JumpHight = 12;
@@ -166,7 +165,7 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				isJoystick = true;
 				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
-				AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
+				float AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 				SetSpeed (AnimationSpeed);
 				AniState(ps);
 
@@ -262,13 +261,8 @@ public class PlayerBehaviour : MonoBehaviour
 					else
 						AniState(PlayerState.Run);
 				}
-				
-				if(AnimationSpeed <= MoveMinSpeed)
-					Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed;
-				else
-					Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * dashSpeed * 10 * BasicMoveSpeed;
-				
-				transform.Translate (Translate);
+
+				transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
 
 				if(First){
 					if(Data.Once){
@@ -324,6 +318,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 		SetSpeed(0);
 		AniState(PlayerState.Idle);
+		MoveQueue.Clear ();
+		FirstMoveQueue.Clear ();
+	}
+
+	public void ClearMoveQueue(){
 		MoveQueue.Clear ();
 		FirstMoveQueue.Clear ();
 	}

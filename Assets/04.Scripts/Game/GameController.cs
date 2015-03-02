@@ -39,9 +39,9 @@ public class GameController : MonoBehaviour {
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	private PlayerBehaviour BallOwner;
+	private PlayerBehaviour Joysticker;
 	public PlayerBehaviour Catcher;
 	public PlayerBehaviour Shooter;
-	private PlayerBehaviour Joysticker;
 
 	private GameSituation situation = GameSituation.None;
 	private float Timer = 0;
@@ -130,8 +130,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void TouchDown (Gesture gesture){
-		if(UIGame.Get.Joystick.Visible && CanMove)
-			NoAiTime = CountBackSecs;
+		if (CanMove) {
+			NoAiTime = CountBackSecs;	
+			Joysticker.ClearMoveQueue();
+		}
 	}
 
 	public void InitGame(){
