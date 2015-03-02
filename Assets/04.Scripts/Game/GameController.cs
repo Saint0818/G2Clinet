@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void TouchDown (Gesture gesture){
-		if(UIGame.Get.Joystick.Visible && (situation == GameSituation.AttackA || situation == GameSituation.AttackB || situation == GameSituation.Opening))
+		if(UIGame.Get.Joystick.Visible && CanMove)
 			NoAiTime = CountBackSecs;
 	}
 
@@ -423,21 +423,21 @@ public class GameController : MonoBehaviour {
         
     }
 
-	private bool CheckCanUseControl()
+	private bool CanMove
 	{
-		if (situation != GameSituation.None &&
-		    situation != GameSituation.TeeA &&
-		    situation != GameSituation.TeeB && 
-		    situation != GameSituation.TeeBPicking &&
-		    situation != GameSituation.End)
-			return true;
-        else
-            return false;
+		get{
+			if (situation == GameSituation.AttackA ||
+			    situation == GameSituation.AttackB ||
+			    situation == GameSituation.Opening)
+				return true;
+			else
+				return false;
+		}
     }
 
 	public void OnJoystickMove(MovingJoystick move)
 	{
-		if (Joysticker && CheckCanUseControl()) {
+		if (Joysticker && CanMove) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
 				PlayerState ps = PlayerState.Run;
@@ -911,9 +911,8 @@ public class GameController : MonoBehaviour {
 		if (situation != GameSituation.End) {
 			situation = GS;
 
-			if(situation != GameSituation.TeeA && situation != GameSituation.TeeB)
-				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].ResetFlag();
+			for(int i = 0; i < PlayerList.Count; i++)
+				PlayerList[i].ResetFlag();
 
 			switch(GS){
 			case GameSituation.Opening:
