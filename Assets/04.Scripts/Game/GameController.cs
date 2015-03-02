@@ -26,6 +26,12 @@ public enum GamePostion{
 	C = 2
 }
 
+public enum GameTest{
+	None,
+	AttackA
+}
+
+
 public class GameController : MonoBehaviour {
 	private static GameController instance;
 
@@ -55,6 +61,8 @@ public class GameController : MonoBehaviour {
 	private Vector2 [] BaseRunAy_C = new Vector2[11];
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
+
+	public GameTest TestMode = GameTest.AttackA;
 
 	public static GameController Get
 	{
@@ -150,12 +158,14 @@ public class GameController : MonoBehaviour {
 
 	public void CreateTeam(){
 		PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G));
-		PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, new Vector3(5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
-		PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, new Vector3(-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
+		if (TestMode == GameTest.None) {
+			PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
+			PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, new Vector3 (-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
 
-		PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, new Vector3(0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G));	
-		PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, new Vector3(5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
-		PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, new Vector3(-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
+			PlayerList.Add (ModelManager.Get.CreatePlayer (3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G));	
+			PlayerList.Add (ModelManager.Get.CreatePlayer (4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
+			PlayerList.Add (ModelManager.Get.CreatePlayer (5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
+		}
 
 		Joysticker = PlayerList [0];
 		EffectManager.Get.SelectEffectScript.SetTarget(Joysticker.gameObject);
@@ -201,6 +211,8 @@ public class GameController : MonoBehaviour {
 						if(SceneMgr.Get.RealBall.transform.position.y <= 0.5f && BallOwner == null && getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
 							SetBall(Npc);
 				}else{
+					if(TestMode != GameTest.None)
+						return;
 					//AI
 					switch(situation){
 					case GameSituation.None:
@@ -419,12 +431,13 @@ public class GameController : MonoBehaviour {
     
     public void DoJump()
     {
-        Joysticker.AniState (PlayerState.Jumper);
+		Vector3 pos = SceneMgr.Get.ShootPoint [Joysticker.Team.GetHashCode ()].transform.position;
+		Joysticker.AniState (PlayerState.Jumper, true, pos.x, pos.z);
     }
 
     public void DoSkill()
     {
-        
+		Joysticker.AniState (PlayerState.Dunk);
     }
 
 	private bool CanMove
@@ -456,9 +469,9 @@ public class GameController : MonoBehaviour {
     public void OnJoystickMoveEnd(MovingJoystick move)
     {
 		if (Joysticker) {
-			PlayerState ps = PlayerState.Run;
+			PlayerState ps = PlayerState.Idle;
 			if (BallOwner == Joysticker)
-				ps = PlayerState.RunAndDrible;
+				ps = PlayerState.Dribble;
 			
 			Joysticker.OnJoystickMoveEnd(move, ps);
         }
@@ -887,7 +900,7 @@ public class GameController : MonoBehaviour {
     
     public void PlusScore(int team)
 	{
-		if (IsStart) {
+		if (IsStart && TestMode == GameTest.None) {
 			CameraMgr.Get.AddScore (team);
 			SceneMgr.Get.ResetBasketEntra();
 
