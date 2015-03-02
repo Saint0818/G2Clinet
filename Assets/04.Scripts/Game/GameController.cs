@@ -516,9 +516,9 @@ public class GameController : MonoBehaviour {
 					int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 					if(ShootPointDis <= 2f && DunkRate < 0){
 						Shoot();
-					}else if(ShootPointDis <= 6f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shootRate < 10)){
+					}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10)){
 						Shoot();
-					}else if(ShootPointDis <= 10.5f && (!HaveDefPlayer(ref Npc, 1.5f, 40) || shoot3Rate < 3)){
+					}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3)){
 						Shoot();
 					}else if(passRate < 5 && CoolDownPass == 0){
 						int Who = Random.Range(0, 2);
