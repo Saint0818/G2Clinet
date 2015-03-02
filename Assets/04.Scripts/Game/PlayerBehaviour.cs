@@ -398,19 +398,18 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     if (OnBlock != null)
                         OnBlock(this);
-                }
-                
-                break;
-            case PlayerState.Shooting:
-                if(!CheckAction(ActionFlag.IsJump) && IsBallOwner)
-                {
-                    AddActionFlag(ActionFlag.IsShooting);
-                    AddActionFlag(ActionFlag.IsJump);
-                    AddActionFlag(ActionFlag.IsDribble);
-                    Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
-                    Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
-                }
-                break;
+            }                
+        	break;
+   		case PlayerState.Shooting:
+	        if(!CheckAction(ActionFlag.IsJump) && IsBallOwner)
+	        {
+	            AddActionFlag(ActionFlag.IsShooting);
+	            AddActionFlag(ActionFlag.IsJump);
+	            AddActionFlag(ActionFlag.IsDribble);
+	            Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
+	            Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
+	        }
+	        break;
         }
     }
     

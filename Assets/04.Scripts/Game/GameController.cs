@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour {
 	private float Timer = 0;
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
+	private float ShootDis = 0;
 	private int NoAiTime = 0;
 
 	private Vector2 [] BaseRunAy_A = new Vector2[4];
@@ -322,6 +323,7 @@ public class GameController : MonoBehaviour {
 				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
 				                         SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position, 60);
 
+			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position);
 			return true;
 		} else
 			return false;
@@ -890,11 +892,15 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int score = 2;
-            if(Shooter != null){
-				if(getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position) >= 9)
+			if(ShootDis != 0){
+				if(ShootDis >= 10)
+					score = 3;
+			}else if(Shooter != null){
+				if(getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position) >= 10)
 					score = 3;
 			}
 
+			ShootDis = 0;
 			UIGame.Get.PlusScore(team, score);
 
 			if (UIGame.Get.Scores [team] >= UIGame.Get.MaxScores [team])
