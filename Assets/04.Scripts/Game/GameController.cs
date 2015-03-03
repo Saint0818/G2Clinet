@@ -181,12 +181,7 @@ public class GameController : MonoBehaviour {
 				PlayerBehaviour Npc = PlayerList[i];
 				
 				if(Npc.isJoystick && Npc.Team == TeamKind.Self && Npc == Joysticker){
-					if(!IsPassing && (situation == GameSituation.AttackA || 
-					                  situation == GameSituation.AttackB || 
-					                  situation == GameSituation.Opening || 
-					                  situation == GameSituation.TeeAPicking))
-						if(SceneMgr.Get.RealBall.transform.position.y <= 0.5f && BallOwner == null && getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+					
 				}else{
 					if(TestMode != GameTest.None)
 						return;
@@ -196,8 +191,7 @@ public class GameController : MonoBehaviour {
 						
 						break;
 					case GameSituation.Opening:
-						if(SceneMgr.Get.RealBall.transform.position.y <= 0.5f && !IsPassing && BallOwner == null && getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						
 						break;
 					case GameSituation.AttackA:
 						if(Npc.Team == TeamKind.Self){
@@ -217,8 +211,7 @@ public class GameController : MonoBehaviour {
 							AIMove(ref Npc, GameAction.Def);
 						}					
 						
-						if(SceneMgr.Get.RealBall.transform.position.y <= 0.5f && !IsShooting && !IsPassing && BallOwner == null && getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
@@ -238,16 +231,14 @@ public class GameController : MonoBehaviour {
 							}
 						}
 						
-						if(SceneMgr.Get.RealBall.transform.position.y <= 0.5f && !IsShooting && !IsPassing && BallOwner == null && getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-							SetBall(Npc);
+						
 						break;
 					case GameSituation.TeeAPicking:
 						if(BallOwner == null){
 							//Picking ball
 							if(Npc.Team == TeamKind.Self && Npc.Postion == GamePostion.F){
 								AIPickupMove(ref Npc);
-								if(getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-									SetBall(Npc);
+								
 							}else if(Npc.Team == TeamKind.Self){
 								TeeBall(ref Npc, TeamKind.Self);
 							}else if(Npc.Team == TeamKind.Npc){
@@ -268,8 +259,7 @@ public class GameController : MonoBehaviour {
                                 if(Npc.Team == TeamKind.Npc && Npc.Postion == GamePostion.F){
                                     AIPickupMove(ref Npc);
                                     
-                                    if(getDis(ref Npc, SceneMgr.Get.RealBall.transform.position) <= PickBallDis)
-                                        SetBall(Npc);
+                                    
                                 }else if(Npc.Team == TeamKind.Npc){
                                     TeeBall(ref Npc, TeamKind.Npc);
                                 }else if(Npc.Team == TeamKind.Self){
@@ -807,6 +797,40 @@ public class GameController : MonoBehaviour {
 	public void BallOnFloor() {
 		SceneMgr.Get.ResetBasketEntra();
 		GameController.Get.Shooter = null;
+	}
+
+	public void BallTouchPlayer(GameObject player, int dir) {
+		if (BallOwner || (Catcher && Catcher != player) || IsShooting)
+			return;
+
+		//rebound
+		if (dir == 0) {
+		} else {
+			PlayerBehaviour pb = player.GetComponent<PlayerBehaviour>();
+			if (pb && (pb.IsCatcher || pb.CanMove)) {
+				SetBall(pb);
+
+				switch (dir) {
+				case 0: //top
+					break;
+				case 1: //FR
+					break;
+				}
+			}
+		}
+	}
+
+	public void PlayerTouchPlayer(GameObject player1, GameObject player2, int dir) {
+		switch (dir) {
+		case 0: //top
+			break;
+		case 1: //FR
+			break;
+		}
+	}
+
+	public void PlayerTouchPlayer(GameObject player) {
+		
 	}
 
 	private Vector2 SetMovePos(ref PlayerBehaviour Npc){

@@ -538,7 +538,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public void ClearIsCatcher(){
 		DelActionFlag (ActionFlag.IsCatcher);
 	}
-    
+
+	public bool IsCatcher{
+		get{return CheckAction(ActionFlag.IsCatcher);}
+	}
+
 	public bool IsDribble{
 		get{return CheckAction(ActionFlag.IsDribble);}
 	}

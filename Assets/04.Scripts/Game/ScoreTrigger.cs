@@ -8,7 +8,7 @@ public class ScoreTrigger : MonoBehaviour
 	public bool Into = false;
 	
     void OnTriggerEnter(Collider c) {
-		if (c.collider.gameObject.tag == "RealBall") {
+		if (c.tag == "RealBall") {
 			if (GameController.Visible) {
 				if(IntTrigger == 0)
 					Into = true;
