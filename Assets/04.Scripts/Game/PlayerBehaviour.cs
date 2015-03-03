@@ -60,6 +60,7 @@ public struct TMoveData
 {
 	public Vector2 Target;
 	public Transform LookTarget;
+	public Transform FollowTarget;
 	public System.Action MoveFinish;
 	public bool Once;
 
@@ -67,6 +68,7 @@ public struct TMoveData
 		Target = Vector2.zero;
 		LookTarget = null;
 		MoveFinish = null;
+		FollowTarget = null;
 		Once = false;
 	}
 }
@@ -80,6 +82,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Vector3 Translate;
 	private const float MoveCheckValue = 1;
+	private const int ChangeToAI = 4;
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass", "IsShooting", "IsCatcher", "IsDunk"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
@@ -89,9 +92,10 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dashSpeed = 0.8f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
-//	private bool isJoystick = false;
+	public bool isJoystick = false;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
+	private float NoAiTime = 0;
 
     public Animator Control;
 	public GameObject DummyBall;
@@ -151,7 +155,14 @@ public class PlayerBehaviour : MonoBehaviour
 				if(dis < 2f)
 					Control.SetBool("IsDunkInto", true); 
 		}
-					
+
+		if (isJoystick) {
+			if(Time.time >= NoAiTime){
+				NoAiTime = 0;
+				isJoystick = false;
+				EffectManager.Get.SelectEffectScript.SetParticleColor(true);
+			}
+		}
 	}
 
 	private void CalculationAirResistance()
@@ -173,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (CanMove || stop) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
-//				isJoystick = true;
+				isJoystick = true;
 				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
 				float AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 				SetSpeed (AnimationSpeed);
@@ -196,8 +207,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
 	{
-//		isJoystick = false;
 		AniState(ps);
+		NoAiTime = Time.time + ChangeToAI;
 	}
 	
 	public void DoDunkJump()
@@ -216,8 +227,15 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void MoveTo(TMoveData Data, bool First = false){
 		if (CanMove) {
-			if ((gameObject.transform.localPosition.x <= Data.Target.x + MoveCheckValue && gameObject.transform.localPosition.x >= Data.Target.x - MoveCheckValue) && 
-			    (gameObject.transform.localPosition.z <= Data.Target.y + MoveCheckValue && gameObject.transform.localPosition.z >= Data.Target.y - MoveCheckValue)) {
+			Vector2 MoveTarget = Vector2.zero;
+			if(Data.FollowTarget != null)
+				MoveTarget = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
+			else
+				MoveTarget = Data.Target;
+
+
+			if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
+			    (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue)) {
 				MoveTurn = 0;
 				DelActionFlag(ActionFlag.IsRun);
 
@@ -237,14 +255,14 @@ public class PlayerBehaviour : MonoBehaviour
 							rotateTo(SceneMgr.Get.ShootPoint[1].transform.position.x, SceneMgr.Get.ShootPoint[1].transform.position.z);
 					}else{
 						if(Data.LookTarget == null)
-							rotateTo(Data.Target.x, Data.Target.y);
+							rotateTo(MoveTarget.x, MoveTarget.y);
 						else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 					}							
 				}else{
 					WaitMoveTime = 0;
 					if(Data.LookTarget == null)
-						rotateTo(Data.Target.x, Data.Target.y);
+						rotateTo(MoveTarget.x, MoveTarget.y);
 					else
 						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 				}
@@ -259,9 +277,9 @@ public class PlayerBehaviour : MonoBehaviour
 			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && !Data.Once){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
-				rotateTo(Data.Target.x, Data.Target.y, 10);
+				rotateTo(MoveTarget.x, MoveTarget.y, 10);
 			}else{
-				rotateTo(Data.Target.x, Data.Target.y, 10);
+				rotateTo(MoveTarget.x, MoveTarget.y, 10);
 				
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
@@ -330,6 +348,8 @@ public class PlayerBehaviour : MonoBehaviour
 		AniState(PlayerState.Idle);
 		MoveQueue.Clear ();
 		FirstMoveQueue.Clear ();
+		NoAiTime = 0;
+		isJoystick = false;
 	}
 
 	public void ClearMoveQueue(){
