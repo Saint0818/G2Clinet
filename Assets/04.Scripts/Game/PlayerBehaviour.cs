@@ -130,7 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
-	public int Proactive = 9;
+	public int Proactive = 1;
 	public bool isJoystick = false;
 
 	void initTrigger() {
@@ -360,6 +360,7 @@ public class PlayerBehaviour : MonoBehaviour
 						rotateTo(MoveTarget.x, MoveTarget.y);
 					else
 						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+					AniState(PlayerState.Defence);
 				}
 
 				if(Data.MoveFinish != null)
@@ -376,7 +377,13 @@ public class PlayerBehaviour : MonoBehaviour
 				if(MoveTurn == 1)
 					MoveStartTime = Time.time + 1;
 			}else{
-				rotateTo(MoveTarget.x, MoveTarget.y, 10);
+				if(IsDefence){
+					if(Data.LookTarget == null)
+						rotateTo(MoveTarget.x, MoveTarget.y);
+					else
+						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+				}else
+					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 				
 				if(CheckAction(ActionFlag.IsDefence)){
 					AniState(PlayerState.RunAndDefence);
@@ -387,7 +394,22 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.Run);
 				}
 
-				transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+				if(IsDefence){
+//					if(Data.DefPlayer != null){
+//						Vector3	ShootPoint = SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position;
+//						float dis = Vector3.Distance(transform.position, ShootPoint);
+//
+//
+//						if(dis >= 13)
+//							transform.Translate (Vector3.back * Time.deltaTime * MoveMinSpeed * 15 * BasicMoveSpeed);
+//						else
+//							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+//					}else
+//						transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+					transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * 7);
+//					transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
+				}else
+					transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
 			}		
 		}
 	}
@@ -476,6 +498,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Defence:
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
+				Control.SetBool(AnimatorStates[ActionFlag.IsRun], false);
 				SetSpeed(0);
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
