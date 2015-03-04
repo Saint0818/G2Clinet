@@ -195,39 +195,30 @@ public class GameController : MonoBehaviour {
 						if(Npc.Team == TeamKind.Self){
 							if(!IsPassing){
 								if(!IsShooting){
-									AttackAndDef(ref Npc, GameAction.Attack);
+									Attack(ref Npc);
 									AIMove(ref Npc);
-								}else{
-									if(!Npc.IsShooting){
-										AttackAndDef(ref Npc, GameAction.Attack);
-										AIMove(ref Npc);
-									}
-								}
+								}else if(!Npc.IsShooting){
+									Attack(ref Npc);
+									AIMove(ref Npc);
+								}								
 							}
-						}else{
-							AttackAndDef(ref Npc, GameAction.Def);
-						}					
-						
-						
+						}else
+							Defend(ref Npc);			
 						break;
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
-							AttackAndDef(ref Npc, GameAction.Def);
+							Defend(ref Npc);
 						}else{
 							if(!IsPassing){
 								if(!IsShooting){
-									AttackAndDef(ref Npc, GameAction.Attack);
+									Attack(ref Npc);
 									AIMove(ref Npc);
-								}else{
-									if(!Npc.IsShooting){
-										AttackAndDef(ref Npc, GameAction.Attack);
-										AIMove(ref Npc);
-									}
+								}else if(!Npc.IsShooting){
+									Attack(ref Npc);
+									AIMove(ref Npc);
 								}
 							}
 						}
-						
-						
 						break;
 					case GameSituation.TeeAPicking:
 						if(BallOwner == null){
@@ -438,109 +429,110 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-	private void AttackAndDef(ref PlayerBehaviour Npc, GameAction Action){
+	private void Attack(ref PlayerBehaviour Npc){
 		if (BallOwner != null) {
-			int stealRate = Random.Range(0, 100) + 1;
-			int pushRate = Random.Range(0, 100) + 1;
-			int supRate = Random.Range(0, 100) + 1;
-			int passRate = Random.Range(0, 100) + 1;
-			int ALLYOOP = Random.Range(0, 100) + 1;
-			int DunkRate = Random.Range(0, 100) + 1;
+			int dunkRate = Random.Range(0, 100) + 1;
 			int shootRate = Random.Range(0, 100) + 1;
 			int shoot3Rate = Random.Range(0, 100) + 1;
-
+			int passRate = Random.Range(0, 100) + 1;
+			int pushRate = Random.Range(0, 100) + 1;
+			int supRate = Random.Range(0, 100) + 1;
+			int ALLYOOP = Random.Range(0, 100) + 1;
 			float Dis = 0;
-			switch(Action){
-			case GameAction.Def:
-				//steal push Def
-				if(!IsShooting){
-					if(BallOwner != null){
-						Dis = getDis(ref BallOwner, ref Npc);
-						
-						if(!Npc.IsSteal){
-							if(Dis <= PushPlayerDis && pushRate < 50){
-								
-							}else if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
-								Npc.CoolDownSteal = Time.time + 3;
-								Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
-								if(stealRate < 5){
-									SetBall(Npc);
-									Npc.SetInvincible(7);
-								}
-							}else if(!Npc.IsDefence)
-								Npc.AniState(PlayerState.Defence);
-						}
-					}
-				}else{
-					if(Shooter && !Npc.IsJump && !Npc.IsBlock){
-						Dis = getDis(ref Npc, ref Shooter);
-						if(Dis <= StealBallDis){
-							Npc.AniState(PlayerState.Block, true, Shooter.transform.localPosition.x, Shooter.transform.localPosition.z);
-						}
-					}
-				}
-				break;
-			case GameAction.Attack:
-				float ShootPointDis = 0;
-				Vector3 pos = SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position;
-
-				if(Npc.Team == TeamKind.Self)
-					ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
-				else
-					ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
-
-				if(Npc == BallOwner){
-					//Dunk shoot shoot3 pass
-					int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-					if(ShootPointDis <= 2f && DunkRate < 0){
-						Shoot();
-					}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10)){
-						Shoot();
-					}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3)){
-						Shoot();
-					}else if(passRate < 5 && CoolDownPass == 0){
-						int Who = Random.Range(0, 2);
-						int find = 0;
-						for(int j = 0;  j < PlayerList.Count; j++){
-							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
-								PlayerBehaviour anpc = PlayerList[j];
-
-								if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
-									Pass(PlayerList[j]);
-									CoolDownPass = Time.time + 3;
-									break;
-								}
-								find++;
+			float ShootPointDis = 0;
+			Vector3 pos = SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position;
+			
+			if(Npc.Team == TeamKind.Self)
+				ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
+			else
+				ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
+			
+			if(Npc == BallOwner){
+				//Dunk shoot shoot3 pass
+				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
+				if(ShootPointDis <= 2f && dunkRate < 0){
+					Shoot();
+				}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10)){
+					Shoot();
+				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3)){
+					Shoot();
+				}else if(passRate < 5 && CoolDownPass == 0){
+					int Who = Random.Range(0, 2);
+					int find = 0;
+					for(int j = 0;  j < PlayerList.Count; j++){
+						if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
+							PlayerBehaviour anpc = PlayerList[j];
+							
+							if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
+								Pass(PlayerList[j]);
+								CoolDownPass = Time.time + 3;
+								break;
 							}
+							find++;
 						}
-					}else if(Dir != 0 && CoolDownCrossover == 0){
-						//Crossover				
-						TMoveData data = new TMoveData(0);
-						if(Dir == 1)
-							data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
-						else
-							data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
-
-						Npc.FirstTargetPos = data;
-						CoolDownCrossover = Time.time + 3;
 					}
-				}else{
-					//sup push
-					Dis = getDis(ref BallOwner, ref Npc); 
-					PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
+				}else if(Dir != 0 && CoolDownCrossover == 0){
+					//Crossover				
+					TMoveData data = new TMoveData(0);
+					if(Dir == 1)
+						data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
+					else
+						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
 					
-					if(ShootPointDis <= 1.5f && ALLYOOP < 50){
-						//Npc.AniState(PlayerState.Jumper);
-					}else if(NearPlayer != null && pushRate < 50){
-						//Push
-						
-					}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
-						//Sup
-						
+					Npc.FirstTargetPos = data;
+					CoolDownCrossover = Time.time + 3;
+				}
+			}else{
+				//sup push
+				Dis = getDis(ref BallOwner, ref Npc); 
+				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
+				
+				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
+					//Npc.AniState(PlayerState.Jumper);
+				}else if(NearPlayer != null && pushRate < 50){
+					//Push
+					
+				}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
+					//Sup
+					
+				}
+			}	
+		}
+	}
+	
+	private void Defend(ref PlayerBehaviour Npc){
+		if (BallOwner != null) {
+			int stealRate = Random.Range(0, 100) + 1;
+			int pushRate = Random.Range(0, 100) + 1;		
+			float Dis = 0;
+
+			//steal push Def
+			if(!IsShooting){
+				if(BallOwner != null){
+					Dis = getDis(ref BallOwner, ref Npc);
+					
+					if(!Npc.IsSteal){
+						if(Dis <= PushPlayerDis && pushRate < 50){
+							
+						}else if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+							Npc.CoolDownSteal = Time.time + 3;
+							Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
+							if(stealRate < 5){
+								SetBall(Npc);
+								Npc.SetInvincible(7);
+							}
+						}else if(!Npc.IsDefence)
+							Npc.AniState(PlayerState.Defence);
 					}
 				}
-				break;
-			}		
+			}else{
+				if(Shooter && !Npc.IsJump && !Npc.IsBlock){
+					Dis = getDis(ref Npc, ref Shooter);
+					if(Dis <= StealBallDis){
+						Npc.AniState(PlayerState.Block, true, Shooter.transform.localPosition.x, Shooter.transform.localPosition.z);
+					}
+				}
+			}				
 		}
 	}
 

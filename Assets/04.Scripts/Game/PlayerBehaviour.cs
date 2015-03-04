@@ -105,7 +105,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dashSpeed = 0.8f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
-	public bool isJoystick = false;
 	private bool JoystickEnd = false;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
@@ -132,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
 	public int Proactive = 9;
+	public bool isJoystick = false;
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
