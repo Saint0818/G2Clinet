@@ -3,17 +3,20 @@ using System.Collections;
 
 public class PlayerTrigger : MonoBehaviour {
 	public int Direction = 0;
+	public PlayerBehaviour Player;
 
 	void OnTriggerEnter(Collider other) {
 		if (GameController.Visible){
 			if (other.tag == "PlayerTrigger") 
 			{
-				GameController.Get.PlayerTouchPlayer(gameObject.transform.parent.gameObject, other.gameObject.transform.parent.gameObject, Direction);
+				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
+				if (obj)
+					GameController.Get.PlayerTouchPlayer(Player, obj.Player, Direction);
 			}
 			else 
 			if (other.tag == "RealBallTrigger") 
 			{
-				GameController.Get.BallTouchPlayer(gameObject.transform.parent.gameObject, Direction);
+				GameController.Get.BallTouchPlayer(Player, Direction);
 			} 
 		}
 	}
@@ -22,7 +25,7 @@ public class PlayerTrigger : MonoBehaviour {
 		if (GameController.Visible){
 			if (other.tag == "RealBallTrigger") 
 			{
-				GameController.Get.BallTouchPlayer(gameObject.transform.parent.gameObject, Direction);
+				GameController.Get.BallTouchPlayer(Player, Direction);
 			} 
 		}
 	}

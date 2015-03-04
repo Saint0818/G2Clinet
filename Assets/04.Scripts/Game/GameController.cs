@@ -799,16 +799,15 @@ public class GameController : MonoBehaviour {
 		GameController.Get.Shooter = null;
 	}
 
-	public void BallTouchPlayer(GameObject player, int dir) {
+	public void BallTouchPlayer(PlayerBehaviour player, int dir) {
 		if (BallOwner || (Catcher && Catcher != player) || IsShooting)
 			return;
 
 		//rebound
 		if (dir == 0) {
 		} else {
-			PlayerBehaviour pb = player.GetComponent<PlayerBehaviour>();
-			if (pb && (pb.IsCatcher || pb.CanMove)) {
-				SetBall(pb);
+			if (player && (player.IsCatcher || player.CanMove)) {
+				SetBall(player);
 
 				switch (dir) {
 				case 0: //top
@@ -820,7 +819,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void PlayerTouchPlayer(GameObject player1, GameObject player2, int dir) {
+	public void PlayerTouchPlayer(PlayerBehaviour player1, PlayerBehaviour player2, int dir) {
 		switch (dir) {
 		case 0: //top
 			break;

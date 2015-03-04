@@ -113,11 +113,30 @@ public class PlayerBehaviour : MonoBehaviour
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
-	
+
+	void initTrigger() {
+		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
+		if (obj) {
+			GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
+			obj2.name = "BodyTrigger";
+			PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
+			if (objs != null) {
+				for (int i = 0; i < objs.Length; i ++)
+					objs[i].Player = this;
+			}
+			
+			obj2.transform.parent = transform;
+			obj2.transform.transform.localPosition = Vector3.zero;
+			obj2.transform.transform.localScale = Vector3.one;
+		}
+	}
+
 	void Awake()
 	{
 		Control = gameObject.GetComponent<Animator>();
 		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
+		
+		initTrigger();
 	}
 
 	void FixedUpdate()
