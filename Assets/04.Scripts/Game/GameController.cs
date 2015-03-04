@@ -159,6 +159,7 @@ public class GameController : MonoBehaviour {
 			PlayerList[i].OnShoot = OnShoot;
 			PlayerList[i].OnPass = OnPass;
 			PlayerList[i].OnBlock = OnBlock;
+			PlayerList[i].OnDunkBasket = OnDunkBasket;
 		}
 	}
 
@@ -289,6 +290,25 @@ public class GameController : MonoBehaviour {
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position);
 			return true;
 		} else
+			return false;
+	}
+
+	public bool OnDunkInto(PlayerBehaviour player)
+	{
+		player.OnDunkInto();
+		return true;
+	}
+
+	public bool OnDunkBasket(PlayerBehaviour player)
+	{
+		if(player == BallOwner)
+		{
+
+			SceneMgr.Get.SetBallState(PlayerState.DunkBasket);
+			SetBall();
+			return true;
+		}
+		else
 			return false;
 	}
 

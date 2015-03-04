@@ -21,14 +21,14 @@ public enum PlayerState
     Pass = 13,  
     Steal = 14, 
     Underdunk = 15, 
-    Dunk1 = 17,
     Pass2 = 20,
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
 	RunAndDefence = 23,
 	RunAndDrible = 24,
 	Shooting = 25,
-	Catcher = 26
+	Catcher = 26,
+	DunkBasket = 27
 }
 
 public enum TeamKind{
@@ -90,7 +90,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnShoot = null;
 	public OnPlayerAction OnPass = null;
 	public OnPlayerAction OnBlock = null;
-
+	public OnPlayerAction OnDunkBasket = null;
+	
     public Vector3 Translate;
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
@@ -186,13 +187,6 @@ public class PlayerBehaviour : MonoBehaviour
 		else if(MoveQueue.Count > 0)
 			MoveTo(MoveQueue.Peek());
 
-		if (CheckAction (ActionFlag.IsDunk))
-			if (!Control.GetBool ("IsDunkInto")) {
-				float dis = Vector3.Distance(gameObject.transform.position, SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position);
-				if(dis < 2f)
-					Control.SetBool("IsDunkInto", true); 
-		}
-
 		if (isJoystick) {
 			if(Time.time >= NoAiTime){
 				MoveQueue.Clear();
@@ -274,20 +268,34 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	private void DoDunkJump()
 	{
-		float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position); 
-		ang += 10;
-		if (ang > 80)
-			ang -= 80;
-
-		if (ang <= 30)
-			ang = 30;
-		else if (ang > 60)
-			ang = 60;
-			
-		gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position, ang + 10);
 		gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
+//		float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position); 
+//		Debug.Log("ang1: " + ang);
+//		if (ang > 80)
+//			ang -= 80;
+//
+//		if (ang <= 30)
+//			ang = 30;
+//		else if (ang > 60)
+//			ang = 60;
+		float dis = Vector3.Distance (gameObject.transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position);
+		gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint[Team.GetHashCode()].transform.position, 60 - dis);
     }
 
+	public void OnDunkInto()
+	{
+		if (CheckAction (ActionFlag.IsDunk))
+			if (!Control.GetBool ("IsDunkInto")) {
+				gameObject.rigidbody.useGravity = false;
+				gameObject.rigidbody.velocity = Vector3.zero;
+				gameObject.rigidbody.isKinematic = true;
+				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
+				if(IsBallOwner)
+					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
+				Control.SetBool("IsDunkInto", true); 
+			}
+	}
+	
 	public void DelPass(){
 		DelActionFlag (ActionFlag.IsPass);
     }
@@ -608,12 +616,13 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsDribble);
 				break;
 			case "DunkJump":
+				SceneMgr.Get.SetBallState(PlayerState.Dunk);
+				gameObject.rigidbody.collider.enabled = false;
 				DoDunkJump();
 				break;
 			case "DunkBasket":
-				gameObject.rigidbody.useGravity = false;
-				gameObject.rigidbody.velocity = Vector3.zero;
-				gameObject.rigidbody.isKinematic = true;
+				if(OnDunkBasket != null)
+					OnDunkBasket(this);
 				break;
 			case "DunkFall":
 				gameObject.rigidbody.useGravity = true;

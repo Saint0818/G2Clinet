@@ -28,6 +28,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	private LightmapData[] lightmapData = new LightmapData[1];
 
 	public GameObject[] DunkPoint = new GameObject[2];
+	public GameObject[] DunkJumpPoint = new GameObject[2];
 	public GameObject[] Hood = new GameObject[2];
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] MissPoint = new GameObject[2];
@@ -68,8 +69,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             ShootPoint[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
 			MissPoint[0] = GetGameObjtInCollider(string.Format("{0}/MissPos/A", crtCollider.name));
             MissPoint[1] = GetGameObjtInCollider(string.Format("{0}/MissPos/B", crtCollider.name));
-            DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkPoint_L", crtCollider.name));
-            DunkPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkPoint_R", crtCollider.name));
+            DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/Point", crtCollider.name));
+			DunkPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkR/Point", crtCollider.name));
+			DunkJumpPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+			DunkJumpPoint[1] = GetGameObjtInCollider(string.Format("{0}/DunkR/JumpPoint", crtCollider.name));
             CameraHood[0] = GetGameObjtInCollider(string.Format("{0}/CameraHood/A", crtCollider.name));
             CameraHood[1] = GetGameObjtInCollider(string.Format("{0}/CameraHood/B", crtCollider.name));
 			BasketEntra[0, 0] = GetGameObjtInCollider(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
@@ -258,38 +261,48 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	{
 		switch(state)
 		{
-		case PlayerState.Dribble: 
-			RealBall.transform.parent = player.DummyBall.transform;
-			RealBall.rigidbody.useGravity = false;
-			RealBall.rigidbody.isKinematic = true;
-			RealBall.transform.localEulerAngles = Vector3.zero;
-			RealBall.transform.localPosition = Vector3.zero;
-			RealBallTrigger.SetBoxColliderEnable(false);
-			break;
-		case PlayerState.Shooting: 
-			RealBall.transform.parent = null;
-			RealBall.rigidbody.isKinematic = false;
-			RealBall.rigidbody.useGravity = true;
-			RealBallTrigger.SetBoxColliderEnable(true);
-			break;
-		case PlayerState.Pass: 
-			//				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
-			RealBall.transform.parent = null;
-			RealBall.rigidbody.isKinematic = false;
-			RealBall.rigidbody.useGravity = true;
-			RealBallTrigger.SetBoxColliderEnable(true);
-			break;
-		case PlayerState.Block: 
-			int blockRate = UnityEngine.Random.Range(0, 100) + 1;
-			if(blockRate < 30){
+			case PlayerState.Dribble: 
+				RealBall.transform.parent = player.DummyBall.transform;
+				RealBall.rigidbody.useGravity = false;
+				RealBall.rigidbody.isKinematic = true;
+				RealBall.transform.localEulerAngles = Vector3.zero;
+				RealBall.transform.localPosition = Vector3.zero;
+				RealBallTrigger.SetBoxColliderEnable(false);
+				break;
+			case PlayerState.Shooting: 
 				RealBall.transform.parent = null;
 				RealBall.rigidbody.isKinematic = false;
 				RealBall.rigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBallTrigger.Falling();
-				UIHint.Get.ShowHint("Blocking", Color.blue);
-			}
-			break;
+				break;
+			case PlayerState.Pass: 
+				//				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
+				RealBall.transform.parent = null;
+				RealBall.rigidbody.isKinematic = false;
+				RealBall.rigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				break;
+			case PlayerState.Block: 
+				int blockRate = UnityEngine.Random.Range(0, 100) + 1;
+				if(blockRate < 30){
+					RealBall.transform.parent = null;
+					RealBall.rigidbody.isKinematic = false;
+					RealBall.rigidbody.useGravity = true;
+					RealBallTrigger.SetBoxColliderEnable(true);
+					RealBallTrigger.Falling();
+					UIHint.Get.ShowHint("Blocking", Color.blue);
+				}
+				break;
+			case PlayerState.Dunk:
+				RealBall.rigidbody.collider.enabled = false;
+				break;
+			case PlayerState.DunkBasket:
+				RealBall.rigidbody.useGravity = true;
+				RealBallTrigger.collider.enabled = true;
+				RealBall.rigidbody.isKinematic = false;
+				RealBall.rigidbody.collider.enabled = true;
+				RealBall.transform.parent = null;
+				break;
 		}
 	}
 
