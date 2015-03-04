@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour {
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
 
-	public GameTest TestMode = GameTest.AttackA;
+	public GameTest TestMode = GameTest.None;
 
 	public static GameController Get
 	{

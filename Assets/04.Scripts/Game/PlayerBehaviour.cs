@@ -87,6 +87,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
+	private float canDunkDis = 30f;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private float MoveMinSpeed = 0.5f;
 	private float dashSpeed = 0.8f;
@@ -170,7 +171,6 @@ public class PlayerBehaviour : MonoBehaviour
 		if (CheckAction (ActionFlag.IsDunk))
 			if (!Control.GetBool ("IsDunkInto")) {
 				float dis = Vector3.Distance(gameObject.transform.position, SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position);
-				Debug.Log("dis" + dis);
 				if(dis < 2f)
 					Control.SetBool("IsDunkInto", true); 
 		}
@@ -230,14 +230,20 @@ public class PlayerBehaviour : MonoBehaviour
 		NoAiTime = Time.time + ChangeToAI;
 	}
 	
-	public void DoDunkJump()
+	private void DoDunkJump()
 	{
-//		if (Vector3.Distance (SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < 7f) {
-			float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);  
-		gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position, 40);
-//		}
-//		else
-//            Debug.Log("distance is no enght");
+		float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position); 
+		ang += 10;
+		if (ang > 80)
+			ang -= 80;
+
+		if (ang <= 30)
+			ang = 30;
+		else if (ang > 60)
+			ang = 60;
+			
+		gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position, ang + 10);
+		gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
     }
 
 	public void DelPass(){
@@ -461,7 +467,8 @@ public class PlayerBehaviour : MonoBehaviour
 		        }
 		        break;
 			case PlayerState.Dunk:
-				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner)
+				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
+		   			Vector3.Distance (SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < canDunkDis)
 				{
 					AddActionFlag(ActionFlag.IsDunk);
 					Control.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
@@ -543,6 +550,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		get{
 			if (!CheckAction (ActionFlag.IsSteal) && 
+			    !CheckAction (ActionFlag.IsDunk) && 
 			    !CheckAction (ActionFlag.IsJump) && 
 			    !CheckAction(ActionFlag.IsBlock) && 
 			    !CheckAction(ActionFlag.IsPass) && 
