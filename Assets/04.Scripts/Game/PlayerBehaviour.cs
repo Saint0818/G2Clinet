@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public delegate bool OnPlayerAction(PlayerBehaviour player);
 public enum PlayerState
 {
     Idle = 0,
@@ -43,6 +44,17 @@ public enum MoveType{
 	Idle = 4
 }
 
+public enum DefPoint{
+	Front = 0,
+	Back = 1,
+	Right = 2,
+	Left = 3,
+	FrontSteal = 4,
+	BackSteal = 5,
+	RightSteal = 6,
+	LeftSteal = 7
+}
+
 public static class ActionFlag{
 	public const int IsRun = 1;
 	public const int IsDefence = 2;
@@ -61,27 +73,26 @@ public struct TMoveData
 	public Vector2 Target;
 	public Transform LookTarget;
 	public Transform FollowTarget;
-	public System.Action MoveFinish;
-	public bool Once;
+	public PlayerBehaviour DefPlayer;
+	public OnPlayerAction MoveFinish;
 
 	public TMoveData(int flag){
 		Target = Vector2.zero;
 		LookTarget = null;
 		MoveFinish = null;
 		FollowTarget = null;
-		Once = false;
+		DefPlayer = null;
 	}
 }
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	public delegate bool OnPlayerAction(PlayerBehaviour player);
 	public OnPlayerAction OnShoot = null;
 	public OnPlayerAction OnPass = null;
 	public OnPlayerAction OnBlock = null;
 
     public Vector3 Translate;
-	private const float MoveCheckValue = 1;
+	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass", "IsShooting", "IsCatcher", "IsDunk"};
 
@@ -89,14 +100,19 @@ public class PlayerBehaviour : MonoBehaviour
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
 	private float canDunkDis = 30f;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
+	private int [] ProactiveAy = new int[10]{5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 	private float MoveMinSpeed = 0.5f;
 	private float dashSpeed = 0.8f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
 	public bool isJoystick = false;
+	private bool JoystickEnd = false;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
 	private float NoAiTime = 0;
+	private float MoveStartTime = 0;
+	private float ProactiveRate = 0;
+	private float ProactiveTime = 0;
 
     public Animator Control;
 	public GameObject DummyBall;
@@ -105,6 +121,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public PlayerState crtState = PlayerState.Idle;
 	public MoveType MoveKind = MoveType.PingPong;
 	public GamePostion Postion = GamePostion.G;
+	public Transform [] DefPointAy = new Transform[8];
 	public Vector2 [] RunPosAy;
 	public float BasicMoveSpeed = 1f;
 	public float WaitMoveTime = 0;
@@ -114,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
+	public int Proactive = 9;
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -177,9 +195,25 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (isJoystick) {
 			if(Time.time >= NoAiTime){
+				MoveQueue.Clear();
 				NoAiTime = 0;
 				isJoystick = false;
+				DelActionFlag (ActionFlag.IsRun);
 				EffectManager.Get.SelectEffectScript.SetParticleColor(true);
+			}
+		}
+
+		if (IsMove) {
+			if(Time.time >= MoveStartTime){
+				MoveStartTime = Time.time + 1;
+				GameController.Get.DefMove(this);
+			}		
+		}
+
+		if (IsDefence) {
+			if(Time.time >= ProactiveTime){
+				ProactiveTime = Time.time + 4;
+				ProactiveRate = UnityEngine.Random.Range(0, 100) + 1;
 			}
 		}
 	}
@@ -203,7 +237,15 @@ public class PlayerBehaviour : MonoBehaviour
 		if (CanMove || stop) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
+				if(!isJoystick)
+					MoveStartTime = Time.time + 1;
+
+				if(!IsMove)
+					AddActionFlag(ActionFlag.IsRun);
+
 				isJoystick = true;
+				JoystickEnd = false;
+				NoAiTime = Time.time + ChangeToAI;
 				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
 				float AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 				SetSpeed (AnimationSpeed);
@@ -226,8 +268,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
 	{
+		JoystickEnd = true;
 		AniState(ps);
-		NoAiTime = Time.time + ChangeToAI;
 	}
 	
 	private void DoDunkJump()
@@ -253,9 +295,37 @@ public class PlayerBehaviour : MonoBehaviour
 	public void MoveTo(TMoveData Data, bool First = false){
 		if (CanMove) {
 			Vector2 MoveTarget = Vector2.zero;
-			if(Data.FollowTarget != null)
+			if(Data.DefPlayer != null){
+				Vector3	ShootPoint = SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position;				
+				float dis1 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position, ShootPoint);
+				float dis2 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position, ShootPoint);
+				float dis3 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position, ShootPoint);
+				float dis4 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position, ShootPoint);
+
+				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
+					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
+		
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
+				}else if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
+					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
+
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
+				}else if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
+					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
+
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
+				}else if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
+					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
+
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
+				}
+			}else if(Data.FollowTarget != null){
 				MoveTarget = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
-			else
+			}else
 				MoveTarget = Data.Target;
 
 
@@ -293,16 +363,18 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 
 				if(Data.MoveFinish != null)
-					Data.MoveFinish();
+					Data.MoveFinish(this);
 
 				if(First)
 					FirstMoveQueue.Dequeue();
 				else
 					MoveQueue.Dequeue();
-			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5 && !Data.Once){
+			}else if(!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5){
 				AddActionFlag(ActionFlag.IsRun);
 				MoveTurn++;
 				rotateTo(MoveTarget.x, MoveTarget.y, 10);
+				if(MoveTurn == 1)
+					MoveStartTime = Time.time + 1;
 			}else{
 				rotateTo(MoveTarget.x, MoveTarget.y, 10);
 				
@@ -316,26 +388,12 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 
 				transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
-
-				if(First){
-					if(Data.Once){
-						FirstMoveQueue.Dequeue();
-						MoveTurn = 0;
-						DelActionFlag(ActionFlag.IsRun);
-					}
-				}else{
-					if(Data.Once){
-						MoveQueue.Dequeue();
-						MoveTurn = 0;
-						DelActionFlag(ActionFlag.IsRun);
-					}
-				}				
 			}		
 		}
 	}
 
     public void rotateTo(float lookAtX, float lookAtZ, float time = 50){
-        transform.rotation = Quaternion.Slerp(transform.rotation, 
+        transform.rotation = Quaternion.Lerp(transform.rotation, 
                              Quaternion.LookRotation(new Vector3 (lookAtX, transform.localPosition.y, lookAtZ) - 
                                 transform.localPosition), time * Time.deltaTime);
     }
@@ -568,6 +626,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsCatcher{
 		get{return CheckAction(ActionFlag.IsCatcher);}
+	}
+
+	public bool IsDefence{
+		get{return CheckAction(ActionFlag.IsDefence);}
 	}
 
 	public bool IsDribble{

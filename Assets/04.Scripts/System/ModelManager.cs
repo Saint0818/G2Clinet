@@ -41,6 +41,14 @@ public class ModelManager : MonoBehaviour {
 		PB.Postion = Postion;
 		PB.RunPosAy = RunPosAy;
 		Res.name = Index.ToString();
+		PB.DefPointAy [DefPoint.Front.GetHashCode()] = Res.transform.Find ("DefPoint/Front").gameObject.transform;
+		PB.DefPointAy [DefPoint.Back.GetHashCode()] = Res.transform.Find ("DefPoint/Back").gameObject.transform;
+		PB.DefPointAy [DefPoint.Right.GetHashCode()] = Res.transform.Find ("DefPoint/Right").gameObject.transform;
+		PB.DefPointAy [DefPoint.Left.GetHashCode()] = Res.transform.Find ("DefPoint/Left").gameObject.transform;
+		PB.DefPointAy [DefPoint.FrontSteal.GetHashCode()] = Res.transform.Find ("DefPoint/FrontSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.BackSteal.GetHashCode()] = Res.transform.Find ("DefPoint/BackSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = Res.transform.Find ("DefPoint/RightSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = Res.transform.Find ("DefPoint/LeftSteal").gameObject.transform;
 
 		GameStruct.TPlayerAttribute attr = new GameStruct.TPlayerAttribute();
 

@@ -38,8 +38,6 @@ public class GameController : MonoBehaviour {
 	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
-	private const float NearEnemyDis = 2;
-	
 	private bool IsStart = true;
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
@@ -198,17 +196,16 @@ public class GameController : MonoBehaviour {
 							if(!IsPassing){
 								if(!IsShooting){
 									AttackAndDef(ref Npc, GameAction.Attack);
-									AIMove(ref Npc, GameAction.Attack);
+									AIMove(ref Npc);
 								}else{
 									if(!Npc.IsShooting){
 										AttackAndDef(ref Npc, GameAction.Attack);
-										AIMove(ref Npc, GameAction.Attack);
+										AIMove(ref Npc);
 									}
 								}
 							}
 						}else{
 							AttackAndDef(ref Npc, GameAction.Def);
-							AIMove(ref Npc, GameAction.Def);
 						}					
 						
 						
@@ -216,16 +213,15 @@ public class GameController : MonoBehaviour {
 					case GameSituation.AttackB:
 						if(Npc.Team == TeamKind.Self){
 							AttackAndDef(ref Npc, GameAction.Def);
-							AIMove(ref Npc, GameAction.Def);
 						}else{
 							if(!IsPassing){
 								if(!IsShooting){
 									AttackAndDef(ref Npc, GameAction.Attack);
-									AIMove(ref Npc, GameAction.Attack);
+									AIMove(ref Npc);
 								}else{
 									if(!Npc.IsShooting){
 										AttackAndDef(ref Npc, GameAction.Attack);
-										AIMove(ref Npc, GameAction.Attack);
+										AIMove(ref Npc);
 									}
 								}
 							}
@@ -237,8 +233,7 @@ public class GameController : MonoBehaviour {
 						if(BallOwner == null){
 							//Picking ball
 							if(Npc.Team == TeamKind.Self && Npc.Postion == GamePostion.F){
-								AIPickupMove(ref Npc);
-								
+								PickBall(ref Npc);								
 							}else if(Npc.Team == TeamKind.Self){
 								TeeBall(ref Npc, TeamKind.Self);
 							}else if(Npc.Team == TeamKind.Npc){
@@ -256,10 +251,8 @@ public class GameController : MonoBehaviour {
                         case GameSituation.TeeBPicking:
                             if(BallOwner == null){
                                 //Pick up ball
-                                if(Npc.Team == TeamKind.Npc && Npc.Postion == GamePostion.F){
-                                    AIPickupMove(ref Npc);
-                                    
-                                    
+                                if(Npc.Team == TeamKind.Npc && Npc.Postion == GamePostion.F){                                    
+									PickBall(ref Npc);	                                    
                                 }else if(Npc.Team == TeamKind.Npc){
                                     TeeBall(ref Npc, TeamKind.Npc);
                                 }else if(Npc.Team == TeamKind.Self){
@@ -467,14 +460,14 @@ public class GameController : MonoBehaviour {
 						if(!Npc.IsSteal){
 							if(Dis <= PushPlayerDis && pushRate < 50){
 								
-							}else if(Dis <= StealBallDis && stealRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+							}else if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
 								Npc.CoolDownSteal = Time.time + 3;
 								Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
 								if(stealRate < 5){
 									SetBall(Npc);
 									Npc.SetInvincible(7);
 								}
-							}else
+							}else if(!Npc.IsDefence)
 								Npc.AniState(PlayerState.Defence);
 						}
 					}
@@ -555,10 +548,6 @@ public class GameController : MonoBehaviour {
 		return new Vector2 ((A.x + B.x) / 2, (A.y + B.y) / 2);
 	}
 
-	private void AIPickupMove(ref PlayerBehaviour Npc){
-		PickBall(ref Npc);	
-	}
-
 	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team){
 		if(!Npc.IsMove && Npc.WaitMoveTime == 0){
 			TMoveData data = new TMoveData(0);
@@ -591,7 +580,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void NpcAutoTee(){
+	private bool NpcAutoTee(PlayerBehaviour player){
 		TeamKind Team = TeamKind.Self;
 		if(situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking)
 			Team = TeamKind.Npc;
@@ -603,6 +592,8 @@ public class GameController : MonoBehaviour {
 				break;
 			}
 		}
+
+		return true;
 	}
 
 	private PlayerBehaviour NearBall(ref PlayerBehaviour Npc){
@@ -624,12 +615,13 @@ public class GameController : MonoBehaviour {
 		return NearPlayer;
 	}
 
-	private void PickBall(ref PlayerBehaviour Npc, bool findNear = false){
-		if (BallOwner == null) {
-			PlayerBehaviour A = null;
+	private PlayerBehaviour PickBall(ref PlayerBehaviour Npc, bool findNear = false){
+		PlayerBehaviour A = null;
 
+		if (BallOwner == null) {
 			if(findNear){
 				A = NearBall(ref Npc);
+
 				if(A != null && !A.IsMove && A.WaitMoveTime == 0){
 					TMoveData data = new TMoveData(0);
 					data.FollowTarget = SceneMgr.Get.RealBall.transform;
@@ -642,64 +634,45 @@ public class GameController : MonoBehaviour {
 				Npc.TargetPos = data;
 			}
 		}
+
+		return A;
 	}
 
-	private void AIMove(ref PlayerBehaviour Npc, GameAction Action){
+	private void AIMove(ref PlayerBehaviour Npc){
 		if (BallOwner == null) {
 			PickBall(ref Npc, true);
 		}else{
-			switch(Action){
-			case GameAction.Def:
-				//move
-				for(int i = 0 ; i < PlayerList.Count; i++){
-					if(Npc.Team != PlayerList[i].Team && Npc.Postion == PlayerList[i].Postion){
-						if(!Npc.IsMove && Npc.WaitMoveTime == 0){
-							Vector3 Target = PlayerList[i].gameObject.transform.position;
-							Vector3 ShootPoint;
-							PlayerBehaviour Npc2 = PlayerList[i];
-							
-							if (getDis(ref Npc, ref Npc2) > NearEnemyDis){
-								if(Npc.Team == TeamKind.Self)
-									ShootPoint = SceneMgr.Get.ShootPoint[1].transform.position;
-								else
-									ShootPoint = SceneMgr.Get.ShootPoint[0].transform.position;
-								
-								Vector2 NewTarget = GetTarget(new Vector2(Target.x, Target.z), new Vector2(ShootPoint.x, ShootPoint.z));
-								for(int j = 0 ; j < 10; j++){
-									if(getDis(ref Npc2, new Vector2(NewTarget.x, NewTarget.y)) > NearEnemyDis)
-										NewTarget = GetTarget(new Vector2(Target.x, Target.z), NewTarget);
-									else
-										break;
-								}
+			if(!Npc.IsMove && Npc.WaitMoveTime == 0){
+				TMoveData data = new TMoveData(0);
+				data.Target = SetMovePos(ref Npc);
 
-								TMoveData data = new TMoveData(0);
-								data.Target = NewTarget;
-								data.LookTarget = Npc2.transform;
-								data.Once = true;
-								Npc.TargetPos = data;
-							}else
-								Npc.rotateTo(Npc2.transform.position.x, Npc2.transform.position.z);
-						}
-						break;
-					}
+				if(BallOwner != null && BallOwner != Npc)
+					data.LookTarget = BallOwner.transform;	
+
+				data.MoveFinish = DefMove;
+				Npc.TargetPos = data;
+				DefMove(Npc);
+			}
+				
+			if(Npc.WaitMoveTime != 0 && BallOwner != null && Npc == BallOwner)
+				Npc.AniState(PlayerState.Dribble);
+		}
+	}
+
+	public bool DefMove(PlayerBehaviour player){
+		for(int i = 0 ; i < PlayerList.Count; i++){
+			if(player.Team != PlayerList[i].Team && player.Postion == PlayerList[i].Postion){
+				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
+					PlayerBehaviour Npc2 = PlayerList[i];
+					TMoveData data2 = new TMoveData(0);
+					data2.DefPlayer = player;
+					data2.LookTarget = player.transform;
+					Npc2.TargetPos = data2;
+					break;
 				}
-				break;
-			case GameAction.Attack:
-				if(!Npc.IsMove && Npc.WaitMoveTime == 0){
-					TMoveData data = new TMoveData(0);
-					data.Target = SetMovePos(ref Npc);
-
-					if(BallOwner != null && BallOwner != Npc)
-						data.LookTarget = BallOwner.transform;	
-
-					Npc.TargetPos = data;
-				}
-					
-				if(Npc.WaitMoveTime != 0 && BallOwner != null && Npc == BallOwner)
-					Npc.AniState(PlayerState.Dribble);
-				break;
 			}
 		}
+		return true;
 	}
 
 	private float getDis(ref PlayerBehaviour player1, ref PlayerBehaviour player2){
@@ -806,14 +779,28 @@ public class GameController : MonoBehaviour {
 		//rebound
 		if (dir == 0) {
 		} else {
-			if (player && (player.IsCatcher || player.CanMove)) {
-				SetBall(player);
+			bool CanSetball = false;
 
-				switch (dir) {
-				case 0: //top
-					break;
-				case 1: //FR
-					break;
+			if (player && (player.IsCatcher || player.CanMove)) {
+				if(situation == GameSituation.TeeAPicking){
+					if(player.Team == TeamKind.Self && player.Postion == GamePostion.F)
+						CanSetball = true;
+				}else if(situation == GameSituation.TeeBPicking){
+					if(player.Team == TeamKind.Npc && player.Postion == GamePostion.F)
+						CanSetball = true;
+				}else{
+					CanSetball = true;
+				}
+
+				if(CanSetball){
+					SetBall(player);
+					
+					switch (dir) {
+					case 0: //top
+						break;
+					case 1: //FR
+						break;
+					}
 				}
 			}
 		}
