@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour {
 	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
+	private const float BlockDis = 5;
 	private bool IsStart = true;
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
@@ -288,6 +289,7 @@ public class GameController : MonoBehaviour {
 				                         SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position, 60);
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position);
+			DefBlock(ref Shooter);
 			return true;
 		} else
 			return false;
@@ -477,18 +479,26 @@ public class GameController : MonoBehaviour {
 				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3)){
 					Shoot();
 				}else if(passRate < 5 && CoolDownPass == 0){
-					int Who = Random.Range(0, 2);
-					int find = 0;
-					for(int j = 0;  j < PlayerList.Count; j++){
-						if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
-							PlayerBehaviour anpc = PlayerList[j];
-							
-							if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
-								Pass(PlayerList[j]);
-								CoolDownPass = Time.time + 3;
-								break;
+					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
+
+					if(partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0){
+						Pass(partner);
+						CoolDownPass = Time.time + 3;
+					}else{
+						int Who = Random.Range(0, 2);
+						int find = 0;
+
+						for(int j = 0;  j < PlayerList.Count; j++){
+							if(PlayerList[j].Team == Npc.Team && PlayerList[j] != Npc){
+								PlayerBehaviour anpc = PlayerList[j];
+								
+								if(HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find){
+									Pass(PlayerList[j]);
+									CoolDownPass = Time.time + 3;
+									break;
+								}
+								find++;
 							}
-							find++;
 						}
 					}
 				}else if(Dir != 0 && CoolDownCrossover == 0){
@@ -500,7 +510,7 @@ public class GameController : MonoBehaviour {
 						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
 					
 					Npc.FirstTargetPos = data;
-					CoolDownCrossover = Time.time + 3;
+					CoolDownCrossover = Time.time + 1.5f;
 				}
 			}else{
 				//sup push
@@ -627,6 +637,23 @@ public class GameController : MonoBehaviour {
 		return NearPlayer;
 	}
 
+	private void DefBlock(ref PlayerBehaviour Npc){
+		if (PlayerList.Count > 0) {
+			for(int i = 0; i < PlayerList.Count; i++){
+				PlayerBehaviour Npc2 = PlayerList[i];
+
+				if (Npc2 != Npc && Npc2.Team != Npc.Team && !Npc2.IsBlock) {
+					if (getDis(ref Npc, ref Npc2) <= BlockDis) {
+						int Rate = Random.Range(0, 100) + 1;
+						if(Npc.Postion == Npc2.Postion || Rate <= 50){
+							Npc2.AniState(PlayerState.Block, true, Npc.transform.position.x, Npc.transform.position.z);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	private PlayerBehaviour PickBall(ref PlayerBehaviour Npc, bool findNear = false){
 		PlayerBehaviour A = null;
 
@@ -677,8 +704,11 @@ public class GameController : MonoBehaviour {
 				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
 					PlayerBehaviour Npc2 = PlayerList[i];
 					TMoveData data2 = new TMoveData(0);
-					data2.DefPlayer = player;
-					data2.LookTarget = player.transform;
+					data2.DefPlayer = player;	
+					if(BallOwner != null)
+						data2.LookTarget = BallOwner.transform;//player.transform;
+					else
+						data2.LookTarget = SceneMgr.Get.RealBall.transform;
 					Npc2.TargetPos = data2;
 					break;
 				}
@@ -767,6 +797,10 @@ public class GameController : MonoBehaviour {
 								oldp.MoveKind = MoveType.Random;
 						}
 					}
+
+					for(int i = 0 ; i < PlayerList.Count; i++)
+						if(PlayerList[i].Team != p.Team)
+							PlayerList[i].ResetMove();
 				}
 
 				Shooter = null;
@@ -976,6 +1010,37 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public PlayerBehaviour HavePartner(ref PlayerBehaviour Npc, float dis, float angle){
+		PlayerBehaviour Result = null;
+		Vector3 lookAtPos;
+		Vector3 relative;
+		float mangle;
+		
+		if (PlayerList.Count > 0) {
+			for (int i = 0; i < PlayerList.Count; i++) {
+				if(PlayerList[i] != Npc && PlayerList[i].Team == Npc.Team){
+					PlayerBehaviour TargetNpc = PlayerList[i];
+					lookAtPos = TargetNpc.transform.position;
+					relative = Npc.transform.InverseTransformPoint(lookAtPos);
+					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+					
+					if(getDis(ref Npc, ref TargetNpc) <= dis){
+						if(mangle >= 0 && mangle <= angle){
+							Result = TargetNpc;
+							break;
+						}else if(mangle <= 0 && mangle >= -angle){
+							Result = TargetNpc;
+							break;
+						}
+					}
+				}						
+			}	
+		}
+		
+		return Result;
+	}
+
+
 	public int HaveDefPlayer(ref PlayerBehaviour Npc, float dis, float angle){
 		int Result = 0;
 		Vector3 lookAtPos;
@@ -989,17 +1054,17 @@ public class GameController : MonoBehaviour {
 					lookAtPos = TargetNpc.transform.position;
 					relative = Npc.transform.InverseTransformPoint(lookAtPos);
 					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-
+					
 					if(getDis(ref Npc, ref TargetNpc) <= dis){
-						if(mangle <= angle){
+						if(mangle >= 0 && mangle <= angle){
 							Result = 1;
 							break;
-						}else if(mangle >= -angle){
+						}else if(mangle <= 0 && mangle >= -angle){
 							Result = 2;
 							break;
 						}
 					}
-				}		
+				}						
 			}	
 		}
 		

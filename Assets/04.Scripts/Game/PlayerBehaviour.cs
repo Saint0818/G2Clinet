@@ -368,7 +368,6 @@ public class PlayerBehaviour : MonoBehaviour
 						rotateTo(MoveTarget.x, MoveTarget.y);
 					else
 						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-					AniState(PlayerState.Defence);
 				}
 
 				if(Data.MoveFinish != null)
@@ -634,6 +633,12 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsDunk);
 				break;
 		}
+	}
+
+	public void ResetMove(){
+		MoveQueue.Clear ();
+		DelActionFlag (ActionFlag.IsRun);
+		WaitMoveTime = 0;
 	}
 
 	public bool CanMove
