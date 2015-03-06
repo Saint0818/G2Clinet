@@ -36,7 +36,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
-	public GameObject BasketL;
 	public Material BasketMaterial;
 
     void Awake()
@@ -227,35 +226,16 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         }
     
         crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Basket/Basket_{0}", basketIndex))) as GameObject;
-        pveBasketAy[0] = crtBasket.transform.FindChild("Anim_L").gameObject;
-        pveBasketAy[1] = crtBasket.transform.FindChild("Anim_R").gameObject;
+        pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
+		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_0").gameObject;
 		animPos[0] = pveBasketAy[0].transform.localPosition;
 		animPos[1] = pveBasketAy[1].transform.localPosition;
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
 		animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
 
-		BasketL = pveBasketAy[0].transform.FindChild(string.Format("Basket_{0}_L", basketIndex)).gameObject;
         crtBasket.transform.parent = gameObject.transform;
         crtBasketIndex = basketIndex;
     }
-
-	public void ChangeBasketMaterial(int gameView)
-	{
-		string name;
-
-		if(gameView == 0)
-			name = string.Format("Basket_{0}{1}", crtBasketIndex,"_Alpha");
-		else
-			name = string.Format("Basket_{0}", crtBasketIndex);
-
-		string path = string.Format ("Stadiums/Bakset/Materials/{0}", name);
-	
-		if (BasketL.renderer.material.name != name) 
-		{
-			Material mat = (Material)Resources.Load (path, typeof(Material)) as Material;
-			BasketL.renderer.material = mat;
-		}
-	}
 
 	public void SetBallState(PlayerState state, PlayerBehaviour player = null)
 	{
@@ -317,20 +297,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         Animation animation;
 		string animationName;
 		AnimationClip clip;
+		animationName = "Dunk_0";
 
         if (team == 0)
         {
-			if(isPve)
-			{
-				animation = pveBasketAy[0].GetComponent<Animation>();
-				animationName = "DunkAnim_L";
-			}
-			else
-			{
-				animationName = "DunkAnim";
-				animation = BuildBasket[0].GetComponent<Animation>();
-			}
-
+			animation = pveBasketAy[0].GetComponent<Animation>();
 			Hood[0].gameObject.SetActive(true);
         } else
         {
@@ -470,7 +441,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 		//TODO: Temp-------
 		floorIndex = 0;
-		basketIndex = 3;
+		basketIndex = 0;
 		no = 3;
 		CameraMgr.Get.SetTeamCamera(0);
 		RealBall.transform.localPosition = new Vector3 (0, 5, 0);

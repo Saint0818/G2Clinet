@@ -268,7 +268,7 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	private void DoDunkJump()
 	{
-		gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
+
 //		float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position); 
 //		Debug.Log("ang1: " + ang);
 //		if (ang > 80)
@@ -279,13 +279,19 @@ public class PlayerBehaviour : MonoBehaviour
 //		else if (ang > 60)
 //			ang = 60;
 		float dis = Vector3.Distance (gameObject.transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position);
-		gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint[Team.GetHashCode()].transform.position, 60 - dis);
+		if (dis < 10)
+			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 70);
+		else {
+			gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
+			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 60);
+		}
     }
 
 	public void OnDunkInto()
 	{
 		if (CheckAction (ActionFlag.IsDunk))
 			if (!Control.GetBool ("IsDunkInto")) {
+				SceneMgr.Get.PlayDunk(Team.GetHashCode());
 				gameObject.rigidbody.useGravity = false;
 				gameObject.rigidbody.velocity = Vector3.zero;
 				gameObject.rigidbody.isKinematic = true;
