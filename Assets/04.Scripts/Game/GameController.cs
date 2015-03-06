@@ -241,28 +241,28 @@ public class GameController : MonoBehaviour {
 						else if(Npc.Team == TeamKind.Npc)
 							BackToDef(ref Npc, Npc.Team);
                             break;	
-                        case GameSituation.TeeBPicking:
-                            if(BallOwner == null){
-                                //Pick up ball
-                                if(Npc.Team == TeamKind.Npc && Npc.Postion == GamePostion.F){                                    
+                	case GameSituation.TeeBPicking:
+	                    if(BallOwner == null){
+	                        //Pick up ball
+	                        if(Npc.Team == TeamKind.Npc && Npc.Postion == GamePostion.F){                                    
 									PickBall(ref Npc);	                                    
-                                }else if(Npc.Team == TeamKind.Npc){
-                                    TeeBall(ref Npc, TeamKind.Npc);
-                                }else if(Npc.Team == TeamKind.Self){
-                                    BackToDef(ref Npc, TeamKind.Self);
-                                }
-                            }
-                            break;
-                        case GameSituation.TeeB:
-                            //Tee ball
-                            if(!IsPassing)
-                                TeeBall(ref Npc, TeamKind.Npc);
-                            else if(Npc.Team == TeamKind.Self)
-                                BackToDef(ref Npc, Npc.Team);
-                            break;					
-                        case GameSituation.End:
-                            
-                            break;
+	                        }else if(Npc.Team == TeamKind.Npc){
+	                            TeeBall(ref Npc, TeamKind.Npc);
+	                        }else if(Npc.Team == TeamKind.Self){
+	                            BackToDef(ref Npc, TeamKind.Self);
+	                        }
+	                    }
+	                    break;
+	                case GameSituation.TeeB:
+	                    //Tee ball
+	                    if(!IsPassing)
+	                        TeeBall(ref Npc, TeamKind.Npc);
+	                    else if(Npc.Team == TeamKind.Self)
+	                        BackToDef(ref Npc, Npc.Team);
+	                    break;					
+	                case GameSituation.End:
+	                    
+	                    break;
                     }
                 }
             }
@@ -570,13 +570,24 @@ public class GameController : MonoBehaviour {
 		return new Vector2 ((A.x + B.x) / 2, (A.y + B.y) / 2);
 	}
 
-	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team){
+	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team, bool WatchBallOwner = false){
 		if(!Npc.IsMove && Npc.WaitMoveTime == 0){
 			TMoveData data = new TMoveData(0);
 			if(Team == TeamKind.Self)
 				data.Target = new Vector2(TeeBackPosAy[Npc.Postion.GetHashCode()].x, -TeeBackPosAy[Npc.Postion.GetHashCode()].y);
 			else
 				data.Target = TeeBackPosAy[Npc.Postion.GetHashCode()];
+
+			if(BallOwner != null)//WatchBallOwner &&
+				data.LookTarget = BallOwner.transform;
+			else{
+				if(Team == TeamKind.Self)
+					data.LookTarget = SceneMgr.Get.Hood[1].transform;
+				else
+					data.LookTarget = SceneMgr.Get.Hood[0].transform;
+			}
+
+
 			Npc.TargetPos = data;
 		}
 	}
@@ -703,13 +714,18 @@ public class GameController : MonoBehaviour {
 			if(player.Team != PlayerList[i].Team && player.Postion == PlayerList[i].Postion){
 				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
 					PlayerBehaviour Npc2 = PlayerList[i];
-					TMoveData data2 = new TMoveData(0);
-					data2.DefPlayer = player;	
-					if(BallOwner != null)
-						data2.LookTarget = BallOwner.transform;//player.transform;
-					else
-						data2.LookTarget = SceneMgr.Get.RealBall.transform;
-					Npc2.TargetPos = data2;
+					float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
+					if(dis > 12 && !(player.IsBallOwner && Npc2.Postion == player.Postion)){
+						BackToDef(ref Npc2, Npc2.Team, true);
+					}else{
+						TMoveData data2 = new TMoveData(0);
+						data2.DefPlayer = player;	
+						if(BallOwner != null)
+							data2.LookTarget = BallOwner.transform;
+						else
+							data2.LookTarget = player.transform;
+						Npc2.TargetPos = data2;
+					}
 					break;
 				}
 			}

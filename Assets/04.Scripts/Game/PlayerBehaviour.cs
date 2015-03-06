@@ -401,21 +401,9 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.Run);
 				}
 
-				if(IsDefence){
-//					if(Data.DefPlayer != null){
-//						Vector3	ShootPoint = SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position;
-//						float dis = Vector3.Distance(transform.position, ShootPoint);
-//
-//
-//						if(dis >= 13)
-//							transform.Translate (Vector3.back * Time.deltaTime * MoveMinSpeed * 15 * BasicMoveSpeed);
-//						else
-//							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
-//					}else
-//						transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+				if(IsDefence)
 					transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * 7);
-//					transform.position = new Vector3(MoveTarget.x, 0, MoveTarget.y);
-				}else
+				else
 					transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
 			}		
 		}
