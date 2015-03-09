@@ -398,13 +398,19 @@ public class PlayerBehaviour : MonoBehaviour
 					MoveStartTime = Time.time + 1;
 			}else{
 				if(IsDefence){
-					if(Data.LookTarget == null)
+					if(Data.DefPlayer != null){
+						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+						float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
+						if(Data.LookTarget == null || (dis > 10 && dis2 >= 2))
+							rotateTo(MoveTarget.x, MoveTarget.y);
+						else
+							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+					}else
 						rotateTo(MoveTarget.x, MoveTarget.y);
-					else
-						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 
 					if(Data.DefPlayer != null){
 						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+
 						if(dis <= 10){
 							//Move
 							AniState(PlayerState.MovingDefence);
