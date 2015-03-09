@@ -24,11 +24,12 @@ public enum PlayerState
     Pass2 = 20,
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
-	RunAndDefence = 23,
+	MovingDefence = 23,
 	RunAndDrible = 24,
 	Shooting = 25,
 	Catcher = 26,
-	DunkBasket = 27
+	DunkBasket = 27,
+	RunningDefence = 28
 }
 
 public enum TeamKind{
@@ -401,7 +402,7 @@ public class PlayerBehaviour : MonoBehaviour
 					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 				
 				if(CheckAction(ActionFlag.IsDefence)){
-					AniState(PlayerState.RunAndDefence);
+					AniState(PlayerState.MovingDefence);
 				}else{
 					if(IsBallOwner)
 						AniState(PlayerState.RunAndDrible);
@@ -499,13 +500,18 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
+			case PlayerState.RunningDefence:
+				SetSpeed(1);
+				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
+				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
+				break;
 			case PlayerState.Defence:
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], false);
 				SetSpeed(0);
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
-			case PlayerState.RunAndDefence:
+			case PlayerState.MovingDefence:
 				SetSpeed(1);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
