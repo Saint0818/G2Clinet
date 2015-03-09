@@ -119,6 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public GameObject DummyBall;
 
 	public TeamKind Team;
+	public GameSituation situation = GameSituation.None;
 	public PlayerState crtState = PlayerState.Idle;
 	public MoveType MoveKind = MoveType.PingPong;
 	public GamePostion Postion = GamePostion.G;
@@ -310,6 +311,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void MoveTo(TMoveData Data, bool First = false){
 		if (CanMove) {
 			Vector2 MoveTarget = Vector2.zero;
+			float dis = 0;
 			if(Data.DefPlayer != null){
 				Vector3	ShootPoint = SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position;				
 				float dis1 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position, ShootPoint);
@@ -317,7 +319,7 @@ public class PlayerBehaviour : MonoBehaviour
 				float dis3 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position, ShootPoint);
 				float dis4 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position, ShootPoint);
 
-				float dis = Vector3.Distance(transform.position, ShootPoint);
+				dis = Vector3.Distance(transform.position, ShootPoint);
 
 				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
@@ -351,7 +353,7 @@ public class PlayerBehaviour : MonoBehaviour
 				MoveTurn = 0;
 				DelActionFlag(ActionFlag.IsRun);
 
-				if(!CheckAction(ActionFlag.IsDefence)){
+				if(!IsDefence){
 					if(!IsBallOwner)
 						AniState(PlayerState.Idle);
 
@@ -377,6 +379,8 @@ public class PlayerBehaviour : MonoBehaviour
 						rotateTo(MoveTarget.x, MoveTarget.y);
 					else
 						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+
+					AniState(PlayerState.Defence);
 				}
 
 				if(Data.MoveFinish != null)
@@ -398,22 +402,30 @@ public class PlayerBehaviour : MonoBehaviour
 						rotateTo(MoveTarget.x, MoveTarget.y);
 					else
 						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-				}else
-					rotateTo(MoveTarget.x, MoveTarget.y, 10);
-				
-				if(CheckAction(ActionFlag.IsDefence)){
-					AniState(PlayerState.MovingDefence);
+
+					if(Data.DefPlayer != null){
+						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+						if(dis <= 10){
+							//Move
+							AniState(PlayerState.MovingDefence);
+						}else{
+							//Run
+							AniState(PlayerState.RunningDefence);
+						}
+					}else
+						AniState(PlayerState.Run);
+
+					transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * 7);
 				}else{
+					rotateTo(MoveTarget.x, MoveTarget.y, 10);
+
 					if(IsBallOwner)
 						AniState(PlayerState.RunAndDrible);
 					else
 						AniState(PlayerState.Run);
-				}
 
-				if(IsDefence)
-					transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * 7);
-				else
 					transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+				}
 			}		
 		}
 	}
@@ -668,7 +680,14 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool IsDefence{
-		get{return CheckAction(ActionFlag.IsDefence);}
+		get{
+			if(situation == GameSituation.AttackA && Team == TeamKind.Npc)
+				return true;
+			else if(situation == GameSituation.AttackB && Team == TeamKind.Self)
+				return true;
+			else
+				return false;
+		}
 	}
 
 	public bool IsDribble{

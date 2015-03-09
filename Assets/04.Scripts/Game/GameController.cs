@@ -556,12 +556,11 @@ public class GameController : MonoBehaviour {
 						}else if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
 							Npc.CoolDownSteal = Time.time + 3;
 							Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
-							if(stealRate < 5){
-								SetBall(Npc);
-								Npc.SetInvincible(7);
-							}
-						}else if(!Npc.IsDefence)
-							Npc.AniState(PlayerState.Defence);
+//							if(stealRate < 5){
+//								SetBall(Npc);
+//								Npc.SetInvincible(7);
+//							}
+						}
 					}
 				}
 			}else{
@@ -1004,8 +1003,10 @@ public class GameController : MonoBehaviour {
 		if (situation != GameSituation.End) {
 			situation = GS;
 
-			for(int i = 0; i < PlayerList.Count; i++)
+			for(int i = 0; i < PlayerList.Count; i++){
 				PlayerList[i].ResetFlag();
+				PlayerList[i].situation = GS;
+			}				
 
 			switch(GS){
 			case GameSituation.Opening:
