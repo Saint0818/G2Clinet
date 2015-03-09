@@ -355,7 +355,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if(First)
 						WaitMoveTime = 0;
 					else
-						WaitMoveTime = Time.time + UnityEngine.Random.value;
+						WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
 					
 					if(IsBallOwner){
 						if(Team == TeamKind.Self)
