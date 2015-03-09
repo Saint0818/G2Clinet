@@ -723,17 +723,21 @@ public class GameController : MonoBehaviour {
 			if(player.Team != PlayerList[i].Team && player.Postion == PlayerList[i].Postion){
 				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
 					PlayerBehaviour Npc2 = PlayerList[i];
-					float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
-					if(dis > 12 && !(player.IsBallOwner && Npc2.Postion == player.Postion)){
-						BackToDef(ref Npc2, Npc2.Team, true);
+					if(BallOwner != null){
+						float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
+						if(dis > 12 && !(player.IsBallOwner && Npc2.Postion == player.Postion)){
+							BackToDef(ref Npc2, Npc2.Team, true);
+						}else{
+							TMoveData data2 = new TMoveData(0);
+							data2.DefPlayer = player;	
+							if(BallOwner != null)
+								data2.LookTarget = BallOwner.transform;
+							else
+								data2.LookTarget = player.transform;
+							Npc2.TargetPos = data2;
+						}
 					}else{
-						TMoveData data2 = new TMoveData(0);
-						data2.DefPlayer = player;	
-						if(BallOwner != null)
-							data2.LookTarget = BallOwner.transform;
-						else
-							data2.LookTarget = player.transform;
-						Npc2.TargetPos = data2;
+						PickBall(ref Npc2);
 					}
 					break;
 				}

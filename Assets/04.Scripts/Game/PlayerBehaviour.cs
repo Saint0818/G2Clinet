@@ -316,25 +316,27 @@ public class PlayerBehaviour : MonoBehaviour
 				float dis3 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position, ShootPoint);
 				float dis4 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position, ShootPoint);
 
+				float dis = Vector3.Distance(transform.position, ShootPoint);
+
 				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
 		
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
 				}else if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
 				}else if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
 				}else if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner)
+					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
 				}
 			}else if(Data.FollowTarget != null){
