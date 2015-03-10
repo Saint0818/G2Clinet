@@ -723,6 +723,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public TMoveData TargetPos{
 		set{
+			if(MoveQueue.Count == 0)
+				MoveTurn = 0;
 			MoveQueue.Enqueue(value);
 		}
 	}

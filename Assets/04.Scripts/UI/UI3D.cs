@@ -70,8 +70,8 @@ public class UI3D : UIBase {
 				Camera3D.cullingMask = (1 << LayerMask.NameToLayer("UI3D")) | (1 << LayerMask.NameToLayer("Default"));
 				Camera3D.fieldOfView = 30;
 		
-				gameObject.transform.position = CameraMgr.Get.uiCam.transform.position;
-				gameObject.transform.eulerAngles = CameraMgr.Get.uiCam.transform.eulerAngles;
+//				gameObject.transform.position = CameraMgr.Get.uiCam.transform.position;
+//				gameObject.transform.eulerAngles = CameraMgr.Get.uiCam.transform.eulerAngles;
 				break;
 		}
 	}

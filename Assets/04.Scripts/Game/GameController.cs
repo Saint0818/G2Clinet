@@ -29,13 +29,15 @@ public enum GamePostion{
 public enum GameTest{
 	None,
 	AttackA,
-	AttackB
+	AttackB,
+	Edit
 }
 
 
 public class GameController : MonoBehaviour {
 	private static GameController instance;
-	
+
+	public GameTest TestMode = GameTest.None;
 	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
@@ -58,8 +60,6 @@ public class GameController : MonoBehaviour {
 	private Vector2 [] BaseRunAy_C = new Vector2[11];
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
-
-	public GameTest TestMode = GameTest.None;
 
 	public static GameController Get
 	{
@@ -159,6 +159,11 @@ public class GameController : MonoBehaviour {
 				break;
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Npc, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G));
+				break;
+			case GameTest.Edit:
+				PlayerList.Add (ModelManager.Get.CreatePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (2, TeamKind.Self, new Vector3 (-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
 				break;
 		}
 
@@ -981,6 +986,7 @@ public class GameController : MonoBehaviour {
 			UIHint.Get.ShowHint("You Lost", Color.red);
 		
 		GameController.Get.ChangeSituation(GameSituation.End);
+		UIGame.Get.Again.SetActive (true);
     }
     
     public void PlusScore(int team)
@@ -1158,5 +1164,45 @@ public class GameController : MonoBehaviour {
 			
 			return false;
 		}
+	}
+
+	//Temp
+	public Vector3 EditGetPosition(int index){
+		if (PlayerList.Count > index) {
+			return PlayerList[index].transform.position;		
+		}else
+			return Vector3.zero;
+	}
+	
+	public void EditSetMove(Vector3 target, int index){
+		if (PlayerList.Count > index) {
+			TMoveData data = new TMoveData(0);
+			data.Target = new Vector2(target.x, target.z);
+			PlayerList[index].TargetPos = data;
+		}
+	}
+
+	public void EditSetJoysticker(int index){
+		if (PlayerList.Count > index) {
+			Joysticker = PlayerList[index];		
+		}
+	}
+
+	public void Reset(){
+		PlayerList [0].transform.position = new Vector3 (0, 0, 0);
+		PlayerList [1].transform.position = new Vector3 (5, 0, -2);
+		PlayerList [2].transform.position = new Vector3 (-5, 0, -2);
+		
+		PlayerList [3].transform.position = new Vector3 (0, 0, 5);
+		PlayerList [4].transform.position = new Vector3 (5, 0, 2);
+		PlayerList [5].transform.position = new Vector3 (-5, 0, 2);
+		
+		situation = GameSituation.Opening;
+		BallOwner = null;
+		SceneMgr.Get.RealBall.transform.parent = null;
+		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+		SceneMgr.Get.RealBall.rigidbody.isKinematic = false;
+		SceneMgr.Get.RealBall.rigidbody.useGravity = true;
+		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
 	}
 }

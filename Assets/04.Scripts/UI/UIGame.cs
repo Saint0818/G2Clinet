@@ -8,7 +8,7 @@ public class UIGame : UIBase {
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 	private bool IsUseKeyboard = false;
-
+	public GameObject Again;
 	public GameJoystick Joystick = null;
 	private MovingJoystick Move = new MovingJoystick();
 
@@ -47,7 +47,7 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
-
+		Again = GameObject.Find (UIName + "/Again");
 		scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
 		scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
 
@@ -60,6 +60,14 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "Defance/ButtonA", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "Defance/ButtonC", GameController.Get.DoSkill);
+		SetBtnFun (UIName + "/Again/AgainBt", ResetGame);
+		Again.SetActive (false);
+	}
+
+	public void ResetGame(){
+		GameController.Get.Reset ();
+		InitData ();
+		Again.SetActive (false);
 	}
 
 	public void ChangeControl(bool IsAttack)
@@ -77,6 +85,8 @@ public class UIGame : UIBase {
 	protected override void InitData() {
 		MaxScores[0] = 13;
 		MaxScores[1] = 13;
+		Scores [0] = 0;
+		Scores [1] = 0;
 		scoresLabel[0].text = "0";
 		scoresLabel[1].text = "0";
 	}
