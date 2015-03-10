@@ -169,6 +169,7 @@ public class GameController : MonoBehaviour {
 			PlayerList[i].OnShoot = OnShoot;
 			PlayerList[i].OnPass = OnPass;
 			PlayerList[i].OnBlock = OnBlock;
+			PlayerList[i].OnDunkJump = OnDunkJump;
 			PlayerList[i].OnDunkBasket = OnDunkBasket;
 		}
 	}
@@ -317,6 +318,18 @@ public class GameController : MonoBehaviour {
 
 			SceneMgr.Get.SetBallState(PlayerState.DunkBasket);
 			SetBall();
+			return true;
+		}
+		else
+			return false;
+	}
+
+	public bool OnDunkJump(PlayerBehaviour player)
+	{
+		if(player == BallOwner)
+		{
+			Shooter = player;
+		
 			return true;
 		}
 		else

@@ -92,6 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnPass = null;
 	public OnPlayerAction OnBlock = null;
 	public OnPlayerAction OnDunkBasket = null;
+	public OnPlayerAction OnDunkJump = null;
 	
     public Vector3 Translate;
 	private const float MoveCheckValue = 0.5f;
@@ -270,16 +271,6 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	private void DoDunkJump()
 	{
-
-//		float ang = GameFunction.ElevationAngle(gameObject.transform.position, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position); 
-//		Debug.Log("ang1: " + ang);
-//		if (ang > 80)
-//			ang -= 80;
-//
-//		if (ang <= 30)
-//			ang = 30;
-//		else if (ang > 60)
-//			ang = 60;
 		float dis = Vector3.Distance (gameObject.transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position);
 		if (dis < 10)
 			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 70);
@@ -637,6 +628,8 @@ public class PlayerBehaviour : MonoBehaviour
 			case "DunkJump":
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
 				gameObject.rigidbody.collider.enabled = false;
+				if(OnDunkJump != null)
+					OnDunkJump(this);
 				DoDunkJump();
 				break;
 			case "DunkBasket":
