@@ -16,6 +16,13 @@ ModelImporter:
     100020: DummyNetRoot
     100022: Net
     100024: IK Chain01
+    100026: Backboard
+    100028: BasketGlassA
+    100030: BasketGlassB
+    100032: BasketHoop
+    100034: BasketSupport
+    100036: DummyBackBoard
+    100038: DummyHoop
     400000: //RootNode
     400002: Basket_0
     400004: Bone01
@@ -29,18 +36,35 @@ ModelImporter:
     400020: DummyNetRoot
     400022: Net
     400024: IK Chain01
+    400026: Backboard
+    400028: BasketGlassA
+    400030: BasketGlassB
+    400032: BasketHoop
+    400034: BasketSupport
+    400036: DummyBackBoard
+    400038: DummyHoop
     2300000: Basket_0
     2300002: Net
     3300000: Basket_0
     3300002: Net
     4300000: Basket_0
     4300002: Net
+    4300004: BasketSupport
+    4300006: Backboard
+    4300008: BasketHoop
+    4300010: BasketGlassA
+    4300012: BasketGlassB
     9500000: //RootNode
     11100000: //RootNode
     13700000: Basket_0
     13700002: Net
+    13700004: Backboard
+    13700006: BasketGlassA
+    13700008: BasketGlassB
+    13700010: BasketHoop
+    13700012: BasketSupport
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:

@@ -16,6 +16,14 @@ ModelImporter:
     100020: Basket_0
     100022: DummyBasketRoot
     100024: Net
+    100026: Backboard
+    100028: BasketGlassA
+    100030: BasketGlassB
+    100032: BasketHoop
+    100034: BasketSupport
+    100036: DummyBackBoard
+    100038: DummyHoop
+    100040: IK Chain
     400000: Bone01
     400002: Bone02
     400004: Bone03
@@ -29,15 +37,43 @@ ModelImporter:
     400020: Basket_0
     400022: DummyBasketRoot
     400024: Net
+    400026: Backboard
+    400028: BasketGlassA
+    400030: BasketGlassB
+    400032: BasketHoop
+    400034: BasketSupport
+    400036: DummyBackBoard
+    400038: DummyHoop
+    400040: IK Chain
+    2300000: Backboard
+    2300002: BasketGlassA
+    2300004: BasketGlassB
+    2300006: BasketHoop
+    2300008: BasketSupport
+    3300000: Backboard
+    3300002: BasketGlassA
+    3300004: BasketGlassB
+    3300006: BasketHoop
+    3300008: BasketSupport
     4300000: Basket_0
     4300002: Net
+    4300004: BasketSupport
+    4300006: Backboard
+    4300008: BasketHoop
+    4300010: BasketGlassA
+    4300012: BasketGlassB
     7400000: Dunk_0
     9500000: //RootNode
     11100000: //RootNode
     13700000: Basket_0
     13700002: Net
+    13700004: Backboard
+    13700006: BasketGlassA
+    13700008: BasketGlassB
+    13700010: BasketHoop
+    13700012: BasketSupport
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -96,17 +132,17 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: .00999999978
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 1
+    importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
