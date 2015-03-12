@@ -76,13 +76,13 @@ public class EffectManager : MonoBehaviour
 //				line.SetOriginPos(followObjPos);
 			}
 
-			if(particles.particleSystem == null) {
+			if(particles.GetComponent<ParticleSystem>() == null) {
 				ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
 				if (ps)
 					ps.Play();
 			}
 			else
-				particles.particleSystem.Play();
+				particles.GetComponent<ParticleSystem>().Play();
 
 			if (parent)
 				particles.transform.parent = parent.transform;
@@ -124,13 +124,13 @@ public class EffectManager : MonoBehaviour
 			particles.transform.localPosition = localPos;
 			particles.transform.localEulerAngles = Vector3.zero;
 			
-			if(particles.particleSystem == null) {
+			if(particles.GetComponent<ParticleSystem>() == null) {
 				ParticleSystem ps = particles.GetComponentInChildren<ParticleSystem>();
 				if (ps)
 					ps.Play();
 			}
 			else
-				particles.particleSystem.Play();
+				particles.GetComponent<ParticleSystem>().Play();
 		}
 	}
 
@@ -156,12 +156,12 @@ public class EffectManager : MonoBehaviour
 				autoDestory.SetDestoryTime = lifeTime;
 			}
 			
-			if(particles.particleSystem == null){
+			if(particles.GetComponent<ParticleSystem>() == null){
 				ParticleSystem ps = particles.GetComponentInChildren<ParticleSystem>();
 				if (ps)
 					ps.Play();
 			} else
-				particles.particleSystem.Play();
+				particles.GetComponent<ParticleSystem>().Play();
 
 //			SkillBlackHole skill = particles.GetComponent<SkillBlackHole>();
 //			

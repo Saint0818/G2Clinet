@@ -56,7 +56,8 @@ public class UIBase: MonoBehaviour
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
-						UIBase ui = obj2.AddComponent(UIName) as UIBase;
+						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+//						UIBase ui = obj2.AddComponent(UIName) as UIBase;
 						ui.InitText();
 						ui.InitCom();
 						ui.InitData();
@@ -96,7 +97,8 @@ public class UIBase: MonoBehaviour
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
-						UIBase ui = obj2.AddComponent(UIName) as UIBase;
+						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+//						UIBase ui = obj2.AddComponent(UIName) as UIBase;
 						ui.InitText();
 						ui.InitCom();
 						ui.InitData();   

@@ -102,37 +102,37 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraRotation.transform.localPosition = startPos;
 
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		focusTarget.collider.enabled = false;
+		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
-		focusTarget.renderer.enabled = false;
+		focusTarget.GetComponent<Renderer>().enabled = false;
 		focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
 		cameraRotation.transform.LookAt(Vector3.zero) ;
 	}
 
 	private void InitTestTool()
 	{
-		focusTarget.renderer.enabled = true;
+		focusTarget.GetComponent<Renderer>().enabled = true;
 		cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		cameraOffsetAeraObj.collider.enabled = false;
+		cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
 		cameraOffsetAeraObj.name = "ColorR";
 		cameraOffsetAeraObj.transform.parent = cameraGroup.transform;
 		cameraOffsetAeraObj.transform.position = new Vector3 (startPos.x, -0.4f, 0);
 		cameraOffsetAeraObj.transform.localScale = new Vector3(offsetLimit[0].x - offsetLimit[1].x, 1, offsetLimit[0].z - offsetLimit[1].z);
-		cameraOffsetAeraObj.renderer.material = Resources.Load ("Materials/CameraOffsetAera_M") as Material;
+		cameraOffsetAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/CameraOffsetAera_M") as Material;
 
 		focusMoveAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		focusMoveAeraObj.collider.enabled = false;
+		focusMoveAeraObj.GetComponent<Collider>().enabled = false;
 		focusMoveAeraObj.name = "ColorG";
 
 		focusMoveAeraObj.transform.localScale = new Vector3 (cameraMoveAera.x, 1, cameraMoveAera.y);
-		focusMoveAeraObj.renderer.material = Resources.Load ("Materials/FocusAera_M") as Material;
+		focusMoveAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusAera_M") as Material;
 	
 		focusStopAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		focusStopAeraObj.collider.enabled = false;
+		focusStopAeraObj.GetComponent<Collider>().enabled = false;
 		focusStopAeraObj.name = "ColorO";
 
 		focusStopAeraObj.transform.localScale = new Vector3(cameraMoveAera.x, 1, 0.1f);
-		focusStopAeraObj.renderer.material = Resources.Load ("Materials/FocusStopAera_M") as Material;
+		focusStopAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusStopAera_M") as Material;
 
 		SetTestToolPosition();
 	}

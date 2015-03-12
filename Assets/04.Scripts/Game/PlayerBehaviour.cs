@@ -167,9 +167,9 @@ public class PlayerBehaviour : MonoBehaviour
 		CalculationAirResistance();
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 		if (gameObject.transform.localPosition.y > 0.2f) {
-			gameObject.collider.enabled = false;
-		} else if(gameObject.collider.enabled == false)
-			gameObject.collider.enabled = true;
+			gameObject.GetComponent<Collider>().enabled = false;
+		} else if(gameObject.GetComponent<Collider>().enabled == false)
+			gameObject.GetComponent<Collider>().enabled = true;
 		
 		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
 			WaitMoveTime = 0;
@@ -215,17 +215,23 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	public void SetNoAiTime(){
+		isJoystick = true;
+		JoystickEnd = false;
+		NoAiTime = Time.time + ChangeToAI;
+	}
+	
 	private void CalculationAirResistance()
 	{
 		if (gameObject.transform.localPosition.y > 1f) {
 			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
-			gameObject.rigidbody.drag = drag.y;
+			gameObject.GetComponent<Rigidbody>().drag = drag.y;
 		} else {
 			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
 			if(drag.y >= 0)
-				gameObject.rigidbody.drag = drag.y;
+				gameObject.GetComponent<Rigidbody>().drag = drag.y;
 			else
-				gameObject.rigidbody.drag = 0;
+				gameObject.GetComponent<Rigidbody>().drag = 0;
 		}
 	}
 
@@ -273,10 +279,10 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		float dis = Vector3.Distance (gameObject.transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position);
 		if (dis < 10)
-			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 70);
+			gameObject.GetComponent<Rigidbody>().velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 70);
 		else {
 			gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
-			gameObject.rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 60);
+			gameObject.GetComponent<Rigidbody>().velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 60);
 		}
     }
 
@@ -285,9 +291,9 @@ public class PlayerBehaviour : MonoBehaviour
 		if (CheckAction (ActionFlag.IsDunk))
 			if (!Control.GetBool ("IsDunkInto")) {
 				SceneMgr.Get.PlayDunk(Team.GetHashCode());
-				gameObject.rigidbody.useGravity = false;
-				gameObject.rigidbody.velocity = Vector3.zero;
-				gameObject.rigidbody.isKinematic = true;
+				gameObject.GetComponent<Rigidbody>().useGravity = false;
+				gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				gameObject.GetComponent<Rigidbody>().isKinematic = true;
 				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
 				if(IsBallOwner)
 					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
@@ -528,7 +534,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Jumper:
 				if(!CheckAction(ActionFlag.IsJump)){
 					Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
-					gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+					gameObject.GetComponent<Rigidbody>().AddForce (JumpHight * transform.up + gameObject.GetComponent<Rigidbody>().velocity.normalized /2.5f, ForceMode.VelocityChange);
 					AddActionFlag(ActionFlag.IsJump);
 				}
 				break;
@@ -609,7 +615,7 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				break;
 			case "ShootJump":
-				gameObject.rigidbody.AddForce (JumpHight * transform.up + gameObject.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				gameObject.GetComponent<Rigidbody>().AddForce (JumpHight * transform.up + gameObject.GetComponent<Rigidbody>().velocity.normalized /2.5f, ForceMode.VelocityChange);
 				break;
 			case "Passing":			
 				if (PassTime > 0) {
@@ -627,7 +633,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case "DunkJump":
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
-				gameObject.rigidbody.collider.enabled = false;
+				gameObject.GetComponent<Rigidbody>().GetComponent<Collider>().enabled = false;
 				if(OnDunkJump != null)
 					OnDunkJump(this);
 				DoDunkJump();
@@ -637,8 +643,8 @@ public class PlayerBehaviour : MonoBehaviour
 					OnDunkBasket(this);
 				break;
 			case "DunkFall":
-				gameObject.rigidbody.useGravity = true;
-				gameObject.rigidbody.isKinematic = false;
+				gameObject.GetComponent<Rigidbody>().useGravity = true;
+				gameObject.GetComponent<Rigidbody>().isKinematic = false;
 				break;
 			case "DunkEnd":
 				Control.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
@@ -719,6 +725,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsBallOwner {
 		get {return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+	}
+
+	public int TargetPosNum {
+		get {return MoveQueue.Count;}
 	}
 
 	public TMoveData TargetPos{

@@ -80,7 +80,7 @@ public class ModelManager : MonoBehaviour {
 					string path = "Character/PlayerModel_0/Texture/" + avatarPartName[i] + "_" + avatarIndex[i];
 					Texture2D texture = Resources.Load(path) as Texture2D;
 					if (texture) {
-						avatarPart[i].gameObject.renderer.material.mainTexture = texture;
+						avatarPart[i].gameObject.GetComponent<Renderer>().material.mainTexture = texture;
 					}
 				}
 			}

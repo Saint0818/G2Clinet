@@ -301,7 +301,7 @@ public class FileManager : MonoBehaviour {
 
 	private void SaveAssetbundle(WWW assetbunle, string fileName)
 	{
-		TextAsset tex = assetbunle.assetBundle.Load(fileName) as TextAsset;
+		TextAsset tex = assetbunle.assetBundle.LoadAsset(fileName) as TextAsset;
 		string Path = Application.persistentDataPath + "/" + fileName + ".assetbundle";
 		FileStream myFile = File.Open(Path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 		StreamWriter myWriter = new StreamWriter(myFile);

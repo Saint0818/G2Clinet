@@ -13,7 +13,7 @@ public class BallTrigger : MonoBehaviour
 
 	void Awake()
 	{
-		parentobjRigidbody = gameObject.transform.parent.transform.gameObject.rigidbody;
+		parentobjRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
 //		HintObject = GameObject.Find("MoveTo");
 //		HintObject.SetActive(false);
@@ -53,7 +53,7 @@ public class BallTrigger : MonoBehaviour
 		if (!passing && GameController.Get.Catcher) {
 			passing = true;
 			SceneMgr.Get.SetBallState(PlayerState.Pass);
-			SceneMgr.Get.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
 			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 

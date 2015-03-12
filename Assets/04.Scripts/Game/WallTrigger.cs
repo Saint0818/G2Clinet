@@ -24,12 +24,12 @@ public class WallTrigger : MonoBehaviour
 
 		if((collisionInfo.gameObject.tag == "Player" && collisionInfo.gameObject.layer != LayerMask.NameToLayer("UI3D")) || collisionInfo.gameObject.tag == "RealBall") 
 		{
-			bool flag = collisionInfo.gameObject.rigidbody.isKinematic;
+			bool flag = collisionInfo.gameObject.GetComponent<Rigidbody>().isKinematic;
 			
-			if(collisionInfo.gameObject.rigidbody.isKinematic == false)
+			if(collisionInfo.gameObject.GetComponent<Rigidbody>().isKinematic == false)
 			{
-				collisionInfo.gameObject.rigidbody.velocity = Vector3.zero;
-				collisionInfo.gameObject.rigidbody.isKinematic = true;
+				collisionInfo.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				collisionInfo.gameObject.GetComponent<Rigidbody>().isKinematic = true;
 			}
 			
 			Vector3 pos = collisionInfo.gameObject.transform.position;
@@ -74,7 +74,7 @@ public class WallTrigger : MonoBehaviour
 			}
 			
 			collisionInfo.gameObject.transform.position = pos;
-			collisionInfo.gameObject.rigidbody.isKinematic = flag;
+			collisionInfo.gameObject.GetComponent<Rigidbody>().isKinematic = flag;
 		}
 
 	}

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public enum GameSituation{
 	None           = 0,
@@ -33,6 +35,19 @@ public enum GameTest{
 	Edit
 }
 
+public struct TTactical
+{
+	public Vector3 [] PosAy1;
+	public Vector3 [] PosAy2;
+	public Vector3 [] PosAy3;
+	
+	public TTactical(int flag){
+		PosAy1 = new Vector3[0];
+		PosAy2 = new Vector3[0];
+		PosAy3 = new Vector3[0];
+	}
+}
+
 
 public class GameController : MonoBehaviour {
 	private static GameController instance;
@@ -60,6 +75,7 @@ public class GameController : MonoBehaviour {
 	private Vector2 [] BaseRunAy_C = new Vector2[11];
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
+	private List<TTactical> MovePositionList = new List<TTactical>();
 
 	public static GameController Get
 	{
@@ -68,7 +84,7 @@ public class GameController : MonoBehaviour {
 				GameObject obj = GameObject.Find("UI2D/UIGame");
 				if (!obj) {
 					obj = new GameObject();
-					obj.name = "GameController";
+					obj.name = "GameController";				
 				}
 
 				instance = obj.AddComponent<GameController>();
@@ -131,6 +147,21 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[0] = new Vector2 (0, 8);
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
+
+		try{
+			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");
+			FileInfo[] info = dir.GetFiles("*.gangrun");
+			if(info.Length > 0){
+				MovePositionList.Clear();
+				
+				foreach (FileInfo f in info){
+					string filedata = StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
+					TTactical saveData = new TTactical(0);
+					GetJsonData(filedata, ref saveData);
+					MovePositionList.Add(saveData);
+				}
+			}
+		}catch{}
 	}
 
 	public void InitGame(){
@@ -299,7 +330,7 @@ public class GameController : MonoBehaviour {
 			SetBall();
 			SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
 			SceneMgr.Get.SetBallState(PlayerState.Shooting);
-			SceneMgr.Get.RealBall.rigidbody.velocity = 
+			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().velocity = 
 				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
 				                         SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position, 60);
 
@@ -343,8 +374,10 @@ public class GameController : MonoBehaviour {
 
 	public void DoShoot()
 	{
-		if (IsStart && Joysticker && Joysticker == BallOwner)
+		if (IsStart && Joysticker && Joysticker == BallOwner) {
 			Shoot();
+			Joysticker.SetNoAiTime();		
+		}			
     }
     
     private void Pass(PlayerBehaviour player) {
@@ -358,7 +391,7 @@ public class GameController : MonoBehaviour {
     public bool OnPass(PlayerBehaviour player) {
 		if (Catcher) {
 			SceneMgr.Get.SetBallState(PlayerState.Pass);
-			SceneMgr.Get.RealBall.rigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));	
 			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
             
@@ -374,6 +407,8 @@ public class GameController : MonoBehaviour {
 				Pass(PlayerList[1]);
 			else
 				Pass(Joysticker);
+
+			Joysticker.SetNoAiTime();
 		}
 	}
 
@@ -387,8 +422,10 @@ public class GameController : MonoBehaviour {
 
 	public void DoSteal()
 	{
-		if (IsStart && BallOwner && BallOwner != Joysticker)
+		if (IsStart && BallOwner && BallOwner != Joysticker) {
 			BallOwner.AniState (PlayerState.Steal, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+			Joysticker.SetNoAiTime ();		
+		}			
 	}
 
     private void Block(PlayerBehaviour player) {
@@ -396,29 +433,34 @@ public class GameController : MonoBehaviour {
 	}
     
     public bool OnBlock(PlayerBehaviour player) {
-		if (BallOwner) {
-			if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
-				player.rigidbody.AddForce (player.JumpHight * transform.up + player.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-			else
-				player.rigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
-					new Vector3(BallOwner.transform.position.x, 7, BallOwner.transform.position.z), 70);
+		Rigidbody playerrigidbody = player.GetComponent<Rigidbody>();
 
-			return true;
-		} 
-		else  {
-			if (Shooter && Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position) < 5)
-				player.rigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
-                    new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, 
-                                SceneMgr.Get.RealBall.transform.position.z), 70);
-        }
+		if (playerrigidbody != null) {
+			if (BallOwner) {
+				if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
+					playerrigidbody.AddForce (player.JumpHight * transform.up + playerrigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				else
+					playerrigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+					                                                     new Vector3(BallOwner.transform.position.x, 7, BallOwner.transform.position.z), 70);
+
+				return true;
+			} else  {
+				if (Shooter && Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position) < 5)
+					playerrigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+					                                                      new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, 
+					            SceneMgr.Get.RealBall.transform.position.z), 70);
+			}		
+		}
 
 		return false;
     }
 
 	public void DoBlock()
 	{
-		if (IsStart && BallOwner)
+		if (IsStart && BallOwner) {
 			BallOwner.AniState (PlayerState.Block, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+			Joysticker.SetNoAiTime ();		
+		}			
 	}
 
     private void Rebound(PlayerBehaviour player) {
@@ -438,6 +480,7 @@ public class GameController : MonoBehaviour {
     public void DoSkill()
     {
 		Joysticker.AniState (PlayerState.Dunk);
+		Joysticker.SetNoAiTime ();
     }
 
 	private bool CanMove
@@ -718,14 +761,80 @@ public class GameController : MonoBehaviour {
 		if (BallOwner == null) {
 			PickBall(ref Npc, true);
 		}else{
-			if(!Npc.IsMove && Npc.WaitMoveTime == 0){
+			if(!Npc.IsMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0){
+//				if(MovePositionList.Count > 0){
+//					int Rate = Random.Range(0, MovePositionList.Count);
+//
+//					switch(Npc.Postion){
+//					case GamePostion.G:
+//						if(MovePositionList[Rate].PosAy1.Length > 0){
+//							for(int i = 0; i < MovePositionList[Rate].PosAy1.Length; i++){
+//								TMoveData data = new TMoveData(0);
+//								data.Target = new Vector2(MovePositionList[Rate].PosAy1[i].x, MovePositionList[Rate].PosAy1[i].z);
+//								
+//								if(BallOwner != null && BallOwner != Npc)
+//									data.LookTarget = BallOwner.transform;	
+//								
+//								data.MoveFinish = DefMove;
+//								Npc.TargetPos = data;		
+//							}
+//						}
+//						break;
+//					case GamePostion.F:
+//						if(MovePositionList[Rate].PosAy2.Length > 0){
+//							for(int i = 0; i < MovePositionList[Rate].PosAy2.Length; i++){
+//								TMoveData data = new TMoveData(0);
+//								data.Target = new Vector2(MovePositionList[Rate].PosAy2[i].x, MovePositionList[Rate].PosAy2[i].z);
+//								
+//								if(BallOwner != null && BallOwner != Npc)
+//									data.LookTarget = BallOwner.transform;	
+//								
+//								data.MoveFinish = DefMove;
+//								Npc.TargetPos = data;		
+//							}
+//						}
+//						break;
+//					case GamePostion.C:
+//						if(MovePositionList[Rate].PosAy3.Length > 0){
+//							for(int i = 0; i < MovePositionList[Rate].PosAy3.Length; i++){
+//								TMoveData data = new TMoveData(0);
+//								data.Target = new Vector2(MovePositionList[Rate].PosAy3[i].x, MovePositionList[Rate].PosAy3[i].z);
+//								
+//								if(BallOwner != null && BallOwner != Npc)
+//									data.LookTarget = BallOwner.transform;	
+//								
+//								data.MoveFinish = DefMove;
+//								Npc.TargetPos = data;		
+//							}
+//						}
+//						break;
+//					}
+//				}
+
 				TMoveData data = new TMoveData(0);
-				data.Target = SetMovePos(ref Npc);
+				if(Npc.Team == TeamKind.Self && Npc == BallOwner && Npc.transform.position.z > 16.4){
+					data.Target = new Vector2(Npc.transform.position.x, 14);
+					
+					if(BallOwner != null && BallOwner != Npc)
+						data.LookTarget = BallOwner.transform;	
+					
+					data.MoveFinish = DefMove;
+				}else if(Npc.Team == TeamKind.Npc && Npc == BallOwner && Npc.transform.position.z < -16.4){
+					data.Target = new Vector2(Npc.transform.position.x, -14);
+					
+					if(BallOwner != null && BallOwner != Npc)
+						data.LookTarget = BallOwner.transform;	
+					
+					data.MoveFinish = DefMove;
+				}else{
+					data.Target = SetMovePos(ref Npc);
+					
+					if(BallOwner != null && BallOwner != Npc)
+						data.LookTarget = BallOwner.transform;	
+					
+					data.MoveFinish = DefMove;
+				}
 
-				if(BallOwner != null && BallOwner != Npc)
-					data.LookTarget = BallOwner.transform;	
-
-				data.MoveFinish = DefMove;
 				Npc.TargetPos = data;
 				DefMove(Npc);
 			}
@@ -1166,6 +1275,22 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public string StringRead(string OpenFileName)
+	{
+		string InData = "";
+		FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+		StreamReader myReader = new StreamReader(myFile);
+		InData = myReader.ReadToEnd();
+		myReader.Close();
+		myFile.Close();
+		return InData;
+	}
+
+	public static void GetJsonData<T>(string Str,ref T obj)
+	{
+		obj = JsonConvert.DeserializeObject <T>(Str);
+	}
+
 	//Temp
 	public Vector3 EditGetPosition(int index){
 		if (PlayerList.Count > index) {
@@ -1201,8 +1326,8 @@ public class GameController : MonoBehaviour {
 		BallOwner = null;
 		SceneMgr.Get.RealBall.transform.parent = null;
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
-		SceneMgr.Get.RealBall.rigidbody.isKinematic = false;
-		SceneMgr.Get.RealBall.rigidbody.useGravity = true;
+		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
+		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
 		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
 	}
 }

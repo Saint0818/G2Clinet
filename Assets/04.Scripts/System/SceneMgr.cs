@@ -243,44 +243,44 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		{
 			case PlayerState.Dribble: 
 				RealBall.transform.parent = player.DummyBall.transform;
-				RealBall.rigidbody.useGravity = false;
-				RealBall.rigidbody.isKinematic = true;
+				RealBall.GetComponent<Rigidbody>().useGravity = false;
+				RealBall.GetComponent<Rigidbody>().isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
 				break;
 			case PlayerState.Shooting: 
 				RealBall.transform.parent = null;
-				RealBall.rigidbody.isKinematic = false;
-				RealBall.rigidbody.useGravity = true;
+				RealBall.GetComponent<Rigidbody>().isKinematic = false;
+				RealBall.GetComponent<Rigidbody>().useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Pass: 
 				//				SceneMgr.Inst.RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBall.transform.parent = null;
-				RealBall.rigidbody.isKinematic = false;
-				RealBall.rigidbody.useGravity = true;
+				RealBall.GetComponent<Rigidbody>().isKinematic = false;
+				RealBall.GetComponent<Rigidbody>().useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Block: 
 				int blockRate = UnityEngine.Random.Range(0, 100) + 1;
 				if(blockRate < 30){
 					RealBall.transform.parent = null;
-					RealBall.rigidbody.isKinematic = false;
-					RealBall.rigidbody.useGravity = true;
+					RealBall.GetComponent<Rigidbody>().isKinematic = false;
+					RealBall.GetComponent<Rigidbody>().useGravity = true;
 					RealBallTrigger.SetBoxColliderEnable(true);
 					RealBallTrigger.Falling();
 					UIHint.Get.ShowHint("Blocking", Color.blue);
 				}
 				break;
 			case PlayerState.Dunk:
-				RealBall.rigidbody.collider.enabled = false;
+				RealBall.GetComponent<Rigidbody>().GetComponent<Collider>().enabled = false;
 				break;
 			case PlayerState.DunkBasket:
-				RealBall.rigidbody.useGravity = true;
-				RealBallTrigger.collider.enabled = true;
-				RealBall.rigidbody.isKinematic = false;
-				RealBall.rigidbody.collider.enabled = true;
+				RealBall.GetComponent<Rigidbody>().useGravity = true;
+				RealBallTrigger.GetComponent<Collider>().enabled = true;
+				RealBall.GetComponent<Rigidbody>().isKinematic = false;
+				RealBall.GetComponent<Rigidbody>().GetComponent<Collider>().enabled = true;
 				RealBall.transform.parent = null;
 				break;
 		}
@@ -399,7 +399,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             InitLineGroup();
 
         Texture tex = Resources.Load(string.Format("Textures/Court/Line{0}", lineIndex)) as Texture;
-		crtLine.renderer.material.mainTexture = tex;
+		crtLine.GetComponent<Renderer>().material.mainTexture = tex;
     }
 
     public void ChangeLogo(int logoIndex)
@@ -415,7 +415,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         }
 
         Texture tex = Resources.Load(string.Format("Textures/Logo/Logo{0}", logoIndex)) as Texture;
-        crtLogo.renderer.material.mainTexture = tex;
+        crtLogo.GetComponent<Renderer>().material.mainTexture = tex;
     }
 
 	public GameObject GetGameObjectInColliderGp(string name)
