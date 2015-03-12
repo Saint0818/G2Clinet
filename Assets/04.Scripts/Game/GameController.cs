@@ -2,7 +2,6 @@
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 public enum GameSituation{
 	None           = 0,
@@ -37,15 +36,14 @@ public enum GameTest{
 
 public struct TTactical
 {
-	public Vector3 [] PosAy1;
-	public Vector3 [] PosAy2;
-	public Vector3 [] PosAy3;
-	
-	public TTactical(int flag){
-		PosAy1 = new Vector3[0];
-		PosAy2 = new Vector3[0];
-		PosAy3 = new Vector3[0];
-	}
+	public TActionPosition [] PosAy1;
+	public TActionPosition [] PosAy2;
+	public TActionPosition [] PosAy3;
+}
+
+public struct TActionPosition{
+	public Vector3 Position;
+	public bool Speedup;
 }
 
 
@@ -155,9 +153,9 @@ public class GameController : MonoBehaviour {
 				MovePositionList.Clear();
 				
 				foreach (FileInfo f in info){
-					string filedata = StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
-					TTactical saveData = new TTactical(0);
-					GetJsonData(filedata, ref saveData);
+					string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
+					TTactical saveData = new TTactical();
+					GameFunction.GetJsonData(filedata, ref saveData);
 					MovePositionList.Add(saveData);
 				}
 			}
@@ -786,19 +784,22 @@ public class GameController : MonoBehaviour {
 					case GamePostion.G:
 						if(MovePositionList[Rate].PosAy1.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy1.Length];
-							MoveAy = MovePositionList[Rate].PosAy1;
+							for(int i = 0; i < MoveAy.Length; i++)
+								MoveAy[i] = MovePositionList[Rate].PosAy1[i].Position;
 						}
 						break;
 					case GamePostion.F:
 						if(MovePositionList[Rate].PosAy2.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy2.Length];
-							MoveAy = MovePositionList[Rate].PosAy2;
+							for(int i = 0; i < MoveAy.Length; i++)
+								MoveAy[i] = MovePositionList[Rate].PosAy2[i].Position;
 						}
 						break;
 					case GamePostion.C:
 						if(MovePositionList[Rate].PosAy3.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy3.Length];
-							MoveAy = MovePositionList[Rate].PosAy3;
+							for(int i = 0; i < MoveAy.Length; i++)
+								MoveAy[i] = MovePositionList[Rate].PosAy3[i].Position;
 						}
 						break;
 					}
@@ -806,7 +807,10 @@ public class GameController : MonoBehaviour {
 					if(MoveAy.Length > 0){
 						for(int i = 0; i < MoveAy.Length; i++){
 							data = new TMoveData(0);
-							data.Target = new Vector2(MoveAy[i].x, MoveAy[i].z);
+							if(Npc.Team == TeamKind.Self)
+								data.Target = new Vector2(MoveAy[i].x, MoveAy[i].z);
+							else
+								data.Target = new Vector2(MoveAy[i].x, -MoveAy[i].z);
 							
 							if(BallOwner != null && BallOwner != Npc)
 								data.LookTarget = BallOwner.transform;	
@@ -1256,22 +1260,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public string StringRead(string OpenFileName)
-	{
-		string InData = "";
-		FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
-		StreamReader myReader = new StreamReader(myFile);
-		InData = myReader.ReadToEnd();
-		myReader.Close();
-		myFile.Close();
-		return InData;
-	}
-
-	public static void GetJsonData<T>(string Str,ref T obj)
-	{
-		obj = JsonConvert.DeserializeObject <T>(Str);
-	}
-
 	private bool CheckAttack(ref PlayerBehaviour Npc){
 		if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 16.4)
 			return false;
@@ -1289,10 +1277,10 @@ public class GameController : MonoBehaviour {
 			return Vector3.zero;
 	}
 	
-	public void EditSetMove(Vector3 target, int index){
+	public void EditSetMove(TActionPosition ActionPosition, int index){
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
-			data.Target = new Vector2(target.x, target.z);
+			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
 			PlayerList[index].TargetPos = data;
 		}
 	}

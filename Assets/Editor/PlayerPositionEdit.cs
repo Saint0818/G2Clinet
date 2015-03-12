@@ -4,19 +4,6 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-public struct TTactical
-{
-	public Vector3 [] PosAy1;
-	public Vector3 [] PosAy2;
-	public Vector3 [] PosAy3;
-
-	public TTactical(int flag){
-		PosAy1 = new Vector3[0];
-		PosAy2 = new Vector3[0];
-		PosAy3 = new Vector3[0];
-	}
-}
-
 public class PlayerPositionEdit : EditorWindow {
 
 	[MenuItem ("Player/PositionEdit")]
@@ -34,9 +21,9 @@ public class PlayerPositionEdit : EditorWindow {
 	private int _newIdx = 0;
 	private int _oldIdx = 0;
 	private string FileName = "";
-	private Vector3 [] PosAy1 = new Vector3[0];
-	private Vector3 [] PosAy2 = new Vector3[0];
-	private Vector3 [] PosAy3 = new Vector3[0];		
+	private TActionPosition [] PosAy1 = new TActionPosition[0];
+	private TActionPosition [] PosAy2 = new TActionPosition[0];
+	private TActionPosition [] PosAy3 = new TActionPosition[0];		
 	private string[] ArrayString = new string[0];
 
 	void OnGUI()
@@ -65,17 +52,17 @@ public class PlayerPositionEdit : EditorWindow {
 			if (GUILayout.Button ("Load File", GUILayout.Width (200))) {
 				if(_oldIdx >= 0 && _oldIdx < ArrayString.Length){
 					string filedata = StringRead(Application.persistentDataPath + "/" + ArrayString[_oldIdx] + ".gangrun");
-					TTactical saveData2 = new TTactical(0);
+					TTactical saveData2 = new TTactical();
 					GetJsonData(filedata, ref saveData2); 
 
 					PositionCount1 = saveData2.PosAy1.Length;
-					PosAy1 = new Vector3[PositionCount1];
+					PosAy1 = new TActionPosition[PositionCount1];
 					PosAy1 = saveData2.PosAy1;
 					PositionCount2 = saveData2.PosAy2.Length;
-					PosAy2 = new Vector3[PositionCount2];
+					PosAy2 = new TActionPosition[PositionCount2];
 					PosAy2 = saveData2.PosAy2;
 					PositionCount3 = saveData2.PosAy3.Length;
-					PosAy3 = new Vector3[PositionCount3];
+					PosAy3 = new TActionPosition[PositionCount3];
 					PosAy3 = saveData2.PosAy3;
 					FileName = ArrayString[_oldIdx];
 				}
@@ -91,13 +78,13 @@ public class PlayerPositionEdit : EditorWindow {
 		if (GUILayout.Button("Array Setting", GUILayout.Width(200)))
 		{
 			if(PositionCount1 > 0 && PositionCount1 != PosAy1.Length)
-				PosAy1 = new Vector3[PositionCount1];
+				PosAy1 = new TActionPosition[PositionCount1];
 
 			if(PositionCount2 > 0 && PositionCount2 != PosAy2.Length)
-				PosAy2 = new Vector3[PositionCount2];
+				PosAy2 = new TActionPosition[PositionCount2];
 
 			if(PositionCount3 > 0 && PositionCount3 != PosAy3.Length)
-				PosAy3 = new Vector3[PositionCount3];
+				PosAy3 = new TActionPosition[PositionCount3];
 		}
 
 		if (GUILayout.Button("Move", GUILayout.Width(200)))
@@ -125,14 +112,14 @@ public class PlayerPositionEdit : EditorWindow {
 		FileName = EditorGUILayout.TextField("FileName", FileName);
 		if (GUILayout.Button("Save", GUILayout.Width(200)))
 		{
-			TTactical saveData = new TTactical(0);
-			saveData.PosAy1 = new Vector3[PosAy1.Length];
+			TTactical saveData = new TTactical();
+			saveData.PosAy1 = new TActionPosition[PosAy1.Length];
 			saveData.PosAy1 = PosAy1;
 			
-			saveData.PosAy2 = new Vector3[PosAy2.Length];
+			saveData.PosAy2 = new TActionPosition[PosAy2.Length];
 			saveData.PosAy2 = PosAy2;
 			
-			saveData.PosAy3 = new Vector3[PosAy3.Length];
+			saveData.PosAy3 = new TActionPosition[PosAy3.Length];
 			saveData.PosAy3 = PosAy3;
 
 			string aaa = GetJsonStr(saveData);
@@ -176,13 +163,14 @@ public class PlayerPositionEdit : EditorWindow {
 			GUI.color = Color.white;   
 			for(int i = 0 ; i < PosAy1.Length; i++){
 				EditorGUILayout.BeginHorizontal();
-					PosAy1[i] = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy1[i]);
+					PosAy1[i].Position = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy1[i].Position);
 					if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
 						Vector3 Res = GameController.Get.EditGetPosition(0);
 						float x = Convert.ToSingle(Math.Round(Res.x, 2));
 						float z = Convert.ToSingle(Math.Round(Res.z, 2));
-						PosAy1[i] = new Vector3(x, 0, z);
+						PosAy1[i].Position = new Vector3(x, 0, z);
 					}					
+				PosAy1[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy1[i].Speedup);
 				EditorGUILayout.EndHorizontal();
 			}				
 		}
@@ -193,13 +181,14 @@ public class PlayerPositionEdit : EditorWindow {
 			GUI.color = Color.white;   
 			for(int i = 0 ; i < PosAy2.Length; i++){
 				EditorGUILayout.BeginHorizontal();
-				PosAy2[i] = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy2[i]);
+				PosAy2[i].Position = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy2[i].Position);
 				if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
 					Vector3 Res = GameController.Get.EditGetPosition(1);
 					float x = Convert.ToSingle(Math.Round(Res.x, 2));
 					float z = Convert.ToSingle(Math.Round(Res.z, 2));
-					PosAy2[i] = new Vector3(x, 0, z);
+					PosAy2[i].Position = new Vector3(x, 0, z);
 				}					
+				PosAy2[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy2[i].Speedup);
 				EditorGUILayout.EndHorizontal();
 			}				
 		}
@@ -210,13 +199,14 @@ public class PlayerPositionEdit : EditorWindow {
 			GUI.color = Color.white;   
 			for(int i = 0 ; i < PosAy3.Length; i++){
 				EditorGUILayout.BeginHorizontal();
-				PosAy3[i] = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy3[i]);
+				PosAy3[i].Position = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", PosAy3[i].Position);
 				if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
 					Vector3 Res = GameController.Get.EditGetPosition(2);
 					float x = Convert.ToSingle(Math.Round(Res.x, 2));
 					float z = Convert.ToSingle(Math.Round(Res.z, 2));
-					PosAy3[i] = new Vector3(x, 0, z);
-				}					
+					PosAy3[i].Position = new Vector3(x, 0, z);
+				}		
+				PosAy3[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy3[i].Speedup);
 				EditorGUILayout.EndHorizontal();
 			}				
 		}

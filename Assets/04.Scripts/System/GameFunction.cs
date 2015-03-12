@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.IO;
+using Newtonsoft.Json;
 
 public static class GameFunction
 {
@@ -108,5 +110,37 @@ public static class GameFunction
 	public static bool IsParabolicVelocity(Vector3 velocity)
 	{
 		return !(velocity.x == 0 && velocity.z == 0);
+	}
+
+	public static void StringWrite(string fileName, string Data)
+	{
+		FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+		StreamWriter myWriter = new StreamWriter(myFile);
+		myWriter.Write(Data);
+		myWriter.Close();
+		myFile.Close();
+	}
+	
+	public static string StringRead(string OpenFileName)
+	{
+		string InData = "";
+		FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+		StreamReader myReader = new StreamReader(myFile);
+		InData = myReader.ReadToEnd();
+		myReader.Close();
+		myFile.Close();
+		return InData;
+	}
+	
+	// Json Encoding
+	public static string GetJsonStr(object obj)
+	{
+		return JsonConvert.SerializeObject(obj);
+	}
+	
+	// Json Decoding
+	public static void GetJsonData<T>(string Str,ref T obj)
+	{
+		obj = JsonConvert.DeserializeObject <T>(Str);
 	}
 }
