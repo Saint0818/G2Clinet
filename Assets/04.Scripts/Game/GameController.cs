@@ -521,6 +521,15 @@ public class GameController : MonoBehaviour {
         }
 	}
 
+	private bool CheckAttack(ref PlayerBehaviour Npc){
+		if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 16.4)
+			return false;
+		else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z < -16.4)
+			return false;
+		else
+			return true;
+	}
+
 	private void Attack(ref PlayerBehaviour Npc){
 		if (BallOwner != null) {
 			int dunkRate = Random.Range(0, 100) + 1;
@@ -542,11 +551,11 @@ public class GameController : MonoBehaviour {
 			if(Npc == BallOwner){
 				//Dunk shoot shoot3 pass
 				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-				if(ShootPointDis <= 2f && dunkRate < 0){
+				if(ShootPointDis <= 2f && dunkRate < 0 && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10)){
+				}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3)){
+				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
 					Shoot();
 				}else if(passRate < 5 && CoolDownPass == 0){
 					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
@@ -812,16 +821,12 @@ public class GameController : MonoBehaviour {
 //				}
 
 				TMoveData data = new TMoveData(0);
-				if(Npc.Team == TeamKind.Self && Npc == BallOwner && Npc.transform.position.z > 16.4){
-					data.Target = new Vector2(Npc.transform.position.x, 14);
-					
-					if(BallOwner != null && BallOwner != Npc)
-						data.LookTarget = BallOwner.transform;	
-					
-					data.MoveFinish = DefMove;
-				}else if(Npc.Team == TeamKind.Npc && Npc == BallOwner && Npc.transform.position.z < -16.4){
-					data.Target = new Vector2(Npc.transform.position.x, -14);
-					
+				if(!CheckAttack(ref Npc)){
+					if(Npc.Team == TeamKind.Self)
+						data.Target = new Vector2(Npc.transform.position.x, 14);
+					else
+						data.Target = new Vector2(Npc.transform.position.x, -14);
+
 					if(BallOwner != null && BallOwner != Npc)
 						data.LookTarget = BallOwner.transform;	
 					
