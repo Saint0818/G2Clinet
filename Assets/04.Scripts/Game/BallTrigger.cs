@@ -27,16 +27,15 @@ public class BallTrigger : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other) {
 		if (GameController.Visible){
-			if (other.gameObject.tag == "Player") 
+			if (other.gameObject.CompareTag("Player"))
 			{
 
 			}
-			else 
-			if (other.gameObject.tag == "Floor") 
+			else if (other.gameObject.CompareTag("Floor")) 
 			{
 				GameController.Get.BallOnFloor();
-			} else 
-			if (other.gameObject.tag == "Wall") 
+			} 
+			else if (other.gameObject.CompareTag("Wall"))
 			{
 				EffectManager.Get.PlayEffect("BallTouchWall", gameObject.transform.position);
 			}

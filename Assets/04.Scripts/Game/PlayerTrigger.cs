@@ -7,14 +7,13 @@ public class PlayerTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (GameController.Visible){
-			if (other.tag == "PlayerTrigger") 
+			if (other.gameObject.CompareTag("PlayerTrigger"))
 			{
 				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
 				if (obj)
 					GameController.Get.PlayerTouchPlayer(Player, obj.Player, Direction);
 			}
-			else 
-			if (other.tag == "RealBallTrigger") 
+			else if (other.gameObject.CompareTag("RealBallTrigger"))
 			{
 				GameController.Get.BallTouchPlayer(Player, Direction);
 			} 
@@ -22,11 +21,9 @@ public class PlayerTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerStay(Collider other) {
-		if (GameController.Visible){
-			if (other.tag == "RealBallTrigger") 
-			{
+		if (GameController.Visible){		
+			if (other.gameObject.CompareTag("RealBallTrigger"))
 				GameController.Get.BallTouchPlayer(Player, Direction);
-			} 
 		}
 	}
 }
