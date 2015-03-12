@@ -1,7 +1,9 @@
 fileFormatVersion: 2
 guid: ffbb79438247cd74badadce3a6620bc4
+timeCreated: 1426146068
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
     100002: 2_H_2
@@ -51,10 +53,10 @@ ModelImporter:
     100090: Bone_Hair_1
     100092: Bone_Hair_2
     100094: Bone_Nub
-    100096: DummyBall
-    100098: DummyHand_L
-    100100: DummyHand_R
-    100102: DummyBack
+    100096: DummyBack
+    100098: DummyBall
+    100100: DummyHand_L
+    100102: DummyHand_R
     100104: DummyHead
     400000: //RootNode
     400002: 2_H_2
@@ -104,10 +106,10 @@ ModelImporter:
     400090: Bone_Hair_1
     400092: Bone_Hair_2
     400094: Bone_Nub
-    400096: DummyBall
-    400098: DummyHand_L
-    400100: DummyHand_R
-    400102: DummyBack
+    400096: DummyBack
+    400098: DummyBall
+    400100: DummyHand_L
+    400102: DummyHand_R
     400104: DummyHead
     4300000: 2_H_2
     9500000: //RootNode
@@ -131,7 +133,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -139,11 +141,13 @@ ModelImporter:
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
@@ -166,3 +170,5 @@ ModelImporter:
   animationType: 2
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

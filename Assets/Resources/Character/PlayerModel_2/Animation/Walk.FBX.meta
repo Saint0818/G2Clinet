@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6939c856107a017439d268d52518d713
-timeCreated: 1426146662
+guid: 060758d43ef1560418e4e16c593d39df
+timeCreated: 1426146804
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Move
+    7400000: Walk
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Move
+      name: Walk
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

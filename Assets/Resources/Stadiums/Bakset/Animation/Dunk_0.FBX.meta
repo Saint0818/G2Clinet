@@ -1,77 +1,53 @@
 fileFormatVersion: 2
 guid: 598b8226cfa0ef84c883a4d827313dfd
+timeCreated: 1426147511
+licenseType: Pro
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 18
   fileIDToRecycleName:
-    100000: Bone01
-    100002: Bone02
-    100004: Bone03
-    100006: Bone04
-    100008: DummyBasketDown
-    100010: DummyBasketIK
-    100012: DummyNet
-    100014: DummyNetRoot
-    100016: //RootNode
-    100018: IK Chain01
-    100020: Basket_0
+    100000: Backboard
+    100002: BasketGlassA
+    100004: BasketGlassB
+    100006: BasketHoop
+    100008: BasketSupport
+    100010: Bone01
+    100012: Bone02
+    100014: Bone03
+    100016: Bone04
+    100018: DummyBackBoard
+    100020: DummyBasketIK
     100022: DummyBasketRoot
-    100024: Net
-    100026: Backboard
-    100028: BasketGlassA
-    100030: BasketGlassB
-    100032: BasketHoop
-    100034: BasketSupport
-    100036: DummyBackBoard
-    100038: DummyHoop
-    100040: IK Chain
-    400000: Bone01
-    400002: Bone02
-    400004: Bone03
-    400006: Bone04
-    400008: DummyBasketDown
-    400010: DummyBasketIK
-    400012: DummyNet
-    400014: DummyNetRoot
-    400016: //RootNode
-    400018: IK Chain01
-    400020: Basket_0
+    100024: DummyHoop
+    100026: DummyNet
+    100028: //RootNode
+    400000: Backboard
+    400002: BasketGlassA
+    400004: BasketGlassB
+    400006: BasketHoop
+    400008: BasketSupport
+    400010: Bone01
+    400012: Bone02
+    400014: Bone03
+    400016: Bone04
+    400018: DummyBackBoard
+    400020: DummyBasketIK
     400022: DummyBasketRoot
-    400024: Net
-    400026: Backboard
-    400028: BasketGlassA
-    400030: BasketGlassB
-    400032: BasketHoop
-    400034: BasketSupport
-    400036: DummyBackBoard
-    400038: DummyHoop
-    400040: IK Chain
-    2300000: Backboard
-    2300002: BasketGlassA
-    2300004: BasketGlassB
-    2300006: BasketHoop
-    2300008: BasketSupport
-    3300000: Backboard
-    3300002: BasketGlassA
-    3300004: BasketGlassB
-    3300006: BasketHoop
-    3300008: BasketSupport
-    4300000: Basket_0
-    4300002: Net
-    4300004: BasketSupport
-    4300006: Backboard
-    4300008: BasketHoop
-    4300010: BasketGlassA
-    4300012: BasketGlassB
+    400024: DummyHoop
+    400026: DummyNet
+    400028: //RootNode
+    4300000: BasketSupport
+    4300002: Backboard
+    4300004: BasketHoop
+    4300006: BasketGlassA
+    4300008: BasketGlassB
     7400000: Dunk_0
     9500000: //RootNode
     11100000: //RootNode
-    13700000: Basket_0
-    13700002: Net
-    13700004: Backboard
-    13700006: BasketGlassA
-    13700008: BasketGlassB
-    13700010: BasketHoop
-    13700012: BasketSupport
+    13700000: Backboard
+    13700002: BasketGlassA
+    13700004: BasketGlassB
+    13700006: BasketHoop
+    13700008: BasketSupport
   materials:
     importMaterials: 0
     materialName: 0
@@ -93,7 +69,7 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 0
       lastFrame: 40
-      wrapMode: 1
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
@@ -114,40 +90,54 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Bone01
+      - path: Backboard
         weight: 1
-      - path: Bone01/Bone02
+      - path: BasketGlassA
         weight: 1
-      - path: Bone01/Bone02/Bone03
+      - path: BasketGlassB
         weight: 1
-      - path: Bone01/Bone02/Bone03/Bone04
+      - path: BasketHoop
         weight: 1
-      - path: Bone01/Bone02/Bone03/Bone04/DummyBasketDown
+      - path: BasketSupport
         weight: 1
-      - path: Bone01/Bone02/Bone03/Bone04/DummyBasketDown/DummyNetRoot
+      - path: DummyBasketRoot
         weight: 1
-      - path: Bone01/Bone02/Bone03/Bone04/DummyBasketDown/DummyNetRoot/DummyNet
+      - path: DummyBasketRoot/Bone01
         weight: 1
-      - path: DummyBasketIK
+      - path: DummyBasketRoot/Bone01/Bone02
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03/Bone04
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
+    keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
@@ -170,3 +160,5 @@ ModelImporter:
   animationType: 1
   additionalBone: 0
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

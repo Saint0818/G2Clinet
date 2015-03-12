@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6939c856107a017439d268d52518d713
-timeCreated: 1426146662
+guid: 0953be1b4a6053e48a3b5d0baf755f4f
+timeCreated: 1426146886
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -51,12 +51,12 @@ ModelImporter:
     100086: Bone_Hair_1
     100088: Bone_Hair_2
     100090: Bone_Nub
-    100092: DummyBack
-    100094: DummyBall
-    100096: DummyHand_L
-    100098: DummyHand_R
-    100100: DummyHead
-    100102: //RootNode
+    100092: //RootNode
+    100094: DummyBack
+    100096: DummyBall
+    100098: DummyHand_L
+    100100: DummyHand_R
+    100102: DummyHead
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -103,13 +103,13 @@ ModelImporter:
     400086: Bone_Hair_1
     400088: Bone_Hair_2
     400090: Bone_Nub
-    400092: DummyBack
-    400094: DummyBall
-    400096: DummyHand_L
-    400098: DummyHand_R
-    400100: DummyHead
-    400102: //RootNode
-    7400000: Move
+    400092: //RootNode
+    400094: DummyBack
+    400096: DummyBall
+    400098: DummyHand_L
+    400100: DummyHand_R
+    400102: DummyHead
+    7400000: Dash
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Move
+      name: Dash
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 17
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
