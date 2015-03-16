@@ -76,6 +76,7 @@ public struct TMoveData
 	public Transform FollowTarget;
 	public PlayerBehaviour DefPlayer;
 	public OnPlayerAction MoveFinish;
+	public bool Speedup;
 
 	public TMoveData(int flag){
 		Target = Vector2.zero;
@@ -83,6 +84,7 @@ public struct TMoveData
 		MoveFinish = null;
 		FollowTarget = null;
 		DefPlayer = null;
+		Speedup = false;
 	}
 }
 
@@ -136,6 +138,12 @@ public class PlayerBehaviour : MonoBehaviour
 	public int MoveIndex = -1;
 	public int Proactive = 1;
 	public bool isJoystick = false;
+	public float DefSpeedup = 10;
+	public float DefSpeedNormal = 7;
+	public float BallOwnerSpeedup = 6;
+	public float BallOwnerSpeedNormal = 8;
+	public float AttackSpeedup = 10;
+	public float AttackSpeedNormal = 8;
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -418,7 +426,10 @@ public class PlayerBehaviour : MonoBehaviour
 					}else
 						AniState(PlayerState.Run);
 
-					transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * 7);
+					if(Data.Speedup)
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedup);
+					else
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedNormal);
 				}else{
 					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 
@@ -427,7 +438,17 @@ public class PlayerBehaviour : MonoBehaviour
 					else
 						AniState(PlayerState.Run);
 
-					transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed);
+					if(IsBallOwner){
+						if(Data.Speedup)
+							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * BallOwnerSpeedup * BasicMoveSpeed);
+						else
+							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * BallOwnerSpeedNormal * BasicMoveSpeed);
+					}else{
+						if(Data.Speedup)
+							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * AttackSpeedup * BasicMoveSpeed);
+						else
+							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * AttackSpeedNormal * BasicMoveSpeed);
+					}
 				}
 			}		
 		}

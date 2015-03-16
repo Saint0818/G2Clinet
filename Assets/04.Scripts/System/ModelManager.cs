@@ -4,6 +4,7 @@ using System.Collections;
 public class ModelManager : MonoBehaviour {
 	public static ModelManager Get;
 	private GameObject PlayerModule = null; 
+	private GameObject DefPointObject = null;
 	public GameObject PlayerInfoModel = null;
 	private const int avatartCount = 3;
 	private string[] avatarPartName = new string[]{"Body", "Cloth", "Shoes"};
@@ -21,6 +22,7 @@ public class ModelManager : MonoBehaviour {
 		up.depth = 2;
 
 		PlayerModule = Resources.Load("Prefab/Player/PlayerModel_0") as GameObject;
+		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 	}
 	
 	// Update is called once per frame
@@ -30,8 +32,11 @@ public class ModelManager : MonoBehaviour {
 
 	public PlayerBehaviour CreatePlayer(int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion){
 		GameObject Res = Instantiate(PlayerModule) as GameObject;
+		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
+		DefPointCopy.transform.parent = Res.transform;
+		DefPointCopy.transform.localPosition = Vector3.zero;
 		if(Team == TeamKind.Npc)
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
@@ -41,14 +46,15 @@ public class ModelManager : MonoBehaviour {
 		PB.Postion = Postion;
 		PB.RunPosAy = RunPosAy;
 		Res.name = Index.ToString();
-		PB.DefPointAy [DefPoint.Front.GetHashCode()] = Res.transform.Find ("DefPoint/Front").gameObject.transform;
-		PB.DefPointAy [DefPoint.Back.GetHashCode()] = Res.transform.Find ("DefPoint/Back").gameObject.transform;
-		PB.DefPointAy [DefPoint.Right.GetHashCode()] = Res.transform.Find ("DefPoint/Right").gameObject.transform;
-		PB.DefPointAy [DefPoint.Left.GetHashCode()] = Res.transform.Find ("DefPoint/Left").gameObject.transform;
-		PB.DefPointAy [DefPoint.FrontSteal.GetHashCode()] = Res.transform.Find ("DefPoint/FrontSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.BackSteal.GetHashCode()] = Res.transform.Find ("DefPoint/BackSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = Res.transform.Find ("DefPoint/RightSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = Res.transform.Find ("DefPoint/LeftSteal").gameObject.transform;
+		DefPointCopy.name = "DefPoint";
+		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
+		PB.DefPointAy [DefPoint.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
+		PB.DefPointAy [DefPoint.Right.GetHashCode()] = DefPointCopy.transform.Find ("Right").gameObject.transform;
+		PB.DefPointAy [DefPoint.Left.GetHashCode()] = DefPointCopy.transform.Find ("Left").gameObject.transform;
+		PB.DefPointAy [DefPoint.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find ("FrontSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.BackSteal.GetHashCode()] = DefPointCopy.transform.Find ("BackSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
+		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
 
 		GameStruct.TPlayerAttribute attr = new GameStruct.TPlayerAttribute();
 

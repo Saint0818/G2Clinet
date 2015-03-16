@@ -22,9 +22,9 @@ public enum GameAction{
 }
 
 public enum GamePostion{
-	G = 0,
+	C = 0,
 	F = 1,
-	C = 2
+	G = 2
 }
 
 public enum GameTest{
@@ -1281,6 +1281,7 @@ public class GameController : MonoBehaviour {
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
 			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
+			data.Speedup = ActionPosition.Speedup;
 			PlayerList[index].TargetPos = data;
 		}
 	}
