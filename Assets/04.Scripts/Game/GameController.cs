@@ -468,12 +468,6 @@ public class GameController : MonoBehaviour {
 	public bool OnRebound(PlayerBehaviour player) {
 		return true;
     }
-    
-    public void DoJump()
-    {
-		Vector3 pos = SceneMgr.Get.ShootPoint [Joysticker.Team.GetHashCode ()].transform.position;
-		Joysticker.AniState (PlayerState.Jumper, true, pos.x, pos.z);
-    }
 
     public void DoSkill()
     {

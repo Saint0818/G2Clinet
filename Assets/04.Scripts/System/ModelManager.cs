@@ -210,6 +210,14 @@ public class ModelManager : MonoBehaviour {
 		collider.height = 3f;
 		float testh = collider.height / 2f;
 		collider.center = new Vector3 (0, testh, 0);
+
+		//rig
+		Rigidbody rig = result.GetComponent<Rigidbody> ();
+		if (rig == null)
+			rig = result.AddComponent<Rigidbody> ();
+
+		rig.freezeRotation = true;
+
 		return result;
 	}
 	
