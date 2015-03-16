@@ -227,7 +227,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     
         crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Basket/Basket_{0}", basketIndex))) as GameObject;
         pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
-		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_0").gameObject;
+		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_1").gameObject;
 		animPos[0] = pveBasketAy[0].transform.localPosition;
 		animPos[1] = pveBasketAy[1].transform.localPosition;
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;

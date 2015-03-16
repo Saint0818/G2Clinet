@@ -11,21 +11,22 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private float focusSmoothSpeed = 0.02f;
 	private float[] focusStopPoint = new float[]{12f, -12f};
 
-	private float cameraRotationSpeed = 6f;
+	private float cameraRotationSpeed = 8f;
 	private float cameraOffsetSpeed = 0.1f;
 	private Vector2 cameraWithBasketBallCourtRate;
 	private Vector2 cameraMoveAera = new Vector2(23f, 34.5f); 
 	private Vector3 cameraOffsetRate = Vector3.zero;
 	private Vector2 basketballCourt = new Vector2(23f, 34.5f);
 	private Vector3 restrictedAreaAngle = new Vector3(15, 1, 0);
-	private Vector3 cameraOffset = Vector3.zero;
+	private Vector3 cameraOffsetPos = Vector3.zero;
 	private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
 	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 6.625f)};
-//	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-12.6f, 0, 1.63f), new Vector3(-22.25f, 0, -1.63f)};
-	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-12f, 0, 1.63f), new Vector3(-26f, 0, -1.63f)};
+	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-11f, 0, 1.63f), new Vector3(-27f, 0, -1.63f)};
 
-	private GameObject cameraGroup;
-	private GameObject cameraRotation;
+	private GameObject cameraGroupObj;
+	private GameObject cameraRotationObj;
+	private GameObject cameraOffsetObj;
+
 	private Camera cameraFx;
 
 	private GameObject focusTarget;
@@ -50,20 +51,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		set
 		{
-			cameraRotation.gameObject.SetActive(value);
+			cameraRotationObj.gameObject.SetActive(value);
 		}
 		get
 		{
-			return cameraRotation.gameObject.activeInHierarchy;
+			return cameraRotationObj.gameObject.activeInHierarchy;
 		}
 	}
 
 	void Awake()
 	{
-		if (cameraGroup == null)
+		if (cameraGroupObj == null)
 		{
-			cameraGroup = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
-			cameraGroup.name = "CameraGroup";
+			cameraGroupObj = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
+			cameraGroupObj.name = "CameraGroup";
 
 			cameraWithBasketBallCourtRate = new Vector2(cameraMoveAera.x / basketballCourt.x, cameraMoveAera.y / basketballCourt.y);
 			InitCamera();
@@ -84,13 +85,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void InitCamera()
 	{
-		if (cameraGroup) {
-			cameraRotation = cameraGroup.gameObject.transform.FindChild("Offset/Rotation").gameObject;
-			cameraFx = cameraRotation.gameObject.transform.GetComponentInChildren<Camera>();
+		if (cameraGroupObj) {
+			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
+			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
+			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
 			
-			cameraRotation.transform.position = startPos;
+			cameraRotationObj.transform.position = startPos;
 			smothHight.x = startPos.y;
-			cameraOffset = cameraGroup.transform.position;		
+			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
 
@@ -98,15 +100,15 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraFx.fieldOfView = zoomNormal;
 		cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("RealBall");
 
-		cameraGroup.transform.localPosition = Vector3.zero;
-		cameraRotation.transform.localPosition = startPos;
+		cameraGroupObj.transform.localPosition = Vector3.zero;
+		cameraRotationObj.transform.localPosition = startPos;
 
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
 		focusTarget.GetComponent<Renderer>().enabled = false;
 		focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
-		cameraRotation.transform.LookAt(Vector3.zero) ;
+		cameraRotationObj.transform.LookAt(Vector3.zero) ;
 	}
 
 	private void InitTestTool()
@@ -115,7 +117,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
 		cameraOffsetAeraObj.name = "ColorR";
-		cameraOffsetAeraObj.transform.parent = cameraGroup.transform;
+		cameraOffsetAeraObj.transform.parent = cameraGroupObj.transform;
 		cameraOffsetAeraObj.transform.position = new Vector3 (startPos.x, -0.4f, 0);
 		cameraOffsetAeraObj.transform.localScale = new Vector3(offsetLimit[0].x - offsetLimit[1].x, 1, offsetLimit[0].z - offsetLimit[1].z);
 		cameraOffsetAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/CameraOffsetAera_M") as Material;
@@ -175,7 +177,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void HorizontalCameraHandle()
     {
 		//GroupOffset
-		cameraGroup.transform.position = Vector3.Lerp(cameraGroup.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
+		cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
 		CameraOffset();
 		CameraFocus ();
     }
@@ -184,7 +186,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void CameraOffset()
 	{
+		float boardZ = -1 * (cameraMoveAera.y / 2) + blankAera;
+		float computZ = 0;
+//
+//		if (focusTarget.transform.position.z < boardZ)
+//			computZ = 0;
+//		else
+
 		cameraOffsetRate.x = (11.5f - focusTarget.transform.position.x) / cameraMoveAera.x;
+//				Mathf.Sqrt (Mathf.Pow (11.5f - focusTarget.transform.position.x, 2) + Mathf.Pow (22.5f - focusTarget.transform.position.z, 2));
+//		Debug.Log ("cameraOffsetRate.x : " + (22.5f - focusTarget.transform.position.z));
+
+			
 		cameraOffsetRate.z = (22.5f - focusTarget.transform.position.z) / cameraMoveAera.y;
 		if(cameraOffsetRate.x < 0)
 			cameraOffsetRate.x = 0;
@@ -196,7 +209,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		else if(cameraOffsetRate.z > 1)
 			cameraOffsetRate.z = 1;
 
-		cameraOffset.x = offsetLimit[0].x - (cameraOffsetRate.x * (offsetLimit[0].x - offsetLimit[1].x));
+		cameraOffsetPos.x = offsetLimit[0].x - (cameraOffsetRate.x * (offsetLimit[0].x - offsetLimit[1].x));
 
 		if (GameController.Get.Shooter) {
 			float h;
@@ -211,9 +224,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		else
 			smothHight = Vector2.Lerp(smothHight, new Vector2(0, startPos.y), 0.1f);
 
-		cameraOffset.y = smothHight.y;
-		cameraOffset.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
-		cameraRotation.transform.localPosition = Vector3.Lerp(cameraRotation.transform.localPosition, cameraOffset, cameraOffsetSpeed);
+		cameraOffsetPos.y = smothHight.y;
+		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
+//		cameraOffsetObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
+		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 	}
 
 	private void CameraFocus()
@@ -223,24 +237,24 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		case TeamKind.Self:
 			if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
 				Lookat(focusTarget);
-				cameraRotation.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotation.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 			}
 			else
 			{
-				float angle = Mathf.LerpAngle(cameraRotation.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
-				cameraRotation.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
+				cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
 			}
 			break;
 		case TeamKind.Npc:
 
 			if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
 				Lookat(focusTarget);
-				cameraRotation.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotation.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 			}
 			else
 			{
-				float angle = Mathf.LerpAngle(cameraRotation.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
-				cameraRotation.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
+				cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
 			}
 			break;
 		}
@@ -248,9 +262,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void Lookat(GameObject obj)
 	{
-		Vector3 dir = obj.transform.position - cameraRotation.transform.position;
+		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
 		Quaternion rot = Quaternion.LookRotation(dir);
-		cameraRotation.transform.rotation = Quaternion.Lerp(cameraRotation.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
 	}
 
 	private void focusObjectOffset(int team)

@@ -97,7 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass", "IsShooting", "IsCatcher", "IsDunk"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsJump", "IsDribble", "IsSteal", "IsPass", "IsDunk"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -129,7 +129,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float BasicMoveSpeed = 1f;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public float JumpHight = 12;
+	public float JumpHight = 80f;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
@@ -164,7 +164,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		CalculationAirResistance();
+//		CalculationAirResistance();
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 		if (gameObject.transform.localPosition.y > 0.2f) {
 			gameObject.GetComponent<Collider>().enabled = false;
@@ -567,7 +567,8 @@ public class PlayerBehaviour : MonoBehaviour
 		            AddActionFlag(ActionFlag.IsShooting);
 		            AddActionFlag(ActionFlag.IsJump);
 		            AddActionFlag(ActionFlag.IsDribble);
-		            Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
+					Control.SetBool("IsShoot", true);
+//		            ControlAnimatorStates.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 		            Control.SetBool(AnimatorStates[ActionFlag.IsJump], true);
 		        }
 		        break;
@@ -615,7 +616,7 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				break;
 			case "ShootJump":
-				gameObject.GetComponent<Rigidbody>().AddForce (JumpHight * transform.up + gameObject.GetComponent<Rigidbody>().velocity.normalized /2.5f, ForceMode.VelocityChange);
+				gameObject.GetComponent<Rigidbody>().AddForce (JumpHight * transform.up + gameObject.GetComponent<Rigidbody>().velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Passing":			
 				if (PassTime > 0) {
