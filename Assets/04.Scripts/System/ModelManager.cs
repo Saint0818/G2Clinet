@@ -5,12 +5,11 @@ using System.Collections.Generic;
 public class ModelManager : MonoBehaviour {
 	private GameObject DefPointObject = null;
 	public static ModelManager Get;
-	private GameObject Res;
 	private GameObject PlayerModule = null; 
 	public GameObject PlayerInfoModel = null;
 	private const int avatartCount = 3;
 //	private string[] avatarPartName = new string[]{"Body", "Cloth", "Shoes"};
-	private GameObject bipGO;
+//	private GameObject bipGO;
 	public Dictionary<string, AnimationClip> AniData = new Dictionary<string, AnimationClip> ();
 
 	public static void Init(){
@@ -43,14 +42,11 @@ public class ModelManager : MonoBehaviour {
 	void Update () {
 	
 	}
-	public PlayerBehaviour CreatePlayer(bool IsNew, GameStruct.TPlayerAttribute attr, int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion){
-		if (!IsNew) {
-			Destroy (Res);
-			Destroy (bipGO);
-			bipGO = null;
+	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TPlayerAttribute Attr, int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion){
+		if (Player != null) {
+			Destroy (Player);
 		}
-//		Res = AddPlayer(2, 5, 2, 2, 6, 1, 1, 1);
-		Res = AddPlayer (attr);
+		GameObject Res = AddPlayer (Attr);
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
 		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
@@ -129,6 +125,8 @@ public class ModelManager : MonoBehaviour {
 		GameObject dummyBack = null;
 		GameObject headDressObj = null;
 		GameObject backEquipmentObj = null;
+
+		GameObject bipGO = null;
 		
 		Transform[] hips;
 		List<CombineInstance> combineInstances = new List<CombineInstance>();

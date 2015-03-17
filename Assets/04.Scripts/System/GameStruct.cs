@@ -18,12 +18,12 @@ public static class GameStruct
 		public TPlayerAttribute (int i)
 		{
 			Body = 2;
-			Hair = 5;
-			AHead = 2;
-			Cloth = 2;
+			Hair = 2;
+			AHead = 1;
+			Cloth = 5;
 			Pants = 6;
 			Shoes = 1;
-			MHeadDress = 1;
+			MHeadDress = 2;
 			ZBackEquip = 1;
 		}
 	}
