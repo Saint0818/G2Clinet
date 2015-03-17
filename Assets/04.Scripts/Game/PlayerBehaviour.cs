@@ -65,6 +65,7 @@ public static class ActionFlag{
 	public const int IsShoot = 8;
 	public const int IsCatcher = 9;
 	public const int IsDunk = 10;
+	public const int IsShootIdle = 11;
 }
 
 public struct TMoveData
@@ -97,7 +98,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -129,7 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float BasicMoveSpeed = 1f;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public float JumpHight = 800f;
+	public float JumpHight = 750f;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
@@ -243,7 +244,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
 	{
-		if (CanMove || stop) {
+		if (CanMove && !stop) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
 				if(!isJoystick)
@@ -576,7 +577,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
 		        {
 		            AddActionFlag(ActionFlag.IsShoot);
-					Control.SetBool("IsShoot", true);
+					DelActionFlag(ActionFlag.IsShootIdle);
+					Control.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 		            Control.SetBool(AnimatorStates[ActionFlag.IsShoot], true);
 		        }
 		        break;
@@ -656,6 +658,16 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool ("IsDunkInto", false);
 				DelActionFlag(ActionFlag.IsDunk);
 				break;
+			case "FakeShootStop":
+				Control.SetBool (AnimatorStates[ActionFlag.IsShootIdle], true);
+				AddActionFlag(ActionFlag.IsShootIdle);
+				DelActionFlag(ActionFlag.IsShoot);
+				DelActionFlag(ActionFlag.IsDribble);
+				DelActionFlag(ActionFlag.IsRun);
+				Control.SetBool (AnimatorStates[ActionFlag.IsShoot], false);
+				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
+				Control.SetBool (AnimatorStates[ActionFlag.IsRun], false);
+				break;
 		}
 	}
 
@@ -673,6 +685,7 @@ public class PlayerBehaviour : MonoBehaviour
 			    !CheckAction(ActionFlag.IsBlock) && 
 			    !CheckAction(ActionFlag.IsPass) && 
 			    !CheckAction(ActionFlag.IsShoot) &&
+			    !CheckAction(ActionFlag.IsShootIdle) &&
 			    !CheckAction(ActionFlag.IsCatcher))
 				return true;
 			else
