@@ -615,8 +615,12 @@ public class PlayerBehaviour : MonoBehaviour
 		        {
 		            AddActionFlag(ActionFlag.IsShoot);
 					DelActionFlag(ActionFlag.IsShootIdle);
+					DelActionFlag(ActionFlag.IsRun);
+					DelActionFlag(ActionFlag.IsDribble);
 					Control.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 		            Control.SetBool(AnimatorStates[ActionFlag.IsShoot], true);
+					Control.SetBool(AnimatorStates[ActionFlag.IsRun], false);
+					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 		        }
 		        break;
 			case PlayerState.Dunk:
@@ -639,12 +643,12 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsSteal], false);
 				break;
 			case "ShootDown":
-				DelActionFlag(ActionFlag.IsShoot);
-				DelActionFlag(ActionFlag.IsDribble);
-				DelActionFlag(ActionFlag.IsRun);
 				Control.SetBool (AnimatorStates[ActionFlag.IsShoot], false);
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
 				Control.SetBool (AnimatorStates[ActionFlag.IsRun], false);
+				DelActionFlag(ActionFlag.IsShoot);
+				DelActionFlag(ActionFlag.IsDribble);
+				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);
