@@ -680,6 +680,8 @@ public class GameController : MonoBehaviour {
 					data.LookTarget = SceneMgr.Get.Hood[0].transform;
 			}
 
+			if(!WatchBallOwner)
+				data.Speedup = true;
 			Npc.TargetPos = data;
 		}
 	}
@@ -705,7 +707,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private bool NpcAutoTee(PlayerBehaviour player){
+	private bool NpcAutoTee(PlayerBehaviour player, bool speedup){
 		TeamKind Team = TeamKind.Self;
 		if(situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking)
 			Team = TeamKind.Npc;
@@ -853,7 +855,7 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public bool DefMove(PlayerBehaviour player){
+	public bool DefMove(PlayerBehaviour player, bool speedup = false){
 		for(int i = 0 ; i < PlayerList.Count; i++){
 			if(player.Team != PlayerList[i].Team && player.Postion == PlayerList[i].Postion){
 				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
@@ -874,6 +876,8 @@ public class GameController : MonoBehaviour {
 									data2.LookTarget = BallOwner.transform;
 								else
 									data2.LookTarget = player.transform;
+
+								data2.Speedup = speedup;
 								Npc2.TargetPos = data2;
 							}
 						}else{
@@ -897,6 +901,8 @@ public class GameController : MonoBehaviour {
 										data2.LookTarget = BallOwner.transform;
 									else
 										data2.LookTarget = player.transform;
+
+									data2.Speedup = speedup;
 									Npc2.TargetPos = data2;
 								}
 							}else{

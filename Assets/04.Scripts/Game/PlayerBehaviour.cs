@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
+public delegate bool OnPlayerAction2(PlayerBehaviour player, bool speedup);
 public enum PlayerState
 {
     Idle = 0,
@@ -74,7 +75,7 @@ public struct TMoveData
 	public Transform LookTarget;
 	public Transform FollowTarget;
 	public PlayerBehaviour DefPlayer;
-	public OnPlayerAction MoveFinish;
+	public OnPlayerAction2 MoveFinish;
 	public bool Speedup;
 
 	public TMoveData(int flag){
@@ -408,7 +409,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 
 				if(Data.MoveFinish != null)
-					Data.MoveFinish(this);
+					Data.MoveFinish(this, Data.Speedup);
 
 				if(First)
 					FirstMoveQueue.Dequeue();
