@@ -9,7 +9,7 @@ public class PlayerPositionEdit : EditorWindow {
 	[MenuItem ("Player/PositionEdit")]
 	private static void PositionEdit()
 	{
-		EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 600, 900), true, "PlayerPositionEdit").Show();
+		EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 900), true, "PlayerPositionEdit").Show();
 	}
 	
 	private bool ControlPlayer1 = true;

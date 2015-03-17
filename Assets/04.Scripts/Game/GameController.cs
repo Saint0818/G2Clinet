@@ -22,9 +22,9 @@ public enum GameAction{
 }
 
 public enum GamePostion{
-	G = 0,
+	C = 0,
 	F = 1,
-	C = 2
+	G = 2
 }
 
 public enum GameTest{
@@ -177,6 +177,21 @@ public class GameController : MonoBehaviour {
 		PlayerList.RemoveAt (0);
 	}
 
+	private PlayerBehaviour FindDefMen(PlayerBehaviour npc){
+		PlayerBehaviour Result = null;
+
+		if (npc != null && PlayerList.Count > 1) {
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i] != npc && PlayerList[i].Team != npc.Team && PlayerList[i].Postion == npc.Postion){
+					Result = PlayerList[i];
+					break;
+				}
+			}
+		}
+
+		return Result;
+	}
+
 	public void CreateTeam(){
 		GameStruct.TPlayerAttribute attr = new GameStruct.TPlayerAttribute(1);
 		switch (TestMode) {
@@ -188,6 +203,9 @@ public class GameController : MonoBehaviour {
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G));	
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C));
+
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
 				break;
 			case GameTest.AttackA:
 				attr.Body = 2;
@@ -554,7 +572,7 @@ public class GameController : MonoBehaviour {
 					Shoot();
 				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(passRate < 5 && CoolDownPass == 0){
+				}else if(passRate < 0 && CoolDownPass == 0){
 					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
 					if(partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0){
@@ -620,7 +638,7 @@ public class GameController : MonoBehaviour {
 					if(!Npc.IsSteal){
 						if(Dis <= PushPlayerDis && pushRate < 50){
 							
-						}else if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+						}else if(Dis <= StealBallDis && stealRate < 0 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
 							Npc.CoolDownSteal = Time.time + 3;
 							Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
 //							if(stealRate < 5){
@@ -842,18 +860,49 @@ public class GameController : MonoBehaviour {
 					PlayerBehaviour Npc2 = PlayerList[i];
 					if(BallOwner != null){
 						float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
-					
-						if(dis > 19){// || !(player.IsBallOwner && Npc2.Postion == player.Postion
-							Npc2.ResetMove();
-							BackToDef(ref Npc2, Npc2.Team, true);
+						TMoveData data2 = new TMoveData(0);
+
+						if(player == BallOwner){
+							if(dis > 19 && Npc2.AutoFollow == false){// || !(player.IsBallOwner && Npc2.Postion == player.Postion
+								Npc2.ResetMove();
+								BackToDef(ref Npc2, Npc2.Team, true);
+								Npc2.SetAutoFollowTime();
+							}else{
+								data2.DefPlayer = player;
+
+								if(BallOwner != null)
+									data2.LookTarget = BallOwner.transform;
+								else
+									data2.LookTarget = player.transform;
+								Npc2.TargetPos = data2;
+							}
 						}else{
-							TMoveData data2 = new TMoveData(0);
-							data2.DefPlayer = player;	
-							if(BallOwner != null)
-								data2.LookTarget = BallOwner.transform;
+							float dis2;
+							if(Npc2.Team == TeamKind.Self)
+								dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[Npc2.Postion.GetHashCode()].x, -TeeBackPosAy[Npc2.Postion.GetHashCode()].y), 
+								                        new Vector2(Npc2.transform.position.x, Npc2.transform.position.z));
 							else
-								data2.LookTarget = player.transform;
-							Npc2.TargetPos = data2;
+								dis2 = Vector2.Distance(TeeBackPosAy[Npc2.Postion.GetHashCode()], 
+								                        new Vector2(Npc2.transform.position.x, Npc2.transform.position.z));
+		
+							if(dis2 <= ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance){
+								PlayerBehaviour p = HaveNearPlayer(Npc2, ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance, false, true);
+								if(p != null)
+									data2.DefPlayer = p;
+								else if(getDis(ref player, ref Npc2) <= ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance)
+									data2.DefPlayer = player;
+
+								if(data2.DefPlayer != null){
+									if(BallOwner != null)
+										data2.LookTarget = BallOwner.transform;
+									else
+										data2.LookTarget = player.transform;
+									Npc2.TargetPos = data2;
+								}
+							}else{
+								Npc2.ResetMove();
+								BackToDef(ref Npc2, Npc2.Team, true);
+							}
 						}
 					}else{
 						PickBall(ref Npc2);
@@ -1221,26 +1270,33 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 	
-	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam){
+	private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam, bool FindBallOwnerFirst = false){
 		PlayerBehaviour Result = null;
 		PlayerBehaviour Npc = null;
-		
+				
 		if (PlayerList.Count > 1) {
-			for(int i = 0 ; i < PlayerList.Count; i++){
+				for(int i = 0 ; i < PlayerList.Count; i++){
 				Npc = PlayerList[i];
 				
 				if(SameTeam){
 					if(PlayerList[i] != Self && PlayerList[i].Team == Self.Team && getDis(ref Self, ref Npc) <= Dis){
-                        Result = Npc;
-                        break;
-                    }
-                }else{
-                    if(PlayerList[i] != Self && PlayerList[i].Team != Self.Team && getDis(ref Self, ref Npc) <= Dis){
-                        Result = Npc;
-                        break;
-                    }
-                }
-            }
+						Result = Npc;
+						break;
+					}
+				}else{
+					if(FindBallOwnerFirst){
+						if(Npc != Self && Npc.Team != Self.Team && Npc == BallOwner && getDis(ref Self, ref Npc) <= Dis){
+							Result = Npc;
+							break;
+						}
+					}else{
+						if(Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis){
+							Result = Npc;
+							break;
+						}
+					}
+				}
+			}
         }
         
         return Result;
@@ -1289,6 +1345,7 @@ public class GameController : MonoBehaviour {
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
 			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
+			data.Speedup = ActionPosition.Speedup;
 			PlayerList[index].TargetPos = data;
 		}
 	}

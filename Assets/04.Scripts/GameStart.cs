@@ -56,6 +56,7 @@ public class GameStart : MonoBehaviour {
 		FacebookAPI.Init();
 		ModelManager.Init ();
 		SceneMgr.Get.ChangeLevel (3);
+		ParameterConst.Init ();
 	}
 
 	private void initResolution(){

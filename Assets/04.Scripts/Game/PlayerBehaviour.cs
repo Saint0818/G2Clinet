@@ -104,7 +104,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
 	private float canDunkDis = 30f;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
-	private int [] ProactiveAy = new int[10]{5, 10, 15, 20, 25, 30, 35, 40, 45, 50};
 	private float MoveMinSpeed = 0.5f;
 	private float dashSpeed = 0.8f;
 	private Vector2 drag = Vector2.zero;
@@ -135,7 +134,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
-	public int Proactive = 1;
 	public bool isJoystick = false;
 	public float DefSpeedup = 10;
 	public float DefSpeedNormal = 7;
@@ -143,6 +141,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public float BallOwnerSpeedNormal = 8;
 	public float AttackSpeedup = 10;
 	public float AttackSpeedNormal = 8;
+
+	public int AILevel = 1;
+	public float CloseDef = 0;
+	public PlayerBehaviour DefPlaeyr = null;
+	public bool AutoFollow = false;
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -209,7 +212,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (IsMove) {
 			if(Time.time >= MoveStartTime){
-				MoveStartTime = Time.time + 1;
+				MoveStartTime = Time.time + 0.5f;
 				GameController.Get.DefMove(this);
 			}		
 		}
@@ -218,6 +221,23 @@ public class PlayerBehaviour : MonoBehaviour
 			if(Time.time >= ProactiveTime){
 				ProactiveTime = Time.time + 4;
 				ProactiveRate = UnityEngine.Random.Range(0, 100) + 1;
+			}
+
+			if (AutoFollow) {
+				Vector3	ShootPoint;
+				if(Team == TeamKind.Self)
+					ShootPoint = SceneMgr.Get.ShootPoint[1].transform.position;		
+				else
+					ShootPoint = SceneMgr.Get.ShootPoint[0].transform.position;	
+
+				if(Vector3.Distance(ShootPoint, DefPlaeyr.transform.position) <= 12){
+					AutoFollow = false;
+				}					
+			}
+
+			if(CloseDef > 0 && Time.time >= CloseDef){
+				AutoFollow = true;
+				CloseDef = 0;
 			}
 		}
 	}
@@ -328,22 +348,22 @@ public class PlayerBehaviour : MonoBehaviour
 				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
 		
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
 				}else if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
 				}else if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
 				}else if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
 
-					if(ProactiveAy[Proactive] >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
 				}
 			}else if(Data.FollowTarget != null){
@@ -523,6 +543,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case PlayerState.Run:
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
+				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
 			case PlayerState.Dribble:
 				SetSpeed(0);
@@ -675,6 +696,12 @@ public class PlayerBehaviour : MonoBehaviour
 		MoveQueue.Clear ();
 		DelActionFlag (ActionFlag.IsRun);
 		WaitMoveTime = 0;
+	}
+
+	public void SetAutoFollowTime(){
+		if (CloseDef == 0 && AutoFollow == false) {
+			CloseDef = Time.time + ParameterConst.AIlevelAy[AILevel].AutoFollowTime;
+		}			
 	}
 
 	public bool CanMove
