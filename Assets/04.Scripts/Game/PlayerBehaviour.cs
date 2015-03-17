@@ -129,7 +129,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float BasicMoveSpeed = 1f;
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public float JumpHight = 750f;
+	public float JumpHight = 550f;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
 	public float fracJourney = 0;
@@ -264,7 +264,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
 	{
-		if (CanMove && !stop) {
+		if (CanMove || stop) {
 			if (Mathf.Abs (move.joystickAxis.y) > 0 || Mathf.Abs (move.joystickAxis.x) > 0)
 			{
 				if(!isJoystick)

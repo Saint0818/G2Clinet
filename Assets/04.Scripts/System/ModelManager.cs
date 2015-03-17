@@ -248,8 +248,11 @@ public class ModelManager : MonoBehaviour {
 		Rigidbody rig = result.GetComponent<Rigidbody> ();
 		if (rig == null)
 			rig = result.AddComponent<Rigidbody> ();
-		
 		rig.freezeRotation = true;
+
+		//Layer
+		result.tag = "Player";
+		result.layer = LayerMask.NameToLayer ("Player");
 		
 		return result;
 	}
