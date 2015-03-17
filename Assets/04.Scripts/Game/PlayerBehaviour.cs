@@ -462,9 +462,9 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.Run);
 
 					if(Data.Speedup)
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedup);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedup * BasicMoveSpeed);
 					else
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedNormal);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * DefSpeedNormal * BasicMoveSpeed);
 				}else{
 					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 
