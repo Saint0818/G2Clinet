@@ -287,10 +287,25 @@ public class PlayerBehaviour : MonoBehaviour
 				Vector3 rotation = new Vector3 (0, angle + a, 0);
 				transform.rotation = Quaternion.Euler (rotation);
 				
-				if(AnimationSpeed <= MoveMinSpeed)
-					Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed;
-				else
-					Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * dashSpeed * 10 * BasicMoveSpeed;
+				if(AnimationSpeed <= MoveMinSpeed){
+					if(IsBallOwner)
+						Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * BallOwnerSpeedNormal;
+					else{
+						if(IsDefence){
+							Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * DefSpeedNormal;
+						}else
+							Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * AttackSpeedNormal;
+					}						
+				}else{
+					if(IsBallOwner)
+						Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * BallOwnerSpeedup;
+					else{
+						if(IsDefence)
+							Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * DefSpeedup;
+						else
+							Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * AttackSpeedup;
+					}
+				}
 				
 				transform.Translate (Translate);	
 			}
