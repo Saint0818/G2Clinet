@@ -172,7 +172,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ChangePlayer(GameStruct.TAvatar attr, GameStruct.TAvatarTexture attrTexture) {
-		PlayerList.Add (ModelManager.Get.CreatePlayer (PlayerList[0].gameObject, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, false));
+		PlayerList.Add (ModelManager.Get.CreatePlayer (PlayerList[0].gameObject, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, false));
 		PlayerList.RemoveAt (0);
 	}
 
@@ -201,13 +201,13 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
 				
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));	
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G));	
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C));
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
@@ -221,15 +221,15 @@ public class GameController : MonoBehaviour {
 				attr.Shoes = 1;
 				attr.MHandDress = 2;
 				attr.ZBackEquip = 1;
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.Edit:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
 				break;
 		}
 
@@ -989,7 +989,6 @@ public class GameController : MonoBehaviour {
 					}
 				}
 
-				PlayerBehaviour oldp = BallOwner;
 				BallOwner = p;
 				SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				p.ClearIsCatcher();
@@ -1000,16 +999,6 @@ public class GameController : MonoBehaviour {
 						//ALLYOOP 
 					}else{
 						p.AniState (PlayerState.Dribble);
-						p.MoveKind = MoveType.PingPong;
-						if(oldp){
-							int ran = UnityEngine.Random.Range(0, 3);
-							if(ran == MoveType.PingPong.GetHashCode())
-								oldp.MoveKind = MoveType.PingPong;
-							else if(ran == MoveType.Cycle.GetHashCode())
-								oldp.MoveKind = MoveType.Cycle;
-							else if(ran == MoveType.Random.GetHashCode())
-								oldp.MoveKind = MoveType.Random;
-						}
 					}
 
 					for(int i = 0 ; i < PlayerList.Count; i++)
@@ -1077,74 +1066,6 @@ public class GameController : MonoBehaviour {
 
 	public void PlayerTouchPlayer(GameObject player) {
 		
-	}
-
-	private Vector2 SetMovePos(ref PlayerBehaviour Npc){
-		Vector2 Result = Vector2.zero;
-		int Index = 0;
-		switch(Npc.MoveKind){
-		case MoveType.PingPong:
-			//0=>1=>2=>3=>2=>1=>0
-			Npc.MoveIndex++;
-			if(Npc.MoveIndex >= (Npc.RunPosAy.Length * 2) - 2)
-				Npc.MoveIndex = 0;
-
-			if(Npc.MoveIndex >= Npc.RunPosAy.Length){
-				Index = (Npc.RunPosAy.Length - 1)* 2 - Npc.MoveIndex;
-				if(Npc.Team == TeamKind.Self)
-					Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-				else
-					Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			}else{
-				Index = Npc.MoveIndex;
-				if(Npc.Team == TeamKind.Self)
-					Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-				else
-					Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			}
-			break;
-		case MoveType.Cycle:
-			//0=>1=>2=>3=>0=>1=>2=>3
-			Npc.MoveIndex++;
-			if(Npc.MoveIndex >= Npc.RunPosAy.Length)
-				Npc.MoveIndex = 0;
-
-			Index = Npc.MoveIndex;
-			if(Npc.Team == TeamKind.Self)
-				Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-			else
-				Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			break;
-		case MoveType.Random:
-			Index = Random.Range(0, Npc.RunPosAy.Length);
-			if(Npc.Team == TeamKind.Self)
-				Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-			else
-				Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			break;
-		case MoveType.Once:
-			//0=>1=>2=>3
-			if(Npc.MoveIndex < Npc.RunPosAy.Length){
-				Npc.MoveIndex++;
-				Index = Npc.MoveIndex;
-				if(Npc.Team == TeamKind.Self)
-					Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-				else
-					Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			}else{
-				Index = Npc.RunPosAy.Length - 1;
-				if(Npc.Team == TeamKind.Self)
-					Result = new Vector2(Npc.RunPosAy[Index].x, Npc.RunPosAy[Index].y);
-				else
-					Result = new Vector2(Npc.RunPosAy[Index].x, -Npc.RunPosAy[Index].y);
-			}
-			break;
-		case MoveType.Idle:
-			Result = new Vector2(Npc.transform.localPosition.x, Npc.transform.localPosition.z);
-			break;
-		}
-
-		return Result;
 	}
 
 	private void GameResult(int team) {

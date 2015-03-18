@@ -129,7 +129,7 @@ public class ModelManager : MonoBehaviour {
 	}
 
 
-	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion, bool isUseRig = false){
+	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, bool isUseRig = true){
 		if (Player != null) {
 			Destroy (Player);
 		}
@@ -143,10 +143,8 @@ public class ModelManager : MonoBehaviour {
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
-		PB.MoveKind = MoveKind;
 		PB.MoveIndex = -1;
 		PB.Postion = Postion;
-		PB.RunPosAy = RunPosAy;
 		Res.name = Index.ToString();
 		DefPointCopy.name = "DefPoint";
 		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;

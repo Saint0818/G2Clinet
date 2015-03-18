@@ -37,14 +37,6 @@ public enum TeamKind{
 	Npc = 1
 }
 
-public enum MoveType{
-	PingPong = 0,
-	Cycle = 1,
-	Random = 2,
-	Once = 3,
-	Idle = 4
-}
-
 public enum DefPoint{
 	Front = 0,
 	Back = 1,
@@ -122,10 +114,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public GameSituation situation = GameSituation.None;
 	public PlayerState crtState = PlayerState.Idle;
-	public MoveType MoveKind = MoveType.PingPong;
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
-	public Vector2 [] RunPosAy;
 
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
