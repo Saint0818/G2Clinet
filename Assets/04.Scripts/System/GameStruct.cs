@@ -2,6 +2,14 @@
 using System.Collections;
 using System;
 
+public struct TAIlevel
+{
+	public int Level;
+	public int ProactiveRate;
+	public int AutoFollowTime;
+	public float DefDistance;
+}
+
 public static class GameStruct
 {
 	public struct TAvatar

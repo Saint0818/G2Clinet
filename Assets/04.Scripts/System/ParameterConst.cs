@@ -11,14 +11,6 @@ public enum Language
 	en = 1
 }
 
-public struct TAIlevel
-{
-	public int Level;
-	public int ProactiveRate;
-	public int AutoFollowTime;
-	public float DefDistance;
-}
-
 public static class URLConst {
 	public const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.nbaa";
 	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/BaskClub.apk";

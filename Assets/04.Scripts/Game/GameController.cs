@@ -49,8 +49,7 @@ public struct TActionPosition{
 
 public class GameController : MonoBehaviour {
 	private static GameController instance;
-
-	public GameTest TestMode = GameTest.None;
+	
 	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
@@ -194,7 +193,7 @@ public class GameController : MonoBehaviour {
 
 	public void CreateTeam(){
 		GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
-		switch (TestMode) {
+		switch (GameStart.Get.TestMode) {
 			case GameTest.None:
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
@@ -203,6 +202,9 @@ public class GameController : MonoBehaviour {
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));	
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
+
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
 				break;
 			case GameTest.AttackA:
 				attr.Body = 2;
@@ -256,7 +258,7 @@ public class GameController : MonoBehaviour {
 				if(Npc.isJoystick && Npc.Team == TeamKind.Self && Npc == Joysticker){
 					
 				}else{
-					if(TestMode != GameTest.None)
+					if(GameStart.Get.TestMode != GameTest.None)
 						return;
 					//AI
 					switch(situation){
@@ -1145,7 +1147,7 @@ public class GameController : MonoBehaviour {
     
     public void PlusScore(int team)
 	{
-		if (IsStart && TestMode == GameTest.None) {
+		if (IsStart && GameStart.Get.TestMode == GameTest.None) {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int score = 2;

@@ -8,6 +8,7 @@ public class GameStart : MonoBehaviour {
 
 	public static GameStart Get = null;
 	private UnibillDemo unibillDemo = null;
+	public GameTest TestMode = GameTest.None;
 
 	void Start(){
 		#if UNITY_EDITOR

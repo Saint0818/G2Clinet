@@ -212,7 +212,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-		if (IsMove) {
+		if (IsMove && !IsDefence) {
 			if(Time.time >= MoveStartTime){
 				MoveStartTime = Time.time + 0.5f;
 				GameController.Get.DefMove(this);
