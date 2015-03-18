@@ -20,6 +20,8 @@ ModelImporter:
     100024: DummyHoop
     100026: DummyNet
     100028: //RootNode
+    100030: BasketHoop001
+    100032: IK Chain
     400000: Backboard
     400002: BasketGlassA
     400004: BasketGlassB
@@ -35,11 +37,16 @@ ModelImporter:
     400024: DummyHoop
     400026: DummyNet
     400028: //RootNode
+    400030: BasketHoop001
+    400032: IK Chain
+    2300000: BasketHoop001
+    3300000: BasketHoop001
     4300000: BasketSupport
     4300002: Backboard
     4300004: BasketHoop
     4300006: BasketGlassA
     4300008: BasketGlassB
+    4300010: BasketHoop001
     7400000: Dunk_0
     9500000: //RootNode
     11100000: //RootNode
@@ -68,7 +75,7 @@ ModelImporter:
       name: Dunk_0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 40
+      lastFrame: 65
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -120,17 +127,17 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 1
+    importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
