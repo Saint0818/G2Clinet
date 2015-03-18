@@ -128,12 +128,21 @@ public class ModelManager : MonoBehaviour {
 		}
 	}
 
-
-	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, bool isUseRig = true){
-		if (Player != null) {
+	public PlayerBehaviour CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, Vector3 BornPos){
+		if (Player != null) 
 			Destroy (Player);
-		}
-		GameObject Res = SetAvatar (Attr, AttrTexture, isUseRig);
+
+		GameObject Res = SetAvatar (Attr, AttrTexture, false);
+		Res.transform.parent = PlayerInfoModel.transform;
+		Res.transform.localPosition = BornPos;
+
+		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
+		return PB;
+	}
+
+
+	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion){
+		GameObject Res = SetAvatar (Attr, AttrTexture, true);
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
 		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
@@ -155,7 +164,6 @@ public class ModelManager : MonoBehaviour {
 		PB.DefPointAy [DefPoint.BackSteal.GetHashCode()] = DefPointCopy.transform.Find ("BackSteal").gameObject.transform;
 		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
 		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
-
 
 		return PB;
 	}

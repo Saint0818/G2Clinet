@@ -66,10 +66,7 @@ public class GameController : MonoBehaviour {
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
 	private float ShootDis = 0;
-
-	private Vector2 [] BaseRunAy_A = new Vector2[4];
-	private Vector2 [] BaseRunAy_B = new Vector2[11];
-	private Vector2 [] BaseRunAy_C = new Vector2[11];
+	
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
 	private List<TTactical> MovePositionList = new List<TTactical>();
@@ -108,35 +105,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void InitPos(){
-		BaseRunAy_A [0] = new Vector2 (0, 4.5f);
-		BaseRunAy_A [1] = new Vector2 (4, 5.9f);
-		BaseRunAy_A [2] = new Vector2 (0, 8);
-		BaseRunAy_A [3] = new Vector2 (-4.9f, 6.2f);
-
-		BaseRunAy_B [0] = new Vector2 (5.3f, 10);//5.3, 10
-		BaseRunAy_B [1] = new Vector2 (1.8f, 13);//1.8, 13
-		BaseRunAy_B [2] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
-		BaseRunAy_B [3] = new Vector2 (5.3f, 13);//5.3, 13
-		BaseRunAy_B [4] = new Vector2 (3, 14);//3, 14
-		BaseRunAy_B [5] = new Vector2 (-5.3f, 10);//-5.3, 10
-		BaseRunAy_B [6] = new Vector2 (-1.8f, 13);//-1.8, 13
-		BaseRunAy_B [7] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
-		BaseRunAy_B [8] = new Vector2 (-5.3f, 13);//-5.3, 13
-		BaseRunAy_B [9] = new Vector2 (-5.3f, 10);//-5.3, 10
-		BaseRunAy_B [10] = new Vector2 (-2.6f, 13);//-2.6, 13
-
-		BaseRunAy_C [0] = new Vector2 (-5.3f, 10);//-5.3, 10
-		BaseRunAy_C [1] = new Vector2 (-1.8f, 13);//-1.8, 13
-		BaseRunAy_C [2] = new Vector2 (-1.8f, 8.9f);//-1.8, 8.9
-		BaseRunAy_C [3] = new Vector2 (-5.3f, 13);//-5.3, 13
-		BaseRunAy_C [4] = new Vector2 (-5.3f, 10);//-5.3, 10
-		BaseRunAy_C [5] = new Vector2 (-2.6f, 13);//-2.6, 13
-		BaseRunAy_C [6] = new Vector2 (5.3f, 10);//5.3, 10
-		BaseRunAy_C [7] = new Vector2 (1.8f, 13);//1.8, 13
-		BaseRunAy_C [8] = new Vector2 (1.8f, 8.9f);//1.8, 8.9
-		BaseRunAy_C [9] = new Vector2 (5.3f, 13);//5.3, 13
-		BaseRunAy_C [10] = new Vector2 (3, 14);//3, 14
-
 		TeePosAy [0] = new Vector2 (5.6f, -13);
 		TeePosAy [1] = new Vector2 (6, -19);
 		TeePosAy [2] = new Vector2 (4, 10);
@@ -172,7 +140,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void ChangePlayer(GameStruct.TAvatar attr, GameStruct.TAvatarTexture attrTexture) {
-		PlayerList.Add (ModelManager.Get.CreatePlayer (PlayerList[0].gameObject, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, false));
+		PlayerList.Add (ModelManager.Get.CreateStorePlayer (PlayerList[0].gameObject, attr, attrTexture, new Vector3(0, 0, 0)));
 		PlayerList.RemoveAt (0);
 	}
 
@@ -201,13 +169,13 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
-				
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G));	
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
+					
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G));	
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C));
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
@@ -221,25 +189,25 @@ public class GameController : MonoBehaviour {
 				attr.Shoes = 1;
 				attr.MHandDress = 2;
 				attr.ZBackEquip = 1;
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.Edit:
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
 				break;
 		}
 
 		Joysticker = PlayerList [0];
 		EffectManager.Get.SelectEffectScript.SetTarget(Joysticker.gameObject);
 
-		if(PlayerList[1].Team == Joysticker.Team)
+		if(PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team)
 			EffectManager.Get.SelectEffectScriptA.SetTarget(PlayerList[1].gameObject);
 
-		if(PlayerList[2].Team == Joysticker.Team)
+		if(PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team)
 			EffectManager.Get.SelectEffectScriptB.SetTarget(PlayerList[2].gameObject);
 
 		for (int i = 0; i < PlayerList.Count; i ++) {
@@ -701,13 +669,20 @@ public class GameController : MonoBehaviour {
 		if(Npc.Team == Team){
 			TMoveData data = new TMoveData(0);
 			if(!Npc.IsMove && Npc.WaitMoveTime == 0){
-				if(Team == TeamKind.Self)
-					data.Target = TeePosAy[Npc.Postion.GetHashCode()];
-				else
-					data.Target = new Vector2(-TeePosAy[Npc.Postion.GetHashCode()].x, -TeePosAy[Npc.Postion.GetHashCode()].y);
+				if(Npc.Postion == GamePostion.F){
+					if(Team == TeamKind.Self)
+						data.Target = new Vector2(Npc.transform.position.x, -19);
+					else
+						data.Target = new Vector2(Npc.transform.position.x, 19);
 
-				if(Npc.Postion == GamePostion.F)
 					data.MoveFinish = NpcAutoTee;
+				}else{
+					if(Team == TeamKind.Self)
+						data.Target = TeePosAy[Npc.Postion.GetHashCode()];
+					else
+						data.Target = new Vector2(-TeePosAy[Npc.Postion.GetHashCode()].x, -TeePosAy[Npc.Postion.GetHashCode()].y);
+				}
+					
 				Npc.TargetPos = data;
 			}
 			
