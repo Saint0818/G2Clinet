@@ -9,6 +9,7 @@ public class UIGame : UIBase {
 	public int[] Scores = {0, 0};
 	private bool IsUseKeyboard = false;
 	public GameObject Again;
+	public GameObject Start;
 	public GameJoystick Joystick = null;
 	private MovingJoystick Move = new MovingJoystick();
 
@@ -48,6 +49,7 @@ public class UIGame : UIBase {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 		Again = GameObject.Find (UIName + "/Again");
+		Start = GameObject.Find (UIName + "/Start");
 		scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
 		scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
 
@@ -61,6 +63,7 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "Defance/ButtonC", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/Again/AgainBt", ResetGame);
+		SetBtnFun (UIName + "/Start/StartBt", StartGame);
 		Again.SetActive (false);
 	}
 
@@ -68,6 +71,14 @@ public class UIGame : UIBase {
 		GameController.Get.Reset ();
 		InitData ();
 		Again.SetActive (false);
+	}
+
+	public void StartGame(){
+		Start.SetActive (false);
+
+		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
+		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
 	}
 
 	public void ChangeControl(bool IsAttack)

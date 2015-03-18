@@ -451,6 +451,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		no = 3;
 		CameraMgr.Get.SetTeamCamera(0);
 		RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+
+		RealBall.GetComponent<Rigidbody>().isKinematic = true;
+		RealBall.GetComponent<Rigidbody>().useGravity = false;
+
 		//------------------
 
 //		ChangeStadium(no, color);
