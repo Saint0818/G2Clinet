@@ -230,6 +230,12 @@ public class GameController : MonoBehaviour {
 		Joysticker = PlayerList [0];
 		EffectManager.Get.SelectEffectScript.SetTarget(Joysticker.gameObject);
 
+		if(PlayerList[1].Team == Joysticker.Team)
+			EffectManager.Get.SelectEffectScriptA.SetTarget(PlayerList[1].gameObject);
+
+		if(PlayerList[2].Team == Joysticker.Team)
+			EffectManager.Get.SelectEffectScriptB.SetTarget(PlayerList[2].gameObject);
+
 		for (int i = 0; i < PlayerList.Count; i ++) {
 			PlayerList[i].OnShoot = OnShoot;
 			PlayerList[i].OnPass = OnPass;

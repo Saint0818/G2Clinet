@@ -10,6 +10,8 @@ public class EffectManager : MonoBehaviour
 	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 	public FollowGameObject SelectEffectScript;
+	public FollowGameObject SelectEffectScriptA;
+	public FollowGameObject SelectEffectScriptB;
 
 	void Awake()
 	{
@@ -54,6 +56,12 @@ public class EffectManager : MonoBehaviour
 
 			GameObject SelectEffectobj = GameObject.Instantiate(LoadEffect("SelectEffect")) as GameObject;
 			SelectEffectScript = SelectEffectobj.GetComponent<FollowGameObject>();
+
+			GameObject SelectEffectobjA = GameObject.Instantiate(LoadEffect("SelectEffectA")) as GameObject;
+			SelectEffectScriptA = SelectEffectobjA.GetComponent<FollowGameObject>();
+
+			GameObject SelectEffectobjB = GameObject.Instantiate(LoadEffect("SelectEffectB")) as GameObject;
+			SelectEffectScriptB = SelectEffectobjB.GetComponent<FollowGameObject>();
 		}
 	}
 
