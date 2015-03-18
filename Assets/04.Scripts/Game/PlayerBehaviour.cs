@@ -106,7 +106,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private float canDunkDis = 30f;
 	private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 	private float MoveMinSpeed = 0.5f;
-	private float dashSpeed = 0.8f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
 	private bool JoystickEnd = false;
@@ -127,7 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
 	public Vector2 [] RunPosAy;
-	public float BasicMoveSpeed = 1f;
+
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
 	public float JumpHight = 550f;
@@ -136,6 +135,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public float fracJourney = 0;
 	public int MoveIndex = -1;
 	public bool isJoystick = false;
+	//Speed
+	public float BasicMoveSpeed = 1f;
 	public float DefSpeedup = 10;
 	public float DefSpeedNormal = 7;
 	public float BallOwnerSpeedup = 6;
@@ -289,21 +290,21 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				if(AnimationSpeed <= MoveMinSpeed){
 					if(IsBallOwner)
-						Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * BallOwnerSpeedNormal;
+						Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * BallOwnerSpeedNormal;
 					else{
 						if(IsDefence){
-							Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * DefSpeedNormal;
+							Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * DefSpeedNormal;
 						}else
-							Translate = Vector3.forward * Time.deltaTime * MoveMinSpeed * 10 * BasicMoveSpeed * AttackSpeedNormal;
+							Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * AttackSpeedNormal;
 					}						
 				}else{
 					if(IsBallOwner)
-						Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * BallOwnerSpeedup;
+						Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * BallOwnerSpeedup;
 					else{
 						if(IsDefence)
-							Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * DefSpeedup;
+							Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * DefSpeedup;
 						else
-							Translate = Vector3.forward * Time.deltaTime * AnimationSpeed * 10 * BasicMoveSpeed * AttackSpeedup;
+							Translate = Vector3.forward * Time.deltaTime * BasicMoveSpeed * AttackSpeedup;
 					}
 				}
 				
@@ -475,14 +476,14 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(IsBallOwner){
 						if(Data.Speedup)
-							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * BallOwnerSpeedup * BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime * BallOwnerSpeedup * BasicMoveSpeed);
 						else
-							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * BallOwnerSpeedNormal * BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime * BallOwnerSpeedNormal * BasicMoveSpeed);
 					}else{
 						if(Data.Speedup)
-							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * AttackSpeedup * BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime  * AttackSpeedup * BasicMoveSpeed);
 						else
-							transform.Translate (Vector3.forward * Time.deltaTime * MoveMinSpeed * AttackSpeedNormal * BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime  * AttackSpeedNormal * BasicMoveSpeed);
 					}
 				}
 			}		

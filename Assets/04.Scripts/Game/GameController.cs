@@ -671,7 +671,7 @@ public class GameController : MonoBehaviour {
 			else
 				data.Target = TeeBackPosAy[Npc.Postion.GetHashCode()];
 
-			if(BallOwner != null)//WatchBallOwner &&
+			if(BallOwner != null)
 				data.LookTarget = BallOwner.transform;
 			else{
 				if(Team == TeamKind.Self)
