@@ -276,17 +276,18 @@ public class ModelManager : MonoBehaviour {
 			}
 
 			Object resObj = Resources.Load (path);
-			if (i > 0 && !resObj) {
+			if (!resObj && avatarIndex [i] > -1) {
 				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
 				resObj = Resources.Load (path);
 			}
 
-			Material matObj = loadMaterial (materialPath);
-			Texture texture = loadTexture(avatarPartTexture[i]);
-			if(texture) {
-				matObj.SetTexture("_MainTex", texture);
-			}
 			if (resObj) {
+				Material matObj = loadMaterial (materialPath);
+				Texture texture = loadTexture(avatarPartTexture[i]);
+				if(texture) {
+					matObj.SetTexture("_MainTex", texture);
+				}
+
 				if (resObj != null) {
 					avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
