@@ -9,6 +9,13 @@ public class GameStart : MonoBehaviour {
 	public static GameStart Get = null;
 	private UnibillDemo unibillDemo = null;
 	public GameTest TestMode = GameTest.None;
+	public float BasicMoveSpeed = 1;
+	public float DefSpeedup = 10;
+	public float DefSpeedNormal = 7;
+	public float BallOwnerSpeedup = 6;
+	public float BallOwnerSpeedNormal = 8;
+	public float AttackSpeedup = 10;
+	public float AttackSpeedNormal = 8;
 
 	void Start(){
 		#if UNITY_EDITOR
