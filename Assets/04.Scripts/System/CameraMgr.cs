@@ -21,7 +21,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Vector3 cameraOffsetPos = Vector3.zero;
 	private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
 	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 6.625f)};
-	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-11f, 0, 1.63f), new Vector3(-27f, 0, -1.63f)};
+	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-11f, 0, 1.63f), new Vector3(-28f, 0, -1.63f)};
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;

@@ -129,7 +129,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public float WaitMoveTime = 0;
 	public float Invincible = 0;
-	public float JumpHight = 550f;
+	public float JumpHight = 450f;
 	public float CoolDownSteal = 0;
 	public float AirDrag = 0f;
 	public float fracJourney = 0;

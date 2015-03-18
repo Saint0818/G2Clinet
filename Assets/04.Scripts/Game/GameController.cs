@@ -175,42 +175,42 @@ public class GameController : MonoBehaviour {
 		PlayerList.Add (ModelManager.Get.CreatePlayer (PlayerList[0].gameObject, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, false));
 		PlayerList.RemoveAt (0);
 	}
+
+	private PlayerBehaviour FindDefMen(PlayerBehaviour npc){
+		PlayerBehaviour Result = null;
+		
+		if (npc != null && PlayerList.Count > 1) {
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i] != npc && PlayerList[i].Team != npc.Team && PlayerList[i].Postion == npc.Postion){
+					Result = PlayerList[i];
+					break;
+				}
+			}
+		}
+		
+		return Result;
+	}
+
 	public void ChangeTexture(GameStruct.TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
 
 	public void CreateTeam(){
 		GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
-<<<<<<< Updated upstream
-		switch (GameStart.Get.TestMode) {
-=======
-<<<<<<< HEAD
 		GameStruct.TAvatarTexture attrTexture = new GameStruct.TAvatarTexture (1);
-		switch (TestMode) {
-=======
-		switch (GameStart.Get.TestMode) {
->>>>>>> origin/master
->>>>>>> Stashed changes
+
+		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
 				
-<<<<<<< HEAD
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));	
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
 				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
-=======
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), BaseRunAy_A, MoveType.PingPong, GamePostion.G, true));	
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 4, TeamKind.Npc, new Vector3 (5, 0, 2), BaseRunAy_B, MoveType.PingPong, GamePostion.F, true));
-				PlayerList.Add (ModelManager.Get.CreatePlayer (null, attr, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), BaseRunAy_C, MoveType.PingPong, GamePostion.C, true));
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
 				break;
 			case GameTest.AttackA:
 				attr.Body = 2;
