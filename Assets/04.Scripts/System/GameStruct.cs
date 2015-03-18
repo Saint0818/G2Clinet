@@ -4,7 +4,7 @@ using System;
 
 public static class GameStruct
 {
-	public struct TPlayerAttribute
+	public struct TAvatar
 	{	
 		public int Body;
 		public int Hair;
@@ -12,10 +12,10 @@ public static class GameStruct
 		public int Cloth;
 		public int Pants;
 		public int Shoes;
-		public int MHeadDress;
+		public int MHandDress;
 		public int ZBackEquip;
 
-		public TPlayerAttribute (int i)
+		public TAvatar (int i)
 		{
 			Body = 2;
 			Hair = 2;
@@ -23,8 +23,9 @@ public static class GameStruct
 			Cloth = 5;
 			Pants = 6;
 			Shoes = 1;
-			MHeadDress = 2;
+			MHandDress = 2;
 			ZBackEquip = 1;
+
 		}
 	}
 }
