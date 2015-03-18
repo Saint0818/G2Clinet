@@ -11,7 +11,7 @@ public class ModelManager : MonoBehaviour {
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-	public Dictionary<string, AnimationClip> AniData = new Dictionary<string, AnimationClip> ();
+	private Dictionary<string, AnimationClip> AniData = new Dictionary<string, AnimationClip> ();
 
 	public static void Init(){
 		GameObject gobj = new GameObject(typeof(ModelManager).Name);
@@ -129,11 +129,11 @@ public class ModelManager : MonoBehaviour {
 	}
 
 
-	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TAvatar Attr, int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion, bool isUseRig = false){
+	public PlayerBehaviour CreatePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, Vector2 [] RunPosAy, MoveType MoveKind, GamePostion Postion, bool isUseRig = false){
 		if (Player != null) {
 			Destroy (Player);
 		}
-		GameObject Res = SetAvatar (Attr, isUseRig);
+		GameObject Res = SetAvatar (Attr, AttrTexture, isUseRig);
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
 		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
@@ -220,19 +220,19 @@ public class ModelManager : MonoBehaviour {
 	/// <summary>
 	/// c:Clothes, h:Hair, m:HandEquipment, p:Pants, s:Shoes, a:Headdress, z:BackbackEquipment
 	/// </summary>
-	public GameObject SetAvatar(GameStruct.TAvatar attr, bool isUseRig = false)
+	public GameObject SetAvatar(GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false)
 	{
 		string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
 		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
 		string[] avatarPartTexture = new string[] {
-			"2_B_0_0",
-			"2_C_5_0",
-			"2_H_2_0",
-			"2_M_2_0",
-			"2_P_6_0",
-			"2_S_1_0",
-			"2_A_1_0",
-			"2_Z_1_0"
+			AttrTexture.BTexture,
+			AttrTexture.CTexture,
+			AttrTexture.HTexture,
+			AttrTexture.MTexture,
+			AttrTexture.PTexture,
+			AttrTexture.STexture,
+			AttrTexture.ATexture,
+			AttrTexture.ZTexture
 		};
 		int[] avatarIndex = new int[] {
 			attr.Body,
@@ -260,41 +260,39 @@ public class ModelManager : MonoBehaviour {
 		
 		for (int i = 0; i < avatarIndex.Length; i++) {
 			string path = string.Empty;
-			string texturePath = string.Empty;
+			string texturePath = string.Format ("Chatacter/PlayerModel_{0}/Texture/{1}", attr.Body, avatarPartTexture [i]);
 			string materialPath = string.Format ("Character/Materials/Material_0");
+
 			if (i == 0) {
 				path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
-				texturePath = string.Format ("Chatacter/PlayerModel_{0}/Texture/{1}", attr.Body, avatarPartTexture [i]);
 			} else if (avatarIndex [i] > -1) {
 				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
-				texturePath = string.Format ("Chatacter/PlayerModel_{0}/Texture/{1}", attr.Body, avatarPartTexture [i]);
 			}
 
 			Object resObj = Resources.Load (path);
+			if (i > 0 && !resObj) {
+				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
+				resObj = Resources.Load (path);
+			}
+
 			Material matObj = loadMaterial (materialPath);
+			Texture texture = loadTexture(avatarPartTexture[i]);
+			if(texture) {
+				matObj.SetTexture("_MainTex", texture);
+			}
 			if (resObj) {
-				if (i > 0 && !resObj) {
-					path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
-					resObj = Resources.Load (path);
-				}
 				if (resObj != null) {
 					avatarPartGO [i] = Instantiate (resObj) as GameObject;
+
 					if (i == 0)
 						dummyBall = avatarPartGO [i].transform.FindChild ("DummyBall").gameObject;
 				}
-				
-				
 				if (i < 6) {
 					if (bipGO == null) {
 						bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
 						
 						if (bipGO)
 							bipGO.transform.parent = result.transform;
-					}
-					
-					Texture texture = loadTexture(avatarPartTexture[i]);
-					if(texture) {
-						matObj.SetTexture("_MainTex", texture);
 					}
 
 					hips = bipGO.GetComponentsInChildren<Transform> ();
@@ -337,7 +335,6 @@ public class ModelManager : MonoBehaviour {
 				}
 			}
 		}
-		
 		
 		if (dummyBall != null)
 			dummyBall.transform.parent = result.transform;

@@ -23,8 +23,7 @@ public static class GameStruct
 		public int MHandDress;
 		public int ZBackEquip;
 
-		public TAvatar (int i)
-		{
+		public TAvatar (int i){
 			Body = 2;
 			Hair = 2;
 			AHead = 1;
@@ -34,6 +33,28 @@ public static class GameStruct
 			MHandDress = 2;
 			ZBackEquip = 1;
 
+		}
+	}
+	public struct TAvatarTexture{
+		public string BTexture;
+		public string HTexture;
+		public string ATexture;
+		public string CTexture;
+		public string PTexture;
+		public string STexture;
+		public string MTexture;
+		public string ZTexture;
+
+		public TAvatarTexture(int i){
+			
+			BTexture = "2_B_0_0";
+			CTexture = "2_C_5_0";
+			HTexture = "2_H_2_0";
+			MTexture = "2_M_2_0";
+			PTexture = "2_P_6_0";
+			STexture = "2_S_1_0";
+			ATexture = "3_A_1_0";
+			ZTexture = "3_Z_1_0";
 		}
 	}
 }
