@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour {
 	private void InitPos(){
 		TeePosAy [0] = new Vector2 (5.6f, -13);
 		TeePosAy [1] = new Vector2 (6, -19);
-		TeePosAy [2] = new Vector2 (4, 10);
+		TeePosAy [2] = new Vector2 (-3.4f, -12);
 
 		TeeBackPosAy[0] = new Vector2 (0, 8);
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
@@ -836,7 +836,8 @@ public class GameController : MonoBehaviour {
 								data.LookTarget = BallOwner.transform;	
 							
 							data.MoveFinish = DefMove;
-							Npc.TargetPos = data;		
+							Npc.TargetPos = data;
+							DefMove(Npc);
 						}
 					}
 				}
@@ -848,67 +849,72 @@ public class GameController : MonoBehaviour {
 	}
 
 	public bool DefMove(PlayerBehaviour player, bool speedup = false){
-		for(int i = 0 ; i < PlayerList.Count; i++){
-			if(player.Team != PlayerList[i].Team && player.Postion == PlayerList[i].Postion){
-				if(!PlayerList[i].IsMove && PlayerList[i].WaitMoveTime == 0){
-					PlayerBehaviour Npc2 = PlayerList[i];
-					if(BallOwner != null){
-						float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
-						TMoveData data2 = new TMoveData(0);
+		if (player.DefPlaeyr != null) {
+			if(!player.DefPlaeyr.IsMove && player.DefPlaeyr.WaitMoveTime == 0){
+				TMoveData data2 = new TMoveData(0);
 
-						if(player == BallOwner){
-							if(dis > 19 && Npc2.AutoFollow == false){// || !(player.IsBallOwner && Npc2.Postion == player.Postion
-								Npc2.ResetMove();
-								BackToDef(ref Npc2, Npc2.Team, true);
-								Npc2.SetAutoFollowTime();
-							}else{
-								data2.DefPlayer = player;
+				if(BallOwner != null){
+					data2.DefPlayer = player;
+					
+//					if(BallOwner != null)
+//						data2.LookTarget = BallOwner.transform;
+//					else
+						data2.LookTarget = player.transform;
+					
+					data2.Speedup = speedup;
+					player.DefPlaeyr.TargetPos = data2;
 
-								if(BallOwner != null)
-									data2.LookTarget = BallOwner.transform;
-								else
-									data2.LookTarget = player.transform;
-
-								data2.Speedup = speedup;
-								Npc2.TargetPos = data2;
-							}
-						}else{
-							float dis2;
-							if(Npc2.Team == TeamKind.Self)
-								dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[Npc2.Postion.GetHashCode()].x, -TeeBackPosAy[Npc2.Postion.GetHashCode()].y), 
-								                        new Vector2(Npc2.transform.position.x, Npc2.transform.position.z));
-							else
-								dis2 = Vector2.Distance(TeeBackPosAy[Npc2.Postion.GetHashCode()], 
-								                        new Vector2(Npc2.transform.position.x, Npc2.transform.position.z));
-		
-							if(dis2 <= ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance){
-								PlayerBehaviour p = HaveNearPlayer(Npc2, ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance, false, true);
-								if(p != null)
-									data2.DefPlayer = p;
-								else if(getDis(ref player, ref Npc2) <= ParameterConst.AIlevelAy[Npc2.AILevel].DefDistance)
-									data2.DefPlayer = player;
-
-								if(data2.DefPlayer != null){
-									if(BallOwner != null)
-										data2.LookTarget = BallOwner.transform;
-									else
-										data2.LookTarget = player.transform;
-
-									data2.Speedup = speedup;
-									Npc2.TargetPos = data2;
-								}
-							}else{
-								Npc2.ResetMove();
-								BackToDef(ref Npc2, Npc2.Team, true);
-							}
-						}
-					}else{
-						PickBall(ref Npc2);
-					}
-					break;
+					//float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
+//					if(player == BallOwner){
+//						data2.DefPlayer = player;
+//						
+//						if(BallOwner != null)
+//							data2.LookTarget = BallOwner.transform;
+//						else
+//							data2.LookTarget = player.transform;
+//						
+//						data2.Speedup = speedup;
+//						player.DefPlaeyr.TargetPos = data2;
+//					}else{
+//						float dis2;
+//						if(player.DefPlaeyr.Team == TeamKind.Self)
+//							dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].x, -TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].y), 
+//							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+//						else
+//							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()], 
+//							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+//						
+//						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance){
+//							PlayerBehaviour p = HaveNearPlayer(player.DefPlaeyr, ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance, false, true);
+//							if(p != null)
+//								data2.DefPlayer = p;
+//							else if(getDis(ref player, ref player.DefPlaeyr) <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance)
+//								data2.DefPlayer = player;
+//							
+//							if(data2.DefPlayer != null){
+//								if(BallOwner != null)
+//									data2.LookTarget = BallOwner.transform;
+//								else
+//									data2.LookTarget = player.transform;
+//								
+//								data2.Speedup = speedup;
+//								player.DefPlaeyr.TargetPos = data2;
+//							}else{
+//								player.DefPlaeyr.ResetMove();
+//								BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+//							}
+//						}else{
+//							player.DefPlaeyr.ResetMove();
+//							BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+//						}
+//					}
+				}else{
+					player.DefPlaeyr.ResetMove();
+					PickBall(ref player.DefPlaeyr);
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -1090,12 +1096,15 @@ public class GameController : MonoBehaviour {
 
 	public void ChangeSituation(GameSituation GS){
 		if (situation != GameSituation.End) {
-			situation = GS;
+			if(situation != GS){
+				for(int i = 0; i < PlayerList.Count; i++){
+					PlayerList[i].ResetFlag();
+					PlayerList[i].situation = GS;
+				}	
 
-			for(int i = 0; i < PlayerList.Count; i++){
-				PlayerList[i].ResetFlag();
-				PlayerList[i].situation = GS;
-			}				
+			}
+
+			situation = GS;
 
 			switch(GS){
 			case GameSituation.Opening:

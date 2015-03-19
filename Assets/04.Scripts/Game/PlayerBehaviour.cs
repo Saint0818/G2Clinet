@@ -194,12 +194,12 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-		if (IsMove && !IsDefence) {
-			if(Time.time >= MoveStartTime){
-				MoveStartTime = Time.time + 0.5f;
-				GameController.Get.DefMove(this);
-			}		
-		}
+//		if (!IsDefence) {//&& situation != GameSituation.Opening !IsDefence
+//			if(Time.time >= MoveStartTime){
+//				MoveStartTime = Time.time + 0.5f;
+//				GameController.Get.DefMove(this);
+//			}		
+//		}
 
 		if (IsDefence) {
 			if(Time.time >= ProactiveTime){
@@ -344,22 +344,22 @@ public class PlayerBehaviour : MonoBehaviour
 				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
 		
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
 				}else if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
 				}else if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
 				}else if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 7)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
 				}
 			}else if(Data.FollowTarget != null){
@@ -508,6 +508,7 @@ public class PlayerBehaviour : MonoBehaviour
 		MoveQueue.Clear ();
 		FirstMoveQueue.Clear ();
 		NoAiTime = 0;
+		WaitMoveTime = 0;
 		isJoystick = false;
 	}
 
