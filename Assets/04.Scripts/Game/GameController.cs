@@ -169,13 +169,13 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
 					
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G));	
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));	
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
@@ -189,15 +189,15 @@ public class GameController : MonoBehaviour {
 				attr.Shoes = 1;
 				attr.MHandDress = 2;
 				attr.ZBackEquip = 1;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
 			case GameTest.AttackB:
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
 			case GameTest.Edit:
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
 				break;
 		}
 

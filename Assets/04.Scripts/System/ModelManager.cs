@@ -143,7 +143,7 @@ public class ModelManager : MonoBehaviour {
 	}
 
 
-	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion){
+	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0){
 		GameObject Res = SetAvatar (Attr, AttrTexture, true);
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
@@ -156,6 +156,7 @@ public class ModelManager : MonoBehaviour {
 		PB.Team = Team;
 		PB.MoveIndex = -1;
 		PB.Postion = Postion;
+		PB.AILevel = AILevel;
 		Res.name = Index.ToString();
 		DefPointCopy.name = "DefPoint";
 		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
