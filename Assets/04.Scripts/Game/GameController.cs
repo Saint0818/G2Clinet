@@ -127,8 +127,14 @@ public class GameController : MonoBehaviour {
 					GameFunction.GetJsonData(filedata, ref saveData);
 					MovePositionList.Add(saveData);
 				}
+
+				Debug.LogError("File" + MovePositionList.Count);
+			}else{
+				Debug.LogError("No File");
 			}
-		}catch{}
+		}catch (System.Exception e){
+			Debug.LogError(e);
+		}
 	}
 
 	public void InitGame(){
