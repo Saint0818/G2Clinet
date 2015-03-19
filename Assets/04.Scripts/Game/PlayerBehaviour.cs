@@ -102,7 +102,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private float MoveMinSpeed = 0.5f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
-	private bool JoystickEnd = false;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
 	private float NoAiTime = 0;
@@ -229,7 +228,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void SetNoAiTime(){
 		isJoystick = true;
-		JoystickEnd = false;
 		NoAiTime = Time.time + ChangeToAI;
 	}
 	
@@ -259,7 +257,6 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsRun);
 
 				isJoystick = true;
-				JoystickEnd = false;
 				NoAiTime = Time.time + ChangeToAI;
 				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
 				float AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
@@ -298,7 +295,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
 	{
-		JoystickEnd = true;
 		AniState(ps);
 	}
 	
@@ -693,14 +689,16 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsDunk);
 				break;
 			case "FakeShootStop":
-				Control.SetBool (AnimatorStates[ActionFlag.IsShootIdle], true);
-				AddActionFlag(ActionFlag.IsShootIdle);
 				DelActionFlag(ActionFlag.IsShoot);
-				DelActionFlag(ActionFlag.IsDribble);
-				DelActionFlag(ActionFlag.IsRun);
 				Control.SetBool (AnimatorStates[ActionFlag.IsShoot], false);
+				AddActionFlag(ActionFlag.IsShootIdle);
+				Control.SetBool (AnimatorStates[ActionFlag.IsShootIdle], true);
+				DelActionFlag(ActionFlag.IsDribble);
 				Control.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
+				DelActionFlag(ActionFlag.IsRun);
 				Control.SetBool (AnimatorStates[ActionFlag.IsRun], false);
+				DelActionFlag(ActionFlag.IsFakeShoot);
+				Control.SetBool (AnimatorStates[ActionFlag.IsFakeShoot], false);
 				break;
 		}
 	}

@@ -5,6 +5,8 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
+	public float ButtonBTime = 0.05f;
+
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 	private bool IsUseKeyboard = false;
@@ -15,6 +17,8 @@ public class UIGame : UIBase {
 
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private UILabel[] scoresLabel = new UILabel[2];
+	private float shootBtnTime = 0;
+	private bool shootBtnIsPress = false;
 	
 	public static bool Visible
 	{
@@ -56,13 +60,9 @@ public class UIGame : UIBase {
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
 
-		UIEventListener.Get(GameObject.Find (UIName + "Attack/ButtonB")).onPress = GameController.Get.DoShoot;
-
-
-//				GameController.Get.DoShoot;
+		UIEventListener.Get (GameObject.Find (UIName + "Attack/ButtonB")).onPress = DoShoot;
 
 		SetBtnFun (UIName + "Attack/ButtonA", GameController.Get.DoPass);
-//		SetBtnFun (UIName + "Attack/ButtonB", GameController.Get.DoShoot);
 		SetBtnFun (UIName + "Attack/ButtonC", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "Defance/ButtonA", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
@@ -70,6 +70,21 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/Again/AgainBt", ResetGame);
 		SetBtnFun (UIName + "/Start/StartBt", StartGame);
 		Again.SetActive (false);
+	}
+
+	public void DoShoot(GameObject go, bool state)
+	{
+		shootBtnIsPress = state;
+		if (state)
+			shootBtnTime += Time.deltaTime;
+		else {
+			if(Time.deltaTime - shootBtnTime > ButtonBTime)
+				GameController.Get.DoShoot(true);	
+			else
+				GameController.Get.DoShoot(false);
+
+			shootBtnTime = 0;
+		}	
 	}
 
 	public void ResetGame(){
@@ -113,6 +128,17 @@ public class UIGame : UIBase {
 
 	void Update()
 	{
+		if (shootBtnIsPress) {
+			shootBtnTime += Time.deltaTime;
+			Debug.Log("shootBtnTime : " + shootBtnTime);
+			if(shootBtnTime > 0.5f)
+			{
+				GameController.Get.DoShoot(true);
+				shootBtnTime = 0;
+				shootBtnIsPress = false;
+			}
+		}
+
 		if (Input.GetKey(KeyCode.W)) {
 			IsUseKeyboard = true;
 			Move.joystickAxis.y = 1;
