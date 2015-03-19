@@ -116,7 +116,8 @@ public class GameController : MonoBehaviour {
 
 		try{
 			string myPath = "Assets/Resources/Run";
-			DirectoryInfo dir = new DirectoryInfo(myPath);//Application.dataPath + "/Resources/Run"
+
+			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");//Application.dataPath + "/Resources/Run"
 			FileInfo[] info = dir.GetFiles("*.gangrun");
 			if(info.Length > 0){
 				MovePositionList.Clear();
