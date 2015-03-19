@@ -151,15 +151,22 @@ ModelImporter:
       curves: []
       events:
       - time: .197898433
-        functionName: NewEvent
-        data: 
+        functionName: AnimationEvent
+        data: BlockJump
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .450804114
+        functionName: AnimationEvent
+        data: Blocking
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: .800350249
-        functionName: NewEvent
-        data: 
+        functionName: AnimationEvent
+        data: BlockEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -560,6 +560,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Defence:
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], false);
+				DelActionFlag(ActionFlag.IsRun);
 				SetSpeed(0);
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
@@ -588,8 +589,7 @@ public class PlayerBehaviour : MonoBehaviour
 	                    
 	                    if (OnBlock != null)
 	                        OnBlock(this);
-	                }
-	                
+	                }  
 	                break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
@@ -639,6 +639,9 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsShoot);
 				DelActionFlag(ActionFlag.IsDribble);
 				DelActionFlag(ActionFlag.IsRun);
+				break;
+			case "BlockJump":
+				gameObject.GetComponent<Rigidbody>().AddForce (JumpHight * transform.up + gameObject.GetComponent<Rigidbody>().velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);
