@@ -199,7 +199,7 @@ public class AvatarEditor :  EditorWindow{
 							attrTexture.STexture = showBodyTexture[0].name;
 						}
 					} else if(name[1].Equals("A")){
-						attr.AHead = int.Parse(name[2]);
+						attr.AHeadDress = int.Parse(name[2]);
 						if(showBodyTexture.Count > 0) {
 							attrTexture.ATexture = showBodyTexture[0].name;
 						}

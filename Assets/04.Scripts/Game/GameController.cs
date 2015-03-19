@@ -183,7 +183,7 @@ public class GameController : MonoBehaviour {
 			case GameTest.AttackA:
 				attr.Body = 2;
 				attr.Hair = 2;
-				attr.AHead = 1;
+				attr.AHeadDress = 1;
 				attr.Cloth = 5;
 				attr.Pants = 6;
 				attr.Shoes = 1;

@@ -16,7 +16,7 @@ public static class GameStruct
 	{	
 		public int Body;
 		public int Hair;
-		public int AHead;
+		public int AHeadDress;
 		public int Cloth;
 		public int Pants;
 		public int Shoes;
@@ -26,12 +26,12 @@ public static class GameStruct
 		public TAvatar (int i){
 			Body = 2;
 			Hair = 2;
-			AHead = 1;
 			Cloth = 5;
 			Pants = 6;
 			Shoes = 1;
 			MHandDress = 2;
-			ZBackEquip = 1;
+			AHeadDress = 0;
+			ZBackEquip = 0;
 
 		}
 	}

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ModelManager : MonoBehaviour {
+	private const int DRESS_NONE = 0;
+
 	private GameObject DefPointObject = null;
 	public static ModelManager Get;
 	public GameObject PlayerInfoModel = null;
@@ -247,7 +249,7 @@ public class ModelManager : MonoBehaviour {
 			attr.MHandDress,
 			attr.Pants,
 			attr.Shoes,
-			attr.AHead,
+			attr.AHeadDress,
 			attr.ZBackEquip
 		};
 		GameObject[] avatarPartGO = new GameObject[avatarIndex.Length];
@@ -271,12 +273,13 @@ public class ModelManager : MonoBehaviour {
 
 			if (i == 0) {
 				path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
-			} else if (avatarIndex [i] > -1) {
+			} else if (avatarIndex [i] > DRESS_NONE) {
 				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
 			}
 
 			Object resObj = Resources.Load (path);
-			if (!resObj && avatarIndex [i] > -1) {
+			if (!resObj && avatarIndex [i] > DRESS_NONE) {
+				//it maybe A or F
 				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
 				resObj = Resources.Load (path);
 			}
