@@ -29,7 +29,8 @@ public enum PlayerState
 	Shooting = 25,
 	Catcher = 26,
 	DunkBasket = 27,
-	RunningDefence = 28
+	RunningDefence = 28,
+	FakeShoot = 29
 }
 
 public enum TeamKind{
@@ -59,6 +60,7 @@ public static class ActionFlag{
 	public const int IsCatcher = 9;
 	public const int IsDunk = 10;
 	public const int IsShootIdle = 11;
+	public const int IsFakeShoot = 12;
 }
 
 public struct TMoveData
@@ -91,7 +93,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle", "IsFakeShoot"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -605,6 +607,15 @@ public class PlayerBehaviour : MonoBehaviour
 					Control.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 		        }
 		        break;
+			case PlayerState.FakeShoot:
+				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
+				{
+					AddActionFlag(ActionFlag.IsFakeShoot);
+					AddActionFlag(ActionFlag.IsShoot);
+					Control.SetBool(AnimatorStates[ActionFlag.IsShoot], true);
+					Control.SetBool(AnimatorStates[ActionFlag.IsFakeShoot], true);
+				}
+				break;
 			case PlayerState.Dunk:
 				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
 		   			Vector3.Distance (SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < canDunkDis)

@@ -61,7 +61,8 @@ public class GameController : MonoBehaviour {
 	private PlayerBehaviour Joysticker;
 	public PlayerBehaviour Catcher;
 	public PlayerBehaviour Shooter;
-
+	private bool isPressShoot = false;  
+	private float shootBtnTime = 0;
 	private GameSituation situation = GameSituation.None;
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
@@ -189,8 +190,8 @@ public class GameController : MonoBehaviour {
 				attr.MHandDress = 2;
 				attr.AHeadDress = 0;
 				attr.ZBackEquip = 0;
-				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
-//				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+//				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
@@ -382,12 +383,15 @@ public class GameController : MonoBehaviour {
 			return false;
 	}
 
-	public void DoShoot()
+	public void DoShoot(bool isshoot)
 	{
+		Joysticker.SetNoAiTime();	
 		if (IsStart && Joysticker && Joysticker == BallOwner) {
-			Shoot();
-			Joysticker.SetNoAiTime();		
-		}			
+			if (isshoot)
+				Shoot ();
+			else
+				Joysticker.AniState (PlayerState.FakeShoot);
+		}
     }
     
     private void Pass(PlayerBehaviour player) {
@@ -433,9 +437,10 @@ public class GameController : MonoBehaviour {
 	public void DoSteal()
 	{
 		if (IsStart && BallOwner && BallOwner != Joysticker) {
-			BallOwner.AniState (PlayerState.Steal, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+			Joysticker.AniState (PlayerState.Steal, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 			Joysticker.SetNoAiTime ();		
-		}			
+		} else
+			Joysticker.AniState (PlayerState.Steal);
 	}
 
     private void Block(PlayerBehaviour player) {

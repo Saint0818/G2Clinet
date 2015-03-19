@@ -56,8 +56,13 @@ public class UIGame : UIBase {
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
 
+		UIEventListener.Get(GameObject.Find (UIName + "Attack/ButtonB")).onPress = GameController.Get.DoShoot;
+
+
+//				GameController.Get.DoShoot;
+
 		SetBtnFun (UIName + "Attack/ButtonA", GameController.Get.DoPass);
-		SetBtnFun (UIName + "Attack/ButtonB", GameController.Get.DoShoot);
+//		SetBtnFun (UIName + "Attack/ButtonB", GameController.Get.DoShoot);
 		SetBtnFun (UIName + "Attack/ButtonC", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "Defance/ButtonA", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
