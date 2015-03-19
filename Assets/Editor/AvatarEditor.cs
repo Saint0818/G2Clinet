@@ -186,14 +186,16 @@ public class AvatarEditor :  EditorWindow{
 
 		//Random
 		if(GUI.Button(new Rect(0, 350, 100, 50), "Random")){
-//			attr.Body
-//			attr.Hair = UnityEngine.Random.Range(2,3);
-//			attr.AHeadDress = UnityEngine.Random.Range(1,2);
-//			attr.Cloth = UnityEngine.Random.Range(5,6);
-//			attr.Pants = UnityEngine.Random.Range(6,7);
-//			attr.Shoes = UnityEngine.Random.Range(1,2);
-//			attr.MHandDress = UnityEngine.Random.Range(2,3);
-//			attr.ZBackEquip = UnityEngine.Random.Range(1,2);
+			
+			attr.Cloth = UnityEngine.Random.Range(5,7);
+			attr.Hair = UnityEngine.Random.Range(2,4);
+			attr.MHandDress = UnityEngine.Random.Range(2,4);
+			attr.Pants = UnityEngine.Random.Range(6,8);
+			attr.Shoes = UnityEngine.Random.Range(0,3);
+			attr.AHeadDress = UnityEngine.Random.Range(0,3);
+			attr.ZBackEquip = UnityEngine.Random.Range(0,3);
+			
+			GameController.Get.ChangePlayer(attr, attrTexture);
 
 			judgeBodyTextureName("B", UnityEngine.Random.Range(1,3).ToString());
 			int numB = UnityEngine.Random.Range(0,2);
@@ -201,58 +203,50 @@ public class AvatarEditor :  EditorWindow{
 			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "B"), 0, numB); 
 			attrTexture.BTexture = BTexName;
 
-			judgeBodyName("C");
-			attr.Cloth = UnityEngine.Random.Range(5,7);
-			judgeBodyTextureName("C", attr.Hair.ToString());
-			int numC = UnityEngine.Random.Range(0,2);
-			string CTexName = string.Format("{0}_{1}_{2}_{3}", 2, "C", attr.Cloth, numC);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "C"), attr.Cloth, numC); 
-			
-			judgeBodyName("H");
-			attr.Hair = UnityEngine.Random.Range(2,4);
+			judgeBodyTextureName("C", attr.Cloth.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numC = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "C"), attr.Cloth, numC); 
+			}
+
 			judgeBodyTextureName("H", attr.Hair.ToString());
-			int numH = UnityEngine.Random.Range(0,2);
-			string HTexName = string.Format("{0}_{1}_{2}_{3}", 2, "H", attr.Hair, numH);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "H"), attr.Hair, numH); 
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numH = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "H"), attr.Hair, numH); 
+			}
 
-			judgeBodyName("M");
-			attr.MHandDress = UnityEngine.Random.Range(2,4);
-			judgeBodyTextureName("M", attr.Hair.ToString());
-			int numM = UnityEngine.Random.Range(0,2);
-			string MTexName = string.Format("{0}_{1}_{2}_{3}", 2, "M", attr.MHandDress, numM);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "M"), attr.MHandDress, numM); 
-			
-			judgeBodyName("P");
-			attr.Pants = UnityEngine.Random.Range(6,8);
-			judgeBodyTextureName("P", attr.Hair.ToString());
-			int numP = UnityEngine.Random.Range(0,2);
-			string PTexName = string.Format("{0}_{1}_{2}_{3}", 2, "P", attr.Pants, numP);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "P"), attr.Pants, numP); 
-			
-			judgeBodyName("S");
-			attr.Pants = UnityEngine.Random.Range(1,3);
-			judgeBodyTextureName("S", attr.Hair.ToString());
-			int numS = UnityEngine.Random.Range(0,2);
-			string STexName = string.Format("{0}_{1}_{2}_{3}", 2, "S", attr.Pants, numS);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "S"), attr.Pants, numS); 
-			
-//			judgeBodyName("A");
-//			attr.AHeadDress = UnityEngine.Random.Range(1,3);
-//			judgeBodyTextureName("A", attr.Hair.ToString());
-//			int numA = UnityEngine.Random.Range(0,2);
-//			string ATexName = string.Format("{0}_{1}_{2}_{3}", 2, "A", attr.AHeadDress, numA);
-//			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "A"), attr.AHeadDress, numA); 
-//			
-//			judgeBodyName("Z");
-//			attr.ZBackEquip = UnityEngine.Random.Range(1,3);
-//			judgeBodyTextureName("Z", attr.Hair.ToString());
-//			int numZ = UnityEngine.Random.Range(0,2);
-//			string ZTexName = string.Format("{0}_{1}_{2}_{3}", 2, "Z", attr.ZBackEquip, numZ);
-//			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "Z"), attr.ZBackEquip, numZ); 
+			judgeBodyTextureName("M", attr.MHandDress.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numM = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "M"), attr.MHandDress, numM); 
+			}
+
+			judgeBodyTextureName("P", attr.Pants.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numP = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "P"), attr.Pants, numP); 
+			}
+
+			judgeBodyTextureName("S", attr.Pants.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numS = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "S"), attr.Pants, numS);
+			}
+
+			judgeBodyTextureName("A", attr.AHeadDress.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numA = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "A"), attr.AHeadDress, numA); 
+			}
+
+			judgeBodyTextureName("Z", attr.ZBackEquip.ToString());
+			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
+				int numZ = UnityEngine.Random.Range(0,2);
+				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "Z"), attr.ZBackEquip, numZ); 
+			}
 
 
 
-			GameController.Get.ChangePlayer(attr, attrTexture);
 		}
 
 	}

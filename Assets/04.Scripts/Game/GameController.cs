@@ -180,6 +180,15 @@ public class GameController : MonoBehaviour {
 	public void ChangeTexture(GameStruct.TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
+	private void randomAvatar(ref GameStruct.TAvatar attr) {
+		attr.Cloth = UnityEngine.Random.Range(5,7);
+		attr.Hair = UnityEngine.Random.Range(2,4);
+		attr.MHandDress = UnityEngine.Random.Range(2,4);
+		attr.Pants = UnityEngine.Random.Range(6,8);
+		attr.Shoes = UnityEngine.Random.Range(0,3);
+		attr.AHeadDress = UnityEngine.Random.Range(0,3);
+		attr.ZBackEquip = UnityEngine.Random.Range(0,3);
+	}
 	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
 		string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, Random.Range(0,2));
 		attrTexture.BTexture = BTexName;
@@ -197,7 +206,6 @@ public class GameController : MonoBehaviour {
 		attrTexture.ATexture = ATexName;
 		string ZTexName = string.Format("{0}_{1}_{2}_{3}", 3, "Z", attr.ZBackEquip, Random.Range(0,2));
 		attrTexture.ZTexture = ZTexName;
-
 	}
 	private void redAvatarTexture(ref GameStruct.TAvatarTexture attrTexture){
 		attrTexture.BTexture = "2_B_0_1";
@@ -216,14 +224,20 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
-
+			
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
 				redAvatarTexture(ref attrTexture);
