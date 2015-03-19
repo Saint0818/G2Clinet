@@ -15,6 +15,8 @@ public class PlayerPositionEdit : EditorWindow {
 	private bool ControlPlayer1 = true;
 	private bool ControlPlayer2 = false;
 	private bool ControlPlayer3 = false;
+	private int DataCount = 0;
+	private int EditIndex = -1;
 	private int PositionCount1 = 0;
 	private int PositionCount2 = 0;
 	private int PositionCount3 = 0;
@@ -25,21 +27,28 @@ public class PlayerPositionEdit : EditorWindow {
 	private TActionPosition [] PosAy2 = new TActionPosition[0];
 	private TActionPosition [] PosAy3 = new TActionPosition[0];		
 	private string[] ArrayString = new string[0];
+	private TTactical[] TacticalData = new TTactical[0];
+
+	private void ResetArray(int newSize){
+		if (TacticalData.Length < newSize) {
+			TTactical[] temp = new TTactical[newSize];
+			if(TacticalData.Length > 0)
+				TacticalData.CopyTo(temp, 0);
+			TacticalData = temp;	
+		}
+	}
+
 
 	void OnGUI()
 	{
 		EditorGUILayout.BeginHorizontal();
 		if (GUILayout.Button ("Get File", GUILayout.Width (200))) {
-			DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
-			FileInfo[] info = dir.GetFiles("*.txt");
-			if(info.Length > 0){
-				ArrayString = new string[info.Length];
-				int i = 0;
-				foreach (FileInfo f in info){
-					string[] strChars = f.Name.Split(new char[] {'.'});
-					ArrayString[i] = strChars[0];
-					i++;
-				}
+			string filedata = StringRead(Application.dataPath + "/Resources/Run/TacticalData.txt");
+			GetJsonData(filedata, ref TacticalData);
+			DataCount = TacticalData.Length;
+			ArrayString = new string[TacticalData.Length];
+			for(int i = 0; i < TacticalData.Length; i++){
+				ArrayString[i] = TacticalData[i].FileName;
 			}
 		}
 
@@ -51,38 +60,41 @@ public class PlayerPositionEdit : EditorWindow {
 
 			if (GUILayout.Button ("Load File", GUILayout.Width (200))) {
 				if(_oldIdx >= 0 && _oldIdx < ArrayString.Length){
-					string filedata = StringRead(Application.persistentDataPath + "/" + ArrayString[_oldIdx] + ".txt");
-					TTactical saveData2 = new TTactical();
-					GetJsonData(filedata, ref saveData2); 
-
-					PositionCount1 = saveData2.PosAy1.Length;
+					PositionCount1 = TacticalData[_oldIdx].PosAy1.Length;
 					PosAy1 = new TActionPosition[PositionCount1];
-					PosAy1 = saveData2.PosAy1;
-					PositionCount2 = saveData2.PosAy2.Length;
+					PosAy1 = TacticalData[_oldIdx].PosAy1;
+					PositionCount2 = TacticalData[_oldIdx].PosAy2.Length;
 					PosAy2 = new TActionPosition[PositionCount2];
-					PosAy2 = saveData2.PosAy2;
-					PositionCount3 = saveData2.PosAy3.Length;
+					PosAy2 = TacticalData[_oldIdx].PosAy2;
+					PositionCount3 = TacticalData[_oldIdx].PosAy3.Length;
 					PosAy3 = new TActionPosition[PositionCount3];
-					PosAy3 = saveData2.PosAy3;
+					PosAy3 = TacticalData[_oldIdx].PosAy3;
 					FileName = ArrayString[_oldIdx];
+					EditIndex = _oldIdx;
 				}
 			}
 		}
 		EditorGUILayout.EndHorizontal();
 			
-
+		DataCount = EditorGUILayout.IntField("DataCount", DataCount);
 		PositionCount1 = EditorGUILayout.IntField("Position Count_1", PositionCount1);	
 		PositionCount2 = EditorGUILayout.IntField("Position Count_2", PositionCount2);	
 		PositionCount3 = EditorGUILayout.IntField("Position Count_3", PositionCount3);	
+
+		if (GUILayout.Button("Data Size", GUILayout.Width(200)))
+		{
+			ResetArray(DataCount);
+			Debug.Log(TacticalData.Length);
+		}
 
 		if (GUILayout.Button("Array Setting", GUILayout.Width(200)))
 		{
 			if(PositionCount1 > 0 && PositionCount1 != PosAy1.Length)
 				PosAy1 = new TActionPosition[PositionCount1];
-
+			
 			if(PositionCount2 > 0 && PositionCount2 != PosAy2.Length)
 				PosAy2 = new TActionPosition[PositionCount2];
-
+			
 			if(PositionCount3 > 0 && PositionCount3 != PosAy3.Length)
 				PosAy3 = new TActionPosition[PositionCount3];
 		}
@@ -110,21 +122,40 @@ public class PlayerPositionEdit : EditorWindow {
 
 		EditorGUILayout.BeginHorizontal();
 		FileName = EditorGUILayout.TextField("FileName", FileName);
+		EditIndex = EditorGUILayout.IntField("Save Index(0~" +  (TacticalData.Length - 1).ToString() + ")", EditIndex);
 		if (GUILayout.Button("Save", GUILayout.Width(200)))
 		{
-			TTactical saveData = new TTactical();
-			saveData.PosAy1 = new TActionPosition[PosAy1.Length];
-			saveData.PosAy1 = PosAy1;
-			
-			saveData.PosAy2 = new TActionPosition[PosAy2.Length];
-			saveData.PosAy2 = PosAy2;
-			
-			saveData.PosAy3 = new TActionPosition[PosAy3.Length];
-			saveData.PosAy3 = PosAy3;
+			if(TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length){
+				TacticalData[EditIndex].FileName = FileName;
+				TacticalData[EditIndex].PosAy1 = new TActionPosition[PosAy1.Length];
+				TacticalData[EditIndex].PosAy1 = PosAy1;
 
-			string aaa = GetJsonStr(saveData);
-			StringWrite(Application.persistentDataPath + "/" + FileName + ".txt", aaa);
-			Debug.Log(Application.persistentDataPath + "/" + FileName + ".txt");									
+				TacticalData[EditIndex].PosAy2 = new TActionPosition[PosAy2.Length];
+				TacticalData[EditIndex].PosAy2 = PosAy2;
+
+				TacticalData[EditIndex].PosAy3 = new TActionPosition[PosAy3.Length];
+				TacticalData[EditIndex].PosAy3 = PosAy3;
+
+				string aaa = GetJsonStr(TacticalData);
+				StringWrite(Application.dataPath + "/Resources/Run/TacticalData.txt", aaa);
+				Debug.Log(Application.dataPath + "/Resources/Run/TacticalData.txt");
+			}else
+				Debug.LogError("EditIndex error");
+//
+//
+//			TTactical saveData = new TTactical();
+//			saveData.PosAy1 = new TActionPosition[PosAy1.Length];
+//			saveData.PosAy1 = PosAy1;
+//			
+//			saveData.PosAy2 = new TActionPosition[PosAy2.Length];
+//			saveData.PosAy2 = PosAy2;
+//			
+//			saveData.PosAy3 = new TActionPosition[PosAy3.Length];
+//			saveData.PosAy3 = PosAy3;
+//
+//			string aaa = GetJsonStr(saveData);
+//			StringWrite(Application.persistentDataPath + "/" + FileName + ".txt", aaa);
+//			Debug.Log(Application.persistentDataPath + "/" + FileName + ".txt");									
 		}
 		EditorGUILayout.EndHorizontal();
 

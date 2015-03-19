@@ -36,6 +36,7 @@ public enum GameTest{
 
 public struct TTactical
 {
+	public string FileName;
 	public TActionPosition [] PosAy1;
 	public TActionPosition [] PosAy2;
 	public TActionPosition [] PosAy3;
@@ -114,37 +115,19 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
-		TextAsset aa = Resources.Load("Run/run1") as TextAsset;
+		TextAsset aa = Resources.Load("Run/TacticalData") as TextAsset;
 		if (aa != null) {
-//			string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
-			TTactical saveData = new TTactical();
+			MovePositionList.Clear();
+			TTactical [] saveData = new TTactical[0];
 			GameFunction.GetJsonData(aa.text, ref saveData);
-			MovePositionList.Add(saveData);	
+			for(int i = 0; i < saveData.Length; i++)
+				if(saveData[i].FileName != null && saveData[i].FileName != string.Empty)
+					MovePositionList.Add(saveData[i]);	
+
+			Debug.Log(MovePositionList.Count);
 		}else
 			Debug.LogError("No File");
 
-//		try{
-//			string myPath = "Assets/Resources/Run";
-//
-//			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");//Application.dataPath + "/Resources/Run"
-//			FileInfo[] info = dir.GetFiles("*.gangrun");
-//			if(info.Length > 0){
-//				MovePositionList.Clear();
-//				
-//				foreach (FileInfo f in info){
-//					string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
-//					TTactical saveData = new TTactical();
-//					GameFunction.GetJsonData(filedata, ref saveData);
-//					MovePositionList.Add(saveData);
-//				}
-//
-//				Debug.LogError("File" + MovePositionList.Count);
-//			}else{
-//				Debug.LogError("No File");
-//			}
-//		}catch (System.Exception e){
-//			Debug.LogError(e);
-//		}
 	}
 
 	public void InitGame(){
@@ -180,6 +163,7 @@ public class GameController : MonoBehaviour {
 	public void ChangeTexture(GameStruct.TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
+	
 	private void randomAvatar(ref GameStruct.TAvatar attr) {
 		attr.Cloth = UnityEngine.Random.Range(5,7);
 		attr.Hair = UnityEngine.Random.Range(2,4);
@@ -189,6 +173,7 @@ public class GameController : MonoBehaviour {
 		attr.AHeadDress = UnityEngine.Random.Range(0,3);
 		attr.ZBackEquip = UnityEngine.Random.Range(0,3);
 	}
+	
 	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
 		string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, Random.Range(0,2));
 		attrTexture.BTexture = BTexName;
@@ -207,6 +192,7 @@ public class GameController : MonoBehaviour {
 		string ZTexName = string.Format("{0}_{1}_{2}_{3}", 3, "Z", attr.ZBackEquip, Random.Range(0,2));
 		attrTexture.ZTexture = ZTexName;
 	}
+	
 	private void redAvatarTexture(ref GameStruct.TAvatarTexture attrTexture){
 		attrTexture.BTexture = "2_B_0_1";
 		attrTexture.CTexture = "2_C_5_1";
