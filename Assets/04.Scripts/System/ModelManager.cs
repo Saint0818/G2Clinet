@@ -8,7 +8,6 @@ public class ModelManager : MonoBehaviour {
 	private GameObject DefPointObject = null;
 	public static ModelManager Get;
 	public GameObject PlayerInfoModel = null;
-	private const int avatartCount = 8;
 
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
@@ -23,24 +22,8 @@ public class ModelManager : MonoBehaviour {
 
 	void Awake(){
 		//Cache
-		string body_2Path = "Character/PlayerModel_2/Model";
-		Object[] resourceBody_2 = Resources.LoadAll (body_2Path, typeof(GameObject));
-		for (int i=0; i<resourceBody_2.Length; i++) {
-			if(!resourceBody_2[i].name.Contains("PlayerModel")){
-				GameObject obj = resourceBody_2[i] as GameObject;
-				string path = string.Format("{0}/{1}",body_2Path, obj.name);
-				bodyCache.Add(path, obj);
-			}
-		}
-		string body_3Path = "Character/PlayerModel_3/Model";
-		Object[] resourceBody_3 = Resources.LoadAll (body_3Path, typeof(GameObject));
-		for (int i=0; i<resourceBody_3.Length; i++) {
-			if(!resourceBody_3[i].name.Contains("PlayerModel")){
-				GameObject obj = resourceBody_3[i] as GameObject;
-				string path = string.Format("{0}/{1}",body_3Path, obj.name);
-				bodyCache.Add(path, obj);
-			}
-		}
+		loadAllBody("Character/PlayerModel_2/Model");
+		loadAllBody("Character/PlayerModel_3/Model");
 		string materialPath = "Character/Materials";
 		Object[] resourceMaterial = Resources.LoadAll (materialPath);
 		for (int i=0; i<resourceMaterial.Length; i++) {
@@ -48,20 +31,8 @@ public class ModelManager : MonoBehaviour {
 			string path = string.Format("{0}/{1}",materialPath, material.name);
 			materialCache.Add(path, material);
 		}
-		string texture_2Path = "Character/PlayerModel_2/Texture";
-		Object[] resourceTexture_2 = Resources.LoadAll (texture_2Path);
-		for (int i=0; i<resourceTexture_2.Length; i++) {
-			Texture texture = resourceTexture_2[i] as Texture;
-			string path = string.Format("{0}/{1}",texture_2Path, texture.name);
-			textureCache.Add(texture.name, texture);
-		}
-		string texture_3Path = "Character/PlayerModel_3/Texture";
-		Object[] resourceTexture_3 = Resources.LoadAll ("Character/PlayerModel_3/Texture");
-		for (int i=0; i<resourceTexture_3.Length; i++) {
-			Texture texture = resourceTexture_3[i] as Texture;
-			string path = string.Format("{0}/{1}",texture_3Path, texture.name);
-			textureCache.Add(texture.name, texture);
-		}
+		loadAllTexture("Character/PlayerModel_2/Texture");
+		loadAllTexture("Character/PlayerModel_3/Texture");
 
 		AnimationClip[] ani = Resources.LoadAll<AnimationClip>("FBX/Animation");
 		if (ani.Length > 0) {
@@ -85,13 +56,33 @@ public class ModelManager : MonoBehaviour {
 		
 	}
 
+	private void loadAllBody(string path) {
+		Object[] resourceBody = Resources.LoadAll (path, typeof(GameObject));
+		for (int i=0; i<resourceBody.Length; i++) {
+			if(!resourceBody[i].name.Contains("PlayerModel")){
+				GameObject obj = resourceBody[i] as GameObject;
+				string keyPath = string.Format("{0}/{1}",path, obj.name);
+				bodyCache.Add(keyPath, obj);
+			}
+		}
+	}
+
+	private void loadAllTexture(string path) {
+		Object[] resourceTexture = Resources.LoadAll (path);
+		for (int i=0; i<resourceTexture.Length; i++) {
+			Texture texture = resourceTexture[i] as Texture;
+			textureCache.Add(texture.name, texture);
+		}
+	}
+
 	private GameObject loadBody(string path) {
 		if (bodyCache.ContainsKey(path))
 			return bodyCache[path];
 		else {
 			GameObject obj = Resources.Load(path) as GameObject;
 			if (obj) {
-				bodyCache.Add(path, obj);
+				string keyPath = string.Format("{0}/{1}",path, obj.name);
+				bodyCache.Add(keyPath, obj);
 				return obj;
 			} else {
 				//download form server
@@ -131,9 +122,9 @@ public class ModelManager : MonoBehaviour {
 	}
 
 	public PlayerBehaviour CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, Vector3 BornPos){
-		if (Player != null) 
+		if (Player != null) {
 			Destroy (Player);
-
+		}
 		GameObject Res = SetAvatar (Attr, AttrTexture, false);
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
@@ -179,7 +170,10 @@ public class ModelManager : MonoBehaviour {
 				GameObject obj = Player.transform.FindChild(mainBody).gameObject;
 				if(obj) {
 					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}",Attr.Body, strPart[BodyPart], ModelPart, TexturePart);
-					Texture texture = loadTexture(path);
+					string namePath = string.Format("{0}_{1}_{2}_{3}",Attr.Body, strPart[BodyPart], ModelPart, TexturePart);
+					Texture texture = loadTexture(namePath);
+					if(!texture)
+						texture = loadTexture(path);
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
@@ -195,7 +189,10 @@ public class ModelManager : MonoBehaviour {
 				GameObject obj = Player.transform.Find(bodyPath).gameObject;
 				if(obj) {
 					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
-					Texture texture = loadTexture(path);
+					string namePath = string.Format("{0}_{1}_{2}_{3}",Attr.Body, strPart[BodyPart], ModelPart, TexturePart);
+					Texture texture = loadTexture(namePath);
+					if(!texture)
+						texture = loadTexture(path);
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
@@ -211,7 +208,10 @@ public class ModelManager : MonoBehaviour {
 				GameObject obj = Player.transform.Find(bodyPath).gameObject;
 				if(obj) {
 					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
-					Texture texture = loadTexture(path);
+					string namePath = string.Format("{0}_{1}_{2}_{3}",Attr.Body, strPart[BodyPart], ModelPart, TexturePart);
+					Texture texture = loadTexture(namePath);
+					if(!texture)
+						texture = loadTexture(path);
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
@@ -269,7 +269,6 @@ public class ModelManager : MonoBehaviour {
 		
 		for (int i = 0; i < avatarIndex.Length; i++) {
 			string path = string.Empty;
-			string texturePath = string.Format ("Chatacter/PlayerModel_{0}/Texture/{1}", attr.Body, avatarPartTexture [i]);
 			string materialPath = string.Format ("Character/Materials/Material_0");
 
 			if (i == 0) {
@@ -287,17 +286,15 @@ public class ModelManager : MonoBehaviour {
 
 			if (resObj) {
 				Material matObj = loadMaterial (materialPath);
-				Texture texture = loadTexture(avatarPartTexture[i]);
+				Texture texture = loadTexture(avatarPartTexture [i]);
 				if(texture) {
 					matObj.SetTexture("_MainTex", texture);
 				}
+				avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
-				if (resObj != null) {
-					avatarPartGO [i] = Instantiate (resObj) as GameObject;
+				if (dummyBall == null)
+					dummyBall = avatarPartGO [i].transform.FindChild ("DummyBall").gameObject;
 
-					if (i == 0)
-						dummyBall = avatarPartGO [i].transform.FindChild ("DummyBall").gameObject;
-				}
 				if (i < 6) {
 					if (bipGO == null) {
 						bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
@@ -310,7 +307,6 @@ public class ModelManager : MonoBehaviour {
 					
 					if (avatarPartGO [i] && hips.Length > 0) {
 						SkinnedMeshRenderer smr = avatarPartGO [i].GetComponentInChildren<SkinnedMeshRenderer> ();
-						
 						//ready combine mesh
 						CombineInstance ci = new CombineInstance ();
 						ci.mesh = smr.sharedMesh;
@@ -402,148 +398,7 @@ public class ModelManager : MonoBehaviour {
 		
 		return result;
 	}
-//	public GameObject AddPlayer(int model = 0, int c = -1, int h = -1, int m = -1, int p = -1, int s =-1, int a =-1, int z =-1)
-//	{
-//		string mainBody = string.Format("PlayerModel_{0}", model);
-//		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
-//		int[] avatarIndex = new int[]{model, c, h, m, p, s, a, z};
-//		GameObject[] avatarPartGO = new GameObject[avatarIndex.Length];
-//		GameObject result = new GameObject();
-//		GameObject dummyBall = null;
-//		GameObject dummyHead = null;
-//		GameObject dummyBack = null;
-//		GameObject headDressObj = null;
-//		GameObject backEquipmentObj = null;
-//		
-//		Transform[] hips;
-//		List<CombineInstance> combineInstances = new List<CombineInstance>();
-//		List<Material> materials = new List<Material>();
-//		List<Transform> bones = new List<Transform>();
-//		
-//		for (int i = 0; i < avatarIndex.Length; i++) {
-////			if(i > 6)
-////				continue;
-//			string path = string.Empty;
-//			string materialPath = string.Empty;
-//
-//			if(i == 0){
-//				path = string.Format("Character/PlayerModel_{0}/{1}", avatarIndex[i], mainBody);
-//				materialPath = string.Format("Character/PlayerModel_{0}/Materials/{0}_{1}",model, "B");
-//			}else if(avatarIndex[i] > -1){
-//				path = string.Format("Character/PlayerModel_{0}/{0}_{1}_{2}", model,avatarPart[i],avatarIndex[i]);
-//				materialPath = string.Format("Character/PlayerModel_{0}/Materials/{0}_{1}",model, avatarPart[i]);
-//			}
-//
-//
-//			if(path != string.Empty)
-//			{
-//				Object resObj = Resources.Load(path);
-//				Material matObj = Resources.Load(materialPath) as Material;
-//				if(resObj != null)
-//				{
-//					avatarPartGO[i] = Instantiate(resObj) as GameObject;
-//
-//					if(i == 0)
-//						dummyBall = avatarPartGO[i].transform.FindChild("DummyBall").gameObject;
-//				}
-//
-//			
-//				if(i < 6) {
-//					if(bipGO == null)
-//					{
-//						bipGO = avatarPartGO[i].transform.FindChild("Bip01").gameObject;
-//						
-//						if(bipGO)
-//							bipGO.transform.parent = result.transform;
-//					}
-//					
-//					hips = bipGO.GetComponentsInChildren<Transform>();
-//					
-//					if(avatarPartGO[i] && hips.Length > 0)
-//					{
-//						SkinnedMeshRenderer smr = avatarPartGO[i].GetComponentInChildren<SkinnedMeshRenderer>();
-//						
-//						//ready combine mesh
-//						CombineInstance ci = new CombineInstance();
-//						ci.mesh = smr.sharedMesh;
-//						combineInstances.Add(ci);
-//						smr.material = matObj;
-//						smr.material.name = avatarPart[i];
-//						//sort new material
-//						materials.AddRange(smr.materials);
-//
-//						//get same bip to create new bones  
-//						foreach(Transform bone in smr.bones){
-//							foreach(Transform hip in hips){
-//								
-//								if(hip.name != bone.name) continue;
-//								bones.Add(hip);
-//								break;
-//							}
-//						}
-//					}
-//					Destroy(avatarPartGO[i]);
-//				} else if(i == 6) {
-//					headDressObj = avatarPartGO[i];
-//				} else if(i == 7) {
-//					backEquipmentObj = avatarPartGO[i];
-//				}
-//			}
-//		}
-//
-//
-//		if (dummyBall != null)
-//			dummyBall.transform.parent = result.transform;
-//		
-//		GameObject clone = new GameObject();
-//		SkinnedMeshRenderer resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
-//		resultSmr.sharedMesh = new Mesh();
-//		resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray() , false , false);
-//		resultSmr.bones = bones.ToArray();
-//		resultSmr.materials = materials.ToArray();
-//		clone.name = mainBody;
-//		clone.transform.parent = result.transform;
-//
-//		//HeadDress
-//		if (dummyHead == null)
-//			dummyHead = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead").gameObject;
-//		if (headDressObj != null) {
-//			headDressObj.transform.parent = dummyHead.transform;
-//			headDressObj.transform.localPosition = Vector3.zero;
-//			headDressObj.transform.localEulerAngles = Vector3.zero;
-//		}
-//
-//		//BackEquipment
-//		if (dummyBack == null)
-//			dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
-//		if (backEquipmentObj != null) {
-//			backEquipmentObj.transform.parent = dummyBack.transform;
-//			backEquipmentObj.transform.localPosition = Vector3.zero;
-//			backEquipmentObj.transform.localEulerAngles = Vector3.zero;
-//		}
-//
-//		//animator
-//		Animator aniControl = result.AddComponent<Animator>();
-//		RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", model)) as RuntimeAnimatorController;
-//		aniControl.runtimeAnimatorController = test;
-//		aniControl.applyRootMotion = false;
-//
-//		//collider
-//		CapsuleCollider collider = result.AddComponent<CapsuleCollider>();
-//		collider.radius = 0.32f;
-//		collider.height = 3f;
-//		float testh = collider.height / 2f;
-//		collider.center = new Vector3 (0, testh, 0);
-//
-//		//rig
-//		Rigidbody rig = result.GetComponent<Rigidbody> ();
-//		if (rig == null)
-//			rig = result.AddComponent<Rigidbody> ();
-//
-//		rig.freezeRotation = true;
-//
-//		return result;
-//	}
+
 
 	public void AddAnimation(GameObject player, string anistr)
 	{

@@ -183,13 +183,14 @@ public class GameController : MonoBehaviour {
 			case GameTest.AttackA:
 				attr.Body = 2;
 				attr.Hair = 2;
-				attr.AHeadDress = 1;
 				attr.Cloth = 5;
 				attr.Pants = 6;
 				attr.Shoes = 1;
 				attr.MHandDress = 2;
-				attr.ZBackEquip = 1;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				attr.AHeadDress = 0;
+				attr.ZBackEquip = 0;
+				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
+//				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));

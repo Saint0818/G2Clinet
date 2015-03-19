@@ -164,53 +164,13 @@ public class AvatarEditor :  EditorWindow{
 		GUI.Label (new Rect(0, 220, 500, 50), "Change Body Part");
 		scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 100, 50));
 		if (showBody.Count > 0) {
+			if(GUI.Button(new Rect(0, 0, 100, 50), "None")){
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			}
 			for (int i=0; i<showBody.Count; i++) {
-				if(GUI.Button(new Rect(120 * i, 0, 100, 50), showBody[i].name)) {
-					bodyPartName = showBody[i].name;
-					string[] name = showBody[i].name.Split("_"[0]);
-					judgeBodyTextureName(name[1], name[2]);
-
-					if(!name[1].Equals("A") && !name[1].Equals("Z"))
-						attr.Body = int.Parse(name[0]);
-
-					if(name[1].Equals("C")){
-						attr.Cloth = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.CTexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("H")){
-						attr.Hair = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.HTexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("M")){
-						attr.MHandDress = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.MTexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("P")){
-						attr.Pants = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.PTexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("S")){
-						attr.Shoes = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.STexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("A")){
-						attr.AHeadDress = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.ATexture = showBodyTexture[0].name;
-						}
-					} else if(name[1].Equals("Z")){
-						attr.ZBackEquip = int.Parse(name[2]);
-						if(showBodyTexture.Count > 0) {
-							attrTexture.ZTexture = showBodyTexture[0].name;
-						}
-					}
-
-					GameController.Get.ChangePlayer(attr, attrTexture);
+				if(GUI.Button(new Rect(120 * (i+1), 0, 100, 50), showBody[i].name)) {
+					chooseBodyPart(showBody[i].name);
 				}
 			}
 		}	
@@ -249,6 +209,83 @@ public class AvatarEditor :  EditorWindow{
 		GUI.EndScrollView ();
 
 	}
+
+	void chooseBodyPart(string showBodyName, bool isNone = false){
+		bodyPartName = showBodyName;
+		string[] name = showBodyName.Split("_"[0]);
+		judgeBodyTextureName(name[1], name[2]);
+		
+		if(!name[1].Equals("A") && !name[1].Equals("Z"))
+			attr.Body = int.Parse(name[0]);
+		
+		if(name[1].Equals("C")){
+			if(!isNone) {
+				attr.Cloth = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.CTexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.Cloth = 0;
+			}
+		} else if(name[1].Equals("H")){
+			if(!isNone) {
+				attr.Hair = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.HTexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.Hair = 0;
+			}
+		} else if(name[1].Equals("M")){
+			if(!isNone) {
+				attr.MHandDress = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.MTexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.MHandDress = 0;
+			}
+		} else if(name[1].Equals("P")){
+			if(!isNone) {
+				attr.Pants = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.PTexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.Pants = 0;
+			}
+		} else if(name[1].Equals("S")){
+			if(!isNone) {
+				attr.Shoes = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.STexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.Shoes = 0;
+			}
+		} else if(name[1].Equals("A")){
+			if(!isNone) {
+				attr.AHeadDress = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.ATexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.AHeadDress = 0;
+			}
+		} else if(name[1].Equals("Z")){
+			if(!isNone) {
+				attr.ZBackEquip = int.Parse(name[2]);
+				if(showBodyTexture.Count > 0) {
+					attrTexture.ZTexture = showBodyTexture[0].name;
+				}
+			} else {
+				attr.ZBackEquip = 0;
+			}
+		}
+		
+		GameController.Get.ChangePlayer(attr, attrTexture);
+	}
+
 	void judgeBodyName(string body){
 		showBody.Clear ();
 		showBodyTexture.Clear ();
