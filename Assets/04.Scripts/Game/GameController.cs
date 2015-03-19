@@ -164,6 +164,35 @@ public class GameController : MonoBehaviour {
 	public void ChangeTexture(GameStruct.TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
+	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
+		string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, Random.Range(0,2));
+		attrTexture.BTexture = BTexName;
+		string CTexName = string.Format("{0}_{1}_{2}_{3}", 2, "C", attr.Cloth, Random.Range(0,2));
+		attrTexture.CTexture = CTexName;
+		string HTexName = string.Format("{0}_{1}_{2}_{3}", 2, "H", attr.Hair, Random.Range(0,2));
+		attrTexture.HTexture = HTexName;
+		string MTexName = string.Format("{0}_{1}_{2}_{3}", 2, "M", attr.MHandDress, Random.Range(0,2));
+		attrTexture.MTexture = MTexName;
+		string PTexName = string.Format("{0}_{1}_{2}_{3}", 2, "P", attr.Pants, Random.Range(0,2));
+		attrTexture.PTexture = PTexName;
+		string STexName = string.Format("{0}_{1}_{2}_{3}", 2, "S", attr.Shoes, Random.Range(0,2));
+		attrTexture.STexture = STexName;
+		string ATexName = string.Format("{0}_{1}_{2}_{3}", 3, "A", attr.AHeadDress, Random.Range(0,2));
+		attrTexture.ATexture = ATexName;
+		string ZTexName = string.Format("{0}_{1}_{2}_{3}", 3, "Z", attr.ZBackEquip, Random.Range(0,2));
+		attrTexture.ZTexture = ZTexName;
+
+	}
+	private void redAvatarTexture(ref GameStruct.TAvatarTexture attrTexture){
+		attrTexture.BTexture = "2_B_0_1";
+		attrTexture.CTexture = "2_C_5_1";
+		attrTexture.HTexture = "2_H_2_1";
+		attrTexture.MTexture = "2_M_2_1";
+		attrTexture.PTexture = "2_P_6_1";
+		attrTexture.STexture = "2_S_1_1";
+		attrTexture.ATexture = "3_A_1_1";
+		attrTexture.ZTexture = "3_Z_1_1";
+	}
 
 	public void CreateTeam(){
 		GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
@@ -174,10 +203,14 @@ public class GameController : MonoBehaviour {
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
-					
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));	
+
+				redAvatarTexture(ref attrTexture);
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
+				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
+				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
+				redAvatarTexture(ref attrTexture);
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
@@ -191,8 +224,7 @@ public class GameController : MonoBehaviour {
 				attr.MHandDress = 2;
 				attr.AHeadDress = 0;
 				attr.ZBackEquip = 0;
-//				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
 				break;
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));

@@ -32,7 +32,6 @@ public static class GameStruct
 			MHandDress = 2;
 			AHeadDress = 0;
 			ZBackEquip = 0;
-
 		}
 	}
 	public struct TAvatarTexture{
@@ -46,7 +45,6 @@ public static class GameStruct
 		public string ZTexture;
 
 		public TAvatarTexture(int i){
-			
 			BTexture = "2_B_0_0";
 			CTexture = "2_C_5_0";
 			HTexture = "2_H_2_0";

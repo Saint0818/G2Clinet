@@ -161,7 +161,6 @@ public class ModelManager : MonoBehaviour {
 
 		return PB;
 	}
-	//BodyPart 
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
 			string mainBody = string.Format("PlayerModel_{0}", Attr.Body);
@@ -342,7 +341,6 @@ public class ModelManager : MonoBehaviour {
 				}
 			}
 		}
-		
 		if (dummyBall != null)
 			dummyBall.transform.parent = result.transform;
 
