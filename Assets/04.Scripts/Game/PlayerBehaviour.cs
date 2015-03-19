@@ -194,12 +194,12 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-//		if (!IsDefence) {//&& situation != GameSituation.Opening !IsDefence
-//			if(Time.time >= MoveStartTime){
-//				MoveStartTime = Time.time + 0.5f;
-//				GameController.Get.DefMove(this);
-//			}		
-//		}
+		if (IsMove && !IsDefence) {//&& situation != GameSituation.Opening !IsDefence
+			if(Time.time >= MoveStartTime){
+				MoveStartTime = Time.time + 0.5f;
+				GameController.Get.DefMove(this);
+			}		
+		}
 
 		if (IsDefence) {
 			if(Time.time >= ProactiveTime){

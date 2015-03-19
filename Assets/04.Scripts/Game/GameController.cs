@@ -854,60 +854,55 @@ public class GameController : MonoBehaviour {
 				TMoveData data2 = new TMoveData(0);
 
 				if(BallOwner != null){
-					data2.DefPlayer = player;
-					
-//					if(BallOwner != null)
-//						data2.LookTarget = BallOwner.transform;
-//					else
-						data2.LookTarget = player.transform;
-					
-					data2.Speedup = speedup;
-					player.DefPlaeyr.TargetPos = data2;
+//					data2.DefPlayer = player;
+//					data2.LookTarget = player.transform;
+//					data2.Speedup = speedup;
+//					player.DefPlaeyr.TargetPos = data2;
 
 					//float dis = getDis(ref player, SceneMgr.Get.Hood[player.Team.GetHashCode()].transform.position);
-//					if(player == BallOwner){
-//						data2.DefPlayer = player;
-//						
-//						if(BallOwner != null)
-//							data2.LookTarget = BallOwner.transform;
-//						else
-//							data2.LookTarget = player.transform;
-//						
-//						data2.Speedup = speedup;
-//						player.DefPlaeyr.TargetPos = data2;
-//					}else{
-//						float dis2;
-//						if(player.DefPlaeyr.Team == TeamKind.Self)
-//							dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].x, -TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].y), 
-//							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
-//						else
-//							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()], 
-//							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
-//						
-//						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance){
-//							PlayerBehaviour p = HaveNearPlayer(player.DefPlaeyr, ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance, false, true);
-//							if(p != null)
-//								data2.DefPlayer = p;
-//							else if(getDis(ref player, ref player.DefPlaeyr) <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance)
-//								data2.DefPlayer = player;
-//							
-//							if(data2.DefPlayer != null){
-//								if(BallOwner != null)
-//									data2.LookTarget = BallOwner.transform;
-//								else
-//									data2.LookTarget = player.transform;
-//								
-//								data2.Speedup = speedup;
-//								player.DefPlaeyr.TargetPos = data2;
-//							}else{
-//								player.DefPlaeyr.ResetMove();
-//								BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
-//							}
-//						}else{
-//							player.DefPlaeyr.ResetMove();
-//							BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
-//						}
-//					}
+					if(player == BallOwner){
+						data2.DefPlayer = player;
+						
+						if(BallOwner != null)
+							data2.LookTarget = BallOwner.transform;
+						else
+							data2.LookTarget = player.transform;
+						
+						data2.Speedup = speedup;
+						player.DefPlaeyr.TargetPos = data2;
+					}else{
+						float dis2;
+						if(player.DefPlaeyr.Team == TeamKind.Self)
+							dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].x, -TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].y), 
+							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+						else
+							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()], 
+							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+						
+						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance){
+							PlayerBehaviour p = HaveNearPlayer(player.DefPlaeyr, ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance, false, true);
+							if(p != null)
+								data2.DefPlayer = p;
+							else if(getDis(ref player, ref player.DefPlaeyr) <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance)
+								data2.DefPlayer = player;
+							
+							if(data2.DefPlayer != null){
+								if(BallOwner != null)
+									data2.LookTarget = BallOwner.transform;
+								else
+									data2.LookTarget = player.transform;
+								
+								data2.Speedup = speedup;
+								player.DefPlaeyr.TargetPos = data2;
+							}else{
+								player.DefPlaeyr.ResetMove();
+								BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+							}
+						}else{
+							player.DefPlaeyr.ResetMove();
+							BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+						}
+					}
 				}else{
 					player.DefPlaeyr.ResetMove();
 					PickBall(ref player.DefPlaeyr);
