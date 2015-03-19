@@ -114,28 +114,37 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
-		try{
-			string myPath = "Assets/Resources/Run";
+		TextAsset aa = Resources.Load("Run/run1") as TextAsset;
+		if (aa != null) {
+//			string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
+			TTactical saveData = new TTactical();
+			GameFunction.GetJsonData(aa.text, ref saveData);
+			MovePositionList.Add(saveData);	
+		}else
+			Debug.LogError("No File");
 
-			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");//Application.dataPath + "/Resources/Run"
-			FileInfo[] info = dir.GetFiles("*.gangrun");
-			if(info.Length > 0){
-				MovePositionList.Clear();
-				
-				foreach (FileInfo f in info){
-					string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
-					TTactical saveData = new TTactical();
-					GameFunction.GetJsonData(filedata, ref saveData);
-					MovePositionList.Add(saveData);
-				}
-
-				Debug.LogError("File" + MovePositionList.Count);
-			}else{
-				Debug.LogError("No File");
-			}
-		}catch (System.Exception e){
-			Debug.LogError(e);
-		}
+//		try{
+//			string myPath = "Assets/Resources/Run";
+//
+//			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");//Application.dataPath + "/Resources/Run"
+//			FileInfo[] info = dir.GetFiles("*.gangrun");
+//			if(info.Length > 0){
+//				MovePositionList.Clear();
+//				
+//				foreach (FileInfo f in info){
+//					string filedata = GameFunction.StringRead(Application.dataPath + "/Resources/Run/" + f.Name);
+//					TTactical saveData = new TTactical();
+//					GameFunction.GetJsonData(filedata, ref saveData);
+//					MovePositionList.Add(saveData);
+//				}
+//
+//				Debug.LogError("File" + MovePositionList.Count);
+//			}else{
+//				Debug.LogError("No File");
+//			}
+//		}catch (System.Exception e){
+//			Debug.LogError(e);
+//		}
 	}
 
 	public void InitGame(){
