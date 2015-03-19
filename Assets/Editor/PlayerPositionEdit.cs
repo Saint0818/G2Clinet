@@ -31,7 +31,7 @@ public class PlayerPositionEdit : EditorWindow {
 		EditorGUILayout.BeginHorizontal();
 		if (GUILayout.Button ("Get File", GUILayout.Width (200))) {
 			DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
-			FileInfo[] info = dir.GetFiles("*.gangrun");
+			FileInfo[] info = dir.GetFiles("*.txt");
 			if(info.Length > 0){
 				ArrayString = new string[info.Length];
 				int i = 0;
@@ -51,7 +51,7 @@ public class PlayerPositionEdit : EditorWindow {
 
 			if (GUILayout.Button ("Load File", GUILayout.Width (200))) {
 				if(_oldIdx >= 0 && _oldIdx < ArrayString.Length){
-					string filedata = StringRead(Application.persistentDataPath + "/" + ArrayString[_oldIdx] + ".gangrun");
+					string filedata = StringRead(Application.persistentDataPath + "/" + ArrayString[_oldIdx] + ".txt");
 					TTactical saveData2 = new TTactical();
 					GetJsonData(filedata, ref saveData2); 
 
@@ -123,8 +123,8 @@ public class PlayerPositionEdit : EditorWindow {
 			saveData.PosAy3 = PosAy3;
 
 			string aaa = GetJsonStr(saveData);
-			StringWrite(Application.persistentDataPath + "/" + FileName + ".gangrun", aaa);
-			Debug.Log(Application.persistentDataPath + "/" + FileName + ".gangrun");									
+			StringWrite(Application.persistentDataPath + "/" + FileName + ".txt", aaa);
+			Debug.Log(Application.persistentDataPath + "/" + FileName + ".txt");									
 		}
 		EditorGUILayout.EndHorizontal();
 
