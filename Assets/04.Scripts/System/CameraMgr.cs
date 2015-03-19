@@ -4,8 +4,8 @@ using System.Collections;
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	private float groupOffsetSpeed = 0.1f;
-	private float zoomNormal = 30f;
-	private float blankAera = 5.5f;
+	private float zoomNormal = 25f;
+	private float blankAera = 5.2f;
 	private float lockedFocusAngle = 40f;
 	private float focusOffsetSpeed = 0.3f;
 	private float focusSmoothSpeed = 0.02f;
