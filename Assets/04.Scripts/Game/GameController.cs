@@ -115,7 +115,8 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
 		try{
-			DirectoryInfo dir = new DirectoryInfo(Application.dataPath + "/Resources/Run");
+			string myPath = "Assets/Resources/Run";
+			DirectoryInfo dir = new DirectoryInfo(myPath);//Application.dataPath + "/Resources/Run"
 			FileInfo[] info = dir.GetFiles("*.gangrun");
 			if(info.Length > 0){
 				MovePositionList.Clear();
