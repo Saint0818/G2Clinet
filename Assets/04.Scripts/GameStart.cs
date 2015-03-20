@@ -9,6 +9,7 @@ public class GameStart : MonoBehaviour {
 	public static GameStart Get = null;
 	private UnibillDemo unibillDemo = null;
 	public GameTest TestMode = GameTest.None;
+	public CameraTest TestCameraMode = CameraTest.None;
 	public float BasicMoveSpeed = 1;
 	public float DefSpeedup = 8.2f;
 	public float DefSpeedNormal = 7.2f;

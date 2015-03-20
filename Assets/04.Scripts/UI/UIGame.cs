@@ -5,7 +5,7 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
-	public float ButtonBTime = 0.05f;
+	public float ButtonBTime = 0.003f;
 
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};

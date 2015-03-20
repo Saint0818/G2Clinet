@@ -34,6 +34,11 @@ public enum GameTest{
 	Edit
 }
 
+public enum CameraTest{
+	None,
+	RGB
+}
+
 public struct TTactical
 {
 	public string FileName;

@@ -106,14 +106,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
-		focusTarget.GetComponent<Renderer>().enabled = false;
 		focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
 		cameraRotationObj.transform.LookAt(Vector3.zero) ;
 	}
 
 	private void InitTestTool()
 	{
-		focusTarget.GetComponent<Renderer>().enabled = true;
 		cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
 		cameraOffsetAeraObj.name = "ColorR";
@@ -137,6 +135,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusStopAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusStopAera_M") as Material;
 
 		SetTestToolPosition();
+
+		focusTarget.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
+		cameraOffsetAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
+		focusMoveAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
+		focusStopAeraObj.GetComponent<Renderer> ().enabled =  GameStart.Get.TestCameraMode == CameraTest.RGB;
 	}
 
 	private void SetTestToolPosition()

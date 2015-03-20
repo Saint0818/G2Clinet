@@ -108,6 +108,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private float MoveStartTime = 0;
 	private float ProactiveRate = 0;
 	private float ProactiveTime = 0;
+	private int smoothDirection = 0;
+	private float animationSpeed = 0;
 
     public Animator Control;
 	public GameObject DummyBall;
@@ -158,6 +160,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		CalculationSmoothSpeed ();
 //		CalculationAirResistance();
 		Control.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
 		if (gameObject.transform.localPosition.y > 0.2f) {
@@ -245,6 +248,30 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	private void CalculationSmoothSpeed()
+	{
+		if (smoothDirection != 0) {
+			if(smoothDirection == 1)
+			{
+				animationSpeed += 0.1f;
+				if(animationSpeed >=  1)
+				{
+					animationSpeed = 1;
+					smoothDirection = 0;
+				}
+			}
+			else{
+				animationSpeed -=  0.1f;
+				if(animationSpeed <= 0)
+				{
+					animationSpeed = 0;
+					smoothDirection = 0;
+				}
+			}
+			Control.SetFloat("MoveSpeed", animationSpeed);
+		}
+	}
+
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
 	{
 		if (CanMove || stop) {
@@ -259,8 +286,8 @@ public class PlayerBehaviour : MonoBehaviour
 				isJoystick = true;
 				NoAiTime = Time.time + ChangeToAI;
 				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
-				float AnimationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
-				SetSpeed (AnimationSpeed);
+				animationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
+				SetSpeed (animationSpeed, 0);
 				AniState(ps);
 
 				float angle = move.Axis2Angle (true);
@@ -268,7 +295,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Vector3 rotation = new Vector3 (0, angle + a, 0);
 				transform.rotation = Quaternion.Euler (rotation);
 				
-				if(AnimationSpeed <= MoveMinSpeed){
+				if(animationSpeed <= MoveMinSpeed){
 					if(IsBallOwner)
 						Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.BallOwnerSpeedNormal;
 					else{
@@ -295,7 +322,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
 	{
-		AniState(ps);
+		isJoystick = false;
+
+		if(crtState != ps)
+			AniState(ps);
 	}
 	
 	private void DoDunkJump()
@@ -344,22 +374,22 @@ public class PlayerBehaviour : MonoBehaviour
 				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
 		
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
 				}else if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
 				}else if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
 				}else if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
 					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
 
-					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 9)
+					if(ParameterConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
 						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
 				}
 			}else if(Data.FollowTarget != null){
@@ -482,9 +512,14 @@ public class PlayerBehaviour : MonoBehaviour
             Invincible += time;
     }
     
-    private void SetSpeed(float value)
+    private void SetSpeed(float value, int dir = -2)
 	{
-		Control.SetFloat("MoveSpeed", value);
+		//dir : 1 ++, -1 --, -2 : not smooth,  
+		if(dir == 0)
+			Control.SetFloat("MoveSpeed", value);
+		else
+		if(dir != -2)
+			smoothDirection = dir;
 	}
 
 	private void AddActionFlag(int Flag){
@@ -503,7 +538,6 @@ public class PlayerBehaviour : MonoBehaviour
 		for(int i = 0; i < PlayerActionFlag.Length; i++)
 			PlayerActionFlag[i] = 0;
 
-		SetSpeed(0);
 		AniState(PlayerState.Idle);
 		MoveQueue.Clear ();
 		FirstMoveQueue.Clear ();
@@ -517,8 +551,21 @@ public class PlayerBehaviour : MonoBehaviour
 		FirstMoveQueue.Clear ();
 	}
 
+	private bool CanUseState(PlayerState state)
+	{
+		if (state != PlayerState.FakeShoot && crtState != state)
+			return true;
+		else if(state == PlayerState.FakeShoot)
+			return true;
+
+		return false;
+	}
+
 	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
 	{
+		if (!CanUseState(state))
+			return;
+
 		crtState = state;
 		
 		if (DorotateTo)
@@ -526,13 +573,13 @@ public class PlayerBehaviour : MonoBehaviour
 		
 		switch (state) {
 			case PlayerState.Idle:
-				SetSpeed(0);
+				SetSpeed(0, -1);
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty && Control.GetBool(AnimatorStates[i]))
 						Control.SetBool(AnimatorStates[i], false);
 				break;
 			case PlayerState.Catcher:
-				SetSpeed(0);
+				SetSpeed(0, -1);
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty)
 						Control.SetBool(AnimatorStates[i], false);
@@ -543,17 +590,20 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
 			case PlayerState.Dribble:
-				SetSpeed(0);
+				if(!isJoystick)
+					SetSpeed(0, -1);
 				AddActionFlag(ActionFlag.IsDribble);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
 			case PlayerState.RunAndDrible:
-				SetSpeed(1);
+				if(!isJoystick)
+					SetSpeed(1, 1);
+
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
 			case PlayerState.RunningDefence:
-				SetSpeed(1);
+				SetSpeed(1, 1);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
@@ -561,11 +611,11 @@ public class PlayerBehaviour : MonoBehaviour
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], false);
 				DelActionFlag(ActionFlag.IsRun);
-				SetSpeed(0);
+				SetSpeed(0, -1);
 				AddActionFlag (ActionFlag.IsDefence);
 				break;
 			case PlayerState.MovingDefence:
-				SetSpeed(1);
+				SetSpeed(1, 1);
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], true);
 				break;
@@ -680,6 +730,8 @@ public class PlayerBehaviour : MonoBehaviour
 				DoDunkJump();
 				break;
 			case "DunkBasket":
+				gameObject.GetComponent<Rigidbody>().useGravity = false;
+				gameObject.GetComponent<Rigidbody>().isKinematic = true;
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
 				break;

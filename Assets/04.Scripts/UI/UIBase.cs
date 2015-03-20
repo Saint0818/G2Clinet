@@ -167,8 +167,8 @@ public class UIBase: MonoBehaviour
 			return true;
 		#endif
 		#if UNITY_ANDROID
-		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
-			return true;
+//		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
+//			return true;
 		#endif
 		#if (!UNITY_IPHONE && !UNITY_ANDROID)
 		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
