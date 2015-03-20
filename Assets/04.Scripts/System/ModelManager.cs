@@ -287,19 +287,30 @@ public class ModelManager : MonoBehaviour {
 
 							avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
-							if (dummyBall == null) {
-								Transform t = avatarPartGO [i].transform.FindChild ("DummyBall");
-								if (t != null)
-									dummyBall = t.gameObject;
+							Transform tBall = result.transform.FindChild("DummyBall");
+							if(tBall == null){
+								if (dummyBall == null) {
+									Transform t = avatarPartGO [i].transform.FindChild ("DummyBall");
+									if (t != null)
+										dummyBall = t.gameObject;
+								}
+							} else {
+								dummyBall = tBall.gameObject;
 							}
 
 							if (i < 6) {
-								if (bipGO == null) {
-									bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
-									
-									if (bipGO)
-										bipGO.transform.parent = result.transform;
+								Transform tBipGo = result.transform.FindChild("Bip01");
+								if(tBipGo == null) {
+									if (bipGO == null) {
+										bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
+										
+										if (bipGO)
+											bipGO.transform.parent = result.transform;
+									}
+								} else {
+									bipGO = tBipGo.gameObject;
 								}
+
 
 								hips = bipGO.GetComponentsInChildren<Transform> ();
 								
@@ -332,12 +343,24 @@ public class ModelManager : MonoBehaviour {
 								Destroy (avatarPartGO [i]);
 							} else 
 							if (i == 6) {
-								headDress = avatarPartGO [i];
+								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+								int count = t.childCount;
+								if(count == 0) {
+									headDress = avatarPartGO [i];
+								} else {
+									headDress = t.GetChild(0).gameObject;
+								}
 								headDress.GetComponent<MeshRenderer> ().material = matObj;
 								headDress.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							} else 
 							if (i == 7) {
-								backEquipment = avatarPartGO [i];
+								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+								int count = t.childCount;
+								if(count == 0) {
+									backEquipment = avatarPartGO [i];
+								} else {
+									backEquipment = t.GetChild(0).gameObject;
+								}
 								backEquipment.GetComponent<MeshRenderer> ().material = matObj;
 								backEquipment.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							}
@@ -346,33 +369,32 @@ public class ModelManager : MonoBehaviour {
 						}
 					}
 				}
-			}
+				if (dummyBall != null)
+					dummyBall.transform.parent = result.transform;
 
-			if (dummyBall != null)
-				dummyBall.transform.parent = result.transform;
+				//HeadDress
+				if (dummyHead == null) {
+					Transform t = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+					if (tag != null)
+						dummyHead = t.gameObject;
+				}
 
-			//HeadDress
-			if (dummyHead == null) {
-				Transform t = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-				if (tag != null)
-					dummyHead = t.gameObject;
-			}
+				if (headDress != null) {
+					headDress.transform.parent = dummyHead.transform;
+					headDress.transform.localPosition = Vector3.zero;
+					headDress.transform.localEulerAngles = Vector3.zero;
 
-			if (headDress != null) {
-				headDress.transform.parent = dummyHead.transform;
-				headDress.transform.localPosition = Vector3.zero;
-				headDress.transform.localEulerAngles = Vector3.zero;
+				}
+				
+				//BackEquipment
+				if (dummyBack == null)
+					dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
 
-			}
-			
-			//BackEquipment
-			if (dummyBack == null)
-				dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
-
-			if (backEquipment != null) {
-				backEquipment.transform.parent = dummyBack.transform;
-				backEquipment.transform.localPosition = Vector3.zero;
-				backEquipment.transform.localEulerAngles = Vector3.zero;
+				if (backEquipment != null) {
+					backEquipment.transform.parent = dummyBack.transform;
+					backEquipment.transform.localPosition = Vector3.zero;
+					backEquipment.transform.localEulerAngles = Vector3.zero;
+				}
 			}
 			
 			GameObject clone = GameObject.Find(result.name + "/" + mainBody);
@@ -393,20 +415,24 @@ public class ModelManager : MonoBehaviour {
 			clone.transform.parent = result.transform;
 
 			//animator
-			Animator aniControl = result.AddComponent<Animator>();
+			Animator aniControl = result.GetComponent<Animator>();
+			if(aniControl == null)
+				aniControl = result.AddComponent<Animator>();
 			RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", attr.Body)) as RuntimeAnimatorController;
 			aniControl.runtimeAnimatorController = test;
 			aniControl.applyRootMotion = false;
 			
 			//collider
-			CapsuleCollider collider = result.AddComponent<CapsuleCollider>();
+			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();
+			if(collider == null)
+				collider = result.AddComponent<CapsuleCollider>();
 			collider.radius = 0.32f;
 			collider.height = 3f;
 			float testh = collider.height / 2f;
 			collider.center = new Vector3 (0, testh, 0);
 			
 			//rig
-			if (isUseRig) {
+			if(isUseRig){
 				Rigidbody rig = result.GetComponent<Rigidbody> ();
 				if (rig == null)
 					rig = result.AddComponent<Rigidbody> ();

@@ -165,13 +165,20 @@ public class GameController : MonoBehaviour {
 	}
 	
 	private void randomAvatar(ref GameStruct.TAvatar attr) {
-		attr.Cloth = UnityEngine.Random.Range(5,7);
-		attr.Hair = UnityEngine.Random.Range(2,4);
-		attr.MHandDress = UnityEngine.Random.Range(2,4);
-		attr.Pants = UnityEngine.Random.Range(6,8);
-		attr.Shoes = UnityEngine.Random.Range(0,3);
-		attr.AHeadDress = UnityEngine.Random.Range(0,3);
-		attr.ZBackEquip = UnityEngine.Random.Range(0,3);
+		int[] clothInt = new int[]{0,5,6};
+		int[] hairInt = new int[]{0,2,3};
+		int[] mhandInt = new int[]{0,2,3};
+		int[] pantInt = new int[]{0,6,7};
+		int[] shoeInt = new int[]{0,1,2};
+		int[] aheadInt  = new int[]{0,1,2};
+		int[] zbackInt  = new int[]{0,1,2};
+		attr.Cloth = clothInt[UnityEngine.Random.Range(0,3)];
+		attr.Hair = hairInt[UnityEngine.Random.Range(0,3)];
+		attr.MHandDress = mhandInt[UnityEngine.Random.Range(0,3)];
+		attr.Pants = pantInt[UnityEngine.Random.Range(0,3)];
+		attr.Shoes = shoeInt[UnityEngine.Random.Range(0,3)];
+		attr.AHeadDress = aheadInt[UnityEngine.Random.Range(0,3)];
+		attr.ZBackEquip = zbackInt[UnityEngine.Random.Range(0,3)];
 	}
 	
 	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
@@ -210,23 +217,16 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
-				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
-				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
-				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
-			
-				randomAvatar(ref attr);
+
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
-				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
-				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
-				redAvatarTexture(ref attrTexture);
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
