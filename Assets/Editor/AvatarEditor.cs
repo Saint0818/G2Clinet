@@ -195,7 +195,7 @@ public class AvatarEditor :  EditorWindow{
 			attr.AHeadDress = UnityEngine.Random.Range(0,3);
 			attr.ZBackEquip = UnityEngine.Random.Range(0,3);
 			
-			GameController.Get.ChangePlayer(attr, attrTexture);
+			//GameController.Get.ChangePlayer(attr, attrTexture);
 
 			judgeBodyTextureName("B", UnityEngine.Random.Range(1,3).ToString());
 			int numB = UnityEngine.Random.Range(0,2);
@@ -324,7 +324,7 @@ public class AvatarEditor :  EditorWindow{
 			}
 		}
 		
-		GameController.Get.ChangePlayer(attr, attrTexture);
+		//GameController.Get.ChangePlayer(attr, attrTexture);
 	}
 
 	void judgeBodyName(string body){

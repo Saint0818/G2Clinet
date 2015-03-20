@@ -57,26 +57,24 @@ public class SendHttp : MonoBehaviour
 	}
 
 	private bool checkNetwork(){
-		#if UNITY_EDITOR
-		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
-			return true;
-		#else
-		#if UNITY_IPHONE
-		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
-			return true;
-		#endif
-		#if UNITY_ANDROID
-//		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
-//			return true;
-		#endif
-		#if (!UNITY_IPHONE && !UNITY_ANDROID)
-		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
-			return true;
-		#endif
-		#endif
+		bool internetPossiblyAvailable;
+		switch (Application.internetReachability)
+		{
+		case NetworkReachability.ReachableViaLocalAreaNetwork:
+			internetPossiblyAvailable = true;
+			break;
+		case NetworkReachability.ReachableViaCarrierDataNetwork:
+			internetPossiblyAvailable = true;
+			break;
+		default:
+			internetPossiblyAvailable = false;
+			break;
+		}
 		
-		UIMessage.Get.ShowMessage(TextConst.S(37), TextConst.S(93));
-		return false;
+		if (!internetPossiblyAvailable)
+			UIMessage.Get.ShowMessage("", TextConst.S (93));
+		
+		return internetPossiblyAvailable;
 	}
 
 	private bool checkResponse(WWW www){

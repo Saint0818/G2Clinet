@@ -57,7 +57,6 @@ public class UIBase: MonoBehaviour
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
 						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
-//						UIBase ui = obj2.AddComponent(UIName) as UIBase;
 						ui.InitText();
 						ui.InitCom();
 						ui.InitData();
@@ -155,29 +154,6 @@ public class UIBase: MonoBehaviour
 	{
 		if (btn)
 		  btn.onClick.Add(new EventDelegate(callBack));	
-	}
-
-	protected bool checkNetwork() {
-		#if UNITY_EDITOR
-		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
-			return true;
-		#else
-		#if UNITY_IPHONE
-		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
-			return true;
-		#endif
-		#if UNITY_ANDROID
-//		if (iPhoneSettings.internetReachability != iPhoneNetworkReachability.NotReachable)
-//			return true;
-		#endif
-		#if (!UNITY_IPHONE && !UNITY_ANDROID)
-		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
-			return true;
-		#endif
-		#endif
-		
-		UIMessage.Get.ShowMessage("", TextConst.S (93));
-		return false;
 	}
 
 	bool waitclose = false;

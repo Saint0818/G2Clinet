@@ -145,11 +145,6 @@ public class GameController : MonoBehaviour {
 		situation = GameSituation.Opening;
 	}
 
-	public void ChangePlayer(GameStruct.TAvatar attr, GameStruct.TAvatarTexture attrTexture) {
-		PlayerList.Add (ModelManager.Get.CreateStorePlayer (PlayerList[0].gameObject, attr, attrTexture, new Vector3(0, 0, 0)));
-		PlayerList.RemoveAt (0);
-	}
-
 	private PlayerBehaviour FindDefMen(PlayerBehaviour npc){
 		PlayerBehaviour Result = null;
 		
@@ -245,8 +240,8 @@ public class GameController : MonoBehaviour {
 				attr.MHandDress = 2;
 				attr.AHeadDress = 0;
 				attr.ZBackEquip = 0;
-				PlayerList.Add (ModelManager.Get.CreateStorePlayer (null, attr, attrTexture, new Vector3(0, 0, 0)));
-				break;
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
+                break;
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;

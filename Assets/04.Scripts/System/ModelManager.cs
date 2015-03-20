@@ -121,21 +121,16 @@ public class ModelManager : MonoBehaviour {
 		}
 	}
 
-	public PlayerBehaviour CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, Vector3 BornPos){
-		if (Player != null) {
-			Destroy (Player);
-		}
-		GameObject Res = SetAvatar (Attr, AttrTexture, false);
-		Res.transform.parent = PlayerInfoModel.transform;
-		Res.transform.localPosition = BornPos;
-
-		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
-		return PB;
+	public void CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture){
+		SetAvatar (ref Player, Attr, AttrTexture, false);
 	}
 
+	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0, GameObject Res=null){
+		if (Res == null)
+			Res = new GameObject();
 
-	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0){
-		GameObject Res = SetAvatar (Attr, AttrTexture, true);
+		SetAvatar (ref Res, Attr, AttrTexture, true);
+
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
 		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
@@ -143,6 +138,7 @@ public class ModelManager : MonoBehaviour {
 		DefPointCopy.transform.localPosition = Vector3.zero;
 		if(Team == TeamKind.Npc)
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
+
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
@@ -228,173 +224,198 @@ public class ModelManager : MonoBehaviour {
 	/// <summary>
 	/// c:Clothes, h:Hair, m:HandEquipment, p:Pants, s:Shoes, a:Headdress, z:BackbackEquipment
 	/// </summary>
-	public GameObject SetAvatar(GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false)
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false)
 	{
-		string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
-		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
-		string[] avatarPartTexture = new string[] {
-			AttrTexture.BTexture,
-			AttrTexture.CTexture,
-			AttrTexture.HTexture,
-			AttrTexture.MTexture,
-			AttrTexture.PTexture,
-			AttrTexture.STexture,
-			AttrTexture.ATexture,
-			AttrTexture.ZTexture
-		};
-		int[] avatarIndex = new int[] {
-			attr.Body,
-			attr.Cloth,
-			attr.Hair,
-			attr.MHandDress,
-			attr.Pants,
-			attr.Shoes,
-			attr.AHeadDress,
-			attr.ZBackEquip
-		};
-		GameObject[] avatarPartGO = new GameObject[avatarIndex.Length];
-		GameObject result = new GameObject ();
-		GameObject dummyBall = null;
-		GameObject dummyHead = null;
-		GameObject dummyBack = null;
-		GameObject headDress = null;
-		GameObject backEquipment = null;
-		GameObject bipGO = null;
-		
-		Transform[] hips;
-		List<CombineInstance> combineInstances = new List<CombineInstance> ();
-		List<Material> materials = new List<Material> ();
-		List<Transform> bones = new List<Transform> ();
-		
-		for (int i = 0; i < avatarIndex.Length; i++) {
-			string path = string.Empty;
-			string materialPath = string.Format ("Character/Materials/Material_0");
+		try {
+			string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
+			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
+			string[] avatarPartTexture = new string[] {
+				AttrTexture.BTexture,
+				AttrTexture.CTexture,
+				AttrTexture.HTexture,
+				AttrTexture.MTexture,
+				AttrTexture.PTexture,
+				AttrTexture.STexture,
+				AttrTexture.ATexture,
+				AttrTexture.ZTexture
+			};
 
-			if (i == 0) {
-				path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
-			} else if (avatarIndex [i] > DRESS_NONE) {
-				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
-			}
+			int[] avatarIndex = new int[] {
+				attr.Body,
+				attr.Cloth,
+				attr.Hair,
+				attr.MHandDress,
+				attr.Pants,
+				attr.Shoes,
+				attr.AHeadDress,
+				attr.ZBackEquip
+			};
 
-			Object resObj = Resources.Load (path);
-			if (!resObj && avatarIndex [i] > DRESS_NONE) {
-				//it maybe A or F
-				path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
-				resObj = Resources.Load (path);
-			}
+			GameObject[] avatarPartGO = new GameObject[avatarIndex.Length];
+			GameObject dummyBall = null;
+			GameObject dummyHead = null;
+			GameObject dummyBack = null;
+			GameObject headDress = null;
+			GameObject backEquipment = null;
+			GameObject bipGO = null;
+			
+			Transform[] hips;
+			List<CombineInstance> combineInstances = new List<CombineInstance> ();
+			List<Material> materials = new List<Material> ();
+			List<Transform> bones = new List<Transform> ();
+			
+			for (int i = 0; i < avatarIndex.Length; i++) {
+				if (avatarIndex [i] > 0) {
+					string path = string.Empty;
+					string materialPath = string.Format ("Character/Materials/Material_0");
 
-			if (resObj) {
-				Material matObj = loadMaterial (materialPath);
-				Texture texture = loadTexture(avatarPartTexture [i]);
-				if(texture) {
-					matObj.SetTexture("_MainTex", texture);
-				}
-				avatarPartGO [i] = Instantiate (resObj) as GameObject;
+					if (i == 0) 
+						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
+					else 
+					if (i < 6) 
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
+					else //it maybe A or Z
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
 
-				if (dummyBall == null)
-					dummyBall = avatarPartGO [i].transform.FindChild ("DummyBall").gameObject;
+					Object resObj = Resources.Load (path);
+					if (resObj) {
+						try {
+							Material matObj = loadMaterial (materialPath);
+							Texture texture = loadTexture(avatarPartTexture [i]);
+							if(texture) 
+								matObj.SetTexture("_MainTex", texture);
 
-				if (i < 6) {
-					if (bipGO == null) {
-						bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
-						
-						if (bipGO)
-							bipGO.transform.parent = result.transform;
-					}
+							avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
-					hips = bipGO.GetComponentsInChildren<Transform> ();
-					
-					if (avatarPartGO [i] && hips.Length > 0) {
-						SkinnedMeshRenderer smr = avatarPartGO [i].GetComponentInChildren<SkinnedMeshRenderer> ();
-						//ready combine mesh
-						CombineInstance ci = new CombineInstance ();
-						ci.mesh = smr.sharedMesh;
-						combineInstances.Add (ci);
-						smr.material = matObj;
-						if (i == 0)
-							smr.material.name = "B";
-						else 
-							smr.material.name = avatarPart [i];
-						//sort new material
-						materials.AddRange (smr.materials);
-						
-						//get same bip to create new bones  
-						foreach (Transform bone in smr.bones) {
-							foreach (Transform hip in hips) {
-								
-								if (hip.name != bone.name)
-									continue;
-								bones.Add (hip);
-								break;
+							if (dummyBall == null) {
+								Transform t = avatarPartGO [i].transform.FindChild ("DummyBall");
+								if (t != null)
+									dummyBall = t.gameObject;
 							}
+
+							if (i < 6) {
+								if (bipGO == null) {
+									bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
+									
+									if (bipGO)
+										bipGO.transform.parent = result.transform;
+								}
+
+								hips = bipGO.GetComponentsInChildren<Transform> ();
+								
+								if (avatarPartGO [i] && hips.Length > 0) {
+									SkinnedMeshRenderer smr = avatarPartGO [i].GetComponentInChildren<SkinnedMeshRenderer> ();
+									//ready combine mesh
+									CombineInstance ci = new CombineInstance ();
+									ci.mesh = smr.sharedMesh;
+									combineInstances.Add (ci);
+									smr.material = matObj;
+									if (i == 0)
+										smr.material.name = "B";
+									else 
+										smr.material.name = avatarPart [i];
+
+									//sort new material
+									materials.AddRange (smr.materials);
+									
+									//get same bip to create new bones  
+									foreach (Transform bone in smr.bones) {
+										foreach (Transform hip in hips) {
+											if (hip.name != bone.name)
+												continue;
+
+											bones.Add (hip);
+											break;
+										}
+									}
+								}
+								Destroy (avatarPartGO [i]);
+							} else 
+							if (i == 6) {
+								headDress = avatarPartGO [i];
+								headDress.GetComponent<MeshRenderer> ().material = matObj;
+								headDress.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
+							} else 
+							if (i == 7) {
+								backEquipment = avatarPartGO [i];
+								backEquipment.GetComponent<MeshRenderer> ().material = matObj;
+								backEquipment.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
+							}
+						} catch (UnityException e) {
+							Debug.Log(e.ToString());
 						}
 					}
-					Destroy (avatarPartGO [i]);
-				} else if (i == 6) {
-					headDress = avatarPartGO [i];
-					headDress.GetComponent<MeshRenderer> ().material = matObj;
-					headDress.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
-				} else if (i == 7) {
-					backEquipment = avatarPartGO [i];
-					backEquipment.GetComponent<MeshRenderer> ().material = matObj;
-					backEquipment.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 				}
 			}
-		}
-		if (dummyBall != null)
-			dummyBall.transform.parent = result.transform;
 
-		//HeadDress
-		if (dummyHead == null)
-			dummyHead = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead").gameObject;
-		if (headDress != null) {
-			headDress.transform.parent = dummyHead.transform;
-			headDress.transform.localPosition = Vector3.zero;
-			headDress.transform.localEulerAngles = Vector3.zero;
+			if (dummyBall != null)
+				dummyBall.transform.parent = result.transform;
 
-		}
-		
-		//BackEquipment
-		if (dummyBack == null)
-			dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
-		if (backEquipment != null) {
-			backEquipment.transform.parent = dummyBack.transform;
-			backEquipment.transform.localPosition = Vector3.zero;
-			backEquipment.transform.localEulerAngles = Vector3.zero;
-		}
-		
-		GameObject clone = new GameObject();
-		SkinnedMeshRenderer resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
-		resultSmr.sharedMesh = new Mesh();
-		resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray() , false , false);
-		resultSmr.bones = bones.ToArray();
-		resultSmr.materials = materials.ToArray();
-		clone.name = mainBody;
-		clone.transform.parent = result.transform;
+			//HeadDress
+			if (dummyHead == null) {
+				Transform t = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+				if (tag != null)
+					dummyHead = t.gameObject;
+			}
 
-		//animator
-		Animator aniControl = result.AddComponent<Animator>();
-		RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", attr.Body)) as RuntimeAnimatorController;
-		aniControl.runtimeAnimatorController = test;
-		aniControl.applyRootMotion = false;
-		
-		//collider
-		CapsuleCollider collider = result.AddComponent<CapsuleCollider>();
-		collider.radius = 0.32f;
-		collider.height = 3f;
-		float testh = collider.height / 2f;
-		collider.center = new Vector3 (0, testh, 0);
-		
-		//rig
-		if (isUseRig) {
-			Rigidbody rig = result.GetComponent<Rigidbody> ();
-			if (rig == null)
-				rig = result.AddComponent<Rigidbody> ();
+			if (headDress != null) {
+				headDress.transform.parent = dummyHead.transform;
+				headDress.transform.localPosition = Vector3.zero;
+				headDress.transform.localEulerAngles = Vector3.zero;
+
+			}
 			
-			rig.freezeRotation = true;
+			//BackEquipment
+			if (dummyBack == null)
+				dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
+
+			if (backEquipment != null) {
+				backEquipment.transform.parent = dummyBack.transform;
+				backEquipment.transform.localPosition = Vector3.zero;
+				backEquipment.transform.localEulerAngles = Vector3.zero;
+			}
+			
+			GameObject clone = GameObject.Find(result.name + "/" + mainBody);
+			if (clone == null)
+				clone = new GameObject();
+
+			SkinnedMeshRenderer resultSmr = clone.gameObject.GetComponent<SkinnedMeshRenderer>();
+			if (resultSmr == null)
+				resultSmr = clone.gameObject.AddComponent<SkinnedMeshRenderer>();
+
+			if (resultSmr.sharedMesh == null)
+				resultSmr.sharedMesh = new Mesh();
+
+			resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray() , false , false);
+			resultSmr.bones = bones.ToArray();
+			resultSmr.materials = materials.ToArray();
+			clone.name = mainBody;
+			clone.transform.parent = result.transform;
+
+			//animator
+			Animator aniControl = result.AddComponent<Animator>();
+			RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", attr.Body)) as RuntimeAnimatorController;
+			aniControl.runtimeAnimatorController = test;
+			aniControl.applyRootMotion = false;
+			
+			//collider
+			CapsuleCollider collider = result.AddComponent<CapsuleCollider>();
+			collider.radius = 0.32f;
+			collider.height = 3f;
+			float testh = collider.height / 2f;
+			collider.center = new Vector3 (0, testh, 0);
+			
+			//rig
+			if (isUseRig) {
+				Rigidbody rig = result.GetComponent<Rigidbody> ();
+				if (rig == null)
+					rig = result.AddComponent<Rigidbody> ();
+				
+				rig.freezeRotation = true;
+			}
+		} catch (UnityException e) {
+			Debug.Log(e.ToString());
 		}
-		
-		return result;
 	}
 
 
