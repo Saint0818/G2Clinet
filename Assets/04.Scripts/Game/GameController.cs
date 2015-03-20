@@ -240,13 +240,8 @@ public class GameController : MonoBehaviour {
 				attr.MHandDress = 2;
 				attr.AHeadDress = 0;
 				attr.ZBackEquip = 0;
-<<<<<<< Updated upstream
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
-                break;
-=======
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
->>>>>>> Stashed changes
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
