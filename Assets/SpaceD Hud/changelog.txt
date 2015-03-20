@@ -1,0 +1,6 @@
+Version 1.4:
+- Updated for NGUI v3.7.8
+
+Version 1.3:
+- Fixed slot functionality.
+- Updated for NGUI v3.7.7

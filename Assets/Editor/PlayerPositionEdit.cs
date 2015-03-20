@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 public class PlayerPositionEdit : EditorWindow {
 
-	[MenuItem ("Player/PositionEdit")]
+	[MenuItem ("GameEditor/PlayerMoves")]
 	private static void PositionEdit()
 	{
-		EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 900), true, "PlayerPositionEdit").Show();
+		EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 800), true, "PlayerMoves").Show();
 	}
 	
 	private bool ControlPlayer1 = true;
@@ -34,10 +34,10 @@ public class PlayerPositionEdit : EditorWindow {
 			TTactical[] temp = new TTactical[newSize];
 			if(TacticalData.Length > 0)
 				TacticalData.CopyTo(temp, 0);
+
 			TacticalData = temp;	
 		}
 	}
-
 
 	void OnGUI()
 	{

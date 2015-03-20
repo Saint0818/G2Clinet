@@ -6,10 +6,10 @@ using System.Collections.Generic;
 
 public class AvatarEditor :  EditorWindow{
 
-	[MenuItem ("Avatar/AvatarSystem")]
+	[MenuItem ("GameEditor/Avatar")]
 	private static void BuildTool() {
 
-		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 600, 600), true, "AvatarEditor").Show();
+		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 800, 800), true, "Avatar").Show();
 	}
 
 	private int model = 2;

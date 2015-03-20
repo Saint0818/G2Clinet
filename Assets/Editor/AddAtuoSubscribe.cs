@@ -13,7 +13,7 @@ public class AddAutoSubscribe
 	public enum SubscribeType{button, label, sprite, page};
 	private static SubscribeType mType = SubscribeType.button;
 
-	[MenuItem("DS/NGUI/ResetPanelDepth")]
+	[MenuItem("GameEditor/NGUITune/ResetPanelDepth")]
 	static void ResetPanelDepth()
 	{
 		if (Selection.gameObjects.Length > 0) {
@@ -28,7 +28,7 @@ public class AddAutoSubscribe
 		}
 	}
 
-	[MenuItem("DS/NGUI/ResetLabelDepth")]
+	[MenuItem("GameEditor/NGUITune/ResetLabelDepth")]
 	static void ResetLabelDepth()
 	{
 		if (Selection.gameObjects.Length > 0) {
@@ -70,7 +70,7 @@ public class AddAutoSubscribe
 		}
 	}
 
-	[MenuItem("DS/NGUI/ResetSpriteDepth")]
+	[MenuItem("GameEditor/NGUITune/ResetSpriteDepth")]
 	static void ResetSpriteDepth()
 	{
 		if (Selection.gameObjects.Length > 0) {
@@ -87,33 +87,33 @@ public class AddAutoSubscribe
 		}
 	}
 
-	[MenuItem("DS/NGUI/AddSubscribe_Button")]
+	[MenuItem("GameEditor/NGUITune/AddSubscribe_Button")]
 	static void ButtonType()
 	{
 		mType = SubscribeType.button;
 		Add();
 	}
 
-	[MenuItem("DS/NGUI/AddSubscribe_Label")]
+	[MenuItem("GameEditor/NGUITune/AddSubscribe_Label")]
 	static void LabelType()
 	{
 		mType = SubscribeType.label;
 		Add();
 	}
 
-	[MenuItem("DS/NGUI/AddSubscribe_Sprite")]
+	[MenuItem("GameEditor/NGUITune/AddSubscribe_Sprite")]
 	static void SpriteType()
 	{
 		mType = SubscribeType.sprite;
 		Add();
 	}
 
-  [MenuItem("DS/NGUI/AddSubscribe_Page")]
-  static void PageType()
-  {
-    mType = SubscribeType.page;
-    Add();
-  }
+	[MenuItem("GameEditor/NGUITune/AddSubscribe_Page")]
+	static void PageType()
+	{
+		mType = SubscribeType.page;
+		Add();
+	}
 
 	static void Add()
 	{

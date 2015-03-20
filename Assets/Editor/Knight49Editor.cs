@@ -7,12 +7,10 @@ using System.Collections.Generic;
 
 public class Knight49Editor : EditorWindow
 {
-    [MenuItem ("Knight49/Build Tool")]
+	[MenuItem ("GameEditor/BuildTool")]
     private static void BuildTool()
     {
-        Rect wr = new Rect(0, 0, 300, 300);
-        Knight49Editor window = (Knight49Editor)EditorWindow.GetWindowWithRect(typeof(Knight49Editor), wr, true, "Knight49Editor");
-        window.Show();
+		EditorWindow.GetWindowWithRect(typeof(Knight49Editor), new Rect(0, 0, 800, 400), true, "BuildTool").Show();
     }
     
     public string mVersion = "0.0.0";

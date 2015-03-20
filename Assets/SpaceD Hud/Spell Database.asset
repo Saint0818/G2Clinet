@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb20665fea48824aa9e15f26ae62fe0, type: 3}
+  m_Name: Spell Database
+  m_EditorClassIdentifier: 
+  spells:
+  - ID: 1
+    Name: Attack
+    Icon: {fileID: 2800000, guid: ed92e7e1cb2e2a74496c00bcf5b9cc40, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales.
+    Range: 1
+    Cooldown: 1
+    CastTime: 0
+    PowerCost: 5
+    Flags: 6
+  - ID: 2
+    Name: Block
+    Icon: {fileID: 2800000, guid: fb44ba6cf838afb4babf6568c18ceda0, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales.
+    Range: 0
+    Cooldown: 2
+    CastTime: 0
+    PowerCost: 5
+    Flags: 6
+  - ID: 3
+    Name: Fire Ball
+    Icon: {fileID: 2800000, guid: 444759482e6af914fa7ce53fe92443ec, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales.
+    Range: 35
+    Cooldown: 5
+    CastTime: .800000012
+    PowerCost: 50
+    Flags: 0
+  - ID: 4
+    Name: Healing Leafs
+    Icon: {fileID: 2800000, guid: beb615fa2247740469c51e6fb142c56f, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet.
+    Range: 40
+    Cooldown: 4
+    CastTime: 2
+    PowerCost: 15
+    Flags: 0
+  - ID: 5
+    Name: Death Kiss
+    Icon: {fileID: 2800000, guid: fc9a70842edcbac49a79e027fd670f57, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales.
+    Range: 0
+    Cooldown: 3
+    CastTime: 0
+    PowerCost: 7
+    Flags: 6
+  - ID: 6
+    Name: Intelligence
+    Icon: {fileID: 2800000, guid: 517a385f559fc2a48ab43a5ea8d4c052, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales. Nam cursus venenatis rhoncus.
+    Range: 0
+    Cooldown: 10
+    CastTime: 0
+    PowerCost: 3
+    Flags: 6
+  - ID: 7
+    Name: Blinding Light
+    Icon: {fileID: 2800000, guid: f874e4b73abd8684c80c73ed6cca3b82, type: 3}
+    Description: Integer pulvinar orci eu lorem interdum imperdiet. Nam cursus venenatis
+      rhoncus. Vestibulum sodales.
+    Range: 0
+    Cooldown: 30
+    CastTime: 3.5
+    PowerCost: 35
+    Flags: 4

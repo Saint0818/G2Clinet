@@ -78,9 +78,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		SetTestToolPosition();
 	}
 
-    public Camera GetUICamera()
+    public Camera CourtCamera
     {
-        return cameraFx;
+		get {return cameraFx;}
     }
 
 	private void InitCamera()

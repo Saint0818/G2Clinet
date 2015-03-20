@@ -15,7 +15,7 @@ public class EffectManager : MonoBehaviour
 
 	void Awake()
 	{
-		mShake = CameraMgr.Get.GetUICamera().gameObject.AddComponent<Shake>();
+		mShake = CameraMgr.Get.CourtCamera.gameObject.AddComponent<Shake>();
 	}
 
 	public void PlayShake()
