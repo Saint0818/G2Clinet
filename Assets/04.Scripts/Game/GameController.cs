@@ -240,8 +240,13 @@ public class GameController : MonoBehaviour {
 				attr.MHandDress = 2;
 				attr.AHeadDress = 0;
 				attr.ZBackEquip = 0;
+<<<<<<< Updated upstream
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
                 break;
+=======
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				break;
+>>>>>>> Stashed changes
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
@@ -439,7 +444,7 @@ public class GameController : MonoBehaviour {
 			if (isshoot)
 				Shoot ();
 			else
-				Joysticker.AniState (PlayerState.FakeShoot);
+				Joysticker.AniState (PlayerState.FakeShoot, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
 		}
     }
     
@@ -466,12 +471,14 @@ public class GameController : MonoBehaviour {
 	public void DoPass()
 	{
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
-			if(BallOwner == Joysticker)
-				Pass(PlayerList[1]);
-			else
-				Pass(Joysticker);
+			if(PlayerList.Count > 2){
+				if(BallOwner == Joysticker)
+					Pass(PlayerList[1]);
+				else
+					Pass(Joysticker);
 
-			Joysticker.SetNoAiTime();
+				Joysticker.SetNoAiTime();
+			}
 		}
 	}
 
@@ -561,7 +568,7 @@ public class GameController : MonoBehaviour {
 				Joysticker.ClearMoveQueue();
 				PlayerState ps = PlayerState.Run;
 				if (BallOwner == Joysticker)
-					ps = PlayerState.RunAndDrible;
+					ps = PlayerState.RunAndDribble;
 
 				Joysticker.OnJoystickMove(move, ps);
             }

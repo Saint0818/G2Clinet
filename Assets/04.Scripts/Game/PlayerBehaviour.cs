@@ -25,7 +25,7 @@ public enum PlayerState
 	AlleyOop_Pass = 21,
 	AlleyOop_Dunk = 22,
 	MovingDefence = 23,
-	RunAndDrible = 24,
+	RunAndDribble = 24,
 	Shooting = 25,
 	Catcher = 26,
 	DunkBasket = 27,
@@ -359,7 +359,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 	public void MoveTo(TMoveData Data, bool First = false){
-		if (CanMove) {
+		if (CanMove && WaitMoveTime == 0) {
 			Vector2 MoveTarget = Vector2.zero;
 			float dis = 0;
 			if(Data.DefPlayer != null){
@@ -479,7 +479,7 @@ public class PlayerBehaviour : MonoBehaviour
 					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 
 					if(IsBallOwner)
-						AniState(PlayerState.RunAndDrible);
+						AniState(PlayerState.RunAndDribble);
 					else
 						AniState(PlayerState.Run);
 
@@ -586,18 +586,21 @@ public class PlayerBehaviour : MonoBehaviour
 				AddActionFlag(ActionFlag.IsCatcher);
 				break;
 			case PlayerState.Run:
+				if(!isJoystick)
+					SetSpeed(1, 1);	
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
 			case PlayerState.Dribble:
-				if(!isJoystick)
 					SetSpeed(0, -1);
 				AddActionFlag(ActionFlag.IsDribble);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
-			case PlayerState.RunAndDrible:
+			case PlayerState.RunAndDribble:
 				if(!isJoystick)
 					SetSpeed(1, 1);
+				else
+					SetSpeed(1, 0);
 
 				Control.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				Control.SetBool(AnimatorStates[ActionFlag.IsDribble], true);

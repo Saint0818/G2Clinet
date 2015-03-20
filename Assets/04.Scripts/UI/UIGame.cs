@@ -130,7 +130,6 @@ public class UIGame : UIBase {
 	{
 		if (shootBtnIsPress) {
 			shootBtnTime += Time.deltaTime;
-			Debug.Log("shootBtnTime : " + shootBtnTime);
 			if(shootBtnTime > 0.5f)
 			{
 				GameController.Get.DoShoot(true);
@@ -172,4 +171,3 @@ public class UIGame : UIBase {
 		IsUseKeyboard = false;
 	}
 }
-
