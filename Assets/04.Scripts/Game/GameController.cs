@@ -48,7 +48,8 @@ public struct TTactical
 }
 
 public struct TActionPosition{
-	public Vector3 Position;
+	public float x;
+	public float z;
 	public bool Speedup;
 }
 
@@ -120,19 +121,12 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
-		TextAsset aa = Resources.Load("Run/TacticalData") as TextAsset;
-		if (aa != null) {
-			MovePositionList.Clear();
-			TTactical [] saveData = new TTactical[0];
-			GameFunction.GetJsonData(aa.text, ref saveData);
-			for(int i = 0; i < saveData.Length; i++)
-				if(saveData[i].FileName != null && saveData[i].FileName != string.Empty)
-					MovePositionList.Add(saveData[i]);	
+		MovePositionList.Clear();
+		for(int i = 0; i < GameData.TacticalData.Length; i++)
+			if(!string.IsNullOrEmpty(GameData.TacticalData[i].FileName))
+				MovePositionList.Add(GameData.TacticalData[i]);	
 
-			Debug.Log(MovePositionList.Count);
-		}else
-			Debug.LogError("No File");
-
+		Debug.Log(MovePositionList.Count);
 	}
 
 	public void InitGame(){
@@ -856,21 +850,21 @@ public class GameController : MonoBehaviour {
 						if(MovePositionList[Rate].PosAy1.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy1.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = MovePositionList[Rate].PosAy1[i].Position;
+								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy1[i].x, 0, MovePositionList[Rate].PosAy1[i].z);
 						}
 						break;
 					case GamePostion.F:
 						if(MovePositionList[Rate].PosAy2.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy2.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = MovePositionList[Rate].PosAy2[i].Position;
+								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy2[i].x, 0, MovePositionList[Rate].PosAy2[i].z);
 						}
 						break;
 					case GamePostion.C:
 						if(MovePositionList[Rate].PosAy3.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy3.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = MovePositionList[Rate].PosAy3[i].Position;
+								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy3[i].x, 0, MovePositionList[Rate].PosAy3[i].z);
 						}
 						break;
 					}
@@ -1318,7 +1312,7 @@ public class GameController : MonoBehaviour {
 	public void EditSetMove(TActionPosition ActionPosition, int index){
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
-			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
+			data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
 			data.Speedup = ActionPosition.Speedup;
 			PlayerList[index].TargetPos = data;
 		}

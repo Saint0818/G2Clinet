@@ -45,8 +45,8 @@ public class ModelManager : MonoBehaviour {
 
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
-		up.depth = 2;
+		//UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
+		//up.depth = 2;
 
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 	}
