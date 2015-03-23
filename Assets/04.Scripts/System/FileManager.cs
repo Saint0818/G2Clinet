@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 using Newtonsoft.Json;
+using GameStruct;
 
 public delegate void DownloadFinsh();
 public delegate void DownloadFileText(string Ver, string Text, bool SaveVersion);

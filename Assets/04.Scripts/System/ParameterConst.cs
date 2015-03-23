@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameStruct;
 
 public delegate void TBooleanWWWObj(bool val, WWW Result);
 

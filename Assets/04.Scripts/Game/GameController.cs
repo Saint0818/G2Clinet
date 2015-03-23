@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using GameStruct;
 
 public enum GameSituation{
 	None           = 0,
@@ -253,13 +254,13 @@ public class GameController : MonoBehaviour {
 		}
 
 		Joysticker = PlayerList [0];
-		EffectManager.Get.SelectEffectScript.SetTarget(Joysticker.gameObject);
+		Joysticker.SetSelectTexture("SelectMe");
 
-		if(PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team)
-			EffectManager.Get.SelectEffectScriptA.SetTarget(PlayerList[1].gameObject);
+		if(PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team) 
+			PlayerList[1].SetSelectTexture("SelectA");
 
-		if(PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team)
-			EffectManager.Get.SelectEffectScriptB.SetTarget(PlayerList[2].gameObject);
+		if(PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team) 
+			PlayerList[2].SetSelectTexture("SelectB");
 
 		for (int i = 0; i < PlayerList.Count; i ++) {
 			PlayerList[i].OnShoot = OnShoot;

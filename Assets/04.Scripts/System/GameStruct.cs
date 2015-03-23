@@ -2,16 +2,16 @@
 using System.Collections;
 using System;
 
-public struct TAIlevel
+namespace GameStruct
 {
-	public int Level;
-	public int ProactiveRate;
-	public int AutoFollowTime;
-	public float DefDistance;
-}
+	public struct TAIlevel
+	{
+		public int Level;
+		public int ProactiveRate;
+		public int AutoFollowTime;
+		public float DefDistance;
+	}
 
-public static class GameStruct
-{
 	public struct TAvatar
 	{	
 		public int Body;
@@ -34,6 +34,7 @@ public static class GameStruct
 			ZBackEquip = 0;
 		}
 	}
+
 	public struct TAvatarTexture{
 		public string BTexture;
 		public string HTexture;
@@ -55,9 +56,9 @@ public static class GameStruct
 			ZTexture = "3_Z_1_0";
 		}
 	}
-}
 
-public static class GameData 
-{
-	public static TTactical[] TacticalData;
+	public static class GameData 
+	{
+		public static TTactical[] TacticalData;
+	}
 }

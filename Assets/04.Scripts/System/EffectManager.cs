@@ -54,14 +54,14 @@ public class EffectManager : MonoBehaviour
 			for (int i = 0; i < GameEffects.Length; i ++) 
 				LoadEffect(GameEffects[i]);
 
-			GameObject SelectEffectobj = GameObject.Instantiate(LoadEffect("SelectEffect")) as GameObject;
+			/*GameObject SelectEffectobj = GameObject.Instantiate(LoadEffect("SelectEffect")) as GameObject;
 			SelectEffectScript = SelectEffectobj.GetComponent<FollowGameObject>();
 
 			GameObject SelectEffectobjA = GameObject.Instantiate(LoadEffect("SelectEffectA")) as GameObject;
 			SelectEffectScriptA = SelectEffectobjA.GetComponent<FollowGameObject>();
 
 			GameObject SelectEffectobjB = GameObject.Instantiate(LoadEffect("SelectEffectB")) as GameObject;
-			SelectEffectScriptB = SelectEffectobjB.GetComponent<FollowGameObject>();
+			SelectEffectScriptB = SelectEffectobjB.GetComponent<FollowGameObject>();*/
 		}
 	}
 
