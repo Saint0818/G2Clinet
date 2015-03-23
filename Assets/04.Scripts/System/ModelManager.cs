@@ -224,8 +224,7 @@ public class ModelManager : MonoBehaviour {
 	/// <summary>
 	/// c:Clothes, h:Hair, m:HandEquipment, p:Pants, s:Shoes, a:Headdress, z:BackbackEquipment
 	/// </summary>
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false)
-	{
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false) {
 		try {
 			string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
@@ -268,23 +267,25 @@ public class ModelManager : MonoBehaviour {
 				if (avatarIndex [i] > 0) {
 					string path = string.Empty;
 					string materialPath = string.Format ("Character/Materials/Material_0");
-
-					if (i == 0) 
-						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
-					else 
-					if (i < 6) 
+					string[] texturePathName = avatarPartTexture[i].Split("_"[0]);
+					string texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", texturePathName[0], texturePathName[1], texturePathName[2], texturePathName[3]);
+					if (i == 0) {
+						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody); 
+					} else 
+					if (i < 6) {
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
-					else //it maybe A or Z
+					} else { //it maybe A or Z
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
+					}
 
 					Object resObj = Resources.Load (path);
 					if (resObj) {
 						try {
 							Material matObj = loadMaterial (materialPath);
 							Texture texture = loadTexture(avatarPartTexture [i]);
-							if(texture) 
-								matObj.SetTexture("_MainTex", texture);
-
+							if(!texture) 
+								loadTexture(texturePath);
+							matObj.SetTexture("_MainTex", texture);
 							avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
 							Transform tBall = result.transform.FindChild("DummyBall");
@@ -325,7 +326,6 @@ public class ModelManager : MonoBehaviour {
 										smr.material.name = "B";
 									else 
 										smr.material.name = avatarPart [i];
-
 									//sort new material
 									materials.AddRange (smr.materials);
 									
@@ -340,6 +340,7 @@ public class ModelManager : MonoBehaviour {
 										}
 									}
 								}
+
 								Destroy (avatarPartGO [i]);
 							} else 
 							if (i == 6) {

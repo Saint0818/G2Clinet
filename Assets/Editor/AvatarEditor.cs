@@ -93,22 +93,22 @@ public class AvatarEditor :  EditorWindow{
 
 	ModelManager getModelManager(){
 		GameObject obj = GameObject.Find("ModelManager");
-		if(obj) {
-			return obj.GetComponent<ModelManager>();
-		} else {
+		if(!obj) {
 			ModelManager.Init();
-			return null;
+			obj = GameObject.Find("ModelManager");
 		}
+		return obj.GetComponent<ModelManager>();
 	}
 
 	void OnFocus(){
 		init ();
-		getModelManager();
 		if(Selection.gameObjects.Length > 1) {
 			chooseCount = 2;
+			isAvatar = false;
 		}else 
 		if(Selection.gameObjects.Length == 0){
 			chooseCount = 0;
+			isAvatar = false;
 		} else {
 			chooseCount = 1;
 			selectGameObject = Selection.gameObjects[0];
@@ -345,50 +345,54 @@ public class AvatarEditor :  EditorWindow{
 		GUI.backgroundColor = Color.white;
 		//Body Part
 		GUI.Label (new Rect(0, 220, 500, 50), "Change Body Part");
-		scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 60, 50));
-		if (showBody.Count > 0) {
-			if(GUI.Button(new Rect(0, 0, 50, 30), "None")){
-				chooseBodyPart(showBody[0].name, true);
-				showBodyTexture.Clear();
-			}
-			for (int i=0; i<showBody.Count; i++) {
-				if(GUI.Button(new Rect(60 * (i+1), 0, 50, 30), showBody[i].name)) {
-					chooseBodyPart(showBody[i].name);
+		if(isAvatar) {
+			scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 60, 50));
+			if (showBody.Count > 0) {
+				if(GUI.Button(new Rect(0, 0, 50, 30), "None")){
+					chooseBodyPart(showBody[0].name, true);
+					showBodyTexture.Clear();
 				}
-			}
-		}	
-		GUI.EndScrollView ();
+				for (int i=0; i<showBody.Count; i++) {
+					if(GUI.Button(new Rect(60 * (i+1), 0, 50, 30), showBody[i].name)) {
+						chooseBodyPart(showBody[i].name);
+					}
+				}
+			}	
+			GUI.EndScrollView ();
+		}
 		
 		//Body Texture
 		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture");
-		scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
-		if (showBodyTexture.Count > 0) {
-			for (int i=0; i<showBodyTexture.Count; i++) {
-				if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
-					string[] name = showBodyTexture[i].name.Split("_"[0]);
-					if(name[1].Equals("B")){
-						attrTexture.BTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("C")){
-						attrTexture.CTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("H")){
-						attrTexture.HTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("M")){
-						attrTexture.MTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("P")){
-						attrTexture.PTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("S")){
-						attrTexture.STexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("A")){
-						attrTexture.ATexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("Z")){
-						attrTexture.ZTexture = showBodyTexture[i].name;
+		if(isAvatar) {
+			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
+			if (showBodyTexture.Count > 0) {
+				for (int i=0; i<showBodyTexture.Count; i++) {
+					if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
+						string[] name = showBodyTexture[i].name.Split("_"[0]);
+						if(name[1].Equals("B")){
+							attrTexture.BTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("C")){
+							attrTexture.CTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("H")){
+							attrTexture.HTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("M")){
+							attrTexture.MTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("P")){
+							attrTexture.PTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("S")){
+							attrTexture.STexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("A")){
+							attrTexture.ATexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("Z")){
+							attrTexture.ZTexture = showBodyTexture[i].name;
+						}
+						bodyPart = Array.IndexOf(strPart, name[1]);
+						getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 					}
-					bodyPart = Array.IndexOf(strPart, name[1]);
-					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
-			}
-		}	
-		GUI.EndScrollView ();
+			}	
+			GUI.EndScrollView ();
+		}
 	}
 
 	void chooseBodyPart(string showBodyName, bool isNone = false){
