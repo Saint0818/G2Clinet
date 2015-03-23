@@ -29,7 +29,7 @@ public static class GameStruct
 			Cloth = 5;
 			Pants = 6;
 			Shoes = 1;
-			MHandDress = 2;
+			MHandDress = 0;
 			AHeadDress = 0;
 			ZBackEquip = 0;
 		}
@@ -55,4 +55,9 @@ public static class GameStruct
 			ZTexture = "3_Z_1_0";
 		}
 	}
+}
+
+public static class GameData 
+{
+	public static TTactical[] TacticalData;
 }
