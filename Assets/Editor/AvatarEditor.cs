@@ -30,6 +30,9 @@ public class AvatarEditor :  EditorWindow{
 	public List<UnityEngine.GameObject> showBody = new List<GameObject> ();
 	public List<UnityEngine.Texture> showBodyTexture = new List<Texture> ();
 
+	public bool isAvatar = false;
+	public int chooseCount = 0;
+
 	public bool isModel0Choose = false;
 	public bool isModel1Choose = false;
 	public bool isModel2Choose = false;
@@ -88,21 +91,32 @@ public class AvatarEditor :  EditorWindow{
 		showBodyTexture.Clear();
 	}
 
-
+	ModelManager getModelManager(){
+		GameObject obj = GameObject.Find("ModelManager");
+		if(obj) {
+			return obj.GetComponent<ModelManager>();
+		} else {
+			ModelManager.Init();
+			return null;
+		}
+	}
 
 	void OnFocus(){
 		init ();
-		if(Selection.gameObjects.Length > 1) 
-			EditorGUILayout.TextField("Need Choose One GameObject.");
-		else 
+		getModelManager();
+		if(Selection.gameObjects.Length > 1) {
+			chooseCount = 2;
+		}else 
 		if(Selection.gameObjects.Length == 0){
-			
+			chooseCount = 0;
 		} else {
+			chooseCount = 1;
 			selectGameObject = Selection.gameObjects[0];
 			Transform t = selectGameObject.transform.FindChild("DummyBall");
 			if(t == null) 
-				EditorGUILayout.TextField("It is not Avatar!");
+				isAvatar = false;
 			else {
+				isAvatar = true;
 				int count = selectGameObject.transform.childCount;
 				for(int i=0; i<count; i++) {
 					Transform childt = selectGameObject.transform.GetChild(i);
@@ -167,14 +181,14 @@ public class AvatarEditor :  EditorWindow{
 						}
 					}
 				}
-				Debug.Log("Body:"+attr.Body);
-				Debug.Log("Cloth:"+attr.Cloth);
-				Debug.Log("Hair:"+attr.Hair);
-				Debug.Log("MHandDress:"+attr.MHandDress);
-				Debug.Log("Pants:"+attr.Pants);
-				Debug.Log("Shoes:"+attr.Shoes);
-				Debug.Log("AHeadDress:"+attr.AHeadDress);
-				Debug.Log("ZBackEquip:"+attr.ZBackEquip);
+//				Debug.Log("Body:"+attr.Body);
+//				Debug.Log("Cloth:"+attr.Cloth);
+//				Debug.Log("Hair:"+attr.Hair);
+//				Debug.Log("MHandDress:"+attr.MHandDress);
+//				Debug.Log("Pants:"+attr.Pants);
+//				Debug.Log("Shoes:"+attr.Shoes);
+//				Debug.Log("AHeadDress:"+attr.AHeadDress);
+//				Debug.Log("ZBackEquip:"+attr.ZBackEquip);
 				if(attr.Body == 0) {
 					isModel0Choose = true;
 				} else 
@@ -189,6 +203,16 @@ public class AvatarEditor :  EditorWindow{
 	}
 
 	void OnGUI() {
+		if(chooseCount == 0)
+			GUILayout.Label("Need to choose one GameObject!");
+		else if(chooseCount == 1)
+			GUILayout.Label("Yes. One GameObject!");
+		else
+			GUILayout.Label("Too much GameObject!");
+		if(isAvatar) 
+			GUILayout.Label("it is a Avatar!");
+		else
+			GUILayout.Label("it is not a Avatar!");
 
 		//Model
 		GUI.Label (new Rect(0, 80, 500, 50), "Model");
@@ -222,6 +246,11 @@ public class AvatarEditor :  EditorWindow{
 		if (GUI.Button (new Rect(400, 100, 200, 50), "PlayerMode_2")) {
 			if(!isModel2Choose) {
 				//Create New Model 2
+				if(GameObject.Find("2") == null) {
+					GameObject obj = new GameObject();
+					obj.name = "2";
+					getModelManager().CreateStorePlayer(obj, attr, attrTexture);
+				}
 			}
 		}
 		//Body
@@ -329,37 +358,37 @@ public class AvatarEditor :  EditorWindow{
 			}
 		}	
 		GUI.EndScrollView ();
-//		
-//		//Body Texture
-//		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture");
-//		scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
-//		if (showBodyTexture.Count > 0) {
-//			for (int i=0; i<showBodyTexture.Count; i++) {
-//				if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
-//					string[] name = showBodyTexture[i].name.Split("_"[0]);
-//					if(name[1].Equals("B")){
-//						attrTexture.BTexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("C")){
-//						attrTexture.CTexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("H")){
-//						attrTexture.HTexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("M")){
-//						attrTexture.MTexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("P")){
-//						attrTexture.PTexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("S")){
-//						attrTexture.STexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("A")){
-//						attrTexture.ATexture = showBodyTexture[i].name;
-//					} else if(name[1].Equals("Z")){
-//						attrTexture.ZTexture = showBodyTexture[i].name;
-//					}
-//					bodyPart = Array.IndexOf(strPart, name[1]);
-////					SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3])); 
-//				}
-//			}
-//		}	
-//		GUI.EndScrollView ();
+		
+		//Body Texture
+		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture");
+		scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
+		if (showBodyTexture.Count > 0) {
+			for (int i=0; i<showBodyTexture.Count; i++) {
+				if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
+					string[] name = showBodyTexture[i].name.Split("_"[0]);
+					if(name[1].Equals("B")){
+						attrTexture.BTexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("C")){
+						attrTexture.CTexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("H")){
+						attrTexture.HTexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("M")){
+						attrTexture.MTexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("P")){
+						attrTexture.PTexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("S")){
+						attrTexture.STexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("A")){
+						attrTexture.ATexture = showBodyTexture[i].name;
+					} else if(name[1].Equals("Z")){
+						attrTexture.ZTexture = showBodyTexture[i].name;
+					}
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}	
+		GUI.EndScrollView ();
 	}
 
 	void chooseBodyPart(string showBodyName, bool isNone = false){
@@ -433,8 +462,7 @@ public class AvatarEditor :  EditorWindow{
 				attr.ZBackEquip = 0;
 			}
 		}
-		ModelManager.Get.SetAvatar(ref selectGameObject, attr, attrTexture, true);
-
+		getModelManager().SetAvatar(ref selectGameObject, attr, attrTexture, false);
 	}
 
 	void judgeBodyName(string body){

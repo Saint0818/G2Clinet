@@ -345,27 +345,48 @@ public class ModelManager : MonoBehaviour {
 							if (i == 6) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
 								int count = t.childCount;
-								if(count == 0) {
-									headDress = avatarPartGO [i];
-								} else {
-									headDress = t.GetChild(0).gameObject;
+								if(count > 0) {
+									for (int j=0; j<count; j++) {
+										Destroy(t.GetChild(j).gameObject);
+									}
 								}
+								headDress = avatarPartGO [i];
 								headDress.GetComponent<MeshRenderer> ().material = matObj;
 								headDress.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							} else 
 							if (i == 7) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
 								int count = t.childCount;
-								if(count == 0) {
-									backEquipment = avatarPartGO [i];
-								} else {
-									backEquipment = t.GetChild(0).gameObject;
+								if(count > 0) {
+									for(int j=0; j<count; j++){
+										Destroy(t.GetChild(j).gameObject);
+									}
 								}
+								backEquipment = avatarPartGO [i];
 								backEquipment.GetComponent<MeshRenderer> ().material = matObj;
 								backEquipment.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							}
 						} catch (UnityException e) {
 							Debug.Log(e.ToString());
+						}
+					}
+				} else {
+					if(i == 6){
+						Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+						int count = t.childCount;
+						if(count > 0) {
+							for (int j=0; j<count; j++) {
+								Destroy(t.GetChild(j).gameObject);
+							}
+						}
+					} else 
+					if (i == 7) {
+						Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+						int count = t.childCount;
+						if(count > 0) {
+							for(int j=0; j<count; j++){
+								Destroy(t.GetChild(j).gameObject);
+							}
 						}
 					}
 				}
