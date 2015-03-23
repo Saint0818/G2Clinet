@@ -39,7 +39,8 @@ public struct TStartCoroutine{
 }
 
 public class FileManager : MonoBehaviour {
-	public static string[] DownloadFiles = {"TacticalData"};
+	public static string[] DownloadFiles = {"greatplayers", "stages", "exps", "upgrade", "items", "skills", "traintime", "stores", "tutorial", "logobingo", 
+											"skilleffect", "Updateinfo", "mission", "playerstore", "vip", "stagechapter", "avatars", "talk"};
 	#if Debug
 	public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.debug;
@@ -94,8 +95,7 @@ public class FileManager : MonoBehaviour {
 				if(CallBackFun.ContainsKey(DataList[i].fileName)){
 					CallBackFun[DataList[i].fileName](DataList[i].version, tx.text, false);
 					AlreadyDownlandCount++;
-					if (UILoading.Visible)
-						UILoading.Get.UpdateProgress();
+					UILoading.Get.UpdateProgress();
 				}
 			}	
 		}
@@ -174,22 +174,11 @@ public class FileManager : MonoBehaviour {
 	}
 
 	void Awake () {
-		CallBackFun.Add ("tactical", parseTacticalData);
+
+		//TODO:	CallBackFun.Add ("greatplayers", parseGreatPlayer);
 	}
 
-	public void LoadGameData() {
-		GameData.TacticalData = LoadTactical();
-	}
-
-	public TTactical[] LoadTactical() {
-		TextAsset tx = Resources.Load (ClientFilePath + "tactical") as TextAsset;
-		if (tx)
-			 return (TTactical[])JsonConvert.DeserializeObject (tx.text, typeof(TTactical[]));
-		else
-			return null;
-    }
-    
-    private void DoStarDownload(){
+	private void DoStarDownload(){
 		if (Download_list.Count > 0) {
 			int Count = Download_list.Count;
 			for(int i = 0; i < Count; i++){
@@ -414,18 +403,5 @@ public class FileManager : MonoBehaviour {
 		SaveJson(text, fileName);
 		PlayerPrefs.SetString(fileName, version);
 		PlayerPrefs.Save();
-	}
-
-	private void parseTacticalData (string Version, string text, bool SaveVersion){
-		try {
-			GameData.TacticalData = (TTactical[])JsonConvert.DeserializeObject (text, typeof(TTactical[]));
-
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "tactical", Version);
-			
-			Debug.Log ("[tactical parsed finished.] ");
-		} catch (System.Exception ex) {
-			Debug.LogError ("[tactical parsed error] " + ex.Message);
-		}
 	}
 }

@@ -54,7 +54,7 @@ public class GameStart : MonoBehaviour {
 		unibillDemo = gameObject.GetComponent<UnibillDemo>();
 		InitCom ();
 		//CheckVersion ();
-		FileManager.Get.LoadGameData();
+
 		UIGame.UIShow (true);
 	}
 

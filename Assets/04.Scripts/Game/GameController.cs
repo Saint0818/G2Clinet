@@ -48,8 +48,7 @@ public struct TTactical
 }
 
 public struct TActionPosition{
-	public float x;
-	public float z;
+	public Vector3 Position;
 	public bool Speedup;
 }
 
@@ -121,12 +120,19 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
-		MovePositionList.Clear();
-		for(int i = 0; i < GameData.TacticalData.Length; i++)
-			if(!string.IsNullOrEmpty(GameData.TacticalData[i].FileName))
-				MovePositionList.Add(GameData.TacticalData[i]);	
+		TextAsset aa = Resources.Load("Run/TacticalData") as TextAsset;
+		if (aa != null) {
+			MovePositionList.Clear();
+			TTactical [] saveData = new TTactical[0];
+			GameFunction.GetJsonData(aa.text, ref saveData);
+			for(int i = 0; i < saveData.Length; i++)
+				if(saveData[i].FileName != null && saveData[i].FileName != string.Empty)
+					MovePositionList.Add(saveData[i]);	
 
-		Debug.Log(MovePositionList.Count);
+			Debug.Log(MovePositionList.Count);
+		}else
+			Debug.LogError("No File");
+
 	}
 
 	public void InitGame(){
@@ -159,20 +165,13 @@ public class GameController : MonoBehaviour {
 	}
 	
 	private void randomAvatar(ref GameStruct.TAvatar attr) {
-		int[] clothInt = new int[]{0,5,6};
-		int[] hairInt = new int[]{0,2,3};
-		int[] mhandInt = new int[]{0,2,3};
-		int[] pantInt = new int[]{0,6,7};
-		int[] shoeInt = new int[]{0,1,2};
-		int[] aheadInt  = new int[]{0,1,2};
-		int[] zbackInt  = new int[]{0,1,2};
-		attr.Cloth = clothInt[UnityEngine.Random.Range(0,3)];
-		attr.Hair = hairInt[UnityEngine.Random.Range(0,3)];
-		attr.MHandDress = mhandInt[UnityEngine.Random.Range(0,3)];
-		attr.Pants = pantInt[UnityEngine.Random.Range(0,3)];
-		attr.Shoes = shoeInt[UnityEngine.Random.Range(0,3)];
-		attr.AHeadDress = aheadInt[UnityEngine.Random.Range(0,3)];
-		attr.ZBackEquip = zbackInt[UnityEngine.Random.Range(0,3)];
+		attr.Cloth = UnityEngine.Random.Range(5,7);
+		attr.Hair = UnityEngine.Random.Range(2,4);
+		attr.MHandDress = UnityEngine.Random.Range(2,4);
+		attr.Pants = UnityEngine.Random.Range(6,8);
+		attr.Shoes = UnityEngine.Random.Range(0,3);
+		attr.AHeadDress = UnityEngine.Random.Range(0,3);
+		attr.ZBackEquip = UnityEngine.Random.Range(0,3);
 	}
 	
 	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
@@ -211,16 +210,23 @@ public class GameController : MonoBehaviour {
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				randomAvatar(ref attr);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
-
+			
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
+				randomAvatar(ref attr);
 				redAvatarTexture(ref attrTexture);
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
+				redAvatarTexture(ref attrTexture);
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
@@ -850,21 +856,21 @@ public class GameController : MonoBehaviour {
 						if(MovePositionList[Rate].PosAy1.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy1.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy1[i].x, 0, MovePositionList[Rate].PosAy1[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy1[i].Position;
 						}
 						break;
 					case GamePostion.F:
 						if(MovePositionList[Rate].PosAy2.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy2.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy2[i].x, 0, MovePositionList[Rate].PosAy2[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy2[i].Position;
 						}
 						break;
 					case GamePostion.C:
 						if(MovePositionList[Rate].PosAy3.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy3.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy3[i].x, 0, MovePositionList[Rate].PosAy3[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy3[i].Position;
 						}
 						break;
 					}
@@ -1312,7 +1318,7 @@ public class GameController : MonoBehaviour {
 	public void EditSetMove(TActionPosition ActionPosition, int index){
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
-			data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
+			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
 			data.Speedup = ActionPosition.Speedup;
 			PlayerList[index].TargetPos = data;
 		}

@@ -54,13 +54,13 @@ public class UIGame : UIBase {
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 		Again = GameObject.Find (UIName + "/Again");
 		Start = GameObject.Find (UIName + "/Start");
-		//scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
-		//scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
+		scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
+		scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
 
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
 
-		//UIEventListener.Get (GameObject.Find (UIName + "Attack/ButtonB")).onPress = DoShoot;
+		UIEventListener.Get (GameObject.Find (UIName + "Attack/ButtonB")).onPress = DoShoot;
 
 		SetBtnFun (UIName + "Attack/ButtonA", GameController.Get.DoPass);
 		SetBtnFun (UIName + "Attack/ButtonC", GameController.Get.DoSkill);
@@ -69,7 +69,7 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "Defance/ButtonC", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/Again/AgainBt", ResetGame);
 		SetBtnFun (UIName + "/Start/StartBt", StartGame);
-		//Again.SetActive (false);
+		Again.SetActive (false);
 	}
 
 	public void DoShoot(GameObject go, bool state)
@@ -118,8 +118,8 @@ public class UIGame : UIBase {
 		MaxScores[1] = 13;
 		Scores [0] = 0;
 		Scores [1] = 0;
-		//scoresLabel[0].text = "0";
-		//scoresLabel[1].text = "0";
+		scoresLabel[0].text = "0";
+		scoresLabel[1].text = "0";
 	}
 	
 	protected override void OnShow(bool isShow) {
