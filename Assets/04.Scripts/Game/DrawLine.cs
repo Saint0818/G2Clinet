@@ -16,9 +16,9 @@ public struct TLineVector {
 
 public class DrawLine : MonoBehaviour {
 	const int lineWidth = 3;
-	private bool IsShow = true;
+	private bool isShow = true;
 
-	public GameObject[] UIs = new GameObject[0];
+	public GameObject[] UIs = new GameObject[3];
 	private List<TLineVector> targets = new List<TLineVector>();
 	private VectorLine line;
 	// Use this for initialization
@@ -38,7 +38,7 @@ public class DrawLine : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (IsShow) {
+		if (isShow) {
 			for (var i = 0; i < targets.Count; i++) {
 				Vector2 screenPoint = CameraMgr.Get.CourtCamera.WorldToScreenPoint (targets[i].Target.transform.position);
 				line.points2[i*2] = new Vector2(screenPoint.x, screenPoint.y);
@@ -49,7 +49,7 @@ public class DrawLine : MonoBehaviour {
 	}
 
 	void LateUpdate () {
-		if (IsShow)
+		if (isShow)
 			line.Draw();
 	}
 
@@ -62,8 +62,17 @@ public class DrawLine : MonoBehaviour {
 		targets.Clear();
 	}
 
-	public void Show(bool isShow) {
-		IsShow = isShow;
+	public void Show(bool show) {
+		isShow = show;
 		line.Draw();
+	}
+
+	public bool IsShow {
+		get {return isShow;}
+		set {
+			isShow = value;
+//			line.Draw();
+			line.active = isShow;
+		}
 	}
 }

@@ -56,8 +56,7 @@ public struct TTactical
 }
 
 public struct TActionPosition{
-	public float x;
-	public float z;
+	public Vector3 Position;
 	public bool Speedup;
 }
 
@@ -128,12 +127,19 @@ public class GameController : MonoBehaviour {
 		TeeBackPosAy[1] = new Vector2 (5.3f, 10);
 		TeeBackPosAy[2] = new Vector2 (-5.3f, 10);
 
-		MovePositionList.Clear();
-		for(int i = 0; i < GameData.TacticalData.Length; i++)
-			if(!string.IsNullOrEmpty(GameData.TacticalData[i].FileName))
-				MovePositionList.Add(GameData.TacticalData[i]);	
+		TextAsset aa = Resources.Load("Run/TacticalData") as TextAsset;
+		if (aa != null) {
+			MovePositionList.Clear();
+			TTactical [] saveData = new TTactical[0];
+			GameFunction.GetJsonData(aa.text, ref saveData);
+			for(int i = 0; i < saveData.Length; i++)
+				if(saveData[i].FileName != null && saveData[i].FileName != string.Empty)
+					MovePositionList.Add(saveData[i]);	
 
-		Debug.Log(MovePositionList.Count);
+			Debug.Log(MovePositionList.Count);
+		}else
+			Debug.LogError("No File");
+
 	}
 
 	public void InitGame(){
@@ -464,12 +470,12 @@ public class GameController : MonoBehaviour {
             return false;
     }
 
-	public void DoPass()
+	public void DoPass(int playerid)
 	{
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
 			if(PlayerList.Count > 2){
 				if(BallOwner == Joysticker)
-					Pass(PlayerList[1]);
+					Pass(PlayerList[playerid]);
 				else
 					Pass(Joysticker);
 
@@ -857,21 +863,21 @@ public class GameController : MonoBehaviour {
 						if(MovePositionList[Rate].PosAy1.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy1.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy1[i].x, 0, MovePositionList[Rate].PosAy1[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy1[i].Position;
 						}
 						break;
 					case GamePostion.F:
 						if(MovePositionList[Rate].PosAy2.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy2.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy2[i].x, 0, MovePositionList[Rate].PosAy2[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy2[i].Position;
 						}
 						break;
 					case GamePostion.C:
 						if(MovePositionList[Rate].PosAy3.Length > 0){
 							MoveAy = new Vector3[MovePositionList[Rate].PosAy3.Length];
 							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy3[i].x, 0, MovePositionList[Rate].PosAy3[i].z);
+								MoveAy[i] = MovePositionList[Rate].PosAy3[i].Position;
 						}
 						break;
 					}
@@ -1319,7 +1325,7 @@ public class GameController : MonoBehaviour {
 	public void EditSetMove(TActionPosition ActionPosition, int index){
 		if (PlayerList.Count > index) {
 			TMoveData data = new TMoveData(0);
-			data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
+			data.Target = new Vector2(ActionPosition.Position.x, ActionPosition.Position.z);
 			data.Speedup = ActionPosition.Speedup;
 			PlayerList[index].TargetPos = data;
 		}

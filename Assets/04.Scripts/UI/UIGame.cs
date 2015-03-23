@@ -11,12 +11,19 @@ public class UIGame : UIBase {
 	public int[] Scores = {0, 0};
 	private bool IsUseKeyboard = false;
 	public GameObject Again;
+	public GameObject Continue;
 	public GameObject Start;
 	public GameJoystick Joystick = null;
+	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
-
+	
 	private GameObject[] ControlButtonGroup= new GameObject[2];
+	private GameObject passObject;
+	private GameObject[] passObjectGroup = new GameObject[2];
 	private UILabel[] scoresLabel = new UILabel[2];
+	private UISprite[] homeHintSprite = new UISprite[3];
+	private UILabel[] homeHintLabel = new UILabel[3];
+	private string[] aryHomeHintString = new string[3];
 	private float shootBtnTime = 0;
 	private bool shootBtnIsPress = false;
 	
@@ -52,24 +59,58 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
-		Again = GameObject.Find (UIName + "/Again");
-		Start = GameObject.Find (UIName + "/Start");
-		scoresLabel[0] = GameObject.Find (UIName + "/ScoreBar/Score1").GetComponent<UILabel>();
-		scoresLabel[1] = GameObject.Find (UIName + "/ScoreBar/Score2").GetComponent<UILabel>();
+		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
+		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
+		Start = GameObject.Find (UIName + "/Center/ButtonStart");
+		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
+		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
+		homeHintSprite [0] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom0").GetComponent<UISprite>();
+		homeHintSprite [1] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom1").GetComponent<UISprite>();
+		homeHintSprite [2] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom2").GetComponent<UISprite>();
+		homeHintLabel [0] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint0").GetComponent<UILabel>();
+		homeHintLabel [1] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint1").GetComponent<UILabel>();
+		homeHintLabel [2] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint2").GetComponent<UILabel>();
 
-		ControlButtonGroup [0] = GameObject.Find (UIName + "/Attack");
-		ControlButtonGroup [1] = GameObject.Find (UIName + "/Defance");
+		ControlButtonGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack");
+		ControlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/Defance");
 
-		UIEventListener.Get (GameObject.Find (UIName + "Attack/ButtonB")).onPress = DoShoot;
+		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
+		Debug.Log("Screen width:"+ Screen.width / 2);
+		Debug.Log("Screen height:"+ Screen.height / 2);
+		Debug.Log("A Position:"+passObjectGroup[0].transform.position);
+		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
+		Debug.Log("B Position:"+passObjectGroup[1].transform.position);
+		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
 
-		SetBtnFun (UIName + "Attack/ButtonA", GameController.Get.DoPass);
-		SetBtnFun (UIName + "Attack/ButtonC", GameController.Get.DoSkill);
-		SetBtnFun (UIName + "Defance/ButtonA", GameController.Get.DoSteal);
-		SetBtnFun (UIName + "Defance/ButtonB", GameController.Get.DoBlock);
-		SetBtnFun (UIName + "Defance/ButtonC", GameController.Get.DoSkill);
-		SetBtnFun (UIName + "/Again/AgainBt", ResetGame);
-		SetBtnFun (UIName + "/Start/StartBt", StartGame);
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragEnd = DoPassChooseEnd;
+//		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", GameController.Get.DoPass());
+
+		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
+//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonC", GameController.Get.DoSkill);
+		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
+		SetBtnFun (UIName + "/Center/ButtonStart", StartGame);
+		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		Again.SetActive (false);
+		Continue.SetActive(false);	
+
+//		drawLine = gameObject.AddComponent(Types.GetType("DrawLine"));
+		drawLine = gameObject.AddComponent<DrawLine>();
+		drawLine.UIs[0] = null;
+		drawLine.UIs[1] = passObjectGroup[0];
+		drawLine.UIs[2] = passObjectGroup[1];
+//		passObject.SetActive(false);
+
+		for(int i=0; i<homeHintSprite.Length; i++) {
+			homeHintSprite[i].enabled = false;
+		}
+		for(int i=0; i<homeHintLabel.Length; i++) {
+			homeHintLabel[i].enabled = false;
+		}
 	}
 
 	public void DoShoot(GameObject go, bool state)
@@ -85,6 +126,27 @@ public class UIGame : UIBase {
 
 			shootBtnTime = 0;
 		}	
+	}
+	public void DoPassChoose (GameObject go, bool state){
+		if(state){
+			Debug.Log("Start:"+Input.mousePosition);
+		} else {
+			Debug.Log("End:"+Input.mousePosition);
+		}
+		passObject.SetActive(state);
+		drawLine.IsShow = state;
+	}
+
+	public void DoPassChooseEnd(GameObject go, bool state) {
+		Debug.Log("name:"+go.name);
+	}
+
+	public void ContinueGame() {
+		Debug.Log("Continue Game");
+	}
+
+	public void PauseGame(){
+		Debug.Log("Pause Game");
 	}
 
 	public void ResetGame(){
@@ -105,6 +167,8 @@ public class UIGame : UIBase {
 	{
 		ControlButtonGroup [0].SetActive (IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
+		if(!IsAttack)
+			drawLine.IsShow = false;
 	}
 
 	public void PlusScore(int team, int score)
@@ -112,7 +176,23 @@ public class UIGame : UIBase {
 		Scores [team] += score;
 		scoresLabel[team].text = Scores [team].ToString ();
 	}
-	
+
+	private void addHomeHint(string homeHint){
+		aryHomeHintString[2] = aryHomeHintString[1];
+		aryHomeHintString[1] = aryHomeHintString[0];
+		aryHomeHintString[0] = homeHint;
+		for (int i=0; i< aryHomeHintString.Length; i++) {
+			if(string.IsNullOrEmpty(aryHomeHintString[i])){
+				homeHintLabel[i].enabled = false;
+				homeHintSprite[i].enabled = false;
+			} else {
+				homeHintLabel[i].enabled = true;
+				homeHintSprite[i].enabled = true;
+				homeHintLabel[i].text = aryHomeHintString[i];
+			}
+		}
+	}
+
 	protected override void InitData() {
 		MaxScores[0] = 13;
 		MaxScores[1] = 13;
