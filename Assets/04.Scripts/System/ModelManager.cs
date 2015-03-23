@@ -45,8 +45,8 @@ public class ModelManager : MonoBehaviour {
 
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		//UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
-		//up.depth = 2;
+		UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
+		up.depth = 2;
 
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 	}
@@ -224,8 +224,7 @@ public class ModelManager : MonoBehaviour {
 	/// <summary>
 	/// c:Clothes, h:Hair, m:HandEquipment, p:Pants, s:Shoes, a:Headdress, z:BackbackEquipment
 	/// </summary>
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false)
-	{
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false) {
 		try {
 			string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
@@ -268,54 +267,59 @@ public class ModelManager : MonoBehaviour {
 				if (avatarIndex [i] > 0) {
 					string path = string.Empty;
 					string materialPath = string.Format ("Character/Materials/Material_0");
+					string[] texturePathName = avatarPartTexture[i].Split("_"[0]);
+					string texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", texturePathName[0], texturePathName[1], texturePathName[2], texturePathName[3]);
 
 					if (i == 0) 
-						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", avatarIndex [i], mainBody); 
 					else 
-					if (i < 6) 
+					if (i < 6)
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
-					else //it maybe A or Z
+					else  //it maybe A or Z
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
+					
 
 					Object resObj = Resources.Load (path);
 					if (resObj) {
 						try {
 							Material matObj = loadMaterial (materialPath);
 							Texture texture = loadTexture(avatarPartTexture [i]);
-							if(texture) 
-								matObj.SetTexture("_MainTex", texture);
-
+							if(!texture) 
+								loadTexture(texturePath);
+							matObj.SetTexture("_MainTex", texture);
 							avatarPartGO [i] = Instantiate (resObj) as GameObject;
-
-							Transform tBall = result.transform.FindChild("DummyBall");
-							if(tBall == null){
-								if (dummyBall == null) {
-									Transform t = avatarPartGO [i].transform.FindChild ("DummyBall");
-									if (t != null)
-										dummyBall = t.gameObject;
-								}
-							} else {
-								dummyBall = tBall.gameObject;
-							}
 
 							if (i < 6) {
 								Transform tBipGo = result.transform.FindChild("Bip01");
 								if(tBipGo == null) {
 									if (bipGO == null) {
 										bipGO = avatarPartGO [i].transform.FindChild ("Bip01").gameObject;
-										
+
 										if (bipGO)
 											bipGO.transform.parent = result.transform;
 									}
 								} else {
 									bipGO = tBipGo.gameObject;
 								}
-
+								
+								if(dummyBall == null) {
+									Transform tBall = result.transform.FindChild("DummyBall");
+									if(tBall == null){
+										if (dummyBall == null) {
+											Transform t1 = avatarPartGO [i].transform.FindChild ("DummyBall");
+											if (t1 != null)
+												dummyBall = t1.gameObject;
+										}
+									} else {
+										dummyBall = tBall.gameObject;
+									}
+								}
 
 								hips = bipGO.GetComponentsInChildren<Transform> ();
 								
 								if (avatarPartGO [i] && hips.Length > 0) {
 									SkinnedMeshRenderer smr = avatarPartGO [i].GetComponentInChildren<SkinnedMeshRenderer> ();
+									
 									//ready combine mesh
 									CombineInstance ci = new CombineInstance ();
 									ci.mesh = smr.sharedMesh;
@@ -325,9 +329,8 @@ public class ModelManager : MonoBehaviour {
 										smr.material.name = "B";
 									else 
 										smr.material.name = avatarPart [i];
-
-									//sort new material
 									materials.AddRange (smr.materials);
+									//sort new material
 									
 									//get same bip to create new bones  
 									foreach (Transform bone in smr.bones) {
@@ -343,29 +346,51 @@ public class ModelManager : MonoBehaviour {
 								Destroy (avatarPartGO [i]);
 							} else 
 							if (i == 6) {
+
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
 								int count = t.childCount;
-								if(count == 0) {
-									headDress = avatarPartGO [i];
-								} else {
-									headDress = t.GetChild(0).gameObject;
+								if(count > 0) {
+									for (int j=0; j<count; j++) {
+										Destroy(t.GetChild(j).gameObject);
+									}
 								}
+								headDress = avatarPartGO [i];
 								headDress.GetComponent<MeshRenderer> ().material = matObj;
 								headDress.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							} else 
 							if (i == 7) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
 								int count = t.childCount;
-								if(count == 0) {
-									backEquipment = avatarPartGO [i];
-								} else {
-									backEquipment = t.GetChild(0).gameObject;
+								if(count > 0) {
+									for(int j=0; j<count; j++){
+										Destroy(t.GetChild(j).gameObject);
+									}
 								}
+								backEquipment = avatarPartGO [i];
 								backEquipment.GetComponent<MeshRenderer> ().material = matObj;
 								backEquipment.GetComponent<MeshRenderer> ().material.name = avatarPart [i];
 							}
 						} catch (UnityException e) {
 							Debug.Log(e.ToString());
+						}
+					}
+				} else {
+					if(i == 6){
+						Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+						int count = t.childCount;
+						if(count > 0) {
+							for (int j=0; j<count; j++) {
+								Destroy(t.GetChild(j).gameObject);
+							}
+						}
+					} else 
+					if (i == 7) {
+						Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+						int count = t.childCount;
+						if(count > 0) {
+							for(int j=0; j<count; j++){
+								Destroy(t.GetChild(j).gameObject);
+							}
 						}
 					}
 				}

@@ -8,15 +8,14 @@ public class AvatarEditor :  EditorWindow{
 
 	[MenuItem ("GameEditor/Avatar")]
 	private static void BuildTool() {
-
-		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 800, 800), true, "Avatar").Show();
+		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 600, 600), true, "AvatarEditor").Show();
 	}
-
-	private int model = 2;
+	private enum Flag{
+		B,C,H,M,P,S,A,Z,NONE
+	}
 	private string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 	private int bodyPart = 0;
-	private string bodyPartName = "";
-	private string bodyTex = "";
+	private GameObject selectGameObject = null;
 	
 	private GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
 	private GameStruct.TAvatarTexture attrTexture = new GameStruct.TAvatarTexture (1);
@@ -24,241 +23,402 @@ public class AvatarEditor :  EditorWindow{
 	public Vector2 scrollPosition = Vector2.zero;
 	public Vector2 scrollPositionTexture = Vector2.zero;
 
-	public List<UnityEngine.GameObject> allBody;
-	public List<UnityEngine.Material> allMaterial;
-	public List<UnityEngine.Texture> allTextures;
+	public List<UnityEngine.GameObject> allBody = new List<UnityEngine.GameObject> ();
+	public List<UnityEngine.Material> allMaterial = new List<UnityEngine.Material> ();
+	public List<UnityEngine.Texture> allTextures = new List<UnityEngine.Texture> ();
 
 	public List<UnityEngine.GameObject> showBody = new List<GameObject> ();
 	public List<UnityEngine.Texture> showBodyTexture = new List<Texture> ();
-	
+
+	public bool isAvatar = false;
+	public int chooseCount = 0;
+
+	public bool isModel0Choose = false;
+	public bool isModel1Choose = false;
+	public bool isModel2Choose = false;
+
+	public bool isBChoose = false;
+	public bool isCChoose = false;
+	public bool isHChoose = false;
+	public bool isMChoose = false;
+	public bool isPChoose = false;
+	public bool isSChoose = false;
+	public bool isAChoose = false;
+	public bool isZChoose = false;
+
+	public string bodyPartText = "";
+	public string bodyTextureText = "";
+
+	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
+	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
+	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
+		
 	void init (){
-		allBody = new List<UnityEngine.GameObject> ();
-		allMaterial = new List<UnityEngine.Material> ();
-		allTextures = new List<UnityEngine.Texture> ();
-
-		allBody.Clear ();
-		allMaterial.Clear ();
-		allTextures.Clear ();
-
-		UnityEngine.Object[] obj = Resources.LoadAll ("Character/PlayerModel_2/Model", typeof(GameObject));
-		for (int i=0; i<obj.Length; i++) {
-			if(!obj[i].name.Contains("PlayerModel")){
-				allBody.Add((UnityEngine.GameObject)obj[i]);
+		if(allBody.Count == 0) {
+			UnityEngine.Object[] obj = Resources.LoadAll ("Character/PlayerModel_2/Model", typeof(GameObject));
+			for (int i=0; i<obj.Length; i++) {
+				if(!obj[i].name.Contains("PlayerModel")){
+					allBody.Add((UnityEngine.GameObject)obj[i]);
+				}
+			}
+			UnityEngine.Object[] obj_3 = Resources.LoadAll ("Character/PlayerModel_3/Model", typeof(GameObject));
+			for (int i=0; i<obj_3.Length; i++) {
+				if(!obj_3[i].name.Contains("PlayerModel")){
+					allBody.Add((UnityEngine.GameObject)obj_3[i]);
+				}
 			}
 		}
-		UnityEngine.Object[] obj_3 = Resources.LoadAll ("Character/PlayerModel_3/Model", typeof(GameObject));
-		for (int i=0; i<obj_3.Length; i++) {
-			if(!obj_3[i].name.Contains("PlayerModel")){
-				allBody.Add((UnityEngine.GameObject)obj_3[i]);
+		if(allMaterial.Count == 0) {
+			UnityEngine.Object[] mat = Resources.LoadAll ("Character/Materials"); 
+			for (int i=0; i<mat.Length; i++) {
+				if(mat[i].GetType().Equals(typeof(UnityEngine.Material))){
+					allMaterial.Add((UnityEngine.Material)mat[i]);
+				}
 			}
 		}
-		UnityEngine.Object[] mat = Resources.LoadAll ("Character/Materials"); 
-		for (int i=0; i<mat.Length; i++) {
-			if(mat[i].GetType().Equals(typeof(UnityEngine.Material))){
-				allMaterial.Add((UnityEngine.Material)mat[i]);
-			}
-		}
-		UnityEngine.Object[] tex = Resources.LoadAll ("Character/PlayerModel_2/Texture"); 
-		for (int i=0; i<tex.Length; i++) {
+		if(allTextures.Count == 0) {
+			UnityEngine.Object[] tex = Resources.LoadAll ("Character/PlayerModel_2/Texture"); 
+			for (int i=0; i<tex.Length; i++) {
 				allTextures.Add((UnityEngine.Texture)tex[i]);
+			}
+			UnityEngine.Object[] tex_3= Resources.LoadAll ("Character/PlayerModel_3/Texture"); 
+			for (int i=0; i<tex_3.Length; i++) {
+				allTextures.Add((UnityEngine.Texture)tex_3[i]);
+			}
 		}
-		UnityEngine.Object[] tex_3= Resources.LoadAll ("Character/PlayerModel_3/Texture"); 
-		for (int i=0; i<tex_3.Length; i++) {
-			allTextures.Add((UnityEngine.Texture)tex_3[i]);
+		isModel0Choose = false;
+		isModel1Choose = false;
+		isModel2Choose = false;
+		judgeBody(Flag.NONE);
+		showBody.Clear();
+		showBodyTexture.Clear();
+		bodyPartText = "";
+		bodyTextureText = "";
+	}
+
+	ModelManager getModelManager(){
+		GameObject obj = GameObject.Find("ModelManager");
+		if(!obj) {
+			ModelManager.Init();
+			obj = GameObject.Find("ModelManager");
+		}
+		return obj.GetComponent<ModelManager>();
+	}
+
+	void OnFocus(){
+		init ();
+		if(Selection.gameObjects.Length > 1) {
+			chooseCount = 2;
+			isAvatar = false;
+		}else 
+		if(Selection.gameObjects.Length == 0){
+			chooseCount = 0;
+			isAvatar = false;
+		} else {
+			chooseCount = 1;
+			selectGameObject = Selection.gameObjects[0];
+			Transform t = selectGameObject.transform.FindChild("DummyBall");
+			if(t == null) 
+				isAvatar = false;
+			else {
+				isAvatar = true;
+				int count = selectGameObject.transform.childCount;
+				for(int i=0; i<count; i++) {
+					Transform childt = selectGameObject.transform.GetChild(i);
+					string name = childt.name;
+					if(name.Contains("PlayerModel")){
+						Material[] materials = childt.GetComponent<SkinnedMeshRenderer>().materials;
+						for(int j=0; j<materials.Length; j++) {
+							string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
+							if(textureName[1].Equals("B")) {
+								attr.Body = int.Parse(textureName[0]);
+								attrTexture.BTexture = materials[j].mainTexture.name;
+							} else 
+							if(textureName[1].Equals("C")){
+								attr.Cloth = int.Parse(textureName[2]);
+								attrTexture.CTexture = materials[j].mainTexture.name;
+							} else 
+							if(textureName[1].Equals("H")){
+								attr.Hair = int.Parse(textureName[2]);
+								attrTexture.HTexture = materials[j].mainTexture.name;
+							} else 
+							if(textureName[1].Equals("M")){
+								attr.MHandDress = int.Parse(textureName[2]);
+								attrTexture.MTexture = materials[j].mainTexture.name;
+							} else 
+							if(textureName[1].Equals("P")){
+								attr.Pants = int.Parse(textureName[2]);
+								attrTexture.PTexture = materials[j].mainTexture.name;
+							} else 
+							if(textureName[1].Equals("S")){
+								attr.Shoes = int.Parse(textureName[2]);
+								attrTexture.STexture = materials[j].mainTexture.name;
+							}
+						}
+					} else 
+					if(name.Contains("Bip01")){
+						int dummyCount_A = childt.FindChild("Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead").childCount;
+						if(dummyCount_A == 0)
+							attr.AHeadDress = 0;
+						else {
+							Material[] materials = childt.GetComponent<SkinnedMeshRenderer>().materials;
+							for(int j=0; j<materials.Length; j++) {
+								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
+								if(textureName[1].Equals("A")) {
+									attr.AHeadDress = int.Parse(textureName[2]);
+									attrTexture.ATexture = materials[j].mainTexture.name;
+								}
+							}
+						}
+
+						int dummyCount_Z = childt.FindChild("Bip01 Spine/Bip01 Spine1/DummyBack").childCount;
+						if(dummyCount_Z == 0)
+							attr.ZBackEquip = 0;
+						else {
+							Material[] materials = childt.GetComponent<SkinnedMeshRenderer>().materials;
+							for(int j=0; j<materials.Length; j++) {
+								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
+								if(textureName[1].Equals("Z")) {
+									attr.ZBackEquip = int.Parse(textureName[2]);
+									attrTexture.ZTexture = materials[j].mainTexture.name;
+								}
+							}
+						}
+					}
+				}
+//				Debug.Log("Body:"+attr.Body);
+//				Debug.Log("Cloth:"+attr.Cloth);
+//				Debug.Log("Hair:"+attr.Hair);
+//				Debug.Log("MHandDress:"+attr.MHandDress);
+//				Debug.Log("Pants:"+attr.Pants);
+//				Debug.Log("Shoes:"+attr.Shoes);
+//				Debug.Log("AHeadDress:"+attr.AHeadDress);
+//				Debug.Log("ZBackEquip:"+attr.ZBackEquip);
+				if(attr.Body == 0) {
+					isModel0Choose = true;
+				} else 
+				if(attr.Body == 1) {
+					isModel1Choose = true;
+				} else 
+				if(attr.Body == 2) {
+					isModel2Choose = true;
+				}
+			}
 		}
 	}
 
-	void reSet(){
-		init ();
-		model = 2;
-		bodyPart = 0;
-		bodyPartName = "";
-		bodyTex = "";
+	void createPlayer(string name){
+		if(Application.isPlaying) {
+			if(GameObject.Find(name) == null) {
+				GameObject obj = new GameObject();
+				obj.name = name;
+				getModelManager().CreateStorePlayer(obj, attr, attrTexture);
+			}
+		}
 	}
 
 	void OnGUI() {
-//		if (GUI.Button (new Rect (500, 0, 100, 30), "Reset")) {
-//			reSet();
-//		}
+		if(chooseCount == 0)
+			GUILayout.Label("Need to choose one GameObject!");
+		else if(chooseCount == 1)
+			GUILayout.Label("Yes. One GameObject!");
+		else
+			GUILayout.Label("Too much GameObject!");
+		if(isAvatar) 
+			GUILayout.Label("it is a Avatar!");
+		else
+			GUILayout.Label("it is not a Avatar!");
 
-		EditorGUILayout.LabelField ("Model:" + model);
-		EditorGUILayout.LabelField ("Body:" + strPart[bodyPart]);
-		EditorGUILayout.LabelField ("Body Part:" + bodyPartName);
-		EditorGUILayout.LabelField ("Body Texture:" + bodyTex);
 		//Model
-		GUI.Label (new Rect(0, 80, 500, 50), "Choose Model");
+		GUI.Label (new Rect(0, 80, 500, 50), "Model");
+		if(isModel0Choose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(0, 100, 200, 50), "PlayerMode_0")) {
-			if(allBody == null || allBody.Count == 0) init();
-//			model = 0;
+			if(!isModel0Choose){
+				//Create New Model 0
+			}
 		}
+			
+		if(isModel1Choose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(200, 100, 200, 50), "PlayerMode_1")) {
-			if(allBody== null || allBody.Count == 0) init();
-//			model = 1;
+			if(!isModel1Choose) {
+				//Create New Model 1
+			}
 		}
+			
+		if(isModel2Choose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(400, 100, 200, 50), "PlayerMode_2")) {
-			if(allBody== null || allBody.Count == 0) init();
-			model = 2;
+			if(!isModel2Choose) {
+				//Create New Model 2
+				createPlayer("2");
+			}
 		}
 		//Body
+		if(isBChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
 		GUI.Label (new Rect(0, 150, 500, 50), "Choose Body");
 		if (GUI.Button (new Rect(0, 170, 70, 50), "B")) {
+			judgeBody(Flag.B);
 			bodyPart = 0;
-			bodyPartName = "";
-			bodyTex = "";
 			showBody.Clear ();
 			judgeBodyTextureName("B","0");
 		}
+
+		if(isCChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(75, 170, 70, 50), "C")) {
+			judgeBody(Flag.C);
 			bodyPart = 1;
 			judgeBodyName("C");
 		}
+
+		if(isHChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(150, 170, 70, 50), "H")) {
+			judgeBody(Flag.H);
 			bodyPart = 2;
 			judgeBodyName("H");
 		}
+		
+		if(isMChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(225, 170, 70, 50), "M")) {
+			judgeBody(Flag.M);
 			bodyPart = 3;
 			judgeBodyName("M");
 		}
+		
+		if(isPChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(300, 170, 70, 50), "P")) {
+			judgeBody(Flag.P);
 			bodyPart = 4;
 			judgeBodyName("P");
 		}
+		
+		if(isSChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(375, 170, 70, 50), "S")) {
+			judgeBody(Flag.S);
 			bodyPart = 5;
 			judgeBodyName("S");
 		}
+		
+		if(isAChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(450, 170, 70, 50), "A")) {
+			judgeBody(Flag.A);
 			bodyPart = 6;
 			judgeBodyName("A");
 		}
+		
+		if(isZChoose)
+			GUI.backgroundColor = Color.red;
+		else 
+			GUI.backgroundColor = Color.white;
+
 		if (GUI.Button (new Rect(525, 170, 70, 50), "Z")) {
+			judgeBody(Flag.Z);
 			bodyPart = 7;
 			judgeBodyName("Z");
 		}
+		GUI.backgroundColor = Color.white;
 		//Body Part
-		GUI.Label (new Rect(0, 220, 500, 50), "Change Body Part");
-		scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 60, 50));
-		if (showBody.Count > 0) {
-			if(GUI.Button(new Rect(0, 0, 50, 30), "None")){
-				chooseBodyPart(showBody[0].name, true);
-				showBodyTexture.Clear();
-			}
-			for (int i=0; i<showBody.Count; i++) {
-				if(GUI.Button(new Rect(60 * (i+1), 0, 50, 30), showBody[i].name)) {
-					chooseBodyPart(showBody[i].name);
+		GUI.Label (new Rect(0, 220, 500, 50), "Change Body Part: " + bodyPartText);
+		if(isAvatar) {
+			scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 60, 50));
+			if (showBody.Count > 0) {
+				if(GUI.Button(new Rect(0, 0, 50, 30), "None")){
+					chooseBodyPart(showBody[0].name, true);
+					bodyPartText = "None";
+					bodyTextureText = "";
+					showBodyTexture.Clear();
 				}
-			}
-		}	
-		GUI.EndScrollView ();
-
-		//Body Texture
-		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture");
-		scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
-		if (showBodyTexture.Count > 0) {
-			for (int i=0; i<showBodyTexture.Count; i++) {
-				if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
-					bodyTex = showBodyTexture[i].name;
-					string[] name = showBodyTexture[i].name.Split("_"[0]);
-					if(name[1].Equals("B")){
-						attrTexture.BTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("C")){
-						attrTexture.CTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("H")){
-						attrTexture.HTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("M")){
-						attrTexture.MTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("P")){
-						attrTexture.PTexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("S")){
-						attrTexture.STexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("A")){
-						attrTexture.ATexture = showBodyTexture[i].name;
-					} else if(name[1].Equals("Z")){
-						attrTexture.ZTexture = showBodyTexture[i].name;
+				for (int i=0; i<showBody.Count; i++) {
+					if(GUI.Button(new Rect(60 * (i+1), 0, 50, 30), showBody[i].name)) {
+						chooseBodyPart(showBody[i].name);
 					}
-					bodyPart = Array.IndexOf(strPart, name[1]);
-					GameController.Get.ChangeTexture(attr, bodyPart, int.Parse(name[2]), int.Parse(name[3])); 
 				}
-			}
-		}	
-		GUI.EndScrollView ();
-
-		//Random
-		if(GUI.Button(new Rect(0, 350, 100, 50), "Random")){
-			
-			attr.Cloth = UnityEngine.Random.Range(5,7);
-			attr.Hair = UnityEngine.Random.Range(2,4);
-			attr.MHandDress = UnityEngine.Random.Range(2,4);
-			attr.Pants = UnityEngine.Random.Range(6,8);
-			attr.Shoes = UnityEngine.Random.Range(0,3);
-			attr.AHeadDress = UnityEngine.Random.Range(0,3);
-			attr.ZBackEquip = UnityEngine.Random.Range(0,3);
-			
-			//GameController.Get.ChangePlayer(attr, attrTexture);
-
-			judgeBodyTextureName("B", UnityEngine.Random.Range(1,3).ToString());
-			int numB = UnityEngine.Random.Range(0,2);
-			string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, numB);
-			GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "B"), 0, numB); 
-			attrTexture.BTexture = BTexName;
-
-			judgeBodyTextureName("C", attr.Cloth.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numC = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "C"), attr.Cloth, numC); 
-			}
-
-			judgeBodyTextureName("H", attr.Hair.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numH = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "H"), attr.Hair, numH); 
-			}
-
-			judgeBodyTextureName("M", attr.MHandDress.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numM = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "M"), attr.MHandDress, numM); 
-			}
-
-			judgeBodyTextureName("P", attr.Pants.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numP = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "P"), attr.Pants, numP); 
-			}
-
-			judgeBodyTextureName("S", attr.Pants.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numS = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "S"), attr.Pants, numS);
-			}
-
-			judgeBodyTextureName("A", attr.AHeadDress.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numA = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "A"), attr.AHeadDress, numA); 
-			}
-
-			judgeBodyTextureName("Z", attr.ZBackEquip.ToString());
-			if(showBody.Count > 0 && showBodyTexture.Count > 0) {
-				int numZ = UnityEngine.Random.Range(0,2);
-				GameController.Get.ChangeTexture(attr, Array.IndexOf(strPart, "Z"), attr.ZBackEquip, numZ); 
-			}
-
-
-
+			}	
+			GUI.EndScrollView ();
 		}
-
+		
+		//Body Texture
+		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture: "+ bodyTextureText);
+		if(isAvatar) {
+			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
+			if (showBodyTexture.Count > 0) {
+				for (int i=0; i<showBodyTexture.Count; i++) {
+					if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
+						bodyTextureText = showBodyTexture[i].name;
+						string[] name = showBodyTexture[i].name.Split("_"[0]);
+						if(name[1].Equals("B")){
+							attrTexture.BTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("C")){
+							attrTexture.CTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("H")){
+							attrTexture.HTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("M")){
+							attrTexture.MTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("P")){
+							attrTexture.PTexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("S")){
+							attrTexture.STexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("A")){
+							attrTexture.ATexture = showBodyTexture[i].name;
+						} else if(name[1].Equals("Z")){
+							attrTexture.ZTexture = showBodyTexture[i].name;
+						}
+						bodyPart = Array.IndexOf(strPart, name[1]);
+						getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					}
+				}
+			}	
+			GUI.EndScrollView ();
+		}
 	}
 
 	void chooseBodyPart(string showBodyName, bool isNone = false){
-		bodyPartName = showBodyName;
+		bodyPartText = showBodyName;
 		string[] name = showBodyName.Split("_"[0]);
 		judgeBodyTextureName(name[1], name[2]);
 		
 		if(!name[1].Equals("A") && !name[1].Equals("Z"))
 			attr.Body = int.Parse(name[0]);
-		
+
+		Debug.Log("showBodyTexture:"+showBodyTexture.Count);
+
 		if(name[1].Equals("C")){
 			if(!isNone) {
 				attr.Cloth = int.Parse(name[2]);
@@ -323,15 +483,14 @@ public class AvatarEditor :  EditorWindow{
 				attr.ZBackEquip = 0;
 			}
 		}
-		
-		//GameController.Get.ChangePlayer(attr, attrTexture);
+		if(showBodyTexture.Count > 0)
+			bodyTextureText = showBodyTexture[0].name;
+		getModelManager().SetAvatar(ref selectGameObject, attr, attrTexture, false);
 	}
 
 	void judgeBodyName(string body){
 		showBody.Clear ();
 		showBodyTexture.Clear ();
-		bodyPartName = "";
-		bodyTex = "";
 		for (int i=0; i<allBody.Count; i++) {
 			string[] name = allBody[i].name.Split("_"[0]);
 			if(name[1].Equals(body)) {
@@ -341,7 +500,6 @@ public class AvatarEditor :  EditorWindow{
 	}
 	void judgeBodyTextureName(string body, string _bodyPart){
 		showBodyTexture.Clear ();
-		bodyTex = "";
 		for (int i=0; i<allTextures.Count; i++) {
 			string[] name = allTextures[i].name.Split("_"[0]);
 			if(name[1].Equals(body)) {
@@ -352,4 +510,40 @@ public class AvatarEditor :  EditorWindow{
 		}
 	}
 
+	void judgeBody(Flag flag){
+		isBChoose = false;
+		isCChoose = false;
+		isHChoose = false;
+		isMChoose = false;
+		isPChoose = false;
+		isSChoose = false;
+		isZChoose = false;
+		isAChoose = false;
+		switch(flag){
+		case Flag.B:
+			isBChoose = true;
+			break;
+		case Flag.C:
+			isCChoose = true;
+			break;
+		case Flag.H:
+			isHChoose = true;
+			break;
+		case Flag.M:
+			isMChoose = true;
+			break;
+		case Flag.P:
+			isPChoose = true;
+			break;
+		case Flag.S:
+			isSChoose = true;
+			break;
+		case Flag.A:
+			isAChoose = true;
+			break;
+		case Flag.Z:
+			isZChoose = true;
+			break;
+		}
+	}
 }
