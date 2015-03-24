@@ -14,12 +14,14 @@ public class UIGame : UIBase {
 	public GameObject Continue;
 	public GameObject Start;
 	public GameJoystick Joystick = null;
+	private GameObject myPlayer;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
 	
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private GameObject passObject;
 	private GameObject[] passObjectGroup = new GameObject[2];
+	private GameObject screenLocation;
 	private UILabel[] scoresLabel = new UILabel[2];
 	private UISprite[] homeHintSprite = new UISprite[3];
 	private UILabel[] homeHintLabel = new UILabel[3];
@@ -27,10 +29,8 @@ public class UIGame : UIBase {
 	private float shootBtnTime = 0;
 	private bool shootBtnIsPress = false;
 	
-	public static bool Visible
-	{
-		get
-		{
+	public static bool Visible {
+		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
@@ -38,7 +38,7 @@ public class UIGame : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow){
+	public static void UIShow(bool isShow) {
 		if(instance)
 			instance.Show(isShow);
 		else
@@ -46,8 +46,7 @@ public class UIGame : UIBase {
 			Get.Show(isShow);
 	}
 	
-	public static UIGame Get
-	{
+	public static UIGame Get {
 		get {
 			if (!instance) 
 				instance = LoadUI(UIName) as UIGame;
@@ -78,28 +77,24 @@ public class UIGame : UIBase {
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
 
+		screenLocation = GameObject.Find (UIName + "/Right");
+
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragEnd = DoPassChooseEnd;
-//		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", GameController.Get.DoPass());
 
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
-//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonC", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		Again.SetActive (false);
-		Continue.SetActive(false);	
+		Continue.SetActive(false);
 
-//		drawLine = gameObject.AddComponent(Types.GetType("DrawLine"));
 		drawLine = gameObject.AddComponent<DrawLine>();
 		drawLine.UIs[0] = null;
 		drawLine.UIs[1] = passObjectGroup[0];
 		drawLine.UIs[2] = passObjectGroup[1];
-//		passObject.SetActive(false);
 
 		for(int i=0; i<homeHintSprite.Length; i++) {
 			homeHintSprite[i].enabled = false;
@@ -109,8 +104,11 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void DoShoot(GameObject go, bool state)
-	{
+	public void SetPassObject(bool isShow){
+		passObject.SetActive(isShow);
+	}
+
+	public void DoShoot(GameObject go, bool state) {
 		shootBtnIsPress = state;
 		if (state)
 			shootBtnTime += Time.deltaTime;
@@ -123,18 +121,9 @@ public class UIGame : UIBase {
 			shootBtnTime = 0;
 		}	
 	}
-	public void DoPassChoose (GameObject go, bool state){
-		if(state){
-			Debug.Log("Start:"+Input.mousePosition);
-		} else {
-			Debug.Log("End:"+Input.mousePosition);
-		}
-		passObject.SetActive(state);
+	public void DoPassChoose (GameObject go, bool state) {
+		SetPassObject(state);
 		drawLine.IsShow = state;
-	}
-
-	public void DoPassChooseEnd(GameObject go, bool state) {
-		Debug.Log("name:"+go.name);
 	}
 
 	public void ContinueGame() {
@@ -145,13 +134,13 @@ public class UIGame : UIBase {
 		Debug.Log("Pause Game");
 	}
 
-	public void ResetGame(){
+	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
 		Again.SetActive (false);
 	}
 
-	public void StartGame(){
+	public void StartGame() {
 		Start.SetActive (false);
 
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
@@ -159,34 +148,56 @@ public class UIGame : UIBase {
 		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
 	}
 
-	public void ChangeControl(bool IsAttack)
-	{
+	public void ChangeControl(bool IsAttack) {
 		ControlButtonGroup [0].SetActive (IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
 		if(!IsAttack)
 			drawLine.IsShow = false;
 	}
 
-	public void PlusScore(int team, int score)
-	{
+	public void PlusScore(int team, int score) {
+		Debug.Log("Team:"+team);
+		if(team == 0) {
+			if(score == 2) 
+				UIHint.Get.ShowHint(TextConst.S(1001), Color.blue);
+			else 
+			if(score == 3)
+				UIHint.Get.ShowHint(TextConst.S(1002), Color.blue);
+		}
+	
+
 		Scores [team] += score;
+		TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity).to = new Vector3(0,720,0);
 		scoresLabel[team].text = Scores [team].ToString ();
 	}
 
-	private void addHomeHint(string homeHint){
-		aryHomeHintString[2] = aryHomeHintString[1];
-		aryHomeHintString[1] = aryHomeHintString[0];
-		aryHomeHintString[0] = homeHint;
-		for (int i=0; i< aryHomeHintString.Length; i++) {
-			if(string.IsNullOrEmpty(aryHomeHintString[i])){
-				homeHintLabel[i].enabled = false;
-				homeHintSprite[i].enabled = false;
-			} else {
-				homeHintLabel[i].enabled = true;
-				homeHintSprite[i].enabled = true;
-				homeHintLabel[i].text = aryHomeHintString[i];
-			}
+	public void SetHomeHint(bool isShow, string homeHint = "") {
+		homeHintLabel[0].text = homeHint;
+		if(isShow) {
+			homeHintLabel[0].enabled = true;
+			homeHintSprite[0].enabled = true;
+		} else {
+			homeHintLabel[0].enabled = false;
+			homeHintSprite[0].enabled = false;
 		}
+
+//		aryHomeHintString[2] = aryHomeHintString[1];
+//		aryHomeHintString[1] = aryHomeHintString[0];
+//		aryHomeHintString[0] = homeHint;
+//		for (int i=0; i< aryHomeHintString.Length; i++) {
+//			if(string.IsNullOrEmpty(aryHomeHintString[i])){
+//				homeHintLabel[i].enabled = false;
+//				homeHintSprite[i].enabled = false;
+//			} else {
+//				homeHintLabel[i].enabled = true;
+//				homeHintSprite[i].enabled = true;
+//				homeHintLabel[i].text = aryHomeHintString[i];
+//			}
+//		}
+	}
+
+	public void setMyPlayer(GameObject obj){
+		myPlayer = obj;
 	}
 
 	protected override void InitData() {
@@ -202,8 +213,55 @@ public class UIGame : UIBase {
 		
 	}
 
-	void Update()
-	{
+	void Update() {
+		float playerX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(myPlayer.transform.position).x;
+		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(myPlayer.transform.position).y;
+
+//		playerY = Screen.height - playerY;
+		Vector2 playerSreenPos = new Vector2(playerX - (Screen.width / 2), playerY - (Screen.height / 2));
+		if(playerSreenPos.x < 0) {
+			playerSreenPos.x = -920;   
+		}
+
+		if (playerSreenPos.y < 0){
+			playerSreenPos.y = 500;
+		}
+		
+		if (playerSreenPos.x > Screen.width){
+			playerSreenPos.x = 920;
+		}
+		
+		if (playerSreenPos.y > Screen.height){
+			playerSreenPos.y = -500;
+		}
+
+		
+		Vector2 sp1 = new Vector2(playerX, playerY);
+		Vector2 sp2 = new Vector2(Screen.width/2, Screen.height/2);
+		Vector3 cross = Vector3.Cross(sp2, sp1);
+		float angle = Vector2.Angle(sp2, sp1);
+		Debug.Log("cross.z;:"+cross.z);
+		if (cross.z < 0)
+			angle = 360 - angle;
+		
+
+		if(playerX < 0 ||
+		   playerX > Screen.width ||
+		   playerY < 0 ||
+		   playerY > Screen.height) {
+			screenLocation.SetActive(true);
+		Debug.Log("Screen.width/2:"+Screen.width/2);
+		Debug.Log("Screen.height/2:"+Screen.height/2);
+			Debug.Log("PlayerX:"+playerX);
+			Debug.Log("Playery:"+playerY);
+			Debug.Log("angle:"+angle);
+			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
+			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
+
+		} else {
+			screenLocation.SetActive(false);
+		}
+
 		if (shootBtnIsPress) {
 			shootBtnTime += Time.deltaTime;
 			if(shootBtnTime > 0.5f)

@@ -34,6 +34,7 @@ public class DrawLine : MonoBehaviour {
 					AddTarget(UIs[i], obj);
 			}
 		}
+		UIGame.Get.SetPassObject(false);
 	}
 	
 	// Update is called once per frame

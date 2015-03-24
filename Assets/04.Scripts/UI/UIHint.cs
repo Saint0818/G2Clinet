@@ -59,6 +59,7 @@ public class UIHint : UIBase {
 		timer = 3;
 		bool flag = false;
 		for (int i = 0; i < LabelHints.Length; i ++) {
+
 			if (!LabelHints[i].gameObject.activeInHierarchy) {
 				LabelHints[i].gameObject.SetActive(true);
 				LabelHints[i].text = text;
@@ -82,7 +83,8 @@ public class UIHint : UIBase {
 			
 			LabelHints[LabelHints.Length-1].text = text;
 			LabelHints[LabelHints.Length-1].effectColor = color;
-		}
+		} 
+		UIGame.Get.SetHomeHint(flag, text);
 	}
 
 	void Update ()
@@ -90,6 +92,7 @@ public class UIHint : UIBase {
 		if (timer > 0) {
 			timer -= Time.deltaTime;
 			if (timer <= 0) {
+				UIGame.Get.SetHomeHint(false);
 				for (int i = LabelHints.Length-1; i >= 0; i --) {
 					if (LabelHints[i].gameObject.activeInHierarchy) {
 						if (i > 0) {

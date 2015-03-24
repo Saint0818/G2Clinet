@@ -246,6 +246,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		Joysticker = PlayerList [0];
+		UIGame.Get.setMyPlayer(PlayerList [0].gameObject);
 		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
 		Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 
@@ -475,9 +476,13 @@ public class GameController : MonoBehaviour {
 	{
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
 			if(PlayerList.Count > 2){
-				if(BallOwner == Joysticker)
+				if(BallOwner == Joysticker) {
+					if(playerid == 1)
+						UIHint.Get.ShowHint(TextConst.S(1006), Color.blue);
+					else 
+						UIHint.Get.ShowHint(TextConst.S(1007), Color.blue);
 					Pass(PlayerList[playerid]);
-				else
+				} else
 					Pass(Joysticker);
 
 				Joysticker.SetNoAiTime();

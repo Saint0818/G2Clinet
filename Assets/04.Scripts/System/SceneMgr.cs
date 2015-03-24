@@ -276,7 +276,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 					realBallRigidbody.useGravity = true;
 					RealBallTrigger.SetBoxColliderEnable(true);
 					RealBallTrigger.Falling();
-					UIHint.Get.ShowHint("Blocking", Color.blue);
+					UIHint.Get.ShowHint(TextConst.S(1005), Color.blue);
 				}
 				break;
 			case PlayerState.Dunk:
