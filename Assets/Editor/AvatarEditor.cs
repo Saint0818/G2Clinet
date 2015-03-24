@@ -18,7 +18,6 @@ public class AvatarEditor :  EditorWindow{
 	private GameObject selectGameObject = null;
 	
 	private GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
-	private GameStruct.TAvatarTexture attrTexture = new GameStruct.TAvatarTexture (1);
 
 	public Vector2 scrollPosition = Vector2.zero;
 	public Vector2 scrollPositionTexture = Vector2.zero;
@@ -131,28 +130,22 @@ public class AvatarEditor :  EditorWindow{
 						for(int j=0; j<materials.Length; j++) {
 							string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
 							if(textureName[1].Equals("B")) {
-								attr.Body = int.Parse(textureName[0]);
-								attrTexture.BTexture = materials[j].mainTexture.name;
+								attr.Body = int.Parse(textureName[0]+"00"+textureName[3]);;
 							} else 
 							if(textureName[1].Equals("C")){
-								attr.Cloth = int.Parse(textureName[2]);
-								attrTexture.CTexture = materials[j].mainTexture.name;
+								attr.Cloth = int.Parse(textureName[2]+"00"+textureName[3]);
 							} else 
 							if(textureName[1].Equals("H")){
-								attr.Hair = int.Parse(textureName[2]);
-								attrTexture.HTexture = materials[j].mainTexture.name;
+								attr.Hair = int.Parse(textureName[2]+"00"+textureName[3]);
 							} else 
 							if(textureName[1].Equals("M")){
-								attr.MHandDress = int.Parse(textureName[2]);
-								attrTexture.MTexture = materials[j].mainTexture.name;
+								attr.MHandDress = int.Parse(textureName[2]+"00"+textureName[3]);
 							} else 
 							if(textureName[1].Equals("P")){
-								attr.Pants = int.Parse(textureName[2]);
-								attrTexture.PTexture = materials[j].mainTexture.name;
+								attr.Pants = int.Parse(textureName[2]+"00"+textureName[3]);
 							} else 
 							if(textureName[1].Equals("S")){
-								attr.Shoes = int.Parse(textureName[2]);
-								attrTexture.STexture = materials[j].mainTexture.name;
+								attr.Shoes = int.Parse(textureName[2]+"00"+textureName[3]);
 							}
 						}
 					} else 
@@ -165,8 +158,7 @@ public class AvatarEditor :  EditorWindow{
 							for(int j=0; j<materials.Length; j++) {
 								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
 								if(textureName[1].Equals("A")) {
-									attr.AHeadDress = int.Parse(textureName[2]);
-									attrTexture.ATexture = materials[j].mainTexture.name;
+									attr.AHeadDress = int.Parse(textureName[2]+"00"+textureName[3]);
 								}
 							}
 						}
@@ -179,28 +171,19 @@ public class AvatarEditor :  EditorWindow{
 							for(int j=0; j<materials.Length; j++) {
 								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
 								if(textureName[1].Equals("Z")) {
-									attr.ZBackEquip = int.Parse(textureName[2]);
-									attrTexture.ZTexture = materials[j].mainTexture.name;
+									attr.ZBackEquip = int.Parse(textureName[2]+"00"+textureName[3]);
 								}
 							}
 						}
 					}
 				}
-//				Debug.Log("Body:"+attr.Body);
-//				Debug.Log("Cloth:"+attr.Cloth);
-//				Debug.Log("Hair:"+attr.Hair);
-//				Debug.Log("MHandDress:"+attr.MHandDress);
-//				Debug.Log("Pants:"+attr.Pants);
-//				Debug.Log("Shoes:"+attr.Shoes);
-//				Debug.Log("AHeadDress:"+attr.AHeadDress);
-//				Debug.Log("ZBackEquip:"+attr.ZBackEquip);
-				if(attr.Body == 0) {
+				if((attr.Body/1000) == 0) {
 					isModel0Choose = true;
 				} else 
-				if(attr.Body == 1) {
+				if((attr.Body/1000) == 1) {
 					isModel1Choose = true;
 				} else 
-				if(attr.Body == 2) {
+				if((attr.Body/1000) == 2) {
 					isModel2Choose = true;
 				}
 			}
@@ -212,7 +195,7 @@ public class AvatarEditor :  EditorWindow{
 			if(GameObject.Find(name) == null) {
 				GameObject obj = new GameObject();
 				obj.name = name;
-				getModelManager().CreateStorePlayer(obj, attr, attrTexture);
+				getModelManager().CreateStorePlayer(obj, attr);
 			}
 		}
 	}
@@ -384,21 +367,29 @@ public class AvatarEditor :  EditorWindow{
 						bodyTextureText = showBodyTexture[i].name;
 						string[] name = showBodyTexture[i].name.Split("_"[0]);
 						if(name[1].Equals("B")){
-							attrTexture.BTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.Body / 1000;
+							attr.Body = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("C")){
-							attrTexture.CTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.Cloth / 1000;
+							attr.Cloth = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("H")){
-							attrTexture.HTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.Hair / 1000;
+							attr.Hair = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("M")){
-							attrTexture.MTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.MHandDress / 1000;
+							attr.MHandDress = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("P")){
-							attrTexture.PTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.Pants / 1000;
+							attr.Pants = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("S")){
-							attrTexture.STexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.Shoes / 1000;
+							attr.Shoes = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("A")){
-							attrTexture.ATexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.AHeadDress / 1000;
+							attr.AHeadDress = int.Parse(bodyPartTemp + "00" + name[3]);
 						} else if(name[1].Equals("Z")){
-							attrTexture.ZTexture = showBodyTexture[i].name;
+							int bodyPartTemp = attr.ZBackEquip / 1000;
+							attr.ZBackEquip = int.Parse(bodyPartTemp + "00" + name[3]);
 						}
 						bodyPart = Array.IndexOf(strPart, name[1]);
 						getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
@@ -414,78 +405,55 @@ public class AvatarEditor :  EditorWindow{
 		string[] name = showBodyName.Split("_"[0]);
 		judgeBodyTextureName(name[1], name[2]);
 		
-		if(!name[1].Equals("A") && !name[1].Equals("Z"))
-			attr.Body = int.Parse(name[0]);
-
-		Debug.Log("showBodyTexture:"+showBodyTexture.Count);
+//		if(!name[1].Equals("A") && !name[1].Equals("Z"))
+//			attr.Body = int.Parse(name[0]);
 
 		if(name[1].Equals("C")){
 			if(!isNone) {
-				attr.Cloth = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.CTexture = showBodyTexture[0].name;
-				}
+				attr.Cloth = int.Parse(name[2] + "000");
 			} else {
 				attr.Cloth = 0;
 			}
 		} else if(name[1].Equals("H")){
 			if(!isNone) {
-				attr.Hair = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.HTexture = showBodyTexture[0].name;
-				}
+				attr.Hair = int.Parse(name[2] + "000");
 			} else {
 				attr.Hair = 0;
 			}
 		} else if(name[1].Equals("M")){
 			if(!isNone) {
-				attr.MHandDress = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.MTexture = showBodyTexture[0].name;
-				}
+				attr.MHandDress = int.Parse(name[2] + "000");
 			} else {
 				attr.MHandDress = 0;
 			}
 		} else if(name[1].Equals("P")){
 			if(!isNone) {
-				attr.Pants = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.PTexture = showBodyTexture[0].name;
-				}
+				attr.Pants = int.Parse(name[2] + "000");
 			} else {
 				attr.Pants = 0;
 			}
 		} else if(name[1].Equals("S")){
 			if(!isNone) {
-				attr.Shoes = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.STexture = showBodyTexture[0].name;
-				}
+				attr.Shoes = int.Parse(name[2] + "000");
 			} else {
 				attr.Shoes = 0;
 			}
 		} else if(name[1].Equals("A")){
 			if(!isNone) {
-				attr.AHeadDress = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.ATexture = showBodyTexture[0].name;
-				}
+				attr.AHeadDress = int.Parse(name[2] + "000");
 			} else {
 				attr.AHeadDress = 0;
 			}
 		} else if(name[1].Equals("Z")){
 			if(!isNone) {
-				attr.ZBackEquip = int.Parse(name[2]);
-				if(showBodyTexture.Count > 0) {
-					attrTexture.ZTexture = showBodyTexture[0].name;
-				}
+				attr.ZBackEquip = int.Parse(name[2] + "000");
 			} else {
 				attr.ZBackEquip = 0;
 			}
 		}
 		if(showBodyTexture.Count > 0)
 			bodyTextureText = showBodyTexture[0].name;
-		getModelManager().SetAvatar(ref selectGameObject, attr, attrTexture, false);
+		getModelManager().SetAvatar(ref selectGameObject, attr, false);
 	}
 
 	void judgeBodyName(string body){

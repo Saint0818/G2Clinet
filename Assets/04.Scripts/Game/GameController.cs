@@ -166,95 +166,45 @@ public class GameController : MonoBehaviour {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
 	
-	private void randomAvatar(ref TAvatar attr) {
-		attr.Cloth = UnityEngine.Random.Range(5, 6);
-		attr.Hair = UnityEngine.Random.Range(2,4);
-		attr.MHandDress = 0; //UnityEngine.Random.Range(2,4);
-		attr.Pants = UnityEngine.Random.Range(6,8);
-		attr.Shoes = UnityEngine.Random.Range(1,3);
-		attr.AHeadDress = 0; //UnityEngine.Random.Range(0,3);
-		attr.ZBackEquip = 0; //UnityEngine.Random.Range(0,3);
-	}
-	
-	private void randomAvatarTexture(TAvatar attr,ref TAvatarTexture attrTexture){
-		string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, Random.Range(0,2));
-		attrTexture.BTexture = BTexName;
-		string CTexName = string.Format("{0}_{1}_{2}_{3}", 2, "C", attr.Cloth, Random.Range(0,2));
-		attrTexture.CTexture = CTexName;
-		string HTexName = string.Format("{0}_{1}_{2}_{3}", 2, "H", attr.Hair, Random.Range(0,2));
-		attrTexture.HTexture = HTexName;
-		string MTexName = string.Format("{0}_{1}_{2}_{3}", 2, "M", attr.MHandDress, Random.Range(0,2));
-		attrTexture.MTexture = MTexName;
-		string PTexName = string.Format("{0}_{1}_{2}_{3}", 2, "P", attr.Pants, Random.Range(0,2));
-		attrTexture.PTexture = PTexName;
-		string STexName = string.Format("{0}_{1}_{2}_{3}", 2, "S", attr.Shoes, Random.Range(0,2));
-		attrTexture.STexture = STexName;
-		string ATexName = string.Format("{0}_{1}_{2}_{3}", 3, "A", attr.AHeadDress, Random.Range(0,2));
-		attrTexture.ATexture = ATexName;
-		string ZTexName = string.Format("{0}_{1}_{2}_{3}", 3, "Z", attr.ZBackEquip, Random.Range(0,2));
-		attrTexture.ZTexture = ZTexName;
-	}
-	
-	private void redAvatarTexture(ref TAvatarTexture attrTexture){
-		attrTexture.BTexture = "2_B_0_1";
-		attrTexture.CTexture = "2_C_5_1";
-		attrTexture.HTexture = "2_H_2_1";
-		attrTexture.MTexture = "2_M_2_1";
-		attrTexture.PTexture = "2_P_6_1";
-		attrTexture.STexture = "2_S_1_1";
-		attrTexture.ATexture = "3_A_1_1";
-		attrTexture.ZTexture = "3_Z_1_1";
+	private void redAvatarTexture(ref GameStruct.TAvatar attr) {
+		attr.Body = 2001;
+		attr.Cloth = 5002;//0,5001,5002
+		attr.Hair = 2002;//0,2001,2002
+		attr.MHandDress = 2002;//0,2001,2002
+		attr.Pants = 6002;//0,6001,6002
+		attr.Shoes = 1002;//0,1001,1002
+		attr.AHeadDress = 0;//0,1001,1002
+		attr.ZBackEquip = 0;//0,1001,1002
 	}
 
 	public void CreateTeam(){
-		TAvatar attr = new TAvatar(1);
-		TAvatarTexture attrTexture = new TAvatarTexture (1);
+		GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
-				randomAvatar(ref attr);
-				attr.Cloth = 5;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
-				randomAvatar(ref attr);
-				attr.Cloth = 5;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
-				randomAvatar(ref attr);
-				attr.Cloth = 5;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
-			
-				randomAvatar(ref attr);
-				redAvatarTexture(ref attrTexture);
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
-				randomAvatar(ref attr);
-				redAvatarTexture(ref attrTexture);
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
-				randomAvatar(ref attr);
-				redAvatarTexture(ref attrTexture);
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
-				redAvatarTexture(ref attrTexture);
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
+
+				redAvatarTexture(ref attr);
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 4, TeamKind.Npc, new Vector3 (5, 0, 2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 5, TeamKind.Npc, new Vector3 (-5, 0, 2), GamePostion.C, 1));
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
 
 				break;
 			case GameTest.AttackA:
-				attr.Body = 2;
-				attr.Hair = 2;
-				attr.Cloth = 5;
-				attr.Pants = 6;
-				attr.Shoes = 1;
-				attr.MHandDress = 2;
-				attr.AHeadDress = 0;
-				attr.ZBackEquip = 0;
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
 			case GameTest.Edit:
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
 				break;
 		}
 

@@ -24,36 +24,14 @@ namespace GameStruct
 		public int ZBackEquip;
 
 		public TAvatar (int i){
-			Body = 2;
-			Hair = 2;
-			Cloth = 5;
-			Pants = 6;
-			Shoes = 1;
+			Body = 2001;
+			Hair = 2001;
+			Cloth = 5001;
+			Pants = 6001;
+			Shoes = 1001;
 			MHandDress = 0;
 			AHeadDress = 0;
 			ZBackEquip = 0;
-		}
-	}
-
-	public struct TAvatarTexture{
-		public string BTexture;
-		public string HTexture;
-		public string ATexture;
-		public string CTexture;
-		public string PTexture;
-		public string STexture;
-		public string MTexture;
-		public string ZTexture;
-
-		public TAvatarTexture(int i){
-			BTexture = "2_B_0_0";
-			CTexture = "2_C_5_0";
-			HTexture = "2_H_2_0";
-			MTexture = "2_M_2_0";
-			PTexture = "2_P_6_0";
-			STexture = "2_S_1_0";
-			ATexture = "3_A_1_0";
-			ZTexture = "3_Z_1_0";
 		}
 	}
 
