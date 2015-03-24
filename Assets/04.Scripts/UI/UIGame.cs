@@ -80,8 +80,10 @@ public class UIGame : UIBase {
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 
+
+		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", DoPassChoose);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
@@ -121,9 +123,10 @@ public class UIGame : UIBase {
 			shootBtnTime = 0;
 		}	
 	}
-	public void DoPassChoose (GameObject go, bool state) {
-		SetPassObject(state);
-		drawLine.IsShow = state;
+	public void DoPassChoose () {
+		Debug.Log("DoPassChoose:"+UIButton.current.name);
+		SetPassObject(true);
+		drawLine.IsShow = true;
 	}
 
 	public void ContinueGame() {
@@ -240,7 +243,6 @@ public class UIGame : UIBase {
 		Vector2 sp2 = new Vector2(Screen.width/2, Screen.height/2);
 		Vector3 cross = Vector3.Cross(sp2, sp1);
 		float angle = Vector2.Angle(sp2, sp1);
-		Debug.Log("cross.z;:"+cross.z);
 		if (cross.z < 0)
 			angle = 360 - angle;
 		
@@ -250,11 +252,7 @@ public class UIGame : UIBase {
 		   playerY < 0 ||
 		   playerY > Screen.height) {
 			screenLocation.SetActive(true);
-		Debug.Log("Screen.width/2:"+Screen.width/2);
-		Debug.Log("Screen.height/2:"+Screen.height/2);
-			Debug.Log("PlayerX:"+playerX);
-			Debug.Log("Playery:"+playerY);
-			Debug.Log("angle:"+angle);
+		
 			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
 			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 
