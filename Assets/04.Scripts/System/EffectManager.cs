@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using GameStruct;
 
 public class EffectManager : MonoBehaviour
 {
@@ -9,9 +10,6 @@ public class EffectManager : MonoBehaviour
 	private bool GameEffectLoaded = false;
 	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
-	public FollowGameObject SelectEffectScript;
-	public FollowGameObject SelectEffectScriptA;
-	public FollowGameObject SelectEffectScriptB;
 
 	void Awake()
 	{
@@ -53,128 +51,53 @@ public class EffectManager : MonoBehaviour
 			GameEffectLoaded = true;
 			for (int i = 0; i < GameEffects.Length; i ++) 
 				LoadEffect(GameEffects[i]);
-
-			/*GameObject SelectEffectobj = GameObject.Instantiate(LoadEffect("SelectEffect")) as GameObject;
-			SelectEffectScript = SelectEffectobj.GetComponent<FollowGameObject>();
-
-			GameObject SelectEffectobjA = GameObject.Instantiate(LoadEffect("SelectEffectA")) as GameObject;
-			SelectEffectScriptA = SelectEffectobjA.GetComponent<FollowGameObject>();
-
-			GameObject SelectEffectobjB = GameObject.Instantiate(LoadEffect("SelectEffectB")) as GameObject;
-			SelectEffectScriptB = SelectEffectobjB.GetComponent<FollowGameObject>();*/
 		}
 	}
 
-	public void PlayEffect(string effectName, Vector3 position, GameObject parent = null, Transform followObjPos = null)
+	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0)
 	{
-//		if (!TeamManager.Effect)
-//			return;
-
-		GameObject obj = LoadEffect(effectName);
-		
-		if(obj != null)
-		{
-			GameObject particles = (GameObject)Instantiate(obj);
-			particles.transform.position = position;
-			particles.name = effectName;
-
-			if(effectName == "Skill170" && followObjPos)
-			{
-//				DrawLine line = particles.GetComponentInChildren<DrawLine>();
-//				line.SetOriginPos(followObjPos);
-			}
-
-			if(particles.GetComponent<ParticleSystem>() == null) {
-				ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
-				if (ps)
-					ps.Play();
-			}
-			else
-				particles.GetComponent<ParticleSystem>().Play();
-
-			if (parent)
-				particles.transform.parent = parent.transform;
-			else
+		if (GameSetting.Effect) {
+			GameObject obj = LoadEffect(effectName);
+			
+			if(obj != null) {
+				GameObject particles = (GameObject)Instantiate(obj);
 				particles.transform.position = position;
+				particles.name = effectName;
 
-			particles.transform.localScale = Vector3.one;
+				if(particles.GetComponent<ParticleSystem>() == null) {
+					ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
+					if (ps)
+						ps.Play();
+				} else
+					particles.GetComponent<ParticleSystem>().Play();
+
+				if (lifeTime > 0)
+				{
+					AutoDestoryEffect autoDestory = particles.GetComponentInChildren<AutoDestoryEffect>();
+					
+					if(!autoDestory)
+						autoDestory = particles.AddComponent<AutoDestoryEffect>();
+					
+					autoDestory.SetDestoryTime = lifeTime;
+				}
+
+				if (followObj) {
+					FollowGameObject fo = particles.AddComponent<FollowGameObject>();
+					fo.SetTarget(followObj);
+					particles.transform.localPosition = position;
+				} else
+				if (parent) {
+					particles.transform.parent = parent.transform;
+					particles.transform.localPosition = position;
+				} else
+					particles.transform.position = position;
+
+				particles.transform.localScale = Vector3.one;
+
+				return particles;
+			}
 		}
-	}
 
-	public void PlayEffect(string effectName, GameObject parent, Vector3 localPos, float lifeTime = -1)
-	{
-//		if (!TeamManager.Effect)
-//			return;
-
-		GameObject obj = LoadEffect(effectName);
-		
-		if(obj != null)
-		{
-			GameObject particles = (GameObject)Instantiate(obj);
-
-			if(lifeTime > 0)
-			{
-				AutoDestoryEffect autoDestory = particles.GetComponentInChildren<AutoDestoryEffect>();
-
-				if(!autoDestory)
-					autoDestory = particles.AddComponent<AutoDestoryEffect>();
-
-				autoDestory.SetDestoryTime = lifeTime;
-			}
-
-			if(parent)
-			{
-				particles.transform.parent = parent.transform;
-				particles.transform.localPosition = Vector3.zero;
-			}
-
-			particles.transform.localScale = Vector3.one;
-			particles.transform.localPosition = localPos;
-			particles.transform.localEulerAngles = Vector3.zero;
-			
-			if(particles.GetComponent<ParticleSystem>() == null) {
-				ParticleSystem ps = particles.GetComponentInChildren<ParticleSystem>();
-				if (ps)
-					ps.Play();
-			}
-			else
-				particles.GetComponent<ParticleSystem>().Play();
-		}
-	}
-
-	public void Play1633Effect(Vector3 worldPos, Vector3 scale, GameObject[] targets, int lifeTime)
-	{
-//		if (!TeamManager.Effect)
-//			return;
-		
-		GameObject obj = LoadEffect("Skill1633");
-
-		if(obj){
-			GameObject particles = (GameObject)Instantiate(obj);
-			particles.name = "Skill1633";
-			particles.transform.position = worldPos;
-			particles.transform.localScale = scale;
-
-			if(lifeTime > 0)
-			{
-				AutoDestoryEffect autoDestory = particles.GetComponentInChildren<AutoDestoryEffect>();
-				if(!autoDestory)
-					autoDestory = particles.AddComponent<AutoDestoryEffect>();
-				
-				autoDestory.SetDestoryTime = lifeTime;
-			}
-			
-			if(particles.GetComponent<ParticleSystem>() == null){
-				ParticleSystem ps = particles.GetComponentInChildren<ParticleSystem>();
-				if (ps)
-					ps.Play();
-			} else
-				particles.GetComponent<ParticleSystem>().Play();
-
-//			SkillBlackHole skill = particles.GetComponent<SkillBlackHole>();
-//			
-//			if(skill)
-//				skill.InitTargets(targets);
-		}
+		return null;
 	}
 }

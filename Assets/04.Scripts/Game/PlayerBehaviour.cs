@@ -115,6 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private Rigidbody rigidbody;
 	private Animator animator;
 	private GameObject selectTexture;
+	public GameObject AIActiveHint = null;
 	public GameObject DummyBall;
 
 	public TeamKind Team;
@@ -133,7 +134,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool isJoystick = false;
 	public int AILevel = 1;
 	public float CloseDef = 0;
-	public PlayerBehaviour DefPlaeyr = null;
+	public PlayerBehaviour DefPlayer = null;
 	public bool AutoFollow = false;
 
 	void initTrigger() {
@@ -199,7 +200,9 @@ public class PlayerBehaviour : MonoBehaviour
 				NoAiTime = 0;
 				isJoystick = false;
 				DelActionFlag (ActionFlag.IsRun);
-				EffectManager.Get.SelectEffectScript.SetParticleColor(true);
+
+				if (AIActiveHint)
+					AIActiveHint.SetActive(true);
 			}
 		}
 
@@ -223,7 +226,7 @@ public class PlayerBehaviour : MonoBehaviour
 				else
 					ShootPoint = SceneMgr.Get.ShootPoint[0].transform.position;	
 
-				if(Vector3.Distance(ShootPoint, DefPlaeyr.transform.position) <= 12){
+				if(Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= 12){
 					AutoFollow = false;
 				}					
 			}
@@ -252,6 +255,9 @@ public class PlayerBehaviour : MonoBehaviour
 	public void SetNoAiTime(){
 		isJoystick = true;
 		NoAiTime = Time.time + ChangeToAI;
+
+		if (AIActiveHint)
+					AIActiveHint.SetActive(false);
 	}
 	
 	private void CalculationAirResistance()
@@ -303,9 +309,9 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!IsMove)
 					AddActionFlag(ActionFlag.IsRun);
 
-				isJoystick = true;
-				NoAiTime = Time.time + ChangeToAI;
-				EffectManager.Get.SelectEffectScript.SetParticleColor(false);
+				SetNoAiTime();
+
+
 				animationSpeed = Vector2.Distance (new Vector2 (move.joystickAxis.x, 0), new Vector2 (0, move.joystickAxis.y));
 				SetSpeed (animationSpeed, 0);
 				AniState(ps);
@@ -343,7 +349,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
 	{
 		isJoystick = false;
-
+		SetNoAiTime();
 		if(crtState != ps)
 			AniState(ps);
 	}

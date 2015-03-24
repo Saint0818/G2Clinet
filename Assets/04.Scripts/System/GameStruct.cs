@@ -61,4 +61,9 @@ namespace GameStruct
 	{
 		public static TTactical[] TacticalData;
 	}
+
+	public static class GameSetting
+	{
+		public static bool Effect = true;
+	}
 }

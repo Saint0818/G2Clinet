@@ -75,11 +75,7 @@ public class UIGame : UIBase {
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/Defance");
 
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
-		Debug.Log("Screen width:"+ Screen.width / 2);
-		Debug.Log("Screen height:"+ Screen.height / 2);
-		Debug.Log("A Position:"+passObjectGroup[0].transform.position);
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
-		Debug.Log("B Position:"+passObjectGroup[1].transform.position);
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;

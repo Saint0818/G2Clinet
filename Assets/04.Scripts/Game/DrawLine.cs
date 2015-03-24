@@ -16,7 +16,7 @@ public struct TLineVector {
 
 public class DrawLine : MonoBehaviour {
 	const int lineWidth = 3;
-	private bool isShow = true;
+	private bool isShow = false;
 
 	public GameObject[] UIs = new GameObject[3];
 	private List<TLineVector> targets = new List<TLineVector>();

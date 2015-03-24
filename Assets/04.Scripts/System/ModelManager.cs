@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using GameStruct;
 
 public class ModelManager : MonoBehaviour {
 	private const int DRESS_NONE = 0;
@@ -121,11 +122,11 @@ public class ModelManager : MonoBehaviour {
 		}
 	}
 
-	public void CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture){
+	public void CreateStorePlayer(GameObject Player, TAvatar Attr, TAvatarTexture AttrTexture){
 		SetAvatar (ref Player, Attr, AttrTexture, false);
 	}
 
-	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, GameStruct.TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0, GameObject Res=null){
+	public PlayerBehaviour CreateGamePlayer(TAvatar Attr, TAvatarTexture AttrTexture, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
 
@@ -224,7 +225,7 @@ public class ModelManager : MonoBehaviour {
 	/// <summary>
 	/// c:Clothes, h:Hair, m:HandEquipment, p:Pants, s:Shoes, a:Headdress, z:BackbackEquipment
 	/// </summary>
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, GameStruct.TAvatarTexture AttrTexture, bool isUseRig = false) {
+	public void SetAvatar(ref GameObject result, TAvatar attr, TAvatarTexture AttrTexture, bool isUseRig = false) {
 		try {
 			string mainBody = string.Format ("PlayerModel_{0}", attr.Body);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
@@ -277,7 +278,6 @@ public class ModelManager : MonoBehaviour {
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", attr.Body, avatarPart [i], avatarIndex [i]);
 					else  //it maybe A or Z
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarIndex [i]);
-					
 
 					Object resObj = Resources.Load (path);
 					if (resObj) {

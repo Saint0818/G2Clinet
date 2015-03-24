@@ -68,20 +68,21 @@ public class GameController : MonoBehaviour {
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
 	private const float BlockDis = 5;
-	private bool IsStart = true;
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	private PlayerBehaviour BallOwner;
 	private PlayerBehaviour Joysticker;
 	public PlayerBehaviour Catcher;
 	public PlayerBehaviour Shooter;
+
+	private GameSituation situation = GameSituation.None;
+	private bool IsStart = true;
 	private bool isPressShoot = false;  
 	private float shootBtnTime = 0;
-	private GameSituation situation = GameSituation.None;
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
 	private float ShootDis = 0;
-	
+
 	private Vector2 [] TeePosAy = new Vector2[3];
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
 	private List<TTactical> MovePositionList = new List<TTactical>();
@@ -115,6 +116,7 @@ public class GameController : MonoBehaviour {
     }
 
 	void Start () {
+		EffectManager.Get.LoadGameEffect();
 		InitPos ();
 		InitGame ();
 	}
@@ -137,7 +139,6 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void InitGame(){
-		EffectManager.Get.LoadGameEffect();
 		PlayerList.Clear ();
 		CreateTeam ();
 		BallOwner = null;
@@ -161,21 +162,21 @@ public class GameController : MonoBehaviour {
 		return Result;
 	}
 
-	public void ChangeTexture(GameStruct.TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
+	public void ChangeTexture(TAvatar attr, int BodyPart, int ModelPart, int TexturePart) {
 		ModelManager.Get.SetAvatarTexture (PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
 	}
 	
-	private void randomAvatar(ref GameStruct.TAvatar attr) {
-		attr.Cloth = UnityEngine.Random.Range(5,7);
+	private void randomAvatar(ref TAvatar attr) {
+		attr.Cloth = UnityEngine.Random.Range(5, 6);
 		attr.Hair = UnityEngine.Random.Range(2,4);
-		attr.MHandDress = UnityEngine.Random.Range(2,4);
+		attr.MHandDress = 0; //UnityEngine.Random.Range(2,4);
 		attr.Pants = UnityEngine.Random.Range(6,8);
-		attr.Shoes = UnityEngine.Random.Range(0,3);
-		attr.AHeadDress = UnityEngine.Random.Range(0,3);
-		attr.ZBackEquip = UnityEngine.Random.Range(0,3);
+		attr.Shoes = UnityEngine.Random.Range(1,3);
+		attr.AHeadDress = 0; //UnityEngine.Random.Range(0,3);
+		attr.ZBackEquip = 0; //UnityEngine.Random.Range(0,3);
 	}
 	
-	private void randomAvatarTexture(GameStruct.TAvatar attr,ref GameStruct.TAvatarTexture attrTexture){
+	private void randomAvatarTexture(TAvatar attr,ref TAvatarTexture attrTexture){
 		string BTexName = string.Format("{0}_{1}_{2}_{3}", 2, "B", 0, Random.Range(0,2));
 		attrTexture.BTexture = BTexName;
 		string CTexName = string.Format("{0}_{1}_{2}_{3}", 2, "C", attr.Cloth, Random.Range(0,2));
@@ -194,7 +195,7 @@ public class GameController : MonoBehaviour {
 		attrTexture.ZTexture = ZTexName;
 	}
 	
-	private void redAvatarTexture(ref GameStruct.TAvatarTexture attrTexture){
+	private void redAvatarTexture(ref TAvatarTexture attrTexture){
 		attrTexture.BTexture = "2_B_0_1";
 		attrTexture.CTexture = "2_C_5_1";
 		attrTexture.HTexture = "2_H_2_1";
@@ -206,16 +207,19 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void CreateTeam(){
-		GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
-		GameStruct.TAvatarTexture attrTexture = new GameStruct.TAvatarTexture (1);
+		TAvatar attr = new TAvatar(1);
+		TAvatarTexture attrTexture = new TAvatarTexture (1);
 
 		switch (GameStart.Get.TestMode) {				
 			case GameTest.None:
 				randomAvatar(ref attr);
+				attr.Cloth = 5;
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
 				randomAvatar(ref attr);
+				attr.Cloth = 5;
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 1, TeamKind.Self, new Vector3 (5, 0, -2), GamePostion.F, 1));
 				randomAvatar(ref attr);
+				attr.Cloth = 5;
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, attrTexture, 2, TeamKind.Self, new Vector3 (-5, 0, -2), GamePostion.C, 1));
 			
 				randomAvatar(ref attr);
@@ -230,7 +234,8 @@ public class GameController : MonoBehaviour {
 				redAvatarTexture(ref attrTexture);
 
 				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].DefPlaeyr = FindDefMen(PlayerList[i]);
+					PlayerList[i].DefPlayer = FindDefMen(PlayerList[i]);
+
 				break;
 			case GameTest.AttackA:
 				attr.Body = 2;
@@ -254,13 +259,14 @@ public class GameController : MonoBehaviour {
 		}
 
 		Joysticker = PlayerList [0];
-		Joysticker.SetSelectTexture("SelectMe");
+		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+		Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 
 		if(PlayerList.Count > 1 && PlayerList[1].Team == Joysticker.Team) 
-			PlayerList[1].SetSelectTexture("SelectA");
+			EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList[1].gameObject);
 
 		if(PlayerList.Count > 2 && PlayerList[2].Team == Joysticker.Team) 
-			PlayerList[2].SetSelectTexture("SelectB");
+			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList[2].gameObject);
 
 		for (int i = 0; i < PlayerList.Count; i ++) {
 			PlayerList[i].OnShoot = OnShoot;
@@ -605,11 +611,14 @@ public class GameController : MonoBehaviour {
 				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 				if(ShootPointDis <= 2f && dunkRate < 0 && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
+				}else 
+				if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
+				}else 
+				if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
 					Shoot();
-				}else if(passRate < 0 && CoolDownPass == 0){
+				}else 
+				if(passRate < 0 && CoolDownPass == 0){
 					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
 					if(partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0){
@@ -632,7 +641,8 @@ public class GameController : MonoBehaviour {
 							}
 						}
 					}
-				}else if(Dir != 0 && CoolDownCrossover == 0){
+				}else 
+				if(Dir != 0 && CoolDownCrossover == 0){
 					//Crossover				
 					TMoveData data = new TMoveData(0);
 					if(Dir == 1)
@@ -650,10 +660,12 @@ public class GameController : MonoBehaviour {
 				
 				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
 					//Npc.AniState(PlayerState.Jumper);
-				}else if(NearPlayer != null && pushRate < 50){
+				}else 
+				if(NearPlayer != null && pushRate < 50){
 					//Push
 					
-				}else if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
+				}else 
+				if(Dis >= 1.5f && Dis <= 3 && supRate < 50){
 					//Sup
 					
 				}
@@ -901,8 +913,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public bool DefMove(PlayerBehaviour player, bool speedup = false){
-		if (player.DefPlaeyr != null) {
-			if(!player.DefPlaeyr.IsMove && player.DefPlaeyr.WaitMoveTime == 0){
+		if (player.DefPlayer != null) {
+			if(!player.DefPlayer.IsMove && player.DefPlayer.WaitMoveTime == 0){
 				TMoveData data2 = new TMoveData(0);
 
 				if(BallOwner != null){
@@ -921,21 +933,21 @@ public class GameController : MonoBehaviour {
 							data2.LookTarget = player.transform;
 						
 						data2.Speedup = speedup;
-						player.DefPlaeyr.TargetPos = data2;
+						player.DefPlayer.TargetPos = data2;
 					}else{
 						float dis2;
-						if(player.DefPlaeyr.Team == TeamKind.Self)
-							dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].x, -TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()].y), 
-							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+						if(player.DefPlayer.Team == TeamKind.Self)
+							dis2 = Vector2.Distance(new Vector2(TeeBackPosAy[player.DefPlayer.Postion.GetHashCode()].x, -TeeBackPosAy[player.DefPlayer.Postion.GetHashCode()].y), 
+							                        new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						else
-							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlaeyr.Postion.GetHashCode()], 
-							                        new Vector2(player.DefPlaeyr.transform.position.x, player.DefPlaeyr.transform.position.z));
+							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlayer.Postion.GetHashCode()], 
+							                        new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						
-						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance){
-							PlayerBehaviour p = HaveNearPlayer(player.DefPlaeyr, ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance, false, true);
+						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance){
+							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance, false, true);
 							if(p != null)
 								data2.DefPlayer = p;
-							else if(getDis(ref player, ref player.DefPlaeyr) <= ParameterConst.AIlevelAy[player.DefPlaeyr.AILevel].DefDistance)
+							else if(getDis(ref player, ref player.DefPlayer) <= ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance)
 								data2.DefPlayer = player;
 							
 							if(data2.DefPlayer != null){
@@ -945,19 +957,19 @@ public class GameController : MonoBehaviour {
 									data2.LookTarget = player.transform;
 								
 								data2.Speedup = speedup;
-								player.DefPlaeyr.TargetPos = data2;
+								player.DefPlayer.TargetPos = data2;
 							}else{
-								player.DefPlaeyr.ResetMove();
-								BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+								player.DefPlayer.ResetMove();
+								BackToDef(ref player.DefPlayer, player.DefPlayer.Team, true);
 							}
 						}else{
-							player.DefPlaeyr.ResetMove();
-							BackToDef(ref player.DefPlaeyr, player.DefPlaeyr.Team, true);
+							player.DefPlayer.ResetMove();
+							BackToDef(ref player.DefPlayer, player.DefPlayer.Team, true);
 						}
 					}
 				}else{
-					player.DefPlaeyr.ResetMove();
-					PickBall(ref player.DefPlaeyr);
+					player.DefPlayer.ResetMove();
+					PickBall(ref player.DefPlayer);
 				}
 			}
 		}
