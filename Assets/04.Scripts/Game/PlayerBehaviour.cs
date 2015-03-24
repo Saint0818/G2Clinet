@@ -119,6 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public GameObject DummyBall;
 
 	public TeamKind Team;
+	public int Index;
 	public GameSituation situation = GameSituation.None;
 	public PlayerState crtState = PlayerState.Idle;
 	public GamePostion Postion = GamePostion.G;
@@ -877,6 +878,7 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			if(MoveQueue.Count == 0)
 				MoveTurn = 0;
+
 			MoveQueue.Enqueue(value);
 		}
 	}
