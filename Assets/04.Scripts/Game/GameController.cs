@@ -41,6 +41,14 @@ public enum CameraTest{
 	RGB
 }
 
+public enum PosKind{
+	None,
+	Attack,
+	Tee,
+	TeeDefence,
+	Fast
+}
+
 public struct TTactical
 {
 	public string FileName;
@@ -91,6 +99,33 @@ public class GameController : MonoBehaviour {
 	private Vector2 [] TeeBackPosAy = new Vector2[3];
 	private List<TTactical> MovePositionList = new List<TTactical>();
 	private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
+
+	private int GetPosNameIndex(PosKind Kind, int Index = -1){
+			switch(Kind){
+			case PosKind.Attack:
+				return 2;
+			case PosKind.Tee:
+				if(Index == 0)
+					return 3;
+			  	else if(Index == 1)
+					return 4;
+				else if(Index == 2)
+					return 5;
+				else
+					return -1;
+			case PosKind.Fast:
+				if(Index == 0)
+					return 9;
+				else if(Index == 1)
+					return 10;
+				else if(Index == 2)
+					return 11;
+				else
+					return -1;
+		default:
+				return -1;
+			}
+	}
 
 	public static GameController Get
 	{
@@ -152,38 +187,29 @@ public class GameController : MonoBehaviour {
 		situation = GameSituation.Opening;
 	}
 
-	private TActionPosition[] GetMovePath(int situation, int index) {
-		if (situation >=0 && situation < pathName.Length) {
-			if (!situationPosition.ContainsKey(situation)) {
+	private TTactical GetMovePath(int index){
+		TTactical Result = new TTactical (false);
+
+		if (index >= 0 && index < pathName.Length) {
+			if (!situationPosition.ContainsKey(index)) {
 				List<int> ay = new List<int>();
 				for (int i = 0; i < GameData.TacticalData.Length; i++) {
-					if (GameData.TacticalData[i].FileName.Contains(pathName[situation]))
+					if (GameData.TacticalData[i].FileName.Contains(pathName[index]))
 						ay.Add(i);
 				}
+				
+				situationPosition.Add(index, ay.ToArray());
+			}	
 
-				situationPosition.Add(situation, ay.ToArray());
-			}
-
-			int len = situationPosition[situation].Length;
+			int len = situationPosition[index].Length;
 			if (len > 0) {
 				int r = Random.Range(0, len);
-				int i = situationPosition[situation][r];
-				switch (index) {
-				case 0:
-					return GameData.TacticalData[i].PosAy1;
-					break;
-				case 1:
-					return GameData.TacticalData[i].PosAy2;
-					break;
-				case 2:
-					return GameData.TacticalData[i].PosAy3;
-					break;
-				}
+				int i = situationPosition[index][r];
+				Result = GameData.TacticalData[i];
 			}
 		}
 
-//		Debug.Log(situation.ToString() + " situation position is empty at " + index.ToString());
-		return null;
+		return Result;
 	}
 
 	private PlayerBehaviour FindDefMen(PlayerBehaviour npc){
@@ -276,108 +302,119 @@ public class GameController : MonoBehaviour {
 		handleSituation();
 	}
 
+	private void SituationAttack(TeamKind team){
+		if (PlayerList.Count > 0) {
+			TTactical ap = GetMovePath(GetPosNameIndex(PosKind.Attack));
+
+			for(int i = 0; i < PlayerList.Count; i++){
+				PlayerBehaviour Npc = PlayerList[i];
+				if(CandoAI(Npc)){
+					if(Npc.Team == team){
+						if(!IsPassing){
+							if(!IsShooting){
+								Attack(ref Npc);
+								AIMove(ref Npc, ref ap);
+							}else 
+							if(!Npc.IsShooting){
+								Attack(ref Npc);
+								AIMove(ref Npc, ref ap);
+							}								
+						}
+					}else
+						Defend(ref Npc);
+				}
+			}	
+		}
+	}
+
+	private void SituationPickBall(TeamKind team){
+		if(BallOwner == null){
+			if (PlayerList.Count > 0) {
+				PlayerBehaviour pickplayer = NearBall(team);
+				TTactical ap = new TTactical(false);
+				if(pickplayer != null)
+					ap = GetMovePath(GetPosNameIndex(PosKind.Tee, pickplayer.Index));
+
+				for(int i = 0; i < PlayerList.Count; i++){
+					PlayerBehaviour Npc = PlayerList[i];
+					if(CandoAI(Npc)){
+						if(Npc.Team == team){
+							if (Npc == pickplayer)
+								PickBall(ref Npc);
+							else 
+								TeeBall(ref Npc, team, ref ap);
+						} else 
+							BackToDef(ref Npc, TeamKind.Npc);
+					}
+				}
+			}
+		}
+	}
+
+	private void SituationTeeBall(TeamKind team){
+		if (PlayerList.Count > 0) {
+			TTactical ap = new TTactical(false);
+			if(BallOwner != null)
+				ap = GetMovePath(GetPosNameIndex(PosKind.Tee, BallOwner.Index));
+
+			for(int i = 0; i < PlayerList.Count; i++){
+				PlayerBehaviour Npc = PlayerList[i];
+				if(CandoAI(Npc)){
+					if(!IsPassing)
+						TeeBall(ref Npc, team, ref ap);
+					else 
+					if(Npc.Team == team)
+						BackToDef(ref Npc, Npc.Team);
+				}
+			}
+		}
+	}
+
+	private bool CandoAI(PlayerBehaviour npc){
+		if(npc.isJoystick && npc.Team == TeamKind.Self && npc == Joysticker)
+			return false;
+		else
+			return true;
+	}
+	
 	private void handleSituation() {
 		if (PlayerList.Count > 0) {
 			//Action
-			for(int i = 0 ; i < PlayerList.Count; i++){
-				PlayerBehaviour Npc = PlayerList[i];
+			if(GameStart.Get.TestMode != GameTest.None)
+				return;
+			
+			switch(situation){
+			case GameSituation.None:
 				
-				if(Npc.isJoystick && Npc.Team == TeamKind.Self && Npc == Joysticker){
-					
-				}else{
-					if(GameStart.Get.TestMode != GameTest.None)
-						return;
-					//AI
-					switch(situation){
-					case GameSituation.None:
-						
-						break;
-					case GameSituation.Opening:
-						
-						break;
-					case GameSituation.AttackA:
-						if(Npc.Team == TeamKind.Self){
-							if(!IsPassing){
-								if(!IsShooting){
-									Attack(ref Npc);
-									AIMove(ref Npc);
-								}else 
-								if(!Npc.IsShooting){
-									Attack(ref Npc);
-									AIMove(ref Npc);
-								}								
-							}
-						}else
-							Defend(ref Npc);
-
-						break;
-					case GameSituation.AttackB:
-						if(Npc.Team == TeamKind.Self){
-							Defend(ref Npc);
-						}else{
-							if(!IsPassing){
-								if(!IsShooting){
-									Attack(ref Npc);
-									AIMove(ref Npc);
-								}else 
-								if(!Npc.IsShooting){
-									Attack(ref Npc);
-									AIMove(ref Npc);
-								}
-							}
-						}
-
-						break;
-					case GameSituation.TeeAPicking:
-						if(BallOwner == null){
-							//Picking ball
-							if(Npc.Team == TeamKind.Self){
-								if (Npc.Postion == GamePostion.F)
-									PickBall(ref Npc);
-								else 
-									TeeBall(ref Npc, TeamKind.Self);
-							} else 
-								BackToDef(ref Npc, TeamKind.Npc);
-						}
-
-						break;
-					case GameSituation.TeeA:
-						//Tee ball
-						if(!IsPassing)
-							TeeBall(ref Npc, TeamKind.Self);
-						else 
-						if(Npc.Team == TeamKind.Npc)
-							BackToDef(ref Npc, Npc.Team);
-                            
-						break;	
-                	case GameSituation.TeeBPicking:
-	                    if(BallOwner == null){
-	                        //Pick up ball
-	                        if(Npc.Team == TeamKind.Npc){
-								if (Npc.Postion == GamePostion.F)
-									PickBall(ref Npc);
-								else 
-	                            	TeeBall(ref Npc, TeamKind.Npc);
-	                        } else 
-	                            BackToDef(ref Npc, TeamKind.Self);
-	                    }
-
-	                    break;
-	                case GameSituation.TeeB:
-	                    //Tee ball
-	                    if(!IsPassing)
-	                        TeeBall(ref Npc, TeamKind.Npc);
-	                    else 
-						if(Npc.Team == TeamKind.Self)
-	                        BackToDef(ref Npc, Npc.Team);
-
-	                    break;					
-	                case GameSituation.End:
-	                    
-	                    break;
-                    }
-                }
-            }
+				break;
+			case GameSituation.Opening:
+				
+				break;
+			case GameSituation.JumpBall:
+				
+				break;
+			case GameSituation.AttackA:
+				SituationAttack(TeamKind.Self);
+				break;
+			case GameSituation.AttackB:
+				SituationAttack(TeamKind.Npc);
+				break;
+			case GameSituation.TeeAPicking:
+				SituationPickBall(TeamKind.Self);
+				break;
+			case GameSituation.TeeA:
+				SituationTeeBall(TeamKind.Self);
+				break;
+			case GameSituation.TeeBPicking:
+				SituationPickBall(TeamKind.Npc);
+				break;
+			case GameSituation.TeeB:
+				SituationTeeBall(TeamKind.Npc);
+				break;
+			case GameSituation.End:
+				
+				break;
+			}
         }
     }
 
@@ -749,12 +786,11 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void TeeBall(ref PlayerBehaviour Npc, TeamKind Team){
+	private void TeeBall(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos){
 		if(Npc.Team == Team){
-
 			TMoveData data = new TMoveData(0);
-			if(!Npc.IsMove && Npc.WaitMoveTime == 0){
-				if(Npc.Postion == GamePostion.F){
+			if(!Npc.IsMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0){
+				if(Npc == BallOwner){
 					if(Team == TeamKind.Self)
 						data.Target = new Vector2(Npc.transform.position.x, -19);
 					else
@@ -762,21 +798,25 @@ public class GameController : MonoBehaviour {
 
 					data.MoveFinish = NpcAutoTee;
 				} else {
-					if (Team == TeamKind.Self) {
-						//data.Target = TeePosAy[Npc.Postion.GetHashCode()];
-						if (!Npc.IsMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0) {
-							TActionPosition[] ap = GetMovePath(4, Npc.Index);
-							if (ap != null) {
-								for(int j = 0; j < ap.Length; j++){
-									data = new TMoveData(0);
-									data.Speedup = ap[j].Speedup;
-									data.Target = new Vector2(ap[j].x, ap[j].z);
-									data.LookTarget = SceneMgr.Get.RealBall.transform;
-								}
-							}
+					TActionPosition [] ap = null;
+					if(Npc.Index == 0)
+						ap = pos.PosAy1;
+					else if(Npc.Index == 1)
+						ap = pos.PosAy1;
+					else if(Npc.Index == 2)
+						ap = pos.PosAy3;
+					
+					if (ap != null) {
+						for(int j = 0; j < ap.Length; j++){
+							data = new TMoveData(0);
+							data.Speedup = ap[j].Speedup;
+							if (Team == TeamKind.Self) 
+								data.Target = new Vector2(ap[j].x, -ap[j].z);
+							else
+								data.Target = new Vector2(ap[j].x, ap[j].z);
+							data.LookTarget = SceneMgr.Get.RealBall.transform;
 						}
-					} else
-						data.Target = new Vector2(-TeePosAy[Npc.Postion.GetHashCode()].x, -TeePosAy[Npc.Postion.GetHashCode()].y);
+					}
 				}
 					
 				Npc.TargetPos = data;
@@ -790,18 +830,20 @@ public class GameController : MonoBehaviour {
 
 	private bool NpcAutoTee(PlayerBehaviour player, bool speedup){
 		TeamKind Team = TeamKind.Self;
+		PlayerBehaviour target = null;
 		if(situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking)
 			Team = TeamKind.Npc;
 
 		for(int i = 0; i < PlayerList.Count; i++){
 			if(PlayerList[i].Team == Team && PlayerList[i].Postion == GamePostion.G && BallOwner != PlayerList[i]){
 				Pass(PlayerList[i]);
+				target = PlayerList[i];
 				CoolDownPass = Time.time + 1;
 				break;
 			}
 		}
 
-		if (PlayerList.Count == 6) {
+		if (target != null && PlayerList.Count == 6) {
 			int a = 0; 
 			int b = 3;
 			if (player.Team == TeamKind.Npc) {
@@ -811,7 +853,15 @@ public class GameController : MonoBehaviour {
 
 			for (int i = a; i < b; i ++) {
 				PlayerBehaviour npc = PlayerList[i];
-				TActionPosition[] ap = GetMovePath(9, npc.Index);
+				TTactical pos = GetMovePath(GetPosNameIndex(PosKind.Fast, target.Index));
+				TActionPosition[] ap = null;
+				if(npc.Index == 0)
+					ap = pos.PosAy1;
+				else if(npc.Index == 0)
+					ap = pos.PosAy2;
+				else if(npc.Index == 0)
+					ap = pos.PosAy3;
+
 				if (ap != null) {
 					for(int j = 0; j < ap.Length; j++){
 						TMoveData data = new TMoveData(0);
@@ -845,6 +895,22 @@ public class GameController : MonoBehaviour {
 		if(Npc != NearPlayer)
 			NearPlayer = null;
 
+		return NearPlayer;
+	}
+
+	private PlayerBehaviour NearBall(TeamKind team){
+		PlayerBehaviour NearPlayer = null;
+		
+		for (int i = 0; i < PlayerList.Count; i++) {
+			PlayerBehaviour Npc = PlayerList[i];
+			if(Npc.Team == team){
+				if(NearPlayer == null)
+					NearPlayer = Npc;
+				else if(getDis(ref NearPlayer, SceneMgr.Get.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Get.RealBall.transform.position))
+					NearPlayer = Npc;
+			}
+		}
+		
 		return NearPlayer;
 	}
 
@@ -889,101 +955,59 @@ public class GameController : MonoBehaviour {
 		return A;
 	}
 
-	private void AIMove(ref PlayerBehaviour npc){
+	private void AIMove(ref PlayerBehaviour npc, ref TTactical pos){
 		if (BallOwner == null) {
 			PickBall(ref npc, true);
 		} else {
-			if (!npc.IsMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
-				TMoveData data;
-				if(!CheckAttack(ref npc)){
-					data = new TMoveData(0);
-					if(npc.Team == TeamKind.Self)
-						data.Target = new Vector2(npc.transform.position.x, 14);
-					else
-						data.Target = new Vector2(npc.transform.position.x, -14);
-					
-					if(BallOwner != null && BallOwner != npc)
-						data.LookTarget = BallOwner.transform;	
-					
-					data.MoveFinish = DefMove;
-					npc.FirstTargetPos = data;
-					DefMove(npc);
-				} else {
-					TActionPosition[] ap = GetMovePath(2, npc.Index);
-					if (ap != null) {
-						for(int i = 0; i < ap.Length; i++){
-							data = new TMoveData(0);
-							data.Speedup = ap[i].Speedup;
-							int z = 1;
-							if (npc.Team != TeamKind.Self)
-								z = -1;
+			if(pos.FileName != string.Empty){
+				if (!npc.IsMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
+					TMoveData data;
+					if(!CheckAttack(ref npc)){
+						data = new TMoveData(0);
+						if(npc.Team == TeamKind.Self)
+							data.Target = new Vector2(npc.transform.position.x, 14);
+						else
+							data.Target = new Vector2(npc.transform.position.x, -14);
+						
+						if(BallOwner != null && BallOwner != npc)
+							data.LookTarget = BallOwner.transform;	
+						
+						data.MoveFinish = DefMove;
+						npc.FirstTargetPos = data;
+						DefMove(npc);
+					} else {
+						TActionPosition[] ap = null;
 
-							data.Target = new Vector2(ap[i].x, ap[i].z * z);
-							if(BallOwner != null && BallOwner != npc)
-								data.LookTarget = BallOwner.transform;	
-							
-							data.MoveFinish = DefMove;
-							npc.TargetPos = data;
-							DefMove(npc);
+						if(npc.Index == 0)
+							ap = pos.PosAy1;
+						else if(npc.Index == 1)
+							ap = pos.PosAy2;
+						else if(npc.Index == 2)
+							ap = pos.PosAy3;
+
+						if (ap != null) {
+							for(int i = 0; i < ap.Length; i++){
+								data = new TMoveData(0);
+								data.Speedup = ap[i].Speedup;
+								int z = 1;
+								if (npc.Team != TeamKind.Self)
+									z = -1;
+								
+								data.Target = new Vector2(ap[i].x, ap[i].z * z);
+								if(BallOwner != null && BallOwner != npc)
+									data.LookTarget = BallOwner.transform;	
+								
+								data.MoveFinish = DefMove;
+								npc.TargetPos = data;
+								DefMove(npc);
+							}
 						}
 					}
 				}
-
-
-				/*TMoveData data;
-
-				data = new TMoveData(0);
-
-
-				if(MovePositionList.Count > 0){
-					int Rate = Random.Range(0, MovePositionList.Count);
-					Vector3 [] MoveAy = new Vector3[0];
-
-					switch(Npc.Postion){
-					case GamePostion.G:
-						if(MovePositionList[Rate].PosAy1.Length > 0){
-							MoveAy = new Vector3[MovePositionList[Rate].PosAy1.Length];
-							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy1[i].x, 0, MovePositionList[Rate].PosAy1[i].z);
-						}
-						break;
-					case GamePostion.F:
-						if(MovePositionList[Rate].PosAy2.Length > 0){
-							MoveAy = new Vector3[MovePositionList[Rate].PosAy2.Length];
-							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy2[i].x, 0, MovePositionList[Rate].PosAy2[i].z);
-						}
-						break;
-					case GamePostion.C:
-						if(MovePositionList[Rate].PosAy3.Length > 0){
-							MoveAy = new Vector3[MovePositionList[Rate].PosAy3.Length];
-							for(int i = 0; i < MoveAy.Length; i++)
-								MoveAy[i] = new Vector3(MovePositionList[Rate].PosAy3[i].x, 0, MovePositionList[Rate].PosAy3[i].z);
-						}
-						break;
-					}
-
-					if(MoveAy.Length > 0){
-						for(int i = 0; i < MoveAy.Length; i++){
-							data = new TMoveData(0);
-							if(Npc.Team == TeamKind.Self)
-								data.Target = new Vector2(MoveAy[i].x, MoveAy[i].z);
-							else
-								data.Target = new Vector2(MoveAy[i].x, -MoveAy[i].z);
-							
-							if(BallOwner != null && BallOwner != Npc)
-								data.LookTarget = BallOwner.transform;	
-							
-							data.MoveFinish = DefMove;
-							Npc.TargetPos = data;
-							DefMove(Npc);
-						}
-					}
-				}*/
-			}
 				
-			if(npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
-				npc.AniState(PlayerState.Dribble);
+				if(npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
+					npc.AniState(PlayerState.Dribble);
+			}
 		}
 	}
 
@@ -1153,10 +1177,10 @@ public class GameController : MonoBehaviour {
 
 			if (player && (player.IsCatcher || player.CanMove)) {
 				if(situation == GameSituation.TeeAPicking){
-					if(player.Team == TeamKind.Self && player.Postion == GamePostion.F)
+					if(player.Team == TeamKind.Self)
 						CanSetball = true;
 				}else if(situation == GameSituation.TeeBPicking){
-					if(player.Team == TeamKind.Npc && player.Postion == GamePostion.F)
+					if(player.Team == TeamKind.Npc)
 						CanSetball = true;
 				}else{
 					CanSetball = true;
