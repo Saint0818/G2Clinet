@@ -496,7 +496,8 @@ public class GameController : MonoBehaviour {
     }
     
     private void Pass(PlayerBehaviour player) {
-		if (BallOwner && BallOwner.IsDribble) {
+//		Debug.Log("BallOwner.IsDribble:"+BallOwner.IsDribble);
+		if (BallOwner) {
 			Catcher = player;
 			Catcher.AniState(PlayerState.Catcher, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
 			BallOwner.AniState(PlayerState.Pass, true, Catcher.transform.position.x, Catcher.transform.position.z);
@@ -515,8 +516,7 @@ public class GameController : MonoBehaviour {
             return false;
     }
 
-	public void DoPass(int playerid)
-	{
+	public void DoPass(int playerid) {
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
 			if(PlayerList.Count > 2){
 				if(BallOwner == Joysticker) {

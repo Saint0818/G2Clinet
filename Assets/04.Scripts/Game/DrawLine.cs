@@ -22,20 +22,23 @@ public class DrawLine : MonoBehaviour {
 	private List<TLineVector> targets = new List<TLineVector>();
 	private VectorLine line;
 	// Use this for initialization
-	void Start () {
-		line = new VectorLine("Line", new List<Vector2>(), null, lineWidth);
-		line.color = Color.red;
-		line.capLength = lineWidth*0.5f;
 
-		for (int i = 0; i < UIs.Length; i ++) {
-			if (UIs[i] && UIs[i].activeInHierarchy) {
-				GameObject obj = GameObject.Find("PlayerInfoModel/" + i.ToString());
-				if (obj)
-					AddTarget(UIs[i], obj);
+	public void Init(){
+		if(targets.Count == 0) {
+			line = new VectorLine("Line", new List<Vector2>(), null, lineWidth);
+			line.color = Color.red;
+			line.capLength = lineWidth*0.5f;
+			
+			for (int i = 0; i < UIs.Length; i ++) {
+				if (UIs[i]) {
+					GameObject obj = GameObject.Find("PlayerInfoModel/" + i.ToString());
+					if (obj)
+						AddTarget(UIs[i], obj);
+				}
 			}
 		}
-		UIGame.Get.SetPassObject(false);
 	}
+
 	
 	// Update is called once per frame
 	void Update () {
