@@ -9,6 +9,7 @@ public class ModelManager : MonoBehaviour {
 	private GameObject DefPointObject = null;
 	public static ModelManager Get;
 	public GameObject PlayerInfoModel = null;
+	public GameObject DunkCurve;
 
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
@@ -50,6 +51,7 @@ public class ModelManager : MonoBehaviour {
 		up.depth = 2;
 
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
+		DunkCurve = Resources.Load("Character/Component/DunkCurve") as GameObject;
 	}
 	
 	// Update is called once per frame
@@ -140,6 +142,10 @@ public class ModelManager : MonoBehaviour {
 		DefPointCopy.transform.localPosition = Vector3.zero;
 		if(Team == TeamKind.Npc)
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
+
+		GameObject DunkCurveCopy = Instantiate(DunkCurve) as GameObject;
+		DunkCurveCopy.transform.parent = Res.transform;
+		DunkCurveCopy.name = "AniCurve";
 
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;

@@ -5,7 +5,8 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
-	public float ButtonBTime = 0.003f;
+	private float ButtonBTime = 0.09f;
+	private float shootBtnTime = 0;
 
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
@@ -25,8 +26,6 @@ public class UIGame : UIBase {
 	private UISprite[] homeHintSprite = new UISprite[3];
 	private UILabel[] homeHintLabel = new UILabel[3];
 	private string[] aryHomeHintString = new string[3];
-	private float shootBtnTime = 0;
-	private bool shootBtnIsPress = false;
 	private float homeHintTime = -1;
 	
 	public static bool Visible {
@@ -114,18 +113,17 @@ public class UIGame : UIBase {
 		passObject.SetActive(isShow);
 	}
 
-	public void DoShoot(GameObject go, bool state) {
-		shootBtnIsPress = state;
-		if (state)
-			shootBtnTime += Time.deltaTime;
-		else {
-			if(Time.deltaTime - shootBtnTime > ButtonBTime)
-				GameController.Get.DoShoot(true);	
-			else
-				GameController.Get.DoShoot(false);
+	private bool isPressShootBtn = false;
 
-			shootBtnTime = 0;
-		}	
+	public void DoShoot(GameObject go, bool state) {
+
+		if(state)
+			shootBtnTime = ButtonBTime;
+		else if(!state && shootBtnTime > 0){
+			GameController.Get.DoShoot (false);
+			shootBtnTime = ButtonBTime;
+		}
+		isPressShootBtn = state;
 	}
 	public void DoPassChoose (GameObject obj, bool state) {
 		Debug.Log("isballowner:"+GameController.Get.Joysticker.IsBallOwner); 
@@ -275,50 +273,18 @@ public class UIGame : UIBase {
 		
 	}
 
+	void FixedUpdate()
+	{
+		if (isPressShootBtn && shootBtnTime > 0) {
+			shootBtnTime -= Time.deltaTime;
+			if(shootBtnTime <= 0)
+				GameController.Get.DoShoot(true);
+		}
+	}
+
 	void Update() {
 		showHomeHint();
 		judgePlayerScreenPosition();
 
-		if (shootBtnIsPress) {
-			shootBtnTime += Time.deltaTime;
-			if(shootBtnTime > 0.5f)
-			{
-				GameController.Get.DoShoot(true);
-				shootBtnTime = 0;
-				shootBtnIsPress = false;
-			}
-		}
-
-		if (Input.GetKey(KeyCode.W)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.y = 1;
-			Move.joystickValue.y = 10;
-		} else if (Input.GetKey (KeyCode.D)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.y = -1;
-			Move.joystickValue.y = -10;
-		} else {
-			Move.joystickAxis.y = 0;
-			Move.joystickValue.y = 0;
-		}
-		
-		if (Input.GetKey (KeyCode.A)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.x = -1;
-			Move.joystickValue.x = -10;
-		} else
-		if (Input.GetKey (KeyCode.S)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.x = 1;
-			Move.joystickValue.x = 10;
-		} else {
-			Move.joystickValue.x = 0;
-			Move.joystickAxis.x = 0;
-		}
-
-		if(IsUseKeyboard)
-			GameController.Get.OnJoystickMove(Move);
-
-		IsUseKeyboard = false;
 	}
 }

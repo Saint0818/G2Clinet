@@ -141,10 +141,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool AutoFollow = false;
 
 	//Dunk
-//	private bool isStartDunk = false;
+	private bool isDunk = false;
+	private bool isZmove = false;
+	private float dunkTime = 0;
 	private Vector3[] dunkPath = new Vector3[5];
-	public Ease test = Ease.InBack;
-	public AnimationCurve animY = new AnimationCurve();
+	public AnimationCurve aniCurve = new AnimationCurve();
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -169,29 +170,14 @@ public class PlayerBehaviour : MonoBehaviour
 		playerCollider = gameObject.GetComponent<Collider>();
 		playerRigidbody = gameObject.GetComponent<Rigidbody>();
 		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
+		aniCurve = gameObject.transform.FindChild ("AniCurve").gameObject.GetComponent<AniCurve>().aniCurve;
 		
 		initTrigger();
-		Keyframe[] ks = new Keyframe[6];
-		ks[0] = new Keyframe(0, 0);
-		ks [0].inTangent = 0;
-		ks [0].outTangent = 0;
-		ks[1] = new Keyframe(0.2f, 0);
-		ks [1].inTangent = 0;
-		ks [1].outTangent = 0;
-		ks[2] = new Keyframe(0.5f, 5f);
-		ks[2].inTangent = 0;
-		ks[2].outTangent = 0;
-		ks[3] = new Keyframe(1f, 1.88f);
-		ks[3].inTangent = 0;
-		ks[4] = new Keyframe(2f, 1.88f);
-		ks[4].inTangent = 0;
-		ks[5] = new Keyframe(3f, 0f);
-		ks[5].inTangent = 0;
-		animY = new AnimationCurve(ks);
 	}
 
 	void FixedUpdate()
 	{
+		CalculationDunkMove ();
 		CalculationSmoothSpeed ();
 //		CalculationAirResistance();
 		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
@@ -299,6 +285,24 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	private void CalculationDunkMove()
+	{
+		if (!isDunk)
+			return;
+
+		gameObject.transform.position = new Vector3(gameObject.transform.position.x, aniCurve.Evaluate(dunkTime), gameObject.transform.position.z);
+
+		if (!isZmove && dunkTime > 0.166f) {
+			isZmove = true;
+			gameObject.transform.DOLocalMoveZ (dunkPath [4].z, 1-0.166f).SetEase(Ease.Linear);
+			gameObject.transform.DOLocalMoveX (dunkPath [4].x, 1-0.166f).SetEase(Ease.Linear);
+		}
+		dunkTime += Time.deltaTime;
+
+		if (dunkTime >= 3.166f)
+			isDunk = false;
+	}
+
 	private void CalculationSmoothSpeed()
 	{
 		if (smoothDirection != 0) {
@@ -378,7 +382,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if(crtState != ps)
 			AniState(ps);
 	}
-
+	
 	private void DunkTo()
 	{
 		if (GameStart.Get.TestMode == GameTest.Dunk) {
@@ -390,7 +394,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 		playerRigidbody.useGravity = false;
 		playerRigidbody.isKinematic = true;
-//		isStartDunk = true;
 
 		dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position;
 		float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
@@ -399,11 +402,9 @@ public class PlayerBehaviour : MonoBehaviour
 		dunkPath [2] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
 		dunkPath [3] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight[1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
 		dunkPath [1] = new Vector3 ((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
-
-//		Sequence sq = new Sequence ();
-//		sq.Append(;
-//		Vector3[] path1 = new Vector3[2]{dunkPath [1], dunkPath [3]};
-		gameObject.transform.DOPath(dunkPath, 1f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red);//.OnComplete(PathCallBack);
+		isDunk = true;
+		isZmove = false;
+		dunkTime = 0;
     }
 
 	private void PathCallBack() {
@@ -629,7 +630,8 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (state != PlayerState.FakeShoot && crtState != state)
 			return true;
-		else if(state == PlayerState.FakeShoot)
+		else 
+		if(state == PlayerState.FakeShoot)
 			return true;
 
 		return false;
@@ -826,6 +828,8 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
 				animator.SetBool ("IsDunkInto", false);
 				DelActionFlag(ActionFlag.IsDunk);
+				DelActionFlag(ActionFlag.IsShootIdle);
+				animator.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 				break;
 			case "FakeShootStop":
 				DelActionFlag(ActionFlag.IsShoot);

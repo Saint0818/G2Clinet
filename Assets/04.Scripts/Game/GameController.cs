@@ -82,7 +82,6 @@ public class GameController : MonoBehaviour {
 	private GameSituation situation = GameSituation.None;
 	private bool IsStart = true;
 	private bool isPressShoot = false;  
-	private float shootBtnTime = 0;
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
 	private float ShootDis = 0;
@@ -235,6 +234,7 @@ public class GameController : MonoBehaviour {
 
 				break;
 			case GameTest.AttackA:
+			case GameTest.Dunk:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G));
 				break;
 			case GameTest.AttackB:
@@ -443,7 +443,16 @@ public class GameController : MonoBehaviour {
 		Joysticker.SetNoAiTime();	
 		if (IsStart && Joysticker && Joysticker == BallOwner) {
 			if (isshoot)
-				Shoot ();
+			{
+				if(GameStart.Get.TestMode == GameTest.Dunk)
+					Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
+				else{
+					if(Vector3.Distance(Joysticker.gameObject.transform.position, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position) < 7f)
+						Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
+					else
+						Shoot ();
+				}
+			}
 			else
 				Joysticker.AniState (PlayerState.FakeShoot, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
 		}
@@ -545,7 +554,6 @@ public class GameController : MonoBehaviour {
 
     public void DoSkill()
     {
-		Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
 		Joysticker.SetNoAiTime ();
     }
 
