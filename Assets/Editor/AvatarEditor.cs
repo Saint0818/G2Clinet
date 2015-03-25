@@ -410,43 +410,43 @@ public class AvatarEditor :  EditorWindow{
 
 		if(name[1].Equals("C")){
 			if(!isNone) {
-				attr.Cloth = int.Parse(name[2] + "000");
+				attr.Cloth = int.Parse(name[2] + "001");
 			} else {
 				attr.Cloth = 0;
 			}
 		} else if(name[1].Equals("H")){
 			if(!isNone) {
-				attr.Hair = int.Parse(name[2] + "000");
+				attr.Hair = int.Parse(name[2] + "001");
 			} else {
 				attr.Hair = 0;
 			}
 		} else if(name[1].Equals("M")){
 			if(!isNone) {
-				attr.MHandDress = int.Parse(name[2] + "000");
+				attr.MHandDress = int.Parse(name[2] + "001");
 			} else {
 				attr.MHandDress = 0;
 			}
 		} else if(name[1].Equals("P")){
 			if(!isNone) {
-				attr.Pants = int.Parse(name[2] + "000");
+				attr.Pants = int.Parse(name[2] + "001");
 			} else {
 				attr.Pants = 0;
 			}
 		} else if(name[1].Equals("S")){
 			if(!isNone) {
-				attr.Shoes = int.Parse(name[2] + "000");
+				attr.Shoes = int.Parse(name[2] + "001");
 			} else {
 				attr.Shoes = 0;
 			}
 		} else if(name[1].Equals("A")){
 			if(!isNone) {
-				attr.AHeadDress = int.Parse(name[2] + "000");
+				attr.AHeadDress = int.Parse(name[2] + "001");
 			} else {
 				attr.AHeadDress = 0;
 			}
 		} else if(name[1].Equals("Z")){
 			if(!isNone) {
-				attr.ZBackEquip = int.Parse(name[2] + "000");
+				attr.ZBackEquip = int.Parse(name[2] + "001");
 			} else {
 				attr.ZBackEquip = 0;
 			}

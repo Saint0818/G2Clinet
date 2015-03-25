@@ -80,17 +80,20 @@ public class UIGame : UIBase {
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 //		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 
 
-		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", DoPassChoose);
+//		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", DoPassChoose);
+		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
+		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
+		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		Again.SetActive (false);
 		Continue.SetActive(false);
 
@@ -124,18 +127,32 @@ public class UIGame : UIBase {
 			shootBtnTime = 0;
 		}	
 	}
-	public void DoPassChoose () {
-		Debug.Log("DoPassChoose:"+UIButton.current.name);
-		SetPassObject(true);
-		drawLine.IsShow = true;
+	public void DoPassChoose (GameObject obj, bool state) {
+		Debug.Log("isballowner:"+GameController.Get.Joysticker.IsBallOwner); 
+		if(GameController.Get.Joysticker.IsBallOwner) {
+			SetPassObject(state);
+			drawLine.IsShow = state;
+		} else {
+			GameController.Get.DoPass(0);
+		}
+	}
+
+	public void DoPassTeammateA() {
+		GameController.Get.DoPass(1);
+	}
+	public void DoPassTeammateB() {
+		GameController.Get.DoPass(2);
 	}
 
 	public void ContinueGame() {
 		Debug.Log("Continue Game");
+		Time.timeScale = 1;
+		Continue.SetActive(false);
 	}
 
 	public void PauseGame(){
-		Debug.Log("Pause Game");
+		Time.timeScale = 0;
+		Continue.SetActive(true);
 	}
 
 	public void ResetGame() {
@@ -160,15 +177,10 @@ public class UIGame : UIBase {
 	}
 
 	public void PlusScore(int team, int score) {
-		if(team == 0) {
-			if(score == 2) 
-				UIGame.Get.SetHomeHint(true, TextConst.S(1001));
-			else 
-			if(score == 3)
-				UIGame.Get.SetHomeHint(true, TextConst.S(1002));
-		}
-	
-
+//		if(team == 0) { 
+//			if(score == 3)
+//				UIGame.Get.SetHomeHint(true, TextConst.S(1002));
+//		}
 		Scores [team] += score;
 		TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity).to = new Vector3(0,720,0);
 		scoresLabel[team].text = Scores [team].ToString ();
@@ -231,8 +243,6 @@ public class UIGame : UIBase {
 		if (playerSreenPos.y > 520){
 			playerSreenPos.y = 520;
 		}
-		
-
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
 		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
 		float angle = Vector2.Angle(from, to);

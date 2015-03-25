@@ -473,10 +473,6 @@ public class GameController : MonoBehaviour {
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0) {
 			if(PlayerList.Count > 2){
 				if(BallOwner == Joysticker) {
-					if(playerid == 1)
-						UIGame.Get.SetHomeHint(true, TextConst.S(1006));
-					else 
-						UIGame.Get.SetHomeHint(true, TextConst.S(1007));
 					Pass(PlayerList[playerid]);
 				} else
 					Pass(Joysticker);

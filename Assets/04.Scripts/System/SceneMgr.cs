@@ -276,7 +276,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 					realBallRigidbody.useGravity = true;
 					RealBallTrigger.SetBoxColliderEnable(true);
 					RealBallTrigger.Falling();
-					UIGame.Get.SetHomeHint(true, TextConst.S(1005));
 				}
 				break;
 			case PlayerState.Dunk:
