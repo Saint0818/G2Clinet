@@ -484,7 +484,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(First)
 						WaitMoveTime = 0;
-					else
+					else if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
 						WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
 					
 					if(IsBallOwner){
@@ -681,6 +681,7 @@ public class PlayerBehaviour : MonoBehaviour
 				else
 					SetSpeed(1, 0);
 
+				AddActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
