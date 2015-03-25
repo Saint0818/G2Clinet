@@ -20,6 +20,7 @@ public class PlayerPositionEdit : EditorWindow {
 	private bool ControlPlayer3 = false;
 	private int DataCount = 0;
 	private int EditIndex = -1;
+	private int OldIndex = -1;
 	private int PositionCount1 = 0;
 	private int PositionCount2 = 0;
 	private int PositionCount3 = 0;
@@ -32,6 +33,12 @@ public class PlayerPositionEdit : EditorWindow {
 	private TActionPosition [] PosAy3 = new TActionPosition[0];		
 	private string[] ArrayString = new string[0];
 	private TTactical[] TacticalData = new TTactical[0];
+
+	void OnDestroy(){
+		GameObject obj = GameObject.Find ("FileManager").gameObject;
+		if (obj != null)
+			DestroyImmediate (obj);
+	}
 
 	void OnGUI()
 	{
@@ -85,6 +92,15 @@ public class PlayerPositionEdit : EditorWindow {
 		EditorGUILayout.BeginHorizontal();
 		tacticalName = EditorGUILayout.TextField("FileName", tacticalName);
 		EditIndex = EditorGUILayout.IntField("Save Index(0~" +  (TacticalData.Length - 1).ToString() + ")", EditIndex);
+
+		if (OldIndex != EditIndex) {
+			if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
+				tacticalName = TacticalData[EditIndex].FileName;
+			else
+				tacticalName = "";
+			OldIndex = EditIndex;
+		}
+
 		if (GUILayout.Button("Save", GUILayout.Width(200)))
 			OnSave ();
 
@@ -180,40 +196,44 @@ public class PlayerPositionEdit : EditorWindow {
             
             tacticalName = ArrayString[_oldIdx];
             EditIndex = _oldIdx;
+			OldIndex = EditIndex;
         }
     }
     
     private void OnSave() {
 		if(TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length){
-			int i = EditIndex;
-			TacticalData[i].FileName = tacticalName;
-			TacticalData[i].PosAy1 = new TActionPosition[PosAy1.Length];
-			Array.Copy(PosAy1, TacticalData[i].PosAy1, PosAy1.Length);
-
-			TacticalData[i].PosAy2 = new TActionPosition[PosAy2.Length];
-			Array.Copy(PosAy2, TacticalData[i].PosAy2, PosAy2.Length);
-
-			TacticalData[i].PosAy3 = new TActionPosition[PosAy3.Length];
-			Array.Copy(PosAy3, TacticalData[i].PosAy3, PosAy3.Length);
-
-			for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++) {
-				TacticalData[i].PosAy1[j].x = (float)System.Math.Round(TacticalData[i].PosAy1[j].x, 2);
-				TacticalData[i].PosAy1[j].z = (float)System.Math.Round(TacticalData[i].PosAy1[j].z, 2);
-			}
-
-			for (int j = 0; j < TacticalData[i].PosAy2.Length; j ++) {
-				TacticalData[i].PosAy2[j].x = (float)System.Math.Round(TacticalData[i].PosAy2[j].x, 2);
-				TacticalData[i].PosAy2[j].z = (float)System.Math.Round(TacticalData[i].PosAy2[j].z, 2);
-			}
-
-			for (int j = 0; j < TacticalData[i].PosAy3.Length; j ++) {
-				TacticalData[i].PosAy3[j].x = (float)System.Math.Round(TacticalData[i].PosAy3[j].x, 2);
-				TacticalData[i].PosAy3[j].z = (float)System.Math.Round(TacticalData[i].PosAy3[j].z, 2);
-			}
-
-			SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
-			FlashTacticalName();
-			Debug.Log(FileName);
+			if(tacticalName != string.Empty){
+				int i = EditIndex;
+				TacticalData[i].FileName = tacticalName;
+				TacticalData[i].PosAy1 = new TActionPosition[PosAy1.Length];
+				Array.Copy(PosAy1, TacticalData[i].PosAy1, PosAy1.Length);
+				
+				TacticalData[i].PosAy2 = new TActionPosition[PosAy2.Length];
+				Array.Copy(PosAy2, TacticalData[i].PosAy2, PosAy2.Length);
+				
+				TacticalData[i].PosAy3 = new TActionPosition[PosAy3.Length];
+				Array.Copy(PosAy3, TacticalData[i].PosAy3, PosAy3.Length);
+				
+				for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++) {
+					TacticalData[i].PosAy1[j].x = (float)System.Math.Round(TacticalData[i].PosAy1[j].x, 2);
+					TacticalData[i].PosAy1[j].z = (float)System.Math.Round(TacticalData[i].PosAy1[j].z, 2);
+				}
+				
+				for (int j = 0; j < TacticalData[i].PosAy2.Length; j ++) {
+					TacticalData[i].PosAy2[j].x = (float)System.Math.Round(TacticalData[i].PosAy2[j].x, 2);
+					TacticalData[i].PosAy2[j].z = (float)System.Math.Round(TacticalData[i].PosAy2[j].z, 2);
+				}
+				
+				for (int j = 0; j < TacticalData[i].PosAy3.Length; j ++) {
+					TacticalData[i].PosAy3[j].x = (float)System.Math.Round(TacticalData[i].PosAy3[j].x, 2);
+					TacticalData[i].PosAy3[j].z = (float)System.Math.Round(TacticalData[i].PosAy3[j].z, 2);
+				}
+				
+				SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
+				FlashTacticalName();
+				Debug.Log(FileName);
+			}else
+				Debug.LogError("FileName is empty");
 		}else
 			Debug.LogError("EditIndex error");
 	}
