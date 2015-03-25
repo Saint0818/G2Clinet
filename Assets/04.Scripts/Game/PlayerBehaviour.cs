@@ -826,6 +826,8 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
 				animator.SetBool ("IsDunkInto", false);
 				DelActionFlag(ActionFlag.IsDunk);
+				DelActionFlag(ActionFlag.IsShootIdle);
+				animator.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 				break;
 			case "FakeShootStop":
 				DelActionFlag(ActionFlag.IsShoot);
