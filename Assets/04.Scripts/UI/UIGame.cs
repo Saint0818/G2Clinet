@@ -95,22 +95,30 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		Again.SetActive (false);
 		Continue.SetActive(false);
+		passObject.SetActive(false);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
-		drawLine.UIs[0] = null;
-		drawLine.UIs[1] = passObjectGroup[0];
-		drawLine.UIs[2] = passObjectGroup[1];
+		ChangeControl(false);
 
+<<<<<<< HEAD
 		for(int i=0; i<homeHintSprite.Length; i++) {
+=======
+		for(int i=0; i<homeHintSprite.Length; i++) 
+>>>>>>> origin/master
 			homeHintSprite[i].enabled = false;
-		}
-		for(int i=0; i<homeHintLabel.Length; i++) {
+
+		for(int i=0; i<homeHintLabel.Length; i++) 
 			homeHintLabel[i].enabled = false;
-		}
 	}
 
-	public void SetPassObject(bool isShow){
-		passObject.SetActive(isShow);
+	private void initLine() {
+		if (drawLine.UIs.Length == 0) {
+			for (int i = 0; i < 2; i ++) {
+				GameObject obj = GameObject.Find("PlayerInfoModel/" + (i+1).ToString());
+				if (obj)
+					drawLine.AddTarget(passObjectGroup[i], obj);
+			}
+		}
 	}
 
 	private bool isPressShootBtn = false;
@@ -128,7 +136,8 @@ public class UIGame : UIBase {
 	public void DoPassChoose (GameObject obj, bool state) {
 		Debug.Log("isballowner:"+GameController.Get.Joysticker.IsBallOwner); 
 		if(GameController.Get.Joysticker.IsBallOwner) {
-			SetPassObject(state);
+			initLine();
+			passObject.SetActive(state);
 			drawLine.IsShow = state;
 		} else {
 			GameController.Get.DoPass(0);
@@ -146,11 +155,13 @@ public class UIGame : UIBase {
 		Debug.Log("Continue Game");
 		Time.timeScale = 1;
 		Continue.SetActive(false);
+		Joystick.enabled = true;
 	}
 
 	public void PauseGame(){
 		Time.timeScale = 0;
 		Continue.SetActive(true);
+		Joystick.enabled = false;
 	}
 
 	public void ResetGame() {
@@ -225,6 +236,7 @@ public class UIGame : UIBase {
 		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
 		float baseValueX = 1920 / Screen.width; 
 		float baseValueY = 1080 / Screen.height;
+<<<<<<< HEAD
 		Vector2 playerSreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
 		if(playerSreenPos.x < - 940) {
 			playerSreenPos.x = - 940;   
@@ -240,7 +252,47 @@ public class UIGame : UIBase {
 		
 		if (playerSreenPos.y > 520){
 			playerSreenPos.y = 520;
+=======
+		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerScreenPos.x < - 930) {
+			playerScreenPos.x = -930;
+		} else 
+		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerScreenPos.x < -930) {
+			playerScreenPos.x = -930;
+		} else 
+		if(playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.x < -930){
+			playerScreenPos.x = -930;
 		}
+
+		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerScreenPos.y < -510) {
+			playerScreenPos.y = -510;
+		} else 
+		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerScreenPos.y < -510) {
+			playerScreenPos.y = -510;
+		} else 
+		if(playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.y < -510){
+			playerScreenPos.y = -510;
+>>>>>>> origin/master
+		}
+
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
 		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
 		float angle = Vector2.Angle(from, to);
@@ -252,10 +304,14 @@ public class UIGame : UIBase {
 		   playerX < Screen.width + 50 &&
 		   playerY > - 50 &&
 		   playerY < Screen.height + 50) {
+<<<<<<< HEAD
 			screenLocation.SetActive(false);
+=======
+		    screenLocation.SetActive(false);
+>>>>>>> origin/master
 		} else {
 			screenLocation.SetActive(true);
-			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
+			screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
 			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 		}
 	}
@@ -287,6 +343,7 @@ public class UIGame : UIBase {
 		judgePlayerScreenPosition();
 
 
+<<<<<<< HEAD
 //		if (Input.GetKey(KeyCode.W)) {
 //			IsUseKeyboard = true;
 //			Move.joystickAxis.y = 1;
@@ -316,6 +373,41 @@ public class UIGame : UIBase {
 //
 //		if(IsUseKeyboard)
 //			GameController.Get.OnJoystickMove(Move);
+=======
+		if (Input.GetKey(KeyCode.W)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.y = 1;
+			Move.joystickValue.y = 10;
+		} else 
+		if (Input.GetKey (KeyCode.D)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.y = -1;
+			Move.joystickValue.y = -10;
+		} else {
+			Move.joystickAxis.y = 0;
+			Move.joystickValue.y = 0;
+		}
+		
+		if (Input.GetKey (KeyCode.A)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.x = -1;
+			Move.joystickValue.x = -10;
+		} else
+		if (Input.GetKey (KeyCode.S)) {
+			IsUseKeyboard = true;
+			Move.joystickAxis.x = 1;
+			Move.joystickValue.x = 10;
+		} else {
+			Move.joystickValue.x = 0;
+			Move.joystickAxis.x = 0;
+		}
+
+		if (Input.GetMouseButtonUp(0))
+			passObject.SetActive(false);
+
+		if(IsUseKeyboard)
+			GameController.Get.OnJoystickMove(Move);
+>>>>>>> origin/master
 
 //		IsUseKeyboard = false;
 	}
