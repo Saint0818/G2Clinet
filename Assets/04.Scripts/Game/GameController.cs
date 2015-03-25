@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour {
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	private PlayerBehaviour BallOwner;
-	private PlayerBehaviour Joysticker;
+	public PlayerBehaviour Joysticker;
 	public PlayerBehaviour Catcher;
 	public PlayerBehaviour Shooter;
 
@@ -180,7 +180,7 @@ public class GameController : MonoBehaviour {
 			}
 		}
 
-		Debug.Log(situation.ToString() + " situation position is empty at " + index.ToString());
+//		Debug.Log(situation.ToString() + " situation position is empty at " + index.ToString());
 		return null;
 	}
 
@@ -246,7 +246,6 @@ public class GameController : MonoBehaviour {
 		}
 
 		Joysticker = PlayerList [0];
-		UIGame.Get.setMyPlayer(PlayerList [0].gameObject);
 		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
 		Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 
@@ -478,9 +477,9 @@ public class GameController : MonoBehaviour {
 			if(PlayerList.Count > 2){
 				if(BallOwner == Joysticker) {
 					if(playerid == 1)
-						UIHint.Get.ShowHint(TextConst.S(1006), Color.blue);
+						UIGame.Get.SetHomeHint(true, TextConst.S(1006));
 					else 
-						UIHint.Get.ShowHint(TextConst.S(1007), Color.blue);
+						UIGame.Get.SetHomeHint(true, TextConst.S(1007));
 					Pass(PlayerList[playerid]);
 				} else
 					Pass(Joysticker);

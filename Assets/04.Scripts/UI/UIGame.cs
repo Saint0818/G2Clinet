@@ -14,7 +14,6 @@ public class UIGame : UIBase {
 	public GameObject Continue;
 	public GameObject Start;
 	public GameJoystick Joystick = null;
-	private GameObject myPlayer;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
 	
@@ -28,6 +27,7 @@ public class UIGame : UIBase {
 	private string[] aryHomeHintString = new string[3];
 	private float shootBtnTime = 0;
 	private bool shootBtnIsPress = false;
+	private float homeHintTime = -1;
 	
 	public static bool Visible {
 		get {
@@ -80,6 +80,7 @@ public class UIGame : UIBase {
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 //		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 
 
@@ -159,13 +160,12 @@ public class UIGame : UIBase {
 	}
 
 	public void PlusScore(int team, int score) {
-		Debug.Log("Team:"+team);
 		if(team == 0) {
 			if(score == 2) 
-				UIHint.Get.ShowHint(TextConst.S(1001), Color.blue);
+				UIGame.Get.SetHomeHint(true, TextConst.S(1001));
 			else 
 			if(score == 3)
-				UIHint.Get.ShowHint(TextConst.S(1002), Color.blue);
+				UIGame.Get.SetHomeHint(true, TextConst.S(1002));
 		}
 	
 
@@ -177,6 +177,8 @@ public class UIGame : UIBase {
 	public void SetHomeHint(bool isShow, string homeHint = "") {
 		homeHintLabel[0].text = homeHint;
 		if(isShow) {
+			homeHintTime = 3;
+			showHomeHint();
 			homeHintLabel[0].enabled = true;
 			homeHintSprite[0].enabled = true;
 		} else {
@@ -199,8 +201,55 @@ public class UIGame : UIBase {
 //		}
 	}
 
-	public void setMyPlayer(GameObject obj){
-		myPlayer = obj;
+	private void showHomeHint() {
+		if(homeHintTime > 0) {
+			homeHintTime -= Time.deltaTime;
+			if(homeHintTime <=0 ) {
+				SetHomeHint(false);
+			}
+		}
+	}
+
+	private void judgePlayerScreenPosition(){
+		float playerX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
+		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
+		float baseValueX = 1920 / Screen.width; 
+		float baseValueY = 1080 / Screen.height;
+		Vector2 playerSreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		if(playerSreenPos.x < - 940) {
+			playerSreenPos.x = - 940;   
+		}
+		
+		if (playerSreenPos.y < -520){
+			playerSreenPos.y = -520;
+		}
+		
+		if (playerSreenPos.x > 940){
+			playerSreenPos.x = 940;
+		}
+		
+		if (playerSreenPos.y > 520){
+			playerSreenPos.y = 520;
+		}
+		
+
+		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
+		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
+		float angle = Vector2.Angle(from, to);
+		Vector3 cross = Vector3.Cross(from, to);
+		if (cross.z < 0)
+			angle = 360 - angle;
+
+		if(playerX > -50 &&
+		   playerX < Screen.width + 50 &&
+		   playerY > - 50 &&
+		   playerY < Screen.height + 50) {
+			screenLocation.SetActive(false);
+		} else {
+			screenLocation.SetActive(true);
+			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
+			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
+		}
 	}
 
 	protected override void InitData() {
@@ -217,48 +266,8 @@ public class UIGame : UIBase {
 	}
 
 	void Update() {
-		float playerX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(myPlayer.transform.position).x;
-		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(myPlayer.transform.position).y;
-
-//		playerY = Screen.height - playerY;
-		Vector2 playerSreenPos = new Vector2(playerX - (Screen.width / 2), playerY - (Screen.height / 2));
-		if(playerSreenPos.x < 0) {
-			playerSreenPos.x = -920;   
-		}
-
-		if (playerSreenPos.y < 0){
-			playerSreenPos.y = 500;
-		}
-		
-		if (playerSreenPos.x > Screen.width){
-			playerSreenPos.x = 920;
-		}
-		
-		if (playerSreenPos.y > Screen.height){
-			playerSreenPos.y = -500;
-		}
-
-		
-		Vector2 sp1 = new Vector2(playerX, playerY);
-		Vector2 sp2 = new Vector2(Screen.width/2, Screen.height/2);
-		Vector3 cross = Vector3.Cross(sp2, sp1);
-		float angle = Vector2.Angle(sp2, sp1);
-		if (cross.z < 0)
-			angle = 360 - angle;
-		
-
-		if(playerX < 0 ||
-		   playerX > Screen.width ||
-		   playerY < 0 ||
-		   playerY > Screen.height) {
-			screenLocation.SetActive(true);
-		
-			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
-			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
-
-		} else {
-			screenLocation.SetActive(false);
-		}
+		showHomeHint();
+		judgePlayerScreenPosition();
 
 		if (shootBtnIsPress) {
 			shootBtnTime += Time.deltaTime;
