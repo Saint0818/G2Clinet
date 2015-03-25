@@ -162,7 +162,7 @@ public class ModelManager : MonoBehaviour {
 	}
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
-			string bodyNumber = Attr.Body.ToString().Split("00"[0])[0];
+			string bodyNumber = (Attr.Body / 1000).ToString();
 			string mainBody = string.Format("PlayerModel_{0}", bodyNumber);
 			string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 			if(BodyPart < 6) {
@@ -230,8 +230,8 @@ public class ModelManager : MonoBehaviour {
 	/// </summary>
 	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, bool isUseRig = false) {
 		try {
-			string[] bodyNumber = attr.Body.ToString().Split("00"[0]);
-			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber[0]);
+			string bodyNumber = (attr.Body / 1000).ToString();
+			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
 
 			int[] avatarIndex = new int[] {
@@ -267,12 +267,12 @@ public class ModelManager : MonoBehaviour {
 					int avatarBody = avatarIndex[i] / 1000;
 					int avatarBodyTexture = avatarIndex[i] % 10;
 					if (i == 0) {
-						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyNumber[0], mainBody); 
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber[0], "B", "0", avatarBodyTexture);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyNumber, mainBody); 
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, "B", "0", avatarBodyTexture);
 					}else 
 					if (i < 6) {
-						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber[0], avatarPart [i], avatarBody);
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber[0], avatarPart [i], avatarBody, avatarBodyTexture);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber, avatarPart [i], avatarBody);
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, avatarPart [i], avatarBody, avatarBodyTexture);
 					} else  {//it maybe A or Z
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarBody);
 						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart [i], avatarBody, avatarBodyTexture);
@@ -438,7 +438,7 @@ public class ModelManager : MonoBehaviour {
 			Animator aniControl = result.GetComponent<Animator>();
 			if(aniControl == null)
 				aniControl = result.AddComponent<Animator>();
-			RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber[0])) as RuntimeAnimatorController;
+			RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber)) as RuntimeAnimatorController;
 			aniControl.runtimeAnimatorController = test;
 			aniControl.applyRootMotion = false;
 

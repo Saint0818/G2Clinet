@@ -76,15 +76,16 @@ public class UIGame : UIBase {
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
+		
+		SetLabel(UIName + "/Center/ButtonAgain/LabelReset" ,TextConst.S(1));
+		SetLabel(UIName + "/Center/ButtonStart/LabelStart" ,TextConst.S(2));
+		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;;
 
-
-//		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", DoPassChoose);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
@@ -101,6 +102,7 @@ public class UIGame : UIBase {
 		drawLine.UIs[0] = null;
 		drawLine.UIs[1] = passObjectGroup[0];
 		drawLine.UIs[2] = passObjectGroup[1];
+
 
 		for(int i=0; i<homeHintSprite.Length; i++) {
 			homeHintSprite[i].enabled = false;
@@ -128,7 +130,6 @@ public class UIGame : UIBase {
 		}	
 	}
 	public void DoPassChoose (GameObject obj, bool state) {
-		Debug.Log("isballowner:"+GameController.Get.Joysticker.IsBallOwner); 
 		if(GameController.Get.Joysticker.IsBallOwner) {
 			SetPassObject(state);
 			drawLine.IsShow = state;
@@ -145,7 +146,6 @@ public class UIGame : UIBase {
 	}
 
 	public void ContinueGame() {
-		Debug.Log("Continue Game");
 		Time.timeScale = 1;
 		Continue.SetActive(false);
 	}
@@ -228,23 +228,21 @@ public class UIGame : UIBase {
 		float baseValueX = 1920 / Screen.width; 
 		float baseValueY = 1080 / Screen.height;
 		Vector2 playerSreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		if(playerSreenPos.x < - 940) {
-			playerSreenPos.x = - 940;   
+		if(playerSreenPos.x < - 960) {
+			playerSreenPos.x = - 930;   
 		}
 		
-		if (playerSreenPos.y < -520){
-			playerSreenPos.y = -520;
+		if (playerSreenPos.y < -540){
+			playerSreenPos.y = -510;
 		}
 		
-		if (playerSreenPos.x > 940){
-			playerSreenPos.x = 940;
+		if (playerSreenPos.x > 960){
+			playerSreenPos.x = 930;
 		}
 		
-		if (playerSreenPos.y > 520){
-			playerSreenPos.y = 520;
+		if (playerSreenPos.y > 540){
+			playerSreenPos.y = 510;
 		}
-		
-
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
 		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
 		float angle = Vector2.Angle(from, to);
@@ -252,11 +250,11 @@ public class UIGame : UIBase {
 		if (cross.z < 0)
 			angle = 360 - angle;
 
-		if(playerX > -50 &&
+		if(playerX > -100 &&
 		   playerX < Screen.width + 50 &&
 		   playerY > - 50 &&
-		   playerY < Screen.height + 50) {
-			screenLocation.SetActive(false);
+		   playerY < Screen.height + 100) {
+		    screenLocation.SetActive(false);
 		} else {
 			screenLocation.SetActive(true);
 			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
