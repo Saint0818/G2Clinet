@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 public delegate bool OnPlayerAction2(PlayerBehaviour player, bool speedup);
@@ -91,6 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnDunkJump = null;
 	
     public Vector3 Translate;
+	public float[] DunkHight = new float[2]{3, 5};
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
 	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle", "IsFakeShoot"};
@@ -111,8 +113,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private int smoothDirection = 0;
 	private float animationSpeed = 0;
 
-	private Collider collider;
-	private Rigidbody rigidbody;
+	private Collider playerCollider;
+	private Rigidbody playerRigidbody;
 	private Animator animator;
 	private GameObject selectTexture;
 	public GameObject AIActiveHint = null;
@@ -138,6 +140,12 @@ public class PlayerBehaviour : MonoBehaviour
 	public PlayerBehaviour DefPlayer = null;
 	public bool AutoFollow = false;
 
+	//Dunk
+//	private bool isStartDunk = false;
+	private Vector3[] dunkPath = new Vector3[5];
+	public Ease test = Ease.InBack;
+	public AnimationCurve animY = new AnimationCurve();
+
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
 		if (obj) {
@@ -157,12 +165,29 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Awake()
 	{
-		rigidbody = gameObject.GetComponent<Rigidbody>();
-		collider = gameObject.GetComponent<Collider>();
 		animator = gameObject.GetComponent<Animator>();
+		playerCollider = gameObject.GetComponent<Collider>();
+		playerRigidbody = gameObject.GetComponent<Rigidbody>();
 		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
 		
 		initTrigger();
+		Keyframe[] ks = new Keyframe[6];
+		ks[0] = new Keyframe(0, 0);
+		ks [0].inTangent = 0;
+		ks [0].outTangent = 0;
+		ks[1] = new Keyframe(0.2f, 0);
+		ks [1].inTangent = 0;
+		ks [1].outTangent = 0;
+		ks[2] = new Keyframe(0.5f, 5f);
+		ks[2].inTangent = 0;
+		ks[2].outTangent = 0;
+		ks[3] = new Keyframe(1f, 1.88f);
+		ks[3].inTangent = 0;
+		ks[4] = new Keyframe(2f, 1.88f);
+		ks[4].inTangent = 0;
+		ks[5] = new Keyframe(3f, 0f);
+		ks[5].inTangent = 0;
+		animY = new AnimationCurve(ks);
 	}
 
 	void FixedUpdate()
@@ -170,11 +195,10 @@ public class PlayerBehaviour : MonoBehaviour
 		CalculationSmoothSpeed ();
 //		CalculationAirResistance();
 		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
-		if (gameObject.transform.localPosition.y > 0.2f)
-			collider.enabled = false;
-		else 
-		if (collider.enabled == false)
-			collider.enabled = true;
+		if (gameObject.transform.localPosition.y > 0.2f) {
+			playerCollider.enabled = false;
+		} else if(playerCollider.enabled == false)
+			playerCollider.enabled = true;
 		
 		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
 			WaitMoveTime = 0;
@@ -265,13 +289,13 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (gameObject.transform.localPosition.y > 1f) {
 			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
-			rigidbody.drag = drag.y;
+			playerRigidbody.drag = drag.y;
 		} else {
 			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
 			if(drag.y >= 0)
-				rigidbody.drag = drag.y;
+				playerRigidbody.drag = drag.y;
 			else
-				rigidbody.drag = 0;
+				playerRigidbody.drag = 0;
 		}
 	}
 
@@ -354,26 +378,49 @@ public class PlayerBehaviour : MonoBehaviour
 		if(crtState != ps)
 			AniState(ps);
 	}
-	
-	private void DoDunkJump()
+
+	private void DunkTo()
 	{
-		float dis = Vector3.Distance (gameObject.transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position);
-		if (dis < 10)
-			rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 70);
-		else {
-			gameObject.transform.LookAt(new Vector3(SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position.z));
-			rigidbody.velocity = GameFunction.GetVelocity (gameObject.transform.position, SceneMgr.Get.DunkJumpPoint [Team.GetHashCode ()].transform.position, 60);
+		if (GameStart.Get.TestMode == GameTest.Dunk) {
+			if(dkPathGroup)
+				Destroy(dkPathGroup);
+			dkPathGroup = new GameObject();
+			dkPathGroup.name = "pathGroup";
 		}
+
+		playerRigidbody.useGravity = false;
+		playerRigidbody.isKinematic = true;
+//		isStartDunk = true;
+
+		dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position;
+		float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
+		float maxH = DunkHight[0] + (DunkHight[1] - DunkHight[0] / (dis * 0.25f));
+		dunkPath [0] = gameObject.transform.position;
+		dunkPath [2] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
+		dunkPath [3] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight[1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
+		dunkPath [1] = new Vector3 ((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
+
+//		Sequence sq = new Sequence ();
+//		sq.Append(;
+//		Vector3[] path1 = new Vector3[2]{dunkPath [1], dunkPath [3]};
+		gameObject.transform.DOPath(dunkPath, 1f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red);//.OnComplete(PathCallBack);
     }
 
+	private void PathCallBack() {
+		Vector3[] path2 = new Vector3[2];
+		path2 = new Vector3[2]{dunkPath [3], dunkPath [4]};
+		gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
+	}
+	
+	private GameObject dkPathGroup;
+	
 	public void OnDunkInto()
 	{
 		if (CheckAction (ActionFlag.IsDunk))
 			if (!animator.GetBool ("IsDunkInto")) {
-				SceneMgr.Get.PlayDunk(Team.GetHashCode());
-				rigidbody.useGravity = false;
-				rigidbody.velocity = Vector3.zero;
-				rigidbody.isKinematic = true;
+				playerRigidbody.useGravity = false;
+				playerRigidbody.velocity = Vector3.zero;
+				playerRigidbody.isKinematic = true;
 				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
 				if(IsBallOwner)
 					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
@@ -721,7 +768,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "BlockJump":
-				rigidbody.AddForce (JumpHight * transform.up + rigidbody.velocity.normalized /2.5f, ForceMode.Force);
+				playerRigidbody.AddForce (JumpHight * transform.up + playerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);
@@ -736,7 +783,7 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				break;
 			case "ShootJump":
-				rigidbody.AddForce (JumpHight * transform.up + rigidbody.velocity.normalized /2.5f, ForceMode.Force);
+				playerRigidbody.AddForce (JumpHight * transform.up + playerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Passing":			
 				if (PassTime > 0) {
@@ -754,22 +801,26 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case "DunkJump":
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
-				collider.enabled = false;
+				playerCollider.enabled = false;
 				if(OnDunkJump != null)
 					OnDunkJump(this);
-
-				DoDunkJump();
+				DunkTo();
 				break;
 			case "DunkBasket":
-				rigidbody.useGravity = false;
-				rigidbody.isKinematic = true;
+//				isStartDunk = false;
+				DelActionFlag(ActionFlag.IsDribble);
+				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
+				DelActionFlag(ActionFlag.IsRun);
+				animator.SetBool(AnimatorStates[ActionFlag.IsRun], false);
+				playerRigidbody.useGravity = false;
+				playerRigidbody.isKinematic = true;
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
-
+				SceneMgr.Get.PlayDunk(Team.GetHashCode());
 				break;
 			case "DunkFall":
-				rigidbody.useGravity = true;
-				rigidbody.isKinematic = false;
+				playerRigidbody.useGravity = true;
+				playerRigidbody.isKinematic = false;
 				break;
 			case "DunkEnd":
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
@@ -878,7 +929,6 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			if(MoveQueue.Count == 0)
 				MoveTurn = 0;
-
 			MoveQueue.Enqueue(value);
 		}
 	}

@@ -157,7 +157,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .315418243
+      - time: .351617336
         functionName: AnimationEvent
         data: DunkBasket
         objectReferenceParameter: {instanceID: 0}
@@ -171,7 +171,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .787479401
+      - time: .909803629
         functionName: AnimationEvent
         data: DunkEnd
         objectReferenceParameter: {instanceID: 0}

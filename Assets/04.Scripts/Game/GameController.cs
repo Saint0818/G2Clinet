@@ -32,6 +32,7 @@ public enum GameTest{
 	None,
 	AttackA,
 	AttackB,
+	Dunk,
 	Edit
 }
 
@@ -544,7 +545,7 @@ public class GameController : MonoBehaviour {
 
     public void DoSkill()
     {
-		Joysticker.AniState (PlayerState.Dunk);
+		Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
 		Joysticker.SetNoAiTime ();
     }
 
