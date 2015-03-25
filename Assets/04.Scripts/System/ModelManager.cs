@@ -144,6 +144,7 @@ public class ModelManager : MonoBehaviour {
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
+		PB.Index = Index % 3;
 		PB.Postion = Postion;
 		PB.AILevel = AILevel;
 		Res.name = Index.ToString();
