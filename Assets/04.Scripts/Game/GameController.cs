@@ -505,23 +505,23 @@ public class GameController : MonoBehaviour {
 	}
     
     public bool OnBlock(PlayerBehaviour player) {
-		Rigidbody playerrigidbody = player.GetComponent<Rigidbody>();
-
-		if (playerrigidbody != null) {
+		if (player.PlayerRigidbody != null) {
 			if (BallOwner) {
-				if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
-					playerrigidbody.AddForce (player.JumpHight * transform.up + playerrigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
-				else
-					playerrigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
-					                                                     new Vector3(BallOwner.transform.position.x, 7, BallOwner.transform.position.z), 70);
+				//if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
+				//	player.rigidbody.AddForce (player.JumpHight * transform.up + player.rigidbody.velocity.normalized /2.5f, ForceMode.VelocityChange);
+				//else
+				player.PlayerRigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+					    new Vector3(BallOwner.transform.position.x, 3, BallOwner.transform.position.z), 70);
 
 				return true;
 			} else  {
-				if (Shooter && Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position) < 5)
-					playerrigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
-					                                                      new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, 
-					            SceneMgr.Get.RealBall.transform.position.z), 70);
-			}		
+				if (Shooter && Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position) < 5) {
+					player.PlayerRigidbody.velocity = GameFunction.GetVelocity (player.transform.position, 
+					    new Vector3(SceneMgr.Get.RealBall.transform.position.x, 5, SceneMgr.Get.RealBall.transform.position.z), 70);
+			
+					return true;
+				}
+			}
 		}
 
 		return false;
@@ -529,10 +529,16 @@ public class GameController : MonoBehaviour {
 
 	public void DoBlock()
 	{
-		if (IsStart && BallOwner) {
-			BallOwner.AniState (PlayerState.Block, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+		if (IsStart) {
 			Joysticker.SetNoAiTime ();		
-		}			
+			if (Shooter)
+				Joysticker.AniState (PlayerState.Block, true, Shooter.transform.position.x, Shooter.transform.position.z);
+			else
+			if (BallOwner)
+				Joysticker.AniState (PlayerState.Block, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+            else
+				Joysticker.AniState (PlayerState.Block);
+        }			
 	}
 
     private void Rebound(PlayerBehaviour player) {
@@ -686,7 +692,8 @@ public class GameController : MonoBehaviour {
 					if(!Npc.IsSteal){
 						if(Dis <= PushPlayerDis && pushRate < 50){
 							
-						}else if(Dis <= StealBallDis && stealRate < 0 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+						}else 
+						if(Dis <= StealBallDis && stealRate < 0 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
 							Npc.CoolDownSteal = Time.time + 3;
 							Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
 //							if(stealRate < 5){
@@ -696,11 +703,19 @@ public class GameController : MonoBehaviour {
 						}
 					}
 				}
-			}else{
-				if(Shooter && !Npc.IsJump && !Npc.IsBlock){
-					Dis = getDis(ref Npc, ref Shooter);
-					if(Dis <= StealBallDis){
-						Npc.AniState(PlayerState.Block, true, Shooter.transform.localPosition.x, Shooter.transform.localPosition.z);
+			} else {
+				if (!Npc.IsJump && !Npc.IsBlock) {
+					if (Shooter) {
+						Dis = getDis(ref Npc, ref Shooter);
+						if(Dis <= StealBallDis){
+							Npc.AniState(PlayerState.Block, true, Shooter.transform.localPosition.x, Shooter.transform.localPosition.z);
+						}
+					} else 
+					if (BallOwner && BallOwner.IsFakeShoot) {
+						Dis = getDis(ref Npc, ref BallOwner);
+						if(Dis <= 5){
+							Npc.AniState(PlayerState.Block, true, BallOwner.transform.localPosition.x, BallOwner.transform.localPosition.z);
+						}
 					}
 				}
 			}				

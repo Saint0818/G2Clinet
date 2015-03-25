@@ -243,6 +243,8 @@ public class UIGame : UIBase {
 		if (playerSreenPos.y > 520){
 			playerSreenPos.y = 520;
 		}
+		
+
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
 		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
 		float angle = Vector2.Angle(from, to);
@@ -281,7 +283,7 @@ public class UIGame : UIBase {
 
 		if (shootBtnIsPress) {
 			shootBtnTime += Time.deltaTime;
-			if(shootBtnTime > 0.5f)
+			if(shootBtnTime > 0.25f)
 			{
 				GameController.Get.DoShoot(true);
 				shootBtnTime = 0;
@@ -293,7 +295,8 @@ public class UIGame : UIBase {
 			IsUseKeyboard = true;
 			Move.joystickAxis.y = 1;
 			Move.joystickValue.y = 10;
-		} else if (Input.GetKey (KeyCode.D)) {
+		} else 
+		if (Input.GetKey (KeyCode.D)) {
 			IsUseKeyboard = true;
 			Move.joystickAxis.y = -1;
 			Move.joystickValue.y = -10;
