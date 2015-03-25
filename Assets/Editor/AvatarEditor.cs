@@ -195,6 +195,15 @@ public class AvatarEditor :  EditorWindow{
 			if(GameObject.Find(name) == null) {
 				GameObject obj = new GameObject();
 				obj.name = name;
+				if(name.Equals("0")) {
+					obj.transform.position = Vector3.zero;
+				} else 
+				if(name.Equals("1")) {
+					obj.transform.position = new Vector3(2,0,0);
+				} else 
+				if(name.Equals("2")) {
+					obj.transform.position = new Vector3(-2,0,0);
+				}
 				getModelManager().CreateStorePlayer(obj, attr);
 			}
 		}
@@ -222,6 +231,15 @@ public class AvatarEditor :  EditorWindow{
 		if (GUI.Button (new Rect(0, 100, 200, 50), "PlayerMode_0")) {
 			if(!isModel0Choose){
 				//Create New Model 0
+				attr.Body = 0001;
+				attr.Hair = 0;
+				attr.Cloth = 0;
+				attr.Pants = 0;
+				attr.Shoes = 0;
+				attr.MHandDress = 0;
+				attr.AHeadDress = 0;
+				attr.ZBackEquip = 0;
+				createPlayer("0");
 			}
 		}
 			
@@ -233,6 +251,15 @@ public class AvatarEditor :  EditorWindow{
 		if (GUI.Button (new Rect(200, 100, 200, 50), "PlayerMode_1")) {
 			if(!isModel1Choose) {
 				//Create New Model 1
+				attr.Body = 1001;
+				attr.Hair = 0;
+				attr.Cloth = 0;
+				attr.Pants = 0;
+				attr.Shoes = 0;
+				attr.MHandDress = 0;
+				attr.AHeadDress = 0;
+				attr.ZBackEquip = 0;
+				createPlayer("1");
 			}
 		}
 			
@@ -244,6 +271,14 @@ public class AvatarEditor :  EditorWindow{
 		if (GUI.Button (new Rect(400, 100, 200, 50), "PlayerMode_2")) {
 			if(!isModel2Choose) {
 				//Create New Model 2
+				attr.Body = 2001;
+				attr.Hair = 0;
+				attr.Cloth = 0;
+				attr.Pants = 0;
+				attr.Shoes = 0;
+				attr.MHandDress = 0;
+				attr.AHeadDress = 0;
+				attr.ZBackEquip = 0;
 				createPlayer("2");
 			}
 		}
