@@ -719,10 +719,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if (!CheckAction(ActionFlag.IsBlock)){
 	                    AddActionFlag(ActionFlag.IsBlock);
 	                    animator.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
-	                    
-	                    if (OnBlock != null)
-	                        OnBlock(this);
-	                }  
+	                }
+
 	                break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
@@ -774,7 +772,9 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "BlockJump":
-				PlayerRigidbody.AddForce (JumpHight * transform.up + PlayerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
+				if (OnBlock != null)
+					OnBlock(this);
+                
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);

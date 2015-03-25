@@ -97,22 +97,27 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		Again.SetActive (false);
 		Continue.SetActive(false);
-
-		drawLine = gameObject.AddComponent<DrawLine>();
-		drawLine.UIs[0] = null;
-		drawLine.UIs[1] = passObjectGroup[0];
-		drawLine.UIs[2] = passObjectGroup[1];
 		passObject.SetActive(false);
 
+		drawLine = gameObject.AddComponent<DrawLine>();
+		ChangeControl(false);
 
-		for(int i=0; i<homeHintSprite.Length; i++) {
+		for(int i=0; i<homeHintSprite.Length; i++) 
 			homeHintSprite[i].enabled = false;
-		}
-		for(int i=0; i<homeHintLabel.Length; i++) {
+
+		for(int i=0; i<homeHintLabel.Length; i++) 
 			homeHintLabel[i].enabled = false;
-		}
 	}
 
+	private void initLine() {
+		if (drawLine.UIs.Length == 0) {
+			for (int i = 0; i < 2; i ++) {
+				GameObject obj = GameObject.Find("PlayerInfoModel/" + (i+1).ToString());
+				if (obj)
+					drawLine.AddTarget(passObjectGroup[i], obj);
+			}
+		}
+	}
 
 	public void DoShoot(GameObject go, bool state) {
 		shootBtnIsPress = state;
@@ -129,7 +134,7 @@ public class UIGame : UIBase {
 	}
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.Joysticker.IsBallOwner) {
-			drawLine.Init();
+			initLine();
 			passObject.SetActive(state);
 			drawLine.IsShow = state;
 		} else {
@@ -316,9 +321,8 @@ public class UIGame : UIBase {
 			Move.joystickAxis.x = 0;
 		}
 
-		if(Input.GetMouseButtonUp(0)) {
+		if (Input.GetMouseButtonUp(0))
 			passObject.SetActive(false);
-		}
 
 		if(IsUseKeyboard)
 			GameController.Get.OnJoystickMove(Move);
