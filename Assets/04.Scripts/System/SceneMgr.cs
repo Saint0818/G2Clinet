@@ -269,7 +269,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Block: 
-				int blockRate = UnityEngine.Random.Range(0, 100) + 30;
+				int blockRate = UnityEngine.Random.Range(0, 100) + 1;
 				if(blockRate < 30){
 					RealBall.transform.parent = null;
 					realBallRigidbody.isKinematic = false;

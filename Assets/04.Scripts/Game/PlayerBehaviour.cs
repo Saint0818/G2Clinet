@@ -483,7 +483,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(First)
 						WaitMoveTime = 0;
-					else if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+					else
 						WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
 					
 					if(IsBallOwner){
@@ -676,7 +676,6 @@ public class PlayerBehaviour : MonoBehaviour
 				else
 					SetSpeed(1, 0);
 
-				AddActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
@@ -714,8 +713,10 @@ public class PlayerBehaviour : MonoBehaviour
 				if (!CheckAction(ActionFlag.IsBlock)){
 	                    AddActionFlag(ActionFlag.IsBlock);
 	                    animator.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
-	                }
-
+	                    
+	                    if (OnBlock != null)
+	                        OnBlock(this);
+	                }  
 	                break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
@@ -767,13 +768,7 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "BlockJump":
-<<<<<<< HEAD
 				playerRigidbody.AddForce (JumpHight * transform.up + playerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
-=======
-				if (OnBlock != null)
-					OnBlock(this);
-                
->>>>>>> origin/master
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);
@@ -831,8 +826,6 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
 				animator.SetBool ("IsDunkInto", false);
 				DelActionFlag(ActionFlag.IsDunk);
-				DelActionFlag(ActionFlag.IsShootIdle);
-				animator.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 				break;
 			case "FakeShootStop":
 				DelActionFlag(ActionFlag.IsShoot);
