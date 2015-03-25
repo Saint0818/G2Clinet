@@ -152,11 +152,13 @@ public class UIGame : UIBase {
 	public void ContinueGame() {
 		Time.timeScale = 1;
 		Continue.SetActive(false);
+		Joystick.enabled = true;
 	}
 
 	public void PauseGame(){
 		Time.timeScale = 0;
 		Continue.SetActive(true);
+		Joystick.enabled = false;
 	}
 
 	public void ResetGame() {
@@ -231,20 +233,43 @@ public class UIGame : UIBase {
 		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
 		float baseValueX = 1920 / Screen.width; 
 		float baseValueY = 1080 / Screen.height;
-//		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		Vector2 playerScreenPos = new Vector2(playerX  * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 || playerScreenPos.x < - 930) {
+		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerScreenPos.x < - 930) {
 			playerScreenPos.x = -930;
 		} else 
-		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 || playerScreenPos.x > 930) {
+		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerScreenPos.x > 930) {
 			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerScreenPos.x < -930) {
+			playerScreenPos.x = -930;
+		} else 
+		if(playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
+		} else 
+		if(playerScreenPos.x < -930){
+			playerScreenPos.x = -930;
 		}
 
-		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 || playerScreenPos.y < -510) {
+		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerScreenPos.y < -510) {
 			playerScreenPos.y = -510;
 		} else 
-		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 || playerScreenPos.y > 510) {
+		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerScreenPos.y > 510) {
 			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerScreenPos.y < -510) {
+			playerScreenPos.y = -510;
+		} else 
+		if(playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
+		} else 
+		if(playerScreenPos.y < -510){
+			playerScreenPos.y = -510;
 		}
 
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
