@@ -4,24 +4,24 @@ using System.Collections;
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	private float groupOffsetSpeed = 0.1f;
-	private float zoomNormal = 25f;
-	private float blankAera = 5.2f;
-	private float lockedFocusAngle = 40f;
-	private float focusOffsetSpeed = 0.3f;
+	private float zoomNormal = 25;
+	private float blankAera = 3.2f;
+	private float lockedFocusAngle = 30f;
+	private float focusOffsetSpeed = 0.8f;
 	private float focusSmoothSpeed = 0.02f;
-	private float[] focusStopPoint = new float[]{12f, -12f};
+	private float[] focusStopPoint = new float[]{21f, -21f};
 
-	private float cameraRotationSpeed = 8f;
+	private float cameraRotationSpeed = 10f;
 	private float cameraOffsetSpeed = 0.1f;
 	private Vector2 cameraWithBasketBallCourtRate;
-	private Vector2 cameraMoveAera = new Vector2(23f, 34.5f); 
+	private Vector2 cameraMoveAera = new Vector2(23f, 27.5f); 
 	private Vector3 cameraOffsetRate = Vector3.zero;
 	private Vector2 basketballCourt = new Vector2(23f, 34.5f);
-	private Vector3 restrictedAreaAngle = new Vector3(15, 1, 0);
+	private Vector3 restrictedAreaAngle = new Vector3(14f, 1, 0);
 	private Vector3 cameraOffsetPos = Vector3.zero;
 	private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
-	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 6.625f)};
-	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-11f, 0, 1.63f), new Vector3(-28f, 0, -1.63f)};
+	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 7.625f)};
+	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-13f, 0, 1.63f), new Vector3(-30f, 0, -1.63f)};
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;
