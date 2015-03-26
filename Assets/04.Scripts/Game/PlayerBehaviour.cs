@@ -148,7 +148,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isZmove = false;
 	private float dunkTime = 0;
 	private Vector3[] dunkPath = new Vector3[5];
-	public AnimationCurve aniCurve = new AnimationCurve();
+	public AniCurve aniCurve;
+	private TDunkCurve playDunkCurve;
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -173,8 +174,7 @@ public class PlayerBehaviour : MonoBehaviour
 		playerCollider = gameObject.GetComponent<Collider>();
 		PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
-		aniCurve = gameObject.transform.FindChild ("AniCurve").gameObject.GetComponent<AniCurve>().aniCurve;
-		
+		aniCurve = gameObject.transform.FindChild ("AniCurve").gameObject.GetComponent<AniCurve>();
 		initTrigger();
 	}
 
@@ -296,17 +296,22 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!isDunk)
 			return;
 
-		gameObject.transform.position = new Vector3(gameObject.transform.position.x, aniCurve.Evaluate(dunkTime), gameObject.transform.position.z);
+		if (playDunkCurve != null) {
+			gameObject.transform.position = new Vector3 (gameObject.transform.position.x, playDunkCurve.aniCurve.Evaluate (dunkTime), gameObject.transform.position.z);
 
-		if (!isZmove && dunkTime > 0.166f) {
-			isZmove = true;
-			gameObject.transform.DOLocalMoveZ (dunkPath [4].z, 1-0.166f).SetEase(Ease.Linear);
-			gameObject.transform.DOLocalMoveX (dunkPath [4].x, 1-0.166f).SetEase(Ease.Linear);
-		}
-		dunkTime += Time.deltaTime;
+			if (!isZmove && dunkTime > playDunkCurve.StartMoveTime) {
+				isZmove = true;
+				gameObject.transform.DOLocalMoveZ (dunkPath [4].z, playDunkCurve.ToBasketTime - playDunkCurve.StartMoveTime).SetEase (Ease.Linear);
+				gameObject.transform.DOLocalMoveX (dunkPath [4].x, playDunkCurve.ToBasketTime - playDunkCurve.StartMoveTime).SetEase (Ease.Linear);
+			}
 
-		if (dunkTime >= 3.166f)
+			dunkTime += Time.deltaTime;
+			if (dunkTime >= playDunkCurve.LifeTime)
+				isDunk = false;
+		} else {
 			isDunk = false;
+			Debug.LogError ("playCurve is null");
+		}
 	}
 
 	private void CalculationSmoothSpeed()
@@ -409,6 +414,12 @@ public class PlayerBehaviour : MonoBehaviour
 		dunkPath [2] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
 		dunkPath [3] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight[1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
 		dunkPath [1] = new Vector3 ((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
+
+		playDunkCurve = null;
+		for (int i = 0; i < aniCurve.Dunk.Length; i++) {
+			if(aniCurve.Dunk[i].Name == "Dunk")
+				playDunkCurve = aniCurve.Dunk[i];
+		}
 		isDunk = true;
 		isZmove = false;
 		dunkTime = 0;
