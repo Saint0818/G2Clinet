@@ -399,7 +399,7 @@ public class GameController : MonoBehaviour {
 				
 				break;
 			case GameSituation.Opening:
-				
+
 				break;
 			case GameSituation.JumpBall:
 				
@@ -423,7 +423,7 @@ public class GameController : MonoBehaviour {
 				SituationTeeBall(TeamKind.Npc);
 				break;
 			case GameSituation.End:
-				
+
 				break;
 			}
         }
@@ -1311,6 +1311,7 @@ public class GameController : MonoBehaviour {
 		
 		GameController.Get.ChangeSituation(GameSituation.End);
 		UIGame.Get.Again.SetActive (true);
+		UIGame.Get.Joystick.gameObject.SetActive(false);
     }
     
     public void PlusScore(int team)

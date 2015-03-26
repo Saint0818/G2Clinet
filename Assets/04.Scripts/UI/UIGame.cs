@@ -104,6 +104,8 @@ public class UIGame : UIBase {
 
 		for(int i=0; i<homeHintLabel.Length; i++) 
 			homeHintLabel[i].enabled = false;
+		
+		Joystick.gameObject.SetActive(false);
 	}
 
 	protected override void InitText(){
@@ -164,23 +166,25 @@ public class UIGame : UIBase {
 	public void ContinueGame() {
 		Time.timeScale = 1;
 		Continue.SetActive(false);
-		Joystick.enabled = true;
+		Joystick.gameObject.SetActive(true);
 	}
 
 	public void PauseGame(){
 		Time.timeScale = 0;
 		Continue.SetActive(true);
-		Joystick.enabled = false;
+		Joystick.gameObject.SetActive(false);
 	}
 
 	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
 		Again.SetActive (false);
+		Joystick.gameObject.SetActive(true);
 	}
 
 	public void StartGame() {
 		Start.SetActive (false);
+		Joystick.gameObject.SetActive(true);
 
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
 		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
