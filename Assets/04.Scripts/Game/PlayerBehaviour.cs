@@ -784,6 +784,7 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
 					AniWaitTime = Time.time + 2.9f;
+					DunkTo();
 				}
 				break;
         }
@@ -848,9 +849,8 @@ public class PlayerBehaviour : MonoBehaviour
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
 				playerCollider.enabled = false;
 				if(OnDunkJump != null)
-					OnDunkJump(this);
+					OnDunkJump(this);	
 
-				DunkTo();
 				break;
 			case "DunkBasket":
 				DelActionFlag(ActionFlag.IsDribble);
@@ -859,9 +859,11 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], false);
 				PlayerRigidbody.useGravity = false;
 				PlayerRigidbody.isKinematic = true;
+				SceneMgr.Get.PlayDunk(Team.GetHashCode());
+				break;
+			case "DunkFallBall":
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
-				SceneMgr.Get.PlayDunk(Team.GetHashCode());
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;

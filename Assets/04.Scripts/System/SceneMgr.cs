@@ -289,6 +289,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.parent = null;
+				RealBallRigidbody.AddForce(Vector3.down * 2000); 
 				break;
 		}
 	}
