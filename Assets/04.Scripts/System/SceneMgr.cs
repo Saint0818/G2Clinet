@@ -14,7 +14,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	private int crtSkyIndex = -1;
 	public GameObject RealBall;
 	private SphereCollider realBallCollider;
-	private Rigidbody realBallRigidbody;
+	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
     private GameObject crtStadium;
     private GameObject crtBasket;
@@ -50,7 +50,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger>();
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
-		realBallRigidbody = RealBall.GetComponent<Rigidbody>();
+		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
     }
 
     private void InitLineGroup()
@@ -248,8 +248,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.Dribble:
 				realBallCollider.enabled = false;
 				RealBall.transform.parent = player.DummyBall.transform;
-				realBallRigidbody.useGravity = false;
-				realBallRigidbody.isKinematic = true;
+				RealBallRigidbody.useGravity = false;
+				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
@@ -257,34 +257,36 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.Shooting: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
-				realBallRigidbody.isKinematic = false;
-				realBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case PlayerState.Pass: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
-				realBallRigidbody.isKinematic = false;
-				realBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
-			case PlayerState.Block: 
-				int blockRate = UnityEngine.Random.Range(0, 100) + 30;
-				if(blockRate < 30){
-					RealBall.transform.parent = null;
-					realBallRigidbody.isKinematic = false;
-					realBallRigidbody.useGravity = true;
-					RealBallTrigger.SetBoxColliderEnable(true);
-					RealBallTrigger.Falling();
-				}
+			case PlayerState.Steal:
+            case PlayerState.Block: 
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+
+				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
+				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+				
 				break;
 			case PlayerState.Dunk:
 				realBallCollider.enabled = false;
 				break;
 			case PlayerState.DunkBasket:
 				realBallCollider.enabled = true;
-				realBallRigidbody.useGravity = true;
-				realBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.parent = null;
 				break;

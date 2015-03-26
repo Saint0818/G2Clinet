@@ -39,6 +39,13 @@ public static class GameFunction
 		}
 	}
 
+	public static Vector3 CalculateNextPosition(Vector3 source, Vector3 velocity, float time) {
+		if (IsParabolicVelocity(velocity)) {
+			return source + (velocity * time) + (0.5f * Physics.gravity * time * time);
+		} else 
+			return Vector3.zero;
+	}
+
 	public static float ElevationAngle(Vector3 source, Vector3 target)
 	{
 		// find the cannon->target vector:

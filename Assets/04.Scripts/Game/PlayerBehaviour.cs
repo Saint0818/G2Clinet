@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 public delegate bool OnPlayerAction2(PlayerBehaviour player, bool speedup);
+
 public enum PlayerState
 {
     Idle = 0,
@@ -87,7 +88,9 @@ public class PlayerBehaviour : MonoBehaviour
 {
 	public OnPlayerAction OnShoot = null;
 	public OnPlayerAction OnPass = null;
-	public OnPlayerAction OnBlock = null;
+	public OnPlayerAction OnSteal = null;
+	public OnPlayerAction OnBlockJump = null;
+	public OnPlayerAction OnBlocking = null;
 	public OnPlayerAction OnDunkBasket = null;
 	public OnPlayerAction OnDunkJump = null;
 	
@@ -123,7 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public int Index;
 	public GameSituation situation = GameSituation.None;
-	public PlayerState crtState = PlayerState.Idle;
+	public PlayerState State = PlayerState.Idle;
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
 
@@ -181,9 +184,11 @@ public class PlayerBehaviour : MonoBehaviour
 		CalculationSmoothSpeed ();
 //		CalculationAirResistance();
 		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+
 		if (gameObject.transform.localPosition.y > 0.2f) {
 			playerCollider.enabled = false;
-		} else if(playerCollider.enabled == false)
+		} else 
+		if(playerCollider.enabled == false)
 			playerCollider.enabled = true;
 		
 		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
@@ -202,7 +207,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if(FirstMoveQueue.Count > 0)
 			MoveTo(FirstMoveQueue.Peek(), true);
-		else if(MoveQueue.Count > 0)
+		else 
+		if(MoveQueue.Count > 0)
 			MoveTo(MoveQueue.Peek());
 
 		if (isJoystick) {
@@ -379,10 +385,10 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		isJoystick = false;
 		SetNoAiTime();
-		if(crtState != ps)
+		if(State != ps)
 			AniState(ps);
 	}
-	
+
 	private void DunkTo()
 	{
 		if (GameStart.Get.TestMode == GameTest.Dunk) {
@@ -394,6 +400,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		PlayerRigidbody.useGravity = false;
 		PlayerRigidbody.isKinematic = true;
+//		isStartDunk = true;
 
 		dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position;
 		float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
@@ -628,7 +635,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CanUseState(PlayerState state)
 	{
-		if (state != PlayerState.FakeShoot && crtState != state)
+		if (state != PlayerState.FakeShoot && State != state)
 			return true;
 		else 
 		if(state == PlayerState.FakeShoot)
@@ -642,7 +649,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!CanUseState(state))
 			return;
 
-		crtState = state;
+		State = state;
 		
 		if (DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
@@ -653,17 +660,20 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty && animator.GetBool(AnimatorStates[i]))
 						animator.SetBool(AnimatorStates[i], false);
+
 				break;
 			case PlayerState.Catcher:
 				SetSpeed(0, -1);
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty)
 						animator.SetBool(AnimatorStates[i], false);
+
 				AddActionFlag(ActionFlag.IsCatcher);
 				break;
 			case PlayerState.Run:
 				if(!isJoystick)
 					SetSpeed(1, 1);	
+
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
@@ -748,7 +758,7 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
 				}
-			break;
+				break;
         }
     }
     
@@ -757,6 +767,9 @@ public class PlayerBehaviour : MonoBehaviour
         switch (animationName) 
 		{
 			case "StealEnd":
+				if (OnSteal != null)
+					OnSteal(this);
+
 				DelActionFlag(ActionFlag.IsSteal);
 				animator.SetBool(AnimatorStates[ActionFlag.IsSteal], false);
 				break;
@@ -769,12 +782,14 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "BlockJump":
-				if (OnBlock != null)
-					OnBlock(this);
-                
+				if (OnBlockJump != null)
+					OnBlockJump(this);
+
 				break;
 			case "Blocking":
-				SceneMgr.Get.SetBallState(PlayerState.Block);
+				if (OnBlocking != null)
+					OnBlocking(this);
+
 				break;
 			case "BlockEnd":
 				animator.SetBool(AnimatorStates[ActionFlag.IsBlock], false);
@@ -783,6 +798,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case "Shooting":
 				if (OnShoot != null)
 					OnShoot(this);
+				
 				break;
 			case "ShootJump":
 				PlayerRigidbody.AddForce (JumpHight * transform.up + PlayerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
@@ -793,6 +809,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if(!SceneMgr.Get.RealBallTrigger.PassBall())
 						DelActionFlag(ActionFlag.IsPass);
 				}		
+
 				break;
 			case "PassEnd":
 				animator.SetBool (AnimatorStates[ActionFlag.IsDribble], false);
@@ -805,9 +822,11 @@ public class PlayerBehaviour : MonoBehaviour
 				playerCollider.enabled = false;
 				if(OnDunkJump != null)
 					OnDunkJump(this);
+
 				DunkTo();
 				break;
 			case "DunkBasket":
+//				isStartDunk = false;
 				DelActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 				DelActionFlag(ActionFlag.IsRun);
@@ -816,7 +835,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerRigidbody.isKinematic = true;
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
-				SceneMgr.Get.PlayDunk(Team.GetHashCode());
+
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;
@@ -935,6 +954,7 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			if(MoveQueue.Count == 0)
 				MoveTurn = 0;
+
 			MoveQueue.Enqueue(value);
 		}
 	}

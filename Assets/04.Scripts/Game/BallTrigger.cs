@@ -3,9 +3,9 @@ using System.Collections;
 
 public class BallTrigger : MonoBehaviour
 {
+	private Rigidbody ParentRigidbody;
 	private GameObject followObject;
 	private BoxCollider box;
-	private Rigidbody parentobjRigidbody;
 	private GameObject HintObject;
 	private bool passing = false;
 
@@ -13,7 +13,7 @@ public class BallTrigger : MonoBehaviour
 
 	void Awake()
 	{
-		parentobjRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
+		ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
 //		HintObject = GameObject.Find("MoveTo");
 //		HintObject.SetActive(false);
@@ -44,7 +44,7 @@ public class BallTrigger : MonoBehaviour
 
 	public void Falling()
 	{
-		parentobjRigidbody.AddForce (new Vector3 (0, -100, 0));
+		ParentRigidbody.AddForce (new Vector3 (0, -100, 0));
 	}
 
 	public bool PassBall()
@@ -82,7 +82,7 @@ public class BallTrigger : MonoBehaviour
 		if(passing){
 			if (GameController.Get.Catcher) {
 				if (Vector3.Distance (SceneMgr.Get.RealBall.gameObject.transform.position, GameController.Get.Catcher.transform.position) > GameController.Get.PickBallDis){
-					parentobjRigidbody.gameObject.transform.position = Vector3.Lerp(parentobjRigidbody.gameObject.transform.position, GameController.Get.Catcher.transform.position, 0.1f);
+					ParentRigidbody.gameObject.transform.position = Vector3.Lerp(ParentRigidbody.gameObject.transform.position, GameController.Get.Catcher.transform.position, 0.1f);
 				}else{
 					GameController.Get.SetBall(GameController.Get.Catcher);
 					GameController.Get.Catcher.DelPass();
