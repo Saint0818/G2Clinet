@@ -139,20 +139,26 @@ public class UIGame : UIBase {
 			passObject.SetActive(state);
 			drawLine.IsShow = state;
 		} else {
-			GameController.Get.DoPass(0);
+			if(!GameController.Get.IsShooting)
+				GameController.Get.DoPass(0);
 		}
 	}
 
 	public void DoPassTeammateA() {
-		GameController.Get.DoPass(1);
+		if(!GameController.Get.IsShooting)
+			GameController.Get.DoPass(1);
 		passObject.SetActive(false);
+		drawLine.IsShow = false;
 	}
 	public void DoPassTeammateB() {
-		GameController.Get.DoPass(2);
+		if(!GameController.Get.IsShooting)
+			GameController.Get.DoPass(2);
 		passObject.SetActive(false);
+		drawLine.IsShow = false;
 	}
 	public void DoPassNone() {
 		passObject.SetActive(false);
+		drawLine.IsShow = false;
 	}
 
 	public void ContinueGame() {
@@ -240,17 +246,11 @@ public class UIGame : UIBase {
 		float baseValueX = 1920 / Screen.width; 
 		float baseValueY = 1080 / Screen.height;
 		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerX < 0) {
+		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerX < 0) {
 			playerScreenPos.x = -930;
 		} else 
-		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 && playerX >= 0) {
+		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerX >= 0) {
 			playerScreenPos.x = 930;
-		} else 
-		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerX >=0 ) {
-			playerScreenPos.x = 930;
-		} else 
-		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 && playerX < 0) {
-			playerScreenPos.x = -930;
 		} else 
 		if(playerScreenPos.x > 930) {
 			playerScreenPos.x = 930;
@@ -259,17 +259,11 @@ public class UIGame : UIBase {
 			playerScreenPos.x = -930;
 		}
 
-		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerY < 0) {
+		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerY < 0) {
 			playerScreenPos.y = -510;
 		} else 
-		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 && playerY >= 0) {
+		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerY >= 0) {
 			playerScreenPos.y = 510;
-		} else 
-		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerY >= 0) {
-			playerScreenPos.y = 510;
-		} else 
-		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 && playerY < 0) {
-			playerScreenPos.y = -510;
 		} else 
 		if(playerScreenPos.y > 510) {
 			playerScreenPos.y = 510;

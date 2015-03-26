@@ -248,7 +248,13 @@ public class AvatarEditor :  EditorWindow{
 			GUILayout.Label("it is a Avatar!");
 		else
 			GUILayout.Label("it is not a Avatar!");
+		if(GUILayout.Button("Random Player")) {
+			if(isAvatar && Application.isPlaying) 
+				randomPlayer();
+		}
+		if(GUILayout.Button("Save(Not Open)")) {
 
+		}
 
 		//Model
 		GUI.Label (new Rect(0, 80, 500, 50), "Model");
@@ -463,14 +469,163 @@ public class AvatarEditor :  EditorWindow{
 			GUI.EndScrollView ();
 		}
 	}
+	void randomPlayer(){
+		//B
+		bodyPart = 0;
+		showBody.Clear ();
+		judgeBodyTextureName("B","0");
+		if (showBodyTexture.Count > 0) {
+			string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+			int bodyPartTemp = attr.Body / 1000;
+			attr.Body = int.Parse(bodyPartTemp + "00" + name[3]);
+			bodyPart = Array.IndexOf(strPart, name[1]);
+			getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+		}
+
+		//C
+		bodyPart = 1;
+		judgeBodyName("C");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.Cloth / 1000;
+					attr.Cloth = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+		//H
+		bodyPart = 2;
+		judgeBodyName("H");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.Hair / 1000;
+					attr.Hair = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+
+		//M
+		bodyPart = 3;
+		judgeBodyName("M");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.MHandDress / 1000;
+					attr.MHandDress = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+
+		//P
+		bodyPart = 4;
+		judgeBodyName("P");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.Pants / 1000;
+					attr.Pants = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+
+		//S
+		bodyPart = 5;
+		judgeBodyName("S");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.Shoes / 1000;
+					attr.Shoes = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+
+		//A
+		bodyPart = 6;
+		judgeBodyName("A");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.AHeadDress / 1000;
+					attr.AHeadDress = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+
+		//Z
+		bodyPart = 7;
+		judgeBodyName("Z");
+		if (showBody.Count > 0) {
+			int random = UnityEngine.Random.Range(0, showBody.Count + 1);
+			if(random == showBody.Count) {
+				chooseBodyPart(showBody[0].name, true);
+				showBodyTexture.Clear();
+			} else {
+				chooseBodyPart(showBody[random].name);
+				if (showBodyTexture.Count > 0) {
+					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
+					int bodyPartTemp = attr.ZBackEquip / 1000;
+					attr.ZBackEquip = int.Parse(bodyPartTemp + "00" + name[3]);
+					bodyPart = Array.IndexOf(strPart, name[1]);
+					getModelManager().SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+				}
+			}
+		}
+	}
 
 	void chooseBodyPart(string showBodyName, bool isNone = false){
 		bodyPartText = showBodyName;
 		string[] name = showBodyName.Split("_"[0]);
 		judgeBodyTextureName(name[1], name[2]);
-		
-//		if(!name[1].Equals("A") && !name[1].Equals("Z"))
-//			attr.Body = int.Parse(name[0]);
 
 		if(name[1].Equals("C")){
 			if(!isNone) {
