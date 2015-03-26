@@ -6,7 +6,6 @@ namespace GameStruct
 {
 	public struct TAIlevel
 	{
-		public int Level;
 		public int ProactiveRate;
 		public int AutoFollowTime;
 		public float DefDistance;
