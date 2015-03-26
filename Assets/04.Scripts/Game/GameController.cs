@@ -873,47 +873,23 @@ public class GameController : MonoBehaviour {
 	}
 
 	private bool NpcAutoTee(PlayerBehaviour player, bool speedup){
-		TeamKind Team = TeamKind.Self;
-		PlayerBehaviour target = null;
-		if(situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking)
-			Team = TeamKind.Npc;
-
 		PlayerBehaviour getball = HaveNearPlayer(player, 10, true);
+
 		if (getball != null) {
 			Pass(getball);
-			target = getball;
-			CoolDownPass = Time.time + 1;		
-		}
-
-		if (target != null && PlayerList.Count == 6) {
-			int a = 0; 
-			int b = 3;
-			if (player.Team == TeamKind.Npc) {
-				a = 3;
-				b = 6;
-			}
-
-			for (int i = a; i < b; i ++) {
-				PlayerBehaviour npc = PlayerList[i];
-				TTactical pos = GetMovePath(GetPosNameIndex(PosKind.Fast, target.Index));
-				TActionPosition[] ap = null;
-				if(npc.Index == 0)
-					ap = pos.PosAy1;
-				else if(npc.Index == 0)
-					ap = pos.PosAy2;
-				else if(npc.Index == 0)
-					ap = pos.PosAy3;
-
-				if (ap != null) {
-					for(int j = 0; j < ap.Length; j++){
-						TMoveData data = new TMoveData(0);
-						data.Speedup = ap[j].Speedup;
-						data.Target = new Vector2(ap[j].x, ap[j].z);
-						if(BallOwner != null && BallOwner != npc)
-							data.LookTarget = BallOwner.transform;	
-						
-						npc.TargetPos = data;
+			CoolDownPass = Time.time + 1;
+		}else{
+			int ran = UnityEngine.Random.Range(0, 2);
+			int count = 0;
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i].Team == player.Team && PlayerList[i] != player){
+					if(count == ran){
+						Pass(PlayerList[i]);
+						CoolDownPass = Time.time + 1;
+						break;
 					}
+
+					count++;
 				}
 			}
 		}
@@ -1205,9 +1181,9 @@ public class GameController : MonoBehaviour {
 						ChangeSituation(GameSituation.TeeB);
 					}else{
 						if(p.Team == TeamKind.Self)
-							ChangeSituation(GameSituation.AttackA);
+							ChangeSituation(GameSituation.AttackA, p);
 						else if(p.Team == TeamKind.Npc)
-							ChangeSituation(GameSituation.AttackB);
+							ChangeSituation(GameSituation.AttackB, p);
 					}
 				}
 
@@ -1330,8 +1306,9 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	public void ChangeSituation(GameSituation GS){
+	public void ChangeSituation(GameSituation GS, PlayerBehaviour GetBall = null){
 		if (situation != GameSituation.End) {
+			GameSituation oldgs = situation;
 			if(situation != GS){
 				for(int i = 0; i < PlayerList.Count; i++){
 					PlayerList[i].ResetFlag();
@@ -1340,6 +1317,40 @@ public class GameController : MonoBehaviour {
 			}
 
 			situation = GS;
+			if((oldgs == GameSituation.TeeA || oldgs == GameSituation.TeeB) && oldgs != GS && GetBall != null){
+				if (PlayerList.Count == 6) {
+					int a = 0; 
+					int b = 3;
+					if (GetBall.Team == TeamKind.Npc) {
+						a = 3;
+						b = 6;
+					}
+					
+					for (int i = a; i < b; i ++) {
+						PlayerBehaviour npc = PlayerList[i];
+						TTactical pos = GetMovePath(GetPosNameIndex(PosKind.Fast, GetBall.Index));
+						TActionPosition[] ap = null;
+						if(npc.Index == 0)
+							ap = pos.PosAy1;
+						else if(npc.Index == 0)
+							ap = pos.PosAy2;
+						else if(npc.Index == 0)
+							ap = pos.PosAy3;
+						
+						if (ap != null) {
+							for(int j = 0; j < ap.Length; j++){
+								TMoveData data = new TMoveData(0);
+								data.Speedup = ap[j].Speedup;
+								data.Target = new Vector2(ap[j].x, ap[j].z);
+								if(BallOwner != null && BallOwner != npc)
+									data.LookTarget = BallOwner.transform;	
+								
+								npc.TargetPos = data;
+							}
+						}
+					}
+				}
+			}
 
 			switch(GS){
 			case GameSituation.Opening:
