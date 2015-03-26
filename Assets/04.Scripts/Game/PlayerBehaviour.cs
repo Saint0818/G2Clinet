@@ -655,6 +655,11 @@ public class PlayerBehaviour : MonoBehaviour
 		return false;
 	}
 
+	public void AniState(PlayerState state, Vector3 v) {
+		AniState(state, true, v.x, v.z);
+	}
+
+
 	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
 	{
 		if (!CanUseState(state))

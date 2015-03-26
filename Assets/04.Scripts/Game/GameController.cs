@@ -432,9 +432,17 @@ public class GameController : MonoBehaviour {
 	private void Shoot() {
 		if (BallOwner) {
 			SceneMgr.Get.ResetBasketEntra();
-			BallOwner.AniState(PlayerState.Shooting, true, 
-			                   SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position.x, 
-			                   SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position.z);
+
+			int t = BallOwner.Team.GetHashCode();
+			float dis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint[t].transform.position);
+
+			if(GameStart.Get.TestMode == GameTest.Dunk)
+				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform);
+			else
+			if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= 9f)
+				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
+            else
+				BallOwner.AniState(PlayerState.Shooting, SceneMgr.Get.Hood[t].transform.position);
         }
 	}
         
@@ -463,16 +471,14 @@ public class GameController : MonoBehaviour {
 				Joysticker.SetNoAiTime();
 				player = Joysticker;
 			} else 
-			if (BallOwner.Team == TeamKind.Self) {
+			if (BallOwner.Team == TeamKind.Self) 
 				player = BallOwner;
-			}
 
-			if (isshoot)
+			int t = player.Team.GetHashCode();
+			if (isshoot) 
 				Shoot ();
 			else
-				player.AniState (PlayerState.FakeShoot, true, 
-				                 SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.x, 
-				                 SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.z);
+				player.AniState (PlayerState.FakeShoot, SceneMgr.Get.ShootPoint[t].transform.position);
 		}
     }
     
@@ -498,10 +504,8 @@ public class GameController : MonoBehaviour {
 		if(player == BallOwner)
 		{
 			Shooter = player;
-		
 			return true;
-		}
-		else
+		} else
 			return false;
 	}
 	
@@ -1311,10 +1315,9 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int score = 2;
-			if(ShootDis != 0){
-				if(ShootDis >= 10)
-					score = 3;
-			}else if(Shooter != null){
+			if(ShootDis >= 10)
+				score = 3;
+			else if(Shooter != null){
 				if(getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position) >= 10)
 					score = 3;
 			}
