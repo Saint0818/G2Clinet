@@ -5,14 +5,14 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
-	public int[] MaxScores = {13, 13};
-	public int[] Scores = {0, 0};
-	private float homeHintTime = -1;
-	private bool IsUseKeyboard = false;
-	private bool isPressShootBtn = false;
 	private float ButtonBTime = 0.09f;
 	private float shootBtnTime = 0;
+	private float homeHintTime = -1;
 
+	public int[] MaxScores = {13, 13};
+	public int[] Scores = {0, 0};
+
+	private bool isPressShootBtn = false;
 	public GameObject Again;
 	public GameObject Continue;
 	public GameObject Start;
@@ -124,17 +124,15 @@ public class UIGame : UIBase {
 	}
 
 	public void DoShoot(GameObject go, bool state) {
-		if (state)
+		if(state)
 			shootBtnTime = ButtonBTime;
-		else 
-		if (!state && shootBtnTime > 0){
+		else if(!state && shootBtnTime > 0){
 			GameController.Get.DoShoot (false);
 			shootBtnTime = ButtonBTime;
 		}
-
 		isPressShootBtn = state;
 	}
-
+	
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.Joysticker.IsBallOwner) {
 			initLine();
@@ -314,44 +312,11 @@ public class UIGame : UIBase {
 			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true);
 		}
+	}
+
+	void Update() {
 		showHomeHint();
 		judgePlayerScreenPosition();
 
-
-		if (Input.GetKey(KeyCode.W)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.y = 1;
-			Move.joystickValue.y = 10;
-		} else 
-		if (Input.GetKey (KeyCode.D)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.y = -1;
-			Move.joystickValue.y = -10;
-		} else {
-			Move.joystickAxis.y = 0;
-			Move.joystickValue.y = 0;
-		}
-		
-		if (Input.GetKey (KeyCode.A)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.x = -1;
-			Move.joystickValue.x = -10;
-		} else
-		if (Input.GetKey (KeyCode.S)) {
-			IsUseKeyboard = true;
-			Move.joystickAxis.x = 1;
-			Move.joystickValue.x = 10;
-		} else {
-			Move.joystickValue.x = 0;
-			Move.joystickAxis.x = 0;
-		}
-
-//		if (Input.GetMouseButtonUp(0))
-//			passObject.SetActive(false);
-
-		if(IsUseKeyboard)
-			GameController.Get.OnJoystickMove(Move);
-
-		IsUseKeyboard = false;
 	}
 }
