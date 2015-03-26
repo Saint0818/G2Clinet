@@ -176,9 +176,7 @@ public class GameController : MonoBehaviour {
 		MovePositionList.Clear();
 		for(int i = 0; i < GameData.TacticalData.Length; i++)
 			if(!string.IsNullOrEmpty(GameData.TacticalData[i].FileName))
-				MovePositionList.Add(GameData.TacticalData[i]);	
-
-		Debug.Log(MovePositionList.Count);
+				MovePositionList.Add(GameData.TacticalData[i]);
 	}
 
 	public void InitGame(){

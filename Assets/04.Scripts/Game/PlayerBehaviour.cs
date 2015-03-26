@@ -107,6 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float MoveMinSpeed = 0.5f;
 	private Vector2 drag = Vector2.zero;
 	private bool stop = false;
+	private bool NeedResetFlag = false;
 	private int MoveTurn = 0;
 	private float PassTime = 0;
 	private float NoAiTime = 0;
@@ -115,6 +116,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float ProactiveTime = 0;
 	private int smoothDirection = 0;
 	private float animationSpeed = 0;
+	private float AniWaitTime = 0;
 
 	private Collider playerCollider;
 	public Rigidbody PlayerRigidbody;
@@ -122,8 +124,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject selectTexture;
 	public GameObject AIActiveHint = null;
 	public GameObject DummyBall;
-	private OnPlayerAction2 WaitMoveFinish = null;
-	private float AniWaitTime = 0;
 
 	public TeamKind Team;
 	public int Index;
@@ -213,10 +213,10 @@ public class PlayerBehaviour : MonoBehaviour
 		if(MoveQueue.Count > 0)
 			MoveTo(MoveQueue.Peek());
 
-		if (AniWaitTime > 0 && AniWaitTime >= Time.time) {
+		if (AniWaitTime > 0 && AniWaitTime <= Time.time) {
 			AniWaitTime = 0;
-			if(WaitMoveFinish != null)
-				WaitMoveFinish(this, false);
+			if(NeedResetFlag)
+				ResetFlag();
 		}
 
 		if (isJoystick) {
@@ -533,12 +533,8 @@ public class PlayerBehaviour : MonoBehaviour
 					AniState(PlayerState.Defence);
 				}
 
-				if(Data.MoveFinish != null){
-					if(AniWaitTime == 0)
-						Data.MoveFinish(this, Data.Speedup);
-					else
-						WaitMoveFinish = Data.MoveFinish;
-				}
+				if(Data.MoveFinish != null)
+					Data.MoveFinish(this, Data.Speedup);
 
 				if(First)
 					FirstMoveQueue.Dequeue();
@@ -637,17 +633,20 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool CheckAction(int Flag){
 		return GameFunction.CheckByteFlag (Flag, PlayerActionFlag);
 	}
-
+	
 	public void ResetFlag(){
-		for(int i = 0; i < PlayerActionFlag.Length; i++)
-			PlayerActionFlag[i] = 0;
-
-		AniState(PlayerState.Idle);
-		MoveQueue.Clear ();
-		FirstMoveQueue.Clear ();
-		NoAiTime = 0;
-		WaitMoveTime = 0;
-		isJoystick = false;
+		if (AniWaitTime == 0) {
+			for(int i = 0; i < PlayerActionFlag.Length; i++)
+				PlayerActionFlag[i] = 0;
+			
+			AniState(PlayerState.Idle);
+			MoveQueue.Clear ();
+			FirstMoveQueue.Clear ();
+			NoAiTime = 0;
+			WaitMoveTime = 0;
+			isJoystick = false;	
+		}else
+			NeedResetFlag = true;
 	}
 
 	public void ClearMoveQueue(){
@@ -784,6 +783,7 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
+					AniWaitTime = Time.time + 2.9f;
 				}
 				break;
         }
@@ -869,9 +869,11 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case "DunkEnd":
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
-				animator.SetBool ("IsDunkInto", false);
-				DelActionFlag(ActionFlag.IsDunk);
-				DelActionFlag(ActionFlag.IsShootIdle);
+//				animator.SetBool ("IsDunkInto", false);
+				if(!NeedResetFlag){
+					DelActionFlag(ActionFlag.IsDunk);
+					DelActionFlag(ActionFlag.IsShootIdle);
+				}
 				animator.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 				break;
 			case "FakeShootStop":
