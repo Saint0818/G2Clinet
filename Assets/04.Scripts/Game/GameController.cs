@@ -670,10 +670,10 @@ public class GameController : MonoBehaviour {
 			if(Npc == BallOwner){
 				//Dunk shoot shoot3 pass
 				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-				if(ShootPointDis <= 2f && dunkRate < 0 && CheckAttack(ref Npc)){
-					Shoot();
+				if(ShootPointDis <= 9f && dunkRate < 30 && CheckAttack(ref Npc)){
+					Npc.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position.z);
 				}else 
-				if(ShootPointDis <= 6f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
+				if(ShootPointDis <= 7f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
 					Shoot();
 				}else 
 				if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
