@@ -126,7 +126,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public int Index;
 	public GameSituation situation = GameSituation.None;
-	public PlayerState State = PlayerState.Idle;
+	public PlayerState crtState = PlayerState.Idle;
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
 
@@ -390,7 +390,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		isJoystick = false;
 		SetNoAiTime();
-		if(State != ps)
+		if(crtState != ps)
 			AniState(ps);
 	}
 
@@ -405,7 +405,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 		PlayerRigidbody.useGravity = false;
 		PlayerRigidbody.isKinematic = true;
-//		isStartDunk = true;
 
 		dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position;
 		float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
@@ -646,7 +645,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CanUseState(PlayerState state)
 	{
-		if (state != PlayerState.FakeShoot && State != state)
+		if (state != PlayerState.FakeShoot && crtState != state)
 			return true;
 		else 
 		if(state == PlayerState.FakeShoot)
@@ -665,7 +664,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!CanUseState(state))
 			return;
 
-		State = state;
+		crtState = state;
 		
 		if (DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
@@ -842,7 +841,6 @@ public class PlayerBehaviour : MonoBehaviour
 				DunkTo();
 				break;
 			case "DunkBasket":
-//				isStartDunk = false;
 				DelActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 				DelActionFlag(ActionFlag.IsRun);
@@ -851,7 +849,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerRigidbody.isKinematic = true;
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
-
+				SceneMgr.Get.PlayDunk(Team.GetHashCode());
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;
