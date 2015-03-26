@@ -58,6 +58,8 @@ ModelImporter:
     100100: DummyHand_R
     100102: DummyHead
     100104: //RootNode
+    100106: 1_B_0 1
+    100108: SkinData_1_B_0
     400000: 1_B_0
     400002: Bip01
     400004: Bip01 Head
@@ -111,9 +113,16 @@ ModelImporter:
     400100: DummyHand_R
     400102: DummyHead
     400104: //RootNode
+    400106: 1_B_0 1
+    400108: SkinData_1_B_0
+    2300000: SkinData_1_B_0
+    3300000: SkinData_1_B_0
     4300000: 1_B_0
+    4300002: 1_B_0
+    4300004: SkinData_1_B_0
     9500000: //RootNode
     13700000: 1_B_0
+    13700002: 1_B_0 1
   materials:
     importMaterials: 0
     materialName: 0
