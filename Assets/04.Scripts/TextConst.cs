@@ -27,12 +27,8 @@ public static class TextConst
 	
 	public static void Init(){
 		AddString (0, "", "");
-		AddString (1001, "2-Point", "2-Point");
-		AddString (1002, "3-Point", "3-Point");
-		AddString (1003, "Dunk", "Dunk");
-		AddString (1004, "Steal", "Steal");
-		AddString (1005, "Block", "Block");
-		AddString (1006, "Pass A", "Pass A");
-		AddString (1007, "Pass B", "Pass B");
+		AddString (1, "重新開始", "重新開始"); //1~1000 UI
+		AddString (2, "點擊開始", "點擊開始");
+		AddString (3, "點擊繼續", "點擊繼續");
     }
 }

@@ -18,23 +18,15 @@ public class DrawLine : MonoBehaviour {
 	const int lineWidth = 3;
 	private bool isShow = false;
 
-	public GameObject[] UIs = new GameObject[3];
+	public GameObject[] UIs = new GameObject[0];
 	private List<TLineVector> targets = new List<TLineVector>();
 	private VectorLine line;
 	// Use this for initialization
-	void Start () {
+
+	public void Awake(){
 		line = new VectorLine("Line", new List<Vector2>(), null, lineWidth);
 		line.color = Color.red;
 		line.capLength = lineWidth*0.5f;
-
-		for (int i = 0; i < UIs.Length; i ++) {
-			if (UIs[i] && UIs[i].activeInHierarchy) {
-				GameObject obj = GameObject.Find("PlayerInfoModel/" + i.ToString());
-				if (obj)
-					AddTarget(UIs[i], obj);
-			}
-		}
-		UIGame.Get.SetPassObject(false);
 	}
 	
 	// Update is called once per frame

@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 public delegate bool OnPlayerAction2(PlayerBehaviour player, bool speedup);
+
 public enum PlayerState
 {
     Idle = 0,
@@ -114,7 +115,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float animationSpeed = 0;
 
 	private Collider playerCollider;
-	private Rigidbody playerRigidbody;
+	public Rigidbody PlayerRigidbody;
 	private Animator animator;
 	private GameObject selectTexture;
 	public GameObject AIActiveHint = null;
@@ -141,11 +142,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool AutoFollow = false;
 
 	//Dunk
-	private bool isDunk = false;
-	private bool isZmove = false;
-	private float dunkTime = 0;
+//	private bool isStartDunk = false;
 	private Vector3[] dunkPath = new Vector3[5];
-	public AnimationCurve aniCurve = new AnimationCurve();
+	public Ease test = Ease.InBack;
+	public AnimationCurve animY = new AnimationCurve();
 
 	void initTrigger() {
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -168,16 +168,31 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		animator = gameObject.GetComponent<Animator>();
 		playerCollider = gameObject.GetComponent<Collider>();
-		playerRigidbody = gameObject.GetComponent<Rigidbody>();
+		PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 		DummyBall = gameObject.transform.FindChild ("DummyBall").gameObject;
-		aniCurve = gameObject.transform.FindChild ("AniCurve").gameObject.GetComponent<AniCurve>().aniCurve;
 		
 		initTrigger();
+		Keyframe[] ks = new Keyframe[6];
+		ks[0] = new Keyframe(0, 0);
+		ks [0].inTangent = 0;
+		ks [0].outTangent = 0;
+		ks[1] = new Keyframe(0.2f, 0);
+		ks [1].inTangent = 0;
+		ks [1].outTangent = 0;
+		ks[2] = new Keyframe(0.5f, 5f);
+		ks[2].inTangent = 0;
+		ks[2].outTangent = 0;
+		ks[3] = new Keyframe(1f, 1.88f);
+		ks[3].inTangent = 0;
+		ks[4] = new Keyframe(2f, 1.88f);
+		ks[4].inTangent = 0;
+		ks[5] = new Keyframe(3f, 0f);
+		ks[5].inTangent = 0;
+		animY = new AnimationCurve(ks);
 	}
 
 	void FixedUpdate()
 	{
-		CalculationDunkMove ();
 		CalculationSmoothSpeed ();
 //		CalculationAirResistance();
 		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
@@ -275,32 +290,14 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (gameObject.transform.localPosition.y > 1f) {
 			drag = Vector2.Lerp (Vector2.zero, new Vector2 (0, gameObject.transform.localPosition.y), 0.01f); 
-			playerRigidbody.drag = drag.y;
+			PlayerRigidbody.drag = drag.y;
 		} else {
 			drag = Vector2.Lerp (new Vector2 (0, gameObject.transform.localPosition.y),Vector2.zero, 0.01f); 
 			if(drag.y >= 0)
-				playerRigidbody.drag = drag.y;
+				PlayerRigidbody.drag = drag.y;
 			else
-				playerRigidbody.drag = 0;
+				PlayerRigidbody.drag = 0;
 		}
-	}
-
-	private void CalculationDunkMove()
-	{
-		if (!isDunk)
-			return;
-
-		gameObject.transform.position = new Vector3(gameObject.transform.position.x, aniCurve.Evaluate(dunkTime), gameObject.transform.position.z);
-
-		if (!isZmove && dunkTime > 0.166f) {
-			isZmove = true;
-			gameObject.transform.DOLocalMoveZ (dunkPath [4].z, 1-0.166f).SetEase(Ease.Linear);
-			gameObject.transform.DOLocalMoveX (dunkPath [4].x, 1-0.166f).SetEase(Ease.Linear);
-		}
-		dunkTime += Time.deltaTime;
-
-		if (dunkTime >= 3.166f)
-			isDunk = false;
 	}
 
 	private void CalculationSmoothSpeed()
@@ -382,7 +379,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if(crtState != ps)
 			AniState(ps);
 	}
-	
+
 	private void DunkTo()
 	{
 		if (GameStart.Get.TestMode == GameTest.Dunk) {
@@ -392,8 +389,9 @@ public class PlayerBehaviour : MonoBehaviour
 			dkPathGroup.name = "pathGroup";
 		}
 
-		playerRigidbody.useGravity = false;
-		playerRigidbody.isKinematic = true;
+		PlayerRigidbody.useGravity = false;
+		PlayerRigidbody.isKinematic = true;
+//		isStartDunk = true;
 
 		dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode ()].transform.position;
 		float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
@@ -402,9 +400,11 @@ public class PlayerBehaviour : MonoBehaviour
 		dunkPath [2] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
 		dunkPath [3] = new Vector3 ((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight[1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
 		dunkPath [1] = new Vector3 ((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
-		isDunk = true;
-		isZmove = false;
-		dunkTime = 0;
+
+//		Sequence sq = new Sequence ();
+//		sq.Append(;
+//		Vector3[] path1 = new Vector3[2]{dunkPath [1], dunkPath [3]};
+		gameObject.transform.DOPath(dunkPath, 1f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red);//.OnComplete(PathCallBack);
     }
 
 	private void PathCallBack() {
@@ -419,9 +419,9 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (CheckAction (ActionFlag.IsDunk))
 			if (!animator.GetBool ("IsDunkInto")) {
-				playerRigidbody.useGravity = false;
-				playerRigidbody.velocity = Vector3.zero;
-				playerRigidbody.isKinematic = true;
+				PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.velocity = Vector3.zero;
+				PlayerRigidbody.isKinematic = true;
 				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
 				if(IsBallOwner)
 					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
@@ -484,7 +484,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(First)
 						WaitMoveTime = 0;
-					else
+					else if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
 						WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
 					
 					if(IsBallOwner){
@@ -653,22 +653,25 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty && animator.GetBool(AnimatorStates[i]))
 						animator.SetBool(AnimatorStates[i], false);
+
 				break;
 			case PlayerState.Catcher:
 				SetSpeed(0, -1);
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty)
 						animator.SetBool(AnimatorStates[i], false);
+
 				AddActionFlag(ActionFlag.IsCatcher);
 				break;
 			case PlayerState.Run:
 				if(!isJoystick)
 					SetSpeed(1, 1);	
+
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDefence], false);
 				break;
 			case PlayerState.Dribble:
-					SetSpeed(0, -1);
+				SetSpeed(0, -1);
 				AddActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
@@ -678,6 +681,7 @@ public class PlayerBehaviour : MonoBehaviour
 				else
 					SetSpeed(1, 0);
 
+				AddActionFlag(ActionFlag.IsDribble);
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], true);
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], true);
 				break;
@@ -715,10 +719,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if (!CheckAction(ActionFlag.IsBlock)){
 	                    AddActionFlag(ActionFlag.IsBlock);
 	                    animator.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
-	                    
-	                    if (OnBlock != null)
-	                        OnBlock(this);
-	                }  
+	                }
+
 	                break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
@@ -770,7 +772,9 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsRun);
 				break;
 			case "BlockJump":
-				playerRigidbody.AddForce (JumpHight * transform.up + playerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
+				if (OnBlock != null)
+					OnBlock(this);
+                
 				break;
 			case "Blocking":
 				SceneMgr.Get.SetBallState(PlayerState.Block);
@@ -785,7 +789,7 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				break;
 			case "ShootJump":
-				playerRigidbody.AddForce (JumpHight * transform.up + playerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
+				PlayerRigidbody.AddForce (JumpHight * transform.up + PlayerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Passing":			
 				if (PassTime > 0) {
@@ -814,22 +818,20 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 				DelActionFlag(ActionFlag.IsRun);
 				animator.SetBool(AnimatorStates[ActionFlag.IsRun], false);
-				playerRigidbody.useGravity = false;
-				playerRigidbody.isKinematic = true;
+				PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.isKinematic = true;
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
 				SceneMgr.Get.PlayDunk(Team.GetHashCode());
 				break;
 			case "DunkFall":
-				playerRigidbody.useGravity = true;
-				playerRigidbody.isKinematic = false;
+				PlayerRigidbody.useGravity = true;
+				PlayerRigidbody.isKinematic = false;
 				break;
 			case "DunkEnd":
 				animator.SetBool (AnimatorStates[ActionFlag.IsDunk], false);
 				animator.SetBool ("IsDunkInto", false);
 				DelActionFlag(ActionFlag.IsDunk);
-				DelActionFlag(ActionFlag.IsShootIdle);
-				animator.SetBool(AnimatorStates[ActionFlag.IsShootIdle], false);
 				break;
 			case "FakeShootStop":
 				DelActionFlag(ActionFlag.IsShoot);
@@ -904,6 +906,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsShooting{
 		get{return CheckAction(ActionFlag.IsShoot);}
 	}
+
+	public bool IsFakeShoot{
+		get{return CheckAction(ActionFlag.IsFakeShoot);}
+	}
 	
 	public bool IsBlock{
 		get{return CheckAction(ActionFlag.IsBlock);}
@@ -933,6 +939,7 @@ public class PlayerBehaviour : MonoBehaviour
 		set{
 			if(MoveQueue.Count == 0)
 				MoveTurn = 0;
+
 			MoveQueue.Enqueue(value);
 		}
 	}

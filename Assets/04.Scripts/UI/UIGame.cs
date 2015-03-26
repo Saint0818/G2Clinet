@@ -5,12 +5,14 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
+	public int[] MaxScores = {13, 13};
+	public int[] Scores = {0, 0};
+	private float homeHintTime = -1;
+	private bool IsUseKeyboard = false;
+	private bool isPressShootBtn = false;
 	private float ButtonBTime = 0.09f;
 	private float shootBtnTime = 0;
 
-	public int[] MaxScores = {13, 13};
-	public int[] Scores = {0, 0};
-	private bool IsUseKeyboard = false;
 	public GameObject Again;
 	public GameObject Continue;
 	public GameObject Start;
@@ -26,7 +28,7 @@ public class UIGame : UIBase {
 	private UISprite[] homeHintSprite = new UISprite[3];
 	private UILabel[] homeHintLabel = new UILabel[3];
 	private string[] aryHomeHintString = new string[3];
-	private float homeHintTime = -1;
+
 	
 	public static bool Visible {
 		get {
@@ -75,15 +77,16 @@ public class UIGame : UIBase {
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
+		
+		SetLabel(UIName + "/Center/ButtonAgain/LabelReset" ,TextConst.S(1));
+		SetLabel(UIName + "/Center/ButtonStart/LabelStart" ,TextConst.S(2));
+		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;;
 
-
-//		SetBtnFun (UIName + "/BottomRight/Attack/ButtonPass", DoPassChoose);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
@@ -95,40 +98,44 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		Again.SetActive (false);
 		Continue.SetActive(false);
+		passObject.SetActive(false);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
-		drawLine.UIs[0] = null;
-		drawLine.UIs[1] = passObjectGroup[0];
-		drawLine.UIs[2] = passObjectGroup[1];
+		ChangeControl(false);
 
-		for(int i=0; i<homeHintSprite.Length; i++) {
+		for(int i=0; i<homeHintSprite.Length; i++) 
 			homeHintSprite[i].enabled = false;
-		}
-		for(int i=0; i<homeHintLabel.Length; i++) {
+
+		for(int i=0; i<homeHintLabel.Length; i++) 
 			homeHintLabel[i].enabled = false;
+	}
+
+	private void initLine() {
+		if (drawLine.UIs.Length == 0) {
+			for (int i = 0; i < 2; i ++) {
+				GameObject obj = GameObject.Find("PlayerInfoModel/" + (i+1).ToString());
+				if (obj)
+					drawLine.AddTarget(passObjectGroup[i], obj);
+			}
 		}
 	}
-
-	public void SetPassObject(bool isShow){
-		passObject.SetActive(isShow);
-	}
-
-	private bool isPressShootBtn = false;
 
 	public void DoShoot(GameObject go, bool state) {
-
-		if(state)
+		if (state)
 			shootBtnTime = ButtonBTime;
-		else if(!state && shootBtnTime > 0){
+		else 
+		if (!state && shootBtnTime > 0){
 			GameController.Get.DoShoot (false);
 			shootBtnTime = ButtonBTime;
 		}
+
 		isPressShootBtn = state;
 	}
+
 	public void DoPassChoose (GameObject obj, bool state) {
-		Debug.Log("isballowner:"+GameController.Get.Joysticker.IsBallOwner); 
 		if(GameController.Get.Joysticker.IsBallOwner) {
-			SetPassObject(state);
+			initLine();
+			passObject.SetActive(state);
 			drawLine.IsShow = state;
 		} else {
 			GameController.Get.DoPass(0);
@@ -143,7 +150,6 @@ public class UIGame : UIBase {
 	}
 
 	public void ContinueGame() {
-		Debug.Log("Continue Game");
 		Time.timeScale = 1;
 		Continue.SetActive(false);
 	}
@@ -225,22 +231,22 @@ public class UIGame : UIBase {
 		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
 		float baseValueX = 1920 / Screen.width; 
 		float baseValueY = 1080 / Screen.height;
-		Vector2 playerSreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		if(playerSreenPos.x < - 940) {
-			playerSreenPos.x = - 940;   
+//		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		Vector2 playerScreenPos = new Vector2(playerX  * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		if(playerScreenPos.y > -510 && playerScreenPos.y <= 0 || playerScreenPos.x < - 930) {
+			playerScreenPos.x = -930;
+		} else 
+		if(playerScreenPos.y > 0 && playerScreenPos.y < 510 || playerScreenPos.x > 930) {
+			playerScreenPos.x = 930;
 		}
-		
-		if (playerSreenPos.y < -520){
-			playerSreenPos.y = -520;
+
+		if(playerScreenPos.x > -930 && playerScreenPos.x <= 0 || playerScreenPos.y < -510) {
+			playerScreenPos.y = -510;
+		} else 
+		if(playerScreenPos.x > 0 && playerScreenPos.x < 930 || playerScreenPos.y > 510) {
+			playerScreenPos.y = 510;
 		}
-		
-		if (playerSreenPos.x > 940){
-			playerSreenPos.x = 940;
-		}
-		
-		if (playerSreenPos.y > 520){
-			playerSreenPos.y = 520;
-		}
+
 		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
 		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
 		float angle = Vector2.Angle(from, to);
@@ -252,10 +258,10 @@ public class UIGame : UIBase {
 		   playerX < Screen.width + 50 &&
 		   playerY > - 50 &&
 		   playerY < Screen.height + 50) {
-			screenLocation.SetActive(false);
+		    screenLocation.SetActive(false);
 		} else {
 			screenLocation.SetActive(true);
-			screenLocation.transform.localPosition = new Vector3(playerSreenPos.x, playerSreenPos.y, 0);
+			screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
 			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 		}
 	}
@@ -268,10 +274,6 @@ public class UIGame : UIBase {
 		scoresLabel[0].text = "0";
 		scoresLabel[1].text = "0";
 	}
-	
-	protected override void OnShow(bool isShow) {
-		
-	}
 
 	void FixedUpdate()
 	{
@@ -280,11 +282,8 @@ public class UIGame : UIBase {
 			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true);
 		}
-	}
 
-	void Update() {
 		showHomeHint();
 		judgePlayerScreenPosition();
-
 	}
 }
