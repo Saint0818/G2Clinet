@@ -20,6 +20,8 @@ public class UIPassEvent : UIDragDropItem {
 		}else 
 		if(surface.name.Equals("ButtonObjectB")) {
 			UIGame.Get.DoPassTeammateB();
+		}else{
+			UIGame.Get.DoPassNone();
 		}
 		base.OnDragDropRelease(surface);
 	}

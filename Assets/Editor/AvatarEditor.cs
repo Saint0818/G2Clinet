@@ -32,6 +32,7 @@ public class AvatarEditor :  EditorWindow{
 	public bool isAvatar = false;
 	public int chooseCount = 0;
 
+	public int modelId = 0;
 	public bool isModel0Choose = false;
 	public bool isModel1Choose = false;
 	public bool isModel2Choose = false;
@@ -103,7 +104,6 @@ public class AvatarEditor :  EditorWindow{
 		}
 		return obj.GetComponent<ModelManager>();
 	}
-
 	void OnFocus(){
 		init ();
 		if(Selection.gameObjects.Length > 1) {
@@ -178,12 +178,15 @@ public class AvatarEditor :  EditorWindow{
 					}
 				}
 				if((attr.Body/1000) == 0) {
+					modelId = 0;
 					isModel0Choose = true;
 				} else 
 				if((attr.Body/1000) == 1) {
+					modelId = 1;
 					isModel1Choose = true;
 				} else 
 				if((attr.Body/1000) == 2) {
+					modelId = 2;
 					isModel2Choose = true;
 				}
 			}
@@ -220,6 +223,7 @@ public class AvatarEditor :  EditorWindow{
 			GUILayout.Label("it is a Avatar!");
 		else
 			GUILayout.Label("it is not a Avatar!");
+
 
 		//Model
 		GUI.Label (new Rect(0, 80, 500, 50), "Model");
@@ -496,8 +500,10 @@ public class AvatarEditor :  EditorWindow{
 		showBodyTexture.Clear ();
 		for (int i=0; i<allBody.Count; i++) {
 			string[] name = allBody[i].name.Split("_"[0]);
-			if(name[1].Equals(body)) {
-				showBody.Add(allBody[i]);
+			if(name[0].Equals(modelId.ToString()) || name[0].Equals("3")){
+				if(name[1].Equals(body)) {
+					showBody.Add(allBody[i]);
+				}
 			}
 		}
 	}
@@ -505,9 +511,11 @@ public class AvatarEditor :  EditorWindow{
 		showBodyTexture.Clear ();
 		for (int i=0; i<allTextures.Count; i++) {
 			string[] name = allTextures[i].name.Split("_"[0]);
-			if(name[1].Equals(body)) {
-				if(name[2].Equals(_bodyPart)) {
-					showBodyTexture.Add(allTextures[i]);
+			if(name[0].Equals(modelId.ToString()) || name[0].Equals("3")){
+				if(name[1].Equals(body)) {
+					if(name[2].Equals(_bodyPart)) {
+						showBodyTexture.Add(allTextures[i]);
+					}
 				}
 			}
 		}

@@ -453,10 +453,24 @@ public class ModelManager : MonoBehaviour {
 			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();
 			if(collider == null)
 				collider = result.AddComponent<CapsuleCollider>();
-			collider.radius = 0.32f;
-			collider.height = 3f;
-			float testh = collider.height / 2f;
-			collider.center = new Vector3 (0, testh, 0);
+			if(bodyNumber.Equals("0")) {
+				collider.radius = 0.32f;
+				collider.height = 3f;
+				float testh = collider.height / 2f;
+				collider.center = new Vector3 (0, testh, 0);
+			} else 
+			if(bodyNumber.Equals("1")) {
+				collider.radius = 0.32f;
+				collider.height = 3f;
+				float testh = collider.height / 2f;
+				collider.center = new Vector3 (-2, testh, 0);
+			} else
+			if(bodyNumber.Equals("2")) {
+				collider.radius = 0.32f;
+				collider.height = 3f;
+				float testh = collider.height / 2f;
+				collider.center = new Vector3 (0, testh, 0);
+			}
 			
 			//rig
 			if(isUseRig){
