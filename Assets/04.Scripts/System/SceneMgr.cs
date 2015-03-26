@@ -315,11 +315,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			if(isPve)
 			{
 				animation = pveBasketAy[1].GetComponent<Animation>();
-				animationName = "DunkAnim_R";
 			}
 			else
 			{
-				animationName = "DunkAnim";
 				animation = BuildBasket[1].GetComponent<Animation>();
 			}
            

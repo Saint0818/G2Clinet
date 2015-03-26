@@ -474,6 +474,7 @@ public class GameController : MonoBehaviour {
 		if(player == BallOwner)
 		{
 			SceneMgr.Get.SetBallState(PlayerState.DunkBasket);
+			PlusScore(player.Team.GetHashCode());
 			SetBall();
 			return true;
 		}
