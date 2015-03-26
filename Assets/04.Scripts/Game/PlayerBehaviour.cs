@@ -122,6 +122,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject selectTexture;
 	public GameObject AIActiveHint = null;
 	public GameObject DummyBall;
+	private OnPlayerAction2 WaitMoveFinish = null;
+	private float AniWaitTime = 0;
 
 	public TeamKind Team;
 	public int Index;
@@ -210,6 +212,12 @@ public class PlayerBehaviour : MonoBehaviour
 		else 
 		if(MoveQueue.Count > 0)
 			MoveTo(MoveQueue.Peek());
+
+		if (AniWaitTime > 0 && AniWaitTime >= Time.time) {
+			AniWaitTime = 0;
+			if(WaitMoveFinish != null)
+				WaitMoveFinish(this, false);
+		}
 
 		if (isJoystick) {
 			if(Time.time >= NoAiTime){
@@ -525,8 +533,12 @@ public class PlayerBehaviour : MonoBehaviour
 					AniState(PlayerState.Defence);
 				}
 
-				if(Data.MoveFinish != null)
-					Data.MoveFinish(this, Data.Speedup);
+				if(Data.MoveFinish != null){
+					if(AniWaitTime == 0)
+						Data.MoveFinish(this, Data.Speedup);
+					else
+						WaitMoveFinish = Data.MoveFinish;
+				}
 
 				if(First)
 					FirstMoveQueue.Dequeue();
