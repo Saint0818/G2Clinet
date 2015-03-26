@@ -1297,6 +1297,12 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void DefRangeTouch(PlayerBehaviour player1, PlayerBehaviour player2) {
+		if (player1.IsDefence) {
+			DefMove(player1.DefPlayer);		
+		}
+	}
+
 	public void PlayerTouchPlayer(GameObject player) {
 		
 	}

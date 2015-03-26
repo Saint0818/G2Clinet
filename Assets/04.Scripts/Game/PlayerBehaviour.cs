@@ -163,6 +163,16 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i = 0; i < objs.Length; i ++)
 					objs[i].Player = this;
 			}
+
+			DefTrigger obj3 = obj2.GetComponentInChildren<DefTrigger>(); 
+			if(obj3 != null)
+				obj3.Player = this;
+
+			GameObject obj4 = obj.transform.FindChild("DefRange").gameObject;
+			if(obj4 != null){
+				BoxCollider b = obj4.GetComponent<BoxCollider>();
+				b.size = new Vector3(ParameterConst.AIlevelAy[AILevel].DefDistance, 1, ParameterConst.AIlevelAy[AILevel].DefDistance);
+			}
 			
 			obj2.transform.parent = transform;
 			obj2.transform.transform.localPosition = Vector3.zero;
