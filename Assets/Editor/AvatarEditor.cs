@@ -55,10 +55,22 @@ public class AvatarEditor :  EditorWindow{
 		
 	void init (){
 		if(allBody.Count == 0) {
-			UnityEngine.Object[] obj = Resources.LoadAll ("Character/PlayerModel_2/Model", typeof(GameObject));
-			for (int i=0; i<obj.Length; i++) {
-				if(!obj[i].name.Contains("PlayerModel")){
-					allBody.Add((UnityEngine.GameObject)obj[i]);
+			UnityEngine.Object[] obj_0 = Resources.LoadAll ("Character/PlayerModel_0/Model", typeof(GameObject));
+			for (int i=0; i<obj_0.Length; i++) {
+				if(!obj_0[i].name.Contains("PlayerModel")){
+					allBody.Add((UnityEngine.GameObject)obj_0[i]);
+				}
+			}
+			UnityEngine.Object[] obj_1 = Resources.LoadAll ("Character/PlayerModel_1/Model", typeof(GameObject));
+			for (int i=0; i<obj_1.Length; i++) {
+				if(!obj_1[i].name.Contains("PlayerModel")){
+					allBody.Add((UnityEngine.GameObject)obj_1[i]);
+				}
+			}
+			UnityEngine.Object[] obj_2 = Resources.LoadAll ("Character/PlayerModel_2/Model", typeof(GameObject));
+			for (int i=0; i<obj_2.Length; i++) {
+				if(!obj_2[i].name.Contains("PlayerModel")){
+					allBody.Add((UnityEngine.GameObject)obj_2[i]);
 				}
 			}
 			UnityEngine.Object[] obj_3 = Resources.LoadAll ("Character/PlayerModel_3/Model", typeof(GameObject));
@@ -77,9 +89,17 @@ public class AvatarEditor :  EditorWindow{
 			}
 		}
 		if(allTextures.Count == 0) {
-			UnityEngine.Object[] tex = Resources.LoadAll ("Character/PlayerModel_2/Texture"); 
-			for (int i=0; i<tex.Length; i++) {
-				allTextures.Add((UnityEngine.Texture)tex[i]);
+			UnityEngine.Object[] tex_0 = Resources.LoadAll ("Character/PlayerModel_0/Texture"); 
+			for (int i=0; i<tex_0.Length; i++) {
+				allTextures.Add((UnityEngine.Texture)tex_0[i]);
+			}
+			UnityEngine.Object[] tex_1 = Resources.LoadAll ("Character/PlayerModel_1/Texture"); 
+			for (int i=0; i<tex_1.Length; i++) {
+				allTextures.Add((UnityEngine.Texture)tex_1[i]);
+			}
+			UnityEngine.Object[] tex_2 = Resources.LoadAll ("Character/PlayerModel_2/Texture"); 
+			for (int i=0; i<tex_2.Length; i++) {
+				allTextures.Add((UnityEngine.Texture)tex_2[i]);
 			}
 			UnityEngine.Object[] tex_3= Resources.LoadAll ("Character/PlayerModel_3/Texture"); 
 			for (int i=0; i<tex_3.Length; i++) {
@@ -154,11 +174,13 @@ public class AvatarEditor :  EditorWindow{
 						if(dummyCount_A == 0)
 							attr.AHeadDress = 0;
 						else {
-							Material[] materials = childt.GetComponent<SkinnedMeshRenderer>().materials;
+							Material[] materials = childt.FindChild("Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead").GetChild(0).GetComponent<MeshRenderer>().materials;
 							for(int j=0; j<materials.Length; j++) {
-								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
-								if(textureName[1].Equals("A")) {
-									attr.AHeadDress = int.Parse(textureName[2]+"00"+textureName[3]);
+								if(materials[j].mainTexture != null){
+									string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
+									if(textureName[1].Equals("A")) {
+										attr.AHeadDress = int.Parse(textureName[2]+"00"+textureName[3]);
+									}
 								}
 							}
 						}
@@ -167,11 +189,13 @@ public class AvatarEditor :  EditorWindow{
 						if(dummyCount_Z == 0)
 							attr.ZBackEquip = 0;
 						else {
-							Material[] materials = childt.GetComponent<SkinnedMeshRenderer>().materials;
+							Material[] materials = childt.FindChild("Bip01 Spine/Bip01 Spine1/DummyBack").GetChild(0).GetComponent<MeshRenderer>().materials;
 							for(int j=0; j<materials.Length; j++) {
-								string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
-								if(textureName[1].Equals("Z")) {
-									attr.ZBackEquip = int.Parse(textureName[2]+"00"+textureName[3]);
+								if(materials[j].mainTexture != null){
+									string[] textureName = materials[j].mainTexture.name.Split("_"[0]);
+									if(textureName[1].Equals("Z")) {
+										attr.ZBackEquip = int.Parse(textureName[2]+"00"+textureName[3]);
+									}
 								}
 							}
 						}
@@ -198,16 +222,17 @@ public class AvatarEditor :  EditorWindow{
 			if(GameObject.Find(name) == null) {
 				GameObject obj = new GameObject();
 				obj.name = name;
+				obj.AddComponent<DragRotateObject>();
+				getModelManager().CreateStorePlayer(obj, attr);
 				if(name.Equals("0")) {
-					obj.transform.position = Vector3.zero;
+					obj.transform.position = new Vector3(2,0,0);
 				} else 
 				if(name.Equals("1")) {
-					obj.transform.position = new Vector3(2,0,0);
+					obj.transform.position = Vector3.zero;
 				} else 
 				if(name.Equals("2")) {
 					obj.transform.position = new Vector3(-2,0,0);
 				}
-				getModelManager().CreateStorePlayer(obj, attr);
 			}
 		}
 	}

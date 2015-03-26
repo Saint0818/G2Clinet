@@ -444,9 +444,15 @@ public class ModelManager : MonoBehaviour {
 			Animator aniControl = result.GetComponent<Animator>();
 			if(aniControl == null)
 				aniControl = result.AddComponent<Animator>();
-			RuntimeAnimatorController test = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber)) as RuntimeAnimatorController;
-			aniControl.runtimeAnimatorController = test;
-			aniControl.applyRootMotion = false;
+			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
+			if(runtimeAnimatorController == null) {
+				if(isUseRig)
+					runtimeAnimatorController = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber)) as RuntimeAnimatorController;
+				else
+					runtimeAnimatorController = Resources.Load(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber)) as RuntimeAnimatorController;
+				aniControl.runtimeAnimatorController = runtimeAnimatorController;
+				aniControl.applyRootMotion = false;
+			}
 
 			
 			//collider
@@ -454,22 +460,19 @@ public class ModelManager : MonoBehaviour {
 			if(collider == null)
 				collider = result.AddComponent<CapsuleCollider>();
 			if(bodyNumber.Equals("0")) {
-				collider.radius = 0.32f;
-				collider.height = 3f;
-				float testh = collider.height / 2f;
-				collider.center = new Vector3 (0, testh, 0);
+				collider.radius = 0.7f;
+				collider.height = 3.5f;
+				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			} else 
 			if(bodyNumber.Equals("1")) {
-				collider.radius = 0.32f;
-				collider.height = 3f;
-				float testh = collider.height / 2f;
-				collider.center = new Vector3 (-2, testh, 0);
+				collider.radius = 0.6f;
+				collider.height = 3.2f;
+				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			} else
 			if(bodyNumber.Equals("2")) {
 				collider.radius = 0.32f;
 				collider.height = 3f;
-				float testh = collider.height / 2f;
-				collider.center = new Vector3 (0, testh, 0);
+				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			}
 			
 			//rig
