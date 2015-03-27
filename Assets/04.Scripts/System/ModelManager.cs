@@ -453,7 +453,6 @@ public class ModelManager : MonoBehaviour {
 				aniControl.runtimeAnimatorController = runtimeAnimatorController;
 				aniControl.applyRootMotion = false;
 			}
-
 			
 			//collider
 			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();
@@ -470,7 +469,7 @@ public class ModelManager : MonoBehaviour {
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			} else
 			if(bodyNumber.Equals("2")) {
-				collider.radius = 0.32f;
+				collider.radius = 0.6f;
 				collider.height = 3f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			}

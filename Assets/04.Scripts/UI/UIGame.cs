@@ -247,15 +247,24 @@ public class UIGame : UIBase {
 	}
 
 	private void judgePlayerScreenPosition(){
-		float playerX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
-		float playerY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
-		float baseValueX = 1920 / Screen.width; 
-		float baseValueY = 1080 / Screen.height;
-		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
-		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerX < 0) {
+		float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
+		float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
+
+		float playerInBoardX = GameController.Get.Joysticker.gameObject.transform.position.z;
+		float playerInBoardY = GameController.Get.Joysticker.gameObject.transform.position.x;
+
+		float baseValueX = 56.47f; 
+		float baseValueY = 24.55f;
+		
+		float playerX = 15 - playerInBoardX;
+		float playerY = 11 - playerInBoardY;
+
+		Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 960 , (playerY * baseValueY) * (-1));
+//		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
+		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX < 0) {
 			playerScreenPos.x = -930;
 		} else 
-		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerX >= 0) {
+		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX >= 0) {
 			playerScreenPos.x = 930;
 		} else 
 		if(playerScreenPos.x > 930) {
@@ -265,30 +274,42 @@ public class UIGame : UIBase {
 			playerScreenPos.x = -930;
 		}
 
-		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerY < 0) {
+		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY < 0) {
 			playerScreenPos.y = -510;
-		} else 
-		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerY >= 0) {
-			playerScreenPos.y = 510;
-		} else 
-		if(playerScreenPos.y > 510) {
-			playerScreenPos.y = 510;
 		} else 
 		if(playerScreenPos.y < -510){
 			playerScreenPos.y = -510;
 		}
 
-		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
-		Vector2 to = new Vector2(playerX - Screen.width/2, playerY - Screen.height/2);
-		float angle = Vector2.Angle(from, to);
-		Vector3 cross = Vector3.Cross(from, to);
-		if (cross.z < 0)
-			angle = 360 - angle;
+		float angle = 0f;
 
-		if(playerX > -50 &&
-		   playerX < Screen.width + 50 &&
-		   playerY > - 50 &&
-		   playerY < Screen.height + 50) {
+		if(playerScreenPos.x == -930 && playerScreenPos.y == -510) {
+			angle = -135;
+		} else 
+		if(playerScreenPos.x == 930 && playerScreenPos.y == -510) {
+			angle = -45;
+		} else 
+		if(playerScreenPos.x == 930) {
+			angle = 0;
+		} else 
+		if(playerScreenPos.x == -930) {
+			angle = 180;
+		} else
+		if(playerScreenPos.y == -510) {
+			angle = -90;
+		}
+
+//		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
+//		Vector2 to = new Vector2(playerInCameraX - Screen.width/2, playerInCameraY - Screen.height/2);
+//		float angle = Vector2.Angle(from, to);
+//		Vector3 cross = Vector3.Cross(from, to);
+//		if (cross.z < 0)
+//			angle = 360 - angle;
+
+		if(playerInCameraX > -50 &&
+		   playerInCameraX < Screen.width + 50 &&
+		   playerInCameraY > - 50 &&
+		   playerInCameraY < Screen.height + 50) {
 		    screenLocation.SetActive(false);
 		} else {
 			screenLocation.SetActive(true);
