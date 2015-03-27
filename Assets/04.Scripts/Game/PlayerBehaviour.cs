@@ -128,7 +128,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public int Index;
 	public GameSituation situation = GameSituation.None;
-	public PlayerState crtState = PlayerState.Idle;
+	public PlayerState State = PlayerState.Idle;
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
 
@@ -408,7 +408,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		isJoystick = false;
 		SetNoAiTime();
-		if(crtState != ps)
+		if(State != ps)
 			AniState(ps);
 	}
 
@@ -666,7 +666,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CanUseState(PlayerState state)
 	{
-		if (state != PlayerState.FakeShoot && crtState != state)
+		if (state != PlayerState.FakeShoot && State != state)
 			return true;
 		else 
 		if(state == PlayerState.FakeShoot)
@@ -685,7 +685,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!CanUseState(state))
 			return;
 
-		crtState = state;
+		State = state;
 		
 		if (DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
@@ -793,8 +793,6 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
-					AniWaitTime = Time.time + 2.9f;
-					DunkTo();
 				}
 				break;
         }
@@ -859,7 +857,7 @@ public class PlayerBehaviour : MonoBehaviour
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
 				playerCollider.enabled = false;
 				if(OnDunkJump != null)
-					OnDunkJump(this);	
+					OnDunkJump(this);
 
 				break;
 			case "DunkBasket":
@@ -874,6 +872,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case "DunkFallBall":
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
+
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;
