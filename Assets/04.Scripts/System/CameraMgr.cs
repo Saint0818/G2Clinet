@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
+	//Game const
 	private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 25;
 	private float blankAera = 3.2f;

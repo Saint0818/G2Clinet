@@ -329,6 +329,11 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
+		if (Input.GetMouseButtonUp(0)) {
+			isPressShootBtn = false;
+			shootBtnTime = ButtonBTime;
+		}
+
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0)

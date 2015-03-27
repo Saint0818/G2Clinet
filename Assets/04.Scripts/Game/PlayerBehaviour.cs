@@ -430,6 +430,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (GameStart.Get.TestMode == GameTest.Dunk) {
 			if(dkPathGroup)
 				Destroy(dkPathGroup);
+
 			dkPathGroup = new GameObject();
 			dkPathGroup.name = "pathGroup";
 		}
@@ -450,6 +451,7 @@ public class PlayerBehaviour : MonoBehaviour
 			if(aniCurve.Dunk[i].Name == "Dunk")
 				playDunkCurve = aniCurve.Dunk[i];
 		}
+
 		isDunk = true;
 		isZmove = false;
 		dunkTime = 0;
@@ -473,6 +475,7 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
 				if(IsBallOwner)
 					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
+				
 				animator.SetBool("IsDunkInto", true); 
 			}
 	}
@@ -884,7 +887,7 @@ public class PlayerBehaviour : MonoBehaviour
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
 				playerCollider.enabled = false;
 				if(OnDunkJump != null)
-					OnDunkJump(this);	
+					OnDunkJump(this);
 
 				break;
 			case "DunkBasket":
@@ -899,6 +902,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case "DunkFallBall":
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
+
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;
