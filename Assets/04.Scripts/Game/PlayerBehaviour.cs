@@ -793,6 +793,7 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
+					DunkTo();
 				}
 				break;
         }
