@@ -275,12 +275,6 @@ public class UIGame : UIBase {
 		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY < 0) {
 			playerScreenPos.y = -510;
 		} else 
-		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY >= 0) {
-			playerScreenPos.y = 510;
-		}else 
-		if(playerScreenPos.y > 510) {
-			playerScreenPos.y = 510;
-		} else 
 		if(playerScreenPos.y < -510){
 			playerScreenPos.y = -510;
 		}
