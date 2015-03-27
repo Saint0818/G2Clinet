@@ -380,21 +380,21 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				if(animationSpeed <= MoveMinSpeed){
 					if(IsBallOwner)
-						Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.BallOwnerSpeedNormal;
+						Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
 					else{
 						if(IsDefence){
-							Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.DefSpeedNormal;
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedNormal;
 						}else
-							Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.AttackSpeedNormal;
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedNormal;
 					}						
 				}else{
 					if(IsBallOwner)
-						Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.BallOwnerSpeedup;
+						Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
 					else{
 						if(IsDefence)
-							Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.DefSpeedup;
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedup;
 						else
-							Translate = Vector3.forward * Time.deltaTime * GameStart.Get.BasicMoveSpeed * GameStart.Get.AttackSpeedup;
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedup;
 					}
 				}
 				
@@ -591,9 +591,9 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(PlayerState.Run);
 
 					if(Data.Speedup)
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameStart.Get.DefSpeedup * GameStart.Get.BasicMoveSpeed);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
 					else
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameStart.Get.DefSpeedNormal * GameStart.Get.BasicMoveSpeed);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * GameConst.BasicMoveSpeed);
 				}else{
 					rotateTo(MoveTarget.x, MoveTarget.y, 10);
 
@@ -604,14 +604,14 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(IsBallOwner){
 						if(Data.Speedup)
-							transform.Translate (Vector3.forward * Time.deltaTime * GameStart.Get.BallOwnerSpeedup * GameStart.Get.BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * GameConst.BasicMoveSpeed);
 						else
-							transform.Translate (Vector3.forward * Time.deltaTime * GameStart.Get.BallOwnerSpeedNormal * GameStart.Get.BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
 					}else{
 						if(Data.Speedup)
-							transform.Translate (Vector3.forward * Time.deltaTime  * GameStart.Get.AttackSpeedup * GameStart.Get.BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime  * GameConst.AttackSpeedup * GameConst.BasicMoveSpeed);
 						else
-							transform.Translate (Vector3.forward * Time.deltaTime  * GameStart.Get.AttackSpeedNormal * GameStart.Get.BasicMoveSpeed);
+							transform.Translate (Vector3.forward * Time.deltaTime  * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
 					}
 				}
 			}		

@@ -12,24 +12,7 @@ public class GameStart : MonoBehaviour {
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
 
-	//Game play move speed
-	public float BasicMoveSpeed = 1;
-	public float DefSpeedup = 8.2f;
-	public float DefSpeedNormal = 7.2f;
-	public float BallOwnerSpeedup = 7.5f;
-	public float BallOwnerSpeedNormal = 6.5f;
-	public float AttackSpeedup = 8;
-	public float AttackSpeedNormal = 7;
-
 	void Start(){
-		GameConst.BasicMoveSpeed = BasicMoveSpeed;
-		GameConst.DefSpeedup = DefSpeedup;
-		GameConst.DefSpeedNormal = BasicMoveSpeed;
-		GameConst.BallOwnerSpeedup = BallOwnerSpeedup;
-		GameConst.BallOwnerSpeedNormal = BallOwnerSpeedNormal;
-		GameConst.AttackSpeedup = AttackSpeedup;
-		GameConst.AttackSpeedNormal = AttackSpeedNormal;
-
 		#if UNITY_EDITOR
 		#if En
 		ParameterConst.GameLanguage = Language.en;

@@ -510,7 +510,7 @@ public class GameController : MonoBehaviour {
 			float dis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint[t].transform.position);
 
 			if(GameStart.Get.TestMode == GameTest.Dunk)
-				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform);
+				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
 			else
 			if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= 9f)
 				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
@@ -547,34 +547,15 @@ public class GameController : MonoBehaviour {
 			if (BallOwner.Team == TeamKind.Self) 
 				player = BallOwner;
 
-			int t = player.Team.GetHashCode();
-			if (isshoot) 
-				Shoot ();
-			else
-				player.AniState (PlayerState.FakeShoot, SceneMgr.Get.ShootPoint[t].transform.position);
+			if (player) {
+				int t = player.Team.GetHashCode();
+				if (isshoot) 
+					Shoot ();
+				else
+					player.AniState (PlayerState.FakeShoot, SceneMgr.Get.ShootPoint[t].transform.position);
+			}
 		}
     }
-	/*
-	public void DoShoot(bool isshoot)
-	{
-		Joysticker.SetNoAiTime();	
-		if (IsStart && Joysticker && Joysticker == BallOwner) {
-			if (isshoot)
-			{
-				if(GameStart.Get.TestMode == GameTest.Dunk)
-					Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
-				else{
-					if(Vector3.Distance(Joysticker.gameObject.transform.position, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position) < 12f)
-						Joysticker.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
-					else
-						Shoot ();
-				}
-			}
-			else
-				Joysticker.AniState (PlayerState.FakeShoot, true, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position.z);
-		}
-	}*/
-
     
     public bool OnDunkInto(PlayerBehaviour player)
 	{
@@ -1164,10 +1145,6 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	string AA = "";
-	string BB = "";
-	string CC = "";
-
 	public bool DefMove(PlayerBehaviour player, bool speedup = false){
 		if (player.DefPlayer != null) {
 			if(!player.DefPlayer.IsMove && player.DefPlayer.WaitMoveTime == 0){
@@ -1535,6 +1512,57 @@ public class GameController : MonoBehaviour {
         return Result;
     }
 
+	private bool CheckAttack(ref PlayerBehaviour Npc){
+		if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 16.4)
+			return false;
+		else 
+		if(Npc.Team == TeamKind.Npc && Npc.transform.position.z < -16.4)
+			return false;
+		else
+			return true;
+	}
+	
+	//Temp
+	public Vector3 EditGetPosition(int index){
+		if (PlayerList.Count > index) {
+			return PlayerList[index].transform.position;		
+		}else
+			return Vector3.zero;
+	}
+	
+	public void EditSetMove(TActionPosition ActionPosition, int index){
+		if (PlayerList.Count > index) {
+			TMoveData data = new TMoveData(0);
+			data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
+			data.Speedup = ActionPosition.Speedup;
+			PlayerList[index].TargetPos = data;
+		}
+	}
+	
+	public void EditSetJoysticker(int index){
+		if (PlayerList.Count > index) {
+			Joysticker = PlayerList[index];		
+		}
+	}
+	
+	public void Reset(){
+		PlayerList [0].transform.position = new Vector3 (0, 0, 0);
+		PlayerList [1].transform.position = new Vector3 (5, 0, -2);
+		PlayerList [2].transform.position = new Vector3 (-5, 0, -2);
+		
+		PlayerList [3].transform.position = new Vector3 (0, 0, 5);
+		PlayerList [4].transform.position = new Vector3 (5, 0, 2);
+		PlayerList [5].transform.position = new Vector3 (-5, 0, 2);
+		
+		situation = GameSituation.Opening;
+		BallOwner = null;
+		SceneMgr.Get.RealBall.transform.parent = null;
+		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+		SceneMgr.Get.RealBallRigidbody.isKinematic = false;
+		SceneMgr.Get.RealBallRigidbody.useGravity = true;
+		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
+	}
+
 	public bool IsShooting {
 		get{
 			for(int i = 0; i < PlayerList.Count; i++){
@@ -1566,55 +1594,5 @@ public class GameController : MonoBehaviour {
 			
 			return false;
 		}
-	}
-
-	private bool CheckAttack(ref PlayerBehaviour Npc){
-		if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 16.4)
-			return false;
-		else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z < -16.4)
-			return false;
-		else
-			return true;
-	}
-
-	//Temp
-	public Vector3 EditGetPosition(int index){
-		if (PlayerList.Count > index) {
-			return PlayerList[index].transform.position;		
-		}else
-			return Vector3.zero;
-	}
-	
-	public void EditSetMove(TActionPosition ActionPosition, int index){
-		if (PlayerList.Count > index) {
-			TMoveData data = new TMoveData(0);
-			data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
-			data.Speedup = ActionPosition.Speedup;
-			PlayerList[index].TargetPos = data;
-		}
-	}
-
-	public void EditSetJoysticker(int index){
-		if (PlayerList.Count > index) {
-			Joysticker = PlayerList[index];		
-		}
-	}
-
-	public void Reset(){
-		PlayerList [0].transform.position = new Vector3 (0, 0, 0);
-		PlayerList [1].transform.position = new Vector3 (5, 0, -2);
-		PlayerList [2].transform.position = new Vector3 (-5, 0, -2);
-		
-		PlayerList [3].transform.position = new Vector3 (0, 0, 5);
-		PlayerList [4].transform.position = new Vector3 (5, 0, 2);
-		PlayerList [5].transform.position = new Vector3 (-5, 0, 2);
-		
-		situation = GameSituation.Opening;
-		BallOwner = null;
-		SceneMgr.Get.RealBall.transform.parent = null;
-		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
-		SceneMgr.Get.RealBallRigidbody.isKinematic = false;
-		SceneMgr.Get.RealBallRigidbody.useGravity = true;
-		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
 	}
 }

@@ -5,10 +5,11 @@ public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
 
-	private float ButtonBTime = 0.09f;
+	//Game const
+	private float ButtonBTime = 0.15f; //Fake to shoot time
+	
 	private float shootBtnTime = 0;
 	private float homeHintTime = -1;
-
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
@@ -132,6 +133,7 @@ public class UIGame : UIBase {
 			GameController.Get.DoShoot (false);
 			shootBtnTime = ButtonBTime;
 		}
+
 		isPressShootBtn = state;
 	}
 	
@@ -303,6 +305,7 @@ public class UIGame : UIBase {
 		scoresLabel[0].text = "0";
 		scoresLabel[1].text = "0";
 	}
+
 	void FixedUpdate()
 	{
 		if (isPressShootBtn && shootBtnTime > 0) {
@@ -310,11 +313,8 @@ public class UIGame : UIBase {
 			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true);
 		}
-	}
 
-	void Update() {
 		showHomeHint();
 		judgePlayerScreenPosition();
-
 	}
 }
