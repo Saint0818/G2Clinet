@@ -407,7 +407,6 @@ public class GameController : MonoBehaviour {
 				for (int i = 0; i < PlayerList.Count; i ++) {
 					PlayerBehaviour npc = PlayerList[i];
 					if(npc.Team == GetBall.Team){
-						
 						TActionPosition[] ap = null;
 						if(npc.Index == 0)
 							ap = pos.PosAy1;
@@ -1194,11 +1193,11 @@ public class GameController : MonoBehaviour {
 							dis2 = Vector2.Distance(TeeBackPosAy[player.DefPlayer.Index], 
 							                        new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						
-						if(dis2 <= ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance){
-							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance, false, true);
+						if(dis2 <= GameConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance){
+							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, GameConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance, false, true);
 							if(p != null)
 								data2.DefPlayer = p;
-							else if(getDis(ref player, ref player.DefPlayer) <= ParameterConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance)
+							else if(getDis(ref player, ref player.DefPlayer) <= GameConst.AIlevelAy[player.DefPlayer.AILevel].DefDistance)
 								data2.DefPlayer = player;
 							
 							if(data2.DefPlayer != null){

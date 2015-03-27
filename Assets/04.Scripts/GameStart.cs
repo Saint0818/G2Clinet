@@ -8,8 +8,11 @@ public class GameStart : MonoBehaviour {
 
 	public static GameStart Get = null;
 	private UnibillDemo unibillDemo = null;
+
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
+
+	//Game play move speed
 	public float BasicMoveSpeed = 1;
 	public float DefSpeedup = 8.2f;
 	public float DefSpeedNormal = 7.2f;
@@ -19,13 +22,21 @@ public class GameStart : MonoBehaviour {
 	public float AttackSpeedNormal = 7;
 
 	void Start(){
+		GameConst.BasicMoveSpeed = BasicMoveSpeed;
+		GameConst.DefSpeedup = DefSpeedup;
+		GameConst.DefSpeedNormal = BasicMoveSpeed;
+		GameConst.BallOwnerSpeedup = BallOwnerSpeedup;
+		GameConst.BallOwnerSpeedNormal = BallOwnerSpeedNormal;
+		GameConst.AttackSpeedup = AttackSpeedup;
+		GameConst.AttackSpeedNormal = AttackSpeedNormal;
+
 		#if UNITY_EDITOR
 		#if En
 		ParameterConst.GameLanguage = Language.en;
 		#endif
 		
 		#if zh_TW
-		ParameterConst.GameLanguage = Language.zh_TW;
+		GameConst.GameLanguage = Language.zh_TW;
 		#endif
 		#else
 		switch (Application.systemLanguage) {
@@ -44,9 +55,10 @@ public class GameStart : MonoBehaviour {
 		if (PlayerPrefs.HasKey ("UserLanguage")) {
 			int temp = Convert.ToInt16(PlayerPrefs.GetString("UserLanguage"));
 			if(temp == Language.en.GetHashCode())
-				ParameterConst.GameLanguage = Language.en;
-			else if(temp == Language.zh_TW.GetHashCode())
-				ParameterConst.GameLanguage = Language.zh_TW;
+				GameConst.GameLanguage = Language.en;
+			else 
+			if(temp == Language.zh_TW.GetHashCode())
+				GameConst.GameLanguage = Language.zh_TW;
 		}
 		
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
@@ -65,7 +77,7 @@ public class GameStart : MonoBehaviour {
 		FacebookAPI.Init();
 		ModelManager.Init ();
 		SceneMgr.Get.ChangeLevel (3);
-		ParameterConst.Init ();
+		GameConst.Init ();
 	}
 
 	private void initResolution(){

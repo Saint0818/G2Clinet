@@ -20,10 +20,18 @@ public static class URLConst {
 	public const string deviceLogin = FileManager.URL + "devicelogin";
 }
 
-public class ParameterConst
+public class GameConst
 {
 	public static Language GameLanguage = Language.zh_TW;
 	public static TAIlevel [] AIlevelAy = new TAIlevel[10];
+
+	public static float BasicMoveSpeed = 1;
+	public static float DefSpeedup = 8.2f;
+	public static float DefSpeedNormal = 7.2f;
+	public static float BallOwnerSpeedup = 7.5f;
+	public static float BallOwnerSpeedNormal = 6.5f;
+	public static float AttackSpeedup = 8;
+	public static float AttackSpeedNormal = 7;
 
 	public static void Init(){
 		AIlevelAy [0].ProactiveRate = 5;

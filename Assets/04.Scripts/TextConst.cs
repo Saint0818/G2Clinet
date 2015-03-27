@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
@@ -20,7 +20,7 @@ public static class TextConst
 
 	public static string S (int index){
 		if(GameText.ContainsKey(index))
-			return GameText[index][ParameterConst.GameLanguage.GetHashCode()];
+			return GameText[index][GameConst.GameLanguage.GetHashCode()];
 		else
 			return "";
 	} 
