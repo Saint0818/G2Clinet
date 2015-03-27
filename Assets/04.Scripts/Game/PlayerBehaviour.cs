@@ -18,7 +18,8 @@ public enum PlayerState
     Dribble = 7,    
     Dunk = 8,   
     Fall = 9,   
-    Hookshot = 10,   
+    Hookshot = 10, 
+	BlockCatch = 11,
     Layup = 12, 
     Pass = 13,  
     Steal = 14, 
@@ -55,6 +56,7 @@ public static class ActionFlag{
 	public const int IsRun = 1;
 	public const int IsDefence = 2;
 	public const int IsBlock = 3;
+	public const int IsBlockCatch = 4;
 	public const int IsDribble = 5;
 	public const int IsSteal = 6;
 	public const int IsPass = 7;
@@ -98,7 +100,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public float[] DunkHight = new float[2]{3, 5};
 	private const float MoveCheckValue = 0.5f;
 	private const int ChangeToAI = 4;
-	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle", "IsFakeShoot"};
+	public static string[] AnimatorStates = new string[]{"", "IsRun", "IsDefence","IsBlock", "IsBlockCatch", "IsDribble", "IsSteal", "IsPass", "IsShoot", "IsCatcher", "IsDunk", "IsShootIdle", "IsFakeShoot"};
 
 	private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -128,7 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public TeamKind Team;
 	public int Index;
 	public GameSituation situation = GameSituation.None;
-	public PlayerState State = PlayerState.Idle;
+	public PlayerState crtState = PlayerState.Idle;
 	public GamePostion Postion = GamePostion.G;
 	public Transform [] DefPointAy = new Transform[8];
 
@@ -182,6 +184,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void Awake()
 	{
+		gameObject.layer = LayerMask.NameToLayer ("Player");
+		gameObject.tag = "Player";
+
 		animator = gameObject.GetComponent<Animator>();
 		playerCollider = gameObject.GetComponent<Collider>();
 		PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -192,16 +197,15 @@ public class PlayerBehaviour : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		CalculationDunkMove ();
-		CalculationSmoothSpeed ();
-//		CalculationAirResistance();
-		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+		CalculationPlayerHight ();
+		CalculationAnimatorSmoothSpeed ();
 
-		if (gameObject.transform.localPosition.y > 0.2f) {
-			playerCollider.enabled = false;
-		} else 
-		if(playerCollider.enabled == false)
-			playerCollider.enabled = true;
+		switch (crtState) {
+			case PlayerState.Dunk:
+			case PlayerState.DunkBasket:
+				CalculationDunkMove ();
+			break;
+		}
 		
 		if(WaitMoveTime > 0 && Time.time >= WaitMoveTime)
 			WaitMoveTime = 0;
@@ -332,7 +336,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	private void CalculationSmoothSpeed()
+	private void CalculationAnimatorSmoothSpeed()
 	{
 		if (smoothDirection != 0) {
 			if(smoothDirection == 1)
@@ -354,6 +358,16 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 			animator.SetFloat("MoveSpeed", animationSpeed);
 		}
+	}
+
+	private void CalculationPlayerHight()
+	{
+		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
+		if (gameObject.transform.localPosition.y > 0.2f) {
+			playerCollider.enabled = false;
+		} else 
+			if(playerCollider.enabled == false)
+				playerCollider.enabled = true;
 	}
 
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
@@ -407,7 +421,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		isJoystick = false;
 		SetNoAiTime();
-		if(State != ps)
+		if(crtState != ps)
 			AniState(ps);
 	}
 
@@ -416,7 +430,6 @@ public class PlayerBehaviour : MonoBehaviour
 		if (GameStart.Get.TestMode == GameTest.Dunk) {
 			if(dkPathGroup)
 				Destroy(dkPathGroup);
-
 			dkPathGroup = new GameObject();
 			dkPathGroup.name = "pathGroup";
 		}
@@ -437,7 +450,6 @@ public class PlayerBehaviour : MonoBehaviour
 			if(aniCurve.Dunk[i].Name == "Dunk")
 				playDunkCurve = aniCurve.Dunk[i];
 		}
-
 		isDunk = true;
 		isZmove = false;
 		dunkTime = 0;
@@ -461,7 +473,6 @@ public class PlayerBehaviour : MonoBehaviour
 				gameObject.transform.position = SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position;
 				if(IsBallOwner)
 					SceneMgr.Get.RealBall.transform.position = SceneMgr.Get.ShootPoint[Team.GetHashCode()].transform.position;
-				
 				animator.SetBool("IsDunkInto", true); 
 			}
 	}
@@ -675,7 +686,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool CanUseState(PlayerState state)
 	{
-		if (state != PlayerState.FakeShoot && State != state)
+		if (state != PlayerState.FakeShoot && crtState != state)
 			return true;
 		else 
 		if(state == PlayerState.FakeShoot)
@@ -693,7 +704,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!CanUseState(state))
 			return;
 
-		State = state;
+		crtState = state;
 		
 		if (DorotateTo)
 			rotateTo(lookAtX, lookAtZ);
@@ -773,6 +784,12 @@ public class PlayerBehaviour : MonoBehaviour
 	                }
 
 	                break;
+			case PlayerState.BlockCatch:
+				if (!CheckAction(ActionFlag.IsBlockCatch)){
+					AddActionFlag(ActionFlag.IsBlockCatch);
+					animator.SetBool(AnimatorStates[ActionFlag.IsBlockCatch], true);
+					}
+				break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
 		        {
@@ -801,6 +818,7 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
+					AniWaitTime = Time.time + 2.9f;
 					DunkTo();
 				}
 				break;
@@ -866,7 +884,7 @@ public class PlayerBehaviour : MonoBehaviour
 				SceneMgr.Get.SetBallState(PlayerState.Dunk);
 				playerCollider.enabled = false;
 				if(OnDunkJump != null)
-					OnDunkJump(this);
+					OnDunkJump(this);	
 
 				break;
 			case "DunkBasket":
@@ -881,7 +899,6 @@ public class PlayerBehaviour : MonoBehaviour
 			case "DunkFallBall":
 				if(OnDunkBasket != null)
 					OnDunkBasket(this);
-
 				break;
 			case "DunkFall":
 				PlayerRigidbody.useGravity = true;
