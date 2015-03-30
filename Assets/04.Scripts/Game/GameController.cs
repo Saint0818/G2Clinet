@@ -599,8 +599,8 @@ public class GameController : MonoBehaviour {
     private void Pass(PlayerBehaviour player) {
 		if (BallOwner) {
 			Catcher = player;
-			Catcher.AniState(PlayerState.Catcher, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
-			BallOwner.AniState(PlayerState.Pass, true, Catcher.transform.position.x, Catcher.transform.position.z);
+			Catcher.AniState(PlayerState.Catcher, BallOwner.transform.position);
+			BallOwner.AniState(PlayerState.Pass, Catcher.transform.position);
 		}
 	}
     
@@ -657,7 +657,7 @@ public class GameController : MonoBehaviour {
 		if (IsStart && Joysticker) {
 			Joysticker.SetNoAiTime ();	
 			if (BallOwner && BallOwner.Team != Joysticker.Team) {
-				Joysticker.AniState (PlayerState.Steal, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+				Joysticker.AniState (PlayerState.Steal, BallOwner.transform.position);
 			} else
 				Joysticker.AniState (PlayerState.Steal);
 		}
@@ -721,10 +721,10 @@ public class GameController : MonoBehaviour {
 		if (IsStart) {
 			Joysticker.SetNoAiTime ();		
 			if (Shooter)
-				Joysticker.AniState (PlayerState.Block, true, Shooter.transform.position.x, Shooter.transform.position.z);
+				Joysticker.AniState (PlayerState.Block, Shooter.transform.position);
 			else
 			if (BallOwner)
-				Joysticker.AniState (PlayerState.Block, true, BallOwner.transform.position.x, BallOwner.transform.position.z);
+				Joysticker.AniState (PlayerState.Block, BallOwner.transform.position);
             else
 				Joysticker.AniState (PlayerState.Block);
         }			
@@ -803,7 +803,7 @@ public class GameController : MonoBehaviour {
 				//Dunk shoot shoot3 pass
 				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 				if(ShootPointDis <= 9f && dunkRate < 30 && CheckAttack(ref Npc)){
-					Npc.AniState (PlayerState.Dunk, true, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position.z);
+					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 				}else 
 				if(ShootPointDis <= 7f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
 					Shoot();
@@ -811,7 +811,7 @@ public class GameController : MonoBehaviour {
 				if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
 					Shoot();
 				}else 
-				if(passRate < 0 && CoolDownPass == 0){
+				if(passRate < 20 && CoolDownPass == 0){
 					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
 					if(partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0){
@@ -881,9 +881,9 @@ public class GameController : MonoBehaviour {
 						if(Dis <= PushPlayerDis && pushRate < 50){
 							
 						}else 
-						if(Dis <= StealBallDis && stealRate < 0 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+						if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
 							Npc.CoolDownSteal = Time.time + 3;
-							Npc.AniState(PlayerState.Steal, true, BallOwner.gameObject.transform.localPosition.x, BallOwner.gameObject.transform.localPosition.z);
+							Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position);
 						}
 					}
 				}
@@ -892,7 +892,7 @@ public class GameController : MonoBehaviour {
 					if (Shooter) {
 						Dis = getDis(ref Npc, ref Shooter);
 						if(Dis <= StealBallDis){
-							Npc.AniState(PlayerState.Block, true, Shooter.transform.localPosition.x, Shooter.transform.localPosition.z);
+							Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
 						}
 					} else if (BallOwner) {
 						bool flag = false;
@@ -906,7 +906,7 @@ public class GameController : MonoBehaviour {
 						if (flag) {
 							Dis = getDis(ref Npc, ref BallOwner);
 							if(Dis <= 5){
-								Npc.AniState(PlayerState.Block, true, BallOwner.transform.localPosition.x, BallOwner.transform.localPosition.z);
+								Npc.AniState(PlayerState.Block, BallOwner.transform.position);
 							}
 						}
 					}
@@ -1064,7 +1064,7 @@ public class GameController : MonoBehaviour {
 					if (getDis(ref Npc, ref Npc2) <= BlockDis) {
 						int Rate = Random.Range(0, 100) + 1;
 						if(Npc.Postion == Npc2.Postion || Rate <= 50){
-							Npc2.AniState(PlayerState.Block, true, Npc.transform.position.x, Npc.transform.position.z);
+							Npc2.AniState(PlayerState.Block, Npc.transform.position);
 						}
 					}
 				}

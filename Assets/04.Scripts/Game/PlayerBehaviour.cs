@@ -582,7 +582,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if(Data.DefPlayer != null){
 						float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
 						float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-						if(Data.LookTarget == null || (dis > 10 && dis2 >= 2))
+						if(Data.LookTarget == null || dis > GameConst.TreePointDistance)
 							rotateTo(MoveTarget.x, MoveTarget.y);
 						else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -590,9 +590,9 @@ public class PlayerBehaviour : MonoBehaviour
 						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
 						dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
 
-						if(dis <= 10){
+						if(dis <= GameConst.TreePointDistance){
 							if(dis2 < dis)
-								AniState(PlayerState.MovingDefence);
+								AniState(PlayerState.MovingDefence);							
 							else
 								AniState(PlayerState.RunningDefence);
 						}else
@@ -697,18 +697,19 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void AniState(PlayerState state, Vector3 v) {
-		AniState(state, true, v.x, v.z);
+		if (!CanUseState(state))
+			return;
+
+		rotateTo(v.x, v.z);
+		AniState(state);
 	}
 
-	public void AniState(PlayerState state, bool DorotateTo = false, float lookAtX = -1, float lookAtZ = -1)
+	public void AniState(PlayerState state)
 	{
 		if (!CanUseState(state))
 			return;
 
 		crtState = state;
-		
-		if (DorotateTo)
-			rotateTo(lookAtX, lookAtZ);
 		
 		switch (state) {
 			case PlayerState.Idle:

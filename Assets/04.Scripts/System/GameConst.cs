@@ -33,6 +33,7 @@ public class GameConst
 	public static float BallOwnerSpeedNormal = 6.5f;
 	public static float AttackSpeedup = 8;
 	public static float AttackSpeedNormal = 7;
+	public static float TreePointDistance = 12;
 
 	public static void Init(){
 		AIlevelAy [0].ProactiveRate = 5;
