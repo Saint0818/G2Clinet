@@ -364,11 +364,11 @@ public class PlayerBehaviour : MonoBehaviour
 	private void CalculationPlayerHight()
 	{
 		animator.SetFloat ("CrtHight", gameObject.transform.localPosition.y);
-		if (gameObject.transform.localPosition.y > 0.2f) {
-			playerCollider.enabled = false;
-		} else 
-			if(playerCollider.enabled == false)
-				playerCollider.enabled = true;
+//		if (gameObject.transform.localPosition.y > 0.2f) {
+//			playerCollider.enabled = false;
+//		} else 
+//			if(playerCollider.enabled == false)
+//				playerCollider.enabled = true;
 	}
 
 	public void OnJoystickMove(MovingJoystick move, PlayerState ps)
@@ -707,8 +707,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void AniState(PlayerState state)
 	{
-		bool retuenFlag = false;
-
 		if (!CanUseState(state))
 			return;
 		
@@ -828,6 +826,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
 		   			Vector3.Distance (SceneMgr.Get.ShootPoint [Team.GetHashCode ()].transform.position, gameObject.transform.position) < canDunkDis)
 				{
+					DelActionFlag(ActionFlag.IsPass);
+					animator.SetBool(AnimatorStates[ActionFlag.IsPass], false);
 					AddActionFlag(ActionFlag.IsDunk);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDunk], true);
 					AniWaitTime = Time.time + 2.9f;
@@ -923,6 +923,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				break;
 			case "DunkFall":
+				playerCollider.enabled = true;
 				PlayerRigidbody.useGravity = true;
 				PlayerRigidbody.isKinematic = false;
 				break;
