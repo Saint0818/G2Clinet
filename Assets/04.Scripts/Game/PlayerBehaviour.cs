@@ -1009,6 +1009,10 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return CheckAction(ActionFlag.IsShoot);}
 	}
 
+	public bool IsDunk{
+		get{return CheckAction(ActionFlag.IsDunk);}
+	}
+
 	public bool IsFakeShoot{
 		get{return CheckAction(ActionFlag.IsFakeShoot);}
 	}

@@ -590,6 +590,7 @@ public class GameController : MonoBehaviour {
 		if(player == BallOwner)
 		{
 			Shooter = player;
+			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position);
 			return true;
 		}
 		else
@@ -813,16 +814,18 @@ public class GameController : MonoBehaviour {
 			if(Npc == BallOwner){
 				//Dunk shoot shoot3 pass
 				int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-				if(ShootPointDis <= 9f && dunkRate < 30 && CheckAttack(ref Npc)){
+				if(ShootPointDis <= GameConst.DunkDistance && dunkRate < 30 && CheckAttack(ref Npc)){
 					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 				}else 
-				if(ShootPointDis <= 7f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
+				if(ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
+//					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 					Shoot();
 				}else 
-				if(ShootPointDis <= 10.5f && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
+				if(ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
+//					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 					Shoot();
 				}else 
-				if(passRate < 20 && CoolDownPass == 0){
+				if(passRate < 20 && CoolDownPass == 0 && !IsShooting && !IsDunk){
 					PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
 					if(partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0){
@@ -1420,7 +1423,7 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int score = 2;
-			if(ShootDis >= 10)
+			if(ShootDis >= GameConst.TreePointDistance)
 				score = 3;
 			else if(Shooter != null){
 				if(getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position) >= 10)
@@ -1593,6 +1596,17 @@ public class GameController : MonoBehaviour {
 					return true;
 			}
 
+			return false;
+		}
+	}
+
+	public bool IsDunk {
+		get{
+			for(int i = 0; i < PlayerList.Count; i++){
+				if(PlayerList[i].IsDunk)
+					return true;
+			}
+			
 			return false;
 		}
 	}
