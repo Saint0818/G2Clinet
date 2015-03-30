@@ -10,6 +10,14 @@ public class TDunkCurve {
 	public AnimationCurve aniCurve = new AnimationCurve();
 }
 
+[System.Serializable]
+public class TBlockCurve {
+	public string Name = "Curve_Name";
+	public float LifeTime = 1.8f;
+	public AnimationCurve aniCurve = new AnimationCurve();
+}
+
 public class AniCurve : MonoBehaviour {
 	public TDunkCurve[] Dunk;
+	public TBlockCurve[] Block;
 }

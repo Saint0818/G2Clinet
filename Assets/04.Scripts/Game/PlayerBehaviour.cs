@@ -95,6 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnBlocking = null;
 	public OnPlayerAction OnDunkBasket = null;
 	public OnPlayerAction OnDunkJump = null;
+	public OnPlayerAction OnBlockMoment = null;
 	
     public Vector3 Translate;
 	public float[] DunkHight = new float[2]{3, 5};
@@ -706,10 +707,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void AniState(PlayerState state)
 	{
+		bool retuenFlag = false;
+
 		if (!CanUseState(state))
 			return;
-
-		crtState = state;
 		
 		switch (state) {
 			case PlayerState.Idle:
@@ -771,6 +772,8 @@ public class PlayerBehaviour : MonoBehaviour
 					animator.SetBool(AnimatorStates[ActionFlag.IsSteal], true);
 					AddActionFlag(ActionFlag.IsSteal);
 				}
+				else 
+					return;
 				break;
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass)){
@@ -778,14 +781,17 @@ public class PlayerBehaviour : MonoBehaviour
 					AddActionFlag(ActionFlag.IsPass);
 					animator.SetBool(AnimatorStates[ActionFlag.IsPass], true);
 				}
+				else 
+					return;
 				break;
 			case PlayerState.Block:
 				if (!CheckAction(ActionFlag.IsBlock)){
 	                    AddActionFlag(ActionFlag.IsBlock);
 	                    animator.SetBool(AnimatorStates[ActionFlag.IsBlock], true);
 	                }
-
-	                break;
+				else 
+					return;
+				break;
 			case PlayerState.BlockCatch:
 				if (!CheckAction(ActionFlag.IsBlockCatch)){
 					AddActionFlag(ActionFlag.IsBlockCatch);
@@ -804,7 +810,9 @@ public class PlayerBehaviour : MonoBehaviour
 					animator.SetBool(AnimatorStates[ActionFlag.IsRun], false);
 					animator.SetBool(AnimatorStates[ActionFlag.IsDribble], false);
 		        }
-		        break;
+				else 
+					return;
+				break;
 			case PlayerState.FakeShoot:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
 				{
@@ -813,6 +821,8 @@ public class PlayerBehaviour : MonoBehaviour
 					animator.SetBool(AnimatorStates[ActionFlag.IsShoot], true);
 					animator.SetBool(AnimatorStates[ActionFlag.IsFakeShoot], true);
 				}
+				else 
+					return;
 				break;
 			case PlayerState.Dunk:
 				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
@@ -823,9 +833,13 @@ public class PlayerBehaviour : MonoBehaviour
 					AniWaitTime = Time.time + 2.9f;
 					DunkTo();
 				}
+				else 
+					return;
 				break;
         }
-    }
+
+		crtState = state;
+	}
     
     public void AnimationEvent(string animationName)
     {
@@ -845,6 +859,11 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsShoot);
 				DelActionFlag(ActionFlag.IsDribble);
 				DelActionFlag(ActionFlag.IsRun);
+				break;
+			case "BlockMoment":
+				if(OnBlockMoment != null)
+					OnBlockMoment(this);
+
 				break;
 			case "BlockJump":
 				if (OnBlockJump != null)

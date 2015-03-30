@@ -297,6 +297,7 @@ public class GameController : MonoBehaviour {
 			PlayerList[i].OnShoot = OnShoot;
 			PlayerList[i].OnPass = OnPass;
 			PlayerList[i].OnSteal = OnSteal;
+			PlayerList[i].OnBlockMoment = OnBlockMoment;
 			PlayerList[i].OnBlockJump = OnBlockJump;
 			PlayerList[i].OnBlocking = OnBlocking;
 			PlayerList[i].OnDunkJump = OnDunkJump;
@@ -665,6 +666,16 @@ public class GameController : MonoBehaviour {
 
     private void Block(PlayerBehaviour player) {
 		
+	}
+
+	public bool OnBlockMoment(PlayerBehaviour player)
+	{
+		if (player) {
+			DefBlock (ref player);
+			return true;
+		}
+		else
+			return false;
 	}
     
     public bool OnBlockJump(PlayerBehaviour player) {
@@ -1061,6 +1072,10 @@ public class GameController : MonoBehaviour {
 				PlayerBehaviour Npc2 = PlayerList[i];
 
 				if (Npc2 != Npc && Npc2.Team != Npc.Team && !Npc2.IsBlock) {
+
+					if(GameStart.Get.TestMode == GameTest.Block)
+						Npc2.AniState(PlayerState.Block, Npc.transform.position);
+					else
 					if (getDis(ref Npc, ref Npc2) <= BlockDis) {
 						int Rate = Random.Range(0, 100) + 1;
 						if(Npc.Postion == Npc2.Postion || Rate <= 50){
