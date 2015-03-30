@@ -484,65 +484,71 @@ public class PlayerBehaviour : MonoBehaviour
 		DelActionFlag (ActionFlag.IsPass);
     }
 
+	private int MinIndex (float [] floatAy) {
+		int Result = 0;
+		float Min = floatAy[0];
+		
+		for (int i = 1; i < floatAy.Length; i++) {
+			if (floatAy[i] < Min) {
+				Min = floatAy[i];
+				Result = i;
+			}
+		}
+		
+		return Result;
+	}
+
+	private Vector2 GetMoveTarget (TMoveData Data){
+		Vector2 Result = Vector2.zero;
+
+		if(Data.DefPlayer != null){
+			float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+			float [] disAy = new float[4];
+			for(int i = 0; i < disAy.Length; i++)
+				disAy[i] = Vector3.Distance(Data.DefPlayer.DefPointAy[i].position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+
+			int mIndex = MinIndex(disAy);
+
+			if(mIndex >= 0 && mIndex < disAy.Length){
+				Result = new Vector2(Data.DefPlayer.DefPointAy[mIndex].position.x, Data.DefPlayer.DefPointAy[mIndex].position.z);					
+				
+				if(GameConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
+					Result = new Vector2(Data.DefPlayer.DefPointAy[mIndex + 4].position.x, Data.DefPlayer.DefPointAy[mIndex + 4].position.z);
+			}
+		}else if(Data.FollowTarget != null)
+			Result = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
+		else
+			Result = Data.Target;
+
+		return Result;
+	}
+
 	public void MoveTo(TMoveData Data, bool First = false){
 		if (CanMove && WaitMoveTime == 0) {
-			Vector2 MoveTarget = Vector2.zero;
-			float dis = 0;
-			if(Data.DefPlayer != null){
-				Vector3	ShootPoint = SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position;				
-				float dis1 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position, ShootPoint);
-				float dis2 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position, ShootPoint);
-				float dis3 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position, ShootPoint);
-				float dis4 = Vector3.Distance(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position, ShootPoint);
+			Vector2 MoveTarget = GetMoveTarget(Data);
 
-				dis = Vector3.Distance(transform.position, ShootPoint);
-
-				if(dis1 <= dis2 && dis1 <= dis3 && dis1 <= dis4){
-					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Front.GetHashCode()].position.z);					
-		
-					if(GameConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
-						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position.z);
-				}else 
-				if(dis2 <= dis1 && dis2 <= dis3 && dis2 <= dis4){
-					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Back.GetHashCode()].position.z);
-
-					if(GameConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
-						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.BackSteal.GetHashCode()].position.z);
-				}else 
-				if(dis3 <= dis1 && dis3 <= dis2 && dis3 <= dis4){
-					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Right.GetHashCode()].position.z);
-
-					if(GameConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
-						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.RightSteal.GetHashCode()].position.z);
-				}else 
-				if(dis4 <= dis1 && dis4 <= dis2 && dis4 <= dis3){
-					MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.Left.GetHashCode()].position.z);
-
-					if(GameConst.AIlevelAy[AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
-						MoveTarget = new Vector2(Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.x, Data.DefPlayer.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position.z);
-				}
-			}else 
-			if(Data.FollowTarget != null){
-				MoveTarget = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
-			}else
-				MoveTarget = Data.Target;
-
-			if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && 
-			     gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
-			    (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && 
-			 	 gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue)) {
+			if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
+			    (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue)) {
 				MoveTurn = 0;
 				DelActionFlag(ActionFlag.IsRun);
 
-				if(!IsDefence){
+				if(IsDefence){
+					WaitMoveTime = 0;
+					if(Data.LookTarget == null)
+						rotateTo(MoveTarget.x, MoveTarget.y);
+					else
+						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+					
+					AniState(PlayerState.Defence);							
+				}else{
 					if(!IsBallOwner)
 						AniState(PlayerState.Idle);
-
+					
 					if(First)
 						WaitMoveTime = 0;
 					else 
-					if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
-						WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
+						if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+							WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
 					
 					if(IsBallOwner){
 						if(Team == TeamKind.Self)
@@ -554,15 +560,7 @@ public class PlayerBehaviour : MonoBehaviour
 							rotateTo(MoveTarget.x, MoveTarget.y);
 						else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-					}							
-				}else{
-					WaitMoveTime = 0;
-					if(Data.LookTarget == null)
-						rotateTo(MoveTarget.x, MoveTarget.y);
-					else
-						rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-
-					AniState(PlayerState.Defence);
+					}
 				}
 
 				if(Data.MoveFinish != null)
@@ -582,27 +580,27 @@ public class PlayerBehaviour : MonoBehaviour
 			}else{
 				if(IsDefence){
 					if(Data.DefPlayer != null){
-						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+						float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
 						float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
 						if(Data.LookTarget == null || (dis > 10 && dis2 >= 2))
 							rotateTo(MoveTarget.x, MoveTarget.y);
 						else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-					}else
-						rotateTo(MoveTarget.x, MoveTarget.y);
 
-					if(Data.DefPlayer != null){
 						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
+						dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint[Data.DefPlayer.Team.GetHashCode()].transform.position);
 
 						if(dis <= 10){
-							//Move
-							AniState(PlayerState.MovingDefence);
-						}else{
-							//Run
+							if(dis2 < dis)
+								AniState(PlayerState.MovingDefence);
+							else
+								AniState(PlayerState.RunningDefence);
+						}else
 							AniState(PlayerState.RunningDefence);
-						}
-					}else
+					}else{
+						rotateTo(MoveTarget.x, MoveTarget.y);
 						AniState(PlayerState.Run);
+					}
 
 					if(Data.Speedup)
 						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
