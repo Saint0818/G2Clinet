@@ -1117,7 +1117,8 @@ public class GameController : MonoBehaviour {
 					TMoveData data = new TMoveData(0);
 					data.FollowTarget = SceneMgr.Get.RealBall.transform;
 					A.TargetPos = data;
-				}
+				}else
+					Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 			}else if(!Npc.IsMove && Npc.WaitMoveTime == 0){
 				TMoveData data = new TMoveData(0);
 				data.FollowTarget = SceneMgr.Get.RealBall.transform;
@@ -1130,7 +1131,8 @@ public class GameController : MonoBehaviour {
 
 	private void AIMove(ref PlayerBehaviour npc, ref TTactical pos){
 		if (BallOwner == null) {
-			PickBall(ref npc);
+			PickBall(ref npc, true);
+			PickBall(ref npc.DefPlayer, true);
 		} else {
 			if(pos.FileName != string.Empty){
 				if (!npc.IsMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {

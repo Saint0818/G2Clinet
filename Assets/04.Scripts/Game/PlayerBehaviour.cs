@@ -934,12 +934,12 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerRigidbody.AddForce (JumpHight * transform.up + PlayerRigidbody.velocity.normalized /2.5f, ForceMode.Force);
 				break;
 			case "Passing":			
-				if (PassTime > 0) {
-					PassTime = 0;
-					if(!SceneMgr.Get.RealBallTrigger.PassBall())
+				if (PassTime > 0) {					
+					if(!SceneMgr.Get.RealBallTrigger.PassBall()){
+						PassTime = 0;
 						DelActionFlag(ActionFlag.IsPass);
+					}
 				}		
-
 				break;
 			case "PassEnd":
 				DelActionFlag(ActionFlag.IsPass);
