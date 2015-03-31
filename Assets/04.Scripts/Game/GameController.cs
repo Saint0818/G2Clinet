@@ -539,6 +539,10 @@ public class GameController : MonoBehaviour {
 				                         SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position, 60);
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint[Shooter.Team.GetHashCode()].transform.position);
+
+			for(int i = 0; i < PlayerList.Count; i++)
+				if(PlayerList[i].Team == Shooter.Team)
+					PlayerList[i].ResetMove();
 			//DefBlock(ref Shooter);
 			return true;
 		} else
@@ -1101,10 +1105,8 @@ public class GameController : MonoBehaviour {
 					TMoveData data = new TMoveData(0);
 					data.FollowTarget = SceneMgr.Get.RealBall.transform;
 					A.TargetPos = data;
-				}else
-					Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-			}else 
-			if(!Npc.IsMove && Npc.WaitMoveTime == 0){
+				}
+			}else if(!Npc.IsMove && Npc.WaitMoveTime == 0){
 				TMoveData data = new TMoveData(0);
 				data.FollowTarget = SceneMgr.Get.RealBall.transform;
 				Npc.TargetPos = data;
@@ -1116,7 +1118,7 @@ public class GameController : MonoBehaviour {
 
 	private void AIMove(ref PlayerBehaviour npc, ref TTactical pos){
 		if (BallOwner == null) {
-			PickBall(ref npc, true);
+			PickBall(ref npc);
 		} else {
 			if(pos.FileName != string.Empty){
 				if (!npc.IsMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
