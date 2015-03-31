@@ -341,6 +341,6 @@ public class UIGame : UIBase {
 		}
 
 		showHomeHint();
-		judgePlayerScreenPosition();
+//		judgePlayerScreenPosition();
 	}
 }

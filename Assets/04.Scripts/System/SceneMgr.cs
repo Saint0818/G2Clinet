@@ -48,6 +48,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     {
 		lightmapData[0] = new LightmapData();
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Player"));
         InitLineGroup();
         CheckCollider();
 		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
@@ -258,7 +259,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.gameObject.SetActive(false);
+//				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Shooting: 
 				realBallCollider.enabled = true;
@@ -266,7 +267,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBallFX.gameObject.SetActive(false);
+//				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Pass: 
 				realBallCollider.enabled = true;
@@ -274,7 +275,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBallFX.gameObject.SetActive(true);
+//				RealBallFX.gameObject.SetActive(true);
 				break;
 			case PlayerState.Steal:
             case PlayerState.Block: 
@@ -283,7 +284,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBallFX.gameObject.SetActive(true);
+//				RealBallFX.gameObject.SetActive(true);
 
 				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
@@ -300,7 +301,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.parent = null;
 				RealBallRigidbody.AddForce(Vector3.down * 2000); 
-				RealBallFX.gameObject.SetActive(false);
+//				RealBallFX.gameObject.SetActive(false);
 				break;
 		}
 	}

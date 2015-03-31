@@ -76,11 +76,12 @@ public class GameController : MonoBehaviour {
 										//0				1			2		  3		  4		  5			6				7				8			9		10		11	
 	private static string[] pathName = {"jumpball0", "jumpball1", "normal", "tee0", "tee1", "tee2", "teedefence0", "teedefence1", "teedefence2", "fast0", "fast1", "fast2"}; 
 	private TActionPosition emptyPosition = new TActionPosition();
-
-	public float PickBallDis = 2.5f;
 	private const float StealBallDis = 2;
 	private const float PushPlayerDis = 1;
 	private const float BlockDis = 5;
+	
+	private float RealBallFxTime = 0;
+	public float PickBallDis = 2.5f;
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	private PlayerBehaviour BallOwner;
@@ -294,7 +295,7 @@ public class GameController : MonoBehaviour {
 			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList[2].gameObject);
 
 		for (int i = 0; i < PlayerList.Count; i ++) {
-			PlayerList[i].OnShoot = OnShoot;
+			PlayerList[i].OnShooting = OnShooting;
 			PlayerList[i].OnPass = OnPass;
 			PlayerList[i].OnSteal = OnSteal;
 			PlayerList[i].OnBlockMoment = OnBlockMoment;
@@ -311,6 +312,12 @@ public class GameController : MonoBehaviour {
 
 		if(Time.time >= CoolDownCrossover)
 			CoolDownCrossover = 0;
+
+		if (RealBallFxTime > 0) {
+			RealBallFxTime -= Time.deltaTime;
+			if(RealBallFxTime <= 0)
+				SceneMgr.Get.RealBallFX.SetActive(false);
+		}
 		
 		handleSituation();
 	}
@@ -399,6 +406,8 @@ public class GameController : MonoBehaviour {
 		if (situation != GameSituation.End) {
 			GameSituation oldgs = situation;
 			if(situation != GS){
+				RealBallFxTime = 1f;
+				SceneMgr.Get.RealBallFX.SetActive(true);
 				for(int i = 0; i < PlayerList.Count; i++){
 					if((GS == GameSituation.TeeA && PlayerList[i].Team == TeamKind.Self) || 
 					   (GS == GameSituation.TeeB && PlayerList[i].Team == TeamKind.Npc) ||
@@ -528,7 +537,7 @@ public class GameController : MonoBehaviour {
         }
 	}
         
-    public bool OnShoot(PlayerBehaviour player) {
+    public bool OnShooting(PlayerBehaviour player) {
 		if (BallOwner && BallOwner == player) {					
 			Shooter = player;
 			SetBall();
@@ -569,12 +578,6 @@ public class GameController : MonoBehaviour {
 			}
 		}
     }
-    
-//    public bool OnDunkInto(PlayerBehaviour player)
-//	{
-//		player.OnDunkInto();
-//		return true;
-//	}
 
 	public bool OnDunkBasket(PlayerBehaviour player)
 	{
@@ -605,7 +608,7 @@ public class GameController : MonoBehaviour {
     private void Pass(PlayerBehaviour player) {
 		if (BallOwner) {
 			Catcher = player;
-			Catcher.AniState(PlayerState.Catcher, BallOwner.transform.position);
+			Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
 			BallOwner.AniState(PlayerState.Pass, Catcher.transform.position);
 		}
 	}
