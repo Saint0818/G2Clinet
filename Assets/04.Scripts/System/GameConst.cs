@@ -26,16 +26,20 @@ public class GameConst
 	public static TAIlevel [] AIlevelAy = new TAIlevel[10];
 
 	//Game play move speed
-	public static float BasicMoveSpeed = 1;
-	public static float DefSpeedup = 8.2f;
-	public static float DefSpeedNormal = 7.2f;
-	public static float BallOwnerSpeedup = 7.5f;
-	public static float BallOwnerSpeedNormal = 6.5f;
-	public static float AttackSpeedup = 8;
-	public static float AttackSpeedNormal = 7;
-	public static float TreePointDistance = 10;
-	public static float TwoPointDistance = 7;
-	public static float DunkDistance = 5;
+	public const float BasicMoveSpeed = 1;
+	public const float DefSpeedup = 8.2f;
+	public const float DefSpeedNormal = 7.2f;
+	public const float BallOwnerSpeedup = 7.5f;
+	public const float BallOwnerSpeedNormal = 6.5f;
+	public const float AttackSpeedup = 8;
+	public const float AttackSpeedNormal = 7;
+	public const float TreePointDistance = 10;
+	public const float TwoPointDistance = 7;
+	public const float DunkDistance = 5;
+	public const float PickBallDistance = 2.5f;
+	public const float StealBallDistance = 2;
+	public const float PushPlayerDistance = 1;
+	public const float BlockDistance = 5;
 
 	public static void Init(){
 		AIlevelAy [0].ProactiveRate = 5;
