@@ -570,11 +570,11 @@ public class GameController : MonoBehaviour {
 		}
     }
     
-    public bool OnDunkInto(PlayerBehaviour player)
-	{
-		player.OnDunkInto();
-		return true;
-	}
+//    public bool OnDunkInto(PlayerBehaviour player)
+//	{
+//		player.OnDunkInto();
+//		return true;
+//	}
 
 	public bool OnDunkBasket(PlayerBehaviour player)
 	{
