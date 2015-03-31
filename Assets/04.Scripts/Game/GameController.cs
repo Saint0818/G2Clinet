@@ -516,12 +516,10 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int t = BallOwner.Team.GetHashCode();
-			float dis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint[t].transform.position);
 
 			if(GameStart.Get.TestMode == GameTest.Dunk)
 				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
-			else
-			if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= 9f)
+			else if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= GameConst.DunkDistance)
 				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
             else
 				BallOwner.AniState(PlayerState.Shooting, SceneMgr.Get.Hood[t].transform.position);
@@ -903,9 +901,13 @@ public class GameController : MonoBehaviour {
 						if(Dis <= PushPlayerDis && pushRate < 50){
 							
 						}else 
-						if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+						if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0 && !IsShooting && !IsDunk){
 							Npc.CoolDownSteal = Time.time + 3;
 							Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position);
+							if(stealRate <= 10){
+								SetBall(null);
+								SceneMgr.Get.SetBallState(PlayerState.Steal);
+							}
 						}
 					}
 				}

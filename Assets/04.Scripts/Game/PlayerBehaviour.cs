@@ -52,19 +52,19 @@ public enum DefPoint{
 	LeftSteal = 7
 }
 
-public static class ActionFlag{
-	public const int IsRun = 1;
-	public const int IsDefence = 2;
-	public const int IsBlock = 3;
-	public const int IsBlockCatch = 4;
-	public const int IsDribble = 5;
-	public const int IsSteal = 6;
-	public const int IsPass = 7;
-	public const int IsShoot = 8;
-	public const int IsCatcher = 9;
-	public const int IsDunk = 10;
-	public const int IsShootIdle = 11;
-	public const int IsFakeShoot = 12;
+public enum ActionFlag{
+	IsRun = 1,
+	IsDefence = 2,
+	IsBlock = 3,
+	IsBlockCatch = 4,
+	IsDribble = 5,
+	IsSteal = 6,
+	IsPass = 7,
+	IsShoot = 8,
+	IsCatcher = 9,
+	IsDunk = 10,
+	IsShootIdle = 11,
+	IsFakeShoot = 12
 }
 
 public struct TMoveData
@@ -670,22 +670,18 @@ public class PlayerBehaviour : MonoBehaviour
 			smoothDirection = dir;
 	}
 
-	private void AddActionFlag(int Flag){
-		GameFunction.Add_ByteFlag (Flag, ref PlayerActionFlag);
-
-		if(Flag < AnimatorStates.Length)
-			animator.SetBool(AnimatorStates[Flag], true);
+	private void AddActionFlag(ActionFlag Flag){
+		GameFunction.Add_ByteFlag (Flag.GetHashCode(), ref PlayerActionFlag);
+		animator.SetBool(Flag.ToString(), true);
 	}
 
-	private void DelActionFlag(int Flag){
-		GameFunction.Del_ByteFlag (Flag, ref PlayerActionFlag);
-
-		if(Flag < AnimatorStates.Length)
-			animator.SetBool(AnimatorStates[Flag], false);
+	private void DelActionFlag(ActionFlag Flag){
+		GameFunction.Del_ByteFlag (Flag.GetHashCode(), ref PlayerActionFlag);
+		animator.SetBool(Flag.ToString(), false);
 	}
 
-	private bool CheckAction(int Flag){
-		return GameFunction.CheckByteFlag (Flag, PlayerActionFlag);
+	private bool CheckAction(ActionFlag Flag){
+		return GameFunction.CheckByteFlag (Flag.GetHashCode(), PlayerActionFlag);
 	}
 	
 	public void ResetFlag(){
