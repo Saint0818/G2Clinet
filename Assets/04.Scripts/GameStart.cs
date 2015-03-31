@@ -24,13 +24,13 @@ public class GameStart : MonoBehaviour {
 		#else
 		switch (Application.systemLanguage) {
 		case SystemLanguage.English:
-			ParameterConst.GameLanguage = Language.en;
+			GameConst.GameLanguage = Language.en;
 			break;
 		case SystemLanguage.Chinese:
-			ParameterConst.GameLanguage = Language.zh_TW;
+			GameConst.GameLanguage = Language.zh_TW;
 			break;
 		default:
-			ParameterConst.GameLanguage = Language.en;
+			GameConst.GameLanguage = Language.en;
 			break;
 		}
 		#endif
