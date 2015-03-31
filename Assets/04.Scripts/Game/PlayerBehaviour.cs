@@ -172,10 +172,8 @@ public class PlayerBehaviour : MonoBehaviour
 				obj3.Player = this;
 
 			GameObject obj4 = obj.transform.FindChild("DefRange").gameObject;
-			if(obj4 != null){
-				BoxCollider b = obj4.GetComponent<BoxCollider>();
-				b.size = new Vector3(GameConst.AIlevelAy[AILevel].DefDistance, 1, GameConst.AIlevelAy[AILevel].DefDistance);
-			}
+			if(obj4 != null)
+				obj4.transform.localScale = new Vector3(GameConst.AIlevelAy[AILevel].DefDistance, GameConst.AIlevelAy[AILevel].DefDistance, GameConst.AIlevelAy[AILevel].DefDistance);
 			
 			obj2.transform.parent = transform;
 			obj2.transform.transform.localPosition = Vector3.zero;

@@ -722,6 +722,10 @@ public class GameController : MonoBehaviour {
 			if (BallOwner.IsShooting){
 				float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
 				if (dis <= 4) {
+					for(int i = 0; i < PlayerList.Count; i++)
+						if(PlayerList[i].Team == BallOwner.Team)
+							PlayerList[i].ResetMove();
+
 					SetBall(null);
 					SceneMgr.Get.SetBallState(PlayerState.Block);
 					return true;
