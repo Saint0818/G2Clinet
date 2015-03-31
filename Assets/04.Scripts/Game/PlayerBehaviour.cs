@@ -756,18 +756,20 @@ public class PlayerBehaviour : MonoBehaviour
 		return false;
 	}
 
-	public void AniState(PlayerState state, Vector3 v) {
+	public bool AniState(PlayerState state, Vector3 v) {
 		if (!CanUseState(state))
-			return;
+			return false;
 
 		rotateTo(v.x, v.z);
-		AniState(state);
+		return AniState(state);
 	}
 
-	public void AniState(PlayerState state)
+	public bool AniState(PlayerState state)
 	{
 		if (!CanUseState(state))
-			return;
+			return false;
+
+		bool Result = false;
 		
 		switch (state) {
 			case PlayerState.Idle:
@@ -775,12 +777,13 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i = 1; i < AnimatorStates.Length; i++)
 					if(AnimatorStates[i] != string.Empty && animator.GetBool(AnimatorStates[i]))
 						animator.SetBool(AnimatorStates[i], false);
-
+				
+				Result = true;
 				break;
 			case PlayerState.Catch:
 				SetSpeed(0, -1);
-
 				AddActionFlag(ActionFlag.IsCatcher);
+				Result = true;
 				break;
 			case PlayerState.Run:
 				if(!isJoystick)
@@ -788,10 +791,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 				AddActionFlag(ActionFlag.IsRun);
 				DelActionFlag(ActionFlag.IsDefence);
+				Result = true;
 				break;
 			case PlayerState.Dribble:
 				SetSpeed(0, -1);
 				AddActionFlag(ActionFlag.IsDribble);
+				Result = true;
 				break;
 			case PlayerState.RunAndDribble:
 				if(!isJoystick)
@@ -801,50 +806,51 @@ public class PlayerBehaviour : MonoBehaviour
 
 				AddActionFlag(ActionFlag.IsDribble);
 				AddActionFlag(ActionFlag.IsRun);
+				Result = true;
 				break;
 			case PlayerState.RunningDefence:
 				SetSpeed(1, 1);
 
 				AddActionFlag(ActionFlag.IsRun);
 				DelActionFlag(ActionFlag.IsDefence);
+				Result = true;
 				break;
 			case PlayerState.Defence:
 				DelActionFlag(ActionFlag.IsRun);
 				SetSpeed(0, -1);
 				AddActionFlag (ActionFlag.IsDefence);
+				Result = true;
 				break;
 			case PlayerState.MovingDefence:
 				SetSpeed(1, 1);
 				AddActionFlag (ActionFlag.IsRun);
 				AddActionFlag (ActionFlag.IsDefence);
-
+				Result = true;
 				break;
 			case PlayerState.Steal:
 				if(!CheckAction(ActionFlag.IsSteal)){
 					AddActionFlag(ActionFlag.IsSteal);
+					Result = true;
 				}
-				else 
-					return;
 				break;
 			case PlayerState.Pass:
 				if(!CheckAction(ActionFlag.IsPass)){
 					PassTime = Time.time + 3;
 					AddActionFlag(ActionFlag.IsPass);
+					Result = true;
 				}
-				else 
-					return;
 				break;
 			case PlayerState.Block:
 				if (!CheckAction(ActionFlag.IsBlock)){
-	                    AddActionFlag(ActionFlag.IsBlock);
-	                }
-				else 
-					return;
+	            	AddActionFlag(ActionFlag.IsBlock);
+					Result = true;
+	            }
 				break;
 			case PlayerState.BlockCatch:
 				if (!CheckAction(ActionFlag.IsBlockCatch)){
 					AddActionFlag(ActionFlag.IsBlockCatch);
-					}
+					Result = true;		
+				}
 				break;
 			case PlayerState.Shooting:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
@@ -853,18 +859,16 @@ public class PlayerBehaviour : MonoBehaviour
 					DelActionFlag(ActionFlag.IsShootIdle);
 					DelActionFlag(ActionFlag.IsRun);
 					DelActionFlag(ActionFlag.IsDribble);
+					Result = true;
 		        }
-				else 
-					return;
 				break;
 			case PlayerState.FakeShoot:
 				if(!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
 				{
 					AddActionFlag(ActionFlag.IsFakeShoot);
 					AddActionFlag(ActionFlag.IsShoot);
+					Result = true;
 				}
-				else 
-					return;
 				break;
 			case PlayerState.Dunk:
 				if(!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
@@ -876,13 +880,15 @@ public class PlayerBehaviour : MonoBehaviour
 					DelActionFlag(ActionFlag.IsPass);
 					DelActionFlag(ActionFlag.IsFakeShoot);
 					DelActionFlag(ActionFlag.IsShoot);
+					Result = true;
 				}
-				else 
-					return;
 				break;
         }
 
-		crtState = state;
+		if(Result)
+			crtState = state;
+
+		return Result;
 	}
     
     public void AnimationEvent(string animationName)

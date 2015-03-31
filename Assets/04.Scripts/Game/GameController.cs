@@ -72,68 +72,70 @@ public struct TActionPosition{
 }
 
 public class GameController : MonoBehaviour {
-	private static GameController instance;
-										//0				1			2		  3		  4		  5			6				7				8			9		10		11	
-	private static string[] pathName = {"jumpball0", "jumpball1", "normal", "tee0", "tee1", "tee2", "teedefence0", "teedefence1", "teedefence2", "fast0", "fast1", "fast2"}; 
-	private TActionPosition emptyPosition = new TActionPosition();
-	private const float StealBallDis = 2;
-	private const float PushPlayerDis = 1;
-	private const float BlockDis = 5;
+	private static GameController instance;													
+	private static string[] pathName = {"jumpball0",   //0
+										"jumpball1",   //1
+										"normal", 	   //2		
+										"tee0",        //3
+										"tee1",        //4
+										"tee2",        //5
+										"teedefence0", //6
+										"teedefence1", //7
+										"teedefence2", //8
+										"fast0",       //9
+										"fast1",       //10
+										"fast2"};      //11
 	
-	private float RealBallFxTime = 0;
-	public float PickBallDis = 2.5f;
-
-	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
-	private PlayerBehaviour BallOwner;
-	public PlayerBehaviour Joysticker;
-	public PlayerBehaviour Catcher;
-	public PlayerBehaviour Shooter;
-
 	private GameSituation situation = GameSituation.None;
+	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
+	private List<TTactical> MovePositionList = new List<TTactical>();
+	private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
+	private PlayerBehaviour BallOwner;
 	private bool IsStart = true;
-	private bool isPressShoot = false;  
 	private float CoolDownPass = 0;
 	private float CoolDownCrossover = 0;
 	private float ShootDis = 0;
-	
+	private float RealBallFxTime = 0;
+
+	public PlayerBehaviour Joysticker;
+	public PlayerBehaviour Catcher;
+	public PlayerBehaviour Shooter;
 	public Vector2 [] TeeBackPosAy = new Vector2[3];
-	private List<TTactical> MovePositionList = new List<TTactical>();
-	private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
 
 	private int GetPosNameIndex(PosKind Kind, int Index = -1){
-			switch(Kind){
-			case PosKind.Attack:
-				return 2;
-			case PosKind.Tee:
-				if(Index == 0)
-					return 3;
-			  	else if(Index == 1)
-					return 4;
-				else if(Index == 2)
-					return 5;
-				else
-					return -1;
-			case PosKind.TeeDefence:
-				if(Index == 0)
-					return 6;
-				else if(Index == 1)
-					return 7;
-				else if(Index == 2)
-					return 8;
-				else
-					return -1;
-			case PosKind.Fast:
-				if(Index == 0)
-					return 9;
-				else if(Index == 1)
-					return 10;
-				else if(Index == 2)
-					return 11;
-				else
-					return -1;
-			default:
+		switch(Kind){
+		case PosKind.Attack:
+			return 2;
+		case PosKind.Tee:
+			if(Index == 0)
+				return 3;
+		  	else if(Index == 1)
+				return 4;
+			else if(Index == 2)
+				return 5;
+			else
 				return -1;
-			}
+		case PosKind.TeeDefence:
+			if(Index == 0)
+				return 6;
+			else if(Index == 1)
+				return 7;
+			else if(Index == 2)
+				return 8;
+			else
+				return -1;
+		case PosKind.Fast:
+			if(Index == 0)
+				return 9;
+			else if(Index == 1)
+				return 10;
+			else if(Index == 2)
+				return 11;
+			else
+				return -1;
+		default:
+			return -1;
+		}
 	}
 
 	public static GameController Get
@@ -525,12 +527,10 @@ public class GameController : MonoBehaviour {
 			SceneMgr.Get.ResetBasketEntra();
 
 			int t = BallOwner.Team.GetHashCode();
-			float dis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint[t].transform.position);
 
 			if(GameStart.Get.TestMode == GameTest.Dunk)
 				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
-			else
-			if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= 9f)
+			else if(Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[t].transform.position) <= GameConst.DunkDistance)
 				BallOwner.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[t].transform.position);
             else
 				BallOwner.AniState(PlayerState.Shooting, SceneMgr.Get.Hood[t].transform.position);
@@ -874,7 +874,7 @@ public class GameController : MonoBehaviour {
 			}else{
 				//sup push
 				Dis = getDis(ref BallOwner, ref Npc); 
-				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, PushPlayerDis, false);
+				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, GameConst.PushPlayerDistance, false);
 				
 				if(ShootPointDis <= 1.5f && ALLYOOP < 50){
 					//Npc.AniState(PlayerState.Jumper);
@@ -903,12 +903,17 @@ public class GameController : MonoBehaviour {
 					Dis = getDis(ref BallOwner, ref Npc);
 					
 					if(!Npc.IsSteal){
-						if(Dis <= PushPlayerDis && pushRate < 50){
+						if(Dis <= GameConst.PushPlayerDistance && pushRate < 50){
 							
 						}else 
-						if(Dis <= StealBallDis && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
-							Npc.CoolDownSteal = Time.time + 3;
-							Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position);
+						if(Dis <= GameConst.StealBallDistance && stealRate < 30 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0){
+							if(Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position)){
+								Npc.CoolDownSteal = Time.time + 3;
+								if(stealRate <= 10){
+									SetBall(null);
+									SceneMgr.Get.SetBallState(PlayerState.Steal);
+								}
+							}
 						}
 					}
 				}
@@ -916,7 +921,7 @@ public class GameController : MonoBehaviour {
 				if (!Npc.IsJump && !Npc.IsBlock && !IsBlocking) {
 					if (Shooter) {
 						Dis = getDis(ref Npc, ref Shooter);
-						if(Dis <= StealBallDis){
+						if(Dis <= GameConst.StealBallDistance){
 							Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
 						}
 					} else if (BallOwner) {
@@ -1090,7 +1095,7 @@ public class GameController : MonoBehaviour {
 					if(GameStart.Get.TestMode == GameTest.Block)
 						Npc2.AniState(PlayerState.Block, Npc.transform.position);
 					else
-					if (getDis(ref Npc, ref Npc2) <= BlockDis) {
+					if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance) {
 						int Rate = Random.Range(0, 100) + 1;
 						if(Npc.Postion == Npc2.Postion || Rate <= 50){
 							Npc2.AniState(PlayerState.Block, Npc.transform.position);
