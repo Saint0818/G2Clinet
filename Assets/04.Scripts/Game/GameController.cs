@@ -337,7 +337,7 @@ public class GameController : MonoBehaviour {
 								Attack(ref Npc);
 								AIMove(ref Npc, ref ap);
 							}else 
-							if(!Npc.IsShooting){
+							if(!Npc.CheckAction(ActionFlag.IsShoot)){
 								Attack(ref Npc);
 								AIMove(ref Npc, ref ap);
 							}								
@@ -722,7 +722,7 @@ public class GameController : MonoBehaviour {
 					return true;
 				}
 			} else 
-			if (BallOwner.IsShooting){
+			if (BallOwner.CheckAction(ActionFlag.IsShoot)){
 				float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
 				if (dis <= 4) {
 					for(int i = 0; i < PlayerList.Count; i++)
@@ -829,11 +829,9 @@ public class GameController : MonoBehaviour {
 					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 				}else 
 				if(ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc)){
-//					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 					Shoot();
 				}else 
 				if(ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc)){
-//					Npc.AniState (PlayerState.Dunk, SceneMgr.Get.ShootPoint[Npc.Team.GetHashCode()].transform.position);
 					Shoot();
 				}else 
 				if(passRate < 20 && CoolDownPass == 0 && !IsShooting && !IsDunk){
@@ -902,7 +900,7 @@ public class GameController : MonoBehaviour {
 				if(BallOwner != null){
 					Dis = getDis(ref BallOwner, ref Npc);
 					
-					if(!Npc.IsSteal){
+					if(!Npc.CheckAction(ActionFlag.IsSteal)){
 						if(Dis <= GameConst.PushPlayerDistance && pushRate < 50){
 							
 						}else 
@@ -918,7 +916,7 @@ public class GameController : MonoBehaviour {
 					}
 				}
 			} else {
-				if (!Npc.IsJump && !Npc.IsBlock && !IsBlocking) {
+				if (!Npc.IsJump && !IsBlocking) {
 					if (Shooter) {
 						Dis = getDis(ref Npc, ref Shooter);
 						if(Dis <= GameConst.StealBallDistance){
@@ -926,11 +924,11 @@ public class GameController : MonoBehaviour {
 						}
 					} else if (BallOwner) {
 						bool flag = false;
-						if (BallOwner.IsFakeShoot) {
+						if (BallOwner.CheckAction(ActionFlag.IsFakeShoot)) {
 							int r = Random.Range(0, 3);
 							if (r <= 0)
 								flag = true;
-						} else if (BallOwner.IsShooting)
+						} else if (BallOwner.CheckAction(ActionFlag.IsShoot))
 							flag = true;
 
 						if (flag) {
@@ -950,7 +948,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos, bool WatchBallOwner = false){
-		if(!Npc.IsMove && Npc.WaitMoveTime == 0){
+		if(!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0){
 			TMoveData data = new TMoveData(0);
 
 			TActionPosition [] ap = null;
@@ -988,7 +986,7 @@ public class GameController : MonoBehaviour {
 	private void TeeBall(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos){
 		TMoveData data = new TMoveData(0);
 
-		if(!Npc.IsMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0){
+		if(!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0){
 			if(Npc == BallOwner){
 				if(Team == TeamKind.Self)
 					data.Target = new Vector2(Npc.transform.position.x, -18);
@@ -1090,7 +1088,7 @@ public class GameController : MonoBehaviour {
 			for(int i = 0; i < PlayerList.Count; i++){
 				PlayerBehaviour Npc2 = PlayerList[i];
 
-				if (Npc2 != Npc && Npc2.Team != Npc.Team && !Npc2.IsBlock) {
+				if (Npc2 != Npc && Npc2.Team != Npc.Team && !Npc2.CheckAction(ActionFlag.IsBlock)) {
 
 					if(GameStart.Get.TestMode == GameTest.Block)
 						Npc2.AniState(PlayerState.Block, Npc.transform.position);
@@ -1113,13 +1111,13 @@ public class GameController : MonoBehaviour {
 			if(findNear){
 				A = NearBall(ref Npc);
 
-				if(A != null && !A.IsMove && A.WaitMoveTime == 0){
+				if(A != null && !A.CheckAction(ActionFlag.IsRun) && A.WaitMoveTime == 0){
 					TMoveData data = new TMoveData(0);
 					data.FollowTarget = SceneMgr.Get.RealBall.transform;
 					A.TargetPos = data;
 				}else
 					Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-			}else if(!Npc.IsMove && Npc.WaitMoveTime == 0){
+			}else if(!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0){
 				TMoveData data = new TMoveData(0);
 				data.FollowTarget = SceneMgr.Get.RealBall.transform;
 				Npc.TargetPos = data;
@@ -1135,7 +1133,7 @@ public class GameController : MonoBehaviour {
 			PickBall(ref npc.DefPlayer, true);
 		} else {
 			if(pos.FileName != string.Empty){
-				if (!npc.IsMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
+				if (!npc.CheckAction(ActionFlag.IsRun) && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
 					TMoveData data;
 					if(!CheckAttack(ref npc)){
 						data = new TMoveData(0);
@@ -1189,7 +1187,7 @@ public class GameController : MonoBehaviour {
 
 	public bool DefMove(PlayerBehaviour player, bool speedup = false){
 		if (player.DefPlayer != null) {
-			if(!player.DefPlayer.IsMove && player.DefPlayer.WaitMoveTime == 0){
+			if(!player.DefPlayer.CheckAction(ActionFlag.IsRun) && player.DefPlayer.WaitMoveTime == 0){
 				TMoveData data2 = new TMoveData(0);
 
 				if(BallOwner != null){
@@ -1270,7 +1268,7 @@ public class GameController : MonoBehaviour {
 					}
 				}else{
 					player.DefPlayer.ResetMove();
-					PickBall(ref player.DefPlayer);
+					PickBall(ref player.DefPlayer, true);
 				}
 			}
 		}
@@ -1586,6 +1584,17 @@ public class GameController : MonoBehaviour {
 			Joysticker = PlayerList[index];		
 		}
 	}
+
+	public void SetEndPass(){
+		if(BallOwner != null)
+			BallOwner.DelActionFlag(ActionFlag.IsPass);
+
+		if(Catcher != null){
+			SetBall(Catcher);
+			Catcher.DelActionFlag (ActionFlag.IsCatcher);
+			Catcher = null;
+		}
+	}
 	
 	public void Reset(){
 		PlayerList [0].transform.position = new Vector3 (0, 0, 0);
@@ -1608,7 +1617,7 @@ public class GameController : MonoBehaviour {
 	public bool IsShooting {
 		get{
 			for(int i = 0; i < PlayerList.Count; i++){
-				if(PlayerList[i].IsShooting)
+				if(PlayerList[i].CheckAction(ActionFlag.IsShoot))
 					return true;
 			}
 
@@ -1619,7 +1628,7 @@ public class GameController : MonoBehaviour {
 	public bool IsDunk {
 		get{
 			for(int i = 0; i < PlayerList.Count; i++){
-				if(PlayerList[i].IsDunk)
+				if(PlayerList[i].CheckAction(ActionFlag.IsDunk))
 					return true;
 			}
 			
@@ -1630,7 +1639,7 @@ public class GameController : MonoBehaviour {
 	public bool IsPassing {
 		get{
 			for(int i = 0; i < PlayerList.Count; i++){
-				if(PlayerList[i].IsPass)
+				if(PlayerList[i].CheckAction(ActionFlag.IsPass))
 					return true;
 			}
 			
@@ -1641,7 +1650,7 @@ public class GameController : MonoBehaviour {
 	public bool IsBlocking {
 		get{
 			for(int i = 0; i < PlayerList.Count; i++){
-				if(PlayerList[i].IsBlock)
+				if(PlayerList[i].CheckAction(ActionFlag.IsBlock))
 					return true;
 			}
 			

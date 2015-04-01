@@ -84,9 +84,7 @@ public class BallTrigger : MonoBehaviour
 				if (Vector3.Distance (SceneMgr.Get.RealBall.gameObject.transform.position, GameController.Get.Catcher.transform.position) > GameConst.PickBallDistance){
 					ParentRigidbody.gameObject.transform.position = Vector3.Lerp(ParentRigidbody.gameObject.transform.position, GameController.Get.Catcher.transform.position, 0.1f);
 				}else{
-					GameController.Get.SetBall(GameController.Get.Catcher);
-					GameController.Get.Catcher.DelPass();
-					GameController.Get.Catcher = null;
+					GameController.Get.SetEndPass();
 					passing = false;
 					CameraMgr.Get.IsLongPass = false;
 				}

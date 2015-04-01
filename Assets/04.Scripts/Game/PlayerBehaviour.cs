@@ -243,7 +243,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 
-		if (IsMove && !IsDefence) {//&& situation != GameSituation.Opening !IsDefence
+		if (CheckAction(ActionFlag.IsRun) && !IsDefence) {//&& situation != GameSituation.Opening !IsDefence
 			if(Time.time >= MoveStartTime){
 				MoveStartTime = Time.time + 0.5f;
 				GameController.Get.DefMove(this);
@@ -394,7 +394,7 @@ public class PlayerBehaviour : MonoBehaviour
 				if(!isJoystick)
 					MoveStartTime = Time.time + 1;
 
-				if(!IsMove)
+				if(!CheckAction(ActionFlag.IsRun))
 					AddActionFlag(ActionFlag.IsRun);
 
 				SetNoAiTime();
@@ -495,10 +495,6 @@ public class PlayerBehaviour : MonoBehaviour
 //				animator.SetBool("IsDunkInto", true); 
 //			}
 //	}
-	
-	public void DelPass(){
-		DelActionFlag (ActionFlag.IsPass);
-    }
 
 	private int MinIndex (float [] floatAy) {
 		int Result = 0;
@@ -674,12 +670,12 @@ public class PlayerBehaviour : MonoBehaviour
 		animator.SetBool(Flag.ToString(), true);
 	}
 
-	private void DelActionFlag(ActionFlag Flag){
+	public void DelActionFlag(ActionFlag Flag){
 		GameFunction.Del_ByteFlag (Flag.GetHashCode(), ref PlayerActionFlag);
 		animator.SetBool(Flag.ToString(), false);
 	}
 
-	private bool CheckAction(ActionFlag Flag){
+	public bool CheckAction(ActionFlag Flag){
 		return GameFunction.CheckByteFlag (Flag.GetHashCode(), PlayerActionFlag);
 	}
 	
@@ -942,6 +938,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}		
 				break;
 			case "PassEnd":
+				PassTime = 0;
 				DelActionFlag(ActionFlag.IsPass);
 				DelActionFlag(ActionFlag.IsDribble);
 				break;
@@ -1035,41 +1032,9 @@ public class PlayerBehaviour : MonoBehaviour
 				return false;
 		}
 	}
-
-	public bool IsDribble{
-		get{return CheckAction(ActionFlag.IsDribble);}
-	}
-
-    public bool IsMove{
-		get{return CheckAction(ActionFlag.IsRun);}
-	}
-	
-	public bool IsShooting{
-		get{return CheckAction(ActionFlag.IsShoot);}
-	}
-
-	public bool IsDunk{
-		get{return CheckAction(ActionFlag.IsDunk);}
-	}
-
-	public bool IsFakeShoot{
-		get{return CheckAction(ActionFlag.IsFakeShoot);}
-	}
-	
-	public bool IsBlock{
-		get{return CheckAction(ActionFlag.IsBlock);}
-	}
-	
-	public bool IsPass{
-		get{return CheckAction(ActionFlag.IsPass);}
-	}
 	
 	public bool IsJump{
 		get{return gameObject.transform.localPosition.y > 1f;}
-    }
-    
-    public bool IsSteal{
-        get{return CheckAction(ActionFlag.IsSteal);}
     }
 
 	public bool IsBallOwner {
