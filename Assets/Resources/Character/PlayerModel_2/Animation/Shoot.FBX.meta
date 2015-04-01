@@ -459,7 +459,7 @@ ModelImporter:
       name: ShootDown
       takeName: Take 001
       firstFrame: 23
-      lastFrame: 37
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
