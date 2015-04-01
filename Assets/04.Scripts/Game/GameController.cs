@@ -34,7 +34,8 @@ public enum GameTest{
 	AttackB,
 	Dunk,
 	Block,
-	Edit
+	Edit,
+    OneByOne
 }
 
 public enum CameraTest{
@@ -272,7 +273,8 @@ public class GameController : MonoBehaviour {
 			case GameTest.AttackB:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Npc, new Vector3(0, 0, 0), GamePostion.G, 1));
 				break;
-			case GameTest.Block:
+            case GameTest.Block:
+			case GameTest.OneByOne: 
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), GamePostion.G, 1));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), GamePostion.G, 1));
 
