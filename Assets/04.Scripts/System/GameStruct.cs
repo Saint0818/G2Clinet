@@ -53,11 +53,11 @@ namespace GameStruct
         public int Steal;
 		public int Body;
 		public int Hair;
-		public int AHeadDress;
 		public int Cloth;
 		public int Pants;
 		public int Shoes;
 		public int MHandDress;
+		public int AHeadDress;
 		public int ZBackEquip;
 
 		public TPlayer(int Val)

@@ -305,12 +305,11 @@ public class GameController : MonoBehaviour
 	
 	public void CreateTeam()
     {
-		InitPlayer ();
-        TAvatar attr = new TAvatar(1);
-
         switch (GameStart.Get.TestMode)
         {               
             case GameTest.None:
+				InitPlayer ();
+				
 				for (int i = 0; i < PlayerAy.Length; i++) {
 					if(i >= 3)
 						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i % 3, TeamKind.Npc, BornAy[i], PlayerAy[i]));				
@@ -327,7 +326,7 @@ public class GameController : MonoBehaviour
                 break;
             case GameTest.AttackB:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-			break;
+				break;
             case GameTest.Block:
 			case GameTest.OneByOne: 
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
@@ -340,7 +339,7 @@ public class GameController : MonoBehaviour
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(5, 0, -2), new GameStruct.TPlayer(0)));
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, TeamKind.Self, new Vector3(-5, 0, -2), new GameStruct.TPlayer(0)));
-			break;
+				break;
         }
 
         Joysticker = PlayerList [0];
