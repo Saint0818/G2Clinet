@@ -140,7 +140,6 @@ public class PlayerBehaviour : MonoBehaviour
     public int Index;
     public GameSituation situation = GameSituation.None;
     public PlayerState crtState = PlayerState.Idle;
-    public BodyType Body = BodyType.Small;
     public Transform[] DefPointAy = new Transform[8];
     public float WaitMoveTime = 0;
     public float Invincible = 0;
@@ -150,10 +149,10 @@ public class PlayerBehaviour : MonoBehaviour
     public float fracJourney = 0;
     public int MoveIndex = -1;
     public bool isJoystick = false;
-    public int AILevel = 1;
     public float CloseDef = 0;
     public PlayerBehaviour DefPlayer = null;
     public bool AutoFollow = false;
+	public GameStruct.TPlayer Attr;
 
     //Dunk
     private bool isDunk = false;
@@ -185,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             GameObject obj4 = obj.transform.FindChild("DefRange").gameObject;
             if (obj4 != null)
-                obj4.transform.localScale = new Vector3(GameConst.AIlevelAy [AILevel].DefDistance, GameConst.AIlevelAy [AILevel].DefDistance, GameConst.AIlevelAy [AILevel].DefDistance);
+                obj4.transform.localScale = new Vector3(GameConst.AIlevelAy [Attr.AILevel].DefDistance, GameConst.AIlevelAy [Attr.AILevel].DefDistance, GameConst.AIlevelAy [Attr.AILevel].DefDistance);
             
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
@@ -588,7 +587,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
                 
-                if (GameConst.AIlevelAy [AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
+                if (GameConst.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
                     Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
             }
         } else if (Data.FollowTarget != null)
@@ -1111,7 +1110,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CloseDef == 0 && AutoFollow == false)
         {
-            CloseDef = Time.time + GameConst.AIlevelAy [AILevel].AutoFollowTime;
+            CloseDef = Time.time + GameConst.AIlevelAy [Attr.AILevel].AutoFollowTime;
         }           
     }
 

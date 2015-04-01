@@ -129,12 +129,12 @@ public class ModelManager : MonoBehaviour {
 		SetAvatar (ref Player, Attr, false);
 	}
 
-    public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, int Index, TeamKind Team, Vector3 BornPos, int Body, int AILevel = 0, GameObject Res=null){
+    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, GameStruct.TPlayer playerattr, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
 
-        BodyType mbody = GameFunction.GetBodyType(Body);
-
+		BodyType mbody = GameFunction.GetBodyType(playerattr.BodyType);
+		GameStruct.TAvatar Attr = GameFunction.GetPlayerAvatar (ref playerattr);
 		SetAvatar (ref Res, Attr, true);
 
 		Res.transform.parent = PlayerInfoModel.transform;
@@ -152,10 +152,8 @@ public class ModelManager : MonoBehaviour {
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
-		PB.Index = Index % 3;
-        PB.Body = mbody;
-		PB.AILevel = AILevel;
-		Res.name = Index.ToString();
+		PB.Index = TeamIndex;
+		Res.name = Team.ToString() + TeamIndex.ToString();
 		DefPointCopy.name = "DefPoint";
 		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
 		PB.DefPointAy [DefPoint.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;

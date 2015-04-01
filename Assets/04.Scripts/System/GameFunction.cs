@@ -161,4 +161,17 @@ public static class GameFunction
         else
             return BodyType.Small;
     }
+
+	public static GameStruct.TAvatar GetPlayerAvatar(ref GameStruct.TPlayer data){
+		GameStruct.TAvatar Result = new GameStruct.TAvatar (0);
+		Result.Body = data.Body;
+		Result.Hair = data.Hair;
+		Result.Cloth = data.Cloth;
+		Result.Pants = data.Pants;
+		Result.Shoes = data.Shoes;
+		Result.MHandDress = data.MHandDress;
+		Result.AHeadDress = data.AHeadDress;
+		Result.ZBackEquip = data.ZBackEquip;
+		return Result;
+	}
 }

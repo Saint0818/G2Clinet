@@ -110,6 +110,8 @@ public class GameController : MonoBehaviour
     public PlayerBehaviour Catcher;
     public PlayerBehaviour Shooter;
     public Vector2[] TeeBackPosAy = new Vector2[3];
+	public Vector3[] BornAy = new Vector3[6];
+	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -193,6 +195,13 @@ public class GameController : MonoBehaviour
         TeeBackPosAy [1] = new Vector2(5.3f, 10);
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
+		BornAy [0] = new Vector3 (0, 0, 0);
+		BornAy [1] = new Vector3 (5, 0, -2);
+		BornAy [2] = new Vector3 (-5, 0, -2);
+		BornAy [3] = new Vector3 (0, 0, 5);
+		BornAy [4] = new Vector3 (5, 0, 2);
+		BornAy [5] = new Vector3 (-5, 0, 2);
+
         MovePositionList.Clear();
         for (int i = 0; i < GameData.TacticalData.Length; i++)
             if (!string.IsNullOrEmpty(GameData.TacticalData [i].FileName))
@@ -275,46 +284,63 @@ public class GameController : MonoBehaviour
         attr.ZBackEquip = 0;//0,1001,1002
     }
 
-    public void CreateTeam()
+	public void InitPlayer(){
+		for (int i = 0; i < PlayerAy.Length; i++) {
+			PlayerAy[i] = new TPlayer(0);
+			PlayerAy[i].ID = i;
+			PlayerAy[i].Steal = UnityEngine.Random.Range(20, 100) + 1;
+
+			if(i >= 3){
+				PlayerAy[i].Body = 2001;
+				PlayerAy[i].Cloth = 5002;
+				PlayerAy[i].Hair = 2002;
+				PlayerAy[i].MHandDress = 0;
+				PlayerAy[i].Pants = 6002;
+				PlayerAy[i].Shoes = 1002;
+				PlayerAy[i].AHeadDress = 0;
+				PlayerAy[i].ZBackEquip = 0;
+			}
+		}
+	}
+	
+	public void CreateTeam()
     {
+		InitPlayer ();
         TAvatar attr = new TAvatar(1);
 
         switch (GameStart.Get.TestMode)
         {               
             case GameTest.None:
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 0, TeamKind.Self, new Vector3(0, 0, 0), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 1, TeamKind.Self, new Vector3(5, 0, -2), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 2, TeamKind.Self, new Vector3(-5, 0, -2), 0, 1));
-
-                redAvatarTexture(ref attr);
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 3, TeamKind.Npc, new Vector3(0, 0, 5), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 4, TeamKind.Npc, new Vector3(5, 0, 2), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 5, TeamKind.Npc, new Vector3(-5, 0, 2), 0, 1));
+				for (int i = 0; i < PlayerAy.Length; i++) {
+					if(i >= 3)
+						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i % 3, TeamKind.Npc, BornAy[i], PlayerAy[i]));				
+					else
+						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, TeamKind.Self, BornAy[i], PlayerAy[i]));					
+				}
 
                 for (int i = 0; i < PlayerList.Count; i++)
                     PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
-
                 break;
             case GameTest.AttackA:
             case GameTest.Dunk:
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 0, TeamKind.Self, new Vector3(0, 0, 0), 0));
+                PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
                 break;
             case GameTest.AttackB:
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 0, TeamKind.Npc, new Vector3(0, 0, 0), 0, 1));
-                break;
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			break;
             case GameTest.Block:
 			case GameTest.OneByOne: 
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 0, TeamKind.Self, new Vector3(0, 0, 0), 0, 1));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (attr, 3, TeamKind.Npc, new Vector3 (0, 0, 5), 0, 1));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Npc, new Vector3 (0, 0, 5), new GameStruct.TPlayer(0)));
 
                 for (int i = 0; i < PlayerList.Count; i++)
                     PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
                 break;
             case GameTest.Edit:
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 0, TeamKind.Self, new Vector3(0, 0, 0), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 1, TeamKind.Self, new Vector3(5, 0, -2), 0, 1));
-                PlayerList.Add(ModelManager.Get.CreateGamePlayer(attr, 2, TeamKind.Self, new Vector3(-5, 0, -2), 0, 1));
-                break;
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(5, 0, -2), new GameStruct.TPlayer(0)));
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, TeamKind.Self, new Vector3(-5, 0, -2), new GameStruct.TPlayer(0)));
+			break;
         }
 
         Joysticker = PlayerList [0];
@@ -1417,12 +1443,12 @@ public class GameController : MonoBehaviour
                             dis2 = Vector2.Distance(TeeBackPosAy [player.DefPlayer.Index], 
                                                     new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
                         
-                        if (dis2 <= GameConst.AIlevelAy [player.DefPlayer.AILevel].DefDistance)
+                        if (dis2 <= GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
                         {
-                            PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, GameConst.AIlevelAy [player.DefPlayer.AILevel].DefDistance, false, true);
+                            PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance, false, true);
                             if (p != null)
                                 data2.DefPlayer = p;
-                            else if (getDis(ref player, ref player.DefPlayer) <= GameConst.AIlevelAy [player.DefPlayer.AILevel].DefDistance)
+                            else if (getDis(ref player, ref player.DefPlayer) <= GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
                                 data2.DefPlayer = player;
                             
                             if (data2.DefPlayer != null)

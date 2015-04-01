@@ -48,8 +48,33 @@ namespace GameStruct
     {
         public int ID;
         public string Name; 
-        public int Body;
+        public int BodyType;
         public int AILevel;
         public int Steal;
+		public int Body;
+		public int Hair;
+		public int AHeadDress;
+		public int Cloth;
+		public int Pants;
+		public int Shoes;
+		public int MHandDress;
+		public int ZBackEquip;
+
+		public TPlayer(int Val)
+		{
+			ID = 0;
+			Name = "";
+			BodyType = 0;
+			AILevel = 0;
+			Steal = 0;
+			Body = 2001;
+			Hair = 2001;
+			Cloth = 5001;
+			Pants = 6001;
+			Shoes = 1001;
+			MHandDress = 0;
+			AHeadDress = 0;
+			ZBackEquip = 0;
+		}
     }
 }
