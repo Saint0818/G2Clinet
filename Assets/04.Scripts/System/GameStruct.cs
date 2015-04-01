@@ -43,4 +43,13 @@ namespace GameStruct
 	{
 		public static bool Effect = true;
 	}
+
+    public struct TPlayer
+    {
+        public int ID;
+        public string Name; 
+        public int Body;
+        public int AILevel;
+        public int Steal;
+    }
 }

@@ -150,4 +150,15 @@ public static class GameFunction
 	{
 		obj = JsonConvert.DeserializeObject <T>(Str);
 	}
+
+    public static BodyType GetBodyType(int Body){
+        if (Body == BodyType.Small.GetHashCode())
+            return BodyType.Small;
+        else if (Body == BodyType.Middle.GetHashCode())
+            return BodyType.Middle;
+        else if (Body == BodyType.Big.GetHashCode())
+            return BodyType.Big;
+        else
+            return BodyType.Small;
+    }
 }

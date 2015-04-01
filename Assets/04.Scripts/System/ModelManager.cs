@@ -129,9 +129,11 @@ public class ModelManager : MonoBehaviour {
 		SetAvatar (ref Player, Attr, false);
 	}
 
-	public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, int Index, TeamKind Team, Vector3 BornPos, GamePostion Postion, int AILevel = 0, GameObject Res=null){
+    public PlayerBehaviour CreateGamePlayer(GameStruct.TAvatar Attr, int Index, TeamKind Team, Vector3 BornPos, int Body, int AILevel = 0, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
+
+        BodyType mbody = GameFunction.GetBodyType(Body);
 
 		SetAvatar (ref Res, Attr, true);
 
@@ -151,7 +153,7 @@ public class ModelManager : MonoBehaviour {
 		PB.Team = Team;
 		PB.MoveIndex = -1;
 		PB.Index = Index % 3;
-		PB.Postion = Postion;
+        PB.Body = mbody;
 		PB.AILevel = AILevel;
 		Res.name = Index.ToString();
 		DefPointCopy.name = "DefPoint";

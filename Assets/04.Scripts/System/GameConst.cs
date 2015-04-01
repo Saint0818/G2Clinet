@@ -40,6 +40,8 @@ public class GameConst
 	public const float StealBallDistance = 2;
 	public const float PushPlayerDistance = 1;
 	public const float BlockDistance = 5;
+    public const int StealReate = 30;
+    public const int StealReate_Success = 10;
 
 	public static void Init(){
 		AIlevelAy [0].ProactiveRate = 5;

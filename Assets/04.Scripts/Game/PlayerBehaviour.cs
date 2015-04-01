@@ -140,7 +140,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int Index;
     public GameSituation situation = GameSituation.None;
     public PlayerState crtState = PlayerState.Idle;
-    public GamePostion Postion = GamePostion.G;
+    public BodyType Body = BodyType.Small;
     public Transform[] DefPointAy = new Transform[8];
     public float WaitMoveTime = 0;
     public float Invincible = 0;
