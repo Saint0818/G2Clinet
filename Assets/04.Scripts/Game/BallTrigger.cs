@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class BallTrigger : MonoBehaviour
 {
@@ -52,7 +53,10 @@ public class BallTrigger : MonoBehaviour
 		if (!passing && GameController.Get.Catcher) {
 			passing = true;
 			SceneMgr.Get.SetBallState(PlayerState.Pass);
-			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position, Random.Range(40, 60));	
+			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
+			float time = dis / (GameConst.BasicMoveSpeed * GameConst.AttackSpeedup * Random.Range(4, 6));
+			SceneMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd);
+
 			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
@@ -75,22 +79,14 @@ public class BallTrigger : MonoBehaviour
 		}
 	}
 
+	public void PassEnd(){
+		GameController.Get.SetEndPass();
+		passing = false;
+		CameraMgr.Get.IsLongPass = false;
+	}
+
 	void Update()
 	{
 		gameObject.transform.localPosition = Vector3.zero;
-
-		if(passing){
-			if (GameController.Get.Catcher) {
-				if (Vector3.Distance (SceneMgr.Get.RealBall.gameObject.transform.position, GameController.Get.Catcher.transform.position) > GameConst.PickBallDistance){
-					ParentRigidbody.gameObject.transform.position = Vector3.Lerp(ParentRigidbody.gameObject.transform.position, GameController.Get.Catcher.transform.position, 0.1f);
-				}else{
-					GameController.Get.SetEndPass();
-					passing = false;
-					CameraMgr.Get.IsLongPass = false;
-				}
-			}
-			else
-				passing = false;
-		}
 	}
 }

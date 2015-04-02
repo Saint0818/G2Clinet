@@ -34,8 +34,8 @@ public class GameConst
 	public const float AttackSpeedup = 8;
 	public const float AttackSpeedNormal = 7;
 	public const float TreePointDistance = 10;
-	public const float TwoPointDistance = 7;
-	public const float DunkDistance = 5;
+	public const float TwoPointDistance = 3;
+	public const float DunkDistance = 7;
 	public const float PickBallDistance = 2.5f;
 	public const float StealBallDistance = 2;
 	public const float PushPlayerDistance = 1;
