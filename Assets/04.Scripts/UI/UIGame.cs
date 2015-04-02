@@ -201,10 +201,6 @@ public class UIGame : UIBase {
 	}
 
 	public void PlusScore(int team, int score) {
-//		if(team == 0) { 
-//			if(score == 3)
-//				UIGame.Get.SetHomeHint(true, TextConst.S(1002));
-//		}
 		Scores [team] += score;
 		TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity).to = new Vector3(0,720,0);
 		scoresLabel[team].text = Scores [team].ToString ();
@@ -221,20 +217,6 @@ public class UIGame : UIBase {
 			homeHintLabel[0].enabled = false;
 			homeHintSprite[0].enabled = false;
 		}
-
-//		aryHomeHintString[2] = aryHomeHintString[1];
-//		aryHomeHintString[1] = aryHomeHintString[0];
-//		aryHomeHintString[0] = homeHint;
-//		for (int i=0; i< aryHomeHintString.Length; i++) {
-//			if(string.IsNullOrEmpty(aryHomeHintString[i])){
-//				homeHintLabel[i].enabled = false;
-//				homeHintSprite[i].enabled = false;
-//			} else {
-//				homeHintLabel[i].enabled = true;
-//				homeHintSprite[i].enabled = true;
-//				homeHintLabel[i].text = aryHomeHintString[i];
-//			}
-//		}
 	}
 
 	private void showHomeHint() {
@@ -260,7 +242,6 @@ public class UIGame : UIBase {
 		float playerY = 11 - playerInBoardY;
 
 		Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 960 , (playerY * baseValueY) * (-1));
-//		Vector2 playerScreenPos = new Vector2((playerX - (Screen.width/2)) * baseValueX , (playerY- (Screen.height/2)) * baseValueY);
 		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX < 0) {
 			playerScreenPos.x = -930;
 		} else 
@@ -299,13 +280,6 @@ public class UIGame : UIBase {
 			angle = -90;
 		}
 
-//		Vector2 from = new Vector2(Screen.width/2, Screen.height/2);
-//		Vector2 to = new Vector2(playerInCameraX - Screen.width/2, playerInCameraY - Screen.height/2);
-//		float angle = Vector2.Angle(from, to);
-//		Vector3 cross = Vector3.Cross(from, to);
-//		if (cross.z < 0)
-//			angle = 360 - angle;
-
 		if(playerInCameraX > -50 &&
 		   playerInCameraX < Screen.width + 50 &&
 		   playerInCameraY > - 50 &&
@@ -341,6 +315,6 @@ public class UIGame : UIBase {
 		}
 
 		showHomeHint();
-//		judgePlayerScreenPosition();
+		judgePlayerScreenPosition();
 	}
 }

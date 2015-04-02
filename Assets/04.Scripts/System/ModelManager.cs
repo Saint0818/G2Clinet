@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using RootMotion.FinalIK;
 
 public class ModelManager : MonoBehaviour {
 	private const int DRESS_NONE = 0;
@@ -259,6 +260,8 @@ public class ModelManager : MonoBehaviour {
 			GameObject headDress = null;
 			GameObject backEquipment = null;
 			GameObject bipGO = null;
+			GameObject ikPin = null;
+			GameObject ikAim = null;
 			
 			Transform[] hips;
 			List<CombineInstance> combineInstances = new List<CombineInstance> ();
@@ -396,6 +399,38 @@ public class ModelManager : MonoBehaviour {
 						}
 					}
 				}
+				
+				if(ikPin == null) {
+					Transform tPin = result.transform.FindChild("Pin");
+					if(tPin == null) {
+						GameObject obj = new GameObject();
+						obj.name = "Pin";
+						obj.transform.parent = result.transform;
+						if(bodyNumber.Equals("0")) {
+							obj.transform.localPosition = new Vector3(0, 0.9f, 1.7f);
+						} else if(bodyNumber.Equals("1")) {
+							obj.transform.localPosition = new Vector3(0, 0.7f, 1.7f);
+						} else if(bodyNumber.Equals("2")) {
+							obj.transform.localPosition = new Vector3(0, 0, 1.7f);
+						}
+						obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
+					}
+				}
+				
+				if(ikAim == null) {
+					Transform tAimParent = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
+					Transform tAim = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Aim");
+					if(tAim == null) {
+						GameObject obj = new GameObject();
+						obj.name = "Aim";
+						obj.transform.parent = tAimParent;
+						obj.transform.localPosition = Vector3.zero;
+						obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
+					}
+				}
+
+
+
 				if (dummyBall != null)
 					dummyBall.transform.parent = result.transform;
 
@@ -474,6 +509,56 @@ public class ModelManager : MonoBehaviour {
 				collider.height = 3f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			}
+
+			//IK
+			Transform tAim1 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Aim");
+			AimIK aimIK = result.GetComponent<AimIK> ();
+			if(aimIK == null) 
+				aimIK = result.AddComponent<AimIK> ();
+			aimIK.solver.transform = tAim1; 
+//			Transform tAimBone1 = result.transform.FindChild("Bip01/Bip01 Spine");
+			Transform tAimBone2 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+			Transform tAimBone3 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck");
+			Transform tAimBone4 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
+			aimIK.solver.bones = new IKSolver.Bone[3];
+			aimIK.solver.bones[0] = new IKSolver.Bone();
+			aimIK.solver.bones[1] = new IKSolver.Bone();
+			aimIK.solver.bones[2] = new IKSolver.Bone();
+//			aimIK.solver.bones[3] = new IKSolver.Bone();
+//			aimIK.solver.bones[0].transform = tAimBone1;
+//			aimIK.solver.bones[0].weight = 0.25f;
+			aimIK.solver.bones[0].transform = tAimBone2;
+			aimIK.solver.bones[0].weight = 0.5f;
+			aimIK.solver.bones[1].transform = tAimBone3;
+			aimIK.solver.bones[1].weight = 1.0f;
+			aimIK.solver.bones[2].transform = tAimBone4;
+			aimIK.solver.bones[2].weight = 1.0f;
+
+//			RootMotion.FinalIK.RotationLimitHinge boneRotationLimit1 = tAimBone1.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+			RootMotion.FinalIK.RotationLimitHinge boneRotationLimit2 = tAimBone2.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+			RootMotion.FinalIK.RotationLimitHinge boneRotationLimit3 = tAimBone3.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+			RootMotion.FinalIK.RotationLimitHinge boneRotationLimit4 = tAimBone4.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//			boneRotationLimit1.useLimits = true;
+//			boneRotationLimit1.axis = new Vector3(1, 0, 0);
+//			boneRotationLimit1.zeroAxisDisplayOffset = 180;
+//			boneRotationLimit1.min = -45;
+//			boneRotationLimit1.max = 45;
+			boneRotationLimit2.useLimits = true;
+			boneRotationLimit2.axis = new Vector3(1, 0, 0);
+			boneRotationLimit2.zeroAxisDisplayOffset = 180;
+			boneRotationLimit2.min = -45;
+			boneRotationLimit2.max = 45;
+			boneRotationLimit3.useLimits = true;
+			boneRotationLimit3.axis = new Vector3(1, 0, 0);
+			boneRotationLimit3.zeroAxisDisplayOffset = 180;
+			boneRotationLimit3.min = -45;
+			boneRotationLimit3.max = 45;
+			boneRotationLimit4.useLimits = true;
+			boneRotationLimit4.axis = new Vector3(1, 0, 0);
+			boneRotationLimit4.zeroAxisDisplayOffset = 180;
+			boneRotationLimit4.min = -45;
+			boneRotationLimit4.max = 45;
+
 			
 			//rig
 			if(isUseRig){

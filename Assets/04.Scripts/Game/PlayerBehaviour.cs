@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using RootMotion.FinalIK;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
@@ -164,6 +165,12 @@ public class PlayerBehaviour : MonoBehaviour
     private TDunkCurve playerDunkCurve;
     private TBlockCurve playerBlockCurve;
 
+	//IK
+	private AimIK aimIK;
+	private Transform pinIKTransform;
+	public Transform IKTarget;
+	public bool isIKOpen = true;
+
     void initTrigger()
     {
         GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -197,6 +204,11 @@ public class PlayerBehaviour : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Player");
         gameObject.tag = "Player";
 
+		//IK
+		aimIK = gameObject.GetComponent<AimIK>();
+		pinIKTransform = transform.FindChild("Pin");
+		IKTarget = SceneMgr.Get.RealBall.transform;
+
         animator = gameObject.GetComponent<Animator>();
         playerCollider = gameObject.GetComponent<Collider>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -205,6 +217,23 @@ public class PlayerBehaviour : MonoBehaviour
         initTrigger();
     }
 
+	void LateUpdate() {
+		if(aimIK != null) {
+			if(pinIKTransform != null) {
+				if(IKTarget != null) {
+					Vector3 t_self = new Vector3(IKTarget.position.x, pinIKTransform.position.y, IKTarget.position.z);
+					aimIK.solver.transform.LookAt(pinIKTransform.position);
+					if(isIKOpen) {
+						aimIK.enabled = true;
+						aimIK.solver.IKPosition = IKTarget.position;
+					} else {
+//						aimIK.solver.IKPosition = pinIKTransform.position;
+						aimIK.enabled = false;
+					}
+				}
+			}
+		}
+	}
 
 
     void FixedUpdate()
@@ -278,6 +307,11 @@ public class PlayerBehaviour : MonoBehaviour
                 GameController.Get.DefMove(this);
             }       
         }
+
+		if(IsBallOwner) 
+			isIKOpen = false;
+		else 
+			isIKOpen = true;
 
         if (IsDefence)
         {

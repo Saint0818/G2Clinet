@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
+using RootMotion.FinalIK;
 
 public enum GameSituation
 {
