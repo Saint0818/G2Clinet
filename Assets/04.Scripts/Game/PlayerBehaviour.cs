@@ -795,35 +795,48 @@ public class PlayerBehaviour : MonoBehaviour
         {
 
             case PlayerState.Catch:
-                if (state != PlayerState.FakeShoot && state != PlayerState.Dunk && state != PlayerState.Pass && state != PlayerState.Steal)
+				if (crtState != PlayerState.FakeShoot && 
+			        crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Pass && 
+			    	crtState != PlayerState.Steal)
                     return true;
                 break;
             case PlayerState.Steal:
-                if (state != PlayerState.FakeShoot && state != PlayerState.Dunk && state != PlayerState.Pass)
+				if (crtState != PlayerState.FakeShoot && 
+				    crtState != PlayerState.Dunk && 
+				    crtState != PlayerState.Pass)
                     return true;
                 break;
             case PlayerState.Pass:
-                if (state != PlayerState.FakeShoot && state != PlayerState.Dunk)
+				if (crtState != PlayerState.FakeShoot && 
+			    	crtState != PlayerState.Dunk)
                     return true;
                 break;
             case PlayerState.Block:
-                if (state != PlayerState.Steal)
+				if (crtState != PlayerState.Steal)
                     return true;
                 break;
             case PlayerState.BlockCatch:
-                if (state != PlayerState.FakeShoot && state != PlayerState.Dunk && state != PlayerState.Pass)
+				if (crtState != PlayerState.FakeShoot && 
+			    	crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Pass)
                     return true;
                 break;
             case PlayerState.Shooting:
-                if (state != PlayerState.Dunk && state != PlayerState.Pass && state != PlayerState.Catch)
+				if (crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Pass && 
+			    	crtState != PlayerState.Catch)
                     return true;
                 break;
             case PlayerState.FakeShoot:
-                if (state != PlayerState.FakeShoot && state != PlayerState.Dunk && state != PlayerState.Pass)
+				if (crtState != PlayerState.FakeShoot && 
+			    	crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Pass)
                     return true;
                 break;
             case PlayerState.Dunk:
-                if (state != PlayerState.Dunk && state != PlayerState.Pass)
+				if (crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Pass)
                     return true;
                 break;
             case PlayerState.Idle:
