@@ -267,7 +267,10 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (CheckAction(ActionFlag.IsRun) && !IsDefence)
+        if (CheckAction(ActionFlag.IsRun) && !IsDefence && 
+		    situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
+		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking
+		    )
         {//&& situation != GameSituation.Opening !IsDefence
             if (Time.time >= MoveStartTime)
             {
