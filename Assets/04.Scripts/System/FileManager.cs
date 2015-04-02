@@ -16,6 +16,12 @@ public struct TUpdateData
 {
 	public string fileName;
 	public string version;
+
+	public TUpdateData(string FileName, string Version)
+	{
+		fileName = FileName;
+		version = Version;
+	}
 }
 
 public enum VersionMode
@@ -176,6 +182,7 @@ public class FileManager : MonoBehaviour {
 
 	void Awake () {
 		CallBackFun.Add ("tactical", parseTacticalData);
+		CallBackFun.Add ("ailevel", parseAILevelData);
 	}
 
 	public void LoadGameData() {
@@ -427,6 +434,19 @@ public class FileManager : MonoBehaviour {
 			Debug.Log ("[tactical parsed finished.] ");
 		} catch (System.Exception ex) {
 			Debug.LogError ("[tactical parsed error] " + ex.Message);
+		}
+	}
+
+	private void parseAILevelData (string Version, string text, bool SaveVersion){
+		try {
+			GameData.AIlevelAy = (TAIlevel[])JsonConvert.DeserializeObject (text, typeof(TAIlevel[]));
+			
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "tactical", Version);
+			
+			Debug.Log ("[AIlevelAy parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[AIlevelAy parsed error] " + ex.Message);
 		}
 	}
 }

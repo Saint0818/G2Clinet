@@ -1,0 +1,38 @@
+[
+    {
+        "proactiverate": 10,
+        "stealrate": 10,
+        "autofollowtime": 10,
+        "defdistance": 1
+    },
+    {
+        "proactiverate": 20,
+        "stealrate": 20,
+        "autofollowtime": 8,
+        "defdistance": 2
+    },
+    {
+        "proactiverate": 40,
+        "stealrate": 40,
+        "autofollowtime": 6,
+        "defdistance": 4
+    },
+    {
+        "proactiverate": 60,
+        "stealrate": 60,
+        "autofollowtime": 4,
+        "defdistance": 6
+    },
+    {
+        "proactiverate": 80,
+        "stealrate": 80,
+        "autofollowtime": 2,
+        "defdistance": 8
+    },
+    {
+        "proactiverate": 100,
+        "stealrate": 100,
+        "autofollowtime": 1,
+        "defdistance": 10
+    }
+]

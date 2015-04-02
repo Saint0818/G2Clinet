@@ -191,7 +191,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             GameObject obj4 = obj.transform.FindChild("DefRange").gameObject;
             if (obj4 != null)
-                obj4.transform.localScale = new Vector3(GameConst.AIlevelAy [Attr.AILevel].DefDistance, GameConst.AIlevelAy [Attr.AILevel].DefDistance, GameConst.AIlevelAy [Attr.AILevel].DefDistance);
+				obj4.transform.localScale = new Vector3(GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance);
             
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
@@ -624,7 +624,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
                 
-                if (GameConst.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
+				if (GameData.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
                     Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
             }
         } else if (Data.FollowTarget != null)
@@ -1160,7 +1160,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CloseDef == 0 && AutoFollow == false)
         {
-            CloseDef = Time.time + GameConst.AIlevelAy [Attr.AILevel].AutoFollowTime;
+			CloseDef = Time.time + GameData.AIlevelAy [Attr.AILevel].AutoFollowTime;
         }           
     }
 

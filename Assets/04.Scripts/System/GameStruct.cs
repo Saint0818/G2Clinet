@@ -7,6 +7,7 @@ namespace GameStruct
 	public struct TAIlevel
 	{
 		public int ProactiveRate;
+		public int StealRate;
 		public int AutoFollowTime;
 		public float DefDistance;
 	}
@@ -34,11 +35,6 @@ namespace GameStruct
 		}
 	}
 
-	public static class GameData 
-	{
-		public static TTactical[] TacticalData;
-	}
-
 	public static class GameSetting
 	{
 		public static bool Effect = true;
@@ -51,6 +47,7 @@ namespace GameStruct
         public int BodyType;
         public int AILevel;
         public int Steal;
+		public int Control;
 		public int Body;
 		public int Hair;
 		public int Cloth;
@@ -67,6 +64,7 @@ namespace GameStruct
 			BodyType = 0;
 			AILevel = 0;
 			Steal = 0;
+			Control = 0;
 			Body = 2001;
 			Hair = 2001;
 			Cloth = 5001;

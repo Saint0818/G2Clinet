@@ -49,7 +49,6 @@ public class GameStart : MonoBehaviour {
 		unibillDemo = gameObject.GetComponent<UnibillDemo>();
 		InitCom ();
 		//CheckVersion ();
-		FileManager.Get.LoadGameData();
 		UIGame.UIShow (true);
 	}
 
@@ -60,7 +59,7 @@ public class GameStart : MonoBehaviour {
 		FacebookAPI.Init();
 		ModelManager.Init ();
 		SceneMgr.Get.ChangeLevel (3);
-		GameConst.Init ();
+		GameData.Init ();
 	}
 
 	private void initResolution(){

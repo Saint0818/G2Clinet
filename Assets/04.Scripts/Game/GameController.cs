@@ -1023,20 +1023,29 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void GetStealRate(out bool Val1, out bool Val2)
-    {
-        int stealRate = Random.Range(0, 100) + 1;
+	private void GetStealRate(ref PlayerBehaviour npc, out bool Val1, out bool Val2)
+	{
+		int r = Mathf.RoundToInt(npc.Attr.Steal - BallOwner.Attr.Control);
+		int maxRate = 100;
+		int minRate = 10;
+		
+		if (r > maxRate)
+			r = maxRate;
+		else if (r < minRate)
+			r = minRate;
+
+		int stealRate = Random.Range(0, 100) + 1;
 		int AddRate = 0;
-        Val1 = false;
+		Val1 = false;
         Val2 = false;
 		if(SceneMgr.Get.RealBallFX.activeInHierarchy)
 			AddRate = 30;
 
-        if (stealRate <= GameConst.StealReate + AddRate)
+		if (stealRate <= (GameData.AIlevelAy[npc.Attr.AILevel].StealRate + AddRate))
         {
             Val1 = true;
 
-            if (stealRate <= GameConst.StealReate_Success + AddRate)
+            if (stealRate <= (r + AddRate))
             {
                 Val2 = true;
             }
@@ -1067,7 +1076,7 @@ public class GameController : MonoBehaviour
                         {
                             bool IsDoSteal;
                             bool StealSuccess;
-                            GetStealRate(out IsDoSteal, out StealSuccess);
+							GetStealRate(ref Npc, out IsDoSteal, out StealSuccess);
 
                             if(IsDoSteal)
                             {
@@ -1080,8 +1089,21 @@ public class GameController : MonoBehaviour
 									}else 
 									if(HaveStealPlayer(ref Npc, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
 									{
-										RealBallFxTime = 1f;
-										SceneMgr.Get.RealBallFX.SetActive(true);
+										int r = Mathf.RoundToInt(Npc.Attr.Steal - BallOwner.Attr.Control);
+										int maxRate = 100;
+										int minRate = 10;
+										
+										if (r > maxRate)
+											r = maxRate;
+										else if (r < minRate)
+											r = minRate;
+										int stealRate = Random.Range(0, 100) + 1;
+
+										if(stealRate <= r)
+										{
+											RealBallFxTime = 1f;
+											SceneMgr.Get.RealBallFX.SetActive(true);
+										}
 									}
 
 									Npc.CoolDownSteal = Time.time + 3;
@@ -1128,9 +1150,9 @@ public class GameController : MonoBehaviour
 
     private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos, bool WatchBallOwner = false)
     {
-        if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0)
-        {
-            TMoveData data = new TMoveData(0);
+		if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
+		{
+			TMoveData data = new TMoveData(0);
 
             TActionPosition [] ap = null;
             if (Npc.Index == 0)
@@ -1442,12 +1464,12 @@ public class GameController : MonoBehaviour
                             dis2 = Vector2.Distance(TeeBackPosAy [player.DefPlayer.Index], 
                                                     new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
                         
-                        if (dis2 <= GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
+						if (dis2 <= GameData.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
                         {
-                            PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance, false, true);
+							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, GameData.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance, false, true);
                             if (p != null)
                                 data2.DefPlayer = p;
-                            else if (getDis(ref player, ref player.DefPlayer) <= GameConst.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
+							else if (getDis(ref player, ref player.DefPlayer) <= GameData.AIlevelAy [player.DefPlayer.Attr.AILevel].DefDistance)
                                 data2.DefPlayer = player;
                             
                             if (data2.DefPlayer != null)
@@ -1932,14 +1954,9 @@ public class GameController : MonoBehaviour
     
     public void Reset()
     {
-        PlayerList [0].transform.position = new Vector3(0, 0, 0);
-        PlayerList [1].transform.position = new Vector3(5, 0, -2);
-        PlayerList [2].transform.position = new Vector3(-5, 0, -2);
-        
-        PlayerList [3].transform.position = new Vector3(0, 0, 5);
-        PlayerList [4].transform.position = new Vector3(5, 0, 2);
-        PlayerList [5].transform.position = new Vector3(-5, 0, 2);
-        
+		for(int i = 0; i < PlayerList.Count; i++)
+			PlayerList[i].transform.position = BornAy[i];
+
         situation = GameSituation.Opening;
         BallOwner = null;
         SceneMgr.Get.RealBall.transform.parent = null;
@@ -1953,11 +1970,9 @@ public class GameController : MonoBehaviour
     {
         get
         {
-            for (int i = 0; i < PlayerList.Count; i++)
-            {
+            for (int i = 0; i < PlayerList.Count; i++)            
                 if (PlayerList [i].CheckAction(ActionFlag.IsShoot))
-                    return true;
-            }
+                    return true;            
 
             return false;
         }
@@ -1967,11 +1982,9 @@ public class GameController : MonoBehaviour
     {
         get
         {
-            for (int i = 0; i < PlayerList.Count; i++)
-            {
+            for (int i = 0; i < PlayerList.Count; i++)            
                 if (PlayerList [i].CheckAction(ActionFlag.IsDunk))
-                    return true;
-            }
+                    return true;            
             
             return false;
         }
@@ -1982,10 +1995,8 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-            {
                 if (PlayerList [i].CheckAction(ActionFlag.IsPass))
                     return true;
-            }
             
             return false;
         }
@@ -1996,10 +2007,8 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-            {
                 if (PlayerList [i].CheckAction(ActionFlag.IsBlock))
                     return true;
-            }
             
             return false;
         }
