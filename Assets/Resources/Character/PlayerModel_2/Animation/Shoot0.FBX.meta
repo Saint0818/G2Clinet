@@ -109,9 +109,9 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: ShootStay
-    7400002: Shoot
-    7400004: ShootDown
+    7400000: ShootStay0
+    7400002: Shoot0
+    7400004: ShootDown0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -130,7 +130,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ShootStay
+      name: ShootStay0
       takeName: Take 001
       firstFrame: 0
       lastFrame: 6
@@ -293,7 +293,7 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: Shoot
+      name: Shoot0
       takeName: Take 001
       firstFrame: 6
       lastFrame: 23
@@ -456,10 +456,10 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: ShootDown
+      name: ShootDown0
       takeName: Take 001
       firstFrame: 23
-      lastFrame: 48
+      lastFrame: 53
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -478,7 +478,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .857482255
+      - time: .878758848
         functionName: AnimationEvent
         data: ShootDown
         objectReferenceParameter: {instanceID: 0}

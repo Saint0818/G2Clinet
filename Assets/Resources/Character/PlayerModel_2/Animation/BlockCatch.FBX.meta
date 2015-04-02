@@ -288,7 +288,7 @@ ModelImporter:
       name: BlockCatchDown
       takeName: Take 001
       firstFrame: 18
-      lastFrame: 30
+      lastFrame: 42
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

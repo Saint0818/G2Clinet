@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4716affbb85f55242bb9dea100a2b66c
-timeCreated: 1426750426
+guid: 37171250a2da853479af8137e072b0f1
+timeCreated: 1426154354
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -48,15 +48,15 @@ ModelImporter:
     100080: Bip01 R UpperArm
     100082: Bip01 Spine
     100084: Bip01 Spine1
-    100086: //RootNode
-    100088: Bone_Hair_1
-    100090: Bone_Hair_2
-    100092: Bone_Nub
-    100094: DummyBack
-    100096: DummyBall
-    100098: DummyHand_L
-    100100: DummyHand_R
-    100102: DummyHead
+    100086: Bone_Hair_1
+    100088: Bone_Hair_2
+    100090: Bone_Nub
+    100092: DummyBack
+    100094: DummyBall
+    100096: DummyHand_L
+    100098: DummyHand_R
+    100100: DummyHead
+    100102: //RootNode
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -100,16 +100,16 @@ ModelImporter:
     400080: Bip01 R UpperArm
     400082: Bip01 Spine
     400084: Bip01 Spine1
-    400086: //RootNode
-    400088: Bone_Hair_1
-    400090: Bone_Hair_2
-    400092: Bone_Nub
-    400094: DummyBack
-    400096: DummyBall
-    400098: DummyHand_L
-    400100: DummyHand_R
-    400102: DummyHead
-    7400000: Block
+    400086: Bone_Hair_1
+    400088: Bone_Hair_2
+    400090: Bone_Nub
+    400092: DummyBack
+    400094: DummyBall
+    400096: DummyHand_L
+    400098: DummyHand_R
+    400100: DummyHead
+    400102: //RootNode
+    7400000: Pass0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Block
+      name: Pass0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 48
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,23 +150,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .104875177
+      - time: .622166276
         functionName: AnimationEvent
-        data: BlockJump
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .376196772
-        functionName: AnimationEvent
-        data: Blocking
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .688211501
-        functionName: AnimationEvent
-        data: BlockEnd
+        data: Passing
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6d9a5ae831423634f905625b6c6dcf5c
-timeCreated: 1426155053
+guid: d8d4b36b0b7959f4b84d668c45a85903
+timeCreated: 1426673437
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Steal
+    7400000: Dunk0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Steal
+      name: Dunk0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,9 +150,37 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .474285722
+      - time: .0504090227
         functionName: AnimationEvent
-        data: StealEnd
+        data: DunkJump
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .315633982
+        functionName: AnimationEvent
+        data: DunkBasket
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .364401013
+        functionName: AnimationEvent
+        data: DunkFallBall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .642653644
+        functionName: AnimationEvent
+        data: DunkFall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .909803629
+        functionName: AnimationEvent
+        data: DunkEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
