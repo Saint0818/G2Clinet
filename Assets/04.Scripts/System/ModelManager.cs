@@ -152,6 +152,7 @@ public class ModelManager : MonoBehaviour {
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
+		PB.Attr = playerattr;
 		PB.Index = TeamIndex;
 		Res.name = Team.ToString() + TeamIndex.ToString();
 		DefPointCopy.name = "DefPoint";

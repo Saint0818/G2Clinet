@@ -271,18 +271,6 @@ public class GameController : MonoBehaviour
     {
         ModelManager.Get.SetAvatarTexture(PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
     }
-    
-    private void redAvatarTexture(ref TAvatar attr)
-    {
-        attr.Body = 2001;
-        attr.Cloth = 5002;//0,5001,5002
-        attr.Hair = 2002;//0,2001,2002
-        attr.MHandDress = 0;//0,2001,2002
-        attr.Pants = 6002;//0,6001,6002
-        attr.Shoes = 1002;//0,1001,1002
-        attr.AHeadDress = 0;//0,1001,1002
-        attr.ZBackEquip = 0;//0,1001,1002
-    }
 
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {
@@ -491,8 +479,8 @@ public class GameController : MonoBehaviour
             GameSituation oldgs = situation;
             if (situation != GS)
             {
-                RealBallFxTime = 1f;
-                SceneMgr.Get.RealBallFX.SetActive(true);
+                RealBallFxTime = 0;
+                SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
                     if ((GS == GameSituation.TeeA && PlayerList [i].Team == TeamKind.Self) || 
@@ -851,6 +839,8 @@ public class GameController : MonoBehaviour
 
                     SetBall(null);
                     SceneMgr.Get.SetBallState(PlayerState.Block);
+					RealBallFxTime = 1f;
+					SceneMgr.Get.RealBallFX.SetActive(true);
                     return true;
                 }
             }
@@ -1035,14 +1025,17 @@ public class GameController : MonoBehaviour
     private void GetStealRate(out bool Val1, out bool Val2)
     {
         int stealRate = Random.Range(0, 100) + 1;
+		int AddRate = 0;
         Val1 = false;
         Val2 = false;
+		if(SceneMgr.Get.RealBallFX.activeInHierarchy)
+			AddRate = 30;
 
-        if (stealRate <= GameConst.StealReate)
+        if (stealRate <= GameConst.StealReate + AddRate)
         {
             Val1 = true;
 
-            if (stealRate <= GameConst.StealReate_Success)
+            if (stealRate <= GameConst.StealReate_Success + AddRate)
             {
                 Val2 = true;
             }
@@ -1079,12 +1072,18 @@ public class GameController : MonoBehaviour
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
                                 {
-                                    Npc.CoolDownSteal = Time.time + 3;
-                                    if (StealSuccess)
+									if (StealSuccess)
                                     {
                                         SetBall(null);
                                         SceneMgr.Get.SetBallState(PlayerState.Steal);
-                                    }
+									}else 
+									if(HaveStealPlayer(ref Npc, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
+									{
+										RealBallFxTime = 1f;
+										SceneMgr.Get.RealBallFX.SetActive(true);
+									}
+
+									Npc.CoolDownSteal = Time.time + 3;
                                 }
                             }
                         }
@@ -1809,6 +1808,31 @@ public class GameController : MonoBehaviour
         
         return Result;
     }
+
+	public int HaveStealPlayer(ref PlayerBehaviour P1, ref PlayerBehaviour P2, float dis, float angle)
+	{
+		int Result = 0;
+		Vector3 lookAtPos;
+		Vector3 relative;
+		float mangle;
+
+		if (P1 != null && P2 != null && P1 != P2) 
+		{
+			lookAtPos = P2.transform.position;
+			relative = P1.transform.InverseTransformPoint(lookAtPos);
+			mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+			
+			if (getDis(ref P1, ref P2) <= dis)
+			{
+				if (mangle >= 0 && mangle <= angle)				
+					Result = 1;
+				else if (mangle <= 0 && mangle >= -angle)				
+					Result = 2;
+			}
+		}
+		
+		return Result;
+	}
     
     private PlayerBehaviour HaveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam, bool FindBallOwnerFirst = false)
     {
