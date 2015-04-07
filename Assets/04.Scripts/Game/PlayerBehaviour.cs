@@ -308,9 +308,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (CheckAction(ActionFlag.IsRun) && !IsDefence && 
 		    situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
-		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking
-		    )
-        {//&& situation != GameSituation.Opening !IsDefence
+		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+        {
             if (Time.time >= MoveStartTime)
             {
                 MoveStartTime = Time.time + 0.5f;
@@ -671,10 +670,9 @@ public class PlayerBehaviour : MonoBehaviour
                     if (!IsBallOwner)
                         AniState(PlayerState.Idle);
                     
-                    if (First)
+                    if (First || GameStart.Get.TestMode == GameTest.Edit)
                         WaitMoveTime = 0;
-                    else 
-                        if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+                    else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
                         WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
                     
                     if (IsBallOwner)
