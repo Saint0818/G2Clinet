@@ -948,7 +948,7 @@ public class GameController : MonoBehaviour
                 int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
                 if (ShootPointDis <= GameConst.DunkDistance && dunkRate < 30 && CheckAttack(ref Npc))
                 {
-                    Npc.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position);
+					Shoot();
                 } else 
                 if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc))
                 {
@@ -1567,7 +1567,7 @@ public class GameController : MonoBehaviour
                         else if (situation == GameSituation.TeeB)
                             ChangeSituation(GameSituation.AttackB);
                         else
-                            BallOwner.ResetFlag();
+                            BallOwner.ResetFlag(false);
                     }
                 } else
                 {

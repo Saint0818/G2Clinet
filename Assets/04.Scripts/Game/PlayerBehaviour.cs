@@ -693,8 +693,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 						if(Data.Catcher)
 						{
-							GameController.Get.Pass(this);
-							NeedShooting = Data.Shooting;
+							if(!GameController.Get.IsPassing)
+							{
+								GameController.Get.Pass(this);
+								NeedShooting = Data.Shooting;
+							}
 						}
                     }
                 }
@@ -817,16 +820,20 @@ public class PlayerBehaviour : MonoBehaviour
         return GameFunction.CheckByteFlag(Flag.GetHashCode(), PlayerActionFlag);
     }
     
-    public void ResetFlag()
+    public void ResetFlag(bool ClearMove = true)
     {
         if (AniWaitTime == 0)
         {
             for (int i = 0; i < PlayerActionFlag.Length; i++)
                 PlayerActionFlag [i] = 0;
             
+
             AniState(PlayerState.Idle);
-            MoveQueue.Clear();
-            FirstMoveQueue.Clear();
+			if(ClearMove)
+			{
+				MoveQueue.Clear();
+				FirstMoveQueue.Clear();
+			}
             NoAiTime = 0;
             WaitMoveTime = 0;
 			NeedShooting = false;
