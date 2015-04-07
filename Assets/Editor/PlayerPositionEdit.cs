@@ -13,6 +13,9 @@ public class PlayerPositionEdit : EditorWindow
         EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 1200, 800), true, "PlayerMoves").Show();
         FileName = Application.dataPath + "/Resources/GameData/tactical.json";
 		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/tactical_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
+		BornAy [0] = new Vector2 (0, 0);
+		BornAy [1] = new Vector2 (5, -2);
+		BornAy [2] = new Vector2 (-5, -2);
     }
 
     private float x;
@@ -36,6 +39,7 @@ public class PlayerPositionEdit : EditorWindow
     private TActionPosition[] PosAy3 = new TActionPosition[0];
     private string[] ArrayString = new string[0];
     private TTactical[] TacticalData = new TTactical[0];
+	private static Vector2 [] BornAy = new Vector2[3];
 
     void OnGUI()
     {
@@ -92,6 +96,18 @@ public class PlayerPositionEdit : EditorWindow
                 }
             }
         }
+
+		if (GUILayout.Button("BornPosition", GUILayout.Width(200)))
+		{
+			TActionPosition aa = new TActionPosition();
+
+			for(int i = 0; i < 3; i++)
+			{
+				aa.x = BornAy[i].x;
+				aa.z = BornAy[i].y;
+				GameController.Get.EditSetMove(aa, i);
+			}
+		}
 
         EditorGUILayout.BeginHorizontal();
         tacticalName = EditorGUILayout.TextField("FileName", tacticalName);
