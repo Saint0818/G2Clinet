@@ -270,10 +270,6 @@ public class GameController : MonoBehaviour
         return Result;
     }
 
-    public void ChangeTexture(TAvatar attr, int BodyPart, int ModelPart, int TexturePart)
-    {
-        ModelManager.Get.SetAvatarTexture(PlayerList [0].gameObject, attr, BodyPart, ModelPart, TexturePart);
-    }
 
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {

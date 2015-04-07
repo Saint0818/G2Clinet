@@ -982,7 +982,8 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case PlayerState.FakeShoot:
+			case PlayerState.FakeShoot:
+				UIGame.Get.DoPassNone();
                 if (!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
                 {
                     AddActionFlag(ActionFlag.IsFakeShoot);
@@ -1007,6 +1008,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Pass:
+				UIGame.Get.DoPassNone();
                 if (!CheckAction(ActionFlag.IsPass))
                 {
                     PassTime = Time.time + 3;
@@ -1050,7 +1052,8 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case PlayerState.Shooting:
+			case PlayerState.Shooting:
+				UIGame.Get.DoPassNone();
                 if (!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
                 {
                     gameObject.layer = LayerMask.NameToLayer("Shooter");

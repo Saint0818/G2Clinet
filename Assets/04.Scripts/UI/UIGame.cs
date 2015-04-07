@@ -119,7 +119,7 @@ public class UIGame : UIBase {
 	private void initLine() {
 		if (drawLine.UIs.Length == 0) {
 			for (int i = 0; i < 2; i ++) {
-				GameObject obj = GameObject.Find("PlayerInfoModel/" + (i+1).ToString());
+				GameObject obj = GameObject.Find("PlayerInfoModel/Self" + (i+1).ToString());
 				if (obj)
 					drawLine.AddTarget(passObjectGroup[i], obj);
 			}
@@ -282,8 +282,8 @@ public class UIGame : UIBase {
 
 		if(playerInCameraX > -50 &&
 		   playerInCameraX < Screen.width + 50 &&
-		   playerInCameraY > - 50 &&
-		   playerInCameraY < Screen.height + 50) {
+		   playerInCameraY > - 100 &&
+		   playerInCameraY < Screen.height + 100) {
 		    screenLocation.SetActive(false);
 		} else {
 			screenLocation.SetActive(true);
