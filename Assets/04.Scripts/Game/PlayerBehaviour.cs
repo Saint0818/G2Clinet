@@ -238,12 +238,15 @@ public class PlayerBehaviour : MonoBehaviour
 //					Vector3 t_self = new Vector3(IKTarget.position.x, pinIKTransform.position.y, IKTarget.position.z);
 					Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
 					aimIK.solver.transform.LookAt(pinIKTransform.position);
-					if(isIKOpen) {
-						aimIK.enabled = true;
-						aimIK.solver.IKPosition = IKTarget.position;
-					} else {
+					if(GameStart.Get.IsOpenIKSystem) {
+						if(isIKOpen) {
+							aimIK.enabled = true;
+							aimIK.solver.IKPosition = IKTarget.position;
+						} else {
+							aimIK.enabled = false;
+						}
+					} else 
 						aimIK.enabled = false;
-					}
 					for (int i = 0; i < aimIK.solver.bones.Length; i++) {
 						if (aimIK.solver.bones[i].rotationLimit != null) {
 							aimIK.solver.bones[i].rotationLimit.SetDefaultLocalRotation();
@@ -329,11 +332,12 @@ public class PlayerBehaviour : MonoBehaviour
                 GameController.Get.DefMove(this);
             }       
         }
-
-		if(IsBallOwner) 
-			isIKOpen = false;
-		else 
-			isIKOpen = true;
+		if(GameStart.Get.IsOpenIKSystem) {
+			if(IsBallOwner) 
+				isIKOpen = false;
+			else 
+				isIKOpen = true;
+		}
 
         if (IsDefence)
         {

@@ -11,6 +11,7 @@ public class GameStart : MonoBehaviour {
 
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
+	public bool IsOpenIKSystem = false;
 
 	void Start(){
 		#if UNITY_EDITOR
