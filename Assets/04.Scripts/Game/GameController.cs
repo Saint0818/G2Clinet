@@ -505,13 +505,7 @@ public class GameController : MonoBehaviour
 						PlayerBehaviour npc = PlayerList [i];
 						if (npc.Team == GetBall.Team)
 						{
-							TActionPosition[] ap = null;
-							if (npc.Index == 0)
-								ap = pos.PosAy1;
-							else if (npc.Index == 1)
-								ap = pos.PosAy2;
-							else if (npc.Index == 2)
-								ap = pos.PosAy3;
+							TActionPosition [] ap = GetActionPosition(npc.Index, ref pos);
 							
 							if (ap != null)
 							{
@@ -1151,21 +1145,14 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos, bool WatchBallOwner = false)
+	private void BackToDef(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos, bool WatchBallOwner = false)
     {
 		if(pos.FileName != string.Empty)
 		{
 			if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 			{
-				TMoveData data = new TMoveData(0);
-				
-				TActionPosition [] ap = null;
-				if (Npc.Index == 0)
-					ap = pos.PosAy1;
-				else if (Npc.Index == 1)
-					ap = pos.PosAy2;
-				else if (Npc.Index == 2)
-					ap = pos.PosAy3;
+				TMoveData data = new TMoveData(0);				
+				TActionPosition [] ap = GetActionPosition(Npc.Index, ref pos);
 				
 				if (ap != null)
 				{
@@ -1213,13 +1200,7 @@ public class GameController : MonoBehaviour
             } else 
 			if(pos.FileName != string.Empty)
             {
-                TActionPosition [] ap = null;
-                if (Npc.Index == 0)
-                    ap = pos.PosAy1;
-                else if (Npc.Index == 1)
-                    ap = pos.PosAy1;
-                else if (Npc.Index == 2)
-                    ap = pos.PosAy3;
+				TActionPosition [] ap = GetActionPosition(Npc.Index, ref pos);
                 
                 if (ap != null)
                 {
@@ -1377,62 +1358,53 @@ public class GameController : MonoBehaviour
             PickBall(ref npc.DefPlayer, true);
         } else
         {
-            if (pos.FileName != string.Empty)
-            {
-                if (!npc.CheckAction(ActionFlag.IsRun) && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
-                {
-                    TMoveData data;
-                    if (!CheckAttack(ref npc))
-                    {
-                        data = new TMoveData(0);
-                        if (npc.Team == TeamKind.Self)
-                            data.Target = new Vector2(npc.transform.position.x, 14);
-                        else
-                            data.Target = new Vector2(npc.transform.position.x, -14);
-                        
-                        if (BallOwner != null && BallOwner != npc)
-                            data.LookTarget = BallOwner.transform;  
-                        
-                        data.MoveFinish = DefMove;
-                        npc.FirstTargetPos = data;
-                        DefMove(npc);
-                    } else
-                    {
-                        TActionPosition[] ap = null;
+	        if (!npc.CheckAction(ActionFlag.IsRun) && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+	        {
+	            TMoveData data;
+	            if (!CheckAttack(ref npc))
+	            {
+	                data = new TMoveData(0);
+	                if (npc.Team == TeamKind.Self)
+	                    data.Target = new Vector2(npc.transform.position.x, 14);
+	                else
+	                    data.Target = new Vector2(npc.transform.position.x, -14);
+	                
+	                if (BallOwner != null && BallOwner != npc)
+	                    data.LookTarget = BallOwner.transform;  
+	                
+	                data.MoveFinish = DefMove;
+	                npc.FirstTargetPos = data;
+	                DefMove(npc);
+	            } else
+				if(pos.FileName != string.Empty)
+	            {
+					TActionPosition [] ap = GetActionPosition(npc.Index, ref pos);
 
-                        if (npc.Index == 0)
-                            ap = pos.PosAy1;
-                        else if (npc.Index == 1)
-                            ap = pos.PosAy2;
-                        else if (npc.Index == 2)
-                            ap = pos.PosAy3;
+	                if (ap != null)
+	                {
+	                    for (int i = 0; i < ap.Length; i++)
+	                    {
+	                        data = new TMoveData(0);
+	                        data.Speedup = ap [i].Speedup;
+	                        int z = 1;
+	                        if (npc.Team != TeamKind.Self)
+	                            z = -1;
+	                        
+	                        data.Target = new Vector2(ap [i].x, ap [i].z * z);
+	                        if (BallOwner != null && BallOwner != npc)
+	                            data.LookTarget = BallOwner.transform;  
+	                        
+	                        data.MoveFinish = DefMove;
+	                        npc.TargetPos = data;
+	                    }
 
-                        if (ap != null)
-                        {
-                            for (int i = 0; i < ap.Length; i++)
-                            {
-                                data = new TMoveData(0);
-                                data.Speedup = ap [i].Speedup;
-                                int z = 1;
-                                if (npc.Team != TeamKind.Self)
-                                    z = -1;
-                                
-                                data.Target = new Vector2(ap [i].x, ap [i].z * z);
-                                if (BallOwner != null && BallOwner != npc)
-                                    data.LookTarget = BallOwner.transform;  
-                                
-                                data.MoveFinish = DefMove;
-                                npc.TargetPos = data;
-                            }
-
-                            DefMove(npc);
-                        }
-                    }
-                }
-                
-                if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
-                    npc.AniState(PlayerState.Dribble);
-            }
+	                    DefMove(npc);
+	                }
+	            }
+	        }
+	        
+	        if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
+	            npc.AniState(PlayerState.Dribble);
         }
     }
 
@@ -1988,6 +1960,19 @@ public class GameController : MonoBehaviour
         SceneMgr.Get.RealBallRigidbody.useGravity = true;
         SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
     }
+
+	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos){
+		TActionPosition [] Result = null;
+		
+		if (Index == 0)
+			Result = pos.PosAy1;
+		else if (Index == 1)
+			Result = pos.PosAy2;
+		else if (Index == 2)
+			Result = pos.PosAy3;
+		
+		return Result;
+	}
 
     public bool IsShooting
     {

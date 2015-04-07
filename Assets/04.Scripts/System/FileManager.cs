@@ -12,12 +12,12 @@ public delegate void DownloadFinsh();
 public delegate void DownloadFileText(string Ver, string Text, bool SaveVersion);
 public delegate void DownloadFileWWW(string Ver, string FileName, WWW www);
 
-public struct TUpdateData
+public struct TDownloadData
 {
 	public string fileName;
 	public string version;
 
-	public TUpdateData(string FileName, string Version)
+	public TDownloadData(string FileName, string Version)
 	{
 		fileName = FileName;
 		version = Version;
@@ -67,7 +67,7 @@ public class FileManager : MonoBehaviour {
 	#endif
 
 	private static FileManager instance = null;
-	private static List<TUpdateData> Download_list = new List<TUpdateData>();
+	private static List<TDownloadData> Download_list = new List<TDownloadData>();
 	private static Dictionary<string, DownloadFileText> CallBackFun = new Dictionary<string, DownloadFileText> ();
 	private static Dictionary<string, DownloadFileWWW> CallBackWWWFun = new Dictionary<string, DownloadFileWWW> ();
 	private static Dictionary<string, int> FailuresData = new Dictionary<string, int> ();
@@ -76,7 +76,7 @@ public class FileManager : MonoBehaviour {
 	public static int DownlandCount = 0;
 	public static int AlreadyDownlandCount = 0;
 
-	public void LoadFileServer(List<TUpdateData> DataList, DownloadFinsh callback = null){
+	public void LoadFileServer(List<TDownloadData> DataList, DownloadFinsh callback = null){
 		if (Download_list.Count > 0) {
 			for(int i = 0 ; i < Download_list.Count; i++)
 				Debug.LogError(Download_list[i].fileName);
@@ -90,7 +90,7 @@ public class FileManager : MonoBehaviour {
 			Download_list.Add (DataList[i]);
 	}
 
-	public void LoadFileResource(List<TUpdateData> DataList, DownloadFinsh callback = null){
+	public void LoadFileResource(List<TDownloadData> DataList, DownloadFinsh callback = null){
 		DownlandCount = DataList.Count;
 		AlreadyDownlandCount = 0;
 		FinishCallBack = callback;
@@ -110,7 +110,7 @@ public class FileManager : MonoBehaviour {
 		DownloadFinish ();
 	}
 
-	public void LoadFileClient(List<TUpdateData> DataList, DownloadFinsh callback = null){
+	public void LoadFileClient(List<TDownloadData> DataList, DownloadFinsh callback = null){
 		DownlandCount = DataList.Count;
 		AlreadyDownlandCount = 0;
 		FinishCallBack = callback;
@@ -147,7 +147,7 @@ public class FileManager : MonoBehaviour {
 //		return InData;
 //	}
 	
-	public void LoadFileAssetbundle(List<TUpdateData> DataList, DownloadFinsh callback = null)
+	public void LoadFileAssetbundle(List<TDownloadData> DataList, DownloadFinsh callback = null)
 	{
 //		DownlandCount = DataList.Count;
 //		AlreadyDownlandCount = 0;
@@ -247,7 +247,7 @@ public class FileManager : MonoBehaviour {
 			}else{
 				if (Time.time - NowDownloadFileName.StarTime >= FileDownloadLimitTime){
 					StopCoroutine("WaitForDownload");
-					TUpdateData retry = Download_list[0];
+					TDownloadData retry = Download_list[0];
 					Download_list.RemoveAt (0);
 
 					if(FailuresData.ContainsKey(retry.fileName))
@@ -376,7 +376,7 @@ public class FileManager : MonoBehaviour {
 					}
 				}
 			}else{
-				TUpdateData retry = Download_list[0];
+				TDownloadData retry = Download_list[0];
 				Download_list.RemoveAt (0);
 				
 				if(FailuresData.ContainsKey(retry.fileName))
