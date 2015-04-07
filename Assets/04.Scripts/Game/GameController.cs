@@ -515,6 +515,8 @@ public class GameController : MonoBehaviour
 								{
 									TMoveData data = new TMoveData(0);
 									data.Speedup = ap [j].Speedup;
+									data.Catcher = ap [j].Catcher;
+									data.Shooting = ap [j].Shooting;
 									data.Target = new Vector2(ap [j].x, ap [j].z);
 									if (BallOwner != null && BallOwner != npc)
 										data.LookTarget = BallOwner.transform;  
@@ -603,7 +605,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    public void Shoot()
     {
         if (BallOwner)
         {
@@ -690,9 +692,9 @@ public class GameController : MonoBehaviour
             return false;
     }
     
-    private void Pass(PlayerBehaviour player)
+    public void Pass(PlayerBehaviour player)
     {
-        if (BallOwner)
+        if (BallOwner != null)
         {
             Catcher = player;
             Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
@@ -1202,6 +1204,8 @@ public class GameController : MonoBehaviour
                     {
                         data = new TMoveData(0);
                         data.Speedup = ap [j].Speedup;
+						data.Catcher = ap [j].Catcher;
+						data.Shooting = ap [j].Shooting;
                         if (Team == TeamKind.Self) 
                             data.Target = new Vector2(ap [j].x, ap [j].z);
                         else
@@ -1380,6 +1384,8 @@ public class GameController : MonoBehaviour
 	                    {
 	                        data = new TMoveData(0);
 	                        data.Speedup = ap [i].Speedup;
+							data.Catcher = ap [i].Catcher;
+							data.Shooting = ap [i].Shooting;
 	                        int z = 1;
 	                        if (npc.Team != TeamKind.Self)
 	                            z = -1;
@@ -1896,6 +1902,8 @@ public class GameController : MonoBehaviour
             TMoveData data = new TMoveData(0);
             data.Target = new Vector2(ActionPosition.x, ActionPosition.z);
             data.Speedup = ActionPosition.Speedup;
+			data.Catcher = ActionPosition.Catcher;
+			data.Shooting = ActionPosition.Shooting;
             PlayerList [index].TargetPos = data;
         }
     }
@@ -1928,6 +1936,11 @@ public class GameController : MonoBehaviour
         {
             SetBall(Catcher);
             Catcher.DelActionFlag(ActionFlag.IsCatcher);
+			if(Catcher.NeedShooting)
+			{
+				Shoot();
+				Catcher.NeedShooting = false;
+			}
             Catcher = null;
 		}else{
 			for(int i = 0; i < PlayerList.Count; i++)

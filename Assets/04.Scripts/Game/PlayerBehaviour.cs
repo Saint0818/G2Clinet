@@ -73,6 +73,8 @@ public struct TMoveData
     public PlayerBehaviour DefPlayer;
     public OnPlayerAction2 MoveFinish;
     public bool Speedup;
+	public bool Catcher;
+	public bool Shooting;
 
     public TMoveData(int flag)
     {
@@ -82,6 +84,8 @@ public struct TMoveData
         FollowTarget = null;
         DefPlayer = null;
         Speedup = false;
+		Catcher = false;
+		Shooting = false;
     }
 }
 
@@ -153,6 +157,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float CloseDef = 0;
     public PlayerBehaviour DefPlayer = null;
     public bool AutoFollow = false;
+	public bool NeedShooting = false;
 	public GameStruct.TPlayer Attr;
 
     //Dunk
@@ -673,12 +678,21 @@ public class PlayerBehaviour : MonoBehaviour
                             rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
                         else
                             rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
-                    } else
-                    {
+
+						if(Data.Shooting)
+							GameController.Get.Shoot();
+                    } else 
+					{
                         if (Data.LookTarget == null)
                             rotateTo(MoveTarget.x, MoveTarget.y);
                         else
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+
+						if(Data.Catcher)
+						{
+							GameController.Get.Pass(this);
+							NeedShooting = Data.Shooting;
+						}
                     }
                 }
 
@@ -812,6 +826,7 @@ public class PlayerBehaviour : MonoBehaviour
             FirstMoveQueue.Clear();
             NoAiTime = 0;
             WaitMoveTime = 0;
+			NeedShooting = false;
             isJoystick = false; 
         } else
             NeedResetFlag = true;
