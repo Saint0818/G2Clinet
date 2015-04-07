@@ -1943,13 +1943,33 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner != null)
             BallOwner.DelActionFlag(ActionFlag.IsPass);
+		else
+		{
+			for(int i = 0; i < PlayerList.Count; i++)
+			{
+				if(PlayerList[i].CheckAction(ActionFlag.IsPass))
+				{
+					PlayerList[i].DelActionFlag(ActionFlag.IsPass);
+					break;
+				}
+			}
+		}
 
         if (Catcher != null)
         {
             SetBall(Catcher);
             Catcher.DelActionFlag(ActionFlag.IsCatcher);
             Catcher = null;
-        }
+		}else{
+			for(int i = 0; i < PlayerList.Count; i++)
+			{
+				if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
+				{
+					PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
+					break;
+				}
+			}				
+		}
     }
     
     public void Reset()
