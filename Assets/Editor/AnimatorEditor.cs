@@ -12,37 +12,24 @@ public class AnimatorEditor : EditorWindow {
 	}
 
 	public UnityEditor.Animations.AnimatorController controller;
-	
-//	public List<Motion> allMotion = new List<Motion>();
 
 	public List<AnimationClip> allMotionAnimationClip = new List<AnimationClip>();
 	public List<AnimationClip> allAnimationClip = new List<AnimationClip>();
 
 	private string strId = "";
-	public Vector2 scrollPositionController = Vector2.zero;
-	public Vector2 scrollPositionAnimationClips = Vector2.zero;
+	private Vector2 scrollPositionController = Vector2.zero;
+	private Vector2 scrollPositionAnimationClips = Vector2.zero;
 
-	private void init(){
-//		controller = Resources.Load("Character/PlayerModel_1/AnimationControl") as UnityEditor.Animations.AnimatorController;
-//		animationObjs = Resources.LoadAll("Character/PlayerModel_1/Animation", typeof(AnimationClip));
-
-//		AnimationClip[] animationClips = controller.animationClips;
-//		Debug.Log("all animationClips:"+animationClips.Length);
-
-		//=====================================================================================================
-		 
-		AssetDatabase.SaveAssets();
-
+//	private void init(){
 //		FileUtil.CopyFileOrDirectory("Assets/Resources/Character/PlayerModel_1/AnimationControl.controller",
 //		                             "Assets/Resources/Character/PlayerModel_0/AnimationControl.controller");
-	}
+//	}
 
 	void OnGUI(){
 		GUI.Label(new Rect(50, 0, 50, 30), "ID:");
 		strId = GUI.TextField(new Rect(80, 0, 100, 20), strId, 10);
 
 		if(GUI.Button(new Rect(50, 40, 100, 20), "get")) {
-			Debug.Log("id:"+strId);
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
 
@@ -113,7 +100,6 @@ public class AnimatorEditor : EditorWindow {
 				List<AnimationClip> aryAnimationClip = new List<AnimationClip>();
 				int blendTreeCount = blendTree.children.Length;
 				for(int j=0; j<blendTreeCount; j++) {
-//					allMotion.Add(blendTree.children[j].motion);
 					aryTherhold.Add(blendTree.children[j].threshold);
 					for(int k=0; k<allAnimationClip.Count; k++) {
 						if(blendTree.children[j].motion.name.Equals(allAnimationClip[k].name)) {
@@ -121,19 +107,16 @@ public class AnimatorEditor : EditorWindow {
 						}
 					}
 				}
-
-				int tempCount = blendTreeCount;
-				for(int j=tempCount-1; j>=0; j--) {
-					blendTree.RemoveChild(j);
-				}
-
 				if(aryAnimationClip.Count == aryTherhold.Count) {
+					int tempCount = blendTreeCount;
+					for(int j=tempCount-1; j>=0; j--) {
+						blendTree.RemoveChild(j);
+					}
 					for(int j=0; j<aryTherhold.Count; j++){
 						blendTree.AddChild(aryAnimationClip[j], aryTherhold[j]);
 					}
 				}
 			} else {
-//				allMotion.Add(machine.states[i].state.motion);
 				for(int k=0; k<allAnimationClip.Count; k++) {
 					if(machine.states[i].state.motion.name.Equals(allAnimationClip[k].name)) {
 						machine.states[i].state.motion = allAnimationClip[k];
