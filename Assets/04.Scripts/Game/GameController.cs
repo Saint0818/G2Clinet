@@ -1045,15 +1045,25 @@ public class GameController : MonoBehaviour
             if (stealRate <= (r + AddRate))
             {
                 Val2 = true;
-            }
+			}else
+			if(BallOwner != null && HaveStealPlayer(ref npc, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
+			{
+				stealRate = Random.Range(0, 100) + 1;
+
+				if(stealRate <= r)
+				{
+					RealBallFxTime = 1f;
+					SceneMgr.Get.RealBallFX.SetActive(true);
+				}
+			}
         }
-    }
-    
-    private void Defend(ref PlayerBehaviour Npc)
-    {
-        if (BallOwner != null)
-        {
-            int pushRate = Random.Range(0, 100) + 1;        
+	}
+	
+	private void Defend(ref PlayerBehaviour Npc)
+	{
+		if (BallOwner != null)
+		{
+			int pushRate = Random.Range(0, 100) + 1;        
             float Dis = 0;
 
             //steal push Def
@@ -1083,24 +1093,6 @@ public class GameController : MonoBehaviour
                                     {
                                         SetBall(null);
                                         SceneMgr.Get.SetBallState(PlayerState.Steal);
-									}else 
-									if(HaveStealPlayer(ref Npc, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
-									{
-										int r = Mathf.RoundToInt(Npc.Attr.Steal - BallOwner.Attr.Control);
-										int maxRate = 100;
-										int minRate = 10;
-										
-										if (r > maxRate)
-											r = maxRate;
-										else if (r < minRate)
-											r = minRate;
-										int stealRate = Random.Range(0, 100) + 1;
-
-										if(stealRate <= r)
-										{
-											RealBallFxTime = 1f;
-											SceneMgr.Get.RealBallFX.SetActive(true);
-										}
 									}
 
 									Npc.CoolDownSteal = Time.time + 3;
@@ -1961,7 +1953,8 @@ public class GameController : MonoBehaviour
         SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
     }
 
-	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos){
+	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos)
+	{
 		TActionPosition [] Result = null;
 		
 		if (Index == 0)

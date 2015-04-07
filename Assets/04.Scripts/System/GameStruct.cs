@@ -57,12 +57,12 @@ namespace GameStruct
 		public int AHeadDress;
 		public int ZBackEquip;
 
-		public TPlayer(int Val)
+		public TPlayer(int Level)
 		{
 			ID = 0;
 			Name = "";
 			BodyType = 0;
-			AILevel = 0;
+			AILevel = Level;
 			Steal = 0;
 			Control = 0;
 			Body = 2001;

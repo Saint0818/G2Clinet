@@ -184,18 +184,6 @@ public class FileManager : MonoBehaviour {
 		CallBackFun.Add ("tactical", parseTacticalData);
 		CallBackFun.Add ("ailevel", parseAILevelData);
 	}
-
-	public void LoadGameData() {
-		GameData.TacticalData = LoadTactical();
-	}
-
-	public TTactical[] LoadTactical() {
-		TextAsset tx = Resources.Load (ClientFilePath + "tactical") as TextAsset;
-		if (tx)
-			 return (TTactical[])JsonConvert.DeserializeObject (tx.text, typeof(TTactical[]));
-		else
-			return null;
-    }
     
     private void DoStarDownload(){
 		if (Download_list.Count > 0) {

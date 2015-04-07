@@ -4,325 +4,366 @@ using System;
 using System.IO;
 using Newtonsoft.Json;
 
-public class PlayerPositionEdit : EditorWindow {
+public class PlayerPositionEdit : EditorWindow
+{
 
-	[MenuItem ("GameEditor/PlayerMoves")]
-	private static void PositionEdit()
-	{
-		EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 800), true, "PlayerMoves").Show();
-		FileName = Application.dataPath + "/Resources/GameData/tactical.json";
-	}
-
-	private float x;
-	private float z;
-	private bool ControlPlayer1 = true;
-	private bool ControlPlayer2 = false;
-	private bool ControlPlayer3 = false;
-	private int DataCount = 0;
-	private int EditIndex = -1;
-	private int OldIndex = -1;
-	private int PositionCount1 = 0;
-	private int PositionCount2 = 0;
-	private int PositionCount3 = 0;
-	private int _newIdx = 0;
-	private int _oldIdx = 0;
-	private string tacticalName = "";
-	private static string FileName = "";
-	private TActionPosition [] PosAy1 = new TActionPosition[0];
-	private TActionPosition [] PosAy2 = new TActionPosition[0];
-	private TActionPosition [] PosAy3 = new TActionPosition[0];		
-	private string[] ArrayString = new string[0];
-	private TTactical[] TacticalData = new TTactical[0];
-
-	void OnDestroy(){
-		GameObject obj = GameObject.Find ("FileManager").gameObject;
-		if (obj != null)
-			DestroyImmediate (obj);
-	}
-
-	void OnGUI()
-	{
-		EditorGUILayout.BeginHorizontal();
-		if (GUILayout.Button ("Load", GUILayout.Width (200))) 
-			OnLoad();
-
-		if (ArrayString.Length > 0) {
-			_newIdx = EditorGUILayout.Popup(_oldIdx, ArrayString);
-			if (_newIdx != _oldIdx) 
-				_oldIdx = _newIdx;
-
-			if (GUILayout.Button ("Load Tactical", GUILayout.Width (200))) 
-				OnLoadTactical();
-		}
-
-		EditorGUILayout.EndHorizontal();
-			
-		DataCount = EditorGUILayout.IntField("DataCount", DataCount);
-		PositionCount1 = EditorGUILayout.IntField("Position Count_1", PositionCount1);	
-		PositionCount2 = EditorGUILayout.IntField("Position Count_2", PositionCount2);	
-		PositionCount3 = EditorGUILayout.IntField("Position Count_3", PositionCount3);	
-
-		if (GUILayout.Button("Data Size", GUILayout.Width(200)))
-			ResetTacticalArray(DataCount);
-
-		if (GUILayout.Button("Array Setting", GUILayout.Width(200)))
-			ResetPositionArraySize();
-
-		if (GUILayout.Button("Move", GUILayout.Width(200)))
-		{
-			if (PosAy1.Length > 0) {
-				for(int i = 0 ; i < PosAy1.Length; i++){
-					GameController.Get.EditSetMove(PosAy1[i], 0);
-				}
-			}
-
-			if (PosAy2.Length > 0) {
-				for(int i = 0 ; i < PosAy2.Length; i++){
-					GameController.Get.EditSetMove(PosAy2[i], 1);
-				}
-			}
-
-			if (PosAy3.Length > 0) {
-				for(int i = 0 ; i < PosAy3.Length; i++){
-					GameController.Get.EditSetMove(PosAy3[i], 2);
-				}
-			}
-		}
-
-		EditorGUILayout.BeginHorizontal();
-		tacticalName = EditorGUILayout.TextField("FileName", tacticalName);
-		EditIndex = EditorGUILayout.IntField("Save Index(0~" +  (TacticalData.Length - 1).ToString() + ")", EditIndex);
-
-		if (OldIndex != EditIndex) {
-			if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
-				tacticalName = TacticalData[EditIndex].FileName;
-			else
-				tacticalName = "";
-			OldIndex = EditIndex;
-		}
-
-		if (GUILayout.Button("Save", GUILayout.Width(200)))
-			OnSave ();
-
-		EditorGUILayout.EndHorizontal();
-
-		EditorGUILayout.BeginHorizontal();
-		ControlPlayer1 = EditorGUILayout.Toggle("Player1", ControlPlayer1);
-		if (ControlPlayer1) {
-			ControlPlayer2 = false;
-			ControlPlayer3 = false;
-			if(GameController.Visible){
-				GameController.Get.EditSetJoysticker(0);
-			}
-		}
-
-		ControlPlayer2 = EditorGUILayout.Toggle("Player2", ControlPlayer2);
-		if (ControlPlayer2) {
-			ControlPlayer1 = false;
-			ControlPlayer3 = false;
-			if(GameController.Visible){
-				GameController.Get.EditSetJoysticker(1);
-			}
-		}
-
-		ControlPlayer3 = EditorGUILayout.Toggle("Player3", ControlPlayer3);
-		if (ControlPlayer3) {
-			ControlPlayer1 = false;
-			ControlPlayer2 = false;
-			if(GameController.Visible){
-				GameController.Get.EditSetJoysticker(2);
-			}
-		}
-
-		EditorGUILayout.EndHorizontal();
-		
-		DoEditPosition();
-	}
-
-	private void ResetTacticalArray(int newSize){
-		if (newSize > 0) {
-			int c1 = TacticalData.Length;
-			Array.Resize(ref TacticalData, newSize);
-
-			if (newSize > c1) {
-				for (int i = c1; i < newSize; i++)
-					TacticalData[i] = new TTactical(true);
-			}
-
-			FlashTacticalName();
-			Debug.Log(TacticalData.Length);
-		}
-	}
-	
-	private void ResetPositionArraySize() {
-		if(PositionCount1 > 0 && PositionCount1 != PosAy1.Length)
-			Array.Resize(ref PosAy1, PositionCount1);
-		
-		if(PositionCount2 > 0 && PositionCount2 != PosAy2.Length)
-			Array.Resize(ref PosAy2, PositionCount2);
-		
-		if(PositionCount3 > 0 && PositionCount3 != PosAy3.Length)
-            Array.Resize(ref PosAy3, PositionCount3);
+    [MenuItem ("GameEditor/PlayerMoves")]
+    private static void PositionEdit()
+    {
+        EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 800), true, "PlayerMoves").Show();
+        FileName = Application.dataPath + "/Resources/GameData/tactical.json";
     }
 
-	private void FlashTacticalName() {
-		DataCount = TacticalData.Length;
-		ArrayString = new string[TacticalData.Length];
-		for(int i = 0; i < TacticalData.Length; i++)
-			ArrayString[i] = TacticalData[i].FileName;
-    }
+    private float x;
+    private float z;
+    private bool ControlPlayer1 = true;
+    private bool ControlPlayer2 = false;
+    private bool ControlPlayer3 = false;
+    private int DataCount = 0;
+    private int EditIndex = -1;
+    private int OldIndex = -1;
+    private int PositionCount1 = 0;
+    private int PositionCount2 = 0;
+    private int PositionCount3 = 0;
+    private int _newIdx = 0;
+    private int _oldIdx = 0;
+    private string tacticalName = "";
+    private static string FileName = "";
+    private TActionPosition[] PosAy1 = new TActionPosition[0];
+    private TActionPosition[] PosAy2 = new TActionPosition[0];
+    private TActionPosition[] PosAy3 = new TActionPosition[0];
+    private string[] ArrayString = new string[0];
+    private TTactical[] TacticalData = new TTactical[0];
 
-    private void OnLoad() {
-		if (File.Exists(FileName)) {
-			TacticalData = FileManager.Get.LoadTactical();
-			if (TacticalData != null) 
-				FlashTacticalName();
-		}
-	}
+    void OnGUI()
+    {
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Load", GUILayout.Width(200))) 
+            OnLoad();
 
-	private void OnLoadTactical() {
-		if(_oldIdx >= 0 && _oldIdx < ArrayString.Length){
-			PositionCount1 = TacticalData[_oldIdx].PosAy1.Length;
-			PosAy1 = new TActionPosition[PositionCount1];
-			Array.Copy(TacticalData[_oldIdx].PosAy1, PosAy1, PositionCount1);
-			
-			PositionCount2 = TacticalData[_oldIdx].PosAy2.Length;
-			PosAy2 = new TActionPosition[PositionCount2];
-			Array.Copy(TacticalData[_oldIdx].PosAy2, PosAy2, PositionCount2);
-			
-			PositionCount3 = TacticalData[_oldIdx].PosAy3.Length;
-			PosAy3 = new TActionPosition[PositionCount3];
-			Array.Copy(TacticalData[_oldIdx].PosAy3, PosAy3, PositionCount3);
+        if (ArrayString.Length > 0)
+        {
+            _newIdx = EditorGUILayout.Popup(_oldIdx, ArrayString);
+            if (_newIdx != _oldIdx) 
+                _oldIdx = _newIdx;
+
+            if (GUILayout.Button("Load Tactical", GUILayout.Width(200))) 
+                OnLoadTactical();
+        }
+
+        EditorGUILayout.EndHorizontal();
             
-            tacticalName = ArrayString[_oldIdx];
-            EditIndex = _oldIdx;
-			OldIndex = EditIndex;
+        DataCount = EditorGUILayout.IntField("DataCount", DataCount);
+        PositionCount1 = EditorGUILayout.IntField("Position Count_1", PositionCount1);  
+        PositionCount2 = EditorGUILayout.IntField("Position Count_2", PositionCount2);  
+        PositionCount3 = EditorGUILayout.IntField("Position Count_3", PositionCount3);  
+
+        if (GUILayout.Button("Data Size", GUILayout.Width(200)))
+            ResetTacticalArray(DataCount);
+
+        if (GUILayout.Button("Array Setting", GUILayout.Width(200)))
+            ResetPositionArraySize();
+
+        if (GUILayout.Button("Move", GUILayout.Width(200)))
+        {
+            if (PosAy1.Length > 0)
+            {
+                for (int i = 0; i < PosAy1.Length; i++)
+                {
+                    GameController.Get.EditSetMove(PosAy1 [i], 0);
+                }
+            }
+
+            if (PosAy2.Length > 0)
+            {
+                for (int i = 0; i < PosAy2.Length; i++)
+                {
+                    GameController.Get.EditSetMove(PosAy2 [i], 1);
+                }
+            }
+
+            if (PosAy3.Length > 0)
+            {
+                for (int i = 0; i < PosAy3.Length; i++)
+                {
+                    GameController.Get.EditSetMove(PosAy3 [i], 2);
+                }
+            }
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        tacticalName = EditorGUILayout.TextField("FileName", tacticalName);
+        EditIndex = EditorGUILayout.IntField("Save Index(0~" + (TacticalData.Length - 1).ToString() + ")", EditIndex);
+
+        if (OldIndex != EditIndex)
+        {
+            if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
+                tacticalName = TacticalData [EditIndex].FileName;
+            else
+                tacticalName = "";
+            OldIndex = EditIndex;
+        }
+
+        if (GUILayout.Button("Save", GUILayout.Width(200)))
+            OnSave();
+
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        ControlPlayer1 = EditorGUILayout.Toggle("Player1", ControlPlayer1);
+        if (ControlPlayer1)
+        {
+            ControlPlayer2 = false;
+            ControlPlayer3 = false;
+            if (GameController.Visible)
+            {
+                GameController.Get.EditSetJoysticker(0);
+            }
+        }
+
+        ControlPlayer2 = EditorGUILayout.Toggle("Player2", ControlPlayer2);
+        if (ControlPlayer2)
+        {
+            ControlPlayer1 = false;
+            ControlPlayer3 = false;
+            if (GameController.Visible)
+            {
+                GameController.Get.EditSetJoysticker(1);
+            }
+        }
+
+        ControlPlayer3 = EditorGUILayout.Toggle("Player3", ControlPlayer3);
+        if (ControlPlayer3)
+        {
+            ControlPlayer1 = false;
+            ControlPlayer2 = false;
+            if (GameController.Visible)
+            {
+                GameController.Get.EditSetJoysticker(2);
+            }
+        }
+
+        EditorGUILayout.EndHorizontal();
+        
+        DoEditPosition();
+    }
+
+    private void ResetTacticalArray(int newSize)
+    {
+        if (newSize > 0)
+        {
+            int c1 = TacticalData.Length;
+            Array.Resize(ref TacticalData, newSize);
+
+            if (newSize > c1)
+            {
+                for (int i = c1; i < newSize; i++)
+                    TacticalData [i] = new TTactical(true);
+            }
+
+            FlashTacticalName();
+            Debug.Log(TacticalData.Length);
         }
     }
     
-    private void OnSave() {
-		if(TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length){
-			if(tacticalName != string.Empty){
-				int i = EditIndex;
-				TacticalData[i].FileName = tacticalName;
-				TacticalData[i].PosAy1 = new TActionPosition[PosAy1.Length];
-				Array.Copy(PosAy1, TacticalData[i].PosAy1, PosAy1.Length);
-				
-				TacticalData[i].PosAy2 = new TActionPosition[PosAy2.Length];
-				Array.Copy(PosAy2, TacticalData[i].PosAy2, PosAy2.Length);
-				
-				TacticalData[i].PosAy3 = new TActionPosition[PosAy3.Length];
-				Array.Copy(PosAy3, TacticalData[i].PosAy3, PosAy3.Length);
-				
-				for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++) {
-					TacticalData[i].PosAy1[j].x = (float)System.Math.Round(TacticalData[i].PosAy1[j].x, 2);
-					TacticalData[i].PosAy1[j].z = (float)System.Math.Round(TacticalData[i].PosAy1[j].z, 2);
-				}
-				
-				for (int j = 0; j < TacticalData[i].PosAy2.Length; j ++) {
-					TacticalData[i].PosAy2[j].x = (float)System.Math.Round(TacticalData[i].PosAy2[j].x, 2);
-					TacticalData[i].PosAy2[j].z = (float)System.Math.Round(TacticalData[i].PosAy2[j].z, 2);
-				}
-				
-				for (int j = 0; j < TacticalData[i].PosAy3.Length; j ++) {
-					TacticalData[i].PosAy3[j].x = (float)System.Math.Round(TacticalData[i].PosAy3[j].x, 2);
-					TacticalData[i].PosAy3[j].z = (float)System.Math.Round(TacticalData[i].PosAy3[j].z, 2);
-				}
-				
-				SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
-				FlashTacticalName();
-				Debug.Log(FileName);
-			}else
-				Debug.LogError("FileName is empty");
-		}else
-			Debug.LogError("EditIndex error");
-	}
-	  
-    private void DoEditPosition() {
-		if (PosAy1.Length > 0) {
-			GUI.color = Color.yellow;   
-			EditorGUILayout.LabelField("Player1");
-			GUI.color = Color.white;   
-			for(int i = 0 ; i < PosAy1.Length; i++){
-				EditorGUILayout.BeginHorizontal();
-				Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy1[i].x, 0, PosAy1[i].z));
-				PosAy1[i].x = v.x;
-				PosAy1[i].z = v.z;
-				if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
-					Vector3 Res = GameController.Get.EditGetPosition(0);
-					PosAy1[i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-					PosAy1[i].z = Convert.ToSingle(Math.Round(Res.z, 2));
-				}					
-				PosAy1[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy1[i].Speedup);
-				EditorGUILayout.EndHorizontal();
-			}				
-		}
-		
-		if (PosAy2.Length > 0) {
-			GUI.color = Color.green;   
-			EditorGUILayout.LabelField("Player2");
-			GUI.color = Color.white;   
-			for(int i = 0 ; i < PosAy2.Length; i++){
-				EditorGUILayout.BeginHorizontal();
-				Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy2[i].x, 0, PosAy2[i].z));
-				PosAy2[i].x = v.x;
-				PosAy2[i].z = v.z;
-				if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
-					Vector3 Res = GameController.Get.EditGetPosition(1);
-					PosAy2[i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-					PosAy2[i].z = Convert.ToSingle(Math.Round(Res.z, 2));
-				}					
-				PosAy2[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy2[i].Speedup);
-				EditorGUILayout.EndHorizontal();
-			}				
-		}
-		
-		if (PosAy3.Length > 0) {
-			GUI.color = Color.red;   
-			EditorGUILayout.LabelField("Player3");
-			GUI.color = Color.white;   
-			for(int i = 0 ; i < PosAy3.Length; i++){
-				EditorGUILayout.BeginHorizontal();
-				Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy3[i].x, 0, PosAy3[i].z));
-				PosAy3[i].x = v.x;
-				PosAy3[i].z = v.z;
-				if(GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32))){
-					Vector3 Res = GameController.Get.EditGetPosition(2);
-					PosAy3[i].x = Convert.ToSingle(Math.Round(Res.x, 2));
-					PosAy3[i].z = Convert.ToSingle(Math.Round(Res.z, 2));
-				}		
-				PosAy3[i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy3[i].Speedup);
-				EditorGUILayout.EndHorizontal();
-			}				
-		}
-	}
+    private void ResetPositionArraySize()
+    {
+        if (PositionCount1 > 0 && PositionCount1 != PosAy1.Length)
+            Array.Resize(ref PosAy1, PositionCount1);
+        
+        if (PositionCount2 > 0 && PositionCount2 != PosAy2.Length)
+            Array.Resize(ref PosAy2, PositionCount2);
+        
+        if (PositionCount3 > 0 && PositionCount3 != PosAy3.Length)
+            Array.Resize(ref PosAy3, PositionCount3);
+    }
 
-	public void SaveFile(string fileName, string Data)
-	{
-		if (File.Exists(fileName))
-			File.WriteAllText(fileName, string.Empty);
+    private void FlashTacticalName()
+    {
+        DataCount = TacticalData.Length;
+        ArrayString = new string[TacticalData.Length];
+        for (int i = 0; i < TacticalData.Length; i++)
+            ArrayString [i] = TacticalData [i].FileName;
+    }
 
-		using(FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
-			using(StreamWriter myWriter = new StreamWriter(myFile)) {
-				myWriter.Write(Data);
-				myWriter.Close();
-			}
+    private void OnLoad()
+    {
+        if (File.Exists(FileName))
+        {
+            TextAsset tx = Resources.Load("GameData/tactical") as TextAsset;
+            if (tx)
+            {
+                TacticalData = (TTactical[])JsonConvert.DeserializeObject(tx.text, typeof(TTactical[]));
+                FlashTacticalName();
+            } 
+        }
+    }
 
-			myFile.Close();
-		}
-	}
+    private void OnLoadTactical()
+    {
+        if (_oldIdx >= 0 && _oldIdx < ArrayString.Length)
+        {
+            PositionCount1 = TacticalData [_oldIdx].PosAy1.Length;
+            PosAy1 = new TActionPosition[PositionCount1];
+            Array.Copy(TacticalData [_oldIdx].PosAy1, PosAy1, PositionCount1);
+            
+            PositionCount2 = TacticalData [_oldIdx].PosAy2.Length;
+            PosAy2 = new TActionPosition[PositionCount2];
+            Array.Copy(TacticalData [_oldIdx].PosAy2, PosAy2, PositionCount2);
+            
+            PositionCount3 = TacticalData [_oldIdx].PosAy3.Length;
+            PosAy3 = new TActionPosition[PositionCount3];
+            Array.Copy(TacticalData [_oldIdx].PosAy3, PosAy3, PositionCount3);
+            
+            tacticalName = ArrayString [_oldIdx];
+            EditIndex = _oldIdx;
+            OldIndex = EditIndex;
+        }
+    }
+    
+    private void OnSave()
+    {
+        if (TacticalData != null && TacticalData.Length > 0 && EditIndex >= 0 && EditIndex < TacticalData.Length)
+        {
+            if (tacticalName != string.Empty)
+            {
+                int i = EditIndex;
+                TacticalData [i].FileName = tacticalName;
+                TacticalData [i].PosAy1 = new TActionPosition[PosAy1.Length];
+                Array.Copy(PosAy1, TacticalData [i].PosAy1, PosAy1.Length);
+                
+                TacticalData [i].PosAy2 = new TActionPosition[PosAy2.Length];
+                Array.Copy(PosAy2, TacticalData [i].PosAy2, PosAy2.Length);
+                
+                TacticalData [i].PosAy3 = new TActionPosition[PosAy3.Length];
+                Array.Copy(PosAy3, TacticalData [i].PosAy3, PosAy3.Length);
+                
+                for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++)
+                {
+                    TacticalData [i].PosAy1 [j].x = (float)System.Math.Round(TacticalData [i].PosAy1 [j].x, 2);
+                    TacticalData [i].PosAy1 [j].z = (float)System.Math.Round(TacticalData [i].PosAy1 [j].z, 2);
+                }
+                
+                for (int j = 0; j < TacticalData[i].PosAy2.Length; j ++)
+                {
+                    TacticalData [i].PosAy2 [j].x = (float)System.Math.Round(TacticalData [i].PosAy2 [j].x, 2);
+                    TacticalData [i].PosAy2 [j].z = (float)System.Math.Round(TacticalData [i].PosAy2 [j].z, 2);
+                }
+                
+                for (int j = 0; j < TacticalData[i].PosAy3.Length; j ++)
+                {
+                    TacticalData [i].PosAy3 [j].x = (float)System.Math.Round(TacticalData [i].PosAy3 [j].x, 2);
+                    TacticalData [i].PosAy3 [j].z = (float)System.Math.Round(TacticalData [i].PosAy3 [j].z, 2);
+                }
+                
+                SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
+                FlashTacticalName();
+                Debug.Log(FileName);
+            } else
+                Debug.LogError("FileName is empty");
+        } else
+            Debug.LogError("EditIndex error");
+    }
+      
+    private void DoEditPosition()
+    {
+        if (PosAy1.Length > 0)
+        {
+            GUI.color = Color.yellow;   
+            EditorGUILayout.LabelField("Player1");
+            GUI.color = Color.white;   
+            for (int i = 0; i < PosAy1.Length; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy1 [i].x, 0, PosAy1 [i].z));
+                PosAy1 [i].x = v.x;
+                PosAy1 [i].z = v.z;
+                if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
+                {
+                    Vector3 Res = GameController.Get.EditGetPosition(0);
+                    PosAy1 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy1 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                }                   
+                PosAy1 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy1 [i].Speedup);
+                EditorGUILayout.EndHorizontal();
+            }               
+        }
+        
+        if (PosAy2.Length > 0)
+        {
+            GUI.color = Color.green;   
+            EditorGUILayout.LabelField("Player2");
+            GUI.color = Color.white;   
+            for (int i = 0; i < PosAy2.Length; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy2 [i].x, 0, PosAy2 [i].z));
+                PosAy2 [i].x = v.x;
+                PosAy2 [i].z = v.z;
+                if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
+                {
+                    Vector3 Res = GameController.Get.EditGetPosition(1);
+                    PosAy2 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy2 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                }                   
+                PosAy2 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy2 [i].Speedup);
+                EditorGUILayout.EndHorizontal();
+            }               
+        }
+        
+        if (PosAy3.Length > 0)
+        {
+            GUI.color = Color.red;   
+            EditorGUILayout.LabelField("Player3");
+            GUI.color = Color.white;   
+            for (int i = 0; i < PosAy3.Length; i++)
+            {
+                EditorGUILayout.BeginHorizontal();
+                Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy3 [i].x, 0, PosAy3 [i].z));
+                PosAy3 [i].x = v.x;
+                PosAy3 [i].z = v.z;
+                if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
+                {
+                    Vector3 Res = GameController.Get.EditGetPosition(2);
+                    PosAy3 [i].x = Convert.ToSingle(Math.Round(Res.x, 2));
+                    PosAy3 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
+                }       
+                PosAy3 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy3 [i].Speedup);
+                EditorGUILayout.EndHorizontal();
+            }               
+        }
+    }
 
-	public string LoadFile(string OpenFileName)
-	{
-		string InData = "";
-		using(FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {
-			using(StreamReader myReader = new StreamReader(myFile)) {
-				InData = myReader.ReadToEnd();
-				myReader.Close();
-			}
-			myFile.Close();
-		}
+    public void SaveFile(string fileName, string Data)
+    {
+        if (File.Exists(fileName))
+            File.WriteAllText(fileName, string.Empty);
 
-		return InData;
-	}
+        using (FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+        {
+            using (StreamWriter myWriter = new StreamWriter(myFile))
+            {
+                myWriter.Write(Data);
+                myWriter.Close();
+            }
+
+            myFile.Close();
+        }
+    }
+
+    public string LoadFile(string OpenFileName)
+    {
+        string InData = "";
+        using (FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+        {
+            using (StreamReader myReader = new StreamReader(myFile))
+            {
+                InData = myReader.ReadToEnd();
+                myReader.Close();
+            }
+            myFile.Close();
+        }
+
+        return InData;
+    }
 }
