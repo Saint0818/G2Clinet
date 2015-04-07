@@ -1091,6 +1091,43 @@ public class GameController : MonoBehaviour
                                 {
 									if (StealSuccess)
                                     {
+										if(IsPassing)
+										{
+											if (BallOwner != null)
+												BallOwner.DelActionFlag(ActionFlag.IsPass);
+											else
+											{
+												for(int i = 0; i < PlayerList.Count; i++)
+												{
+													if(PlayerList[i].CheckAction(ActionFlag.IsPass))
+													{
+														PlayerList[i].DelActionFlag(ActionFlag.IsPass);
+														break;
+													}
+												}
+											}
+											
+											if (Catcher != null)
+											{
+												Catcher.DelActionFlag(ActionFlag.IsCatcher);
+												if(Catcher.NeedShooting)
+												{
+													Shoot();
+													Catcher.NeedShooting = false;
+												}
+												Catcher = null;
+											}else{
+												for(int i = 0; i < PlayerList.Count; i++)
+												{
+													if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
+													{
+														PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
+														break;
+													}
+												}				
+											}
+										}
+
                                         SetBall(null);
                                         SceneMgr.Get.SetBallState(PlayerState.Steal);
 									}
