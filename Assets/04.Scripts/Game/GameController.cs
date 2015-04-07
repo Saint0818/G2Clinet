@@ -1610,6 +1610,9 @@ public class GameController : MonoBehaviour
                 Shooter = null;
             } else
             {
+				if(BallOwner != null)
+					BallOwner.AniState(PlayerState.Idle);
+
                 BallOwner = p;
                 
                 if (p)
