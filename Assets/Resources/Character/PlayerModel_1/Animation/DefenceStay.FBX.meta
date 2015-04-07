@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: efbf5c87d0ce9ec4986ea305f991a0fe
-timeCreated: 1427708824
+guid: 16cc374b0a9f17843919ca4a4a06fe77
+timeCreated: 1428394649
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_L
     400100: DummyHand_R
     400102: DummyHead
-    7400000: Catch
+    7400000: DefenceStay
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -120,7 +120,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -128,16 +128,16 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Catch
+      name: DefenceStay
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -154,35 +154,35 @@ ModelImporter:
       - path: 
         weight: 1
       - path: Bip01
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot/Bip01 L Toe0
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot/Bip01 L Toe0/Bip01
           L Toe0Nub
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot/Bip01 R Toe0
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot/Bip01 R Toe0/Bip01
           R Toe0Nub
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm
@@ -224,19 +224,19 @@ ModelImporter:
           L Forearm/Bip01 L Hand/DummyHand_L
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bip01 HeadNub
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2/Bone_Nub
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead
-        weight: 0
+        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm
@@ -278,7 +278,7 @@ ModelImporter:
           R Forearm/Bip01 R Hand/DummyHand_R
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/DummyBack
-        weight: 0
+        weight: 1
       - path: DummyBall
         weight: 1
       maskType: 0
@@ -305,7 +305,7 @@ ModelImporter:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
