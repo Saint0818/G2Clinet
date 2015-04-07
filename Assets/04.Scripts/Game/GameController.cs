@@ -1895,6 +1895,12 @@ public class GameController : MonoBehaviour
             return Vector3.zero;
     }
     
+	public void ResetAll()
+	{
+		for(int i = 0; i < PlayerList.Count; i++)
+			PlayerList[i].ResetFlag();
+	}
+
     public void EditSetMove(TActionPosition ActionPosition, int index)
     {
         if (PlayerList.Count > index)

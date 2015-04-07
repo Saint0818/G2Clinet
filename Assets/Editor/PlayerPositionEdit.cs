@@ -100,7 +100,7 @@ public class PlayerPositionEdit : EditorWindow
 		if (GUILayout.Button("BornPosition", GUILayout.Width(200)))
 		{
 			TActionPosition aa = new TActionPosition();
-
+			GameController.Get.ResetAll();
 			for(int i = 0; i < 3; i++)
 			{
 				aa.x = BornAy[i].x;
