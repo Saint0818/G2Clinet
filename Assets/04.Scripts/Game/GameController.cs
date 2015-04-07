@@ -79,6 +79,8 @@ public struct TActionPosition
     public float x;
     public float z;
     public bool Speedup;
+	public bool Catcher;
+	public bool Shooting;
 }
 
 public class GameController : MonoBehaviour

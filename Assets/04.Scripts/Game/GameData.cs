@@ -11,14 +11,10 @@ public class GameData {
 	public static void Init()
 	{
 		List<TDownloadData> DownloadList = new List<TDownloadData> ();
-		TDownloadData data;
 		//ailevel
-		data = new TDownloadData ("ailevel", "0");
-		DownloadList.Add (data);
+		DownloadList.Add (new TDownloadData ("ailevel", "0"));
 		//tactical
-		data = new TDownloadData ("tactical", "0");
-		DownloadList.Add (data);
-
+		DownloadList.Add (new TDownloadData ("tactical", "0"));
 		FileManager.Get.LoadFileResource (DownloadList);
 	}
 }

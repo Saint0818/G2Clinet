@@ -10,8 +10,9 @@ public class PlayerPositionEdit : EditorWindow
     [MenuItem ("GameEditor/PlayerMoves")]
     private static void PositionEdit()
     {
-        EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 800, 800), true, "PlayerMoves").Show();
+        EditorWindow.GetWindowWithRect(typeof(PlayerPositionEdit), new Rect(0, 0, 1200, 800), true, "PlayerMoves").Show();
         FileName = Application.dataPath + "/Resources/GameData/tactical.json";
+		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/tactical_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
     }
 
     private float x;
@@ -29,6 +30,7 @@ public class PlayerPositionEdit : EditorWindow
     private int _oldIdx = 0;
     private string tacticalName = "";
     private static string FileName = "";
+	private static string BackupFileName = "";
     private TActionPosition[] PosAy1 = new TActionPosition[0];
     private TActionPosition[] PosAy2 = new TActionPosition[0];
     private TActionPosition[] PosAy3 = new TActionPosition[0];
@@ -257,8 +259,10 @@ public class PlayerPositionEdit : EditorWindow
                 }
                 
                 SaveFile(FileName, JsonConvert.SerializeObject(TacticalData));
+				SaveFile(BackupFileName, JsonConvert.SerializeObject(TacticalData));
                 FlashTacticalName();
                 Debug.Log(FileName);
+				Debug.Log(BackupFileName);
             } else
                 Debug.LogError("FileName is empty");
         } else
@@ -285,6 +289,8 @@ public class PlayerPositionEdit : EditorWindow
                     PosAy1 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }                   
                 PosAy1 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy1 [i].Speedup);
+				PosAy1 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy1 [i].Catcher);
+				PosAy1 [i].Shooting = EditorGUILayout.Toggle("Shooting", PosAy1 [i].Shooting);
                 EditorGUILayout.EndHorizontal();
             }               
         }
@@ -307,6 +313,8 @@ public class PlayerPositionEdit : EditorWindow
                     PosAy2 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }                   
                 PosAy2 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy2 [i].Speedup);
+				PosAy2 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy2 [i].Catcher);
+				PosAy2 [i].Shooting = EditorGUILayout.Toggle("Shooting", PosAy2 [i].Shooting);
                 EditorGUILayout.EndHorizontal();
             }               
         }
@@ -329,6 +337,8 @@ public class PlayerPositionEdit : EditorWindow
                     PosAy3 [i].z = Convert.ToSingle(Math.Round(Res.z, 2));
                 }       
                 PosAy3 [i].Speedup = EditorGUILayout.Toggle("Speedup", PosAy3 [i].Speedup);
+				PosAy3 [i].Catcher = EditorGUILayout.Toggle("Catcher", PosAy3 [i].Catcher);
+				PosAy3 [i].Shooting = EditorGUILayout.Toggle("Shooting", PosAy3 [i].Shooting);
                 EditorGUILayout.EndHorizontal();
             }               
         }
