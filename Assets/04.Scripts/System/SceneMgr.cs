@@ -253,7 +253,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		switch(state)
 		{
 			case PlayerState.Dribble:
-				realBallCollider.enabled = false;
+//				realBallCollider.enabled = false;
 				RealBall.transform.parent = player.DummyBall.transform;
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
@@ -264,7 +264,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 //				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Shooting: 
-				realBallCollider.enabled = true;
+//				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
@@ -273,7 +273,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 //				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Pass: 
-				realBallCollider.enabled = true;
+//				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
@@ -283,7 +283,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				break;
 			case PlayerState.Steal:
             case PlayerState.Block: 
-				realBallCollider.enabled = true;
+//				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
@@ -295,12 +295,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				
 				break;
 			case PlayerState.Dunk:
-				realBallCollider.enabled = false;
+//				realBallCollider.enabled = false;
 				RealBallFX.gameObject.SetActive(false);
 				RealBall.transform.localScale = Vector3.one;
 				break;
 			case PlayerState.DunkBasket:
-				realBallCollider.enabled = true;
+//				realBallCollider.enabled = true;
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
