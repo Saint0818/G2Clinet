@@ -485,10 +485,18 @@ public class GameController : MonoBehaviour
                 SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
-                    if ((GS == GameSituation.TeeA && PlayerList [i].Team == TeamKind.Self) || 
-                        (GS == GameSituation.TeeB && PlayerList [i].Team == TeamKind.Npc) ||
-                        (GS != GameSituation.TeeA && GS != GameSituation.TeeB))
-                        PlayerList [i].ResetFlag();
+					switch(PlayerList[i].Team)
+					{
+					case TeamKind.Self:
+						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
+							PlayerList[i].ResetFlag();
+						break;
+					case TeamKind.Npc:
+						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
+							PlayerList[i].ResetFlag();
+						break;
+					}
+
                     PlayerList [i].situation = GS;
                 }
             }
@@ -1134,7 +1142,7 @@ public class GameController : MonoBehaviour
                         Dis = getDis(ref Npc, ref Shooter);
                         if ((Dis <= GameConst.StealBallDistance || Npc.DefPlayer == Shooter) && !IsBlocking && !IsPassing)
                         {
-                            Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
+                            //Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
                         }
                     } else if (BallOwner && !IsPassing)
                     {
@@ -1152,7 +1160,7 @@ public class GameController : MonoBehaviour
                             Dis = getDis(ref Npc, ref BallOwner);
                             if (Dis <= 5)
                             {
-                                Npc.AniState(PlayerState.Block, BallOwner.transform.position);
+                                //Npc.AniState(PlayerState.Block, BallOwner.transform.position);
                             }
                         }
                     }
@@ -1321,30 +1329,33 @@ public class GameController : MonoBehaviour
             {
                 PlayerBehaviour Npc2 = PlayerList [i];
 
-                if (Npc2 != Npc && Npc2.Team != Npc.Team && !Npc2.CheckAction(ActionFlag.IsBlock))
+                if (Npc2 != Npc && Npc2.Team != Npc.Team)
                 {
-
-                    if (GameStart.Get.TestMode == GameTest.Block)
-                        Npc2.AniState(PlayerState.Block, Npc.transform.position);
-                    else
-                    if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
-                    {
-                        int Rate = Random.Range(0, 100) + 1;
-                        if (Npc.Index == Npc2.Index || Rate <= 50)
-                        {
-                            Npc2.AniState(PlayerState.Block, Npc.transform.position);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private PlayerBehaviour PickBall(ref PlayerBehaviour Npc, bool findNear = false)
-    {
-        PlayerBehaviour A = null;
-
-        if (BallOwner == null)
+					if(!IsBlocking)
+					{
+						if (GameStart.Get.TestMode == GameTest.Block)
+							Npc2.AniState(PlayerState.Block, Npc.transform.position);
+						else
+							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
+						{
+							int Rate = Random.Range(0, 100) + 1;
+							if (Npc.Index == Npc2.Index || Rate <= 50)
+							{
+								Npc2.AniState(PlayerState.Block, Npc.transform.position);
+							}
+						}
+					}else
+						break;					
+				}
+			}
+		}
+	}
+	
+	private PlayerBehaviour PickBall(ref PlayerBehaviour Npc, bool findNear = false)
+	{
+		PlayerBehaviour A = null;
+		
+		if (BallOwner == null)
         {
             if (findNear)
             {
