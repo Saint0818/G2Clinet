@@ -152,7 +152,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .020592032
+      - time: 0
         functionName: AnimationEvent
         data: ShootJump
         objectReferenceParameter: {instanceID: 0}
