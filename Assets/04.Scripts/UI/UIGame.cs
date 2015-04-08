@@ -7,13 +7,16 @@ public class UIGame : UIBase {
 
 	//Game const
 	private float ButtonBTime = 0.15f; //Fake to shoot time
+	private float showScoreBarInitTime = 2;
 	
 	private float shootBtnTime = 0;
+	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
 	private bool isPressShootBtn = false;
+	private bool isShowScoreBar = false;
 	public GameObject Again;
 	public GameObject Continue;
 	public GameObject Start;
@@ -25,6 +28,7 @@ public class UIGame : UIBase {
 	private GameObject passObject;
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
+	private GameObject scoreBar;
 	private UILabel[] scoresLabel = new UILabel[2];
 	private UISprite[] homeHintSprite = new UISprite[3];
 	private UILabel[] homeHintLabel = new UILabel[3];
@@ -63,6 +67,7 @@ public class UIGame : UIBase {
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
 		Start = GameObject.Find (UIName + "/Center/ButtonStart");
+		scoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
 		homeHintSprite [0] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom0").GetComponent<UISprite>();
@@ -186,6 +191,7 @@ public class UIGame : UIBase {
 
 	public void StartGame() {
 		Start.SetActive (false);
+		scoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
 
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
@@ -201,8 +207,11 @@ public class UIGame : UIBase {
 	}
 
 	public void PlusScore(int team, int score) {
+		showScoreBar();
 		Scores [team] += score;
-		TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity).to = new Vector3(0,720,0);
+		TweenRotation tweenRotation = TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity);
+		tweenRotation.delay = 0.5f;
+		tweenRotation.to = new Vector3(0,720,0);
 		scoresLabel[team].text = Scores [team].ToString ();
 	}
 
@@ -217,6 +226,12 @@ public class UIGame : UIBase {
 			homeHintLabel[0].enabled = false;
 			homeHintSprite[0].enabled = false;
 		}
+	}
+
+	private void showScoreBar(){
+		showScoreBarTime = showScoreBarInitTime;
+		isShowScoreBar = true;
+		scoreBar.SetActive(true);
 	}
 
 	private void showHomeHint() {
@@ -312,6 +327,14 @@ public class UIGame : UIBase {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true);
+		}
+
+		if(isShowScoreBar && showScoreBarTime > 0) {
+			showScoreBarTime -= Time.deltaTime;
+			if(showScoreBarTime <= 0){
+				isShowScoreBar = false;
+				scoreBar.SetActive(false);
+			}
 		}
 
 		showHomeHint();
