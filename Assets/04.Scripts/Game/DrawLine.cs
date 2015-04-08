@@ -25,8 +25,8 @@ public class DrawLine : MonoBehaviour {
 
 	public void Awake(){
 		line = new VectorLine("Line", new List<Vector2>(), null, lineWidth);
-		line.color = Color.red;
-		line.capLength = lineWidth*0.5f;
+		line.color = Color.yellow;
+		line.capLength = lineWidth*0.3f;
 	}
 	
 	// Update is called once per frame
