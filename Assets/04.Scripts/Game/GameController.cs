@@ -688,14 +688,18 @@ public class GameController : MonoBehaviour
             return false;
     }
     
-    public void Pass(PlayerBehaviour player)
+    public bool Pass(PlayerBehaviour player)
     {
-        if (BallOwner != null)
+		bool Result = false;
+		if (BallOwner != null && Catcher == null && IsPassing == false && IsShooting == false && IsDunk == false)
         {
             Catcher = player;
             Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
             BallOwner.AniState(PlayerState.Pass, Catcher.transform.position);
+			Result = true;
         }
+
+		return Result;
     }
     
     public bool OnPass(PlayerBehaviour player)
@@ -1145,11 +1149,11 @@ public class GameController : MonoBehaviour
                     if (Shooter)
                     {
                         Dis = getDis(ref Npc, ref Shooter);
-                        if ((Dis <= GameConst.StealBallDistance || Npc.DefPlayer == Shooter) && !IsBlocking)
+                        if ((Dis <= GameConst.StealBallDistance || Npc.DefPlayer == Shooter) && !IsBlocking && !IsPassing)
                         {
                             Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
                         }
-                    } else if (BallOwner)
+                    } else if (BallOwner && !IsPassing)
                     {
                         bool flag = false;
                         if (BallOwner.CheckAction(ActionFlag.IsFakeShoot))
@@ -1328,7 +1332,7 @@ public class GameController : MonoBehaviour
 
     private void DefBlock(ref PlayerBehaviour Npc)
     {
-        if (PlayerList.Count > 0)
+        if (PlayerList.Count > 0 && !IsPassing)
         {
             for (int i = 0; i < PlayerList.Count; i++)
             {

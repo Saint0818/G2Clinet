@@ -723,10 +723,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 						if(Data.Catcher)
 						{
-							if(!GameController.Get.IsPassing)
+							if((situation == GameSituation.AttackA || situation == GameSituation.AttackB))
 							{
-								GameController.Get.Pass(this);
-								NeedShooting = Data.Shooting;
+								if(GameController.Get.Pass(this))
+									NeedShooting = Data.Shooting;
 							}
 						}
                     }
