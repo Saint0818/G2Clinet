@@ -126,7 +126,7 @@ public class EasyJoystick : MonoBehaviour {
 	/// <summary>
 	/// Joystick anchor.
 	/// </summary>
-	public enum JoystickAnchor {None,UpperLeft, UpperCenter, UpperRight, MiddleLeft, MiddleCenter, MiddleRight, LowerLeft, LowerCenter, LowerRight};
+	public enum JoystickAnchor {None,UpperLeft, UpperCenter, UpperRight, MiddleLeft, MiddleCenter, MiddleRight, LowerLeft, LowerCenter, LowerRight, Custom};
 	/// <summary>
 	/// Properties influenced by the joystick
 	/// </summary>
@@ -138,7 +138,7 @@ public class EasyJoystick : MonoBehaviour {
 	/// <summary>
 	/// Dynamic area zone.
 	/// </summary>
-	public enum DynamicArea {FullScreen, Left,Right,Top, Bottom, TopLeft, TopRight, BottomLeft, BottomRight};
+	public enum DynamicArea {FullScreen, Left,Right,Top, Bottom, TopLeft, TopRight, BottomLeft, BottomRight, Custom};
 	/// <summary>
 	/// Interaction type.
 	/// </summary>
@@ -1005,6 +1005,9 @@ public class EasyJoystick : MonoBehaviour {
 					case DynamicArea.TopRight:
 						ComputeJoystickAnchor(JoystickAnchor.UpperRight);
 						break;
+					case DynamicArea.Custom:
+						ComputeJoystickAnchor(JoystickAnchor.Custom);
+						break;
 				}
 			}
 			
@@ -1015,13 +1018,12 @@ public class EasyJoystick : MonoBehaviour {
 			
 			VirtualScreen.SetGuiScaleMatrix();
 			
-			
+//			GUI.Box(new Rect(0, 0, VirtualScreen.width * 3 / 4, VirtualScreen.height * 3 / 4), "test");
 			
 			// area zone
 			if ((showZone && areaTexture!=null && !dynamicJoystick) || (showZone && dynamicJoystick && virtualJoystick && areaTexture!=null) 
 				|| (dynamicJoystick  &&  Application.isEditor && !Application.isPlaying)){
 				if (isActivated){
-					
 					
 					GUI.color = areaColor;
 					
@@ -1424,9 +1426,11 @@ public class EasyJoystick : MonoBehaviour {
 				anchorPosition = new Vector2( VirtualScreen.width/2, VirtualScreen.height-zoneRadius-touch);
 				break;
 			case JoystickAnchor.LowerRight:
-				anchorPosition = new Vector2( VirtualScreen.width-zoneRadius-touch,VirtualScreen.height-zoneRadius-touch);
+				anchorPosition = new Vector2( VirtualScreen.width-zoneRadius-touch, VirtualScreen.height-zoneRadius-touch);
 				break;	
-			
+			case JoystickAnchor.Custom:
+				anchorPosition = new Vector2( zoneRadius+touch, VirtualScreen.height-zoneRadius-touch);
+				break;
 			case JoystickAnchor.None:
 				anchorPosition = Vector2.zero;
 				break;
@@ -1516,7 +1520,12 @@ public class EasyJoystick : MonoBehaviour {
 								if (gesture.position.y< Screen.height/2 && gesture.position.x< Screen.width/2){
 									virtualJoystick = true;	
 								}
-							break;							
+								break;
+							case DynamicArea.Custom:
+								if (gesture.position.y< Screen.height * 4 / 5 && gesture.position.x< Screen.width * 3 / 4){
+									virtualJoystick = true;	
+								}
+								break;							
 						}				
 						#endregion
 						
