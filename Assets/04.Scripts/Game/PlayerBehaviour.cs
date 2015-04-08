@@ -179,6 +179,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private TShootCurve playerShootCurve;
 	private bool isShootJump = false;
 
+	//Steal
+	private float stealLiftTime = 0.667f;
 
 	//IK
 	private AimIK aimIK;
@@ -264,7 +266,6 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
 
-
         switch (crtState)
         {
             case PlayerState.Dunk:
@@ -273,14 +274,23 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Block: 
-                CalculationBlock();
+               
 				break;
 
-			case PlayerState.Shooting:
-				
-				break;
+			case PlayerState.Steal:
+				if(CheckAction(ActionFlag.IsSteal))
+				{
+					stealLiftTime -= Time.deltaTime;
+					if(stealLiftTime <= 0)
+					{
+						Debug.Log(222);
+						DelActionFlag(ActionFlag.IsSteal);
+					}
+				}
+			break;
         }
 
+		CalculationBlock();
 		CalculationDunkMove();
 		CalculationShootJump();
         
@@ -464,6 +474,7 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				DelActionFlag(ActionFlag.IsBlock);
 				isCheckLayerToReset = true;
+				AniState(PlayerState.Idle);
 			}
         }
     }
@@ -583,8 +594,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
     {
-        isJoystick = false;
         SetNoAiTime();
+		isJoystick = false;
         if (crtState != ps)
             AniState(ps);
     }
@@ -880,12 +891,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool CanUseState(PlayerState state)
     {
-		if (crtState != PlayerState.FakeShoot && crtState == state)
-            return false;
+		if (crtState != PlayerState.FakeShoot && crtState != PlayerState.Steal && crtState == state) 
+			return false;
 
         switch (state)
         {
-
             case PlayerState.Catch:
 				if (crtState != PlayerState.FakeShoot && 
 			        crtState != PlayerState.Dunk && 
@@ -1014,7 +1024,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Dribble:
-                SetSpeed(0, -1);
+				if (!isJoystick)
+					SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDribble);
                 Result = true;
                 break;
@@ -1074,17 +1085,15 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
-
                 AddActionFlag(ActionFlag.IsRun);
                 DelActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
-
-
             case PlayerState.Steal:
                 if (!CheckAction(ActionFlag.IsSteal))
                 {
-                    AddActionFlag(ActionFlag.IsSteal);
+					stealLiftTime = 0.667f;
+					AddActionFlag(ActionFlag.IsSteal);
                     Result = true;
                 }
                 break;
@@ -1104,8 +1113,8 @@ public class PlayerBehaviour : MonoBehaviour
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
                     AddActionFlag(ActionFlag.IsShoot);
                     DelActionFlag(ActionFlag.IsShootIdle);
-                    DelActionFlag(ActionFlag.IsRun);
-                    DelActionFlag(ActionFlag.IsDribble);
+					DelActionFlag(ActionFlag.IsRun);
+					DelActionFlag(ActionFlag.IsDribble);
                     Result = true;
                 }
                 break;
@@ -1121,13 +1130,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (animationName)
         {
+			case "Stealing":
+				if (OnSteal != null)
+					OnSteal(this);
+			break;
             case "StealEnd":
-                if (OnSteal != null)
-                    OnSteal(this);
-
-                DelActionFlag(ActionFlag.IsSteal);
-                break;
-            case "ShootDown":
+//				DelActionFlag(ActionFlag.IsSteal);
+				break;
+		case "ShootDown":
                
                 break;
             case "BlockMoment":

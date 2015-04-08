@@ -40,7 +40,8 @@ public enum GameTest
     Dunk,
     Block,
     Edit,
-    OneByOne
+    OneByOne,
+	Pass
 }
 
 public enum CameraTest
@@ -325,6 +326,12 @@ public class GameController : MonoBehaviour
                 for (int i = 0; i < PlayerList.Count; i++)
                     PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
                 break;
+			case GameTest.Pass:
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (0, 0, -2), new GameStruct.TPlayer(0)));
+				for (int i = 0; i < PlayerList.Count; i++)
+					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				break;
             case GameTest.Edit:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(5, 0, -2), new GameStruct.TPlayer(0)));
@@ -371,6 +378,9 @@ public class GameController : MonoBehaviour
         }
         
         handleSituation();
+
+		if(StealBtnLiftTime > 0)
+			StealBtnLiftTime -= Time.deltaTime;
     }
 
     private void SituationAttack(TeamKind team)
@@ -789,10 +799,13 @@ public class GameController : MonoBehaviour
         return false;
     }
 
+	private float StealBtnLiftTime = 1f;
+
     public void DoSteal()
     {
-        if (IsStart && Joysticker)
+		if (StealBtnLiftTime <= 0 && IsStart && Joysticker)
         {
+			StealBtnLiftTime = 1f;
             Joysticker.SetNoAiTime();   
             if (BallOwner && BallOwner.Team != Joysticker.Team)
             {

@@ -152,6 +152,13 @@ ModelImporter:
       events:
       - time: .422276288
         functionName: AnimationEvent
+        data: Stealing
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .988110721
+        functionName: AnimationEvent
         data: StealEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
