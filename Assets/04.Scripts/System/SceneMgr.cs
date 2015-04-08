@@ -275,8 +275,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.Pass: 
 //				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
-				RealBallRigidbody.isKinematic = false;
-				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = true;
+				RealBallRigidbody.useGravity = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 //				RealBallFX.gameObject.SetActive(true);
