@@ -537,21 +537,21 @@ public class ModelManager : MonoBehaviour {
 			boneRotationLimit2.useLimits = true;
 			boneRotationLimit2.axis = new Vector3(1, 0, 0);
 			boneRotationLimit2.zeroAxisDisplayOffset = 180;
-			boneRotationLimit2.min = -30;
-			boneRotationLimit2.max = 30;
+			boneRotationLimit2.min = -20;
+			boneRotationLimit2.max = 20;
 			boneRotationLimit3.useLimits = true;
 			boneRotationLimit3.axis = new Vector3(1, 0, 0);
 			boneRotationLimit3.zeroAxisDisplayOffset = 180;
-			boneRotationLimit3.min = -30;
-			boneRotationLimit3.max = 30;
+			boneRotationLimit3.min = -20;
+			boneRotationLimit3.max = 20;
 //			boneRotationLimit4.useLimits = true;
 //			boneRotationLimit4.axis = new Vector3(1, 0, 0);
 //			boneRotationLimit4.zeroAxisDisplayOffset = 180;
 //			boneRotationLimit4.min = -45;
 //			boneRotationLimit4.max = 45;
 			boneRotationLimit5.axis = new Vector3(-1, 1, 0);
-			boneRotationLimit5.limit = 30;
-			boneRotationLimit5.twistLimit = 30;
+			boneRotationLimit5.limit = 20;
+			boneRotationLimit5.twistLimit = 20;
 
 			
 			//rig
