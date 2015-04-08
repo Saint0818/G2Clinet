@@ -723,7 +723,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 						if(Data.Catcher)
 						{
-							if((situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+							if((situation == GameSituation.AttackA || situation == GameSituation.AttackB) && NoAiTime == 0)
 							{
 								if(GameController.Get.Pass(this))
 									NeedShooting = Data.Shooting;
