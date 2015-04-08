@@ -712,7 +712,7 @@ public class PlayerBehaviour : MonoBehaviour
                         else
                             rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
 
-						if(Data.Shooting)
+						if(Data.Shooting && NoAiTime == 0)
 							GameController.Get.Shoot();
                     } else 
 					{
