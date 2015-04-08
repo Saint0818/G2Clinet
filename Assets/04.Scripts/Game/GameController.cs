@@ -763,9 +763,7 @@ public class GameController : MonoBehaviour
 							
 			if (stealRate <= (r + AddRate))
 			{
-				SetBall(null);
-				SceneMgr.Get.SetBallState(PlayerState.Steal);
-				Catcher = null;
+				setDropBall();
 				return true;
 			}else
 			if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -1118,49 +1116,8 @@ public class GameController : MonoBehaviour
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
                                 {
-									if (StealSuccess)
-                                    {
-										if(IsPassing)
-										{
-											if (BallOwner != null)
-												BallOwner.DelActionFlag(ActionFlag.IsPass);
-											else
-											{
-												for(int i = 0; i < PlayerList.Count; i++)
-												{
-													if(PlayerList[i].CheckAction(ActionFlag.IsPass))
-													{
-														PlayerList[i].DelActionFlag(ActionFlag.IsPass);
-														break;
-													}
-												}
-											}
-											
-											if (Catcher != null)
-											{
-												Catcher.DelActionFlag(ActionFlag.IsCatcher);
-												if(Catcher.NeedShooting)
-												{
-													Shoot();
-													Catcher.NeedShooting = false;
-												}
-												Catcher = null;
-											}else{
-												for(int i = 0; i < PlayerList.Count; i++)
-												{
-													if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
-													{
-														PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
-														break;
-													}
-												}				
-											}
-										}
-
-                                        SetBall(null);
-                                        SceneMgr.Get.SetBallState(PlayerState.Steal);
-										Catcher = null;
-									}
+									if (StealSuccess)                                    
+										setDropBall();
 
 									Npc.CoolDownSteal = Time.time + 3;
                                 }
@@ -2025,18 +1982,61 @@ public class GameController : MonoBehaviour
 			}				
 		}
     }
-    
-    public void Reset()
-    {
+
+	private void setDropBall(){
+		if(IsPassing)
+		{
+			if (BallOwner != null)
+				BallOwner.DelActionFlag(ActionFlag.IsPass);
+			else
+			{
+				for(int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].CheckAction(ActionFlag.IsPass))
+					{
+						PlayerList[i].DelActionFlag(ActionFlag.IsPass);
+						break;
+					}
+				}
+			}
+			
+			if (Catcher != null)
+			{
+				Catcher.DelActionFlag(ActionFlag.IsCatcher);
+				if(Catcher.NeedShooting)
+				{
+					Shoot();
+					Catcher.NeedShooting = false;
+				}
+				Catcher = null;
+			}else{
+				for(int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
+					{
+						PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
+						break;
+					}
+				}				
+			}
+		}
+		
+		SetBall(null);
+		SceneMgr.Get.SetBallState(PlayerState.Steal);
+		Catcher = null;
+	}
+	
+	public void Reset()
+	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			PlayerList[i].transform.position = BornAy[i];
-
-        situation = GameSituation.Opening;
-        BallOwner = null;
-        SceneMgr.Get.RealBall.transform.parent = null;
-        SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
-        SceneMgr.Get.RealBallRigidbody.isKinematic = false;
-        SceneMgr.Get.RealBallRigidbody.useGravity = true;
+		
+		situation = GameSituation.Opening;
+		BallOwner = null;
+		SceneMgr.Get.RealBall.transform.parent = null;
+		SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
+		SceneMgr.Get.RealBallRigidbody.isKinematic = false;
+		SceneMgr.Get.RealBallRigidbody.useGravity = true;
         SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
     }
 
