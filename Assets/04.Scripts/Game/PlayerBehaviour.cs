@@ -170,6 +170,7 @@ public class PlayerBehaviour : MonoBehaviour
     private TDunkCurve playerDunkCurve;
 
 	//Block
+	private bool isBlock = false;
 	private float blockCurveTime = 0;
     private TBlockCurve playerBlockCurve;
 
@@ -268,7 +269,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case PlayerState.Dunk:
             case PlayerState.DunkBasket:
-                CalculationDunkMove();
+                
                 break;
 
             case PlayerState.Block: 
@@ -276,9 +277,12 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.Shooting:
-				CalculationShootJump();
+				
 				break;
         }
+
+		CalculationDunkMove();
+		CalculationShootJump();
         
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
@@ -448,6 +452,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationBlock()
     {
+		if (!CheckAction(ActionFlag.IsBlock))
+			return;
+
         if (crtState == PlayerState.Block && playerBlockCurve != null)
         {
             blockCurveTime += Time.deltaTime;
@@ -463,12 +470,21 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void CalculationShootJump()
 	{
-		if (isShootJump && crtState == PlayerState.Shooting && playerShootCurve != null) {
+		if (animator.GetCurrentAnimatorStateInfo (0).IsName ("ShootStay0"))
+			isShootJump = true;
+
+		if (isShootJump && playerShootCurve != null ) {
 			shootJumpCurveTime += Time.deltaTime;
 			gameObject.transform.position = new Vector3 (gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate (shootJumpCurveTime), gameObject.transform.position.z);
-			Debug.Log("logo : " + gameObject.transform.position);
 			if(shootJumpCurveTime >= playerShootCurve.LifeTime)
+			{
 				isShootJump = false;
+				shootJumpCurveTime = 0;
+				DelActionFlag(ActionFlag.IsShoot);
+				DelActionFlag(ActionFlag.IsDribble);
+				DelActionFlag(ActionFlag.IsRun);
+				isCheckLayerToReset = true;
+			}
 		}
 	}
 
@@ -864,7 +880,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool CanUseState(PlayerState state)
     {
-        if (crtState == state)
+		if (crtState != PlayerState.FakeShoot && crtState == state)
             return false;
 
         switch (state)
@@ -905,8 +921,7 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
             case PlayerState.FakeShoot:
-				if (crtState != PlayerState.FakeShoot && 
-			    	crtState != PlayerState.Dunk && 
+				if (crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Pass)
                     return true;
                 break;
@@ -1113,10 +1128,7 @@ public class PlayerBehaviour : MonoBehaviour
                 DelActionFlag(ActionFlag.IsSteal);
                 break;
             case "ShootDown":
-                DelActionFlag(ActionFlag.IsShoot);
-                DelActionFlag(ActionFlag.IsDribble);
-                DelActionFlag(ActionFlag.IsRun);
-                isCheckLayerToReset = true;
+               
                 break;
             case "BlockMoment":
                 if (OnBlockMoment != null)
@@ -1143,9 +1155,7 @@ public class PlayerBehaviour : MonoBehaviour
 //              playerCollider.enabled = true;
                 break;
             case "ShootJump":
-				isShootJump = true;
-//              playerCollider.enabled = false;
-//                PlayerRigidbody.AddForce(JumpHight * transform.up + PlayerRigidbody.velocity.normalized / 2.5f, ForceMode.Force);
+				
                 break;
             case "Passing":         
                 if (PassTime > 0)

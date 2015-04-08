@@ -559,7 +559,8 @@ public class ModelManager : MonoBehaviour {
 				Rigidbody rig = result.GetComponent<Rigidbody> ();
 				if (rig == null)
 					rig = result.AddComponent<Rigidbody> ();
-				
+
+				rig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
 				rig.freezeRotation = true;
 			}
 		} catch (UnityException e) {
