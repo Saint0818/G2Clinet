@@ -127,8 +127,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool stop = false;
     private bool NeedResetFlag = false;
     private int MoveTurn = 0;
-    private float PassTime = 0;
-    private float NoAiTime = 0;
+    private float PassTime = 0;    
     private float MoveStartTime = 0;
     private float ProactiveRate = 0;
     private float ProactiveTime = 0;
@@ -142,6 +141,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public TeamKind Team;
+	public float NoAiTime = 0;
     public int Index;
     public GameSituation situation = GameSituation.None;
     public PlayerState crtState = PlayerState.Idle;

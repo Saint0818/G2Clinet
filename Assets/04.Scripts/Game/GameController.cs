@@ -468,7 +468,7 @@ public class GameController : MonoBehaviour
 
     private bool CandoAI(PlayerBehaviour npc)
     {
-        if (npc.isJoystick && npc.Team == TeamKind.Self && npc == Joysticker)
+        if (npc.isJoystick && npc.Team == TeamKind.Self && npc == Joysticker && npc.NoAiTime == 0)
             return false;
         else
             return true;
