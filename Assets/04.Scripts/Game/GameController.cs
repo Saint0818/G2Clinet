@@ -765,6 +765,7 @@ public class GameController : MonoBehaviour
 			{
 				SetBall(null);
 				SceneMgr.Get.SetBallState(PlayerState.Steal);
+				Catcher = null;
 				return true;
 			}else
 			if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -1158,6 +1159,7 @@ public class GameController : MonoBehaviour
 
                                         SetBall(null);
                                         SceneMgr.Get.SetBallState(PlayerState.Steal);
+										Catcher = null;
 									}
 
 									Npc.CoolDownSteal = Time.time + 3;
