@@ -1133,38 +1133,6 @@ public class GameController : MonoBehaviour
                         }
                     }
                 }
-            } else
-            {
-                if (!Npc.IsJump && !IsBlocking)
-                {
-                    if (Shooter)
-                    {
-                        Dis = getDis(ref Npc, ref Shooter);
-                        if ((Dis <= GameConst.StealBallDistance || Npc.DefPlayer == Shooter) && !IsBlocking && !IsPassing)
-                        {
-                            //Npc.AniState(PlayerState.Block, Shooter.transform.localPosition);
-                        }
-                    } else if (BallOwner && !IsPassing)
-                    {
-                        bool flag = false;
-                        if (BallOwner.CheckAction(ActionFlag.IsFakeShoot))
-                        {
-                            int r = Random.Range(0, 3);
-                            if (r <= 0)
-                                flag = true;
-                        } else if (BallOwner.CheckAction(ActionFlag.IsShoot))
-                            flag = true;
-
-                        if (flag)
-                        {
-                            Dis = getDis(ref Npc, ref BallOwner);
-                            if (Dis <= 5)
-                            {
-                                //Npc.AniState(PlayerState.Block, BallOwner.transform.position);
-                            }
-                        }
-                    }
-                }
             }               
         }
     }
@@ -1336,7 +1304,7 @@ public class GameController : MonoBehaviour
 						if (GameStart.Get.TestMode == GameTest.Block)
 							Npc2.AniState(PlayerState.Block, Npc.transform.position);
 						else
-							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
+						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
 						{
 							int Rate = Random.Range(0, 100) + 1;
 							if (Npc.Index == Npc2.Index || Rate <= 50)
