@@ -284,7 +284,6 @@ public class PlayerBehaviour : MonoBehaviour
 					stealLiftTime -= Time.deltaTime;
 					if(stealLiftTime <= 0)
 					{
-						Debug.Log(222);
 						DelActionFlag(ActionFlag.IsSteal);
 					}
 				}
@@ -322,20 +321,16 @@ public class PlayerBehaviour : MonoBehaviour
             if (NeedResetFlag)
                 ResetFlag();
         }
+            
+		if (NoAiTime > 0 && Time.time >= NoAiTime)
+	    {
+	        MoveQueue.Clear();
+	        NoAiTime = 0;
+	        DelActionFlag(ActionFlag.IsRun);
 
-        if (isJoystick)
-        {
-            if (Time.time >= NoAiTime)
-            {
-                MoveQueue.Clear();
-                NoAiTime = 0;
-                isJoystick = false;
-                DelActionFlag(ActionFlag.IsRun);
-
-                if (AIActiveHint)
-                    AIActiveHint.SetActive(true);
-            }
-        }
+	        if (AIActiveHint)
+	            AIActiveHint.SetActive(true);
+	    }
 
         if (CheckAction(ActionFlag.IsRun) && !IsDefence && 
 		    situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
@@ -347,6 +342,7 @@ public class PlayerBehaviour : MonoBehaviour
                 GameController.Get.DefMove(this);
             }       
         }
+
 		if(GameStart.Get.IsOpenIKSystem) {
 			if(IsBallOwner) 
 				isIKOpen = false;
@@ -544,61 +540,67 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanMove || stop)
         {
-            if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
-            {
-                if (!isJoystick)
-                    MoveStartTime = Time.time + 1;
-
-                if (!CheckAction(ActionFlag.IsRun))
-                    AddActionFlag(ActionFlag.IsRun);
-
-                SetNoAiTime();
-
-                animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
-                SetSpeed(animationSpeed, 0);
-                AniState(ps);
-
-                float angle = move.Axis2Angle(true);
-                int a = 90;
-                Vector3 rotation = new Vector3(0, angle + a, 0);
-                transform.rotation = Quaternion.Euler(rotation);
-                
-                if (animationSpeed <= MoveMinSpeed)
-                {
-                    if (IsBallOwner)
-                        Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
-                    else
-                    {
-                        if (IsDefence)
-                        {
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedNormal;
-                        } else
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedNormal;
-                    }                       
-                } else
-                {
-                    if (IsBallOwner)
-                        Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
-                    else
-                    {
-                        if (IsDefence)
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedup;
-                        else
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedup;
-                    }
-                }
-                
-                transform.Translate(Translate); 
-            }
+			if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+			{
+				if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
+				{
+					if (!isJoystick)
+						MoveStartTime = Time.time + 1;
+					
+					if (!CheckAction(ActionFlag.IsRun))
+						AddActionFlag(ActionFlag.IsRun);
+					
+					SetNoAiTime();
+					
+					animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
+					SetSpeed(animationSpeed, 0);
+					AniState(ps);
+					
+					float angle = move.Axis2Angle(true);
+					int a = 90;
+					Vector3 rotation = new Vector3(0, angle + a, 0);
+					transform.rotation = Quaternion.Euler(rotation);
+					
+					if (animationSpeed <= MoveMinSpeed)
+					{
+						if (IsBallOwner)
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
+						else
+						{
+							if (IsDefence)
+							{
+								Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedNormal;
+							} else
+								Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedNormal;
+						}                       
+					} else
+					{
+						if (IsBallOwner)
+							Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
+						else
+						{
+							if (IsDefence)
+								Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedup;
+							else
+								Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedup;
+						}
+					}
+					
+					transform.Translate(Translate); 
+				}
+			}            
         }
     }
 
     public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
     {
-        SetNoAiTime();
-		isJoystick = false;
-        if (crtState != ps)
-            AniState(ps);
+		if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+		{
+	        SetNoAiTime();
+			isJoystick = false;
+	        if (crtState != ps)
+	            AniState(ps);
+		}
     }
 
     private void DunkTo()
@@ -752,13 +754,14 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     MoveQueue.Dequeue();
             } else 
-            if (!CheckAction(ActionFlag.IsDefence) && MoveTurn >= 0 && MoveTurn <= 5)
+            if (IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5)
             {
-                AddActionFlag(ActionFlag.IsRun);
+				AddActionFlag(ActionFlag.IsRun);
+				                
                 MoveTurn++;
                 rotateTo(MoveTarget.x, MoveTarget.y, 10);
-                if (MoveTurn == 1)
-                    MoveStartTime = Time.time + 1;
+				if (MoveTurn == 1)
+					MoveStartTime = Time.time + 1;           
             } else
             {
                 if (IsDefence)
@@ -1137,7 +1140,7 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
             case "StealEnd":
 				break;
-		case "ShootDown":
+			case "ShootDown":
                
                 break;
 
