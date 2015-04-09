@@ -20,37 +20,53 @@ public class AnimatorEditor : EditorWindow {
 	private Vector2 scrollPositionController = Vector2.zero;
 	private Vector2 scrollPositionAnimationClips = Vector2.zero;
 
+	private GUIStyle style = new GUIStyle();
+
 //	private void init(){
 //		FileUtil.CopyFileOrDirectory("Assets/Resources/Character/PlayerModel_1/AnimationControl.controller",
 //		                             "Assets/Resources/Character/PlayerModel_0/AnimationControl.controller");
 //	}
 
 	void OnGUI(){
+		style.normal.textColor = Color.red;
+
 		GUI.Label(new Rect(50, 0, 50, 30), "ID:");
 		strId = GUI.TextField(new Rect(80, 0, 100, 20), strId, 10);
 
 
-		if(GUI.Button(new Rect(50, 40, 130, 20), "get AvatarControl")) {
+		if(GUI.Button(new Rect(50, 40, 130, 20), "Get AvatarControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AvatarControl") as UnityEditor.Animations.AnimatorController;
-
-			getAllData();
+			if(controller)
+				getAllData();
 		}
-		if(GUI.Button(new Rect(200, 40, 130, 20), "get AnimationControl")) {
+		if(GUI.Button(new Rect(200, 40, 130, 20), "Get AnimationControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AnimationControl") as UnityEditor.Animations.AnimatorController;
-			
-			getAllData();
+			if(controller)
+				getAllData();
 		}
 		GUI.Label(new Rect(50, 80, 200, 30), "AnimationController");
 		GUI.Label(new Rect(350, 80, 200, 30), "AnimationClips");
 		if(allMotionAnimationClip.Count > 0 ){
 			GUI.Label(new Rect(100, 120, 200, 30), "Count:"+allMotionAnimationClip.Count);
-			scrollPositionController = GUI.BeginScrollView (new Rect (50, 150, 200, 200), scrollPositionController, new Rect (50, 150, 200, allMotionAnimationClip.Count * 20));
+			scrollPositionController = GUI.BeginScrollView (new Rect (50, 150, 200, 400), scrollPositionController, new Rect (50, 150, 200, allMotionAnimationClip.Count * 20));
 			for (int i=0; i<allMotionAnimationClip.Count; i++) {
-				GUI.Label(new Rect(50, (20 * i)+ 150, 100, 20), allMotionAnimationClip[i].name);
+				if(allAnimationClip.Count > 0){
+					bool isMatch = false;
+					for(int j=0; j<allAnimationClip.Count; j++) {
+						if(allAnimationClip[j].name.Equals(allMotionAnimationClip[i].name))
+							isMatch = true;
+					}
+					if(isMatch) 
+						GUI.Label(new Rect(50, (20 * i)+ 150, 100, 20), allMotionAnimationClip[i].name);
+					else 
+						GUI.Label(new Rect(50, (20 * i)+ 150, 100, 20), allMotionAnimationClip[i].name, style);
+				} else
+					GUI.Label(new Rect(50, (20 * i)+ 150, 100, 20), allMotionAnimationClip[i].name);
+
 			}
 			GUI.EndScrollView ();
 		} else {
@@ -60,16 +76,27 @@ public class AnimatorEditor : EditorWindow {
 
 		if(allAnimationClip.Count > 0) {
 			GUI.Label(new Rect(350, 120, 400, 30), "Count:"+allAnimationClip.Count);
-			scrollPositionAnimationClips = GUI.BeginScrollView (new Rect (300, 150, 200, 200), scrollPositionAnimationClips, new Rect (300, 150, 200, allAnimationClip.Count * 20));
+			scrollPositionAnimationClips = GUI.BeginScrollView (new Rect (300, 150, 200, 400), scrollPositionAnimationClips, new Rect (300, 150, 200, allAnimationClip.Count * 20));
 			for (int i=0; i<allAnimationClip.Count; i++) {
-				GUI.Label(new Rect(300, (20 * i)+ 150, 100, 20), allAnimationClip[i].name);
+				if(allMotionAnimationClip.Count > 0){
+					bool isMatch = false;
+					for(int j=0; j<allMotionAnimationClip.Count; j++) {
+						if(allAnimationClip[i].name.Equals(allMotionAnimationClip[j].name))
+							isMatch = true;
+					}
+					if(isMatch) 
+						GUI.Label(new Rect(300, (20 * i)+ 150, 100, 20), allAnimationClip[i].name);
+					else 
+						GUI.Label(new Rect(300, (20 * i)+ 150, 100, 20), allAnimationClip[i].name, style);
+				} else
+					GUI.Label(new Rect(300, (20 * i)+ 150, 100, 20), allAnimationClip[i].name);
 			}
 			GUI.EndScrollView ();
 		} else {
 			GUI.Label(new Rect(100, 120, 200, 30), "Count:0");
 		}
 
-		if(GUI.Button(new Rect(50, 500, 100, 20), "change")) { 
+		if(GUI.Button(new Rect(200, 575, 200, 20), "Change Animator Motion")) { 
 			for(int i=0; i<controller.layers.Length; i++){
 				recurrenceSubState(controller.layers[i].stateMachine);
 			}

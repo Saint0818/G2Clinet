@@ -11,48 +11,71 @@ public class AnimationEventCopier : EditorWindow {
 
 	private AnimationClip sourceObject;
 	private AnimationClip targetObject;
+	private bool isCopy = false;
 
-	private int sourceAnimtionID = -1 ;
-	private int targetAnimtionID = -1;
+	private List<string> aryChangeName = new List<string>();
+	private List<string> aryNoChangeName = new List<string>();
+
+	private string sourceAnimtionID = string.Empty;
+	private string targetAnimtionID = string.Empty;
+
+	private Vector2 scrollPosition = Vector2.zero;
+	private Vector2 scrollPositionNoChange = Vector2.zero;
+
+	private GUIStyle style = new GUIStyle();
+	
+
 	void OnGUI() {
-		EditorGUILayout.LabelField(" ");
-		EditorGUILayout.LabelField(" ");
-		EditorGUILayout.LabelField("all animation change");
+		style.normal.textColor = Color.red;
 
+		GUI.Label(new Rect(0, 0, 300, 30), "All Animation Change");
 
-		EditorGUILayout.BeginHorizontal();
-		sourceAnimtionID = EditorGUILayout.IntField("Source ID:", sourceAnimtionID);
-		EditorGUILayout.EndHorizontal();
-		EditorGUILayout.BeginHorizontal();
-		targetAnimtionID = EditorGUILayout.IntField("Target ID:", targetAnimtionID);
-		EditorGUILayout.EndHorizontal();
+		GUI.Label(new Rect(0, 30, 60, 20), "Source ID:");
+		sourceAnimtionID = GUI.TextField(new Rect(60, 30, 200, 20), sourceAnimtionID);
+
+		GUI.Label(new Rect(0, 60, 60, 20), "Target ID:");
+		targetAnimtionID = GUI.TextField(new Rect(60, 60, 200, 20), targetAnimtionID);
 		
-		if (sourceAnimtionID != -1 && targetAnimtionID != -1) {
-			EditorGUILayout.BeginHorizontal();
-			if (GUILayout.Button("All Copy"))
+		if (sourceAnimtionID != string.Empty && targetAnimtionID != string.Empty) {
+			if(GUI.Button(new Rect(0, 90, 250, 20), "All Copy"))
 				allCopyData();
-			EditorGUILayout.EndHorizontal();
 		}
+
+		GUI.Label(new Rect(0, 120, 100, 20), "Change List:", style);
+		scrollPosition = GUI.BeginScrollView(new Rect(0, 140, 300, 200), scrollPosition, new Rect(0, 140, 300, (aryChangeName.Count * 20)));
+		if(aryChangeName.Count > 0){
+			for(int i=0; i<aryChangeName.Count; i++) {
+				GUI.Label(new Rect(0, 140 + 20 * i, 100, 20), aryChangeName[i]);
+			}
+		}
+		GUI.EndScrollView();
+
+
+		GUI.Label(new Rect(0, 350, 100, 20), " No Change List:", style);
+		scrollPositionNoChange = GUI.BeginScrollView(new Rect(0, 370, 300, 200), scrollPositionNoChange, new Rect(0, 370, 300, (aryNoChangeName.Count * 20)));
+		if(aryNoChangeName.Count > 0){
+			for(int i=0; i<aryNoChangeName.Count; i++) {
+				GUI.Label(new Rect(0, 370 + (20 * i), 100, 20), aryNoChangeName[i]);
+			}
+		}
+		GUI.EndScrollView();
+
+		GUI.Label(new Rect(300, 0, 300, 30), "one by one");
+
+		GUI.Label(new Rect(300, 30, 60, 20), "Source:");
+		sourceObject = EditorGUI.ObjectField(new Rect(360, 30, 200, 20), sourceObject, typeof(AnimationClip), true) as AnimationClip;
 		
-		EditorGUILayout.LabelField(" ");
-		EditorGUILayout.LabelField(" ");
-		EditorGUILayout.LabelField("one by one change");
-
-
-		EditorGUILayout.BeginHorizontal();
-		sourceObject = EditorGUILayout.ObjectField("Source ID", sourceObject, typeof(AnimationClip), true) as AnimationClip;
-		EditorGUILayout.EndHorizontal();
-		EditorGUILayout.BeginHorizontal();
-		targetObject = EditorGUILayout.ObjectField("Target ID", targetObject, typeof(AnimationClip), true) as AnimationClip;
-		EditorGUILayout.EndHorizontal();
-
+		GUI.Label(new Rect(300, 60, 60, 20), "Target:");
+		targetObject = EditorGUI.ObjectField(new Rect(360, 60, 200, 20), targetObject, typeof(AnimationClip), true) as AnimationClip;
+	
 		if (sourceObject != null && targetObject != null){
 			if(sourceObject.name.Equals(targetObject.name)) {
-				EditorGUILayout.BeginHorizontal();
-				if (GUILayout.Button("Copy"))
+				if (GUI.Button(new Rect(300, 90, 250, 20), "Copy"))
 					oneCopyData();
-				EditorGUILayout.EndHorizontal();
 			}
+		}
+		if(isCopy) {
+			GUI.Label(new Rect(300, 120, 60, 20), "Copy Success!");
 		}
 	}
 
@@ -67,12 +90,16 @@ public class AnimationEventCopier : EditorWindow {
 	
 	void allCopyData() {
 
+		aryChangeName.Clear();
+		aryNoChangeName.Clear();
+
 		UnityEngine.Object[] sourceObjs = Resources.LoadAll("Character/PlayerModel_"+sourceAnimtionID+"/Animation", typeof(AnimationClip));
 		UnityEngine.Object[] targetObjs = Resources.LoadAll("Character/PlayerModel_"+targetAnimtionID+"/Animation", typeof(AnimationClip));
 		for (int i=0; i<sourceObjs.Length; i++) {
+			bool isMatch = false;
 			for(int j=0; j<targetObjs.Length; j++) {
 				if(sourceObjs[i].name.Equals(targetObjs[j].name)) {
-					Debug.Log("sourceObjs[i].name:"+sourceObjs[i].name);
+					isMatch = true;
 					AnimationClip sourceAnimClip = sourceObjs[i] as AnimationClip;
 					AnimationClip targetAnimClip = targetObjs[j] as AnimationClip;
 					if ((targetAnimClip.hideFlags & HideFlags.NotEditable) != 0)
@@ -81,14 +108,14 @@ public class AnimationEventCopier : EditorWindow {
 						DoAddEventClip(sourceAnimClip, targetAnimClip);
 				}
 			}
+			if(!isMatch)
+				aryNoChangeName.Add(sourceObjs[i].name);
 		}
-
 
 
 	}
 
     void DoAddEventClip(AnimationClip sourceAnimClip, AnimationClip targetAnimClip){
-		Debug.Log("DoAddEventClip");
 		if (sourceAnimClip != targetAnimClip){
 			AnimationEvent[] sourceAnimEvents = AnimationUtility.GetAnimationEvents(sourceAnimClip); 
 			AnimationUtility.SetAnimationEvents(targetAnimClip, sourceAnimEvents);
@@ -96,7 +123,8 @@ public class AnimationEventCopier : EditorWindow {
 	}
 	
 	void DoAddEventImportedClip(AnimationClip sourceAnimClip, AnimationClip targetAnimClip, float length){
-		Debug.Log("DoAddEventImportedClip");
+		aryChangeName.Add(sourceAnimClip.name);
+
 		ModelImporter modelImporter = AssetImporter.GetAtPath(AssetDatabase.GetAssetPath(targetAnimClip)) as ModelImporter;
 		if (modelImporter == null)
 			return;
@@ -115,7 +143,7 @@ public class AnimationEventCopier : EditorWindow {
 				serializedObject.ApplyModifiedProperties();
 				AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(targetAnimClip));
 				break;
-			}
+			} 
 		}
 	}
 
