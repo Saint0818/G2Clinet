@@ -274,7 +274,7 @@ public class GameController : MonoBehaviour
 
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {
-			PlayerAy[i] = new TPlayer(0);
+			PlayerAy[i] = new TPlayer(GameStart.Get.AILevel);
 			PlayerAy[i].ID = i;
 			PlayerAy[i].Steal = UnityEngine.Random.Range(20, 100) + 1;
 
