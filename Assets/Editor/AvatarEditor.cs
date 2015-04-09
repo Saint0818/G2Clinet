@@ -21,6 +21,7 @@ public class AvatarEditor :  EditorWindow{
 
 	public Vector2 scrollPosition = Vector2.zero;
 	public Vector2 scrollPositionTexture = Vector2.zero;
+	public Vector2 scrollPositionAnimation = Vector2.zero;
 
 	public List<UnityEngine.GameObject> allBody = new List<UnityEngine.GameObject> ();
 	public List<UnityEngine.Material> allMaterial = new List<UnityEngine.Material> ();
@@ -52,6 +53,8 @@ public class AvatarEditor :  EditorWindow{
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
+
+	private AvatarAnimationTest avatarAnimationTest;
 		
 	void init (){
 		if(allBody.Count == 0) {
@@ -224,6 +227,7 @@ public class AvatarEditor :  EditorWindow{
 				obj.name = name;
 				obj.AddComponent<DragRotateObject>();
 				getModelManager().CreateStorePlayer(obj, attr);
+				obj.AddComponent<AvatarAnimationTest>();
 				if(name.Equals("0")) {
 					obj.transform.position = new Vector3(2,0,0);
 				} else 
@@ -467,6 +471,21 @@ public class AvatarEditor :  EditorWindow{
 				}
 			}	
 			GUI.EndScrollView ();
+		}
+
+		
+		//Play Animation
+		if(isAvatar && Application.isPlaying) {
+			avatarAnimationTest = Selection.gameObjects[0].GetComponent<AvatarAnimationTest>();
+			if(avatarAnimationTest != null) {
+				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 600, 50), scrollPositionAnimation, new Rect (0, 0, avatarAnimationTest.AnimationName.Length * 130, 50));
+				for(int i=0; i < avatarAnimationTest.AnimationName.Length; i++) {
+					if(GUI.Button(new Rect(130 * i, 0, 120, 30), avatarAnimationTest.AnimationName[i])) {
+						avatarAnimationTest.Play(avatarAnimationTest.AnimationName[i]);
+					}
+				}
+				GUI.EndScrollView ();
+			}
 		}
 	}
 	void randomPlayer(){

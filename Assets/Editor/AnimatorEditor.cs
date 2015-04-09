@@ -29,33 +29,20 @@ public class AnimatorEditor : EditorWindow {
 		GUI.Label(new Rect(50, 0, 50, 30), "ID:");
 		strId = GUI.TextField(new Rect(80, 0, 100, 20), strId, 10);
 
-		if(GUI.Button(new Rect(50, 40, 100, 20), "get")) {
+
+		if(GUI.Button(new Rect(50, 40, 130, 20), "get AvatarControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
+			controller = Resources.Load("Character/PlayerModel_"+strId+"/AvatarControl") as UnityEditor.Animations.AnimatorController;
 
-
+			getAllData();
+		}
+		if(GUI.Button(new Rect(200, 40, 130, 20), "get AnimationControl")) {
+			allMotionAnimationClip.Clear();
+			allAnimationClip.Clear();
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AnimationControl") as UnityEditor.Animations.AnimatorController;
-			AnimationClip[] animationClip = controller.animationClips;
-			for(int i=0; i<animationClip.Length; i++) {
-				if(!allMotionAnimationClip.Contains(animationClip[i]))
-					allMotionAnimationClip.Add(animationClip[i]);
-			}
-			allMotionAnimationClip.Sort(
-				delegate(AnimationClip i1, AnimationClip i2) { 
-					return i1.name.CompareTo(i2.name); 
-				}
-			);
-			UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_"+strId+"/Animation", typeof(AnimationClip));
-			for(int i=0; i<animationObjs.Length; i++) {
-				AnimationClip clip = animationObjs[i] as AnimationClip;
-				if(!allAnimationClip.Contains(clip))
-					allAnimationClip.Add(clip);
-			}
-			allAnimationClip.Sort(
-				delegate(AnimationClip i1, AnimationClip i2) { 
-					return i1.name.CompareTo(i2.name); 
-				}
-			);
+			
+			getAllData();
 		}
 		GUI.Label(new Rect(50, 80, 200, 30), "AnimationController");
 		GUI.Label(new Rect(350, 80, 200, 30), "AnimationClips");
@@ -88,6 +75,29 @@ public class AnimatorEditor : EditorWindow {
 			}
 			AssetDatabase.SaveAssets();
 		}
+	}
+	private void getAllData(){
+		AnimationClip[] animationClip = controller.animationClips;
+		for(int i=0; i<animationClip.Length; i++) {
+			if(!allMotionAnimationClip.Contains(animationClip[i]))
+				allMotionAnimationClip.Add(animationClip[i]);
+		}
+		allMotionAnimationClip.Sort(
+			delegate(AnimationClip i1, AnimationClip i2) { 
+			return i1.name.CompareTo(i2.name); 
+		}
+		);
+		UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_"+strId+"/Animation", typeof(AnimationClip));
+		for(int i=0; i<animationObjs.Length; i++) {
+			AnimationClip clip = animationObjs[i] as AnimationClip;
+			if(!allAnimationClip.Contains(clip))
+				allAnimationClip.Add(clip);
+		}
+		allAnimationClip.Sort(
+			delegate(AnimationClip i1, AnimationClip i2) { 
+			return i1.name.CompareTo(i2.name); 
+		}
+		);
 	}
 	private void recurrenceSubState(AnimatorStateMachine machine) {
 		int machineCount = machine.stateMachines.Length;
