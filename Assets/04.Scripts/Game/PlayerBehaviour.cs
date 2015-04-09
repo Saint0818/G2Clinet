@@ -784,12 +784,16 @@ public class PlayerBehaviour : MonoBehaviour
 
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+						float dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
                         if (dis <= GameConst.TreePointDistance)
                         {
-                            if (dis2 < dis)
-                                AniState(PlayerState.MovingDefence);
-                            else
+							if (dis2 < dis){
+								if(dis > dis3)
+									AniState(PlayerState.RunningDefence);
+								else
+									AniState(PlayerState.MovingDefence);
+							}else
                                 AniState(PlayerState.RunningDefence);
                         } else
                             AniState(PlayerState.RunningDefence);

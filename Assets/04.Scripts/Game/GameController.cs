@@ -674,16 +674,18 @@ public class GameController : MonoBehaviour
                 player = Joysticker;
             } else 
             if (BallOwner.Team == TeamKind.Self) 
+			{
                 player = BallOwner;
+				isshoot = true;
+			}
 
             if (player)
             {
-//                int t = player.Team.GetHashCode();
-				Shoot();
-//                if (isshoot) 
-//                    Shoot();
-//                else
-//                    player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
+                int t = player.Team.GetHashCode();
+                if (isshoot) 
+                    Shoot();
+                else
+                    player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
             }
         }
     }
