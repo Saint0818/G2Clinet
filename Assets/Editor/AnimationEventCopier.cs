@@ -75,7 +75,7 @@ public class AnimationEventCopier : EditorWindow {
 			}
 		}
 		if(isCopy) {
-			GUI.Label(new Rect(300, 120, 60, 20), "Copy Success!");
+			GUI.Label(new Rect(300, 120, 60, 20), "Copy Success!", style);
 		}
 	}
 

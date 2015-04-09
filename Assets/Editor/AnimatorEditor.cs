@@ -21,6 +21,7 @@ public class AnimatorEditor : EditorWindow {
 	private Vector2 scrollPositionAnimationClips = Vector2.zero;
 
 	private GUIStyle style = new GUIStyle();
+	private bool isChange = false;
 
 //	private void init(){
 //		FileUtil.CopyFileOrDirectory("Assets/Resources/Character/PlayerModel_1/AnimationControl.controller",
@@ -37,6 +38,7 @@ public class AnimatorEditor : EditorWindow {
 		if(GUI.Button(new Rect(50, 40, 130, 20), "Get AvatarControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
+			isChange = false;
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AvatarControl") as UnityEditor.Animations.AnimatorController;
 			if(controller)
 				getAllData();
@@ -44,6 +46,7 @@ public class AnimatorEditor : EditorWindow {
 		if(GUI.Button(new Rect(200, 40, 130, 20), "Get AnimationControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
+			isChange = false;
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AnimationControl") as UnityEditor.Animations.AnimatorController;
 			if(controller)
 				getAllData();
@@ -96,10 +99,14 @@ public class AnimatorEditor : EditorWindow {
 			GUI.Label(new Rect(100, 120, 200, 30), "Count:0");
 		}
 
+		if(isChange)
+			GUI.Label(new Rect(200, 560, 200, 15), "Change Success!", style);
+
 		if(GUI.Button(new Rect(200, 575, 200, 20), "Change Animator Motion")) { 
 			for(int i=0; i<controller.layers.Length; i++){
 				recurrenceSubState(controller.layers[i].stateMachine);
 			}
+			isChange = true;
 			AssetDatabase.SaveAssets();
 		}
 	}
