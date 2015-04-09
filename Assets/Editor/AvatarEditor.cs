@@ -8,7 +8,7 @@ public class AvatarEditor :  EditorWindow{
 
 	[MenuItem ("GameEditor/Avatar")]
 	private static void BuildTool() {
-		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 600, 1000), true, "AvatarEditor").Show();
+		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 650, 1000), true, "AvatarEditor").Show();
 	}
 	private enum Flag{
 		B,C,H,M,P,S,A,Z,NONE
@@ -482,9 +482,9 @@ public class AvatarEditor :  EditorWindow{
 		if(isAvatar && Application.isPlaying) {
 			avatarAnimationTest = Selection.gameObjects[0].GetComponent<AvatarAnimationTest>();
 			if(avatarAnimationTest != null) {
-				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 600, 550), scrollPositionAnimation, new Rect (0, 0, 1300, 40 * (allMotionAnimationClip.Count / 10)));
+				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 650, 550), scrollPositionAnimation, new Rect (0, 0, 650, 40 * (allMotionAnimationClip.Count / 5)));
 				for(int i=0; i < allMotionAnimationClip.Count; i++) {
-					if(GUI.Button(new Rect(130 * (i % 10), (i / 10) * 40, 120, 30), allMotionAnimationClip[i].name)) {
+					if(GUI.Button(new Rect(130 * (i % 5), (i / 5) * 40, 120, 30), allMotionAnimationClip[i].name)) {
 						avatarAnimationTest.Play(allMotionAnimationClip[i].name);
 					}
 				}
