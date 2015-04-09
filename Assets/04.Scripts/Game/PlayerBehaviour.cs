@@ -312,11 +312,14 @@ public class PlayerBehaviour : MonoBehaviour
             DelActionFlag(ActionFlag.IsPass);
         }   
 
-        if (FirstMoveQueue.Count > 0)
-            MoveTo(FirstMoveQueue.Peek(), true);
-        else 
-        if (MoveQueue.Count > 0)
-            MoveTo(MoveQueue.Peek());
+		if (NoAiTime == 0) 
+		{
+			if (FirstMoveQueue.Count > 0)
+				MoveTo(FirstMoveQueue.Peek(), true);
+			else 
+				if (MoveQueue.Count > 0)
+					MoveTo(MoveQueue.Peek());
+		}       
 
         if (AniWaitTime > 0 && AniWaitTime <= Time.time)
         {
@@ -1010,6 +1013,7 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 
                     AddActionFlag(ActionFlag.IsBlock);
+					DelActionFlag(ActionFlag.IsRun);
                     Result = true;
                 }
                 break;

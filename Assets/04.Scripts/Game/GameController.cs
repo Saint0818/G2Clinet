@@ -397,7 +397,7 @@ public class GameController : MonoBehaviour
                 {
                     if (Npc.Team == team)
                     {
-                        if (!IsPassing)
+                        if (!IsPassing && Npc.NoAiTime == 0)
                         {
                             if (!IsShooting)
                             {
