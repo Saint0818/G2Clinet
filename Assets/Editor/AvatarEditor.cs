@@ -8,7 +8,7 @@ public class AvatarEditor :  EditorWindow{
 
 	[MenuItem ("GameEditor/Avatar")]
 	private static void BuildTool() {
-		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 600, 600), true, "AvatarEditor").Show();
+		EditorWindow.GetWindowWithRect(typeof(AvatarEditor), new Rect(0, 0, 600, 1000), true, "AvatarEditor").Show();
 	}
 	private enum Flag{
 		B,C,H,M,P,S,A,Z,NONE
@@ -55,6 +55,9 @@ public class AvatarEditor :  EditorWindow{
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
 
 	private AvatarAnimationTest avatarAnimationTest;
+
+	public UnityEditor.Animations.AnimatorController controller;
+	public List<AnimationClip> allMotionAnimationClip = new List<AnimationClip>();
 		
 	void init (){
 		if(allBody.Count == 0) {
@@ -216,6 +219,7 @@ public class AvatarEditor :  EditorWindow{
 					modelId = 2;
 					isModel2Choose = true;
 				}
+				getAllData();
 			}
 		}
 	}
@@ -478,15 +482,29 @@ public class AvatarEditor :  EditorWindow{
 		if(isAvatar && Application.isPlaying) {
 			avatarAnimationTest = Selection.gameObjects[0].GetComponent<AvatarAnimationTest>();
 			if(avatarAnimationTest != null) {
-				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 600, 50), scrollPositionAnimation, new Rect (0, 0, avatarAnimationTest.AnimationName.Length * 130, 50));
-				for(int i=0; i < avatarAnimationTest.AnimationName.Length; i++) {
-					if(GUI.Button(new Rect(130 * i, 0, 120, 30), avatarAnimationTest.AnimationName[i])) {
-						avatarAnimationTest.Play(avatarAnimationTest.AnimationName[i]);
+				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 600, 550), scrollPositionAnimation, new Rect (0, 0, 1300, 40 * (allMotionAnimationClip.Count / 10)));
+				for(int i=0; i < allMotionAnimationClip.Count; i++) {
+					if(GUI.Button(new Rect(130 * (i % 10), (i / 10) * 40, 120, 30), allMotionAnimationClip[i].name)) {
+						avatarAnimationTest.Play(allMotionAnimationClip[i].name);
 					}
 				}
 				GUI.EndScrollView ();
 			}
 		}
+	}
+	private void getAllData(){
+		allMotionAnimationClip.Clear();
+		controller = Resources.Load("Character/PlayerModel_"+modelId+"/AvatarControl") as UnityEditor.Animations.AnimatorController;
+		AnimationClip[] animationClip = controller.animationClips;
+		for(int i=0; i<animationClip.Length; i++) {
+			if(!allMotionAnimationClip.Contains(animationClip[i]))
+				allMotionAnimationClip.Add(animationClip[i]);
+		}
+		allMotionAnimationClip.Sort(
+			delegate(AnimationClip i1, AnimationClip i2) { 
+			return i1.name.CompareTo(i2.name); 
+		}
+		);
 	}
 	void randomPlayer(){
 		//B
