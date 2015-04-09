@@ -786,6 +786,9 @@ public class GameController : MonoBehaviour
 							
 			if (stealRate <= (r + AddRate))
 			{
+				if(BallOwner)
+					BallOwner.AniState(PlayerState.GotSteal);
+					
 				setDropBall();
 				return true;
 			}else
@@ -1644,7 +1647,7 @@ public class GameController : MonoBehaviour
                 Shooter = null;
             } else
             {
-				if(BallOwner != null)
+				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
 					BallOwner.AniState(PlayerState.Idle);
 
                 BallOwner = p;
@@ -1663,7 +1666,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-        if (BallOwner || (Catcher && Catcher != player) || IsShooting)
+        if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAction(ActionFlag.IsGotSteal))
             return;
 
         //rebound

@@ -21,7 +21,8 @@ public enum PlayerState
     BlockCatch = 11,
     Layup = 12, 
     Pass = 13,  
-    Steal = 14, 
+    Steal = 14,
+	GotSteal = 15,
     MovingDefence = 23,
     RunAndDribble = 24,
     Shooting = 25,
@@ -62,7 +63,8 @@ public enum ActionFlag
     IsCatcher = 9,
     IsDunk = 10,
     IsShootIdle = 11,
-    IsFakeShoot = 12
+    IsFakeShoot = 12,
+	IsGotSteal = 13
 }
 
 public struct TMoveData
@@ -117,7 +119,8 @@ public class PlayerBehaviour : MonoBehaviour
                 "IsCatcher",
                 "IsDunk",
                 "IsShootIdle",
-                "IsFakeShoot"
+                "IsFakeShoot",
+				"IsGotSteal"
         };
     private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
     private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -955,6 +958,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
+			case PlayerState.GotSteal:
                 return true;
         }
 
@@ -1097,6 +1101,7 @@ public class PlayerBehaviour : MonoBehaviour
                 DelActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
+
             case PlayerState.Steal:
                 if (!CheckAction(ActionFlag.IsSteal))
                 {
@@ -1105,6 +1110,15 @@ public class PlayerBehaviour : MonoBehaviour
                     Result = true;
                 }
                 break;
+
+			case PlayerState.GotSteal:
+				if (!CheckAction(ActionFlag.IsGotSteal))
+				{
+					AniWaitTime = Time.time + 2.9f;
+					AddActionFlag(ActionFlag.IsGotSteal);
+					Result = true;
+				}
+				break;
 
 			case PlayerState.Shooting:
 				UIGame.Get.DoPassNone();
@@ -1144,6 +1158,12 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
             case "StealEnd":
 				break;
+
+			case "GotStealEnd":
+				DelActionFlag(ActionFlag.IsDribble);
+				DelActionFlag(ActionFlag.IsGotSteal);
+				break;
+
 			case "ShootDown":
                
                 break;
