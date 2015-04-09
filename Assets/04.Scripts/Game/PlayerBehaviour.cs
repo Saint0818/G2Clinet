@@ -913,16 +913,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool CanUseState(PlayerState state)
     {
-		if (crtState != PlayerState.FakeShoot && crtState != PlayerState.Steal && crtState == state) 
-			return false;
-
         switch (state)
         {
             case PlayerState.Catch:
 				if (crtState != PlayerState.FakeShoot && 
 			        crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Pass && 
-			    	crtState != PlayerState.Steal)
+			    	crtState != PlayerState.Steal &&
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.Steal:
@@ -933,23 +931,27 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.Pass:
 				if (crtState != PlayerState.FakeShoot && 
-			    	crtState != PlayerState.Dunk)
+			    	crtState != PlayerState.Dunk && 
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.Block:
-				if (crtState != PlayerState.Steal)
+				if (crtState != PlayerState.Steal &&
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.BlockCatch:
 				if (crtState != PlayerState.FakeShoot && 
 			    	crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass)
+			    	crtState != PlayerState.Pass && 
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.Shooting:
 				if (crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Pass && 
-			    	crtState != PlayerState.Catch)
+			    	crtState != PlayerState.Catch &&
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.FakeShoot:
@@ -959,7 +961,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.Dunk:
 				if (crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass)
+			    	crtState != PlayerState.Pass && 
+			    	crtState != state)
                     return true;
                 break;
             case PlayerState.Idle:
@@ -997,6 +1000,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Block:
                 if (!CheckAction(ActionFlag.IsBlock))
                 {
+					gameObject.layer = LayerMask.NameToLayer("Shooter");
 					playerBlockCurve = null;
 					for (int i = 0; i < aniCurve.Block.Length; i++)
 						if (aniCurve.Block [i].Name == "Block")
@@ -1297,6 +1301,7 @@ public class PlayerBehaviour : MonoBehaviour
                 !CheckAction(ActionFlag.IsPass) && 
                 !CheckAction(ActionFlag.IsShoot) &&
                 !CheckAction(ActionFlag.IsShootIdle) &&
+			    !CheckAction(ActionFlag.IsGotSteal) &&
                 !CheckAction(ActionFlag.IsCatcher))
                 return true;
             else
