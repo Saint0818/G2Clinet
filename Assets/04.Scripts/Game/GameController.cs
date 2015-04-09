@@ -714,9 +714,8 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		if (BallOwner != null && Catcher == null && IsPassing == false && IsShooting == false && IsDunk == false)
         {
-			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
-				return Result;
-
+//			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
+//				return Result;
             Catcher = player;
             Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
             BallOwner.AniState(PlayerState.Pass, Catcher.transform.position);
@@ -1715,6 +1714,7 @@ public class GameController : MonoBehaviour
         
         GameController.Get.ChangeSituation(GameSituation.End);
         UIGame.Get.Again.SetActive(true);
+		UIGame.Get.ScoreBar.SetActive(true);
         UIGame.Get.Joystick.gameObject.SetActive(false);
     }
     

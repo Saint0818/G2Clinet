@@ -20,6 +20,7 @@ public class UIGame : UIBase {
 	public GameObject Again;
 	public GameObject Continue;
 	public GameObject Start;
+	public GameObject ScoreBar;
 	public GameJoystick Joystick = null;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
@@ -28,7 +29,6 @@ public class UIGame : UIBase {
 	private GameObject passObject;
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
-	private GameObject scoreBar;
 	private UILabel[] scoresLabel = new UILabel[2];
 	private UISprite[] homeHintSprite = new UISprite[3];
 	private UILabel[] homeHintLabel = new UILabel[3];
@@ -67,7 +67,7 @@ public class UIGame : UIBase {
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
 		Start = GameObject.Find (UIName + "/Center/ButtonStart");
-		scoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
+		ScoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
 		homeHintSprite [0] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom0").GetComponent<UISprite>();
@@ -185,13 +185,14 @@ public class UIGame : UIBase {
 	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
+		showScoreBar();
 		Again.SetActive (false);
 		Joystick.gameObject.SetActive(true);
 	}
 
 	public void StartGame() {
 		Start.SetActive (false);
-		scoreBar.SetActive (false);
+		ScoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
 
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
@@ -207,8 +208,9 @@ public class UIGame : UIBase {
 	}
 
 	public void PlusScore(int team, int score) {
-		showScoreBar();
 		Scores [team] += score;
+		if(Scores [team] < MaxScores[team])
+			showScoreBar();
 		TweenRotation tweenRotation = TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity);
 		tweenRotation.delay = 0.5f;
 		tweenRotation.to = new Vector3(0,720,0);
@@ -231,7 +233,7 @@ public class UIGame : UIBase {
 	private void showScoreBar(){
 		showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
-		scoreBar.SetActive(true);
+		ScoreBar.SetActive(true);
 	}
 
 	private void showHomeHint() {
@@ -333,7 +335,7 @@ public class UIGame : UIBase {
 			showScoreBarTime -= Time.deltaTime;
 			if(showScoreBarTime <= 0){
 				isShowScoreBar = false;
-				scoreBar.SetActive(false);
+				ScoreBar.SetActive(false);
 			}
 		}
 
