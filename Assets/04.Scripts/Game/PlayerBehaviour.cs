@@ -1236,7 +1236,6 @@ public class PlayerBehaviour : MonoBehaviour
                 DelActionFlag(ActionFlag.IsRun);
                 
                 SceneMgr.Get.SetBallState(PlayerState.Dunk);
-//              playerCollider.enabled = false;
                 if (OnDunkJump != null)
                     OnDunkJump(this);
 
@@ -1244,19 +1243,11 @@ public class PlayerBehaviour : MonoBehaviour
             case "DunkBasket":
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
-//                PlayerRigidbody.useGravity = false;
-//                PlayerRigidbody.isKinematic = true;
                 SceneMgr.Get.PlayDunk(Team.GetHashCode());
                 break;
             case "DunkFallBall":
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
-
-                break;
-            case "DunkFall":
-                playerCollider.enabled = true;
-//                PlayerRigidbody.useGravity = true;
-//                PlayerRigidbody.isKinematic = false;
                 break;
             case "DunkEnd":
                 if (!NeedResetFlag)
