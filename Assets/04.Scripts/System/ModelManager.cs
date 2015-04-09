@@ -155,6 +155,7 @@ public class ModelManager : MonoBehaviour {
 		PB.MoveIndex = -1;
 		PB.Attr = playerattr;
 		PB.Index = TeamIndex;
+		PB.Init ();
 		Res.name = Team.ToString() + TeamIndex.ToString();
 		DefPointCopy.name = "DefPoint";
 		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;

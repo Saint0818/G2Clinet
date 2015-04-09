@@ -142,6 +142,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Rigidbody PlayerRigidbody;
     private Animator animator;
     private GameObject selectTexture;
+	private GameObject DefPoint;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public TeamKind Team;
@@ -210,10 +211,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (obj3 != null)
                 obj3.Player = this;
 
-            GameObject obj4 = obj.transform.FindChild("DefRange").gameObject;
-            if (obj4 != null)
-				obj4.transform.localScale = new Vector3(GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance);
-            
+			DefPoint = obj.transform.FindChild("DefRange").gameObject;            
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
@@ -237,6 +235,12 @@ public class PlayerBehaviour : MonoBehaviour
         aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
         initTrigger();
     }
+
+	public void Init()
+	{
+		if (DefPoint != null)
+			DefPoint.transform.localScale = new Vector3(GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance);
+	}
 
 	void LateUpdate() {
 		if(aimIK != null) {
