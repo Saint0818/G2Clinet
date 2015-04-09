@@ -678,11 +678,12 @@ public class GameController : MonoBehaviour
 
             if (player)
             {
-                int t = player.Team.GetHashCode();
-                if (isshoot) 
-                    Shoot();
-                else
-                    player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
+//                int t = player.Team.GetHashCode();
+				Shoot();
+//                if (isshoot) 
+//                    Shoot();
+//                else
+//                    player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
             }
         }
     }
