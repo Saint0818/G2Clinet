@@ -1331,7 +1331,7 @@ public class GameController : MonoBehaviour
             {
                 PlayerBehaviour Npc2 = PlayerList [i];
 
-                if (Npc2 != Npc && Npc2.Team != Npc.Team)
+                if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0)
                 {
 					if(!IsBlocking)
 					{

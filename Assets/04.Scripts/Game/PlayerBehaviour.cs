@@ -411,7 +411,11 @@ public class PlayerBehaviour : MonoBehaviour
 			if (AIActiveHint)
 			    AIActiveHint.SetActive(false);
 		}else
+		{
 			NoAiTime = 0;
+			if (AIActiveHint)
+				AIActiveHint.SetActive(true);
+		}
     }
     
     private void CalculationAirResistance()
@@ -894,6 +898,9 @@ public class PlayerBehaviour : MonoBehaviour
             WaitMoveTime = 0;
 			NeedShooting = false;
             isJoystick = false; 
+
+			if (AIActiveHint)
+				AIActiveHint.SetActive(true);
         } else
             NeedResetFlag = true;
     }
