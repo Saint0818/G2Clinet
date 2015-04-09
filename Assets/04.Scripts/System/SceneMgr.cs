@@ -261,7 +261,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBall.transform.localScale = Vector3.one;
 				RealBallTrigger.SetBoxColliderEnable(false);
-//				RealBallFX.gameObject.SetActive(false);
+				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Shooting: 
 				realBallCollider.enabled = true;
@@ -270,7 +270,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
-//				RealBallFX.gameObject.SetActive(false);
 				break;
 			case PlayerState.Pass: 
 				realBallCollider.enabled = true;
@@ -279,7 +278,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
-//				RealBallFX.gameObject.SetActive(true);
 				break;
 			case PlayerState.Steal:
             case PlayerState.Block: 
@@ -288,11 +286,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
-//				RealBallFX.gameObject.SetActive(true);
 				RealBall.transform.localScale = Vector3.one;
 				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
-				
+				RealBallFX.gameObject.SetActive(true);
 				break;
 			case PlayerState.Dunk:
 				realBallCollider.enabled = true;
@@ -306,8 +303,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.parent = null;
 				RealBall.transform.localScale = Vector3.one;
-				RealBallRigidbody.AddForce(Vector3.down * 2000); 
-//				RealBallFX.gameObject.SetActive(false);
+
+				if(player)
+					RealBall.transform.position = player.DummyBall.transform.position;
+
+				RealBallRigidbody.AddForce(Vector3.down * 2000);
 				break;
 		}
 	}

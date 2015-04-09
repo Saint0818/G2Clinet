@@ -473,7 +473,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationBlock()
     {
-		if (!CheckAction(ActionFlag.IsBlock))
+		if (CheckAction (ActionFlag.IsBlock) && animator.GetCurrentAnimatorStateInfo (0).IsName ("Block0"))
+			isBlock = true;
+
+		if (!isBlock)
 			return;
 
         if (crtState == PlayerState.Block && playerBlockCurve != null)
@@ -481,9 +484,10 @@ public class PlayerBehaviour : MonoBehaviour
             blockCurveTime += Time.deltaTime;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerBlockCurve.aniCurve.Evaluate(blockCurveTime), gameObject.transform.position.z);
 
-			if(blockCurveTime >= playerBlockCurve.LifeTime )
+			if(blockCurveTime >= playerBlockCurve.LifeTime)
 			{
 				DelActionFlag(ActionFlag.IsBlock);
+				isBlock = false;
 				isCheckLayerToReset = true;
 				AniState(PlayerState.Idle);
 			}
@@ -929,18 +933,22 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Steal:
 				if (crtState != PlayerState.FakeShoot && 
 				    crtState != PlayerState.Dunk && 
-				    crtState != PlayerState.Pass)
+				    crtState != PlayerState.Pass && 
+			    	crtState != PlayerState.Block && 
+			    	crtState != PlayerState.BlockCatch)
                     return true;
                 break;
             case PlayerState.Pass:
-				if (crtState != PlayerState.FakeShoot && 
+				if ( 
+			    	crtState != PlayerState.Steal &&
+			   	 	crtState != PlayerState.Block && 
+			   	 	crtState != PlayerState.BlockCatch && 
 			    	crtState != PlayerState.Dunk && 
 			    	crtState != state)
                     return true;
                 break;
             case PlayerState.Block:
-				if (crtState != PlayerState.Steal &&
-			    	crtState != state)
+				if (crtState != PlayerState.Steal)
                     return true;
                 break;
             case PlayerState.BlockCatch:
@@ -1007,11 +1015,11 @@ public class PlayerBehaviour : MonoBehaviour
 					playerBlockCurve = null;
 					for (int i = 0; i < aniCurve.Block.Length; i++)
 						if (aniCurve.Block [i].Name == "Block")
-						{
 							playerBlockCurve = aniCurve.Block [i];
-							blockCurveTime = 0;
-						}
 
+					isBlock = true;
+					AniWaitTime = Time.time + 2.9f;
+					blockCurveTime = 0;
                     AddActionFlag(ActionFlag.IsBlock);
 					DelActionFlag(ActionFlag.IsRun);
                     Result = true;
@@ -1293,6 +1301,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (!CheckAction(ActionFlag.IsSteal) && 
                 !CheckAction(ActionFlag.IsDunk) && 
                 !CheckAction(ActionFlag.IsBlock) && 
+                !CheckAction(ActionFlag.IsBlockCatch) && 
                 !CheckAction(ActionFlag.IsPass) && 
                 !CheckAction(ActionFlag.IsShoot) &&
                 !CheckAction(ActionFlag.IsShootIdle) &&
