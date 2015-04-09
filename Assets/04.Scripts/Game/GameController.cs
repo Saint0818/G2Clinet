@@ -715,8 +715,8 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		if (BallOwner != null && Catcher == null && IsPassing == false && IsShooting == false && IsDunk == false)
         {
-//			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
-//				return Result;
+			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
+				return Result;
             Catcher = player;
             Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
             BallOwner.AniState(PlayerState.Pass, Catcher.transform.position);
@@ -746,13 +746,17 @@ public class GameController : MonoBehaviour
         {
             if (PlayerList.Count > 2)
             {
+				float aiTime = BallOwner.NoAiTime;
+				Joysticker.SetNoAiTime();
+				BallOwner.NoAiTime = 0;
+
                 if (BallOwner == Joysticker)
                 {
                     Pass(PlayerList [playerid]);
                 } else
                     Pass(Joysticker);
 
-                Joysticker.SetNoAiTime();
+				BallOwner.NoAiTime = aiTime;
             }
         }
     }
