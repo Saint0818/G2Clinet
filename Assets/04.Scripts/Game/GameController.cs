@@ -908,8 +908,6 @@ public class GameController : MonoBehaviour
 
                     SetBall(null);
                     SceneMgr.Get.SetBallState(PlayerState.Block);
-					RealBallFxTime = 1f;
-					SceneMgr.Get.RealBallFX.SetActive(true);
                     return true;
                 }
             }
