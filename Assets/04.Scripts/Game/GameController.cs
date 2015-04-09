@@ -355,6 +355,7 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnPass = OnPass;
             PlayerList [i].OnSteal = OnSteal;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
+			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
             PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
@@ -664,7 +665,7 @@ public class GameController : MonoBehaviour
 
     public void DoShoot(bool isshoot)
     {
-        if (IsStart && BallOwner)
+		if (IsStart && BallOwner && CandoBtn)
         {
             PlayerBehaviour player = null;
             if (Joysticker == BallOwner)
@@ -741,7 +742,7 @@ public class GameController : MonoBehaviour
 
     public void DoPass(int playerid)
     {
-        if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0)
+		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0 && CandoBtn)
         {
             if (PlayerList.Count > 2)
             {
@@ -802,7 +803,7 @@ public class GameController : MonoBehaviour
 
     public void DoSteal()
     {
-		if (StealBtnLiftTime <= 0 && IsStart && Joysticker)
+		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
         {
 			StealBtnLiftTime = 1f;
             Joysticker.SetNoAiTime();   
@@ -818,6 +819,16 @@ public class GameController : MonoBehaviour
     {
         
     }
+
+	public bool OnFakeShootBlockMoment(PlayerBehaviour player)
+	{
+		if (player)
+		{
+			DefBlock(ref player, 1);
+			return true;
+		} else
+			return false;
+	}
 
     public bool OnBlockMoment(PlayerBehaviour player)
     {
@@ -896,7 +907,7 @@ public class GameController : MonoBehaviour
 
     public void DoBlock()
     {
-        if (IsStart)
+		if (IsStart && CandoBtn)
         {
             Joysticker.SetNoAiTime();       
             if (Shooter)
@@ -921,7 +932,8 @@ public class GameController : MonoBehaviour
 
     public void DoSkill()
     {
-        Joysticker.SetNoAiTime();
+		if(CandoBtn)
+        	Joysticker.SetNoAiTime();
     }
 
     private bool CanMove
@@ -1301,7 +1313,7 @@ public class GameController : MonoBehaviour
         return NearPlayer;
     }
 
-    private void DefBlock(ref PlayerBehaviour Npc)
+    private void DefBlock(ref PlayerBehaviour Npc, int Kind = 0)
     {
         if (PlayerList.Count > 0 && !IsPassing)
         {
@@ -1313,13 +1325,19 @@ public class GameController : MonoBehaviour
                 {
 					if(!IsBlocking)
 					{
+						int Rate = Random.Range(0, 100) + 1;
+						int BlockRate = GameData.AIlevelAy[Npc2.Attr.AILevel].BlockRate;
+						
+						if(Kind == 1)
+							BlockRate = GameData.AIlevelAy[Npc2.Attr.AILevel].FaketBlockRate;	
+
 						if (GameStart.Get.TestMode == GameTest.Block)
+						{
 							Npc2.AniState(PlayerState.Block, Npc.transform.position);
-						else
+						} else
 						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
 						{
-							int Rate = Random.Range(0, 100) + 1;
-							if (Npc.Index == Npc2.Index || Rate <= 50)
+							if (Npc.Index == Npc2.Index || Rate <= BlockRate)
 							{
 								Npc2.AniState(PlayerState.Block, Npc.transform.position);
 							}
@@ -2093,4 +2111,15 @@ public class GameController : MonoBehaviour
             return false;
         }
     }
+
+	public bool CandoBtn
+	{
+		get
+		{
+			if(situation == GameSituation.TeeA || situation == GameSituation.TeeB || situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking)
+				return false;
+			else
+				return true;
+		}
+	}
 }

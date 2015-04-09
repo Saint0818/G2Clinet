@@ -400,11 +400,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetNoAiTime()
     {
-        isJoystick = true;
-        NoAiTime = Time.time + ChangeToAI;
+		if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+		{
+        	isJoystick = true;
+        	NoAiTime = Time.time + ChangeToAI;
 
-        if (AIActiveHint)
-            AIActiveHint.SetActive(false);
+			if (AIActiveHint)
+			    AIActiveHint.SetActive(false);
+		}else
+			NoAiTime = 0;
     }
     
     private void CalculationAirResistance()

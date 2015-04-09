@@ -10,6 +10,8 @@ namespace GameStruct
 		public int StealRate;
 		public int AutoFollowTime;
 		public float DefDistance;
+		public int BlockRate;
+		public int FaketBlockRate;
 	}
 
 	public struct TAvatar

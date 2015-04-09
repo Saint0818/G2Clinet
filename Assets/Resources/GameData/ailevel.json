@@ -3,36 +3,48 @@
         "proactiverate": 10,
         "stealrate": 10,
         "autofollowtime": 10,
-        "defdistance": 1
+        "defdistance": 1,
+        "blockrate": 10,
+        "faketblockrate": 90
     },
     {
         "proactiverate": 20,
         "stealrate": 20,
         "autofollowtime": 8,
-        "defdistance": 2
+        "defdistance": 2,
+        "blockrate": 20,
+        "faketblockrate": 80
     },
     {
         "proactiverate": 40,
         "stealrate": 40,
         "autofollowtime": 6,
-        "defdistance": 4
+        "defdistance": 4,
+        "blockrate": 40,
+        "faketblockrate": 60
     },
     {
         "proactiverate": 60,
         "stealrate": 60,
         "autofollowtime": 4,
-        "defdistance": 6
+        "defdistance": 6,
+        "blockrate": 60,
+        "faketblockrate": 40
     },
     {
         "proactiverate": 80,
         "stealrate": 80,
         "autofollowtime": 2,
-        "defdistance": 8
+        "defdistance": 8,
+        "blockrate": 80,
+        "faketblockrate": 20
     },
     {
         "proactiverate": 100,
         "stealrate": 100,
         "autofollowtime": 1,
-        "defdistance": 10
+        "defdistance": 10,
+        "blockrate": 90,
+        "faketblockrate": 10
     }
 ]
