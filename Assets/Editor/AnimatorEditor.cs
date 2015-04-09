@@ -23,34 +23,114 @@ public class AnimatorEditor : EditorWindow {
 	private GUIStyle style = new GUIStyle();
 	private bool isChange = false;
 
+	private bool isChange0 = false;
+	private bool isChange1 = false;
+	private bool isChange2 = false;
+
+	private bool isGetAvatar = false;
+	private bool isGetAnimtor = false;
+
 //	private void init(){
 //		FileUtil.CopyFileOrDirectory("Assets/Resources/Character/PlayerModel_1/AnimationControl.controller",
 //		                             "Assets/Resources/Character/PlayerModel_0/AnimationControl.controller");
 //	}
 
+	void OnFocus(){
+		allMotionAnimationClip.Clear();
+		allAnimationClip.Clear();
+		isChange0 = false;
+		isChange1 = false;
+		isChange2 = false;
+
+		isGetAvatar = false;
+		isGetAnimtor = false;
+	}
+
 	void OnGUI(){
 		style.normal.textColor = Color.red;
 
 		GUI.Label(new Rect(50, 0, 50, 30), "ID:");
-		strId = GUI.TextField(new Rect(80, 0, 100, 20), strId, 10);
+//		strId = GUI.TextField(new Rect(80, 0, 100, 20), strId, 10);
+		if(isChange0) 
+			GUI.backgroundColor = Color.red;
+		else
+			GUI.backgroundColor = Color.white;
 
+		if(GUI.Button(new Rect(50, 0, 100, 20), "PlayerModel_0")) {
+			strId = "0";
+			allMotionAnimationClip.Clear();
+			allAnimationClip.Clear();
+			isChange0 = true;
+			isChange1 = false;
+			isChange2 = false;
+			isGetAvatar = false;
+			isGetAnimtor = false;
+		}
+
+		if(isChange1) 
+			GUI.backgroundColor = Color.red;
+		else
+			GUI.backgroundColor = Color.white;
+
+		if(GUI.Button(new Rect(160, 0, 100, 20), "PlayerModel_1")) {
+			strId = "1";
+			allMotionAnimationClip.Clear();
+			allAnimationClip.Clear();
+			isChange0 = false;
+			isChange1 = true;
+			isChange2 = false;
+			isGetAvatar = false;
+			isGetAnimtor = false;
+		}
+
+		if(isChange2) 
+			GUI.backgroundColor = Color.red;
+		else
+			GUI.backgroundColor = Color.white;
+
+		if(GUI.Button(new Rect(270, 0, 100, 20), "PlayerModel_2")) {
+			strId = "2";
+			allMotionAnimationClip.Clear();
+			allAnimationClip.Clear();
+			isChange0 = false;
+			isChange1 = false;
+			isChange2 = true;
+			isGetAvatar = false;
+			isGetAnimtor = false;
+		}
+
+		if(isGetAvatar) 
+			GUI.backgroundColor = Color.red;
+		else
+			GUI.backgroundColor = Color.white;
 
 		if(GUI.Button(new Rect(50, 40, 130, 20), "Get AvatarControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
+			isGetAvatar = true;
+			isGetAnimtor = false;
 			isChange = false;
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AvatarControl") as UnityEditor.Animations.AnimatorController;
 			if(controller)
 				getAllData();
 		}
+
+		if(isGetAnimtor) 
+			GUI.backgroundColor = Color.red;
+		else
+			GUI.backgroundColor = Color.white;
+
 		if(GUI.Button(new Rect(200, 40, 130, 20), "Get AnimationControl")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
+			isGetAvatar = false;
+			isGetAnimtor = true;
 			isChange = false;
 			controller = Resources.Load("Character/PlayerModel_"+strId+"/AnimationControl") as UnityEditor.Animations.AnimatorController;
 			if(controller)
 				getAllData();
 		}
+		GUI.backgroundColor = Color.white;
 		GUI.Label(new Rect(50, 80, 200, 30), "AnimationController");
 		GUI.Label(new Rect(350, 80, 200, 30), "AnimationClips");
 		if(allMotionAnimationClip.Count > 0 ){
@@ -99,15 +179,17 @@ public class AnimatorEditor : EditorWindow {
 			GUI.Label(new Rect(100, 120, 200, 30), "Count:0");
 		}
 
-		if(isChange)
-			GUI.Label(new Rect(200, 560, 200, 15), "Change Success!", style);
 
-		if(GUI.Button(new Rect(200, 575, 200, 20), "Change Animator Motion")) { 
-			for(int i=0; i<controller.layers.Length; i++){
-				recurrenceSubState(controller.layers[i].stateMachine);
+		if(allAnimationClip.Count > 0 && allMotionAnimationClip.Count > 0) {
+			if(isChange)
+				GUI.Label(new Rect(200, 560, 200, 15), "Change Success!", style);
+			if(GUI.Button(new Rect(200, 575, 200, 20), "Change Animator Motion")) { 
+				for(int i=0; i<controller.layers.Length; i++){
+					recurrenceSubState(controller.layers[i].stateMachine);
+				}
+				isChange = true;
+				AssetDatabase.SaveAssets();
 			}
-			isChange = true;
-			AssetDatabase.SaveAssets();
 		}
 	}
 	private void getAllData(){
