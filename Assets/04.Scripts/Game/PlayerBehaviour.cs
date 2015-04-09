@@ -99,6 +99,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnDunkBasket = null;
     public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
+	public OnPlayerAction OnFakeShootBlockMoment = null;
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 0.5f;
@@ -1135,11 +1136,16 @@ public class PlayerBehaviour : MonoBehaviour
 					OnSteal(this);
 			break;
             case "StealEnd":
-//				DelActionFlag(ActionFlag.IsSteal);
 				break;
 		case "ShootDown":
                
                 break;
+
+			case "FakeShootBlockMoment":
+				if (OnFakeShootBlockMoment != null)
+					OnFakeShootBlockMoment(this);
+				break;
+
             case "BlockMoment":
                 if (OnBlockMoment != null)
                     OnBlockMoment(this);
