@@ -97,8 +97,8 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
-		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
-		SetBtnFun (UIName + "/Center/StartView/ButtonStart", StartGame);
+		SetBtnFun (UIName + "/Center/ButtonAgain", StartGame);
+		SetBtnFun (UIName + "/Center/StartView/ButtonStart", ResetGame);
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
@@ -196,11 +196,9 @@ public class UIGame : UIBase {
 	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
-		isShowScoreBar = false;
-		ScoreBar.SetActive(true);
+		showScoreBar();
 		Again.SetActive (false);
-		Start.SetActive (true);
-		Joystick.gameObject.SetActive(false);
+		Joystick.gameObject.SetActive(true);
 	}
 
 	public void StartGame() {
@@ -216,7 +214,6 @@ public class UIGame : UIBase {
 
 	public void RestartGame(){
 		Time.timeScale = 1;
-		GameController.Get.Reset();
 		InitData ();
 		isShowScoreBar = false;
 		ScoreBar.SetActive(true);
@@ -225,6 +222,7 @@ public class UIGame : UIBase {
 		Start.SetActive (true);
 		Joystick.gameObject.SetActive(false);
 
+		GameController.Get.Restart();
 	}
 
 	public void ChangeControl(bool IsAttack) {

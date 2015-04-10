@@ -2062,26 +2062,10 @@ public class GameController : MonoBehaviour
 		Catcher = null;
 	}
 	
-//	public void Reset()
-//	{
-//		for(int i = 0; i < PlayerList.Count; i++)
-//			PlayerList[i].transform.position = BornAy[i];
-//		situation = GameSituation.Opening;
-//		BallOwner = null;
-//		SceneMgr.Get.RealBall.transform.parent = null;
-//		SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
-//		SceneMgr.Get.RealBallRigidbody.isKinematic = false;
-//		SceneMgr.Get.RealBallRigidbody.useGravity = true;
-//    }
-
-	public void Reset(){
+	public void Reset()
+	{
 		BallOwner = null;
-		SceneMgr.Get.RealBall.transform.parent = null;
-		SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
-		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
-		SceneMgr.Get.RealBallRigidbody.useGravity = false;
-		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
-		SceneMgr.Get.RealBallFX.gameObject.SetActive(true);
+		SceneMgr.Get.SetBallState (PlayerState.ReStart);
 		for(int i = 0; i < PlayerList.Count; i++){
 			Destroy(PlayerList[i].gameObject);
 		}
@@ -2095,7 +2079,14 @@ public class GameController : MonoBehaviour
 		if(selectBObj)
 			Destroy(selectBObj);
 		InitGame();
+    }
 
+	public void Restart(){
+		for(int i = 0; i < PlayerList.Count; i++)
+			PlayerList[i].transform.position = BornAy[i];
+		situation = GameSituation.Opening;
+		BallOwner = null;
+		SceneMgr.Get.SetBallState (PlayerState.ReStart);
 	}
 
 	public void SetPlayerLevel(){
