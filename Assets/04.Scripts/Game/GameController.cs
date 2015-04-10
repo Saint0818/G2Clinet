@@ -2081,14 +2081,6 @@ public class GameController : MonoBehaviour
 		InitGame();
     }
 
-	public void Restart(){
-		for(int i = 0; i < PlayerList.Count; i++)
-			PlayerList[i].transform.position = BornAy[i];
-		situation = GameSituation.Opening;
-		BallOwner = null;
-		SceneMgr.Get.SetBallState (PlayerState.ReStart);
-	}
-
 	public void SetPlayerLevel(){
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(i >= 3)
