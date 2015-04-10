@@ -134,12 +134,10 @@ public class UIGame : UIBase {
 
 	public void changeSelfAILevel(){
 		GameStart.Get.SelfAILevel =(int) Mathf.Round(aiLevelScrollBar[0].value * 5);
-
 	}
 
 	public void changeNpcAILevel(){
-		GameStart.Get.NpcAILevel =(int)  Mathf.Round(aiLevelScrollBar[1].value * 5);
-		
+		GameStart.Get.NpcAILevel =(int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
 	}
 
 	public void DoShoot(GameObject go, bool state) {

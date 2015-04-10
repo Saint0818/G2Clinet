@@ -1684,7 +1684,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (IsShooting || player.CheckAction(ActionFlag.IsGotSteal))//BallOwner || (Catcher && Catcher != player) ||
+		if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAction(ActionFlag.IsGotSteal))
             return;
 
         //rebound
