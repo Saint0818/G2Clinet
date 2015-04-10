@@ -213,16 +213,10 @@ public class UIGame : UIBase {
 	}
 
 	public void RestartGame(){
+		ResetGame();
 		Time.timeScale = 1;
-		GameController.Get.Reset ();
-		initLine();
-		InitData ();
-		isShowScoreBar = false;
-		ScoreBar.SetActive(true);
 		Restart.SetActive(false);
 		Continue.SetActive(false);
-		Start.SetActive (true);
-		Joystick.gameObject.SetActive(false);
 	}
 
 	public void ChangeControl(bool IsAttack) {
