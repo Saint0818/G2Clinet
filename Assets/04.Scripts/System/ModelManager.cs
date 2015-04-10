@@ -169,6 +169,7 @@ public class ModelManager : MonoBehaviour {
 
 		return PB;
 	}
+
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
 			string bodyNumber = (Attr.Body / 1000).ToString();
@@ -561,7 +562,7 @@ public class ModelManager : MonoBehaviour {
 				if (rig == null)
 					rig = result.AddComponent<Rigidbody> ();
 
-				rig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
+//				rig.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezePositionY;
 				rig.freezeRotation = true;
 			}
 		} catch (UnityException e) {

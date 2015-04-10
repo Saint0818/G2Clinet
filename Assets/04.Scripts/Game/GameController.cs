@@ -104,9 +104,9 @@ public class GameController : MonoBehaviour
     private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
     private List<TTactical> MovePositionList = new List<TTactical>();
     private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
-    private PlayerBehaviour BallOwner;
+    public PlayerBehaviour BallOwner;
     private bool IsStart = true;
-    private float CoolDownPass = 0;
+    public float CoolDownPass = 0;
     private float CoolDownCrossover = 0;
     private float ShootDis = 0;
     private float RealBallFxTime = 0;
@@ -414,8 +414,10 @@ public class GameController : MonoBehaviour
                                 AIMove(ref Npc, ref ap);
                             }                               
                         }
-                    } else
+                    } else{
                         Defend(ref Npc);
+						DefMove(Npc.DefPlayer);
+					}
                 }
             }   
         }
@@ -500,17 +502,23 @@ public class GameController : MonoBehaviour
                 SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
-					switch(PlayerList[i].Team)
-					{
-					case TeamKind.Self:
-						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
-							PlayerList[i].ResetFlag();
-						break;
-					case TeamKind.Npc:
-						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
-							PlayerList[i].ResetFlag();
-						break;
-					}
+//					switch(PlayerList[i].Team)
+//					{
+//					case TeamKind.Self:
+//						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
+//							PlayerList[i].ResetFlag();
+//						break;
+//					case TeamKind.Npc:
+//						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
+//							PlayerList[i].ResetFlag();
+//						break;
+//					}
+
+					if(GS == GameSituation.TeeB || GS == GameSituation.TeeA || GS == GameSituation.TeeAPicking || GS == GameSituation.TeeBPicking){
+
+					}else
+						PlayerList[i].ResetFlag();
+
 
                     PlayerList [i].situation = GS;
                 }
@@ -1411,9 +1419,9 @@ public class GameController : MonoBehaviour
 	                if (BallOwner != null && BallOwner != npc)
 	                    data.LookTarget = BallOwner.transform;  
 	                
-	                data.MoveFinish = DefMove;
+//	                data.MoveFinish = DefMove;
 	                npc.FirstTargetPos = data;
-	                DefMove(npc);
+//	                DefMove(npc);
 	            } else
 				if(pos.FileName != string.Empty)
 	            {
@@ -1435,11 +1443,11 @@ public class GameController : MonoBehaviour
 	                        if (BallOwner != null && BallOwner != npc)
 	                            data.LookTarget = BallOwner.transform;  
 	                        
-	                        data.MoveFinish = DefMove;
+//	                        data.MoveFinish = DefMove;
 	                        npc.TargetPos = data;
 	                    }
 
-	                    DefMove(npc);
+//	                    DefMove(npc);
 	                }
 	            }
 	        }
@@ -1670,7 +1678,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-        if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAction(ActionFlag.IsGotSteal))
+		if (IsShooting || player.CheckAction(ActionFlag.IsGotSteal))//BallOwner || (Catcher && Catcher != player) ||
             return;
 
         //rebound
@@ -1726,7 +1734,7 @@ public class GameController : MonoBehaviour
     {
         if (player1.IsDefence)
         {
-            DefMove(player1.DefPlayer);     
+//            DefMove(player1.DefPlayer);     
         }
     }
 

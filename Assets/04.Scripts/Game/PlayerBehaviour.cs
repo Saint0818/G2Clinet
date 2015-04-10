@@ -321,8 +321,8 @@ public class PlayerBehaviour : MonoBehaviour
 			if (FirstMoveQueue.Count > 0)
 				MoveTo(FirstMoveQueue.Peek(), true);
 			else 
-				if (MoveQueue.Count > 0)
-					MoveTo(MoveQueue.Peek());
+			if (MoveQueue.Count > 0)
+				MoveTo(MoveQueue.Peek());
 		}       
 
         if (AniWaitTime > 0 && AniWaitTime <= Time.time)
@@ -349,7 +349,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (Time.time >= MoveStartTime)
             {
                 MoveStartTime = Time.time + 0.5f;
-                GameController.Get.DefMove(this);
+//                GameController.Get.DefMove(this);
             }       
         }
 
@@ -665,9 +665,11 @@ public class PlayerBehaviour : MonoBehaviour
     }
     
     
-    private int MinIndex(float[] floatAy)
+    private int MinIndex(float[] floatAy, bool getmin = false)
     {
         int Result = 0;
+		int Result2 = floatAy.Length - 1;
+
         float Min = floatAy [0];
         
         for (int i = 1; i < floatAy.Length; i++)
@@ -675,11 +677,15 @@ public class PlayerBehaviour : MonoBehaviour
             if (floatAy [i] < Min)
             {
                 Min = floatAy [i];
+				Result2 = Result;
                 Result = i;
             }
         }
         
-        return Result;
+		if(getmin)
+        	return Result;
+		else
+			return Result2;
     }
 
     private Vector2 GetMoveTarget(TMoveData Data)
@@ -693,13 +699,13 @@ public class PlayerBehaviour : MonoBehaviour
             for (int i = 0; i < disAy.Length; i++)
                 disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
-            int mIndex = MinIndex(disAy);
+            int mIndex = MinIndex(disAy, Data.DefPlayer == DefPlayer);
 
             if (mIndex >= 0 && mIndex < disAy.Length)
             {
                 Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
                 
-				if (GameData.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6)
+				if (GameData.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6 && Data.DefPlayer == DefPlayer)
                     Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
             }
         } else if (Data.FollowTarget != null)
@@ -759,7 +765,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 						if(Data.Catcher)
 						{
-							if((situation == GameSituation.AttackA || situation == GameSituation.AttackB) && NoAiTime == 0)
+							if((situation == GameSituation.AttackA || situation == GameSituation.AttackB) && NoAiTime == 0 && GameController.Get.CoolDownPass == 0)
 							{
 								if(GameController.Get.Pass(this))
 									NeedShooting = Data.Shooting;
@@ -776,7 +782,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     MoveQueue.Dequeue();
             } else 
-            if (IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5)
+            if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
             {
 				AddActionFlag(ActionFlag.IsRun);
 				                
