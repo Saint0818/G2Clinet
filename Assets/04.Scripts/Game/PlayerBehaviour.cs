@@ -29,7 +29,8 @@ public enum PlayerState
     Catch = 26,
     DunkBasket = 27,
     RunningDefence = 28,
-    FakeShoot = 29
+    FakeShoot = 29,
+	ReStart = 30
 }
 
 public enum TeamKind

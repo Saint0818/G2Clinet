@@ -309,6 +309,14 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 				RealBallRigidbody.AddForce(Vector3.down * 2000);
 				break;
+			case PlayerState.ReStart:
+				SceneMgr.Get.RealBall.transform.parent = null;
+				SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
+				SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+				SceneMgr.Get.RealBallRigidbody.useGravity = false;
+				SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
+				SceneMgr.Get.RealBallFX.gameObject.SetActive(true);
+			break;
 		}
 	}
 
