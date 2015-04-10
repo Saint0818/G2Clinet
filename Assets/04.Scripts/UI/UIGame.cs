@@ -21,6 +21,7 @@ public class UIGame : UIBase {
 	public GameObject Continue;
 	public GameObject Start;
 	public GameObject ScoreBar;
+	public GameObject Restart;
 	public GameJoystick Joystick = null;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
@@ -30,8 +31,7 @@ public class UIGame : UIBase {
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
 	private UILabel[] scoresLabel = new UILabel[2];
-	private UISprite[] homeHintSprite = new UISprite[3];
-	private UILabel[] homeHintLabel = new UILabel[3];
+	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[2];
 	private string[] aryHomeHintString = new string[3];
 
 	
@@ -66,16 +66,11 @@ public class UIGame : UIBase {
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
-		Start = GameObject.Find (UIName + "/Center/ButtonStart");
+		Start = GameObject.Find (UIName + "/Center/StartView");
+		Restart = GameObject.Find (UIName + "/Center/ButtonReset");
 		ScoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
-		homeHintSprite [0] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom0").GetComponent<UISprite>();
-		homeHintSprite [1] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom1").GetComponent<UISprite>();
-		homeHintSprite [2] = GameObject.Find (UIName + "/Top/HomeHint/SpriteBottom2").GetComponent<UISprite>();
-		homeHintLabel [0] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint0").GetComponent<UILabel>();
-		homeHintLabel [1] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint1").GetComponent<UILabel>();
-		homeHintLabel [2] = GameObject.Find (UIName + "/Top/HomeHint/LabelHint2").GetComponent<UILabel>();
 
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/Defance");
@@ -84,10 +79,18 @@ public class UIGame : UIBase {
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
 
+		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/StartView/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
+		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
+
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;;
+
+//		UIEventListener.Get (GameObject.Find (UIName + "/Center/StartView/AISelect/HomeScrollBar")).onScroll = changeSelfAILevel;
+//		UIEventListener.Get (GameObject.Find (UIName + "/Center/StartView/AISelect/AwayScrollBar")).onScroll = changeNpcAILevel;
+		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
+		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
 
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
@@ -95,21 +98,17 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
-		SetBtnFun (UIName + "/Center/ButtonStart", StartGame);
+		SetBtnFun (UIName + "/Center/StartView/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
+		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
 		Again.SetActive (false);
+		Restart.SetActive(false);
 		Continue.SetActive(false);
 		passObject.SetActive(false);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 		ChangeControl(false);
-
-		for(int i=0; i<homeHintSprite.Length; i++) 
-			homeHintSprite[i].enabled = false;
-
-		for(int i=0; i<homeHintLabel.Length; i++) 
-			homeHintLabel[i].enabled = false;
 		
 		Joystick.gameObject.SetActive(false);
 	}
@@ -118,6 +117,8 @@ public class UIGame : UIBase {
 		SetLabel(UIName + "/Center/ButtonAgain/LabelReset" ,TextConst.S(1));
 		SetLabel(UIName + "/Center/ButtonStart/LabelStart" ,TextConst.S(2));
 		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
+		SetLabel(UIName + "/Center/ButtonReset/LabelReset" ,TextConst.S(4));
+		SetLabel(UIName + "/Center/StartView/AISelect/LabelAI" ,TextConst.S(5));
 		
 	}
 
@@ -129,6 +130,16 @@ public class UIGame : UIBase {
 					drawLine.AddTarget(passObjectGroup[i], obj);
 			}
 		}
+	}
+
+	public void changeSelfAILevel(){
+		GameStart.Get.SelfAILevel =(int) Mathf.Round(aiLevelScrollBar[0].value * 5);
+
+	}
+
+	public void changeNpcAILevel(){
+		GameStart.Get.NpcAILevel =(int)  Mathf.Round(aiLevelScrollBar[1].value * 5);
+		
 	}
 
 	public void DoShoot(GameObject go, bool state) {
@@ -172,12 +183,14 @@ public class UIGame : UIBase {
 
 	public void ContinueGame() {
 		Time.timeScale = 1;
+		Restart.SetActive(false);
 		Continue.SetActive(false);
 		Joystick.gameObject.SetActive(true);
 	}
 
 	public void PauseGame(){
 		Time.timeScale = 0;
+		Restart.SetActive(true);
 		Continue.SetActive(true);
 		Joystick.gameObject.SetActive(false);
 	}
@@ -194,10 +207,24 @@ public class UIGame : UIBase {
 		Start.SetActive (false);
 		ScoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
+		GameController.Get.SetPlayerLevel();
 
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
 		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
 		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
+	}
+
+	public void RestartGame(){
+		Time.timeScale = 1;
+		InitData ();
+		isShowScoreBar = false;
+		ScoreBar.SetActive(true);
+		Restart.SetActive(false);
+		Continue.SetActive(false);
+		Start.SetActive (true);
+		Joystick.gameObject.SetActive(false);
+
+		GameController.Get.Restart();
 	}
 
 	public void ChangeControl(bool IsAttack) {
@@ -217,32 +244,10 @@ public class UIGame : UIBase {
 		scoresLabel[team].text = Scores [team].ToString ();
 	}
 
-	public void SetHomeHint(bool isShow, string homeHint = "") {
-		homeHintLabel[0].text = homeHint;
-		if(isShow) {
-			homeHintTime = 3;
-			showHomeHint();
-			homeHintLabel[0].enabled = true;
-			homeHintSprite[0].enabled = true;
-		} else {
-			homeHintLabel[0].enabled = false;
-			homeHintSprite[0].enabled = false;
-		}
-	}
-
 	private void showScoreBar(){
 		showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
 		ScoreBar.SetActive(true);
-	}
-
-	private void showHomeHint() {
-		if(homeHintTime > 0) {
-			homeHintTime -= Time.deltaTime;
-			if(homeHintTime <=0 ) {
-				SetHomeHint(false);
-			}
-		}
 	}
 
 	private void judgePlayerScreenPosition(){
@@ -339,7 +344,6 @@ public class UIGame : UIBase {
 			}
 		}
 
-		showHomeHint();
 		judgePlayerScreenPosition();
 	}
 }

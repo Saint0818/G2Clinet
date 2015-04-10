@@ -222,6 +222,7 @@ public class GameController : MonoBehaviour
         situation = GameSituation.Opening;
     }
 
+
     private TTactical GetMovePath(int index)
     {
         TTactical Result = new TTactical(false);
@@ -2051,15 +2052,48 @@ public class GameController : MonoBehaviour
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			PlayerList[i].transform.position = BornAy[i];
-		
 		situation = GameSituation.Opening;
 		BallOwner = null;
 		SceneMgr.Get.RealBall.transform.parent = null;
 		SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
 		SceneMgr.Get.RealBallRigidbody.isKinematic = false;
 		SceneMgr.Get.RealBallRigidbody.useGravity = true;
-        SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
     }
+
+	public void Restart(){
+		BallOwner = null;
+		SceneMgr.Get.RealBall.transform.parent = null;
+		SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
+		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+		SceneMgr.Get.RealBallRigidbody.useGravity = false;
+		SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
+		SceneMgr.Get.RealBallFX.gameObject.SetActive(true);
+		for(int i = 0; i < PlayerList.Count; i++){
+			Destroy(PlayerList[i].gameObject);
+		}
+		GameObject selectMeObj = GameObject.Find("SelectMe");
+		if(selectMeObj)
+			Destroy(selectMeObj);
+		GameObject selectAObj = GameObject.Find("SelectA");
+		if(selectAObj)
+			Destroy(selectAObj);
+		GameObject selectBObj = GameObject.Find("SelectB");
+		if(selectBObj)
+			Destroy(selectBObj);
+		InitGame();
+
+	}
+
+	public void SetPlayerLevel(){
+		for(int i=0; i<PlayerList.Count; i++) {
+			if(i >= 3)
+				PlayerAy[i].AILevel = GameStart.Get.NpcAILevel;
+			else
+				PlayerAy[i].AILevel = GameStart.Get.SelfAILevel;
+			
+			PlayerList[i].Attr = PlayerAy[i];
+		}
+	}
 
 	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos)
 	{
