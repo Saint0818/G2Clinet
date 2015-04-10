@@ -30,7 +30,8 @@ public enum PlayerState
     DunkBasket = 27,
     RunningDefence = 28,
     FakeShoot = 29,
-	ReStart = 30
+	Reset = 30,
+	Start = 31
 }
 
 public enum TeamKind
@@ -274,30 +275,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
-
-        switch (crtState)
-        {
-            case PlayerState.Dunk:
-            case PlayerState.DunkBasket:
-                
-                break;
-
-            case PlayerState.Block: 
-               
-				break;
-
-			case PlayerState.Steal:
-				if(CheckAction(ActionFlag.IsSteal))
-				{
-					stealLiftTime -= Time.deltaTime;
-					if(stealLiftTime <= 0)
-					{
-						DelActionFlag(ActionFlag.IsSteal);
-					}
-				}
-			break;
-        }
-
+		CalculationSteal ();
 		CalculationBlock();
 		CalculationDunkMove();
 		CalculationShootJump();
@@ -476,6 +454,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	private void CalculationSteal()
+	{
+		if(CheckAction(ActionFlag.IsSteal))
+		{
+			stealLiftTime -= Time.deltaTime;
+			if(stealLiftTime <= 0)
+			{
+				DelActionFlag(ActionFlag.IsSteal);
+			}
+		}
+	}
+
     private void CalculationBlock()
     {
 		if (CheckAction (ActionFlag.IsBlock) && animator.GetCurrentAnimatorStateInfo (0).IsName ("Block0"))
@@ -484,7 +474,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (!isBlock)
 			return;
 
-        if (crtState == PlayerState.Block && playerBlockCurve != null)
+        if (playerBlockCurve != null)
         {
             blockCurveTime += Time.deltaTime;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerBlockCurve.aniCurve.Evaluate(blockCurveTime), gameObject.transform.position.z);

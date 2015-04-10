@@ -209,9 +209,7 @@ public class UIGame : UIBase {
 		Joystick.gameObject.SetActive(true);
 		GameController.Get.SetPlayerLevel();
 
-		SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
-		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
-		SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
+		SceneMgr.Get.SetBallState (PlayerState.Start);
 	}
 
 	public void RestartGame(){

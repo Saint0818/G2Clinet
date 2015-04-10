@@ -2065,7 +2065,7 @@ public class GameController : MonoBehaviour
 	public void Reset()
 	{
 		BallOwner = null;
-		SceneMgr.Get.SetBallState (PlayerState.ReStart);
+		SceneMgr.Get.SetBallState (PlayerState.Reset);
 		for(int i = 0; i < PlayerList.Count; i++){
 			Destroy(PlayerList[i].gameObject);
 		}
