@@ -1311,18 +1311,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (!CheckAction(ActionFlag.IsSteal) && 
-                !CheckAction(ActionFlag.IsDunk) && 
-                !CheckAction(ActionFlag.IsBlock) && 
-                !CheckAction(ActionFlag.IsBlockCatch) && 
-                !CheckAction(ActionFlag.IsPass) && 
-                !CheckAction(ActionFlag.IsShoot) &&
-                !CheckAction(ActionFlag.IsShootIdle) &&
-			    !CheckAction(ActionFlag.IsGotSteal) &&
-                !CheckAction(ActionFlag.IsCatcher))
-                return true;
-            else
-                return false;
+			ActionFlag [] CheckAy = {ActionFlag.IsSteal, 
+				 					 ActionFlag.IsDunk, 
+									 ActionFlag.IsBlock,
+									 ActionFlag.IsBlockCatch,
+									 ActionFlag.IsPass,
+									 ActionFlag.IsShoot,
+									 ActionFlag.IsShootIdle,
+									 ActionFlag.IsGotSteal,
+									 ActionFlag.IsCatcher};
+
+			for(int i = 0 ; i < CheckAy.Length; i++)
+				if(CheckAction(CheckAy[i]))
+					return false;
+
+			return true;
         }
     }
 
