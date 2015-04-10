@@ -502,22 +502,22 @@ public class GameController : MonoBehaviour
                 SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
-//					switch(PlayerList[i].Team)
-//					{
-//					case TeamKind.Self:
-//						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
-//							PlayerList[i].ResetFlag();
-//						break;
-//					case TeamKind.Npc:
-//						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
-//							PlayerList[i].ResetFlag();
-//						break;
-//					}
+					switch(PlayerList[i].Team)
+					{
+					case TeamKind.Self:
+						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
+							PlayerList[i].ResetFlag();
+						break;
+					case TeamKind.Npc:
+						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
+							PlayerList[i].ResetFlag();
+						break;
+					}
 
-					if(GS == GameSituation.TeeB || GS == GameSituation.TeeA || GS == GameSituation.TeeAPicking || GS == GameSituation.TeeBPicking){
-
-					}else
-						PlayerList[i].ResetFlag();
+//					if(GS == GameSituation.TeeB || GS == GameSituation.TeeA || GS == GameSituation.TeeAPicking || GS == GameSituation.TeeBPicking){
+//
+//					}else
+//						PlayerList[i].ResetFlag();
 
 
                     PlayerList [i].situation = GS;
@@ -1168,7 +1168,7 @@ public class GameController : MonoBehaviour
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
                                 {
-									if (StealSuccess)                                    
+									if (StealSuccess && BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsDunk) && !BallOwner.CheckAction(ActionFlag.IsShoot))                                    
 										setDropBall();
 
 									Npc.CoolDownSteal = Time.time + 3;
@@ -1267,8 +1267,8 @@ public class GameController : MonoBehaviour
 
         if (getball != null)
         {
-            Pass(getball);
-            CoolDownPass = Time.time + 1;
+            if(Pass(getball))
+            	CoolDownPass = Time.time + 1;
         } else
         {
             int ran = UnityEngine.Random.Range(0, 2);
@@ -1279,8 +1279,8 @@ public class GameController : MonoBehaviour
                 {
                     if (count == ran)
                     {
-                        Pass(PlayerList [i]);
-                        CoolDownPass = Time.time + 1;
+                        if(Pass(PlayerList [i]))
+                        	CoolDownPass = Time.time + 1;
                         break;
                     }
 
