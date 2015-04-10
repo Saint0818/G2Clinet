@@ -1599,6 +1599,12 @@ public class GameController : MonoBehaviour
     {
         if (PlayerList.Count > 0)
         {
+			if(BallOwner != null)
+				BallOwner.IsBallOwner = false;
+
+			if(p != null)
+				p.IsBallOwner = true;
+
             if (p != null && situation != GameSituation.End)
             {
                 if (BallOwner != null)

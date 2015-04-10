@@ -493,7 +493,6 @@ public class PlayerBehaviour : MonoBehaviour
 				DelActionFlag(ActionFlag.IsBlock);
 				isBlock = false;
 				isCheckLayerToReset = true;
-				AniState(PlayerState.Idle);
 			}
         }
     }
@@ -958,7 +957,10 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
             case PlayerState.Block:
-				if (crtState != PlayerState.Steal)
+				if (crtState != PlayerState.Steal && 
+			    	crtState != PlayerState.Shooting &&
+			    	crtState != PlayerState.FakeShoot &&
+			    	crtState != PlayerState.Catch)
                     return true;
                 break;
             case PlayerState.BlockCatch:
@@ -1348,12 +1350,15 @@ public class PlayerBehaviour : MonoBehaviour
     
     public bool IsJump
     {
-        get{ return gameObject.transform.localPosition.y > 1f;}
+        get{ return gameObject.transform.localPosition.y > 0.1f;}
     }
 
     public bool IsBallOwner
     {
         get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+		set { 
+				animator.SetBool(	"IsBallOwner", value);
+			}
     }
 
     public int TargetPosNum
