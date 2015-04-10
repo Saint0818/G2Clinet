@@ -30,5 +30,8 @@ public static class TextConst
 		AddString (1, "重新開始", "重新開始"); //1~1000 UI
 		AddString (2, "點擊開始", "點擊開始");
 		AddString (3, "點擊繼續", "點擊繼續");
+		AddString (4, "Reset", "Reset");
+		AddString (5, "AI Level", "AI Level");
+
     }
 }
