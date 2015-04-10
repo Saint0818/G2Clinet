@@ -87,8 +87,6 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;;
 
-//		UIEventListener.Get (GameObject.Find (UIName + "/Center/StartView/AISelect/HomeScrollBar")).onScroll = changeSelfAILevel;
-//		UIEventListener.Get (GameObject.Find (UIName + "/Center/StartView/AISelect/AwayScrollBar")).onScroll = changeNpcAILevel;
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
 
@@ -202,7 +200,7 @@ public class UIGame : UIBase {
 		isShowScoreBar = false;
 		ScoreBar.SetActive(true);
 		Start.SetActive (true);
-		Joystick.gameObject.SetActive(true);
+		Joystick.gameObject.SetActive(false);
 	}
 
 	public void StartGame() {
