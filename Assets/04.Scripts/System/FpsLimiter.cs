@@ -28,7 +28,7 @@ public class FpsLimiter : MonoBehaviour {
 
 	void OnGUI() {
 		if (ShowFPS) {
-			GUI.Label(new Rect(100, 0, 100, 36), fpsText);
+			GUI.Label(new Rect(0, -5, 100, 36), fpsText);
 		}
 	}
 

@@ -6,7 +6,7 @@ public class UIGame : UIBase {
 	private const string UIName = "UIGame";
 
 	//Game const
-	private float ButtonBTime = 0.15f; //Fake to shoot time
+	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
 	
 	private float shootBtnTime = 0;
