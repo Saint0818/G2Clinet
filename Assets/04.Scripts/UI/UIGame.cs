@@ -196,9 +196,11 @@ public class UIGame : UIBase {
 	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
-		showScoreBar();
+		isShowScoreBar = false;
+		ScoreBar.SetActive(true);
 		Again.SetActive (false);
-		Joystick.gameObject.SetActive(true);
+		Start.SetActive (true);
+		Joystick.gameObject.SetActive(false);
 	}
 
 	public void StartGame() {
@@ -214,6 +216,7 @@ public class UIGame : UIBase {
 
 	public void RestartGame(){
 		Time.timeScale = 1;
+		GameController.Get.Reset();
 		InitData ();
 		isShowScoreBar = false;
 		ScoreBar.SetActive(true);
@@ -222,7 +225,6 @@ public class UIGame : UIBase {
 		Start.SetActive (true);
 		Joystick.gameObject.SetActive(false);
 
-		GameController.Get.Restart();
 	}
 
 	public void ChangeControl(bool IsAttack) {
