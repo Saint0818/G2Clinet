@@ -115,7 +115,7 @@ public class UIGame : UIBase {
 
 	protected override void InitText(){
 		SetLabel(UIName + "/Center/ButtonAgain/LabelReset" ,TextConst.S(1));
-		SetLabel(UIName + "/Center/ButtonStart/LabelStart" ,TextConst.S(2));
+		SetLabel(UIName + "/Center/StartView/ButtonStart/LabelStart" ,TextConst.S(2));
 		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
 		SetLabel(UIName + "/Center/ButtonReset/LabelReset" ,TextConst.S(4));
 		SetLabel(UIName + "/Center/StartView/AISelect/LabelAI" ,TextConst.S(5));
