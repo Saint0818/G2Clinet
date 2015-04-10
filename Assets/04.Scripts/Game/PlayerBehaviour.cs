@@ -705,7 +705,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
                 
-				if (GameData.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner || dis <= 6 && Data.DefPlayer == DefPlayer)
+				if ((GameData.AIlevelAy [Attr.AILevel].ProactiveRate >= ProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
                     Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
             }
         } else if (Data.FollowTarget != null)
