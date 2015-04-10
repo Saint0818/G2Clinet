@@ -728,7 +728,7 @@ public class GameController : MonoBehaviour
     public bool Pass(PlayerBehaviour player)
     {
 		bool Result = false;
-		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false)
+		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && CoolDownPass == 0)
         {
 			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
 				return Result;
