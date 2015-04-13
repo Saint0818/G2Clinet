@@ -41,4 +41,6 @@ public class GameConst
 	public const float BlockDistance = 5;
     public const int StealReate = 30;
     public const int StealReate_Success = 10;
+	public static int SelfAILevel = 0;
+	public static int NpcAILevel = 0;
 }

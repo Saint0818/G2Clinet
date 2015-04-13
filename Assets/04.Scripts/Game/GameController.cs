@@ -276,9 +276,9 @@ public class GameController : MonoBehaviour
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {
 			if(i >= 3)
-				PlayerAy[i] = new TPlayer(GameStart.Get.NpcAILevel);
+				PlayerAy[i] = new TPlayer(GameConst.NpcAILevel);
 			else
-				PlayerAy[i] = new TPlayer(GameStart.Get.SelfAILevel);
+				PlayerAy[i] = new TPlayer(GameConst.SelfAILevel);
 			PlayerAy[i].ID = i;
 			PlayerAy[i].Steal = UnityEngine.Random.Range(20, 100) + 1;
 
@@ -2084,9 +2084,9 @@ public class GameController : MonoBehaviour
 	public void SetPlayerLevel(){
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(i >= 3)
-				PlayerAy[i].AILevel = GameStart.Get.NpcAILevel;
+				PlayerAy[i].AILevel = GameConst.NpcAILevel;
 			else
-				PlayerAy[i].AILevel = GameStart.Get.SelfAILevel;
+				PlayerAy[i].AILevel = GameConst.SelfAILevel;
 			
 			PlayerList[i].Attr = PlayerAy[i];
 		}
