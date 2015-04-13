@@ -110,6 +110,7 @@ public class GameController : MonoBehaviour
     private float CoolDownCrossover = 0;
     private float ShootDis = 0;
     private float RealBallFxTime = 0;
+	private float WaitTeeBallTime = 0;
     public PlayerBehaviour Joysticker;
     public PlayerBehaviour Catcher;
     public PlayerBehaviour Shooter;
@@ -386,6 +387,12 @@ public class GameController : MonoBehaviour
 
 		if(StealBtnLiftTime > 0)
 			StealBtnLiftTime -= Time.deltaTime;
+
+		if(WaitTeeBallTime > 0 && Time.time >= WaitTeeBallTime)
+		{
+			WaitTeeBallTime = 0;
+			AutoTee();
+		}
     }
 
     private void SituationAttack(TeamKind team)
@@ -1260,37 +1267,52 @@ public class GameController : MonoBehaviour
         if (Npc.WaitMoveTime != 0 && Npc == BallOwner)
             Npc.AniState(PlayerState.Dribble);
     }
-
+	
     private bool NpcAutoTee(PlayerBehaviour player, bool speedup)
     {
-        PlayerBehaviour getball = HaveNearPlayer(player, 10, true);
+		if(WaitTeeBallTime == 0)
+		{
+			WaitTeeBallTime = Time.time + 1;
+			player.AniState (PlayerState.Dribble);
+		}
 
-        if (getball != null)
-        {
-            if(Pass(getball))
-            	CoolDownPass = Time.time + 1;
-        } else
-        {
-            int ran = UnityEngine.Random.Range(0, 2);
-            int count = 0;
-            for (int i = 0; i < PlayerList.Count; i++)
-            {
-                if (PlayerList [i].Team == player.Team && PlayerList [i] != player)
-                {
-                    if (count == ran)
-                    {
-                        if(Pass(PlayerList [i]))
-                        	CoolDownPass = Time.time + 1;
-                        break;
-                    }
-
-                    count++;
-                }
-            }
-        }
-
-        return true;
+		return true;
     }
+
+	public void AutoTee()
+	{
+		PlayerBehaviour getball = null;
+
+		if (BallOwner.Team == TeamKind.Self)
+			getball = Joysticker;
+		else
+			getball = HaveNearPlayer(BallOwner, 10, true);
+
+		
+		if (getball != null)
+		{
+			if(Pass(getball))
+				CoolDownPass = Time.time + 1;
+		} else
+		{
+			int ran = UnityEngine.Random.Range(0, 2);
+			int count = 0;
+			for (int i = 0; i < PlayerList.Count; i++)
+			{
+				if (PlayerList [i].Team == BallOwner.Team && PlayerList [i] != BallOwner)
+				{
+					if (count == ran)
+					{
+						if(Pass(PlayerList [i]))
+							CoolDownPass = Time.time + 1;
+						break;
+					}
+					
+					count++;
+				}
+			}
+		}
+	}
 
     private PlayerBehaviour NearBall(ref PlayerBehaviour Npc)
     {
@@ -1323,10 +1345,14 @@ public class GameController : MonoBehaviour
             PlayerBehaviour Npc = PlayerList [i];
             if (Npc.Team == team)
             {
-                if (NearPlayer == null)
-                    NearPlayer = Npc;
-                else if (getDis(ref NearPlayer, SceneMgr.Get.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Get.RealBall.transform.position))
-                    NearPlayer = Npc;
+				if(team == TeamKind.Self && Npc == Joysticker)
+					continue;
+				else{
+	                if (NearPlayer == null)
+	                    NearPlayer = Npc;
+	                else if (getDis(ref NearPlayer, SceneMgr.Get.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Get.RealBall.transform.position))
+	                    NearPlayer = Npc;
+				}
             }
         }
         

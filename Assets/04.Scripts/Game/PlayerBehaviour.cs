@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using RootMotion.FinalIK;
+using DG.Tweening;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
@@ -788,10 +789,10 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance)
-                            rotateTo(MoveTarget.x, MoveTarget.y);
-                        else
-                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+						if (Data.LookTarget == null || dis > GameConst.TreePointDistance)
+							rotateTo(MoveTarget.x, MoveTarget.y);
+						else
+							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
@@ -806,8 +807,14 @@ public class PlayerBehaviour : MonoBehaviour
 									AniState(PlayerState.MovingDefence);
 							}else
                                 AniState(PlayerState.RunningDefence);
-                        } else
-                            AniState(PlayerState.RunningDefence);
+                        } else {
+							if(Data.LookTarget == null)
+                            	AniState(PlayerState.RunningDefence);
+							else if(Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
+								AniState(PlayerState.MovingDefence);
+							else
+								AniState(PlayerState.RunningDefence);
+						}
                     } else
                     {
                         rotateTo(MoveTarget.x, MoveTarget.y);
@@ -847,9 +854,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ, float time = 50)
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, 
-                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
-            transform.localPosition), time * Time.deltaTime);
+//        transform.rotation = Quaternion.Lerp(transform.rotation, 
+//                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
+//            transform.localPosition), time * Time.deltaTime);
+
+		gameObject.transform.DOLookAt (new Vector3 (lookAtX, 0, lookAtZ), 0.1f);
     }
     
     public void SetInvincible(float time)
