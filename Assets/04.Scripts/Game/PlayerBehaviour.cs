@@ -32,7 +32,8 @@ public enum PlayerState
     RunningDefence = 28,
     FakeShoot = 29,
 	Reset = 30,
-	Start = 31
+	Start = 31,
+	Serve = 32
 }
 
 public enum TeamKind
@@ -57,17 +58,7 @@ public enum ActionFlag
 {
     IsRun = 1,
     IsDefence = 2,
-    IsBlock = 3,
-    IsBlockCatch = 4,
-    IsDribble = 5,
-    IsSteal = 6,
-    IsPass = 7,
-    IsShoot = 8,
-    IsCatcher = 9,
-    IsDunk = 10,
-    IsShootIdle = 11,
-    IsFakeShoot = 12,
-	IsGotSteal = 13
+    IsDribble = 3,
 }
 
 public struct TMoveData
@@ -113,17 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
                 "",
                 "IsRun",
                 "IsDefence",
-                "IsBlock",
-                "IsBlockCatch",
-                "IsDribble",
-                "IsSteal",
-                "IsPass",
-                "IsShoot",
-                "IsCatcher",
-                "IsDunk",
-                "IsShootIdle",
-                "IsFakeShoot",
-				"IsGotSteal"
+                "IsDribble"
         };
     private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
     private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -187,9 +168,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private TShootCurve playerShootCurve;
 	private bool isShootJump = false;
 
-	//Steal
-	private float stealLiftTime = 0.667f;
-
 	//IK
 	private AimIK aimIK;
 	private Transform pinIKTransform;
@@ -233,7 +211,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         animator = gameObject.GetComponent<Animator>();
         playerCollider = gameObject.GetComponent<Collider>();
-//        PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
+        PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
         DummyBall = gameObject.transform.FindChild("DummyBall").gameObject;
         aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
         initTrigger();
@@ -276,7 +254,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
-		CalculationSteal ();
 		CalculationBlock();
 		CalculationDunkMove();
 		CalculationShootJump();
@@ -289,12 +266,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
             CoolDownSteal = 0;
-
-        if (PassTime > 0 && Time.time >= PassTime)
-        {
-            PassTime = 0;
-            DelActionFlag(ActionFlag.IsPass);
-        }   
 
 		if (NoAiTime == 0) 
 		{
@@ -316,7 +287,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    {
 	        MoveQueue.Clear();
 	        NoAiTime = 0;
-	        DelActionFlag(ActionFlag.IsRun);
+//	        DelActionFlag(ActionFlag.IsRun);
 
 	        if (AIActiveHint)
 	            AIActiveHint.SetActive(true);
@@ -421,6 +392,9 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+
+	private Vector3 dunkMoveV3 = Vector3.zero;
+
     private void CalculationDunkMove()
     {
         if (!isDunk)
@@ -438,13 +412,12 @@ public class PlayerBehaviour : MonoBehaviour
 
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
-            if (!isZmove && dunkCurveTime > playerDunkCurve.StartMoveTime)
+            if (!isZmove && dunkCurveTime >= playerDunkCurve.StartMoveTime)
             {
                 isZmove = true;
-                gameObject.transform.DOLocalMoveZ(dunkPath [4].z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
-                gameObject.transform.DOLocalMoveX(dunkPath [4].x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
+                gameObject.transform.DOMoveZ(SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint[Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
             }
-
 
             if (dunkCurveTime >= playerDunkCurve.LifeTime)
                 isDunk = false;
@@ -454,23 +427,9 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogError("playCurve is null");
         }
     }
-
-	private void CalculationSteal()
-	{
-		if(CheckAction(ActionFlag.IsSteal))
-		{
-			stealLiftTime -= Time.deltaTime;
-			if(stealLiftTime <= 0)
-			{
-				DelActionFlag(ActionFlag.IsSteal);
-			}
-		}
-	}
-
+	
     private void CalculationBlock()
     {
-		if (CheckAction (ActionFlag.IsBlock) && animator.GetCurrentAnimatorStateInfo (0).IsName ("Block0"))
-			isBlock = true;
 
 		if (!isBlock)
 			return;
@@ -482,7 +441,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 			if(blockCurveTime >= playerBlockCurve.LifeTime)
 			{
-				DelActionFlag(ActionFlag.IsBlock);
 				isBlock = false;
 				isCheckLayerToReset = true;
 			}
@@ -501,7 +459,6 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				isShootJump = false;
 				shootJumpCurveTime = 0;
-				DelActionFlag(ActionFlag.IsShoot);
 				DelActionFlag(ActionFlag.IsDribble);
 				DelActionFlag(ActionFlag.IsRun);
 				isCheckLayerToReset = true;
@@ -510,7 +467,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
     private void CalculationAnimatorSmoothSpeed()
-    {
+	{
         if (smoothDirection != 0)
         {
             if (smoothDirection == 1)
@@ -560,8 +517,8 @@ public class PlayerBehaviour : MonoBehaviour
 					if (!isJoystick)
 						MoveStartTime = Time.time + 1;
 					
-					if (!CheckAction(ActionFlag.IsRun))
-						AddActionFlag(ActionFlag.IsRun);
+//					if (!CheckAction(ActionFlag.IsRun))
+//						AddActionFlag(ActionFlag.IsRun);
 					
 					SetNoAiTime();
 					
@@ -717,7 +674,7 @@ public class PlayerBehaviour : MonoBehaviour
                 (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
             {
                 MoveTurn = 0;
-                DelActionFlag(ActionFlag.IsRun);
+//                DelActionFlag(ActionFlag.IsRun);
 
                 if (IsDefence)
                 {
@@ -775,7 +732,7 @@ public class PlayerBehaviour : MonoBehaviour
             } else 
             if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
             {
-				AddActionFlag(ActionFlag.IsRun);
+//				AddActionFlag(ActionFlag.IsRun);
 				                
                 MoveTurn++;
                 rotateTo(MoveTarget.x, MoveTarget.y, 10);
@@ -789,10 +746,10 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-						if (Data.LookTarget == null || dis > GameConst.TreePointDistance)
-							rotateTo(MoveTarget.x, MoveTarget.y);
-						else
-							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance)
+                            rotateTo(MoveTarget.x, MoveTarget.y);
+                        else
+                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
@@ -895,6 +852,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         return GameFunction.CheckByteFlag(Flag.GetHashCode(), PlayerActionFlag);
     }
+
+	public bool CheckAnimatorSate(PlayerState state)
+	{
+		if (crtState == state)
+			return true;
+		else
+			return false;
+	}
     
     public void ResetFlag(bool ClearMove = true)
     {
@@ -960,6 +925,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if (crtState != PlayerState.Steal && 
 			    	crtState != PlayerState.Shooting &&
 			    	crtState != PlayerState.FakeShoot &&
+			    	crtState != PlayerState.Block && 
+			   		crtState != PlayerState.BlockCatch && 
 			    	crtState != PlayerState.Catch)
                     return true;
                 break;
@@ -967,7 +934,9 @@ public class PlayerBehaviour : MonoBehaviour
 				if (crtState != PlayerState.FakeShoot && 
 			    	crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Pass && 
-			    	crtState != state)
+				    crtState != PlayerState.Block && 
+				    crtState != PlayerState.BlockCatch && 
+			   	 	crtState != state)
                     return true;
                 break;
             case PlayerState.Shooting:
@@ -979,6 +948,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.FakeShoot:
 				if (crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Shooting && 
 			    	crtState != PlayerState.Pass)
                     return true;
                 break;
@@ -1021,34 +991,28 @@ public class PlayerBehaviour : MonoBehaviour
         switch (state)
         {
             case PlayerState.Block:
-                if (!CheckAction(ActionFlag.IsBlock))
-                {
 					gameObject.layer = LayerMask.NameToLayer("Shooter");
 					playerBlockCurve = null;
 					for (int i = 0; i < aniCurve.Block.Length; i++)
 						if (aniCurve.Block [i].Name == "Block")
 							playerBlockCurve = aniCurve.Block [i];
 
-					isBlock = true;
-					AniWaitTime = Time.time + 2.9f;
-					blockCurveTime = 0;
-                    AddActionFlag(ActionFlag.IsBlock);
 					DelActionFlag(ActionFlag.IsRun);
+					DelActionFlag(ActionFlag.IsDefence);
+					animator.SetTrigger("BlockTrigger");
+					blockCurveTime = 0;
+					isBlock = true;
                     Result = true;
-                }
                 break;
 
             case PlayerState.BlockCatch:
-                if (!CheckAction(ActionFlag.IsBlockCatch))
-                {
-                    AddActionFlag(ActionFlag.IsBlockCatch);
-                    Result = true;      
-                }
+					animator.SetTrigger("BlockCatchTrigger");
+                    Result = true;
                 break;
 
             case PlayerState.Catch:
                 SetSpeed(0, -1);
-                AddActionFlag(ActionFlag.IsCatcher);
+				animator.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
 
@@ -1060,16 +1024,13 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Dunk:
-                if (!CheckAction(ActionFlag.IsDunk) && IsBallOwner && 
-                    Vector3.Distance(SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
+                if (IsBallOwner && Vector3.Distance(SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
                 {
+					PlayerRigidbody.useGravity = false;
+					animator.SetTrigger("DunkTrigger");
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
-                    AddActionFlag(ActionFlag.IsDunk);
-                    AniWaitTime = Time.time + 2.9f;
+					AniWaitTime = Time.time + 2.9f;
                     DunkTo();
-                    DelActionFlag(ActionFlag.IsPass);
-                    DelActionFlag(ActionFlag.IsFakeShoot);
-                    DelActionFlag(ActionFlag.IsShoot);
                     Result = true;
                 }
                 break;
@@ -1077,16 +1038,19 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
 				if (!isJoystick)
 					SetSpeed(0, -1);
+				DelActionFlag(ActionFlag.IsRun);
                 AddActionFlag(ActionFlag.IsDribble);
                 Result = true;
                 break;
 
 			case PlayerState.FakeShoot:
 				UIGame.Get.DoPassNone();
-                if (!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
+                if (IsBallOwner)
                 {
-                    AddActionFlag(ActionFlag.IsFakeShoot);
-                    AddActionFlag(ActionFlag.IsShoot);
+					if(CheckAction(ActionFlag.IsDribble))
+						DelActionFlag(ActionFlag.IsDribble);
+
+					animator.SetTrigger("FakeShootTrigger");
                     Result = true;
                 }
                 break;
@@ -1101,19 +1065,15 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.MovingDefence:
                 SetSpeed(1, 1);
-                AddActionFlag(ActionFlag.IsRun);
+//                AddActionFlag(ActionFlag.IsRun);
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
             case PlayerState.Pass:
 				UIGame.Get.DoPassNone();
-                if (!CheckAction(ActionFlag.IsPass))
-                {
-                    PassTime = Time.time + 3;
-                    AddActionFlag(ActionFlag.IsPass);
-                    Result = true;
-                }
+				animator.SetTrigger("PassTrigger");
+            	Result = true;
                 break;
 
             case PlayerState.Run:
@@ -1130,38 +1090,36 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     SetSpeed(1, 0);
                 AddActionFlag(ActionFlag.IsDribble);
-                AddActionFlag(ActionFlag.IsRun);
                 Result = true;
                 break;
 
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
-                AddActionFlag(ActionFlag.IsRun);
-                DelActionFlag(ActionFlag.IsDefence);
+				AddActionFlag(ActionFlag.IsRun);
+				DelActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
             case PlayerState.Steal:
-                if (!CheckAction(ActionFlag.IsSteal))
-                {
-					stealLiftTime = 0.667f;
-					AddActionFlag(ActionFlag.IsSteal);
+					animator.SetTrigger("StealTrigger");
                     Result = true;
-                }
                 break;
 
+			case PlayerState.Serve:
+				animator.SetInteger("StageNo", 1);
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
+
 			case PlayerState.GotSteal:
-				if (!CheckAction(ActionFlag.IsGotSteal))
-				{
-					AniWaitTime = Time.time + 2.9f;
-					AddActionFlag(ActionFlag.IsGotSteal);
+//					AniWaitTime = Time.time + 2.9f;
+					animator.SetTrigger("GotStealTrigger");
 					Result = true;
-				}
 				break;
 
 			case PlayerState.Shooting:
 				UIGame.Get.DoPassNone();
-                if (!CheckAction(ActionFlag.IsShoot) && IsBallOwner)
+                if (IsBallOwner)
                 {
 					playerShootCurve = null;
 					for (int i = 0; i < aniCurve.Shoot.Length; i++)
@@ -1172,9 +1130,7 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
-                    AddActionFlag(ActionFlag.IsShoot);
-                    DelActionFlag(ActionFlag.IsShootIdle);
-					DelActionFlag(ActionFlag.IsRun);
+					animator.SetTrigger("ShootTrigger");
 					DelActionFlag(ActionFlag.IsDribble);
                     Result = true;
                 }
@@ -1194,19 +1150,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case "Stealing":
 				if (OnSteal != null)
 					OnSteal(this);
-			break;
-            case "StealEnd":
 				break;
-
-			case "GotStealEnd":
-				DelActionFlag(ActionFlag.IsDribble);
-				DelActionFlag(ActionFlag.IsGotSteal);
-				break;
-
-			case "ShootDown":
-               
-                break;
-
 			case "FakeShootBlockMoment":
 				if (OnFakeShootBlockMoment != null)
 					OnFakeShootBlockMoment(this);
@@ -1227,43 +1171,29 @@ public class PlayerBehaviour : MonoBehaviour
                     OnBlocking(this);
 
                 break;
-            case "BlockEnd":
-//                DelActionFlag(ActionFlag.IsBlock);
-//                isCheckLayerToReset = true;
-                break;
             case "Shooting":
                 if (OnShooting != null)
                     OnShooting(this);
 //              playerCollider.enabled = true;
                 break;
+
             case "ShootJump":
-				
                 break;
-            case "Passing":         
-                if (PassTime > 0)
-                {                   
-                    if (!SceneMgr.Get.RealBallTrigger.PassBall())
-                    {
-                        PassTime = 0;
-                        DelActionFlag(ActionFlag.IsPass);
-                    }
-                }       
+
+            case "Passing": 
+				if(IsBallOwner)
+					SceneMgr.Get.RealBallTrigger.PassBall();      
                 break;
-//          case "PassEnd":
-//              PassTime = 0;
-//              DelActionFlag(ActionFlag.IsPass);
-//              DelActionFlag(ActionFlag.IsDribble);
-//              break;
+
             case "DunkJump":
-                
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
-                
+            
                 SceneMgr.Get.SetBallState(PlayerState.Dunk);
                 if (OnDunkJump != null)
                     OnDunkJump(this);
-
                 break;
+
             case "DunkBasket":
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
@@ -1273,20 +1203,26 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
                 break;
-            case "DunkEnd":
+
+			case "StealEnd":
+			case "DunkEnd":
+			case "PassEnd":
+			case "BlockEnd":
+			case "GotStealEnd":
+			case "ShootDown":
+				AniState(PlayerState.Idle);
+				PlayerRigidbody.useGravity = true;
+
                 if (!NeedResetFlag)
-                {
-                    DelActionFlag(ActionFlag.IsDunk);
-                    DelActionFlag(ActionFlag.IsShootIdle);
                     isCheckLayerToReset = true;
-                }
                 break;
+
             case "FakeShootStop":
-                DelActionFlag(ActionFlag.IsShoot);
-                AddActionFlag(ActionFlag.IsShootIdle);
-                DelActionFlag(ActionFlag.IsDribble);
-                DelActionFlag(ActionFlag.IsRun);
-                DelActionFlag(ActionFlag.IsFakeShoot);
+//                DelActionFlag(ActionFlag.IsShoot);
+//                AddActionFlag(ActionFlag.IsShootIdle);
+//                DelActionFlag(ActionFlag.IsDribble);
+//                DelActionFlag(ActionFlag.IsRun);
+//                DelActionFlag(ActionFlag.IsFakeShoot);
                 break;
         }
     }
@@ -1310,19 +1246,34 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-			ActionFlag [] CheckAy = {ActionFlag.IsSteal, 
-				 					 ActionFlag.IsDunk, 
-									 ActionFlag.IsBlock,
-									 ActionFlag.IsBlockCatch,
-									 ActionFlag.IsPass,
-									 ActionFlag.IsShoot,
-									 ActionFlag.IsShootIdle,
-									 ActionFlag.IsGotSteal,
-									 ActionFlag.IsCatcher};
+			PlayerState[] CheckAy = {
+				PlayerState.Steal,
+				PlayerState.Dunk,
+				PlayerState.Block,
+				PlayerState.BlockCatch,
+				PlayerState.Pass,
+				PlayerState.FakeShoot,
+				PlayerState.Catch,
+				PlayerState.Shooting,
+				PlayerState.GotSteal,
+			};
 
+//			ActionFlag [] CheckAy = {ActionFlag.IsSteal, 
+//				 					 ActionFlag.IsDunk, 
+//									 ActionFlag.IsBlock,
+//									 ActionFlag.IsBlockCatch,
+//									 ActionFlag.IsPass,
+//									 ActionFlag.IsShoot,
+//									 ActionFlag.IsShootIdle,
+//									 ActionFlag.IsGotSteal,
+//									 ActionFlag.IsCatcher};
 			for(int i = 0 ; i < CheckAy.Length; i++)
-				if(CheckAction(CheckAy[i]))
+				if(CheckAnimatorSate(CheckAy[i]))
 					return false;
+
+//			for(int i = 0 ; i < CheckAy.Length; i++)
+//				if(CheckAction(CheckAy[i]))
+//					return false;
 
 			return true;
         }
@@ -1330,12 +1281,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ClearIsCatcher()
     {
-        DelActionFlag(ActionFlag.IsCatcher);
+//        DelActionFlag(ActionFlag.IsCatcher);
     }
 
     public bool IsCatcher
     {
-        get{ return CheckAction(ActionFlag.IsCatcher);}
+        get{ return CheckAnimatorSate(PlayerState.Catch);}
     }
 
     public bool IsDefence

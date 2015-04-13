@@ -415,7 +415,7 @@ public class GameController : MonoBehaviour
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
                             } else 
-                            if (!Npc.CheckAction(ActionFlag.IsShoot))
+                            if (!Npc.CheckAnimatorSate(PlayerState.Shooting))
                             {
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
@@ -913,7 +913,7 @@ public class GameController : MonoBehaviour
                     return true;
                 }
             } else 
-            if (BallOwner.CheckAction(ActionFlag.IsShoot))
+            if (BallOwner.CheckAnimatorSate(PlayerState.Shooting))
             {
                 float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
                 if (dis <= 4)
@@ -1159,7 +1159,7 @@ public class GameController : MonoBehaviour
                 {
                     Dis = getDis(ref BallOwner, ref Npc);
                     
-                    if (!Npc.CheckAction(ActionFlag.IsSteal))
+                    if (!Npc.CheckAnimatorSate(PlayerState.Steal))
                     {
                         if (Dis <= GameConst.PushPlayerDistance && pushRate < 50)
                         {
@@ -1175,7 +1175,7 @@ public class GameController : MonoBehaviour
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
                                 {
-									if (StealSuccess && BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsDunk) && !BallOwner.CheckAction(ActionFlag.IsShoot))                                    
+									if (StealSuccess && BallOwner != null && !BallOwner.CheckAnimatorSate(PlayerState.Dunk) && !BallOwner.CheckAnimatorSate(PlayerState.Shooting))                                    
 										setDropBall();
 
 									Npc.CoolDownSteal = Time.time + 3;
@@ -1691,8 +1691,8 @@ public class GameController : MonoBehaviour
                 Shooter = null;
             } else
             {
-				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
-					BallOwner.AniState(PlayerState.Idle);
+//				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
+//					BallOwner.AniState(PlayerState.Idle);
 
                 BallOwner = p;
                 
@@ -1710,7 +1710,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAction(ActionFlag.IsGotSteal))
+		if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
             return;
 
         //rebound
@@ -2009,78 +2009,55 @@ public class GameController : MonoBehaviour
 
     public void SetEndPass()
     {
-        if (BallOwner != null)
-            BallOwner.DelActionFlag(ActionFlag.IsPass);
-		else
-		{
-			for(int i = 0; i < PlayerList.Count; i++)
-			{
-				if(PlayerList[i].CheckAction(ActionFlag.IsPass))
-				{
-					PlayerList[i].DelActionFlag(ActionFlag.IsPass);
-					break;
-				}
-			}
-		}
-
         if (Catcher != null)
         {
             SetBall(Catcher);
-            Catcher.DelActionFlag(ActionFlag.IsCatcher);
 			if(Catcher.NeedShooting)
 			{
 				Shoot();
 				Catcher.NeedShooting = false;
 			}
             Catcher = null;
-		}else{
-			for(int i = 0; i < PlayerList.Count; i++)
-			{
-				if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
-				{
-					PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
-					break;
-				}
-			}				
 		}
     }
 
 	private void setDropBall(){
 		if(IsPassing)
 		{
-			if (BallOwner != null)
-				BallOwner.DelActionFlag(ActionFlag.IsPass);
-			else
-			{
-				for(int i = 0; i < PlayerList.Count; i++)
-				{
-					if(PlayerList[i].CheckAction(ActionFlag.IsPass))
-					{
-						PlayerList[i].DelActionFlag(ActionFlag.IsPass);
-						break;
-					}
-				}
-			}
+//			if (BallOwner != null)
+//				BallOwner.DelActionFlag(ActionFlag.IsPass);
+//			else
+//			{
+//				for(int i = 0; i < PlayerList.Count; i++)
+//				{
+//					if(PlayerList[i].CheckAction(ActionFlag.IsPass))
+//					{
+//						PlayerList[i].DelActionFlag(ActionFlag.IsPass);
+//						break;
+//					}
+//				}
+//			}
 			
 			if (Catcher != null)
 			{
-				Catcher.DelActionFlag(ActionFlag.IsCatcher);
+//				Catcher.DelActionFlag(ActionFlag.IsCatcher);
 				if(Catcher.NeedShooting)
 				{
 					Shoot();
 					Catcher.NeedShooting = false;
 				}
 				Catcher = null;
-			}else{
-				for(int i = 0; i < PlayerList.Count; i++)
-				{
-					if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
-					{
-						PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
-						break;
-					}
-				}				
 			}
+//			else{
+//				for(int i = 0; i < PlayerList.Count; i++)
+//				{
+//					if(PlayerList[i].CheckAction(ActionFlag.IsCatcher))
+//					{
+//						PlayerList[i].DelActionFlag(ActionFlag.IsCatcher);
+//						break;
+//					}
+//				}				
+//			}
 		}
 		
 		SetBall(null);
@@ -2137,7 +2114,7 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-                if (PlayerList [i].CheckAction(ActionFlag.IsShoot))
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shooting))
                     return true;            
 
             return false;
@@ -2149,7 +2126,7 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-                if (PlayerList [i].CheckAction(ActionFlag.IsDunk))
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Dunk) || PlayerList [i].CheckAnimatorSate(PlayerState.DunkBasket))
                     return true;            
             
             return false;
@@ -2161,8 +2138,8 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-                if (PlayerList [i].CheckAction(ActionFlag.IsPass))
-                    return true;
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Pass))
+				    return true;
             
             return false;
         }
@@ -2173,8 +2150,8 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-                if (PlayerList [i].CheckAction(ActionFlag.IsBlock))
-                    return true;
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Block))
+					return true;
             
             return false;
         }

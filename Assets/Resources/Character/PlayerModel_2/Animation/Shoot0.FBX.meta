@@ -485,7 +485,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .878758848
+      - time: 1
         functionName: AnimationEvent
         data: ShootDown
         objectReferenceParameter: {instanceID: 0}

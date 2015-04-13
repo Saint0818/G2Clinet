@@ -157,7 +157,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .572372258
+      - time: 1
         functionName: AnimationEvent
         data: BlockEnd
         objectReferenceParameter: {instanceID: 0}
