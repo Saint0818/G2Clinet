@@ -732,7 +732,7 @@ public class GameController : MonoBehaviour
             return false;
     }
     
-    public bool Pass(PlayerBehaviour player)
+    public bool Pass(PlayerBehaviour player, bool IsTee = false)
     {
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && CoolDownPass == 0)
@@ -742,12 +742,97 @@ public class GameController : MonoBehaviour
 
             Catcher = player;
             Catcher.AniState(PlayerState.Catch, BallOwner.transform.position);
-            BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+			if(IsTee)
+			{
+				BallOwner.AniState(PlayerState.Tee, Catcher.transform.position);
+			}else
+			{
+				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
+				int disKind = GetEnemyDis(ref player);
+				int rate = UnityEngine.Random.Range(0, 2);
+				
+				if(dis <= GameConst.CloseDistance)
+				{
+					//Close
+					if(disKind == 1)
+					{
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassParabola, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
+					} else 
+					if(disKind == 2)
+					{
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
+					}						
+					else
+					{
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
+					}
+				}else if(dis <= GameConst.MiddleDistance)
+				{
+					//Middle
+					if(disKind == 1)
+					{
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
+					} else 
+					if(disKind == 2)
+					{
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassParabola, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
+					}						
+					else
+					{
+						BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+					}
+				}else{
+					//Far
+					BallOwner.AniState(PlayerState.PassParabola, Catcher.transform.position);
+				}
+			}            
+
 			Result = true;
         }
 
 		return Result;
     }
+
+	public int GetEnemyDis(ref PlayerBehaviour npc){
+		float [] DisAy = new float[3];
+		int Index = 0;
+		for (int i = 0; i < PlayerList.Count; i++) 
+		{
+			if(PlayerList[i].Team != npc.Team)
+			{
+				DisAy[Index] = Vector3.Distance(npc.transform.position, PlayerList[i].transform.position);
+				Index++;
+			}		
+		}
+
+		for(int i = 0; i < DisAy.Length; i++)
+		{
+			if(DisAy[i] > 0)
+			{
+				if(DisAy[i] <= GameConst.StealBallDistance)
+					return 2;
+				else if(DisAy[i] <= GameConst.DefDistance)
+					return 1;
+			}
+		}
+
+		return 0;
+	}
     
     public bool OnPass(PlayerBehaviour player)
     {
@@ -1269,7 +1354,7 @@ public class GameController : MonoBehaviour
 		
 		if (getball != null)
 		{
-			if(Pass(getball))
+			if(Pass(getball, true))
 				CoolDownPass = Time.time + 1;
 		} else
 		{
@@ -1281,7 +1366,7 @@ public class GameController : MonoBehaviour
 				{
 					if (count == ran)
 					{
-						if(Pass(PlayerList [i]))
+						if(Pass(PlayerList [i], true))
 							CoolDownPass = Time.time + 1;
 						break;
 					}
