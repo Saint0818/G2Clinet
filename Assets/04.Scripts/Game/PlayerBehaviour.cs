@@ -1017,7 +1017,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Defence:
-                DelActionFlag(ActionFlag.IsRun);
+				ClearAnimatorFlag();
                 SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
@@ -1038,7 +1038,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
 				if (!isJoystick)
 					SetSpeed(0, -1);
-				DelActionFlag(ActionFlag.IsRun);
+				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
                 Result = true;
                 break;
@@ -1061,11 +1061,12 @@ public class PlayerBehaviour : MonoBehaviour
                     if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
                         animator.SetBool(AnimatorStates [i], false);
                 Result = true;
+
                 break;
 
             case PlayerState.MovingDefence:
                 SetSpeed(1, 1);
-//                AddActionFlag(ActionFlag.IsRun);
+				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
@@ -1078,9 +1079,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Run:
                 if (!isJoystick)
-                    SetSpeed(1, 1); 
+                    SetSpeed(1, 1);
+				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsRun);
-                DelActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
@@ -1089,20 +1090,22 @@ public class PlayerBehaviour : MonoBehaviour
                     SetSpeed(1, 1);
                 else
                     SetSpeed(1, 0);
+				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
                 Result = true;
                 break;
 
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
+				ClearAnimatorFlag();
 				AddActionFlag(ActionFlag.IsRun);
-				DelActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
             case PlayerState.Steal:
-					animator.SetTrigger("StealTrigger");
-                    Result = true;
+				ClearAnimatorFlag();
+				animator.SetTrigger("StealTrigger");
+                Result = true;
                 break;
 
 			case PlayerState.Serve:
@@ -1142,6 +1145,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         return Result;
     }
+
+	public void ClearAnimatorFlag()
+	{
+		DelActionFlag (ActionFlag.IsDefence);
+		DelActionFlag (ActionFlag.IsRun);
+		DelActionFlag (ActionFlag.IsDribble);
+	}
     
     public void AnimationEvent(string animationName)
     {

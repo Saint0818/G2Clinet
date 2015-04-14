@@ -1412,7 +1412,7 @@ public class GameController : MonoBehaviour
                     A.TargetPos = data;
                 } else
                     Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-            } else if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0)
+            } else if (!Npc.CheckAnimatorSate(PlayerState.Run) && Npc.WaitMoveTime == 0)
             {
                 TMoveData data = new TMoveData(0);
                 data.FollowTarget = SceneMgr.Get.RealBall.transform;
