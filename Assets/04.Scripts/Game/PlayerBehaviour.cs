@@ -21,10 +21,12 @@ public enum PlayerState
     Dunk = 8,   
     BlockCatch = 11,
     Layup = 12, 
-    Pass = 13,  
-    Steal = 14,
+	Steal = 14,
 	GotSteal = 15,
-    MovingDefence = 23,
+	PassFlat = 16,
+	PassFloor = 17,
+	PassParabola = 18,
+	MovingDefence = 23,
     RunAndDribble = 24,
     Shooting = 25,
     Catch = 26,
@@ -33,7 +35,7 @@ public enum PlayerState
     FakeShoot = 29,
 	Reset = 30,
 	Start = 31,
-	Serve = 32
+	Tee = 32
 }
 
 public enum TeamKind
@@ -89,7 +91,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     public OnPlayerAction OnShooting = null;
     public OnPlayerAction OnPass = null;
-    public OnPlayerAction OnSteal = null;
+    public OnPlayerAction OnStealMoment = null;
     public OnPlayerAction OnBlockJump = null;
     public OnPlayerAction OnBlocking = null;
     public OnPlayerAction OnDunkBasket = null;
@@ -114,15 +116,13 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector2 drag = Vector2.zero;
     private bool stop = false;
     private bool NeedResetFlag = false;
-    private int MoveTurn = 0;
-    private float PassTime = 0;    
+    private int MoveTurn = 0;   
     private float MoveStartTime = 0;
     private float ProactiveRate = 0;
     private float ProactiveTime = 0;
     private int smoothDirection = 0;
     private float animationSpeed = 0;
     private float AniWaitTime = 0;
-    private Collider playerCollider;
     public Rigidbody PlayerRigidbody;
     private Animator animator;
     private GameObject selectTexture;
@@ -216,7 +216,6 @@ public class PlayerBehaviour : MonoBehaviour
 		IKTarget = SceneMgr.Get.RealBall.transform;
 
         animator = gameObject.GetComponent<Animator>();
-        playerCollider = gameObject.GetComponent<Collider>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
         DummyBall = gameObject.transform.FindChild("DummyBall").gameObject;
         aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
@@ -919,26 +918,26 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Catch:
 				if (crtState != PlayerState.FakeShoot && 
 			        crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass && 
 			    	crtState != PlayerState.Steal &&
-			    	crtState != state)
+			    	crtState != state && !IsPass)
                     return true;
                 break;
             case PlayerState.Steal:
 				if (crtState != PlayerState.FakeShoot && 
 				    crtState != PlayerState.Dunk && 
-				    crtState != PlayerState.Pass && 
 			    	crtState != PlayerState.Block && 
-			    	crtState != PlayerState.BlockCatch)
+			   		crtState != PlayerState.BlockCatch && !IsPass)
                     return true;
                 break;
-            case PlayerState.Pass:
-				if ( 
-			    	crtState != PlayerState.Steal &&
+            case PlayerState.PassFlat:
+            case PlayerState.PassFloor:
+            case PlayerState.PassParabola:
+            case PlayerState.Tee:
+				if (crtState != PlayerState.Steal &&
 			   	 	crtState != PlayerState.Block && 
 			   	 	crtState != PlayerState.BlockCatch && 
 			    	crtState != PlayerState.Dunk && 
-			    	crtState != state)
+			    	!IsPass)
                     return true;
                 break;
             case PlayerState.Block:
@@ -947,35 +946,33 @@ public class PlayerBehaviour : MonoBehaviour
 			    	crtState != PlayerState.FakeShoot &&
 			    	crtState != PlayerState.Block && 
 			   		crtState != PlayerState.BlockCatch && 
-			    	crtState != PlayerState.Catch)
+			    	crtState != PlayerState.Catch && 
+			    	!IsPass)
                     return true;
                 break;
             case PlayerState.BlockCatch:
 				if (crtState != PlayerState.FakeShoot && 
-			    	crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass && 
+			    	crtState != PlayerState.Dunk &&
 				    crtState != PlayerState.Block && 
 				    crtState != PlayerState.BlockCatch && 
-			   	 	crtState != state)
-                    return true;
+			    	crtState != state && !IsPass)
+				return true;
                 break;
             case PlayerState.Shooting:
-				if (crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass && 
+				if (crtState != PlayerState.Dunk &&  
 			    	crtState != PlayerState.Catch &&
-			    	crtState != state)
+			    	crtState != state && !IsPass)
                     return true;
                 break;
             case PlayerState.FakeShoot:
 				if (crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Shooting && 
-			    	crtState != PlayerState.Pass)
+			    	!IsPass)
                     return true;
                 break;
             case PlayerState.Dunk:
 				if (crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Pass && 
-			    	crtState != state)
+			    	crtState != state && !IsPass)
                     return true;
                 break;
             case PlayerState.Idle:
@@ -1089,12 +1086,27 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case PlayerState.Pass:
+            case PlayerState.PassFlat:
+				animator.SetInteger("StageNo", 0);
 				UIGame.Get.DoPassNone();
 				animator.SetTrigger("PassTrigger");
             	Result = true;
                 break;
 
+			case PlayerState.PassFloor:
+				animator.SetInteger("StageNo", 1);
+				UIGame.Get.DoPassNone();
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
+			
+			case PlayerState.PassParabola:
+				animator.SetInteger("StageNo", 2);
+				UIGame.Get.DoPassNone();
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
+			
             case PlayerState.Run:
                 if (!isJoystick)
                     SetSpeed(1, 1);
@@ -1126,8 +1138,8 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-			case PlayerState.Serve:
-				animator.SetInteger("StageNo", 1);
+			case PlayerState.Tee:
+				animator.SetInteger("StageNo", 3);
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
@@ -1176,8 +1188,8 @@ public class PlayerBehaviour : MonoBehaviour
         switch (animationName)
         {
 			case "Stealing":
-				if (OnSteal != null)
-					OnSteal(this);
+				if (OnStealMoment != null)
+					OnStealMoment(this);
 				break;
 			case "FakeShootBlockMoment":
 				if (OnFakeShootBlockMoment != null)
@@ -1202,18 +1214,14 @@ public class PlayerBehaviour : MonoBehaviour
             case "Shooting":
                 if (OnShooting != null)
                     OnShooting(this);
-//              playerCollider.enabled = true;
-                break;
-
-            case "ShootJump":
                 break;
 
             case "Passing": 
 				//0.Flat
 			    //1.Floor
-				//2.Parabola
+				//2 3.Parabola(Tee)
 				if(IsBallOwner)
-					SceneMgr.Get.RealBallTrigger.PassBall();      
+					SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StageNo"));      
                 break;
 
             case "DunkJump":
@@ -1247,14 +1255,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
                 break;
-
-            case "FakeShootStop":
-//                DelActionFlag(ActionFlag.IsShoot);
-//                AddActionFlag(ActionFlag.IsShootIdle);
-//                DelActionFlag(ActionFlag.IsDribble);
-//                DelActionFlag(ActionFlag.IsRun);
-//                DelActionFlag(ActionFlag.IsFakeShoot);
-                break;
         }
     }
 
@@ -1282,29 +1282,18 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Dunk,
 				PlayerState.Block,
 				PlayerState.BlockCatch,
-				PlayerState.Pass,
+				PlayerState.PassFlat,
+				PlayerState.PassFloor,
+				PlayerState.PassParabola,
 				PlayerState.FakeShoot,
 				PlayerState.Catch,
 				PlayerState.Shooting,
 				PlayerState.GotSteal,
 			};
 
-//			ActionFlag [] CheckAy = {ActionFlag.IsSteal, 
-//				 					 ActionFlag.IsDunk, 
-//									 ActionFlag.IsBlock,
-//									 ActionFlag.IsBlockCatch,
-//									 ActionFlag.IsPass,
-//									 ActionFlag.IsShoot,
-//									 ActionFlag.IsShootIdle,
-//									 ActionFlag.IsGotSteal,
-//									 ActionFlag.IsCatcher};
 			for(int i = 0 ; i < CheckAy.Length; i++)
 				if(CheckAnimatorSate(CheckAy[i]))
 					return false;
-
-//			for(int i = 0 ; i < CheckAy.Length; i++)
-//				if(CheckAction(CheckAy[i]))
-//					return false;
 
 			return true;
         }
@@ -1345,6 +1334,12 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetBool(	"IsBallOwner", value);
 			}
     }
+
+	public bool IsPass 
+	{
+		get{ return crtState == PlayerState.PassFlat || crtState == PlayerState.PassFloor || crtState == PlayerState.PassParabola || crtState == PlayerState.Tee;}
+
+	}
 
     public int TargetPosNum
     {

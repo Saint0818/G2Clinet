@@ -57,7 +57,7 @@ public class BallTrigger : MonoBehaviour
 		if (!passing && GameController.Get.Catcher) {
 			passing = true;
 
-			SceneMgr.Get.SetBallState(PlayerState.Pass);
+			SceneMgr.Get.SetBallState(PlayerState.PassFlat);
 			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.BasicMoveSpeed * GameConst.AttackSpeedup * Random.Range(4, 6));
 			Parabolatarget = GameController.Get.Catcher.DummyBall;	
@@ -75,6 +75,7 @@ public class BallTrigger : MonoBehaviour
 				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear);
 				break;
 			case 2:
+			case 3:
 				Parabolamove = true;							  
 				StartCoroutine(Parabola());
 				break;

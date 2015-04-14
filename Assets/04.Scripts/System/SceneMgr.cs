@@ -51,6 +51,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		lightmapData[0] = new LightmapData();
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("RealBall"));
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Shooter"));
         InitLineGroup();
         CheckCollider();
@@ -274,7 +275,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 				break;
-			case PlayerState.Pass: 
+			case PlayerState.PassFlat: 
+			case PlayerState.PassFloor: 
+			case PlayerState.PassParabola: 
+			case PlayerState.Tee: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = true;
