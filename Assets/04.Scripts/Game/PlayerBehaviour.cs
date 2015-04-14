@@ -1209,6 +1209,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "Passing": 
+				//0.Flat
+			    //1.Floor
+				//2.Parabola
 				if(IsBallOwner)
 					SceneMgr.Get.RealBallTrigger.PassBall();      
                 break;

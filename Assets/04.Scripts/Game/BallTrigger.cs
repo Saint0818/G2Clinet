@@ -52,21 +52,16 @@ public class BallTrigger : MonoBehaviour
 		ParentRigidbody.AddForce (new Vector3 (0, -100, 0));
 	}
 
-	public bool PassBall()
+	public bool PassBall(int Kind = 0)
 	{
 		if (!passing && GameController.Get.Catcher) {
 			passing = true;
 
-			int Kind;
 			SceneMgr.Get.SetBallState(PlayerState.Pass);
 			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.BasicMoveSpeed * GameConst.AttackSpeedup * Random.Range(4, 6));
 			Parabolatarget = GameController.Get.Catcher.DummyBall;	
 			ParaboladistanceToTarget = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget.transform.position);
-			if(ParaboladistanceToTarget >= 7f)
-				Kind = 2;
-			else
-				Kind = UnityEngine.Random.Range(0, 2);
 
 			switch(Kind)
 			{
