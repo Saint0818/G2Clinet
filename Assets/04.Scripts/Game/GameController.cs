@@ -1192,7 +1192,7 @@ public class GameController : MonoBehaviour
     {
 		if(pos.FileName != string.Empty)
 		{
-			if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
+			if (Npc.CanMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 			{
 				TMoveData data = new TMoveData(0);				
 				TActionPosition [] ap = GetActionPosition(Npc.Index, ref pos);
@@ -1229,7 +1229,7 @@ public class GameController : MonoBehaviour
 	{
 		TMoveData data = new TMoveData(0);
 		
-		if (!Npc.CheckAction(ActionFlag.IsRun) && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
+		if (Npc.CanMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 		{
 			if (Npc == BallOwner)
 			{
@@ -1405,14 +1405,14 @@ public class GameController : MonoBehaviour
             {
                 A = NearBall(ref Npc);
 
-                if (A != null && !A.CheckAction(ActionFlag.IsRun) && A.WaitMoveTime == 0)
+				if (A != null && A.CanMove && A.WaitMoveTime == 0)
                 {
                     TMoveData data = new TMoveData(0);
                     data.FollowTarget = SceneMgr.Get.RealBall.transform;
                     A.TargetPos = data;
                 } else
                     Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-            } else if (!Npc.CheckAnimatorSate(PlayerState.Run) && Npc.WaitMoveTime == 0)
+            } else if (Npc.CanMove && Npc.WaitMoveTime == 0)
             {
                 TMoveData data = new TMoveData(0);
                 data.FollowTarget = SceneMgr.Get.RealBall.transform;
@@ -1431,7 +1431,7 @@ public class GameController : MonoBehaviour
             PickBall(ref npc.DefPlayer, true);
         } else
         {
-	        if (!npc.CheckAction(ActionFlag.IsRun) && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
 	        {
 	            TMoveData data;
 	            if (!CheckAttack(ref npc))
@@ -1487,7 +1487,7 @@ public class GameController : MonoBehaviour
     {
         if (player.DefPlayer != null)
         {
-            if (!player.DefPlayer.CheckAction(ActionFlag.IsRun) && player.DefPlayer.WaitMoveTime == 0)
+			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
                 TMoveData data2 = new TMoveData(0);
 

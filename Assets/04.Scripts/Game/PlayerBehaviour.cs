@@ -293,7 +293,7 @@ public class PlayerBehaviour : MonoBehaviour
 	            AIActiveHint.SetActive(true);
 	    }
 
-        if (CheckAction(ActionFlag.IsRun) && !IsDefence && 
+		if (CheckAnimatorSate(PlayerState.Run) && !IsDefence && 
 		    situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
 		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
@@ -848,11 +848,6 @@ public class PlayerBehaviour : MonoBehaviour
         animator.SetBool(Flag.ToString(), false);
     }
 
-    public bool CheckAction(ActionFlag Flag)
-    {
-        return GameFunction.CheckByteFlag(Flag.GetHashCode(), PlayerActionFlag);
-    }
-
 	public bool CheckAnimatorSate(PlayerState state)
 	{
 		if (crtState == state)
@@ -1047,9 +1042,7 @@ public class PlayerBehaviour : MonoBehaviour
 				UIGame.Get.DoPassNone();
                 if (IsBallOwner)
                 {
-					if(CheckAction(ActionFlag.IsDribble))
-						DelActionFlag(ActionFlag.IsDribble);
-
+					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
                     Result = true;
                 }
