@@ -1087,33 +1087,39 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.PassFlat:
-				animator.SetInteger("StageNo", 0);
+				animator.SetInteger("StateNo", 0);
 				UIGame.Get.DoPassNone();
 				animator.SetTrigger("PassTrigger");
             	Result = true;
                 break;
 
 			case PlayerState.PassFloor:
-				animator.SetInteger("StageNo", 1);
+				animator.SetInteger("StateNo", 2);
 				UIGame.Get.DoPassNone();
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
 			
 			case PlayerState.PassParabola:
-				animator.SetInteger("StageNo", 2);
+				animator.SetInteger("StateNo", 1);
 				UIGame.Get.DoPassNone();
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
+
+			case PlayerState.Tee:
+				animator.SetInteger("StateNo", 3);
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
 			
-            case PlayerState.Run:
-                if (!isJoystick)
-                    SetSpeed(1, 1);
-				ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsRun);
-                Result = true;
-                break;
+			case PlayerState.Run:
+	                if (!isJoystick)
+	                    SetSpeed(1, 1);
+					ClearAnimatorFlag();
+	                AddActionFlag(ActionFlag.IsRun);
+	                Result = true;
+	                break;
 
             case PlayerState.RunAndDribble:
                 if (!isJoystick)
@@ -1137,12 +1143,6 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetTrigger("StealTrigger");
                 Result = true;
                 break;
-
-			case PlayerState.Tee:
-				animator.SetInteger("StageNo", 3);
-				animator.SetTrigger("PassTrigger");
-				Result = true;
-				break;
 
 			case PlayerState.GotSteal:
 //					AniWaitTime = Time.time + 2.9f;
@@ -1218,10 +1218,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "Passing": 
 				//0.Flat
-			    //1.Floor
-				//2 3.Parabola(Tee)
+			    //2.Floor
+				//1 3.Parabola(Tee)
 				if(IsBallOwner)
-					SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StageNo"));      
+					SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
                 break;
 
             case "DunkJump":
@@ -1285,6 +1285,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.PassFlat,
 				PlayerState.PassFloor,
 				PlayerState.PassParabola,
+				PlayerState.Tee,
 				PlayerState.FakeShoot,
 				PlayerState.Catch,
 				PlayerState.Shooting,

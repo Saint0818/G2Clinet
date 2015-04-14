@@ -68,13 +68,13 @@ public class BallTrigger : MonoBehaviour
 			case 0:
 				SceneMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear);
 				break;
-			case 1:
+			case 2:
 				Vector3 [] pathay = new Vector3[2];
 				pathay[0] = GetMiddlePosition(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
 				pathay[1] = GameController.Get.Catcher.DummyBall.transform.position;
 				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear);
 				break;
-			case 2:
+			case 1:
 			case 3:
 				Parabolamove = true;							  
 				StartCoroutine(Parabola());
