@@ -26,6 +26,7 @@ public enum PlayerState
 	PassFlat = 16,
 	PassFloor = 17,
 	PassParabola = 18,
+	Rebound = 19,
 	MovingDefence = 23,
     RunAndDribble = 24,
     Shooting = 25,
@@ -975,7 +976,13 @@ public class PlayerBehaviour : MonoBehaviour
 			    	crtState != state && !IsPass)
                     return true;
                 break;
-            case PlayerState.Idle:
+
+		case PlayerState.Rebound:
+			if (CanMove)
+				return true;
+			break;
+
+			case PlayerState.Idle:
             case PlayerState.Run:
             case PlayerState.Dribble:
             case PlayerState.RunAndDribble:
@@ -1167,9 +1174,15 @@ public class PlayerBehaviour : MonoBehaviour
 					DelActionFlag(ActionFlag.IsDribble);
                     Result = true;
                 }
-                break;
-        }
+				break;
 
+			case PlayerState.Rebound:
+				ClearAnimatorFlag();
+				gameObject.layer = LayerMask.NameToLayer("Shooter");
+				animator.SetTrigger("ReboundTrigger");
+				break;
+		}
+		
         if (Result)
             crtState = state;
 
@@ -1243,12 +1256,7 @@ public class PlayerBehaviour : MonoBehaviour
                     OnDunkBasket(this);
                 break;
 
-			case "StealEnd":
-			case "DunkEnd":
-			case "PassEnd":
-			case "BlockEnd":
-			case "GotStealEnd":
-			case "ShootDown":
+			case "AnimationEnd":
 				AniState(PlayerState.Idle);
 				PlayerRigidbody.useGravity = true;
 

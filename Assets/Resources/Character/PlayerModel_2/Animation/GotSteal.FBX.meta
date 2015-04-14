@@ -150,9 +150,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .987195253
+      - time: .999765098
         functionName: AnimationEvent
-        data: GotStealEnd
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

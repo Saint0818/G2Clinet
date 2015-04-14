@@ -173,7 +173,7 @@ ModelImporter:
         messageOptions: 0
       - time: 1
         functionName: AnimationEvent
-        data: DunkEnd
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
