@@ -276,14 +276,14 @@ public class GameController : MonoBehaviour
 
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {
-			if(i >= 3)
+			if(i >= (PlayerAy.Length / 2))
 				PlayerAy[i] = new TPlayer(GameConst.NpcAILevel);
 			else
 				PlayerAy[i] = new TPlayer(GameConst.SelfAILevel);
 			PlayerAy[i].ID = i;
 			PlayerAy[i].Steal = UnityEngine.Random.Range(20, 100) + 1;
 
-			if(i >= 3){
+			if(i >= (PlayerAy.Length / 2)){
 				PlayerAy[i].Body = 2001;
 				PlayerAy[i].Cloth = 5002;
 				PlayerAy[i].Hair = 2002;
@@ -304,8 +304,8 @@ public class GameController : MonoBehaviour
 				InitPlayer ();
 				
 				for (int i = 0; i < PlayerAy.Length; i++) {
-					if(i >= 3)
-						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i % 3, TeamKind.Npc, BornAy[i], PlayerAy[i]));				
+					if(i >= (PlayerAy.Length / 2))
+						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i % (PlayerAy.Length / 2), TeamKind.Npc, BornAy[i], PlayerAy[i]));				
 					else
 						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, TeamKind.Self, BornAy[i], PlayerAy[i]));					
 				}
@@ -794,7 +794,10 @@ public class GameController : MonoBehaviour
 					}						
 					else
 					{
-						BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+						if(rate == 1)
+							BallOwner.AniState(PlayerState.PassFlat, Catcher.transform.position);
+						else
+							BallOwner.AniState(PlayerState.PassFloor, Catcher.transform.position);
 					}
 				}else{
 					//Far
@@ -1121,9 +1124,9 @@ public class GameController : MonoBehaviour
                 {
                     Shoot();
                 } else 
-                if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shoot3Rate < 3) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 10, 90) == 0) && CheckAttack(ref Npc))//|| shoot3Rate < 3
                 {
-                    Shoot();
+                    Shoot();				
                 } else 
                 if (passRate < 20 && CoolDownPass == 0 && !IsShooting && !IsDunk)
                 {
