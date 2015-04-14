@@ -1669,11 +1669,16 @@ public class GameController : MonoBehaviour
 
                 BallOwner = p;
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
-                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+//                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+				if(SceneMgr.Get.RealBall.transform.position.y >= 1.4f ) {
+					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+				} else {
+					StartCoroutine(catchBall(p, SceneMgr.Get.RealBall.transform.position.y));
+				}
                 p.ClearIsCatcher();
 
                 if (p)
-                {
+				{
                     p.WaitMoveTime = 0;
                     if (p.IsJump)
                     {
@@ -1690,17 +1695,30 @@ public class GameController : MonoBehaviour
 
                 Shooter = null;
             } else
-            {
+			{
 //				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
 //					BallOwner.AniState(PlayerState.Idle);
 
                 BallOwner = p;
                 
-                if (p)
-                    SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+				if (p) {
+					if(SceneMgr.Get.RealBall.transform.position.y >= 1.4f ) {
+						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+					} else {
+						StartCoroutine(catchBall(p, SceneMgr.Get.RealBall.transform.position.y));
+					}
+				}					
             }
         }
     }
+
+	IEnumerator catchBall(PlayerBehaviour p, float y) {
+		p.isIKCatchBall = true;
+		p.CatchTheBall();
+		yield return new WaitForSeconds(0.3f);
+		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+		p.isIKCatchBall = false;
+	}
 
     public void BallOnFloor()
     {

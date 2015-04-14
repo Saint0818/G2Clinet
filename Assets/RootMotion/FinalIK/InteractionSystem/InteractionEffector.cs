@@ -101,7 +101,7 @@ namespace RootMotion.FinalIK {
 			// If not in interaction, set effector positions to their bones
 			if (!inInteraction) {
 				effector.position = effector.bone.position;
-				effector.rotation = effector.bone.rotation;
+//				effector.rotation = effector.bone.rotation;
 			} else if (!interrupt) return;
 
 			// Get the InteractionTarget

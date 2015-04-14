@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using RootMotion.FinalIK;
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
@@ -15,6 +16,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	//RealBall
 	public GameObject RealBall;
+	public InteractionObject RealBallInteractionObject;
 	private SphereCollider realBallCollider;
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
@@ -49,9 +51,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		lightmapData[0] = new LightmapData();
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("RealBall"));
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Shooter"));
-
         InitLineGroup();
         CheckCollider();
 		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
@@ -60,8 +60,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
-    }
+		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
 
+	}
     private void InitLineGroup()
     {
 		crtLine = Instantiate(Resources.Load("Prefab/Line")) as GameObject;

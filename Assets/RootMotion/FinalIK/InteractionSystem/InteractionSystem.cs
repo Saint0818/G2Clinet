@@ -76,7 +76,6 @@ namespace RootMotion.FinalIK {
 		/// </summary>
 		public void StartInteraction(FullBodyBipedEffector effectorType, InteractionObject interactionObject, bool interrupt) {
 			if (!IsValid(true)) return;
-
 			for (int i = 0; i < interactionEffectors.Length; i++) {
 				if (interactionEffectors[i].effectorType == effectorType) {
 					interactionEffectors[i].Start(interactionObject, targetTag, fadeInTime, interrupt);
