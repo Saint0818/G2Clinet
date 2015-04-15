@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
                                         "fast0",       //9
                                         "fast1",       //10
                                         "fast2"};      //11
+	
     
     private GameSituation situation = GameSituation.None;
     private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
@@ -117,6 +118,9 @@ public class GameController : MonoBehaviour
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
+
+	public string[] BaskAnimationState = {"Action_0","Action_1","Action_2"};
+	public string BasketAnimation = "";
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -647,6 +651,7 @@ public class GameController : MonoBehaviour
         if (BallOwner)
         {
             SceneMgr.Get.ResetBasketEntra();
+			BasketAnimation = BaskAnimationState[Random.Range(0,3)];
 
             int t = BallOwner.Team.GetHashCode();
 
@@ -1779,6 +1784,7 @@ public class GameController : MonoBehaviour
 
 	IEnumerator catchBall(PlayerBehaviour p, float y) {
 		p.isIKCatchBall = true;
+		p.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 		p.CatchTheBall();
 		//new WaitForSeconds(0.3f);
 		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);

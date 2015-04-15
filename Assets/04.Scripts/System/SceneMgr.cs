@@ -61,6 +61,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
+		//IK
 		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
 
 	}
@@ -251,6 +252,52 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         crtBasket.transform.parent = gameObject.transform;
         crtBasketIndex = basketIndex;
     }
+
+	public void SetBasketBallState(PlayerState state, Transform dummy = null){
+		switch(state){
+			case PlayerState.BasketAnimationStart:
+				realBallCollider.enabled = false;
+				RealBallRigidbody.useGravity = false;
+				RealBallRigidbody.isKinematic = true;
+				RealBallTrigger.SetBoxColliderEnable(false);
+				RealBall.transform.parent = dummy;
+				RealBall.transform.localScale = Vector3.one;
+				RealBall.transform.localPosition = Vector3.zero;
+				RealBall.transform.eulerAngles = dummy.eulerAngles;
+				break;
+			case PlayerState.BasketAction0End:
+				realBallCollider.enabled = true;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localScale = Vector3.one;
+				RealBall.transform.eulerAngles = dummy.eulerAngles;	
+				RealBallRigidbody.AddRelativeForce(new Vector3(1,-1,0)*  80,ForceMode.Impulse);
+				break;
+			case PlayerState.BasketAction1End:
+				realBallCollider.enabled = true;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localScale = Vector3.one;
+				RealBall.transform.eulerAngles = dummy.eulerAngles;	
+				RealBallRigidbody.AddRelativeForce(new Vector3(0,-1,0)*  60,ForceMode.Impulse);
+				break;
+			case PlayerState.BasketAction2End:
+				realBallCollider.enabled = true;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localScale = Vector3.one;
+				RealBall.transform.eulerAngles = dummy.eulerAngles;	
+				RealBallRigidbody.AddRelativeForce(new Vector3(-1,0,0)*  60,ForceMode.Impulse);
+				break;
+		}
+
+	}
 
 	public void SetBallState(PlayerState state, PlayerBehaviour player = null)
 	{

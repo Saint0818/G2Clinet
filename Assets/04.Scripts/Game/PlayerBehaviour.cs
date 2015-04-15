@@ -36,7 +36,11 @@ public enum PlayerState
     FakeShoot = 29,
 	Reset = 30,
 	Start = 31,
-	Tee = 32
+	Tee = 32,
+	BasketAnimationStart = 33,
+	BasketAction0End = 34,
+	BasketAction1End = 35,
+	BasketAction2End = 36
 }
 
 public enum TeamKind
