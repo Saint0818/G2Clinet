@@ -24,6 +24,9 @@ public class BasketBehaviour : MonoBehaviour {
 		case "Action2_End":
 			SceneMgr.Get.SetBasketBallState(PlayerState.BasketAction2End, dummyHoop);
 			break;
+		case "BasketNetPlay":
+			SceneMgr.Get.PlayShoot(Team);
+			break;
 		}
 	}
 

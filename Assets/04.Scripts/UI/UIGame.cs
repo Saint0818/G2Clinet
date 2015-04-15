@@ -34,6 +34,21 @@ public class UIGame : UIBase {
 	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[2];
 	private string[] aryHomeHintString = new string[3];
 
+	//FX
+	private float fxTime = 0.3f;
+	private GameObject buttonPassFX;
+	private float buttonPassFXTime;
+	private GameObject buttonShootFX;
+	private float buttonShootFXTime;
+	private GameObject buttonObjectAFX;
+	private float buttonObjectAFXTime;
+	private GameObject buttonObjectBFX;
+	private float buttonObjectBFXTime;
+	private GameObject buttonBlockFX;
+	private float buttonBlockFXTime;
+	private GameObject buttonStealFX;
+	private float buttonStealFXTime;
+
 	
 	public static bool Visible {
 		get {
@@ -84,8 +99,22 @@ public class UIGame : UIBase {
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 
+		buttonPassFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass/UI_FX_A_21");
+		buttonShootFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonShoot/UI_FX_A_21");
+		buttonObjectAFX = GameObject.Find(UIName + "/BottomRight/Attack/PassObject/ButtonObjectA/UI_FX_A_21");
+		buttonObjectBFX = GameObject.Find(UIName + "/BottomRight/Attack/PassObject/ButtonObjectB/UI_FX_A_21");
+		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/Defance/ButtonBlock/UI_FX_A_21");
+		buttonStealFX = GameObject.Find(UIName + "/BottomRight/Defance/ButtonSteal/UI_FX_A_21");
+		buttonPassFX.SetActive(false);
+		buttonShootFX.SetActive(false);
+		buttonObjectAFX.SetActive(false);
+		buttonObjectBFX.SetActive(false);
+		buttonBlockFX.SetActive(false);
+		buttonStealFX.SetActive(false);
+
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
@@ -95,6 +124,8 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/StartView/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
@@ -139,10 +170,32 @@ public class UIGame : UIBase {
 		GameConst.NpcAILevel = (int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
 	}
 
+	public void BlockFX(){
+		buttonBlockFXTime = fxTime;
+		buttonBlockFX.SetActive(true);
+	}
+
+	public void StealFX(){
+		buttonStealFXTime = fxTime;
+		buttonStealFX.SetActive(true);
+	}
+	
+	public void PassFX(){
+		buttonPassFXTime = fxTime;
+		buttonPassFX.SetActive(true);
+	}
+	
+	public void ShootFX(){
+		buttonShootFXTime = fxTime;
+		buttonShootFX.SetActive(true);
+	}
+
 	public void DoShoot(GameObject go, bool state) {
-		if(state)
+		if(state){
+			ShootFX();
 			shootBtnTime = ButtonBTime;
-		else if(!state && shootBtnTime > 0){
+		}else 
+		if(!state && shootBtnTime > 0){
 			GameController.Get.DoShoot (false);
 			shootBtnTime = ButtonBTime;
 		}
@@ -151,6 +204,9 @@ public class UIGame : UIBase {
 	}
 	
 	public void DoPassChoose (GameObject obj, bool state) {
+		if(state)
+			PassFX();
+
 		if(GameController.Get.Joysticker.IsBallOwner) {
 			initLine();
 			passObject.SetActive(state);
@@ -162,12 +218,16 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateA() {
+		buttonObjectAFXTime = fxTime;
+		buttonObjectAFX.SetActive(true);
 		if(!GameController.Get.IsShooting)
 			GameController.Get.DoPass(1);
 		passObject.SetActive(false);
 		drawLine.IsShow = false;
 	}
 	public void DoPassTeammateB() {
+		buttonObjectBFXTime = fxTime;
+		buttonObjectBFX.SetActive(true);
 		if(!GameController.Get.IsShooting)
 			GameController.Get.DoPass(2);
 		passObject.SetActive(false);
@@ -306,6 +366,57 @@ public class UIGame : UIBase {
 		}
 	}
 
+	private void showButtonFX(){
+		if(buttonPassFXTime > 0) {
+			buttonPassFXTime -= Time.deltaTime;
+			if(buttonPassFXTime <= 0) {
+				buttonPassFXTime = 0;
+				buttonPassFX.SetActive(false);
+			}
+		}
+
+		if(buttonShootFXTime > 0) {
+			buttonShootFXTime -= Time.deltaTime;
+			if(buttonShootFXTime <= 0) {
+				buttonShootFXTime = 0;
+				buttonShootFX.SetActive(false);
+			}
+		}
+		
+		if(buttonObjectAFXTime > 0) {
+			buttonObjectAFXTime -= Time.deltaTime;
+			if(buttonObjectAFXTime <= 0) {
+				buttonObjectAFXTime = 0;
+				buttonObjectAFX.SetActive(false);
+			}
+		}
+		
+		if(buttonObjectBFXTime > 0) {
+			buttonObjectBFXTime -= Time.deltaTime;
+			if(buttonObjectBFXTime <= 0) {
+				buttonObjectBFXTime = 0;
+				buttonObjectBFX.SetActive(false);
+			}
+		}
+		
+		if(buttonBlockFXTime > 0) {
+			buttonBlockFXTime -= Time.deltaTime;
+			if(buttonBlockFXTime <= 0) {
+				buttonBlockFXTime = 0;
+				buttonBlockFX.SetActive(false);
+			}
+		}
+		
+		if(buttonStealFXTime > 0) {
+			buttonStealFXTime -= Time.deltaTime;
+			if(buttonStealFXTime <= 0) {
+				buttonStealFXTime = 0;
+				buttonStealFX.SetActive(false);
+			}
+		}
+
+	}
+
 	protected override void InitData() {
 		MaxScores[0] = 13;
 		MaxScores[1] = 13;
@@ -335,7 +446,7 @@ public class UIGame : UIBase {
 				ScoreBar.SetActive(false);
 			}
 		}
-
+		showButtonFX();
 		judgePlayerScreenPosition();
 	}
 }

@@ -70,6 +70,12 @@ public enum ActionFlag
     IsDribble = 3,
 }
 
+public enum BallDirection{
+	Left,
+	Middle,
+	Right
+}
+
 public struct TMoveData
 {
     public Vector2 Target;
@@ -367,9 +373,19 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void CatchTheBall(){
-		interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
-		interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
+	public void CatchTheBall(BallDirection direction){
+		switch(direction) {
+		case BallDirection.Left:
+			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
+			break;
+		case BallDirection.Middle:
+			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
+			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
+			break;
+		case BallDirection.Right:
+			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
+			break;
+		}
 	}
 
     public void SetSelectTexture(string name)
