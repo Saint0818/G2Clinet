@@ -1195,26 +1195,28 @@ public class GameController : MonoBehaviour
         }
     }
 
-	private void GetStealRate(ref PlayerBehaviour npc, out bool Val1)
+	private bool GetStealRate(ref PlayerBehaviour npc)
 	{
+		bool Result = false;
+
 		int r = Mathf.RoundToInt(npc.Attr.Steal - BallOwner.Attr.Control);
 		int maxRate = 100;
 		int minRate = 10;
+		int stealRate = Random.Range(0, 100) + 1;
+		int AddRate = 0;
 		
 		if (r > maxRate)
 			r = maxRate;
 		else if (r < minRate)
 			r = minRate;
 
-		int stealRate = Random.Range(0, 100) + 1;
-		int AddRate = 0;
-		Val1 = false;
-
 		if(SceneMgr.Get.RealBallFX.activeInHierarchy)
 			AddRate = 30;
 
 		if (stealRate <= (GameData.AIlevelAy[npc.Attr.AILevel].StealRate + AddRate))
-            Val1 = true;
+            Result = true;
+
+		return Result;
 	}
 	
 	private void Defend(ref PlayerBehaviour Npc)
@@ -1237,13 +1239,9 @@ public class GameController : MonoBehaviour
                         {
                             
                         } else 
-                        if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
+                        if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0 && !IsDunk && !IsShooting)
                         {
-                            bool IsDoSteal;
-                            bool StealSuccess;
-							GetStealRate(ref Npc, out IsDoSteal);
-
-                            if(IsDoSteal)
+							if(GetStealRate(ref Npc))
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
                                 	Npc.CoolDownSteal = Time.time + 3;                                
@@ -1782,9 +1780,10 @@ public class GameController : MonoBehaviour
 	IEnumerator catchBall(PlayerBehaviour p, float y) {
 		p.isIKCatchBall = true;
 		p.CatchTheBall();
-		yield return new WaitForSeconds(0.3f);
+		//new WaitForSeconds(0.3f);
 		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 		p.isIKCatchBall = false;
+		yield return null;
 	}
 
     public void BallOnFloor()

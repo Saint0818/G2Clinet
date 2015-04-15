@@ -130,12 +130,13 @@ public class BallTrigger : MonoBehaviour
 			SceneMgr.Get.RealBall.transform.LookAt(targetPos);  
 			float angle = Mathf.Min(1, Vector3.Distance(SceneMgr.Get.RealBall.transform.position, targetPos) / ParaboladistanceToTarget) * 45;  
 			SceneMgr.Get.RealBall.transform.rotation = SceneMgr.Get.RealBall.transform.rotation * Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);  
-			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget.transform.position);  
+			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget.transform.position);  			 			
+			SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist));  
+
 			if (currentDist < 0.5f){
 				Parabolamove = false;  
 				PassEnd();
-			}  				
-			SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist));  
+			} 
 			yield return null;  
 		}  
 	}

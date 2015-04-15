@@ -704,11 +704,21 @@ public class PlayerBehaviour : MonoBehaviour
                 if (IsDefence)
                 {
                     WaitMoveTime = 0;
-                    if (Data.LookTarget == null)
-                        rotateTo(MoveTarget.x, MoveTarget.y);
-                    else
-                        rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                    
+					if (Data.DefPlayer != null)
+					{
+						float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+						if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
+							rotateTo(MoveTarget.x, MoveTarget.y);
+						else
+							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+					}else
+					{
+						if (Data.LookTarget == null)
+							rotateTo(MoveTarget.x, MoveTarget.y);
+						else
+							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+					}
+
                     AniState(PlayerState.Defence);                          
                 } else
                 {
@@ -771,7 +781,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance)
+                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
                             rotateTo(MoveTarget.x, MoveTarget.y);
                         else
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -780,7 +790,7 @@ public class PlayerBehaviour : MonoBehaviour
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 						float dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
-                        if (dis <= GameConst.TreePointDistance)
+                        if (dis <= GameConst.TreePointDistance + 4)
                         {
 							if (dis2 < dis){
 								if(dis > dis3)
