@@ -745,8 +745,10 @@ public class GameController : MonoBehaviour
 			if(IsTee)
 			{
 				BallOwner.AniState(PlayerState.Tee, Catcher.transform.position);
+				CoolDownPass = Time.time + 8;									
 			}else
 			{
+				CoolDownPass = Time.time + 3;
 				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 				int disKind = GetEnemyDis(ref player);
 				int rate = UnityEngine.Random.Range(0, 2);
@@ -878,7 +880,7 @@ public class GameController : MonoBehaviour
 	
 	public bool OnStealMoment(PlayerBehaviour player)
     {
-        if (BallOwner){
+        if (BallOwner && BallOwner.Invincible == 0){
 			int r = Mathf.RoundToInt(player.Attr.Steal - BallOwner.Attr.Control);
 			int maxRate = 100;
 			int minRate = 10;
@@ -899,6 +901,7 @@ public class GameController : MonoBehaviour
 					BallOwner.AniState(PlayerState.GotSteal);
 					
 				setDropBall();
+				player.SetInvincible(5);
 				return true;
 			}else
 			if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -1135,7 +1138,6 @@ public class GameController : MonoBehaviour
                     if (partner != null && HaveDefPlayer(ref partner, 1.5f, 40) == 0)
                     {
                         Pass(partner);
-                        CoolDownPass = Time.time + 3;
                     } else
                     {
                         int Who = Random.Range(0, 2);
@@ -1150,7 +1152,6 @@ public class GameController : MonoBehaviour
                                 if (HaveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find)
                                 {
                                     Pass(PlayerList [j]);
-                                    CoolDownPass = Time.time + 3;
                                     break;
                                 }
                                 find++;
@@ -1357,8 +1358,7 @@ public class GameController : MonoBehaviour
 		
 		if (getball != null)
 		{
-			if(Pass(getball, true))
-				CoolDownPass = Time.time + 1;
+			Pass(getball, true);
 		} else
 		{
 			int ran = UnityEngine.Random.Range(0, 2);
@@ -1369,8 +1369,7 @@ public class GameController : MonoBehaviour
 				{
 					if (count == ran)
 					{
-						if(Pass(PlayerList [i], true))
-							CoolDownPass = Time.time + 1;
+						Pass(PlayerList [i], true);
 						break;
 					}
 					
