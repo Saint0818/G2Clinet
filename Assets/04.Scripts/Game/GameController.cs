@@ -1791,9 +1791,7 @@ public class GameController : MonoBehaviour
 
 	IEnumerator catchBall(PlayerBehaviour p, float y) {
 		p.isIKCatchBall = true;
-		p.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 		p.CatchTheBall();
-		//new WaitForSeconds(0.3f);
 		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 		p.isIKCatchBall = false;
 		yield return null;

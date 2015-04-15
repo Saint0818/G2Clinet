@@ -13,15 +13,12 @@ public class BallTrigger : MonoBehaviour
 	private float Parabolaspeed = 20;    
 	private float ParaboladistanceToTarget; 
 	private bool Parabolamove = true;  
-
-//	private float onFloorTime = 0;
+	private bool doPassing = false;
 
 	void Awake()
 	{
 		ParentRigidbody = gameObject.transform.parent.transform.gameObject.GetComponent<Rigidbody>();
 		box = gameObject.GetComponent<BoxCollider>();
-//		HintObject = GameObject.Find("MoveTo");
-//		HintObject.SetActive(false);
 	}
 
 	public void SetBoxColliderEnable(bool isShow)
@@ -51,27 +48,27 @@ public class BallTrigger : MonoBehaviour
 	{
 		ParentRigidbody.AddForce (new Vector3 (0, -100, 0));
 	}
-
+	
 	public bool PassBall(int Kind = 0)
 	{
 		if (!passing && GameController.Get.Catcher) {
 			passing = true;
+			doPassing = true;
 
 			SceneMgr.Get.SetBallState(PlayerState.PassFlat);
 			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.BasicMoveSpeed * GameConst.AttackSpeedup * Random.Range(4, 6));
 
-
 			switch(Kind)
 			{
 			case 0:
-				SceneMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear);
+				SceneMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 2:
 				Vector3 [] pathay = new Vector3[2];
 				pathay[0] = GetMiddlePosition(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
 				pathay[1] = GameController.Get.Catcher.DummyBall.transform.position;
-				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear);
+				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 1:
 			case 3:
@@ -88,6 +85,19 @@ public class BallTrigger : MonoBehaviour
 			return false;
 	}
 
+	private void PassUpdate()
+	{
+		if (GameController.Get.Catcher != null) 
+		{
+			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
+			if (currentDist < 3.5f && doPassing)
+			{
+				doPassing = false;
+				GameController.Get.Catcher.AniState (PlayerState.Catch, GameController.Get.BallOwner.transform.position);		
+			} 				
+		}
+	}
+	
 	private Vector3 GetMiddlePosition(Vector3 p1, Vector3 p2){
 		Vector3 Result = Vector3.zero;
 		Result.x = (p1.x + p2.x) / 2; 
@@ -145,8 +155,11 @@ public class BallTrigger : MonoBehaviour
 			if (currentDist < 0.5f){
 				Parabolamove = false;  
 				PassEnd();
-			}else if(currentDist < 3.5f) 
+			}else if(currentDist < 3.5f && doPassing) 
+			{
+				doPassing = false;
 				GameController.Get.Catcher.AniState(PlayerState.Catch, GameController.Get.BallOwner.transform.position);
+			}				
 
 			yield return null;  
 		}  
