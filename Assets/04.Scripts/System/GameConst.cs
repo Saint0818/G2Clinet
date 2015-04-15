@@ -43,7 +43,7 @@ public class GameConst
     public const int StealReate_Success = 10;
 	public static int SelfAILevel = 0;
 	public static int NpcAILevel = 0;
-	public static float MiddleDistance = 7;
+	public static float MiddleDistance = 12;
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
 }
