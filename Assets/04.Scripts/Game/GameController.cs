@@ -714,6 +714,12 @@ public class GameController : MonoBehaviour
         }
     }
 
+	public void DoPush()
+	{
+		if (Joysticker)
+			Joysticker.AniState (PlayerState.Push);
+	}
+
     public bool OnDunkBasket(PlayerBehaviour player)
     {
         if (player == BallOwner)
@@ -824,6 +830,13 @@ public class GameController : MonoBehaviour
 
 		return Result;
     }
+
+	public void Fall(PlayerBehaviour faller)
+	{
+		if (faller) {
+			faller.AniState(PlayerState.Fall0);	
+		}
+	}
 
 	public int GetEnemyDis(ref PlayerBehaviour npc){
 		float [] DisAy = new float[3];

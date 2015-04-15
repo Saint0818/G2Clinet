@@ -8,13 +8,15 @@ public class UIGame : UIBase {
 	//Game const
 	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
-	
+
+	private float stealBtnTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
+	private bool isPressStealBtn = false;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	public GameObject Again;
@@ -114,6 +116,7 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Defance/ButtonSteal")).onPress = DoSteal;
 
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
@@ -122,7 +125,7 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
-		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
+//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
@@ -201,6 +204,18 @@ public class UIGame : UIBase {
 		}
 
 		isPressShootBtn = state;
+	}
+
+	public void DoSteal(GameObject go, bool state)
+	{
+		if(state)
+			stealBtnTime = ButtonBTime;
+		else if(!state && stealBtnTime > 0){
+			GameController.Get.DoSteal();
+			stealBtnTime = ButtonBTime;
+		}
+		
+		isPressStealBtn = state;
 	}
 	
 	public void DoPassChoose (GameObject obj, bool state) {
@@ -437,6 +452,12 @@ public class UIGame : UIBase {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true);
+		}
+
+		if (isPressStealBtn && stealBtnTime > 0) {
+			stealBtnTime -= Time.deltaTime;
+			if(stealBtnTime <= 0)
+				GameController.Get.DoPush();
 		}
 
 		if(isShowScoreBar && showScoreBarTime > 0) {

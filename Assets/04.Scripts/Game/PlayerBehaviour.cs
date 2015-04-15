@@ -29,6 +29,7 @@ public enum PlayerState
 	PassFloor = 17,
 	PassParabola = 18,
 	Rebound = 19,
+	Push = 20,
 	MovingDefence = 23,
     RunAndDribble = 24,
     Shooting = 25,
@@ -42,7 +43,8 @@ public enum PlayerState
 	BasketAnimationStart = 33,
 	BasketAction0End = 34,
 	BasketAction1End = 35,
-	BasketAction2End = 36
+	BasketAction2End = 36,
+	Elbow = 37
 }
 
 public enum TeamKind
@@ -140,6 +142,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Animator animator;
     private GameObject selectTexture;
 	private GameObject DefPoint;
+	private GameObject pushTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public TeamKind Team;
@@ -197,6 +200,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
+			pushTrigger = obj2.transform.FindChild("Push").gameObject;
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
             if (objs != null)
@@ -438,9 +442,6 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.drag = 0;
         }
     }
-
-
-	private Vector3 dunkMoveV3 = Vector3.zero;
 
     private void CalculationDunkMove()
     {
@@ -1019,6 +1020,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 		case PlayerState.Rebound:
+		case PlayerState.Push:
+		case PlayerState.Elbow:
 			if (CanMove)
 				return true;
 			break;
@@ -1031,6 +1034,8 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
 			case PlayerState.GotSteal:
+			case PlayerState.Fall0:
+			case PlayerState.Fall1:
                 return true;
         }
 
@@ -1108,6 +1113,12 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
+			case PlayerState.Elbow:
+				ClearAnimatorFlag();
+				animator.SetTrigger("ElbowTrigger");
+				Result = true;
+				break;
+
 			case PlayerState.FakeShoot:
 				UIGame.Get.DoPassNone();
                 if (IsBallOwner)
@@ -1121,15 +1132,21 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Fall0:
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("FallTrigger");
+				isDunk = false;
+				gameObject.transform.DOLocalMoveY(0, 1f);
+				Result = true;
 				break;
 
 			case PlayerState.Fall1:
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("FallTrigger");
+				isDunk = false;
+				gameObject.transform.DOLocalMoveY(0, 1f);
+				Result = true;
 				break;
 			
 		case PlayerState.Idle:
-			SetSpeed(0, -1);
+				SetSpeed(0, -1);
                 for (int i = 1; i < AnimatorStates.Length; i++)
                     if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
                         animator.SetBool(AnimatorStates [i], false);
@@ -1165,6 +1182,12 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = true;
 				break;
 
+			case PlayerState.Push:
+				ClearAnimatorFlag();
+				animator.SetTrigger("PushTrigger");
+				Result = true;
+				break;
+			
 			case PlayerState.Tee:
 				animator.SetInteger("StateNo", 3);
 				animator.SetTrigger("PassTrigger");
@@ -1288,6 +1311,14 @@ public class PlayerBehaviour : MonoBehaviour
 					SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
                 break;
 
+			case "PushCalculateStart":
+				pushTrigger.gameObject.SetActive(true);
+				break;
+
+			case "PushCalculateEnd":
+				pushTrigger.SetActive(false);
+				break;
+
             case "DunkJump":
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
@@ -1349,6 +1380,10 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Catch,
 				PlayerState.Shooting,
 				PlayerState.GotSteal,
+				PlayerState.Push,
+				PlayerState.Elbow,
+				PlayerState.Fall0,
+				PlayerState.Fall1
 			};
 
 			for(int i = 0 ; i < CheckAy.Length; i++)
