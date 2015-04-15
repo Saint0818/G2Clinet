@@ -18,7 +18,9 @@ public enum PlayerState
     Board = 4,  
     Defence = 6,    
     Dribble = 7,    
-    Dunk = 8,   
+    Dunk = 8,
+	Fall0 = 9,
+	Fall1 = 10,
     BlockCatch = 11,
     Layup = 12, 
 	Steal = 14,
@@ -1091,8 +1093,18 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case PlayerState.Idle:
-                SetSpeed(0, -1);
+			case PlayerState.Fall0:
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("FallTrigger");
+				break;
+
+			case PlayerState.Fall1:
+				animator.SetInteger("StateNo", 1);
+				animator.SetTrigger("FallTrigger");
+				break;
+			
+		case PlayerState.Idle:
+			SetSpeed(0, -1);
                 for (int i = 1; i < AnimatorStates.Length; i++)
                     if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
                         animator.SetBool(AnimatorStates [i], false);
