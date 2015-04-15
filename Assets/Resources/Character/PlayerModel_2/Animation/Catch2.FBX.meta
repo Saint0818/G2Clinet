@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: efbf5c87d0ce9ec4986ea305f991a0fe
-timeCreated: 1427708824
+guid: f0b8b32fd958cda4398b28dde9f2eb68
+timeCreated: 1429083617
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,10 +109,10 @@ ModelImporter:
     400098: DummyHand_L
     400100: DummyHand_R
     400102: DummyHead
-    7400000: Catch
+    7400000: Catch2
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -120,7 +120,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -128,7 +128,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Catch
+      name: Catch2
       takeName: Take 001
       firstFrame: 0
       lastFrame: 18
@@ -283,17 +283,17 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -303,9 +303,9 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 0
+    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 2
+    tangentImportMode: 1
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
