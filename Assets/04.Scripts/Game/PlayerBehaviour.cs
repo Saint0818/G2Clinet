@@ -763,9 +763,18 @@ public class PlayerBehaviour : MonoBehaviour
 							GameController.Get.Shoot();
                     } else 
 					{
-                        if (Data.LookTarget == null)
-                            rotateTo(MoveTarget.x, MoveTarget.y);
-                        else
+						if (Data.LookTarget == null){
+							if(GameController.Get.BallOwner != null)
+							{
+								rotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
+							}else
+							{
+								if (Team == TeamKind.Self)
+									rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+								else
+									rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
+							}
+						}else
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 
 						if(Data.Catcher)

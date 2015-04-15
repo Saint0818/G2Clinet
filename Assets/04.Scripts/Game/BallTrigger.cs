@@ -142,7 +142,7 @@ public class BallTrigger : MonoBehaviour
 			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position, GameController.Get.BallOwner.transform.position);
 			int Index = MinIndex(disAy);
 			
-			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 2, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);//GameController.Get.Catcher.DummyBall;	
+			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 2, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);
 			ParaboladistanceToTarget = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);
 
 			Vector3 targetPos = Parabolatarget;  
@@ -150,16 +150,17 @@ public class BallTrigger : MonoBehaviour
 			float angle = Mathf.Min(1, Vector3.Distance(SceneMgr.Get.RealBall.transform.position, targetPos) / ParaboladistanceToTarget) * 45;  
 			SceneMgr.Get.RealBall.transform.rotation = SceneMgr.Get.RealBall.transform.rotation * Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);  
 			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);  			 			
-			SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist));  
 
-			if (currentDist < 0.5f){
+			if (currentDist <= 3){
 				Parabolamove = false;  
 				PassEnd();
-			}else if(currentDist < 3.5f && doPassing) 
+			}else if(currentDist <= 6 && doPassing) 
 			{
 				doPassing = false;
+				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 				GameController.Get.Catcher.AniState(PlayerState.Catch, GameController.Get.BallOwner.transform.position);
-			}				
+			}else
+				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 
 			yield return null;  
 		}  

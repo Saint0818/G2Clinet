@@ -1827,6 +1827,9 @@ public class GameController : MonoBehaviour
 		if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
             return;
 
+		if(situation == GameSituation.TeeAPicking && player == Joysticker)
+			return;
+
         //rebound
         if (dir == 0)
         {
