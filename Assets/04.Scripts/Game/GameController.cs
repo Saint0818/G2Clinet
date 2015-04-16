@@ -1055,38 +1055,38 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public bool OnBlocking(PlayerBehaviour player)
-    {
-        int blockRate = UnityEngine.Random.Range(0, 100);
-        if (blockRate < 30)
-        {
-            if (!BallOwner)
-            {
-                float dis = Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position);
-                if (dis <= 4)
-                {
-                    SceneMgr.Get.SetBallState(PlayerState.Block);
-                    return true;
-                }
-            } else 
-            if (BallOwner.CheckAnimatorSate(PlayerState.Shooting))
-            {
-                float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
-                if (dis <= 4)
-                {
-                    for (int i = 0; i < PlayerList.Count; i++)
-                        if (PlayerList [i].Team == BallOwner.Team)
-                            PlayerList [i].ResetMove();
-
-                    SetBall(null);
-                    SceneMgr.Get.SetBallState(PlayerState.Block);
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
+//    public bool OnBlocking(PlayerBehaviour player)
+//    {
+//        int blockRate = UnityEngine.Random.Range(0, 100);
+//        if (blockRate < 30)
+//        {
+//            if (!BallOwner)
+//            {
+//                float dis = Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position);
+//                if (dis <= 4)
+//                {
+//                    SceneMgr.Get.SetBallState(PlayerState.Block);
+//                    return true;
+//                }
+//            } else 
+//            if (BallOwner.CheckAnimatorSate(PlayerState.Shooting))
+//            {
+//                float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
+//                if (dis <= 4)
+//                {
+//                    for (int i = 0; i < PlayerList.Count; i++)
+//                        if (PlayerList [i].Team == BallOwner.Team)
+//                            PlayerList [i].ResetMove();
+//
+//                    SetBall(null);
+//                    SceneMgr.Get.SetBallState(PlayerState.Block);
+//                    return true;
+//                }
+//            }
+//        }
+//
+//        return false;
+//    }
 
     public void DoBlock()
     {

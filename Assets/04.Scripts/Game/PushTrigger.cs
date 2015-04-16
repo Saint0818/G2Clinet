@@ -9,7 +9,7 @@ public class PushTrigger : MonoBehaviour {
 	void Start()
 	{
 		pusher = gameObject.transform.parent.parent.gameObject.GetComponent<PlayerBehaviour>();
-		gameObject.GetComponent<MeshRenderer> ().enabled = false;
+		gameObject.GetComponent<MeshRenderer> ().enabled = true;
 		gameObject.SetActive(false);
 	}
 

@@ -148,6 +148,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject DefPoint;
 	private GameObject pushTrigger;
 	private GameObject elbowTrigger;
+	private GameObject blockTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public TeamKind Team;
@@ -208,6 +209,8 @@ public class PlayerBehaviour : MonoBehaviour
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
 			pushTrigger = obj2.transform.FindChild("Push").gameObject;
 			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
+			blockTrigger = obj2.transform.FindChild("Block").gameObject;
+
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
             if (objs != null)
@@ -235,6 +238,9 @@ public class PlayerBehaviour : MonoBehaviour
 		//IK
 		aimIK = gameObject.GetComponent<AimIK>();
 		fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
+
+		aimIK.enabled = GameStart.Get.IsOpenIKSystem;
+		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
 		interactionSystem = gameObject.GetComponent<InteractionSystem>();
 		pinIKTransform = transform.FindChild("Pin");
 		IKTarget = SceneMgr.Get.RealBall.transform;
@@ -495,7 +501,15 @@ public class PlayerBehaviour : MonoBehaviour
         if (playerBlockCurve != null)
         {
             blockCurveTime += Time.deltaTime;
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerBlockCurve.aniCurve.Evaluate(blockCurveTime), gameObject.transform.position.z);
+
+			if(blockCurveTime < 1f)
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
+			                                            playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+			                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
+			else
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 
+				                                            playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+				                                            gameObject.transform.position.z);
 
 			if(blockCurveTime >= playerBlockCurve.LifeTime)
 			{
@@ -1062,8 +1076,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.Fall0:
 			case PlayerState.Fall1:
-				if (CanMove && 
-				    crtState != PlayerState.Fall0 &&
+				if (crtState != PlayerState.Fall0 &&
 				    crtState != PlayerState.Fall1)
 					return true;
 				break;
@@ -1354,8 +1367,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "Blocking":
-                if (OnBlocking != null)
-                    OnBlocking(this);
+//                if (OnBlocking != null)
+//                    OnBlocking(this);
 
                 break;
             case "Shooting":
@@ -1385,6 +1398,14 @@ public class PlayerBehaviour : MonoBehaviour
 				
 			case "ElbowCalculateEnd":
 				elbowTrigger.SetActive(false);
+				break;
+
+			case "BlcokCalculateStart":
+				blockTrigger.gameObject.SetActive(true);
+				break;
+
+			case "BlcokCalculateEnd":
+				blockTrigger.gameObject.SetActive(false);
 				break;
 
             case "DunkJump":
