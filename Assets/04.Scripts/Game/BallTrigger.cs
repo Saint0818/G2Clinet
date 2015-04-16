@@ -8,12 +8,11 @@ public class BallTrigger : MonoBehaviour
 	private GameObject followObject;
 	private BoxCollider box;
 	private GameObject HintObject;
-	private bool passing = false;
 	private Vector3 Parabolatarget;
 	private float Parabolaspeed = 20;    
 	private float ParaboladistanceToTarget; 
 	private bool Parabolamove = true;  
-	private bool doPassing = false;
+	private bool Passing = false;
 	private int PassKind = -1;
 
 	void Awake()
@@ -52,9 +51,8 @@ public class BallTrigger : MonoBehaviour
 	
 	public bool PassBall(int Kind = 0)
 	{
-		if (!passing && GameController.Get.Catcher && GameController.Get.BallOwner != null) {
-			passing = true;
-			doPassing = true;
+		if (GameController.Get.Catcher && GameController.Get.BallOwner != null) {
+			Passing = true;
 			PassKind = Kind;
 			if( Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
@@ -91,9 +89,9 @@ public class BallTrigger : MonoBehaviour
 		if (GameController.Get.Catcher != null) 
 		{
 			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
-			if (currentDist < 3.5f && doPassing)
+			if (currentDist < 3.5f && Passing)
 			{
-				doPassing = false;
+				Passing = false;
 				if(PassKind == 0)
 					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);		
 				else if(PassKind == 2)
@@ -126,7 +124,6 @@ public class BallTrigger : MonoBehaviour
 
 	public void PassEnd(){
 		GameController.Get.SetEndPass();
-		passing = false;
 		CameraMgr.Get.IsLongPass = false;
 	}
 
@@ -158,9 +155,9 @@ public class BallTrigger : MonoBehaviour
 			if (currentDist <= 3){
 				Parabolamove = false;  
 				PassEnd();
-			}else if(currentDist <= 6 && doPassing) 
+			}else if(currentDist <= 6 && Passing) 
 			{
-				doPassing = false;
+				Passing = false;
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.BallOwner.transform.position);
 			}else
