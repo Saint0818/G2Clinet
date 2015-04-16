@@ -720,6 +720,12 @@ public class GameController : MonoBehaviour
 			Joysticker.AniState (PlayerState.Push);
 	}
 
+	public void DoElbow()
+	{
+		if (Joysticker)
+			Joysticker.AniState (PlayerState.Elbow);
+	}
+
     public bool OnDunkBasket(PlayerBehaviour player)
     {
         if (player == BallOwner)

@@ -44,7 +44,8 @@ public enum PlayerState
 	BasketAction0End = 34,
 	BasketAction1End = 35,
 	BasketAction2End = 36,
-	Elbow = 37
+	Elbow = 37,
+	HoldBall = 38
 }
 
 public enum TeamKind
@@ -1031,12 +1032,29 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
-		case PlayerState.Rebound:
-		case PlayerState.Push:
-		case PlayerState.Elbow:
-			if (CanMove)
-				return true;
-			break;
+			case PlayerState.HoldBall:
+				if(IsBallOwner)
+					return true;
+				break;
+
+			case PlayerState.Rebound:
+			case PlayerState.Push:
+				if (CanMove)
+					return true;
+				break;
+
+			case PlayerState.Elbow:
+				if(IsBallOwner && crtState != PlayerState.Elbow) 
+					return true;
+				break;
+
+			case PlayerState.Fall0:
+			case PlayerState.Fall1:
+				if (CanMove && 
+				    crtState != PlayerState.Fall0 &&
+				    crtState != PlayerState.Fall1)
+					return true;
+				break;
 
 			case PlayerState.Idle:
             case PlayerState.Run:
@@ -1046,8 +1064,6 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
 			case PlayerState.GotSteal:
-			case PlayerState.Fall0:
-			case PlayerState.Fall1:
                 return true;
         }
 
@@ -1154,6 +1170,11 @@ public class PlayerBehaviour : MonoBehaviour
 				animator.SetTrigger("FallTrigger");
 				isDunk = false;
 				gameObject.transform.DOLocalMoveY(0, 1f);
+				Result = true;
+				break;
+
+			case PlayerState.HoldBall:
+				animator.SetTrigger("HoldBallTrigger");
 				Result = true;
 				break;
 			
@@ -1350,6 +1371,10 @@ public class PlayerBehaviour : MonoBehaviour
                     OnDunkBasket(this);
                 break;
 
+			case "ElbowEnd":
+				AniState(PlayerState.HoldBall);
+				break;
+
 			case "AnimationEnd":
 				AniState(PlayerState.Idle);
 				PlayerRigidbody.useGravity = true;
@@ -1398,7 +1423,8 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Push,
 				PlayerState.Elbow,
 				PlayerState.Fall0,
-				PlayerState.Fall1
+				PlayerState.Fall1,
+				PlayerState.HoldBall
 			};
 
 			for(int i = 0 ; i < CheckAy.Length; i++)

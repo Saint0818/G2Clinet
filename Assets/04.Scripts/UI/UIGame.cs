@@ -9,6 +9,7 @@ public class UIGame : UIBase {
 	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
 
+	private float passBtnTime = 0;
 	private float stealBtnTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
@@ -16,6 +17,7 @@ public class UIGame : UIBase {
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
+	private bool isPressPassBtn = false;
 	private bool isPressStealBtn = false;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
@@ -115,7 +117,10 @@ public class UIGame : UIBase {
 		buttonStealFX.SetActive(false);
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPass;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragStart = DoPassDragStart;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragEnd = DoPassDragEnd;
+//			DoPassChoose;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Defance/ButtonSteal")).onPress = DoSteal;
 
 
@@ -217,12 +222,26 @@ public class UIGame : UIBase {
 		
 		isPressStealBtn = state;
 	}
-	
-	public void DoPassChoose (GameObject obj, bool state) {
-		if(GameController.Get.CoolDownPass == 0) {
-			if(state)
-				PassFX();
-			
+
+	public void DoPassDragStart(GameObject obj)
+	{
+		passObject.SetActive(true);
+	}
+
+	public void DoPassDragEnd(GameObject obj)
+	{
+		Debug.Log (obj.name);
+		passObject.SetActive(false);
+	}
+
+
+	public void DoPass(GameObject obj, bool state){
+		if (state) {
+			PassFX();
+			passBtnTime = ButtonBTime;
+
+		}
+		else if(!state && stealBtnTime > 0){
 			if(GameController.Get.Joysticker.IsBallOwner) {
 				initLine();
 				passObject.SetActive(state);
@@ -231,8 +250,27 @@ public class UIGame : UIBase {
 				if(!GameController.Get.IsShooting)
 					GameController.Get.DoPass(0);
 			}
+			passBtnTime = ButtonBTime;
 		}
+		
+		isPressPassBtn = state;
 	}
+	
+//	public void DoPassChoose (GameObject obj, bool state) {
+//		if(GameController.Get.CoolDownPass == 0) {
+//			if(state)
+//				PassFX();
+//			
+//			if(GameController.Get.Joysticker.IsBallOwner) {
+//				initLine();
+//				passObject.SetActive(state);
+//				drawLine.IsShow = state;
+//			} else {
+//				if(!GameController.Get.IsShooting)
+//					GameController.Get.DoPass(0);
+//			}
+//		}
+//	}
 
 	public void DoPassTeammateA() {
 		buttonObjectAFXTime = fxTime;
@@ -460,6 +498,12 @@ public class UIGame : UIBase {
 			stealBtnTime -= Time.deltaTime;
 			if(stealBtnTime <= 0)
 				GameController.Get.DoPush();
+		}
+
+		if (isPressPassBtn && passBtnTime > 0) {
+			passBtnTime -= Time.deltaTime;
+			if(passBtnTime <= 0)
+				GameController.Get.DoElbow();
 		}
 
 		if(isShowScoreBar && showScoreBarTime > 0) {
