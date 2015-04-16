@@ -33,12 +33,12 @@ public class BasketBehaviour : MonoBehaviour {
 	void OnTriggerEnter(Collider c) {
 		if (c.tag == "RealBall") {
 			if (GameController.Visible) {
-				for(int i=0; i<GameController.Get.BaskAnimationState.Length; i++) {
-					if(i == 0) {
-						SceneMgr.Get.PlayShoot(Team);
-						GameController.Get.PlusScore(Team);
-					} else {
-						if(GameController.Get.BaskAnimationState[i] == GameController.Get.BasketAnimation) {
+				for(int i=0; i<GameController.Get.BasketScoreAnimationState.Length; i++) {
+					if(GameController.Get.BasketScoreAnimationState[i] == GameController.Get.BasketAnimation) {
+						if(i == 0) {
+							SceneMgr.Get.PlayShoot(Team);
+							GameController.Get.PlusScore(Team);
+						} else {
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							animator.SetTrigger("BasketballAction_"+(i -1));
 						}
