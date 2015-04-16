@@ -772,63 +772,93 @@ public class GameController : MonoBehaviour
 				int disKind = GetEnemyDis(ref player);
 				int rate = UnityEngine.Random.Range(0, 2);
 				bool suc = false;
+				int passkind = -1;
 
 				if(dis <= GameConst.CloseDistance)
 				{
 					//Close
 					if(disKind == 1)
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-						 else 
+							passkind = 1;
+						}else{ 
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-
+							passkind = 2;
+						}
 					} else 
 					if(disKind == 2)
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-						else
+							passkind = 0;
+						}else{
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							passkind = 2;
+						}
 					}						
 					else
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-						else
+							passkind = 0;
+						}else{
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							passkind = 2;
+						}
 					}
 				}else if(dis <= GameConst.MiddleDistance)
 				{
 					//Middle
 					if(disKind == 1)
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-						else
+							passkind = 0;
+						}else{
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							passkind = 2;
+						}
 					} else 
 					if(disKind == 2)
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-						else
+							passkind = 1;
+						}else{
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							passkind = 2;
+						}
 					}						
 					else
 					{
-						if(rate == 1)
+						if(rate == 1){
 							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-						else
+							passkind = 0;
+						}else{
 							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							passkind = 2;
+						}
 					}
 				}else{
 					//Far
 					suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+					passkind = 1;
 				}
 
-				if(suc)
+				if(suc){
 					Catcher = player;
+
+					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
+					if(adis <= 1){
+						if(passkind == 0)
+							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
+						else if(passkind == 1)
+							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
+						else if(passkind == 2)
+							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
+					}
+				}
 			}            
 
 			Result = true;
@@ -1270,7 +1300,7 @@ public class GameController : MonoBehaviour
                     
 					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
-						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownPush == 0)
+						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownPush == 0 && !IsPush)
                         {
 							if(Npc.AniState (PlayerState.Push))
 								Npc.CoolDownPush = Time.time + 3;
@@ -2290,6 +2320,18 @@ public class GameController : MonoBehaviour
             return false;
         }
     }
+
+	public bool IsPush
+	{
+		get
+		{
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Push))
+					return true;
+			
+			return false;
+		}
+	}
 
 	public bool CandoBtn
 	{
