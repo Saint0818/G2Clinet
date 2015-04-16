@@ -17,7 +17,7 @@ public class PushTrigger : MonoBehaviour {
 		if (GameController.Visible && other.gameObject.CompareTag("PlayerTrigger"))
 		{
 			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;
-			if(pusher.gameObject != toucher){
+			if(pusher != null && pusher.gameObject != toucher){
 				faller = toucher.GetComponent<PlayerBehaviour>();
 				if( pusher.Team != faller.Team){
 					GameController.Get.Fall(faller);

@@ -802,7 +802,7 @@ public class PlayerBehaviour : MonoBehaviour
 //				AddActionFlag(ActionFlag.IsRun);
 				                
                 MoveTurn++;
-                rotateTo(MoveTarget.x, MoveTarget.y, 10);
+                rotateTo(MoveTarget.x, MoveTarget.y);
 				if (MoveTurn == 1)
 					MoveStartTime = Time.time + 1;           
             } else
@@ -851,7 +851,7 @@ public class PlayerBehaviour : MonoBehaviour
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * GameConst.BasicMoveSpeed);
                 } else
                 {
-                    rotateTo(MoveTarget.x, MoveTarget.y, 10);
+                    rotateTo(MoveTarget.x, MoveTarget.y);
 
                     if (IsBallOwner)
                         AniState(PlayerState.RunAndDribble);
@@ -876,13 +876,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void rotateTo(float lookAtX, float lookAtZ, float time = 50)
+    public void rotateTo(float lookAtX, float lookAtZ)
     {
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
 //            transform.localPosition), time * Time.deltaTime);
 
-		gameObject.transform.DOLookAt (new Vector3 (lookAtX, 0, lookAtZ), 0.1f);
+		Vector3 lookAtPos = new Vector3 (lookAtX, 0, lookAtZ);
+		Vector3 relative = gameObject.transform.InverseTransformPoint(lookAtPos);
+		float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+
+		if(mangle > 15 || mangle < -15)
+			gameObject.transform.DOLookAt (lookAtPos, 0.1f);
     }
     
     public void SetInvincible(float time)

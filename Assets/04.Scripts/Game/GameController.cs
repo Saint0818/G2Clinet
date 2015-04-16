@@ -1258,11 +1258,12 @@ public class GameController : MonoBehaviour
                 {
                     Dis = getDis(ref BallOwner, ref Npc);
                     
-                    if (!Npc.CheckAnimatorSate(PlayerState.Steal))
+                    if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push))
                     {
-                        if (Dis <= GameConst.PushPlayerDistance && pushRate < 50)
+						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0)
                         {
-                            
+							Debug.Log(Npc + "__1111");
+							Npc.AniState (PlayerState.Push);
                         } else 
                         if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0 && !IsDunk && !IsShooting)
                         {
