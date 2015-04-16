@@ -1811,17 +1811,17 @@ public class GameController : MonoBehaviour
 
 	private void catchBall(PlayerBehaviour p) {
 
-		p.isIKCatchBall = true;
-		SceneMgr.Get.RealBallRigidbody.useGravity = false;
-		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
-		float ang = GameFunction.GetPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform);
-		if(ang < 45f && ang > -10f){
-			p.CatchTheBall(BallDirection.Right);
-		} else
-		if(ang <= -10f && ang > -45f){
-			p.CatchTheBall(BallDirection.Middle);
-		}
-//		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+//		p.isIKCatchBall = true;
+//		SceneMgr.Get.RealBallRigidbody.useGravity = false;
+//		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+//		float ang = GameFunction.GetPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform);
+//		if(ang < 45f && ang > -10f){
+//			p.CatchTheBall(BallDirection.Right);
+//		} else
+//		if(ang <= -10f && ang > -45f){
+//			p.CatchTheBall(BallDirection.Middle);
+//		}
+		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 //		p.isIKCatchBall = false;
 //		p.isIKLook = false;
 	}
