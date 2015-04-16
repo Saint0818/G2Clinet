@@ -1438,6 +1438,8 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Tee,
 				PlayerState.FakeShoot,
 				PlayerState.CatchFlat,
+				PlayerState.CatchFloor,
+				PlayerState.CatchParabola,
 				PlayerState.Shooting,
 				PlayerState.GotSteal,
 				PlayerState.Push,

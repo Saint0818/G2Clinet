@@ -14,6 +14,7 @@ public class BallTrigger : MonoBehaviour
 	private float ParaboladistanceToTarget; 
 	private bool Parabolamove = true;  
 	private bool doPassing = false;
+	private int PassKind = -1;
 
 	void Awake()
 	{
@@ -54,7 +55,7 @@ public class BallTrigger : MonoBehaviour
 		if (!passing && GameController.Get.Catcher && GameController.Get.BallOwner != null) {
 			passing = true;
 			doPassing = true;
-
+			PassKind = Kind;
 			if( Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
@@ -93,7 +94,10 @@ public class BallTrigger : MonoBehaviour
 			if (currentDist < 3.5f && doPassing)
 			{
 				doPassing = false;
-				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);		
+				if(PassKind == 0)
+					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);		
+				else if(PassKind == 2)
+					GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.BallOwner.transform.position);		
 			} 				
 		}
 	}
@@ -158,7 +162,7 @@ public class BallTrigger : MonoBehaviour
 			{
 				doPassing = false;
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
-				GameController.Get.Catcher.AniState(PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);
+				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.BallOwner.transform.position);
 			}else
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 
