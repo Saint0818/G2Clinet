@@ -840,7 +840,7 @@ public class GameController : MonoBehaviour
 	public void Fall(PlayerBehaviour faller)
 	{
 		if (faller) {
-			faller.AniState(PlayerState.Fall0);	
+			faller.AniState(PlayerState.Fall1);	
 		}
 	}
 

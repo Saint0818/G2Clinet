@@ -93,7 +93,7 @@ public class BallTrigger : MonoBehaviour
 			if (currentDist < 3.5f && doPassing)
 			{
 				doPassing = false;
-				GameController.Get.Catcher.AniState (PlayerState.Catch, GameController.Get.BallOwner.transform.position);		
+				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);		
 			} 				
 		}
 	}
@@ -158,7 +158,7 @@ public class BallTrigger : MonoBehaviour
 			{
 				doPassing = false;
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
-				GameController.Get.Catcher.AniState(PlayerState.Catch, GameController.Get.BallOwner.transform.position);
+				GameController.Get.Catcher.AniState(PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);
 			}else
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 

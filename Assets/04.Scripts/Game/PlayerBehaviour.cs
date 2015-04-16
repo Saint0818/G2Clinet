@@ -33,7 +33,6 @@ public enum PlayerState
 	MovingDefence = 23,
     RunAndDribble = 24,
     Shooting = 25,
-    Catch = 26,
     DunkBasket = 27,
     RunningDefence = 28,
     FakeShoot = 29,
@@ -45,7 +44,11 @@ public enum PlayerState
 	BasketAction1End = 35,
 	BasketAction2End = 36,
 	Elbow = 37,
-	HoldBall = 38
+	HoldBall = 38,
+	CatchFlat = 39,
+	CatchParabola = 40,
+	CatchFloor = 41
+
 }
 
 public enum TeamKind
@@ -938,7 +941,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
-        if (AniWaitTime == 0 && crtState != PlayerState.Catch)
+        if (AniWaitTime == 0 && crtState != PlayerState.CatchFlat)
         {
             for (int i = 0; i < PlayerActionFlag.Length; i++)
                 PlayerActionFlag [i] = 0;
@@ -971,11 +974,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (state)
         {
-            case PlayerState.Catch:
+            case PlayerState.CatchFlat:
+            case PlayerState.CatchFloor:
+            case PlayerState.CatchParabola:
 				if (crtState != PlayerState.FakeShoot && 
 			        crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Steal &&
-			    	crtState != state && !IsPass)
+			    	!IsCatch && !IsPass)
                     return true;
                 break;
             case PlayerState.Steal:
@@ -1002,7 +1007,7 @@ public class PlayerBehaviour : MonoBehaviour
 			    	crtState != PlayerState.FakeShoot &&
 			    	crtState != PlayerState.Block && 
 			   		crtState != PlayerState.BlockCatch && 
-			    	crtState != PlayerState.Catch && 
+			    	!IsCatch &&
 			    	!IsPass)
                     return true;
                 break;
@@ -1016,7 +1021,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.Shooting:
 				if (crtState != PlayerState.Dunk &&  
-			    	crtState != PlayerState.Catch &&
+			    	!IsCatch &&
 			    	crtState != state && !IsPass)
                     return true;
                 break;
@@ -1108,11 +1113,26 @@ public class PlayerBehaviour : MonoBehaviour
                     Result = true;
                 break;
 
-            case PlayerState.Catch:
+            case PlayerState.CatchFlat:
+				animator.SetInteger("StateNo", 0);
                 SetSpeed(0, -1);
 				animator.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
+
+			case PlayerState.CatchFloor:
+				animator.SetInteger("StateNo", 2);
+				SetSpeed(0, -1);
+				animator.SetTrigger("CatchTrigger");
+				Result = true;
+				break;
+				
+			case PlayerState.CatchParabola:
+				animator.SetInteger("StateNo", 1);
+				SetSpeed(0, -1);
+				animator.SetTrigger("CatchTrigger");
+				Result = true;
+				break;
 
             case PlayerState.Defence:
 				ClearAnimatorFlag();
@@ -1222,7 +1242,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			
 			case PlayerState.Tee:
-				animator.SetInteger("StateNo", 3);
+				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
@@ -1417,7 +1437,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.PassParabola,
 				PlayerState.Tee,
 				PlayerState.FakeShoot,
-				PlayerState.Catch,
+				PlayerState.CatchFlat,
 				PlayerState.Shooting,
 				PlayerState.GotSteal,
 				PlayerState.Push,
@@ -1442,7 +1462,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsCatcher
     {
-        get{ return CheckAnimatorSate(PlayerState.Catch);}
+        get{ return CheckAnimatorSate(PlayerState.CatchFlat);}
     }
 
     public bool IsDefence
@@ -1475,6 +1495,11 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		get{ return crtState == PlayerState.PassFlat || crtState == PlayerState.PassFloor || crtState == PlayerState.PassParabola || crtState == PlayerState.Tee;}
 
+	}
+
+	public bool IsCatch
+	{
+		get{ return crtState == PlayerState.CatchFlat || crtState == PlayerState.CatchFloor || crtState == PlayerState.CatchParabola;}
 	}
 
     public int TargetPosNum
