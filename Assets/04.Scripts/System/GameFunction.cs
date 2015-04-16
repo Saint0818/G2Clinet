@@ -63,6 +63,12 @@ public static class GameFunction
 		return ang;
 	}
 
+	public static float GetPlayerToObjectAngle(Transform source, Transform target){
+		Vector3 relative = source.InverseTransformPoint(target.position);
+		float angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+		return angle;
+	}
+
 	public static Vector3 GetVelocity(Vector3 source, Vector3 target, float angle)
 	{
 		try

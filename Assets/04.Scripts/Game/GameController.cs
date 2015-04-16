@@ -119,7 +119,7 @@ public class GameController : MonoBehaviour
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
 
-	public string[] BaskAnimationState = {"Action_0","Action_1","Action_2"};
+	public string[] BaskAnimationState = {"Swich","Action_0","Action_1","Action_2"};
 	public string BasketAnimation = "";
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
@@ -651,7 +651,7 @@ public class GameController : MonoBehaviour
         if (BallOwner)
         {
             SceneMgr.Get.ResetBasketEntra();
-			BasketAnimation = BaskAnimationState[Random.Range(0,3)];
+			BasketAnimation = BaskAnimationState[Random.Range(0,4)];
 
             int t = BallOwner.Team.GetHashCode();
 
@@ -1767,7 +1767,7 @@ public class GameController : MonoBehaviour
 				if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
 					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				} else {
-					StartCoroutine(catchBall(p));
+					catchBall(p);
 				}
                 p.ClearIsCatcher();
 
@@ -1802,39 +1802,30 @@ public class GameController : MonoBehaviour
 					if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
 						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 					} else {
-						StartCoroutine(catchBall(p));
+						catchBall(p);
 					}
 				}					
             }
         }
     }
 
-	IEnumerator catchBall(PlayerBehaviour p) {
+	private void catchBall(PlayerBehaviour p) {
 
 		p.isIKCatchBall = true;
-		p.isIKLook = true;
-		if(getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) < 45f && getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) > 20f){
+		SceneMgr.Get.RealBallRigidbody.useGravity = false;
+		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+		float ang = GameFunction.GetPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform);
+		if(ang < 45f && ang > -10f){
 			p.CatchTheBall(BallDirection.Right);
-		} else 
-		if(getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) <= 20f && getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) > -20f){
+		} else
+		if(ang <= -10f && ang > -45f){
 			p.CatchTheBall(BallDirection.Middle);
 		}
-		else
-		if(getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) < -20f && getPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform) > -45f){
-			p.CatchTheBall(BallDirection.Left);
-		}
-		yield return new WaitForSeconds(0.3f);
-		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-		p.isIKCatchBall = false;
-		p.isIKLook = false;
-//		yield return null;
+//		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+//		p.isIKCatchBall = false;
+//		p.isIKLook = false;
 	}
 
-	private float getPlayerToObjectAngle(Transform source, Transform target){
-		Vector3 relative = source.InverseTransformPoint(target.position);
-		float angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-		return angle;
-	}
 
     public void BallOnFloor()
     {
