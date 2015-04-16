@@ -194,16 +194,18 @@ public class UIGame : UIBase {
 	}
 
 	public void DoShoot(GameObject go, bool state) {
-		if(state){
-			ShootFX();
-			shootBtnTime = ButtonBTime;
-		}else 
-		if(!state && shootBtnTime > 0){
-			GameController.Get.DoShoot (false);
-			shootBtnTime = ButtonBTime;
-		}
+		if(GameController.Get.CoolDownPass == 0) {
+			if(state){
+				ShootFX();
+				shootBtnTime = ButtonBTime;
+			}else 
+			if(!state && shootBtnTime > 0){
+				GameController.Get.DoShoot (false);
+				shootBtnTime = ButtonBTime;
+			}
 
-		isPressShootBtn = state;
+			isPressShootBtn = state;
+		}
 	}
 
 	public void DoSteal(GameObject go, bool state)
@@ -219,16 +221,18 @@ public class UIGame : UIBase {
 	}
 	
 	public void DoPassChoose (GameObject obj, bool state) {
-		if(state)
-			PassFX();
-
-		if(GameController.Get.Joysticker.IsBallOwner) {
-			initLine();
-			passObject.SetActive(state);
-			drawLine.IsShow = state;
-		} else {
-			if(!GameController.Get.IsShooting)
-				GameController.Get.DoPass(0);
+		if(GameController.Get.CoolDownPass == 0) {
+			if(state)
+				PassFX();
+			
+			if(GameController.Get.Joysticker.IsBallOwner) {
+				initLine();
+				passObject.SetActive(state);
+				drawLine.IsShow = state;
+			} else {
+				if(!GameController.Get.IsShooting)
+					GameController.Get.DoPass(0);
+			}
 		}
 	}
 
