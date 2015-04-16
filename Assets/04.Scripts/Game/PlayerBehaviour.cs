@@ -751,7 +751,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (!IsBallOwner)
                         AniState(PlayerState.Idle);
-					else
+					else if(situation == GameSituation.TeeA || situation == GameSituation.TeeB)
 						AniState(PlayerState.Dribble);
                     
                     if (First || GameStart.Get.TestMode == GameTest.Edit)
@@ -937,7 +937,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
-        if (AniWaitTime == 0)
+        if (AniWaitTime == 0 && crtState != PlayerState.Catch)
         {
             for (int i = 0; i < PlayerActionFlag.Length; i++)
                 PlayerActionFlag [i] = 0;
@@ -1157,7 +1157,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = true;
 				break;
 			
-		case PlayerState.Idle:
+			case PlayerState.Idle:
 				SetSpeed(0, -1);
                 for (int i = 1; i < AnimatorStates.Length; i++)
                     if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
@@ -1356,6 +1356,9 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
+
+				if (NeedResetFlag)
+					ResetFlag();
                 break;
         }
     }
