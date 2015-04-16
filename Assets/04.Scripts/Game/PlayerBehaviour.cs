@@ -751,6 +751,8 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (!IsBallOwner)
                         AniState(PlayerState.Idle);
+					else
+						AniState(PlayerState.Dribble);
                     
                     if (First || GameStart.Get.TestMode == GameTest.Edit)
                         WaitMoveTime = 0;
@@ -1092,7 +1094,6 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Catch:
                 SetSpeed(0, -1);
 				animator.SetTrigger("CatchTrigger");
-				AniWaitTime = Time.time + 5f;
                 Result = true;
                 break;
 
