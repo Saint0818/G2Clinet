@@ -77,7 +77,7 @@ public class BallTrigger : MonoBehaviour
 				break;
 			}
 
-			if(Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
+			if(SceneMgr.Get.RealBall != null && GameController.Get.Catcher != null && Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
 			return true;

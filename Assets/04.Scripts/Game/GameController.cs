@@ -1258,14 +1258,14 @@ public class GameController : MonoBehaviour
                 {
                     Dis = getDis(ref BallOwner, ref Npc);
                     
-                    if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push))
+					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
 						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownPush == 0)
                         {
 							if(Npc.AniState (PlayerState.Push))
 								Npc.CoolDownPush = Time.time + 3;
                         } else 
-                        if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0 && !IsDunk && !IsShooting)
+                        if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
                         {
 							if(GetStealRate(ref Npc))
                             {
@@ -1364,7 +1364,7 @@ public class GameController : MonoBehaviour
 		if(WaitTeeBallTime == 0)
 		{
 			WaitTeeBallTime = Time.time + 1;
-			player.AniState (PlayerState.Dribble);
+//			player.AniState (PlayerState.Dribble);
 		}
 
 		return true;
@@ -1773,7 +1773,7 @@ public class GameController : MonoBehaviour
                         //ALLYOOP 
                     } else
                     {
-                        p.AniState(PlayerState.Dribble);
+//                        p.AniState(PlayerState.Dribble);
                     }
 
                     for (int i = 0; i < PlayerList.Count; i++)

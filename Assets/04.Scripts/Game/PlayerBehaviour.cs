@@ -1092,6 +1092,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Catch:
                 SetSpeed(0, -1);
 				animator.SetTrigger("CatchTrigger");
+				AniWaitTime = Time.time + 5f;
                 Result = true;
                 break;
 
