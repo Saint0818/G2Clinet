@@ -51,9 +51,12 @@ public class BallTrigger : MonoBehaviour
 	
 	public bool PassBall(int Kind = 0)
 	{
-		if (!passing && GameController.Get.Catcher) {
+		if (!passing && GameController.Get.Catcher && GameController.Get.BallOwner != null) {
 			passing = true;
 			doPassing = true;
+
+			if( Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.transform.position) > 15f)
+				CameraMgr.Get.IsLongPass = true;
 
 			SceneMgr.Get.SetBallState(PlayerState.PassFlat);
 			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
@@ -76,9 +79,6 @@ public class BallTrigger : MonoBehaviour
 				StartCoroutine(Parabola());
 				break;
 			}
-
-			if(SceneMgr.Get.RealBall != null && GameController.Get.Catcher != null && Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.DummyBall.transform.position) > 15f)
-				CameraMgr.Get.IsLongPass = true;
 
 			return true;
 		}else

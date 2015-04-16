@@ -892,8 +892,9 @@ public class PlayerBehaviour : MonoBehaviour
 		Vector3 relative = gameObject.transform.InverseTransformPoint(lookAtPos);
 		float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 
-		if(mangle > 15 || mangle < -15)
+		if((mangle > 15 && mangle < 180 )|| (mangle < -15 && mangle > -180)){
 			gameObject.transform.DOLookAt (lookAtPos, 0.1f);
+		}
     }
     
     public void SetInvincible(float time)
