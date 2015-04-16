@@ -53,6 +53,7 @@ public class BallTrigger : MonoBehaviour
 	{
 		if (GameController.Get.Catcher && GameController.Get.BallOwner != null) {
 			Passing = true;
+			GameController.Get.IsPassing = true;
 			PassKind = Kind;
 			if( Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;

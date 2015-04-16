@@ -162,6 +162,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float JumpHight = 450f;
     public float CoolDownSteal = 0;
 	public float CoolDownPush = 0;
+	public float CoolDownElbow = 0;
     public float AirDrag = 0f;
     public float fracJourney = 0;
     public int MoveIndex = -1;
@@ -318,6 +319,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (CoolDownPush > 0 && Time.time >= CoolDownPush)
 			CoolDownPush = 0;
+
+		if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
+			CoolDownElbow = 0;
 
 		if (NoAiTime == 0) 
 		{

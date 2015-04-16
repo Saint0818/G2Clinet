@@ -37,7 +37,6 @@ public class GameConst
 	public const float DunkDistance = 7;
 	public const float PickBallDistance = 2.5f;
 	public const float StealBallDistance = 2;
-	public const float PushPlayerDistance = 3;
 	public const float BlockDistance = 5;
     public const int StealReate = 30;
     public const int StealReate_Success = 10;

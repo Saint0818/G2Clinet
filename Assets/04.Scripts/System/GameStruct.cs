@@ -12,6 +12,11 @@ namespace GameStruct
 		public float DefDistance;
 		public int BlockRate;
 		public int FaketBlockRate;
+		public int PushingRate;
+		public int ElbowingRate;
+		public int BlockDunk;
+		public int JumpBallRate;
+		public int ReboundRata;
 	}
 
 	public struct TAvatar

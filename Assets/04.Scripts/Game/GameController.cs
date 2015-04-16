@@ -112,6 +112,7 @@ public class GameController : MonoBehaviour
     private float ShootDis = 0;
     private float RealBallFxTime = 0;
 	private float WaitTeeBallTime = 0;
+	public bool IsPassing = false;
     public PlayerBehaviour Joysticker;
     public PlayerBehaviour Catcher;
     public PlayerBehaviour Shooter;
@@ -1185,6 +1186,7 @@ public class GameController : MonoBehaviour
             float Dis = 0;
             float ShootPointDis = 0;
             Vector3 pos = SceneMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position;
+			PlayerBehaviour man = null;
             
             if (Npc.Team == TeamKind.Self)
                 ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
@@ -1195,11 +1197,11 @@ public class GameController : MonoBehaviour
             {
                 //Dunk shoot shoot3 pass
                 int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					Shoot();
                 } else 
-				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
                     Shoot();
                 } else 
@@ -1207,10 +1209,14 @@ public class GameController : MonoBehaviour
                 {
                     Shoot();				
 				} else 
-				if (ElbowRate < 50 && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.PushPlayerDistance, 90) != 0)){
-					Npc.AniState(PlayerState.Elbow);
+				if (ElbowRate < GameData.AIlevelAy[Npc.Attr.AILevel].ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
+					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow)){
+					if(Npc.AniState(PlayerState.Elbow, man.transform.position)){
+						CoolDownPass = 0;
+						Npc.CoolDownElbow = Time.time + 3;
+					}
 				}else 
-				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CoolDownPass == 0 && !IsShooting && !IsDunk)
+				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(PlayerState.Elbow))
                 {
                     PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
@@ -1254,16 +1260,17 @@ public class GameController : MonoBehaviour
             {
                 //sup push
                 Dis = getDis(ref BallOwner, ref Npc); 
-                PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, GameConst.PushPlayerDistance, false);
+				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, GameConst.StealBallDistance, false);
                 
                 if (ShootPointDis <= 1.5f && ALLYOOP < 50)
                 {
                     //Npc.AniState(PlayerState.Jumper);
                 } else 
-                if (NearPlayer != null && pushRate < 50)
+                if (NearPlayer != null && pushRate < GameData.AIlevelAy[Npc.Attr.AILevel].PushingRate && Npc.CoolDownPush == 0)
                 {
                     //Push
-                    
+					if(Npc.AniState(PlayerState.Push, NearPlayer.transform.position))
+						Npc.CoolDownPush = Time.time + 3;                    
                 } else 
                 if (Dis >= 1.5f && Dis <= 3 && supRate < 50)
                 {
@@ -1297,29 +1304,62 @@ public class GameController : MonoBehaviour
 
 		return Result;
 	}
-	
+
+	struct TPlayerDisData
+	{
+		public PlayerBehaviour Player;
+		public float Distance;
+	}
+
 	private void Defend(ref PlayerBehaviour Npc)
 	{
 		if (BallOwner != null)
 		{
 			int pushRate = Random.Range(0, 100) + 1;        
-            float Dis = 0;
+			TPlayerDisData [] DisAy = new TPlayerDisData[3];
+			bool sucess = false;
 
             //steal push Def
             if (!IsShooting)
             {
                 if (BallOwner != null)
                 {
-                    Dis = getDis(ref BallOwner, ref Npc);
+					DisAy[0].Distance = getDis(ref BallOwner, ref Npc);
+					DisAy[0].Player = BallOwner;
+
+					for(int i = 0 ; i < PlayerList.Count; i++)
+					{
+						if(PlayerList[i].Team != Npc.Team && PlayerList[i] != BallOwner)
+						{
+							PlayerBehaviour anpc = PlayerList[i];
+							if(DisAy[1].Distance == 0)
+							{
+								DisAy[1].Distance = getDis(ref anpc, ref Npc);
+								DisAy[1].Player = anpc;
+							}
+
+							if(DisAy[2].Distance == 0)
+							{
+								DisAy[2].Distance = getDis(ref anpc, ref Npc);
+								DisAy[2].Player = anpc;
+							}
+						}
+					}
                     
 					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
-						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownPush == 0 && !IsPush)
-                        {
-							if(Npc.AniState (PlayerState.Push))
-								Npc.CoolDownPush = Time.time + 3;
-                        } else 
-                        if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
+						for(int i = 0; i < DisAy.Length; i++){
+							if (DisAy[i].Distance <= GameConst.StealBallDistance && DisAy[i].Player.crtState == PlayerState.Idle && pushRate <= GameData.AIlevelAy[Npc.Attr.AILevel].PushingRate && Npc.CoolDownPush == 0 && !IsPush)
+							{
+								if(Npc.AniState (PlayerState.Push, DisAy[i].Player.transform.position)){
+									Npc.CoolDownPush = Time.time + 3;
+									sucess = true;
+								}
+								break;
+							} 
+						}
+
+						if (!sucess && DisAy[0].Distance <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
                         {
 							if(GetStealRate(ref Npc))
                             {
@@ -1768,6 +1808,8 @@ public class GameController : MonoBehaviour
 
     public void SetBall(PlayerBehaviour p = null)
     {
+		IsPassing = false;
+
         if (PlayerList.Count > 0)
         {
             if (p != null && situation != GameSituation.End)
@@ -2070,6 +2112,46 @@ public class GameController : MonoBehaviour
         return Result;
     }
 
+	public int HaveDefPlayer(ref PlayerBehaviour Npc, float dis, float angle, out PlayerBehaviour man)
+	{
+		int Result = 0;
+		Vector3 lookAtPos;
+		Vector3 relative;
+		float mangle;
+		man = null;
+		
+		if (PlayerList.Count > 0)
+		{
+			for (int i = 0; i < PlayerList.Count; i++)
+			{
+				if (PlayerList [i].Team != Npc.Team)
+				{
+					PlayerBehaviour TargetNpc = PlayerList [i];
+					lookAtPos = TargetNpc.transform.position;
+					relative = Npc.transform.InverseTransformPoint(lookAtPos);
+					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+					
+					if (getDis(ref Npc, ref TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(PlayerState.Idle))
+					{
+						if (mangle >= 0 && mangle <= angle)
+						{
+							Result = 1;
+							man = TargetNpc;
+							break;
+						} else if (mangle <= 0 && mangle >= -angle)
+						{
+							Result = 2;
+							man = TargetNpc;
+							break;
+						}
+					}
+				}                       
+			}   
+		}
+		
+		return Result;
+	}
+
 	public int HaveStealPlayer(ref PlayerBehaviour P1, ref PlayerBehaviour P2, float dis, float angle)
 	{
 		int Result = 0;
@@ -2124,7 +2206,7 @@ public class GameController : MonoBehaviour
                         }
                     } else
                     {
-                        if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis)
+                        if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.crtState == PlayerState.Idle)
                         {
                             Result = Npc;
                             break;
@@ -2144,6 +2226,8 @@ public class GameController : MonoBehaviour
         else 
         if (Npc.Team == TeamKind.Npc && Npc.transform.position.z < -16.4)
             return false;
+		else if(Npc.CheckAnimatorSate(PlayerState.Elbow))
+			return false;
         else
             return true;
     }
@@ -2306,18 +2390,6 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < PlayerList.Count; i++)            
 				if (PlayerList [i].CheckAnimatorSate(PlayerState.Dunk) || PlayerList [i].CheckAnimatorSate(PlayerState.DunkBasket))
                     return true;            
-            
-            return false;
-        }
-    }
-
-    public bool IsPassing
-    {
-        get
-        {
-            for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].IsPass)
-				    return true;
             
             return false;
         }
