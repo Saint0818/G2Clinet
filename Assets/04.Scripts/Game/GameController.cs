@@ -1420,7 +1420,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < PlayerList.Count; i++)
         {
             PlayerBehaviour Npc1 = PlayerList [i];
-            if (Npc1.Team == Npc.Team)
+            if (Npc1.Team == Npc.Team && !Npc.IsFall)
             {
                 if (NearPlayer == null)
                     NearPlayer = Npc1;
@@ -1466,7 +1466,9 @@ public class GameController : MonoBehaviour
             {
                 PlayerBehaviour Npc2 = PlayerList [i];
 
-                if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0)
+                if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+				    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
+				    !Npc2.CheckAnimatorSate(PlayerState.Push))
                 {
 					if(!IsBlocking)
 					{

@@ -760,8 +760,13 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     if (First || GameStart.Get.TestMode == GameTest.Edit)
                         WaitMoveTime = 0;
-                    else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
-                        WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
+                    else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking){
+						float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
+						if(dis <= 8)
+							WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);
+						else
+							WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
+					}
                     
                     if (IsBallOwner)
                     {
@@ -1497,6 +1502,12 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		get{ return crtState == PlayerState.PassFlat || crtState == PlayerState.PassFloor || crtState == PlayerState.PassParabola || crtState == PlayerState.Tee;}
 
+	}
+
+	public bool IsFall 
+	{
+		get{ return crtState == PlayerState.Fall0 || crtState == PlayerState.Fall1;}
+		
 	}
 
 	public bool IsCatch
