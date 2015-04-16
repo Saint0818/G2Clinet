@@ -840,6 +840,10 @@ public class GameController : MonoBehaviour
 	public void Fall(PlayerBehaviour faller)
 	{
 		if (faller) {
+			if(BallOwner == faller)
+			{
+				setDropBall();
+			}
 			faller.AniState(PlayerState.Fall1);	
 		}
 	}
