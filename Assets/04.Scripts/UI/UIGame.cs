@@ -203,7 +203,7 @@ public class UIGame : UIBase {
 				shootBtnTime = ButtonBTime;
 			}else 
 			if(!state && shootBtnTime > 0){
-				GameController.Get.DoShoot (false);
+				GameController.Get.DoShoot (false, ScoreType.None);
 				shootBtnTime = ButtonBTime;
 			}
 
@@ -463,7 +463,7 @@ public class UIGame : UIBase {
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0)
-				GameController.Get.DoShoot(true);
+				GameController.Get.DoShoot(true, ScoreType.Normal);
 		}
 
 		if (isPressStealBtn && stealBtnTime > 0) {

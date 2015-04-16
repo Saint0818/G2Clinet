@@ -155,7 +155,11 @@ namespace RootMotion.FinalIK {
 				
 				onTriggerAnimation.Activate(animator);
 			}
-//			foreach (GameObject r in onInteractionTriggerRecipients) r.SendMessage("OnInteractionTrigger", t, SendMessageOptions.RequireReceiver);
+			TriggerSend(t);
+		}
+
+		public void TriggerSend(Transform t) {
+			foreach (GameObject r in onInteractionTriggerRecipients) r.SendMessage("OnInteractionTrigger", t, SendMessageOptions.RequireReceiver);
 		}
 
 		// Release event, animation and OnInteractionRelease message 

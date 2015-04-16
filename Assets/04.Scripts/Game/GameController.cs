@@ -59,6 +59,15 @@ public enum PosKind
     Fast
 }
 
+public enum ScoreType {
+	None,
+	DownHand,
+	UpHand,
+	Normal,
+	NearShot,
+	LayUp
+}
+
 public struct TTactical
 {
     public string FileName;
@@ -120,8 +129,12 @@ public class GameController : MonoBehaviour
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
 
-	public string[] BaskAnimationState = {"Swich","Action_0","Action_1","Action_2"};
-	public string BasketAnimation = "";
+	public bool IsScore;
+	public bool IsSwich;
+	public bool IsAirBall;
+	private ScoreType scoreType;
+	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1"};
+	public string[] BasketScoreNoneAnimationState = {"BasketballAction_2"};
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -647,12 +660,64 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void Shoot()
+	private void calculationScoreRate(PlayerBehaviour player, ScoreType type) {
+		float originalRate = 0;
+		Debug.Log("ShootDis:"+ShootDis);
+		if(ShootDis >= GameConst.TreePointDistance) {
+			originalRate = player.ScoreRate.ThreeScoreRate * player.ScoreRate.ThreeScoreRateDeviation;
+		} else {
+			originalRate = player.ScoreRate.TwoScoreRate * player.ScoreRate.TwoScoreRateDeviation;
+		}
+		if(type == ScoreType.DownHand) {
+			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.DownHandScoreRate ) ? true : false;
+			if(IsScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
+			} else {
+				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.DownHandAirBallRate ? true : false;
+			}
+		} else 
+		if(type == ScoreType.UpHand) {
+			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.UpHandScoreRate) ? true : false;
+			if(IsScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
+			} else {
+				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.UpHandAirBallRate ? true : false;
+			}
+		} else 
+		if(type == ScoreType.Normal) {
+			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
+			Debug.Log("1:"+(Random.Range(0.0f,100.0f) + 1));
+			Debug.Log("2:" + (originalRate - player.ScoreRate.NormalScoreRate));
+			if(IsScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
+			} else {
+				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NormalAirBallRate ? true : false;
+			}
+		} else 
+		if(type == ScoreType.NearShot) {
+			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
+			if(IsScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
+			} else {
+				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NearShotAirBallRate ? true : false;
+			}
+		} else 
+		if(type == ScoreType.LayUp) {
+			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
+			if(IsScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
+			} else {
+				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.LayUpAirBallRate ? true : false;
+			}
+		}
+	}
+
+	public void Shoot(ScoreType type = ScoreType.None)
     {
         if (BallOwner)
         {
             SceneMgr.Get.ResetBasketEntra();
-			BasketAnimation = BaskAnimationState[Random.Range(0,4)];
+			scoreType = type;
 
             int t = BallOwner.Team.GetHashCode();
 
@@ -669,15 +734,26 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner && BallOwner == player)
         {                   
-            Shooter = player;
-            SetBall();
+			Shooter = player;
+
+			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
+			calculationScoreRate(player, scoreType);
+            
+			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
             SceneMgr.Get.SetBallState(PlayerState.Shooting);
-            SceneMgr.Get.RealBallRigidbody.velocity = 
-                GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-                                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 60);
+			if(!IsScore && IsAirBall) {
+				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
+				SceneMgr.Get.RealBallRigidbody.velocity = 
+					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
+					                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 60);
+			} else {
+				SceneMgr.Get.RealBallRigidbody.velocity = 
+					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
+					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 60);
+			}
 
-            ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
+
 
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
@@ -688,7 +764,7 @@ public class GameController : MonoBehaviour
             return false;
     }
 
-    public void DoShoot(bool isshoot)
+	public void DoShoot(bool isshoot,ScoreType type = ScoreType.None)
     {
 		if (IsStart && BallOwner && CandoBtn)
         {
@@ -708,7 +784,7 @@ public class GameController : MonoBehaviour
             {
                 int t = player.Team.GetHashCode();
                 if (isshoot) 
-                    Shoot();
+					Shoot(type);
                 else
                     player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
             }
@@ -1199,15 +1275,15 @@ public class GameController : MonoBehaviour
                 int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
-					Shoot();
+					Shoot(ScoreType.Normal);
                 } else 
 				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
-                    Shoot();
+                   Shoot(ScoreType.Normal);
                 } else 
 				if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 10, 90) == 0) && CheckAttack(ref Npc))//|| shoot3Rate < 3
                 {
-                    Shoot();				
+                    Shoot(ScoreType.Normal);				
 				} else 
 				if (ElbowRate < GameData.AIlevelAy[Npc.Attr.AILevel].ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
 					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow)){
@@ -1859,7 +1935,7 @@ public class GameController : MonoBehaviour
 				if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
 					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				} else {
-					catchBall(p);
+					StartCoroutine(catchBall(p));
 				}
                 p.ClearIsCatcher();
 
@@ -1894,16 +1970,17 @@ public class GameController : MonoBehaviour
 					if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
 						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 					} else {
-						catchBall(p);
+						StartCoroutine(catchBall(p));
 					}
 				}					
             }
         }
     }
 
-	private void catchBall(PlayerBehaviour p) {
+	IEnumerator catchBall(PlayerBehaviour p) {
 
 //		p.isIKCatchBall = true;
+//		p.isIKLook = true;
 //		SceneMgr.Get.RealBallRigidbody.useGravity = false;
 //		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
 //		float ang = GameFunction.GetPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform);
@@ -1913,6 +1990,8 @@ public class GameController : MonoBehaviour
 //		if(ang <= -10f && ang > -45f){
 //			p.CatchTheBall(BallDirection.Middle);
 //		}
+//		yield return new WaitForSeconds(0.3f);
+		yield return null;
 		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 //		p.isIKCatchBall = false;
 //		p.isIKLook = false;
@@ -2276,7 +2355,7 @@ public class GameController : MonoBehaviour
             SetBall(Catcher);
 			if(Catcher.NeedShooting)
 			{
-				Shoot();
+				Shoot(ScoreType.Normal);
 				Catcher.NeedShooting = false;
 			}
             Catcher = null;
@@ -2305,7 +2384,7 @@ public class GameController : MonoBehaviour
 //				Catcher.DelActionFlag(ActionFlag.IsCatcher);
 				if(Catcher.NeedShooting)
 				{
-					Shoot();
+					Shoot(ScoreType.Normal);
 					Catcher.NeedShooting = false;
 				}
 				Catcher = null;

@@ -105,6 +105,51 @@ public struct TMoveData
 		Shooting = false;
     }
 }
+[System.Serializable]
+public struct TScoreRate{
+	public int TwoScoreRate;
+	public float TwoScoreRateDeviation;
+	public int ThreeScoreRate;
+	public float ThreeScoreRateDeviation;
+	public int DownHandScoreRate;
+	public int DownHandSwishRate;
+	public int DownHandAirBallRate;
+	public int UpHandScoreRate;
+	public int UpHandSwishRate;
+	public int UpHandAirBallRate;
+	public int NormalScoreRate;
+	public int NormalSwishRate;
+	public int NormalAirBallRate;
+	public int NearShotScoreRate;
+	public int NearShotSwishRate;
+	public int NearShotAirBallRate;
+	public int LayUpScoreRate;
+	public int LayUpSwishRate;
+	public int LayUpAirBallRate;
+
+	public TScoreRate(int flag) {
+		TwoScoreRate = 50;
+		TwoScoreRateDeviation = 0.8f;
+		ThreeScoreRate = 50;
+		ThreeScoreRateDeviation = 0.5f;
+		DownHandScoreRate = 40;
+		DownHandSwishRate = 50;
+		DownHandAirBallRate = 60;
+		UpHandScoreRate = 20;
+		UpHandSwishRate = 30;
+		UpHandAirBallRate = 40;
+		NormalScoreRate = 0;
+		NormalSwishRate = 0;
+		NormalAirBallRate = 20;
+		NearShotScoreRate = 0;
+		NearShotSwishRate = 10;
+		NearShotAirBallRate = 10;
+		LayUpScoreRate = 0;
+		LayUpSwishRate = 20;
+		LayUpAirBallRate = 5;
+
+	}
+}
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -202,6 +247,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool isIKLook = false;
 	public bool isIKCatchBall = false;
 
+	public TScoreRate ScoreRate;
+
     void initTrigger()
     {
         GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -251,6 +298,8 @@ public class PlayerBehaviour : MonoBehaviour
         DummyBall = gameObject.transform.FindChild("DummyBall").gameObject;
         aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
         initTrigger();
+
+		ScoreRate = new TScoreRate(1);
     }
 
 	public void Init()
@@ -263,9 +312,9 @@ public class PlayerBehaviour : MonoBehaviour
 		if(aimIK != null) {
 			if(pinIKTransform != null) {
 				if(IKTarget != null) {
-					Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
-					aimIK.solver.transform.LookAt(pinIKTransform.position);
 					if(GameStart.Get.IsOpenIKSystem) {
+						Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
+						aimIK.solver.transform.LookAt(pinIKTransform.position);
 						if(isIKOpen) {
 							if(isIKLook){
 								aimIK.enabled = true;
@@ -276,18 +325,22 @@ public class PlayerBehaviour : MonoBehaviour
 
 							if(isIKCatchBall) {
 								fullBodyBipedIK.enabled = true;
+								interactionSystem.enabled = true;
 //								fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
 //								fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
 							} else {
 								fullBodyBipedIK.enabled = false;
+								interactionSystem.enabled = false;
 							}
 						} else {
 							aimIK.enabled = false;
 							fullBodyBipedIK.enabled = false;
+							interactionSystem.enabled = false;
 						}
 					} else {
 						aimIK.enabled = false;
 						fullBodyBipedIK.enabled = false;
+						interactionSystem.enabled = false;
 					}
 					for (int i = 0; i < aimIK.solver.bones.Length; i++) {
 						if (aimIK.solver.bones[i].rotationLimit != null) {
@@ -796,7 +849,7 @@ public class PlayerBehaviour : MonoBehaviour
                             rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
 
 						if(Data.Shooting && NoAiTime == 0)
-							GameController.Get.Shoot();
+							GameController.Get.Shoot(ScoreType.Normal);
                     } else 
 					{
 						if (Data.LookTarget == null){

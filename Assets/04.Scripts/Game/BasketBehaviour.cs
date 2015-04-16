@@ -33,15 +33,18 @@ public class BasketBehaviour : MonoBehaviour {
 	void OnTriggerEnter(Collider c) {
 		if (c.tag == "RealBall") {
 			if (GameController.Visible) {
-				for(int i=0; i<GameController.Get.BaskAnimationState.Length; i++) {
-					if(GameController.Get.BaskAnimationState[i] == GameController.Get.BasketAnimation) {
-						if(i == 0) {
-							SceneMgr.Get.PlayShoot(Team);
-							GameController.Get.PlusScore(Team);
-						} else {
-							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-							animator.SetTrigger("BasketballAction_"+(i -1));
-						}
+				if(GameController.Get.IsScore) {
+					if(GameController.Get.IsSwich) {
+						SceneMgr.Get.PlayShoot(Team);
+						GameController.Get.PlusScore(Team);
+					} else {
+						SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
+						animator.SetTrigger(GameController.Get.BasketScoreAnimationState[Random.Range(0, GameController.Get.BasketScoreAnimationState.Length)]);
+					}
+				} else {
+					if(!GameController.Get.IsAirBall) {
+						SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
+						animator.SetTrigger(GameController.Get.BasketScoreNoneAnimationState[Random.Range(0, GameController.Get.BasketScoreNoneAnimationState.Length)]);
 					}
 				}
 			}

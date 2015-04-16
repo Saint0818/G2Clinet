@@ -8,7 +8,7 @@ namespace RootMotion.FinalIK.Demos {
 	/// </summary>
 	public class ResetInteractionObject : MonoBehaviour {
 
-		public float resetDelay = 1f; // Time since interaction trigger to reset this Transform
+		public float resetDelay = 0.3f; // Time since interaction trigger to reset this Transform
 
 		private Vector3 defaultPosition;
 		private Quaternion defaultRotation;

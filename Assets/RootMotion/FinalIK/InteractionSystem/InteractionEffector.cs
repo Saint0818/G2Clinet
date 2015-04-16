@@ -187,22 +187,29 @@ namespace RootMotion.FinalIK {
 
 		// Trigger the interaction object
 		private void Trigger() {
+			
 			interactionObject.Trigger(effector.bone);
-
 			// Picking up the object
 			if (interactionObject.pickUpOnTrigger) {
 				pickUpPosition = effector.position;
 				pickUpRotation = effector.rotation;
 
 				// Positioning and rotating the interaction object to the effector (not the bone, because it is still at it's animated translation)
-				interactionObject.transform.parent = effector.bone;
-				interactionObject.transform.localPosition = Quaternion.Inverse(pickUpRotation) * (interactionObject.transform.position - pickUpPosition);
-				interactionObject.transform.localRotation = Quaternion.Inverse(pickUpRotation) * interactionObject.transform.rotation;
+				Transform child = effector.bone.FindChild("DummyHand_R");
+				interactionObject.transform.parent = child;
+//				interactionObject.transform.localPosition = Vector3.zero;
+
+//				interactionObject.transform.parent = effector.bone;
+				interactionObject.transform.localPosition = Vector3.zero;
+//				interactionObject.transform.localPosition = Quaternion.Inverse(pickUpRotation) * (interactionObject.transform.position - pickUpPosition);
+//				interactionObject.transform.localRotation = Quaternion.Inverse(pickUpRotation) * interactionObject.transform.rotation;
 
 				pickedUp = true;
 
 				if (OnPickUp != null) OnPickUp(effectorType, interactionObject);
 			}
+			
+//			interactionObject.TriggerSend(effector.bone);
 
 			triggered = true;
 
