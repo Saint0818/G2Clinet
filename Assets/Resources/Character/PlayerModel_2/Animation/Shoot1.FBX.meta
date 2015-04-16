@@ -131,7 +131,7 @@ ModelImporter:
       name: Shoot1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -153,6 +153,13 @@ ModelImporter:
       - time: .460770339
         functionName: AnimationEvent
         data: Shooting
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
