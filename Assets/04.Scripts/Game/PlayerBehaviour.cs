@@ -119,7 +119,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnFakeShootBlockMoment = null;
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
-    private const float MoveCheckValue = 0.5f;
+    private const float MoveCheckValue = 1;
     private const int ChangeToAI = 4;
     public static string[] AnimatorStates = new string[] {
                 "",

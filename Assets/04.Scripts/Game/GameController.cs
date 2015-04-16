@@ -1181,6 +1181,7 @@ public class GameController : MonoBehaviour
             int pushRate = Random.Range(0, 100) + 1;
             int supRate = Random.Range(0, 100) + 1;
             int ALLYOOP = Random.Range(0, 100) + 1;
+			int ElbowRate = Random.Range(0, 100) + 1;
             float Dis = 0;
             float ShootPointDis = 0;
             Vector3 pos = SceneMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position;
@@ -1194,19 +1195,22 @@ public class GameController : MonoBehaviour
             {
                 //Dunk shoot shoot3 pass
                 int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
-                if (ShootPointDis <= GameConst.DunkDistance && dunkRate < 30 && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CheckAttack(ref Npc))
                 {
 					Shoot();
                 } else 
-                if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CheckAttack(ref Npc))
                 {
                     Shoot();
                 } else 
 				if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 10, 90) == 0) && CheckAttack(ref Npc))//|| shoot3Rate < 3
                 {
                     Shoot();				
-                } else 
-                if (passRate < 20 && CoolDownPass == 0 && !IsShooting && !IsDunk)
+				} else 
+				if (ElbowRate < 50 && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.PushPlayerDistance, 90) != 0)){
+					Npc.AniState(PlayerState.Elbow);
+				}else 
+				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.Elbow)) && CoolDownPass == 0 && !IsShooting && !IsDunk)
                 {
                     PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
@@ -1234,7 +1238,7 @@ public class GameController : MonoBehaviour
                         }
                     }
                 } else 
-                if (Dir != 0 && CoolDownCrossover == 0)
+                if (Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
                     //Crossover             
                     TMoveData data = new TMoveData(0);
