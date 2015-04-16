@@ -157,6 +157,20 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .224761903
+        functionName: AnimationEvent
+        data: ElbowCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .702857137
+        functionName: AnimationEvent
+        data: ElbowCalculateEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

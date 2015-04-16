@@ -1152,9 +1152,19 @@ public class GameController : MonoBehaviour
     {
         if (Joysticker)
         {
-            PlayerState ps = PlayerState.Idle;
-            if (BallOwner == Joysticker)
-                ps = PlayerState.Dribble;
+			PlayerState ps;
+
+			if (BallOwner == Joysticker)
+			{
+				if(Joysticker.crtState == PlayerState.Elbow)
+					ps = PlayerState.Elbow;
+				else if(Joysticker.crtState == PlayerState.HoldBall)
+					ps = PlayerState.HoldBall;
+				else
+					ps = PlayerState.Dribble;
+			}
+			else
+				ps = PlayerState.Idle;
             
             Joysticker.OnJoystickMoveEnd(move, ps);
         }

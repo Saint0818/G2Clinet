@@ -147,6 +147,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject selectTexture;
 	private GameObject DefPoint;
 	private GameObject pushTrigger;
+	private GameObject elbowTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public TeamKind Team;
@@ -206,6 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
 			pushTrigger = obj2.transform.FindChild("Push").gameObject;
+			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
             if (objs != null)
@@ -1375,6 +1377,14 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "PushCalculateEnd":
 				pushTrigger.SetActive(false);
+				break;
+
+			case "ElbowCalculateStart":
+				elbowTrigger.gameObject.SetActive(true);
+				break;
+				
+			case "ElbowCalculateEnd":
+				elbowTrigger.SetActive(false);
 				break;
 
             case "DunkJump":

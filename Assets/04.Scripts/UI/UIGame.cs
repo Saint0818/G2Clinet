@@ -117,10 +117,9 @@ public class UIGame : UIBase {
 		buttonStealFX.SetActive(false);
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPass;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragStart = DoPassDragStart;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDragEnd = DoPassDragEnd;
-//			DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDoubleClick = DoElbow;
+//			
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Defance/ButtonSteal")).onPress = DoSteal;
 
 
@@ -223,25 +222,17 @@ public class UIGame : UIBase {
 		isPressStealBtn = state;
 	}
 
-	public void DoPassDragStart(GameObject obj)
+	public void DoElbow(GameObject go)
 	{
-		passObject.SetActive(true);
+		if(go)
+			GameController.Get.DoElbow ();
 	}
 
-	public void DoPassDragEnd(GameObject obj)
-	{
-		Debug.Log (obj.name);
-		passObject.SetActive(false);
-	}
-
-
-	public void DoPass(GameObject obj, bool state){
-		if (state) {
-			PassFX();
-			passBtnTime = ButtonBTime;
-
-		}
-		else if(!state && stealBtnTime > 0){
+	public void DoPassChoose (GameObject obj, bool state) {
+		if(GameController.Get.CoolDownPass == 0) {
+			if(state)
+				PassFX();
+			
 			if(GameController.Get.Joysticker.IsBallOwner) {
 				initLine();
 				passObject.SetActive(state);
@@ -250,27 +241,8 @@ public class UIGame : UIBase {
 				if(!GameController.Get.IsShooting)
 					GameController.Get.DoPass(0);
 			}
-			passBtnTime = ButtonBTime;
 		}
-		
-		isPressPassBtn = state;
 	}
-	
-//	public void DoPassChoose (GameObject obj, bool state) {
-//		if(GameController.Get.CoolDownPass == 0) {
-//			if(state)
-//				PassFX();
-//			
-//			if(GameController.Get.Joysticker.IsBallOwner) {
-//				initLine();
-//				passObject.SetActive(state);
-//				drawLine.IsShow = state;
-//			} else {
-//				if(!GameController.Get.IsShooting)
-//					GameController.Get.DoPass(0);
-//			}
-//		}
-//	}
 
 	public void DoPassTeammateA() {
 		buttonObjectAFXTime = fxTime;
