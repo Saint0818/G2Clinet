@@ -193,8 +193,7 @@ public class UIGame : UIBase {
 		buttonShootFX.SetActive(true);
 	}
 
-	public void DoShoot(GameObject go, bool state) {
-		if(GameController.Get.CoolDownPass == 0) {
+	public void DoShoot(GameObject go, bool state) {		
 			if(state){
 				ShootFX();
 				shootBtnTime = ButtonBTime;
@@ -205,7 +204,6 @@ public class UIGame : UIBase {
 			}
 
 			isPressShootBtn = state;
-		}
 	}
 
 	public void DoSteal(GameObject go, bool state)
