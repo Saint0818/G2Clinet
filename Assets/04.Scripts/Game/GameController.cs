@@ -1260,10 +1260,10 @@ public class GameController : MonoBehaviour
                     
                     if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push))
                     {
-						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0)
+						if (Dis <= GameConst.PushPlayerDistance && pushRate < 50 && BallOwner.Invincible == 0 && Npc.CoolDownPush == 0)
                         {
-							Debug.Log(Npc + "__1111");
-							Npc.AniState (PlayerState.Push);
+							if(Npc.AniState (PlayerState.Push))
+								Npc.CoolDownPush = Time.time + 3;
                         } else 
                         if (Dis <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0 && !IsDunk && !IsShooting)
                         {
