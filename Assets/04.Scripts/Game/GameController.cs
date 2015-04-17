@@ -116,7 +116,7 @@ public class GameController : MonoBehaviour
     private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
     private List<TTactical> MovePositionList = new List<TTactical>();
     private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
-    public PlayerBehaviour BallOwner;
+   
     private bool IsStart = true;
     public float CoolDownPass = 0;
     private float CoolDownCrossover = 0;
@@ -125,9 +125,13 @@ public class GameController : MonoBehaviour
 	private float WaitTeeBallTime = 0;
 	private float WaitStealTime = 0;
 	public bool IsPassing = false;
-    public PlayerBehaviour Joysticker;
+	
+	public PlayerBehaviour BallOwner;
+	public PlayerBehaviour Joysticker;
     public PlayerBehaviour Catcher;
     public PlayerBehaviour Shooter;
+	public PlayerBehaviour Passer;
+
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
@@ -379,7 +383,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < PlayerList.Count; i ++)
         {
             PlayerList [i].OnShooting = OnShooting;
-            PlayerList [i].OnPass = OnPass;
+//            PlayerList [i].OnPass = OnPass;
             PlayerList [i].OnStealMoment = OnStealMoment;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
@@ -760,6 +764,7 @@ public class GameController : MonoBehaviour
         if (BallOwner && BallOwner == player)
         {                   
 			Shooter = player;
+			BallOwner = null;
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
 			calculationScoreRate(player, scoreType);
@@ -777,8 +782,6 @@ public class GameController : MonoBehaviour
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
 					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 60);
 			}
-
-
 
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
@@ -1008,19 +1011,19 @@ public class GameController : MonoBehaviour
 		return 0;
 	}
     
-    public bool OnPass(PlayerBehaviour player)
-    {
-        if (Catcher)
-        {
-            SceneMgr.Get.SetBallState(PlayerState.PassFlat);
-            SceneMgr.Get.RealBallRigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));   
-            if (Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position) > 15f)
-                CameraMgr.Get.IsLongPass = true;
-            
-            return true;
-        } else
-            return false;
-    }
+//    public bool OnPass(PlayerBehaviour player)
+//    {
+//        if (Catcher)
+//        {
+//            SceneMgr.Get.SetBallState(PlayerState.PassFlat);
+//            SceneMgr.Get.RealBallRigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));   
+//            if (Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position) > 15f)
+//                CameraMgr.Get.IsLongPass = true;
+//            
+//            return true;
+//        } else
+//            return false;
+//    }
 
     public void DoPass(int playerid)
     {
@@ -1726,8 +1729,10 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner == null)
         {
-            PickBall(ref npc, true);
-            PickBall(ref npc.DefPlayer, true);
+			if(!Passer){
+	            PickBall(ref npc, true);
+	            PickBall(ref npc.DefPlayer, true);
+			}
         } else
         {
 			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
@@ -1967,6 +1972,8 @@ public class GameController : MonoBehaviour
 
                 BallOwner = p;
 				BallOwner.IsBallOwner = true;
+				Passer = null;
+				Shooter = null;
 
 				if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
 				{

@@ -52,10 +52,12 @@ public class BallTrigger : MonoBehaviour
 	public bool PassBall(int Kind = 0)
 	{
 		if (GameController.Get.Catcher && GameController.Get.BallOwner != null) {
+			GameController.Get.Passer = GameController.Get.BallOwner;
+			GameController.Get.BallOwner = null;
 			Passing = true;
 			GameController.Get.IsPassing = true;
 			PassKind = Kind;
-			if( Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.transform.position) > 15f)
+			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
 			SceneMgr.Get.SetBallState(PlayerState.PassFlat);
@@ -69,7 +71,7 @@ public class BallTrigger : MonoBehaviour
 				break;
 			case 2:
 				Vector3 [] pathay = new Vector3[2];
-				pathay[0] = GetMiddlePosition(GameController.Get.BallOwner.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
+				pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
 				pathay[1] = GameController.Get.Catcher.DummyBall.transform.position;
 				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
@@ -138,10 +140,10 @@ public class BallTrigger : MonoBehaviour
 		while (Parabolamove && GameController.Get.Catcher != null)  
 		{  
 			float [] disAy = new float[4];
-			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position, GameController.Get.BallOwner.transform.position);
-			disAy [1] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.BackSteal.GetHashCode()].position, GameController.Get.BallOwner.transform.position);
-			disAy [2] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.RightSteal.GetHashCode()].position, GameController.Get.BallOwner.transform.position);
-			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position, GameController.Get.BallOwner.transform.position);
+			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [1] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.BackSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [2] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.RightSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
 			int Index = MinIndex(disAy);
 			
 			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 2, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);
@@ -160,7 +162,7 @@ public class BallTrigger : MonoBehaviour
 			{
 				Passing = false;
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
-				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.BallOwner.transform.position);
+				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
 			}else
 				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
 

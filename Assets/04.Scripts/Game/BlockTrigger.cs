@@ -9,7 +9,7 @@ public class BlockTrigger : MonoBehaviour {
 	void Start()
 	{
 		blocker = gameObject.transform.parent.parent.gameObject.GetComponent<PlayerBehaviour>();
-		gameObject.GetComponent<MeshRenderer> ().enabled = true;
+		gameObject.GetComponent<MeshRenderer> ().enabled = false;
 		gameObject.SetActive(false);
 	}
 
@@ -27,7 +27,6 @@ public class BlockTrigger : MonoBehaviour {
 				}
 			}
 		} else if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
-			Debug.Log("Block ball");
 			SceneMgr.Get.SetBallState(PlayerState.Block);
 		}
 	}
