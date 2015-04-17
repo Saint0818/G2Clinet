@@ -341,7 +341,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
-				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
+				
+//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
+				Vector3 v = RealBall.transform.forward * -1;
 				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
