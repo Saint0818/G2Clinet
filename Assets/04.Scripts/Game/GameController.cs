@@ -1229,10 +1229,16 @@ public class GameController : MonoBehaviour
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
                 Joysticker.ClearMoveQueue();
-                PlayerState ps = PlayerState.Run;
-                if (BallOwner == Joysticker)
-                    ps = PlayerState.RunAndDribble;
+				PlayerState ps = Joysticker.crtState;
 
+				if(!Joysticker.IsFall)
+				{
+					if(BallOwner == Joysticker)
+						ps = PlayerState.RunAndDribble;
+					else
+						ps = PlayerState.Run;
+				}
+                    
                 Joysticker.OnJoystickMove(move, ps);
             }
         }
