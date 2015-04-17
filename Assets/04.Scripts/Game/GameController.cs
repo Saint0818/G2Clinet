@@ -839,11 +839,10 @@ public class GameController : MonoBehaviour
     public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false)
     {
 		bool Result = false;
-		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && CoolDownPass == 0)
+		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false)
         {
-			if(!IsBtn && BallOwner == Joysticker && BallOwner.NoAiTime > 0)
+			if(!IsBtn && BallOwner == Joysticker && BallOwner.NoAiTime > 0 && CoolDownPass == 0)
 				return Result;
-
              
 			if(IsTee)
 			{
@@ -1032,7 +1031,7 @@ public class GameController : MonoBehaviour
 	
 	public bool OnStealMoment(PlayerBehaviour player)
     {
-        if (BallOwner && BallOwner.Invincible == 0){
+        if (BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk){
 			int r = Mathf.RoundToInt(player.Attr.Steal - BallOwner.Attr.Control);
 			int maxRate = 100;
 			int minRate = 10;
