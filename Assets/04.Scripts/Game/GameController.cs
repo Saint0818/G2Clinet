@@ -420,9 +420,10 @@ public class GameController : MonoBehaviour
 			WaitStealTime = 0;
 			
 		if(isCatchBall) {
-			Transform t = BallOwner.gameObject.transform.FindChild("DummyBall");
-			Vector3 ori = t.position - SceneMgr.Get.RealBall.transform.position ;
-			SceneMgr.Get.RealBall.transform.Translate(ori / 15);
+//			Transform t = BallOwner.gameObject.transform.FindChild("DummyBall");
+			Vector3 player = new Vector3(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.y + 1.5f, BallOwner.gameObject.transform.position.z);
+			Vector3 ori = player - SceneMgr.Get.RealBall.transform.position ;
+			SceneMgr.Get.RealBall.transform.Translate(ori / -20);
 		}
     }
 
@@ -2005,7 +2006,7 @@ public class GameController : MonoBehaviour
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
 			isCatchBall = true;
-			yield return new WaitForSeconds(0.3f);
+			yield return new WaitForSeconds(0.25f);
 			p.isIKOpen = false;
 			p.isIKCatchBall = false;
 			isCatchBall = false;
