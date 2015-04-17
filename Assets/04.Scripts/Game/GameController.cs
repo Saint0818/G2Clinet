@@ -436,7 +436,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < PlayerList.Count; i++)
             {
                 PlayerBehaviour Npc = PlayerList [i];
-				if (CandoAI(Npc) && Npc.NoAiTime == 0)
+				if (CandoAI(Npc))
 				{
 					if (Npc.Team == team)
                     {
@@ -524,10 +524,10 @@ public class GameController : MonoBehaviour
 
     private bool CandoAI(PlayerBehaviour npc)
     {
-        if (npc.isJoystick && npc.Team == TeamKind.Self && npc == Joysticker && npc.NoAiTime != 0)
-            return false;
-        else
+        if (npc.NoAiTime == 0)
             return true;
+        else
+            return false;
     }
     
     public void ChangeSituation(GameSituation GS, PlayerBehaviour GetBall = null)
@@ -541,6 +541,15 @@ public class GameController : MonoBehaviour
                 SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
+					if(GS == GameSituation.TeeAPicking || GS == GameSituation.TeeBPicking)
+					{
+						if(PlayerList[i].NoAiTime > 0)
+						{
+							PlayerList[i].HaveNoAiTime = true;							
+							PlayerList[i].SetAiTime();
+						}
+					}												
+
 					switch(PlayerList[i].Team)
 					{
 					case TeamKind.Self:
@@ -847,8 +856,11 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false)
         {
-			if(!IsBtn && BallOwner == Joysticker && BallOwner.NoAiTime > 0 && CoolDownPass == 0)
+			if(!IsBtn && CoolDownPass != 0)
 				return Result;
+
+			if(!IsBtn && BallOwner.NoAiTime > 0)
+			   return Result;
              
 			if(IsTee)
 			{
@@ -1316,7 +1328,7 @@ public class GameController : MonoBehaviour
 						Npc.CoolDownElbow = Time.time + 3;
 					}
 				}else 
-				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(PlayerState.Elbow))
+				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(PlayerState.Elbow) && BallOwner.NoAiTime == 0)
                 {
                     PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
@@ -1955,6 +1967,18 @@ public class GameController : MonoBehaviour
 
                 BallOwner = p;
 				BallOwner.IsBallOwner = true;
+
+				if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
+				{
+					for(int i = 0; i < PlayerList.Count; i++)
+					{
+						if(PlayerList[i].HaveNoAiTime)
+						{
+							PlayerList[i].HaveNoAiTime = false;
+							PlayerList[i].SetNoAiTime();
+						}
+					}
+				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 //                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);

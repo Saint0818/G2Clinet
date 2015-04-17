@@ -198,6 +198,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject DummyBall;
     public TeamKind Team;
 	public float NoAiTime = 0;
+	public bool HaveNoAiTime = false;
     public int Index;
     public GameSituation situation = GameSituation.None;
     public PlayerState crtState = PlayerState.Idle;
@@ -396,7 +397,6 @@ public class PlayerBehaviour : MonoBehaviour
 	    {
 	        MoveQueue.Clear();
 	        NoAiTime = 0;
-//	        DelActionFlag(ActionFlag.IsRun);
 
 	        if (AIActiveHint)
 	            AIActiveHint.SetActive(true);
@@ -484,7 +484,14 @@ public class PlayerBehaviour : MonoBehaviour
 				AIActiveHint.SetActive(true);
 		}
     }
-    
+
+	public void SetAiTime()
+	{
+		NoAiTime = 0;
+		if (AIActiveHint)
+			AIActiveHint.SetActive(true);
+	}
+	
     private void CalculationAirResistance()
     {
         if (gameObject.transform.localPosition.y > 1f)
@@ -1015,13 +1022,9 @@ public class PlayerBehaviour : MonoBehaviour
 				FirstMoveQueue.Clear();
 			}
 
-            NoAiTime = 0;
             WaitMoveTime = 0;
 			NeedShooting = false;
             isJoystick = false; 
-
-			if (AIActiveHint)
-				AIActiveHint.SetActive(true);
         } else
             NeedResetFlag = true;
     }
