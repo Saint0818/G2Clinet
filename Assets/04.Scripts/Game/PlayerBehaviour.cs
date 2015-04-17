@@ -1401,7 +1401,7 @@ public class PlayerBehaviour : MonoBehaviour
 					OnStealMoment(this);
 				break;
 			case "FakeShootBlockMoment":
-				if (OnFakeShootBlockMoment != null)
+				if (crtState != PlayerState.Shooting && OnFakeShootBlockMoment != null)
 					OnFakeShootBlockMoment(this);
 				break;
 
