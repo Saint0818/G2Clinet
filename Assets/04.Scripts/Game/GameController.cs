@@ -419,7 +419,7 @@ public class GameController : MonoBehaviour
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
 			WaitStealTime = 0;
 			
-		if(isCatchBall) {
+		if(isCatchBall && BallOwner != null) {
 //			Transform t = BallOwner.gameObject.transform.FindChild("DummyBall");
 			Vector3 player = new Vector3(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.y + 1.5f, BallOwner.gameObject.transform.position.z);
 			Vector3 ori = player - SceneMgr.Get.RealBall.transform.position ;
