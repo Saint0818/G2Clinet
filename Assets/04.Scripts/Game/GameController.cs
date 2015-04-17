@@ -1984,7 +1984,9 @@ public class GameController : MonoBehaviour
 		} else {
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
-			SceneMgr.Get.RealBall.transform.DOMove(p.gameObject.transform.FindChild("DummyBall").position, 0.1f);
+			Transform t = p.gameObject.transform.FindChild("DummyBall");
+			Vector3 ori = t.position - SceneMgr.Get.RealBall.transform.position;
+			SceneMgr.Get.RealBall.transform.DOMove(t.position - (ori *0.5f), 0.1f);
 			yield return new WaitForSeconds(0.3f);
 			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 			p.isIKOpen = false;

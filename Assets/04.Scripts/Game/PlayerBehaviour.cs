@@ -240,7 +240,6 @@ public class PlayerBehaviour : MonoBehaviour
 	//IK
 	private AimIK aimIK;
 	private FullBodyBipedIK fullBodyBipedIK;
-//	public InteractionSystem interactionSystem;
 	private Transform pinIKTransform;
 	public Transform IKTarget;
 	public bool isIKOpen = false;
@@ -287,11 +286,11 @@ public class PlayerBehaviour : MonoBehaviour
 		//IK
 		aimIK = gameObject.GetComponent<AimIK>();
 		fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
-
 		aimIK.enabled = GameStart.Get.IsOpenIKSystem;
-//		interactionSystem = gameObject.GetComponent<InteractionSystem>();
+		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
 		pinIKTransform = transform.FindChild("Pin");
 		IKTarget = SceneMgr.Get.RealBall.transform;
+
 		ikRotationLimits = gameObject.GetComponentsInChildren<RotationLimitAngle>();
 		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
 		for(int i = 0 ; i < ikRotationLimits.Length; i++)

@@ -618,9 +618,6 @@ public class ModelManager : MonoBehaviour {
 				fbbik.solver.pullBodyHorizontal = 0.3f;
 
 
-//				InteractionSystem interactionSystem = result.GetComponent<InteractionSystem>();
-//				if(interactionSystem == null)
-//					interactionSystem = result.AddComponent<InteractionSystem>();
 			}
 
 			
