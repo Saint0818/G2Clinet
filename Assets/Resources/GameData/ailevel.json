@@ -5,7 +5,12 @@
         "autofollowtime": 10,
         "defdistance": 1,
         "blockrate": 10,
-        "faketblockrate": 90
+        "faketblockrate": 90,
+        "pushingrate": 10,
+        "elbowingrate": 10,
+        "blockdunk": 60,
+        "jumpballrate": 60,
+        "reboundrata": 60
     },
     {
         "proactiverate": 20,
@@ -13,7 +18,12 @@
         "autofollowtime": 8,
         "defdistance": 2,
         "blockrate": 20,
-        "faketblockrate": 80
+        "faketblockrate": 80,
+        "pushingrate": 20,
+        "elbowingrate": 20,
+        "blockdunk": 65,
+        "jumpballrate": 65,
+        "reboundrata": 65
     },
     {
         "proactiverate": 40,
@@ -21,7 +31,12 @@
         "autofollowtime": 6,
         "defdistance": 4,
         "blockrate": 40,
-        "faketblockrate": 60
+        "faketblockrate": 60,
+        "pushingrate": 40,
+        "elbowingrate": 40,
+        "blockdunk": 70,
+        "jumpballrate": 70,
+        "reboundrata": 70
     },
     {
         "proactiverate": 60,
@@ -29,7 +44,12 @@
         "autofollowtime": 4,
         "defdistance": 6,
         "blockrate": 60,
-        "faketblockrate": 40
+        "faketblockrate": 40,
+        "pushingrate": 60,
+        "elbowingrate": 60,
+        "blockdunk": 80,
+        "jumpballrate": 80,
+        "reboundrata": 80
     },
     {
         "proactiverate": 80,
@@ -37,7 +57,12 @@
         "autofollowtime": 2,
         "defdistance": 8,
         "blockrate": 80,
-        "faketblockrate": 20
+        "faketblockrate": 20,
+        "pushingrate": 80,
+        "elbowingrate": 80,
+        "blockdunk": 90,
+        "jumpballrate": 90,
+        "reboundrata": 90
     },
     {
         "proactiverate": 100,
@@ -45,6 +70,11 @@
         "autofollowtime": 1,
         "defdistance": 10,
         "blockrate": 90,
-        "faketblockrate": 10
+        "faketblockrate": 10,
+        "pushingrate": 100,
+        "elbowingrate": 100,
+        "blockdunk": 100,
+        "jumpballrate": 100,
+        "reboundrata": 100
     }
 ]
