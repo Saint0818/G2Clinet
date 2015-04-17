@@ -1045,8 +1045,12 @@ public class GameController : MonoBehaviour
 			int AddRate = 0;
 			if(SceneMgr.Get.RealBallFX.activeInHierarchy)
 				AddRate = 30;
+
+			Vector3 lookAtPos = player.transform.position;
+			Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
+			float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 							
-			if (stealRate <= (r + AddRate))
+			if (stealRate <= (r + AddRate) && mangle <= 70 && mangle >= -70)
 			{
 				if(BallOwner)
 					BallOwner.AniState(PlayerState.GotSteal);
@@ -1404,9 +1408,9 @@ public class GameController : MonoBehaviour
 			bool sucess = false;
 
             //steal push Def
-            if (!IsShooting)
-            {
-                if (BallOwner != null)
+			if (!IsShooting && Npc.NoAiTime == 0)
+			{
+				if (BallOwner != null)
                 {
 					DisAy[0].Distance = getDis(ref BallOwner, ref Npc);
 					DisAy[0].Player = BallOwner;
@@ -1590,7 +1594,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < PlayerList.Count; i++)
         {
             PlayerBehaviour Npc1 = PlayerList [i];
-            if (Npc1.Team == Npc.Team && !Npc.IsFall)
+            if (Npc1.Team == Npc.Team && !Npc.IsFall && Npc.NoAiTime == 0)
             {
                 if (NearPlayer == null)
                     NearPlayer = Npc1;
@@ -1616,7 +1620,7 @@ public class GameController : MonoBehaviour
             {
 				if(team == TeamKind.Self && Npc == Joysticker)
 					continue;
-				else{
+				else if(Npc.NoAiTime == 0){
 	                if (NearPlayer == null)
 	                    NearPlayer = Npc;
 	                else if (getDis(ref NearPlayer, SceneMgr.Get.RealBall.transform.position) > getDis(ref Npc, SceneMgr.Get.RealBall.transform.position))
@@ -1960,9 +1964,15 @@ public class GameController : MonoBehaviour
 //                        p.AniState(PlayerState.Dribble);
                     }
 
-                    for (int i = 0; i < PlayerList.Count; i++)
+                    for (int i = 0; i < PlayerList.Count; i++){
                         if (PlayerList [i].Team != p.Team)
                             PlayerList [i].ResetMove();
+
+						if(PlayerList[i].HaveNoAiTime){
+							PlayerList[i].HaveNoAiTime = false;
+							PlayerList[i].NoAiTime = Time.time + 4;
+						}
+					}
                 }
 
                 Shooter = null;

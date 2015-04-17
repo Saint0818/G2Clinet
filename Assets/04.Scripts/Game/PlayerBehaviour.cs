@@ -198,6 +198,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject DummyBall;
     public TeamKind Team;
 	public float NoAiTime = 0;
+	public bool HaveNoAiTime = false;
     public int Index;
     public GameSituation situation = GameSituation.None;
     public PlayerState crtState = PlayerState.Idle;
@@ -1014,6 +1015,7 @@ public class PlayerBehaviour : MonoBehaviour
 				MoveQueue.Clear();
 				FirstMoveQueue.Clear();
 			}
+			HaveNoAiTime = NoAiTime > 0;
             NoAiTime = 0;
             WaitMoveTime = 0;
 			NeedShooting = false;
