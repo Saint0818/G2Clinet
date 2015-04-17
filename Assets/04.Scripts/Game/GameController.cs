@@ -123,6 +123,7 @@ public class GameController : MonoBehaviour
     private float ShootDis = 0;
     private float RealBallFxTime = 0;
 	private float WaitTeeBallTime = 0;
+	private float WaitStealTime = 0;
 	public bool IsPassing = false;
     public PlayerBehaviour Joysticker;
     public PlayerBehaviour Catcher;
@@ -413,6 +414,9 @@ public class GameController : MonoBehaviour
 			WaitTeeBallTime = 0;
 			AutoTee();
 		}
+
+		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
+			WaitStealTime = 0;
     }
 
     private void SituationAttack(TeamKind team)
@@ -1042,7 +1046,6 @@ public class GameController : MonoBehaviour
 					BallOwner.AniState(PlayerState.GotSteal);
 					
 				setDropBall();
-				player.SetInvincible(5);
 				return true;
 			}else
 			if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -1434,12 +1437,14 @@ public class GameController : MonoBehaviour
 							} 
 						}
 
-						if (!sucess && DisAy[0].Distance <= GameConst.StealBallDistance && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
+						if (!sucess && DisAy[0].Distance <= GameConst.StealBallDistance && WaitStealTime == 0 && BallOwner.Invincible == 0 && Npc.CoolDownSteal == 0)
                         {
 							if(GetStealRate(ref Npc))
                             {
-                                if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position))
-                                	Npc.CoolDownSteal = Time.time + 3;                                
+                                if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position)){
+                                	Npc.CoolDownSteal = Time.time + 3;                              
+									WaitStealTime = Time.time + 2;
+								}
                             }
                         }
                     }
