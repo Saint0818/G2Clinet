@@ -380,7 +380,7 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
-            PlayerList [i].OnBlocking = OnBlocking;
+//            PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
         }
@@ -826,12 +826,12 @@ public class GameController : MonoBehaviour
             return false;
     }
     
-    public bool Pass(PlayerBehaviour player, bool IsTee = false)
+    public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false)
     {
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && CoolDownPass == 0)
         {
-			if(BallOwner == Joysticker && BallOwner.NoAiTime > 0)
+			if(!IsBtn && BallOwner == Joysticker && BallOwner.NoAiTime > 0)
 				return Result;
 
              
@@ -1006,9 +1006,9 @@ public class GameController : MonoBehaviour
 				BallOwner.NoAiTime = 0;
 
                 if (BallOwner == Joysticker)
-                    Pass(PlayerList [playerid]);
+                    Pass(PlayerList [playerid], false, true);
                 else
-                    Pass(Joysticker);
+					Pass(Joysticker, false, true);
 
 				Joysticker.NoAiTime = aiTime;
             }
