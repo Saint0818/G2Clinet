@@ -247,6 +247,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool isIKLook = false;
 	public bool isIKCatchBall = false;
 
+	private RotationLimitAngle[] ikRotationLimits;
 	public TScoreRate ScoreRate;
 
     void initTrigger()
@@ -288,10 +289,13 @@ public class PlayerBehaviour : MonoBehaviour
 		fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
 
 		aimIK.enabled = GameStart.Get.IsOpenIKSystem;
-		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
 //		interactionSystem = gameObject.GetComponent<InteractionSystem>();
 		pinIKTransform = transform.FindChild("Pin");
 		IKTarget = SceneMgr.Get.RealBall.transform;
+		ikRotationLimits = gameObject.GetComponentsInChildren<RotationLimitAngle>();
+		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
+		for(int i = 0 ; i < ikRotationLimits.Length; i++)
+			ikRotationLimits[i].enabled = GameStart.Get.IsOpenIKSystem;
 
         animator = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -1251,17 +1255,19 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case PlayerState.Fall0:
+				isDunk = false;
+				isShootJump = false;
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("FallTrigger");
-				isDunk = false;
 				gameObject.transform.DOLocalMoveY(0, 1f);
 				Result = true;
 				break;
 
 			case PlayerState.Fall1:
+				isDunk = false;
+				isShootJump = false;
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("FallTrigger");
-				isDunk = false;
 				gameObject.transform.DOLocalMoveY(0, 1f);
 				Result = true;
 				break;
@@ -1363,7 +1369,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
 					playerShootCurve = null;
 					for (int i = 0; i < aniCurve.Shoot.Length; i++)
-						if (aniCurve.Shoot [i].Name == "Shoot")
+						if (aniCurve.Shoot [i].Name == "Shoot0")
 						{
 							playerShootCurve = aniCurve.Shoot[i];
 							shootJumpCurveTime = 0;
@@ -1486,6 +1492,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "AnimationEnd":
 				AniState(PlayerState.Idle);
+
+				blockTrigger.SetActive(false);
+				pushTrigger.SetActive(false);
+				elbowTrigger.SetActive(false);
+
 				PlayerRigidbody.useGravity = true;
 
                 if (!NeedResetFlag)
@@ -1517,25 +1528,25 @@ public class PlayerBehaviour : MonoBehaviour
         get
         {
 			PlayerState[] CheckAy = {
-				PlayerState.Steal,
-				PlayerState.Dunk,
 				PlayerState.Block,
 				PlayerState.BlockCatch,
-				PlayerState.PassFlat,
-				PlayerState.PassFloor,
-				PlayerState.PassParabola,
-				PlayerState.Tee,
-				PlayerState.FakeShoot,
 				PlayerState.CatchFlat,
 				PlayerState.CatchFloor,
 				PlayerState.CatchParabola,
-				PlayerState.Shooting,
-				PlayerState.GotSteal,
-				PlayerState.Push,
+				PlayerState.Dunk,
 				PlayerState.Elbow,
+				PlayerState.FakeShoot,
 				PlayerState.Fall0,
 				PlayerState.Fall1,
-				PlayerState.HoldBall
+				PlayerState.GotSteal,
+				PlayerState.HoldBall,
+				PlayerState.PassFlat,
+				PlayerState.PassFloor,
+				PlayerState.PassParabola,
+				PlayerState.Push,
+				PlayerState.Shooting,
+				PlayerState.Steal,
+				PlayerState.Tee,
 			};
 
 			for(int i = 0 ; i < CheckAy.Length; i++)

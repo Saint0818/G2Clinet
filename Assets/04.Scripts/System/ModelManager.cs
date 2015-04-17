@@ -143,8 +143,6 @@ public class ModelManager : MonoBehaviour {
 		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
 		DefPointCopy.transform.parent = Res.transform;
 		DefPointCopy.transform.localPosition = Vector3.zero;
-		if(Team == TeamKind.Npc)
-			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		GameObject AnimatorCurveCopy = Instantiate(AnimatorCurveManager) as GameObject;
 		AnimatorCurveCopy.transform.parent = Res.transform;
@@ -167,6 +165,8 @@ public class ModelManager : MonoBehaviour {
 		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
 		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
 
+		if(Team == TeamKind.Npc)
+			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 		return PB;
 	}
 
