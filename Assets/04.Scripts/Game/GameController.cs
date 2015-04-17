@@ -854,7 +854,7 @@ public class GameController : MonoBehaviour
     public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false)
     {
 		bool Result = false;
-		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false)
+		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && player != BallOwner)
         {
 			if(!IsBtn && CoolDownPass != 0)
 				return Result;
