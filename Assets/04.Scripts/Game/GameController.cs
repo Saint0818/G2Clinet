@@ -1929,7 +1929,6 @@ public class GameController : MonoBehaviour
                 BallOwner = p;
 				BallOwner.IsBallOwner = true;
 
-
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 //                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
