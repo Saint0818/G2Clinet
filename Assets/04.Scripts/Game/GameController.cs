@@ -436,11 +436,11 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < PlayerList.Count; i++)
             {
                 PlayerBehaviour Npc = PlayerList [i];
-                if (CandoAI(Npc))
-                {
-                    if (Npc.Team == team)
+				if (CandoAI(Npc) && Npc.NoAiTime == 0)
+				{
+					if (Npc.Team == team)
                     {
-                        if (!IsPassing && Npc.NoAiTime == 0)
+                        if (!IsPassing)
                         {
                             if (!IsShooting)
                             {
@@ -1968,11 +1968,6 @@ public class GameController : MonoBehaviour
                     for (int i = 0; i < PlayerList.Count; i++){
                         if (PlayerList [i].Team != p.Team)
                             PlayerList [i].ResetMove();
-
-						if(PlayerList[i].HaveNoAiTime){
-							PlayerList[i].HaveNoAiTime = false;
-							PlayerList[i].NoAiTime = Time.time + 4;
-						}
 					}
                 }
 
