@@ -129,7 +129,7 @@ public struct TScoreRate{
 	public int LayUpAirBallRate;
 
 	public TScoreRate(int flag) {
-		TwoScoreRate = 50;
+		TwoScoreRate = 70;
 		TwoScoreRateDeviation = 0.8f;
 		ThreeScoreRate = 50;
 		ThreeScoreRateDeviation = 0.5f;

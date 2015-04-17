@@ -137,6 +137,7 @@ public class GameController : MonoBehaviour
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
 	private bool isCatchBall = false;
 
+	//Score Animation Value
 	public bool IsScore;
 	public bool IsSwich;
 	public bool IsAirBall;
@@ -423,11 +424,19 @@ public class GameController : MonoBehaviour
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
 			WaitStealTime = 0;
 			
-		if(isCatchBall && BallOwner != null) {
-//			Transform t = BallOwner.gameObject.transform.FindChild("DummyBall");
-			Vector3 player = new Vector3(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.y + 1.5f, BallOwner.gameObject.transform.position.z);
-			Vector3 ori = player - SceneMgr.Get.RealBall.transform.position ;
-			SceneMgr.Get.RealBall.transform.Translate(ori / -20);
+		if(isCatchBall) {
+			if(BallOwner) {
+
+				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyBall").position;
+//				Vector3 player = new Vector3(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.y + 1.5f, BallOwner.gameObject.transform.position.z);
+				Vector3 ori = player - SceneMgr.Get.RealBall.transform.position ;
+				Vector3 move = ori/10;
+				Debug.Log("player:"+player);
+				Debug.Log("SceneMgr.Get.RealBall.transform.position:"+SceneMgr.Get.RealBall.transform.position);
+				Debug.Log("ori:"+ori);
+				Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				SceneMgr.Get.RealBall.transform.Translate(move);
+			}
 		}
     }
 
@@ -696,6 +705,7 @@ public class GameController : MonoBehaviour
 		float originalRate = 0;
 		if(ShootDis >= GameConst.TreePointDistance) {
 			originalRate = player.ScoreRate.ThreeScoreRate * player.ScoreRate.ThreeScoreRateDeviation;
+			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else {
 			originalRate = player.ScoreRate.TwoScoreRate * player.ScoreRate.TwoScoreRateDeviation;
 		}
@@ -870,6 +880,7 @@ public class GameController : MonoBehaviour
 				if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
 				{
 					Catcher = player;
+					EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 					CoolDownPass = Time.time + 8;
 				}												
 			}else

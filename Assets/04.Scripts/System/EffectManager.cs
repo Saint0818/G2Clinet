@@ -6,7 +6,8 @@ using GameStruct;
 public class EffectManager : MonoBehaviour
 {
 	private static EffectManager instance = null;
-	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect"};
+	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect",
+											"ThreeLineEffect", "ThrowInLineEffect"};
 	private bool GameEffectLoaded = false;
 	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
@@ -39,7 +40,9 @@ public class EffectManager : MonoBehaviour
 		if(effectList.ContainsKey(effectName))
 			obj = effectList[effectName];
 		else {
-			obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
+			obj = (GameObject) Resources.Load("Prefab/Effect/"+effectName, typeof(GameObject));
+			if(obj == null)
+				obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
 			effectList.Add(effectName, obj);
 		}
 
@@ -62,6 +65,7 @@ public class EffectManager : MonoBehaviour
 			if(obj != null) {
 				GameObject particles = (GameObject)Instantiate(obj);
 				particles.transform.position = position;
+				particles.SetActive(true);
 				particles.name = effectName;
 
 				if(particles.GetComponent<ParticleSystem>() == null) {
