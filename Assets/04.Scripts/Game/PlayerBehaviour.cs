@@ -186,7 +186,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float ProactiveTime = 0;
     private int smoothDirection = 0;
     private float animationSpeed = 0;
-    private float AniWaitTime = 0;
     public Rigidbody PlayerRigidbody;
     private Animator animator;
     private GameObject selectTexture;
@@ -383,14 +382,7 @@ public class PlayerBehaviour : MonoBehaviour
 			else 
 			if (MoveQueue.Count > 0)
 				MoveTo(MoveQueue.Peek());
-		}       
-
-        if (AniWaitTime > 0 && AniWaitTime <= Time.time)
-        {
-            AniWaitTime = 0;
-            if (NeedResetFlag)
-                ResetFlag();
-        }
+		} 
             
 		if (NoAiTime > 0 && Time.time >= NoAiTime)
 	    {
@@ -803,7 +795,6 @@ public class PlayerBehaviour : MonoBehaviour
                 (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
             {
                 MoveTurn = 0;
-//                DelActionFlag(ActionFlag.IsRun);
 
                 if (IsDefence)
                 {
@@ -880,15 +871,13 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Data.MoveFinish != null)
                     Data.MoveFinish(this, Data.Speedup);
 
-                if (First)
+                if (First && FirstMoveQueue.Count > 0)
                     FirstMoveQueue.Dequeue();
-                else
+                else if(MoveQueue.Count > 0)
                     MoveQueue.Dequeue();
             } else 
             if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
-            {
-//				AddActionFlag(ActionFlag.IsRun);
-				                
+            {							               
                 MoveTurn++;
                 rotateTo(MoveTarget.x, MoveTarget.y);
 				if (MoveTurn == 1)
@@ -1019,8 +1008,9 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
-        if (AniWaitTime == 0 && crtState != PlayerState.CatchFlat)
+        if (CheckAnimatorSate(PlayerState.Idle))
         {
+			NeedResetFlag = false;
             for (int i = 0; i < PlayerActionFlag.Length; i++)
                 PlayerActionFlag [i] = 0;
             
@@ -1224,7 +1214,6 @@ public class PlayerBehaviour : MonoBehaviour
 					PlayerRigidbody.useGravity = false;
 					animator.SetTrigger("DunkTrigger");
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
-					AniWaitTime = Time.time + 2.9f;
                     DunkTo();
                     Result = true;
                 }
@@ -1283,7 +1272,6 @@ public class PlayerBehaviour : MonoBehaviour
                     if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
                         animator.SetBool(AnimatorStates [i], false);
                 Result = true;
-
                 break;
 
             case PlayerState.MovingDefence:
@@ -1390,7 +1378,12 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 		
         if (Result)
+		{
             crtState = state;
+						
+			if (crtState == PlayerState.Idle && NeedResetFlag)
+				ResetFlag();
+		}
 
         return Result;
     }
