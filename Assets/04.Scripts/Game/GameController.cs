@@ -1682,7 +1682,7 @@ public class GameController : MonoBehaviour
 						} else
 						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
 						{
-							if (Npc.Index == Npc2.Index || Rate <= BlockRate)
+							if (Rate <= BlockRate)
 							{
 								Npc2.AniState(PlayerState.Block, Npc.transform.position);
 							}

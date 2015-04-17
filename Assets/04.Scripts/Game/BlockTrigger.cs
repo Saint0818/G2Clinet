@@ -18,7 +18,7 @@ public class BlockTrigger : MonoBehaviour {
 			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;
 			if (toucher.layer == LayerMask.NameToLayer("Shooter") && blocker != null && blocker.gameObject != toucher) {
 				int rate = Random.Range(0, 100);
-					if(rate < 10){
+					if(rate < GameData.AIlevelAy[blocker.Attr.AILevel].BlockPushRate){
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team) {
 							GameController.Get.Fall (faller);

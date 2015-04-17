@@ -17,6 +17,7 @@ namespace GameStruct
 		public int BlockDunk;
 		public int JumpBallRate;
 		public int ReboundRata;
+		public int BlockPushRate;
 	}
 
 	public struct TAvatar
