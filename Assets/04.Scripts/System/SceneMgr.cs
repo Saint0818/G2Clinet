@@ -255,6 +255,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	public void SetBasketBallState(PlayerState state, Transform dummy = null){
 		switch(state){
+			case PlayerState.BasketActionSwish:
+				realBallCollider.enabled = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+			break;
+			case PlayerState.BasketActionSwishEnd:
+				realBallCollider.enabled = true;
+			break;
 			case PlayerState.BasketAnimationStart:
 				realBallCollider.enabled = false;
 				RealBallRigidbody.useGravity = false;

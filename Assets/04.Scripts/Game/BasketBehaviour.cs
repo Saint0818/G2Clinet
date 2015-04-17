@@ -5,6 +5,7 @@ public class BasketBehaviour : MonoBehaviour {
 	public int Team;
 	private Animator animator;
 	private Transform dummyHoop;
+	private float swishTime;
 
 	void Awake(){
 		animator = GetComponent<Animator>();
@@ -30,11 +31,23 @@ public class BasketBehaviour : MonoBehaviour {
 		}
 	}
 
+	void Update(){
+		if(swishTime > 0) {
+			swishTime -= Time.deltaTime;
+			if(swishTime <=0 ){
+				swishTime = 0;
+				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
+			}
+		}
+	}
+
 	void OnTriggerEnter(Collider c) {
 		if (c.tag == "RealBall") {
 			if (GameController.Visible) {
 				if(GameController.Get.IsScore) {
 					if(GameController.Get.IsSwich) {
+						swishTime = 0.3f;
+						SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 						SceneMgr.Get.PlayShoot(Team);
 						GameController.Get.PlusScore(Team);
 					} else {

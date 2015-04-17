@@ -47,8 +47,9 @@ public enum PlayerState
 	HoldBall = 38,
 	CatchFlat = 39,
 	CatchParabola = 40,
-	CatchFloor = 41
-
+	CatchFloor = 41,
+	BasketActionSwish = 42,
+	BasketActionSwishEnd = 43
 }
 
 public enum TeamKind
@@ -320,9 +321,13 @@ public class PlayerBehaviour : MonoBehaviour
 						if(isIKOpen) {
 							if(isIKLook){
 								aimIK.enabled = true;
+								for(int i = 0 ; i < ikRotationLimits.Length; i++)
+									ikRotationLimits[i].enabled = true;
 								aimIK.solver.IKPosition = IKTarget.position;
 							} else {
 								aimIK.enabled = false;
+								for(int i = 0 ; i < ikRotationLimits.Length; i++)
+									ikRotationLimits[i].enabled = false;
 							}
 
 							if(isIKCatchBall) {
@@ -334,10 +339,14 @@ public class PlayerBehaviour : MonoBehaviour
 							}
 						} else {
 							aimIK.enabled = false;
+							for(int i = 0 ; i < ikRotationLimits.Length; i++)
+								ikRotationLimits[i].enabled = false;
 							fullBodyBipedIK.enabled = false;
 						}
 					} else {
 						aimIK.enabled = false;
+						for(int i = 0 ; i < ikRotationLimits.Length; i++)
+							ikRotationLimits[i].enabled = false;
 						fullBodyBipedIK.enabled = false;
 					}
 					for (int i = 0; i < aimIK.solver.bones.Length; i++) {
@@ -440,21 +449,6 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
-
-//	public void CatchTheBall(BallDirection direction){
-////		switch(direction) {
-////		case BallDirection.Left:
-////			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
-////			break;
-////		case BallDirection.Middle:
-////			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
-////			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
-////			break;
-////		case BallDirection.Right:
-////			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
-////			break;
-////		}
-//	}
 
     public void SetSelectTexture(string name)
     {

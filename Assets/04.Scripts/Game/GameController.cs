@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
+	private bool isCatchBall = false;
 
 	public bool IsScore;
 	public bool IsSwich;
@@ -417,6 +418,12 @@ public class GameController : MonoBehaviour
 
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
 			WaitStealTime = 0;
+			
+		if(isCatchBall) {
+			Transform t = BallOwner.gameObject.transform.FindChild("DummyBall");
+			Vector3 ori = t.position - SceneMgr.Get.RealBall.transform.position ;
+			SceneMgr.Get.RealBall.transform.Translate(ori / 15);
+		}
     }
 
     private void SituationAttack(TeamKind team)
@@ -1988,13 +1995,12 @@ public class GameController : MonoBehaviour
 		} else {
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
-			Transform t = p.gameObject.transform.FindChild("DummyBall");
-			Vector3 ori = t.position - SceneMgr.Get.RealBall.transform.position;
-			SceneMgr.Get.RealBall.transform.DOMove(t.position - (ori *0.5f), 0.1f);
+			isCatchBall = true;
 			yield return new WaitForSeconds(0.3f);
-			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 			p.isIKOpen = false;
 			p.isIKCatchBall = false;
+			isCatchBall = false;
+			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 		}
 	}
 
