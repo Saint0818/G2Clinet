@@ -544,8 +544,13 @@ public class GameController : MonoBehaviour
 					switch(PlayerList[i].Team)
 					{
 					case TeamKind.Self:
-						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false)
-							PlayerList[i].ResetFlag();
+						if((GS == GameSituation.TeeB || (oldgs == GameSituation.TeeB && GS == GameSituation.AttackB)) == false){
+							if(PlayerList[i].NoAiTime > 0){
+								if(!(GS == GameSituation.AttackA || GS == GameSituation.AttackB))
+									PlayerList[i].ResetFlag();
+							}else
+								PlayerList[i].ResetFlag();
+						}
 						break;
 					case TeamKind.Npc:
 						if((GS == GameSituation.TeeA || (oldgs == GameSituation.TeeA && GS == GameSituation.AttackA)) == false)
