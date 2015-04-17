@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
 using RootMotion.FinalIK;
+using DG.Tweening;
+
 
 public enum GameSituation
 {
@@ -662,7 +664,6 @@ public class GameController : MonoBehaviour
 
 	private void calculationScoreRate(PlayerBehaviour player, ScoreType type) {
 		float originalRate = 0;
-		Debug.Log("ShootDis:"+ShootDis);
 		if(ShootDis >= GameConst.TreePointDistance) {
 			originalRate = player.ScoreRate.ThreeScoreRate * player.ScoreRate.ThreeScoreRateDeviation;
 		} else {
@@ -686,8 +687,6 @@ public class GameController : MonoBehaviour
 		} else 
 		if(type == ScoreType.Normal) {
 			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
-			Debug.Log("1:"+(Random.Range(0.0f,100.0f) + 1));
-			Debug.Log("2:" + (originalRate - player.ScoreRate.NormalScoreRate));
 			if(IsScore) {
 				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
 			} else {
@@ -1930,6 +1929,7 @@ public class GameController : MonoBehaviour
                 BallOwner = p;
 				BallOwner.IsBallOwner = true;
 
+
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 //                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
@@ -1978,23 +1978,18 @@ public class GameController : MonoBehaviour
     }
 
 	IEnumerator catchBall(PlayerBehaviour p) {
-
-//		p.isIKCatchBall = true;
-//		p.isIKLook = true;
-//		SceneMgr.Get.RealBallRigidbody.useGravity = false;
-//		SceneMgr.Get.RealBallRigidbody.isKinematic = true;
-//		float ang = GameFunction.GetPlayerToObjectAngle(p.gameObject.transform, SceneMgr.Get.RealBall.transform);
-//		if(ang < 45f && ang > -10f){
-//			p.CatchTheBall(BallDirection.Right);
-//		} else
-//		if(ang <= -10f && ang > -45f){
-//			p.CatchTheBall(BallDirection.Middle);
-//		}
-//		yield return new WaitForSeconds(0.3f);
-		yield return null;
-		SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-//		p.isIKCatchBall = false;
-//		p.isIKLook = false;
+		if(!GameStart.Get.IsOpenIKSystem){
+			yield return null;
+			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+		} else {
+			p.isIKOpen = true;
+			p.isIKCatchBall = true;
+			SceneMgr.Get.RealBall.transform.DOMove(p.gameObject.transform.FindChild("DummyBall").position, 0.1f);
+			yield return new WaitForSeconds(0.3f);
+			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+			p.isIKOpen = false;
+			p.isIKCatchBall = false;
+		}
 	}
 
 

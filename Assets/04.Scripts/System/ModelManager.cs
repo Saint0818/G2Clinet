@@ -603,24 +603,24 @@ public class ModelManager : MonoBehaviour {
 				bipedRef.rightFoot  = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot");
 				bipedRef.leftUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm");
 				bipedRef.leftForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm");
-				bipedRef.leftHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm/Bip01 L Hand");
+				bipedRef.leftHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm/Bip01 L Hand/Bip01 L Finger2");
 				bipedRef.rightUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm");
 				bipedRef.rightForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm");
-				bipedRef.rightHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand");
+				bipedRef.rightHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2");
 				bipedRef.head = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
 				bipedRef.spine = new Transform[2];
 				bipedRef.spine[0] = result.transform.FindChild("Bip01/Bip01 Spine");
 				bipedRef.spine[1] = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
 				fbbik.SetReferences(bipedRef, result.transform.FindChild("Bip01/Bip01 Spine"));
-//				fbbik.solver.GetEffector(FullBodyBipedEffector.LeftHand).positionWeight = 0.8f;
-//				fbbik.solver.GetEffector(FullBodyBipedEffector.RightHand).positionWeight = 0.8f;
+				fbbik.solver.GetEffector(FullBodyBipedEffector.LeftHand).positionWeight = 0.8f;
+				fbbik.solver.GetEffector(FullBodyBipedEffector.RightHand).positionWeight = 0.8f;
 				fbbik.solver.pullBodyVertical = 0.2f;
 				fbbik.solver.pullBodyHorizontal = 0.3f;
 
 
-				InteractionSystem interactionSystem = result.GetComponent<InteractionSystem>();
-				if(interactionSystem == null)
-					interactionSystem = result.AddComponent<InteractionSystem>();
+//				InteractionSystem interactionSystem = result.GetComponent<InteractionSystem>();
+//				if(interactionSystem == null)
+//					interactionSystem = result.AddComponent<InteractionSystem>();
 			}
 
 			

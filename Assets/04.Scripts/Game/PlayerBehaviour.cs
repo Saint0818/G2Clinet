@@ -240,7 +240,7 @@ public class PlayerBehaviour : MonoBehaviour
 	//IK
 	private AimIK aimIK;
 	private FullBodyBipedIK fullBodyBipedIK;
-	private InteractionSystem interactionSystem;
+//	public InteractionSystem interactionSystem;
 	private Transform pinIKTransform;
 	public Transform IKTarget;
 	public bool isIKOpen = false;
@@ -289,7 +289,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		aimIK.enabled = GameStart.Get.IsOpenIKSystem;
 		fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
-		interactionSystem = gameObject.GetComponent<InteractionSystem>();
+//		interactionSystem = gameObject.GetComponent<InteractionSystem>();
 		pinIKTransform = transform.FindChild("Pin");
 		IKTarget = SceneMgr.Get.RealBall.transform;
 
@@ -325,22 +325,18 @@ public class PlayerBehaviour : MonoBehaviour
 
 							if(isIKCatchBall) {
 								fullBodyBipedIK.enabled = true;
-								interactionSystem.enabled = true;
-//								fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-//								fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+								fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+								fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
 							} else {
 								fullBodyBipedIK.enabled = false;
-								interactionSystem.enabled = false;
 							}
 						} else {
 							aimIK.enabled = false;
 							fullBodyBipedIK.enabled = false;
-							interactionSystem.enabled = false;
 						}
 					} else {
 						aimIK.enabled = false;
 						fullBodyBipedIK.enabled = false;
-						interactionSystem.enabled = false;
 					}
 					for (int i = 0; i < aimIK.solver.bones.Length; i++) {
 						if (aimIK.solver.bones[i].rotationLimit != null) {
@@ -413,12 +409,12 @@ public class PlayerBehaviour : MonoBehaviour
             }       
         }
 
-		if(GameStart.Get.IsOpenIKSystem) {
-			if(IsBallOwner) 
-				isIKOpen = false;
-			else 
-				isIKOpen = true;
-		}
+//		if(GameStart.Get.IsOpenIKSystem) {
+//			if(IsBallOwner) 
+//				isIKOpen = false;
+//			else 
+//				isIKOpen = true;
+//		}
 
         if (IsDefence)
         {
@@ -450,20 +446,20 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void CatchTheBall(BallDirection direction){
-		switch(direction) {
-		case BallDirection.Left:
-			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
-			break;
-		case BallDirection.Middle:
-			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
-			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
-			break;
-		case BallDirection.Right:
-			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
-			break;
-		}
-	}
+//	public void CatchTheBall(BallDirection direction){
+////		switch(direction) {
+////		case BallDirection.Left:
+////			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
+////			break;
+////		case BallDirection.Middle:
+////			interactionSystem.StartInteraction(FullBodyBipedEffector.LeftHand, SceneMgr.Get.RealBallInteractionObject, true);
+////			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
+////			break;
+////		case BallDirection.Right:
+////			interactionSystem.StartInteraction(FullBodyBipedEffector.RightHand, SceneMgr.Get.RealBallInteractionObject, true);
+////			break;
+////		}
+//	}
 
     public void SetSelectTexture(string name)
     {

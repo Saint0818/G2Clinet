@@ -114,7 +114,7 @@ namespace RootMotion.FinalIK {
 		// Will the interaction be paused on trigger?
 		public bool pauseOnTrigger;
 		// Trigger time since interaction start.
-		public float triggerTime = 0.3f;
+		public float triggerTime = 0.1f;
 		// Release time since interaction start
 		public float releaseTime = 0.6f;
 		// Animations played on events
