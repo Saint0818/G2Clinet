@@ -14,19 +14,12 @@ public class BasketBehaviour : MonoBehaviour {
 
 	public void AnimationEvent(string animationName) {
 		switch(animationName) {
-		case "Action0_End":
-			GameController.Get.PlusScore(Team);
-			SceneMgr.Get.SetBasketBallState(PlayerState.BasketAction0End, dummyHoop);
-			break;
-		case "Action1_End":
-			GameController.Get.PlusScore(Team);
-			SceneMgr.Get.SetBasketBallState(PlayerState.BasketAction1End, dummyHoop);
-			break;
-		case "Action2_End":
-			SceneMgr.Get.SetBasketBallState(PlayerState.BasketAction2End, dummyHoop);
+		case "ActionEnd":
+			SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionEnd, dummyHoop);
 			break;
 		case "BasketNetPlay":
 			SceneMgr.Get.PlayShoot(Team);
+			GameController.Get.PlusScore(Team);
 			break;
 		}
 	}

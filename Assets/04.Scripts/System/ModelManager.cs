@@ -259,6 +259,7 @@ public class ModelManager : MonoBehaviour {
 			GameObject dummyBall = null;
 			GameObject dummyHead = null;
 			GameObject dummyBack = null;
+			GameObject dummyCatch = null;
 			GameObject headDress = null;
 			GameObject backEquipment = null;
 			GameObject bipGO = null;
@@ -458,6 +459,7 @@ public class ModelManager : MonoBehaviour {
 					backEquipment.transform.localPosition = Vector3.zero;
 					backEquipment.transform.localEulerAngles = Vector3.zero;
 				}
+
 			}
 			
 			GameObject clone = GameObject.Find(result.name + "/" + mainBody);
@@ -477,6 +479,20 @@ public class ModelManager : MonoBehaviour {
 			clone.name = mainBody;
 			clone.transform.parent = result.transform;
 
+
+			if (result.transform.FindChild("DummyCatch") == null) {
+				dummyCatch = new GameObject();
+			} else {
+				dummyCatch = result.transform.FindChild("DummyCatch").gameObject ;
+			}
+
+
+			if (dummyCatch != null) {
+				dummyCatch.name = "DummyCatch";
+				dummyCatch.transform.parent = result.transform;
+				dummyCatch.transform.localPosition = new Vector3(0, 1.5f, 1f);
+			}
+			
 			//animator
 			Animator aniControl = result.GetComponent<Animator>();
 			if(aniControl == null)

@@ -396,6 +396,16 @@ public class GameController : MonoBehaviour
         }
     }
 
+	void Update(){
+		
+		if(isCatchBall) {
+			if(BallOwner) {
+				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
+				SceneMgr.Get.RealBall.transform.position = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, player, 0.25f);
+			}
+		}
+	}
+
     void FixedUpdate()
     {
         if (Time.time >= CoolDownPass)
@@ -425,20 +435,6 @@ public class GameController : MonoBehaviour
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
 			WaitStealTime = 0;
 			
-		if(isCatchBall) {
-			if(BallOwner) {
-
-				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyBall").position;
-//				Vector3 player = new Vector3(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.y + 1.5f, BallOwner.gameObject.transform.position.z);
-				Vector3 ori = player - SceneMgr.Get.RealBall.transform.position ;
-				Vector3 move = ori/10;
-				Debug.Log("player:"+player);
-				Debug.Log("SceneMgr.Get.RealBall.transform.position:"+SceneMgr.Get.RealBall.transform.position);
-				Debug.Log("ori:"+ori);
-				Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				SceneMgr.Get.RealBall.transform.Translate(move);
-			}
-		}
     }
 
     private void SituationAttack(TeamKind team)
@@ -2016,10 +2012,15 @@ public class GameController : MonoBehaviour
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 //                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-				if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
+				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
 					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 				} else {
-					StartCoroutine(catchBall(p));
+					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+						StartCoroutine(catchBall(p));
+					} else {
+						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+					}
 				}
                 p.ClearIsCatcher();
 
@@ -2052,10 +2053,15 @@ public class GameController : MonoBehaviour
                 BallOwner = p;
                 
 				if (p) {
-					if(SceneMgr.Get.RealBall.transform.position.y >= 1f ) {
+					if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
 						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 					} else {
-						StartCoroutine(catchBall(p));
+						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+							StartCoroutine(catchBall(p));
+						} else {
+							SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+						}
 					}
 				}					
             }
@@ -2069,10 +2075,12 @@ public class GameController : MonoBehaviour
 		} else {
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
+//			p.isIKLook = true;
 			isCatchBall = true;
 			yield return new WaitForSeconds(0.25f);
 			p.isIKOpen = false;
 			p.isIKCatchBall = false;
+//			p.isIKLook = false;
 			isCatchBall = false;
 			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 		}

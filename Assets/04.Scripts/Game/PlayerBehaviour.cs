@@ -40,16 +40,14 @@ public enum PlayerState
 	Start = 31,
 	Tee = 32,
 	BasketAnimationStart = 33,
-	BasketAction0End = 34,
-	BasketAction1End = 35,
-	BasketAction2End = 36,
+	BasketActionEnd = 34,
+	BasketActionSwish = 35,
+	BasketActionSwishEnd = 36,
 	Elbow = 37,
 	HoldBall = 38,
 	CatchFlat = 39,
 	CatchParabola = 40,
-	CatchFloor = 41,
-	BasketActionSwish = 42,
-	BasketActionSwishEnd = 43
+	CatchFloor = 41
 }
 
 public enum TeamKind
