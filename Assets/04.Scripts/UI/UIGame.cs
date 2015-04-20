@@ -232,18 +232,16 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
-		if(GameController.Get.CoolDownPass == 0) {
-//			if(state)
-//				PassFX();
-			
-			if(GameController.Get.Joysticker.IsBallOwner) {
-				initLine();
-				passObject.SetActive(state);
-				drawLine.IsShow = state;
-			} else {
-				if(!GameController.Get.IsShooting)
-					GameController.Get.DoPass(0);
-			}
+		//if(state)
+			//PassFX();
+		
+		if(GameController.Get.Joysticker.IsBallOwner) {
+			initLine();
+			passObject.SetActive(state);
+			drawLine.IsShow = state;
+		} else {
+			if(!GameController.Get.IsShooting)
+				GameController.Get.DoPass(0);
 		}
 	}
 

@@ -1546,7 +1546,10 @@ public class GameController : MonoBehaviour
 	private void TeeBall(ref PlayerBehaviour Npc, TeamKind Team, ref TTactical pos)
 	{
 		TMoveData data = new TMoveData(0);
-		
+
+		if(Npc == BallOwner && Npc.TargetPosNum > 3)
+			Npc.ResetMove();
+
 		if (Npc.CanMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 		{
 			if (Npc == BallOwner)
