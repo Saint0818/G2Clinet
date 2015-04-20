@@ -277,10 +277,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		pos.x = SceneMgr.Get.RealBall.transform.position.x;
 		pos.y = 0;
 
-		if(team == 0)
-			pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
-		else
-			pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+		if (GameController.Get.IsStart && GameController.Get.BallOwner) {
+			pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
+			if (GameController.Get.BallOwner.Team == 0)
+				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+			else
+				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+		} else {
+			if(team == 0)
+				pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+			else
+				pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+		}
 
 		focusTarget.transform.position = Vector3.Slerp(focusTarget.transform.position, pos, focusOffsetSpeed);
 	}

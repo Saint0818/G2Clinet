@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour
     private List<TTactical> MovePositionList = new List<TTactical>();
     private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
    
-    private bool IsStart = true;
+    public bool IsStart = false;
     public float CoolDownPass = 0;
     private float CoolDownCrossover = 0;
     private float ShootDis = 0;
@@ -248,6 +248,7 @@ public class GameController : MonoBehaviour
         Shooter = null;
         Catcher = null;
         situation = GameSituation.Opening;
+		ChangeSituation (GameSituation.Opening);
     }
 
 
@@ -628,7 +629,7 @@ public class GameController : MonoBehaviour
 			switch (GS)
 			{
 			case GameSituation.Opening:
-				
+				IsStart = true;
 				break;
 			case GameSituation.JumpBall:
 				
@@ -652,6 +653,7 @@ public class GameController : MonoBehaviour
                 case GameSituation.TeeB:
                     break;
                 case GameSituation.End:
+					IsStart = false;
                     break;
             }       
         }
