@@ -577,12 +577,6 @@ public class GameController : MonoBehaviour
 						break;
 					}
 
-//					if(GS == GameSituation.TeeB || GS == GameSituation.TeeA || GS == GameSituation.TeeAPicking || GS == GameSituation.TeeBPicking){
-//
-//					}else
-//						PlayerList[i].ResetFlag();
-
-
                     PlayerList [i].situation = GS;
                 }
             }
@@ -1734,7 +1728,7 @@ public class GameController : MonoBehaviour
                     TMoveData data = new TMoveData(0);
                     data.FollowTarget = SceneMgr.Get.RealBall.transform;
                     A.TargetPos = data;
-				} else if(Npc.crtState != PlayerState.Block)
+				} else if(Npc.crtState != PlayerState.Block && Npc.NoAiTime == 0)
                     Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
             } else if (Npc.CanMove && Npc.WaitMoveTime == 0)
             {
