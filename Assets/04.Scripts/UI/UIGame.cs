@@ -32,6 +32,8 @@ public class UIGame : UIBase {
 
 	private UIButton buttonPass;
 	private GameObject[] ControlButtonGroup= new GameObject[2];
+	private GameObject pushObject;
+	private GameObject attackObject;
 	private GameObject passObject;
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
@@ -105,6 +107,8 @@ public class UIGame : UIBase {
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		buttonPass = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass").GetComponent<UIButton>();
+		pushObject = GameObject.Find(UIName + "/BottomRight/ButtonPush");
+		attackObject = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 
 		buttonPassFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass/UI_FX_A_21");
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonShoot/UI_FX_A_21");
@@ -121,9 +125,10 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDoubleClick = DoElbow;
-//			
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Defance/ButtonSteal")).onPress = DoSteal;
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDoubleClick = DoElbow;
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onPress = DoElbow;
+			
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonPush")).onPress = DoSteal;
 
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
@@ -132,7 +137,10 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
-//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
+		SetBtnFun (UIName + "/BottomRight/ButtonPush", GameController.Get.DoPush);
+
+		SetBtnFun (UIName + "/BottomRight/ButtonAttack", GameController.Get.DoElbow);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
@@ -213,35 +221,36 @@ public class UIGame : UIBase {
 			isPressShootBtn = state;
 	}
 
-	public void DoSteal(GameObject go, bool state)
-	{
-		if(state)
-			stealBtnTime = ButtonBTime;
-		else if(!state && stealBtnTime > 0){
-			GameController.Get.DoSteal();
-			stealBtnTime = ButtonBTime;
-		}
-		
-		isPressStealBtn = state;
-	}
+//	public void DoSteal(GameObject go, bool state)
+//	{
+//		if(state)
+//			stealBtnTime = ButtonBTime;
+//		else if(!state && stealBtnTime > 0){
+//			GameController.Get.DoSteal();
+//			stealBtnTime = ButtonBTime;
+//		}
+//		
+//		isPressStealBtn = state;
+//	}
 
-	public void DoElbow(GameObject go)
-	{
-		if(go)
-			GameController.Get.DoElbow ();
-	}
+//	public void DoElbow()
+//	{
+//		GameController.Get.DoElbow ();
+//	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
-		//if(state)
-			//PassFX();
-		
-		if(GameController.Get.Joysticker.IsBallOwner) {
-			initLine();
-			passObject.SetActive(state);
-			drawLine.IsShow = state;
-		} else {
-			if(!GameController.Get.IsShooting)
-				GameController.Get.DoPass(0);
+		if(GameController.Get.CoolDownPass == 0) {
+//			if(state)
+//				PassFX();
+			
+			if(GameController.Get.Joysticker.IsBallOwner) {
+				initLine();
+				passObject.SetActive(state);
+				drawLine.IsShow = state;
+			} else {
+				if(!GameController.Get.IsShooting)
+					GameController.Get.DoPass(0);
+			}
 		}
 	}
 
@@ -313,7 +322,9 @@ public class UIGame : UIBase {
 
 	public void ChangeControl(bool IsAttack) {
 		ControlButtonGroup [0].SetActive (IsAttack);
+		attackObject.SetActive(IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
+		pushObject.SetActive(!IsAttack);
 		if(!IsAttack)
 			drawLine.IsShow = false;
 	}

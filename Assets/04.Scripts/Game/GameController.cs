@@ -400,6 +400,7 @@ public class GameController : MonoBehaviour
 		
 		if(isCatchBall) {
 			if(BallOwner) {
+				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
 				SceneMgr.Get.RealBall.transform.position = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, player, 0.25f);
 			}
@@ -694,6 +695,15 @@ public class GameController : MonoBehaviour
     }
 
 	private void calculationScoreRate(PlayerBehaviour player, ScoreType type) {
+//		Debug.Log("player name:"+player.name);
+		if(player.name.Contains("Self")) {
+			//0~90
+			float angle = Mathf.Abs (GameFunction.GetPlayerToObjectAngle(SceneMgr.Get.Hood[0].transform, player.gameObject.transform)) - 90;
+//			Debug.Log("self angle:"+angle);
+		} else {
+			float angle = Mathf.Abs (GameFunction.GetPlayerToObjectAngle(SceneMgr.Get.Hood[1].transform, player.gameObject.transform)) - 90;
+//			Debug.Log("enemy angle:"+angle);
+		}
 		float originalRate = 0;
 		if(ShootDis >= GameConst.TreePointDistance) {
 			originalRate = player.ScoreRate.ThreeScoreRate * player.ScoreRate.ThreeScoreRateDeviation;
@@ -779,11 +789,11 @@ public class GameController : MonoBehaviour
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-					                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 60);
+					                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 45);
 			} else {
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 60);
+					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 45);
 			}
 
             for (int i = 0; i < PlayerList.Count; i++)
@@ -2181,8 +2191,9 @@ public class GameController : MonoBehaviour
                 ChangeSituation(GameSituation.TeeAPicking);
 
             Shooter = null;
-		
-			EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+
+			if (UIGame.Get.Scores [team] < UIGame.Get.MaxScores [team])
+				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 		}
     }
 
