@@ -1380,12 +1380,25 @@ public class GameController : MonoBehaviour
                         data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
                     
                     Npc.FirstTargetPos = data;
-                    CoolDownCrossover = Time.time + 1.5f;
-                }
-            } else
-            {
-                //sup push
-                Dis = getDis(ref BallOwner, ref Npc); 
+
+
+					data = new TMoveData(0);
+					int AddZ = 3;
+					if(Npc.Team == TeamKind.Npc)
+						AddZ = -3;
+
+					if (Dir == 1)
+						data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z + AddZ);
+					else		
+						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z + AddZ);					
+					
+					Npc.FirstTargetPos = data;
+					CoolDownCrossover = Time.time + 4;
+				}
+			} else
+			{
+				//sup push
+				Dis = getDis(ref BallOwner, ref Npc); 
 				PlayerBehaviour NearPlayer = HaveNearPlayer(Npc, GameConst.StealBallDistance, false);
                 
                 if (ShootPointDis <= 1.5f && ALLYOOP < 50)
@@ -1982,6 +1995,7 @@ public class GameController : MonoBehaviour
 					BallOwner.IsBallOwner = false;
 
                 BallOwner = p;
+				BallOwner.WaitMoveTime = 0;
 				BallOwner.IsBallOwner = true;
 				Passer = null;
 				Shooter = null;

@@ -1620,7 +1620,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set
         {
-            if (FirstMoveQueue.Count == 0)
+            if (FirstMoveQueue.Count < 2)
                 FirstMoveQueue.Enqueue(value);
         }
     }
