@@ -29,7 +29,8 @@ public class UIGame : UIBase {
 	public GameJoystick Joystick = null;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
-	
+
+	private UIButton buttonPass;
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private GameObject passObject;
 	private GameObject[] passObjectGroup = new GameObject[2];
@@ -102,6 +103,8 @@ public class UIGame : UIBase {
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
 
 		screenLocation = GameObject.Find (UIName + "/Right");
+
+		buttonPass = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass").GetComponent<UIButton>();
 
 		buttonPassFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass/UI_FX_A_21");
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/Attack/ButtonShoot/UI_FX_A_21");
@@ -230,8 +233,8 @@ public class UIGame : UIBase {
 
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.CoolDownPass == 0) {
-			if(state)
-				PassFX();
+//			if(state)
+//				PassFX();
 			
 			if(GameController.Get.Joysticker.IsBallOwner) {
 				initLine();
@@ -245,6 +248,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateA() {
+		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
 		if(!GameController.Get.IsShooting)
@@ -253,6 +257,7 @@ public class UIGame : UIBase {
 		drawLine.IsShow = false;
 	}
 	public void DoPassTeammateB() {
+		PassFX();
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
 		if(!GameController.Get.IsShooting)
@@ -269,6 +274,7 @@ public class UIGame : UIBase {
 		Time.timeScale = 1;
 		Restart.SetActive(false);
 		Continue.SetActive(false);
+		ScoreBar.SetActive(false);
 		Joystick.gameObject.SetActive(true);
 	}
 
@@ -276,6 +282,7 @@ public class UIGame : UIBase {
 		Time.timeScale = 0;
 		Restart.SetActive(true);
 		Continue.SetActive(true);
+		ScoreBar.SetActive(true);
 		Joystick.gameObject.SetActive(false);
 	}
 
@@ -484,6 +491,14 @@ public class UIGame : UIBase {
 				isShowScoreBar = false;
 				ScoreBar.SetActive(false);
 			}
+		}
+
+		if(GameController.Get.CoolDownPass == 0) {
+			buttonPass.defaultColor = Color.white;
+			buttonPass.hover = Color.white;
+		} else {
+			buttonPass.defaultColor = Color.red;
+			buttonPass.hover = Color.red;
 		}
 		showButtonFX();
 		judgePlayerScreenPosition();

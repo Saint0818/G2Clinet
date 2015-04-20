@@ -775,6 +775,7 @@ public class GameController : MonoBehaviour
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
             SceneMgr.Get.SetBallState(PlayerState.Shooting);
 			if(!IsScore && IsAirBall) {
+				//AirBall
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
@@ -872,7 +873,6 @@ public class GameController : MonoBehaviour
 				if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
 				{
 					Catcher = player;
-					EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 					CoolDownPass = Time.time + 8;
 				}												
 			}else
@@ -2197,7 +2197,9 @@ public class GameController : MonoBehaviour
                 ChangeSituation(GameSituation.TeeAPicking);
 
             Shooter = null;
-        }
+		
+			EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+		}
     }
 
     public PlayerBehaviour HavePartner(ref PlayerBehaviour Npc, float dis, float angle)
