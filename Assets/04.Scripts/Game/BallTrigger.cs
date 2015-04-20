@@ -146,7 +146,7 @@ public class BallTrigger : MonoBehaviour
 			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
 			int Index = MinIndex(disAy);
 			
-			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 2, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);
+			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 0, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);
 			ParaboladistanceToTarget = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);
 
 			Vector3 targetPos = Parabolatarget;  
@@ -156,7 +156,8 @@ public class BallTrigger : MonoBehaviour
 			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);  			 			
 
 			Vector3 pos;
-			if (currentDist <= 3){
+
+			if (currentDist <= 3.4f){
 				Parabolamove = false;  
 				PassEnd();
 			}else if(currentDist <= 6 && Passing) 
