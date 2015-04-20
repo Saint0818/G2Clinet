@@ -18,7 +18,7 @@ public class UIGame : UIBase {
 	public int[] Scores = {0, 0};
 
 	private bool isPressPassBtn = false;
-	private bool isPressStealBtn = false;
+//	private bool isPressStealBtn = false;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	public GameObject Again;
@@ -55,6 +55,10 @@ public class UIGame : UIBase {
 	private float buttonBlockFXTime;
 	private GameObject buttonStealFX;
 	private float buttonStealFXTime;
+	private GameObject buttonPushFX;
+	private float buttonPushFXTime;
+	private GameObject buttonAttackFX;
+	private float buttonAttackFXTime;
 
 	
 	public static bool Visible {
@@ -116,18 +120,21 @@ public class UIGame : UIBase {
 		buttonObjectBFX = GameObject.Find(UIName + "/BottomRight/Attack/PassObject/ButtonObjectB/UI_FX_A_21");
 		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/Defance/ButtonBlock/UI_FX_A_21");
 		buttonStealFX = GameObject.Find(UIName + "/BottomRight/Defance/ButtonSteal/UI_FX_A_21");
+		buttonPushFX = GameObject.Find(UIName + "/BottomRight/ButtonPush/UI_FX_A_21");
+		buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
 		buttonPassFX.SetActive(false);
 		buttonShootFX.SetActive(false);
 		buttonObjectAFX.SetActive(false);
 		buttonObjectBFX.SetActive(false);
 		buttonBlockFX.SetActive(false);
 		buttonStealFX.SetActive(false);
+		buttonPushFX.SetActive(false);
+		buttonAttackFX.SetActive(false);
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
 //		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDoubleClick = DoElbow;
 //		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onPress = DoElbow;
-			
 //		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonPush")).onPress = DoSteal;
 
 
@@ -138,9 +145,8 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
-		SetBtnFun (UIName + "/BottomRight/ButtonPush", GameController.Get.DoPush);
-
-		SetBtnFun (UIName + "/BottomRight/ButtonAttack", GameController.Get.DoElbow);
+		SetBtnFun (UIName + "/BottomRight/ButtonPush", DoPush);
+		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoElbow);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
@@ -208,6 +214,16 @@ public class UIGame : UIBase {
 		buttonShootFX.SetActive(true);
 	}
 
+	public void PushFX(){
+		buttonPushFXTime = fxTime;
+		buttonPushFX.SetActive(true);
+	}
+
+	public void AttackFX(){
+		buttonAttackFXTime = fxTime;
+		buttonAttackFX.SetActive(true);
+	}
+
 	public void DoShoot(GameObject go, bool state) {		
 			if(state){
 				ShootFX();
@@ -221,22 +237,20 @@ public class UIGame : UIBase {
 			isPressShootBtn = state;
 	}
 
-//	public void DoSteal(GameObject go, bool state)
-//	{
-//		if(state)
-//			stealBtnTime = ButtonBTime;
-//		else if(!state && stealBtnTime > 0){
-//			GameController.Get.DoSteal();
-//			stealBtnTime = ButtonBTime;
-//		}
-//		
-//		isPressStealBtn = state;
-//	}
+	public void DoSteal(){
+		StealFX();
+		GameController.Get.DoSteal();
+	}
 
-//	public void DoElbow()
-//	{
-//		GameController.Get.DoElbow ();
-//	}
+	public void DoPush(){
+		PushFX();
+		GameController.Get.DoPush();
+	}
+
+	public void DoElbow(){
+		AttackFX();
+		GameController.Get.DoElbow ();
+	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.CoolDownPass == 0) {
@@ -457,6 +471,22 @@ public class UIGame : UIBase {
 				buttonStealFX.SetActive(false);
 			}
 		}
+		
+		if(buttonPushFXTime > 0) {
+			buttonPushFXTime -= Time.deltaTime;
+			if(buttonPushFXTime <= 0) {
+				buttonPushFXTime = 0;
+				buttonPushFX.SetActive(false);
+			}
+		}
+		
+		if(buttonAttackFXTime > 0) {
+			buttonAttackFXTime -= Time.deltaTime;
+			if(buttonAttackFXTime <= 0) {
+				buttonAttackFXTime = 0;
+				buttonAttackFX.SetActive(false);
+			}
+		}
 
 	}
 
@@ -482,11 +512,11 @@ public class UIGame : UIBase {
 				GameController.Get.DoShoot(true, ScoreType.Normal);
 		}
 
-		if (isPressStealBtn && stealBtnTime > 0) {
-			stealBtnTime -= Time.deltaTime;
-			if(stealBtnTime <= 0)
-				GameController.Get.DoPush();
-		}
+//		if (isPressStealBtn && stealBtnTime > 0) {
+//			stealBtnTime -= Time.deltaTime;
+//			if(stealBtnTime <= 0)
+//				GameController.Get.DoPush();
+//		}
 
 		if (isPressPassBtn && passBtnTime > 0) {
 			passBtnTime -= Time.deltaTime;
