@@ -296,11 +296,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
-				RealBall.transform.localPosition = Vector3.zero;
 				RealBall.transform.localScale = Vector3.one;
 				RealBallTrigger.SetBoxColliderEnable(false);
 				RealBallFX.gameObject.SetActive(false);
+				RealBall.transform.localPosition = Vector3.zero;
 				break;
+
 			case PlayerState.Shooting: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
@@ -309,6 +310,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 				break;
+
 			case PlayerState.PassFlat: 
 			case PlayerState.PassFloor: 
 			case PlayerState.PassParabola: 
@@ -320,6 +322,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 				break;
+
 			case PlayerState.Steal:
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
@@ -347,11 +350,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
+
 			case PlayerState.Dunk:
 				realBallCollider.enabled = true;
 				RealBallFX.gameObject.SetActive(false);
 				RealBall.transform.localScale = Vector3.one;
 				break;
+
 			case PlayerState.DunkBasket:
 				realBallCollider.enabled = true;
 				RealBallRigidbody.useGravity = true;
@@ -365,6 +370,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 				RealBallRigidbody.AddForce(Vector3.down * 2000);
 				break;
+
 			case PlayerState.Reset:
 				SceneMgr.Get.RealBall.transform.parent = null;
 				SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
@@ -373,12 +379,31 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
 				SceneMgr.Get.RealBallFX.gameObject.SetActive(true);
 			break;
-		case PlayerState.Start:
-			SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
-			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
-			SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
-			break;
+
+			case PlayerState.Start:
+				SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+				SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
+				SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
+				break;
+
+			case PlayerState.HoldBall:
+				realBallCollider.enabled = false;
+				RealBall.transform.parent = player.DummyBall.transform;
+				RealBallRigidbody.useGravity = false;
+				RealBallRigidbody.isKinematic = true;
+				RealBall.transform.localEulerAngles = Vector3.zero;
+				RealBall.transform.localScale = Vector3.one;
+				RealBallTrigger.SetBoxColliderEnable(false);
+				RealBallFX.gameObject.SetActive(false);
+				RealBall.transform.localPosition = Vector3.zero;
+				break;
+				
 		}
+	}
+
+	public void SetRealBallOffset(Vector3 pos)
+	{
+		SceneMgr.Get.RealBall.transform.Translate (pos);
 	}
 
 	public void ResetBasketEntra() {

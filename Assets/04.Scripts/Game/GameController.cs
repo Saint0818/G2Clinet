@@ -1994,6 +1994,7 @@ public class GameController : MonoBehaviour
 				BallOwner.IsBallOwner = true;
 				Passer = null;
 				Shooter = null;
+				Catcher = null;
 
 				if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
 				{
@@ -2008,17 +2009,7 @@ public class GameController : MonoBehaviour
 				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
-//                SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
-					SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-				} else {
-					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-						StartCoroutine(catchBall(p));
-					} else {
-						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-					}
-				}
+				SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
                 p.ClearIsCatcher();
 
                 if (p)
@@ -2039,6 +2030,7 @@ public class GameController : MonoBehaviour
                 }
 
                 Shooter = null;
+				Catcher = null;
             } else
 			{
 //				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
@@ -2049,26 +2041,16 @@ public class GameController : MonoBehaviour
 
                 BallOwner = p;
                 
-				if (p) {
-					if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
-						SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-					} else {
-						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-							StartCoroutine(catchBall(p));
-						} else {
-							SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
-						}
-					}
-				}					
-            }
+				if (p)
+					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);	
+			}
         }
     }
 
 	IEnumerator catchBall(PlayerBehaviour p) {
 		if(!GameStart.Get.IsOpenIKSystem){
 			yield return null;
-			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
+			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 		} else {
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
@@ -2079,7 +2061,6 @@ public class GameController : MonoBehaviour
 			p.isIKCatchBall = false;
 //			p.isIKLook = false;
 			isCatchBall = false;
-			SceneMgr.Get.SetBallState(PlayerState.Dribble, p);
 		}
 	}
 
@@ -2092,7 +2073,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || (Catcher && Catcher != player) || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
+		if (BallOwner || Catcher || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
             return;
 
 		if(situation == GameSituation.TeeAPicking && player == Joysticker)
@@ -2441,7 +2422,7 @@ public class GameController : MonoBehaviour
         if (Catcher != null)
         {
             SetBall(Catcher);
-			if(Catcher.NeedShooting)
+			if(Catcher && Catcher.NeedShooting)
 			{
 				Shoot(ScoreType.Normal);
 				Catcher.NeedShooting = false;

@@ -1219,6 +1219,7 @@ public class PlayerBehaviour : MonoBehaviour
 					SetSpeed(0, -1);
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
+				SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
                 Result = true;
                 break;
 

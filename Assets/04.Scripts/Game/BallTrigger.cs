@@ -155,16 +155,21 @@ public class BallTrigger : MonoBehaviour
 			SceneMgr.Get.RealBall.transform.rotation = SceneMgr.Get.RealBall.transform.rotation * Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);  
 			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);  			 			
 
+			Vector3 pos;
 			if (currentDist <= 3){
 				Parabolamove = false;  
 				PassEnd();
 			}else if(currentDist <= 6 && Passing) 
 			{
 				Passing = false;
-				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
+				pos = Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist);
+				SceneMgr.Get.SetRealBallOffset(pos);
 				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
 			}else
-				SceneMgr.Get.RealBall.transform.Translate(Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist)); 
+			{
+				pos = Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist);
+				SceneMgr.Get.SetRealBallOffset(pos);
+			}
 
 			yield return null;  
 		}  
