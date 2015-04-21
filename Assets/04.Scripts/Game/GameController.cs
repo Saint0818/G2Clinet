@@ -396,16 +396,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-//	void Update(){
-//		
-//		if(isCatchBall) {
-//			if(BallOwner) {
+	void Update(){
+		
+		if(isCatchBall) {
+			if(BallOwner) {
 //				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-//				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
-//				SceneMgr.Get.RealBall.transform.position = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, player, 0.25f);
-//			}
-//		}
-//	}
+				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
+				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
+				pos = Vector3.MoveTowards(pos, player, 0.25f);
+				SceneMgr.Get.SetRealBallPosition(pos);
+			}
+		}
+	}
 
     void FixedUpdate()
     {
@@ -2019,8 +2021,17 @@ public class GameController : MonoBehaviour
 				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
-				SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-                p.ClearIsCatcher();
+				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
+					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+				} else {
+					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+						StartCoroutine(catchBall(p));
+					} else {
+						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+					}
+				}
+				p.ClearIsCatcher();
 
                 if (p)
 				{
@@ -2058,8 +2069,19 @@ public class GameController : MonoBehaviour
 
                 BallOwner = p;
                 
-				if (p)
-					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);	
+				if (p){
+					if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
+						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+					} else {
+						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+							StartCoroutine(catchBall(p));
+						} else {
+							SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+						}
+					}
+				}
+//					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);	
 			}
         }
     }
@@ -2078,6 +2100,7 @@ public class GameController : MonoBehaviour
 			p.isIKCatchBall = false;
 //			p.isIKLook = false;
 			isCatchBall = false;
+			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 		}
 	}
 

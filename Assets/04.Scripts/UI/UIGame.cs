@@ -10,9 +10,9 @@ public class UIGame : UIBase {
 	private float showScoreBarInitTime = 2;
 
 	private float elbowBtnTime = 0;
-	private float stealBtnTime = 0;
-	private float pushBtnTime = 0;
-//	private float pressBtnCDTime = 0;
+//	private float pushBtnTime = 0;
+//	private float stealBtnTime = 0;
+	private float defenceBtnCDTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
@@ -21,9 +21,9 @@ public class UIGame : UIBase {
 	public float CDTime = 1f;
 
 	private bool isPressElbowBtn = true;
-	private bool isPressPushBtn = true;
-	private bool isPressStealBtn = true;
-//	private bool isCanPress = true;
+//	private bool isPressPushBtn = true;
+//	private bool isPressStealBtn = true;
+	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	public GameObject Again;
@@ -268,13 +268,16 @@ public class UIGame : UIBase {
 
 	//Defence
 	public void DoBlock() {
-		GameController.Get.DoBlock();
-		GameController.Get.Joysticker.SetNoAiTime();
+		if(isCanDefenceBtnPress) {
+			defenceBtnCDTime = CDTime;
+			GameController.Get.DoBlock();
+			GameController.Get.Joysticker.SetNoAiTime();
+		}
 	}
 
 	public void DoSteal(){
-		if(isPressStealBtn) {
-			stealBtnTime = CDTime;
+		if(isCanDefenceBtnPress) {
+			defenceBtnCDTime = CDTime;
 			StealFX();
 			GameController.Get.DoSteal();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -282,8 +285,8 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPush(){
-		if(isPressPushBtn) {
-			pushBtnTime = CDTime;
+		if(isCanDefenceBtnPress) {
+			defenceBtnCDTime = CDTime;
 			PushFX();
 			GameController.Get.DoPush();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -404,6 +407,8 @@ public class UIGame : UIBase {
 	}
 
 	public void ChangeControl(bool IsAttack) {
+		showCoverAttack(false);
+		showCoverDefence(false);
 		ControlButtonGroup [0].SetActive (IsAttack);
 		attackObject.SetActive(IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
@@ -584,71 +589,70 @@ public class UIGame : UIBase {
 		}
 
 		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
-//			coverAttack
+			buttonPush.gameObject.SetActive(false);
+			coverDefence[2].SetActive(false);
+			buttonElbow.gameObject.SetActive(true);
 		} else {
-
+			buttonPush.gameObject.SetActive(true);
+			buttonElbow.gameObject.SetActive(false);
+			coverAttack[2].SetActive(false);
 		}
 
-//		if(pressBtnCDTime > 0) {
-//			pressBtnCDTime -= Time.deltaTime;
-//			isCanPress = false;
-//			showCoverAttack(true);
-//			showCoverDefence(true);
-//			if(pressBtnCDTime <= 0){
-//				isCanPress = true;
+		if(defenceBtnCDTime > 0){
+			defenceBtnCDTime -= Time.deltaTime;
+			showCoverDefence(true);
+			if(defenceBtnCDTime <= 0) {
+				isCanDefenceBtnPress = true;
+			}
+		} else {
+			showCoverDefence(false);
+		}
+
+//		if (stealBtnTime > 0) {
+//			isPressStealBtn = false;
+//			stealBtnTime -= Time.deltaTime;
+//			buttonSteal.defaultColor = Color.red;
+//			buttonSteal.hover = Color.red;
+//			buttonSteal.pressed = Color.red;
+//			if(stealBtnTime <= 0){
+//				isPressStealBtn = true;
+//				stealBtnTime = 0;
 //			}
 //		} else {
-//			showCoverAttack(false);
-//			showCoverDefence(false);
+//			buttonSteal.defaultColor = Color.white;
+//			buttonSteal.hover = Color.white;
+//			buttonSteal.pressed = Color.white;
 //		}
 
-		if (stealBtnTime > 0) {
-			isPressStealBtn = false;
-			stealBtnTime -= Time.deltaTime;
-			buttonSteal.defaultColor = Color.red;
-			buttonSteal.hover = Color.red;
-			buttonSteal.pressed = Color.red;
-			if(stealBtnTime <= 0){
-				isPressStealBtn = true;
-				stealBtnTime = 0;
-			}
-		} else {
-			buttonSteal.defaultColor = Color.white;
-			buttonSteal.hover = Color.white;
-			buttonSteal.pressed = Color.white;
-		}
-
-		if (pushBtnTime > 0) {
-			isPressPushBtn = false;
-			pushBtnTime -= Time.deltaTime;
-			buttonPush.defaultColor = Color.red;
-			buttonPush.hover = Color.red;
-			buttonPush.pressed = Color.red;
-			if(pushBtnTime <= 0){
-				isPressPushBtn = true;
-				pushBtnTime = 0;
-			}
-		} else {
-			buttonPush.defaultColor = Color.white;
-			buttonPush.hover = Color.white;
-			buttonPush.pressed = Color.white;
-		}
+//		if (pushBtnTime > 0) {
+//			isPressPushBtn = false;
+//			pushBtnTime -= Time.deltaTime;
+//			buttonPush.defaultColor = Color.red;
+//			buttonPush.hover = Color.red;
+//			buttonPush.pressed = Color.red;
+//			if(pushBtnTime <= 0){
+//				isPressPushBtn = true;
+//				pushBtnTime = 0;
+//			}
+//		} else {
+//			buttonPush.defaultColor = Color.white;
+//			buttonPush.hover = Color.white;
+//			buttonPush.pressed = Color.white;
+//		}
 
 
 		if (elbowBtnTime > 0) {
 			isPressElbowBtn = false;
 			elbowBtnTime -= Time.deltaTime;
-			buttonElbow.defaultColor = Color.red;
-			buttonElbow.hover = Color.red;
-			buttonElbow.pressed = Color.red;
+//			coverAttack[2].SetActive(true);
+			showCoverAttack(true);
 			if(elbowBtnTime <= 0){
 				isPressElbowBtn = true;
 				elbowBtnTime = 0;
 			}
 		} else {
-			buttonElbow.defaultColor = Color.white;
-			buttonElbow.hover = Color.white;
-			buttonElbow.pressed = Color.white;
+//			coverAttack[2].SetActive(false);
+			showCoverAttack(false);
 		}
 
 		if(isShowScoreBar && showScoreBarTime > 0) {
