@@ -1372,7 +1372,7 @@ public class GameController : MonoBehaviour
                         }
                     }
                 } else 
-                if (Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
+                if (Npc.Attr.AILevel >= 3 && Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
                     //Crossover             
                     TMoveData data = new TMoveData(0);
@@ -2083,8 +2083,16 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || Catcher || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
+		if (BallOwner || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
             return;
+
+		if (Catcher) 
+		{
+			if(situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking)
+				Catcher = null;	
+			else
+				return;
+		}			
 
 		if(situation == GameSituation.TeeAPicking && player == Joysticker)
 			return;

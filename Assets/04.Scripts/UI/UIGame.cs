@@ -242,6 +242,7 @@ public class UIGame : UIBase {
 			if(!state && shootBtnTime > 0){
 				GameController.Get.DoShoot (false, ScoreType.None);
 				shootBtnTime = ButtonBTime;
+				GameController.Get.Joysticker.SetNoAiTime();
 			}
 
 			isPressShootBtn = state;
@@ -525,8 +526,10 @@ public class UIGame : UIBase {
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
-			if(shootBtnTime <= 0)
+			if(shootBtnTime <= 0){
 				GameController.Get.DoShoot(true, ScoreType.Normal);
+				GameController.Get.Joysticker.SetNoAiTime();
+			}
 		}
 
 		if (stealBtnTime > 0) {
