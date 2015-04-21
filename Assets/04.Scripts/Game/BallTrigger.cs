@@ -14,6 +14,7 @@ public class BallTrigger : MonoBehaviour
 	private bool Parabolamove = true;  
 	private bool Passing = false;
 	private int PassKind = -1;
+	private float PassCheckTime = 0;
 
 	void Awake()
 	{
@@ -51,11 +52,12 @@ public class BallTrigger : MonoBehaviour
 	
 	public bool PassBall(int Kind = 0)
 	{
-		if (GameController.Get.Catcher && GameController.Get.BallOwner != null) {
+		if (GameController.Get.Catcher && GameController.Get.BallOwner != null && GameController.Get.IsPassing == false) {
 			GameController.Get.Passer = GameController.Get.BallOwner;
 			GameController.Get.BallOwner = null;
 			Passing = true;
 			GameController.Get.IsPassing = true;
+			PassCheckTime = Time.time + 2.5f;
 			PassKind = Kind;
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
@@ -126,6 +128,7 @@ public class BallTrigger : MonoBehaviour
 	}
 
 	public void PassEnd(){
+		PassCheckTime = 0;
 		GameController.Get.SetEndPass();
 		CameraMgr.Get.IsLongPass = false;
 	}
@@ -133,6 +136,12 @@ public class BallTrigger : MonoBehaviour
 	void Update()
 	{
 		gameObject.transform.localPosition = Vector3.zero;
+		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
+		{
+			PassCheckTime = 0;
+			GameController.Get.Catcher = null;
+			GameController.Get.IsPassing = false;
+		}
 	}	    
 
 	IEnumerator Parabola()  

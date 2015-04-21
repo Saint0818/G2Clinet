@@ -645,6 +645,8 @@ public class GameController : MonoBehaviour
                     break;
                 case GameSituation.End:
 					IsStart = false;
+					for(int i = 0; i < PlayerList.Count; i++)
+						PlayerList[i].AniState(PlayerState.Idle);					
                     break;
             }       
         }
@@ -1956,9 +1958,7 @@ public class GameController : MonoBehaviour
 
     public void SetBall(PlayerBehaviour p = null)
     {
-		IsPassing = false;
-
-        if (PlayerList.Count > 0)
+		if (PlayerList.Count > 0)
         {
             if (p != null && situation != GameSituation.End)
             {
@@ -2448,6 +2448,8 @@ public class GameController : MonoBehaviour
 			}
             Catcher = null;
 		}
+
+		IsPassing = false;
     }
 
 	private void setDropBall(){
