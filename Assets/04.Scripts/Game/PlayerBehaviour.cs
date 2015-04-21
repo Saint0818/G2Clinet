@@ -247,6 +247,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private RotationLimitAngle[] ikRotationLimits;
 	public TScoreRate ScoreRate;
+	public bool FirstDribble = false;
 
     void initTrigger()
     {
@@ -1220,6 +1221,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
 				SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
+				FirstDribble = false;
                 Result = true;
                 break;
 
@@ -1325,6 +1327,7 @@ public class PlayerBehaviour : MonoBehaviour
                     SetSpeed(1, 0);
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
+				FirstDribble = false;
                 Result = true;
                 break;
 
@@ -1531,7 +1534,6 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Fall0,
 				PlayerState.Fall1,
 				PlayerState.GotSteal,
-				PlayerState.HoldBall,
 				PlayerState.PassFlat,
 				PlayerState.PassFloor,
 				PlayerState.PassParabola,
@@ -1545,6 +1547,10 @@ public class PlayerBehaviour : MonoBehaviour
 				if(CheckAnimatorSate(CheckAy[i]))
 					return false;
 
+			if(PlayerState.HoldBall == crtState)
+				if(!FirstDribble)
+					return false;
+		
 			return true;
         }
     }

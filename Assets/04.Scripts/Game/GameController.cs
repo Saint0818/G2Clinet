@@ -2024,19 +2024,26 @@ public class GameController : MonoBehaviour
 
                 if (p)
 				{
-                    p.WaitMoveTime = 0;
-                    if (p.IsJump)
+					p.WaitMoveTime = 0;
+					p.FirstDribble = true;
+
+					for (int i = 0; i < PlayerList.Count; i++){
+						if (PlayerList [i].Team != p.Team){
+							PlayerList [i].ResetMove();
+							break;
+						}
+					}
+
+					if (p.IsJump)
                     {
                         //ALLYOOP 
                     } else
                     {
-//                        p.AniState(PlayerState.Dribble);
-                    }
-
-                    for (int i = 0; i < PlayerList.Count; i++){
-                        if (PlayerList [i].Team != p.Team)
-                            PlayerList [i].ResetMove();
-					}
+						if(p.NoAiTime == 0)
+							p.AniState(PlayerState.Dribble);
+						else
+                        	p.AniState(PlayerState.HoldBall);
+                    }                    
                 }
 
                 Shooter = null;
