@@ -2183,9 +2183,11 @@ public class GameController : MonoBehaviour
                     SetBall(player);
 					if(player.NoAiTime == 0)
 						player.AniState(PlayerState.Dribble);
+					else if(player.CheckAnimatorSate(PlayerState.Run))
+						player.AniState(PlayerState.RunAndDribble);
 					else
 						player.AniState(PlayerState.HoldBall);
-                    
+
                     switch (dir)
                     {
                         case 0: //top

@@ -1415,8 +1415,8 @@ public class PlayerBehaviour : MonoBehaviour
         switch (animationName)
         {
 			case "HoldBall":
-				if(crtState != PlayerState.HoldBall)
-					crtState = PlayerState.HoldBall;
+		        if(crtState != PlayerState.HoldBall)
+					AniState(PlayerState.HoldBall);
 				break;
 			case "Stealing":
 				if (OnStealMoment != null)
