@@ -12,6 +12,7 @@ public class UIGame : UIBase {
 	private float elbowBtnTime = 0;
 	private float stealBtnTime = 0;
 	private float pushBtnTime = 0;
+//	private float pressBtnCDTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
@@ -22,6 +23,7 @@ public class UIGame : UIBase {
 	private bool isPressElbowBtn = true;
 	private bool isPressPushBtn = true;
 	private bool isPressStealBtn = true;
+//	private bool isCanPress = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	public GameObject Again;
@@ -37,6 +39,8 @@ public class UIGame : UIBase {
 	private UIButton buttonPush;
 	private UIButton buttonElbow;
 	private UIButton buttonSteal;
+	private GameObject[] coverAttack = new GameObject[3];
+	private GameObject[] coverDefence = new GameObject[3];
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private GameObject pushObject;
 	private GameObject attackObject;
@@ -107,6 +111,14 @@ public class UIGame : UIBase {
 		ControlButtonGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack");
 		ControlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/Defance");
 
+		coverAttack[0] = GameObject.Find(UIName + "/BottomRight/Attack/CoverPass");
+		coverAttack[1] = GameObject.Find(UIName + "/BottomRight/Attack/CoverShoot");
+		coverAttack[2] = GameObject.Find(UIName + "/BottomRight/CoverAttack");
+		
+		coverDefence[0] = GameObject.Find(UIName + "/BottomRight/Defance/CoverBlock");
+		coverDefence[1] = GameObject.Find(UIName + "/BottomRight/Defance/CoverSteal");
+		coverDefence[2] = GameObject.Find(UIName + "/BottomRight/CoverPush");
+
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
@@ -153,12 +165,11 @@ public class UIGame : UIBase {
 
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
-		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
+		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", DoSkill);
+		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoElbow);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ButtonPush", DoPush);
-		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoElbow);
-		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
-//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", DoBlock);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/StartView/ButtonStart", StartGame);
@@ -169,6 +180,9 @@ public class UIGame : UIBase {
 		Restart.SetActive(false);
 		Continue.SetActive(false);
 		passObject.SetActive(false);
+		showCoverAttack(false);
+		showCoverDefence(false);
+
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 		ChangeControl(false);
@@ -196,6 +210,24 @@ public class UIGame : UIBase {
 		}
 	}
 
+	public void showCoverAttack(bool isShow) {
+		for (int i=0; i<coverAttack.Length; i++) {
+			if(isShow)
+				coverAttack[i].SetActive(true);
+			else 
+				coverAttack[i].SetActive(false);
+		}
+	}
+	
+	public void showCoverDefence(bool isShow) {
+		for (int i=0; i<coverDefence.Length; i++) {
+			if(isShow)
+				coverDefence[i].SetActive(true);
+			else 
+				coverDefence[i].SetActive(false);
+		}
+	}
+
 	public void changeSelfAILevel(){
 		GameConst.SelfAILevel = (int) Mathf.Round(aiLevelScrollBar[0].value * 5);
 	}
@@ -203,7 +235,7 @@ public class UIGame : UIBase {
 	public void changeNpcAILevel(){
 		GameConst.NpcAILevel = (int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
 	}
-
+	// Effect
 	public void BlockFX(){
 		buttonBlockFXTime = fxTime;
 		buttonBlockFX.SetActive(true);
@@ -234,18 +266,10 @@ public class UIGame : UIBase {
 		buttonAttackFX.SetActive(true);
 	}
 
-	public void DoShoot(GameObject go, bool state) {		
-			if(state){
-				ShootFX();
-				shootBtnTime = ButtonBTime;
-			}else 
-			if(!state && shootBtnTime > 0){
-				GameController.Get.DoShoot (false, ScoreType.None);
-				shootBtnTime = ButtonBTime;
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
-
-			isPressShootBtn = state;
+	//Defence
+	public void DoBlock() {
+		GameController.Get.DoBlock();
+		GameController.Get.Joysticker.SetNoAiTime();
 	}
 
 	public void DoSteal(){
@@ -253,6 +277,7 @@ public class UIGame : UIBase {
 			stealBtnTime = CDTime;
 			StealFX();
 			GameController.Get.DoSteal();
+			GameController.Get.Joysticker.SetNoAiTime();
 		}
 	}
 
@@ -261,7 +286,27 @@ public class UIGame : UIBase {
 			pushBtnTime = CDTime;
 			PushFX();
 			GameController.Get.DoPush();
+			GameController.Get.Joysticker.SetNoAiTime();
 		}
+	}
+	
+	//Attack
+	public void DoSkill(){
+		GameController.Get.DoSkill();
+		GameController.Get.Joysticker.SetNoAiTime();
+	}
+	
+	public void DoShoot(GameObject go, bool state) {		
+		if(state){
+			ShootFX();
+			shootBtnTime = ButtonBTime;
+		}else 
+		if(!state && shootBtnTime > 0){
+			GameController.Get.DoShoot (false, ScoreType.None);
+			GameController.Get.Joysticker.SetNoAiTime();
+			shootBtnTime = ButtonBTime;
+		}
+		isPressShootBtn = state;
 	}
 
 	public void DoElbow(){
@@ -269,19 +314,19 @@ public class UIGame : UIBase {
 			elbowBtnTime = CDTime;
 			AttackFX();
 			GameController.Get.DoElbow ();
+			GameController.Get.Joysticker.SetNoAiTime();
 		}
 	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
-		if(GameController.Get.CoolDownPass == 0) {
-			
-			if(GameController.Get.Joysticker.IsBallOwner) {
-				initLine();
-				passObject.SetActive(state);
-				drawLine.IsShow = state;
-			} else {
-				if(!GameController.Get.IsShooting)
-					GameController.Get.DoPass(0);
+		if(GameController.Get.Joysticker.IsBallOwner) {
+			initLine();
+			passObject.SetActive(state);
+			drawLine.IsShow = state;
+		} else {
+			if(!GameController.Get.IsShooting){
+				GameController.Get.DoPass(0);
+				GameController.Get.Joysticker.SetNoAiTime();
 			}
 		}
 	}
@@ -290,20 +335,26 @@ public class UIGame : UIBase {
 		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
-		if(!GameController.Get.IsShooting)
+		if(!GameController.Get.IsShooting){
 			GameController.Get.DoPass(1);
+			GameController.Get.Joysticker.SetNoAiTime();
+		}
 		passObject.SetActive(false);
 		drawLine.IsShow = false;
 	}
+
 	public void DoPassTeammateB() {
 		PassFX();
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
-		if(!GameController.Get.IsShooting)
+		if(!GameController.Get.IsShooting){
 			GameController.Get.DoPass(2);
+			GameController.Get.Joysticker.SetNoAiTime();
+		}
 		passObject.SetActive(false);
 		drawLine.IsShow = false;
 	}
+
 	public void DoPassNone() {
 		passObject.SetActive(false);
 		drawLine.IsShow = false;
@@ -378,66 +429,68 @@ public class UIGame : UIBase {
 	}
 
 	private void judgePlayerScreenPosition(){
-		float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
-		float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
-
-		float playerInBoardX = GameController.Get.Joysticker.gameObject.transform.position.z;
-		float playerInBoardY = GameController.Get.Joysticker.gameObject.transform.position.x;
-
-		float baseValueX = 56.47f; 
-		float baseValueY = 24.55f;
-		
-		float playerX = 15 - playerInBoardX;
-		float playerY = 11 - playerInBoardY;
-
-		Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 960 , (playerY * baseValueY) * (-1));
-		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX < 0) {
-			playerScreenPos.x = -930;
-		} else 
-		if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX >= 0) {
-			playerScreenPos.x = 930;
-		} else 
-		if(playerScreenPos.x > 930) {
-			playerScreenPos.x = 930;
-		} else 
-		if(playerScreenPos.x < -930){
-			playerScreenPos.x = -930;
-		}
-
-		if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY < 0) {
-			playerScreenPos.y = -510;
-		} else 
-		if(playerScreenPos.y < -510){
-			playerScreenPos.y = -510;
-		}
-
-		float angle = 0f;
-
-		if(playerScreenPos.x == -930 && playerScreenPos.y == -510) {
-			angle = -135;
-		} else 
-		if(playerScreenPos.x == 930 && playerScreenPos.y == -510) {
-			angle = -45;
-		} else 
-		if(playerScreenPos.x == 930) {
-			angle = 0;
-		} else 
-		if(playerScreenPos.x == -930) {
-			angle = 180;
-		} else
-		if(playerScreenPos.y == -510) {
-			angle = -90;
-		}
-
-		if(playerInCameraX > -50 &&
-		   playerInCameraX < Screen.width + 50 &&
-		   playerInCameraY > - 100 &&
-		   playerInCameraY < Screen.height + 100) {
-		    screenLocation.SetActive(false);
-		} else {
-			screenLocation.SetActive(true);
-			screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
-			screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
+		if(GameController.Get.Joysticker != null){
+			float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
+			float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
+			
+			float playerInBoardX = GameController.Get.Joysticker.gameObject.transform.position.z;
+			float playerInBoardY = GameController.Get.Joysticker.gameObject.transform.position.x;
+			
+			float baseValueX = 56.47f; 
+			float baseValueY = 24.55f;
+			
+			float playerX = 15 - playerInBoardX;
+			float playerY = 11 - playerInBoardY;
+			
+			Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 960 , (playerY * baseValueY) * (-1));
+			if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX < 0) {
+				playerScreenPos.x = -930;
+			} else 
+			if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX >= 0) {
+				playerScreenPos.x = 930;
+			} else 
+			if(playerScreenPos.x > 930) {
+				playerScreenPos.x = 930;
+			} else 
+			if(playerScreenPos.x < -930){
+				playerScreenPos.x = -930;
+			}
+			
+			if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY < 0) {
+				playerScreenPos.y = -510;
+			} else 
+			if(playerScreenPos.y < -510){
+				playerScreenPos.y = -510;
+			}
+			
+			float angle = 0f;
+			
+			if(playerScreenPos.x == -930 && playerScreenPos.y == -510) {
+				angle = -135;
+			} else 
+			if(playerScreenPos.x == 930 && playerScreenPos.y == -510) {
+				angle = -45;
+			} else 
+			if(playerScreenPos.x == 930) {
+				angle = 0;
+			} else 
+			if(playerScreenPos.x == -930) {
+				angle = 180;
+			} else
+			if(playerScreenPos.y == -510) {
+				angle = -90;
+			}
+			
+			if(playerInCameraX > -50 &&
+			   playerInCameraX < Screen.width + 50 &&
+			   playerInCameraY > - 100 &&
+			   playerInCameraY < Screen.height + 100) {
+				screenLocation.SetActive(false);
+			} else {
+				screenLocation.SetActive(true);
+				screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
+				screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
+			}
 		}
 	}
 
@@ -526,11 +579,28 @@ public class UIGame : UIBase {
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
-			if(shootBtnTime <= 0){
+			if(shootBtnTime <= 0)
 				GameController.Get.DoShoot(true, ScoreType.Normal);
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
 		}
+
+		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
+//			coverAttack
+		} else {
+
+		}
+
+//		if(pressBtnCDTime > 0) {
+//			pressBtnCDTime -= Time.deltaTime;
+//			isCanPress = false;
+//			showCoverAttack(true);
+//			showCoverDefence(true);
+//			if(pressBtnCDTime <= 0){
+//				isCanPress = true;
+//			}
+//		} else {
+//			showCoverAttack(false);
+//			showCoverDefence(false);
+//		}
 
 		if (stealBtnTime > 0) {
 			isPressStealBtn = false;
@@ -589,13 +659,11 @@ public class UIGame : UIBase {
 			}
 		}
 
-		if(GameController.Get.CoolDownPass == 0) {
-			buttonPass.defaultColor = Color.white;
-			buttonPass.hover = Color.white;
-		} else {
-			buttonPass.defaultColor = Color.red;
-			buttonPass.hover = Color.red;
-		}
+//		if(GameController.Get.CoolDownPass == 0) {
+//			coverAttack[0].SetActive(false);
+//		} else {
+//			coverAttack[0].SetActive(true);
+//		}
 		showButtonFX();
 		judgePlayerScreenPosition();
 	}

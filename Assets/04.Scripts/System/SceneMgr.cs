@@ -401,9 +401,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		}
 	}
 
+	public void SetRealBallPosition(Vector3 pos) {
+		RealBall.transform.position = pos;
+	}
+
 	public void SetRealBallOffset(Vector3 pos)
 	{
-		SceneMgr.Get.RealBall.transform.Translate (pos);
+		RealBall.transform.Translate (pos);
 	}
 
 	public void ResetBasketEntra() {
