@@ -329,7 +329,7 @@ public class UIGame : UIBase {
 		if(GameController.Get.Joysticker.IsBallOwner && !GameController.Get.Joysticker.IsFall) {
 			initLine();
 			passObject.SetActive(state);
-			drawLine.IsShow = state;
+//			drawLine.IsShow = state;
 		} else {
 			if(!GameController.Get.IsShooting){
 				GameController.Get.DoPass(0);
