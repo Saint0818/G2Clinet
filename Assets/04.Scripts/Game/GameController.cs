@@ -2031,13 +2031,13 @@ public class GameController : MonoBehaviour
 				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
 					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 				} else {
-					p.AniState(PlayerState.PickBall);
-//					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-//					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-//						StartCoroutine(catchBall(p));
-//					} else {
-//						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//					}
+//					p.AniState(PlayerState.PickBall);
+					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+						StartCoroutine(catchBall(p));
+					} else {
+						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+					}
 				}
 				p.ClearIsCatcher();
 
@@ -2082,13 +2082,13 @@ public class GameController : MonoBehaviour
 						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 					} else {
 						
-						p.AniState(PlayerState.PickBall);
-//						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-//						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-//							StartCoroutine(catchBall(p));
-//						} else {
-//							SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//						}
+//						p.AniState(PlayerState.PickBall);
+						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+							StartCoroutine(catchBall(p));
+						} else {
+							SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+						}
 					}
 				}
 //					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);	
