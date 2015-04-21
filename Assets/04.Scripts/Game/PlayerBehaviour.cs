@@ -1317,6 +1317,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.PickBall:
 				ClearAnimatorFlag();
 				animator.SetTrigger("PickTrigger");
+				SceneMgr.Get.SetBallState(PlayerState.PickBall, this);
 				Result = true;
 				break;
 			
