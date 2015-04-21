@@ -637,15 +637,17 @@ public class GameController : MonoBehaviour
 				UIGame.Get.ChangeControl(true);
 				CameraMgr.Get.SetTeamCamera(TeamKind.Self);
                     break;
-                case GameSituation.TeeA:
-                    break;
+            case GameSituation.TeeA:
+				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+                break;
                 case GameSituation.TeeBPicking:
                     UIGame.Get.ChangeControl(false);
                     CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
                     break;
-                case GameSituation.TeeB:
-                    break;
-                case GameSituation.End:
+			case GameSituation.TeeB:
+				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+				break;
+			case GameSituation.End:
 					IsStart = false;
 					for(int i = 0; i < PlayerList.Count; i++)
 						PlayerList[i].AniState(PlayerState.Idle);					
@@ -2230,8 +2232,6 @@ public class GameController : MonoBehaviour
 
             Shooter = null;
 
-			if (UIGame.Get.Scores [team] < UIGame.Get.MaxScores [team])
-				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 		}
     }
 
