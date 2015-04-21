@@ -245,9 +245,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool isIKLook = false;
 	public bool isIKCatchBall = false;
 
+	private bool firstDribble = true;
+
 	private RotationLimitAngle[] ikRotationLimits;
 	public TScoreRate ScoreRate;
-	public bool FirstDribble = false;
 
     void initTrigger()
     {
@@ -621,8 +622,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJoystickMove(MovingJoystick move, PlayerState ps)
     {
-        if (CanMove || stop)
-        {
+		if (CanMove || stop || HoldBallCanMove)
+		{
 			if(situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
 			{
 				if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
@@ -779,7 +780,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void MoveTo(TMoveData Data, bool First = false)
     {
-        if (CanMove && WaitMoveTime == 0)
+		if ((CanMove || (NoAiTime == 0 && IsFirstDribble)) && WaitMoveTime == 0)
         {
             Vector2 MoveTarget = GetMoveTarget(Data);
 
@@ -1085,6 +1086,8 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.FakeShoot:
 				if (crtState != PlayerState.Dunk && 
 			    	crtState != PlayerState.Shooting && 
+			    	crtState != PlayerState.FakeShoot && 
+			    	crtState != PlayerState.Elbow && 
 			    	!IsPass)
                     return true;
                 break;
@@ -1106,7 +1109,9 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.Elbow:
-				if(IsBallOwner && crtState != PlayerState.Elbow) 
+				if(IsBallOwner && 
+			   		crtState != PlayerState.Elbow &&
+			   		crtState != PlayerState.FakeShoot) 
 					return true;
 				break;
 
@@ -1117,10 +1122,14 @@ public class PlayerBehaviour : MonoBehaviour
 					return true;
 				break;
 
+			case PlayerState.RunAndDribble:
+			case PlayerState.Dribble:
+				if(IsFirstDribble && !CanMove || CanMove)
+					return true;
+				break;
+			
 			case PlayerState.Idle:
-            case PlayerState.Run:
-            case PlayerState.Dribble:
-            case PlayerState.RunAndDribble:
+            case PlayerState.Run:        
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
@@ -1214,7 +1223,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
 				SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
-				FirstDribble = false;
+				IsFirstDribble = false;
                 Result = true;
                 break;
 
@@ -1320,7 +1329,7 @@ public class PlayerBehaviour : MonoBehaviour
                     SetSpeed(1, 0);
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
-				FirstDribble = false;
+				IsFirstDribble = false;
                 Result = true;
                 break;
 
@@ -1358,6 +1367,7 @@ public class PlayerBehaviour : MonoBehaviour
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
 					animator.SetTrigger("ShootTrigger");
 					DelActionFlag(ActionFlag.IsDribble);
+					IsFirstDribble = true;
                     Result = true;
                 }
 				break;
@@ -1392,7 +1402,8 @@ public class PlayerBehaviour : MonoBehaviour
         switch (animationName)
         {
 			case "HoldBall":
-				crtState = PlayerState.HoldBall;
+				if(crtState != PlayerState.HoldBall)
+					crtState = PlayerState.HoldBall;
 				break;
 			case "Stealing":
 				if (OnStealMoment != null)
@@ -1478,6 +1489,13 @@ public class PlayerBehaviour : MonoBehaviour
 				AniState(PlayerState.HoldBall);
 				break;
 
+			case "CatchEnd" :
+				if(NoAiTime == 0)
+					AniState(PlayerState.Dribble);
+				else 
+					AniState(PlayerState.HoldBall);
+				break;
+
 			case "AnimationEnd":
 				AniState(PlayerState.Idle);
 
@@ -1526,6 +1544,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.FakeShoot,
 				PlayerState.Fall0,
 				PlayerState.Fall1,
+				PlayerState.HoldBall,
 				PlayerState.GotSteal,
 				PlayerState.PassFlat,
 				PlayerState.PassFloor,
@@ -1540,17 +1559,24 @@ public class PlayerBehaviour : MonoBehaviour
 				if(CheckAnimatorSate(CheckAy[i]))
 					return false;
 
-			if(PlayerState.HoldBall == crtState)
-				if(NoAiTime == 0)
-					return false;
-				else if(!FirstDribble)
-					return false;
+//			if(PlayerState.HoldBall == crtState)
+//				if(!IsFirstDribble)
+//					return false;
 		
 			return true;
         }
     }
 
-    public void ClearIsCatcher()
+	public bool HoldBallCanMove {
+		get {
+			if(CheckAnimatorSate(PlayerState.HoldBall) && IsFirstDribble)
+				return true;
+			else
+				return false;
+		}
+	}
+		
+	public void ClearIsCatcher()
     {
 //        DelActionFlag(ActionFlag.IsCatcher);
     }
@@ -1601,6 +1627,12 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsCatch
 	{
 		get{ return crtState == PlayerState.CatchFlat || crtState == PlayerState.CatchFloor || crtState == PlayerState.CatchParabola;}
+	}
+
+	public bool IsFirstDribble
+	{
+		get{ return firstDribble;}
+		set{ firstDribble = value;}
 	}
 
     public int TargetPosNum

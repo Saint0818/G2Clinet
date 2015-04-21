@@ -1268,7 +1268,7 @@ public class GameController : MonoBehaviour
 
     public void OnJoystickMove(MovingJoystick move)
     {
-        if (Joysticker && CanMove)
+		if (Joysticker && (CanMove || Joysticker.IsFirstDribble))
         {
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
@@ -2043,7 +2043,7 @@ public class GameController : MonoBehaviour
                 if (p)
 				{
 					p.WaitMoveTime = 0;
-					p.FirstDribble = true;
+					p.IsFirstDribble = true;
 
 					for (int i = 0; i < PlayerList.Count; i++){
 						if (PlayerList [i].Team != p.Team){
@@ -2057,10 +2057,10 @@ public class GameController : MonoBehaviour
                         //ALLYOOP 
                     } else
                     {
-						if(p.NoAiTime == 0)
-							p.AniState(PlayerState.Dribble);
-						else
-                        	p.AniState(PlayerState.HoldBall);
+//						if(p.NoAiTime == 0)
+//							p.AniState(PlayerState.Dribble);
+//						else
+//                        	p.AniState(PlayerState.HoldBall);
                     }                    
                 }
 
