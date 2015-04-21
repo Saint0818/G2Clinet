@@ -47,7 +47,8 @@ public enum PlayerState
 	HoldBall = 38,
 	CatchFlat = 39,
 	CatchParabola = 40,
-	CatchFloor = 41
+	CatchFloor = 41,
+	PickBall = 42
 }
 
 public enum TeamKind
@@ -1093,7 +1094,10 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.Dunk:
 				if (crtState != PlayerState.Dunk && 
-			    	crtState != state && !IsPass)
+			    	crtState != state &&
+			    	crtState != PlayerState.Elbow &&
+			    	!IsPass
+			    	)
                     return true;
                 break;
 
@@ -1104,6 +1108,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.Rebound:
 			case PlayerState.Push:
+			case PlayerState.PickBall:
 				if (CanMove)
 					return true;
 				break;
@@ -1111,7 +1116,8 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Elbow:
 				if(IsBallOwner && 
 			   		crtState != PlayerState.Elbow &&
-			   		crtState != PlayerState.FakeShoot) 
+			   		crtState != PlayerState.FakeShoot &&
+			   		crtState != PlayerState.Dunk) 
 					return true;
 				break;
 
@@ -1305,6 +1311,12 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Push:
 				ClearAnimatorFlag();
 				animator.SetTrigger("PushTrigger");
+				Result = true;
+				break;
+
+			case PlayerState.PickBall:
+				ClearAnimatorFlag();
+				animator.SetTrigger("PickTrigger");
 				Result = true;
 				break;
 			
@@ -1553,6 +1565,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Shooting,
 				PlayerState.Steal,
 				PlayerState.Tee,
+				PlayerState.PickBall,
 			};
 
 			for(int i = 0 ; i < CheckAy.Length; i++)
