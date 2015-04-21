@@ -304,7 +304,8 @@ public class PlayerBehaviour : MonoBehaviour
         aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
         initTrigger();
 
-		ScoreRate = new TScoreRate(1);
+//		ScoreRate = new TScoreRate(1);
+		ScoreRate = GameStart.Get.ScoreRate;
     }
 
 	public void Init()
