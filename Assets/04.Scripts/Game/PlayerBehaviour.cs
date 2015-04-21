@@ -1510,7 +1510,14 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case "AnimationEnd":
-				AniState(PlayerState.Idle);
+				if(IsBallOwner)
+				{
+					if(NoAiTime == 0)
+						AniState(PlayerState.Dribble);
+					else
+						AniState(PlayerState.HoldBall);
+				}else
+					AniState(PlayerState.Idle);
 
 				blockTrigger.SetActive(false);
 				pushTrigger.SetActive(false);
@@ -1620,9 +1627,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsBallOwner
     {
-        get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+		get { return animator.GetBool ("IsBallOwner");}
+//			SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
 		set { 
-				animator.SetBool(	"IsBallOwner", value);
+				animator.SetBool("IsBallOwner", value);
 			}
     }
 

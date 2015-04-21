@@ -2181,6 +2181,10 @@ public class GameController : MonoBehaviour
                 if (CanSetball)
                 {
                     SetBall(player);
+					if(player.NoAiTime == 0)
+						player.AniState(PlayerState.Dribble);
+					else
+						player.AniState(PlayerState.HoldBall);
                     
                     switch (dir)
                     {
@@ -2495,7 +2499,7 @@ public class GameController : MonoBehaviour
 
     public void SetEndPass()
     {
-        if (Catcher != null)
+        if (Catcher != null && !Catcher.IsFall)
         {
             SetBall(Catcher);
 			if(Catcher && Catcher.NeedShooting)
@@ -2504,6 +2508,9 @@ public class GameController : MonoBehaviour
 				Catcher.NeedShooting = false;
 			}
             Catcher = null;
+		}else{
+			Catcher = null;
+			SetBall(null);
 		}
 
 		IsPassing = false;
