@@ -782,7 +782,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void MoveTo(TMoveData Data, bool First = false)
     {
-		if ((CanMove || (NoAiTime == 0 && IsFirstDribble)) && WaitMoveTime == 0)
+		if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
         {
             Vector2 MoveTarget = GetMoveTarget(Data);
 
@@ -1370,6 +1370,7 @@ public class PlayerBehaviour : MonoBehaviour
 				UIGame.Get.DoPassNone();
                 if (IsBallOwner)
                 {
+					ClearAnimatorFlag();
 					playerShootCurve = null;
 					for (int i = 0; i < aniCurve.Shoot.Length; i++)
 						if (aniCurve.Shoot [i].Name == "Shoot0")
@@ -1380,7 +1381,6 @@ public class PlayerBehaviour : MonoBehaviour
 
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
 					animator.SetTrigger("ShootTrigger");
-					DelActionFlag(ActionFlag.IsDribble);
 					IsFirstDribble = true;
                     Result = true;
                 }
@@ -1415,10 +1415,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (animationName)
         {
-			case "HoldBall":
-		        if(crtState != PlayerState.HoldBall)
-					AniState(PlayerState.HoldBall);
-				break;
 			case "Stealing":
 				if (OnStealMoment != null)
 					OnStealMoment(this);
@@ -1508,6 +1504,10 @@ public class PlayerBehaviour : MonoBehaviour
 					AniState(PlayerState.Dribble);
 				else 
 					AniState(PlayerState.HoldBall);
+				break;
+
+			case "FakeShootEnd":
+				AniState(PlayerState.HoldBall);
 				break;
 
 			case "AnimationEnd":
@@ -1620,11 +1620,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsBallOwner
     {
-		get { return animator.GetBool ("IsBallOwner");}
-//			SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
-		set { 
-				animator.SetBool("IsBallOwner", value);
-			}
+		get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+		set { animator.SetBool("IsBallOwner", value);}
     }
 
 	public bool IsPass 
