@@ -1510,15 +1510,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case "AnimationEnd":
-				if(IsBallOwner)
-				{
-					if(NoAiTime == 0)
-						AniState(PlayerState.Dribble);
-					else
-						AniState(PlayerState.HoldBall);
-				}else
-					AniState(PlayerState.Idle);
-
+				AniState(PlayerState.Idle);
 				blockTrigger.SetActive(false);
 				pushTrigger.SetActive(false);
 				elbowTrigger.SetActive(false);
