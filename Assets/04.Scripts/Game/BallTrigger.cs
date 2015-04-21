@@ -91,17 +91,20 @@ public class BallTrigger : MonoBehaviour
 
 	private void PassUpdate()
 	{
-		if (GameController.Get.Catcher != null) 
+		if (GameController.Get.Catcher != null && GameController.Get.Passer != null) 
 		{
-			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
-			if (currentDist < 3.5f && Passing)
+			float dis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
+			if (dis < 3.5f && Passing)
 			{
 				Passing = false;
 				if(PassKind == 0)
-					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.BallOwner.transform.position);		
+					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
 				else if(PassKind == 2)
-					GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.BallOwner.transform.position);		
-			} 				
+					GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
+			} 
+		
+			if(GameController.Get.Passer != null)
+				GameController.Get.Passer.rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
 		}
 	}
 	

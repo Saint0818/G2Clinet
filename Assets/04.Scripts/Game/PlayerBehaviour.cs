@@ -1548,7 +1548,9 @@ public class PlayerBehaviour : MonoBehaviour
 					return false;
 
 			if(PlayerState.HoldBall == crtState)
-				if(!FirstDribble)
+				if(NoAiTime == 0)
+					return false;
+				else if(!FirstDribble)
 					return false;
 		
 			return true;
