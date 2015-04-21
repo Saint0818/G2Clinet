@@ -396,16 +396,16 @@ public class GameController : MonoBehaviour
         }
     }
 
-	void Update(){
-		
-		if(isCatchBall) {
-			if(BallOwner) {
-				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
-				SceneMgr.Get.RealBall.transform.position = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, player, 0.25f);
-			}
-		}
-	}
+//	void Update(){
+//		
+//		if(isCatchBall) {
+//			if(BallOwner) {
+//				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+//				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
+//				SceneMgr.Get.RealBall.transform.position = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, player, 0.25f);
+//			}
+//		}
+//	}
 
     void FixedUpdate()
     {

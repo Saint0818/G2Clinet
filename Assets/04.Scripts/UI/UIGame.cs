@@ -9,16 +9,19 @@ public class UIGame : UIBase {
 	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
 
-	private float passBtnTime = 0;
+	private float elbowBtnTime = 0;
 	private float stealBtnTime = 0;
+	private float pushBtnTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
+	public float CDTime = 1f;
 
-	private bool isPressPassBtn = false;
-//	private bool isPressStealBtn = false;
+	private bool isPressElbowBtn = true;
+	private bool isPressPushBtn = true;
+	private bool isPressStealBtn = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	public GameObject Again;
@@ -31,6 +34,9 @@ public class UIGame : UIBase {
 	private MovingJoystick Move = new MovingJoystick();
 
 	private UIButton buttonPass;
+	private UIButton buttonPush;
+	private UIButton buttonElbow;
+	private UIButton buttonSteal;
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private GameObject pushObject;
 	private GameObject attackObject;
@@ -111,6 +117,10 @@ public class UIGame : UIBase {
 		screenLocation = GameObject.Find (UIName + "/Right");
 
 		buttonPass = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass").GetComponent<UIButton>();
+		buttonPush = GameObject.Find(UIName + "/BottomRight/ButtonPush").GetComponent<UIButton>();
+		buttonElbow = GameObject.Find(UIName + "/BottomRight/ButtonAttack").GetComponent<UIButton>();
+		buttonSteal = GameObject.Find(UIName + "/BottomRight/Defance/ButtonSteal").GetComponent<UIButton>();
+
 		pushObject = GameObject.Find(UIName + "/BottomRight/ButtonPush");
 		attackObject = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 
@@ -144,11 +154,11 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
 		SetBtnFun (UIName + "/BottomRight/Attack/ButtonShoot", GameController.Get.DoSkill);
-		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", GameController.Get.DoSteal);
+		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ButtonPush", DoPush);
 		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoElbow);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", GameController.Get.DoBlock);
-		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
+//		SetBtnFun (UIName + "/BottomRight/Defance/ButtonSteal", StealFX);
 		SetBtnFun (UIName + "/BottomRight/Defance/ButtonBlock", BlockFX);
 		SetBtnFun (UIName + "/Center/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/StartView/ButtonStart", StartGame);
@@ -238,24 +248,31 @@ public class UIGame : UIBase {
 	}
 
 	public void DoSteal(){
-		StealFX();
-		GameController.Get.DoSteal();
+		if(isPressStealBtn) {
+			stealBtnTime = CDTime;
+			StealFX();
+			GameController.Get.DoSteal();
+		}
 	}
 
 	public void DoPush(){
-		PushFX();
-		GameController.Get.DoPush();
+		if(isPressPushBtn) {
+			pushBtnTime = CDTime;
+			PushFX();
+			GameController.Get.DoPush();
+		}
 	}
 
 	public void DoElbow(){
-		AttackFX();
-		GameController.Get.DoElbow ();
+		if(isPressElbowBtn) {
+			elbowBtnTime = CDTime;
+			AttackFX();
+			GameController.Get.DoElbow ();
+		}
 	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.CoolDownPass == 0) {
-//			if(state)
-//				PassFX();
 			
 			if(GameController.Get.Joysticker.IsBallOwner) {
 				initLine();
@@ -512,16 +529,53 @@ public class UIGame : UIBase {
 				GameController.Get.DoShoot(true, ScoreType.Normal);
 		}
 
-//		if (isPressStealBtn && stealBtnTime > 0) {
-//			stealBtnTime -= Time.deltaTime;
-//			if(stealBtnTime <= 0)
-//				GameController.Get.DoPush();
-//		}
+		if (stealBtnTime > 0) {
+			isPressStealBtn = false;
+			stealBtnTime -= Time.deltaTime;
+			buttonSteal.defaultColor = Color.red;
+			buttonSteal.hover = Color.red;
+			buttonSteal.pressed = Color.red;
+			if(stealBtnTime <= 0){
+				isPressStealBtn = true;
+				stealBtnTime = 0;
+			}
+		} else {
+			buttonSteal.defaultColor = Color.white;
+			buttonSteal.hover = Color.white;
+			buttonSteal.pressed = Color.white;
+		}
 
-		if (isPressPassBtn && passBtnTime > 0) {
-			passBtnTime -= Time.deltaTime;
-			if(passBtnTime <= 0)
-				GameController.Get.DoElbow();
+		if (pushBtnTime > 0) {
+			isPressPushBtn = false;
+			pushBtnTime -= Time.deltaTime;
+			buttonPush.defaultColor = Color.red;
+			buttonPush.hover = Color.red;
+			buttonPush.pressed = Color.red;
+			if(pushBtnTime <= 0){
+				isPressPushBtn = true;
+				pushBtnTime = 0;
+			}
+		} else {
+			buttonPush.defaultColor = Color.white;
+			buttonPush.hover = Color.white;
+			buttonPush.pressed = Color.white;
+		}
+
+
+		if (elbowBtnTime > 0) {
+			isPressElbowBtn = false;
+			elbowBtnTime -= Time.deltaTime;
+			buttonElbow.defaultColor = Color.red;
+			buttonElbow.hover = Color.red;
+			buttonElbow.pressed = Color.red;
+			if(elbowBtnTime <= 0){
+				isPressElbowBtn = true;
+				elbowBtnTime = 0;
+			}
+		} else {
+			buttonElbow.defaultColor = Color.white;
+			buttonElbow.hover = Color.white;
+			buttonElbow.pressed = Color.white;
 		}
 
 		if(isShowScoreBar && showScoreBarTime > 0) {
