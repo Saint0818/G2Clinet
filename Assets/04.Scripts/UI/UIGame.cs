@@ -10,8 +10,6 @@ public class UIGame : UIBase {
 	private float showScoreBarInitTime = 2;
 
 	private float elbowBtnTime = 0;
-//	private float pushBtnTime = 0;
-//	private float stealBtnTime = 0;
 	private float defenceBtnCDTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
@@ -21,8 +19,6 @@ public class UIGame : UIBase {
 	public float CDTime = 1.5f;
 
 	private bool isPressElbowBtn = true;
-//	private bool isPressPushBtn = true;
-//	private bool isPressStealBtn = true;
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
@@ -155,10 +151,6 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onDoubleClick = DoElbow;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onPress = DoElbow;
-//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonPush")).onPress = DoSteal;
-
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));

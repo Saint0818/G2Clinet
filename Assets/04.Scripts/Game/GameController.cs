@@ -840,8 +840,11 @@ public class GameController : MonoBehaviour
 
 	public void DoPush()
 	{
-		if (Joysticker)
+		if (Joysticker) {
+			PlayerBehaviour nearP = FindNearNpc();
+			Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
 			Joysticker.AniState (PlayerState.Push);
+		}
 	}
 
 	public void DoElbow()
@@ -1119,6 +1122,7 @@ public class GameController : MonoBehaviour
     {
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
         {
+			Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
 			StealBtnLiftTime = 1f;
             Joysticker.SetNoAiTime();   
             if (BallOwner && BallOwner.Team != Joysticker.Team)
@@ -1220,8 +1224,9 @@ public class GameController : MonoBehaviour
     public void DoBlock()
     {
 		if (IsStart && CandoBtn)
-        {
-            Joysticker.SetNoAiTime();       
+		{
+			PlayerBehaviour nearP = FindNearNpc();
+			Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);      
             if (Shooter)
                 Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
             else
@@ -2106,8 +2111,27 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-
-    public void BallOnFloor()
+	public PlayerBehaviour FindNearNpc(){
+		PlayerBehaviour p = null;
+		float dis = 0;
+		for (int i=0; i<PlayerList.Count; i++) {
+			if (PlayerList [i].Team == TeamKind.Npc){
+				if(p == null){
+					p = PlayerList[i];
+					dis = Vector3.Distance(Joysticker.gameObject.transform.position, PlayerList[i].transform.position);
+				} else {
+					float temp = Vector3.Distance(Joysticker.gameObject.transform.position, PlayerList[i].transform.position);
+					if(dis > temp) {
+						dis = temp;
+						p = PlayerList[i];
+					}
+				}
+			}
+		}
+		return p;
+	}
+	
+	public void BallOnFloor()
     {
         SceneMgr.Get.ResetBasketEntra();
         GameController.Get.Shooter = null;

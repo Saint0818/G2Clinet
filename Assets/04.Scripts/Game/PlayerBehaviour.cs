@@ -412,13 +412,6 @@ public class PlayerBehaviour : MonoBehaviour
             }       
         }
 
-//		if(GameStart.Get.IsOpenIKSystem) {
-//			if(IsBallOwner) 
-//				isIKOpen = false;
-//			else 
-//				isIKOpen = true;
-//		}
-
         if (IsDefence)
         {
             if (Time.time >= ProactiveTime)
