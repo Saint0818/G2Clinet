@@ -387,6 +387,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				break;
 
 			case PlayerState.HoldBall:
+			case PlayerState.PickBall:
 				realBallCollider.enabled = false;
 				RealBall.transform.parent = player.DummyBall.transform;
 				RealBallRigidbody.useGravity = false;
