@@ -18,7 +18,7 @@ public class UIGame : UIBase {
 	private float homeHintTime = -1;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
-	public float CDTime = 1f;
+	public float CDTime = 1.5f;
 
 	private bool isPressElbowBtn = true;
 //	private bool isPressPushBtn = true;
@@ -268,7 +268,7 @@ public class UIGame : UIBase {
 
 	//Defence
 	public void DoBlock() {
-		if(isCanDefenceBtnPress) {
+		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
 			defenceBtnCDTime = CDTime;
 			GameController.Get.DoBlock();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -276,7 +276,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoSteal(){
-		if(isCanDefenceBtnPress) {
+		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
 			defenceBtnCDTime = CDTime;
 			StealFX();
 			GameController.Get.DoSteal();
@@ -285,7 +285,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPush(){
-		if(isCanDefenceBtnPress) {
+		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
 			defenceBtnCDTime = CDTime;
 			PushFX();
 			GameController.Get.DoPush();
@@ -295,25 +295,29 @@ public class UIGame : UIBase {
 	
 	//Attack
 	public void DoSkill(){
-		GameController.Get.DoSkill();
-		GameController.Get.Joysticker.SetNoAiTime();
+		if(!GameController.Get.Joysticker.IsFall) {
+			GameController.Get.DoSkill();
+			GameController.Get.Joysticker.SetNoAiTime();
+		}
 	}
 	
-	public void DoShoot(GameObject go, bool state) {		
-		if(state){
-			ShootFX();
-			shootBtnTime = ButtonBTime;
-		}else 
-		if(!state && shootBtnTime > 0){
-			GameController.Get.DoShoot (false, ScoreType.None);
-			GameController.Get.Joysticker.SetNoAiTime();
-			shootBtnTime = ButtonBTime;
+	public void DoShoot(GameObject go, bool state) {	
+		if(!GameController.Get.Joysticker.IsFall) {
+			if(state){
+				ShootFX();
+				shootBtnTime = ButtonBTime;
+			}else 
+			if(!state && shootBtnTime > 0){
+				GameController.Get.DoShoot (false, ScoreType.None);
+				GameController.Get.Joysticker.SetNoAiTime();
+				shootBtnTime = ButtonBTime;
+			}
+			isPressShootBtn = state;
 		}
-		isPressShootBtn = state;
 	}
 
 	public void DoElbow(){
-		if(isPressElbowBtn) {
+		if(isPressElbowBtn && !GameController.Get.Joysticker.IsFall) {
 			elbowBtnTime = CDTime;
 			AttackFX();
 			GameController.Get.DoElbow ();
@@ -322,7 +326,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
-		if(GameController.Get.Joysticker.IsBallOwner) {
+		if(GameController.Get.Joysticker.IsBallOwner && !GameController.Get.Joysticker.IsFall) {
 			initLine();
 			passObject.SetActive(state);
 			drawLine.IsShow = state;
@@ -608,50 +612,15 @@ public class UIGame : UIBase {
 			showCoverDefence(false);
 		}
 
-//		if (stealBtnTime > 0) {
-//			isPressStealBtn = false;
-//			stealBtnTime -= Time.deltaTime;
-//			buttonSteal.defaultColor = Color.red;
-//			buttonSteal.hover = Color.red;
-//			buttonSteal.pressed = Color.red;
-//			if(stealBtnTime <= 0){
-//				isPressStealBtn = true;
-//				stealBtnTime = 0;
-//			}
-//		} else {
-//			buttonSteal.defaultColor = Color.white;
-//			buttonSteal.hover = Color.white;
-//			buttonSteal.pressed = Color.white;
-//		}
-
-//		if (pushBtnTime > 0) {
-//			isPressPushBtn = false;
-//			pushBtnTime -= Time.deltaTime;
-//			buttonPush.defaultColor = Color.red;
-//			buttonPush.hover = Color.red;
-//			buttonPush.pressed = Color.red;
-//			if(pushBtnTime <= 0){
-//				isPressPushBtn = true;
-//				pushBtnTime = 0;
-//			}
-//		} else {
-//			buttonPush.defaultColor = Color.white;
-//			buttonPush.hover = Color.white;
-//			buttonPush.pressed = Color.white;
-//		}
-
-
 		if (elbowBtnTime > 0) {
 			isPressElbowBtn = false;
 			elbowBtnTime -= Time.deltaTime;
-//			coverAttack[2].SetActive(true);
 			showCoverAttack(true);
 			if(elbowBtnTime <= 0){
 				isPressElbowBtn = true;
 				elbowBtnTime = 0;
 			}
 		} else {
-//			coverAttack[2].SetActive(false);
 			showCoverAttack(false);
 		}
 
@@ -662,12 +631,6 @@ public class UIGame : UIBase {
 				ScoreBar.SetActive(false);
 			}
 		}
-
-//		if(GameController.Get.CoolDownPass == 0) {
-//			coverAttack[0].SetActive(false);
-//		} else {
-//			coverAttack[0].SetActive(true);
-//		}
 		showButtonFX();
 		judgePlayerScreenPosition();
 	}
