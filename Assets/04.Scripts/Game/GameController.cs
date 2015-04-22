@@ -142,8 +142,8 @@ public class GameController : MonoBehaviour
 	public bool IsSwich;
 	public bool IsAirBall;
 	private ScoreType scoreType;
-	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1"};
-	public string[] BasketScoreNoneAnimationState = {"BasketballAction_2"};
+	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1","BasketballAction_2","BasketballAction_3","BasketballAction_4"};
+	public string[] BasketScoreNoneAnimationState = {"BasketballAction_100"};
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -398,18 +398,18 @@ public class GameController : MonoBehaviour
         }
     }
 
-//	void Update(){
-//		
-//		if(isCatchBall) {
-//			if(BallOwner) {
-////				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-//				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
-//				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
-//				pos = Vector3.MoveTowards(pos, player, 0.25f);
-//				SceneMgr.Get.SetRealBallPosition(pos);
-//			}
-//		}
-//	}
+	void Update(){
+		
+		if(isCatchBall) {
+			if(BallOwner) {
+//				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
+				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
+				pos = Vector3.MoveTowards(pos, player, 0.25f);
+				SceneMgr.Get.SetRealBallPosition(pos);
+			}
+		}
+	}
 
     void FixedUpdate()
     {
