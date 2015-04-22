@@ -1120,7 +1120,7 @@ public class GameController : MonoBehaviour
 
     public void DoSteal()
     {
-		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
+		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn && BallOwner)
         {
 			Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
 			StealBtnLiftTime = 1f;
