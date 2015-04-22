@@ -9,14 +9,11 @@ public class UIGame : UIBase {
 	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
 
-	private float elbowBtnTime = 0;
-	private float defenceBtnCDTime = 0;
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
 	private float homeHintTime = -1;
 	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
-	public float CDTime = 1.5f;
 
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
@@ -36,7 +33,9 @@ public class UIGame : UIBase {
 	private UIButton buttonElbow;
 	private UIButton buttonSteal;
 	private GameObject[] coverAttack = new GameObject[3];
+	private UISprite[] coverAttackSprite = new UISprite[3];
 	private GameObject[] coverDefence = new GameObject[3];
+	private UISprite[] coverDefenceSprite = new UISprite[3];
 	private GameObject[] ControlButtonGroup= new GameObject[2];
 	private GameObject pushObject;
 	private GameObject attackObject;
@@ -110,10 +109,18 @@ public class UIGame : UIBase {
 		coverAttack[0] = GameObject.Find(UIName + "/BottomRight/Attack/CoverPass");
 		coverAttack[1] = GameObject.Find(UIName + "/BottomRight/Attack/CoverShoot");
 		coverAttack[2] = GameObject.Find(UIName + "/BottomRight/CoverAttack");
-		
+
+		coverAttackSprite[0] = GameObject.Find(UIName + "/BottomRight/Attack/CoverPass").GetComponent<UISprite>();
+		coverAttackSprite[1] = GameObject.Find(UIName + "/BottomRight/Attack/CoverShoot").GetComponent<UISprite>();
+		coverAttackSprite[2] = GameObject.Find(UIName + "/BottomRight/CoverAttack").GetComponent<UISprite>();
+
 		coverDefence[0] = GameObject.Find(UIName + "/BottomRight/Defance/CoverBlock");
 		coverDefence[1] = GameObject.Find(UIName + "/BottomRight/Defance/CoverSteal");
 		coverDefence[2] = GameObject.Find(UIName + "/BottomRight/CoverPush");
+		
+		coverDefenceSprite[0] = GameObject.Find(UIName + "/BottomRight/Defance/CoverBlock").GetComponent<UISprite>();
+		coverDefenceSprite[1] = GameObject.Find(UIName + "/BottomRight/Defance/CoverSteal").GetComponent<UISprite>();
+		coverDefenceSprite[2] = GameObject.Find(UIName + "/BottomRight/CoverPush").GetComponent<UISprite>();
 
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
@@ -188,7 +195,6 @@ public class UIGame : UIBase {
 		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
 		SetLabel(UIName + "/Center/ButtonReset/LabelReset" ,TextConst.S(4));
 		SetLabel(UIName + "/Center/StartView/AISelect/LabelAI" ,TextConst.S(5));
-		
 	}
 
 	private void initLine() {
@@ -206,8 +212,10 @@ public class UIGame : UIBase {
 		for (int i=0; i<coverAttack.Length; i++) {
 			if(isShow)
 				coverAttack[i].SetActive(true);
-			else 
+			else {
 				coverAttack[i].SetActive(false);
+				coverAttackSprite[i].color = Color.red;
+			}
 		}
 	}
 	
@@ -215,8 +223,10 @@ public class UIGame : UIBase {
 		for (int i=0; i<coverDefence.Length; i++) {
 			if(isShow)
 				coverDefence[i].SetActive(true);
-			else 
+			else {
 				coverDefence[i].SetActive(false);
+				coverDefenceSprite[i].color = Color.red;
+			}
 		}
 	}
 
@@ -261,7 +271,8 @@ public class UIGame : UIBase {
 	//Defence
 	public void DoBlock() {
 		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
-			defenceBtnCDTime = CDTime;
+			showCoverDefence(true);
+			coverDefenceSprite[0].color = Color.green;
 			GameController.Get.DoBlock();
 			GameController.Get.Joysticker.SetNoAiTime();
 		}
@@ -269,7 +280,8 @@ public class UIGame : UIBase {
 
 	public void DoSteal(){
 		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
-			defenceBtnCDTime = CDTime;
+			showCoverDefence(true);
+			coverDefenceSprite[1].color = Color.green;
 			StealFX();
 			GameController.Get.DoSteal();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -278,7 +290,10 @@ public class UIGame : UIBase {
 
 	public void DoPush(){
 		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
-			defenceBtnCDTime = CDTime;
+			showCoverDefence(true);
+			showCoverAttack(true);
+			coverAttack[2].SetActive(false);
+			coverDefenceSprite[2].color = Color.green;
 			PushFX();
 			GameController.Get.DoPush();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -297,9 +312,12 @@ public class UIGame : UIBase {
 		if(!GameController.Get.Joysticker.IsFall) {
 			if(state){
 				ShootFX();
-				shootBtnTime = ButtonBTime;
 			}else 
 			if(!state && shootBtnTime > 0){
+				if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
+					showCoverAttack(true);
+					coverAttackSprite[1].color = Color.green;
+				}
 				GameController.Get.DoShoot (false, ScoreType.None);
 				GameController.Get.Joysticker.SetNoAiTime();
 				shootBtnTime = ButtonBTime;
@@ -310,7 +328,9 @@ public class UIGame : UIBase {
 
 	public void DoElbow(){
 		if(isPressElbowBtn && !GameController.Get.Joysticker.IsFall) {
-			elbowBtnTime = CDTime;
+			coverDefence[2].SetActive(false);
+			coverAttackSprite[2].color = Color.green;
+			showCoverAttack(true);
 			AttackFX();
 			GameController.Get.DoElbow ();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -331,6 +351,8 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateA() {
+		showCoverAttack(true);
+		coverAttackSprite[0].color = Color.green;
 		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
@@ -343,6 +365,8 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateB() {
+		showCoverAttack(true);
+		coverAttackSprite[0].color = Color.green;
 		PassFX();
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
@@ -495,6 +519,15 @@ public class UIGame : UIBase {
 		}
 	}
 
+	public void OpenUIMask(PlayerBehaviour p = null){
+		if(p == GameController.Get.Joysticker) {
+			showCoverAttack(false);
+			showCoverDefence(false);
+			isCanDefenceBtnPress = true;
+			isPressElbowBtn = true;
+		}
+	}
+
 	private void showButtonFX(){
 		if(buttonPassFXTime > 0) {
 			buttonPassFXTime -= Time.deltaTime;
@@ -580,40 +613,19 @@ public class UIGame : UIBase {
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
-			if(shootBtnTime <= 0)
+			if(shootBtnTime <= 0){
 				GameController.Get.DoShoot(true, ScoreType.Normal);
+				showCoverAttack(true);
+				coverAttackSprite[1].color = Color.green;
+			}
 		}
 
 		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
 			buttonPush.gameObject.SetActive(false);
-			coverDefence[2].SetActive(false);
 			buttonElbow.gameObject.SetActive(true);
 		} else {
 			buttonPush.gameObject.SetActive(true);
 			buttonElbow.gameObject.SetActive(false);
-			coverAttack[2].SetActive(false);
-		}
-
-		if(defenceBtnCDTime > 0){
-			defenceBtnCDTime -= Time.deltaTime;
-			showCoverDefence(true);
-			if(defenceBtnCDTime <= 0) {
-				isCanDefenceBtnPress = true;
-			}
-		} else {
-			showCoverDefence(false);
-		}
-
-		if (elbowBtnTime > 0) {
-			isPressElbowBtn = false;
-			elbowBtnTime -= Time.deltaTime;
-			showCoverAttack(true);
-			if(elbowBtnTime <= 0){
-				isPressElbowBtn = true;
-				elbowBtnTime = 0;
-			}
-		} else {
-			showCoverAttack(false);
 		}
 
 		if(isShowScoreBar && showScoreBarTime > 0) {

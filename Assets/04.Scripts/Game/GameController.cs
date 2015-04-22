@@ -842,7 +842,8 @@ public class GameController : MonoBehaviour
 	{
 		if (Joysticker) {
 			PlayerBehaviour nearP = FindNearNpc();
-			Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
+			if(nearP)
+				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
 			Joysticker.AniState (PlayerState.Push);
 		}
 	}
