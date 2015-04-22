@@ -21,7 +21,7 @@ public class BlockTrigger : MonoBehaviour {
 					if(rate < GameData.AIlevelAy[blocker.Attr.AILevel].BlockPushRate){
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team) {
-							GameController.Get.Fall (faller);
+							faller.AniState(PlayerState.Fall0);
 							gameObject.SetActive (false);
 						}
 				}

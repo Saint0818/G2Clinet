@@ -393,6 +393,8 @@ public class GameController : MonoBehaviour
 //            PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
+			PlayerList [i].OnPickUpBall = OnPickUpBall;
+			PlayerList [i].OnFall = OnFall;
         }
     }
 
@@ -997,15 +999,14 @@ public class GameController : MonoBehaviour
 		return Result;
     }
 
-	public void Fall(PlayerBehaviour faller)
+	public bool OnFall(PlayerBehaviour faller)
 	{
-		if (faller) {
-			if(BallOwner == faller)
-			{
-				setDropBall();
-			}
-			faller.AniState(PlayerState.Fall1);	
+		if (faller && BallOwner == faller) {
+			setDropBall ();
+			return true;
 		}
+
+		return false;
 	}
 
 	public int GetEnemyDis(ref PlayerBehaviour npc){
@@ -2162,25 +2163,41 @@ public class GameController : MonoBehaviour
 
                 if (CanSetball)
                 {
-                    SetBall(player);
-					if(player.NoAiTime == 0)
-						player.AniState(PlayerState.Dribble);
-					else if(player.CheckAnimatorSate(PlayerState.Run))
-						player.AniState(PlayerState.RunAndDribble);
-					else
-						player.AniState(PlayerState.HoldBall);
+					if(situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
+						player.AniState(PlayerState.PickBall);
+					}
+					else{
+	                    SetBall(player);
+						if(player.NoAiTime == 0)
+							player.AniState(PlayerState.Dribble);
+						else if(player.CheckAnimatorSate(PlayerState.Run))
+							player.AniState(PlayerState.RunAndDribble);
+						else
+							player.AniState(PlayerState.HoldBall);
+					}
 
-                    switch (dir)
-                    {
-                        case 0: //top
-                            break;
-                        case 1: //FR
-                            break;
-                    }
+					switch (dir)
+					{
+					case 0: //top
+						break;
+					case 1: //FR
+						break;
+					}
                 }
             }
         }
     }
+
+	public bool OnPickUpBall(PlayerBehaviour player)
+	{
+		if (player) {
+			SetBall (player);
+
+			return true;
+		}
+
+		return false;
+	}
 
     public void PlayerTouchPlayer(PlayerBehaviour player1, PlayerBehaviour player2, int dir)
     {

@@ -162,6 +162,9 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
 	public OnPlayerAction OnFakeShootBlockMoment = null;
+	public OnPlayerAction OnFall = null;
+	public OnPlayerAction OnPickUpBall = null;
+
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
@@ -1088,8 +1091,11 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case PlayerState.Shooting:
 				if (crtState != PlayerState.Dunk &&  
+					crtState != PlayerState.Fall0 &&  
+					crtState != PlayerState.Fall1 && 
+			    	crtState != state &&
 			    	!IsCatch &&
-			    	crtState != state && !IsPass)
+			    	!IsPass)
                     return true;
                 break;
             case PlayerState.FakeShoot:
@@ -1132,8 +1138,13 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.Fall0:
 			case PlayerState.Fall1:
+			case PlayerState.GotSteal:
 				if (crtState != PlayerState.Fall0 &&
-				    crtState != PlayerState.Fall1)
+				    crtState != PlayerState.Fall1 && 
+			   	 	crtState != PlayerState.Dunk &&
+			   	 	crtState != PlayerState.Block &&
+			   	 	crtState != PlayerState.BlockCatch && 
+			    	crtState != PlayerState.Shooting)
 					return true;
 				break;
 
@@ -1143,13 +1154,16 @@ public class PlayerBehaviour : MonoBehaviour
 					return true;
 				break;
 			
-			case PlayerState.Idle:
             case PlayerState.Run:        
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
-			case PlayerState.GotSteal:
-                return true;
+				if(CanMove)
+               		return true;
+			break;
+
+			case PlayerState.Idle:
+				return true;
         }
 
         return false;
@@ -1180,8 +1194,7 @@ public class PlayerBehaviour : MonoBehaviour
 						if (aniCurve.Block [i].Name == "Block")
 							playerBlockCurve = aniCurve.Block [i];
 
-					DelActionFlag(ActionFlag.IsRun);
-					DelActionFlag(ActionFlag.IsDefence);
+					ClearAnimatorFlag();
 					animator.SetTrigger("BlockTrigger");
 					blockCurveTime = 0;
 					isBlock = true;
@@ -1189,6 +1202,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.BlockCatch:
+					ClearAnimatorFlag();
 					animator.SetTrigger("BlockCatchTrigger");
                     Result = true;
                 break;
@@ -1196,6 +1210,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.CatchFlat:
 				animator.SetInteger("StateNo", 0);
                 SetSpeed(0, -1);
+				ClearAnimatorFlag();
 				animator.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
@@ -1203,6 +1218,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.CatchFloor:
 				animator.SetInteger("StateNo", 2);
 				SetSpeed(0, -1);
+				ClearAnimatorFlag();
 				animator.SetTrigger("CatchTrigger");
 				Result = true;
 				break;
@@ -1210,6 +1226,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.CatchParabola:
 				animator.SetInteger("StateNo", 1);
 				SetSpeed(0, -1);
+				ClearAnimatorFlag();
 				animator.SetTrigger("CatchTrigger");
 				Result = true;
 				break;
@@ -1225,6 +1242,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (IsBallOwner && Vector3.Distance(SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
                 {
 					PlayerRigidbody.useGravity = false;
+					ClearAnimatorFlag();
 					animator.SetTrigger("DunkTrigger");
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
                     DunkTo();
@@ -1264,31 +1282,36 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Fall0:
 				isDunk = false;
 				isShootJump = false;
+				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("FallTrigger");
 				gameObject.transform.DOLocalMoveY(0, 1f);
+				if(OnFall != null)
+					OnFall(this);
 				Result = true;
 				break;
 
 			case PlayerState.Fall1:
 				isDunk = false;
 				isShootJump = false;
+				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("FallTrigger");
 				gameObject.transform.DOLocalMoveY(0, 1f);
+				if(OnFall != null)
+					OnFall(this);
 				Result = true;
 				break;
 
 			case PlayerState.HoldBall:
+				ClearAnimatorFlag();
 				animator.SetTrigger("HoldBallTrigger");
 				Result = true;
 				break;
 			
 			case PlayerState.Idle:
 				SetSpeed(0, -1);
-                for (int i = 1; i < AnimatorStates.Length; i++)
-                    if (AnimatorStates [i] != string.Empty && animator.GetBool(AnimatorStates [i]))
-                        animator.SetBool(AnimatorStates [i], false);
+				ClearAnimatorFlag();
                 Result = true;
                 break;
 
@@ -1302,6 +1325,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.PassFlat:
 				animator.SetInteger("StateNo", 0);
 				UIGame.Get.DoPassNone();
+				ClearAnimatorFlag();
 				animator.SetTrigger("PassTrigger");
             	Result = true;
                 break;
@@ -1309,6 +1333,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.PassFloor:
 				animator.SetInteger("StateNo", 2);
 				UIGame.Get.DoPassNone();
+				ClearAnimatorFlag();
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
@@ -1316,6 +1341,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.PassParabola:
 				animator.SetInteger("StateNo", 1);
 				UIGame.Get.DoPassNone();
+				ClearAnimatorFlag();
 				animator.SetTrigger("PassTrigger");
 				Result = true;
 				break;
@@ -1329,11 +1355,11 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.PickBall:
 				ClearAnimatorFlag();
 				animator.SetTrigger("PickTrigger");
-				SceneMgr.Get.SetBallState(PlayerState.PickBall, this);
 				Result = true;
 				break;
 			
 			case PlayerState.Tee:
+				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("PassTrigger");
 				Result = true;
@@ -1373,6 +1399,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.GotSteal:
 //					AniWaitTime = Time.time + 2.9f;
+					ClearAnimatorFlag();
 					animator.SetTrigger("GotStealTrigger");
 					Result = true;
 				break;
@@ -1462,6 +1489,13 @@ public class PlayerBehaviour : MonoBehaviour
 				if(IsBallOwner)
 					SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
                 break;
+			case "PickUp": 
+				if(OnPickUpBall != null)
+					OnPickUpBall(this);
+				break;
+			case "PickEnd":
+				AniState(PlayerState.Dribble);
+				break;
 
 			case "PushCalculateStart":
 				pushTrigger.gameObject.SetActive(true);
@@ -1578,6 +1612,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.PassFloor,
 				PlayerState.PassParabola,
 				PlayerState.Push,
+				PlayerState.PickBall,
 				PlayerState.Shooting,
 				PlayerState.Steal,
 				PlayerState.Tee,

@@ -150,9 +150,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .312087923
+      - time: .382280231
         functionName: AnimationEvent
-        data: 
+        data: PickUp
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: PickEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
