@@ -797,10 +797,16 @@ public class PlayerBehaviour : MonoBehaviour
 					if (Data.DefPlayer != null)
 					{
 						float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-						if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
+
+						if(Data.LookTarget != null){
+							if(Vector3.Distance(this.transform.position, Data.DefPlayer.transform.position) <= GameConst.StealBallDistance)
+								rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+							else if(dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
+								rotateTo(MoveTarget.x, MoveTarget.y);
+							else
+								rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+						}else
 							rotateTo(MoveTarget.x, MoveTarget.y);
-						else
-							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 					}else
 					{
 						if (Data.LookTarget == null)
