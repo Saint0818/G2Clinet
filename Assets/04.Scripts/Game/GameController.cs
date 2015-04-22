@@ -1078,42 +1078,45 @@ public class GameController : MonoBehaviour
 	public bool OnStealMoment(PlayerBehaviour player)
     {
         if (BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk){
-			int r = Mathf.RoundToInt(player.Attr.Steal - BallOwner.Attr.Control);
-			int maxRate = 100;
-			int minRate = 10;
-			
-			if (r > maxRate)
-				r = maxRate;
-			else if (r < minRate)
-				r = minRate;
-			
-			int stealRate = Random.Range(0, 100) + 1;
-			int AddRate = 0;
-			if(SceneMgr.Get.RealBallFX.activeInHierarchy)
-				AddRate = 30;
-
-			Vector3 lookAtPos = player.transform.position;
-			Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
-			float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-							
-			if (stealRate <= (r + AddRate) && mangle <= 70 && mangle >= -70)
+			if(Vector3.Distance(BallOwner.transform.position, player.transform.position) <= GameConst.StealBallDistance)
 			{
-				if(BallOwner)
-					BallOwner.AniState(PlayerState.GotSteal);
-					
-				setDropBall();
-				return true;
-			}else
-			if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
-			{
-				stealRate = Random.Range(0, 100) + 1;
+				int r = Mathf.RoundToInt(player.Attr.Steal - BallOwner.Attr.Control);
+				int maxRate = 100;
+				int minRate = 10;
 				
-				if(stealRate <= r)
+				if (r > maxRate)
+					r = maxRate;
+				else if (r < minRate)
+					r = minRate;
+				
+				int stealRate = Random.Range(0, 100) + 1;
+				int AddRate = 0;
+				if(SceneMgr.Get.RealBallFX.activeInHierarchy)
+					AddRate = 30;
+				
+				Vector3 lookAtPos = player.transform.position;
+				Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
+				float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+				
+				if (stealRate <= (r + AddRate) && mangle <= 70 && mangle >= -70)
 				{
-					RealBallFxTime = 1f;
-					SceneMgr.Get.RealBallFX.SetActive(true);
+					if(BallOwner)
+						BallOwner.AniState(PlayerState.GotSteal);
+					
+					setDropBall();
+					return true;
+				}else
+					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
+				{
+					stealRate = Random.Range(0, 100) + 1;
+					
+					if(stealRate <= r)
+					{
+						RealBallFxTime = 1f;
+						SceneMgr.Get.RealBallFX.SetActive(true);
+					}
 				}
-			}			
+			}
         }
         
         return false;
