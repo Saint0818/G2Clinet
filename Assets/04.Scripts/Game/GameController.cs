@@ -2069,29 +2069,10 @@ public class GameController : MonoBehaviour
 				Catcher = null;
             } else
 			{
-//				if(BallOwner != null && !BallOwner.CheckAction(ActionFlag.IsGotSteal))
-//					BallOwner.AniState(PlayerState.Idle);
-
 				if(BallOwner != null)
 					BallOwner.IsBallOwner = false;
 
                 BallOwner = p;
-                
-				if (p){
-					if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
-						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-					} else {
-						
-//						p.AniState(PlayerState.PickBall);
-						if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-						   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-							StartCoroutine(catchBall(p));
-						} else {
-							SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-						}
-					}
-				}
-//					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);	
 			}
         }
     }

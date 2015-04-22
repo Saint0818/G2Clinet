@@ -1227,13 +1227,16 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Dribble:
-				if (!isJoystick)
-					SetSpeed(0, -1);
-				ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsDribble);
-				SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
-				IsFirstDribble = false;
-                Result = true;
+				if(GameController.Get.BallOwner == this)
+				{
+					if (!isJoystick)
+						SetSpeed(0, -1);
+					ClearAnimatorFlag();
+	                AddActionFlag(ActionFlag.IsDribble);
+					SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
+					IsFirstDribble = false;
+	                Result = true;
+				}
                 break;
 
 			case PlayerState.Elbow:
@@ -1502,10 +1505,13 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case "CatchEnd" :
-				if(NoAiTime == 0)
-					AniState(PlayerState.Dribble);
-				else 
-					AniState(PlayerState.HoldBall);
+				if(GameController.Get.BallOwner == this)
+				{
+					if(NoAiTime == 0)
+						AniState(PlayerState.Dribble);
+					else 
+						AniState(PlayerState.HoldBall);
+				}				
 				break;
 
 			case "FakeShootEnd":
