@@ -1091,10 +1091,14 @@ public class PlayerBehaviour : MonoBehaviour
 			    	crtState != state && !IsPass)
 				return true;
                 break;
+
             case PlayerState.Shooting:
-				if (crtState != PlayerState.Dunk &&  
-					crtState != PlayerState.Fall0 &&  
+			case PlayerState.Dunk:
+				if (crtState != PlayerState.Fall0 &&  
 					crtState != PlayerState.Fall1 && 
+					crtState != PlayerState.Elbow && 
+					crtState != PlayerState.Steal && 
+					crtState != PlayerState.GotSteal && 
 			    	crtState != state &&
 			    	!IsCatch &&
 			    	!IsPass)
@@ -1106,14 +1110,6 @@ public class PlayerBehaviour : MonoBehaviour
 			    	crtState != PlayerState.FakeShoot && 
 			    	crtState != PlayerState.Elbow && 
 			    	!IsPass)
-                    return true;
-                break;
-            case PlayerState.Dunk:
-				if (crtState != PlayerState.Dunk && 
-			    	crtState != state &&
-			    	crtState != PlayerState.Elbow &&
-			    	!IsPass
-			    	)
                     return true;
                 break;
 
@@ -1316,6 +1312,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.HoldBall:
 				ClearAnimatorFlag();
 				animator.SetTrigger("HoldBallTrigger");
+				isCanCatchBall = false;
 				Result = true;
 				break;
 			
@@ -1404,6 +1401,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Steal:
 				ClearAnimatorFlag();
 				animator.SetTrigger("StealTrigger");
+				isCanCatchBall = false;
                 Result = true;
                 break;
 
