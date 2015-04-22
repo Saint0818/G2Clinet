@@ -1438,6 +1438,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
 				animator.SetTrigger("ReboundTrigger");
+				Result = true;
 				break;
 		}
 		

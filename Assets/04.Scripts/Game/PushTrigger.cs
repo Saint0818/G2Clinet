@@ -20,7 +20,7 @@ public class PushTrigger : MonoBehaviour {
 			if(pusher != null && pusher.gameObject != toucher){
 				faller = toucher.GetComponent<PlayerBehaviour>();
 				if( pusher.Team != faller.Team){
-					GameController.Get.OnFall(faller);
+					faller.AniState(PlayerState.Fall0);
 					gameObject.SetActive(false);
 				}
 			}

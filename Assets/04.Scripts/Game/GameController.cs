@@ -1359,7 +1359,7 @@ public class GameController : MonoBehaviour
 				if (ElbowRate < GameData.AIlevelAy[Npc.Attr.AILevel].ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
 					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow)){
 					if(Npc.AniState(PlayerState.Elbow, man.transform.position)){
-						CoolDownPass = 0;
+//						CoolDownPass = 0;
 						Npc.CoolDownElbow = Time.time + 3;
 					}
 				}else 
