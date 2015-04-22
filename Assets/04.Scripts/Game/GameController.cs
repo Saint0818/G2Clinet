@@ -434,7 +434,8 @@ public class GameController : MonoBehaviour
 		if(WaitTeeBallTime > 0 && Time.time >= WaitTeeBallTime)
 		{
 			WaitTeeBallTime = 0;
-			AutoTee();
+			if(BallOwner != null)
+				AutoTee();
 		}
 
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
@@ -2166,7 +2167,7 @@ public class GameController : MonoBehaviour
                 if (CanSetball)
                 {
 					if(situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
-						player.AniState(PlayerState.PickBall);
+						player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
 					}
 					else{
 	                    SetBall(player);
