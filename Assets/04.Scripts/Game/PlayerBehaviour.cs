@@ -1012,7 +1012,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
-        if (CheckAnimatorSate(PlayerState.Idle) || CheckAnimatorSate(PlayerState.RunAndDribble))
+		if (CheckAnimatorSate(PlayerState.Idle) || CheckAnimatorSate(PlayerState.RunAndDribble) || CheckAnimatorSate(PlayerState.Dribble))
         {
 			NeedResetFlag = false;
             for (int i = 0; i < PlayerActionFlag.Length; i++)
