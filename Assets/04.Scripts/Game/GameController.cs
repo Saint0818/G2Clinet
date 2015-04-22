@@ -1122,13 +1122,13 @@ public class GameController : MonoBehaviour
 
     public void DoSteal()
     {
-		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn && BallOwner)
+		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
         {
-			Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
 			StealBtnLiftTime = 1f;
             Joysticker.SetNoAiTime();   
             if (BallOwner && BallOwner.Team != Joysticker.Team)
             {
+				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
                 Joysticker.AniState(PlayerState.Steal, BallOwner.transform.position);
             } else
                 Joysticker.AniState(PlayerState.Steal);
@@ -1228,7 +1228,9 @@ public class GameController : MonoBehaviour
 		if (IsStart && CandoBtn)
 		{
 			PlayerBehaviour nearP = FindNearNpc();
-			Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);      
+			if(nearP)
+				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z); 
+
             if (Shooter)
                 Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
             else
