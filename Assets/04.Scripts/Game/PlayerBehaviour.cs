@@ -168,7 +168,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    private const int ChangeToAI = 4;
+    private const int ChangeToAI = 1;
     public static string[] AnimatorStates = new string[] {
                 "",
                 "IsRun",
