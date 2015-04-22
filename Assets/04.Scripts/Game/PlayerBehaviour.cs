@@ -1054,10 +1054,11 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.PassFloor:
             case PlayerState.PassParabola:
             case PlayerState.Tee:
-				if (crtState != PlayerState.Steal &&
+					if(crtState != PlayerState.Steal &&
 			   	 	crtState != PlayerState.Block && 
 			   	 	crtState != PlayerState.BlockCatch && 
 			    	crtState != PlayerState.Dunk && 
+			    	crtState != PlayerState.Elbow && 
 			    	!IsPass)
                     return true;
                 break;
@@ -1118,7 +1119,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if(IsBallOwner && 
 			   		crtState != PlayerState.Elbow &&
 			   		crtState != PlayerState.FakeShoot &&
-			   		crtState != PlayerState.Dunk) 
+			   		crtState != PlayerState.Dunk && 
+			   		!IsPass) 
 					return true;
 				break;
 

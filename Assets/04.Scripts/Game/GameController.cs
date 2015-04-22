@@ -2142,7 +2142,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter)
+		if (BallOwner || IsShooting || player.CheckAnimatorSate(PlayerState.GotSteal) || player == Shooter || player.IsFall)
             return;
 
 		if (Catcher) 
