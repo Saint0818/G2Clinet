@@ -254,6 +254,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private RotationLimitAngle[] ikRotationLimits;
 	public TScoreRate ScoreRate;
 
+	private bool isCanCatchBall = true;
+
     void initTrigger()
     {
         GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
@@ -1196,6 +1198,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 					ClearAnimatorFlag();
 					animator.SetTrigger("BlockTrigger");
+					isCanCatchBall = false;
 					blockCurveTime = 0;
 					isBlock = true;
                     Result = true;
@@ -1204,6 +1207,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.BlockCatch:
 					ClearAnimatorFlag();
 					animator.SetTrigger("BlockCatchTrigger");
+					isCanCatchBall = false;
                     Result = true;
                 break;
 
@@ -1244,6 +1248,7 @@ public class PlayerBehaviour : MonoBehaviour
 					PlayerRigidbody.useGravity = false;
 					ClearAnimatorFlag();
 					animator.SetTrigger("DunkTrigger");
+					isCanCatchBall = false;
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
                     DunkTo();
                     Result = true;
@@ -1258,6 +1263,7 @@ public class PlayerBehaviour : MonoBehaviour
 					ClearAnimatorFlag();
 	                AddActionFlag(ActionFlag.IsDribble);
 					SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
+					isCanCatchBall = false;
 					IsFirstDribble = false;
 	                Result = true;
 				}
@@ -1266,6 +1272,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Elbow:
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
+				isCanCatchBall = false;
 				Result = true;
 				break;
 
@@ -1275,6 +1282,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
+					isCanCatchBall = false;
                     Result = true;
                 }
                 break;
@@ -1285,6 +1293,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("FallTrigger");
+				isCanCatchBall = false;
 				gameObject.transform.DOLocalMoveY(0, 1f);
 				if(OnFall != null)
 					OnFall(this);
@@ -1297,6 +1306,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("FallTrigger");
+				isCanCatchBall = false;
 				gameObject.transform.DOLocalMoveY(0, 1f);
 				if(OnFall != null)
 					OnFall(this);
@@ -1401,6 +1411,7 @@ public class PlayerBehaviour : MonoBehaviour
 //					AniWaitTime = Time.time + 2.9f;
 					ClearAnimatorFlag();
 					animator.SetTrigger("GotStealTrigger");
+					isCanCatchBall = false;
 					Result = true;
 				break;
 
@@ -1419,6 +1430,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
 					animator.SetTrigger("ShootTrigger");
+					isCanCatchBall = false;
 					IsFirstDribble = true;
                     Result = true;
                 }
@@ -1564,7 +1576,7 @@ public class PlayerBehaviour : MonoBehaviour
 				blockTrigger.SetActive(false);
 				pushTrigger.SetActive(false);
 				elbowTrigger.SetActive(false);
-
+				isCanCatchBall = true;
 				PlayerRigidbody.useGravity = true;
 
                 if (!NeedResetFlag)
@@ -1649,6 +1661,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return CheckAnimatorSate(PlayerState.CatchFlat);}
     }
+
+	public bool IsCanCatchBall
+	{
+		get{ return isCanCatchBall;}
+	}
 
     public bool IsDefence
     {
