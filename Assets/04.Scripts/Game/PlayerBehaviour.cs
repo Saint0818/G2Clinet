@@ -339,7 +339,7 @@ public class PlayerBehaviour : MonoBehaviour
 							}
 
 							if(isIKCatchBall) {
-							if(Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 120) {
+							if(Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 100) {
 									if(Vector3.Distance(this.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position) < 3) {
 										fullBodyBipedIK.enabled = true;
 										fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
