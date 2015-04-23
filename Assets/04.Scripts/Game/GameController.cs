@@ -142,8 +142,11 @@ public class GameController : MonoBehaviour
 	public bool IsSwich;
 	public bool IsAirBall;
 	private ScoreType scoreType;
-	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1","BasketballAction_2","BasketballAction_3","BasketballAction_4"};
-	public string[] BasketScoreNoneAnimationState = {"BasketballAction_100"};
+//	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1","BasketballAction_2","BasketballAction_3","BasketballAction_4"};
+//	public string[] BasketScoreNoneAnimationState = {"BasketballAction_100"};
+	public string[] BasketScoreAnimationState;
+	public string[] BasketScoreNoneAnimationState;
+
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -219,7 +222,35 @@ public class GameController : MonoBehaviour
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
+		InitBasket();
     }
+
+	private void InitBasket(){
+		Object[] objs = Resources.LoadAll("Stadiums/Bakset/Animation", typeof(AnimationClip));
+		List<string> scoreName = new List<string>();
+		List<string> noScoreName = new List<string>();
+		for (int i=0; i<objs.Length; i++) {
+			if(objs[i].name.Contains("BasketballAction_")){
+				string[] nameSplit = objs[i].name.Split("_"[0]);
+				int num = int.Parse(nameSplit[1]);
+				if(num < 100) 
+					scoreName.Add(objs[i].name);
+				else
+					noScoreName.Add(objs[i].name);
+			}
+		}
+
+		Debug.Log("Score Length:"+scoreName.Count);
+		Debug.Log("NoScore Length:"+noScoreName.Count);
+		BasketScoreAnimationState = new string[scoreName.Count];
+		BasketScoreNoneAnimationState = new string[noScoreName.Count];
+		for(int i=0; i<scoreName.Count; i++) {
+			BasketScoreAnimationState[i] = scoreName[i];
+		}
+		for(int i=0; i<noScoreName.Count; i++) {
+			BasketScoreNoneAnimationState[i] = noScoreName[i];
+		}
+	}
 
     private void InitPos()
     {
@@ -1231,9 +1262,8 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn)
 		{
-			PlayerBehaviour nearP = FindNearNpc();
-			if(nearP)
-				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z); 
+			if(BallOwner)
+				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
 
             if (Shooter)
                 Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
@@ -2093,7 +2123,7 @@ public class GameController : MonoBehaviour
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
 //			p.isIKLook = true;
-//			isCatchBall = true;
+			isCatchBall = true;
 			yield return new WaitForSeconds(0.25f);
 			p.isIKOpen = false;
 			p.isIKCatchBall = false;

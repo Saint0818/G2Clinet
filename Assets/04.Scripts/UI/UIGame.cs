@@ -314,13 +314,15 @@ public class UIGame : UIBase {
 				ShootFX();
 			}else 
 			if(!state && shootBtnTime > 0){
-				if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
-					showCoverAttack(true);
-					coverAttackSprite[1].color = Color.green;
+				if(GameController.Get.BallOwner != null) {
+					if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
+						showCoverAttack(true);
+						coverAttackSprite[1].color = Color.green;
+					}
+					shootBtnTime = ButtonBTime;
 				}
 				GameController.Get.DoShoot (false, ScoreType.None);
 				GameController.Get.Joysticker.SetNoAiTime();
-				shootBtnTime = ButtonBTime;
 			}
 			isPressShootBtn = state;
 		}
@@ -610,9 +612,13 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if (Input.GetMouseButtonUp(0)) {
-			isPressShootBtn = false;
-			shootBtnTime = ButtonBTime;
+		if (Input.GetMouseButtonDown(0)) {
+			if(GameController.Get.BallOwner != null) {
+				if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
+					isPressShootBtn = false;
+					shootBtnTime = ButtonBTime;
+				}
+			}
 		}
 
 		if (isPressShootBtn && shootBtnTime > 0) {
