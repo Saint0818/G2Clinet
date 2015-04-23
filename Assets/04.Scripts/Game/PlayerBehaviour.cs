@@ -339,9 +339,17 @@ public class PlayerBehaviour : MonoBehaviour
 							}
 
 							if(isIKCatchBall) {
-								fullBodyBipedIK.enabled = true;
-								fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-								fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+							if(Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 120) {
+									if(Vector3.Distance(this.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position) < 3) {
+										fullBodyBipedIK.enabled = true;
+										fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+										fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+									} else {
+										fullBodyBipedIK.enabled = false;
+									}
+								} else {
+									fullBodyBipedIK.enabled = false;
+								}
 							} else {
 								fullBodyBipedIK.enabled = false;
 							}

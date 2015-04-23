@@ -279,7 +279,7 @@ public class UIGame : UIBase {
 	}
 
 	public void DoSteal(){
-		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
+		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall && GameController.Get.StealBtnLiftTime <= 0) {
 			showCoverDefence(true);
 			coverDefenceSprite[1].color = Color.green;
 			StealFX();
@@ -625,6 +625,7 @@ public class UIGame : UIBase {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
 				GameController.Get.DoShoot(true, ScoreType.Normal);
+				GameController.Get.Joysticker.SetNoAiTime();
 				showCoverAttack(true);
 				coverAttackSprite[1].color = Color.green;
 			}

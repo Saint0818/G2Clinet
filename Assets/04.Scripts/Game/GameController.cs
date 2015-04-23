@@ -239,9 +239,6 @@ public class GameController : MonoBehaviour
 					noScoreName.Add(objs[i].name);
 			}
 		}
-
-		Debug.Log("Score Length:"+scoreName.Count);
-		Debug.Log("NoScore Length:"+noScoreName.Count);
 		BasketScoreAnimationState = new string[scoreName.Count];
 		BasketScoreNoneAnimationState = new string[noScoreName.Count];
 		for(int i=0; i<scoreName.Count; i++) {
@@ -852,7 +849,6 @@ public class GameController : MonoBehaviour
             PlayerBehaviour player = null;
             if (Joysticker == BallOwner)
             {
-                Joysticker.SetNoAiTime();
                 player = Joysticker;
             } else 
             if (BallOwner.Team == TeamKind.Self) 
@@ -1088,7 +1084,6 @@ public class GameController : MonoBehaviour
             if (PlayerList.Count > 2)
             {
 				float aiTime = BallOwner.NoAiTime;
-				Joysticker.SetNoAiTime();
 				BallOwner.NoAiTime = 0;
 
                 if (BallOwner == Joysticker)
@@ -1153,14 +1148,13 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-	private float StealBtnLiftTime = 1f;
+	public float StealBtnLiftTime = 1f;
 
     public void DoSteal()
     {
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
         {
 			StealBtnLiftTime = 1f;
-            Joysticker.SetNoAiTime();   
             if (BallOwner && BallOwner.Team != Joysticker.Team)
             {
 				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
@@ -2122,12 +2116,11 @@ public class GameController : MonoBehaviour
 		} else {
 			p.isIKOpen = true;
 			p.isIKCatchBall = true;
-//			p.isIKLook = true;
+			yield return new WaitForSeconds(0.08f);
 			isCatchBall = true;
-			yield return new WaitForSeconds(0.25f);
+			yield return new WaitForSeconds(0.17f);
 			p.isIKOpen = false;
 			p.isIKCatchBall = false;
-//			p.isIKLook = false;
 			isCatchBall = false;
 			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 		}

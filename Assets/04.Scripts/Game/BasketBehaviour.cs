@@ -40,7 +40,7 @@ public class BasketBehaviour : MonoBehaviour {
 				if (GameController.Visible) {
 					if(GameController.Get.IsScore) {
 						if(GameController.Get.IsSwich) {
-							swishTime = 0.3f;
+							swishTime = 0.3f;//avoid ball touch basket
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 							SceneMgr.Get.PlayShoot(Team);
 							GameController.Get.PlusScore(Team);

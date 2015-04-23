@@ -490,7 +490,7 @@ public class ModelManager : MonoBehaviour {
 			if (dummyCatch != null) {
 				dummyCatch.name = "DummyCatch";
 				dummyCatch.transform.parent = result.transform;
-				dummyCatch.transform.localPosition = new Vector3(0, 1.5f, 1.5f);
+				dummyCatch.transform.localPosition = new Vector3(0, 1.5f, 1f);
 			}
 			
 			//animator
