@@ -168,7 +168,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    private const int ChangeToAI = 3;
+    private const int ChangeToAI = 1;
     public static string[] AnimatorStates = new string[] {
                 "",
                 "IsRun",
@@ -1558,11 +1558,16 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "ElbowEnd":
 				UIGame.Get.OpenUIMask(this);
+				if(NoAiTime > 0)
+					SetNoAiTime();
 				AniState(PlayerState.HoldBall);
 				break;
 
 			case "CatchEnd" :
 				UIGame.Get.OpenUIMask(this);
+				if(NoAiTime > 0)
+					SetNoAiTime();
+
 				if(NoAiTime == 0)
 					AniState(PlayerState.Dribble);
 				else 
@@ -1572,11 +1577,16 @@ public class PlayerBehaviour : MonoBehaviour
 			case "FakeShootEnd":
 				AniState(PlayerState.HoldBall);
 				UIGame.Get.OpenUIMask(this);
+				if(NoAiTime > 0)
+					SetNoAiTime();
 				break;
 
 			case "AnimationEnd":
 				AniState(PlayerState.Idle);
 				UIGame.Get.OpenUIMask(this);
+				if(NoAiTime > 0)
+					SetNoAiTime();
+
 				blockTrigger.SetActive(false);
 				pushTrigger.SetActive(false);
 				elbowTrigger.SetActive(false);
