@@ -1112,7 +1112,9 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Fall0:
 			case PlayerState.Fall1:
 			case PlayerState.GotSteal:
-				if (crtState != state && (IsPass || crtState == PlayerState.Dribble || crtState == PlayerState.HoldBall))
+			if (crtState != state && (IsPass || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || 
+			                          crtState == PlayerState.HoldBall || crtState == PlayerState.Idle || crtState == PlayerState.Run ||
+			                          crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || crtState == PlayerState.RunningDefence))
 					return true;
 				break;
 
@@ -1292,6 +1294,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Idle:
 				SetSpeed(0, -1);
 				ClearAnimatorFlag();
+				isCanCatchBall = true;
                 Result = true;
                 break;
 
