@@ -131,6 +131,7 @@ public class GameController : MonoBehaviour
     public PlayerBehaviour Catcher;
     public PlayerBehaviour Shooter;
 	public PlayerBehaviour Passer;
+	private PlayerBehaviour PickBallplayer = null;
 
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
@@ -510,13 +511,15 @@ public class GameController : MonoBehaviour
         {
             if (PlayerList.Count > 0)
             {
-                PlayerBehaviour pickplayer = NearBall(team);
+				if(PickBallplayer == null)
+					PickBallplayer = NearBall(team);
+
                 TTactical ap = new TTactical(false);
                 TTactical defap = new TTactical(false);
-                if (pickplayer != null)
-                {
-                    ap = GetMovePath(GetPosNameIndex(PosKind.Tee, pickplayer.Index));
-                    defap = GetMovePath(GetPosNameIndex(PosKind.TeeDefence, pickplayer.Index));
+				if (PickBallplayer != null)
+				{
+					ap = GetMovePath(GetPosNameIndex(PosKind.Tee, PickBallplayer.Index));
+					defap = GetMovePath(GetPosNameIndex(PosKind.TeeDefence, PickBallplayer.Index));
                 }                   
 
                 for (int i = 0; i < PlayerList.Count; i++)
@@ -526,8 +529,8 @@ public class GameController : MonoBehaviour
                     {
                         if (Npc.Team == team)
                         {
-                            if (Npc == pickplayer)
-                                PickBall(ref Npc);
+							if (Npc == PickBallplayer)
+								PickBall(ref Npc);
                             else 
                                 TeeBall(ref Npc, team, ref ap);
                         } else 
@@ -665,22 +668,24 @@ public class GameController : MonoBehaviour
 			case GameSituation.TeeAPicking:
 				UIGame.Get.ChangeControl(true);
 				CameraMgr.Get.SetTeamCamera(TeamKind.Self);
-                    break;
+				PickBallplayer = null;
+                break;
             case GameSituation.TeeA:
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
                 break;
-                case GameSituation.TeeBPicking:
-                    UIGame.Get.ChangeControl(false);
-                    CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
-                    break;
+            case GameSituation.TeeBPicking:
+           	 	UIGame.Get.ChangeControl(false);
+           		CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
+				PickBallplayer = null;
+                break;
 			case GameSituation.TeeB:
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 				break;
 			case GameSituation.End:
-					IsStart = false;
-					for(int i = 0; i < PlayerList.Count; i++)
-						PlayerList[i].AniState(PlayerState.Idle);					
-                    break;
+				IsStart = false;
+				for(int i = 0; i < PlayerList.Count; i++)
+					PlayerList[i].AniState(PlayerState.Idle);					
+            	break;
             }       
         }
     }
