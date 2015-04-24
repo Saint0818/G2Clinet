@@ -5,7 +5,6 @@ public class BasketBehaviour : MonoBehaviour {
 	public int Team;
 	private Animator animator;
 	private Transform dummyHoop;
-//	private float swishTime;
 	private bool isBesideBasket = false;
 
 	void Awake(){
@@ -26,15 +25,7 @@ public class BasketBehaviour : MonoBehaviour {
 	}
 
 	void Update(){
-//		if(swishTime > 0) {
-//			swishTime -= Time.deltaTime;
-//			if(swishTime <=0 ){
-//				swishTime = 0;
-//				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
-//			}
-//		}
 		if(isBesideBasket) {
-//			Debug.Log("distance:"+Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position));
 			if(Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position) >= 0.5f) {
 				isBesideBasket = false;
 				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
@@ -49,8 +40,7 @@ public class BasketBehaviour : MonoBehaviour {
 				if (GameController.Visible) {
 					if(GameController.Get.IsScore) {
 						if(GameController.Get.IsSwich) {
-//							swishTime = 0.3f;//avoid ball touch basket
-							isBesideBasket = true;
+							isBesideBasket = true;//avoid ball touch basket
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 							SceneMgr.Get.PlayShoot(Team);
 							GameController.Get.PlusScore(Team);

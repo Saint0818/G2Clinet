@@ -31,6 +31,7 @@ public class AvatarScoreRateEditor : EditorWindow {
 
 	void OnGUI(){
 		if(isChoose) {
+			GUILayout.Label("Name:" + Selection.gameObjects[0].name );
 			GUILayout.Label("Two Score Rate:" + scoreRate.TwoScoreRate );
 			scoreRate.TwoScoreRate  = Mathf.RoundToInt(GUILayout.HorizontalSlider((float)scoreRate.TwoScoreRate , 0, 100));
 			GUILayout.Label("Two Score Rate Deviation:" + scoreRate.TwoScoreRateDeviation );
