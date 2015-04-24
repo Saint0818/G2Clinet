@@ -272,7 +272,7 @@ public class GameController : MonoBehaviour
     {
         PlayerList.Clear();
         CreateTeam();
-        BallOwner = null;
+		SetBallOwnerNull ();
         Shooter = null;
         Catcher = null;
         situation = GameSituation.Opening;
@@ -813,7 +813,7 @@ public class GameController : MonoBehaviour
         if (BallOwner && BallOwner == player)
         {                   
 			Shooter = player;
-			BallOwner = null;
+			SetBallOwnerNull();
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
 			calculationScoreRate(player, scoreType);
@@ -2101,10 +2101,11 @@ public class GameController : MonoBehaviour
 				Catcher = null;
             } else
 			{
-				if(BallOwner != null)
-					BallOwner.IsBallOwner = false;
-
-                BallOwner = p;
+				SetBallOwnerNull();
+//				if(BallOwner != null)
+//					BallOwner.IsBallOwner = false;
+//
+//                BallOwner = p;
 			}
         }
     }
@@ -2592,7 +2593,7 @@ public class GameController : MonoBehaviour
 	
 	public void Reset()
 	{
-		BallOwner = null;
+		SetBallOwnerNull ();
 		SceneMgr.Get.SetBallState (PlayerState.Reset);
 		for(int i = 0; i < PlayerList.Count; i++){
 			Destroy(PlayerList[i].gameObject);
@@ -2690,6 +2691,14 @@ public class GameController : MonoBehaviour
 				return false;
 			else
 				return true;
+		}
+	}
+
+	public void SetBallOwnerNull()
+	{
+		if (BallOwner != null) {
+			BallOwner.IsBallOwner = false;
+			BallOwner = null;
 		}
 	}
 }

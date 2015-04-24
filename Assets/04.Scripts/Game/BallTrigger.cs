@@ -54,7 +54,8 @@ public class BallTrigger : MonoBehaviour
 	{
 		if (GameController.Get.Catcher && GameController.Get.BallOwner != null && GameController.Get.IsPassing == false) {
 			GameController.Get.Passer = GameController.Get.BallOwner;
-			GameController.Get.BallOwner = null;
+			GameController.Get.SetBallOwnerNull();
+
 			Passing = true;
 			GameController.Get.IsPassing = true;
 			PassCheckTime = Time.time + 2.5f;

@@ -74,6 +74,7 @@ public enum ActionFlag
     IsRun = 1,
     IsDefence = 2,
     IsDribble = 3,
+    IsHoldBall = 4,
 }
 
 public enum BallDirection{
@@ -173,7 +174,8 @@ public class PlayerBehaviour : MonoBehaviour
                 "",
                 "IsRun",
                 "IsDefence",
-                "IsDribble"
+                "IsDribble",
+                "IsHoldBall"
         };
     private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
     private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
@@ -1053,101 +1055,50 @@ public class PlayerBehaviour : MonoBehaviour
     {
         switch (state)
         {
-            case PlayerState.CatchFlat:
-            case PlayerState.CatchFloor:
-            case PlayerState.CatchParabola:
-				if(crtState == PlayerState.Run ||
-				   crtState == PlayerState.Idle)
-					return true;
-                break;
-            case PlayerState.Steal:
-				if (crtState != PlayerState.FakeShoot && 
-				    crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Block && 
-			   		crtState != PlayerState.BlockCatch && !IsPass)
-                    return true;
-                break;
             case PlayerState.PassFlat:
             case PlayerState.PassFloor:
             case PlayerState.PassParabola:
             case PlayerState.Tee:
-				if(crtState == PlayerState.Run ||
-				   crtState == PlayerState.RunAndDribble ||
-				   crtState == PlayerState.Dribble ||
-				   crtState == PlayerState.Idle ||
-				   crtState == PlayerState.HoldBall)
+				if(crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble)
+                    return true;
+                break;
+            
+            case PlayerState.BlockCatch:
+				if (crtState == PlayerState.Block) 
 					return true;
                 break;
-            case PlayerState.Block:
-				if (crtState != PlayerState.Steal && 
-			    	crtState != PlayerState.Shooting &&
-			    	crtState != PlayerState.FakeShoot &&
-			    	crtState != PlayerState.Block && 
-			   		crtState != PlayerState.BlockCatch && 
-			    	!IsCatch &&
-			    	!IsPass)
-                    return true;
-                break;
-            case PlayerState.BlockCatch:
-				if (crtState != PlayerState.FakeShoot && 
-			    	crtState != PlayerState.Dunk &&
-				    crtState != PlayerState.Block && 
-				    crtState != PlayerState.BlockCatch && 
-			    	crtState != state && !IsPass)
-				return true;
-                break;
 
-            case PlayerState.Shooting:
-			case PlayerState.Dunk:
-				if (crtState != PlayerState.Fall0 &&  
-					crtState != PlayerState.Fall1 && 
-					crtState != PlayerState.Elbow && 
-					crtState != PlayerState.Steal && 
-					crtState != PlayerState.GotSteal && 
-			    	crtState != state &&
-			    	!IsCatch &&
-			    	!IsPass)
-                    return true;
-                break;
             case PlayerState.FakeShoot:
-				if (crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Shooting && 
-			    	crtState != PlayerState.FakeShoot && 
-			    	crtState != PlayerState.Elbow && 
-			    	!IsPass)
+			case PlayerState.Shooting:
+			case PlayerState.Dunk:
+				if (IsBallOwner && (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
                     return true;
                 break;
 
 			case PlayerState.HoldBall:
-				if(IsBallOwner)
+				if(IsBallOwner && !IsPass)
 					return true;
 				break;
 
 			case PlayerState.Rebound:
 			case PlayerState.Push:
 			case PlayerState.PickBall:
-				if (CanMove)
+			case PlayerState.Steal:
+			case PlayerState.Block:
+				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			                                crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
 					return true;
 				break;
 
 			case PlayerState.Elbow:
-				if(IsBallOwner && 
-			   		crtState != PlayerState.Elbow &&
-			   		crtState != PlayerState.FakeShoot &&
-			   		crtState != PlayerState.Dunk && 
-			   		!IsPass) 
+				if(IsBallOwner && (crtState == PlayerState.Dribble ||crtState == PlayerState.RunAndDribble ||crtState == PlayerState.HoldBall))
 					return true;
 				break;
 
 			case PlayerState.Fall0:
 			case PlayerState.Fall1:
 			case PlayerState.GotSteal:
-				if (crtState != PlayerState.Fall0 &&
-				    crtState != PlayerState.Fall1 && 
-			   	 	crtState != PlayerState.Dunk &&
-			   	 	crtState != PlayerState.Block &&
-			   	 	crtState != PlayerState.BlockCatch && 
-			    	crtState != PlayerState.Shooting)
+				if (crtState != state && (IsPass || crtState == PlayerState.Dribble || crtState == PlayerState.HoldBall))
 					return true;
 				break;
 
@@ -1161,8 +1112,11 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
+			case PlayerState.CatchFlat:
+			case PlayerState.CatchFloor:
+			case PlayerState.CatchParabola:
 				if(CanMove)
-               		return true;
+					return true;
 			break;
 
 			case PlayerState.Idle:
@@ -1316,7 +1270,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.HoldBall:
 				ClearAnimatorFlag();
-				animator.SetTrigger("HoldBallTrigger");
+                AddActionFlag(ActionFlag.IsHoldBall);
 				isCanCatchBall = false;
 				Result = true;
 				break;
@@ -1421,8 +1375,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.Shooting:
 				UIGame.Get.DoPassNone();
                 if (IsBallOwner)
-                {
-					ClearAnimatorFlag();
+                {					
 					playerShootCurve = null;
 					for (int i = 0; i < aniCurve.Shoot.Length; i++)
 						if (aniCurve.Shoot [i].Name == "Shoot0")
@@ -1432,9 +1385,9 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
+					ClearAnimatorFlag();
 					animator.SetTrigger("ShootTrigger");
 					isCanCatchBall = false;
-					IsFirstDribble = true;
                     Result = true;
                 }
 				break;
@@ -1463,6 +1416,7 @@ public class PlayerBehaviour : MonoBehaviour
 		DelActionFlag (ActionFlag.IsDefence);
 		DelActionFlag (ActionFlag.IsRun);
 		DelActionFlag (ActionFlag.IsDribble);
+		DelActionFlag (ActionFlag.IsHoldBall);
 	}
     
     public void AnimationEvent(string animationName)
