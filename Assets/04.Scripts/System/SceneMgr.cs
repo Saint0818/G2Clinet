@@ -333,7 +333,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				
 				//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				Vector3 v = RealBall.transform.forward * -1;
-				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+				if(player != null)					
+					v = player.transform.forward * 10;
+				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 			break;
 			
@@ -347,7 +349,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 				v = RealBall.transform.forward * -1;
-				RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+				if(player != null)					
+					v = player.transform.forward * 10;
+				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
 

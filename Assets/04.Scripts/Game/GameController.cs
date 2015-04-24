@@ -1127,7 +1127,7 @@ public class GameController : MonoBehaviour
 					if(BallOwner)
 						BallOwner.AniState(PlayerState.GotSteal);
 					
-					setDropBall();
+					setDropBall(player);
 					return true;
 				}else
 					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -2153,7 +2153,7 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || IsShooting || !player.IsCanCatchBall)
+		if (BallOwner || IsShooting || !player.IsCanCatchBall || player.CheckAnimatorSate(PlayerState.GotSteal))
             return;
 
 		if (Catcher) 
@@ -2539,13 +2539,13 @@ public class GameController : MonoBehaviour
             Catcher = null;
 		}else{
 			Catcher = null;
-			SetBall(null);
+			SetBall();
 		}
 
 		IsPassing = false;
     }
 
-	private void setDropBall(){
+	private void setDropBall(PlayerBehaviour player = null){
 		if(IsPassing)
 		{
 //			if (BallOwner != null)
@@ -2584,8 +2584,8 @@ public class GameController : MonoBehaviour
 //			}
 		}
 		
-		SetBall(null);
-		SceneMgr.Get.SetBallState(PlayerState.Steal);
+		SetBall();
+		SceneMgr.Get.SetBallState(PlayerState.Steal, player);
 		Catcher = null;
 	}
 	

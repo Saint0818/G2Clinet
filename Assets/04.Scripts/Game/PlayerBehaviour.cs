@@ -700,6 +700,11 @@ public class PlayerBehaviour : MonoBehaviour
 			isJoystick = false;
 	        if (crtState != ps)
 	            AniState(ps);
+
+			if(situation == GameSituation.AttackA)
+				rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+			else if(situation == GameSituation.AttackB)
+				rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 		}
     }
 
@@ -905,10 +910,10 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
-                            rotateTo(MoveTarget.x, MoveTarget.y);
-                        else
-                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+//                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
+//                            rotateTo(MoveTarget.x, MoveTarget.y);
+//                        else
+//                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
@@ -917,19 +922,29 @@ public class PlayerBehaviour : MonoBehaviour
                         if (dis <= GameConst.TreePointDistance + 4)
                         {
 							if (dis2 < dis){
-								if(dis > dis3)
+								if(dis > dis3){
+									rotateTo(MoveTarget.x, MoveTarget.y);
 									AniState(PlayerState.RunningDefence);
-								else
+								}
+								else{
+									rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 									AniState(PlayerState.MovingDefence);
-							}else
+								}
+							}else{
+								rotateTo(MoveTarget.x, MoveTarget.y);
                                 AniState(PlayerState.RunningDefence);
+							}
                         } else {
-							if(Data.LookTarget == null)
-                            	AniState(PlayerState.RunningDefence);
-							else if(Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
-								AniState(PlayerState.MovingDefence);
-							else
+							if(Data.LookTarget == null){
+								rotateTo(MoveTarget.x, MoveTarget.y);
 								AniState(PlayerState.RunningDefence);
+							}else if(Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f){
+								rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+								AniState(PlayerState.MovingDefence);
+							}else{
+								rotateTo(MoveTarget.x, MoveTarget.y);
+								AniState(PlayerState.RunningDefence);
+							}
 						}
                     } else
                     {

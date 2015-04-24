@@ -27,7 +27,7 @@ public class BlockTrigger : MonoBehaviour {
 				}
 			}
 		} else if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
-			SceneMgr.Get.SetBallState(PlayerState.Block);
+			SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
 		}
 	}
 }
