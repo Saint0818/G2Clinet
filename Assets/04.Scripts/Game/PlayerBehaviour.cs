@@ -168,7 +168,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    private const int ChangeToAI = 1;
+    private const int ChangeToAI = 3;
     public static string[] AnimatorStates = new string[] {
                 "",
                 "IsRun",
@@ -1056,11 +1056,9 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.CatchFlat:
             case PlayerState.CatchFloor:
             case PlayerState.CatchParabola:
-				if (crtState != PlayerState.FakeShoot && 
-			        crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Steal &&
-			    	!IsCatch && !IsPass)
-                    return true;
+				if(crtState == PlayerState.Run ||
+				   crtState == PlayerState.Idle)
+					return true;
                 break;
             case PlayerState.Steal:
 				if (crtState != PlayerState.FakeShoot && 
@@ -1073,13 +1071,12 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.PassFloor:
             case PlayerState.PassParabola:
             case PlayerState.Tee:
-					if(crtState != PlayerState.Steal &&
-			   	 	crtState != PlayerState.Block && 
-			   	 	crtState != PlayerState.BlockCatch && 
-			    	crtState != PlayerState.Dunk && 
-			    	crtState != PlayerState.Elbow && 
-			    	!IsPass)
-                    return true;
+				if(crtState == PlayerState.Run ||
+				   crtState == PlayerState.RunAndDribble ||
+				   crtState == PlayerState.Dribble ||
+				   crtState == PlayerState.Idle ||
+				   crtState == PlayerState.HoldBall)
+					return true;
                 break;
             case PlayerState.Block:
 				if (crtState != PlayerState.Steal && 
