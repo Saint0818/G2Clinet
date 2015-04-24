@@ -1558,15 +1558,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "ElbowEnd":
 				UIGame.Get.OpenUIMask(this);
-				if(NoAiTime > 0)
-					SetNoAiTime();
 				AniState(PlayerState.HoldBall);
 				break;
 
 			case "CatchEnd" :
 				UIGame.Get.OpenUIMask(this);
-				if(NoAiTime > 0)
-					SetNoAiTime();
 
 				if(NoAiTime == 0)
 					AniState(PlayerState.Dribble);
@@ -1577,16 +1573,11 @@ public class PlayerBehaviour : MonoBehaviour
 			case "FakeShootEnd":
 				AniState(PlayerState.HoldBall);
 				UIGame.Get.OpenUIMask(this);
-				if(NoAiTime > 0)
-					SetNoAiTime();
 				break;
 
 			case "AnimationEnd":
 				AniState(PlayerState.Idle);
 				UIGame.Get.OpenUIMask(this);
-				if(NoAiTime > 0)
-					SetNoAiTime();
-
 				blockTrigger.SetActive(false);
 				pushTrigger.SetActive(false);
 				elbowTrigger.SetActive(false);

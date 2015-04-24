@@ -531,6 +531,8 @@ public class UIGame : UIBase {
 			showCoverDefence(false);
 			isCanDefenceBtnPress = true;
 			isPressElbowBtn = true;
+			if(p.NoAiTime > 0)
+				p.SetNoAiTime();
 		}
 	}
 
