@@ -1531,7 +1531,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "CatchEnd" :
 				UIGame.Get.OpenUIMask(this);
-
 				if(NoAiTime == 0)
 					AniState(PlayerState.Dribble);
 				else 

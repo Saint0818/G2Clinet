@@ -34,7 +34,7 @@ public class BasketBehaviour : MonoBehaviour {
 //			}
 //		}
 		if(isBesideBasket) {
-			Debug.Log("distance:"+Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position));
+//			Debug.Log("distance:"+Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position));
 			if(Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position) >= 0.5f) {
 				isBesideBasket = false;
 				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
