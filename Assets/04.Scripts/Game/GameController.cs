@@ -1435,10 +1435,17 @@ public class GameController : MonoBehaviour
 					if(Npc.Team == TeamKind.Npc)
 						AddZ = -3;
 
-					if (Dir == 1)
-						data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z + AddZ);
-					else		
-						data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z + AddZ);					
+					if (Dir == 1){
+						if (Npc.Team == TeamKind.Self)
+							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
+						else
+							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));
+					}else{		
+						if (Npc.Team == TeamKind.Self)
+							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
+						else
+							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));					
+					}
 					
 					Npc.FirstTargetPos = data;
 					CoolDownCrossover = Time.time + 4;
