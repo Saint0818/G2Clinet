@@ -142,6 +142,7 @@ public class GameController : MonoBehaviour
 	public bool IsScore;
 	public bool IsSwich;
 	public bool IsAirBall;
+	public bool IsAnimationEnd = true;
 	private ScoreType scoreType;
 //	public string[] BasketScoreAnimationState = {"BasketballAction_0","BasketballAction_1","BasketballAction_2","BasketballAction_3","BasketballAction_4"};
 //	public string[] BasketScoreNoneAnimationState = {"BasketballAction_100"};

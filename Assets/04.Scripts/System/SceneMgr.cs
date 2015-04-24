@@ -42,6 +42,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[] MissPoint = new GameObject[2];
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
+	public GameObject[] BasketHoopAni = new GameObject[2];
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
 	public Material BasketMaterial;
@@ -98,6 +99,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			BasketEntra[1, 1].IntTrigger = 1;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
 			BallShadow.gameObject.SetActive(false);
+
+
 
 //			if(TeamManager.Team.BasketLv >= 0)
 //			{
@@ -250,9 +253,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
 
         crtBasket.transform.parent = gameObject.transform;
-        crtBasketIndex = basketIndex;
-    }
-
+		crtBasketIndex = basketIndex;
+		BasketHoopAni[0] = crtBasket.transform.FindChild("Left/BasketballAction").gameObject;
+		BasketHoopAni[1] = crtBasket.transform.FindChild("Right/BasketballAction").gameObject;
+	}
+	
 	public void SetBasketBallState(PlayerState state, Transform dummy = null){
 		switch(state){
 			case PlayerState.BasketActionSwish:
@@ -280,7 +285,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.parent = null;
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
-				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)*  70,ForceMode.Impulse);
+				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
 				break;
 		}
 
