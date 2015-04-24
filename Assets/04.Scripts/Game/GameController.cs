@@ -427,10 +427,8 @@ public class GameController : MonoBehaviour
     }
 
 	void Update(){
-		
 		if(isCatchBall) {
 			if(BallOwner) {
-//				BallOwner.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
 				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
 				pos = Vector3.MoveTowards(pos, player, 0.25f);
