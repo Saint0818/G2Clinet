@@ -429,7 +429,7 @@ public class GameController : MonoBehaviour
     }
 
 	void Update(){
-		if(isCatchBall) {
+		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
 			if(BallOwner) {
 				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
 				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
@@ -491,7 +491,7 @@ public class GameController : MonoBehaviour
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
                             } else 
-                            if (!Npc.CheckAnimatorSate(PlayerState.Shooting))
+                            if (!Npc.CheckAnimatorSate(PlayerState.Shoot0))
                             {
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
@@ -807,8 +807,27 @@ public class GameController : MonoBehaviour
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
-            else
-                BallOwner.AniState(PlayerState.Shooting, SceneMgr.Get.Hood [t].transform.position);
+            else{
+
+				float dis = Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
+
+				if(BallOwner.IsMoving){
+					if(dis > 15)
+						BallOwner.AniState(PlayerState.Shoot3, SceneMgr.Get.Hood [t].transform.position);
+					else if(dis > 9 && dis <= 15)
+						BallOwner.AniState(PlayerState.Shoot2, SceneMgr.Get.Hood [t].transform.position);
+					else
+						BallOwner.AniState(PlayerState.Layup, SceneMgr.Get.Hood [t].transform.position);
+				}
+				else{
+					if(dis > 15)
+						BallOwner.AniState(PlayerState.Shoot3, SceneMgr.Get.Hood [t].transform.position);
+					else if(dis > 9 && dis <= 15)
+						BallOwner.AniState(PlayerState.Shoot0, SceneMgr.Get.Hood [t].transform.position);
+					else
+						BallOwner.AniState(PlayerState.Shoot1, SceneMgr.Get.Hood [t].transform.position);
+				}
+			}
         }
     }
         
@@ -824,7 +843,7 @@ public class GameController : MonoBehaviour
             
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-            SceneMgr.Get.SetBallState(PlayerState.Shooting);
+            SceneMgr.Get.SetBallState(PlayerState.Shoot0);
 			if(!IsScore && IsAirBall) {
 				//AirBall
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
@@ -2692,7 +2711,10 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shooting))
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shoot0) || 
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot1) || 
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2) || 
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3))
                     return true;            
 
             return false;

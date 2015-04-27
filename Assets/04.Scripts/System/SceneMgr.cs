@@ -307,7 +307,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localPosition = Vector3.zero;
 				break;
 
-			case PlayerState.Shooting: 
+			case PlayerState.Shoot0: 
+			case PlayerState.Shoot1: 
+			case PlayerState.Shoot2: 
+			case PlayerState.Shoot3: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
