@@ -40,6 +40,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private GameObject cameraOffsetAeraObj;
 	private GameObject focusMoveAeraObj;
 	private GameObject focusStopAeraObj;
+
+	public bool isSplitScreen;
+	public SplitScreen GetSplitScreen;
 	
 	private enum ZoomType
 	{
@@ -230,7 +233,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 		cameraOffsetPos.y = smothHight.y;
 		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
-//		cameraOffsetObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 	}
 
@@ -240,8 +242,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		switch (curTeam) {
 		case TeamKind.Self:
 			if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
-				Lookat(focusTarget);
-				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				if(!isSplitScreen){
+					Lookat(focusTarget, Vector3.zero);
+					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				}
 			}
 			else
 			{
@@ -252,8 +256,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		case TeamKind.Npc:
 
 			if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
-				Lookat(focusTarget);
-				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				if(!isSplitScreen){
+					Lookat(focusTarget, Vector3.zero);
+					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				}
 			}
 			else
 			{
@@ -263,10 +269,34 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			break;
 		}
 	}
+	
+	public void setSplitScreen(){
+		GameObject obj =  Resources.Load("Prefab/MagicSplitscreen", typeof(GameObject)) as GameObject ;
+		SplitScreen mss = obj.GetComponent<SplitScreen>();
+		mss.primaryCamera = CameraMgr.Get.CourtCamera;
+		mss.player2 = GameController.Get.Joysticker.gameObject.transform;
+		mss.player1 = SceneMgr.Get.RealBall.transform;
+//		mss.cameraRotation = CourtCamera.gameObject.transform.eulerAngles;
+		mss.cameraDistance = Vector3.Distance(CourtCamera.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position);
+		mss.triggerDistance = 4;
+		mss.showSeparator = true;
+		GameObject splitScreen =  Instantiate(obj);
+		GetSplitScreen = splitScreen.GetComponent<SplitScreen>();
+	}
 
-	private void Lookat(GameObject obj)
+	public void SplitLookAt(bool isSplit, Vector3 pos) { 
+		isSplitScreen = isSplit;
+		Lookat(focusTarget, pos);
+	}
+
+	private void Lookat(GameObject obj, Vector3 pos)
 	{
-		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
+		Vector3 dir = Vector3.zero;
+		if(isSplitScreen) {
+			dir = obj.transform.position - cameraRotationObj.transform.position + pos;
+		} else {
+			dir = obj.transform.position - cameraRotationObj.transform.position;
+		}
 		Quaternion rot = Quaternion.LookRotation(dir);
 		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
 	}

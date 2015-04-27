@@ -20,8 +20,10 @@ public class BasketBehaviour : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider c) {
-		dummyHoop = SceneMgr.Get.BasketHoopAni[Team].transform.FindChild("DummyHoop");
-		animator = SceneMgr.Get.BasketHoopAni[Team].GetComponent<Animator>();
+		if(dummyHoop == null)
+			dummyHoop = SceneMgr.Get.BasketHoopAni[Team].transform.FindChild("DummyHoop");
+		if(animator == null)
+			animator = SceneMgr.Get.BasketHoopAni[Team].GetComponent<Animator>();
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk) {
 				if (GameController.Visible) {

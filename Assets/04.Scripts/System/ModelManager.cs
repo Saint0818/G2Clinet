@@ -553,57 +553,57 @@ public class ModelManager : MonoBehaviour {
 					aimIK.solver.bones[3].weight = 0.5f;
 				}
 				
-//				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit1 = tAimBone1.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+////				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit1 = tAimBone1.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+////				if(!boneRotationLimit1 )
+////					boneRotationLimit1 = tAimBone1.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit1 = tAimBone1.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
 //				if(!boneRotationLimit1 )
-//					boneRotationLimit1 = tAimBone1.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
-				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit1 = tAimBone1.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
-				if(!boneRotationLimit1 )
-					boneRotationLimit1 = tAimBone1.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
-
-//				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit2 = tAimBone2.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//					boneRotationLimit1 = tAimBone1.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
+//
+////				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit2 = tAimBone2.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+////				if(!boneRotationLimit2 )
+////					boneRotationLimit2 = tAimBone2.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit2 = tAimBone2.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
 //				if(!boneRotationLimit2 )
-//					boneRotationLimit2 = tAimBone2.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
-				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit2 = tAimBone2.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
-				if(!boneRotationLimit2 )
-					boneRotationLimit2 = tAimBone2.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
-
-//				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit3 = tAimBone3.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//					boneRotationLimit2 = tAimBone2.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
+//
+////				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit3 = tAimBone3.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
+////				if(!boneRotationLimit3 )
+////					boneRotationLimit3 = tAimBone3.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
+//				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit3 = tAimBone3.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
 //				if(!boneRotationLimit3 )
-//					boneRotationLimit3 = tAimBone3.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitHinge>();
-				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit3 = tAimBone3.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
-				if(!boneRotationLimit3 )
-					boneRotationLimit3 = tAimBone3.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
-
-				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit4 = tAimBone4.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
-				if(!boneRotationLimit4 )
-					boneRotationLimit4 = tAimBone4.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
-//				boneRotationLimit1.useLimits = true;
-//				boneRotationLimit1.axis = new Vector3(1, 0, 0);
-//				boneRotationLimit1.zeroAxisDisplayOffset = 180;
-//				boneRotationLimit1.min = -20;
-//				boneRotationLimit1.max = 20;
-//				boneRotationLimit2.useLimits = true;
-//				boneRotationLimit2.axis = new Vector3(1, 0, 0);
-//				boneRotationLimit2.zeroAxisDisplayOffset = 180;
-//				boneRotationLimit2.min = -20;
-//				boneRotationLimit2.max = 20;
-//				boneRotationLimit3.useLimits = true;
-//				boneRotationLimit3.axis = new Vector3(1, 0, 0);
-//				boneRotationLimit3.zeroAxisDisplayOffset = 180;
-//				boneRotationLimit3.min = -20;
-//				boneRotationLimit3.max = 20;
-				boneRotationLimit1.axis = new Vector3(-1, 1, 0);
-				boneRotationLimit1.limit = 20;
-				boneRotationLimit1.twistLimit = 20;
-				boneRotationLimit2.axis = new Vector3(-1, 1, 0);
-				boneRotationLimit2.limit = 20;
-				boneRotationLimit2.twistLimit = 20;
-				boneRotationLimit3.axis = new Vector3(-1, 1, 0);
-				boneRotationLimit3.limit = 20;
-				boneRotationLimit3.twistLimit = 20;
-				boneRotationLimit4.axis = new Vector3(-1, 1, 0);
-				boneRotationLimit4.limit = 20;
-				boneRotationLimit4.twistLimit = 20;
+//					boneRotationLimit3 = tAimBone3.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
+//
+//				RootMotion.FinalIK.RotationLimitAngle boneRotationLimit4 = tAimBone4.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitAngle>();
+//				if(!boneRotationLimit4 )
+//					boneRotationLimit4 = tAimBone4.gameObject.AddComponent<RootMotion.FinalIK.RotationLimitAngle>();
+////				boneRotationLimit1.useLimits = true;
+////				boneRotationLimit1.axis = new Vector3(1, 0, 0);
+////				boneRotationLimit1.zeroAxisDisplayOffset = 180;
+////				boneRotationLimit1.min = -20;
+////				boneRotationLimit1.max = 20;
+////				boneRotationLimit2.useLimits = true;
+////				boneRotationLimit2.axis = new Vector3(1, 0, 0);
+////				boneRotationLimit2.zeroAxisDisplayOffset = 180;
+////				boneRotationLimit2.min = -20;
+////				boneRotationLimit2.max = 20;
+////				boneRotationLimit3.useLimits = true;
+////				boneRotationLimit3.axis = new Vector3(1, 0, 0);
+////				boneRotationLimit3.zeroAxisDisplayOffset = 180;
+////				boneRotationLimit3.min = -20;
+////				boneRotationLimit3.max = 20;
+//				boneRotationLimit1.axis = new Vector3(-1, 1, 0);
+//				boneRotationLimit1.limit = 20;
+//				boneRotationLimit1.twistLimit = 20;
+//				boneRotationLimit2.axis = new Vector3(-1, 1, 0);
+//				boneRotationLimit2.limit = 20;
+//				boneRotationLimit2.twistLimit = 20;
+//				boneRotationLimit3.axis = new Vector3(-1, 1, 0);
+//				boneRotationLimit3.limit = 20;
+//				boneRotationLimit3.twistLimit = 20;
+//				boneRotationLimit4.axis = new Vector3(-1, 1, 0);
+//				boneRotationLimit4.limit = 20;
+//				boneRotationLimit4.twistLimit = 20;
 
 				FullBodyBipedIK fbbik = result.GetComponent<FullBodyBipedIK>();
 				if(fbbik == null)
