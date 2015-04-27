@@ -513,20 +513,30 @@ public class UIGame : UIBase {
 			if(playerScreenPos.y == -510) {
 				angle = -90;
 			}
-			if(playerInCameraX > -20 &&
-			   playerInCameraX < Screen.width + 20 &&
-			   playerInCameraY > - 50 &&
-			   playerInCameraY < Screen.height + 50) {
+			if(playerInCameraX > 0 &&
+			   playerInCameraX < Screen.width &&
+			   playerInCameraY > 0 &&
+			   playerInCameraY < Screen.height) {
 //				screenLocation.SetActive(false);
 				StopCoroutine("startSplit");
 				StartCoroutine("stopSplit");
 			} else {
-				StopCoroutine("stopSplit");
-				StartCoroutine("startSplit");
+//				StopCoroutine("stopSplit");
+//				StartCoroutine("startSplit");
 //				screenLocation.SetActive(true);
 //				screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
 //				screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 			}
+
+			if(playerInCameraX < -100 ||
+			   playerInCameraX >Screen.width + 100 ||
+			   playerInCameraY < - 100 ||
+			   playerInCameraY > Screen.height + 100){
+				
+				StopCoroutine("stopSplit");
+				StartCoroutine("startSplit");
+			}
+
 			if(isSplit) {
 				CameraMgr.Get.GetSplitScreen.StartSplitscreenCamera();
 			} else {
