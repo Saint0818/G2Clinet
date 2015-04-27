@@ -417,6 +417,7 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnShooting = OnShooting;
 //            PlayerList [i].OnPass = OnPass;
             PlayerList [i].OnStealMoment = OnStealMoment;
+			PlayerList [i].OnGotSteal = OnGotSteal;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
@@ -1133,7 +1134,7 @@ public class GameController : MonoBehaviour
 					if(BallOwner)
 						BallOwner.AniState(PlayerState.GotSteal);
 					
-					setDropBall(player);
+//					setDropBall(player);
 					return true;
 				}else
 					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -1151,6 +1152,16 @@ public class GameController : MonoBehaviour
         
         return false;
     }
+
+	public bool OnGotSteal(PlayerBehaviour player)
+	{
+		if (BallOwner == player) {
+			setDropBall (player);
+			return true;
+		}
+		else
+			return false;
+	}
 
 	public float StealBtnLiftTime = 1f;
 

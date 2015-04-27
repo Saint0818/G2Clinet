@@ -165,6 +165,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction OnFakeShootBlockMoment = null;
 	public OnPlayerAction OnFall = null;
 	public OnPlayerAction OnPickUpBall = null;
+	public OnPlayerAction OnGotSteal = null;
 
     public Vector3 Translate;
     public float[] DunkHight = new float[2]{3, 5};
@@ -1111,10 +1112,24 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.Fall0:
 			case PlayerState.Fall1:
+			if (crtState != state && crtState != PlayerState.Elbow && 
+			    (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || 
+			 	crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
+			 	crtState == PlayerState.RunningDefence))
+					return true;
+				break;
+
 			case PlayerState.GotSteal:
-			if (crtState != state && (IsPass || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || 
-			                          crtState == PlayerState.HoldBall || crtState == PlayerState.Idle || crtState == PlayerState.Run ||
-			                          crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || crtState == PlayerState.RunningDefence))
+				if (crtState != state && crtState != PlayerState.Elbow && 
+				    (crtState == PlayerState.Dribble ||
+			 		 crtState == PlayerState.RunAndDribble || 
+			 		 crtState == PlayerState.FakeShoot || 
+			 		 crtState == PlayerState.HoldBall || 
+			 		 crtState == PlayerState.Idle || 
+			 		 crtState == PlayerState.Run || 
+			 		 crtState == PlayerState.Defence || 
+			 	     crtState == PlayerState.MovingDefence || 
+				 	 crtState == PlayerState.RunningDefence))
 					return true;
 				break;
 
@@ -1299,7 +1314,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.MovingDefence:
-                SetSpeed(1, 1);
+				isCanCatchBall = true;
+				SetSpeed(1, 1);
 				ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
@@ -1336,12 +1352,14 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.PickBall:
+				isCanCatchBall = true;
 				ClearAnimatorFlag();
 				animator.SetTrigger("PickTrigger");
 				Result = true;
 				break;
 			
 			case PlayerState.Tee:
+				isCanCatchBall = true;
 				ClearAnimatorFlag();
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("PassTrigger");
@@ -1444,6 +1462,12 @@ public class PlayerBehaviour : MonoBehaviour
 				if (OnStealMoment != null)
 					OnStealMoment(this);
 				break;
+
+			case "GotStealing":
+				if(OnGotSteal != null)
+					OnGotSteal(this);
+				break;	
+					
 			case "FakeShootBlockMoment":
 				if (crtState != PlayerState.Shooting && OnFakeShootBlockMoment != null)
 					OnFakeShootBlockMoment(this);
@@ -1534,6 +1558,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "CatchEnd" :
 				UIGame.Get.OpenUIMask(this);
+				IsFirstDribble = true;
+				
 				if(NoAiTime == 0)
 					AniState(PlayerState.Dribble);
 				else 
