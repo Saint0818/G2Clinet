@@ -1259,6 +1259,8 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
 				isCanCatchBall = false;
+				GameController.Get.RealBallFxTime = 1f;
+				SceneMgr.Get.RealBallFX.SetActive(true);
 				Result = true;
 				break;
 
@@ -1269,6 +1271,8 @@ public class PlayerBehaviour : MonoBehaviour
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
+					GameController.Get.RealBallFxTime = 1f;
+					SceneMgr.Get.RealBallFX.SetActive(true);
                     Result = true;
                 }
                 break;

@@ -121,7 +121,7 @@ public class GameController : MonoBehaviour
     public float CoolDownPass = 0;
     private float CoolDownCrossover = 0;
     private float ShootDis = 0;
-    private float RealBallFxTime = 0;
+    public float RealBallFxTime = 0;
 	private float WaitTeeBallTime = 0;
 	private float WaitStealTime = 0;
 	public bool IsPassing = false;
@@ -1357,20 +1357,51 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void Attack(ref PlayerBehaviour Npc)
-    {
-        if (BallOwner != null)
-        {
-            int dunkRate = Random.Range(0, 100) + 1;
-            int shootRate = Random.Range(0, 100) + 1;
-            int shoot3Rate = Random.Range(0, 100) + 1;
-            int passRate = Random.Range(0, 100) + 1;
-            int pushRate = Random.Range(0, 100) + 1;
-            int supRate = Random.Range(0, 100) + 1;
-            int ALLYOOP = Random.Range(0, 100) + 1;
+	private void AIShoot(ref PlayerBehaviour Self)
+	{
+		bool suc = false;
+
+		if(!Self.CheckAnimatorSate(PlayerState.HoldBall))
+		{
+			int FakeRate = Random.Range (0, 100);
+
+			if(FakeRate < GameConst.FakeShootRate)
+			{
+				if (PlayerList.Count > 1)
+				{
+					for (int i = 0; i < PlayerList.Count; i++)
+					{
+						PlayerBehaviour Npc = PlayerList [i];
+						
+						if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= GameConst.BlockDistance)
+						{
+							Self.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [Self.Team.GetHashCode()].transform.position);
+							suc = true;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		if(!suc)
+			Shoot(ScoreType.Normal);
+	}
+	
+	private void Attack(ref PlayerBehaviour Npc)
+	{
+		if (BallOwner != null)
+		{
+			int dunkRate = Random.Range(0, 100) + 1;
+			int shootRate = Random.Range(0, 100) + 1;
+			int shoot3Rate = Random.Range(0, 100) + 1;
+			int passRate = Random.Range(0, 100) + 1;
+			int pushRate = Random.Range(0, 100) + 1;
+			int supRate = Random.Range(0, 100) + 1;
+			int ALLYOOP = Random.Range(0, 100) + 1;
 			int ElbowRate = Random.Range(0, 100) + 1;
-            float Dis = 0;
-            float ShootPointDis = 0;
+			float Dis = 0;
+			float ShootPointDis = 0;
             Vector3 pos = SceneMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position;
 			PlayerBehaviour man = null;
             
@@ -1385,15 +1416,15 @@ public class GameController : MonoBehaviour
                 int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
 				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
-					Shoot(ScoreType.Normal);
+					AIShoot(ref Npc);
                 } else 
 				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
-                   Shoot(ScoreType.Normal);
-                } else 
+					AIShoot(ref Npc);
+				} else 
 				if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 10, 90) == 0) && CheckAttack(ref Npc))//|| shoot3Rate < 3
                 {
-                    Shoot(ScoreType.Normal);				
+					AIShoot(ref Npc);				
 				} else 
 				if (ElbowRate < GameData.AIlevelAy[Npc.Attr.AILevel].ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
 					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow)){
