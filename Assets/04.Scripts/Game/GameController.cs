@@ -950,16 +950,19 @@ public class GameController : MonoBehaviour
             return false;
     }
     
-    public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false)
+    public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false, bool MovePass = false)
     {
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && player != BallOwner)
         {
-			if(!IsBtn && CoolDownPass != 0)
-				return Result;
+			if(!MovePass)
+			{
+				if(!IsBtn && CoolDownPass != 0)
+					return Result;
 
-			if(!IsBtn && BallOwner.NoAiTime > 0)
-			   return Result;
+				if(!IsBtn && BallOwner.NoAiTime > 0)
+				   return Result;
+			}
              
 			if(IsTee)
 			{
@@ -2634,7 +2637,7 @@ public class GameController : MonoBehaviour
         if (Catcher != null && !Catcher.IsFall)
         {
             if(SetBall(Catcher))
-				CoolDownPass = Time.time + 0.5f;
+				CoolDownPass = Time.time + 3;
 			if(Catcher && Catcher.NeedShooting)
 			{
 				Shoot();
