@@ -234,14 +234,22 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Dunk
     private bool isDunk = false;
-    private bool isZmove = false;
+    private bool isDunkZmove = false;
     private float dunkCurveTime = 0;
     private GameObject dkPathGroup;
-    private Vector3[] dunkPath = new Vector3[5];
+//    private Vector3[] dunkPath = new Vector3[5];
     public AniCurve aniCurve;
     private TDunkCurve playerDunkCurve;
 
-    //Block
+	//Layup
+	private bool isLayup = false;
+	private bool isLayupZmove = false;
+	private float layupCurveTime = 0;
+//	private GameObject dkPathGroup;
+//	private Vector3[] dunkPath = new Vector3[5];
+	private TLayupCurve playerLayupCurve;
+		
+		//Block
     private bool isBlock = false;
     private float blockCurveTime = 0;
     private TBlockCurve playerBlockCurve;
@@ -412,7 +420,9 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationBlock();
         CalculationDunkMove();
         CalculationShootJump();
-        
+        CalculationRebound();
+		CalculationLayupMove();
+		
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
 
@@ -562,9 +572,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
-            if (!isZmove && dunkCurveTime >= playerDunkCurve.StartMoveTime)
+            if (!isDunkZmove && dunkCurveTime >= playerDunkCurve.StartMoveTime)
             {
-                isZmove = true;
+                isDunkZmove = true;
                 gameObject.transform.DOMoveZ(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
                 gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
             }
@@ -578,11 +588,44 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	private void CalculationLayupMove()
+	{
+		if (!isLayup)
+			return;
+		
+		if (playerLayupCurve != null)
+		{
+			layupCurveTime +=  Time.deltaTime;
+			
+			Vector3 position = gameObject.transform.position;
+			position.y = playerLayupCurve.aniCurve.Evaluate(layupCurveTime);
+			
+			if (position.y < 0)
+				position.y = 0;
+			
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
+			
+			if (!isLayupZmove && layupCurveTime >= playerLayupCurve.StartMoveTime)
+			{
+				isLayupZmove = true;
+				gameObject.transform.DOMoveZ(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
+			}
+			
+			if (layupCurveTime >= playerLayupCurve.LifeTime)
+				isLayup = false;
+		} else
+		{
+			isDunk = false;
+			Debug.LogError("playCurve is null");
+		}
+	}
+	
 	private void CalculationRebound()
 	{
 		if (!isRebound)
 			return;
-
+		
 		if (playerReboundCurve != null)
 		{
 			reboundCurveTime += Time.deltaTime;
@@ -799,13 +842,13 @@ public class PlayerBehaviour : MonoBehaviour
 //        PlayerRigidbody.useGravity = false;
 //        PlayerRigidbody.isKinematic = true;
 
-        dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position;
-        float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
-        float maxH = DunkHight [0] + (DunkHight [1] - DunkHight [0] / (dis * 0.25f));
-        dunkPath [0] = gameObject.transform.position;
-        dunkPath [2] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
-        dunkPath [3] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight [1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
-        dunkPath [1] = new Vector3((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
+//        dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position;
+//        float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
+//        float maxH = DunkHight [0] + (DunkHight [1] - DunkHight [0] / (dis * 0.25f));
+//        dunkPath [0] = gameObject.transform.position;
+//        dunkPath [2] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
+//        dunkPath [3] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight [1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
+//        dunkPath [1] = new Vector3((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
 
         playerDunkCurve = null;
         for (int i = 0; i < aniCurve.Dunk.Length; i++)
@@ -813,16 +856,16 @@ public class PlayerBehaviour : MonoBehaviour
                 playerDunkCurve = aniCurve.Dunk [i];
 
         isDunk = true;
-        isZmove = false;
+        isDunkZmove = false;
         dunkCurveTime = 0;
     }
 
-    private void PathCallBack()
-    {
-        Vector3[] path2 = new Vector3[2];
-        path2 = new Vector3[2]{dunkPath [3], dunkPath [4]};
-        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
-    }
+//    private void PathCallBack()
+//    {
+//        Vector3[] path2 = new Vector3[2];
+//        path2 = new Vector3[2]{dunkPath [3], dunkPath [4]};
+//        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
+//    }
     
     private int MinIndex(float[] floatAy, bool getmin = false)
     {
@@ -1561,16 +1604,16 @@ public class PlayerBehaviour : MonoBehaviour
 		case PlayerState.Layup:
 			if (IsBallOwner){
 				UIGame.Get.DoPassNone();
-				playerShootCurve = null;
+				playerLayupCurve = null;
 				stateNo = 0;
 				curveName = string.Format("Shoot{0}", stateNo);
 
-				for (int i = 0; i < aniCurve.Shoot.Length; i++)
-					if (aniCurve.Shoot [i].Name == curveName)
-				{
-					playerShootCurve = aniCurve.Shoot [i];
-					shootJumpCurveTime = 0;
-				}
+				for (int i = 0; i < aniCurve.Layup.Length; i++)
+					if (aniCurve.Layup [i].Name == curveName)
+					{
+						playerLayupCurve = aniCurve.Layup [i];
+						layupCurveTime = 0;
+					}
 
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
 				ClearAnimatorFlag();
@@ -1581,7 +1624,15 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
 
             case PlayerState.Rebound:
-                ClearAnimatorFlag();
+				UIGame.Get.DoPassNone();
+				playerReboundCurve = null;
+				for (int i = 0; i < aniCurve.Shoot.Length; i++)
+					if (aniCurve.Shoot [i].Name == "Rebound")
+				{
+					playerReboundCurve = aniCurve.Rebound [i];
+					reboundCurveTime = 0;
+				}
+				ClearAnimatorFlag();
                 gameObject.layer = LayerMask.NameToLayer("Shooter");
                 animator.SetTrigger("ReboundTrigger");
                 Result = true;
