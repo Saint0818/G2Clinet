@@ -3,11 +3,11 @@ using System.Collections;
 
 public class ScoreTrigger : MonoBehaviour
 {
-	public int Team;
+//	public int Team;
 	public int IntTrigger;
 	public bool Into = false;
 	
-    void OnTriggerEnter(Collider c) {
+//    void OnTriggerEnter(Collider c) {
 //		if (c.tag == "RealBall") {
 //			if (GameController.Visible) {
 //				Debug.Log("IntTrigger:"+IntTrigger);
@@ -20,5 +20,5 @@ public class ScoreTrigger : MonoBehaviour
 //				}
 //			}
 //		}
-    }
+//    }
 }

@@ -274,7 +274,8 @@ public class UIGame : UIBase {
 	public void DoBlock() {
 		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
 			showCoverDefence(true);
-			coverDefenceSprite[0].color = Color.green;
+			coverDefence[0].SetActive(false);
+//			coverDefenceSprite[0].color = Color.green;
 			GameController.Get.DoBlock();
 			GameController.Get.Joysticker.SetNoAiTime();
 		}
@@ -283,7 +284,8 @@ public class UIGame : UIBase {
 	public void DoSteal(){
 		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall && GameController.Get.StealBtnLiftTime <= 0) {
 			showCoverDefence(true);
-			coverDefenceSprite[1].color = Color.green;
+			coverDefence[1].SetActive(false);
+//			coverDefenceSprite[1].color = Color.green;
 			StealFX();
 			GameController.Get.DoSteal();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -295,7 +297,8 @@ public class UIGame : UIBase {
 			showCoverDefence(true);
 			showCoverAttack(true);
 			coverAttack[2].SetActive(false);
-			coverDefenceSprite[2].color = Color.green;
+			coverDefence[2].SetActive(false);
+//			coverDefenceSprite[2].color = Color.green;
 			PushFX();
 			GameController.Get.DoPush();
 			GameController.Get.Joysticker.SetNoAiTime();
@@ -319,7 +322,8 @@ public class UIGame : UIBase {
 				if(GameController.Get.BallOwner != null) {
 					if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
 						showCoverAttack(true);
-						coverAttackSprite[1].color = Color.green;
+						coverAttack[1].SetActive(false);
+//						coverAttackSprite[1].color = Color.green;
 					}
 					shootBtnTime = ButtonBTime;
 				}
@@ -333,7 +337,8 @@ public class UIGame : UIBase {
 	public void DoElbow(){
 		if(isPressElbowBtn && !GameController.Get.Joysticker.IsFall) {
 			coverDefence[2].SetActive(false);
-			coverAttackSprite[2].color = Color.green;
+			coverAttack[2].SetActive(false);
+//			coverAttackSprite[2].color = Color.green;
 			showCoverAttack(true);
 			AttackFX();
 			GameController.Get.DoElbow ();
@@ -357,7 +362,8 @@ public class UIGame : UIBase {
 	public void DoPassTeammateA() {
 		if(GameStart.Get.TestMode == GameTest.None){
 			showCoverAttack(true);
-			coverAttackSprite[0].color = Color.green;
+			coverAttack[0].SetActive(false);
+//			coverAttackSprite[0].color = Color.green;
 			PassFX();
 			buttonObjectAFXTime = fxTime;
 			buttonObjectAFX.SetActive(true);
@@ -366,14 +372,15 @@ public class UIGame : UIBase {
 				GameController.Get.Joysticker.SetNoAiTime();
 			}
 			passObject.SetActive(false);
-			drawLine.IsShow = false;
+//			drawLine.IsShow = false;
 		}
 	}
 
 	public void DoPassTeammateB() {
 		if(GameStart.Get.TestMode == GameTest.None){
 			showCoverAttack(true);
-			coverAttackSprite[0].color = Color.green;
+			coverAttack[0].SetActive(false);
+//			coverAttackSprite[0].color = Color.green;
 			PassFX();
 			buttonObjectBFXTime = fxTime;
 			buttonObjectBFX.SetActive(true);
@@ -382,13 +389,13 @@ public class UIGame : UIBase {
 				GameController.Get.Joysticker.SetNoAiTime();
 			}
 			passObject.SetActive(false);
-			drawLine.IsShow = false;
+//			drawLine.IsShow = false;
 		}
 	}
 
 	public void DoPassNone() {
 		passObject.SetActive(false);
-		drawLine.IsShow = false;
+//		drawLine.IsShow = false;
 	}
 
 	public void ContinueGame() {
@@ -441,8 +448,8 @@ public class UIGame : UIBase {
 		attackObject.SetActive(IsAttack);
 		ControlButtonGroup [1].SetActive (!IsAttack);
 		pushObject.SetActive(!IsAttack);
-		if(!IsAttack)
-			drawLine.IsShow = false;
+//		if(!IsAttack)
+//			drawLine.IsShow = false;
 	}
 
 	public void PlusScore(int team, int score) {
@@ -670,7 +677,8 @@ public class UIGame : UIBase {
 				GameController.Get.DoShoot(true, ScoreType.Normal);
 				GameController.Get.Joysticker.SetNoAiTime();
 				showCoverAttack(true);
-				coverAttackSprite[1].color = Color.green;
+				coverAttack[1].SetActive(false);
+//				coverAttackSprite[1].color = Color.green;
 			}
 		}
 
