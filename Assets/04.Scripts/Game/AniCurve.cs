@@ -44,7 +44,9 @@ public class TReboundCurve {
 [System.Serializable]
 public class TLayupCurve {
 	public string Name = "Curve_Name";
-	public float LifeTime = 1.8f;
+	public float LifeTime = 3.166f;
+	public float ToBasketTime = 0.166f;
+	public float StartMoveTime = 1f; 
 	public AnimationCurve aniCurve = new AnimationCurve();
 }
 

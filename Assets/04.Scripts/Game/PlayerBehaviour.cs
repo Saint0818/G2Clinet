@@ -633,27 +633,31 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationShootJump()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootStay0"))
-            isShootJump = true;
-
         if (isShootJump && playerShootCurve != null)
         {
             shootJumpCurveTime += Time.deltaTime;
 
-			if(crtState == PlayerState.Shoot1)
-			{
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -0.05f), 
-				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -0.05f));
-			}
-			else if(crtState == PlayerState.Shoot2 || crtState == PlayerState.Shoot3)
-			{
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
+			switch(playerShootCurve.Dir){
+				case AniCurveDirection.None:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					break;
+				case AniCurveDirection.Forward:
+					if(shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
+						gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
 				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
 				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
+					else
+						gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					break;
+				case AniCurveDirection.Back:
+					if(shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
+						gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -0.05f), 
+				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
+				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -0.05f));
+					else
+						gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					break;
 			}
-			else
-           	 	gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
 
 			//Debug.Log("H :: " + gameObject.transform.position);
 
@@ -1512,7 +1516,8 @@ public class PlayerBehaviour : MonoBehaviour
                 UIGame.Get.DoPassNone();
                 
                 if (IsBallOwner)
-                {                   
+                {     
+					isShootJump = true;
                     playerShootCurve = null;
                     
                     switch (state)
