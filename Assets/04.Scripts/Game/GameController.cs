@@ -953,11 +953,9 @@ public class GameController : MonoBehaviour
 				if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
 				{
 					Catcher = player;
-					CoolDownPass = Time.time + 8;
 				}												
 			}else
 			{
-				CoolDownPass = Time.time + 3;
 				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 				int disKind = GetEnemyDis(ref player);
 				int rate = UnityEngine.Random.Range(0, 2);
@@ -1411,6 +1409,8 @@ public class GameController : MonoBehaviour
 
 		if(!suc)
 			Shoot(ScoreType.Normal);
+		else
+			CoolDownPass = 0;
 	}
 	
 	private void Attack(ref PlayerBehaviour Npc)
@@ -2080,8 +2080,10 @@ public class GameController : MonoBehaviour
             return -1;
     }
 
-    public void SetBall(PlayerBehaviour p = null)
+    public bool SetBall(PlayerBehaviour p = null)
     {
+		bool Result = false;
+
 		if (PlayerList.Count > 0)
         {
             if (p != null && situation != GameSituation.End)
@@ -2126,6 +2128,7 @@ public class GameController : MonoBehaviour
                 BallOwner = p;
 				BallOwner.WaitMoveTime = 0;
 				BallOwner.IsBallOwner = true;
+				Result = true;
 				Passer = null;
 				Shooter = null;
 				Catcher = null;
@@ -2191,6 +2194,8 @@ public class GameController : MonoBehaviour
 //                BallOwner = p;
 			}
         }
+
+		return Result;
     }
 
 	IEnumerator catchBall(PlayerBehaviour p) {
@@ -2615,7 +2620,8 @@ public class GameController : MonoBehaviour
     {
         if (Catcher != null && !Catcher.IsFall)
         {
-            SetBall(Catcher);
+            if(SetBall(Catcher))
+				CoolDownPass = Time.time + 3;
 			if(Catcher && Catcher.NeedShooting)
 			{
 				Shoot(ScoreType.Normal);
