@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 29ea8fee2294fc74a919debc62eb374c
-timeCreated: 1429685613
+guid: d33b9306e571b3c469baa91a403103a9
+timeCreated: 1430204819
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Shoot3
+    7400000: Shoot6
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Shoot3
+      name: Shoot6
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,16 +150,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .430354506
+      - time: 1
         functionName: AnimationEvent
-        data: Shooting
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: .522471905
         functionName: AnimationEvent
-        data: AnimationEnd
+        data: Shooting
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
