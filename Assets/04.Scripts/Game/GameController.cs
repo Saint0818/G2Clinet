@@ -143,7 +143,6 @@ public class GameController : MonoBehaviour
 	public bool IsSwich;
 	public bool IsAirBall;
 	public bool IsAnimationEnd = true;
-	private ScoreType scoreType;
 	public string[] BasketScoreAnimationState;
 	public string[] BasketScoreNoneAnimationState;
 
@@ -439,7 +438,7 @@ public class GameController : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown (KeyCode.A))
-			DoShoot (true, ScoreType.LayUp);
+			DoShoot (true);
 
 		if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
 			Joysticker.AniState (PlayerState.Rebound);
@@ -801,12 +800,11 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void Shoot(ScoreType type = ScoreType.None)
+	public void Shoot()
     {
         if (BallOwner)
         {
             SceneMgr.Get.ResetBasketEntra();
-			scoreType = type;
 
             int t = BallOwner.Team.GetHashCode();
 
@@ -846,7 +844,16 @@ public class GameController : MonoBehaviour
 			SetBallOwnerNull();
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
-			calculationScoreRate(player, scoreType);
+//			Debug.Log("player.crtState:"+player.crtState);
+			if(player.crtState == PlayerState.Shoot0){
+				calculationScoreRate(player, ScoreType.Normal);
+			} else if(player.crtState == PlayerState.Shoot1) {
+				calculationScoreRate(player, ScoreType.NearShot);
+			} else if(player.crtState == PlayerState.Shoot2) {
+				calculationScoreRate(player, ScoreType.UpHand);
+			} else if(player.crtState == PlayerState.Shoot3) {
+				calculationScoreRate(player, ScoreType.DownHand);
+			}
             
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
@@ -872,7 +879,7 @@ public class GameController : MonoBehaviour
             return false;
     }
 
-	public void DoShoot(bool isshoot,ScoreType type = ScoreType.None)
+	public void DoShoot(bool isshoot)
     {
 		if (IsStart && BallOwner && CandoBtn)
         {
@@ -891,7 +898,7 @@ public class GameController : MonoBehaviour
             {
                 int t = player.Team.GetHashCode();
                 if (isshoot) 
-					Shoot(type);
+					Shoot();
                 else
                     player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
             }
@@ -1408,7 +1415,7 @@ public class GameController : MonoBehaviour
 		}
 
 		if(!suc)
-			Shoot(ScoreType.Normal);
+			Shoot();
 		else
 			CoolDownPass = 0;
 	}
@@ -2624,7 +2631,7 @@ public class GameController : MonoBehaviour
 				CoolDownPass = Time.time + 0.5f;
 			if(Catcher && Catcher.NeedShooting)
 			{
-				Shoot(ScoreType.Normal);
+				Shoot();
 				Catcher.NeedShooting = false;
 			}
             Catcher = null;
@@ -2659,7 +2666,7 @@ public class GameController : MonoBehaviour
 //				Catcher.DelActionFlag(ActionFlag.IsCatcher);
 				if(Catcher.NeedShooting)
 				{
-					Shoot(ScoreType.Normal);
+					Shoot();
 					Catcher.NeedShooting = false;
 				}
 				Catcher = null;
