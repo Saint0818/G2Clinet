@@ -616,7 +616,7 @@ public class PlayerBehaviour : MonoBehaviour
 				isLayup = false;
 		} else
 		{
-			isDunk = false;
+			isLayup = false;
 			Debug.LogError("playCurve is null");
 		}
 	}
@@ -1606,13 +1606,15 @@ public class PlayerBehaviour : MonoBehaviour
 				UIGame.Get.DoPassNone();
 				playerLayupCurve = null;
 				stateNo = 0;
-				curveName = string.Format("Shoot{0}", stateNo);
+				curveName = string.Format("Layup{0}", stateNo);
 
 				for (int i = 0; i < aniCurve.Layup.Length; i++)
 					if (aniCurve.Layup [i].Name == curveName)
 					{
 						playerLayupCurve = aniCurve.Layup [i];
 						layupCurveTime = 0;
+						isLayup = true;
+						isLayupZmove = false;
 					}
 
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
