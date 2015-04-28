@@ -276,7 +276,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		mss.primaryCamera = CameraMgr.Get.CourtCamera;
 		mss.player2 = GameController.Get.Joysticker.gameObject.transform;
 		mss.player1 = SceneMgr.Get.RealBall.transform;
-//		mss.cameraRotation = CourtCamera.gameObject.transform.eulerAngles;
+//		mss.player1 = GameController.Get.BallOwner.gameObject.transform;
 		mss.cameraDistance = Vector3.Distance(CourtCamera.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position);
 		mss.triggerDistance = 4;
 		mss.showSeparator = true;
