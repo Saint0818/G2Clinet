@@ -1237,12 +1237,11 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
-			case PlayerState.ReboundCatch:
-				if(crtState == PlayerState.Rebound && crtState != PlayerState.ReboundCatch)
+			case PlayerState.Rebound:
+				if(CanMove && crtState != PlayerState.Rebound)
 					return true;
 				break;
-			
-            case PlayerState.Rebound:
+           
             case PlayerState.Push:
             case PlayerState.PickBall:
             case PlayerState.Steal:
@@ -1854,8 +1853,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Steal,
                 PlayerState.Layup,
                 PlayerState.Tee,
-                PlayerState.Rebound,
-				PlayerState.ReboundCatch
+                PlayerState.Rebound
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
