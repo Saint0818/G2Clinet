@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum AniCurveDirection
+{
+	None,
+	Forward,
+	Back
+}
+
 [System.Serializable]
 public class TDunkCurve {
 	public string Name = "Curve_Name";
@@ -20,6 +27,7 @@ public class TBlockCurve {
 [System.Serializable]
 public class TShootCurve {
 	public string Name = "Curve_Name";
+	public AniCurveDirection Dir = AniCurveDirection.None;
 	public float OffsetStartTime = 1f;
 	public float OffsetEndTime = 1f;
 	public float LifeTime = 1.8f;
