@@ -2621,7 +2621,7 @@ public class GameController : MonoBehaviour
         if (Catcher != null && !Catcher.IsFall)
         {
             if(SetBall(Catcher))
-				CoolDownPass = Time.time + 3;
+				CoolDownPass = Time.time + 0.5f;
 			if(Catcher && Catcher.NeedShooting)
 			{
 				Shoot(ScoreType.Normal);
