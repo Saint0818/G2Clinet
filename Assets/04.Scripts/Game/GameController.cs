@@ -506,7 +506,7 @@ public class GameController : MonoBehaviour
                         }
                     } else{
                         Defend(ref Npc);
-						DefMove(Npc.DefPlayer);
+//						DefMove(Npc.DefPlayer);
 					}
                 }
             }   
@@ -1578,7 +1578,7 @@ public class GameController : MonoBehaviour
 		if (BallOwner != null)
 		{
 			int pushRate = Random.Range(0, 100) + 1;        
-			TPlayerDisData [] DisAy = new TPlayerDisData[3];
+			TPlayerDisData [] DisAy = new TPlayerDisData[PlayerList.Count / 2];
 			bool sucess = false;
 
             //steal push Def
@@ -1890,7 +1890,7 @@ public class GameController : MonoBehaviour
 			}
         } else
         {
-			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+			if (npc.CanMove && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
 	        {
 	            TMoveData data;
 	            if (!CheckAttack(ref npc))
@@ -1904,9 +1904,9 @@ public class GameController : MonoBehaviour
 	                if (BallOwner != null && BallOwner != npc)
 	                    data.LookTarget = BallOwner.transform;  
 	                
-//	                data.MoveFinish = DefMove;
+	                data.MoveFinish = DefMove;
 	                npc.FirstTargetPos = data;
-//	                DefMove(npc);
+	                DefMove(npc);
 	            } else
 				if(pos.FileName != string.Empty)
 	            {
@@ -1928,11 +1928,11 @@ public class GameController : MonoBehaviour
 	                        if (BallOwner != null && BallOwner != npc)
 	                            data.LookTarget = BallOwner.transform;  
 	                        
-//	                        data.MoveFinish = DefMove;
+	                        data.MoveFinish = DefMove;
 	                        npc.TargetPos = data;
 	                    }
 
-//	                    DefMove(npc);
+	                    DefMove(npc);
 	                }
 	            }
 	        }
@@ -2327,7 +2327,7 @@ public class GameController : MonoBehaviour
     {
         if (player1.IsDefence)
         {
-//            DefMove(player1.DefPlayer);     
+            DefMove(player1.DefPlayer);     
         }
     }
 

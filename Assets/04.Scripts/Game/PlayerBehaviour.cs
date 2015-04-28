@@ -446,14 +446,14 @@ public class PlayerBehaviour : MonoBehaviour
                 AIActiveHint.SetActive(true);
         }
 
-        if (CheckAnimatorSate(PlayerState.Run) && !IsDefence && 
+        if ((IsMoving || NoAiTime > 0) && !IsDefence && 
             situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
             situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
             if (Time.time >= MoveStartTime)
             {
-                MoveStartTime = Time.time + 0.5f;
-//                GameController.Get.DefMove(this);
+				MoveStartTime = Time.time + GameConst.DefMoveTime;
+				GameController.Get.DefMove(this);
             }       
         }
 
@@ -717,8 +717,8 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     isMoving = true;
                     if (!isJoystick)
-                        MoveStartTime = Time.time + 1;
-                    
+						MoveStartTime = Time.time + GameConst.DefMoveTime;
+					
 //                  if (!CheckAction(ActionFlag.IsRun))
 //                      AddActionFlag(ActionFlag.IsRun);
                     
@@ -978,8 +978,8 @@ public class PlayerBehaviour : MonoBehaviour
                 MoveTurn++;
                 rotateTo(MoveTarget.x, MoveTarget.y);
                 if (MoveTurn == 1)
-                    MoveStartTime = Time.time + 1;           
-            } else
+					MoveStartTime = Time.time + GameConst.DefMoveTime;           
+			} else
             {
                 if (IsDefence)
                 {
