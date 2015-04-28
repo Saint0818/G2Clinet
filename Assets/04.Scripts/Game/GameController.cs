@@ -438,10 +438,13 @@ public class GameController : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown (KeyCode.A))
-			DoShoot (true);
+			DoShoot (true, ScoreType.LayUp);
 
 		if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
 			Joysticker.AniState (PlayerState.Rebound);
+
+		if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
+			Joysticker.AniState (PlayerState.ReboundCatch);
 
 	}
 

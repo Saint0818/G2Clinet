@@ -28,12 +28,12 @@ public enum PlayerState
     PassFlat = 16,
     PassFloor = 17,
     PassParabola = 18,
-    Rebound = 19,
     Push = 20,
     MovingDefence = 23,
     RunAndDribble = 24,
-   
-    DunkBasket = 27,
+	Rebound = 25,
+	ReboundCatch = 26,
+	DunkBasket = 27,
     RunningDefence = 28,
     FakeShoot = 29,
     Reset = 30,
@@ -1119,7 +1119,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-		if (IsShoot)
+		if (IsShoot || isRebound)
 			return;
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
@@ -1237,6 +1237,11 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
+			case PlayerState.ReboundCatch:
+				if(crtState == PlayerState.Rebound && crtState != PlayerState.ReboundCatch)
+					return true;
+				break;
+			
             case PlayerState.Rebound:
             case PlayerState.Push:
             case PlayerState.PickBall:
@@ -1632,18 +1637,23 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Rebound:
 				UIGame.Get.DoPassNone();
 				playerReboundCurve = null;
-				for (int i = 0; i < aniCurve.Shoot.Length; i++)
-					if (aniCurve.Shoot [i].Name == "Rebound")
+				for (int i = 0; i < aniCurve.Rebound.Length; i++)
+				if (aniCurve.Rebound [i].Name == "Rebound")
 				{
 					playerReboundCurve = aniCurve.Rebound [i];
 					reboundCurveTime = 0;
+					isRebound = true;
 				}
 				ClearAnimatorFlag();
                 gameObject.layer = LayerMask.NameToLayer("Shooter");
                 animator.SetTrigger("ReboundTrigger");
                 Result = true;
                 break;
-        }
+
+			case PlayerState.ReboundCatch:
+				animator.SetTrigger("ReboundCatchTrigger");
+				break;
+		}
         
         if (Result)
         {
@@ -1841,10 +1851,11 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot2,
                 PlayerState.Shoot3,
                 PlayerState.Shoot6,
+				PlayerState.Steal,
                 PlayerState.Layup,
-                PlayerState.Steal,
                 PlayerState.Tee,
-                PlayerState.PickBall,
+                PlayerState.Rebound,
+				PlayerState.ReboundCatch
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
