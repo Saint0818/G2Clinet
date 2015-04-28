@@ -24,9 +24,24 @@ public class TShootCurve {
 	public AnimationCurve aniCurve = new AnimationCurve();
 }
 
+[System.Serializable]
+public class TReboundCurve {
+	public string Name = "Curve_Name";
+	public float LifeTime = 1.8f;
+	public AnimationCurve aniCurve = new AnimationCurve();
+}
+
+[System.Serializable]
+public class TLayupCurve {
+	public string Name = "Curve_Name";
+	public float LifeTime = 1.8f;
+	public AnimationCurve aniCurve = new AnimationCurve();
+}
 
 public class AniCurve : MonoBehaviour {
 	public TDunkCurve[] Dunk;
 	public TBlockCurve[] Block;
 	public TShootCurve[] Shoot;
+	public TReboundCurve[] Rebound; 
+	public TLayupCurve[] Layup;
 }

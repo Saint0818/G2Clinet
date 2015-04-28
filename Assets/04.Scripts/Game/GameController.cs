@@ -437,6 +437,9 @@ public class GameController : MonoBehaviour
 				SceneMgr.Get.SetRealBallPosition(pos);
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.A))
+			DoShoot (true, ScoreType.LayUp);
 	}
 
     void FixedUpdate()

@@ -245,6 +245,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float blockCurveTime = 0;
     private TBlockCurve playerBlockCurve;
 
+	//Rebound
+    private bool isRebound = false;
+    private float reboundCurveTime = 0;
+    private TReboundCurve playerReboundCurve;
+
     //Shooting
     private float shootJumpCurveTime = 0;
     private TShootCurve playerShootCurve;
@@ -571,10 +576,36 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogError("playCurve is null");
         }
     }
+
+	private void CalculationRebound()
+	{
+		if (!isRebound)
+			return;
+
+		if (playerReboundCurve != null)
+		{
+			reboundCurveTime += Time.deltaTime;
+			
+			if (reboundCurveTime < 1f)
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
+				                                            playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
+			else
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 
+				                                            playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+				                                            gameObject.transform.position.z);
+			
+			if (reboundCurveTime >= playerReboundCurve.LifeTime)
+			{
+				isRebound = false;
+				isCheckLayerToReset = true;
+			}
+		}
+
+	}
     
     private void CalculationBlock()
     {
-
         if (!isBlock)
             return;
 
@@ -601,16 +632,30 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationShootJump()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootStay0") ||
-            animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot1") ||
-            animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot2") ||
-            animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot3"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ShootStay0"))
             isShootJump = true;
 
         if (isShootJump && playerShootCurve != null)
         {
             shootJumpCurveTime += Time.deltaTime;
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+
+			if(crtState == PlayerState.Shoot1)
+			{
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -0.05f), 
+				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
+				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -0.05f));
+			}
+			else if(crtState == PlayerState.Shoot2 || crtState == PlayerState.Shoot3)
+			{
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
+				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
+				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
+			}
+			else
+           	 	gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+
+			//Debug.Log("H :: " + gameObject.transform.position);
+
             if (shootJumpCurveTime >= playerShootCurve.LifeTime)
             {
                 isShootJump = false;
@@ -1023,11 +1068,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-		if (crtState == PlayerState.Shoot0 || 
-						crtState == PlayerState.Shoot1 || 
-						crtState == PlayerState.Shoot2 || 
-						crtState == PlayerState.Shoot3 
-		   )
+		if (IsShoot)
 			return;
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
@@ -1133,6 +1174,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
             case PlayerState.Dunk:
+            case PlayerState.Layup:
                 if (IsBallOwner && (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
                     return true;
                 break;
@@ -1464,7 +1506,6 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
-
                 UIGame.Get.DoPassNone();
                 
                 if (IsBallOwner)
@@ -1478,13 +1519,16 @@ public class PlayerBehaviour : MonoBehaviour
                             break;
                         case PlayerState.Shoot1:
                             stateNo = 1;
+							isShootJump = true;
                             break;
                             
                         case PlayerState.Shoot2:
                             stateNo = 2;
+							isShootJump = true;
                             break;
                         case PlayerState.Shoot3:
                             stateNo = 3;
+							isShootJump = true;
                             break;
                     }
 
@@ -1505,6 +1549,28 @@ public class PlayerBehaviour : MonoBehaviour
                     Result = true;
                 }
                 break;
+
+		case PlayerState.Layup:
+			if (IsBallOwner){
+				UIGame.Get.DoPassNone();
+				playerShootCurve = null;
+				stateNo = 0;
+				curveName = string.Format("Shoot{0}", stateNo);
+
+				for (int i = 0; i < aniCurve.Shoot.Length; i++)
+					if (aniCurve.Shoot [i].Name == curveName)
+				{
+					playerShootCurve = aniCurve.Shoot [i];
+					shootJumpCurveTime = 0;
+				}
+
+				gameObject.layer = LayerMask.NameToLayer("Shooter");
+				ClearAnimatorFlag();
+				animator.SetTrigger("LayupTrigger");
+				isCanCatchBall = false;
+				Result = true;
+			}
+			break;
 
             case PlayerState.Rebound:
                 ClearAnimatorFlag();
@@ -1709,6 +1775,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot1,
                 PlayerState.Shoot2,
                 PlayerState.Shoot3,
+                PlayerState.Layup,
                 PlayerState.Steal,
                 PlayerState.Tee,
                 PlayerState.PickBall,
@@ -1717,10 +1784,6 @@ public class PlayerBehaviour : MonoBehaviour
             for (int i = 0; i < CheckAy.Length; i++)
                 if (CheckAnimatorSate(CheckAy [i]))
                     return false;
-
-//          if(PlayerState.HoldBall == crtState)
-//              if(!IsFirstDribble)
-//                  return false;
         
             return true;
         }
@@ -1775,6 +1838,11 @@ public class PlayerBehaviour : MonoBehaviour
         get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
         set { animator.SetBool("IsBallOwner", value);}
     }
+
+	public bool IsShoot
+	{
+		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || crtState == PlayerState.Shoot3 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk;}
+	}
 
     public bool IsPass
     {
