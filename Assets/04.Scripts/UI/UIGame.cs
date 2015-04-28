@@ -45,6 +45,7 @@ public class UIGame : UIBase {
 	private UILabel[] scoresLabel = new UILabel[2];
 	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[2];
 	private string[] aryHomeHintString = new string[3];
+	private GameObject playerTexture;
 
 	//FX
 	private float fxTime = 0.3f;
@@ -132,6 +133,8 @@ public class UIGame : UIBase {
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 		screenLocation.SetActive(false);
+
+		playerTexture = GameObject.Find (UIName + "/Top/Texture");
 
 		buttonPass = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass").GetComponent<UIButton>();
 		buttonPush = GameObject.Find(UIName + "/BottomRight/ButtonPush").GetComponent<UIButton>();
@@ -523,31 +526,31 @@ public class UIGame : UIBase {
 
 			if(GameStart.Get.IsSplitScreen) {
 				screenLocation.SetActive(false);
+//				if(playerInCameraX > 0 &&
+//				   playerInCameraX < Screen.width &&
+//				   playerInCameraY > 0 &&
+//				   playerInCameraY < Screen.height) {
+//					playerTexture.SetActive(false);
+//				}
+//				
+//				if(playerInCameraX < -100 ||
+//				   playerInCameraX >Screen.width + 100 ||
+//				   playerInCameraY < - 100 ||
+//				   playerInCameraY > Screen.height + 100){
+//					playerTexture.SetActive(true);
+//				}
 				if(playerInCameraX > 0 &&
 				   playerInCameraX < Screen.width &&
 				   playerInCameraY > 0 &&
 				   playerInCameraY < Screen.height) {
-					StopCoroutine("startSplit");
-					StartCoroutine("stopSplit");
-				}
-				
-				if(playerInCameraX < -100 ||
-				   playerInCameraX >Screen.width + 100 ||
-				   playerInCameraY < - 100 ||
-				   playerInCameraY > Screen.height + 100){
-					
-					StopCoroutine("stopSplit");
-					StartCoroutine("startSplit");
-				}
-				
-				if(isSplit) {
-					CameraMgr.Get.GetSplitScreen.StartSplitscreenCamera();
+					playerTexture.SetActive(false);
 				} else {
-					CameraMgr.Get.GetSplitScreen.StopSplitscreenCamera();
+					playerTexture.SetActive(true);
 				}
 			}
 			else 
 			{
+				playerTexture.SetActive(false);
 				if(playerInCameraX > 0 &&
 				   playerInCameraX < Screen.width &&
 				   playerInCameraY > 0 &&
@@ -561,16 +564,6 @@ public class UIGame : UIBase {
 			}
 
 		}
-	}
-
-	IEnumerator startSplit(){
-		yield return new WaitForSeconds(0.5f);
-		isSplit = true;
-	}
-
-	IEnumerator stopSplit(){
-		yield return new WaitForSeconds(0.5f);
-		isSplit = false;
 	}
 
 	public void OpenUIMask(PlayerBehaviour p = null){

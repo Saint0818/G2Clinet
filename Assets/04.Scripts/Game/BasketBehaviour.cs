@@ -11,11 +11,15 @@ public class BasketBehaviour : MonoBehaviour {
 	}
 	void Update(){
 		if(isBesideBasket) {
-			if(Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position) >= 0.5f) {
+			float dis = Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position);
+			if(dis >= 0.5f && dis < 1f) {
+				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
+			} else
+			if(dis >= 1.5f) {
 				GameController.Get.IsAnimationEnd = true;
 				isBesideBasket = false;
-				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
 			}
+
 		}
 	}
 

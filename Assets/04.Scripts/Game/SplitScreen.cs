@@ -260,7 +260,7 @@ public class SplitScreen : MonoBehaviour
 //			this.MoveCamera(this.primaryCamera, this.cameraTarget1);
 			//			this.MoveCamera(this.secondaryCamera, this.cameraTarget2);
 			isSplit = true;
-			CameraMgr.Get.SplitLookAt(true, this.cameraDisplacement2d);
+//			CameraMgr.Get.SplitLookAt(true, this.cameraDisplacement2d);
 			this.secondaryCamera.gameObject.transform.position = CameraMgr.Get.CourtCamera.gameObject.transform.position;
 			this.secondaryCamera.gameObject.transform.LookAt(GameController.Get.Joysticker.gameObject.transform.position - this.cameraDisplacement2d);
 			
@@ -272,7 +272,7 @@ public class SplitScreen : MonoBehaviour
 		{
 			if(isSplit) {
 				isSplit = false;
-				CameraMgr.Get.SplitLookAt(isSplit, Vector3.zero);
+//				CameraMgr.Get.SplitLookAt(isSplit, Vector3.zero);
 			}
 			//            this.MoveCamera(this.primaryCamera, this.MainPlayer.position + this.distanceBetweenPlayers);
 		}
