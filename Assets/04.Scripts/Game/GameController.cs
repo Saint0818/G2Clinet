@@ -1681,15 +1681,20 @@ public class GameController : MonoBehaviour
 		if(Npc == BallOwner && Npc.TargetPosNum > 3)
 			Npc.ResetMove();
 
-		if (Npc.CanMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
+		if (Npc.CanMove && !Npc.IsMoving && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 		{
 			if (Npc == BallOwner)
 			{
-				if (Team == TeamKind.Self)
-					data.Target = new Vector2(Npc.transform.position.x, -18);
-				else
-					data.Target = new Vector2(Npc.transform.position.x, 18);
+				int TargetZ = 18;
+				if(Team == TeamKind.Self)
+					TargetZ = -18;
 
+				if(Npc.Team == TeamKind.Self && Npc.transform.position.z <= -17 && Npc.transform.position.z >= -18)
+					return;
+				else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z >= 17 && Npc.transform.position.z <= 18)
+					return;
+
+				data.Target = new Vector2(Npc.transform.position.x, TargetZ);
                 data.MoveFinish = NpcAutoTee;
                 Npc.TargetPos = data;
             } else 

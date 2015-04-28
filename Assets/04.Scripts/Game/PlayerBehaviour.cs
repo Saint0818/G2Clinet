@@ -882,6 +882,7 @@ public class PlayerBehaviour : MonoBehaviour
                 (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
             {
                 MoveTurn = 0;
+				isMoving = false;
 
                 if (IsDefence)
                 {
@@ -1142,6 +1143,7 @@ public class PlayerBehaviour : MonoBehaviour
             WaitMoveTime = 0;
             NeedShooting = false;
             isJoystick = false; 
+			isMoving = false;
         } else
             NeedResetFlag = true;
     }
