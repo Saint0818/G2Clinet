@@ -28,6 +28,7 @@ public class TBlockCurve {
 public class TShootCurve {
 	public string Name = "Curve_Name";
 	public AniCurveDirection Dir = AniCurveDirection.None;
+	public float DirVaule = 0.05f;
 	public float OffsetStartTime = 1f;
 	public float OffsetEndTime = 1f;
 	public float LifeTime = 1.8f;

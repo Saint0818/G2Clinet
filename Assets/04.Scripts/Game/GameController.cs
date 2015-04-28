@@ -497,7 +497,7 @@ public class GameController : MonoBehaviour
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
                             } else 
-                            if (!Npc.CheckAnimatorSate(PlayerState.Shoot0))
+                            if (!Npc.IsShoot)
                             {
                                 Attack(ref Npc);
                                 AIMove(ref Npc, ref ap);
@@ -811,7 +811,13 @@ public class GameController : MonoBehaviour
             if (GameStart.Get.TestMode == GameTest.Dunk)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
-                BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
+			{
+				float rate = Random.Range(0, 100);
+				if(rate > 50)
+                	BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
+				else
+					BallOwner.AniState(PlayerState.Shoot1, SceneMgr.Get.Hood [t].transform.position);
+			}
             else{
 
 				float dis = Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
@@ -830,7 +836,7 @@ public class GameController : MonoBehaviour
 					else if(dis > 9 && dis <= 15)
 						BallOwner.AniState(PlayerState.Shoot0, SceneMgr.Get.Hood [t].transform.position);
 					else
-						BallOwner.AniState(PlayerState.Shoot1, SceneMgr.Get.Hood [t].transform.position);
+						BallOwner.AniState(PlayerState.Shoot6, SceneMgr.Get.Hood [t].transform.position);
 				}
 			}
         }

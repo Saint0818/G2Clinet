@@ -53,7 +53,8 @@ public enum PlayerState
     Shoot1 = 44,
     Shoot2 = 45,
     Shoot3 = 46,
-	BasketActionNoScoreEnd = 47
+    Shoot6 = 49,
+	BasketActionNoScoreEnd = 50
 }
 
 public enum TeamKind
@@ -679,27 +680,28 @@ public class PlayerBehaviour : MonoBehaviour
         if (isShootJump && playerShootCurve != null)
         {
             shootJumpCurveTime += Time.deltaTime;
-
 			switch(playerShootCurve.Dir){
-				case AniCurveDirection.None:
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
-					break;
 				case AniCurveDirection.Forward:
 					if(shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-						gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
+						gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerShootCurve.DirVaule), 
 				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerShootCurve.DirVaule));
 					else
 						gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
 					break;
 				case AniCurveDirection.Back:
 					if(shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-						gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -0.05f), 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerShootCurve.DirVaule), 
 				                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -0.05f));
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerShootCurve.DirVaule));
 					else
 						gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
 					break;
+
+				default : 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					break;
+
 			}
 
 			//Debug.Log("H :: " + gameObject.transform.position);
@@ -1223,6 +1225,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
+            case PlayerState.Shoot6:
             case PlayerState.Dunk:
             case PlayerState.Layup:
                 if (IsBallOwner && (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
@@ -1556,11 +1559,11 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
+            case PlayerState.Shoot6:
                 UIGame.Get.DoPassNone();
                 
                 if (IsBallOwner)
                 {     
-					isShootJump = true;
                     playerShootCurve = null;
                     
                     switch (state)
@@ -1570,20 +1573,19 @@ public class PlayerBehaviour : MonoBehaviour
                             break;
                         case PlayerState.Shoot1:
                             stateNo = 1;
-							isShootJump = true;
                             break;
-                            
                         case PlayerState.Shoot2:
                             stateNo = 2;
-							isShootJump = true;
                             break;
                         case PlayerState.Shoot3:
                             stateNo = 3;
-							isShootJump = true;
-                            break;
-                    }
-
-                    animator.SetInteger("StateNo", stateNo);
+							break;
+						case PlayerState.Shoot6:
+							stateNo = 6;
+							break;
+				}
+				
+				animator.SetInteger("StateNo", stateNo);
                     curveName = string.Format("Shoot{0}", stateNo);
 
                     for (int i = 0; i < aniCurve.Shoot.Length; i++)
@@ -1591,6 +1593,8 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             playerShootCurve = aniCurve.Shoot [i];
                             shootJumpCurveTime = 0;
+							isShootJump = true;
+							continue;
                         }
 
                     gameObject.layer = LayerMask.NameToLayer("Shooter");
@@ -1675,7 +1679,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;  
                     
             case "FakeShootBlockMoment":
-                if (crtState != PlayerState.Shoot0 && OnFakeShootBlockMoment != null)
+                if (!IsShoot && OnFakeShootBlockMoment != null)
                     OnFakeShootBlockMoment(this);
                 break;
 
@@ -1836,6 +1840,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot1,
                 PlayerState.Shoot2,
                 PlayerState.Shoot3,
+                PlayerState.Shoot6,
                 PlayerState.Layup,
                 PlayerState.Steal,
                 PlayerState.Tee,
@@ -1902,7 +1907,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsShoot
 	{
-		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || crtState == PlayerState.Shoot3 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk;}
+		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || 
+			crtState == PlayerState.Shoot3 || crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk;}
 	}
 
     public bool IsPass
