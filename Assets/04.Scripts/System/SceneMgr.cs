@@ -266,6 +266,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			break;
 			case PlayerState.BasketActionSwishEnd:
 				realBallCollider.enabled = true;
+				RealBallRigidbody.velocity = Vector3.zero;
+				RealBallRigidbody.AddForce(Vector3.down * 70);
 			break;
 			case PlayerState.BasketAnimationStart:
 				realBallCollider.enabled = false;
@@ -278,6 +280,16 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case PlayerState.BasketActionEnd:
+				realBallCollider.enabled = true;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localScale = Vector3.one;
+				RealBall.transform.eulerAngles = dummy.eulerAngles;	
+				RealBallRigidbody.AddForce(Vector3.down * 50);
+				break;
+			case PlayerState.BasketActionNoScoreEnd:
 				realBallCollider.enabled = true;
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;

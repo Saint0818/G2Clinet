@@ -515,6 +515,7 @@ public class UIGame : UIBase {
 			}
 
 			if(GameStart.Get.IsSplitScreen) {
+				screenLocation.SetActive(false);
 				if(playerInCameraX > 0 &&
 				   playerInCameraX < Screen.width &&
 				   playerInCameraY > 0 &&

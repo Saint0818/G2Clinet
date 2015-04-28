@@ -52,7 +52,8 @@ public enum PlayerState
     Shoot0 = 43,
     Shoot1 = 44,
     Shoot2 = 45,
-    Shoot3 = 46
+    Shoot3 = 46,
+	BasketActionNoScoreEnd = 47
 }
 
 public enum TeamKind

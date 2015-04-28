@@ -18,8 +18,13 @@ public class BasketAnimation : MonoBehaviour {
 			isBesideBasket = true;
 			SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionEnd, SceneMgr.Get.BasketHoopAni[Team].transform.FindChild("DummyHoop"));
 			break;
+		case "ActionNoScoreEnd":
+			isBesideBasket = true;
+			SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionNoScoreEnd, SceneMgr.Get.BasketHoopAni[Team].transform.FindChild("DummyHoop"));
+			break;
 		case "BasketNetPlay":
 			SceneMgr.Get.PlayShoot(Team);
+			SceneMgr.Get.RealBallRigidbody.velocity = Vector3.zero;
 			GameController.Get.PlusScore(Team);
 			break;
 		}
