@@ -150,7 +150,7 @@ public class BallTrigger : MonoBehaviour
 
 	IEnumerator Parabola()  
 	{  		
-		while (Parabolamove && GameController.Get.Catcher != null)  
+		while (Parabolamove && GameController.Get.Catcher != null && GameController.Get.Passer != null)  
 		{  
 			float [] disAy = new float[4];
 			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
