@@ -20,8 +20,8 @@ public class TBlockCurve {
 [System.Serializable]
 public class TShootCurve {
 	public string Name = "Curve_Name";
-	public float JumpStartTime = 1f;
-	public float JumpEndTime = 1f;
+	public float OffsetStartTime = 1f;
+	public float OffsetEndTime = 1f;
 	public float LifeTime = 1.8f;
 	public AnimationCurve aniCurve = new AnimationCurve();
 }
