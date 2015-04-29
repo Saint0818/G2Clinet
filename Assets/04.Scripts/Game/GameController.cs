@@ -958,14 +958,11 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && player != BallOwner)
         {
-			if(!MovePass)
-			{
-				if(!IsBtn && CoolDownPass != 0)
-					return Result;
+			if((!MovePass || !IsBtn) && CoolDownPass != 0)
+				return Result;
 
-				if(!IsBtn && BallOwner.NoAiTime > 0)
-				   return Result;
-			}
+			if(!IsBtn && BallOwner.NoAiTime > 0)
+				return Result;
              
 			if(IsTee)
 			{
