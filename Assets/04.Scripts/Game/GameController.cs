@@ -804,10 +804,9 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner)
         {
-            SceneMgr.Get.ResetBasketEntra();
-
-            int t = BallOwner.Team.GetHashCode();
-
+			SceneMgr.Get.ResetBasketEntra();
+			ShootDis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position);
+			int t = BallOwner.Team.GetHashCode();
             if (GameStart.Get.TestMode == GameTest.Dunk)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
@@ -849,7 +848,7 @@ public class GameController : MonoBehaviour
 			Shooter = player;
 			SetBallOwnerNull();
 
-			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
+//			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
 			if(player.crtState == PlayerState.Shoot0){
 				calculationScoreRate(ref IsScore ,player, ScoreType.Normal);
 			} else if(player.crtState == PlayerState.Shoot1 ||
