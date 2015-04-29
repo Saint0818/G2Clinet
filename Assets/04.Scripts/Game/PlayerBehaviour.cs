@@ -1119,7 +1119,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-		if (IsShoot || isRebound)
+		if (IsShoot || isRebound || isBlock)
 			return;
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 

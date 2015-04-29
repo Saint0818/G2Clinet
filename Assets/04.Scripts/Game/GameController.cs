@@ -142,7 +142,6 @@ public class GameController : MonoBehaviour
 	public bool IsScore;
 	public bool IsSwich;
 	public bool IsAirBall;
-	public bool IsAnimationEnd = true;
 	public string[] BasketScoreAnimationState;
 	public string[] BasketScoreNoneAnimationState;
 
@@ -744,7 +743,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-	private void calculationScoreRate(PlayerBehaviour player, ScoreType type) {
+	private void calculationScoreRate(ref bool isScore, PlayerBehaviour player, ScoreType type) {
 //		Debug.Log("player name:"+player.name);
 		if(player.name.Contains("Self")) {
 			//0~90
@@ -762,41 +761,41 @@ public class GameController : MonoBehaviour
 			originalRate = player.ScoreRate.TwoScoreRate * player.ScoreRate.TwoScoreRateDeviation;
 		}
 		if(type == ScoreType.DownHand) {
-			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.DownHandScoreRate ) ? true : false;
-			if(IsScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
+			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.DownHandScoreRate ) ? true : false;
+			if(isScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
 			} else {
 				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.UpHand) {
-			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.UpHandScoreRate) ? true : false;
-			if(IsScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
+			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.UpHandScoreRate) ? true : false;
+			if(isScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
 			} else {
 				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.Normal) {
-			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
-			if(IsScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
+			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
+			if(isScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
 			} else {
 				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
-			if(IsScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
+			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
+			if(isScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
 			} else {
 				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			IsScore = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
-			if(IsScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) >= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
+			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
+			if(isScore) {
+				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
 			} else {
 				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
@@ -855,18 +854,19 @@ public class GameController : MonoBehaviour
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
 //			Debug.Log("player.crtState:"+player.crtState);
 			if(player.crtState == PlayerState.Shoot0){
-				calculationScoreRate(player, ScoreType.Normal);
-			} else if(player.crtState == PlayerState.Shoot1) {
-				calculationScoreRate(player, ScoreType.NearShot);
+				calculationScoreRate(ref IsScore ,player, ScoreType.Normal);
+			} else if(player.crtState == PlayerState.Shoot1 ||
+			          player.crtState == PlayerState.Shoot6) {
+				calculationScoreRate(ref IsScore ,player, ScoreType.NearShot);
 			} else if(player.crtState == PlayerState.Shoot2) {
-				calculationScoreRate(player, ScoreType.UpHand);
+				calculationScoreRate(ref IsScore ,player, ScoreType.UpHand);
 			} else if(player.crtState == PlayerState.Shoot3) {
-				calculationScoreRate(player, ScoreType.DownHand);
+				calculationScoreRate(ref IsScore ,player, ScoreType.DownHand);
 			}
             
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-            SceneMgr.Get.SetBallState(PlayerState.Shoot0);
+			SceneMgr.Get.SetBallState(player.crtState);
 			if(!IsScore && IsAirBall) {
 				//AirBall
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;

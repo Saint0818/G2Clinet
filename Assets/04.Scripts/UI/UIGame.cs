@@ -539,10 +539,10 @@ public class UIGame : UIBase {
 //				   playerInCameraY > Screen.height + 100){
 //					playerTexture.SetActive(true);
 //				}
-				if(playerInCameraX > 0 &&
-				   playerInCameraX < Screen.width &&
-				   playerInCameraY > 0 &&
-				   playerInCameraY < Screen.height) {
+				if(playerInCameraX > -50 &&
+				   playerInCameraX < Screen.width + 100 &&
+				   playerInCameraY > -50 &&
+				   playerInCameraY < Screen.height + 100 ) {
 					playerTexture.SetActive(false);
 				} else {
 					playerTexture.SetActive(true);
@@ -551,10 +551,10 @@ public class UIGame : UIBase {
 			else 
 			{
 				playerTexture.SetActive(false);
-				if(playerInCameraX > 0 &&
-				   playerInCameraX < Screen.width &&
-				   playerInCameraY > 0 &&
-				   playerInCameraY < Screen.height) {
+				if(playerInCameraX > -50 &&
+				   playerInCameraX < Screen.width + 100 &&
+				   playerInCameraY > -50 &&
+				   playerInCameraY < Screen.height + 100) {
 					screenLocation.SetActive(false);
 				} else {
 					screenLocation.SetActive(true);
