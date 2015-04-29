@@ -137,7 +137,7 @@ public class BallTrigger : MonoBehaviour
 		CameraMgr.Get.IsLongPass = false;
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		gameObject.transform.localPosition = Vector3.zero;
 		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
@@ -153,10 +153,10 @@ public class BallTrigger : MonoBehaviour
 		while (Parabolamove && GameController.Get.Catcher != null && GameController.Get.Passer != null)  
 		{  
 			float [] disAy = new float[4];
-			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.FrontSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [1] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.BackSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [2] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.RightSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPoint.LeftSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.FrontSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [1] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.BackSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [2] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.RightSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
+			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.LeftSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
 			int Index = MinIndex(disAy);
 			
 			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 0, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);

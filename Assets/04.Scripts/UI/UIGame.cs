@@ -432,9 +432,9 @@ public class UIGame : UIBase {
 		Start.SetActive (false);
 		ScoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
-		GameController.Get.SetPlayerLevel();
 
 		SceneMgr.Get.SetBallState (PlayerState.Start);
+		GameController.Get.StartGame();
 	}
 
 	public void RestartGame(){
@@ -445,6 +445,7 @@ public class UIGame : UIBase {
 	}
 
 	public void ChangeControl(bool IsAttack) {
+		shootBtnTime = ButtonBTime;
 		showCoverAttack(false);
 		showCoverDefence(false);
 		ControlButtonGroup [0].SetActive (IsAttack);
@@ -566,15 +567,19 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void OpenUIMask(PlayerBehaviour p = null){
+	public bool OpenUIMask(PlayerBehaviour p = null){
 		if(p == GameController.Get.Joysticker) {
+			shootBtnTime = ButtonBTime;
 			showCoverAttack(false);
 			showCoverDefence(false);
 			isCanDefenceBtnPress = true;
 			isPressElbowBtn = true;
 			if(p.NoAiTime > 0)
 				p.SetNoAiTime();
-		}
+
+			return true;
+		} else
+			return false;
 	}
 
 	private void showButtonFX(){

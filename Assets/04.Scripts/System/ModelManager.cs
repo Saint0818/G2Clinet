@@ -140,33 +140,19 @@ public class ModelManager : MonoBehaviour {
 
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
-		GameObject DefPointCopy = Instantiate(DefPointObject) as GameObject;
-		DefPointCopy.transform.parent = Res.transform;
-		DefPointCopy.transform.localPosition = Vector3.zero;
-
-		GameObject AnimatorCurveCopy = Instantiate(AnimatorCurveManager) as GameObject;
-		AnimatorCurveCopy.transform.parent = Res.transform;
-		AnimatorCurveCopy.name = "AniCurve";
 
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
 		PB.Attr = playerattr;
 		PB.Index = TeamIndex;
-		PB.Init ();
+		PB.InitTrigger (DefPointObject);
+		PB.InitCurve (AnimatorCurveManager);
 		Res.name = Team.ToString() + TeamIndex.ToString();
-		DefPointCopy.name = "DefPoint";
-		PB.DefPointAy [DefPoint.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
-		PB.DefPointAy [DefPoint.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
-		PB.DefPointAy [DefPoint.Right.GetHashCode()] = DefPointCopy.transform.Find ("Right").gameObject.transform;
-		PB.DefPointAy [DefPoint.Left.GetHashCode()] = DefPointCopy.transform.Find ("Left").gameObject.transform;
-		PB.DefPointAy [DefPoint.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find ("FrontSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.BackSteal.GetHashCode()] = DefPointCopy.transform.Find ("BackSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
-		PB.DefPointAy [DefPoint.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
 
 		if(Team == TeamKind.Npc)
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
+
 		return PB;
 	}
 

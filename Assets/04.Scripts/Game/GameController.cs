@@ -41,6 +41,7 @@ public enum GameTest
     AttackB,
     Dunk,
     Block,
+	Rebound,
     Edit,
     OneByOne,
 	Pass
@@ -278,6 +279,13 @@ public class GameController : MonoBehaviour
 		ChangeSituation (GameSituation.Opening);
     }
 
+	public void StartGame() {
+		SetPlayerLevel();
+		if (GameStart.Get.TestMode == GameTest.Rebound) {
+			SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+			SceneMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
+		}
+	}
 
     private TTactical GetMovePath(int index)
     {
@@ -370,6 +378,7 @@ public class GameController : MonoBehaviour
                 break;
             case GameTest.AttackA:
             case GameTest.Dunk:
+			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
                 break;
             case GameTest.AttackB:
@@ -423,32 +432,23 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnDunkBasket = OnDunkBasket;
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
+			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
         }
     }
 
-	void Update(){
+	void FixedUpdate() {
 		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
 			if(BallOwner) {
-				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
-				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
-				pos = Vector3.MoveTowards(pos, player, 0.2f);
+				Vector3 pos = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, BallOwner.DummyCatch.transform.position, 0.25f);
 				SceneMgr.Get.SetRealBallPosition(pos);
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.A))
-			DoShoot (true);
+		if (Joysticker) {
+			if (Input.GetKeyDown (KeyCode.A))
+				DoShoot (true);
+		}
 
-		if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
-			Joysticker.AniState (PlayerState.Rebound);
-
-		if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-			Joysticker.AniState (PlayerState.ReboundCatch);
-
-	}
-
-    void FixedUpdate()
-    {
         if (Time.time >= CoolDownPass)
             CoolDownPass = 0;
 
@@ -478,6 +478,21 @@ public class GameController : MonoBehaviour
 			WaitStealTime = 0;
 			
     }
+
+	#if UNITY_EDITOR
+	void OnGUI() {
+		if (GameStart.Get.TestMode == GameTest.Rebound) {
+			if (GUI.Button(new Rect(100, 100, 100, 100), "Reset")) {
+				SetBallOwnerNull();
+				SetBall();
+				SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
+                SceneMgr.Get.SetBallState(PlayerState.Shoot0);
+                SceneMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
+				SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+			}
+		}
+	}
+	#endif
 
     private void SituationAttack(TeamKind team)
     {
@@ -783,7 +798,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			isScore = rate <= (originalRate + player.ScoreRate.NearShotScoreRate ) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
 			if(isScore) {
 				IsSwich = rate <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
 			} else {
@@ -791,7 +806,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			isScore = rate <= (originalRate + player.ScoreRate.LayUpScoreRate) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
 			if(isScore) {
 				IsSwich = rate <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
 			} else {
@@ -804,9 +819,11 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner)
         {
-			SceneMgr.Get.ResetBasketEntra();
+			UIGame.Get.DoPassNone();
+            SceneMgr.Get.ResetBasketEntra();
 			ShootDis = getDis(ref BallOwner, SceneMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position);
-			int t = BallOwner.Team.GetHashCode();
+            int t = BallOwner.Team.GetHashCode();
+
             if (GameStart.Get.TestMode == GameTest.Dunk)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
@@ -888,27 +905,18 @@ public class GameController : MonoBehaviour
 
 	public void DoShoot(bool isshoot)
     {
-		if (IsStart && BallOwner && CandoBtn)
-        {
-            PlayerBehaviour player = null;
-            if (Joysticker == BallOwner)
-            {
-                player = Joysticker;
-            } else 
-            if (BallOwner.Team == TeamKind.Self) 
-			{
-                player = BallOwner;
-				isshoot = true;
-			}
-
-            if (player)
-            {
-                int t = player.Team.GetHashCode();
-                if (isshoot) 
+		if (IsStart && CandoBtn) {
+            if (Joysticker == BallOwner) {
+				if (isshoot) 
 					Shoot();
-                else
-                    player.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [t].transform.position);
-            }
+				else
+					Joysticker.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
+            } else 
+			if (BallOwner && BallOwner.Team == TeamKind.Self) 
+				Shoot();
+			else 
+			if (!Joysticker.IsRebound)
+				Rebound(Joysticker);
         }
     }
 
@@ -973,7 +981,6 @@ public class GameController : MonoBehaviour
 				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 				int disKind = GetEnemyDis(ref player);
 				int rate = UnityEngine.Random.Range(0, 2);
-				bool suc = false;
 				int passkind = -1;
 
 				if(dis <= GameConst.CloseDistance)
@@ -982,30 +989,30 @@ public class GameController : MonoBehaviour
 					if(disKind == 1)
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
 							passkind = 1;
 						}else{ 
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					} else 
 					if(disKind == 2)
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
 							passkind = 0;
 						}else{
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					}						
 					else
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
 							passkind = 0;
 						}else{
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					}
@@ -1015,40 +1022,40 @@ public class GameController : MonoBehaviour
 					if(disKind == 1)
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
 							passkind = 0;
 						}else{
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					} else 
 					if(disKind == 2)
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
 							passkind = 1;
 						}else{
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					}						
 					else
 					{
 						if(rate == 1){
-							suc = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
 							passkind = 0;
 						}else{
-							suc = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
 							passkind = 2;
 						}
 					}
 				}else{
 					//Far
-					suc = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+					Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
 					passkind = 1;
 				}
 
-				if(suc){
+				if(Result){
 					Catcher = player;
 
 					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
@@ -1060,11 +1067,10 @@ public class GameController : MonoBehaviour
 						else if(passkind == 2)
 							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
 					}
-				}
-			}            
 
-			Result = true;
-			UIGame.Get.DoPassNone();
+					UIGame.Get.DoPassNone();
+				}
+			}
         }
 
 		return Result;
@@ -1309,29 +1315,43 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn)
 		{
-			if(BallOwner)
-				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-
-            if (Shooter)
+			if (Shooter)
                 Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
             else
-            if (BallOwner)
+            if (BallOwner) {
+				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
                 Joysticker.AniState(PlayerState.Block, BallOwner.transform.position);
-            else
-                Joysticker.AniState(PlayerState.Block);
+			} else {
+				if (!Shooter && inReboundDistance(Joysticker))
+					Rebound(Joysticker);
+				else
+                	Joysticker.AniState(PlayerState.Block);
+			}
         }           
     }
 
+	private bool inReboundDistance(PlayerBehaviour player) {
+		return Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), 
+		                        new Vector2(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z)) <= 6;
+	}
+
     private void Rebound(PlayerBehaviour player)
     {
-        
-    }
-    
-    public bool OnRebound(PlayerBehaviour player)
+		player.AniState(PlayerState.Rebound, SceneMgr.Get.RealBall.transform.position);
+		if (SceneMgr.Get.RealBall.transform.parent == null && inReboundDistance(player)) {
+			TMoveData data = new TMoveData(0);
+			data.Target = new Vector2(SceneMgr.Get.RealBall.transform.position.x,SceneMgr.Get.RealBall.transform.position.z);
+			data.LookTarget = SceneMgr.Get.RealBall.transform;
+
+			player.FirstTargetPos = data;
+		}
+	}
+	
+	public bool OnRebound(PlayerBehaviour player)
     {
         return true;
     }
-
+    
     public void DoSkill()
     {
 		if(CandoBtn)
@@ -2273,63 +2293,64 @@ public class GameController : MonoBehaviour
 			return;
 
         //rebound
-        if (dir == 0)
-        {
-        } else
-        {
-            bool CanSetball = false;
+		switch (dir)
+		{
+		case 0: //top
+			//if (Joysticker != BallOwner)
+				//if (SceneMgr.Get.RealBallState ==  PlayerState.Block || SceneMgr.Get.RealBallState ==  PlayerState.Steal)
+            //        Rebound(Joysticker);
 
-            if (player && (player.IsCatcher || player.CanMove))
-            {
-                if (situation == GameSituation.TeeAPicking)
-                {
-                    if (player.Team == TeamKind.Self)
-                        CanSetball = true;
-                } else if (situation == GameSituation.TeeBPicking)
-                {
-                    if (player.Team == TeamKind.Npc)
-                        CanSetball = true;
-                } else
-                {
-                    CanSetball = true;
-                }
-
-                if (CanSetball)
-                {
-					if(situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
+            break;
+		case 5: //finger
+			SetBall(player);
+			break;
+		default :
+			bool CanSetball = false;
+			
+			if (player && (player.IsCatcher || player.CanMove))
+			{
+				if (situation == GameSituation.TeeAPicking)
+				{
+					if (player.Team == TeamKind.Self)
+						CanSetball = true;
+				} else 
+				if (situation == GameSituation.TeeBPicking)
+				{
+					if (player.Team == TeamKind.Npc)
+						CanSetball = true;
+				} else
+					CanSetball = true;
+				
+				if (CanSetball)
+				{
+					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
 						player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
-					}
-					else{
-	                    SetBall(player);
+					} else {
+						SetBall(player);
 						if(player.NoAiTime == 0)
 							player.AniState(PlayerState.Dribble);
-						else if(player.CheckAnimatorSate(PlayerState.Run))
-							player.AniState(PlayerState.RunAndDribble);
-						else
-							player.AniState(PlayerState.HoldBall);
-					}
-
-					switch (dir)
-					{
-					case 0: //top
-						break;
-					case 1: //FR
-						break;
-					}
+						else 
+						if(player.CheckAnimatorSate(PlayerState.Run))
+                        	player.AniState(PlayerState.RunAndDribble);
+                    	else
+                        	player.AniState(PlayerState.HoldBall);
+                    }
                 }
             }
+
+            break;
         }
     }
-
-	public bool OnPickUpBall(PlayerBehaviour player)
-	{
-		if (player) {
-			SetBall (player);
-
-			return true;
-		}
-
-		return false;
+    
+    public bool OnPickUpBall(PlayerBehaviour player)
+    {
+        if (player) {
+            SetBall (player);
+            
+            return true;
+        }
+        
+        return false;
 	}
 
     public void PlayerTouchPlayer(PlayerBehaviour player1, PlayerBehaviour player2, int dir)

@@ -395,18 +395,18 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				break;
 
 			case PlayerState.Reset:
-				SceneMgr.Get.RealBall.transform.parent = null;
-				SceneMgr.Get.RealBall.transform.localPosition = new Vector3(0, 5, 0);
-				SceneMgr.Get.RealBallRigidbody.isKinematic = true;
-				SceneMgr.Get.RealBallRigidbody.useGravity = false;
-				SceneMgr.Get.RealBallTrigger.SetBoxColliderEnable(true);
-				SceneMgr.Get.RealBallFX.gameObject.SetActive(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localPosition = new Vector3(0, 5, 0);
+				RealBallRigidbody.isKinematic = true;
+				RealBallRigidbody.useGravity = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBallFX.gameObject.SetActive(true);
 			break;
 
 			case PlayerState.Start:
-				SceneMgr.Get.RealBall.transform.localPosition = new Vector3 (0, 5, 0);
-				SceneMgr.Get.RealBall.GetComponent<Rigidbody>().isKinematic = false;
-				SceneMgr.Get.RealBall.GetComponent<Rigidbody>().useGravity = true;
+				RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
 				break;
 
 			case PlayerState.HoldBall:
@@ -421,7 +421,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallFX.gameObject.SetActive(false);
 				RealBall.transform.localPosition = Vector3.zero;
 				break;
-				
 		}
 	}
 

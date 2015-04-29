@@ -63,7 +63,7 @@ public enum TeamKind
     Npc = 1
 }
 
-public enum DefPoint
+public enum DefPointKind
 {
     Front = 0,
     Back = 1,
@@ -176,22 +176,13 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnFall = null;
     public OnPlayerAction OnPickUpBall = null;
     public OnPlayerAction OnGotSteal = null;
-    public Vector3 Translate;
+	public OnPlayerAction OnUI = null;
+
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
     private const int ChangeToAI = 1;
-    public static string[] AnimatorStates = new string[] {
-                "",
-                "IsRun",
-                "IsDefence",
-                "IsDribble",
-                "IsHoldBall"
-        };
-    private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
-    private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
-    private float canDunkDis = 30f;
+    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
-    private float MoveMinSpeed = 0.5f;
     private Vector2 drag = Vector2.zero;
     private bool stop = false;
     private bool NeedResetFlag = false;
@@ -201,6 +192,12 @@ public class PlayerBehaviour : MonoBehaviour
     private float ProactiveTime = 0;
     private int smoothDirection = 0;
     private float animationSpeed = 0;
+	private float MoveMinSpeed = 0.5f;
+    private float canDunkDis = 30f;
+
+    private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
+	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
+    public Vector3 Translate;
     public Rigidbody PlayerRigidbody;
     private Animator animator;
     private GameObject selectTexture;
@@ -210,6 +207,8 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject blockTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
+	public GameObject DummyCatch;
+
     public TeamKind Team;
     public float NoAiTime = 0;
     public bool HaveNoAiTime = false;
@@ -278,35 +277,7 @@ public class PlayerBehaviour : MonoBehaviour
     public TScoreRate ScoreRate;
     private bool isCanCatchBall = true;
 
-    void initTrigger()
-    {
-        GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
-        if (obj)
-        {
-            GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-            pushTrigger = obj2.transform.FindChild("Push").gameObject;
-            elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
-            blockTrigger = obj2.transform.FindChild("Block").gameObject;
-
-            obj2.name = "BodyTrigger";
-            PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
-            if (objs != null)
-            {
-                for (int i = 0; i < objs.Length; i ++)
-                    objs [i].Player = this;
-            }
-
-            DefTrigger obj3 = obj2.GetComponentInChildren<DefTrigger>(); 
-            if (obj3 != null)
-                obj3.Player = this;
-
-            DefPoint = obj.transform.FindChild("DefRange").gameObject;            
-            obj2.transform.parent = transform;
-            obj2.transform.transform.localPosition = Vector3.zero;
-            obj2.transform.transform.localScale = Vector3.one;
-        }
-    }
-
+    
     void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -328,16 +299,69 @@ public class PlayerBehaviour : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
         DummyBall = gameObject.transform.FindChild("DummyBall").gameObject;
-        aniCurve = gameObject.transform.FindChild("AniCurve").gameObject.GetComponent<AniCurve>();
-        initTrigger();
+		DummyCatch = gameObject.transform.FindChild("DummyCatch").gameObject;
 
         ScoreRate = GameStart.Get.ScoreRate;
     }
 
-    public void Init()
-    {
-        if (DefPoint != null)
-            DefPoint.transform.localScale = new Vector3(GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance);
+	public void InitCurve(GameObject animatorCurve) {
+		GameObject AnimatorCurveCopy = Instantiate(animatorCurve) as GameObject;
+		AnimatorCurveCopy.transform.parent = gameObject.transform;
+		AnimatorCurveCopy.name = "AniCurve";
+		aniCurve = AnimatorCurveCopy.GetComponent<AniCurve>();
+    }
+
+	public void InitTrigger(GameObject defPoint)
+	{
+		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
+		if (obj)
+		{
+			GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
+			pushTrigger = obj2.transform.FindChild("Push").gameObject;
+			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
+			blockTrigger = obj2.transform.FindChild("Block").gameObject;
+			
+			obj2.name = "BodyTrigger";
+			PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
+			if (objs != null)
+			{
+				for (int i = 0; i < objs.Length; i ++)
+					objs [i].Player = this;
+			}
+			
+			DefTrigger obj3 = obj2.GetComponentInChildren<DefTrigger>(); 
+			if (obj3 != null)
+				obj3.Player = this;
+			
+			DefPoint = obj.transform.FindChild("DefRange").gameObject;          
+			obj2.transform.parent = transform;
+			obj2.transform.transform.localPosition = Vector3.zero;
+			obj2.transform.transform.localScale = Vector3.one;
+
+			Transform t = obj2.transform.FindChild("TriggerFinger").gameObject.transform;
+			if (t) {
+				t.parent = transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
+				t.localPosition = Vector3.zero;
+				t.localScale = Vector3.one;
+			}
+		}
+		
+		if (defPoint != null) {
+			GameObject DefPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
+			DefPointCopy.transform.parent = gameObject.transform;
+			DefPointCopy.name = "DefPoint";
+			
+			DefPointAy [DefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
+			DefPointAy [DefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
+			DefPointAy [DefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find ("Right").gameObject.transform;
+			DefPointAy [DefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find ("Left").gameObject.transform;
+			DefPointAy [DefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find ("FrontSteal").gameObject.transform;
+			DefPointAy [DefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find ("BackSteal").gameObject.transform;
+			DefPointAy [DefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
+			DefPointAy [DefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
+
+            defPoint.transform.localScale = new Vector3(GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance, GameData.AIlevelAy [Attr.AILevel].DefDistance);
+        }
     }
 
     void LateUpdate()
@@ -630,7 +654,10 @@ public class PlayerBehaviour : MonoBehaviour
 		if (playerReboundCurve != null)
 		{
 			reboundCurveTime += Time.deltaTime;
-			
+
+			if (FirstMoveQueue.Count > 0)
+				MoveTo(FirstMoveQueue.Peek(), true);
+
 			if (reboundCurveTime < 1f)
 				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
 				                                            playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
@@ -645,8 +672,8 @@ public class PlayerBehaviour : MonoBehaviour
 				isRebound = false;
 				isCheckLayerToReset = true;
 			}
-		}
-
+		} else
+			isRebound = false;
 	}
     
     private void CalculationBlock()
@@ -1416,7 +1443,6 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case PlayerState.FakeShoot:
-                UIGame.Get.DoPassNone();
                 if (IsBallOwner)
                 {
 					ClearAnimatorFlag();
@@ -1479,7 +1505,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.PassFlat:
                 animator.SetInteger("StateNo", 0);
-                UIGame.Get.DoPassNone();
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
                 Result = true;
@@ -1487,7 +1512,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.PassFloor:
                 animator.SetInteger("StateNo", 2);
-                UIGame.Get.DoPassNone();
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
                 Result = true;
@@ -1495,7 +1519,6 @@ public class PlayerBehaviour : MonoBehaviour
             
             case PlayerState.PassParabola:
                 animator.SetInteger("StateNo", 1);
-                UIGame.Get.DoPassNone();
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
                 Result = true;
@@ -1567,11 +1590,9 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
-            case PlayerState.Shoot6:
-                UIGame.Get.DoPassNone();
-                
+			case PlayerState.Shoot6:
                 if (IsBallOwner)
-                {     
+                {                   
                     playerShootCurve = null;
                     
                     switch (state)
@@ -1615,7 +1636,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 		case PlayerState.Layup:
 			if (IsBallOwner){
-				UIGame.Get.DoPassNone();
 				playerLayupCurve = null;
 				stateNo = 0;
 				curveName = string.Format("Layup{0}", stateNo);
@@ -1638,7 +1658,6 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
 
             case PlayerState.Rebound:
-				UIGame.Get.DoPassNone();
 				playerReboundCurve = null;
 				for (int i = 0; i < aniCurve.Rebound.Length; i++)
 				if (aniCurve.Rebound [i].Name == "Rebound")
@@ -1775,13 +1794,13 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ElbowEnd":
-                UIGame.Get.OpenUIMask(this);
-                AniState(PlayerState.HoldBall);
+				OnUI(this);
+				AniState(PlayerState.HoldBall);
                 break;
 
             case "CatchEnd":
-                UIGame.Get.OpenUIMask(this);
-                IsFirstDribble = true;
+				OnUI(this);
+				IsFirstDribble = true;
                 
                 if (NoAiTime == 0)
                     AniState(PlayerState.Dribble);
@@ -1791,12 +1810,12 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "FakeShootEnd":
                 AniState(PlayerState.HoldBall);
-                UIGame.Get.OpenUIMask(this);
-                break;
+				OnUI(this);
+				break;
 
             case "AnimationEnd":
+				OnUI(this);
                 AniState(PlayerState.Idle);
-                UIGame.Get.OpenUIMask(this);
                 blockTrigger.SetActive(false);
                 pushTrigger.SetActive(false);
                 elbowTrigger.SetActive(false);
@@ -1856,8 +1875,8 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot6,
 				PlayerState.Steal,
                 PlayerState.Layup,
-                PlayerState.Tee,
-                PlayerState.Rebound
+                PlayerState.Tee
+                //PlayerState.Rebound
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
@@ -1936,6 +1955,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return isMoving;}
     }
+
+	public bool IsRebound 
+	{
+		get{return isRebound;}
+	}
 
     public bool IsFall
     {
