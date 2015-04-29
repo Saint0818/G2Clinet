@@ -46,6 +46,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
 	public Material BasketMaterial;
+	public BallCurve RealBallCurve;
 
     void Awake()
     {
@@ -64,7 +65,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
 		//IK
 		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
-
+		GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/BallCurve")) as GameObject;
+		RealBallCurve = obj.GetComponent<BallCurve>();
 	}
     private void InitLineGroup()
     {

@@ -446,7 +446,19 @@ public class GameController : MonoBehaviour
 
 		if (Joysticker) {
 			if (Input.GetKeyDown (KeyCode.A))
+			{
+				if(Joysticker.crtState == PlayerState.Rebound){
+					SetBall(Joysticker);
+					Joysticker.AniState (PlayerState.TipIn);
+				}
 				DoShoot (true);
+			}
+
+			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
+				Joysticker.AniState (PlayerState.Rebound);
+
+			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
+				Joysticker.AniState (PlayerState.ReboundCatch);
 		}
 
         if (Time.time >= CoolDownPass)
