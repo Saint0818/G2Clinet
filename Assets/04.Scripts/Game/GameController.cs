@@ -783,7 +783,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			isScore = rate <= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
+			isScore = rate <= (originalRate + player.ScoreRate.NearShotScoreRate ) ? true : false;
 			if(isScore) {
 				IsSwich = rate <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
 			} else {
@@ -791,7 +791,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			isScore = rate <= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
+			isScore = rate <= (originalRate + player.ScoreRate.LayUpScoreRate) ? true : false;
 			if(isScore) {
 				IsSwich = rate <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
 			} else {
