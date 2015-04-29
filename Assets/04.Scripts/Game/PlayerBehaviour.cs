@@ -54,7 +54,8 @@ public enum PlayerState
     Shoot2 = 45,
     Shoot3 = 46,
     Shoot6 = 49,
-	BasketActionNoScoreEnd = 50
+	BasketActionNoScoreEnd = 50,
+	TipIn = 51
 }
 
 public enum TeamKind
@@ -1271,6 +1272,11 @@ public class PlayerBehaviour : MonoBehaviour
 				if(CanMove && crtState != PlayerState.Rebound)
 					return true;
 				break;
+
+			case PlayerState.TipIn:
+				if(crtState == PlayerState.Rebound && crtState != PlayerState.TipIn)
+					return true;
+					break;
            
             case PlayerState.Push:
             case PlayerState.PickBall:
@@ -1672,6 +1678,14 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
+			case PlayerState.TipIn:
+				UIGame.Get.DoPassNone();
+				ClearAnimatorFlag();
+				gameObject.layer = LayerMask.NameToLayer("Shooter");
+				animator.SetTrigger("TipInTrigger");
+				Result = true;
+				break;
+
 			case PlayerState.ReboundCatch:
 				animator.SetTrigger("ReboundCatchTrigger");
 				break;
@@ -1875,8 +1889,9 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot6,
 				PlayerState.Steal,
                 PlayerState.Layup,
-                PlayerState.Tee
-                //PlayerState.Rebound
+                PlayerState.Tee,
+                PlayerState.Rebound,
+				PlayerState.TipIn
             };
 
             for (int i = 0; i < CheckAy.Length; i++)

@@ -322,6 +322,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.Shoot3: 
 			case PlayerState.Shoot6: 
 			case PlayerState.Layup: 
+			case PlayerState.TipIn: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
