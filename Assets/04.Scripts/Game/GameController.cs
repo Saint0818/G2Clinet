@@ -444,24 +444,10 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.A)) {
-			if(Joysticker.crtState == PlayerState.Rebound)
-			{
-				SetBall(Joysticker);
-				Joysticker.AniState (PlayerState.TipIn);
-			}
-			else
+		if (Joysticker) {
+			if (Input.GetKeyDown (KeyCode.A))
 				DoShoot (true);
 		}
-
-		if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
-			Joysticker.AniState (PlayerState.Rebound);
-
-		if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-			Joysticker.AniState (PlayerState.ReboundCatch);
-
-	}
-
 
         if (Time.time >= CoolDownPass)
             CoolDownPass = 0;
@@ -978,7 +964,7 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && player != BallOwner)
         {
-			if((!MovePass || !IsBtn) && CoolDownPass != 0)
+			if(!(IsBtn || MovePass) && CoolDownPass != 0)
 				return Result;
 
 			if(!IsBtn && BallOwner.NoAiTime > 0)
@@ -2307,7 +2293,6 @@ public class GameController : MonoBehaviour
 			return;
 
         //rebound
-
 		switch (dir)
 		{
 		case 0: //top
@@ -2342,43 +2327,6 @@ public class GameController : MonoBehaviour
 						player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
 					} else {
 						SetBall(player);
-
-        if (dir == 0)
-        {
-        } else
-        {
-            bool CanSetball = false;
-
-            if (player && (player.IsCatcher || player.CanMove))
-            {
-                if (situation == GameSituation.TeeAPicking)
-                {
-                    if (player.Team == TeamKind.Self)
-                        CanSetball = true;
-                } else if (situation == GameSituation.TeeBPicking)
-                {
-                    if (player.Team == TeamKind.Npc)
-                        CanSetball = true;
-                } else
-                {
-                    CanSetball = true;
-                }
-
-                if (CanSetball)
-                {
-					if(situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
-						if(SceneMgr.Get.RealBall.transform.position.y > 1.8f)
-							player.AniState(PlayerState.CatchParabola, SceneMgr.Get.RealBall.transform.position);
-						else if (SceneMgr.Get.RealBall.transform.position.y > 1f)
-							player.AniState(PlayerState.CatchFlat, SceneMgr.Get.RealBall.transform.position);
-						else if(SceneMgr.Get.RealBall.transform.position.y > 0.5f)
-							player.AniState(PlayerState.CatchFloor, SceneMgr.Get.RealBall.transform.position);
-						else
-							player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);		
-					}
-					else{
-	                    SetBall(player);
-
 						if(player.NoAiTime == 0)
 							player.AniState(PlayerState.Dribble);
 						else 
