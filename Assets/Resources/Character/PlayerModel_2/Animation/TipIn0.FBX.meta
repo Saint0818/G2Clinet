@@ -132,7 +132,7 @@ ModelImporter:
       name: TipIn0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -151,7 +151,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .3311643
+      - time: .277643174
         functionName: AnimationEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
@@ -294,7 +294,7 @@ ModelImporter:
     - serializedVersion: 16
       name: TipInDown
       takeName: Take 001
-      firstFrame: 20
+      firstFrame: 15
       lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
