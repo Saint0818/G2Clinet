@@ -9,12 +9,12 @@ public class BallTrigger : MonoBehaviour
 	private BoxCollider box;
 	private GameObject HintObject;
 	private Vector3 Parabolatarget;
-	private float Parabolaspeed = 20;    
 	private float ParaboladistanceToTarget; 
 	private bool Parabolamove = true;  
 	private bool Passing = false;
 	private int PassKind = -1;
 	private float PassCheckTime = 0;
+	private float ParabolaTime = 0;
 
 	void Awake()
 	{
@@ -80,8 +80,10 @@ public class BallTrigger : MonoBehaviour
 				break;
 			case 1:
 			case 3:
-				Parabolamove = true;							  
-				StartCoroutine(Parabola());
+				ParabolaTime = 0;
+				Parabolamove = true;
+				SceneMgr.Get.RealBall.transform.DOMoveX(GameController.Get.Catcher.DummyBall.transform.position.x, 1).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				SceneMgr.Get.RealBall.transform.DOMoveZ(GameController.Get.Catcher.DummyBall.transform.position.z, 1).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			}
 
@@ -89,20 +91,47 @@ public class BallTrigger : MonoBehaviour
 		}else
 			return false;
 	}
-
+	
+	private void CalculationParabolaMove()
+	{
+		if (Parabolamove)
+		{
+			ParabolaTime += Time.deltaTime;
+			
+			Vector3 position = SceneMgr.Get.RealBall.transform.position;
+			position.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
+			
+			if (position.y < 0)
+				position.y = 0;
+			
+			SceneMgr.Get.RealBall.transform.position = new Vector3(SceneMgr.Get.RealBall.transform.position.x, position.y, SceneMgr.Get.RealBall.transform.position.z);
+			
+			if (ParabolaTime >= SceneMgr.Get.RealBallCurve.Ball.LifeTime)
+				Parabolamove = false;
+		} 
+	}
+	
 	private void PassUpdate()
 	{
 		if (GameController.Get.Catcher != null && GameController.Get.Passer != null) 
 		{
 			float dis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
-			if (dis < 3.5f && Passing)
+
+			if (dis < 8 && Passing)
 			{
 				Passing = false;
 				if(PassKind == 0)
 					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
 				else if(PassKind == 2)
 					GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
-			} 
+				else
+					GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+			}else if((PassKind == 3 || PassKind == 1) && dis <= 2.5f)
+			{
+				Parabolamove = false;
+				SceneMgr.Get.RealBall.transform.DOKill();
+				PassEnd();
+			}
 		
 			if(GameController.Get.Passer != null)
 				GameController.Get.Passer.rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
@@ -139,6 +168,7 @@ public class BallTrigger : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		CalculationParabolaMove();
 		gameObject.transform.localPosition = Vector3.zero;
 		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
 		{
@@ -146,64 +176,5 @@ public class BallTrigger : MonoBehaviour
 			GameController.Get.Catcher = null;
 			GameController.Get.IsPassing = false;
 		}
-	}	    
-
-	IEnumerator Parabola()  
-	{  		
-		while (Parabolamove && GameController.Get.Catcher != null && GameController.Get.Passer != null)  
-		{  
-			float [] disAy = new float[4];
-			disAy [0] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.FrontSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [1] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.BackSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [2] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.RightSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			disAy [3] = Vector3.Distance(GameController.Get.Catcher.DefPointAy[DefPointKind.LeftSteal.GetHashCode()].position, GameController.Get.Passer.transform.position);
-			int Index = MinIndex(disAy);
-			
-			Parabolatarget = new Vector3(GameController.Get.Catcher.DefPointAy[4 + Index].position.x, 0, GameController.Get.Catcher.DefPointAy[4 + Index].position.z);
-			ParaboladistanceToTarget = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);
-
-			Vector3 targetPos = Parabolatarget;  
-			SceneMgr.Get.RealBall.transform.LookAt(targetPos);  
-			float angle = Mathf.Min(1, Vector3.Distance(SceneMgr.Get.RealBall.transform.position, targetPos) / ParaboladistanceToTarget) * 45;  
-			SceneMgr.Get.RealBall.transform.rotation = SceneMgr.Get.RealBall.transform.rotation * Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);  
-			float currentDist = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Parabolatarget);  			 			
-
-			Vector3 pos;
-
-			if (currentDist <= 3.4f){
-				Parabolamove = false;  
-				PassEnd();
-			}else if(currentDist <= 6 && Passing) 
-			{
-				Passing = false;
-				pos = Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist);
-				SceneMgr.Get.SetRealBallOffset(pos);
-				GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
-			}else
-			{
-				pos = Vector3.forward * Mathf.Min(Parabolaspeed * Time.deltaTime, currentDist);
-				SceneMgr.Get.SetRealBallOffset(pos);
-			}
-
-			yield return null;  
-		}  
-	}
-
-	private int MinIndex(float[] floatAy)
-	{
-		int Result = 0;
-		
-		float Min = floatAy [0];
-		
-		for (int i = 1; i < floatAy.Length; i++)
-		{
-			if (floatAy [i] < Min)
-			{
-				Min = floatAy [i];
-				Result = i;
-			}
-		}
-
-		return Result;	
 	}
 }
