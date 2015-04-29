@@ -1955,7 +1955,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsShoot
 	{
 		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || 
-			crtState == PlayerState.Shoot3 || crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk;}
+			crtState == PlayerState.Shoot3 || crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk || crtState == PlayerState.DunkBasket;}
 	}
 
     public bool IsPass
