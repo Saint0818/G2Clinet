@@ -9,20 +9,6 @@ public class ScoreTrigger : MonoBehaviour
 	
 	private Animator animator;
 	private Transform dummyHoop;
-	private bool isBesideBasket = false;
-
-	void Update(){
-		if(isBesideBasket) {
-			float dis = Vector3.Distance(transform.position, SceneMgr.Get.RealBall.transform.position);
-			if(dis >= 0.5f && dis < 1f) {
-				SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
-			} else
-			if(dis >= 1.5f) {
-				isBesideBasket = false;
-			}
-			
-		}
-	}
 	
     void OnTriggerEnter(Collider c) {
 		if(dummyHoop == null)
