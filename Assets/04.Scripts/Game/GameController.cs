@@ -431,7 +431,7 @@ public class GameController : MonoBehaviour
 			if(BallOwner) {
 				Vector3 player = BallOwner.gameObject.transform.FindChild("DummyCatch").position;
 				Vector3 pos = SceneMgr.Get.RealBall.transform.position;
-				pos = Vector3.MoveTowards(pos, player, 0.25f);
+				pos = Vector3.MoveTowards(pos, player, 0.2f);
 				SceneMgr.Get.SetRealBallPosition(pos);
 			}
 		}
@@ -744,14 +744,10 @@ public class GameController : MonoBehaviour
     }
 
 	private void calculationScoreRate(ref bool isScore, PlayerBehaviour player, ScoreType type) {
-//		Debug.Log("player name:"+player.name);
 		if(player.name.Contains("Self")) {
-			//0~90
 			float angle = Mathf.Abs (GameFunction.GetPlayerToObjectAngle(SceneMgr.Get.Hood[0].transform, player.gameObject.transform)) - 90;
-//			Debug.Log("self angle:"+angle);
 		} else {
 			float angle = Mathf.Abs (GameFunction.GetPlayerToObjectAngle(SceneMgr.Get.Hood[1].transform, player.gameObject.transform)) - 90;
-//			Debug.Log("enemy angle:"+angle);
 		}
 		float originalRate = 0;
 		if(ShootDis >= GameConst.TreePointDistance) {
@@ -760,44 +756,46 @@ public class GameController : MonoBehaviour
 		} else {
 			originalRate = player.ScoreRate.TwoScoreRate * player.ScoreRate.TwoScoreRateDeviation;
 		}
+		float rate = (Random.Range(0, 100) + 1);
+		int airRate = (Random.Range(0, 100) + 1);
 		if(type == ScoreType.DownHand) {
-			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.DownHandScoreRate ) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.DownHandScoreRate ) ? true : false;
 			if(isScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
+				IsSwich = rate <= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
 			} else {
-				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.DownHandAirBallRate ? true : false;
+				IsAirBall = airRate <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.UpHand) {
-			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.UpHandScoreRate) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.UpHandScoreRate) ? true : false;
 			if(isScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
+				IsSwich = rate <= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
 			} else {
-				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.UpHandAirBallRate ? true : false;
+				IsAirBall = airRate <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.Normal) {
-			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.NormalScoreRate) ? true : false;
 			if(isScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
+				IsSwich = rate <= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
 			} else {
-				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NormalAirBallRate ? true : false;
+				IsAirBall = airRate <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.NearShotScoreRate ) ? true : false;
 			if(isScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
+				IsSwich = rate <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
 			} else {
-				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.NearShotAirBallRate ? true : false;
+				IsAirBall = airRate <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			isScore = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
+			isScore = rate <= (originalRate - player.ScoreRate.LayUpScoreRate) ? true : false;
 			if(isScore) {
-				IsSwich = (Random.Range(0.0f,100.0f) + 1) <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
+				IsSwich = rate <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
 			} else {
-				IsAirBall = (Random.Range(0, 100) + 1) <= player.ScoreRate.LayUpAirBallRate ? true : false;
+				IsAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
 	}
@@ -852,7 +850,6 @@ public class GameController : MonoBehaviour
 			SetBallOwnerNull();
 
 			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
-//			Debug.Log("player.crtState:"+player.crtState);
 			if(player.crtState == PlayerState.Shoot0){
 				calculationScoreRate(ref IsScore ,player, ScoreType.Normal);
 			} else if(player.crtState == PlayerState.Shoot1 ||
@@ -862,6 +859,8 @@ public class GameController : MonoBehaviour
 				calculationScoreRate(ref IsScore ,player, ScoreType.UpHand);
 			} else if(player.crtState == PlayerState.Shoot3) {
 				calculationScoreRate(ref IsScore ,player, ScoreType.DownHand);
+			} else if(player.crtState == PlayerState.Layup){
+				calculationScoreRate(ref IsScore ,player, ScoreType.LayUp);
 			}
             
 			SetBall();
@@ -1066,6 +1065,7 @@ public class GameController : MonoBehaviour
 			}            
 
 			Result = true;
+			UIGame.Get.DoPassNone();
         }
 
 		return Result;
@@ -1906,7 +1906,7 @@ public class GameController : MonoBehaviour
 			}
         } else
         {
-			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+			if (npc.CanMove && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
 	        {
 	            TMoveData data;
 	            if (!CheckAttack(ref npc))
@@ -2374,16 +2374,14 @@ public class GameController : MonoBehaviour
     {
         if (IsStart && GameStart.Get.TestMode == GameTest.None)
         {
-            SceneMgr.Get.ResetBasketEntra();
-
             int score = 2;
             if (ShootDis >= GameConst.TreePointDistance)
                 score = 3;
-            else if (Shooter != null)
-            {
-                if (getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position) >= 10)
-                    score = 3;
-            }
+//            else if (Shooter != null)
+//            {
+//                if (getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position) >= 10)
+//                    score = 3;
+//            }
 
             ShootDis = 0;
             UIGame.Get.PlusScore(team, score);

@@ -261,18 +261,15 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public void SetBasketBallState(PlayerState state, Transform dummy = null){
 		switch(state){
 			case PlayerState.BasketActionSwish:
-//				realBallCollider.enabled = false;
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				RealBallTrigger.SetBoxColliderEnable(true);
 			break;
 			case PlayerState.BasketActionSwishEnd:
-//				realBallCollider.enabled = true;
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallRigidbody.velocity = Vector3.zero;
 				RealBallRigidbody.AddForce(Vector3.down * 70);
 			break;
 			case PlayerState.BasketAnimationStart:
-//				realBallCollider.enabled = false;
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBallTrigger.SetBoxColliderEnable(false);
@@ -282,7 +279,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case PlayerState.BasketActionEnd:
-//				realBallCollider.enabled = true;
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
@@ -292,14 +288,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.AddForce(Vector3.down * 50);
 				break;
 			case PlayerState.BasketActionNoScoreEnd:
-//				realBallCollider.enabled = true;
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.parent = null;
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
-				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 100,ForceMode.Impulse);
+				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
 				break;
 		}
 
