@@ -1906,7 +1906,7 @@ public class GameController : MonoBehaviour
 			}
         } else
         {
-			if (npc.CanMove && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
 	        {
 	            TMoveData data;
 	            if (!CheckAttack(ref npc))

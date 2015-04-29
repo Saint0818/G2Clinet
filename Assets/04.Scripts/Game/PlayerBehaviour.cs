@@ -817,9 +817,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
-            isMoving = false;
-            SetNoAiTime();
-            isJoystick = false;
+			SetNoAiTime();
+
             if (crtState != ps)
                 AniState(ps);
 
@@ -828,6 +827,9 @@ public class PlayerBehaviour : MonoBehaviour
             else if (situation == GameSituation.AttackB)
                 rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
         }
+
+		isJoystick = false;
+		isMoving = false;
     }
 
     private void DunkTo()
@@ -924,7 +926,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
         {
-            isMoving = true;
             Vector2 MoveTarget = GetMoveTarget(Data);
 
             if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
@@ -1085,6 +1086,7 @@ public class PlayerBehaviour : MonoBehaviour
                         AniState(PlayerState.Run);
                     }
 
+					isMoving = true;
                     if (Data.Speedup)
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
                     else
@@ -1098,6 +1100,7 @@ public class PlayerBehaviour : MonoBehaviour
                     else
                         AniState(PlayerState.Run);
 
+					isMoving = true;
                     if (IsBallOwner)
                     {
                         if (Data.Speedup)
