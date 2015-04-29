@@ -2645,9 +2645,9 @@ public class GameController : MonoBehaviour
 			}
             Catcher = null;
 		}else{
+			SceneMgr.Get.SetBallState(PlayerState.Steal, Passer);
 			Catcher = null;
 			SetBall();
-			SceneMgr.Get.RealBall.transform.position = new Vector3(SceneMgr.Get.RealBall.transform.position.x, 0, SceneMgr.Get.RealBall.transform.position.z);
 		}
 
 		IsPassing = false;

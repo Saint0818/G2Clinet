@@ -1462,6 +1462,7 @@ public class PlayerBehaviour : MonoBehaviour
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
                 isCanCatchBall = true;
+				isMoving = false;
                 Result = true;
                 break;
 
