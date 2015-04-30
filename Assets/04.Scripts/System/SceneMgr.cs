@@ -429,7 +429,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBallFX.gameObject.SetActive(true);
-			break;
+				break;
 
 			case PlayerState.Start:
 				RealBall.transform.localPosition = new Vector3 (0, 5, 0);
@@ -775,4 +775,3 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		return go;
 	}
 }
-
