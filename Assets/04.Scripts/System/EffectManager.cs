@@ -7,7 +7,7 @@ public class EffectManager : MonoBehaviour
 {
 	private static EffectManager instance = null;
 	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect",
-											"ThreeLineEffect", "ThrowInLineEffect"};
+											"ThreeLineEffect", "ThrowInLineEffect", "DoubleClick01", "DoubleClick02"};
 	private bool GameEffectLoaded = false;
 	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();

@@ -284,6 +284,7 @@ public class PlayerBehaviour : MonoBehaviour
     public TScoreRate ScoreRate;
     private bool isCanCatchBall = true;
 
+	private GameObject doubleClickEffect;
     
     void Awake()
     {
@@ -1756,6 +1757,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				//ShootingDoubleStart
 				GameController.Get.IsExtraScoreRate = true;
+				doubleClickEffect = EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, GameController.Get.selectMe, null, 2);
 				break;
 
 			case "BlockCatchMomentStart":
@@ -1787,6 +1789,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				//	ShootingDoubleEnd
 				GameController.Get.IsExtraScoreRate = false;
+				Destroy(doubleClickEffect); 
                 break;
 
             case "Passing": 

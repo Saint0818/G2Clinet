@@ -149,7 +149,8 @@ public class GameController : MonoBehaviour
 	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
 	private int extraScoreRate = 0;
-
+	
+	public GameObject selectMe;
 
     private int GetPosNameIndex(PosKind Kind, int Index = -1)
     {
@@ -414,7 +415,7 @@ public class GameController : MonoBehaviour
         }
 
         Joysticker = PlayerList [0];
-        EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+		selectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
