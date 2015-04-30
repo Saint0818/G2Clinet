@@ -2365,7 +2365,14 @@ public class GameController : MonoBehaviour
 				if (CanSetball)
 				{
 					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
-						player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
+						if(SceneMgr.Get.RealBall.transform.position.y > 2f)
+							player.AniState(PlayerState.CatchParabola, SceneMgr.Get.RealBall.transform.position);
+						else if(SceneMgr.Get.RealBall.transform.position.y > 1f && SceneMgr.Get.RealBall.transform.position.y <= 2f)
+							player.AniState(PlayerState.CatchFlat, SceneMgr.Get.RealBall.transform.position);
+						else if(SceneMgr.Get.RealBall.transform.position.y > 0.5f && SceneMgr.Get.RealBall.transform.position.y <= 1f)
+							player.AniState(PlayerState.CatchFloor, SceneMgr.Get.RealBall.transform.position);
+						else
+							player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
 					} else {
 						if (SetBall(player)) {
 							if(player.NoAiTime == 0)

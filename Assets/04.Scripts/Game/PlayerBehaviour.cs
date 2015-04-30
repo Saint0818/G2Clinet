@@ -845,18 +845,19 @@ public class PlayerBehaviour : MonoBehaviour
         if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
 			SetNoAiTime();
+			isJoystick = false;
 
             if (crtState != ps)
                 AniState(ps);
 
-            if (situation == GameSituation.AttackA)
-                rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
-            else 
-			if (situation == GameSituation.AttackB)
-                rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+			if(crtState == PlayerState.Dribble){
+	            if (situation == GameSituation.AttackA)
+	                rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+	            else if (situation == GameSituation.AttackB)
+	                rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+			}
         }
 
-		isJoystick = false;
 		isMoving = false;
     }
 
@@ -1823,6 +1824,11 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(PlayerState.HoldBall);
                 break;
 
+			case "ReboundEnd":
+				if(IsBallOwner && crtState != PlayerState.TipIn)
+					AniState(PlayerState.Dribble);
+				break;
+
             case "FakeShootEnd":
                 AniState(PlayerState.HoldBall);
 				OnUI(this);
@@ -1830,7 +1836,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "AnimationEnd":
 				OnUI(this);
-
+                AniState(PlayerState.Idle);
                 blockTrigger.SetActive(false);
                 pushTrigger.SetActive(false);
                 elbowTrigger.SetActive(false);
@@ -1839,14 +1845,9 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
-				else
+
+                if (NeedResetFlag)
                     ResetFlag();
-
-				if (IsBallOwner)
-					AniState(PlayerState.Dribble);
-				else
-					AniState(PlayerState.Idle);
-
                 break;
         }
     }
