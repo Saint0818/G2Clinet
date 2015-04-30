@@ -660,23 +660,20 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if (Input.GetMouseButtonDown(0)) {
-			if(GameController.Get.BallOwner != null) {
-				if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
-					isPressShootBtn = false;
-					shootBtnTime = ButtonBTime;
-				}
-			}
-		}
+		if (Input.GetMouseButtonUp(0)) 
+			isPressShootBtn = false;
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
-				GameController.Get.DoShoot(true);
-				GameController.Get.Joysticker.SetNoAiTime();
-				showCoverAttack(true);
-				coverAttack[1].SetActive(false);
-//				coverAttackSprite[1].color = Color.green;
+				isPressShootBtn = false;
+				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
+					GameController.Get.DoShoot(true);
+					GameController.Get.Joysticker.SetNoAiTime();
+					showCoverAttack(true);
+					coverAttack[1].SetActive(false);
+					//coverAttackSprite[1].color = Color.green;
+				}
 			}
 		}
 

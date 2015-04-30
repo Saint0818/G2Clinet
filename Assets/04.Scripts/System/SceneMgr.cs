@@ -21,6 +21,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
 	public GameObject RealBallFX;
+	public PlayerState RealBallState;
 
     private GameObject crtStadium;
     private GameObject crtBasket;
@@ -42,7 +43,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[] MissPoint = new GameObject[2];
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
-	public GameObject[] BasketHoopAni = new GameObject[2];
+	public Animator[] BasketHoopAni = new Animator[2];
+	public Transform[] BasketHoopDummy = new Transform[2];
+
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
 	public Material BasketMaterial;
@@ -256,8 +259,29 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
         crtBasket.transform.parent = gameObject.transform;
 		crtBasketIndex = basketIndex;
-		BasketHoopAni[0] = crtBasket.transform.FindChild("Left/BasketballAction").gameObject;
-		BasketHoopAni[1] = crtBasket.transform.FindChild("Right/BasketballAction").gameObject;
+
+		BasketHoopAni[0] = crtBasket.transform.FindChild("Left/BasketballAction").gameObject.GetComponent<Animator>();
+		BasketHoopAni[1] = crtBasket.transform.FindChild("Right/BasketballAction").gameObject.GetComponent<Animator>();
+
+		BasketHoopDummy[0] = crtBasket.transform.FindChild("Left/BasketballAction").FindChild("DummyHoop");
+		BasketHoopDummy[1] = crtBasket.transform.FindChild("Right/BasketballAction").FindChild("DummyHoop");
+	}
+
+	public void RealBallPath(int team, string animationName) {
+		switch(animationName) {
+		case "ActionEnd":
+			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
+			break;
+		case "ActionNoScoreEnd":
+			SetBasketBallState(PlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
+			SetBallState(PlayerState.Rebound);
+
+			break;
+		case "BasketNetPlay":
+			PlayShoot(team);
+			RealBallRigidbody.velocity = Vector3.zero;
+			break;
+		}
 	}
 	
 	public void SetBasketBallState(PlayerState state, Transform dummy = null){
@@ -304,6 +328,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	public void SetBallState(PlayerState state, PlayerBehaviour player = null)
 	{
+		RealBallState = state;
 		switch(state)
 		{
 			case PlayerState.Dribble:
@@ -750,3 +775,4 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		return go;
 	}
 }
+

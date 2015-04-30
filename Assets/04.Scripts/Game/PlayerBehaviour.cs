@@ -471,8 +471,7 @@ public class PlayerBehaviour : MonoBehaviour
             else 
             if (MoveQueue.Count > 0)
                 MoveTo(MoveQueue.Peek());
-        } 
-            
+        } else
         if (NoAiTime > 0 && Time.time >= NoAiTime)
         {
             MoveQueue.Clear();
@@ -852,7 +851,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (situation == GameSituation.AttackA)
                 rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
-            else if (situation == GameSituation.AttackB)
+            else 
+			if (situation == GameSituation.AttackB)
                 rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
         }
 
@@ -973,7 +973,8 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             if (Vector3.Distance(this.transform.position, Data.DefPlayer.transform.position) <= GameConst.StealBallDistance)
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                            else if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
+                            else 
+							if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
                                 rotateTo(MoveTarget.x, MoveTarget.y);
                             else
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -1829,7 +1830,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "AnimationEnd":
 				OnUI(this);
-                AniState(PlayerState.Idle);
+
                 blockTrigger.SetActive(false);
                 pushTrigger.SetActive(false);
                 elbowTrigger.SetActive(false);
@@ -1838,9 +1839,14 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
-
-                if (NeedResetFlag)
+				else
                     ResetFlag();
+
+				if (IsBallOwner)
+					AniState(PlayerState.Dribble);
+				else
+					AniState(PlayerState.Idle);
+
                 break;
         }
     }
@@ -1890,7 +1896,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Steal,
                 PlayerState.Layup,
                 PlayerState.Tee,
-                PlayerState.Rebound,
+                //PlayerState.Rebound,
 				PlayerState.TipIn
             };
 

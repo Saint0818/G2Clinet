@@ -11,10 +11,9 @@ public class ScoreTrigger : MonoBehaviour
 	private Transform dummyHoop;
 	
     void OnTriggerEnter(Collider c) {
-		if(dummyHoop == null)
-			dummyHoop = SceneMgr.Get.BasketHoopAni[Team].transform.FindChild("DummyHoop");
-		if(animator == null)
-			animator = SceneMgr.Get.BasketHoopAni[Team].GetComponent<Animator>();
+		dummyHoop = SceneMgr.Get.BasketHoopDummy[Team];
+		animator = SceneMgr.Get.BasketHoopAni[Team];
+
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk) {
 				if (GameController.Visible) {
