@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Idle
+    7400000: Idle0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,7 +128,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Idle0
       takeName: Take 001
       firstFrame: 0
       lastFrame: 45
