@@ -1236,6 +1236,8 @@ public class PlayerBehaviour : MonoBehaviour
         FirstMoveQueue.Clear();
     }
 
+	public bool isBlockCatchMoment = false;
+
     public bool CanUseState(PlayerState state)
     {
         switch (state)
@@ -1249,7 +1251,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.BlockCatch:
-                if (crtState == PlayerState.Block) 
+				if (crtState == PlayerState.Block && crtState != PlayerState.BlockCatch && isBlockCatchMoment) 
                     return true;
                 break;
 
@@ -1735,12 +1737,22 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnBlockMoment != null)
                     OnBlockMoment(this);
 
-                break;
+				//ShootingDoubleStart
+				break;
+
+			case "BlockCatchMomentStart":
+				isBlockCatchMoment = true;
+				break;
+			
+			case "BlockCatchMomentEnd":
+				isBlockCatchMoment = false;
+				break;
+
             case "BlockJump":
                 if (OnBlockJump != null)
                     OnBlockJump(this);
-
                 break;
+
             case "Blocking":
 //                if (OnBlocking != null)
 //                    OnBlocking(this);
@@ -1749,6 +1761,8 @@ public class PlayerBehaviour : MonoBehaviour
             case "Shooting":
                 if (OnShooting != null)
                     OnShooting(this);
+
+				//	ShootingDoubleEnd
                 break;
 
             case "Passing": 
@@ -1837,6 +1851,7 @@ public class PlayerBehaviour : MonoBehaviour
                 elbowTrigger.SetActive(false);
                 isCanCatchBall = true;
                 PlayerRigidbody.useGravity = true;
+				isBlockCatchMoment = false;
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
