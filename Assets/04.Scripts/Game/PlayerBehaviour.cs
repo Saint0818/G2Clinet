@@ -1841,11 +1841,17 @@ public class PlayerBehaviour : MonoBehaviour
             case "CatchEnd":
 				OnUI(this);
 				IsFirstDribble = true;
+                if(!IsBallOwner)
+				{					
+					AniState(PlayerState.Idle);
+				}else
+				{
+					if (NoAiTime == 0)
+						AniState(PlayerState.Dribble);
+					else 
+						AniState(PlayerState.HoldBall);
+				}
                 
-                if (NoAiTime == 0)
-                    AniState(PlayerState.Dribble);
-                else 
-                    AniState(PlayerState.HoldBall);
                 break;
 
             case "FakeShootEnd":

@@ -122,26 +122,28 @@ public class BallTrigger : MonoBehaviour
 	{
 		if (GameController.Get.Catcher != null && GameController.Get.Passer != null) 
 		{
-			float dis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
-
-			if (dis < 8 && Passing)
+			if((Parabolamove && ParabolaTime >= 0.65f) || !Parabolamove && GameController.Get.Catcher != null)
 			{
-				Passing = false;
-				if(PassKind == 0)
-					GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
-				else if(PassKind == 2)
-					GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
-				else
-					GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
-			}else if((PassKind == 3 || PassKind == 1) && dis <= 2.5f)
-			{
-				Parabolamove = false;
-				SceneMgr.Get.RealBall.transform.DOKill();
-				PassEnd();
+				float dis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
+				
+				if (dis < 8 && Passing)
+				{
+					Passing = false;
+					if(PassKind == 0)
+						GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
+					else if(PassKind == 2)
+						GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
+					else
+						GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+				}else if((PassKind == 3 || PassKind == 1) && dis <= 2.5f)
+				{
+					Parabolamove = false;
+					PassEnd();
+				}
+				
+				if(GameController.Get.Passer != null)
+					GameController.Get.Passer.rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
 			}
-		
-			if(GameController.Get.Passer != null)
-				GameController.Get.Passer.rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
 		}
 	}
 	
