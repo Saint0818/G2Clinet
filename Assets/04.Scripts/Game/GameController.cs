@@ -680,6 +680,7 @@ public class GameController : MonoBehaviour
 									data.Speedup = ap [j].Speedup;
 									data.Catcher = ap [j].Catcher;
 									data.Shooting = ap [j].Shooting;
+									data.FileName = pos.FileName;
 									data.Target = new Vector2(ap [j].x, ap [j].z);
 									if (BallOwner != null && BallOwner != npc)
 										data.LookTarget = BallOwner.transform;  
@@ -1863,6 +1864,8 @@ public class GameController : MonoBehaviour
 						
 						if (!WatchBallOwner)
 							data.Speedup = true;
+
+						data.FileName = pos.FileName;
 						Npc.TargetPos = data;
 					}
 				}
@@ -1890,6 +1893,7 @@ public class GameController : MonoBehaviour
 				else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z >= 17 && Npc.transform.position.z <= 18)
 					return;
 
+				data.FileName = pos.FileName;
 				data.Target = new Vector2(Npc.transform.position.x, TargetZ);
                 data.MoveFinish = NpcAutoTee;
                 Npc.TargetPos = data;
@@ -1910,6 +1914,8 @@ public class GameController : MonoBehaviour
                             data.Target = new Vector2(ap [j].x, ap [j].z);
                         else
                             data.Target = new Vector2(ap [j].x, -ap [j].z);
+
+						data.FileName = pos.FileName;
                         data.LookTarget = SceneMgr.Get.RealBall.transform;
                         Npc.TargetPos = data;
                     }
@@ -2087,8 +2093,16 @@ public class GameController : MonoBehaviour
 			}
         } else
         {
-			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+			if (npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
 	        {
+				for(int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].Team == npc.Team && PlayerList[i] != npc && pos.FileName != string.Empty && PlayerList[i].TargetPosName != pos.FileName)
+					{
+						PlayerList[i].ResetMove();
+					}
+				}
+
 	            TMoveData data;
 	            if (!CheckAttack(ref npc))
 	            {
@@ -2125,6 +2139,7 @@ public class GameController : MonoBehaviour
 	                        if (BallOwner != null && BallOwner != npc)
 	                            data.LookTarget = BallOwner.transform;  
 	                        
+							data.FileName = pos.FileName;
 	                        data.MoveFinish = DefMove;
 	                        npc.TargetPos = data;
 	                    }

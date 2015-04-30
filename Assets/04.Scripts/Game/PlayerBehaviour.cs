@@ -101,6 +101,7 @@ public struct TMoveData
     public bool Speedup;
     public bool Catcher;
     public bool Shooting;
+	public string FileName;
 
     public TMoveData(int flag)
     {
@@ -112,6 +113,7 @@ public struct TMoveData
         Speedup = false;
         Catcher = false;
         Shooting = false;
+		FileName = "";
     }
 }
 
@@ -165,6 +167,7 @@ public struct TScoreRate
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public string TacticalName = "";
     public OnPlayerAction OnShooting = null;
     public OnPlayerAction OnPass = null;
     public OnPlayerAction OnStealMoment = null;
@@ -960,6 +963,7 @@ public class PlayerBehaviour : MonoBehaviour
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
         {
             Vector2 MoveTarget = GetMoveTarget(Data);
+			TacticalName = Data.FileName;
 
             if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
                 (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
@@ -2031,6 +2035,17 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get { return MoveQueue.Count;}
     }
+
+	public string TargetPosName
+	{
+		get
+		{ 
+			if(MoveQueue.Count == 0)
+				return "";
+			else
+				return MoveQueue.Peek().FileName;
+		}
+	}
 
     public TMoveData TargetPos
     {
