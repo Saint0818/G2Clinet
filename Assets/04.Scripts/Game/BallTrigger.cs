@@ -10,7 +10,7 @@ public class BallTrigger : MonoBehaviour
 	private GameObject HintObject;
 	private Vector3 Parabolatarget;
 	private float ParaboladistanceToTarget; 
-	private bool Parabolamove = true;  
+	private bool Parabolamove = false;  
 	private bool Passing = false;
 	private int PassKind = -1;
 	private float PassCheckTime = 0;
