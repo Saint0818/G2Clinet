@@ -258,6 +258,7 @@ public class PlayerBehaviour : MonoBehaviour
 	//Rebound
     private bool isRebound = false;
     private float reboundCurveTime = 0;
+	private Vector3 startPosition;
     private TReboundCurve playerReboundCurve;
 
     //Shooting
@@ -645,30 +646,33 @@ public class PlayerBehaviour : MonoBehaviour
 			Debug.LogError("playCurve is null");
 		}
 	}
+
+	private bool inReboundDistance() {
+		return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+		                        new Vector2(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z)) <= 6;
+    }
 	
 	private void CalculationRebound()
 	{
-		if (!isRebound)
-			return;
-		
-		if (playerReboundCurve != null)
-		{
+		if (isRebound && playerReboundCurve != null) {
 			reboundCurveTime += Time.deltaTime;
-
-			if (FirstMoveQueue.Count > 0)
-				MoveTo(FirstMoveQueue.Peek(), true);
-
-			if (reboundCurveTime < 1f)
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.05f), 
-				                                            playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.05f));
-			else
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 
-				                                            playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-				                                            gameObject.transform.position.z);
+			if (reboundCurveTime < 1f && !IsBallOwner) {
+				if (startPosition != Vector3.zero) {
+					Vector3 v = SceneMgr.Get.RealBall.transform.position - startPosition;
+					rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+                    transform.position = new Vector3(transform.position.x + v.x * Time.deltaTime * 2, 
+		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 transform.position.z + v.z * Time.deltaTime * 2);
+                } else
+					transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
+		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+		                                             transform.position.z + transform.forward.z * 0.05f);
+            } else
+                transform.position = new Vector3(transform.position.x, 
+				                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+				                                 transform.position.z);
 			
-			if (reboundCurveTime >= playerReboundCurve.LifeTime)
-			{
+			if (reboundCurveTime >= playerReboundCurve.LifeTime) {
 				isRebound = false;
 				isCheckLayerToReset = true;
 			}
@@ -1278,9 +1282,10 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.TipIn:
-				if(crtState == PlayerState.Rebound && crtState != PlayerState.TipIn)
-					return true;
-					break;
+			if(crtState == PlayerState.Rebound && crtState != PlayerState.TipIn)
+				return true;
+
+				break;
            
             case PlayerState.Push:
             case PlayerState.PickBall:
@@ -1669,6 +1674,12 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Rebound:
 				playerReboundCurve = null;
+
+				if (inReboundDistance())
+                    startPosition = transform.position;
+			    else
+			    	startPosition = Vector3.zero;
+
 				for (int i = 0; i < aniCurve.Rebound.Length; i++)
 				if (aniCurve.Rebound [i].Name == "Rebound")
 				{
@@ -1683,7 +1694,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case PlayerState.TipIn:
-				UIGame.Get.DoPassNone();
 				ClearAnimatorFlag();
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
 				animator.SetTrigger("TipInTrigger");
@@ -1855,9 +1865,9 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
-
-                if (NeedResetFlag)
+				else
                     ResetFlag();
+
                 break;
         }
     }
@@ -1907,7 +1917,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.Steal,
                 PlayerState.Layup,
                 PlayerState.Tee,
-                //PlayerState.Rebound,
+                PlayerState.Rebound,
 				PlayerState.TipIn
             };
 

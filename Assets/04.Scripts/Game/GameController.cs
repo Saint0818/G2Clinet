@@ -454,8 +454,8 @@ public class GameController : MonoBehaviour
 				if(Joysticker.crtState == PlayerState.Rebound){
 					SetBall(Joysticker);
 					Joysticker.AniState (PlayerState.TipIn);
-				}
-				DoShoot (true);
+				} else
+					DoShoot (true);
 			}
 
 			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
@@ -912,7 +912,7 @@ public class GameController : MonoBehaviour
             if (GameStart.Get.TestMode == GameTest.Dunk)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else 
-			if (BallOwner.IsRebound && ShootDis <= 5) {
+			if (BallOwner.IsRebound && ShootDis <= 6) {
 				BallOwner.AniState(PlayerState.TipIn, SceneMgr.Get.ShootPoint [t].transform.position);
 			} else
 			if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
@@ -995,7 +995,7 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn) {
             if (Joysticker == BallOwner) {
-				if (isshoot) 
+				if (isshoot || Joysticker.IsRebound) 
 					Shoot();
 				else
 					Joysticker.AniState(PlayerState.FakeShoot, SceneMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
@@ -1434,15 +1434,8 @@ public class GameController : MonoBehaviour
 		}
 
 		if (flag) {
-			CoolDownPass = Time.time + 3;
 			player.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 			player.AniState(PlayerState.Rebound, SceneMgr.Get.RealBall.transform.position);
-			if (SceneMgr.Get.RealBall.transform.parent == null && inReboundDistance(player)) {
-				TMoveData data = new TMoveData(0);
-				data.Target = new Vector2(SceneMgr.Get.RealBall.transform.position.x,SceneMgr.Get.RealBall.transform.position.z);
-
-				player.FirstTargetPos = data;
-			}
 		}
 	}
 	
@@ -2412,15 +2405,16 @@ public class GameController : MonoBehaviour
 
             break;
 		case 5: //finger
-			if (player.IsRebound) {
+			if (!player.IsBallOwner && player.IsRebound && player.crtState != PlayerState.TipIn) {
 				SetBall(player);
+				CoolDownPass = Time.time + 3;
 			}
 
 			break;
 		default :
 			bool CanSetball = false;
 			
-			if (player && (player.IsCatcher || player.CanMove))
+			if (!player.IsRebound && (player.IsCatcher || player.CanMove))
 			{
 				if (situation == GameSituation.TeeAPicking)
 				{
