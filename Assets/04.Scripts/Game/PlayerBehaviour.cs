@@ -173,6 +173,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnStealMoment = null;
     public OnPlayerAction OnBlockJump = null;
     public OnPlayerAction OnBlocking = null;
+	public OnPlayerAction OnBlockCatching = null;
     public OnPlayerAction OnDunkBasket = null;
     public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
@@ -209,6 +210,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject pushTrigger;
     private GameObject elbowTrigger;
     private GameObject blockTrigger;
+    private BlockCatchTrigger blockCatchTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
 	public GameObject DummyCatch;
@@ -325,6 +327,8 @@ public class PlayerBehaviour : MonoBehaviour
 			pushTrigger = obj2.transform.FindChild("Push").gameObject;
 			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
 			blockTrigger = obj2.transform.FindChild("Block").gameObject;
+			blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
+			blockCatchTrigger.enabled = false;
 			
 			obj2.name = "BodyTrigger";
 			PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
@@ -1244,8 +1248,6 @@ public class PlayerBehaviour : MonoBehaviour
         FirstMoveQueue.Clear();
     }
 
-	public bool isBlockCatchMoment = false;
-
     public bool CanUseState(PlayerState state)
     {
         switch (state)
@@ -1259,7 +1261,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.BlockCatch:
-				if (crtState == PlayerState.Block && crtState != PlayerState.BlockCatch && isBlockCatchMoment) 
+				if (crtState == PlayerState.Block && crtState != PlayerState.BlockCatch) 
                     return true;
                 break;
 
@@ -1390,6 +1392,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.BlockCatch:
                 ClearAnimatorFlag();
                 animator.SetTrigger("BlockCatchTrigger");
+				IsPerfectBlockCatch = false;
                 isCanCatchBall = false;
                 Result = true;
                 break;
@@ -1754,18 +1757,24 @@ public class PlayerBehaviour : MonoBehaviour
 				//ShootingDoubleStart
 				GameController.Get.IsExtraScoreRate = true;
 				break;
+
 			case "BlockCatchMomentStart":
-				isBlockCatchMoment = true;
+				blockCatchTrigger.enabled = true;
 				break;
 			
 			case "BlockCatchMomentEnd":
-				isBlockCatchMoment = false;
+				IsPerfectBlockCatch = false;
 				break;
 
             case "BlockJump":
                 if (OnBlockJump != null)
                     OnBlockJump(this);
                 break;
+
+			case "BlockCatching":
+				if(OnBlockCatching != null)
+					OnBlockCatching(this);
+				break;
 
             case "Blocking":
 //                if (OnBlocking != null)
@@ -1872,7 +1881,8 @@ public class PlayerBehaviour : MonoBehaviour
                 elbowTrigger.SetActive(false);
                 isCanCatchBall = true;
                 PlayerRigidbody.useGravity = true;
-				isBlockCatchMoment = false;
+				IsPerfectBlockCatch = false;
+				isRebound = false;
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
@@ -2024,6 +2034,22 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return crtState == PlayerState.CatchFlat || crtState == PlayerState.CatchFloor || crtState == PlayerState.CatchParabola;}
     }
+
+	private bool isPerfectBlockCatch = false;
+
+	public bool IsPerfectBlockCatch
+	{
+		get{return isPerfectBlockCatch;}
+		set{
+				isPerfectBlockCatch = value;
+
+				if(!isPerfectBlockCatch){
+					blockCatchTrigger.enabled = false;
+				}
+				else
+					EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, gameObject, 1f);
+			}
+	}
 
     public bool IsFirstDribble
     {

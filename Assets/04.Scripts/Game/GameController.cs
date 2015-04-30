@@ -432,7 +432,8 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
-//            PlayerList [i].OnBlocking = OnBlocking;
+			PlayerList [i].OnBlockCatching = OnBlockCatching;
+			//            PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
@@ -1437,6 +1438,15 @@ public class GameController : MonoBehaviour
         return false;
     }
 
+	public bool OnBlockCatching(PlayerBehaviour player) {
+		if (!BallOwner) {
+			SetBall(player);
+			return true;
+		}
+
+		return false;
+	}
+
 //    public bool OnBlocking(PlayerBehaviour player)
 //    {
 //        int blockRate = UnityEngine.Random.Range(0, 100);
@@ -1474,17 +1484,22 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn)
 		{
-			if (Shooter)
-                Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
-            else
-            if (BallOwner) {
-				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-                Joysticker.AniState(PlayerState.Block, BallOwner.transform.position);
-			} else {
+			if(Joysticker.crtState == PlayerState.Block && Joysticker.IsPerfectBlockCatch){
+				Joysticker.AniState(PlayerState.BlockCatch);
+				EffectManager.Get.PlayEffect("DoubleClick02", Vector3.zero, null, Joysticker.gameObject, 1);
+			}else{
+				if (Shooter)
+	                Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
+	            else
+	            if (BallOwner) {
+					Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
+	                Joysticker.AniState(PlayerState.Block, BallOwner.transform.position);
+				} else {
 				if (!Shooter && inReboundDistance(Joysticker))
 					Rebound(Joysticker);
 				else
                 	Joysticker.AniState(PlayerState.Block);
+				}
 			}
         }           
     }

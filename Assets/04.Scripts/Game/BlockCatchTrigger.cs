@@ -6,15 +6,15 @@ public class BlockCatchTrigger: MonoBehaviour {
 
 	void Start()
 	{
-		blocker = gameObject.transform.parent.parent.gameObject.GetComponent<PlayerBehaviour>();
-		gameObject.GetComponent<MeshRenderer> ().enabled = false;
-		gameObject.SetActive(false);
+		blocker = gameObject.transform.parent.GetComponent<PlayerBehaviour>();
+		BoxCollider boxcollider = gameObject.AddComponent<BoxCollider> ();
+		boxcollider.size = Vector3.one * 2;
+		boxcollider.isTrigger = true;
 	}
 
 	void OnTriggerEnter(Collider other) {
 	 	if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
-			if(blocker)
-			SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
+			blocker.IsPerfectBlockCatch = true;
 		}
 	}
 }

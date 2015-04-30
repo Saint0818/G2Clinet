@@ -419,8 +419,12 @@ public class ModelManager : MonoBehaviour {
 					}
 				}
 
-				if (dummyBall != null)
+				if (dummyBall != null){
 					dummyBall.transform.parent = result.transform;
+
+					if(dummyBall.GetComponent<BlockCatchTrigger>() == null)
+						dummyBall.gameObject.AddComponent<BlockCatchTrigger>();
+				}
 
 				//HeadDress
 				if (dummyHead == null) {
