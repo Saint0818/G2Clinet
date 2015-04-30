@@ -82,8 +82,7 @@ public class BallTrigger : MonoBehaviour
 			case 3:
 				ParabolaTime = 0;
 				Parabolamove = true;
-				SceneMgr.Get.RealBall.transform.DOMoveX(GameController.Get.Catcher.DummyBall.transform.position.x, 1).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				SceneMgr.Get.RealBall.transform.DOMoveZ(GameController.Get.Catcher.DummyBall.transform.position.z, 1).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				Parabolatarget = SceneMgr.Get.RealBall.transform.position;
 				break;
 			}
 
@@ -97,18 +96,26 @@ public class BallTrigger : MonoBehaviour
 		if (Parabolamove)
 		{
 			ParabolaTime += Time.deltaTime;
+			Parabolatarget.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
+
+			float X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+			float Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
 			
-			Vector3 position = SceneMgr.Get.RealBall.transform.position;
-			position.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
-			
-			if (position.y < 0)
-				position.y = 0;
-			
-			SceneMgr.Get.RealBall.transform.position = new Vector3(SceneMgr.Get.RealBall.transform.position.x, position.y, SceneMgr.Get.RealBall.transform.position.z);
-			
+			if (Parabolatarget.y < 0)
+				Parabolatarget.y = 0;
+				
+			SceneMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
+
 			if (ParabolaTime >= SceneMgr.Get.RealBallCurve.Ball.LifeTime)
+			{
+				if(GameController.Get.BallOwner == null)				
+					SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+
 				Parabolamove = false;
-		} 
+			}
+
+			PassUpdate();
+		}
 	}
 	
 	private void PassUpdate()
