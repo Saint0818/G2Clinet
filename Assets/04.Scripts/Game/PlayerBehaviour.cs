@@ -1824,11 +1824,6 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(PlayerState.HoldBall);
                 break;
 
-			case "ReboundEnd":
-				if(IsBallOwner && crtState != PlayerState.TipIn)
-					AniState(PlayerState.Dribble);
-				break;
-
             case "FakeShootEnd":
                 AniState(PlayerState.HoldBall);
 				OnUI(this);
