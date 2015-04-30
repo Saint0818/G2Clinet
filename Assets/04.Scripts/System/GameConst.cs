@@ -47,4 +47,8 @@ public class GameConst
 	public static float MiddleDistance = 12;
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
+	public static string[] Angle90 = {"0","1","2","3","4"};
+	public static string[] Angle0 = {"0","1"};
+	public static string[] AngleRight45 = {"0","1","2","3","4"};
+	public static string[] AngleLeft45 = {"0","1","2","3","4"}; 
 }
