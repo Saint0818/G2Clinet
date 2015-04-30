@@ -47,8 +47,25 @@ public class GameConst
 	public static float MiddleDistance = 12;
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
-	public static string[] Angle90 = {"0","1","2","3","4"};
-	public static string[] Angle0 = {"0","1"};
-	public static string[] AngleRight45 = {"0","1","2","3","4"};
-	public static string[] AngleLeft45 = {"0","1","2","3","4"}; 
+	//Score
+	public static string[] AngleScoreRightWing = {"1","3","4"};
+	public static string[] AngleScoreRight = {"1","3","4"};
+	public static string[] AngleScoreCenter = {"0","1","2","3","4"};
+	public static string[] AngleScoreLeft = {"1","3","4"}; 
+	public static string[] AngleScoreLeftWing = {"1","3","4"}; 
+
+	public static string[] DistanceScoreShort = {"0","1","2","3","4"}; 
+	public static string[] DistanceScoreMedium = {"0","1","2","3","4"}; 
+	public static string[] DistanceScoreLong = {"0","1","2","3","4"}; 
+
+	//No Score
+	public static string[] AngleNoScoreRightWing = {"100"};
+	public static string[] AngleNoScoreRight = {"100"};
+	public static string[] AngleNoScoreCenter = {"100","101","102"};
+	public static string[] AngleNoScoreLeft = {"100"}; 
+	public static string[] AngleNoScoreLeftWing = {"100"}; 
+	
+	public static string[] DistanceNoScoreShort = {"100","101","102"}; 
+	public static string[] DistanceNoScoreMedium = {"100","101","102"}; 
+	public static string[] DistanceNoScoreLong = {"100","101","102"}; 
 }

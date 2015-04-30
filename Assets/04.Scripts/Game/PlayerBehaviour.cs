@@ -1748,8 +1748,8 @@ public class PlayerBehaviour : MonoBehaviour
                     OnBlockMoment(this);
 
 				//ShootingDoubleStart
+				GameController.Get.IsExtraScoreRate = true;
 				break;
-
 			case "BlockCatchMomentStart":
 				isBlockCatchMoment = true;
 				break;
@@ -1773,6 +1773,7 @@ public class PlayerBehaviour : MonoBehaviour
                     OnShooting(this);
 
 				//	ShootingDoubleEnd
+				GameController.Get.IsExtraScoreRate = false;
                 break;
 
             case "Passing": 

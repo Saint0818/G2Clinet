@@ -144,8 +144,9 @@ public class GameController : MonoBehaviour
 	public bool IsSwich;
 	public bool IsAirBall;
 	public List<string> BasketScoreAnimationState = new List<string>();
+	public List<string> BasketScoreNoneAnimationState = new List<string>();
 	public string[] BasketScoreAllAnimationState;
-	public string[] BasketScoreNoneAnimationState;
+	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
 	private int extraScoreRate = 0;
 
@@ -244,12 +245,12 @@ public class GameController : MonoBehaviour
 		}
 
 		BasketScoreAllAnimationState = new string[scoreName.Count];
-		BasketScoreNoneAnimationState = new string[noScoreName.Count];
+		BasketScoreAllNoneAnimationState = new string[noScoreName.Count];
 		for(int i=0; i<scoreName.Count; i++) {
 			BasketScoreAllAnimationState[i] = scoreName[i];
 		}
 		for(int i=0; i<noScoreName.Count; i++) {
-			BasketScoreNoneAnimationState[i] = noScoreName[i];
+			BasketScoreAllNoneAnimationState[i] = noScoreName[i];
 		}
 	}
 
@@ -774,6 +775,18 @@ public class GameController : MonoBehaviour
         }
     }
 
+	private List<string> aryIntersection(string[] list1, List<string> list2) {
+		List<string> list = new List<string>();
+
+		for (int i=0; i<list1.Length; i++) {
+			string nameSplit = "BasketballAction_"+list1[i];
+			if(list2.Contains(nameSplit)) {
+				list.Add(nameSplit);
+			}
+		}
+		return list;
+	}
+	
 	private void jodgeShootAngle(PlayerBehaviour player){
 		//Angle
 		float ang = 0;
@@ -787,57 +800,113 @@ public class GameController : MonoBehaviour
 		}
 
 		BasketScoreAnimationState.Clear();
-
-		if(angle > 60) {
+		BasketScoreNoneAnimationState.Clear();
+		//Angle
+		if(angle > 60) {// > 60 degree
+			//Score
 			for(int i=0; i<BasketScoreAllAnimationState.Length; i++) { 
 				string[] nameSplit = BasketScoreAllAnimationState[i].Split("_"[0]);
-				for (int j=0; j<GameConst.Angle90.Length; j++){
-					if(GameConst.Angle90[j].Equals(nameSplit[1]))
+				for (int j=0; j<GameConst.AngleScoreCenter.Length; j++){
+					if(GameConst.AngleScoreCenter[j].Equals(nameSplit[1]))
 						BasketScoreAnimationState.Add(BasketScoreAllAnimationState[i]);
 				}
 			}
+			//No Score
+			for(int i=0; i<BasketScoreAllNoneAnimationState.Length; i++) { 
+				string[] nameSplit = BasketScoreAllNoneAnimationState[i].Split("_"[0]);
+				for (int j=0; j<GameConst.AngleNoScoreCenter.Length; j++){
+					if(GameConst.AngleNoScoreCenter[j].Equals(nameSplit[1]))
+						BasketScoreNoneAnimationState.Add(BasketScoreAllNoneAnimationState[i]);
+				}
+			}
 		} else 
-		if(angle <= 60 && angle > 30){
+		if(angle <= 60 && angle > 10){// > 10 degree <= 60 degree
 			if(ang > 0) {//right
+				//Score
 				for(int i=0; i<BasketScoreAllAnimationState.Length; i++) { 
 					string[] nameSplit = BasketScoreAllAnimationState[i].Split("_"[0]);
-					for (int j=0; j<GameConst.AngleRight45.Length; j++){
-						if(GameConst.AngleRight45[j].Equals(nameSplit[1]))
+					for (int j=0; j<GameConst.AngleScoreRight.Length; j++){
+						if(GameConst.AngleScoreRight[j].Equals(nameSplit[1]))
 							BasketScoreAnimationState.Add(BasketScoreAllAnimationState[i]);
 					}
 				}
+				//No Score
+				for(int i=0; i<BasketScoreAllNoneAnimationState.Length; i++) { 
+					string[] nameSplit = BasketScoreAllNoneAnimationState[i].Split("_"[0]);
+					for (int j=0; j<GameConst.AngleNoScoreRight.Length; j++){
+						if(GameConst.AngleNoScoreRight[j].Equals(nameSplit[1]))
+							BasketScoreNoneAnimationState.Add(BasketScoreAllNoneAnimationState[i]);
+					}
+				}
 			} else {//left
+				//Score
 				for(int i=0; i<BasketScoreAllAnimationState.Length; i++) { 
 					string[] nameSplit = BasketScoreAllAnimationState[i].Split("_"[0]);
-					for (int j=0; j<GameConst.AngleLeft45.Length; j++){
-						if(GameConst.AngleLeft45[j].Equals(nameSplit[1]))
+					for (int j=0; j<GameConst.AngleScoreLeft.Length; j++){
+						if(GameConst.AngleScoreLeft[j].Equals(nameSplit[1]))
 							BasketScoreAnimationState.Add(BasketScoreAllAnimationState[i]);
+					}
+				}
+				//No Score
+				for(int i=0; i<BasketScoreAllNoneAnimationState.Length; i++) { 
+					string[] nameSplit = BasketScoreAllNoneAnimationState[i].Split("_"[0]);
+					for (int j=0; j<GameConst.AngleNoScoreLeft.Length; j++){
+						if(GameConst.AngleNoScoreLeft[j].Equals(nameSplit[1]))
+							BasketScoreNoneAnimationState.Add(BasketScoreAllNoneAnimationState[i]);
 					}
 				}
 			}
 		} else 
-		if(angle <= 30 && angle >= -30){
+		if(angle <= 10 && angle >= -30){ // < 10 degree
 			if(ang > 0) { // right
+				//Score
 				for(int i=0; i<BasketScoreAllAnimationState.Length; i++) { 
 					string[] nameSplit = BasketScoreAllAnimationState[i].Split("_"[0]);
-					for (int j=0; j<GameConst.Angle0.Length; j++){
-						if(GameConst.Angle0[j].Equals(nameSplit[1]))
+					for (int j=0; j<GameConst.AngleScoreRightWing.Length; j++){
+						if(GameConst.AngleScoreRightWing[j].Equals(nameSplit[1]))
 							BasketScoreAnimationState.Add(BasketScoreAllAnimationState[i]);
 					}
 				}
+				//No Score
+				for(int i=0; i<BasketScoreAllNoneAnimationState.Length; i++) { 
+					string[] nameSplit = BasketScoreAllNoneAnimationState[i].Split("_"[0]);
+					for (int j=0; j<GameConst.AngleNoScoreRightWing.Length; j++){
+						if(GameConst.AngleNoScoreRightWing[j].Equals(nameSplit[1]))
+							BasketScoreNoneAnimationState.Add(BasketScoreAllNoneAnimationState[i]);
+					}
+				}
 			} else { //left
+				//Score
 				for(int i=0; i<BasketScoreAllAnimationState.Length; i++) { 
 					string[] nameSplit = BasketScoreAllAnimationState[i].Split("_"[0]);
-					for (int j=0; j<GameConst.Angle0.Length; j++){
-						if(GameConst.Angle0[j].Equals(nameSplit[1]))
+					for (int j=0; j<GameConst.AngleScoreLeftWing.Length; j++){
+						if(GameConst.AngleScoreLeftWing[j].Equals(nameSplit[1]))
 							BasketScoreAnimationState.Add(BasketScoreAllAnimationState[i]);
+					}
+				}
+				//No Score
+				for(int i=0; i<BasketScoreAllNoneAnimationState.Length; i++) { 
+					string[] nameSplit = BasketScoreAllNoneAnimationState[i].Split("_"[0]);
+					for (int j=0; j<GameConst.AngleNoScoreLeftWing.Length; j++){
+						if(GameConst.AngleNoScoreLeftWing[j].Equals(nameSplit[1]))
+							BasketScoreNoneAnimationState.Add(BasketScoreAllNoneAnimationState[i]);
 					}
 				}
 			}
 		}
-
-//		for(int i=0; i<BasketScoreAnimationState.Count; i++) 
-//			Debug.Log("name:"+BasketScoreAnimationState[i]);
+		//Distance
+		if(ShootDis >= 0 && ShootDis < 9) {
+			BasketScoreAnimationState = aryIntersection( GameConst.DistanceScoreShort, BasketScoreAnimationState);
+			BasketScoreNoneAnimationState = aryIntersection( GameConst.DistanceNoScoreShort, BasketScoreNoneAnimationState);
+		} else 
+		if(ShootDis >= 9 && ShootDis < 12) {
+			BasketScoreAnimationState = aryIntersection( GameConst.DistanceScoreMedium, BasketScoreAnimationState);
+			BasketScoreNoneAnimationState = aryIntersection( GameConst.DistanceNoScoreMedium, BasketScoreNoneAnimationState);
+		} else 
+		if(ShootDis >= 12) {
+			BasketScoreAnimationState = aryIntersection( GameConst.DistanceScoreLong, BasketScoreAnimationState);
+			BasketScoreNoneAnimationState = aryIntersection( GameConst.DistanceNoScoreLong, BasketScoreNoneAnimationState);
+		}
 	}
 
 	private void calculationScoreRate(ref bool isScore, PlayerBehaviour player, ScoreType type) {
@@ -953,7 +1022,6 @@ public class GameController : MonoBehaviour
 			Shooter = player;
 			SetBallOwnerNull();
 
-//			ShootDis = getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position);
 			if(player.crtState == PlayerState.Shoot0){
 				calculationScoreRate(ref IsScore ,player, ScoreType.Normal);
 			} else if(player.crtState == PlayerState.Shoot1 ||
@@ -963,7 +1031,8 @@ public class GameController : MonoBehaviour
 				calculationScoreRate(ref IsScore ,player, ScoreType.UpHand);
 			} else if(player.crtState == PlayerState.Shoot3) {
 				calculationScoreRate(ref IsScore ,player, ScoreType.DownHand);
-			} else if(player.crtState == PlayerState.Layup){
+			} else if(player.crtState == PlayerState.Layup||
+			          player.crtState == PlayerState.TipIn){
 				calculationScoreRate(ref IsScore ,player, ScoreType.LayUp);
 			}
             

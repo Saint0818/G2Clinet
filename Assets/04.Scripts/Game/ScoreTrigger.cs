@@ -29,7 +29,7 @@ public class ScoreTrigger : MonoBehaviour
 										animator.SetTrigger(basketAniName);
 								}
 							} else {
-							string basketAniName = GameController.Get.BasketScoreNoneAnimationState[Random.Range(0, GameController.Get.BasketScoreNoneAnimationState.Length)];
+							string basketAniName = GameController.Get.BasketScoreNoneAnimationState[Random.Range(0, GameController.Get.BasketScoreNoneAnimationState.Count)];
 								if(!GameController.Get.IsAirBall) {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 									if(animator != null)
