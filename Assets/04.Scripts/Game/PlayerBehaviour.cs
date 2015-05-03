@@ -55,7 +55,8 @@ public enum PlayerState
     Shoot3 = 46,
     Shoot6 = 49,
 	BasketActionNoScoreEnd = 50,
-	TipIn = 51
+	TipIn = 51,
+	Alleyoop = 52
 }
 
 public enum TeamKind
@@ -1277,7 +1278,11 @@ public class PlayerBehaviour : MonoBehaviour
                 if (IsBallOwner && (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
                     return true;
                 break;
+			case PlayerState.Alleyoop:
+				if (crtState != PlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == GameTest.Alleyoop || (situation.GetHashCode()+3) == Team.GetHashCode()))
+					return true;
 
+				break;
             case PlayerState.HoldBall:
                 if (IsBallOwner && !IsPass)
                     return true;
@@ -1428,6 +1433,16 @@ public class PlayerBehaviour : MonoBehaviour
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
+			case PlayerState.Alleyoop:
+					PlayerRigidbody.useGravity = false;
+					ClearAnimatorFlag();
+					animator.SetTrigger("DunkTrigger");
+					//isCanCatchBall = false;
+					gameObject.layer = LayerMask.NameToLayer("Shooter");
+					DunkTo();
+					Result = true;
+
+				break;
 
             case PlayerState.Dunk:
                 if (IsBallOwner && Vector3.Distance(SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
@@ -1838,16 +1853,23 @@ public class PlayerBehaviour : MonoBehaviour
                 SceneMgr.Get.SetBallState(PlayerState.Dunk);
                 if (OnDunkJump != null)
                     OnDunkJump(this);
+
+				EffectManager.Get.CloneMesh(gameObject);
+
                 break;
 
             case "DunkBasket":
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
                 SceneMgr.Get.PlayDunk(Team.GetHashCode());
+				EffectManager.Get.CloneMesh(gameObject);
+
                 break;
             case "DunkFallBall":
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
+
+				EffectManager.Get.CloneMesh(gameObject);
                 break;
 
             case "ElbowEnd":

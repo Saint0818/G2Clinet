@@ -44,7 +44,8 @@ public enum GameTest
 	Rebound,
     Edit,
     OneByOne,
-	Pass
+	Pass,
+	Alleyoop
 }
 
 public enum CameraTest
@@ -2591,6 +2592,16 @@ public class GameController : MonoBehaviour
     {
         
     }
+
+	public void PlayerEnterPaint(int team, GameObject obj) {
+		if (BallOwner && GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
+			PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
+			if (player && player.Team.GetHashCode() == team) {
+				if (player != BallOwner && player.Team == BallOwner.Team)
+					player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
+			}
+		}
+	}
 
     private void GameResult(int team)
     {
