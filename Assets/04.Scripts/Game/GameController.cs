@@ -2592,7 +2592,7 @@ public class GameController : MonoBehaviour
 				} else
 					CanSetball = true;
 				
-				if (CanSetball)
+				if (CanSetball && !IsPickBall)
 				{
 					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
 //						if(SceneMgr.Get.RealBall.transform.position.y > 2f)
@@ -3101,6 +3101,19 @@ public class GameController : MonoBehaviour
 			return false;
 		}
 	}
+
+	public bool IsPickBall
+	{
+		get
+		{
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.PickBall))
+					return true;
+			
+			return false;
+		}
+	}
+
 
 	public bool CandoBtn
 	{
