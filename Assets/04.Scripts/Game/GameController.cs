@@ -2597,10 +2597,9 @@ public class GameController : MonoBehaviour
 		if (BallOwner && 
 		   (GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
-			if (player && player.Team.GetHashCode() == team) {
-				if (player != BallOwner && player.Team == BallOwner.Team)
-					player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
-			}
+
+			if(BallOwner && player && player.Team.GetHashCode() == team && player != BallOwner && player.Team == BallOwner.Team)
+				player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
 		}
 	}
 
