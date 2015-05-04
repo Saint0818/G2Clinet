@@ -2118,14 +2118,14 @@ public class GameController : MonoBehaviour
 					if((situation == GameSituation.AttackA && npc.Team == TeamKind.Self) || (situation == GameSituation.AttackB && npc.Team == TeamKind.Npc))
 						PickBall(ref npc, true);
 
-					if((situation == GameSituation.AttackA && npc.Team == TeamKind.Npc) || (situation == GameSituation.AttackB && npc.Team == TeamKind.Self))
+					if((situation == GameSituation.AttackA && npc.DefPlayer.Team == TeamKind.Npc) || (situation == GameSituation.AttackB && npc.DefPlayer.Team == TeamKind.Self))
 					{
 						PlayerBehaviour FearPlayer = null;
 						
 						for (int i = 0; i < PlayerList.Count; i++)
 						{
 							PlayerBehaviour Npc1 = PlayerList [i];
-							if (Npc1.Team == npc.Team && !npc.IsFall && npc.NoAiTime == 0)
+							if (Npc1.Team == npc.DefPlayer.Team && !npc.DefPlayer.IsFall && npc.DefPlayer.NoAiTime == 0)
 							{
 								if (FearPlayer == null)
 									FearPlayer = Npc1;
@@ -2147,15 +2147,15 @@ public class GameController : MonoBehaviour
 										PlayerList[i].TargetPos = data;
 									}
 								}
-								else
-								{
-									if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
-									{
-										TMoveData data = new TMoveData(0);
-										data.Target = new Vector2(SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.z);
-										PlayerList[i].TargetPos = data;
-									}
-								}
+//								else
+//								{
+//									if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
+//									{
+//										TMoveData data = new TMoveData(0);
+//										data.Target = new Vector2(SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.z);
+//										PlayerList[i].TargetPos = data;
+//									}
+//								}
 							}
 						}
 

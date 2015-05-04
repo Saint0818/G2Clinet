@@ -20,7 +20,8 @@ public class ScoreTrigger : MonoBehaviour
 						if(IntTrigger == 0 && !Into){
 							Into = true;
 							if(GameController.Get.IsScore) {
-							string basketAniName = GameController.Get.BasketScoreAnimationState[Random.Range(0, GameController.Get.BasketScoreAnimationState.Count)];
+							int Index = Random.Range(0, GameController.Get.BasketScoreAnimationState.Count);
+							string basketAniName = GameController.Get.BasketScoreAnimationState[Index];
 							if(GameController.Get.IsSwich) {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 								} else {
