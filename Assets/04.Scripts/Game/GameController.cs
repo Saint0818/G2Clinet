@@ -1524,7 +1524,7 @@ public class GameController : MonoBehaviour
 		}
 
 		if (flag) {
-			player.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+//			player.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
 			player.AniState(PlayerState.Rebound, SceneMgr.Get.RealBall.transform.position);
 		}
 	}

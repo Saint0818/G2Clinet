@@ -671,7 +671,7 @@ public class PlayerBehaviour : MonoBehaviour
 			if (reboundCurveTime < 1f && !IsBallOwner) {
 				if (startPosition != Vector3.zero) {
 					Vector3 v = SceneMgr.Get.RealBall.transform.position - startPosition;
-					rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+//					rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
                     transform.position = new Vector3(transform.position.x + v.x * Time.deltaTime * 2, 
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
 					                                 transform.position.z + v.z * Time.deltaTime * 2);
@@ -1169,7 +1169,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-		if (IsShoot || isRebound || isBlock)
+		if (IsShoot || IsRebound || isBlock)
 			return;
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
@@ -1917,6 +1917,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.useGravity = true;
 				IsPerfectBlockCatch = false;
 				isRebound = false;
+				blockCatchTrigger.enabled = false;
 
                 if (!NeedResetFlag)
                     isCheckLayerToReset = true;
@@ -2036,8 +2037,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsShoot
 	{
-		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || 
-			crtState == PlayerState.Shoot3 || crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk || crtState == PlayerState.DunkBasket;}
+		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 ||crtState == PlayerState.Shoot3 || 
+			crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk || crtState == PlayerState.DunkBasket ||  crtState == PlayerState.TipIn;}
 	}
 
     public bool IsPass
@@ -2055,7 +2056,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsRebound 
 	{
-		get{return isRebound;}
+		get{return crtState == PlayerState.Rebound || crtState == PlayerState.ReboundCatch;}
 	}
 
     public bool IsFall
