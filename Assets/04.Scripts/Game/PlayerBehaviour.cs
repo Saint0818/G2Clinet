@@ -803,7 +803,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanMove || stop || HoldBallCanMove)
         {
-            if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+            if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
+			    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
@@ -858,8 +859,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJoystickMoveEnd(MovingJoystick move, PlayerState ps)
     {
-        if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
-        {
+		if (CanMove && 
+		    situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
+		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking) {
 			SetNoAiTime();
 			isJoystick = false;
 
@@ -1954,6 +1956,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.CatchFloor,
                 PlayerState.CatchParabola,
                 PlayerState.Dunk,
+				PlayerState.Alleyoop,
                 PlayerState.Elbow,
                 PlayerState.FakeShoot,
                 PlayerState.Fall0,

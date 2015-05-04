@@ -402,6 +402,11 @@ public class GameController : MonoBehaviour
                 for (int i = 0; i < PlayerList.Count; i++)
                     PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
                 break;
+			case GameTest.Alleyoop:
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (0, 0, 3), new GameStruct.TPlayer(0)));
+
+				break;
 			case GameTest.Pass:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (0, 0, -2), new GameStruct.TPlayer(0)));
@@ -1295,7 +1300,7 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0 && CandoBtn)
         {
-            if (PlayerList.Count > 2)
+            if (PlayerList.Count > 1)
             {
 				float aiTime = BallOwner.NoAiTime;
 				BallOwner.NoAiTime = 0;
@@ -2457,6 +2462,7 @@ public class GameController : MonoBehaviour
 						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
 					}
 				}
+
 				p.ClearIsCatcher();
 
                 if (p)
@@ -2661,8 +2667,12 @@ public class GameController : MonoBehaviour
 		   (GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 			if (player && player.Team.GetHashCode() == team) {
-				if (player != BallOwner && player.Team == BallOwner.Team)
+				if (player != BallOwner && player.Team == BallOwner.Team) {
 					player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
+
+					Catcher = player;
+					BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+				}
 			}
 		}
 	}
