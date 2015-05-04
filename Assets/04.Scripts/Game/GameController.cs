@@ -2594,7 +2594,8 @@ public class GameController : MonoBehaviour
     }
 
 	public void PlayerEnterPaint(int team, GameObject obj) {
-		if (BallOwner && GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
+		if (BallOwner && 
+		   (GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 			if (player && player.Team.GetHashCode() == team) {
 				if (player != BallOwner && player.Team == BallOwner.Team)
