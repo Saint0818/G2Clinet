@@ -2110,7 +2110,17 @@ public class GameController : MonoBehaviour
 			}
         } else
         {
-			if (npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
+			TMoveData data;
+
+			if(npc == BallOwner && HaveDefPlayer(ref npc, 7, 40) == 0 && npc.FirstTargetPosNum == 0)
+			{
+				data = new TMoveData(0);
+				data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
+				data.MoveFinish = DefMove;
+				npc.FirstTargetPos = data;
+				DefMove(npc);
+			}
+			else if (npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
 	        {
 				for(int i = 0; i < PlayerList.Count; i++)
 				{
@@ -2120,7 +2130,6 @@ public class GameController : MonoBehaviour
 					}
 				}
 
-	            TMoveData data;
 	            if (!CheckAttack(ref npc))
 	            {
 	                data = new TMoveData(0);

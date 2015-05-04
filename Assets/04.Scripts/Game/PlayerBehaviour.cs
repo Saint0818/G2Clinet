@@ -2114,6 +2114,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	public int FirstTargetPosNum
+	{
+		get { return FirstMoveQueue.Count;}
+	}
+
     public TMoveData FirstTargetPos
     {
         set
