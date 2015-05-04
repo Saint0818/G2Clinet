@@ -485,7 +485,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (MoveQueue.Count > 0)
                 MoveTo(MoveQueue.Peek());
         } else
-        if (NoAiTime > 0 && Time.time >= NoAiTime)
+        if (NoAiTime > 0 && Time.time >= NoAiTime && !UIGame.Get.OpenMask)
         {
             MoveQueue.Clear();
             NoAiTime = 0;

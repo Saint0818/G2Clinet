@@ -25,6 +25,7 @@ public class UIGame : UIBase {
 	public GameObject ScoreBar;
 	public GameObject Restart;
 	public GameJoystick Joystick = null;
+	public bool OpenMask = false;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
 
@@ -214,6 +215,7 @@ public class UIGame : UIBase {
 	}
 
 	public void showCoverAttack(bool isShow) {
+		OpenMask = isShow;
 		for (int i=0; i<coverAttack.Length; i++) {
 			if(isShow)
 				coverAttack[i].SetActive(true);
@@ -225,6 +227,7 @@ public class UIGame : UIBase {
 	}
 	
 	public void showCoverDefence(bool isShow) {
+		OpenMask = isShow;
 		for (int i=0; i<coverDefence.Length; i++) {
 			if(isShow)
 				coverDefence[i].SetActive(true);
@@ -574,13 +577,14 @@ public class UIGame : UIBase {
 
 	public bool OpenUIMask(PlayerBehaviour p = null){
 		if(p == GameController.Get.Joysticker) {
+			if(p.NoAiTime > 0)
+				p.SetNoAiTime();
+
 			shootBtnTime = ButtonBTime;
 			showCoverAttack(false);
 			showCoverDefence(false);
 			isCanDefenceBtnPress = true;
 			isPressElbowBtn = true;
-			if(p.NoAiTime > 0)
-				p.SetNoAiTime();
 
 			return true;
 		} else
