@@ -79,6 +79,7 @@ public enum DefPointKind
 
 public enum ActionFlag
 {
+	None = 0,
     IsRun = 1,
     IsDefence = 2,
     IsDribble = 3,
@@ -753,8 +754,8 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isShootJump = false;
                 shootJumpCurveTime = 0;
-                DelActionFlag(ActionFlag.IsDribble);
-                DelActionFlag(ActionFlag.IsRun);
+//                DelActionFlag(ActionFlag.IsDribble);
+//                DelActionFlag(ActionFlag.IsRun);
                 isCheckLayerToReset = true;
             }
         }
@@ -1233,7 +1234,6 @@ public class PlayerBehaviour : MonoBehaviour
             for (int i = 0; i < PlayerActionFlag.Length; i++)
                 PlayerActionFlag [i] = 0;
             
-
             AniState(PlayerState.Idle);
             if (ClearMove)
             {
@@ -1347,10 +1347,13 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
             
-            case PlayerState.Run:        
+            case PlayerState.Run:   
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
+				if(crtState != state)
+				return true;
+				break;
             case PlayerState.CatchFlat:
             case PlayerState.CatchFloor:
             case PlayerState.CatchParabola:
@@ -1542,8 +1545,8 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.MovingDefence:
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
-                ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsDefence);
+				ClearAnimatorFlag(ActionFlag.IsDefence);
+//				AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
@@ -1592,8 +1595,9 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Run:
                 if (!isJoystick)
                     SetSpeed(1, 1);
-                ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsRun);
+
+				//AddActionFlag(ActionFlag.IsRun);
+                ClearAnimatorFlag(ActionFlag.IsRun);
 				Rigi.mass = 3;
                 Result = true;
                 break;
@@ -1603,8 +1607,8 @@ public class PlayerBehaviour : MonoBehaviour
                     SetSpeed(1, 1);
                 else
                     SetSpeed(1, 0);
-                ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsDribble);
+				ClearAnimatorFlag(ActionFlag.IsDribble);
+//				AddActionFlag(ActionFlag.IsDribble);
                 IsFirstDribble = false;
 				Rigi.mass = 3;
                 Result = true;
@@ -1612,8 +1616,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
-                ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsRun);
+				ClearAnimatorFlag(ActionFlag.IsRun);
+//				AddActionFlag(ActionFlag.IsRun);
 				Rigi.mass = 3;
                 Result = true;
                 break;
@@ -1748,12 +1752,21 @@ public class PlayerBehaviour : MonoBehaviour
         return Result;
     }
 
-    public void ClearAnimatorFlag()
-    {
-        DelActionFlag(ActionFlag.IsDefence);
-        DelActionFlag(ActionFlag.IsRun);
-        DelActionFlag(ActionFlag.IsDribble);
-        DelActionFlag(ActionFlag.IsHoldBall);
+	public void ClearAnimatorFlag(ActionFlag addFlag = ActionFlag.None)
+	{
+		if (addFlag == ActionFlag.None) {
+			DelActionFlag (ActionFlag.IsDefence);
+			DelActionFlag (ActionFlag.IsRun);
+			DelActionFlag (ActionFlag.IsDribble);
+			DelActionFlag (ActionFlag.IsHoldBall);
+		}
+		else{
+			for(int i = 0; i < System.Enum.GetValues(typeof(ActionFlag)).Length; i++)
+				if(i != (int)addFlag)
+					DelActionFlag ((ActionFlag)i);
+					
+			AddActionFlag(addFlag);
+		}
     }
     
     public void AnimationEvent(string animationName)
@@ -1862,8 +1875,8 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case "DunkJump":
-                DelActionFlag(ActionFlag.IsDribble);
-                DelActionFlag(ActionFlag.IsRun);
+//                DelActionFlag(ActionFlag.IsDribble);
+//                DelActionFlag(ActionFlag.IsRun);
             
                 SceneMgr.Get.SetBallState(PlayerState.Dunk);
                 if (OnDunkJump != null)
@@ -1872,8 +1885,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "DunkBasket":
-                DelActionFlag(ActionFlag.IsDribble);
-                DelActionFlag(ActionFlag.IsRun);
+//                DelActionFlag(ActionFlag.IsDribble);
+//                DelActionFlag(ActionFlag.IsRun);
                 SceneMgr.Get.PlayDunk(Team.GetHashCode());
 
                 break;
@@ -1933,7 +1946,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void ResetMove()
     {
         MoveQueue.Clear();
-        DelActionFlag(ActionFlag.IsRun);
+//        DelActionFlag(ActionFlag.IsRun);
         WaitMoveTime = 0;
     }
 
