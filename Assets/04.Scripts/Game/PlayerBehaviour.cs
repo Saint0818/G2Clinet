@@ -286,6 +286,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isCanCatchBall = true;
 
 	private GameObject doubleClickEffect;
+	public Rigidbody Rigi;
     
     void Awake()
     {
@@ -1377,6 +1378,7 @@ public class PlayerBehaviour : MonoBehaviour
         bool Result = false;
         int stateNo = 0;
         string curveName;
+		Rigi.mass = 5;
         
         switch (state)
         {
@@ -1588,6 +1590,7 @@ public class PlayerBehaviour : MonoBehaviour
                     SetSpeed(1, 1);
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsRun);
+				Rigi.mass = 3;
                 Result = true;
                 break;
 
@@ -1599,6 +1602,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsDribble);
                 IsFirstDribble = false;
+				Rigi.mass = 3;
                 Result = true;
                 break;
 
@@ -1606,6 +1610,7 @@ public class PlayerBehaviour : MonoBehaviour
                 SetSpeed(1, 1);
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsRun);
+				Rigi.mass = 3;
                 Result = true;
                 break;
 
