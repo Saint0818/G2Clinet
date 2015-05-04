@@ -323,6 +323,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void InitTrigger(GameObject defPoint)
 	{
+		Rigi = gameObject.GetComponent<Rigidbody>();
+
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
 		if (obj)
 		{
@@ -1850,6 +1852,12 @@ public class PlayerBehaviour : MonoBehaviour
             case "BlcokCalculateEnd":
                 blockTrigger.gameObject.SetActive(false);
                 break;
+			case "CloneMesh":
+				if (!IsBallOwner)
+					EffectManager.Get.CloneMesh(gameObject, playerDunkCurve.CloneMaterial, 
+			        	playerDunkCurve.CloneDeltaTime, playerDunkCurve.CloneCount);
+
+				break;
 
             case "DunkJump":
                 DelActionFlag(ActionFlag.IsDribble);
@@ -1859,22 +1867,18 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnDunkJump != null)
                     OnDunkJump(this);
 
-				EffectManager.Get.CloneMesh(gameObject);
-
                 break;
 
             case "DunkBasket":
                 DelActionFlag(ActionFlag.IsDribble);
                 DelActionFlag(ActionFlag.IsRun);
                 SceneMgr.Get.PlayDunk(Team.GetHashCode());
-				EffectManager.Get.CloneMesh(gameObject);
 
                 break;
             case "DunkFallBall":
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
 
-				EffectManager.Get.CloneMesh(gameObject);
                 break;
 
             case "ElbowEnd":

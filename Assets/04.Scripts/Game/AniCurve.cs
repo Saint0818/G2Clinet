@@ -14,7 +14,7 @@ public class TDunkCurve {
 	public float LifeTime = 3.166f;
 	public float ToBasketTime = 0.166f;
 	public float StartMoveTime = 1f; 
-	public float CloneDeltaTime = 0.5f;
+	public float CloneDeltaTime = 0.01f;
 	public int CloneCount = 4;
 	public int CloneMaterial = 0;
 	public AnimationCurve aniCurve = new AnimationCurve();

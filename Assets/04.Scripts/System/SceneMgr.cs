@@ -333,7 +333,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		{
 			case PlayerState.Dribble:
 				realBallCollider.enabled = false;
-				RealBall.transform.parent = player.DummyBall.transform;
+				if (player)
+					RealBall.transform.parent = player.DummyBall.transform;
+
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
@@ -440,7 +442,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.HoldBall:
 			case PlayerState.PickBall:
 				realBallCollider.enabled = false;
-				RealBall.transform.parent = player.DummyBall.transform;
+				if (player)
+					RealBall.transform.parent = player.DummyBall.transform;
+
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
@@ -775,3 +779,4 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		return go;
 	}
 }
+

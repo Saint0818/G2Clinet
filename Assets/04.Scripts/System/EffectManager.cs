@@ -4,6 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using GameStruct;
 
+public struct TCloneMesh {
+	public GameObject Source;
+	public int MaterialKind;
+	public float DeltaTime;
+	public float Timer;
+	public int Count;
+}
+
 public class EffectManager : MonoBehaviour
 {
 	public float CloneLiveTime = 1;
@@ -14,8 +22,9 @@ public class EffectManager : MonoBehaviour
 	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 
-	public List<Material> materials = new List<Material>();
-	private List<int> Triangles = new List<int>();
+	private List<TCloneMesh> cloneMeshs = new List<TCloneMesh>();
+	private List<Material> materials = new List<Material>();
+	private List<int> triangles = new List<int>();
 	private List<GameObject> cloneObjects = new List<GameObject>();
 
 	void Awake() {
@@ -39,6 +48,25 @@ public class EffectManager : MonoBehaviour
 				instance = go.AddComponent<EffectManager>();
 			}
 			return instance;
+		}
+	}
+
+	void Update() {
+		for (int i = cloneMeshs.Count-1; i >= 0; i--) {
+			if (cloneMeshs[i].Count > 0) {
+				TCloneMesh cm = cloneMeshs[i];
+				cm.Timer += Time.deltaTime;
+				if (cm.Timer >= cm.DeltaTime) {
+					cm.Timer -= cm.DeltaTime;
+					cm.Count--;
+
+					cloneMesh(cm.Source, cm.MaterialKind, cm.DeltaTime, cm.Count);
+				}
+				
+				cloneMeshs[i] = cm;
+			} else {
+				cloneMeshs.RemoveAt(i);
+			}
 		}
 	}
 
@@ -148,29 +176,43 @@ public class EffectManager : MonoBehaviour
 			obj.GetComponent<MeshRenderer> ().material = materials[materialKind];
 	}
 
-	public void CloneMesh(GameObject source, int materialKind = 0) {
-		SkinnedMeshRenderer[] skinnMeshRenders = source.GetComponentsInChildren<SkinnedMeshRenderer> ();
-		if (skinnMeshRenders.Length > 0) {
-			CombineInstance[] combine = new CombineInstance[skinnMeshRenders.Length];
-			
-			for(int skinnMeshNum = 0; skinnMeshNum < skinnMeshRenders.Length; skinnMeshNum++) {
-				Triangles.Clear();
+	private void cloneMesh(GameObject source, int materialKind = 0, float deltaTime = 0.5f, int count = 4) {
+		if (source) {
+			SkinnedMeshRenderer[] skinnMeshRenders = source.GetComponentsInChildren<SkinnedMeshRenderer> ();
+			if (skinnMeshRenders.Length > 0) {
+				CombineInstance[] combine = new CombineInstance[skinnMeshRenders.Length];
+				
+				for(int skinnMeshNum = 0; skinnMeshNum < skinnMeshRenders.Length; skinnMeshNum++) {
+					triangles.Clear();
 
-				Mesh mesh = new Mesh();
-				skinnMeshRenders[skinnMeshNum].BakeMesh(mesh);
+					Mesh mesh = new Mesh();
+					skinnMeshRenders[skinnMeshNum].BakeMesh(mesh);
 
-				for(int subNum = 0 ; subNum<mesh.subMeshCount;subNum++)
-					Triangles.AddRange(mesh.GetTriangles(subNum).ToList());
+					for(int subNum = 0 ; subNum<mesh.subMeshCount;subNum++)
+						triangles.AddRange(mesh.GetTriangles(subNum).ToList());
 
-				mesh.SetTriangles(Triangles.ToArray(),0);
-				mesh.subMeshCount = 1;
+					mesh.SetTriangles(triangles.ToArray(),0);
+					mesh.subMeshCount = 1;
 
-				combine[skinnMeshNum].mesh = mesh;
+					combine[skinnMeshNum].mesh = mesh;
+				}
+				
+				Mesh Commesh = new Mesh();
+				Commesh.CombineMeshes(combine,true,false);
+				CloneObj(Commesh, source, materialKind);
 			}
-			
-			Mesh Commesh = new Mesh();
-			Commesh.CombineMeshes(combine,true,false);
-			CloneObj(Commesh, source, materialKind);
+		}
+	}
+
+	public void CloneMesh(GameObject source, int materialKind = 0, float deltaTime = 0.5f, int count = 4) {
+		if (source) {
+			TCloneMesh cm = new TCloneMesh();
+			cm.Source = source;
+			cm.MaterialKind = materialKind;
+			cm.DeltaTime = deltaTime;
+			cm.Count = count;
+
+			cloneMeshs.Add(cm);
 		}
 	}
 }

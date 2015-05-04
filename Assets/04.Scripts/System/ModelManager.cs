@@ -146,7 +146,7 @@ public class ModelManager : MonoBehaviour {
 		PB.MoveIndex = -1;
 		PB.Attr = playerattr;
 		PB.Index = TeamIndex;
-		PB.Rigi = Res.GetComponent<Rigidbody>();
+		
 		PB.InitTrigger (DefPointObject);
 		PB.InitCurve (AnimatorCurveManager);
 		Res.name = Team.ToString() + TeamIndex.ToString();
