@@ -460,11 +460,18 @@ public class GameController : MonoBehaviour
 		if (Joysticker) {
 			if (Input.GetKeyDown (KeyCode.A))
 			{
-				if(Joysticker.crtState == PlayerState.Rebound){
-					SetBall(Joysticker);
-					Joysticker.AniState (PlayerState.TipIn);
-				} else
-					DoShoot (true);
+				UIGame.Get.DoShoot(null, true);
+//				public void DoShoot(GameObject go, bool state) {
+//				if(Joysticker.crtState == PlayerState.Rebound){
+//					SetBall(Joysticker);
+//					Joysticker.AniState (PlayerState.TipIn, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position);
+//				} else
+//					DoShoot (true);
+			}
+
+			if (Input.GetKeyUp (KeyCode.A))
+			{
+				UIGame.Get.DoShoot(null, false);
 			}
 
 			if (Input.GetKeyDown (KeyCode.R))

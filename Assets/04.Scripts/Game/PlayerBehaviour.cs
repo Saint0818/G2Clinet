@@ -582,21 +582,21 @@ public class PlayerBehaviour : MonoBehaviour
             AIActiveHint.SetActive(true);
     }
     
-    private void CalculationAirResistance()
-    {
-        if (gameObject.transform.localPosition.y > 1f)
-        {
-            drag = Vector2.Lerp(Vector2.zero, new Vector2(0, gameObject.transform.localPosition.y), 0.01f); 
-            PlayerRigidbody.drag = drag.y;
-        } else
-        {
-            drag = Vector2.Lerp(new Vector2(0, gameObject.transform.localPosition.y), Vector2.zero, 0.01f); 
-            if (drag.y >= 0)
-                PlayerRigidbody.drag = drag.y;
-            else
-                PlayerRigidbody.drag = 0;
-        }
-    }
+//    private void CalculationAirResistance()
+//    {
+//        if (gameObject.transform.localPosition.y > 1f)
+//        {
+//            drag = Vector2.Lerp(Vector2.zero, new Vector2(0, gameObject.transform.localPosition.y), 0.01f); 
+//            PlayerRigidbody.drag = drag.y;
+//        } else
+//        {
+//            drag = Vector2.Lerp(new Vector2(0, gameObject.transform.localPosition.y), Vector2.zero, 0.01f); 
+//            if (drag.y >= 0)
+//                PlayerRigidbody.drag = drag.y;
+//            else
+//                PlayerRigidbody.drag = 0;
+//        }
+//    }
 
     private void CalculationDunkMove()
     {
@@ -1176,19 +1176,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-		if (IsShoot || IsRebound || isBlock)
+		if (isBlock)
 			return;
+
+		gameObject.transform.LookAt (new Vector3 (lookAtX, gameObject.transform.position.y, lookAtZ));
+
+//		Debug.Log ("Roatte To .GameObject : " + gameObject.name);
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
 //            transform.localPosition), time * Time.deltaTime);
 
-        Vector3 lookAtPos = new Vector3(lookAtX, gameObject.transform.position.y, lookAtZ);
-        Vector3 relative = gameObject.transform.InverseTransformPoint(lookAtPos);
-        float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+//        Vector3 lookAtPos = new Vector3(lookAtX, gameObject.transform.position.y, lookAtZ);
+//        Vector3 relative = gameObject.transform.InverseTransformPoint(lookAtPos);
+//        float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 
 //        if ((mangle > 15 && mangle < 180) || (mangle < -15 && mangle > -180))
 //        {
-            gameObject.transform.DOLookAt(lookAtPos, 0.1f);
+//            gameObject.transform.DOLookAt(lookAtPos, 0.1f);
 //        }
     }
     
