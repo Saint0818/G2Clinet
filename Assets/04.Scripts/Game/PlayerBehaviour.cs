@@ -1819,6 +1819,13 @@ public class PlayerBehaviour : MonoBehaviour
 					OnBlockCatching(this);
 				break;
 
+			case "BlockCatchingEnd":
+				if(IsBallOwner){
+					IsFirstDribble = true;
+					AniState(PlayerState.HoldBall);
+				}
+				break;
+
             case "Blocking":
 //                if (OnBlocking != null)
 //                    OnBlocking(this);
@@ -1994,6 +2001,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Layup,
                 PlayerState.Tee,
                 PlayerState.Rebound,
+                PlayerState.ReboundCatch,
 				PlayerState.TipIn
             };
 
