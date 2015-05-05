@@ -1288,7 +1288,7 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 			case PlayerState.Alleyoop:
-				if (crtState != PlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == GameTest.Alleyoop || (situation.GetHashCode()+3) == Team.GetHashCode()))
+			if (crtState != PlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == GameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode()+3)))
 					return true;
 
 				break;
