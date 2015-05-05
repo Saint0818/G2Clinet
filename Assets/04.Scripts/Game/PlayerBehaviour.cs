@@ -1902,6 +1902,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "DunkFallBall":
+				OnUI(this);
                 if (OnDunkBasket != null)
                     OnDunkBasket(this);
 

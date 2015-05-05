@@ -467,16 +467,20 @@ public class GameController : MonoBehaviour
 					DoShoot (true);
 			}
 
-			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
+			if (Input.GetKeyDown (KeyCode.R))
 				Joysticker.AniState (PlayerState.Rebound);
 
-			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
+			if (Input.GetKeyDown (KeyCode.T))
 				Joysticker.AniState (PlayerState.ReboundCatch);
 
-			if (Input.GetKeyDown (KeyCode.B) && Joysticker != null)
-			{
+			if (Input.GetKeyDown (KeyCode.B))
 				DoBlock();
-			}
+
+			if (Input.GetKeyDown (KeyCode.Q))
+				DoPass(1);
+
+			if (Input.GetKeyDown (KeyCode.W))
+				DoPass(2);
 		}
 
         if (Time.time >= CoolDownPass)
@@ -2693,9 +2697,20 @@ public class GameController : MonoBehaviour
         
     }
 
+	private bool canPassToAlleyoop(PlayerState state) {
+		if (state == PlayerState.Idle ||
+		    state == PlayerState.HoldBall ||
+		    state == PlayerState.Dribble ||
+		    state == PlayerState.RunAndDribble)
+			return true;
+		else
+			return false;
+    }
+    
 	public void PlayerEnterPaint(int team, GameObject obj) {
-		if (BallOwner && 
-		   (GameStart.Get.TestMode == GameTest.Alleyoop || situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
+		if (BallOwner && canPassToAlleyoop(BallOwner.crtState) &&
+		   (GameStart.Get.TestMode == GameTest.Alleyoop || 
+		 	situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList[i].crtState == PlayerState.Alleyoop) {
@@ -2709,8 +2724,11 @@ public class GameController : MonoBehaviour
 					if (player != BallOwner && player.Team == BallOwner.Team) {
 						player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
 
-						if(BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
-							Catcher = player;
+						if (BallOwner != Joysticker) {
+							if (BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
+								Catcher = player;
+						} else
+							UIGame.Get.SetPassButton(player.Index);
 					}
 				}
 			}

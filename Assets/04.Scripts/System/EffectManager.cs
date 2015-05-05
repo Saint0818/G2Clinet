@@ -164,6 +164,7 @@ public class EffectManager : MonoBehaviour
 	{
 		GameObject obj = getCloneObject();
 		obj.transform.position = source.transform.position;
+		obj.transform.eulerAngles = source.transform.eulerAngles;
 		//obj.layer = source.layer;
 
 		MeshFilter meshFilter = obj.GetComponent<MeshFilter> ();

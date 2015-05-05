@@ -41,6 +41,8 @@ public class UIGame : UIBase {
 	private GameObject pushObject;
 	private GameObject attackObject;
 	private GameObject passObject;
+	private GameObject passA;
+	private GameObject passB;
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
 	private UILabel[] scoresLabel = new UILabel[2];
@@ -68,8 +70,17 @@ public class UIGame : UIBase {
 	private float buttonAttackFXTime;
 
 	private bool isSplit;
-	
-	public static bool Visible {
+
+	public static UIGame Get {
+		get {
+			if (!instance) 
+				instance = LoadUI(UIName) as UIGame;
+			
+            return instance;
+        }
+    }
+    
+    public static bool Visible {
 		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
@@ -85,16 +96,45 @@ public class UIGame : UIBase {
 		if(isShow)
 			Get.Show(isShow);
 	}
-	
-	public static UIGame Get {
-		get {
-			if (!instance) 
-				instance = LoadUI(UIName) as UIGame;
-			
-			return instance;
+
+	void FixedUpdate()
+	{
+		if (Input.GetMouseButtonUp(0)) 
+			isPressShootBtn = false;
+		
+		if (isPressShootBtn && shootBtnTime > 0) {
+			shootBtnTime -= Time.deltaTime;
+			if(shootBtnTime <= 0){
+				isPressShootBtn = false;
+				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
+					GameController.Get.DoShoot(true);
+					GameController.Get.Joysticker.SetNoAiTime();
+					showCoverAttack(true);
+					coverAttack[1].SetActive(false);
+					//coverAttackSprite[1].color = Color.green;
+				}
+			}
 		}
+		
+		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
+			buttonPush.gameObject.SetActive(false);
+			buttonElbow.gameObject.SetActive(true);
+		} else {
+			buttonPush.gameObject.SetActive(true);
+			buttonElbow.gameObject.SetActive(false);
+		}
+        
+        if(isShowScoreBar && showScoreBarTime > 0) {
+            showScoreBarTime -= Time.deltaTime;
+            if(showScoreBarTime <= 0){
+                isShowScoreBar = false;
+                ScoreBar.SetActive(false);
+            }
+        }
+        showButtonFX();
+        judgePlayerScreenPosition();
 	}
-	
+
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
@@ -128,6 +168,8 @@ public class UIGame : UIBase {
 		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
 		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 		passObject = GameObject.Find (UIName + "/BottomRight/Attack/PassObject");
+		passA = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA");
+		passB = GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB");
 
 		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/StartView/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
@@ -188,12 +230,20 @@ public class UIGame : UIBase {
 		showCoverAttack(false);
 		showCoverDefence(false);
 
-
 		drawLine = gameObject.AddComponent<DrawLine>();
 		ChangeControl(false);
 		
 		Joystick.gameObject.SetActive(false);
 	}
+
+	protected override void InitData() {
+		MaxScores[0] = 13;
+		MaxScores[1] = 13;
+		Scores [0] = 0;
+		Scores [1] = 0;
+		scoresLabel[0].text = "0";
+        scoresLabel[1].text = "0";
+    }
 
 	protected override void InitText(){
 		SetLabel(UIName + "/Center/ButtonAgain/LabelReset" ,TextConst.S(1));
@@ -361,6 +411,10 @@ public class UIGame : UIBase {
 		if(GameController.Get.Joysticker.IsBallOwner && !GameController.Get.Joysticker.IsFall) {
 			initLine();
 			passObject.SetActive(state);
+			if (state) {
+				passA.SetActive(true);
+				passB.SetActive(true);
+			}
 //			drawLine.IsShow = state;
 		} else {
 			if(!GameController.Get.IsShooting){
@@ -467,6 +521,26 @@ public class UIGame : UIBase {
 		tweenRotation.delay = 0.5f;
 		tweenRotation.to = new Vector3(0,720,0);
 		scoresLabel[team].text = Scores [team].ToString ();
+	}
+
+	public void SetPassButton(int kind) {
+		switch (kind) {
+		case 1:
+			passObject.SetActive(true);
+			passA.SetActive(true);
+			passB.SetActive(false);
+			break;
+		case 2:
+			passObject.SetActive(true);
+			passA.SetActive(false);
+			passB.SetActive(true);
+            break;
+		default:
+			passObject.SetActive(false);
+			passA.SetActive(true);
+			passA.SetActive(true);
+			break;
+        }
 	}
 
 	private void showScoreBar(){
@@ -582,8 +656,12 @@ public class UIGame : UIBase {
 			isPressElbowBtn = true;
 
 			return true;
-		} else
+		} else {
+			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)
+				SetPassButton(0);
+
 			return false;
+		}
 	}
 
 	private void showButtonFX(){
@@ -651,52 +729,5 @@ public class UIGame : UIBase {
 			}
 		}
 
-	}
-
-	protected override void InitData() {
-		MaxScores[0] = 13;
-		MaxScores[1] = 13;
-		Scores [0] = 0;
-		Scores [1] = 0;
-		scoresLabel[0].text = "0";
-		scoresLabel[1].text = "0";
-	}
-
-	void FixedUpdate()
-	{
-		if (Input.GetMouseButtonUp(0)) 
-			isPressShootBtn = false;
-
-		if (isPressShootBtn && shootBtnTime > 0) {
-			shootBtnTime -= Time.deltaTime;
-			if(shootBtnTime <= 0){
-				isPressShootBtn = false;
-				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
-					GameController.Get.DoShoot(true);
-					GameController.Get.Joysticker.SetNoAiTime();
-					showCoverAttack(true);
-					coverAttack[1].SetActive(false);
-					//coverAttackSprite[1].color = Color.green;
-				}
-			}
-		}
-
-		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
-			buttonPush.gameObject.SetActive(false);
-			buttonElbow.gameObject.SetActive(true);
-		} else {
-			buttonPush.gameObject.SetActive(true);
-			buttonElbow.gameObject.SetActive(false);
-		}
-
-		if(isShowScoreBar && showScoreBarTime > 0) {
-			showScoreBarTime -= Time.deltaTime;
-			if(showScoreBarTime <= 0){
-				isShowScoreBar = false;
-				ScoreBar.SetActive(false);
-			}
-		}
-		showButtonFX();
-		judgePlayerScreenPosition();
 	}
 }
