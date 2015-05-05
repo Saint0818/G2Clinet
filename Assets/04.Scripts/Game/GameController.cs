@@ -2185,14 +2185,27 @@ public class GameController : MonoBehaviour
 			bool suc = false;
 			if(GameStart.Get.GoGoGo)
 			{
-				if(npc == BallOwner && HaveDefPlayer(ref npc, 7, 40) == 0 && npc.FirstTargetPosNum == 0)
+				if(npc == BallOwner && HaveDefPlayer(ref npc, 15, 80) == 0 && npc.FirstTargetPosNum == 0)
 				{
-					suc = true;
-					data = new TMoveData(0);
-					data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
-					data.MoveFinish = DefMove;
-					npc.FirstTargetPos = data;
-					DefMove(npc);
+					if(npc.Team == TeamKind.Self && npc.transform.localRotation.y <= 90 && npc.transform.localRotation.y >= -90)
+					{
+						suc = true;
+						data = new TMoveData(0);
+						data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
+						data.MoveFinish = DefMove;
+						npc.FirstTargetPos = data;
+						DefMove(npc);
+
+					}else if(npc.Team == TeamKind.Npc && npc.transform.localRotation.y > 90 ||npc.transform.localRotation.y < -90)
+					{
+						suc = true;
+						data = new TMoveData(0);
+						data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
+						data.MoveFinish = DefMove;
+						npc.FirstTargetPos = data;
+						DefMove(npc);
+					}
+
 				}
 			}
 
