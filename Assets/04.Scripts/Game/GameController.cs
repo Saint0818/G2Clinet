@@ -472,6 +472,11 @@ public class GameController : MonoBehaviour
 
 			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
 				Joysticker.AniState (PlayerState.ReboundCatch);
+
+			if (Input.GetKeyDown (KeyCode.B) && Joysticker != null)
+			{
+				DoBlock();
+			}
 		}
 
         if (Time.time >= CoolDownPass)
