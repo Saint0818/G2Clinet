@@ -1606,7 +1606,7 @@ public class GameController : MonoBehaviour
 	{
 		bool suc = false;
 
-		if(!Self.CheckAnimatorSate(PlayerState.HoldBall))
+		if(!Self.CheckAnimatorSate(PlayerState.HoldBall) && HaveDefPlayer(ref Self, 5, 40) != 0)
 		{
 			int FakeRate = Random.Range (0, 100);
 

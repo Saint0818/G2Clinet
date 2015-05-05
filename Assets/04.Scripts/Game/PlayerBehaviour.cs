@@ -1765,7 +1765,7 @@ public class PlayerBehaviour : MonoBehaviour
 			DelActionFlag (ActionFlag.IsHoldBall);
 		}
 		else{
-			for(int i = 0; i < System.Enum.GetValues(typeof(ActionFlag)).Length; i++)
+			for(int i = 1; i < System.Enum.GetValues(typeof(ActionFlag)).Length; i++)
 				if(i != (int)addFlag)
 					DelActionFlag ((ActionFlag)i);
 					
