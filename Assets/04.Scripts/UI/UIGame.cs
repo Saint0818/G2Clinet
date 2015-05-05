@@ -371,36 +371,31 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateA() {
-		if(GameStart.Get.TestMode == GameTest.None){
-			showCoverAttack(true);
-			coverAttack[0].SetActive(false);
+		showCoverAttack(true);
+		coverAttack[0].SetActive(false);
 //			coverAttackSprite[0].color = Color.green;
-			PassFX();
-			buttonObjectAFXTime = fxTime;
-			buttonObjectAFX.SetActive(true);
-			if(!GameController.Get.IsShooting){
-				GameController.Get.DoPass(1);
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
-			passObject.SetActive(false);
-//			drawLine.IsShow = false;
+		PassFX();
+		buttonObjectAFXTime = fxTime;
+		buttonObjectAFX.SetActive(true);
+		passObject.SetActive(false);
+		if(!GameController.Get.IsShooting){
+			GameController.Get.DoPass(1);
+			GameController.Get.Joysticker.SetNoAiTime();
 		}
+//			drawLine.IsShow = false;
 	}
 
 	public void DoPassTeammateB() {
-		if(GameStart.Get.TestMode == GameTest.None){
-			showCoverAttack(true);
-			coverAttack[0].SetActive(false);
+		showCoverAttack(true);
+		coverAttack[0].SetActive(false);
 //			coverAttackSprite[0].color = Color.green;
-			PassFX();
-			buttonObjectBFXTime = fxTime;
-			buttonObjectBFX.SetActive(true);
-			if(!GameController.Get.IsShooting){
-				GameController.Get.DoPass(2);
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
-			passObject.SetActive(false);
-//			drawLine.IsShow = false;
+		PassFX();
+		buttonObjectBFXTime = fxTime;
+		buttonObjectBFX.SetActive(true);
+		passObject.SetActive(false);
+		if(!GameController.Get.IsShooting){
+			GameController.Get.DoPass(2);
+			GameController.Get.Joysticker.SetNoAiTime();
 		}
 	}
 

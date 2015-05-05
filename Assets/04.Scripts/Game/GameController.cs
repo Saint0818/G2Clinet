@@ -2145,31 +2145,32 @@ public class GameController : MonoBehaviour
 							}
 						}
 
-						for (int i = 0; i < PlayerList.Count; i++)
-						{
-							if(FearPlayer.Team == PlayerList[i].Team)
+						if (FearPlayer) {
+							for (int i = 0; i < PlayerList.Count; i++)
 							{
-								if(PlayerList[i] != FearPlayer)
+								if(FearPlayer.Team == PlayerList[i].Team)
 								{
-									if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
+									if(PlayerList[i] != FearPlayer)
 									{
-										TMoveData data = new TMoveData(0);
-										data.FollowTarget = SceneMgr.Get.RealBall.transform;
-										PlayerList[i].TargetPos = data;
+										if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
+										{
+											TMoveData data = new TMoveData(0);
+											data.FollowTarget = SceneMgr.Get.RealBall.transform;
+											PlayerList[i].TargetPos = data;
+										}
 									}
+	//								else
+	//								{
+	//									if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
+	//									{
+	//										TMoveData data = new TMoveData(0);
+	//										data.Target = new Vector2(SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.z);
+	//										PlayerList[i].TargetPos = data;
+	//									}
+	//								}
 								}
-//								else
-//								{
-//									if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
-//									{
-//										TMoveData data = new TMoveData(0);
-//										data.Target = new Vector2(SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[PlayerList[i].Team.GetHashCode()].transform.position.z);
-//										PlayerList[i].TargetPos = data;
-//									}
-//								}
 							}
 						}
-
 					}
 				}
 			}
@@ -2499,6 +2500,7 @@ public class GameController : MonoBehaviour
 				Catcher = null;
             } else
 			{
+				Catcher = null;
 				SetBallOwnerNull();
 //				if(BallOwner != null)
 //					BallOwner.IsBallOwner = false;
