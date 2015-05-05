@@ -165,7 +165,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .323232323
-        functionName: AnimationEvnet
+        functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
