@@ -2177,16 +2177,21 @@ public class GameController : MonoBehaviour
         } else
         {
 			TMoveData data;
-
-			if(npc == BallOwner && HaveDefPlayer(ref npc, 7, 40) == 0 && npc.FirstTargetPosNum == 0)
+			bool suc = false;
+			if(GameStart.Get.GoGoGo)
 			{
-				data = new TMoveData(0);
-				data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
-				data.MoveFinish = DefMove;
-				npc.FirstTargetPos = data;
-				DefMove(npc);
+				if(npc == BallOwner && HaveDefPlayer(ref npc, 7, 40) == 0 && npc.FirstTargetPosNum == 0)
+				{
+					suc = true;
+					data = new TMoveData(0);
+					data.Target = new Vector2(SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[npc.Team.GetHashCode()].transform.position.z);				
+					data.MoveFinish = DefMove;
+					npc.FirstTargetPos = data;
+					DefMove(npc);
+				}
 			}
-			else if (npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
+
+			if (!suc && npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
 	        {
 				for(int i = 0; i < PlayerList.Count; i++)
 				{
