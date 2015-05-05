@@ -2970,14 +2970,13 @@ public class GameController : MonoBehaviour
 				Shoot();
 				Catcher.NeedShooting = false;
 			}
-
-            Catcher = null;
 		}else{
 			SceneMgr.Get.SetBallState(PlayerState.Steal, Passer);
-			Catcher = null;
+
 			SetBall();
 		}
 
+		Catcher = null;
 		IsPassing = false;
     }
 
