@@ -1913,10 +1913,16 @@ public class GameController : MonoBehaviour
 				if(Team == TeamKind.Self)
 					TargetZ = -18;
 
-				if(Npc.Team == TeamKind.Self && Npc.transform.position.z <= -17 && Npc.transform.position.z >= -18)
+				if(Npc.Team == TeamKind.Self && Npc.transform.position.z <= -17 && Npc.transform.position.z >= -18){
+					if(WaitTeeBallTime == 0)
+						WaitTeeBallTime = Time.time + 1;
 					return;
-				else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z >= 17 && Npc.transform.position.z <= 18)
+				}
+				else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z >= 17 && Npc.transform.position.z <= 18){
+					if(WaitTeeBallTime == 0)
+						WaitTeeBallTime = Time.time + 1;
 					return;
+				}
 
 				data.FileName = pos.FileName;
 				data.Target = new Vector2(Npc.transform.position.x, TargetZ);
