@@ -2670,8 +2670,8 @@ public class GameController : MonoBehaviour
 				if (player != BallOwner && player.Team == BallOwner.Team) {
 					player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
 
-					Catcher = player;
-					BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+					if(BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
+						Catcher = player;
 				}
 			}
 		}
