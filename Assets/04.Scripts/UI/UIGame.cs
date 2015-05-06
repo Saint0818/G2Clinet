@@ -372,7 +372,7 @@ public class UIGame : UIBase {
 	public void DoShoot(GameObject go, bool state) {
 		if(GameController.Get.IsShooting) {
 			if(state && GameController.Get.IsExtraScoreRate)
-				GameController.Get.AddExtraScoreRate(10);
+				GameController.Get.AddExtraScoreRate(GameConst.ExtraScoreRate);
 		} else {
 			if(!GameController.Get.Joysticker.IsFall) {
 				if(state){
@@ -432,10 +432,11 @@ public class UIGame : UIBase {
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
 		passObject.SetActive(false);
-		if(!GameController.Get.IsShooting){
-			GameController.Get.DoPass(1);
+		if(!GameController.Get.IsShooting && GameController.Get.DoPass(1))
 			GameController.Get.Joysticker.SetNoAiTime();
-		}
+		else
+			showCoverAttack(false);
+
 //			drawLine.IsShow = false;
 	}
 
@@ -447,10 +448,10 @@ public class UIGame : UIBase {
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
 		passObject.SetActive(false);
-		if(!GameController.Get.IsShooting){
-			GameController.Get.DoPass(2);
+		if(!GameController.Get.IsShooting && GameController.Get.DoPass(2))
 			GameController.Get.Joysticker.SetNoAiTime();
-		}
+		else
+			showCoverAttack(false);
 	}
 
 	public void DoPassNone() {

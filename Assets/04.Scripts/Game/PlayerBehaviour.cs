@@ -683,10 +683,9 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (isRebound && playerReboundCurve != null) {
 			reboundCurveTime += Time.deltaTime;
-			if (reboundCurveTime < 1f && !IsBallOwner) {
+			if (reboundCurveTime < 0.7f && !IsBallOwner) {
 				if (startPosition != Vector3.zero) {
 					Vector3 v = SceneMgr.Get.RealBall.transform.position - startPosition;
-//					rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
                     transform.position = new Vector3(transform.position.x + v.x * Time.deltaTime * 2, 
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
 					                                 transform.position.z + v.z * Time.deltaTime * 2);

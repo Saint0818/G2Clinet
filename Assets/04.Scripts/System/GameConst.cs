@@ -47,6 +47,7 @@ public class GameConst
 	public static float MiddleDistance = 12;
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
+	public static float ExtraScoreRate = 10;
 	//Score
 	public static string[] AngleScoreRightWing = {"1","3","4"};
 	public static string[] AngleScoreRight = {"1","3","4"};

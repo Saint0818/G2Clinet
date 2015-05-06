@@ -16,7 +16,6 @@ namespace GameStruct
 		public int ElbowingRate;
 		public int BlockDunk;
 		public int JumpBallRate;
-		public int ReboundRata;
 		public int BlockPushRate;
 		public int ReboundRate;
 		public int TipIn;

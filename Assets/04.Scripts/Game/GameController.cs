@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour
 	public string[] BasketScoreAllAnimationState;
 	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
-	private int extraScoreRate = 0;
+	private float extraScoreRate = 0;
 	
 	public GameObject selectMe;
 
@@ -1013,7 +1013,7 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void AddExtraScoreRate(int rate) {
+	public void AddExtraScoreRate(float rate) {
 		extraScoreRate = rate;
 		UIHint.Get.ShowHint("ExtraScoreRate", Color.yellow);
 	}
@@ -1031,7 +1031,8 @@ public class GameController : MonoBehaviour
             if (GameStart.Get.TestMode == GameTest.Dunk)
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else 
-			if (BallOwner.IsRebound && ShootDis <= 6) {
+			if (BallOwner.IsRebound && inTipinDistance(BallOwner)) {
+				AddExtraScoreRate(GameConst.ExtraScoreRate);
 				BallOwner.AniState(PlayerState.TipIn, SceneMgr.Get.ShootPoint [t].transform.position);
 			} else
 			if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
@@ -1077,15 +1078,17 @@ public class GameController : MonoBehaviour
 
 			if(player.crtState == PlayerState.Shoot0){
 				calculationScoreRate(ref IsScore ,player, ScoreType.Normal);
-			} else if(player.crtState == PlayerState.Shoot1 ||
-			          player.crtState == PlayerState.Shoot6) {
+			} else 
+			if(player.crtState == PlayerState.Shoot1 || player.crtState == PlayerState.Shoot6) {
 				calculationScoreRate(ref IsScore ,player, ScoreType.NearShot);
-			} else if(player.crtState == PlayerState.Shoot2) {
+			} else 
+			if(player.crtState == PlayerState.Shoot2) {
 				calculationScoreRate(ref IsScore ,player, ScoreType.UpHand);
-			} else if(player.crtState == PlayerState.Shoot3) {
+			} else 
+			if(player.crtState == PlayerState.Shoot3) {
 				calculationScoreRate(ref IsScore ,player, ScoreType.DownHand);
-			} else if(player.crtState == PlayerState.Layup||
-			          player.crtState == PlayerState.TipIn){
+			} else 
+			if(player.crtState == PlayerState.Layup|| player.crtState == PlayerState.TipIn){
 				calculationScoreRate(ref IsScore ,player, ScoreType.LayUp);
 			}
             
@@ -1337,7 +1340,7 @@ public class GameController : MonoBehaviour
 //            return false;
 //    }
 
-    public void DoPass(int playerid)
+    public bool DoPass(int playerid)
     {
 		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0 && CandoBtn)
         {
@@ -1347,13 +1350,15 @@ public class GameController : MonoBehaviour
 				BallOwner.NoAiTime = 0;
 
                 if (BallOwner == Joysticker)
-                    Pass(PlayerList [playerid], false, true);
+                    return Pass(PlayerList [playerid], false, true);
                 else
-					Pass(Joysticker, false, true);
+					return Pass(Joysticker, false, true);
 
 				Joysticker.NoAiTime = aiTime;
             }
         }
+
+		return false;
     }
 
     private void Steal(PlayerBehaviour player)
@@ -1560,19 +1565,24 @@ public class GameController : MonoBehaviour
 		                        new Vector2(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z)) <= 6;
 	}
 
+	private bool inTipinDistance(PlayerBehaviour player) {
+		return Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), 
+		                        new Vector2(SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.x, 
+		            						SceneMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.z)) <= 6;
+	}
+
     private void Rebound(PlayerBehaviour player)
     {
-		bool flag = true;
+		/*bool flag = true;
 		for (int i = 0; i < PlayerList.Count; i ++)
 		if (player.Index != i && PlayerList[i].Team == player.Team && player.IsRebound) {
 			flag = false;
 			break;
 		}
 
-		if (flag) {
-//			player.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+		if (flag) {*/
 			player.AniState(PlayerState.Rebound, SceneMgr.Get.RealBall.transform.position);
-		}
+		//}
 	}
 	
 	public bool OnRebound(PlayerBehaviour player)
@@ -2144,8 +2154,8 @@ public class GameController : MonoBehaviour
 				} else 
 				if(Npc.crtState != PlayerState.Block && Npc.NoAiTime == 0)
                     Npc.rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
-            } else if (Npc.CanMove && Npc.WaitMoveTime == 0)
-            {
+            } else 
+			if (Npc.CanMove && Npc.WaitMoveTime == 0) {
                 TMoveData data = new TMoveData(0);
                 data.FollowTarget = SceneMgr.Get.RealBall.transform;
                 Npc.TargetPos = data;
@@ -2635,14 +2645,24 @@ public class GameController : MonoBehaviour
 			if (player != BallOwner)
 				if (SceneMgr.Get.RealBallState ==  PlayerState.Block || 
 				    SceneMgr.Get.RealBallState ==  PlayerState.Steal ||
-				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound)
-					Rebound(player);
+				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound) {
+					if (player.Attr.AILevel >= 0 && player.Attr.AILevel < GameData.AIlevelAy.Length && 
+					    Random.Range(0, 100) < GameData.AIlevelAy[player.Attr.AILevel].ReboundRate)
+						Rebound(player);
+				}
 
             break;
 		case 5: //finger
-			if (!player.IsBallOwner && player.IsRebound && player.crtState != PlayerState.TipIn) {
-				if(SetBall(player))
+			if (!player.IsBallOwner && player.IsRebound && !IsTipin) {
+				if (SetBall(player)) {
+					if (player != Joysticker && inTipinDistance(player) && player == BallOwner && 
+					    player.Attr.AILevel >= 0 && player.Attr.AILevel < GameData.AIlevelAy.Length &&
+					    Random.Range(0, 100) < GameData.AIlevelAy[player.Attr.AILevel].TipIn) {
+						Shoot();
+					}
+
 					CoolDownPass = Time.time + 3;
+				}
 			}
 
 			break;
@@ -2674,17 +2694,16 @@ public class GameController : MonoBehaviour
 //							player.AniState(PlayerState.CatchFloor, SceneMgr.Get.RealBall.transform.position);
 //						else
 							player.AniState(PlayerState.PickBall, SceneMgr.Get.RealBall.transform.position);
-					} else {
-						if (SetBall(player)) {
-							if(player.NoAiTime == 0)
-								player.AniState(PlayerState.Dribble);
-							else 
-							if(player.CheckAnimatorSate(PlayerState.Run))
-	                        	player.AniState(PlayerState.RunAndDribble);
-	                    	else
-	                        	player.AniState(PlayerState.HoldBall);
-						}
-                    }
+					} else 
+					if (SetBall(player)) {
+						if(player.NoAiTime == 0)
+							player.AniState(PlayerState.Dribble);
+						else 
+						if(player.CheckAnimatorSate(PlayerState.Run))
+                        	player.AniState(PlayerState.RunAndDribble);
+                    	else
+                        	player.AniState(PlayerState.HoldBall);
+					}
                 }
             }
 
@@ -3200,6 +3219,18 @@ public class GameController : MonoBehaviour
 			return false;
 		}
 	}
+
+	public bool IsTipin
+	{
+		get
+		{
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.TipIn))
+					return true;
+            
+            return false;
+        }
+    }
 
 	public bool IsPickBall
 	{
