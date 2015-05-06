@@ -2064,7 +2064,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsBallOwner
     {
-        get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+//        get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
+		get { return animator.GetBool("IsBallOwner");}
         set { animator.SetBool("IsBallOwner", value);}
     }
 

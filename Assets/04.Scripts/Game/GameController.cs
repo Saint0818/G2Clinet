@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour
                                         "fast2"};      //11
 	
     
-    private GameSituation situation = GameSituation.None;
+    public GameSituation situation = GameSituation.None;
     private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
     private List<TTactical> MovePositionList = new List<TTactical>();
     private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
@@ -2268,7 +2268,7 @@ public class GameController : MonoBehaviour
 
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
     {
-        if (player.DefPlayer != null)
+		if (player && player.DefPlayer)
         {
 			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
@@ -2604,8 +2604,8 @@ public class GameController : MonoBehaviour
             break;
 		case 5: //finger
 			if (!player.IsBallOwner && player.IsRebound && player.crtState != PlayerState.TipIn) {
-				SetBall(player);
-				CoolDownPass = Time.time + 3;
+				if(SetBall(player))
+					CoolDownPass = Time.time + 3;
 			}
 
 			break;
@@ -3018,7 +3018,6 @@ public class GameController : MonoBehaviour
 			}
 		}else{
 			SceneMgr.Get.SetBallState(PlayerState.Steal, Passer);
-
 			SetBall();
 		}
 

@@ -12,7 +12,7 @@ public class BallTrigger : MonoBehaviour
 	private float ParaboladistanceToTarget; 
 	private bool Parabolamove = false;  
 	private bool Passing = false;
-	private int PassKind = -1;
+	public static int PassKind = -1;
 	private float PassCheckTime = 0;
 	private float ParabolaTime = 0;
 	private float ParabolaDis = 0;
@@ -97,44 +97,48 @@ public class BallTrigger : MonoBehaviour
 	{
 		if (Parabolamove)
 		{
-			ParabolaTime += Time.deltaTime;
-			float X = 0;
-			float Z = 0;
+			if(GameController.Get.Catcher)
+			{
+				ParabolaTime += Time.deltaTime;
+				float X = 0;
+				float Z = 0;
 
-			if(ParabolaDis < 8){
-				Parabolatarget.y =  SceneMgr.Get.RealBallCurve.ShortBall.aniCurve.Evaluate(ParabolaTime);
-				X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
-				Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
-			}else{
-				Parabolatarget.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
-				X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
-				Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
-			}
-			
-			if (Parabolatarget.y < 0)
-				Parabolatarget.y = 0.5f;
+				if(ParabolaDis < 8){
+					Parabolatarget.y =  SceneMgr.Get.RealBallCurve.ShortBall.aniCurve.Evaluate(ParabolaTime);
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
+				}else{
+					Parabolatarget.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+				}
+
+				if (Parabolatarget.y < 0)
+					Parabolatarget.y = 0.5f;
 				
-			SceneMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
-
-			if(ParabolaDis < 8){
-				if (ParabolaTime >= SceneMgr.Get.RealBallCurve.ShortBall.LifeTime)
-				{
-					if(GameController.Get.BallOwner == null)				
-						SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
-
-					Parabolamove = false;
+				SceneMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
+				
+				if(ParabolaDis < 8){
+					if (ParabolaTime >= SceneMgr.Get.RealBallCurve.ShortBall.LifeTime)
+					{
+						if(GameController.Get.BallOwner == null)				
+							SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+						
+						Parabolamove = false;
+					}
+				}else{
+					if (ParabolaTime >= SceneMgr.Get.RealBallCurve.Ball.LifeTime)
+					{
+						if(GameController.Get.BallOwner == null)				
+							SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+						
+						Parabolamove = false;
+					}
 				}
-			}else{
-				if (ParabolaTime >= SceneMgr.Get.RealBallCurve.Ball.LifeTime)
-				{
-					if(GameController.Get.BallOwner == null)				
-						SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
-					
-					Parabolamove = false;
-				}
-			}
-
-			PassUpdate();
+				
+				PassUpdate();
+			}else
+				Parabolamove = false;
 		}
 	}
 	
