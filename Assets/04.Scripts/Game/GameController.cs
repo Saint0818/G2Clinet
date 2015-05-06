@@ -1032,7 +1032,6 @@ public class GameController : MonoBehaviour
                 BallOwner.AniState(PlayerState.Dunk, SceneMgr.Get.ShootPoint [t].transform.position);
             else 
 			if (BallOwner.IsRebound && inTipinDistance(BallOwner)) {
-				AddExtraScoreRate(GameConst.ExtraScoreRate);
 				BallOwner.AniState(PlayerState.TipIn, SceneMgr.Get.ShootPoint [t].transform.position);
 			} else
 			if (Vector3.Distance(BallOwner.gameObject.transform.position, SceneMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
