@@ -2184,7 +2184,7 @@ public class GameController : MonoBehaviour
 			bool suc = false;
 			if(GameStart.Get.GoGoGo)
 			{
-				if(npc == BallOwner && HaveDefPlayer(ref npc, 15, 80) == 0 && npc.FirstTargetPosNum == 0)
+				if(npc == BallOwner && HaveDefPlayer(ref npc, 15, 80) == 0 && npc.FirstTargetPosNum == 0 && !npc.IsCatch)
 				{
 					if(npc.Team == TeamKind.Self && npc.transform.localRotation.y <= 90 && npc.transform.localRotation.y >= -90)
 					{
@@ -2208,7 +2208,7 @@ public class GameController : MonoBehaviour
 				}
 			}
 
-			if (!suc && npc.CanMove && npc.TargetPosNum == 0)//&& npc.WaitMoveTime == 0
+			if (!suc && npc.CanMove && npc.TargetPosNum == 0)
 	        {
 				for(int i = 0; i < PlayerList.Count; i++)
 				{
