@@ -58,6 +58,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("RealBall"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Shooter"));
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("Shooter"));
         InitLineGroup();
         CheckCollider();
 		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;

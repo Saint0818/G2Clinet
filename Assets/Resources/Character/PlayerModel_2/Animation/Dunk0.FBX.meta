@@ -157,9 +157,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .176336914
+      - time: .160711914
         functionName: AnimationEvent
         data: CloneMesh
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .407140374
+        functionName: AnimationEvent
+        data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -458,24 +458,61 @@ public class GameController : MonoBehaviour
 		}
 
 		if (Joysticker) {
-			
-			if (Input.GetKeyUp (KeyCode.A))
-				UIGame.Get.DoShoot(null, false);
+			if (Input.GetKeyUp (KeyCode.D))
+			{
+				if(Joysticker.IsBallOwner)
+					UIGame.Get.DoElbow();
+				else
+					UIGame.Get.DoPush();
+			}
 
-			if (Input.GetKeyDown (KeyCode.R))
+			if (Input.GetKeyUp (KeyCode.B))
+			{
+				Joysticker.AniState(PlayerState.Dunk);
+			}
+
+			if (situation == GameSituation.AttackA) {
+				if (Input.GetKeyDown (KeyCode.A))
+				{
+					UIGame.Get.DoPassChoose(null, true);
+					if(Input.GetKeyDown (KeyCode.W))
+						UIGame.Get.DoPassTeammateA();
+
+					if(Input.GetKeyDown (KeyCode.E))
+						UIGame.Get.DoPassTeammateA();
+				}
+
+				if (Input.GetKeyUp (KeyCode.A))
+				{
+					UIGame.Get.DoPassChoose(null, false);
+				}
+
+				if (Input.GetKeyDown (KeyCode.S))
+				{
+					UIGame.Get.DoShoot(null, true);
+				}
+				
+				if (Input.GetKeyUp (KeyCode.S))
+				{
+					UIGame.Get.DoShoot(null, false);
+				}
+			}
+			else if(situation == GameSituation.AttackB){
+				if(Input.GetKeyDown (KeyCode.A)){
+					UIGame.Get.DoSteal();
+				}
+
+				if(Input.GetKeyDown (KeyCode.S)){
+					UIGame.Get.DoBlock();
+				}
+			}
+
+			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
 				Joysticker.AniState (PlayerState.Rebound);
 
-			if (Input.GetKeyDown (KeyCode.T))
+			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
 				Joysticker.AniState (PlayerState.ReboundCatch);
 
-			if (Input.GetKeyDown (KeyCode.B))
-				DoBlock();
-
-			if (Input.GetKeyDown (KeyCode.Q))
-				DoPass(1);
-
-			if (Input.GetKeyDown (KeyCode.W))
-				DoPass(2);
 		}
 
         if (Time.time >= CoolDownPass)

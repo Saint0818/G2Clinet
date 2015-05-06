@@ -56,7 +56,9 @@ public enum PlayerState
     Shoot6 = 49,
 	BasketActionNoScoreEnd = 50,
 	TipIn = 51,
-	Alleyoop = 52
+	Alleyoop = 52,
+	Intercept0 = 53,
+	Intercept1 = 54
 }
 
 public enum TeamKind
@@ -258,6 +260,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private TLayupCurve playerLayupCurve;
 		
 		//Block
+	private bool isCanBlock = false;
     private bool isBlock = false;
     private float blockCurveTime = 0;
     private TBlockCurve playerBlockCurve;
@@ -622,8 +625,15 @@ public class PlayerBehaviour : MonoBehaviour
                 gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
             }
 
-            if (dunkCurveTime >= playerDunkCurve.LifeTime)
+			if(dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
+				isCanBlock = true;
+			else
+				isCanBlock = false;
+
+            if (dunkCurveTime >= playerDunkCurve.LifeTime){
                 isDunk = false;
+				isCanBlock = false;
+			}
         } else
         {
             isDunk = false;
@@ -1315,11 +1325,16 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Push:
             case PlayerState.PickBall:
             case PlayerState.Steal:
-            case PlayerState.Block:
                 if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
                     crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
                     return true;
                 break;
+
+			case PlayerState.Block:
+				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			                                crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence || crtState == PlayerState.Dunk))
+					return true;
+				break;
 
             case PlayerState.Elbow:
                 if (IsBallOwner && (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall))
@@ -1365,12 +1380,14 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.CatchFlat:
             case PlayerState.CatchFloor:
             case PlayerState.CatchParabola:
-                if (CanMove)
+			case PlayerState.Intercept0:
+			case PlayerState.Intercept1:
+				if (CanMove)
                     return true;
                 break;
 
             case PlayerState.Idle:
-                return true;
+				return true;
         }
 
         return false;
@@ -1550,7 +1567,21 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case PlayerState.MovingDefence:
+			case PlayerState.Intercept0:
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("InterceptTrigger");
+				ClearAnimatorFlag();
+				Result = true;
+				break;
+
+			case PlayerState.Intercept1:
+				animator.SetInteger("Intercept", 1);
+				animator.SetTrigger("InterceptTrigger");
+				ClearAnimatorFlag();
+				Result = true;
+				break;
+			
+			case PlayerState.MovingDefence:
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsDefence);
@@ -2007,7 +2038,9 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Tee,
                 PlayerState.Rebound,
                 PlayerState.ReboundCatch,
-				PlayerState.TipIn
+				PlayerState.TipIn,
+				PlayerState.Intercept0,
+				PlayerState.Intercept1,
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
@@ -2043,6 +2076,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return isCanCatchBall;}
     }
+
+	public bool IsCanBlock
+	{
+		get{return isCanBlock;}
+	}
 
     public bool IsDefence
     {
