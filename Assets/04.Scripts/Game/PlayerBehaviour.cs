@@ -626,13 +626,13 @@ public class PlayerBehaviour : MonoBehaviour
             }
 
 			if(dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
-				isCanBlock = true;
+				IsCanBlock = true;
 			else
-				isCanBlock = false;
+				IsCanBlock = false;
 
             if (dunkCurveTime >= playerDunkCurve.LifeTime){
                 isDunk = false;
-				isCanBlock = false;
+				IsCanBlock = false;
 			}
         } else
         {
@@ -1575,7 +1575,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.Intercept1:
-				animator.SetInteger("Intercept", 1);
+				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("InterceptTrigger");
 				ClearAnimatorFlag();
 				Result = true;
@@ -2080,6 +2080,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsCanBlock
 	{
 		get{return isCanBlock;}
+		set{
+			isCanBlock = value;
+			if(SceneMgr.Get.RealBallFX.activeSelf != value)
+				SceneMgr.Get.RealBallFX.SetActive(value);
+		}
 	}
 
     public bool IsDefence
