@@ -458,21 +458,9 @@ public class GameController : MonoBehaviour
 		}
 
 		if (Joysticker) {
-			if (Input.GetKeyDown (KeyCode.A))
-			{
-				UIGame.Get.DoShoot(null, true);
-//				public void DoShoot(GameObject go, bool state) {
-//				if(Joysticker.crtState == PlayerState.Rebound){
-//					SetBall(Joysticker);
-//					Joysticker.AniState (PlayerState.TipIn, SceneMgr.Get.ShootPoint[Joysticker.Team.GetHashCode()].transform.position);
-//				} else
-//					DoShoot (true);
-			}
-
+			
 			if (Input.GetKeyUp (KeyCode.A))
-			{
 				UIGame.Get.DoShoot(null, false);
-			}
 
 			if (Input.GetKeyDown (KeyCode.R))
 				Joysticker.AniState (PlayerState.Rebound);
@@ -2729,13 +2717,16 @@ public class GameController : MonoBehaviour
 				PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 				if (player && player.Team.GetHashCode() == team) {
 					if (player != BallOwner && player.Team == BallOwner.Team) {
-						player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
+						if (player.Attr.AILevel >= 0 && player.Attr.AILevel < GameData.AIlevelAy.Length &&
+						    Random.Range(0, 100) < GameData.AIlevelAy[player.Attr.AILevel].AlleyOop) {
+							player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
 
-						if (BallOwner != Joysticker) {
-							if (BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
-								Catcher = player;
-						} else
-							UIGame.Get.SetPassButton(player.Index);
+							if (BallOwner != Joysticker) {
+								if (BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
+									Catcher = player;
+							} else
+								UIGame.Get.SetPassButton(player.Index);
+						}
 					}
 				}
 			}

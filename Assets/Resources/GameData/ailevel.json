@@ -11,7 +11,9 @@
         "elbowingrate": 10,
         "blockdunk": 60,
         "jumpballrate": 60,
-        "reboundrata": 60
+        "reboundrate": 60,
+        "tipin": 10,
+        "alleyoop": 10
     },
     {
         "proactiverate": 20,
@@ -25,7 +27,9 @@
         "elbowingrate": 20,
         "blockdunk": 65,
         "jumpballrate": 65,
-        "reboundrata": 65
+        "reboundrate": 65,
+        "tipin": 20,
+        "alleyoop": 20
     },
     {
         "proactiverate": 40,
@@ -39,7 +43,9 @@
         "elbowingrate": 40,
         "blockdunk": 70,
         "jumpballrate": 70,
-        "reboundrata": 70
+        "reboundrate": 70,
+        "tipin": 40,
+        "alleyoop": 40
     },
     {
         "proactiverate": 60,
@@ -53,7 +59,9 @@
         "elbowingrate": 60,
         "blockdunk": 80,
         "jumpballrate": 80,
-        "reboundrata": 80
+        "reboundrate": 80,
+        "tipin": 60,
+        "alleyoop": 60
     },
     {
         "proactiverate": 80,
@@ -67,7 +75,9 @@
         "elbowingrate": 80,
         "blockdunk": 90,
         "jumpballrate": 90,
-        "reboundrata": 90
+        "reboundrate": 90,
+        "tipin": 80,
+        "alleyoop": 80
     },
     {
         "proactiverate": 100,
@@ -81,6 +91,8 @@
         "elbowingrate": 100,
         "blockdunk": 100,
         "jumpballrate": 100,
-        "reboundrata": 100
+        "reboundrate": 100,
+        "tipin": 90,
+        "alleyoop": 90
     }
 ]
