@@ -25,7 +25,7 @@ public class PlayerTrigger : MonoBehaviour {
 					   SceneMgr.Get.RealBallState == PlayerState.PassFloor ||
 					   SceneMgr.Get.RealBallState == PlayerState.PassParabola)
 					{
-						if(GameController.Get.BallOwner == null && (Rate < 20 || Direction == 5))
+						if(GameController.Get.BallOwner == null && (Rate < 20 || Direction == 5) && !Player.CheckAnimatorSate(PlayerState.Push))
 						{
 							if(Direction == 6)
 							{
@@ -33,14 +33,17 @@ public class PlayerTrigger : MonoBehaviour {
 							}
 							else if(Direction == 5)
 							{
-								if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-									SceneMgr.Get.RealBall.transform.DOKill();
-								
-								if(GameController.Get.SetBall(Player))
-									Player.AniState(PlayerState.HoldBall);
-								
-								GameController.Get.Catcher = null;
-								GameController.Get.IsPassing = false;
+								if(Player.CheckAnimatorSate(PlayerState.Intercept1))
+								{
+									if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
+										SceneMgr.Get.RealBall.transform.DOKill();
+									
+									if(GameController.Get.SetBall(Player))
+										Player.AniState(PlayerState.HoldBall);
+									
+									GameController.Get.Catcher = null;
+									GameController.Get.IsPassing = false;
+								}
 							}
 							else if(Direction != 0)
 							{

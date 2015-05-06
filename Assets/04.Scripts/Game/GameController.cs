@@ -2623,7 +2623,12 @@ public class GameController : MonoBehaviour
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir)
     {
-		if (BallOwner || IsShooting || !player.IsCanCatchBall || player.CheckAnimatorSate(PlayerState.GotSteal))
+		if (BallOwner || 
+		    IsShooting || 
+		    !player.IsCanCatchBall || 
+		    player.CheckAnimatorSate(PlayerState.GotSteal) || 
+		    player.CheckAnimatorSate(PlayerState.Push) || 
+		    dir == 6)
             return;
 
 		if (Catcher) 
