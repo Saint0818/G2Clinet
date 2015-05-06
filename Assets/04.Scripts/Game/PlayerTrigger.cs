@@ -20,7 +20,7 @@ public class PlayerTrigger : MonoBehaviour {
 				   (GameController.Get.situation == GameSituation.AttackB && Player.Team == TeamKind.Self))
 				{
 					int Rate = UnityEngine.Random.Range(0, 100);
-					Debug.Log(Rate);
+
 					if(SceneMgr.Get.RealBallState == PlayerState.PassFlat || 
 					   SceneMgr.Get.RealBallState == PlayerState.PassFloor ||
 					   SceneMgr.Get.RealBallState == PlayerState.PassParabola)
