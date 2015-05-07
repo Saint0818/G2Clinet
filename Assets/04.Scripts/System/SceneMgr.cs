@@ -41,6 +41,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[] Hood = new GameObject[2];
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] MissPoint = new GameObject[2];
+	public GameObject[] Walls = new GameObject[2];
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
 	public Animator[] BasketHoopAni = new Animator[2];
@@ -59,14 +60,17 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Shooter"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("Shooter"));
-        InitLineGroup();
+        
+		InitLineGroup();
         CheckCollider();
+
 		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
 		RealBallFX = RealBall.transform.FindChild ("BallFX").gameObject;
 		RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger>();
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
+
 		//IK
 		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
 		GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/BallCurve")) as GameObject;
@@ -85,6 +89,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtCollider = Instantiate(Resources.Load("Prefab/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = gameObject.transform;
 
+			Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+			Walls[1] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
             Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
             Hood[1] = GetGameObjtInCollider(string.Format("{0}/HoodB", crtCollider.name)); 
 			ShootPoint[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));

@@ -740,7 +740,10 @@ public class GameController : MonoBehaviour
 					}
 				}               
 			}
-			
+
+			SceneMgr.Get.Walls[0].SetActive(true);
+			SceneMgr.Get.Walls[1].SetActive(true);
+
 			switch (GS)
 			{
 			case GameSituation.Opening:
@@ -756,19 +759,23 @@ public class GameController : MonoBehaviour
 				CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
 				break;
 			case GameSituation.TeeAPicking:
+				SceneMgr.Get.Walls[1].SetActive(false);
 				UIGame.Get.ChangeControl(true);
 				CameraMgr.Get.SetTeamCamera(TeamKind.Self);
 				PickBallplayer = null;
                 break;
             case GameSituation.TeeA:
+				SceneMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
                 break;
             case GameSituation.TeeBPicking:
+				SceneMgr.Get.Walls[0].SetActive(false);
            	 	UIGame.Get.ChangeControl(false);
            		CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
 				PickBallplayer = null;
                 break;
 			case GameSituation.TeeB:
+				SceneMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 				break;
 			case GameSituation.End:
@@ -1654,8 +1661,10 @@ public class GameController : MonoBehaviour
 	{
 		bool suc = false;
 
-		if(!Self.CheckAnimatorSate(PlayerState.HoldBall) && HaveDefPlayer(ref Self, 5, 40) != 0)
-		{
+		if (Self.IsRebound)
+			suc = true;
+		else
+		if(!Self.CheckAnimatorSate(PlayerState.HoldBall) && HaveDefPlayer(ref Self, 5, 40) != 0) {
 			int FakeRate = Random.Range (0, 100);
 
 			if(FakeRate < GameConst.FakeShootRate)
