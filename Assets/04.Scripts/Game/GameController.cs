@@ -498,7 +498,7 @@ public class GameController : MonoBehaviour
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
-//					Joysticker.AniState(PlayerState.Layup);
+//					Joysticker.AniState(PlayerState.Shoot1);
 					UIGame.Get.DoShoot(null, true);
 				}
 				
@@ -1479,13 +1479,33 @@ public class GameController : MonoBehaviour
             return false;
     }
 
-	public bool OnDoubleClickMoment(PlayerBehaviour player)
+	public bool OnDoubleClickMoment(PlayerBehaviour player, PlayerState state)
 	{
 		if (player.Team == TeamKind.Self) {
-			UIDoubleClick.UIShow(true);
-			UIDoubleClick.Get.Finsh = DoubleShoot;
-			return true;
+			switch (state) {
+				case PlayerState.Shoot0:
+				case PlayerState.Shoot1:
+				case PlayerState.Shoot2:
+				case PlayerState.Shoot3:
+				case PlayerState.Shoot6:
+				case PlayerState.Layup:
+					if(player.Team == TeamKind.Self){
+						UIDoubleClick.UIShow(true);
+						UIDoubleClick.Get.SetData(state == PlayerState.Shoot1? 0.95f : 1f, DoubleShoot);
+						return true;
+					}
+					break;
+				case PlayerState.Block:
+				case PlayerState.BlockCatch:
+					if(player == Joysticker){
+						UIDoubleClick.UIShow(true);
+						UIDoubleClick.Get.SetData(0.5f, null, DoubleBlock, player);
+						return true;
+					}
+				break;
+			}
 		}
+
 		return false;
 	}
 
@@ -1503,8 +1523,24 @@ public class GameController : MonoBehaviour
 		}
 
 	}
-    
-    public bool OnBlockJump(PlayerBehaviour player)
+
+	public void DoubleBlock(int lv, PlayerBehaviour player){
+		switch (lv) {
+		case 0: 
+			break;
+		case 1: 
+			if(Shooter)
+				SceneMgr.Get.SetBallState(PlayerState.Block, Shooter);
+			else
+				SceneMgr.Get.SetBallState(PlayerState.Block, player);
+			break;
+		case 2: 
+			SetBall(player);
+			break;
+		}
+	}
+	
+	public bool OnBlockJump(PlayerBehaviour player)
     {
         if (player.PlayerRigidbody != null)
         {
@@ -1582,7 +1618,11 @@ public class GameController : MonoBehaviour
 		{
 			if(Joysticker.crtState == PlayerState.Block && Joysticker.IsPerfectBlockCatch){
 				Joysticker.AniState(PlayerState.BlockCatch);
-				EffectManager.Get.PlayEffect("DoubleClick02", Vector3.zero, null, Joysticker.gameObject, 1);
+				if(UIDoubleClick.Visible)
+				{
+					UIDoubleClick.Get.ClickStop();
+				}
+//				EffectManager.Get.PlayEffect("DoubleClick02", Vector3.zero, null, Joysticker.gameObject, 1);
 			}else{
 				if (Shooter)
 	                Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
@@ -1591,7 +1631,7 @@ public class GameController : MonoBehaviour
 					Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
 	                Joysticker.AniState(PlayerState.Block, BallOwner.transform.position);
 				} else {
-				if (!Shooter && inReboundDistance(Joysticker))
+				if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == GameTest.None)
 					Rebound(Joysticker);
 				else
                 	Joysticker.AniState(PlayerState.Block);
@@ -2747,8 +2787,7 @@ public class GameController : MonoBehaviour
 		{
 		case 0: //top
 			if (player != BallOwner && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
-				if (SceneMgr.Get.RealBallState ==  PlayerState.Block || 
-				    SceneMgr.Get.RealBallState ==  PlayerState.Steal ||
+				if (SceneMgr.Get.RealBallState ==  PlayerState.Steal ||
 				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound
 				   ) {
 				if (Random.Range(0, 100) < player.Attr.ReboundRate)
@@ -3306,7 +3345,9 @@ public class GameController : MonoBehaviour
 				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shoot0) || 
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot1) || 
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2) || 
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3))
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3) ||
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot6) ||
+				    PlayerList [i].CheckAnimatorSate(PlayerState.Layup))
                     return true;            
 
             return false;
