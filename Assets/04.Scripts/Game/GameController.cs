@@ -351,7 +351,6 @@ public class GameController : MonoBehaviour
 			else
 				PlayerAy[i] = new TPlayer(GameConst.SelfAILevel);
 			PlayerAy[i].ID = i;
-			PlayerAy[i].Steal = UnityEngine.Random.Range(20, 100) + 1;
 
 			if(i >= (PlayerAy.Length / 2)){
 				PlayerAy[i].Body = 2001;
@@ -1392,8 +1391,7 @@ public class GameController : MonoBehaviour
 				{
 					if(BallOwner)
 						BallOwner.AniState(PlayerState.GotSteal);
-					
-//					setDropBall(player);
+
 					return true;
 				}else
 					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
@@ -2624,8 +2622,7 @@ public class GameController : MonoBehaviour
 
 	public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if((situation == GameSituation.AttackA && player.Team == TeamKind.Npc) ||
-		   (situation == GameSituation.AttackB && player.Team == TeamKind.Self))
+		if(player.IsDefence)
 		{
 			int Rate = UnityEngine.Random.Range(0, 100);
 			
@@ -3203,7 +3200,35 @@ public class GameController : MonoBehaviour
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;
 			else
 				PlayerAy[i].AILevel = GameConst.SelfAILevel;
-			
+
+			switch(PlayerAy[i].AILevel)
+			{
+			case 0:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(20, 40) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(20, 40) + 1;
+				break;
+			case 1:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(30, 50) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(30, 50) + 1;
+				break;
+			case 2:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(40, 60) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(40, 60) + 1;
+				break;
+			case 3:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(50, 70) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(50, 70) + 1;
+				break;
+			case 4:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(60, 80) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(60, 80) + 1;
+				break;
+			case 5:
+				PlayerAy[i].Steal = UnityEngine.Random.Range(70, 90) + 1;	
+				PlayerAy[i].Control = UnityEngine.Random.Range(70, 90) + 1;
+				break;
+			}
+
 			PlayerList[i].Attr = PlayerAy[i];
 		}
 	}
