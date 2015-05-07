@@ -3,6 +3,7 @@ using System.Collections;
 
 public class UIDoubleClick : UIBase {
 	public delegate void IntDelegate (int lv);
+	public delegate void PlayerDelegate (int lv, PlayerBehaviour player);
 
 	private static UIDoubleClick instance = null;
 	private const string UIName = "UIDoubleClick";
@@ -16,7 +17,8 @@ public class UIDoubleClick : UIBase {
 	private UISprite[] lvSprite = new UISprite[3];  
 
 
-	public IntDelegate Finsh = null;
+	private IntDelegate finsh = null;
+	private PlayerDelegate finshPalyer = null;
 
 	public static UIDoubleClick Get {
 		get {
@@ -65,15 +67,20 @@ public class UIDoubleClick : UIBase {
 			checkCircle.height = (int)size.y;
 			if(size.x <= 0){
 				isStart = false;
-				if(Finsh != null)
-					Finsh(0);
+				if(finsh != null)
+					finsh(0);
 				UIShow(false);
 			}
 		}
 	}
 
-	public void SetSpeed(float value)
+	private PlayerBehaviour crtPlayer;
+
+	public void SetData(float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
+		finsh = intFunction;
+		finshPalyer = playerFunction;
+		crtPlayer = player;
 		speed = value;
 		framSpeed = 800 / (speed * 30);
 	}
@@ -119,8 +126,11 @@ public class UIDoubleClick : UIBase {
 		}
 
 		if (index != -1) {
-			if(Finsh != null)
-				Finsh(index);
+			if(finsh != null)
+				finsh(index);
+			else if(crtPlayer != null)
+				finshPalyer(index, crtPlayer);
+
 			StartCoroutine("DelayClose");
 		}
 	}

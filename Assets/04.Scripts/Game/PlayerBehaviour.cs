@@ -7,8 +7,8 @@ using RootMotion.FinalIK;
 using DG.Tweening;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
-
 public delegate bool OnPlayerAction2(PlayerBehaviour player,bool speedup);
+public delegate bool OnPlayerAction3(PlayerBehaviour player, PlayerState state);
 
 public enum PlayerState
 {
@@ -181,12 +181,12 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnDunkBasket = null;
     public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
-	public OnPlayerAction OnDoubleClickMoment = null;
     public OnPlayerAction OnFakeShootBlockMoment = null;
     public OnPlayerAction OnFall = null;
     public OnPlayerAction OnPickUpBall = null;
     public OnPlayerAction OnGotSteal = null;
 	public OnPlayerAction OnUI = null;
+	public OnPlayerAction3 OnDoubleClickMoment = null;
 
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
@@ -359,7 +359,7 @@ public class PlayerBehaviour : MonoBehaviour
 			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
 			blockTrigger = obj2.transform.FindChild("Block").gameObject;
 			blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
-			blockCatchTrigger.enabled = false;
+			blockCatchTrigger.SetEnable(false);
 			
 			obj2.name = "BodyTrigger";
 			PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
@@ -1706,23 +1706,18 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         case PlayerState.Shoot0:
                             stateNo = 0;
-							UIDoubleClick.Get.SetSpeed(1f);
                             break;
                         case PlayerState.Shoot1:
                             stateNo = 1;
-							UIDoubleClick.Get.SetSpeed(0.95f);
 						break;
                         case PlayerState.Shoot2:
                             stateNo = 2;
-							UIDoubleClick.Get.SetSpeed(1f);
                             break;
                         case PlayerState.Shoot3:
                             stateNo = 3;
-							UIDoubleClick.Get.SetSpeed(1f);
 							break;
 						case PlayerState.Shoot6:
 							stateNo = 6;
-							UIDoubleClick.Get.SetSpeed(1f);
 							break;
 				}
 				
@@ -1760,7 +1755,6 @@ public class PlayerBehaviour : MonoBehaviour
 						isLayup = true;
 						isLayupZmove = false;
 					}
-				UIDoubleClick.Get.SetSpeed(1f);
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
 				ClearAnimatorFlag();
 				animator.SetTrigger("LayupTrigger");
@@ -1860,11 +1854,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "DoubleClickMoment":
 				if(OnDoubleClickMoment != null)
-					OnDoubleClickMoment(this);
+					OnDoubleClickMoment(this, crtState);
 				break;
 
 			case "BlockCatchMomentStart":
-				blockCatchTrigger.enabled = true;
+				blockCatchTrigger.SetEnable(true);
 				break;
 			
 			case "BlockCatchMomentEnd":
@@ -1877,8 +1871,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case "BlockCatching":
-				if(OnBlockCatching != null)
-					OnBlockCatching(this);
+//				if(OnBlockCatching != null)
+//					OnBlockCatching(this);
 				break;
 
 			case "BlockCatchingEnd":
@@ -1886,6 +1880,7 @@ public class PlayerBehaviour : MonoBehaviour
 					IsFirstDribble = true;
 					AniState(PlayerState.HoldBall);
 				}
+				IsPerfectBlockCatch = false;
 				break;
 
             case "Blocking":
@@ -2187,10 +2182,14 @@ public class PlayerBehaviour : MonoBehaviour
 				isPerfectBlockCatch = value;
 
 				if(!isPerfectBlockCatch){
-					blockCatchTrigger.enabled = false;
+					blockCatchTrigger.SetEnable(false);
 				}
 				else
-					EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, gameObject, 1f);
+				{
+					if(OnDoubleClickMoment != null)
+						OnDoubleClickMoment(this, crtState);
+				}
+//					EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, gameObject, 1f);
 			}
 	}
 
