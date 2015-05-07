@@ -371,8 +371,10 @@ public class UIGame : UIBase {
 	
 	public void DoShoot(GameObject go, bool state) {
 		if(GameController.Get.IsShooting) {
-			if(state && GameController.Get.IsExtraScoreRate)
-				GameController.Get.AddExtraScoreRate(GameConst.ExtraScoreRate);
+			if(state && UIDoubleClick.Visible){
+				UIDoubleClick.Get.ClickStop ();
+				//GameController.Get.AddExtraScoreRate(10);
+			}
 		} else {
 			if(!GameController.Get.Joysticker.IsFall) {
 				if(state){

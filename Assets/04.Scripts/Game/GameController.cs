@@ -436,6 +436,7 @@ public class GameController : MonoBehaviour
             PlayerList [i].OnStealMoment = OnStealMoment;
 			PlayerList [i].OnGotSteal = OnGotSteal;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
+			PlayerList [i].OnDoubleClickMoment = OnDoubleClickMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
 			PlayerList [i].OnBlockCatching = OnBlockCatching;
@@ -465,9 +466,18 @@ public class GameController : MonoBehaviour
 					UIGame.Get.DoPush();
 			}
 
-			if (Input.GetKeyUp (KeyCode.B))
+			if (Input.GetKeyDown(KeyCode.B))
 			{
-				Joysticker.AniState(PlayerState.Dunk);
+				UIDoubleClick.UIShow(true);
+			}
+
+			if (Input.GetKeyDown(KeyCode.T)){
+				UIDoubleClick.Get.ClickStop();
+			}
+
+			if (Input.GetKeyUp (KeyCode.N))
+			{
+				UIDoubleClick.Get.Init();
 			}
 
 			if (situation == GameSituation.AttackA) {
@@ -488,6 +498,7 @@ public class GameController : MonoBehaviour
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
+//					Joysticker.AniState(PlayerState.Layup);
 					UIGame.Get.DoShoot(null, true);
 				}
 				
@@ -1021,7 +1032,7 @@ public class GameController : MonoBehaviour
 
 	public void AddExtraScoreRate(float rate) {
 		extraScoreRate = rate;
-		UIHint.Get.ShowHint("ExtraScoreRate", Color.yellow);
+		UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
 	}
 
 	public void Shoot()
@@ -1467,6 +1478,31 @@ public class GameController : MonoBehaviour
         } else
             return false;
     }
+
+	public bool OnDoubleClickMoment(PlayerBehaviour player)
+	{
+		if (player.Team == TeamKind.Self) {
+			UIDoubleClick.UIShow(true);
+			UIDoubleClick.Get.Finsh = DoubleShoot;
+			return true;
+		}
+		return false;
+	}
+
+	public void DoubleShoot(int lv)
+	{
+		switch (lv) {
+			case 0: 
+				break;
+			case 1: 
+				AddExtraScoreRate(5);
+				break;
+			case 2: 
+				AddExtraScoreRate(10);
+				break;
+		}
+
+	}
     
     public bool OnBlockJump(PlayerBehaviour player)
     {

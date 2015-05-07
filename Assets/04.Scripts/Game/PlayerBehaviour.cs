@@ -181,6 +181,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnDunkBasket = null;
     public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
+	public OnPlayerAction OnDoubleClickMoment = null;
     public OnPlayerAction OnFakeShootBlockMoment = null;
     public OnPlayerAction OnFall = null;
     public OnPlayerAction OnPickUpBall = null;
@@ -1688,18 +1689,23 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         case PlayerState.Shoot0:
                             stateNo = 0;
+							UIDoubleClick.Get.SetSpeed(1f);
                             break;
                         case PlayerState.Shoot1:
                             stateNo = 1;
-                            break;
+							UIDoubleClick.Get.SetSpeed(0.95f);
+						break;
                         case PlayerState.Shoot2:
                             stateNo = 2;
+							UIDoubleClick.Get.SetSpeed(1f);
                             break;
                         case PlayerState.Shoot3:
                             stateNo = 3;
+							UIDoubleClick.Get.SetSpeed(1f);
 							break;
 						case PlayerState.Shoot6:
 							stateNo = 6;
+							UIDoubleClick.Get.SetSpeed(1f);
 							break;
 				}
 				
@@ -1737,7 +1743,7 @@ public class PlayerBehaviour : MonoBehaviour
 						isLayup = true;
 						isLayupZmove = false;
 					}
-
+				UIDoubleClick.Get.SetSpeed(1f);
 				gameObject.layer = LayerMask.NameToLayer("Shooter");
 				ClearAnimatorFlag();
 				animator.SetTrigger("LayupTrigger");
@@ -1831,8 +1837,13 @@ public class PlayerBehaviour : MonoBehaviour
                     OnBlockMoment(this);
 
 				//ShootingDoubleStart
-				GameController.Get.IsExtraScoreRate = true;
-				doubleClickEffect = EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, GameController.Get.selectMe, null, 2);
+//				GameController.Get.IsExtraScoreRate = true;
+//				doubleClickEffect = EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, GameController.Get.selectMe, null, 2);
+				break;
+
+			case "DoubleClickMoment":
+				if(OnDoubleClickMoment != null)
+					OnDoubleClickMoment(this);
 				break;
 
 			case "BlockCatchMomentStart":
