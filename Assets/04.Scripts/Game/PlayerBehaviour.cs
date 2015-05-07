@@ -152,19 +152,19 @@ public struct TScoreRate
         ThreeScoreRateDeviation = 0.5f;
         DownHandScoreRate = 40;
         DownHandSwishRate = 50;
-        DownHandAirBallRate = 60;
+        DownHandAirBallRate = 35;
         UpHandScoreRate = 20;
         UpHandSwishRate = 30;
-        UpHandAirBallRate = 40;
+        UpHandAirBallRate = 15;
         NormalScoreRate = 0;
         NormalSwishRate = 0;
-        NormalAirBallRate = 20;
+        NormalAirBallRate = 8;
         NearShotScoreRate = 0;
         NearShotSwishRate = 10;
-        NearShotAirBallRate = 10;
+        NearShotAirBallRate = 3;
         LayUpScoreRate = 0;
         LayUpSwishRate = 20;
-        LayUpAirBallRate = 5;
+        LayUpAirBallRate = 2;
 
     }
 }
