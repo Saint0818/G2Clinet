@@ -16,51 +16,7 @@ public class PlayerTrigger : MonoBehaviour {
 			}
 			else if (other.gameObject.CompareTag("RealBallTrigger"))
 			{
-				if((GameController.Get.situation == GameSituation.AttackA && Player.Team == TeamKind.Npc) ||
-				   (GameController.Get.situation == GameSituation.AttackB && Player.Team == TeamKind.Self))
-				{
-					int Rate = UnityEngine.Random.Range(0, 100);
-
-					if(SceneMgr.Get.RealBallState == PlayerState.PassFlat || 
-					   SceneMgr.Get.RealBallState == PlayerState.PassFloor ||
-					   SceneMgr.Get.RealBallState == PlayerState.PassParabola)
-					{
-						if(GameController.Get.BallOwner == null && (Rate < 20 || Direction == 5) && !Player.CheckAnimatorSate(PlayerState.Push))
-						{
-							if(Direction == 6)
-							{
-								Player.AniState(PlayerState.Intercept1, SceneMgr.Get.RealBall.transform.position);
-							}
-							else if(Direction == 5)
-							{
-								if(Player.CheckAnimatorSate(PlayerState.Intercept1))
-								{
-									if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-										SceneMgr.Get.RealBall.transform.DOKill();
-									
-									if(GameController.Get.SetBall(Player))
-										Player.AniState(PlayerState.HoldBall);
-									
-									GameController.Get.Catcher = null;
-									GameController.Get.IsPassing = false;
-								}
-							}
-							else if(Direction != 0)
-							{
-								Player.AniState(PlayerState.Intercept0);
-								
-								if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
-									SceneMgr.Get.RealBall.transform.DOKill();
-								
-								if(GameController.Get.SetBall(Player))
-									Player.AniState(PlayerState.HoldBall);
-								
-								GameController.Get.Catcher = null;
-								GameController.Get.IsPassing = false;
-							}
-						}
-					}
-				}else
+				if(!GameController.Get.PassingStealBall(Player, Direction))
 					GameController.Get.BallTouchPlayer(Player, Direction);
 			} 
 		}
