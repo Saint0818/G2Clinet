@@ -1530,8 +1530,6 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
 				isCanCatchBall = false;
-				GameController.Get.RealBallFxTime = 1f;
-				SceneMgr.Get.RealBallFX.SetActive(true);
 				Result = true;
 				break;
 
@@ -1541,8 +1539,6 @@ public class PlayerBehaviour : MonoBehaviour
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
-					GameController.Get.RealBallFxTime = 1f;
-					SceneMgr.Get.RealBallFX.SetActive(true);
                     Result = true;
                 }
                 break;
@@ -1977,6 +1973,8 @@ public class PlayerBehaviour : MonoBehaviour
             case "ElbowEnd":
 				OnUI(this);
 				AniState(PlayerState.HoldBall);
+				GameController.Get.RealBallFxTime = 1f;
+				SceneMgr.Get.RealBallFX.SetActive(true);
                 break;
 
             case "CatchEnd":
@@ -1998,6 +1996,8 @@ public class PlayerBehaviour : MonoBehaviour
             case "FakeShootEnd":
                 AniState(PlayerState.HoldBall);
 				OnUI(this);
+				GameController.Get.RealBallFxTime = 1f;
+				SceneMgr.Get.RealBallFX.SetActive(true);
 				break;
 
             case "AnimationEnd":
