@@ -205,7 +205,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
 
-    private Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
+    public Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
 	private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
     public Vector3 Translate;
     public Rigidbody PlayerRigidbody;
@@ -319,6 +319,27 @@ public class PlayerBehaviour : MonoBehaviour
         ScoreRate = GameStart.Get.ScoreRate;
     }
 
+	public void InitAttr()
+	{
+		if (Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length) 
+		{
+			Attr.ProactiveRate = GameData.AIlevelAy[Attr.AILevel].ProactiveRate;
+			Attr.StealRate = GameData.AIlevelAy[Attr.AILevel].StealRate;
+			Attr.AutoFollowTime = GameData.AIlevelAy[Attr.AILevel].AutoFollowTime;
+			Attr.DefDistance = GameData.AIlevelAy[Attr.AILevel].DefDistance;
+			Attr.BlockRate = GameData.AIlevelAy[Attr.AILevel].BlockRate;
+			Attr.FaketBlockRate = GameData.AIlevelAy[Attr.AILevel].FaketBlockRate;
+			Attr.PushingRate = GameData.AIlevelAy[Attr.AILevel].PushingRate;
+			Attr.ElbowingRate = GameData.AIlevelAy[Attr.AILevel].ElbowingRate;
+			Attr.BlockDunk = GameData.AIlevelAy[Attr.AILevel].BlockDunk;
+			Attr.JumpBallRate = GameData.AIlevelAy[Attr.AILevel].JumpBallRate;
+			Attr.BlockPushRate = GameData.AIlevelAy[Attr.AILevel].BlockPushRate;
+			Attr.ReboundRate = GameData.AIlevelAy[Attr.AILevel].ReboundRate;
+			Attr.TipIn = GameData.AIlevelAy[Attr.AILevel].TipIn;
+			Attr.AlleyOop = GameData.AIlevelAy[Attr.AILevel].AlleyOop;	
+		}
+	}
+
 	public void InitCurve(GameObject animatorCurve) {
 		GameObject AnimatorCurveCopy = Instantiate(animatorCurve) as GameObject;
 		AnimatorCurveCopy.transform.parent = gameObject.transform;
@@ -379,7 +400,7 @@ public class PlayerBehaviour : MonoBehaviour
 			DefPointAy [DefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
 			DefPointAy [DefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
 
-            defPoint.transform.localScale = new Vector3(DefDistance, DefDistance, DefDistance);
+			defPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         }
     }
 
@@ -973,7 +994,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
                 
-				if ((ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
+				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
                     Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
             }
         } else if (Data.FollowTarget != null)
@@ -2011,7 +2032,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CloseDef == 0 && AutoFollow == false)
         {
-            CloseDef = Time.time + AutoFollowTime;
+			CloseDef = Time.time + Attr.AutoFollowTime;
         }           
     }
 
@@ -2219,159 +2240,6 @@ public class PlayerBehaviour : MonoBehaviour
                 FirstMoveQueue.Enqueue(value);
         }
     }
-
-	public int ProactiveRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].ProactiveRate;
-			else
-				return 0;
-		}
-	}
-
-	public int StealRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].StealRate;
-			else
-				return 0;
-		}
-	}
-
-	public int AutoFollowTime
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].AutoFollowTime;
-			else
-				return 0;
-		}
-	}
-
-	public float DefDistance
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].DefDistance;
-			else
-				return 0;
-		}
-	}
-
-	public int BlockRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].BlockRate;
-			else
-				return 0;
-		}
-	}
-
-	public int FaketBlockRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].FaketBlockRate;
-			else
-				return 0;
-		}
-	}
-
-	public int PushingRate{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].PushingRate;
-			else
-				return 0;
-		}
-	}
-
-	public int ElbowingRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].ElbowingRate;
-			else
-				return 0;
-		}
-	}
-
-	public int BlockDunk
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].BlockDunk;
-			else
-				return 0;
-		}
-	}
-
-	public int JumpBallRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].JumpBallRate;
-			else
-				return 0;
-		}
-	}
-
-	public int BlockPushRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].BlockPushRate;
-			else
-				return 0;
-		}
-	}
-
-	public int ReboundRate
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].ReboundRate;
-			else
-				return 0;
-		}
-	}
-
-	public int TipIn
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].TipIn;
-			else
-				return 0;
-		}
-	}
-
-	public int AlleyOop
-	{
-		get
-		{
-			if(Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length)
-				return GameData.AIlevelAy[Attr.AILevel].AlleyOop;
-			else
-				return 0;
-		}
-	}
 
     private bool isTouchPalyer = false;
 

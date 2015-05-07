@@ -67,6 +67,22 @@ namespace GameStruct
 		public int AHeadDress;
 		public int ZBackEquip;
 
+		//
+		public int ProactiveRate;
+		public int StealRate;
+		public int AutoFollowTime;
+		public float DefDistance;
+		public int BlockRate;
+		public int FaketBlockRate;
+		public int PushingRate;
+		public int ElbowingRate;
+		public int BlockDunk;
+		public int JumpBallRate;
+		public int BlockPushRate;
+		public int ReboundRate;
+		public int TipIn;
+		public int AlleyOop;
+
 		public TPlayer(int Level)
 		{
 			ID = 0;
@@ -83,6 +99,21 @@ namespace GameStruct
 			MHandDress = 0;
 			AHeadDress = 0;
 			ZBackEquip = 0;
+
+			ProactiveRate = 0;
+			StealRate = 0;
+			AutoFollowTime = 0;
+			DefDistance = 0;
+			BlockRate = 0;
+			FaketBlockRate = 0;
+			PushingRate = 0;
+			ElbowingRate = 0;
+			BlockDunk = 0;
+			JumpBallRate = 0;
+			BlockPushRate = 0;
+			ReboundRate = 0;
+			TipIn = 0;
+			AlleyOop = 0;
 		}
     }
 }

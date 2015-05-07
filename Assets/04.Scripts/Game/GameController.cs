@@ -1766,7 +1766,7 @@ public class GameController : MonoBehaviour
                 {
 					AIShoot(ref Npc);				
 				} else 
-				if (ElbowRate < Npc.ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
+				if (ElbowRate < Npc.Attr.ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
 					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow))
 				{
 					if(Npc.AniState(PlayerState.Elbow, man.transform.position)){
@@ -1844,7 +1844,7 @@ public class GameController : MonoBehaviour
                 {
                     //Npc.AniState(PlayerState.Jumper);
                 } else 
-				if (NearPlayer != null && pushRate < Npc.PushingRate && Npc.CoolDownPush == 0)
+				if (NearPlayer != null && pushRate < Npc.Attr.PushingRate && Npc.CoolDownPush == 0)
                 {
                     //Push
 					if(Npc.AniState(PlayerState.Push, NearPlayer.transform.position))
@@ -1877,7 +1877,7 @@ public class GameController : MonoBehaviour
 		if(SceneMgr.Get.RealBallFX.activeInHierarchy)
 			AddRate = 30;
 
-		if (stealRate <= (npc.StealRate + AddRate))
+		if (stealRate <= (npc.Attr.StealRate + AddRate))
             Result = true;
 
 		return Result;
@@ -1927,7 +1927,7 @@ public class GameController : MonoBehaviour
 					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
 						for(int i = 0; i < DisAy.Length; i++){
-							if (DisAy[i].Distance <= GameConst.StealBallDistance && DisAy[i].Player.crtState == PlayerState.Idle && pushRate <= Npc.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
+							if (DisAy[i].Distance <= GameConst.StealBallDistance && DisAy[i].Player.crtState == PlayerState.Idle && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
 							{
 								if(Npc.AniState (PlayerState.Push, DisAy[i].Player.transform.position)){
 									Npc.CoolDownPush = Time.time + 3;
@@ -1996,8 +1996,13 @@ public class GameController : MonoBehaviour
 	{
 		TMoveData data = new TMoveData(0);
 
-		if(Npc == BallOwner && Npc.TargetPosNum > 3)
-			Npc.ResetMove();
+		if(Npc == BallOwner && Npc.TargetPosNum > 1)
+		{
+			if (Npc == BallOwner)
+				if(!(Npc.MoveQueue.Peek().Target.y == 18 || Npc.MoveQueue.Peek().Target.y == -18))
+					Npc.ResetMove();
+		}
+			
 
 		if (Npc.CanMove && !Npc.IsMoving && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 		{
@@ -2156,10 +2161,10 @@ public class GameController : MonoBehaviour
 					if(!IsBlocking)
 					{
 						int Rate = Random.Range(0, 100) + 1;
-						int BlockRate = Npc2.BlockRate;
+						int BlockRate = Npc2.Attr.BlockRate;
 						
 						if(Kind == 1)
-							BlockRate = Npc2.FaketBlockRate;	
+							BlockRate = Npc2.Attr.FaketBlockRate;	
 
 						if (GameStart.Get.TestMode == GameTest.Block)
 						{
@@ -2387,12 +2392,12 @@ public class GameController : MonoBehaviour
                             dis2 = Vector2.Distance(TeeBackPosAy [player.DefPlayer.Index], 
                                                     new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
                         
-						if (dis2 <= player.DefPlayer.DefDistance)
+						if (dis2 <= player.DefPlayer.Attr.DefDistance)
                         {
-							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, player.DefPlayer.DefDistance, false, true);
+							PlayerBehaviour p = HaveNearPlayer(player.DefPlayer, player.DefPlayer.Attr.DefDistance, false, true);
                             if (p != null)
                                 data2.DefPlayer = p;
-							else if (getDis(ref player, ref player.DefPlayer) <= player.DefPlayer.DefDistance)
+							else if (getDis(ref player, ref player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
                                 data2.DefPlayer = player;
                             
                             if (data2.DefPlayer != null)
@@ -2741,20 +2746,21 @@ public class GameController : MonoBehaviour
 		switch (dir)
 		{
 		case 0: //top
-			if (player != BallOwner)
+			if (player != BallOwner && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
 				if (SceneMgr.Get.RealBallState ==  PlayerState.Block || 
 				    SceneMgr.Get.RealBallState ==  PlayerState.Steal ||
-				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound) {
-					if (Random.Range(0, 100) < player.ReboundRate)
+				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound
+				   ) {
+				if (Random.Range(0, 100) < player.Attr.ReboundRate)
 						Rebound(player);
 				}
 
             break;
 		case 5: //finger
-			if (!player.IsBallOwner && player.IsRebound && !IsTipin) {
+			if (!player.IsBallOwner && player.IsRebound && !IsTipin && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 				if (SetBall(player)) {
 					if (player != Joysticker && inTipinDistance(player) && 
-					    player == BallOwner && Random.Range(0, 100) < player.TipIn) 
+					    player == BallOwner && Random.Range(0, 100) < player.Attr.TipIn) 
 						Shoot();
 
 					CoolDownPass = Time.time + 3;
@@ -2867,7 +2873,7 @@ public class GameController : MonoBehaviour
 				PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 				if (player && player.Team.GetHashCode() == team) {
 					if (player != BallOwner && player.Team == BallOwner.Team) {
-						if (Random.Range(0, 100) < player.AlleyOop) {
+						if (Random.Range(0, 100) < player.Attr.AlleyOop) {
 							player.AniState(PlayerState.Alleyoop, SceneMgr.Get.ShootPoint [team].transform.position);
 
 							if (BallOwner != Joysticker) {
@@ -3107,10 +3113,9 @@ public class GameController : MonoBehaviour
 
     private bool CheckAttack(ref PlayerBehaviour Npc)
     {
-        if (Npc.Team == TeamKind.Self && Npc.transform.position.z > 16.4f)
+		if (Npc.Team == TeamKind.Self && (Npc.transform.position.z >= 16 && Npc.transform.position.x <= 1 && Npc.transform.position.x >= -1))
             return false;
-        else 
-        if (Npc.Team == TeamKind.Npc && Npc.transform.position.z < -16.4f)
+        else if (Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -16 && Npc.transform.position.x <= 1 && Npc.transform.position.x >= -1)
             return false;
 		else if(Npc.CheckAnimatorSate(PlayerState.Elbow))
 			return false;
@@ -3275,6 +3280,7 @@ public class GameController : MonoBehaviour
 			}
 
 			PlayerList[i].Attr = PlayerAy[i];
+			PlayerList[i].InitAttr();
 		}
 	}
 
