@@ -2061,7 +2061,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.PassFlat,
                 PlayerState.PassFloor,
                 PlayerState.PassParabola,
-//                PlayerState.PassFast,
+                PlayerState.PassFast,
                 PlayerState.Push,
                 PlayerState.PickBall,
                 PlayerState.Shoot0,

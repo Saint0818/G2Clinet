@@ -45,6 +45,7 @@ public class GameConst
 	public static int SelfAILevel = 0;
 	public static int NpcAILevel = 0;
 	public static float MiddleDistance = 12;
+	public static float FastPassDistance = 2.5f;
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
 	public static float ExtraScoreRate = 10;

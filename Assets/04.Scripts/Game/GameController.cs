@@ -1213,7 +1213,12 @@ public class GameController : MonoBehaviour
 				int rate = UnityEngine.Random.Range(0, 2);
 				int passkind = -1;
 
-				if(dis <= GameConst.CloseDistance)
+
+				if(dis <= GameConst.FastPassDistance)
+				{
+					Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
+				}
+				else if(dis <= GameConst.CloseDistance)
 				{
 					//Close
 					if(disKind == 1)
@@ -1288,15 +1293,15 @@ public class GameController : MonoBehaviour
 				if(Result){
 					Catcher = player;
 
-					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
-					if(adis <= 1){
-						if(passkind == 0)
-							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
-						else if(passkind == 1)
-							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
-						else if(passkind == 2)
-							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
-					}
+//					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
+//					if(adis <= 1){
+//						if(passkind == 0)
+//							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
+//						else if(passkind == 1)
+//							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
+//						else if(passkind == 2)
+//							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
+//					}
 
 					UIGame.Get.DoPassNone();
 				}

@@ -86,6 +86,10 @@ public class BallTrigger : MonoBehaviour
 				Parabolatarget = SceneMgr.Get.RealBall.transform.position;
 				ParabolaDis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
 				break;
+			case 4:
+//				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
+				PassEnd();
+				break;
 			}
 
 			return true;
