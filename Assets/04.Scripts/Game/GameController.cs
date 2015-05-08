@@ -2781,22 +2781,23 @@ public class GameController : MonoBehaviour
 
 		if(situation == GameSituation.TeeAPicking && player == Joysticker)
 			return;
-
-        //rebound
+        
 		switch (dir)
 		{
-		case 0: //top
-			if (player != BallOwner && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
-				if (SceneMgr.Get.RealBallState ==  PlayerState.Steal ||
-				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound
-				   ) {
-				if (Random.Range(0, 100) < player.Attr.ReboundRate)
+		case 0: //top ,rebound
+			if (player != BallOwner && (GameStart.Get.TestMode == GameTest.Rebound || 
+			    situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+				if (SceneMgr.Get.RealBallState ==  PlayerState.Steal || 
+				    SceneMgr.Get.RealBallState ==  PlayerState.Rebound && 
+				    Random.Range(0, 100) < player.Attr.ReboundRate) {
 						Rebound(player);
 				}
 
             break;
 		case 5: //finger
-			if (!player.IsBallOwner && player.IsRebound && !IsTipin && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
+			if (!player.IsBallOwner && player.IsRebound && !IsTipin && 
+			   (GameStart.Get.TestMode == GameTest.Rebound ||
+			    situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 				if (SetBall(player)) {
 					if (player != Joysticker && inTipinDistance(player) && 
 					    player == BallOwner && Random.Range(0, 100) < player.Attr.TipIn) 

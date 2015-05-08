@@ -270,7 +270,7 @@ public class PlayerBehaviour : MonoBehaviour
 	//Rebound
     private bool isRebound = false;
     private float reboundCurveTime = 0;
-	private Vector3 startPosition;
+	private Vector3 reboundMove;
     private TReboundCurve playerReboundCurve;
 
     //Shooting
@@ -707,11 +707,10 @@ public class PlayerBehaviour : MonoBehaviour
 		if (isRebound && playerReboundCurve != null) {
 			reboundCurveTime += Time.deltaTime;
 			if (reboundCurveTime < 0.7f && !IsBallOwner) {
-				if (startPosition != Vector3.zero) {
-					Vector3 v = SceneMgr.Get.RealBall.transform.position - startPosition;
-                    transform.position = new Vector3(transform.position.x + v.x * Time.deltaTime * 2, 
+				if (reboundMove != Vector3.zero) {
+					transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-					                                 transform.position.z + v.z * Time.deltaTime * 2);
+					                                 transform.position.z + reboundMove.z * Time.deltaTime * 2);
                 } else
 					transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
@@ -1775,18 +1774,19 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Rebound:
 				playerReboundCurve = null;
 
-				if (inReboundDistance())
-                    startPosition = transform.position;
-			    else
-			    	startPosition = Vector3.zero;
+				if (inReboundDistance()) 
+					reboundMove = SceneMgr.Get.RealBall.transform.position - transform.position;
+				else
+					reboundMove = Vector3.zero;
 
 				for (int i = 0; i < aniCurve.Rebound.Length; i++)
-				if (aniCurve.Rebound [i].Name == "Rebound")
-				{
-					playerReboundCurve = aniCurve.Rebound [i];
-					reboundCurveTime = 0;
-					isRebound = true;
-				}
+					if (aniCurve.Rebound [i].Name == "Rebound")
+					{
+						playerReboundCurve = aniCurve.Rebound [i];
+						reboundCurveTime = 0;
+						isRebound = true;
+					}
+
 				ClearAnimatorFlag();
                 gameObject.layer = LayerMask.NameToLayer("Shooter");
                 animator.SetTrigger("ReboundTrigger");
