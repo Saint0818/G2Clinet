@@ -1344,28 +1344,33 @@ public class PlayerBehaviour : MonoBehaviour
 
 				break;
            
+			case PlayerState.PickBall:
+				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			                                          crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
+					return true;
+				break;
+
             case PlayerState.Push:
-            case PlayerState.PickBall:
             case PlayerState.Steal:
-                if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+				if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
                     crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
                     return true;
                 break;
 
 			case PlayerState.Block:
-				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+				if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
 			                                crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence || crtState == PlayerState.Dunk))
 					return true;
 				break;
 
             case PlayerState.Elbow:
-                if (IsBallOwner && (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall))
+				if (!IsTee && IsBallOwner && (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall))
                     return true;
                 break;
 
             case PlayerState.Fall0:
             case PlayerState.Fall1:
-                if (crtState != state && crtState != PlayerState.Elbow && 
+				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
                     (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || 
                     crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
                     crtState == PlayerState.RunningDefence))
@@ -1373,7 +1378,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.GotSteal:
-                if (crtState != state && crtState != PlayerState.Elbow && 
+				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
                     (crtState == PlayerState.Dribble ||
                     crtState == PlayerState.RunAndDribble || 
                     crtState == PlayerState.FakeShoot || 
@@ -1414,6 +1419,14 @@ public class PlayerBehaviour : MonoBehaviour
 
         return false;
     }
+
+	public bool IsTee	
+	{ 
+		get
+		{
+			return (situation == GameSituation.TeeA || situation == GameSituation.TeeAPicking || situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking);
+		}
+	}
 
     public bool AniState(PlayerState state, Vector3 v)
     {
