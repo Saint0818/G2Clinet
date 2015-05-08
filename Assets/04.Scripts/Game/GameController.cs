@@ -2723,7 +2723,8 @@ public class GameController : MonoBehaviour
 			
 			if(SceneMgr.Get.RealBallState == PlayerState.PassFlat || 
 			   SceneMgr.Get.RealBallState == PlayerState.PassFloor ||
-			   SceneMgr.Get.RealBallState == PlayerState.PassParabola)
+			   SceneMgr.Get.RealBallState == PlayerState.PassParabola || 
+			   SceneMgr.Get.RealBallState == PlayerState.PassFast)
 			{
 				if(BallOwner == null && (Rate < 20 || dir == 5) && !player.CheckAnimatorSate(PlayerState.Push))
 				{
