@@ -28,6 +28,7 @@ public enum PlayerState
     PassFlat = 16,
     PassFloor = 17,
     PassParabola = 18,
+    PassFast = 19,
     Push = 20,
     MovingDefence = 23,
     RunAndDribble = 24,
@@ -1301,6 +1302,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.PassFlat:
             case PlayerState.PassFloor:
             case PlayerState.PassParabola:
+            case PlayerState.PassFast:
             case PlayerState.Tee:
                 if (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble)
                     return true;
@@ -1626,6 +1628,13 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetTrigger("PassTrigger");
                 Result = true;
                 break;
+
+			case PlayerState.PassFast:
+				animator.SetInteger("StateNo", 4);
+				ClearAnimatorFlag();
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
 
             case PlayerState.Push:
                 ClearAnimatorFlag();
@@ -2052,6 +2061,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.PassFlat,
                 PlayerState.PassFloor,
                 PlayerState.PassParabola,
+//                PlayerState.PassFast,
                 PlayerState.Push,
                 PlayerState.PickBall,
                 PlayerState.Shoot0,
@@ -2146,7 +2156,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsPass
     {
-        get{ return crtState == PlayerState.PassFlat || crtState == PlayerState.PassFloor || crtState == PlayerState.PassParabola || crtState == PlayerState.Tee;}
+		get{ return crtState == PlayerState.PassFlat || crtState == PlayerState.PassFloor || crtState == PlayerState.PassParabola || crtState == PlayerState.Tee || crtState == PlayerState.PassFast;}
 
     }
 

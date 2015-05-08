@@ -370,6 +370,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case PlayerState.PassFlat: 
 			case PlayerState.PassFloor: 
 			case PlayerState.PassParabola: 
+			case PlayerState.PassFast: 
 			case PlayerState.Tee: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
