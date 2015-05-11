@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 598b8226cfa0ef84c883a4d827313dfd
-timeCreated: 1426147511
+guid: a6c16e97643464c48b7328db75921512
+timeCreated: 1431328836
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -20,8 +20,7 @@ ModelImporter:
     100024: DummyHoop
     100026: DummyNet
     100028: //RootNode
-    100030: BasketHoop001
-    100032: IK Chain
+    100030: IK Chain
     400000: Backboard
     400002: BasketGlassA
     400004: BasketGlassB
@@ -37,17 +36,13 @@ ModelImporter:
     400024: DummyHoop
     400026: DummyNet
     400028: //RootNode
-    400030: BasketHoop001
-    400032: IK Chain
-    2300000: BasketHoop001
-    3300000: BasketHoop001
+    400030: IK Chain
     4300000: BasketSupport
     4300002: Backboard
     4300004: BasketHoop
     4300006: BasketGlassA
     4300008: BasketGlassB
-    4300010: BasketHoop001
-    7400000: Dunk_0
+    7400000: Dunk_20
     9500000: //RootNode
     11100000: //RootNode
     13700000: Backboard
@@ -72,10 +67,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dunk_0
+      name: Dunk_20
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 45.0000038
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -124,6 +119,8 @@ ModelImporter:
       - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop
         weight: 1
       - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/IK Chain
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
