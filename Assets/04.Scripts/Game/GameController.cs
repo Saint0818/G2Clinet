@@ -150,6 +150,7 @@ public class GameController : MonoBehaviour
 	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
 	private float extraScoreRate = 0;
+	public string BasketAniName;
 	
 	public GameObject selectMe;
 
@@ -974,6 +975,20 @@ public class GameController : MonoBehaviour
 			BasketScoreAnimationState = aryIntersection( GameConst.DistanceScoreLong, BasketScoreAnimationState);
 			BasketScoreNoneAnimationState = aryIntersection( GameConst.DistanceNoScoreLong, BasketScoreNoneAnimationState);
 		}
+
+		judgeBasketAniName ();
+	}
+
+	private void judgeBasketAniName () {
+		if(IsScore) {
+			if(!IsSwich)
+				BasketAniName = BasketScoreAnimationState[Random.Range(0, BasketScoreAnimationState.Count)];
+		} else {
+			if(!IsAirBall)
+				BasketAniName = BasketScoreNoneAnimationState[Random.Range(0, BasketScoreNoneAnimationState.Count)];
+		}
+		if(!IsSwich || !IsAirBall)
+			Debug.Log("BasketAniName:"+BasketAniName);
 	}
 
 	private void calculationScoreRate(ref bool isScore, PlayerBehaviour player, ScoreType type) {
@@ -1081,6 +1096,21 @@ public class GameController : MonoBehaviour
 			}
         }
     }
+
+	public void modifyShootPosition() {
+		Debug.Log("position:"+SceneMgr.Get.BasketHoopDummy[0].transform.position);
+		if(!IsScore && IsAirBall) {
+			//AirBall
+			Vector3 ori = SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
+			SceneMgr.Get.RealBallRigidbody.velocity = 
+				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
+				                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 55);
+		} else {
+			SceneMgr.Get.RealBallRigidbody.velocity = 
+				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
+				                         SceneMgr.Get.BasketHoopDummy[Shooter.Team.GetHashCode()].transform.position, 55);
+		}
+	}
         
     public bool OnShooting(PlayerBehaviour player)
     {
@@ -1107,7 +1137,9 @@ public class GameController : MonoBehaviour
 			if(player.crtState == PlayerState.Layup|| player.crtState == PlayerState.TipIn){
 				calculationScoreRate(ref IsScore ,player, ScoreType.LayUp);
 			}
-            
+//			SceneMgr.Get.BasketHoopAni[player.Team.GetHashCode()].SetTrigger(BasketAniName);
+//			SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
+//			SceneMgr.Get.SetBallState(player.crtState);
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
 			SceneMgr.Get.SetBallState(player.crtState);
@@ -1553,10 +1585,10 @@ public class GameController : MonoBehaviour
 			case 0: 
 				break;
 			case 1: 
-				AddExtraScoreRate(5);
+				AddExtraScoreRate(10);
 				break;
 			case 2: 
-				AddExtraScoreRate(10);
+				AddExtraScoreRate(100);
 				break;
 		}
 
@@ -3324,6 +3356,7 @@ public class GameController : MonoBehaviour
     }
 
 	public void SetPlayerLevel(){
+		PlayerPrefs.SetFloat("AIChangeTime", GameData.AIChangeTime);
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(i >= 3)
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;

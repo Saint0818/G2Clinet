@@ -46,7 +46,7 @@ public class UIGame : UIBase {
 	private GameObject[] passObjectGroup = new GameObject[2];
 	private GameObject screenLocation;
 	private UILabel[] scoresLabel = new UILabel[2];
-	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[2];
+	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[3];
 	private string[] aryHomeHintString = new string[3];
 	private GameObject playerTexture;
 
@@ -173,6 +173,7 @@ public class UIGame : UIBase {
 
 		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/StartView/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
+		aiLevelScrollBar [2] = GameObject.Find(UIName + "/Center/StartView/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 		screenLocation.SetActive(false);
@@ -209,6 +210,7 @@ public class UIGame : UIBase {
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
+		aiLevelScrollBar[2].onChange.Add(new EventDelegate(changeAIChangeTime));
 
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA", DoPassTeammateA);
 		SetBtnFun (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB", DoPassTeammateB);
@@ -251,6 +253,7 @@ public class UIGame : UIBase {
 		SetLabel(UIName + "/Center/ButtonContinue/LabelContinue" ,TextConst.S(3));
 		SetLabel(UIName + "/Center/ButtonReset/LabelReset" ,TextConst.S(4));
 		SetLabel(UIName + "/Center/StartView/AISelect/LabelAI" ,TextConst.S(5));
+		SetLabel(UIName + "/Center/StartView/AISelect/AISecLabel" ,TextConst.S(6));
 	}
 
 	private void initLine() {
@@ -294,6 +297,25 @@ public class UIGame : UIBase {
 
 	public void changeNpcAILevel(){
 		GameConst.NpcAILevel = (int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
+	}
+
+	public void changeAIChangeTime(){
+		int level = (int)  Mathf.Round(aiLevelScrollBar[2].value * 5);
+		float time = 1;
+		if(level == 0) {
+			time = 1;
+		} else if(level == 1) {
+			time = 3;
+		}else if(level == 2) {
+			time = 5;
+		}else if(level == 3) {
+			time = 15;
+		}else if(level == 4) {
+			time = 30;
+		}else if(level == 5) {
+			time = -1;
+		}
+		GameData.AIChangeTime = time;
 	}
 	// Effect
 	public void BlockFX(){

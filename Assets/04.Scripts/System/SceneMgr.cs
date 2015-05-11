@@ -277,6 +277,10 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	public void RealBallPath(int team, string animationName) {
 		switch(animationName) {
+		case "FirstPosition":
+//			Debug.Log("FirstPosition");
+//			GameController.Get.modifyShootPosition();
+			break;
 		case "ActionEnd":
 			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
 			break;

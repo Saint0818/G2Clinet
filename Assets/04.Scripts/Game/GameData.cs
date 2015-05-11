@@ -19,6 +19,7 @@ public class GameData {
 		DownloadList.Add (new TDownloadData ("tactical", "0"));
 		FileManager.Get.LoadFileResource (DownloadList);
 
-		AIChangeTime = PlayerPrefs.GetFloat("AIChangeTime", 1);
+		if(PlayerPrefs.HasKey("AIChangeTime"))
+			AIChangeTime = PlayerPrefs.GetFloat("AIChangeTime", 1);
 	}
 }
