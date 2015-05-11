@@ -32,6 +32,7 @@ public static class TextConst
 		AddString (3, "點擊繼續", "點擊繼續");
 		AddString (4, "Reset", "Reset");
 		AddString (5, "AI Level", "AI Level");
+		AddString (6, "AI Control", "AI Control");
 
     }
 }
