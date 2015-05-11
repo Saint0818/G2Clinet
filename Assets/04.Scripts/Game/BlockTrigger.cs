@@ -25,6 +25,8 @@ public class BlockTrigger : MonoBehaviour {
 							{
 								if(faller.IsCanBlock)	
 								{
+									GameController.Get.SetBall();
+									SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
 									faller.AniState(PlayerState.Fall0);
 									gameObject.SetActive (false);
 								}
