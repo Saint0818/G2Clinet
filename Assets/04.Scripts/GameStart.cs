@@ -17,25 +17,34 @@ public class GameStart : MonoBehaviour {
 
 	void Start(){
 		#if UNITY_EDITOR
-		#if En
-		ParameterConst.GameLanguage = Language.en;
-		#endif
-		
-		#if zh_TW
-		GameConst.GameLanguage = Language.zh_TW;
-		#endif
-		#else
-		switch (Application.systemLanguage) {
-		case SystemLanguage.English:
-			GameConst.GameLanguage = Language.en;
-			break;
-		case SystemLanguage.Chinese:
+			
+			#if En
+			ParameterConst.GameLanguage = Language.en;
+			#endif
+			
+			#if zh_TW
 			GameConst.GameLanguage = Language.zh_TW;
-			break;
-		default:
-			GameConst.GameLanguage = Language.en;
-			break;
-		}
+			#endif
+		#else
+			#if UNITY_ANDROID
+			gameObject.AddComponent(Type.GetType("PushNotificationsAndroid"));
+			#endif
+
+			#if UNITY_IOS
+			gameObject.AddComponent(Type.GetType("PushNotificationsAndroid"));
+			#endif
+			switch (Application.systemLanguage) {
+			case SystemLanguage.English:
+				GameConst.GameLanguage = Language.en;
+				break;
+			case SystemLanguage.Chinese:
+				GameConst.GameLanguage = Language.zh_TW;
+				break;
+			default:
+				GameConst.GameLanguage = Language.en;
+				break;
+			}
+
 		#endif
 		
 		if (PlayerPrefs.HasKey ("UserLanguage")) {

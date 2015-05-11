@@ -191,7 +191,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    private const int ChangeToAI = 1;
     public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
     private Vector2 drag = Vector2.zero;
@@ -589,8 +588,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
             isJoystick = true;
-            NoAiTime = Time.time + ChangeToAI;
-
+			NoAiTime = Time.time + GameData.AIChangeTime;
+            
             if (AIActiveHint)
                 AIActiveHint.SetActive(false);
         } else
@@ -716,9 +715,9 @@ public class PlayerBehaviour : MonoBehaviour
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
 		                                             transform.position.z + transform.forward.z * 0.05f);
             } else
-                transform.position = new Vector3(transform.position.x, 
+				transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
 				                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-				                                 transform.position.z);
+				                                 transform.position.z + transform.forward.z * 0.05f);
 			
 			if (reboundCurveTime >= playerReboundCurve.LifeTime) {
 				isRebound = false;

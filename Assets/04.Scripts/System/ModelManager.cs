@@ -5,10 +5,9 @@ using GameStruct;
 using RootMotion.FinalIK;
 
 public class ModelManager : MonoBehaviour {
-	private const int DRESS_NONE = 0;
+	public static ModelManager Get;
 
 	private GameObject DefPointObject = null;
-	public static ModelManager Get;
 	public GameObject PlayerInfoModel = null;
 	public GameObject AnimatorCurveManager;
 
@@ -34,6 +33,7 @@ public class ModelManager : MonoBehaviour {
 			string path = string.Format("{0}/{1}",materialPath, material.name);
 			materialCache.Add(path, material);
 		}
+
 		loadAllTexture("Character/PlayerModel_2/Texture");
 		loadAllTexture("Character/PlayerModel_3/Texture");
 
@@ -48,8 +48,8 @@ public class ModelManager : MonoBehaviour {
 
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
-		up.depth = 2;
+		//UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
+		//up.depth = 2;
 
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
@@ -170,6 +170,7 @@ public class ModelManager : MonoBehaviour {
 					Texture texture = loadTexture(namePath);
 					if(!texture)
 						texture = loadTexture(path);
+
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
@@ -208,6 +209,7 @@ public class ModelManager : MonoBehaviour {
 					Texture texture = loadTexture(namePath);
 					if(!texture)
 						texture = loadTexture(path);
+
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
@@ -284,6 +286,7 @@ public class ModelManager : MonoBehaviour {
 							Texture texture = loadTexture(texturePath);
 							if(!texture) 
 								loadTexture(texturePath);
+
 							matObj.SetTexture("_MainTex", texture);
 							avatarPartGO [i] = Instantiate (resObj) as GameObject;
 
@@ -438,7 +441,6 @@ public class ModelManager : MonoBehaviour {
 					headDress.transform.parent = dummyHead.transform;
 					headDress.transform.localPosition = Vector3.zero;
 					headDress.transform.localEulerAngles = Vector3.zero;
-
 				}
 				
 				//BackEquipment
@@ -467,6 +469,7 @@ public class ModelManager : MonoBehaviour {
 			resultSmr.sharedMesh.CombineMeshes(combineInstances.ToArray() , false , false);
 			resultSmr.bones = bones.ToArray();
 			resultSmr.materials = materials.ToArray();
+			resultSmr.gameObject.isStatic = true;
 			clone.name = mainBody;
 			clone.transform.parent = result.transform;
 
@@ -476,7 +479,6 @@ public class ModelManager : MonoBehaviour {
 			} else {
 				dummyCatch = result.transform.FindChild("DummyCatch").gameObject ;
 			}
-
 
 			if (dummyCatch != null) {
 				dummyCatch.name = "DummyCatch";
@@ -488,12 +490,14 @@ public class ModelManager : MonoBehaviour {
 			Animator aniControl = result.GetComponent<Animator>();
 			if(aniControl == null)
 				aniControl = result.AddComponent<Animator>();
+
 			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
 			if(runtimeAnimatorController == null) {
 				if(isUseRig)
 					runtimeAnimatorController = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber)) as RuntimeAnimatorController;
 				else
 					runtimeAnimatorController = Resources.Load(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber)) as RuntimeAnimatorController;
+
 				aniControl.runtimeAnimatorController = runtimeAnimatorController;
 				aniControl.applyRootMotion = false;
 			}
@@ -600,6 +604,7 @@ public class ModelManager : MonoBehaviour {
 				if(fbbik == null)
 					fbbik = result.AddComponent<FullBodyBipedIK>();
 				RootMotion.BipedReferences bipedRef = new RootMotion.BipedReferences();
+
 				bipedRef.root = result.transform.FindChild("Bip01");
 				bipedRef.pelvis = result.transform.FindChild("Bip01/Bip01 Pelvis");
 				bipedRef.leftThigh = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh");
@@ -623,10 +628,7 @@ public class ModelManager : MonoBehaviour {
 				fbbik.solver.GetEffector(FullBodyBipedEffector.RightHand).positionWeight = 0.8f;
 				fbbik.solver.pullBodyVertical = 0.2f;
 				fbbik.solver.pullBodyHorizontal = 0.3f;
-
-
 			}
-
 			
 			//rig
 			if(isUseRig){
