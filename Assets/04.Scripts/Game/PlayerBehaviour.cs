@@ -1902,6 +1902,9 @@ public class PlayerBehaviour : MonoBehaviour
 					IsFirstDribble = true;
 					AniState(PlayerState.HoldBall);
 				}
+				else
+					AniState(PlayerState.Idle);
+
 				IsPerfectBlockCatch = false;
 				break;
 
