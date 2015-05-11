@@ -1489,13 +1489,37 @@ public class GameController : MonoBehaviour
 		if (player.Team == TeamKind.Self) {
 			switch (state) {
 				case PlayerState.Shoot0:
-				case PlayerState.Shoot1:
-				case PlayerState.Shoot2:
-				case PlayerState.Shoot3:
-				case PlayerState.Shoot6:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData(state == PlayerState.Shoot1? 0.95f : 1f, DoubleShoot);
+						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+						return true;
+					}
+					break;
+				case PlayerState.Shoot1:
+					if(player.Team == TeamKind.Self){
+						UIDoubleClick.UIShow(true);
+						UIDoubleClick.Get.SetData( 0.95f, DoubleShoot);
+						return true;
+					}
+				break;
+				case PlayerState.Shoot2:
+					if(player.Team == TeamKind.Self){
+						UIDoubleClick.UIShow(true);
+						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+						return true;
+					}
+				break;
+			case PlayerState.Shoot3:
+				if(player.Team == TeamKind.Self){
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+					return true;
+				}
+				break;
+			case PlayerState.Shoot6:
+					if(player.Team == TeamKind.Self){
+						UIDoubleClick.UIShow(true);
+						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
 						return true;
 					}
 					break;

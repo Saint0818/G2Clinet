@@ -260,7 +260,7 @@ public class PlayerBehaviour : MonoBehaviour
 //	private Vector3[] dunkPath = new Vector3[5];
 	private TLayupCurve playerLayupCurve;
 		
-		//Block
+	//Block
 	private bool isCanBlock = false;
     private bool isBlock = false;
     private float blockCurveTime = 0;
@@ -276,6 +276,16 @@ public class PlayerBehaviour : MonoBehaviour
     private float shootJumpCurveTime = 0;
     private TShootCurve playerShootCurve;
     private bool isShootJump = false;
+
+	//Push
+	private bool isPush = false;
+	private float pushCurveTime = 0;
+	private TPushCurve playerPushCurve;
+
+	//Fall
+	private bool isFall = false;
+	private float fallCurveTime = 0;
+	private TFallCurve playerFallCurve;
 
     //IK
     private AimIK aimIK;
@@ -487,6 +497,8 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationShootJump();
         CalculationRebound();
 		CalculationLayupMove();
+		CalculationPush ();
+		CalculationFall ();
 		
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
@@ -726,8 +738,64 @@ public class PlayerBehaviour : MonoBehaviour
 		} else
 			isRebound = false;
 	}
-    
-    private void CalculationBlock()
+
+	private void CalculationPush()
+	{
+		if (!isPush)
+			return;
+
+		if (playerPushCurve != null) 
+		{
+			pushCurveTime += Time.deltaTime;
+
+			if(pushCurveTime >= playerPushCurve.StartTime){
+				switch(playerPushCurve.Dir){
+					case AniCurveDirection.Forward:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
+						break;
+					case AniCurveDirection.Back:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					break;
+				}
+			}
+
+			if(pushCurveTime >= playerPushCurve.LifeTime)
+				isPush = false;
+		}
+		
+	}
+
+	private void CalculationFall()
+	{
+		if (!isFall)
+			return;
+		
+		if (playerFallCurve != null) 
+		{
+			fallCurveTime += Time.deltaTime;
+			
+			if(fallCurveTime >= playerFallCurve.StartTime){
+				switch(playerFallCurve.Dir){
+				case AniCurveDirection.Forward:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
+					break;
+				case AniCurveDirection.Back:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					break;
+				}
+			}
+			
+			if(fallCurveTime >= playerFallCurve.LifeTime)
+				isFall = false;
+		}
+		
+	}
+	
+	private void CalculationBlock()
     {
         if (!isBlock)
             return;
@@ -1649,6 +1717,13 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Push:
                 ClearAnimatorFlag();
+				playerPushCurve = null;
+				for(int i = 0; i < aniCurve.Push.Length; i++)
+					if (aniCurve.Push [i].Name == "Push0"){
+						playerPushCurve = aniCurve.Push [i];
+						pushCurveTime = 0;
+						isPush = true;
+					}
                 animator.SetTrigger("PushTrigger");
                 Result = true;
                 break;
@@ -2029,6 +2104,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.useGravity = true;
 				IsPerfectBlockCatch = false;
 				isRebound = false;
+				isPush = false;
 				blockCatchTrigger.enabled = false;
 
                 if (!NeedResetFlag)
