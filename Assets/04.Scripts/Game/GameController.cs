@@ -1493,13 +1493,22 @@ public class GameController : MonoBehaviour
 				case PlayerState.Shoot2:
 				case PlayerState.Shoot3:
 				case PlayerState.Shoot6:
-				case PlayerState.Layup:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
 						UIDoubleClick.Get.SetData(state == PlayerState.Shoot1? 0.95f : 1f, DoubleShoot);
 						return true;
 					}
 					break;
+
+				case PlayerState.Layup:
+				if(player.Team == TeamKind.Self){
+					UIDoubleClick.Get.SetData(2f, DoubleShoot);
+					UIDoubleClick.UIShow(true);
+
+					return true;
+				}
+				break;
+
 				case PlayerState.Block:
 				case PlayerState.BlockCatch:
 					if(player == Joysticker){
