@@ -280,12 +280,12 @@ public class PlayerBehaviour : MonoBehaviour
 	//Push
 	private bool isPush = false;
 	private float pushCurveTime = 0;
-	private TPushCurve playerPushCurve;
+	private TSharedCurve playerPushCurve;
 
 	//Fall
 	private bool isFall = false;
 	private float fallCurveTime = 0;
-	private TFallCurve playerFallCurve;
+	private TSharedCurve playerFallCurve;
 
     //IK
     private AimIK aimIK;
@@ -776,15 +776,15 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			fallCurveTime += Time.deltaTime;
 			
-			if(fallCurveTime >= playerFallCurve.StartMoveTime){
+			if(fallCurveTime >= playerFallCurve.StartTime){
 				switch(playerFallCurve.Dir){
 				case AniCurveDirection.Forward:
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
-					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerFallCurve.DirVaule));
 					break;
 				case AniCurveDirection.Back:
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule), 0, 
-					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerFallCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerFallCurve.DirVaule));
 					break;
 				}
 			}
@@ -1625,25 +1625,32 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Fall0:
-                isDunk = false;
-                isShootJump = false;
-                ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 0);
-                animator.SetTrigger("FallTrigger");
-                isCanCatchBall = false;
-                gameObject.transform.DOLocalMoveY(0, 1f);
-                if (OnFall != null)
-                    OnFall(this);
-                Result = true;
-                break;
-
             case PlayerState.Fall1:
-                isDunk = false;
-                isShootJump = false;
-                ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 1);
-                animator.SetTrigger("FallTrigger");
-                isCanCatchBall = false;
+				switch (state)
+				{
+					case PlayerState.Fall0:
+						stateNo = 0;
+						break;
+					case PlayerState.Fall1:
+						stateNo = 1;
+						break;
+				}
+				curveName = string.Format("Fall{0}", stateNo);
+				playerFallCurve = null;
+
+				for(int i = 0; i < aniCurve.Fall.Length; i++)
+					if(curveName == aniCurve.Fall[i].Name){
+						playerFallCurve = aniCurve.Fall[i];
+						fallCurveTime = 0;
+						isFall = true;
+					}
+
+				isDunk = false;
+				isShootJump = false;
+				ClearAnimatorFlag();
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("FallTrigger");
+				isCanCatchBall = false;
                 gameObject.transform.DOLocalMoveY(0, 1f);
                 if (OnFall != null)
                     OnFall(this);
