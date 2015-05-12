@@ -1434,6 +1434,9 @@ public class GameController : MonoBehaviour
 				int AddRate = 0;
 				if(SceneMgr.Get.RealBallFX.activeInHierarchy)
 					AddRate = 30;
+
+				if(Vector3.Distance(BallOwner.transform.position, SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
+					AddRate += 20;
 				
 				Vector3 lookAtPos = player.transform.position;
 				Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
@@ -2034,7 +2037,7 @@ public class GameController : MonoBehaviour
 					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
 						for(int i = 0; i < DisAy.Length; i++){
-							if (DisAy[i].Distance <= GameConst.StealBallDistance && DisAy[i].Player.crtState == PlayerState.Idle && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
+							if (DisAy[i].Distance <= GameConst.StealBallDistance && (DisAy[i].Player.crtState == PlayerState.Idle && DisAy[i].Player.crtState == PlayerState.Dribble) && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
 							{
 								if(Npc.AniState (PlayerState.Push, DisAy[i].Player.transform.position)){
 									Npc.CoolDownPush = Time.time + 3;
