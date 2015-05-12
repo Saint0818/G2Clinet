@@ -174,7 +174,7 @@ public class BallTrigger : MonoBehaviour
 					}
 					else
 					{
-						if ((dis < 8) && Passing)
+						if ((dis < 6) && Passing)
 						{
 							Passing = false;
 							if(PassKind == 0)
