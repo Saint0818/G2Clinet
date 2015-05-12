@@ -307,6 +307,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public float MovePower = 0;
 	public int MaxMovePower = 0;
 	private float MovePowerTime = 0;
+	private Vector2 MoveTarget;
+	private float [] disAy = new float[4];
+	private float dis;
+	private float dis2;
+	private float dis3;
     
     void Awake()
     {
@@ -1058,7 +1063,7 @@ public class PlayerBehaviour : MonoBehaviour
 //        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
 //    }
     
-    private int MinIndex(float[] floatAy, bool getmin = false)
+    private int MinIndex(ref float[] floatAy, bool getmin = false)
     {
         int Result = 0;
         int Result2 = floatAy.Length - 1;
@@ -1080,40 +1085,47 @@ public class PlayerBehaviour : MonoBehaviour
         else
             return Result2;
     }
-
-    private Vector2 GetMoveTarget(TMoveData Data)
+	
+    private void GetMoveTarget(ref TMoveData Data, ref Vector2 Result)
     {
-        Vector2 Result = Vector2.zero;
+        Result = Vector2.zero;
 
         if (Data.DefPlayer != null)
         {
             float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-            float [] disAy = new float[4];
+            
             for (int i = 0; i < disAy.Length; i++)
                 disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
-            int mIndex = MinIndex(disAy, Data.DefPlayer == DefPlayer);
+            int mIndex = MinIndex(ref disAy, Data.DefPlayer == DefPlayer);
 
             if (mIndex >= 0 && mIndex < disAy.Length)
             {
-                Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
+				Result.x = Data.DefPlayer.DefPointAy [mIndex].position.x;
+				Result.y = Data.DefPlayer.DefPointAy [mIndex].position.z;                 
                 
 				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
-                    Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
+				{
+					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
+				}
+                    
             }
-        } else if (Data.FollowTarget != null)
-            Result = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
-        else
+        } 
+		else if (Data.FollowTarget != null)
+		{
+			Result.x = Data.FollowTarget.position.x;
+			Result.y = Data.FollowTarget.position.z;
+		}
+		else
             Result = Data.Target;
-
-        return Result;
     }
-
+	
     public void MoveTo(TMoveData Data, bool First = false)
     {
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
         {
-            Vector2 MoveTarget = GetMoveTarget(Data);
+			GetMoveTarget(ref Data, ref MoveTarget);
 			TacticalName = Data.FileName;
 
             if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
@@ -1127,7 +1139,7 @@ public class PlayerBehaviour : MonoBehaviour
                     WaitMoveTime = 0;
                     if (Data.DefPlayer != null)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
                         if (Data.LookTarget != null)
                         {
@@ -1160,7 +1172,7 @@ public class PlayerBehaviour : MonoBehaviour
                         WaitMoveTime = 0;
                     else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
                         if (dis <= 8)
                             WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);
                         else
@@ -1224,16 +1236,9 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (Data.DefPlayer != null)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-//                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
-//                            rotateTo(MoveTarget.x, MoveTarget.y);
-//                        else
-//                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        float dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
                         if (dis <= GameConst.TreePointDistance + 4)
                         {
