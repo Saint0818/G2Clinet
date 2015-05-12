@@ -151,6 +151,9 @@ public class GameController : MonoBehaviour
 	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
 	private float extraScoreRate = 0;
+	private TActionPosition [] Sub_ps;
+	private TTactical ap;
+	private TTactical defap;
 
 	public string BasketAniName;
 	
@@ -297,9 +300,12 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-    private TTactical GetMovePath(int index)
+	private void GetMovePath(int index, ref TTactical Result)
     {
-        TTactical Result = new TTactical(false);
+		if (Result.PosAy1 == null)
+			Result = new TTactical (false);
+
+		Result.FileName = "";
 
         if (index >= 0 && index < pathName.Length)
         {
@@ -323,8 +329,6 @@ public class GameController : MonoBehaviour
                 Result = GameData.TacticalData [i];
             }
         }
-
-        return Result;
     }
 
     private PlayerBehaviour FindDefMen(PlayerBehaviour npc)
@@ -604,7 +608,7 @@ public class GameController : MonoBehaviour
     {
         if (PlayerList.Count > 0)
         {
-            TTactical ap = GetMovePath(GetPosNameIndex(PosKind.Attack));
+            GetMovePath(GetPosNameIndex(PosKind.Attack), ref ap);
 
             for (int i = 0; i < PlayerList.Count; i++)
             {
@@ -644,12 +648,10 @@ public class GameController : MonoBehaviour
 				if(PickBallplayer == null)
 					PickBallplayer = NearBall(team);
 
-                TTactical ap = new TTactical(false);
-                TTactical defap = new TTactical(false);
 				if (PickBallplayer != null)
 				{
-					ap = GetMovePath(GetPosNameIndex(PosKind.Tee, PickBallplayer.Index));
-					defap = GetMovePath(GetPosNameIndex(PosKind.TeeDefence, PickBallplayer.Index));
+					GetMovePath(GetPosNameIndex(PosKind.Tee, PickBallplayer.Index), ref ap);
+					GetMovePath(GetPosNameIndex(PosKind.TeeDefence, PickBallplayer.Index), ref defap);
                 }                   
 
                 for (int i = 0; i < PlayerList.Count; i++)
@@ -679,8 +681,8 @@ public class GameController : MonoBehaviour
             TTactical defap = new TTactical(false);
             if (BallOwner != null)
             {
-                ap = GetMovePath(GetPosNameIndex(PosKind.Tee, BallOwner.Index));
-                defap = GetMovePath(GetPosNameIndex(PosKind.TeeDefence, BallOwner.Index));
+                GetMovePath(GetPosNameIndex(PosKind.Tee, BallOwner.Index), ref ap);
+				GetMovePath(GetPosNameIndex(PosKind.TeeDefence, BallOwner.Index), ref defap);
             }
 
             for (int i = 0; i < PlayerList.Count; i++)
@@ -750,27 +752,27 @@ public class GameController : MonoBehaviour
             
             if ((oldgs == GameSituation.TeeA || oldgs == GameSituation.TeeB) && oldgs != GS && GetBall != null)
             {
-                TTactical pos = GetMovePath(GetPosNameIndex(PosKind.Fast, GetBall.Index));
+				GetMovePath(GetPosNameIndex(PosKind.Fast, GetBall.Index), ref ap);
                 
-				if(pos.FileName != string.Empty)
+				if(ap.FileName != string.Empty)
 				{
 					for (int i = 0; i < PlayerList.Count; i ++)
 					{
 						PlayerBehaviour npc = PlayerList [i];
 						if (npc.Team == GetBall.Team)
 						{
-							TActionPosition [] ap = GetActionPosition(npc.Index, ref pos);
+							GetActionPosition(npc.Index, ref ap, ref Sub_ps);
 							
-							if (ap != null)
+							if (Sub_ps != null)
 							{
-								for (int j = 0; j < ap.Length; j++)
+								for (int j = 0; j < Sub_ps.Length; j++)
 								{
 									TMoveData data = new TMoveData(0);
-									data.Speedup = ap [j].Speedup;
-									data.Catcher = ap [j].Catcher;
-									data.Shooting = ap [j].Shooting;
-									data.FileName = pos.FileName;
-									data.Target = new Vector2(ap [j].x, ap [j].z);
+									data.Speedup = Sub_ps [j].Speedup;
+									data.Catcher = Sub_ps [j].Catcher;
+									data.Shooting = Sub_ps [j].Shooting;
+									data.FileName = ap.FileName;
+									data.Target = new Vector2(Sub_ps [j].x, Sub_ps [j].z);
 									if (BallOwner != null && BallOwner != npc)
 										data.LookTarget = BallOwner.transform;  
 									
@@ -2096,16 +2098,16 @@ public class GameController : MonoBehaviour
 			if (Npc.CanMove && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 			{
 				TMoveData data = new TMoveData(0);				
-				TActionPosition [] ap = GetActionPosition(Npc.Index, ref pos);
+				GetActionPosition(Npc.Index, ref pos, ref Sub_ps);
 				
-				if (ap != null)
+				if (Sub_ps != null)
 				{
-					for (int i = 0; i < ap.Length; i++)
+					for (int i = 0; i < Sub_ps.Length; i++)
 					{
 						if (Team == TeamKind.Self)
-							data.Target = new Vector2(ap [i].x, -ap [i].z);
+							data.Target = new Vector2(Sub_ps [i].x, -Sub_ps [i].z);
 						else
-							data.Target = new Vector2(ap [i].x, ap [i].z);
+							data.Target = new Vector2(Sub_ps [i].x, Sub_ps [i].z);
 						
 						if (BallOwner != null)
 							data.LookTarget = BallOwner.transform;
@@ -2166,20 +2168,20 @@ public class GameController : MonoBehaviour
             } else 
 			if(pos.FileName != string.Empty)
             {
-				TActionPosition [] ap = GetActionPosition(Npc.Index, ref pos);
+				GetActionPosition(Npc.Index, ref pos, ref Sub_ps);
                 
-                if (ap != null)
+				if (Sub_ps != null)
                 {
-                    for (int j = 0; j < ap.Length; j++)
+					for (int j = 0; j < Sub_ps.Length; j++)
                     {
                         data = new TMoveData(0);
-                        data.Speedup = ap [j].Speedup;
-						data.Catcher = ap [j].Catcher;
-						data.Shooting = ap [j].Shooting;
+						data.Speedup = Sub_ps [j].Speedup;
+						data.Catcher = Sub_ps [j].Catcher;
+						data.Shooting = Sub_ps [j].Shooting;
                         if (Team == TeamKind.Self) 
-                            data.Target = new Vector2(ap [j].x, ap [j].z);
+							data.Target = new Vector2(Sub_ps [j].x, Sub_ps [j].z);
                         else
-                            data.Target = new Vector2(ap [j].x, -ap [j].z);
+							data.Target = new Vector2(Sub_ps [j].x, -Sub_ps [j].z);
 
 						data.FileName = pos.FileName;
                         data.LookTarget = SceneMgr.Get.RealBall.transform;
@@ -2464,21 +2466,21 @@ public class GameController : MonoBehaviour
 	            } else
 				if(pos.FileName != string.Empty)
 	            {
-					TActionPosition [] ap = GetActionPosition(npc.Index, ref pos);
+					GetActionPosition(npc.Index, ref pos, ref Sub_ps);
 
-	                if (ap != null)
+					if (Sub_ps != null)
 	                {
-	                    for (int i = 0; i < ap.Length; i++)
+						for (int i = 0; i < Sub_ps.Length; i++)
 	                    {
 	                        data = new TMoveData(0);
-	                        data.Speedup = ap [i].Speedup;
-							data.Catcher = ap [i].Catcher;
-							data.Shooting = ap [i].Shooting;
+							data.Speedup = Sub_ps [i].Speedup;
+							data.Catcher = Sub_ps [i].Catcher;
+							data.Shooting = Sub_ps [i].Shooting;
 	                        int z = 1;
 	                        if (npc.Team != TeamKind.Self)
 	                            z = -1;
 	                        
-	                        data.Target = new Vector2(ap [i].x, ap [i].z * z);
+							data.Target = new Vector2(Sub_ps [i].x, Sub_ps [i].z * z);
 	                        if (BallOwner != null && BallOwner != npc)
 	                            data.LookTarget = BallOwner.transform;  
 	                        
@@ -3423,9 +3425,9 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos)
+	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos, ref TActionPosition [] Result)
 	{
-		TActionPosition [] Result = null;
+		Result = null;
 		
 		if (Index == 0)
 			Result = pos.PosAy1;
