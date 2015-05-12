@@ -305,7 +305,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallRigidbody.velocity = Vector3.zero;
 				RealBallRigidbody.AddForce(Vector3.down * 70);
-				RealBallPhysicMaterial.bounciness = 0.3f;
 			break;
 			case PlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -324,7 +323,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddForce(Vector3.down * 50);
-				RealBallPhysicMaterial.bounciness = 0.3f;
 				break;
 			case PlayerState.BasketActionNoScoreEnd:
 				RealBallRigidbody.useGravity = true;

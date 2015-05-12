@@ -785,6 +785,7 @@ public class GameController : MonoBehaviour
             case GameSituation.TeeA:
 				SceneMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+				SceneMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
                 break;
             case GameSituation.TeeBPicking:
 				SceneMgr.Get.Walls[0].SetActive(false);
@@ -795,6 +796,7 @@ public class GameController : MonoBehaviour
 			case GameSituation.TeeB:
 				SceneMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+				SceneMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
 				break;
 			case GameSituation.End:
 				IsStart = false;
@@ -2621,7 +2623,6 @@ public class GameController : MonoBehaviour
     public bool SetBall(PlayerBehaviour p = null)
     {
 		bool Result = false;
-		SceneMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
 		if (PlayerList.Count > 0)
         {
             if (p != null && situation != GameSituation.End)
@@ -3017,7 +3018,8 @@ public class GameController : MonoBehaviour
     public void PlusScore(int team)
     {
         if (IsStart && GameStart.Get.TestMode == GameTest.None)
-        {
+		{
+			SceneMgr.Get.RealBallPhysicMaterial.bounciness = 0.5f;
             int score = 2;
             if (ShootDis >= GameConst.TreePointDistance)
                 score = 3;
