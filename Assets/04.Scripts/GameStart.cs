@@ -67,7 +67,6 @@ public class GameStart : MonoBehaviour {
 	private void InitCom(){
 		initResolution();
 		TextConst.Init ();
-		SendHttp.Init ();
 		FacebookAPI.Init();
 		ModelManager.Init ();
 		SceneMgr.Get.ChangeLevel (3);
