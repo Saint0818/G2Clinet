@@ -748,7 +748,7 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			pushCurveTime += Time.deltaTime;
 
-			if(pushCurveTime >= playerPushCurve.StartTime){
+			if(pushCurveTime >= playerPushCurve.StartTime && pushCurveTime <= playerPushCurve.EndTime){
 				switch(playerPushCurve.Dir){
 					case AniCurveDirection.Forward:
 					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
@@ -776,7 +776,7 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			fallCurveTime += Time.deltaTime;
 			
-			if(fallCurveTime >= playerFallCurve.StartTime){
+			if(fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.StartTime){
 				switch(playerFallCurve.Dir){
 				case AniCurveDirection.Forward:
 					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 

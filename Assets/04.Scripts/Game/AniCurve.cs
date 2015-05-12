@@ -63,6 +63,7 @@ public class TSharedCurve {
 	public float DirVaule = 0.05f;
 	public float LifeTime = 1f;
 	public float StartTime = 1f; 
+	public float EndTime = 1f; 
 }
 
 public class AniCurve : MonoBehaviour {
