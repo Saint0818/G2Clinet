@@ -1464,13 +1464,13 @@ public class GameController : MonoBehaviour
 					AddRate = 30;
 
 				if(Vector3.Distance(BallOwner.transform.position, SceneMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
-					AddRate += 20;
+					AddRate += 40;
 				
 				Vector3 lookAtPos = player.transform.position;
 				Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
 				float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 				
-				if (stealRate <= (r + AddRate) && mangle <= 70 && mangle >= -70)
+				if (stealRate <= (r + AddRate) && mangle <= 90 && mangle >= -90)
 				{
 					if(BallOwner)
 						BallOwner.AniState(PlayerState.GotSteal);
