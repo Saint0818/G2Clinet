@@ -985,7 +985,7 @@ public class GameController : MonoBehaviour
 			} else {
 				BasketAniName = BasketScoreNoneAnimationState[Random.Range(0, BasketScoreNoneAnimationState.Count)];
 			}
-			Debug.Log("BasketAniName:"+BasketAniName);
+//			Debug.Log("BasketAniName:"+BasketAniName);
 		}
 	}
 
@@ -1041,6 +1041,11 @@ public class GameController : MonoBehaviour
 				IsAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
+//		Debug.Log("extraScoreRate:"+extraScoreRate);
+		if(isScore)
+			UIHint.Get.ShowHint("Score", Color.black);
+		else 
+			UIHint.Get.ShowHint("No Score", Color.black);
 	}
 
 	public void AddExtraScoreRate(float rate) {
