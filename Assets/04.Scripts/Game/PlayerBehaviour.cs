@@ -59,7 +59,8 @@ public enum PlayerState
 	TipIn = 51,
 	Alleyoop = 52,
 	Intercept0 = 53,
-	Intercept1 = 54
+	Intercept1 = 54,
+	MoveDodge0 = 55
 }
 
 public enum TeamKind
@@ -1529,6 +1530,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
+			case PlayerState.MoveDodge0:
 				if(crtState != state)
 				return true;
 				break;
@@ -1754,6 +1756,12 @@ public class PlayerBehaviour : MonoBehaviour
 //				AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
+
+			case PlayerState.MoveDodge0:
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("MoveDodgeTrigger");
+				Result = true;
+				break;
 
             case PlayerState.PassFlat:
                 animator.SetInteger("StateNo", 0);
@@ -2063,6 +2071,10 @@ public class PlayerBehaviour : MonoBehaviour
 				GameController.Get.IsExtraScoreRate = false;
 				Destroy(doubleClickEffect); 
                 break;
+
+			case "MoveDodgeEnd": 
+				AniState(PlayerState.Dribble);
+				break;
 
             case "Passing": 
                 //0.Flat
