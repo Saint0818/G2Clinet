@@ -302,6 +302,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private GameObject doubleClickEffect;
 	public Rigidbody Rigi;
+	private bool IsSpeedup = false;
+	public float MovePower = 0;
+	public int MaxMovePower = 0;
+	private float MovePowerTime = 0;
     
     void Awake()
     {
@@ -400,7 +404,8 @@ public class PlayerBehaviour : MonoBehaviour
 			GameObject DefPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
 			DefPointCopy.transform.parent = gameObject.transform;
 			DefPointCopy.name = "DefPoint";
-			
+			DefPointCopy.transform.localScale = Vector3.one;
+
 			DefPointAy [DefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
 			DefPointAy [DefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
 			DefPointAy [DefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find ("Right").gameObject.transform;
@@ -546,6 +551,29 @@ public class PlayerBehaviour : MonoBehaviour
 				GameController.Get.DefMove(this);
             }       
         }
+
+		if (Time.time >= MovePowerTime) 
+		{
+			MovePowerTime = Time.time + 0.05f;
+			if(IsSpeedup)
+			{
+				if(MovePower > 0)
+				{
+					MovePower -= 1;
+					if(MovePower < 0)
+						MovePower = 0;
+				}
+			}
+			else
+			{
+				if(MovePower < MaxMovePower)
+				{
+					MovePower += 2.5f;
+					if(MovePower > MaxMovePower)
+						MovePower = MaxMovePower;
+				}
+			}	
+		}
 
         if (IsDefence)
         {
@@ -928,12 +956,12 @@ public class PlayerBehaviour : MonoBehaviour
                     int a = 90;
                     Vector3 rotation = new Vector3(0, angle + a, 0);
                     transform.rotation = Quaternion.Euler(rotation);
-                    
-                    if (animationSpeed <= MoveMinSpeed)
+					                    
+                    if (animationSpeed <= MoveMinSpeed || MovePower == 0)
                     {
-                        if (IsBallOwner)
+                        if (IsBallOwner)						
                             Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
-                        else
+						else
                         {
                             if (IsDefence)
                             {
@@ -943,6 +971,7 @@ public class PlayerBehaviour : MonoBehaviour
                         }                       
                     } else
                     {
+						IsSpeedup = true;
                         if (IsBallOwner)
                             Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
                         else
@@ -967,6 +996,7 @@ public class PlayerBehaviour : MonoBehaviour
 		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking) {
 			SetNoAiTime();
 			isJoystick = false;
+			IsSpeedup = false;
 
             if (crtState != ps)
                 AniState(ps);
@@ -1239,10 +1269,16 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 
 					isMoving = true;
-                    if (Data.Speedup)
+					if (Data.Speedup && MovePower > 0)
+					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
-                    else
+						IsSpeedup = true;
+					}
+					else
+					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * GameConst.BasicMoveSpeed);
+						IsSpeedup = false;
+					}
                 } else
                 {
                     rotateTo(MoveTarget.x, MoveTarget.y);
@@ -1255,16 +1291,28 @@ public class PlayerBehaviour : MonoBehaviour
 					isMoving = true;
                     if (IsBallOwner)
                     {
-                        if (Data.Speedup)
+						if (Data.Speedup && MovePower > 0)
+						{
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * GameConst.BasicMoveSpeed);
-                        else
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = true;
+						}
+						else
+						{
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = false;
+						}
                     } else
                     {
-                        if (Data.Speedup)
+						if (Data.Speedup && MovePower > 0)
+						{
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * GameConst.BasicMoveSpeed);
-                        else
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = true;
+						}
+						else
+						{
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = false;
+						}
                     }
                 }
             }       
@@ -1351,6 +1399,7 @@ public class PlayerBehaviour : MonoBehaviour
             NeedShooting = false;
             isJoystick = false; 
 			isMoving = false;
+			IsSpeedup = false;
         } else
             NeedResetFlag = true;
     }
@@ -2347,6 +2396,12 @@ public class PlayerBehaviour : MonoBehaviour
                 FirstMoveQueue.Enqueue(value);
         }
     }
+
+	public void SetMovePower(int Value)
+	{
+		MaxMovePower = Value;
+		MovePower = Value;
+	}
 
     private bool isTouchPalyer = false;
 

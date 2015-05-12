@@ -382,12 +382,16 @@ public class GameController : MonoBehaviour
 				}
 
                 for (int i = 0; i < PlayerList.Count; i++)
-                    PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				{    
+					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+					PlayerList [i].SetMovePower(100);
+				}						
                 break;
             case GameTest.AttackA:
             case GameTest.Dunk:
 			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				PlayerList [0].SetMovePower(100);
                 break;
             case GameTest.AttackB:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
@@ -442,7 +446,7 @@ public class GameController : MonoBehaviour
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
 			PlayerList [i].OnBlockCatching = OnBlockCatching;
-			//            PlayerList [i].OnBlocking = OnBlocking;
+//			PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
