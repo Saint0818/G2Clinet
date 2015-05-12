@@ -45,7 +45,8 @@ public enum GameTest
     Edit,
     OneByOne,
 	Pass,
-	Alleyoop
+	Alleyoop,
+	CrossOver
 }
 
 public enum CameraTest
@@ -423,6 +424,16 @@ public class GameController : MonoBehaviour
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(5, 0, -2), new GameStruct.TPlayer(0)));
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, TeamKind.Self, new Vector3(-5, 0, -2), new GameStruct.TPlayer(0)));
 				break;
+			case GameTest.CrossOver:
+				Self = new TPlayer(0);
+				Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
+				
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), Self));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Npc, new Vector3 (0, 0, 5), new GameStruct.TPlayer(0)));
+				
+				for (int i = 0; i < PlayerList.Count; i++)
+					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				break;
         }
 
         Joysticker = PlayerList [0];
@@ -532,10 +543,10 @@ public class GameController : MonoBehaviour
 
 		}
 
-        if (Time.time >= CoolDownPass)
+		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
             CoolDownPass = 0;
 
-        if (Time.time >= CoolDownCrossover)
+		if (CoolDownCrossover > 0 && Time.time >= CoolDownCrossover)
             CoolDownCrossover = 0;
 
         if (RealBallFxTime > 0)
@@ -572,6 +583,18 @@ public class GameController : MonoBehaviour
                 SceneMgr.Get.SetBallState(PlayerState.Shoot0);
                 SceneMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
 				SceneMgr.Get.RealBallRigidbody.isKinematic = true;
+			}
+		}
+
+		if (GameStart.Get.TestMode == GameTest.CrossOver) {
+			if (GUI.Button(new Rect(20, 50, 100, 100), "Left")) {
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 2, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 5, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+			}
+
+			if (GUI.Button(new Rect(120, 50, 100, 100), "Right")) {
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 2, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 5, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 			}
 		}
 	}

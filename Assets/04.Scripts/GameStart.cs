@@ -13,6 +13,8 @@ public class GameStart : MonoBehaviour {
 	public CameraTest TestCameraMode = CameraTest.None;
 //	public bool IsOpenIKSystem = true;
 	public bool IsSplitScreen = false;
+	public float CrossTimeX = 0.5f;
+	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);
 
 	void Start(){
