@@ -804,7 +804,7 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			fallCurveTime += Time.deltaTime;
 			
-			if(fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.StartTime){
+			if(fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.EndTime){
 				switch(playerFallCurve.Dir){
 				case AniCurveDirection.Forward:
 					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
