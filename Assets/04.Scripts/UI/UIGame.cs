@@ -313,7 +313,7 @@ public class UIGame : UIBase {
 		}else if(level == 4) {
 			time = 30;
 		}else if(level == 5) {
-			time = -1;
+			time = 999999;
 		}
 		GameData.AIChangeTime = time;
 	}
