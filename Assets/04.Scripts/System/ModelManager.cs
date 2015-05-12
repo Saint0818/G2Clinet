@@ -523,30 +523,30 @@ public class ModelManager : MonoBehaviour {
 			}
 
 			//IK
-			if(isUseRig) {
-				Transform tAim1 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Aim");
-				AimIK aimIK = result.GetComponent<AimIK> ();
-				Transform tAimBone1 = result.transform.FindChild("Bip01/Bip01 Spine");
-				Transform tAimBone2 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
-				Transform tAimBone3 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck");
-				Transform tAimBone4 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
-				if(aimIK == null) {
-					aimIK = result.AddComponent<AimIK> ();
-					aimIK.solver.transform = tAim1; 
-					aimIK.solver.bones = new IKSolver.Bone[4];
-					aimIK.solver.bones[0] = new IKSolver.Bone();
-					aimIK.solver.bones[1] = new IKSolver.Bone();
-					aimIK.solver.bones[2] = new IKSolver.Bone();
-					aimIK.solver.bones[3] = new IKSolver.Bone();
-					aimIK.solver.bones[0].transform = tAimBone1;
-					aimIK.solver.bones[0].weight = 0.25f;
-					aimIK.solver.bones[1].transform = tAimBone2;
-					aimIK.solver.bones[1].weight = 0.25f;
-					aimIK.solver.bones[2].transform = tAimBone3;
-					aimIK.solver.bones[2].weight = 0.5f;
-					aimIK.solver.bones[3].transform = tAimBone4;
-					aimIK.solver.bones[3].weight = 0.5f;
-				}
+//			if(isUseRig) {
+//				Transform tAim1 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Aim");
+//				AimIK aimIK = result.GetComponent<AimIK> ();
+//				Transform tAimBone1 = result.transform.FindChild("Bip01/Bip01 Spine");
+//				Transform tAimBone2 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+//				Transform tAimBone3 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck");
+//				Transform tAimBone4 = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
+//				if(aimIK == null) {
+//					aimIK = result.AddComponent<AimIK> ();
+//					aimIK.solver.transform = tAim1; 
+//					aimIK.solver.bones = new IKSolver.Bone[4];
+//					aimIK.solver.bones[0] = new IKSolver.Bone();
+//					aimIK.solver.bones[1] = new IKSolver.Bone();
+//					aimIK.solver.bones[2] = new IKSolver.Bone();
+//					aimIK.solver.bones[3] = new IKSolver.Bone();
+//					aimIK.solver.bones[0].transform = tAimBone1;
+//					aimIK.solver.bones[0].weight = 0.25f;
+//					aimIK.solver.bones[1].transform = tAimBone2;
+//					aimIK.solver.bones[1].weight = 0.25f;
+//					aimIK.solver.bones[2].transform = tAimBone3;
+//					aimIK.solver.bones[2].weight = 0.5f;
+//					aimIK.solver.bones[3].transform = tAimBone4;
+//					aimIK.solver.bones[3].weight = 0.5f;
+//				}
 				
 ////				RootMotion.FinalIK.RotationLimitHinge boneRotationLimit1 = tAimBone1.gameObject.GetComponent<RootMotion.FinalIK.RotationLimitHinge>();
 ////				if(!boneRotationLimit1 )
@@ -600,35 +600,35 @@ public class ModelManager : MonoBehaviour {
 //				boneRotationLimit4.limit = 20;
 //				boneRotationLimit4.twistLimit = 20;
 
-				FullBodyBipedIK fbbik = result.GetComponent<FullBodyBipedIK>();
-				if(fbbik == null)
-					fbbik = result.AddComponent<FullBodyBipedIK>();
-				RootMotion.BipedReferences bipedRef = new RootMotion.BipedReferences();
+//				FullBodyBipedIK fbbik = result.GetComponent<FullBodyBipedIK>();
+//				if(fbbik == null)
+//					fbbik = result.AddComponent<FullBodyBipedIK>();
+//				RootMotion.BipedReferences bipedRef = new RootMotion.BipedReferences();
 
-				bipedRef.root = result.transform.FindChild("Bip01");
-				bipedRef.pelvis = result.transform.FindChild("Bip01/Bip01 Pelvis");
-				bipedRef.leftThigh = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh");
-				bipedRef.leftCalf = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf");
-				bipedRef.leftFoot = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot");
-				bipedRef.rightThigh = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh");
-				bipedRef.rightCalf = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf");
-				bipedRef.rightFoot  = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot");
-				bipedRef.leftUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm");
-				bipedRef.leftForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm");
-				bipedRef.leftHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm/Bip01 L Hand/Bip01 L Finger2");
-				bipedRef.rightUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm");
-				bipedRef.rightForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm");
-				bipedRef.rightHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2");
-				bipedRef.head = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
-				bipedRef.spine = new Transform[2];
-				bipedRef.spine[0] = result.transform.FindChild("Bip01/Bip01 Spine");
-				bipedRef.spine[1] = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
-				fbbik.SetReferences(bipedRef, result.transform.FindChild("Bip01/Bip01 Spine"));
-				fbbik.solver.GetEffector(FullBodyBipedEffector.LeftHand).positionWeight = 0.8f;
-				fbbik.solver.GetEffector(FullBodyBipedEffector.RightHand).positionWeight = 0.8f;
-				fbbik.solver.pullBodyVertical = 0.2f;
-				fbbik.solver.pullBodyHorizontal = 0.3f;
-			}
+//				bipedRef.root = result.transform.FindChild("Bip01");
+//				bipedRef.pelvis = result.transform.FindChild("Bip01/Bip01 Pelvis");
+//				bipedRef.leftThigh = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh");
+//				bipedRef.leftCalf = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf");
+//				bipedRef.leftFoot = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot");
+//				bipedRef.rightThigh = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh");
+//				bipedRef.rightCalf = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf");
+//				bipedRef.rightFoot  = result.transform.FindChild("Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot");
+//				bipedRef.leftUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm");
+//				bipedRef.leftForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm");
+//				bipedRef.leftHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01 L Forearm/Bip01 L Hand/Bip01 L Finger2");
+//				bipedRef.rightUpperArm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm");
+//				bipedRef.rightForearm = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm");
+//				bipedRef.rightHand = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2");
+//				bipedRef.head = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
+//				bipedRef.spine = new Transform[2];
+//				bipedRef.spine[0] = result.transform.FindChild("Bip01/Bip01 Spine");
+//				bipedRef.spine[1] = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+//				fbbik.SetReferences(bipedRef, result.transform.FindChild("Bip01/Bip01 Spine"));
+//				fbbik.solver.GetEffector(FullBodyBipedEffector.LeftHand).positionWeight = 0.8f;
+//				fbbik.solver.GetEffector(FullBodyBipedEffector.RightHand).positionWeight = 0.8f;
+//				fbbik.solver.pullBodyVertical = 0.2f;
+//				fbbik.solver.pullBodyHorizontal = 0.3f;
+//			}
 			
 			//rig
 			if(isUseRig){

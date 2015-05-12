@@ -2680,17 +2680,18 @@ public class GameController : MonoBehaviour
 				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
-				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
-					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-				} else {
-//					p.AniState(PlayerState.PickBall);
-					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-						StartCoroutine(catchBall(p));
-					} else {
-						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-					}
-				}
+				SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+//				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
+//					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+//				} else {
+////					p.AniState(PlayerState.PickBall);
+//					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
+//					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
+//						StartCoroutine(catchBall(p));
+//					} else {
+//						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+//					}
+//				}
 
 				p.ClearIsCatcher();
 
@@ -2734,22 +2735,22 @@ public class GameController : MonoBehaviour
 		return Result;
     }
 
-	IEnumerator catchBall(PlayerBehaviour p) {
-		if(!GameStart.Get.IsOpenIKSystem){
-			yield return null;
-			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-		} else {
-			p.isIKOpen = true;
-			p.isIKCatchBall = true;
-			yield return new WaitForSeconds(0.08f);
-			isCatchBall = true;
-			yield return new WaitForSeconds(0.17f);
-			p.isIKOpen = false;
-			p.isIKCatchBall = false;
-			isCatchBall = false;
-			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-		}
-	}
+//	IEnumerator catchBall(PlayerBehaviour p) {
+//		if(!GameStart.Get.IsOpenIKSystem){
+//			yield return null;
+//			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+//		} else {
+//			p.isIKOpen = true;
+//			p.isIKCatchBall = true;
+//			yield return new WaitForSeconds(0.08f);
+//			isCatchBall = true;
+//			yield return new WaitForSeconds(0.17f);
+//			p.isIKOpen = false;
+//			p.isIKCatchBall = false;
+//			isCatchBall = false;
+//			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
+//		}
+//	}
 
 	public PlayerBehaviour FindNearNpc(){
 		PlayerBehaviour p = null;
