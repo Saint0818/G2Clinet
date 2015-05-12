@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: fbda23770fdc8c04987bab917a3aa328
-timeCreated: 1431076574
+guid: 26b50c222f939954382deb0058ee645a
+timeCreated: 1431399768
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Dunk20
+    7400000: StayDodge0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dunk20
+      name: StayDodge0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 165
+      lastFrame: 26
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
