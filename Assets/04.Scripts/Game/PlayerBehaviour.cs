@@ -219,6 +219,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
 	public GameObject DummyCatch;
+	public UISprite SpeedUpView = null;
 
     public TeamKind Team;
     public float NoAiTime = 0;
@@ -562,6 +563,9 @@ public class PlayerBehaviour : MonoBehaviour
 					MovePower -= 1;
 					if(MovePower < 0)
 						MovePower = 0;
+
+					if(this == GameController.Get.Joysticker)
+						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
 				}
 			}
 			else
@@ -571,6 +575,9 @@ public class PlayerBehaviour : MonoBehaviour
 					MovePower += 2.5f;
 					if(MovePower > MaxMovePower)
 						MovePower = MaxMovePower;
+
+					if(this == GameController.Get.Joysticker)
+						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
 				}
 			}	
 		}
