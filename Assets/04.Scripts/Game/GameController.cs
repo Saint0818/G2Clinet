@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
-	private bool isCatchBall = false;
+//	private bool isCatchBall = false;
 
 	//Score Animation Value
 	public bool IsScore;
@@ -456,12 +456,12 @@ public class GameController : MonoBehaviour
     }
 
 	void FixedUpdate() {
-		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
-			if(BallOwner) {
-				Vector3 pos = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, BallOwner.DummyCatch.transform.position, 0.25f);
-				SceneMgr.Get.SetRealBallPosition(pos);
-			}
-		}
+//		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
+//			if(BallOwner) {
+//				Vector3 pos = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, BallOwner.DummyCatch.transform.position, 0.25f);
+//				SceneMgr.Get.SetRealBallPosition(pos);
+//			}
+//		}
 
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.D))
