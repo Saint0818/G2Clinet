@@ -26,17 +26,16 @@ public class ScoreTrigger : MonoBehaviour
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 								} else {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-									
-									if(animator != null && GameController.Get.BasketScoreAnimationState.Count > 0){
+		
+									if(animator != null){
 										animator.SetTrigger(GameController.Get.BasketAniName);
-//										Debug.Log();
 									}
 								}
 							} else {
 								if(!GameController.Get.IsAirBall) {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 
-									if(animator != null && GameController.Get.BasketScoreNoneAnimationState.Count >0){
+									if(animator != null ){
 										animator.SetTrigger(GameController.Get.BasketAniName);
 									}
 								}

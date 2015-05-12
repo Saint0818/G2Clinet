@@ -150,6 +150,7 @@ public class GameController : MonoBehaviour
 	public string[] BasketScoreAllNoneAnimationState;
 	public bool IsExtraScoreRate = false;
 	private float extraScoreRate = 0;
+
 	public string BasketAniName;
 	
 	public GameObject selectMe;
@@ -975,20 +976,17 @@ public class GameController : MonoBehaviour
 			BasketScoreAnimationState = aryIntersection( GameConst.DistanceScoreLong, BasketScoreAnimationState);
 			BasketScoreNoneAnimationState = aryIntersection( GameConst.DistanceNoScoreLong, BasketScoreNoneAnimationState);
 		}
-
-		judgeBasketAniName ();
 	}
 
 	private void judgeBasketAniName () {
-		if(IsScore) {
-			if(!IsSwich)
+		if( BasketScoreAnimationState.Count > 0) {
+			if(IsScore) {
 				BasketAniName = BasketScoreAnimationState[Random.Range(0, BasketScoreAnimationState.Count)];
-		} else {
-			if(!IsAirBall)
+			} else {
 				BasketAniName = BasketScoreNoneAnimationState[Random.Range(0, BasketScoreNoneAnimationState.Count)];
-		}
-		if(!IsSwich || !IsAirBall)
+			}
 			Debug.Log("BasketAniName:"+BasketAniName);
+		}
 	}
 
 	private void calculationScoreRate(ref bool isScore, PlayerBehaviour player, ScoreType type) {
@@ -1047,7 +1045,10 @@ public class GameController : MonoBehaviour
 
 	public void AddExtraScoreRate(float rate) {
 		extraScoreRate = rate;
-		UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
+		if(rate > 100)
+			UIHint.Get.ShowHint("ExtraScoreRate : 100 ", Color.yellow);
+		else 
+			UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
 	}
 
 	public void Shoot()
@@ -1056,7 +1057,7 @@ public class GameController : MonoBehaviour
         {
 			extraScoreRate = 0;
 			UIGame.Get.DoPassNone();
-            SceneMgr.Get.ResetBasketEntra();
+			SceneMgr.Get.ResetBasketEntra();
 			Vector3 v = SceneMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
 			ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
 			int t = BallOwner.Team.GetHashCode();
@@ -1095,27 +1096,12 @@ public class GameController : MonoBehaviour
 				}
 			}
         }
-    }
-
-	public void modifyShootPosition() {
-		Debug.Log("position:"+SceneMgr.Get.BasketHoopDummy[0].transform.position);
-		if(!IsScore && IsAirBall) {
-			//AirBall
-			Vector3 ori = SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
-			SceneMgr.Get.RealBallRigidbody.velocity = 
-				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-				                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 55);
-		} else {
-			SceneMgr.Get.RealBallRigidbody.velocity = 
-				GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-				                         SceneMgr.Get.BasketHoopDummy[Shooter.Team.GetHashCode()].transform.position, 55);
-		}
 	}
         
     public bool OnShooting(PlayerBehaviour player)
     {
         if (BallOwner && BallOwner == player)
-        {                   
+		{                   
 			Shooter = player;
 			SetBallOwnerNull();
 			for(int i = 0; i < PlayerList.Count; i++)
@@ -1137,12 +1123,14 @@ public class GameController : MonoBehaviour
 			if(player.crtState == PlayerState.Layup|| player.crtState == PlayerState.TipIn){
 				calculationScoreRate(ref IsScore ,player, ScoreType.LayUp);
 			}
-//			SceneMgr.Get.BasketHoopAni[player.Team.GetHashCode()].SetTrigger(BasketAniName);
-//			SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-//			SceneMgr.Get.SetBallState(player.crtState);
+
+			judgeBasketAniName ();
+
+
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
 			SceneMgr.Get.SetBallState(player.crtState);
+
 			if(!IsScore && IsAirBall) {
 				//AirBall
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
@@ -2777,7 +2765,7 @@ public class GameController : MonoBehaviour
 	public void BallOnFloor()
     {
         SceneMgr.Get.ResetBasketEntra();
-        GameController.Get.Shooter = null;
+        Shooter = null;
     }
 
 	public bool PassingStealBall(PlayerBehaviour player, int dir)
