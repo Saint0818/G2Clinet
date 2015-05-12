@@ -18,6 +18,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject RealBall;
 	public InteractionObject RealBallInteractionObject;
 	private SphereCollider realBallCollider;
+	public PhysicMaterial RealBallPhysicMaterial;
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
 	public GameObject RealBallFX;
@@ -70,6 +71,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
+		RealBallPhysicMaterial = realBallCollider.sharedMaterial;
 
 		//IK
 		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
@@ -303,6 +305,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallRigidbody.velocity = Vector3.zero;
 				RealBallRigidbody.AddForce(Vector3.down * 70);
+				RealBallPhysicMaterial.bounciness = 0.3f;
 			break;
 			case PlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -321,6 +324,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddForce(Vector3.down * 50);
+				RealBallPhysicMaterial.bounciness = 0.3f;
 				break;
 			case PlayerState.BasketActionNoScoreEnd:
 				RealBallRigidbody.useGravity = true;

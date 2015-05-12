@@ -2617,7 +2617,7 @@ public class GameController : MonoBehaviour
     public bool SetBall(PlayerBehaviour p = null)
     {
 		bool Result = false;
-
+		SceneMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
 		if (PlayerList.Count > 0)
         {
             if (p != null && situation != GameSituation.End)
@@ -2774,7 +2774,7 @@ public class GameController : MonoBehaviour
 	
 	public void BallOnFloor()
     {
-        SceneMgr.Get.ResetBasketEntra();
+		SceneMgr.Get.ResetBasketEntra();
         Shooter = null;
     }
 
