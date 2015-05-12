@@ -2281,9 +2281,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (situation == GameSituation.AttackA && Team == TeamKind.Npc)
+            if ((situation == GameSituation.AttackA || situation == GameSituation.TeeA || situation == GameSituation.TeeAPicking) && Team == TeamKind.Npc)
                 return true;
-            else if (situation == GameSituation.AttackB && Team == TeamKind.Self)
+			else if ((situation == GameSituation.AttackB || situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking) && Team == TeamKind.Self)
                 return true;
             else
                 return false;
