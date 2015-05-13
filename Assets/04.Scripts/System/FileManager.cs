@@ -183,6 +183,7 @@ public class FileManager : MonoBehaviour {
 	void Awake () {
 		CallBackFun.Add ("tactical", parseTacticalData);
 		CallBackFun.Add ("ailevel", parseAILevelData);
+		CallBackFun.Add ("basketShootPosition", parseBasketShootPositionData);
 	}
     
     private void DoStarDownload(){
@@ -437,4 +438,18 @@ public class FileManager : MonoBehaviour {
 			Debug.LogError ("[AIlevelAy parsed error] " + ex.Message);
 		}
 	}
+
+	private void parseBasketShootPositionData (string Version, string text, bool SaveVersion){
+		try {
+			GameData.BasketShootPosition = (BasketShootPositionData[])JsonConvert.DeserializeObject (text, typeof(BasketShootPositionData[]));
+			
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "basketShootPosition", Version);
+			
+			Debug.Log ("[basketShootPosition parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[basketShootPosition parsed error] " + ex.Message);
+		}
+	}
+
 }

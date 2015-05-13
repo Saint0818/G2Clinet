@@ -5,6 +5,7 @@ using UnityEditor.Animations;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class AnimatorEditor : EditorWindow {
 	[MenuItem ("GameEditor/AnimatorEditor")]
 	private static void BuildTool() {

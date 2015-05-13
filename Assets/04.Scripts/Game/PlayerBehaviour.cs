@@ -2079,7 +2079,6 @@ public class PlayerBehaviour : MonoBehaviour
                     OnShooting(this);
 
 				//	ShootingDoubleEnd
-				GameController.Get.IsExtraScoreRate = false;
 				Destroy(doubleClickEffect); 
                 break;
 

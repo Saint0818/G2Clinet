@@ -17,37 +17,35 @@ public class ScoreTrigger : MonoBehaviour
 			animator = SceneMgr.Get.BasketHoopAni[Team];
 
 		if (c.tag == "RealBall") {
-			if(!GameController.Get.IsDunk) {
+			if(!GameController.Get.IsDunk && GameController.Get.IsShooting) {
 				if (GameController.Visible) {
-						if(IntTrigger == 0 && !Into){
-							Into = true;
-							if(GameController.Get.IsScore) {
-								if(GameController.Get.IsSwich) {
-									SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
-								} else {
-									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-		
-									if(animator != null){
-										animator.SetTrigger(GameController.Get.BasketAniName);
-									}
-								}
-							} else {
-								if(!GameController.Get.IsAirBall) {
-									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-
-									if(animator != null ){
-										animator.SetTrigger(GameController.Get.BasketAniName);
-									}
-								}
+					if(IntTrigger == 0 && !Into){
+						Into = true;
+						switch (GameController.Get.BasketSituationType) {
+						case BasketSituation.Score:
+							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
+							if(animator != null){
+								animator.SetTrigger(GameController.Get.BasketAniName);
 							}
-						}else
-						if(IntTrigger == 1 && SceneMgr.Get.BasketEntra[Team, 0].Into && !SceneMgr.Get.BasketEntra[Team, 1].Into) {
-							Into = true;
-							GameController.Get.PlusScore(Team);
-							SceneMgr.Get.PlayShoot(Team);
-							if(GameController.Get.IsSwich)
-								SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
+							break;
+						case BasketSituation.Swich:
+							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
+							break;
+						case BasketSituation.NoScore:
+							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
+							if(animator != null ){
+								animator.SetTrigger(GameController.Get.BasketAniName);
+							}
+							break;
 						}
+					}else
+					if(IntTrigger == 1 && SceneMgr.Get.BasketEntra[Team, 0].Into && !SceneMgr.Get.BasketEntra[Team, 1].Into) {
+						Into = true;
+						GameController.Get.PlusScore(Team);
+						SceneMgr.Get.PlayShoot(Team);
+						if(GameController.Get.BasketSituationType == BasketSituation.Swich)
+							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
+					}
 				}
 			}
 		}

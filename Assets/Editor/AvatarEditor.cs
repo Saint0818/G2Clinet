@@ -132,6 +132,7 @@ public class AvatarEditor :  EditorWindow{
 	}
 	void OnFocus(){
 		init ();
+
 		if(Selection.gameObjects.Length > 1) {
 			chooseCount = 2;
 			isAvatar = false;
