@@ -59,7 +59,8 @@ public enum PlayerState
 	TipIn = 51,
 	Alleyoop = 52,
 	Intercept0 = 53,
-	Intercept1 = 54
+	Intercept1 = 54,
+	MoveDodge0 = 55
 }
 
 public enum TeamKind
@@ -191,7 +192,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    private const int ChangeToAI = 1;
     public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
     private Vector2 drag = Vector2.zero;
@@ -220,6 +220,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
 	public GameObject DummyCatch;
+	public UISprite SpeedUpView = null;
 
     public TeamKind Team;
     public float NoAiTime = 0;
@@ -261,7 +262,7 @@ public class PlayerBehaviour : MonoBehaviour
 //	private Vector3[] dunkPath = new Vector3[5];
 	private TLayupCurve playerLayupCurve;
 		
-		//Block
+	//Block
 	private bool isCanBlock = false;
     private bool isBlock = false;
     private float blockCurveTime = 0;
@@ -278,21 +279,41 @@ public class PlayerBehaviour : MonoBehaviour
     private TShootCurve playerShootCurve;
     private bool isShootJump = false;
 
+	//Push
+	private bool isPush = false;
+	private float pushCurveTime = 0;
+	private TSharedCurve playerPushCurve;
+
+	//Fall
+	private bool isFall = false;
+	private float fallCurveTime = 0;
+	private TSharedCurve playerFallCurve;
+
     //IK
-    private AimIK aimIK;
-    private FullBodyBipedIK fullBodyBipedIK;
-    private Transform pinIKTransform;
-    public Transform IKTarget;
-    public bool isIKOpen = false;
-    public bool isIKLook = false;
-    public bool isIKCatchBall = false;
-    private bool firstDribble = true;
-    private RotationLimitAngle[] ikRotationLimits;
-    public TScoreRate ScoreRate;
-    private bool isCanCatchBall = true;
+//    private AimIK aimIK;
+//    private FullBodyBipedIK fullBodyBipedIK;
+//    private Transform pinIKTransform;
+//    public Transform IKTarget;
+//    public bool isIKOpen = false;
+//    public bool isIKLook = false;
+//    public bool isIKCatchBall = false;
+//    private RotationLimitAngle[] ikRotationLimits;
+	private bool firstDribble = true;
+	public TScoreRate ScoreRate;
+	private bool isCanCatchBall = true;
 
 	private GameObject doubleClickEffect;
 	public Rigidbody Rigi;
+	private bool IsSpeedup = false;
+	public float MovePower = 0;
+	public int MaxMovePower = 0;
+	private float MovePowerTime = 0;
+	private Vector2 MoveTarget;
+	private float [] disAy = new float[4];
+	private float dis;
+	private float dis2;
+	private float dis3;
+	private bool CanSpeedup = true;
     
     void Awake()
     {
@@ -300,17 +321,17 @@ public class PlayerBehaviour : MonoBehaviour
         gameObject.tag = "Player";
 
         //IK
-        aimIK = gameObject.GetComponent<AimIK>();
-        fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
-        aimIK.enabled = GameStart.Get.IsOpenIKSystem;
-        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
-        pinIKTransform = transform.FindChild("Pin");
-        IKTarget = SceneMgr.Get.RealBall.transform;
-
-        ikRotationLimits = gameObject.GetComponentsInChildren<RotationLimitAngle>();
-        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
-        for (int i = 0; i < ikRotationLimits.Length; i++)
-            ikRotationLimits [i].enabled = GameStart.Get.IsOpenIKSystem;
+//        aimIK = gameObject.GetComponent<AimIK>();
+//        fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
+//        aimIK.enabled = GameStart.Get.IsOpenIKSystem;
+//        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
+//        pinIKTransform = transform.FindChild("Pin");
+//        IKTarget = SceneMgr.Get.RealBall.transform;
+//
+//        ikRotationLimits = gameObject.GetComponentsInChildren<RotationLimitAngle>();
+//        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
+//        for (int i = 0; i < ikRotationLimits.Length; i++)
+//            ikRotationLimits [i].enabled = GameStart.Get.IsOpenIKSystem;
 
         animator = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -391,7 +412,8 @@ public class PlayerBehaviour : MonoBehaviour
 			GameObject DefPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
 			DefPointCopy.transform.parent = gameObject.transform;
 			DefPointCopy.name = "DefPoint";
-			
+			DefPointCopy.transform.localScale = Vector3.one;
+
 			DefPointAy [DefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
 			DefPointAy [DefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
 			DefPointAy [DefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find ("Right").gameObject.transform;
@@ -405,79 +427,79 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    void LateUpdate()
-    {
-        if (aimIK != null)
-        {
-            if (pinIKTransform != null)
-            {
-                if (IKTarget != null)
-                {
-                    if (GameStart.Get.IsOpenIKSystem)
-                    {
-                        Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
-                        aimIK.solver.transform.LookAt(pinIKTransform.position);
-                        if (isIKOpen)
-                        {
-                            if (isIKLook)
-                            {
-                                aimIK.enabled = true;
-                                for (int i = 0; i < ikRotationLimits.Length; i++)
-                                    ikRotationLimits [i].enabled = true;
-                                aimIK.solver.IKPosition = IKTarget.position;
-                            } else
-                            {
-                                aimIK.enabled = false;
-                                for (int i = 0; i < ikRotationLimits.Length; i++)
-                                    ikRotationLimits [i].enabled = false;
-                            }
-
-                            if (isIKCatchBall)
-                            {
-                                if (Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 100)
-                                {
-                                    if (Vector3.Distance(this.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position) < 3)
-                                    {
-                                        fullBodyBipedIK.enabled = true;
-                                        fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-                                        fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-                                    } else
-                                    {
-                                        fullBodyBipedIK.enabled = false;
-                                    }
-                                } else
-                                {
-                                    fullBodyBipedIK.enabled = false;
-                                }
-                            } else
-                            {
-                                fullBodyBipedIK.enabled = false;
-                            }
-                        } else
-                        {
-                            aimIK.enabled = false;
-                            for (int i = 0; i < ikRotationLimits.Length; i++)
-                                ikRotationLimits [i].enabled = false;
-                            fullBodyBipedIK.enabled = false;
-                        }
-                    } else
-                    {
-                        aimIK.enabled = false;
-                        for (int i = 0; i < ikRotationLimits.Length; i++)
-                            ikRotationLimits [i].enabled = false;
-                        fullBodyBipedIK.enabled = false;
-                    }
-                    for (int i = 0; i < aimIK.solver.bones.Length; i++)
-                    {
-                        if (aimIK.solver.bones [i].rotationLimit != null)
-                        {
-                            aimIK.solver.bones [i].rotationLimit.SetDefaultLocalRotation();
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    void LateUpdate()
+//    {
+//        if (aimIK != null)
+//        {
+//            if (pinIKTransform != null)
+//            {
+//                if (IKTarget != null)
+//                {
+//                    if (GameStart.Get.IsOpenIKSystem)
+//                    {
+//                        Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
+//                        aimIK.solver.transform.LookAt(pinIKTransform.position);
+//                        if (isIKOpen)
+//                        {
+//                            if (isIKLook)
+//                            {
+//                                aimIK.enabled = true;
+//                                for (int i = 0; i < ikRotationLimits.Length; i++)
+//                                    ikRotationLimits [i].enabled = true;
+//                                aimIK.solver.IKPosition = IKTarget.position;
+//                            } else
+//                            {
+//                                aimIK.enabled = false;
+//                                for (int i = 0; i < ikRotationLimits.Length; i++)
+//                                    ikRotationLimits [i].enabled = false;
+//                            }
+//
+//                            if (isIKCatchBall)
+//                            {
+//                                if (Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 100)
+//                                {
+//                                    if (Vector3.Distance(this.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position) < 3)
+//                                    {
+//                                        fullBodyBipedIK.enabled = true;
+//                                        fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+//                                        fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
+//                                    } else
+//                                    {
+//                                        fullBodyBipedIK.enabled = false;
+//                                    }
+//                                } else
+//                                {
+//                                    fullBodyBipedIK.enabled = false;
+//                                }
+//                            } else
+//                            {
+//                                fullBodyBipedIK.enabled = false;
+//                            }
+//                        } else
+//                        {
+//                            aimIK.enabled = false;
+//                            for (int i = 0; i < ikRotationLimits.Length; i++)
+//                                ikRotationLimits [i].enabled = false;
+//                            fullBodyBipedIK.enabled = false;
+//                        }
+//                    } else
+//                    {
+//                        aimIK.enabled = false;
+//                        for (int i = 0; i < ikRotationLimits.Length; i++)
+//                            ikRotationLimits [i].enabled = false;
+//                        fullBodyBipedIK.enabled = false;
+//                    }
+//                    for (int i = 0; i < aimIK.solver.bones.Length; i++)
+//                    {
+//                        if (aimIK.solver.bones [i].rotationLimit != null)
+//                        {
+//                            aimIK.solver.bones [i].rotationLimit.SetDefaultLocalRotation();
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     void FixedUpdate()
     {
@@ -488,6 +510,8 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationShootJump();
         CalculationRebound();
 		CalculationLayupMove();
+		CalculationPush ();
+		CalculationFall ();
 		
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
@@ -535,6 +559,41 @@ public class PlayerBehaviour : MonoBehaviour
 				GameController.Get.DefMove(this);
             }       
         }
+
+		if (Time.time >= MovePowerTime) 
+		{
+			MovePowerTime = Time.time + 0.05f;
+			if(IsSpeedup)
+			{
+				if(MovePower > 0)
+				{
+					MovePower -= 1;
+					if(MovePower < 0)
+						MovePower = 0;
+
+					if(this == GameController.Get.Joysticker)
+						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+
+					if(MovePower == 0)
+						CanSpeedup = false;
+				}
+			}
+			else
+			{
+				if(MovePower < MaxMovePower)
+				{
+					MovePower += 2.5f;
+					if(MovePower > MaxMovePower)
+						MovePower = MaxMovePower;
+
+					if(this == GameController.Get.Joysticker)
+						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+
+					if(MovePower == MaxMovePower)
+						CanSpeedup = true;
+				}
+			}	
+		}
 
         if (IsDefence)
         {
@@ -589,8 +648,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
             isJoystick = true;
-            NoAiTime = Time.time + ChangeToAI;
-
+			NoAiTime = Time.time + GameData.AIChangeTime;
+            
             if (AIActiveHint)
                 AIActiveHint.SetActive(false);
         } else
@@ -716,9 +775,9 @@ public class PlayerBehaviour : MonoBehaviour
 		                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
 		                                             transform.position.z + transform.forward.z * 0.05f);
             } else
-                transform.position = new Vector3(transform.position.x, 
+				transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
 				                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-				                                 transform.position.z);
+				                                 transform.position.z + transform.forward.z * 0.05f);
 			
 			if (reboundCurveTime >= playerReboundCurve.LifeTime) {
 				isRebound = false;
@@ -727,8 +786,64 @@ public class PlayerBehaviour : MonoBehaviour
 		} else
 			isRebound = false;
 	}
-    
-    private void CalculationBlock()
+
+	private void CalculationPush()
+	{
+		if (!isPush)
+			return;
+
+		if (playerPushCurve != null) 
+		{
+			pushCurveTime += Time.deltaTime;
+
+			if(pushCurveTime >= playerPushCurve.StartTime && pushCurveTime <= playerPushCurve.EndTime){
+				switch(playerPushCurve.Dir){
+					case AniCurveDirection.Forward:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
+						break;
+					case AniCurveDirection.Back:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					break;
+				}
+			}
+
+			if(pushCurveTime >= playerPushCurve.LifeTime)
+				isPush = false;
+		}
+		
+	}
+
+	private void CalculationFall()
+	{
+		if (!isFall)
+			return;
+		
+		if (playerFallCurve != null) 
+		{
+			fallCurveTime += Time.deltaTime;
+			
+			if(fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.EndTime){
+				switch(playerFallCurve.Dir){
+				case AniCurveDirection.Forward:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerFallCurve.DirVaule));
+					break;
+				case AniCurveDirection.Back:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerFallCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerFallCurve.DirVaule));
+					break;
+				}
+			}
+			
+			if(fallCurveTime >= playerFallCurve.LifeTime)
+				isFall = false;
+		}
+		
+	}
+	
+	private void CalculationBlock()
     {
         if (!isBlock)
             return;
@@ -861,12 +976,15 @@ public class PlayerBehaviour : MonoBehaviour
                     int a = 90;
                     Vector3 rotation = new Vector3(0, angle + a, 0);
                     transform.rotation = Quaternion.Euler(rotation);
-                    
-                    if (animationSpeed <= MoveMinSpeed)
+					                    
+                    if (animationSpeed <= MoveMinSpeed || MovePower == 0)
                     {
-                        if (IsBallOwner)
+						if(animationSpeed <= MoveMinSpeed)
+							IsSpeedup = false;
+
+                        if (IsBallOwner)						
                             Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
-                        else
+						else
                         {
                             if (IsDefence)
                             {
@@ -876,6 +994,7 @@ public class PlayerBehaviour : MonoBehaviour
                         }                       
                     } else
                     {
+						IsSpeedup = true;
                         if (IsBallOwner)
                             Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
                         else
@@ -888,6 +1007,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     
                     transform.Translate(Translate); 
+					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
                 }
             }            
         }
@@ -900,6 +1020,7 @@ public class PlayerBehaviour : MonoBehaviour
 		    situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking) {
 			SetNoAiTime();
 			isJoystick = false;
+			IsSpeedup = false;
 
             if (crtState != ps)
                 AniState(ps);
@@ -954,7 +1075,7 @@ public class PlayerBehaviour : MonoBehaviour
 //        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
 //    }
     
-    private int MinIndex(float[] floatAy, bool getmin = false)
+    private int MinIndex(ref float[] floatAy, bool getmin = false)
     {
         int Result = 0;
         int Result2 = floatAy.Length - 1;
@@ -976,40 +1097,47 @@ public class PlayerBehaviour : MonoBehaviour
         else
             return Result2;
     }
-
-    private Vector2 GetMoveTarget(TMoveData Data)
+	
+    private void GetMoveTarget(ref TMoveData Data, ref Vector2 Result)
     {
-        Vector2 Result = Vector2.zero;
+        Result = Vector2.zero;
 
         if (Data.DefPlayer != null)
         {
             float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-            float [] disAy = new float[4];
+            
             for (int i = 0; i < disAy.Length; i++)
                 disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
-            int mIndex = MinIndex(disAy, Data.DefPlayer == DefPlayer);
+            int mIndex = MinIndex(ref disAy, Data.DefPlayer == DefPlayer);
 
             if (mIndex >= 0 && mIndex < disAy.Length)
             {
-                Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex].position.x, Data.DefPlayer.DefPointAy [mIndex].position.z);                 
+				Result.x = Data.DefPlayer.DefPointAy [mIndex].position.x;
+				Result.y = Data.DefPlayer.DefPointAy [mIndex].position.z;                 
                 
 				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
-                    Result = new Vector2(Data.DefPlayer.DefPointAy [mIndex + 4].position.x, Data.DefPlayer.DefPointAy [mIndex + 4].position.z);
+				{
+					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
+				}
+                    
             }
-        } else if (Data.FollowTarget != null)
-            Result = new Vector2(Data.FollowTarget.position.x, Data.FollowTarget.position.z);
-        else
+        } 
+		else if (Data.FollowTarget != null)
+		{
+			Result.x = Data.FollowTarget.position.x;
+			Result.y = Data.FollowTarget.position.z;
+		}
+		else
             Result = Data.Target;
-
-        return Result;
     }
-
+	
     public void MoveTo(TMoveData Data, bool First = false)
     {
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
         {
-            Vector2 MoveTarget = GetMoveTarget(Data);
+			GetMoveTarget(ref Data, ref MoveTarget);
 			TacticalName = Data.FileName;
 
             if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
@@ -1023,7 +1151,7 @@ public class PlayerBehaviour : MonoBehaviour
                     WaitMoveTime = 0;
                     if (Data.DefPlayer != null)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
                         if (Data.LookTarget != null)
                         {
@@ -1056,7 +1184,7 @@ public class PlayerBehaviour : MonoBehaviour
                         WaitMoveTime = 0;
                     else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
                         if (dis <= 8)
                             WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);
                         else
@@ -1120,16 +1248,9 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (Data.DefPlayer != null)
                     {
-                        float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        float dis2 = Vector3.Distance(transform.position, Data.DefPlayer.transform.position);
-//                        if (Data.LookTarget == null || dis > GameConst.TreePointDistance + 4)
-//                            rotateTo(MoveTarget.x, MoveTarget.y);
-//                        else
-//                            rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-
                         dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        float dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 
                         if (dis <= GameConst.TreePointDistance + 4)
                         {
@@ -1172,10 +1293,16 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 
 					isMoving = true;
-                    if (Data.Speedup)
+					if (MovePower > 0 && CanSpeedup && this != GameController.Get.Joysticker && !IsTee)
+					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
-                    else
+						IsSpeedup = true;
+					}
+					else
+					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * GameConst.BasicMoveSpeed);
+						IsSpeedup = false;
+					}
                 } else
                 {
                     rotateTo(MoveTarget.x, MoveTarget.y);
@@ -1188,16 +1315,28 @@ public class PlayerBehaviour : MonoBehaviour
 					isMoving = true;
                     if (IsBallOwner)
                     {
-                        if (Data.Speedup)
+						if (Data.Speedup && MovePower > 0)
+						{
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * GameConst.BasicMoveSpeed);
-                        else
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = true;
+						}
+						else
+						{
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = false;
+						}
                     } else
                     {
-                        if (Data.Speedup)
+						if (Data.Speedup && MovePower > 0)
+						{
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * GameConst.BasicMoveSpeed);
-                        else
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = true;
+						}
+						else
+						{
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
+							IsSpeedup = false;
+						}
                     }
                 }
             }       
@@ -1284,6 +1423,8 @@ public class PlayerBehaviour : MonoBehaviour
             NeedShooting = false;
             isJoystick = false; 
 			isMoving = false;
+			IsSpeedup = false;
+			CanSpeedup = true;
         } else
             NeedResetFlag = true;
     }
@@ -1401,6 +1542,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
+			case PlayerState.MoveDodge0:
 				if(crtState != state)
 				return true;
 				break;
@@ -1558,25 +1700,32 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Fall0:
-                isDunk = false;
-                isShootJump = false;
-                ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 0);
-                animator.SetTrigger("FallTrigger");
-                isCanCatchBall = false;
-                gameObject.transform.DOLocalMoveY(0, 1f);
-                if (OnFall != null)
-                    OnFall(this);
-                Result = true;
-                break;
-
             case PlayerState.Fall1:
-                isDunk = false;
-                isShootJump = false;
-                ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 1);
-                animator.SetTrigger("FallTrigger");
-                isCanCatchBall = false;
+				switch (state)
+				{
+					case PlayerState.Fall0:
+						stateNo = 0;
+						break;
+					case PlayerState.Fall1:
+						stateNo = 1;
+						break;
+				}
+				curveName = string.Format("Fall{0}", stateNo);
+				playerFallCurve = null;
+
+				for(int i = 0; i < aniCurve.Fall.Length; i++)
+					if(curveName == aniCurve.Fall[i].Name){
+						playerFallCurve = aniCurve.Fall[i];
+						fallCurveTime = 0;
+						isFall = true;
+					}
+
+				isDunk = false;
+				isShootJump = false;
+				ClearAnimatorFlag();
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("FallTrigger");
+				isCanCatchBall = false;
                 gameObject.transform.DOLocalMoveY(0, 1f);
                 if (OnFall != null)
                     OnFall(this);
@@ -1620,6 +1769,12 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
+			case PlayerState.MoveDodge0:
+				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("MoveDodge");
+				Result = true;
+				break;
+
             case PlayerState.PassFlat:
                 animator.SetInteger("StateNo", 0);
                 ClearAnimatorFlag();
@@ -1650,6 +1805,13 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Push:
                 ClearAnimatorFlag();
+				playerPushCurve = null;
+				for(int i = 0; i < aniCurve.Push.Length; i++)
+					if (aniCurve.Push [i].Name == "Push0"){
+						playerPushCurve = aniCurve.Push [i];
+						pushCurveTime = 0;
+						isPush = true;
+					}
                 animator.SetTrigger("PushTrigger");
                 Result = true;
                 break;
@@ -1922,6 +2084,11 @@ public class PlayerBehaviour : MonoBehaviour
 				Destroy(doubleClickEffect); 
                 break;
 
+			case "MoveDodgeEnd": 
+				AniState(PlayerState.Idle);
+				AniState(PlayerState.Dribble);
+				break;
+
             case "Passing": 
                 //0.Flat
                 //2.Floor
@@ -2030,6 +2197,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.useGravity = true;
 				IsPerfectBlockCatch = false;
 				isRebound = false;
+				isPush = false;
 				blockCatchTrigger.enabled = false;
 
                 if (!NeedResetFlag)
@@ -2093,6 +2261,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.TipIn,
 				PlayerState.Intercept0,
 				PlayerState.Intercept1,
+				PlayerState.MoveDodge0
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
@@ -2143,9 +2312,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (situation == GameSituation.AttackA && Team == TeamKind.Npc)
+            if ((situation == GameSituation.AttackA || situation == GameSituation.TeeA || situation == GameSituation.TeeAPicking) && Team == TeamKind.Npc)
                 return true;
-            else if (situation == GameSituation.AttackB && Team == TeamKind.Self)
+			else if ((situation == GameSituation.AttackB || situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking) && Team == TeamKind.Self)
                 return true;
             else
                 return false;
@@ -2265,6 +2434,12 @@ public class PlayerBehaviour : MonoBehaviour
                 FirstMoveQueue.Enqueue(value);
         }
     }
+
+	public void SetMovePower(int Value)
+	{
+		MaxMovePower = Value;
+		MovePower = Value;
+	}
 
     private bool isTouchPalyer = false;
 

@@ -59,7 +59,7 @@ public class UIDoubleClick : UIBase {
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if (isStart) {
 			size -= Vector2.one * framSpeed;

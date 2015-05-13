@@ -152,7 +152,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0946002379
+      - time: .0603962019
         functionName: AnimationEvent
         data: DoubleClickMoment
         objectReferenceParameter: {instanceID: 0}

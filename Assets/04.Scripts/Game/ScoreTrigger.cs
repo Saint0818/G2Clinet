@@ -9,11 +9,12 @@ public class ScoreTrigger : MonoBehaviour
 	
 	private Animator animator;
 	private Transform dummyHoop;
-	private string basketAniName;
 	
     void OnTriggerEnter(Collider c) {
-		dummyHoop = SceneMgr.Get.BasketHoopDummy[Team];
-		animator = SceneMgr.Get.BasketHoopAni[Team];
+		if(!dummyHoop)
+			dummyHoop = SceneMgr.Get.BasketHoopDummy[Team];
+		if(!animator)
+			animator = SceneMgr.Get.BasketHoopAni[Team];
 
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk) {
@@ -25,19 +26,17 @@ public class ScoreTrigger : MonoBehaviour
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 								} else {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-									
-									if(animator != null && GameController.Get.BasketScoreAnimationState.Count > 0){
-										basketAniName = GameController.Get.BasketScoreAnimationState[Random.Range(0, GameController.Get.BasketScoreAnimationState.Count)];
-										animator.SetTrigger(basketAniName);
+		
+									if(animator != null){
+										animator.SetTrigger(GameController.Get.BasketAniName);
 									}
 								}
 							} else {
 								if(!GameController.Get.IsAirBall) {
 									SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 
-									if(animator != null && GameController.Get.BasketScoreNoneAnimationState.Count >0){
-										basketAniName = GameController.Get.BasketScoreNoneAnimationState[Random.Range(0, GameController.Get.BasketScoreNoneAnimationState.Count)];
-										animator.SetTrigger(basketAniName);
+									if(animator != null ){
+										animator.SetTrigger(GameController.Get.BasketAniName);
 									}
 								}
 							}

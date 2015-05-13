@@ -66,7 +66,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		if (cameraGroupObj == null)
 		{
-			cameraGroupObj = Instantiate(Resources.Load("Prefab/Camera")) as GameObject;
+			cameraGroupObj = Instantiate(Resources.Load("Prefab/Stadium/Camera")) as GameObject;
 			cameraGroupObj.name = "CameraGroup";
 
 			cameraWithBasketBallCourtRate = new Vector2(cameraMoveAera.x / basketballCourt.x, cameraMoveAera.y / basketballCourt.y);
@@ -98,61 +98,68 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
-
-		cameraFx.farClipPlane = 130;
+		cameraFx.farClipPlane = 500;
 		cameraFx.fieldOfView = zoomNormal;
-		cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Default") | 1 << LayerMask.NameToLayer("RealBall");
+		cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 
+							   1 << LayerMask.NameToLayer("Default") | 
+							   1 << LayerMask.NameToLayer("RealBall") | 
+							   1 << LayerMask.NameToLayer("Scene");
 
 		cameraGroupObj.transform.localPosition = Vector3.zero;
 		cameraRotationObj.transform.localPosition = startPos;
+		cameraRotationObj.transform.LookAt(Vector3.zero);
 
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
 		focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
-		cameraRotationObj.transform.LookAt(Vector3.zero) ;
 	}
 
 	private void InitTestTool()
 	{
-		cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
-		cameraOffsetAeraObj.name = "ColorR";
-		cameraOffsetAeraObj.transform.parent = cameraGroupObj.transform;
-		cameraOffsetAeraObj.transform.position = new Vector3 (startPos.x, -0.4f, 0);
-		cameraOffsetAeraObj.transform.localScale = new Vector3(offsetLimit[0].x - offsetLimit[1].x, 1, offsetLimit[0].z - offsetLimit[1].z);
-		cameraOffsetAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/CameraOffsetAera_M") as Material;
+		if (GameStart.Get.TestCameraMode == CameraTest.RGB) {
+			cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
+			cameraOffsetAeraObj.name = "ColorR";
+			cameraOffsetAeraObj.transform.parent = cameraGroupObj.transform;
+			cameraOffsetAeraObj.transform.position = new Vector3 (startPos.x, -0.4f, 0);
+			cameraOffsetAeraObj.transform.localScale = new Vector3(offsetLimit[0].x - offsetLimit[1].x, 1, offsetLimit[0].z - offsetLimit[1].z);
+			cameraOffsetAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/CameraOffsetAera_M") as Material;
 
-		focusMoveAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		focusMoveAeraObj.GetComponent<Collider>().enabled = false;
-		focusMoveAeraObj.name = "ColorG";
+			focusMoveAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			focusMoveAeraObj.GetComponent<Collider>().enabled = false;
+			focusMoveAeraObj.name = "ColorG";
 
-		focusMoveAeraObj.transform.localScale = new Vector3 (cameraMoveAera.x, 1, cameraMoveAera.y);
-		focusMoveAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusAera_M") as Material;
-	
-		focusStopAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		focusStopAeraObj.GetComponent<Collider>().enabled = false;
-		focusStopAeraObj.name = "ColorO";
+			focusMoveAeraObj.transform.localScale = new Vector3 (cameraMoveAera.x, 1, cameraMoveAera.y);
+			focusMoveAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusAera_M") as Material;
+		
+			focusStopAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			focusStopAeraObj.GetComponent<Collider>().enabled = false;
+			focusStopAeraObj.name = "ColorO";
 
-		focusStopAeraObj.transform.localScale = new Vector3(cameraMoveAera.x, 1, 0.1f);
-		focusStopAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusStopAera_M") as Material;
+			focusStopAeraObj.transform.localScale = new Vector3(cameraMoveAera.x, 1, 0.1f);
+			focusStopAeraObj.GetComponent<Renderer>().material = Resources.Load ("Materials/FocusStopAera_M") as Material;
 
-		SetTestToolPosition();
+			SetTestToolPosition();
 
-		focusTarget.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
-		cameraOffsetAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
-		focusMoveAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
-		focusStopAeraObj.GetComponent<Renderer> ().enabled =  GameStart.Get.TestCameraMode == CameraTest.RGB;
+			cameraOffsetAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
+			focusMoveAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
+			focusStopAeraObj.GetComponent<Renderer> ().enabled =  GameStart.Get.TestCameraMode == CameraTest.RGB;
+			focusTarget.GetComponent<Renderer>().enabled = true;
+		} else
+			focusTarget.GetComponent<Renderer>().enabled = false;
 	}
 
 	private void SetTestToolPosition()
 	{
-		if (curTeam == TeamKind.Self) {
-			focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
-			focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [0]);	
-		} else {
-			focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, -blankAera);
-			focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [1]);
+		if (GameStart.Get.TestCameraMode == CameraTest.RGB) {
+			if (curTeam == TeamKind.Self) {
+				focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
+				focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [0]);	
+			} else {
+				focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, -blankAera);
+				focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [1]);
+			}
 		}
 	}
 
