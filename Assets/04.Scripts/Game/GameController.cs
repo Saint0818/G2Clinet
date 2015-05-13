@@ -2501,7 +2501,7 @@ public class GameController : MonoBehaviour
 
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
     {
-		if (player && player.DefPlayer)
+		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge0))
         {
 			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {

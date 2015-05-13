@@ -1759,7 +1759,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.MoveDodge0:
 				animator.SetInteger("StateNo", 0);
-				animator.SetTrigger("MoveDodgeTrigger");
+				animator.SetTrigger("MoveDodge");
 				Result = true;
 				break;
 
@@ -2073,6 +2073,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case "MoveDodgeEnd": 
+				AniState(PlayerState.Idle);
 				AniState(PlayerState.Dribble);
 				break;
 
@@ -2248,6 +2249,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.TipIn,
 				PlayerState.Intercept0,
 				PlayerState.Intercept1,
+				PlayerState.MoveDodge0
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
