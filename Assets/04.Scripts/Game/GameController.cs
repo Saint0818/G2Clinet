@@ -1554,42 +1554,42 @@ public class GameController : MonoBehaviour
 				case PlayerState.Shoot0:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 						return true;
 					}
 					break;
 				case PlayerState.Shoot1:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 0.95f, DoubleShoot);
+						UIDoubleClick.Get.SetData( 1.23f, DoubleShoot);
 						return true;
 					}
 				break;
 				case PlayerState.Shoot2:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 						return true;
 					}
 				break;
 			case PlayerState.Shoot3:
 				if(player.Team == TeamKind.Self){
 					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
 				}
 				break;
 			case PlayerState.Shoot6:
 					if(player.Team == TeamKind.Self){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1f, DoubleShoot);
+						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 						return true;
 					}
 					break;
 
 				case PlayerState.Layup:
 				if(player.Team == TeamKind.Self){
-					UIDoubleClick.Get.SetData(2f, DoubleShoot);
+					UIDoubleClick.Get.SetData(1.3f, DoubleShoot);
 					UIDoubleClick.UIShow(true);
 
 					return true;
@@ -1600,7 +1600,7 @@ public class GameController : MonoBehaviour
 				case PlayerState.BlockCatch:
 					if(player == Joysticker){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData(0.5f, null, DoubleBlock, player);
+						UIDoubleClick.Get.SetData(1f, null, DoubleBlock, player);
 						return true;
 					}
 				break;
