@@ -1293,7 +1293,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 
 					isMoving = true;
-					if (MovePower > 0 && CanSpeedup)
+					if (MovePower > 0 && CanSpeedup && this != GameController.Get.Joysticker && !IsTee)
 					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
 						IsSpeedup = true;
