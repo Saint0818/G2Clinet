@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7646570e94db9cd40bfcc5907c43db41
-timeCreated: 1426147709
+guid: 5e633825e2a38c048baf65884b66ac27
+timeCreated: 1431497890
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: StadiumLine
+    4300000: StadiumLine_0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -48,7 +48,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 0
+    normalImportMode: 2
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
