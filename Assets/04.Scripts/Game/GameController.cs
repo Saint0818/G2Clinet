@@ -436,7 +436,10 @@ public class GameController : MonoBehaviour
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Npc, new Vector3 (0, 0, 5), new GameStruct.TPlayer(0)));
 				
 				for (int i = 0; i < PlayerList.Count; i++)
+				{
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+					PlayerList [i].SetMovePower(100);
+				}
 				break;
         }
 
@@ -3369,19 +3372,18 @@ public class GameController : MonoBehaviour
 	{
 		SetBallOwnerNull ();
 		SceneMgr.Get.SetBallState (PlayerState.Reset);
-		for(int i = 0; i < PlayerList.Count; i++){
-			Destroy(PlayerList[i].gameObject);
+
+		for (int i = 0; i < PlayerList.Count; i++) 
+		{
+			PlayerList [i].crtState = PlayerState.Idle;
+			PlayerList [i].ResetFlag();
+			PlayerList [i].transform.position = BornAy [i];								
 		}
-		GameObject selectMeObj = GameObject.Find("SelectMe");
-		if(selectMeObj)
-			Destroy(selectMeObj);
-		GameObject selectAObj = GameObject.Find("SelectA");
-		if(selectAObj)
-			Destroy(selectAObj);
-		GameObject selectBObj = GameObject.Find("SelectB");
-		if(selectBObj)
-			Destroy(selectBObj);
-		InitGame();
+
+		Shooter = null;
+		Catcher = null;
+		situation = GameSituation.Opening;
+		ChangeSituation (GameSituation.Opening);
     }
 
 	public void SetPlayerLevel(){
