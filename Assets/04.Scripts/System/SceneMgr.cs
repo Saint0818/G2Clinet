@@ -16,7 +16,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	//RealBall
 	public GameObject RealBall;
-	public InteractionObject RealBallInteractionObject;
 	private SphereCollider realBallCollider;
 	public PhysicMaterial RealBallPhysicMaterial;
 	public Rigidbody RealBallRigidbody;
@@ -46,6 +45,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
 	public Animator[] BasketHoopAni = new Animator[2];
+	public Transform[] BasketHoop = new Transform[2];
 	public Transform[] BasketHoopDummy = new Transform[2];
 
 	public AutoFollowGameObject BallShadow;
@@ -73,8 +73,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
 		RealBallPhysicMaterial = realBallCollider.sharedMaterial;
 
-		//IK
-		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
 		GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
 		RealBallCurve = obj.GetComponent<BallCurve>();
 	}
@@ -270,16 +268,20 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         crtBasket.transform.parent = gameObject.transform;
 		crtBasketIndex = basketIndex;
 
-		BasketHoopAni[0] = crtBasket.transform.FindChild("Left/BasketballAction").gameObject.GetComponent<Animator>();
-		BasketHoopAni[1] = crtBasket.transform.FindChild("Right/BasketballAction").gameObject.GetComponent<Animator>();
+		BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
+		BasketHoop[1] = crtBasket.transform.FindChild("Right/BasketballAction");
 
-		BasketHoopDummy[0] = crtBasket.transform.FindChild("Left/BasketballAction").FindChild("DummyHoop");
-		BasketHoopDummy[1] = crtBasket.transform.FindChild("Right/BasketballAction").FindChild("DummyHoop");
+		BasketHoopAni[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
+		BasketHoopAni[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
+
+		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
+		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
 	}
 
 	public void RealBallPath(int team, string animationName) {
 		switch(animationName) {
 		case "FirstPosition":
+
 			break;
 		case "ActionEnd":
 			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);

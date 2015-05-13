@@ -24,27 +24,27 @@ public class ModelManager : MonoBehaviour {
 
 	void Awake(){
 		//Cache
-		loadAllBody("Character/PlayerModel_2/Model");
-		loadAllBody("Character/PlayerModel_3/Model");
-		string materialPath = "Character/Materials";
-		Object[] resourceMaterial = Resources.LoadAll (materialPath);
-		for (int i=0; i<resourceMaterial.Length; i++) {
-			Material material = resourceMaterial[i] as Material;
-			string path = string.Format("{0}/{1}",materialPath, material.name);
-			materialCache.Add(path, material);
-		}
-
-		loadAllTexture("Character/PlayerModel_2/Texture");
-		loadAllTexture("Character/PlayerModel_3/Texture");
-
-		AnimationClip[] ani = Resources.LoadAll<AnimationClip>("FBX/Animation");
-		if (ani.Length > 0) {
-			for(int i = 0; i < ani.Length; i++) {
-				string keyname = ani[i].name.Replace(" (UnityEngine.AnimationClip)", "");
-				if(!AniData.ContainsKey(keyname))
-					AniData.Add(keyname, ani[i]);
-			}
-		}
+//		loadAllBody("Character/PlayerModel_2/Model");
+//		loadAllBody("Character/PlayerModel_3/Model");
+//		string materialPath = "Character/Materials";
+//		Object[] resourceMaterial = Resources.LoadAll (materialPath);
+//		for (int i=0; i<resourceMaterial.Length; i++) {
+//			Material material = resourceMaterial[i] as Material;
+//			string path = string.Format("{0}/{1}",materialPath, material.name);
+//			materialCache.Add(path, material);
+//		}
+//
+//		loadAllTexture("Character/PlayerModel_2/Texture");
+//		loadAllTexture("Character/PlayerModel_3/Texture");
+//
+//		AnimationClip[] ani = Resources.LoadAll<AnimationClip>("FBX/Animation");
+//		if (ani.Length > 0) {
+//			for(int i = 0; i < ani.Length; i++) {
+//				string keyname = ani[i].name.Replace(" (UnityEngine.AnimationClip)", "");
+//				if(!AniData.ContainsKey(keyname))
+//					AniData.Add(keyname, ani[i]);
+//			}
+//		}
 
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
@@ -60,7 +60,7 @@ public class ModelManager : MonoBehaviour {
 		
 	}
 
-	private void loadAllBody(string path) {
+	public void loadAllBody(string path) {
 		Object[] resourceBody = Resources.LoadAll (path, typeof(GameObject));
 		for (int i=0; i<resourceBody.Length; i++) {
 			if(!resourceBody[i].name.Contains("PlayerModel")){
@@ -71,7 +71,7 @@ public class ModelManager : MonoBehaviour {
 		}
 	}
 
-	private void loadAllTexture(string path) {
+	public void loadAllTexture(string path) {
 		Object[] resourceTexture = Resources.LoadAll (path);
 		for (int i=0; i<resourceTexture.Length; i++) {
 			Texture texture = resourceTexture[i] as Texture;

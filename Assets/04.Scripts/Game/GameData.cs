@@ -8,6 +8,8 @@ public class GameData {
 	public static TAIlevel[] AIlevelAy;
 	public static TTactical[] TacticalData;
 
+	public static BasketShootPositionData[] BasketShootPosition;
+
 	public static float AIChangeTime = 1;
 
 	public static void Init()
@@ -17,6 +19,8 @@ public class GameData {
 		DownloadList.Add (new TDownloadData ("ailevel", "0"));
 		//tactical
 		DownloadList.Add (new TDownloadData ("tactical", "0"));
+		//basketShootPosition
+		DownloadList.Add (new TDownloadData ("basketShootPosition", "0"));
 		FileManager.Get.LoadFileResource (DownloadList);
 
 		if(PlayerPrefs.HasKey("AIChangeTime"))
