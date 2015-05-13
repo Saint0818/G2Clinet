@@ -323,6 +323,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddForce(Vector3.down * 50);
+				GameController.Get.Passer = null;
 				break;
 			case PlayerState.BasketActionNoScoreEnd:
 				RealBallRigidbody.useGravity = true;
@@ -332,6 +333,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
+				GameController.Get.Passer = null;
 				break;
 		}
 
@@ -391,6 +393,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
+				GameController.Get.Passer = null;
 				
 				//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				Vector3 v = RealBall.transform.forward * -1;
