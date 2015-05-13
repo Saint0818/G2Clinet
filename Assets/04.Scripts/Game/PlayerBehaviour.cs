@@ -313,6 +313,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dis;
 	private float dis2;
 	private float dis3;
+	private bool CanSpeedup = true;
     
     void Awake()
     {
@@ -572,6 +573,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(this == GameController.Get.Joysticker)
 						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+
+					if(MovePower == 0)
+						CanSpeedup = false;
 				}
 			}
 			else
@@ -584,6 +588,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 					if(this == GameController.Get.Joysticker)
 						GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+
+					if(MovePower == MaxMovePower)
+						CanSpeedup = true;
 				}
 			}	
 		}
@@ -972,6 +979,9 @@ public class PlayerBehaviour : MonoBehaviour
 					                    
                     if (animationSpeed <= MoveMinSpeed || MovePower == 0)
                     {
+						if(animationSpeed <= MoveMinSpeed)
+							IsSpeedup = false;
+
                         if (IsBallOwner)						
                             Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
 						else
@@ -1283,7 +1293,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 
 					isMoving = true;
-					if (Data.Speedup && MovePower > 0)
+					if (MovePower > 0 && CanSpeedup)
 					{
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
 						IsSpeedup = true;
@@ -1414,6 +1424,7 @@ public class PlayerBehaviour : MonoBehaviour
             isJoystick = false; 
 			isMoving = false;
 			IsSpeedup = false;
+			CanSpeedup = true;
         } else
             NeedResetFlag = true;
     }
