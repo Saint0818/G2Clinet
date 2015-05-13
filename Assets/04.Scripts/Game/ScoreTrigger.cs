@@ -17,7 +17,7 @@ public class ScoreTrigger : MonoBehaviour
 			animator = SceneMgr.Get.BasketHoopAni[Team];
 
 		if (c.tag == "RealBall") {
-			if(!GameController.Get.IsDunk && GameController.Get.IsShooting) {
+			if(!GameController.Get.IsDunk && (GameController.Get.situation == GameSituation.AttackA || GameController.Get.situation == GameSituation.AttackB)) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
 						Into = true;

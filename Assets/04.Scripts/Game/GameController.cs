@@ -1263,12 +1263,12 @@ public class GameController : MonoBehaviour
 				Vector3 ori = SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - SceneMgr.Get.RealBall.transform.position;
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-					                         SceneMgr.Get.RealBall.transform.position + (ori * 0.9f), 55);
+					                         SceneMgr.Get.RealBall.transform.position + (ori * 0.8f), 55);
 			} else 
 			if(BasketSituationType == BasketSituation.Swich) {
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
-					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 55);	
+					                         SceneMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , 55);	
 			} else {
 				SceneMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, 
