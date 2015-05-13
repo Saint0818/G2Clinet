@@ -57,13 +57,21 @@ public class TLayupCurve {
 }
 
 [System.Serializable]
-public class TSharedCurve {
+public class TPushCurve {
 	public string Name = "Curve_Name";
 	public AniCurveDirection Dir = AniCurveDirection.Forward;
 	public float DirVaule = 0.05f;
 	public float LifeTime = 1f;
 	public float StartTime = 1f; 
-	public float EndTime = 1f; 
+}
+
+[System.Serializable]
+public class TFallCurve {
+	public string Name = "Curve_Name";
+	public AniCurveDirection Dir = AniCurveDirection.Forward;
+	public float DirVaule = 0.05f;
+	public float LifeTime = 1f;
+	public float StartMoveTime = 1f; 
 }
 
 public class AniCurve : MonoBehaviour {
@@ -72,6 +80,6 @@ public class AniCurve : MonoBehaviour {
 	public TShootCurve[] Shoot;
 	public TReboundCurve[] Rebound; 
 	public TLayupCurve[] Layup;
-	public TSharedCurve[] Push;
-	public TSharedCurve[] Fall;
+	public TPushCurve[] Push;
+	public TFallCurve[] Fall;
 }

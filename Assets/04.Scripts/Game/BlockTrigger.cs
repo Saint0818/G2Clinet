@@ -23,7 +23,7 @@ public class BlockTrigger : MonoBehaviour {
 						if (blocker.Team != faller.Team) {
 							if(faller.crtState == PlayerState.Dunk || faller.crtState == PlayerState.DunkBasket)
 							{
-								if(faller.IsCanBlock && !faller.IsTee)	
+								if(faller.IsCanBlock)	
 								{
 									GameController.Get.SetBall();
 									SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
@@ -39,19 +39,7 @@ public class BlockTrigger : MonoBehaviour {
 				}
 			}
 		} else if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
-			if(other.gameObject.transform.parent && other.gameObject.transform.parent.transform.parent){
-				faller = other.gameObject.transform.parent.transform.parent.GetComponent<PlayerBehaviour>();
-				if(faller && faller.crtState == PlayerState.Dunk || faller.crtState == PlayerState.DunkBasket)
-				{
-					if(faller.IsCanBlock && !faller.IsTee){
-						GameController.Get.SetBall();
-						SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
-						faller.AniState(PlayerState.Fall0);
-						gameObject.SetActive (false);
-					}
-				}
-			}else
-				SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
+			SceneMgr.Get.SetBallState(PlayerState.Block, blocker);
 		}
 	}
 }

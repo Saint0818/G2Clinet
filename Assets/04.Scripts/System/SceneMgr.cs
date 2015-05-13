@@ -18,7 +18,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject RealBall;
 	public InteractionObject RealBallInteractionObject;
 	private SphereCollider realBallCollider;
-	public PhysicMaterial RealBallPhysicMaterial;
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
 	public GameObject RealBallFX;
@@ -65,31 +64,29 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		InitLineGroup();
         CheckCollider();
 
-		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/RealBall")) as GameObject;
+		RealBall = GameObject.Instantiate (Resources.Load ("Prefab/RealBall")) as GameObject;
 		RealBallFX = RealBall.transform.FindChild ("BallFX").gameObject;
 		RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger>();
 		RealBall.name = "ReallBall";
 		realBallCollider = RealBall.GetComponent<SphereCollider>();
 		RealBallRigidbody = RealBall.GetComponent<Rigidbody>();
-		RealBallPhysicMaterial = realBallCollider.sharedMaterial;
 
 		//IK
 		RealBallInteractionObject = RealBall.GetComponent<InteractionObject>();
-		GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
+		GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/BallCurve")) as GameObject;
 		RealBallCurve = obj.GetComponent<BallCurve>();
 	}
     private void InitLineGroup()
     {
-		crtLine = Instantiate(Resources.Load("Prefab/Stadium/Line")) as GameObject;
-		crtLine.transform.parent = gameObject.transform;
-		//crtLogo = crtLine.transform.FindChild("Logo").gameObject;
+		crtLine = Instantiate(Resources.Load("Prefab/Line")) as GameObject;
+		crtLogo = crtLine.transform.FindChild("Logo").gameObject;
     }
 
     public void CheckCollider()
     {
         if (crtCollider == null)
         {
-			crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
+            crtCollider = Instantiate(Resources.Load("Prefab/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = gameObject.transform;
 
 			Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
@@ -194,7 +191,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
         crtStadium.transform.parent = gameObject.transform;
         crtStadiumIndex = stadiumIndex;
 
-//      ChangeLightMapping(crtStadiumIndex);
+        ChangeLightMapping(crtStadiumIndex);
 //		CameraMgr.Inst.SetCameraColor(color);
     }
 
@@ -233,7 +230,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtFloor = null;
         }
 
-		crtFloor = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Floor/Floor_{0}", floorIndex))) as GameObject;
+        crtFloor = Instantiate(Resources.Load(string.Format("Prefab/Floor/Floor_{0}", floorIndex))) as GameObject;
         crtFloor.transform.parent = gameObject.transform;
     }
 
@@ -259,7 +256,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtBasket = null;
         }
     
-		crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
+        crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Basket/Basket_{0}", basketIndex))) as GameObject;
         pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
 		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_1").gameObject;
 		animPos[0] = pveBasketAy[0].transform.localPosition;
@@ -279,14 +276,13 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	public void RealBallPath(int team, string animationName) {
 		switch(animationName) {
-		case "FirstPosition":
-			break;
 		case "ActionEnd":
 			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
 			break;
 		case "ActionNoScoreEnd":
 			SetBasketBallState(PlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
 			SetBallState(PlayerState.Rebound);
+
 			break;
 		case "BasketNetPlay":
 			PlayShoot(team);
@@ -323,7 +319,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddForce(Vector3.down * 50);
-				GameController.Get.Passer = null;
 				break;
 			case PlayerState.BasketActionNoScoreEnd:
 				RealBallRigidbody.useGravity = true;
@@ -333,7 +328,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
-				GameController.Get.Passer = null;
 				break;
 		}
 
@@ -393,7 +387,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				RealBallRigidbody.useGravity = true;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
-				GameController.Get.Passer = null;
 				
 				//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				Vector3 v = RealBall.transform.forward * -1;

@@ -11,42 +11,31 @@ public class GameStart : MonoBehaviour {
 
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
-//	public bool IsOpenIKSystem = true;
+	public bool IsOpenIKSystem = true;
 	public bool IsSplitScreen = false;
-	public float CrossTimeX = 0.5f;
-	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);
 
 	void Start(){
 		#if UNITY_EDITOR
-			
-			#if En
-			ParameterConst.GameLanguage = Language.en;
-			#endif
-			
-			#if zh_TW
-			GameConst.GameLanguage = Language.zh_TW;
-			#endif
+		#if En
+		ParameterConst.GameLanguage = Language.en;
+		#endif
+		
+		#if zh_TW
+		GameConst.GameLanguage = Language.zh_TW;
+		#endif
 		#else
-			#if UNITY_ANDROID
-			gameObject.AddComponent(Type.GetType("PushNotificationsAndroid"));
-			#endif
-
-			#if UNITY_IOS
-			gameObject.AddComponent(Type.GetType("PushNotificationsAndroid"));
-			#endif
-			switch (Application.systemLanguage) {
-			case SystemLanguage.English:
-				GameConst.GameLanguage = Language.en;
-				break;
-			case SystemLanguage.Chinese:
-				GameConst.GameLanguage = Language.zh_TW;
-				break;
-			default:
-				GameConst.GameLanguage = Language.en;
-				break;
-			}
-
+		switch (Application.systemLanguage) {
+		case SystemLanguage.English:
+			GameConst.GameLanguage = Language.en;
+			break;
+		case SystemLanguage.Chinese:
+			GameConst.GameLanguage = Language.zh_TW;
+			break;
+		default:
+			GameConst.GameLanguage = Language.en;
+			break;
+		}
 		#endif
 		
 		if (PlayerPrefs.HasKey ("UserLanguage")) {
@@ -69,6 +58,7 @@ public class GameStart : MonoBehaviour {
 	private void InitCom(){
 		initResolution();
 		TextConst.Init ();
+		SendHttp.Init ();
 		FacebookAPI.Init();
 		ModelManager.Init ();
 		SceneMgr.Get.ChangeLevel (3);

@@ -4,119 +4,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public delegate void TBooleanWWWObj(bool val, WWW Result);
-
-public static class URLConst {
-	#if Debug
-	public const string URL = "http://localhost:3500/";
-	#endif
-	
-	#if Release
-	public const string URL = "http://baskclub.nicemarket.com.tw/";				
-	#endif
-
-	public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
-	public const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.nbaa";
-	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/BaskClub.apk";
-	public const string Version = "version";
-	public const string GetVersion = "getversion";
-	public const string CheckSession = "checksession";
-	public const string deviceLogin = "devicelogin";
-	public const string Signup = "signup";
-	public const string Login = "login";
-	public const string FBLogin = "fblogin";
-	public const string LinkFB = "linkfb";
-	public const string CreateRole = "createrole";
-	public const string TeamName = "teamname";
-	public const string Conference = "conference";
-	public const string PVPAward = "pvpaward";
-	public const string IsSeePVPList = "isseepvplist";
-	public const string Revenge = "revenge";
-	public const string PVPStart = "pvpstart";
-	public const string PVPEnd = "pvpend";
-	public const string StageStart = "pvestart";
-	public const string StageEnd = "pveend";
-	public const string Tutorial = "tutorial";
-	public const string PlayerKind = "playerkind";
-	public const string AutoPower = "autopower";
-	public const string Rank = "rank";
-	public const string PVPRank = "pvprank";
-	public const string MyPVPRank = "mypvprank";
-	public const string MatchRank = "matchrank";
-	public const string MatchAward = "matchaward";
-	public const string MatchExchange = "matchexchange";
-	public const string FBGift = "fbgift";
-	public const string DayGift = "daygift";
-	public const string ChangeLogo = "changelogo";
-	public const string MaxLogo = "maxlogo";
-	public const string FBRank = "fbrank";
-	public const string UseItem = "useitem";
-	public const string BuyMoney = "buymoney";
-	public const string BuyDiamond = "buydiamond";
-	public const string Polling = "polling";
-	public const string ItemUp = "itemup";
-	public const string SellItem = "sellitem";
-	public const string fullPower = "fullPower";
-	public const string BuyLuckBox = "buyluckbox";
-	public const string BuyStoreItem = "buystoreitem";
-	public const string PlayerEvo = "playerevo";
-	public const string StageAward = "stageAward";
-	public const string BingoItem = "bingoitem";
-	public const string RecordGameStart = "recordgamestart";
-	public const string RecordGameEnd = "recordgameend";
-	public const string RecordGameRank = "recordgamerank";
-	public const string CrusadeData = "crusadedata";
-	public const string CrusadeStart = "crusadestart";
-	public const string CrusadeEnd = "crusadeend";
-	public const string ResetCrusade = "resetcrusade";
-	public const string CrusadeAward = "crusadeaward";
-	public const string SkillUpgrade = "skillupgrade";
-	public const string ChangeSkillEffect = "changeskilleffect";
-	public const string MissionAward = "missionaward";
-	public const string CheckResetToday = "checkresettoday";
-	public const string GetGymData = "getgymdata";
-	public const string SearchGym = "searchgym";
-	public const string GymStart = "gymstart";
-	public const string GymEnd = "gymend";
-	public const string GymDef = "gymdef";
-	public const string GymAward = "gymaward";
-	public const string PVEQuickFinish = "pvequickfinish";
-	public const string ResetPVE = "resetpve";
-	public const string RecordAward = "recordaward";
-	public const string LiveTime = "livetime";
-	public const string SaveTalk = "savetalk";
-	public const string OpenLogoBox = "openlogobox";
-	public const string BuildUpgrade = "buildupgrade";
-	public const string QuickTrainPlayer = "quicktrainplayer";
-	public const string ChangeItemEffect = "changeitemeffect";
-	public const string PlayoffPair = "playoffpair";
-	public const string PlayoffStart = "playoffstart";
-	public const string PlayoffEnd = "playoffend";
-	public const string PlayoffReset = "playoffreset";
-	public const string PlayoffExchange = "playoffexchange";
-	public const string TeamStarting = "teamstarting";
-}
-
 public class SendHttp : MonoBehaviour
 {
-	public static SendHttp instance;
+	public static SendHttp Get;
 	public static string sessionID = "";
 	public static Dictionary<string, string> CookieHeaders = new Dictionary<string, string>();
 
-	public static SendHttp Get {
-		get {
-			if (!instance) {
-				GameObject obj = new GameObject("SendHttp");
-				instance = obj.AddComponent(Type.GetType("SendHttp")) as SendHttp;
-			}
-
-            return instance;
-        }
-    }
+	public static void Init(){
+		GameObject gobj = new GameObject(typeof(SendHttp).Name);
+		DontDestroyOnLoad(gobj);
+		Get = gobj.AddComponent<SendHttp>();
+	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
 		if (checkNetwork()){
-			url = FileManager.URL + url;
 			WWW www = null;
 
 			if (form == null){
@@ -147,12 +48,10 @@ public class SendHttp : MonoBehaviour
 	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj BoolWWWObj){
 		yield return www;
 
-		if (BoolWWWObj != null) {
-			if(checkResponse(www))
-				BoolWWWObj(true, www);
-			else
-				BoolWWWObj(false, www);
-		}
+		if(checkResponse(www))
+			BoolWWWObj(true, www);
+		else
+			BoolWWWObj(false, www);	
 
 		www.Dispose();
 	}

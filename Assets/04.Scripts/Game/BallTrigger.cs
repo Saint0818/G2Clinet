@@ -87,7 +87,7 @@ public class BallTrigger : MonoBehaviour
 				ParabolaDis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
 				break;
 			case 4:
-				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
+//				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
 				PassEnd();
 				break;
 			}
@@ -174,7 +174,7 @@ public class BallTrigger : MonoBehaviour
 					}
 					else
 					{
-						if ((dis < 6) && Passing)
+						if ((dis < 8) && Passing)
 						{
 							Passing = false;
 							if(PassKind == 0)
