@@ -82,7 +82,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     {
 		crtLine = Instantiate(Resources.Load("Prefab/Stadium/Line")) as GameObject;
 		crtLine.transform.parent = gameObject.transform;
-		crtLogo = crtLine.transform.FindChild("Logo").gameObject;
+		//crtLogo = crtLine.transform.FindChild("Logo").gameObject;
     }
 
     public void CheckCollider()

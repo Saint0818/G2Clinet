@@ -997,6 +997,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     
                     transform.Translate(Translate); 
+					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
                 }
             }            
         }
