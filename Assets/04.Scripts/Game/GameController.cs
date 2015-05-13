@@ -2504,7 +2504,7 @@ public class GameController : MonoBehaviour
 
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
     {
-		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge0))
+		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge0) && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
         {
 			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
@@ -2813,7 +2813,7 @@ public class GameController : MonoBehaviour
 
 	public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence)
+		if(player.IsDefence && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
 		{
 			int Rate = UnityEngine.Random.Range(0, 100);
 			

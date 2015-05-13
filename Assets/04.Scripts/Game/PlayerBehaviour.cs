@@ -359,6 +359,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.ReboundRate = GameData.AIlevelAy[Attr.AILevel].ReboundRate;
 			Attr.TipIn = GameData.AIlevelAy[Attr.AILevel].TipIn;
 			Attr.AlleyOop = GameData.AIlevelAy[Attr.AILevel].AlleyOop;	
+			DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 		}
 	}
 
@@ -422,8 +423,6 @@ public class PlayerBehaviour : MonoBehaviour
 			DefPointAy [DefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find ("BackSteal").gameObject.transform;
 			DefPointAy [DefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find ("RightSteal").gameObject.transform;
 			DefPointAy [DefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
-
-			defPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
         }
     }
 
@@ -1104,7 +1103,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Data.DefPlayer != null)
         {
-            float dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+			float dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.z));
             
             for (int i = 0; i < disAy.Length; i++)
                 disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
@@ -1116,7 +1115,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Result.x = Data.DefPlayer.DefPointAy [mIndex].position.x;
 				Result.y = Data.DefPlayer.DefPointAy [mIndex].position.z;                 
                 
-				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 6 && Data.DefPlayer == DefPlayer)
+				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
 				{
 					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
 					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
