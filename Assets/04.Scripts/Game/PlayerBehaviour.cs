@@ -60,7 +60,8 @@ public enum PlayerState
 	Alleyoop = 52,
 	Intercept0 = 53,
 	Intercept1 = 54,
-	MoveDodge0 = 55
+	MoveDodge0 = 55,
+	MoveDodge1 = 56
 }
 
 public enum TeamKind
@@ -1542,6 +1543,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
 			case PlayerState.MoveDodge0:
+			case PlayerState.MoveDodge1:
 				if(crtState != state)
 				return true;
 				break;
@@ -1770,6 +1772,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.MoveDodge0:
 				animator.SetInteger("StateNo", 0);
+				animator.SetTrigger("MoveDodge");
+				Result = true;
+				break;
+
+			case PlayerState.MoveDodge1:
+				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("MoveDodge");
 				Result = true;
 				break;
@@ -2259,7 +2267,8 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerState.TipIn,
 				PlayerState.Intercept0,
 				PlayerState.Intercept1,
-				PlayerState.MoveDodge0
+				PlayerState.MoveDodge0,
+				PlayerState.MoveDodge1
             };
 
             for (int i = 0; i < CheckAy.Length; i++)
