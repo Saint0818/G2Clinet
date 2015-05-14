@@ -2067,7 +2067,7 @@ public class GameController : MonoBehaviour
 						Npc.rotateTo(SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.z);
 						Vector3 [] Ay = new Vector3[2];
 						Ay[0] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z);
-						Ay[1] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z + 4);
+						Ay[1] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z + AddZ);
 						Npc.transform.DOPath(Ay, GameStart.Get.CrossTimeZ);
 						Npc.AniState(PlayerState.MoveDodge1);
 					}
