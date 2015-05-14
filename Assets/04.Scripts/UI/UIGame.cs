@@ -506,7 +506,7 @@ public class UIGame : UIBase {
 
 	public void ResetGame() {
 		GameController.Get.Reset ();
-		initLine();
+//		initLine();
 		InitData ();
 		Again.SetActive (false);
 		isShowScoreBar = false;
