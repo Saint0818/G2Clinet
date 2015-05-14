@@ -727,13 +727,17 @@ public class GameController : MonoBehaviour
 
 		if (GameStart.Get.TestMode == GameTest.CrossOver) {
 			if (GUI.Button(new Rect(20, 50, 100, 100), "Left")) {
-				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 2, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 5, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+				PlayerList[0].AniState(PlayerState.MoveDodge0);
 			}
 
 			if (GUI.Button(new Rect(120, 50, 100, 100), "Right")) {
-				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 2, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 5, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+				Vector3 [] Ay = new Vector3[2];
+				Ay[0] = new Vector3(PlayerList[0].transform.position.x + 2, 0, PlayerList[0].transform.position.z);
+				Ay[1] = new Vector3(PlayerList[0].transform.position.x + 2, 0, PlayerList[0].transform.position.z + 4);
+				PlayerList[0].transform.DOPath(Ay, GameStart.Get.CrossTimeZ);
+				PlayerList[0].AniState(PlayerState.MoveDodge1);
 			}
 		}
 	}
@@ -2061,38 +2065,12 @@ public class GameController : MonoBehaviour
 					else
 					{
 						Npc.rotateTo(SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.z);
-						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+						Vector3 [] Ay = new Vector3[2];
+						Ay[0] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z);
+						Ay[1] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z + 4);
+						Npc.transform.DOPath(Ay, GameStart.Get.CrossTimeZ);
 						Npc.AniState(PlayerState.MoveDodge1);
 					}
-
-//                    TMoveData data = new TMoveData(0);
-//                    if (Dir == 1)
-//                        data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
-//                    else
-//                        data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
-//                    
-//                    Npc.FirstTargetPos = data;
-//
-//
-//					data = new TMoveData(0);
-//					int AddZ = 3;
-//					if(Npc.Team == TeamKind.Npc)
-//						AddZ = -3;
-//
-//					if (Dir == 1){
-//						if (Npc.Team == TeamKind.Self)
-//							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
-//						else
-//							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));
-//					}else{		
-//						if (Npc.Team == TeamKind.Self)
-//							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
-//						else
-//							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));					
-//					}
-//					
-//					Npc.FirstTargetPos = data;
 					CoolDownCrossover = Time.time + 4;
 				}
 			} else
