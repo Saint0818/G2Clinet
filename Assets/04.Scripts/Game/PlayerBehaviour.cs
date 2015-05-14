@@ -549,17 +549,29 @@ public class PlayerBehaviour : MonoBehaviour
                 AIActiveHint.SetActive(true);
         }
 
-        if ((IsMoving || NoAiTime > 0) && !IsDefence && 
-            situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
-            situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
-        {
-            if (Time.time >= MoveStartTime)
-            {
-				MoveStartTime = Time.time + GameConst.DefMoveTime;
-				GameController.Get.DefMove(this);
-            }       
-        }
+//        if ((IsMoving || NoAiTime > 0) && !IsDefence && 
+//            situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
+//            situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+//        {
+//            if (Time.time >= MoveStartTime)
+//            {
+//				MoveStartTime = Time.time + GameConst.DefMoveTime;
+//				GameController.Get.DefMove(this);
+//            }       
+//        }
 
+		if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
+		{
+			if(!IsDefence)
+			{
+				if (Time.time >= MoveStartTime)
+				{
+					MoveStartTime = Time.time + GameConst.DefMoveTime;
+					GameController.Get.DefMove(this);
+				}
+			}
+		}
+		
 		if (Time.time >= MovePowerTime) 
 		{
 			MovePowerTime = Time.time + 0.05f;

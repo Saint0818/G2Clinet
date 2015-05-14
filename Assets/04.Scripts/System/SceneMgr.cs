@@ -231,8 +231,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtFloor = null;
         }
 
-		crtFloor = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Floor/Floor_{0}", floorIndex))) as GameObject;
-        crtFloor.transform.parent = gameObject.transform;
+//		crtFloor = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Floor/Floor_{0}", floorIndex))) as GameObject;
+//        crtFloor.transform.parent = gameObject.transform;
     }
 
     public void ChangeBasket(int basketIndex)
