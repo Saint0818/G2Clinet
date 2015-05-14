@@ -17,10 +17,14 @@ public class UISimple : UIBase {
 	}
 
 	public static void UIShow(bool isShow){
-		if(instance)
-			instance.Show(isShow);
+		if (instance) {
+			if (!isShow)
+				RemoveUI(UIName);
+			else
+				instance.Show(isShow);
+		}
 		else
-		if(isShow)
+		if (isShow)
 			Get.Show(isShow);
 	}
 	

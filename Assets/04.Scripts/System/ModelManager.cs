@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using GameStruct;
 using RootMotion.FinalIK;
 
 public class ModelManager : MonoBehaviour {
-	public static ModelManager Get;
+	public const string Name = "ModelManager";
+	private static ModelManager instance;
 
 	private GameObject DefPointObject = null;
 	public GameObject PlayerInfoModel = null;
@@ -14,38 +16,23 @@ public class ModelManager : MonoBehaviour {
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-	private Dictionary<string, AnimationClip> AniData = new Dictionary<string, AnimationClip> ();
 
-	public static void Init(){
-		GameObject gobj = new GameObject(typeof(ModelManager).Name);
-		DontDestroyOnLoad(gobj);
-		Get = gobj.AddComponent<ModelManager>();
+	public static ModelManager Get {
+		get {
+			if (!instance) {
+				GameObject obj2 = GameObject.Find(Name);
+				if (!obj2) {
+					GameObject obj = new GameObject(Name);
+					instance = obj.AddComponent(Type.GetType(Name)) as ModelManager;
+				} else
+					instance = obj2.GetComponent<ModelManager>();
+			}
+			
+			return instance;
+		}
 	}
 
-	void Awake(){
-		//Cache
-//		loadAllBody("Character/PlayerModel_2/Model");
-//		loadAllBody("Character/PlayerModel_3/Model");
-//		string materialPath = "Character/Materials";
-//		Object[] resourceMaterial = Resources.LoadAll (materialPath);
-//		for (int i=0; i<resourceMaterial.Length; i++) {
-//			Material material = resourceMaterial[i] as Material;
-//			string path = string.Format("{0}/{1}",materialPath, material.name);
-//			materialCache.Add(path, material);
-//		}
-//
-//		loadAllTexture("Character/PlayerModel_2/Texture");
-//		loadAllTexture("Character/PlayerModel_3/Texture");
-//
-//		AnimationClip[] ani = Resources.LoadAll<AnimationClip>("FBX/Animation");
-//		if (ani.Length > 0) {
-//			for(int i = 0; i < ani.Length; i++) {
-//				string keyname = ani[i].name.Replace(" (UnityEngine.AnimationClip)", "");
-//				if(!AniData.ContainsKey(keyname))
-//					AniData.Add(keyname, ani[i]);
-//			}
-//		}
-
+	void Awake() {
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
 		//UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
@@ -54,29 +41,26 @@ public class ModelManager : MonoBehaviour {
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-	public void loadAllBody(string path) {
-		Object[] resourceBody = Resources.LoadAll (path, typeof(GameObject));
-		for (int i=0; i<resourceBody.Length; i++) {
-			if(!resourceBody[i].name.Contains("PlayerModel")){
-				GameObject obj = resourceBody[i] as GameObject;
-				string keyPath = string.Format("{0}/{1}",path, obj.name);
-				bodyCache.Add(keyPath, obj);
+	private void loadAllBody(string path) {
+		GameObject[] resourceBody = Resources.LoadAll<GameObject> (path);
+		if (resourceBody != null) {
+			for (int i=0; i<resourceBody.Length; i++) {
+				if(!resourceBody[i].name.Contains("PlayerModel")){
+					string keyPath = string.Format("{0}/{1}",path, resourceBody[i].name);
+					loadBody(keyPath);
+				}
 			}
 		}
 	}
 
-	public void loadAllTexture(string path) {
-		Object[] resourceTexture = Resources.LoadAll (path);
-		for (int i=0; i<resourceTexture.Length; i++) {
-			Texture texture = resourceTexture[i] as Texture;
-			string keyPath = string.Format("{0}/{1}",path, texture.name);
-			textureCache.Add(keyPath, texture);
+	private void loadAllTexture(string path) {
+		Texture[] resourceTexture = Resources.LoadAll<Texture> (path);
+		if (resourceTexture != null) {
+			for (int i=0; i<resourceTexture.Length; i++) {
+				string keyPath = string.Format("{0}/{1}",path, resourceTexture[i].name);
+				loadTexture(keyPath);
+			}
 		}
 	}
 
@@ -163,40 +147,46 @@ public class ModelManager : MonoBehaviour {
 			string mainBody = string.Format("PlayerModel_{0}", bodyNumber);
 			string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 			if(BodyPart < 6) {
-				GameObject obj = Player.transform.FindChild(mainBody).gameObject;
-				if(obj) {
-					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
-					string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
-					Texture texture = loadTexture(namePath);
-					if(!texture)
-						texture = loadTexture(path);
+				Transform t = Player.transform.FindChild(mainBody);
+				if (t != null) {
+					GameObject obj = t.gameObject;
+					if(obj) {
+						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+						Texture texture = loadTexture(namePath);
+						if(!texture)
+							texture = loadTexture(path);
 
-					Renderer renderers = obj.GetComponent<Renderer>();
-					Material[] materials = renderers.materials;
-					for(int i=0; i<materials.Length; i++){
-						if(materials[i].name.Equals(strPart[BodyPart] + " (Instance)")) {
-							if(texture)
-								materials[i].mainTexture = texture;
-							break;
+						Renderer renderers = obj.GetComponent<Renderer>();
+						Material[] materials = renderers.materials;
+						for(int i=0; i<materials.Length; i++){
+							if(materials[i].name.Equals(strPart[BodyPart] + " (Instance)")) {
+								if(texture)
+									materials[i].mainTexture = texture;
+								break;
+							}
 						}
 					}
 				}
 			} else if(BodyPart == 6){
 				string bodyPath = string.Format("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead/3_{0}_{1}(Clone)", strPart[BodyPart], ModelPart);
-				GameObject obj = Player.transform.Find(bodyPath).gameObject;
-				if(obj) {
-					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
-					string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
-					Texture texture = loadTexture(namePath);
-					if(!texture)
-						texture = loadTexture(path);
-					Renderer renderers = obj.GetComponent<Renderer>();
-					Material[] materials = renderers.materials;
-					for(int i=0; i<materials.Length; i++){
-						if(materials[i].name.Equals(strPart[BodyPart])) {
-							if(texture)
-								materials[i].mainTexture = texture;
-							break;
+				Transform t = Player.transform.Find(bodyPath);
+				if (t != null) {
+					GameObject obj = t.gameObject;
+					if(obj) {
+						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
+						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+						Texture texture = loadTexture(namePath);
+						if(!texture)
+							texture = loadTexture(path);
+						Renderer renderers = obj.GetComponent<Renderer>();
+						Material[] materials = renderers.materials;
+						for(int i=0; i<materials.Length; i++){
+							if(materials[i].name.Equals(strPart[BodyPart])) {
+								if(texture)
+									materials[i].mainTexture = texture;
+								break;
+							}
 						}
 					}
 				}
@@ -279,7 +269,7 @@ public class ModelManager : MonoBehaviour {
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarBody);
 						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart [i], avatarBody, avatarBodyTexture);
 					}
-					Object resObj = Resources.Load (path);
+					GameObject resObj = Resources.Load (path) as GameObject;
 					if (resObj) {
 						try {
 							Material matObj = loadMaterial (materialPath);
@@ -641,39 +631,6 @@ public class ModelManager : MonoBehaviour {
 			}
 		} catch (UnityException e) {
 			Debug.Log(e.ToString());
-		}
-	}
-
-	public void AddAnimation(GameObject player, string anistr)
-	{
-		Animation ani;
-		bool ishave = false;
-		
-		ani = player.GetComponent<Animation>();
-		
-		if (!ani)
-			ani = player.AddComponent<Animation> ();
-		
-		foreach (AnimationState item in ani) {
-			if(item.name == anistr)
-				ishave = true;
-		}
-		
-		if (!ishave)
-		{
-			if(!AniData.ContainsKey(anistr))
-			{
-				AnimationClip skillAni = Resources.Load<AnimationClip>(string.Format("FBX/SkillAnimation/{0}", anistr));
-				AniData.Add(anistr, skillAni);
-			}
-				
-			Animation addani = player.GetComponent<Animation>();
-
-			if(addani)
-			{
-				addani.AddClip(AniData[anistr], anistr);
-				addani.clip = AniData[anistr];
-			}
 		}
 	}
 }

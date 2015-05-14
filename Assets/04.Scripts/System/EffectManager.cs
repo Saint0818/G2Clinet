@@ -93,7 +93,7 @@ public class EffectManager : MonoBehaviour
 	}
 
 	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
-		if (GameSetting.Effect) {
+		if (GameData.Setting.Effect) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {

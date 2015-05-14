@@ -20,12 +20,12 @@ namespace GameStruct
 		public int Diamond;
 
 		public int PlayerIndex;
-		public TPlayer Player;
+		public TPlayer[] Players;
 	}
 
     public struct TPlayer {
         public int ID;
-        public string Name; 
+        public string Name;
         public int BodyType;
         public int AILevel;
         public int Steal;
@@ -38,6 +38,9 @@ namespace GameStruct
 		public int MHandDress;
 		public int AHeadDress;
 		public int ZBackEquip;
+
+		public TPlayerAttribute Attr;
+		public TAvatar Avatar;
 
 		//
 		public int ProactiveRate;
@@ -86,6 +89,9 @@ namespace GameStruct
 			ReboundRate = 0;
 			TipIn = 0;
 			AlleyOop = 0;
+
+			Attr = new TPlayerAttribute();
+			Avatar = new TAvatar(0);
 		}
     }
 
@@ -116,11 +122,6 @@ namespace GameStruct
 			ZBackEquip = 0;
 		}
 	}
-	
-	public static class GameSetting
-	{
-		public static bool Effect = true;
-	}
 
 	public struct TAIlevel
 	{
@@ -138,5 +139,18 @@ namespace GameStruct
 		public int ReboundRate;
 		public int TipIn;
 		public int AlleyOop;
+	}
+
+	public enum Language
+	{
+		TW = 0,
+		EN = 1
+	}
+
+	public struct TGameSetting
+	{
+		public float AIChangeTime;
+		public Language Language;
+		public bool Effect;
 	}
 }

@@ -11,8 +11,8 @@ public static class TextConst
 	private static void AddString(int key, string Text_TW, string Text_EN = ""){
 		if (!GameText.ContainsKey (key)) {
 			string [] Data = new string[2];
-			Data[Language.zh_TW.GetHashCode()] = Text_TW;
-			Data[Language.en.GetHashCode()] = Text_EN;
+			Data[GameStruct.Language.TW.GetHashCode()] = Text_TW;
+			Data[GameStruct.Language.EN.GetHashCode()] = Text_EN;
 			GameText.Add(key, Data);
 		}else
 			Debug.Log("Repeat text key : " + key);
@@ -20,7 +20,7 @@ public static class TextConst
 
 	public static string S (int index){
 		if(GameText.ContainsKey(index))
-			return GameText[index][GameConst.GameLanguage.GetHashCode()];
+			return GameText[index][GameData.Setting.Language.GetHashCode()];
 		else
 			return "";
 	} 
@@ -33,6 +33,5 @@ public static class TextConst
 		AddString (4, "Reset", "Reset");
 		AddString (5, "AI Level", "AI Level");
 		AddString (6, "AI Control", "AI Control");
-
     }
 }

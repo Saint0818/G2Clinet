@@ -193,7 +193,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
 		CameraOffset();
 		CameraFocus ();
-		if(GameController.Get.Joysticker != null) {
+		if(cameraPlayer && GameController.Get.Joysticker != null) {
 			cameraPlayer.gameObject.transform.LookAt(GameController.Get.Joysticker.gameObject.transform);
 		}
     }

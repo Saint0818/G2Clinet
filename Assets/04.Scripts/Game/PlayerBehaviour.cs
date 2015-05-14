@@ -647,7 +647,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
         {
             isJoystick = true;
-			NoAiTime = Time.time + GameData.AIChangeTime;
+			NoAiTime = Time.time + GameData.Setting.AIChangeTime;
             
             if (AIActiveHint)
                 AIActiveHint.SetActive(false);

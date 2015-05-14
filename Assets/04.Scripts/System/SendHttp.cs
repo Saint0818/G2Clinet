@@ -106,8 +106,12 @@ public class SendHttp : MonoBehaviour
 	public static SendHttp Get {
 		get {
 			if (!instance) {
-				GameObject obj = new GameObject("SendHttp");
-				instance = obj.AddComponent(Type.GetType("SendHttp")) as SendHttp;
+				GameObject obj2 = GameObject.Find("SendHttp");
+				if (!obj2) {
+					GameObject obj = new GameObject("SendHttp");
+					instance = obj.AddComponent<SendHttp>();
+				} else
+					instance = obj2.GetComponent<SendHttp>();
 			}
 
             return instance;

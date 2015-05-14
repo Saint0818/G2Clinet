@@ -173,9 +173,14 @@ public class FileManager : MonoBehaviour {
 	public static FileManager Get {
 		get {
 			if (instance == null) {
-				GameObject go = new GameObject ("FileManager");
-				instance = go.AddComponent<FileManager> ();
+				GameObject obj = GameObject.Find ("FileManager");
+				if (!obj) {
+					GameObject go = new GameObject ("FileManager");
+					instance = go.AddComponent<FileManager> ();
+				} else
+					instance = obj.GetComponent<FileManager> ();
 			}
+
 			return instance;
 		}
 	}

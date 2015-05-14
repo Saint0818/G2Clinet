@@ -2,18 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GameStruct;
-
-public enum Language
-{
-	zh_TW = 0,
-	en = 1
-}
 
 public class GameConst
 {
-	public static Language GameLanguage = Language.zh_TW;
-
 	//Game play move speed
 	public const float BasicMoveSpeed = 1;
 	public const float DefSpeedup = 8.2f;

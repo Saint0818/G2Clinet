@@ -181,6 +181,7 @@ public class GameController : MonoBehaviour
 	public Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
 	private BasketDistanceAngle basketDistanceAngle = BasketDistanceAngle.ShortCenter;
 	private float extraScoreRate = 0;
+
 	private TActionPosition [] Sub_ps;
 	private TTactical ap;
 	private TTactical defap;
@@ -264,7 +265,10 @@ public class GameController : MonoBehaviour
         InitPos();
         InitGame();
 		InitBasket();
-		CameraMgr.Get.setSplitScreen();
+		SceneMgr.Get.ChangeLevel (3);
+
+		if (GameStart.Get.IsSplitScreen)
+			CameraMgr.Get.setSplitScreen();
     }
 
 	private void InitBasket(){
@@ -1225,7 +1229,7 @@ public class GameController : MonoBehaviour
 			}
         }
 	}
-
+        
     public bool OnShooting(PlayerBehaviour player)
     {
         if (BallOwner && BallOwner == player)
@@ -3479,7 +3483,7 @@ public class GameController : MonoBehaviour
     }
 
 	public void SetPlayerLevel(){
-		PlayerPrefs.SetFloat("AIChangeTime", GameData.AIChangeTime);
+		PlayerPrefs.SetFloat("AIChangeTime", GameData.Setting.AIChangeTime);
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(i >= 3)
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;
@@ -3543,6 +3547,7 @@ public class GameController : MonoBehaviour
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2) || 
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3) ||
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot6) ||
+				    PlayerList [i].CheckAnimatorSate(PlayerState.TipIn) ||
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Layup))
                     return true;            
 

@@ -138,6 +138,7 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
+
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
 		Start = GameObject.Find (UIName + "/Center/StartView");
@@ -267,6 +268,12 @@ public class UIGame : UIBase {
 		}
 	}
 
+	IEnumerator WaitForVirtualScreen(){
+		yield return new WaitForSeconds(1);
+		
+		Joystick.CheckVirtualScreen();
+	}
+
 	public void showCoverAttack(bool isShow) {
 		OpenMask = isShow;
 		for (int i=0; i<coverAttack.Length; i++) {
@@ -315,7 +322,7 @@ public class UIGame : UIBase {
 		}else if(level == 5) {
 			time = 999999;
 		}
-		GameData.AIChangeTime = time;
+		GameData.Setting.AIChangeTime = time;
 	}
 	// Effect
 	public void BlockFX(){
@@ -510,6 +517,8 @@ public class UIGame : UIBase {
 		Joystick.gameObject.SetActive(false);
 	}
 
+
+
 	public void StartGame() {
 		Start.SetActive (false);
 		ScoreBar.SetActive (false);
@@ -517,6 +526,8 @@ public class UIGame : UIBase {
 
 		SceneMgr.Get.SetBallState (PlayerState.Start);
 		GameController.Get.StartGame();
+
+		StartCoroutine("WaitForVirtualScreen");
 	}
 
 	public void RestartGame(){

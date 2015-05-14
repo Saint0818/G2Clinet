@@ -9,8 +9,7 @@ using Newtonsoft.Json;
 public class UIBase: MonoBehaviour
 {  
 	protected const string UIPrefab = "Prefab/UI/";
-
-	private static GameObject root2D = null;
+	
 	private static GameObject root3D = null;
 	private static Dictionary<string, GameObject> UIResources = new Dictionary<string, GameObject>();
 	private static Dictionary<string, GameObject> UIDictionary = new Dictionary<string, GameObject>();
@@ -32,21 +31,16 @@ public class UIBase: MonoBehaviour
 	
 	public static void RemoveUI(string uiname) {
 		if (UIDictionary.ContainsKey(uiname)) {
-			//Destroy(UIDictionary[uiname]);
 			NGUIDebug.DestroyImmediate(UIDictionary[uiname], true);
 			UIDictionary.Remove(uiname);
 			Resources.UnloadUnusedAssets();
-
-//			if (UITutorialHint.Visible){
-//				UITutorialHint.UIShow(false);
-//				UITutorial.Get.OnTutorial();
-//			}
 		}
 	}
 
 	protected static UIBase LoadUI(string path)
 	{
 		if(path != null && path != ""){
+			UI2D.UIShow(true);
 			GameObject obj = LoadPrefab(UIPrefab + path);
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
@@ -61,16 +55,10 @@ public class UIBase: MonoBehaviour
 						ui.InitCom();
 						ui.InitData();
 
-						if (!root2D)
-							root2D = GameObject.Find("UI2D");
-
-						if (root2D) {
-							obj2.transform.parent = root2D.transform;
-							obj2.transform.localPosition = Vector3.zero;
-							obj2.transform.localScale = Vector3.one;
-							obj2.SetActive(false);
-						} else
-							Debug.Log("Can not find root UI2D.");
+						obj2.transform.parent = UI2D.Get.gameObject.transform;
+						obj2.transform.localPosition = Vector3.zero;
+						obj2.transform.localScale = Vector3.one;
+						obj2.SetActive(false);
 
 						return ui;
 					} else
@@ -97,7 +85,6 @@ public class UIBase: MonoBehaviour
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
 						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
-//						UIBase ui = obj2.AddComponent(UIName) as UIBase;
 						ui.InitText();
 						ui.InitCom();
 						ui.InitData();   

@@ -1,9 +1,10 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class FacebookAPI : MonoBehaviour {
-	public static FacebookAPI Get; 
+	public static FacebookAPI instance; 
 	public const string FBAppID = "405934796200816";
 	private const string FBScope = "email,publish_actions";
 	public bool isInitFB = false;
@@ -13,10 +14,19 @@ public class FacebookAPI : MonoBehaviour {
 	public string GangID = "376036032527194";
 	public static Dictionary<string, int> LikeData = new Dictionary<string, int>();
 
-	public static void Init(){
-		GameObject gobj = new GameObject(typeof(FacebookAPI).Name);
-		DontDestroyOnLoad(gobj);
-		Get = gobj.AddComponent<FacebookAPI>();
+	public static FacebookAPI Get {
+		get {
+			if (!instance) {
+				GameObject obj2 = GameObject.Find("FacebookAPI");
+				if (!obj2) {
+					GameObject obj = new GameObject("FacebookAPI");
+					instance = obj.AddComponent(Type.GetType("FacebookAPI")) as FacebookAPI;
+				} else
+					instance = obj2.GetComponent<FacebookAPI>();
+			}
+			
+			return instance;
+		}
 	}
 
 	public void ConnectFB (){
