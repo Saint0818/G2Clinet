@@ -188,7 +188,7 @@ public class FileManager : MonoBehaviour {
 	void Awake () {
 		CallBackFun.Add ("tactical", parseTacticalData);
 		CallBackFun.Add ("ailevel", parseAILevelData);
-		CallBackFun.Add ("basketShootPosition", parseBasketShootPositionData);
+		CallBackFun.Add ("ballposition", parseBasketShootPositionData);
 	}
     
     private void DoStarDownload(){
@@ -449,11 +449,11 @@ public class FileManager : MonoBehaviour {
 			GameData.BasketShootPosition = (BasketShootPositionData[])JsonConvert.DeserializeObject (text, typeof(BasketShootPositionData[]));
 			
 			if(SaveVersion)
-				SaveDataVersionAndJson(text, "basketShootPosition", Version);
+				SaveDataVersionAndJson(text, "ballposition", Version);
 			
-			Debug.Log ("[basketShootPosition parsed finished.] ");
+			Debug.Log ("[ballposition parsed finished.] ");
 		} catch (System.Exception ex) {
-			Debug.LogError ("[basketShootPosition parsed error] " + ex.Message);
+			Debug.LogError ("[ballposition parsed error] " + ex.Message);
 		}
 	}
 

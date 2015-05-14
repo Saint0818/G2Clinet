@@ -14,7 +14,7 @@ public class ScoreTrigger : MonoBehaviour
 		if(!dummyHoop)
 			dummyHoop = SceneMgr.Get.BasketHoopDummy[Team];
 		if(!animator)
-			animator = SceneMgr.Get.BasketHoopAni[Team];
+			animator = SceneMgr.Get.BasketHoopAnimator[Team];
 
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk && (GameController.Get.situation == GameSituation.AttackA || GameController.Get.situation == GameSituation.AttackB)) {
@@ -25,7 +25,7 @@ public class ScoreTrigger : MonoBehaviour
 						case BasketSituation.Score:
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null){
-								animator.SetTrigger(GameController.Get.BasketAniName);
+								animator.SetTrigger(GameController.Get.BasketAnimationName);
 							}
 							break;
 						case BasketSituation.Swich:
@@ -34,7 +34,7 @@ public class ScoreTrigger : MonoBehaviour
 						case BasketSituation.NoScore:
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){
-								animator.SetTrigger(GameController.Get.BasketAniName);
+								animator.SetTrigger(GameController.Get.BasketAnimationName);
 							}
 							break;
 						}

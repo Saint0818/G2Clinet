@@ -44,7 +44,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public GameObject[] Walls = new GameObject[2];
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
-	public Animator[] BasketHoopAni = new Animator[2];
+	public Animator[] BasketHoopAnimator = new Animator[2];
 	public Transform[] BasketHoop = new Transform[2];
 	public Transform[] BasketHoopDummy = new Transform[2];
 
@@ -271,8 +271,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
 		BasketHoop[1] = crtBasket.transform.FindChild("Right/BasketballAction");
 
-		BasketHoopAni[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
-		BasketHoopAni[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
+		BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
+		BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
 
 		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
 		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
@@ -280,9 +280,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	public void RealBallPath(int team, string animationName) {
 		switch(animationName) {
-		case "FirstPosition":
-
-			break;
 		case "ActionEnd":
 			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
 			break;

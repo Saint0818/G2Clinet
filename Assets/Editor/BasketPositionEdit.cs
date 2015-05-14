@@ -7,10 +7,10 @@ using System.Collections.Generic;
 
 public class BasketPositionEdit : EditorWindow {
 
-	[MenuItem ("GameEditor/BasketShootPositionEdit")]
+	[MenuItem ("GameEditor/BallPositionEdit")]
 	private static void PositionEdit()
 	{
-		EditorWindow.GetWindowWithRect(typeof(BasketPositionEdit), new Rect(0, 0, 600, 600), true, "EditBasketShootPosition").Show();
+		EditorWindow.GetWindowWithRect(typeof(BasketPositionEdit), new Rect(0, 0, 600, 600), true, "EditBallPosition").Show();
 	}
 	private string FileName = "";
 	private BasketShootPositionData[] basketShootPositionData = new BasketShootPositionData[0];
@@ -24,7 +24,7 @@ public class BasketPositionEdit : EditorWindow {
 	private GUIStyle style = new GUIStyle();
 	private bool isSave = false;
 	void OnFocus(){
-		FileName = Application.dataPath + "/Resources/GameData/basketShootPosition.json";
+		FileName = Application.dataPath + "/Resources/GameData/ballposition.json";
 		OnLoad();
 	}
 
@@ -108,7 +108,7 @@ public class BasketPositionEdit : EditorWindow {
 		);
 		//Left  Json BasketAnimation
 		if (File.Exists(FileName)){
-			TextAsset tx = Resources.Load("GameData/basketShootPosition") as TextAsset;
+			TextAsset tx = Resources.Load("GameData/ballposition") as TextAsset;
 			if (tx){
 				basketShootPositionData = (BasketShootPositionData[])JsonConvert.DeserializeObject(tx.text, typeof(BasketShootPositionData[]));
 			} 

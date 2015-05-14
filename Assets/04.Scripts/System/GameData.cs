@@ -30,7 +30,7 @@ public class GameData {
 			//tactical
 			DownloadList.Add (new TDownloadData ("tactical", "0"));
 			//basketShootPosition
-			DownloadList.Add (new TDownloadData ("basketShootPosition", "0"));
+			DownloadList.Add (new TDownloadData ("ballposition", "0"));
 
 			FileManager.Get.LoadFileResource (DownloadList);
 
