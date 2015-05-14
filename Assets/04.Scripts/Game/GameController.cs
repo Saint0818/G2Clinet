@@ -2040,34 +2040,51 @@ public class GameController : MonoBehaviour
                 } else 
                 if (Npc.Attr.AILevel >= 3 && Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
-                    //Crossover             
-                    TMoveData data = new TMoveData(0);
-                    if (Dir == 1)
-                        data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
-                    else
-                        data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
-                    
-                    Npc.FirstTargetPos = data;
-
-
-					data = new TMoveData(0);
-					int AddZ = 3;
+                    //Crossover     
+					int AddZ = 6;
 					if(Npc.Team == TeamKind.Npc)
-						AddZ = -3;
+						AddZ = -6;
 
-					if (Dir == 1){
-						if (Npc.Team == TeamKind.Self)
-							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
-						else
-							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));
-					}else{		
-						if (Npc.Team == TeamKind.Self)
-							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
-						else
-							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));					
+					if (Dir == 1)
+					{
+						Npc.transform.DOMoveX(Npc.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+						Npc.AniState(PlayerState.MoveDodge0);
 					}
-					
-					Npc.FirstTargetPos = data;
+					else
+					{
+						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+						Npc.AniState(PlayerState.MoveDodge0);
+					}
+
+//                    TMoveData data = new TMoveData(0);
+//                    if (Dir == 1)
+//                        data.Target = new Vector2(Npc.transform.position.x - 2, Npc.transform.position.z);
+//                    else
+//                        data.Target = new Vector2(Npc.transform.position.x + 2, Npc.transform.position.z);
+//                    
+//                    Npc.FirstTargetPos = data;
+//
+//
+//					data = new TMoveData(0);
+//					int AddZ = 3;
+//					if(Npc.Team == TeamKind.Npc)
+//						AddZ = -3;
+//
+//					if (Dir == 1){
+//						if (Npc.Team == TeamKind.Self)
+//							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
+//						else
+//							data.Target = new Vector2(Npc.transform.position.x - 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));
+//					}else{		
+//						if (Npc.Team == TeamKind.Self)
+//							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Max(Npc.transform.position.z + AddZ, -17));
+//						else
+//							data.Target = new Vector2(Npc.transform.position.x + 2, Mathf.Min(Npc.transform.position.z + AddZ, 17));					
+//					}
+//					
+//					Npc.FirstTargetPos = data;
 					CoolDownCrossover = Time.time + 4;
 				}
 			} else
