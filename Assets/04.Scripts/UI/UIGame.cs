@@ -257,14 +257,14 @@ public class UIGame : UIBase {
 	}
 
 	private void initLine() {
-		drawLine.ClearTarget();
-		if (drawLine.UIs.Length == 0) {
-			for (int i = 0; i < 2; i ++) {
-				GameObject obj = GameObject.Find("PlayerInfoModel/Self" + (i+1).ToString());
-				if (obj)
-					drawLine.AddTarget(passObjectGroup[i], obj);
-			}
-		}
+//		drawLine.ClearTarget();
+//		if (drawLine.UIs.Length == 0) {
+//			for (int i = 0; i < 2; i ++) {
+//				GameObject obj = GameObject.Find("PlayerInfoModel/Self" + (i+1).ToString());
+//				if (obj)
+//					drawLine.AddTarget(passObjectGroup[i], obj);
+//			}
+//		}
 	}
 
 	IEnumerator WaitForVirtualScreen(){

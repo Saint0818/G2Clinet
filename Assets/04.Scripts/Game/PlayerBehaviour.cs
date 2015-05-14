@@ -1116,24 +1116,28 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Data.DefPlayer != null)
         {
-			float dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.z));
-            
-            for (int i = 0; i < disAy.Length; i++)
-                disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+			Vector3 aP1 = Data.DefPlayer.transform.position;
+			Vector3 aP2 = SceneMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
+			Result = GetStealPostion(aP1, aP2);
 
-            int mIndex = MinIndex(ref disAy, Data.DefPlayer == DefPlayer);
-
-            if (mIndex >= 0 && mIndex < disAy.Length)
-            {
-				Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
-				Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;                 
-                
-//				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
-//				{
-//					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
-//					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
-//				}                   
-            }
+//			float dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.z));
+//            
+//            for (int i = 0; i < disAy.Length; i++)
+//                disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+//
+//            int mIndex = MinIndex(ref disAy, Data.DefPlayer == DefPlayer);
+//
+//            if (mIndex >= 0 && mIndex < disAy.Length)
+//            {
+//				Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+//				Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;                 
+//                
+////				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
+////				{
+////					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+////					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
+////				}                   
+//            }
         } 
 		else if (Data.FollowTarget != null)
 		{
@@ -2476,4 +2480,12 @@ public class PlayerBehaviour : MonoBehaviour
             isTouchPalyer = false;
         }
     }
+
+	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2)
+	{
+		Vector2 Result = Vector2.zero;
+		Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+		Result.y = P1.z + (Math.Abs(P1.z - P2.z) / 3);
+		return Result;
+	}
 }
