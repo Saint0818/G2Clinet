@@ -22,15 +22,10 @@ public class ScoreTrigger : MonoBehaviour
 					if(IntTrigger == 0 && !Into){
 						Into = true;
 						switch (GameController.Get.BasketSituationType) {
-						case BasketSituation.Score:
-							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
-							if(animator != null){
-								animator.SetTrigger(GameController.Get.BasketAnimationName);
-							}
-							break;
 						case BasketSituation.Swich:
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 							break;
+						case BasketSituation.Score:
 						case BasketSituation.NoScore:
 							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){

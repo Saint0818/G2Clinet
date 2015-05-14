@@ -1118,42 +1118,44 @@ public class GameController : MonoBehaviour
 		bool isScore = false;
 		bool isSwich = false;
 		bool isAirBall = false;
+//		Debug.Log("rate:"+originalRate * ((float)player.ScoreRate.DownHandScoreRate / 100f));
+//		Debug.Log("!!!!rate:"+(originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f))));
 		if(type == ScoreType.DownHand) {
-			isScore = rate <= (originalRate - player.ScoreRate.DownHandScoreRate + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
-				isSwich = rate <= (originalRate - player.ScoreRate.DownHandSwishRate) ? true : false;
+				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.UpHand) {
-			isScore = rate <= (originalRate - player.ScoreRate.UpHandScoreRate + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
-				isSwich = rate <= (originalRate - player.ScoreRate.UpHandSwishRate) ? true : false;
+				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.Normal) {
-			isScore = rate <= (originalRate - player.ScoreRate.NormalScoreRate + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
-				isSwich = rate <= (originalRate - player.ScoreRate.NormalSwishRate) ? true : false;
+				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NormalSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			isScore = rate <= (originalRate + player.ScoreRate.NearShotScoreRate + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
-				isSwich = rate <= (originalRate - player.ScoreRate.NearShotSwishRate) ? true : false;
+				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			isScore = rate <= (originalRate + player.ScoreRate.LayUpScoreRate + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
-				isSwich = rate <= (originalRate - player.ScoreRate.LayUpSwishRate) ? true : false;
+				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}

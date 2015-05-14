@@ -257,7 +257,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtBasket = null;
         }
     
-		crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
+		GameObject obj = GameObject.Find("Basket_0");
+		if(obj == null)
+			crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
+		else
+			crtBasket = obj.transform.root.gameObject;
         pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
 		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_1").gameObject;
 		animPos[0] = pveBasketAy[0].transform.localPosition;

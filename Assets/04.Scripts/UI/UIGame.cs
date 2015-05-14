@@ -8,24 +8,24 @@ public class UIGame : UIBase {
 	//Game const
 	public float ButtonBTime = 0.2f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
+	public int[] MaxScores = {13, 13};
 
 	private float shootBtnTime = 0;
 	private float showScoreBarTime = 0;
-	private float homeHintTime = -1;
-	public int[] MaxScores = {13, 13};
 	public int[] Scores = {0, 0};
 
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
+	public bool OpenMask = false;
+	//Stuff
 	public GameObject Again;
 	public GameObject Continue;
-	public GameObject Start;
 	public GameObject ScoreBar;
-	public GameObject Restart;
 	public GameJoystick Joystick = null;
-	public bool OpenMask = false;
+	private GameObject start;
+	private GameObject restart;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
 
@@ -68,8 +68,6 @@ public class UIGame : UIBase {
 	private float buttonPushFXTime;
 	private GameObject buttonAttackFX;
 	private float buttonAttackFXTime;
-
-	private bool isSplit;
 
 	public static UIGame Get {
 		get {
@@ -141,8 +139,8 @@ public class UIGame : UIBase {
 
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
-		Start = GameObject.Find (UIName + "/Center/StartView");
-		Restart = GameObject.Find (UIName + "/Center/ButtonReset");
+		start = GameObject.Find (UIName + "/Center/StartView");
+		restart = GameObject.Find (UIName + "/Center/ButtonReset");
 		ScoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
@@ -226,14 +224,15 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
+
 		Again.SetActive (false);
-		Restart.SetActive(false);
+		restart.SetActive(false);
 		Continue.SetActive(false);
 		passObject.SetActive(false);
 		showCoverAttack(false);
 		showCoverDefence(false);
 
-		drawLine = gameObject.AddComponent<DrawLine>();
+//		drawLine = gameObject.AddComponent<DrawLine>();
 		ChangeControl(false);
 		
 		Joystick.gameObject.SetActive(false);
@@ -402,7 +401,6 @@ public class UIGame : UIBase {
 		if(GameController.Get.IsShooting) {
 			if(state && UIDoubleClick.Visible){
 				UIDoubleClick.Get.ClickStop ();
-				//GameController.Get.AddExtraScoreRate(10);
 			}
 		} else {
 			if(!GameController.Get.Joysticker.IsFall) {
@@ -414,7 +412,7 @@ public class UIGame : UIBase {
 						if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
 							showCoverAttack(true);
 							coverAttack[1].SetActive(false);
-							//						coverAttackSprite[1].color = Color.green;
+	//						coverAttackSprite[1].color = Color.green;
 						}
 						shootBtnTime = ButtonBTime;
 					}
@@ -440,12 +438,12 @@ public class UIGame : UIBase {
 
 	public void DoPassChoose (GameObject obj, bool state) {
 		if(GameController.Get.Joysticker.IsBallOwner && !GameController.Get.Joysticker.IsFall) {
-			initLine();
 			passObject.SetActive(state);
 			if (state) {
 				passA.SetActive(true);
 				passB.SetActive(true);
 			}
+//			initLine();
 //			drawLine.IsShow = state;
 		} else {
 			if(!GameController.Get.IsShooting){
@@ -458,7 +456,7 @@ public class UIGame : UIBase {
 	public void DoPassTeammateA() {
 		showCoverAttack(true);
 		coverAttack[0].SetActive(false);
-//			coverAttackSprite[0].color = Color.green;
+//		coverAttackSprite[0].color = Color.green;
 		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
@@ -468,13 +466,13 @@ public class UIGame : UIBase {
 		else
 			showCoverAttack(false);
 
-//			drawLine.IsShow = false;
+//		drawLine.IsShow = false;
 	}
 
 	public void DoPassTeammateB() {
 		showCoverAttack(true);
 		coverAttack[0].SetActive(false);
-//			coverAttackSprite[0].color = Color.green;
+//		coverAttackSprite[0].color = Color.green;
 		PassFX();
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
@@ -492,7 +490,7 @@ public class UIGame : UIBase {
 
 	public void ContinueGame() {
 		Time.timeScale = 1;
-		Restart.SetActive(false);
+		restart.SetActive(false);
 		Continue.SetActive(false);
 		ScoreBar.SetActive(false);
 		Joystick.gameObject.SetActive(true);
@@ -500,7 +498,7 @@ public class UIGame : UIBase {
 
 	public void PauseGame(){
 		Time.timeScale = 0;
-		Restart.SetActive(true);
+		restart.SetActive(true);
 		Continue.SetActive(true);
 		ScoreBar.SetActive(true);
 		Joystick.gameObject.SetActive(false);
@@ -513,14 +511,14 @@ public class UIGame : UIBase {
 		Again.SetActive (false);
 		isShowScoreBar = false;
 		ScoreBar.SetActive(true);
-		Start.SetActive (true);
+		start.SetActive (true);
 		Joystick.gameObject.SetActive(false);
 	}
 
 
 
 	public void StartGame() {
-		Start.SetActive (false);
+		start.SetActive (false);
 		ScoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
 
@@ -533,7 +531,7 @@ public class UIGame : UIBase {
 	public void RestartGame(){
 		ResetGame();
 		Time.timeScale = 1;
-		Restart.SetActive(false);
+		restart.SetActive(false);
 		Continue.SetActive(false);
 	}
 
@@ -640,19 +638,6 @@ public class UIGame : UIBase {
 
 			if(GameStart.Get.IsSplitScreen) {
 				screenLocation.SetActive(false);
-//				if(playerInCameraX > 0 &&
-//				   playerInCameraX < Screen.width &&
-//				   playerInCameraY > 0 &&
-//				   playerInCameraY < Screen.height) {
-//					playerTexture.SetActive(false);
-//				}
-//				
-//				if(playerInCameraX < -100 ||
-//				   playerInCameraX >Screen.width + 100 ||
-//				   playerInCameraY < - 100 ||
-//				   playerInCameraY > Screen.height + 100){
-//					playerTexture.SetActive(true);
-//				}
 				if(playerInCameraX > -50 &&
 				   playerInCameraX < Screen.width + 100 &&
 				   playerInCameraY > -50 &&
