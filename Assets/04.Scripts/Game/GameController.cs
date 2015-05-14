@@ -733,10 +733,8 @@ public class GameController : MonoBehaviour
 			}
 
 			if (GUI.Button(new Rect(120, 50, 100, 100), "Right")) {
-				Vector3 [] Ay = new Vector3[2];
-				Ay[0] = new Vector3(PlayerList[0].transform.position.x + 2, 0, PlayerList[0].transform.position.z);
-				Ay[1] = new Vector3(PlayerList[0].transform.position.x + 2, 0, PlayerList[0].transform.position.z + 4);
-				PlayerList[0].transform.DOPath(Ay, GameStart.Get.CrossTimeZ);
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 				PlayerList[0].AniState(PlayerState.MoveDodge1);
 			}
 		}
@@ -2062,12 +2060,9 @@ public class GameController : MonoBehaviour
 					}
 					else
 					{
-						Npc.rotateTo(SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.z);
-						Vector3 [] Ay = new Vector3[2];
-						Ay[0] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z);
-						Ay[1] = new Vector3(Npc.transform.position.x + 2, 0, Npc.transform.position.z + AddZ);
-						Npc.transform.DOPath(Ay, GameStart.Get.CrossTimeZ);
-						Npc.AniState(PlayerState.MoveDodge1);
+						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+						Npc.AniState(PlayerState.MoveDodge0);
 					}
 					CoolDownCrossover = Time.time + 4;
 				}
