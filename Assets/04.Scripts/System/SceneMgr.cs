@@ -256,14 +256,19 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             Destroy(crtBasket);
             crtBasket = null;
         }
-    
-		GameObject obj = GameObject.Find("Basket_0");
+		GameObject[] objs = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+		string name = string.Empty;
+		for(int i=0; i<objs.Length; i++)
+			if(objs[i].name.Contains("Basket_"))
+				name = objs[i].name;
+		Debug.Log("name:"+name);
+		GameObject obj = GameObject.Find(name);
 		if(obj == null)
 			crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
 		else
 			crtBasket = obj.transform.root.gameObject;
-        pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
-		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_1").gameObject;
+        pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket").gameObject;
+		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket").gameObject;
 		animPos[0] = pveBasketAy[0].transform.localPosition;
 		animPos[1] = pveBasketAy[1].transform.localPosition;
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;

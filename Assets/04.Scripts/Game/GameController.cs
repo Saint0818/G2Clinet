@@ -1122,8 +1122,6 @@ public class GameController : MonoBehaviour
 		bool isScore = false;
 		bool isSwich = false;
 		bool isAirBall = false;
-//		Debug.Log("rate:"+originalRate * ((float)player.ScoreRate.DownHandScoreRate / 100f));
-//		Debug.Log("!!!!rate:"+(originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f))));
 		if(type == ScoreType.DownHand) {
 			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
