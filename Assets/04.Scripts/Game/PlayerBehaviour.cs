@@ -1118,7 +1118,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
 			Vector3 aP1 = Data.DefPlayer.transform.position;
 			Vector3 aP2 = SceneMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
-			Result = GetStealPostion(aP1, aP2);
+			Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
 
 //			float dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.z));
 //            
@@ -2481,13 +2481,38 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2)
+	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
 	{
 		Vector2 Result = Vector2.zero;
 		if(P1.x > 0)
 			Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
 		else
 			Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+
+		if (mIndex != Index) 
+		{
+			switch(mIndex)
+			{
+			case 0:
+				if(Index == 1)
+					Result.x += 1.5f;
+				else
+					Result.x -= 1.5f;
+				break;
+			case 1:
+				if(Index == 0)
+					Result.x += 1.5f;
+				else
+					Result.x -= 1.5f;
+				break;
+			case 2:
+				if(Index == 0)
+					Result.x += 1.5f;
+				else
+					Result.x -= 1.5f;
+				break;
+			}
+		}
 
 		if(P2.z > 0)
 			Result.y = P1.z + (Math.Abs(P1.z - P2.z) / 3);
