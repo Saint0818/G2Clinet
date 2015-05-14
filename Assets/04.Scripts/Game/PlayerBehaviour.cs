@@ -1113,15 +1113,14 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (mIndex >= 0 && mIndex < disAy.Length)
             {
-				Result.x = Data.DefPlayer.DefPointAy [mIndex].position.x;
-				Result.y = Data.DefPlayer.DefPointAy [mIndex].position.z;                 
+				Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+				Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;                 
                 
-				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
-				{
-					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
-					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
-				}
-                    
+//				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
+//				{
+//					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+//					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
+//				}                   
             }
         } 
 		else if (Data.FollowTarget != null)

@@ -2041,6 +2041,11 @@ public class GameController : MonoBehaviour
                 if (Npc.Attr.AILevel >= 3 && Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
                     //Crossover     
+					if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 12)
+						return;
+					else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -12)
+						return;
+
 					int AddZ = 6;
 					if(Npc.Team == TeamKind.Npc)
 						AddZ = -6;
@@ -2053,9 +2058,10 @@ public class GameController : MonoBehaviour
 					}
 					else
 					{
+						Npc.rotateTo(SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.x, SceneMgr.Get.Hood[Npc.Team.GetHashCode()].transform.position.z);
 						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-						Npc.AniState(PlayerState.MoveDodge0);
+						Npc.AniState(PlayerState.MoveDodge1);
 					}
 
 //                    TMoveData data = new TMoveData(0);
@@ -2616,7 +2622,7 @@ public class GameController : MonoBehaviour
 
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
     {
-		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge0) && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge1) && !player.CheckAnimatorSate(PlayerState.MoveDodge0) && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
         {
 			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
