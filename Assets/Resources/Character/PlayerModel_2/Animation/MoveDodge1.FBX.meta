@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 07aff0c861bf6774aad27a6aeb3d0d9d
-timeCreated: 1431423135
+guid: bf603a5c01e60fc479119e5f532440d7
+timeCreated: 1431585902
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: MoveDodge0
+    7400000: MoveDodge1
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,7 +128,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: MoveDodge0
+      name: MoveDodge1
       takeName: Take 001
       firstFrame: 0
       lastFrame: 24
@@ -152,7 +152,7 @@ ModelImporter:
       events:
       - time: 1
         functionName: AnimationEvent
-        data: MoveDodgeEnd
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
