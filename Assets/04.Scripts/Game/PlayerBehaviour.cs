@@ -2484,8 +2484,15 @@ public class PlayerBehaviour : MonoBehaviour
 	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2)
 	{
 		Vector2 Result = Vector2.zero;
-		Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
-		Result.y = P1.z + (Math.Abs(P1.z - P2.z) / 3);
+		if(P1.x > 0)
+			Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
+		else
+			Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+
+		if(P2.z > 0)
+			Result.y = P1.z + (Math.Abs(P1.z - P2.z) / 3);
+		else
+			Result.y = P1.z - (Math.Abs(P1.z - P2.z) / 3);
 		return Result;
 	}
 }
