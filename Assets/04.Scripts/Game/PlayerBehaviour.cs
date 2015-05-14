@@ -396,7 +396,7 @@ public class PlayerBehaviour : MonoBehaviour
 			if (obj3 != null)
 				obj3.Player = this;
 			
-			DefPoint = obj.transform.FindChild("DefRange").gameObject;          
+			DefPoint = obj2.transform.FindChild("DefRange").gameObject;          
 			obj2.transform.parent = transform;
 			obj2.transform.transform.localPosition = Vector3.zero;
 			obj2.transform.transform.localScale = Vector3.one;

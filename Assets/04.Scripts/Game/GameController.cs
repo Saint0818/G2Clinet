@@ -850,6 +850,7 @@ public class GameController : MonoBehaviour
             if (situation != GS)
             {
                 RealBallFxTime = 0;
+				WaitStealTime = 0;
                 SceneMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
@@ -2177,7 +2178,7 @@ public class GameController : MonoBehaviour
 							if(GetStealRate(ref Npc))
                             {
                                 if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position)){
-                                	Npc.CoolDownSteal = Time.time + 3;                              
+                                	Npc.CoolDownSteal = Time.time + 2;                              
 									WaitStealTime = Time.time + 2;
 								}
                             }
