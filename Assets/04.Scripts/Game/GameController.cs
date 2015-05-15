@@ -263,7 +263,7 @@ public class GameController : MonoBehaviour
         InitPos();
         InitGame();
 		InitBasket();
-		SceneMgr.Get.ChangeLevel (3);
+//		SceneMgr.Get.ChangeLevel (SceneName.Court_0);
 
 		if (GameStart.Get.IsSplitScreen)
 			CameraMgr.Get.setSplitScreen();
