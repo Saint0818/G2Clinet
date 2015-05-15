@@ -57,8 +57,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
     void Awake()
     {
-		gameObject.transform.parent = DontDestoryMgr.Get.gameObject.transform;
-		lightmapData[0] = new LightmapData();
+		//gameObject.transform.parent = DontDestoryMgr.Get.gameObject.transform;
+		//lightmapData[0] = new LightmapData();
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("RealBall"));
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
@@ -184,25 +184,28 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             crtBasket = null;
         }
     
-		crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
-        pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket_0").gameObject;
-		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket_1").gameObject;
-		animPos[0] = pveBasketAy[0].transform.localPosition;
-		animPos[1] = pveBasketAy[1].transform.localPosition;
-		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
-		animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
+		//crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
+		crtBasket = GameObject.Find("Basket_0");
+		if (crtBasket) {
+			pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket").gameObject;
+			pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket").gameObject;
+			animPos[0] = pveBasketAy[0].transform.localPosition;
+			animPos[1] = pveBasketAy[1].transform.localPosition;
+			animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
+			animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
 
-        crtBasket.transform.parent = gameObject.transform;
-		crtBasketIndex = basketIndex;
+	        crtBasket.transform.parent = gameObject.transform;
+			crtBasketIndex = basketIndex;
 
-		BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
-		BasketHoop[1] = crtBasket.transform.FindChild("Right/BasketballAction");
+			BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
+			BasketHoop[1] = crtBasket.transform.FindChild("Right/BasketballAction");
 
-		BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
-		BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
+			BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
+			BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
 
-		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
-		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
+			BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
+			BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
+		}
 	}
 
 	public void RealBallPath(int team, string animationName) {
@@ -444,7 +447,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	{
 		Animation animation;
 		string animationName;
-//		AnimationClip clip;
 		animationName = "Shot_0";
 		
 		if (team == 0)

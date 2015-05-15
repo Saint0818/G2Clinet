@@ -36,11 +36,6 @@ public class GameStart : MonoBehaviour {
 		UIGame.UIShow (true);
 	}
 
-	/*void OnGUI() {
-		if (GUI.Button(new Rect(100, 0, 100, 100), "Load Lobby"))
-			Application.LoadLevel("Lobby");
-	}*/
-
 	private void InitCom(){
 		GameData.Init ();
 	}

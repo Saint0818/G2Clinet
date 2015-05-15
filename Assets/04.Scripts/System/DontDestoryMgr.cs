@@ -8,7 +8,7 @@ public class DontDestoryMgr : KnightSingleton<DontDestoryMgr>
 	{
 		DontDestroyOnLoad(transform.gameObject);
 	}
-
+	/*
 	void OnGUI()
 	{
 		if (GUI.Button (new Rect (0, 0, Screen.width /2, 100), "Lobby"))
@@ -20,6 +20,6 @@ public class DontDestoryMgr : KnightSingleton<DontDestoryMgr>
 		{
 			SceneMgr.Get.ChangeLevel(SceneName.Court_0);	
 		}
-	}
+	}*/
 }
 
