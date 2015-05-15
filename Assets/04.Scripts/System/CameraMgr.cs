@@ -4,7 +4,6 @@ using System.Collections;
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	//Game const
-	private Shake mShake;
 	private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 25;
 	private float blankAera = 3.2f;
@@ -76,10 +75,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		}
 	}
 
-	public void PlayShake() {
-		mShake.Play();
-	}
-
 	public void SetTeamCamera(TeamKind team)
 	{
 		curTeam = team;
@@ -97,8 +92,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
 			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
 			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
-
-			mShake = cameraFx.gameObject.AddComponent<Shake>();
 			
 			cameraRotationObj.transform.position = startPos;
 			smothHight.x = startPos.y;

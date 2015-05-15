@@ -14,8 +14,8 @@ public class LobbyStart : MonoBehaviour {
 	}
 
 	void OnGUI() {
-		if (GUI.Button (new Rect (0, 0, 100, 100), "Load Game Play"))
-			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+		if (GUI.Button(new Rect(0, 0, 100, 100), "Load Game Play"))
+			Application.LoadLevel("PlayerControl");
 	}
 
 }
