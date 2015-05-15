@@ -19,7 +19,7 @@ public class EffectManager : MonoBehaviour
 	private static EffectManager instance = null;
 	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect",  "ThreeLineEffect", "ThrowInLineEffect", "DoubleClick01", "DoubleClick02"};
 	private bool GameEffectLoaded = false;
-
+	private Shake mShake;
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 
 	private List<TCloneMesh> cloneMeshs = new List<TCloneMesh>();
@@ -28,13 +28,16 @@ public class EffectManager : MonoBehaviour
 	private List<GameObject> cloneObjects = new List<GameObject>();
 
 	void Awake() {
+		mShake = CameraMgr.Get.CourtCamera.gameObject.AddComponent<Shake>();
 
 		Material mat = Resources.Load("Effect/Materials/CloneMesh0") as Material;
 		if (mat)
 			materials.Add(mat);
 	}
 
-
+	public void PlayShake() {
+		mShake.Play();
+	}
 
 	public static EffectManager Get {
 		get

@@ -9,6 +9,7 @@ public class GameStart : MonoBehaviour {
 
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
+	public bool ConnectToServer = false;
 //	public bool IsOpenIKSystem = true;
 	public bool IsSplitScreen = false;
 	public float CrossTimeX = 0.5f;

@@ -2,11 +2,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using GameStruct;
 
 public static class SettingText {
-	public const string TeamSave = "TeamSave";
+	public const string TeamData = "TeamData";
 	public const string Language = "UserLanguage";
 	public const string AITime = "AIChangeTime";
 	public const string Effect = "Effect";
@@ -16,10 +15,8 @@ public class GameData {
 	public static TAIlevel[] AIlevelAy;
 	public static TTactical[] TacticalData;
     public static BasketShootPositionData[] BasketShootPosition;
-
-	public static string ServerVersion;
-	public static string SaveVersion;
-	public static TTeam Team;
+	
+	public static string Version;
 	public static TGameSetting Setting;
 
 	private static bool isLoaded = false;
@@ -38,8 +35,6 @@ public class GameData {
 			FileManager.Get.LoadFileResource (DownloadList);
 
 			loadGameSetting();
-
-			Team.Init();
 		}
 	}
 
@@ -81,21 +76,5 @@ public class GameData {
 			Setting.Effect = Convert.ToBoolean(PlayerPrefs.GetInt(SettingText.Effect, 1));
 		else
 			Setting.Effect = true;
-	}
-
-	public static bool LoadTeamSave() {
-		if(PlayerPrefs.HasKey(SettingText.TeamSave)) {
-			string save = PlayerPrefs.GetString(SettingText.TeamSave, "");
-			if (save != "") {
-				try {
-					Team = JsonConvert.DeserializeObject <TTeam>(save);
-					return true;
-				} catch (Exception e) {
-					Debug.Log(e.ToString());
-				}
-			}
-		}
-			
-		return false;
 	}
 }

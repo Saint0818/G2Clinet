@@ -1,5 +1,5 @@
-﻿#define Debug
-//#define Release
+﻿//#define Debug
+#define Release
 using UnityEngine;
 using System;
 using System.IO;
@@ -45,10 +45,10 @@ public struct TStartCoroutine{
 	public string Version;
 }
 
-public class FileManager : KnightSingleton<FileManager> {
+public class FileManager : MonoBehaviour {
 	public static string[] DownloadFiles = {"TacticalData"};
 	#if Debug
-	public const string URL = "http://localhost:3600/";
+	public const string URL = "http://localhost:3500/";
 	public const VersionMode NowMode = VersionMode.debug;
 	#endif
 	
@@ -66,6 +66,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
 
+	private static FileManager instance = null;
 	private static List<TDownloadData> Download_list = new List<TDownloadData>();
 	private static Dictionary<string, DownloadFileText> CallBackFun = new Dictionary<string, DownloadFileText> ();
 	private static Dictionary<string, DownloadFileWWW> CallBackWWWFun = new Dictionary<string, DownloadFileWWW> ();
@@ -167,6 +168,21 @@ public class FileManager : KnightSingleton<FileManager> {
 //		}
 //		
 //		DownloadFinish ();
+	}
+
+	public static FileManager Get {
+		get {
+			if (instance == null) {
+				GameObject obj = GameObject.Find ("FileManager");
+				if (!obj) {
+					GameObject go = new GameObject ("FileManager");
+					instance = go.AddComponent<FileManager> ();
+				} else
+					instance = obj.GetComponent<FileManager> ();
+			}
+
+			return instance;
+		}
 	}
 
 	void Awake () {

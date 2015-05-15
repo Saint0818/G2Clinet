@@ -28,9 +28,7 @@ public class UnityUtil : MonoBehaviour, Uniject.IUtil {
         return result.ToArray();
     }
 
-
     void Start() {
-		gameObject.name = "UnityUtil";
 		DontDestroyOnLoad(this.gameObject);
     }
 

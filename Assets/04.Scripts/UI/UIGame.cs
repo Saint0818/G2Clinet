@@ -584,7 +584,7 @@ public class UIGame : UIBase {
 	}
 
 	private void judgePlayerScreenPosition(){
-		if(GameController.Get.IsStart && GameController.Get.Joysticker != null){
+		if(GameController.Get.Joysticker != null){
 			float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
 			float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
 			

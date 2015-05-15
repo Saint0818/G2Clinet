@@ -307,7 +307,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public Rigidbody Rigi;
 	private bool IsSpeedup = false;
 	public float MovePower = 0;
-	public float MaxMovePower = 0;
+	public int MaxMovePower = 0;
 	private float MovePowerTime = 0;
 	private Vector2 MoveTarget;
 	private float [] disAy = new float[4];
@@ -1086,6 +1086,29 @@ public class PlayerBehaviour : MonoBehaviour
 //        path2 = new Vector3[2]{dunkPath [3], dunkPath [4]};
 //        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
 //    }
+    
+    private int MinIndex(ref float[] floatAy, bool getmin = false)
+    {
+        int Result = 0;
+        int Result2 = floatAy.Length - 1;
+
+        float Min = floatAy [0];
+        
+        for (int i = 1; i < floatAy.Length; i++)
+        {
+            if (floatAy [i] < Min)
+            {
+                Min = floatAy [i];
+                Result2 = Result;
+                Result = i;
+            }
+        }
+        
+        if (getmin)
+            return Result;
+        else
+            return Result2;
+    }
 	
     private void GetMoveTarget(ref TMoveData Data, ref Vector2 Result)
     {
@@ -1096,11 +1119,25 @@ public class PlayerBehaviour : MonoBehaviour
 			Vector3 aP1 = Data.DefPlayer.transform.position;
 			Vector3 aP2 = SceneMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
 			Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
-			if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
-			{
-				Result.x = gameObject.transform.position.x;
-				Result.y = gameObject.transform.position.z;
-			}
+
+//			float dis = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.x, 0, SceneMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position.z));
+//            
+//            for (int i = 0; i < disAy.Length; i++)
+//                disAy [i] = Vector3.Distance(Data.DefPlayer.DefPointAy [i].position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+//
+//            int mIndex = MinIndex(ref disAy, Data.DefPlayer == DefPlayer);
+//
+//            if (mIndex >= 0 && mIndex < disAy.Length)
+//            {
+//				Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+//				Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;                 
+//                
+////				if ((Attr.ProactiveRate >= TimeProactiveRate && Data.DefPlayer.IsBallOwner && dis <= GameConst.TreePointDistance) || dis <= 8 && Data.DefPlayer == DefPlayer)
+////				{
+////					Result.x = Data.DefPlayer.DefPointAy [mIndex + 4].position.x;
+////					Result.y = Data.DefPlayer.DefPointAy [mIndex + 4].position.z;
+////				}                   
+//            }
         } 
 		else if (Data.FollowTarget != null)
 		{
@@ -1117,10 +1154,9 @@ public class PlayerBehaviour : MonoBehaviour
         {
 			GetMoveTarget(ref Data, ref MoveTarget);
 			TacticalName = Data.FileName;
-			float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
-			if(temp <= MoveCheckValue)
-//            if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
-//                (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
+
+            if ((gameObject.transform.localPosition.x <= MoveTarget.x + MoveCheckValue && gameObject.transform.localPosition.x >= MoveTarget.x - MoveCheckValue) && 
+                (gameObject.transform.localPosition.z <= MoveTarget.y + MoveCheckValue && gameObject.transform.localPosition.z >= MoveTarget.y - MoveCheckValue))
             {
                 MoveTurn = 0;
 				isMoving = false;
@@ -2421,7 +2457,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void SetMovePower(float Value)
+	public void SetMovePower(int Value)
 	{
 		MaxMovePower = Value;
 		MovePower = Value;
