@@ -102,7 +102,8 @@ public class FileManager : KnightSingleton<FileManager> {
 					AlreadyDownlandCount++;
 					if (UILoading.Visible)
 						UILoading.Get.UpdateProgress();
-				}
+				}else
+					Debug.LogError("No handle function : " + DataList[i].fileName);
 			}	
 		}
 
