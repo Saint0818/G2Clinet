@@ -971,21 +971,15 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private void judgeBasketAnimationName (int basketDistanceAngleType) 
-	{
-		if(BasketSituationType == BasketSituation.Score)
-		{
-			if(CourtMgr.Get.BasketAnimationName.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count)
-			{
+	private void judgeBasketAnimationName (int basketDistanceAngleType) {
+		if(BasketSituationType == BasketSituation.Score){
+			if(CourtMgr.Get.BasketAnimationName.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count){
 				int random = Random.Range(0, CourtMgr.Get.BasketAnimationName[basketDistanceAngleType].Count);
 				if(CourtMgr.Get.BasketAnimationName.Count > 0 && random < CourtMgr.Get.BasketAnimationName.Count)
 					BasketAnimationName = CourtMgr.Get.BasketAnimationName[basketDistanceAngleType][random];
 			}
-		}
-		else if(BasketSituationType == BasketSituation.NoScore)
-		{
-			if(CourtMgr.Get.BasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count) 
-			{
+		}else if(BasketSituationType == BasketSituation.NoScore){
+			if(CourtMgr.Get.BasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count) {
 				int random = Random.Range(0, CourtMgr.Get.BasketAnimationNoneState[basketDistanceAngleType].Count);
 				if(CourtMgr.Get.BasketAnimationNoneState.Count > 0 && random < CourtMgr.Get.BasketAnimationName.Count)
 					BasketAnimationName = CourtMgr.Get.BasketAnimationNoneState[basketDistanceAngleType][random];
