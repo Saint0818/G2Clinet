@@ -4,36 +4,41 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class GameStart : MonoBehaviour {
+public class GameStart : KnightSingleton<GameStart> {
 	public static GameStart instance;
-
+	public SceneTest  SceneMode = SceneTest.Single;
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
-//	public bool IsOpenIKSystem = true;
 	public bool IsSplitScreen = false;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);
 
-	public static GameStart Get {
-		get {
-			if (!instance) {
-				GameObject obj2 = GameObject.Find("GameStart");
-				if (!obj2) {
-					GameObject obj = new GameObject("GameStart");
-					instance = obj.AddComponent<GameStart>();
-				} else
-					instance = obj2.GetComponent<GameStart>();
-            }
-            
-            return instance;
-        }
-    }
-
     void Start(){
+		SceneMgr.Get.SetDontDestory (gameObject);
+
+		if (SceneMode == SceneTest.Single)
+			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+
 		GameData.Init();
 		TextConst.Init();
-		UIGame.UIShow (true);
+
+
+	}
+
+	void OnGUI()
+	{
+		if (SceneMode == SceneTest.Multi){
+			if (GUI.Button (new Rect (100, 0, 100, 50), "Lobby"))
+				{
+					SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+				}
+				
+				if (GUI.Button (new Rect (200 , 0, 100, 50), "InGame"))
+				{
+					SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+				}
+		}
 	}
 
 	private void InitCom(){

@@ -64,27 +64,27 @@ public class BallTrigger : MonoBehaviour
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
-			SceneMgr.Get.SetBallState(PlayerState.PassFlat);
-			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, SceneMgr.Get.RealBall.transform.position);
+			CourtMgr.Get.SetBallState(PlayerState.PassFlat);
+			float dis = Vector3.Distance(GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.BasicMoveSpeed * GameConst.AttackSpeedup * Random.Range(4, 6));
 
 			switch(Kind)
 			{
 			case 0:
-				SceneMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 2:
 				Vector3 [] pathay = new Vector3[2];
 				pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
 				pathay[1] = GameController.Get.Catcher.DummyBall.transform.position;
-				SceneMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 1:
 			case 3:
 				ParabolaTime = 0;
 				Parabolamove = true;
-				Parabolatarget = SceneMgr.Get.RealBall.transform.position;
-				ParabolaDis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
+				Parabolatarget = CourtMgr.Get.RealBall.transform.position;
+				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
 				break;
 			case 4:
 				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
@@ -108,33 +108,33 @@ public class BallTrigger : MonoBehaviour
 				float Z = 0;
 
 				if(ParabolaDis < 8){
-					Parabolatarget.y =  SceneMgr.Get.RealBallCurve.ShortBall.aniCurve.Evaluate(ParabolaTime);
-					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
-					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
+					Parabolatarget.y =  CourtMgr.Get.RealBallCurve.ShortBall.aniCurve.Evaluate(ParabolaTime);
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
 				}else{
-					Parabolatarget.y =  SceneMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
-					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
-					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / SceneMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+					Parabolatarget.y =  CourtMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
 				}
 
 				if (Parabolatarget.y < 0)
 					Parabolatarget.y = 0.5f;
 				
-				SceneMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
+				CourtMgr.Get.RealBall.transform.position = new Vector3(Parabolatarget.x + X, Parabolatarget.y, Parabolatarget.z + Z);
 				
 				if(ParabolaDis < 8){
-					if (ParabolaTime >= SceneMgr.Get.RealBallCurve.ShortBall.LifeTime)
+					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.ShortBall.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
 				}else{
-					if (ParabolaTime >= SceneMgr.Get.RealBallCurve.Ball.LifeTime)
+					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.Ball.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							SceneMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
@@ -152,7 +152,7 @@ public class BallTrigger : MonoBehaviour
 		{
 			if((Parabolamove && ParabolaTime >= 0.2f) || !Parabolamove && GameController.Get.Catcher != null)
 			{
-				float dis = Vector3.Distance(SceneMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
+				float dis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
 
 				if(PassKind == 3 || PassKind == 1){
 					if(ParabolaDis < 8)

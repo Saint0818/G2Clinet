@@ -5,6 +5,6 @@ public class BasketAnimation : MonoBehaviour {
 	public int Team;
 
 	public void AnimationEvent(string animationName) {
-		SceneMgr.Get.RealBallPath(Team, animationName);
+		CourtMgr.Get.RealBallPath(Team, animationName);
 	}
 }

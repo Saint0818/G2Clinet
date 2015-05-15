@@ -619,9 +619,9 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Vector3 ShootPoint;
                 if (Team == TeamKind.Self)
-                    ShootPoint = SceneMgr.Get.ShootPoint [1].transform.position;
+                    ShootPoint = CourtMgr.Get.ShootPoint [1].transform.position;
                 else
-                    ShootPoint = SceneMgr.Get.ShootPoint [0].transform.position;    
+                    ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
 
                 if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= 12)
                 {
@@ -715,8 +715,8 @@ public class PlayerBehaviour : MonoBehaviour
             if (!isDunkZmove && dunkCurveTime >= playerDunkCurve.StartMoveTime)
             {
                 isDunkZmove = true;
-                gameObject.transform.DOMoveZ(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
-                gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
+                gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
+                gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
             }
 
 			if(dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
@@ -755,8 +755,8 @@ public class PlayerBehaviour : MonoBehaviour
 			if (!isLayupZmove && layupCurveTime >= playerLayupCurve.StartMoveTime)
 			{
 				isLayupZmove = true;
-				gameObject.transform.DOMoveZ(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
-				gameObject.transform.DOMoveX(SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
 			}
 			
 			if (layupCurveTime >= playerLayupCurve.LifeTime)
@@ -770,7 +770,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private bool inReboundDistance() {
 		return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
-		                        new Vector2(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z)) <= 6;
+		                        new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z)) <= 6;
     }
 	
 	private void CalculationRebound()
@@ -1039,9 +1039,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 			if(crtState == PlayerState.Dribble){
 	            if (situation == GameSituation.AttackA)
-	                rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+	                rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
 	            else if (situation == GameSituation.AttackB)
-	                rotateTo(SceneMgr.Get.RealBall.transform.position.x, SceneMgr.Get.RealBall.transform.position.z);
+	                rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
 			}
         }
 
@@ -1095,7 +1095,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (Data.DefPlayer != null)
         {
 			Vector3 aP1 = Data.DefPlayer.transform.position;
-			Vector3 aP2 = SceneMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
+			Vector3 aP2 = CourtMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
 			Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
 			if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
 			{
@@ -1143,7 +1143,7 @@ public class PlayerBehaviour : MonoBehaviour
 					WaitMoveTime = 0;
 					if (Data.DefPlayer != null)
 					{
-						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 						
 						if (Data.LookTarget != null)
 						{
@@ -1176,7 +1176,7 @@ public class PlayerBehaviour : MonoBehaviour
 						WaitMoveTime = 0;
 					else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
 					{
-						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
 						if (dis <= 8)
 							WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);
 						else
@@ -1186,9 +1186,9 @@ public class PlayerBehaviour : MonoBehaviour
 					if (IsBallOwner)
 					{
 						if (Team == TeamKind.Self)
-							rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+                            rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
 						else
-							rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
+                            rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
 						
 						if (Data.Shooting && NoAiTime == 0)
 							GameController.Get.Shoot();
@@ -1202,9 +1202,9 @@ public class PlayerBehaviour : MonoBehaviour
 							} else
 							{
 								if (Team == TeamKind.Self)
-									rotateTo(SceneMgr.Get.ShootPoint [0].transform.position.x, SceneMgr.Get.ShootPoint [0].transform.position.z);
+                                    rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
 								else
-									rotateTo(SceneMgr.Get.ShootPoint [1].transform.position.x, SceneMgr.Get.ShootPoint [1].transform.position.z);
+                                    rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
 							}
 						} else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -1240,9 +1240,9 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					if (Data.DefPlayer != null)
 					{
-						dis = Vector3.Distance(transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-						dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-						dis3 = Vector3.Distance(Data.DefPlayer.transform.position, SceneMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
+                        dis3 = Vector3.Distance(Data.DefPlayer.transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 						
 						if (dis <= GameConst.TreePointDistance + 4)
 						{
@@ -1650,7 +1650,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case PlayerState.Dunk:
-                if (IsBallOwner && Vector3.Distance(SceneMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
+                if (IsBallOwner && Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
                 {
                     PlayerRigidbody.useGravity = false;
                     ClearAnimatorFlag();
@@ -1669,7 +1669,7 @@ public class PlayerBehaviour : MonoBehaviour
                         SetSpeed(0, -1);
                     ClearAnimatorFlag();
                     AddActionFlag(ActionFlag.IsDribble);
-                    SceneMgr.Get.SetBallState(PlayerState.Dribble, this);
+                    CourtMgr.Get.SetBallState(PlayerState.Dribble, this);
                     isCanCatchBall = false;
                     IsFirstDribble = false;
                     Result = true;
@@ -1950,7 +1950,7 @@ public class PlayerBehaviour : MonoBehaviour
 				playerReboundCurve = null;
 
 				if (inReboundDistance()) 
-					reboundMove = SceneMgr.Get.RealBall.transform.position - transform.position;
+					reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
 				else
 					reboundMove = Vector3.zero;
 
@@ -2093,7 +2093,7 @@ public class PlayerBehaviour : MonoBehaviour
                 //2.Floor
                 //1 3.Parabola(Tee)
                 if (IsBallOwner)
-                    SceneMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
+                    CourtMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
                 break;
             case "PickUp": 
                 if (OnPickUpBall != null)
@@ -2137,7 +2137,7 @@ public class PlayerBehaviour : MonoBehaviour
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
             
-                SceneMgr.Get.SetBallState(PlayerState.Dunk);
+                CourtMgr.Get.SetBallState(PlayerState.Dunk);
                 if (OnDunkJump != null)
                     OnDunkJump(this);
 
@@ -2146,7 +2146,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "DunkBasket":
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
-                SceneMgr.Get.PlayDunk(Team.GetHashCode());
+                CourtMgr.Get.PlayDunk(Team.GetHashCode());
 
                 break;
             case "DunkFallBall":
@@ -2160,7 +2160,7 @@ public class PlayerBehaviour : MonoBehaviour
 				OnUI(this);
 				AniState(PlayerState.HoldBall);
 				GameController.Get.RealBallFxTime = 1f;
-				SceneMgr.Get.RealBallFX.SetActive(true);
+				CourtMgr.Get.RealBallFX.SetActive(true);
                 break;
 
             case "CatchEnd":
@@ -2183,7 +2183,7 @@ public class PlayerBehaviour : MonoBehaviour
                 AniState(PlayerState.HoldBall);
 				OnUI(this);
 				GameController.Get.RealBallFxTime = 1f;
-				SceneMgr.Get.RealBallFX.SetActive(true);
+				CourtMgr.Get.RealBallFX.SetActive(true);
 				break;
 
             case "AnimationEnd":
@@ -2303,8 +2303,8 @@ public class PlayerBehaviour : MonoBehaviour
 		get{return isCanBlock;}
 		set{
 			isCanBlock = value;
-			if(SceneMgr.Get.RealBallFX.activeSelf != value)
-				SceneMgr.Get.RealBallFX.SetActive(value);
+			if(CourtMgr.Get.RealBallFX.activeSelf != value)
+				CourtMgr.Get.RealBallFX.SetActive(value);
 		}
 	}
 

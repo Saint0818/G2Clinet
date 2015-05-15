@@ -12,9 +12,9 @@ public class ScoreTrigger : MonoBehaviour
 	
     void OnTriggerEnter(Collider c) {
 		if(!dummyHoop)
-			dummyHoop = SceneMgr.Get.BasketHoopDummy[Team];
+			dummyHoop = CourtMgr.Get.BasketHoopDummy[Team];
 		if(!animator)
-			animator = SceneMgr.Get.BasketHoopAnimator[Team];
+			animator = CourtMgr.Get.BasketHoopAnimator[Team];
 
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk && (GameController.Get.situation == GameSituation.AttackA || GameController.Get.situation == GameSituation.AttackB)) {
@@ -23,11 +23,11 @@ public class ScoreTrigger : MonoBehaviour
 						Into = true;
 						switch (GameController.Get.BasketSituationType) {
 						case BasketSituation.Swich:
-							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
+							CourtMgr.Get.SetBasketBallState(PlayerState.BasketActionSwish, dummyHoop);
 							break;
 						case BasketSituation.Score:
 						case BasketSituation.NoScore:
-							SceneMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
+							CourtMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){
 								if(GameController.Get.BasketAnimationName.Length > 0)
 									animator.SetTrigger(GameController.Get.BasketAnimationName);
@@ -35,12 +35,12 @@ public class ScoreTrigger : MonoBehaviour
 							break;
 						}
 					}else
-					if(IntTrigger == 1 && SceneMgr.Get.BasketEntra[Team, 0].Into && !SceneMgr.Get.BasketEntra[Team, 1].Into) {
+					if(IntTrigger == 1 && CourtMgr.Get.BasketEntra[Team, 0].Into && !CourtMgr.Get.BasketEntra[Team, 1].Into) {
 						Into = true;
 						GameController.Get.PlusScore(Team);
-						SceneMgr.Get.PlayShoot(Team);
+						CourtMgr.Get.PlayShoot(Team);
 						if(GameController.Get.BasketSituationType == BasketSituation.Swich)
-							SceneMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
+							CourtMgr.Get.SetBasketBallState(PlayerState.BasketActionSwishEnd, dummyHoop);
 					}
 				}
 			}

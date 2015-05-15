@@ -119,8 +119,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
-		if (SceneMgr.Get.RealBall)
-			focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
+		if (CourtMgr.Get.RealBall)
+			focusTarget.transform.position = CourtMgr.Get.RealBall.transform.position;
 	}
 
 	private void InitTestTool()
@@ -238,10 +238,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		if (GameController.Get.Shooter) {
 			float h;
 
-			if(SceneMgr.Get.RealBall.transform.position.y > 10f)
+			if(CourtMgr.Get.RealBall.transform.position.y > 10f)
 				h = 2;
 			else 
-				h = (SceneMgr.Get.RealBall.transform.position.y / 10f) * 2f;
+				h = (CourtMgr.Get.RealBall.transform.position.y / 10f) * 2f;
 
 			smothHight = Vector2.Lerp (smothHight, new Vector2 (0, startPos.y + h), 0.1f);
 		}
@@ -301,7 +301,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void focusObjectOffset(int team)
 	{
 		Vector3 pos;
-		pos.x = SceneMgr.Get.RealBall.transform.position.x;
+		pos.x = CourtMgr.Get.RealBall.transform.position.x;
 		pos.y = 0;
 
 		if (GameController.Get.IsStart && GameController.Get.BallOwner) {
@@ -312,9 +312,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
 		} else {
 			if(team == 0)
-				pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
 			else
-				pos.z = SceneMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
 		}
 
 		focusTarget.transform.position = Vector3.Slerp(focusTarget.transform.position, pos, focusOffsetSpeed);

@@ -522,7 +522,7 @@ public class UIGame : UIBase {
 		ScoreBar.SetActive (false);
 		Joystick.gameObject.SetActive(true);
 
-		SceneMgr.Get.SetBallState (PlayerState.Start);
+		CourtMgr.Get.SetBallState (PlayerState.Start);
 		GameController.Get.StartGame();
 
 		StartCoroutine("WaitForVirtualScreen");
