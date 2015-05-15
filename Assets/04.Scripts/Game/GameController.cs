@@ -2044,9 +2044,9 @@ public class GameController : MonoBehaviour
                 if (Npc.Attr.AILevel >= 3 && Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
                     //Crossover     
-					if(Npc.Team == TeamKind.Self && Npc.transform.position.z > 12)
+					if(Npc.Team == TeamKind.Self && Npc.transform.position.z >= 9.5)
 						return;
-					else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -12)
+					else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -9.5)
 						return;
 
 					int AddZ = 6;
@@ -3397,7 +3397,7 @@ public class GameController : MonoBehaviour
 
     public void SetEndPass()
     {
-        if (Catcher != null && !Catcher.IsFall)
+		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(PlayerState.Push))
         {
             if(SetBall(Catcher))
 				CoolDownPass = Time.time + 3;
