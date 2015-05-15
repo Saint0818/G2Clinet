@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "bodytype": 0,
+        "ailevel": 1,
+        "steal": 30,
+        "body": 2001,
+        "hair": 2001,
+        "cloth": 5001,
+        "pants": 6001,
+        "shoes": 1001,
+        "mhanddress": 0,
+        "aheaddress": 0,
+        "zbackequip": 0
+    }
+]

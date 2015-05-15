@@ -13,6 +13,7 @@ public static class SettingText {
 }
 
 public class GameData {
+	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static TAIlevel[] AIlevelAy;
 	public static TTactical[] TacticalData;
     public static BasketShootPositionData[] BasketShootPosition;
@@ -28,11 +29,10 @@ public class GameData {
 		if (!isLoaded) {
 			isLoaded = true;
 			List<TDownloadData> DownloadList = new List<TDownloadData> ();
-			//ailevel
+
+			DownloadList.Add (new TDownloadData ("greatplayer", "0"));
 			DownloadList.Add (new TDownloadData ("ailevel", "0"));
-			//tactical
 			DownloadList.Add (new TDownloadData ("tactical", "0"));
-			//basketShootPosition
 			DownloadList.Add (new TDownloadData ("ballposition", "0"));
 
 			FileManager.Get.LoadFileResource (DownloadList);

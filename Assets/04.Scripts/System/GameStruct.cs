@@ -154,6 +154,33 @@ namespace GameStruct
 		public int AlleyOop;
 	}
 
+	public struct TGreatPlayer {
+		public int ID;
+		public string Name; 
+		public int  Position;
+		public int Shoot;
+		public int Shoot3;
+		public int Dunk;
+		public int Speed;
+		public int Control;
+		public int Steal;
+		public int Block;
+		public int Dodge;
+		
+		public int SkillA;
+		public int SkillB;
+		public int SkillC;
+
+		public int Body;
+		public int Hair;
+		public int Cloth;
+		public int Pants;
+		public int Shoes;
+		public int MHandDress;
+		public int AHeadDress;
+		public int ZBackEquip;
+	}
+
 	public enum Language
 	{
 		TW = 0,

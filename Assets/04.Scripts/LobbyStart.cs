@@ -16,8 +16,10 @@ public class LobbyStart : MonoBehaviour {
 		} else {
 			if (GameData.LoadTeamSave()) {
 
-			} else
-				Application.LoadLevel(GameConst.SceneGamePlay);
+			} else {
+				//UIPlayerShow.UIShow(true);
+				//Application.LoadLevel(GameConst.SceneGamePlay);
+			}
 		}
 	}
 
@@ -47,7 +49,8 @@ public class LobbyStart : MonoBehaviour {
 				SendLogin();
 			else
 				UIHint.Get.ShowHint("Version is different.", Color.red);
-		}
+		} else
+			Application.LoadLevel(GameConst.SceneGamePlay);
 	}
 
 	public void waitDeviceLogin(bool flag, WWW www)
@@ -67,12 +70,14 @@ public class LobbyStart : MonoBehaviour {
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
-		}
+		} else
+			Application.LoadLevel(GameConst.SceneGamePlay);
 	}
 
 	void OnGUI() {
-		if (GUI.Button(new Rect(0, 0, 100, 100), "Load Game Play"))
+		if (GUI.Button(new Rect(0, 0, 100, 100), "Load Game Play")) {
 			Application.LoadLevel(GameConst.SceneGamePlay);
+		}
 	}
 
 	public void SendLogin() {
