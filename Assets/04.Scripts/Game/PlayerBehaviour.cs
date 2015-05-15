@@ -1127,8 +1127,8 @@ public class PlayerBehaviour : MonoBehaviour
 	
     public void MoveTo(TMoveData Data, bool First = false)
     {
-        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0)
-        {
+		if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != GameTest.Block)
+		{
 			bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
 			TacticalName = Data.FileName;
 			float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
@@ -2267,7 +2267,7 @@ public class PlayerBehaviour : MonoBehaviour
             for (int i = 0; i < CheckAy.Length; i++)
                 if (CheckAnimatorSate(CheckAy [i]))
                     return false;
-        
+
             return true;
         }
     }

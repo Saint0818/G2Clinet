@@ -52,7 +52,8 @@ public enum GameTest
     OneByOne,
 	Pass,
 	Alleyoop,
-	CrossOver
+	CrossOver,
+	Shoot
 }
 
 public enum CameraTest
@@ -408,6 +409,7 @@ public class GameController : MonoBehaviour
 				}						
                 break;
             case GameTest.AttackA:
+            case GameTest.Shoot:
             case GameTest.Dunk:
 			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
@@ -417,6 +419,12 @@ public class GameController : MonoBehaviour
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				break;
             case GameTest.Block:
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, -8.4f), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Npc, new Vector3 (0, 0, -4.52f), new GameStruct.TPlayer(0)));
+				
+				for (int i = 0; i < PlayerList.Count; i++)
+					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				break;
 			case GameTest.OneByOne: 
 				TPlayer Self = new TPlayer(0);
 				Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
@@ -595,6 +603,9 @@ public class GameController : MonoBehaviour
 			
     }
 
+	public PlayerState testState = PlayerState.Shoot0;
+	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
+
 	#if UNITY_EDITOR
 	void OnGUI() {
 		if (GameStart.Get.TestMode == GameTest.Rebound) {
@@ -619,6 +630,14 @@ public class GameController : MonoBehaviour
 				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 				PlayerList[0].AniState(PlayerState.MoveDodge1);
+			}
+		}
+
+		if (GameStart.Get.TestMode == GameTest.Shoot) {
+			for(int i = 0 ; i < ShootStates.Length; i++){
+				if (GUI.Button(new Rect(600, 50 + i * 50, 100, 50), ShootStates[i].ToString())) {	
+					testState = ShootStates[i];
+				}
 			}
 		}
 	}
@@ -1070,44 +1089,49 @@ public class GameController : MonoBehaviour
     {
         if (BallOwner)
         {
-			extraScoreRate = 0;
-			UIGame.Get.DoPassNone();
-			CourtMgr.Get.ResetBasketEntra();
-			Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
-			ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
-			int t = BallOwner.Team.GetHashCode();
-            if (GameStart.Get.TestMode == GameTest.Dunk)
-                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-            else 
-			if (BallOwner.IsRebound && inTipinDistance(BallOwner)) {
-				BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
-			} else
-			if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
-			{
-				float rate = Random.Range(0, 100);
-				if(rate > 50)
-                	BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-				else
-					BallOwner.AniState(PlayerState.Shoot1, CourtMgr.Get.Hood [t].transform.position);
+			if(GameStart.Get.TestMode == GameTest.Shoot){
+				BallOwner.AniState(testState, CourtMgr.Get.Hood [BallOwner.Team.GetHashCode()].transform.position);
 			}
-            else {
-				float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
-
-				if(BallOwner.IsMoving){
-					if(dis > 15)
-						BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-					else if(dis > 9 && dis <= 15)
-						BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
+			else{
+				extraScoreRate = 0;
+				UIGame.Get.DoPassNone();
+				CourtMgr.Get.ResetBasketEntra();
+				Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
+				ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
+				int t = BallOwner.Team.GetHashCode();
+	            if (GameStart.Get.TestMode == GameTest.Dunk)
+	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
+	            else 
+				if (BallOwner.IsRebound && inTipinDistance(BallOwner)) {
+					BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+				} else
+				if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
+				{
+					float rate = Random.Range(0, 100);
+					if(rate > 50)
+	                	BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
 					else
-						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
+						BallOwner.AniState(PlayerState.Shoot1, CourtMgr.Get.Hood [t].transform.position);
 				}
-				else{
-					if(dis > 15)
-						BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-					else if(dis > 9 && dis <= 15)
-						BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);
-					else
-						BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
+	            else {
+					float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
+
+					if(BallOwner.IsMoving){
+						if(dis > 15)
+							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
+						else if(dis > 9 && dis <= 15)
+							BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
+						else
+							BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
+					}
+					else{
+						if(dis > 15)
+							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
+						else if(dis > 9 && dis <= 15)
+							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);
+						else
+							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
+					}
 				}
 			}
         }
@@ -2783,6 +2807,15 @@ public class GameController : MonoBehaviour
     {
 		CourtMgr.Get.ResetBasketEntra();
         Shooter = null;
+
+		if (GameStart.Get.TestMode == GameTest.Shoot) {
+			SetBall(Joysticker);		
+		}
+		else if(GameStart.Get.TestMode == GameTest.Block){
+			SetBall(PlayerList [1]);
+			PlayerList [1].AniState(PlayerState.Dribble);
+			PlayerList [1].AniState(PlayerState.Shoot0);
+		}
     }
 
 	public bool PassingStealBall(PlayerBehaviour player, int dir)

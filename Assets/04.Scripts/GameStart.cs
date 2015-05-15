@@ -22,8 +22,6 @@ public class GameStart : KnightSingleton<GameStart> {
 
 		GameData.Init();
 		TextConst.Init();
-
-
 	}
 
 	void OnGUI()
