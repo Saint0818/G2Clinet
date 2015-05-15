@@ -4,24 +4,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public delegate void TBooleanWWWObj(bool val, WWW Result);
+public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
-	#if Debug
-	public const string URL = "http://localhost:3500/";
-	#endif
-	
-	#if Release
-	public const string URL = "http://baskclub.nicemarket.com.tw/";				
-	#endif
-
 	public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
 	public const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.nbaa";
 	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/BaskClub.apk";
+
 	public const string Version = "version";
 	public const string GetVersion = "getversion";
 	public const string CheckSession = "checksession";
-	public const string deviceLogin = "devicelogin";
+	public const string DeviceLogin = "devicelogin";
 	public const string Signup = "signup";
 	public const string Login = "login";
 	public const string FBLogin = "fblogin";
@@ -97,29 +90,16 @@ public static class URLConst {
 	public const string TeamStarting = "teamstarting";
 }
 
-public class SendHttp : MonoBehaviour
+public class SendHttp : KnightSingleton<SendHttp>
 {
-	public static SendHttp instance;
-	public static string sessionID = "";
-	public static Dictionary<string, string> CookieHeaders = new Dictionary<string, string>();
+	public Dictionary<string, string> CookieHeaders = new Dictionary<string, string>();
 
-	public static SendHttp Get {
-		get {
-			if (!instance) {
-				GameObject obj2 = GameObject.Find("SendHttp");
-				if (!obj2) {
-					GameObject obj = new GameObject("SendHttp");
-					instance = obj.AddComponent<SendHttp>();
-				} else
-					instance = obj2.GetComponent<SendHttp>();
-			}
-
-            return instance;
-        }
-    }
+	protected override void Init() {
+		DontDestroyOnLoad(gameObject);
+	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
-		if (checkNetwork()){
+		if (CheckNetwork()){
 			url = FileManager.URL + url;
 			WWW www = null;
 
@@ -131,8 +111,8 @@ public class SendHttp : MonoBehaviour
 				if (form == null)
 					form = new WWWForm();
 				
-				if (!string.IsNullOrEmpty(sessionID)) 
-					form.AddField("sessionID", sessionID);
+				if (!string.IsNullOrEmpty(GameData.Team.sessionID)) 
+					form.AddField("sessionID", GameData.Team.sessionID);
 
 				if(CookieHeaders.Count == 0)
 					www = new WWW(url, form.data);
@@ -148,7 +128,7 @@ public class SendHttp : MonoBehaviour
 		}
 	}
 	
-	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj BoolWWWObj){
+	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj BoolWWWObj) {
 		yield return www;
 
 		if (BoolWWWObj != null) {
@@ -161,7 +141,7 @@ public class SendHttp : MonoBehaviour
 		www.Dispose();
 	}
 
-	private bool checkNetwork(){
+	public bool CheckNetwork(){
 		bool internetPossiblyAvailable;
 		switch (Application.internetReachability)
 		{
@@ -176,8 +156,8 @@ public class SendHttp : MonoBehaviour
 			break;
 		}
 		
-		if (!internetPossiblyAvailable)
-			UIMessage.Get.ShowMessage("", TextConst.S (93));
+		//if (!internetPossiblyAvailable)
+		//	UIMessage.Get.ShowMessage("", TextConst.S (93));
 		
 		return internetPossiblyAvailable;
 	}
@@ -189,30 +169,33 @@ public class SendHttp : MonoBehaviour
 				#if ShowHttpLog
 				Debug.LogError("Receive from URL and Error:" + e);
 				#endif
-			} else{
+			} else {
 				#if ShowHttpLog
 				Debug.Log("Receive from URL and Success:" + www.text);
 				#endif
 				return true;
 			}
-		}else{
+		}else {
 			#if ShowHttpLog
-			Debug.LogError("Receive from URL and Error:" + www.error);
+			UIHint.Get.ShowHint("Server error : " + www.error, Color.red);
+			Debug.LogError("Server error : " + www.error);
 			#endif
 
 			if (www.error == "couldn't connect to host")
 				UIMessage.Get.ShowMessage(TextConst.S(38), TextConst.S(7));
-			else if (www.error.Contains("java")|| 
-				     www.error.Contains("parse")||
-				     www.error.Contains("key") || 
-				     www.error.Contains("host") || 
-				     www.error.Contains("time out") ||
-				     www.error.Contains("request")|| 
-				     www.error.Contains("connect") ||
-				     www.error.Contains("Connection") ||
-				     www.error == "Empty reply from server"){
+			else 
+			if ( www.error.Contains("java")|| 
+			     www.error.Contains("parse")||
+			     www.error.Contains("key") || 
+			     www.error.Contains("host") || 
+			     www.error.Contains("time out") ||
+			     www.error.Contains("request")|| 
+			     www.error.Contains("connect") ||
+			     www.error.Contains("Connection") ||
+			     www.error == "Empty reply from server"){
 
-			} else if (www.error.Contains("404 Not Found")){
+			} else 
+			if (www.error.Contains("404 Not Found")){
 
 			} 
 		}

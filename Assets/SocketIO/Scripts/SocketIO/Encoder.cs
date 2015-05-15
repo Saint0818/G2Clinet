@@ -76,6 +76,11 @@ namespace SocketIO
 					builder.Append(packet.json.ToString());
 				}
 
+				if (packet.data != null) {
+					for (int i = 0; i < packet.data.Length; i ++)
+						builder.Append(packet.data[i]);
+				}
+
 				#if SOCKET_IO_DEBUG
 				Debug.Log("[SocketIO] Encoded: " + builder);
 				#endif

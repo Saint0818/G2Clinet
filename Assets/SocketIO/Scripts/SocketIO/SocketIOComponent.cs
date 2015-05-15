@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 /*
  * SocketIO.cs
  *
@@ -42,7 +42,7 @@ namespace SocketIO
 	{
 		#region Public Properties
 
-		public string url = "ws://127.0.0.1:4567/socket.io/?EIO=4&transport=websocket";
+		public string url = "ws://127.19.0.18:10299/socket.io/?EIO=4&transport=websocket";
 		public bool autoConnect = true;
 		public int reconnectDelay = 5;
 		public float ackExpirationTime = 1800f;
@@ -53,6 +53,10 @@ namespace SocketIO
 		public string sid { get; set; }
 		public bool IsConnected { get { return connected; } }
 
+		public delegate void WSEvent (Packet packet);
+		public WSEvent OnOpenEvent = null;
+		public delegate void WSIOEvent (SocketIOEvent e);
+		public WSIOEvent OnMessageEvent = null;
 		#endregion
 
 		#region Private Properties
@@ -99,6 +103,9 @@ namespace SocketIO
 			sid = null;
 			packetId = 0;
 
+			OnOpenEvent = HandleOpen;
+			//OnMessageEvent = HandleMessage;
+
 			ws = new WebSocket(url);
 			ws.OnOpen += OnOpen;
 			ws.OnMessage += OnMessage;
@@ -138,14 +145,14 @@ namespace SocketIO
 				}
 			}
 
-			if(wsConnected != ws.IsConnected){
+			/*if(wsConnected != ws.IsConnected){
 				wsConnected = ws.IsConnected;
 				if(wsConnected){
 					EmitEvent("connect");
 				} else {
 					EmitEvent("disconnect");
 				}
-			}
+			}*/
 
 			// GC expired acks
 			if(ackList.Count == 0) { return; }
@@ -171,7 +178,8 @@ namespace SocketIO
 		public void Connect()
 		{
 			connected = true;
-
+			//if (!ws.IsConnected)
+			//	ws.Connect();
 			socketThread = new Thread(RunSocketThread);
 			socketThread.Start(ws);
 
@@ -214,6 +222,19 @@ namespace SocketIO
 			if (l.Count == 0) {
 				handlers.Remove(ev);
 			}
+		}
+
+		public void Send(string buf) {
+			//MessageEventArgs msg = new MessageEventArgs(Opcode.Binary, buf);
+			Dictionary<string, string> data = new Dictionary<string, string>();
+			data["buffer"] = buf;
+			Emit("message", new JSONObject(data));
+			//ws.Send(buf);
+		}
+
+		public void Emit(Packet packet) 
+		{
+			EmitPacket(packet);
 		}
 
 		public void Emit(string ev)
@@ -304,7 +325,6 @@ namespace SocketIO
 			#if SOCKET_IO_DEBUG
 			debugMethod.Invoke("[SocketIO] " + packet);
 			#endif
-			
 			try {
 				ws.Send(encoder.Encode(packet));
 			} catch(SocketIOException ex) {
@@ -327,11 +347,15 @@ namespace SocketIO
 			Packet packet = decoder.Decode(e);
 
 			switch (packet.enginePacketType) {
-				case EnginePacketType.OPEN: 	HandleOpen(packet);		break;
+				case EnginePacketType.OPEN: 	
+					HandleOpen(packet);	
+					if (OnOpenEvent != null)
+						OnOpenEvent(packet); 
+					break;
 				case EnginePacketType.CLOSE: 	EmitEvent("close");		break;
 				case EnginePacketType.PING:		HandlePing();	   		break;
 				case EnginePacketType.PONG:		HandlePong();	   		break;
-				case EnginePacketType.MESSAGE: 	HandleMessage(packet);	break;
+				case EnginePacketType.MESSAGE: 	HandleMessage2(packet); break;
 			}
 		}
 
@@ -377,6 +401,28 @@ namespace SocketIO
 			}
 		}
 
+		private void HandleMessage2(Packet packet)
+		{
+			if(packet.json != null && OnMessageEvent != null) { 
+				if(packet.socketPacketType == SocketPacketType.ACK){
+					for(int i = 0; i < ackList.Count; i++){
+						if(ackList[i].packetId != packet.id){ continue; }
+						lock(ackQueueLock){ ackQueue.Enqueue(packet); }
+						return;
+					}
+					
+					#if SOCKET_IO_DEBUG
+					debugMethod.Invoke("[SocketIO] Ack received for invalid Action: " + packet.id);
+					#endif
+				}
+	            
+	            if (packet.socketPacketType == SocketPacketType.EVENT) {
+	                SocketIOEvent e = parser.Parse(packet.json);
+					OnMessageEvent(e);
+                }
+            }
+        }
+
 		private void OnError(object sender, ErrorEventArgs e)
 		{
 			EmitEvent("error");
@@ -385,6 +431,7 @@ namespace SocketIO
 		private void OnClose(object sender, CloseEventArgs e)
 		{
 			EmitEvent("close");
+			connected = false;
 		}
 
 		private void EmitEvent(string type)
