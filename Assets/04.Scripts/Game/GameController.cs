@@ -865,6 +865,8 @@ public class GameController : MonoBehaviour
 							PlayerList[i].HaveNoAiTime = true;							
 							PlayerList[i].SetAiTime();
 						}
+
+						PlayerList[i].ResetMove();
 					}												
 
 					switch(PlayerList[i].Team)
