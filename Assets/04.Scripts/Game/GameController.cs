@@ -415,6 +415,7 @@ public class GameController : MonoBehaviour
 
     public void InitGame()
     {
+		SceneMgr.Get.CloneReallBall();
         PlayerList.Clear();
         CreateTeam();
 		SetBallOwnerNull ();

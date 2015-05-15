@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class GameConst
 {
+	public const string SceneLobby = "Lobby";
+	public const string SceneGamePlay = "Court_0";
+
 	//Game play move speed
 	public const float BasicMoveSpeed = 1;
 	public const float DefSpeedup = 8.2f;

@@ -7,11 +7,9 @@ namespace GameStruct
 	public struct TTeam 
 	{
 		public string Identifier;
+		public string sessionID;
 		public string FBName;
 		public string FBid;
-		public string SessionID;
-		public DateTime CreateTime;
-		public DateTime LoginTime;
 		public DateTime PowerCD;
 		public DateTime FreeLuckBox;
 
@@ -19,13 +17,27 @@ namespace GameStruct
 		public int Power;
 		public int Diamond;
 
-		public int PlayerIndex;
-		public TPlayer[] Players;
+		public TPlayer Player;
+
+		public void Init() {
+			if (Identifier == null)
+				Identifier = "";
+
+			if (sessionID == null)
+				sessionID = "";
+
+			if (FBName == null)
+				FBName = "";
+
+			if (FBid == null)
+				FBid = "";
+		} 
 	}
 
     public struct TPlayer {
         public int ID;
         public string Name;
+		public int Lv;
         public int BodyType;
         public int AILevel;
         public int Steal;
@@ -62,6 +74,7 @@ namespace GameStruct
 		{
 			ID = 0;
 			Name = "";
+			Lv = 0;
 			BodyType = 0;
 			AILevel = Level;
 			Steal = 0;

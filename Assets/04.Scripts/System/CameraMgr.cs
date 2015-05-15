@@ -119,7 +119,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
 		focusTarget.name = "focusPos";
-		focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
+		if (SceneMgr.Get.RealBall)
+			focusTarget.transform.position = SceneMgr.Get.RealBall.transform.position;
 	}
 
 	private void InitTestTool()
