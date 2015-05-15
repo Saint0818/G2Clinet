@@ -171,6 +171,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	void Awake () {
+		CallBackFun.Add ("greatplayer", parseGreatPlayerData);
 		CallBackFun.Add ("tactical", parseTacticalData);
 		CallBackFun.Add ("ailevel", parseAILevelData);
 		CallBackFun.Add ("ballposition", parseBasketShootPositionData);
@@ -401,6 +402,24 @@ public class FileManager : KnightSingleton<FileManager> {
 		SaveJson(text, fileName);
 		PlayerPrefs.SetString(fileName, version);
 		PlayerPrefs.Save();
+	}
+
+	private void parseGreatPlayerData (string Version, string text, bool SaveVersion){
+		try {
+			TGreatPlayer[] data = (TGreatPlayer[])JsonConvert.DeserializeObject (text, typeof(TGreatPlayer[]));
+			if (data != null) {
+				for (int i = 0; i < data.Length; i++) 
+					if (data[i].ID > 0 && !GameData.DPlayers.ContainsKey(data[i].ID))
+						GameData.DPlayers.Add(data[i].ID, data[i]);
+			}
+
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "greatplayer", Version);
+			
+			Debug.Log ("[greatplayer parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[greatplayer parsed error] " + ex.Message);
+		}
 	}
 
 	private void parseTacticalData (string Version, string text, bool SaveVersion){
