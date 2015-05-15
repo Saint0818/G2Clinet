@@ -169,18 +169,19 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
 	private void InitBasket(RuntimeAnimatorController controller){
 		AnimationClip[] clip = controller.animationClips;
-		
 		List<string> scoreName = new List<string>();
 		List<string> noScoreName = new List<string>();
-		for (int i=0; i<clip.Length; i++) {
-			if(clip[i].name.Contains("BasketballAction_")){
-				string[] nameSplit = clip[i].name.Split("_"[0]);
-				int num = int.Parse(nameSplit[1]);
-				if(num < 100) 
-					scoreName.Add(clip[i].name);
-				else
-					noScoreName.Add(clip[i].name);
-				
+		if(clip.Length > 0) {
+			for (int i=0; i<clip.Length; i++) {
+				if(clip[i].name.Contains("BasketballAction_")){
+					string[] nameSplit = clip[i].name.Split("_"[0]);
+					int num = int.Parse(nameSplit[1]);
+					if(num < 100) 
+						scoreName.Add(clip[i].name);
+					else
+						noScoreName.Add(clip[i].name);
+					
+				}
 			}
 		}
 		
@@ -191,110 +192,115 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		List<string> BasketScoreAnimationStateCenter = new List<string>();
 		List<string> BasketScoreAnimationStateLeft = new List<string>();
 		List<string> BasketScoreAnimationStateLeftWing = new List<string>();
-		for(int i=0; i<scoreName.Count; i++) {
-			string[] nameSplit = scoreName[i].Split("_"[0]);
-			//RightWing
-			for (int j=0; j<GameConst.AngleScoreRightWing.Length; j++){
-				if(GameConst.AngleScoreRightWing[j].Equals(nameSplit[1]))
-					BasketScoreAnimationStateRightWing.Add(scoreName[i]);
+		if(scoreName.Count > 0){
+			for(int i=0; i<scoreName.Count; i++) {
+				string[] nameSplit = scoreName[i].Split("_"[0]);
+				//RightWing
+				for (int j=0; j<GameConst.AngleScoreRightWing.Length; j++){
+					if(GameConst.AngleScoreRightWing[j].Equals(nameSplit[1]))
+						BasketScoreAnimationStateRightWing.Add(scoreName[i]);
+				}
+				//Right
+				for (int j=0; j<GameConst.AngleScoreRight.Length; j++){
+					if(GameConst.AngleScoreRight[j].Equals(nameSplit[1]))
+						BasketScoreAnimationStateRight.Add(scoreName[i]);
+				}
+				//Center
+				for (int j=0; j<GameConst.AngleScoreCenter.Length; j++){
+					if(GameConst.AngleScoreCenter[j].Equals(nameSplit[1]))
+						BasketScoreAnimationStateCenter.Add(scoreName[i]);
+				}
+				//Left
+				for (int j=0; j<GameConst.AngleScoreLeft.Length; j++){
+					if(GameConst.AngleScoreLeft[j].Equals(nameSplit[1]))
+						BasketScoreAnimationStateLeft.Add(scoreName[i]);
+				}
+				//LeftWing
+				for (int j=0; j<GameConst.AngleScoreLeftWing.Length; j++){
+					if(GameConst.AngleScoreLeftWing[j].Equals(nameSplit[1]))
+						BasketScoreAnimationStateLeftWing.Add(scoreName[i]);
+				}
 			}
-			//Right
-			for (int j=0; j<GameConst.AngleScoreRight.Length; j++){
-				if(GameConst.AngleScoreRight[j].Equals(nameSplit[1]))
-					BasketScoreAnimationStateRight.Add(scoreName[i]);
-			}
-			//Center
-			for (int j=0; j<GameConst.AngleScoreCenter.Length; j++){
-				if(GameConst.AngleScoreCenter[j].Equals(nameSplit[1]))
-					BasketScoreAnimationStateCenter.Add(scoreName[i]);
-			}
-			//Left
-			for (int j=0; j<GameConst.AngleScoreLeft.Length; j++){
-				if(GameConst.AngleScoreLeft[j].Equals(nameSplit[1]))
-					BasketScoreAnimationStateLeft.Add(scoreName[i]);
-			}
-			//LeftWing
-			for (int j=0; j<GameConst.AngleScoreLeftWing.Length; j++){
-				if(GameConst.AngleScoreLeftWing[j].Equals(nameSplit[1]))
-					BasketScoreAnimationStateLeftWing.Add(scoreName[i]);
-			}
+			BasketAnimationName.Add((int)BasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRightWing));
+			BasketAnimationName.Add((int)BasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRightWing));
+			BasketAnimationName.Add((int)BasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRightWing));
+			BasketAnimationName.Add((int)BasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRight));
+			BasketAnimationName.Add((int)BasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRight));
+			BasketAnimationName.Add((int)BasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRight));
+			BasketAnimationName.Add((int)BasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateCenter));
+			BasketAnimationName.Add((int)BasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateCenter));
+			BasketAnimationName.Add((int)BasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateCenter));
+			BasketAnimationName.Add((int)BasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeft));
+			BasketAnimationName.Add((int)BasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeft));
+			BasketAnimationName.Add((int)BasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeft));
+			BasketAnimationName.Add((int)BasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeftWing));
+			BasketAnimationName.Add((int)BasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeftWing));
+			BasketAnimationName.Add((int)BasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeftWing));
 		}
-		BasketAnimationName.Add((int)BasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRightWing));
-		BasketAnimationName.Add((int)BasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRightWing));
-		BasketAnimationName.Add((int)BasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRightWing));
-		BasketAnimationName.Add((int)BasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRight));
-		BasketAnimationName.Add((int)BasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRight));
-		BasketAnimationName.Add((int)BasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRight));
-		BasketAnimationName.Add((int)BasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateCenter));
-		BasketAnimationName.Add((int)BasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateCenter));
-		BasketAnimationName.Add((int)BasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateCenter));
-		BasketAnimationName.Add((int)BasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeft));
-		BasketAnimationName.Add((int)BasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeft));
-		BasketAnimationName.Add((int)BasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeft));
-		BasketAnimationName.Add((int)BasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeftWing));
-		BasketAnimationName.Add((int)BasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeftWing));
-		BasketAnimationName.Add((int)BasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeftWing));
 		//No Score
 		List<string> BasketNoScoreAnimationStateRightWing = new List<string>();
 		List<string> BasketNoScoreAnimationStateRight = new List<string>();
 		List<string> BasketNoScoreAnimationStateCenter = new List<string>();
 		List<string> BasketNoScoreAnimationStateLeft = new List<string>();
 		List<string> BasketNoScoreAnimationStateLeftWing = new List<string>();
-		for(int i=0; i<noScoreName.Count; i++) {
-			string[] nameSplit = noScoreName[i].Split("_"[0]);
-			//RightWing
-			for (int j=0; j<GameConst.AngleNoScoreRightWing.Length; j++){
-				if(GameConst.AngleNoScoreRightWing[j].Equals(nameSplit[1]))
-					BasketNoScoreAnimationStateRightWing.Add(noScoreName[i]);
+		if(noScoreName.Count > 0) {
+			for(int i=0; i<noScoreName.Count; i++) {
+				string[] nameSplit = noScoreName[i].Split("_"[0]);
+				//RightWing
+				for (int j=0; j<GameConst.AngleNoScoreRightWing.Length; j++){
+					if(GameConst.AngleNoScoreRightWing[j].Equals(nameSplit[1]))
+						BasketNoScoreAnimationStateRightWing.Add(noScoreName[i]);
+				}
+				//Right
+				for (int j=0; j<GameConst.AngleNoScoreRight.Length; j++){
+					if(GameConst.AngleNoScoreRight[j].Equals(nameSplit[1]))
+						BasketNoScoreAnimationStateRight.Add(noScoreName[i]);
+				}
+				//Center
+				for (int j=0; j<GameConst.AngleNoScoreCenter.Length; j++){
+					if(GameConst.AngleNoScoreCenter[j].Equals(nameSplit[1]))
+						BasketNoScoreAnimationStateCenter.Add(noScoreName[i]);
+				}
+				//Left
+				for (int j=0; j<GameConst.AngleNoScoreLeft.Length; j++){
+					if(GameConst.AngleNoScoreLeft[j].Equals(nameSplit[1]))
+						BasketNoScoreAnimationStateLeft.Add(noScoreName[i]);
+				}
+				//LeftWing
+				for (int j=0; j<GameConst.AngleNoScoreLeftWing.Length; j++){
+					if(GameConst.AngleNoScoreLeftWing[j].Equals(nameSplit[1]))
+						BasketNoScoreAnimationStateLeftWing.Add(noScoreName[i]);
+				}
 			}
-			//Right
-			for (int j=0; j<GameConst.AngleNoScoreRight.Length; j++){
-				if(GameConst.AngleNoScoreRight[j].Equals(nameSplit[1]))
-					BasketNoScoreAnimationStateRight.Add(noScoreName[i]);
-			}
-			//Center
-			for (int j=0; j<GameConst.AngleNoScoreCenter.Length; j++){
-				if(GameConst.AngleNoScoreCenter[j].Equals(nameSplit[1]))
-					BasketNoScoreAnimationStateCenter.Add(noScoreName[i]);
-			}
-			//Left
-			for (int j=0; j<GameConst.AngleNoScoreLeft.Length; j++){
-				if(GameConst.AngleNoScoreLeft[j].Equals(nameSplit[1]))
-					BasketNoScoreAnimationStateLeft.Add(noScoreName[i]);
-			}
-			//LeftWing
-			for (int j=0; j<GameConst.AngleNoScoreLeftWing.Length; j++){
-				if(GameConst.AngleNoScoreLeftWing[j].Equals(nameSplit[1]))
-					BasketNoScoreAnimationStateLeftWing.Add(noScoreName[i]);
-			}
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRightWing));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRightWing));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRightWing));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRight));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRight));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRight));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateCenter));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateCenter));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateCenter));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeft));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeft));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeft));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeftWing));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeftWing));
+			BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeftWing));
 		}
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRightWing));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRightWing));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRightWing));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRight));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRight));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRight));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateCenter));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateCenter));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateCenter));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeft));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeft));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeft));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeftWing));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeftWing));
-		BasketAnimationNoneState.Add((int)BasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeftWing));
 		
 		
 		//Get Basket Animation InitPosition
-		for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
-			Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);
-			BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
+		if(GameData.BasketShootPosition != null && GameData.BasketShootPosition.Length > 0) {
+			for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
+				Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);
+				BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
+			}
 		}
 	}
 	
 	private List<string> arrayIntersection(string[] list1, List<string> list2) {
 		List<string> list = new List<string>();
-		
 		for (int i=0; i<list1.Length; i++) {
 			string nameSplit = "BasketballAction_"+list1[i];
 			if(list2.Contains(nameSplit)) {

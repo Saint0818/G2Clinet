@@ -967,11 +967,20 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private void judgeBasketAnimationName () {
-		if(BasketSituationType == BasketSituation.Score)
-			BasketAnimationName = SceneMgr.Get.BasketAnimationName[(int)basketDistanceAngle][Random.Range(0, SceneMgr.Get.BasketAnimationName[(int)basketDistanceAngle].Count)];
-		else if(BasketSituationType == BasketSituation.NoScore)
-			BasketAnimationName = SceneMgr.Get.BasketAnimationNoneState[(int)basketDistanceAngle][Random.Range(0, SceneMgr.Get.BasketAnimationNoneState[(int)basketDistanceAngle].Count)];
+	private void judgeBasketAnimationName (int basketDistanceAngleType) {
+		if(BasketSituationType == BasketSituation.Score){
+			if(SceneMgr.Get.BasketAnimationName.Count > 0 && basketDistanceAngleType < SceneMgr.Get.BasketAnimationName.Count){
+				int random = Random.Range(0, SceneMgr.Get.BasketAnimationName[basketDistanceAngleType].Count);
+				if(SceneMgr.Get.BasketAnimationName.Count > 0 && random < SceneMgr.Get.BasketAnimationName.Count)
+					BasketAnimationName = SceneMgr.Get.BasketAnimationName[basketDistanceAngleType][random];
+			}
+		}else if(BasketSituationType == BasketSituation.NoScore){
+			if(SceneMgr.Get.BasketAnimationNoneState.Count > 0 && basketDistanceAngleType < SceneMgr.Get.BasketAnimationName.Count) {
+				int random = Random.Range(0, SceneMgr.Get.BasketAnimationNoneState[basketDistanceAngleType].Count);
+				if(SceneMgr.Get.BasketAnimationNoneState.Count > 0 && random < SceneMgr.Get.BasketAnimationName.Count)
+					BasketAnimationName = SceneMgr.Get.BasketAnimationNoneState[basketDistanceAngleType][random];
+			}
+		}
 	}
 
 	private void calculationScoreRate(PlayerBehaviour player, ScoreType type) {
@@ -1127,7 +1136,7 @@ public class GameController : MonoBehaviour
 				shootAngle = 75;
 			}
 
-			judgeBasketAnimationName ();
+			judgeBasketAnimationName ((int)basketDistanceAngle);
 
 			SetBall();
             SceneMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
