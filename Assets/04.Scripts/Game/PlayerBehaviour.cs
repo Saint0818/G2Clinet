@@ -307,7 +307,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public Rigidbody Rigi;
 	private bool IsSpeedup = false;
 	public float MovePower = 0;
-	public int MaxMovePower = 0;
+	public float MaxMovePower = 0;
 	private float MovePowerTime = 0;
 	private Vector2 MoveTarget;
 	private float [] disAy = new float[4];
@@ -2457,7 +2457,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void SetMovePower(int Value)
+	public void SetMovePower(float Value)
 	{
 		MaxMovePower = Value;
 		MovePower = Value;
