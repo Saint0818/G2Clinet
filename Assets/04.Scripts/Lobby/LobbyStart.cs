@@ -3,8 +3,10 @@ using System;
 using Newtonsoft.Json;
 using GameStruct;
 
-public class LobbyStart : MonoBehaviour {
+public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
+
+	private LobbyBehaviour myPlayer;
 
 	void Start () {
 		UIHint.Get.ShowHint("Enter lobby.", Color.blue);
@@ -50,10 +52,10 @@ public class LobbyStart : MonoBehaviour {
 			else
 				UIHint.Get.ShowHint("Version is different.", Color.red);
 		} else
-			Application.LoadLevel(GameConst.SceneGamePlay);
+			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 	}
 
-	public void waitDeviceLogin(bool flag, WWW www)
+	private void waitDeviceLogin(bool flag, WWW www)
 	{
 		if (flag) {
 			try {
@@ -74,13 +76,7 @@ public class LobbyStart : MonoBehaviour {
 			Application.LoadLevel(GameConst.SceneGamePlay);
 	}
 
-	void OnGUI() {
-		if (GUI.Button(new Rect(0, 0, 100, 100), "Load Game Play")) {
-			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
-		}
-	}
-
-	public void SendLogin() {
+	private void SendLogin() {
 		GameData.Team.Identifier = "";
 		WWWForm form = new WWWForm();
 		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
@@ -90,18 +86,38 @@ public class LobbyStart : MonoBehaviour {
 		SendHttp.Get.Command(URLConst.DeviceLogin, waitDeviceLogin, form);
 	}
 
-	public void OnCloseLoading()
+	private void OnCloseLoading()
 	{	
 		if (GameData.Team.Player.Lv == 0)
 			UICreateRole.UIShow(true);
 		else {
-			try {
+			EnterLobby();
+		}
+	}
 
-			}
-			catch (Exception e)
-			{
-				Debug.Log(e.ToString());
-			}
+	private void createMyPlayer() {
+		if (!myPlayer) {
+			CreateLobbyPlayer(Vector3.zero, GameData.Team.Player);
+		}
+	}
+
+	public void CreateLobbyPlayer(Vector3 BornPos, TPlayer playerattr){
+		GameObject Res = new GameObject();
+		
+		ModelManager.Get.SetAvatar (ref Res, playerattr.Avatar, true);
+		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
+		Res.transform.localPosition = BornPos;
+		LobbyBehaviour PB = Res.AddComponent<LobbyBehaviour>();
+	}
+
+	public void EnterLobby() {
+		try {
+			UIMain.UIShow(true);
+			createMyPlayer();
+		}
+		catch (Exception e)
+		{
+			Debug.Log(e.ToString());
 		}
 	}
 }

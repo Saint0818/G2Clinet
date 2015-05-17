@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
-using RootMotion.FinalIK;
+using System.Collections;
 
 public enum SceneName
 {
@@ -19,8 +18,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		DontDestroyOnLoad(transform.gameObject);
 	}
 
-
-	
 	public SceneName CurrentScene = SceneName.Main;
 	public SceneName LoadScene = SceneName.Main;
 

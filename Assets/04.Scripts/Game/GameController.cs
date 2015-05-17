@@ -376,14 +376,14 @@ public class GameController : MonoBehaviour
 			PlayerAy[i].ID = i;
 
 			if(i >= (PlayerAy.Length / 2)){
-				PlayerAy[i].Body = 2001;
-				PlayerAy[i].Cloth = 5002;
-				PlayerAy[i].Hair = 2002;
-				PlayerAy[i].MHandDress = 0;
-				PlayerAy[i].Pants = 6002;
-				PlayerAy[i].Shoes = 1002;
-				PlayerAy[i].AHeadDress = 0;
-				PlayerAy[i].ZBackEquip = 0;
+				PlayerAy[i].Avatar.Body = 2001;
+				PlayerAy[i].Avatar.Cloth = 5002;
+				PlayerAy[i].Avatar.Hair = 2002;
+				PlayerAy[i].Avatar.MHandDress = 0;
+				PlayerAy[i].Avatar.Pants = 6002;
+				PlayerAy[i].Avatar.Shoes = 1002;
+				PlayerAy[i].Avatar.AHeadDress = 0;
+				PlayerAy[i].Avatar.ZBackEquip = 0;
 			}
 		}
 	}

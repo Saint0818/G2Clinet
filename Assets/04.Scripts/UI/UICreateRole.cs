@@ -54,10 +54,13 @@ public class UICreateRole : UIBase {
 		WWWForm form = new WWWForm();
 		form.AddField("PlayerID", 1);
 		
-		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
+		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
 	}
 
 	private void waitCreateRole(bool ok, WWW www) {
-
+		if (ok) {
+			UIShow(false);
+			LobbyStart.Get.EnterLobby();
+		}
 	}
 }

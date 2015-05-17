@@ -5,9 +5,8 @@ using UnityEngine;
 using GameStruct;
 using RootMotion.FinalIK;
 
-public class ModelManager : MonoBehaviour {
+public class ModelManager : KnightSingleton<ModelManager> {
 	public const string Name = "ModelManager";
-	private static ModelManager instance;
 
 	private GameObject DefPointObject = null;
 	public GameObject PlayerInfoModel = null;
@@ -16,21 +15,6 @@ public class ModelManager : MonoBehaviour {
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
 	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-
-	public static ModelManager Get {
-		get {
-			if (!instance) {
-				GameObject obj2 = GameObject.Find(Name);
-				if (!obj2) {
-					GameObject obj = new GameObject(Name);
-					instance = obj.AddComponent(Type.GetType(Name)) as ModelManager;
-				} else
-					instance = obj2.GetComponent<ModelManager>();
-			}
-			
-			return instance;
-		}
-	}
 
 	void Awake() {
 		PlayerInfoModel = new GameObject();
@@ -110,17 +94,11 @@ public class ModelManager : MonoBehaviour {
 		}
 	}
 
-	public void CreateStorePlayer(GameObject Player, GameStruct.TAvatar Attr){
-		SetAvatar (ref Player, Attr, false);
-	}
-
-    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, GameStruct.TPlayer playerattr, GameObject Res=null){
+    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, TPlayer playerattr, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
 
-		BodyType mbody = GameFunction.GetBodyType(playerattr.BodyType);
-		GameStruct.TAvatar Attr = GameFunction.GetPlayerAvatar (ref playerattr);
-		SetAvatar (ref Res, Attr, true);
+		SetAvatar (ref Res, playerattr.Avatar, true);
 
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;

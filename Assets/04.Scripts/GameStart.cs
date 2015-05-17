@@ -40,6 +40,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	}
 
 	private void InitCom(){
-		GameData.Init ();
+
 	}
 }

@@ -144,40 +144,4 @@ public static class GameFunction
 		myFile.Close();
 		return InData;
 	}
-	
-	// Json Encoding
-	public static string GetJsonStr(object obj)
-	{
-		return JsonConvert.SerializeObject(obj);
-	}
-	
-	// Json Decoding
-	public static void GetJsonData<T>(string Str,ref T obj)
-	{
-		obj = JsonConvert.DeserializeObject <T>(Str);
-	}
-
-    public static BodyType GetBodyType(int Body){
-        if (Body == BodyType.Small.GetHashCode())
-            return BodyType.Small;
-        else if (Body == BodyType.Middle.GetHashCode())
-            return BodyType.Middle;
-        else if (Body == BodyType.Big.GetHashCode())
-            return BodyType.Big;
-        else
-            return BodyType.Small;
-    }
-
-	public static GameStruct.TAvatar GetPlayerAvatar(ref GameStruct.TPlayer data){
-		GameStruct.TAvatar Result = new GameStruct.TAvatar (0);
-		Result.Body = data.Body;
-		Result.Hair = data.Hair;
-		Result.Cloth = data.Cloth;
-		Result.Pants = data.Pants;
-		Result.Shoes = data.Shoes;
-		Result.MHandDress = data.MHandDress;
-		Result.AHeadDress = data.AHeadDress;
-		Result.ZBackEquip = data.ZBackEquip;
-		return Result;
-	}
 }

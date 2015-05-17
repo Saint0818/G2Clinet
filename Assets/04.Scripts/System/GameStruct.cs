@@ -31,6 +31,8 @@ namespace GameStruct
 
 			if (FBid == null)
 				FBid = "";
+
+			Player.SetAvatar();
 		} 
 	}
 
@@ -38,23 +40,10 @@ namespace GameStruct
         public int ID;
         public string Name;
 		public int Lv;
-        public int BodyType;
         public int AILevel;
+
         public int Steal;
 		public int Control;
-		public int Body;
-		public int Hair;
-		public int Cloth;
-		public int Pants;
-		public int Shoes;
-		public int MHandDress;
-		public int AHeadDress;
-		public int ZBackEquip;
-
-		public TPlayerAttribute Attr;
-		public TAvatar Avatar;
-
-		//
 		public int ProactiveRate;
 		public int StealRate;
 		public int AutoFollowTime;
@@ -70,24 +59,18 @@ namespace GameStruct
 		public int TipIn;
 		public int AlleyOop;
 
+		public TPlayerAttribute Attr;
+		public TAvatar Avatar;
+
 		public TPlayer(int Level)
 		{
+			AILevel = Level;
 			ID = 0;
 			Name = "";
 			Lv = 0;
-			BodyType = 0;
-			AILevel = Level;
+
 			Steal = 0;
 			Control = 0;
-			Body = 2001;
-			Hair = 2001;
-			Cloth = 5001;
-			Pants = 6001;
-			Shoes = 1001;
-			MHandDress = 0;
-			AHeadDress = 0;
-			ZBackEquip = 0;
-
 			ProactiveRate = 0;
 			StealRate = 0;
 			AutoFollowTime = 0;
@@ -105,6 +88,19 @@ namespace GameStruct
 
 			Attr = new TPlayerAttribute();
 			Avatar = new TAvatar(0);
+		}
+
+		public void SetAvatar() {
+			if (GameData.DPlayers.ContainsKey(ID)) {
+				Avatar.Body = GameData.DPlayers[ID].Body;
+				Avatar.Hair = GameData.DPlayers[ID].Hair;
+				Avatar.AHeadDress = GameData.DPlayers[ID].AHeadDress;
+				Avatar.Cloth = GameData.DPlayers[ID].Cloth;
+				Avatar.Pants = GameData.DPlayers[ID].Pants;
+				Avatar.Shoes = GameData.DPlayers[ID].Shoes;
+				Avatar.MHandDress = GameData.DPlayers[ID].MHandDress;
+				Avatar.ZBackEquip = GameData.DPlayers[ID].ZBackEquip;
+			}
 		}
     }
 

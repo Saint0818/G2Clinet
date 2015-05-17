@@ -222,7 +222,7 @@ public class AvatarEditor :  EditorWindow{
 				GameObject obj = new GameObject();
 				obj.name = name;
 				obj.AddComponent<DragRotateObject>();
-				ModelManager.Get.CreateStorePlayer(obj, attr);
+				ModelManager.Get.SetAvatar(ref obj, attr, false);
 				obj.AddComponent<AvatarAnimationTest>();
 				if(name.Equals("0")) {
 					obj.transform.position = new Vector3(2,0,0);
