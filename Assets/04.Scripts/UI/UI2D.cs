@@ -72,13 +72,13 @@ public class UI2D : MonoBehaviour {
 			#if UNITY_ANDROID
 			PushNotificationsAndroid pn = gameObject.GetComponent<PushNotificationsAndroid>();
 			if (!pn)
-				gameObject.AddComponent(PushNotificationsAndroid);
+				gameObject.AddComponent<PushNotificationsAndroid>();
 			#endif
 			
 			#if UNITY_IOS
 			PushNotificationsIOS pn = gameObject.GetComponent<PushNotificationsIOS>();
 			if (!pn)
-	            gameObject.AddComponent(PushNotificationsIOS);
+	            gameObject.AddComponent<PushNotificationsIOS>();
 			#endif
 		#endif
 	}
