@@ -852,7 +852,6 @@ public class GameController : MonoBehaviour
             case GameSituation.TeeA:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
-				CourtMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
                 break;
             case GameSituation.TeeBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
@@ -863,7 +862,6 @@ public class GameController : MonoBehaviour
 			case GameSituation.TeeB:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
-				CourtMgr.Get.RealBallPhysicMaterial.bounciness = 0.75f;
 				break;
 			case GameSituation.End:
 				IsStart = false;
@@ -2937,13 +2935,14 @@ public class GameController : MonoBehaviour
 				if (CanSetball && !IsPickBall)
 				{
 					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
-//						if(SceneMgr.Get.RealBall.transform.position.y > 2f)
-//							player.AniState(PlayerState.CatchParabola, SceneMgr.Get.RealBall.transform.position);
-//						else if(SceneMgr.Get.RealBall.transform.position.y > 1f && SceneMgr.Get.RealBall.transform.position.y <= 2f)
-//							player.AniState(PlayerState.CatchFlat, SceneMgr.Get.RealBall.transform.position);
-//						else if(SceneMgr.Get.RealBall.transform.position.y > 0.5f && SceneMgr.Get.RealBall.transform.position.y <= 1f)
-//							player.AniState(PlayerState.CatchFloor, SceneMgr.Get.RealBall.transform.position);
-//						else
+//						Debug.Log("height:"+CourtMgr.Get.RealBall.transform.position.y);
+						if(CourtMgr.Get.RealBall.transform.position.y > 2f)
+							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
+//						else if(CourtMgr.Get.RealBall.transform.position.y > 1f && CourtMgr.Get.RealBall.transform.position.y <= 2f)
+//							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
+//						else if(CourtMgr.Get.RealBall.transform.position.y > 0.5f && CourtMgr.Get.RealBall.transform.position.y <= 1f)
+//							player.AniState(PlayerState.CatchFloor, CourtMgr.Get.RealBall.transform.position);
+						else
 							player.AniState(PlayerState.PickBall, CourtMgr.Get.RealBall.transform.position);
 					} else 
 					if (SetBall(player)) {
@@ -3054,7 +3053,6 @@ public class GameController : MonoBehaviour
     {
         if (IsStart && GameStart.Get.TestMode == GameTest.None)
 		{
-			CourtMgr.Get.RealBallPhysicMaterial.bounciness = 0.5f;
             int score = 2;
             if (ShootDis >= GameConst.TreePointDistance)
                 score = 3;

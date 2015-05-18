@@ -14,7 +14,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	//RealBall
 	public GameObject RealBall;
 	private SphereCollider realBallCollider;
-	public PhysicMaterial RealBallPhysicMaterial;
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
 	public GameObject RealBallFX;
@@ -223,7 +222,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "ReallBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
-			RealBallPhysicMaterial = realBallCollider.sharedMaterial;
 
 			if(RealBallCurve == null || RealBallCurve.gameObject == null){
 				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;

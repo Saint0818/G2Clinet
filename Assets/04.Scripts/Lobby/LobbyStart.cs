@@ -19,7 +19,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			if (GameData.LoadTeamSave()) {
 
 			} else {
-				//UIPlayerShow.UIShow(true);
+//				UICreateRole.UIShow(true);
+//				UIPlayerShow.UIShow(true);
 				//Application.LoadLevel(GameConst.SceneGamePlay);
 			}
 		}

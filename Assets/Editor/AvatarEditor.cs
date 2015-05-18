@@ -436,30 +436,37 @@ public class AvatarEditor :  EditorWindow{
 					if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
 						bodyTextureText = showBodyTexture[i].name;
 						string[] name = showBodyTexture[i].name.Split("_"[0]);
+						string attrString = string.Empty;
+						if(int.Parse(name[3]) < 10) 
+							attrString = "00" + name[3];
+						else if(int.Parse(name[3])>= 10 && int.Parse(name[3]) < 100)
+							attrString = "0" + name[3];
+						else if(int.Parse(name[3]) >= 100)
+							attrString = name[3];
 						if(name[1].Equals("B")){
 							int bodyPartTemp = attr.Body / 1000;
-							attr.Body = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.Body = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("C")){
 							int bodyPartTemp = attr.Cloth / 1000;
-							attr.Cloth = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.Cloth = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("H")){
 							int bodyPartTemp = attr.Hair / 1000;
-							attr.Hair = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.Hair = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("M")){
 							int bodyPartTemp = attr.MHandDress / 1000;
-							attr.MHandDress = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("P")){
 							int bodyPartTemp = attr.Pants / 1000;
-							attr.Pants = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.Pants = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("S")){
 							int bodyPartTemp = attr.Shoes / 1000;
-							attr.Shoes = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.Shoes = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("A")){
 							int bodyPartTemp = attr.AHeadDress / 1000;
-							attr.AHeadDress = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("Z")){
 							int bodyPartTemp = attr.ZBackEquip / 1000;
-							attr.ZBackEquip = int.Parse(bodyPartTemp + "00" + name[3]);
+							attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 						}
 						bodyPart = Array.IndexOf(strPart, name[1]);
 						ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
@@ -506,7 +513,14 @@ public class AvatarEditor :  EditorWindow{
 		if (showBodyTexture.Count > 0) {
 			string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 			int bodyPartTemp = attr.Body / 1000;
-			attr.Body = int.Parse(bodyPartTemp + "00" + name[3]);
+			string attrString = string.Empty;
+			if(int.Parse(name[3]) < 10) 
+				attrString = "00" + name[3];
+			else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+				attrString = "0" + name[3];
+			else if(int.Parse(name[3]) >= 100)
+				attrString = name[3];
+			attr.Body = int.Parse(bodyPartTemp + attrString);
 			bodyPart = Array.IndexOf(strPart, name[1]);
 			ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 		}
@@ -524,7 +538,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.Cloth / 1000;
-					attr.Cloth = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.Cloth = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -543,7 +564,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.Hair / 1000;
-					attr.Hair = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.Hair = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -563,7 +591,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.MHandDress / 1000;
-					attr.MHandDress = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -583,7 +618,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.Pants / 1000;
-					attr.Pants = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.Pants = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -603,7 +645,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.Shoes / 1000;
-					attr.Shoes = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.Shoes = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -623,7 +672,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.AHeadDress / 1000;
-					attr.AHeadDress = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
@@ -643,7 +699,14 @@ public class AvatarEditor :  EditorWindow{
 				if (showBodyTexture.Count > 0) {
 					string[] name = showBodyTexture[UnityEngine.Random.Range(0, showBodyTexture.Count)].name.Split("_"[0]);
 					int bodyPartTemp = attr.ZBackEquip / 1000;
-					attr.ZBackEquip = int.Parse(bodyPartTemp + "00" + name[3]);
+					string attrString = string.Empty;
+					if(int.Parse(name[3]) < 10) 
+						attrString = "00" + name[3];
+					else if(int.Parse(name[3]) >= 10 && int.Parse(name[3]) < 100)
+						attrString = "0" + name[3];
+					else if(int.Parse(name[3]) >= 100)
+						attrString = name[3];
+					attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
 					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}

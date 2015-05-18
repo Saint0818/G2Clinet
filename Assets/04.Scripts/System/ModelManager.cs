@@ -591,4 +591,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		fbbik.solver.pullBodyVertical = 0.2f;
 		fbbik.solver.pullBodyHorizontal = 0.3f;
 	}
+
+	public void ChangeLayersRecursively(Transform trans, string name) {
+		trans.gameObject.layer = LayerMask.NameToLayer(name);
+		foreach(Transform child in trans) {            
+			ChangeLayersRecursively(child, name);
+		}
+	}
 }

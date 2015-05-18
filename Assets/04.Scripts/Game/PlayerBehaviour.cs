@@ -1609,24 +1609,24 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.CatchFlat:
-                animator.SetInteger("StateNo", 0);
-                SetSpeed(0, -1);
-                ClearAnimatorFlag();
+				animator.SetInteger("StateNo", 0);
+				SetSpeed(0, -1);
+				ClearAnimatorFlag();
                 animator.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
 
-            case PlayerState.CatchFloor:
-                animator.SetInteger("StateNo", 2);
-                SetSpeed(0, -1);
-                ClearAnimatorFlag();
+			case PlayerState.CatchFloor:
+				animator.SetInteger("StateNo", 2);
+				SetSpeed(0, -1);
+            	ClearAnimatorFlag();
                 animator.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
                 
-            case PlayerState.CatchParabola:
-                animator.SetInteger("StateNo", 1);
-                SetSpeed(0, -1);
+			case PlayerState.CatchParabola:
+				animator.SetInteger("StateNo", 1);
+				SetSpeed(0, -1);
                 ClearAnimatorFlag();
                 animator.SetTrigger("CatchTrigger");
                 Result = true;
@@ -1833,7 +1833,7 @@ public class PlayerBehaviour : MonoBehaviour
             
             case PlayerState.Run:
                 if (!isJoystick)
-                    SetSpeed(1, 1);
+                    SetSpeed(1, 1); 
 
 				//AddActionFlag(ActionFlag.IsRun);
                 ClearAnimatorFlag(ActionFlag.IsRun);
@@ -2164,19 +2164,22 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "CatchEnd":
-				OnUI(this);
-				IsFirstDribble = true;
-                if(!IsBallOwner)
-				{					
-					AniState(PlayerState.Idle);
-				}else
-				{
-					if (NoAiTime == 0)
-						AniState(PlayerState.Dribble);
-					else 
-						AniState(PlayerState.HoldBall);
+				if(situation == GameSituation.TeeA || situation == GameSituation.TeeB){
+					AniState(PlayerState.Dribble);
+				} else {
+					OnUI(this);
+					IsFirstDribble = true;
+					if(!IsBallOwner)
+					{					
+						AniState(PlayerState.Idle);
+					}else
+					{
+						if (NoAiTime == 0)
+							AniState(PlayerState.Dribble);
+						else 
+							AniState(PlayerState.HoldBall);
+					}
 				}
-                
                 break;
 
             case "FakeShootEnd":
