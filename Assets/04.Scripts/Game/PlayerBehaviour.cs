@@ -29,7 +29,8 @@ public enum PlayerState
     PassFloor = 17,
     PassParabola = 18,
     PassFast = 19,
-    Push = 20,
+    PassAir = 20,
+    Push = 21,
     MovingDefence = 23,
     RunAndDribble = 24,
 	Rebound = 25,
@@ -303,8 +304,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool firstDribble = true;
 	public TScoreRate ScoreRate;
 	private bool isCanCatchBall = true;
-
-	private GameObject doubleClickEffect;
+	
 	public Rigidbody Rigi;
 	private bool IsSpeedup = false;
 	public float MovePower = 0;
@@ -1452,6 +1452,11 @@ public class PlayerBehaviour : MonoBehaviour
                 if (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble)
                     return true;
                 break;
+
+			case PlayerState.PassAir:
+				if((crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot2) && !GameController.Get.Shooter)
+					return true;
+				break;
             
             case PlayerState.BlockCatch:
 				if (crtState == PlayerState.Block && crtState != PlayerState.BlockCatch) 
@@ -1815,6 +1820,13 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = true;
 				break;
 
+			case PlayerState.PassAir:
+				animator.SetInteger("StateNo", 5);
+				ClearAnimatorFlag();
+				animator.SetTrigger("PassTrigger");
+				Result = true;
+				break;
+
             case PlayerState.Push:
                 ClearAnimatorFlag();
 				playerPushCurve = null;
@@ -2042,10 +2054,6 @@ public class PlayerBehaviour : MonoBehaviour
             case "BlockMoment":
                 if (OnBlockMoment != null)
                     OnBlockMoment(this);
-
-				//ShootingDoubleStart
-//				GameController.Get.IsExtraScoreRate = true;
-//				doubleClickEffect = EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, GameController.Get.selectMe, null, 2);
 				break;
 
 			case "DoubleClickMoment":
@@ -2088,16 +2096,15 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "Shooting":
-                if (OnShooting != null)
+                if (OnShooting != null && crtState != PlayerState.PassAir)
                     OnShooting(this);
-
-				//	ShootingDoubleEnd
-				Destroy(doubleClickEffect); 
                 break;
 
 			case "MoveDodgeEnd": 
-				AniState(PlayerState.Idle);
-				AniState(PlayerState.Dribble);
+				if(IsBallOwner)
+					AniState(PlayerState.Dribble);
+				else
+					AniState(PlayerState.Idle);
 				break;
 
             case "Passing": 
@@ -2260,6 +2267,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.PassFloor,
                 PlayerState.PassParabola,
                 PlayerState.PassFast,
+                PlayerState.PassAir,
                 PlayerState.Push,
                 PlayerState.PickBall,
                 PlayerState.Shoot0,

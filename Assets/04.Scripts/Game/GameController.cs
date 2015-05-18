@@ -497,6 +497,8 @@ public class GameController : MonoBehaviour
         }
     }
 
+	private bool isPressPassBtn = false;
+
 	void FixedUpdate() {
 //		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
 //			if(BallOwner) {
@@ -531,17 +533,23 @@ public class GameController : MonoBehaviour
 			if (situation == GameSituation.AttackA) {
 				if (Input.GetKeyDown (KeyCode.A))
 				{
-					UIGame.Get.DoPassChoose(null, true);
-					if(Input.GetKeyDown (KeyCode.W))
-						UIGame.Get.DoPassTeammateA();
+					isPressPassBtn = true;
 
-					if(Input.GetKeyDown (KeyCode.E))
-						UIGame.Get.DoPassTeammateA();
+					UIGame.Get.DoPassChoose(null, true);
 				}
 
 				if (Input.GetKeyUp (KeyCode.A))
 				{
+					isPressPassBtn = false;
 					UIGame.Get.DoPassChoose(null, false);
+				}
+
+				if(isPressPassBtn){ 
+					if(Input.GetKeyDown (KeyCode.W))
+						UIGame.Get.DoPassTeammateA();
+					
+					if(Input.GetKeyDown (KeyCode.E))
+						UIGame.Get.DoPassTeammateB();
 				}
 
 				if (Input.GetKeyDown (KeyCode.S))
@@ -1254,7 +1262,7 @@ public class GameController : MonoBehaviour
     public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false, bool MovePass = false)
     {
 		bool Result = false;
-		if (BallOwner != null && IsPassing == false && IsShooting == false && IsDunk == false && player != BallOwner)
+		if (BallOwner != null && IsPassing == false && (IsShooting == false || IsCanPassAir) && IsDunk == false && player != BallOwner)
         {
 			if(!(IsBtn || MovePass) && CoolDownPass != 0)
 				return Result;
@@ -1268,13 +1276,20 @@ public class GameController : MonoBehaviour
 				{
 					Catcher = player;
 				}												
-			}else
+			}else if(IsCanPassAir && !IsTee)
+			{
+				if(BallOwner.AniState(PlayerState.PassAir, player.transform.position))
+				{
+					Catcher = player;
+					Result = true;
+				}
+			}
+			else
 			{
 				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 				int disKind = GetEnemyDis(ref player);
 				int rate = UnityEngine.Random.Range(0, 2);
 				int passkind = -1;
-
 
 				if(dis <= GameConst.FastPassDistance)
 				{
@@ -1425,7 +1440,7 @@ public class GameController : MonoBehaviour
 
     public bool DoPass(int playerid)
     {
-		if (IsStart && BallOwner && !Shooter && Joysticker && BallOwner.Team == 0 && CandoBtn)
+		if (IsStart && BallOwner && (!Shooter  || IsCanPassAir) && Joysticker && BallOwner.Team == 0 && CandoBtn)
         {
             if (PlayerList.Count > 1)
             {
@@ -3426,6 +3441,18 @@ public class GameController : MonoBehaviour
             return false;
         }
     }
+
+	public bool IsCanPassAir
+	{
+		get
+		{
+			for (int i = 0; i < PlayerList.Count; i++)            
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shoot0) || PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2))
+					return true;            
+			
+			return false;
+		}
+	}
 
     public bool IsDunk
     {

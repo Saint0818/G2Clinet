@@ -461,7 +461,8 @@ public class UIGame : UIBase {
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
 		passObject.SetActive(false);
-		if(!GameController.Get.IsShooting && GameController.Get.DoPass(1))
+
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1))
 			GameController.Get.Joysticker.SetNoAiTime();
 		else
 			showCoverAttack(false);
@@ -477,7 +478,7 @@ public class UIGame : UIBase {
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
 		passObject.SetActive(false);
-		if(!GameController.Get.IsShooting && GameController.Get.DoPass(2))
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2))
 			GameController.Get.Joysticker.SetNoAiTime();
 		else
 			showCoverAttack(false);
