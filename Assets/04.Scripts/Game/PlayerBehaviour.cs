@@ -244,7 +244,8 @@ public class PlayerBehaviour : MonoBehaviour
     public PlayerBehaviour DefPlayer = null;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
-    public GameStruct.TPlayer Attr;
+	public GameStruct.TPlayerAttribute Attr;
+	public GameStruct.TPlayer Player;
 
     //Dunk
     private bool isDunk = false;
@@ -310,7 +311,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public float MaxMovePower = 0;
 	private float MovePowerTime = 0;
 	private Vector2 MoveTarget;
-	private float [] disAy = new float[4];
 	private float dis;
 	private float dis2;
 	private float dis3;
@@ -344,23 +344,35 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void InitAttr()
 	{
-		if (Attr.AILevel >= 0 && Attr.AILevel < GameData.AIlevelAy.Length) 
+		if (GameData.BaseAttr.Length > 0 && Player.AILevel >= 0 && Player.AILevel < GameData.BaseAttr.Length) 
 		{
-			Attr.ProactiveRate = GameData.AIlevelAy[Attr.AILevel].ProactiveRate;
-			Attr.StealRate = GameData.AIlevelAy[Attr.AILevel].StealRate;
-			Attr.AutoFollowTime = GameData.AIlevelAy[Attr.AILevel].AutoFollowTime;
-			Attr.DefDistance = GameData.AIlevelAy[Attr.AILevel].DefDistance;
-			Attr.BlockRate = GameData.AIlevelAy[Attr.AILevel].BlockRate;
-			Attr.FaketBlockRate = GameData.AIlevelAy[Attr.AILevel].FaketBlockRate;
-			Attr.PushingRate = GameData.AIlevelAy[Attr.AILevel].PushingRate;
-			Attr.ElbowingRate = GameData.AIlevelAy[Attr.AILevel].ElbowingRate;
-			Attr.BlockDunk = GameData.AIlevelAy[Attr.AILevel].BlockDunk;
-			Attr.JumpBallRate = GameData.AIlevelAy[Attr.AILevel].JumpBallRate;
-			Attr.BlockPushRate = GameData.AIlevelAy[Attr.AILevel].BlockPushRate;
-			Attr.ReboundRate = GameData.AIlevelAy[Attr.AILevel].ReboundRate;
-			Attr.TipIn = GameData.AIlevelAy[Attr.AILevel].TipIn;
-			Attr.AlleyOop = GameData.AIlevelAy[Attr.AILevel].AlleyOop;	
+			Attr.PointRate2 = GameData.BaseAttr[Player.AILevel].PointRate2;
+			Attr.PointRate3 = GameData.BaseAttr[Player.AILevel].PointRate3;
+			Attr.StealRate = GameData.BaseAttr[Player.AILevel].StealRate;
+			Attr.DunkRate = GameData.BaseAttr[Player.AILevel].DunkRate;
+			Attr.TipInRate = GameData.BaseAttr[Player.AILevel].TipInRate;
+			Attr.AlleyOopRate = GameData.BaseAttr[Player.AILevel].AlleyOopRate;
+			Attr.StrengthRate = GameData.BaseAttr[Player.AILevel].StrengthRate;
+			Attr.BlockPushRate = GameData.BaseAttr[Player.AILevel].BlockPushRate;
+			Attr.ElbowingRate = GameData.BaseAttr[Player.AILevel].ElbowingRate;
+			Attr.ReboundRate = GameData.BaseAttr[Player.AILevel].ReboundRate;
+			Attr.BlockRate = GameData.BaseAttr[Player.AILevel].BlockRate;
+			Attr.FaketBlockRate = GameData.BaseAttr[Player.AILevel].FaketBlockRate;
+			Attr.JumpBallRate = GameData.BaseAttr[Player.AILevel].JumpBallRate;
+			Attr.PushingRate = GameData.BaseAttr[Player.AILevel].PushingRate;
+			Attr.PassRate = GameData.BaseAttr[Player.AILevel].PassRate;
+			Attr.AlleyOopPassRate = GameData.BaseAttr[Player.AILevel].AlleyOopPassRate;
+			Attr.ReboundHeadDistance = GameData.BaseAttr[Player.AILevel].ReboundHeadDistance;
+			Attr.ReboundHandDistance = GameData.BaseAttr[Player.AILevel].ReboundHandDistance;
+			Attr.BlockDistance = GameData.BaseAttr[Player.AILevel].BlockDistance;
+			Attr.DefDistance = GameData.BaseAttr[Player.AILevel].DefDistance;
+			Attr.SpeedValue = GameData.BaseAttr[Player.AILevel].SpeedValue;
+			Attr.StaminaValue = GameData.BaseAttr[Player.AILevel].StaminaValue;
+			Attr.AutoFollowTime = GameData.BaseAttr[Player.AILevel].AutoFollowTime;
+
 			DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
+			if(Attr.StaminaValue > 0)
+				SetMovePower(Attr.StaminaValue);
 		}
 	}
 
@@ -995,26 +1007,26 @@ public class PlayerBehaviour : MonoBehaviour
 							IsSpeedup = false;
 
                         if (IsBallOwner)						
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedNormal;
+                            Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal;
 						else
                         {
                             if (IsDefence)
                             {
-                                Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedNormal;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal;
                             } else
-                                Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedNormal;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal;
                         }                       
                     } else
                     {
 						IsSpeedup = true;
                         if (IsBallOwner)
-                            Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.BallOwnerSpeedup;
+							Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
                         else
                         {
                             if (IsDefence)
-                                Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.DefSpeedup;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup;
                             else
-                                Translate = Vector3.forward * Time.deltaTime * GameConst.BasicMoveSpeed * GameConst.AttackSpeedup;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup;
                         }
                     }
                     
@@ -1287,12 +1299,12 @@ public class PlayerBehaviour : MonoBehaviour
 					isMoving = true;
 					if (MovePower > 0 && CanSpeedup && this != GameController.Get.Joysticker && !IsTee)
 					{
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * GameConst.BasicMoveSpeed);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
 						IsSpeedup = true;
 					}
 					else
 					{
-						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * GameConst.BasicMoveSpeed);
+						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue);
 						IsSpeedup = false;
 					}
 				} else
@@ -1309,24 +1321,24 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
-							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * GameConst.BasicMoveSpeed);
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
 							IsSpeedup = true;
 						}
 						else
 						{
-							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * GameConst.BasicMoveSpeed);
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
 							IsSpeedup = false;
 						}
 					} else
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
-							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * GameConst.BasicMoveSpeed);
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
 							IsSpeedup = true;
 						}
 						else
 						{
-							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * GameConst.BasicMoveSpeed);
+							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue);
 							IsSpeedup = false;
 						}
 					}

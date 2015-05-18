@@ -173,7 +173,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	void Awake () {
 		CallBackFun.Add ("greatplayer", parseGreatPlayerData);
 		CallBackFun.Add ("tactical", parseTacticalData);
-		CallBackFun.Add ("ailevel", parseAILevelData);
+		CallBackFun.Add ("baseattr", parseBaseAttr);
 		CallBackFun.Add ("ballposition", parseBasketShootPositionData);
 	}
     
@@ -435,16 +435,16 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseAILevelData (string Version, string text, bool SaveVersion){
+	private void parseBaseAttr (string Version, string text, bool SaveVersion){
 		try {
-			GameData.AIlevelAy = (TAIlevel[])JsonConvert.DeserializeObject (text, typeof(TAIlevel[]));
+			GameData.BaseAttr = (TPlayerAttribute[])JsonConvert.DeserializeObject (text, typeof(TPlayerAttribute[]));
 			
 			if(SaveVersion)
-				SaveDataVersionAndJson(text, "tactical", Version);
+				SaveDataVersionAndJson(text, "BaseAttr", Version);
 			
-			Debug.Log ("[AIlevelAy parsed finished.] ");
+			Debug.Log ("[BaseAttr parsed finished.] ");
 		} catch (System.Exception ex) {
-			Debug.LogError ("[AIlevelAy parsed error] " + ex.Message);
+			Debug.LogError ("[BaseAttr parsed error] " + ex.Message);
 		}
 	}
 

@@ -14,7 +14,7 @@ public static class SettingText {
 
 public class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
-	public static TAIlevel[] AIlevelAy;
+	public static TPlayerAttribute[] BaseAttr;
 	public static TTactical[] TacticalData;
     public static BasketShootPositionData[] BasketShootPosition;
 
@@ -31,7 +31,7 @@ public class GameData {
 			List<TDownloadData> DownloadList = new List<TDownloadData> ();
 
 			DownloadList.Add (new TDownloadData ("greatplayer", "0"));
-			DownloadList.Add (new TDownloadData ("ailevel", "0"));
+			DownloadList.Add (new TDownloadData ("baseattr", "0"));
 			DownloadList.Add (new TDownloadData ("tactical", "0"));
 			DownloadList.Add (new TDownloadData ("ballposition", "0"));
 

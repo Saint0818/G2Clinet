@@ -41,25 +41,20 @@ namespace GameStruct
         public string Name;
 		public int Lv;
         public int AILevel;
-
-        public int Steal;
 		public int Control;
-		public int ProactiveRate;
-		public int StealRate;
-		public int AutoFollowTime;
-		public float DefDistance;
-		public int BlockRate;
-		public int FaketBlockRate;
-		public int PushingRate;
-		public int ElbowingRate;
-		public int BlockDunk;
-		public int JumpBallRate;
-		public int BlockPushRate;
-		public int ReboundRate;
-		public int TipIn;
-		public int AlleyOop;
+		public int Point2;	
+		public int Point3;
+		public int Steal;	
+		public int Speed;
+		public int Dunk;
+		public int Strength;
+		public int Rebound;
+		public int Block;	
+		public int Stamina;	
+		public int Dribble;	
+		public int Defence;
+		public int Pass;
 
-		public TPlayerAttribute Attr;
 		public TAvatar Avatar;
 
 		public TPlayer(int Level)
@@ -68,25 +63,19 @@ namespace GameStruct
 			ID = 0;
 			Name = "";
 			Lv = 0;
-
-			Steal = 0;
 			Control = 0;
-			ProactiveRate = 0;
-			StealRate = 0;
-			AutoFollowTime = 0;
-			DefDistance = 0;
-			BlockRate = 0;
-			FaketBlockRate = 0;
-			PushingRate = 0;
-			ElbowingRate = 0;
-			BlockDunk = 0;
-			JumpBallRate = 0;
-			BlockPushRate = 0;
-			ReboundRate = 0;
-			TipIn = 0;
-			AlleyOop = 0;
-
-			Attr = new TPlayerAttribute();
+			Point2 = 0;
+			Point3 = 0;
+			Steal = 0;
+			Speed = 0;
+			Dunk = 0;
+			Strength = 0;
+			Rebound = 0;
+			Block = 0;
+			Stamina = 0;
+			Dribble = 0;
+			Defence = 0;
+			Pass = 0;
 			Avatar = new TAvatar(0);
 		}
 
@@ -106,7 +95,30 @@ namespace GameStruct
 
 	public struct TPlayerAttribute
 	{
-		public float STR;
+		public int PointRate2;
+		public int PointRate3;
+		public int StealRate;
+		public int DunkRate;
+		public int TipInRate;
+		public int AlleyOopRate;
+		public int StrengthRate;
+		public int BlockPushRate;
+		public int ElbowingRate;
+		public int ReboundRate;
+		public int BlockRate;
+		public int FaketBlockRate;
+		public int JumpBallRate;
+		public int PushingRate;
+		public int PassRate;
+		public int AlleyOopPassRate;
+
+		public float ReboundHeadDistance;
+		public float ReboundHandDistance;
+		public float BlockDistance;
+		public float DefDistance;
+		public float SpeedValue;
+		public float StaminaValue;
+		public float AutoFollowTime;
 	}
 
 	public struct TAvatar
@@ -130,24 +142,6 @@ namespace GameStruct
 			AHeadDress = 0;
 			ZBackEquip = 0;
 		}
-	}
-
-	public struct TAIlevel
-	{
-		public int ProactiveRate;
-		public int StealRate;
-		public int AutoFollowTime;
-		public float DefDistance;
-		public int BlockRate;
-		public int FaketBlockRate;
-		public int PushingRate;
-		public int ElbowingRate;
-		public int BlockDunk;
-		public int JumpBallRate;
-		public int BlockPushRate;
-		public int ReboundRate;
-		public int TipIn;
-		public int AlleyOop;
 	}
 
 	public struct TGreatPlayer {

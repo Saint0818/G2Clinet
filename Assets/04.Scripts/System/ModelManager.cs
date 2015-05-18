@@ -94,11 +94,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, TPlayer playerattr, GameObject Res=null){
+    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, TPlayer player, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
 
-		SetAvatar (ref Res, playerattr.Avatar, true);
+		SetAvatar (ref Res, player.Avatar, true);
 
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
@@ -106,11 +106,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
 		PB.Team = Team;
 		PB.MoveIndex = -1;
-		PB.Attr = playerattr;
+		PB.Player = player;
 		PB.Index = TeamIndex;
 		
 		PB.InitTrigger (DefPointObject);
 		PB.InitCurve (AnimatorCurveManager);
+		PB.InitAttr ();
 		Res.name = Team.ToString() + TeamIndex.ToString();
 
 		if(Team == TeamKind.Npc)
