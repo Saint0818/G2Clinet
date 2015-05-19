@@ -1017,10 +1017,10 @@ public class GameController : MonoBehaviour
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDis >= GameConst.TreePointDistance) {
-			originalRate = player.ScoreRate.ThreeScoreRate * player.ScoreRate.ThreeScoreRateDeviation;
+			originalRate = player.Attr.PointRate3 * player.ScoreRate.ThreeScoreRateDeviation;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else {
-			originalRate = player.ScoreRate.TwoScoreRate * player.ScoreRate.TwoScoreRateDeviation;
+			originalRate = player.Attr.PointRate2 * player.ScoreRate.TwoScoreRateDeviation;
 		}
 		float rate = (Random.Range(0, 100) + 1);
 		int airRate = (Random.Range(0, 100) + 1);
