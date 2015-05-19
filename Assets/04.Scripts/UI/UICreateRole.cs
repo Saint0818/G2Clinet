@@ -138,8 +138,12 @@ public class UICreateRole : UIBase {
 		if (ok) {
 			GameData.SaveTeam();
 			UIShow(false);
-			UI3D.Get.ShowCamera(false);
-			LobbyStart.Get.EnterLobby();
+			if(GameStart.Get.SceneMode == SceneTest.Release)
+			{
+				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+			}
+			else
+				LobbyStart.Get.EnterLobby();
 		}
 	}
 

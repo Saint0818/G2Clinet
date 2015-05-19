@@ -39,8 +39,6 @@ public class GameData {
 
 			loadGameSetting();
 		}
-		
-		
 		Team.Init();
 	}
 

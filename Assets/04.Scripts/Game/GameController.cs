@@ -37,7 +37,8 @@ public enum BodyType
 public enum SceneTest
 {
 	Single,
-	Multi
+	Multi,
+	Release
 }
 
 public enum GameTest

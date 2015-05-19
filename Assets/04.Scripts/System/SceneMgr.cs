@@ -13,6 +13,33 @@ public enum SceneName
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
+	public delegate void LevelWillBeLoaded();
+	public delegate void LevelWasLoaded();
+	
+	public static event LevelWillBeLoaded OnLevelWillBeLoaded;
+	public static event LevelWasLoaded OnLevelWasLoaded;
+	
+	IEnumerator LoadLevelCoroutine(SceneName levelToLoad)
+	{
+		string test = levelToLoad.ToString ();
+		if (OnLevelWillBeLoaded != null)
+			OnLevelWillBeLoaded();
+
+		yield return Application.LoadLevelAsync(levelToLoad.ToString());
+			CurrentScene = levelToLoad;
+
+		switch (levelToLoad) {
+			case SceneName.Court_0:
+			case SceneName.Court_1:
+				CourtMgr.Get.InitCourtScene ();
+			break;
+		}
+
+		if (OnLevelWasLoaded != null) {
+			OnLevelWasLoaded ();
+		}
+	}
+
 	void Awake()
 	{
 		DontDestroyOnLoad(transform.gameObject);
@@ -21,31 +48,25 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public SceneName CurrentScene = SceneName.Main;
 	public SceneName LoadScene = SceneName.Main;
 
-	void OnLevelWasLoaded(int level) {
-		if (level == 1) {
-			Application.LoadLevel (LoadScene.ToString ());
-		} else if (level == (int)LoadScene) {
-			CurrentScene = LoadScene;
-			switch(LoadScene){
-				case SceneName.Court_0:
-				case SceneName.Court_1:
-					CourtMgr.Get.InitCourtScene();
-				break;
-
-				case SceneName.Lobby:
-					
-				break;
-			}
-		}
-	}
-
     public void ChangeLevel(SceneName scene)
     {
-		if (CurrentScene != scene) {
-			Application.LoadLevel ("Null");
-			LoadScene = scene;
+		if (CurrentScene == SceneName.Main) {
+			StartCoroutine (LoadLevelCoroutine (scene));
+		}
+		else {
+			if (CurrentScene != scene) {
+				StartCoroutine(LoadLevelCoroutine(SceneName.Null));
+				LoadScene = scene;
+				OnLevelWasLoaded += WaitLoadScene;
+			}
 		}
     }
+
+	public void WaitLoadScene()
+	{
+		StartCoroutine(LoadLevelCoroutine(LoadScene));
+		OnLevelWasLoaded -= WaitLoadScene;
+	}
 
 	public void SetDontDestory(GameObject obj){
 		obj.transform.parent = gameObject.transform;

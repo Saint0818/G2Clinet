@@ -206,6 +206,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		try {
 			UIMain.UIShow(true);
 			createMyPlayer();
+			UI3D.Get.ShowCamera(false);
 		}
 		catch (Exception e)
 		{

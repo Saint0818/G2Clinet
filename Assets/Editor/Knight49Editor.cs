@@ -13,7 +13,7 @@ public class Knight49Editor : EditorWindow
 		EditorWindow.GetWindowWithRect(typeof(Knight49Editor), new Rect(0, 0, 800, 400), true, "BuildTool").Show();
     }
     
-    public string mVersion = "0.0.0";
+    public string mVersion = "0.6.0";
     public int mVersionCode = 1;
     public string mPass = "csharp2014";
     public string mPath;
