@@ -314,14 +314,14 @@ public class UIPlayerShow : UIBase {
 	{
 		if (GameData.DPlayers.ContainsKey (greatePlayerId)){
 			labelPlayerName.text = GameData.DPlayers[greatePlayerId].Name; 
-			labelShoot.text = GameData.DPlayers[greatePlayerId].Shoot.ToString();
-			labelShoot3.text = GameData.DPlayers[greatePlayerId].Shoot3.ToString();
+			labelShoot.text = GameData.DPlayers[greatePlayerId].Point2.ToString();
+			labelShoot3.text = GameData.DPlayers[greatePlayerId].Point3.ToString();
 			labeldunk.text = GameData.DPlayers[greatePlayerId].Dunk.ToString();
 			labelspeed.text = GameData.DPlayers[greatePlayerId].Speed.ToString();
-			labelcontorl.text = GameData.DPlayers[greatePlayerId].Control.ToString();
+			labelcontorl.text = GameData.DPlayers[greatePlayerId].Dribble.ToString();
 			labelsteal.text = GameData.DPlayers[greatePlayerId].Steal.ToString();
 			labelblock.text = GameData.DPlayers[greatePlayerId].Block.ToString();
-			labeldodge.text = GameData.DPlayers[greatePlayerId].Dodge.ToString();
+			labeldodge.text = "";
 		}
 	}
 

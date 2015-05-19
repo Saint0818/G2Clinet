@@ -41,7 +41,6 @@ namespace GameStruct
         public string Name;
 		public int Lv;
         public int AILevel;
-		public int Control;
 		public int Point2;	
 		public int Point3;
 		public int Steal;	
@@ -54,6 +53,7 @@ namespace GameStruct
 		public int Dribble;	
 		public int Defence;
 		public int Pass;
+		public int BodyType;
 
 		public TAvatar Avatar;
 
@@ -63,7 +63,6 @@ namespace GameStruct
 			ID = 0;
 			Name = "";
 			Lv = 0;
-			Control = 0;
 			Point2 = 0;
 			Point3 = 0;
 			Steal = 0;
@@ -76,6 +75,7 @@ namespace GameStruct
 			Dribble = 0;
 			Defence = 0;
 			Pass = 0;
+			BodyType = 0;
 			Avatar = new TAvatar(0);
 		}
 
@@ -146,21 +146,21 @@ namespace GameStruct
 
 	public struct TGreatPlayer {
 		public int ID;
-		public string Name; 
-		public int  Position;
-		public int Shoot;
-		public int Shoot3;
-		public int Dunk;
-		public int Speed;
-		public int Control;
+		public string Name;
+		public int Point2;
+		public int Point3;
 		public int Steal;
+		public int Speed;
+		public int Dunk;
+		public int Strength;
+		public int Rebound;
 		public int Block;
-		public int Dodge;
-		
-		public int SkillA;
-		public int SkillB;
-		public int SkillC;
-
+		public int Stamina;
+		public int Dribble;
+		public int Defence;
+		public int Pass;
+		public int BodyType;
+		public int AILevel;
 		public int Body;
 		public int Hair;
 		public int Cloth;

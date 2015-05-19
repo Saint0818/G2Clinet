@@ -373,17 +373,26 @@ public class GameController : MonoBehaviour
 				PlayerAy[i] = new TPlayer(GameConst.NpcAILevel);
 			else
 				PlayerAy[i] = new TPlayer(GameConst.SelfAILevel);
-			PlayerAy[i].ID = i;
 
-			if(i >= (PlayerAy.Length / 2)){
-				PlayerAy[i].Avatar.Body = 2001;
-				PlayerAy[i].Avatar.Cloth = 5002;
-				PlayerAy[i].Avatar.Hair = 2002;
-				PlayerAy[i].Avatar.MHandDress = 0;
-				PlayerAy[i].Avatar.Pants = 6002;
-				PlayerAy[i].Avatar.Shoes = 1002;
-				PlayerAy[i].Avatar.AHeadDress = 0;
-				PlayerAy[i].Avatar.ZBackEquip = 0;
+			if(GameData.DPlayers.ContainsKey(i + 1))
+			{
+				PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
+				PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
+				PlayerAy[i].Point2 = GameData.DPlayers[i + 1].Point2;
+				PlayerAy[i].Point3 = GameData.DPlayers[i + 1].Point3;
+				PlayerAy[i].Steal = GameData.DPlayers[i + 1].Steal;
+				PlayerAy[i].Speed = GameData.DPlayers[i + 1].Speed;
+				PlayerAy[i].Dunk = GameData.DPlayers[i + 1].Dunk;
+				PlayerAy[i].Strength = GameData.DPlayers[i + 1].Strength;
+				PlayerAy[i].Rebound = GameData.DPlayers[i + 1].Rebound;
+				PlayerAy[i].Block = GameData.DPlayers[i + 1].Block;
+				PlayerAy[i].Stamina = GameData.DPlayers[i + 1].Stamina;
+				PlayerAy[i].Dribble = GameData.DPlayers[i + 1].Dribble;
+				PlayerAy[i].Defence = GameData.DPlayers[i + 1].Defence;
+				PlayerAy[i].Pass = GameData.DPlayers[i + 1].Pass;
+				PlayerAy[i].BodyType = GameData.DPlayers[i + 1].BodyType;
+				PlayerAy[i].AILevel = GameData.DPlayers[i + 1].AILevel;
+				PlayerAy[i].SetAvatar();
 			}
 		}
 	}
@@ -1469,7 +1478,7 @@ public class GameController : MonoBehaviour
         if (BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk){
 			if(Vector3.Distance(BallOwner.transform.position, player.transform.position) <= GameConst.StealBallDistance)
 			{
-				int r = Mathf.RoundToInt(player.Player.Steal - BallOwner.Player.Control);
+				int r = Mathf.RoundToInt(player.Player.Steal - BallOwner.Player.Dribble);
 				int maxRate = 100;
 				int minRate = 10;
 				
@@ -3376,34 +3385,6 @@ public class GameController : MonoBehaviour
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;
 			else
 				PlayerAy[i].AILevel = GameConst.SelfAILevel;
-
-			switch(PlayerAy[i].AILevel)
-			{
-			case 0:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(20, 40) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(20, 40) + 1;
-				break;
-			case 1:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(30, 50) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(30, 50) + 1;
-				break;
-			case 2:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(40, 60) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(40, 60) + 1;
-				break;
-			case 3:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(50, 70) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(50, 70) + 1;
-				break;
-			case 4:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(60, 80) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(60, 80) + 1;
-				break;
-			case 5:
-				PlayerAy[i].Steal = UnityEngine.Random.Range(70, 90) + 1;	
-				PlayerAy[i].Control = UnityEngine.Random.Range(70, 90) + 1;
-				break;
-			}
 
 			PlayerList[i].Player = PlayerAy[i];
 			PlayerList[i].InitAttr();
