@@ -136,7 +136,7 @@ public class UICreateRole : UIBase {
 
 	private void waitCreateRole(bool ok, WWW www) {
 		if (ok) {
-			GameData.SaveTeamSave();
+			GameData.SaveTeam();
 			UIShow(false);
 			UI3D.Get.ShowCamera(false);
 			LobbyStart.Get.EnterLobby();
