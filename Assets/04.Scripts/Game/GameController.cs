@@ -1271,128 +1271,146 @@ public class GameController : MonoBehaviour
     public bool Pass(PlayerBehaviour player, bool IsTee = false, bool IsBtn = false, bool MovePass = false)
     {
 		bool Result = false;
-		if (BallOwner != null && IsPassing == false && (IsShooting == false || IsCanPassAir) && IsDunk == false && player != BallOwner)
-        {
-			if(!(IsBtn || MovePass) && CoolDownPass != 0)
-				return Result;
+		bool CanPass = true;
 
-			if(!IsBtn && BallOwner.NoAiTime > 0)
-				return Result;
-             
-			if(IsTee)
+		if(BallOwner != null && BallOwner.NoAiTime == 0)
+		{
+			if(IsShooting)
 			{
-				if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
+				if(player.Team == TeamKind.Self)
 				{
-					Catcher = player;
-				}												
-			}else if(IsCanPassAir && !IsTee)
+					if(!IsBtn)
+						CanPass = false;
+					else if(!IsCanPassAir)
+						CanPass = false;
+				}
+				else if(player.Team == TeamKind.Npc && !IsCanPassAir)
+					CanPass = false;
+			}
+
+			if (!IsPassing && CanPass && !IsDunk && player != BallOwner)
 			{
-				if(BallOwner.AniState(PlayerState.PassAir, player.transform.position))
+				if(!(IsBtn || MovePass) && CoolDownPass != 0)
+					return Result;
+				
+				if(!IsBtn && BallOwner.NoAiTime > 0)
+					return Result;
+				
+				if(IsTee)
 				{
-					Catcher = player;
-					Result = true;
+					if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
+					{
+						Catcher = player;
+					}												
+				}else if(IsCanPassAir && !IsTee)
+				{
+					if(BallOwner.AniState(PlayerState.PassAir, player.transform.position))
+					{
+						Catcher = player;
+						Result = true;
+					}
+				}
+				else
+				{
+					float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
+					int disKind = GetEnemyDis(ref player);
+					int rate = UnityEngine.Random.Range(0, 2);
+					int passkind = -1;
+					
+					if(dis <= GameConst.FastPassDistance)
+					{
+						Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
+					}
+					else if(dis <= GameConst.CloseDistance)
+					{
+						//Close
+						if(disKind == 1)
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+								passkind = 1;
+							}else{ 
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						} else 
+							if(disKind == 2)
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+								passkind = 0;
+							}else{
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						}						
+						else
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+								passkind = 0;
+							}else{
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						}
+					}else if(dis <= GameConst.MiddleDistance)
+					{
+						//Middle
+						if(disKind == 1)
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+								passkind = 0;
+							}else{
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						} else 
+							if(disKind == 2)
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+								passkind = 1;
+							}else{
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						}						
+						else
+						{
+							if(rate == 1){
+								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
+								passkind = 0;
+							}else{
+								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
+								passkind = 2;
+							}
+						}
+					}else{
+						//Far
+						Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
+						passkind = 1;
+					}
+					
+					if(Result){
+						Catcher = player;
+						
+						//					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
+						//					if(adis <= 1){
+						//						if(passkind == 0)
+						//							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
+						//						else if(passkind == 1)
+						//							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
+						//						else if(passkind == 2)
+						//							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
+						//					}
+						
+						UIGame.Get.DoPassNone();
+					}
 				}
 			}
-			else
-			{
-				float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
-				int disKind = GetEnemyDis(ref player);
-				int rate = UnityEngine.Random.Range(0, 2);
-				int passkind = -1;
-
-				if(dis <= GameConst.FastPassDistance)
-				{
-					Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
-				}
-				else if(dis <= GameConst.CloseDistance)
-				{
-					//Close
-					if(disKind == 1)
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-							passkind = 1;
-						}else{ 
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					} else 
-					if(disKind == 2)
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-							passkind = 0;
-						}else{
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					}						
-					else
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-							passkind = 0;
-						}else{
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					}
-				}else if(dis <= GameConst.MiddleDistance)
-				{
-					//Middle
-					if(disKind == 1)
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-							passkind = 0;
-						}else{
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					} else 
-					if(disKind == 2)
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-							passkind = 1;
-						}else{
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					}						
-					else
-					{
-						if(rate == 1){
-							Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-							passkind = 0;
-						}else{
-							Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-							passkind = 2;
-						}
-					}
-				}else{
-					//Far
-					Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-					passkind = 1;
-				}
-
-				if(Result){
-					Catcher = player;
-
-//					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
-//					if(adis <= 1){
-//						if(passkind == 0)
-//							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
-//						else if(passkind == 1)
-//							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
-//						else if(passkind == 2)
-//							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
-//					}
-
-					UIGame.Get.DoPassNone();
-				}
-			}
-        }
+		}
 
 		return Result;
     }
@@ -2270,39 +2288,82 @@ public class GameController : MonoBehaviour
         return NearPlayer;
     }
 
+	public float GetAngle(PlayerBehaviour Self, PlayerBehaviour Enemy)
+	{
+		Vector3 relative = Self.transform.InverseTransformPoint(Enemy.transform.position);
+		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+	}
+
     private void DefBlock(ref PlayerBehaviour Npc, int Kind = 0)
     {
         if (PlayerList.Count > 0 && !IsPassing)
         {
-            for (int i = 0; i < PlayerList.Count; i++)
-            {
-                PlayerBehaviour Npc2 = PlayerList [i];
+			bool Suc = false;
+			PlayerBehaviour Npc2;
+			int Rate = Random.Range(0, 100);
 
-                if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+			for (int i = 0; i < PlayerList.Count; i++)
+			{
+				Npc2 = PlayerList [i];
+				if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
 				    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
 				    !Npc2.CheckAnimatorSate(PlayerState.Push))
-                {
+				{
 					if(!IsBlocking)
 					{
-						int Rate = Random.Range(0, 100) + 1;
 						int BlockRate = Npc2.Attr.BlockRate;
 						
 						if(Kind == 1)
 							BlockRate = Npc2.Attr.FaketBlockRate;	
 
-						if (GameStart.Get.TestMode == GameTest.Block)
+						float mAngle = GetAngle(Npc, PlayerList [i]);
+
+						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 50)
 						{
-							Npc2.AniState(PlayerState.Block, Npc.transform.position);
-						} else
-						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
-						{
-							if (Rate <= BlockRate)
+							if (Rate < BlockRate)
 							{
-								Npc2.AniState(PlayerState.Block, Npc.transform.position);
+								if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
+								{
+									Suc = true;
+									break;
+								}
 							}
 						}
-					}else
-						break;					
+					}
+				}
+			}
+
+			if(!Suc)
+			{
+				for (int i = 0; i < PlayerList.Count; i++)
+				{                
+					Npc2 = PlayerList [i];
+					
+					if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
+					    !Npc2.CheckAnimatorSate(PlayerState.Push))
+					{
+						if(!IsBlocking)
+						{
+							int BlockRate = Npc2.Attr.BlockRate;
+							
+							if(Kind == 1)
+								BlockRate = Npc2.Attr.FaketBlockRate;	
+							
+							if (GameStart.Get.TestMode == GameTest.Block)
+							{
+								Npc2.AniState(PlayerState.Block, Npc.transform.position);
+							} else
+								if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
+							{
+								if (Rate < BlockRate)
+								{
+									Npc2.AniState(PlayerState.Block, Npc.transform.position);
+								}
+							}
+						}else
+							break;					
+					}
 				}
 			}
 		}

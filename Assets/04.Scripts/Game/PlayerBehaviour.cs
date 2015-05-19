@@ -1223,7 +1223,7 @@ public class PlayerBehaviour : MonoBehaviour
 						
 						if (Data.Catcher)
 						{
-							if ((situation == GameSituation.AttackA || situation == GameSituation.AttackB) && NoAiTime == 0)
+							if ((situation == GameSituation.AttackA || situation == GameSituation.AttackB))
 							{
 								if (GameController.Get.Pass(this, false, false, true))
 									NeedShooting = Data.Shooting;
@@ -1544,7 +1544,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.RunAndDribble:
             case PlayerState.Dribble:
-			if (IsFirstDribble && !CanMove || CanMove || crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1)
+                if (IsFirstDribble && !CanMove || CanMove || (crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1))
                     return true;
                 break;
             
