@@ -138,6 +138,7 @@ public class UICreateRole : UIBase {
 		if (ok) {
 			GameData.SaveTeamSave();
 			UIShow(false);
+			UI3D.Get.ShowCamera(false);
 			LobbyStart.Get.EnterLobby();
 		}
 	}
