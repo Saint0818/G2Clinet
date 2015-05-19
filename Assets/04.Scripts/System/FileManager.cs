@@ -1,5 +1,5 @@
-﻿#define Debug
-//#define Release
+﻿//#define Debug
+#define Release
 using UnityEngine;
 using System;
 using System.IO;
@@ -53,7 +53,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	#endif
 	
 	#if Release
-	public const string URL = "http://baskclub.nicemarket.com.tw/";
+	public const string URL = "http://g2.nicemarket.com.tw/";
 	public const VersionMode NowMode = VersionMode.release;								
 	#endif
 	private const int FileDownloadLimitTime = 30;

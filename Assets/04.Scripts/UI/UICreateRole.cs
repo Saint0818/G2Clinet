@@ -52,13 +52,15 @@ public class UICreateRole : UIBase {
 
 	public void OnCreateRole() {
 		WWWForm form = new WWWForm();
-		form.AddField("PlayerID", 1);
-		
+		form.AddField("PlayerID", GameData.Team.Player.ID);
+		form.AddField("Name", GameData.Team.Player.Name);
+
 		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
 	}
 
 	private void waitCreateRole(bool ok, WWW www) {
 		if (ok) {
+			GameData.SaveTeamSave();
 			UIShow(false);
 			LobbyStart.Get.EnterLobby();
 		}

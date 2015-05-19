@@ -89,6 +89,7 @@ public class GameData {
 			if (save != "") {
 				try {
 					Team = JsonConvert.DeserializeObject <TTeam>(save);
+					Team.Init();
 					return true;
 				} catch (Exception e) {
 					Debug.Log(e.ToString());
@@ -97,5 +98,14 @@ public class GameData {
 		}
 			
 		return false;
+	}
+
+	public static void SaveTeamSave() {
+		try {
+			string save = JsonConvert.SerializeObject(Team);
+			PlayerPrefs.SetString(SettingText.TeamSave, save);
+		} catch (Exception e) {
+			Debug.Log(e.ToString());
+		}
 	}
 }
