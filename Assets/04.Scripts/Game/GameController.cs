@@ -1648,7 +1648,7 @@ public class GameController : MonoBehaviour
 				case PlayerState.BlockCatch:
 					if(player == Joysticker){
 						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData(1f, null, DoubleBlock, player);
+						UIDoubleClick.Get.SetData(0.7f, null, DoubleBlock, player);
 						return true;
 					}
 				break;
