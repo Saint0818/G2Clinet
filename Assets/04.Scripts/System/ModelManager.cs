@@ -402,7 +402,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				//HeadDress
 				if (dummyHead == null) {
 					Transform t = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-					if (tag != null)
+					if (t != null)
 						dummyHead = t.gameObject;
 				}
 

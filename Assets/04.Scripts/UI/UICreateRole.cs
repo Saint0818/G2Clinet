@@ -14,6 +14,7 @@ public class UICreateRole : UIBase {
 	private GameObject[] playerPos;
 
 	private float[] limitAngle;
+	private GameStruct.TAvatar[] tAvatar;
 	private int playerCount = 6;
 	private int currentPlayer = 0;
 
@@ -144,6 +145,7 @@ public class UICreateRole : UIBase {
 	private void init(){
 		playerCount = GameData.DPlayers.Count;
 		limitAngle = new float[playerCount];
+		tAvatar = new GameStruct.TAvatar[playerCount];
 		for(int i=0; i<playerCount; i++) {
 			limitAngle[i] = (360 / playerCount) * i;
 
@@ -153,6 +155,7 @@ public class UICreateRole : UIBase {
 			p.SetAvatar();
 			player.name = i.ToString();
 			player.transform.parent = playerPos[i].transform;
+			tAvatar[i] = p.Avatar;
 			ModelManager.Get.SetAvatar(ref player, p.Avatar, false);
 			player.transform.localPosition = new Vector3(0, -1, 0);
 			player.transform.localEulerAngles = new Vector3(0, 180, 0);
@@ -218,7 +221,7 @@ public class UICreateRole : UIBase {
 				currentPlayer = findNearPlayer(playerCenter.transform.localEulerAngles.y);
 				float angle = limitAngle[currentPlayer];
 				playerCenter.transform.DOLocalRotate(new Vector3(0, angle, 0), 0.5f).OnUpdate(resetPlayerEuler);
-
+				GameData.Team.Player.Avatar = tAvatar[currentPlayer];
 			}
 		}
 		if(isDrag){
