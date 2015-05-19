@@ -1544,7 +1544,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.RunAndDribble:
             case PlayerState.Dribble:
-                if (IsFirstDribble && !CanMove || CanMove)
+			if (IsFirstDribble && !CanMove || CanMove || crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1)
                     return true;
                 break;
             
