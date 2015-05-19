@@ -38,9 +38,10 @@ public class GameData {
 			FileManager.Get.LoadFileResource (DownloadList);
 
 			loadGameSetting();
-
-			Team.Init();
 		}
+		
+		
+		Team.Init();
 	}
 
 	private static void loadGameSetting() {
@@ -100,7 +101,7 @@ public class GameData {
 		return false;
 	}
 
-	public static void SaveTeamSave() {
+	public static void SaveTeam() {
 		try {
 			string save = JsonConvert.SerializeObject(Team);
 			PlayerPrefs.SetString(SettingText.TeamSave, save);

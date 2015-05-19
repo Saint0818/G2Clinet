@@ -423,6 +423,7 @@ public class GameController : MonoBehaviour
 			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList [0].SetMovePower(100);
+				UIGame.Get.ChangeControl(true);
                 break;
             case GameTest.AttackB:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
@@ -633,6 +634,7 @@ public class GameController : MonoBehaviour
 				CourtMgr.Get.SetBallState(PlayerState.Shoot0);
 				CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
 				CourtMgr.Get.RealBallRigidbody.isKinematic = true;
+				UIGame.Get.ChangeControl(true);
 			}
 		}
 
@@ -1215,9 +1217,10 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn) {
             if (Joysticker == BallOwner) {
-				if (isshoot || Joysticker.IsRebound) 
-					Shoot();
-				else
+				if (isshoot || Joysticker.IsRebound) {
+					if (UIDoubleClick.Visible)
+						UIDoubleClick.Get.ClickStop ();
+				} else
 					Joysticker.AniState(PlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
             } else 
 			if (BallOwner && BallOwner.Team == TeamKind.Self) 
@@ -1648,6 +1651,10 @@ public class GameController : MonoBehaviour
 						return true;
 					}
 				break;
+				case PlayerState.Rebound:
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData(1f, DoubleRebound);
+					return true;
 			}
 		}
 
@@ -1683,6 +1690,23 @@ public class GameController : MonoBehaviour
 			SetBall(player);
 			break;
 		}
+	}
+
+	public void DoubleRebound(int lv)
+	{
+		switch (lv) {
+		case 0: 
+			break;
+		case 1: 
+			AddExtraScoreRate(10);
+			Shoot();
+			break;
+		case 2: 
+			AddExtraScoreRate(100);
+			Shoot();
+			break;
+		}
+		
 	}
 	
 	public bool OnBlockJump(PlayerBehaviour player)
@@ -2954,9 +2978,13 @@ public class GameController : MonoBehaviour
 			   (GameStart.Get.TestMode == GameTest.Rebound ||
 			    situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 				if (SetBall(player)) {
-					if (player != Joysticker && inTipinDistance(player) && 
-					    player == BallOwner && Random.Range(0, 100) < player.Attr.TipInRate) 
-						Shoot();
+					if (player == BallOwner && inTipinDistance(player)) {
+						if (player == Joysticker)
+							OnDoubleClickMoment(player, PlayerState.Rebound);
+						else
+						if (Random.Range(0, 100) < player.Attr.TipInRate)
+							Shoot();
+					}
 
 					CoolDownPass = Time.time + 3;
 				}
