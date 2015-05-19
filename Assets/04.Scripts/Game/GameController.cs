@@ -1995,17 +1995,17 @@ public class GameController : MonoBehaviour
 					if(Npc.Team == TeamKind.Npc)
 						AddZ = -6;
 
+					Npc.rotateTo(pos.x, pos.z);
+					Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 					if (Dir == 1)
 					{
 						Npc.transform.DOMoveX(Npc.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 						Npc.AniState(PlayerState.MoveDodge0);
 					}
 					else
 					{
 						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-						Npc.AniState(PlayerState.MoveDodge0);
+						Npc.AniState(PlayerState.MoveDodge1);
 					}
 					CoolDownCrossover = Time.time + 4;
 				}
