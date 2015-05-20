@@ -1656,7 +1656,7 @@ public class GameController : MonoBehaviour
 				break;
 				case PlayerState.Rebound:
 					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData(1f, DoubleRebound);
+					UIDoubleClick.Get.SetData(0.75f, DoubleRebound);
 					return true;
 			}
 		}
