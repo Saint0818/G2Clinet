@@ -26,6 +26,7 @@ public class UIGame : UIBase {
 	public GameJoystick Joystick = null;
 	private GameObject start;
 	private GameObject restart;
+	private GameObject mainMenu;
 	private DrawLine drawLine;
 	private MovingJoystick Move = new MovingJoystick();
 
@@ -144,6 +145,7 @@ public class UIGame : UIBase {
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
 		start = GameObject.Find (UIName + "/Center/StartView");
 		restart = GameObject.Find (UIName + "/Center/ButtonReset");
+		mainMenu = GameObject.Find (UIName + "/Center/ButtonMainMenu");
 		ScoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
@@ -227,9 +229,11 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/Center/ButtonContinue", ContinueGame);
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
+		SetBtnFun (UIName + "/Center/ButtonMainMenu", BackMainMenu);
 
 		Again.SetActive (false);
 		restart.SetActive(false);
+		mainMenu.SetActive(false);
 		Continue.SetActive(false);
 		passObject.SetActive(false);
 		showCoverAttack(false);
@@ -504,9 +508,14 @@ public class UIGame : UIBase {
 //		drawLine.IsShow = false;
 	}
 
+	public void BackMainMenu() {
+		SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+	}
+
 	public void ContinueGame() {
 		Time.timeScale = 1;
 		restart.SetActive(false);
+		mainMenu.SetActive(false);
 		Continue.SetActive(false);
 		ScoreBar.SetActive(false);
 		Joystick.gameObject.SetActive(true);
@@ -515,6 +524,7 @@ public class UIGame : UIBase {
 	public void PauseGame(){
 		Time.timeScale = 0;
 		restart.SetActive(true);
+		mainMenu.SetActive(true);
 		Continue.SetActive(true);
 		ScoreBar.SetActive(true);
 		Joystick.gameObject.SetActive(false);
@@ -548,6 +558,7 @@ public class UIGame : UIBase {
 		ResetGame();
 		Time.timeScale = 1;
 		restart.SetActive(false);
+		mainMenu.SetActive(false);
 		Continue.SetActive(false);
 	}
 
