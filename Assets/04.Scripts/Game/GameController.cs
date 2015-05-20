@@ -1515,22 +1515,19 @@ public class GameController : MonoBehaviour
 				
 				int stealRate = Random.Range(0, 100) + 1;
 				int AddRate = 0;
+				int AddAngle = 0;
 				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
 					AddRate = 30;
 
-				if(Vector3.Distance(BallOwner.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
+				if(Vector3.Distance(BallOwner.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance){
 					AddRate += 40;
+					AddAngle = 90;
+				}
 				
-				Vector3 lookAtPos = player.transform.position;
-				Vector3 relative = BallOwner.transform.InverseTransformPoint(lookAtPos);
-				float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-				
-				if (stealRate <= (r + AddRate) && mangle <= 90 && mangle >= -90)
+				if (stealRate <= (r + AddRate) && Mathf.Abs(GetAngle(BallOwner, player)) <= 90 + AddAngle)
 				{
-					if(BallOwner)
-						BallOwner.AniState(PlayerState.GotSteal);
-
-					return true;
+					if(BallOwner && BallOwner.AniState(PlayerState.GotSteal))
+						return true;
 				}else
 					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
 				{
