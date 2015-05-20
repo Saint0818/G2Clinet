@@ -250,25 +250,27 @@ public class RPGMotor : MonoBehaviour {
 
 	/* Align the character with the camera if "align" is true and play a additionally shuffle animations if "fireAnimation" is true */
 	public void AlignCharacterWithCamera(bool align, bool fireAnimation) {
-		bool cameraControlIsActivated = _rpgCamera.getActivateCameraControl();
-		
-		_shuffleViaFire2 = false;
-		
-		if (align && cameraControlIsActivated) {
-			if (fireAnimation) {
-				_shuffleViaFire2 = true;
+		if (_rpgCamera) {
+			bool cameraControlIsActivated = _rpgCamera.getActivateCameraControl();
+			
+			_shuffleViaFire2 = false;
+			
+			if (align && cameraControlIsActivated) {
+				if (fireAnimation) {
+					_shuffleViaFire2 = true;
+				}
+				// Set the characters Y rotation to the camera's Y rotation so that they look in the same direction
+				transform.eulerAngles = new Vector3(transform.eulerAngles.x, _rpgCamera.getUsedCamera().transform.eulerAngles.y, transform.eulerAngles.z);
 			}
-			// Set the characters Y rotation to the camera's Y rotation so that they look in the same direction
-			transform.eulerAngles = new Vector3(transform.eulerAngles.x, _rpgCamera.getUsedCamera().transform.eulerAngles.y, transform.eulerAngles.z);
 		}
 	}
 	
 	public bool getActivateCameraControl() {
-		return _rpgCamera.getActivateCameraControl();
+		return _rpgCamera && _rpgCamera.getActivateCameraControl();
 	}
 	
 	public bool getAlwaysRotateCamera() {
-		return _rpgCamera.getAlwaysRotateCamera();
+		return _rpgCamera && _rpgCamera.getAlwaysRotateCamera();
 	}
 
 	public void MoveTo() {

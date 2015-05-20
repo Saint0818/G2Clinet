@@ -34,6 +34,16 @@ public class UI3D : UIBase {
 		}
 	}
 
+	public static bool Visible
+	{
+		get {
+			if (instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
+		}
+	}
+
 	protected override void InitCom() {
 		Camera3D = GameObject.Find(UIName + "/3DCamera").GetComponent<Camera>();
 	}

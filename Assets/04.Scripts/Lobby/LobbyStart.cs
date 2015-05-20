@@ -10,6 +10,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private RPGMotor myPlayer;
 	private GameObject moveToObject;
 
+	private TTeam[] scenePlayers;
+
 	void Start () {
 		if (ConnectToServer && SendHttp.Get.CheckNetwork()) {
 			WWWForm form = new WWWForm();
@@ -87,8 +89,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 	}
 
-	private void waitDeviceLogin(bool flag, WWW www)
-	{
+	private void waitDeviceLogin(bool flag, WWW www) {
 		if (flag) {
 			try {
 				string text = GSocket.Get.OnHttpText(www.text);
@@ -105,6 +106,17 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			}
 		} else
 			Application.LoadLevel(GameConst.SceneGamePlay);
+	}
+
+	private void waitScenePlayer(bool flag, WWW www) {
+		if (flag) {
+			try {
+			scenePlayers = JsonConvert.DeserializeObject <TTeam[]>(www.text);
+			initScenePlayers();
+			} catch (Exception e) {
+				Debug.Log(e.ToString());
+			}
+		}
 	}
 
 	private void SendLogin() {
@@ -148,7 +160,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 					if (vf != null)
 						vf.FadeOutAlpha = 1;
 					
-					player.AddComponent<RPGController>();
+					RPGController rpgController = player.AddComponent<RPGController>();
+					rpgController.AcceptInput = true;
 					myPlayer = player.GetComponent<RPGMotor>();
 					myPlayer.Target = player.transform.position;
 
@@ -163,53 +176,89 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 		return false;
     }
-    
-    private void createMyPlayer() {
-        if (!myPlayer) {
-            GameData.Init();
-            GameObject Res = new GameObject();
-            Res.name = "Myself";
-			Res.layer = LayerMask.NameToLayer ("Player");
 
-			ModelManager.Get.SetAvatar (ref Res, GameData.Team.Player.Avatar, true);
-			Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
-			Res.transform.localPosition = Vector3.zero;
-
-			CapsuleCollider cc = Res.GetComponent<CapsuleCollider>();
-			if (cc != null)
-				cc.enabled = false;
-
-			GameObject DummyBall = GameObject.Find("PlayerInfoModel/Myself/DummyBall");
-			if (DummyBall) 
-				DummyBall.SetActive(false);
-
-			GameObject obj = Resources.Load("Prefab/Lobby/Projector") as GameObject;
-			if (obj) {
-				GameObject obj1 = Instantiate(obj);
-				obj1.name = "Projector";
-				obj1.transform.parent = Res.transform;
-				obj1.transform.localScale = Vector3.one;
-				obj1.transform.localPosition = Vector3.zero;
-			}
-
-			obj = Resources.Load("Prefab/Lobby/Follow") as GameObject;
-			if (obj) {
-				GameObject obj2 = Instantiate(obj);
-				obj2.name = "Follow";
-				obj2.transform.parent = Res.transform;
-				obj2.transform.localScale = Vector3.one;
-				obj2.transform.localPosition = Vector3.zero;
-			}
-			
-			addRPGController(Res);
+	private void initScenePlayers(){
+		for (int i = 0; i < scenePlayers.Length; i ++) {
+			scenePlayers[i].Player.SetAvatar();
+			GameObject player = createScenePlayer(ref scenePlayers[i].Player);
+			player.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
+			player.transform.eulerAngles = new Vector3(0, 90, 0);
+			player.AddComponent<RPGController>();
+			CharacterController c = player.GetComponent<CharacterController>();
+			if (c != null) 
+				c.center = new Vector3(0, 1.25f, 0);
 		}
 	}
 
-	public void EnterLobby() {
+	private GameObject createScenePlayer(ref TPlayer player) {
+		GameObject Res = new GameObject();
+		Res.name = player.Name;
+		Res.layer = LayerMask.NameToLayer ("Player");
+		
+		ModelManager.Get.SetAvatar (ref Res, player.Avatar, true);
+		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
+		Res.transform.localPosition = Vector3.zero;
+		
+		CapsuleCollider cc = Res.GetComponent<CapsuleCollider>();
+		if (cc != null)
+			cc.enabled = false;
+
+		GameObject DummyBall = GameObject.Find("PlayerInfoModel/Myself/DummyBall");
+		if (DummyBall) 
+			DummyBall.SetActive(false);
+		
+		GameObject obj = Resources.Load("Prefab/Lobby/Projector") as GameObject;
+		if (obj) {
+			GameObject obj1 = Instantiate(obj);
+			obj1.name = "Projector";
+			obj1.transform.parent = Res.transform;
+			obj1.transform.localScale = Vector3.one;
+			obj1.transform.localPosition = Vector3.zero;
+		}
+
+		obj = Resources.Load("Prefab/Lobby/PlayerName") as GameObject;
+		if (obj) {
+			GameObject obj1 = Instantiate(obj);
+			obj1.name = "PlayerName";
+			UILabel label = obj1.GetComponentInChildren<UILabel>();
+			if (label)
+				label.text = player.Name;
+
+			obj1.transform.parent = Res.transform;
+			obj1.transform.localScale = new Vector3(0.004f, 0.004f, 0.004f);
+			obj1.transform.localPosition = new Vector3(0, 3.5f, 0);
+		}
+
+		return Res;
+    }
+    
+    private void createMyPlayer() {
+        if (!myPlayer) {
+			GameObject player = createScenePlayer(ref GameData.Team.Player);
+			player.name = "Myself";
+			player.transform.eulerAngles = new Vector3(0, 90, 0);
+            GameObject obj = Resources.Load("Prefab/Lobby/Follow") as GameObject;
+			if (obj) {
+				GameObject obj2 = Instantiate(obj);
+				obj2.name = "Follow";
+				obj2.transform.parent = player.transform;
+				obj2.transform.localScale = Vector3.one;
+				obj2.transform.localPosition = Vector3.zero;
+            }
+           
+            addRPGController(player);
+		}
+	}
+	
+    public void EnterLobby() {
 		try {
+			GameData.Init();
 			UIMain.UIShow(true);
 			createMyPlayer();
-			UI3D.Get.ShowCamera(false);
+			WWWForm form = new WWWForm();
+			SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
+			if (UI3D.Visible)
+				UI3D.Get.ShowCamera(false);
 		}
 		catch (Exception e)
 		{

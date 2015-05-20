@@ -15,12 +15,10 @@ public static class URLConst {
 	public const string GetVersion = "getversion";
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
-	public const string Signup = "signup";
-	public const string Login = "login";
-	public const string FBLogin = "fblogin";
 	public const string LinkFB = "linkfb";
 	public const string CreateRole = "createrole";
 	public const string TeamName = "teamname";
+	public const string ScenePlayer = "sceneplayer";
 	public const string Conference = "conference";
 	public const string PVPAward = "pvpaward";
 	public const string IsSeePVPList = "isseepvplist";

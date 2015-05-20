@@ -1326,7 +1326,7 @@ public class GameController : MonoBehaviour
 					int rate = UnityEngine.Random.Range(0, 2);
 					int passkind = -1;
 					
-					if(dis <= GameConst.FastPassDistance || (player.crtState == PlayerState.Alleyoop))
+					if(dis <= GameConst.FastPassDistance || player.crtState == PlayerState.Alleyoop)
 					{
 						Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
 					}
@@ -2772,7 +2772,9 @@ public class GameController : MonoBehaviour
 				Catcher = null;
 				for(int i = 0 ; i < PlayerList.Count; i++)
 					PlayerList[i].ClearAutoFollowTime();
-				BallOwner.DefPlayer.SetAutoFollowTime();
+
+				if (BallOwner && BallOwner.DefPlayer)
+					BallOwner.DefPlayer.SetAutoFollowTime();
 
 				if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
 				{
