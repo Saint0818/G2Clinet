@@ -21,9 +21,13 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			else 
 				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 		}
-	}
 
-	void FixedUpdate() {
+		GameData.Init();
+		TextConst.Init();
+		SceneMgr.Get.CurrentScene = SceneName.Lobby;
+    }
+    
+    void FixedUpdate() {
 		if (rpgCamera != null && rpgCamera.UsedCamera != null && Input.GetMouseButtonDown(0)) {
 			Ray ray1 = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;  

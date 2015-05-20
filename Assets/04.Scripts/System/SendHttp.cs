@@ -1,4 +1,4 @@
-﻿#define ShowHttpLog
+﻿//#define ShowHttpLog
 using UnityEngine;
 using System;
 using System.Collections;

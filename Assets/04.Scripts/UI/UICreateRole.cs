@@ -125,25 +125,22 @@ public class UICreateRole : UIBase {
 	}
 
 	public void OnCreateRole() {
-		WWWForm form = new WWWForm();
-		GameData.Team.Player.ID = GameData.DPlayers[currentPlayer+1].ID;
-		GameData.Team.Player.Name = labelName.text;
-		form.AddField("PlayerID", GameData.Team.Player.ID);
-		form.AddField("Name", GameData.Team.Player.Name);
-		
-		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
+		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
+			WWWForm form = new WWWForm();
+			GameData.Team.Player.ID = GameData.DPlayers[currentPlayer+1].ID;
+			GameData.Team.Player.Name = labelName.text;
+			form.AddField("PlayerID", GameData.Team.Player.ID);
+			form.AddField("Name", GameData.Team.Player.Name);
+			
+			SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
+		}
 	}
 
 	private void waitCreateRole(bool ok, WWW www) {
 		if (ok) {
 			GameData.SaveTeam();
 			UIShow(false);
-			if(GameStart.Get.SceneMode == SceneTest.Release)
-			{
-				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
-			}
-			else
-				LobbyStart.Get.EnterLobby();
+			LobbyStart.Get.EnterLobby();
 		}
 	}
 
@@ -224,9 +221,11 @@ public class UICreateRole : UIBase {
 			isDrag = false;
 			if(!isRotateLeft && !isRotateRight) {
 				currentPlayer = findNearPlayer(playerCenter.transform.localEulerAngles.y);
-				float angle = limitAngle[currentPlayer];
-				playerCenter.transform.DOLocalRotate(new Vector3(0, angle, 0), 0.5f).OnUpdate(resetPlayerEuler);
-				GameData.Team.Player.Avatar = tAvatar[currentPlayer];
+				if (currentPlayer >= 0 && currentPlayer < limitAngle.Length && currentPlayer < tAvatar.Length){
+					float angle = limitAngle[currentPlayer];
+					playerCenter.transform.DOLocalRotate(new Vector3(0, angle, 0), 0.5f).OnUpdate(resetPlayerEuler);
+					GameData.Team.Player.Avatar = tAvatar[currentPlayer];
+				}
 			}
 		}
 		if(isDrag){
