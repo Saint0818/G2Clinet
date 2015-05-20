@@ -105,7 +105,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
-		cameraFx.farClipPlane = 500;
+		cameraFx.farClipPlane = 1500;
 		cameraFx.fieldOfView = zoomNormal;
 		cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 
 							   1 << LayerMask.NameToLayer("Default") | 
