@@ -2320,25 +2320,34 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool HoldBallCanMove
-    {
-        get
-        {
-            if (CheckAnimatorSate(PlayerState.HoldBall) && IsFirstDribble)
-                return true;
-            else
-                return false;
-        }
-    }
-        
-    public void ClearIsCatcher()
-    {
-//        DelActionFlag(ActionFlag.IsCatcher);
-    }
-
-    public bool IsCatcher
-    {
-        get{ return CheckAnimatorSate(PlayerState.CatchFlat);}
+	public bool CanMoveFirstDribble{
+		get{
+			if(CheckAnimatorSate(PlayerState.HoldBall) && IsFirstDribble)
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	public bool HoldBallCanMove
+	{
+		get
+		{
+			if (CheckAnimatorSate(PlayerState.HoldBall) && IsFirstDribble)
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	public void ClearIsCatcher()
+	{
+		//        DelActionFlag(ActionFlag.IsCatcher);
+	}
+	
+	public bool IsCatcher
+	{
+		get{ return CheckAnimatorSate(PlayerState.CatchFlat);}
     }
 
     public bool IsCanCatchBall

@@ -138,6 +138,7 @@ public class UIDoubleClick : UIBase {
 		if(isShow)
 			Init();
 	}
+
 	private void SetLv(int index)
 	{
 		for (int i = 0; i < lvSprite.Length; i++) {

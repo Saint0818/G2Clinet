@@ -24,9 +24,9 @@ public class PushTrigger : MonoBehaviour {
 					int rate = UnityEngine.Random.Range(0, 100);
 					
 					if(rate < faller.Attr.StrengthRate)
-						faller.AniState(PlayerState.Fall2);
+						faller.AniState(PlayerState.Fall2, pusher.transform.position);
 					else
-						faller.AniState(PlayerState.Fall1);
+						faller.AniState(PlayerState.Fall1, pusher.transform.position);
 
 
 					gameObject.SetActive(false);

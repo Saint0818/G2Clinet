@@ -50,8 +50,10 @@ public class BlockTrigger : MonoBehaviour {
 						gameObject.SetActive (false);
 					}
 				}
-			}else
+			}else{
+				blocker.IsPerfectBlockCatch = true;
 				CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
+			}
 		}
 	}
 }

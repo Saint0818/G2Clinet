@@ -498,7 +498,7 @@ public class GameController : MonoBehaviour
 			PlayerList [i].OnDoubleClickMoment = OnDoubleClickMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
-			PlayerList [i].OnBlockCatching = OnBlockCatching;
+//			PlayerList [i].OnBlockCatching = OnBlockCatching;
 //			PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
@@ -1599,68 +1599,44 @@ public class GameController : MonoBehaviour
 
 	public bool OnDoubleClickMoment(PlayerBehaviour player, PlayerState state)
 	{
-		if (player.Team == TeamKind.Self) {
+		if (player.Team == TeamKind.Self && !UIDoubleClick.Visible) {
 			switch (state) {
 				case PlayerState.Shoot0:
-					if(player.Team == TeamKind.Self){
-						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
-						return true;
-					}
-					break;
-				case PlayerState.Shoot1:
-					if(player.Team == TeamKind.Self){
-						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1.23f, DoubleShoot);
-						return true;
-					}
-				break;
-				case PlayerState.Shoot2:
-					if(player.Team == TeamKind.Self){
-						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
-						return true;
-					}
-				break;
-			case PlayerState.Shoot3:
-				if(player.Team == TeamKind.Self){
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				}
-				break;
-			case PlayerState.Shoot6:
-					if(player.Team == TeamKind.Self){
-						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
-						return true;
-					}
-					break;
-
+				case PlayerState.Shoot1:
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData( 1.23f, DoubleShoot);
+					return true;
+				case PlayerState.Shoot2:
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					return true;
+				case PlayerState.Shoot3:
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					return true;
+				case PlayerState.Shoot6:
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					return true;
 				case PlayerState.Layup:
-				if(player.Team == TeamKind.Self){
 					UIDoubleClick.Get.SetData(1.3f, DoubleShoot);
 					UIDoubleClick.UIShow(true);
-
 					return true;
-				}
-				break;
 
 				case PlayerState.Block:
 				case PlayerState.BlockCatch:
-					if(player == Joysticker){
-						UIDoubleClick.UIShow(true);
-						UIDoubleClick.Get.SetData(0.7f, null, DoubleBlock, player);
-						return true;
-					}
-				break;
+					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData(0.7f, null, DoubleBlock, player);
+					return true;
 				case PlayerState.Rebound:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData(0.75f, DoubleRebound);
 					return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -1742,15 +1718,6 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-	public bool OnBlockCatching(PlayerBehaviour player) {
-		if (!BallOwner) {
-			SetBall(player);
-			return true;
-		}
-
-		return false;
-	}
-
 //    public bool OnBlocking(PlayerBehaviour player)
 //    {
 //        int blockRate = UnityEngine.Random.Range(0, 100);
@@ -1791,10 +1758,7 @@ public class GameController : MonoBehaviour
 			if(Joysticker.crtState == PlayerState.Block && Joysticker.IsPerfectBlockCatch){
 				Joysticker.AniState(PlayerState.BlockCatch);
 				if(UIDoubleClick.Visible)
-				{
 					UIDoubleClick.Get.ClickStop();
-				}
-//				EffectManager.Get.PlayEffect("DoubleClick02", Vector3.zero, null, Joysticker.gameObject, 1);
 			}else{
 				if (Shooter)
 	                Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
@@ -1863,7 +1827,7 @@ public class GameController : MonoBehaviour
 
     public void OnJoystickMove(MovingJoystick move)
     {
-		if (Joysticker && (CanMove || Joysticker.IsFirstDribble))
+		if (Joysticker && (CanMove || Joysticker.CanMoveFirstDribble))
         {
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
