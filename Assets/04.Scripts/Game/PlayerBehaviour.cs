@@ -21,8 +21,9 @@ public enum PlayerState
     Dunk = 8,
     Fall0 = 9,
     Fall1 = 10,
-    BlockCatch = 11,
-    Layup = 12, 
+    Fall2 = 11,
+    BlockCatch = 12,
+    Layup = 13, 
     Steal = 14,
     GotSteal = 15,
     PassFlat = 16,
@@ -1533,6 +1534,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Fall0:
             case PlayerState.Fall1:
+            case PlayerState.Fall2:
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
                     (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || 
                     crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
@@ -1724,6 +1726,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case PlayerState.Fall0:
             case PlayerState.Fall1:
+            case PlayerState.Fall2:
 				switch (state)
 				{
 					case PlayerState.Fall0:
@@ -1732,7 +1735,10 @@ public class PlayerBehaviour : MonoBehaviour
 					case PlayerState.Fall1:
 						stateNo = 1;
 						break;
-				}
+					case PlayerState.Fall2:
+						stateNo = 2;
+						break;
+			}
 				curveName = string.Format("Fall{0}", stateNo);
 				playerFallCurve = null;
 
@@ -1746,7 +1752,7 @@ public class PlayerBehaviour : MonoBehaviour
 				isDunk = false;
 				isShootJump = false;
 				ClearAnimatorFlag();
-				animator.SetInteger("StateNo", 0);
+				animator.SetInteger("StateNo", stateNo);
 				animator.SetTrigger("FallTrigger");
 				isCanCatchBall = false;
                 gameObject.transform.DOLocalMoveY(0, 1f);
@@ -2279,6 +2285,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.FakeShoot,
                 PlayerState.Fall0,
                 PlayerState.Fall1,
+                PlayerState.Fall2,
                 PlayerState.HoldBall,
                 PlayerState.GotSteal,
                 PlayerState.PassFlat,

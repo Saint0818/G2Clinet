@@ -27,12 +27,12 @@ public class BlockTrigger : MonoBehaviour {
 								{
 									GameController.Get.SetBall();
 									CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
-									faller.AniState(PlayerState.Fall0);
+									faller.AniState(PlayerState.Fall1);
 									gameObject.SetActive (false);
 								}
 							}
 							else{
-								faller.AniState(PlayerState.Fall0);
+								faller.AniState(PlayerState.Fall1);
 								gameObject.SetActive (false);
 							}
 						}
@@ -46,7 +46,7 @@ public class BlockTrigger : MonoBehaviour {
 					if(faller.IsCanBlock && !faller.IsTee){
 						GameController.Get.SetBall();
 						CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
-						faller.AniState(PlayerState.Fall0);
+						faller.AniState(PlayerState.Fall1);
 						gameObject.SetActive (false);
 					}
 				}
