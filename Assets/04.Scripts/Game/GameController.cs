@@ -1308,6 +1308,7 @@ public class GameController : MonoBehaviour
 					if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
 					{
 						Catcher = player;
+						Result = true;
 					}												
 				}else if(IsCanPassAir && !IsTee)
 				{
@@ -2771,6 +2772,9 @@ public class GameController : MonoBehaviour
 				Passer = null;
 				Shooter = null;
 				Catcher = null;
+				for(int i = 0 ; i < PlayerList.Count; i++)
+					PlayerList[i].ClearAutoFollowTime();
+				BallOwner.DefPlayer.SetAutoFollowTime();
 
 				if(situation == GameSituation.AttackA || situation == GameSituation.AttackB)
 				{

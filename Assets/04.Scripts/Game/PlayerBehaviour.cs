@@ -241,8 +241,9 @@ public class PlayerBehaviour : MonoBehaviour
     public float fracJourney = 0;
     public int MoveIndex = -1;
     public bool isJoystick = false;
-    public float CloseDef = 0;
+    
     public PlayerBehaviour DefPlayer = null;
+	public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
 	public GameStruct.TPlayerAttribute Attr;
@@ -635,9 +636,10 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
 
-                if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= 12)
+                if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.TreePointDistance)
                 {
                     AutoFollow = false;
+					SetAutoFollowTime();
                 }                   
             }
 
@@ -1106,15 +1108,24 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Data.DefPlayer != null)
         {
-			Vector3 aP1 = Data.DefPlayer.transform.position;
-			Vector3 aP2 = CourtMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
-			Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
-			if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
+			if(Data.DefPlayer.Index == Index && AutoFollow)
 			{
-				Result.x = gameObject.transform.position.x;
-				Result.y = gameObject.transform.position.z;
-			}else
+				Result.x = Data.DefPlayer.transform.position.x;
+				Result.y = Data.DefPlayer.transform.position.z;
 				ResultBool = true;
+			}
+			else
+			{
+				Vector3 aP1 = Data.DefPlayer.transform.position;
+				Vector3 aP2 = CourtMgr.Get.Hood[Data.DefPlayer.Team.GetHashCode()].transform.position;
+				Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
+				if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
+				{
+					Result.x = gameObject.transform.position.x;
+					Result.y = gameObject.transform.position.z;
+				}else
+					ResultBool = true;
+			}
         } 
 		else if (Data.FollowTarget != null)
 		{
@@ -2245,6 +2256,12 @@ public class PlayerBehaviour : MonoBehaviour
 			CloseDef = Time.time + Attr.AutoFollowTime;
         }           
     }
+
+	public void ClearAutoFollowTime()
+	{
+		CloseDef = 0;
+		AutoFollow = false;
+	}
 
     public bool CanMove
     {
