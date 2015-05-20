@@ -121,9 +121,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	{	
 		if (GameData.Team.Player.Lv == 0)
 			UICreateRole.UIShow(true);
-		else {
+		else 
 			EnterLobby();
-		}
 	}
 
 	private bool addRPGController(GameObject player) {

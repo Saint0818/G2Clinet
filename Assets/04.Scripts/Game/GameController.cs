@@ -1218,10 +1218,13 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn) {
             if (Joysticker == BallOwner) {
-				if (isshoot || Joysticker.IsRebound) {
+				if (Joysticker.IsRebound) {
 					if (UIDoubleClick.Visible)
 						UIDoubleClick.Get.ClickStop ();
 				} else
+				if (isshoot)
+					Shoot ();
+				else
 					Joysticker.AniState(PlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
             } else 
 			if (BallOwner && BallOwner.Team == TeamKind.Self) 
@@ -1321,7 +1324,7 @@ public class GameController : MonoBehaviour
 					int rate = UnityEngine.Random.Range(0, 2);
 					int passkind = -1;
 					
-					if(dis <= GameConst.FastPassDistance)
+					if(dis <= GameConst.FastPassDistance || (player.crtState == PlayerState.Alleyoop))
 					{
 						Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
 					}
