@@ -9,11 +9,16 @@ public class UIDoubleClick : UIBase {
 	private const string UIName = "UIDoubleClick";
 
 	private float framSpeed = 0;
+	private float framSpeed2 = 0;
 	private float speed = 1f;
+	private float SecondSpeed = 1f;
+	private float SecondSpeedRate = 0.8f;
 	private bool isStart = true;
 	private Vector2 size;
-	private UISprite checkCircle;
+	private Vector2 size2;
+	private Vector2 SecondStartSize;
 
+	private UISprite[] checkCircle = new UISprite[2];
 	private UISprite[] lvSprite = new UISprite[3];  
 
 
@@ -50,12 +55,16 @@ public class UIDoubleClick : UIBase {
 	public void Init()
 	{
 		if (instance) {
-			checkCircle.width = 800;
-			checkCircle.height = 800;
+			checkCircle[0].width = 800;
+			checkCircle[0].height = 800;
+			checkCircle[1].width = 800;
+			checkCircle[1].height = 800;
 			size = new Vector2 (800, 800);
+			size2 = new Vector2 (800, 800);
+			SecondStartSize = size * SecondSpeedRate;
 			isStart = true;
 			SetLv(-1);
-
+			checkCircle[1].gameObject.SetActive(false);
 		}
 	}
 
@@ -63,8 +72,22 @@ public class UIDoubleClick : UIBase {
 	{
 		if (isStart) {
 			size -= Vector2.one * framSpeed;
-			checkCircle.width = (int)size.x;
-			checkCircle.height = (int)size.y;
+			checkCircle[0].width = (int)size.x;
+			checkCircle[0].height = (int)size.y;
+
+			Debug.Log("size0 : " + size);
+			if(size.x < SecondStartSize.x){
+				checkCircle[1].gameObject.SetActive(true);
+				size2 -= Vector2.one * framSpeed2;
+				checkCircle[1].width = (int)size2.x;
+				checkCircle[1].height = (int)size2.y;
+				if(size2.x <= 0){
+					checkCircle[1].gameObject.SetActive(false);
+				}
+				Debug.Log("size2 : " + size);
+				
+			}
+
 			if(size.x <= 0){
 				isStart = false;
 				if(finsh != null)
@@ -83,6 +106,8 @@ public class UIDoubleClick : UIBase {
 		crtPlayer = player;
 		speed = value;
 		framSpeed = 800 / (speed * 30);
+		framSpeed2 = 800 / (speed * 30 * SecondSpeedRate);
+		Debug.Log (framSpeed + " : " + framSpeed2);
 	}
 
 	private void CheckLv()
@@ -103,7 +128,8 @@ public class UIDoubleClick : UIBase {
 			lvSprite[i] = GameObject.Find (name).GetComponent<UISprite>();
 		}
 
-		checkCircle = GameObject.Find (UIName + "/SceneClick/CheckCircle").GetComponent<UISprite> ();
+		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
+		checkCircle[1] = GameObject.Find (UIName + "/SceneClick/CheckCircle1").GetComponent<UISprite> ();
 	}
 
 	protected override void OnShow (bool isShow)
