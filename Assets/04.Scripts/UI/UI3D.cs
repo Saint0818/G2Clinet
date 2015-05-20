@@ -57,7 +57,7 @@ public class UI3D : UIBase {
  				transform.eulerAngles = new Vector3(0, 90, 0);
 //				UICreateRole.UIShow(true);
 //				gameObject.transform.position = new Vector3 (-12, 4, -4.6f);
-				gameObject.transform.position = new Vector3 (0, 4, 0);
+				gameObject.transform.position = new Vector3 (0, 1, 0);
 				UICreateRole.Get.gameObject.transform.localEulerAngles = new Vector3(15, 0, 0);;
 
 				Camera3D.transform.localPosition = new Vector3(0, 0, -700);

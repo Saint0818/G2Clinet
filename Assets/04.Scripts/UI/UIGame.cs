@@ -359,7 +359,10 @@ public class UIGame : UIBase {
 
 	//Defence
 	public void DoBlock() {
-		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
+		if(isCanDefenceBtnPress && 
+		   !GameController.Get.Joysticker.IsFall && 
+		   GameController.Get.situation == GameSituation.AttackB
+		   ) {
 			showCoverDefence(true);
 			coverDefence[0].SetActive(false);
 			GameController.Get.DoBlock();
@@ -368,7 +371,11 @@ public class UIGame : UIBase {
 	}
 
 	public void DoSteal(){
-		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall && GameController.Get.StealBtnLiftTime <= 0) {
+		if(isCanDefenceBtnPress && 
+		   !GameController.Get.Joysticker.IsFall &&
+		   GameController.Get.situation == GameSituation.AttackB && 
+		   GameController.Get.StealBtnLiftTime <= 0
+		   ) {
 			showCoverDefence(true);
 			coverDefence[1].SetActive(false);
 			StealFX();
@@ -378,7 +385,10 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPush(){
-		if(isCanDefenceBtnPress && !GameController.Get.Joysticker.IsFall) {
+		if(isCanDefenceBtnPress && 
+		   !GameController.Get.Joysticker.IsFall &&
+		   (GameController.Get.situation == GameSituation.AttackB || GameController.Get.situation == GameSituation.AttackA)
+		   ) {
 			showCoverDefence(true);
 			showCoverAttack(true);
 			coverAttack[2].SetActive(false);
@@ -403,7 +413,12 @@ public class UIGame : UIBase {
 				UIDoubleClick.Get.ClickStop ();
 			}
 		} else {
-			if(!GameController.Get.Joysticker.IsFall) {
+			if(GameController.Get.situation == GameSituation.AttackA && 
+			   !GameController.Get.Joysticker.IsFall && 
+			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge0) && 
+			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 
+			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.Block)
+			   ) {
 				if(state){
 					ShootFX();
 				}else 
@@ -424,7 +439,9 @@ public class UIGame : UIBase {
 	}
 
 	public void DoElbow(){
-		if(isPressElbowBtn && !GameController.Get.Joysticker.IsFall) {
+		if(isPressElbowBtn && 
+		   !GameController.Get.Joysticker.IsFall && 
+		   GameController.Get.situation == GameSituation.AttackA) {
 			coverDefence[2].SetActive(false);
 			coverAttack[2].SetActive(false);
 			showCoverAttack(true);
@@ -435,7 +452,9 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassChoose (GameObject obj, bool state) {
-		if(GameController.Get.Joysticker.IsBallOwner && !GameController.Get.Joysticker.IsFall) {
+		if(GameController.Get.Joysticker.IsBallOwner && 
+		   !GameController.Get.Joysticker.IsFall && 
+		   GameController.Get.situation == GameSituation.AttackA) {
 			passObject.SetActive(state);
 			if (state) {
 				SetPassButton(3);
