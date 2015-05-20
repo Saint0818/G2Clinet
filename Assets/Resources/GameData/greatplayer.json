@@ -18,11 +18,11 @@
         "ailevel": 0,
         "body": 2001,
         "hair": 2001,
+        "aheaddress": 0,
         "cloth": 5001,
         "pants": 6001,
         "shoes": 1001,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     },
     {
@@ -43,12 +43,12 @@
         "bodytype": 0,
         "ailevel": 1,
         "body": 2001,
-        "hair": 2001,
+        "hair": 3001,
+        "aheaddress": 0,
         "cloth": 5001,
         "pants": 6001,
         "shoes": 1001,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     },
     {
@@ -69,12 +69,12 @@
         "bodytype": 0,
         "ailevel": 2,
         "body": 2001,
-        "hair": 2001,
+        "hair": 2002,
+        "aheaddress": 0,
         "cloth": 5001,
         "pants": 6001,
         "shoes": 1001,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     },
     {
@@ -94,13 +94,13 @@
         "pass": 124,
         "bodytype": 0,
         "ailevel": 3,
-        "body": 2001,
+        "body": 2002,
         "hair": 2002,
+        "aheaddress": 0,
         "cloth": 5002,
         "pants": 6002,
         "shoes": 1002,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     },
     {
@@ -120,13 +120,13 @@
         "pass": 125,
         "bodytype": 0,
         "ailevel": 4,
-        "body": 2001,
-        "hair": 2002,
+        "body": 2002,
+        "hair": 3002,
+        "aheaddress": 0,
         "cloth": 5002,
         "pants": 6002,
         "shoes": 1002,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     },
     {
@@ -146,13 +146,13 @@
         "pass": 126,
         "bodytype": 0,
         "ailevel": 5,
-        "body": 2001,
-        "hair": 2002,
+        "body": 2002,
+        "hair": 3001,
+        "aheaddress": 0,
         "cloth": 5002,
         "pants": 6002,
         "shoes": 1002,
         "mhanddress": 0,
-        "aheaddress": 0,
         "zbackequip": 0
     }
 ]
