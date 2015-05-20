@@ -1161,6 +1161,7 @@ public class GameController : MonoBehaviour
 		{                   
 			Shooter = player;
 			SetBallOwnerNull();
+			UIGame.Get.SetPassButton(0);
 			for(int i = 0; i < PlayerList.Count; i++)
 				if(PlayerList[i] != Shooter)
 					PlayerList[i].ResetMove();
@@ -3474,6 +3475,9 @@ public class GameController : MonoBehaviour
 
 	public void SetPlayerLevel(){
 		PlayerPrefs.SetFloat("AIChangeTime", GameData.Setting.AIChangeTime);
+		if(GameData.Setting.AIChangeTime > 100) {
+			Joysticker.SetNoAiTime();
+		}
 		for(int i=0; i<PlayerList.Count; i++) {
 			if(i >= 3)
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;
