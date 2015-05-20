@@ -22,6 +22,8 @@ public class GameData {
 	public static string SaveVersion;
 	public static TTeam Team;
 	public static TGameSetting Setting;
+	public static float ExtraGoodRate = 5;
+	public static float ExtraGreatRate = 5;
 
 	private static bool isLoaded = false;
 	public static void Init()

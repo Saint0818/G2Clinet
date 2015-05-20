@@ -1670,10 +1670,10 @@ public class GameController : MonoBehaviour
 			case 0: 
 				break;
 			case 1: 
-				AddExtraScoreRate(10);
+				AddExtraScoreRate(GameData.ExtraGoodRate);
 				break;
 			case 2: 
-				AddExtraScoreRate(100);
+				AddExtraScoreRate(GameData.ExtraGreatRate);
 				break;
 		}
 
@@ -1701,11 +1701,11 @@ public class GameController : MonoBehaviour
 		case 0: 
 			break;
 		case 1: 
-			AddExtraScoreRate(10);
+			AddExtraScoreRate(GameData.ExtraGoodRate);
 			Shoot();
 			break;
 		case 2: 
-			AddExtraScoreRate(100);
+			AddExtraScoreRate(GameData.ExtraGreatRate);
 			Shoot();
 			break;
 		}

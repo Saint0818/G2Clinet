@@ -120,14 +120,14 @@ public class UICreateRole : UIBase {
 		largeInfo = GameObject.Find(UIName + "/BottomLeft/ButtonOpen");
 		start = GameObject.Find(UIName + "/BottomRight/ButtonNext");
 
-		playerCenter = GameObject.Find(UIName + "/Test/Center");
+		playerCenter = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center");
 		playerPos = new GameObject[playerCount];
-		playerPos[0] = GameObject.Find(UIName + "/Test/Center/pos1");
-		playerPos[1] = GameObject.Find(UIName + "/Test/Center/pos2");
-		playerPos[2] = GameObject.Find(UIName + "/Test/Center/pos3");
-		playerPos[3] = GameObject.Find(UIName + "/Test/Center/pos4");
-		playerPos[4] = GameObject.Find(UIName + "/Test/Center/pos5");
-		playerPos[5] = GameObject.Find(UIName + "/Test/Center/pos6");
+		playerPos[0] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos1");
+		playerPos[1] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos2");
+		playerPos[2] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos3");
+		playerPos[3] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos4");
+		playerPos[4] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos5");
+		playerPos[5] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos6");
 
 		labelName = GameObject.Find(UIName + "/BottomCenter/InputName/LabelEnter").GetComponent<UILabel>();
 
