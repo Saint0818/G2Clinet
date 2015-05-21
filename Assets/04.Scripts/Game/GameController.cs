@@ -480,15 +480,15 @@ public class GameController : MonoBehaviour
 
         Joysticker = PlayerList [0];
 
-		selectMe = EffectManager.Get.PlayEffect("SelectMe2", Vector3.zero, null, Joysticker.gameObject);
-        Joysticker.AIActiveHint = GameObject.Find("SelectMe2/AI");
-		Joysticker.SpeedUpView = GameObject.Find("SelectMe2/Speedup").GetComponent<UISprite>();
+		selectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+        Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
+		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
-            EffectManager.Get.PlayEffect("SelectA2", Vector3.zero, null, PlayerList [1].gameObject);
+            EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
-            EffectManager.Get.PlayEffect("SelectB2", Vector3.zero, null, PlayerList [2].gameObject);
+            EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 
         for (int i = 0; i < PlayerList.Count; i ++)
         {

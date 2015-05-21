@@ -140,7 +140,7 @@ public class UIGame : UIBase {
 
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
-		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
+		Joystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
 
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");

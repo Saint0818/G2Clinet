@@ -441,6 +441,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			resultSmr.gameObject.isStatic = true;
 			clone.name = mainBody;
 			clone.transform.parent = result.transform;
+			clone.layer = LayerMask.NameToLayer ("Player");
 
 
 			if (result.transform.FindChild("DummyCatch") == null) {
