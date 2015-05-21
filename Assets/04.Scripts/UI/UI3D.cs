@@ -52,6 +52,10 @@ public class UI3D : UIBase {
 	{
 		ShowCamera(true);
 
+		Camera3D.cullingMask = 	(1 << LayerMask.NameToLayer("UI3D")) | 
+								(1 << LayerMask.NameToLayer("Default")) |
+								(1 << LayerMask.NameToLayer("Player"));
+
 		switch (kind) {
 			case UIKind.CreateRole:
  				transform.eulerAngles = new Vector3(0, 90, 0);
@@ -61,7 +65,6 @@ public class UI3D : UIBase {
 				UICreateRole.Get.gameObject.transform.localEulerAngles = new Vector3(15, 0, 0);;
 
 				Camera3D.transform.localPosition = new Vector3(0, 0, -700);
-				Camera3D.cullingMask = (1 << LayerMask.NameToLayer("UI3D")) | (1 << LayerMask.NameToLayer("Default"));
 				Camera3D.fieldOfView = 60;
 				break;
 			case UIKind.PlayerShow:
@@ -69,14 +72,13 @@ public class UI3D : UIBase {
 				transform.eulerAngles = new Vector3(0, 90, 0);
 				
 				Camera3D.transform.localPosition = new Vector3(0, 0, -700);
-				Camera3D.cullingMask = (1 << LayerMask.NameToLayer("UI3D"));
 				Camera3D.fieldOfView = 60;
 				break;
 			case UIKind.GameResult:
 				Camera3D.transform.localPosition = Vector3.zero;
 				Camera3D.gameObject.SetActive(true);
 				Camera3D.transform.localEulerAngles = Vector3.zero;
-				Camera3D.cullingMask = (1 << LayerMask.NameToLayer("UI3D")) | (1 << LayerMask.NameToLayer("Default"));
+				
 				Camera3D.fieldOfView = 30;
 		
 				break;

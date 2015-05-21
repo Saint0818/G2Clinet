@@ -34,16 +34,16 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     }
     
     void Update() {
-		if (Input.GetMouseButtonDown(0)) {
-			Ray ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
-			RaycastHit hit;  
-			LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
-			if (Physics.Raycast (ray, out hit, 100, mask.value))
-				touchObject = hit.collider.gameObject;
-		}
+		if (rpgCamera != null && rpgCamera.UsedCamera != null) {
+			if (Input.GetMouseButtonDown(0)) {
+				Ray ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit;  
+				LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
+				if (Physics.Raycast (ray, out hit, 100, mask.value))
+					touchObject = hit.collider.gameObject;
+			}
 
-		if (Input.GetMouseButtonUp(0)) {
-			if (rpgCamera != null && rpgCamera.UsedCamera != null) {
+			if (Input.GetMouseButtonUp(0)) {
 				Ray ray1 = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit1;  
 				LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
@@ -55,10 +55,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 					if (Physics.Raycast (ray1, out hit1, 100, mask.value))
 						clickScene(hit1.point);
 				}
-			}
 
-			touchObject = null;
-        }
+				touchObject = null;
+	        }
+		}
     }
     
     private void clickPlayer(GameObject player) {
