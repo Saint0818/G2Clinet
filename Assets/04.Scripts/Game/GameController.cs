@@ -2365,6 +2365,7 @@ public class GameController : MonoBehaviour
 								if (Rate < BlockRate)
 								{
 									Npc2.AniState(PlayerState.Block, Npc.transform.position);
+									break;
 								}
 							}
 						}else

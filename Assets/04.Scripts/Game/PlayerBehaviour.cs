@@ -430,6 +430,7 @@ public class PlayerBehaviour : MonoBehaviour
 			DefPointCopy.transform.parent = gameObject.transform;
 			DefPointCopy.name = "DefPoint";
 			DefPointCopy.transform.localScale = Vector3.one;
+			DefPointCopy.transform.localPosition = Vector3.zero;
 
 			DefPointAy [DefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find ("Front").gameObject.transform;
 			DefPointAy [DefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find ("Back").gameObject.transform;
@@ -1123,8 +1124,17 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
 				if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
 				{
-					Result.x = gameObject.transform.position.x;
-					Result.y = gameObject.transform.position.z;
+					float aaa = Math.Abs(GameController.Get.GetAngle(Data.DefPlayer, this));
+					Debug.Log(aaa);
+					if(aaa >= 30)
+					{
+						ResultBool = true;
+					}
+					else
+					{
+						Result.x = gameObject.transform.position.x;
+						Result.y = gameObject.transform.position.z;
+					}
 				}else
 					ResultBool = true;
 			}
