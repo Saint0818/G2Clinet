@@ -474,20 +474,21 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			
 			//collider
 			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();
+
 			if(collider == null)
 				collider = result.AddComponent<CapsuleCollider>();
 			if(bodyNumber.Equals("0")) {
-				collider.radius = 0.7f;
+				collider.radius = 1;
 				collider.height = 3.5f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			} else 
 			if(bodyNumber.Equals("1")) {
-				collider.radius = 0.6f;
+				collider.radius = 0.88f;
 				collider.height = 3.2f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			} else
 			if(bodyNumber.Equals("2")) {
-				collider.radius = 0.6f;
+				collider.radius = 0.88f;
 				collider.height = 3f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			}

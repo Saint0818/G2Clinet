@@ -418,7 +418,8 @@ public class UIGame : UIBase {
 				UIDoubleClick.Get.ClickStop ();
 			}
 		} else {
-			if(GameController.Get.situation == GameSituation.AttackA && 
+			if(GameController.Get.Joysticker.IsBallOwner &&
+				GameController.Get.situation == GameSituation.AttackA && 
 			   !GameController.Get.Joysticker.IsFall && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge0) && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 

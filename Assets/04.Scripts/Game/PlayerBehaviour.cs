@@ -1495,7 +1495,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot6:
             case PlayerState.Dunk:
             case PlayerState.Layup:
-                if (IsBallOwner && (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
+			if (IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
                     return true;
                 break;
 			case PlayerState.Alleyoop:
@@ -1628,7 +1628,7 @@ public class PlayerBehaviour : MonoBehaviour
         switch (state)
         {
             case PlayerState.Block:
-                gameObject.layer = LayerMask.NameToLayer("Shooter");
+				SetShooterLayer();
                 playerBlockCurve = null;
                 for (int i = 0; i < aniCurve.Block.Length; i++)
                     if (aniCurve.Block [i].Name == "Block")
@@ -1675,6 +1675,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Defence:
+				Rigi.mass = 500;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDefence);
@@ -1685,7 +1686,7 @@ public class PlayerBehaviour : MonoBehaviour
 					ClearAnimatorFlag();
 					animator.SetTrigger("DunkTrigger");
 					//isCanCatchBall = false;
-					gameObject.layer = LayerMask.NameToLayer("Shooter");
+					SetShooterLayer();
 					DunkTo();
 					Result = true;
 
@@ -1698,7 +1699,7 @@ public class PlayerBehaviour : MonoBehaviour
                     ClearAnimatorFlag();
                     animator.SetTrigger("DunkTrigger");
                     isCanCatchBall = false;
-                    gameObject.layer = LayerMask.NameToLayer("Shooter");
+					SetShooterLayer();
                     DunkTo();
                     Result = true;
                 }
@@ -1707,6 +1708,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
                 if (GameController.Get.BallOwner == this)
                 {
+					Rigi.mass = 500;
                     if (!isJoystick)
                         SetSpeed(0, -1);
                     ClearAnimatorFlag();
@@ -1728,6 +1730,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.FakeShoot:
                 if (IsBallOwner)
                 {
+					Rigi.mass = 500;
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
@@ -1774,6 +1777,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.HoldBall:
+				Rigi.mass = 500;
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsHoldBall);
                 isCanCatchBall = false;
@@ -1781,6 +1785,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.Idle:
+				Rigi.mass = 500;
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
                 isCanCatchBall = true;
@@ -1803,6 +1808,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			
 			case PlayerState.MovingDefence:
+				Rigi.mass = 500;
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsDefence);
@@ -1916,6 +1922,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Steal:
+				Rigi.mass = 500;
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
@@ -1970,7 +1977,7 @@ public class PlayerBehaviour : MonoBehaviour
 							continue;
                         }
 
-                    gameObject.layer = LayerMask.NameToLayer("Shooter");
+					SetShooterLayer();
                     ClearAnimatorFlag();
                     animator.SetTrigger("ShootTrigger");
                     isCanCatchBall = false;
@@ -1992,7 +1999,7 @@ public class PlayerBehaviour : MonoBehaviour
 						isLayup = true;
 						isLayupZmove = false;
 					}
-				gameObject.layer = LayerMask.NameToLayer("Shooter");
+				SetShooterLayer();
 				ClearAnimatorFlag();
 				animator.SetTrigger("LayupTrigger");
 				isCanCatchBall = false;
@@ -2017,14 +2024,14 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 
 				ClearAnimatorFlag();
-                gameObject.layer = LayerMask.NameToLayer("Shooter");
+				SetShooterLayer();
                 animator.SetTrigger("ReboundTrigger");
                 Result = true;
                 break;
 
 			case PlayerState.TipIn:
 				ClearAnimatorFlag();
-				gameObject.layer = LayerMask.NameToLayer("Shooter");
+				SetShooterLayer();
 				animator.SetTrigger("TipInTrigger");
 				Result = true;
 				break;
@@ -2044,6 +2051,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         return Result;
     }
+
+	public void SetShooterLayer()
+	{
+		gameObject.layer = LayerMask.NameToLayer("Shooter");
+		isCheckLayerToReset = true;
+	}
 
 	public void ClearAnimatorFlag(ActionFlag addFlag = ActionFlag.None)
 	{
@@ -2214,7 +2227,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "CatchEnd":
 				if(situation == GameSituation.TeeA || situation == GameSituation.TeeB){
-					AniState(PlayerState.Dribble);
+					if(IsBallOwner)
+						AniState(PlayerState.Dribble);
+					else
+						AniState(PlayerState.Idle);
 				} else {
 					OnUI(this);
 					IsFirstDribble = true;
@@ -2233,7 +2249,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "FakeShootEnd":
 				isFakeShoot = false;
-                AniState(PlayerState.HoldBall);
+				if(IsBallOwner)
+                	AniState(PlayerState.HoldBall);
+				else
+					AniState(PlayerState.Idle);
+
 				OnUI(this);
 				GameController.Get.RealBallFxTime = 1f;
 				CourtMgr.Get.RealBallFX.SetActive(true);
