@@ -283,6 +283,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float shootJumpCurveTime = 0;
     private TShootCurve playerShootCurve;
     private bool isShootJump = false;
+	private bool isFakeShoot = false;
 
 	//Push
 	private bool isPush = false;
@@ -1720,6 +1721,7 @@ public class PlayerBehaviour : MonoBehaviour
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
+					isFakeShoot = true;
                     Result = true;
                 }
                 break;
@@ -2219,7 +2221,8 @@ public class PlayerBehaviour : MonoBehaviour
 				}
                 break;
 
-            case "FakeShootEnd":
+			case "FakeShootEnd":
+				isFakeShoot = false;
                 AniState(PlayerState.HoldBall);
 				OnUI(this);
 				GameController.Get.RealBallFxTime = 1f;
@@ -2424,6 +2427,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return crtState == PlayerState.CatchFlat || crtState == PlayerState.CatchFloor || crtState == PlayerState.CatchParabola;}
     }
+
+	public bool IsFakeShoot
+	{
+		get{ return isFakeShoot;}
+	}
 
 	private bool isPerfectBlockCatch = false;
 

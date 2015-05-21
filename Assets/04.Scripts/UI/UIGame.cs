@@ -18,6 +18,7 @@ public class UIGame : UIBase {
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
+	private bool isShootAvailable = true;
 	public bool OpenMask = false;
 	//Stuff
 	public GameObject Again;
@@ -100,7 +101,7 @@ public class UIGame : UIBase {
 	{
 		if (Input.GetMouseButtonUp(0)) 
 			isPressShootBtn = false;
-		
+
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -423,10 +424,13 @@ public class UIGame : UIBase {
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.Block)
 			   ) {
+				if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) {
+					isShootAvailable = false;
+				}
 				if(state){
 					ShootFX();
 				}else 
-				if(!state && shootBtnTime > 0){
+				if(!state && shootBtnTime > 0 && isShootAvailable){
 					if(GameController.Get.BallOwner != null) {
 						if(GameController.Get.Joysticker == GameController.Get.BallOwner) {
 							showCoverAttack(true);
@@ -436,7 +440,11 @@ public class UIGame : UIBase {
 					}
 					GameController.Get.DoShoot (false);
 					GameController.Get.Joysticker.SetNoAiTime();
+				}else
+				if(!state && !isShootAvailable) {
+					isShootAvailable = true;
 				}
+				
 				isPressShootBtn = state;
 			}
 		}
