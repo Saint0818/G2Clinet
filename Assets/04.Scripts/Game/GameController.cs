@@ -2949,9 +2949,9 @@ public class GameController : MonoBehaviour
 		switch (dir)
 		{
 		case 0: //top ,rebound
-			if (isEnter && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3) {
+			if ((isEnter || GameStart.Get.TestMode == GameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3) {
 				if (GameStart.Get.TestMode == GameTest.Rebound || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
-					if (CourtMgr.Get.RealBallState ==  PlayerState.Steal || CourtMgr.Get.RealBallState ==  PlayerState.Rebound) {
+					if (GameStart.Get.TestMode == GameTest.Rebound || CourtMgr.Get.RealBallState ==  PlayerState.Steal || CourtMgr.Get.RealBallState ==  PlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
 							Rebound(player);
 						}
