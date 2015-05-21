@@ -1089,18 +1089,18 @@ public class GameController : MonoBehaviour
 			BasketSituationType = BasketSituation.NoScore;
 
 
-		if(isScore && isSwich) UIHint.Get.ShowHint("Swich Nice!", Color.black);
-		else if(isScore && !isSwich)UIHint.Get.ShowHint("Score", Color.black);
-		else if(!isScore && isAirBall)UIHint.Get.ShowHint("AirBall HaHa!", Color.black);
-		else if(!isScore && !isAirBall)UIHint.Get.ShowHint("No Score", Color.black);
+//		if(isScore && isSwich) UIHint.Get.ShowHint("Swich Nice!", Color.black);
+//		else if(isScore && !isSwich)UIHint.Get.ShowHint("Score", Color.black);
+//		else if(!isScore && isAirBall)UIHint.Get.ShowHint("AirBall HaHa!", Color.black);
+//		else if(!isScore && !isAirBall)UIHint.Get.ShowHint("No Score", Color.black);
 	}
 
 	public void AddExtraScoreRate(float rate) {
 		extraScoreRate = rate;
-		if(rate > 100)
-			UIHint.Get.ShowHint("ExtraScoreRate : 100 ", Color.yellow);
-		else 
-			UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
+//		if(rate > 100)
+//			UIHint.Get.ShowHint("ExtraScoreRate : 100 ", Color.yellow);
+//		else 
+//			UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
 	}
 
 	public void Shoot()
@@ -2753,6 +2753,7 @@ public class GameController : MonoBehaviour
 				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
+				UIGame.Get.SetPassButton(0);
 				CourtMgr.Get.SetBallState(PlayerState.HoldBall, p);
 //				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
 //					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
@@ -3510,6 +3511,18 @@ public class GameController : MonoBehaviour
             return false;
         }
     }
+
+	public bool IsAlleyoop
+	{
+		get
+		{
+			for (int i = 0; i < PlayerList.Count; i++)            
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.Alleyoop))
+					return true;            
+			
+			return false;
+		}
+	}
 
     public bool IsBlocking
     {

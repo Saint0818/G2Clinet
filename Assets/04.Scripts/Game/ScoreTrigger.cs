@@ -17,7 +17,9 @@ public class ScoreTrigger : MonoBehaviour
 			animator = CourtMgr.Get.BasketHoopAnimator[Team];
 
 		if (c.tag == "RealBall") {
-			if(!GameController.Get.IsDunk && (GameController.Get.situation == GameSituation.AttackA || GameController.Get.situation == GameSituation.AttackB)) {
+			if(!GameController.Get.IsDunk && 
+			   !GameController.Get.IsAlleyoop && 
+			   (GameController.Get.situation == GameSituation.AttackA || GameController.Get.situation == GameSituation.AttackB)) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
 						Into = true;

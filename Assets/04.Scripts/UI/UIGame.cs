@@ -469,7 +469,7 @@ public class UIGame : UIBase {
 		   GameController.Get.situation == GameSituation.AttackA) {
 			passObject.SetActive(state);
 			if (state) {
-				SetPassButton(3);
+				SetPassButton(4);
 			}
 //			initLine();
 //			drawLine.IsShow = state;
@@ -607,6 +607,10 @@ public class UIGame : UIBase {
             break;
 		case 3:
 			passObject.SetActive(true);
+			passA.SetActive(true);
+			passB.SetActive(true);
+			break;
+		case 4:
 			passA.SetActive(true);
 			passB.SetActive(true);
 			break;
