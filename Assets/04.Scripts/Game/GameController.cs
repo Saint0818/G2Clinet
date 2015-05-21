@@ -168,6 +168,7 @@ public class GameController : MonoBehaviour
     public float RealBallFxTime = 0;
 	private float WaitTeeBallTime = 0;
 	private float WaitStealTime = 0;
+	private float PassingStealBallTime = 0;
 	public bool IsPassing = false;
 	
 	public PlayerBehaviour BallOwner;
@@ -623,8 +624,10 @@ public class GameController : MonoBehaviour
 
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
 			WaitStealTime = 0;
-			
-    }
+
+		if(PassingStealBallTime > 0 && Time.time >= PassingStealBallTime)		
+			PassingStealBallTime = 0;
+	}
 
 	public PlayerState testState = PlayerState.Shoot0;
 	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
@@ -2872,10 +2875,10 @@ public class GameController : MonoBehaviour
 			PlayerList [1].AniState(PlayerState.Shoot0);
 		}
     }
-
+	
 	public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence && (situation == GameSituation.AttackA || situation == GameSituation.AttackB) && Passer)
+		if(player.IsDefence && (situation == GameSituation.AttackA || situation == GameSituation.AttackB) && Passer && PassingStealBallTime == 0)
 		{
 			int Rate = UnityEngine.Random.Range(0, 100);
 
@@ -2898,7 +2901,10 @@ public class GameController : MonoBehaviour
 								CourtMgr.Get.RealBall.transform.DOKill();
 							
 							if(SetBall(player))
+							{
 								player.AniState(PlayerState.HoldBall);
+								PassingStealBallTime = Time.time + 2;
+							}
 							
 							Catcher = null;
 							IsPassing = false;
@@ -2912,7 +2918,10 @@ public class GameController : MonoBehaviour
 							CourtMgr.Get.RealBall.transform.DOKill();
 						
 						if(SetBall(player))
+						{
 							player.AniState(PlayerState.HoldBall);
+							PassingStealBallTime = Time.time + 2;
+						}
 						
 						Catcher = null;
 						IsPassing = false;
