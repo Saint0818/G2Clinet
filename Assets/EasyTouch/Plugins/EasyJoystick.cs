@@ -763,6 +763,13 @@ public class EasyJoystick : MonoBehaviour {
 	/// The dead texture.
 	/// </summary>
 	public Texture deadTexture;	
+
+	public Texture touchTexture1;
+	public Texture touchTexture2;
+	private int size1 = 280;
+	
+	private int size2 = 258;
+	private int duc2 = 128;
 	#endregion
 
 	#region Inspector
@@ -1057,7 +1064,60 @@ public class EasyJoystick : MonoBehaviour {
 				else{
 					GUI.color = new Color(touchColor.r,touchColor.g,touchColor.b,0.2f);	
 				}			
-				GUI.DrawTexture( new Rect(anchorPosition.x +  joystickCenter.x+(joystickTouch.x -touchSize) ,anchorPosition.y + joystickCenter.y-(joystickTouch.y+touchSize),touchSize*2,touchSize*2), touchTexture,ScaleMode.ScaleToFit,true);
+				GUI.DrawTexture( new Rect(anchorPosition.x + joystickCenter.x + (joystickTouch.x - touchSize) ,
+				                          anchorPosition.y + joystickCenter.y - (joystickTouch.y + touchSize),
+				                          touchSize * 2, touchSize * 2), touchTexture, ScaleMode.ScaleToFit,true);
+
+
+				float x = 0;
+				float y = 0;
+				if(touchTexture1 != null)
+				{
+					if(joystickTouch.x >= (size1 / 2) - touchSize)
+						x = Mathf.Min(joystickTouch.x - ((size1 / 2) - touchSize), 30);
+					
+					
+					if(joystickTouch.x <= -((size1 / 2) - touchSize))
+						x = Mathf.Max(joystickTouch.x + ((size1 / 2) - touchSize), -30);
+					
+					
+					if(joystickTouch.y >= (size1 / 2) - touchSize)
+						y = Mathf.Min(joystickTouch.y - ((size1 / 2) - touchSize), 30);
+					
+					
+					if(joystickTouch.y <= -((size1 / 2) - touchSize))
+						y = Mathf.Max(joystickTouch.y + ((size1 / 2) - touchSize), -30);
+					
+					
+					GUI.DrawTexture( new Rect(anchorPosition.x + joystickCenter.x + (x - size1) + (size1 / 2),
+					                          anchorPosition.y + joystickCenter.y - (y + size1) + (size1 / 2),
+					                          size1, size1), touchTexture1, ScaleMode.ScaleToFit,true);
+				}
+
+				if(touchTexture2 != null)
+				{
+					x = 0;
+					y = 0;
+
+					if(joystickTouch.x >= 5)
+						x = Mathf.Min(joystickTouch.x - 5, 65);
+					
+					
+					if(joystickTouch.x <= -5)
+						x = Mathf.Max(joystickTouch.x + 5, -65);
+					
+					
+					if(joystickTouch.y >= 5)
+						y = Mathf.Min(joystickTouch.y - 5, 65);
+					
+					
+					if(joystickTouch.y <= -5)
+						y = Mathf.Max(joystickTouch.y + 5, -65);
+					
+					GUI.DrawTexture( new Rect(anchorPosition.x + joystickCenter.x + (x - size2) + (size2 / 2),
+					                          anchorPosition.y + joystickCenter.y - (y + size2) + (size2 / 2),
+					                          size2, size2), touchTexture2, ScaleMode.ScaleToFit,true);
+				}
 			}	
 	
 			// dead zone
@@ -1074,7 +1134,7 @@ public class EasyJoystick : MonoBehaviour {
 			}
 		}
 	}
-	
+
 	void OnDrawGizmos(){
 	}
 	
