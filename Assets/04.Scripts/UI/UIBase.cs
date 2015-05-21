@@ -50,7 +50,11 @@ public class UIBase: MonoBehaviour
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
-						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+						UIBase ui = null;
+						if(UIName.Contains ("UIGame")) 
+							ui = obj2.AddComponent(Type.GetType("UIGame")) as UIBase;
+						else 
+							ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
 						ui.InitText();
 						ui.InitCom();
 						ui.InitData();
