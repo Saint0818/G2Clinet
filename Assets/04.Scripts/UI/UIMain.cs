@@ -51,6 +51,7 @@ public class UIMain : UIBase {
 	}
 
 	public void OnCourt() {
+
 		SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 	}
 }

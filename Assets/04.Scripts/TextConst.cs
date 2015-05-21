@@ -6,6 +6,7 @@ using System.Text;
 
 public static class TextConst
 {
+	private static bool loaded = false;
 	private static Dictionary<int, string[]> GameText = new Dictionary<int, string[]> ();
 
 	private static void AddString(int key, string Text_TW, string Text_EN = ""){
@@ -26,12 +27,15 @@ public static class TextConst
 	} 
 	
 	public static void Init(){
-		AddString (0, "", "");
-		AddString (1, "重新開始", "重新開始"); //1~1000 UI
-		AddString (2, "點擊開始", "點擊開始");
-		AddString (3, "點擊繼續", "點擊繼續");
-		AddString (4, "Reset", "Reset");
-		AddString (5, "AI Level", "AI Level");
-		AddString (6, "AI Control", "AI Control");
+		if (!loaded) {
+			loaded = true;
+			AddString (0, "", "");
+			AddString (1, "重新開始", "重新開始"); //1~1000 UI
+			AddString (2, "點擊開始", "點擊開始");
+			AddString (3, "點擊繼續", "點擊繼續");
+			AddString (4, "Reset", "Reset");
+			AddString (5, "AI Level", "AI Level");
+			AddString (6, "AI Control", "AI Control");
+		}
     }
 }

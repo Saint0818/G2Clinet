@@ -313,7 +313,7 @@ public class GameController : MonoBehaviour
 		SetPlayerLevel();
 		if (GameStart.Get.TestMode == GameTest.Rebound) {
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
-			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
+			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
 		}
 	}
 
@@ -367,6 +367,14 @@ public class GameController : MonoBehaviour
         return Result;
     }
 
+	private void setPlayerData(int index, ref TTeam team) {
+		if (index >= 0 && index < PlayerAy.Length && GameData.DPlayers.ContainsKey(team.Player.ID)) {
+			PlayerAy[index].ID = team.Player.ID;
+			PlayerAy[index].Name = team.Player.Name;
+			PlayerAy[index].SetAttribute();
+			PlayerAy[index].SetAvatar();
+        }
+	}
 
 	public void InitPlayer(){
 		for (int i = 0; i < PlayerAy.Length; i++) {
@@ -379,23 +387,14 @@ public class GameController : MonoBehaviour
 			{
 				PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
 				PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
-				PlayerAy[i].Point2 = GameData.DPlayers[i + 1].Point2;
-				PlayerAy[i].Point3 = GameData.DPlayers[i + 1].Point3;
-				PlayerAy[i].Steal = GameData.DPlayers[i + 1].Steal;
-				PlayerAy[i].Speed = GameData.DPlayers[i + 1].Speed;
-				PlayerAy[i].Dunk = GameData.DPlayers[i + 1].Dunk;
-				PlayerAy[i].Strength = GameData.DPlayers[i + 1].Strength;
-				PlayerAy[i].Rebound = GameData.DPlayers[i + 1].Rebound;
-				PlayerAy[i].Block = GameData.DPlayers[i + 1].Block;
-				PlayerAy[i].Stamina = GameData.DPlayers[i + 1].Stamina;
-				PlayerAy[i].Dribble = GameData.DPlayers[i + 1].Dribble;
-				PlayerAy[i].Defence = GameData.DPlayers[i + 1].Defence;
-				PlayerAy[i].Pass = GameData.DPlayers[i + 1].Pass;
-				PlayerAy[i].BodyType = GameData.DPlayers[i + 1].BodyType;
-				PlayerAy[i].AILevel = GameData.DPlayers[i + 1].AILevel;
+				PlayerAy[i].SetAttribute();
 				PlayerAy[i].SetAvatar();
 			}
 		}
+
+		setPlayerData(0, ref GameData.Team);
+		for (int i = 0; i < GameData.TeamMembers.Length; i++)
+			setPlayerData(i+1, ref GameData.TeamMembers[i]);
 	}
 	
 	public void CreateTeam()
@@ -424,7 +423,9 @@ public class GameController : MonoBehaviour
 			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList [0].SetMovePower(100);
-				UIGame.Get.ChangeControl(true);
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(0, 0, 11), new GameStruct.TPlayer(0)));
+				
+                UIGame.Get.ChangeControl(true);
                 break;
             case GameTest.AttackB:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
@@ -590,6 +591,9 @@ public class GameController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
 				Joysticker.AniState (PlayerState.ReboundCatch);
 
+			if (GameStart.Get.TestMode == GameTest.Rebound && Input.GetKeyDown (KeyCode.Z)) {
+				resetTestMode();
+            }
 		}
 
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
@@ -625,17 +629,25 @@ public class GameController : MonoBehaviour
 	public PlayerState testState = PlayerState.Shoot0;
 	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
 
-	#if UNITY_EDITOR
+	private void resetTestMode() {
+		SetBallOwnerNull();
+		SetBall();
+		CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
+		CourtMgr.Get.SetBallState(PlayerState.Shoot0);
+		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
+		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
+		UIGame.Get.ChangeControl(true);
+		TMoveData md = new TMoveData(1);
+		//md.Target = new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
+		PlayerList[1].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
+		PlayerList[1].AniState(PlayerState.Idle);
+    }
+    
+    #if UNITY_EDITOR
 	void OnGUI() {
 		if (GameStart.Get.TestMode == GameTest.Rebound) {
 			if (GUI.Button(new Rect(100, 100, 100, 100), "Reset")) {
-				SetBallOwnerNull();
-				SetBall();
-				CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-				CourtMgr.Get.SetBallState(PlayerState.Shoot0);
-				CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 14);
-				CourtMgr.Get.RealBallRigidbody.isKinematic = true;
-				UIGame.Get.ChangeControl(true);
+				resetTestMode();
 			}
 		}
 
@@ -1120,8 +1132,9 @@ public class GameController : MonoBehaviour
 	            if (GameStart.Get.TestMode == GameTest.Dunk)
 	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
 	            else 
-				if (BallOwner.IsRebound && inTipinDistance(BallOwner)) {
-					BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+				if (BallOwner.IsRebound) {
+					if (inTipinDistance(BallOwner))
+						BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
 				} else
 				if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
 				{
@@ -1218,11 +1231,10 @@ public class GameController : MonoBehaviour
 	public void DoShoot(bool isshoot)
     {
 		if (IsStart && CandoBtn) {
+			if (UIDoubleClick.Visible)
+				UIDoubleClick.Get.ClickStop ();
+			else
             if (Joysticker == BallOwner) {
-				if (Joysticker.IsRebound) {
-					if (UIDoubleClick.Visible)
-						UIDoubleClick.Get.ClickStop ();
-				} else
 				if (isshoot)
 					Shoot ();
 				else
@@ -2913,7 +2925,7 @@ public class GameController : MonoBehaviour
 			return false;
 	}
 
-    public void BallTouchPlayer(PlayerBehaviour player, int dir)
+    public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter)
     {
 		if (BallOwner || 
 		    IsShooting || 
@@ -2937,29 +2949,33 @@ public class GameController : MonoBehaviour
 		switch (dir)
 		{
 		case 0: //top ,rebound
-			if (player != BallOwner && (GameStart.Get.TestMode == GameTest.Rebound || 
-			    situation == GameSituation.AttackA || situation == GameSituation.AttackB))
-				if (CourtMgr.Get.RealBallState ==  PlayerState.Steal || 
-				    CourtMgr.Get.RealBallState ==  PlayerState.Rebound && 
-				    Random.Range(0, 100) < player.Attr.ReboundRate) {
-						Rebound(player);
+			if (isEnter && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3) {
+				if (GameStart.Get.TestMode == GameTest.Rebound || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
+					if (CourtMgr.Get.RealBallState ==  PlayerState.Steal || CourtMgr.Get.RealBallState ==  PlayerState.Rebound) {
+						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
+							Rebound(player);
+						}
+					}
 				}
+			}
 
             break;
 		case 5: //finger
-			if (!player.IsBallOwner && player.IsRebound && !IsTipin && 
-			   (GameStart.Get.TestMode == GameTest.Rebound ||
-			    situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
-				if (SetBall(player)) {
-					if (player == BallOwner && inTipinDistance(player)) {
-						if (player == Joysticker)
-							OnDoubleClickMoment(player, PlayerState.Rebound);
-						else
-						if (Random.Range(0, 100) < player.Attr.TipInRate)
-							Shoot();
+			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
+				if (GameStart.Get.TestMode == GameTest.Rebound || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
+					if (SetBall(player)) {
+						if (player == BallOwner && inTipinDistance(player)) {
+							CoolDownPass = Time.time + 3;
+							if (player == Joysticker)
+								OnDoubleClickMoment(player, PlayerState.Rebound);
+							else
+							if (Random.Range(0, 100) < player.Attr.TipInRate)
+								Shoot();
+							else
+							if (player.Team == Joysticker.Team)
+								OnDoubleClickMoment(player, PlayerState.Rebound);
+						}
 					}
-
-					CoolDownPass = Time.time + 3;
 				}
 			}
 

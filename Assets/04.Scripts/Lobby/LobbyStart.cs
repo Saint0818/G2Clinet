@@ -6,13 +6,17 @@ using GameStruct;
 public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
 
+	private GameObject touchObject;
 	private RPGCamera rpgCamera;
 	private RPGMotor myPlayer;
 	private GameObject moveToObject;
+	private RPGMotor[] followPlayers = new RPGMotor[2];
+	private GameObject[] followPoints = new GameObject[2];
 
 	private TTeam[] scenePlayers;
 
 	void Start () {
+		Time.timeScale = 1;
 		if (ConnectToServer && SendHttp.Get.CheckNetwork()) {
 			WWWForm form = new WWWForm();
 			form.AddField("OS", getOS());
@@ -29,24 +33,62 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		SceneMgr.Get.CurrentScene = SceneName.Lobby;
     }
     
-    void FixedUpdate() {
-		if (rpgCamera != null && rpgCamera.UsedCamera != null && Input.GetMouseButtonDown(0)) {
-			Ray ray1 = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+    void Update() {
+		if (Input.GetMouseButtonDown(0)) {
+			Ray ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;  
 			LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
-			if (Physics.Raycast (ray1, out hit, 100, mask.value))
-				clickPlayer(hit.collider.gameObject);
-			else
-			if (myPlayer) {
-				mask = 1 << LayerMask.NameToLayer("Scene");
-				if (Physics.Raycast (ray1, out hit, 100, mask.value))
-					clickScene(hit.point);
-			}
+			if (Physics.Raycast (ray, out hit, 100, mask.value))
+				touchObject = hit.collider.gameObject;
 		}
-	}
 
-	private void clickPlayer(GameObject player) {
+		if (Input.GetMouseButtonUp(0)) {
+			if (rpgCamera != null && rpgCamera.UsedCamera != null) {
+				Ray ray1 = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+				RaycastHit hit1;  
+				LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
+				if (Physics.Raycast (ray1, out hit1, 100, mask.value) && hit1.collider.gameObject == touchObject) 
+					clickPlayer(hit1.collider.gameObject);
+				else
+				if (myPlayer && !touchObject) {
+					mask = 1 << LayerMask.NameToLayer("Scene");
+					if (Physics.Raycast (ray1, out hit1, 100, mask.value))
+						clickScene(hit1.point);
+				}
+			}
 
+			touchObject = null;
+        }
+    }
+    
+    private void clickPlayer(GameObject player) {
+		if (player != myPlayer.gameObject) {
+			for (int i = 0; i < followPlayers.Length; i ++) {
+				if (followPlayers[i] && followPlayers[i].gameObject == player) {
+					SetTeamMember(i, "");
+					EffectManager.Get.PlayEffect("TeamQuit", new Vector3(0, 1, 0), player);
+					followPlayers[i].FollowObject = null;
+					followPlayers[i] = null;
+					return;
+				}
+			}
+
+			for (int i = 0; i < followPlayers.Length; i ++) {
+				if (!followPlayers[i]) {
+					SetTeamMember(i, player.name);
+					EffectManager.Get.PlayEffect("TeamJoin", new Vector3(0, 1, 0), player);
+					RPGMotor rpgMotor = player.GetComponent<RPGMotor>();
+					if (rpgMotor) {
+						rpgMotor.FollowObject = followPoints[i];
+						followPlayers[i] = rpgMotor;
+					}
+
+					return;
+				}
+			}
+
+			EffectManager.Get.PlayEffect("TeamFull", new Vector3(0, 1, 0), player);
+		}
 	}
 
 	private void clickScene(Vector3 point) {
@@ -113,6 +155,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			try {
 			scenePlayers = JsonConvert.DeserializeObject <TTeam[]>(www.text);
 			initScenePlayers();
+			setTeamMemberToFoller();
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -139,39 +182,31 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 	private bool addRPGController(GameObject player) {
 		if (player) {
-			Animator ani = player.GetComponent<Animator>();
-			if (ani != null) {
-				RuntimeAnimatorController con = Resources.Load("Character/MMOCharacter") as RuntimeAnimatorController;
-				if (con != null) {
-					ani.runtimeAnimatorController = con;
-					
-					rpgCamera = player.AddComponent<RPGCamera>();
-					if (rpgCamera != null) {
-						rpgCamera.CameraPivotLocalPosition = new Vector3(0, 3, 0);
-						rpgCamera.LockMouseY = true;
-						rpgCamera.MinDistance = 5;
-						rpgCamera.MaxDistance = 10;
-						rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
-															(1 << LayerMask.NameToLayer("Player")) | 
-															(1 << LayerMask.NameToLayer("Scene"));
-					}
-					
-					RPGViewFrustum vf = player.GetComponent<RPGViewFrustum>();
-					if (vf != null)
-						vf.FadeOutAlpha = 1;
-					
-					RPGController rpgController = player.AddComponent<RPGController>();
-					rpgController.AcceptInput = true;
-					myPlayer = player.GetComponent<RPGMotor>();
-					myPlayer.Target = player.transform.position;
+			rpgCamera = player.AddComponent<RPGCamera>();
+			if (rpgCamera != null) {
+				rpgCamera.CameraPivotLocalPosition = new Vector3(0, 3, 0);
+				rpgCamera.LockMouseY = true;
+				rpgCamera.MinDistance = 7;
+				rpgCamera.MaxDistance = 9;
+				rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
+													(1 << LayerMask.NameToLayer("Player")) | 
+													(1 << LayerMask.NameToLayer("Scene"));
+			}
+			
+			RPGViewFrustum vf = player.GetComponent<RPGViewFrustum>();
+			if (vf != null)
+				vf.FadeOutAlpha = 1;
+			
+			RPGController rpgController = player.AddComponent<RPGController>();
+			rpgController.AcceptInput = true;
+			myPlayer = player.GetComponent<RPGMotor>();
+			myPlayer.Target = player.transform.position;
 
-					CharacterController c = player.GetComponent<CharacterController>();
-					if (c != null) 
-						c.center = new Vector3(0, 1.25f, 0);
+			CharacterController c = player.GetComponent<CharacterController>();
+			if (c != null) 
+				c.center = new Vector3(0, 1.25f, 0);
 
-					return true;
-	            }
-	        }
+			return true;
 		}
 
 		return false;
@@ -198,15 +233,27 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		ModelManager.Get.SetAvatar (ref Res, player.Avatar, true);
 		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
 		Res.transform.localPosition = Vector3.zero;
+
+		Animator ani = Res.GetComponent<Animator>();
+		if (ani != null) {
+			RuntimeAnimatorController con = Resources.Load("Character/MMOCharacter") as RuntimeAnimatorController;
+			if (con != null) 
+				ani.runtimeAnimatorController = con;
+		}
 		
 		CapsuleCollider cc = Res.GetComponent<CapsuleCollider>();
 		if (cc != null)
 			cc.enabled = false;
 
-		GameObject DummyBall = GameObject.Find("PlayerInfoModel/Myself/DummyBall");
+		GameObject DummyBall = GameObject.Find("PlayerInfoModel/" + player.Name + "/DummyBall");
 		if (DummyBall) 
 			DummyBall.SetActive(false);
-		
+
+		BoxCollider bc = Res.AddComponent<BoxCollider>();
+		bc.center = new Vector3(0, 1.5f, 0);
+		bc.size = new Vector3(0, 3, 0);
+		bc.isTrigger = true;
+
 		GameObject obj = Resources.Load("Prefab/Lobby/Projector") as GameObject;
 		if (obj) {
 			GameObject obj1 = Instantiate(obj);
@@ -241,15 +288,53 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			if (obj) {
 				GameObject obj2 = Instantiate(obj);
 				obj2.name = "Follow";
+
 				obj2.transform.parent = player.transform;
 				obj2.transform.localScale = Vector3.one;
+				obj2.transform.localEulerAngles = Vector3.zero;
 				obj2.transform.localPosition = Vector3.zero;
+
+				followPoints[0] = GameObject.Find("PlayerInfoModel/Myself/Follow/LeftBottom");
+				followPoints[1] = GameObject.Find("PlayerInfoModel/Myself/Follow/RightBottom");
             }
            
             addRPGController(player);
 		}
 	}
-	
+
+	private void setTeamMemberToFoller() {
+		for (int i = 0; i < GameData.TeamMembers.Length; i ++)
+			if (GameData.TeamMembers[i].Player.Name != "") {
+				bool flag = true;
+				GameObject player = GameObject.Find("PlayerInfoModel/" + GameData.TeamMembers[i].Player.Name);
+				if (player) {
+					RPGMotor rpgMotor = player.GetComponent<RPGMotor>();
+					if (rpgMotor) {
+						rpgMotor.FollowObject = followPoints[i];
+						followPlayers[i] = rpgMotor;
+						flag = false;
+	                }
+	            }
+
+				if (flag)
+					GameData.TeamMembers[i] = new TTeam();
+        }
+	}
+
+	private void SetTeamMember(int index, string name) {
+		if (index >= 0 && index < GameData.TeamMembers.Length) {
+			if (name == "")
+				GameData.TeamMembers[index] = new TTeam();
+			else {
+				for (int i = 0; i < scenePlayers.Length; i++)
+					if (name == scenePlayers[i].Player.Name) {
+						GameData.TeamMembers[index] = scenePlayers[i];
+		                break;
+		            }
+			}
+		}
+    }
+    
     public void EnterLobby() {
 		try {
 			GameData.Init();

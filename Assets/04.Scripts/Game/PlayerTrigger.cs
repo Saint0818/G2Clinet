@@ -17,7 +17,7 @@ public class PlayerTrigger : MonoBehaviour {
 			else if (other.gameObject.CompareTag("RealBallTrigger"))
 			{
 				if(!GameController.Get.PassingStealBall(Player, Direction))
-					GameController.Get.BallTouchPlayer(Player, Direction);
+					GameController.Get.BallTouchPlayer(Player, Direction, true);
 			} 
 		}
 	}
@@ -25,7 +25,7 @@ public class PlayerTrigger : MonoBehaviour {
 	void OnTriggerStay(Collider other) {
 		if (GameController.Visible){		
 			if (other.gameObject.CompareTag("RealBallTrigger"))
-				GameController.Get.BallTouchPlayer(Player, Direction);
+				GameController.Get.BallTouchPlayer(Player, Direction, false);
 		}
 	}
 }

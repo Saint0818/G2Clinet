@@ -21,6 +21,7 @@ public class GameData {
 	public static string ServerVersion;
 	public static string SaveVersion;
 	public static TTeam Team;
+	public static TTeam[] TeamMembers = new TTeam[2];
 	public static TGameSetting Setting;
 	public static float ExtraGreatRate = 5;
 	public static float ExtraPerfectRate = 10;

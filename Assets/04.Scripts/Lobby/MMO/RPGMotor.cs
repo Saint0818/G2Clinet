@@ -25,6 +25,7 @@ public class RPGMotor : MonoBehaviour {
 
 	private bool hasTarget = false;
 	private Vector3 _moveTarget;
+	private GameObject followObject;
 	// Local player direction
 	private Vector3 _playerDirection;
 	// Player direction in world coordinates
@@ -273,33 +274,45 @@ public class RPGMotor : MonoBehaviour {
 		return _rpgCamera && _rpgCamera.getAlwaysRotateCamera();
 	}
 
+	private void calculateMove(Vector3 point) {
+		transform.LookAt (new Vector3(point.x, transform.position.y, point.z));
+		float v = 0;
+		float h = 0;
+		float dx = Mathf.Abs(transform.position.x - point.x);
+		float dz = Mathf.Abs(transform.position.z - point.z);
+		
+		if (dx > 0)
+			h = dz / dx;
+		else
+			h = 0;
+		
+		_playerDirection = new Vector3(v, 0, h).normalized; 
+	}
+
 	public void MoveTo() {
+		if (followObject) {
+			if (!onFollowPoint()) {
+				calculateMove(followObject.transform.position);
+			} else
+				_playerDirection = Vector3.zero;
+		} else
 		if (hasTarget) {
-			transform.LookAt (new Vector3(_moveTarget.x, transform.position.y, _moveTarget.z));
-			float v = 0;
-			float h = 0;
-			float dx = Mathf.Abs(transform.position.x - _moveTarget.x);
-			float dz = Mathf.Abs(transform.position.z - _moveTarget.z);
-			
-			if (dx > 0)
-				h = dz / dx;
-			else
-				h = 0;
-			
-			/*if (transform.position.x < _moveTarget.x)
-				v = 1;
-			else
-				v = -1;
-			
-			if (transform.position.z > _moveTarget.z)
-				h = -h;
-			*/
-			_playerDirection = new Vector3(v, 0, h).normalized; 
+			calculateMove(_moveTarget);
 		}
 	}
 
+	private bool onFollowPoint() {
+		if (followObject) {
+			float dis = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+			                             new Vector2(followObject.transform.position.x, followObject.transform.position.z));
+			return dis <= 0.6f;
+		} else
+			return false;
+	}
+
 	private bool onTarget() {
-		return Vector3.Distance(transform.position, _moveTarget) <= 0.3f;
+		return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+		                        new Vector2(_moveTarget.x, _moveTarget.z)) <= 0.3f;
 	}
 
 	public Vector3 Target {
@@ -310,6 +323,15 @@ public class RPGMotor : MonoBehaviour {
 			if (!hasTarget) {
 				_playerDirection = Vector3.zero;
 			}
+		}
+	}
+
+	public GameObject FollowObject {
+		get {return followObject;}
+		set {
+			followObject = value;
+			if (!value)
+				Target = transform.position;
 		}
 	}
 }

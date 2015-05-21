@@ -79,6 +79,25 @@ namespace GameStruct
 			Avatar = new TAvatar(0);
 		}
 
+		public void SetAttribute() {
+			if (GameData.DPlayers.ContainsKey(ID)) {
+				Point2 = GameData.DPlayers[ID].Point2;
+				Point3 = GameData.DPlayers[ID].Point3;
+				Steal = GameData.DPlayers[ID].Steal;
+				Speed = GameData.DPlayers[ID].Speed;
+				Dunk = GameData.DPlayers[ID].Dunk;
+				Strength = GameData.DPlayers[ID].Strength;
+				Rebound = GameData.DPlayers[ID].Rebound;
+				Block = GameData.DPlayers[ID].Block;
+				Stamina = GameData.DPlayers[ID].Stamina;
+				Dribble = GameData.DPlayers[ID].Dribble;
+				Defence = GameData.DPlayers[ID].Defence;
+				Pass = GameData.DPlayers[ID].Pass;
+				BodyType = GameData.DPlayers[ID].BodyType;
+				AILevel = GameData.DPlayers[ID].AILevel;
+			}
+		}
+
 		public void SetAvatar() {
 			if (GameData.DPlayers.ContainsKey(ID)) {
 				Avatar.Body = GameData.DPlayers[ID].Body;

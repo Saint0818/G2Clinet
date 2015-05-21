@@ -4,8 +4,8 @@ using System.Collections;
 public class LobbyPlayerTrigger : MonoBehaviour {
 
 	private bool playerOnTarget(GameObject obj) {
-		if (obj.transform.parent && obj.transform.parent.name == "Myself") {
-			RPGMotor motor = obj.transform.parent.gameObject.GetComponent<RPGMotor>();
+		if (obj.transform.name == "Myself") {
+			RPGMotor motor = obj.GetComponent<RPGMotor>();
 			gameObject.SetActive(false);
 			if (motor) {
 				motor.Target = motor.transform.position;
