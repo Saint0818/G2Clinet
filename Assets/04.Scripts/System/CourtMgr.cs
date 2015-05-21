@@ -210,6 +210,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CheckCollider();
 		ChangeBasket(0);
 		CameraMgr.Get.SetTeamCamera(0);
+		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
 		UIGame.UIShow (true);
 	}
 

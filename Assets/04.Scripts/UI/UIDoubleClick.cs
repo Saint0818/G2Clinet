@@ -75,7 +75,6 @@ public class UIDoubleClick : UIBase {
 			checkCircle[0].width = (int)size.x;
 			checkCircle[0].height = (int)size.y;
 
-			//Debug.Log("size0 : " + size);
 			if(size.x < SecondStartSize.x){
 				checkCircle[1].gameObject.SetActive(true);
 				size2 -= Vector2.one * framSpeed2;
@@ -84,8 +83,6 @@ public class UIDoubleClick : UIBase {
 				if(size2.x <= 0){
 					checkCircle[1].gameObject.SetActive(false);
 				}
-				//Debug.Log("size2 : " + size);
-				
 			}
 
 			if(size.x <= 0){
