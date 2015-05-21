@@ -42,7 +42,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private GameObject cameraOffsetAeraObj;
 	private GameObject focusMoveAeraObj;
 	private GameObject focusStopAeraObj;
-
 	
 	private enum ZoomType
 	{
@@ -80,6 +79,25 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		mShake.Play();
 	}
 
+	public void SetCourtCamera(SceneName scene)
+	{
+		if(cameraFx && cameraFx.name != scene.ToString()){
+			Destroy(cameraFx.gameObject);
+			GameObject obj = Instantiate(Resources.Load(string.Format("Prefab/Camera/Camera_{0}", scene.ToString()))) as GameObject;
+			cameraFx = obj.GetComponent<Camera>();
+			cameraFx.gameObject.transform.parent = cameraRotationObj.transform;
+			cameraFx.gameObject.transform.localPosition = Vector3.zero;
+			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
+			cameraFx.gameObject.name = scene.ToString();
+
+//			cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 
+//				1 << LayerMask.NameToLayer("Default") | 
+//					1 << LayerMask.NameToLayer("RealBall") | 
+//					1 << LayerMask.NameToLayer("Scene");
+		}
+		Debug.Log ("Camera : " + cameraFx.name);
+	}
+
 	public void SetTeamCamera(TeamKind team)
 	{
 		curTeam = team;
@@ -98,19 +116,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
 			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
 
-			mShake = cameraFx.gameObject.AddComponent<Shake>();
+			if(!cameraFx.gameObject.GetComponent<Shake>())
+				mShake = cameraFx.gameObject.AddComponent<Shake>();
 			
 			cameraRotationObj.transform.position = startPos;
 			smothHight.x = startPos.y;
 			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
-		cameraFx.farClipPlane = 1500;
-		cameraFx.fieldOfView = zoomNormal;
-		cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 
-							   1 << LayerMask.NameToLayer("Default") | 
-							   1 << LayerMask.NameToLayer("RealBall") | 
-							   1 << LayerMask.NameToLayer("Scene");
 
 		cameraGroupObj.transform.localPosition = Vector3.zero;
 		cameraRotationObj.transform.localPosition = startPos;
