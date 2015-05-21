@@ -200,7 +200,7 @@ public class UICreateRole : UIBase {
 		if (ok) {
 			GameData.SaveTeam();
 			UIShow(false);
-			LobbyStart.Get.EnterLobby();
+			SceneMgr.Get.ChangeLevel(SceneName.Lobby);
 		}
 	}
 

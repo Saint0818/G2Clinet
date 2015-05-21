@@ -104,7 +104,6 @@ public class UIDoubleClick : UIBase {
 		speed = value;
 		framSpeed = 800 / (speed * 30);
 		framSpeed2 = 800 / (speed * 30 * SecondSpeedRate);
-		Debug.Log (framSpeed + " : " + framSpeed2);
 	}
 
 	private void CheckLv()

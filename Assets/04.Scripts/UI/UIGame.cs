@@ -3,7 +3,7 @@ using System.Collections;
 
 public class UIGame : UIBase {
 	private static UIGame instance = null;
-	private const string UIName = "UIGame2";
+	private const string UIName = "UIGame";
 
 	//Game const
 	public float ButtonBTime = 0.2f; //Fake to shoot time
@@ -140,7 +140,7 @@ public class UIGame : UIBase {
 
 	protected override void InitCom() {
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
-		Joystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
+		Joystick.Joystick = GameObject.Find (UIName + "GameJoystick").GetComponent<EasyJoystick>();
 
 		Again = GameObject.Find (UIName + "/Center/ButtonAgain");
 		Continue = GameObject.Find (UIName + "/Center/ButtonContinue");
