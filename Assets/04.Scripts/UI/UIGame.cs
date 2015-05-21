@@ -509,6 +509,7 @@ public class UIGame : UIBase {
 	}
 
 	public void BackMainMenu() {
+		Time.timeScale = 1;
 		SceneMgr.Get.ChangeLevel(SceneName.Lobby);
 	}
 
