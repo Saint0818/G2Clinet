@@ -185,8 +185,9 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			rpgCamera = player.AddComponent<RPGCamera>();
 			if (rpgCamera != null) {
 				rpgCamera.CameraPivotLocalPosition = new Vector3(0, 3, 0);
+				rpgCamera.LockMouseX = true;
 				rpgCamera.LockMouseY = true;
-				rpgCamera.MinDistance = 7;
+				rpgCamera.MinDistance = 9;
 				rpgCamera.MaxDistance = 9;
 				rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
 													(1 << LayerMask.NameToLayer("Player")) | 
