@@ -6,7 +6,7 @@ public class UIGame : UIBase {
 	private const string UIName = "UIGame";
 
 	//Game const
-	public float ButtonBTime = 0.2f; //Fake to shoot time
+	public float ButtonBTime = 0.14f; //Fake to shoot time
 	private float showScoreBarInitTime = 2;
 	public int[] MaxScores = {13, 13};
 
@@ -50,7 +50,6 @@ public class UIGame : UIBase {
 	private UILabel[] scoresLabel = new UILabel[2];
 	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[3];
 	private string[] aryHomeHintString = new string[3];
-	private GameObject playerTexture;
 
 	//FX
 	private float fxTime = 0.3f;
@@ -182,8 +181,6 @@ public class UIGame : UIBase {
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 		screenLocation.SetActive(false);
-
-		playerTexture = GameObject.Find (UIName + "/Top/Texture");
 
 		buttonPass = GameObject.Find(UIName + "/BottomRight/Attack/ButtonPass").GetComponent<UIButton>();
 		buttonPush = GameObject.Find(UIName + "/BottomRight/ButtonPush").GetComponent<UIButton>();
@@ -683,31 +680,16 @@ public class UIGame : UIBase {
 			if(playerScreenPos.y == -510) {
 				angle = -90;
 			}
-
-			if(GameStart.Get.IsSplitScreen) {
+			
+			if(playerInCameraX > -50 &&
+			   playerInCameraX < Screen.width + 100 &&
+			   playerInCameraY > -50 &&
+			   playerInCameraY < Screen.height + 100) {
 				screenLocation.SetActive(false);
-				if(playerInCameraX > -50 &&
-				   playerInCameraX < Screen.width + 100 &&
-				   playerInCameraY > -50 &&
-				   playerInCameraY < Screen.height + 100 ) {
-					playerTexture.SetActive(false);
-				} else {
-					playerTexture.SetActive(true);
-				}
-			}
-			else 
-			{
-				playerTexture.SetActive(false);
-				if(playerInCameraX > -50 &&
-				   playerInCameraX < Screen.width + 100 &&
-				   playerInCameraY > -50 &&
-				   playerInCameraY < Screen.height + 100) {
-					screenLocation.SetActive(false);
-				} else {
-					screenLocation.SetActive(true);
-					screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
-					screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
-				}
+			} else {
+				screenLocation.SetActive(true);
+				screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
+				screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 			}
 
 		}
