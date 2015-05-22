@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 11890ee66a900b246a8be0dcdd3e2926
-timeCreated: 1432123204
+guid: aacdd76c7e8dab845a43c60571506d33
+timeCreated: 1432263226
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Object004
+    4300000: S0_Train_Far
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -31,7 +31,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 0
+    meshCompression: 3
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
@@ -47,7 +47,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
+    splitTangentsAcrossUV: 0
     normalImportMode: 0
     tangentImportMode: 1
   importAnimation: 1
