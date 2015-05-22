@@ -2300,6 +2300,12 @@ public class GameController : MonoBehaviour
 		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 	}
 
+	public float GetAngle(PlayerBehaviour Self, Vector3 Enemy)
+	{
+		Vector3 relative = Self.transform.InverseTransformPoint(Enemy);
+		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+	}
+
     private void DefBlock(ref PlayerBehaviour Npc, int Kind = 0)
     {
         if (PlayerList.Count > 0 && !IsPassing)

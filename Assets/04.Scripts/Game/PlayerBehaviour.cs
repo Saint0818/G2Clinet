@@ -1124,9 +1124,8 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
 				if(Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
 				{
-					float aaa = Math.Abs(GameController.Get.GetAngle(Data.DefPlayer, this));
-					Debug.Log(aaa);
-					if(aaa >= 30)
+					if(Math.Abs(GameController.Get.GetAngle(Data.DefPlayer, this)) >= 30 && 
+					   Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
 					{
 						ResultBool = true;
 					}
@@ -1228,7 +1227,8 @@ public class PlayerBehaviour : MonoBehaviour
 						
 						if (Data.Shooting && NoAiTime == 0)
 							GameController.Get.Shoot();
-					} else
+					} 
+					else
 					{
 						if (Data.LookTarget == null)
 						{
@@ -1242,7 +1242,8 @@ public class PlayerBehaviour : MonoBehaviour
 								else
                                     rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
 							}
-						} else
+						} 
+						else
 							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 						
 						if (Data.Catcher)
@@ -1263,14 +1264,15 @@ public class PlayerBehaviour : MonoBehaviour
 					FirstMoveQueue.Dequeue();
 				else if (MoveQueue.Count > 0)
 					MoveQueue.Dequeue();
-			} else 
-				if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
+			} 
+			else if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
 			{                                          
 				MoveTurn++;
 				rotateTo(MoveTarget.x, MoveTarget.y);
 				if (MoveTurn == 1)
 					MoveStartTime = Time.time + GameConst.DefMoveTime;           
-			} else
+			} 
+			else
 			{
 				if (IsDefence)
 				{
@@ -1282,38 +1284,28 @@ public class PlayerBehaviour : MonoBehaviour
 						
 						if (dis <= GameConst.TreePointDistance + 4)
 						{
-							if (dis2 < dis)
-							{
-								if (dis > dis3)
-								{
-									rotateTo(MoveTarget.x, MoveTarget.y);
-									AniState(PlayerState.RunningDefence);
-								} else
-								{
-									rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-									AniState(PlayerState.MovingDefence);
-								}
-							} else
-							{
-								rotateTo(MoveTarget.x, MoveTarget.y);
-								AniState(PlayerState.RunningDefence);
-							}
-						} else
+							rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
+						} 
+						else
 						{
 							if (Data.LookTarget == null)
 							{
 								rotateTo(MoveTarget.x, MoveTarget.y);
-								AniState(PlayerState.RunningDefence);
-							} else if (Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
+							} 
+							else if (Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
 							{
 								rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-								AniState(PlayerState.MovingDefence);
-							} else
+							} 
+							else
 							{
 								rotateTo(MoveTarget.x, MoveTarget.y);
-								AniState(PlayerState.RunningDefence);
 							}
 						}
+
+						if(Math.Abs(GameController.Get.GetAngle(this, new Vector3(MoveTarget.x, 0, MoveTarget.y))) >= 90)
+							AniState(PlayerState.MovingDefence);
+						else
+							AniState(PlayerState.RunningDefence);
 					} else
 					{
 						rotateTo(MoveTarget.x, MoveTarget.y);
