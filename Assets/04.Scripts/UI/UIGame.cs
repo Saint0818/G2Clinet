@@ -447,7 +447,9 @@ public class UIGame : UIBase {
 				}
 				
 				isPressShootBtn = state;
-			}
+			} else 
+			if(!GameController.Get.Joysticker.IsBallOwner)
+				GameController.Get.DoShoot(true);
 		}
 	}
 
