@@ -9,6 +9,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private float zoomNormal = 25;
 	private float blankAera = 3.2f;
 	private float lockedFocusAngle = 30f;
+	private float lockedTeeFocusAngle = 40f;
 	private float focusOffsetSpeed = 0.8f;
 	private float focusSmoothSpeed = 0.02f;
 	private float[] focusStopPoint = new float[]{21f, -21f};
@@ -98,8 +99,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		Debug.Log ("Camera : " + cameraFx.name);
 	}
 
-	public void SetTeamCamera(TeamKind team)
+	public bool IsTee = false;
+
+	public void SetTeamCamera(TeamKind team, bool isTee = false)
 	{
+		IsTee = isTee;
 		curTeam = team;
 		SetTestToolPosition();
 	}
@@ -271,25 +275,38 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusObjectOffset (curTeam.GetHashCode());
 		switch (curTeam) {
 		case TeamKind.Self:
-			if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
-				Lookat(focusTarget, Vector3.zero);
-				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+			if(!IsTee){
+				if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
+					Lookat(focusTarget, Vector3.zero);
+					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				}
+				else
+				{
+					float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
+					cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+				}
 			}
-			else
-			{
-				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
+			else{
+				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedTeeFocusAngle, focusSmoothSpeed);
 				cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
 			}
+
 			break;
 		case TeamKind.Npc:
-
-			if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
-				Lookat(focusTarget, Vector3.zero);
-				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+			if(!IsTee){
+				if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
+					Lookat(focusTarget, Vector3.zero);
+					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+				}
+				else
+				{
+					float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
+					cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+				}
 			}
 			else
 			{
-				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
+				float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedTeeFocusAngle, focusSmoothSpeed);
 				cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
 			}
 			break;

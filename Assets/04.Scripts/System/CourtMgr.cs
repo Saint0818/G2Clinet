@@ -43,6 +43,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] CameraHood = new GameObject[2];
 	public Material BasketMaterial;
 	public BallCurve RealBallCurve;
+	public UILabel[] Scoreboards = new UILabel[2];
 
 	public Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
 	public Dictionary<int, List<string>> BasketAnimationName = new Dictionary<int, List<string>>(); 
@@ -191,6 +192,19 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		return list;
 	}
 
+	private void InitScoreboard()
+	{
+		Scoreboards [0] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel>();
+
+		if (Scoreboards [0])
+			Scoreboards [0].text = "0";
+
+		Scoreboards [1] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
+
+		if(Scoreboards [1])
+			Scoreboards [1].text = "0";
+	}
+
 
     void Awake()
     {
@@ -211,6 +225,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		ChangeBasket(2);
 		CameraMgr.Get.SetTeamCamera(0);
 		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
+		InitScoreboard ();
 		UIGame.UIShow (true);
 	}
 
@@ -536,6 +551,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localPosition = Vector3.zero;
 				break;
 		}
+	}
+
+	public void SetScoreboards(int team, int score)
+	{
+		if (Scoreboards [team] == null) {
+			InitScoreboard();		
+		}
+
+		if(Scoreboards [team])
+			Scoreboards [team].text = score.ToString();
 	}
 
 	public void SetRealBallPosition(Vector3 pos) {

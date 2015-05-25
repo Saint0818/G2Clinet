@@ -444,8 +444,7 @@ public class UIGame : UIBase {
 				UIDoubleClick.Get.ClickStop ();
 			}
 		} else {
-			if(GameController.Get.Joysticker.IsBallOwner &&
-				GameController.Get.situation == GameSituation.AttackA && 
+			if(GameController.Get.situation == GameSituation.AttackA && 
 			   !GameController.Get.Joysticker.IsFall && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge0) && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 
@@ -596,6 +595,7 @@ public class UIGame : UIBase {
 
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
+		CourtMgr.Get.SetScoreboards (team, score);
 		if(Scores [team] < MaxScores[team])
 			showScoreBar();
 		TweenRotation tweenRotation = TweenRotation.Begin(scoresLabel[team].gameObject, 0.5f, Quaternion.identity);

@@ -881,7 +881,7 @@ public class GameController : MonoBehaviour
 			case GameSituation.TeeAPicking:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				UIGame.Get.ChangeControl(true);
-				CameraMgr.Get.SetTeamCamera(TeamKind.Self);
+				CameraMgr.Get.SetTeamCamera(TeamKind.Npc, true);
 				PickBallplayer = null;
                 break;
             case GameSituation.TeeA:
@@ -891,7 +891,7 @@ public class GameController : MonoBehaviour
             case GameSituation.TeeBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
            	 	UIGame.Get.ChangeControl(false);
-           		CameraMgr.Get.SetTeamCamera(TeamKind.Npc);
+           		CameraMgr.Get.SetTeamCamera(TeamKind.Self, true);
 				PickBallplayer = null;
                 break;
 			case GameSituation.TeeB:
