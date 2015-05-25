@@ -138,6 +138,8 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitCom() {
+		ButtonBTime = GameStart.Get.ShootButtonTime;
+
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
 

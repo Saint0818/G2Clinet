@@ -15,6 +15,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);
+	public float ShootButtonTime = 0.14f;
 
 	//server
 	public bool ConnectToServer = false;
