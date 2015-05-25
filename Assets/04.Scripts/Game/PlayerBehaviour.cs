@@ -556,7 +556,7 @@ public class PlayerBehaviour : MonoBehaviour
 				isMoving = false;
 			}
         } else
-        if (NoAiTime > 0 && Time.time >= NoAiTime && !UIGame.Get.OpenMask)
+        if (NoAiTime > 0 && Time.time >= NoAiTime)
         {
             MoveQueue.Clear();
             NoAiTime = 0;

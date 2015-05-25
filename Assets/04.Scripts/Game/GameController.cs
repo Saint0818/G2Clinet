@@ -523,10 +523,10 @@ public class GameController : MonoBehaviour
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.D))
 			{
-				if(Joysticker.IsBallOwner)
-					UIGame.Get.DoElbow();
-				else
-					UIGame.Get.DoPush();
+//				if(Joysticker.IsBallOwner)
+				UIGame.Get.DoAttack();
+//				else
+//					UIGame.Get.DoPush();
 			}
 
 			if (Input.GetKeyDown(KeyCode.B))
@@ -559,10 +559,10 @@ public class GameController : MonoBehaviour
 
 				if(isPressPassBtn){ 
 					if(Input.GetKeyDown (KeyCode.W))
-						UIGame.Get.DoPassTeammateA();
+						UIGame.Get.DoPassTeammateA(Joysticker.gameObject);
 					
 					if(Input.GetKeyDown (KeyCode.E))
-						UIGame.Get.DoPassTeammateB();
+						UIGame.Get.DoPassTeammateB(Joysticker.gameObject);
 				}
 
 				if (Input.GetKeyDown (KeyCode.S))
