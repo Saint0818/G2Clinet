@@ -25,6 +25,17 @@ public class GameConst
     public const int StealReate_Success = 10;
 	public const int FakeShootRate = 40;
 	public const float DefMoveTime = 0.2f;
+
+	public const int AddAnger_PlusScore = 20;
+	public const int AddAnger_Block = 10;
+	public const int AddAnger_Steal = 10;
+	public const int AddAnger_Push = 10;
+	public const int AddAnger_Rebound = 10;
+	public const int DelAnger_Blocked = -10;
+	public const int DelAnger_Fall1 = -10;
+	public const int DelAnger_Stealed = -5;
+	public const int DelAnger_Fall2 = -5;
+
 	public static int SelfAILevel = 0;
 	public static int NpcAILevel = 0;
 	public static float MiddleDistance = 12;

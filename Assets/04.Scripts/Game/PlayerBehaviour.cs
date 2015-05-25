@@ -318,6 +318,17 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dis2;
 	private float dis3;
 	private bool CanSpeedup = true;
+	public int AngerPower = 0;
+
+	public void SetAnger(int Value)
+	{
+		AngerPower += Value;
+		if(AngerPower > 100)
+			AngerPower = 100;
+
+		if(AngerPower < 0)
+			AngerPower = 0;
+	}
     
     void Awake()
     {

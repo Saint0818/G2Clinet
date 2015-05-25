@@ -24,11 +24,17 @@ public class PushTrigger : MonoBehaviour {
 					int rate = UnityEngine.Random.Range(0, 100);
 					
 					if(rate < faller.Attr.StrengthRate)
-						faller.AniState(PlayerState.Fall2, pusher.transform.position);
+					{
+						if(faller.AniState(PlayerState.Fall2, pusher.transform.position))
+							faller.SetAnger(GameConst.DelAnger_Fall2);
+					}
 					else
-						faller.AniState(PlayerState.Fall1, pusher.transform.position);
+					{
+						if(faller.AniState(PlayerState.Fall1, pusher.transform.position))
+							faller.SetAnger(GameConst.DelAnger_Fall1);
+					}
 
-
+					pusher.SetAnger(GameConst.AddAnger_Push);
 					gameObject.SetActive(false);
 				}
 			}

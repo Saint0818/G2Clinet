@@ -1543,9 +1543,11 @@ public class GameController : MonoBehaviour
 				if (stealRate <= (r + AddRate) && Mathf.Abs(GetAngle(BallOwner, player)) <= 90 + AddAngle)
 				{
 					if(BallOwner && BallOwner.AniState(PlayerState.GotSteal))
+					{
+						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						return true;
-				}else
-					if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
+					}
+				}else if(BallOwner != null && HaveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0)
 				{
 					stealRate = Random.Range(0, 100) + 1;
 					
@@ -2980,6 +2982,8 @@ public class GameController : MonoBehaviour
 			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
 				if (GameStart.Get.TestMode == GameTest.Rebound || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
 					if (SetBall(player)) {
+						player.SetAnger(GameConst.AddAnger_Rebound);
+
 						if (player == BallOwner && inTipinDistance(player)) {
 							CoolDownPass = Time.time + 3;
 							if (player == Joysticker)
@@ -3154,6 +3158,8 @@ public class GameController : MonoBehaviour
             else
                 ChangeSituation(GameSituation.TeeAPicking);
 
+			if(Shooter != null)
+				Shooter.SetAnger(GameConst.AddAnger_PlusScore);
             Shooter = null;
 
 		}
