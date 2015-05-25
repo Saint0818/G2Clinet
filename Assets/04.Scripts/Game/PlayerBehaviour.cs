@@ -2548,13 +2548,30 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
 	{
+		bool cover = false;
 		Vector2 Result = Vector2.zero;
 		if(P1.x > 0)
 			Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
 		else
 			Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
 
-		if (mIndex != Index) 
+		if (GameController.Get.BallOwner && GameController.Get.BallOwner.DefPlayer && GameController.Get.BallOwner.Index != Index) 
+		{
+			float angle = Math.Abs(GameController.Get.GetAngle(GameController.Get.BallOwner, GameController.Get.BallOwner.DefPlayer));
+
+			if(angle > 90)
+			{
+				P1 = GameController.Get.BallOwner.transform.position;
+				if(P1.x > 0)
+					Result.x = P1.x - (Math.Abs(P1.x - P2.x) / 3);
+				else
+					Result.x = P1.x + (Math.Abs(P1.x - P2.x) / 3);
+
+				cover = true;
+			}
+		}
+
+		if (mIndex != Index && !cover) 
 		{
 			switch(mIndex)
 			{
