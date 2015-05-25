@@ -194,15 +194,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	private void InitScoreboard()
 	{
-		Scoreboards [0] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel>();
+		Scoreboards [1] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel>();
 
-		if (Scoreboards [0])
-			Scoreboards [0].text = "0";
-
-		Scoreboards [1] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
-
-		if(Scoreboards [1])
+		if (Scoreboards [1])
 			Scoreboards [1].text = "0";
+
+		Scoreboards [0] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
+
+		if(Scoreboards [0])
+			Scoreboards [0].text = "0";
 	}
 
 
@@ -479,18 +479,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				
 				//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				Vector3 v = RealBall.transform.forward * -1;
-				if(player != null)
-				{
+				if(player != null)					
 					v = player.transform.forward * 10;
-					player.SetAnger (GameConst.AddAnger_Steal);
-				}
 				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 			break;
 			
 		case PlayerState.Block: 
-				if(GameController.Get.Shooter)
-					GameController.Get.Shooter.SetAnger(GameConst.DelAnger_Blocked);
 				GameController.Get.Shooter = null;
 				GameController.Get.Passer = null;
 				realBallCollider.enabled = true;
@@ -500,11 +495,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBall.transform.localScale = Vector3.one;
 				v = RealBall.transform.forward * -1;
-				if(player != null)			
-				{
+				if(player != null)					
 					v = player.transform.forward * 10;
-					player.SetAnger (GameConst.AddAnger_Block);
-				}
 				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
