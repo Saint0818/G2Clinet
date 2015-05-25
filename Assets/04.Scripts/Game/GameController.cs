@@ -454,8 +454,9 @@ public class GameController : MonoBehaviour
 				break;
 			case GameTest.Pass:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (0, 0, -2), new GameStruct.TPlayer(0)));
-				for (int i = 0; i < PlayerList.Count; i++)
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, TeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
+			for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 				break;
             case GameTest.Edit:
@@ -561,10 +562,10 @@ public class GameController : MonoBehaviour
 
 				if(isPressPassBtn){ 
 					if(Input.GetKeyDown (KeyCode.W))
-						UIGame.Get.DoPassTeammateA(Joysticker.gameObject);
+						UIGame.Get.DoPassTeammateA(Joysticker.gameObject, true);
 					
 					if(Input.GetKeyDown (KeyCode.E))
-						UIGame.Get.DoPassTeammateB(Joysticker.gameObject);
+						UIGame.Get.DoPassTeammateB(Joysticker.gameObject, true);
 				}
 
 				if (Input.GetKeyDown (KeyCode.S))

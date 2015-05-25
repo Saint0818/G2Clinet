@@ -14,6 +14,7 @@ public class UIGame : UIBase {
 	private float showScoreBarTime = 0;
 	public int[] Scores = {0, 0};
 
+	private bool isAttackState = true;
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
 	private bool isPressShootBtn = false;
@@ -112,15 +113,6 @@ public class UIGame : UIBase {
 				}
 			}
 		}
-		
-//		if(GameController.Get.BallOwner == GameController.Get.Joysticker) {
-//			defenceGroup[2].SetActive(false);
-//			attackGroup[2].SetActive(true);
-//
-//		} else {
-//			defenceGroup[2].SetActive(true);
-//			attackGroup[2].SetActive(false);
-//		}
         
         if(isShowScoreBar && showScoreBarTime > 0) {
             showScoreBarTime -= Time.deltaTime;
@@ -193,8 +185,8 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA")).onClick = DoPassTeammateA;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB")).onClick = DoPassTeammateB;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA")).onPress = DoPassTeammateA;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB")).onPress = DoPassTeammateB;
 
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
@@ -444,7 +436,8 @@ public class UIGame : UIBase {
 				UIDoubleClick.Get.ClickStop ();
 			}
 		} else {
-			if(GameController.Get.situation == GameSituation.AttackA && 
+			if(GameController.Get.Joysticker.IsBallOwner &&
+				GameController.Get.situation == GameSituation.AttackA && 
 			   !GameController.Get.Joysticker.IsFall && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge0) && 
 			   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 
@@ -486,10 +479,10 @@ public class UIGame : UIBase {
 		if(GameController.Get.Joysticker.IsBallOwner && 
 		   !GameController.Get.Joysticker.IsFall && 
 		   GameController.Get.situation == GameSituation.AttackA) {
-			if(!GameController.Get.IsCanPassAir)
+			if(!GameController.Get.IsCanPassAir){
 				passObject.SetActive(state);
-			if (state) {
-				SetPassButton(3);
+				if (state) 
+					SetPassButton(3);
 			}
 //			initLine();
 //			drawLine.IsShow = state;
@@ -499,14 +492,16 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void DoPassTeammateA(GameObject go) {
+	public void DoPassTeammateA(GameObject obj, bool state) {
 //		showCoverAttack(true);
 //		coverAttack[0].SetActive(false);
 		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
 		passObject.SetActive(false);
-
+		attackGroup[1].SetActive(false);
+		attackPush.SetActive(false);
+		
 		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1))
 			GameController.Get.Joysticker.SetNoAiTime();
 		else{
@@ -518,7 +513,7 @@ public class UIGame : UIBase {
 //		drawLine.IsShow = false;
 	}
 
-	public void DoPassTeammateB(GameObject go) {
+	public void DoPassTeammateB(GameObject obj, bool state) {
 //		showCoverAttack(true);
 //		coverAttack[0].SetActive(false);
 
@@ -526,6 +521,8 @@ public class UIGame : UIBase {
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
 		passObject.SetActive(false);
+		attackGroup[1].SetActive(false);
+		attackPush.SetActive(false);
 		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2))
 			GameController.Get.Joysticker.SetNoAiTime();
 		else {
@@ -710,6 +707,7 @@ public class UIGame : UIBase {
 		ControlButtonGroup[1].SetActive(!IsAttack);
 		showDefence(!IsAttack);
 		attackPush.SetActive(true);
+		isAttackState = IsAttack;
 		
 //		if(!IsAttack)
 //			drawLine.IsShow = false;
@@ -721,15 +719,10 @@ public class UIGame : UIBase {
 				p.SetNoAiTime();
 
 			shootBtnTime = ButtonBTime;
-			if(GameController.Get.Joysticker.IsBallOwner){
-				ControlButtonGroup[0].SetActive(true);
-				ControlButtonGroup[1].SetActive(false);
-				showAttack(true);
-			}else {
-				ControlButtonGroup[0].SetActive(false);
-				ControlButtonGroup[1].SetActive(true);
-				showDefence(true);
-			}
+			ControlButtonGroup[0].SetActive(isAttackState);
+			showAttack(isAttackState);
+			ControlButtonGroup[1].SetActive(!isAttackState);
+			showDefence(!isAttackState);
 			attackPush.SetActive(true);
 
 			isCanDefenceBtnPress = true;
