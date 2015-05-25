@@ -483,6 +483,8 @@ public class GameController : MonoBehaviour
 		selectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
+		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
+		Joysticker.AngerView.fillAmount = 0;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
             EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);

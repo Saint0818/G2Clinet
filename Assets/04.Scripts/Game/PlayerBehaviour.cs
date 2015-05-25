@@ -224,6 +224,7 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject DummyBall;
 	public GameObject DummyCatch;
 	public UISprite SpeedUpView = null;
+	public UISprite AngerView = null;
 
     public TeamKind Team;
     public float NoAiTime = 0;
@@ -328,6 +329,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if(AngerPower < 0)
 			AngerPower = 0;
+
+		if(this == GameController.Get.Joysticker)
+		{
+			float temp = AngerPower;
+			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
+		}
 	}
     
     void Awake()
