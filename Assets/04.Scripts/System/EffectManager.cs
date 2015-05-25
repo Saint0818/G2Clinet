@@ -90,7 +90,7 @@ public class EffectManager : MonoBehaviour
 	}
 
 	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
-		if (GameData.Setting.Effect) {
+		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
@@ -134,6 +134,14 @@ public class EffectManager : MonoBehaviour
 		}
 
 		return null;
+	}
+
+	public bool IsCheckSpecial(string name)
+	{
+		if(name == "SelectMe")
+			return true;
+		else
+			return false;
 	}
 
 	private GameObject getCloneObject() {

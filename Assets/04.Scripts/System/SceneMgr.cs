@@ -21,7 +21,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	
 	IEnumerator LoadLevelCoroutine(SceneName levelToLoad)
 	{
-		string test = levelToLoad.ToString ();
 		if (OnLevelWillBeLoaded != null)
 			OnLevelWillBeLoaded();
 

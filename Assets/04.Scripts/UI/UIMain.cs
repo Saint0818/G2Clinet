@@ -4,6 +4,7 @@ using System.Collections;
 public class UIMain : UIBase {
 	private static UIMain instance = null;
 	private const string UIName = "UIMain";
+	private GameObject[] EffectSwitch = new GameObject[2];
 	
 	public static bool Visible
 	{
@@ -40,6 +41,30 @@ public class UIMain : UIBase {
 	
 	protected override void InitCom() {
 		SetBtnFun(UIName + "/Center/ButtonReset", OnCourt);
+		UIEventListener.Get (GameObject.Find (UIName + "/TopLeft/ButtonEffect")).onClick = DoEffectSwitch;
+
+		EffectSwitch [0] = GameObject.Find (UIName + "/TopLeft/ButtonEffect/LabelON");
+		EffectSwitch [1] = GameObject.Find (UIName + "/TopLeft/ButtonEffect/LabelOff");
+
+		EffectSwitch [0].SetActive (GameData.Setting.Effect);
+		EffectSwitch [1].SetActive (!GameData.Setting.Effect);
+	}
+
+	public void DoEffectSwitch(GameObject obj)
+	{
+		GameData.Setting.Effect = !GameData.Setting.Effect;
+		EffectSwitch [0].SetActive (GameData.Setting.Effect);
+		EffectSwitch [1].SetActive (!GameData.Setting.Effect);
+
+		int index = 0;
+
+		if (GameData.Setting.Effect)
+			index = 1;
+
+		CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
+
+		PlayerPrefs.SetInt (SettingText.Effect, index);
+		PlayerPrefs.Save ();
 	}
 	
 	protected override void InitData() {

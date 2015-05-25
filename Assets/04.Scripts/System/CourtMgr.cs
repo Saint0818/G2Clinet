@@ -38,6 +38,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Animator[] BasketHoopAnimator = new Animator[2];
 	public Transform[] BasketHoop = new Transform[2];
 	public Transform[] BasketHoopDummy = new Transform[2];
+	public GameObject Effect;
 
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
@@ -203,8 +204,18 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 		if(Scoreboards [0])
 			Scoreboards [0].text = "0";
+
+		EffectEnable(GameData.Setting.Effect);
 	}
 
+	public void EffectEnable(bool enable)
+	{
+		if (Effect == null)
+			Effect = GameObject.Find ("Effect");
+
+		if (Effect)
+			Effect.SetActive (enable);
+	}
 
     void Awake()
     {
