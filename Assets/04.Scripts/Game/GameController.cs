@@ -3476,6 +3476,7 @@ public class GameController : MonoBehaviour
 
 		Shooter = null;
 		Catcher = null;
+		Joysticker.AngerView.fillAmount = 0;
 		situation = GameSituation.Opening;
 		ChangeSituation (GameSituation.Opening);
     }
