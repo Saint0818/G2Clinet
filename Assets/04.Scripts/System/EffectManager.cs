@@ -138,10 +138,15 @@ public class EffectManager : MonoBehaviour
 
 	public bool IsCheckSpecial(string name)
 	{
-		if(name == "SelectMe")
-			return true;
-		else
-			return false;
+		string[] strs = new string[]{"SelectMe", "SelectA", "SelectMe", "MoveTo"};
+
+		for(int i = 0; i < strs.Length; i++)
+		{
+			if(strs[i] == name)
+				return true;
+		}
+	
+		return false;
 	}
 
 	private GameObject getCloneObject() {
