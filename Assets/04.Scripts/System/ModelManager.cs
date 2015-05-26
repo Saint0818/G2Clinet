@@ -104,6 +104,10 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		Res.transform.localPosition = BornPos;
 
 		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
+		SkinnedMeshRenderer render = PB.gameObject.GetComponentInChildren<SkinnedMeshRenderer> ();
+		if (render && render.sharedMaterials [0])
+			PB.BodyMaterial = render.sharedMaterials [0];
+
 		PB.Team = Team;
 		PB.MoveIndex = -1;
 		PB.Player = player;

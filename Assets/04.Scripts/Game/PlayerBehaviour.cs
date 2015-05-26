@@ -320,7 +320,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dis3;
 	private bool CanSpeedup = true;
 	public int AngerPower = 0;
-	
+	public Material BodyMaterial;
 	private float SlowDownTime = 0;
 
 	public void SetAnger(int Value)

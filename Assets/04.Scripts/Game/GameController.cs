@@ -3502,6 +3502,68 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	public void SetBodyMaterial(int kind){
+		switch (kind) {
+			case 1:
+				SetBodyMaterial(true, 1);
+				SetBodyMaterial(false, 2);
+				break;
+			case 2:
+				SetBodyMaterial(false, 1);
+				SetBodyMaterial(true, 2);
+				break;
+			case 3:
+			case 4:
+				SetBodyMaterial(true, 1);
+				SetBodyMaterial(true, 2);
+				break;
+			 default:
+				SetBodyMaterial(false, 1);
+				SetBodyMaterial(false, 2);
+				break;
+		}
+	}
+
+	public void SetBodyMaterial(bool open,int index){
+
+		if (PlayerList.Count > 0 && index < PlayerList.Count) {
+			Shader loadshader;
+			
+			if(open)
+				loadshader = Resources.Load("Shaders/Toony-BasicOutline", typeof(Shader)) as Shader; 
+			else
+				loadshader = Resources.Load("Shaders/Toony-Basic", typeof(Shader)) as Shader; 
+
+			switch(index)
+			{
+				case 0:
+					if(loadshader){
+						PlayerList[index].BodyMaterial.shader = loadshader;
+					}
+						break;
+				case 1:
+					if(loadshader){
+						PlayerList[index].BodyMaterial.shader = loadshader;
+						if(open){
+							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
+							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.004f);
+						}
+					}
+					break;
+				case 2:
+					if(loadshader){
+						PlayerList[index].BodyMaterial.shader = loadshader;
+						if(open){
+							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
+							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.004f);
+						}
+					}
+					break;
+			}
+		}
+
+	}
+
 	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos, ref TActionPosition [] Result)
 	{
 		Result = null;

@@ -573,6 +573,7 @@ public class UIGame : UIBase {
 			passObjectGroup[1].SetActive(true);
 			break;
         }
+		GameController.Get.SetBodyMaterial(kind);
 	}
 
 	private void showScoreBar(){
