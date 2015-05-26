@@ -905,15 +905,24 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     private bool isCheckLayerToReset = false;
+    private bool isStartCheckLayer = false;
 
     private void CalculationPlayerHight()
     {
         animator.SetFloat("CrtHight", gameObject.transform.localPosition.y);
 
-        if (isCheckLayerToReset && !isTouchPalyer)
+		if (gameObject.transform.localPosition.y > 0.2f && gameObject.layer == LayerMask.NameToLayer ("Player")) {
+			Debug.Log("Error : " + gameObject.name + " . crtState : " + crtState);
+		}
+
+		if (gameObject.transform.localPosition.y > 0.2f)
+			isStartCheckLayer = true;
+
+		if (isStartCheckLayer && isCheckLayerToReset && !isTouchPalyer && gameObject.transform.localPosition.y < 0.2f)
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
             isCheckLayerToReset = false;
+			isStartCheckLayer = false;
         }
 
     }

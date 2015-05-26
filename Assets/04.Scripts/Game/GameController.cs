@@ -287,8 +287,8 @@ public class GameController : MonoBehaviour
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
 		BornAy [0] = new Vector3 (0, 0, 0);
-		BornAy [1] = new Vector3 (5, 0, -2);
-		BornAy [2] = new Vector3 (-5, 0, -2);
+		BornAy [1] = new Vector3 (-5, 0, -2);
+		BornAy [2] = new Vector3 (5, 0, -2);
 		BornAy [3] = new Vector3 (0, 0, 5);
 		BornAy [4] = new Vector3 (5, 0, 2);
 		BornAy [5] = new Vector3 (-5, 0, 2);
@@ -455,8 +455,8 @@ public class GameController : MonoBehaviour
 				break;
 			case GameTest.Pass:
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
-				PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, TeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, TeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
+				PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, TeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
 			for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 				break;
@@ -674,7 +674,7 @@ public class GameController : MonoBehaviour
 
 		if (GameStart.Get.TestMode == GameTest.Shoot) {
 			for(int i = 0 ; i < ShootStates.Length; i++){
-				if (GUI.Button(new Rect(600, 50 + i * 50, 100, 50), ShootStates[i].ToString())) {	
+				if (GUI.Button(new Rect(Screen.width / 2, 50 + i * 50, 100, 50), ShootStates[i].ToString())) {	
 					testState = ShootStates[i];
 				}
 			}
@@ -3550,7 +3550,7 @@ public class GameController : MonoBehaviour
 						PlayerList[index].BodyMaterial.shader = loadshader;
 						if(open){
 							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
-							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.004f);
+							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
 						}
 					}
 					break;
@@ -3559,7 +3559,7 @@ public class GameController : MonoBehaviour
 						PlayerList[index].BodyMaterial.shader = loadshader;
 						if(open){
 							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
-							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.004f);
+							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
 						}
 					}
 					break;
