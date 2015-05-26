@@ -296,15 +296,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private float fallCurveTime = 0;
 	private TSharedCurve playerFallCurve;
 
-    //IK
-//    private AimIK aimIK;
-//    private FullBodyBipedIK fullBodyBipedIK;
-//    private Transform pinIKTransform;
-//    public Transform IKTarget;
-//    public bool isIKOpen = false;
-//    public bool isIKLook = false;
-//    public bool isIKCatchBall = false;
-//    private RotationLimitAngle[] ikRotationLimits;
 	private bool firstDribble = true;
 	public TScoreRate ScoreRate;
 	private bool isCanCatchBall = true;
@@ -352,19 +343,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
         gameObject.tag = "Player";
-
-        //IK
-//        aimIK = gameObject.GetComponent<AimIK>();
-//        fullBodyBipedIK = gameObject.GetComponent<FullBodyBipedIK>();
-//        aimIK.enabled = GameStart.Get.IsOpenIKSystem;
-//        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
-//        pinIKTransform = transform.FindChild("Pin");
-//        IKTarget = SceneMgr.Get.RealBall.transform;
-//
-//        ikRotationLimits = gameObject.GetComponentsInChildren<RotationLimitAngle>();
-//        fullBodyBipedIK.enabled = GameStart.Get.IsOpenIKSystem;
-//        for (int i = 0; i < ikRotationLimits.Length; i++)
-//            ikRotationLimits [i].enabled = GameStart.Get.IsOpenIKSystem;
 
         animator = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
@@ -471,80 +449,6 @@ public class PlayerBehaviour : MonoBehaviour
 			DefPointAy [DefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find ("LeftSteal").gameObject.transform;
         }
     }
-
-//    void LateUpdate()
-//    {
-//        if (aimIK != null)
-//        {
-//            if (pinIKTransform != null)
-//            {
-//                if (IKTarget != null)
-//                {
-//                    if (GameStart.Get.IsOpenIKSystem)
-//                    {
-//                        Vector3 t_self = new Vector3(IKTarget.position.x, IKTarget.position.y, IKTarget.position.z);
-//                        aimIK.solver.transform.LookAt(pinIKTransform.position);
-//                        if (isIKOpen)
-//                        {
-//                            if (isIKLook)
-//                            {
-//                                aimIK.enabled = true;
-//                                for (int i = 0; i < ikRotationLimits.Length; i++)
-//                                    ikRotationLimits [i].enabled = true;
-//                                aimIK.solver.IKPosition = IKTarget.position;
-//                            } else
-//                            {
-//                                aimIK.enabled = false;
-//                                for (int i = 0; i < ikRotationLimits.Length; i++)
-//                                    ikRotationLimits [i].enabled = false;
-//                            }
-//
-//                            if (isIKCatchBall)
-//                            {
-//                                if (Mathf.Abs(GameFunction.GetPlayerToObjectAngle(this.gameObject.transform, SceneMgr.Get.RealBall.transform)) < 100)
-//                                {
-//                                    if (Vector3.Distance(this.gameObject.transform.position, SceneMgr.Get.RealBall.transform.position) < 3)
-//                                    {
-//                                        fullBodyBipedIK.enabled = true;
-//                                        fullBodyBipedIK.solver.leftHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-//                                        fullBodyBipedIK.solver.rightHandEffector.position = SceneMgr.Get.RealBall.transform.position;
-//                                    } else
-//                                    {
-//                                        fullBodyBipedIK.enabled = false;
-//                                    }
-//                                } else
-//                                {
-//                                    fullBodyBipedIK.enabled = false;
-//                                }
-//                            } else
-//                            {
-//                                fullBodyBipedIK.enabled = false;
-//                            }
-//                        } else
-//                        {
-//                            aimIK.enabled = false;
-//                            for (int i = 0; i < ikRotationLimits.Length; i++)
-//                                ikRotationLimits [i].enabled = false;
-//                            fullBodyBipedIK.enabled = false;
-//                        }
-//                    } else
-//                    {
-//                        aimIK.enabled = false;
-//                        for (int i = 0; i < ikRotationLimits.Length; i++)
-//                            ikRotationLimits [i].enabled = false;
-//                        fullBodyBipedIK.enabled = false;
-//                    }
-//                    for (int i = 0; i < aimIK.solver.bones.Length; i++)
-//                    {
-//                        if (aimIK.solver.bones [i].rotationLimit != null)
-//                        {
-//                            aimIK.solver.bones [i].rotationLimit.SetDefaultLocalRotation();
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     void FixedUpdate()
     {

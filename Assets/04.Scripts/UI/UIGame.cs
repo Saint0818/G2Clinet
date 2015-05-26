@@ -90,9 +90,9 @@ public class UIGame : UIBase {
 		if (Input.GetMouseButtonUp(0)) {
 			isPressShootBtn = false;
 			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
-				DoJumpPassTeammateA();
+				DoPassTeammateA();
 			} else if (UICamera.hoveredObject.name.Equals("ButtonObjectB")) {
-				DoJumpPassTeammateB();
+				DoPassTeammateB();
 			}
 		}
 
@@ -200,7 +200,7 @@ public class UIGame : UIBase {
 		restart.SetActive(false);
 		mainMenu.SetActive(false);
 		Continue.SetActive(false);
-		passObject.SetActive(false);
+		SetPassButton(0);
 
 		ChangeControl(false);
 		
@@ -302,9 +302,8 @@ public class UIGame : UIBase {
 			if(isPressElbowBtn && 
 			   !GameController.Get.Joysticker.IsFall && 
 			   GameController.Get.situation == GameSituation.AttackA) {
-				showAttack(false);
-				
 				AttackFX();
+				showAttack(false);
 				GameController.Get.DoElbow ();
 				GameController.Get.Joysticker.SetNoAiTime();
 			}
@@ -312,16 +311,13 @@ public class UIGame : UIBase {
 			//Push
 			if(isCanDefenceBtnPress && 
 			   !GameController.Get.Joysticker.IsFall &&
-			   (GameController.Get.situation == GameSituation.AttackB || GameController.Get.situation == GameSituation.AttackA)
-			   ) {
-				showDefence(false);
-				
+			   (GameController.Get.situation == GameSituation.AttackB || GameController.Get.situation == GameSituation.AttackA)) {
 				AttackFX();
+				showDefence(false);
 				GameController.Get.DoPush();
 				GameController.Get.Joysticker.SetNoAiTime();
 			}
 		}
-		
 	}
 
 	//Defence
@@ -330,10 +326,9 @@ public class UIGame : UIBase {
 		   !GameController.Get.Joysticker.IsFall && 
 		   GameController.Get.situation == GameSituation.AttackB
 		   ) {
-			defenceGroup[0].SetActive(false);
-			attackPush.SetActive(false);
-
 			BlockFX();
+			attackPush.SetActive(false);
+			defenceGroup[0].SetActive(false);
 			GameController.Get.DoBlock();
 			GameController.Get.Joysticker.SetNoAiTime();
 		}
@@ -345,10 +340,9 @@ public class UIGame : UIBase {
 		   GameController.Get.situation == GameSituation.AttackB && 
 		   GameController.Get.StealBtnLiftTime <= 0
 		   ) {
-			defenceGroup[1].SetActive(false);
-			attackPush.SetActive(false);
-
 			StealFX();
+			attackPush.SetActive(false);
+			defenceGroup[1].SetActive(false);
 			GameController.Get.DoSteal();
 			GameController.Get.Joysticker.SetNoAiTime();
 		}
@@ -409,73 +403,48 @@ public class UIGame : UIBase {
 		   !GameController.Get.Joysticker.IsFall && 
 		   GameController.Get.situation == GameSituation.AttackA) {
 			if(!GameController.Get.IsCanPassAir){
-				passObject.SetActive(state);
 				if (state) 
-					SetPassButton(3);
+					SetPassButton(4);
 			}
 		} else {
 			GameController.Get.DoPass(0);
 			GameController.Get.Joysticker.SetNoAiTime();
 		}
-	}
 
-	public void DoJumpPassTeammateA() {
-		buttonObjectAFXTime = fxTime;
-		buttonObjectAFX.SetActive(true);
-		passObject.SetActive(false);
-		showAttack(false);
-		attackPush.SetActive(false);
-		
-		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1))
-			GameController.Get.Joysticker.SetNoAiTime();
-		else 
-			showAttack(true);
-	}
-
-	public void DoJumpPassTeammateB() {
-		buttonObjectAFXTime = fxTime;
-		buttonObjectAFX.SetActive(true);
-		passObject.SetActive(false);
-		showAttack(false);
-		attackPush.SetActive(false);
-		
-		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2))
-			GameController.Get.Joysticker.SetNoAiTime();
-		else 
-			showAttack(true);
+		if(!state)
+			SetPassButton(0);
 	}
 
 	public void DoPassTeammateA() {
-		PassFX();
 		buttonObjectAFXTime = fxTime;
 		buttonObjectAFX.SetActive(true);
-		passObject.SetActive(false);
+		SetPassButton(0);
 		attackGroup[1].SetActive(false);
 		attackPush.SetActive(false);
 		
-		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1))
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1)){
+			PassFX();
 			GameController.Get.Joysticker.SetNoAiTime();
-		else{
+		}else
 			showAttack(true);
-		}
 	}
 
 	public void DoPassTeammateB() {
-		PassFX();
 		buttonObjectBFXTime = fxTime;
 		buttonObjectBFX.SetActive(true);
-		passObject.SetActive(false);
+		SetPassButton(0);
 		attackGroup[1].SetActive(false);
 		attackPush.SetActive(false);
-		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2))
+
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2)){
+			PassFX();
 			GameController.Get.Joysticker.SetNoAiTime();
-		else {
+		}else 
 			showAttack(true);
-		}
 	}
 
 	public void DoPassNone() {
-		passObject.SetActive(false);
+		SetPassButton(0);
 	}
 
 	public void BackMainMenu() {
@@ -562,6 +531,7 @@ public class UIGame : UIBase {
 			passObjectGroup[1].SetActive(true);
 			break;
 		case 4:
+			passSprite.alpha = 1f;
 			passObject.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
