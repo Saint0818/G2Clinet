@@ -35,6 +35,7 @@ public class UIGame : UIBase {
 	private GameObject[] attackGroup = new GameObject[2];
 	private GameObject[] defenceGroup = new GameObject[2];
 	private GameObject attackPush;
+	private UISprite passSprite;
 //	private GameObject[] coverAttack = new GameObject[3];
 //	private GameObject[] coverDefence = new GameObject[3];
 	private GameObject[] ControlButtonGroup= new GameObject[2];
@@ -90,8 +91,14 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if (Input.GetMouseButtonUp(0)) 
+		if (Input.GetMouseButtonUp(0)) {
 			isPressShootBtn = false;
+			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
+				DoJumpPassTeammateA();
+			} else if (UICamera.hoveredObject.name.Equals("ButtonObjectB")) {
+				DoJumpPassTeammateB();
+			}
+		}
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
@@ -151,6 +158,8 @@ public class UIGame : UIBase {
 
 		attackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 
+		passSprite = attackGroup[0].GetComponent<UISprite>();
+
 //		coverAttack[0] = GameObject.Find(UIName + "/BottomRight/Attack/CoverPass");
 //		coverAttack[1] = GameObject.Find(UIName + "/BottomRight/Attack/CoverShoot");
 
@@ -185,9 +194,8 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/ButtonPass")).onPress = DoPassChoose;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA")).onPress = DoPassTeammateA;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB")).onPress = DoPassTeammateB;
-
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectA")).onDrag = DoJumpPassTeammateA;
+//		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/Attack/PassObject/ButtonObjectB")).onDrag = DoJumpPassTeammateB;
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
@@ -492,7 +500,33 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void DoPassTeammateA(GameObject obj, bool state) {
+	public void DoJumpPassTeammateA() {
+		buttonObjectAFXTime = fxTime;
+		buttonObjectAFX.SetActive(true);
+		passObject.SetActive(false);
+		showAttack(false);
+		attackPush.SetActive(false);
+		
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1))
+			GameController.Get.Joysticker.SetNoAiTime();
+		else 
+			showAttack(true);
+	}
+
+	public void DoJumpPassTeammateB() {
+		buttonObjectAFXTime = fxTime;
+		buttonObjectAFX.SetActive(true);
+		passObject.SetActive(false);
+		showAttack(false);
+		attackPush.SetActive(false);
+		
+		if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2))
+			GameController.Get.Joysticker.SetNoAiTime();
+		else 
+			showAttack(true);
+	}
+
+	public void DoPassTeammateA() {
 //		showCoverAttack(true);
 //		coverAttack[0].SetActive(false);
 		PassFX();
@@ -513,7 +547,7 @@ public class UIGame : UIBase {
 //		drawLine.IsShow = false;
 	}
 
-	public void DoPassTeammateB(GameObject obj, bool state) {
+	public void DoPassTeammateB() {
 //		showCoverAttack(true);
 //		coverAttack[0].SetActive(false);
 
@@ -604,21 +638,30 @@ public class UIGame : UIBase {
 	public void SetPassButton(int kind) {
 		switch (kind) {
 		case 1:
+			passSprite.alpha = 0f;
 			passObject.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(false);
 			break;
 		case 2:
+			passSprite.alpha = 0f;
 			passObject.SetActive(true);
 			passObjectGroup[0].SetActive(false);
 			passObjectGroup[1].SetActive(true);
             break;
 		case 3:
+			passSprite.alpha = 0f;
+			passObject.SetActive(true);
+			passObjectGroup[0].SetActive(true);
+			passObjectGroup[1].SetActive(true);
+			break;
+		case 4:
 			passObject.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
 			break;
 		default:
+			passSprite.alpha = 1f;
 			passObject.SetActive(false);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
@@ -685,18 +728,16 @@ public class UIGame : UIBase {
 				angle = -90;
 			}
 
-
-				if(playerInCameraX > -50 &&
-				   playerInCameraX < Screen.width + 100 &&
-				   playerInCameraY > -50 &&
-				   playerInCameraY < Screen.height + 100) {
-					screenLocation.SetActive(false);
-				} else {
-					screenLocation.SetActive(true);
-					screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
-					screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
-				}
-
+			if(playerInCameraX > -50 &&
+			   playerInCameraX < Screen.width + 100 &&
+			   playerInCameraY > -50 &&
+			   playerInCameraY < Screen.height + 100) {
+				screenLocation.SetActive(false);
+			} else {
+				screenLocation.SetActive(true);
+				screenLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
+				screenLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
+			}
 		}
 	}
 

@@ -16,10 +16,10 @@ public class UIPassEvent : UIDragDropItem {
 
 	protected override  void OnDragDropRelease (GameObject surface) {
 		if(surface.name.Equals("ButtonObjectA")) {
-			UIGame.Get.DoPassTeammateA(gameObject, true);
+			UIGame.Get.DoPassTeammateA();
 		}else 
 		if(surface.name.Equals("ButtonObjectB")) {
-			UIGame.Get.DoPassTeammateB(gameObject, true);
+			UIGame.Get.DoPassTeammateB();
 		}else{
 			UIGame.Get.DoPassNone();
 		}
