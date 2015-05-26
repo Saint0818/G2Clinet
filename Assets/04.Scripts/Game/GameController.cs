@@ -1098,6 +1098,10 @@ public class GameController : MonoBehaviour
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
+			
+		if(extraScoreRate == GameData.ExtraPerfectRate)
+			isAirBall = false;
+		
 		if(isScore && isSwich) 
 			BasketSituationType = BasketSituation.Swich;
 		else if(isScore && !isSwich)
