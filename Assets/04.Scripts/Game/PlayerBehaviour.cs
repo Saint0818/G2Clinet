@@ -320,6 +320,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private float dis3;
 	private bool CanSpeedup = true;
 	public int AngerPower = 0;
+	
+	private float SlowDownTime = 0;
 
 	public void SetAnger(int Value)
 	{
@@ -334,6 +336,15 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			float temp = AngerPower;
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
+		}
+	}
+
+	public void SetSlowDown(float Value)
+	{
+		if(SlowDownTime == 0)
+		{
+			SlowDownTime += Time.time + Value;
+			Attr.SpeedValue = GameData.BaseAttr[Player.AILevel].SpeedValue * GameConst.SlowDownValue;
 		}
 	}
     
@@ -561,6 +572,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
             CoolDownElbow = 0;
+
+		if (SlowDownTime > 0 && Time.time >= SlowDownTime)
+		{
+			SlowDownTime = 0;
+			Attr.SpeedValue = GameData.BaseAttr[Player.AILevel].SpeedValue;
+		}
 
         if (NoAiTime == 0)
         {

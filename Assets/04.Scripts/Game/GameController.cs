@@ -3067,6 +3067,9 @@ public class GameController : MonoBehaviour
             case 0: //top
                 break;
             case 1: //FR
+			case 2:
+				if(!player2.IsDefence && player1.IsDefence)
+					player2.SetSlowDown(GameConst.SlowDownTime);
                 break;
         }
     }

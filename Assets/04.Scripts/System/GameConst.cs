@@ -35,6 +35,8 @@ public class GameConst
 	public const int DelAnger_Fall1 = -10;
 	public const int DelAnger_Stealed = -5;
 	public const int DelAnger_Fall2 = -5;
+	public const float SlowDownValue = 0.5f;
+	public const float SlowDownTime = 1;
 
 	public static int SelfAILevel = 0;
 	public static int NpcAILevel = 0;
