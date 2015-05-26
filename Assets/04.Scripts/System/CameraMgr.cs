@@ -209,7 +209,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-        HorizontalCameraHandle();
+		if(GameStart.Get.SceneMode !=  SceneTest.SelectRole)
+        	HorizontalCameraHandle();
     }
 
     private void HorizontalCameraHandle()

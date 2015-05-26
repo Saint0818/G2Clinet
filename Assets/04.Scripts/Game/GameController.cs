@@ -38,7 +38,8 @@ public enum SceneTest
 {
 	Single,
 	Multi,
-	Release
+	Release,
+	SelectRole
 }
 
 public enum GameTest
@@ -423,7 +424,7 @@ public class GameController : MonoBehaviour
 			case GameTest.Rebound:
                 PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList [0].SetMovePower(100);
-				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, new Vector3(0, 0, 11), new GameStruct.TPlayer(0)));
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Npc, new Vector3(0, 0, 11), new GameStruct.TPlayer(0)));
 				
                 UIGame.Get.ChangeControl(true);
                 break;

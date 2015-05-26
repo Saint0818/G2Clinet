@@ -23,11 +23,18 @@ public class GameStart : KnightSingleton<GameStart> {
 	void Start(){
 		SceneMgr.Get.SetDontDestory (gameObject);
 
-		if (SceneMode == SceneTest.Single)
+		switch(SceneMode)
+		{
+		case SceneTest.Single:
 			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
-		else if(SceneMode == SceneTest.Release){
+			break;
+		case SceneTest.Release:
 			ConnectToServer = true;
 			CheckServerData();
+			break;
+		case SceneTest.SelectRole:
+			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
+			break;
 		}
 
 		GameData.Init();

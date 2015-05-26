@@ -8,7 +8,8 @@ public enum SceneName
 	Null = 1,
 	Lobby = 2,
 	Court_0 = 3,
-	Court_1 = 4
+	Court_1 = 4,
+	SelectRole = 5
 }
 
 public class SceneMgr : KnightSingleton<SceneMgr>
@@ -31,7 +32,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case SceneName.Court_0:
 			case SceneName.Court_1:
 				CourtMgr.Get.InitCourtScene ();
-			break;
+				break;
+			case SceneName.SelectRole:
+				CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
+				UISelectRole.UIShow(true);
+				break;
 		}
 
 		if (OnLevelWasLoaded != null) {
