@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4d16e4639ce62f4499d3388c96a168ac
-timeCreated: 1432625152
+guid: a3b5842c1ccfe274c8ca5d18d8570b88
+timeCreated: 1432714659
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Shoot4
+    7400000: Pick2
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Shoot4
+      name: Pick2
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
