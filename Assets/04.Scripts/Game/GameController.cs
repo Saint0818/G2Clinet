@@ -3064,7 +3064,10 @@ public class GameController : MonoBehaviour
             case 1: //FR
 			case 2:
 				if(!player2.IsDefence && player1.IsDefence)
-					player2.SetSlowDown(GameConst.SlowDownTime);
+				{
+					if(GetAngle(player2, player1) <= GameConst.SlowDownAngle)
+						player2.SetSlowDown(GameConst.SlowDownTime);
+				}
                 break;
         }
     }
