@@ -9,8 +9,8 @@ public class BlockCatchTrigger: MonoBehaviour {
 	void Awake()
 	{
 		boxCollider = gameObject.AddComponent<BoxCollider> ();
-		boxCollider.size = Vector3.one * 2;
-		boxCollider.center = new Vector3 (0, 0, 1);
+		boxCollider.size = new Vector3(1, 1.5f, 2);
+		boxCollider.center = new Vector3 (0.3f, 0, 0);
 		boxCollider.isTrigger = true;
 	}
 
