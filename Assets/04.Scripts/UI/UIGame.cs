@@ -20,6 +20,8 @@ public class UIGame : UIBase {
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	private bool isShootAvailable = true;
+	private bool isShowOption = false;
+	private bool isEffectOn = false;
 
 	//Stuff
 	public GameObject Again;
@@ -29,16 +31,19 @@ public class UIGame : UIBase {
 	private GameObject start;
 	private GameObject restart;
 	private GameObject mainMenu;
+	private GameObject option;
 
 	private UISprite passSprite;
 	private GameObject attackPush;
 	private GameObject passObject;
 	private GameObject screenLocation;
+	private GameObject effectObject;
 	private UILabel[] scoresLabel = new UILabel[2];
 	private GameObject[] attackGroup = new GameObject[2];
 	private GameObject[] defenceGroup = new GameObject[2];
 	private GameObject[] controlButtonGroup= new GameObject[2];
 	private GameObject[] passObjectGroup = new GameObject[2];
+	private GameObject[] effectGroup = new GameObject[2];
 	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[3];
 	private string[] aryHomeHintString = new string[3];
 
@@ -127,6 +132,8 @@ public class UIGame : UIBase {
 
 	protected override void InitCom() {
 		ButtonBTime = GameStart.Get.ShootButtonTime;
+		isEffectOn = GameData.Setting.Effect;
+
 
 		Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		Joystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
@@ -136,7 +143,8 @@ public class UIGame : UIBase {
 		start = GameObject.Find (UIName + "/Center/StartView");
 		restart = GameObject.Find (UIName + "/Center/ButtonReset");
 		mainMenu = GameObject.Find (UIName + "/Center/ButtonMainMenu");
-		ScoreBar = GameObject.Find(UIName + "/Top/ScoreBar");
+		ScoreBar = GameObject.Find (UIName + "/Top/ScoreBar");
+		option = GameObject.Find (UIName + "/Center/ButtonOption");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
 
@@ -160,6 +168,13 @@ public class UIGame : UIBase {
 		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/StartView/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [2] = GameObject.Find(UIName + "/Center/StartView/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+
+		effectObject = GameObject.Find (UIName + "/Center/ButtonEffect");
+		effectGroup[0] = GameObject.Find (UIName + "/Center/ButtonEffect/LabelON");
+		effectGroup[1] = GameObject.Find (UIName + "/Center/ButtonEffect/LabelOff");
+		effectGroup [0].SetActive (GameData.Setting.Effect);
+		effectGroup [1].SetActive (!GameData.Setting.Effect);
+		effectObject.SetActive(false);
 
 		screenLocation = GameObject.Find (UIName + "/Right");
 		screenLocation.SetActive(false);
@@ -195,11 +210,14 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
 		SetBtnFun (UIName + "/Center/ButtonMainMenu", BackMainMenu);
+		SetBtnFun (UIName + "/Center/ButtonOption", OptionSelect);
+		SetBtnFun (UIName + "/Center/ButtonEffect", EffectSwitch);
 
 		Again.SetActive (false);
 		restart.SetActive(false);
 		mainMenu.SetActive(false);
 		Continue.SetActive(false);
+		option.SetActive(false);
 		SetPassButton(0);
 
 		ChangeControl(false);
@@ -454,19 +472,18 @@ public class UIGame : UIBase {
 
 	public void ContinueGame() {
 		Time.timeScale = 1;
-		restart.SetActive(false);
-		mainMenu.SetActive(false);
-		Continue.SetActive(false);
+		systemUI(false);
+		isShowOption = false;
 		ScoreBar.SetActive(false);
+		effectObject.SetActive(false);
 		Joystick.gameObject.SetActive(true);
 	}
 
 	public void PauseGame(){
 		Time.timeScale = 0;
-		restart.SetActive(true);
-		mainMenu.SetActive(true);
-		Continue.SetActive(true);
+		systemUI(true);
 		ScoreBar.SetActive(true);
+		effectObject.SetActive(false);
 		Joystick.gameObject.SetActive(false);
 	}
 
@@ -474,8 +491,10 @@ public class UIGame : UIBase {
 		GameController.Get.Reset ();
 		InitData ();
 		Again.SetActive (false);
+		isShowOption = false;
 		isShowScoreBar = false;
 		ScoreBar.SetActive(true);
+		effectObject.SetActive(false);
 		start.SetActive (true);
 		Joystick.gameObject.SetActive(false);
 	}
@@ -494,9 +513,40 @@ public class UIGame : UIBase {
 	public void RestartGame(){
 		ResetGame();
 		Time.timeScale = 1;
-		restart.SetActive(false);
-		mainMenu.SetActive(false);
-		Continue.SetActive(false);
+		systemUI(false);
+	}
+
+	private void systemUI(bool isShow){
+		option.SetActive(isShow);
+		restart.SetActive(isShow);
+		mainMenu.SetActive(isShow);
+		Continue.SetActive(isShow);
+
+	}
+
+	public void OptionSelect(){
+		isShowOption = !isShowOption;
+		showOptions(isShowOption);
+	}
+
+	private void showOptions(bool isShow){
+		effectObject.SetActive(isShow);
+	}
+
+	public void EffectSwitch(){
+		GameData.Setting.Effect = !GameData.Setting.Effect;
+		effectGroup [0].SetActive (GameData.Setting.Effect);
+		effectGroup [1].SetActive (!GameData.Setting.Effect);
+
+		int index = 0;
+		
+		if (GameData.Setting.Effect)
+			index = 1;
+		
+		CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
+		
+		PlayerPrefs.SetInt (SettingText.Effect, index);
+		PlayerPrefs.Save ();
 	}
 
 	public void PlusScore(int team, int score) {

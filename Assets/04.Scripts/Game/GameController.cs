@@ -1110,20 +1110,10 @@ public class GameController : MonoBehaviour
 			BasketSituationType = BasketSituation.AirBall;
 		else if(!isScore && !isAirBall)
 			BasketSituationType = BasketSituation.NoScore;
-
-
-//		if(isScore && isSwich) UIHint.Get.ShowHint("Swich Nice!", Color.black);
-//		else if(isScore && !isSwich)UIHint.Get.ShowHint("Score", Color.black);
-//		else if(!isScore && isAirBall)UIHint.Get.ShowHint("AirBall HaHa!", Color.black);
-//		else if(!isScore && !isAirBall)UIHint.Get.ShowHint("No Score", Color.black);
 	}
 
 	public void AddExtraScoreRate(float rate) {
 		extraScoreRate = rate;
-//		if(rate > 100)
-//			UIHint.Get.ShowHint("ExtraScoreRate : 100 ", Color.yellow);
-//		else 
-//			UIHint.Get.ShowHint("ExtraScoreRate + " + rate.ToString(), Color.yellow);
 	}
 
 	public void Shoot()
