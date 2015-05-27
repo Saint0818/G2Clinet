@@ -31,7 +31,7 @@ public class ScoreTrigger : MonoBehaviour
 						case BasketSituation.NoScore:
 							CourtMgr.Get.SetBasketBallState(PlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){
-								if(GameController.Get.BasketAnimationName.Length > 0)
+								if(GameController.Get.BasketAnimationName != string.Empty)
 									animator.SetTrigger(GameController.Get.BasketAnimationName);
 							}
 							break;
