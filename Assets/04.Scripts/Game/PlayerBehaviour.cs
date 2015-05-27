@@ -1487,7 +1487,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Fall1:
             case PlayerState.Fall2:
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
-                    (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || 
+			    (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || crtState == PlayerState.Dunk ||
                     crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
                     crtState == PlayerState.RunningDefence))
                     return true;
@@ -1648,7 +1648,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
                 if (GameController.Get.BallOwner == this)
                 {
-					Rigi.mass = 500;
+//					Rigi.mass = 500;
                     if (!isJoystick)
                         SetSpeed(0, -1);
                     ClearAnimatorFlag();
@@ -1748,7 +1748,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			
 			case PlayerState.MovingDefence:
-				Rigi.mass = 500;
+//				Rigi.mass = 500;
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsDefence);
@@ -1994,6 +1994,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void SetShooterLayer()
 	{
+		isStartCheckLayer = false;
 		gameObject.layer = LayerMask.NameToLayer("Shooter");
 		isCheckLayerToReset = true;
 	}
