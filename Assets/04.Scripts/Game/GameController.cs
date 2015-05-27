@@ -2306,6 +2306,73 @@ public class GameController : MonoBehaviour
 		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 	}
 
+	private TPlayerDisData [] GetPlayerDisAy(PlayerBehaviour Self, bool SameTeam = false)
+	{
+		TPlayerDisData [] DisAy = null;
+
+		if(SameTeam)
+		{
+			if(PlayerList.Count > 2)
+				DisAy = new TPlayerDisData[(PlayerList.Count / 2) - 1];
+		}
+		else
+			DisAy = new TPlayerDisData[PlayerList.Count / 2];
+
+		if (DisAy != null) 
+		{
+			for (int i = 0; i < PlayerList.Count; i++) 
+			{
+				if(SameTeam)
+				{
+					if(PlayerList[i].Team == Self.Team && PlayerList[i] != Self)
+					{
+						PlayerBehaviour anpc = PlayerList[i];
+						for(int j = 0; j < DisAy.Length; j++)
+						{
+							if(DisAy[j].Distance == 0)
+							{
+								DisAy[j].Distance = getDis(ref anpc, ref Self);
+								DisAy[j].Player = anpc;
+							}
+						}
+					}
+				}
+				else
+				{
+					if(PlayerList[i].Team != Self.Team)
+					{
+						PlayerBehaviour anpc = PlayerList[i];
+						for(int j = 0; j < DisAy.Length; j++)
+						{
+							if(DisAy[j].Distance == 0)
+							{
+								DisAy[j].Distance = getDis(ref anpc, ref Self);
+								DisAy[j].Player = anpc;
+							}
+						}
+					}
+				}
+			}
+			
+			TPlayerDisData temp = new TPlayerDisData ();
+			
+			for(int i = 0; i < DisAy.Length - 1; i ++)
+			{
+				for(int j = 0; j < DisAy.Length - 1; j++)
+				{
+					if(DisAy[j].Distance > DisAy[j + 1].Distance)
+					{
+						temp = DisAy[j];
+						DisAy[j] = DisAy[j + 1];
+						DisAy[j + 1] = temp;
+					}
+				}
+			}	
+		}
+
+		return DisAy;
+	}
+
     private void DefBlock(ref PlayerBehaviour Npc, int Kind = 0)
     {
         if (PlayerList.Count > 0 && !IsPassing)
@@ -2313,31 +2380,35 @@ public class GameController : MonoBehaviour
 			bool Suc = false;
 			PlayerBehaviour Npc2;
 			int Rate = Random.Range(0, 100);
+			TPlayerDisData [] DisAy = GetPlayerDisAy(Npc);
 
-			for (int i = 0; i < PlayerList.Count; i++)
+			if(DisAy != null)
 			{
-				Npc2 = PlayerList [i];
-				if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
-				    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
-				    !Npc2.CheckAnimatorSate(PlayerState.Push))
+				for (int i = 0; i < DisAy.Length; i++)
 				{
-					if(!IsBlocking)
+					Npc2 = DisAy [i].Player;
+					if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
+					    !Npc2.CheckAnimatorSate(PlayerState.Push))
 					{
-						int BlockRate = Npc2.Attr.BlockRate;
-						
-						if(Kind == 1)
-							BlockRate = Npc2.Attr.FaketBlockRate;	
-
-						float mAngle = GetAngle(Npc, PlayerList [i]);
-
-						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 50)
+						if(!IsBlocking)
 						{
-							if (Rate < BlockRate)
+							int BlockRate = Npc2.Attr.BlockRate;
+							
+							if(Kind == 1)
+								BlockRate = Npc2.Attr.FaketBlockRate;	
+							
+							float mAngle = GetAngle(Npc, PlayerList [i]);
+							
+							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 50)
 							{
-								if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
+								if (Rate < BlockRate)
 								{
-									Suc = true;
-									break;
+									if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
+									{
+										Suc = true;
+										break;
+									}
 								}
 							}
 						}
@@ -2347,9 +2418,9 @@ public class GameController : MonoBehaviour
 
 			if(!Suc)
 			{
-				for (int i = 0; i < PlayerList.Count; i++)
-				{                
-					Npc2 = PlayerList [i];
+				for (int i = 0; i < DisAy.Length; i++)
+				{               
+					Npc2 = DisAy [i].Player;
 					
 					if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
