@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
+
+public delegate void CallBack();
 
 public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
 
+	public GameObject ScenePlayers;
+	public GameObject OnlinePlayers;
 	private GameObject touchObject;
 	private RPGCamera rpgCamera;
 	private RPGMotor myPlayer;
@@ -14,6 +20,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private GameObject[] followPoints = new GameObject[2];
 
 	private TTeam[] scenePlayers;
+	private List<TTeam> onlinePlayers = new List<TTeam>();
 
 	void Start () {
 		Time.timeScale = 1;
@@ -28,6 +35,18 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 		}
 
+		ScenePlayers = GameObject.Find("ScenePlayers");
+		if (!ScenePlayers) {
+			ScenePlayers = new GameObject();
+			ScenePlayers.name = "ScenePlayers";
+		}
+
+		OnlinePlayers = GameObject.Find("OnlinePlayers");
+		if (!OnlinePlayers) {
+			OnlinePlayers = new GameObject();
+			OnlinePlayers.name = "OnlinePlayers";
+		}
+
 		GameData.Init();
 		TextConst.Init();
 		SceneMgr.Get.CurrentScene = SceneName.Lobby;
@@ -35,29 +54,41 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     
     void Update() {
 		if (rpgCamera != null && rpgCamera.UsedCamera != null) {
-			if (Input.GetMouseButtonDown(0)) {
-				Ray ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) {
+				Ray ray = UI2D.Get.Camera2D.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;  
-				LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
-				if (Physics.Raycast (ray, out hit, 100, mask.value))
-					touchObject = hit.collider.gameObject;
-			}
+				LayerMask mask = 1 << LayerMask.NameToLayer("UI"); 
+				if (!Physics.Raycast (ray, out hit, 100, mask.value)) {
+					if (UIMain.Visible) {
+						ray = UIMain.Get.CameraScrollView.ScreenPointToRay (Input.mousePosition);
+						mask = 1 << LayerMask.NameToLayer("ScrollView"); 
+						if (Physics.Raycast (ray, out hit, 100, mask.value))
+							return;
+					}
 
-			if (Input.GetMouseButtonUp(0)) {
-				Ray ray1 = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
-				RaycastHit hit1;  
-				LayerMask mask = 1 << LayerMask.NameToLayer("Player"); 
-				if (Physics.Raycast (ray1, out hit1, 100, mask.value) && hit1.collider.gameObject == touchObject) 
-					clickPlayer(hit1.collider.gameObject);
-				else
-				if (myPlayer && !touchObject) {
-					mask = 1 << LayerMask.NameToLayer("Scene");
-					if (Physics.Raycast (ray1, out hit1, 100, mask.value))
-						clickScene(hit1.point);
+					if (Input.GetMouseButtonDown(0)) {
+						ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+						mask = 1 << LayerMask.NameToLayer("Player"); 
+						if (Physics.Raycast (ray, out hit, 100, mask.value))
+							touchObject = hit.collider.gameObject;
+						else
+						if (myPlayer && !touchObject) {
+							mask = 1 << LayerMask.NameToLayer("Scene");
+							if (Physics.Raycast (ray, out hit, 100, mask.value))
+		                        clickScene(hit.point);
+		                }
+		            }
+
+					if (Input.GetMouseButtonUp(0)) {
+						ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
+						mask = 1 << LayerMask.NameToLayer("Player"); 
+						if (Physics.Raycast (ray, out hit, 100, mask.value) && hit.collider.gameObject == touchObject) 
+							clickPlayer(hit.collider.gameObject);
+
+						touchObject = null;
+			        }
 				}
-
-				touchObject = null;
-	        }
+			}
 		}
     }
     
@@ -154,8 +185,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		if (flag) {
 			try {
 			scenePlayers = JsonConvert.DeserializeObject <TTeam[]>(www.text);
-			initScenePlayers();
-			setTeamMemberToFoller();
+				StartCoroutine(initScenePlayers(waitScenePlayers));
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
@@ -213,10 +243,14 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		return false;
     }
 
-	private void initScenePlayers(){
-		for (int i = 0; i < scenePlayers.Length; i ++) {
+	private IEnumerator initOnlinePlayers(){
+		for (int i = 0; i < onlinePlayers.Count; i ++) {
+			yield return new WaitForEndOfFrame();
+			
 			scenePlayers[i].Player.SetAvatar();
-			GameObject player = createScenePlayer(ref scenePlayers[i].Player);
+			TTeam team = onlinePlayers[i];
+			GameObject player = createScenePlayer(ref team.Player);
+			player.transform.parent = OnlinePlayers.transform;
 			player.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
 			player.transform.eulerAngles = new Vector3(0, 90, 0);
 			player.AddComponent<RPGController>();
@@ -224,6 +258,25 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			if (c != null) 
 				c.center = new Vector3(0, 1.25f, 0);
 		}
+	}
+
+	private IEnumerator initScenePlayers(CallBack callback){
+		for (int i = 0; i < scenePlayers.Length; i ++) {
+			yield return new WaitForEndOfFrame();
+
+			scenePlayers[i].Player.SetAvatar();
+			GameObject player = createScenePlayer(ref scenePlayers[i].Player);
+			player.transform.parent = ScenePlayers.transform;
+			player.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
+			player.transform.eulerAngles = new Vector3(0, 90, 0);
+			player.AddComponent<RPGController>();
+			CharacterController c = player.GetComponent<CharacterController>();
+			if (c != null) 
+				c.center = new Vector3(0, 1.25f, 0);
+		}
+
+		if (callback != null)
+			callback();
 	}
 
 	private GameObject createScenePlayer(ref TPlayer player) {
@@ -303,6 +356,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
+	private void waitScenePlayers() {
+		setTeamMemberToFoller();
+	}
+
 	private void setTeamMemberToFoller() {
 		for (int i = 0; i < GameData.TeamMembers.Length; i ++)
 			if (GameData.TeamMembers[i].Player.Name != "") {
@@ -349,6 +406,25 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		catch (Exception e)
 		{
 			Debug.Log(e.ToString());
+		}
+	}
+
+	public void InitOnlinePlayers(ref TTeam[] teams) {
+		onlinePlayers.Clear();
+		for (int i = 0; i < teams.Length; i ++)
+			if (teams[i].Identifier != "")
+				onlinePlayers.Add(teams[i]);
+
+		initOnlinePlayers();
+	}
+
+	public void ShowOnlinePlayers(bool isShow) {
+		if (isShow) {
+			ScenePlayers.SetActive(false);
+			OnlinePlayers.SetActive(true);
+		} else {
+			ScenePlayers.SetActive(true);
+			OnlinePlayers.SetActive(false);
 		}
 	}
 }

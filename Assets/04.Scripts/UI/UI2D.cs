@@ -4,7 +4,10 @@ using System.Collections;
 public class UI2D : MonoBehaviour {
 	private static UI2D instance = null;
 	private const string UIName = "UI2D";
-	
+
+	public Camera Camera2D;
+	public Camera CameraTop;
+
 	public static bool Visible
 	{
 		get
@@ -57,6 +60,9 @@ public class UI2D : MonoBehaviour {
 	}
 	
 	private void InitCom() {
+		Camera2D = GameObject.Find(UIName + "/2DCamera").GetComponent<Camera>();
+		CameraTop = GameObject.Find(UIName + "/TopCamera").GetComponent<Camera>();
+
 		initResolution();
 		FpsLimiter fl = gameObject.GetComponent<FpsLimiter>();
 		if (!fl)

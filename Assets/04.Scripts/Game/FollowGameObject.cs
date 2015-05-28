@@ -41,8 +41,7 @@ public class FollowGameObject : MonoBehaviour {
 			p1 = obj.GetComponent<ParticleSystem>();
 	}
 
-	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (target) {
 			gameObject.transform.position = new Vector3(target.transform.position.x , 0.05f, target.transform.position.z);	
 		}

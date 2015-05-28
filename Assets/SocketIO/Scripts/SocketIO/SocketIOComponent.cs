@@ -178,8 +178,7 @@ namespace SocketIO
 		public void Connect()
 		{
 			connected = true;
-			//if (!ws.IsConnected)
-			//	ws.Connect();
+
 			socketThread = new Thread(RunSocketThread);
 			socketThread.Start(ws);
 
