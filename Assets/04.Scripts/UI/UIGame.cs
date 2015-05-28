@@ -143,7 +143,7 @@ public class UIGame : UIBase {
 		restart = GameObject.Find (UIName + "/Center/ButtonReset");
 		mainMenu = GameObject.Find (UIName + "/Center/ButtonMainMenu");
 		ScoreBar = GameObject.Find (UIName + "/Top/ScoreBar");
-		option = GameObject.Find (UIName + "/Center/ButtonOption");
+		option = GameObject.Find (UIName + "/Center/Option/ButtonOption");
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
 
@@ -168,9 +168,9 @@ public class UIGame : UIBase {
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/StartView/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [2] = GameObject.Find(UIName + "/Center/StartView/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
-		effectObject = GameObject.Find (UIName + "/Center/ButtonEffect");
-		effectGroup[0] = GameObject.Find (UIName + "/Center/ButtonEffect/LabelON");
-		effectGroup[1] = GameObject.Find (UIName + "/Center/ButtonEffect/LabelOff");
+		effectObject = GameObject.Find (UIName + "/Center/Option/ButtonEffect");
+		effectGroup[0] = GameObject.Find (UIName + "/Center/Option/ButtonEffect/LabelON");
+		effectGroup[1] = GameObject.Find (UIName + "/Center/Option/ButtonEffect/LabelOff");
 		effectGroup [0].SetActive (GameData.Setting.Effect);
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
 		effectObject.SetActive(false);
@@ -209,8 +209,8 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ButtonReset", RestartGame);
 		SetBtnFun (UIName + "/Center/ButtonMainMenu", BackMainMenu);
-		SetBtnFun (UIName + "/Center/ButtonOption", OptionSelect);
-		SetBtnFun (UIName + "/Center/ButtonEffect", EffectSwitch);
+		SetBtnFun (UIName + "/Center/Option/ButtonOption", OptionSelect);
+		SetBtnFun (UIName + "/Center/Option/ButtonEffect", EffectSwitch);
 
 		Again.SetActive (false);
 		restart.SetActive(false);
