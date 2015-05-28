@@ -358,4 +358,15 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             return "CameraMgr";
         }
     }
+
+	public GameObject GetTouch(int Layer)
+	{
+		GameObject result = null;
+		RaycastHit hit;
+
+		if (Physics.Raycast(cameraFx.ScreenPointToRay(Input.mousePosition), out hit, 100, 1 << Layer) && hit.collider)
+			result = hit.collider.gameObject;
+		
+		return result;
+	}
 }
