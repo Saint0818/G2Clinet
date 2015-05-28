@@ -12,8 +12,21 @@ public class DefTrigger : MonoBehaviour {
 				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
 				if (obj){
 					GameController.Get.DefRangeTouch(Player, obj.Player);
-				}					
+					obj.Player.IsTouchPlayerForCheckLayer = true;
+				}
 			}
+		}
+	}
+	
+	void OnTriggerExit(Collider other) {
+		if (GameController.Visible) {
+			if (other.gameObject.CompareTag("PlayerTrigger")){
+				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
+				if (obj){
+					obj.Player.IsTouchPlayerForCheckLayer = false;
+				}	
+			}
+
 		}
 	}
 }
