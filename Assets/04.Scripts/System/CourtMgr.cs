@@ -373,32 +373,35 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void RealBallPath(int team, string animationName) {
-		switch(animationName) {
-		case "ActionEnd":
-			SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
-			break;
-		case "ActionNoScoreEnd":
-			SetBasketBallState(PlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
-			SetBallState(PlayerState.Rebound);
-			break;
-		case "BasketNetPlay":
-			PlayShoot(team);
-			RealBallRigidbody.velocity = Vector3.zero;
-			break;
+		if(!GameController.Get.IsReset){
+			switch(animationName) {
+			case "ActionEnd":
+				SetBasketBallState(PlayerState.BasketActionEnd, BasketHoopDummy[team]);
+				break;
+			case "ActionNoScoreEnd":
+				SetBasketBallState(PlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
+				SetBallState(PlayerState.Rebound);
+				break;
+			case "BasketNetPlay":
+				PlayShoot(team);
+				RealBallRigidbody.velocity = Vector3.zero;
+				break;
+			}
 		}
 	}
 	
 	public void SetBasketBallState(PlayerState state, Transform dummy = null){
-		switch(state){
+		if(!GameController.Get.IsReset){
+			switch(state){
 			case PlayerState.BasketActionSwish:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				RealBallTrigger.SetBoxColliderEnable(true);
-			break;
+				break;
 			case PlayerState.BasketActionSwishEnd:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallRigidbody.velocity = Vector3.zero;
 				RealBallRigidbody.AddForce(Vector3.down * 70);
-			break;
+				break;
 			case PlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
@@ -428,8 +431,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
 				GameController.Get.Passer = null;
 				break;
+			}
 		}
-
 	}
 
 	public void SetBallState(PlayerState state, PlayerBehaviour player = null)
@@ -534,9 +537,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 			case PlayerState.Reset:
 				RealBall.transform.parent = null;
-				RealBall.transform.localPosition = new Vector3(0, 5, 0);
+				RealBall.transform.position = new Vector3(0, 7, 0);
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
+				RealBallRigidbody.velocity = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBallFX.gameObject.SetActive(true);
 				break;

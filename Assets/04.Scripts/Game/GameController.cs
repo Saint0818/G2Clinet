@@ -3,7 +3,6 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
-using RootMotion.FinalIK;
 using DG.Tweening;
 
 
@@ -163,6 +162,7 @@ public class GameController : MonoBehaviour
     private Dictionary<int, int[]> situationPosition = new Dictionary<int, int[]>();
    
     public bool IsStart = false;
+	public bool IsReset = false;
     public float CoolDownPass = 0;
     private float CoolDownCrossover = 0;
     private float ShootDis = 0;
@@ -311,6 +311,7 @@ public class GameController : MonoBehaviour
     }
 
 	public void StartGame() {
+		IsReset = false;
 		SetPlayerLevel();
 		if (GameStart.Get.TestMode == GameTest.Rebound) {
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
@@ -517,12 +518,6 @@ public class GameController : MonoBehaviour
 	private bool isPressPassBtn = false;
 
 	void FixedUpdate() {
-//		if(isCatchBall && GameStart.Get.IsOpenIKSystem) {
-//			if(BallOwner) {
-//				Vector3 pos = Vector3.MoveTowards(SceneMgr.Get.RealBall.transform.position, BallOwner.DummyCatch.transform.position, 0.25f);
-//				SceneMgr.Get.SetRealBallPosition(pos);
-//			}
-//		}
 
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.D))
@@ -2848,17 +2843,6 @@ public class GameController : MonoBehaviour
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 				UIGame.Get.SetPassButton(0);
 				CourtMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//				if(SceneMgr.Get.RealBall.transform.position.y >= 2f ) {
-//					SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//				} else {
-////					p.AniState(PlayerState.PickBall);
-//					if(GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) < 60 &&
-//					   GameFunction.GetPlayerToObjectAngle(BallOwner.gameObject.transform, SceneMgr.Get.RealBall.gameObject.transform) > -60 ) {
-//						StartCoroutine(catchBall(p));
-//					} else {
-//						SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//					}
-//				}
 
 				p.ClearIsCatcher();
 
@@ -2901,23 +2885,6 @@ public class GameController : MonoBehaviour
 
 		return Result;
     }
-
-//	IEnumerator catchBall(PlayerBehaviour p) {
-//		if(!GameStart.Get.IsOpenIKSystem){
-//			yield return null;
-//			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//		} else {
-//			p.isIKOpen = true;
-//			p.isIKCatchBall = true;
-//			yield return new WaitForSeconds(0.08f);
-//			isCatchBall = true;
-//			yield return new WaitForSeconds(0.17f);
-//			p.isIKOpen = false;
-//			p.isIKCatchBall = false;
-//			isCatchBall = false;
-//			SceneMgr.Get.SetBallState(PlayerState.HoldBall, p);
-//		}
-//	}
 
 	public PlayerBehaviour FindNearNpc(){
 		PlayerBehaviour p = null;
@@ -3090,7 +3057,7 @@ public class GameController : MonoBehaviour
 				{
 					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
 //						Debug.Log("height:"+CourtMgr.Get.RealBall.transform.position.y);
-						if(CourtMgr.Get.RealBall.transform.position.y > 2f)
+						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
 							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 //						else if(CourtMgr.Get.RealBall.transform.position.y > 1f && CourtMgr.Get.RealBall.transform.position.y <= 2f)
 //							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
@@ -3537,6 +3504,7 @@ public class GameController : MonoBehaviour
 	
 	public void Reset()
 	{
+		IsReset = true;
 		SetBallOwnerNull ();
 		CourtMgr.Get.SetBallState (PlayerState.Reset);
 

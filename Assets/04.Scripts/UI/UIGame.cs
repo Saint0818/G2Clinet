@@ -131,7 +131,6 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitCom() {
-		ButtonBTime = GameStart.Get.ShootButtonTime;
 		isEffectOn = GameData.Setting.Effect;
 
 
@@ -490,6 +489,8 @@ public class UIGame : UIBase {
 	public void ResetGame() {
 		GameController.Get.Reset ();
 		InitData ();
+		CourtMgr.Get.SetScoreboards (0, Scores [0]);
+		CourtMgr.Get.SetScoreboards (1, Scores [1]);
 		Again.SetActive (false);
 		isShowOption = false;
 		isShowScoreBar = false;

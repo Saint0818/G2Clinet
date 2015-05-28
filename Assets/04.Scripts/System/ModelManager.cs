@@ -258,7 +258,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							Material matObj = loadMaterial (materialPath);
 							Texture texture = loadTexture(texturePath);
 							if(!texture) 
-								loadTexture(texturePath);
+								texture = loadTexture(texturePath);
 
 							matObj.SetTexture("_MainTex", texture);
 							avatarPartGO [i] = Instantiate (resObj) as GameObject;
@@ -365,36 +365,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						}
 					}
 				}
-//				if(isUseRig){
-//					if(ikPin == null) {
-//						Transform tPin = result.transform.FindChild("Pin");
-//						if(tPin == null) {
-//							GameObject obj = new GameObject();
-//							obj.name = "Pin";
-//							obj.transform.parent = result.transform;
-//							if(bodyNumber.Equals("0")) {
-//								obj.transform.localPosition = new Vector3(0, 2.9f, 1.7f);
-//							} else if(bodyNumber.Equals("1")) {
-//								obj.transform.localPosition = new Vector3(0, 2.7f, 1.7f);
-//							} else if(bodyNumber.Equals("2")) {
-//								obj.transform.localPosition = new Vector3(0, 2, 1.7f);
-//							}
-//							obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
-//						}
-//					}
-//					
-//					if(ikAim == null) {
-//						Transform tAimParent = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head");
-//						Transform tAim = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Aim");
-//						if(tAim == null) {
-//							GameObject obj = new GameObject();
-//							obj.name = "Aim";
-//							obj.transform.parent = tAimParent;
-//							obj.transform.localPosition = Vector3.zero;
-//							obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
-//						}
-//					}
-//				}
 
 				if (dummyBall != null){
 					dummyBall.transform.parent = result.transform;
@@ -496,11 +466,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				collider.height = 3f;
 				collider.center = new Vector3 (0, collider.height / 2f, 0);
 			}
-
-			//IK
-//			if(isUseRig) {
-//				addIK(result);
-//			}
 			
 			//rig
 			if(isUseRig){
