@@ -28,22 +28,51 @@ public class BallTrigger : MonoBehaviour
 		if(box)
 			box.enabled = isShow;
 	}
-	
-	void OnTriggerEnter(Collider other) {
-		if (GameController.Visible){
-			if (other.gameObject.CompareTag("Player"))
-			{
 
-			}
-			else if (other.gameObject.CompareTag("Floor")) 
-			{
-				GameController.Get.BallOnFloor();
-			} 
-			else if (other.gameObject.CompareTag("Wall"))
-			{
-				EffectManager.Get.PlayEffect("BallTouchWall", gameObject.transform.position);
+	private bool touchPlayer(Collider other, bool isEnter) {
+		int dir = -1;
+		if (other.gameObject.name == "TriggerTop")
+			dir = 0;
+		else
+		if (other.gameObject.name == "TriggerFR")
+			dir = 1;
+		else
+		if (other.gameObject.name == "TriggerBR")
+			dir = 3;
+		else
+		if (other.gameObject.name == "TriggerFinger")
+			dir = 5;
+		else
+		if (other.gameObject.name == "TriggerSteal")
+			dir = 6;
+
+		if (dir > -1 && other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent) {
+			PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
+			if (player) {
+				GameController.Get.BallTouchPlayer(player, dir, isEnter);
+				return true;
 			}
 		}
+
+		return false;
+	}
+	
+	void OnTriggerEnter(Collider other) {
+		if (touchPlayer(other, true)) {
+
+		} else
+		if (other.gameObject.CompareTag("Floor")) 
+		{
+			GameController.Get.BallOnFloor();
+		} 
+		else if (other.gameObject.CompareTag("Wall"))
+		{
+			EffectManager.Get.PlayEffect("BallTouchWall", gameObject.transform.position);
+		}
+	}
+
+	void OnTriggerStay(Collider other) {
+		touchPlayer(other, false);
 	}
 
 	public void Falling()
