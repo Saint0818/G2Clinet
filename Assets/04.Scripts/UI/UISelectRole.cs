@@ -13,7 +13,10 @@ public class UISelectRole : UIBase {
 	private GameObject[] BtnAy = new GameObject[6];
 	private GameObject RandomBtn;
 	private GameObject RoleInfo;
-	
+	private TPlayer [] PlayerAy = new TPlayer[3];
+	private GameObject [] PlayerObjAy = new GameObject[3];
+	private int [] SelectIDAy = new int[3];
+
 	public static bool Visible
 	{
 		get
@@ -71,11 +74,17 @@ public class UISelectRole : UIBase {
 		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
 	}
 
+	int SelectRoleIndex = 0;
 	public void RandomRole()
 	{
 		Select.transform.localPosition = new Vector3(RandomBtn.transform.localPosition.x - 90, 
 		                                             RandomBtn.transform.localPosition.y,
 		                                             RandomBtn.transform.localPosition.z);
+
+		PlayerAy[SelectRoleIndex].ID = UnityEngine.Random.Range(0, GameData.DPlayers.Count) + 1;
+		PlayerAy[SelectRoleIndex].SetAvatar();
+		AvatarAy[SelectRoleIndex] = PlayerAy[SelectRoleIndex].Avatar;
+		ModelManager.Get.SetAvatar(ref PlayerObjAy[SelectRoleIndex], PlayerAy[SelectRoleIndex].Avatar, false);
 	}
 
 	public void SelectRole()
@@ -86,6 +95,28 @@ public class UISelectRole : UIBase {
 			Select.transform.localPosition = new Vector3(BtnAy[Index].transform.localPosition.x - 90, 
 			                                             BtnAy[Index].transform.localPosition.y,
 			                                             BtnAy[Index].transform.localPosition.z);
+
+			if(SelectIDAy[SelectRoleIndex] == 0 || SelectIDAy[SelectRoleIndex] != Index + 1)
+			{
+				bool same = false;
+				for(int i = 0; i < SelectIDAy.Length; i++)
+				{
+					if(SelectIDAy[i] == (Index + 1))
+					{
+						same = true;
+						break;
+					}
+				}
+
+				if(!same)
+				{
+					PlayerAy[SelectRoleIndex].ID = Index + 1;
+					SelectIDAy[SelectRoleIndex] = Index + 1;
+					PlayerAy[SelectRoleIndex].SetAvatar();
+					AvatarAy[SelectRoleIndex] = PlayerAy[SelectRoleIndex].Avatar;
+					ModelManager.Get.SetAvatar(ref PlayerObjAy[SelectRoleIndex], PlayerAy[SelectRoleIndex].Avatar, false);
+				}
+			}
 		}
 	}
 	
@@ -94,27 +125,28 @@ public class UISelectRole : UIBase {
 		AvatarAy = new GameStruct.TAvatar[Ay.Length];
 		for(int i = 0; i < Ay.Length; i++) 
 		{
-			GameObject player = new GameObject();
-			GameStruct.TPlayer p = new GameStruct.TPlayer();
-			p.ID = i + 1;
-			p.SetAvatar();
-			player.name = i.ToString();
-			player.transform.parent = PlayerInfoModel.transform;
-			AvatarAy[i] = p.Avatar;
-			ModelManager.Get.SetAvatar(ref player, p.Avatar, false);
-			player.transform.localPosition = Ay[i];
-			player.transform.LookAt(new Vector3(0 -90, 0));
-			player.transform.localScale = Vector3.one;
-			player.tag = "Player";
-			player.layer = LayerMask.NameToLayer(player.tag);
+			PlayerObjAy[i] = new GameObject();
+			PlayerAy[i] = new TPlayer();
+			PlayerAy[i].ID = i + 1;
+			PlayerAy[i].SetAvatar();
+			PlayerObjAy[i].name = i.ToString();
+			PlayerObjAy[i].transform.parent = PlayerInfoModel.transform;
+			AvatarAy[i] = PlayerAy[i].Avatar;
+			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
+			PlayerObjAy[i].transform.localPosition = Ay[i];
+			PlayerObjAy[i].transform.LookAt(new Vector3(0 -90, 0));
+			PlayerObjAy[i].transform.localScale = Vector3.one;
+			PlayerObjAy[i].tag = "Player";
+			PlayerObjAy[i].layer = LayerMask.NameToLayer(PlayerObjAy[i].tag);
+			SelectIDAy[i] = i + 1;
 
-			for (int j = 0; j <player.transform.childCount; j++) 
+			for (int j = 0; j <PlayerObjAy[i].transform.childCount; j++) 
 			{ 
-				if(player.transform.GetChild(j).name.Contains("PlayerMode")) 
+				if(PlayerObjAy[i].transform.GetChild(j).name.Contains("PlayerMode")) 
 				{
-					player.transform.GetChild(j).localScale = Vector3.one;
-					player.transform.GetChild(j).localEulerAngles = Vector3.zero;
-					player.transform.GetChild(j).localPosition = Vector3.zero;
+					PlayerObjAy[i].transform.GetChild(j).localScale = Vector3.one;
+					PlayerObjAy[i].transform.GetChild(j).localEulerAngles = Vector3.zero;
+					PlayerObjAy[i].transform.GetChild(j).localPosition = Vector3.zero;
 				}
 			}
 		}
@@ -136,7 +168,8 @@ public class UISelectRole : UIBase {
 		if (go) 
 		{
 			int idx = int.Parse(go.name);
-		}
+			SelectRoleIndex = idx;
+		} 
 	}
 }
 
