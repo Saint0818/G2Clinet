@@ -2382,7 +2382,7 @@ public class GameController : MonoBehaviour
 				for (int i = 0; i < DisAy.Length; i++)
 				{
 					Npc2 = DisAy [i].Player;
-					if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Push))
 					{
@@ -2417,7 +2417,7 @@ public class GameController : MonoBehaviour
 				{               
 					Npc2 = DisAy [i].Player;
 					
-					if (Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Push))
 					{
