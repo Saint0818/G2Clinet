@@ -24,7 +24,7 @@ public class UISelectRole : UIBase {
 	private GameObject Left;
 	private int MaxValue = 100;
 	private float Value = 0;
-	public int [] RoleIDAy = new int[6]{1, 2, 3, 4, 5, 6};
+	public int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
 	{
