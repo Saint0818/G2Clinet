@@ -300,7 +300,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public TScoreRate ScoreRate;
 	private bool isCanCatchBall = true;
 	
-	public Rigidbody Rigi;
 	private bool IsSpeedup = false;
 	public float MovePower = 0;
 	public float MaxMovePower = 0;
@@ -395,8 +394,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void InitTrigger(GameObject defPoint)
 	{
-		Rigi = gameObject.GetComponent<Rigidbody>();
-
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
 		if (obj)
 		{
@@ -1565,7 +1562,7 @@ public class PlayerBehaviour : MonoBehaviour
         bool Result = false;
         int stateNo = 0;
         string curveName;
-		Rigi.mass = 5;
+		PlayerRigidbody.mass = 5;
         
         switch (state)
         {
@@ -1617,7 +1614,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Defence:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDefence);
@@ -1650,7 +1647,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
                 if (GameController.Get.BallOwner == this)
                 {
-					Rigi.mass = 50;
+					PlayerRigidbody.mass = 50;
                     if (!isJoystick)
                         SetSpeed(0, -1);
                     ClearAnimatorFlag();
@@ -1663,7 +1660,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case PlayerState.Elbow:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
 				isCanCatchBall = false;
@@ -1673,7 +1670,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.FakeShoot:
                 if (IsBallOwner)
                 {
-					Rigi.mass = 50;
+					PlayerRigidbody.mass = 50;
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
@@ -1720,7 +1717,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.HoldBall:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsHoldBall);
                 isCanCatchBall = false;
@@ -1728,7 +1725,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.Idle:
-				Rigi.mass = 500;
+				PlayerRigidbody.mass = 50;
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
                 isCanCatchBall = true;
@@ -1772,7 +1769,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case PlayerState.PassFlat:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 animator.SetInteger("StateNo", 0);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1780,7 +1777,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.PassFloor:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 animator.SetInteger("StateNo", 2);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1788,7 +1785,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.PassParabola:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 animator.SetInteger("StateNo", 1);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1803,7 +1800,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.PassAir:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
 				animator.SetInteger("StateNo", 5);
 				ClearAnimatorFlag();
 				animator.SetTrigger("PassTrigger");
@@ -1844,7 +1841,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				//AddActionFlag(ActionFlag.IsRun);
                 ClearAnimatorFlag(ActionFlag.IsRun);
-				Rigi.mass = 3;
+				PlayerRigidbody.mass = 3;
                 Result = true;
                 break;
 
@@ -1856,7 +1853,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag(ActionFlag.IsDribble);
 //				AddActionFlag(ActionFlag.IsDribble);
                 IsFirstDribble = false;
-				Rigi.mass = 3;
+				PlayerRigidbody.mass = 3;
                 Result = true;
                 break;
 
@@ -1864,12 +1861,12 @@ public class PlayerBehaviour : MonoBehaviour
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsRun);
 //				AddActionFlag(ActionFlag.IsRun);
-				Rigi.mass = 3;
+				PlayerRigidbody.mass = 3;
                 Result = true;
                 break;
 
             case PlayerState.Steal:
-				Rigi.mass = 50;
+				PlayerRigidbody.mass = 50;
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
