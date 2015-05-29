@@ -87,6 +87,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 	{
 		if (Index >= 0 && Index < MeshAy.Length) 
 		{
+			Value = Mathf.Min(Value, 1);
 			switch(Index)
 			{
 			case 0:

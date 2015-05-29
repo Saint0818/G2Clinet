@@ -22,6 +22,8 @@ public class UISelectRole : UIBase {
 	private GameObject OkBtn;
 	private GameObject InfoRange;
 	private GameObject Left;
+	private int MaxValue = 100;
+	private float Value = 0;
 
 	public static bool Visible
 	{
@@ -80,13 +82,6 @@ public class UISelectRole : UIBase {
 		SelectLogoAy [2] = GameObject.Find (UIName + "/Center/SelectB");
 
 		UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
-		UITriangle.Get.ChangeValue (0, 0.8f);
-		UITriangle.Get.ChangeValue (1, 0.7f);
-		UITriangle.Get.ChangeValue (2, 0.6f);
-		UITriangle.Get.ChangeValue (3, 0.5f);
-		UITriangle.Get.ChangeValue (4, 0.4f);
-		UITriangle.Get.ChangeValue (5, 0.3f);
-
 	}
 
 	public void DoSelectRole()
@@ -170,6 +165,28 @@ public class UISelectRole : UIBase {
 			                                             BtnAy[Index].transform.localPosition.z);
 
 			SetPlayerAvatar(0, Index);
+			if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
+			{
+				TGreatPlayer data = GameData.DPlayers[SelectIDAy [0]];
+				
+				Value = data.Strength + data.Block;
+				UITriangle.Get.ChangeValue (0, Value / 2 / MaxValue);
+				
+				Value = data.Defence + data.Steal;
+				UITriangle.Get.ChangeValue (1, Value / 2 / MaxValue);
+				
+				Value = data.Dribble + data.Pass;
+				UITriangle.Get.ChangeValue (2, Value / 2 / MaxValue);
+				
+				Value = data.Point2 + data.Point3;
+				UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
+				
+				Value = data.Speed + data.Stamina;
+				UITriangle.Get.ChangeValue (4, Value / 2 / MaxValue);
+				
+				Value = data.Rebound + data.Dunk;
+				UITriangle.Get.ChangeValue (5, Value / 2 / MaxValue);
+			}
 		}
 	}
 
@@ -236,6 +253,29 @@ public class UISelectRole : UIBase {
 		{
 			PlayerObjAy[i].SetActive(false);
 			SelectLogoAy[i].SetActive(false);
+		}
+
+		if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
+		{
+			TGreatPlayer data = GameData.DPlayers[SelectIDAy [0]];
+			
+			Value = data.Strength + data.Block;
+			UITriangle.Get.ChangeValue (0, Value / 2 / MaxValue);
+			
+			Value = data.Defence + data.Steal;
+			UITriangle.Get.ChangeValue (1, Value / 2 / MaxValue);
+			
+			Value = data.Dribble + data.Pass;
+			UITriangle.Get.ChangeValue (2, Value / 2 / MaxValue);
+			
+			Value = data.Point2 + data.Point3;
+			UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
+			
+			Value = data.Speed + data.Stamina;
+			UITriangle.Get.ChangeValue (4, Value / 2 / MaxValue);
+			
+			Value = data.Rebound + data.Dunk;
+			UITriangle.Get.ChangeValue (5, Value / 2 / MaxValue);
 		}
 	}
 
