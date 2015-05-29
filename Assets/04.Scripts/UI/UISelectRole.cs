@@ -24,6 +24,7 @@ public class UISelectRole : UIBase {
 	private GameObject Left;
 	private int MaxValue = 100;
 	private float Value = 0;
+	public int [] RoleIDAy = new int[6]{1, 2, 3, 4, 5, 6};
 
 	public static bool Visible
 	{
@@ -98,35 +99,38 @@ public class UISelectRole : UIBase {
 			PlayerObjAy[i].SetActive(true);
 			SelectLogoAy[i].SetActive(true);
 
-			RanID = UnityEngine.Random.Range(0, GameData.DPlayers.Count - i);
+			RanID = UnityEngine.Random.Range(0, RoleIDAy.Length - i);
 			Count = 0;
 
-			foreach(KeyValuePair<int, TGreatPlayer> data in GameData.DPlayers)
-			{            
-				if(i == 1)
+			for(int j = 0; j < RoleIDAy.Length; j++)
+			{
+				if(GameData.DPlayers.ContainsKey(RoleIDAy[j]))
 				{
-					if(data.Value.ID != SelectIDAy[0])
+					if(i == 1)
 					{
-						if(Count == RanID)
+						if(RoleIDAy[j] != SelectIDAy[0])
 						{
-							SetPlayerAvatar(i, data.Value.ID - 1);
-							break;
+							if(Count == RanID)
+							{
+								SetPlayerAvatar(i, j);
+								break;
+							}
+							else
+								Count++;
 						}
-						else
-							Count++;
 					}
-				}
-				else
-				{
-					if(data.Value.ID != SelectIDAy[0] && data.Value.ID != SelectIDAy[1])
+					else
 					{
-						if(Count == RanID)
+						if(RoleIDAy[j] != SelectIDAy[0] && RoleIDAy[j] != SelectIDAy[1])
 						{
-							SetPlayerAvatar(i, data.Value.ID - 1);
-							break;
+							if(Count == RanID)
+							{
+								SetPlayerAvatar(i, j);
+								break;
+							}
+							else
+								Count++;
 						}
-						else
-							Count++;
 					}
 				}
 			}
@@ -192,8 +196,8 @@ public class UISelectRole : UIBase {
 
 	private void SetPlayerAvatar(int RoleIndex, int Index)
 	{
-		PlayerAy[RoleIndex].ID = Index + 1;
-		SelectIDAy[RoleIndex] = Index + 1;
+		PlayerAy[RoleIndex].ID = RoleIDAy[Index];
+		SelectIDAy[RoleIndex] = RoleIDAy[Index];
 		PlayerAy[RoleIndex].SetAvatar();
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
 		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false);
@@ -203,7 +207,7 @@ public class UISelectRole : UIBase {
 	protected override void InitData() 
 	{
 		AvatarAy = new GameStruct.TAvatar[Ay.Length];
-		SelectIDAy [0] = 1;
+		SelectIDAy [0] = RoleIDAy[0];
 		for(int i = 0; i < Ay.Length; i++) 
 		{
 			PlayerObjAy[i] = new GameObject();
