@@ -915,7 +915,7 @@ public class PlayerBehaviour : MonoBehaviour
 			if (gameObject.transform.localPosition.y > 0.2f)
 				isStartCheckLayer = true;
 
-			if (isStartCheckLayer && !isTouchPalyer && gameObject.transform.localPosition.y < 0.2f)
+			if (isStartCheckLayer && isTouchPalyer <= 0 && gameObject.transform.localPosition.y < 0.2f)
 			{
 				gameObject.layer = LayerMask.NameToLayer("Player");
 				isCheckLayerToReset = false;
@@ -1617,7 +1617,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Defence:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDefence);
@@ -1650,7 +1650,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble:
                 if (GameController.Get.BallOwner == this)
                 {
-					Rigi.mass = 500;
+					Rigi.mass = 50;
                     if (!isJoystick)
                         SetSpeed(0, -1);
                     ClearAnimatorFlag();
@@ -1663,7 +1663,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case PlayerState.Elbow:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
 				isCanCatchBall = false;
@@ -1673,7 +1673,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.FakeShoot:
                 if (IsBallOwner)
                 {
-					Rigi.mass = 500;
+					Rigi.mass = 50;
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
@@ -1720,7 +1720,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.HoldBall:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsHoldBall);
                 isCanCatchBall = false;
@@ -1772,7 +1772,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case PlayerState.PassFlat:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 animator.SetInteger("StateNo", 0);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1780,7 +1780,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.PassFloor:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 animator.SetInteger("StateNo", 2);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1788,7 +1788,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.PassParabola:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 animator.SetInteger("StateNo", 1);
                 ClearAnimatorFlag();
                 animator.SetTrigger("PassTrigger");
@@ -1803,7 +1803,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
 			case PlayerState.PassAir:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
 				animator.SetInteger("StateNo", 5);
 				ClearAnimatorFlag();
 				animator.SetTrigger("PassTrigger");
@@ -1869,7 +1869,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Steal:
-				Rigi.mass = 500;
+				Rigi.mass = 50;
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
@@ -2484,12 +2484,11 @@ public class PlayerBehaviour : MonoBehaviour
 		MovePower = Value;
 	}
 
-    private bool isTouchPalyer = false;
+    private int isTouchPalyer = 0;
 
-	public bool IsTouchPlayerForCheckLayer
+	public void IsTouchPlayerForCheckLayer(int index)
 	{
-		set{isTouchPalyer = value;}
-		get{return isTouchPalyer;}
+		isTouchPalyer += index;
 	}
 
 	public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
