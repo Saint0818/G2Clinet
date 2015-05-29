@@ -222,7 +222,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if(GameStart.Get.SceneMode !=  SceneTest.SelectRole)
+		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole)
         	HorizontalCameraHandle();
     }
 
