@@ -34,7 +34,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				CourtMgr.Get.InitCourtScene ();
 				break;
 			case SceneName.SelectRole:
-				CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
+				CameraMgr.Get.SetSelectRoleCamera();
 				UISelectRole.UIShow(true);
 				break;
 		}

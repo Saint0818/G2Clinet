@@ -99,6 +99,19 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		Debug.Log ("Camera : " + cameraFx.name);
 	}
 
+	public void SetSelectRoleCamera()
+	{
+		if(cameraFx){
+			Destroy(cameraFx.gameObject);
+			GameObject obj = Instantiate(Resources.Load("Prefab/Camera/Camera_SelectRole")) as GameObject;
+			cameraFx = obj.GetComponent<Camera>();
+			cameraFx.gameObject.transform.localPosition = Vector3.zero;
+			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
+			cameraFx.gameObject.name = "Camera_SelectRole";
+		}
+		Debug.Log ("Camera : " + cameraFx.name);
+	}
+
 	public bool IsTee = false;
 
 	public void SetTeamCamera(TeamKind team, bool isTee = false)

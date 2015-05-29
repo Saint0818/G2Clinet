@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GameStruct;
+using System;
+using System.Collections.Generic;
 
 public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
@@ -49,14 +51,17 @@ public class UISelectRole : UIBase {
 			return instance;
 		}
 	}
-	
+
+
+
 	protected override void InitCom() 
 	{
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		Ay [0] = new Vector3 (-3.5f, 0, 0);
-		Ay [1] = new Vector3 (0, 0, 3);
-		Ay [2] = new Vector3 (0, 0, -3);
+		PlayerInfoModel.transform.localPosition = new Vector3 (0, -1.5f, 15);
+		Ay [0] = new Vector3 (0, 0, 0);
+		Ay [1] = new Vector3 (3, 0, 0);
+		Ay [2] = new Vector3 (-3, 0, 0);
 		Select = GameObject.Find (UIName + "/Bottom/select");
 
 		UITouchDrog = GameObject.Find(UIName + "/Center/TouchRange");
@@ -72,6 +77,14 @@ public class UISelectRole : UIBase {
 		SetBtnFun(UIName + "/Bottom/SelectCharacter/ButtonRandom", RandomRole);
 		RandomBtn = GameObject.Find (UIName + "/Bottom/SelectCharacter/ButtonRandom");
 		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
+
+		UITriangle.Get.CreateSixAttr (new Vector3(6, 1, 27));
+		UITriangle.Get.ChangeValue (0, 0.8f);
+		UITriangle.Get.ChangeValue (1, 0.7f);
+		UITriangle.Get.ChangeValue (2, 0.6f);
+		UITriangle.Get.ChangeValue (3, 0.5f);
+		UITriangle.Get.ChangeValue (4, 0.4f);
+		UITriangle.Get.ChangeValue (5, 0.3f);
 	}
 
 	int SelectRoleIndex = 0;
@@ -119,6 +132,18 @@ public class UISelectRole : UIBase {
 			}
 		}
 	}
+
+	private void CreateAvatar(int Index)
+	{
+		if(Index >= 0 && Index < Ay.Length)
+		{
+			if(PlayerObjAy[Index] == null)
+			{
+				PlayerObjAy[Index] = new GameObject();
+
+			}
+		}
+	}
 	
 	protected override void InitData() 
 	{
@@ -134,7 +159,7 @@ public class UISelectRole : UIBase {
 			AvatarAy[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
 			PlayerObjAy[i].transform.localPosition = Ay[i];
-			PlayerObjAy[i].transform.LookAt(new Vector3(0 -90, 0));
+			PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 			PlayerObjAy[i].transform.localScale = Vector3.one;
 			PlayerObjAy[i].tag = "Player";
 			PlayerObjAy[i].layer = LayerMask.NameToLayer(PlayerObjAy[i].tag);
@@ -158,7 +183,7 @@ public class UISelectRole : UIBase {
 
 	void FixedUpdate()
 	{
-
+	
 	}
 
 	private void OnClickPlayer(GameObject obj)

@@ -195,6 +195,7 @@ public class GameController : MonoBehaviour
 	private TTactical attackTactical;
 	private TTactical defTactical;
 	public GameObject selectMe;
+	private List<int> TacticalDataList = new List<int>();
 
 	private int shootAngle = 55;
 
@@ -330,14 +331,14 @@ public class GameController : MonoBehaviour
         {
             if (!situationPosition.ContainsKey(index))
             {
-                List<int> ay = new List<int>();
+				TacticalDataList.Clear();
                 for (int i = 0; i < GameData.TacticalData.Length; i++)
                 {
                     if (GameData.TacticalData [i].FileName.Contains(pathName [index]))
-                        ay.Add(i);
+						TacticalDataList.Add(i);
                 }
                 
-                situationPosition.Add(index, ay.ToArray());
+				situationPosition.Add(index, TacticalDataList.ToArray());
             }   
 
             int len = situationPosition [index].Length;
