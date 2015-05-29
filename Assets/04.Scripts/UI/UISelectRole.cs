@@ -8,7 +8,8 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 	public GameObject PlayerInfoModel = null;
-
+	public float forGoTime = 3;
+	private float GoTime = 0;
 	private TAvatar[]  AvatarAy;
 	private Vector3 [] Ay = new Vector3[3];
 	private GameObject Select;
@@ -18,8 +19,9 @@ public class UISelectRole : UIBase {
 	private GameObject [] PlayerObjAy = new GameObject[3];
 	private int [] SelectIDAy = new int[3];
 	private GameObject [] SelectLogoAy = new GameObject[3];
-
+	private GameObject OkBtn;
 	private GameObject InfoRange;
+	private GameObject Left;
 
 	public static bool Visible
 	{
@@ -69,6 +71,9 @@ public class UISelectRole : UIBase {
 			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 		}
 
+		SetBtnFun (UIName + "/Right/CharacterCheck", DoSelectRole);
+		Left = GameObject.Find (UIName + "/Left");
+		OkBtn = GameObject.Find (UIName + "/Right/CharacterCheck");
 		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 		SelectLogoAy [1] = GameObject.Find (UIName + "/Center/SelectA");
@@ -81,10 +86,80 @@ public class UISelectRole : UIBase {
 		UITriangle.Get.ChangeValue (3, 0.5f);
 		UITriangle.Get.ChangeValue (4, 0.4f);
 		UITriangle.Get.ChangeValue (5, 0.3f);
-//		UITriangle.Get.Triangle.SetActive (false);
-//		InfoRange.SetActive (false);
+
 	}
-	
+
+	public void DoSelectRole()
+	{
+		UITriangle.Get.Triangle.SetActive (false);
+		InfoRange.SetActive (false);
+		OkBtn.SetActive (false);
+		Left.SetActive (false);
+
+		int RanID;
+		int Count;
+		for(int i = 1; i < Ay.Length; i++) 
+		{
+			PlayerObjAy[i].SetActive(true);
+			SelectLogoAy[i].SetActive(true);
+
+			RanID = UnityEngine.Random.Range(0, GameData.DPlayers.Count - i);
+			Count = 0;
+
+			foreach(KeyValuePair<int, TGreatPlayer> data in GameData.DPlayers)
+			{            
+				if(i == 1)
+				{
+					if(data.Value.ID != SelectIDAy[0])
+					{
+						if(Count == RanID)
+						{
+							SetPlayerAvatar(i, data.Value.ID - 1);
+							break;
+						}
+						else
+							Count++;
+					}
+				}
+				else
+				{
+					if(data.Value.ID != SelectIDAy[0] && data.Value.ID != SelectIDAy[1])
+					{
+						if(Count == RanID)
+						{
+							SetPlayerAvatar(i, data.Value.ID - 1);
+							break;
+						}
+						else
+							Count++;
+					}
+				}
+			}
+		}
+
+		for(int i = 0; i < SelectIDAy.Length; i++) 
+		{
+			if(i == 0)
+			{
+				if(GameData.DPlayers.ContainsKey(SelectIDAy[i]))
+				{
+					GameData.Team.Player.ID = GameData.DPlayers[SelectIDAy[i]].ID;
+					GameData.Team.Player.Name = GameData.DPlayers[SelectIDAy[i]].Name;
+				}
+			}
+			else
+			{
+				if(GameData.DPlayers.ContainsKey(SelectIDAy[i]))
+				{
+					GameData.TeamMembers[i - 1].Player.ID = GameData.DPlayers[SelectIDAy[i]].ID;
+					GameData.TeamMembers[i - 1].Player.Name = GameData.DPlayers[SelectIDAy[i]].Name;
+				}
+			}
+		}
+
+		GoTime = Time.time + forGoTime;
+	}
+
 	public void SelectRole()
 	{
 		int Index;
@@ -100,24 +175,12 @@ public class UISelectRole : UIBase {
 
 	private void SetPlayerAvatar(int RoleIndex, int Index)
 	{
-		PlayerAy[0].ID = Index + 1;
-		SelectIDAy[0] = Index + 1;
-		PlayerAy[0].SetAvatar();
-		AvatarAy[0] = PlayerAy[0].Avatar;
-		ModelManager.Get.SetAvatar(ref PlayerObjAy[0], PlayerAy[0].Avatar, false);
-		ChangeLayersRecursively(PlayerObjAy[0].transform, "UI");
-	}
-
-	private void CreateAvatar(int Index)
-	{
-		if(Index >= 0 && Index < Ay.Length)
-		{
-			if(PlayerObjAy[Index] == null)
-			{
-				PlayerObjAy[Index] = new GameObject();
-
-			}
-		}
+		PlayerAy[RoleIndex].ID = Index + 1;
+		SelectIDAy[RoleIndex] = Index + 1;
+		PlayerAy[RoleIndex].SetAvatar();
+		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
+		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false);
+		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
 	}
 	
 	protected override void InitData() 
@@ -135,10 +198,27 @@ public class UISelectRole : UIBase {
 			AvatarAy[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
 			PlayerObjAy[i].transform.localPosition = Ay[i];
+
 			if(i == 0)
+			{
 				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
-			PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
-			PlayerObjAy[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+			}
+			else if(i == 1)
+			{
+				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.33f, 2.87f);
+				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 150, 0);
+			}
+			else if(i == 2)
+			{
+				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.35f, 2.58f);
+				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, -150, 0);
+			}
+
+			if(i == 0)
+				PlayerObjAy[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			else
+				PlayerObjAy[i].transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
 
 			ChangeLayersRecursively(PlayerObjAy[i].transform, "UI");
 			for (int j = 0; j <PlayerObjAy[i].transform.childCount; j++) 
@@ -174,7 +254,11 @@ public class UISelectRole : UIBase {
 
 	void FixedUpdate()
 	{
-	
+		if(GoTime > 0 && Time.time >= GoTime)
+		{
+			GoTime = 0;
+			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+		}
 	}
 }
 
