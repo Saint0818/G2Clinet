@@ -8,16 +8,18 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 	public GameObject PlayerInfoModel = null;
-	public GameObject UITouchDrog;
+
 	private TAvatar[]  AvatarAy;
 	private Vector3 [] Ay = new Vector3[3];
 	private GameObject Select;
 	private GameObject[] BtnAy = new GameObject[6];
-	private GameObject RandomBtn;
 	private GameObject RoleInfo;
 	private TPlayer [] PlayerAy = new TPlayer[3];
 	private GameObject [] PlayerObjAy = new GameObject[3];
 	private int [] SelectIDAy = new int[3];
+	private GameObject [] SelectLogoAy = new GameObject[3];
+
+	private GameObject InfoRange;
 
 	public static bool Visible
 	{
@@ -52,85 +54,58 @@ public class UISelectRole : UIBase {
 		}
 	}
 
-
-
 	protected override void InitCom() 
 	{
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		PlayerInfoModel.transform.localPosition = new Vector3 (0, -1.5f, 15);
 		Ay [0] = new Vector3 (0, 0, 0);
 		Ay [1] = new Vector3 (3, 0, 0);
 		Ay [2] = new Vector3 (-3, 0, 0);
-		Select = GameObject.Find (UIName + "/Bottom/select");
-
-		UITouchDrog = GameObject.Find(UIName + "/Center/TouchRange");
-		if(UITouchDrog)
-			UIEventListener.Get(UITouchDrog).onClick = OnClickPlayer;
+		Select = GameObject.Find (UIName + "/Left/Select");
 
 		for (int i = 0; i < 6; i++) 
 		{
-			SetBtnFun(UIName + "/Bottom/SelectCharacter/Button" + i.ToString(), SelectRole);
-			BtnAy[i] = GameObject.Find(UIName + "/Bottom/SelectCharacter/Button" + i.ToString());
+			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
+			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 		}
 
-		SetBtnFun(UIName + "/Bottom/SelectCharacter/ButtonRandom", RandomRole);
-		RandomBtn = GameObject.Find (UIName + "/Bottom/SelectCharacter/ButtonRandom");
 		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
+		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
+		SelectLogoAy [1] = GameObject.Find (UIName + "/Center/SelectA");
+		SelectLogoAy [2] = GameObject.Find (UIName + "/Center/SelectB");
 
-		UITriangle.Get.CreateSixAttr (new Vector3(6, 1, 27));
+		UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
 		UITriangle.Get.ChangeValue (0, 0.8f);
 		UITriangle.Get.ChangeValue (1, 0.7f);
 		UITriangle.Get.ChangeValue (2, 0.6f);
 		UITriangle.Get.ChangeValue (3, 0.5f);
 		UITriangle.Get.ChangeValue (4, 0.4f);
 		UITriangle.Get.ChangeValue (5, 0.3f);
+//		UITriangle.Get.Triangle.SetActive (false);
+//		InfoRange.SetActive (false);
 	}
-
-	int SelectRoleIndex = 0;
-	public void RandomRole()
-	{
-		Select.transform.localPosition = new Vector3(RandomBtn.transform.localPosition.x - 90, 
-		                                             RandomBtn.transform.localPosition.y,
-		                                             RandomBtn.transform.localPosition.z);
-
-		PlayerAy[SelectRoleIndex].ID = UnityEngine.Random.Range(0, GameData.DPlayers.Count) + 1;
-		PlayerAy[SelectRoleIndex].SetAvatar();
-		AvatarAy[SelectRoleIndex] = PlayerAy[SelectRoleIndex].Avatar;
-		ModelManager.Get.SetAvatar(ref PlayerObjAy[SelectRoleIndex], PlayerAy[SelectRoleIndex].Avatar, false);
-	}
-
+	
 	public void SelectRole()
 	{
 		int Index;
 		if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out Index))
 		{
-			Select.transform.localPosition = new Vector3(BtnAy[Index].transform.localPosition.x - 90, 
+			Select.transform.localPosition = new Vector3(BtnAy[Index].transform.localPosition.x, 
 			                                             BtnAy[Index].transform.localPosition.y,
 			                                             BtnAy[Index].transform.localPosition.z);
 
-			if(SelectIDAy[SelectRoleIndex] == 0 || SelectIDAy[SelectRoleIndex] != Index + 1)
-			{
-				bool same = false;
-				for(int i = 0; i < SelectIDAy.Length; i++)
-				{
-					if(SelectIDAy[i] == (Index + 1))
-					{
-						same = true;
-						break;
-					}
-				}
-
-				if(!same)
-				{
-					PlayerAy[SelectRoleIndex].ID = Index + 1;
-					SelectIDAy[SelectRoleIndex] = Index + 1;
-					PlayerAy[SelectRoleIndex].SetAvatar();
-					AvatarAy[SelectRoleIndex] = PlayerAy[SelectRoleIndex].Avatar;
-					ModelManager.Get.SetAvatar(ref PlayerObjAy[SelectRoleIndex], PlayerAy[SelectRoleIndex].Avatar, false);
-				}
-			}
+			SetPlayerAvatar(0, Index);
 		}
+	}
+
+	private void SetPlayerAvatar(int RoleIndex, int Index)
+	{
+		PlayerAy[0].ID = Index + 1;
+		SelectIDAy[0] = Index + 1;
+		PlayerAy[0].SetAvatar();
+		AvatarAy[0] = PlayerAy[0].Avatar;
+		ModelManager.Get.SetAvatar(ref PlayerObjAy[0], PlayerAy[0].Avatar, false);
+		ChangeLayersRecursively(PlayerObjAy[0].transform, "UI");
 	}
 
 	private void CreateAvatar(int Index)
@@ -148,6 +123,7 @@ public class UISelectRole : UIBase {
 	protected override void InitData() 
 	{
 		AvatarAy = new GameStruct.TAvatar[Ay.Length];
+		SelectIDAy [0] = 1;
 		for(int i = 0; i < Ay.Length; i++) 
 		{
 			PlayerObjAy[i] = new GameObject();
@@ -159,12 +135,12 @@ public class UISelectRole : UIBase {
 			AvatarAy[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
 			PlayerObjAy[i].transform.localPosition = Ay[i];
+			if(i == 0)
+				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
 			PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
-			PlayerObjAy[i].transform.localScale = Vector3.one;
-			PlayerObjAy[i].tag = "Player";
-			PlayerObjAy[i].layer = LayerMask.NameToLayer(PlayerObjAy[i].tag);
-			SelectIDAy[i] = i + 1;
+			PlayerObjAy[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
+			ChangeLayersRecursively(PlayerObjAy[i].transform, "UI");
 			for (int j = 0; j <PlayerObjAy[i].transform.childCount; j++) 
 			{ 
 				if(PlayerObjAy[i].transform.GetChild(j).name.Contains("PlayerMode")) 
@@ -175,6 +151,21 @@ public class UISelectRole : UIBase {
 				}
 			}
 		}
+
+		for(int i = 1; i < Ay.Length; i++) 
+		{
+			PlayerObjAy[i].SetActive(false);
+			SelectLogoAy[i].SetActive(false);
+		}
+	}
+
+	private void ChangeLayersRecursively(Transform trans, string name)
+	{
+		trans.gameObject.layer = LayerMask.NameToLayer(name);
+		foreach(Transform child in trans)
+		{            
+			ChangeLayersRecursively(child, name);
+		}
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -184,17 +175,6 @@ public class UISelectRole : UIBase {
 	void FixedUpdate()
 	{
 	
-	}
-
-	private void OnClickPlayer(GameObject obj)
-	{
-		GameObject go = CameraMgr.Get.GetTouch (8);
-
-		if (go) 
-		{
-			int idx = int.Parse(go.name);
-			SelectRoleIndex = idx;
-		} 
 	}
 }
 

@@ -2,27 +2,28 @@
 using System.Collections;
 
 public class UITriangle : KnightSingleton<UITriangle> {
-	Mesh m_Mesh;
-	Material [] MaterialAy = new Material[2];
-	GameObject Triangle;
-	GameObject TriangleInside;
-	GameObject TriangleOutside;
-	int[] m_Tris = new int[]{0,1,2};
-	MeshFilter [] MeshAy = new MeshFilter[6];
-	Vector3 source = new Vector3 (0, 0, 0);
-	Vector3 A = new Vector3 (2, 0, 0);
-	Vector3 B = new Vector3 (1, Mathf.Sqrt(3), 0);
-	Vector3 C = new Vector3 (-1, Mathf.Sqrt(3), 0);
-	Vector3 D = new Vector3 (-2, 0, 0);
-	Vector3 E = new Vector3 (-1, -Mathf.Sqrt(3), 0);
-	Vector3 F = new Vector3 (1, -Mathf.Sqrt(3), 0);
+	private Mesh m_Mesh;
+	private Material [] MaterialAy = new Material[2];
+	private GameObject TriangleInside;
+	private GameObject TriangleOutside;
+	private int[] m_Tris = new int[]{0,1,2};
+	private MeshFilter [] MeshAy = new MeshFilter[6];
+	private Vector3 source = new Vector3 (0, 0, 0);
+	private Vector3 A = new Vector3 (2, 0, 0);
+	private Vector3 B = new Vector3 (1, Mathf.Sqrt(3), 0);
+	private Vector3 C = new Vector3 (-1, Mathf.Sqrt(3), 0);
+	private Vector3 D = new Vector3 (-2, 0, 0);
+	private Vector3 E = new Vector3 (-1, -Mathf.Sqrt(3), 0);
+	private Vector3 F = new Vector3 (1, -Mathf.Sqrt(3), 0);
 
-	Vector3 A1 = new Vector3 (2, 0, 0);
-	Vector3 B1 = new Vector3 (1, Mathf.Sqrt(3), 0);
-	Vector3 C1 = new Vector3 (-1, Mathf.Sqrt(3), 0);
-	Vector3 D1 = new Vector3 (-2, 0, 0);
-	Vector3 E1 = new Vector3 (-1, -Mathf.Sqrt(3), 0);
-	Vector3 F1 = new Vector3 (1, -Mathf.Sqrt(3), 0);
+	private Vector3 A1 = new Vector3 (2, 0, 0);
+	private Vector3 B1 = new Vector3 (1, Mathf.Sqrt(3), 0);
+	private Vector3 C1 = new Vector3 (-1, Mathf.Sqrt(3), 0);
+	private Vector3 D1 = new Vector3 (-2, 0, 0);
+	private Vector3 E1 = new Vector3 (-1, -Mathf.Sqrt(3), 0);
+	private Vector3 F1 = new Vector3 (1, -Mathf.Sqrt(3), 0);
+
+	public GameObject Triangle;
 
 	public void CreateSixAttr(Vector3 v1)
 	{
