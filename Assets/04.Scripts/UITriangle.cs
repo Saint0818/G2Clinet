@@ -32,6 +32,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		TriangleInside = new GameObject ();
 		TriangleInside.name = "TriangleInside";
 		TriangleInside.transform.parent = Triangle.transform;
+		TriangleInside.transform.localPosition = new Vector3 (0, 0, -0.001f);
 		TriangleOutside = new GameObject ();
 		TriangleOutside.name = "TriangleOutside";
 		TriangleOutside.transform.parent = Triangle.transform;
