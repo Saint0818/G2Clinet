@@ -7,11 +7,16 @@ using GameStruct;
 
 public delegate void CallBack();
 
+public struct TPlayerObject {
+	public GameObject PlayerObject;
+	public TTeam PlayerData;
+}
+
 public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
 
-	public GameObject ScenePlayers;
-	public GameObject OnlinePlayers;
+	public GameObject RootScenePlayers;
+	public GameObject RootOnlinePlayers;
 	private GameObject touchObject;
 	private RPGCamera rpgCamera;
 	private RPGMotor myPlayer;
@@ -19,8 +24,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private RPGMotor[] followPlayers = new RPGMotor[2];
 	private GameObject[] followPoints = new GameObject[2];
 
-	private TTeam[] scenePlayers;
-	private List<TTeam> onlinePlayers = new List<TTeam>();
+	private TPlayerObject[] scenePlayers = new TPlayerObject[5];
+	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
 	void Start () {
 		Time.timeScale = 1;
@@ -35,16 +40,16 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 		}
 
-		ScenePlayers = GameObject.Find("ScenePlayers");
-		if (!ScenePlayers) {
-			ScenePlayers = new GameObject();
-			ScenePlayers.name = "ScenePlayers";
+		RootScenePlayers = GameObject.Find("ScenePlayers");
+		if (!RootScenePlayers) {
+			RootScenePlayers = new GameObject();
+			RootScenePlayers.name = "ScenePlayers";
 		}
 
-		OnlinePlayers = GameObject.Find("OnlinePlayers");
-		if (!OnlinePlayers) {
-			OnlinePlayers = new GameObject();
-			OnlinePlayers.name = "OnlinePlayers";
+		RootOnlinePlayers = GameObject.Find("OnlinePlayers");
+		if (!RootOnlinePlayers) {
+			RootOnlinePlayers = new GameObject();
+			RootOnlinePlayers.name = "OnlinePlayers";
 		}
 
 		GameData.Init();
@@ -130,6 +135,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			moveToObject.transform.position = point;
 			moveToObject.SetActive(true);
 		}
+
+		if (GameData.IsLoginRTS && GameData.RoomIndex > -1) {
+
+		}
     }
 
 	private string getOS() {
@@ -184,7 +193,18 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private void waitScenePlayer(bool flag, WWW www) {
 		if (flag) {
 			try {
-			scenePlayers = JsonConvert.DeserializeObject <TTeam[]>(www.text);
+				TTeam[] teams = JsonConvert.DeserializeObject <TTeam[]>(www.text);
+				for (int i = 0; i < scenePlayers.Length; i ++) {
+					Destroy(scenePlayers[i].PlayerObject);
+					scenePlayers[i].PlayerObject = null;
+					scenePlayers[i].PlayerData.Identifier = "";
+				}
+
+				for (int i = 0; i < teams.Length; i ++){
+					if (i < scenePlayers.Length) 
+						scenePlayers[i].PlayerData = teams[i];
+				}
+
 				StartCoroutine(initScenePlayers(waitScenePlayers));
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
@@ -244,19 +264,21 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     }
 
 	private IEnumerator initOnlinePlayers(){
-		for (int i = 0; i < onlinePlayers.Count; i ++) {
-			yield return new WaitForEndOfFrame();
-			
-			scenePlayers[i].Player.SetAvatar();
-			TTeam team = onlinePlayers[i];
-			GameObject player = createScenePlayer(ref team.Player);
-			player.transform.parent = OnlinePlayers.transform;
-			player.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
-			player.transform.eulerAngles = new Vector3(0, 90, 0);
-			player.AddComponent<RPGController>();
-			CharacterController c = player.GetComponent<CharacterController>();
-			if (c != null) 
-				c.center = new Vector3(0, 1.25f, 0);
+		for (int i = 0; i < onlinePlayers.Length; i ++) {
+			if (onlinePlayers[i].PlayerData.Identifier != "" && !onlinePlayers[i].PlayerObject) {
+				yield return new WaitForEndOfFrame();
+
+				onlinePlayers[i].PlayerData.Player.SetAvatar();
+				onlinePlayers[i].PlayerObject = createScenePlayer(ref onlinePlayers[i].PlayerData.Player);
+				onlinePlayers[i].PlayerObject.transform.parent = RootOnlinePlayers.transform;
+				onlinePlayers[i].PlayerObject.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
+				onlinePlayers[i].PlayerObject.transform.eulerAngles = new Vector3(0, 90, 0);
+				onlinePlayers[i].PlayerObject.AddComponent<RPGController>();
+				CharacterController c = onlinePlayers[i].PlayerObject.GetComponent<CharacterController>();
+
+				if (c != null) 
+					c.center = new Vector3(0, 1.25f, 0);
+			}
 		}
 	}
 
@@ -264,13 +286,14 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		for (int i = 0; i < scenePlayers.Length; i ++) {
 			yield return new WaitForEndOfFrame();
 
-			scenePlayers[i].Player.SetAvatar();
-			GameObject player = createScenePlayer(ref scenePlayers[i].Player);
-			player.transform.parent = ScenePlayers.transform;
-			player.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
-			player.transform.eulerAngles = new Vector3(0, 90, 0);
-			player.AddComponent<RPGController>();
-			CharacterController c = player.GetComponent<CharacterController>();
+			scenePlayers[i].PlayerData.Player.SetAvatar();
+			scenePlayers[i].PlayerObject = createScenePlayer(ref scenePlayers[i].PlayerData.Player);
+			scenePlayers[i].PlayerObject.transform.parent = RootScenePlayers.transform;
+			scenePlayers[i].PlayerObject.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
+			scenePlayers[i].PlayerObject.transform.eulerAngles = new Vector3(0, 90, 0);
+			scenePlayers[i].PlayerObject.AddComponent<RPGController>();
+			CharacterController c = scenePlayers[i].PlayerObject.GetComponent<CharacterController>();
+
 			if (c != null) 
 				c.center = new Vector3(0, 1.25f, 0);
 		}
@@ -385,8 +408,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				GameData.TeamMembers[index] = new TTeam();
 			else {
 				for (int i = 0; i < scenePlayers.Length; i++)
-					if (name == scenePlayers[i].Player.Name) {
-						GameData.TeamMembers[index] = scenePlayers[i];
+					if (name == scenePlayers[i].PlayerData.Player.Name) {
+						GameData.TeamMembers[index] = scenePlayers[i].PlayerData;
 		                break;
 		            }
 			}
@@ -410,21 +433,86 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	}
 
 	public void InitOnlinePlayers(ref TTeam[] teams) {
-		onlinePlayers.Clear();
-		for (int i = 0; i < teams.Length; i ++)
-			if (teams[i].Identifier != "")
-				onlinePlayers.Add(teams[i]);
+		ClearOnlinePlayers();
 
-		initOnlinePlayers();
+		for (int i = 0; i < teams.Length; i ++) {
+			if (i < onlinePlayers.Length) 
+				onlinePlayers[i].PlayerData = teams[i];
+		}
+
+		StartCoroutine(initOnlinePlayers());
+	}
+
+	public void ClearOnlinePlayers() {
+		for (int i = 0; i < onlinePlayers.Length; i ++) {
+			onlinePlayers[i].PlayerData.Identifier = "";
+			onlinePlayers[i].PlayerData.Player.ID = 0;
+			if (onlinePlayers[i].PlayerObject) {
+				Destroy(onlinePlayers[i].PlayerObject);
+				onlinePlayers[i].PlayerObject = null;
+			}
+		}
+	}
+
+	public void AddOnlinePlayer(int index, ref TTeam team) {
+		if (team.Player.ID > 0 && index > 0 && index < onlinePlayers.Length) {
+			if (onlinePlayers[index].PlayerObject) {
+				Destroy(onlinePlayers[index].PlayerObject);
+				onlinePlayers[index].PlayerObject = null;
+			}
+
+			onlinePlayers[index].PlayerData = team;
+		}
+
+		StartCoroutine(initOnlinePlayers());
+	}
+
+	public void RemoveOnlinePlayer(int index) {
+		if (index > 0 && index < onlinePlayers.Length) {
+			onlinePlayers[index].PlayerData.Identifier = "";
+			onlinePlayers[index].PlayerData.Player.ID = 0;
+			if (onlinePlayers[index].PlayerObject) {
+				Destroy(onlinePlayers[index].PlayerObject);
+				onlinePlayers[index].PlayerObject = null;
+			}
+		}
 	}
 
 	public void ShowOnlinePlayers(bool isShow) {
 		if (isShow) {
-			ScenePlayers.SetActive(false);
-			OnlinePlayers.SetActive(true);
+			RootScenePlayers.SetActive(false);
+			RootOnlinePlayers.SetActive(true);
+			for (int i = 0; i < onlinePlayers.Length; i ++)
+				if (onlinePlayers[i].PlayerObject && onlinePlayers[i].PlayerObject.transform.position.y < -0.17f)
+					onlinePlayers[i].PlayerObject.transform.position = new Vector3(
+						onlinePlayers[i].PlayerObject.transform.position.x, 0, 
+						onlinePlayers[i].PlayerObject.transform.position.z);
 		} else {
-			ScenePlayers.SetActive(true);
-			OnlinePlayers.SetActive(false);
+			RootScenePlayers.SetActive(true);
+			RootOnlinePlayers.SetActive(false);
+			for (int i = 0; i < scenePlayers.Length; i ++)
+				if (scenePlayers[i].PlayerObject && scenePlayers[i].PlayerObject.transform.position.y < -0.17f)
+					scenePlayers[i].PlayerObject.transform.position = new Vector3(
+						scenePlayers[i].PlayerObject.transform.position.x, 0, 
+						scenePlayers[i].PlayerObject.transform.position.z);
 		}
 	}
+
+	public float MyPlayerX {
+		get {
+			if (myPlayer) 
+				return (float) (Mathf.Floor(myPlayer.transform.position.x * 100) / 100);
+			else
+				return 0;
+		}
+	}
+
+	public float MyPlayerZ {
+		get {
+			if (myPlayer) 
+				return (float) (Mathf.Floor(myPlayer.transform.position.z * 100) / 100);
+            else
+                return 0;
+        }
+    }
 }

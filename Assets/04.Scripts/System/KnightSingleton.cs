@@ -45,7 +45,15 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 			return mInst;
 		}
 	}
-	
+
+	public static bool Visible
+	{
+		get
+		{
+			return (mInst != null && mInst.gameObject.activeInHierarchy);
+		}
+	}
+
 	public static bool IsExist
 	{
 		get

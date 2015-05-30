@@ -54,8 +54,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		else {
 			GameObject obj = Resources.Load(path) as GameObject;
 			if (obj) {
-				string keyPath = string.Format("{0}/{1}",path, obj.name);
-				bodyCache.Add(keyPath, obj);
+				bodyCache.Add(path, obj);
 				return obj;
 			} else {
 				//download form server
@@ -252,7 +251,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarBody);
 						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart [i], avatarBody, avatarBodyTexture);
 					}
-					GameObject resObj = Resources.Load (path) as GameObject;
+
+					GameObject resObj = loadBody(path);
 					if (resObj) {
 						try {
 							Material matObj = loadMaterial (materialPath);
@@ -387,8 +387,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				}
 				
 				//BackEquipment
-				if (dummyBack == null)
-					dummyBack = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack").gameObject;
+				if (dummyBack == null) {
+					Transform t = result.transform.FindChild ("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
+					if (t != null);
+						dummyBack = t.gameObject;
+				}
 
 				if (backEquipment != null) {
 					backEquipment.transform.parent = dummyBack.transform;

@@ -12,10 +12,9 @@ public class TRoomObject {
 public class UIMain : UIBase {
 	private static UIMain instance = null;
 	private const string UIName = "UIMain";
-	private int roomIndex = -1;
 	private List<TRoomObject> roomObjects = new List<TRoomObject>();
 
-	private GameObject[] EffectSwitch = new GameObject[2];
+    private GameObject[] EffectSwitch = new GameObject[2];
 	private GameObject UIRoomInfo;
 	private GameObject ButtonJoinRoom;
 	private GameObject itemJoinRoom;
@@ -107,12 +106,14 @@ public class UIMain : UIBase {
 	}
 
 	private void waitRec1_2(JSONObject obj) {
-		TRec1_2[] result = JsonConvert.DeserializeObject<TRec1_2[]>(obj.ToString());
+		TRecBase[] result = JsonConvert.DeserializeObject<TRecBase[]>(obj.ToString());
 		if (result.Length > 0) {
-			roomIndex = result[0].RoomIndex;
+			GameData.RoomIndex = result[0].Index;
 			SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Close Room");
 			ButtonJoinRoom.SetActive(false);
 			UIRoomInfo.SetActive(false);
+			LobbyStart.Get.ShowOnlinePlayers(true);
+			LobbyStart.Get.ClearOnlinePlayers();
 		}
 	}
 
@@ -120,27 +121,35 @@ public class UIMain : UIBase {
 		GSocket.Get.Send(1, 2, null, waitRec1_2);
 	}
 
+	public void ExitRoom() {
+		GameData.RoomIndex = -1;
+		ButtonJoinRoom.SetActive(true);
+		UIRoomInfo.SetActive(false);
+		SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Open Room");
+		LobbyStart.Get.ShowOnlinePlayers(false);
+	}
+
 	public void OnOpenRoom() {
-		if (roomIndex == -1) {
-			if (GSocket.Get.Connected)
-				waitOpenRoom();
-			else
+		if (GameData.RoomIndex == -1) {
+			if (GSocket.Get.Connected) {
+				if (GameData.IsLoginRTS)
+					waitOpenRoom();
+				else
+					GSocket.Get.SendLoginRTS(waitOpenRoom);
+			} else
 				GSocket.Get.Connect(waitOpenRoom);
 		} else {
-			roomIndex = -1;
-			ButtonJoinRoom.SetActive(true);
-			SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Open Room");
-			LobbyStart.Get.ShowOnlinePlayers(false);
+			ExitRoom();
 			GSocket.Get.Send(1, 3, null, waitRec1_3);
 		}
 	}
 
 	private void waitRec1_3(JSONObject obj) {
 		TRecBase[] result = JsonConvert.DeserializeObject<TRecBase[]>(obj.ToString());
-		if (result.Length > 0)
-			Debug.Log(result[0].R.ToString());
-
-		GSocket.Get.Close();
+		if (result.Length > 0) {
+			if (result[0].R == 1)
+				GSocket.Get.Close();
+		}
 	}
 
 	private void waitRec1_4(JSONObject obj) {
@@ -171,12 +180,12 @@ public class UIMain : UIBase {
 
 					roomObj.roomInfo = result[0].Rooms[i];
 					roomObj.roomName.text = string.Format("Room{0} p{1}", i, roomObj.roomInfo.PlayerNum);
-					roomObj.Item.transform.localPosition = new Vector3(0, i * 120, 0);
+					roomObj.Item.transform.localPosition = new Vector3(0, i * 80, 0);
 				}
 			}
-
-			LobbyStart.Get.ShowOnlinePlayers(true);
 		}
+
+		CameraScrollView.transform.localPosition = new Vector3(-120, 67, 0);
 	}
 
 	private void waitLookingRoom() {
@@ -195,14 +204,21 @@ public class UIMain : UIBase {
 				GSocket.Get.Connect(waitLookingRoom);
 		} else {
 			GSocket.Get.Close();
-			LobbyStart.Get.ShowOnlinePlayers(false);
 		}
 	}
 
 	private void waitRec1_5(JSONObject obj) {
-		TRecBase[] result = JsonConvert.DeserializeObject<TRecBase[]>(obj.ToString());
-		if (result.Length > 0)
-			Debug.Log(result[0].R.ToString());
+		TRec1_5[] result = JsonConvert.DeserializeObject<TRec1_5[]>(obj.ToString());
+		if (result.Length > 0) {
+			if (result[0].R == 1) {
+				LobbyStart.Get.ShowOnlinePlayers(true);
+				LobbyStart.Get.InitOnlinePlayers(ref result[0].Teams);
+				GameData.RoomIndex = result[0].Index;
+				ButtonJoinRoom.SetActive(false);
+				UIRoomInfo.SetActive(false);
+				SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Exit Room");
+			}
+		}
 	}
 
 	public void OnJoinRoom() {

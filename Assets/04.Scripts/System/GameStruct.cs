@@ -190,6 +190,15 @@ namespace GameStruct
 		public int ZBackEquip;
 	}
 
+	public struct TScenePlayer {
+		public float X;
+		public float Z;
+		public float TX;
+		public float TZ;
+		public float Dir;
+		public float Speed;
+	}
+
 	public enum Language
 	{
 		TW = 0,

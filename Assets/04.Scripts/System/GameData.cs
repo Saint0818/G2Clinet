@@ -20,6 +20,10 @@ public class GameData {
 
 	public static string ServerVersion;
 	public static string SaveVersion;
+	public static bool IsLoginRTS;
+	public static int RoomIndex = -1;
+
+	public static TScenePlayer ScenePlayer;
 	public static TTeam Team;
 	public static TTeam[] TeamMembers = new TTeam[2];
 	public static TGameSetting Setting;

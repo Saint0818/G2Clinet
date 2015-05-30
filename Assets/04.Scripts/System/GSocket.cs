@@ -13,6 +13,12 @@ using GameStruct;
 
 public delegate void TNetMessageProc (string data);
 
+public struct TNetData {
+	public int K1;
+	public int K2;
+	public string Data;
+}
+
 public class TSendBase {
 	public int K1;
 	public int K2;
@@ -22,11 +28,14 @@ public class TRecBase {
 	public int K1;
 	public int K2;
 	public int R;
+	public int Index;
 }
 
 public class TSend1_1 : TSendBase{
 	public string Identifier;
 	public string sessionID;
+	public float X;
+	public float Z;
 }
 
 public class TSend1_5 : TSendBase{
@@ -34,11 +43,12 @@ public class TSend1_5 : TSendBase{
 }
 
 public class TRec1_1 : TRecBase {
+	public string Name;
 	public TTeam[] Teams;
 }
 
-public class TRec1_2 : TRecBase {
-	public int RoomIndex;
+public class TRec1_3 : TRecBase {
+	public bool IsDisconnect;
 }
 
 public struct TRoomInfo {
@@ -50,25 +60,23 @@ public class TRec1_4 : TRecBase {
 	public TRoomInfo[] Rooms;
 }
 
-public class GSocket
-{
+public class TRec1_5 : TRecBase {
+	public int PIndex;
+	public bool IsStart;
+	public int[] Scores;
+	public TTeam Team;
+	public TTeam[] Teams;
+	public TScenePlayer ScenePlayer;
+	public TScenePlayer[] ScenePlayers;
+}
+
+public class GSocket : KnightSingleton<GSocket> {
 	private static GSocket instance = null;
 	private SocketIOComponent WebSocket = null;
 	private TNetMessageProc[,] NetMsgProcs = new TNetMessageProc[10, 20];
 	private CallBack onConnectFunc = null;
 
-    public static GSocket Get
-	{
-		get
-		{
-			if (instance == null) {
-				instance = new GSocket();
-				instance.Init();
-			}
-
-            return instance;
-        }
-    }
+	private List<TNetData> netCommands = new List<TNetData>();
 
 	public bool Connected {
 		get {
@@ -79,9 +87,18 @@ public class GSocket
 		}
 	}
 
-	public void Init ()
-	{
-		//NetMsgProcs[1, 2] = netmsg_1_2;
+	void FixedUpdate() {
+		for (int i = netCommands.Count-1; i >= 0; i--) {
+			NetMsgProcs[netCommands[i].K1, netCommands[i].K2](netCommands[i].Data);
+			netCommands.RemoveAt(i);
+		}
+	}
+
+	protected override void Init() {
+		DontDestroyOnLoad(gameObject);
+		NetMsgProcs[1, 1] = netmsg_1_1;
+		NetMsgProcs[1, 3] = netmsg_1_3;
+		NetMsgProcs[1, 5] = netmsg_1_5;
 	}
 
 	public void Connect (CallBack callback)
@@ -98,17 +115,28 @@ public class GSocket
 				WebSocket.socket.OnClose += OnClose;
 
 				WebSocket.Connect();
+				WebSocket.transform.parent = this.transform;
 			}
 		} else
 		if (!WebSocket.IsConnected)
 			WebSocket.Connect();
     }
-	
-	private void OnConnected(Packet packet) {
+
+	public void SendLoginRTS(CallBack callback) {
+		onConnectFunc = callback;
 		TSend1_1 data = new TSend1_1();
 		data.Identifier = GameData.Team.Identifier;
 		data.sessionID = GameData.Team.sessionID;
+		if (LobbyStart.Visible) {
+			data.X = LobbyStart.Get.MyPlayerX;
+			data.Z = LobbyStart.Get.MyPlayerZ;
+		}
+
 		Send(1, 1, data, waitRec1_1);
+	}
+
+	private void OnConnected(Packet packet) {
+		SendLoginRTS(onConnectFunc);
 	}
     
     public void Close ()
@@ -119,8 +147,15 @@ public class GSocket
 
 	private void OnClose(object sender, CloseEventArgs e)
 	{
-			
-	}
+		GameData.RoomIndex = -1;
+		GameData.IsLoginRTS = false; 
+
+		TNetData command = new TNetData();
+		command.K1 = 1;
+		command.K2 = 3;
+		command.Data = "{R: 22, IsDisconnect: true}";
+		netCommands.Add(command);
+    }
 
 	private void OnMessage(SocketIOEvent e) {
 		try {
@@ -130,8 +165,13 @@ public class GSocket
 			e.data.GetField(ref k2, "K2");
 			if (k1 >= 0 && k1 < NetMsgProcs.GetLength(0) &&
 			    k2 >= 0 && k2 < NetMsgProcs.GetLength(1) &&
-			    NetMsgProcs[k1, k2] != null)
-				NetMsgProcs[k1, k2](e.data.ToString());
+			    NetMsgProcs[k1, k2] != null) {
+				TNetData commond = new TNetData();
+				commond.K1 = k1;
+				commond.K2 = k2;
+				commond.Data = e.data.ToString();
+				netCommands.Add(commond);
+			}
 			else
 				Debug.Log(string.Format("Protocol error {0}-{1}", k1, k2));
 		} catch (Exception exc) {
@@ -141,13 +181,16 @@ public class GSocket
 
     public void Send (byte Kind1, byte Kind2, TSendBase data = null, Action<JSONObject> action = null)
 	{
-		if (data == null)
-			data = new TSendBase();
+		if (WebSocket.IsConnected) {
+			if (data == null)
+				data = new TSendBase();
 
-		data.K1 = Kind1;
-		data.K2 = Kind2;
-		string s = JsonConvert.SerializeObject(data);
-		WebSocket.Emit("message", new JSONObject(s), action);
+			data.K1 = Kind1;
+			data.K2 = Kind2;
+			string s = JsonConvert.SerializeObject(data);
+			WebSocket.Emit("message", new JSONObject(s), action);
+		} else
+			Debug.Log("Is disconnected.");
     }
 
 	public string ReadZlib(byte[] data)
@@ -203,10 +246,49 @@ public class GSocket
 	private void waitRec1_1(JSONObject obj) {
 		TRec1_1[] result = JsonConvert.DeserializeObject<TRec1_1[]>(obj.ToString());
 		if (result.Length > 0 && result[0].R == 1) {
+			GameData.IsLoginRTS = true;
 			if (onConnectFunc != null) {
 				onConnectFunc();
 				onConnectFunc = null;
 			}
 		}
 	}
+
+	private void netmsg_1_1(string data) {
+		TRec1_1 result = JsonConvert.DeserializeObject<TRec1_1>(data);
+		switch (result.R) {
+		case 21:
+			UIHint.Get.ShowHint(result.Name + " online", Color.blue);
+			break;
+		case 22:
+			UIHint.Get.ShowHint(result.Name + " offline", Color.red);
+            break;
+        }
+    }
+
+    private void netmsg_1_3(string data) {
+		TRec1_3 result = JsonConvert.DeserializeObject<TRec1_3>(data);
+		switch (result.R) {
+			case 21:
+			LobbyStart.Get.RemoveOnlinePlayer(result.Index);
+			break;
+            
+            case 22:
+			if (result.IsDisconnect)
+				UIHint.Get.ShowHint("Lost connection.", Color.red);
+
+			if (GameData.RoomIndex > -1)
+				UIMain.Get.ExitRoom();
+			break;
+		}
+	}
+
+	private void netmsg_1_5(string data) {
+		TRec1_5 result = JsonConvert.DeserializeObject<TRec1_5>(data);
+		switch (result.R) {
+		case 21:
+			LobbyStart.Get.AddOnlinePlayer(result.PIndex, ref result.Team);
+			break;
+        }
+    }
 }
