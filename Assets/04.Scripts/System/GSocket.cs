@@ -42,6 +42,12 @@ public class TSend1_5 : TSendBase{
 	public int Index;
 }
 
+public class TSend2_1 : TSendBase{
+	public int Kind;
+	public string Name = "";
+	public TScenePlayer ScenePlayer = new TScenePlayer();
+}
+
 public class TRec1_1 : TRecBase {
 	public string Name;
 	public TTeam[] Teams;
@@ -99,6 +105,8 @@ public class GSocket : KnightSingleton<GSocket> {
 		NetMsgProcs[1, 1] = netmsg_1_1;
 		NetMsgProcs[1, 3] = netmsg_1_3;
 		NetMsgProcs[1, 5] = netmsg_1_5;
+
+		NetMsgProcs[2, 1] = netmsg_2_1;
 	}
 
 	public void Connect (CallBack callback)
@@ -291,4 +299,11 @@ public class GSocket : KnightSingleton<GSocket> {
 			break;
         }
     }
+
+	private void netmsg_2_1(string data) {
+		if (LobbyStart.Visible) {
+			TSend2_1 result = JsonConvert.DeserializeObject<TSend2_1>(data);
+			LobbyStart.Get.Rec_PlayerMove(ref result);
+		}
+	}
 }

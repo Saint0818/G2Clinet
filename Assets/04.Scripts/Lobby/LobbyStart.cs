@@ -15,6 +15,8 @@ public struct TPlayerObject {
 public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
 
+	private TSend2_1 send2_1 = new TSend2_1();
+
 	public GameObject RootScenePlayers;
 	public GameObject RootOnlinePlayers;
 	private GameObject touchObject;
@@ -136,10 +138,44 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			moveToObject.SetActive(true);
 		}
 
-		if (GameData.IsLoginRTS && GameData.RoomIndex > -1) {
+		if (GameData.IsLoginRTS && GameData.RoomIndex > -1 && GSocket.Get.Connected) {
+			send2_1.Kind = 1;
+			send2_1.ScenePlayer.X = MyPlayerX;
+			send2_1.ScenePlayer.Z = MyPlayerZ;
+			send2_1.ScenePlayer.Dir = MyPlayerDir;
+			send2_1.ScenePlayer.TX = (float) (Mathf.Floor(point.x * 100) / 100);
+			send2_1.ScenePlayer.TZ = (float) (Mathf.Floor(point.z * 100) / 100);
 
+			GSocket.Get.Send(2, 1, send2_1);
 		}
     }
+
+	public void PlayerOnTarget(GameObject other, GameObject trigger) {
+		if (other.transform.name == "Myself" && myPlayer) {
+			myPlayer.Target = myPlayer.transform.position;
+			trigger.SetActive(false);
+
+			send2_1.Kind = 2;
+			send2_1.ScenePlayer.X = MyPlayerX;
+			send2_1.ScenePlayer.Z = MyPlayerZ;
+			send2_1.ScenePlayer.Dir = MyPlayerDir;
+			send2_1.ScenePlayer.TX = MyPlayerX;
+			send2_1.ScenePlayer.TZ = MyPlayerZ;
+			
+			GSocket.Get.Send(2, 1, send2_1);
+		}
+	}
+
+	public void Rec_PlayerMove(ref TSend2_1 data) {
+		if (RootOnlinePlayers.activeInHierarchy && data.Kind == 1 || data.Kind == 2) {
+			GameObject player = GameObject.Find("OnlinePlayers/" + data.Name);
+			if (player) {
+				RPGMotor motor = player.GetComponent<RPGMotor>();
+				if (motor)  
+					motor.Target = new Vector3(data.ScenePlayer.TX, 0, data.ScenePlayer.TZ);
+			}
+		}
+	}
 
 	private string getOS() {
 		string os = "0";
@@ -515,4 +551,13 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
                 return 0;
         }
     }
+
+	public float MyPlayerDir {
+		get {
+			if (myPlayer) 
+				return (float) (Mathf.Floor(myPlayer.transform.rotation.y * 100) / 100);
+			else
+				return 0;
+		}
+	}
 }
