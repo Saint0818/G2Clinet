@@ -38,6 +38,12 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		MaterialAy[0] = Resources.Load ("Materials/TriangleMaterial_Outside") as Material;
 		MaterialAy[1] = Resources.Load ("Materials/TriangleMaterial_Inside") as Material;
 
+		CreateTriangle (source, B1, A1, 10, MaterialAy[0]);
+		CreateTriangle (source, C1, B1, 11, MaterialAy[0]);
+		CreateTriangle (source, D1, C1, 12, MaterialAy[0]);
+		CreateTriangle (source, E1, D1, 13, MaterialAy[0]);
+		CreateTriangle (source, F1, E1, 14, MaterialAy[0]);
+		CreateTriangle (source, A1, F1, 15, MaterialAy[0]);
 
 		CreateTriangle (source, B, A, 0, MaterialAy[1]);
 		CreateTriangle (source, C, B, 1, MaterialAy[1]);
@@ -46,14 +52,8 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		CreateTriangle (source, F, E, 4, MaterialAy[1]);
 		CreateTriangle (source, A, F, 5, MaterialAy[1]);
 
-		CreateTriangle (source, B1, A1, 10, MaterialAy[0]);
-		CreateTriangle (source, C1, B1, 11, MaterialAy[0]);
-		CreateTriangle (source, D1, C1, 12, MaterialAy[0]);
-		CreateTriangle (source, E1, D1, 13, MaterialAy[0]);
-		CreateTriangle (source, F1, E1, 14, MaterialAy[0]);
-		CreateTriangle (source, A1, F1, 15, MaterialAy[0]);
-
 		Triangle.transform.localPosition = v1;
+		TriangleInside.transform.localPosition = new Vector3 (0, 0, -0.01f);
 	}
 
 	private void CreateTriangle(Vector3 V1, Vector3 V2, Vector3 V3, int Index, Material ma)
