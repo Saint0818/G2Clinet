@@ -992,7 +992,7 @@ public class PlayerBehaviour : MonoBehaviour
                     SetNoAiTime();
                     
                     animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
-                    SetSpeed(animationSpeed, 0);
+
                     AniState(ps);
                     
                     float angle = move.Axis2Angle(true);
@@ -1002,6 +1002,7 @@ public class PlayerBehaviour : MonoBehaviour
 					                    
                     if (animationSpeed <= MoveMinSpeed || MovePower == 0)
                     {
+						SetSpeed(0.3f, 0);
 						if(animationSpeed <= MoveMinSpeed)
 							IsSpeedup = false;
 
@@ -1018,6 +1019,7 @@ public class PlayerBehaviour : MonoBehaviour
                     } else
                     {
 						IsSpeedup = true;
+						SetSpeed(1, 0);
                         if (IsBallOwner)
 							Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
                         else
@@ -1160,6 +1162,7 @@ public class PlayerBehaviour : MonoBehaviour
 			bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
 			TacticalName = Data.FileName;
 			float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
+			SetSpeed(0.3f, 0);
 
 			if(temp <= MoveCheckValue || !DoMove)
 			{
@@ -1309,6 +1312,7 @@ public class PlayerBehaviour : MonoBehaviour
 					isMoving = true;
 					if (MovePower > 0 && CanSpeedup && this != GameController.Get.Joysticker && !IsTee)
 					{
+						SetSpeed(1, 0);
 						transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
 						IsSpeedup = true;
 					}
@@ -1331,6 +1335,7 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
+							SetSpeed(1, 0);
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
 							IsSpeedup = true;
 						}
@@ -1343,6 +1348,7 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
+							SetSpeed(1, 0);
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
 							IsSpeedup = true;
 						}
