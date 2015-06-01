@@ -26,7 +26,6 @@ public class UISelectRole : UIBase {
 	private int MaxValue = 100;
 	private float Value = 0;
 	private float axisX;
-	private bool isDrag;
 	public int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
@@ -313,17 +312,7 @@ public class UISelectRole : UIBase {
 			if(Input.GetMouseButton(0)) 
 			{
 				axisX = 0;
-				if(Input.mousePosition.y > (Screen.height * 0.4f))
-					isDrag = true;
-			} 
-			else 
-			{
-				axisX = 0;
-				isDrag = false;
-			}
-			
-			if(isDrag)
-			{
+
 				#if UNITY_EDITOR
 				axisX = -Input.GetAxis ("Mouse X");
 				#else
@@ -340,7 +329,7 @@ public class UISelectRole : UIBase {
 				#endif
 				#endif
 				PlayerObjAy[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
-			}
+			} 
 		}
 	}
 }
