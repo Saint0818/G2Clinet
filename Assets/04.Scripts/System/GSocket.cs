@@ -44,7 +44,6 @@ public class TSend1_5 : TSendBase{
 
 public class TSend2_1 : TSendBase{
 	public int Kind;
-	public string Name = "";
 	public TScenePlayer ScenePlayer = new TScenePlayer();
 }
 
@@ -74,6 +73,11 @@ public class TRec1_5 : TRecBase {
 	public TTeam[] Teams;
 	public TScenePlayer ScenePlayer;
 	public TScenePlayer[] ScenePlayers;
+}
+
+public class TRec2_1 : TRecBase{
+	public string Name = "";
+	public TScenePlayer ScenePlayer = new TScenePlayer();
 }
 
 public class GSocket : KnightSingleton<GSocket> {
@@ -135,10 +139,8 @@ public class GSocket : KnightSingleton<GSocket> {
 		TSend1_1 data = new TSend1_1();
 		data.Identifier = GameData.Team.Identifier;
 		data.sessionID = GameData.Team.sessionID;
-		if (LobbyStart.Visible) {
-			data.X = LobbyStart.Get.MyPlayerX;
-			data.Z = LobbyStart.Get.MyPlayerZ;
-		}
+		data.X = GameData.ScenePlayer.X;
+		data.Z = GameData.ScenePlayer.Z;
 
 		Send(1, 1, data, waitRec1_1);
 	}
@@ -189,7 +191,7 @@ public class GSocket : KnightSingleton<GSocket> {
 
     public void Send (byte Kind1, byte Kind2, TSendBase data = null, Action<JSONObject> action = null)
 	{
-		if (WebSocket.IsConnected) {
+		if (WebSocket && WebSocket.IsConnected) {
 			if (data == null)
 				data = new TSendBase();
 
@@ -253,12 +255,15 @@ public class GSocket : KnightSingleton<GSocket> {
     
 	private void waitRec1_1(JSONObject obj) {
 		TRec1_1[] result = JsonConvert.DeserializeObject<TRec1_1[]>(obj.ToString());
-		if (result.Length > 0 && result[0].R == 1) {
-			GameData.IsLoginRTS = true;
-			if (onConnectFunc != null) {
-				onConnectFunc();
-				onConnectFunc = null;
-			}
+		if (result.Length > 0) {
+			if (result[0].R == 1) {
+				GameData.IsLoginRTS = true;
+				if (onConnectFunc != null) {
+					onConnectFunc();
+					onConnectFunc = null;
+				}
+			} else
+				Debug.Log("1_1 error " + result[0].R.ToString());
 		}
 	}
 
@@ -285,8 +290,7 @@ public class GSocket : KnightSingleton<GSocket> {
 			if (result.IsDisconnect)
 				UIHint.Get.ShowHint("Lost connection.", Color.red);
 
-			if (GameData.RoomIndex > -1)
-				UIMain.Get.ExitRoom();
+			UIMain.Get.ExitRoom();
 			break;
 		}
 	}
@@ -295,14 +299,14 @@ public class GSocket : KnightSingleton<GSocket> {
 		TRec1_5 result = JsonConvert.DeserializeObject<TRec1_5>(data);
 		switch (result.R) {
 		case 21:
-			LobbyStart.Get.AddOnlinePlayer(result.PIndex, ref result.Team);
+			LobbyStart.Get.AddOnlinePlayer(result.PIndex, ref result.Team, ref result.ScenePlayer);
 			break;
         }
     }
 
 	private void netmsg_2_1(string data) {
 		if (LobbyStart.Visible) {
-			TSend2_1 result = JsonConvert.DeserializeObject<TSend2_1>(data);
+			TRec2_1 result = JsonConvert.DeserializeObject<TRec2_1>(data);
 			LobbyStart.Get.Rec_PlayerMove(ref result);
 		}
 	}

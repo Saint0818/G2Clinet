@@ -298,6 +298,9 @@ public class RPGMotor : MonoBehaviour {
 		} else
 		if (hasTarget) {
 			calculateMove(_moveTarget);
+			hasTarget = !onTarget();
+			if (!hasTarget) 
+				_playerDirection = Vector3.zero;
 		}
 	}
 

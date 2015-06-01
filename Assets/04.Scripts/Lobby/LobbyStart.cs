@@ -10,6 +10,7 @@ public delegate void CallBack();
 public struct TPlayerObject {
 	public GameObject PlayerObject;
 	public TTeam PlayerData;
+	public TScenePlayer ScenePlayer;
 }
 
 public class LobbyStart : KnightSingleton<LobbyStart> {
@@ -30,6 +31,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
 	void Start () {
+		string os = Get.getOS();
 		Time.timeScale = 1;
 		if (ConnectToServer && SendHttp.Get.CheckNetwork()) {
 			WWWForm form = new WWWForm();
@@ -59,7 +61,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		SceneMgr.Get.CurrentScene = SceneName.Lobby;
     }
     
-    void Update() {
+    void FixedUpdate() {
 		if (rpgCamera != null && rpgCamera.UsedCamera != null) {
 			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) {
 				Ray ray = UI2D.Get.Camera2D.ScreenPointToRay (Input.mousePosition);
@@ -138,10 +140,13 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			moveToObject.SetActive(true);
 		}
 
+		GameData.ScenePlayer.X = MyPlayerX;
+		GameData.ScenePlayer.Z = MyPlayerZ;
+
 		if (GameData.IsLoginRTS && GameData.RoomIndex > -1 && GSocket.Get.Connected) {
 			send2_1.Kind = 1;
-			send2_1.ScenePlayer.X = MyPlayerX;
-			send2_1.ScenePlayer.Z = MyPlayerZ;
+			send2_1.ScenePlayer.X = GameData.ScenePlayer.X;
+			send2_1.ScenePlayer.Z = GameData.ScenePlayer.Z;
 			send2_1.ScenePlayer.Dir = MyPlayerDir;
 			send2_1.ScenePlayer.TX = (float) (Mathf.Floor(point.x * 100) / 100);
 			send2_1.ScenePlayer.TZ = (float) (Mathf.Floor(point.z * 100) / 100);
@@ -151,23 +156,28 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     }
 
 	public void PlayerOnTarget(GameObject other, GameObject trigger) {
+		GameData.ScenePlayer.X = MyPlayerX;
+		GameData.ScenePlayer.Z = MyPlayerZ;
+
 		if (other.transform.name == "Myself" && myPlayer) {
 			myPlayer.Target = myPlayer.transform.position;
 			trigger.SetActive(false);
 
-			send2_1.Kind = 2;
-			send2_1.ScenePlayer.X = MyPlayerX;
-			send2_1.ScenePlayer.Z = MyPlayerZ;
-			send2_1.ScenePlayer.Dir = MyPlayerDir;
-			send2_1.ScenePlayer.TX = MyPlayerX;
-			send2_1.ScenePlayer.TZ = MyPlayerZ;
-			
-			GSocket.Get.Send(2, 1, send2_1);
+			if (GameData.IsLoginRTS && GameData.RoomIndex > -1 && GSocket.Get.Connected) {
+				send2_1.Kind = 2;
+				send2_1.ScenePlayer.X = GameData.ScenePlayer.X;
+				send2_1.ScenePlayer.Z = GameData.ScenePlayer.Z;
+				send2_1.ScenePlayer.Dir = MyPlayerDir;
+				send2_1.ScenePlayer.TX = GameData.ScenePlayer.X;
+				send2_1.ScenePlayer.TZ = GameData.ScenePlayer.Z;
+				
+				GSocket.Get.Send(2, 1, send2_1);
+			}
 		}
 	}
 
-	public void Rec_PlayerMove(ref TSend2_1 data) {
-		if (RootOnlinePlayers.activeInHierarchy && data.Kind == 1 || data.Kind == 2) {
+	public void Rec_PlayerMove(ref TRec2_1 data) {
+		if (RootOnlinePlayers.activeInHierarchy && (data.R == 1 || data.R == 2)) {
 			GameObject player = GameObject.Find("OnlinePlayers/" + data.Name);
 			if (player) {
 				RPGMotor motor = player.GetComponent<RPGMotor>();
@@ -307,8 +317,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				onlinePlayers[i].PlayerData.Player.SetAvatar();
 				onlinePlayers[i].PlayerObject = createScenePlayer(ref onlinePlayers[i].PlayerData.Player);
 				onlinePlayers[i].PlayerObject.transform.parent = RootOnlinePlayers.transform;
-				onlinePlayers[i].PlayerObject.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));
-				onlinePlayers[i].PlayerObject.transform.eulerAngles = new Vector3(0, 90, 0);
+				onlinePlayers[i].PlayerObject.transform.position = new Vector3(onlinePlayers[i].ScenePlayer.X, 0, onlinePlayers[i].ScenePlayer.Z);
+				onlinePlayers[i].PlayerObject.transform.eulerAngles = new Vector3(0, onlinePlayers[i].ScenePlayer.Dir, 0);
 				onlinePlayers[i].PlayerObject.AddComponent<RPGController>();
 				CharacterController c = onlinePlayers[i].PlayerObject.GetComponent<CharacterController>();
 
@@ -468,12 +478,15 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
-	public void InitOnlinePlayers(ref TTeam[] teams) {
+	public void InitOnlinePlayers(ref TTeam[] teams, ref TScenePlayer[] scenePlayers) {
 		ClearOnlinePlayers();
 
 		for (int i = 0; i < teams.Length; i ++) {
-			if (i < onlinePlayers.Length) 
+			if (i < onlinePlayers.Length) {
 				onlinePlayers[i].PlayerData = teams[i];
+				if (i < scenePlayers.Length)
+					onlinePlayers[i].ScenePlayer = scenePlayers[i];
+			}
 		}
 
 		StartCoroutine(initOnlinePlayers());
@@ -490,7 +503,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
-	public void AddOnlinePlayer(int index, ref TTeam team) {
+	public void AddOnlinePlayer(int index, ref TTeam team, ref TScenePlayer scenePlayer) {
 		if (team.Player.ID > 0 && index > 0 && index < onlinePlayers.Length) {
 			if (onlinePlayers[index].PlayerObject) {
 				Destroy(onlinePlayers[index].PlayerObject);
@@ -498,6 +511,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			}
 
 			onlinePlayers[index].PlayerData = team;
+			onlinePlayers[index].ScenePlayer = scenePlayer;
 		}
 
 		StartCoroutine(initOnlinePlayers());

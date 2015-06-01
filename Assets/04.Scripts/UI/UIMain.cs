@@ -212,7 +212,7 @@ public class UIMain : UIBase {
 		if (result.Length > 0) {
 			if (result[0].R == 1) {
 				LobbyStart.Get.ShowOnlinePlayers(true);
-				LobbyStart.Get.InitOnlinePlayers(ref result[0].Teams);
+				LobbyStart.Get.InitOnlinePlayers(ref result[0].Teams, ref result[0].ScenePlayers);
 				GameData.RoomIndex = result[0].Index;
 				ButtonJoinRoom.SetActive(false);
 				UIRoomInfo.SetActive(false);
