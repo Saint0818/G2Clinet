@@ -489,6 +489,9 @@ public class GameController : MonoBehaviour
 		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
 		Joysticker.AngerView.fillAmount = 0;
 
+		if (Joysticker.SpeedUpView)
+			Joysticker.SpeedUpView.enabled = false;
+
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
             EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 

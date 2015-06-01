@@ -499,6 +499,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (AIActiveHint)
                 AIActiveHint.SetActive(true);
+
+			if(SpeedUpView)
+				SpeedUpView.enabled = false;
+
         }
 
 //        if ((IsMoving || NoAiTime > 0) && !IsDefence && 
@@ -617,11 +621,17 @@ public class PlayerBehaviour : MonoBehaviour
             
             if (AIActiveHint)
                 AIActiveHint.SetActive(false);
+
+			if(SpeedUpView)
+				SpeedUpView.enabled = true;
         } else
         {
             NoAiTime = 0;
             if (AIActiveHint)
                 AIActiveHint.SetActive(true);
+
+			if(SpeedUpView)
+				SpeedUpView.enabled = false;
         }
     }
 
