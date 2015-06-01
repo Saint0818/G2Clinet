@@ -3070,7 +3070,7 @@ public class GameController : MonoBehaviour
 //						else if(CourtMgr.Get.RealBall.transform.position.y > 0.5f && CourtMgr.Get.RealBall.transform.position.y <= 1f)
 //							player.AniState(PlayerState.CatchFloor, CourtMgr.Get.RealBall.transform.position);
 						else
-							player.AniState(PlayerState.PickBall, CourtMgr.Get.RealBall.transform.position);
+							player.AniState(PlayerState.PickBall0, CourtMgr.Get.RealBall.transform.position);
 					} else 
 					if (SetBall(player)) {
 						if(player.NoAiTime == 0)
@@ -3090,7 +3090,7 @@ public class GameController : MonoBehaviour
     
     public bool OnPickUpBall(PlayerBehaviour player)
     {
-        if (player) {
+        if (player && BallOwner == null) {
             SetBall (player);
             
             return true;
@@ -3123,6 +3123,15 @@ public class GameController : MonoBehaviour
             DefMove(player1.DefPlayer);     
         }
     }
+
+	public void DefRangeTouchBall(PlayerBehaviour player1)
+	{
+		if (BallOwner == null && Shooter == null && Catcher == null && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
+			int rate = Random.Range(0, 100);
+			if(rate < player1.Attr.StaminaValue)
+				player1.AniState(PlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+		}
+	}
 
     public void PlayerTouchPlayer(GameObject player)
     {
@@ -3715,7 +3724,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.PickBall))
+				if (PlayerList [i].CheckAnimatorSate(PlayerState.PickBall0))
 					return true;
 			
 			return false;

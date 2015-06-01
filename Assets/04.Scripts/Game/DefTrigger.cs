@@ -15,6 +15,10 @@ public class DefTrigger : MonoBehaviour {
 					obj.Player.IsTouchPlayerForCheckLayer(1);
 				}
 			}
+			else if(other.gameObject.CompareTag ("RealBallTrigger")){
+				GameController.Get.DefRangeTouchBall(Player);
+
+			}
 		}
 	}
 	

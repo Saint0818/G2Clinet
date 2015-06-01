@@ -51,7 +51,6 @@ public enum PlayerState
     CatchFlat = 39,
     CatchParabola = 40,
     CatchFloor = 41,
-    PickBall = 42,
     Shoot0 = 43,
     Shoot1 = 44,
     Shoot2 = 45,
@@ -63,7 +62,9 @@ public enum PlayerState
 	Intercept0 = 53,
 	Intercept1 = 54,
 	MoveDodge0 = 55,
-	MoveDodge1 = 56
+	MoveDodge1 = 56,
+	PickBall0 = 57,
+	PickBall2 = 58,
 }
 
 public enum TeamKind
@@ -296,6 +297,11 @@ public class PlayerBehaviour : MonoBehaviour
 	private float fallCurveTime = 0;
 	private TSharedCurve playerFallCurve;
 
+	//Pick
+	private bool isPick = false;
+	private float pickCurveTime = 0;
+	private TSharedCurve playerPickCurve;
+
 	private bool firstDribble = true;
 	public TScoreRate ScoreRate;
 	private bool isCanCatchBall = true;
@@ -458,6 +464,7 @@ public class PlayerBehaviour : MonoBehaviour
 		CalculationLayupMove();
 		CalculationPush ();
 		CalculationFall ();
+		CalculationPick ();
 		
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
@@ -817,6 +824,36 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 		
 	}
+
+	private void CalculationPick()
+	{
+		if (!isPick)
+			return;
+		
+		if (playerPickCurve != null) 
+		{
+			pickCurveTime += Time.deltaTime;
+			
+			if(pickCurveTime >= playerPickCurve.StartTime && pickCurveTime <= playerPickCurve.EndTime){
+				switch(playerPickCurve.Dir){
+				case AniCurveDirection.Forward:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPickCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerPickCurve.DirVaule));
+					break;
+				case AniCurveDirection.Back:
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPickCurve.DirVaule), 0, 
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPickCurve.DirVaule));
+					break;
+				}
+			}
+			
+			if(pickCurveTime >= playerPickCurve.LifeTime)
+				isPick = false;
+		}
+		
+	}
+
+
 	
 	private void CalculationBlock()
     {
@@ -1468,7 +1505,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 				break;
            
-			case PlayerState.PickBall:
+			case PlayerState.PickBall0:
+			case PlayerState.PickBall2:
 				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
 			                                          crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
 					return true;
@@ -1830,12 +1868,27 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case PlayerState.PickBall:
+            case PlayerState.PickBall0:
                 isCanCatchBall = true;
                 ClearAnimatorFlag();
+				animator.SetInteger("StateNo", 0);
                 animator.SetTrigger("PickTrigger");
                 Result = true;
                 break;
+
+			case PlayerState.PickBall2:
+				isCanCatchBall = true;
+				ClearAnimatorFlag();
+				for(int i = 0; i < aniCurve.Push.Length; i++)
+				if (aniCurve.PickBall [i].Name == "PickBall2"){
+					playerPickCurve = aniCurve.PickBall [i];
+					pickCurveTime = 0;
+					isPick = true;
+				}
+				animator.SetInteger("StateNo", 2);
+				animator.SetTrigger("PickTrigger");
+				Result = true;
+				break;
             
             case PlayerState.Tee:
                 isCanCatchBall = true;
@@ -2282,7 +2335,8 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.PassFast,
                 PlayerState.PassAir,
                 PlayerState.Push,
-                PlayerState.PickBall,
+                PlayerState.PickBall0,
+				PlayerState.PickBall2,
                 PlayerState.Shoot0,
                 PlayerState.Shoot1,
                 PlayerState.Shoot2,

@@ -552,7 +552,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case PlayerState.HoldBall:
-			case PlayerState.PickBall:
+			case PlayerState.PickBall0:
 				realBallCollider.enabled = false;
 				if (player)
 					RealBall.transform.parent = player.DummyBall.transform;

@@ -74,4 +74,5 @@ public class AniCurve : MonoBehaviour {
 	public TLayupCurve[] Layup;
 	public TSharedCurve[] Push;
 	public TSharedCurve[] Fall;
+	public TSharedCurve[] PickBall;
 }
