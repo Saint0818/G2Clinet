@@ -12,17 +12,30 @@ public class UIPassEvent : UIDragDropItem {
 	}
 
 	protected override void OnDragDropMove(Vector2 delta){
+		if(delta.x < 0 && delta.y <= 0)
+			UIGame.Get.DoPassTeammateA();
+		else 
+		if(delta.x >= 0 && delta.y > 0)
+			UIGame.Get.DoPassTeammateB();
+		else 
+		if(delta.x < 0 && delta.y > 0) {
+			if(Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+				UIGame.Get.DoPassTeammateA();
+			else
+				UIGame.Get.DoPassTeammateB();
+		}
+
 	}
 
 	protected override  void OnDragDropRelease (GameObject surface) {
-		if(surface.name.Equals("ButtonObjectA")) {
-			UIGame.Get.DoPassTeammateA();
-		}else 
-		if(surface.name.Equals("ButtonObjectB")) {
-			UIGame.Get.DoPassTeammateB();
-		}else{
+//		if(surface.name.Equals("ButtonObjectA")) {
+//			UIGame.Get.DoPassTeammateA();
+//		}else 
+//		if(surface.name.Equals("ButtonObjectB")) {
+//			UIGame.Get.DoPassTeammateB();
+//		}else{
 			UIGame.Get.DoPassNone();
-		}
+//		}
 		base.OnDragDropRelease(surface);
 	}
 }
