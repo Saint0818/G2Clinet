@@ -182,7 +182,6 @@ public class GameController : MonoBehaviour
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
 	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
-//	private bool isCatchBall = false;
 
 	//Score Animation Value
 	private float extraScoreRate = 0;

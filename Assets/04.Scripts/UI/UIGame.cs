@@ -611,48 +611,48 @@ public class UIGame : UIBase {
 			float playerInBoardX = GameController.Get.Joysticker.gameObject.transform.position.z;
 			float playerInBoardY = GameController.Get.Joysticker.gameObject.transform.position.x;
 			
-			float baseValueX = 56.47f; 
-			float baseValueY = 24.55f;
+			float baseValueX = 37.65f; 
+			float baseValueY = 13.37f;
 			
 			float playerX = 15 - playerInBoardX;
 			float playerY = 11 - playerInBoardY;
 			
-			Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 960 , (playerY * baseValueY) * (-1));
-			if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX < 0) {
-				playerScreenPos.x = -930;
+			Vector2 playerScreenPos = new Vector2((playerX * baseValueX) - 640 , (playerY * baseValueY) * (-1));
+			if(playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX < 0) {
+				playerScreenPos.x = -610;
 			} else 
-			if(playerScreenPos.y > -510 && playerScreenPos.y < 510 && playerInCameraX >= 0) {
-				playerScreenPos.x = 930;
+			if(playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX >= 0) {
+				playerScreenPos.x = 610;
 			} else 
-			if(playerScreenPos.x > 930) {
-				playerScreenPos.x = 930;
+			if(playerScreenPos.x > 610) {
+				playerScreenPos.x = 610;
 			} else 
-			if(playerScreenPos.x < -930){
-				playerScreenPos.x = -930;
+			if(playerScreenPos.x < -610){
+				playerScreenPos.x = -610;
 			}
 			
-			if(playerScreenPos.x > -930 && playerScreenPos.x < 930 && playerInCameraY < 0) {
-				playerScreenPos.y = -510;
+			if(playerScreenPos.x > -610 && playerScreenPos.x < 610 && playerInCameraY < 0) {
+				playerScreenPos.y = -330;
 			} else 
-			if(playerScreenPos.y < -510){
-				playerScreenPos.y = -510;
+			if(playerScreenPos.y < -330){
+				playerScreenPos.y = -330;
 			}
 			
 			float angle = 0f;
 			
-			if(playerScreenPos.x == -930 && playerScreenPos.y == -510) {
+			if(playerScreenPos.x == -610 && playerScreenPos.y == -330) {
 				angle = -135;
 			} else 
-			if(playerScreenPos.x == 930 && playerScreenPos.y == -510) {
+			if(playerScreenPos.x == 610 && playerScreenPos.y == -330) {
 				angle = -45;
 			} else 
-			if(playerScreenPos.x == 930) {
+			if(playerScreenPos.x == 610) {
 				angle = 0;
 			} else 
-			if(playerScreenPos.x == -930) {
+			if(playerScreenPos.x == -610) {
 				angle = 180;
 			} else
-			if(playerScreenPos.y == -510) {
+			if(playerScreenPos.y == -330) {
 				angle = -90;
 			}
 
