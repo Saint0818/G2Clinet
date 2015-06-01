@@ -1398,11 +1398,11 @@ public class PlayerBehaviour : MonoBehaviour
     private void SetSpeed(float value, int dir = -2)
     {
         //dir : 1 ++, -1 --, -2 : not smooth,  
-        if (dir == 0)
+//        if (dir == 0)
             animator.SetFloat("MoveSpeed", value);
-        else
-        if (dir != -2)
-            smoothDirection = dir;
+//        else
+//        if (dir != -2)
+//            smoothDirection = dir;
     }
 
     private void AddActionFlag(ActionFlag Flag)
