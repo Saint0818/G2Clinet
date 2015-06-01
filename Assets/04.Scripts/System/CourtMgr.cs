@@ -440,7 +440,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		RealBallState = state;
 		switch(state)
 		{
-			case PlayerState.Dribble:
+			case PlayerState.Dribble0:
 				realBallCollider.enabled = false;
 				if (player)
 					RealBall.transform.parent = player.DummyBall.transform;

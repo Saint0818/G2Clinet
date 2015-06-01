@@ -1853,9 +1853,9 @@ public class GameController : MonoBehaviour
 				if(!Joysticker.IsFall)
 				{
 					if(BallOwner == Joysticker)
-						ps = PlayerState.RunAndDribble;
+						ps = PlayerState.Dribble1;
 					else
-						ps = PlayerState.Run;
+						ps = PlayerState.Run0;
 				}
                     
                 Joysticker.OnJoystickMove(move, ps);
@@ -1876,7 +1876,7 @@ public class GameController : MonoBehaviour
 				else if(Joysticker.crtState == PlayerState.HoldBall)
 					ps = PlayerState.HoldBall;
 				else
-					ps = PlayerState.Dribble;
+					ps = PlayerState.Dribble0;
 			}
 			else
 				ps = PlayerState.Idle;
@@ -2076,7 +2076,7 @@ public class GameController : MonoBehaviour
 					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
                     {
 						for(int i = 0; i < DisAy.Length; i++){
-							if (DisAy[i].Distance <= GameConst.StealBallDistance && (DisAy[i].Player.crtState == PlayerState.Idle && DisAy[i].Player.crtState == PlayerState.Dribble) && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
+							if (DisAy[i].Distance <= GameConst.StealBallDistance && (DisAy[i].Player.crtState == PlayerState.Idle && DisAy[i].Player.crtState == PlayerState.Dribble0) && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
 							{
 								if(Npc.AniState (PlayerState.Push, DisAy[i].Player.transform.position)){
 									Npc.CoolDownPush = Time.time + 3;
@@ -2203,7 +2203,7 @@ public class GameController : MonoBehaviour
         }
         
         if (Npc.WaitMoveTime != 0 && Npc == BallOwner)
-            Npc.AniState(PlayerState.Dribble);
+            Npc.AniState(PlayerState.Dribble0);
     }
 	
     private bool NpcAutoTee(PlayerBehaviour player, bool speedup)
@@ -2627,7 +2627,7 @@ public class GameController : MonoBehaviour
 	        }
 	        
 	        if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
-	            npc.AniState(PlayerState.Dribble);
+	            npc.AniState(PlayerState.Dribble0);
         }
     }
 
@@ -2922,7 +2922,7 @@ public class GameController : MonoBehaviour
 		}
 		else if(GameStart.Get.TestMode == GameTest.Block){
 			SetBall(PlayerList [1]);
-			PlayerList [1].AniState(PlayerState.Dribble);
+			PlayerList [1].AniState(PlayerState.Dribble0);
 			PlayerList [1].AniState(PlayerState.Shoot0);
 		}
     }
@@ -3074,10 +3074,10 @@ public class GameController : MonoBehaviour
 					} else 
 					if (SetBall(player)) {
 						if(player.NoAiTime == 0)
-							player.AniState(PlayerState.Dribble);
+							player.AniState(PlayerState.Dribble0);
 						else 
-						if(player.CheckAnimatorSate(PlayerState.Run))
-                        	player.AniState(PlayerState.RunAndDribble);
+						if(player.CheckAnimatorSate(PlayerState.Run0))
+                        	player.AniState(PlayerState.Dribble1);
                     	else
                         	player.AniState(PlayerState.HoldBall);
 					}
@@ -3141,8 +3141,8 @@ public class GameController : MonoBehaviour
 	private bool canPassToAlleyoop(PlayerState state) {
 		if (state == PlayerState.Idle ||
 		    state == PlayerState.HoldBall ||
-		    state == PlayerState.Dribble ||
-		    state == PlayerState.RunAndDribble)
+		    state == PlayerState.Dribble0 ||
+		    state == PlayerState.Dribble1)
 			return true;
 		else
 			return false;

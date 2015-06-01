@@ -13,11 +13,12 @@ public delegate bool OnPlayerAction3(PlayerBehaviour player, PlayerState state);
 public enum PlayerState
 {
     Idle = 0,
-    Run = 2,            
+    Run0 = 1,            
+    Run1 = 2,            
     Block = 3,  
     Board = 4,  
     Defence = 6,    
-    Dribble = 7,    
+       
     Dunk = 8,
     Fall0 = 9,
     Fall1 = 10,
@@ -33,7 +34,6 @@ public enum PlayerState
     PassAir = 20,
     Push = 21,
     MovingDefence = 23,
-    RunAndDribble = 24,
 	Rebound = 25,
 	ReboundCatch = 26,
 	DunkBasket = 27,
@@ -65,6 +65,9 @@ public enum PlayerState
 	MoveDodge1 = 56,
 	PickBall0 = 57,
 	PickBall2 = 58,
+	Dribble0 = 59,
+	Dribble1 = 60,
+	Dribble2 = 61
 }
 
 public enum TeamKind
@@ -993,7 +996,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
 
-                    AniState(ps);
+                    
                     
                     float angle = move.Axis2Angle(true);
                     int a = 90;
@@ -1002,14 +1005,18 @@ public class PlayerBehaviour : MonoBehaviour
 					                    
                     if (animationSpeed <= MoveMinSpeed || MovePower == 0)
                     {
+
 						SetSpeed(0.3f, 0);
 						if(animationSpeed <= MoveMinSpeed)
 							IsSpeedup = false;
 
-                        if (IsBallOwner)						
+                        if (IsBallOwner){						
                             Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal;
+							ps = PlayerState.Dribble1;
+						}
 						else
                         {
+							ps = PlayerState.Run0;
                             if (IsDefence)
                             {
 								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal;
@@ -1020,10 +1027,13 @@ public class PlayerBehaviour : MonoBehaviour
                     {
 						IsSpeedup = true;
 						SetSpeed(1, 0);
-                        if (IsBallOwner)
+                        if (IsBallOwner){
 							Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
+							ps = PlayerState.Dribble2;
+						}
                         else
                         {
+							ps = PlayerState.Run1;
                             if (IsDefence)
 								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup;
                             else
@@ -1033,6 +1043,8 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     transform.Translate(Translate); 
 					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+
+					AniState(ps);
                 }
             }            
         }
@@ -1050,7 +1062,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (crtState != ps)
                 AniState(ps);
 
-			if(crtState == PlayerState.Dribble){
+			if(crtState == PlayerState.Dribble0){
 	            if (situation == GameSituation.AttackA)
 	                rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
 	            else if (situation == GameSituation.AttackB)
@@ -1202,7 +1214,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if (!IsBallOwner)
 						AniState(PlayerState.Idle);
 					else if (situation == GameSituation.TeeA || situation == GameSituation.TeeB)
-						AniState(PlayerState.Dribble);
+						AniState(PlayerState.Dribble0);
 					
 					if (First || GameStart.Get.TestMode == GameTest.Edit)
 						WaitMoveTime = 0;
@@ -1306,7 +1318,7 @@ public class PlayerBehaviour : MonoBehaviour
 					} else
 					{
 						rotateTo(MoveTarget.x, MoveTarget.y);
-						AniState(PlayerState.Run);
+						AniState(PlayerState.Run0);
 					}
 					
 					isMoving = true;
@@ -1326,9 +1338,9 @@ public class PlayerBehaviour : MonoBehaviour
 					rotateTo(MoveTarget.x, MoveTarget.y);
 					
 					if (IsBallOwner)
-						AniState(PlayerState.RunAndDribble);
+						AniState(PlayerState.Dribble1);
 					else
-						AniState(PlayerState.Run);
+						AniState(PlayerState.Run0);
 					
 					isMoving = true;
 					if (IsBallOwner)
@@ -1427,7 +1439,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
-        if (CheckAnimatorSate(PlayerState.Idle) || CheckAnimatorSate(PlayerState.RunAndDribble) || CheckAnimatorSate(PlayerState.Dribble))
+        if (CheckAnimatorSate(PlayerState.Idle) || CheckAnimatorSate(PlayerState.Dribble1) || CheckAnimatorSate(PlayerState.Dribble0))
         {
             NeedResetFlag = false;
             for (int i = 0; i < PlayerActionFlag.Length; i++)
@@ -1465,7 +1477,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.PassParabola:
             case PlayerState.PassFast:
             case PlayerState.Tee:
-                if (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble)
+                if (crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1)
                     return true;
                 break;
 
@@ -1487,7 +1499,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot6:
             case PlayerState.Dunk:
             case PlayerState.Layup:
-			if (IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble))
+			if (IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1))
                     return true;
                 break;
 			case PlayerState.Alleyoop:
@@ -1513,26 +1525,26 @@ public class PlayerBehaviour : MonoBehaviour
            
 			case PlayerState.PickBall0:
 			case PlayerState.PickBall2:
-				if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			if (CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.MovingDefence ||
 			                                          crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
 					return true;
 				break;
 
             case PlayerState.Push:
             case PlayerState.Steal:
-				if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.MovingDefence ||
                     crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence))
                     return true;
                 break;
 
 			case PlayerState.Block:
-				if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.MovingDefence ||
+			if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.MovingDefence ||
 			                                crtState == PlayerState.Defence || crtState == PlayerState.RunningDefence || crtState == PlayerState.Dunk))
 					return true;
 				break;
 
             case PlayerState.Elbow:
-				if (!IsTee && IsBallOwner && (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall))
+				if (!IsTee && IsBallOwner && (crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.HoldBall))
                     return true;
                 break;
 
@@ -1540,33 +1552,36 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Fall1:
             case PlayerState.Fall2:
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
-			    (crtState == PlayerState.Dribble || crtState == PlayerState.RunAndDribble || crtState == PlayerState.HoldBall || crtState == PlayerState.Dunk ||
-                    crtState == PlayerState.Idle || crtState == PlayerState.Run || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
+			    (crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.HoldBall || crtState == PlayerState.Dunk ||
+			 crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.Defence || crtState == PlayerState.MovingDefence || 
                     crtState == PlayerState.RunningDefence))
                     return true;
                 break;
 
             case PlayerState.GotSteal:
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
-                    (crtState == PlayerState.Dribble ||
-                    crtState == PlayerState.RunAndDribble || 
+                    (crtState == PlayerState.Dribble0 ||
+                    crtState == PlayerState.Dribble1 || 
                     crtState == PlayerState.FakeShoot || 
                     crtState == PlayerState.HoldBall || 
                     crtState == PlayerState.Idle || 
-                    crtState == PlayerState.Run || 
+                    crtState == PlayerState.Run0 ||
+					crtState == PlayerState.Run1 ||
                     crtState == PlayerState.Defence || 
                     crtState == PlayerState.MovingDefence || 
                     crtState == PlayerState.RunningDefence))
                     return true;
                 break;
 
-            case PlayerState.RunAndDribble:
-            case PlayerState.Dribble:
+            case PlayerState.Dribble1:
+            case PlayerState.Dribble0:
+            case PlayerState.Dribble2:
                 if (IsFirstDribble && !CanMove || CanMove || (crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1))
                     return true;
                 break;
             
-            case PlayerState.Run:   
+            case PlayerState.Run0:   
+            case PlayerState.Run1:   
             case PlayerState.RunningDefence:
             case PlayerState.Defence:
             case PlayerState.MovingDefence:
@@ -1698,15 +1713,30 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case PlayerState.Dribble:
+            case PlayerState.Dribble0:
+			case PlayerState.Dribble1:
+			case PlayerState.Dribble2:
                 if (GameController.Get.BallOwner == this)
                 {
-					PlayerRigidbody.mass = 50;
-                    if (!isJoystick)
-                        SetSpeed(0, -1);
+					switch (state)
+					{
+						case PlayerState.Dribble0:
+								stateNo = 0;
+								break;
+						case PlayerState.Dribble1:
+								stateNo = 1;
+								break;
+						case PlayerState.Dribble2:
+								stateNo = 2;
+								break;
+					}
+					PlayerRigidbody.mass = 3;
+//                    if (!isJoystick)
+//                        SetSpeed(0, -1);
                     ClearAnimatorFlag();
+					animator.SetInteger("StateNo", stateNo);
                     AddActionFlag(ActionFlag.IsDribble);
-                    CourtMgr.Get.SetBallState(PlayerState.Dribble, this);
+                    CourtMgr.Get.SetBallState(PlayerState.Dribble0, this);
                     isCanCatchBall = false;
                     IsFirstDribble = false;
                     Result = true;
@@ -1747,7 +1777,7 @@ public class PlayerBehaviour : MonoBehaviour
 					case PlayerState.Fall2:
 						stateNo = 2;
 						break;
-			}
+				}
 				curveName = string.Format("Fall{0}", stateNo);
 				playerFallCurve = null;
 
@@ -1904,28 +1934,26 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
             
-            case PlayerState.Run:
+            case PlayerState.Run0:
+            case PlayerState.Run1:
                 if (!isJoystick)
                     SetSpeed(1, 1); 
 
-				//AddActionFlag(ActionFlag.IsRun);
-                ClearAnimatorFlag(ActionFlag.IsRun);
+				switch (state)
+				{
+					case PlayerState.Run0:
+						stateNo = 0;
+						break;
+					case PlayerState.Run1:
+						stateNo = 1;
+						break;
+				}
+				animator.SetInteger("StateNo", stateNo);
+				ClearAnimatorFlag(ActionFlag.IsRun);
 				PlayerRigidbody.mass = 3;
-                Result = true;
+				Result = true;
                 break;
-
-            case PlayerState.RunAndDribble:
-                if (!isJoystick)
-                    SetSpeed(1, 1);
-                else
-                    SetSpeed(1, 0);
-				ClearAnimatorFlag(ActionFlag.IsDribble);
-//				AddActionFlag(ActionFlag.IsDribble);
-                IsFirstDribble = false;
-				PlayerRigidbody.mass = 3;
-                Result = true;
-                break;
-
+    
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsRun);
@@ -1976,9 +2004,9 @@ public class PlayerBehaviour : MonoBehaviour
 						case PlayerState.Shoot6:
 							stateNo = 6;
 							break;
-				}
+					}
 				
-				animator.SetInteger("StateNo", stateNo);
+					animator.SetInteger("StateNo", stateNo);
                     curveName = string.Format("Shoot{0}", stateNo);
 
                     for (int i = 0; i < aniCurve.Shoot.Length; i++)
@@ -2159,7 +2187,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case "MoveDodgeEnd": 
 				if(IsBallOwner)
-					AniState(PlayerState.Dribble);
+					AniState(PlayerState.Dribble0);
 				else
 					AniState(PlayerState.Idle);
 				break;
@@ -2176,7 +2204,7 @@ public class PlayerBehaviour : MonoBehaviour
                     OnPickUpBall(this);
                 break;
             case "PickEnd":
-                AniState(PlayerState.Dribble);
+                AniState(PlayerState.Dribble0);
                 break;
 
             case "PushCalculateStart":
@@ -2242,7 +2270,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "CatchEnd":
 				if(situation == GameSituation.TeeA || situation == GameSituation.TeeB){
 					if(IsBallOwner)
-						AniState(PlayerState.Dribble);
+						AniState(PlayerState.Dribble0);
 					else
 						AniState(PlayerState.Idle);
 				} else {
@@ -2254,7 +2282,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}else
 					{
 						if (NoAiTime == 0)
-							AniState(PlayerState.Dribble);
+							AniState(PlayerState.Dribble0);
 						else 
 							AniState(PlayerState.HoldBall);
 					}
