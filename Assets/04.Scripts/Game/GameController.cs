@@ -848,7 +848,10 @@ public class GameController : MonoBehaviour
 									data.Catcher = tacticalData [j].Catcher;
 									data.Shooting = tacticalData [j].Shooting;
 									data.FileName = attackTactical.FileName;
-									data.Target = new Vector2(tacticalData [j].x, tacticalData [j].z);
+									if(npc.Team == TeamKind.Self)
+										data.Target = new Vector2(tacticalData [j].x, tacticalData [j].z);
+									else
+										data.Target = new Vector2(tacticalData [j].x, -tacticalData [j].z);
 									if (BallOwner != null && BallOwner != npc)
 										data.LookTarget = BallOwner.transform;  
 									
@@ -2431,8 +2434,8 @@ public class GameController : MonoBehaviour
 							if (GameStart.Get.TestMode == GameTest.Block)
 							{
 								Npc2.AniState(PlayerState.Block, Npc.transform.position);
-							} else
-								if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
+							} 
+							else if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
 							{
 								if (Rate < BlockRate)
 								{
