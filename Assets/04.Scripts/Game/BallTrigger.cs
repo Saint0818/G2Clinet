@@ -31,6 +31,8 @@ public class BallTrigger : MonoBehaviour
 
 	private bool touchPlayer(Collider other, bool isEnter) {
 		int dir = -1;
+		int team = -1;
+		int index = -1;
 		if (other.gameObject.name == "TriggerTop")
 			dir = 0;
 		else
@@ -40,17 +42,24 @@ public class BallTrigger : MonoBehaviour
 		if (other.gameObject.name == "TriggerBR")
 			dir = 3;
 		else
-		if (other.gameObject.name == "TriggerFinger")
+		if (other.gameObject.name.Contains("TriggerFinger")) {
 			dir = 5;
-		else
+			int.TryParse(other.gameObject.name[0].ToString(), out team); 
+			int.TryParse(other.gameObject.name[1].ToString(), out index); 
+		} else
 		if (other.gameObject.name == "TriggerSteal")
 			dir = 6;
 
-		if (dir > -1 && other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent) {
-			PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
-			if (player) {
-				GameController.Get.BallTouchPlayer(player, dir, isEnter);
-				return true;
+		if (dir > -1) {
+			if (team > -1 && index > -1) {
+				GameController.Get.BallTouchPlayer(team * 3 + index, dir, isEnter);
+			} else
+			if (other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent) {
+				PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
+				if (player) {
+					GameController.Get.BallTouchPlayer(player, dir, isEnter);
+					return true;
+				}
 			}
 		}
 

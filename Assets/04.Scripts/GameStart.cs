@@ -28,8 +28,9 @@ public class GameStart : KnightSingleton<GameStart> {
 			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
 			break;
 		case SceneTest.Release:
-			ConnectToServer = true;
-			CheckServerData();
+			//ConnectToServer = true;
+			//CheckServerData();
+			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
 			break;
 		case SceneTest.SelectRole:
 			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);

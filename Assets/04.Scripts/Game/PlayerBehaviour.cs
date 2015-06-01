@@ -432,6 +432,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			Transform t = obj2.transform.FindChild("TriggerFinger").gameObject.transform;
 			if (t) {
+				t.name = Team.GetHashCode().ToString() + Index.ToString() + "TriggerFinger";
 				t.parent = transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
 				t.localPosition = Vector3.zero;
 				t.localScale = Vector3.one;

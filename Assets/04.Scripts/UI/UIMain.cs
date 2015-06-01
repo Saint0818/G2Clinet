@@ -59,14 +59,14 @@ public class UIMain : UIBase {
 		SetBtnFun(UIName + "/TopRight/ButtonOpenRoom", OnOpenRoom);
 		SetBtnFun(UIName + "/TopRight/ButtonJoinRoom", OnLookingRoom);
 
-		UIEventListener.Get (GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect")).onClick = DoEffectSwitch;
+		/*UIEventListener.Get (GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect")).onClick = DoEffectSwitch;
 
 		EffectSwitch [0] = GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect/LabelON");
 		EffectSwitch [1] = GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect/LabelOff");
 
 		EffectSwitch [0].SetActive (GameData.Setting.Effect);
 		EffectSwitch [1].SetActive (!GameData.Setting.Effect);
-
+		*/
 		itemJoinRoom = Resources.Load("Prefab/UI/Items/ItemJoinRoom") as GameObject;
 		offsetRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/Anchor/Offset");
 		cameraRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/ViewCamera").GetComponent<UIDraggableCamera>();

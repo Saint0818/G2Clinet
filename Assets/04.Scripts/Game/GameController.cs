@@ -2985,8 +2985,12 @@ public class GameController : MonoBehaviour
 			return false;
 	}
 
-    public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter)
-    {
+	public void BallTouchPlayer(int index, int dir, bool isEnter) {
+		if (index >= 0 && index < PlayerList.Count)
+			BallTouchPlayer(PlayerList[index], dir, isEnter);
+	}
+
+    public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter) {
 		if (BallOwner || 
 		    IsShooting || 
 		    !player.IsCanCatchBall || 
