@@ -3,6 +3,7 @@ using System.Collections;
 using GameStruct;
 using System;
 using System.Collections.Generic;
+using DG.Tweening; 
 
 public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
@@ -24,6 +25,8 @@ public class UISelectRole : UIBase {
 	private GameObject Left;
 	private int MaxValue = 100;
 	private float Value = 0;
+	private float axisX;
+	private bool isDrag;
 	public int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
@@ -169,6 +172,7 @@ public class UISelectRole : UIBase {
 			                                             BtnAy[Index].transform.localPosition.z);
 
 			SetPlayerAvatar(0, Index);
+			PlayerObjAy[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
 			{
 				TGreatPlayer data = GameData.DPlayers[SelectIDAy [0]];
@@ -302,6 +306,41 @@ public class UISelectRole : UIBase {
 		{
 			GoTime = 0;
 			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+		}
+
+		if(OkBtn.activeInHierarchy)
+		{
+			if(Input.GetMouseButton(0)) 
+			{
+				axisX = 0;
+				if(Input.mousePosition.y > (Screen.height * 0.4f))
+					isDrag = true;
+			} 
+			else 
+			{
+				axisX = 0;
+				isDrag = false;
+			}
+			
+			if(isDrag)
+			{
+				#if UNITY_EDITOR
+				axisX = -Input.GetAxis ("Mouse X");
+				#else
+				#if UNITY_IOS
+				if(Input.touchCount > 0)
+					axisX = -Input.touches[0].deltaPosition.x;
+				#endif
+				#if UNITY_ANDROID
+				if(Input.touchCount > 0)
+					axisX = -Input.touches[0].deltaPosition.x;
+				#endif
+				#if (!UNITY_IOS && !UNITY_ANDROID)
+				axisX = -Input.GetAxis ("Mouse X");
+				#endif
+				#endif
+				PlayerObjAy[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
+			}
 		}
 	}
 }
