@@ -26,6 +26,8 @@ public class UISelectRole : UIBase {
 	private int MaxValue = 100;
 	private float Value = 0;
 	private float axisX;
+	private UILabel PlayerName;
+	private GameObject PlayerNameObj;
 	public int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
@@ -83,7 +85,9 @@ public class UISelectRole : UIBase {
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 		SelectLogoAy [1] = GameObject.Find (UIName + "/Center/SelectA");
 		SelectLogoAy [2] = GameObject.Find (UIName + "/Center/SelectB");
-
+		PlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
+		PlayerNameObj = GameObject.Find (UIName + "/Right/InfoRange/PlayerName");
+		PlayerNameObj.SetActive (true);
 		UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
 	}
 
@@ -93,6 +97,8 @@ public class UISelectRole : UIBase {
 		InfoRange.SetActive (false);
 		OkBtn.SetActive (false);
 		Left.SetActive (false);
+		PlayerNameObj.SetActive (false);
+
 
 		int RanID;
 		int Count;
@@ -205,6 +211,7 @@ public class UISelectRole : UIBase {
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
 		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false);
 		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
+		PlayerName.text = GameData.DPlayers [RoleIDAy [Index]].Name;
 	}
 	
 	protected override void InitData() 
@@ -215,7 +222,7 @@ public class UISelectRole : UIBase {
 		{
 			PlayerObjAy[i] = new GameObject();
 			PlayerAy[i] = new TPlayer();
-			PlayerAy[i].ID = i + 1;
+			PlayerAy[i].ID = RoleIDAy[i];
 			PlayerAy[i].SetAvatar();
 			PlayerObjAy[i].name = i.ToString();
 			PlayerObjAy[i].transform.parent = PlayerInfoModel.transform;
@@ -227,6 +234,7 @@ public class UISelectRole : UIBase {
 			{
 				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+				PlayerName.text = GameData.DPlayers [PlayerAy[i].ID].Name;
 			}
 			else if(i == 1)
 			{
