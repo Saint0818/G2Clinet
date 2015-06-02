@@ -315,8 +315,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private float MovePowerTime = 0;
 	private Vector2 MoveTarget;
 	private float dis;
-	private float dis2;
-	private float dis3;
 	private bool CanSpeedup = true;
 	public int AngerPower = 0;
 	public Material BodyMaterial;
@@ -1210,7 +1208,8 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 					
 					AniState(PlayerState.Defence);                          
-				} else
+				} 
+				else
 				{
 					if (!IsBallOwner)
 						AniState(PlayerState.Idle);
@@ -1289,8 +1288,6 @@ public class PlayerBehaviour : MonoBehaviour
 					if (Data.DefPlayer != null)
 					{
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        dis2 = Vector3.Distance(new Vector3(MoveTarget.x, 0, MoveTarget.y), CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
-                        dis3 = Vector3.Distance(Data.DefPlayer.transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
 						
 						if (dis <= GameConst.TreePointDistance + 4)
 						{
@@ -1298,11 +1295,7 @@ public class PlayerBehaviour : MonoBehaviour
 						} 
 						else
 						{
-							if (Data.LookTarget == null)
-							{
-								rotateTo(MoveTarget.x, MoveTarget.y);
-							} 
-							else if (Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
+							if (Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
 							{
 								rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
 							} 
@@ -1357,7 +1350,8 @@ public class PlayerBehaviour : MonoBehaviour
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
 							IsSpeedup = false;
 						}
-					} else
+					} 
+					else
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
@@ -1372,9 +1366,9 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 					}
 				}
-			}
-			     
-        } else
+			} 
+        } 
+		else
             isMoving = false;
     }
 

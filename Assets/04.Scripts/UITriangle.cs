@@ -79,8 +79,8 @@ public class UITriangle : KnightSingleton<UITriangle> {
 			obj.GetComponent<MeshFilter> ().mesh = m_Mesh;
 			obj.transform.parent = TriangleOutside.transform;
 		}
-		obj.GetComponent<MeshRenderer> ().material = ma;
 
+		obj.GetComponent<MeshRenderer> ().material = ma;
 	}
 
 	public void ChangeValue(int Index, float Value)
