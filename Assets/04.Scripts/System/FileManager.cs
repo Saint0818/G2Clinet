@@ -175,6 +175,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		CallBackFun.Add ("tactical", parseTacticalData);
 		CallBackFun.Add ("baseattr", parseBaseAttr);
 		CallBackFun.Add ("ballposition", parseBasketShootPositionData);
+		CallBackFun.Add ("skill", parseSkillnData);
 	}
     
     private void DoStarDownload(){
@@ -458,6 +459,22 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.Log ("[ballposition parsed finished.] ");
 		} catch (System.Exception ex) {
 			Debug.LogError ("[ballposition parsed error] " + ex.Message);
+		}
+	}
+
+	private void parseSkillnData (string Version, string text, bool SaveVersion){
+		try {
+			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
+			for (int i = 0; i < data.Length; i++) {
+				GameData.SkillData.Add(data[i].ID, data[i]);
+			}
+
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "skill", Version);
+			
+			Debug.Log ("[skill parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[skill parsed error] " + ex.Message);
 		}
 	}
 

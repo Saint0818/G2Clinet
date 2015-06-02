@@ -17,6 +17,7 @@ public class GameData {
 	public static TPlayerAttribute[] BaseAttr;
 	public static TTactical[] TacticalData;
     public static BasketShootPositionData[] BasketShootPosition;
+	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
 
 	public static string ServerVersion;
 	public static string SaveVersion;
@@ -41,6 +42,7 @@ public class GameData {
 			DownloadList.Add (new TDownloadData ("baseattr", "0"));
 			DownloadList.Add (new TDownloadData ("tactical", "0"));
 			DownloadList.Add (new TDownloadData ("ballposition", "0"));
+			DownloadList.Add (new TDownloadData ("skill", "0"));
 
 			FileManager.Get.LoadFileResource (DownloadList);
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using RootMotion.FinalIK;
 using DG.Tweening;
+using GameStruct;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 public delegate bool OnPlayerAction2(PlayerBehaviour player,bool speedup);
@@ -178,6 +179,13 @@ public struct TScoreRate
     }
 }
 
+public struct PassiveSkill{
+	public int ID;
+	public int Kind;
+	public string Name;
+	public int Rate;
+}
+
 public class PlayerBehaviour : MonoBehaviour
 {
 	public string TacticalName = "";
@@ -305,6 +313,12 @@ public class PlayerBehaviour : MonoBehaviour
 	private float pickCurveTime = 0;
 	private TSharedCurve playerPickCurve;
 
+	//PassiveSkill
+//	private List<int> passiveSkillsRate = new List<int>();
+//	private List<string> passiveSkillAnimationName = new List<string>();
+	private Dictionary<int, List<PassiveSkill>> passiveSkill = new Dictionary<int, List<PassiveSkill>>();
+	private bool isHaveMoveDodge;
+
 	private bool firstDribble = true;
 	public TScoreRate ScoreRate;
 	private bool isCanCatchBall = true;
@@ -391,6 +405,36 @@ public class PlayerBehaviour : MonoBehaviour
 			DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 			if(Attr.StaminaValue > 0)
 				SetMovePower(Attr.StaminaValue);
+
+			//collect player's passiveSkill
+			if(Player.Skills.Length > 0) {
+				for(int i=0; i<Player.Skills.Length; i++) {
+					if(Player.Skills[i].ID > 0) {
+						if(GameData.SkillData.ContainsKey(Player.Skills[i].ID)) {
+							if(GameData.SkillData[Player.Skills[i].ID].Kind == (int)TSkillKind.MoveDodge) 
+								isHaveMoveDodge = true;
+							int rate = GameData.SkillData[Player.Skills[i].ID].BaseRate + (GameData.SkillData[Player.Skills[i].ID].AddRate * Player.Skills[i].Lv);
+							PassiveSkill ps = new PassiveSkill();
+							ps.ID = Player.Skills[i].ID;
+							ps.Name = GameData.SkillData[Player.Skills[i].ID].Animation;
+							ps.Rate = rate;
+							ps.Kind = GameData.SkillData[Player.Skills[i].ID].Kind;
+							int key = GameData.SkillData[Player.Skills[i].ID].Kind ;
+							if(key > 1000)
+								key = (key / 100);
+							if(passiveSkill.ContainsKey(key)) {
+								List<PassiveSkill> pss = passiveSkill[key];
+								pss.Add(ps);
+								passiveSkill[key] = pss;
+							} else {
+								List<PassiveSkill> pss = new List<PassiveSkill>();
+								pss.Add(ps);
+								passiveSkill.Add(key, pss);
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
@@ -986,7 +1030,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
-					if (GameController.Get.CoolDownCrossover == 0 && GameController.Get.DoPassiveSkill(PlayerState.MoveDodge0, this))
+					if (GameController.Get.CoolDownCrossover == 0 && GameController.Get.DoPassiveSkill(TSkillSituation.MoveDodge, this))
 					{
 					
 					}
@@ -2339,6 +2383,74 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		CloseDef = 0;
 		AutoFollow = false;
+	}
+
+	public PlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3)) {
+		PlayerState playerState = PlayerState.Idle;
+		playerState = (PlayerState)((int) situation);
+		List<PassiveSkill> ps = new List<PassiveSkill>();
+		if(passiveSkill.ContainsKey((int) kind)){
+			ps = passiveSkill[(int)kind];
+		}
+		bool isPerformPassive = false;
+		if(ps.Count > 0) {
+			int passiveRate = 0;
+			int passDirect = 0;
+			if(kind == TSkillKind.Pass) {
+				float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
+				if(angle < 45f && angle > -45f){
+					passDirect = 1; 
+				} else if(angle <= -45f && angle > -135f) {
+					passDirect = 3;
+				} else if(angle < 135f && angle >= 45f) {
+					passDirect = 4;
+				} else if(angle >= 135f && angle >= -135f) {
+					passDirect = 2;
+				}
+				for (int i=0; i<ps.Count; i++) {
+					if((ps[i].Kind % 10) == passDirect)
+						passiveRate += ps[i].Rate;
+				}
+			} else {
+				for (int i=0; i<ps.Count; i++)
+					passiveRate += ps[i].Rate;
+			}
+			isPerformPassive = (UnityEngine.Random.Range(0,100) <= passiveRate)?true:false;
+		}
+
+		if(isPerformPassive) {
+			if(ps.Count > 0) {
+				string animationName = string.Empty;
+				for(int i=0; i<ps.Count; i++) {
+					if(UnityEngine.Random.Range(0,100) <= ps[i].Rate) {
+						string[] enumName =  Enum.GetNames(typeof(PlayerState));
+						bool isHave = false;
+//						if(Enum.IsDefined (typeof(PlayerState), ps[i].Name) != null){
+						for(int j=0; j<enumName.Length; j++) {
+							if(enumName[i].Equals(ps[i].Name))
+								isHave = true;
+						}
+						if(isHave){
+							animationName = ps[i].Name;
+							break;
+						}
+					}
+				}
+				if(animationName != string.Empty)
+					return (PlayerState) System.Enum.Parse (typeof(PlayerState), animationName);
+				else 
+					return playerState;
+			}
+		} else
+			return playerState;
+
+		return playerState;
+	}
+
+	public bool IsHaveMoveDodge{
+		get{
+			return isHaveMoveDodge;
+		}
 	}
 
     public bool CanMove
