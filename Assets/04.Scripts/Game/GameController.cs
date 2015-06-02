@@ -379,18 +379,61 @@ public class GameController : MonoBehaviour
 	}
 
 	public void InitPlayer(){
-		for (int i = 0; i < PlayerAy.Length; i++) {
-			if(i >= (PlayerAy.Length / 2))
-				PlayerAy[i] = new TPlayer(GameConst.NpcAILevel);
-			else
-				PlayerAy[i] = new TPlayer(GameConst.SelfAILevel);
+		int [] NpcIDAy = new int[3];
+		int Index = 0;
 
-			if(GameData.DPlayers.ContainsKey(i + 1))
+		if(GameStart.Get.SceneMode == SceneTest.SelectRole)
+		{
+			for(int j = 0; j < UISelectRole.RoleIDAy.Length; j++)
 			{
-				PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
-				PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
-				PlayerAy[i].SetAttribute();
-				PlayerAy[i].SetAvatar();
+				if(UISelectRole.RoleIDAy[j] != GameData.Team.Player.ID &&
+				   UISelectRole.RoleIDAy[j] != GameData.TeamMembers[0].Player.ID &&
+				   UISelectRole.RoleIDAy[j] != GameData.TeamMembers[1].Player.ID)
+				{
+					if(GameData.DPlayers.ContainsKey(UISelectRole.RoleIDAy[j]))
+					{
+						NpcIDAy[Index] = UISelectRole.RoleIDAy[j];
+						Index++;
+					}
+				}
+			}
+		}
+
+		Index = 0;
+		for (int i = 0; i < PlayerAy.Length; i++) 
+		{
+			PlayerAy[i] = new TPlayer(0);
+
+			if(i >= (PlayerAy.Length / 2))
+			{
+				if(GameStart.Get.SceneMode == SceneTest.SelectRole)
+				{
+					if(GameData.DPlayers.ContainsKey(NpcIDAy[Index]))
+					{
+						PlayerAy[i].ID = NpcIDAy[Index];
+						PlayerAy[i].Name = GameData.DPlayers[NpcIDAy[Index]].Name;
+						PlayerAy[i].SetAttribute();
+						PlayerAy[i].SetAvatar();
+						Index++;
+					}
+				}
+				else if(GameData.DPlayers.ContainsKey(i + 1))
+				{
+					PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
+					PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
+					PlayerAy[i].SetAttribute();
+					PlayerAy[i].SetAvatar();
+				}
+			}
+			else
+			{
+				if(GameData.DPlayers.ContainsKey(i + 1))
+				{
+					PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
+					PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
+					PlayerAy[i].SetAttribute();
+					PlayerAy[i].SetAvatar();
+				}
 			}
 		}
 
@@ -3543,11 +3586,14 @@ public class GameController : MonoBehaviour
 
 	public void SetPlayerLevel(){
 		PlayerPrefs.SetFloat("AIChangeTime", GameData.Setting.AIChangeTime);
-		if(GameData.Setting.AIChangeTime > 100) {
+		if(GameData.Setting.AIChangeTime > 100) 
+		{
 			Joysticker.SetNoAiTime();
 		}
-		for(int i=0; i<PlayerList.Count; i++) {
-			if(i >= 3)
+
+		for(int i=0; i < PlayerList.Count; i++) 
+		{
+			if(i >= PlayerList.Count / 2)
 				PlayerAy[i].AILevel = GameConst.NpcAILevel;
 			else
 				PlayerAy[i].AILevel = GameConst.SelfAILevel;

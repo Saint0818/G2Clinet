@@ -28,7 +28,7 @@ public class UISelectRole : UIBase {
 	private float axisX;
 	private UILabel PlayerName;
 	private GameObject PlayerNameObj;
-	public int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
+	public static int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
 	{
@@ -152,6 +152,7 @@ public class UISelectRole : UIBase {
 				{
 					GameData.Team.Player.ID = GameData.DPlayers[SelectIDAy[i]].ID;
 					GameData.Team.Player.Name = GameData.DPlayers[SelectIDAy[i]].Name;
+					GameData.Team.Player.AILevel = GameData.DPlayers[SelectIDAy[i]].AILevel;
 				}
 			}
 			else
@@ -160,6 +161,7 @@ public class UISelectRole : UIBase {
 				{
 					GameData.TeamMembers[i - 1].Player.ID = GameData.DPlayers[SelectIDAy[i]].ID;
 					GameData.TeamMembers[i - 1].Player.Name = GameData.DPlayers[SelectIDAy[i]].Name;
+					GameData.TeamMembers[i - 1].Player.AILevel = GameData.DPlayers[SelectIDAy[i]].AILevel;
 				}
 			}
 		}
@@ -206,6 +208,7 @@ public class UISelectRole : UIBase {
 	private void SetPlayerAvatar(int RoleIndex, int Index)
 	{
 		PlayerAy[RoleIndex].ID = RoleIDAy[Index];
+		PlayerAy [RoleIndex].AILevel = GameData.DPlayers [RoleIDAy [Index]].AILevel;
 		SelectIDAy[RoleIndex] = RoleIDAy[Index];
 		PlayerAy[RoleIndex].SetAvatar();
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
@@ -221,7 +224,7 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < Ay.Length; i++) 
 		{
 			PlayerObjAy[i] = new GameObject();
-			PlayerAy[i] = new TPlayer();
+			PlayerAy[i] = new TPlayer(0);
 			PlayerAy[i].ID = RoleIDAy[i];
 			PlayerAy[i].SetAvatar();
 			PlayerObjAy[i].name = i.ToString();
@@ -229,6 +232,7 @@ public class UISelectRole : UIBase {
 			AvatarAy[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
 			PlayerObjAy[i].transform.localPosition = Ay[i];
+			PlayerAy [i].AILevel = GameData.DPlayers [RoleIDAy [i]].AILevel;
 
 			if(i == 0)
 			{
