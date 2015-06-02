@@ -89,6 +89,33 @@ public class EffectManager : MonoBehaviour
 		}
 	}
 
+	public GameObject PlayEffectFollowBallOwner(string effectName, Vector3 position)
+	{
+		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
+			GameObject obj = LoadEffect(effectName);
+			
+			if(obj != null) {
+				GameObject particles = (GameObject)Instantiate(obj);
+				particles.transform.position = position;
+				particles.SetActive(true);
+				particles.name = effectName;
+				
+				if(particles.GetComponent<ParticleSystem>() == null) {
+					ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
+					if (ps)
+						ps.Play();
+				} else
+					particles.GetComponent<ParticleSystem>().Play();
+
+				particles.transform.localPosition = position;
+				particles.transform.localScale = Vector3.one;				
+				return particles;
+			}
+		}
+		
+		return null;
+	}
+
 	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
 		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);

@@ -98,7 +98,7 @@ public class UISelectRole : UIBase {
 		OkBtn.SetActive (false);
 		Left.SetActive (false);
 		PlayerNameObj.SetActive (false);
-
+		PlayerObjAy[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		int RanID;
 		int Count;

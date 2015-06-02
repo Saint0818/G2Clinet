@@ -194,6 +194,7 @@ public class GameController : MonoBehaviour
 	private TTactical attackTactical;
 	private TTactical defTactical;
 	public GameObject selectMe;
+	public GameObject BallHolder;
 	private List<int> TacticalDataList = new List<int>();
 
 	private int shootAngle = 55;
@@ -531,6 +532,8 @@ public class GameController : MonoBehaviour
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
 		Joysticker.AngerView.fillAmount = 0;
+
+		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
@@ -2898,6 +2901,14 @@ public class GameController : MonoBehaviour
 				Passer = null;
 				Shooter = null;
 				Catcher = null;
+
+				BallHolder.SetActive(true);
+				BallHolder.transform.parent = BallOwner.transform;
+				BallHolder.transform.localPosition = new Vector3(0, 3.5f, 0);
+				BallHolder.transform.localEulerAngles = Vector3.zero;
+				BallHolder.transform.localScale = Vector3.one;
+				
+
 				for(int i = 0 ; i < PlayerList.Count; i++)
 					PlayerList[i].ClearAutoFollowTime();
 
@@ -2950,6 +2961,7 @@ public class GameController : MonoBehaviour
 				Catcher = null;
             } else
 			{
+				BallHolder.SetActive(false);
 				Catcher = null;
 				SetBallOwnerNull();
 //				if(BallOwner != null)

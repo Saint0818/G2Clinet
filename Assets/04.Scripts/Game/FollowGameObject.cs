@@ -42,8 +42,7 @@ public class FollowGameObject : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (target) {
+		if (target) 
 			gameObject.transform.position = new Vector3(target.transform.position.x , 0.05f, target.transform.position.z);	
-		}
 	}
 }
