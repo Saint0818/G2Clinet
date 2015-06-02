@@ -984,66 +984,66 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
-                    isMoving = true;
-                    if (!isJoystick)
-						MoveStartTime = Time.time + GameConst.DefMoveTime;
-					
-//                  if (!CheckAction(ActionFlag.IsRun))
-//                      AddActionFlag(ActionFlag.IsRun);
-                    
-                    SetNoAiTime();
-                    
-                    animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
+					if (GameController.Get.CoolDownCrossover == 0)
+					{
+						GameController.Get.DoPassiveSkill(PlayerState.MoveDodge0, this);           
+					}
+					else
+					{
+						isMoving = true;
+						if (!isJoystick)
+							MoveStartTime = Time.time + GameConst.DefMoveTime;
 
-                    
-                    
-                    float angle = move.Axis2Angle(true);
-                    int a = 90;
-                    Vector3 rotation = new Vector3(0, angle + a, 0);
-                    transform.rotation = Quaternion.Euler(rotation);
-					                    
-                    if (animationSpeed <= MoveMinSpeed || MovePower == 0)
-                    {
+						SetNoAiTime();
+						animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
+						float angle = move.Axis2Angle(true);
+						int a = 90;
+						Vector3 rotation = new Vector3(0, angle + a, 0);
+						transform.rotation = Quaternion.Euler(rotation);
 
-						SetSpeed(0.3f, 0);
-						if(animationSpeed <= MoveMinSpeed)
-							IsSpeedup = false;
-
-                        if (IsBallOwner){						
-                            Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal;
-							ps = PlayerState.Dribble1;
+						if (animationSpeed <= MoveMinSpeed || MovePower == 0)
+						{
+							
+							SetSpeed(0.3f, 0);
+							if(animationSpeed <= MoveMinSpeed)
+								IsSpeedup = false;
+							
+							if (IsBallOwner){						
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal;
+								ps = PlayerState.Dribble1;
+							}
+							else
+							{
+								ps = PlayerState.Run0;
+								if (IsDefence)
+								{
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal;
+								} else
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal;
+							}                       
+						} else
+						{
+							IsSpeedup = true;
+							SetSpeed(1, 0);
+							if (IsBallOwner){
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
+								ps = PlayerState.Dribble2;
+							}
+							else
+							{
+								ps = PlayerState.Run1;
+								if (IsDefence)
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup;
+								else
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup;
+							}
 						}
-						else
-                        {
-							ps = PlayerState.Run0;
-                            if (IsDefence)
-                            {
-								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal;
-                            } else
-								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal;
-                        }                       
-                    } else
-                    {
-						IsSpeedup = true;
-						SetSpeed(1, 0);
-                        if (IsBallOwner){
-							Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
-							ps = PlayerState.Dribble2;
-						}
-                        else
-                        {
-							ps = PlayerState.Run1;
-                            if (IsDefence)
-								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup;
-                            else
-								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup;
-                        }
-                    }
-                    
-                    transform.Translate(Translate); 
-					transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 
-					AniState(ps);
+						transform.Translate(Translate); 
+						transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+						
+						AniState(ps);
+					}
                 }
             }            
         }

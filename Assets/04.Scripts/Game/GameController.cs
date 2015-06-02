@@ -164,7 +164,7 @@ public class GameController : MonoBehaviour
     public bool IsStart = false;
 	public bool IsReset = false;
     public float CoolDownPass = 0;
-    private float CoolDownCrossover = 0;
+    public float CoolDownCrossover = 0;
     private float ShootDis = 0;
     public float RealBallFxTime = 0;
 	private float WaitTeeBallTime = 0;
@@ -1983,8 +1983,7 @@ public class GameController : MonoBehaviour
             
             if (Npc == BallOwner)
             {
-                //Dunk shoot shoot3 pass
-                int Dir = HaveDefPlayer(ref Npc, 1.5f, 50);
+                //Dunk shoot shoot3 pass                
 				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);
@@ -2032,32 +2031,10 @@ public class GameController : MonoBehaviour
                             }
                         }
                     }
-                } else 
-                if (Npc.Player.AILevel >= 3 && Dir != 0 && CoolDownCrossover == 0 && Npc.CanMove)
+                } 
+				else if (Npc.Player.AILevel >= 3 && CoolDownCrossover == 0 && Npc.CanMove)
                 {
-                    //Crossover     
-					if(Npc.Team == TeamKind.Self && Npc.transform.position.z >= 9.5)
-						return;
-					else if(Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -9.5)
-						return;
-
-					int AddZ = 6;
-					if(Npc.Team == TeamKind.Npc)
-						AddZ = -6;
-
-					Npc.rotateTo(pos.x, pos.z);
-					Npc.transform.DOMoveZ(Npc.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-					if (Dir == 1)
-					{
-						Npc.transform.DOMoveX(Npc.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						Npc.AniState(PlayerState.MoveDodge0);
-					}
-					else
-					{
-						Npc.transform.DOMoveX(Npc.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						Npc.AniState(PlayerState.MoveDodge1);
-					}
-					CoolDownCrossover = Time.time + 4;
+					DoPassiveSkill(PlayerState.MoveDodge0, Npc);
 				}
 			} 
 			else
@@ -2074,6 +2051,51 @@ public class GameController : MonoBehaviour
             }   
         }
     }
+
+	public void DoPassiveSkill(PlayerState State, PlayerBehaviour player = null)
+	{
+		switch(State)
+		{
+		case PlayerState.MoveDodge0:
+			if(player)
+			{
+				int Dir = HaveDefPlayer(ref player, 1.5f, 50);
+				
+				if(Dir != 0)
+				{
+					Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
+					//Crossover     
+					if(player.Team == TeamKind.Self && player.transform.position.z >= 9.5)
+						return;
+					else if(player.Team == TeamKind.Npc && player.transform.position.z <= -9.5)
+						return;
+					
+					int AddZ = 6;
+					if(player.Team == TeamKind.Npc)
+						AddZ = -6;
+					
+					player.rotateTo(pos.x, pos.z);
+					player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+					if (Dir == 1)		
+					{
+						player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+						player.AniState(PlayerState.MoveDodge0);
+					}
+					else					
+					{
+						player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+						player.AniState(PlayerState.MoveDodge1);
+					}			
+					
+					CoolDownCrossover = Time.time + 4;
+				} 
+			}
+			break;
+		case PlayerState.Dunk:
+
+			break;
+		}
+	}
 
 	struct TPlayerDisData
 	{
