@@ -2052,8 +2052,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-	public void DoPassiveSkill(PlayerState State, PlayerBehaviour player = null)
+	public bool DoPassiveSkill(PlayerState State, PlayerBehaviour player = null)
 	{
+		bool Result = false;
+
 		switch(State)
 		{
 		case PlayerState.MoveDodge0:
@@ -2066,9 +2068,9 @@ public class GameController : MonoBehaviour
 					Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
 					//Crossover     
 					if(player.Team == TeamKind.Self && player.transform.position.z >= 9.5)
-						return;
+						return Result;
 					else if(player.Team == TeamKind.Npc && player.transform.position.z <= -9.5)
-						return;
+						return Result;
 					
 					int AddZ = 6;
 					if(player.Team == TeamKind.Npc)
@@ -2088,6 +2090,7 @@ public class GameController : MonoBehaviour
 					}			
 					
 					CoolDownCrossover = Time.time + 4;
+					Result = true;
 				} 
 			}
 			break;
@@ -2095,6 +2098,8 @@ public class GameController : MonoBehaviour
 
 			break;
 		}
+
+		return Result;
 	}
 
 	struct TPlayerDisData

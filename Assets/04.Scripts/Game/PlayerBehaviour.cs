@@ -333,6 +333,8 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			float temp = AngerPower;
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
+			if(GameController.Get.Joysticker.AngerView.fillAmount == 1)
+				UIGame.Get.skillBtn.SetActive(true);
 		}
 	}
 
@@ -984,9 +986,9 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
-					if (GameController.Get.CoolDownCrossover == 0)
+					if (GameController.Get.CoolDownCrossover == 0 && GameController.Get.DoPassiveSkill(PlayerState.MoveDodge0, this))
 					{
-						GameController.Get.DoPassiveSkill(PlayerState.MoveDodge0, this);           
+					
 					}
 					else
 					{

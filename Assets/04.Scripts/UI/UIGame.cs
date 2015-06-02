@@ -33,6 +33,7 @@ public class UIGame : UIBase {
 	private GameObject restart;
 	private GameObject mainMenu;
 	private GameObject option;
+	public GameObject skillBtn;
 
 	private UISprite passSprite;
 	private GameObject attackPush;
@@ -146,6 +147,9 @@ public class UIGame : UIBase {
 		mainMenu.SetActive(false);
 		ScoreBar = GameObject.Find (UIName + "/Top/ScoreBar");
 		option = GameObject.Find (UIName + "/Center/Option");
+		skillBtn = GameObject.Find(UIName + "/BottomRight/ButtonSkill");
+		SetBtnFun (UIName + "/BottomRight/ButtonSkill", DoSkill);
+		skillBtn.SetActive (false);
 		scoresLabel [0] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore1").GetComponent<UILabel>();
 		scoresLabel [1] = GameObject.Find (UIName + "/Top/ScoreBar/LabelScore2").GetComponent<UILabel>();
 
@@ -371,9 +375,11 @@ public class UIGame : UIBase {
 	
 	//Attack
 	public void DoSkill(){
-		if(!GameController.Get.Joysticker.IsFall) {
+		if(!GameController.Get.Joysticker.IsFall) 
+		{
 			GameController.Get.DoSkill();
 			GameController.Get.Joysticker.SetNoAiTime();
+			skillBtn.SetActive(false);
 		}
 	}
 	
