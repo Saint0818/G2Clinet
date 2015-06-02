@@ -2444,7 +2444,7 @@ public class GameController : MonoBehaviour
 							
 							float mAngle = GetAngle(Npc, PlayerList [i]);
 							
-							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 50)
+							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 360)
 							{
 								if (Rate < BlockRate)
 								{
