@@ -2064,7 +2064,7 @@ public class GameController : MonoBehaviour
 		case PlayerState.MoveDodge0:
 			if(player)
 			{
-				int Dir = HaveDefPlayer(ref player, 2.5f, 50);
+				int Dir = HaveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
 				
 				if(Dir != 0)
 				{

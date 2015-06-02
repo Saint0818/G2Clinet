@@ -26,6 +26,7 @@ public class GameConst
     public const int StealReate_Success = 10;
 	public const int FakeShootRate = 40;
 	public const float DefMoveTime = 0.2f;
+	public const float CrossOverDistance = 2.5f;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 10;
