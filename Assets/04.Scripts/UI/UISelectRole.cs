@@ -9,7 +9,7 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 	public GameObject PlayerInfoModel = null;
-	public float forGoTime = 3;
+	public float forGoTime = 1;
 	private float GoTime = 0;
 	private TAvatar[]  AvatarAy;
 	private Vector3 [] Ay = new Vector3[3];
