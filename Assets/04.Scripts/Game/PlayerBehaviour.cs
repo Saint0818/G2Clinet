@@ -1309,7 +1309,8 @@ public class PlayerBehaviour : MonoBehaviour
 							AniState(PlayerState.MovingDefence);
 						else
 							AniState(PlayerState.RunningDefence);
-					} else
+					} 
+					else
 					{
 						rotateTo(MoveTarget.x, MoveTarget.y);
 						AniState(PlayerState.Run0);
@@ -1329,25 +1330,22 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 				} else
 				{
-					rotateTo(MoveTarget.x, MoveTarget.y);
-					
-					if (IsBallOwner)
-						AniState(PlayerState.Dribble1);
-					else
-						AniState(PlayerState.Run0);
-					
+					rotateTo(MoveTarget.x, MoveTarget.y);					
 					isMoving = true;
+
 					if (IsBallOwner)
 					{
 						if (Data.Speedup && MovePower > 0)
 						{
 							SetSpeed(1, 0);
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
+							AniState(PlayerState.Dribble2);
 							IsSpeedup = true;
 						}
 						else
 						{
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
+							AniState(PlayerState.Dribble1);
 							IsSpeedup = false;
 						}
 					} 
@@ -1357,11 +1355,13 @@ public class PlayerBehaviour : MonoBehaviour
 						{
 							SetSpeed(1, 0);
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
+							AniState(PlayerState.Run1);
 							IsSpeedup = true;
 						}
 						else
 						{
 							transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue);
+							AniState(PlayerState.Run0);
 							IsSpeedup = false;
 						}
 					}
