@@ -185,6 +185,13 @@ public struct PlayerSkillLV{
 
 }
 
+public enum PassDirectState {
+	Forward = 1,
+	Back = 2,
+	Left = 3,
+	Right = 4
+}
+
 public class GameController : MonoBehaviour
 {
     private static GameController instance;
@@ -1916,7 +1923,7 @@ public class GameController : MonoBehaviour
 					Rebound(Joysticker);
 				else
 //					Joysticker.AniState(PlayerState.Block);
-					DoPassiveSkill(TSkillSituation.Block, Joysticker, BallOwner.transform.position);
+					DoPassiveSkill(TSkillSituation.Block, Joysticker);
 				}
 			}
         }           
@@ -2154,37 +2161,39 @@ public class GameController : MonoBehaviour
 			switch(State)
 			{
 			case TSkillSituation.MoveDodge:
-				int Dir = HaveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
+				if(player.IsBallOwner) {
+					int Dir = HaveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
 					
-				if(Dir != 0 && player.IsHaveMoveDodge)
-				{
-					Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
-					//Crossover     
-					if(player.Team == TeamKind.Self && player.transform.position.z >= 9.5)
-						return Result;
-					else if(player.Team == TeamKind.Npc && player.transform.position.z <= -9.5)
-						return Result;
-					
-					int AddZ = 6;
-					if(player.Team == TeamKind.Npc)
-						AddZ = -6;
-					
-					player.rotateTo(pos.x, pos.z);
-					player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-					if (Dir == 1)		
+					if(Dir != 0 && player.IsHaveMoveDodge)
 					{
-						player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						player.AniState(PlayerState.MoveDodge0);
-					}
-					else					
-					{
-						player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-						player.AniState(PlayerState.MoveDodge1);
-					}			
-					
-					CoolDownCrossover = Time.time + 4;
-					Result = true;
-				} 
+						Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
+						//Crossover     
+						if(player.Team == TeamKind.Self && player.transform.position.z >= 9.5)
+							return Result;
+						else if(player.Team == TeamKind.Npc && player.transform.position.z <= -9.5)
+							return Result;
+						
+						int AddZ = 6;
+						if(player.Team == TeamKind.Npc)
+							AddZ = -6;
+						
+						player.rotateTo(pos.x, pos.z);
+						player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+						if (Dir == 1)		
+						{
+							player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+							player.AniState(PlayerState.MoveDodge0);
+						}
+						else					
+						{
+							player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+							player.AniState(PlayerState.MoveDodge1);
+						}			
+						
+						CoolDownCrossover = Time.time + 4;
+						Result = true;
+					} 
+				}
 				break;
 			case TSkillSituation.Block:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Block, TSkillKind.Block), v);
@@ -2216,20 +2225,45 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Fall2:
 				Result = true;
 				break;
-			case TSkillSituation.PassAir:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PassAir, TSkillKind.Pass, v));
+			case TSkillSituation.PassAir: {
+				PlayerState p = player.PassiveSkill(TSkillSituation.PassAir, TSkillKind.Pass, v);
+				if(p != PlayerState.PassAir)
+					Result = player.AniState(p);
+				else 
+					Result = player.AniState(p, v);
+			}
 				break;
-			case TSkillSituation.PassFast:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PassFast, TSkillKind.Pass, v), v);
+			case TSkillSituation.PassFast:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.PassFast, TSkillKind.Pass, v);
+				if(p != PlayerState.PassFast)
+					Result = player.AniState(p);
+				else
+					Result = player.AniState(p, v);
+			}
 				break;
-			case TSkillSituation.PassFlat:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PassFlat, TSkillKind.Pass, v), v);
+			case TSkillSituation.PassFlat:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.PassFlat, TSkillKind.Pass, v);
+				if(p != PlayerState.PassFlat)
+					Result = player.AniState(p);
+				else
+					Result = player.AniState(p, v);
+			}
 				break;
-			case TSkillSituation.PassFloor:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PassFloor, TSkillKind.Pass, v), v);
+			case TSkillSituation.PassFloor:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.PassFloor, TSkillKind.Pass, v);
+				if(p != PlayerState.PassFloor)
+					Result = player.AniState(p);
+				else
+					Result = player.AniState(p, v);
+			}
 				break;
-			case TSkillSituation.PassParabola:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PassParabola, TSkillKind.Pass, v), v);
+			case TSkillSituation.PassParabola:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.PassParabola, TSkillKind.Pass, v);
+				if(p != PlayerState.PassParabola)
+					Result = player.AniState(p);
+				else
+					Result = player.AniState(p, v);
+			}
 				break;
 			case TSkillSituation.Push:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push), v);

@@ -316,10 +316,9 @@ public class PlayerBehaviour : MonoBehaviour
 	private TSharedCurve playerPickCurve;
 
 	//PassiveSkill
-//	private List<int> passiveSkillsRate = new List<int>();
-//	private List<string> passiveSkillAnimationName = new List<string>();
 	private Dictionary<int, List<PassiveSkill>> passiveSkill = new Dictionary<int, List<PassiveSkill>>();
 	private bool isHaveMoveDodge;
+	private PassDirectState passDirect = PassDirectState.Forward;
 
 	private bool firstDribble = true;
 	public TScoreRate ScoreRate;
@@ -350,10 +349,7 @@ public class PlayerBehaviour : MonoBehaviour
 			float temp = AngerPower;
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
 			if(GameController.Get.Joysticker.AngerView.fillAmount == 1)
-			{
-				GameController.Get.Joysticker.AngryFull.SetActive(true);
 				OnSkill(this);
-			}
 		}
 	}
 
@@ -2400,20 +2396,19 @@ public class PlayerBehaviour : MonoBehaviour
 		bool isPerformPassive = false;
 		if(ps.Count > 0) {
 			int passiveRate = 0;
-			int passDirect = 0;
 			if(kind == TSkillKind.Pass) {
 				float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
 				if(angle < 45f && angle > -45f){
-					passDirect = 1; 
+					passDirect = PassDirectState.Forward; 
 				} else if(angle <= -45f && angle > -135f) {
-					passDirect = 3;
+					passDirect = PassDirectState.Left;
 				} else if(angle < 135f && angle >= 45f) {
-					passDirect = 4;
+					passDirect = PassDirectState.Right;
 				} else if(angle >= 135f && angle >= -135f) {
-					passDirect = 2;
+					passDirect = PassDirectState.Back;
 				}
 				for (int i=0; i<ps.Count; i++) {
-					if((ps[i].Kind % 10) == passDirect)
+					if((ps[i].Kind % 10) == (int)passDirect)
 						passiveRate += ps[i].Rate;
 				}
 			} else {

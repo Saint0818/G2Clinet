@@ -12,7 +12,6 @@ public class UIPassEvent : UIDragDropItem {
 	}
 
 	protected override void OnDragDropMove(Vector2 delta){
-		Debug.Log("delta:"+delta);
 		if(delta.x < -5){
 			UIGame.Get.DoPassTeammateA();
 		} else 
