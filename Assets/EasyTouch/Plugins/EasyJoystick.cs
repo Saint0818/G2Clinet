@@ -1065,10 +1065,6 @@ public class EasyJoystick : MonoBehaviour {
 				else{
 					GUI.color = new Color(touchColor.r,touchColor.g,touchColor.b,0.2f);	
 				}			
-				GUI.DrawTexture( new Rect(anchorPosition.x + joystickCenter.x + (joystickTouch.x - touchSize) ,
-				                          anchorPosition.y + joystickCenter.y - (joystickTouch.y + touchSize),
-				                          touchSize * 2, touchSize * 2), touchTexture, ScaleMode.ScaleToFit,true);
-
 
 				float x = 0;
 				float y = 0;
@@ -1140,6 +1136,10 @@ public class EasyJoystick : MonoBehaviour {
 					                          anchorPosition.y + joystickCenter.y - (y + size3) + (size3 / 2),
 					                          size3, size3), touchTexture3, ScaleMode.ScaleToFit,true);
 				}
+
+				GUI.DrawTexture( new Rect(anchorPosition.x + joystickCenter.x + (joystickTouch.x - touchSize) ,
+				                          anchorPosition.y + joystickCenter.y - (joystickTouch.y + touchSize),
+				                          touchSize * 2, touchSize * 2), touchTexture, ScaleMode.ScaleToFit,true);
 			}	
 	
 			// dead zone
