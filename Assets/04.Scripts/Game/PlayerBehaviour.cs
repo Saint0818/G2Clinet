@@ -1717,17 +1717,18 @@ public class PlayerBehaviour : MonoBehaviour
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
+
+//					PlayerRigidbody.useGravity = false;
+//					ClearAnimatorFlag();
+//					animator.SetTrigger("DunkTrigger");
+//					//isCanCatchBall = false;
+//					SetShooterLayer();
+//					DunkTo();
+//					Result = true;
+//
+//				break;
+
 			case PlayerState.Alleyoop:
-					PlayerRigidbody.useGravity = false;
-					ClearAnimatorFlag();
-					animator.SetTrigger("DunkTrigger");
-					//isCanCatchBall = false;
-					SetShooterLayer();
-					DunkTo();
-					Result = true;
-
-				break;
-
             case PlayerState.Dunk0:
             case PlayerState.Dunk2:
             case PlayerState.Dunk4:
@@ -1735,6 +1736,7 @@ public class PlayerBehaviour : MonoBehaviour
 					switch (state)
 					{
 						case PlayerState.Dunk0:
+						case PlayerState.Alleyoop:
 							stateNo = 0;
 							break;
 						case PlayerState.Dunk2:
@@ -2308,7 +2310,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "DunkBasket":
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
-                CourtMgr.Get.PlayDunk(Team.GetHashCode());
+				CourtMgr.Get.PlayDunk(Team.GetHashCode(), animator.GetInteger("StateNo"));
 
                 break;
             case "DunkFallBall":

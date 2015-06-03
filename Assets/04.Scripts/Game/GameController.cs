@@ -1954,7 +1954,7 @@ public class GameController : MonoBehaviour
         	Joysticker.SetNoAiTime();
 		
 		Joysticker.AngerPower = 0;
-		Joysticker.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [0].transform.position);
+		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
 
     private bool CanMove

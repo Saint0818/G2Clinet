@@ -593,12 +593,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				BasketEntra[i, j].Into = false;
 	}
 
-    public void PlayDunk(int team)
+    public void PlayDunk(int team, int stageNo)
     {
         Animation animation;
 		string animationName;
 //		AnimationClip clip;
-		animationName = "Dunk_0";
+		animationName = string.Format("Dunk_{0}", stageNo);
 
         if (team == 0)
         {
