@@ -19,15 +19,21 @@ public class UISelectRole : UIBase {
 	private TPlayer [] PlayerAy = new TPlayer[3];
 	private GameObject [] PlayerObjAy = new GameObject[3];
 	private int [] SelectIDAy = new int[3];
-	private GameObject [] SelectLogoAy = new GameObject[3];
+	private GameObject ViewLoading;
 	private GameObject OkBtn;
 	private GameObject InfoRange;
 	private GameObject Left;
+	private GameObject CharacterInfo;
+	private UILabel CharacterInfoLabel;
 	private int MaxValue = 100;
 	private float Value = 0;
 	private float axisX;
 	private UILabel PlayerName;
 	private GameObject PlayerNameObj;
+	private UILabel PlayerBody;
+	private GameObject PlayerBodyObj;
+	private UILabel [] SelectABName = new UILabel[2];
+	private UILabel [] SelectABBody = new UILabel[2];
 	public static int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
 
 	public static bool Visible
@@ -83,12 +89,32 @@ public class UISelectRole : UIBase {
 		OkBtn = GameObject.Find (UIName + "/Right/CharacterCheck");
 		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
-		SelectLogoAy [1] = GameObject.Find (UIName + "/Center/SelectA");
-		SelectLogoAy [2] = GameObject.Find (UIName + "/Center/SelectB");
+		ViewLoading = GameObject.Find (UIName + "/Center/ViewLoading");
+		CharacterInfo = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo");
+		CharacterInfoLabel = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/Label").GetComponent<UILabel>();
+		CharacterInfoLabel.text = "";
+		CharacterInfo.SetActive (false);
+
+		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
 		PlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		PlayerNameObj = GameObject.Find (UIName + "/Right/InfoRange/PlayerName");
 		PlayerNameObj.SetActive (true);
+
+		PlayerBody = GameObject.Find (UIName + "/Right/InfoRange/BodyType/Label").GetComponent<UILabel>();
+		PlayerBodyObj = GameObject.Find (UIName + "/Right/InfoRange/BodyType");
+		PlayerBodyObj.SetActive (true);
+
+		SelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
+		SelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/BodyTypeA/Label").GetComponent<UILabel>();
+
+		SelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
+		SelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/BodyTypeB/Label").GetComponent<UILabel>();
 		UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
+	}
+
+	public void OnClickSixAttr(GameObject obj)
+	{
+		CharacterInfo.SetActive (!CharacterInfo.activeInHierarchy);
 	}
 
 	public void DoSelectRole()
@@ -98,6 +124,8 @@ public class UISelectRole : UIBase {
 		OkBtn.SetActive (false);
 		Left.SetActive (false);
 		PlayerNameObj.SetActive (false);
+		PlayerBodyObj.SetActive (false);
+		ViewLoading.SetActive (true);
 		PlayerObjAy[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		int RanID;
@@ -105,7 +133,6 @@ public class UISelectRole : UIBase {
 		for(int i = 1; i < Ay.Length; i++) 
 		{
 			PlayerObjAy[i].SetActive(true);
-			SelectLogoAy[i].SetActive(true);
 
 			RanID = UnityEngine.Random.Range(0, RoleIDAy.Length - i);
 			Count = 0;
@@ -214,7 +241,20 @@ public class UISelectRole : UIBase {
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
 		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false);
 		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
-		PlayerName.text = GameData.DPlayers [RoleIDAy [Index]].Name;
+
+		switch(RoleIndex)
+		{
+		case 0:
+			PlayerName.text = GameData.DPlayers [RoleIDAy [Index]].Name;
+			PlayerBody.text = TextConst.S(GameData.DPlayers [RoleIDAy [Index]].BodyType + 7);
+			break;
+		case 1:
+		case 2:
+			SelectABName[RoleIndex - 1].text = GameData.DPlayers [RoleIDAy [Index]].Name;
+			SelectABBody[RoleIndex - 1].text = TextConst.S(GameData.DPlayers [RoleIDAy [Index]].BodyType + 7);
+			break;
+		}
+
 	}
 	
 	protected override void InitData() 
@@ -239,6 +279,7 @@ public class UISelectRole : UIBase {
 				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 				PlayerName.text = GameData.DPlayers [PlayerAy[i].ID].Name;
+				PlayerBody.text = TextConst.S(GameData.DPlayers [PlayerAy[i].ID].BodyType + 7);
 			}
 			else if(i == 1)
 			{
@@ -268,11 +309,9 @@ public class UISelectRole : UIBase {
 			}
 		}
 
-		for(int i = 1; i < Ay.Length; i++) 
-		{
+		ViewLoading.SetActive (false);
+		for(int i = 1; i < Ay.Length; i++) 		
 			PlayerObjAy[i].SetActive(false);
-			SelectLogoAy[i].SetActive(false);
-		}
 
 		if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
 		{

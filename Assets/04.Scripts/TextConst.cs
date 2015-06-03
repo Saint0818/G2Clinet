@@ -36,6 +36,9 @@ public static class TextConst
 			AddString (4, "Reset", "Reset");
 			AddString (5, "AI Level", "AI Level");
 			AddString (6, "AI Control", "AI Control");
+			AddString (7, "C", "C");
+			AddString (8, "F", "F");
+			AddString (9, "G", "G");
 		}
     }
 }
