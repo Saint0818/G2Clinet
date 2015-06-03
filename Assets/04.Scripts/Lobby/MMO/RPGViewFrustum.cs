@@ -15,7 +15,7 @@ public class RPGViewFrustum : MonoBehaviour {
 	public float FadeOutDuration = 0.2f;
 	public float FadeInDuration = 0.2f;
 	// If true, the character fades out too when zooming into first person
-	public bool EnableCharacterFading = true;
+	public bool EnableCharacterFading = false;
 	public float CharacterFadeOutAlpha = 0;
 	public float CharacterFadeStartDistance = 1.2f;
 	public float CharacterFadeEndDistance = 0.8f;

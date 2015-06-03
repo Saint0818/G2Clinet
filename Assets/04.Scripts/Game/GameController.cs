@@ -249,46 +249,13 @@ public class GameController : MonoBehaviour
 	public GameObject selectMe;
 	public GameObject BallHolder;
 	private List<int> TacticalDataList = new List<int>();
+	private Dictionary<string, Shader> shaderCache = new Dictionary<string, Shader>();
 
 	private int shootAngle = 55;
-
-    private int GetPosNameIndex(PosKind Kind, int Index = -1)
-    {
-        switch (Kind)
-        {
-            case PosKind.Attack:
-                return 2;
-            case PosKind.Tee:
-                if (Index == 0)
-                    return 3;
-                else if (Index == 1)
-                    return 4;
-                else if (Index == 2)
-                    return 5;
-                else
-                    return -1;
-            case PosKind.TeeDefence:
-                if (Index == 0)
-                    return 6;
-                else if (Index == 1)
-                    return 7;
-                else if (Index == 2)
-                    return 8;
-                else
-                    return -1;
-            case PosKind.Fast:
-                if (Index == 0)
-                    return 9;
-                else if (Index == 1)
-                    return 10;
-                else if (Index == 2)
-                    return 11;
-                else
-                    return -1;
-            default:
-                return -1;
-        }
-    }
+	public float StealBtnLiftTime = 1f;
+	private bool isPressPassBtn = false;
+	public PlayerState testState = PlayerState.Shoot0;
+	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
 
     public static GameController Get
     {
@@ -326,13 +293,9 @@ public class GameController : MonoBehaviour
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
-//		SceneMgr.Get.ChangeLevel (SceneName.Court_0);
-
 		if (GameStart.Get.IsSplitScreen)
 			CameraMgr.Get.setSplitScreen();
     }
-
-	 
 
     private void InitPos()
     {
@@ -621,7 +584,20 @@ public class GameController : MonoBehaviour
         }
     }
 
-	private bool isPressPassBtn = false;
+	private Shader loadShader(string path) {
+		if (shaderCache.ContainsKey(path)) {
+			return shaderCache [path];
+		} else {
+			Shader obj = Resources.Load(path) as Shader;
+			if (obj) {
+				shaderCache.Add(path, obj);
+				return obj;
+			} else {
+				//download form server
+				return null;
+			}
+		}
+	}
 
 	void FixedUpdate() {
 
@@ -737,10 +713,7 @@ public class GameController : MonoBehaviour
 		if(PassingStealBallTime > 0 && Time.time >= PassingStealBallTime)		
 			PassingStealBallTime = 0;
 	}
-
-	public PlayerState testState = PlayerState.Shoot0;
-	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
-
+	
 	private void resetTestMode() {
 		SetBallOwnerNull();
 		SetBall();
@@ -754,6 +727,45 @@ public class GameController : MonoBehaviour
 		PlayerList[1].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
 		PlayerList[1].AniState(PlayerState.Idle);
     }
+
+	private int GetPosNameIndex(PosKind Kind, int Index = -1)
+	{
+		switch (Kind)
+		{
+		case PosKind.Attack:
+			return 2;
+		case PosKind.Tee:
+			if (Index == 0)
+				return 3;
+			else if (Index == 1)
+				return 4;
+			else if (Index == 2)
+				return 5;
+			else
+				return -1;
+		case PosKind.TeeDefence:
+			if (Index == 0)
+				return 6;
+			else if (Index == 1)
+				return 7;
+			else if (Index == 2)
+				return 8;
+			else
+				return -1;
+		case PosKind.Fast:
+			if (Index == 0)
+				return 9;
+			else if (Index == 1)
+				return 10;
+			else if (Index == 2)
+				return 11;
+			else
+				return -1;
+		default:
+			return -1;
+		}
+	}
+
     
     #if UNITY_EDITOR
 	void OnGUI() {
@@ -1692,8 +1704,6 @@ public class GameController : MonoBehaviour
 			return false;
 	}
 
-	public float StealBtnLiftTime = 1f;
-
     public void DoSteal()
     {
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn)
@@ -1952,24 +1962,11 @@ public class GameController : MonoBehaviour
     {
 		if(CandoBtn)
         	Joysticker.SetNoAiTime();
-		
+
 		Joysticker.AngerPower = 0;
 		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
-
-    private bool CanMove
-    {
-        get
-        {
-            if (situation == GameSituation.AttackA ||
-                situation == GameSituation.AttackB ||
-                situation == GameSituation.Opening)
-                return true;
-            else
-                return false;
-        }
-    }
-
+	
     public void OnJoystickMove(MovingJoystick move)
     {
 		if (Joysticker && (CanMove || Joysticker.CanMoveFirstDribble))
@@ -3839,44 +3836,35 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	public void SetBodyMaterial(bool open,int index){
-
+	public void SetBodyMaterial(bool open, int index) {
 		if (PlayerList.Count > 0 && index < PlayerList.Count) {
-			Shader loadshader;
-			
-			if(open)
-				loadshader = Resources.Load("Shaders/Toony-BasicOutline", typeof(Shader)) as Shader; 
-			else
-				loadshader = Resources.Load("Shaders/Toony-Basic", typeof(Shader)) as Shader; 
+			string name = "Shaders/Toony-Basic";
+			if (open)
+				name = "Shaders/Toony-BasicOutline";
 
-			switch(index)
-			{
+			Shader shader = loadShader(name);
+			if (shader) {
+				switch(index) {
 				case 0:
-					if(loadshader){
-						PlayerList[index].BodyMaterial.shader = loadshader;
-					}
-						break;
+					PlayerList[index].BodyMaterial.shader = shader;
+					break;
 				case 1:
-					if(loadshader){
-						PlayerList[index].BodyMaterial.shader = loadshader;
-						if(open){
-							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
-							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
-						}
+					PlayerList[index].BodyMaterial.shader = shader;
+					if(open){
+						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
+						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
 					}
 					break;
 				case 2:
-					if(loadshader){
-						PlayerList[index].BodyMaterial.shader = loadshader;
-						if(open){
-							PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
-							PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
-						}
+					PlayerList[index].BodyMaterial.shader = shader;
+					if(open){
+						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
+						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
 					}
 					break;
+				}
 			}
 		}
-
 	}
 
 	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos, ref TActionPosition [] Result)
@@ -3995,6 +3983,18 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	private bool CanMove
+	{
+		get
+		{
+			if (situation == GameSituation.AttackA ||
+			    situation == GameSituation.AttackB ||
+			    situation == GameSituation.Opening)
+				return true;
+			else
+				return false;
+		}
+	}
 
 	public bool CandoBtn
 	{

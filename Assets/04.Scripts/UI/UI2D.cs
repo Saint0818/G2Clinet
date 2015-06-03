@@ -68,13 +68,12 @@ public class UI2D : MonoBehaviour {
 		if (!fl)
 			gameObject.AddComponent<FpsLimiter>();
 
-		UnibillDemo ud = gameObject.GetComponent<UnibillDemo>();
-		if (!ud)
-			gameObject.AddComponent<UnibillDemo>();
-
 		#if UNITY_EDITOR
 		
 		#else
+			UnibillDemo ud = gameObject.GetComponent<UnibillDemo>();
+			if (!ud)
+				gameObject.AddComponent<UnibillDemo>();
 			#if UNITY_ANDROID
 			PushNotificationsAndroid pn = gameObject.GetComponent<PushNotificationsAndroid>();
 			if (!pn)

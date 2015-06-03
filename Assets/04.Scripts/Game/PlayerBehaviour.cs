@@ -242,7 +242,6 @@ public class PlayerBehaviour : MonoBehaviour
     private BlockCatchTrigger blockCatchTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
-	public GameObject DummyCatch;
 	public UISprite SpeedUpView = null;
 	public UISprite AngerView = null;
 	public GameObject AngryFull = null;
@@ -372,8 +371,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         animator = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
-        DummyBall = gameObject.transform.FindChild("DummyBall").gameObject;
-//		DummyCatch = gameObject.transform.FindChild("DummyCatch").gameObject;
 
         ScoreRate = GameStart.Get.ScoreRate;
     }
@@ -451,6 +448,20 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void InitTrigger(GameObject defPoint)
 	{
+		SkinnedMeshRenderer render = gameObject.GetComponentInChildren<SkinnedMeshRenderer> ();
+		if (render && render.material) 
+			BodyMaterial = render.material;
+
+		DummyBall = transform.FindChild("DummyBall").gameObject;
+		
+		if (DummyBall != null){
+			blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
+			if(blockCatchTrigger == null)
+				blockCatchTrigger = DummyBall.gameObject.AddComponent<BlockCatchTrigger>();
+			
+			blockCatchTrigger.SetEnable(false);
+		}
+
 		GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
 		if (obj)
 		{
@@ -458,8 +469,6 @@ public class PlayerBehaviour : MonoBehaviour
 			pushTrigger = obj2.transform.FindChild("Push").gameObject;
 			elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
 			blockTrigger = obj2.transform.FindChild("Block").gameObject;
-			blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
-			blockCatchTrigger.SetEnable(false);
 			
 			obj2.name = "BodyTrigger";
 			PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
@@ -1658,8 +1667,6 @@ public class PlayerBehaviour : MonoBehaviour
         int stateNo = 0;
         string curveName;
 		PlayerRigidbody.mass = 5;
-
-//	Debug.Log("Do ** " + gameObject.name + ".AniState : " + state);
         
         switch (state)
         {

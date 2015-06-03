@@ -96,7 +96,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //					1 << LayerMask.NameToLayer("RealBall") | 
 //					1 << LayerMask.NameToLayer("Scene");
 		}
-		Debug.Log ("Camera : " + cameraFx.name);
 	}
 
 	public void SetSelectRoleCamera()
@@ -109,7 +108,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = "Camera_SelectRole";
 		}
-		Debug.Log ("Camera : " + cameraFx.name);
 	}
 
 	public bool IsTee = false;

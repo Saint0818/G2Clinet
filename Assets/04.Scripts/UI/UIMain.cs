@@ -58,6 +58,8 @@ public class UIMain : UIBase {
 		SetBtnFun(UIName + "/TopRight/ButtonCourt", OnCourt);
 		SetBtnFun(UIName + "/TopRight/ButtonOpenRoom", OnOpenRoom);
 		SetBtnFun(UIName + "/TopRight/ButtonJoinRoom", OnLookingRoom);
+		SetBtnFun(UIName + "/TopLeft/ButtonAvatar", OnAvatar);
+
 
 		/*UIEventListener.Get (GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect")).onClick = DoEffectSwitch;
 
@@ -229,5 +231,9 @@ public class UIMain : UIBase {
 			data.Index = roomObjects[index].roomInfo.Index;
 			GSocket.Get.Send(1, 5, data, waitRec1_5);
 		}
+	}
+
+	public void OnAvatar() {
+		LobbyStart.Get.OnAvatar();
 	}
 }

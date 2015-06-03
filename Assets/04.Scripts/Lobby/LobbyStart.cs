@@ -16,6 +16,7 @@ public struct TPlayerObject {
 public class LobbyStart : KnightSingleton<LobbyStart> {
 	public bool ConnectToServer = false;
 
+	private int avatarID = 1;
 	private TSend2_1 send2_1 = new TSend2_1();
 
 	public GameObject RootScenePlayers;
@@ -545,6 +546,29 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 					scenePlayers[i].PlayerObject.transform.position = new Vector3(
 						scenePlayers[i].PlayerObject.transform.position.x, 0, 
 						scenePlayers[i].PlayerObject.transform.position.z);
+		}
+	}
+
+	public void OnAvatar() {
+		if (myPlayer != null) {
+			GameStruct.TAvatar a = new GameStruct.TAvatar();
+
+			if (avatarID == 1)
+				avatarID = 2;
+			else
+				avatarID = 1;
+
+			a.Body = 2000 + avatarID;
+			a.Hair = 2000 + avatarID;
+			a.AHeadDress = 1000 + avatarID;
+			a.Cloth = 5000 + avatarID;
+			a.Pants = 6000 + avatarID;
+			a.Shoes = 1000 + avatarID;
+			a.MHandDress = 1000 + avatarID;
+			a.ZBackEquip = 1000 + avatarID;
+
+			GameObject obj = myPlayer.gameObject;
+			ModelManager.Get.SetAvatar(ref obj, a, false);
 		}
 	}
 
