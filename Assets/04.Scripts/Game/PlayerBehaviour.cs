@@ -237,6 +237,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public GameObject DummyCatch;
 	public UISprite SpeedUpView = null;
 	public UISprite AngerView = null;
+	public GameObject AngryFull = null;
 
     public TeamKind Team;
     public float NoAiTime = 0;
@@ -348,7 +349,10 @@ public class PlayerBehaviour : MonoBehaviour
 			float temp = AngerPower;
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
 			if(GameController.Get.Joysticker.AngerView.fillAmount == 1)
+			{
 				UIGame.Get.skillBtn.SetActive(true);
+				GameController.Get.Joysticker.AngryFull.SetActive(true);
+			}
 		}
 	}
 
@@ -407,8 +411,8 @@ public class PlayerBehaviour : MonoBehaviour
 				SetMovePower(Attr.StaminaValue);
 
 			//collect player's passiveSkill
-			if(Player.Skills.Length > 0) {
-				for(int i=0; i<Player.Skills.Length; i++) {
+			if(Player.Skills != null && Player.Skills.Length > 0) {
+				for(int i=0; i<Player.Skills.Length; i++)  {
 					if(Player.Skills[i].ID > 0) {
 						if(GameData.SkillData.ContainsKey(Player.Skills[i].ID)) {
 							if(GameData.SkillData[Player.Skills[i].ID].Kind == (int)TSkillKind.MoveDodge) 

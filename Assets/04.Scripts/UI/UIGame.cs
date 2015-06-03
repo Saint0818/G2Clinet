@@ -380,7 +380,6 @@ public class UIGame : UIBase {
 			GameController.Get.DoSkill();
 			GameController.Get.Joysticker.SetNoAiTime();
 			skillBtn.SetActive(false);
-			GameController.Get.Joysticker.AngerView.fillAmount = 0;
 		}
 	}
 	

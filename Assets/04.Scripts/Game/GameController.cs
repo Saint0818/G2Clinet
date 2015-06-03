@@ -579,6 +579,8 @@ public class GameController : MonoBehaviour
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
 		Joysticker.AngerView.fillAmount = 0;
+		Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
+		Joysticker.AngryFull.SetActive (false);
 
 		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
 
@@ -1954,6 +1956,9 @@ public class GameController : MonoBehaviour
     {
 		if(CandoBtn)
         	Joysticker.SetNoAiTime();
+
+		Joysticker.AngerView.fillAmount = 0;
+		Joysticker.AngryFull.SetActive(false);
     }
 
     private bool CanMove
