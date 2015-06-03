@@ -146,11 +146,11 @@ public enum TSkillSituation{
 	Fall2 = 11,
 	Layup = 13,
 	Steal = 14,
-	PassFlat = 16,
-	PassFloor = 17,
-	PassParabola = 18,
-	PassFast = 19,
-	PassAir = 20,
+	Pass0 = 16,
+	Pass2 = 17,
+	Pass1 = 18,
+	Pass4 = 19,
+	Pass5 = 20,
 	Push = 21,
 	Rebound = 25,
 	Elbow = 37,
@@ -1444,7 +1444,7 @@ public class GameController : MonoBehaviour
 				}else if(IsCanPassAir && !IsTee)
 				{
 //					if(BallOwner.AniState(PlayerState.PassAir, player.transform.position))
-					if(DoPassiveSkill(TSkillSituation.PassAir, BallOwner, player.transform.position))
+					if(DoPassiveSkill(TSkillSituation.Pass5, BallOwner, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
@@ -1460,7 +1460,7 @@ public class GameController : MonoBehaviour
 					if(dis <= GameConst.FastPassDistance || player.crtState == PlayerState.Alleyoop)
 					{
 //						Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
-						Result = DoPassiveSkill(TSkillSituation.PassFast, BallOwner, player.transform.position);
+						Result = DoPassiveSkill(TSkillSituation.Pass4, BallOwner, player.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
 					{
@@ -2211,41 +2211,41 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Fall2:
 				Result = true;
 				break;
-			case TSkillSituation.PassAir: {
-				PlayerState p = player.PassiveSkill(TSkillSituation.PassAir, TSkillKind.Pass, v);
-				if(p != PlayerState.PassAir)
+			case TSkillSituation.Pass5: {
+				PlayerState p = player.PassiveSkill(TSkillSituation.Pass5, TSkillKind.Pass, v);
+				if(p != PlayerState.Pass5)
 					Result = player.AniState(p);
 				else 
 					Result = player.AniState(p, v);
 			}
 				break;
-			case TSkillSituation.PassFast:{
-				PlayerState p = player.PassiveSkill(TSkillSituation.PassFast, TSkillKind.Pass, v);
-				if(p != PlayerState.PassFast)
+			case TSkillSituation.Pass4:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
+				if(p != PlayerState.Pass4)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
 			}
 				break;
-			case TSkillSituation.PassFlat:{
-				PlayerState p = player.PassiveSkill(TSkillSituation.PassFlat, TSkillKind.Pass, v);
-				if(p != PlayerState.PassFlat)
+			case TSkillSituation.Pass0:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.Pass0, TSkillKind.Pass, v);
+				if(p != PlayerState.Pass0)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
 			}
 				break;
-			case TSkillSituation.PassFloor:{
-				PlayerState p = player.PassiveSkill(TSkillSituation.PassFloor, TSkillKind.Pass, v);
-				if(p != PlayerState.PassFloor)
+			case TSkillSituation.Pass2:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.Pass2, TSkillKind.Pass, v);
+				if(p != PlayerState.Pass2)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
 			}
 				break;
-			case TSkillSituation.PassParabola:{
-				PlayerState p = player.PassiveSkill(TSkillSituation.PassParabola, TSkillKind.Pass, v);
-				if(p != PlayerState.PassParabola)
+			case TSkillSituation.Pass1:{
+				PlayerState p = player.PassiveSkill(TSkillSituation.Pass1, TSkillKind.Pass, v);
+				if(p != PlayerState.Pass1)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
