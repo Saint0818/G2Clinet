@@ -11,7 +11,9 @@
 namespace ProMaterialCombiner {
 	using System.IO;
 	using UnityEngine;
+	#if UNITY_EDITOR
 	using UnityEditor;
+	#endif
 	using System.Collections;
 	using System.Collections.Generic;
 
@@ -100,6 +102,7 @@ namespace ProMaterialCombiner {
         // parts of code when the textures are null
         // if includeNullTextures set to false an objectMaterial has to be passed as well to the function.
         //
+		#if UNITY_EDITOR
 	    public List<string> GetShaderTexturesDefines(string shaderToUse, bool includeNullTextures = true, Material objectMaterial = null) {
             Material mat;
             string shaderName = shaderToUse;
@@ -147,5 +150,16 @@ namespace ProMaterialCombiner {
                 return shaderTextureDefines;
             }
 	    }
+		#else
+		public List<string> GetShaderTexturesDefines(string shaderToUse, bool includeNullTextures = true, Material objectMaterial = null) {
+			string shaderName = shaderToUse;
+			if(shaderInfoCache.ContainsKey(shaderName)) {//if shader is not catched, cache it.
+				return shaderInfoCache[shaderName];
+			} else {//shader not cached, calculate the shader defines and cache the shader properties
+				List<string> shaderTextureDefines = new List<string>();
+				return shaderTextureDefines;
+			}
+		}
+		#endif
 	}
 }

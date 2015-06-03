@@ -1,6 +1,8 @@
 ﻿namespace ProMaterialCombiner {
 	using UnityEngine;
+	#if UNITY_EDITOR
 	using UnityEditor;
+	#endif
 	using System.IO;
 	using System.Collections;
 	using System.Collections.Generic;
@@ -72,9 +74,12 @@
 	    private List<bool> isTextureReadableList = new List<bool>();
         private List<bool> textureFormatsUnsupported = new List<bool>();
         private List<string> texturePlatforms = new List<string>();
-        private List<TextureImporterFormat> textureImporterFormats = new List<TextureImporterFormat>();
         private List<int> maxTexturesSizes = new List<int>();
-	    public void SaveAtlasToFile(string pathOfAtlas, List<Texture2D> texturesOfMaterial, List<Vector2> scales, List<Vector2> offsets) {
+
+		#if UNITY_EDITOR
+		private List<TextureImporterFormat> textureImporterFormats = new List<TextureImporterFormat>();
+
+		public void SaveAtlasToFile(string pathOfAtlas, List<Texture2D> texturesOfMaterial, List<Vector2> scales, List<Vector2> offsets) {
 	        isTextureReadableList.Clear();
             textureFormatsUnsupported.Clear();
             texturePlatforms.Clear();
@@ -219,12 +224,11 @@
                     AssetDatabase.ImportAsset(texturePath);
 	        }
 	    }
-
+		#endif
 		public void SaveAtlasToMemory(List<Texture2D> texturesOfMaterial, List<Vector2> scales, List<Vector2> offsets) {
 			isTextureReadableList.Clear();
 			textureFormatsUnsupported.Clear();
 			texturePlatforms.Clear();
-			textureImporterFormats.Clear();
 			maxTexturesSizes.Clear();
 
 			AtlasTexture = new Texture2D(atlasWidth, atlasHeight, TextureFormat.ARGB32, false);

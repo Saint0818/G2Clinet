@@ -8,7 +8,7 @@
  */
 namespace ProMaterialCombiner {
 	using UnityEngine;
-	using UnityEditor;
+	//using UnityEditor;
 	using System.Collections;
 	using System.Collections.Generic;
 
@@ -82,7 +82,7 @@ namespace ProMaterialCombiner {
 	        if(mat.mainTexture == null)
 	            textureKey = Utils.CalculateMD5Hash(mat.color.ToString());
 	        else
-	            textureKey = Utils.CalculateMD5Hash(AssetDatabase.GetAssetPath(mat.mainTexture));//TODO ADD OFFSET + SCALE, but thinkg same texture, diff tiles on any of the materials, what would happen...
+				textureKey = 0; //Utils.CalculateMD5Hash(AssetDatabase.GetAssetPath(mat.mainTexture));//TODO ADD OFFSET + SCALE, but thinkg same texture, diff tiles on any of the materials, what would happen...
 	        return textureKey;
 	    }
 

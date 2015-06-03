@@ -7,7 +7,9 @@
  */
 namespace ProMaterialCombiner {
 	using UnityEngine;
+	#if UNITY_EDITOR
 	using UnityEditor;
+	#endif
 	using System;
 	using System.IO;
 	using System.Collections;
@@ -33,6 +35,7 @@ namespace ProMaterialCombiner {
             shaderToCombine = GetShaderName(objToCombine);
         }
 
+		#if UNITY_EDITOR
 	    //(objToCombine should be correctly assembled,meaning has MeshRenderer,filter OR SkinnedMeshRenderer) AND and shares the same type of shader across materials
 	    //combines the number of materials in the mesh renderer, not the submesh count.
 	    public GameObject CombineMaterials(bool usesSkinnedMeshRenderer, string customAtlasName, bool reuseTextures, bool generatePrefabs) {
@@ -164,6 +167,7 @@ namespace ProMaterialCombiner {
 
 	        return combinedObj;
 	    }
+		#endif
 
 		public GameObject CombineMaterial(Material mat) {
 			List<string> shaderDefines = ShaderManager.Instance.GetShaderTexturesDefines(shaderToCombine);
@@ -228,6 +232,7 @@ namespace ProMaterialCombiner {
 			return combinedObj;
 		}
 
+		#if UNITY_EDITOR
 	    //creates a folder where the scene resides and then creates a subfolder with the obj name and InstanceID
 	    //returns the created path
 	    private string CreateFolderForCombinedObject(GameObject g) {
@@ -251,7 +256,7 @@ namespace ProMaterialCombiner {
 	        }
 	        return path;
 	    }
-
+		#endif
 
 	    private void GetTexturesScalesAndOffsetsForShaderDefine(Material[] materials, string shaderDefine) {
 	        //Material[] materials = obj.GetComponent<MeshRenderer>().sharedMaterials;

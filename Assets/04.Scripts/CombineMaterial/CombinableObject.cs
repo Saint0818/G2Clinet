@@ -7,7 +7,9 @@
  */
 namespace ProMaterialCombiner {
     using UnityEngine;
+	#if UNITY_EDITOR
     using UnityEditor;
+	#endif
     using System.Collections;
 
     public class CombinableObject {
@@ -54,7 +56,7 @@ namespace ProMaterialCombiner {
             ObjectToCombine = g;
         }
 
-
+		#if UNITY_EDITOR
         public void CombineObject(string customAtlasName, bool reuseTextures, bool generatePrefab) {
             if(objectToCombine == null || !isObjectCorrectlyAssembled) {
                 Debug.LogError("ERROR: Cant combine object!");
@@ -62,6 +64,7 @@ namespace ProMaterialCombiner {
             }
             materialCombiner.CombineMaterials(usesSkinnedMeshRenderer, customAtlasName, reuseTextures, generatePrefab);
         }
+		#endif
 
         //this is already set in an Area called from OnGUI() on ProMaterialCombinerMenu.cs
         //todo, think how to remove the reuseTextures flag as is only used to get the aprox atlas size.
@@ -81,11 +84,12 @@ namespace ProMaterialCombiner {
                     textureGenerated = true;
                 }
                 GUI.Label(new Rect(10, (30 + i*40), 25,25), (i+1)+":");
-
+				#if UNITY_EDITOR
                 EditorGUI.DrawPreviewTexture(new Rect(30, 30 + (i*40), 30, 30),
                                              tex,
                                              null,
                                              ScaleMode.StretchToFill);
+				#endif
                 GUI.Label(new Rect(70, 15 + (30+ i*40), 305,25), "(" + tex.width + "x" + tex.height + ") Shader: " + mat.shader.name);
                 GUI.Label(new Rect(70, 15 + 15 + (i*40), 105,25), (textureGenerated ? "Generated texture" : ""));
                 GUILayout.Space(40);

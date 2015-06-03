@@ -6,7 +6,9 @@
 namespace ProMaterialCombiner {
 
 	using UnityEngine;
+	#if UNITY_EDITOR
 	using UnityEditor;
+	#endif
 	using System;
 	using System.Collections;
 	using System.Collections.Generic;
@@ -56,7 +58,7 @@ namespace ProMaterialCombiner {
             return renderMode;
 
         }
-
+		#if UNITY_EDITOR
         public static string ParseStandardShaderName(Material mat) {
             List<string> shaderTextureDefines = new List<string>();
             int count = ShaderUtil.GetPropertyCount(mat.shader);
@@ -74,7 +76,11 @@ namespace ProMaterialCombiner {
                 parsedShaderName += shaderTextureDefines[i].Substring(1,3) + "-";
             return parsedShaderName.Remove(parsedShaderName.Length-1);//remove ending "-"
         }
-
+		#else
+		public static string ParseStandardShaderName(Material mat) {
+			return "";
+		}
+		#endif
 		public static bool TextureSupported(Texture2D tex) {
 			return 	tex.format == TextureFormat.ARGB32 || tex.format == TextureFormat.RGBA32 ||
 					tex.format == TextureFormat.BGRA32 || tex.format == TextureFormat.RGB24 ||
