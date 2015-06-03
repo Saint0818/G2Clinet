@@ -2124,7 +2124,7 @@ public class GameController : MonoBehaviour
                         }
                     }
                 } 
-				else if (Npc.Player.AILevel >= 3 && CoolDownCrossover == 0 && Npc.CanMove)
+				else if (Npc.IsHaveMoveDodge && CoolDownCrossover == 0 && Npc.CanMove)
                 {
 					DoPassiveSkill(TSkillSituation.MoveDodge, Npc);
 				}
@@ -3047,10 +3047,14 @@ public class GameController : MonoBehaviour
 				Shooter = null;
 				Catcher = null;
 
-				BallHolder.SetActive(true);
-				BallHolder.transform.parent = BallOwner.transform;
-				BallHolder.transform.localEulerAngles = Vector3.zero;
-				BallHolder.transform.localScale = Vector3.one;
+				if(BallHolder != null)
+				{
+					BallHolder.SetActive(true);
+					BallHolder.transform.parent = BallOwner.transform;
+					BallHolder.transform.localEulerAngles = Vector3.zero;
+					BallHolder.transform.localScale = Vector3.one;
+				}
+
 				switch(BallOwner.Player.BodyType)
 				{
 				case 0:
@@ -3119,7 +3123,8 @@ public class GameController : MonoBehaviour
 				Catcher = null;
             } else
 			{
-				BallHolder.SetActive(false);
+				if(BallHolder != null)				
+					BallHolder.SetActive(false);
 				Catcher = null;
 				SetBallOwnerNull();
 //				if(BallOwner != null)

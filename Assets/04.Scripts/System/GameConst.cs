@@ -22,8 +22,6 @@ public class GameConst
 	public const float PickBallDistance = 2.5f;
 	public const float StealBallDistance = 3;
 	public const float BlockDistance = 5;
-    public const int StealReate = 30;
-    public const int StealReate_Success = 10;
 	public const int FakeShootRate = 40;
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
