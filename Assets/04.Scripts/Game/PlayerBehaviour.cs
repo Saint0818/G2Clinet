@@ -203,6 +203,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnPickUpBall = null;
     public OnPlayerAction OnGotSteal = null;
 	public OnPlayerAction OnUI = null;
+	public OnPlayerAction OnSkill = null;
 	public OnPlayerAction3 OnDoubleClickMoment = null;
 
     public float[] DunkHight = new float[2]{3, 5};
@@ -350,8 +351,8 @@ public class PlayerBehaviour : MonoBehaviour
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
 			if(GameController.Get.Joysticker.AngerView.fillAmount == 1)
 			{
-				UIGame.Get.skillBtn.SetActive(true);
 				GameController.Get.Joysticker.AngryFull.SetActive(true);
+				OnSkill(this);
 			}
 		}
 	}

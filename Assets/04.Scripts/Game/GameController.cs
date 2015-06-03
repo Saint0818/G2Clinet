@@ -610,6 +610,7 @@ public class GameController : MonoBehaviour
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
+			PlayerList [i].OnSkill = UIGame.Get.ShowSkill;
         }
     }
 
@@ -3430,9 +3431,7 @@ public class GameController : MonoBehaviour
             UIHint.Get.ShowHint("You Lost", Color.red);
         
         GameController.Get.ChangeSituation(GameSituation.End);
-        UIGame.Get.Again.SetActive(true);
-		UIGame.Get.ScoreBar.SetActive(true);
-        UIGame.Get.Joystick.gameObject.SetActive(false);
+		UIGame.Get.GameOver();
     }
     
     public void PlusScore(int team)
