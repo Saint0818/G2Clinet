@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using RootMotion.FinalIK;
-using DG.Tweening;
 using GameStruct;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
@@ -206,7 +205,8 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnPickUpBall = null;
     public OnPlayerAction OnGotSteal = null;
 	public OnPlayerAction OnUI = null;
-	public OnPlayerAction OnSkill = null;
+	public OnPlayerAction OnUISkill = null;
+	public OnPlayerAction OnUIMoveDodge = null;
 	public OnPlayerAction3 OnDoubleClickMoment = null;
 
     public float[] DunkHight = new float[2]{3, 5};
@@ -352,7 +352,7 @@ public class PlayerBehaviour : MonoBehaviour
 			float temp = AngerPower;
 			GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
 			if(GameController.Get.Joysticker.AngerView.fillAmount == 1)
-				OnSkill(this);
+				OnUISkill(this);
 		}
 	}
 
@@ -1902,12 +1902,14 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.MoveDodge0:
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("MoveDodge");
+				OnUIMoveDodge(this);
 				Result = true;
 				break;
 
 			case PlayerState.MoveDodge1:
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("MoveDodge");
+				OnUIMoveDodge(this);
 				Result = true;
 				break;
 
@@ -2239,6 +2241,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case "MoveDodgeEnd": 
+				OnUI(this);
 				if(IsBallOwner)
 					AniState(PlayerState.Dribble0);
 				else

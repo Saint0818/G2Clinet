@@ -616,7 +616,8 @@ public class GameController : MonoBehaviour
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
-			PlayerList [i].OnSkill = UIGame.Get.ShowSkill;
+			PlayerList [i].OnUISkill = UIGame.Get.ShowSkill;
+			PlayerList [i].OnUIMoveDodge = UIGame.Get.MoveDodgeUI;
         }
     }
 
