@@ -1468,36 +1468,30 @@ public class GameController : MonoBehaviour
 						if(disKind == 1)
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassParabola, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass1, BallOwner, player.transform.position);
 								passkind = 1;
 							}else{ 
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFloor, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						} else 
 							if(disKind == 2)
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position);
 								passkind = 0;
 							}else{
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						}						
 						else
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position);
 								passkind = 0;
 							}else{
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFloor, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						}
@@ -1507,43 +1501,36 @@ public class GameController : MonoBehaviour
 						if(disKind == 1)
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position);
 								passkind = 0;
 							}else{
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFloor, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						} else 
 							if(disKind == 2)
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassParabola, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass1, BallOwner, player.transform.position);
 								passkind = 1;
 							}else{
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFloor, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						}						
 						else
 						{
 							if(rate == 1){
-//								Result = BallOwner.AniState(PlayerState.PassFlat, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position);
 								passkind = 0;
 							}else{
-//								Result = BallOwner.AniState(PlayerState.PassFloor, player.transform.position);
-								Result = DoPassiveSkill(TSkillSituation.PassFloor, BallOwner, player.transform.position);
+								Result = DoPassiveSkill(TSkillSituation.Pass2, BallOwner, player.transform.position);
 								passkind = 2;
 							}
 						}
 					}else{
 						//Far
-//						Result = BallOwner.AniState(PlayerState.PassParabola, player.transform.position);
-						Result = DoPassiveSkill(TSkillSituation.PassParabola, BallOwner, player.transform.position);
+						Result = DoPassiveSkill(TSkillSituation.Pass1, BallOwner, player.transform.position);
 						passkind = 1;
 					}
 					
@@ -3211,10 +3198,10 @@ public class GameController : MonoBehaviour
 		{
 			int Rate = UnityEngine.Random.Range(0, 100);
 
-			if(CourtMgr.Get.RealBallState == PlayerState.PassFlat || 
-			   CourtMgr.Get.RealBallState == PlayerState.PassFloor ||
-			   CourtMgr.Get.RealBallState == PlayerState.PassParabola || 
-			   CourtMgr.Get.RealBallState == PlayerState.PassFast)
+			if(CourtMgr.Get.RealBallState == PlayerState.Pass0 || 
+			   CourtMgr.Get.RealBallState == PlayerState.Pass2 ||
+			   CourtMgr.Get.RealBallState == PlayerState.Pass1 || 
+			   CourtMgr.Get.RealBallState == PlayerState.Pass4)
 			{
 				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.CheckAnimatorSate(PlayerState.Push))
 				{
@@ -3408,7 +3395,7 @@ public class GameController : MonoBehaviour
 
 	public void DefRangeTouchBall(PlayerBehaviour player1)
 	{
-		if (BallOwner == null && Shooter == null && Catcher == null && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
+		if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			int rate = Random.Range(0, 100);
 			if(rate < player1.Attr.StaminaValue)
 				player1.AniState(PlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
@@ -3449,8 +3436,7 @@ public class GameController : MonoBehaviour
 							player.AniState(PlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if (BallOwner != Joysticker) {
-//								if (BallOwner.AniState(PlayerState.PassFlat, player.transform.position))
-								if (DoPassiveSkill(TSkillSituation.PassFlat, BallOwner, player.transform.position))
+								if (DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position))
 									Catcher = player;
 							} else
 								UIGame.Get.SetPassButton(player.Index);

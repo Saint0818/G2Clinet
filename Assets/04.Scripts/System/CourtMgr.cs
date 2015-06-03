@@ -469,10 +469,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				break;
 
-			case PlayerState.PassFlat: 
-			case PlayerState.PassFloor: 
-			case PlayerState.PassParabola: 
-			case PlayerState.PassFast: 
+			case PlayerState.Pass0: 
+			case PlayerState.Pass2: 
+			case PlayerState.Pass1: 
+			case PlayerState.Pass4: 
 			case PlayerState.Tee: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
