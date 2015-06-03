@@ -41,18 +41,18 @@ namespace GameStruct
         public string Name;
 		public int Lv;
         public int AILevel;
-		public int Point2;	
-		public int Point3;
-		public int Steal;	
-		public int Speed;
-		public int Dunk;
-		public int Strength;
-		public int Rebound;
-		public int Block;	
-		public int Stamina;	
-		public int Dribble;	
-		public int Defence;
-		public int Pass;
+		public float Point2;	
+		public float Point3;
+		public float Steal;	
+		public float Speed;
+		public float Dunk;
+		public float Strength;
+		public float Rebound;
+		public float Block;	
+		public float Stamina;	
+		public float Dribble;	
+		public float Defence;
+		public float Pass;
 		public int BodyType;
 
 		public TAvatar Avatar;
@@ -152,22 +152,22 @@ namespace GameStruct
 
 	public struct TPlayerAttribute
 	{
-		public int PointRate2;
-		public int PointRate3;
-		public int StealRate;
-		public int DunkRate;
-		public int TipInRate;
-		public int AlleyOopRate;
-		public int StrengthRate;
-		public int BlockPushRate;
-		public int ElbowingRate;
-		public int ReboundRate;
-		public int BlockRate;
-		public int FaketBlockRate;
-		public int JumpBallRate;
-		public int PushingRate;
-		public int PassRate;
-		public int AlleyOopPassRate;
+		public float PointRate2;
+		public float PointRate3;
+		public float StealRate;
+		public float DunkRate;
+		public float TipInRate;
+		public float AlleyOopRate;
+		public float StrengthRate;
+		public float BlockPushRate;
+		public float ElbowingRate;
+		public float ReboundRate;
+		public float BlockRate;
+		public float FaketBlockRate;
+		public float JumpBallRate;
+		public float PushingRate;
+		public float PassRate;
+		public float AlleyOopPassRate;
 
 		public float ReboundHeadDistance;
 		public float ReboundHandDistance;

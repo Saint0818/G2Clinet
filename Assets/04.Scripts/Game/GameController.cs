@@ -2624,7 +2624,7 @@ public class GameController : MonoBehaviour
 					{
 						if(!IsBlocking)
 						{
-							int BlockRate = Npc2.Attr.BlockRate;
+							float BlockRate = Npc2.Attr.BlockRate;
 							
 							if(Kind == 1)
 								BlockRate = Npc2.Attr.FaketBlockRate;	
@@ -2659,7 +2659,7 @@ public class GameController : MonoBehaviour
 					{
 						if(!IsBlocking)
 						{
-							int BlockRate = Npc2.Attr.BlockRate;
+							float BlockRate = Npc2.Attr.BlockRate;
 							
 							if(Kind == 1)
 								BlockRate = Npc2.Attr.FaketBlockRate;	
