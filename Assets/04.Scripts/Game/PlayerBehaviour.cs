@@ -20,7 +20,7 @@ public enum PlayerState
     Defence0 = 5,    
 	Defence1 = 6,
 	RunningDefence = 7,
-    Dunk = 8,
+    
     Fall0 = 9,
     Fall1 = 10,
     Fall2 = 11,
@@ -70,7 +70,11 @@ public enum PlayerState
 	PickBall2 = 58,
 	Dribble0 = 59,
 	Dribble1 = 60,
-	Dribble2 = 61
+	Dribble2 = 61,
+	Dunk0 = 100,
+	Dunk2 = 102,
+	Dunk4 = 104,
+	Dunk20 = 120
 }
 
 public enum TeamKind
@@ -272,8 +276,6 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isDunk = false;
     private bool isDunkZmove = false;
     private float dunkCurveTime = 0;
-    private GameObject dkPathGroup;
-//    private Vector3[] dunkPath = new Vector3[5];
     public AniCurve aniCurve;
     private TDunkCurve playerDunkCurve;
 
@@ -281,8 +283,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isLayup = false;
 	private bool isLayupZmove = false;
 	private float layupCurveTime = 0;
-//	private GameObject dkPathGroup;
-//	private Vector3[] dunkPath = new Vector3[5];
 	private TLayupCurve playerLayupCurve;
 		
 	//Block
@@ -734,9 +734,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
-            if (!isDunkZmove && dunkCurveTime >= playerDunkCurve.StartMoveTime)
+//			if (!isDunkZmove && 
+			if(dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.EndMoveTime)
             {
-                isDunkZmove = true;
+//                isDunkZmove = true;
                 gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
                 gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
             }
@@ -1122,45 +1123,6 @@ public class PlayerBehaviour : MonoBehaviour
 		isMoving = false;
     }
 
-    private void DunkTo()
-    {
-        if (GameStart.Get.TestMode == GameTest.Dunk)
-        {
-            if (dkPathGroup)
-                Destroy(dkPathGroup);
-
-            dkPathGroup = new GameObject();
-            dkPathGroup.name = "pathGroup";
-        }
-
-//        PlayerRigidbody.useGravity = false;
-//        PlayerRigidbody.isKinematic = true;
-
-//        dunkPath [4] = SceneMgr.Get.DunkPoint [Team.GetHashCode()].transform.position;
-//        float dis = Vector3.Distance(gameObject.transform.position, dunkPath [4]);
-//        float maxH = DunkHight [0] + (DunkHight [1] - DunkHight [0] / (dis * 0.25f));
-//        dunkPath [0] = gameObject.transform.position;
-//        dunkPath [2] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [0].x) / 2, maxH, (dunkPath [dunkPath.Length - 1].z + dunkPath [0].z) / 2);
-//        dunkPath [3] = new Vector3((dunkPath [dunkPath.Length - 1].x + dunkPath [2].x) / 2, DunkHight [1], (dunkPath [dunkPath.Length - 1].z + dunkPath [2].z) / 2);
-//        dunkPath [1] = new Vector3((dunkPath [2].x + dunkPath [0].x) / 2, 6, (dunkPath [2].z + dunkPath [0].z) / 2);
-
-        playerDunkCurve = null;
-        for (int i = 0; i < aniCurve.Dunk.Length; i++)
-            if (aniCurve.Dunk [i].Name == "Dunk")
-                playerDunkCurve = aniCurve.Dunk [i];
-
-        isDunk = true;
-        isDunkZmove = false;
-        dunkCurveTime = 0;
-    }
-
-//    private void PathCallBack()
-//    {
-//        Vector3[] path2 = new Vector3[2];
-//        path2 = new Vector3[2]{dunkPath [3], dunkPath [4]};
-//        gameObject.transform.DOPath(path2, 0.4f, PathType.CatmullRom, PathMode.Full3D, 10, Color.red).SetEase(Ease.OutBack);
-//    }
-	
     private bool GetMoveTarget(ref TMoveData Data, ref Vector2 Result)
     {
 		bool ResultBool = false;
@@ -1550,11 +1512,20 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
             case PlayerState.Shoot6:
-            case PlayerState.Dunk:
             case PlayerState.Layup:
-			if (IsBallOwner && !IsShoot && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || IsDribble))
+				if (IsBallOwner && !IsShoot && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || IsDribble))
                     return true;
                 break;
+
+		case PlayerState.Dunk0:
+		case PlayerState.Dunk2:
+		case PlayerState.Dunk4:
+		case PlayerState.Dunk20:
+			if (IsBallOwner && !IsShoot && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || IsDribble))
+				if(Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
+					return true;
+			break;
+
 			case PlayerState.Alleyoop:
 			if (crtState != PlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == GameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode()+3)))
 					return true;
@@ -1592,7 +1563,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case PlayerState.Block:
 			if (!IsTee && CanMove && !IsBallOwner && (crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.Defence1 ||
-			                                crtState == PlayerState.Defence0 || crtState == PlayerState.RunningDefence || crtState == PlayerState.Dunk))
+			                                crtState == PlayerState.Defence0 || crtState == PlayerState.RunningDefence || IsDunk))
 					return true;
 				break;
 
@@ -1605,7 +1576,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Fall1:
             case PlayerState.Fall2:
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
-			    (crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.HoldBall || crtState == PlayerState.Dunk ||
+			    (crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.HoldBall || IsDunk ||
 			 	crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.Defence0 || crtState == PlayerState.Defence1 || 
                     crtState == PlayerState.RunningDefence))
                     return true;
@@ -1757,17 +1728,41 @@ public class PlayerBehaviour : MonoBehaviour
 
 				break;
 
-            case PlayerState.Dunk:
-                if (IsBallOwner && Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
-                {
+            case PlayerState.Dunk0:
+            case PlayerState.Dunk2:
+            case PlayerState.Dunk4:
+            case PlayerState.Dunk20:
+					switch (state)
+					{
+						case PlayerState.Dunk0:
+							stateNo = 0;
+							break;
+						case PlayerState.Dunk2:
+							stateNo = 2;
+							break;
+						case PlayerState.Dunk4:
+							stateNo = 4;
+							break;
+						case PlayerState.Dunk20:
+							stateNo = 20;
+							break;
+					}
                     PlayerRigidbody.useGravity = false;
                     ClearAnimatorFlag();
+					animator.SetInteger("StateNo", stateNo);
                     animator.SetTrigger("DunkTrigger");
                     isCanCatchBall = false;
+
+					playerDunkCurve = null;
+					for (int i = 0; i < aniCurve.Dunk.Length; i++)
+						if (aniCurve.Dunk [i].Name == string.Format("Dunk{0}", stateNo)){
+							playerDunkCurve = aniCurve.Dunk [i];
+							isDunk = true;
+							isDunkZmove = false;
+							dunkCurveTime = 0;
+						}
 					SetShooterLayer();
-                    DunkTo();
                     Result = true;
-                }
                 break;
 
             case PlayerState.Dribble0:
@@ -2304,7 +2299,7 @@ public class PlayerBehaviour : MonoBehaviour
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
             
-                CourtMgr.Get.SetBallState(PlayerState.Dunk);
+                CourtMgr.Get.SetBallState(PlayerState.Dunk0);
                 if (OnDunkJump != null)
                     OnDunkJump(this);
 
@@ -2484,7 +2479,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.CatchFlat,
                 PlayerState.CatchFloor,
                 PlayerState.CatchParabola,
-                PlayerState.Dunk,
+                PlayerState.Dunk0,
 				PlayerState.Alleyoop,
                 PlayerState.Elbow,
                 PlayerState.FakeShoot,
@@ -2599,7 +2594,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsShoot
 	{
 		get{ return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 ||crtState == PlayerState.Shoot3 || 
-			crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || crtState == PlayerState.Dunk || crtState == PlayerState.DunkBasket ||  crtState == PlayerState.TipIn;}
+			crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || IsDunk || crtState == PlayerState.DunkBasket ||  crtState == PlayerState.TipIn;}
 	}
 
     public bool IsPass
@@ -2610,6 +2605,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsDribble
 	{
 		get{ return crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.Dribble2;}
+	}
+
+	public bool IsDunk
+	{
+		get{ return crtState == PlayerState.Dunk0 || crtState == PlayerState.Dunk2 || crtState == PlayerState.Dunk4 || crtState == PlayerState.Dunk20;}
 	}
 
     private bool isMoving = false;

@@ -141,7 +141,7 @@ public enum BasketDistanceAngle{
 public enum TSkillSituation{
 	MoveDodge = 0,
 	Block = 3,
-	Dunk = 8,
+	Dunk0 = 8,
 	Fall1 = 10,
 	Fall2 = 11,
 	Layup = 13,
@@ -1239,8 +1239,8 @@ public class GameController : MonoBehaviour
 				ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
 				int t = BallOwner.Team.GetHashCode();
 	            if (GameStart.Get.TestMode == GameTest.Dunk)
-	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-//					DoPassiveSkill(TSkillSituation.Dunk, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+//	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
+					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 	            else 
 				if (BallOwner.IsRebound) {
 					if (inTipinDistance(BallOwner))
@@ -1251,7 +1251,7 @@ public class GameController : MonoBehaviour
 					float rate = Random.Range(0, 100);
 					if(rate < BallOwner.Attr.DunkRate)
 //						BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-						DoPassiveSkill(TSkillSituation.Dunk, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+						DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 					else
 //						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
 						DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
@@ -2186,8 +2186,8 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Block:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Block, TSkillKind.Block), v);
 				break;
-			case TSkillSituation.Dunk:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Dunk, TSkillKind.Dunk), v);
+			case TSkillSituation.Dunk0:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Dunk0, TSkillKind.Dunk), v);
 				break;
 			case TSkillSituation.ShootNormal:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.ShootNormal, TSkillKind.Shoot), v);
@@ -3928,7 +3928,7 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Dunk) || PlayerList [i].CheckAnimatorSate(PlayerState.DunkBasket))
+				if (PlayerList [i].IsDunk)
                     return true;            
             
             return false;

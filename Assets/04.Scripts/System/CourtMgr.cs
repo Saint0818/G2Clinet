@@ -515,7 +515,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallFX.gameObject.SetActive(true);
 				break;
 
-			case PlayerState.Dunk:
+			case PlayerState.Dunk0:
 				realBallCollider.enabled = true;
 				RealBallFX.gameObject.SetActive(false);
 				RealBall.transform.localScale = Vector3.one;

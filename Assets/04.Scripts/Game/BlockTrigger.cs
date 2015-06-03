@@ -21,7 +21,7 @@ public class BlockTrigger : MonoBehaviour {
 				if(rate < blocker.Attr.BlockPushRate){
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team) {
-							if(faller.crtState == PlayerState.Dunk || faller.crtState == PlayerState.DunkBasket)
+							if(faller.IsDunk)
 							{
 								if(faller.IsCanBlock && !faller.IsTee)	
 								{
@@ -41,7 +41,7 @@ public class BlockTrigger : MonoBehaviour {
 		} else if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
 			if(other.gameObject.transform.parent && other.gameObject.transform.parent.transform.parent){
 				faller = other.gameObject.transform.parent.transform.parent.GetComponent<PlayerBehaviour>();
-				if(faller && (faller.crtState == PlayerState.Dunk || faller.crtState == PlayerState.DunkBasket))
+				if(faller && faller.IsDunk)
 				{
 					if(faller.IsCanBlock && !faller.IsTee){
 						GameController.Get.SetBall();

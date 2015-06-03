@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d03987ab29fd09745894dae87688213d
-timeCreated: 1432780587
+timeCreated: 1433322804
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,42 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0889411271
+        functionName: AnimationEvent
+        data: DunkJump
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .343457043
+        functionName: AnimationEvent
+        data: BlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .502860665
+        functionName: AnimationEvent
+        data: DunkBasket
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .556869566
+        functionName: AnimationEvent
+        data: DunkFallBall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .99999994
+        functionName: AnimationEvent
+        data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
