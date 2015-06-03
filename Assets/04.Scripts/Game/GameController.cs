@@ -2153,7 +2153,7 @@ public class GameController : MonoBehaviour
 			switch(State)
 			{
 			case TSkillSituation.MoveDodge:
-				int Dir = HaveDefPlayer(ref player, 1.5f, 50);
+				int Dir = HaveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
 					
 				if(Dir != 0 && player.IsHaveMoveDodge)
 				{
