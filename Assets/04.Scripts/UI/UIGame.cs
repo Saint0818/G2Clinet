@@ -266,9 +266,9 @@ public class UIGame : UIBase {
     }
 
 	protected override void InitText(){
-		SetLabel(UIName + "/Center/ViewFinish/ButtonAgain/LabelReset" ,TextConst.S(1));
-		SetLabel(UIName + "/Center/ViewStart/ButtonStart/LabelStart" ,TextConst.S(2));
-		SetLabel(UIName + "/Center/ViewPause/ButtonReset/LabelReset" ,TextConst.S(4));
+//		SetLabel(UIName + "/Center/ViewFinish/ButtonAgain/LabelReset" ,TextConst.S(1));
+//		SetLabel(UIName + "/Center/ViewStart/ButtonStart/LabelStart" ,TextConst.S(2));
+//		SetLabel(UIName + "/Center/ViewPause/ButtonReset/LabelReset" ,TextConst.S(4));
 		SetLabel(UIName + "/Center/ViewStart/AISelect/LabelAI" ,TextConst.S(5));
 		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
 	}
@@ -491,12 +491,15 @@ public class UIGame : UIBase {
 	public void UIControllerState (UIController controllerState, GameObject go = null, bool state = false) {
 		switch(controllerState) {
 		case UIController.Skill:
-			if(!GameController.Get.Joysticker.IsFall) 
+			if(!GameController.Get.Joysticker.IsFall && 
+			   GameController.Get.Joysticker.IsBallOwner &&
+			   GameController.Get.Joysticker.AngerView.fillAmount == 1) 
 			{
+				uiSkill.SetActive(false);
 				GameController.Get.DoSkill();
 				GameController.Get.Joysticker.SetNoAiTime();
-				uiSkill.SetActive(false);
 				GameController.Get.Joysticker.AngerView.fillAmount = 0;
+				GameController.Get.Joysticker.AngryFull.SetActive(false);
 			}
 			break;
 		case UIController.Attack:

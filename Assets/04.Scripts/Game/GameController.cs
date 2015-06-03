@@ -150,7 +150,6 @@ public enum TSkillSituation{
 	Pass2 = 17,
 	Pass1 = 18,
 	Pass4 = 19,
-	Pass5 = 20,
 	Push = 21,
 	Rebound = 25,
 	Elbow = 37,
@@ -628,10 +627,7 @@ public class GameController : MonoBehaviour
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.D))
 			{
-//				if(Joysticker.IsBallOwner)
 				UIGame.Get.DoAttack();
-//				else
-//					UIGame.Get.DoPush();
 			}
 
 			if (Input.GetKeyDown(KeyCode.B))
@@ -701,6 +697,12 @@ public class GameController : MonoBehaviour
 			if (GameStart.Get.TestMode == GameTest.Rebound && Input.GetKeyDown (KeyCode.Z)) {
 				resetTestMode();
             }
+
+			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) 
+				Joysticker.SetAnger(100);
+
+			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
+				UIGame.Get.DoSkill();
 		}
 
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
@@ -1236,8 +1238,8 @@ public class GameController : MonoBehaviour
 				ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
 				int t = BallOwner.Team.GetHashCode();
 	            if (GameStart.Get.TestMode == GameTest.Dunk)
-//	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-					DoPassiveSkill(TSkillSituation.Dunk, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
+//					DoPassiveSkill(TSkillSituation.Dunk, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 	            else 
 				if (BallOwner.IsRebound) {
 					if (inTipinDistance(BallOwner))
@@ -1443,8 +1445,7 @@ public class GameController : MonoBehaviour
 					}												
 				}else if(IsCanPassAir && !IsTee)
 				{
-//					if(BallOwner.AniState(PlayerState.PassAir, player.transform.position))
-					if(DoPassiveSkill(TSkillSituation.Pass5, BallOwner, player.transform.position))
+					if(BallOwner.AniState(PlayerState.Pass5, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
@@ -1950,9 +1951,9 @@ public class GameController : MonoBehaviour
     {
 		if(CandoBtn)
         	Joysticker.SetNoAiTime();
-
-		Joysticker.AngerView.fillAmount = 0;
-		Joysticker.AngryFull.SetActive(false);
+		
+		Joysticker.AngerPower = 0;
+		Joysticker.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [0].transform.position);
     }
 
     private bool CanMove
@@ -2210,14 +2211,6 @@ public class GameController : MonoBehaviour
 				break;
 			case TSkillSituation.Fall2:
 				Result = true;
-				break;
-			case TSkillSituation.Pass5: {
-				PlayerState p = player.PassiveSkill(TSkillSituation.Pass5, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass5)
-					Result = player.AniState(p);
-				else 
-					Result = player.AniState(p, v);
-			}
 				break;
 			case TSkillSituation.Pass4:{
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
