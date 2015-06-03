@@ -2321,8 +2321,8 @@ public class GameController : MonoBehaviour
                             {
 //								if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position)){
 								if(DoPassiveSkill(TSkillSituation.Steal, Npc, BallOwner.gameObject.transform.position)){
-                                	Npc.CoolDownSteal = Time.time + 2;                              
-									WaitStealTime = Time.time + 2;
+                                	Npc.CoolDownSteal = Time.time + 1.2f;                              
+									WaitStealTime = Time.time + 0.5f;
 								}
                             }
                         }
