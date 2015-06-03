@@ -1672,8 +1672,7 @@ public class GameController : MonoBehaviour
 				
 				if (stealRate <= (r + AddRate) && Mathf.Abs(GetAngle(BallOwner, player)) <= 90 + AddAngle)
 				{
-//					if(BallOwner && BallOwner.AniState(PlayerState.GotSteal))
-					if(BallOwner && DoPassiveSkill(TSkillSituation.Steal, BallOwner))
+					if(BallOwner && BallOwner.AniState(PlayerState.GotSteal))
 					{
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						return true;

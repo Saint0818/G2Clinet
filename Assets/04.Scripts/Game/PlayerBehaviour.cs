@@ -1031,7 +1031,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
-					if (GameController.Get.CoolDownCrossover == 0 && GameController.Get.DoPassiveSkill(TSkillSituation.MoveDodge, this))
+					if (GameController.Get.CoolDownCrossover == 0 && !IsDefence && GameController.Get.DoPassiveSkill(TSkillSituation.MoveDodge, this))
 					{
 					
 					}
