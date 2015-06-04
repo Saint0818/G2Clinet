@@ -551,7 +551,7 @@ public class GameController : MonoBehaviour
 		Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
 		Joysticker.AngryFull.SetActive (false);
 
-		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
+//		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;

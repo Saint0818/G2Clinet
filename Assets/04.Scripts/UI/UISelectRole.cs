@@ -114,7 +114,7 @@ public class UISelectRole : UIBase {
 
 	public void OnClickSixAttr(GameObject obj)
 	{
-		CharacterInfo.SetActive (!CharacterInfo.activeInHierarchy);
+		//CharacterInfo.SetActive (!CharacterInfo.activeInHierarchy);
 	}
 
 	public void DoSelectRole()
