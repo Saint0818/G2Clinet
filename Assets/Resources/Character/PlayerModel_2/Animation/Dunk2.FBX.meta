@@ -150,30 +150,23 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0889411271
+      - time: .262655407
         functionName: AnimationEvent
         data: DunkJump
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .343457043
+      - time: .414314181
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .502860665
-        functionName: AnimationEvent
+      - time: .47298789
+        functionName: NewEvent
         data: DunkBasket
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .556869566
-        functionName: AnimationEvent
-        data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -181,6 +174,13 @@ ModelImporter:
       - time: .99999994
         functionName: AnimationEvent
         data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .578831315
+        functionName: NewEvent
+        data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
