@@ -170,8 +170,10 @@ namespace ProMaterialCombiner {
 		#endif
 
 		public GameObject CombineMaterial(Material mat) {
-			List<string> shaderDefines = ShaderManager.Instance.GetShaderTexturesDefines(shaderToCombine);
-			
+			//List<string> shaderDefines = ShaderManager.Instance.GetShaderTexturesDefines(shaderToCombine);
+			List<string> shaderDefines = new List<string>();
+			shaderDefines.Add("_MainTex");
+
 			int atlasSize = GetAproxAtlasSize(false);
 			Atlasser atlas = new Atlasser(atlasSize, atlasSize);
 			// generate atlas for the initial textures
@@ -266,11 +268,11 @@ namespace ProMaterialCombiner {
 
 	        for(int i = 0; i < materials.Length; i++) {
 	            if(materials[i] != null) {
-	                Texture2D extractedTexture = materials[i].GetTexture(shaderDefine) as Texture2D;
+					Texture2D extractedTexture = materials[i].mainTexture as Texture2D; //.GetTexture(shaderDefine) as Texture2D;
 	                if(extractedTexture) {
 	                    texturesToAtlas.Add(extractedTexture);
-	                    scales.Add(materials[i].GetTextureScale(shaderDefine));
-	                    offsets.Add(materials[i].GetTextureOffset(shaderDefine));
+						scales.Add(materials[i].mainTextureScale); //.GetTextureScale(shaderDefine));
+						offsets.Add(materials[i].mainTextureOffset);// .GetTextureOffset(shaderDefine));
 	                } else {//material doesnt have a texture with that define/there is no texture.lets generate a texture with the color.
 	                    if(materials[i].HasProperty("_Color"))//check if mat has a color property
 	                        texturesToAtlas.Add(Utils.GenerateTexture(materials[i].GetColor("_Color")));
@@ -290,20 +292,20 @@ namespace ProMaterialCombiner {
 
 	    public int GetAproxAtlasSize(bool reuseTextures) {
 	        int atlasSize = 0;
-
+			/*
             List <string> shaderDefines = ShaderManager.Instance.GetShaderTexturesDefines(shaderToCombine);
             if(shaderToCombine == "" || shaderDefines == null) //the game object is not supported || shader is not recognized
                 return 0;
 
             string shaderTextureDefine = shaderDefines[0];
-
+			*/
             if(reuseTextures) {
                 TextureReuseManager textureReuseManager = new TextureReuseManager();
                 for(int i = 0; i < objectMaterials.Length; i++) {
                     if(objectMaterials[i] != null) {
                         if(!textureReuseManager.TextureRefExists(objectMaterials[i])) {
                             textureReuseManager.AddTextureRef(objectMaterials[i]);
-                            Texture2D refTexture = objectMaterials[i].GetTexture(shaderTextureDefine) as Texture2D;
+							Texture2D refTexture = objectMaterials[i].mainTexture as Texture2D;// .GetTexture(shaderTextureDefine) as Texture2D;
                             if(refTexture != null)
                                 atlasSize += (refTexture.width * refTexture.height);
                             else
@@ -314,7 +316,7 @@ namespace ProMaterialCombiner {
             } else {
                 for(int i = 0; i < objectMaterials.Length; i++) {
                     if(objectMaterials[i] != null) {
-                        Texture2D refTexture = objectMaterials[i].GetTexture(shaderTextureDefine) as Texture2D;
+						Texture2D refTexture = objectMaterials[i].mainTexture as Texture2D; //.GetTexture(shaderTextureDefine) as Texture2D;
                         if(refTexture != null)
                             atlasSize += (refTexture.width * refTexture.height);
                         else

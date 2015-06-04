@@ -239,7 +239,7 @@ public class UISelectRole : UIBase {
 		SelectIDAy[RoleIndex] = RoleIDAy[Index];
 		PlayerAy[RoleIndex].SetAvatar();
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
-		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false);
+		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false, false);
 		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
 
 		switch(RoleIndex)
@@ -270,7 +270,7 @@ public class UISelectRole : UIBase {
 			PlayerObjAy[i].name = i.ToString();
 			PlayerObjAy[i].transform.parent = PlayerInfoModel.transform;
 			AvatarAy[i] = PlayerAy[i].Avatar;
-			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false);
+			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false, false);
 			PlayerObjAy[i].transform.localPosition = Ay[i];
 			PlayerAy [i].AILevel = GameData.DPlayers [RoleIDAy [i]].AILevel;
 

@@ -549,26 +549,31 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
+	private IEnumerator exchangeAvatar() {
+		yield return new WaitForEndOfFrame();
+
+		GameStruct.TAvatar a = new GameStruct.TAvatar();
+		a.Body = 2000 + avatarID;
+		a.Hair = 2000 + avatarID;
+		a.AHeadDress = 1000 + avatarID;
+		a.Cloth = 5000 + avatarID;
+		a.Pants = 6000 + avatarID;
+		a.Shoes = 1000 + avatarID;
+		a.MHandDress = 1000 + avatarID;
+		a.ZBackEquip = 1000 + avatarID;
+		
+		GameObject obj = myPlayer.gameObject;
+		ModelManager.Get.SetAvatar(ref obj, a, false);
+	}
+
 	public void OnAvatar() {
 		if (myPlayer != null) {
-			GameStruct.TAvatar a = new GameStruct.TAvatar();
-
 			if (avatarID == 1)
 				avatarID = 2;
 			else
 				avatarID = 1;
 
-			a.Body = 2000 + avatarID;
-			a.Hair = 2000 + avatarID;
-			a.AHeadDress = 1000 + avatarID;
-			a.Cloth = 5000 + avatarID;
-			a.Pants = 6000 + avatarID;
-			a.Shoes = 1000 + avatarID;
-			a.MHandDress = 1000 + avatarID;
-			a.ZBackEquip = 1000 + avatarID;
-
-			GameObject obj = myPlayer.gameObject;
-			ModelManager.Get.SetAvatar(ref obj, a, false);
+			StartCoroutine(exchangeAvatar());
 		}
 	}
 

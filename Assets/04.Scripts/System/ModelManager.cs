@@ -210,7 +210,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, bool isUseRig = false) {
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, bool isUseRig, bool combine = true) {
 		try {
 			string bodyNumber = (attr.Body / 1000).ToString();
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
@@ -375,14 +375,20 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			resultSmr.gameObject.isStatic = true;
 			resultSmr.receiveShadows = false;
 
-			MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
-			GameObject cobbineObject = materialCombiner.CombineMaterial (matObj);
-			cobbineObject.transform.parent = result.transform;
-			cobbineObject.layer = LayerMask.NameToLayer ("Player");
-			cobbineObject.name = "PlayerModel";
+			if (!combine) {
+				clone.transform.parent = result.transform;
+				clone.layer = LayerMask.NameToLayer ("Player");
+				clone.name = "PlayerModel";
+			} else {
+				MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
+				GameObject cobbineObject = materialCombiner.CombineMaterial (matObj);
+				cobbineObject.transform.parent = result.transform;
+				cobbineObject.layer = LayerMask.NameToLayer ("Player");
+				cobbineObject.name = "PlayerModel";
 
-			Destroy(clone);
-			clone = null;
+				Destroy(clone);
+				clone = null;
+			}
 
 			//collider
 			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();

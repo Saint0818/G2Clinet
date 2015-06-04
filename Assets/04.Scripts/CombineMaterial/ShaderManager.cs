@@ -61,7 +61,7 @@ namespace ProMaterialCombiner {
 	        List<Texture2D> materialTextures = new List<Texture2D>();
 	        if(defines != null) {
 	            for(int i = 0; i < defines.Count; i++) {
-	                Texture2D tex = mat.GetTexture(defines[i]) as Texture2D;
+					Texture2D tex = mat.mainTexture as Texture2D; //.GetTexture(defines[i]) as Texture2D;
                     /*if(tex == null && generateTexturesIfNecessary) {
 	                    tex = Utils.GenerateTexture(g.GetComponent<MeshRenderer>().sharedMaterials[0].color);//TODO GET THE PROPER COLOR FOR EACH SHADER.
 	                }*/
@@ -73,7 +73,7 @@ namespace ProMaterialCombiner {
 	    }
 
 	    public Texture2D GetTextureForObjectSpecificShaderDefine(Material mat, string shaderDefine, bool generateTexturesIfNecessary = false) {
-	        Texture2D result = mat.GetTexture(shaderDefine) as Texture2D;
+			Texture2D result = mat.mainTexture as Texture2D;//.GetTexture(shaderDefine) as Texture2D;
 	        if(result == null && generateTexturesIfNecessary) {
 	            if(mat.HasProperty("_Color")) {
 	                Color shaderColor = mat.GetColor("_Color");
@@ -131,7 +131,7 @@ namespace ProMaterialCombiner {
                                 shaderTextureDefines.Add(shaderDefine);
                             } else {//here we check if the texture retrieved from the shader is null, if it is dont include it
                                 if(objectMaterial.HasProperty(shaderDefine)) {
-                                    Texture2D retrievedTextureFromShader = objectMaterial.GetTexture(shaderDefine) as Texture2D;
+									Texture2D retrievedTextureFromShader = objectMaterial.mainTexture as Texture2D;//.GetTexture(shaderDefine) as Texture2D;
                                     if(retrievedTextureFromShader != null)
                                         shaderTextureDefines.Add(shaderDefine);
                                 } else {
