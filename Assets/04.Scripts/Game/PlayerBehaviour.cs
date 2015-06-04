@@ -558,6 +558,10 @@ public class PlayerBehaviour : MonoBehaviour
 			else 
 			{
 				isMoving = false;
+				if(IsDefence && (CheckAnimatorSate(PlayerState.RunningDefence) || CheckAnimatorSate(PlayerState.Defence1)))
+					AniState(PlayerState.Defence0);
+				else if(!IsDefence && !IsBallOwner && (CheckAnimatorSate(PlayerState.Run0) || CheckAnimatorSate(PlayerState.Run1)))
+					AniState(PlayerState.Idle);
 			}
         } else
         if (NoAiTime > 0 && Time.time >= NoAiTime)
@@ -2393,11 +2397,10 @@ public class PlayerBehaviour : MonoBehaviour
     public void ResetMove()
     {
         MoveQueue.Clear();
-//        DelActionFlag(ActionFlag.IsRun);
         WaitMoveTime = 0;
-    }
-
-    public void SetAutoFollowTime()
+	}
+	
+	public void SetAutoFollowTime()
     {
         if (CloseDef == 0 && AutoFollow == false)
         {
