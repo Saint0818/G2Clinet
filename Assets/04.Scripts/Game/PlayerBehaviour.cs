@@ -1671,7 +1671,9 @@ public class PlayerBehaviour : MonoBehaviour
         bool Result = false;
         int stateNo = 0;
         string curveName;
-		PlayerRigidbody.mass = 5;
+		PlayerRigidbody.mass = 0;
+
+//	Debug.Log("Do ** " + gameObject.name + ".AniState : " + state);
         
         switch (state)
         {
@@ -1723,22 +1725,19 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Defence0:
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
                 AddActionFlag(ActionFlag.IsDefence);
                 Result = true;
                 break;
 
-//					PlayerRigidbody.useGravity = false;
-//					ClearAnimatorFlag();
-//					animator.SetTrigger("DunkTrigger");
-//					//isCanCatchBall = false;
-//					SetShooterLayer();
-//					DunkTo();
-//					Result = true;
-//
-//				break;
+			case PlayerState.Defence1:
+				isCanCatchBall = true;
+				SetSpeed(1, 1);
+				ClearAnimatorFlag(ActionFlag.IsDefence);
+				Result = true;
+				break;
 
 			case PlayerState.Alleyoop:
             case PlayerState.Dunk0:
@@ -1787,17 +1786,18 @@ public class PlayerBehaviour : MonoBehaviour
 					switch (state)
 					{
 						case PlayerState.Dribble0:
-								PlayerRigidbody.mass = 50;
+								PlayerRigidbody.mass = 5;
 								stateNo = 0;
 								break;
 						case PlayerState.Dribble1:
+								PlayerRigidbody.mass = 0;
 								stateNo = 1;
 								break;
 						case PlayerState.Dribble2:
+								PlayerRigidbody.mass = 0;
 								stateNo = 2;
 								break;
 					}
-					PlayerRigidbody.mass = 3;
 //                    if (!isJoystick)
 //                        SetSpeed(0, -1);
                     ClearAnimatorFlag();
@@ -1812,7 +1812,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case PlayerState.Elbow:
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
 				ClearAnimatorFlag();
 				animator.SetTrigger("ElbowTrigger");
 				isCanCatchBall = false;
@@ -1822,7 +1822,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.FakeShoot:
                 if (IsBallOwner)
                 {
-					PlayerRigidbody.mass = 50;
+					PlayerRigidbody.mass = 5;
 					ClearAnimatorFlag();
 					animator.SetTrigger("FakeShootTrigger");
 					isCanCatchBall = false;
@@ -1869,7 +1869,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.HoldBall:
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AddActionFlag(ActionFlag.IsHoldBall);
                 isCanCatchBall = false;
@@ -1877,7 +1877,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case PlayerState.Idle:
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
                 isCanCatchBall = true;
@@ -1899,14 +1899,6 @@ public class PlayerBehaviour : MonoBehaviour
 				Result = true;
 				break;
 			
-			case PlayerState.Defence1:
-//				Rigi.mass = 500;
-                isCanCatchBall = true;
-                SetSpeed(1, 1);
-				ClearAnimatorFlag(ActionFlag.IsDefence);
-//				AddActionFlag(ActionFlag.IsDefence);
-                Result = true;
-                break;
 
 			case PlayerState.MoveDodge0:
 				animator.SetInteger("StateNo", 0);
@@ -1946,7 +1938,7 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 				}
 				ClearAnimatorFlag();
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
 				animator.SetInteger("StateNo", stateNo);
                 animator.SetTrigger("PassTrigger");
                 Result = true;
@@ -2011,20 +2003,17 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				animator.SetInteger("StateNo", stateNo);
 				ClearAnimatorFlag(ActionFlag.IsRun);
-				PlayerRigidbody.mass = 3;
 				Result = true;
                 break;
     
             case PlayerState.RunningDefence:
                 SetSpeed(1, 1);
 				ClearAnimatorFlag(ActionFlag.IsRun);
-//				AddActionFlag(ActionFlag.IsRun);
-				PlayerRigidbody.mass = 3;
                 Result = true;
                 break;
 
             case PlayerState.Steal:
-				PlayerRigidbody.mass = 50;
+				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
@@ -2497,6 +2486,9 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.CatchFloor,
                 PlayerState.CatchParabola,
                 PlayerState.Dunk0,
+                PlayerState.Dunk2,
+                PlayerState.Dunk4,
+                PlayerState.Dunk20,
 				PlayerState.Alleyoop,
                 PlayerState.Elbow,
                 PlayerState.FakeShoot,
