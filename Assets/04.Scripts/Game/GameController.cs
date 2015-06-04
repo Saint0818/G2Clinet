@@ -399,7 +399,7 @@ public class GameController : MonoBehaviour
 		int [] NpcIDAy = new int[3];
 		int Index = 0;
 
-		if(GameStart.Get.SceneMode == SceneTest.Release)
+		if(GameStart.Get.SceneMode == SceneTest.Release && GameData.DPlayers.ContainsKey(GameData.TeamMembers[0].Player.ID))
 		{
 			for(int j = 0; j < UISelectRole.RoleIDAy.Length; j++)
 			{
@@ -423,7 +423,7 @@ public class GameController : MonoBehaviour
 
 			if(i >= (PlayerAy.Length / 2))
 			{
-				if(GameStart.Get.SceneMode == SceneTest.Release)
+				if(GameStart.Get.SceneMode == SceneTest.Release && GameData.DPlayers.ContainsKey(GameData.TeamMembers[0].Player.ID))
 				{
 					if(GameData.DPlayers.ContainsKey(NpcIDAy[Index]))
 					{
