@@ -1385,8 +1385,11 @@ public class GameController : MonoBehaviour
 		if (Joysticker) {
 			PlayerBehaviour nearP = FindNearNpc();
 			if(nearP)
-				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
-			DoPassiveSkill (TSkillSituation.Push, Joysticker);
+				DoPassiveSkill (TSkillSituation.Push, Joysticker, nearP.transform.position);
+			else
+				DoPassiveSkill (TSkillSituation.Push, Joysticker);
+//				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
+			
 		}
 	}
 
