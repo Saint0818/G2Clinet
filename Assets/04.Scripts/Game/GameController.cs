@@ -681,6 +681,15 @@ public class GameController : MonoBehaviour
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
 				UIGame.Get.DoSkill();
+
+			if(Joysticker.AngerView.fillAmount == 1 && Joysticker.IsBallOwner) {
+				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
+				float dis = getDis(ref Joysticker, new Vector2(v.x, v.z));
+				if(situation == GameSituation.AttackA && dis < 15 && UIGame.Get.isCanShowSkill) {
+						UIGame.Get.ShowSkillUI(true);
+				}else
+					UIGame.Get.ShowSkillUI(false);
+			}
 		}
 
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
@@ -1388,8 +1397,6 @@ public class GameController : MonoBehaviour
 				DoPassiveSkill (TSkillSituation.Push, Joysticker, nearP.transform.position);
 			else
 				DoPassiveSkill (TSkillSituation.Push, Joysticker);
-//				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
-			
 		}
 	}
 
@@ -1976,10 +1983,11 @@ public class GameController : MonoBehaviour
         	Joysticker.SetNoAiTime();
 
 		
-		EffectManager.Get.PlayEffect("SkillSign", Vector3.zero, null, Joysticker.gameObject, 1f);
+		EffectManager.Get.PlayEffect("SkillSign", Joysticker.gameObject.transform.position, null, Joysticker.gameObject, 1f);
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 		Joysticker.AngerPower = 0;
+		Joysticker.SetInvincible(Joysticker.GetAnimationTime(PlayerState.Dunk20.ToString()));
 		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
 	
@@ -2259,7 +2267,10 @@ public class GameController : MonoBehaviour
 			}
 				break;
 			case TSkillSituation.Push:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push), v);
+				if(v == Vector3.zero)
+					Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push));
+				else
+					Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push), v);
 				break;
 			case TSkillSituation.Rebound:
 				Result = player.AniState (player.PassiveSkill(TSkillSituation.Rebound, TSkillKind.Rebound));

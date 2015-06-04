@@ -1592,8 +1592,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if (!IsTee && crtState != state && crtState != PlayerState.Elbow && 
 			    (crtState == PlayerState.Dribble0 || crtState == PlayerState.Dribble1 || crtState == PlayerState.HoldBall || IsDunk ||
 			 	crtState == PlayerState.Idle || crtState == PlayerState.Run0 || crtState == PlayerState.Run1 || crtState == PlayerState.Defence0 || crtState == PlayerState.Defence1 || 
-                    crtState == PlayerState.RunningDefence))
-                    return true;
+			 	crtState == PlayerState.RunningDefence) && Invincible == 0)
+				return true;
                 break;
 
             case PlayerState.GotSteal:
@@ -2467,6 +2467,19 @@ public class PlayerBehaviour : MonoBehaviour
 			return playerState;
 
 		return playerState;
+	}
+
+	public float GetAnimationTime(string name){
+		float time = 0;
+		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+		if(clips !=null && clips.Length > 0){
+			for(int i=0; i<clips.Length; i++) {
+				if(clips[i].name.Equals(name)){
+					time = clips[i].length;
+				}
+			}
+		}
+		return time;
 	}
 
 	public bool IsHaveMoveDodge{
