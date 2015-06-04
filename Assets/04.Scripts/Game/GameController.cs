@@ -141,7 +141,7 @@ public enum BasketDistanceAngle{
 public enum TSkillSituation{
 	MoveDodge = 0,
 	Block = 3,
-	Dunk0 = 8,
+	Dunk0 = 100,
 	Fall1 = 10,
 	Fall2 = 11,
 	Layup = 13,
@@ -689,7 +689,8 @@ public class GameController : MonoBehaviour
 						UIGame.Get.ShowSkillUI(true);
 				}else
 					UIGame.Get.ShowSkillUI(false);
-			}
+			} else
+				UIGame.Get.ShowSkillUI(false);
 		}
 
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
@@ -1274,8 +1275,8 @@ public class GameController : MonoBehaviour
 				{
 					float rate = Random.Range(0, 100);
 					if(rate < BallOwner.Attr.DunkRate)
-						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
-//						DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+//						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+						DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 					else
 //						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
 						DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
