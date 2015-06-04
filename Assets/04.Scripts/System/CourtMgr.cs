@@ -618,7 +618,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Hood[1].gameObject.SetActive(true);
 		}
 
-		animation.Play (animationName);
+		if(animation[animationName])
+			animation.Play (animationName);
     }
 
 	public void PlayShoot(int team)

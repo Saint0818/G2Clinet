@@ -3755,8 +3755,7 @@ public class GameController : MonoBehaviour
 				Catcher.NeedShooting = false;
 			}
 		}else{
-			CourtMgr.Get.SetBallState(PlayerState.Steal, Passer);
-			SetBall();
+            setDropBall(Passer);
 		}
 
 		Catcher = null;
