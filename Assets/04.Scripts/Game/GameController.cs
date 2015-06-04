@@ -576,11 +576,12 @@ public class GameController : MonoBehaviour
 //			PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
+			PlayerList [i].OnOnlyScore = OnOnlyScore;
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
 			PlayerList [i].OnUISkill = UIGame.Get.ShowSkill;
-			PlayerList [i].OnUIMoveDodge = UIGame.Get.MoveDodgeUI;
+			PlayerList [i].OnUICantUse = UIGame.Get.UICantUse;
         }
     }
 
@@ -1251,8 +1252,8 @@ public class GameController : MonoBehaviour
 				ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
 				int t = BallOwner.Team.GetHashCode();
 	            if (GameStart.Get.TestMode == GameTest.Dunk)
-//	                BallOwner.AniState(PlayerState.Dunk, CourtMgr.Get.ShootPoint [t].transform.position);
-					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+	                BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+//					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 	            else 
 				if (BallOwner.IsRebound) {
 					if (inTipinDistance(BallOwner))
@@ -1385,7 +1386,6 @@ public class GameController : MonoBehaviour
 			PlayerBehaviour nearP = FindNearNpc();
 			if(nearP)
 				Joysticker.rotateTo(nearP.gameObject.transform.position.x, nearP.gameObject.transform.position.z);
-//			Joysticker.AniState (PlayerState.Push);
 			DoPassiveSkill (TSkillSituation.Push, Joysticker);
 		}
 	}
@@ -1393,8 +1393,16 @@ public class GameController : MonoBehaviour
 	public void DoElbow()
 	{
 		if (Joysticker)
-//			Joysticker.AniState (PlayerState.Elbow);
 			DoPassiveSkill (TSkillSituation.Elbow, Joysticker);
+	}
+
+	public bool OnOnlyScore(PlayerBehaviour player) {
+		if (player == BallOwner)
+		{
+			PlusScore(player.Team.GetHashCode(), true, false);
+			return true;
+		} else
+			return false;
 	}
 
     public bool OnDunkBasket(PlayerBehaviour player)
@@ -1402,7 +1410,7 @@ public class GameController : MonoBehaviour
         if (player == BallOwner)
         {
             CourtMgr.Get.SetBallState(PlayerState.DunkBasket);
-            PlusScore(player.Team.GetHashCode());
+			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
             SetBall();
             return true;
         } else
@@ -1572,6 +1580,7 @@ public class GameController : MonoBehaviour
 
 	public bool OnFall(PlayerBehaviour faller)
 	{
+		UIGame.Get.UICantUse(faller);
 		if (faller && BallOwner == faller) {
 			setDropBall ();
 			return true;
@@ -1963,6 +1972,10 @@ public class GameController : MonoBehaviour
 		if(CandoBtn)
         	Joysticker.SetNoAiTime();
 
+		
+		EffectManager.Get.PlayEffect("SkillSign", Vector3.zero, null, Joysticker.gameObject, 1f);
+		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
+		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 		Joysticker.AngerPower = 0;
 		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
@@ -3449,13 +3462,13 @@ public class GameController : MonoBehaviour
 		UIGame.Get.GameOver();
     }
     
-    public void PlusScore(int team)
+    public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
         if (IsStart && GameStart.Get.TestMode == GameTest.None)
 		{
             int score = 2;
-            if (ShootDis >= GameConst.TreePointDistance)
-                score = 3;
+			if (ShootDis >= GameConst.TreePointDistance)
+				score = 3;
 //            else if (Shooter != null)
 //            {
 //                if (getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position) >= 10)
@@ -3465,18 +3478,21 @@ public class GameController : MonoBehaviour
             ShootDis = 0;
             UIGame.Get.PlusScore(team, score);
 
-            if (UIGame.Get.Scores [team] >= UIGame.Get.MaxScores [team])
-                GameResult(team);
-            else
-            if (team == TeamKind.Self.GetHashCode())
-                ChangeSituation(GameSituation.TeeBPicking);
-            else
-                ChangeSituation(GameSituation.TeeAPicking);
+			if(isChangeSituation) {
+				if (UIGame.Get.Scores [team] >= UIGame.Get.MaxScores [team])
+					GameResult(team);
+				else
+					if (team == TeamKind.Self.GetHashCode())
+						ChangeSituation(GameSituation.TeeBPicking);
+				else
+					ChangeSituation(GameSituation.TeeAPicking);
 
-			if(Shooter != null)
-				Shooter.SetAnger(GameConst.AddAnger_PlusScore);
-            Shooter = null;
-
+				if(!isSkill) {
+					if(Shooter != null)
+						Shooter.SetAnger(GameConst.AddAnger_PlusScore);
+					Shooter = null;
+				}
+			}
 		}
     }
 

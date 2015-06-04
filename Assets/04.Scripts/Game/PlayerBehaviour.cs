@@ -202,15 +202,16 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnBlocking = null;
 	public OnPlayerAction OnBlockCatching = null;
     public OnPlayerAction OnDunkBasket = null;
-    public OnPlayerAction OnDunkJump = null;
+	public OnPlayerAction OnDunkJump = null;
     public OnPlayerAction OnBlockMoment = null;
     public OnPlayerAction OnFakeShootBlockMoment = null;
     public OnPlayerAction OnFall = null;
     public OnPlayerAction OnPickUpBall = null;
     public OnPlayerAction OnGotSteal = null;
+	public OnPlayerAction OnOnlyScore = null;
 	public OnPlayerAction OnUI = null;
 	public OnPlayerAction OnUISkill = null;
-	public OnPlayerAction OnUIMoveDodge = null;
+	public OnPlayerAction OnUICantUse = null;
 	public OnPlayerAction3 OnDoubleClickMoment = null;
 
     public float[] DunkHight = new float[2]{3, 5};
@@ -1910,14 +1911,14 @@ public class PlayerBehaviour : MonoBehaviour
 			case PlayerState.MoveDodge0:
 				animator.SetInteger("StateNo", 0);
 				animator.SetTrigger("MoveDodge");
-				OnUIMoveDodge(this);
+				OnUICantUse(this);
 				Result = true;
 				break;
 
 			case PlayerState.MoveDodge1:
 				animator.SetInteger("StateNo", 1);
 				animator.SetTrigger("MoveDodge");
-				OnUIMoveDodge(this);
+				OnUICantUse(this);
 				Result = true;
 				break;
 
@@ -2317,7 +2318,11 @@ public class PlayerBehaviour : MonoBehaviour
                     OnDunkJump(this);
 
                 break;
-
+			case "OnlyScore":
+				if(OnOnlyScore != null)
+					OnOnlyScore(this);
+				CourtMgr.Get.PlayDunk(Team.GetHashCode(), animator.GetInteger("StateNo"));
+				break;
             case "DunkBasket":
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
@@ -2622,6 +2627,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsDunk
 	{
 		get{ return crtState == PlayerState.Dunk0 || crtState == PlayerState.Dunk2 || crtState == PlayerState.Dunk4 || crtState == PlayerState.Dunk20;}
+	}
+
+	public bool IsUseSkill 
+	{
+		get{ return crtState == PlayerState.Dunk20;}
 	}
 
     private bool isMoving = false;

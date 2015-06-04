@@ -436,35 +436,30 @@ public class UIGame : UIBase {
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(false);
-			ShowSkillUI(false);
 			break;
 		case 2:
 			spritePass.alpha = 0f;
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(false);
 			passObjectGroup[1].SetActive(true);
-			ShowSkillUI(false);
             break;
 		case 3:
 			spritePass.alpha = 0f;
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
-			ShowSkillUI(false);
 			break;
 		case 4:
 			spritePass.alpha = 1f;
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
-			ShowSkillUI(true);
 			break;
 		default:
 			spritePass.alpha = 1f;
 			viewPass.SetActive(false);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
-			ShowSkillUI(true);
 			break;
         }
 		GameController.Get.SetBodyMaterial(kind);
@@ -481,7 +476,7 @@ public class UIGame : UIBase {
 		isAttackState = IsAttack;
 	}
 
-	public bool MoveDodgeUI(PlayerBehaviour p = null) {
+	public bool UICantUse(PlayerBehaviour p = null) {
 		if(p == GameController.Get.Joysticker) {
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);

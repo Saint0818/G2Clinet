@@ -152,7 +152,7 @@ ModelImporter:
       events:
       - time: .333704084
         functionName: AnimationEvent
-        data: DunkBasket
+        data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
