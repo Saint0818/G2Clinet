@@ -466,7 +466,7 @@
     },
     {
         "id": 14,
-        "name": "Daenerys",
+        "name": "後衛5",
         "point2": 40,
         "point3": 40,
         "speed": 60,
@@ -654,7 +654,7 @@
     },
     {
         "id": 19,
-        "name": "Arya",
+        "name": "後衛10",
         "point2": 40,
         "point3": 40,
         "speed": 60,
@@ -818,7 +818,7 @@
     },
     {
         "id": 24,
-        "name": "Robb",
+        "name": "前鋒5",
         "point2": 80,
         "point3": 80,
         "speed": 40,
@@ -996,7 +996,7 @@
     },
     {
         "id": 29,
-        "name": "Tyrion",
+        "name": "前鋒10",
         "point2": 105,
         "point3": 105,
         "speed": 40,
@@ -1150,7 +1150,7 @@
     },
     {
         "id": 34,
-        "name": "Jaime",
+        "name": "中鋒5",
         "point2": 40,
         "point3": 20,
         "speed": 20,
@@ -1318,7 +1318,7 @@
     },
     {
         "id": 39,
-        "name": "Jon",
+        "name": "中鋒10",
         "point2": 40,
         "point3": 20,
         "speed": 20,
