@@ -34,7 +34,7 @@ public class UISelectRole : UIBase {
 	private GameObject PlayerBodyObj;
 	private UILabel [] SelectABName = new UILabel[2];
 	private UILabel [] SelectABBody = new UILabel[2];
-	public static int [] RoleIDAy = new int[6]{14, 19, 24, 29, 34, 39};  // playerID
+	public static int [] RoleIDAy = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
 	public static bool Visible
 	{
