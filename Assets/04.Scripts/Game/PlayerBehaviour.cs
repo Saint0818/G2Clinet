@@ -380,8 +380,8 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		if (GameData.BaseAttr.Length > 0 && Player.AILevel >= 0 && Player.AILevel < GameData.BaseAttr.Length) 
 		{
-			Attr.PointRate2 = Math.Min(GameData.BaseAttr[Player.AILevel].PointRate2, 100);
-			Attr.PointRate3 = Math.Min(GameData.BaseAttr[Player.AILevel].PointRate3, 100);
+			Attr.PointRate2 = Math.Min(GameData.BaseAttr[Player.AILevel].PointRate2 + (Player.Point2 * 0.5F), 100);
+			Attr.PointRate3 = Math.Min(GameData.BaseAttr[Player.AILevel].PointRate3+ (Player.Point3 * 0.5F), 100);
 			Attr.StealRate = Math.Min(GameData.BaseAttr[Player.AILevel].StealRate + (Player.Steal / 12), 100);
 			Attr.DunkRate = Math.Min(GameData.BaseAttr[Player.AILevel].DunkRate, 100);
 			Attr.TipInRate = Math.Min(GameData.BaseAttr[Player.AILevel].TipInRate, 100);
@@ -389,18 +389,18 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.StrengthRate = Math.Min(GameData.BaseAttr[Player.AILevel].StrengthRate, 100);
 			Attr.BlockPushRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockPushRate, 100);
 			Attr.ElbowingRate = Math.Min(GameData.BaseAttr[Player.AILevel].ElbowingRate, 100);
-			Attr.ReboundRate = Math.Min(GameData.BaseAttr[Player.AILevel].ReboundRate, 100);
+			Attr.ReboundRate = Math.Min(GameData.BaseAttr[Player.AILevel].ReboundRate + (Player.Rebound * 0.9f), 100);
 			Attr.BlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockRate, 100);
 			Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate, 100);
 			Attr.JumpBallRate = Math.Min(GameData.BaseAttr[Player.AILevel].JumpBallRate, 100);
-			Attr.PushingRate = Math.Min(GameData.BaseAttr[Player.AILevel].PushingRate + (Player.Defence * 1.2f), 100);
+			Attr.PushingRate = Math.Min(GameData.BaseAttr[Player.AILevel].PushingRate + (Player.Defence * 1), 100);
 			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate, 100);
 			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopPassRate, 100);
 			Attr.ReboundHeadDistance = GameData.BaseAttr[Player.AILevel].ReboundHeadDistance;
 			Attr.ReboundHandDistance = GameData.BaseAttr[Player.AILevel].ReboundHandDistance;
 			Attr.BlockDistance = GameData.BaseAttr[Player.AILevel].BlockDistance;
-			Attr.DefDistance = GameData.BaseAttr[Player.AILevel].DefDistance + (Player.Defence / 10);
-			Attr.SpeedValue = GameData.BaseAttr[Player.AILevel].SpeedValue;
+			Attr.DefDistance = GameData.BaseAttr[Player.AILevel].DefDistance + (Player.Defence * 0.08f);
+			Attr.SpeedValue = GameData.BaseAttr[Player.AILevel].SpeedValue + (Player.Speed * 0.005f);
 			Attr.StaminaValue = GameData.BaseAttr[Player.AILevel].StaminaValue;
 			Attr.AutoFollowTime = GameData.BaseAttr[Player.AILevel].AutoFollowTime;
 
