@@ -3064,24 +3064,24 @@ public class GameController : MonoBehaviour
 					BallHolder.transform.parent = BallOwner.transform;
 					BallHolder.transform.localEulerAngles = Vector3.zero;
 					BallHolder.transform.localScale = Vector3.one;
+				
+					switch(BallOwner.Player.BodyType)
+					{
+					case 0:
+						//C
+						BallHolder.transform.localPosition = new Vector3(0, 4, 0);
+						break;
+					case 1:
+						//F
+						BallHolder.transform.localPosition = new Vector3(0, 3.75f, 0);
+						break;
+					case 2:
+						//G
+						BallHolder.transform.localPosition = new Vector3(0, 3.5f, 0);
+						break;
+					}
 				}
-
-				switch(BallOwner.Player.BodyType)
-				{
-				case 0:
-					//C
-					BallHolder.transform.localPosition = new Vector3(0, 4, 0);
-					break;
-				case 1:
-					//F
-					BallHolder.transform.localPosition = new Vector3(0, 3.75f, 0);
-					break;
-				case 2:
-					//G
-					BallHolder.transform.localPosition = new Vector3(0, 3.5f, 0);
-					break;
-				}
-
+				
 				for(int i = 0 ; i < PlayerList.Count; i++)
 					PlayerList[i].ClearAutoFollowTime();
 
