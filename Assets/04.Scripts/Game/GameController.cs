@@ -1257,55 +1257,57 @@ public class GameController : MonoBehaviour
 				BallOwner.AniState(testState, CourtMgr.Get.Hood [BallOwner.Team.GetHashCode()].transform.position);
 			}
 			else{
-				extraScoreRate = 0;
-				UIGame.Get.DoPassNone();
-				CourtMgr.Get.ResetBasketEntra();
-				Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
-				ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
-				int t = BallOwner.Team.GetHashCode();
-	            if (GameStart.Get.TestMode == GameTest.Dunk)
-	                BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
-//					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
-	            else 
-				if (BallOwner.IsRebound) {
-					if (inTipinDistance(BallOwner))
-						BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
-				} else
-				if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
-				{
-					float rate = Random.Range(0, 100);
-					if(rate < BallOwner.Attr.DunkRate)
-//						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
-						DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
-					else
-//						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
-						DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-				}
-	            else {
-					float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
-
-					if(BallOwner.IsMoving){
-						if(dis > 15)
-//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-							DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-						else if(dis > 9 && dis <= 15)
-//							BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
-							DoPassiveSkill(TSkillSituation.ShootUpHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+				if(!BallOwner.IsDunk) {
+					extraScoreRate = 0;
+					UIGame.Get.DoPassNone();
+					CourtMgr.Get.ResetBasketEntra();
+					Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
+					ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
+					int t = BallOwner.Team.GetHashCode();
+					if (GameStart.Get.TestMode == GameTest.Dunk)
+						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+					//					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+					else 
+					if (BallOwner.IsRebound) {
+						if (inTipinDistance(BallOwner))
+							BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+					} else
+						if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
+					{
+						float rate = Random.Range(0, 100);
+						if(rate < BallOwner.Attr.DunkRate)
+							//						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+							DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 						else
-//							BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
+							//						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
 							DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 					}
-
-					else{
-						if(dis > 15)
-//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-							DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-						else if(dis > 9 && dis <= 15)
-//							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);	
-							DoPassiveSkill(TSkillSituation.ShootNormal, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-						else
-//							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
-							DoPassiveSkill(TSkillSituation.ShootNear, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+					else {
+						float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
+						
+						if(BallOwner.IsMoving){
+							if(dis > 15)
+								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							else if(dis > 9 && dis <= 15)
+								//							BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.ShootUpHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							else
+								//							BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+						}
+						
+						else{
+							if(dis > 15)
+								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							else if(dis > 9 && dis <= 15)
+								//							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);	
+								DoPassiveSkill(TSkillSituation.ShootNormal, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							else
+								//							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.ShootNear, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+						}
 					}
 				}
 			}
