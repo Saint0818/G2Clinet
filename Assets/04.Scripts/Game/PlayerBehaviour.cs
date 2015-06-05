@@ -1058,7 +1058,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (gameObject.transform.localPosition.y > 0.2f)
                 isStartCheckLayer = true;
 
-            if (isStartCheckLayer && isTouchPalyer <= 0 && gameObject.transform.localPosition.y < 0.2f)
+            if (isStartCheckLayer && isTouchPalyer <= 0 && gameObject.transform.localPosition.y <= 0)
             {
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 isCheckLayerToReset = false;
