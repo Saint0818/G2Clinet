@@ -102,9 +102,12 @@ public class BallTrigger : MonoBehaviour
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
-						CourtMgr.Get.SetBallState (PlayerState.Pass0);
-						float dis = Vector3.Distance (GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
-						float time = dis / (GameController.Get.Catcher.Attr.SpeedValue * GameConst.AttackSpeedup * Random.Range (4, 6));
+			CourtMgr.Get.SetBallState (PlayerState.Pass0);
+			float dis = Vector3.Distance (GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
+			float time = dis / (GameController.Get.Catcher.Attr.SpeedValue * GameConst.AttackSpeedup * Random.Range (4, 6));
+
+			if(float.IsInfinity(time))
+				time = 1.5f;
 
 			switch(Kind)
 			{
