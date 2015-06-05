@@ -547,6 +547,7 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationPush();
         CalculationFall();
         CalculationPick();
+		DebugTool ();
         
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
@@ -1063,19 +1064,26 @@ public class PlayerBehaviour : MonoBehaviour
                 isCheckLayerToReset = false;
                 isStartCheckLayer = false;
             }
-
-            if (gameObject.transform.localPosition.y > 0.2f && gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                Debug.LogError("Error : " + gameObject.name + " . crtState : " + crtState);
-            }
-
-			if (IsDebugAnimation && gameObject.transform.localPosition.y > 0.2f && crtState == PlayerState.Idle)
-			{
-				Debug.LogError(gameObject.name + " : Error : Idle in the Air ");
-			}
         }
-
     }
+
+	public void DebugTool()
+	{
+		if(!IsDebugAnimation)
+			return;
+
+		//LayerCheck
+		if (gameObject.transform.localPosition.y > 0.2f && gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			Debug.LogError("Error : " + gameObject.name + " . crtState : " + crtState);
+		}
+
+		//IdleAirCheck
+		if (gameObject.transform.localPosition.y > 0.2f && crtState == PlayerState.Idle)
+		{
+			Debug.LogError(gameObject.name + " : Error : Idle in the Air ");
+		}
+	}
 
     public void OnJoystickMove(MovingJoystick move, PlayerState ps)
     {
