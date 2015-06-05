@@ -3035,6 +3035,7 @@ public class GameController : MonoBehaviour
 		if (BallOwner != null) {
 			BallOwner.IsBallOwner = false;
 			BallOwner = null;
+			CourtMgr.Get.RealBall.transform.parent = null;
 		}
 	}
 
