@@ -3825,6 +3825,7 @@ public class GameController : MonoBehaviour
 
 		Shooter = null;
 		Catcher = null;
+		Joysticker.isAngerFull = false;
 		Joysticker.AngerView.fillAmount = 0;
 		Joysticker.AngryFull.SetActive (false);
 		situation = GameSituation.Opening;
