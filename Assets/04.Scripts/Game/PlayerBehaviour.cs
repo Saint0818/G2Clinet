@@ -362,6 +362,7 @@ public class PlayerBehaviour : MonoBehaviour
                 OnUISkill(this);
 			} else {
 				isAngerFull = false;
+				GameController.Get.Joysticker.AngryFull.SetActive (false);
 			}
         }
     }
