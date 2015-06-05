@@ -559,7 +559,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (SlowDownTime > 0 && Time.time >= SlowDownTime)
         {
             SlowDownTime = 0;
-            Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue;
+			Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue + (Player.Speed * 0.005f);
         }
 
         if (NoAiTime == 0)
