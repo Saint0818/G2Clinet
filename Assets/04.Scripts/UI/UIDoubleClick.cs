@@ -64,8 +64,14 @@ public class UIDoubleClick : UIBase {
 			SecondStartSize = size * SecondSpeedRate;
 			isStart = true;
 			SetLv(-1);
+			SetBtnFun(UIName + "/SceneClick", DoBtn);
 			checkCircle[1].gameObject.SetActive(false);
 		}
+	}
+
+	public void DoBtn()
+	{
+		GameController.Get.DoShoot (true);
 	}
 
 	void FixedUpdate()
