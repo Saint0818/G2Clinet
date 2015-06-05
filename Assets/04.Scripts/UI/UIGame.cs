@@ -415,7 +415,7 @@ public class UIGame : UIBase {
 
 	public void ShowSkillUI (bool isShow){
 		if(GameController.Get.Joysticker != null && 
-		   GameController.Get.Joysticker.AngerView.fillAmount == 1 && 
+		   GameController.Get.Joysticker.isAngerFull && 
 		   GameController.Get.situation == GameSituation.AttackA) 
 			uiSkill.SetActive(isShow);
 		else 
@@ -528,7 +528,8 @@ public class UIGame : UIBase {
 		case UIController.Skill:
 			if(!GameController.Get.Joysticker.IsFall && 
 			   GameController.Get.Joysticker.IsBallOwner &&
-			   GameController.Get.Joysticker.AngerView.fillAmount == 1) 
+			   GameController.Get.Joysticker.AngerView.fillAmount == 1 && 
+			   GameController.Get.Joysticker.CanUseState(PlayerState.Dunk20)) 
 			{
 				GameController.Get.DoSkill();
 				GameController.Get.Joysticker.SetNoAiTime();

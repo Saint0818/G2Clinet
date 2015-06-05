@@ -337,9 +337,11 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector2 MoveTarget;
     private float dis;
     private bool CanSpeedup = true;
-    public int AngerPower = 0;
     public Material BodyMaterial;
     private float SlowDownTime = 0;
+
+	public int AngerPower = 0;
+	public bool isAngerFull = false;
 
     public void SetAnger(int Value)
     {
@@ -354,8 +356,12 @@ public class PlayerBehaviour : MonoBehaviour
         {
             float temp = AngerPower;
             GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
-            if (GameController.Get.Joysticker.AngerView.fillAmount == 1)
+			if (GameController.Get.Joysticker.AngerView.fillAmount == 1) {
+				isAngerFull = true;
                 OnUISkill(this);
+			} else {
+				isAngerFull = false;
+			}
         }
     }
 
