@@ -197,6 +197,7 @@ public struct PassiveSkill
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public bool IsDebugAnimation = false;
     public string TacticalName = "";
     public OnPlayerAction OnShooting = null;
     public OnPlayerAction OnPass = null;
@@ -1067,6 +1068,11 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 Debug.LogError("Error : " + gameObject.name + " . crtState : " + crtState);
             }
+
+			if (IsDebugAnimation && gameObject.transform.localPosition.y > 0.2f && crtState == PlayerState.Idle)
+			{
+				Debug.LogError(gameObject.name + " : Error : Idle in the Air ");
+			}
         }
 
     }
@@ -1690,7 +1696,8 @@ public class PlayerBehaviour : MonoBehaviour
         string curveName;
         PlayerRigidbody.mass = 0;
 
-//  Debug.Log("Do ** " + gameObject.name + ".AniState : " + state);
+		if(IsDebugAnimation)
+			Debug.Log ("Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
         
         switch (state)
         {
@@ -1863,6 +1870,7 @@ public class PlayerBehaviour : MonoBehaviour
                         stateNo = 2;
                         break;
                 }
+				SetShooterLayer();
                 curveName = string.Format("Fall{0}", stateNo);
                 playerFallCurve = null;
 
