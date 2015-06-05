@@ -64,8 +64,6 @@ public class UIDoubleClick : UIBase {
 			SecondStartSize = size * SecondSpeedRate;
 			isStart = true;
 			SetLv(-1);
-//			SetBtnFun(UIName + "/SceneClick", DoBtn);
-			UIEventListener.Get (GameObject.Find (UIName + "/SceneClick")).onPress = DoBtn;
 			checkCircle[1].gameObject.SetActive(false);
 		}
 	}
@@ -133,6 +131,8 @@ public class UIDoubleClick : UIBase {
 
 		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
 		checkCircle[1] = GameObject.Find (UIName + "/SceneClick/CheckCircle1").GetComponent<UISprite> ();
+		//			SetBtnFun(UIName + "/SceneClick", DoBtn);
+		UIEventListener.Get (GameObject.Find (UIName + "/SceneClick")).onPress = DoBtn;
 	}
 
 	protected override void OnShow (bool isShow)
