@@ -1577,7 +1577,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case PlayerState.HoldBall:
-                if (IsBallOwner && !IsPass)
+                if (IsBallOwner && !IsPass && crtState != PlayerState.GotSteal)
                     return true;
                 break;
 
