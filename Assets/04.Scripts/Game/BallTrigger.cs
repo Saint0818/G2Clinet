@@ -109,7 +109,7 @@ public class BallTrigger : MonoBehaviour
 			switch(Kind)
 			{
 			case 0:
-			case 5:
+			case 4:
 				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 2:
@@ -119,13 +119,12 @@ public class BallTrigger : MonoBehaviour
 				CourtMgr.Get.RealBall.transform.DOPath(pathay, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			case 1:
-			case 3:
 				ParabolaTime = 0;
 				Parabolamove = true;
 				Parabolatarget = CourtMgr.Get.RealBall.transform.position;
 				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
 				break;
-			case 4:
+			case 3:
 				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
 				PassEnd();
 				break;
@@ -193,7 +192,7 @@ public class BallTrigger : MonoBehaviour
 			{
 				float dis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position);  
 
-				if(PassKind == 3 || PassKind == 1){
+				if(PassKind == 1){
 					if(ParabolaDis < 8)
 					{
 						if ((dis < 5) && Passing)

@@ -14,69 +14,68 @@ public delegate bool OnPlayerAction3(PlayerBehaviour player,PlayerState state);
 
 public enum PlayerState
 {
-    Idle = 0,
-    Run0 = 1,            
-    Run1 = 2,            
-    Block = 3,  
-    Board = 4,  
-    Defence0 = 5,    
-    Defence1 = 6,
-    RunningDefence = 7,
-    
-    Fall0 = 9,
-    Fall1 = 10,
-    Fall2 = 11,
-    BlockCatch = 12,
-    Layup = 13, 
-    Steal = 14,
-    GotSteal = 15,
-    Pass0 = 16,
-    Pass2 = 17,
-    Pass1 = 18,
-    Pass4 = 19,
-    Pass5 = 20,
-    Push = 21,
-
-    Rebound = 25,
-    ReboundCatch = 26,
-    DunkBasket = 27,
-   
-    FakeShoot = 29,
-    Reset = 30,
-    Start = 31,
-    Tee = 32,
-    BasketAnimationStart = 33,
-    BasketActionEnd = 34,
-    BasketActionSwish = 35,
-    BasketActionSwishEnd = 36,
-    Elbow = 37,
-    HoldBall = 38,
-    CatchFlat = 39,
-    CatchParabola = 40,
-    CatchFloor = 41,
-
-    Shoot0 = 43,
-    Shoot1 = 44,
-    Shoot2 = 45,
-    Shoot3 = 46,
-
-    Shoot6 = 49,
-    BasketActionNoScoreEnd = 50,
-    TipIn = 51,
-    Alleyoop = 52,
-    Intercept0 = 53,
-    Intercept1 = 54,
-    MoveDodge0 = 55,
-    MoveDodge1 = 56,
-    PickBall0 = 57,
-    PickBall2 = 58,
-    Dribble0 = 59,
-    Dribble1 = 60,
-    Dribble2 = 61,
-    Dunk0 = 100,
-    Dunk2 = 102,
-    Dunk4 = 104,
-    Dunk20 = 120
+	Alleyoop,
+	Block,  
+	Board, 
+	BlockCatch,
+	BasketAnimationStart,
+	BasketActionEnd,
+	BasketActionSwish,
+	BasketActionSwishEnd,
+	BasketActionNoScoreEnd,
+	CatchFlat,
+	CatchParabola,
+	CatchFloor,
+	Dribble0,
+	Dribble1,
+	Dribble2,
+	Dunk0,
+	Dunk2,
+	Dunk4,
+	Dunk20,
+	DunkBasket,
+	Defence0,    
+	Defence1,
+	Elbow,
+	Fall0,
+	Fall1,
+	Fall2,
+	FakeShoot,
+	GotSteal,
+	HoldBall,
+    Idle,
+	Intercept0,
+	Intercept1,
+	Layup, 
+	MoveDodge0,
+	MoveDodge1,
+	PickBall0,
+	PickBall2,
+	Pass0,
+	Pass1,
+	Pass2,
+	Pass3,
+	Pass4,
+	Pass5,
+	Pass6,
+	Pass7,
+	Pass8,
+	Pass9,
+	Push,
+    Run0,            
+    Run1,            
+    RunningDefence,
+	Rebound,
+	ReboundCatch,
+	Reset,
+	Start,
+	Shoot0,
+	Shoot1,
+	Shoot2,
+	Shoot3,
+	Shoot6,
+	Steal,
+	TipIn  
 }
 
 public enum TeamKind
@@ -1529,15 +1528,19 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Pass0:
             case PlayerState.Pass2:
             case PlayerState.Pass1:
-            case PlayerState.Pass4:
-            case PlayerState.Tee:
+            case PlayerState.Pass3:
+            case PlayerState.Pass5:
+            case PlayerState.Pass6:
+            case PlayerState.Pass7:
+            case PlayerState.Pass8:
+            case PlayerState.Pass9:
                 if (!IsPass && (crtState == PlayerState.HoldBall || IsDribble))
                 {
                     return true;
                 }
                 break;
 
-            case PlayerState.Pass5:
+            case PlayerState.Pass4:
                 if ((crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment)
                     return true;
                 break;
@@ -1952,8 +1955,13 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Pass0:
             case PlayerState.Pass1:
             case PlayerState.Pass2:
+            case PlayerState.Pass3:
             case PlayerState.Pass4:
             case PlayerState.Pass5:
+            case PlayerState.Pass6:
+            case PlayerState.Pass7:
+            case PlayerState.Pass8:
+            case PlayerState.Pass9:
                 switch (state)
                 {
                     case PlayerState.Pass0:
@@ -1965,12 +1973,27 @@ public class PlayerBehaviour : MonoBehaviour
                     case PlayerState.Pass2:
                         stateNo = 2;
                         break;
+                    case PlayerState.Pass3:
+                        stateNo = 3;
+                        break;
                     case PlayerState.Pass4:
                         stateNo = 4;
                         break;
-                    case PlayerState.Pass5:
-                        stateNo = 5;
-                        break;
+					case PlayerState.Pass5:
+						stateNo = 5;
+						break;
+					case PlayerState.Pass6:
+						stateNo = 6;
+						break;
+					case PlayerState.Pass7:
+						stateNo = 7;
+						break;
+					case PlayerState.Pass8:
+						stateNo = 8;
+						break;
+					case PlayerState.Pass9:
+						stateNo = 9;
+						break;
                 }
                 ClearAnimatorFlag();
                 PlayerRigidbody.mass = 5;
@@ -2015,15 +2038,7 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetTrigger("PickTrigger");
                 Result = true;
                 break;
-            
-            case PlayerState.Tee:
-                isCanCatchBall = true;
-                ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 1);
-                animator.SetTrigger("PassTrigger");
-                Result = true;
-                break;
-            
+
             case PlayerState.Run0:
             case PlayerState.Run1:
                 if (!isJoystick)
@@ -2273,7 +2288,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case "Shooting":
                 IsPassAirMoment = false;
-                if (OnShooting != null && crtState != PlayerState.Pass5)
+                if (OnShooting != null && crtState != PlayerState.Pass4)
                     OnShooting(this);
                 break;
 
@@ -2576,8 +2591,13 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Pass0,
                 PlayerState.Pass2,
                 PlayerState.Pass1,
+                PlayerState.Pass3,
                 PlayerState.Pass4,
                 PlayerState.Pass5,
+                PlayerState.Pass6,
+                PlayerState.Pass7,
+                PlayerState.Pass8,
+                PlayerState.Pass9,
                 PlayerState.Push,
                 PlayerState.PickBall0,
                 PlayerState.PickBall2,
@@ -2588,7 +2608,6 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot6,
                 PlayerState.Steal,
                 PlayerState.Layup,
-                PlayerState.Tee,
                 PlayerState.Rebound,
                 PlayerState.ReboundCatch,
                 PlayerState.TipIn,
@@ -2690,7 +2709,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsPass
     {
-        get{ return crtState == PlayerState.Pass0 || crtState == PlayerState.Pass2 || crtState == PlayerState.Pass1 || crtState == PlayerState.Tee || crtState == PlayerState.Pass4;}
+        get{ return crtState == PlayerState.Pass0 || crtState == PlayerState.Pass2 || crtState == PlayerState.Pass1 || crtState == PlayerState.Pass3 ||
+			crtState == PlayerState.Pass5 || crtState == PlayerState.Pass6 || crtState == PlayerState.Pass7 || crtState == PlayerState.Pass8 || crtState == PlayerState.Pass9;}
     }
 
     public bool IsDribble

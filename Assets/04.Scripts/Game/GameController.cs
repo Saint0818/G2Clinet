@@ -1474,14 +1474,14 @@ public class GameController : MonoBehaviour
 				
 				if(IsTee)
 				{
-					if(BallOwner.AniState(PlayerState.Tee, player.transform.position))
+					if(BallOwner.AniState(PlayerState.Pass1, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
 					}												
 				}else if(IsCanPassAir && !IsTee)
 				{
-					if(BallOwner.AniState(PlayerState.Pass5, player.transform.position))
+					if(BallOwner.AniState(PlayerState.Pass4, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
@@ -2241,7 +2241,7 @@ public class GameController : MonoBehaviour
 				break;
 			case TSkillSituation.Pass4:{
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass4)
+				if(p != PlayerState.Pass3)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -3225,7 +3225,7 @@ public class GameController : MonoBehaviour
 			if(CourtMgr.Get.RealBallState == PlayerState.Pass0 || 
 			   CourtMgr.Get.RealBallState == PlayerState.Pass2 ||
 			   CourtMgr.Get.RealBallState == PlayerState.Pass1 || 
-			   CourtMgr.Get.RealBallState == PlayerState.Pass4)
+			   CourtMgr.Get.RealBallState == PlayerState.Pass3)
 			{
 				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.CheckAnimatorSate(PlayerState.Push))
 				{

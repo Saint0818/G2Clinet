@@ -472,8 +472,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case PlayerState.Pass0: 
 			case PlayerState.Pass2: 
 			case PlayerState.Pass1: 
+			case PlayerState.Pass3: 
 			case PlayerState.Pass4: 
-			case PlayerState.Tee: 
+			case PlayerState.Pass5: 
+			case PlayerState.Pass6: 
+			case PlayerState.Pass7: 
+			case PlayerState.Pass8: 
+			case PlayerState.Pass9: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = true;
