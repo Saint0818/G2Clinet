@@ -303,10 +303,10 @@ public class GameController : MonoBehaviour
         TeeBackPosAy [1] = new Vector2(5.3f, 10);
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
-		BornAy [0] = new Vector3 (0, 0, 0);
+		BornAy [0] = new Vector3 (0, 0, -1);
 		BornAy [1] = new Vector3 (-5, 0, -2);
 		BornAy [2] = new Vector3 (5, 0, -2);
-		BornAy [3] = new Vector3 (0, 0, 5);
+		BornAy [3] = new Vector3 (0, 0, 1);
 		BornAy [4] = new Vector3 (5, 0, 2);
 		BornAy [5] = new Vector3 (-5, 0, 2);
 
@@ -334,6 +334,8 @@ public class GameController : MonoBehaviour
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
 		}
+
+		ChangeSituation (GameSituation.JumpBall);
 	}
 
 	private void GetMovePath(int index, ref TTactical Result)
@@ -810,6 +812,23 @@ public class GameController : MonoBehaviour
 	}
 	#endif
 
+	private void JumpBall()
+	{
+		if (BallOwner == null)
+		{
+			for(int i = 0; i < PlayerList.Count; i++)
+			{
+				PlayerBehaviour npc = PlayerList[i];
+				if(npc.Team == TeamKind.Self)
+				{
+					PickBall(ref npc, true);
+					if(npc.DefPlayer != null)
+						PickBall(ref npc.DefPlayer, true);
+				}
+			}
+		}
+	}
+
     private void SituationAttack(TeamKind team)
     {
         if (PlayerList.Count > 0)
@@ -1059,7 +1078,7 @@ public class GameController : MonoBehaviour
                 
                     break;
                 case GameSituation.JumpBall:
-                
+					JumpBall();
                     break;
                 case GameSituation.AttackA:
                     SituationAttack(TeamKind.Self);
@@ -2635,7 +2654,7 @@ public class GameController : MonoBehaviour
 
     private void DefBlock(ref PlayerBehaviour Npc, int Kind = 0)
     {
-        if (PlayerList.Count > 0 && !IsPassing)
+		if (PlayerList.Count > 0 && !IsPassing && !IsBlocking)
         {
 			bool Suc = false;
 			PlayerBehaviour Npc2;
@@ -2651,24 +2670,22 @@ public class GameController : MonoBehaviour
 					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
 					    !Npc2.CheckAnimatorSate(PlayerState.Push))
 					{
-						if(!IsBlocking)
+						float BlockRate = Npc2.Attr.BlockRate;
+						
+						if(Kind == 1)
+							BlockRate = Npc2.Attr.FaketBlockRate;	
+						
+						float mAngle = GetAngle(Npc, PlayerList [i]);
+						
+						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 90)
 						{
-							float BlockRate = Npc2.Attr.BlockRate;
-							
-							if(Kind == 1)
-								BlockRate = Npc2.Attr.FaketBlockRate;	
-							
-							float mAngle = GetAngle(Npc, PlayerList [i]);
-							
-							if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 360)
+							if (Rate < BlockRate)
 							{
-								if (Rate < BlockRate)
+//								if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
+								if(DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position))
 								{
-									if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
-									{
-										Suc = true;
-										break;
-									}
+									Suc = true;
+									break;
 								}
 							}
 						}
@@ -2676,42 +2693,42 @@ public class GameController : MonoBehaviour
 				}
 			}
 
-			if(!Suc)
-			{
-				for (int i = 0; i < DisAy.Length; i++)
-				{               
-					Npc2 = DisAy [i].Player;
-					
-					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
-					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
-					    !Npc2.CheckAnimatorSate(PlayerState.Push))
-					{
-						if(!IsBlocking)
-						{
-							float BlockRate = Npc2.Attr.BlockRate;
-							
-							if(Kind == 1)
-								BlockRate = Npc2.Attr.FaketBlockRate;	
-							
-							if (GameStart.Get.TestMode == GameTest.Block)
-							{
-//								Npc2.AniState(PlayerState.Block, Npc.transform.position);
-								DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
-							} 
-							else if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
-							{
-								if (Rate < BlockRate)
-								{
-//									Npc2.AniState(PlayerState.Block, Npc.transform.position);
-									DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
-									break;
-								}
-							}
-						}else
-							break;					
-					}
-				}
-			}
+//			if(!Suc)
+//			{
+//				for (int i = 0; i < DisAy.Length; i++)
+//				{               
+//					Npc2 = DisAy [i].Player;
+//					
+//					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
+//					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
+//					    !Npc2.CheckAnimatorSate(PlayerState.Push))
+//					{
+//						if(!IsBlocking)
+//						{
+//							float BlockRate = Npc2.Attr.BlockRate;
+//							
+//							if(Kind == 1)
+//								BlockRate = Npc2.Attr.FaketBlockRate;	
+//							
+//							if (GameStart.Get.TestMode == GameTest.Block)
+//							{
+////								Npc2.AniState(PlayerState.Block, Npc.transform.position);
+//								DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
+//							} 
+//							else if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
+//							{
+//								if (Rate < BlockRate)
+//								{
+////									Npc2.AniState(PlayerState.Block, Npc.transform.position);
+//									DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
+//									break;
+//								}
+//							}
+//						}else
+//							break;					
+//					}
+//				}
+//			}
 		}
 	}
 	
@@ -3310,8 +3327,8 @@ public class GameController : MonoBehaviour
 						}
 					}
 				}
-			}
-
+			}else if(situation == GameSituation.JumpBall)
+				Rebound(player);
             break;
 		case 5: //finger
 			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
@@ -3333,7 +3350,10 @@ public class GameController : MonoBehaviour
 					}
 				}
 			}
-
+			else if(situation == GameSituation.JumpBall)
+			{	
+				CourtMgr.Get.SetBallState(PlayerState.JumpBall, player);
+			}
 			break;
 		default :
 			bool CanSetball = false;

@@ -506,8 +506,25 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 			break;
+			case PlayerState.JumpBall:
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.localScale = Vector3.one;
+				GameController.Get.Passer = null;
+
+				if(player != null)	
+					v = player.transform.forward * -5;
+				else
+					v = RealBall.transform.forward * -1;
+				
+				RealBallRigidbody.velocity = v;
+				RealBallFX.gameObject.SetActive(true);
+				break;
 			
-		case PlayerState.Block: 
+			case PlayerState.Block: 
 				GameController.Get.Shooter = null;
 				GameController.Get.Passer = null;
 				realBallCollider.enabled = true;
@@ -554,9 +571,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case PlayerState.Start:
-				RealBall.transform.localPosition = new Vector3 (0, 5, 0);
+				RealBall.transform.localPosition = new Vector3 (0, 6, 0);
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.AddForce(Vector3.up * 3500);
 				break;
 
 			case PlayerState.HoldBall:

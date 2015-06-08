@@ -78,7 +78,8 @@ public enum PlayerState
 	Shoot6,
 	Shoot7,
 	Steal,
-	TipIn  
+	TipIn,
+	JumpBall  
 }
 
 public enum TeamKind
