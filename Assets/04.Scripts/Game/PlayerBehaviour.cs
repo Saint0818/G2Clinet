@@ -73,7 +73,10 @@ public enum PlayerState
 	Shoot1,
 	Shoot2,
 	Shoot3,
+	Shoot4,
+	Shoot5,
 	Shoot6,
+	Shoot7,
 	Steal,
 	TipIn  
 }
@@ -1559,7 +1562,10 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
+            case PlayerState.Shoot4:
+            case PlayerState.Shoot5:
             case PlayerState.Shoot6:
+            case PlayerState.Shoot7:
             case PlayerState.Layup:
                 if (IsBallOwner && !IsShoot && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || IsDribble))
                     return true;
@@ -2084,7 +2090,10 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot1:
             case PlayerState.Shoot2:
             case PlayerState.Shoot3:
+            case PlayerState.Shoot4:
+            case PlayerState.Shoot5:
             case PlayerState.Shoot6:
+			case PlayerState.Shoot7:
                 if (IsBallOwner)
                 {                   
                     playerShootCurve = null;
@@ -2105,9 +2114,18 @@ public class PlayerBehaviour : MonoBehaviour
                         case PlayerState.Shoot3:
                             stateNo = 3;
                             break;
+						case PlayerState.Shoot4:
+							stateNo = 4;
+							break;
+						case PlayerState.Shoot5:
+							stateNo = 5;
+							break;
                         case PlayerState.Shoot6:
                             stateNo = 6;
                             break;
+						case PlayerState.Shoot7:
+							stateNo = 7;
+							break;
                     }
                 
                     animator.SetInteger("StateNo", stateNo);
@@ -2605,7 +2623,10 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot1,
                 PlayerState.Shoot2,
                 PlayerState.Shoot3,
+                PlayerState.Shoot4,
+                PlayerState.Shoot5,
                 PlayerState.Shoot6,
+                PlayerState.Shoot7,
                 PlayerState.Steal,
                 PlayerState.Layup,
                 PlayerState.Rebound,

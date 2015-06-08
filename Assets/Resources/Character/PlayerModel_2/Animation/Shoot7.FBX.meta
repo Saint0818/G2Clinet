@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1b813c3d5474e4f4cb5e2654c6e9e586
-timeCreated: 1432629842
+timeCreated: 1433743417
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,35 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0982746631
+        functionName: AnimationEvent
+        data: DoubleClickMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .3469491
+        functionName: AnimationEvent
+        data: BlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .553074896
+        functionName: AnimationEvent
+        data: Shooting
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .99999994
+        functionName: AnimationEvent
+        data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
