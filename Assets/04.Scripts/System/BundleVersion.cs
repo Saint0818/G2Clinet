@@ -1,5 +1,5 @@
 public static class BundleVersion
 {
-	public static readonly string version = "Ver 0.7.0";
+	public static readonly string version = "Ver 0.8.0";
 }
 
