@@ -139,24 +139,24 @@ public enum BasketDistanceAngle{
 }
 
 public enum TSkillSituation{
-	MoveDodge = 0,
-	Block = 3,
-	Dunk0 = 100,
-	Fall1 = 10,
-	Fall2 = 11,
-	Layup = 13,
-	Steal = 14,
-	Pass0 = 16,
-	Pass2 = 17,
-	Pass1 = 18,
-	Pass4 = 19,
-	Push = 21,
-	Rebound = 25,
-	Elbow = 37,
-	ShootNormal = 43,
-	ShootNear = 44,
-	ShootUpHand = 45,
-	ShootDownHand = 46
+	MoveDodge,
+	Block,
+	Dunk0,
+	Fall1,
+	Fall2,
+	Layup,
+	Steal,
+	Pass0,
+	Pass2,
+	Pass1,
+	Pass4,
+	Push,
+	Rebound,
+	Elbow,
+	Shoot0,
+	Shoot6,
+	Shoot2,
+	Shoot3
 }
 
 public enum TSkillKind{
@@ -1288,10 +1288,10 @@ public class GameController : MonoBehaviour
 						if(BallOwner.IsMoving){
 							if(dis > 15)
 								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot3 , BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else if(dis > 9 && dis <= 15)
 								//							BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.ShootUpHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot2, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else
 								//							BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
 								DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
@@ -1300,13 +1300,13 @@ public class GameController : MonoBehaviour
 						else{
 							if(dis > 15)
 								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.ShootDownHand, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else if(dis > 9 && dis <= 15)
 								//							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);	
-								DoPassiveSkill(TSkillSituation.ShootNormal, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else
 								//							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.ShootNear, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot6, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						}
 					}
 				}
@@ -2215,17 +2215,17 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Dunk0:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Dunk0, TSkillKind.Dunk), v);
 				break;
-			case TSkillSituation.ShootNormal:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.ShootNormal, TSkillKind.Shoot), v);
+			case TSkillSituation.Shoot0:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot0, TSkillKind.Shoot), v);
 				break;
-			case TSkillSituation.ShootDownHand:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.ShootDownHand, TSkillKind.Shoot), v);
+			case TSkillSituation.Shoot3:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot3, TSkillKind.Shoot), v);
 				break;
-			case TSkillSituation.ShootUpHand:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.ShootUpHand, TSkillKind.Shoot), v);
+			case TSkillSituation.Shoot2:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot2, TSkillKind.Shoot), v);
 				break;
-			case TSkillSituation.ShootNear:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.ShootNear, TSkillKind.Shoot), v );
+			case TSkillSituation.Shoot6:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot6, TSkillKind.Shoot), v );
 				break;
 			case TSkillSituation.Layup:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup, TSkillKind.Shoot), v);
@@ -3826,7 +3826,6 @@ public class GameController : MonoBehaviour
 		Shooter = null;
 		Catcher = null;
 		Joysticker.isAngerFull = false;
-		Joysticker.AngerView.fillAmount = 0;
 		Joysticker.AngryFull.SetActive (false);
 		Joysticker.SetAnger (-100);
 		situation = GameSituation.Opening;

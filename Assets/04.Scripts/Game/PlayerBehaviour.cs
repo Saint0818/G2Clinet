@@ -197,6 +197,13 @@ public struct PassiveSkill
     public int Rate;
 }
 
+public struct ActiveSkill 
+{
+	public int ID;
+	public int Kind;
+	public string Name;
+}
+
 public class PlayerBehaviour : MonoBehaviour
 {
 	public bool IsDebugAnimation = false;
@@ -327,7 +334,10 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
     //PassiveSkill
-    private Dictionary<int, List<PassiveSkill>> passiveSkill = new Dictionary<int, List<PassiveSkill>>();
+	private Dictionary<int, List<PassiveSkill>> passiveSkills = new Dictionary<int, List<PassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
+	//ActiveSkill
+	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
+
     private bool isHaveMoveDodge;
     private PassDirectState passDirect = PassDirectState.Forward;
     private bool firstDribble = true;
@@ -421,43 +431,56 @@ public class PlayerBehaviour : MonoBehaviour
             if (Attr.StaminaValue > 0)
                 SetMovePower(Attr.StaminaValue);
 
-            //collect player's passiveSkill
-            if (Player.Skills != null && Player.Skills.Length > 0)
-            {
-                for (int i=0; i<Player.Skills.Length; i++)
-                {
-                    if (Player.Skills [i].ID > 0)
-                    {
-                        if (GameData.SkillData.ContainsKey(Player.Skills [i].ID))
-                        {
-                            if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)TSkillKind.MoveDodge) 
-                                isHaveMoveDodge = true;
-                            int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv);
-                            PassiveSkill ps = new PassiveSkill();
-                            ps.ID = Player.Skills [i].ID;
-                            ps.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
-                            ps.Rate = rate;
-                            ps.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
-                            int key = GameData.SkillData [Player.Skills [i].ID].Kind;
-                            if (key > 1000)
-                                key = (key / 100);
-                            if (passiveSkill.ContainsKey(key))
-                            {
-                                List<PassiveSkill> pss = passiveSkill [key];
-                                pss.Add(ps);
-                                passiveSkill [key] = pss;
-                            } else
-                            {
-                                List<PassiveSkill> pss = new List<PassiveSkill>();
-                                pss.Add(ps);
-                                passiveSkill.Add(key, pss);
-                            }
-                        }
-                    }
-                }
-            }
+			initSkill ();
         }
     }
+
+	private void initSkill (){
+		if (Player.Skills != null && Player.Skills.Length > 0)
+		{
+			for (int i=0; i<Player.Skills.Length; i++)
+			{
+				if (Player.Skills [i].ID > 0)
+				{
+					if (GameData.SkillData.ContainsKey(Player.Skills [i].ID))
+					{
+						if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)TSkillKind.MoveDodge) 
+							isHaveMoveDodge = true;
+
+						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
+						PassiveSkill ps = new PassiveSkill();
+						ps.ID = Player.Skills [i].ID;
+						ps.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
+						ps.Rate = rate;
+						ps.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
+
+						ActiveSkill activeSkill = new ActiveSkill();
+						activeSkill.ID = Player.Skills[i].ID;
+						activeSkill.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
+						activeSkill.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
+
+						int key = GameData.SkillData [Player.Skills [i].ID].Kind;
+						if (key > 1000)
+							key = (key / 100);
+						if(key == 31) {
+							activeSkills.Add(activeSkill);
+						}
+						if (passiveSkills.ContainsKey(key))
+						{
+							List<PassiveSkill> pss = passiveSkills [key];
+							pss.Add(ps);
+							passiveSkills [key] = pss;
+						} else
+						{
+							List<PassiveSkill> pss = new List<PassiveSkill>();
+							pss.Add(ps);
+							passiveSkills.Add(key, pss);
+						}
+					}
+				}
+			}
+		}
+	}
 
     public void InitCurve(GameObject animatorCurve)
     {
@@ -2480,11 +2503,11 @@ public class PlayerBehaviour : MonoBehaviour
     public PlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3))
     {
         PlayerState playerState = PlayerState.Idle;
-        playerState = (PlayerState)((int)situation);
+		playerState = (PlayerState)System.Enum.Parse(typeof(PlayerState), situation.ToString());
         List<PassiveSkill> ps = new List<PassiveSkill>();
-        if (passiveSkill.ContainsKey((int)kind))
+        if (passiveSkills.ContainsKey((int)kind))
         {
-            ps = passiveSkill [(int)kind];
+            ps = passiveSkills [(int)kind];
         }
         bool isPerformPassive = false;
         if (ps.Count > 0)

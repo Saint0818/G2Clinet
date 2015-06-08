@@ -115,7 +115,7 @@ public class UI2D : MonoBehaviour {
 			if (root)
 				return root.manualWidth;
 			else
-				return 1920;
+				return 1280;
 		}
 	}
 
@@ -125,7 +125,7 @@ public class UI2D : MonoBehaviour {
 			if (root)
 				return root.manualHeight;
 			else
-				return 1080;
+				return 720;
         }
     }
 }
