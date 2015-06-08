@@ -3911,7 +3911,7 @@ public class GameController : MonoBehaviour
 
 	public void SetBodyMaterial(bool open, int index) {
 		if (PlayerList.Count > 0 && index < PlayerList.Count) {
-			string name = "Shaders/Toony-Basic";
+			string name = "Shaders/Toony-Transparent";
 			if (open)
 				name = "Shaders/Toony-BasicOutline";
 
