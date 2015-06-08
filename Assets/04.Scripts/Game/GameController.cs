@@ -150,6 +150,7 @@ public enum TSkillSituation{
 	Pass2,
 	Pass1,
 	Pass4,
+	PickBall0,
 	Push,
 	Rebound,
 	Elbow,
@@ -168,13 +169,15 @@ public enum TSkillKind{
 	Dunk = 6,
 	MoveDodge = 11,
 	Pass = 12,
+	Pick = 13,
 	Rebound = 14,
 	Steal = 15,
 	Block = 16,
 	Push = 17,
 	Elbow = 18,
 	Fall1 = 19,
-	Fall2 = 20
+	Fall2 = 20,
+	Special = 31
 }
 
 public struct PlayerSkillLV{
@@ -2310,6 +2313,9 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Steal:			
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Steal, TSkillKind.Steal), v);
 				break;
+			case TSkillSituation.PickBall0:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.PickBall0, TSkillKind.Pick), v);
+				break;
 			}	
 		}
 
@@ -3450,7 +3456,7 @@ public class GameController : MonoBehaviour
 		if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			int rate = Random.Range(0, 100);
 			if(rate < player1.Attr.StaminaValue)
-				player1.AniState(PlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+				DoPassiveSkill(TSkillSituation.PickBall0, player1, CourtMgr.Get.RealBall.transform.position);
 		}
 	}
 

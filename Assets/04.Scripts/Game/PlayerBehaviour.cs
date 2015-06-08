@@ -341,7 +341,9 @@ public class PlayerBehaviour : MonoBehaviour
 	//ActiveSkill
 	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
 
-    private bool isHaveMoveDodge;
+    private bool isHaveMoveDodge = false;
+	private bool isHavePickBall2 = false;
+
     private PassDirectState passDirect = PassDirectState.Forward;
     private bool firstDribble = true;
     public TScoreRate ScoreRate;
@@ -452,7 +454,8 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)TSkillKind.MoveDodge) 
 							isHaveMoveDodge = true;
-
+						if (GameData.SkillData [Player.Skills [i].ID].Animation == TSkillKind.Pick2.ToString())
+							isHavePickBall2 = true;
 						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
 						PassiveSkill ps = new PassiveSkill();
 						ps.ID = Player.Skills [i].ID;
@@ -2561,7 +2564,6 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         string[] enumName = Enum.GetNames(typeof(PlayerState));
                         bool isHave = false;
-//                      if(Enum.IsDefined (typeof(PlayerState), ps[i].Name) != null){
                         for (int j=0; j<enumName.Length; j++)
                         {
                             if (enumName [i].Equals(ps [i].Name))
@@ -2610,10 +2612,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool CanMove
-    {
-        get
-        {
+	public bool IsHavePickBall2
+	{
+		get
+		{
+			return isHavePickBall2;
+		}
+	}
+	
+	public bool CanMove
+	{
+		get
+		{
             PlayerState[] CheckAy = {
                 PlayerState.Block,
                 PlayerState.BlockCatch,
