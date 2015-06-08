@@ -1295,27 +1295,35 @@ public class GameController : MonoBehaviour
 					{
 						float rate = Random.Range(0, 100);
 						if(rate < BallOwner.Attr.DunkRate)
-							//						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
 							DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 						else
-							//						BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
 							DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 					}
 					else {
 						float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
-						
+
 						if(BallOwner.IsMoving){
 							if(dis > 15)
-								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.Shoot3 , BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else if(dis > 9 && dis <= 15)
-								//							BallOwner.AniState(PlayerState.Shoot2, CourtMgr.Get.Hood [t].transform.position);
 								DoPassiveSkill(TSkillSituation.Shoot2, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							else if(dis > 7 && dis <= 9)
+							{
+								float rate = Random.Range(0, 100);
+								if(rate < BallOwner.Attr.DunkRate)
+									DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+								else
+									DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							}
 							else
-								//							BallOwner.AniState(PlayerState.Layup, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							{
+								float rate = Random.Range(0, 100);
+								if(rate < BallOwner.Attr.DunkRate)
+									DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+								else
+									DoPassiveSkill(TSkillSituation.Shoot6, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+							}
 						}
-						
 						else{
 							if(dis > 15)
 								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
@@ -4046,7 +4054,8 @@ public class GameController : MonoBehaviour
 		{
 			if (situation == GameSituation.AttackA ||
 			    situation == GameSituation.AttackB ||
-			    situation == GameSituation.Opening)
+			    situation == GameSituation.Opening || 
+			    situation == GameSituation.JumpBall)
 				return true;
 			else
 				return false;
