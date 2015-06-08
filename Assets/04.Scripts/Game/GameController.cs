@@ -687,7 +687,7 @@ public class GameController : MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
 				UIGame.Get.DoSkill();
 
-			if(Joysticker.AngerView.fillAmount == 1 && Joysticker.IsBallOwner) {
+			if(Joysticker.isAngerFull && Joysticker.IsBallOwner) {
 				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 				float dis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 				if(situation == GameSituation.AttackA && dis < 15 && UIGame.Get.isCanShowSkill) {
@@ -2022,7 +2022,7 @@ public class GameController : MonoBehaviour
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 		Joysticker.AngerPower = 0;
-		Joysticker.SetInvincible(Joysticker.GetAnimationTime(PlayerState.Dunk20.ToString()));
+		Joysticker.SetInvincible(Joysticker.GetActiveTime(PlayerState.Dunk20.ToString()));
 		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
 	

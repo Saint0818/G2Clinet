@@ -765,7 +765,7 @@ public class AvatarEditor :  EditorWindow{
 		if(showBodyTexture.Count > 0)
 			bodyTextureText = showBodyTexture[0].name;
 
-		ModelManager.Get.SetAvatar(ref selectGameObject, attr, false);
+		ModelManager.Get.SetAvatar(ref selectGameObject, attr, false, false);
 	}
 
 	void judgeBodyName(string body){

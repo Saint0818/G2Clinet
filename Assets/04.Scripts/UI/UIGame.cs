@@ -258,8 +258,8 @@ public class UIGame : UIBase {
 		SetPassButton(0);
 
 		ChangeControl(false);
-		
-		uiJoystick.gameObject.SetActive(false);
+//		uiJoystick.Joystick.DynamicJoystick = false;
+//		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200,500);
 	}
 
 	protected override void InitData() {
@@ -403,7 +403,7 @@ public class UIGame : UIBase {
 	}
 
 	public bool ShowSkill(PlayerBehaviour p = null){
-		if(p == GameController.Get.Joysticker) {
+		if(p == GameController.Get.Joysticker && p.isAngerFull) {
 			GameController.Get.Joysticker.AngryFull.SetActive(true);
 			ShowSkillUI(true);
 			isCanShowSkill = true;
@@ -476,6 +476,7 @@ public class UIGame : UIBase {
 		showAttack(IsAttack);
 		controlButtonGroup[1].SetActive(!IsAttack);
 		showDefence(!IsAttack);
+		ShowSkillUI(IsAttack);
 		uiAttackPush.SetActive(true);
 		isAttackState = IsAttack;
 	}
@@ -692,6 +693,8 @@ public class UIGame : UIBase {
 			viewStart.SetActive (false);
 			uiScoreBar.SetActive (false);
 			uiJoystick.gameObject.SetActive(true);
+//			uiJoystick.Joystick.DynamicJoystick = true;
+//			uiJoystick.Joystick.JoystickPositionOffset = Vector2.zero;
 			
 			CourtMgr.Get.SetBallState (PlayerState.Start);
 			GameController.Get.StartGame();
