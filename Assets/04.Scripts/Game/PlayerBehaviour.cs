@@ -840,17 +840,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (isRebound && playerReboundCurve != null)
         {
             reboundCurveTime += Time.deltaTime;
-            if (reboundCurveTime < 0.7f && !IsBallOwner)
+			if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
             {
-                if (reboundMove != Vector3.zero)
-                {
-                    transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
-                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-                                                     transform.position.z + reboundMove.z * Time.deltaTime * 2);
-                } else
-                    transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
-                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-                                                     transform.position.z + transform.forward.z * 0.05f);
+	            transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
+	                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+	                                             transform.position.z + reboundMove.z * Time.deltaTime * 2);
             } else
                 transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
                                                  playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
@@ -2174,9 +2168,10 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Rebound:
                 playerReboundCurve = null;
 
-                if (inReboundDistance()) 
+                if (inReboundDistance()) {
                     reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
-                else
+				    reboundMove += CourtMgr.Get.RealBallRigidbody.velocity * 0.3f;
+				} else
                     reboundMove = Vector3.zero;
 
                 for (int i = 0; i < aniCurve.Rebound.Length; i++)
