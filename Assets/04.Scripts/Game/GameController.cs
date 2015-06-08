@@ -1293,15 +1293,15 @@ public class GameController : MonoBehaviour
 					if (BallOwner.IsRebound) {
 						if (inTipinDistance(BallOwner))
 							BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
-					} else
-						if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
-					{
-						float rate = Random.Range(0, 100);
-						if(rate < BallOwner.Attr.DunkRate)
-							DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
-						else
-							DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-					}
+					} 
+//					else if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
+//					{
+//						float rate = Random.Range(0, 100);
+//						if(rate < BallOwner.Attr.DunkRate)
+//							DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
+//						else
+//							DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+//					}
 					else {
 						float dis = Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position);
 
