@@ -155,7 +155,7 @@ public enum TSkillSituation{
 	Rebound,
 	Elbow,
 	Shoot0,
-	Shoot6,
+	Shoot1,
 	Shoot2,
 	Shoot3
 }
@@ -1324,19 +1324,19 @@ public class GameController : MonoBehaviour
 								if(rate < BallOwner.Attr.DunkRate)
 									DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 								else
-									DoPassiveSkill(TSkillSituation.Shoot6, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+									DoPassiveSkill(TSkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							}
 						}
 						else{
 							if(dis > 15)
 								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
 								DoPassiveSkill(TSkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-							else if(dis > 9 && dis <= 15)
+							else if(dis > 7 && dis <= 15)
 								//							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);	
 								DoPassiveSkill(TSkillSituation.Shoot0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else
 								//							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
-								DoPassiveSkill(TSkillSituation.Shoot6, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+								DoPassiveSkill(TSkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						}
 					}
 				}
@@ -2254,8 +2254,8 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Shoot2:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot2, TSkillKind.Shoot), v);
 				break;
-			case TSkillSituation.Shoot6:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot6, TSkillKind.Shoot), v );
+			case TSkillSituation.Shoot1:
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot1, TSkillKind.Shoot), v );
 				break;
 			case TSkillSituation.Layup:
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup, TSkillKind.Shoot), v);
