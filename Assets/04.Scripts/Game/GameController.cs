@@ -169,7 +169,7 @@ public enum TSkillKind{
 	Dunk = 6,
 	MoveDodge = 11,
 	Pass = 12,
-	Pick = 13,
+	Pick2 = 13,
 	Rebound = 14,
 	Steal = 15,
 	Block = 16,
@@ -2314,7 +2314,7 @@ public class GameController : MonoBehaviour
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Steal, TSkillKind.Steal), v);
 				break;
 			case TSkillSituation.PickBall0:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.PickBall0, TSkillKind.Pick), v);
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.PickBall0, TSkillKind.Pick2), v);
 				break;
 			}	
 		}
@@ -3453,10 +3453,12 @@ public class GameController : MonoBehaviour
 
 	public void DefRangeTouchBall(PlayerBehaviour player1)
 	{
-		if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
-			int rate = Random.Range(0, 100);
-			if(rate < player1.Attr.StaminaValue)
-				DoPassiveSkill(TSkillSituation.PickBall0, player1, CourtMgr.Get.RealBall.transform.position);
+		if(player1.IsHavePickBall2) {
+			if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
+				int rate = Random.Range(0, 100);
+				if(rate < player1.Attr.StaminaValue)
+					player1.AniState(PlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+			}
 		}
 	}
 
