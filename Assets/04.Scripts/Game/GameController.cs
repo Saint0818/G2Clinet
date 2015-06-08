@@ -3487,7 +3487,7 @@ public class GameController : MonoBehaviour
 						if (Random.Range(0, 100) < player.Attr.AlleyOopRate) {
 							player.AniState(PlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
-							if (BallOwner != Joysticker) {
+							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.NoAiTime == 0)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
 								if (DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position))
 									Catcher = player;
 							} else

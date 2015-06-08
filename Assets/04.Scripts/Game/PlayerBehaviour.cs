@@ -255,6 +255,8 @@ public class PlayerBehaviour : MonoBehaviour
     private Animator animator;
     private GameObject selectTexture;
     private GameObject DefPoint;
+	private GameObject TopPoint;
+	private GameObject FingerPoint;
     private GameObject pushTrigger;
     private GameObject elbowTrigger;
     private GameObject blockTrigger;
@@ -429,6 +431,9 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.AutoFollowTime = GameData.BaseAttr [Player.AILevel].AutoFollowTime;
 
             DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
+			TopPoint.transform.localScale = new Vector3(Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, Attr.ReboundHeadDistance);
+			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
+			blockTrigger.transform.localScale = new Vector3(Attr.BlockDistance, blockTrigger.transform.localScale.y, Attr.BlockDistance);
             if (Attr.StaminaValue > 0)
                 SetMovePower(Attr.StaminaValue);
 
@@ -529,6 +534,7 @@ public class PlayerBehaviour : MonoBehaviour
                 obj3.Player = this;
             
             DefPoint = obj2.transform.FindChild("DefRange").gameObject;          
+			TopPoint = obj2.transform.FindChild("TriggerTop").gameObject; 
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
@@ -536,6 +542,7 @@ public class PlayerBehaviour : MonoBehaviour
             Transform t = obj2.transform.FindChild("TriggerFinger").gameObject.transform;
             if (t)
             {
+				FingerPoint = t.gameObject;
                 t.name = Team.GetHashCode().ToString() + Index.ToString() + "TriggerFinger";
                 t.parent = transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/");
                 t.localPosition = Vector3.zero;
