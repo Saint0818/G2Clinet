@@ -1572,7 +1572,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case PlayerState.Pass4:
-                if ((crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment)
+				if ((crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && crtState != state)
                     return true;
                 break;
             
