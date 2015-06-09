@@ -2553,6 +2553,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerState playerState = PlayerState.Idle;
 		playerState = (PlayerState)System.Enum.Parse(typeof(PlayerState), situation.ToString());
         List<PassiveSkill> ps = new List<PassiveSkill>();
+		List<PassiveSkill> psTemp = new List<PassiveSkill>();
         if (passiveSkills.ContainsKey((int)kind))
         {
 //            ps = passiveSkills [(int)kind];
@@ -2567,21 +2568,21 @@ public class PlayerBehaviour : MonoBehaviour
             int passiveRate = 0;
             if (kind == TSkillKind.Pass)
             {
-                if (angle < 45f && angle > -45f)
-                    passDirect = PassDirectState.Forward; 
-                else if (angle <= -45f && angle > -135f)
-                    passDirect = PassDirectState.Left;
+				if (angle < 45f && angle > -45f)
+					passDirect = PassDirectState.Forward;
+				else if (angle <= -45f && angle > -135f)
+					passDirect = PassDirectState.Left;
                 else if (angle < 135f && angle >= 45f)
-                    passDirect = PassDirectState.Right;
-                else if (angle >= 135f && angle >= -135f)
-                    passDirect = PassDirectState.Back;
+					passDirect = PassDirectState.Right;
+				else if (angle >= 135f && angle >= -135f)
+					passDirect = PassDirectState.Back; 
                 
                 for (int i=0; i<ps.Count; i++)
                 {
-                    if ((ps [i].Kind % 10) == (int)passDirect)
+                    if ((ps [i].Kind % 10) == (int)passDirect){
                         passiveRate += ps [i].Rate;
-					else
-						ps.Remove(ps[i]);
+						psTemp.Add (ps [i]);
+					}
                 }
             } else
             {
@@ -2593,12 +2594,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isPerformPassive)
         {
-            if (ps.Count > 0)
+
+			if (psTemp.Count > 0)
             {
                 string animationName = string.Empty;
-                for (int i=0; i<ps.Count; i++)
+				for (int i=0; i<psTemp.Count; i++)
                 {
-                    if (UnityEngine.Random.Range(0, 100) <= ps [i].Rate)
+					if (UnityEngine.Random.Range(0, 100) <= psTemp [i].Rate)
 					{
 //                        string[] enumName = Enum.GetNames(typeof(PlayerState));
 //                        bool isHave = false;
@@ -2609,8 +2611,8 @@ public class PlayerBehaviour : MonoBehaviour
 //                        }
 //                        if (isHave)
 //                        {
-                            animationName = ps [i].Name;
-                            break;
+							animationName = psTemp [i].Name;
+						break;
 //                        }
                     }
                 }

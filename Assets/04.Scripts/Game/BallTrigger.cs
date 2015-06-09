@@ -109,6 +109,11 @@ public class BallTrigger : MonoBehaviour
 			switch(Kind)
 			{
 			case 0:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
 			case 4:
 				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
