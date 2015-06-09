@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using RootMotion.FinalIK;
 using GameStruct;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);

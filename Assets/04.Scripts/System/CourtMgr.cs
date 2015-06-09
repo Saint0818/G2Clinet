@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-using RootMotion.FinalIK;
 using System.Collections.Generic;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
