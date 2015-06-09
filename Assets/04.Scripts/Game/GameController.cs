@@ -177,7 +177,12 @@ public enum TSkillKind{
 	Elbow = 18,
 	Fall1 = 19,
 	Fall2 = 20,
-	Special = 31
+	Special1 = 101,
+	Special2 = 102,
+	Special3 = 103,
+	Special4 = 104,
+	Special5 = 105,
+	Special6 = 106
 }
 
 public struct PlayerSkillLV{
@@ -1365,9 +1370,12 @@ public class GameController : MonoBehaviour
 			if(currentSkillKind == TSkillKind.DownHand) {
 				calculationScoreRate(player, ScoreType.DownHand);
 			} else 
-			if(currentSkillKind == TSkillKind.Layup || player.crtState == PlayerState.TipIn){
+			if(player.crtState == PlayerState.TipIn){
 				calculationScoreRate(player, ScoreType.LayUp);
 				shootAngle = 75;
+			} else 
+			if(currentSkillKind == TSkillKind.Layup) {
+				calculationScoreRate(player, ScoreType.LayUp);
 			}
 
 			judgeBasketAnimationName ((int)basketDistanceAngle);

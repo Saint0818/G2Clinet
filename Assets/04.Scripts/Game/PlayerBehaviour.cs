@@ -2546,19 +2546,16 @@ public class PlayerBehaviour : MonoBehaviour
             if (kind == TSkillKind.Pass)
             {
                 float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
+
                 if (angle < 45f && angle > -45f)
-                {
                     passDirect = PassDirectState.Forward; 
-                } else if (angle <= -45f && angle > -135f)
-                {
+                else if (angle <= -45f && angle > -135f)
                     passDirect = PassDirectState.Left;
-                } else if (angle < 135f && angle >= 45f)
-                {
+                else if (angle < 135f && angle >= 45f)
                     passDirect = PassDirectState.Right;
-                } else if (angle >= 135f && angle >= -135f)
-                {
+                else if (angle >= 135f && angle >= -135f)
                     passDirect = PassDirectState.Back;
-                }
+                
                 for (int i=0; i<ps.Count; i++)
                 {
                     if ((ps [i].Kind % 10) == (int)passDirect)
@@ -2619,9 +2616,8 @@ public class PlayerBehaviour : MonoBehaviour
                     time = clips [i].length;
                 }
             }
-        }
-//		Debug.Log("activeTime[name]:"+activeTime[name]);
-//        return activeTime[name];
+		}
+//        return activeTime;
 		return time;
     }
 
