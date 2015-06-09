@@ -374,10 +374,12 @@ public class UIGame : UIBase {
 
 	public void ContinueGame() {
 		UIState(UISituation.Continue);
+		AudioMgr.Get.PauseGame();
 	}
 
 	public void PauseGame(){
 		UIState(UISituation.Pause);
+		AudioMgr.Get.PauseGame();
 	}
 
 	public void ResetGame() {
