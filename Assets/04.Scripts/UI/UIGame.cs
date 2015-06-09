@@ -695,10 +695,8 @@ public class UIGame : UIBase {
 		case UISituation.Start:
 			viewStart.SetActive (false);
 			uiScoreBar.SetActive (false);
-			uiJoystick.gameObject.SetActive(true);
+//			uiJoystick.gameObject.SetActive(true);
 			uiJoystick.Joystick.isActivated = true;
-//			uiJoystick.Joystick.DynamicJoystick = true;
-//			uiJoystick.Joystick.JoystickPositionOffset = Vector2.zero;
 			
 			CourtMgr.Get.SetBallState (PlayerState.Start);
 			GameController.Get.StartGame();
@@ -715,7 +713,8 @@ public class UIGame : UIBase {
 				uiContinue.SetActive(true);
 				uiReselect.SetActive(true);
 				uiScoreBar.SetActive(true);
-				uiJoystick.gameObject.SetActive(false);
+				uiJoystick.Joystick.isActivated = false;
+//				uiJoystick.gameObject.SetActive(false);
 			}
 			break;
 		case UISituation.Continue:
@@ -729,13 +728,15 @@ public class UIGame : UIBase {
 				uiContinue.SetActive(false);
 				uiReselect.SetActive(false);
 				uiScoreBar.SetActive(false);
-				uiJoystick.gameObject.SetActive(true);
+//				uiJoystick.gameObject.SetActive(true);
+				uiJoystick.Joystick.isActivated = true;
 			}
 			break;
 		case UISituation.Finish:
 			viewFinish.SetActive(true);
 			uiScoreBar.SetActive(true);
-			uiJoystick.gameObject.SetActive(false);
+//			uiJoystick.gameObject.SetActive(false);
+			uiJoystick.Joystick.isActivated = false;
 			break;
 
 		case UISituation.Restart:
@@ -762,7 +763,8 @@ public class UIGame : UIBase {
 			
 			uiReselect.SetActive(false);
 			uiScoreBar.SetActive(true);
-			uiJoystick.gameObject.SetActive(false);
+			uiJoystick.Joystick.isActivated = false;
+//			uiJoystick.gameObject.SetActive(false);
 			break;
 		case UISituation.ReSelect:
 			Time.timeScale = 1;
