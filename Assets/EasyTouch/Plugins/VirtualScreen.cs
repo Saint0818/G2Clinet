@@ -19,8 +19,8 @@ public class VirtualScreen :  MonoSingleton<VirtualScreen> {
 	public enum ScreenResolution {IPhoneTall, IPhoneWide, IPhone4GTall, IPhone4GWide, IPadTall, IPadWide, };
 	
 	#region Members
-	public float virtualWidth = 1024;
-	public float virtualHeight = 768;
+	public float virtualWidth = 1280;
+	public float virtualHeight = 720;
 	
 	public static float width = 1024;
 	public static float height =768;

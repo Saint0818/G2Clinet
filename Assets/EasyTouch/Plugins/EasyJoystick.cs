@@ -258,6 +258,8 @@ public class EasyJoystick : MonoBehaviour {
 				virtualJoystick=true;
 				joystickCenter = joystickPositionOffset;
 			}	
+			} else {
+				dynamicJoystick = value;
 			}
 		}
 	}

@@ -258,8 +258,10 @@ public class UIGame : UIBase {
 		SetPassButton(0);
 
 		ChangeControl(false);
-//		uiJoystick.Joystick.DynamicJoystick = false;
-//		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200,500);
+
+		uiJoystick.Joystick.isActivated = false;
+		uiJoystick.Joystick.DynamicJoystick = false;
+		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
 	}
 
 	protected override void InitData() {
@@ -416,7 +418,8 @@ public class UIGame : UIBase {
 	public void ShowSkillUI (bool isShow){
 		if(GameController.Get.Joysticker != null && 
 		   GameController.Get.Joysticker.isAngerFull && 
-		   GameController.Get.situation == GameSituation.AttackA) 
+		   GameController.Get.situation == GameSituation.AttackA && 
+		   GameController.Get.PlayerToBasketDistance < 15) 
 			uiSkill.SetActive(isShow);
 		else 
 			uiSkill.SetActive(false);
@@ -693,6 +696,7 @@ public class UIGame : UIBase {
 			viewStart.SetActive (false);
 			uiScoreBar.SetActive (false);
 			uiJoystick.gameObject.SetActive(true);
+			uiJoystick.Joystick.isActivated = true;
 //			uiJoystick.Joystick.DynamicJoystick = true;
 //			uiJoystick.Joystick.JoystickPositionOffset = Vector2.zero;
 			

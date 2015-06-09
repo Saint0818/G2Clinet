@@ -228,6 +228,7 @@ public class GameController : MonoBehaviour
 	private float PassingStealBallTime = 0;
 	public bool IsPassing = false;
 	private TSkillKind currentSkillKind;
+	public float PlayerToBasketDistance;
 	
 	public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
@@ -689,8 +690,8 @@ public class GameController : MonoBehaviour
 
 			if(Joysticker.isAngerFull && Joysticker.IsBallOwner) {
 				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
-				float dis = getDis(ref Joysticker, new Vector2(v.x, v.z));
-				if(situation == GameSituation.AttackA && dis < 15 && UIGame.Get.isCanShowSkill) {
+				PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
+				if(situation == GameSituation.AttackA && PlayerToBasketDistance < 15 && UIGame.Get.isCanShowSkill) {
 						UIGame.Get.ShowSkillUI(true);
 				}else
 					UIGame.Get.ShowSkillUI(false);
@@ -1364,12 +1365,9 @@ public class GameController : MonoBehaviour
 			if(currentSkillKind == TSkillKind.DownHand) {
 				calculationScoreRate(player, ScoreType.DownHand);
 			} else 
-			if(currentSkillKind == TSkillKind.Layup){
+			if(currentSkillKind == TSkillKind.Layup || player.crtState == PlayerState.TipIn){
 				calculationScoreRate(player, ScoreType.LayUp);
 				shootAngle = 75;
-			} else 
-			if(player.crtState == PlayerState.TipIn) {
-				calculationScoreRate(player, ScoreType.LayUp);
 			}
 
 			judgeBasketAnimationName ((int)basketDistanceAngle);
