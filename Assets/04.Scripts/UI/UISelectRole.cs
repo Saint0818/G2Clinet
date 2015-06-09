@@ -40,6 +40,8 @@ public class UISelectRole : UIBase {
 	private UILabel [] SelectBListName = new UILabel[3];
 	private UILabel [] SelectBListBody = new UILabel[3];
 	private int [] UnSelectIDAy = new int[3];
+	private Animator [] animatorAy = new Animator[3];
+	private string [] AnimatorNameAy = new string[3]{"Move", "Dunk0", "Layup0"};
 
 	public static bool Visible
 	{
@@ -354,6 +356,7 @@ public class UISelectRole : UIBase {
 
 			SetPlayerAvatar(0, Index);
 			PlayerObjAy[0].transform.localEulerAngles = new Vector3(0, 180, 0);
+			PlayAnimator(0, AnimatorNameAy[UnityEngine.Random.Range(0, AnimatorNameAy.Length)]);
 			if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
 			{
 				TGreatPlayer data = GameData.DPlayers[SelectIDAy [0]];
@@ -387,6 +390,7 @@ public class UISelectRole : UIBase {
 		PlayerAy[RoleIndex].SetAvatar();
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
 		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, false, false);
+		animatorAy[RoleIndex] = PlayerObjAy[RoleIndex].GetComponent<Animator>();
 		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
 
 		switch(RoleIndex)
@@ -403,6 +407,12 @@ public class UISelectRole : UIBase {
 		}
 
 	}
+
+	private void PlayAnimator(int Index, string name)
+	{
+		if(Index == 0 && Index < animatorAy.Length && name != "" && animatorAy [Index] != null)
+			animatorAy [Index].SetTrigger (name);
+	}
 	
 	protected override void InitData() 
 	{
@@ -418,9 +428,10 @@ public class UISelectRole : UIBase {
 			PlayerObjAy[i].transform.parent = PlayerInfoModel.transform;
 			AvatarAy[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, false, false);
+			animatorAy[i] = PlayerObjAy[i].GetComponent<Animator>();
 			PlayerObjAy[i].transform.localPosition = Ay[i];
 			PlayerAy [i].AILevel = GameData.DPlayers [RoleIDAy [i]].AILevel;
-
+			PlayerObjAy[i].AddComponent<SelectEvent>();
 			if(i == 0)
 			{
 				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
