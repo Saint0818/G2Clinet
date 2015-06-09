@@ -227,6 +227,7 @@ public class GameController : MonoBehaviour
 	private float WaitStealTime = 0;
 	private float PassingStealBallTime = 0;
 	public bool IsPassing = false;
+	private TSkillKind currentSkillKind;
 	
 	public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
@@ -245,7 +246,6 @@ public class GameController : MonoBehaviour
 	public BasketSituation BasketSituationType;
 	private BasketDistanceAngle basketDistanceAngle = BasketDistanceAngle.ShortCenter;
 	 
-
 	private TActionPosition [] tacticalData;
 	private TTactical attackTactical;
 	private TTactical defTactical;
@@ -1329,13 +1329,10 @@ public class GameController : MonoBehaviour
 						}
 						else{
 							if(dis > 15)
-								//							BallOwner.AniState(PlayerState.Shoot3, CourtMgr.Get.Hood [t].transform.position);
 								DoPassiveSkill(TSkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
-							else if(dis > 7 && dis <= 15)
-								//							BallOwner.AniState(PlayerState.Shoot0, CourtMgr.Get.Hood [t].transform.position);	
+							else if(dis > 9 && dis <= 15)
 								DoPassiveSkill(TSkillSituation.Shoot0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else
-								//							BallOwner.AniState(PlayerState.Shoot6, CourtMgr.Get.Hood [t].transform.position);
 								DoPassiveSkill(TSkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						}
 					}
@@ -1355,21 +1352,24 @@ public class GameController : MonoBehaviour
 				if(PlayerList[i] != Shooter)
 					PlayerList[i].ResetMove();
 			shootAngle = 55;
-			if(player.crtState == PlayerState.Shoot0){
+			if(currentSkillKind == TSkillKind.Shoot) {
 				calculationScoreRate(player, ScoreType.Normal);
 			} else 
-			if(player.crtState == PlayerState.Shoot1 || player.crtState == PlayerState.Shoot6) {
+			if(currentSkillKind == TSkillKind.NearShoot) {
 				calculationScoreRate(player, ScoreType.NearShot);
 			} else 
-			if(player.crtState == PlayerState.Shoot2) {
+			if(currentSkillKind == TSkillKind.UpHand) {
 				calculationScoreRate(player, ScoreType.UpHand);
 			} else 
-			if(player.crtState == PlayerState.Shoot3) {
+			if(currentSkillKind == TSkillKind.DownHand) {
 				calculationScoreRate(player, ScoreType.DownHand);
 			} else 
-			if(player.crtState == PlayerState.Layup|| player.crtState == PlayerState.TipIn){
+			if(currentSkillKind == TSkillKind.Layup){
 				calculationScoreRate(player, ScoreType.LayUp);
 				shootAngle = 75;
+			} else 
+			if(player.crtState == PlayerState.TipIn) {
+				calculationScoreRate(player, ScoreType.LayUp);
 			}
 
 			judgeBasketAnimationName ((int)basketDistanceAngle);
@@ -2237,27 +2237,35 @@ public class GameController : MonoBehaviour
 				}
 				break;
 			case TSkillSituation.Block:
+				currentSkillKind = TSkillKind.Block;
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Block, TSkillKind.Block), v);
 				break;
 			case TSkillSituation.Dunk0:
+				currentSkillKind = TSkillKind.Dunk;
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Dunk0, TSkillKind.Dunk), v);
 				break;
 			case TSkillSituation.Shoot0:
+				currentSkillKind = TSkillKind.Shoot;
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot0, TSkillKind.Shoot), v);
 				break;
 			case TSkillSituation.Shoot3:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot3, TSkillKind.Shoot), v);
+				currentSkillKind = TSkillKind.DownHand;
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot3, TSkillKind.DownHand), v);
 				break;
 			case TSkillSituation.Shoot2:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot2, TSkillKind.Shoot), v);
+				currentSkillKind = TSkillKind.UpHand;
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot2, TSkillKind.UpHand), v);
 				break;
 			case TSkillSituation.Shoot1:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot1, TSkillKind.Shoot), v );
+				currentSkillKind = TSkillKind.NearShoot;
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot1, TSkillKind.NearShoot), v );
 				break;
 			case TSkillSituation.Layup:
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup, TSkillKind.Shoot), v);
+				currentSkillKind = TSkillKind.Layup;
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup, TSkillKind.Layup), v);
 				break;
 			case TSkillSituation.Elbow:
+				currentSkillKind = TSkillKind.Elbow;
 				Result = player.AniState (player.PassiveSkill(TSkillSituation.Elbow, TSkillKind.Elbow));
 				break;
 			case TSkillSituation.Fall1:
@@ -2267,6 +2275,7 @@ public class GameController : MonoBehaviour
 				Result = true;
 				break;
 			case TSkillSituation.Pass4:{
+				currentSkillKind = TSkillKind.Pass;
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
 				if(p != PlayerState.Pass3)
 					Result = player.AniState(p);
@@ -2275,6 +2284,7 @@ public class GameController : MonoBehaviour
 			}
 				break;
 			case TSkillSituation.Pass0:{
+				currentSkillKind = TSkillKind.Pass;
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass0, TSkillKind.Pass, v);
 				if(p != PlayerState.Pass0)
 					Result = player.AniState(p);
@@ -2283,6 +2293,7 @@ public class GameController : MonoBehaviour
 			}
 				break;
 			case TSkillSituation.Pass2:{
+				currentSkillKind = TSkillKind.Pass;
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass2, TSkillKind.Pass, v);
 				if(p != PlayerState.Pass2)
 					Result = player.AniState(p);
@@ -2291,6 +2302,7 @@ public class GameController : MonoBehaviour
 			}
 				break;
 			case TSkillSituation.Pass1:{
+				currentSkillKind = TSkillKind.Pass;
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass1, TSkillKind.Pass, v);
 				if(p != PlayerState.Pass1)
 					Result = player.AniState(p);
@@ -2299,18 +2311,22 @@ public class GameController : MonoBehaviour
 			}
 				break;
 			case TSkillSituation.Push:
+				currentSkillKind = TSkillKind.Push;
 				if(v == Vector3.zero)
 					Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push));
 				else
 					Result = player.AniState(player.PassiveSkill(TSkillSituation.Push, TSkillKind.Push), v);
 				break;
 			case TSkillSituation.Rebound:
+				currentSkillKind = TSkillKind.Rebound;
 				Result = player.AniState (player.PassiveSkill(TSkillSituation.Rebound, TSkillKind.Rebound));
 				break;
-			case TSkillSituation.Steal:			
+			case TSkillSituation.Steal:	
+				currentSkillKind = TSkillKind.Steal;		
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Steal, TSkillKind.Steal), v);
 				break;
 			case TSkillSituation.PickBall0:
+				currentSkillKind = TSkillKind.Pick2;
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.PickBall0, TSkillKind.Pick2), v);
 				break;
 			}	
