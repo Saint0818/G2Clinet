@@ -198,11 +198,19 @@ public struct PassiveSkill
     public int Rate;
 }
 
+public enum ActiveDistanceType 
+{
+	AttackHalfCount,
+	DeffenceHalfCount,
+	AllCount
+}
+
 public struct ActiveSkill 
 {
 	public int ID;
 	public int Kind;
 	public string Name;
+	public ActiveDistanceType type;
 }
 
 public class PlayerBehaviour : MonoBehaviour
@@ -339,8 +347,10 @@ public class PlayerBehaviour : MonoBehaviour
     //PassiveSkill
 	private Dictionary<int, List<PassiveSkill>> passiveSkills = new Dictionary<int, List<PassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
 	//ActiveSkill
-	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
-	private Dictionary<string, float> activeTime = new Dictionary<string, float>();
+//	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
+	public ActiveSkill activeSkill = new ActiveSkill();
+//	private Dictionary<string, float> activeTime = new Dictionary<string, float>();
+	private float activeTime  = 0;
 
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
@@ -464,16 +474,22 @@ public class PlayerBehaviour : MonoBehaviour
 						ps.Rate = rate;
 						ps.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
 
-						ActiveSkill activeSkill = new ActiveSkill();
-						activeSkill.ID = Player.Skills[i].ID;
-						activeSkill.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
-						activeSkill.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
 
 						int key = GameData.SkillData [Player.Skills [i].ID].Kind;
 						if (key > 1000)
 							key = (key / 100);
-						if(key == 31) {
-							activeSkills.Add(activeSkill);
+						if(key >= 100 && key < 1000) {
+							activeSkill.ID = Player.Skills[i].ID;
+							activeSkill.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
+							activeSkill.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
+							if(key % 10 == 1 || key % 10 == 4)
+								activeSkill.type = ActiveDistanceType.AttackHalfCount;
+							else 
+							if(key % 10 == 2 || key % 10 == 5) 
+								activeSkill.type = ActiveDistanceType.DeffenceHalfCount;
+							else 
+							if(key % 10 == 3 || key % 10 == 6) 
+									activeSkill.type = ActiveDistanceType.AllCount;
 						}
 						if (passiveSkills.ContainsKey(key))
 						{
@@ -497,14 +513,16 @@ public class PlayerBehaviour : MonoBehaviour
 		{
 			for (int i=0; i<clips.Length; i++)
 			{
-				for(int j=0; j<activeSkills.Count; j++) {
-					if (clips [i].name.Equals(activeSkills[j]))
+//				for(int j=0; j<activeSkills.Count; j++) {
+//					if (clips [i].name.Equals(activeSkills[j]))
+					if(clips[i].name.Equals(activeSkill.Name))
 					{
 						Debug.Log("clips[i].name:" + clips[i].name);
 						Debug.Log("clips[i].length:" + clips[i].length);
-						activeTime.Add(clips[i].name, clips[i].length);
+//						activeTime.Add(clips[i].name, clips[i].length);
+						activeTime = clips[i].length;
 					}
-				}
+//				}
 			}
 		}
 	}
@@ -2537,16 +2555,18 @@ public class PlayerBehaviour : MonoBehaviour
         List<PassiveSkill> ps = new List<PassiveSkill>();
         if (passiveSkills.ContainsKey((int)kind))
         {
-            ps = passiveSkills [(int)kind];
+//            ps = passiveSkills [(int)kind];
+			for(int i=0; i<passiveSkills [(int)kind].Count; i++) {
+				ps.Add(passiveSkills[(int)kind][i]);
+			}
         }
         bool isPerformPassive = false;
-        if (ps.Count > 0)
+		float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
+		if (ps.Count > 0)
         {
             int passiveRate = 0;
             if (kind == TSkillKind.Pass)
             {
-                float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
-
                 if (angle < 45f && angle > -45f)
                     passDirect = PassDirectState.Forward; 
                 else if (angle <= -45f && angle > -135f)
@@ -2560,6 +2580,8 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if ((ps [i].Kind % 10) == (int)passDirect)
                         passiveRate += ps [i].Rate;
+					else
+						ps.Remove(ps[i]);
                 }
             } else
             {
@@ -2577,21 +2599,22 @@ public class PlayerBehaviour : MonoBehaviour
                 for (int i=0; i<ps.Count; i++)
                 {
                     if (UnityEngine.Random.Range(0, 100) <= ps [i].Rate)
-                    {
-                        string[] enumName = Enum.GetNames(typeof(PlayerState));
-                        bool isHave = false;
-                        for (int j=0; j<enumName.Length; j++)
-                        {
-                            if (enumName [i].Equals(ps [i].Name))
-                                isHave = true;
-                        }
-                        if (isHave)
-                        {
+					{
+//                        string[] enumName = Enum.GetNames(typeof(PlayerState));
+//                        bool isHave = false;
+//                        for (int j=0; j<enumName.Length; j++)
+//                        {
+//                            if (enumName [i].Equals(ps [i].Name))
+//                                isHave = true;
+//                        }
+//                        if (isHave)
+//                        {
                             animationName = ps [i].Name;
                             break;
-                        }
+//                        }
                     }
                 }
+//				Debug.Log("animationName:"+ animationName);
                 if (animationName != string.Empty)
                     return (PlayerState)System.Enum.Parse(typeof(PlayerState), animationName);
                 else 
