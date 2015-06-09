@@ -37,6 +37,9 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				CameraMgr.Get.SetSelectRoleCamera();
 				UISelectRole.UIShow(true);
 				break;
+			case SceneName.Null:
+				UIWaitLoading.UIShow(true);
+				break;
 		}
 
 		if (OnLevelWasLoaded != null) {
