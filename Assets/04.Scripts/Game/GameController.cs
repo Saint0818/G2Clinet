@@ -1238,7 +1238,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.NearShot) {
-			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
 			} else {
@@ -1246,7 +1246,7 @@ public class GameController : MonoBehaviour
 			}
 		} else 
 		if(type == ScoreType.LayUp) {
-			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate) ? true : false;
 			if(isScore) {
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
 			} else {
@@ -1963,18 +1963,15 @@ public class GameController : MonoBehaviour
 					UIDoubleClick.Get.ClickStop();
 			}else{
 				if (Shooter)
-//	                Joysticker.AniState(PlayerState.Block, Shooter.transform.position);
 					DoPassiveSkill(TSkillSituation.Block, Joysticker, Shooter.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-//	                Joysticker.AniState(PlayerState.Block, BallOwner.transform.position);
 					DoPassiveSkill(TSkillSituation.Block, Joysticker, BallOwner.transform.position);
 				} else {
 				if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == GameTest.None)
 					Rebound(Joysticker);
 				else
-//					Joysticker.AniState(PlayerState.Block);
 					DoPassiveSkill(TSkillSituation.Block, Joysticker);
 				}
 			}
@@ -2021,7 +2018,7 @@ public class GameController : MonoBehaviour
 		EffectManager.Get.PlayEffect("SkillSign", Joysticker.gameObject.transform.position, null, Joysticker.gameObject, 1f);
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
-		Joysticker.AngerPower = 0;
+		Joysticker.SetAnger(-100);
 		Joysticker.SetInvincible(Joysticker.GetActiveTime(PlayerState.Dunk20.ToString()));
 		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
