@@ -80,7 +80,10 @@ public class GameStart : KnightSingleton<GameStart> {
 			if (www.text.CompareTo(BundleVersion.version) != 1)
 				SendLogin();
 			else
+			{
 				UIHint.Get.ShowHint("Version is different.", Color.red);
+				UIUpdate.UIShow(true);
+			}
 		} else
 			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 	}

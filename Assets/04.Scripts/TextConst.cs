@@ -39,6 +39,8 @@ public static class TextConst
 			AddString (7, "C", "C");
 			AddString (8, "F", "F");
 			AddString (9, "G", "G");
+			AddString (10, "前往更新Apk", "");
+			AddString (11, "前往更新IOS", "");
 		}
     }
 }
