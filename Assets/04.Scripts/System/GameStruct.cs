@@ -56,6 +56,7 @@ namespace GameStruct
 		public int BodyType;
 
 		public TAvatar Avatar;
+		public TSkill ActiveSkill;
 		public TSkill[] Skills;
 
 		public TPlayer(int Level)
@@ -78,6 +79,7 @@ namespace GameStruct
 			Pass = 0;
 			BodyType = 0;
 			Avatar = new TAvatar(0);
+			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];
 		}
 
@@ -97,7 +99,8 @@ namespace GameStruct
 				Pass = GameData.DPlayers[ID].Pass;
 				BodyType = GameData.DPlayers[ID].BodyType;
 				AILevel = GameData.DPlayers[ID].AILevel;
-
+				ActiveSkill.ID = GameData.DPlayers[ID].ActiveSkill;
+				ActiveSkill.Lv = GameData.DPlayers[ID].ActiveSkillLV;
 				Skills = new TSkill[14];
 				Skills[0].ID =  GameData.DPlayers[ID].Skill1;
 				Skills[0].Lv =  GameData.DPlayers[ID].SkillLV1;
@@ -226,7 +229,9 @@ namespace GameStruct
 		public int MHandDress;
 		public int AHeadDress;
 		public int ZBackEquip;
-		
+
+		public int ActiveSkill;
+		public int ActiveSkillLV;
 		public int Skill1;
 		public int SkillLV1;
 		public int Skill2;

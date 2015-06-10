@@ -95,8 +95,6 @@ public class UIGame : UIBase {
 	private float buttonStealFXTime;
 	private GameObject buttonAttackFX;
 	private float buttonAttackFXTime;
-	private GameObject buttonSkillFX;
-	private float buttonSkillFXTime;
 
 	public static UIGame Get {
 		get {
@@ -188,7 +186,7 @@ public class UIGame : UIBase {
 		controlButtonGroup [0] = GameObject.Find (UIName + "/BottomRight/ViewAttack");
 		controlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewDefance");
 
-		attackGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonPass");
+		attackGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
 		attackGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot");
 
 		defenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal");
@@ -212,21 +210,19 @@ public class UIGame : UIBase {
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
 
 
-		buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonPass/UI_FX_A_21");
+		buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/UI_FX_A_21");
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
 		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
 		buttonStealFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/UI_FX_A_21");
 		buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
-		buttonSkillFX = GameObject.Find(UIName + "/BottomRight/ButtonSkill/UI_FX_A_21");
 		buttonPassFX.SetActive(false);
 		buttonShootFX.SetActive(false);
 		buttonBlockFX.SetActive(false);
 		buttonStealFX.SetActive(false);
 		buttonAttackFX.SetActive(false);
-		buttonSkillFX.SetActive(false);
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
-		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
@@ -819,10 +815,6 @@ public class UIGame : UIBase {
 			buttonStealFXTime = fxTime;
 			buttonStealFX.SetActive(true);
 			break;
-		case UIEffect.Skill:
-			buttonSkillFXTime = fxTime;
-			buttonSkillFX.SetActive(true);
-			break;
 		}
 	} 
 
@@ -936,14 +928,6 @@ public class UIGame : UIBase {
 			if(buttonAttackFXTime <= 0) {
 				buttonAttackFXTime = 0;
 				buttonAttackFX.SetActive(false);
-			}
-		}
-		
-		if(buttonSkillFXTime > 0) {
-			buttonSkillFXTime -= Time.deltaTime;
-			if(buttonSkillFXTime <= 0) {
-				buttonSkillFXTime = 0;
-				buttonSkillFX.SetActive(false);
 			}
 		}
 	}

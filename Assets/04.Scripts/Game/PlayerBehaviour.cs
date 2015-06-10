@@ -456,6 +456,22 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 	private void initSkill (){
+		//Active
+		if(Player.ActiveSkill.ID > 0) {
+			activeSkill.ID = Player.ActiveSkill.ID;
+			activeSkill.Name = GameData.SkillData [Player.ActiveSkill.ID].Animation;
+			activeSkill.Kind = GameData.SkillData [Player.ActiveSkill.ID].Kind;
+			int keyActive = GameData.SkillData [Player.ActiveSkill.ID].Kind;
+			if(keyActive % 10 == 1 || keyActive % 10 == 4)
+				activeSkill.type = ActiveDistanceType.AttackHalfCount;
+			else 
+			if(keyActive % 10 == 2 || keyActive % 10 == 5) 
+				activeSkill.type = ActiveDistanceType.DeffenceHalfCount;
+			else 
+			if(keyActive % 10 == 3 || keyActive % 10 == 6) 
+				activeSkill.type = ActiveDistanceType.AllCount;
+		}
+		//Passive
 		if (Player.Skills != null && Player.Skills.Length > 0)
 		{
 			for (int i=0; i<Player.Skills.Length; i++)
