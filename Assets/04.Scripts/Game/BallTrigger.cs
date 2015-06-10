@@ -108,15 +108,6 @@ public class BallTrigger : MonoBehaviour
 
 			switch(Kind)
 			{
-			case 0:
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9:
-			case 4:
-				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				break;
 			case 2:
 				Vector3 [] pathay = new Vector3[2];
 				pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.DummyBall.transform.position);
@@ -132,6 +123,9 @@ public class BallTrigger : MonoBehaviour
 			case 3:
 				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
 				PassEnd();
+				break;
+			default:
+				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.DummyBall.transform.position, time).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				break;
 			}
 
