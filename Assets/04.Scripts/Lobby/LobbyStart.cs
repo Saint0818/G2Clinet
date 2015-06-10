@@ -354,7 +354,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		Res.name = player.Name;
 		Res.layer = LayerMask.NameToLayer ("Player");
 		
-		ModelManager.Get.SetAvatar (ref Res, player.Avatar, true);
+		ModelManager.Get.SetAvatar (ref Res, player.Avatar, player.BodyType, true);
 		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
 		Res.transform.localPosition = Vector3.zero;
 
@@ -563,7 +563,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		a.ZBackEquip = 1000 + avatarID;
 		
 		GameObject obj = myPlayer.gameObject;
-		ModelManager.Get.SetAvatar(ref obj, a, false);
+		ModelManager.Get.SetAvatar(ref obj, a, 0, false);
 	}
 
 	public void OnAvatar() {
