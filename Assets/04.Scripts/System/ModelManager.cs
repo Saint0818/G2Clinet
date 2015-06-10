@@ -427,10 +427,16 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber));
 				else
 					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
-				
+				aniControl.runtimeAnimatorController = runtimeAnimatorController;
+				aniControl.applyRootMotion = false;
+
+			} else {
+				if(!isUseRig)
+					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
 				aniControl.runtimeAnimatorController = runtimeAnimatorController;
 				aniControl.applyRootMotion = false;
 			}
+
 			
 			//rig
 			if(isUseRig){
