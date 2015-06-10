@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: a68907170131a62479a0eaa63d490804
-timeCreated: 1433919894
+guid: f1b63e3ecca5a604cb4014b5ff267a8b
+timeCreated: 1433922426
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Intercept0
+    7400000: Pass3
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Intercept0
+      name: Pass3
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 9
+      lastFrame: 6
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
