@@ -345,6 +345,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     //PassiveSkill
 	private Dictionary<int, List<PassiveSkill>> passiveSkills = new Dictionary<int, List<PassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
+//	List<PassiveSkill> psTemp = new List<PassiveSkill>();
+	private Dictionary<int, List<PassiveSkill>> passivePassDirects = new Dictionary<int, List<PassiveSkill>>();
 	//ActiveSkill
 //	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
 	public ActiveSkill activeSkill = new ActiveSkill();
@@ -475,8 +477,29 @@ public class PlayerBehaviour : MonoBehaviour
 
 
 						int key = GameData.SkillData [Player.Skills [i].ID].Kind;
-						if (key > 1000)
+						if (key > 1000){
 							key = (key / 100);
+							int direct = 0;
+							if(key % 10 == (int)PassDirectState.Forward) 
+								direct = (int)PassDirectState.Forward;
+							else if(key % 10 == (int)PassDirectState.Back) 
+								direct = (int)PassDirectState.Back;
+							else if(key % 10 == (int)PassDirectState.Left) 
+								direct = (int)PassDirectState.Left;
+							else if(key % 10 == (int)PassDirectState.Right) 
+								direct = (int)PassDirectState.Right;
+
+							if(passivePassDirects.ContainsKey(direct)) {
+								List<PassiveSkill> psTemps = passivePassDirects[direct];
+								psTemps.Add(ps);
+								passivePassDirects[direct] = psTemps;
+							} else {
+								List<PassiveSkill> psTemps = new List<PassiveSkill>();
+								psTemps.Add(ps);
+								passivePassDirects.Add(direct, psTemps);
+							}
+
+						}
 						if(key >= 100 && key < 1000) {
 							activeSkill.ID = Player.Skills[i].ID;
 							activeSkill.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
@@ -2552,35 +2575,30 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerState playerState = PlayerState.Idle;
 		playerState = (PlayerState)System.Enum.Parse(typeof(PlayerState), situation.ToString());
         List<PassiveSkill> ps = new List<PassiveSkill>();
-		List<PassiveSkill> psTemp = new List<PassiveSkill>();
-        if (passiveSkills.ContainsKey((int)kind))
-        {
-//            ps = passiveSkills [(int)kind];
+        if (passiveSkills.ContainsKey((int)kind)){
 			for(int i=0; i<passiveSkills [(int)kind].Count; i++) {
 				ps.Add(passiveSkills[(int)kind][i]);
 			}
         }
         bool isPerformPassive = false;
 		float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
-		if (ps.Count > 0)
-        {
+		if (ps.Count > 0){
             int passiveRate = 0;
             if (kind == TSkillKind.Pass)
             {
-				if (angle < 45f && angle > -45f)
+				if (angle < 60f && angle > -60f)
 					passDirect = PassDirectState.Forward;
-				else if (angle <= -45f && angle > -135f)
+				else if (angle <= -60f && angle > -120f)
 					passDirect = PassDirectState.Left;
-                else if (angle < 135f && angle >= 45f)
+                else if (angle < 120f && angle >= 60f)
 					passDirect = PassDirectState.Right;
-				else if (angle >= 135f && angle >= -135f)
+				else if (angle >= 120f && angle >= -120f)
 					passDirect = PassDirectState.Back; 
                 
                 for (int i=0; i<ps.Count; i++)
                 {
                     if ((ps [i].Kind % 10) == (int)passDirect){
                         passiveRate += ps [i].Rate;
-						psTemp.Add (ps [i]);
 					}
                 }
             } else
@@ -2591,36 +2609,33 @@ public class PlayerBehaviour : MonoBehaviour
             isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
         }
 
-        if (isPerformPassive)
-        {
-
-			if (psTemp.Count > 0)
-            {
-                string animationName = string.Empty;
-				for (int i=0; i<psTemp.Count; i++)
-                {
-					if (UnityEngine.Random.Range(0, 100) <= psTemp [i].Rate)
+        if (isPerformPassive){
+			string animationName = string.Empty;
+			if (kind == TSkillKind.Pass){
+				if (passivePassDirects.ContainsKey((int) passDirect)){
+					for (int i=0; i<passivePassDirects [(int)passDirect].Count; i++)
 					{
-//                        string[] enumName = Enum.GetNames(typeof(PlayerState));
-//                        bool isHave = false;
-//                        for (int j=0; j<enumName.Length; j++)
-//                        {
-//                            if (enumName [i].Equals(ps [i].Name))
-//                                isHave = true;
-//                        }
-//                        if (isHave)
-//                        {
-							animationName = psTemp [i].Name;
-						break;
-//                        }
-                    }
-                }
-//				Debug.Log("animationName:"+ animationName);
-                if (animationName != string.Empty)
-                    return (PlayerState)System.Enum.Parse(typeof(PlayerState), animationName);
-                else 
-                    return playerState;
-            }
+						if (UnityEngine.Random.Range(0, 100) <= passivePassDirects [(int)passDirect][i].Rate)
+						{
+							animationName = passivePassDirects [(int)passDirect][i].Name;
+							break;       
+						}
+					}
+				}
+			} else {
+				if(ps.Count > 0){
+					for (int i=0; i<ps.Count; i++) {
+						if (UnityEngine.Random.Range(0, 100) <= ps [i].Rate){
+							animationName = ps [i].Name;
+							break;       
+						}
+					}
+				}
+			}
+			if (animationName != string.Empty)
+				return (PlayerState)System.Enum.Parse(typeof(PlayerState), animationName);
+			else 
+				return playerState;
         } else
             return playerState;
 
