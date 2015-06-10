@@ -374,12 +374,10 @@ public class UIGame : UIBase {
 
 	public void ContinueGame() {
 		UIState(UISituation.Continue);
-		AudioMgr.Get.PauseGame();
 	}
 
 	public void PauseGame(){
 		UIState(UISituation.Pause);
-		AudioMgr.Get.PauseGame();
 	}
 
 	public void ResetGame() {
@@ -796,6 +794,7 @@ public class UIGame : UIBase {
 			viewOption.SetActive(isShowOption);
 			break;
 		}
+		AudioMgr.Get.PauseGame();
 	}
 
 	public void UIEffectState(UIEffect effect){
