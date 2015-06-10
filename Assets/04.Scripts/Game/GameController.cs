@@ -3551,7 +3551,7 @@ public class GameController : MonoBehaviour
 //                if (getDis(ref Shooter, SceneMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position) >= 10)
 //                    score = 3;
 //            }
-
+			AudioMgr.Get.PlaySound(SoundType.Net);
             ShootDis = 0;
             UIGame.Get.PlusScore(team, score);
 

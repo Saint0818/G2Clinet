@@ -2,12 +2,34 @@
 using System;
 using System.Collections;
 using UnityEngine.Audio;
+using System.Collections.Generic;
+
+public enum SoundType
+{
+	Audio,
+	Dunk,
+	Net,
+	GameEnd
+}
 
 public class AudioMgr : KnightSingleton<AudioMgr>
 {
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
+	
+	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
+	void Awake()
+	{
+		AudioSource[] loads = gameObject.transform.GetComponentsInChildren<AudioSource> ();
+		if (loads.Length > 0) {
+			for(int i = 0; i < loads.Length; i++)
+			{
+				if(!DAudios.ContainsKey(loads[i].name))
+					DAudios.Add(loads[i].name, loads[i]);
+			}
+		}
+	}
 
 	public void InitCom()
 	{
@@ -21,6 +43,13 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		}
 		else
 			Nomal.TransitionTo(.01f);
+	}
+
+	public void PlaySound(SoundType type)
+	{
+		string soundName = type.ToString ();
+		if (DAudios.ContainsKey (soundName))
+			DAudios [soundName].Play ();
 	}
 }
 

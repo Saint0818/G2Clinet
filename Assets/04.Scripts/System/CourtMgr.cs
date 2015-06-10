@@ -649,6 +649,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 		if(animation[animationName])
 			animation.Play (animationName);
+
+		AudioMgr.Get.PlaySound (SoundType.Dunk);
     }
 
 	public void PlayShoot(int team)
