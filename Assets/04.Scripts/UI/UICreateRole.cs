@@ -222,7 +222,7 @@ public class UICreateRole : UIBase {
 			player.name = i.ToString();
 			player.transform.parent = playerPos[i].transform;
 			tAvatar[i] = p.Avatar;
-			ModelManager.Get.SetAvatar(ref player, p.Avatar, false);
+			ModelManager.Get.SetAvatar(ref player, p.Avatar, GameData.DPlayers[UISelectRole.RoleIDAy[i]].BodyType, false);
 			player.transform.localPosition = new Vector3(0, -1, 0);
 			player.transform.localEulerAngles = new Vector3(0, 180, 0);
 			player.transform.localScale = Vector3.one;

@@ -113,7 +113,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (Res == null)
 			Res = new GameObject();
 
-		SetAvatar (ref Res, player.Avatar, true);
+		SetAvatar (ref Res, player.Avatar, player.BodyType, true); 
 
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
@@ -209,9 +209,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, bool isUseRig, bool combine = true) {
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, int bodyType, bool isUseRig, bool combine = true) {
 		try {
-			string bodyNumber = (attr.Body / 1000).ToString();
+//			string bodyNumber = (attr.Body / 1000).ToString();
+//			Debug.Log("bodyType:"+ bodyType);
+			string bodyNumber = bodyType.ToString();
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
 			int[] avatarIndex = new int[] {attr.Body, attr.Cloth, attr.Hair, attr.MHandDress, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
