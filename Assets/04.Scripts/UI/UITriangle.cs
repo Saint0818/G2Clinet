@@ -83,7 +83,27 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		obj.GetComponent<MeshRenderer> ().material = ma;
 	}
 
-	public void ChangeValue(int Index, float Value)
+	void FixedUpdate()
+	{
+		for(int i = 0; i < OldValueAy.Length; i++)
+		{
+			if(OldValueAy[i] != NewValueAy[i])
+			{
+				if(OldValueAy[i] > NewValueAy[i])
+				{
+					ChangeValue(i, OldValueAy[i] - 0.01f, true);
+				}
+				else if(OldValueAy[i] < NewValueAy[i])
+				{
+					ChangeValue(i, OldValueAy[i] + 0.01f, true);
+				}
+			}
+		}
+	}
+
+	private float [] OldValueAy = new float[6];
+	private float [] NewValueAy = new float[6];
+	public void ChangeValue(int Index, float Value, bool Update = false)
 	{
 		if (Index >= 0 && Index < MeshAy.Length) 
 		{
@@ -93,44 +113,61 @@ public class UITriangle : KnightSingleton<UITriangle> {
 			if(Value > 1)
 				Value = 1;
 
-			switch(Index)
+			if(!Update)
 			{
-			case 0:
-				//A
-				A = new Vector3(A1.x * Value, A1.y * Value, A1.z);
-				ResetMesh(source, B, A, 0);
-				ResetMesh(source, A, F, 5);
-				break;
-			case 1:
-				//B
-				B = new Vector3(B1.x * Value, B1.y * Value, B1.z);
-				ResetMesh (source, B, A, 0);
-				ResetMesh (source, C, B, 1);
-				break;
-			case 2:	
-				//C
-				C = new Vector3(C1.x * Value, C1.y * Value, C1.z);
-				ResetMesh (source, C, B, 1);
-				ResetMesh (source, D, C, 2);
-				break;
-			case 3:
-				//D
-				D = new Vector3(D1.x * Value, D1.y * Value, D1.z);
-				ResetMesh (source, D, C, 2);
-				ResetMesh (source, E, D, 3);
-				break;
-			case 4:
-				//E
-				E = new Vector3(E1.x * Value, E1.y * Value, E1.z);
-				ResetMesh (source, E, D, 3);
-				ResetMesh (source, F, E, 4);
-				break;
-			case 5:
-				//F
-				F = new Vector3(F1.x * Value, F1.y * Value, F1.z);
-				ResetMesh (source, F, E, 4);
-				ResetMesh (source, A, F, 5);
-				break;
+				if(OldValueAy[Index] == 0)
+				{
+					OldValueAy[Index] = Value;
+					NewValueAy[Index] = Value;
+					ChangeValue(Index, Value, true);
+				}
+				else
+				{
+					NewValueAy[Index] = Value;
+				}
+			}
+			else
+			{
+				OldValueAy[Index] = Value;
+				switch(Index)
+				{
+				case 0:
+					//A
+					A = new Vector3(A1.x * Value, A1.y * Value, A1.z);
+					ResetMesh(source, B, A, 0);
+					ResetMesh(source, A, F, 5);
+					break;
+				case 1:
+					//B
+					B = new Vector3(B1.x * Value, B1.y * Value, B1.z);
+					ResetMesh (source, B, A, 0);
+					ResetMesh (source, C, B, 1);
+					break;
+				case 2:	
+					//C
+					C = new Vector3(C1.x * Value, C1.y * Value, C1.z);
+					ResetMesh (source, C, B, 1);
+					ResetMesh (source, D, C, 2);
+					break;
+				case 3:
+					//D
+					D = new Vector3(D1.x * Value, D1.y * Value, D1.z);
+					ResetMesh (source, D, C, 2);
+					ResetMesh (source, E, D, 3);
+					break;
+				case 4:
+					//E
+					E = new Vector3(E1.x * Value, E1.y * Value, E1.z);
+					ResetMesh (source, E, D, 3);
+					ResetMesh (source, F, E, 4);
+					break;
+				case 5:
+					//F
+					F = new Vector3(F1.x * Value, F1.y * Value, F1.z);
+					ResetMesh (source, F, E, 4);
+					ResetMesh (source, A, F, 5);
+					break;
+				}
 			}
 		}
 	}
