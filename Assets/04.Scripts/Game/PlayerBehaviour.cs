@@ -45,7 +45,10 @@ public enum PlayerState
     Idle,
 	Intercept0,
 	Intercept1,
-	Layup, 
+	Layup0, 
+	Layup1, 
+	Layup2, 
+	Layup3, 
 	MoveDodge0,
 	MoveDodge1,
 	PickBall0,
@@ -1669,7 +1672,10 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Shoot5:
             case PlayerState.Shoot6:
             case PlayerState.Shoot7:
-            case PlayerState.Layup:
+            case PlayerState.Layup0:
+            case PlayerState.Layup1:
+            case PlayerState.Layup2:
+            case PlayerState.Layup3:
                 if (IsBallOwner && !IsShoot && (crtState == PlayerState.Idle || crtState == PlayerState.HoldBall || IsDribble))
                     return true;
                 break;
@@ -2251,26 +2257,45 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case PlayerState.Layup:
+            case PlayerState.Layup0:
+            case PlayerState.Layup1:
+            case PlayerState.Layup2:
+            case PlayerState.Layup3:
                 if (IsBallOwner)
                 {
                     playerLayupCurve = null;
-                    stateNo = 0;
-                    curveName = string.Format("Layup{0}", stateNo);
 
-                    for (int i = 0; i < aniCurve.Layup.Length; i++)
-                        if (aniCurve.Layup [i].Name == curveName)
-                        {
-                            playerLayupCurve = aniCurve.Layup [i];
-                            layupCurveTime = 0;
-                            isLayup = true;
-                            isLayupZmove = false;
-                        }
-                    SetShooterLayer();
-                    ClearAnimatorFlag();
-                    animator.SetTrigger("LayupTrigger");
-                    isCanCatchBall = false;
-                    Result = true;
+					switch (state)
+					{
+						case PlayerState.Layup0:
+							stateNo = 0;
+							break;
+						case PlayerState.Layup1:
+							stateNo = 1;
+							break;
+						case PlayerState.Layup2:
+							stateNo = 2;
+							break;
+						case PlayerState.Layup3:
+							stateNo = 3;
+							break;
+					}
+
+					curveName = string.Format("Layup{0}", stateNo);
+					
+					for (int i = 0; i < aniCurve.Layup.Length; i++)
+						if (aniCurve.Layup [i].Name == curveName)
+					{
+						playerLayupCurve = aniCurve.Layup [i];
+						layupCurveTime = 0;
+						isLayup = true;
+						isLayupZmove = false;
+					}
+					SetShooterLayer();
+					ClearAnimatorFlag();
+					animator.SetTrigger("LayupTrigger");
+					isCanCatchBall = false;
+	                Result = true;
                 }
                 break;
 
@@ -2731,7 +2756,10 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerState.Shoot6,
                 PlayerState.Shoot7,
                 PlayerState.Steal,
-                PlayerState.Layup,
+                PlayerState.Layup0,
+                PlayerState.Layup1,
+                PlayerState.Layup2,
+                PlayerState.Layup3,
                 PlayerState.Rebound,
                 PlayerState.ReboundCatch,
                 PlayerState.TipIn,
@@ -2827,7 +2855,7 @@ public class PlayerBehaviour : MonoBehaviour
         get
         {
             return crtState == PlayerState.Shoot0 || crtState == PlayerState.Shoot1 || crtState == PlayerState.Shoot2 || crtState == PlayerState.Shoot3 || 
-                crtState == PlayerState.Shoot6 || crtState == PlayerState.Layup || IsDunk || crtState == PlayerState.DunkBasket || crtState == PlayerState.TipIn;
+				crtState == PlayerState.Shoot6 || IsLayup || IsDunk || crtState == PlayerState.DunkBasket || crtState == PlayerState.TipIn;
         }
     }
 
@@ -2846,6 +2874,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return crtState == PlayerState.Dunk0 || crtState == PlayerState.Dunk2 || crtState == PlayerState.Dunk4 || crtState == PlayerState.Dunk20;}
     }
+
+	public bool IsLayup
+	{
+		get{ return crtState == PlayerState.Layup0 || crtState == PlayerState.Layup1 || crtState == PlayerState.Layup2 || crtState == PlayerState.Layup3;}
+	}
 
     public bool IsUseSkill
     {

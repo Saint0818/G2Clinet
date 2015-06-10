@@ -461,7 +461,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case PlayerState.Shoot5: 
 			case PlayerState.Shoot6: 
 			case PlayerState.Shoot7: 
-			case PlayerState.Layup: 
+			case PlayerState.Layup0: 
+			case PlayerState.Layup1: 
+			case PlayerState.Layup2: 
+			case PlayerState.Layup3: 
 			case PlayerState.TipIn: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;

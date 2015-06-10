@@ -144,7 +144,7 @@ public enum TSkillSituation{
 	Dunk0,
 	Fall1,
 	Fall2,
-	Layup,
+	Layup0,
 	Steal,
 	Pass0,
 	Pass2,
@@ -264,7 +264,7 @@ public class GameController : MonoBehaviour
 	public float StealBtnLiftTime = 1f;
 	private bool isPressPassBtn = false;
 	public PlayerState testState = PlayerState.Shoot0;
-	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
+	public PlayerState[] ShootStates = new PlayerState[]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup0,PlayerState.Layup1,PlayerState.Layup2,PlayerState.Layup3};
 	public bool IsJumpBall = false;
 
     public static GameController Get
@@ -1324,7 +1324,7 @@ public class GameController : MonoBehaviour
 								if(rate < BallOwner.Attr.DunkRate)
 									DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 								else
-									DoPassiveSkill(TSkillSituation.Layup, BallOwner, CourtMgr.Get.Hood [t].transform.position);
+									DoPassiveSkill(TSkillSituation.Layup0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							}
 							else
 							{
@@ -1831,7 +1831,10 @@ public class GameController : MonoBehaviour
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				case PlayerState.Layup:
+				case PlayerState.Layup0:
+				case PlayerState.Layup1:
+				case PlayerState.Layup2:
+				case PlayerState.Layup3:
 					UIDoubleClick.Get.SetData(1.3f, DoubleShoot);
 					UIDoubleClick.UIShow(true);
 					return true;
@@ -2268,9 +2271,9 @@ public class GameController : MonoBehaviour
 				currentSkillKind = TSkillKind.NearShoot;
 				Result = player.AniState(player.PassiveSkill(TSkillSituation.Shoot1, TSkillKind.NearShoot), v );
 				break;
-			case TSkillSituation.Layup:
+			case TSkillSituation.Layup0:
 				currentSkillKind = TSkillKind.Layup;
-				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup, TSkillKind.Layup), v);
+				Result = player.AniState(player.PassiveSkill(TSkillSituation.Layup0, TSkillKind.Layup), v);
 				break;
 			case TSkillSituation.Elbow:
 				currentSkillKind = TSkillKind.Elbow;
@@ -3986,7 +3989,7 @@ public class GameController : MonoBehaviour
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3) ||
 				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot6) ||
 				    PlayerList [i].CheckAnimatorSate(PlayerState.TipIn) ||
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Layup))
+				    PlayerList [i].IsLayup)
                     return true;            
 
             return false;
