@@ -426,12 +426,12 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.DunkRate = Math.Min(GameData.BaseAttr[Player.AILevel].DunkRate + (Player.Dunk * 0.9f), 100);
             Attr.TipInRate = Math.Min(GameData.BaseAttr[Player.AILevel].TipInRate + (Player.Dunk * 0.9f), 100);
             Attr.AlleyOopRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopRate + (Player.Dunk * 0.7f), 100);
-            Attr.StrengthRate = Math.Min(GameData.BaseAttr[Player.AILevel].StrengthRate + (Player.Strength * 0.7f), 100);
+            Attr.StrengthRate = Math.Min(GameData.BaseAttr[Player.AILevel].StrengthRate + (Player.Strength * 0.9f), 100);
             Attr.BlockPushRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockPushRate + (Player.Strength * 0.5f), 100);
             Attr.ElbowingRate = Math.Min(GameData.BaseAttr[Player.AILevel].ElbowingRate + (Player.Strength * 0.8f), 100);
             Attr.ReboundRate = Math.Min(GameData.BaseAttr [Player.AILevel].ReboundRate + (Player.Rebound * 0.9f), 100);
             Attr.BlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockRate + (Player.Block * 0.9f), 100);
-            Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate + (Player.Block / 1.2f), 100);
+            Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate + (1-(Player.Block / 1.2f)), 100);
             Attr.JumpBallRate = Math.Min(GameData.BaseAttr [Player.AILevel].JumpBallRate, 100);
             Attr.PushingRate = Math.Min(GameData.BaseAttr [Player.AILevel].PushingRate + (Player.Defence * 1), 100);
 			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.8f), 100);
