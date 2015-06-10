@@ -11,4 +11,6 @@ public class TBallCurve {
 public class BallCurve : MonoBehaviour {
 	public TBallCurve Ball;
 	public TBallCurve ShortBall;
+	public TBallCurve Ball_Type0;
+	public TBallCurve Ball_Type1;
 }

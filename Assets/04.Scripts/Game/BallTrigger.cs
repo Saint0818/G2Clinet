@@ -16,6 +16,7 @@ public class BallTrigger : MonoBehaviour
 	private float PassCheckTime = 0;
 	private float ParabolaTime = 0;
 	private float ParabolaDis = 0;
+	private TBallCurve BallHeight;
 
 	void Awake()
 	{
@@ -119,6 +120,18 @@ public class BallTrigger : MonoBehaviour
 				Parabolamove = true;
 				Parabolatarget = CourtMgr.Get.RealBall.transform.position;
 				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
+				switch(GameController.Get.Passer.Player.BodyType)
+				{
+				case 0:
+					BallHeight = CourtMgr.Get.RealBallCurve.Ball_Type0;
+					break;
+				case 1:
+					BallHeight = CourtMgr.Get.RealBallCurve.Ball_Type1;
+					break;
+				default:
+					BallHeight = CourtMgr.Get.RealBallCurve.Ball;
+					break;
+				}
 				break;
 			case 3:
 				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
@@ -149,7 +162,7 @@ public class BallTrigger : MonoBehaviour
 					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
 					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
 				}else{
-					Parabolatarget.y =  CourtMgr.Get.RealBallCurve.Ball.aniCurve.Evaluate(ParabolaTime);
+					Parabolatarget.y =  BallHeight.aniCurve.Evaluate(ParabolaTime);
 					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
 					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
 				}
