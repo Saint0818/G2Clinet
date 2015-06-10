@@ -221,7 +221,7 @@ public class AnimatorEditor : EditorWindow {
 		int stateCount = machine.states.Length;
 
 		for(int i=0; i<stateCount; i++) {
-			if(machine.states[i].state.motion.GetType().Name.Equals("BlendTree")) {
+			if(machine.states[i].state.motion && machine.states[i].state.motion.GetType().Name.Equals("BlendTree")){
 				UnityEditor.Animations.BlendTree blendTree = machine.states[i].state.motion as UnityEditor.Animations.BlendTree;
 				List<float> aryTherhold = new List<float>();
 				List<AnimationClip> aryAnimationClip = new List<AnimationClip>();
@@ -245,7 +245,7 @@ public class AnimatorEditor : EditorWindow {
 				}
 			} else {
 				for(int k=0; k<allAnimationClip.Count; k++) {
-					if(machine.states[i].state.motion.name.Equals(allAnimationClip[k].name)) {
+					if(machine.states[i].state.motion && machine.states[i].state.motion.name.Equals(allAnimationClip[k].name)) {
 						machine.states[i].state.motion = allAnimationClip[k];
 					}
 				}

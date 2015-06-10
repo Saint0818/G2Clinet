@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b95fd5f0a38934242b23ec3040f95489
-timeCreated: 1433840713
+timeCreated: 1433919145
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .633833408
+        functionName: AnimationEvent
+        data: FakeShootBlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: FakeShootEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 15dfa1bc1a39e8646960b44146577c1a
-timeCreated: 1433840710
+timeCreated: 1433919133
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .99911809
+        functionName: AnimationEvent
+        data: CatchEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

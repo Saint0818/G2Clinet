@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c6c8cf7776352794e8b702487f6bfeee
-timeCreated: 1433840713
+timeCreated: 1433919132
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .110974103
+        functionName: AnimationEvent
+        data: BlockCatching
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

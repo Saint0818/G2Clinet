@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a13c27ba5b0ffe54a8e5729265d7f46e
-timeCreated: 1433840712
+timeCreated: 1433919132
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -149,7 +149,49 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .0735030547
+        functionName: AnimationEvent
+        data: BlcokCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .171248779
+        functionName: AnimationEvent
+        data: BlockCatchMomentStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .201255873
+        functionName: AnimationEvent
+        data: Blocking
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .46380949
+        functionName: AnimationEvent
+        data: BlcokCalculateEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .499721587
+        functionName: AnimationEvent
+        data: BlockCatchMomentEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .99999994
+        functionName: AnimationEvent
+        data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

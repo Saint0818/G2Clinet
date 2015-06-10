@@ -113,7 +113,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (Res == null)
 			Res = new GameObject();
 
-		SetAvatar (ref Res, player.Avatar, player.BodyType, true); 
+		SetAvatar (ref Res, player.Avatar, player.BodyType, true, false); 
 
 		Res.transform.parent = PlayerInfoModel.transform;
 		Res.transform.localPosition = BornPos;
