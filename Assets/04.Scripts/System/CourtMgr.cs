@@ -506,21 +506,25 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallFX.gameObject.SetActive(true);
 			break;
 			case PlayerState.JumpBall:
-				realBallCollider.enabled = true;
-				RealBall.transform.parent = null;
-				RealBallRigidbody.isKinematic = false;
-				RealBallRigidbody.useGravity = true;
-				RealBallTrigger.SetBoxColliderEnable(true);
-				RealBall.transform.localScale = Vector3.one;
-				GameController.Get.Passer = null;
+				if(!GameController.Get.IsJumpBall)
+				{
+					GameController.Get.IsJumpBall = true;
+					realBallCollider.enabled = true;
+					RealBall.transform.parent = null;
+					RealBallRigidbody.isKinematic = false;
+					RealBallRigidbody.useGravity = true;
+					RealBallTrigger.SetBoxColliderEnable(true);
+					RealBall.transform.localScale = Vector3.one;
+					GameController.Get.Passer = null;
 
-				if(player != null)	
-					v = player.transform.forward * -5;
-				else
-					v = RealBall.transform.forward * -1;
-				
-				RealBallRigidbody.velocity = v;
-				RealBallFX.gameObject.SetActive(true);
+					if(player != null)	
+						v = player.transform.forward * -5;
+					else
+						v = RealBall.transform.forward * -1;
+					
+					RealBallRigidbody.velocity = v;
+					RealBallFX.gameObject.SetActive(true);
+				}
 				break;
 			
 			case PlayerState.Block: 

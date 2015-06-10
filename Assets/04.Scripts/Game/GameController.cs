@@ -265,6 +265,7 @@ public class GameController : MonoBehaviour
 	private bool isPressPassBtn = false;
 	public PlayerState testState = PlayerState.Shoot0;
 	public PlayerState[] ShootStates = new PlayerState[6]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup};
+	public bool IsJumpBall = false;
 
     public static GameController Get
     {
@@ -338,6 +339,7 @@ public class GameController : MonoBehaviour
 
 	public void StartGame() {
 		IsReset = false;
+		IsJumpBall = false;
 		SetPlayerLevel();
 		if (GameStart.Get.TestMode == GameTest.Rebound) {
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;

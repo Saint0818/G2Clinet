@@ -131,7 +131,21 @@ public class UISelectRole : UIBase {
 			SetBtnFun(UIName + "/Center/ViewLoading/SelectB/ListB/" + i.ToString(), DoListB);
 		}
 		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
-		UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
+
+
+		float W = Screen.width;
+		float H = Screen.height;
+		float WH = W / H;
+		if(WH >= 1.33f && WH <= 1.34f)
+			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 34));
+		else if(WH >= 1.59f && WH <= 1.61f)
+			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 28.3f));
+		else if(WH >= 1.66f && WH <= 1.67f)
+			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 27f));
+		else if(WH >= 1.7f && WH <= 1.71f)
+			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 26.5f));
+		else
+			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
 	}
 
 	public void OnClickSixAttr(GameObject obj)
