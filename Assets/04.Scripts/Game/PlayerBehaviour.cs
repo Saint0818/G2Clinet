@@ -1742,7 +1742,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerState.Dribble0:
             case PlayerState.Dribble1:
             case PlayerState.Dribble2:
-                if (IsFirstDribble && !CanMove || (CanMove && crtState != state) || (crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1))
+			if (IsFirstDribble && !CanMove || (CanMove && crtState != state && (!IsPass)) || (crtState == PlayerState.MoveDodge0 || crtState == PlayerState.MoveDodge1))
                 {
                     return true;
                 }
