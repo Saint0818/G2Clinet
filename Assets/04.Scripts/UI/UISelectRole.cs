@@ -5,6 +5,12 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening; 
 
+public struct TSelectAttrData
+{
+	public UISlider Slider;
+	public UILabel Value;
+}
+
 public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
@@ -13,7 +19,6 @@ public class UISelectRole : UIBase {
 	private Vector3 [] Ay = new Vector3[3];
 	private GameObject Select;
 	private GameObject[] BtnAy = new GameObject[6];
-	private GameObject RoleInfo;
 	private TPlayer [] PlayerAy = new TPlayer[3];
 	private GameObject [] PlayerObjAy = new GameObject[3];
 	private int [] SelectIDAy = new int[3];
@@ -22,7 +27,6 @@ public class UISelectRole : UIBase {
 	private GameObject InfoRange;
 	private GameObject Left;
 	private GameObject CharacterInfo;
-	private UILabel CharacterInfoLabel;
 	private int MaxValue = 100;
 	private float Value = 0;
 	private float axisX;
@@ -42,6 +46,10 @@ public class UISelectRole : UIBase {
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
+	private TSelectAttrData [] SelectAttrDataAy = new TSelectAttrData[12];
+
+	private float [] OldValueAy = new float[12];
+	private float [] NewValueAy = new float[12];
 
 	public static bool Visible
 	{
@@ -94,15 +102,38 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoSelectRole);
 		Left = GameObject.Find (UIName + "/Left");
 		OkBtn = GameObject.Find (UIName + "/Right/CharacterCheck");
-		RoleInfo = GameObject.Find (UIName + "/Center/TouchInfo");
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 		ViewLoading = GameObject.Find (UIName + "/Center/ViewLoading");
 		CharacterInfo = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo");
-//		CharacterInfoLabel = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/Label").GetComponent<UILabel>();
-//		CharacterInfoLabel.text = "";
 		CharacterInfo.SetActive (false);
 
+		SelectAttrDataAy [0].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/2Point").GetComponent<UISlider>();
+		SelectAttrDataAy [0].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/2Point/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [1].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/3Point").GetComponent<UISlider>();
+		SelectAttrDataAy [1].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/3Point/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [2].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Speed").GetComponent<UISlider>();
+		SelectAttrDataAy [2].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Speed/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [3].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Stamina").GetComponent<UISlider>();
+		SelectAttrDataAy [3].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Stamina/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [4].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Rebound").GetComponent<UISlider>();
+		SelectAttrDataAy [4].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Rebound/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [5].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dunk").GetComponent<UISlider>();
+		SelectAttrDataAy [5].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dunk/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [6].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Block").GetComponent<UISlider>();
+		SelectAttrDataAy [6].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Block/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [7].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Strength").GetComponent<UISlider>();
+		SelectAttrDataAy [7].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Strength/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [8].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Defence").GetComponent<UISlider>();
+		SelectAttrDataAy [8].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Defence/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [9].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Steal").GetComponent<UISlider>();
+		SelectAttrDataAy [9].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Steal/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [10].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dribble").GetComponent<UISlider>();
+		SelectAttrDataAy [10].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dribble/LabelValue").GetComponent<UILabel>();
+		SelectAttrDataAy [11].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Pass").GetComponent<UISlider>();
+		SelectAttrDataAy [11].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
+
 		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
+		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/CharacterInfo")).onClick = OnClickSixAttr;
 		PlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		PlayerNameObj = GameObject.Find (UIName + "/Right/InfoRange/PlayerName");
 		PlayerNameObj.SetActive (true);
@@ -146,6 +177,98 @@ public class UISelectRole : UIBase {
 			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 26.5f));
 		else
 			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
+	}
+
+	private void SetSubAttr(int Index, float Value)
+	{
+		SelectAttrDataAy [Index].Slider.value = Value / 100;
+		SelectAttrDataAy [Index].Value.text = Value.ToString ();
+	}
+
+	private void SetAttr(TGreatPlayer data)
+	{
+		if(OldValueAy[0] == 0)
+		{
+			OldValueAy[0] = data.Point2;
+			NewValueAy[0] = data.Point2;
+			SetSubAttr(0, data.Point2);
+			OldValueAy[1] = data.Point3;
+			NewValueAy[1] = data.Point3;
+			SetSubAttr(1, data.Point3);
+			OldValueAy[2] = data.Speed;
+			NewValueAy[2] = data.Speed;
+			SetSubAttr(2, data.Speed);
+			OldValueAy[3] = data.Stamina;
+			NewValueAy[3] = data.Stamina;
+			SetSubAttr(3, data.Stamina);
+			OldValueAy[4] = data.Rebound;
+			NewValueAy[4] = data.Rebound;
+			SetSubAttr(4, data.Rebound);
+			OldValueAy[5] = data.Dunk;
+			NewValueAy[5] = data.Dunk;
+			SetSubAttr(5, data.Dunk);
+			OldValueAy[6] = data.Block;
+			NewValueAy[6] = data.Block;
+			SetSubAttr(6, data.Block);
+			OldValueAy[7] = data.Strength;
+			NewValueAy[7] = data.Strength;
+			SetSubAttr(7, data.Strength);
+			OldValueAy[8] = data.Defence;
+			NewValueAy[8] = data.Defence;
+			SetSubAttr(8, data.Defence);
+			OldValueAy[9] = data.Steal;
+			NewValueAy[9] = data.Steal;
+			SetSubAttr(9, data.Steal);
+			OldValueAy[10] = data.Dribble;
+			NewValueAy[10] = data.Dribble;
+			SetSubAttr(10, data.Dribble);
+			OldValueAy[11] = data.Pass;
+			NewValueAy[11] = data.Pass;
+			SetSubAttr(11, data.Pass);
+		}
+		else
+		{
+			NewValueAy[0] = data.Point2;
+			NewValueAy[1] = data.Point3;
+			NewValueAy[2] = data.Speed;
+			NewValueAy[3] = data.Stamina;
+			NewValueAy[4] = data.Rebound;
+			NewValueAy[5] = data.Dunk;
+			NewValueAy[6] = data.Block;
+			NewValueAy[7] = data.Strength;
+			NewValueAy[8] = data.Defence;
+			NewValueAy[9] = data.Steal;
+			NewValueAy[10] = data.Dribble;
+			NewValueAy[11] = data.Pass;
+		}
+
+//		else
+//		{
+//			SelectAttrDataAy [0].Slider.value = data.Point2 / 100;
+//			SelectAttrDataAy [0].Value.text = data.Point2.ToString ();
+//			SelectAttrDataAy [1].Slider.value = data.Point3 / 100;
+//			SelectAttrDataAy [1].Value.text = data.Point3.ToString ();
+//			SelectAttrDataAy [2].Slider.value = data.Speed / 100;
+//			SelectAttrDataAy [2].Value.text = data.Speed.ToString ();
+//			SelectAttrDataAy [3].Slider.value = data.Stamina / 100;
+//			SelectAttrDataAy [3].Value.text = data.Stamina.ToString ();
+//			SelectAttrDataAy [4].Slider.value = data.Rebound / 100;
+//			SelectAttrDataAy [4].Value.text = data.Rebound.ToString ();
+//			SelectAttrDataAy [5].Slider.value = data.Dunk / 100;
+//			SelectAttrDataAy [5].Value.text = data.Dunk.ToString ();
+//			SelectAttrDataAy [6].Slider.value = data.Block / 100;
+//			SelectAttrDataAy [6].Value.text = data.Block.ToString ();
+//			SelectAttrDataAy [7].Slider.value = data.Strength / 100;
+//			SelectAttrDataAy [7].Value.text = data.Strength.ToString ();
+//			SelectAttrDataAy [8].Slider.value = data.Defence / 100;
+//			SelectAttrDataAy [8].Value.text = data.Defence.ToString ();
+//			SelectAttrDataAy [9].Slider.value = data.Steal / 100;
+//			SelectAttrDataAy [9].Value.text = data.Steal.ToString ();
+//			SelectAttrDataAy [10].Slider.value = data.Dribble / 100;
+//			SelectAttrDataAy [10].Value.text = data.Dribble.ToString ();
+//			SelectAttrDataAy [11].Slider.value = data.Pass / 100;
+//			SelectAttrDataAy [11].Value.text = data.Pass.ToString ();
+//		}
 	}
 
 	public void OnClickSixAttr(GameObject obj)
@@ -392,6 +515,7 @@ public class UISelectRole : UIBase {
 				
 				Value = data.Rebound + data.Dunk;
 				UITriangle.Get.ChangeValue (5, Value / 2 / MaxValue);
+				SetAttr(data);
 			}
 		}
 	}
@@ -448,19 +572,19 @@ public class UISelectRole : UIBase {
 			PlayerObjAy[i].AddComponent<SelectEvent>();
 			if(i == 0)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.65f, 0);
+				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.8f, 0);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 				PlayerName.text = GameData.DPlayers [PlayerAy[i].ID].Name;
 				PlayerBody.text = TextConst.S(GameData.DPlayers [PlayerAy[i].ID].BodyType + 7);
 			}
 			else if(i == 1)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.33f, 2.87f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.38f, 2.87f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 			}
 			else if(i == 2)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.35f, 2.58f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.38f, 2.58f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 			}
 
@@ -506,6 +630,7 @@ public class UISelectRole : UIBase {
 			
 			Value = data.Rebound + data.Dunk;
 			UITriangle.Get.ChangeValue (5, Value / 2 / MaxValue);
+			SetAttr(data);
 		}
 	}
 
@@ -524,6 +649,23 @@ public class UISelectRole : UIBase {
 
 	void FixedUpdate()
 	{
+		for(int i = 0; i < OldValueAy.Length; i++)
+		{
+			if(OldValueAy[i] != NewValueAy[i])
+			{
+				if(OldValueAy[i] > NewValueAy[i])
+				{
+					SetSubAttr(i, OldValueAy[i] - 1);
+					OldValueAy[i] -= 1;
+				}
+				else
+				{
+					SetSubAttr(i, OldValueAy[i] + 1);
+					OldValueAy[i] += 1;
+				}
+			}
+		}
+
 		if(OkBtn.activeInHierarchy)
 		{
 			if(Input.GetMouseButton(0)) 

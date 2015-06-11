@@ -593,7 +593,23 @@ public class PlayerBehaviour : MonoBehaviour
             blockCatchTrigger.SetEnable(false);
         }
 
-        GameObject obj = Resources.Load("Prefab/Player/BodyTrigger") as GameObject;
+		GameObject obj = null;
+		switch (Player.BodyType) 
+		{
+		case 0:
+			obj = Resources.Load("Prefab/Player/BodyTrigger0") as GameObject;
+			break;
+		case 1:
+			obj = Resources.Load("Prefab/Player/BodyTrigger1") as GameObject;
+			break;
+		case 2:
+			obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
+			break;
+		default:
+			obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
+			break;
+		}
+
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;

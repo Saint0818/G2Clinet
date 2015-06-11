@@ -54,6 +54,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 
 		Triangle.transform.localPosition = v1;
 		TriangleInside.transform.localPosition = new Vector3 (0, 0, -0.01f);
+		Triangle.transform.localScale = new Vector3 (1.1f, 1.1f, 1.1f);
 	}
 
 	private void CreateTriangle(Vector3 V1, Vector3 V2, Vector3 V3, int Index, Material ma)
