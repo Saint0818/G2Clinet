@@ -99,8 +99,8 @@ namespace GameStruct
 				Pass = GameData.DPlayers[ID].Pass;
 				BodyType = GameData.DPlayers[ID].BodyType;
 				AILevel = GameData.DPlayers[ID].AILevel;
-				ActiveSkill.ID = GameData.DPlayers[ID].ActiveSkill;
-				ActiveSkill.Lv = GameData.DPlayers[ID].ActiveSkillLV;
+				ActiveSkill.ID = GameData.DPlayers[ID].Active;
+				ActiveSkill.Lv = GameData.DPlayers[ID].ActiveLV;
 				Skills = new TSkill[14];
 				Skills[0].ID =  GameData.DPlayers[ID].Skill1;
 				Skills[0].Lv =  GameData.DPlayers[ID].SkillLV1;
@@ -230,8 +230,8 @@ namespace GameStruct
 		public int AHeadDress;
 		public int ZBackEquip;
 
-		public int ActiveSkill;
-		public int ActiveSkillLV;
+		public int Active;
+		public int ActiveLV;
 		public int Skill1;
 		public int SkillLV1;
 		public int Skill2;

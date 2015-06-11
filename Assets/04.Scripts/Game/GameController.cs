@@ -565,15 +565,41 @@ public class GameController : MonoBehaviour
 		Joysticker.AngryFull.SetActive (false);
 
 //		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
+		float passHeight = 0;
+		if(Joysticker.Player.BodyType == 0)
+			passHeight = 4f;
+		else if(Joysticker.Player.BodyType == 1) 
+			passHeight = 3.5f;
+		else if(Joysticker.Player.BodyType == 2)
+			passHeight = 3f;
+		EffectManager.Get.PlayEffect("PassMe", new Vector3(0, passHeight, 0), Joysticker.gameObject);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
-        if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
-            EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+        if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
+			float passAHeight = 0;
+			if(PlayerList [1].Player.BodyType == 0)
+				passAHeight = 4f;
+			else if(PlayerList [1].Player.BodyType == 1) 
+				passAHeight = 3.5f;
+			else if(PlayerList [1].Player.BodyType == 2)
+				passAHeight = 3f;
+			EffectManager.Get.PlayEffect("PassA", new Vector3(0, passAHeight, 0), PlayerList [1].gameObject);
+			EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+		}
 
-        if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
-            EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+        if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
+			float passBHeight = 0;
+			if(PlayerList [2].Player.BodyType == 0)
+				passBHeight = 4f;
+			else if(PlayerList [2].Player.BodyType == 1) 
+				passBHeight = 3.5f;
+			else if(PlayerList [2].Player.BodyType == 2)
+				passBHeight = 3f;
+			EffectManager.Get.PlayEffect("PassB", new Vector3(0, passBHeight, 0), PlayerList [2].gameObject);
+			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+		}
 
         for (int i = 0; i < PlayerList.Count; i ++)
         {
@@ -593,8 +619,9 @@ public class GameController : MonoBehaviour
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
-			PlayerList [i].OnUISkill = UIGame.Get.ShowSkill;
+//			PlayerList [i].OnUISkill = UIGame.Get.ShowSkill;
 			PlayerList [i].OnUICantUse = UIGame.Get.UICantUse;
+			PlayerList [i].OnUIAnger = UIGame.Get.SetAnger;
         }
     }
 
@@ -651,10 +678,10 @@ public class GameController : MonoBehaviour
 
 				if(isPressPassBtn){ 
 					if(Input.GetKeyDown (KeyCode.W))
-						UIGame.Get.DoPassTeammateA();
+						UIGame.Get.DoPassTeammateA(null, true);
 					
 					if(Input.GetKeyDown (KeyCode.E))
-						UIGame.Get.DoPassTeammateB();
+						UIGame.Get.DoPassTeammateB(null, true);
 				}
 
 				if (Input.GetKeyDown (KeyCode.S))
@@ -695,7 +722,7 @@ public class GameController : MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
 				UIGame.Get.DoSkill();
 
-			if(Joysticker.isAngerFull && Joysticker.IsBallOwner) {
+			if(UIGame.Get.isAngerFull && Joysticker.IsBallOwner) {
 				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 				PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
 				if(situation == GameSituation.AttackA && PlayerToBasketDistance < 15 && UIGame.Get.isCanShowSkill) {
@@ -1355,7 +1382,7 @@ public class GameController : MonoBehaviour
 		{                   
 			Shooter = player;
 			SetBallOwnerNull();
-			UIGame.Get.SetPassButton(0);
+			UIGame.Get.SetPassButton();
 			for(int i = 0; i < PlayerList.Count; i++)
 				if(PlayerList[i] != Shooter)
 					PlayerList[i].ResetMove();
@@ -1691,10 +1718,10 @@ public class GameController : MonoBehaviour
 				float aiTime = BallOwner.NoAiTime;
 				BallOwner.NoAiTime = 0;
 
-                if (BallOwner == Joysticker)
+//                if (BallOwner == Joysticker)
                     return Pass(PlayerList [playerid], false, true);
-                else
-					return Pass(Joysticker, false, true);
+//                else
+//					return Pass(Joysticker, false, true);
 
 				Joysticker.NoAiTime = aiTime;
             }
@@ -2288,7 +2315,7 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Pass4:{
 				currentSkillKind = TSkillKind.Pass;
 				PlayerState p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass3)
+				if(p != PlayerState.Pass4)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -3189,7 +3216,7 @@ public class GameController : MonoBehaviour
 				}
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
-				UIGame.Get.SetPassButton(0);
+				UIGame.Get.SetPassButton();
 				CourtMgr.Get.SetBallState(PlayerState.HoldBall, p);
 
 				p.ClearIsCatcher();
@@ -3523,7 +3550,7 @@ public class GameController : MonoBehaviour
 								if (DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position))
 									Catcher = player;
 							} else
-								UIGame.Get.SetPassButton(player.Index);
+								UIGame.Get.SetPassButton();
 						}
 					}
 				}
@@ -3885,8 +3912,6 @@ public class GameController : MonoBehaviour
 
 		Shooter = null;
 		Catcher = null;
-		Joysticker.isAngerFull = false;
-		Joysticker.AngryFull.SetActive (false);
 		Joysticker.SetAnger (-100);
 		situation = GameSituation.Opening;
 		ChangeSituation (GameSituation.Opening);
@@ -3976,6 +4001,16 @@ public class GameController : MonoBehaviour
 			Result = pos.PosAy3;
 		
 		return Result;
+	}
+
+	public int GetBallOwner {
+		get {
+			for (int i = 0; i < PlayerList.Count; i++)            
+				if (PlayerList [i].IsBallOwner)
+					return i;            
+			
+			return 99;
+		}
 	}
 
     public bool IsShooting

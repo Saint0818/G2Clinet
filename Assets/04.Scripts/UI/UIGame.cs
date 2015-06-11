@@ -15,12 +15,10 @@ public enum UISituation{
 }
 
 public enum UIEffect {
-	Pass,
 	Shoot,
 	Block,
 	Steal,
-	Attack,
-	Skill
+	Attack
 }
 
 public enum UIController {
@@ -33,6 +31,12 @@ public enum UIController {
 	Pass,
 	PassA,
 	PassB
+}
+
+public enum UIPassType {
+	MeBallOwner = 0,
+	ABallOwner = 1,
+	BBallOwner = 2
 }
 
 public class UIGame : UIBase {
@@ -70,23 +74,27 @@ public class UIGame : UIBase {
 	private GameObject uiReselect;
 	private GameObject uiContinue;
 	private GameObject uiSkill;
+	private GameObject uiSkillFull;
 	private GameObject uiAttackPush;
 	private GameObject uiPlayerLocation;
+
+	//Force
+	private UISprite spriteForce;
+	private GameObject uiSpriteFull;
+	private GameObject uiSpriteAnimation;
+	public bool isAngerFull = false;
 
 	private GameObject[] attackGroup = new GameObject[2];
 	private GameObject[] defenceGroup = new GameObject[2];
 	private GameObject[] controlButtonGroup= new GameObject[2];
-	private GameObject[] passObjectGroup = new GameObject[2];
+	private GameObject[] passObjectGroup = new GameObject[3];
 	private GameObject[] effectGroup = new GameObject[2];
 
-	private UISprite spritePass;
 	private UILabel[] labelScores = new UILabel[2];
 	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[3];
 
 	//FX
 	private float fxTime = 0.3f;
-	private GameObject buttonPassFX;
-	private float buttonPassFXTime;
 	private GameObject buttonShootFX;
 	private float buttonShootFXTime;
 	private GameObject buttonBlockFX;
@@ -100,7 +108,7 @@ public class UIGame : UIBase {
 		get {
 			if (!instance) 
 				instance = LoadUI(UIName) as UIGame;
-			
+
             return instance;
         }
     }
@@ -119,19 +127,19 @@ public class UIGame : UIBase {
 			instance.Show(isShow);
 		else
 		if(isShow)
-			Get.Show(isShow);
+				Get.Show(isShow);
 	}
 
 	void FixedUpdate()
 	{
-		if (Input.GetMouseButtonUp(0)) {
-			isPressShootBtn = false;
-			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
-				DoPassTeammateA();
-			} else if (UICamera.hoveredObject.name.Equals("ButtonObjectB")) {
-				DoPassTeammateB();
-			}
-		}
+//		if (Input.GetMouseButtonUp(0)) {
+//			isPressShootBtn = false;
+//			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
+//				DoPassTeammateA();
+//			} else if (UICamera.hoveredObject.name.Equals("ButtonObjectB")) {
+//				DoPassTeammateB();
+//			}
+//		}
 
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
@@ -147,7 +155,7 @@ public class UIGame : UIBase {
 
 					if(GameController.Get.IsCanPassAir) {
 						attackGroup[0].SetActive(true);
-						SetPassButton(3);
+						SetPassButton();
 					}
 				}
 			}
@@ -180,6 +188,7 @@ public class UIGame : UIBase {
 		uiContinue = GameObject.Find (UIName + "/TopLeft/ButtonContinue");
 		uiScoreBar = GameObject.Find (UIName + "/Top/UIScoreBar");
 		uiSkill = GameObject.Find(UIName + "/BottomRight/ButtonSkill");
+		uiSkillFull = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
 		uiAttackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
@@ -195,10 +204,11 @@ public class UIGame : UIBase {
 		labelScores [0] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore1").GetComponent<UILabel>();
 		labelScores [1] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore2").GetComponent<UILabel>();
 
-		spritePass = attackGroup[0].GetComponent<UISprite>();
+//		spritePass = attackGroup[0].GetComponent<UISprite>();
 
-		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA");
-		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB");
+		passObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
+		passObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA");
+		passObjectGroup [2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB");
 
 		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/ViewStart/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/ViewStart/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
@@ -209,13 +219,16 @@ public class UIGame : UIBase {
 		effectGroup [0].SetActive (GameData.Setting.Effect);
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
 
+		spriteForce = GameObject.Find (UIName + "/Forcebar/SpriteForce").GetComponent<UISprite>();
+		uiSpriteFull = GameObject.Find (UIName + "/Forcebar/SpriteFullTween");
+		uiSpriteAnimation = GameObject.Find (UIName + "Forcebar/forcebar");
+		uiSpriteFull.SetActive(false);
+		spriteForce.fillAmount = 0;
 
-		buttonPassFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/UI_FX_A_21");
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
 		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
 		buttonStealFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/UI_FX_A_21");
 		buttonAttackFX = GameObject.Find(UIName + "/BottomRight/ButtonAttack/UI_FX_A_21");
-		buttonPassFX.SetActive(false);
 		buttonShootFX.SetActive(false);
 		buttonBlockFX.SetActive(false);
 		buttonStealFX.SetActive(false);
@@ -223,6 +236,8 @@ public class UIGame : UIBase {
 
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ButtonShoot")).onPress = DoShoot;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA")).onPress = DoPassTeammateA;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB")).onPress = DoPassTeammateB;
 
 		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
 		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
@@ -251,7 +266,7 @@ public class UIGame : UIBase {
 		uiContinue.SetActive(false);
 		uiPlayerLocation.SetActive(false);
 		ShowSkillUI(false);
-		SetPassButton(0);
+		SetPassButton();
 
 		ChangeControl(false);
 
@@ -277,16 +292,14 @@ public class UIGame : UIBase {
 		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
 	}
 
-	IEnumerator WaitForVirtualScreen(){
-		yield return new WaitForSeconds(1);
-		
-		uiJoystick.CheckVirtualScreen();
-	}
+//	IEnumerator WaitForVirtualScreen(){
+//		yield return new WaitForSeconds(1);
+//		
+//		uiJoystick.CheckVirtualScreen();
+//	}
 
 	private void showAttack(bool isShow) {
-		for (int i=0; i<attackGroup.Length; i++) {
-			attackGroup[i].SetActive(isShow);
-		}
+			attackGroup[1].SetActive(isShow);
 	}
 
 	private void showDefence(bool isShow) {
@@ -348,16 +361,16 @@ public class UIGame : UIBase {
 		UIControllerState(UIController.Pass, obj, state);
 	}
 
-	public void DoPassTeammateA() {
-		UIControllerState(UIController.PassA);
+	public void DoPassTeammateA(GameObject obj, bool state) {
+		UIControllerState(UIController.PassA, obj, state);
 	}
 
-	public void DoPassTeammateB() {
-		UIControllerState(UIController.PassB);
+	public void DoPassTeammateB(GameObject obj, bool state) {
+		UIControllerState(UIController.PassB, obj, state);
 	}
 
 	public void DoPassNone() {
-		SetPassButton(0);
+		SetPassButton();
 	}
 	
 	public void BackMainMenu() {
@@ -400,25 +413,37 @@ public class UIGame : UIBase {
 		UIState(UISituation.OptionSelect);
 	}
 
-	public bool ShowSkill(PlayerBehaviour p = null){
-		if(p == GameController.Get.Joysticker && p.isAngerFull) {
-			GameController.Get.Joysticker.AngryFull.SetActive(true);
+	public void SetAnger (PlayerBehaviour p = null, float anger = 0){
+		spriteForce.fillAmount = anger / 100;
+		if (spriteForce.fillAmount == 1) {
+			isAngerFull = true;
+			uiSpriteFull.SetActive (true);
+			ShowSkill();
+		} else {
+			isAngerFull = false;
+			uiSpriteFull.SetActive (false);
+		}
+	}
+
+	public void ShowSkill(){
+		if(isAngerFull) {
 			ShowSkillUI(true);
 			isCanShowSkill = true;
-			return true;
-		} else {
-			return false;
 		}
 	}
 
 	public void ShowSkillUI (bool isShow){
-		if(GameController.Get.Joysticker != null && 
-		   GameController.Get.Joysticker.isAngerFull && 
-		   GameController.Get.situation == GameSituation.AttackA && 
-		   GameController.Get.PlayerToBasketDistance < 15) 
-			uiSkill.SetActive(isShow);
+		if(isAngerFull) 
+			uiSkill.SetActive(true);
 		else 
 			uiSkill.SetActive(false);
+
+		if(GameController.Get.Joysticker != null && 
+		   GameController.Get.situation == GameSituation.AttackA && 
+		   GameController.Get.PlayerToBasketDistance < 15) 
+			uiSkillFull.SetActive(isShow);
+		else 
+			uiSkillFull.SetActive(false);
 	}
 
 	public void PlusScore(int team, int score) {
@@ -431,43 +456,6 @@ public class UIGame : UIBase {
 		tweenRotation.to = new Vector3(0,720,0);
 		labelScores[team].text = Scores [team].ToString ();
 	}
-
-	public void SetPassButton(int kind) {
-		switch (kind) {
-		case 1:
-			spritePass.alpha = 0f;
-			viewPass.SetActive(true);
-			passObjectGroup[0].SetActive(true);
-			passObjectGroup[1].SetActive(false);
-			break;
-		case 2:
-			spritePass.alpha = 0f;
-			viewPass.SetActive(true);
-			passObjectGroup[0].SetActive(false);
-			passObjectGroup[1].SetActive(true);
-            break;
-		case 3:
-			spritePass.alpha = 0f;
-			viewPass.SetActive(true);
-			passObjectGroup[0].SetActive(true);
-			passObjectGroup[1].SetActive(true);
-			break;
-		case 4:
-			spritePass.alpha = 1f;
-			viewPass.SetActive(true);
-			passObjectGroup[0].SetActive(true);
-			passObjectGroup[1].SetActive(true);
-			break;
-		default:
-			spritePass.alpha = 1f;
-			viewPass.SetActive(false);
-			passObjectGroup[0].SetActive(true);
-			passObjectGroup[1].SetActive(true);
-			break;
-        }
-		GameController.Get.SetBodyMaterial(kind);
-	}
-
 
 	public void ChangeControl(bool IsAttack) {
 		shootBtnTime = ButtonBTime;
@@ -485,13 +473,13 @@ public class UIGame : UIBase {
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
 			uiAttackPush.SetActive(false);
-			SetPassButton(0);
+			SetPassButton();
 			ShowSkillUI(false);
 			isCanShowSkill = false;
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)
-				SetPassButton(0);
+				SetPassButton();
 			
 			return false;
 		}
@@ -517,24 +505,58 @@ public class UIGame : UIBase {
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)
-				SetPassButton(0);
+				SetPassButton();
 
 			return false;
 		}
 	}
+
+	public void SetPassButton() {
+
+		int who = GameController.Get.GetBallOwner;
+
+		switch (who) {
+		case (int)UIPassType.MeBallOwner:
+			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+			viewPass.SetActive(true);
+			passObjectGroup[0].SetActive(false);
+			passObjectGroup[1].SetActive(true);
+			passObjectGroup[2].SetActive(true);
+			break;
+		case (int)UIPassType.ABallOwner:
+			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+			viewPass.SetActive(true);
+			passObjectGroup[0].SetActive(true);
+			passObjectGroup[1].SetActive(false);
+			passObjectGroup[2].SetActive(true);
+			break;
+		case (int)UIPassType.BBallOwner:
+			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+			viewPass.SetActive(true);
+			passObjectGroup[0].SetActive(true);
+			passObjectGroup[1].SetActive(true);
+			passObjectGroup[2].SetActive(false);
+			break;
+		default:
+			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 260, 0);
+			viewPass.SetActive(false);
+			break;
+		}
+		
+		//		GameController.Get.SetBodyMaterial(kind);
+	}
+
 
 	public void UIControllerState (UIController controllerState, GameObject go = null, bool state = false) {
 		switch(controllerState) {
 		case UIController.Skill:
 			if(!GameController.Get.Joysticker.IsFall && 
 			   GameController.Get.Joysticker.IsBallOwner &&
-			   GameController.Get.Joysticker.AngerView.fillAmount == 1 && 
+			   uiSkillFull.activeInHierarchy && 
 			   GameController.Get.Joysticker.CanUseState(PlayerState.Dunk20)) 
 			{
 				GameController.Get.DoSkill();
 				GameController.Get.Joysticker.SetNoAiTime();
-				GameController.Get.Joysticker.AngerView.fillAmount = 0;
-				GameController.Get.Joysticker.AngryFull.SetActive(false);
 				ShowSkillUI(false);
 			}
 			break;
@@ -641,43 +663,52 @@ public class UIGame : UIBase {
 			}
 			break;
 		case UIController.Pass:
-			if(GameController.Get.Joysticker.IsBallOwner && 
-			   !GameController.Get.Joysticker.IsFall && 
-			   GameController.Get.situation == GameSituation.AttackA) {
-				if(!GameController.Get.IsCanPassAir){
-					if (state) 
-						SetPassButton(4);
-				}
-			} else {
-				GameController.Get.DoPass(0);
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
+//			if(GameController.Get.Joysticker.IsBallOwner && 
+//			   !GameController.Get.Joysticker.IsFall && 
+//			   GameController.Get.situation == GameSituation.AttackA) {
+//				if(!GameController.Get.IsCanPassAir){
+//					if (state) 
+//						SetPassButton(4);
+//				}
+//			} else {
+//				GameController.Get.DoPass(0);
+//				GameController.Get.Joysticker.SetNoAiTime();
+//			}
+//			
+//			if(!state)
+//				SetPassButton(0);
+
+			SetPassButton();
+			attackGroup[1].SetActive(false);
+			uiAttackPush.SetActive(false);
+			ShowSkillUI(false);
+			isCanShowSkill = false;
 			
-			if(!state)
-				SetPassButton(0);
+			if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(0)){
+				GameController.Get.Joysticker.SetNoAiTime();
+			}else
+				showAttack(true);
 			break;
 		case UIController.PassA:
-			SetPassButton(0);
+			SetPassButton();
 			attackGroup[1].SetActive(false);
 			uiAttackPush.SetActive(false);
 			ShowSkillUI(false);
 			isCanShowSkill = false;
 			
 			if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1)){
-				UIEffectState(UIEffect.Pass);
 				GameController.Get.Joysticker.SetNoAiTime();
 			}else
 				showAttack(true);
 			break;
 		case UIController.PassB:
-			SetPassButton(0);
+			SetPassButton();
 			attackGroup[1].SetActive(false);
 			uiAttackPush.SetActive(false);
 			ShowSkillUI(false);
 			isCanShowSkill = false;
 			
 			if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2)){
-				UIEffectState(UIEffect.Pass);
 				GameController.Get.Joysticker.SetNoAiTime();
 			}else 
 				showAttack(true);
@@ -697,7 +728,7 @@ public class UIGame : UIBase {
 			CourtMgr.Get.SetBallState (PlayerState.Start);
 			GameController.Get.StartGame();
 			
-			StartCoroutine("WaitForVirtualScreen");
+//			StartCoroutine("WaitForVirtualScreen");
 			break;
 		case UISituation.Pause:
 			if (!viewStart.activeInHierarchy) {
@@ -751,6 +782,7 @@ public class UIGame : UIBase {
 			CourtMgr.Get.SetScoreboards (1, Scores [1]);
 			isShowOption = false;
 			isShowScoreBar = false;
+			isAngerFull = false;
 			
 			viewStart.SetActive (true);
 			viewFinish.SetActive(false);
@@ -802,10 +834,6 @@ public class UIGame : UIBase {
 		case UIEffect.Block:
 			buttonBlockFXTime = fxTime;
 			buttonBlockFX.SetActive(true);
-			break;
-		case UIEffect.Pass:
-			buttonPassFXTime = fxTime;
-			buttonPassFX.SetActive(true);
 			break;
 		case UIEffect.Shoot:
 			buttonShootFXTime = fxTime;
@@ -891,13 +919,6 @@ public class UIGame : UIBase {
 	}
 
 	private void showButtonFX(){
-		if(buttonPassFXTime > 0) {
-			buttonPassFXTime -= Time.deltaTime;
-			if(buttonPassFXTime <= 0) {
-				buttonPassFXTime = 0;
-				buttonPassFX.SetActive(false);
-			}
-		}
 
 		if(buttonShootFXTime > 0) {
 			buttonShootFXTime -= Time.deltaTime;

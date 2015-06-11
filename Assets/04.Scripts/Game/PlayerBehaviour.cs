@@ -11,6 +11,8 @@ public delegate bool OnPlayerAction2(PlayerBehaviour player,bool speedup);
 
 public delegate bool OnPlayerAction3(PlayerBehaviour player,PlayerState state);
 
+public delegate void OnPlayerAction4(PlayerBehaviour player, float anger);
+
 public enum PlayerState
 {
 	Alleyoop,
@@ -234,8 +236,8 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnGotSteal = null;
     public OnPlayerAction OnOnlyScore = null;
     public OnPlayerAction OnUI = null;
-    public OnPlayerAction OnUISkill = null;
     public OnPlayerAction OnUICantUse = null;
+	public OnPlayerAction4 OnUIAnger = null;
     public OnPlayerAction3 OnDoubleClickMoment = null;
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
@@ -374,7 +376,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float SlowDownTime = 0;
 
 	public int AngerPower = 0;
-	public bool isAngerFull = false;
 
     public void SetAnger(int Value)
     {
@@ -388,14 +389,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (this == GameController.Get.Joysticker)
         {
             float temp = AngerPower;
-            GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
-			if (GameController.Get.Joysticker.AngerView.fillAmount == 1) {
-				isAngerFull = true;
-                OnUISkill(this);
-			} else {
-				isAngerFull = false;
-				GameController.Get.Joysticker.AngryFull.SetActive (false);
-			}
+			OnUIAnger(this, temp);
+//            GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
+//			if (GameController.Get.Joysticker.AngerView.fillAmount == 1) {
+//			} else {
+//				GameController.Get.Joysticker.AngryFull.SetActive (false);
+//			}
         }
     }
 
@@ -558,8 +557,8 @@ public class PlayerBehaviour : MonoBehaviour
 //					if (clips [i].name.Equals(activeSkills[j]))
 					if(clips[i].name.Equals(activeSkill.Name))
 					{
-						Debug.Log("clips[i].name:" + clips[i].name);
-						Debug.Log("clips[i].length:" + clips[i].length);
+//						Debug.Log("clips[i].name:" + clips[i].name);
+//						Debug.Log("clips[i].length:" + clips[i].length);
 //						activeTime.Add(clips[i].name, clips[i].length);
 						activeTime = clips[i].length;
 					}
