@@ -439,7 +439,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.8f), 100);
 			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopPassRate + (Player.Pass * 0.6f), 100);
 			Attr.ReboundHeadDistance = GameData.BaseAttr [Player.AILevel].ReboundHeadDistance + (Player.Rebound / 20);
-			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 5);
+			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 200);
 			Attr.BlockDistance = GameData.BaseAttr [Player.AILevel].BlockDistance + (Player.Block / 50);
             Attr.DefDistance = GameData.BaseAttr [Player.AILevel].DefDistance + (Player.Defence * 0.1f);
             Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue + (Player.Speed * 0.005f);
@@ -447,9 +447,9 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.AutoFollowTime = GameData.BaseAttr [Player.AILevel].AutoFollowTime;
 
             DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-			TopPoint.transform.localScale = new Vector3(Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, Attr.ReboundHeadDistance);
-			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance, Attr.ReboundHandDistance, Attr.ReboundHandDistance);
-			blockTrigger.transform.localScale = new Vector3(Attr.BlockDistance, blockTrigger.transform.localScale.y, Attr.BlockDistance);
+			TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
+			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
+			blockTrigger.transform.localScale = new Vector3( 1 + Attr.BlockDistance, 3.5f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
             if (Attr.StaminaValue > 0)
                 SetMovePower(Attr.StaminaValue);
 
