@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public enum UISituation{
 	Start, 
@@ -82,6 +83,7 @@ public class UIGame : UIBase {
 	private UISprite spriteForce;
 	private GameObject uiSpriteFull;
 	private GameObject uiSpriteAnimation;
+	private UISpriteAnimation spriteAnimation;
 	public bool isAngerFull = false;
 
 	private GameObject[] attackGroup = new GameObject[2];
@@ -222,6 +224,8 @@ public class UIGame : UIBase {
 		spriteForce = GameObject.Find (UIName + "/Forcebar/SpriteForce").GetComponent<UISprite>();
 		uiSpriteFull = GameObject.Find (UIName + "/Forcebar/SpriteFullTween");
 		uiSpriteAnimation = GameObject.Find (UIName + "Forcebar/forcebar");
+		spriteAnimation = GameObject.Find (UIName + "Forcebar/forcebar").GetComponent<UISpriteAnimation>();
+		spriteAnimation.framesPerSecond = 25;
 		uiSpriteFull.SetActive(false);
 		spriteForce.fillAmount = 0;
 
@@ -269,6 +273,7 @@ public class UIGame : UIBase {
 		SetPassButton();
 
 		ChangeControl(false);
+		runForceBar ();
 
 		uiJoystick.Joystick.isActivated = false;
 		uiJoystick.Joystick.DynamicJoystick = false;
@@ -444,6 +449,43 @@ public class UIGame : UIBase {
 			uiSkillFull.SetActive(isShow);
 		else 
 			uiSkillFull.SetActive(false);
+	}
+
+	private void runForceBar () {
+		if(spriteForce.fillAmount < 0.25f) {
+			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.SetActive(false);
+		}else 
+		if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(30, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(60, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(90, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(120, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(150, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(180, 1f).OnStepComplete(resetAnimation);
+		else 
+		if(spriteForce.fillAmount >= 0.95f) 
+			uiSpriteAnimation.transform.DOLocalMoveX(210, 1f).OnStepComplete(resetAnimation);
+	}
+
+	private void resetAnimation (){
+		uiSpriteAnimation.SetActive(true);
+		uiSpriteAnimation.transform.localPosition = new Vector3(-20, 0, 0);
+		spriteAnimation.ResetToBeginning();
+		runForceBar ();
 	}
 
 	public void PlusScore(int team, int score) {
