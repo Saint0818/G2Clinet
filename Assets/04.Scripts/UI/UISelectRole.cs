@@ -98,8 +98,8 @@ public class UISelectRole : UIBase {
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 		ViewLoading = GameObject.Find (UIName + "/Center/ViewLoading");
 		CharacterInfo = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo");
-		CharacterInfoLabel = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/Label").GetComponent<UILabel>();
-		CharacterInfoLabel.text = "";
+//		CharacterInfoLabel = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/Label").GetComponent<UILabel>();
+//		CharacterInfoLabel.text = "";
 		CharacterInfo.SetActive (false);
 
 		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
@@ -150,7 +150,7 @@ public class UISelectRole : UIBase {
 
 	public void OnClickSixAttr(GameObject obj)
 	{
-		//CharacterInfo.SetActive (!CharacterInfo.activeInHierarchy);
+		CharacterInfo.SetActive (!CharacterInfo.activeInHierarchy);
 	}
 
 	public void DoStart()
