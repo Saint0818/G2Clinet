@@ -41,7 +41,7 @@ public class UISelectRole : UIBase {
 	private UILabel [] SelectBListBody = new UILabel[3];
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
-	private string [] AnimatorNameAy = new string[3]{"Move", "Dunk0", "Layup0"};
+	private string [] AnimatorNameAy = new string[1]{""};
 
 	public static bool Visible
 	{
