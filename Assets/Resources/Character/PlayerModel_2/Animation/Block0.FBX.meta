@@ -150,7 +150,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0735030547
+      - time: .032962516
         functionName: AnimationEvent
         data: BlcokCalculateStart
         objectReferenceParameter: {instanceID: 0}
