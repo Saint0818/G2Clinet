@@ -2626,44 +2626,46 @@ public class PlayerBehaviour : MonoBehaviour
         AutoFollow = false;
     }
 
-    public PlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3))
-    {
+    public PlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3)) {
+//		Debug.Log("PassiveSkill : "+ kind);
+//		Debug.Log("PassiveSkill situation: "+ situation);
         PlayerState playerState = PlayerState.Idle;
 		playerState = (PlayerState)System.Enum.Parse(typeof(PlayerState), situation.ToString());
-        List<PassiveSkill> ps = new List<PassiveSkill>();
-        if (passiveSkills.ContainsKey((int)kind)){
-			for(int i=0; i<passiveSkills [(int)kind].Count; i++) {
-				ps.Add(passiveSkills[(int)kind][i]);
-			}
-        }
+//        List<PassiveSkill> ps = new List<PassiveSkill>();
+//        if (passiveSkills.ContainsKey((int)kind)){
+//			for(int i=0; i<passiveSkills [(int)kind].Count; i++) {
+//				ps.Add(passiveSkills[(int)kind][i]);
+//			}
+//        }
         bool isPerformPassive = false;
 		float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
-		if (ps.Count > 0){
-            int passiveRate = 0;
-            if (kind == TSkillKind.Pass)
-            {
-				if (angle < 60f && angle > -60f)
-					passDirect = PassDirectState.Forward;
-				else if (angle <= -60f && angle > -120f)
-					passDirect = PassDirectState.Left;
-                else if (angle < 120f && angle >= 60f)
-					passDirect = PassDirectState.Right;
-				else if (angle >= 120f && angle >= -120f)
-					passDirect = PassDirectState.Back; 
-                
-                for (int i=0; i<ps.Count; i++)
-                {
-                    if ((ps [i].Kind % 10) == (int)passDirect){
-                        passiveRate += ps [i].Rate;
-					}
-                }
-            } else
-            {
-                for (int i=0; i<ps.Count; i++)
-                    passiveRate += ps [i].Rate;
-            }
-            isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
-        }
+		if(passiveSkills.ContainsKey((int)kind)) {
+			if (passiveSkills[(int)kind].Count > 0){
+	            int passiveRate = 0;
+	            if (kind == TSkillKind.Pass) {
+					if (angle < 60f && angle > -60f)
+						passDirect = PassDirectState.Forward;
+					else if (angle <= -60f && angle > -120f)
+						passDirect = PassDirectState.Left;
+	                else if (angle < 120f && angle >= 60f)
+						passDirect = PassDirectState.Right;
+					else if (angle >= 120f && angle >= -120f)
+						passDirect = PassDirectState.Back; 
+	                
+					for (int i=0; i<passiveSkills[(int)kind].Count; i++)
+	                {
+						if ((passiveSkills[(int)kind][i].Kind % 10) == (int)passDirect){
+							passiveRate += passiveSkills[(int)kind] [i].Rate;
+						}
+	                }
+	            } else
+	            {
+					for (int i=0; i<passiveSkills[(int)kind].Count; i++)
+						passiveRate += passiveSkills[(int)kind] [i].Rate;
+	            }
+	            isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
+	        }
+		}
 
         if (isPerformPassive){
 			string animationName = string.Empty;
@@ -2679,18 +2681,20 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 				}
 			} else {
-				if(ps.Count > 0){
-					for (int i=0; i<ps.Count; i++) {
-						if (UnityEngine.Random.Range(0, 100) <= ps [i].Rate){
-							animationName = ps [i].Name;
+				if(passiveSkills[(int)kind].Count > 0){
+					for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
+						if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
+							animationName = passiveSkills[(int)kind] [i].Name;
 							break;       
 						}
 					}
 				}
 			}
-			if (animationName != string.Empty)
+			if (animationName != string.Empty) {
+				if(IsBallOwner && GameController.Get.Joysticker == this)
+					GameController.Get.ShowPassiveEffect();
 				return (PlayerState)System.Enum.Parse(typeof(PlayerState), animationName);
-			else 
+			} else 
 				return playerState;
         } else
             return playerState;

@@ -270,7 +270,7 @@ public class UIGame : UIBase {
 		uiContinue.SetActive(false);
 		uiPlayerLocation.SetActive(false);
 		ShowSkillUI(false);
-		SetPassButton();
+//		SetPassButton();
 
 		ChangeControl(false);
 		runForceBar ();
@@ -453,37 +453,37 @@ public class UIGame : UIBase {
 
 	private void runForceBar () {
 		if(spriteForce.fillAmount < 0.25f) {
-			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 			uiSpriteAnimation.SetActive(false);
 		}else 
 		if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(30, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(30, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(60, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(60, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(90, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(90, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(120, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(120, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(150, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(150, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(180, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(180, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 		else 
 		if(spriteForce.fillAmount >= 0.95f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(210, 1f).OnStepComplete(resetAnimation);
+			uiSpriteAnimation.transform.DOLocalMoveX(210, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 	}
 
 	private void resetAnimation (){
 		uiSpriteAnimation.SetActive(true);
-		uiSpriteAnimation.transform.localPosition = new Vector3(-20, 0, 0);
+		uiSpriteAnimation.transform.localPosition = new Vector3(-25, 0, 0);
 		spriteAnimation.ResetToBeginning();
 		runForceBar ();
 	}
@@ -559,29 +559,41 @@ public class UIGame : UIBase {
 
 		switch (who) {
 		case (int)UIPassType.MeBallOwner:
-			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+//			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(false);
 			passObjectGroup[1].SetActive(true);
 			passObjectGroup[2].SetActive(true);
+			GameController.Get.passIcon[0].SetActive(false);
+			GameController.Get.passIcon[1].SetActive(true);
+			GameController.Get.passIcon[2].SetActive(true);
 			break;
 		case (int)UIPassType.ABallOwner:
-			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+//			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(false);
 			passObjectGroup[2].SetActive(true);
+			GameController.Get.passIcon[0].SetActive(true);
+			GameController.Get.passIcon[1].SetActive(false);
+			GameController.Get.passIcon[2].SetActive(true);
 			break;
 		case (int)UIPassType.BBallOwner:
-			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
+//			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 360, 0);
 			viewPass.SetActive(true);
 			passObjectGroup[0].SetActive(true);
 			passObjectGroup[1].SetActive(true);
 			passObjectGroup[2].SetActive(false);
+			GameController.Get.passIcon[0].SetActive(true);
+			GameController.Get.passIcon[1].SetActive(true);
+			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		default:
-			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 260, 0);
+//			uiAttackPush.gameObject.transform.localPosition = new Vector3(-78, 260, 0);
 			viewPass.SetActive(false);
+			GameController.Get.passIcon[0].SetActive(false);
+			GameController.Get.passIcon[1].SetActive(false);
+			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		}
 		
