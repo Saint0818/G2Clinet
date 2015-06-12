@@ -433,14 +433,14 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.ElbowingRate = Math.Min(GameData.BaseAttr[Player.AILevel].ElbowingRate + (Player.Strength * 0.8f), 100);
             Attr.ReboundRate = Math.Min(GameData.BaseAttr [Player.AILevel].ReboundRate + (Player.Rebound * 0.9f), 100);
             Attr.BlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockRate + (Player.Block * 0.9f), 100);
-            Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate + (1-(Player.Block / 1.2f)), 100);
+            Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate + (100-(Player.Block / 1.15f)), 100);
             Attr.JumpBallRate = Math.Min(GameData.BaseAttr [Player.AILevel].JumpBallRate, 100);
             Attr.PushingRate = Math.Min(GameData.BaseAttr [Player.AILevel].PushingRate + (Player.Defence * 1), 100);
 			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.8f), 100);
 			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopPassRate + (Player.Pass * 0.6f), 100);
 			Attr.ReboundHeadDistance = GameData.BaseAttr [Player.AILevel].ReboundHeadDistance + (Player.Rebound / 20);
 			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 200);
-			Attr.BlockDistance = GameData.BaseAttr [Player.AILevel].BlockDistance + (Player.Block / 50);
+			Attr.BlockDistance = GameData.BaseAttr [Player.AILevel].BlockDistance + (Player.Block / 100);
             Attr.DefDistance = GameData.BaseAttr [Player.AILevel].DefDistance + (Player.Defence * 0.1f);
             Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue + (Player.Speed * 0.005f);
             Attr.StaminaValue = GameData.BaseAttr[Player.AILevel].StaminaValue + (Player.Stamina * 1.2f);
@@ -449,7 +449,7 @@ public class PlayerBehaviour : MonoBehaviour
             DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
 			TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
-			blockTrigger.transform.localScale = new Vector3( 1 + Attr.BlockDistance, 3.5f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
+			blockTrigger.transform.localScale = new Vector3( blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
             if (Attr.StaminaValue > 0)
                 SetMovePower(Attr.StaminaValue);
 
