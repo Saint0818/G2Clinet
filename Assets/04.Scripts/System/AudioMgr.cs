@@ -49,9 +49,9 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 			DAudios [soundName].Play ();
 	}
 
-	public void Mute()
+	public void Mute(bool flag)
 	{
-		IsMute = !IsMute;
+		IsMute = flag;
 
 		if (IsMute)
 			MasterMix.SetFloat("masterVol", -80);
