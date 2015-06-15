@@ -435,7 +435,7 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.PushingRate = Math.Min(GameData.BaseAttr [Player.AILevel].PushingRate + (Player.Defence * 1), 100);
 			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.8f), 100);
 			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopPassRate + (Player.Pass * 0.6f), 100);
-			Attr.ReboundHeadDistance = GameData.BaseAttr [Player.AILevel].ReboundHeadDistance + (Player.Rebound / 20);
+			Attr.ReboundHeadDistance = GameData.BaseAttr [Player.AILevel].ReboundHeadDistance + (Player.Rebound / 200);
 			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 200);
 			Attr.BlockDistance = GameData.BaseAttr [Player.AILevel].BlockDistance + (Player.Block / 100);
             Attr.DefDistance = GameData.BaseAttr [Player.AILevel].DefDistance + (Player.Defence * 0.1f);
