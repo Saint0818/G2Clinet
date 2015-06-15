@@ -271,7 +271,6 @@ public class UIGame : UIBase {
 		uiContinue.SetActive(false);
 		uiPlayerLocation.SetActive(false);
 		ShowSkillUI(false);
-//		SetPassButton();
 
 		ChangeControl(false);
 		runForceBar ();
@@ -524,8 +523,10 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if(p.NoAiTime > 0)
 				p.SetNoAiTime();
+
 			if(isAttackState) UIMaskState(UIController.AttackA);
 			else UIMaskState(UIController.AttackB);
+
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
@@ -849,9 +850,6 @@ public class UIGame : UIBase {
 					GameController.Get.Joysticker.SetNoAiTime();
 				}
 			}
-//			else 
-//				uiShoot.SetActive(false);
-
 			break;
 		}
 	}
@@ -896,7 +894,6 @@ public class UIGame : UIBase {
 		case UISituation.Finish:
 			viewFinish.SetActive(true);
 			uiScoreBar.SetActive(true);
-//			uiJoystick.gameObject.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			break;
 

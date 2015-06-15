@@ -35,6 +35,9 @@ public class ScoreTrigger : MonoBehaviour
 									animator.SetTrigger(GameController.Get.BasketAnimationName);
 							}
 							break;
+						default:
+							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
+							break;
 						}
 					}else
 					if(IntTrigger == 1 && CourtMgr.Get.BasketEntra[Team, 0].Into && !CourtMgr.Get.BasketEntra[Team, 1].Into) {
