@@ -38,8 +38,7 @@ public class UISelectRole : UIBase {
 	private UISprite [] SelectABBody = new UISprite[2];
 	public static int [] RoleIDAy = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
-	private UILabel [] SelectAListName = new UILabel[3];
-	private UILabel [] SelectBListName = new UILabel[3];
+	private UILabel [] SelectAListName = new UILabel[6];
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
@@ -150,22 +149,17 @@ public class UISelectRole : UIBase {
 		PlayerBodyObj.SetActive (true);
 
 		SelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
-		SelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/BodyTypeA/SpriteType").GetComponent<UISprite>();
+		SelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/SpriteTypeA").GetComponent<UISprite>();
 
 		SelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-		SelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/BodyTypeB/SpriteType").GetComponent<UISprite>();
+		SelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/SpriteTypeB").GetComponent<UISprite>();
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectA/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
-			SetBtnFun(UIName + "/Center/ViewLoading/SelectA/ListA/UIGrid/" + i.ToString(), DoListA);
+			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Center/ViewLoading/SelectA/ListA/" + i.ToString(), DoListA);
 		}
 
-		for(int i = 0; i < SelectBListName.Length; i++)
-		{
-			SelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectB/ListB/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
-			SetBtnFun(UIName + "/Center/ViewLoading/SelectB/ListB/UIGrid/" + i.ToString(), DoListB);
-		}
 		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
 
 
@@ -327,7 +321,6 @@ public class UISelectRole : UIBase {
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			}
 		}
 	}
@@ -374,7 +367,6 @@ public class UISelectRole : UIBase {
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			}
 		}
 	}
@@ -475,8 +467,7 @@ public class UISelectRole : UIBase {
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-			SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+			SelectAListName [i].text = GameData.DPlayers[RoleIDAy[i]].Name;
 		}
 	}
 
