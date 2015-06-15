@@ -39,10 +39,7 @@ public class UISelectRole : UIBase {
 	public static int [] RoleIDAy = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
 	private UILabel [] SelectAListName = new UILabel[3];
-	private UILabel [] SelectAListBody = new UILabel[3];
-
 	private UILabel [] SelectBListName = new UILabel[3];
-	private UILabel [] SelectBListBody = new UILabel[3];
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
@@ -160,16 +157,14 @@ public class UISelectRole : UIBase {
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectA/ListA/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
-			SelectAListBody [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectA/ListA/" + i.ToString() + "/BodyType").GetComponent<UILabel>();
-			SetBtnFun(UIName + "/Center/ViewLoading/SelectA/ListA/" + i.ToString(), DoListA);
+			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectA/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Center/ViewLoading/SelectA/ListA/UIGrid/" + i.ToString(), DoListA);
 		}
 
 		for(int i = 0; i < SelectBListName.Length; i++)
 		{
-			SelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectB/ListB/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
-			SelectBListBody [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectB/ListB/" + i.ToString() + "/BodyType").GetComponent<UILabel>();
-			SetBtnFun(UIName + "/Center/ViewLoading/SelectB/ListB/" + i.ToString(), DoListB);
+			SelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/SelectB/ListB/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Center/ViewLoading/SelectB/ListB/UIGrid/" + i.ToString(), DoListB);
 		}
 		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
 
@@ -211,7 +206,7 @@ public class UISelectRole : UIBase {
 
 	private void SetSubAttr(int Index, float Value)
 	{
-		SelectAttrDataAy [Index].Slider.value = Value / 100;
+		SelectAttrDataAy [Index].Slider.value = 0;//Value / 100;
 		SelectAttrDataAy [Index].Value.text = Value.ToString ();
 	}
 
@@ -332,9 +327,7 @@ public class UISelectRole : UIBase {
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectAListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectBListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 			}
 		}
 	}
@@ -381,9 +374,7 @@ public class UISelectRole : UIBase {
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectAListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-				SelectBListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 			}
 		}
 	}
@@ -485,9 +476,7 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
 			SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-			SelectAListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 			SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
-			SelectBListBody [i].text = TextConst.S(GameData.DPlayers [UnSelectIDAy [i]].BodyType + 7);
 		}
 	}
 
