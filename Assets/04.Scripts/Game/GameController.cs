@@ -3202,7 +3202,8 @@ public class GameController : MonoBehaviour
         Shooter = null;
 
 		if (GameStart.Get.TestMode == EGameTest.Shoot) {
-			SetBall(Joysticker);		
+			SetBall(Joysticker);	
+			Joysticker.AniState(EPlayerState.HoldBall);
 		}
 		else if(GameStart.Get.TestMode == EGameTest.Block){
 			SetBall(PlayerList [1]);

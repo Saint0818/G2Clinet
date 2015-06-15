@@ -33,6 +33,7 @@ public enum EPlayerState
 	Dunk0,
 	Dunk2,
 	Dunk4,
+	Dunk6,
 	Dunk20,
 	DunkBasket,
 	Defence0,    
@@ -1200,7 +1201,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 
 		//IdleAirCheck
-		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle)
+		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
 		{
 			Debug.LogError(gameObject.name + " : Error : Idle in the Air ");
 		}
@@ -1620,10 +1621,16 @@ public class PlayerBehaviour : MonoBehaviour
         if (CheckAnimatorSate(EPlayerState.Idle) || CheckAnimatorSate(EPlayerState.Dribble1) || CheckAnimatorSate(EPlayerState.Dribble0))
         {
             NeedResetFlag = false;
-            for (int i = 0; i < PlayerActionFlag.Length; i++)
-                PlayerActionFlag [i] = 0;
-            
-            AniState(EPlayerState.Idle);
+
+			for (int i = 0; i < PlayerActionFlag.Length; i++)
+				PlayerActionFlag [i] = 0;
+
+			if(!IsBallOwner){
+            	AniState(EPlayerState.Idle);
+			}
+			else
+				AniState(EPlayerState.Dribble0);
+
             if (ClearMove)
             {
                 MoveQueue.Clear();
@@ -1706,6 +1713,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk0:
             case EPlayerState.Dunk2:
             case EPlayerState.Dunk4:
+            case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
                 if (IsBallOwner && !IsShoot && (crtState == EPlayerState.Idle || crtState == EPlayerState.HoldBall || IsDribble))
                 if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
@@ -1843,7 +1851,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         bool Result = false;
         int stateNo = 0;
-        string curveName;
+        string curveName = string.Empty;
+		bool isFindCurve = false;
         PlayerRigidbody.mass = 0;
 
 		if(IsDebugAnimation)
@@ -1854,15 +1863,20 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Block:
                 SetShooterLayer();
                 playerBlockCurve = null;
+				curveName = "Block";
+
                 for (int i = 0; i < aniCurve.Block.Length; i++)
-                    if (aniCurve.Block [i].Name == "Block")
+					if (aniCurve.Block [i].Name == curveName)
+					{
                         playerBlockCurve = aniCurve.Block [i];
+						isFindCurve = true;
+						blockCurveTime = 0;
+						isBlock = true;
+					}
 
                 ClearAnimatorFlag();
                 animator.SetTrigger("BlockTrigger");
                 isCanCatchBall = false;
-                blockCurveTime = 0;
-                isBlock = true;
                 Result = true;
                 break;
 
@@ -1917,6 +1931,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk0:
             case EPlayerState.Dunk2:
             case EPlayerState.Dunk4:
+            case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
                 switch (state)
                 {
@@ -1930,6 +1945,9 @@ public class PlayerBehaviour : MonoBehaviour
                     case EPlayerState.Dunk4:
                         stateNo = 4;
                         break;
+					case EPlayerState.Dunk6:
+						stateNo = 6;
+						break;
                     case EPlayerState.Dunk20:
                         stateNo = 20;
                         break;
@@ -1941,13 +1959,17 @@ public class PlayerBehaviour : MonoBehaviour
                 isCanCatchBall = false;
 
                 playerDunkCurve = null;
+
+				curveName = string.Format("Dunk{0}", stateNo);
+
                 for (int i = 0; i < aniCurve.Dunk.Length; i++)
-                    if (aniCurve.Dunk [i].Name == string.Format("Dunk{0}", stateNo))
+					if (aniCurve.Dunk [i].Name == curveName)
                     {
                         playerDunkCurve = aniCurve.Dunk [i];
                         isDunk = true;
                         isDunkZmove = false;
                         dunkCurveTime = 0;
+						isFindCurve = true;
                     }
                 SetShooterLayer();
                 Result = true;
@@ -2030,6 +2052,7 @@ public class PlayerBehaviour : MonoBehaviour
                         playerFallCurve = aniCurve.Fall [i];
                         fallCurveTime = 0;
                         isFall = true;
+						isFindCurve = true;
                     }
 
                 isDunk = false;
@@ -2143,12 +2166,14 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push:
                 ClearAnimatorFlag();
                 playerPushCurve = null;
+				curveName = "Push0";
                 for (int i = 0; i < aniCurve.Push.Length; i++)
-                    if (aniCurve.Push [i].Name == "Push0")
+					if (aniCurve.Push [i].Name == curveName)
                     {
                         playerPushCurve = aniCurve.Push [i];
                         pushCurveTime = 0;
                         isPush = true;
+						isFindCurve = true;
                     }
                 animator.SetTrigger("PushTrigger");
                 Result = true;
@@ -2165,12 +2190,15 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.PickBall2:
                 isCanCatchBall = true;
                 ClearAnimatorFlag();
+				curveName = "PickBall2";
+
                 for (int i = 0; i < aniCurve.Push.Length; i++)
-                    if (aniCurve.PickBall [i].Name == "PickBall2")
+					if (aniCurve.PickBall [i].Name == curveName)
                     {
                         playerPickCurve = aniCurve.PickBall [i];
                         pickCurveTime = 0;
                         isPick = true;
+						isFindCurve = true;
                     }
                 animator.SetInteger("StateNo", 2);
                 animator.SetTrigger("PickTrigger");
@@ -2262,16 +2290,16 @@ public class PlayerBehaviour : MonoBehaviour
                 
                     animator.SetInteger("StateNo", stateNo);
                     curveName = string.Format("Shoot{0}", stateNo);
-
+					
                     for (int i = 0; i < aniCurve.Shoot.Length; i++)
                         if (aniCurve.Shoot [i].Name == curveName)
                         {
                             playerShootCurve = aniCurve.Shoot [i];
                             shootJumpCurveTime = 0;
                             isShootJump = true;
+							isFindCurve = true;
                             continue;
                         }
-
                     SetShooterLayer();
                     ClearAnimatorFlag();
                     animator.SetTrigger("ShootTrigger");
@@ -2313,6 +2341,7 @@ public class PlayerBehaviour : MonoBehaviour
 						layupCurveTime = 0;
 						isLayup = true;
 						isLayupZmove = false;
+						isFindCurve = true;
 					}
 					SetShooterLayer();
 					ClearAnimatorFlag();
@@ -2331,12 +2360,15 @@ public class PlayerBehaviour : MonoBehaviour
 				} else
                     reboundMove = Vector3.zero;
 
+				curveName = "Rebound0";
+
                 for (int i = 0; i < aniCurve.Rebound.Length; i++)
-                    if (aniCurve.Rebound [i].Name == "Rebound")
+					if (aniCurve.Rebound [i].Name == curveName)
                     {
                         playerReboundCurve = aniCurve.Rebound [i];
                         reboundCurveTime = 0;
                         isRebound = true;
+						isFindCurve = true;
                     }
 
                 ClearAnimatorFlag();
@@ -2356,6 +2388,9 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetTrigger("ReboundCatchTrigger");
                 break;
         }
+
+		if(curveName != string.Empty && !isFindCurve)
+			DebugAnimationCurve(curveName);
         
         if (Result)
         {
@@ -2367,6 +2402,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         return Result;
     }
+	
+	private void DebugAnimationCurve(string curveName)
+	{
+		if(IsDebugAnimation)
+			Debug.LogError("Can not Find aniCurve: " + curveName);
+	}
 
     public void SetShooterLayer()
     {
@@ -2756,6 +2797,7 @@ public class PlayerBehaviour : MonoBehaviour
                 EPlayerState.Dunk0,
                 EPlayerState.Dunk2,
                 EPlayerState.Dunk4,
+                EPlayerState.Dunk6,
                 EPlayerState.Dunk20,
                 EPlayerState.Alleyoop,
                 EPlayerState.Elbow,
@@ -2898,7 +2940,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDunk
     {
-        get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk20;}
+		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20;}
     }
 
 	public bool IsLayup
