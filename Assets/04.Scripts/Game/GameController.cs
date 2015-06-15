@@ -555,7 +555,7 @@ public class GameController : MonoBehaviour
 
         Joysticker = PlayerList [0];
 
-		selectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+		selectMe = setEffectMagager("SelectMe");
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
@@ -563,41 +563,19 @@ public class GameController : MonoBehaviour
 		Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
 		Joysticker.AngryFull.SetActive (false);
 
-//		BallHolder = EffectManager.Get.PlayEffectFollowBallOwner("BallHolder", Vector3.zero);
-		float passHeight = 0;
-		if(Joysticker.Player.BodyType == 0)
-			passHeight = 4f;
-		else if(Joysticker.Player.BodyType == 1) 
-			passHeight = 3.5f;
-		else if(Joysticker.Player.BodyType == 2)
-			passHeight = 3f;
-		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", new Vector3(0, passHeight, 0), Joysticker.gameObject);
+		passIcon[0] = setEffectMagager("setEffectMagager");
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
-			float passAHeight = 0;
-			if(PlayerList [1].Player.BodyType == 0)
-				passAHeight = 4f;
-			else if(PlayerList [1].Player.BodyType == 1) 
-				passAHeight = 3.5f;
-			else if(PlayerList [1].Player.BodyType == 2)
-				passAHeight = 3f;
-			passIcon[1] = EffectManager.Get.PlayEffect("PassA", new Vector3(0, passAHeight, 0), PlayerList [1].gameObject);
-			EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+			passIcon[1] = setEffectMagager("PassA");
+			setEffectMagager("SelectA");
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
-			float passBHeight = 0;
-			if(PlayerList [2].Player.BodyType == 0)
-				passBHeight = 4f;
-			else if(PlayerList [2].Player.BodyType == 1) 
-				passBHeight = 3.5f;
-			else if(PlayerList [2].Player.BodyType == 2)
-				passBHeight = 3f;
-			passIcon[2] = EffectManager.Get.PlayEffect("PassB", new Vector3(0, passBHeight, 0), PlayerList [2].gameObject);
-			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+			passIcon[2] = setEffectMagager("PassB");
+			setEffectMagager("SelectB");
 		}
 
         for (int i = 0; i < PlayerList.Count; i ++)
@@ -721,35 +699,7 @@ public class GameController : MonoBehaviour
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
 				UIGame.Get.DoSkill();
 
-			if(UIGame.Get.isAngerFull && Joysticker.IsBallOwner) {
-				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
-				PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
-				if(situation == GameSituation.AttackA && UIGame.Get.isCanShowSkill) {
-					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
-						if (GameController.Get.PlayerToBasketDistance <= 15)
-							UIGame.Get.ShowSkillUI(true);
-						else 
-							UIGame.Get.ShowSkillUI(false);
-					} else 
-					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
-						if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) {
-							if (GameController.Get.PlayerToBasketDistance > 15)
-								UIGame.Get.ShowSkillUI(true);
-							else 
-								UIGame.Get.ShowSkillUI(false);
-						} else 
-						if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AllCount ) {
-							if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) 
-								UIGame.Get.ShowSkillUI(true);
-							else 
-								UIGame.Get.ShowSkillUI(false);
-						} else 
-							UIGame.Get.ShowSkillUI(false);
-					}
-				}else
-					UIGame.Get.ShowSkillUI(false);
-			} else
-				UIGame.Get.ShowSkillUI(false);
+			jodgeSkillType ();
 		}
 
 		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
@@ -1097,7 +1047,7 @@ public class GameController : MonoBehaviour
                 break;
             case GameSituation.TeeA:
 				CourtMgr.Get.Walls[1].SetActive(false);
-				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+				setEffectMagager("ThrowInLineEffect");
                 break;
             case GameSituation.TeeBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
@@ -1107,7 +1057,7 @@ public class GameController : MonoBehaviour
                 break;
 			case GameSituation.TeeB:
 				CourtMgr.Get.Walls[0].SetActive(false);
-				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
+				setEffectMagager("ThrowInLineEffect");
 				break;
 			case GameSituation.End:
 				IsStart = false;
@@ -1161,6 +1111,39 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+	//Attack <15   Deffence >15  All
+	private void jodgeSkillType (){
+		if(UIGame.Get.isAngerFull && Joysticker.IsBallOwner) {
+			Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
+			PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
+			if(situation == GameSituation.AttackA && UIGame.Get.isCanShowSkill) {
+				if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
+					if (GameController.Get.PlayerToBasketDistance <= 15)
+						UIGame.Get.ShowSkillUI(true);
+					else 
+						UIGame.Get.ShowSkillUI(false);
+				} else 
+				if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
+					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) {
+						if (GameController.Get.PlayerToBasketDistance > 15)
+							UIGame.Get.ShowSkillUI(true);
+						else 
+							UIGame.Get.ShowSkillUI(false);
+					} else 
+					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AllCount ) {
+						if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) 
+							UIGame.Get.ShowSkillUI(true);
+						else 
+							UIGame.Get.ShowSkillUI(false);
+					} else 
+						UIGame.Get.ShowSkillUI(false);
+				}
+			}else
+				UIGame.Get.ShowSkillUI(false);
+		} else
+			UIGame.Get.ShowSkillUI(false);
+	}
 	
 	private void jodgeShootAngle(PlayerBehaviour player){
 		//Angle
@@ -1257,7 +1240,7 @@ public class GameController : MonoBehaviour
 		if(ShootDis >= GameConst.TreePointDistance) {
 //			originalRate = player.Attr.PointRate3 * player.ScoreRate.ThreeScoreRateDeviation;
 			originalRate = player.Attr.PointRate3;
-			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
+			setEffectMagager("ThreeLineEffect");
 		} else {
 //			originalRate = player.Attr.PointRate2 * player.ScoreRate.TwoScoreRateDeviation;
 			originalRate = player.Attr.PointRate2;
@@ -1580,7 +1563,6 @@ public class GameController : MonoBehaviour
 					
 					if(dis <= GameConst.FastPassDistance || player.crtState == PlayerState.Alleyoop)
 					{
-//						Result = BallOwner.AniState(PlayerState.PassFast, player.transform.position);
 						Result = DoPassiveSkill(TSkillSituation.Pass4, BallOwner, player.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
@@ -2068,13 +2050,8 @@ public class GameController : MonoBehaviour
     
     public void DoSkill() {
 		if(CandoBtn)
-        	Joysticker.SetNoAiTime();
-		if(Joysticker.Player.BodyType == 0)
-			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, 4, 0), Joysticker.gameObject, null, 1f);
-		else if(Joysticker.Player.BodyType == 1)
-			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, 3.5f, 0), Joysticker.gameObject, null, 1f);
-		else if(Joysticker.Player.BodyType == 2)
-			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, 3f, 0), Joysticker.gameObject, null, 1f);
+			Joysticker.SetNoAiTime();
+		setEffectMagager("SkillSign");
 
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
@@ -2254,14 +2231,7 @@ public class GameController : MonoBehaviour
     }
 
 	public void ShowPassiveEffect (){
-		if(Joysticker.Player.BodyType == 0)
-			EffectManager.Get.PlayEffect("SkillSign01", new Vector3(0, 4, 0), Joysticker.gameObject, null, 1f);
-		else 
-		if(Joysticker.Player.BodyType == 1)
-			EffectManager.Get.PlayEffect("SkillSign01", new Vector3(0, 3.5f, 0), Joysticker.gameObject, null, 1f);
-		else 
-		if(Joysticker.Player.BodyType == 2)
-			EffectManager.Get.PlayEffect("SkillSign01", new Vector3(0, 3f, 0), Joysticker.gameObject, null, 1f);
+		setEffectMagager("SkillSign01");
 	}
 
 	public bool DoPassiveSkill(TSkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
@@ -4013,6 +3983,39 @@ public class GameController : MonoBehaviour
 			}
 		}
 	}
+
+	private GameObject setEffectMagager (string effectName){
+		GameObject obj = null;
+		switch (effectName) {
+		case "SkillSign":
+		case "SkillSign01" :
+			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Player.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 1f);
+			break;
+		case "ThreeLineEffect":
+		case "ThrowInLineEffect":
+			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, null, 0);
+			break;
+		case "PassMe":
+			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Player.BodyType * 0.5f)), 0), Joysticker.gameObject);
+			break;
+		case "PassA":
+			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [1].Player.BodyType * 0.5f)), 0), PlayerList [1].gameObject);
+			break;
+		case "PassB":
+			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [2].Player.BodyType * 0.5f)), 0), PlayerList [2].gameObject);
+			break;
+		case "SelectA":
+			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, PlayerList [1].gameObject);
+			break;
+		case "SelectB":
+			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, PlayerList [2].gameObject);
+			break;
+		case "SelectMe":
+			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, Joysticker.gameObject);
+			break;
+		}
+		return obj;
+	}	
 
 	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos, ref TActionPosition [] Result)
 	{
