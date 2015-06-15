@@ -282,7 +282,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float NoAiTime = 0;
     public bool HaveNoAiTime = false;
     public int Index;
-    public GameSituation situation = GameSituation.None;
+    public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
     public float WaitMoveTime = 0;
@@ -358,7 +358,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
 
-    private PassDirectState passDirect = PassDirectState.Forward;
+    private EPassDirectState passDirect = EPassDirectState.Forward;
     private bool firstDribble = true;
     public TScoreRate ScoreRate;
     private bool isCanCatchBall = true;
@@ -479,9 +479,9 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					if (GameData.SkillData.ContainsKey(Player.Skills [i].ID))
 					{
-						if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)TSkillKind.MoveDodge) 
+						if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)ESkillKind.MoveDodge) 
 							isHaveMoveDodge = true;
-						if (GameData.SkillData [Player.Skills [i].ID].Animation == TSkillKind.Pick2.ToString())
+						if (GameData.SkillData [Player.Skills [i].ID].Animation == ESkillKind.Pick2.ToString())
 							isHavePickBall2 = true;
 						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
 						PassiveSkill ps = new PassiveSkill();
@@ -495,14 +495,14 @@ public class PlayerBehaviour : MonoBehaviour
 						if (key > 1000){
 							key = (key / 100);
 							int direct = 0;
-							if(key % 10 == (int)PassDirectState.Forward) 
-								direct = (int)PassDirectState.Forward;
-							else if(key % 10 == (int)PassDirectState.Back) 
-								direct = (int)PassDirectState.Back;
-							else if(key % 10 == (int)PassDirectState.Left) 
-								direct = (int)PassDirectState.Left;
-							else if(key % 10 == (int)PassDirectState.Right) 
-								direct = (int)PassDirectState.Right;
+							if(key % 10 == (int)EPassDirectState.Forward) 
+								direct = (int)EPassDirectState.Forward;
+							else if(key % 10 == (int)EPassDirectState.Back) 
+								direct = (int)EPassDirectState.Back;
+							else if(key % 10 == (int)EPassDirectState.Left) 
+								direct = (int)EPassDirectState.Left;
+							else if(key % 10 == (int)EPassDirectState.Right) 
+								direct = (int)EPassDirectState.Right;
 
 							if(passivePassDirects.ContainsKey(direct)) {
 								List<PassiveSkill> psTemps = passivePassDirects[direct];
@@ -736,7 +736,7 @@ public class PlayerBehaviour : MonoBehaviour
 //            }       
 //        }
 
-        if (situation == GameSituation.AttackA || situation == GameSituation.AttackB)
+        if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
         {
             if (!IsDefence)
             {
@@ -833,7 +833,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetNoAiTime()
     {
-        if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+        if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
         {
             isJoystick = true;
             NoAiTime = Time.time + GameData.Setting.AIChangeTime;
@@ -1217,12 +1217,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanMove || stop || HoldBallCanMove)
         {
-            if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
-                situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+            if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && 
+                situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
             {
                 if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
                 {
-                    if (GameController.Get.CoolDownCrossover == 0 && !IsDefence && GameController.Get.DoPassiveSkill(TSkillSituation.MoveDodge, this))
+                    if (GameController.Get.CoolDownCrossover == 0 && !IsDefence && GameController.Get.DoPassiveSkill(ESkillSituation.MoveDodge, this))
                     {
                     
                     } else
@@ -1289,8 +1289,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void OnJoystickMoveEnd(MovingJoystick move, EPlayerState ps)
     {
         if (CanMove && 
-            situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && 
-            situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+            situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && 
+            situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
         {
             SetNoAiTime();
             isJoystick = false;
@@ -1301,9 +1301,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (crtState == EPlayerState.Dribble0)
             {
-                if (situation == GameSituation.AttackA)
+                if (situation == EGameSituation.AttackA)
                     rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
-                else if (situation == GameSituation.AttackB)
+                else if (situation == EGameSituation.AttackB)
                     rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
             }
         }
@@ -1364,7 +1364,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void MoveTo(TMoveData Data, bool First = false)
     {
-        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != GameTest.Block)
+        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block)
         {
             bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
             TacticalName = Data.FileName;
@@ -1408,12 +1408,12 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
-                    else if (situation == GameSituation.TeeA || situation == GameSituation.TeeB)
+                    else if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
                         AniState(EPlayerState.Dribble0);
                     
-                    if (First || GameStart.Get.TestMode == GameTest.Edit)
+                    if (First || GameStart.Get.TestMode == EGameTest.Edit)
                         WaitMoveTime = 0;
-                    else if (situation != GameSituation.TeeA && situation != GameSituation.TeeAPicking && situation != GameSituation.TeeB && situation != GameSituation.TeeBPicking)
+                    else if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
                     {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
                         if (dis <= 8)
@@ -1450,7 +1450,7 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (Data.Catcher)
                         {
-                            if ((situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+                            if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB))
                             {
                                 if (GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = Data.Shooting;
@@ -1709,7 +1709,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == GameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (crtState != EPlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -1819,7 +1819,7 @@ public class PlayerBehaviour : MonoBehaviour
     { 
         get
         {
-            return (situation == GameSituation.TeeA || situation == GameSituation.TeeAPicking || situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking);
+            return (situation == EGameSituation.TeeA || situation == EGameSituation.TeeAPicking || situation == EGameSituation.TeeB || situation == EGameSituation.TeeBPicking);
         }
     }
 
@@ -2553,7 +2553,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "CatchEnd":
-                if (situation == GameSituation.TeeA || situation == GameSituation.TeeB)
+                if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
                 {
                     if (IsBallOwner)
                         AniState(EPlayerState.Dribble0);
@@ -2630,7 +2630,7 @@ public class PlayerBehaviour : MonoBehaviour
         AutoFollow = false;
     }
 
-    public EPlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3)) {
+    public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3)) {
         EPlayerState playerState = EPlayerState.Idle;
 		playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
         bool isPerformPassive = false;
@@ -2638,15 +2638,15 @@ public class PlayerBehaviour : MonoBehaviour
 		if(passiveSkills.ContainsKey((int)kind)) {
 			if (passiveSkills[(int)kind].Count > 0){
 	            int passiveRate = 0;
-	            if (kind == TSkillKind.Pass) {
+	            if (kind == ESkillKind.Pass) {
 					if (angle < 60f && angle > -60f)
-						passDirect = PassDirectState.Forward;
+						passDirect = EPassDirectState.Forward;
 					else if (angle <= -60f && angle > -120f)
-						passDirect = PassDirectState.Left;
+						passDirect = EPassDirectState.Left;
 	                else if (angle < 120f && angle >= 60f)
-						passDirect = PassDirectState.Right;
+						passDirect = EPassDirectState.Right;
 					else if (angle >= 120f && angle >= -120f)
-						passDirect = PassDirectState.Back; 
+						passDirect = EPassDirectState.Back; 
 	                
 					for (int i=0; i<passiveSkills[(int)kind].Count; i++)
 	                {
@@ -2665,7 +2665,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isPerformPassive){
 			string animationName = string.Empty;
-			if (kind == TSkillKind.Pass){
+			if (kind == ESkillKind.Pass){
 				if (passivePassDirects.ContainsKey((int) passDirect)){
 					for (int i=0; i<passivePassDirects [(int)passDirect].Count; i++)
 					{
@@ -2844,9 +2844,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if ((situation == GameSituation.AttackA || situation == GameSituation.TeeA || situation == GameSituation.TeeAPicking) && Team == TeamKind.Npc)
+            if ((situation == EGameSituation.AttackA || situation == EGameSituation.TeeA || situation == EGameSituation.TeeAPicking) && Team == TeamKind.Npc)
                 return true;
-            else if ((situation == GameSituation.AttackB || situation == GameSituation.TeeB || situation == GameSituation.TeeBPicking) && Team == TeamKind.Self)
+            else if ((situation == EGameSituation.AttackB || situation == EGameSituation.TeeB || situation == EGameSituation.TeeBPicking) && Team == TeamKind.Self)
                 return true;
             else
                 return false;

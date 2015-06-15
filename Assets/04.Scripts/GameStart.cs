@@ -8,9 +8,9 @@ using GameStruct;
 
 public class GameStart : KnightSingleton<GameStart> {
 	public static GameStart instance;
-	public SceneTest  SceneMode = SceneTest.Single;
-	public GameTest TestMode = GameTest.None;
-	public CameraTest TestCameraMode = CameraTest.None;
+	public ESceneTest  SceneMode = ESceneTest.Single;
+	public EGameTest TestMode = EGameTest.None;
+	public ECameraTest TestCameraMode = ECameraTest.None;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);
@@ -23,15 +23,15 @@ public class GameStart : KnightSingleton<GameStart> {
 
 		switch(SceneMode)
 		{
-		case SceneTest.Single:
+		case ESceneTest.Single:
 			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
 			break;
-		case SceneTest.Release:
+		case ESceneTest.Release:
 			//ConnectToServer = true;
 			//CheckServerData();
 			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
 			break;
-		case SceneTest.SelectRole:
+		case ESceneTest.SelectRole:
 			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
 			break;
 		}
@@ -128,7 +128,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	
 	void OnGUI()
 	{
-		if (SceneMode == SceneTest.Multi){
+		if (SceneMode == ESceneTest.Multi){
 			if (GUI.Button (new Rect (100, 0, 100, 50), "Lobby"))
 				{
 					SceneMgr.Get.ChangeLevel(SceneName.Lobby);

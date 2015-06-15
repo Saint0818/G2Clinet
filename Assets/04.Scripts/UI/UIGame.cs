@@ -440,7 +440,7 @@ public class UIGame : UIBase {
 		else 
 			uiSkill.SetActive(false);
 
-		if(GameController.Get.Joysticker != null && GameController.Get.situation == GameSituation.AttackA) 
+		if(GameController.Get.Joysticker != null && GameController.Get.situation == EGameSituation.AttackA) 
 			uiSkillFull.SetActive(isShow);
 		else 
 			uiSkillFull.SetActive(false);
@@ -536,7 +536,7 @@ public class UIGame : UIBase {
 	}
 
 	public void SetPassButton() {
-		if(GameStart.Get.TestMode != GameTest.None) 
+		if(GameStart.Get.TestMode != EGameTest.None) 
 			return;
 
 		int who = GameController.Get.GetBallOwner;
@@ -569,12 +569,12 @@ public class UIGame : UIBase {
 			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		default:
-			if(GameController.Get.situation == GameSituation.AttackB) {
+			if(GameController.Get.situation == EGameSituation.AttackB) {
 				viewPass.SetActive(false);
 				GameController.Get.passIcon[0].SetActive(false);
 				GameController.Get.passIcon[1].SetActive(false);
 				GameController.Get.passIcon[2].SetActive(false);
-			} else if(GameController.Get.situation == GameSituation.AttackA) {
+			} else if(GameController.Get.situation == EGameSituation.AttackA) {
 				viewPass.SetActive(true);
 				GameController.Get.passIcon[0].SetActive(true);
 				GameController.Get.passIcon[1].SetActive(true);
@@ -734,7 +734,7 @@ public class UIGame : UIBase {
 				//Elbow
 				if(isPressElbowBtn && 
 				   !GameController.Get.Joysticker.IsFall && 
-				   GameController.Get.situation == GameSituation.AttackA &&
+				   GameController.Get.situation == EGameSituation.AttackA &&
 				   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
 					UIMaskState(UIController.Attack);
 					GameController.Get.DoElbow ();
@@ -744,7 +744,7 @@ public class UIGame : UIBase {
 				//Push
 				if(isCanDefenceBtnPress && 
 				   !GameController.Get.Joysticker.IsFall &&
-				   (GameController.Get.situation == GameSituation.AttackB || GameController.Get.situation == GameSituation.AttackA) &&
+				   (GameController.Get.situation == EGameSituation.AttackB || GameController.Get.situation == EGameSituation.AttackA) &&
 				   GameController.Get.Joysticker.CanUseState(EPlayerState.Push)) {
 					UIMaskState(UIController.Attack);
 					GameController.Get.DoPush();
@@ -755,7 +755,7 @@ public class UIGame : UIBase {
 		case UIController.Block:
 			if(isCanDefenceBtnPress && 
 			   !GameController.Get.Joysticker.IsFall && 
-			   GameController.Get.situation == GameSituation.AttackB &&
+			   GameController.Get.situation == EGameSituation.AttackB &&
 			   GameController.Get.Joysticker.CanUseState(EPlayerState.Block)) {
 				UIMaskState(UIController.Block);
 				GameController.Get.DoBlock();
@@ -765,7 +765,7 @@ public class UIGame : UIBase {
 		case UIController.Steal:
 			if(isCanDefenceBtnPress && 
 			   !GameController.Get.Joysticker.IsFall &&
-			   GameController.Get.situation == GameSituation.AttackB && 
+			   GameController.Get.situation == EGameSituation.AttackB && 
 			   GameController.Get.StealBtnLiftTime <= 0 && 
 			   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal)) {
 				UIMaskState(UIController.Steal);
@@ -780,7 +780,7 @@ public class UIGame : UIBase {
 				}
 			} else {
 				if(GameController.Get.Joysticker.IsBallOwner &&
-				   GameController.Get.situation == GameSituation.AttackA && 
+				   GameController.Get.situation == EGameSituation.AttackA && 
 				   !GameController.Get.Joysticker.IsFall && 
 				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 

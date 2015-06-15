@@ -153,7 +153,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void InitTestTool()
 	{
-		if (GameStart.Get.TestCameraMode == CameraTest.RGB) {
+		if (GameStart.Get.TestCameraMode == ECameraTest.RGB) {
 			cameraOffsetAeraObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			cameraOffsetAeraObj.GetComponent<Collider>().enabled = false;
 			cameraOffsetAeraObj.name = "ColorR";
@@ -178,9 +178,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 			SetTestToolPosition();
 
-			cameraOffsetAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
-			focusMoveAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == CameraTest.RGB;
-			focusStopAeraObj.GetComponent<Renderer> ().enabled =  GameStart.Get.TestCameraMode == CameraTest.RGB;
+			cameraOffsetAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
+			focusMoveAeraObj.GetComponent<Renderer> ().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
+			focusStopAeraObj.GetComponent<Renderer> ().enabled =  GameStart.Get.TestCameraMode == ECameraTest.RGB;
 			focusTarget.GetComponent<Renderer>().enabled = true;
 		} else
 			focusTarget.GetComponent<Renderer>().enabled = false;
@@ -188,7 +188,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void SetTestToolPosition()
 	{
-		if (GameStart.Get.TestCameraMode == CameraTest.RGB) {
+		if (GameStart.Get.TestCameraMode == ECameraTest.RGB) {
 			if (curTeam == TeamKind.Self) {
 				focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
 				focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [0]);	
