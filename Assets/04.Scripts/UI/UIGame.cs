@@ -538,7 +538,6 @@ public class UIGame : UIBase {
 			return;
 
 		int who = GameController.Get.GetBallOwner;
-		Debug.Log("GameController.Get.situation :"+GameController.Get.situation );
 		switch (who) {
 		case (int)UIPassType.MeBallOwner:
 			viewPass.SetActive(true);
@@ -585,7 +584,6 @@ public class UIGame : UIBase {
 	}
 
 	public void UIMaskState (UIController controllerState) {
-		Debug.Log("UIMaskState:"+controllerState);
 		switch (controllerState) {
 		case UIController.Skill:
 			ShowSkillUI(false);
@@ -721,7 +719,6 @@ public class UIGame : UIBase {
 	}
 
 	public void UIControllerState (UIController controllerState, GameObject go = null, bool state = false) {
-		Debug.Log("UIControllerState:"+controllerState);
 		switch(controllerState) {
 		case UIController.Skill:
 			if(!GameController.Get.Joysticker.IsFall && GameController.Get.Joysticker.IsBallOwner &&
