@@ -244,7 +244,6 @@ public class GameController : MonoBehaviour
 
     public Vector2[] TeeBackPosAy = new Vector2[3];
 	public Vector3[] BornAy = new Vector3[6];
-	private GameStruct.TPlayer [] PlayerAy = new TPlayer[6];
 
 	//Score Animation Value
 	private float extraScoreRate = 0;
@@ -397,93 +396,18 @@ public class GameController : MonoBehaviour
         
         return Result;
     }
-
-	private void setPlayerData(int index, ref TTeam team) {
-		if (index >= 0 && index < PlayerAy.Length && GameData.DPlayers.ContainsKey(team.Player.ID)) {
-			PlayerAy[index].ID = team.Player.ID;
-			PlayerAy[index].Name = team.Player.Name;
-			PlayerAy[index].SetAttribute();
-			PlayerAy[index].SetAvatar();
-        }
-	}
-
-	public void InitPlayer(){
-		int [] NpcIDAy = new int[3];
-		int Index = 0;
-
-		if(GameStart.Get.SceneMode == SceneTest.Release && GameData.DPlayers.ContainsKey(GameData.TeamMembers[0].Player.ID))
-		{
-			for(int j = 0; j < UISelectRole.RoleIDAy.Length; j++)
-			{
-				if(UISelectRole.RoleIDAy[j] != GameData.Team.Player.ID &&
-				   UISelectRole.RoleIDAy[j] != GameData.TeamMembers[0].Player.ID &&
-				   UISelectRole.RoleIDAy[j] != GameData.TeamMembers[1].Player.ID)
-				{
-					if(GameData.DPlayers.ContainsKey(UISelectRole.RoleIDAy[j]))
-					{
-						NpcIDAy[Index] = UISelectRole.RoleIDAy[j];
-						Index++;
-					}
-				}
-			}
-		}
-
-		Index = 0;
-		for (int i = 0; i < PlayerAy.Length; i++) 
-		{
-			PlayerAy[i] = new TPlayer(0);
-
-			if(i >= (PlayerAy.Length / 2))
-			{
-				if(GameStart.Get.SceneMode == SceneTest.Release && GameData.DPlayers.ContainsKey(GameData.TeamMembers[0].Player.ID))
-				{
-					if(GameData.DPlayers.ContainsKey(NpcIDAy[Index]))
-					{
-						PlayerAy[i].ID = NpcIDAy[Index];
-						PlayerAy[i].Name = GameData.DPlayers[NpcIDAy[Index]].Name;
-						PlayerAy[i].SetAttribute();
-						PlayerAy[i].SetAvatar();
-						Index++;
-					}
-				}
-				else if(GameData.DPlayers.ContainsKey(i + 1))
-				{
-					PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
-					PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
-					PlayerAy[i].SetAttribute();
-					PlayerAy[i].SetAvatar();
-				}
-			}
-			else
-			{
-				if(GameData.DPlayers.ContainsKey(i + 1))
-				{
-					PlayerAy[i].ID = GameData.DPlayers[i + 1].ID;
-					PlayerAy[i].Name = GameData.DPlayers[i + 1].Name;
-					PlayerAy[i].SetAttribute();
-					PlayerAy[i].SetAvatar();
-				}
-			}
-		}
-
-		setPlayerData(0, ref GameData.Team);
-		for (int i = 0; i < GameData.TeamMembers.Length; i++)
-			setPlayerData(i+1, ref GameData.TeamMembers[i]);
-	}
 	
 	public void CreateTeam()
     {
         switch (GameStart.Get.TestMode)
         {               
             case GameTest.None:
-				InitPlayer ();
-				
-				for (int i = 0; i < PlayerAy.Length; i++) {
-					if(i >= (PlayerAy.Length / 2))
-						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i % (PlayerAy.Length / 2), TeamKind.Npc, BornAy[i], PlayerAy[i]));				
-					else
-						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, TeamKind.Self, BornAy[i], PlayerAy[i]));					
-				}
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Self, BornAy[0], GameData.Team.Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Self, BornAy[1], GameData.TeamMembers[0].Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, TeamKind.Self, BornAy[2], GameData.TeamMembers[1].Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, TeamKind.Npc, BornAy[3], GameData.EnemyMembers[0].Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, TeamKind.Npc, BornAy[4], GameData.EnemyMembers[1].Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, TeamKind.Npc, BornAy[5], GameData.EnemyMembers[2].Player));								
 
                 for (int i = 0; i < PlayerList.Count; i++)
 				{    
@@ -3923,11 +3847,10 @@ public class GameController : MonoBehaviour
 		for(int i=0; i < PlayerList.Count; i++) 
 		{
 			if(i >= PlayerList.Count / 2)
-				PlayerAy[i].AILevel = GameConst.NpcAILevel;
+				PlayerList[i].Player.AILevel = GameConst.NpcAILevel;
 			else
-				PlayerAy[i].AILevel = GameConst.SelfAILevel;
+				PlayerList[i].Player.AILevel = GameConst.SelfAILevel;
 
-			PlayerList[i].Player = PlayerAy[i];
 			PlayerList[i].InitAttr();
 		}
 	}

@@ -206,7 +206,7 @@ public class UISelectRole : UIBase {
 	public void DoControlMusic()
 	{
 		MusicOn.enabled = !MusicOn.enabled;
-		AudioMgr.Get.Mute(MusicOn.enabled);		
+		AudioMgr.Get.Mute(!MusicOn.enabled);		
 	}
 
 	private void SetSubAttr(int Index, float Value)
@@ -280,6 +280,13 @@ public class UISelectRole : UIBase {
 
 	public void DoStart()
 	{
+		SetEnemyMembers ();
+		GameData.Team.Player.SetAttribute();
+		GameData.Team.Player.SetAvatar();
+		GameData.TeamMembers [0].Player.SetAttribute ();
+		GameData.TeamMembers [0].Player.SetAvatar ();
+		GameData.TeamMembers [1].Player.SetAttribute ();
+		GameData.TeamMembers [1].Player.SetAvatar ();		
 		SceneMgr.Get.ChangeLevel (SceneName.Court_0);
 	}
 
@@ -512,10 +519,10 @@ public class UISelectRole : UIBase {
 				Value = data.Dribble + data.Pass;
 				UITriangle.Get.ChangeValue (2, Value / 2 / MaxValue);
 				
-				Value = data.Point2 + data.Point3;
-				UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
-				
 				Value = data.Speed + data.Stamina;
+				UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
+
+				Value = data.Point2 + data.Point3;
 				UITriangle.Get.ChangeValue (4, Value / 2 / MaxValue);
 				
 				Value = data.Rebound + data.Dunk;
@@ -645,11 +652,11 @@ public class UISelectRole : UIBase {
 			
 			Value = data.Dribble + data.Pass;
 			UITriangle.Get.ChangeValue (2, Value / 2 / MaxValue);
-			
-			Value = data.Point2 + data.Point3;
-			UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
-			
+
 			Value = data.Speed + data.Stamina;
+			UITriangle.Get.ChangeValue (3, Value / 2 / MaxValue);
+
+			Value = data.Point2 + data.Point3;
 			UITriangle.Get.ChangeValue (4, Value / 2 / MaxValue);
 			
 			Value = data.Rebound + data.Dunk;
@@ -719,6 +726,28 @@ public class UISelectRole : UIBase {
 				#endif
 				PlayerObjAy[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
 			} 
+		}
+	}
+
+	public void SetEnemyMembers()
+	{
+		int Index = 0;
+
+		for(int j = 0; j < RoleIDAy.Length; j++)
+		{
+			if(RoleIDAy[j] != GameData.Team.Player.ID &&
+			   RoleIDAy[j] != GameData.TeamMembers[0].Player.ID &&
+			   RoleIDAy[j] != GameData.TeamMembers[1].Player.ID)
+			{
+				if(GameData.DPlayers.ContainsKey(RoleIDAy[j]))
+				{
+					GameData.EnemyMembers[Index].Player.ID = RoleIDAy[j];
+					GameData.EnemyMembers[Index].Player.Name = GameData.DPlayers[RoleIDAy[j]].Name;
+					GameData.EnemyMembers[Index].Player.SetAttribute();
+					GameData.EnemyMembers[Index].Player.SetAvatar();
+					Index++;
+				}
+			}
 		}
 	}
 }
