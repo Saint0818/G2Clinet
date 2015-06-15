@@ -32,10 +32,10 @@ public class UISelectRole : UIBase {
 	private float axisX;
 	private UILabel PlayerName;
 	private GameObject PlayerNameObj;
-	private UILabel PlayerBody;
+	private UISprite PlayerBodyPic;
 	private GameObject PlayerBodyObj;
 	private UILabel [] SelectABName = new UILabel[2];
-	private UILabel [] SelectABBody = new UILabel[2];
+	private UISprite [] SelectABBody = new UISprite[2];
 	public static int [] RoleIDAy = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
 	private UILabel [] SelectAListName = new UILabel[3];
@@ -47,6 +47,8 @@ public class UISelectRole : UIBase {
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
 	private TSelectAttrData [] SelectAttrDataAy = new TSelectAttrData[12];
+	private UISprite [] LineAy = new UISprite[6];
+	private UISprite MusicOn;
 
 	private float [] OldValueAy = new float[12];
 	private float [] NewValueAy = new float[12];
@@ -97,9 +99,17 @@ public class UISelectRole : UIBase {
 		{
 			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
 			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
+			LineAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteLine").GetComponent<UISprite>();
+			if(i == 0)
+				LineAy[i].fillAmount = 1;
+			else
+				LineAy[i].fillAmount = 0;
 		}
 
+		MusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
+		SetBtnFun (UIName + "/Right/MusicSwitch/ButtonMusic", DoControlMusic);
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoSelectRole);
+		SetBtnFun (UIName + "/Center/ViewLoading/Back", DoBackToSelectMe);
 		Left = GameObject.Find (UIName + "/Left");
 		OkBtn = GameObject.Find (UIName + "/Right/CharacterCheck");
 		InfoRange = GameObject.Find (UIName + "/Right/InfoRange");
@@ -138,15 +148,15 @@ public class UISelectRole : UIBase {
 		PlayerNameObj = GameObject.Find (UIName + "/Right/InfoRange/PlayerName");
 		PlayerNameObj.SetActive (true);
 
-		PlayerBody = GameObject.Find (UIName + "/Right/InfoRange/BodyType/Label").GetComponent<UILabel>();
+		PlayerBodyPic = GameObject.Find (UIName + "/Right/InfoRange/BodyType/SpriteType").GetComponent<UISprite>();
 		PlayerBodyObj = GameObject.Find (UIName + "/Right/InfoRange/BodyType");
 		PlayerBodyObj.SetActive (true);
 
 		SelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
-		SelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/BodyTypeA/Label").GetComponent<UILabel>();
+		SelectABBody[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/BodyTypeA/SpriteType").GetComponent<UISprite>();
 
 		SelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
-		SelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/BodyTypeB/Label").GetComponent<UILabel>();
+		SelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/BodyTypeB/SpriteType").GetComponent<UISprite>();
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
@@ -177,6 +187,33 @@ public class UISelectRole : UIBase {
 			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 26.5f));
 		else
 			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
+	}
+
+	public void DoBackToSelectMe()
+	{
+		UITriangle.Get.Triangle.SetActive (true);
+		InfoRange.SetActive (true);
+		OkBtn.SetActive (true);
+		Left.SetActive (true);
+		PlayerNameObj.SetActive (true);
+		PlayerBodyObj.SetActive (true);
+		ViewLoading.SetActive (false);
+
+		for(int i = 1; i < Ay.Length; i++) 	
+			PlayerObjAy[i].SetActive(false);
+	}
+
+	public void DoControlMusic()
+	{
+		MusicOn.enabled = !MusicOn.enabled;
+		if(MusicOn.enabled)
+		{
+
+		}
+		else
+		{
+
+		}
 	}
 
 	private void SetSubAttr(int Index, float Value)
@@ -241,34 +278,6 @@ public class UISelectRole : UIBase {
 			NewValueAy[10] = data.Dribble;
 			NewValueAy[11] = data.Pass;
 		}
-
-//		else
-//		{
-//			SelectAttrDataAy [0].Slider.value = data.Point2 / 100;
-//			SelectAttrDataAy [0].Value.text = data.Point2.ToString ();
-//			SelectAttrDataAy [1].Slider.value = data.Point3 / 100;
-//			SelectAttrDataAy [1].Value.text = data.Point3.ToString ();
-//			SelectAttrDataAy [2].Slider.value = data.Speed / 100;
-//			SelectAttrDataAy [2].Value.text = data.Speed.ToString ();
-//			SelectAttrDataAy [3].Slider.value = data.Stamina / 100;
-//			SelectAttrDataAy [3].Value.text = data.Stamina.ToString ();
-//			SelectAttrDataAy [4].Slider.value = data.Rebound / 100;
-//			SelectAttrDataAy [4].Value.text = data.Rebound.ToString ();
-//			SelectAttrDataAy [5].Slider.value = data.Dunk / 100;
-//			SelectAttrDataAy [5].Value.text = data.Dunk.ToString ();
-//			SelectAttrDataAy [6].Slider.value = data.Block / 100;
-//			SelectAttrDataAy [6].Value.text = data.Block.ToString ();
-//			SelectAttrDataAy [7].Slider.value = data.Strength / 100;
-//			SelectAttrDataAy [7].Value.text = data.Strength.ToString ();
-//			SelectAttrDataAy [8].Slider.value = data.Defence / 100;
-//			SelectAttrDataAy [8].Value.text = data.Defence.ToString ();
-//			SelectAttrDataAy [9].Slider.value = data.Steal / 100;
-//			SelectAttrDataAy [9].Value.text = data.Steal.ToString ();
-//			SelectAttrDataAy [10].Slider.value = data.Dribble / 100;
-//			SelectAttrDataAy [10].Value.text = data.Dribble.ToString ();
-//			SelectAttrDataAy [11].Slider.value = data.Pass / 100;
-//			SelectAttrDataAy [11].Value.text = data.Pass.ToString ();
-//		}
 	}
 
 	public void OnClickSixAttr(GameObject obj)
@@ -482,6 +491,7 @@ public class UISelectRole : UIBase {
 		}
 	}
 
+	private int SelectRoleIndex = 0;
 	public void SelectRole()
 	{
 		int Index;
@@ -490,7 +500,9 @@ public class UISelectRole : UIBase {
 			Select.transform.localPosition = new Vector3(BtnAy[Index].transform.localPosition.x, 
 			                                             BtnAy[Index].transform.localPosition.y,
 			                                             BtnAy[Index].transform.localPosition.z);
-
+			SelectRoleIndex = Index;
+			for(int i = 0; i < LineAy.Length; i++)
+				LineAy[i].fillAmount = 0;
 			SetPlayerAvatar(0, Index);
 			PlayerObjAy[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			PlayAnimator(0, AnimatorNameAy[UnityEngine.Random.Range(0, AnimatorNameAy.Length)]);
@@ -520,6 +532,25 @@ public class UISelectRole : UIBase {
 		}
 	}
 
+	public void SetBodyPic(ref UISprite Pic, int Type)
+	{
+		switch(Type)
+		{
+		case 0:
+			Pic.spriteName = "L_namecard_CENTER";
+			break;
+		case 1:
+			Pic.spriteName = "L_namecard_FORWARD";
+			break;
+		case 2:
+			Pic.spriteName = "L_namecard_GUARD";
+			break;
+		default:
+			Pic.spriteName = "L_namecard_CENTER";
+			break;
+		}
+	}
+
 	private void SetPlayerAvatar(int RoleIndex, int Index)
 	{
 		PlayerAy[RoleIndex].ID = RoleIDAy[Index];
@@ -535,12 +566,12 @@ public class UISelectRole : UIBase {
 		{
 		case 0:
 			PlayerName.text = GameData.DPlayers [RoleIDAy [Index]].Name;
-			PlayerBody.text = TextConst.S(GameData.DPlayers [RoleIDAy [Index]].BodyType + 7);
+			SetBodyPic(ref PlayerBodyPic, GameData.DPlayers [RoleIDAy [Index]].BodyType);
 			break;
 		case 1:
 		case 2:
 			SelectABName[RoleIndex - 1].text = GameData.DPlayers [RoleIDAy [Index]].Name;
-			SelectABBody[RoleIndex - 1].text = TextConst.S(GameData.DPlayers [RoleIDAy [Index]].BodyType + 7);
+			SetBodyPic(ref SelectABBody[RoleIndex - 1], GameData.DPlayers [RoleIDAy [Index]].BodyType);
 			break;
 		}
 
@@ -575,7 +606,7 @@ public class UISelectRole : UIBase {
 				PlayerObjAy[i].transform.localPosition = new Vector3(0, -0.8f, 0);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 				PlayerName.text = GameData.DPlayers [PlayerAy[i].ID].Name;
-				PlayerBody.text = TextConst.S(GameData.DPlayers [PlayerAy[i].ID].BodyType + 7);
+				SetBodyPic(ref PlayerBodyPic, GameData.DPlayers [PlayerAy[i].ID].BodyType);
 			}
 			else if(i == 1)
 			{
@@ -649,6 +680,12 @@ public class UISelectRole : UIBase {
 
 	void FixedUpdate()
 	{
+		if (SelectRoleIndex >= 0 && SelectRoleIndex < LineAy.Length) 
+		{
+			if(LineAy[SelectRoleIndex].fillAmount < 1)
+				LineAy[SelectRoleIndex].fillAmount += 0.1f;		
+		}
+
 		for(int i = 0; i < OldValueAy.Length; i++)
 		{
 			if(OldValueAy[i] != NewValueAy[i])
