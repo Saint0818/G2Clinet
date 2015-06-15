@@ -447,33 +447,35 @@ public class UIGame : UIBase {
 	}
 
 	private void runForceBar () {
-		if(spriteForce.fillAmount < 0.25f) {
-			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+		float endValue = 0;
+		if(spriteForce.fillAmount < 0.25f)
 			uiSpriteAnimation.SetActive(false);
-		}else 
+		else 
 		if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(0, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 0;
 		else 
 		if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(30, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 30;
 		else 
 		if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(60, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 60;
 		else 
 		if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(90, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 90;
 		else 
 		if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(120, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 120;
 		else 
 		if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(150, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 150;
 		else 
 		if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(180, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 180;
 		else 
 		if(spriteForce.fillAmount >= 0.95f) 
-			uiSpriteAnimation.transform.DOLocalMoveX(210, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+			endValue = 210;
+
+		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 	}
 
 	private void resetAnimation (){
@@ -505,10 +507,10 @@ public class UIGame : UIBase {
 
 	public bool UICantUse(PlayerBehaviour p = null) {
 		if(p == GameController.Get.Joysticker) {
-			uiAttackPush.SetActive(true);
+			isCanShowSkill = false;
 			SetPassButton();
 			ShowSkillUI(false);
-			isCanShowSkill = false;
+			uiAttackPush.SetActive(true);
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)

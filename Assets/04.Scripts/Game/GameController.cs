@@ -563,7 +563,7 @@ public class GameController : MonoBehaviour
 		Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
 		Joysticker.AngryFull.SetActive (false);
 
-		passIcon[0] = setEffectMagager("setEffectMagager");
+		passIcon[0] = setEffectMagager("PassMe");
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
@@ -1238,11 +1238,9 @@ public class GameController : MonoBehaviour
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDis >= GameConst.TreePointDistance) {
-//			originalRate = player.Attr.PointRate3 * player.ScoreRate.ThreeScoreRateDeviation;
 			originalRate = player.Attr.PointRate3;
 			setEffectMagager("ThreeLineEffect");
 		} else {
-//			originalRate = player.Attr.PointRate2 * player.ScoreRate.TwoScoreRateDeviation;
 			originalRate = player.Attr.PointRate2;
 		}
 		float rate = (Random.Range(0, 100) + 1);
@@ -1294,14 +1292,17 @@ public class GameController : MonoBehaviour
 		if(extraScoreRate == GameData.ExtraPerfectRate)
 			isAirBall = false;
 		
-		if(isScore && isSwich) 
-			BasketSituationType = BasketSituation.Swich;
-		else if(isScore && !isSwich)
-			BasketSituationType = BasketSituation.Score;
-		else if(!isScore && isAirBall)
-			BasketSituationType = BasketSituation.AirBall;
-		else if(!isScore && !isAirBall)
-			BasketSituationType = BasketSituation.NoScore;
+		if(isScore) {
+			if(isSwich)
+				BasketSituationType = BasketSituation.Swich;
+			else 
+				BasketSituationType = BasketSituation.Score;
+		} else {
+			if(isAirBall)
+				BasketSituationType = BasketSituation.AirBall;
+			else 
+				BasketSituationType = BasketSituation.NoScore;
+		}
 	}
 
 	public void AddExtraScoreRate(float rate) {
@@ -1389,26 +1390,28 @@ public class GameController : MonoBehaviour
 				if(PlayerList[i] != Shooter)
 					PlayerList[i].ResetMove();
 			shootAngle = 55;
-			if(skillKind == TSkillKind.Shoot) {
-				calculationScoreRate(player, ScoreType.Normal);
-			} else 
-			if(skillKind == TSkillKind.NearShoot) {
-				calculationScoreRate(player, ScoreType.NearShot);
-			} else 
-			if(skillKind == TSkillKind.UpHand) {
-				calculationScoreRate(player, ScoreType.UpHand);
-			} else 
-			if(skillKind == TSkillKind.DownHand) {
-				calculationScoreRate(player, ScoreType.DownHand);
-			} else 
+			ScoreType st = ScoreType.Normal;
+
+			if(skillKind == TSkillKind.Shoot)
+				st = ScoreType.Normal;
+			else 
+			if(skillKind == TSkillKind.NearShoot)
+				st = ScoreType.NearShot;
+			else 
+			if(skillKind == TSkillKind.UpHand)
+				st = ScoreType.UpHand;
+			else 
+			if(skillKind == TSkillKind.DownHand)
+				st = ScoreType.DownHand;
+			else 
 			if(player.crtState == PlayerState.TipIn){
-				calculationScoreRate(player, ScoreType.LayUp);
+				st = ScoreType.LayUp;
 				shootAngle = 75;
 			} else 
-			if(skillKind == TSkillKind.Layup) {
-				calculationScoreRate(player, ScoreType.LayUp);
-			}
+			if(skillKind == TSkillKind.Layup)
+				st = ScoreType.LayUp;
 
+			calculationScoreRate(player, st);
 			judgeBasketAnimationName ((int)basketDistanceAngle);
 
 			SetBall();
@@ -2175,7 +2178,6 @@ public class GameController : MonoBehaviour
 				if (ElbowRate < Npc.Attr.ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
 					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow))
 				{
-//					if(Npc.AniState(PlayerState.Elbow, man.transform.position)){
 					if(DoPassiveSkill(TSkillSituation.Elbow, Npc, man.transform.position)){
 						CoolDownPass = 0;
 						Npc.CoolDownElbow = Time.time + 3;
@@ -2222,7 +2224,6 @@ public class GameController : MonoBehaviour
 				if (NearPlayer != null && pushRate < Npc.Attr.PushingRate && Npc.CoolDownPush == 0)
                 {
                     //Push
-//					if(Npc.AniState(PlayerState.Push, NearPlayer.transform.position))
 					if(DoPassiveSkill(TSkillSituation.Push, Npc, NearPlayer.transform.position))
 						Npc.CoolDownPush = Time.time + 3;                    
                 } 
