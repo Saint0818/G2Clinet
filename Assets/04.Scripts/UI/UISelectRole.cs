@@ -206,14 +206,7 @@ public class UISelectRole : UIBase {
 	public void DoControlMusic()
 	{
 		MusicOn.enabled = !MusicOn.enabled;
-		if(MusicOn.enabled)
-		{
-
-		}
-		else
-		{
-
-		}
+		AudioMgr.Get.Mute(MusicOn.enabled);		
 	}
 
 	private void SetSubAttr(int Index, float Value)
