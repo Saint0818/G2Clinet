@@ -34,7 +34,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Camera cameraPlayer;
 
 	private GameObject focusTarget;
-	private TeamKind curTeam = TeamKind.Self;
+	private ETeamKind curTeam = ETeamKind.Self;
 	
 	public bool IsBallOnFloor = false;
 	public bool IsLongPass = false;
@@ -112,7 +112,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public bool IsTee = false;
 
-	public void SetTeamCamera(TeamKind team, bool isTee = false)
+	public void SetTeamCamera(ETeamKind team, bool isTee = false)
 	{
 		IsTee = isTee;
 		curTeam = team;
@@ -189,7 +189,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void SetTestToolPosition()
 	{
 		if (GameStart.Get.TestCameraMode == ECameraTest.RGB) {
-			if (curTeam == TeamKind.Self) {
+			if (curTeam == ETeamKind.Self) {
 				focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
 				focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [0]);	
 			} else {
@@ -286,7 +286,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		focusObjectOffset (curTeam.GetHashCode());
 		switch (curTeam) {
-		case TeamKind.Self:
+		case ETeamKind.Self:
 			if(!IsTee){
 				if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
 					Lookat(focusTarget, Vector3.zero);
@@ -304,7 +304,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			}
 
 			break;
-		case TeamKind.Npc:
+		case ETeamKind.Npc:
 			if(!IsTee){
 				if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
 					Lookat(focusTarget, Vector3.zero);

@@ -86,13 +86,13 @@ public enum EPlayerState
 	JumpBall  
 }
 
-public enum TeamKind
+public enum ETeamKind
 {
     Self = 0,
     Npc = 1
 }
 
-public enum DefPointKind
+public enum EDefPointKind
 {
     Front = 0,
     Back = 1,
@@ -104,7 +104,7 @@ public enum DefPointKind
     LeftSteal = 7
 }
 
-public enum ActionFlag
+public enum EActionFlag
 {
     None = 0,
     IsRun = 1,
@@ -113,7 +113,7 @@ public enum ActionFlag
     IsHoldBall = 4,
 }
 
-public enum BallDirection
+public enum EBallDirection
 {
     Left,
     Middle,
@@ -202,7 +202,7 @@ public struct PassiveSkill
     public int Rate;
 }
 
-public enum ActiveDistanceType 
+public enum EActiveDistanceType 
 {
 	AttackHalfCount,
 	DeffenceHalfCount,
@@ -214,7 +214,7 @@ public struct ActiveSkill
 	public int ID;
 	public int Kind;
 	public string Name;
-	public ActiveDistanceType type;
+	public EActiveDistanceType type;
 }
 
 public class PlayerBehaviour : MonoBehaviour
@@ -278,7 +278,7 @@ public class PlayerBehaviour : MonoBehaviour
     public UISprite SpeedUpView = null;
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
-    public TeamKind Team;
+    public ETeamKind Team;
     public float NoAiTime = 0;
     public bool HaveNoAiTime = false;
     public int Index;
@@ -462,13 +462,13 @@ public class PlayerBehaviour : MonoBehaviour
 			activeSkill.Kind = GameData.SkillData [Player.ActiveSkill.ID].Kind;
 			int keyActive = GameData.SkillData [Player.ActiveSkill.ID].Kind;
 			if(keyActive % 10 == 1 || keyActive % 10 == 4)
-				activeSkill.type = ActiveDistanceType.AttackHalfCount;
+				activeSkill.type = EActiveDistanceType.AttackHalfCount;
 			else 
 			if(keyActive % 10 == 2 || keyActive % 10 == 5) 
-				activeSkill.type = ActiveDistanceType.DeffenceHalfCount;
+				activeSkill.type = EActiveDistanceType.DeffenceHalfCount;
 			else 
 			if(keyActive % 10 == 3 || keyActive % 10 == 6) 
-				activeSkill.type = ActiveDistanceType.AllCount;
+				activeSkill.type = EActiveDistanceType.AllCount;
 		}
 		//Passive
 		if (Player.Skills != null && Player.Skills.Length > 0)
@@ -520,13 +520,13 @@ public class PlayerBehaviour : MonoBehaviour
 							activeSkill.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
 							activeSkill.Kind = GameData.SkillData [Player.Skills [i].ID].Kind;
 							if(key % 10 == 1 || key % 10 == 4)
-								activeSkill.type = ActiveDistanceType.AttackHalfCount;
+								activeSkill.type = EActiveDistanceType.AttackHalfCount;
 							else 
 							if(key % 10 == 2 || key % 10 == 5) 
-								activeSkill.type = ActiveDistanceType.DeffenceHalfCount;
+								activeSkill.type = EActiveDistanceType.DeffenceHalfCount;
 							else 
 							if(key % 10 == 3 || key % 10 == 6) 
-									activeSkill.type = ActiveDistanceType.AllCount;
+									activeSkill.type = EActiveDistanceType.AllCount;
 						}
 						if (passiveSkills.ContainsKey(key))
 						{
@@ -650,14 +650,14 @@ public class PlayerBehaviour : MonoBehaviour
             DefPointCopy.transform.localScale = Vector3.one;
             DefPointCopy.transform.localPosition = Vector3.zero;
 
-            DefPointAy [DefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find("Front").gameObject.transform;
-            DefPointAy [DefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find("Back").gameObject.transform;
-            DefPointAy [DefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find("Right").gameObject.transform;
-            DefPointAy [DefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find("Left").gameObject.transform;
-            DefPointAy [DefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find("FrontSteal").gameObject.transform;
-            DefPointAy [DefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find("BackSteal").gameObject.transform;
-            DefPointAy [DefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find("RightSteal").gameObject.transform;
-            DefPointAy [DefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find("LeftSteal").gameObject.transform;
+            DefPointAy [EDefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find("Front").gameObject.transform;
+            DefPointAy [EDefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find("Back").gameObject.transform;
+            DefPointAy [EDefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find("Right").gameObject.transform;
+            DefPointAy [EDefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find("Left").gameObject.transform;
+            DefPointAy [EDefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find("FrontSteal").gameObject.transform;
+            DefPointAy [EDefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find("BackSteal").gameObject.transform;
+            DefPointAy [EDefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find("RightSteal").gameObject.transform;
+            DefPointAy [EDefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find("LeftSteal").gameObject.transform;
         }
     }
 
@@ -793,7 +793,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (AutoFollow)
             {
                 Vector3 ShootPoint;
-                if (Team == TeamKind.Self)
+                if (Team == ETeamKind.Self)
                     ShootPoint = CourtMgr.Get.ShootPoint [1].transform.position;
                 else
                     ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
@@ -1424,7 +1424,7 @@ public class PlayerBehaviour : MonoBehaviour
                     
                     if (IsBallOwner)
                     {
-                        if (Team == TeamKind.Self)
+                        if (Team == ETeamKind.Self)
                             rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
                         else
                             rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
@@ -1440,7 +1440,7 @@ public class PlayerBehaviour : MonoBehaviour
                                 rotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
                             } else
                             {
-                                if (Team == TeamKind.Self)
+                                if (Team == ETeamKind.Self)
                                     rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
                                 else
                                     rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
@@ -1595,13 +1595,13 @@ public class PlayerBehaviour : MonoBehaviour
 //            smoothDirection = dir;
     }
 
-    private void AddActionFlag(ActionFlag Flag)
+    private void AddActionFlag(EActionFlag Flag)
     {
         GameFunction.Add_ByteFlag(Flag.GetHashCode(), ref PlayerActionFlag);
         animator.SetBool(Flag.ToString(), true);
     }
 
-    public void DelActionFlag(ActionFlag Flag)
+    public void DelActionFlag(EActionFlag Flag)
     {
         GameFunction.Del_ByteFlag(Flag.GetHashCode(), ref PlayerActionFlag);
         animator.SetBool(Flag.ToString(), false);
@@ -1898,14 +1898,14 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
-                AddActionFlag(ActionFlag.IsDefence);
+                AddActionFlag(EActionFlag.IsDefence);
                 Result = true;
                 break;
 
             case EPlayerState.Defence1:
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
-                ClearAnimatorFlag(ActionFlag.IsDefence);
+                ClearAnimatorFlag(EActionFlag.IsDefence);
                 Result = true;
                 break;
 
@@ -1973,7 +1973,7 @@ public class PlayerBehaviour : MonoBehaviour
 //                        SetSpeed(0, -1);
                     ClearAnimatorFlag();
                     animator.SetInteger("StateNo", stateNo);
-                    AddActionFlag(ActionFlag.IsDribble);
+                    AddActionFlag(EActionFlag.IsDribble);
                     CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
                     isCanCatchBall = false;
                     IsFirstDribble = false;
@@ -2043,7 +2043,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.HoldBall:
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
-                AddActionFlag(ActionFlag.IsHoldBall);
+                AddActionFlag(EActionFlag.IsHoldBall);
                 isCanCatchBall = false;
                 Result = true;
                 break;
@@ -2188,13 +2188,13 @@ public class PlayerBehaviour : MonoBehaviour
                         break;
                 }
                 animator.SetInteger("StateNo", stateNo);
-                ClearAnimatorFlag(ActionFlag.IsRun);
+                ClearAnimatorFlag(EActionFlag.IsRun);
                 Result = true;
                 break;
     
             case EPlayerState.RunningDefence:
                 SetSpeed(1, 1);
-                ClearAnimatorFlag(ActionFlag.IsRun);
+                ClearAnimatorFlag(EActionFlag.IsRun);
                 Result = true;
                 break;
 
@@ -2371,19 +2371,19 @@ public class PlayerBehaviour : MonoBehaviour
         isCheckLayerToReset = true;
     }
 
-    public void ClearAnimatorFlag(ActionFlag addFlag = ActionFlag.None)
+    public void ClearAnimatorFlag(EActionFlag addFlag = EActionFlag.None)
     {
-        if (addFlag == ActionFlag.None)
+        if (addFlag == EActionFlag.None)
         {
-            DelActionFlag(ActionFlag.IsDefence);
-            DelActionFlag(ActionFlag.IsRun);
-            DelActionFlag(ActionFlag.IsDribble);
-            DelActionFlag(ActionFlag.IsHoldBall);
+            DelActionFlag(EActionFlag.IsDefence);
+            DelActionFlag(EActionFlag.IsRun);
+            DelActionFlag(EActionFlag.IsDribble);
+            DelActionFlag(EActionFlag.IsHoldBall);
         } else
         {
-            for (int i = 1; i < System.Enum.GetValues(typeof(ActionFlag)).Length; i++)
+            for (int i = 1; i < System.Enum.GetValues(typeof(EActionFlag)).Length; i++)
                 if (i != (int)addFlag)
-                    DelActionFlag((ActionFlag)i);
+                    DelActionFlag((EActionFlag)i);
                     
             AddActionFlag(addFlag);
         }
@@ -2844,9 +2844,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if ((situation == EGameSituation.AttackA || situation == EGameSituation.TeeA || situation == EGameSituation.TeeAPicking) && Team == TeamKind.Npc)
+            if ((situation == EGameSituation.AttackA || situation == EGameSituation.TeeA || situation == EGameSituation.TeeAPicking) && Team == ETeamKind.Npc)
                 return true;
-            else if ((situation == EGameSituation.AttackB || situation == EGameSituation.TeeB || situation == EGameSituation.TeeBPicking) && Team == TeamKind.Self)
+            else if ((situation == EGameSituation.AttackB || situation == EGameSituation.TeeB || situation == EGameSituation.TeeBPicking) && Team == ETeamKind.Self)
                 return true;
             else
                 return false;

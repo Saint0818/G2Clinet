@@ -109,7 +109,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-    public PlayerBehaviour CreateGamePlayer(int TeamIndex, TeamKind Team, Vector3 BornPos, TPlayer player, GameObject Res=null){
+    public PlayerBehaviour CreateGamePlayer(int TeamIndex, ETeamKind Team, Vector3 BornPos, TPlayer player, GameObject Res=null){
 		if (Res == null)
 			Res = new GameObject();
 
@@ -130,7 +130,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		PB.InitAttr ();
 		Res.name = Team.ToString() + TeamIndex.ToString();
 
-		if(Team == TeamKind.Npc)
+		if(Team == ETeamKind.Npc)
 			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		return PB;
