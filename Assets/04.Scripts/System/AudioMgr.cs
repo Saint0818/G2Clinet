@@ -14,8 +14,10 @@ public enum SoundType
 
 public class AudioMgr : KnightSingleton<AudioMgr>
 {
+	public AudioMixer MasterMix;
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
+	public bool IsMute = false;
 	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
@@ -29,11 +31,6 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 					DAudios.Add(loads[i].name, loads[i]);
 			}
 		}
-	}
-
-	public void InitCom()
-	{
-
 	}
 
 	public void PauseGame()
@@ -51,5 +48,16 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		if (DAudios.ContainsKey (soundName))
 			DAudios [soundName].Play ();
 	}
+
+	public void Mute()
+	{
+		IsMute = !IsMute;
+
+		if (IsMute)
+			MasterMix.SetFloat("masterVol", -80);
+		else
+			MasterMix.ClearFloat("masterVol");
+	}
+
 }
 
