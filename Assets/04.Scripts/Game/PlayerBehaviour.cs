@@ -1691,6 +1691,10 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Shoot5:
             case EPlayerState.Shoot6:
             case EPlayerState.Shoot7:
+				if (IsBallOwner && !IsShoot && (crtState == EPlayerState.Idle || crtState == EPlayerState.HoldBall || IsDribble))
+					return true;
+				break;
+
             case EPlayerState.Layup0:
             case EPlayerState.Layup1:
             case EPlayerState.Layup2:
@@ -2590,7 +2594,16 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "AnimationEnd":
                 OnUI(this);
-                AniState(EPlayerState.Idle);
+
+				if(!IsBallOwner)
+               	 AniState(EPlayerState.Idle);
+				else{
+					if(firstDribble)
+						AniState(EPlayerState.Dribble0);
+					else
+						AniState(EPlayerState.HoldBall);
+				}
+
                 blockTrigger.SetActive(false);
                 pushTrigger.SetActive(false);
                 elbowTrigger.SetActive(false);
