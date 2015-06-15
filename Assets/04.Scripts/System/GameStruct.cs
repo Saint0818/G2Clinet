@@ -271,6 +271,80 @@ namespace GameStruct
 		public float Speed;
 	}
 
+	public struct TMoveRecord {
+		public float X;
+		public float Y;
+	}
+
+	public struct TShotRecord {
+		public bool In;
+		public float Rate;
+		public TMoveRecord Move;
+	}
+
+	public struct TGameRecord {
+		public float Version;
+		public float GameTime;
+		public float ExitCount;
+		public int Score1;
+		public int Score2;
+		public string[] ButtonTrace;
+		public TGamePlayerRecord[] PlayerRecords;
+
+		public void Init(int playerNumber) {
+			Version = 0;
+			GameTime = 0;
+			ExitCount = 0;
+			Score1 = 0;
+			Score2 = 0;
+			ButtonTrace = new string[0];
+			PlayerRecords = new TGamePlayerRecord[playerNumber];
+			for (int i = 0; i < playerNumber; i ++)
+				PlayerRecords[i].Init();
+		}
+	}
+
+	public struct TGamePlayerRecord {
+		public int FG;
+		public int FGIn;
+		public int FGError;
+		public int FG3;
+		public int FG3In;
+		public int FG3Error;
+		public int ReboundLaunch;
+		public int Rebound;
+		public int Assist;
+		public int StealLaunch;
+		public int Steal;
+		public int Intercept;
+		public int BlockLaunch;
+		public int Block;
+		public int PushLaunch;
+		public int Push;
+		public int ElbowLaunch;
+		public int Elbow;
+		public int PassIntercept;
+		public int Pass;
+		public int AlleyoopLaunch;
+		public int Alleyoop;
+		public int TipinLaunch;
+		public int Tipin;
+		public int DunkLaunch;
+		public int Dunk;
+		public int SaveBallLaunch;
+		public int SaveBall;
+		public int AngerAdd;
+		public int PassiveSkill;
+		public int Skill;
+		public TMoveRecord[] MoveRecords;
+		public TShotRecord[] ShotRecords;
+
+		public void Init() {
+			MoveRecords = new TMoveRecord[0];
+			ShotRecords = new TShotRecord[0];
+		}
+	}
+
 	public enum Language
 	{
 		TW = 0,

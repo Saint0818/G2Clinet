@@ -27,6 +27,7 @@ public class GameData {
 	public static TScenePlayer ScenePlayer;
 	public static TTeam Team;
 	public static TTeam[] TeamMembers = new TTeam[2];
+	public static TTeam[] EnemyMembers = new TTeam[3];
 	public static TGameSetting Setting;
 	public static float ExtraGreatRate = 5;
 	public static float ExtraPerfectRate = 10;
