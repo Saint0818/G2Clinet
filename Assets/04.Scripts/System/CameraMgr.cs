@@ -325,13 +325,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		}
 	}
 	
-	public void setSplitScreen(){
-		RenderTexture tex = Resources.Load("UI/PlayerCameraTexture", typeof(RenderTexture)) as RenderTexture;
-		cameraPlayer = Instantiate(cameraFx);
-		cameraPlayer.name = "PlayerCamera";
-		cameraPlayer.transform.position = cameraFx.transform.position;
-		cameraPlayer.targetTexture = tex;
-	}
+//	public void setSplitScreen(){
+//		RenderTexture tex = Resources.Load("UI/PlayerCameraTexture", typeof(RenderTexture)) as RenderTexture;
+//		cameraPlayer = Instantiate(cameraFx);
+//		cameraPlayer.name = "PlayerCamera";
+//		cameraPlayer.transform.position = cameraFx.transform.position;
+//		cameraPlayer.targetTexture = tex;
+//	}
 
 	private void Lookat(GameObject obj, Vector3 pos)
 	{

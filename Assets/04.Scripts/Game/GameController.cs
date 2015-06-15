@@ -304,8 +304,6 @@ public class GameController : MonoBehaviour
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
-		if (GameStart.Get.IsSplitScreen)
-			CameraMgr.Get.setSplitScreen();
     }
 
     private void InitPos()
@@ -726,8 +724,28 @@ public class GameController : MonoBehaviour
 			if(UIGame.Get.isAngerFull && Joysticker.IsBallOwner) {
 				Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 				PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
-				if(situation == GameSituation.AttackA && PlayerToBasketDistance < 15 && UIGame.Get.isCanShowSkill) {
-						UIGame.Get.ShowSkillUI(true);
+				if(situation == GameSituation.AttackA && UIGame.Get.isCanShowSkill) {
+					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
+						if (GameController.Get.PlayerToBasketDistance <= 15)
+							UIGame.Get.ShowSkillUI(true);
+						else 
+							UIGame.Get.ShowSkillUI(false);
+					} else 
+					if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AttackHalfCount ) {
+						if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) {
+							if (GameController.Get.PlayerToBasketDistance > 15)
+								UIGame.Get.ShowSkillUI(true);
+							else 
+								UIGame.Get.ShowSkillUI(false);
+						} else 
+						if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.AllCount ) {
+							if (GameController.Get.Joysticker.activeSkill.type == ActiveDistanceType.DeffenceHalfCount ) 
+								UIGame.Get.ShowSkillUI(true);
+							else 
+								UIGame.Get.ShowSkillUI(false);
+						} else 
+							UIGame.Get.ShowSkillUI(false);
+					}
 				}else
 					UIGame.Get.ShowSkillUI(false);
 			} else
@@ -2057,7 +2075,7 @@ public class GameController : MonoBehaviour
 			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, 3.5f, 0), Joysticker.gameObject, null, 1f);
 		else if(Joysticker.Player.BodyType == 2)
 			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, 3f, 0), Joysticker.gameObject, null, 1f);
-;
+
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 		Joysticker.SetAnger(-100);

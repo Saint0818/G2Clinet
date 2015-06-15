@@ -11,7 +11,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	public SceneTest  SceneMode = SceneTest.Single;
 	public GameTest TestMode = GameTest.None;
 	public CameraTest TestCameraMode = CameraTest.None;
-	public bool IsSplitScreen = false;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 1;
 	public TScoreRate ScoreRate = new TScoreRate(1);

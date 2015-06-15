@@ -350,12 +350,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     //PassiveSkill
 	private Dictionary<int, List<PassiveSkill>> passiveSkills = new Dictionary<int, List<PassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
-//	List<PassiveSkill> psTemp = new List<PassiveSkill>();
 	private Dictionary<int, List<PassiveSkill>> passivePassDirects = new Dictionary<int, List<PassiveSkill>>();
 	//ActiveSkill
-//	private  List<ActiveSkill> activeSkills = new List<ActiveSkill>();
 	public ActiveSkill activeSkill = new ActiveSkill();
-//	private Dictionary<string, float> activeTime = new Dictionary<string, float>();
 	private float activeTime  = 0;
 
     private bool isHaveMoveDodge = false;
@@ -2627,16 +2624,8 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     public PlayerState PassiveSkill(TSkillSituation situation, TSkillKind kind, Vector3 v = default(Vector3)) {
-//		Debug.Log("PassiveSkill : "+ kind);
-//		Debug.Log("PassiveSkill situation: "+ situation);
         PlayerState playerState = PlayerState.Idle;
 		playerState = (PlayerState)System.Enum.Parse(typeof(PlayerState), situation.ToString());
-//        List<PassiveSkill> ps = new List<PassiveSkill>();
-//        if (passiveSkills.ContainsKey((int)kind)){
-//			for(int i=0; i<passiveSkills [(int)kind].Count; i++) {
-//				ps.Add(passiveSkills[(int)kind][i]);
-//			}
-//        }
         bool isPerformPassive = false;
 		float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
 		if(passiveSkills.ContainsKey((int)kind)) {
