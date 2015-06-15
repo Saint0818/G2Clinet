@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -264,8 +264,8 @@ public class GameController : MonoBehaviour
 	private int shootAngle = 55;
 	public float StealBtnLiftTime = 1f;
 	private bool isPressPassBtn = false;
-	public PlayerState testState = PlayerState.Shoot0;
-	public PlayerState[] ShootStates = new PlayerState[]{PlayerState.Shoot0, PlayerState.Shoot1,PlayerState.Shoot2,PlayerState.Shoot3,PlayerState.Shoot6,PlayerState.Layup0,PlayerState.Layup1,PlayerState.Layup2,PlayerState.Layup3};
+	public EPlayerState testState = EPlayerState.Shoot0;
+	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
 	public bool IsJumpBall = false;
 
     public static GameController Get
@@ -663,7 +663,7 @@ public class GameController : MonoBehaviour
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
-//					Joysticker.AniState(PlayerState.Shoot1);
+//					Joysticker.AniState(EPlayerState.Shoot1);
 					UIGame.Get.DoShoot(null, true);
 				}
 				
@@ -683,11 +683,11 @@ public class GameController : MonoBehaviour
 			}
 
 			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
-//				Joysticker.AniState (PlayerState.Rebound);
+//				Joysticker.AniState (EPlayerState.Rebound);
 				DoPassiveSkill(TSkillSituation.Rebound, Joysticker);
 
 			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-				Joysticker.AniState (PlayerState.ReboundCatch);
+				Joysticker.AniState (EPlayerState.ReboundCatch);
 
 			if (GameStart.Get.TestMode == GameTest.Rebound && Input.GetKeyDown (KeyCode.Z)) {
 				resetTestMode();
@@ -738,14 +738,14 @@ public class GameController : MonoBehaviour
 		SetBallOwnerNull();
 		SetBall();
 		CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-		CourtMgr.Get.SetBallState(PlayerState.Shoot0);
+		CourtMgr.Get.SetBallState(EPlayerState.Shoot0);
 		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
 		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 		UIGame.Get.ChangeControl(true);
 		TMoveData md = new TMoveData(1);
 		//md.Target = new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
 		PlayerList[1].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
-		PlayerList[1].AniState(PlayerState.Idle);
+		PlayerList[1].AniState(EPlayerState.Idle);
     }
 
 	private int GetPosNameIndex(PosKind Kind, int Index = -1)
@@ -799,13 +799,13 @@ public class GameController : MonoBehaviour
 			if (GUI.Button(new Rect(20, 50, 100, 100), "Left")) {
 				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-				PlayerList[0].AniState(PlayerState.MoveDodge0);
+				PlayerList[0].AniState(EPlayerState.MoveDodge0);
 			}
 
 			if (GUI.Button(new Rect(120, 50, 100, 100), "Right")) {
 				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-				PlayerList[0].AniState(PlayerState.MoveDodge1);
+				PlayerList[0].AniState(EPlayerState.MoveDodge1);
 			}
 		}
 
@@ -1062,7 +1062,7 @@ public class GameController : MonoBehaviour
 			case GameSituation.End:
 				IsStart = false;
 				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].AniState(PlayerState.Idle);					
+					PlayerList[i].AniState(EPlayerState.Idle);					
             	break;
             }       
         }
@@ -1325,12 +1325,12 @@ public class GameController : MonoBehaviour
 					ShootDis = getDis(ref BallOwner, new Vector2(v.x, v.z));
 					int t = BallOwner.Team.GetHashCode();
 					if (GameStart.Get.TestMode == GameTest.Dunk)
-						BallOwner.AniState(PlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+						BallOwner.AniState(EPlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
 					//					DoPassiveSkill(TSkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 					else 
 					if (BallOwner.IsRebound) {
 						if (inTipinDistance(BallOwner))
-							BallOwner.AniState(PlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+							BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
 					} 
 //					else if (Vector3.Distance(BallOwner.gameObject.transform.position, CourtMgr.Get.ShootPoint [t].transform.position) <= GameConst.DunkDistance)
 //					{
@@ -1404,7 +1404,7 @@ public class GameController : MonoBehaviour
 			if(skillKind == TSkillKind.DownHand)
 				st = ScoreType.DownHand;
 			else 
-			if(player.crtState == PlayerState.TipIn){
+			if(player.crtState == EPlayerState.TipIn){
 				st = ScoreType.LayUp;
 				shootAngle = 75;
 			} else 
@@ -1454,7 +1454,7 @@ public class GameController : MonoBehaviour
 				if (isshoot)
 					Shoot ();
 				else
-					Joysticker.AniState(PlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
+					Joysticker.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
             } else 
 			if (BallOwner && BallOwner.Team == TeamKind.Self) 
 				Shoot();
@@ -1494,7 +1494,7 @@ public class GameController : MonoBehaviour
     {
         if (player == BallOwner)
         {
-            CourtMgr.Get.SetBallState(PlayerState.DunkBasket);
+            CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
 			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
             SetBall();
             return true;
@@ -1544,14 +1544,14 @@ public class GameController : MonoBehaviour
 				
 				if(IsTee)
 				{
-					if(BallOwner.AniState(PlayerState.Pass1, player.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass1, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
 					}												
 				}else if(IsCanPassAir && !IsTee)
 				{
-					if(BallOwner.AniState(PlayerState.Pass4, player.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass4, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;
@@ -1564,7 +1564,7 @@ public class GameController : MonoBehaviour
 					int rate = UnityEngine.Random.Range(0, 2);
 					int passkind = -1;
 					
-					if(dis <= GameConst.FastPassDistance || player.crtState == PlayerState.Alleyoop)
+					if(dis <= GameConst.FastPassDistance || player.crtState == EPlayerState.Alleyoop)
 					{
 						Result = DoPassiveSkill(TSkillSituation.Pass4, BallOwner, player.transform.position);
 					}
@@ -1646,11 +1646,11 @@ public class GameController : MonoBehaviour
 						//					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
 						//					if(adis <= 1){
 						//						if(passkind == 0)
-						//							Catcher.AniState(PlayerState.CatchFlat, BallOwner.transform.position);
+						//							Catcher.AniState(EPlayerState.CatchFlat, BallOwner.transform.position);
 						//						else if(passkind == 1)
-						//							Catcher.AniState(PlayerState.CatchParabola, BallOwner.transform.position);
+						//							Catcher.AniState(EPlayerState.CatchParabola, BallOwner.transform.position);
 						//						else if(passkind == 2)
-						//							Catcher.AniState(PlayerState.CatchFloor, BallOwner.transform.position);
+						//							Catcher.AniState(EPlayerState.CatchFloor, BallOwner.transform.position);
 						//					}
 						
 						UIGame.Get.DoPassNone();
@@ -1703,7 +1703,7 @@ public class GameController : MonoBehaviour
 //    {
 //        if (Catcher)
 //        {
-//            SceneMgr.Get.SetBallState(PlayerState.PassFlat);
+//            SceneMgr.Get.SetBallState(EPlayerState.PassFlat);
 //            SceneMgr.Get.RealBallRigidbody.velocity = GameFunction.GetVelocity(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position, Random.Range(40, 60));   
 //            if (Vector3.Distance(SceneMgr.Get.RealBall.transform.position, Catcher.DummyBall.transform.position) > 15f)
 //                CameraMgr.Get.IsLongPass = true;
@@ -1766,7 +1766,7 @@ public class GameController : MonoBehaviour
 				
 				if (stealRate <= (r + AddRate) && Mathf.Abs(GetAngle(BallOwner, player)) <= 90 + AddAngle)
 				{
-					if(BallOwner && BallOwner.AniState(PlayerState.GotSteal))
+					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal))
 					{
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						return true;
@@ -1805,10 +1805,10 @@ public class GameController : MonoBehaviour
             if (BallOwner && BallOwner.Team != Joysticker.Team)
             {
 				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
-//				Joysticker.AniState(PlayerState.Steal, BallOwner.transform.position);
+//				Joysticker.AniState(EPlayerState.Steal, BallOwner.transform.position);
 				DoPassiveSkill(TSkillSituation.Steal, Joysticker, BallOwner.transform.position);
             } else
-//              Joysticker.AniState(PlayerState.Steal);
+//              Joysticker.AniState(EPlayerState.Steal);
 				DoPassiveSkill(TSkillSituation.Steal, Joysticker);
         }
     }
@@ -1838,44 +1838,44 @@ public class GameController : MonoBehaviour
             return false;
     }
 
-	public bool OnDoubleClickMoment(PlayerBehaviour player, PlayerState state)
+	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
 		if (player.Team == TeamKind.Self && !UIDoubleClick.Visible) {
 			switch (state) {
-				case PlayerState.Shoot0:
+				case EPlayerState.Shoot0:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				case PlayerState.Shoot1:
+				case EPlayerState.Shoot1:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.23f, DoubleShoot);
 					return true;
-				case PlayerState.Shoot2:
+				case EPlayerState.Shoot2:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				case PlayerState.Shoot3:
+				case EPlayerState.Shoot3:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				case PlayerState.Shoot6:
+				case EPlayerState.Shoot6:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
 					return true;
-				case PlayerState.Layup0:
-				case PlayerState.Layup1:
-				case PlayerState.Layup2:
-				case PlayerState.Layup3:
+				case EPlayerState.Layup0:
+				case EPlayerState.Layup1:
+				case EPlayerState.Layup2:
+				case EPlayerState.Layup3:
 					UIDoubleClick.Get.SetData(1.3f, DoubleShoot);
 					UIDoubleClick.UIShow(true);
 					return true;
 
-				case PlayerState.Block:
-				case PlayerState.BlockCatch:
+				case EPlayerState.Block:
+				case EPlayerState.BlockCatch:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData(0.7f, null, DoubleBlock, player);
 					return true;
-				case PlayerState.Rebound:
+				case EPlayerState.Rebound:
 					UIDoubleClick.UIShow(true);
 					UIDoubleClick.Get.SetData(0.75f, DoubleRebound);
 					return true;
@@ -1905,9 +1905,9 @@ public class GameController : MonoBehaviour
 			break;
 		case 1: 
 			if(Shooter)
-				CourtMgr.Get.SetBallState(PlayerState.Block, Shooter);
+				CourtMgr.Get.SetBallState(EPlayerState.Block, Shooter);
 			else
-				CourtMgr.Get.SetBallState(PlayerState.Block, player);
+				CourtMgr.Get.SetBallState(EPlayerState.Block, player);
 			break;
 		case 2: 
 			SetBall(player);
@@ -1972,11 +1972,11 @@ public class GameController : MonoBehaviour
 //                float dis = Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position);
 //                if (dis <= 4)
 //                {
-//                    SceneMgr.Get.SetBallState(PlayerState.Block);
+//                    SceneMgr.Get.SetBallState(EPlayerState.Block);
 //                    return true;
 //                }
 //            } else 
-//            if (BallOwner.CheckAnimatorSate(PlayerState.Shooting))
+//            if (BallOwner.CheckAnimatorSate(EPlayerState.Shooting))
 //            {
 //                float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
 //                if (dis <= 4)
@@ -1986,7 +1986,7 @@ public class GameController : MonoBehaviour
 //                            PlayerList [i].ResetMove();
 //
 //                    SetBall(null);
-//                    SceneMgr.Get.SetBallState(PlayerState.Block);
+//                    SceneMgr.Get.SetBallState(EPlayerState.Block);
 //                    return true;
 //                }
 //            }
@@ -1999,8 +1999,8 @@ public class GameController : MonoBehaviour
     {
 		if (IsStart && CandoBtn)
 		{
-			if(Joysticker.crtState == PlayerState.Block && Joysticker.IsPerfectBlockCatch){
-				Joysticker.AniState(PlayerState.BlockCatch);
+			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch){
+				Joysticker.AniState(EPlayerState.BlockCatch);
 				if(UIDoubleClick.Visible)
 					UIDoubleClick.Get.ClickStop();
 			}else{
@@ -2041,7 +2041,7 @@ public class GameController : MonoBehaviour
 		}
 
 		if (flag) {*/
-//			player.AniState(PlayerState.Rebound, CourtMgr.Get.RealBall.transform.position);
+//			player.AniState(EPlayerState.Rebound, CourtMgr.Get.RealBall.transform.position);
 			DoPassiveSkill(TSkillSituation.Rebound, player, CourtMgr.Get.RealBall.transform.position);
 		//}
 	}
@@ -2059,8 +2059,8 @@ public class GameController : MonoBehaviour
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 		ShootDis = getDis(ref Joysticker, new Vector2(v.x, v.z));
 		Joysticker.SetAnger(-100);
-		Joysticker.SetInvincible(Joysticker.GetActiveTime(PlayerState.Dunk20.ToString()));
-		Joysticker.AniState(PlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
+		Joysticker.SetInvincible(Joysticker.GetActiveTime(EPlayerState.Dunk20.ToString()));
+		Joysticker.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
     }
 	
     public void OnJoystickMove(MovingJoystick move)
@@ -2070,14 +2070,14 @@ public class GameController : MonoBehaviour
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
                 Joysticker.ClearMoveQueue();
-				PlayerState ps = Joysticker.crtState;
+				EPlayerState ps = Joysticker.crtState;
 
 				if(!Joysticker.IsFall)
 				{
 					if(BallOwner == Joysticker)
-						ps = PlayerState.Dribble1;
+						ps = EPlayerState.Dribble1;
 					else
-						ps = PlayerState.Run0;
+						ps = EPlayerState.Run0;
 				}
                     
                 Joysticker.OnJoystickMove(move, ps);
@@ -2089,19 +2089,19 @@ public class GameController : MonoBehaviour
     {
         if (Joysticker)
         {
-			PlayerState ps;
+			EPlayerState ps;
 
 			if (BallOwner == Joysticker)
 			{
-				if(Joysticker.crtState == PlayerState.Elbow)
-					ps = PlayerState.Elbow;
-				else if(Joysticker.crtState == PlayerState.HoldBall)
-					ps = PlayerState.HoldBall;
+				if(Joysticker.crtState == EPlayerState.Elbow)
+					ps = EPlayerState.Elbow;
+				else if(Joysticker.crtState == EPlayerState.HoldBall)
+					ps = EPlayerState.HoldBall;
 				else
-					ps = PlayerState.Dribble0;
+					ps = EPlayerState.Dribble0;
 			}
 			else
-				ps = PlayerState.Idle;
+				ps = EPlayerState.Idle;
             
             Joysticker.OnJoystickMoveEnd(move, ps);
         }
@@ -2114,7 +2114,7 @@ public class GameController : MonoBehaviour
 		if (Self.IsRebound)
 			suc = true;
 		else
-		if(!Self.CheckAnimatorSate(PlayerState.HoldBall) && HaveDefPlayer(ref Self, 5, 40) != 0) {
+		if(!Self.CheckAnimatorSate(EPlayerState.HoldBall) && HaveDefPlayer(ref Self, 5, 40) != 0) {
 			int FakeRate = Random.Range (0, 100);
 
 			if(FakeRate < GameConst.FakeShootRate)
@@ -2127,7 +2127,7 @@ public class GameController : MonoBehaviour
 						
 						if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= GameConst.BlockDistance)
 						{
-							Self.AniState(PlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Self.Team.GetHashCode()].transform.position);
+							Self.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Self.Team.GetHashCode()].transform.position);
 							suc = true;
 							break;
 						}
@@ -2163,11 +2163,11 @@ public class GameController : MonoBehaviour
             if (Npc == BallOwner)
             {
                 //Dunk shoot shoot3 pass                
-				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate < 30 || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);
                 } else 
-				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CheckAttack(ref Npc))
+				if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate < 10 || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);
 				} else 
@@ -2176,14 +2176,14 @@ public class GameController : MonoBehaviour
 					AIShoot(ref Npc);				
 				} else 
 				if (ElbowRate < Npc.Attr.ElbowingRate && CheckAttack(ref Npc) && (HaveDefPlayer(ref Npc, GameConst.StealBallDistance, 90, out man) != 0) && 
-					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(PlayerState.Elbow))
+					Npc.CoolDownElbow ==0 && !Npc.CheckAnimatorSate(EPlayerState.Elbow))
 				{
 					if(DoPassiveSkill(TSkillSituation.Elbow, Npc, man.transform.position)){
 						CoolDownPass = 0;
 						Npc.CoolDownElbow = Time.time + 3;
 					}
 				}else 
-				if ((passRate < 20 || Npc.CheckAnimatorSate(PlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(PlayerState.Elbow) && BallOwner.NoAiTime == 0)
+				if ((passRate < 20 || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(EPlayerState.Elbow) && BallOwner.NoAiTime == 0)
                 {
                     PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 
@@ -2239,7 +2239,7 @@ public class GameController : MonoBehaviour
 		bool Result = false;
 		
 		if(player) {
-			PlayerState p ;
+			EPlayerState p ;
 			switch(State) {
 			case TSkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
@@ -2260,10 +2260,10 @@ public class GameController : MonoBehaviour
 						player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 						if (Dir == 1) {
 							player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-							player.AniState(PlayerState.MoveDodge0);
+							player.AniState(EPlayerState.MoveDodge0);
 						} else {
 							player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-							player.AniState(PlayerState.MoveDodge1);
+							player.AniState(EPlayerState.MoveDodge1);
 						}			
 						if(player == Joysticker)
 							ShowPassiveEffect ();
@@ -2314,7 +2314,7 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Pass4:{
 				skillKind = TSkillKind.Pass;
 				p = player.PassiveSkill(TSkillSituation.Pass4, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass4)
+				if(p != EPlayerState.Pass4)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -2323,7 +2323,7 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Pass0:
 				skillKind = TSkillKind.Pass;
 				 p = player.PassiveSkill(TSkillSituation.Pass0, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass0)
+				if(p != EPlayerState.Pass0)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -2331,7 +2331,7 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Pass2:
 				skillKind = TSkillKind.Pass;
 				p = player.PassiveSkill(TSkillSituation.Pass2, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass2)
+				if(p != EPlayerState.Pass2)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -2339,7 +2339,7 @@ public class GameController : MonoBehaviour
 			case TSkillSituation.Pass1:
 				skillKind = TSkillKind.Pass;
 				p = player.PassiveSkill(TSkillSituation.Pass1, TSkillKind.Pass, v);
-				if(p != PlayerState.Pass1)
+				if(p != EPlayerState.Pass1)
 					Result = player.AniState(p);
 				else
 					Result = player.AniState(p, v);
@@ -2410,12 +2410,12 @@ public class GameController : MonoBehaviour
 						}
 					}
                     
-					if (!Npc.CheckAnimatorSate(PlayerState.Steal) && !Npc.CheckAnimatorSate(PlayerState.Push) && !IsDunk && !IsShooting)
+					if (!Npc.CheckAnimatorSate(EPlayerState.Steal) && !Npc.CheckAnimatorSate(EPlayerState.Push) && !IsDunk && !IsShooting)
                     {
 						for(int i = 0; i < DisAy.Length; i++){
-							if (DisAy[i].Distance <= GameConst.StealBallDistance && (DisAy[i].Player.crtState == PlayerState.Idle && DisAy[i].Player.crtState == PlayerState.Dribble0) && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
+							if (DisAy[i].Distance <= GameConst.StealBallDistance && (DisAy[i].Player.crtState == EPlayerState.Idle && DisAy[i].Player.crtState == EPlayerState.Dribble0) && pushRate <= Npc.Attr.PushingRate && Npc.CoolDownPush == 0 && !IsPush)
 							{
-//								if(Npc.AniState (PlayerState.Push, DisAy[i].Player.transform.position)){
+//								if(Npc.AniState (EPlayerState.Push, DisAy[i].Player.transform.position)){
 								if(DoPassiveSkill(TSkillSituation.Push, Npc, DisAy[i].Player.transform.position)){
 									Npc.CoolDownPush = Time.time + 3;
 									sucess = true;
@@ -2428,7 +2428,7 @@ public class GameController : MonoBehaviour
                         {
 							if(Random.Range(0, 100) < Npc.Attr.StealRate)
                             {
-//								if (Npc.AniState(PlayerState.Steal, BallOwner.gameObject.transform.position)){
+//								if (Npc.AniState(EPlayerState.Steal, BallOwner.gameObject.transform.position)){
 								if(DoPassiveSkill(TSkillSituation.Steal, Npc, BallOwner.gameObject.transform.position)){
                                 	Npc.CoolDownSteal = Time.time + 1.2f;                              
 									WaitStealTime = Time.time + 0.5f;
@@ -2542,7 +2542,7 @@ public class GameController : MonoBehaviour
         }
         
         if (Npc.WaitMoveTime != 0 && Npc == BallOwner)
-            Npc.AniState(PlayerState.Dribble0);
+            Npc.AniState(EPlayerState.Dribble0);
     }
 	
     private bool NpcAutoTee(PlayerBehaviour player, bool speedup)
@@ -2550,7 +2550,7 @@ public class GameController : MonoBehaviour
 		if(WaitTeeBallTime == 0)
 		{
 			WaitTeeBallTime = Time.time + 1;
-//			player.AniState (PlayerState.Dribble);
+//			player.AniState (EPlayerState.Dribble);
 		}
 
 		return true;
@@ -2728,8 +2728,8 @@ public class GameController : MonoBehaviour
 				{
 					Npc2 = DisAy [i].Player;
 					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
-					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
-					    !Npc2.CheckAnimatorSate(PlayerState.Push))
+					    !Npc2.CheckAnimatorSate(EPlayerState.Steal) && 
+					    !Npc2.CheckAnimatorSate(EPlayerState.Push))
 					{
 						float BlockRate = Npc2.Attr.BlockRate;
 						
@@ -2742,7 +2742,7 @@ public class GameController : MonoBehaviour
 						{
 							if (Rate < BlockRate)
 							{
-//								if(Npc2.AniState(PlayerState.Block, Npc.transform.position))
+//								if(Npc2.AniState(EPlayerState.Block, Npc.transform.position))
 								if(DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position))
 								{
 									Suc = true;
@@ -2761,8 +2761,8 @@ public class GameController : MonoBehaviour
 //					Npc2 = DisAy [i].Player;
 //					
 //					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
-//					    !Npc2.CheckAnimatorSate(PlayerState.Steal) && 
-//					    !Npc2.CheckAnimatorSate(PlayerState.Push))
+//					    !Npc2.CheckAnimatorSate(EPlayerState.Steal) && 
+//					    !Npc2.CheckAnimatorSate(EPlayerState.Push))
 //					{
 //						if(!IsBlocking)
 //						{
@@ -2773,14 +2773,14 @@ public class GameController : MonoBehaviour
 //							
 //							if (GameStart.Get.TestMode == GameTest.Block)
 //							{
-////								Npc2.AniState(PlayerState.Block, Npc.transform.position);
+////								Npc2.AniState(EPlayerState.Block, Npc.transform.position);
 //								DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
 //							} 
 //							else if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance)
 //							{
 //								if (Rate < BlockRate)
 //								{
-////									Npc2.AniState(PlayerState.Block, Npc.transform.position);
+////									Npc2.AniState(EPlayerState.Block, Npc.transform.position);
 //									DoPassiveSkill(TSkillSituation.Block, Npc2, Npc.transform.position);
 //									break;
 //								}
@@ -2809,7 +2809,7 @@ public class GameController : MonoBehaviour
                     data.FollowTarget = CourtMgr.Get.RealBall.transform;
                     A.TargetPos = data;
 				} else 
-				if(Npc.crtState != PlayerState.Block && Npc.NoAiTime == 0)
+				if(Npc.crtState != EPlayerState.Block && Npc.NoAiTime == 0)
                     Npc.rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
             } else 
 			if (Npc.CanMove && Npc.WaitMoveTime == 0) {
@@ -2966,13 +2966,13 @@ public class GameController : MonoBehaviour
 	        }
 	        
 	        if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
-	            npc.AniState(PlayerState.Dribble0);
+	            npc.AniState(EPlayerState.Dribble0);
         }
     }
 
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
     {
-		if (player && player.DefPlayer && !player.CheckAnimatorSate(PlayerState.MoveDodge1) && !player.CheckAnimatorSate(PlayerState.MoveDodge0) && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
+		if (player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && (situation == GameSituation.AttackA || situation == GameSituation.AttackB))
         {
 			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
@@ -3213,7 +3213,7 @@ public class GameController : MonoBehaviour
 
                 UIGame.Get.ChangeControl(p.Team == TeamKind.Self);
 				UIGame.Get.SetPassButton();
-				CourtMgr.Get.SetBallState(PlayerState.HoldBall, p);
+				CourtMgr.Get.SetBallState(EPlayerState.HoldBall, p);
 
 				p.ClearIsCatcher();
 
@@ -3235,9 +3235,9 @@ public class GameController : MonoBehaviour
                     } else
                     {
 //						if(p.NoAiTime == 0)
-//							p.AniState(PlayerState.Dribble);
+//							p.AniState(EPlayerState.Dribble);
 //						else
-//                        	p.AniState(PlayerState.HoldBall);
+//                        	p.AniState(EPlayerState.HoldBall);
                     }                    
                 }
 
@@ -3289,8 +3289,8 @@ public class GameController : MonoBehaviour
 		}
 		else if(GameStart.Get.TestMode == GameTest.Block){
 			SetBall(PlayerList [1]);
-			PlayerList [1].AniState(PlayerState.Dribble0);
-			PlayerList [1].AniState(PlayerState.Shoot0);
+			PlayerList [1].AniState(EPlayerState.Dribble0);
+			PlayerList [1].AniState(EPlayerState.Shoot0);
 		}
     }
 	
@@ -3300,27 +3300,27 @@ public class GameController : MonoBehaviour
 		{
 			int Rate = UnityEngine.Random.Range(0, 100);
 
-			if(CourtMgr.Get.RealBallState == PlayerState.Pass0 || 
-			   CourtMgr.Get.RealBallState == PlayerState.Pass2 ||
-			   CourtMgr.Get.RealBallState == PlayerState.Pass1 || 
-			   CourtMgr.Get.RealBallState == PlayerState.Pass3)
+			if(CourtMgr.Get.RealBallState == EPlayerState.Pass0 || 
+			   CourtMgr.Get.RealBallState == EPlayerState.Pass2 ||
+			   CourtMgr.Get.RealBallState == EPlayerState.Pass1 || 
+			   CourtMgr.Get.RealBallState == EPlayerState.Pass3)
 			{
-				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.CheckAnimatorSate(PlayerState.Push))
+				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.CheckAnimatorSate(EPlayerState.Push))
 				{
 					if(dir == 6)
 					{
-						player.AniState(PlayerState.Intercept1, CourtMgr.Get.RealBall.transform.position);
+						player.AniState(EPlayerState.Intercept1, CourtMgr.Get.RealBall.transform.position);
 					}
 					else if(dir == 5)
 					{
-						if(player.CheckAnimatorSate(PlayerState.Intercept1))
+						if(player.CheckAnimatorSate(EPlayerState.Intercept1))
 						{
 							if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
 								CourtMgr.Get.RealBall.transform.DOKill();
 							
 							if(SetBall(player))
 							{
-								player.AniState(PlayerState.HoldBall);
+								player.AniState(EPlayerState.HoldBall);
 								PassingStealBallTime = Time.time + 2;
 							}
 							
@@ -3330,14 +3330,14 @@ public class GameController : MonoBehaviour
 					}
 					else if(dir != 0)
 					{
-						player.AniState(PlayerState.Intercept0);
+						player.AniState(EPlayerState.Intercept0);
 						
 						if(BallTrigger.PassKind == 0 || BallTrigger.PassKind == 2)
 							CourtMgr.Get.RealBall.transform.DOKill();
 						
 						if(SetBall(player))
 						{
-							player.AniState(PlayerState.HoldBall);
+							player.AniState(EPlayerState.HoldBall);
 							PassingStealBallTime = Time.time + 2;
 						}
 						
@@ -3361,8 +3361,8 @@ public class GameController : MonoBehaviour
 		if (BallOwner || 
 		    IsShooting || 
 		    !player.IsCanCatchBall || 
-		    player.CheckAnimatorSate(PlayerState.GotSteal) || 
-		    player.CheckAnimatorSate(PlayerState.Push) || 
+		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
+		    player.CheckAnimatorSate(EPlayerState.Push) || 
 		    dir == 6)
             return;
 
@@ -3382,7 +3382,7 @@ public class GameController : MonoBehaviour
 		case 0: //top ,rebound
 			if ((isEnter || GameStart.Get.TestMode == GameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3) {
 				if (GameStart.Get.TestMode == GameTest.Rebound || situation == GameSituation.AttackA || situation == GameSituation.AttackB) {
-					if (GameStart.Get.TestMode == GameTest.Rebound || CourtMgr.Get.RealBallState ==  PlayerState.Steal || CourtMgr.Get.RealBallState ==  PlayerState.Rebound) {
+					if (GameStart.Get.TestMode == GameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
 							Rebound(player);
 						}
@@ -3400,20 +3400,20 @@ public class GameController : MonoBehaviour
 						if (player == BallOwner && inTipinDistance(player)) {
 							CoolDownPass = Time.time + 3;
 							if (player == Joysticker)
-								OnDoubleClickMoment(player, PlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound);
 							else
 							if (Random.Range(0, 100) < player.Attr.TipInRate)
 								Shoot();
 							else
 							if (player.Team == Joysticker.Team)
-								OnDoubleClickMoment(player, PlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound);
 						}
 					}
 				}
 			}
 			else if(situation == GameSituation.JumpBall)
 			{	
-				CourtMgr.Get.SetBallState(PlayerState.JumpBall, player);
+				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
 			}
 			break;
 		default :
@@ -3438,22 +3438,22 @@ public class GameController : MonoBehaviour
 					if (situation == GameSituation.TeeAPicking || situation == GameSituation.TeeBPicking){
 //						Debug.Log("height:"+CourtMgr.Get.RealBall.transform.position.y);
 						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
-							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
+							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 //						else if(CourtMgr.Get.RealBall.transform.position.y > 1f && CourtMgr.Get.RealBall.transform.position.y <= 2f)
-//							player.AniState(PlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
+//							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 //						else if(CourtMgr.Get.RealBall.transform.position.y > 0.5f && CourtMgr.Get.RealBall.transform.position.y <= 1f)
-//							player.AniState(PlayerState.CatchFloor, CourtMgr.Get.RealBall.transform.position);
+//							player.AniState(EPlayerState.CatchFloor, CourtMgr.Get.RealBall.transform.position);
 						else
-							player.AniState(PlayerState.PickBall0, CourtMgr.Get.RealBall.transform.position);
+							player.AniState(EPlayerState.PickBall0, CourtMgr.Get.RealBall.transform.position);
 					} else 
 					if (SetBall(player)) {
 						if(player.NoAiTime == 0)
-							player.AniState(PlayerState.Dribble0);
+							player.AniState(EPlayerState.Dribble0);
 						else 
-						if(player.CheckAnimatorSate(PlayerState.Run0))
-                        	player.AniState(PlayerState.Dribble1);
+						if(player.CheckAnimatorSate(EPlayerState.Run0))
+                        	player.AniState(EPlayerState.Dribble1);
                     	else
-                        	player.AniState(PlayerState.HoldBall);
+                        	player.AniState(EPlayerState.HoldBall);
 					}
                 }
             }
@@ -3504,7 +3504,7 @@ public class GameController : MonoBehaviour
 			if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.Attr.StaminaValue)
-					player1.AniState(PlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
 			}
 		}
 	}
@@ -3514,11 +3514,11 @@ public class GameController : MonoBehaviour
         
     }
 
-	private bool canPassToAlleyoop(PlayerState state) {
-		if (state == PlayerState.Idle ||
-		    state == PlayerState.HoldBall ||
-		    state == PlayerState.Dribble0 ||
-		    state == PlayerState.Dribble1)
+	private bool canPassToAlleyoop(EPlayerState state) {
+		if (state == EPlayerState.Idle ||
+		    state == EPlayerState.HoldBall ||
+		    state == EPlayerState.Dribble0 ||
+		    state == EPlayerState.Dribble1)
 			return true;
 		else
 			return false;
@@ -3530,7 +3530,7 @@ public class GameController : MonoBehaviour
 		 	situation == GameSituation.AttackA || situation == GameSituation.AttackB)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList[i].crtState == PlayerState.Alleyoop) {
+				if (PlayerList[i].crtState == EPlayerState.Alleyoop) {
 					flag = false;
 					break;
 				}
@@ -3540,7 +3540,7 @@ public class GameController : MonoBehaviour
 				if (player && player.Team.GetHashCode() == team) {
 					if (player != BallOwner && player.Team == BallOwner.Team) {
 						if (Random.Range(0, 100) < player.Attr.AlleyOopRate) {
-							player.AniState(PlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
+							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.NoAiTime == 0)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
 								if (DoPassiveSkill(TSkillSituation.Pass0, BallOwner, player.transform.position))
@@ -3692,7 +3692,7 @@ public class GameController : MonoBehaviour
 					relative = Npc.transform.InverseTransformPoint(lookAtPos);
 					mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 					
-					if (getDis(ref Npc, ref TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(PlayerState.Idle))
+					if (getDis(ref Npc, ref TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(EPlayerState.Idle))
 					{
 						if (mangle >= 0 && mangle <= angle)
 						{
@@ -3767,7 +3767,7 @@ public class GameController : MonoBehaviour
                         }
                     } else
                     {
-                        if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.crtState == PlayerState.Idle)
+                        if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.crtState == EPlayerState.Idle)
                         {
                             Result = Npc;
                             break;
@@ -3786,7 +3786,7 @@ public class GameController : MonoBehaviour
             return false;
         else if (Npc.Team == TeamKind.Npc && Npc.transform.position.z <= -15.5f && Npc.transform.position.x <= 1 && Npc.transform.position.x >= -1)
             return false;
-		else if(Npc.CheckAnimatorSate(PlayerState.Elbow))
+		else if(Npc.CheckAnimatorSate(EPlayerState.Elbow))
 			return false;
         else
             return true;
@@ -3831,7 +3831,7 @@ public class GameController : MonoBehaviour
 
     public void SetEndPass()
     {
-		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(PlayerState.Push))
+		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push))
         {
             if(SetBall(Catcher))
 				CoolDownPass = Time.time + 3;
@@ -3889,7 +3889,7 @@ public class GameController : MonoBehaviour
 		}
 		
 		SetBall();
-		CourtMgr.Get.SetBallState(PlayerState.Steal, player);
+		CourtMgr.Get.SetBallState(EPlayerState.Steal, player);
 		Catcher = null;
 	}
 	
@@ -3897,11 +3897,11 @@ public class GameController : MonoBehaviour
 	{
 		IsReset = true;
 		SetBallOwnerNull ();
-		CourtMgr.Get.SetBallState (PlayerState.Reset);
+		CourtMgr.Get.SetBallState (EPlayerState.Reset);
 
 		for (int i = 0; i < PlayerList.Count; i++) 
 		{
-			PlayerList [i].crtState = PlayerState.Idle;
+			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
 			PlayerList [i].transform.position = BornAy [i];								
 		}
@@ -4047,12 +4047,12 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shoot0) || 
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot1) || 
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2) || 
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot3) ||
-				    PlayerList [i].CheckAnimatorSate(PlayerState.Shoot6) ||
-				    PlayerList [i].CheckAnimatorSate(PlayerState.TipIn) ||
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot0) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot1) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot2) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot3) ||
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot6) ||
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.TipIn) ||
 				    PlayerList [i].IsLayup)
                     return true;            
 
@@ -4065,7 +4065,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Shoot0) || PlayerList [i].CheckAnimatorSate(PlayerState.Shoot2))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot0) || PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot2))
 					return true;            
 			
 			return false;
@@ -4089,7 +4089,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Alleyoop))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Alleyoop))
 					return true;            
 			
 			return false;
@@ -4101,7 +4101,7 @@ public class GameController : MonoBehaviour
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Block))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Block))
 					return true;
             
             return false;
@@ -4113,7 +4113,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.Push))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Push))
 					return true;
 			
 			return false;
@@ -4125,7 +4125,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.TipIn))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.TipIn))
 					return true;
             
             return false;
@@ -4137,7 +4137,7 @@ public class GameController : MonoBehaviour
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(PlayerState.PickBall0))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.PickBall0))
 					return true;
 			
 			return false;

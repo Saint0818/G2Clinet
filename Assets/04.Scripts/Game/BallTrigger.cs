@@ -103,7 +103,7 @@ public class BallTrigger : MonoBehaviour
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
-			CourtMgr.Get.SetBallState (PlayerState.Pass0);
+			CourtMgr.Get.SetBallState (EPlayerState.Pass0);
 			float dis = Vector3.Distance (GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.AttackSpeedup * Random.Range (4, 6));
 
@@ -134,7 +134,7 @@ public class BallTrigger : MonoBehaviour
 				}
 				break;
 			case 3:
-				GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
+				GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
 				PassEnd();
 				break;
 			default:
@@ -176,7 +176,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.ShortBall.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(EPlayerState.Steal, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
@@ -184,7 +184,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.Ball.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(PlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(EPlayerState.Steal, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
@@ -211,11 +211,11 @@ public class BallTrigger : MonoBehaviour
 						{
 							Passing = false;
 							if(PassKind == 0)
-								GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
+								GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
 							else if(PassKind == 2)
-								GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
+								GameController.Get.Catcher.AniState (EPlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
 							else
-								GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+								GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, GameController.Get.Passer.transform.position);
 						}else if(dis <= 2.8f)
 						{
 							Parabolamove = false;
@@ -228,11 +228,11 @@ public class BallTrigger : MonoBehaviour
 						{
 							Passing = false;
 							if(PassKind == 0)
-								GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
+								GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
 							else if(PassKind == 2)
-								GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
+								GameController.Get.Catcher.AniState (EPlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
 							else
-								GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+								GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, GameController.Get.Passer.transform.position);
 						}else if(dis <= 2.5f)
 						{
 							Parabolamove = false;
@@ -244,11 +244,11 @@ public class BallTrigger : MonoBehaviour
 					{
 						Passing = false;
 						if(PassKind == 0)
-							GameController.Get.Catcher.AniState (PlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
+							GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);		
 						else if(PassKind == 2)
-							GameController.Get.Catcher.AniState (PlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
+							GameController.Get.Catcher.AniState (EPlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
 						else
-							GameController.Get.Catcher.AniState(PlayerState.CatchParabola, GameController.Get.Passer.transform.position);
+							GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, GameController.Get.Passer.transform.position);
 					}
 				}
 

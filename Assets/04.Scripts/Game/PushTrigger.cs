@@ -25,12 +25,12 @@ public class PushTrigger : MonoBehaviour {
 					
 					if(rate < faller.Attr.StrengthRate)
 					{
-						if(faller.AniState(PlayerState.Fall2, pusher.transform.position))
+						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position))
 							faller.SetAnger(GameConst.DelAnger_Fall2);
 					}
 					else
 					{
-						if(faller.AniState(PlayerState.Fall1, pusher.transform.position))
+						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position))
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 					}
 

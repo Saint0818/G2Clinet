@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class BlockTrigger : MonoBehaviour {
@@ -26,13 +26,13 @@ public class BlockTrigger : MonoBehaviour {
 								if(faller.IsCanBlock && !faller.IsTee)	
 								{
 									GameController.Get.SetBall();
-									CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
-									faller.AniState(PlayerState.Fall1);
+									CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
+									faller.AniState(EPlayerState.Fall1);
 									gameObject.SetActive (false);
 								}
 							}
 							else{
-								faller.AniState(PlayerState.Fall1);
+								faller.AniState(EPlayerState.Fall1);
 								gameObject.SetActive (false);
 							}
 						}
@@ -45,14 +45,14 @@ public class BlockTrigger : MonoBehaviour {
 				{
 					if(faller.IsCanBlock && !faller.IsTee){
 						GameController.Get.SetBall();
-						CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
-						faller.AniState(PlayerState.Fall1);
+						CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
+						faller.AniState(EPlayerState.Fall1);
 						gameObject.SetActive (false);
 					}
 				}
 			}else{
 				blocker.IsPerfectBlockCatch = true;
-				CourtMgr.Get.SetBallState(PlayerState.Block, blocker);
+				CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 			}
 		}
 	}

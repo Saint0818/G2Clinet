@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -513,7 +513,7 @@ public class UIGame : UIBase {
 			uiAttackPush.SetActive(true);
 			return true;
 		} else {
-			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)
+			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
 				SetPassButton();
 			
 			return false;
@@ -528,7 +528,7 @@ public class UIGame : UIBase {
 			else UIMaskState(UIController.AttackB);
 			return true;
 		} else {
-			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == PlayerState.Alleyoop)
+			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
 				SetPassButton();
 
 			return false;
@@ -724,7 +724,7 @@ public class UIGame : UIBase {
 		switch(controllerState) {
 		case UIController.Skill:
 			if(!GameController.Get.Joysticker.IsFall && GameController.Get.Joysticker.IsBallOwner &&
-			   uiSkillFull.activeInHierarchy && GameController.Get.Joysticker.CanUseState(PlayerState.Dunk20)) {
+			   uiSkillFull.activeInHierarchy && GameController.Get.Joysticker.CanUseState(EPlayerState.Dunk20)) {
 				UIMaskState(UIController.Skill);
 				GameController.Get.DoSkill();
 			}
@@ -735,7 +735,7 @@ public class UIGame : UIBase {
 				if(isPressElbowBtn && 
 				   !GameController.Get.Joysticker.IsFall && 
 				   GameController.Get.situation == GameSituation.AttackA &&
-				   GameController.Get.Joysticker.CanUseState(PlayerState.Elbow)) {
+				   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
 					UIMaskState(UIController.Attack);
 					GameController.Get.DoElbow ();
 					GameController.Get.Joysticker.SetNoAiTime();
@@ -745,7 +745,7 @@ public class UIGame : UIBase {
 				if(isCanDefenceBtnPress && 
 				   !GameController.Get.Joysticker.IsFall &&
 				   (GameController.Get.situation == GameSituation.AttackB || GameController.Get.situation == GameSituation.AttackA) &&
-				   GameController.Get.Joysticker.CanUseState(PlayerState.Push)) {
+				   GameController.Get.Joysticker.CanUseState(EPlayerState.Push)) {
 					UIMaskState(UIController.Attack);
 					GameController.Get.DoPush();
 					GameController.Get.Joysticker.SetNoAiTime();
@@ -756,7 +756,7 @@ public class UIGame : UIBase {
 			if(isCanDefenceBtnPress && 
 			   !GameController.Get.Joysticker.IsFall && 
 			   GameController.Get.situation == GameSituation.AttackB &&
-			   GameController.Get.Joysticker.CanUseState(PlayerState.Block)) {
+			   GameController.Get.Joysticker.CanUseState(EPlayerState.Block)) {
 				UIMaskState(UIController.Block);
 				GameController.Get.DoBlock();
 				GameController.Get.Joysticker.SetNoAiTime();
@@ -767,7 +767,7 @@ public class UIGame : UIBase {
 			   !GameController.Get.Joysticker.IsFall &&
 			   GameController.Get.situation == GameSituation.AttackB && 
 			   GameController.Get.StealBtnLiftTime <= 0 && 
-			   GameController.Get.Joysticker.CanUseState(PlayerState.Steal)) {
+			   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal)) {
 				UIMaskState(UIController.Steal);
 				GameController.Get.DoSteal();
 				GameController.Get.Joysticker.SetNoAiTime();
@@ -782,9 +782,9 @@ public class UIGame : UIBase {
 				if(GameController.Get.Joysticker.IsBallOwner &&
 				   GameController.Get.situation == GameSituation.AttackA && 
 				   !GameController.Get.Joysticker.IsFall && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge0) && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.MoveDodge1) && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(PlayerState.Block)
+				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
+				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
+				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block)
 				   ) {
 					if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) {
 						isShootAvailable = false;
@@ -863,7 +863,7 @@ public class UIGame : UIBase {
 			uiScoreBar.SetActive (false);
 			uiJoystick.Joystick.isActivated = true;
 			
-			CourtMgr.Get.SetBallState (PlayerState.Start);
+			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
 			break;
 		case UISituation.Pause:
