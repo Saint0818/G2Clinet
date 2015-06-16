@@ -331,13 +331,14 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							} else 
 							if (i == 6) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-								if (t != null) {
+								Material matObj1 = Instantiate(Resources.Load("Character/Materials/Material_0") as Material);
+								if (t != null && matObj1 != null) {
 									for (int j=0; j<t.childCount; j++) 
 										Destroy(t.GetChild(j).gameObject);
 
 									MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer> ();
 									if (mr != null)
-										mr.material = matObj;
+										mr.material = matObj1;
 
 									avatarPartGO.transform.parent = t;
 									avatarPartGO.transform.localPosition = Vector3.zero;
@@ -347,13 +348,14 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							} else 
 							if (i == 7) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
-								if (t != null) 
+								Material matObj1 = Instantiate(Resources.Load("Character/Materials/Material_0") as Material);
+								if (t != null && matObj1!= null) 
 									for (int j=0; j<t.childCount; j++) 
 										Destroy(t.GetChild(j).gameObject);
 
 								MeshRenderer mr = avatarPartGO.GetComponent<MeshRenderer> ();
 								if (mr != null)
-									mr.material = matObj;
+									mr.material = matObj1;
 
 								avatarPartGO.transform.parent = t;
 								avatarPartGO.transform.localPosition = Vector3.zero;

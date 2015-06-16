@@ -632,12 +632,12 @@ public class UISelectRole : UIBase {
 			}
 			else if(i == 1)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.6f, 2.87f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(0.5f, -0.6f, 2.87f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 			}
 			else if(i == 2)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.6f, 2.58f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(-0.5f, -0.6f, 2.58f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 			}
 
