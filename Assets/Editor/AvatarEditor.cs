@@ -18,7 +18,7 @@ public class AvatarEditor :  EditorWindow{
 	private GameObject selectGameObject = null;
 	
 	private GameStruct.TAvatar attr = new GameStruct.TAvatar(1);
-	private GameStruct.TPlayer tPlayer = new GameStruct.TPlayer(1);
+//	private GameStruct.TPlayer tPlayer = new GameStruct.TPlayer(1);
 
 	public Vector2 scrollPosition = Vector2.zero;
 	public Vector2 scrollPositionTexture = Vector2.zero;
@@ -51,9 +51,9 @@ public class AvatarEditor :  EditorWindow{
 	public string bodyPartText = "";
 	public string bodyTextureText = "";
 
-	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
-	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
-	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
+//	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
+//	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
+//	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
 
 	private AvatarAnimationTest avatarAnimationTest;
 

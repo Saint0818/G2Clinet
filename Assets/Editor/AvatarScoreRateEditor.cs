@@ -13,8 +13,7 @@ public class AvatarScoreRateEditor : EditorWindow {
 	private bool isChange = false;
 	private TScoreRate scoreRate;
 	private PlayerBehaviour p;
-	private Vector2 scrollPositionAnimation = Vector2.zero;
-
+	 
 	void OnFocus(){
 		isChange = false;
 		scoreRate = new TScoreRate();

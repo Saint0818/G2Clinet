@@ -6,12 +6,12 @@ public class DragRotateObject : MonoBehaviour {
 	public float speed = 6f;
 	private float tempSpeed;
 	private float axisX;
-	private float axisY;
+//	private float axisY;
 	void OnMouseDrag ()
 	{
 		onDrag = true;
 		axisX=-Input.GetAxis ("Mouse X");
-		axisY=Input.GetAxis ("Mouse Y");
+//		axisY=Input.GetAxis ("Mouse Y");
 	}
 	
 	float Rigid ()

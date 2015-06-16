@@ -354,7 +354,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private Dictionary<int, List<PassiveSkill>> passivePassDirects = new Dictionary<int, List<PassiveSkill>>();
 	//ActiveSkill
 	public ActiveSkill activeSkill = new ActiveSkill();
-	private float activeTime  = 0;
+//	private float activeTime  = 0;
 
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
@@ -546,23 +546,23 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 		
 //		float time = 0;
-		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-		if (clips != null && clips.Length > 0)
-		{
-			for (int i=0; i<clips.Length; i++)
-			{
+//		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+//		if (clips != null && clips.Length > 0)
+//		{
+//			for (int i=0; i<clips.Length; i++)
+//			{
 //				for(int j=0; j<activeSkills.Count; j++) {
 //					if (clips [i].name.Equals(activeSkills[j]))
-					if(clips[i].name.Equals(activeSkill.Name))
-					{
+//					if(clips[i].name.Equals(activeSkill.Name))
+//					{
 //						Debug.Log("clips[i].name:" + clips[i].name);
 //						Debug.Log("clips[i].length:" + clips[i].length);
 //						activeTime.Add(clips[i].name, clips[i].length);
-						activeTime = clips[i].length;
-					}
+//						activeTime = clips[i].length;
+//					}
 //				}
-			}
-		}
+//			}
+//		}
 	}
 
     public void InitCurve(GameObject animatorCurve)

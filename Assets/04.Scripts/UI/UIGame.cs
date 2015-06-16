@@ -417,7 +417,6 @@ public class UIGame : UIBase {
 		UIState(UISituation.OptionSelect);
 	}
 
-
 	public void ShowSkill(){
 		if(isAngerFull) {
 			ShowSkillUI(true);
@@ -438,7 +437,6 @@ public class UIGame : UIBase {
 	}
 
 	public void SetAnger (PlayerBehaviour p = null, float anger = 0){
-//		spriteForce.fillAmount = anger / 100;
 		timeForce = 0;
 		oldForceValue = spriteForce.fillAmount;
 		newForceValue = anger / 100;
