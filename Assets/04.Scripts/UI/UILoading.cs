@@ -63,7 +63,7 @@ public class UILoading : UIBase {
 
 	protected override void OnShow(bool isShow){
 		if(isShow) {
-			LabelVersion.text = BundleVersion.version;
+			LabelVersion.text = BundleVersion.version.ToString();
 			UIProgress.value = 0;
 			if (!LoadingPic.mainTexture)
 				LoadingPic.mainTexture = (Texture)Resources.Load("Textures/GameLoading5", typeof(Texture));

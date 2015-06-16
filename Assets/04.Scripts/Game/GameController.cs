@@ -681,7 +681,7 @@ public class GameController : MonoBehaviour
 		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
 		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 		UIGame.Get.ChangeControl(true);
-		TMoveData md = new TMoveData(1);
+//		TMoveData md = new TMoveData(1);
 		//md.Target = new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
 		PlayerList[1].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
 		PlayerList[1].AniState(EPlayerState.Idle);
@@ -2649,7 +2649,7 @@ public class GameController : MonoBehaviour
     {
 		if (PlayerList.Count > 0 && !IsPassing && !IsBlocking)
         {
-			bool Suc = false;
+//			bool Suc = false;
 			PlayerBehaviour Npc2;
 			int Rate = Random.Range(0, 100);
 			TPlayerDisData [] DisAy = GetPlayerDisAy(Npc);
@@ -2677,7 +2677,7 @@ public class GameController : MonoBehaviour
 //								if(Npc2.AniState(EPlayerState.Block, Npc.transform.position))
 								if(DoPassiveSkill(ESkillSituation.Block, Npc2, Npc.transform.position))
 								{
-									Suc = true;
+//									Suc = true;
 									break;
 								}
 							}
