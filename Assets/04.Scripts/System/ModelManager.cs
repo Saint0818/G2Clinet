@@ -222,8 +222,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 			GameObject dummyBall = null;
 			GameObject bipGO = null;
-			GameObject ikPin = null;
-			GameObject ikAim = null;
 			
 			Transform[] hips;
 			List<CombineInstance> combineInstances = new List<CombineInstance> ();
@@ -405,21 +403,26 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			if(collider == null)
 				collider = result.AddComponent<CapsuleCollider>();
 			
-			switch (attr.Body) {
-			case 0:
-				collider.radius = 1;
-				collider.height = 3.5f;
+			switch (bodyType)
+			{
+				case 0:
+					collider.radius = 1;
+					collider.height = 3.5f;
+					break;
+					
+				case 1:
+					collider.radius = 0.88f;
+		            collider.height = 3.2f;
+		            break;
+		            
+		        case 2:
+		            collider.radius = 0.88f;
+		            collider.height = 3f;
+		            break;
+				default: 
+					collider.radius = 1;
+					collider.height = 3.5f;
 				break;
-				
-			case 1:
-				collider.radius = 0.88f;
-	            collider.height = 3.2f;
-	            break;
-	            
-	        case 2:
-	            collider.radius = 0.88f;
-	            collider.height = 3f;
-	            break;
             }
             
             collider.center = new Vector3 (0, collider.height / 2f, 0);
