@@ -11,7 +11,7 @@ public class UIDoubleClick : UIBase {
 	private float framSpeed = 0;
 	private float framSpeed2 = 0;
 	private float speed = 1f;
-	private float SecondSpeed = 1f;
+//	private float SecondSpeed = 1f;
 	private float SecondSpeedRate = 0.8f;
 	private bool isStart = true;
 	private Vector2 size;

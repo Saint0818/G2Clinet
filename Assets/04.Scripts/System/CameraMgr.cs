@@ -6,7 +6,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	//Game const
 	private Shake mShake;
 	private float groupOffsetSpeed = 0.1f;
-	private float zoomNormal = 25;
+//	private float zoomNormal = 25;
 	private float blankAera = 3.2f;
 	private float lockedFocusAngle = 30f;
 	private float lockedTeeFocusAngle = 50f;
@@ -239,8 +239,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void CameraOffset()
 	{
-		float boardZ = -1 * (cameraMoveAera.y / 2) + blankAera;
-		float computZ = 0;
+//		float boardZ = -1 * (cameraMoveAera.y / 2) + blankAera;
+//		float computZ = 0;
 //
 //		if (focusTarget.transform.position.z < boardZ)
 //			computZ = 0;

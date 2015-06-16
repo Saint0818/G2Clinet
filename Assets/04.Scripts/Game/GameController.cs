@@ -795,7 +795,7 @@ public class GameController : MonoBehaviour
                                 Attack(ref Npc);
 								AIMove(ref Npc, ref attackTactical);
 							} 
-							else if (!Npc.IsShoot)
+							else if (!Npc.IsAllShoot)
                             {
                                 Attack(ref Npc);
 								AIMove(ref Npc, ref attackTactical);
@@ -3051,6 +3051,9 @@ public class GameController : MonoBehaviour
 
     public bool SetBall(PlayerBehaviour p = null)
     {
+		if(p != null)
+			Debug.Log ("SetBall P : " + p.gameObject.name);
+
 		bool Result = false;
 		if (PlayerList.Count > 0)
         {
@@ -3764,7 +3767,7 @@ public class GameController : MonoBehaviour
 
     public void SetEndPass()
     {
-		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push))
+		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push) && !Catcher.IsBlock)
         {
             if(SetBall(Catcher))
 				CoolDownPass = Time.time + 3;
