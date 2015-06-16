@@ -44,6 +44,7 @@ public enum ESceneTest
 public enum EGameTest
 {
     None,
+	All,
     AttackA,
     AttackB,
     Dunk,
@@ -415,6 +416,20 @@ public class GameController : MonoBehaviour
 					PlayerList [i].SetMovePower(100);
 				}						
                 break;
+		case EGameTest.All:
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, BornAy[3], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, BornAy[4], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, BornAy[5], new GameStruct.TPlayer(0)));								
+			
+			for (int i = 0; i < PlayerList.Count; i++)
+			{    
+				PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				PlayerList [i].SetMovePower(100);
+			}						
+			break;
             case EGameTest.AttackA:
             case EGameTest.Shoot:
             case EGameTest.Dunk:
@@ -997,42 +1012,42 @@ public class GameController : MonoBehaviour
         if (PlayerList.Count > 0)
         {
             //Action
-            if (GameStart.Get.TestMode != EGameTest.None)
-                return;
-            
-            switch (situation)
-            {
-                case EGameSituation.None:
-                
-                    break;
-                case EGameSituation.Opening:
-                
-                    break;
-                case EGameSituation.JumpBall:
+			if(GameStart.Get.TestMode == EGameTest.All || GameStart.Get.TestMode == EGameTest.None)
+			{
+				switch (situation)
+				{
+				case EGameSituation.None:
+					
+					break;
+				case EGameSituation.Opening:
+					
+					break;
+				case EGameSituation.JumpBall:
 					JumpBall();
-                    break;
-                case EGameSituation.AttackA:
-                    SituationAttack(ETeamKind.Self);
-                    break;
-                case EGameSituation.AttackB:
-                    SituationAttack(ETeamKind.Npc);
-                    break;
-                case EGameSituation.TeeAPicking:
-                    SituationPickBall(ETeamKind.Self);
-                    break;
-                case EGameSituation.TeeA:
-                    SituationTeeBall(ETeamKind.Self);
-                    break;
-                case EGameSituation.TeeBPicking:
-                    SituationPickBall(ETeamKind.Npc);
-                    break;
-                case EGameSituation.TeeB:
-                    SituationTeeBall(ETeamKind.Npc);
-                    break;
-                case EGameSituation.End:
-                
-                    break;
-            }
+					break;
+				case EGameSituation.AttackA:
+					SituationAttack(ETeamKind.Self);
+					break;
+				case EGameSituation.AttackB:
+					SituationAttack(ETeamKind.Npc);
+					break;
+				case EGameSituation.TeeAPicking:
+					SituationPickBall(ETeamKind.Self);
+					break;
+				case EGameSituation.TeeA:
+					SituationTeeBall(ETeamKind.Self);
+					break;
+				case EGameSituation.TeeBPicking:
+					SituationPickBall(ETeamKind.Npc);
+					break;
+				case EGameSituation.TeeB:
+					SituationTeeBall(ETeamKind.Npc);
+					break;
+				case EGameSituation.End:
+					
+					break;
+				}
+			}
         }
     }
 
