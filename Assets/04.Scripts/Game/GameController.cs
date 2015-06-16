@@ -1057,19 +1057,19 @@ public class GameController : MonoBehaviour
 			Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 			PlayerToBasketDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
 			if(situation == EGameSituation.AttackA && UIGame.Get.isCanShowSkill) {
-				if (GameController.Get.Joysticker.activeSkill.type == EActiveDistanceType.AttackHalfCount ) {
-					if (GameController.Get.PlayerToBasketDistance <= 15)
+				if (Joysticker.activeSkill.type == EActiveDistanceType.AttackHalfCount ) {
+					if (Joysticker.transform.position.z >= 0)
 						UIGame.Get.ShowSkillUI(true);
 					else 
 						UIGame.Get.ShowSkillUI(false);
 				} else 
-				if (GameController.Get.Joysticker.activeSkill.type == EActiveDistanceType.DeffenceHalfCount ) {
-					if (GameController.Get.PlayerToBasketDistance > 15)
+				if (Joysticker.activeSkill.type == EActiveDistanceType.DeffenceHalfCount ) {
+					if (Joysticker.transform.position.z < 0)
 						UIGame.Get.ShowSkillUI(true);
 					else 
 						UIGame.Get.ShowSkillUI(false);
 				} else 
-				if (GameController.Get.Joysticker.activeSkill.type == EActiveDistanceType.AllCount ) 
+				if (Joysticker.activeSkill.type == EActiveDistanceType.AllCount ) 
 					UIGame.Get.ShowSkillUI(true);
 			}else
 				UIGame.Get.ShowSkillUI(false);

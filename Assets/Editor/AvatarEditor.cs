@@ -200,15 +200,15 @@ public class AvatarEditor :  EditorWindow{
 						}
 					}
 				}
-				if((attr.Body/1000) == 0) {
+				if(selectGameObject.name.Equals("0")) {
 					modelId = 0;
 					isModel0Choose = true;
 				} else 
-				if((attr.Body/1000) == 1) {
+				if(selectGameObject.name.Equals("1")) {
 					modelId = 1;
 					isModel1Choose = true;
 				} else 
-				if((attr.Body/1000) == 2) {
+				if(selectGameObject.name.Equals("2")) {
 					modelId = 2;
 					isModel2Choose = true;
 				}
