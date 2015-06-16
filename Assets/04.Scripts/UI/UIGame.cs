@@ -77,6 +77,7 @@ public class UIGame : UIBase {
 
 	//Force
 	private UISprite spriteForce;
+	private UISprite spriteForceFirst;
 	private float oldForceValue;
 	private float newForceValue;
 	private float timeForce;
@@ -219,12 +220,14 @@ public class UIGame : UIBase {
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
 
 		spriteForce = GameObject.Find (UIName + "/Forcebar/SpriteForce").GetComponent<UISprite>();
+		spriteForceFirst = GameObject.Find (UIName + "/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
 		uiSpriteFull = GameObject.Find (UIName + "/Forcebar/SpriteFullTween");
 		uiSpriteAnimation = GameObject.Find (UIName + "Forcebar/forcebar");
 		spriteAnimation = GameObject.Find (UIName + "Forcebar/forcebar").GetComponent<UISpriteAnimation>();
 		spriteAnimation.framesPerSecond = 25;
 		uiSpriteFull.SetActive(false);
 		spriteForce.fillAmount = 0;
+		spriteForceFirst.fillAmount = 0;
 
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
 		buttonBlockFX = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/UI_FX_A_21");
@@ -439,6 +442,7 @@ public class UIGame : UIBase {
 		timeForce = 0;
 		oldForceValue = spriteForce.fillAmount;
 		newForceValue = anger / 100;
+		spriteForceFirst.fillAmount = newForceValue;
 		if (newForceValue == 1) {
 			isAngerFull = true;
 			uiSpriteFull.SetActive (true);
