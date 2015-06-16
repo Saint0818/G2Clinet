@@ -136,10 +136,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		return PB;
 	}
 
-	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int BodyPart, int ModelPart, int TexturePart) {
+	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
-			string bodyNumber = (Attr.Body / 1000).ToString();
-			string mainBody = string.Format("PlayerModel_{0}", bodyNumber);
+//			string bodyNumber = (Attr.Body / 1000).ToString();
+			string bodyNumber = bodyType.ToString();;
+//			string mainBody = string.Format("PlayerModel_{0}", bodyNumber);
+			string mainBody = "PlayerModel";
 			string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 			if(BodyPart < 6) {
 				Transform t = Player.transform.FindChild(mainBody);
@@ -297,6 +299,10 @@ public class ModelManager : KnightSingleton<ModelManager> {
 									SkinnedMeshRenderer smr = avatarPartGO.GetComponentInChildren<SkinnedMeshRenderer> ();
 									if (smr != null) {
 										smr.material = matObj;
+										if (i == 0) 
+											smr.material.name = "B";
+										else
+											smr.material.name = avatarPart [i];
 										ci.mesh = smr.sharedMesh;
 									}
 
@@ -333,6 +339,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 									avatarPartGO.transform.parent = t;
 									avatarPartGO.transform.localPosition = Vector3.zero;
 									avatarPartGO.transform.localEulerAngles = Vector3.zero;
+									avatarPartGO.transform.localScale = Vector3.one;
 								}
 							} else 
 							if (i == 7) {
@@ -348,6 +355,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 								avatarPartGO.transform.parent = t;
 								avatarPartGO.transform.localPosition = Vector3.zero;
 								avatarPartGO.transform.localEulerAngles = Vector3.zero;
+								avatarPartGO.transform.localScale = Vector3.one;
 							}
 						} catch (UnityException e) {
 							Debug.Log(e.ToString());

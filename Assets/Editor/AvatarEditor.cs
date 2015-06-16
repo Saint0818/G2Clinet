@@ -223,7 +223,7 @@ public class AvatarEditor :  EditorWindow{
 				GameObject obj = new GameObject();
 				obj.name = name;
 				obj.AddComponent<DragRotateObject>();
-				ModelManager.Get.SetAvatar(ref obj, attr, tPlayer.BodyType, false, false);
+				ModelManager.Get.SetAvatar(ref obj, attr, int.Parse(name), false, false);
 				obj.AddComponent<AvatarAnimationTest>();
 				if(name.Equals("0")) {
 					obj.transform.position = new Vector3(2,0,0);
@@ -264,7 +264,7 @@ public class AvatarEditor :  EditorWindow{
 		else 
 			GUI.backgroundColor = Color.white;
 
-		if (GUI.Button (new Rect(0, 100, 200, 50), "PlayerMode_0")) {
+		if (GUI.Button (new Rect(0, 100, 200, 50), "Center")) {
 			if(!isModel0Choose){
 				//Create New Model 0
 				attr.Body = 0001;
@@ -284,7 +284,7 @@ public class AvatarEditor :  EditorWindow{
 		else 
 			GUI.backgroundColor = Color.white;
 
-		if (GUI.Button (new Rect(200, 100, 200, 50), "PlayerMode_1")) {
+		if (GUI.Button (new Rect(200, 100, 200, 50), "Forwards")) {
 			if(!isModel1Choose) {
 				//Create New Model 1
 				attr.Body = 1001;
@@ -304,7 +304,7 @@ public class AvatarEditor :  EditorWindow{
 		else 
 			GUI.backgroundColor = Color.white;
 
-		if (GUI.Button (new Rect(400, 100, 200, 50), "PlayerMode_2")) {
+		if (GUI.Button (new Rect(400, 100, 200, 50), "Guard")) {
 			if(!isModel2Choose) {
 				//Create New Model 2
 				attr.Body = 2001;
@@ -411,7 +411,7 @@ public class AvatarEditor :  EditorWindow{
 		//Body Part
 		GUI.Label (new Rect(0, 220, 500, 50), "Change Body Part: " + bodyPartText);
 		if(isAvatar) {
-			scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 60, 50));
+			scrollPosition = GUI.BeginScrollView (new Rect (0, 240, 600, 50), scrollPosition, new Rect (0, 0, showBody.Count * 100, 50));
 			if (showBody.Count > 0) {
 				if(GUI.Button(new Rect(0, 0, 50, 30), "None")){
 					chooseBodyPart(showBody[0].name, true);
@@ -420,7 +420,7 @@ public class AvatarEditor :  EditorWindow{
 					showBodyTexture.Clear();
 				}
 				for (int i=0; i<showBody.Count; i++) {
-					if(GUI.Button(new Rect(60 * (i+1), 0, 50, 30), showBody[i].name)) {
+					if(GUI.Button(new Rect(80 * (i+1), 0, 80, 30), showBody[i].name)) {
 						chooseBodyPart(showBody[i].name);
 					}
 				}
@@ -431,10 +431,10 @@ public class AvatarEditor :  EditorWindow{
 		//Body Texture
 		GUI.Label (new Rect(0, 280, 500, 50), "Change Body Texture: "+ bodyTextureText);
 		if(isAvatar) {
-			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 70, 50));
+			scrollPositionTexture = GUI.BeginScrollView (new Rect (0, 300, 600, 50), scrollPositionTexture, new Rect (0, 0, showBody.Count * 100, 50));
 			if (showBodyTexture.Count > 0) {
 				for (int i=0; i<showBodyTexture.Count; i++) {
-					if(GUI.Button(new Rect(70 * i, 0, 60, 30), showBodyTexture[i].name)) {
+					if(GUI.Button(new Rect(90 * i, 0, 90, 30), showBodyTexture[i].name)) {
 						bodyTextureText = showBodyTexture[i].name;
 						string[] name = showBodyTexture[i].name.Split("_"[0]);
 						string attrString = string.Empty;
@@ -470,19 +470,28 @@ public class AvatarEditor :  EditorWindow{
 							attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 						}
 						bodyPart = Array.IndexOf(strPart, name[1]);
-						ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+						ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 					}
 				}
 			}	
 			GUI.EndScrollView ();
 		}
 
+		GUI.Label(new Rect(0, 340, 650, 100), "Body       : "+ attr.Body);
+		GUI.Label(new Rect(0, 360, 650, 100), "Hair       : "+ attr.Hair);
+		GUI.Label(new Rect(0, 380, 650, 100), "AHeadDress : "+ attr.AHeadDress);
+		GUI.Label(new Rect(0, 400, 650, 100), "Cloth      : "+ attr.Cloth);
+		GUI.Label(new Rect(0, 420, 650, 100), "Pants      : "+ attr.Pants);
+		GUI.Label(new Rect(0, 440, 650, 100), "Shoes      : "+ attr.Shoes);
+		GUI.Label(new Rect(0, 460, 650, 100), "MHandDress : "+ attr.MHandDress);
+		GUI.Label(new Rect(0, 480, 650, 100), "ZBackEquip : "+ attr.ZBackEquip);
+
 		
 		//Play Animation
 		if(isAvatar && Application.isPlaying) {
 			avatarAnimationTest = Selection.gameObjects[0].GetComponent<AvatarAnimationTest>();
 			if(avatarAnimationTest != null) {
-				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 400, 650, 550), scrollPositionAnimation, new Rect (0, 0, 650, 40 * (allMotionAnimationClip.Count / 5)));
+				scrollPositionAnimation = GUI.BeginScrollView (new Rect (0, 500, 650, 550), scrollPositionAnimation, new Rect (0, 0, 750, 40 * (allMotionAnimationClip.Count / 5)));
 				for(int i=0; i < allMotionAnimationClip.Count; i++) {
 					if(GUI.Button(new Rect(130 * (i % 5), (i / 5) * 40, 120, 30), allMotionAnimationClip[i].name)) {
 						avatarAnimationTest.Play(allMotionAnimationClip[i].name);
@@ -523,7 +532,7 @@ public class AvatarEditor :  EditorWindow{
 				attrString = name[3];
 			attr.Body = int.Parse(bodyPartTemp + attrString);
 			bodyPart = Array.IndexOf(strPart, name[1]);
-			ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+			ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 		}
 
 		//C
@@ -548,7 +557,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.Cloth = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -574,7 +583,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.Hair = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -601,7 +610,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -628,7 +637,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.Pants = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -655,7 +664,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.Shoes = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -682,7 +691,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -709,7 +718,7 @@ public class AvatarEditor :  EditorWindow{
 						attrString = name[3];
 					attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 					bodyPart = Array.IndexOf(strPart, name[1]);
-					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
+					ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 				}
 			}
 		}
@@ -766,7 +775,7 @@ public class AvatarEditor :  EditorWindow{
 		if(showBodyTexture.Count > 0)
 			bodyTextureText = showBodyTexture[0].name;
 
-		ModelManager.Get.SetAvatar(ref selectGameObject, attr, tPlayer.BodyType, false, false);
+		ModelManager.Get.SetAvatar(ref selectGameObject, attr, modelId, false, false);
 	}
 
 	void judgeBodyName(string body){
