@@ -58,7 +58,8 @@ public class BallTrigger : MonoBehaviour
 			if (other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent) {
 				PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
 				if (player) {
-					GameController.Get.BallTouchPlayer(player, dir, isEnter);
+					if(!GameController.Get.PassingStealBall(player, dir))
+						GameController.Get.BallTouchPlayer(player, dir, isEnter);
 					return true;
 				}
 			}

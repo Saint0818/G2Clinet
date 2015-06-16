@@ -38,7 +38,8 @@ public class UISelectRole : UIBase {
 	private UISprite [] SelectABBody = new UISprite[2];
 	public static int [] RoleIDAy = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
-	private UILabel [] SelectAListName = new UILabel[6];
+	private UILabel [] SelectAListName = new UILabel[3];
+	private UILabel [] SelectBListName = new UILabel[3];
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
@@ -156,8 +157,14 @@ public class UISelectRole : UIBase {
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
-			SetBtnFun(UIName + "/Center/ViewLoading/SelectA/ListA/" + i.ToString(), DoListA);
+			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString(), DoListA);
+		}
+
+		for(int i = 0; i < SelectBListName.Length; i++)
+		{
+			SelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SetBtnFun(UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString(), DoListB);
 		}
 
 		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
@@ -321,6 +328,7 @@ public class UISelectRole : UIBase {
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			}
 		}
 	}
@@ -364,9 +372,10 @@ public class UISelectRole : UIBase {
 				}
 			}
 
-			for(int i = 0; i < SelectAListName.Length; i++)
+			for(int i = 0; i < SelectBListName.Length; i++)
 			{
 				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			}
 		}
 	}
@@ -467,7 +476,8 @@ public class UISelectRole : UIBase {
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i].text = GameData.DPlayers[RoleIDAy[i]].Name;
+			SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+			SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
 		}
 	}
 
@@ -538,7 +548,29 @@ public class UISelectRole : UIBase {
 		SelectIDAy[RoleIndex] = RoleIDAy[Index];
 		PlayerAy[RoleIndex].SetAvatar();
 		AvatarAy[RoleIndex] = PlayerAy[RoleIndex].Avatar;
-		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, GameData.DPlayers [RoleIDAy [Index]].BodyType, false, false);
+		GameObject temp = PlayerObjAy [RoleIndex];
+
+		ModelManager.Get.SetAvatar(ref PlayerObjAy[RoleIndex], PlayerAy[RoleIndex].Avatar, GameData.DPlayers [RoleIDAy [Index]].BodyType, false, false, true);
+
+
+		PlayerObjAy[RoleIndex].name = RoleIndex.ToString();
+		PlayerObjAy[RoleIndex].transform.parent = PlayerInfoModel.transform;
+		PlayerObjAy[RoleIndex].transform.localPosition = Ay[RoleIndex];
+		PlayerObjAy[RoleIndex].AddComponent<SelectEvent>();
+		PlayerObjAy[RoleIndex].transform.localPosition = temp.transform.localPosition;
+		PlayerObjAy[RoleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
+		PlayerObjAy[RoleIndex].transform.localScale = temp.transform.localScale;
+		for (int j = 0; j <PlayerObjAy[RoleIndex].transform.childCount; j++) 
+		{ 
+			if(PlayerObjAy[RoleIndex].transform.GetChild(j).name.Contains("PlayerMode")) 
+			{
+				PlayerObjAy[RoleIndex].transform.GetChild(j).localScale = Vector3.one;
+				PlayerObjAy[RoleIndex].transform.GetChild(j).localEulerAngles = Vector3.zero;
+				PlayerObjAy[RoleIndex].transform.GetChild(j).localPosition = Vector3.zero;
+			}
+		}
+
+
 		animatorAy[RoleIndex] = PlayerObjAy[RoleIndex].GetComponent<Animator>();
 		ChangeLayersRecursively(PlayerObjAy[RoleIndex].transform, "UI");
 
@@ -590,12 +622,12 @@ public class UISelectRole : UIBase {
 			}
 			else if(i == 1)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.38f, 2.87f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(0.42f, -0.6f, 2.87f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, 150, 0);
 			}
 			else if(i == 2)
 			{
-				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.38f, 2.58f);
+				PlayerObjAy[i].transform.localPosition = new Vector3(-0.4f, -0.6f, 2.58f);
 				PlayerObjAy[i].transform.localEulerAngles = new Vector3(0, -150, 0);
 			}
 

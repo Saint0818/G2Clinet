@@ -211,7 +211,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, int bodyType, bool isUseRig, bool combine = true) {
+	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, int bodyType, bool isUseRig, bool combine = true, bool Reset = false) {
 		try {
 //			string bodyNumber = (attr.Body / 1000).ToString();
 //			Debug.Log("bodyType:"+ bodyType);
@@ -219,6 +219,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
 			int[] avatarIndex = new int[] {attr.Body, attr.Cloth, attr.Hair, attr.MHandDress, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
+
+			if(Reset){
+				Destroy(result);			
+				result = new GameObject();
+			}
 
 			GameObject dummyBall = null;
 			GameObject bipGO = null;
