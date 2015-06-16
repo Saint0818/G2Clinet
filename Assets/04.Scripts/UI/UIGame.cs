@@ -77,6 +77,9 @@ public class UIGame : UIBase {
 
 	//Force
 	private UISprite spriteForce;
+	private float oldForceValue;
+	private float newForceValue;
+	private float timeForce;
 	private GameObject uiSpriteFull;
 	private GameObject uiSpriteAnimation;
 	private UISpriteAnimation spriteAnimation;
@@ -88,7 +91,7 @@ public class UIGame : UIBase {
 	private GameObject[] effectGroup = new GameObject[2];
 
 	private UILabel[] labelScores = new UILabel[2];
-	private UIScrollBar[] aiLevelScrollBar = new UIScrollBar[3];
+	private UIScrollBar aiLevelScrollBar;
 
 	//FX
 	private float fxTime = 0.3f;
@@ -143,7 +146,7 @@ public class UIGame : UIBase {
 //				DoPassTeammateB();
 //			}
 //		}
-
+		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -207,9 +210,8 @@ public class UIGame : UIBase {
 		labelScores [0] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore1").GetComponent<UILabel>();
 		labelScores [1] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore2").GetComponent<UILabel>();
 
-		aiLevelScrollBar [0] = GameObject.Find(UIName + "/Center/ViewStart/AISelect/HomeScrollBar").GetComponent<UIScrollBar>();
-		aiLevelScrollBar [1] = GameObject.Find(UIName + "/Center/ViewStart/AISelect/AwayScrollBar").GetComponent<UIScrollBar>();
-		aiLevelScrollBar [2] = GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+
+		aiLevelScrollBar= GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
 		effectGroup[0] = GameObject.Find (UIName + "/Center/ViewTools/ViewOption/ButtonEffect/LabelON");
 		effectGroup[1] = GameObject.Find (UIName + "/Center/ViewTools/ViewOption/ButtonEffect/LabelOff");
@@ -244,9 +246,7 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA")).onPress = DoPassTeammateA;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB")).onPress = DoPassTeammateB;
 
-		aiLevelScrollBar[0].onChange.Add(new EventDelegate(changeSelfAILevel));
-		aiLevelScrollBar[1].onChange.Add(new EventDelegate(changeNpcAILevel));
-		aiLevelScrollBar[2].onChange.Add(new EventDelegate(changeAIChangeTime));
+		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
 
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/TopLeft/ButtonContinue", ContinueGame);
@@ -309,16 +309,16 @@ public class UIGame : UIBase {
 //		}
 //	}
 
-	public void changeSelfAILevel(){
-		GameConst.SelfAILevel = (int) Mathf.Round(aiLevelScrollBar[0].value * 5);
-	}
-
-	public void changeNpcAILevel(){
-		GameConst.NpcAILevel = (int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
-	}
+//	public void changeSelfAILevel(){
+//		GameConst.SelfAILevel = (int) Mathf.Round(aiLevelScrollBar[0].value * 5);
+//	}
+//
+//	public void changeNpcAILevel(){
+//		GameConst.NpcAILevel = (int)  Mathf.Round(aiLevelScrollBar[1].value * 5);		
+//	}
 
 	public void changeAIChangeTime(){
-		int level = (int)  Mathf.Round(aiLevelScrollBar[2].value * 5);
+		int level = (int)  Mathf.Round(aiLevelScrollBar.value * 5);
 		float time = 1;
 		if(level == 0) {
 			time = 1;
@@ -414,17 +414,6 @@ public class UIGame : UIBase {
 		UIState(UISituation.OptionSelect);
 	}
 
-	public void SetAnger (PlayerBehaviour p = null, float anger = 0){
-		spriteForce.fillAmount = anger / 100;
-		if (spriteForce.fillAmount == 1) {
-			isAngerFull = true;
-			uiSpriteFull.SetActive (true);
-			ShowSkill();
-		} else {
-			isAngerFull = false;
-			uiSpriteFull.SetActive (false);
-		}
-	}
 
 	public void ShowSkill(){
 		if(isAngerFull) {
@@ -443,6 +432,27 @@ public class UIGame : UIBase {
 			uiSkillFull.SetActive(isShow);
 		else 
 			uiSkillFull.SetActive(false);
+	}
+
+	public void SetAnger (PlayerBehaviour p = null, float anger = 0){
+//		spriteForce.fillAmount = anger / 100;
+		timeForce = 0;
+		oldForceValue = spriteForce.fillAmount;
+		newForceValue = anger / 100;
+		if (newForceValue == 1) {
+			isAngerFull = true;
+			uiSpriteFull.SetActive (true);
+			ShowSkill();
+		} else {
+			isAngerFull = false;
+			uiSpriteFull.SetActive (false);
+		}
+	}
+
+	private void runForceValue () {
+		timeForce += Time.fixedDeltaTime;
+		if(oldForceValue != newForceValue) 
+			spriteForce.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
 	}
 
 	private void runForceBar () {
