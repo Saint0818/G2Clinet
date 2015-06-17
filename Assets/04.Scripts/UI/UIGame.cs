@@ -57,6 +57,10 @@ public class UIGame : UIBase {
 	private bool isShowOption = false;
 	public bool isCanShowSkill = false;
 
+	// GoldFinger
+	private bool isPressA = false;
+	private bool isPressB = false;
+
 	private GameJoystick uiJoystick = null;
 	//Stuff
 	private GameObject viewStart;
@@ -139,6 +143,8 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
+		if(isPressA && isPressB)
+			GameController.Get.Joysticker.SetAnger(100);
 //		if (Input.GetMouseButtonUp(0)) {
 //			isPressShootBtn = false;
 //			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
@@ -366,10 +372,12 @@ public class UIGame : UIBase {
 	}
 
 	public void DoPassTeammateA(GameObject obj, bool state) {
+		isPressA = state;
 		UIControllerState(UIController.PassA, obj, state);
 	}
 
 	public void DoPassTeammateB(GameObject obj, bool state) {
+		isPressB = state;
 		UIControllerState(UIController.PassB, obj, state);
 	}
 

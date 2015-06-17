@@ -64,19 +64,19 @@ public class GameData {
 		} else {
 			#if UNITY_EDITOR
 				#if En
-				GameData.Setting.Language = Language.EN;
+				GameData.Setting.Language = ELanguage.EN;
 				#endif
 				
 				#if zh_TW
-				GameData.Setting.Language = Language.TW;
+				GameData.Setting.Language = ELanguage.TW;
 				#endif
 			#else
 			switch (Application.systemLanguage) {
 			case SystemLanguage.Chinese:
-				GameData.Setting.Language = Language.TW;
+				GameData.Setting.Language = ELanguage.TW;
 				break;
 			default:
-				GameData.Setting.Language = Language.EN;
+				GameData.Setting.Language = ELanguage.EN;
 				break;
 			}
 			#endif
