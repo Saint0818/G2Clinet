@@ -55,7 +55,8 @@ public enum EGameTest
 	Pass,
 	Alleyoop,
 	CrossOver,
-	Shoot
+	Shoot,
+	AnimationUnit
 }
 
 public enum ECameraTest
@@ -441,6 +442,10 @@ public class GameController : KnightSingleton<GameController>
 				
                 UIGame.Get.ChangeControl(true);
                 break;
+
+			case EGameTest.AnimationUnit:
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+				break;
             case EGameTest.AttackB:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				break;
@@ -597,13 +602,16 @@ public class GameController : KnightSingleton<GameController>
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
-//					Joysticker.AniState(EPlayerState.Shoot1);
-					UIGame.Get.DoShoot(null, true);
+					if(GameStart.Get.TestMode == EGameTest.AnimationUnit)
+						Joysticker.AniState(GameStart.Get.SelectAniState);
+					else
+						UIGame.Get.DoShoot(null, true);
 				}
 				
 				if (Input.GetKeyUp (KeyCode.S))
 				{
-					UIGame.Get.DoShoot(null, false);
+					if(GameStart.Get.TestMode != EGameTest.AnimationUnit)
+						UIGame.Get.DoShoot(null, false);
 				}
 			}
 			else if(situation == EGameSituation.AttackB){

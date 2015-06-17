@@ -16,6 +16,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public TScoreRate ScoreRate = new TScoreRate(1);
 	public TShootAngle ShootAngle = new TShootAngle(1);
 	public bool IsDebugAnimation = false;
+	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	//server
 	public bool ConnectToServer = false;
 	
