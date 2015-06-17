@@ -277,8 +277,6 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public UISprite SpeedUpView = null;
-    public UISprite AngerView = null;
-    public GameObject AngryFull = null;
     public ETeamKind Team;
     public float NoAiTime = 0;
     public bool HaveNoAiTime = false;

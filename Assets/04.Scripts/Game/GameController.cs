@@ -497,10 +497,6 @@ public class GameController : MonoBehaviour
 		selectMe = setEffectMagager("SelectMe");
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
-		Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
-		Joysticker.AngerView.fillAmount = 0;
-		Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
-		Joysticker.AngryFull.SetActive (false);
 
 		passIcon[0] = setEffectMagager("PassMe");
 
