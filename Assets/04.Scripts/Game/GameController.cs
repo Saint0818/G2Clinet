@@ -1896,7 +1896,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case 2: 
 				AddExtraScoreRate(GameData.ExtraPerfectRate);
-				BallOwner.SetAnger(GameConst.AddAnger_Perfect);
+				Joysticker.SetAnger(GameConst.AddAnger_Perfect);				
 				break;
 		}
 
