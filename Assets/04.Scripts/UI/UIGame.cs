@@ -459,20 +459,21 @@ public class UIGame : UIBase {
 	}
 	
 	public void ShowAlleyoop(bool isShow, int teammate = 1) {
-		if(isShow) {
-			if(teammate == 1) {
-				uiPassA.SetActive(!isShow);
-				uiAlleyoopA.SetActive(isShow);
+		if(GameController.Get.situation == EGameSituation.AttackA) {
+			if(isShow) {
+				if(teammate == 1) {
+					uiPassA.SetActive(!isShow);
+					uiAlleyoopA.SetActive(isShow);
+				} else {
+					uiPassB.SetActive(!isShow);
+					uiAlleyoopB.SetActive(isShow);
+				}
 			} else {
-				uiPassB.SetActive(!isShow);
-				uiAlleyoopB.SetActive(isShow);
+				uiPassA.SetActive(true);
+				uiAlleyoopA.SetActive(false);
+				uiPassB.SetActive(true);
+				uiAlleyoopB.SetActive(false);
 			}
-		} else {
-			uiPassA.SetActive(true);
-			uiAlleyoopA.SetActive(false);
-			uiPassB.SetActive(true);
-			uiAlleyoopB.SetActive(false);
-			
 		}
 	}
 
@@ -574,6 +575,7 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if(p.NoAiTime > 0)
 				p.SetNoAiTime();
+			ShowAlleyoop(false);
 
 			if(isAttackState) UIMaskState(UIController.AttackA);
 			else UIMaskState(UIController.AttackB);
