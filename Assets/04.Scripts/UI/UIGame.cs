@@ -582,12 +582,12 @@ public class UIGame : UIBase {
 			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		default:
-			if(GameController.Get.situation == EGameSituation.AttackB) {
+			if(GameController.Get.situation == EGameSituation.AttackB || GameController.Get.situation == EGameSituation.TeeBPicking) {
 				viewPass.SetActive(false);
 				GameController.Get.passIcon[0].SetActive(false);
 				GameController.Get.passIcon[1].SetActive(false);
 				GameController.Get.passIcon[2].SetActive(false);
-			} else if(GameController.Get.situation == EGameSituation.AttackA) {
+			} else if(GameController.Get.situation == EGameSituation.AttackA || GameController.Get.situation == EGameSituation.TeeAPicking) {
 				viewPass.SetActive(true);
 				GameController.Get.passIcon[0].SetActive(true);
 				GameController.Get.passIcon[1].SetActive(true);
@@ -653,7 +653,7 @@ public class UIGame : UIBase {
 
 			ShowSkillUI(false);
 			uiAttackPush.SetActive(false);
-			uiDefenceGroup[0].SetActive(false);
+			uiDefenceGroup[0].SetActive(true);
 			uiDefenceGroup[1].SetActive(false);
 			break;
 		case UIController.Shoot:
