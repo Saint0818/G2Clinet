@@ -2246,7 +2246,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
 		bool Result = false;
-		
+
 		if(player) {
 			EPlayerState p ;
 			switch(State) {
@@ -2274,11 +2274,12 @@ public class GameController : KnightSingleton<GameController>
 							player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 							player.AniState(EPlayerState.MoveDodge1);
 						}			
-						if(player == Joysticker)
-							ShowPassiveEffect ();
 						
 						CoolDownCrossover = Time.time + 4;
 						Result = true;
+						if(player == Joysticker)
+							ShowPassiveEffect ();
+						return Result;
 					} 
 				}
 				break;
@@ -3974,7 +3975,7 @@ public class GameController : KnightSingleton<GameController>
 		switch (effectName) {
 		case "SkillSign":
 		case "SkillSign01" :
-			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Player.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 1f);
+			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Player.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
 			break;
 		case "ThreeLineEffect":
 		case "ThrowInLineEffect":
