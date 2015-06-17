@@ -2599,7 +2599,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "PickEnd":
-                AniState(EPlayerState.Dribble0);
+				if(IsBallOwner)
+                	AniState(EPlayerState.Dribble0);
+				else
+					AniState(EPlayerState.Idle);
                 break;
 
             case "PushCalculateStart":
