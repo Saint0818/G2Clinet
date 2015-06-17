@@ -1553,7 +1553,7 @@ public class GameController : KnightSingleton<GameController>
 					int rate = UnityEngine.Random.Range(0, 2);
 					int passkind = -1;
 					if(player.crtState == EPlayerState.Alleyoop)
-						Result = BallOwner.AniState(EPlayerState.Pass0, player.transform.position);
+						Result = BallOwner.AniState(EPlayerState.Pass3, player.transform.position);
 					else
 					if(dis <= GameConst.FastPassDistance)
 					{
