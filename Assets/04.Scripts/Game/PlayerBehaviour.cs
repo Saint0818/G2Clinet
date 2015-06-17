@@ -155,6 +155,9 @@ public struct TShootAngle {
 	public int CenterTipInAngle;
 	public int ForwardTipInAngle;
 	public int GuardTipInAngle;
+	public int CenterLayUpAngle;
+	public int ForwardLayUpAngle;
+	public int GuardLayUpAngle;
 	public TShootAngle (int flag){
 		CenterShootAngle = 55;
 		ForwardShootAngle = 55;
@@ -162,6 +165,9 @@ public struct TShootAngle {
 		CenterTipInAngle = 75;
 		ForwardTipInAngle = 75;
 		GuardTipInAngle = 75;
+		CenterLayUpAngle = 55;
+		ForwardLayUpAngle = 55;
+		GuardLayUpAngle = 55;
 	}
 }
 

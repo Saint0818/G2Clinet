@@ -1360,8 +1360,16 @@ public class GameController : KnightSingleton<GameController>
 			if(skillKind == ESkillKind.DownHand) 
 				st = EScoreType.DownHand;
 			else 
-			if(skillKind == ESkillKind.Layup) 
+			if(skillKind == ESkillKind.Layup) {
 				st = EScoreType.LayUp;
+				if(player.Player.BodyType == 0){
+					shootAngle = GameStart.Get.ShootAngle.CenterLayUpAngle;
+				} else if(player.Player.BodyType == 1){
+					shootAngle = GameStart.Get.ShootAngle.ForwardLayUpAngle;
+				} else if(player.Player.BodyType == 2){
+					shootAngle = GameStart.Get.ShootAngle.GuardLayUpAngle;
+				}
+			}
 
 			calculationScoreRate(player, st);
 			judgeBasketAnimationName ((int)basketDistanceAngle);
