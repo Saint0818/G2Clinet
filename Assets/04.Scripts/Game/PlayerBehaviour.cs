@@ -2153,6 +2153,8 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetInteger("StateNo", 0);
                 animator.SetTrigger("MoveDodge");
                 OnUICantUse(this);
+				if (MoveQueue.Count > 0)
+					MoveQueue.Dequeue();
                 Result = true;
                 break;
 
@@ -2161,6 +2163,8 @@ public class PlayerBehaviour : MonoBehaviour
                 animator.SetInteger("StateNo", 1);
                 animator.SetTrigger("MoveDodge");
                 OnUICantUse(this);
+				if (MoveQueue.Count > 0)
+					MoveQueue.Dequeue();
                 Result = true;
                 break;
 
