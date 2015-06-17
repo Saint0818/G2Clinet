@@ -107,7 +107,7 @@ public class BallTrigger : MonoBehaviour
 
 			CourtMgr.Get.SetBallState (EPlayerState.Pass0);
 			float dis = Vector3.Distance (GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
-			float time = dis / (GameConst.AttackSpeedup * Random.Range (4, 6));
+			float time = dis / (GameConst.AttackSpeedup * Random.Range (3, 5));
 
 			switch(Kind)
 			{
