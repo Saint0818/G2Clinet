@@ -17,7 +17,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixer MasterMix;
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
-	public bool IsMute = false;
+	public bool IsMusicOn = false;
 	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
@@ -31,6 +31,16 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 					DAudios.Add(loads[i].name, loads[i]);
 			}
 		}
+
+		if (!PlayerPrefs.HasKey ("MusicOn")) {
+			PlayerPrefs.SetInt ("MusicOn", 1);
+			PlayerPrefs.Save ();
+		}
+	}
+
+	void Start()
+	{
+		MusicOn (PlayerPrefs.GetInt ("MusicOn") == 1 ? true : false);
 	}
 
 	public void PauseGame()
@@ -49,14 +59,19 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 			DAudios [soundName].Play ();
 	}
 
-	public void Mute(bool flag)
+	public void MusicOn(bool flag)
 	{
-		IsMute = flag;
+		IsMusicOn = flag;
 
-		if (IsMute)
-			MasterMix.SetFloat("masterVol", -80);
-		else
+		if (IsMusicOn) {
 			MasterMix.ClearFloat("masterVol");
+			PlayerPrefs.SetInt ("MusicOn", 1);
+		}
+		else{
+			MasterMix.SetFloat ("masterVol", -80);
+			PlayerPrefs.SetInt ("MusicOn", 0);
+		}
+		PlayerPrefs.Save ();
 	}
 
 }

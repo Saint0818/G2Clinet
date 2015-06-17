@@ -106,6 +106,8 @@ public class UISelectRole : UIBase {
 		}
 
 		MusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
+		MusicOn.enabled = AudioMgr.Get.IsMusicOn;
+
 		SetBtnFun (UIName + "/Right/MusicSwitch/ButtonMusic", DoControlMusic);
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoSelectRole);
 		SetBtnFun (UIName + "/Center/ViewLoading/Back", DoBackToSelectMe);
@@ -206,7 +208,7 @@ public class UISelectRole : UIBase {
 	public void DoControlMusic()
 	{
 		MusicOn.enabled = !MusicOn.enabled;
-		AudioMgr.Get.Mute(!MusicOn.enabled);		
+		AudioMgr.Get.MusicOn(MusicOn.enabled);		
 	}
 
 	private void SetSubAttr(int Index, float Value)
