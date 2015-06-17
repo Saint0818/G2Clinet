@@ -939,6 +939,7 @@ public class UIGame : UIBase {
 				viewFinish.SetActive(false);
 				viewTools.SetActive(false);
 				viewPause.SetActive(false);
+				viewOption.SetActive(false);
 				
 				uiContinue.SetActive(false);
 				uiReselect.SetActive(false);
