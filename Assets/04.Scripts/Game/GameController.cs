@@ -1416,7 +1416,7 @@ public class GameController : KnightSingleton<GameController>
 				case 1:
 					GameRecord.DoubleClickLv2++;
 					break;
-				case 3:
+				case 2:
 					GameRecord.DoubleClickLv3++;
 					break;
                 }
@@ -1888,6 +1888,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case 2: 
 				AddExtraScoreRate(GameData.ExtraPerfectRate);
+				BallOwner.SetAnger(GameConst.AddAnger_Perfect);
 				break;
 		}
 

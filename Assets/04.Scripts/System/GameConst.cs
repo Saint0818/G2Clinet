@@ -31,6 +31,7 @@ public class GameConst
 	public const int AddAnger_Steal = 10;
 	public const int AddAnger_Push = 10;
 	public const int AddAnger_Rebound = 10;
+	public const int AddAnger_Perfect = 10;
 	public const int DelAnger_Blocked = -10;
 	public const int DelAnger_Fall1 = -10;
 	public const int DelAnger_Stealed = -5;
