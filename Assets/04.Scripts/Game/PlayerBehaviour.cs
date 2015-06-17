@@ -1709,7 +1709,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Pass4:
-				if ((crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && crtState != state)
+			if ((crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             
@@ -2998,7 +2998,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsPass
     {
-        get{ return crtState == EPlayerState.Pass0 || crtState == EPlayerState.Pass2 || crtState == EPlayerState.Pass1 || crtState == EPlayerState.Pass3 ||
+		get{ return crtState == EPlayerState.Pass0 || crtState == EPlayerState.Pass2 || crtState == EPlayerState.Pass1 || crtState == EPlayerState.Pass3 ||  crtState == EPlayerState.Pass4 ||
 			crtState == EPlayerState.Pass5 || crtState == EPlayerState.Pass6 || crtState == EPlayerState.Pass7 || crtState == EPlayerState.Pass8 || crtState == EPlayerState.Pass9;}
     }
 
