@@ -143,8 +143,6 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if(isPressA && isPressB)
-			GameController.Get.Joysticker.SetAnger(100);
 //		if (Input.GetMouseButtonUp(0)) {
 //			isPressShootBtn = false;
 //			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
@@ -373,11 +371,15 @@ public class UIGame : UIBase {
 
 	public void DoPassTeammateA(GameObject obj, bool state) {
 		isPressA = state;
+		if(isPressA && isPressB)
+			GameController.Get.Joysticker.SetAnger(100);
 		UIControllerState(UIController.PassA, obj, state);
 	}
 
 	public void DoPassTeammateB(GameObject obj, bool state) {
 		isPressB = state;
+		if(isPressA && isPressB)
+			GameController.Get.Joysticker.SetAnger(100);
 		UIControllerState(UIController.PassB, obj, state);
 	}
 
@@ -507,7 +509,7 @@ public class UIGame : UIBase {
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
-		showScoreBar();
+		showScoreBar((Scores [team] < MaxScores [team])? false: true);
 		TweenRotation tweenRotation = TweenRotation.Begin(labelScores[team].gameObject, 0.5f, Quaternion.identity);
 		tweenRotation.delay = 0.5f;
 		tweenRotation.to = new Vector3(0,720,0);
@@ -997,8 +999,9 @@ public class UIGame : UIBase {
 		}
 	}
 
-	private void showScoreBar(){
-		showScoreBarTime = showScoreBarInitTime;
+	private void showScoreBar(bool isFinish){
+		if(!isFinish)
+			showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
 		uiScoreBar.SetActive(true);
 	}

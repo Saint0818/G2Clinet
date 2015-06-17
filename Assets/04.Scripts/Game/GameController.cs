@@ -233,6 +233,8 @@ public class GameController : KnightSingleton<GameController>
 	private float PassingStealBallTime = 0;
 	private bool isPassing = false;
 	private ESkillKind skillKind;
+	private bool IsSkillFirstScore = false;
+	private int skillFirstScore = 2;
 	
 	public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
@@ -494,10 +496,6 @@ public class GameController : KnightSingleton<GameController>
 		selectMe = setEffectMagager("SelectMe");
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
-		//Joysticker.AngerView = GameObject.Find("SelectMe/Angry").GetComponent<UISprite>();
-		//Joysticker.AngerView.fillAmount = 0;
-		//Joysticker.AngryFull = GameObject.Find ("SelectMe/AngryFull");
-		//Joysticker.AngryFull.SetActive (false);
 
 		passIcon[0] = setEffectMagager("PassMe");
 
@@ -2053,7 +2051,12 @@ public class GameController : KnightSingleton<GameController>
 		setEffectMagager("SkillSign");
 
 		Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
-		shootDistance = getDis(ref Joysticker, new Vector2(v.x, v.z));
+		float dis = getDis(ref Joysticker, new Vector2(v.x, v.z));
+		skillFirstScore = 2;
+		if(dis > GameConst.TreePointDistance)
+			skillFirstScore =  3;
+			
+		IsSkillFirstScore = true;
 		Joysticker.SetAnger(-100);
 		Joysticker.SetInvincible(Joysticker.GetActiveTime(EPlayerState.Dunk20.ToString()));
 		Joysticker.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
@@ -3513,10 +3516,10 @@ public class GameController : KnightSingleton<GameController>
 
     private void GameResult(int team)
     {
-        if (team == 0)
-            UIHint.Get.ShowHint("You Win", Color.blue);
-        else
-            UIHint.Get.ShowHint("You Lost", Color.red);
+//        if (team == 0)
+//            UIHint.Get.ShowHint("You Win", Color.blue);
+//        else
+//            UIHint.Get.ShowHint("You Lost", Color.red);
         
         GameController.Get.ChangeSituation(EGameSituation.End);
 		UIGame.Get.GameOver();
@@ -3529,6 +3532,11 @@ public class GameController : KnightSingleton<GameController>
         if (IsStart && GameStart.Get.TestMode == EGameTest.None)
 		{
             int score = 2;
+			if(IsSkillFirstScore){
+				IsSkillFirstScore = false;
+				score = skillFirstScore;
+			}
+
 			if (shootDistance >= GameConst.TreePointDistance)
 				score = 3;
 
