@@ -21,39 +21,41 @@ public class BlockTrigger : MonoBehaviour {
 				if(rate < blocker.Attr.BlockPushRate){
 						faller = toucher.GetComponent<PlayerBehaviour> ();
 						if (blocker.Team != faller.Team) {
-							if(faller.IsDunk)
-							{
-								if(faller.IsCanBlock && !faller.IsTee)	
-								{
+							if(faller.IsDunk) {
+								if(faller.IsCanBlock && !faller.IsTee) {
 									GameController.Get.SetBall();
 									CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 									faller.AniState(EPlayerState.Fall1);
 									gameObject.SetActive (false);
 								}
-							}
-							else{
+							} else {
 								faller.AniState(EPlayerState.Fall1);
 								gameObject.SetActive (false);
 							}
 						}
 				}
 			}
-		} else if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
-			if(other.gameObject.transform.parent && other.gameObject.transform.parent.transform.parent){
+		} else 
+		if (GameController.Visible && other.gameObject.CompareTag ("RealBall")) {
+			faller = GameController.Get.Shooter;
+			if (other.gameObject.transform.parent && other.gameObject.transform.parent.transform.parent) {
 				faller = other.gameObject.transform.parent.transform.parent.GetComponent<PlayerBehaviour>();
-				if(faller && faller.IsDunk)
-				{
-					if(faller.IsCanBlock && !faller.IsTee){
+				if(faller && faller.IsDunk) {
+					if(faller.IsCanBlock && !faller.IsTee) {
 						GameController.Get.SetBall();
 						CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 						faller.AniState(EPlayerState.Fall1);
 						gameObject.SetActive (false);
 					}
 				}
-			}else{
+			} else {
 				blocker.IsPerfectBlockCatch = true;
 				CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 			}
+
+			blocker.GameRecord.Block++;
+			if (faller)
+				faller.GameRecord.BeBlock++;
 		}
 	}
 }

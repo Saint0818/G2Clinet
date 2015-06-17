@@ -887,6 +887,8 @@ public class UIGame : UIBase {
 				uiReselect.SetActive(true);
 				uiScoreBar.SetActive(true);
 				uiJoystick.Joystick.isActivated = false;
+
+				GameController.Get.SetGameRecord();
 			}
 			break;
 		case UISituation.Continue:

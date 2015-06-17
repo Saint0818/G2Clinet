@@ -12,8 +12,8 @@ public static class TextConst
 	private static void AddString(int key, string Text_TW, string Text_EN = ""){
 		if (!GameText.ContainsKey (key)) {
 			string [] Data = new string[2];
-			Data[GameStruct.Language.TW.GetHashCode()] = Text_TW;
-			Data[GameStruct.Language.EN.GetHashCode()] = Text_EN;
+			Data[GameStruct.ELanguage.TW.GetHashCode()] = Text_TW;
+			Data[GameStruct.ELanguage.EN.GetHashCode()] = Text_EN;
 			GameText.Add(key, Data);
 		}else
 			Debug.Log("Repeat text key : " + key);

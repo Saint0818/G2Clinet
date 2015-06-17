@@ -195,7 +195,7 @@ public struct TScoreRate
     }
 }
 
-public struct PassiveSkill
+public struct TPassiveSkill
 {
     public int ID;
     public int Kind;
@@ -210,7 +210,7 @@ public enum EActiveDistanceType
 	AllCount
 }
 
-public struct ActiveSkill 
+public struct TActiveSkill 
 {
 	public int ID;
 	public int Kind;
@@ -220,8 +220,6 @@ public struct ActiveSkill
 
 public class PlayerBehaviour : MonoBehaviour
 {
-	public bool IsDebugAnimation = true;
-    public string TacticalName = "";
     public OnPlayerAction OnShooting = null;
     public OnPlayerAction OnPass = null;
     public OnPlayerAction OnStealMoment = null;
@@ -240,16 +238,12 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnUICantUse = null;
 	public OnPlayerAction4 OnUIAnger = null;
     public OnPlayerAction3 OnDoubleClickMoment = null;
+
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    public static string[] AnimatorStates = new string[] {
-                "",
-                "IsRun",
-                "IsDefence",
-                "IsDribble",
-                "IsHoldBall"
-        };
+    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
+
 //    private Vector2 drag = Vector2.zero;
     private bool stop = false;
     private bool NeedResetFlag = false;
@@ -261,6 +255,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float animationSpeed = 0;
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
+
     public Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
     private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
     public Vector3 Translate;
@@ -277,12 +272,22 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
     public UISprite SpeedUpView = null;
+    public UISprite AngerView = null;
+    public GameObject AngryFull = null;
+	public Material BodyMaterial;
+
+	public GameStruct.TPlayerAttribute Attr;
+	public GameStruct.TPlayer Player;
+	public TScoreRate ScoreRate;
+	public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
+
     public ETeamKind Team;
+	public int Index;
     public float NoAiTime = 0;
     public bool HaveNoAiTime = false;
-    public int Index;
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
+	private EPassDirectState passDirect = EPassDirectState.Forward;
     public Transform[] DefPointAy = new Transform[8];
     public float WaitMoveTime = 0;
     public float Invincible = 0;
@@ -298,8 +303,6 @@ public class PlayerBehaviour : MonoBehaviour
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
-    public GameStruct.TPlayerAttribute Attr;
-    public GameStruct.TPlayer Player;
 
     //Dunk
     private bool isDunk = false;
@@ -348,18 +351,16 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
     //PassiveSkill
-	private Dictionary<int, List<PassiveSkill>> passiveSkills = new Dictionary<int, List<PassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
-	private Dictionary<int, List<PassiveSkill>> passivePassDirects = new Dictionary<int, List<PassiveSkill>>();
+	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
+	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
 	//ActiveSkill
-	public ActiveSkill activeSkill = new ActiveSkill();
+	public TActiveSkill activeSkill = new TActiveSkill();
 //	private float activeTime  = 0;
-
+	
+	public bool IsDebugAnimation = false;
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
-
-    private EPassDirectState passDirect = EPassDirectState.Forward;
-    private bool firstDribble = true;
-    public TScoreRate ScoreRate;
+	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool IsSpeedup = false;
     public float MovePower = 0;
@@ -368,23 +369,22 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector2 MoveTarget;
     private float dis;
     private bool CanSpeedup = true;
-    public Material BodyMaterial;
     private float SlowDownTime = 0;
+	public float DribbleTime = 0;
+	private int angerPower = 0;
 
-	public int AngerPower = 0;
-
-    public void SetAnger(int Value)
+    public void SetAnger(int value)
     {
-        AngerPower += Value;
-        if (AngerPower > 100)
-            AngerPower = 100;
+        angerPower += value;
+        if (angerPower > 100)
+            angerPower = 100;
 
-        if (AngerPower < 0)
-            AngerPower = 0;
+        if (angerPower < 0)
+            angerPower = 0;
 
         if (this == GameController.Get.Joysticker)
         {
-            float temp = AngerPower;
+            float temp = angerPower;
 			OnUIAnger(this, temp);
 //            GameController.Get.Joysticker.AngerView.fillAmount = temp / 100;
 //			if (GameController.Get.Joysticker.AngerView.fillAmount == 1) {
@@ -392,6 +392,8 @@ public class PlayerBehaviour : MonoBehaviour
 //				GameController.Get.Joysticker.AngryFull.SetActive (false);
 //			}
         }
+
+		GameRecord.AngerAdd += value;
     }
 
     public void SetSlowDown(float Value)
@@ -416,6 +418,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void InitAttr()
     {
+		setMovePower(100);
+		GameRecord.Init();
+
         if (GameData.BaseAttr.Length > 0 && Player.AILevel >= 0 && Player.AILevel < GameData.BaseAttr.Length)
         {
             Attr.PointRate2 = Math.Min(GameData.BaseAttr [Player.AILevel].PointRate2 + (Player.Point2 * 0.5F), 100);
@@ -447,7 +452,7 @@ public class PlayerBehaviour : MonoBehaviour
 			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
 			blockTrigger.transform.localScale = new Vector3( blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
             if (Attr.StaminaValue > 0)
-                SetMovePower(Attr.StaminaValue);
+                setMovePower(Attr.StaminaValue);
 
 			initSkill ();
         }
@@ -483,7 +488,7 @@ public class PlayerBehaviour : MonoBehaviour
 						if (GameData.SkillData [Player.Skills [i].ID].Animation == ESkillKind.Pick2.ToString())
 							isHavePickBall2 = true;
 						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
-						PassiveSkill ps = new PassiveSkill();
+						TPassiveSkill ps = new TPassiveSkill();
 						ps.ID = Player.Skills [i].ID;
 						ps.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
 						ps.Rate = rate;
@@ -504,11 +509,11 @@ public class PlayerBehaviour : MonoBehaviour
 								direct = (int)EPassDirectState.Right;
 
 							if(passivePassDirects.ContainsKey(direct)) {
-								List<PassiveSkill> psTemps = passivePassDirects[direct];
+								List<TPassiveSkill> psTemps = passivePassDirects[direct];
 								psTemps.Add(ps);
 								passivePassDirects[direct] = psTemps;
 							} else {
-								List<PassiveSkill> psTemps = new List<PassiveSkill>();
+								List<TPassiveSkill> psTemps = new List<TPassiveSkill>();
 								psTemps.Add(ps);
 								passivePassDirects.Add(direct, psTemps);
 							}
@@ -529,12 +534,12 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 						if (passiveSkills.ContainsKey(key))
 						{
-							List<PassiveSkill> pss = passiveSkills [key];
+							List<TPassiveSkill> pss = passiveSkills [key];
 							pss.Add(ps);
 							passiveSkills [key] = pss;
 						} else
 						{
-							List<PassiveSkill> pss = new List<PassiveSkill>();
+							List<TPassiveSkill> pss = new List<TPassiveSkill>();
 							pss.Add(ps);
 							passiveSkills.Add(key, pss);
 						}
@@ -809,6 +814,9 @@ public class PlayerBehaviour : MonoBehaviour
                 AutoFollow = true;
                 CloseDef = 0;
             }
+
+			if (IsDribble)
+				DribbleTime += Time.deltaTime;
         }
     }
 
@@ -1366,7 +1374,6 @@ public class PlayerBehaviour : MonoBehaviour
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block)
         {
             bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
-            TacticalName = Data.FileName;
             float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
             SetSpeed(0.3f, 0);
 
@@ -1855,6 +1862,7 @@ public class PlayerBehaviour : MonoBehaviour
         string curveName = string.Empty;
 		bool isFindCurve = false;
         PlayerRigidbody.mass = 0;
+		DribbleTime = 0;
 
 		if(IsDebugAnimation)
 			Debug.Log ("Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
@@ -1878,6 +1886,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
                 animator.SetTrigger("BlockTrigger");
                 isCanCatchBall = false;
+				GameRecord.BlockLaunch++;
                 Result = true;
                 break;
 
@@ -2020,6 +2029,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
                 animator.SetTrigger("ElbowTrigger");
                 isCanCatchBall = false;
+				GameRecord.ElbowLaunch++;
                 Result = true;
                 break;
 
@@ -2032,6 +2042,7 @@ public class PlayerBehaviour : MonoBehaviour
                     animator.SetTrigger("FakeShootTrigger");
                     isCanCatchBall = false;
                     isFakeShoot = true;
+					GameRecord.Fake++;
                     Result = true;
                 }
                 break;
@@ -2173,6 +2184,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.mass = 5;
                 animator.SetInteger("StateNo", stateNo);
                 animator.SetTrigger("PassTrigger");
+				GameRecord.Pass++;
                 Result = true;
                 break;
 
@@ -2190,6 +2202,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 				PlayerRigidbody.useGravity = true;
                 animator.SetTrigger("PushTrigger");
+				GameRecord.PushLaunch++;
                 Result = true;
                 break;
 
@@ -2218,6 +2231,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 animator.SetInteger("StateNo", 2);
                 animator.SetTrigger("PickTrigger");
+				GameRecord.SaveBallLaunch++;
                 Result = true;
                 break;
 
@@ -2254,6 +2268,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
+				GameRecord.StealLaunch++;
                 Result = true;
                 break;
 
@@ -2392,6 +2407,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
                 SetShooterLayer();
                 animator.SetTrigger("ReboundTrigger");
+				GameRecord.ReboundLaunch++;
                 Result = true;
                 break;
 
@@ -2458,12 +2474,16 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case "Stealing":
                 if (OnStealMoment != null)
-                    OnStealMoment(this);
+                    if (OnStealMoment(this))
+						GameRecord.Steal++;
+
                 break;
 
             case "GotStealing":
                 if (OnGotSteal != null)
-                    OnGotSteal(this);
+                    if (OnGotSteal(this))
+						GameRecord.BeSteal++;
+
                 break;  
                     
             case "FakeShootBlockMoment":
@@ -2474,6 +2494,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "BlockMoment":
                 if (OnBlockMoment != null)
                     OnBlockMoment(this);
+
                 break;
 
             case "DoubleClickMoment":
@@ -2545,7 +2566,9 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "PickUp": 
                 if (OnPickUpBall != null)
-                    OnPickUpBall(this);
+                    if (OnPickUpBall(this))
+						GameRecord.SaveBall++;
+
                 break;
             case "PickEnd":
                 AniState(EPlayerState.Dribble0);
@@ -2746,19 +2769,21 @@ public class PlayerBehaviour : MonoBehaviour
 						}
 					}
 				}
-			} else {
-				if(passiveSkills[(int)kind].Count > 0){
-					for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
-						if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
-							animationName = passiveSkills[(int)kind] [i].Name;
-							break;       
-						}
+			} else 
+			if (passiveSkills.ContainsKey((int)kind)) {
+				for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
+					if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
+						animationName = passiveSkills[(int)kind] [i].Name;
+						break;       
 					}
 				}
 			}
+
 			if (animationName != string.Empty) {
 				if(IsBallOwner && GameController.Get.Joysticker == this)
 					GameController.Get.ShowPassiveEffect();
+
+				GameRecord.PassiveSkill++;
 				return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 			} else 
 				return playerState;
@@ -3043,6 +3068,9 @@ public class PlayerBehaviour : MonoBehaviour
                 MoveTurn = 0;
 
             MoveQueue.Enqueue(value);
+
+			if (value.Target != Vector2.zero)
+				GameRecord.PushMove(value.Target);
         }
     }
 
@@ -3055,12 +3083,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set
         {
-            if (FirstMoveQueue.Count < 2)
+            if (FirstMoveQueue.Count < 2) {
                 FirstMoveQueue.Enqueue(value);
+				GameRecord.PushMove(value.Target);
+			}
         }
     }
 
-    public void SetMovePower(float Value)
+    private void setMovePower(float Value)
     {
         MaxMovePower = Value;
         MovePower = Value;

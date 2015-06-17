@@ -210,7 +210,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private void waitVersion(bool ok, WWW www) {
 		if (ok) {
 			GameData.ServerVersion = www.text;
-			if (www.text.CompareTo(BundleVersion.version) != 1)
+			if (www.text.CompareTo(BundleVersion.version.ToString()) != 1)
 				SendLogin();
 			else
 				UIHint.Get.ShowHint("Version is different.", Color.red);
@@ -315,7 +315,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			if (onlinePlayers[i].PlayerData.Identifier != "" && !onlinePlayers[i].PlayerObject) {
 				yield return new WaitForEndOfFrame();
 
-				onlinePlayers[i].PlayerData.Player.SetAvatar();
+				onlinePlayers[i].PlayerData.Init();
 				onlinePlayers[i].PlayerObject = createScenePlayer(ref onlinePlayers[i].PlayerData.Player);
 				onlinePlayers[i].PlayerObject.transform.parent = RootOnlinePlayers.transform;
 				onlinePlayers[i].PlayerObject.transform.position = new Vector3(onlinePlayers[i].ScenePlayer.X, 0, onlinePlayers[i].ScenePlayer.Z);
@@ -333,7 +333,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		for (int i = 0; i < scenePlayers.Length; i ++) {
 			yield return new WaitForEndOfFrame();
 
-			scenePlayers[i].PlayerData.Player.SetAvatar();
+			scenePlayers[i].PlayerData.Init();
 			scenePlayers[i].PlayerObject = createScenePlayer(ref scenePlayers[i].PlayerData.Player);
 			scenePlayers[i].PlayerObject.transform.parent = RootScenePlayers.transform;
 			scenePlayers[i].PlayerObject.transform.position = new Vector3(UnityEngine.Random.Range(23, 26), 0, UnityEngine.Random.Range(-14, 16));

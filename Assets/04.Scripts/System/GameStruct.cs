@@ -32,6 +32,7 @@ namespace GameStruct
 			if (FBid == null)
 				FBid = "";
 
+			Player.SetAttribute();
 			Player.SetAvatar();
 		} 
 	}
@@ -81,6 +82,12 @@ namespace GameStruct
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];
+		}
+
+		public void SetID(int id) {
+			ID = id;
+			SetAttribute();
+			SetAvatar();
 		}
 
 		public void SetAttribute() {
@@ -273,30 +280,40 @@ namespace GameStruct
 
 	public struct TMoveRecord {
 		public float X;
-		public float Y;
+		public float Z;
 	}
 
 	public struct TShotRecord {
 		public bool In;
+		public int Kind;
 		public float Rate;
 		public TMoveRecord Move;
 	}
 
 	public struct TGameRecord {
+		public string Identifier;
 		public float Version;
 		public float GameTime;
 		public float ExitCount;
+		public float PauseCount;
+		public bool Done;
 		public int Score1;
 		public int Score2;
+		public int DoubleClickLaunch;
+		public int DoubleClickLv1;
+		public int DoubleClickLv2;
+		public int DoubleClickLv3;
 		public string[] ButtonTrace;
 		public TGamePlayerRecord[] PlayerRecords;
 
 		public void Init(int playerNumber) {
+			Identifier = "";
 			Version = 0;
 			GameTime = 0;
 			ExitCount = 0;
 			Score1 = 0;
 			Score2 = 0;
+			Done = false;
 			ButtonTrace = new string[0];
 			PlayerRecords = new TGamePlayerRecord[playerNumber];
 			for (int i = 0; i < playerNumber; i ++)
@@ -307,24 +324,31 @@ namespace GameStruct
 	public struct TGamePlayerRecord {
 		public int FG;
 		public int FGIn;
-		public int FGError;
 		public int FG3;
 		public int FG3In;
-		public int FG3Error;
+		public int ShotError;
+		public int Fake;
+		public int BeFake;
 		public int ReboundLaunch;
 		public int Rebound;
 		public int Assist;
+		public int BeIntercept;
+		public int Pass;
 		public int StealLaunch;
 		public int Steal;
+		public int BeSteal;
 		public int Intercept;
 		public int BlockLaunch;
 		public int Block;
+		public int BeBlock;
 		public int PushLaunch;
 		public int Push;
+		public int BePush;
 		public int ElbowLaunch;
 		public int Elbow;
-		public int PassIntercept;
-		public int Pass;
+		public int BeElbow;
+		public int Knock;
+		public int BeKnock;
 		public int AlleyoopLaunch;
 		public int Alleyoop;
 		public int TipinLaunch;
@@ -343,9 +367,23 @@ namespace GameStruct
 			MoveRecords = new TMoveRecord[0];
 			ShotRecords = new TShotRecord[0];
 		}
+
+		public void PushMove(Vector2 pos) {
+			Array.Resize(ref MoveRecords, MoveRecords.Length + 1);
+			MoveRecords[MoveRecords.Length-1].X = Mathf.Round(pos.x * 10) / 10;
+			MoveRecords[MoveRecords.Length-1].Z = Mathf.Round(pos.y * 10) / 10;
+		}
+
+		public void PushShot(Vector2 pos, int kind, float rate) {
+			Array.Resize(ref ShotRecords, ShotRecords.Length + 1);
+			ShotRecords[ShotRecords.Length-1].Move.X = Mathf.Round(pos.x * 10) / 10;
+			ShotRecords[ShotRecords.Length-1].Move.Z = Mathf.Round(pos.y * 10) / 10;
+			ShotRecords[ShotRecords.Length-1].Kind = kind;
+			ShotRecords[ShotRecords.Length-1].Rate = rate;
+		}
 	}
 
-	public enum Language
+	public enum ELanguage
 	{
 		TW = 0,
 		EN = 1
@@ -354,7 +392,7 @@ namespace GameStruct
 	public struct TGameSetting
 	{
 		public float AIChangeTime;
-		public Language Language;
+		public ELanguage Language;
 		public bool Effect;
 	}
 
@@ -395,10 +433,10 @@ namespace GameStruct
 		{
 			get {
 				switch(GameData.Setting.Language) {
-				case Language.TW:
+				case ELanguage.TW:
 					name =  NameTW;
 					break;
-				case Language.EN:
+				case ELanguage.EN:
 					name =  NameEN;
 					break;
 				default:
@@ -413,10 +451,10 @@ namespace GameStruct
 		{
 			get{
 				switch(GameData.Setting.Language) {
-				case Language.TW:
+				case ELanguage.TW:
 					explain =  ExplainTW;
 					break;
-				case Language.EN:
+				case ELanguage.EN:
 					explain =  ExplainEN;
 					break;
 				default:

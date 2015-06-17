@@ -564,6 +564,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					RealBall.transform.position = player.DummyBall.transform.position;
 
 				RealBallRigidbody.AddForce(Vector3.down * 2000);
+				AudioMgr.Get.PlaySound (SoundType.Dunk);
 				break;
 
 			case EPlayerState.Reset:
@@ -652,8 +653,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 		if(animation[animationName])
 			animation.Play (animationName);
-
-		AudioMgr.Get.PlaySound (SoundType.Dunk);
     }
 
 	public void PlayShoot(int team)

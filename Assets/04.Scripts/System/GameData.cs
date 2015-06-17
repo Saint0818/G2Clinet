@@ -16,7 +16,7 @@ public class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static TPlayerAttribute[] BaseAttr;
 	public static TTactical[] TacticalData;
-    public static BasketShootPositionData[] BasketShootPosition;
+    public static TBasketShootPositionData[] BasketShootPosition;
 	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
 
 	public static string ServerVersion;
@@ -49,6 +49,7 @@ public class GameData {
 
 			loadGameSetting();
 		}
+
 		Team.Init();
 	}
 
@@ -56,10 +57,10 @@ public class GameData {
 		if (PlayerPrefs.HasKey (SettingText.Language)) {
 			int temp = Convert.ToInt16(PlayerPrefs.GetString(SettingText.Language));
 
-			if(temp == Language.TW.GetHashCode())
-				Setting.Language = Language.TW;
+			if(temp == ELanguage.TW.GetHashCode())
+				Setting.Language = ELanguage.TW;
 			else
-				Setting.Language = Language.EN;
+				Setting.Language = ELanguage.EN;
 		} else {
 			#if UNITY_EDITOR
 				#if En

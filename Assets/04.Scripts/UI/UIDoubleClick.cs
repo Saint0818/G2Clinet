@@ -8,6 +8,7 @@ public class UIDoubleClick : UIBase {
 	private static UIDoubleClick instance = null;
 	private const string UIName = "UIDoubleClick";
 
+	public int Lv = -1;
 	private float framSpeed = 0;
 	private float framSpeed2 = 0;
 	private float speed = 1f;
@@ -113,6 +114,7 @@ public class UIDoubleClick : UIBase {
 
 	private void CheckLv()
 	{
+		Lv = -1;
 		if(size.x < 150 || size.x > 400)
 			SetLv(0);
 		else if(size.x > 250 && size.x <= 400)
@@ -144,6 +146,7 @@ public class UIDoubleClick : UIBase {
 
 	private void SetLv(int index)
 	{
+		Lv = index;
 		for (int i = 0; i < lvSprite.Length; i++) {
 			if(index == -1)
 				lvSprite[i].gameObject.SetActive(false);

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 using Newtonsoft.Json;
@@ -16,9 +16,9 @@ public struct TTeamName
 	public string TeamName1{
 		get{
 			switch(GameData.Setting.Language){
-			case Language.TW:
+			case ELanguage.TW:
 				return TeamName1TW;
-			case Language.EN:
+			case ELanguage.EN:
 				return TeamName1EN;
 			default:
 				return TeamName1EN;
@@ -29,9 +29,9 @@ public struct TTeamName
 	public string TeamName2{
 		get{
 			switch(GameData.Setting.Language){
-			case Language.TW:
+			case ELanguage.TW:
 				return TeamName2TW;
-			case Language.EN:
+			case ELanguage.EN:
 				return TeamName2EN;
 			default:
 				return TeamName2EN;
@@ -42,9 +42,9 @@ public struct TTeamName
 	public string TeamName3{
 		get{
 			switch(GameData.Setting.Language){
-			case Language.TW:
+			case ELanguage.TW:
 				return TeamName3TW;
-			case Language.EN:
+			case ELanguage.EN:
 				return TeamName3EN;
 			default:
 				return TeamName3EN;

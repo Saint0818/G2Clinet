@@ -1,4 +1,4 @@
-﻿//#define Debug
+//#define Debug
 #define Release
 using UnityEngine;
 using System;
@@ -451,7 +451,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseBasketShootPositionData (string Version, string text, bool SaveVersion){
 		try {
-			GameData.BasketShootPosition = (BasketShootPositionData[])JsonConvert.DeserializeObject (text, typeof(BasketShootPositionData[]));
+			GameData.BasketShootPosition = (TBasketShootPositionData[])JsonConvert.DeserializeObject (text, typeof(TBasketShootPositionData[]));
 			
 			if(SaveVersion)
 				SaveDataVersionAndJson(text, "ballposition", Version);

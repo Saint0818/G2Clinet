@@ -25,17 +25,28 @@ public class PushTrigger : MonoBehaviour {
 					
 					if(rate < faller.Attr.StrengthRate)
 					{
-						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position))
+						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
+							pusher.GameRecord.Knock++;
+							faller.GameRecord.BeKnock++;
+						}
 					}
 					else
 					{
-						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position))
+						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) 
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 					}
 
 					pusher.SetAnger(GameConst.AddAnger_Push);
 					gameObject.SetActive(false);
+
+					if (pusher.crtState == EPlayerState.Elbow) {
+						pusher.GameRecord.Elbow++;
+						faller.GameRecord.BeElbow++;
+					} else {
+						pusher.GameRecord.Push++;
+						faller.GameRecord.BePush++;
+					}
 				}
 			}
 		}
