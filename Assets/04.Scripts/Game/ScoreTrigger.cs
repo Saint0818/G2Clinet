@@ -36,6 +36,7 @@ public class ScoreTrigger : MonoBehaviour
 							}
 							break;
 						default:
+							Debug.LogError("BasketSituationType is not true");
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
 							break;
 						}

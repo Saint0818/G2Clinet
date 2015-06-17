@@ -499,8 +499,7 @@ public class UIGame : UIBase {
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
-		if(Scores [team] < MaxScores[team])
-			showScoreBar();
+		showScoreBar();
 		TweenRotation tweenRotation = TweenRotation.Begin(labelScores[team].gameObject, 0.5f, Quaternion.identity);
 		tweenRotation.delay = 0.5f;
 		tweenRotation.to = new Vector3(0,720,0);

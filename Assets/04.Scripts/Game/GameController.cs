@@ -1073,13 +1073,13 @@ public class GameController : KnightSingleton<GameController>
 			Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 			if(situation == EGameSituation.AttackA && UIGame.Get.isCanShowSkill) {
 				if (Joysticker.activeSkill.type == EActiveDistanceType.AttackHalfCount ) {
-					if (Joysticker.transform.position.z <= 0)
+					if (Joysticker.transform.position.z > 0)
 						UIGame.Get.ShowSkillUI(true);
 					else 
 						UIGame.Get.ShowSkillUI(false);
 				} else 
 				if (Joysticker.activeSkill.type == EActiveDistanceType.DeffenceHalfCount ) {
-					if (Joysticker.transform.position.z >= 0)
+					if (Joysticker.transform.position.z <= 0)
 						UIGame.Get.ShowSkillUI(true);
 					else 
 						UIGame.Get.ShowSkillUI(false);
