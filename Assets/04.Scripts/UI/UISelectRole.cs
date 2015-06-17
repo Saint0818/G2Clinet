@@ -99,10 +99,7 @@ public class UISelectRole : UIBase {
 			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
 			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 			LineAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteLine").GetComponent<UISprite>();
-			if(i == 0)
-				LineAy[i].fillAmount = 1;
-			else
-				LineAy[i].fillAmount = 0;
+			LineAy[i].fillAmount = 0;
 		}
 
 		MusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
@@ -610,20 +607,21 @@ public class UISelectRole : UIBase {
 	protected override void InitData() 
 	{
 		AvatarAy = new GameStruct.TAvatar[Ay.Length];
-		SelectIDAy [0] = RoleIDAy[0];
+		SelectRoleIndex = UnityEngine.Random.Range (0, RoleIDAy.Length);
+		SelectIDAy [0] = RoleIDAy[SelectRoleIndex];
 		for(int i = 0; i < Ay.Length; i++) 
 		{
 			PlayerObjAy[i] = new GameObject();
 			PlayerAy[i] = new TPlayer(0);
-			PlayerAy[i].ID = RoleIDAy[i];
+			PlayerAy[i].ID = SelectIDAy[0];
 			PlayerAy[i].SetAvatar();
 			PlayerObjAy[i].name = i.ToString();
 			PlayerObjAy[i].transform.parent = PlayerInfoModel.transform;
 			AvatarAy[i] = PlayerAy[i].Avatar;
-			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, GameData.DPlayers[UISelectRole.RoleIDAy[i]].BodyType, false, false);
+			ModelManager.Get.SetAvatar(ref PlayerObjAy[i], PlayerAy[i].Avatar, GameData.DPlayers[SelectIDAy[0]].BodyType, false, false);
 			animatorAy[i] = PlayerObjAy[i].GetComponent<Animator>();
 			PlayerObjAy[i].transform.localPosition = Ay[i];
-			PlayerAy [i].AILevel = GameData.DPlayers [RoleIDAy [i]].AILevel;
+			PlayerAy [i].AILevel = GameData.DPlayers [SelectIDAy[0]].AILevel;
 			PlayerObjAy[i].AddComponent<SelectEvent>();
 			if(i == 0)
 			{
@@ -663,6 +661,10 @@ public class UISelectRole : UIBase {
 		ViewLoading.SetActive (false);
 		for(int i = 1; i < Ay.Length; i++) 		
 			PlayerObjAy[i].SetActive(false);
+
+		Select.transform.localPosition = new Vector3(BtnAy[SelectRoleIndex].transform.localPosition.x, 
+		                                             BtnAy[SelectRoleIndex].transform.localPosition.y,
+		                                             BtnAy[SelectRoleIndex].transform.localPosition.z);
 
 		if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
 		{
