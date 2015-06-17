@@ -79,6 +79,11 @@ public class UIGame : UIBase {
 	private GameObject uiPlayerLocation;
 	private GameObject uiShoot;
 
+	private GameObject uiPassA;
+	private GameObject uiPassB;
+	private GameObject uiAlleyoopA;
+	private GameObject uiAlleyoopB;
+
 	//Force
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
@@ -208,13 +213,16 @@ public class UIGame : UIBase {
 		uiPassObjectGroup [0] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass/SpriteMe");
 		uiPassObjectGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA/SpriteA");
 		uiPassObjectGroup [2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/SpriteB");
+		uiPassA = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA");
+		uiPassB = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB");
+		uiAlleyoopA = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopA");
+		uiAlleyoopB = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopB");
 
 		controlButtonGroup [0] = GameObject.Find (UIName + "/BottomRight/ViewAttack");
 		controlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewDefance");
 
 		labelScores [0] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore1").GetComponent<UILabel>();
 		labelScores [1] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore2").GetComponent<UILabel>();
-
 
 		aiLevelScrollBar= GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
@@ -252,6 +260,8 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass")).onPress = DoPassChoose;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectA")).onPress = DoPassTeammateA;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB")).onPress = DoPassTeammateB;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopA")).onPress = DoPassTeammateA;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopB")).onPress = DoPassTeammateB;
 
 		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
 
@@ -274,6 +284,8 @@ public class UIGame : UIBase {
 		viewOption.SetActive(false);
 		viewPause.SetActive(false);
 
+		uiAlleyoopA.SetActive(false);
+		uiAlleyoopB.SetActive(false);
 		uiReselect.SetActive(false);
 		uiContinue.SetActive(false);
 		uiPlayerLocation.SetActive(false);
@@ -445,6 +457,24 @@ public class UIGame : UIBase {
 		else 
 			uiSkillFull.SetActive(false);
 	}
+	
+	public void ShowAlleyoop(bool isShow, int teammate = 1) {
+		if(isShow) {
+			if(teammate == 1) {
+				uiPassA.SetActive(!isShow);
+				uiAlleyoopA.SetActive(isShow);
+			} else {
+				uiPassB.SetActive(!isShow);
+				uiAlleyoopB.SetActive(isShow);
+			}
+		} else {
+			uiPassA.SetActive(true);
+			uiAlleyoopA.SetActive(false);
+			uiPassB.SetActive(true);
+			uiAlleyoopB.SetActive(false);
+			
+		}
+	}
 
 	public void SetAnger (PlayerBehaviour p = null, float anger = 0){
 		timeForce = 0;
@@ -551,7 +581,7 @@ public class UIGame : UIBase {
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
-				SetPassButton();
+				ShowAlleyoop(false);
 
 			return false;
 		}

@@ -1552,8 +1552,10 @@ public class GameController : KnightSingleton<GameController>
 					int disKind = GetEnemyDis(ref player);
 					int rate = UnityEngine.Random.Range(0, 2);
 					int passkind = -1;
-					
-					if(dis <= GameConst.FastPassDistance || player.crtState == EPlayerState.Alleyoop)
+					if(player.crtState == EPlayerState.Alleyoop)
+						Result = BallOwner.AniState(EPlayerState.Pass0, player.transform.position);
+					else
+					if(dis <= GameConst.FastPassDistance)
 					{
 						Result = DoPassiveSkill(ESkillSituation.Pass4, BallOwner, player.transform.position);
 					}
@@ -3504,7 +3506,7 @@ public class GameController : KnightSingleton<GameController>
 								if (DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position))
 									Catcher = player;
 							} else
-								UIGame.Get.SetPassButton();
+								UIGame.Get.ShowAlleyoop(true, player.Index);
 
 							player.GameRecord.AlleyoopLaunch++;
 						}
