@@ -356,8 +356,6 @@ public class PlayerBehaviour : MonoBehaviour
 	//ActiveSkill
 	public TActiveSkill activeSkill = new TActiveSkill();
 //	private float activeTime  = 0;
-	
-	public bool IsDebugAnimation = false;
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
 	private bool firstDribble = true;
@@ -1197,7 +1195,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void DebugTool()
 	{
-		if(!IsDebugAnimation)
+		if(!GameStart.Get.IsDebugAnimation)
 			return;
 
 		//LayerCheck
@@ -1224,6 +1222,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (CanMove || stop || HoldBallCanMove)
         {
+			if(IsFall && GameStart.Get.IsDebugAnimation){
+				Debug.LogError("CanMove : " + CanMove);
+				Debug.LogError("stop : " + stop);
+				Debug.LogError("HoldBallCanMove : " + HoldBallCanMove);
+			}
+
             if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && 
                 situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
             {
@@ -1864,7 +1868,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody.mass = 0;
 		DribbleTime = 0;
 
-		if(IsDebugAnimation)
+		if(GameStart.Get.IsDebugAnimation)
 			Debug.Log ("Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
         
         switch (state)
@@ -2439,7 +2443,7 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	private void DebugAnimationCurve(string curveName)
 	{
-		if(IsDebugAnimation)
+		if(GameStart.Get.IsDebugAnimation)
 			Debug.LogError("Can not Find aniCurve: " + curveName);
 	}
 
@@ -2893,11 +2897,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
     
-    public void ClearIsCatcher()
-    {
-        //        DelActionFlag(ActionFlag.IsCatcher);
-    }
-    
     public bool IsCatcher
     {
         get{ return CheckAnimatorSate(EPlayerState.CatchFlat);}
@@ -2961,6 +2960,16 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsAllShoot
 	{
 		get{ return IsShoot || IsDunk || IsLayup;}
+	}
+
+	public bool IsIdle
+	{
+		get{ return crtState == EPlayerState.Idle;}
+	}
+
+	public bool IsRun
+	{
+		get{ return crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1;}
 	}
 
     public bool IsPass

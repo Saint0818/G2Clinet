@@ -2039,7 +2039,7 @@ public class GameController : KnightSingleton<GameController>
 	
     public void OnJoystickMove(MovingJoystick move)
     {
-		if (Joysticker && (CanMove || Joysticker.CanMoveFirstDribble))
+		if (Joysticker && (CanMoveSituation || Joysticker.CanMoveFirstDribble))
         {
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
@@ -3094,6 +3094,9 @@ public class GameController : KnightSingleton<GameController>
 
     public bool SetBall(PlayerBehaviour p = null)
     {
+		if(p != null && GameStart.Get.IsDebugAnimation)
+			Debug.Log ("SetBall P : " + p.gameObject.name);
+
 		bool Result = false;
 		if (PlayerList.Count > 0) {
 			IsPassing = false;
@@ -3161,8 +3164,6 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.SetPassButton();
 				CourtMgr.Get.SetBallState(EPlayerState.HoldBall, p);
 
-				p.ClearIsCatcher();
-
                 if (p) {
 					p.WaitMoveTime = 0;
 					p.IsFirstDribble = true;
@@ -3172,7 +3173,12 @@ public class GameController : KnightSingleton<GameController>
 							PlayerList [i].ResetMove();
 							break;
 						}
-					}          
+					} 
+					 
+					if(p.IsIdle)
+						p.AniState(EPlayerState.Dribble0);
+					else if(p.IsRun)
+						p.AniState(EPlayerState.Dribble1);        
                 }
             } else {
 				if(BallHolder != null)				
@@ -3378,13 +3384,13 @@ public class GameController : KnightSingleton<GameController>
 							player.AniState(EPlayerState.PickBall0, CourtMgr.Get.RealBall.transform.position);
 					} else 
 					if (SetBall(player)) {
-						if(player.NoAiTime == 0)
+						if(player.NoAiTime == 0 || player.IsIdle)
 							player.AniState(EPlayerState.Dribble0);
-						else 
-						if(player.CheckAnimatorSate(EPlayerState.Run0))
+						else if(player.IsRun || player.IsDribble)
                         	player.AniState(EPlayerState.Dribble1);
-                    	else
+						else{
                         	player.AniState(EPlayerState.HoldBall);
+						}
 					}
                 }
             }
@@ -3396,8 +3402,9 @@ public class GameController : KnightSingleton<GameController>
     public bool OnPickUpBall(PlayerBehaviour player)
     {
         if (player && BallOwner == null) {
-            if (SetBall (player))
-            	return true;
+            SetBall (player);
+            
+            return true;
         }
         
         return false;
@@ -4079,7 +4086,7 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 		}
 	}
-
+	
 	public bool IsPassing {
 		get {
 			return isPassing;
@@ -4093,7 +4100,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private bool CanMove
+	private bool CanMoveSituation
 	{
 		get
 		{
