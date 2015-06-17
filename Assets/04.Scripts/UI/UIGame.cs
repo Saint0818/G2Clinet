@@ -312,7 +312,7 @@ public class UIGame : UIBase {
 //		SetLabel(UIName + "/Center/ViewFinish/ButtonAgain/LabelReset" ,TextConst.S(1));
 //		SetLabel(UIName + "/Center/ViewStart/ButtonStart/LabelStart" ,TextConst.S(2));
 //		SetLabel(UIName + "/Center/ViewPause/ButtonReset/LabelReset" ,TextConst.S(4));
-		SetLabel(UIName + "/Center/ViewStart/AISelect/LabelAI" ,TextConst.S(5));
+//		SetLabel(UIName + "/Center/ViewStart/AISelect/LabelAI" ,TextConst.S(5));
 		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
 	}
 
