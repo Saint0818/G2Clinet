@@ -1330,11 +1330,25 @@ public class GameController : KnightSingleton<GameController>
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
 			EScoreType st = EScoreType.Normal;
-			shootAngle = 55;
+
+			if(player.Player.BodyType == 0){
+				shootAngle = GameStart.Get.ShootAngle.CenterShootAngle;
+			} else if(player.Player.BodyType == 1){
+				shootAngle = GameStart.Get.ShootAngle.ForwardShootAngle;
+			} else if(player.Player.BodyType == 2){
+				shootAngle = GameStart.Get.ShootAngle.GuardShootAngle;
+			}
+
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
-				shootAngle = 75;
+				if(player.Player.BodyType == 0){
+					shootAngle = GameStart.Get.ShootAngle.CenterTipInAngle;
+				} else if(player.Player.BodyType == 1){
+					shootAngle = GameStart.Get.ShootAngle.ForwardTipInAngle;
+				} else if(player.Player.BodyType == 2){
+					shootAngle = GameStart.Get.ShootAngle.GuardTipInAngle;
+				}
 				player.GameRecord.TipinLaunch++;
 			} else 
 			if(skillKind == ESkillKind.NearShoot) 

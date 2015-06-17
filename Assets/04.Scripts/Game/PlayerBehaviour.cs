@@ -148,6 +148,24 @@ public struct TMoveData
 }
 
 [System.Serializable]
+public struct TShootAngle {
+	public int CenterShootAngle;
+	public int ForwardShootAngle;
+	public int GuardShootAngle;
+	public int CenterTipInAngle;
+	public int ForwardTipInAngle;
+	public int GuardTipInAngle;
+	public TShootAngle (int flag){
+		CenterShootAngle = 55;
+		ForwardShootAngle = 55;
+		GuardShootAngle = 55;
+		CenterTipInAngle = 75;
+		ForwardTipInAngle = 75;
+		GuardTipInAngle = 75;
+	}
+}
+
+[System.Serializable]
 public struct TScoreRate
 {
     public int TwoScoreRate;

@@ -36,7 +36,8 @@ public class ScoreTrigger : MonoBehaviour
 							}
 							break;
 						default:
-							Debug.LogError("BasketSituationType is not true");
+							if(GameStart.Get.IsDebugAnimation)
+								Debug.LogError("BasketSituationType is airball");
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
 							break;
 						}
