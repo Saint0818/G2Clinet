@@ -13,8 +13,8 @@ public class BasketPositionEdit : EditorWindow {
 		EditorWindow.GetWindowWithRect(typeof(BasketPositionEdit), new Rect(0, 0, 600, 600), true, "EditBallPosition").Show();
 	}
 	private string FileName = "";
-	private BasketShootPositionData[] basketShootPositionData = new BasketShootPositionData[0];
-	private BasketShootPositionData[] basketShootPositionSaveData = new BasketShootPositionData[0];
+	private TBasketShootPositionData[] basketShootPositionData = new TBasketShootPositionData[0];
+	private TBasketShootPositionData[] basketShootPositionSaveData = new TBasketShootPositionData[0];
 	private Dictionary<string, Vector3> basketTempShootPositionData = new Dictionary<string, Vector3>();
 	private List<AnimationClip> allBasketAnimationClip = new List<AnimationClip>();
 	private AnimationClipCurveData[] curveData = new AnimationClipCurveData[0];
@@ -110,13 +110,13 @@ public class BasketPositionEdit : EditorWindow {
 		if (File.Exists(FileName)){
 			TextAsset tx = Resources.Load("GameData/ballposition") as TextAsset;
 			if (tx){
-				basketShootPositionData = (BasketShootPositionData[])JsonConvert.DeserializeObject(tx.text, typeof(BasketShootPositionData[]));
+				basketShootPositionData = (TBasketShootPositionData[])JsonConvert.DeserializeObject(tx.text, typeof(TBasketShootPositionData[]));
 			} 
 		}
 	}
 
 	private void OnSave(){
-		basketShootPositionSaveData = new BasketShootPositionData[basketTempShootPositionData.Count];
+		basketShootPositionSaveData = new TBasketShootPositionData[basketTempShootPositionData.Count];
 		int index = -1;
 		foreach (KeyValuePair<string,Vector3> btsp in basketTempShootPositionData) {
 			index ++ ;
