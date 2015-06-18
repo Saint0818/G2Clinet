@@ -710,7 +710,6 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-
 		if (upload) {
 			string str = JsonConvert.SerializeObject(GameRecord);
 			if (SendHttp.Get.CheckNetwork()) {

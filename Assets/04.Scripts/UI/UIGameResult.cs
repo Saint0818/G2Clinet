@@ -83,6 +83,7 @@ public class UIGameResult : UIBase {
 
 	public void OnReturn() {
 		Time.timeScale = 1;
+		UIShow(false);
 		SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
 	}
 
