@@ -249,7 +249,7 @@ public class GameController : KnightSingleton<GameController>
 
 	//Score Animation Value
 	private float extraScoreRate = 0;
-	public string BasketAnimationName;
+	public string BasketAnimationName = "BasketballAction_1";
 	public EBasketSituation BasketSituationType;
 	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
 	private List<int> TacticalDataList = new List<int>();
