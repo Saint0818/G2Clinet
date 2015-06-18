@@ -157,7 +157,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .368372917
+      - time: .375948668
         functionName: AnimationEvent
         data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}

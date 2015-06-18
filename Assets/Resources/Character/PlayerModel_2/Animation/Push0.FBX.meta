@@ -157,16 +157,16 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: .379736573
         functionName: AnimationEvent
-        data: AnimationEnd
+        data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .368372947
+      - time: 1
         functionName: AnimationEvent
-        data: PushCalculateEnd
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
