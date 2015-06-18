@@ -1589,7 +1589,7 @@ public class GameController : KnightSingleton<GameController>
 								passkind = 2;
 							}
 						} else 
-							if(disKind == 2)
+						if(disKind == 2)
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);

@@ -191,7 +191,7 @@ public class UIGameResult : UIBase {
 
 	public void SetGameRecord(ref TGameRecord record) {
 		UIShow(true);
-		SetLabel(UIName + "Top/Title/LabelFinalScore", string.Format("{0} : {1}", record.Score1, record.Score2));
+		SetLabel(UIName + "Top/Title/LabelFinalScore", string.Format("{0} : {1}", record.Score2, record.Score1));
 
 		if (record.Done) {
 			if (record.Score1 > record.Score2) {
