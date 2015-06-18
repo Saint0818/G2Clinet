@@ -28,7 +28,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;
-	private GameObject cameraOffsetObj;
+//	private GameObject cameraOffsetObj;
 
 	private Camera cameraFx;
 	private Camera cameraPlayer;
@@ -127,7 +127,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void InitCamera()
 	{
 		if (cameraGroupObj) {
-			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
+//			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
 			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
 			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
 

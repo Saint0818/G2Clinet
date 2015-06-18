@@ -264,7 +264,6 @@ public class GameController : KnightSingleton<GameController>
 
 	private int shootAngle = 55;
 	public float StealBtnLiftTime = 1f;
-	private bool isPressPassBtn = false;
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
 	
@@ -1096,7 +1095,7 @@ public class GameController : KnightSingleton<GameController>
 	//Attack <15   Deffence >15  All
 	private void jodgeSkillType (){
 		if(UIGame.Get.isAngerFull && Joysticker.IsBallOwner) {
-			Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
+//			Vector3 v = CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position;
 			if(situation == EGameSituation.AttackA && UIGame.Get.isCanShowSkill) {
 				if (Joysticker.activeSkill.type == EActiveDistanceType.AttackHalfCount ) {
 					if (Joysticker.transform.position.z > 0)
@@ -1579,7 +1578,6 @@ public class GameController : KnightSingleton<GameController>
 					float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 					int disKind = GetEnemyDis(ref player);
 					int rate = UnityEngine.Random.Range(0, 2);
-					int passkind = -1;
 					if(player.crtState == EPlayerState.Alleyoop)
 						Result = BallOwner.AniState(EPlayerState.Pass3, player.transform.position);
 					else
@@ -1594,30 +1592,24 @@ public class GameController : KnightSingleton<GameController>
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass1, BallOwner, player.transform.position);
-								passkind = 1;
 							}else{ 
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						} else 
 						if(disKind == 2)
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
-								passkind = 0;
 							}else{
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						}						
 						else
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
-								passkind = 0;
 							}else{
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						}
 					}else if(dis <= GameConst.MiddleDistance)
@@ -1627,51 +1619,35 @@ public class GameController : KnightSingleton<GameController>
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
-								passkind = 0;
 							}else{
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						} else 
 							if(disKind == 2)
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass1, BallOwner, player.transform.position);
-								passkind = 1;
 							}else{
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						}						
 						else
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
-								passkind = 0;
 							}else{
 								Result = DoPassiveSkill(ESkillSituation.Pass2, BallOwner, player.transform.position);
-								passkind = 2;
 							}
 						}
 					}else{
 						//Far
 						Result = DoPassiveSkill(ESkillSituation.Pass1, BallOwner, player.transform.position);
-						passkind = 1;
 					}
 					
 					if(Result){
 						Catcher = player;
 						if (BallOwner && (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) 
 							BallOwner.GameRecord.Pass++;
-						//					float adis = Vector3.Distance(BallOwner.transform.position, Catcher.transform.position);
-						//					if(adis <= 1){
-						//						if(passkind == 0)
-						//							Catcher.AniState(EPlayerState.CatchFlat, BallOwner.transform.position);
-						//						else if(passkind == 1)
-						//							Catcher.AniState(EPlayerState.CatchParabola, BallOwner.transform.position);
-						//						else if(passkind == 2)
-						//							Catcher.AniState(EPlayerState.CatchFloor, BallOwner.transform.position);
-						//					}
 						
 						UIGame.Get.DoPassNone();
 					}
@@ -3494,7 +3470,7 @@ public class GameController : KnightSingleton<GameController>
 	public void DefRangeTouchBall(PlayerBehaviour player1)
 	{
 		if(player1.IsHavePickBall2) {
-			if (BallOwner == null && Shooter == null && Catcher == null &&  CourtMgr.Get.RealBall.transform.position.y < 0.2f && (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) {
+			if (BallOwner == null && Shooter == null && Catcher == null && (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.Attr.StaminaValue) 
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
