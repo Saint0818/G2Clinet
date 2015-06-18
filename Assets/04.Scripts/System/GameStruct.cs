@@ -293,6 +293,8 @@ namespace GameStruct
 	public struct TGameRecord {
 		public string Identifier;
 		public float Version;
+		public DateTime Start;
+		public DateTime End;
 		public float GameTime;
 		public float ExitCount;
 		public float PauseCount;
@@ -314,6 +316,7 @@ namespace GameStruct
 			Score1 = 0;
 			Score2 = 0;
 			Done = false;
+			Start = DateTime.UtcNow;
 			ButtonTrace = new string[0];
 			PlayerRecords = new TGamePlayerRecord[playerNumber];
 			for (int i = 0; i < playerNumber; i ++)
@@ -369,17 +372,17 @@ namespace GameStruct
 		}
 
 		public void PushMove(Vector2 pos) {
-			Array.Resize(ref MoveRecords, MoveRecords.Length + 1);
+			/*Array.Resize(ref MoveRecords, MoveRecords.Length + 1);
 			MoveRecords[MoveRecords.Length-1].X = Mathf.Round(pos.x * 10) / 10;
-			MoveRecords[MoveRecords.Length-1].Z = Mathf.Round(pos.y * 10) / 10;
+			MoveRecords[MoveRecords.Length-1].Z = Mathf.Round(pos.y * 10) / 10;*/
 		}
 
 		public void PushShot(Vector2 pos, int kind, float rate) {
-			Array.Resize(ref ShotRecords, ShotRecords.Length + 1);
+			/*Array.Resize(ref ShotRecords, ShotRecords.Length + 1);
 			ShotRecords[ShotRecords.Length-1].Move.X = Mathf.Round(pos.x * 10) / 10;
 			ShotRecords[ShotRecords.Length-1].Move.Z = Mathf.Round(pos.y * 10) / 10;
 			ShotRecords[ShotRecords.Length-1].Kind = kind;
-			ShotRecords[ShotRecords.Length-1].Rate = rate;
+			ShotRecords[ShotRecords.Length-1].Rate = rate;*/
 		}
 	}
 

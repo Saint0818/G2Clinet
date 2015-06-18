@@ -300,8 +300,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject AngryFull = null;
 	public Material BodyMaterial;
 
-	public GameStruct.TPlayerAttribute Attr;
-	public GameStruct.TPlayer Player;
+	public TPlayerAttribute Attr;
+	public TPlayer Player;
 	public TScoreRate ScoreRate;
 	public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
 

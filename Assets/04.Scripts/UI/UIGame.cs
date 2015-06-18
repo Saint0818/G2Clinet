@@ -300,6 +300,8 @@ public class UIGame : UIBase {
 		uiJoystick.Joystick.isActivated = false;
 		uiJoystick.Joystick.DynamicJoystick = false;
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
+
+		GameObject.Find(UIName + "/Center/ViewPause/ButtonReset").SetActive(false);
 	}
 
 	protected override void InitData() {
@@ -924,11 +926,12 @@ public class UIGame : UIBase {
 				viewPause.SetActive(true);
 				
 				uiContinue.SetActive(true);
-				uiReselect.SetActive(true);
-				uiScoreBar.SetActive(true);
+				//uiReselect.SetActive(true);
+				//uiScoreBar.SetActive(true);
 				uiJoystick.Joystick.isActivated = false;
 
-				GameController.Get.SetGameRecord();
+				GameController.Get.SetGameRecord(false);
+				UIGameResult.Get.SetGameRecord(ref GameController.Get.GameRecord);
 			}
 			break;
 		case UISituation.Continue:
@@ -944,6 +947,8 @@ public class UIGame : UIBase {
 				uiReselect.SetActive(false);
 				uiScoreBar.SetActive(false);
 				uiJoystick.Joystick.isActivated = true;
+
+				UIGameResult.UIShow(false);
 			}
 			break;
 		case UISituation.Finish:

@@ -20,6 +20,7 @@ public static class URLConst {
 	public const string TeamName = "teamname";
 	public const string ScenePlayer = "sceneplayer";
 	public const string Conference = "conference";
+	public const string GameRecord = "gamerecord";
 	public const string PVPAward = "pvpaward";
 	public const string IsSeePVPList = "isseepvplist";
 	public const string Revenge = "revenge";

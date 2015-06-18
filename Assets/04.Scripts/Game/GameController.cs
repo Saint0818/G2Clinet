@@ -689,9 +689,10 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[1].AniState(EPlayerState.Idle);
     }
 
-	public void SetGameRecord() {
+	public void SetGameRecord(bool upload) {
 		GameRecord.Identifier = SystemInfo.deviceUniqueIdentifier;
 		GameRecord.Version = BundleVersion.version;
+		GameRecord.End = System.DateTime.UtcNow;
 		GameRecord.PauseCount++;
 		GameRecord.Score1 = UIGame.Get.Scores [0];
 		GameRecord.Score2 = UIGame.Get.Scores [1];
@@ -703,7 +704,15 @@ public class GameController : KnightSingleton<GameController>
                 GameRecord.PlayerRecords[i] = PlayerList[i].GameRecord;
 			}
 
-		Debug.Log(JsonConvert.SerializeObject(GameRecord));
+		string str = JsonConvert.SerializeObject(GameRecord);
+
+		if (upload) {
+			WWWForm form = new WWWForm();
+			form.AddField("GameRecord", str);
+			form.AddField("Start", GameRecord.Start.ToString());
+			form.AddField("End", GameRecord.End.ToString());
+			SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
+		}
 	}
 
 	private int GetPosNameIndex(EPosKind Kind, int Index = -1)
@@ -1580,7 +1589,7 @@ public class GameController : KnightSingleton<GameController>
 								passkind = 2;
 							}
 						} else 
-							if(disKind == 2)
+						if(disKind == 2)
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
@@ -3425,9 +3434,8 @@ public class GameController : KnightSingleton<GameController>
 							player.AniState(EPlayerState.Dribble0);
 						else if(player.IsRun || player.IsDribble)
                         	player.AniState(EPlayerState.Dribble1);
-						else{
+                    	else
                         	player.AniState(EPlayerState.HoldBall);
-						}
 					}
                 }
             }
@@ -3527,15 +3535,11 @@ public class GameController : KnightSingleton<GameController>
 
     private void GameResult(int team)
     {
-//        if (team == 0)
-//            UIHint.Get.ShowHint("You Win", Color.blue);
-//        else
-//            UIHint.Get.ShowHint("You Lost", Color.red);
-        
         GameController.Get.ChangeSituation(EGameSituation.End);
 		UIGame.Get.GameOver();
 		GameRecord.Done = true;
-		SetGameRecord();
+		SetGameRecord(true);
+		UIGameResult.Get.SetGameRecord(ref GameRecord);
     }
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
