@@ -1828,7 +1828,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble0:
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
-			if (IsFirstDribble && !IsAllShoot && !CanMove || (CanMove && crtState != state && (!IsPass)) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
+			if (IsBallOwner && IsFirstDribble && !IsPass && !IsAllShoot && !CanMove || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
                 {
                     return true;
                 }
