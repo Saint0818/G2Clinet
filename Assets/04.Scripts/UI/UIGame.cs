@@ -72,6 +72,7 @@ public class UIGame : UIBase {
 	private GameObject viewOption;
 	private GameObject viewPass;
 	private GameObject viewPause;
+	private GameObject viewAttack;
 
 	private GameObject uiScoreBar;
 	private GameObject uiReselect;
@@ -211,7 +212,8 @@ public class UIGame : UIBase {
 		uiSkill = GameObject.Find(UIName + "/BottomRight/ButtonSkill");
 		uiSkillFull = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
-		
+
+		viewAttack = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 		uiAttackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack/SpriteAttack");
 		uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
 		uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
@@ -577,10 +579,12 @@ public class UIGame : UIBase {
 
 	public bool UICantUse(PlayerBehaviour p = null) {
 		if(p == GameController.Get.Joysticker) {
-			isCanShowSkill = false;
-			SetPassButton();
-			ShowSkillUI(false);
-			uiAttackPush.SetActive(true);
+			if(!isGameOver) {
+				isCanShowSkill = false;
+				SetPassButton();
+				ShowSkillUI(false);
+				uiAttackPush.SetActive(true);
+			}
 			return true;
 		} else {
 			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
@@ -936,6 +940,12 @@ public class UIGame : UIBase {
 			viewStart.SetActive (false);
 			uiScoreBar.SetActive (false);
 			uiJoystick.Joystick.isActivated = true;
+
+			uiJoystick.gameObject.SetActive(true);
+			viewPass.SetActive(isAttackState);
+			viewAttack.SetActive(true);
+			controlButtonGroup[0].SetActive(isAttackState);
+			controlButtonGroup[1].SetActive(!isAttackState);
 			
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
@@ -980,7 +990,7 @@ public class UIGame : UIBase {
 
 			uiJoystick.gameObject.SetActive(false);
 			viewPass.SetActive(false);
-			uiAttackPush.SetActive(false);
+			viewAttack.SetActive(false);
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
 			break;
@@ -996,7 +1006,7 @@ public class UIGame : UIBase {
 			
 			uiJoystick.gameObject.SetActive(true);
 			viewPass.SetActive(isAttackState);
-			uiAttackPush.SetActive(true);
+			viewAttack.SetActive(true);
 			controlButtonGroup[0].SetActive(isAttackState);
 			controlButtonGroup[1].SetActive(!isAttackState);
 			break;

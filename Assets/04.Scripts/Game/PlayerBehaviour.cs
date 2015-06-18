@@ -512,7 +512,6 @@ public class PlayerBehaviour : MonoBehaviour
 						if (GameData.SkillData [Player.Skills [i].ID].Animation == ESkillKind.Pick2.ToString()) {
 							isHavePickBall2 = true;
 							PickBall2Rate = rate;
-							Debug.Log("PickBall2Rate:"+PickBall2Rate);
 						}
 						TPassiveSkill ps = new TPassiveSkill();
 						ps.ID = Player.Skills [i].ID;
