@@ -382,6 +382,7 @@ public class PlayerBehaviour : MonoBehaviour
 //	private float activeTime  = 0;
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
+	public int PickBall2Rate = 0;
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool IsSpeedup = false;
@@ -505,11 +506,14 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					if (GameData.SkillData.ContainsKey(Player.Skills [i].ID))
 					{
+						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
 						if (GameData.SkillData [Player.Skills [i].ID].Kind == (int)ESkillKind.MoveDodge) 
 							isHaveMoveDodge = true;
-						if (GameData.SkillData [Player.Skills [i].ID].Animation == ESkillKind.Pick2.ToString())
+						if (GameData.SkillData [Player.Skills [i].ID].Animation == ESkillKind.Pick2.ToString()) {
 							isHavePickBall2 = true;
-						int rate = GameData.SkillData [Player.Skills [i].ID].BaseRate + (GameData.SkillData [Player.Skills [i].ID].AddRate * Player.Skills [i].Lv); // BaseRate + ( AddRate * LV)
+							PickBall2Rate = rate;
+							Debug.Log("PickBall2Rate:"+PickBall2Rate);
+						}
 						TPassiveSkill ps = new TPassiveSkill();
 						ps.ID = Player.Skills [i].ID;
 						ps.Name = GameData.SkillData [Player.Skills [i].ID].Animation;
