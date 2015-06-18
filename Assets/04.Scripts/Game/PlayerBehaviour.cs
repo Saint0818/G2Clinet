@@ -1705,7 +1705,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass7:
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
-			if (!IsPass && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+			if (!IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                 {
                     return true;
                 }
@@ -3011,6 +3011,11 @@ public class PlayerBehaviour : MonoBehaviour
 		get{ return crtState == EPlayerState.Pass0 || crtState == EPlayerState.Pass2 || crtState == EPlayerState.Pass1 || crtState == EPlayerState.Pass3 ||  crtState == EPlayerState.Pass4 ||
 			crtState == EPlayerState.Pass5 || crtState == EPlayerState.Pass6 || crtState == EPlayerState.Pass7 || crtState == EPlayerState.Pass8 || crtState == EPlayerState.Pass9;}
     }
+
+	public bool IsPickBall
+	{
+		get{ return crtState == EPlayerState.PickBall0 || crtState == EPlayerState.PickBall2;}
+	}
 
     public bool IsDribble
     {
