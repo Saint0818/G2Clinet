@@ -1855,7 +1855,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-                if (CanMove)
+                if (CanMove && !IsBallOwner)
                     return true;
                 break;
 
