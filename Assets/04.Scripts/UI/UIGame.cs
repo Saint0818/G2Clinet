@@ -12,7 +12,8 @@ public enum UISituation{
 	ReSelect,
 	MainMenu,
 	EffectSwitch,
-	OptionSelect
+	OptionSelect,
+	MusicSwitch
 }
 
 public enum UIController {
@@ -56,6 +57,7 @@ public class UIGame : UIBase {
 	private bool isShowScoreBar = false;
 	private bool isShootAvailable = true;
 	private bool isShowOption = false;
+	private bool isMusicOn = false;
 	public bool isCanShowSkill = false;
 
 	// GoldFinger
@@ -100,6 +102,7 @@ public class UIGame : UIBase {
 	private GameObject[] controlButtonGroup= new GameObject[2];
 	private GameObject[] uiPassObjectGroup = new GameObject[3];
 	private GameObject[] effectGroup = new GameObject[2];
+	private GameObject[] musicGroup = new GameObject[2];
 
 	private UILabel[] labelScores = new UILabel[2];
 	private UIScrollBar aiLevelScrollBar;
@@ -144,7 +147,7 @@ public class UIGame : UIBase {
 			instance.Show(isShow);
 		else
 		if(isShow)
-				Get.Show(isShow);
+			Get.Show(isShow);
 	}
 
 	void FixedUpdate()
@@ -228,12 +231,18 @@ public class UIGame : UIBase {
 		labelScores [0] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore1").GetComponent<UILabel>();
 		labelScores [1] = GameObject.Find (UIName + "/Top/UIScoreBar/LabelScore2").GetComponent<UILabel>();
 
-		aiLevelScrollBar= GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+		aiLevelScrollBar = GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
 		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
 		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
 		effectGroup [0].SetActive (GameData.Setting.Effect);
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
+
+		musicGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelON");
+		musicGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelOff");
+		musicGroup[0].SetActive(AudioMgr.Get.IsMusicOn);
+		musicGroup[1].SetActive(!AudioMgr.Get.IsMusicOn);
+		isMusicOn = AudioMgr.Get.IsMusicOn;
 
 		spriteForce = GameObject.Find (UIName + "/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
@@ -274,10 +283,11 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/Center/ViewStart/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/ViewFinish/ButtonAgain", ResetGame);
 		SetBtnFun (UIName + "/Center/ViewPause/ButtonReset", RestartGame);
-		SetBtnFun (UIName + "/Center/ViewTools/ButtonOption", OptionSelect);
 		SetBtnFun (UIName + "/Center/ButtonReturnSelect", OnReselect);
-		SetBtnFun (UIName + "/Center/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
-		SetBtnFun (UIName + "/Center/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
+		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
+		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
+		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
+		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
 		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
@@ -319,7 +329,7 @@ public class UIGame : UIBase {
 //		SetLabel(UIName + "/Center/ViewStart/ButtonStart/LabelStart" ,TextConst.S(2));
 //		SetLabel(UIName + "/Center/ViewPause/ButtonReset/LabelReset" ,TextConst.S(4));
 //		SetLabel(UIName + "/Center/ViewStart/AISelect/LabelAI" ,TextConst.S(5));
-		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
+//		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
 	}
 
 //	IEnumerator WaitForVirtualScreen(){
@@ -439,6 +449,10 @@ public class UIGame : UIBase {
 
 	public void OptionSelect(){
 		UIState(UISituation.OptionSelect);
+	}
+
+	public void MusicSwitch(){
+		UIState(UISituation.MusicSwitch);
 	}
 
 	public void ShowSkill(){
@@ -916,6 +930,7 @@ public class UIGame : UIBase {
 	}
 
 	public void UIState(UISituation situation){
+		Debug.Log("situation:"+situation);
 		switch(situation) {
 		case UISituation.Start:
 			isGameOver = false;
@@ -1030,6 +1045,12 @@ public class UIGame : UIBase {
 		case UISituation.OptionSelect:
 			isShowOption = !isShowOption;
 			viewOption.SetActive(isShowOption);
+			break;
+		case UISituation.MusicSwitch:
+			isMusicOn = !isMusicOn;
+			AudioMgr.Get.MusicOn(isMusicOn);
+			musicGroup[0].SetActive(isMusicOn);
+			musicGroup[1].SetActive(!isMusicOn);
 			break;
 		}
 		AudioMgr.Get.PauseGame();
