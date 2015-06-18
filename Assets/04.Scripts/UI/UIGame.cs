@@ -48,6 +48,7 @@ public class UIGame : UIBase {
 	private float showScoreBarTime = 0;
 	public int[] Scores = {0, 0};
 
+	private bool isGameOver = false;
 	private bool isAttackState = true;
 	private bool isPressElbowBtn = true;
 	private bool isCanDefenceBtnPress = true;
@@ -196,8 +197,8 @@ public class UIGame : UIBase {
 
 		viewStart = GameObject.Find (UIName + "/Center/ViewStart");
 		viewFinish = GameObject.Find (UIName + "/Center/ViewFinish");
-		viewTools = GameObject.Find (UIName + "/Center/ViewTools");
-		viewOption = GameObject.Find (UIName + "Center/ViewTools/ViewOption");
+		viewTools = GameObject.Find (UIName + "/TopRight/ViewTools");
+		viewOption = GameObject.Find (UIName + "TopRight/ViewTools/ViewOption");
 		viewPause = GameObject.Find (UIName + "/Center/ViewPause");
 		viewPass = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass");
 
@@ -229,8 +230,8 @@ public class UIGame : UIBase {
 
 		aiLevelScrollBar= GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 
-		effectGroup[0] = GameObject.Find (UIName + "/Center/ViewTools/ViewOption/ButtonEffect/LabelON");
-		effectGroup[1] = GameObject.Find (UIName + "/Center/ViewTools/ViewOption/ButtonEffect/LabelOff");
+		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
+		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
 		effectGroup [0].SetActive (GameData.Setting.Effect);
 		effectGroup [1].SetActive (!GameData.Setting.Effect);
 
@@ -541,7 +542,8 @@ public class UIGame : UIBase {
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
-		showScoreBar((Scores [team] < MaxScores [team])? false: true);
+		isGameOver = (Scores [team] < MaxScores [team])? false: true;
+		showScoreBar(isGameOver);
 		TweenRotation tweenRotation = TweenRotation.Begin(labelScores[team].gameObject, 0.5f, Quaternion.identity);
 		tweenRotation.delay = 0.5f;
 		tweenRotation.to = new Vector3(0,720,0);
@@ -549,11 +551,13 @@ public class UIGame : UIBase {
 	}
 
 	public void ChangeControl(bool IsAttack) {
-		isAttackState = IsAttack;
-		if(IsAttack) {
-			UIMaskState(UIController.AttackA);
-		} else {
-			UIMaskState(UIController.AttackB);
+		if(!isGameOver) {
+			isAttackState = IsAttack;
+			if(IsAttack) {
+				UIMaskState(UIController.AttackA);
+			} else {
+				UIMaskState(UIController.AttackB);
+			}
 		}
 	}
 
@@ -576,10 +580,13 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if(p.NoAiTime > 0)
 				p.SetNoAiTime();
-			ShowAlleyoop(false);
 
-			if(isAttackState) UIMaskState(UIController.AttackA);
-			else UIMaskState(UIController.AttackB);
+			if(!isGameOver) { 
+				ShowAlleyoop(false);
+				
+				if(isAttackState) UIMaskState(UIController.AttackA);
+				else UIMaskState(UIController.AttackB);
+			}
 
 			return true;
 		} else {
@@ -911,6 +918,7 @@ public class UIGame : UIBase {
 	public void UIState(UISituation situation){
 		switch(situation) {
 		case UISituation.Start:
+			isGameOver = false;
 			viewStart.SetActive (false);
 			uiScoreBar.SetActive (false);
 			uiJoystick.Joystick.isActivated = true;
@@ -953,8 +961,14 @@ public class UIGame : UIBase {
 			break;
 		case UISituation.Finish:
 			//viewFinish.SetActive(true);
-			uiScoreBar.SetActive(false);
+			//uiScoreBar.SetActive(true);
 			uiJoystick.Joystick.isActivated = false;
+
+			uiJoystick.gameObject.SetActive(false);
+			viewPass.SetActive(false);
+			uiAttackPush.SetActive(false);
+			controlButtonGroup[0].SetActive(false);
+			controlButtonGroup[1].SetActive(false);
 			break;
 
 		case UISituation.Restart:
@@ -965,6 +979,12 @@ public class UIGame : UIBase {
 			viewPause.SetActive(false);
 			uiReselect.SetActive(false);
 			uiContinue.SetActive(false);
+			
+			uiJoystick.gameObject.SetActive(true);
+			viewPass.SetActive(isAttackState);
+			uiAttackPush.SetActive(true);
+			controlButtonGroup[0].SetActive(isAttackState);
+			controlButtonGroup[1].SetActive(!isAttackState);
 			break;
 		case UISituation.Reset:
 			GameController.Get.Reset ();
