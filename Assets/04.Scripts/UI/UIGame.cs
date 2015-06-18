@@ -930,7 +930,6 @@ public class UIGame : UIBase {
 	}
 
 	public void UIState(UISituation situation){
-		Debug.Log("situation:"+situation);
 		switch(situation) {
 		case UISituation.Start:
 			isGameOver = false;

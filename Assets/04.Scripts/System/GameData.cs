@@ -10,6 +10,9 @@ public static class SettingText {
 	public const string Language = "UserLanguage";
 	public const string AITime = "AIChangeTime";
 	public const string Effect = "Effect";
+	public const string GameRecord = "GameRecord";
+	public const string GameRecordStart = "GameRecordStart";
+	public const string GameRecordEnd = "GameRecordEnd";
 }
 
 public class GameData {

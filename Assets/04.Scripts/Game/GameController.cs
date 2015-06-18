@@ -329,6 +329,18 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
+
+		if (SendHttp.Get.CheckNetwork()) {
+			string str = PlayerPrefs.GetString(SettingText.GameRecord);
+			if (str != "") {
+				WWWForm form = new WWWForm();
+				form.AddField("GameRecord", str);
+				form.AddField("Start", PlayerPrefs.GetString(SettingText.GameRecordStart));
+				form.AddField("End", PlayerPrefs.GetString(SettingText.GameRecordEnd));
+				SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
+			}
+		}
+
 		GameRecord.Init(PlayerList.Count);
 		for (var i = 0; i < PlayerList.Count; i ++)
 			if (PlayerList[i]) 
@@ -689,22 +701,29 @@ public class GameController : KnightSingleton<GameController>
 		GameRecord.PauseCount++;
 		GameRecord.Score1 = UIGame.Get.Scores [0];
 		GameRecord.Score2 = UIGame.Get.Scores [1];
-		for (int i = 0; i < PlayerList.Count; i ++)
+		for (int i = 0; i < PlayerList.Count; i ++) {
 			if (i < GameRecord.PlayerRecords.Length) {
 				PlayerList[i].GameRecord.ShotError = Mathf.Max(0, 
 			        PlayerList[i].GameRecord.ShotError - PlayerList[i].GameRecord.BeBlock);
 
                 GameRecord.PlayerRecords[i] = PlayerList[i].GameRecord;
 			}
+		}
 
-		string str = JsonConvert.SerializeObject(GameRecord);
 
 		if (upload) {
-			WWWForm form = new WWWForm();
-			form.AddField("GameRecord", str);
-			form.AddField("Start", GameRecord.Start.ToString());
-			form.AddField("End", GameRecord.End.ToString());
-			SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
+			string str = JsonConvert.SerializeObject(GameRecord);
+			if (SendHttp.Get.CheckNetwork()) {
+				WWWForm form = new WWWForm();
+				form.AddField("GameRecord", str);
+				form.AddField("Start", GameRecord.Start.ToString());
+				form.AddField("End", GameRecord.End.ToString());
+				SendHttp.Get.Command(URLConst.GameRecord, null, form, false);
+			} else {
+				PlayerPrefs.SetString(SettingText.GameRecord, str);
+				PlayerPrefs.SetString(SettingText.GameRecordStart, GameRecord.Start.ToString());
+				PlayerPrefs.SetString(SettingText.GameRecordEnd, GameRecord.End.ToString());
+			}
 		}
 	}
 
@@ -3900,7 +3919,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void SetPlayerLevel(){
-		PlayerPrefs.SetFloat("AIChangeTime", GameData.Setting.AIChangeTime);
+		PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
 		if (GameData.Setting.AIChangeTime > 100)
 			Joysticker.SetNoAiTime();
 

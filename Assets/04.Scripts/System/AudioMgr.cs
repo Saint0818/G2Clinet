@@ -46,9 +46,11 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public void PauseGame()
 	{
 		if (Time.timeScale == 0) {
-			Paused.TransitionTo(.01f);	
+			if (Paused)
+				Paused.TransitionTo(.01f);	
 		}
 		else
+		if (Nomal)
 			Nomal.TransitionTo(.01f);
 	}
 
@@ -64,12 +66,14 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		IsMusicOn = flag;
 
 		if (IsMusicOn) {
-			MasterMix.ClearFloat("masterVol");
 			PlayerPrefs.SetInt ("MusicOn", 1);
+			if (MasterMix)
+				MasterMix.ClearFloat("masterVol");
 		}
 		else{
-			MasterMix.SetFloat ("masterVol", -80);
 			PlayerPrefs.SetInt ("MusicOn", 0);
+			if (MasterMix)
+				MasterMix.SetFloat ("masterVol", -80);
 		}
 		PlayerPrefs.Save ();
 	}
