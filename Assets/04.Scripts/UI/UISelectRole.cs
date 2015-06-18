@@ -40,8 +40,10 @@ public class UISelectRole : UIBase {
 
 	private UILabel [] SelectAListName = new UILabel[3];
 	private UISprite [] SelectAListPic = new UISprite[3];
+	private UISprite [] SelectAListBigPic = new UISprite[3];
 	private UILabel [] SelectBListName = new UILabel[3];
 	private UISprite [] SelectBListPic = new UISprite[3];
+	private UISprite [] SelectBListBigPic = new UISprite[3];
 	private int [] UnSelectIDAy = new int[3];
 	private Animator [] animatorAy = new Animator[3];
 	private string [] AnimatorNameAy = new string[1]{""};
@@ -51,6 +53,7 @@ public class UISelectRole : UIBase {
 
 	private float [] OldValueAy = new float[12];
 	private float [] NewValueAy = new float[12];
+	private UISprite [] BigHeadAy = new UISprite[6]; 
 
 	public static bool Visible
 	{
@@ -97,6 +100,8 @@ public class UISelectRole : UIBase {
 		for (int i = 0; i < 6; i++) 
 		{
 			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
+			BigHeadAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
+			BigHeadAy[i].spriteName = GameData.DPlayers[RoleIDAy[i]].Name;
 			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 			LineAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteLine").GetComponent<UISprite>();
 			LineAy[i].fillAmount = 0;
@@ -160,12 +165,14 @@ public class UISelectRole : UIBase {
 		{
 			SelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
 			SelectAListPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/BodyType").GetComponent<UISprite>();
+			SelectAListBigPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
 			SetBtnFun(UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString(), DoListA);
 		}
 
 		for(int i = 0; i < SelectBListName.Length; i++)
 		{
 			SelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
+			SelectBListBigPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
 			SelectBListPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/BodyType").GetComponent<UISprite>();
 			SetBtnFun(UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString(), DoListB);
 		}
@@ -330,9 +337,12 @@ public class UISelectRole : UIBase {
 
 			for(int i = 0; i < SelectAListName.Length; i++)
 			{
-				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectAListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectAListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 				SetBodyPic(ref SelectAListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
-				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+
+				SelectBListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectBListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 				SetBodyPic(ref SelectBListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
 			}
 		}
@@ -379,9 +389,12 @@ public class UISelectRole : UIBase {
 
 			for(int i = 0; i < SelectBListName.Length; i++)
 			{
-				SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectAListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectAListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 				SetBodyPic(ref SelectAListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
-				SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+
+				SelectBListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+				SelectBListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 				SetBodyPic(ref SelectBListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
 			}
 		}
@@ -483,9 +496,12 @@ public class UISelectRole : UIBase {
 
 		for(int i = 0; i < SelectAListName.Length; i++)
 		{
-			SelectAListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+			SelectAListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+			SelectAListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			SetBodyPic(ref SelectAListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
-			SelectBListName [i].text = GameData.DPlayers[UnSelectIDAy[i]].Name;
+
+			SelectBListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
+			SelectBListBigPic[i].spriteName = GameData.DPlayers[UnSelectIDAy[i]].Name;
 			SetBodyPic(ref SelectBListPic[i], GameData.DPlayers[UnSelectIDAy[i]].BodyType);
 		}
 	}
