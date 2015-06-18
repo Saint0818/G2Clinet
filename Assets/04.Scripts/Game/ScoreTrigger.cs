@@ -24,7 +24,7 @@ public class ScoreTrigger : MonoBehaviour
 					if(IntTrigger == 0 && !Into){
 						Into = true;
 						switch (GameController.Get.BasketSituationType) {
-						case EBasketSituation.Swich:
+						case EBasketSituation.Swish:
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
 							break;
 						case EBasketSituation.Score:
@@ -36,8 +36,6 @@ public class ScoreTrigger : MonoBehaviour
 							}
 							break;
 						default:
-							if(GameStart.Get.IsDebugAnimation)
-								Debug.LogError("BasketSituationType is airball");
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
 							break;
 						}
@@ -46,7 +44,7 @@ public class ScoreTrigger : MonoBehaviour
 						Into = true;
 						GameController.Get.PlusScore(Team, false, true);
 						CourtMgr.Get.PlayShoot(Team);
-						if(GameController.Get.BasketSituationType == EBasketSituation.Swich)
+						if(GameController.Get.BasketSituationType == EBasketSituation.Swish)
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwishEnd, dummyHoop);
 					}
 				}

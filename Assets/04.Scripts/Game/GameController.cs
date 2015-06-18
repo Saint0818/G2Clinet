@@ -117,7 +117,7 @@ public struct TBasketShootPositionData {
 
 public enum EBasketSituation {
 	Score = 0,
-	Swich = 1,
+	Swish = 1,
 	NoScore = 2,
 	AirBall = 3
 }
@@ -1251,12 +1251,12 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 			
-		if(extraScoreRate == GameData.ExtraPerfectRate)
+		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 7)
 			isAirBall = false;
 		
 		if(isScore) {
 			if(isSwich)
-				BasketSituationType = EBasketSituation.Swich;
+				BasketSituationType = EBasketSituation.Swish;
 			else 
 				BasketSituationType = EBasketSituation.Score;
 
@@ -1344,6 +1344,7 @@ public class GameController : KnightSingleton<GameController>
 			Shooter = player;
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
+
 			EScoreType st = EScoreType.Normal;
 
 			if(player.Player.BodyType == 0){
@@ -1353,7 +1354,6 @@ public class GameController : KnightSingleton<GameController>
 			} else if(player.Player.BodyType == 2){
 				shootAngle = GameStart.Get.ShootAngle.GuardShootAngle;
 			}
-
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1398,9 +1398,9 @@ public class GameController : KnightSingleton<GameController>
 				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.87f), shootAngle);
+					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 			} else 
-			if(BasketSituationType == EBasketSituation.Swich) {
+			if(BasketSituationType == EBasketSituation.Swish) {
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
@@ -1589,7 +1589,7 @@ public class GameController : KnightSingleton<GameController>
 								passkind = 2;
 							}
 						} else 
-						if(disKind == 2)
+							if(disKind == 2)
 						{
 							if(rate == 1){
 								Result = DoPassiveSkill(ESkillSituation.Pass0, BallOwner, player.transform.position);
