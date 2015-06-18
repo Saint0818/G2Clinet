@@ -311,12 +311,17 @@ namespace GameStruct
 		public void Init(int playerNumber) {
 			Identifier = "";
 			Version = 0;
+			Start = DateTime.UtcNow;
 			GameTime = 0;
 			ExitCount = 0;
+			PauseCount = 0;
+			Done = false;
 			Score1 = 0;
 			Score2 = 0;
-			Done = false;
-			Start = DateTime.UtcNow;
+			DoubleClickLaunch = 0;
+			DoubleClickLv1 = 0;
+			DoubleClickLv2 = 0;
+			DoubleClickLv3 = 0;
 			ButtonTrace = new string[0];
 			PlayerRecords = new TGamePlayerRecord[playerNumber];
 			for (int i = 0; i < playerNumber; i ++)
@@ -367,6 +372,44 @@ namespace GameStruct
 		public TShotRecord[] ShotRecords;
 
 		public void Init() {
+			FG = 0;
+			FGIn = 0;
+			FG3 = 0;
+			FG3In = 0;
+			ShotError = 0;
+			Fake = 0;
+			BeFake = 0;
+			ReboundLaunch = 0;
+			Rebound = 0;
+			Assist = 0;
+			BeIntercept = 0;
+			Pass = 0;
+			StealLaunch = 0;
+			Steal = 0;
+			BeSteal = 0;
+			Intercept = 0;
+			BlockLaunch = 0;
+			Block = 0;
+			BeBlock = 0;
+			PushLaunch = 0;
+			Push = 0;
+			BePush = 0;
+			ElbowLaunch = 0;
+			Elbow = 0;
+			BeElbow = 0;
+			Knock = 0;
+			BeKnock = 0;
+			AlleyoopLaunch = 0;
+			Alleyoop = 0;
+			TipinLaunch = 0;
+			Tipin = 0;
+			DunkLaunch = 0;
+			Dunk = 0;
+			SaveBallLaunch = 0;
+			SaveBall = 0;
+			AngerAdd = 0;
+			PassiveSkill = 0;
+			Skill = 0;
 			MoveRecords = new TMoveRecord[0];
 			ShotRecords = new TShotRecord[0];
 		}

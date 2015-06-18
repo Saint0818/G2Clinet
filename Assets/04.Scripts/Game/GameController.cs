@@ -330,6 +330,9 @@ public class GameController : KnightSingleton<GameController>
 		IsJumpBall = false;
 		SetPlayerLevel();
 		GameRecord.Init(PlayerList.Count);
+		for (var i = 0; i < PlayerList.Count; i ++)
+			if (PlayerList[i]) 
+				PlayerList[i].GameRecord.Init();
 
 		if (GameStart.Get.TestMode == EGameTest.Rebound) {
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
@@ -579,26 +582,16 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			if (situation == EGameSituation.AttackA) {
-				if (Input.GetKeyDown (KeyCode.A))
-				{
-					isPressPassBtn = true;
-
-					UIGame.Get.DoPassChoose(null, true);
-				}
-
 				if (Input.GetKeyUp (KeyCode.A))
 				{
-					isPressPassBtn = false;
 					UIGame.Get.DoPassChoose(null, false);
 				}
 
-				if(isPressPassBtn){ 
-					if(Input.GetKeyDown (KeyCode.W))
-						UIGame.Get.DoPassTeammateA(null, true);
-					
-					if(Input.GetKeyDown (KeyCode.E))
-						UIGame.Get.DoPassTeammateB(null, true);
-				}
+				if(Input.GetKeyDown (KeyCode.W))
+					UIGame.Get.DoPassTeammateA(null, true);
+				
+				if(Input.GetKeyDown (KeyCode.E))
+					UIGame.Get.DoPassTeammateB(null, true);
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
@@ -3557,9 +3550,9 @@ public class GameController : KnightSingleton<GameController>
 
 			if (Shooter) {
 				if (shootDistance >= GameConst.TreePointDistance)
-					Shooter.GameRecord.FGIn++;
-				else
 					Shooter.GameRecord.FG3In++;
+				else
+					Shooter.GameRecord.FGIn++;
 
 				if (Shooter.crtState == EPlayerState.TipIn)
 					Shooter.GameRecord.Tipin++;
@@ -4132,7 +4125,7 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 		}
 	}
-	
+
 	public bool IsPassing {
 		get {
 			return isPassing;

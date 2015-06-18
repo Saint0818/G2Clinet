@@ -96,13 +96,13 @@ public class UIGameResult : UIBase {
 		int pts = player.FGIn * 2 + player.FG3In * 3;
 		float fg = 0;
 		if (player.FG > 0)
-			fg = Mathf.Round(player.FGIn / player.FG * 100) / 100;
+			fg = Mathf.Round(player.FGIn * 100 / player.FG);
 
 		float fg3 = 0;
 		if (player.FG3 > 0)
-			fg = Mathf.Round(player.FG3In / player.FG3 * 100) / 100;
+			fg3 = Mathf.Round(player.FG3In * 100 / player.FG3);
 
-		return string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
+		return string.Format("{0}\n{1}%\n{2}%\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
 		                     pts, fg, fg3, player.Rebound, player.Assist, player.Steal, player.Block, player.BeIntercept, player.Push, player.Knock);
 	}
 
