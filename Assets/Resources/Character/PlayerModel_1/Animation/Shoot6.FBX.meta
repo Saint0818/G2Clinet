@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bedcb48924dfec249af16233f24a468f
-timeCreated: 1428395664
+guid: 16cf320dbd14121498b9b7fd10846a5a
+timeCreated: 1434608239
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Stop
+    7400000: Shoot6
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,7 +128,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Stop
+      name: Shoot6
       takeName: Take 001
       firstFrame: 0
       lastFrame: 45
@@ -137,7 +137,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -150,9 +150,30 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .917867422
-        functionName: Animation
-        data: ShootIdleStop
+      - time: .0982746631
+        functionName: AnimationEvent
+        data: DoubleClickMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .3469491
+        functionName: AnimationEvent
+        data: BlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .522471845
+        functionName: AnimationEvent
+        data: Shooting
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .99999994
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

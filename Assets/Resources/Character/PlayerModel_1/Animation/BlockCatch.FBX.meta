@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 003b2d9ecd4fa3d4a9292f061a69a724
-timeCreated: 1428394915
+timeCreated: 1434608227
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -132,7 +132,7 @@ ModelImporter:
       name: BlockCatch
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,7 +150,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .110974103
+        functionName: AnimationEvent
+        data: BlockCatching
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -287,7 +294,7 @@ ModelImporter:
     - serializedVersion: 16
       name: BlockCatchDown
       takeName: Take 001
-      firstFrame: 18
+      firstFrame: 20
       lastFrame: 42
       wrapMode: 0
       orientationOffsetY: 0
@@ -306,7 +313,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .99999994
+        functionName: AnimationEvent
+        data: BlockCatchingEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
