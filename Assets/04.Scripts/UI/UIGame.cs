@@ -953,7 +953,7 @@ public class UIGame : UIBase {
 			break;
 		case UISituation.Finish:
 			//viewFinish.SetActive(true);
-			//uiScoreBar.SetActive(true);
+			uiScoreBar.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			break;
 
