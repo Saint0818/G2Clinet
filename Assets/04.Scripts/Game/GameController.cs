@@ -422,8 +422,7 @@ public class GameController : KnightSingleton<GameController>
         switch (GameStart.Get.TestMode)
         {               
             case EGameTest.None:
-			checkPlayerID();
-
+				checkPlayerID();
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], GameData.Team.Player));	
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], GameData.TeamMembers[0].Player));	
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], GameData.TeamMembers[1].Player));	
@@ -433,20 +432,18 @@ public class GameController : KnightSingleton<GameController>
 
                 for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
-
                 break;
-		case EGameTest.All:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, BornAy[3], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, BornAy[4], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, BornAy[5], new GameStruct.TPlayer(0)));								
-			
-			for (int i = 0; i < PlayerList.Count; i++)
-				PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
-
-			break;
+			case EGameTest.All:
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], new GameStruct.TPlayer(0)));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], new GameStruct.TPlayer(0)));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, BornAy[3], new GameStruct.TPlayer(0)));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, BornAy[4], new GameStruct.TPlayer(0)));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, BornAy[5], new GameStruct.TPlayer(0)));								
+				
+				for (int i = 0; i < PlayerList.Count; i++)
+					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+				break;
             case EGameTest.AttackA:
             case EGameTest.Shoot:
             case EGameTest.Dunk:
@@ -456,7 +453,6 @@ public class GameController : KnightSingleton<GameController>
 				
                 UIGame.Get.ChangeControl(true);
                 break;
-
 			case EGameTest.AnimationUnit:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				break;
@@ -489,7 +485,7 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
 				PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, ETeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
-			for (int i = 0; i < PlayerList.Count; i++)
+				for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 				break;
             case EGameTest.Edit:
@@ -506,7 +502,6 @@ public class GameController : KnightSingleton<GameController>
 				
 				for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
-
 				break;
         }
 

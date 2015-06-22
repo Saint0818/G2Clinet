@@ -179,7 +179,6 @@ public class UISelectRole : UIBase {
 
 		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
 
-
 		float W = Screen.width;
 		float H = Screen.height;
 		float WH = W / H;
