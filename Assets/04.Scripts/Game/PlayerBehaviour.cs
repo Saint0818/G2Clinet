@@ -89,6 +89,7 @@ public enum EPlayerState
 
 public enum ETeamKind
 {
+	None = -1,
     Self = 0,
     Npc = 1
 }

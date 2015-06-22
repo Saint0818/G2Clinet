@@ -25,6 +25,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
 	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 7.625f)};
 	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-13f, 0, 1.63f), new Vector3(-30f, 0, -1.63f)};
+	private Vector3 jumpBallPos = new Vector3(-25f, 7, 0);
+	private Vector3 jumpBallRoate= new Vector3(10f, 90, 0);
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;
@@ -141,8 +143,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 
 		cameraGroupObj.transform.localPosition = Vector3.zero;
-		cameraRotationObj.transform.localPosition = startPos;
-		cameraRotationObj.transform.LookAt(Vector3.zero);
+		//
+//		cameraRotationObj.transform.localPosition = startPos;
+//		cameraRotationObj.transform.LookAt(Vector3.zero);
+
+		cameraRotationObj.transform.localPosition = jumpBallPos;
+		cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
+//		cameraRotationObj.transform.LookAt(Vector3.zero);
 
 		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		focusTarget.GetComponent<Collider>().enabled = false;
@@ -220,7 +227,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole)
+		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.None)
         	HorizontalCameraHandle();
     }
 
@@ -286,6 +293,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		focusObjectOffset (curTeam.GetHashCode());
 		switch (curTeam) {
+
+		case ETeamKind.None:
+			cameraRotationObj.transform.localPosition = jumpBallPos;
+			cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
+//				new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+			break;
 		case ETeamKind.Self:
 			if(!IsTee){
 				if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
@@ -324,14 +337,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			break;
 		}
 	}
-	
-//	public void setSplitScreen(){
-//		RenderTexture tex = Resources.Load("UI/PlayerCameraTexture", typeof(RenderTexture)) as RenderTexture;
-//		cameraPlayer = Instantiate(cameraFx);
-//		cameraPlayer.name = "PlayerCamera";
-//		cameraPlayer.transform.position = cameraFx.transform.position;
-//		cameraPlayer.targetTexture = tex;
-//	}
 
 	private void Lookat(GameObject obj, Vector3 pos)
 	{
