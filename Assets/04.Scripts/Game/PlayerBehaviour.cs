@@ -3167,6 +3167,18 @@ public class PlayerBehaviour : MonoBehaviour
         isTouchPalyer += index;
     }
 
+	public void ResetCurveFlag()
+	{
+		isDunk = false;
+		isBlock = false;
+		isLayup = false;
+		isCanBlock = false;
+		isRebound = false;
+		isShootJump = false;
+		isPush = false;
+		isFall = false;
+	}
+
     public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
     {
         bool cover = false;

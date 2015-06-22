@@ -3885,13 +3885,16 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		SetBallOwnerNull ();
+
 		CourtMgr.Get.SetBallState (EPlayerState.Reset);
 
 		for (int i = 0; i < PlayerList.Count; i++) 
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
-			PlayerList [i].transform.position = BornAy [i];		
+			PlayerList [i].ResetCurveFlag();
+			PlayerList [i].transform.position = BornAy [i];
+			PlayerList [i].AniState(EPlayerState.Idle);
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
 				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);
