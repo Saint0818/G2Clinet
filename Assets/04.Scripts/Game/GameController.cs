@@ -662,9 +662,12 @@ public class GameController : KnightSingleton<GameController>
 
 		if(WaitTeeBallTime > 0 && Time.time >= WaitTeeBallTime)
 		{
-			WaitTeeBallTime = 0;
 			if(BallOwner != null)
-				AutoTee();
+			{
+				if(AutoTee())
+					WaitTeeBallTime = 0;
+			}else
+				WaitTeeBallTime = 0;
 		}
 
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
@@ -2559,8 +2562,9 @@ public class GameController : KnightSingleton<GameController>
 		return true;
     }
 
-	public void AutoTee()
+	public bool AutoTee()
 	{
+		bool Result = false;
 		PlayerBehaviour getball = null;
 
 		if (BallOwner.Team == ETeamKind.Self)
@@ -2571,8 +2575,9 @@ public class GameController : KnightSingleton<GameController>
 		
 		if (getball != null)
 		{
-			Pass(getball, true);
-		} else
+			Result = Pass(getball, true);
+		} 
+		else
 		{
 			int ran = UnityEngine.Random.Range(0, 2);
 			int count = 0;
@@ -2582,7 +2587,7 @@ public class GameController : KnightSingleton<GameController>
 				{
 					if (count == ran)
 					{
-						Pass(PlayerList [i], true);
+						Result = Pass(PlayerList [i], true);
 						break;
 					}
 					
@@ -2590,6 +2595,8 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
+
+		return Result;
 	}
 
     private PlayerBehaviour NearBall(ref PlayerBehaviour Npc)
