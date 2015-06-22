@@ -1006,7 +1006,9 @@ public class GameController : KnightSingleton<GameController>
 				IsStart = true;
 				break;
 			case EGameSituation.JumpBall:
-				
+				for(int i = 0; i < PlayerList.Count; i++)
+					if(PlayerList[i].Index == 0)
+						Rebound(PlayerList[i]);
 				break;
 			case EGameSituation.AttackA:
 				CameraMgr.Get.SetTeamCamera(ETeamKind.Self);
@@ -2521,7 +2523,8 @@ public class GameController : KnightSingleton<GameController>
 				data.Target = new Vector2(Npc.transform.position.x, TargetZ);
                 data.MoveFinish = NpcAutoTee;
                 Npc.TargetPos = data;
-            } else 
+            } 
+			else 
 			if(pos.FileName != string.Empty)
             {
 				GetActionPosition(Npc.Index, ref pos, ref tacticalData);
@@ -2820,11 +2823,10 @@ public class GameController : KnightSingleton<GameController>
                     TMoveData data = new TMoveData(0);
                     data.FollowTarget = CourtMgr.Get.RealBall.transform;
                     A.TargetPos = data;
-				} else 
-				if(Npc.crtState != EPlayerState.Block && Npc.NoAiTime == 0)
+				} else if(Npc.CanMove && Npc.NoAiTime == 0)
                     Npc.rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
-            } else 
-			if (Npc.CanMove && Npc.WaitMoveTime == 0) {
+            } 
+			else if (Npc.CanMove && Npc.WaitMoveTime == 0) {
                 TMoveData data = new TMoveData(0);
                 data.FollowTarget = CourtMgr.Get.RealBall.transform;
                 Npc.TargetPos = data;
@@ -3362,8 +3364,7 @@ public class GameController : KnightSingleton<GameController>
 						}
 					}
 				}
-			}else if(situation == EGameSituation.JumpBall)
-				Rebound(player);
+			}
             break;
 		case 5: //finger
 			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
