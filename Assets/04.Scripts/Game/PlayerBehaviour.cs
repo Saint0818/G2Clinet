@@ -996,15 +996,30 @@ public class PlayerBehaviour : MonoBehaviour
         if (isRebound && playerReboundCurve != null)
         {
             reboundCurveTime += Time.deltaTime;
-			if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
-            {
-	            transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
-	                                             playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-	                                             transform.position.z + reboundMove.z * Time.deltaTime * 2);
-            } else
-                transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
-                                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-                                                 transform.position.z + transform.forward.z * 0.05f);
+			if(situation != EGameSituation.JumpBall)
+			{
+				if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
+				{
+					transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
+					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 transform.position.z + reboundMove.z * Time.deltaTime * 2);
+				} else
+					transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
+					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 transform.position.z + transform.forward.z * 0.05f);
+			}
+			else
+			{
+				if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
+				{
+					transform.position = new Vector3(transform.position.x, 
+					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 transform.position.z);
+				} else
+					transform.position = new Vector3(transform.position.x, 
+					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 transform.position.z);
+			}
             
             if (reboundCurveTime >= playerReboundCurve.LifeTime)
             {

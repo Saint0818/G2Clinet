@@ -521,11 +521,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					GameController.Get.Passer = null;
 
 					if(player != null)	
-						v = player.transform.forward * -5;
+						v = player.transform.forward * -6;
 					else
 						v = RealBall.transform.forward * -1;
 					
-					RealBallRigidbody.velocity = v;
+//					RealBallRigidbody.velocity = v;
+
+					RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+
+
 					RealBallFX.gameObject.SetActive(true);
 				}
 				break;

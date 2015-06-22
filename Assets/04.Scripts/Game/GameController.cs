@@ -2181,6 +2181,8 @@ public class GameController : KnightSingleton<GameController>
 					if(DoPassiveSkill(ESkillSituation.Elbow, Npc, man.transform.position)){
 						CoolDownPass = 0;
 						Npc.CoolDownElbow = Time.time + 3;
+						RealBallFxTime = 1f;
+						CourtMgr.Get.RealBallFX.SetActive(true);
 					}
 				}else 
 				if ((passRate < 20 || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(EPlayerState.Elbow) && BallOwner.NoAiTime == 0)
@@ -3880,7 +3882,12 @@ public class GameController : KnightSingleton<GameController>
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
-			PlayerList [i].transform.position = BornAy [i];								
+			PlayerList [i].transform.position = BornAy [i];		
+
+			if(PlayerList[i].Team == ETeamKind.Npc)
+				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+			else
+				PlayerList[i].transform.localEulerAngles = Vector3.zero;
 		}
 
 		Joysticker.SetAnger (-100);
@@ -3898,6 +3905,11 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[i].Player.AILevel = GameConst.NpcAILevel;
 			else
 				PlayerList[i].Player.AILevel = GameConst.SelfAILevel;
+
+			if(PlayerList[i].Team == ETeamKind.Npc)
+				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+			else
+				PlayerList[i].transform.localEulerAngles = Vector3.zero;
 
 			PlayerList[i].InitAttr();
 		}
