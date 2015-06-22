@@ -227,7 +227,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.None)
+		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.JumpBall)
         	HorizontalCameraHandle();
     }
 
@@ -294,7 +294,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusObjectOffset (curTeam.GetHashCode());
 		switch (curTeam) {
 
-		case ETeamKind.None:
+		case ETeamKind.JumpBall:
 			cameraRotationObj.transform.localPosition = jumpBallPos;
 			cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
 //				new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
