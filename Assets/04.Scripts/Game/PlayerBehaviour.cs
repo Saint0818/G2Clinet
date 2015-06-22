@@ -2833,8 +2833,9 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 
 			if (animationName != string.Empty) {
-				if(IsBallOwner && GameController.Get.Joysticker == this)
-					GameController.Get.ShowPassiveEffect();
+				if(IsBallOwner && GameController.Get.Joysticker == this && !this.transform.FindChild("SkillSign01")){
+					GameController.Get.ShowPassiveEffect(); 
+				}
 
 				GameRecord.PassiveSkill++;
 				return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
@@ -2842,8 +2843,6 @@ public class PlayerBehaviour : MonoBehaviour
 				return playerState;
         } else
             return playerState;
-
-//        return playerState;
     }
 
     public float GetActiveTime(string name)

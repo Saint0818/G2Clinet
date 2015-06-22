@@ -307,7 +307,7 @@ public class UIGame : UIBase {
 		uiPlayerLocation.SetActive(false);
 		ShowSkillUI(false);
 
-		ChangeControl(false);
+		ChangeControl(true);
 		runForceBar ();
 
 		uiJoystick.Joystick.isActivated = false;
@@ -654,11 +654,16 @@ public class UIGame : UIBase {
 				GameController.Get.passIcon[0].SetActive(false);
 				GameController.Get.passIcon[1].SetActive(false);
 				GameController.Get.passIcon[2].SetActive(false);
-			} else if(GameController.Get.situation == EGameSituation.AttackA || GameController.Get.situation == EGameSituation.TeeAPicking) {
+			} else {
 				viewPass.SetActive(true);
-				GameController.Get.passIcon[0].SetActive(true);
-				GameController.Get.passIcon[1].SetActive(true);
-				GameController.Get.passIcon[2].SetActive(true);
+				uiPassObjectGroup[0].SetActive(true);
+				uiPassObjectGroup[1].SetActive(true);
+				uiPassObjectGroup[2].SetActive(true);
+				if(GameController.Get.passIcon[0] != null) {
+					GameController.Get.passIcon[0].SetActive(true);
+					GameController.Get.passIcon[1].SetActive(true);
+					GameController.Get.passIcon[2].SetActive(true);
+				}
 			}
 			break;
 		}
@@ -1005,10 +1010,11 @@ public class UIGame : UIBase {
 			uiContinue.SetActive(false);
 			
 			uiJoystick.gameObject.SetActive(true);
-			viewPass.SetActive(isAttackState);
+			ChangeControl(true);
 			viewAttack.SetActive(true);
-			controlButtonGroup[0].SetActive(isAttackState);
-			controlButtonGroup[1].SetActive(!isAttackState);
+//			viewPass.SetActive(isAttackState);
+//			controlButtonGroup[0].SetActive(isAttackState);
+//			controlButtonGroup[1].SetActive(!isAttackState);
 			break;
 		case UISituation.Reset:
 			GameController.Get.Reset ();
@@ -1027,6 +1033,13 @@ public class UIGame : UIBase {
 			uiReselect.SetActive(false);
 			uiScoreBar.SetActive(true);
 			uiJoystick.Joystick.isActivated = false;
+
+			uiJoystick.gameObject.SetActive(true);
+			viewPass.SetActive(true);
+			viewAttack.SetActive(true);
+			controlButtonGroup[0].SetActive(true);
+			controlButtonGroup[1].SetActive(false);
+			ChangeControl(true);
 			break;
 		case UISituation.ReSelect:
 			Time.timeScale = 1;
