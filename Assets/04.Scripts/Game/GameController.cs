@@ -2498,7 +2498,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 			
 
-		if (Npc.CanMove && !Npc.IsMoving && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
+		if ((Npc.CanMove || Npc.CanMoveFirstDribble) && !Npc.IsMoving && Npc.WaitMoveTime == 0 && Npc.TargetPosNum == 0)
 		{
 			if (Npc == BallOwner)
 			{

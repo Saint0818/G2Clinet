@@ -1847,7 +1847,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble0:
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
-			if (IsBallOwner && IsFirstDribble && !IsPass && !IsAllShoot && !CanMove || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
+			if (IsBallOwner && !IsPickBall && IsFirstDribble && !IsPass && !IsAllShoot && !CanMove || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
                 {
                     return true;
                 }
@@ -2622,8 +2622,10 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
             case "PickEnd":
-				if(IsBallOwner)
-                	AniState(EPlayerState.Dribble0);
+				if(IsBallOwner){
+					IsFirstDribble = true;
+                	AniState(EPlayerState.HoldBall);
+				}
 				else
 					AniState(EPlayerState.Idle);
                 break;
