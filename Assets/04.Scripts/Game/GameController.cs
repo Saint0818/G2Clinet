@@ -269,6 +269,8 @@ public class GameController : KnightSingleton<GameController>
 	
 	public TGameRecord GameRecord = new TGameRecord();
 
+	private float angleByPlayerHoop = 0;
+
     void Start()
     {
         EffectManager.Get.LoadGameEffect();
@@ -1119,15 +1121,15 @@ public class GameController : KnightSingleton<GameController>
 	
 	private void jodgeShootAngle(PlayerBehaviour player){
 		//Angle
-		float ang = 0;
+
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
-			ang = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
-			angle = Mathf.Abs(ang) - 90;
+			angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		} else {
-			ang = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
-			angle = Mathf.Abs(ang) - 90;
+			angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
+			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		}
 		//Distance
 		if(shootDistance >= 0 && shootDistance < 9) {
@@ -1150,7 +1152,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		} else 
 		if(angle <= 60 && angle > 10){// > 10 degree <= 60 degree
-			if(ang > 0) {//right
+			if(angleByPlayerHoop > 0) {//right
 				if(distanceType == 0){
 					basketDistanceAngle = EBasketDistanceAngle.ShortRight;
 				}else if (distanceType == 1){
@@ -1169,7 +1171,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		} else 
 		if(angle <= 10 && angle >= -30){ // < 10 degree
-			if(ang > 0) { // right
+			if(angleByPlayerHoop > 0) { // right
 				if(distanceType == 0){
 					basketDistanceAngle = EBasketDistanceAngle.ShortRightWing;
 				}else if (distanceType == 1){
@@ -1263,6 +1265,9 @@ public class GameController : KnightSingleton<GameController>
 			
 		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 7)
 			isAirBall = false;
+
+		if(shootDistance > 15) 
+			isSwich = false;
 		
 		if(isScore) {
 			if(isSwich)
@@ -1356,13 +1361,21 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.SetPassButton();
 
 			EScoreType st = EScoreType.Normal;
+			if(player.name.Contains("Self")) 
+				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+			else 
+				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(player.Player.BodyType == 0){
-				shootAngle = GameStart.Get.ShootAngle.CenterShootAngle;
-			} else if(player.Player.BodyType == 1){
-				shootAngle = GameStart.Get.ShootAngle.ForwardShootAngle;
-			} else if(player.Player.BodyType == 2){
-				shootAngle = GameStart.Get.ShootAngle.GuardShootAngle;
+			if(Mathf.Abs(angleByPlayerHoop) >= 90) {
+				if(player.Player.BodyType == 0){
+					shootAngle = GameStart.Get.ShootAngle.CenterShootAngle;
+				} else if(player.Player.BodyType == 1){
+					shootAngle = GameStart.Get.ShootAngle.ForwardShootAngle;
+				} else if(player.Player.BodyType == 2){
+					shootAngle = GameStart.Get.ShootAngle.GuardShootAngle;
+				}
+			} else {
+				shootAngle = 70;
 			}
 
 			if(player.crtState == EPlayerState.TipIn){
