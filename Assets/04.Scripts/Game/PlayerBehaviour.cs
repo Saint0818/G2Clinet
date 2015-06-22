@@ -2034,6 +2034,11 @@ public class PlayerBehaviour : MonoBehaviour
 						isFindCurve = true;
                     }
                 SetShooterLayer();
+
+				CourtMgr.Get.SetBallState(EPlayerState.Dunk0);
+				if (OnDunkJump != null)
+					OnDunkJump(this);
+
                 Result = true;
                 break;
 
@@ -2660,13 +2665,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
 
-            case "DunkJump":
-//                DelActionFlag(ActionFlag.IsDribble);
-//                DelActionFlag(ActionFlag.IsRun);
-            
-                CourtMgr.Get.SetBallState(EPlayerState.Dunk0);
-                if (OnDunkJump != null)
-                    OnDunkJump(this);
+            case "DunkJump":         
 
                 break;
             case "OnlyScore":

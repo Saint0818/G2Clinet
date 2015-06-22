@@ -126,6 +126,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		get {return cameraFx;}
     }
 
+	public void InitCamera(ETeamKind team)
+	{
+		SetTeamCamera (team);
+		InitCamera ();
+	}
+
 	private void InitCamera()
 	{
 		if (cameraGroupObj) {
@@ -151,9 +157,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
 //		cameraRotationObj.transform.LookAt(Vector3.zero);
 
-		focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		focusTarget.GetComponent<Collider>().enabled = false;
-		focusTarget.name = "focusPos";
+		if (focusTarget == null) {
+			focusTarget = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+			focusTarget.GetComponent<Collider> ().enabled = false;
+			focusTarget.name = "focusPos";
+		}
+
 		if (CourtMgr.Get.RealBall)
 			focusTarget.transform.position = CourtMgr.Get.RealBall.transform.position;
 	}

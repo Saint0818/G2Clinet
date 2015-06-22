@@ -2823,10 +2823,11 @@ public class GameController : KnightSingleton<GameController>
                     TMoveData data = new TMoveData(0);
                     data.FollowTarget = CourtMgr.Get.RealBall.transform;
                     A.TargetPos = data;
-				} else if(Npc.CanMove && Npc.NoAiTime == 0)
+				} else 
+				if(Npc.crtState != EPlayerState.Block && Npc.NoAiTime == 0)
                     Npc.rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
-            } 
-			else if (Npc.CanMove && Npc.WaitMoveTime == 0) {
+            } else 
+			if (Npc.CanMove && Npc.WaitMoveTime == 0) {
                 TMoveData data = new TMoveData(0);
                 data.FollowTarget = CourtMgr.Get.RealBall.transform;
                 Npc.TargetPos = data;
