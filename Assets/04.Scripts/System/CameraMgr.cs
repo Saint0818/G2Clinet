@@ -5,7 +5,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	//Game const
 	private Shake mShake;
-	private float groupOffsetSpeed = 0.1f;
+	private float groupOffsetSpeed = 0.02f;
 //	private float zoomNormal = 25;
 	private float blankAera = 3.2f;
 	private float lockedFocusAngle = 30f;
