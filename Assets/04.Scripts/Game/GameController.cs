@@ -864,7 +864,25 @@ public class GameController : KnightSingleton<GameController>
     {
         if (PlayerList.Count > 0)
         {
-			GetMovePath(GetPosNameIndex(EPosKind.Attack), ref attackTactical);
+			if(BallOwner != null)
+			{
+				switch(BallOwner.Postion)
+				{
+				case EPlayerPostion.C:
+					GetMovePath(GetPosNameIndex(EPosKind.Center), ref attackTactical);
+					break;
+				case EPlayerPostion.F:
+					GetMovePath(GetPosNameIndex(EPosKind.Forward), ref attackTactical);
+					break;
+				case EPlayerPostion.G:
+					GetMovePath(GetPosNameIndex(EPosKind.Guard), ref attackTactical);
+					break;
+				default:
+					GetMovePath(GetPosNameIndex(EPosKind.Attack), ref attackTactical);
+					break;
+				}
+			}else
+				GetMovePath(GetPosNameIndex(EPosKind.Attack), ref attackTactical);
 			bool isShooting = IsShooting;
 			for (int i = 0; i < PlayerList.Count; i++)
             {
