@@ -79,6 +79,7 @@ public class UIGame : UIBase {
 	private GameObject uiContinue;
 	private GameObject uiSkill;
 	private GameObject uiSkillFull;
+	private GameObject uiSkillForcebar;
 	private GameObject uiAttackPush;
 	private GameObject uiPlayerLocation;
 	private GameObject uiShoot;
@@ -211,6 +212,7 @@ public class UIGame : UIBase {
 		uiScoreBar = GameObject.Find (UIName + "/Top/UIScoreBar");
 		uiSkill = GameObject.Find(UIName + "/BottomRight/ButtonSkill");
 		uiSkillFull = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
+		uiSkillForcebar = GameObject.Find(UIName + "/Forcebar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
 		viewAttack = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
@@ -465,15 +467,20 @@ public class UIGame : UIBase {
 	}
 
 	public void ShowSkillUI (bool isShow){
-		if(isAngerFull) 
-			uiSkill.SetActive(true);
-		else 
-			uiSkill.SetActive(false);
+		if(!isGameOver) {
+			if(isAngerFull) 
+				uiSkill.SetActive(true);
+			else 
+				uiSkill.SetActive(false);
 
-		if(GameController.Get.Joysticker != null && GameController.Get.situation == EGameSituation.AttackA) 
-			uiSkillFull.SetActive(isShow);
-		else 
-			uiSkillFull.SetActive(false);
+			if(GameController.Get.Joysticker != null && GameController.Get.situation == EGameSituation.AttackA) 
+				uiSkillFull.SetActive(isShow);
+			else 
+				uiSkillFull.SetActive(false);
+
+		} else {
+			uiSkill.SetActive(false);
+		}
 	}
 	
 	public void ShowAlleyoop(bool isShow, int teammate = 1) {
@@ -482,7 +489,7 @@ public class UIGame : UIBase {
 				if(teammate == 1) {
 					uiPassA.SetActive(!isShow);
 					uiAlleyoopA.SetActive(isShow);
-				} else {
+				} else if(teammate == 2) {
 					uiPassB.SetActive(!isShow);
 					uiAlleyoopB.SetActive(isShow);
 				}
@@ -998,6 +1005,8 @@ public class UIGame : UIBase {
 			viewAttack.SetActive(false);
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
+
+			uiSkillForcebar.SetActive(false);
 			break;
 
 		case UISituation.Restart:
@@ -1035,6 +1044,7 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 
 			uiJoystick.gameObject.SetActive(true);
+			uiSkillForcebar.SetActive(true);
 			viewPass.SetActive(true);
 			viewAttack.SetActive(true);
 			controlButtonGroup[0].SetActive(true);

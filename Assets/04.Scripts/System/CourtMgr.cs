@@ -394,7 +394,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			switch(state){
 			case EPlayerState.BasketActionSwish:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-//				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case EPlayerState.BasketActionSwishEnd:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
@@ -625,6 +624,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void ResetBasketEntra() {
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), false);
 		for (int i = 0; i < 2; i ++)
 			for (int j = 0; j < 2; j ++)
 				BasketEntra[i, j].Into = false;

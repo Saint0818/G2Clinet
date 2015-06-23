@@ -257,6 +257,7 @@ public class GameController : KnightSingleton<GameController>
 	public TGameRecord GameRecord = new TGameRecord();
 
 	private float angleByPlayerHoop = 0;
+	private float distanceBallToBasket = 0;
 
     void Start()
     {
@@ -1303,7 +1304,7 @@ public class GameController : KnightSingleton<GameController>
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
-
+	
 		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 7)
 			isAirBall = false;
 
@@ -1459,12 +1460,16 @@ public class GameController : KnightSingleton<GameController>
 
 			if(BasketSituationType == EBasketSituation.AirBall) {
 				//AirBall
+				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
 				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 			} else 
 			if(BasketSituationType == EBasketSituation.Swish) {
+				distanceBallToBasket = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z), new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z));
+				if(distanceBallToBasket <= 2)
+					shootAngle = 75;
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
@@ -3115,6 +3120,17 @@ public class GameController : KnightSingleton<GameController>
             return -1;
     }	
 
+	private float getDis(Vector2 player1, Vector2 Target)
+	{
+		if (player1 != null && Target != Vector2.zero)
+		{
+			Vector3 V1 = new Vector3(Target.x, 0, Target.y);
+			Vector3 V2 = new Vector3(player1.x, 0, player1.y);
+			return Vector3.Distance(V1, V2);
+		} else
+			return -1;
+	}
+	
 	public void SetBallOwnerNull()
 	{
 		if (BallOwner != null) {

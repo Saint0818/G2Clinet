@@ -2789,7 +2789,7 @@ public class PlayerBehaviour : MonoBehaviour
 						passDirect = EPassDirectState.Left;
 	                else if (angle < 120f && angle >= 60f)
 						passDirect = EPassDirectState.Right;
-					else if (angle >= 120f && angle >= -120f)
+					else if (angle >= 120f && angle <= -120f)
 						passDirect = EPassDirectState.Back; 
 	                
 					for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
