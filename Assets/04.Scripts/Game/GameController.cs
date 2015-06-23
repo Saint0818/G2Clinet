@@ -1262,13 +1262,13 @@ public class GameController : KnightSingleton<GameController>
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
-			
+
 		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 7)
 			isAirBall = false;
 
 		if(shootDistance > 15) 
 			isSwich = false;
-		
+
 		if(isScore) {
 			if(isSwich)
 				BasketSituationType = EBasketSituation.Swish;

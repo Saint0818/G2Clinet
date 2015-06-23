@@ -394,7 +394,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			switch(state){
 			case EPlayerState.BasketActionSwish:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				RealBallTrigger.SetBoxColliderEnable(true);
+//				RealBallTrigger.SetBoxColliderEnable(true);
 				break;
 			case EPlayerState.BasketActionSwishEnd:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
