@@ -664,12 +664,9 @@ public class GameController : KnightSingleton<GameController>
 
 		if(WaitTeeBallTime > 0 && Time.time >= WaitTeeBallTime)
 		{
+			WaitTeeBallTime = 0;
 			if(BallOwner != null)
-			{
-				if(AutoTee())
-					WaitTeeBallTime = 0;
-			}else
-				WaitTeeBallTime = 0;
+				AutoTee();
 		}
 
 		if(WaitStealTime > 0 && Time.time >= WaitStealTime)		
@@ -826,22 +823,18 @@ public class GameController : KnightSingleton<GameController>
 				{
 					if (Npc.Team == team)
                     {
-                        if (!IsPassing)
+                        if (!IsShooting)
                         {
-                            if (!IsShooting)
-                            {
-                                Attack(ref Npc);
-								AIMove(ref Npc, ref attackTactical);
-							} 
-							else if (!Npc.IsAllShoot)
-                            {
-                                Attack(ref Npc);
-								AIMove(ref Npc, ref attackTactical);
-							}                               
-                        }
+                            Attack(ref Npc);
+							AIMove(ref Npc, ref attackTactical);
+						} 
+						else 
+                        {
+                            Attack(ref Npc);
+							AIMove(ref Npc, ref attackTactical);
+						}
                     } else{
                         Defend(ref Npc);
-//						DefMove(Npc.DefPlayer);
 					}
                 }
             }   
@@ -2166,9 +2159,10 @@ public class GameController : KnightSingleton<GameController>
 		{
 			int dunkRate = Random.Range(0, 100) + 1;
 			int shootRate = Random.Range(0, 100) + 1;
-			int passRate = Random.Range(0, 100) + 1;
+			bool passRate = (Random.Range(0, 100)) < 20;
 			int pushRate = Random.Range(0, 100) + 1;
 			int ElbowRate = Random.Range(0, 100) + 1;
+
 			float ShootPointDis = 0;
             Vector3 pos = CourtMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position;
 			PlayerBehaviour man = null;
@@ -2203,7 +2197,7 @@ public class GameController : KnightSingleton<GameController>
 						CourtMgr.Get.RealBallFX.SetActive(true);
 					}
 				}else 
-				if ((passRate < 20 || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(EPlayerState.Elbow) && BallOwner.NoAiTime == 0)
+				if ((passRate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CoolDownPass == 0 && !IsShooting && !IsDunk && !Npc.CheckAnimatorSate(EPlayerState.Elbow) && BallOwner.NoAiTime == 0)
                 {
                     PlayerBehaviour partner = HavePartner(ref Npc, 20, 90);
 

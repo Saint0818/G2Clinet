@@ -19,6 +19,7 @@ public class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static TPlayerAttribute[] BaseAttr;
 	public static TTactical[] TacticalData;
+	public static Dictionary<int, int[]> SituationPosition = new Dictionary<int, int[]>();
     public static TBasketShootPositionData[] BasketShootPosition;
 	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
 

@@ -1533,18 +1533,12 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         
-                        if (dis <= GameConst.TreePointDistance + 4)
+						if (dis <= GameConst.TreePointDistance + 4 || Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
                         {
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
                         } else
                         {
-                            if (Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
-                            {
-                                rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                            } else
-                            {
-                                rotateTo(MoveTarget.x, MoveTarget.y);
-                            }
+                            rotateTo(MoveTarget.x, MoveTarget.y);
                         }
 
                         if (Math.Abs(GameController.Get.GetAngle(this, new Vector3(MoveTarget.x, 0, MoveTarget.y))) >= 90)
