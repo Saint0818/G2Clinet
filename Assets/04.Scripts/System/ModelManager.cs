@@ -124,6 +124,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		PB.MoveIndex = -1;
 		PB.Player = player;
 		PB.Index = TeamIndex;
+		if(TeamIndex == 0)
+			PB.Postion = EPlayerPostion.C;
+		else if(TeamIndex == 1)
+			PB.Postion = EPlayerPostion.F;
+		else if(TeamIndex == 2)
+			PB.Postion = EPlayerPostion.G;
 		
 		PB.InitTrigger (DefPointObject);
 		PB.InitCurve (AnimatorCurveManager);

@@ -71,7 +71,10 @@ public enum EPosKind
     Attack,
     Tee,
     TeeDefence,
-    Fast
+    Fast,
+	Center,
+	Forward,
+	Guard
 }
 
 public enum EScoreType {
@@ -400,6 +403,74 @@ public class GameController : KnightSingleton<GameController>
 
                 for (int i = 0; i < PlayerList.Count; i++)
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
+
+				//1.G(Dribble) 2.C(Rebound) 3.F
+				float v1 = 0;
+				float v2 = 0;
+				int [] aPosAy = new int[3];
+				int [] bPosAy = new int[3];
+				for (int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].Team == ETeamKind.Self)
+					{
+						if(PlayerList[i].Player.Dribble > v1)
+						{
+							v1 = PlayerList[i].Player.Dribble;
+							aPosAy[0] = i;
+						}
+					}
+					else
+					{
+						if(PlayerList[i].Player.Dribble > v2)
+						{
+							v2 = PlayerList[i].Player.Dribble;
+							bPosAy[0] = i;
+						}
+					}
+				}
+
+				v1 = 0;
+				v2 = 0;
+				for (int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].Team == ETeamKind.Self)
+					{
+						if(PlayerList[i].Player.Rebound > v1 && aPosAy[0] != i)
+						{
+							v1 = PlayerList[i].Player.Rebound;
+							aPosAy[1] = i;
+						}
+					}
+					else
+					{
+						if(PlayerList[i].Player.Rebound > v2 && bPosAy[0] != i)
+						{
+							v2 = PlayerList[i].Player.Rebound;
+							bPosAy[1] = i;
+						}
+					}
+				}
+
+				for (int i = 0; i < PlayerList.Count; i++)
+				{
+					if(PlayerList[i].Team == ETeamKind.Self)
+					{
+						if(aPosAy[0] != i && aPosAy[1] != i)									
+							aPosAy[2] = i;
+					}
+					else
+					{
+						if(bPosAy[0] != i && bPosAy[1] != i)
+							bPosAy[2] = i;
+					}
+				}
+
+				PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
+				PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
+				PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
+				PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
+				PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
+				PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
                 break;
 			case EGameTest.All:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
@@ -457,9 +528,12 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 				break;
             case EGameTest.Edit:
-				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, new Vector3(5, 0, -2), new GameStruct.TPlayer(0)));
-				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, new Vector3(-5, 0, -2), new GameStruct.TPlayer(0)));
+				GameData.Team.Player.SetID(14);		
+				GameData.TeamMembers[0].Player.SetID(24);			
+				GameData.TeamMembers[1].Player.SetID(34);
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], GameData.Team.Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], GameData.TeamMembers[0].Player));	
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], GameData.TeamMembers[1].Player));
 				break;
 			case EGameTest.CrossOver:
 				Self = new TPlayer(0);
@@ -724,6 +798,12 @@ public class GameController : KnightSingleton<GameController>
 				return 11;
 			else
 				return -1;
+		case EPosKind.Center:
+			return 12;
+		case EPosKind.Forward:
+			return 13;
+		case EPosKind.Guard:
+			return 14;
 		default:
 			return -1;
 		}
@@ -2127,6 +2207,7 @@ public class GameController : KnightSingleton<GameController>
 		{
 			bool dunkRate = Random.Range(0, 100) < 30;
 			bool shootRate = Random.Range(0, 100) < 10;
+			bool shoot3Rate = Random.Range(0, 100) < 1;
 			bool passRate = Random.Range(0, 100) < 20;
 			bool pushRate = Random.Range(0, 100) < Npc.Attr.PushingRate;
 			bool ElbowRate = Random.Range(0, 100) < Npc.Attr.ElbowingRate;
@@ -2150,7 +2231,7 @@ public class GameController : KnightSingleton<GameController>
                 {
 					AIShoot(ref Npc);
 				} 
-				else if (ShootPointDis <= GameConst.TreePointDistance && (HaveDefPlayer(ref Npc, 10, 90) == 0) && CheckAttack(ref Npc))
+				else if (ShootPointDis <= GameConst.TreePointDistance + 1 && (HaveDefPlayer(ref Npc, 10, 90) == 0 || shoot3Rate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);				
 				} 
@@ -2863,7 +2944,7 @@ public class GameController : KnightSingleton<GameController>
 
 				if(pos.FileName != string.Empty)
 	            {
-					GetActionPosition(npc.Index, ref pos, ref tacticalData);
+					GetActionPosition(npc.Postion.GetHashCode(), ref pos, ref tacticalData);
 
 					if (tacticalData != null)
 	                {

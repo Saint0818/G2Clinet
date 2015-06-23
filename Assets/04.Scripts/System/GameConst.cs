@@ -72,7 +72,7 @@ public class GameConst
 	public static string[] DistanceNoScoreMedium = {"100","101","102"}; 
 	public static string[] DistanceNoScoreLong = {"100","101","102"}; 
 
-	public static string[] TacticalDataName = {"jumpball0",   //0
+	public static string[] TacticalDataName = {"jumpball0",    //0
 												"jumpball1",   //1
 												"normal",      //2      
 												"tee0",        //3
@@ -83,5 +83,8 @@ public class GameConst
 												"teedefence2", //8
 												"fast0",       //9
 												"fast1",       //10
-												"fast2"};      //11
+												"fast2", 	   //11
+												"center",	   //12
+												"forward",     //13
+												"guard"};      //14
 }

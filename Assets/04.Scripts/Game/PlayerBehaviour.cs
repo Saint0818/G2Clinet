@@ -13,6 +13,13 @@ public delegate bool OnPlayerAction3(PlayerBehaviour player,EPlayerState state);
 
 public delegate void OnPlayerAction4(PlayerBehaviour player, float anger);
 
+public enum EPlayerPostion
+{
+	C = 0, 
+	F = 1, 
+	G = 2
+}
+
 public enum EPlayerState
 {
 	Alleyoop,
@@ -327,6 +334,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
+	public EPlayerPostion Postion;
 
     //Dunk
     private bool isDunk = false;
