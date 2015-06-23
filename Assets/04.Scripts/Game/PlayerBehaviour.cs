@@ -385,9 +385,10 @@ public class PlayerBehaviour : MonoBehaviour
     //PassiveSkill
 	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
 	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
+	
 	//ActiveSkill
 	public TActiveSkill activeSkill = new TActiveSkill();
-//	private float activeTime  = 0;
+	private float activeTime  = 0;
     private bool isHaveMoveDodge = false;
 	private bool isHavePickBall2 = false;
 	public int PickBall2Rate = 0;
@@ -581,24 +582,15 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 		
-//		float time = 0;
-//		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-//		if (clips != null && clips.Length > 0)
-//		{
-//			for (int i=0; i<clips.Length; i++)
-//			{
-//				for(int j=0; j<activeSkills.Count; j++) {
-//					if (clips [i].name.Equals(activeSkills[j]))
-//					if(clips[i].name.Equals(activeSkill.Name))
-//					{
-//						Debug.Log("clips[i].name:" + clips[i].name);
-//						Debug.Log("clips[i].length:" + clips[i].length);
-//						activeTime.Add(clips[i].name, clips[i].length);
-//						activeTime = clips[i].length;
-//					}
-//				}
-//			}
-//		}
+		float time = 0;
+		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+		if (clips != null && clips.Length > 0){
+			for (int i=0; i<clips.Length; i++){
+				if(clips[i].name.Equals(activeSkill.Name)){
+					activeTime = clips[i].length;
+				}
+			}
+		}
 	}
 
     public void InitCurve(GameObject animatorCurve)
@@ -2841,22 +2833,22 @@ public class PlayerBehaviour : MonoBehaviour
             return playerState;
     }
 
-    public float GetActiveTime(string name)
+    public float GetActiveTime()
     {
-        float time = 0;
-        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-        if (clips != null && clips.Length > 0)
-        {
-            for (int i=0; i<clips.Length; i++)
-            {
-                if (clips [i].name.Equals(name))
-                {
-                    time = clips [i].length;
-                }
-            }
-		}
-//        return activeTime;
-		return time;
+//        float time = 0;
+//        AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+//        if (clips != null && clips.Length > 0)
+//        {
+//            for (int i=0; i<clips.Length; i++)
+//            {
+//                if (clips [i].name.Equals(name))
+//                {
+//                    time = clips [i].length;
+//                }
+//            }
+//		}
+        return activeTime;
+//		return time;
     }
 
     public bool IsHaveMoveDodge

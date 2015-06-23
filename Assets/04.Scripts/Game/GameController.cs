@@ -2123,8 +2123,8 @@ public class GameController : KnightSingleton<GameController>
 			
 		IsSkillFirstScore = true;
 		Joysticker.SetAnger(-100);
-		Joysticker.SetInvincible(Joysticker.GetActiveTime(EPlayerState.Dunk20.ToString()));
-		Joysticker.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [0].transform.position);
+		Joysticker.SetInvincible(Joysticker.GetActiveTime());
+		Joysticker.AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Joysticker.activeSkill.Name), CourtMgr.Get.ShootPoint [0].transform.position);
 		Joysticker.GameRecord.Skill++;
     }
 	
