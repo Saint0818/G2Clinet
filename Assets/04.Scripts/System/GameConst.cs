@@ -25,6 +25,9 @@ public class GameConst
 	public const int FakeShootRate = 40;
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
+	public const float CoolDownPushTime = 3;
+	public const float CoolDownSteal = 1.2f;
+	public const float WaitStealTime = 0.5f;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 10;
@@ -68,4 +71,17 @@ public class GameConst
 	public static string[] DistanceNoScoreShort = {"100","101","102"}; 
 	public static string[] DistanceNoScoreMedium = {"100","101","102"}; 
 	public static string[] DistanceNoScoreLong = {"100","101","102"}; 
+
+	public static string[] TacticalDataName = {"jumpball0",   //0
+												"jumpball1",   //1
+												"normal",      //2      
+												"tee0",        //3
+												"tee1",        //4
+												"tee2",        //5
+												"teedefence0", //6
+												"teedefence1", //7
+												"teedefence2", //8
+												"fast0",       //9
+												"fast1",       //10
+												"fast2"};      //11
 }

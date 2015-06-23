@@ -282,7 +282,6 @@ public class PlayerBehaviour : MonoBehaviour
     private float canDunkDis = 30f;
 
     public Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
-    private Queue<TMoveData> FirstMoveQueue = new Queue<TMoveData>();
     public Vector3 Translate;
     public Rigidbody PlayerRigidbody;
     private Animator animator;
@@ -728,9 +727,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (NoAiTime == 0)
         {
-            if (FirstMoveQueue.Count > 0)
-                MoveTo(FirstMoveQueue.Peek(), true);
-            else 
             if (MoveQueue.Count > 0)
                 MoveTo(MoveQueue.Peek());
             else
@@ -1384,7 +1380,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
                 if (Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
                 {
-                    if (Math.Abs(GameController.Get.GetAngle(Data.DefPlayer, this)) >= 30 && 
+                    if (Math.Abs(GetAngle(Data.DefPlayer.transform, this.transform)) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
                     {
                         ResultBool = true;
@@ -1515,9 +1511,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Data.MoveFinish != null)
                     Data.MoveFinish(this, Data.Speedup);
                 
-                if (First && FirstMoveQueue.Count > 0)
-                    FirstMoveQueue.Dequeue();
-                else if (MoveQueue.Count > 0)
+                if (MoveQueue.Count > 0)
                     MoveQueue.Dequeue();
             } else if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
             {                                          
@@ -1541,7 +1535,7 @@ public class PlayerBehaviour : MonoBehaviour
                             rotateTo(MoveTarget.x, MoveTarget.y);
                         }
 
-                        if (Math.Abs(GameController.Get.GetAngle(this, new Vector3(MoveTarget.x, 0, MoveTarget.y))) >= 90)
+                        if (GetAngle(new Vector3(MoveTarget.x, 0, MoveTarget.y)) >= 90)
                             AniState(EPlayerState.Defence1);
                         else
                             AniState(EPlayerState.RunningDefence);
@@ -1680,7 +1674,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (ClearMove)
             {
                 MoveQueue.Clear();
-                FirstMoveQueue.Clear();
             }
 
             WaitMoveTime = 0;
@@ -1696,7 +1689,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void ClearMoveQueue()
     {
         MoveQueue.Clear();
-        FirstMoveQueue.Clear();
     }
 
     private bool IsPassAirMoment = false;
@@ -3132,22 +3124,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public int FirstTargetPosNum
-    {
-        get { return FirstMoveQueue.Count;}
-    }
-
-    public TMoveData FirstTargetPos
-    {
-        set
-        {
-            if (FirstMoveQueue.Count < 2) {
-                FirstMoveQueue.Enqueue(value);
-				GameRecord.PushMove(value.Target);
-			}
-        }
-    }
-
     private void setMovePower(float Value)
     {
         MaxMovePower = Value;
@@ -3173,6 +3149,18 @@ public class PlayerBehaviour : MonoBehaviour
 		isFall = false;
 	}
 
+	private float GetAngle(Vector3 target)
+	{
+		Vector3 relative = this.transform.InverseTransformPoint(target);
+		return Math.Abs(Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg);
+	}
+
+	public float GetAngle(Transform t1, Transform t2)
+	{
+		Vector3 relative = t1.InverseTransformPoint(t2.position);
+		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+	}
+
     public Vector2 GetStealPostion(Vector3 P1, Vector3 P2, int mIndex)
     {
         bool cover = false;
@@ -3184,7 +3172,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (GameController.Get.BallOwner && GameController.Get.BallOwner.DefPlayer && GameController.Get.BallOwner.Index != Index)
         {
-            float angle = Math.Abs(GameController.Get.GetAngle(GameController.Get.BallOwner, GameController.Get.BallOwner.DefPlayer));
+            float angle = Math.Abs(GetAngle(GameController.Get.BallOwner.transform, GameController.Get.BallOwner.DefPlayer.transform));
 
             if (angle > 90)
             {
