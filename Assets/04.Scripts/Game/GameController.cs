@@ -851,9 +851,9 @@ public class GameController : KnightSingleton<GameController>
 				PlayerBehaviour npc = PlayerList[i];
 				if(npc.Team == ETeamKind.Self)
 				{
-					PickBall(ref npc, true);
+					PickBall(ref npc, false);
 					if(npc.DefPlayer != null)
-						PickBall(ref npc.DefPlayer, true);
+						PickBall(ref npc.DefPlayer, false);
 				}
 			}
 		}
@@ -3382,7 +3382,7 @@ public class GameController : KnightSingleton<GameController>
         
 		switch (dir) {
 		case 0: //top ,rebound
-			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3) {
+			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3 && (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) {
 				if (GameStart.Get.TestMode == EGameTest.Rebound || situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) {
 					if (GameStart.Get.TestMode == EGameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
