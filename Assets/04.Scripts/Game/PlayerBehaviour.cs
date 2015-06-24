@@ -271,6 +271,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction4 OnUIAnger = null;
     public OnPlayerAction3 OnDoubleClickMoment = null;
 
+	public string MoveName = "";
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
     public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
@@ -1417,6 +1418,7 @@ public class PlayerBehaviour : MonoBehaviour
         if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block)
         {
             bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
+			MoveName = Data.FileName;
             float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
             SetSpeed(0.3f, 0);
 
