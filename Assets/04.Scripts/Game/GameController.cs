@@ -537,9 +537,9 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 				break;
             case EGameTest.Edit:
-				GameData.Team.Player.SetID(14);		
+				GameData.Team.Player.SetID(34);		
 				GameData.TeamMembers[0].Player.SetID(24);			
-				GameData.TeamMembers[1].Player.SetID(34);
+				GameData.TeamMembers[1].Player.SetID(14);
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], GameData.Team.Player));	
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, BornAy[1], GameData.TeamMembers[0].Player));	
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, BornAy[2], GameData.TeamMembers[1].Player));
