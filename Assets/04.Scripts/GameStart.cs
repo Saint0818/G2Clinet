@@ -33,9 +33,6 @@ public class GameStart : KnightSingleton<GameStart> {
 			//CheckServerData();
 			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
 			break;
-		case ESceneTest.SelectRole:
-			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
-			break;
 		}
 
 		GameData.Init();

@@ -37,8 +37,7 @@ public enum ESceneTest
 {
 	Single,
 	Multi,
-	Release,
-	SelectRole
+	Release
 }
 
 public enum EGameTest
