@@ -298,6 +298,12 @@ public class PlayerPositionEdit : EditorWindow
                 Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy1 [i].x, 0, PosAy1 [i].z));
                 PosAy1 [i].x = v.x;
                 PosAy1 [i].z = v.z;
+
+				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
+				{
+					GameController.Get.EditSetMove(new Vector2(PosAy1 [i].x, PosAy1 [i].z), 0);
+				}
+
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(0);
@@ -322,6 +328,12 @@ public class PlayerPositionEdit : EditorWindow
                 Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy2 [i].x, 0, PosAy2 [i].z));
                 PosAy2 [i].x = v.x;
                 PosAy2 [i].z = v.z;
+
+				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
+				{
+					GameController.Get.EditSetMove(new Vector2(PosAy2 [i].x, PosAy2 [i].z), 1);
+				}
+
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(1);
@@ -346,6 +358,12 @@ public class PlayerPositionEdit : EditorWindow
                 Vector3 v = EditorGUILayout.Vector3Field("(" + (i + 1).ToString() + ")", new Vector3(PosAy3 [i].x, 0, PosAy3 [i].z));
                 PosAy3 [i].x = v.x;
                 PosAy3 [i].z = v.z;
+
+				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
+				{
+					GameController.Get.EditSetMove(new Vector2(PosAy3 [i].x, PosAy3 [i].z), 2);
+				}
+
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
                 {
                     Vector3 Res = GameController.Get.EditGetPosition(2);

@@ -3819,6 +3819,16 @@ public class GameController : KnightSingleton<GameController>
             PlayerList [index].TargetPos = data;
         }
     }
+
+	public void EditSetMove(Vector2 ActionPosition, int index)
+	{
+		if (PlayerList.Count > index)
+		{
+			TMoveData data = new TMoveData(0);
+			data.Target = ActionPosition;
+			PlayerList [index].TargetPos = data;
+		}
+	}
     
     public void EditSetJoysticker(int index)
     {
