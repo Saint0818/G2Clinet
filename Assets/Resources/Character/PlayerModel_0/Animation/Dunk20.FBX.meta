@@ -154,21 +154,28 @@ ModelImporter:
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .200000003
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .194622263
+      - time: .170258686
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
         intParameter: 0
         messageOptions: 0
-      - time: .274007648
+      - time: .306117743
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: .330088466
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
       - time: .333704054
@@ -176,6 +183,13 @@ ModelImporter:
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .567164183
+        functionName: ZoomIn
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .574903905
@@ -199,6 +213,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .700969279
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
+        intParameter: 0
+        messageOptions: 0
       - time: .725772142
         functionName: AnimationEvent
         data: DunkFallBall
@@ -211,27 +232,6 @@ ModelImporter:
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .259061843
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
-        intParameter: 0
-        messageOptions: 0
-      - time: .567164183
-        functionName: ZoomIn
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
-        intParameter: 0
-        messageOptions: 0
-      - time: .688699365
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
       transformMask:
