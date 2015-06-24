@@ -1,12 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
+public enum EZoomType
+{
+	Normal,
+	In,
+	Out
+}
+
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	//Game const
 	private Shake mShake;
-	private float groupOffsetSpeed = 0.02f;
-//	private float zoomNormal = 25;
+	private float groupOffsetSpeed = 0.1f;
+	private float zoomNormal = 25;
+	private float zoomRange = 20;
+	private float zoomTime = 1;
 	private float blankAera = 3.2f;
 	private float lockedFocusAngle = 30f;
 	private float lockedTeeFocusAngle = 50f;
@@ -40,18 +49,15 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	
 	public bool IsBallOnFloor = false;
 	public bool IsLongPass = false;
+	private bool isStartRoom = false;
+	private GameObject skiller;
 
 	//TestTool
 	private GameObject cameraOffsetAeraObj;
 	private GameObject focusMoveAeraObj;
 	private GameObject focusStopAeraObj;
-	
-	private enum ZoomType
-	{
-		In,
-		Out,
-		Normal
-	}
+
+	public EZoomType CrtZoom = EZoomType.Normal;
 
 	public bool UICamVisible
 	{
@@ -92,11 +98,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = scene.ToString();
-
-//			cameraFx.cullingMask = 1 << LayerMask.NameToLayer("Player") | 
-//				1 << LayerMask.NameToLayer("Default") | 
-//					1 << LayerMask.NameToLayer("RealBall") | 
-//					1 << LayerMask.NameToLayer("Scene");
 		}
 	}
 
@@ -135,7 +136,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void InitCamera()
 	{
 		if (cameraGroupObj) {
-//			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
 			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
 			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
 
@@ -147,15 +147,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
-
 		cameraGroupObj.transform.localPosition = Vector3.zero;
-		//
-//		cameraRotationObj.transform.localPosition = startPos;
-//		cameraRotationObj.transform.LookAt(Vector3.zero);
-
 		cameraRotationObj.transform.localPosition = jumpBallPos;
 		cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
-//		cameraRotationObj.transform.LookAt(Vector3.zero);
 
 		if (focusTarget == null) {
 			focusTarget = GameObject.CreatePrimitive (PrimitiveType.Sphere);
@@ -234,16 +228,40 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	    }
     }
 
+	private float crtFieldOfView = 0;
+
 	void FixedUpdate()
     {
 		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.JumpBall)
         	HorizontalCameraHandle();
+
+		if (isStartRoom) {
+			if (CrtZoom == EZoomType.In)
+				crtFieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomRange, zoomTime);
+			else if (CrtZoom == EZoomType.Out)
+				crtFieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomNormal, zoomTime);
+			Debug.Log("crtFieldOfView : " + crtFieldOfView);
+			cameraFx.fieldOfView = crtFieldOfView;
+
+			if(CrtZoom == EZoomType.In) 
+			{
+				if(crtFieldOfView == zoomRange)
+					isStartRoom = false;
+			}
+			else if(CrtZoom == EZoomType.Out)
+			{
+				if(crtFieldOfView == zoomNormal)
+					isStartRoom = false;
+			}
+		}
     }
 
     private void HorizontalCameraHandle()
     {
 		//GroupOffset
-		cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
+		if(curTeam != ETeamKind.Skiller && curTeam != ETeamKind.JumpBall)
+			cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
+
 		CameraOffset();
 		CameraFocus ();
 		if(cameraPlayer && GameController.Get.Joysticker != null) {
@@ -255,18 +273,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void CameraOffset()
 	{
-//		float boardZ = -1 * (cameraMoveAera.y / 2) + blankAera;
-//		float computZ = 0;
-//
-//		if (focusTarget.transform.position.z < boardZ)
-//			computZ = 0;
-//		else
-
+		if (curTeam == ETeamKind.Skiller)
+			return;
 		cameraOffsetRate.x = (11.5f - focusTarget.transform.position.x) / cameraMoveAera.x;
-//				Mathf.Sqrt (Mathf.Pow (11.5f - focusTarget.transform.position.x, 2) + Mathf.Pow (22.5f - focusTarget.transform.position.z, 2));
-//		Debug.Log ("cameraOffsetRate.x : " + (22.5f - focusTarget.transform.position.z));
-
-			
 		cameraOffsetRate.z = (22.5f - focusTarget.transform.position.z) / cameraMoveAera.y;
 		if(cameraOffsetRate.x < 0)
 			cameraOffsetRate.x = 0;
@@ -300,7 +309,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void CameraFocus()
 	{
-		focusObjectOffset (curTeam.GetHashCode());
+		focusObjectOffset ();
+
 		switch (curTeam) {
 
 		case ETeamKind.JumpBall:
@@ -344,6 +354,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				cameraRotationObj.transform.localEulerAngles =  new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
 			}
 			break;
+
+		case ETeamKind.Skiller:
+			focusTarget.transform.position = new Vector3(skiller.transform.position.x , skiller.transform.position.y + 2, skiller.transform.position.z);
+//			cameraRotationObj.transform.LookAt(focusTarget.transform);
+			Lookat(focusTarget, Vector3.zero);
+			break;
 		}
 	}
 
@@ -354,23 +370,39 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
 	}
 
-	private void focusObjectOffset(int team)
+	private void focusObjectOffset()
 	{
-		Vector3 pos;
+		Vector3 pos = Vector3.zero;
 		pos.x = CourtMgr.Get.RealBall.transform.position.x;
 		pos.y = 0;
 
-		if (GameController.Get.IsStart && GameController.Get.BallOwner) {
-			pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
-			if (GameController.Get.BallOwner.Team == 0)
-				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
-			else
-				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
-		} else {
-			if(team == 0)
-				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
-			else
-				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+		switch (curTeam) {
+			case ETeamKind.JumpBall:
+				pos = Vector3.zero;
+				break;
+			case ETeamKind.Self:
+					if(GameController.Get.BallOwner){
+						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
+						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+					}
+					else
+					{
+						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+					}
+					break;
+				case ETeamKind.Npc:
+					if(GameController.Get.BallOwner){
+						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
+						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+					}
+					else
+					{
+						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+					}
+					break;
+				case ETeamKind.Skiller:
+					pos = skiller.transform.position;
+					break;
 		}
 
 		focusTarget.transform.position = Vector3.Slerp(focusTarget.transform.position, pos, focusOffsetSpeed);
@@ -393,5 +425,19 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			result = hit.collider.gameObject;
 		
 		return result;
+	}
+
+	public void SkillShow(GameObject player)
+	{
+		curTeam = ETeamKind.Skiller;
+		skiller = player;
+	}
+
+	public void SetRoomMode(EZoomType z, float t)
+	{
+		CrtZoom = z;
+		zoomTime = t;
+		crtFieldOfView = cameraFx.fieldOfView;
+		isStartRoom = true;
 	}
 }

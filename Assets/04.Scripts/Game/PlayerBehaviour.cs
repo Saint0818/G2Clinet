@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using GameStruct;
+using GameStruct; 
+using Chronos;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
@@ -98,7 +99,8 @@ public enum ETeamKind
 {
 	JumpBall = -1,
     Self = 0,
-    Npc = 1
+    Npc = 1,
+	Skiller = 2
 }
 
 public enum EDefPointKind
@@ -252,6 +254,7 @@ public struct TActiveSkill
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	public Timeline Timer;
     public OnPlayerAction OnShooting = null;
     public OnPlayerAction OnPass = null;
     public OnPlayerAction OnStealMoment = null;
@@ -447,7 +450,27 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 
         ScoreRate = GameStart.Get.ScoreRate;
+
+		if(Timer == null){
+			Timer = gameObject.AddComponent<Timeline>();
+			Timer.mode = TimelineMode.Global;
+			SetTimerKey(ETimerKind.AllPlayer);
+		}
     }
+
+	public void SetTimerKey(ETimerKind key)
+	{
+		Timer.globalClockKey = key.ToString();
+	}
+
+	public void SetTimerTime(float time)
+	{
+		if(time == 0)
+			gameObject.transform.DOPause();
+		else
+			gameObject.transform.DOPlay();
+		//		Timer.timeScale = time;
+	}
 
     public void InitAttr()
     {
@@ -693,6 +716,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
+		if (Timer.state == TimeState.Paused) {
+
+			return;
+		}
+//		Debug.Log ("animatorSpeed : " + gameObject.name + Timer.animatorSpeed.ToString());
+//		Debug.Log ("animationSpeed : " + gameObject.name + Timer.animationSpeed.ToString());
+//		Debug.Log ("State : " + gameObject.name + Timer.state.ToString());
+
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
         CalculationBlock();
@@ -914,7 +945,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (playerDunkCurve != null)
         {
-            dunkCurveTime += Time.deltaTime;
+			dunkCurveTime += Time.deltaTime * Timer.timeScale;
 
             Vector3 position = gameObject.transform.position;
             position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
@@ -925,11 +956,12 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
 //          if (!isDunkZmove && 
-            if (dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.EndMoveTime)
+			if (dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.EndMoveTime && Timer.timeScale != 0)
             {
 //                isDunkZmove = true;
-                gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
-                gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime).SetEase(Ease.Linear);
+				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * 1/Timer.timeScale;
+				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
             }
 
             if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
@@ -956,7 +988,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (playerLayupCurve != null)
         {
-            layupCurveTime += Time.deltaTime;
+			layupCurveTime += Time.deltaTime * Timer.timeScale;
             
             Vector3 position = gameObject.transform.position;
             position.y = playerLayupCurve.aniCurve.Evaluate(layupCurveTime);
@@ -970,8 +1002,9 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isLayupZmove = true;
 				int add = (Team == 0? -1 : 1);
-				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
-                gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime).SetEase(Ease.Linear);
+				float t = (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime) * 1/Timer.timeScale;
+				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, t).SetEase(Ease.Linear);
+				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
             }
             
             if (layupCurveTime >= playerLayupCurve.LifeTime)
@@ -993,14 +1026,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (isRebound && playerReboundCurve != null)
         {
-            reboundCurveTime += Time.deltaTime;
+			reboundCurveTime += Time.deltaTime * Timer.timeScale;
 			if(situation != EGameSituation.JumpBall)
 			{
 				if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
 				{
-					transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2, 
+					transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2 * Timer.timeScale, 
 					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
-					                                 transform.position.z + reboundMove.z * Time.deltaTime * 2);
+					                                 transform.position.z + reboundMove.z * Time.deltaTime * 2 * Timer.timeScale);
 				} else
 					transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
 					                                 playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
@@ -1035,18 +1068,18 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (playerPushCurve != null)
         {
-            pushCurveTime += Time.deltaTime;
+			pushCurveTime += Time.deltaTime * Timer.timeScale;
 
             if (pushCurveTime >= playerPushCurve.StartTime && pushCurveTime <= playerPushCurve.EndTime)
             {
                 switch (playerPushCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule), 0, 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule * Timer.timeScale), 0, 
                                                                 gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
                         break;
                     case AniCurveDirection.Back:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule), 0, 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
                                                                 gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
                         break;
                 }
@@ -1065,7 +1098,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (playerFallCurve != null)
         {
-            fallCurveTime += Time.deltaTime;
+			fallCurveTime += Time.deltaTime * Timer.timeScale;
             
             if (fallCurveTime >= playerFallCurve.StartTime && fallCurveTime <= playerFallCurve.EndTime)
             {
@@ -1095,7 +1128,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (playerPickCurve != null)
         {
-            pickCurveTime += Time.deltaTime;
+			pickCurveTime += Time.deltaTime * Timer.timeScale;
             
             if (pickCurveTime >= playerPickCurve.StartTime && pickCurveTime <= playerPickCurve.EndTime)
             {
@@ -1125,12 +1158,12 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (playerBlockCurve != null)
         {
-            blockCurveTime += Time.deltaTime;
+            blockCurveTime += Time.deltaTime * Timer.timeScale;
 
             if (blockCurveTime < 1f)
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.03f), 
+				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.03f * Timer.timeScale), 
                                                         playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-                                                        gameObject.transform.position.z + (gameObject.transform.forward.z * 0.03f));
+				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.03f * Timer.timeScale));
             else
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, 
                                                             playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
@@ -1148,22 +1181,22 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (isShootJump && playerShootCurve != null)
         {
-            shootJumpCurveTime += Time.deltaTime;
+			shootJumpCurveTime += Time.deltaTime  * Timer.timeScale;
             switch (playerShootCurve.Dir)
             {
                 case AniCurveDirection.Forward:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerShootCurve.DirVaule), 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerShootCurve.DirVaule * Timer.timeScale), 
                                                             playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * playerShootCurve.DirVaule));
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerShootCurve.DirVaule * Timer.timeScale));
                     else
                         gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
                     break;
                 case AniCurveDirection.Back:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerShootCurve.DirVaule), 
+					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerShootCurve.DirVaule * Timer.timeScale), 
                                                             playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * -playerShootCurve.DirVaule));
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerShootCurve.DirVaule * Timer.timeScale));
                     else
                         gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
                     break;
@@ -1260,6 +1293,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void OnJoystickMove(MovingJoystick move, EPlayerState ps)
     {
+		if (Timer.timeScale == 0)
+			return;
+
         if (CanMove || stop || HoldBallCanMove)
         {
 			if(IsFall && GameStart.Get.IsDebugAnimation){
@@ -1298,16 +1334,16 @@ public class PlayerBehaviour : MonoBehaviour
                             
                             if (IsBallOwner)
                             {                       
-                                Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal * Timer.timeScale;
                                 ps = EPlayerState.Dribble1;
                             } else
                             {
                                 ps = EPlayerState.Run0;
                                 if (IsDefence)
                                 {
-                                    Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal;
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal * Timer.timeScale;
                                 } else
-                                    Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal;
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal * Timer.timeScale;
                             }                       
                         } else
                         {
@@ -1315,15 +1351,15 @@ public class PlayerBehaviour : MonoBehaviour
                             SetSpeed(1, 0);
                             if (IsBallOwner)
                             {
-                                Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup;
+								Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup * Timer.timeScale;
                                 ps = EPlayerState.Dribble2;
                             } else
                             {
                                 ps = EPlayerState.Run1;
                                 if (IsDefence)
-                                    Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup;
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup * Timer.timeScale;
                                 else
-                                    Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup;
+									Translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup * Timer.timeScale;
                             }
                         }
 
@@ -2750,6 +2786,24 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
     }
+
+	public void TimeScale(float t)
+	{
+		TimerMgr.Get.ChangeTime (ETimerKind.AllPlayer, t);
+
+	}
+
+	public void ZoomIn(float t)
+	{
+		CameraMgr.Get.SkillShow (gameObject); 
+		CameraMgr.Get.SetRoomMode (EZoomType.In, t); 
+	}
+
+	public void ZoomOut(float t)
+	{
+		CameraMgr.Get.SkillShow (gameObject);
+		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
+	}
 
     public void ResetMove()
     {

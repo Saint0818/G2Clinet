@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3cdac98881af0074a8d3e718017df39c
-timeCreated: 1434340268
+timeCreated: 1435114962
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -150,11 +150,46 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: .0523013175
+        functionName: ZoomIn
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .200000003
+        intParameter: 0
+        messageOptions: 0
+      - time: .194622263
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .5
+        intParameter: 0
+        messageOptions: 0
+      - time: .274007648
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
       - time: .333704054
         functionName: AnimationEvent
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .574903905
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .5
+        intParameter: 0
+        messageOptions: 0
+      - time: .67861712
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
         intParameter: 0
         messageOptions: 0
       - time: .695898056
@@ -176,6 +211,27 @@ ModelImporter:
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .259061843
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
+        intParameter: 0
+        messageOptions: 0
+      - time: .567164183
+        functionName: ZoomIn
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
+        intParameter: 0
+        messageOptions: 0
+      - time: .688699365
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
       transformMask:

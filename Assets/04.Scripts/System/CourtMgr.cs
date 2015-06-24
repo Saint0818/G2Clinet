@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Chronos;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
@@ -351,6 +352,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		crtBasket = Instantiate(Resources.Load(string.Format("Prefab/Stadium/Basket/Basket_{0}", basketIndex))) as GameObject;
 		pveBasketAy[0] = crtBasket.transform.FindChild("Left/Basket").gameObject;
 		pveBasketAy[1] = crtBasket.transform.FindChild("Right/Basket").gameObject;
+
+		for (int i = 0; i < pveBasketAy.Length; i++) {
+			if (!pveBasketAy[i].GetComponent<Timeline>()){
+				Timeline timer = pveBasketAy[i].AddComponent<Timeline> ();
+				timer.mode = TimelineMode.Global;
+				timer.globalClockKey = ETimerKind.AllPlayer.ToString();
+			}
+		}
 		animPos[0] = pveBasketAy[0].transform.localPosition;
 		animPos[1] = pveBasketAy[1].transform.localPosition;
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
