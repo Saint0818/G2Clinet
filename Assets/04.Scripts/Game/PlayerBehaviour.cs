@@ -1467,7 +1467,7 @@ public class PlayerBehaviour : MonoBehaviour
                     else if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
                     {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
-                        if(situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
+                        if((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && GameController.Get.BallOwner != null)
 						{
 							if (dis <= 8)
                             	WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);

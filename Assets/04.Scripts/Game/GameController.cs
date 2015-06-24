@@ -283,12 +283,12 @@ public class GameController : KnightSingleton<GameController>
         TeeBackPosAy [1] = new Vector2(5.3f, 10);
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
-		BornAy [0] = new Vector3 (0, 0, -1);
-		BornAy [1] = new Vector3 (-5, 0, -2);
-		BornAy [2] = new Vector3 (5, 0, -2);
-		BornAy [3] = new Vector3 (0, 0, 1);
-		BornAy [4] = new Vector3 (5, 0, 2);
-		BornAy [5] = new Vector3 (-5, 0, 2);
+		BornAy [0] = new Vector3 (-5, 0, -2);//G_A
+		BornAy [1] = new Vector3 (0, 0, -1);//C_A
+		BornAy [2] = new Vector3 (5, 0, -2);//F_A
+		BornAy [3] = new Vector3 (5, 0, 2);//G_B
+		BornAy [4] = new Vector3 (0, 0, 1);//C_B
+		BornAy [5] = new Vector3 (-5, 0, 2);//F_B
     }
 
     public void InitGame() {
@@ -465,12 +465,21 @@ public class GameController : KnightSingleton<GameController>
 					}
 				}
 
+				//Team A
 				PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
+				PlayerList[aPosAy[0]].transform.position = BornAy[0];
 				PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
+				PlayerList[aPosAy[1]].transform.position = BornAy[1];
 				PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
+				PlayerList[aPosAy[2]].transform.position = BornAy[2];
+
+				//Team B
 				PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
+				PlayerList[bPosAy[0]].transform.position = BornAy[3];
 				PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
+				PlayerList[bPosAy[1]].transform.position = BornAy[4];
 				PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
+				PlayerList[bPosAy[2]].transform.position = BornAy[5];
                 break;
 			case EGameTest.All:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
@@ -1068,7 +1077,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.JumpBall:
 				for(int i = 0; i < PlayerList.Count; i++)
-					if(PlayerList[i].Index == 0)
+					if(PlayerList[i].Postion == EPlayerPostion.C)
 						Rebound(PlayerList[i]);
 				break;
 			case EGameSituation.AttackA:
