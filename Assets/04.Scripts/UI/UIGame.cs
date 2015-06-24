@@ -109,6 +109,8 @@ public class UIGame : UIBase {
 	private UILabel[] labelScores = new UILabel[2];
 	private UIScrollBar aiLevelScrollBar;
 
+	private DrawLine drawLine;
+
 	//FX
 	private float fxTime = 0.3f;
 	private GameObject buttonShootFX;
@@ -317,6 +319,7 @@ public class UIGame : UIBase {
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
 
 		GameObject.Find(UIName + "/Center/ViewPause/ButtonReset").SetActive(false);
+		drawLine = gameObject.AddComponent<DrawLine>();
 	}
 
 	protected override void InitData() {
@@ -334,6 +337,18 @@ public class UIGame : UIBase {
 //		SetLabel(UIName + "/Center/ViewPause/ButtonReset/LabelReset" ,TextConst.S(4));
 //		SetLabel(UIName + "/Center/ViewStart/AISelect/LabelAI" ,TextConst.S(5));
 //		SetLabel(UIName + "/Center/ViewStart/AISelect/AISecLabel" ,TextConst.S(6));
+	}
+
+	public void InitLine() {
+		drawLine.ClearTarget();
+		if (drawLine.UIs.Length == 0) {
+			for (int i = 0; i < 2; i ++) {
+				GameObject obj = GameObject.Find("PlayerInfoModel/Self" + (i+1).ToString());
+				if (obj)
+					drawLine.AddTarget(uiPassObjectGroup[i+1], obj);
+			}
+		}
+		drawLine.Show(true);
 	}
 
 //	IEnumerator WaitForVirtualScreen(){
@@ -656,6 +671,9 @@ public class UIGame : UIBase {
 			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		default:
+			uiPassObjectGroup[0].SetActive(false);
+			uiPassObjectGroup[1].SetActive(false);
+			uiPassObjectGroup[2].SetActive(false);
 			if(GameController.Get.situation == EGameSituation.AttackB || GameController.Get.situation == EGameSituation.TeeBPicking) {
 				viewPass.SetActive(false);
 				GameController.Get.passIcon[0].SetActive(false);
@@ -663,9 +681,6 @@ public class UIGame : UIBase {
 				GameController.Get.passIcon[2].SetActive(false);
 			} else {
 				viewPass.SetActive(true);
-				uiPassObjectGroup[0].SetActive(true);
-				uiPassObjectGroup[1].SetActive(true);
-				uiPassObjectGroup[2].SetActive(true);
 				if(GameController.Get.passIcon[0] != null) {
 					GameController.Get.passIcon[0].SetActive(true);
 					GameController.Get.passIcon[1].SetActive(true);
@@ -961,6 +976,7 @@ public class UIGame : UIBase {
 			
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
+			drawLine.IsShow = false;
 			break;
 		case UISituation.Pause:
 			if (!viewStart.activeInHierarchy) {
@@ -1030,6 +1046,7 @@ public class UIGame : UIBase {
 			InitData ();
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
 			CourtMgr.Get.SetScoreboards (1, Scores [1]);
+			drawLine.IsShow = true;
 			isShowOption = false;
 			isShowScoreBar = false;
 			isAngerFull = false;
@@ -1138,7 +1155,7 @@ public class UIGame : UIBase {
 			if(playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX < 0) {
 				playerScreenPos.x = -610;
 			} else 
-			if(playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX >= 0) {
+			if(playerScreenPos.y > -330 && playerScreenPos.y < 330 && playerInCameraX >= Screen.width) {
 				playerScreenPos.x = 610;
 			} else 
 			if(playerScreenPos.x > 610) {
@@ -1175,7 +1192,7 @@ public class UIGame : UIBase {
 			
 			if(playerInCameraX > -50 &&
 			   playerInCameraX < Screen.width + 100 &&
-			   playerInCameraY > -50 &&
+			   playerInCameraY > -90 &&
 			   playerInCameraY < Screen.height + 100) {
 				uiPlayerLocation.SetActive(false);
 			} else {

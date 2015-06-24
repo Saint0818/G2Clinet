@@ -158,30 +158,6 @@ public struct TMoveData
 }
 
 [System.Serializable]
-public struct TShootAngle {
-	public int CenterShootAngle;
-	public int ForwardShootAngle;
-	public int GuardShootAngle;
-	public int CenterTipInAngle;
-	public int ForwardTipInAngle;
-	public int GuardTipInAngle;
-	public int CenterLayUpAngle;
-	public int ForwardLayUpAngle;
-	public int GuardLayUpAngle;
-	public TShootAngle (int flag){
-		CenterShootAngle = 55;
-		ForwardShootAngle = 55;
-		GuardShootAngle = 55;
-		CenterTipInAngle = 75;
-		ForwardTipInAngle = 75;
-		GuardTipInAngle = 75;
-		CenterLayUpAngle = 55;
-		ForwardLayUpAngle = 55;
-		GuardLayUpAngle = 55;
-	}
-}
-
-[System.Serializable]
 public struct TScoreRate
 {
     public int TwoScoreRate;
@@ -607,11 +583,13 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 		
 		float time = 0;
-		AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
-		if (clips != null && clips.Length > 0){
-			for (int i=0; i<clips.Length; i++){
-				if(clips[i].name.Equals(activeSkill.Name)){
-					activeTime = clips[i].length;
+		if(activeTime != null) {
+			AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+			if (clips != null && clips.Length > 0){
+				for (int i=0; i<clips.Length; i++){
+					if(clips[i].name.Equals(activeSkill.Name)){
+						activeTime = clips[i].length;
+					}
 				}
 			}
 		}
