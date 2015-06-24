@@ -198,7 +198,6 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitCom() {
-
 		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		uiJoystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
 

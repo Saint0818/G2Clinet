@@ -557,6 +557,7 @@ public class GameController : KnightSingleton<GameController>
         }
 
         Joysticker = PlayerList [0];
+		UIGame.Get.InitLine();
 
 		selectMe = setEffectMagager("SelectMe");
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
