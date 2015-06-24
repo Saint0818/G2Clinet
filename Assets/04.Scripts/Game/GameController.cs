@@ -3921,7 +3921,29 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
-			PlayerList [i].transform.position = BornAy [i];
+
+			if(PlayerList[i].Postion == EPlayerPostion.G)
+			{
+				if(PlayerList[i].Team == ETeamKind.Self)
+					PlayerList[i].transform.position = BornAy[0];
+				else
+					PlayerList[i].transform.position = BornAy[3];
+			}
+			else if(PlayerList[i].Postion == EPlayerPostion.C)
+			{
+				if(PlayerList[i].Team == ETeamKind.Self)
+					PlayerList[i].transform.position = BornAy[1];
+				else
+					PlayerList[i].transform.position = BornAy[4];
+			}
+			else
+			{
+				if(PlayerList[i].Team == ETeamKind.Self)
+					PlayerList[i].transform.position = BornAy[2];
+				else
+					PlayerList[i].transform.position = BornAy[5];
+			}
+
 			PlayerList [i].AniState(EPlayerState.Idle);
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
