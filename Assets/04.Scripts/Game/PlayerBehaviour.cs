@@ -457,7 +457,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Attr.PointRate2 = Math.Min(GameData.BaseAttr [Player.AILevel].PointRate2 + (Player.Point2 * 0.5F), 100);
             Attr.PointRate3 = Math.Min(GameData.BaseAttr [Player.AILevel].PointRate3 + (Player.Point3 * 0.5F), 100);
-            Attr.StealRate = Math.Min(GameData.BaseAttr [Player.AILevel].StealRate + (Player.Steal / 12), 100);
+            Attr.StealRate = Math.Min(GameData.BaseAttr [Player.AILevel].StealRate + (Player.Steal / 10), 100);
             Attr.DunkRate = Math.Min(GameData.BaseAttr[Player.AILevel].DunkRate + (Player.Dunk * 0.9f), 100);
             Attr.TipInRate = Math.Min(GameData.BaseAttr[Player.AILevel].TipInRate + (Player.Dunk * 0.9f), 100);
             Attr.AlleyOopRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopRate + (Player.Dunk * 0.7f), 100);
@@ -469,7 +469,7 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Player.AILevel].FaketBlockRate + (100-(Player.Block / 1.15f)), 100);
             Attr.JumpBallRate = Math.Min(GameData.BaseAttr [Player.AILevel].JumpBallRate, 100);
             Attr.PushingRate = Math.Min(GameData.BaseAttr [Player.AILevel].PushingRate + (Player.Defence * 1), 100);
-			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.5f), 100);
+			Attr.PassRate = Math.Min(GameData.BaseAttr[Player.AILevel].PassRate + (Player.Pass * 0.7f), 100);
 			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopPassRate + (Player.Pass * 0.6f), 100);
 			Attr.ReboundHeadDistance = GameData.BaseAttr [Player.AILevel].ReboundHeadDistance + (Player.Rebound / 200);
 			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 50);
