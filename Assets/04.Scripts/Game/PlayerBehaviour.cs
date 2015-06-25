@@ -460,7 +460,7 @@ public class PlayerBehaviour : MonoBehaviour
             Attr.StealRate = Math.Min(GameData.BaseAttr [Player.AILevel].StealRate + (Player.Steal / 10), 100);
             Attr.DunkRate = Math.Min(GameData.BaseAttr[Player.AILevel].DunkRate + (Player.Dunk * 0.9f), 100);
             Attr.TipInRate = Math.Min(GameData.BaseAttr[Player.AILevel].TipInRate + (Player.Dunk * 0.9f), 100);
-            Attr.AlleyOopRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopRate + (Player.Dunk * 0.7f), 100);
+            Attr.AlleyOopRate = Math.Min(GameData.BaseAttr[Player.AILevel].AlleyOopRate + (Player.Dunk * 0.6f), 100);
             Attr.StrengthRate = Math.Min(GameData.BaseAttr[Player.AILevel].StrengthRate + (Player.Strength * 0.9f), 100);
             Attr.BlockPushRate = Math.Min(GameData.BaseAttr[Player.AILevel].BlockPushRate + (Player.Strength * 0.5f), 100);
             Attr.ElbowingRate = Math.Min(GameData.BaseAttr[Player.AILevel].ElbowingRate + (Player.Strength * 0.8f), 100);
