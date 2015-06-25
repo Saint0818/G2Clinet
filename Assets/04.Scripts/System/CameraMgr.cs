@@ -39,7 +39,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;
-//	private GameObject cameraOffsetObj;
+	private GameObject cameraOffsetObj;
 
 	private Camera cameraFx;
 	private Camera cameraPlayer;
@@ -86,6 +86,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void PlayShake() {
 		mShake.Play();
+		AudioMgr.Get.PlaySound (SoundType.Dunk);
 	}
 
 	public void SetCourtCamera(SceneName scene)
@@ -136,11 +137,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void InitCamera()
 	{
 		if (cameraGroupObj) {
+			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
 			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
 			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
 
-			if(!cameraFx.gameObject.GetComponent<Shake>())
-				mShake = cameraFx.gameObject.AddComponent<Shake>();
+			if(!cameraOffsetObj.gameObject.GetComponent<Shake>())
+				mShake = cameraOffsetObj.gameObject.AddComponent<Shake>();
 			
 			cameraRotationObj.transform.position = startPos;
 			smothHight.x = startPos.y;
@@ -228,33 +230,31 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	    }
     }
 
-	private float crtFieldOfView = 0;
-
 	void FixedUpdate()
     {
-		if(SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.JumpBall)
-        	HorizontalCameraHandle();
+		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.JumpBall) {
+			ZoomCalculation();
+			HorizontalCameraHandle();
+		}
+    }
 
+	private void ZoomCalculation()
+	{
 		if (isStartRoom) {
-			if (CrtZoom == EZoomType.In)
-				crtFieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomRange, zoomTime);
-			else if (CrtZoom == EZoomType.Out)
-				crtFieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomNormal, zoomTime);
-			Debug.Log("crtFieldOfView : " + crtFieldOfView);
-			cameraFx.fieldOfView = crtFieldOfView;
+			if (CrtZoom == EZoomType.In){
+				cameraFx.fieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomRange, zoomTime);
 
-			if(CrtZoom == EZoomType.In) 
-			{
-				if(crtFieldOfView == zoomRange)
+				if (Mathf.Approximately(cameraFx.fieldOfView, zoomRange))
 					isStartRoom = false;
 			}
-			else if(CrtZoom == EZoomType.Out)
-			{
-				if(crtFieldOfView == zoomNormal)
+			else if (CrtZoom == EZoomType.Out){
+				cameraFx.fieldOfView = Mathf.Lerp(cameraFx.fieldOfView , zoomNormal, zoomTime);
+
+				if (Mathf.Approximately(cameraFx.fieldOfView, zoomNormal))
 					isStartRoom = false;
 			}
 		}
-    }
+	}
 
     private void HorizontalCameraHandle()
     {
@@ -357,7 +357,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 		case ETeamKind.Skiller:
 			focusTarget.transform.position = new Vector3(skiller.transform.position.x , skiller.transform.position.y + 2, skiller.transform.position.z);
-//			cameraRotationObj.transform.LookAt(focusTarget.transform);
 			Lookat(focusTarget, Vector3.zero);
 			break;
 		}
@@ -437,7 +436,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		CrtZoom = z;
 		zoomTime = t;
-		crtFieldOfView = cameraFx.fieldOfView;
 		isStartRoom = true;
 	}
 }

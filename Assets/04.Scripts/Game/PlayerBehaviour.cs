@@ -933,10 +933,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
-//          if (!isDunkZmove && 
 			if (dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.EndMoveTime && Timer.timeScale != 0)
             {
-//                isDunkZmove = true;
 				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * 1/Timer.timeScale;
 				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
 				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
@@ -949,6 +947,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (dunkCurveTime >= playerDunkCurve.LifeTime)
             {
+				gameObject.transform.DOKill();
                 isDunk = false;
                 IsCanBlock = false;
             }
@@ -2765,10 +2764,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void TimeScale(float t)
+	public void TimeScale(AnimationEvent aniEvent)
 	{
-		TimerMgr.Get.ChangeTime (ETimerKind.AllPlayer, t);
 
+		string stringParm = aniEvent.stringParameter;
+		float floatParam = aniEvent.floatParameter;
+		int intParam = aniEvent.intParameter;
+		
+//		switch(intParam)
+		TimerMgr.Get.ChangeTime (ETimerKind.AllPlayer, floatParam);
 	}
 
 	public void ZoomIn(float t)

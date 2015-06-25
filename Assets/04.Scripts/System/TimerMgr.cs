@@ -6,7 +6,7 @@ using Chronos;
 public enum ETimerKind
 {
 	AllPlayer,
-	ApartFromMe,
+//	ApartFromMe,
 	MySelf
 }
 
