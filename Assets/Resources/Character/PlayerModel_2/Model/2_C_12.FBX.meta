@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: c672a2072b7aeca4a82ed9a8e4162ef0
-timeCreated: 1433743975
+guid: f3147b73cdddd3b47a08d10e2b5b2eae
+timeCreated: 1435201243
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
-    100002: 2_C_10
+    100002: 2_C_12
     100004: Bip01
     100006: Bip01 Head
     100008: Bip01 HeadNub
@@ -59,7 +59,7 @@ ModelImporter:
     100102: DummyHand_R
     100104: DummyHead
     400000: //RootNode
-    400002: 2_C_10
+    400002: 2_C_12
     400004: Bip01
     400006: Bip01 Head
     400008: Bip01 HeadNub
@@ -111,9 +111,9 @@ ModelImporter:
     400100: DummyHand_L
     400102: DummyHand_R
     400104: DummyHead
-    4300000: 2_C_10
+    4300000: 2_C_12
     9500000: //RootNode
-    13700000: 2_C_10
+    13700000: 2_C_12
   materials:
     importMaterials: 0
     materialName: 0
