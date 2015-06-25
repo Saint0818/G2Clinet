@@ -2252,17 +2252,17 @@ public class GameController : KnightSingleton<GameController>
 
 			if(Npc.Attr.PointRate3 >= 0 && Npc.Attr.PointRate3 <= 30)
 			{
-				Shoot3Dis = 2.5f;
+				Shoot3Dis = 3.5f;
 				Shoot3Angel = 40;
 			}
 			else if(Npc.Attr.PointRate3 >= 31 && Npc.Attr.PointRate3 <= 50)
 			{
-				Shoot3Dis = 2.5f;
+				Shoot3Dis = 3.5f;
 				Shoot3Angel = 40;
 			}
 			else
 			{
-				Shoot3Dis = 2.5f;
+				Shoot3Dis = 3.5f;
 				Shoot3Angel = 40;
 			}
             
