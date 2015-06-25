@@ -1438,7 +1438,7 @@ public class GameController : KnightSingleton<GameController>
 			if(Mathf.Abs(angleByPlayerHoop) >= 85)
 				shootAngle = 55;
 			else
-				shootAngle = 70;
+				shootAngle = 75;
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1482,7 +1482,7 @@ public class GameController : KnightSingleton<GameController>
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
 				} else {
 					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.1f,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y,
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
 				}
 

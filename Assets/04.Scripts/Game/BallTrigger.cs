@@ -156,7 +156,7 @@ public class BallTrigger : MonoBehaviour
 	{
 		if (Parabolamove)
 		{
-			if(GameController.Get.Catcher)
+			if(GameController.Get.Catcher && GameController.Get.Passer)
 			{
 				ParabolaTime += Time.deltaTime;
 				float X = 0;
