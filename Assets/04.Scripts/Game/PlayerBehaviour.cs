@@ -475,7 +475,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.ReboundHandDistance = GameData.BaseAttr [Player.AILevel].ReboundHandDistance + (Player.Rebound / 50);
 			Attr.BlockDistance = GameData.BaseAttr [Player.AILevel].BlockDistance + (Player.Block / 100);
             Attr.DefDistance = GameData.BaseAttr [Player.AILevel].DefDistance + (Player.Defence * 0.1f);
-            Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue + (Player.Speed * 0.005f);
+            Attr.SpeedValue = GameData.BaseAttr [Player.AILevel].SpeedValue + (Player.Speed * 0.003f);
             Attr.StaminaValue = GameData.BaseAttr[Player.AILevel].StaminaValue + (Player.Stamina * 1.2f);
             Attr.AutoFollowTime = GameData.BaseAttr [Player.AILevel].AutoFollowTime;
 
