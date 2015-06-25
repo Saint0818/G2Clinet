@@ -357,7 +357,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			if (!pveBasketAy[i].GetComponent<Timeline>()){
 				Timeline timer = pveBasketAy[i].AddComponent<Timeline> ();
 				timer.mode = TimelineMode.Global;
-				timer.globalClockKey = ETimerKind.AllPlayer.ToString();
+				timer.globalClockKey = ETimerKind.Default.ToString();
 			}
 		}
 		animPos[0] = pveBasketAy[0].transform.localPosition;

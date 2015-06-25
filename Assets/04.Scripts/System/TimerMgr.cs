@@ -5,15 +5,19 @@ using Chronos;
 
 public enum ETimerKind
 {
-	AllPlayer,
-//	ApartFromMe,
-	MySelf
+	Default,
+	Player0,
+	Player1,
+	Player2,
+	Player3,
+	Player4,
+	Player5
 }
 
 public class TimerMgr : KnightSingleton<TimerMgr>
 {
 	public Clock playerClock;
-	public ETimerKind SeleckKind = ETimerKind.AllPlayer;
+	public ETimerKind SeleckKind = ETimerKind.Default;
 	public float CrtTime = 1f;
 
 	void Start()
@@ -23,10 +27,11 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
 	public void ChangeTime(ETimerKind key, float value)
 	{
-		GameController.Get.Joysticker.SetTimerKey(SeleckKind);
+//		GameController.Get.Joysticker.SetTimerKey(SeleckKind);
 		CrtTime = value;
+//		Debug.Log("key : " + key.ToString () + "Time : " + value);
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
-		GameController.Get.Joysticker.SetTimerTime(CrtTime);
+//		GameController.Get.Joysticker.SetTimerTime(CrtTime);
 	}
 
 	void OnGUI()

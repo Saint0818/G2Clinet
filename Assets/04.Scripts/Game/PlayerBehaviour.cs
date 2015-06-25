@@ -384,6 +384,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float SlowDownTime = 0;
 	public float DribbleTime = 0;
 	private int angerPower = 0;
+	public ETimerKind CrtTimeKey = ETimerKind.Default;
 
     public void SetAnger(int value)
     {
@@ -427,16 +428,17 @@ public class PlayerBehaviour : MonoBehaviour
 
         ScoreRate = GameStart.Get.ScoreRate;
 
-		if(Timer == null){
-			Timer = gameObject.AddComponent<Timeline>();
-			Timer.mode = TimelineMode.Global;
-			SetTimerKey(ETimerKind.AllPlayer);
-		}
     }
 
 	public void SetTimerKey(ETimerKind key)
 	{
-		Timer.globalClockKey = key.ToString();
+		CrtTimeKey = key;
+		if(Timer == null){
+			Timer = gameObject.AddComponent<Timeline>();
+			Timer.mode = TimelineMode.Global;
+			Timer.globalClockKey = CrtTimeKey.ToString();
+			SetTimerKey( CrtTimeKey);
+		}
 	}
 
 	public void SetTimerTime(float time)
@@ -2766,13 +2768,28 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void TimeScale(AnimationEvent aniEvent)
 	{
-
-		string stringParm = aniEvent.stringParameter;
 		float floatParam = aniEvent.floatParameter;
 		int intParam = aniEvent.intParameter;
-		
-//		switch(intParam)
-		TimerMgr.Get.ChangeTime (ETimerKind.AllPlayer, floatParam);
+
+		switch(intParam){
+			case 0:	//set all
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					TimerMgr.Get.ChangeTime (item, floatParam);
+				break;
+			case 1: //Set myself
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					if(item == CrtTimeKey)
+						TimerMgr.Get.ChangeTime (item, floatParam);
+				break;
+			case 2:	//Set Other 
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					if(item != CrtTimeKey && item != ETimerKind.Default)
+						TimerMgr.Get.ChangeTime (item, floatParam);
+				break;
+			case 3:	//Set Default
+				TimerMgr.Get.ChangeTime (ETimerKind.Default, floatParam);
+				break;
+		}
 	}
 
 	public void ZoomIn(float t)

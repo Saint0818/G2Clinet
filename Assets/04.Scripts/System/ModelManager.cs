@@ -124,6 +124,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		PB.MoveIndex = -1;
 		PB.Player = player;
 		PB.Index = TeamIndex;
+		if(Team == ETeamKind.Self)
+			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", TeamIndex)));
+		else
+			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +TeamIndex)));
+
 		if(TeamIndex == 0)
 			PB.Postion = EPlayerPostion.C;
 		else if(TeamIndex == 1)
