@@ -2247,6 +2247,24 @@ public class GameController : KnightSingleton<GameController>
 			float ShootPointDis = 0;
             Vector3 pos = CourtMgr.Get.ShootPoint [Npc.Team.GetHashCode()].transform.position;
 			PlayerBehaviour man = null;
+			float Shoot3Dis = 2.5f;
+			float Shoot3Angel = 40;
+
+			if(Npc.Attr.PointRate3 >= 0 && Npc.Attr.PointRate3 <= 30)
+			{
+				Shoot3Dis = 2.5f;
+				Shoot3Angel = 40;
+			}
+			else if(Npc.Attr.PointRate3 >= 31 && Npc.Attr.PointRate3 <= 50)
+			{
+				Shoot3Dis = 2.5f;
+				Shoot3Angel = 40;
+			}
+			else
+			{
+				Shoot3Dis = 2.5f;
+				Shoot3Angel = 40;
+			}
             
             if (Npc.Team == ETeamKind.Self)
                 ShootPointDis = getDis(ref Npc, new Vector2(pos.x, pos.z));
@@ -2260,11 +2278,11 @@ public class GameController : KnightSingleton<GameController>
                 {
 					AIShoot(ref Npc);
                 } 
-				else if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc, 1.5f, 40) == 0 || shootRate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
+				else if (ShootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(ref Npc.DefPlayer, 1.5f, 40) == 0 || shootRate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);
 				} 
-				else if (ShootPointDis <= GameConst.TreePointDistance + 1 && (HaveDefPlayer(ref Npc, 10, 90) == 0 || shoot3Rate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
+				else if (ShootPointDis <= GameConst.TreePointDistance + 1 && (HaveDefPlayer(ref Npc.DefPlayer, Shoot3Dis, Shoot3Angel) == 0 || shoot3Rate || Npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref Npc))
                 {
 					AIShoot(ref Npc);				
 				} 
@@ -2723,7 +2741,7 @@ public class GameController : KnightSingleton<GameController>
 		return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 	}
 
-	private TPlayerDisData [] GetPlayerDisAy(PlayerBehaviour Self, bool SameTeam = false)
+	private TPlayerDisData [] GetPlayerDisAy(PlayerBehaviour Self, bool SameTeam = false, bool Angel = false)
 	{
 		TPlayerDisData [] DisAy = null;
 
@@ -2748,7 +2766,10 @@ public class GameController : KnightSingleton<GameController>
 						{
 							if(DisAy[j].Distance == 0)
 							{
-								DisAy[j].Distance = getDis(ref anpc, ref Self);
+								if(Angel)
+									DisAy[j].Distance = Mathf.Abs(GetAngle(Self.transform, anpc.transform));
+								else
+									DisAy[j].Distance = getDis(ref anpc, ref Self);
 								DisAy[j].Player = anpc;
 							}
 						}
@@ -2763,7 +2784,10 @@ public class GameController : KnightSingleton<GameController>
 						{
 							if(DisAy[j].Distance == 0)
 							{
-								DisAy[j].Distance = getDis(ref anpc, ref Self);
+								if(Angel)
+									DisAy[j].Distance = Mathf.Abs(GetAngle(Self.transform, anpc.transform));
+								else
+									DisAy[j].Distance = getDis(ref anpc, ref Self);
 								DisAy[j].Player = anpc;
 							}
 						}
@@ -2797,7 +2821,7 @@ public class GameController : KnightSingleton<GameController>
 //			bool Suc = false;
 			PlayerBehaviour Npc2;
 			int Rate = Random.Range(0, 100);
-			TPlayerDisData [] DisAy = GetPlayerDisAy(Npc);
+			TPlayerDisData [] DisAy = GetPlayerDisAy(Npc, false, true);
 
 			if(DisAy != null)
 			{
