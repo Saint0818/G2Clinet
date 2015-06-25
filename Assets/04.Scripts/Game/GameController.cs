@@ -1435,11 +1435,10 @@ public class GameController : KnightSingleton<GameController>
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(Mathf.Abs(angleByPlayerHoop) >= 100) {
+			if(Mathf.Abs(angleByPlayerHoop) >= 85)
 				shootAngle = 55;
-			} else {
+			else
 				shootAngle = 70;
-			}
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1477,15 +1476,17 @@ public class GameController : KnightSingleton<GameController>
 					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 			} else 
 			if(player.crtState == EPlayerState.TipIn) {
-				#if UNITY_EDITOR
-				UIHint.Get.ShowHint("Swish", Color.yellow);
-				#endif
-				CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-				                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
-				                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
-//				CourtMgr.Get.RealBallRigidbody.velocity = 
-//					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-//					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
+				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
+					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
+					                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
+				} else {
+					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.1f,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
+				}
+
+
 			} else 
 			if(BasketSituationType == EBasketSituation.Swish) {
 				#if UNITY_EDITOR
