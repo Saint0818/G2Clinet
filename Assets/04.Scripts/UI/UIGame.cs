@@ -1067,6 +1067,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[0].SetActive(true);
 			controlButtonGroup[1].SetActive(false);
 			ChangeControl(true);
+			SetPassButton();
 
 			CameraMgr.Get.InitCamera(ETeamKind.JumpBall);
 			break;
