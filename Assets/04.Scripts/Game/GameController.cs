@@ -4058,7 +4058,6 @@ public class GameController : KnightSingleton<GameController>
 
 	private GameObject setEffectMagager (string effectName){
 		GameObject obj = null;
-		Transform t = null;
 		switch (effectName) {
 		case "SkillSign":
 		case "SkillSign01" :
@@ -4070,21 +4069,12 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case "PassMe":
 			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Player.BodyType * 0.3f)), 0), Joysticker.gameObject);
-			t = obj.transform.FindChild("Pass");
-			if(t != null)
-				t.GetComponent<CameraFacingBillboard>().referenceCamera = CameraMgr.Get.CourtCamera;
 			break;
 		case "PassA":
 			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [1].Player.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
-			t = obj.transform.FindChild("Pass");
-			if(t != null)
-				t.GetComponent<CameraFacingBillboard>().referenceCamera = CameraMgr.Get.CourtCamera;
 			break;
 		case "PassB":
 			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [2].Player.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
-			t = obj.transform.FindChild("Pass");
-			if(t != null)
-				t.GetComponent<CameraFacingBillboard>().referenceCamera = CameraMgr.Get.CourtCamera;
 			break;
 		case "SelectA":
 			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, PlayerList [1].gameObject);
