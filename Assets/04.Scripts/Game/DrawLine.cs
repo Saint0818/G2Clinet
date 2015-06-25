@@ -26,9 +26,8 @@ public class DrawLine : MonoBehaviour {
 	public void Awake(){
 		Material mat = Resources.Load("Materials/DrawLine") as Material;
 		line = new VectorLine("Line", new List<Vector2>(), null, lineWidth);
-		line.color = Color.white;
 		line.material = mat;
-		line.capLength = lineWidth*0.3f;
+		line.capLength = lineWidth * 0.3f;
 	}
 	
 	// Update is called once per frame

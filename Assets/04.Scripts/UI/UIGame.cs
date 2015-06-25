@@ -341,11 +341,12 @@ public class UIGame : UIBase {
 	public void InitLine() {
 		drawLine.ClearTarget();
 		if (drawLine.UIs.Length == 0) {
-			for (int i = 0; i < 2; i ++) {
-				GameObject obj = GameObject.Find("PlayerInfoModel/Self" + (i+1).ToString());
-				if (obj)
-					drawLine.AddTarget(uiPassObjectGroup[i+1], obj);
-			}
+			GameObject obj = GameObject.Find("PlayerInfoModel/Self1/PassA");
+			if (obj)
+				drawLine.AddTarget(uiPassObjectGroup[1], obj);
+			obj = GameObject.Find("PlayerInfoModel/Self2/PassB");
+			if (obj)
+				drawLine.AddTarget(uiPassObjectGroup[2], obj);
 		}
 		drawLine.Show(true);
 	}

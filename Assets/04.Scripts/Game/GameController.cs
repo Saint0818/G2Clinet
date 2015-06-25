@@ -557,7 +557,6 @@ public class GameController : KnightSingleton<GameController>
         }
 
         Joysticker = PlayerList [0];
-		UIGame.Get.InitLine();
 
 		selectMe = setEffectMagager("SelectMe");
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
@@ -577,6 +576,7 @@ public class GameController : KnightSingleton<GameController>
 			passIcon[2] = setEffectMagager("PassB");
 			setEffectMagager("SelectB");
 		}
+		UIGame.Get.InitLine();
 
         for (int i = 0; i < PlayerList.Count; i ++)
         {
