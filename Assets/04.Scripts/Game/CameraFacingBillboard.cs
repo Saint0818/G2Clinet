@@ -9,8 +9,9 @@ public class CameraFacingBillboard : MonoBehaviour {
 	}
 
 	void Update(){
-		mTransform.LookAt(transform.position + referenceCamera.transform.rotation * Vector3.forward,
-		                 referenceCamera.transform.rotation * Vector3.up);
+		if(referenceCamera)
+			mTransform.LookAt(transform.position + referenceCamera.transform.rotation * Vector3.forward,
+		    	             referenceCamera.transform.rotation * Vector3.up);
 	}
 
 	public Camera SetCamera{

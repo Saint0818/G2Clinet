@@ -19,6 +19,7 @@ public class ScoreTrigger : MonoBehaviour
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk && 
 			   !GameController.Get.IsAlleyoop && 
+			   GameController.Get.BasketSituationType != EBasketSituation.AirBall && 
 			   (GameController.Get.situation == EGameSituation.AttackA || GameController.Get.situation == EGameSituation.AttackB)) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
