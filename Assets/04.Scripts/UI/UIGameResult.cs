@@ -84,12 +84,12 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnResume() {
-		UIGame.Get.UIState(UISituation.Continue);
+		UIGame.Get.UIState(EUISituation.Continue);
 	}
 
 	public void OnAgain() {
 		Time.timeScale = 1;
-		UIGame.Get.UIState(UISituation.Reset);
+		UIGame.Get.UIState(EUISituation.Reset);
 		UIShow(false);
 	}
 

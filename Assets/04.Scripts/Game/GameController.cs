@@ -257,7 +257,7 @@ public class GameController : KnightSingleton<GameController>
 	public TGameRecord GameRecord = new TGameRecord();
 
 	private float angleByPlayerHoop = 0;
-	private float distanceBallToBasket = 0;
+//	private float distanceBallToBasket = 0;
 
     void Start()
     {
@@ -1433,10 +1433,13 @@ public class GameController : KnightSingleton<GameController>
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(Mathf.Abs(angleByPlayerHoop) >= 85)
-				shootAngle = 55;
-			else
-				shootAngle = 75;
+			if(Mathf.Abs(angleByPlayerHoop) >= 85){
+				if(player.Attribute.BodyType == 0)
+					shootAngle = 30;
+				else
+					shootAngle = 55;
+			} else
+				shootAngle = 80;
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1489,11 +1492,8 @@ public class GameController : KnightSingleton<GameController>
 				UIHint.Get.ShowHint("Swish", Color.yellow);
 				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				distanceBallToBasket = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z), new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z));
-				if(distanceBallToBasket <= 1)
-					shootAngle = 80;
-				else if(distanceBallToBasket > 1 && distanceBallToBasket <= 2)
-					shootAngle = 70;
+//				distanceBallToBasket = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z), new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z));
+//				Debug.Log("distanceBallToBasket : "+distanceBallToBasket);
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
