@@ -29,22 +29,32 @@ public class AnimationEventEditor : EditorWindow {
 	private int baseHeight = 140;
 
 	void OnGUI(){
-		style.normal.textColor = Color.red;
-		
-		GUI.Label(new Rect(0, 0, 300, 30), "Put AnimationClip");
-		
-		GUI.Label(new Rect(0, 30, 100, 20), "AnimationObject:");
-		if(GUI.Button(new Rect (100, 30, 100, 20), "Get Event")) {
+		style.normal.textColor = Color.yellow;
+
+		if(GUI.Button(new Rect (0, 20, 100, 20), "Get Event")) {
 			init();
 			loadEvent();
 		}
-		if(GUI.Button(new Rect (250, 30, 100, 20), "Add Event")) {
+		if(GUI.Button(new Rect (150, 20, 100, 20), "Add Event")) {
 			addEvent();
 		}
-		sourceObject = EditorGUI.ObjectField(new Rect(0, 60, 200, 20), sourceObject, typeof(AnimationClip), true) as AnimationClip;
+		
+		GUI.Label(new Rect(0, 50, 100, 20), "AnimationObject:");
+		sourceObject = EditorGUI.ObjectField(new Rect(100, 50, 200, 20), sourceObject, typeof(AnimationClip), true) as AnimationClip;
+		
+		
+		GUI.Label(new Rect(0, 80, 180, 30), "AnimationClip Totally Length :");
+		if(sourceObject != null)
+			GUI.Label(new Rect(170, 80, 200, 30), (sourceObject.length * 30).ToString());
+		
+		GUI.Label(new Rect(190, 80, 200, 30), "|");
+		GUI.Label(new Rect(200, 80, 200, 30), "AnimationClip Totally Time :");
+		if(sourceObject != null)
+			GUI.Label(new Rect(350, 80, 200, 30), sourceObject.length.ToString());
 
-		GUI.Label(new Rect(0, 120, 100, 20), "AnimationEvent List:", style);
-		scrollPosition = GUI.BeginScrollView(new Rect(0, baseHeight, 450, 400), scrollPosition, new Rect(0, baseHeight, 500, (aryTempEvent.Count * 140)));
+		GUI.Label(new Rect(0, 120, 150, 20), "AnimationEvent List Count:", style);
+		GUI.Label(new Rect(150, 120, 100, 20), aryTempEvent.Count.ToString(), style);
+		scrollPosition = GUI.BeginScrollView(new Rect(0, baseHeight, 530, 400), scrollPosition, new Rect(0, baseHeight, 500, (aryTempEvent.Count * 140)));
 		if(aryTempEvent.Count > 0){
 			for(int i=0; i<aryTempEvent.Count; i++) {
 				GUI.Label(new Rect(0, 140 + 20 + baseHeight * i, 100, 20), "FunctionName");
@@ -71,7 +81,7 @@ public class AnimationEventEditor : EditorWindow {
 				aryTempTime[i] = EditorGUI.FloatField(new Rect(100, 140 + 120 + baseHeight * i, 200, 20), aryTempTime[i]);
 
 				
-				if(GUI.Button(new Rect(320, 140 + 20 + baseHeight * i, 100, 20), "Delete Event")) {
+				if(GUI.Button(new Rect(320, 140 + 20 + baseHeight * i, 180, 20), "Delete Event Index:"+(i+1).ToString())) {
 					deleteEvent(i);
 				}
 				GUI.Label(new Rect(0, 140 + 140 + baseHeight * i, 600, 20), "=====================================================================================================================================");
@@ -90,7 +100,7 @@ public class AnimationEventEditor : EditorWindow {
 				event1.intParameter = aryTempIntParameter[i];
 				event1.stringParameter = aryTempString[i];
 				event1.objectReferenceParameter = aryTempObject[i];
-				event1.time = aryTempTime[i] * sourceObject.length;
+				event1.time = aryTempTime[i];
 				newEvents[i] = event1;
 			}
 			DoAddEventImportedClip(sourceObject, newEvents, sourceObject.length);
@@ -121,7 +131,7 @@ public class AnimationEventEditor : EditorWindow {
 			aryTempIntParameter.Add(aryEvent[i].intParameter);
 			aryTempString.Add(aryEvent[i].stringParameter);
 			aryTempObject.Add(aryEvent[i].objectReferenceParameter);
-			aryTempTime.Add(aryEvent[i].time/ sourceObject.length);
+			aryTempTime.Add(aryEvent[i].time);
 		}
 	}
 
