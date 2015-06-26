@@ -514,6 +514,14 @@ public class UISelectRole : UIBase {
 			Select.transform.localPosition = new Vector3(BtnAy[Index].transform.localPosition.x, 
 			                                             BtnAy[Index].transform.localPosition.y,
 			                                             BtnAy[Index].transform.localPosition.z);
+			for (int i = 0; i < 6; i++) 
+			{
+				if(Index != i)
+					BigHeadAy[i].color = new Color32(107, 107, 107, 255);
+				else
+					BigHeadAy[i].color = new Color32(255, 255, 255, 255);
+			}
+
 			SelectRoleIndex = Index;
 			for(int i = 0; i < LineAy.Length; i++)
 				LineAy[i].fillAmount = 0;
@@ -680,6 +688,14 @@ public class UISelectRole : UIBase {
 		Select.transform.localPosition = new Vector3(BtnAy[SelectRoleIndex].transform.localPosition.x, 
 		                                             BtnAy[SelectRoleIndex].transform.localPosition.y,
 		                                             BtnAy[SelectRoleIndex].transform.localPosition.z);
+
+		for (int i = 0; i < 6; i++) 
+		{
+			if(SelectRoleIndex != i)
+				BigHeadAy[i].color = new Color32(107, 107, 107, 255);
+			else
+				BigHeadAy[i].color = new Color32(255, 255, 255, 255);
+		}
 
 		if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
 		{
