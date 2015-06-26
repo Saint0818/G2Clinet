@@ -1481,9 +1481,7 @@ public class GameController : KnightSingleton<GameController>
 					                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
 				} else {
-					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
+					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 0.2f);
 				}
 
 
