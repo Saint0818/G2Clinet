@@ -48,6 +48,7 @@ public class UIGameResult : UIBase {
 	
 	protected override void InitCom() {
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
+		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
 		SetBtnFun(UIName + "/Center/ViewResult/ButtonNext", OnDetail);
 		SetBtnFun(UIName + "/Center/ResultDetail/ButtonPrev", OnInfo);
@@ -85,6 +86,10 @@ public class UIGameResult : UIBase {
 		Time.timeScale = 1;
 		UIShow(false);
 		SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
+	}
+
+	public void OnResume() {
+		UIGame.Get.UIState(UISituation.Continue);
 	}
 
 	public void OnAgain() {
