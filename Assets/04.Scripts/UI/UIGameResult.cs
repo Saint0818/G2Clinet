@@ -10,9 +10,7 @@ public class UIGameResult : UIBase {
 	private GameObject ResultDetail;
 	private GameObject UIWin;
 	private GameObject UILose;
-	private UITextList textListMe;
-	private UITextList textListA;
-	private UITextList textListB;
+	private UITextList[] recordTextList = new UITextList[0];
 
 	public static bool Visible
 	{
@@ -53,9 +51,6 @@ public class UIGameResult : UIBase {
 		SetBtnFun(UIName + "/Center/ViewResult/ButtonNext", OnDetail);
 		SetBtnFun(UIName + "/Center/ResultDetail/ButtonPrev", OnInfo);
 
-		textListMe = GameObject.Find(UIName + "/Center/ResultDetail/LabelMe/TextList").GetComponent<UITextList>();
-		textListA = GameObject.Find(UIName + "/Center/ResultDetail/LabelA/TextList").GetComponent<UITextList>();
-		textListB = GameObject.Find(UIName + "/Center/ResultDetail/LabelB/TextList").GetComponent<UITextList>();
 		ViewResult = GameObject.Find(UIName + "/Center/ViewResult");
 		ResultDetail = GameObject.Find(UIName + "/Center/ResultDetail");
 		UIWin = GameObject.Find(UIName + "/Top/Title/SpriteWin");
@@ -190,9 +185,8 @@ public class UIGameResult : UIBase {
 	} 
 
 	private void setDetail(ref TGameRecord record) {
-		addDetailString(ref record.PlayerRecords[0], ref textListMe);
-		addDetailString(ref record.PlayerRecords[1], ref textListA);
-		addDetailString(ref record.PlayerRecords[2], ref textListB);
+		for (int i = 0; i < recordTextList.Length; i ++)
+			addDetailString(ref record.PlayerRecords[i], ref recordTextList[i]);
 	}
 
 	public void SetGameRecord(ref TGameRecord record) {
@@ -210,6 +204,31 @@ public class UIGameResult : UIBase {
 		} else {
 			UIWin.SetActive(false);
 			UILose.SetActive(false);
+		}
+
+		if (recordTextList.Length != record.PlayerRecords.Length) {
+			int num = record.PlayerRecords.Length;
+			if (num > 3)
+				num = 3;
+
+			recordTextList = new UITextList[num];
+
+			for (int i = 0; i < recordTextList.Length; i ++) {
+				string name = "";
+				switch (i) {
+				case 0:
+					name = "/Center/ResultDetail/LabelMe/TextList";
+					break;
+				case 1:
+					name = "/Center/ResultDetail/LabelMe/TextList";
+					break;
+				case 2:
+					name = "/Center/ResultDetail/LabelMe/TextList";
+					break;
+				}
+
+				recordTextList[i] = GameObject.Find(UIName + name).GetComponent<UITextList>();
+			}
 		}
 
 		setInfo(ref record);

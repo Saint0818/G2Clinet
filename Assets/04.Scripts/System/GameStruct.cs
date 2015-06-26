@@ -42,18 +42,18 @@ namespace GameStruct
         public string Name;
 		public int Lv;
         public int AILevel;
-		public float Point2;	
-		public float Point3;
-		public float Steal;	
-		public float Speed;
-		public float Dunk;
-		public float Strength;
-		public float Rebound;
-		public float Block;	
-		public float Stamina;	
-		public float Dribble;	
-		public float Defence;
-		public float Pass;
+		public float Point2; //kind1
+		public float Point3; //kind2
+		public float Speed; //kind3
+		public float Stamina; //kind4
+		public float Strength; //kind5
+		public float Dunk; //kind6
+		public float Rebound; //kind7
+		public float Block;	//kind8
+		public float Defence; //kind9
+		public float Steal;	//kind10
+		public float Dribble; //kind11
+		public float Pass; //kind12
 		public int BodyType;
 
 		public TAvatar Avatar;
@@ -92,6 +92,7 @@ namespace GameStruct
 
 		public void SetAttribute() {
 			if (GameData.DPlayers.ContainsKey(ID)) {
+
 				Point2 = GameData.DPlayers[ID].Point2;
 				Point3 = GameData.DPlayers[ID].Point3;
 				Steal = GameData.DPlayers[ID].Steal;
@@ -150,6 +151,65 @@ namespace GameStruct
 				Avatar.Shoes = GameData.DPlayers[ID].Shoes;
 				Avatar.MHandDress = GameData.DPlayers[ID].MHandDress;
 				Avatar.ZBackEquip = GameData.DPlayers[ID].ZBackEquip;
+			}
+		}
+
+		public void AddAttribute(int kind, float value) {
+			switch (kind) {
+			case 1:
+				Point2 += value;
+				break;
+			case 2:
+				Point3 += value;
+				break;
+			case 3:
+				Speed += value;
+				break;
+			case 4:
+				Stamina += value;
+				break;
+			case 5:
+				Strength += value;
+				break;
+			case 6:
+				Dunk += value;
+				break;
+			case 7:
+				Rebound += value;
+				break;
+			case 8:
+				Block += value;
+				break;
+			case 9:
+				Defence += value;
+				break;
+			case 10:
+				Steal += value;
+				break;
+			case 11:
+				Dribble += value;
+				break;
+			case 12:
+				Pass += value;
+				break;
+			}
+		}
+
+		public int MaxAnger {
+			get {
+				if (GameData.SkillData.ContainsKey(ActiveSkill.ID))
+					return GameData.SkillData[ActiveSkill.ID].MaxAnger;
+				else
+					return 0;
+			}
+		}
+
+		public string SkillAnimation {
+			get {
+				if (GameData.SkillData.ContainsKey(ActiveSkill.ID))
+					return GameData.SkillData[ActiveSkill.ID].Animation;
+				else
+					return "";
 			}
 		}
     }
@@ -457,23 +517,27 @@ namespace GameStruct
 		public int PictureNo;
 		public string NameTW;
 		public string NameEN;
-		private string name;
+		public string name;
 		public string ExplainTW;
 		public string ExplainEN;
-		private string explain;
-		public int Space;
-		public int AddSpace;
-		public float LifeTime;
-		public int Role;
+		public string explain;
+		public int space;
+		public int spaceAdd;
+		public float lifeTime;
+		public float lifeTimeAdd;
 		public int AttrKind;
-		public float BaseValue;
-		public int BaseRate;
-		public int AddRate;
+		public float ValueBase;
+		public float ValueAdd;
+		public int rate;
+		public int rateAdd;
 		public string Animation;
 		public int Effect;
+		public int TargetKind;
 		public int TargetEffect;
 		public int TargetAnimation;
-		
+		public float distance;
+		public float distanceAdd;
+		public int MaxAnger;
 		
 		public string Name
 		{
@@ -509,6 +573,26 @@ namespace GameStruct
 				}
 				return explain;
 			}
+		}
+
+		public float Value(int lv) {
+			return ValueBase + lv * ValueAdd;
+		}
+
+		public int Space(int lv) {
+			return space + lv * spaceAdd;
+		}
+
+		public float LifeTime(int lv) {
+			return lifeTime + lv * lifeTimeAdd;
+		}
+
+		public int Rate(int lv) {
+			return rate + lv * rateAdd;
+		}
+
+		public float Distance(int lv) {
+			return distance + lv * distanceAdd;
 		}
 	}
 }

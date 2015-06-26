@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -122,7 +122,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 		PB.Team = Team;
 		PB.MoveIndex = -1;
-		PB.Player = player;
+		PB.Attribute = player;
 		PB.Index = TeamIndex;
 		if(Team == ETeamKind.Self)
 			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", TeamIndex)));

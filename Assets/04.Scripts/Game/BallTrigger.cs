@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -125,7 +125,7 @@ public class BallTrigger : MonoBehaviour
 				Parabolamove = true;
 				Parabolatarget = CourtMgr.Get.RealBall.transform.position;
 				ParabolaDis = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Catcher.transform.position); 
-				switch(GameController.Get.Passer.Player.BodyType)
+				switch(GameController.Get.Passer.Attribute.BodyType)
 				{
 				case 0:
 					BallHeight = CourtMgr.Get.RealBallCurve.Ball_Type0;
