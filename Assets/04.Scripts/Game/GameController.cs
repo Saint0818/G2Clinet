@@ -2921,7 +2921,7 @@ public class GameController : KnightSingleton<GameController>
 						
 						float mAngle = GetAngle(Npc.transform, PlayerList [i].transform);
 						
-						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 90)
+						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70)
 						{
 							if (Rate < BlockRate)
 							{
