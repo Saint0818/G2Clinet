@@ -2769,6 +2769,7 @@ public class GameController : KnightSingleton<GameController>
 								else
 									DisAy[j].Distance = getDis(ref anpc, ref Self);
 								DisAy[j].Player = anpc;
+								break;
 							}
 						}
 					}
@@ -2787,6 +2788,7 @@ public class GameController : KnightSingleton<GameController>
 								else
 									DisAy[j].Distance = getDis(ref anpc, ref Self);
 								DisAy[j].Player = anpc;
+								break;
 							}
 						}
 					}
