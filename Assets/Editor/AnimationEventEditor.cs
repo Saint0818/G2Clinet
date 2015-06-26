@@ -45,15 +45,15 @@ public class AnimationEventEditor : EditorWindow {
 		
 		GUI.Label(new Rect(0, 80, 180, 30), "AnimationClip Totally Length :");
 		if(sourceObject != null)
-			GUI.Label(new Rect(170, 80, 200, 30), (sourceObject.length * 30).ToString());
+			GUI.Label(new Rect(180, 80, 50, 30), (sourceObject.length * 30).ToString());
 		
-		GUI.Label(new Rect(190, 80, 200, 30), "|");
-		GUI.Label(new Rect(200, 80, 200, 30), "AnimationClip Totally Time :");
+		GUI.Label(new Rect(230, 80, 10, 30), "|");
+		GUI.Label(new Rect(240, 80, 200, 30), "AnimationClip Totally Time :");
 		if(sourceObject != null)
-			GUI.Label(new Rect(350, 80, 200, 30), sourceObject.length.ToString());
+			GUI.Label(new Rect(400, 80, 200, 30), sourceObject.length.ToString());
 
 		GUI.Label(new Rect(0, 120, 150, 20), "AnimationEvent List Count:", style);
-		GUI.Label(new Rect(150, 120, 100, 20), aryTempEvent.Count.ToString(), style);
+		GUI.Label(new Rect(160, 120, 100, 20), aryTempEvent.Count.ToString(), style);
 		scrollPosition = GUI.BeginScrollView(new Rect(0, baseHeight, 530, 400), scrollPosition, new Rect(0, baseHeight, 500, (aryTempEvent.Count * 140)));
 		if(aryTempEvent.Count > 0){
 			for(int i=0; i<aryTempEvent.Count; i++) {
