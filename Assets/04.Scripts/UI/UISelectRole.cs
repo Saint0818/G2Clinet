@@ -54,6 +54,10 @@ public class UISelectRole : UIBase {
 	private float [] OldValueAy = new float[12];
 	private float [] NewValueAy = new float[12];
 	private UISprite [] BigHeadAy = new UISprite[6]; 
+	private GameObject [] NamePicAy = new GameObject[6]; 
+
+	private float [] OldNameValueAy = new float[6];
+	private float [] NewNameValueAy = new float[6];
 
 	public static bool Visible
 	{
@@ -102,6 +106,7 @@ public class UISelectRole : UIBase {
 			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
 			BigHeadAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
 			BigHeadAy[i].spriteName = GameData.DPlayers[RoleIDAy[i]].Name;
+			NamePicAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/Sprite");
 			BtnAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 			LineAy[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteLine").GetComponent<UISprite>();
 			LineAy[i].fillAmount = 0;
@@ -517,9 +522,15 @@ public class UISelectRole : UIBase {
 			for (int i = 0; i < 6; i++) 
 			{
 				if(Index != i)
+				{
 					BigHeadAy[i].color = new Color32(107, 107, 107, 255);
+					NewNameValueAy[i] = 0;
+				}
 				else
+				{
 					BigHeadAy[i].color = new Color32(255, 255, 255, 255);
+					NewNameValueAy[i] = -80;
+				}
 			}
 
 			SelectRoleIndex = Index;
@@ -692,9 +703,15 @@ public class UISelectRole : UIBase {
 		for (int i = 0; i < 6; i++) 
 		{
 			if(SelectRoleIndex != i)
+			{
 				BigHeadAy[i].color = new Color32(107, 107, 107, 255);
+				NewNameValueAy[i] = 0;
+			}
 			else
+			{
 				BigHeadAy[i].color = new Color32(255, 255, 255, 255);
+				NewNameValueAy[i] = -80;
+			}
 		}
 
 		if(GameData.DPlayers.ContainsKey(SelectIDAy [0]))
@@ -756,6 +773,23 @@ public class UISelectRole : UIBase {
 				{
 					SetSubAttr(i, OldValueAy[i] + 1);
 					OldValueAy[i] += 1;
+				}
+			}
+		}
+
+		for(int i = 0; i < OldNameValueAy.Length; i++)
+		{
+			if(OldNameValueAy[i] != NewNameValueAy[i])
+			{
+				if(OldNameValueAy[i] > NewNameValueAy[i])
+				{
+					OldNameValueAy[i] -= 10;
+					NamePicAy[i].transform.localPosition = new Vector3(0, OldNameValueAy[i], 0);
+				}
+				else
+				{
+					OldNameValueAy[i] += 10;
+					NamePicAy[i].transform.localPosition = new Vector3(0, OldNameValueAy[i], 0);
 				}
 			}
 		}
