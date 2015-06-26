@@ -765,7 +765,8 @@ public class UISelectRole : UIBase {
 				axisX = -Input.GetAxis ("Mouse X");
 				#endif
 				#endif
-				PlayerObjAy[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
+				if(!CharacterInfo.activeInHierarchy)
+					PlayerObjAy[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
 			} 
 		}
 	}
