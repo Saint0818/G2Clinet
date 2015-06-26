@@ -30,7 +30,7 @@ public class BlockTrigger : MonoBehaviour {
 								}
 							} else {
 								faller.AniState(EPlayerState.Fall1);
-								gameObject.SetActive (false);
+//								gameObject.SetActive (false);
 							}
 						}
 				}
