@@ -1433,12 +1433,9 @@ public class GameController : KnightSingleton<GameController>
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(Mathf.Abs(angleByPlayerHoop) >= 85){
-				if(player.Attribute.BodyType == 0)
-					shootAngle = 30;
-				else
-					shootAngle = 55;
-			} else
+			if(Mathf.Abs(angleByPlayerHoop) >= 85)
+				shootAngle = 55;
+			else
 				shootAngle = 80;
 
 			if(player.crtState == EPlayerState.TipIn){

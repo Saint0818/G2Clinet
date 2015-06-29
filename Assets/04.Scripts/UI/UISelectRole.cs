@@ -5,11 +5,6 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening; 
 
-public struct TSelectAttrData{
-	public UISlider Slider;
-	public UILabel Value;
-}
-
 public enum EUIRoleSituation {
 	ListA = 1,
 	ListB = 2,
@@ -27,6 +22,7 @@ public class UISelectRole : UIBase {
 	//	private TAvatar[]  arrayAvatar;
 	public static int [] arrayRoleID = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 	public GameObject playerInfoModel = null;
+	private TGreatPlayer data ;
 	private int [] arraySelectID = new int[3];
 	private TPlayer [] arrayPlayerData = new TPlayer[3];
 	private Vector3 [] arrayPlayerPosition = new Vector3[3];
@@ -39,9 +35,6 @@ public class UISelectRole : UIBase {
 	private GameObject uiOK;
 	private GameObject uiSelect;
 	private GameObject uiInfoRange;
-	private GameObject uiCharacterInfo;
-	private GameObject uiPlayerName;
-	private GameObject uiPlayerBody;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
@@ -61,12 +54,9 @@ public class UISelectRole : UIBase {
 	private int [] arrayUnSelectID = new int[3];
 	private Animator [] arrayAnimator = new Animator[3];
 	private string [] arrayAnimatorName = new string[1]{""};
-	private float [] arrayOldValue = new float[12];
-	private float [] arrayNewValue = new float[12];
 	private GameObject [] arrayNamePic = new GameObject[6]; 
 	private float [] arrayOldNameValue = new float[6];
 	private float [] arrayNewNameValue = new float[6];
-	private TSelectAttrData [] arraySelectAttrData = new TSelectAttrData[12];
 
 	private int maxValue = 100;
 	private float value = 0;
@@ -111,18 +101,6 @@ public class UISelectRole : UIBase {
 				spritesLine[SelectRoleIndex].fillAmount += 0.1f;		
 		}
 		
-		for(int i = 0; i < arrayOldValue.Length; i++) {
-			if(arrayOldValue[i] != arrayNewValue[i]) {
-				if(arrayOldValue[i] > arrayNewValue[i]) {
-					setSubAttr(i, arrayOldValue[i] - 1);
-					arrayOldValue[i] -= 1;
-				} else {
-					setSubAttr(i, arrayOldValue[i] + 1);
-					arrayOldValue[i] += 1;
-				}
-			}
-		}
-		
 		for(int i = 0; i < arrayOldNameValue.Length; i++) {
 			if(arrayOldNameValue[i] != arrayNewNameValue[i]) {
 				if(arrayOldNameValue[i] > arrayNewNameValue[i]) {
@@ -154,7 +132,7 @@ public class UISelectRole : UIBase {
 				axisX = -Input.GetAxis ("Mouse X");
 				#endif
 				#endif
-				if(!uiCharacterInfo.activeInHierarchy)
+				if(!UICharacterInfo.Visible)
 					arrayPlayer[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
 			} 
 		}
@@ -190,12 +168,6 @@ public class UISelectRole : UIBase {
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
 		uiOK = GameObject.Find (UIName + "/Right/CharacterCheck");
 		uiInfoRange = GameObject.Find (UIName + "/Right/InfoRange");
-		uiCharacterInfo = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo");
-		uiCharacterInfo.SetActive (false);
-		uiPlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName");
-		uiPlayerName.SetActive (true);
-		uiPlayerBody = GameObject.Find (UIName + "/Right/InfoRange/BodyType");
-		uiPlayerBody.SetActive (true);
 
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
 		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;
@@ -206,33 +178,7 @@ public class UISelectRole : UIBase {
 		labelsSelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
 		spritesSelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/SpriteTypeB").GetComponent<UISprite>();
 
-		arraySelectAttrData [0].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/2Point").GetComponent<UISlider>();
-		arraySelectAttrData [0].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/2Point/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [1].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/3Point").GetComponent<UISlider>();
-		arraySelectAttrData [1].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/3Point/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [2].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Speed").GetComponent<UISlider>();
-		arraySelectAttrData [2].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Speed/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [3].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Stamina").GetComponent<UISlider>();
-		arraySelectAttrData [3].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Stamina/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [4].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Rebound").GetComponent<UISlider>();
-		arraySelectAttrData [4].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Rebound/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [5].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dunk").GetComponent<UISlider>();
-		arraySelectAttrData [5].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dunk/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [6].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Block").GetComponent<UISlider>();
-		arraySelectAttrData [6].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Block/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [7].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Strength").GetComponent<UISlider>();
-		arraySelectAttrData [7].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Strength/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [8].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Defence").GetComponent<UISlider>();
-		arraySelectAttrData [8].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Defence/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [9].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Steal").GetComponent<UISlider>();
-		arraySelectAttrData [9].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Steal/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [10].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dribble").GetComponent<UISlider>();
-		arraySelectAttrData [10].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Dribble/LabelValue").GetComponent<UILabel>();
-		arraySelectAttrData [11].Slider = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Pass").GetComponent<UISlider>();
-		arraySelectAttrData [11].Value = GameObject.Find (UIName + "/Right/InfoRange/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
-
 		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
-		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/CharacterInfo")).onClick = OnClickSixAttr;
 
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
 			labelsSelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
@@ -322,91 +268,13 @@ public class UISelectRole : UIBase {
 
 		changeBigHead(SelectRoleIndex);
 		
-		if(GameData.DPlayers.ContainsKey(arraySelectID [0])) {
-			TGreatPlayer data = GameData.DPlayers[arraySelectID [0]];
-			
-			value = data.Strength + data.Block;
-			UITriangle.Get.ChangeValue (0, value / 2 / maxValue);
-			
-			value = data.Defence + data.Steal;
-			UITriangle.Get.ChangeValue (1, value / 2 / maxValue);
-			
-			value = data.Dribble + data.Pass;
-			UITriangle.Get.ChangeValue (2, value / 2 / maxValue);
-			
-			value = data.Speed + data.Stamina;
-			UITriangle.Get.ChangeValue (3, value / 2 / maxValue);
-			
-			value = data.Point2 + data.Point3;
-			UITriangle.Get.ChangeValue (4, value / 2 / maxValue);
-			
-			value = data.Rebound + data.Dunk;
-			UITriangle.Get.ChangeValue (5, value / 2 / maxValue);
-			setAttr(data);
-		}
-	}
-
-	private void setSubAttr(int Index, float Value) {
-		arraySelectAttrData [Index].Slider.value = 0;//Value / 100;
-		arraySelectAttrData [Index].Value.text = Value.ToString ();
-	}
-
-	private void setAttr(TGreatPlayer data) {
-		if(arrayOldValue[0] == 0) {
-			arrayOldValue[0] = data.Point2;
-			arrayNewValue[0] = data.Point2;
-			setSubAttr(0, data.Point2);
-			arrayOldValue[1] = data.Point3;
-			arrayNewValue[1] = data.Point3;
-			setSubAttr(1, data.Point3);
-			arrayOldValue[2] = data.Speed;
-			arrayNewValue[2] = data.Speed;
-			setSubAttr(2, data.Speed);
-			arrayOldValue[3] = data.Stamina;
-			arrayNewValue[3] = data.Stamina;
-			setSubAttr(3, data.Stamina);
-			arrayOldValue[4] = data.Rebound;
-			arrayNewValue[4] = data.Rebound;
-			setSubAttr(4, data.Rebound);
-			arrayOldValue[5] = data.Dunk;
-			arrayNewValue[5] = data.Dunk;
-			setSubAttr(5, data.Dunk);
-			arrayOldValue[6] = data.Block;
-			arrayNewValue[6] = data.Block;
-			setSubAttr(6, data.Block);
-			arrayOldValue[7] = data.Strength;
-			arrayNewValue[7] = data.Strength;
-			setSubAttr(7, data.Strength);
-			arrayOldValue[8] = data.Defence;
-			arrayNewValue[8] = data.Defence;
-			setSubAttr(8, data.Defence);
-			arrayOldValue[9] = data.Steal;
-			arrayNewValue[9] = data.Steal;
-			setSubAttr(9, data.Steal);
-			arrayOldValue[10] = data.Dribble;
-			arrayNewValue[10] = data.Dribble;
-			setSubAttr(10, data.Dribble);
-			arrayOldValue[11] = data.Pass;
-			arrayNewValue[11] = data.Pass;
-			setSubAttr(11, data.Pass);
-		} else {
-			arrayNewValue[0] = data.Point2;
-			arrayNewValue[1] = data.Point3;
-			arrayNewValue[2] = data.Speed;
-			arrayNewValue[3] = data.Stamina;
-			arrayNewValue[4] = data.Rebound;
-			arrayNewValue[5] = data.Dunk;
-			arrayNewValue[6] = data.Block;
-			arrayNewValue[7] = data.Strength;
-			arrayNewValue[8] = data.Defence;
-			arrayNewValue[9] = data.Steal;
-			arrayNewValue[10] = data.Dribble;
-			arrayNewValue[11] = data.Pass;
-		}
+		setTriangleData();
 	}
 
 	public void OnClickSixAttr(GameObject obj) {
-		uiCharacterInfo.SetActive (!uiCharacterInfo.activeInHierarchy);
+		UICharacterInfo.Get.SetAttribute(data);
+		UICharacterInfo.Get.transform.localPosition = new Vector3(500, 0, -130);
+		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 	}
 	
 	public void DoBackToSelectMe() {
@@ -566,40 +434,47 @@ public class UISelectRole : UIBase {
 		}
 	}
 
+	private void setTriangleData (){
+		if(GameData.DPlayers.ContainsKey(arraySelectID [0])) {
+			data = GameData.DPlayers[arraySelectID [0]];
+			
+			value = data.Strength + data.Block;
+			UITriangle.Get.ChangeValue (0, value / 2 / maxValue);
+			
+			value = data.Defence + data.Steal;
+			UITriangle.Get.ChangeValue (1, value / 2 / maxValue);
+			
+			value = data.Dribble + data.Pass;
+			UITriangle.Get.ChangeValue (2, value / 2 / maxValue);
+			
+			value = data.Speed + data.Stamina;
+			UITriangle.Get.ChangeValue (3, value / 2 / maxValue);
+			
+			value = data.Point2 + data.Point3;
+			UITriangle.Get.ChangeValue (4, value / 2 / maxValue);
+			
+			value = data.Rebound + data.Dunk;
+			UITriangle.Get.ChangeValue (5, value / 2 / maxValue);
+		}
+	}
+
 	private void UIState(EUIRoleSituation state) {
 		switch (state) {
 		case EUIRoleSituation.SelectRole:{
-			int Index;
-			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out Index)) {
-				changeBigHead(Index);
-				
-				SelectRoleIndex = Index;
-				for(int i = 0; i < spritesLine.Length; i++)
-					spritesLine[i].fillAmount = 0;
-				setPlayerAvatar(0, Index);
-				arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-				playAnimator(0, arrayAnimatorName[UnityEngine.Random.Range(0, arrayAnimatorName.Length)]);
-				if(GameData.DPlayers.ContainsKey(arraySelectID [0])) {
-					TGreatPlayer data = GameData.DPlayers[arraySelectID [0]];
+			UICharacterInfo.UIShow(false);
+			int index;
+			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out index)) {
+				if(SelectRoleIndex != index) {
+					changeBigHead(index);
+					SelectRoleIndex = index;
+					for(int i = 0; i < spritesLine.Length; i++)
+						spritesLine[i].fillAmount = 0;
+
+					setPlayerAvatar(0, index);
+					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
+					playAnimator(0, arrayAnimatorName[UnityEngine.Random.Range(0, arrayAnimatorName.Length)]);
 					
-					value = data.Strength + data.Block;
-					UITriangle.Get.ChangeValue (0, value / 2 / maxValue);
-					
-					value = data.Defence + data.Steal;
-					UITriangle.Get.ChangeValue (1, value / 2 / maxValue);
-					
-					value = data.Dribble + data.Pass;
-					UITriangle.Get.ChangeValue (2, value / 2 / maxValue);
-					
-					value = data.Speed + data.Stamina;
-					UITriangle.Get.ChangeValue (3, value / 2 / maxValue);
-					
-					value = data.Point2 + data.Point3;
-					UITriangle.Get.ChangeValue (4, value / 2 / maxValue);
-					
-					value = data.Rebound + data.Dunk;
-					UITriangle.Get.ChangeValue (5, value / 2 / maxValue);
-					setAttr(data);
+					setTriangleData ();
 				}
 			}
 		}
@@ -615,8 +490,6 @@ public class UISelectRole : UIBase {
 
 			uiOK.SetActive (false);
 			uiInfoRange.SetActive (false);
-			uiPlayerName.SetActive (false);
-			uiPlayerBody.SetActive (false);
 			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			
 			int RanID;
@@ -676,8 +549,6 @@ public class UISelectRole : UIBase {
 
 			uiOK.SetActive (true);
 			uiInfoRange.SetActive (true);
-			uiPlayerName.SetActive (true);
-			uiPlayerBody.SetActive (true);
 			
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
 				arrayPlayer[i].SetActive(false);

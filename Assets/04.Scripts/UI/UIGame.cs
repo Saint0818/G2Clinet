@@ -12,7 +12,8 @@ public enum EUISituation{
 	MainMenu,
 	EffectSwitch,
 	OptionSelect,
-	MusicSwitch
+	MusicSwitch, 
+	AITimeChange
 }
 
 public enum EUIControl {
@@ -68,6 +69,7 @@ public class UIGame : UIBase {
 	private GameObject viewPass;
 	private GameObject viewPause;
 	private GameObject viewBottomRight;
+	private GameObject viewAISelect;
 
 	private GameObject uiScoreBar;
 	private GameObject buttonSkill;
@@ -217,7 +219,9 @@ public class UIGame : UIBase {
 		labelScores [0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<UILabel>();
 		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
 
-		aiLevelScrollBar = GameObject.Find(UIName + "/Center/ViewStart/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+		aiLevelScrollBar = GameObject.Find (UIName + "/Center/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+		viewAISelect = GameObject.Find (UIName + "/Center/AISelect");
+		viewAISelect.SetActive(false);
 
 		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
 		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
@@ -266,10 +270,12 @@ public class UIGame : UIBase {
 
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
 		SetBtnFun (UIName + "/Center/ViewStart/ButtonStart", StartGame);
+		SetBtnFun (UIName + "/Center/AISelect/ButtonClose", AITimeChange);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
+		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonAITime", AITimeChange);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
 		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
@@ -416,6 +422,10 @@ public class UIGame : UIBase {
 
 	public void MusicSwitch(){
 		UIState(EUISituation.MusicSwitch);
+	}
+
+	public void AITimeChange (){
+		UIState(EUISituation.AITimeChange);
 	}
 
 	public void ShowSkillUI (bool isShow, bool angerFull = false, bool canUse = false){
@@ -904,6 +914,8 @@ public class UIGame : UIBase {
 				viewPause.SetActive(false);
 				viewOption.SetActive(false);
 				viewBottomRight.SetActive(true);
+				viewAISelect.SetActive(false);
+
 				uiSkill.SetActive(true);
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(true);
@@ -975,6 +987,11 @@ public class UIGame : UIBase {
 			AudioMgr.Get.MusicOn(isMusicOn);
 			musicGroup[0].SetActive(isMusicOn);
 			musicGroup[1].SetActive(!isMusicOn);
+			break;
+		case EUISituation.AITimeChange:
+			GameController.Get.Joysticker.SetNoAiTime();
+			UIGameResult.UIShow(viewAISelect.gameObject.activeInHierarchy);
+			viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
 			break;
 		}
 		AudioMgr.Get.PauseGame();
