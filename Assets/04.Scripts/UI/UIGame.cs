@@ -151,14 +151,7 @@ public class UIGame : UIBase {
 		
 		if(isPressA && isPressB)
 			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
-//		if (Input.GetMouseButtonUp(0)) {
-//			isPressShootBtn = false;
-//			if(UICamera.hoveredObject.name.Equals("ButtonObjectA")) {
-//				DoPassTeammateA();
-//			} else if (UICamera.hoveredObject.name.Equals("ButtonObjectB")) {
-//				DoPassTeammateB();
-//			}
-//		}
+
 		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
