@@ -11,6 +11,7 @@ public class UIGameResult : UIBase {
 	private GameObject ViewResult;
 	private GameObject ResultDetail;
 	private GameObject buttonResume;
+	private GameObject UISelect;
 	private GameObject UIWin;
 	private GameObject UILose;
 	private UITextList[] recordTextList = new UITextList[0];
@@ -60,6 +61,7 @@ public class UIGameResult : UIBase {
 		ViewResult = GameObject.Find(UIName + "/Center/ViewResult");
 		ResultDetail = GameObject.Find(UIName + "/Center/ResultDetail");
 		buttonResume = GameObject.Find(UIName + "/Bottom/ButtonResume");
+		UISelect = GameObject.Find(UIName + "/Center/ViewResult/Select");
 		UIWin = GameObject.Find(UIName + "/Bottom/Result/SpriteWin");
 		UIWin.SetActive(false);
 		UILose = GameObject.Find(UIName + "/Bottom/Result/SpriteLose");
@@ -77,11 +79,13 @@ public class UIGameResult : UIBase {
 	public void OnDetail() {
 		ViewResult.SetActive(false);
 		ResultDetail.SetActive(true);
+		SetLabel(UIName + "Center/Title/LabelFinalScore", "");
 	}
 
 	public void OnInfo() {
 		ViewResult.SetActive(true);
 		ResultDetail.SetActive(false);
+		SetLabel(UIName + "Center/Title/LabelFinalScore", string.Format("[c30000]{0}[-] : [0bf9d7]{1}[-]", gameRecord.Score2, gameRecord.Score1));
 	}
 
 	public void OnReturn() {
@@ -192,8 +196,21 @@ public class UIGameResult : UIBase {
 	}
 
 	private void setInfo(int index, ref TGameRecord record) {
-		if (index >= 0 && index < record.PlayerRecords.Length)
+		if (index >= 0 && index < record.PlayerRecords.Length) {
 			getInfoString(ref record.PlayerRecords[index]);
+
+			switch (index) {
+			case 0:
+				UISelect.transform.localPosition = new Vector3(0, 210, 0);
+				break;
+			case 1:
+				UISelect.transform.localPosition = new Vector3(270, 210, 0);
+				break;
+			case 2:
+				UISelect.transform.localPosition = new Vector3(-270, 210, 0);
+				break;
+			}
+		}
 
 		/*string str = "";
 		if (record.PlayerRecords.Length > 0)
@@ -224,7 +241,7 @@ public class UIGameResult : UIBase {
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
 		UIShow(true);
-		SetLabel(UIName + "Top/Title/LabelFinalScore", string.Format("{0} : {1}", record.Score2, record.Score1));
+		SetLabel(UIName + "Center/Title/LabelFinalScore", string.Format("[c30000]{0}[-] : [0bf9d7]{1}[-]", record.Score2, record.Score1));
 
 		if (record.Done) {
 			buttonResume.SetActive(false);
