@@ -16,6 +16,11 @@ public class UICharacterInfo : UIBase {
 	private float [] arrayOldValue = new float[12];
 	private float [] arrayNewValue = new float[12];
 
+	private UILabel labelActiveName;
+	private UILabel labelActiveLevel;
+	private UISprite spriteActivePic;
+	private UISprite spriteActiveCard;
+	
 	public static bool Visible{
 		get{
 			if(instance)
@@ -46,6 +51,10 @@ public class UICharacterInfo : UIBase {
 	}
 
 	protected override void InitCom() {
+		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillName").GetComponent<UILabel>();
+		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillLevel").GetComponent<UILabel>();
+		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillCard").GetComponent<UISprite>();
+		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillPic").GetComponent<UISprite>();
 		
 		arraySelectAttrData [0].Slider = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/2Point").GetComponent<UISlider>();
 		arraySelectAttrData [0].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/2Point/LabelValue").GetComponent<UILabel>();
@@ -107,6 +116,9 @@ public class UICharacterInfo : UIBase {
 	}
 
 	public void SetAttribute(TGreatPlayer data) {
+		labelActiveLevel.text = data.ActiveLV.ToString();
+		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
+
 		if(arrayOldValue[0] == 0) {
 			arrayOldValue[0] = data.Point2;
 			arrayNewValue[0] = data.Point2;
