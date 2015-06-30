@@ -16,8 +16,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Block0",
-        "effect": 0
+        "animation": "Block0"
     },
     {
         "id": 8,
@@ -36,10 +35,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Dunk0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Dunk0"
     },
     {
         "id": 10,
@@ -58,10 +54,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "FallStand",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "FallStand"
     },
     {
         "id": 11,
@@ -80,10 +73,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Fall2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Fall2"
     },
     {
         "id": 13,
@@ -102,10 +92,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Layup0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Layup0"
     },
     {
         "id": 14,
@@ -124,10 +111,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Steal0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Steal0"
     },
     {
         "id": 16,
@@ -146,10 +130,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Pass0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass0"
     },
     {
         "id": 17,
@@ -168,10 +149,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Pass2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass2"
     },
     {
         "id": 18,
@@ -190,10 +168,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Pass1",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass1"
     },
     {
         "id": 19,
@@ -212,10 +187,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Pass3",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass3"
     },
     {
         "id": 20,
@@ -234,10 +206,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Pass4",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass4"
     },
     {
         "id": 21,
@@ -257,9 +226,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Push0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect1"
     },
     {
         "id": 25,
@@ -278,10 +245,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Rebound0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Rebound0"
     },
     {
         "id": 37,
@@ -301,9 +265,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Elbow0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect2"
     },
     {
         "id": 43,
@@ -322,10 +284,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Shoot0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Shoot0"
     },
     {
         "id": 44,
@@ -344,10 +303,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Shoot6",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Shoot6"
     },
     {
         "id": 45,
@@ -366,10 +322,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Shoot2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Shoot2"
     },
     {
         "id": 46,
@@ -388,10 +341,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Shoot3",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Shoot3"
     },
     {
         "id": 410,
@@ -411,9 +361,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot4",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect101"
     },
     {
         "id": 411,
@@ -433,9 +381,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot5",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect101"
     },
     {
         "id": 412,
@@ -455,9 +401,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot6",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect101"
     },
     {
         "id": 413,
@@ -477,9 +421,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot7",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect101"
     },
     {
         "id": 510,
@@ -498,10 +440,7 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup1",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Layup1"
     },
     {
         "id": 511,
@@ -520,10 +459,7 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Layup2"
     },
     {
         "id": 512,
@@ -542,10 +478,7 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup3",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Layup3"
     },
     {
         "id": 610,
@@ -565,9 +498,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk1",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 611,
@@ -587,9 +518,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 612,
@@ -609,9 +538,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk3",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 613,
@@ -631,9 +558,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk4",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 614,
@@ -653,9 +578,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk5",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 615,
@@ -675,9 +598,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk6",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "effect": "SkillEffect201"
     },
     {
         "id": 1100,
@@ -696,10 +617,7 @@
         "valuebase": 10,
         "rate": 40,
         "rateadd": 10,
-        "animation": "MoveDodge0",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "MoveDodge0"
     },
     {
         "id": 1210,
@@ -718,10 +636,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Pass5",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass5"
     },
     {
         "id": 1220,
@@ -740,10 +655,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Pass6",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass6"
     },
     {
         "id": 1221,
@@ -762,10 +674,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Pass9",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass9"
     },
     {
         "id": 1230,
@@ -784,10 +693,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Pass7",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass7"
     },
     {
         "id": 1240,
@@ -806,10 +712,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Pass8",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pass8"
     },
     {
         "id": 1310,
@@ -828,10 +731,7 @@
         "valuebase": 10,
         "rate": 100,
         "rateadd": 15,
-        "animation": "Pick2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Pick2"
     },
     {
         "id": 1610,
@@ -850,10 +750,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block1",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Block1"
     },
     {
         "id": 1611,
@@ -872,10 +769,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block2",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "Block2"
     },
     {
         "id": 1911,
@@ -894,10 +788,7 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "FallQuickStand",
-        "effect": 0,
-        "targetanimation": 0,
-        "targeteffect": 0
+        "animation": "FallQuickStand"
     },
     {
         "id": 11000,
@@ -905,10 +796,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "兩次灌籃",
+        "nametw": "究極兩次灌籃",
         "nameen": "兩次灌籃",
         "explaintw": "兩次灌籃",
         "explainen": "兩次灌籃",
+        "skillexplain": "兩次灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -917,10 +809,7 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -931,10 +820,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "兩次灌籃",
+        "nametw": "究極兩次灌籃",
         "nameen": "兩次灌籃",
         "explaintw": "兩次灌籃",
         "explainen": "兩次灌籃",
+        "skillexplain": "兩次灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -943,10 +833,7 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -957,10 +844,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "兩次灌籃",
+        "nametw": "究極兩次灌籃",
         "nameen": "兩次灌籃",
         "explaintw": "兩次灌籃",
         "explainen": "兩次灌籃",
+        "skillexplain": "兩次灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -969,10 +857,7 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -983,10 +868,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "兩次灌籃",
+        "nametw": "究極兩次灌籃",
         "nameen": "兩次灌籃",
         "explaintw": "兩次灌籃",
         "explainen": "兩次灌籃",
+        "skillexplain": "兩次灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -995,10 +881,7 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -1009,10 +892,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "兩次灌籃",
+        "nametw": "究極兩次灌籃",
         "nameen": "兩次灌籃",
         "explaintw": "兩次灌籃",
         "explainen": "兩次灌籃",
+        "skillexplain": "兩次灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -1021,10 +905,7 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -1035,10 +916,11 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "特殊灌籃-單手繞兩圈灌籃",
+        "nametw": "大車輪爆扣",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "特殊灌籃-單手繞兩圈灌籃",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
+        "skillexplain": "特殊灌籃-單手繞兩圈灌籃",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 0,
@@ -1047,13 +929,10 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk6",
-        "effect": 0,
         "targetkind": 1,
-        "targetanimation": 0,
-        "targeteffect": 0,
-        "distance": 3,
-        "distanceadd": 3,
-        "maxanger": 100
+        "distance": 5,
+        "distanceadd": 2,
+        "maxanger": 50
     },
     {
         "id": 17000,
@@ -1061,23 +940,20 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "加速",
+        "nametw": "個人的加速鼓舞",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "特殊灌籃-單手繞兩圈灌籃",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
+        "skillexplain": "加速",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 10,
         "lifetimeadd": 5,
         "attrkind": 3,
-        "valuebase": 100,
+        "valuebase": 20,
         "rate": 100,
-        "rateadd": 20,
-        "animation": "",
-        "effect": 0,
+        "rateadd": 10,
         "targetkind": 0,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 0,
         "distanceadd": 0,
         "maxanger": 30
@@ -1088,25 +964,22 @@
         "star": 3,
         "maxstar": 5,
         "pictureno": 0,
-        "nametw": "加速",
+        "nametw": "全體的加速鼓舞",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "特殊灌籃-單手繞兩圈灌籃",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
+        "skillexplain": "加速",
         "space": 5,
         "spaceadd": 1,
         "lifetime": 10,
         "lifetimeadd": 5,
         "attrkind": 3,
-        "valuebase": 60,
+        "valuebase": 20,
         "rate": 100,
-        "rateadd": 20,
-        "animation": "",
-        "effect": 0,
+        "rateadd": 10,
         "targetkind": 3,
-        "targetanimation": 0,
-        "targeteffect": 0,
         "distance": 0,
         "distanceadd": 0,
-        "maxanger": 30
+        "maxanger": 40
     }
 ]
