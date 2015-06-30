@@ -264,7 +264,7 @@
         "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
-        "animation": "Elbow0",
+        "animation": "Elbow",
         "effect": 2
     },
     {
@@ -953,7 +953,7 @@
         "valuebase": 20,
         "rate": 100,
         "rateadd": 10,
-        "animation": "Elbow0",
+        "animation": "Elbow",
         "targetkind": 0,
         "distance": 0,
         "distanceadd": 0,
@@ -978,7 +978,7 @@
         "valuebase": 20,
         "rate": 100,
         "rateadd": 10,
-        "animation": "Elbow0",
+        "animation": "Elbow",
         "targetkind": 3,
         "distance": 0,
         "distanceadd": 0,
