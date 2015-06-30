@@ -302,8 +302,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		else
 			smothHight = Vector2.Lerp(smothHight, new Vector2(0, startPos.y), 0.1f);
 
-		Debug.LogWarning ("cameraOffsetPos : " + cameraOffsetPos.y);
-
 		cameraOffsetPos.y = smothHight.y;
 		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
