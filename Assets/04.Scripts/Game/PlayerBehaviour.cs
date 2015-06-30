@@ -490,14 +490,14 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		setMovePower(100);
 		GameRecord.Init();
+		GameRecord.ID = Attribute.ID;
 
 		initSkill();
 		initAttr();
     }
 
 	private void initAttr() {
-		if (GameData.BaseAttr.Length > 0 && Attribute.AILevel >= 0 && Attribute.AILevel < GameData.BaseAttr.Length)
-		{
+		if (GameData.BaseAttr.Length > 0 && Attribute.AILevel >= 0 && Attribute.AILevel < GameData.BaseAttr.Length) {
 			Attr.PointRate2 = Math.Min(GameData.BaseAttr [Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f), 100);
 			Attr.PointRate3 = Math.Min(GameData.BaseAttr [Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f), 100);
 			Attr.StealRate = Math.Min(GameData.BaseAttr [Attribute.AILevel].StealRate + (Attribute.Steal / 10), 100);
@@ -532,6 +532,8 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	private void initSkill (){
+		SkillAttribute.Clear();
+
 		//Passive
 		if (Attribute.Skills != null && Attribute.Skills.Length > 0) {
 			for (int i = 0; i < Attribute.Skills.Length; i++) {

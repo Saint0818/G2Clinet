@@ -390,6 +390,7 @@ namespace GameStruct
 	}
 
 	public struct TGamePlayerRecord {
+		public int ID;
 		public int FG;
 		public int FGIn;
 		public int FG3;

@@ -6,8 +6,11 @@ public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;
 	private const string UIName = "UIGameResult";
 
+	private TGameRecord gameRecord;
+
 	private GameObject ViewResult;
 	private GameObject ResultDetail;
+	private GameObject buttonResume;
 	private GameObject UIWin;
 	private GameObject UILose;
 	private UITextList[] recordTextList = new UITextList[0];
@@ -50,12 +53,16 @@ public class UIGameResult : UIBase {
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
 		SetBtnFun(UIName + "/Center/ViewResult/ButtonNext", OnDetail);
 		SetBtnFun(UIName + "/Center/ResultDetail/ButtonPrev", OnInfo);
+		SetBtnFun(UIName + "/Center/ViewResult/PlayerMe/ButtonMe", OnPlayerInfo);
+		SetBtnFun(UIName + "/Center/ViewResult/PlayerA/ButtonA", OnPlayerInfo);
+		SetBtnFun(UIName + "/Center/ViewResult/PlayerB/ButtonB", OnPlayerInfo);
 
 		ViewResult = GameObject.Find(UIName + "/Center/ViewResult");
 		ResultDetail = GameObject.Find(UIName + "/Center/ResultDetail");
-		UIWin = GameObject.Find(UIName + "/Top/Title/SpriteWin");
+		buttonResume = GameObject.Find(UIName + "/Bottom/ButtonResume");
+		UIWin = GameObject.Find(UIName + "/Bottom/Result/SpriteWin");
 		UIWin.SetActive(false);
-		UILose = GameObject.Find(UIName + "/Top/Title/SpriteLose");
+		UILose = GameObject.Find(UIName + "/Bottom/Result/SpriteLose");
 		UILose.SetActive(false);
 	}
 	
@@ -93,6 +100,17 @@ public class UIGameResult : UIBase {
 		UIShow(false);
 	}
 
+	public void OnPlayerInfo() {
+		if (UIButton.current.name == "ButtonMe") 
+			setInfo(0, ref gameRecord);
+		else
+		if (UIButton.current.name == "ButtonA") 
+			setInfo(1, ref gameRecord);
+		else
+		if (UIButton.current.name == "ButtonB") 
+			setInfo(2, ref gameRecord);
+	}
+
 	private string getInfoString(ref TGamePlayerRecord player) {
 		int pts = player.FGIn * 2 + player.FG3In * 3;
 		float fg = 0;
@@ -102,6 +120,17 @@ public class UIGameResult : UIBase {
 		float fg3 = 0;
 		if (player.FG3 > 0)
 			fg3 = Mathf.Round(player.FG3In * 100 / player.FG3);
+
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/PTS/LabelValue", pts.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/FG/LabelValue", fg.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/3FG/LabelValue", fg3.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/REB/LabelValue", player.Rebound.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/AST/LabelValue", player.Assist.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/STL/LabelValue", player.Steal.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/BLK/LabelValue", player.Block.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/TOV/LabelValue", player.BeIntercept.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/PUSH/LabelValue", player.Push.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/KNOCK/LabelValue", player.Knock.ToString());
 
 		return string.Format("{0}\n{1}%\n{2}%\n{3}\n{4}\n{5}\n{6}\n{7}\n{8}\n{9}\n", 
 		                     pts, fg, fg3, player.Rebound, player.Assist, player.Steal, player.Block, player.BeIntercept, player.Push, player.Knock);
@@ -162,8 +191,11 @@ public class UIGameResult : UIBase {
 		                     "Tipin", player.Tipin, "PassiveSkill", player.PassiveSkill, "Skill", player.Skill);
 	}
 
-	private void setInfo(ref TGameRecord record) {
-		string str = "";
+	private void setInfo(int index, ref TGameRecord record) {
+		if (index >= 0 && index < record.PlayerRecords.Length)
+			getInfoString(ref record.PlayerRecords[index]);
+
+		/*string str = "";
 		if (record.PlayerRecords.Length > 0)
 			str = getInfoString(ref record.PlayerRecords[0]);
 
@@ -181,7 +213,7 @@ public class UIGameResult : UIBase {
 		else
 			str = "";
 		
-		SetLabel(UIName + "Center/ViewResult/PlayerB/LabelValue", str);
+		SetLabel(UIName + "Center/ViewResult/PlayerB/LabelValue", str);*/
 	} 
 
 	private void setDetail(ref TGameRecord record) {
@@ -190,10 +222,12 @@ public class UIGameResult : UIBase {
 	}
 
 	public void SetGameRecord(ref TGameRecord record) {
+		gameRecord = record;
 		UIShow(true);
 		SetLabel(UIName + "Top/Title/LabelFinalScore", string.Format("{0} : {1}", record.Score2, record.Score1));
 
 		if (record.Done) {
+			buttonResume.SetActive(false);
 			if (record.Score1 > record.Score2) {
 				UIWin.SetActive(true);
 				UILose.SetActive(false);
@@ -202,6 +236,7 @@ public class UIGameResult : UIBase {
 				UILose.SetActive(true);
 			}
 		} else {
+			buttonResume.SetActive(true);
 			UIWin.SetActive(false);
 			UILose.SetActive(false);
 		}
@@ -213,25 +248,42 @@ public class UIGameResult : UIBase {
 
 			recordTextList = new UITextList[num];
 
+			string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
+
 			for (int i = 0; i < recordTextList.Length; i ++) {
 				string name = "";
+				string faceName = "";
+				string positionName = "";
+
 				switch (i) {
 				case 0:
 					name = "/Center/ResultDetail/LabelMe/TextList";
+					faceName = "/Center/ViewResult/PlayerMe/ButtonMe/PlayerFace/MyFace";
+					positionName = "/Center/ViewResult/PlayerMe/ButtonMe/PlayerNameMe/SpriteTypeMe";
 					break;
 				case 1:
-					name = "/Center/ResultDetail/LabelMe/TextList";
+					name = "/Center/ResultDetail/LabelA/TextList";
+					faceName = "/Center/ViewResult/PlayerA/ButtonA/PlayerFace/AFace";
+					positionName = "/Center/ViewResult/PlayerA/ButtonA/PlayerNameA/SpriteTypeA";
 					break;
 				case 2:
-					name = "/Center/ResultDetail/LabelMe/TextList";
+					name = "/Center/ResultDetail/LabelB/TextList";
+					faceName = "/Center/ViewResult/PlayerB/ButtonB/PlayerFace/BFace";
+					positionName = "/Center/ViewResult/PlayerB/ButtonB/PlayerNameB/SpriteTypeB";
 					break;
 				}
 
 				recordTextList[i] = GameObject.Find(UIName + name).GetComponent<UITextList>();
+				int id = record.PlayerRecords[i].ID;
+				if (GameData.DPlayers.ContainsKey(id)) {
+					GameObject.Find(UIName + faceName).GetComponent<UISprite>().spriteName = GameData.DPlayers[id].Name;
+					if (GameData.DPlayers[id].BodyType >= 0 && GameData.DPlayers[id].BodyType < 3)
+						GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = positionPicName[GameData.DPlayers[id].BodyType];
+				}
 			}
 		}
 
-		setInfo(ref record);
+		setInfo(0, ref record);
 		setDetail(ref record);
 		
 		ResultDetail.SetActive(false);
