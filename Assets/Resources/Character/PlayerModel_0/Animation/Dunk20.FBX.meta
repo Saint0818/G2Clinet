@@ -162,7 +162,14 @@ ModelImporter:
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
-        intParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: .171428576
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
         messageOptions: 0
       - time: .306117743
         functionName: TimeScale
@@ -228,11 +235,11 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .99999994
-        functionName: AnimationEvent
+        functionName: TimeScale
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask:
       - path: 

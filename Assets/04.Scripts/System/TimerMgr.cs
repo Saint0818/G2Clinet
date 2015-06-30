@@ -27,31 +27,8 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 
 	public void ChangeTime(ETimerKind key, float value)
 	{
-//		GameController.Get.Joysticker.SetTimerKey(SeleckKind);
 		CrtTime = value;
-//		Debug.Log("key : " + key.ToString () + "Time : " + value);
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
-//		GameController.Get.Joysticker.SetTimerTime(CrtTime);
-	}
-
-	void OnGUI()
-	{
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			ChangeTime(SeleckKind, 0);
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			ChangeTime(SeleckKind, 0.5f);
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			ChangeTime(SeleckKind, 1);
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha5))
-		{
-			ChangeTime(SeleckKind, 2);
-		}
 	}
 }
 

@@ -13,8 +13,7 @@ public class TDunkCurve {
 	public string Name = "Curve_Name";
 	public float LifeTime = 3.166f;
 	public float ToBasketTime = 0.166f;
-	public float StartMoveTime = 1f; 
-	public float EndMoveTime = 1f; 
+	public float StartMoveTime = 1f;
 	public float BlockMomentStartTime = 1.06f;
 	public float BlockMomentEndTime = 1.15f;
 	public float CloneDeltaTime = 0.01f;

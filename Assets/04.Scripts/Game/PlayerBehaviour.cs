@@ -917,7 +917,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationDunkMove()
     {
-        if (!isDunk)
+		if (!isDunk || Timer.timeScale == 0)
             return;
 
         if (playerDunkCurve != null)
@@ -928,16 +928,17 @@ public class PlayerBehaviour : MonoBehaviour
             position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
 
             if (position.y < 0)
-                position.y = 0;
+                position.y = 0; 
 
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
-
-			if (dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.EndMoveTime && Timer.timeScale != 0)
+			if (dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime && Timer.timeScale != 0)
             {
 				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * 1/Timer.timeScale;
+				t = t - 0.1f;
 				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
 				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
             }
+
+			gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
 
             if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
                 IsCanBlock = true;
@@ -1911,6 +1912,8 @@ public class PlayerBehaviour : MonoBehaviour
         string curveName = string.Empty;
 		bool isFindCurve = false;
         PlayerRigidbody.mass = 0;
+		PlayerRigidbody.useGravity = true;
+		PlayerRigidbody.isKinematic = false;
 		DribbleTime = 0;
 		isUseSkill = false;
 
@@ -1923,6 +1926,8 @@ public class PlayerBehaviour : MonoBehaviour
                 SetShooterLayer();
                 playerBlockCurve = null;
 				curveName = "Block";
+				PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.isKinematic = true;
 
                 for (int i = 0; i < aniCurve.Block.Length; i++)
 					if (aniCurve.Block [i].Name == curveName)
@@ -1941,6 +1946,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.BlockCatch:
+				PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.isKinematic = true;
                 ClearAnimatorFlag();
                 animator.SetTrigger("BlockCatchTrigger");
                 IsPerfectBlockCatch = false;
@@ -1949,7 +1956,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.CatchFlat:
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 0);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
@@ -1958,7 +1964,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.CatchFloor:
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 2);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
@@ -1967,7 +1972,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
                 
             case EPlayerState.CatchParabola:
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 1);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
@@ -1976,7 +1980,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Defence0:
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 SetSpeed(0, -1);
@@ -1985,7 +1988,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Defence1:
-				PlayerRigidbody.useGravity = true;
                 isCanCatchBall = true;
                 SetSpeed(1, 1);
                 ClearAnimatorFlag(EActionFlag.IsDefence);
@@ -2018,6 +2020,7 @@ public class PlayerBehaviour : MonoBehaviour
                         break;
                 }
                 PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.isKinematic = true;
                 ClearAnimatorFlag();
                 animator.SetInteger("StateNo", stateNo);
                 animator.SetTrigger("DunkTrigger");
@@ -2048,7 +2051,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble0:
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
-				PlayerRigidbody.useGravity = true;
                 if (GameController.Get.BallOwner == this)
                 {
                     switch (state)
@@ -2079,7 +2081,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Elbow:
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 animator.SetTrigger("ElbowTrigger");
@@ -2089,7 +2090,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.FakeShoot:
-				PlayerRigidbody.useGravity = true;
                 if (IsBallOwner)
                 {
                     PlayerRigidbody.mass = 5;
@@ -2143,7 +2143,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.HoldBall:
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AddActionFlag(EActionFlag.IsHoldBall);
@@ -2152,7 +2151,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case EPlayerState.Idle:
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
@@ -2176,7 +2174,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case EPlayerState.MoveDodge0:
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 0);
                 animator.SetTrigger("MoveDodge");
                 OnUICantUse(this);
@@ -2186,7 +2183,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.MoveDodge1:
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 1);
                 animator.SetTrigger("MoveDodge");
                 OnUICantUse(this);
@@ -2239,7 +2235,6 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
                 }
                 ClearAnimatorFlag();
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 animator.SetInteger("StateNo", stateNo);
                 animator.SetTrigger("PassTrigger");
@@ -2259,7 +2254,6 @@ public class PlayerBehaviour : MonoBehaviour
                         isPush = true;
 						isFindCurve = true;
                     }
-				PlayerRigidbody.useGravity = true;
                 animator.SetTrigger("PushTrigger");
 				GameRecord.PushLaunch++;
                 Result = true;
@@ -2268,7 +2262,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.PickBall0:
                 isCanCatchBall = true;
                 ClearAnimatorFlag();
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", 0);
                 animator.SetTrigger("PickTrigger");
                 Result = true;
@@ -2278,7 +2271,6 @@ public class PlayerBehaviour : MonoBehaviour
                 isCanCatchBall = true;
                 ClearAnimatorFlag();
 				curveName = "PickBall2";
-				PlayerRigidbody.useGravity = true;
 
                 for (int i = 0; i < aniCurve.Push.Length; i++)
 					if (aniCurve.PickBall [i].Name == curveName)
@@ -2308,7 +2300,6 @@ public class PlayerBehaviour : MonoBehaviour
                         stateNo = 1;
                         break;
                 }
-				PlayerRigidbody.useGravity = true;
                 animator.SetInteger("StateNo", stateNo);
                 ClearAnimatorFlag(EActionFlag.IsRun);
                 Result = true;
@@ -2316,13 +2307,11 @@ public class PlayerBehaviour : MonoBehaviour
     
             case EPlayerState.RunningDefence:
                 SetSpeed(1, 1);
-				PlayerRigidbody.useGravity = true;
                 ClearAnimatorFlag(EActionFlag.IsRun);
                 Result = true;
                 break;
 
             case EPlayerState.Steal:
-				PlayerRigidbody.useGravity = true;
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 animator.SetTrigger("StealTrigger");
@@ -2380,6 +2369,8 @@ public class PlayerBehaviour : MonoBehaviour
 							break;
                     }
                 
+					PlayerRigidbody.useGravity = false;
+					PlayerRigidbody.isKinematic = true;
                     animator.SetInteger("StateNo", stateNo);
                     curveName = string.Format("Shoot{0}", stateNo);
 					
@@ -2424,6 +2415,8 @@ public class PlayerBehaviour : MonoBehaviour
 							break;
 					}
 
+					PlayerRigidbody.useGravity = false;
+					PlayerRigidbody.isKinematic = true;
 					curveName = string.Format("Layup{0}", stateNo);
 					
 					for (int i = 0; i < aniCurve.Layup.Length; i++)
@@ -2445,6 +2438,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Rebound:
                 playerReboundCurve = null;
+				PlayerRigidbody.useGravity = false;
+				PlayerRigidbody.isKinematic = true;
 
                 if (inReboundDistance()) {
                     reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
@@ -2749,6 +2744,7 @@ public class PlayerBehaviour : MonoBehaviour
                 elbowTrigger.SetActive(false);
                 isCanCatchBall = true;
                 PlayerRigidbody.useGravity = true;
+				PlayerRigidbody.isKinematic = false;
                 IsPerfectBlockCatch = false;
                 isRebound = false;
                 isPush = false; 

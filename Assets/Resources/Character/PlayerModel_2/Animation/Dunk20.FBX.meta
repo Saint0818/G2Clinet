@@ -157,12 +157,26 @@ ModelImporter:
         floatParameter: .200000003
         intParameter: 0
         messageOptions: 0
-      - time: .194622234
+      - time: .156222239
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
+        messageOptions: 0
+      - time: .157721847
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
-        intParameter: 0
+        intParameter: 1
+        messageOptions: 0
+      - time: .232000008
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .5
+        intParameter: 1
         messageOptions: 0
       - time: .259061813
         functionName: ZoomOut
@@ -171,12 +185,19 @@ ModelImporter:
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .274007618
+      - time: .283489108
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
-        intParameter: 0
+        floatParameter: .5
+        intParameter: 1
+        messageOptions: 0
+      - time: .283489108
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 2
         messageOptions: 0
       - time: .333704025
         functionName: AnimationEvent
