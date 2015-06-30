@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4b3ab373fc6e75d4ca2f4ed1c5b9d4d2
-timeCreated: 1435655691
+guid: 9e9cbff7d5a66254b915c0922f4d2215
+timeCreated: 1435660131
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: JumpBall
+    7400000: Jumpball
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,7 +128,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: JumpBall
+      name: Jumpball
       takeName: Take 001
       firstFrame: 0
       lastFrame: 45
@@ -289,7 +289,7 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
