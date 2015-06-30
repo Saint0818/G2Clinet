@@ -34,15 +34,15 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
 	private Vector3[] groupOffsetPoint = new Vector3[]{new Vector3(0, 0, -6.625f), new Vector3(0, 0, 7.625f)};
 	private Vector3[] offsetLimit = new Vector3[]{new Vector3(-13f, 0, 1.63f), new Vector3(-30f, 0, -1.63f)};
-	private Vector3 jumpBallPos = new Vector3(-25f, 7, 0);
-	private Vector3 jumpBallRoate= new Vector3(10f, 90, 0);
+	private Vector3 jumpBallPos = new Vector3(-25f, 8, 0);
+	private Vector3 jumpBallRoate= new Vector3(12.5f, 90, 0);
 
 	private GameObject cameraGroupObj;
 	private GameObject cameraRotationObj;
 	private GameObject cameraOffsetObj;
 
 	private Camera cameraFx;
-	private Camera cameraPlayer;
+//	private Camera cameraPlayer;
 
 	private GameObject focusTarget;
 	private ETeamKind curTeam = ETeamKind.Self;
@@ -145,7 +145,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				mShake = cameraOffsetObj.gameObject.AddComponent<Shake>();
 			
 			cameraRotationObj.transform.position = startPos;
-			smothHight.x = startPos.y;
+			smothHight.y = startPos.y;
 			cameraOffsetPos = cameraGroupObj.transform.position;		
 		}
 
@@ -264,9 +264,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 		CameraOffset();
 		CameraFocus ();
-		if(cameraPlayer && GameController.Get.Joysticker != null) {
-			cameraPlayer.gameObject.transform.LookAt(GameController.Get.Joysticker.gameObject.transform);
-		}
+//		if(cameraPlayer && GameController.Get.Joysticker != null) {
+//			cameraPlayer.gameObject.transform.LookAt(GameController.Get.Joysticker.gameObject.transform);
+//		}
     }
 
 	private Vector2 smothHight = Vector2.zero;
@@ -301,6 +301,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		}
 		else
 			smothHight = Vector2.Lerp(smothHight, new Vector2(0, startPos.y), 0.1f);
+
+		Debug.LogWarning ("cameraOffsetPos : " + cameraOffsetPos.y);
 
 		cameraOffsetPos.y = smothHight.y;
 		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
