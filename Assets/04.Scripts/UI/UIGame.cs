@@ -776,8 +776,7 @@ public class UIGame : UIBase {
 		case EUIControl.Block:
 			if(isCanDefenceBtnPress && 
 			   !GameController.Get.Joysticker.IsFall && 
-			   GameController.Get.Situation == EGameSituation.AttackB &&
-			   GameController.Get.Joysticker.CanUseState(EPlayerState.Block)) {
+			   GameController.Get.Situation == EGameSituation.AttackB){
 				UIMaskState(EUIControl.Block);
 				GameController.Get.DoBlock();
 				GameController.Get.Joysticker.SetNoAiTime();
