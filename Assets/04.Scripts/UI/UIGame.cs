@@ -623,7 +623,6 @@ public class UIGame : UIBase {
 			}
 			break;
 		}
-//			GameController.Get.SetBodyMaterial(kind);
 	}
 
 	public void UIMaskState (EUIControl controllerState) {
@@ -947,7 +946,7 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 
 			uiJoystick.gameObject.SetActive(true);
-			buttonSkill.SetActive(true);
+			buttonSkill.SetActive(false);
 			ChangeControl(true);
 			SetPassButton();
 
@@ -1018,8 +1017,8 @@ public class UIGame : UIBase {
 		}
 	}
 
-	private void showScoreBar(bool isFinish){
-		if(!isFinish)
+	private void showScoreBar(bool isStart){
+		if(isStart)
 			showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
 		uiScoreBar.SetActive(true);
