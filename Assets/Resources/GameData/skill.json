@@ -226,7 +226,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Push0",
-        "effect": "SkillEffect1"
+        "effect": 1
     },
     {
         "id": 25,
@@ -265,7 +265,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Elbow0",
-        "effect": "SkillEffect2"
+        "effect": 2
     },
     {
         "id": 43,
@@ -361,7 +361,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot4",
-        "effect": "SkillEffect101"
+        "effect": 101
     },
     {
         "id": 411,
@@ -381,7 +381,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot5",
-        "effect": "SkillEffect101"
+        "effect": 101
     },
     {
         "id": 412,
@@ -401,7 +401,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot6",
-        "effect": "SkillEffect101"
+        "effect": 101
     },
     {
         "id": 413,
@@ -421,7 +421,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot7",
-        "effect": "SkillEffect101"
+        "effect": 101
     },
     {
         "id": 510,
@@ -498,7 +498,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk1",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 611,
@@ -518,7 +518,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk2",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 612,
@@ -538,7 +538,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk3",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 613,
@@ -558,7 +558,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk4",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 614,
@@ -578,7 +578,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk5",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 615,
@@ -598,7 +598,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk6",
-        "effect": "SkillEffect201"
+        "effect": 201
     },
     {
         "id": 1100,
