@@ -321,12 +321,9 @@ public class UIGame : UIBase {
 	public void InitLine() {
 		drawLine.ClearTarget();
 		if (drawLine.UIs.Length == 0) {
-			GameObject obj = GameObject.Find("PlayerInfoModel/Self1/PassA");
+			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
 			if (obj)
-				drawLine.AddTarget(uiPassObjectGroup[1], obj);
-			obj = GameObject.Find("PlayerInfoModel/Self2/PassB");
-			if (obj)
-				drawLine.AddTarget(uiPassObjectGroup[2], obj);
+				drawLine.AddTarget(uiPassObjectGroup[0], obj);
 		}
 		drawLine.Show(true);
 	}
@@ -437,7 +434,10 @@ public class UIGame : UIBase {
 //		buttonSkill.SetActive(isShow);
 		if (isShow) {
 			buttonSkill.SetActive(angerFull);
-			uiSkillEnable.SetActive(canUse);
+			if(GameController.Get.IsStart)
+				uiSkillEnable.SetActive(canUse);
+			else
+				uiSkillEnable.SetActive(false);
 		}
 	}
 	
@@ -463,7 +463,7 @@ public class UIGame : UIBase {
 	public void SetAngerUI (float max, float anger){
 		timeForce = 0;
 		uiSpriteFull.SetActive (false);
-		uiSkill.SetActive(true);
+		uiSkill.SetActive(GameController.Get.IsStart);
 
 		if (max > 0) {
 			oldForceValue = spriteForce.fillAmount;
@@ -949,7 +949,6 @@ public class UIGame : UIBase {
 			viewPause.SetActive(false);
 			viewBottomRight.SetActive(true);
 
-			uiScoreBar.SetActive(true);
 			uiJoystick.Joystick.isActivated = false;
 
 			uiJoystick.gameObject.SetActive(true);

@@ -28,7 +28,7 @@ public class UICharacterInfo : UIBase {
 
 	private UILabel labelActiveName;
 	private UILabel labelActiveLevel;
-	private UISprite spriteActivePic;
+	private UITexture spriteActivePic;
 	private UISprite spriteActiveCard;
 
 	private bool isPressDown = false;
@@ -69,7 +69,7 @@ public class UICharacterInfo : UIBase {
 		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillName").GetComponent<UILabel>();
 		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillLeval").GetComponent<UILabel>();
 		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillCard").GetComponent<UISprite>();
-		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UISprite>();
+		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UITexture>();
 
 		labelSkillLevel = GameObject.Find (UIName + "/SkillInfo/LabelLevel").GetComponent<UILabel>();
 		labelSkillInfo = GameObject.Find (UIName + "/SkillInfo/LabelSkillinfo").GetComponent<UILabel>();
@@ -185,6 +185,19 @@ public class UICharacterInfo : UIBase {
 		}
 	}
 
+	private void setActiveCard (TGreatPlayer data) {
+		labelActiveLevel.text = data.ActiveLV.ToString();
+		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
+		
+		labelActiveName.text = GameData.SkillData[data.Active].Name;
+		if(GameData.SkillData[data.Active].PictureNo != 0)
+			spriteActivePic.mainTexture = UISelectRole.Get.CardTextures[GameData.SkillData[data.Active].PictureNo];
+		else
+			spriteActivePic.mainTexture = UISelectRole.Get.CardTextures[data.Active];
+		
+		activeID = data.Active;
+	}
+
 	private void showPassive(TPlayer player){
 		for (int i=0; i<player.Skills.Length; i++) {
 			if(player.Skills[i].ID > 0) {
@@ -208,7 +221,7 @@ public class UICharacterInfo : UIBase {
 
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
-			t.gameObject.GetComponent<UISprite>().spriteName = id.ToString();
+			t.gameObject.GetComponent<UITexture>().mainTexture = UISelectRole.Get.CardTextures[id];
 		t = obj.transform.FindChild("SkillLeval");
 		if(t != null)
 			t.gameObject.GetComponent<UILabel>().text = lv.ToString();
@@ -217,14 +230,7 @@ public class UICharacterInfo : UIBase {
 	public void SetAttribute(TGreatPlayer data, TPlayer player) {
 		clearPassive();
 		showPassive(player);
-
-		labelActiveLevel.text = data.ActiveLV.ToString();
-		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
-
-		labelActiveName.text = GameData.SkillData[data.Active].Name;
-		spriteActivePic.spriteName = data.Active.ToString();
-
-		activeID = data.Active;
+		setActiveCard(data);
 		if(arrayOldValue[0] == 0) {
 			arrayOldValue[0] = data.Point2;
 			arrayNewValue[0] = data.Point2;
