@@ -21,6 +21,10 @@ public class DrawLine : MonoBehaviour {
 	public GameObject[] UIs = new GameObject[0];
 	private List<TLineVector> targets = new List<TLineVector>();
 	private VectorLine line;
+
+	public Vector2 OffsetFirst;
+	public Vector2 OffsetSecond;
+
 	// Use this for initialization
 
 	public void Awake(){
@@ -35,9 +39,9 @@ public class DrawLine : MonoBehaviour {
 		if (isShow) {
 			for (var i = 0; i < targets.Count; i++) {
 				Vector2 screenPoint = CameraMgr.Get.CourtCamera.WorldToScreenPoint (targets[i].Target.transform.position);
-				line.points2[i*2] = new Vector2(screenPoint.x, screenPoint.y);
+				line.points2[i*2] = new Vector2(screenPoint.x + OffsetFirst.x, screenPoint.y + OffsetFirst.y);
 				screenPoint = Camera.main.WorldToScreenPoint(targets[i].Source.transform.position);
-				line.points2[i*2 + 1] = new Vector2(screenPoint.x, screenPoint.y);
+				line.points2[i*2 + 1] = new Vector2(screenPoint.x + OffsetSecond.x, screenPoint.y + OffsetSecond.y);
 			}
 		}
 	}

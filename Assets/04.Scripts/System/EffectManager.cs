@@ -75,6 +75,8 @@ public class EffectManager : MonoBehaviour
 			obj = (GameObject) Resources.Load("Prefab/Effect/"+effectName, typeof(GameObject));
 			if(obj == null)
 				obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
+			if(obj == null)
+				obj = (GameObject)Resources.Load("Effect/Skill/" + effectName, typeof(GameObject));
 			effectList.Add(effectName, obj);
 		}
 
@@ -165,7 +167,7 @@ public class EffectManager : MonoBehaviour
 
 	public bool IsCheckSpecial(string name)
 	{
-		string[] strs = new string[]{"SelectMe", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01", "PassMe", "PassA", "PassB"};
+		string[] strs = new string[]{"SelectMe", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01", "PassMe", "PassA", "PassB", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201"};
 
 		for(int i = 0; i < strs.Length; i++)
 		{

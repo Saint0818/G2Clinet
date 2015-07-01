@@ -69,6 +69,7 @@ public class UIGame : UIBase {
 	private GameObject viewPass;
 	private GameObject viewPause;
 	private GameObject viewBottomRight;
+	private GameObject viewTopLeft;
 	private GameObject viewAISelect;
 
 	private GameObject uiScoreBar;
@@ -193,6 +194,7 @@ public class UIGame : UIBase {
 		viewPause = GameObject.Find (UIName + "/Center/ViewPause");
 		viewPass = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass");
 		viewBottomRight = GameObject.Find(UIName + "/BottomRight");
+		viewTopLeft = GameObject.Find(UIName + "TopLeft");
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
 		buttonSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill");
@@ -284,7 +286,11 @@ public class UIGame : UIBase {
 		viewTools.SetActive(false);
 		viewOption.SetActive(false);
 		viewPause.SetActive(false);
+		viewTopLeft.SetActive(false);
 
+
+		uiSkill.SetActive(false);
+		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
 		uiPlayerLocation.SetActive(false);
@@ -293,8 +299,7 @@ public class UIGame : UIBase {
 		ChangeControl(true);
 		runForceBar ();
 
-		uiJoystick.Joystick.isActivated = false;
-		uiJoystick.Joystick.DynamicJoystick = false;
+		uiJoystick.Joystick.isActivated = false; 
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
@@ -429,7 +434,7 @@ public class UIGame : UIBase {
 	}
 
 	public void ShowSkillUI (bool isShow, bool angerFull = false, bool canUse = false){
-		buttonSkill.SetActive(isShow);
+//		buttonSkill.SetActive(isShow);
 		if (isShow) {
 			buttonSkill.SetActive(angerFull);
 			uiSkillEnable.SetActive(canUse);
@@ -877,8 +882,9 @@ public class UIGame : UIBase {
 		switch(situation) {
 		case EUISituation.Start:
 			viewStart.SetActive (false);
-			uiScoreBar.SetActive (false);
+			uiSkill.SetActive(true);
 			uiJoystick.Joystick.isActivated = true;
+			viewTopLeft.SetActive(true);
 
 			uiJoystick.gameObject.SetActive(true);
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackA);
@@ -922,6 +928,7 @@ public class UIGame : UIBase {
 			break;
 		case EUISituation.Finish:
 			viewBottomRight.SetActive(false);
+			viewTopLeft.SetActive(false);
 			uiScoreBar.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
@@ -938,6 +945,7 @@ public class UIGame : UIBase {
 			
 			viewStart.SetActive (true);
 			viewTools.SetActive(false);
+			viewOption.SetActive(false);
 			viewPause.SetActive(false);
 			viewBottomRight.SetActive(true);
 
@@ -989,6 +997,8 @@ public class UIGame : UIBase {
 		case EUISituation.AITimeChange:
 			GameController.Get.Joysticker.SetNoAiTime();
 			UIGameResult.UIShow(viewAISelect.gameObject.activeInHierarchy);
+			if(UIGameResult.Visible)
+				UIGameResult.Get.SetGameRecord(ref GameController.Get.GameRecord);
 			viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
 			break;
 		}

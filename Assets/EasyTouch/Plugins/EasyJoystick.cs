@@ -234,7 +234,7 @@ public class EasyJoystick : MonoBehaviour {
 	
 	#region Joystick Position & size
 	[SerializeField]
-	private bool dynamicJoystick=false;
+	private bool dynamicJoystick = true;
 	/// <summary>
 	/// Gets or sets a value indicating whether this is a dynamic joystick.
 	/// When this option is enabled, the joystick will display the location of the touch
@@ -267,7 +267,7 @@ public class EasyJoystick : MonoBehaviour {
 	/// <summary>
 	/// When the joystick is dynamic mode, this value indicates the area authorized for display
 	/// </summary>
-	public DynamicArea area = DynamicArea.FullScreen;	
+	public DynamicArea area = DynamicArea.Custom;	
 	
 	/// <summary>
 	/// The joystick anchor.
@@ -793,6 +793,7 @@ public class EasyJoystick : MonoBehaviour {
 	
 	private Vector2 anchorPosition = Vector2.zero;
 	private bool virtualJoystick = true;
+	private bool isVirtualTouch = false;
 	private int joystickIndex=-1;
 	private float touchSizeCoef=0;
 	private bool sendEnd=true;
@@ -878,9 +879,12 @@ public class EasyJoystick : MonoBehaviour {
 
 			if (EasyTouch.GetTouchCount()==0){
 				joystickIndex=-1;
-				if (dynamicJoystick){
-					virtualJoystick=false;
-				}
+				virtualJoystick = true;
+				joystickCenter = joystickPositionOffset;
+				ComputeJoystickAnchor(joyAnchor);
+//				if (dynamicJoystick){
+//					virtualJoystick=false;
+//				}
 			}
 
 			if (isActivated){
@@ -1031,7 +1035,7 @@ public class EasyJoystick : MonoBehaviour {
 //			GUI.Box(new Rect(0, 0, VirtualScreen.width * 3 / 4, VirtualScreen.height * 3 / 4), "test");
 			
 			// area zone
-			if ((showZone && areaTexture!=null && !dynamicJoystick) || (showZone && dynamicJoystick && virtualJoystick && areaTexture!=null) 
+			if ((showZone && areaTexture!=null && !dynamicJoystick) || (showZone && dynamicJoystick && areaTexture!=null) 
 				|| (dynamicJoystick  &&  Application.isEditor && !Application.isPlaying)){
 				if (isActivated){
 					
@@ -1059,7 +1063,7 @@ public class EasyJoystick : MonoBehaviour {
 			
 			
 			// area touch
-			if ((showTouch && touchTexture!=null && !dynamicJoystick)|| (showTouch && dynamicJoystick && virtualJoystick && touchTexture!=null) 
+			if ((showTouch && touchTexture!=null && !dynamicJoystick)|| (showTouch && dynamicJoystick && touchTexture!=null) 
 				|| (dynamicJoystick && Application.isEditor && !Application.isPlaying)){
 				if (isActivated){
 					GUI.color = touchColor;
@@ -1145,7 +1149,7 @@ public class EasyJoystick : MonoBehaviour {
 			}	
 	
 			// dead zone
-			if ((showDeadZone && deadTexture!=null && !dynamicJoystick)|| (showDeadZone && dynamicJoystick && virtualJoystick && deadTexture!=null) 
+			if ((showDeadZone && deadTexture!=null && !dynamicJoystick)|| (showDeadZone && dynamicJoystick && deadTexture!=null) 
 				|| (dynamicJoystick && Application.isEditor && !Application.isPlaying)){			
 				GUI.DrawTexture( deadRect, deadTexture,ScaleMode.ScaleToFit,true);
 			}	
@@ -1491,8 +1495,6 @@ public class EasyJoystick : MonoBehaviour {
 			case JoystickAnchor.UpperRight:
 				anchorPosition = new Vector2( VirtualScreen.width-zoneRadius-touch,zoneRadius+touch);
 				break;
-			
-			
 			case JoystickAnchor.MiddleLeft:
 				anchorPosition = new Vector2( zoneRadius+touch, VirtualScreen.height/2);
 				break;
@@ -1514,6 +1516,7 @@ public class EasyJoystick : MonoBehaviour {
 				break;	
 			case JoystickAnchor.Custom:
 				anchorPosition = new Vector2( zoneRadius+touch, VirtualScreen.height-zoneRadius-touch);
+//				anchorPosition = new Vector2( Screen.width * 0.6f, VirtualScreen.height);
 				break;
 			case JoystickAnchor.None:
 				anchorPosition = Vector2.zero;
@@ -1548,7 +1551,7 @@ public class EasyJoystick : MonoBehaviour {
 					}			
 				}
 				else{
-					if (!virtualJoystick){
+//					if (!virtualJoystick){
 						
 						#region area restriction
 						switch (area){
@@ -1606,19 +1609,21 @@ public class EasyJoystick : MonoBehaviour {
 								}
 								break;
 							case DynamicArea.Custom:
-								if (gesture.position.y< Screen.height * 4 / 5 && gesture.position.x< Screen.width * 3 / 4){
+								if (gesture.position.y< Screen.height && gesture.position.x< Screen.width * 0.6f){
 									virtualJoystick = true;	
+									isVirtualTouch = true;
 								}
 								break;							
 						}				
 						#endregion
 						
-						if (virtualJoystick){
+//						if (virtualJoystick){
+						if(isVirtualTouch){
 							joystickCenter =new Vector2(gesture.position.x/VirtualScreen.xRatio,  VirtualScreen.height - gesture.position.y/VirtualScreen.yRatio);
 							JoyAnchor = JoystickAnchor.None;
 							joystickIndex = gesture.fingerIndex;
 						}	
-					}
+//					}
 				}
 			
 			}
@@ -1699,10 +1704,14 @@ public class EasyJoystick : MonoBehaviour {
 
 		if (gesture.fingerIndex == joystickIndex){
 			joystickIndex=-1;
-			if (dynamicJoystick){
-				
-				virtualJoystick=false;	
-			}
+
+			isVirtualTouch = false;
+			virtualJoystick=true;
+			joystickCenter = joystickPositionOffset;
+//			if (dynamicJoystick){
+//				
+//				virtualJoystick=false;	
+//			}
 			CreateEvent(MessageName.On_JoystickTouchUp);
 		}
 
@@ -1717,11 +1726,11 @@ public class EasyJoystick : MonoBehaviour {
 		{
 			if (movement != Vector2.zero)
 			{
-				if (!virtualJoystick)
-				{
+//				if (!virtualJoystick)
+//				{
 					virtualJoystick = true;
 					CreateEvent(MessageName.On_JoystickTouchStart);
-				}
+//				}
 				
 				joystickIndex = 0;
 				joystickTouch.x = movement.x * (areaRect.width / 2);
@@ -1729,12 +1738,12 @@ public class EasyJoystick : MonoBehaviour {
 			}
 			else
 			{
-				if (virtualJoystick)
-				{
+//				if (virtualJoystick)
+//				{
 					virtualJoystick = false;
 					joystickIndex=-1;
 					CreateEvent(MessageName.On_JoystickTouchUp);
-				}
+//				}
 			}
 		}
 	}

@@ -221,13 +221,6 @@ public class TSkillAttribute
 	public float CDTime;
 }
 
-public enum EActiveDistanceType 
-{
-	AttackHalfCount,
-	DeffenceHalfCount,
-	AllCount
-}
-
 public static class StateChecker {
 	private static bool isInit = false;
 	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
@@ -409,7 +402,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isUseSkill = false;
 	public List<TSkillAttribute> SkillAttribute = new List<TSkillAttribute>();
 
-    private bool isHaveMoveDodge = false;
+	private bool isHaveMoveDodge = false;
+	public int MoveDodgeRate = 0;
 	private bool isHavePickBall2 = false;
 	public int PickBall2Rate = 0;
 	private bool firstDribble = true;
@@ -542,8 +536,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 					Attribute.AddAttribute(skill.AttrKind, skill.Value(Attribute.Skills[i].Lv));
 					int rate = GameData.SkillData [Attribute.Skills[i].ID].Rate(Attribute.Skills [i].Lv);
-					if (GameData.SkillData[Attribute.Skills[i].ID].Kind == (int)ESkillKind.MoveDodge) 
+					if (GameData.SkillData[Attribute.Skills[i].ID].Kind == (int)ESkillKind.MoveDodge) {
 						isHaveMoveDodge = true;
+						MoveDodgeRate = rate;
+					}
 
 					if (skill.Animation == ESkillKind.Pick2.ToString()) {
 						isHavePickBall2 = true;
@@ -2855,6 +2851,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isPerformPassive){
 			string animationName = string.Empty;
+			int effect = -1;
 			if (kind == ESkillKind.Pass){
 				if (passivePassDirects.ContainsKey((int) passDirect)){
 					for (int i=0; i<passivePassDirects [(int)passDirect].Count; i++)
@@ -2862,6 +2859,7 @@ public class PlayerBehaviour : MonoBehaviour
 						if (UnityEngine.Random.Range(0, 100) <= passivePassDirects [(int)passDirect][i].Rate)
 						{
 							animationName = passivePassDirects [(int)passDirect][i].Name;
+							effect = GameData.SkillData[passivePassDirects [(int)passDirect][i].ID].Effect;
 							break;       
 						}
 					}
@@ -2871,22 +2869,20 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
 					if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
 						animationName = passiveSkills[(int)kind] [i].Name;
+						effect = GameData.SkillData[passiveSkills [(int)kind][i].ID].Effect;
 						break;       
 					}
 				}
 			}
-
+			
 			if (animationName != string.Empty) {
-				if(IsBallOwner && GameController.Get.Joysticker == this && !this.transform.FindChild("SkillSign01")){
-					GameController.Get.ShowPassiveEffect(); 
-				}
-
+				GameController.Get.ShowPassiveEffect(effect); 
 				GameRecord.PassiveSkill++;
 				return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 			} else 
 				return playerState;
-        } else
-            return playerState;
+		} else
+			return playerState;
     }
 
 	public void ActiveSkill(GameObject target = null) {
@@ -2899,8 +2895,13 @@ public class PlayerBehaviour : MonoBehaviour
 				SetInvincible(activeTime);
 				if (target)
 					AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
-				else
-					AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
+				else{
+					try {
+						AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
+					} catch {
+						Debug.LogError("Can't find SkillAnimation in EPlayerState");
+					}
+				}
 			}
 		}
 	}

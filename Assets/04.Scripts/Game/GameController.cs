@@ -1795,15 +1795,15 @@ public class GameController : KnightSingleton<GameController>
         {
             if (PlayerList.Count > 1)
             {
-				float aiTime = BallOwner.NoAiTime;
+//				float aiTime = BallOwner.NoAiTime;
 				BallOwner.NoAiTime = 0;
 
 //                if (BallOwner == Joysticker)
-                    return Pass(PlayerList [playerid], false, true);
+                return Pass(PlayerList [playerid], false, true);
 //                else
 //					return Pass(Joysticker, false, true);
 
-				Joysticker.NoAiTime = aiTime;
+//				Joysticker.NoAiTime = aiTime;
             }
         }
 
@@ -2221,7 +2221,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
 		if (player.IsAngerFull && player.CanUseSkill) {
 			if (target) {
-				if (target == player || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
+				if (target == player.gameObject || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
 				    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
 					if (checkSkillSituation(player))
 						return true;
@@ -2404,7 +2404,8 @@ public class GameController : KnightSingleton<GameController>
                 } 
 				else if (Npc.IsHaveMoveDodge && CoolDownCrossover == 0 && Npc.CanMove)
                 {
-					DoPassiveSkill(ESkillSituation.MoveDodge, Npc);
+					if(Random.Range(0, 100) <=  Npc.MoveDodgeRate)
+						DoPassiveSkill(ESkillSituation.MoveDodge, Npc);
 				}
 			} 
 			else
@@ -2422,8 +2423,9 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 
-	public void ShowPassiveEffect (){
-		setEffectMagager("SkillSign01");
+	public void ShowPassiveEffect (int effect = -1, int targetKind = -1, int targetAnimation = -1, int targetEffect = -1){
+		if(effect != -1)
+			setEffectMagager("SkillEffect" + effect);
 	}
 
 	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
@@ -2436,34 +2438,35 @@ public class GameController : KnightSingleton<GameController>
 				if(player.IsBallOwner) {
 					int Dir = HaveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
 					if(Dir != 0 && player.IsHaveMoveDodge) {
-						Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
-						//Crossover     
-						if(player.Team == ETeamKind.Self && player.transform.position.z >= 9.5)
-							return Result;
-						else if(player.Team == ETeamKind.Npc && player.transform.position.z <= -9.5)
-							return Result;
-						
-						int AddZ = 6;
-						if(player.Team == ETeamKind.Npc)
-							AddZ = -6;
-						
-						player.rotateTo(pos.x, pos.z);
-						player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
-						if (Dir == 1) {
-							player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-							player.AniState(EPlayerState.MoveDodge0);
-						} else {
-							player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-							player.AniState(EPlayerState.MoveDodge1);
-						}			
-						
-						CoolDownCrossover = Time.time + 4;
-						Result = true;
-						if(player == Joysticker)
-							ShowPassiveEffect ();
-						return Result;
+						if(Random.Range(0, 100) <= player.MoveDodgeRate) {
+							Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
+							//Crossover     
+							if(player.Team == ETeamKind.Self && player.transform.position.z >= 9.5)
+								return Result;
+							else if(player.Team == ETeamKind.Npc && player.transform.position.z <= -9.5)
+								return Result;
+							
+							int AddZ = 6;
+							if(player.Team == ETeamKind.Npc)
+								AddZ = -6;
+							
+							player.rotateTo(pos.x, pos.z);
+							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+							if (Dir == 1) {
+								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								player.AniState(EPlayerState.MoveDodge0);
+							} else {
+								player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								player.AniState(EPlayerState.MoveDodge1);
+							}			
+							
+							CoolDownCrossover = Time.time + 4;
+							Result = true;
+//							ShowPassiveEffect ();
+						}
 					} 
 				}
+				return Result;
 				break;
 			case ESkillSituation.Block:
 				skillKind = ESkillKind.Block;
@@ -4079,64 +4082,68 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public void SetBodyMaterial(int kind){
-		switch (kind) {
-			case 1:
-				SetBodyMaterial(true, 1);
-				SetBodyMaterial(false, 2);
-				break;
-			case 2:
-				SetBodyMaterial(false, 1);
-				SetBodyMaterial(true, 2);
-				break;
-			case 3:
-			case 4:
-				SetBodyMaterial(true, 1);
-				SetBodyMaterial(true, 2);
-				break;
-			 default:
-				SetBodyMaterial(false, 1);
-				SetBodyMaterial(false, 2);
-				break;
-		}
-	}
-
-	public void SetBodyMaterial(bool open, int index) {
-		if (PlayerList.Count > 0 && index < PlayerList.Count) {
-			string name = "Shaders/Toony-Transparent";
-			if (open)
-				name = "Shaders/Toony-BasicOutline";
-
-			Shader shader = loadShader(name);
-			if (shader) {
-				switch(index) {
-				case 0:
-					PlayerList[index].BodyMaterial.shader = shader;
-					break;
-				case 1:
-					PlayerList[index].BodyMaterial.shader = shader;
-					if(open){
-						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
-						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
-					}
-					break;
-				case 2:
-					PlayerList[index].BodyMaterial.shader = shader;
-					if(open){
-						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
-						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
-					}
-					break;
-				}
-			}
-		}
-	}
+//	public void SetBodyMaterial(int kind){
+//		switch (kind) {
+//			case 1:
+//				SetBodyMaterial(true, 1);
+//				SetBodyMaterial(false, 2);
+//				break;
+//			case 2:
+//				SetBodyMaterial(false, 1);
+//				SetBodyMaterial(true, 2);
+//				break;
+//			case 3:
+//			case 4:
+//				SetBodyMaterial(true, 1);
+//				SetBodyMaterial(true, 2);
+//				break;
+//			 default:
+//				SetBodyMaterial(false, 1);
+//				SetBodyMaterial(false, 2);
+//				break;
+//		}
+//	}
+//
+//	public void SetBodyMaterial(bool open, int index) {
+//		if (PlayerList.Count > 0 && index < PlayerList.Count) {
+//			string name = "Shaders/Toony-Transparent";
+//			if (open)
+//				name = "Shaders/Toony-BasicOutline";
+//
+//			Shader shader = loadShader(name);
+//			if (shader) {
+//				switch(index) {
+//				case 0:
+//					PlayerList[index].BodyMaterial.shader = shader;
+//					break;
+//				case 1:
+//					PlayerList[index].BodyMaterial.shader = shader;
+//					if(open){
+//						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.yellow);
+//						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
+//					}
+//					break;
+//				case 2:
+//					PlayerList[index].BodyMaterial.shader = shader;
+//					if(open){
+//						PlayerList[index].BodyMaterial.SetColor("_OutlineColor", Color.blue);
+//						PlayerList[index].BodyMaterial.SetFloat("_Outline", 0.002f);
+//					}
+//					break;
+//				}
+//			}
+//		}
+//	}
 
 	private GameObject setEffectMagager (string effectName){
 		GameObject obj = null;
 		switch (effectName) {
 		case "SkillSign":
 		case "SkillSign01" :
+		case "SkillEffect1":
+		case "SkillEffect2":
+		case "SkillEffect101":
+		case "SkillEffect201":
 			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
 			break;
 		case "ThreeLineEffect":

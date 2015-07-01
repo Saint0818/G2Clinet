@@ -16,10 +16,25 @@ public class UICharacterInfo : UIBase {
 	private float [] arrayOldValue = new float[12];
 	private float [] arrayNewValue = new float[12];
 
+	private int activeID;
+	private GameObject viewSkillInfo;
+	private UILabel labelSkillLevel;
+	private UILabel labelSkillInfo;
+	private UILabel labelSkillName;
+
+	private UIGrid gridPassive;
+	private GameObject itemPassiveCard;
+	private UIPanel panelPassive;
+
 	private UILabel labelActiveName;
 	private UILabel labelActiveLevel;
 	private UISprite spriteActivePic;
 	private UISprite spriteActiveCard;
+
+	private bool isPressDown = false;
+	private float longPressMaxTime = 0.5f;
+	private float longPressTime = 0;
+
 	
 	public static bool Visible{
 		get{
@@ -51,10 +66,20 @@ public class UICharacterInfo : UIBase {
 	}
 
 	protected override void InitCom() {
-		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillName").GetComponent<UILabel>();
-		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillLeval").GetComponent<UILabel>();
-		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillCard").GetComponent<UISprite>();
-		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/SkillPic").GetComponent<UISprite>();
+		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillName").GetComponent<UILabel>();
+		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillLeval").GetComponent<UILabel>();
+		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillCard").GetComponent<UISprite>();
+		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UISprite>();
+
+		labelSkillLevel = GameObject.Find (UIName + "/SkillInfo/LabelLevel").GetComponent<UILabel>();
+		labelSkillInfo = GameObject.Find (UIName + "/SkillInfo/LabelSkillinfo").GetComponent<UILabel>();
+		labelSkillName = GameObject.Find (UIName + "/SkillInfo/LabelNameTW").GetComponent<UILabel>();
+		viewSkillInfo = GameObject.Find (UIName + "/SkillInfo");
+		viewSkillInfo.SetActive(false);
+
+		gridPassive = GameObject.Find (UIName + "/CharacterInfo/SkillCards/PassiveSkills/CardList/UIGrid").GetComponent<UIGrid>();
+		panelPassive = GameObject.Find (UIName + "/CharacterInfo/SkillCards/PassiveSkills/CardList").GetComponent<UIPanel>();
+		itemPassiveCard = Resources.Load("Prefab/UI/Items/ItemPassiveSkillCard") as GameObject;
 		
 		arraySelectAttrData [0].Slider = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/2Point").GetComponent<UISlider>();
 		arraySelectAttrData [0].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/2Point/LabelValue").GetComponent<UILabel>();
@@ -82,6 +107,8 @@ public class UICharacterInfo : UIBase {
 		arraySelectAttrData [11].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onClick = CloseInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onPress = ShowDetailInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard")).onPress = ShowDetailInfo;
 	}
 
 	protected override void InitData() {
@@ -104,6 +131,39 @@ public class UICharacterInfo : UIBase {
 				}
 			}
 		}
+
+		if(isPressDown)
+			if (Time.realtimeSinceStartup - longPressTime > longPressMaxTime) 
+				doLongPress(); 
+
+	}
+
+	public void ShowDetailInfo (GameObject go, bool state){
+		isPressDown = state;
+		if (state) 
+			longPressTime = Time.realtimeSinceStartup; 
+		else
+			viewSkillInfo.SetActive(false);
+		if(!go.name.Equals("CharacterInfo")) {
+			if(go.name.Equals("ActiveCard")){
+				labelSkillName.text = GameData.SkillData[activeID].Name;
+				labelSkillLevel.text = "LV." + labelActiveLevel.text;
+				labelSkillInfo.text = GameData.SkillData[activeID].ExplainTW;
+			} else {
+				labelSkillName.text = GameData.SkillData[int.Parse(go.name)].Name;
+				labelSkillLevel.text = "LV." + go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
+				labelSkillInfo.text = GameData.SkillData[int.Parse(go.name)].ExplainTW;
+			}
+		}
+	}
+
+	private void doLongPress() {
+		isPressDown = false;
+		if(Input.mousePosition.x < (Screen.width - 250))
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 120, 0);
+		else 
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 120, 0);
+		viewSkillInfo.SetActive(true);
 	}
 
 	public void CloseInfo (GameObject go){
@@ -115,13 +175,56 @@ public class UICharacterInfo : UIBase {
 		arraySelectAttrData [Index].Value.text = Value.ToString ();
 	}
 
-	public void SetAttribute(TGreatPlayer data) {
+	private void showDetailInfo(){
+
+	}
+
+	private void clearPassive(){
+		for (int i=0; i<gridPassive.GetChildList().Count; i++){
+			Destroy(gridPassive.GetChild(i).gameObject);
+		}
+	}
+
+	private void showPassive(TPlayer player){
+		for (int i=0; i<player.Skills.Length; i++) {
+			if(player.Skills[i].ID > 0) {
+				addPassiveCard(i, player.Skills[i].ID, player.Skills[i].Lv);
+			}
+		}
+		panelPassive.transform.localPosition = new Vector3(27, 0, 0);
+		panelPassive.clipOffset = new Vector2(8, 0);
+	}
+
+	private void addPassiveCard(int index, int id, int lv){
+		GameObject obj = Instantiate(itemPassiveCard, Vector3.zero, Quaternion.identity) as GameObject;
+		obj.transform.parent = gridPassive.transform;
+		obj.transform.name = id.ToString();
+		obj.transform.localPosition = new Vector3(index * 210, 0, 0);
+		obj.transform.localScale = Vector3.one;
+		UIEventListener.Get(obj).onPress = ShowDetailInfo;
+		Transform t = obj.transform.FindChild("SkillCard");
+		if(t != null)
+			t.gameObject.GetComponent<UISprite>().spriteName = "SkillCard" + lv.ToString();
+
+		t = obj.transform.FindChild("SkillPic");
+		if(t != null)
+			t.gameObject.GetComponent<UISprite>().spriteName = id.ToString();
+		t = obj.transform.FindChild("SkillLeval");
+		if(t != null)
+			t.gameObject.GetComponent<UILabel>().text = lv.ToString();
+	}
+
+	public void SetAttribute(TGreatPlayer data, TPlayer player) {
+		clearPassive();
+		showPassive(player);
+
 		labelActiveLevel.text = data.ActiveLV.ToString();
 		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
 
 		labelActiveName.text = GameData.SkillData[data.Active].Name;
-		spriteActivePic.spriteName = data.Name;
+		spriteActivePic.spriteName = data.Active.ToString();
 
+		activeID = data.Active;
 		if(arrayOldValue[0] == 0) {
 			arrayOldValue[0] = data.Point2;
 			arrayNewValue[0] = data.Point2;

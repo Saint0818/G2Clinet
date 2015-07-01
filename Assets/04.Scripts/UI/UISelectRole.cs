@@ -219,8 +219,10 @@ public class UISelectRole : UIBase {
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
 			arrayPlayer[i] = new GameObject();
 			arrayPlayerData[i] = new TPlayer(0);
-			arrayPlayerData[i].ID = arraySelectID[0];
-			arrayPlayerData[i].SetAvatar();
+			arrayPlayerData[i].SetID(arraySelectID[0]);
+//			arrayPlayerData[i].ID = arraySelectID[0];
+//			arrayPlayerData[i].SetAvatar();
+//			arrayPlayerData[i].SetAttribute();
 			arrayPlayer[i].name = i.ToString();
 			arrayPlayer[i].transform.parent = playerInfoModel.transform;
 //			arrayAvatar[i] = PlayerAy[i].Avatar;
@@ -272,8 +274,8 @@ public class UISelectRole : UIBase {
 	}
 
 	public void OnClickSixAttr(GameObject obj) {
-		UICharacterInfo.Get.SetAttribute(data);
-		UICharacterInfo.Get.transform.localPosition = new Vector3(500, 0, -130);
+		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
+		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -130);
 		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 	}
 	
@@ -461,7 +463,6 @@ public class UISelectRole : UIBase {
 	private void UIState(EUIRoleSituation state) {
 		switch (state) {
 		case EUIRoleSituation.SelectRole:{
-			UICharacterInfo.UIShow(false);
 			int index;
 			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out index)) {
 				if(SelectRoleIndex != index) {
@@ -475,6 +476,9 @@ public class UISelectRole : UIBase {
 					playAnimator(0, arrayAnimatorName[UnityEngine.Random.Range(0, arrayAnimatorName.Length)]);
 					
 					setTriangleData ();
+					arrayPlayerData[0].SetAttribute();
+					if(UICharacterInfo.Visible)
+						UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
 				}
 			}
 		}
