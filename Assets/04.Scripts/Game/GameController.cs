@@ -2430,9 +2430,14 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
 		bool Result = false;
+		EPlayerState playerState = EPlayerState.Idle;
+		try {
+			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), State.ToString());
+		} catch {
+			playerState = EPlayerState.Idle;
+		}
 
 		if(player) {
-			EPlayerState p ;
 			switch(State) {
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
@@ -2454,15 +2459,16 @@ public class GameController : KnightSingleton<GameController>
 							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 							if (Dir == 1) {
 								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-								player.AniState(EPlayerState.MoveDodge0);
+								playerState = EPlayerState.MoveDodge0;
+								player.AniState(playerState);
 							} else {
 								player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-								player.AniState(EPlayerState.MoveDodge1);
+								playerState = EPlayerState.MoveDodge1;
+								player.AniState(playerState);
 							}			
 							
 							CoolDownCrossover = Time.time + 4;
 							Result = true;
-//							ShowPassiveEffect ();
 						}
 					} 
 				}
@@ -2470,35 +2476,43 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case ESkillSituation.Block:
 				skillKind = ESkillKind.Block;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Block, ESkillKind.Block, v), v);
+				playerState = player.PassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Dunk0:
 				skillKind = ESkillKind.Dunk;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v), v);
+				playerState = player.PassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot0:
 				skillKind = ESkillKind.Shoot;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v), v);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot3:
 				skillKind = ESkillKind.DownHand;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand), v);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot2:
 				skillKind = ESkillKind.UpHand;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand), v);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot1:
 				skillKind = ESkillKind.NearShoot;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot), v );
+				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot);
+				Result = player.AniState(playerState, v );
 				break;
 			case ESkillSituation.Layup0:
 				skillKind = ESkillKind.Layup;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup), v);
+				playerState = player.PassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Elbow:
 				skillKind = ESkillKind.Elbow;
-				Result = player.AniState (player.PassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow));
+				playerState = player.PassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
+				Result = player.AniState (playerState);
 				break;
 			case ESkillSituation.Fall1:
 				Result = true;
@@ -2508,57 +2522,66 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case ESkillSituation.Pass4:{
 				skillKind = ESkillKind.Pass;
-				p = player.PassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
-				if(p != EPlayerState.Pass4)
-					Result = player.AniState(p);
+				playerState = player.PassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass4)
+					Result = player.AniState(playerState);
 				else
-					Result = player.AniState(p, v);
+					Result = player.AniState(playerState, v);
 			}
 				break;
 			case ESkillSituation.Pass0:
 				skillKind = ESkillKind.Pass;
-				 p = player.PassiveSkill(ESkillSituation.Pass0, ESkillKind.Pass, v);
-				if(p != EPlayerState.Pass0)
-					Result = player.AniState(p);
+				playerState = player.PassiveSkill(ESkillSituation.Pass0, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass0)
+					Result = player.AniState(playerState);
 				else
-					Result = player.AniState(p, v);
+					Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Pass2:
 				skillKind = ESkillKind.Pass;
-				p = player.PassiveSkill(ESkillSituation.Pass2, ESkillKind.Pass, v);
-				if(p != EPlayerState.Pass2)
-					Result = player.AniState(p);
+				playerState = player.PassiveSkill(ESkillSituation.Pass2, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass2)
+					Result = player.AniState(playerState);
 				else
-					Result = player.AniState(p, v);
+					Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Pass1:
 				skillKind = ESkillKind.Pass;
-				p = player.PassiveSkill(ESkillSituation.Pass1, ESkillKind.Pass, v);
-				if(p != EPlayerState.Pass1)
-					Result = player.AniState(p);
+				playerState = player.PassiveSkill(ESkillSituation.Pass1, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass1)
+					Result = player.AniState(playerState);
 				else
-					Result = player.AniState(p, v);
+					Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Push:
 				skillKind = ESkillKind.Push;
+				playerState = player.PassiveSkill(ESkillSituation.Push, ESkillKind.Push);
 				if(v == Vector3.zero)
-					Result = player.AniState(player.PassiveSkill(ESkillSituation.Push, ESkillKind.Push));
+					Result = player.AniState(playerState);
 				else
-					Result = player.AniState(player.PassiveSkill(ESkillSituation.Push, ESkillKind.Push), v);
+					Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Rebound:
 				skillKind = ESkillKind.Rebound;
-				Result = player.AniState (player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound));
+				playerState = player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
+				Result = player.AniState (playerState);
 				break;
 			case ESkillSituation.Steal:	
-				skillKind = ESkillKind.Steal;		
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.Steal, ESkillKind.Steal), v);
+				skillKind = ESkillKind.Steal;
+				playerState = player.PassiveSkill(ESkillSituation.Steal, ESkillKind.Steal);
+				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.PickBall0:
 				skillKind = ESkillKind.Pick2;
-				Result = player.AniState(player.PassiveSkill(ESkillSituation.PickBall0, ESkillKind.Pick2), v);
+				playerState = player.PassiveSkill(ESkillSituation.PickBall0, ESkillKind.Pick2);
+				Result = player.AniState(playerState, v);
 				break;
 			}	
+		}
+		if(Result && !playerState.ToString().Equals(State.ToString())){
+			Debug.Log("Player : "+ player.name +"   ESkillSituation : "+ State + "   EffectID:"+ player.PassiveEffectID);
+			ShowPassiveEffect(player.PassiveEffectID);
+			player.GameRecord.PassiveSkill++;
 		}
 
 		return Result;

@@ -1709,7 +1709,6 @@ public class EasyJoystick : MonoBehaviour {
 			virtualJoystick=true;
 			joystickCenter = joystickPositionOffset;
 			ComputeJoystickAnchor(joyAnchor);
-
 //			if (dynamicJoystick){
 //				
 //				virtualJoystick=false;	

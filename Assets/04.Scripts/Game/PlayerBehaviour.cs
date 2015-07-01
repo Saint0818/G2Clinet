@@ -395,6 +395,7 @@ public class PlayerBehaviour : MonoBehaviour
     //PassiveSkill
 	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
 	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
+	public int PassiveEffectID;
 	
 	//ActiveSkill
 	private float activeTime  = 0;
@@ -2851,7 +2852,6 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (isPerformPassive){
 			string animationName = string.Empty;
-			int effect = -1;
 			if (kind == ESkillKind.Pass){
 				if (passivePassDirects.ContainsKey((int) passDirect)){
 					for (int i=0; i<passivePassDirects [(int)passDirect].Count; i++)
@@ -2859,7 +2859,7 @@ public class PlayerBehaviour : MonoBehaviour
 						if (UnityEngine.Random.Range(0, 100) <= passivePassDirects [(int)passDirect][i].Rate)
 						{
 							animationName = passivePassDirects [(int)passDirect][i].Name;
-							effect = GameData.SkillData[passivePassDirects [(int)passDirect][i].ID].Effect;
+							PassiveEffectID = GameData.SkillData[passivePassDirects [(int)passDirect][i].ID].Effect;
 							break;       
 						}
 					}
@@ -2869,19 +2869,18 @@ public class PlayerBehaviour : MonoBehaviour
 				for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
 					if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
 						animationName = passiveSkills[(int)kind] [i].Name;
-						effect = GameData.SkillData[passiveSkills [(int)kind][i].ID].Effect;
+						PassiveEffectID = GameData.SkillData[passiveSkills [(int)kind][i].ID].Effect;
 						break;       
 					}
 				}
 			}
 			
 			if (animationName != string.Empty) {
-				GameController.Get.ShowPassiveEffect(effect); 
-				GameRecord.PassiveSkill++;
 				try {
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 				} catch {
-					Debug.LogError("AnimationName: '" + animationName + "'was not found.");
+					if(GameStart.Get.IsDebugAnimation)
+						Debug.LogError("AnimationName: '" + animationName + "'was not found.");
 					return playerState;
 				}
 			} else 

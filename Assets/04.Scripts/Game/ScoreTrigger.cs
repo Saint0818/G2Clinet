@@ -20,7 +20,8 @@ public class ScoreTrigger : MonoBehaviour
 			if(!GameController.Get.IsDunk && 
 			   !GameController.Get.IsAlleyoop && 
 			   GameController.Get.BasketSituationType != EBasketSituation.AirBall && 
-			   (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB)) {
+			   (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) &&
+			   (GameController.Get.Situation != EGameSituation.TeeAPicking || GameController.Get.Situation != EGameSituation.TeeBPicking) ) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
 						Into = true;

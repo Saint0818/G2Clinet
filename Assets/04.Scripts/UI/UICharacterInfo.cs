@@ -147,11 +147,11 @@ public class UICharacterInfo : UIBase {
 		if(!go.name.Equals("CharacterInfo")) {
 			if(go.name.Equals("ActiveCard")){
 				labelSkillName.text = GameData.SkillData[activeID].Name;
-				labelSkillLevel.text = "" + labelActiveLevel.text;
+				labelSkillLevel.text = labelActiveLevel.text;
 				labelSkillInfo.text = GameData.SkillData[activeID].ExplainTW;
 			} else {
 				labelSkillName.text = GameData.SkillData[int.Parse(go.name)].Name;
-				labelSkillLevel.text = "" + go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
+				labelSkillLevel.text = go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
 				labelSkillInfo.text = GameData.SkillData[int.Parse(go.name)].ExplainTW;
 			}
 		}
@@ -160,9 +160,9 @@ public class UICharacterInfo : UIBase {
 	private void doLongPress() {
 		isPressDown = false;
 		if(Input.mousePosition.x < (Screen.width - 250))
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 120, 0);
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 130, 0);
 		else 
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 120, 0);
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 130, 0);
 		viewSkillInfo.SetActive(true);
 	}
 
@@ -173,10 +173,6 @@ public class UICharacterInfo : UIBase {
 	private void setSubAttr(int Index, float Value) {
 		arraySelectAttrData [Index].Slider.value = 0;//Value / 100;
 		arraySelectAttrData [Index].Value.text = Value.ToString ();
-	}
-
-	private void showDetailInfo(){
-
 	}
 
 	private void clearPassive(){
@@ -198,13 +194,13 @@ public class UICharacterInfo : UIBase {
 		activeID = data.Active;
 	}
 
-	private void showPassive(TPlayer player){
+	private void setPassiveCard(TPlayer player){
 		for (int i=0; i<player.Skills.Length; i++) {
 			if(player.Skills[i].ID > 0) {
 				addPassiveCard(i, player.Skills[i].ID, player.Skills[i].Lv);
 			}
 		}
-		panelPassive.transform.localPosition = new Vector3(27, 0, 0);
+		panelPassive.transform.localPosition = new Vector3(27, -25, 0);
 		panelPassive.clipOffset = new Vector2(8, 0);
 	}
 
@@ -222,14 +218,20 @@ public class UICharacterInfo : UIBase {
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
 			t.gameObject.GetComponent<UITexture>().mainTexture = UISelectRole.Get.CardTextures[id];
+
 		t = obj.transform.FindChild("SkillLeval");
 		if(t != null)
 			t.gameObject.GetComponent<UILabel>().text = lv.ToString();
+
+		
+		t = obj.transform.FindChild("SkillName");
+		if(t != null)
+			t.gameObject.GetComponent<UILabel>().text = GameData.SkillData[id].Name;
 	}
 
 	public void SetAttribute(TGreatPlayer data, TPlayer player) {
 		clearPassive();
-		showPassive(player);
+		setPassiveCard(player);
 		setActiveCard(data);
 		if(arrayOldValue[0] == 0) {
 			arrayOldValue[0] = data.Point2;
