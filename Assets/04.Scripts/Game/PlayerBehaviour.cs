@@ -188,13 +188,13 @@ public struct TScoreRate
         ThreeScoreRateDeviation = 0.5f;
         DownHandScoreRate = 40;
         DownHandSwishRate = 50;
-        DownHandAirBallRate = 35;
+        DownHandAirBallRate = 25;
         UpHandScoreRate = 20;
         UpHandSwishRate = 30;
-        UpHandAirBallRate = 15;
+        UpHandAirBallRate = 12;
         NormalScoreRate = 0;
         NormalSwishRate = 0;
-        NormalAirBallRate = 8;
+        NormalAirBallRate = 6;
         NearShotScoreRate = 0;
         NearShotSwishRate = 10;
         NearShotAirBallRate = 3;
