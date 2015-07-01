@@ -22,8 +22,8 @@ public class DrawLine : MonoBehaviour {
 	private List<TLineVector> targets = new List<TLineVector>();
 	private VectorLine line;
 
-	public Vector2 OffsetFirst;
-	public Vector2 OffsetSecond;
+	public Vector2 OffsetFirst = new Vector2(-5,10);
+	public Vector2 OffsetSecond = new Vector2(-20,15);
 
 	// Use this for initialization
 
