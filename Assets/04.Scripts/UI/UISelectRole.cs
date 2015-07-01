@@ -233,7 +233,7 @@ public class UISelectRole : UIBase {
 			arrayPlayer[i].AddComponent<SelectEvent>();
 
 			if(i == 0) {
-				arrayPlayer[i].transform.localPosition = new Vector3(0, -0.8f, 0);
+				arrayPlayer[i].transform.localPosition = new Vector3(0, -0.9f, 0);
 				arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
 				labelPlayerName.text = GameData.DPlayers [arrayPlayerData[i].ID].Name;
 				SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [arrayPlayerData[i].ID].BodyType);
