@@ -4170,8 +4170,14 @@ public class GameController : KnightSingleton<GameController>
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)            
-				if (PlayerList [i].IsShoot)
-                    return true;     
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot0) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot1) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot2) || 
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot3) ||
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot6) ||
+				    PlayerList [i].CheckAnimatorSate(EPlayerState.TipIn) ||
+				    PlayerList [i].IsLayup)
+                    return true;            
 
             return false;
         }
