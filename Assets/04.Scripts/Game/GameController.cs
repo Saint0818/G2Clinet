@@ -3954,7 +3954,7 @@ public class GameController : KnightSingleton<GameController>
 
     public void SetEndPass()
     {
-		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push) && !Catcher.IsBlock)
+		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push) && !Catcher.IsBlock && !Catcher.IsPass)
         {
             if(SetBall(Catcher))
 				CoolDownPass = Time.time + 3;
