@@ -223,10 +223,21 @@ public class TSkillAttribute
 public static class StateChecker {
 	private static bool isInit = false;
 	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
+	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
 
 	public static void InitState() {
 		if (!isInit) {
 			isInit = true;
+
+			ShootStates.Add(EPlayerState.Shoot0, true);
+			ShootStates.Add(EPlayerState.Shoot1, true);
+			ShootStates.Add(EPlayerState.Shoot2, true);
+			ShootStates.Add(EPlayerState.Shoot3, true);
+			ShootStates.Add(EPlayerState.Shoot4, true);
+			ShootStates.Add(EPlayerState.Shoot5, true);
+			ShootStates.Add(EPlayerState.Shoot6, true);
+			ShootStates.Add(EPlayerState.Shoot7, true);
+			ShootStates.Add(EPlayerState.TipIn, true);
 
 			StopStates.Add(EPlayerState.Block, true);
 			StopStates.Add(EPlayerState.BlockCatch, true);
@@ -3076,11 +3087,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsShoot
     {
-        get
-        {
-            return crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot1 || crtState == EPlayerState.Shoot2 || crtState == EPlayerState.Shoot3 ||
-				crtState == EPlayerState.Shoot4 || crtState == EPlayerState.Shoot5 || crtState == EPlayerState.Shoot6 || crtState == EPlayerState.Shoot7 || crtState == EPlayerState.TipIn;
-        }
+        get { return StateChecker.ShootStates.ContainsKey(crtState); }
     }
 
 	public bool IsAllShoot
