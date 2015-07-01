@@ -931,6 +931,7 @@ public class PlayerBehaviour : MonoBehaviour
 				t = t - 0.1f;
 				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
 				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
+				gameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
             }
 
 			gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
@@ -1719,14 +1720,14 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass7:
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
-			if (!IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+			if (IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                 {
                     return true;
                 }
                 break;
 
             case EPlayerState.Pass4:
-			if ((crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+			if (IsBallOwner && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             
@@ -3091,6 +3092,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsIdle
 	{
 		get{ return crtState == EPlayerState.Idle;}
+	}
+
+	public bool IsDef
+	{
+		get{ return crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1;}
 	}
 
 	public bool IsRun

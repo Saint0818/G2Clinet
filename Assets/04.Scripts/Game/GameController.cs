@@ -3020,7 +3020,8 @@ public class GameController : KnightSingleton<GameController>
 				else
 				{
 					if((Situation == EGameSituation.AttackA && npc.Team == ETeamKind.Self) || (Situation == EGameSituation.AttackB && npc.Team == ETeamKind.Npc))
-						PickBall(ref npc, true);
+						if(!npc.IsShoot)
+							PickBall(ref npc, true);
 
 					if((Situation == EGameSituation.AttackA && npc.DefPlayer.Team == ETeamKind.Npc) || (Situation == EGameSituation.AttackB && npc.DefPlayer.Team == ETeamKind.Self))
 					{
@@ -3357,10 +3358,10 @@ public class GameController : KnightSingleton<GameController>
 						}
 					} 
 					 
-					if(p.IsIdle)
+					if(p.IsIdle || p.IsDef)
 						p.AniState(EPlayerState.Dribble0);
 					else if(p.IsRun)
-						p.AniState(EPlayerState.Dribble1);        
+						p.AniState(EPlayerState.Dribble1);
                 }
             } else {
 				if(BallHolder != null)				
