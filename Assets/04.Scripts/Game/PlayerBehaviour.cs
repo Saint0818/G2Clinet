@@ -201,7 +201,6 @@ public struct TScoreRate
         LayUpScoreRate = 0;
         LayUpSwishRate = 20;
         LayUpAirBallRate = 2;
-
     }
 }
 
@@ -2878,7 +2877,12 @@ public class PlayerBehaviour : MonoBehaviour
 			if (animationName != string.Empty) {
 				GameController.Get.ShowPassiveEffect(effect); 
 				GameRecord.PassiveSkill++;
-				return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
+				try {
+					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
+				} catch {
+					Debug.LogError("AnimationName: '" + animationName + "'was not found.");
+					return playerState;
+				}
 			} else 
 				return playerState;
 		} else

@@ -932,7 +932,7 @@ public class EasyJoystick : MonoBehaviour {
 				}
 				
 				// Joystick Value
-				Vector2 realvalue = new Vector2(  speed.x*joystickAxis.x,speed.y*joystickAxis.y);
+				Vector2 realvalue = new Vector2(speed.x*joystickAxis.x, speed.y*joystickAxis.y);
 				if (enableInertia){
 					Vector2 tmp = (realvalue - joystickValue);
 					tmp.x /= inertia.x;
@@ -1035,7 +1035,7 @@ public class EasyJoystick : MonoBehaviour {
 //			GUI.Box(new Rect(0, 0, VirtualScreen.width * 3 / 4, VirtualScreen.height * 3 / 4), "test");
 			
 			// area zone
-			if ((showZone && areaTexture!=null && !dynamicJoystick) || (showZone && dynamicJoystick && areaTexture!=null) 
+			if ((showZone && areaTexture!=null && !dynamicJoystick) || (showZone && dynamicJoystick && virtualJoystick && areaTexture!=null) 
 				|| (dynamicJoystick  &&  Application.isEditor && !Application.isPlaying)){
 				if (isActivated){
 					
@@ -1063,13 +1063,13 @@ public class EasyJoystick : MonoBehaviour {
 			
 			
 			// area touch
-			if ((showTouch && touchTexture!=null && !dynamicJoystick)|| (showTouch && dynamicJoystick && touchTexture!=null) 
+			if ((showTouch && touchTexture!=null && !dynamicJoystick)|| (showTouch && dynamicJoystick && virtualJoystick && touchTexture!=null) 
 				|| (dynamicJoystick && Application.isEditor && !Application.isPlaying)){
 				if (isActivated){
 					GUI.color = touchColor;
 				}
 				else{
-					GUI.color = new Color(touchColor.r,touchColor.g,touchColor.b,0.2f);	
+					GUI.color = new Color(touchColor.r, touchColor.g, touchColor.b, 0.2f);	
 				}			
 
 				float x = 0;
@@ -1149,7 +1149,7 @@ public class EasyJoystick : MonoBehaviour {
 			}	
 	
 			// dead zone
-			if ((showDeadZone && deadTexture!=null && !dynamicJoystick)|| (showDeadZone && dynamicJoystick && deadTexture!=null) 
+			if ((showDeadZone && deadTexture!=null && !dynamicJoystick)|| (showDeadZone && dynamicJoystick && virtualJoystick && deadTexture!=null) 
 				|| (dynamicJoystick && Application.isEditor && !Application.isPlaying)){			
 				GUI.DrawTexture( deadRect, deadTexture,ScaleMode.ScaleToFit,true);
 			}	
@@ -1708,6 +1708,8 @@ public class EasyJoystick : MonoBehaviour {
 			isVirtualTouch = false;
 			virtualJoystick=true;
 			joystickCenter = joystickPositionOffset;
+			ComputeJoystickAnchor(joyAnchor);
+
 //			if (dynamicJoystick){
 //				
 //				virtualJoystick=false;	
