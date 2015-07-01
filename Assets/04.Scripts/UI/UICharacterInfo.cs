@@ -147,11 +147,11 @@ public class UICharacterInfo : UIBase {
 		if(!go.name.Equals("CharacterInfo")) {
 			if(go.name.Equals("ActiveCard")){
 				labelSkillName.text = GameData.SkillData[activeID].Name;
-				labelSkillLevel.text = "LV." + labelActiveLevel.text;
+				labelSkillLevel.text = "" + labelActiveLevel.text;
 				labelSkillInfo.text = GameData.SkillData[activeID].ExplainTW;
 			} else {
 				labelSkillName.text = GameData.SkillData[int.Parse(go.name)].Name;
-				labelSkillLevel.text = "LV." + go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
+				labelSkillLevel.text = "" + go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
 				labelSkillInfo.text = GameData.SkillData[int.Parse(go.name)].ExplainTW;
 			}
 		}
