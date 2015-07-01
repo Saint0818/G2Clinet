@@ -4177,7 +4177,7 @@ public class GameController : KnightSingleton<GameController>
 				    PlayerList [i].CheckAnimatorSate(EPlayerState.Shoot6) ||
 				    PlayerList [i].CheckAnimatorSate(EPlayerState.TipIn) ||
 				    PlayerList [i].IsLayup)
-                    return true;            
+                    return true;
 
             return false;
         }
