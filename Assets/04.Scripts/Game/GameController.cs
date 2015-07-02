@@ -3411,6 +3411,9 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if(player.IsDefence && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) && Passer && PassingStealBallTime == 0)
 		{
+			if(Catcher == player)
+				return false;
+
 			int Rate = UnityEngine.Random.Range(0, 100);
 
 			if(CourtMgr.Get.RealBallState == EPlayerState.Pass0 || 
