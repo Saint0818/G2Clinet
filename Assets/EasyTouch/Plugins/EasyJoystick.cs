@@ -1552,7 +1552,7 @@ public class EasyJoystick : MonoBehaviour {
 				}
 				else{
 //					if (!virtualJoystick){
-						
+					if (!isVirtualTouch) {
 						#region area restriction
 						switch (area){
 							// full
@@ -1609,7 +1609,7 @@ public class EasyJoystick : MonoBehaviour {
 								}
 								break;
 							case DynamicArea.Custom:
-								if (gesture.position.y< Screen.height && gesture.position.x< Screen.width * 0.6f){
+								if (gesture.position.y< Screen.height * 0.9f && gesture.position.x< Screen.width * 0.6f){
 									virtualJoystick = true;	
 									isVirtualTouch = true;
 								}
@@ -1623,7 +1623,7 @@ public class EasyJoystick : MonoBehaviour {
 							JoyAnchor = JoystickAnchor.None;
 							joystickIndex = gesture.fingerIndex;
 						}	
-//					}
+					} 
 				}
 			
 			}
@@ -1707,8 +1707,8 @@ public class EasyJoystick : MonoBehaviour {
 
 			isVirtualTouch = false;
 			virtualJoystick=true;
-			joystickCenter = joystickPositionOffset;
-			ComputeJoystickAnchor(joyAnchor);
+//			joystickCenter = joystickPositionOffset;
+//			ComputeJoystickAnchor(joyAnchor);
 //			if (dynamicJoystick){
 //				
 //				virtualJoystick=false;	
@@ -1728,10 +1728,12 @@ public class EasyJoystick : MonoBehaviour {
 			if (movement != Vector2.zero)
 			{
 //				if (!virtualJoystick)
-//				{
+				if (!isVirtualTouch)
+				{
+					isVirtualTouch = true;
 					virtualJoystick = true;
 					CreateEvent(MessageName.On_JoystickTouchStart);
-//				}
+				}
 				
 				joystickIndex = 0;
 				joystickTouch.x = movement.x * (areaRect.width / 2);
@@ -1740,11 +1742,13 @@ public class EasyJoystick : MonoBehaviour {
 			else
 			{
 //				if (virtualJoystick)
-//				{
+				if(isVirtualTouch)
+				{
+					isVirtualTouch = false;
 					virtualJoystick = false;
 					joystickIndex=-1;
 					CreateEvent(MessageName.On_JoystickTouchUp);
-//				}
+				}
 			}
 		}
 	}

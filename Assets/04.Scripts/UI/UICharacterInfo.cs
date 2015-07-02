@@ -160,9 +160,9 @@ public class UICharacterInfo : UIBase {
 	private void doLongPress() {
 		isPressDown = false;
 		if(Input.mousePosition.x < (Screen.width - 250))
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 130, 0);
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 160, 0);
 		else 
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 130, 0);
+			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 160, 0);
 		viewSkillInfo.SetActive(true);
 	}
 

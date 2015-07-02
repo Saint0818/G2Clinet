@@ -73,7 +73,6 @@ public class UIGame : UIBase {
 	private GameObject viewAISelect;
 
 	private GameObject uiScoreBar;
-	private GameObject buttonSkill;
 	private GameObject uiSkillEnable;
 	private GameObject uiSkill;
 	private GameObject uiAttackPush;
@@ -86,6 +85,7 @@ public class UIGame : UIBase {
 	private GameObject uiAlleyoopB;
 
 	//Force
+	private UISprite spriteSkill;
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
 	private float oldForceValue;
@@ -197,7 +197,10 @@ public class UIGame : UIBase {
 		viewTopLeft = GameObject.Find(UIName + "TopLeft");
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
-		buttonSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill");
+//		buttonSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill");
+		spriteSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
+		spriteSkill.color = new Color32(69, 69, 69, 255);
+
 		uiSkillEnable = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
@@ -319,6 +322,7 @@ public class UIGame : UIBase {
 	}
 
 	public void InitLine() {
+		spriteSkill.spriteName = GameController.Get.Joysticker.Attribute.ActiveSkill.ID.ToString() + "s";
 		drawLine.ClearTarget();
 		if (drawLine.UIs.Length == 0) {
 			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
@@ -431,9 +435,13 @@ public class UIGame : UIBase {
 	}
 
 	public void ShowSkillUI (bool isShow, bool angerFull = false, bool canUse = false){
-//		buttonSkill.SetActive(isShow);
+		if(angerFull)
+			spriteSkill.color = new Color32(255, 255, 255, 255);
+		else 
+			spriteSkill.color = new Color32(69, 69, 69, 255);
+
 		if (isShow) {
-			buttonSkill.SetActive(angerFull);
+//			buttonSkill.SetActive(angerFull);
 			if(GameController.Get.IsStart)
 				uiSkillEnable.SetActive(canUse);
 			else
@@ -469,10 +477,13 @@ public class UIGame : UIBase {
 			oldForceValue = spriteForce.fillAmount;
 			newForceValue = anger / max;
 			spriteForceFirst.fillAmount = newForceValue;
-			if (newForceValue >= 1)
+			if (newForceValue >= 1){
+				spriteSkill.color = new Color32(255, 255, 255, 255);
 				uiSpriteFull.SetActive (true);
+			}
 		} else
-			buttonSkill.SetActive(false);
+			spriteSkill.color = new Color32(69, 69, 69, 255);
+//			buttonSkill.SetActive(false);
 	}
 
 	private void runForceValue () {
@@ -952,7 +963,7 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 
 			uiJoystick.gameObject.SetActive(true);
-			buttonSkill.SetActive(false);
+//			buttonSkill.SetActive(false);
 			ChangeControl(true);
 			SetPassButton();
 
