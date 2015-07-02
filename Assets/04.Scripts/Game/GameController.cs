@@ -1642,9 +1642,9 @@ public class GameController : KnightSingleton<GameController>
 
 			if(BasketSituationType == EBasketSituation.AirBall) {
 				//AirBall
-				#if UNITY_EDITOR
-				UIHint.Get.ShowHint("AirBall", Color.yellow);
-				#endif
+//				#if UNITY_EDITOR
+//				UIHint.Get.ShowHint("AirBall", Color.yellow);
+//				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
 				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
 				CourtMgr.Get.RealBallRigidbody.velocity = 
@@ -1663,9 +1663,9 @@ public class GameController : KnightSingleton<GameController>
 
 			} else 
 			if(BasketSituationType == EBasketSituation.Swish) {
-				#if UNITY_EDITOR
-				UIHint.Get.ShowHint("Swish", Color.yellow);
-				#endif
+//				#if UNITY_EDITOR
+//				UIHint.Get.ShowHint("Swish", Color.yellow);
+//				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 //				distanceBallToBasket = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z), new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z));
 //				Debug.Log("distanceBallToBasket : "+distanceBallToBasket);
