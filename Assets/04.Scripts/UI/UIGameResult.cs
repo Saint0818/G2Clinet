@@ -126,8 +126,8 @@ public class UIGameResult : UIBase {
 			fg3 = Mathf.Round(player.FG3In * 100 / player.FG3);
 
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/PTS/LabelValue", pts.ToString());
-		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/FG/LabelValue", fg.ToString());
-		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/3FG/LabelValue", fg3.ToString());
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/FG/LabelValue", fg.ToString() + "%");
+		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/3FG/LabelValue", fg3.ToString() + "%");
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/REB/LabelValue", player.Rebound.ToString());
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/AST/LabelValue", player.Assist.ToString());
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/STL/LabelValue", player.Steal.ToString());
