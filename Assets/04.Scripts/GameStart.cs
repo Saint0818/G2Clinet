@@ -13,7 +13,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public float CrossTimeX = 0.5f;
-	public float CrossTimeZ = 1;
+	public float CrossTimeZ = 0.8f;
 	public TScoreRate ScoreRate = new TScoreRate(1);
 	public bool IsDebugAnimation = false;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
