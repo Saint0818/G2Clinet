@@ -3225,6 +3225,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set
         {
+			MoveName = value.FileName;
             if (MoveQueue.Count == 0)
                 MoveTurn = 0;
 
