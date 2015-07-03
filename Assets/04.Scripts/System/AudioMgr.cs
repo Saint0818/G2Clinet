@@ -36,6 +36,8 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 			PlayerPrefs.SetInt ("MusicOn", 1);
 			PlayerPrefs.Save ();
 		}
+
+		//KnightZhConverter.Get.Test ();
 	}
 
 	void Start()
