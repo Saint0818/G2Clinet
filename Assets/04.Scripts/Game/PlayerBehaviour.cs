@@ -2848,10 +2848,10 @@ public class PlayerBehaviour : MonoBehaviour
 			directState = EPassDirectState.Forward;
 		else 
 		if (angle <= -60f && angle > -120f)
-			directState = EPassDirectState.Right;
+			directState = EPassDirectState.Left;
 		else 
 		if (angle < 120f && angle >= 60f)
-			directState = EPassDirectState.Left;
+			directState = EPassDirectState.Right;
 		else 
 		if (angle >= 120f || angle <= -120f)
 			directState = EPassDirectState.Back; 

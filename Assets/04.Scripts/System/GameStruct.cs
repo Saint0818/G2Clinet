@@ -78,7 +78,7 @@ namespace GameStruct
 			Dribble = 0;
 			Defence = 0;
 			Pass = 0;
-			BodyType = 2;
+			BodyType = 0;
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];

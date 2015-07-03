@@ -1803,10 +1803,10 @@ public class GameController : KnightSingleton<GameController>
 					Result = BallOwner.AniState(EPlayerState.Pass7);
 				else 
 				if (angle < 120f && angle >= 60f)
-					Result = BallOwner.AniState(EPlayerState.Pass6);
+					Result = BallOwner.AniState(EPlayerState.Pass8);
 				else 
 				if (angle >= 120f || angle <= -120f)
-					Result = BallOwner.AniState(EPlayerState.Pass8);
+					Result = BallOwner.AniState(EPlayerState.Pass6);
 
 				if(Result){
 					Catcher = player;
