@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fbda23770fdc8c04987bab917a3aa328
-timeCreated: 1435131990
+timeCreated: 1435904774
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,50 +154,36 @@ ModelImporter:
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .200000003
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .156222239
+      - time: .170258671
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .5
+        intParameter: 1
+        messageOptions: 0
+      - time: .171428561
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: .157721847
+      - time: .306117713
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 1
+        floatParameter: 1
+        intParameter: 0
         messageOptions: 0
-      - time: .232000008
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 1
-        messageOptions: 0
-      - time: .259061813
+      - time: .330088437
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
         intParameter: 0
-        messageOptions: 0
-      - time: .283489108
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 1
-        messageOptions: 0
-      - time: .283489108
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
         messageOptions: 0
       - time: .333704025
         functionName: AnimationEvent
@@ -210,7 +196,7 @@ ModelImporter:
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .574903846
@@ -227,18 +213,18 @@ ModelImporter:
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .688699305
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
-        intParameter: 0
-        messageOptions: 0
       - time: .695897996
         functionName: AnimationEvent
         data: DunkBasket
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .700969219
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
       - time: .725772083
