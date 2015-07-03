@@ -10,6 +10,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public static GameStart instance;
 	public ESceneTest  SceneMode = ESceneTest.Single;
 	public EGameTest TestMode = EGameTest.None;
+	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 1;

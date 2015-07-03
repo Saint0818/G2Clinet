@@ -59,6 +59,14 @@ public enum EGameTest
 	Skill
 }
 
+public enum EModelTest
+{
+	None = -1,
+	Center = 0,
+	Forward = 1,
+	Defender = 2
+}
+
 public enum ECameraTest
 {
     None,

@@ -113,6 +113,9 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (Res == null)
 			Res = new GameObject();
 
+		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
+			player.BodyType = (int)GameStart.Get.TestModel;
+
 		SetAvatar (ref Res, player.Avatar, player.BodyType, true, false); 
 
 		Res.transform.parent = PlayerInfoModel.transform;
