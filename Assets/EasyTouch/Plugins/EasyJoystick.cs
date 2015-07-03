@@ -1552,6 +1552,7 @@ public class EasyJoystick : MonoBehaviour {
 				}
 				else{
 //					if (!virtualJoystick){
+					isVirtualTouch = false;
 					if (!isVirtualTouch) {
 						#region area restriction
 						switch (area){

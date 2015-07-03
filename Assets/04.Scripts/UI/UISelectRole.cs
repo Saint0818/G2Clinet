@@ -287,7 +287,7 @@ public class UISelectRole : UIBase {
 
 	public void OnClickSixAttr(GameObject obj) {
 		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
-		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -130);
+		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
 		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 	}
 	
