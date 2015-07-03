@@ -2125,7 +2125,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
-		if (player.Team == ETeamKind.Self && !UIDoubleClick.Visible) {
+		if (player.Team == ETeamKind.Self && !UIDoubleClick.Visible && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 			GameRecord.DoubleClickLaunch++;
 
 			switch (state) {

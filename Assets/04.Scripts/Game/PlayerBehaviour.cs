@@ -2873,11 +2873,11 @@ public class PlayerBehaviour : MonoBehaviour
 		if(passiveSkills.ContainsKey(skillKind)) {
 			if (passiveSkills[skillKind].Count > 0){
 				float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
-	            int passiveRate = 0;
+	            int passiveRate = -1;
 	            if (kind == ESkillKind.Pass) {
 					passDirect = judgeDirect(angle);
 					for(int i=0; i<passiveSkills[(int)skillKind].Count; i++) 
-						if (GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect)
+						if (GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect && isMoving)
 							passiveRate += GameData.SkillData[passiveSkills[(int)skillKind][i].ID].Rate(passiveSkills[(int)skillKind][i].Lv);
 	            } else
 					for(int i=0; i<passiveSkills[(int)skillKind].Count; i++)
@@ -2886,7 +2886,7 @@ public class PlayerBehaviour : MonoBehaviour
 				isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
 	        }
 		}
-
+		
         if (isPerformPassive){
 			string animationName = string.Empty;
 			for (int i=0; i<passiveSkills[skillKind].Count; i++) {
