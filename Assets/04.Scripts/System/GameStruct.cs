@@ -78,7 +78,7 @@ namespace GameStruct
 			Dribble = 0;
 			Defence = 0;
 			Pass = 0;
-			BodyType = 0;
+			BodyType = 2;
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];
@@ -522,6 +522,7 @@ namespace GameStruct
 		public string ExplainTW;
 		public string ExplainEN;
 		public string explain;
+		public string SkillExplain;
 		public int space;
 		public int spaceAdd;
 		public float lifeTime;
@@ -532,10 +533,12 @@ namespace GameStruct
 		public int rate;
 		public int rateAdd;
 		public string Animation;
+		public int EffectDirection;
 		public int Effect;
 		public int TargetKind;
-		public int TargetEffect;
 		public int TargetAnimation;
+		public int TargetEffect;
+		public int Direct;
 		public float distance;
 		public float distanceAdd;
 		public int MaxAnger;

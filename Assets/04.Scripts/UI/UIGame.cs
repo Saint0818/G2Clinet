@@ -585,7 +585,7 @@ public class UIGame : UIBase {
 	}
 
 	public void SetPassButton() {
-		if(GameStart.Get.TestMode != EGameTest.None) 
+		if(GameStart.Get.TestMode != EGameTest.None && GameStart.Get.TestMode != EGameTest.Pass) 
 			return;
 
 		int who = GameController.Get.GetBallOwner;
@@ -595,7 +595,6 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(true);
 			uiPassObjectGroup[2].SetActive(true);
-//			GameController.Get.passIcon[0].SetActive(false);
 			GameController.Get.passIcon[1].SetActive(true);
 			GameController.Get.passIcon[2].SetActive(true);
 			break;
@@ -604,7 +603,6 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(true);
 			uiPassObjectGroup[1].SetActive(false);
 			uiPassObjectGroup[2].SetActive(true);
-//			GameController.Get.passIcon[0].SetActive(true);
 			GameController.Get.passIcon[1].SetActive(false);
 			GameController.Get.passIcon[2].SetActive(true);
 			break;
@@ -613,17 +611,15 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(true);
 			uiPassObjectGroup[1].SetActive(true);
 			uiPassObjectGroup[2].SetActive(false);
-//			GameController.Get.passIcon[0].SetActive(true);
 			GameController.Get.passIcon[1].SetActive(true);
 			GameController.Get.passIcon[2].SetActive(false);
 			break;
 		default:
-//			uiPassObjectGroup[0].SetActive(false);
+			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(false);
 			uiPassObjectGroup[2].SetActive(false);
 			if(GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.TeeBPicking) {
 				viewPass.SetActive(false);
-//				GameController.Get.passIcon[0].SetActive(false);
 				GameController.Get.passIcon[1].SetActive(false);
 				GameController.Get.passIcon[2].SetActive(false);
 			} else {

@@ -204,13 +204,13 @@ public struct TScoreRate
     }
 }
 
-public struct TPassiveSkill
-{
-    public int ID;
-    public int Kind;
-    public string Name;
-    public int Rate;
-}
+//public struct TPassiveSkill
+//{
+//    public int ID;
+//    public int Kind;
+//    public string Name;
+//    public int Rate;
+//}
 
 public class TSkillAttribute
 {
@@ -404,18 +404,18 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
     //PassiveSkill
-	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
-	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
-	public int PassiveEffectID;
+//	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
+	//	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
+	private Dictionary<int, List<TSkill>> passiveSkills = new Dictionary<int, List<TSkill>>();
+	public int PassiveID;
+//	public int PassiveEffectID;
 	
 	//ActiveSkill
 	private float activeTime  = 0;
 	private bool isUseSkill = false;
 	public List<TSkillAttribute> SkillAttribute = new List<TSkillAttribute>();
 
-	private bool isHaveMoveDodge = false;
 	public int MoveDodgeRate = 0;
-	private bool isHavePickBall2 = false;
 	public int PickBall2Rate = 0;
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
@@ -543,59 +543,80 @@ public class PlayerBehaviour : MonoBehaviour
 		if (Attribute.Skills != null && Attribute.Skills.Length > 0) {
 			for (int i = 0; i < Attribute.Skills.Length; i++) {
 				if (GameData.SkillData.ContainsKey(Attribute.Skills[i].ID)) {
-					TSkillData skill = GameData.SkillData[Attribute.Skills[i].ID];
+					TSkillData skillData = GameData.SkillData[Attribute.Skills[i].ID];
 
-					Attribute.AddAttribute(skill.AttrKind, skill.Value(Attribute.Skills[i].Lv));
-					int rate = GameData.SkillData [Attribute.Skills[i].ID].Rate(Attribute.Skills [i].Lv);
-					if (GameData.SkillData[Attribute.Skills[i].ID].Kind == (int)ESkillKind.MoveDodge) {
-						isHaveMoveDodge = true;
-						MoveDodgeRate = rate;
+					Attribute.AddAttribute(skillData.AttrKind, skillData.Value(Attribute.Skills[i].Lv));
+
+					int key = skillData.Kind;
+
+					if (skillData.Kind == (int)ESkillKind.MoveDodge)
+						MoveDodgeRate = skillData.Rate(Attribute.Skills[i].Lv);
+
+					if (skillData.Kind == (int)ESkillKind.Pick2) {
+						PickBall2Rate = skillData.Rate(Attribute.Skills[i].Lv);
 					}
 
-					if (skill.Animation == ESkillKind.Pick2.ToString()) {
-						isHavePickBall2 = true;
-						PickBall2Rate = rate;
-					}
-
-					TPassiveSkill ps = new TPassiveSkill();
-					ps.ID = Attribute.Skills [i].ID;
-					ps.Name = GameData.SkillData [Attribute.Skills [i].ID].Animation;
-					ps.Kind = GameData.SkillData [Attribute.Skills [i].ID].Kind;
-					ps.Rate = rate;
-					int key = ps.Kind;
-					if (key > 1000){
-						key = (key / 100);
-						int direct = 0;
-						if(key % 10 == (int)EPassDirectState.Forward) 
-							direct = (int)EPassDirectState.Forward;
-						else 
-						if(key % 10 == (int)EPassDirectState.Back) 
-							direct = (int)EPassDirectState.Back;
-						else 
-						if(key % 10 == (int)EPassDirectState.Left) 
-							direct = (int)EPassDirectState.Left;
-						else 
-						if(key % 10 == (int)EPassDirectState.Right) 
-							direct = (int)EPassDirectState.Right;
-
-						if(passivePassDirects.ContainsKey(direct)) {
-							List<TPassiveSkill> psTemps = passivePassDirects[direct];
-							psTemps.Add(ps);
-							passivePassDirects[direct] = psTemps;
-						} else {
-							List<TPassiveSkill> psTemps = new List<TPassiveSkill>();
-							psTemps.Add(ps);
-							passivePassDirects.Add(direct, psTemps);
-						}
-					}
-
+					TSkill skill = new TSkill();
+					skill.ID = Attribute.Skills [i].ID;
+					skill.Lv = Attribute.Skills [i].Lv;
 					if (passiveSkills.ContainsKey(key))
-						passiveSkills [key].Add(ps);
+						passiveSkills [key].Add(skill);
 					else {
-						List<TPassiveSkill> pss = new List<TPassiveSkill>();
-						pss.Add(ps);
+						List<TSkill> pss = new List<TSkill>();
+						pss.Add(skill);
 						passiveSkills.Add(key, pss);
 					}
+					
+//					int rate = GameData.SkillData [Attribute.Skills[i].ID].Rate(Attribute.Skills [i].Lv);
+//					if (GameData.SkillData[Attribute.Skills[i].ID].Kind == (int)ESkillKind.MoveDodge) {
+//						isHaveMoveDodge = true;
+//						MoveDodgeRate = rate;
+//					}
+//
+//					if (skill.Animation == ESkillKind.Pick2.ToString()) {
+//						isHavePickBall2 = true;
+//						PickBall2Rate = rate;
+//					}
+
+//					TPassiveSkill ps = new TPassiveSkill();
+//					ps.ID = Attribute.Skills [i].ID;
+//					ps.Name = GameData.SkillData [Attribute.Skills [i].ID].Animation;
+//					ps.Kind = GameData.SkillData [Attribute.Skills [i].ID].Kind;
+//					ps.Rate = rate;
+//					int key = ps.Kind;
+//					if (key > 1000){
+//						key = (key / 100);
+//						int direct = 0;
+//						if(key % 10 == (int)EPassDirectState.Forward) 
+//							direct = (int)EPassDirectState.Forward;
+//						else 
+//						if(key % 10 == (int)EPassDirectState.Back) 
+//							direct = (int)EPassDirectState.Back;
+//						else 
+//						if(key % 10 == (int)EPassDirectState.Left) 
+//							direct = (int)EPassDirectState.Left;
+//						else 
+//						if(key % 10 == (int)EPassDirectState.Right) 
+//							direct = (int)EPassDirectState.Right;
+//
+//						if(passivePassDirects.ContainsKey(direct)) {
+//							List<TPassiveSkill> psTemps = passivePassDirects[direct];
+//							psTemps.Add(ps);
+//							passivePassDirects[direct] = psTemps;
+//						} else {
+//							List<TPassiveSkill> psTemps = new List<TPassiveSkill>();
+//							psTemps.Add(ps);
+//							passivePassDirects.Add(direct, psTemps);
+//						}
+//					}
+//
+//					if (passiveSkills.ContainsKey(key))
+//						passiveSkills [key].Add(ps);
+//					else {
+//						List<TPassiveSkill> pss = new List<TPassiveSkill>();
+//						pss.Add(ps);
+//						passiveSkills.Add(key, pss);
+//					}
 				}
 			}
 		}
@@ -1905,7 +1926,8 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (!CanUseState(state))
             return false;
-
+		if(GameStart.Get.TestMode == EGameTest.Pass)
+			Debug.Log("name:"+gameObject.name + "Rotate");
         rotateTo(v.x, v.z);
         return AniState(state);
     }
@@ -2768,8 +2790,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public void TimeScale(AnimationEvent aniEvent)
-	{
+	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
 		int intParam = aniEvent.intParameter;
 
@@ -2794,98 +2815,86 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void ZoomIn(float t)
-	{
+	public void ZoomIn(float t) {
 		CameraMgr.Get.SkillShow (gameObject); 
 		CameraMgr.Get.SetRoomMode (EZoomType.In, t); 
 	}
 
-	public void ZoomOut(float t)
-	{
+	public void ZoomOut(float t) {
 		CameraMgr.Get.SkillShow (gameObject);
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
 
-    public void ResetMove()
-    {
+    public void ResetMove() {
         MoveQueue.Clear();
         WaitMoveTime = 0;
     }
     
-    public void SetAutoFollowTime()
-    {
-        if (CloseDef == 0 && AutoFollow == false)
-        {
+    public void SetAutoFollowTime() {
+        if (CloseDef == 0 && AutoFollow == false) {
             CloseDef = Time.time + Attr.AutoFollowTime;
         }           
     }
 
-    public void ClearAutoFollowTime()
-    {
+    public void ClearAutoFollowTime() {
         CloseDef = 0;
         AutoFollow = false;
     }
 
+	private EPassDirectState judgeDirect(float angle) {
+		EPassDirectState directState = EPassDirectState.Forward;
+
+		if (angle < 60f && angle > -60f)
+			directState = EPassDirectState.Forward;
+		else 
+		if (angle <= -60f && angle > -120f)
+			directState = EPassDirectState.Right;
+		else 
+		if (angle < 120f && angle >= 60f)
+			directState = EPassDirectState.Left;
+		else 
+		if (angle >= 120f || angle <= -120f)
+			directState = EPassDirectState.Back; 
+
+		return directState;
+	}
+
     public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3)) {
         EPlayerState playerState = EPlayerState.Idle;
-		playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
+		try {
+			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
+		} catch {
+			Debug.LogError("this situation isn't contain EPlayerState:" + situation.ToString());
+		}
+
         bool isPerformPassive = false;
-		float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
-		if(passiveSkills.ContainsKey((int)kind)) {
-			if (passiveSkills[(int)kind].Count > 0){
+		int skillKind = (int)kind;
+		if(passiveSkills.ContainsKey(skillKind)) {
+			if (passiveSkills[skillKind].Count > 0){
+				float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
 	            int passiveRate = 0;
 	            if (kind == ESkillKind.Pass) {
-					if (angle < 60f && angle > -60f)
-						passDirect = EPassDirectState.Forward;
-					else 
-					if (angle <= -60f && angle > -120f)
-						passDirect = EPassDirectState.Left;
-	                else 
-					if (angle < 120f && angle >= 60f)
-						passDirect = EPassDirectState.Right;
-					else 
-					if (angle >= 120f && angle <= -120f)
-						passDirect = EPassDirectState.Back; 
-	                
-					for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
-						if ((passiveSkills[(int)kind][i].Kind % 10) == (int)passDirect){
-							passiveRate += passiveSkills[(int)kind] [i].Rate;
-						}
-	                }
-	            } else {
-					for (int i=0; i<passiveSkills[(int)kind].Count; i++)
-						passiveRate += passiveSkills[(int)kind] [i].Rate;
-	            }
+					passDirect = judgeDirect(angle);
+					for(int i=0; i<passiveSkills[(int)skillKind].Count; i++) 
+						if (GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect)
+							passiveRate += GameData.SkillData[passiveSkills[(int)skillKind][i].ID].Rate(passiveSkills[(int)skillKind][i].Lv);
+	            } else
+					for(int i=0; i<passiveSkills[(int)skillKind].Count; i++)
+						passiveRate += GameData.SkillData[passiveSkills[(int)skillKind][i].ID].Rate(passiveSkills[(int)skillKind][i].Lv);
 
-	            isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
+				isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
 	        }
 		}
 
         if (isPerformPassive){
 			string animationName = string.Empty;
-			if (kind == ESkillKind.Pass){
-				if (passivePassDirects.ContainsKey((int) passDirect)){
-					for (int i=0; i<passivePassDirects [(int)passDirect].Count; i++)
-					{
-						if (UnityEngine.Random.Range(0, 100) <= passivePassDirects [(int)passDirect][i].Rate)
-						{
-							animationName = passivePassDirects [(int)passDirect][i].Name;
-							PassiveEffectID = GameData.SkillData[passivePassDirects [(int)passDirect][i].ID].Effect;
-							break;       
-						}
-					}
-				}
-			} else 
-			if (passiveSkills.ContainsKey((int)kind)) {
-				for (int i=0; i<passiveSkills[(int)kind].Count; i++) {
-					if (UnityEngine.Random.Range(0, 100) <= passiveSkills[(int)kind] [i].Rate){
-						animationName = passiveSkills[(int)kind] [i].Name;
-						PassiveEffectID = GameData.SkillData[passiveSkills [(int)kind][i].ID].Effect;
-						break;       
-					}
+			for (int i=0; i<passiveSkills[skillKind].Count; i++) {
+				if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
+					PassiveID = passiveSkills[skillKind][i].ID;
+					animationName = GameData.SkillData[PassiveID].Animation;
+					break;
 				}
 			}
-			
 			if (animationName != string.Empty) {
 				try {
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
@@ -2975,20 +2984,16 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		}
 	}
-
-    public bool IsHaveMoveDodge
-    {
-        get
-        {
-            return isHaveMoveDodge;
+			                
+    public bool IsHaveMoveDodge {
+        get{
+            return passiveSkills.ContainsKey((int)ESkillKind.MoveDodge);
         }
     }
 
-	public bool IsHavePickBall2
-	{
-		get
-		{
-			return isHavePickBall2;
+	public bool IsHavePickBall2{
+		get{
+			return passiveSkills.ContainsKey((int)ESkillKind.Pick2);
 		}
 	}
 	

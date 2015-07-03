@@ -1794,6 +1794,27 @@ public class GameController : KnightSingleton<GameController>
 
 		if(BallOwner != null && BallOwner.NoAiTime == 0)
 		{
+			if(GameStart.Get.TestMode == EGameTest.Pass) {
+				float angle = GameFunction.GetPlayerToObjectAngleByVector(BallOwner.gameObject.transform, player.gameObject.transform.position);
+				if (angle < 60f && angle > -60f)
+					Result = BallOwner.AniState(EPlayerState.Pass5);
+				else 
+				if (angle <= -60f && angle > -120f)
+					Result = BallOwner.AniState(EPlayerState.Pass7);
+				else 
+				if (angle < 120f && angle >= 60f)
+					Result = BallOwner.AniState(EPlayerState.Pass6);
+				else 
+				if (angle >= 120f || angle <= -120f)
+					Result = BallOwner.AniState(EPlayerState.Pass8);
+
+				if(Result){
+					Catcher = player;
+					UIGame.Get.DoPassNone();
+				}
+				return Result;
+			}
+
 			if(IsShooting)
 			{
 				if(player.Team == ETeamKind.Self)
@@ -1973,15 +1994,9 @@ public class GameController : KnightSingleton<GameController>
         {
             if (PlayerList.Count > 1)
             {
-//				float aiTime = BallOwner.NoAiTime;
 				BallOwner.NoAiTime = 0;
 
-//                if (BallOwner == Joysticker)
                 return Pass(PlayerList [playerid], false, true);
-//                else
-//					return Pass(Joysticker, false, true);
-
-//				Joysticker.NoAiTime = aiTime;
             }
         }
 
@@ -2499,7 +2514,6 @@ public class GameController : KnightSingleton<GameController>
 						}
 					} 
 				}
-				return Result;
 				break;
 			case ESkillSituation.Block:
 				skillKind = ESkillKind.Block;
@@ -2605,10 +2619,17 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			}	
 		}
-		if(Result && !playerState.ToString().Equals(State.ToString())){
-			Debug.Log("Player : "+ player.name +"   ESkillSituation : "+ State + "   EffectID:"+ player.PassiveEffectID);
-			ShowPassiveEffect(player.PassiveEffectID);
-			player.GameRecord.PassiveSkill++;
+		try {
+//			Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "  PlayerState:"+playerState.ToString() );
+			if(Result && !playerState.ToString().Equals(State.ToString())){
+				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
+//					Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "   PassiveID:"+ player.PassiveID + "   EffectID:"+ GameData.SkillData[player.PassiveID].Effect);
+					ShowPassiveEffect(GameData.SkillData[player.PassiveID].Effect);
+				}
+				player.GameRecord.PassiveSkill++;
+			}
+		} catch {
+			Debug.Log(player.name  +" is no State: "+ State.ToString() +"OR have no PassiveID:"+ player.PassiveID);
 		}
 
 		return Result;
@@ -3487,6 +3508,8 @@ public class GameController : KnightSingleton<GameController>
 		    player.CheckAnimatorSate(EPlayerState.Push) || 
 		    dir == 6)
             return;
+		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
+			Debug.LogError("name:" + player.name);
 
 		if (Catcher) {
 			if(Situation == EGameSituation.TeeAPicking || Situation == EGameSituation.TeeBPicking)
@@ -3621,7 +3644,7 @@ public class GameController : KnightSingleton<GameController>
 		if(player1.IsHavePickBall2) {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 				int rate = Random.Range(0, 100);
-				if(rate < player1.Attr.StaminaValue) 
+				if(rate < player1.PickBall2Rate) 
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
 			}
 		}
