@@ -1804,17 +1804,25 @@ public class GameController : KnightSingleton<GameController>
 		{
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				float angle = GameFunction.GetPlayerToObjectAngleByVector(BallOwner.gameObject.transform, player.gameObject.transform.position);
-				if (angle < 60f && angle > -60f)
+				if (angle < 60f && angle > -60f){
+					UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
 					Result = BallOwner.AniState(EPlayerState.Pass5);
-				else 
-				if (angle <= -60f && angle > -120f)
+				}else 
+				if (angle <= -60f && angle > -120f){
+					UIHint.Get.ShowHint("Direct Left and Angle:" + angle, Color.yellow);
 					Result = BallOwner.AniState(EPlayerState.Pass7);
-				else 
-				if (angle < 120f && angle >= 60f)
+				}else 
+				if (angle < 120f && angle >= 60f){
+					UIHint.Get.ShowHint("Direct Right and Angle:" + angle, Color.yellow);
 					Result = BallOwner.AniState(EPlayerState.Pass8);
-				else 
-				if (angle >= 120f || angle <= -120f)
-					Result = BallOwner.AniState(EPlayerState.Pass6);
+				}else 
+				if (angle >= 120f || angle <= -120f){
+					UIHint.Get.ShowHint("Direct Back and Angle:" + angle, Color.yellow);
+					if(Random.Range(0, 100) < 50)
+						Result = BallOwner.AniState(EPlayerState.Pass9);
+					else 
+						Result = BallOwner.AniState(EPlayerState.Pass6);
+				}
 
 				if(Result){
 					Catcher = player;
