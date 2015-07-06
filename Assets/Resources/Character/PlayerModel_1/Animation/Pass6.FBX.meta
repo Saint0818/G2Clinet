@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7b1f8d032d056804f99575987f805453
-timeCreated: 1434613258
+timeCreated: 1436167170
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -131,7 +131,7 @@ ModelImporter:
       name: Pass6
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 36
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,14 +150,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .514780879
+      - time: .26045987
         functionName: AnimationEvent
         data: Passing
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: .99999994
         functionName: AnimationEvent
         data: PassEnd
         objectReferenceParameter: {instanceID: 0}
