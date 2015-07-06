@@ -77,9 +77,20 @@ public class BasketPositionEdit : EditorWindow {
 		//Right  All BasketAnimation
 		isSave = false;
 		allBasketAnimationClip.Clear();
-		UnityEngine.Object[] animationObjs = Resources.LoadAll("Stadiums/Basket/Animation", typeof(AnimationClip));
+//		UnityEngine.Object[] animationObjs = Resources.LoadAll("Stadiums/Basket/Animation", typeof(AnimationClip));
+		string path = "Assets/01.Art/Scene/Stadium/Basket/Animation/";
+		string[] files = Directory.GetFiles(path);
+//		UnityEngine.Object[] animationObjs = AssetDatabase.LoadAllAssetsAtPath(path);
+//		UnityEngine.Object[] animationObjs = AssetDatabase.LoadAllAssetsAtPath("Assets/01.Art/Scene/");
+		List<UnityEngine.Object> animationObjs = new List<UnityEngine.Object>();
+		for(int i=0; i<files.Length; i++) {
+			UnityEngine.Object animationObj = AssetDatabase.LoadAssetAtPath(files[i], typeof(AnimationClip));
+			if(animationObj != null) 
+				animationObjs.Add(animationObj);
+		}
+
 		basketTempShootPositionData.Clear();
-		for(int i=0; i<animationObjs.Length; i++) {
+		for(int i=0; i<animationObjs.Count; i++) {
 			if(animationObjs[i].name.Contains("BasketballAction_")){
 				AnimationClip clip = animationObjs[i] as AnimationClip;
 				if(!allBasketAnimationClip.Contains(clip))

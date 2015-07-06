@@ -387,6 +387,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team]);
 				break;
 			case "ActionNoScoreEnd":
+				PlayShootNoScore(team);
 				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
 				SetBallState(EPlayerState.Rebound);
 				break;
@@ -675,6 +676,34 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		string animationName;
 //		AnimationClip clip;
 		animationName = "Shot_0";
+		
+		if (team == 0)
+		{
+			animation = pveBasketAy[0].GetComponent<Animation>();
+			Hood[0].gameObject.SetActive(true);
+		} else
+		{
+			if(isPve)
+			{
+				animation = pveBasketAy[1].GetComponent<Animation>();
+			}
+			else
+			{
+				animation = BuildBasket[1].GetComponent<Animation>();
+			}
+			
+			Hood[1].gameObject.SetActive(true);
+		}
+		
+		animation.Play (animationName);
+	}
+
+	public void PlayShootNoScore(int team)
+	{
+		Animation animation;
+		string animationName;
+		//		AnimationClip clip;
+		animationName = "Shot_100";
 		
 		if (team == 0)
 		{
