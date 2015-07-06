@@ -386,8 +386,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case "ActionEnd":
 				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team]);
 				break;
-			case "ActionNoScoreEnd":
+			case "ActionNoScoreShot":
 				PlayShootNoScore(team);
+				break;
+			case "ActionNoScoreEnd":
 				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
 				SetBallState(EPlayerState.Rebound);
 				break;
