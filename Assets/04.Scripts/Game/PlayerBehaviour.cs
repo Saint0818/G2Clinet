@@ -320,6 +320,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject pushTrigger;
     private GameObject elbowTrigger;
     private GameObject blockTrigger;
+	private GameObject dashSmoke;
     private BlockCatchTrigger blockCatchTrigger;
     public GameObject AIActiveHint = null;
     public GameObject DummyBall;
@@ -468,7 +469,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 
         ScoreRate = GameStart.Get.ScoreRate;
-
+		DashEffectEnable (false);
     }
 
 	public void SetTimerKey(ETimerKind key)
@@ -896,6 +897,15 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
     }
+
+	public void DashEffectEnable(bool isEnable)
+	{
+		if(dashSmoke == null)
+			dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, gameObject);
+
+		if (dashSmoke)
+			dashSmoke.SetActive(isEnable);
+	}
 
     public void SetNoAiTime()
     {
@@ -1950,6 +1960,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if(GameStart.Get.IsDebugAnimation)
 			Debug.Log ("Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
+
+		DashEffectEnable (false);
         
         switch (state)
         {
@@ -2093,6 +2105,7 @@ public class PlayerBehaviour : MonoBehaviour
                         case EPlayerState.Dribble1:
                             PlayerRigidbody.mass = 0;
                             stateNo = 1;
+							DashEffectEnable(true);
                             break;
                         case EPlayerState.Dribble2:
                             PlayerRigidbody.mass = 0;
@@ -2329,6 +2342,7 @@ public class PlayerBehaviour : MonoBehaviour
                         break;
                     case EPlayerState.Run1:
                         stateNo = 1;
+						DashEffectEnable(true);
                         break;
                 }
                 animator.SetInteger("StateNo", stateNo);
