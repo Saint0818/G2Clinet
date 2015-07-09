@@ -1287,7 +1287,7 @@ public class PlayerBehaviour : MonoBehaviour
 			isStartJump = true;
 		}
 
-		if (isStartJump && gameObject.transform.localPosition.y <= 0) {
+		if (isStartJump && gameObject.transform.localPosition.y <= 0.1f) {
 
 			EffectManager.Get.PlayEffect("JumpDownFX", gameObject.transform.position, null, null, 3f);
 
