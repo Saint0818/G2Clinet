@@ -1361,6 +1361,9 @@ public class GameController : KnightSingleton<GameController>
 	//Attack <15   Deffence >15  All
 	private void jodgeSkillUI (){
 		if (Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0) {
+
+			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
+
 			GameObject target = getSkillTarget(Joysticker);
 			if (CheckSkill(Joysticker, target)) {
 				UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, true);
