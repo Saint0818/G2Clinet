@@ -2822,7 +2822,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		switch (effectName) {
 			case "FallDownFX":
-				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position);
+				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position, null, null, 3);
 				break;
 		}
 	}
