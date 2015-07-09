@@ -15,26 +15,29 @@ public struct TCloneMesh {
 public class EffectManager : MonoBehaviour
 {
 	public float CloneLiveTime = 1;
-
+	public GameObject ObjPool;
 	private static EffectManager instance = null;
 	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect",  "ThreeLineEffect", "ThrowInLineEffect", "DoubleClick01", "DoubleClick02"};
 	private bool GameEffectLoaded = false;
-
-	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 
 	private List<TCloneMesh> cloneMeshs = new List<TCloneMesh>();
 	private List<Material> materials = new List<Material>();
 	private List<int> triangles = new List<int>();
 	private List<GameObject> cloneObjects = new List<GameObject>();
+	
+	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 
 	void Awake() {
 
 		Material mat = Resources.Load("Effect/Materials/CloneMesh0") as Material;
 		if (mat)
 			materials.Add(mat);
+
+		ObjPool = new GameObject ();
+		ObjPool.name = "ObjPool";
+		ObjPool.transform.parent = gameObject.transform;
+		ObjPool.SetActive (false);
 	}
-
-
 
 	public static EffectManager Get {
 		get

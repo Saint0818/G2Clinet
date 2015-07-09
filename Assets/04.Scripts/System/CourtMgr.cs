@@ -670,6 +670,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			animation.Play (animationName);
 			
 		CameraMgr.Get.PlayShake ();
+		EffectManager.Get.PlayEffect ("DunkFX", new Vector3(DunkPoint[team].transform.position.x, 3.76f, DunkPoint[team].transform.position.z), null, null, 3f);
     }
 
 	public void PlayShoot(int team)
@@ -698,6 +699,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 		
 		animation.Play (animationName);
+		EffectManager.Get.PlayEffect ("ShotFX", ShootPoint [team].transform.position, null, null, 3f);
 	}
 
 	public void PlayShootNoScore(int team)

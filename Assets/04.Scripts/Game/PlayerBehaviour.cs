@@ -1263,6 +1263,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private bool isCheckLayerToReset = false;
     private bool isStartCheckLayer = false;
+	private bool isStartJump = false;
 
     private void CalculationPlayerHight()
     {
@@ -1280,6 +1281,18 @@ public class PlayerBehaviour : MonoBehaviour
                 isStartCheckLayer = false;
             }
         }
+
+		//Effect Handel
+		if (gameObject.transform.localPosition.y > 0.5f) {
+			isStartJump = true;
+		}
+
+		if (isStartJump && gameObject.transform.localPosition.y <= 0) {
+
+			EffectManager.Get.PlayEffect("JumpDownFX", gameObject.transform.position, null, null, 3f);
+
+			isStartJump = false;
+		}
     }
 
 	public void DebugTool()
@@ -2105,11 +2118,11 @@ public class PlayerBehaviour : MonoBehaviour
                         case EPlayerState.Dribble1:
                             PlayerRigidbody.mass = 0;
                             stateNo = 1;
-							DashEffectEnable(true);
                             break;
                         case EPlayerState.Dribble2:
                             PlayerRigidbody.mass = 0;
                             stateNo = 2;
+							DashEffectEnable(true);
                             break;
                     }
 //                    if (!isJoystick)
@@ -2804,6 +2817,15 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
         }
     }
+
+	public void EffectEvent(string effectName)
+	{
+		switch (effectName) {
+			case "FallDownFX":
+				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position);
+				break;
+		}
+	}
 
 	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
