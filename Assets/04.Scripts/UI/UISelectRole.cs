@@ -216,19 +216,14 @@ public class UISelectRole : UIBase {
 	
 	protected override void InitData() {
 		loadCardTextures();
-//		arrayAvatar = new GameStruct.TAvatar[Ay.Length];
 		SelectRoleIndex = UnityEngine.Random.Range (0, arrayRoleID.Length);
 		arraySelectID [0] = arrayRoleID[SelectRoleIndex];
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
 			arrayPlayer[i] = new GameObject();
 			arrayPlayerData[i] = new TPlayer(0);
 			arrayPlayerData[i].SetID(arraySelectID[0]);
-//			arrayPlayerData[i].ID = arraySelectID[0];
-//			arrayPlayerData[i].SetAvatar();
-//			arrayPlayerData[i].SetAttribute();
 			arrayPlayer[i].name = i.ToString();
 			arrayPlayer[i].transform.parent = playerInfoModel.transform;
-//			arrayAvatar[i] = PlayerAy[i].Avatar;
 			ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, GameData.DPlayers[arraySelectID[0]].BodyType, false, false);
 			arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
 			arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
@@ -341,7 +336,6 @@ public class UISelectRole : UIBase {
 		arrayPlayerData [RoleIndex].AILevel = GameData.DPlayers [arrayRoleID [Index]].AILevel;
 		arraySelectID[RoleIndex] = arrayRoleID[Index];
 		arrayPlayerData[RoleIndex].SetAvatar();
-//		arrayAvatar[RoleIndex] = PlayerAy[RoleIndex].Avatar;
 		GameObject temp = arrayPlayer [RoleIndex];
 
 		ModelManager.Get.SetAvatar(ref arrayPlayer[RoleIndex], arrayPlayerData[RoleIndex].Avatar, GameData.DPlayers [arrayRoleID [Index]].BodyType, false, false, true);

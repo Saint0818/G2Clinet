@@ -38,6 +38,10 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		MaterialAy[0] = Resources.Load ("Materials/TriangleMaterial_Outside") as Material;
 		MaterialAy[1] = Resources.Load ("Materials/TriangleMaterial_Inside") as Material;
 
+		Triangle.layer = LayerMask.NameToLayer("UI");
+		TriangleInside.layer = LayerMask.NameToLayer("UI");
+		TriangleOutside.layer = LayerMask.NameToLayer("UI");
+
 		CreateTriangle (source, B1, A1, 10, MaterialAy[0]);
 		CreateTriangle (source, C1, B1, 11, MaterialAy[0]);
 		CreateTriangle (source, D1, C1, 12, MaterialAy[0]);
@@ -52,9 +56,16 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		CreateTriangle (source, F, E, 4, MaterialAy[1]);
 		CreateTriangle (source, A, F, 5, MaterialAy[1]);
 
-		Triangle.transform.localPosition = v1;
+		GameObject selectRole = GameObject.Find("UI2D");
+		if(selectRole != null) {
+			Triangle.transform.parent = selectRole.transform;
+			Triangle.transform.localPosition = new Vector3(450, -58, 0);
+			Triangle.transform.localScale = new Vector3(70, 70, 70);
+		}
+
 		TriangleInside.transform.localPosition = new Vector3 (0, 0, -0.01f);
-		Triangle.transform.localScale = new Vector3 (1.1f, 1.1f, 1.1f);
+//		Triangle.transform.localPosition = v1;
+//		Triangle.transform.localScale = new Vector3 (1.1f, 1.1f, 1.1f);
 	}
 
 	private void CreateTriangle(Vector3 V1, Vector3 V2, Vector3 V3, int Index, Material ma)
@@ -66,6 +77,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		m_Mesh.RecalculateNormals();
 
 		GameObject obj = new GameObject (Index.ToString());
+		obj.layer = LayerMask.NameToLayer("UI");
 		obj.AddComponent<MeshRenderer>();
 		obj.AddComponent<MeshFilter>();
 		obj.AddComponent<MeshCollider>();
@@ -88,13 +100,16 @@ public class UITriangle : KnightSingleton<UITriangle> {
 	{
 		for(int i = 0; i < OldValueAy.Length; i++)
 		{
-			if(OldValueAy[i] != NewValueAy[i])
+			float a = Mathf.Round(OldValueAy[i] * 100.0f) / 100.0f;
+			float b = Mathf.Round(NewValueAy[i] * 100.0f) / 100.0f;
+//			if(OldValueAy[i] != NewValueAy[i])
+			if(a != b)
 			{
-				if(OldValueAy[i] > NewValueAy[i])
+				if(OldValueAy[i] >= NewValueAy[i])
 				{
 					ChangeValue(i, OldValueAy[i] - 0.01f, true);
 				}
-				else if(OldValueAy[i] < NewValueAy[i])
+				else if(OldValueAy[i] <= NewValueAy[i])
 				{
 					ChangeValue(i, OldValueAy[i] + 0.01f, true);
 				}
@@ -108,10 +123,10 @@ public class UITriangle : KnightSingleton<UITriangle> {
 	{
 		if (Index >= 0 && Index < MeshAy.Length) 
 		{
-			if(Value < 0)
+			if(Value <= 0)
 				Value = 0;
 
-			if(Value > 1)
+			if(Value >= 1)
 				Value = 1;
 
 			if(!Update)

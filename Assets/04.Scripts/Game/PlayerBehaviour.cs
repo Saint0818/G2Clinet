@@ -204,14 +204,6 @@ public struct TScoreRate
     }
 }
 
-//public struct TPassiveSkill
-//{
-//    public int ID;
-//    public int Kind;
-//    public string Name;
-//    public int Rate;
-//}
-
 public class TSkillAttribute
 {
 	public int ID;
@@ -405,11 +397,8 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
     //PassiveSkill
-//	private Dictionary<int, List<TPassiveSkill>> passiveSkills = new Dictionary<int, List<TPassiveSkill>>(); // key:TSkillKind  value:List<PassiveSkill>  
-	//	private Dictionary<int, List<TPassiveSkill>> passivePassDirects = new Dictionary<int, List<TPassiveSkill>>();
 	private Dictionary<int, List<TSkill>> passiveSkills = new Dictionary<int, List<TSkill>>();
 	public int PassiveID;
-//	public int PassiveEffectID;
 	
 	//ActiveSkill
 	private float activeTime  = 0;

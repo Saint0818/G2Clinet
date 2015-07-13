@@ -302,7 +302,8 @@ public class UIGame : UIBase {
 		runForceBar ();
 
 		uiJoystick.Joystick.isActivated = false; 
-		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
+//		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
+		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(Screen.width * 0.2f, Screen.height * 0.85f);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 	}
@@ -448,21 +449,19 @@ public class UIGame : UIBase {
 	}
 	
 	public void ShowAlleyoop(bool isShow, int teammate = 1) {
-		if(GameController.Get.Situation == EGameSituation.AttackA) {
-			if(isShow) {
-				if(teammate == 1) {
-					uiPassA.SetActive(!isShow);
-					uiAlleyoopA.SetActive(isShow);
-				} else if(teammate == 2) {
-					uiPassB.SetActive(!isShow);
-					uiAlleyoopB.SetActive(isShow);
-				}
-			} else {
-				uiPassA.SetActive(true);
-				uiAlleyoopA.SetActive(false);
-				uiPassB.SetActive(true);
-				uiAlleyoopB.SetActive(false);
+		if(isShow && GameController.Get.Situation == EGameSituation.AttackA) {
+			if(teammate == 1) {
+				uiPassA.SetActive(!isShow);
+				uiAlleyoopA.SetActive(isShow);
+			} else if(teammate == 2) {
+				uiPassB.SetActive(!isShow);
+				uiAlleyoopB.SetActive(isShow);
 			}
+		} else {
+			uiPassA.SetActive(true);
+			uiAlleyoopA.SetActive(false);
+			uiPassB.SetActive(true);
+			uiAlleyoopB.SetActive(false);
 		}
 	}
 
