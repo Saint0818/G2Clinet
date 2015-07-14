@@ -653,7 +653,7 @@
     },
     {
         "id": 1210,
-        "kind": 1201,
+        "kind": 12,
         "star": 0,
         "maxstar": 2,
         "pictureno": 1210,
@@ -674,7 +674,7 @@
     },
     {
         "id": 1220,
-        "kind": 1202,
+        "kind": 12,
         "star": 0,
         "maxstar": 2,
         "pictureno": 1220,
@@ -695,7 +695,7 @@
     },
     {
         "id": 1221,
-        "kind": 1202,
+        "kind": 12,
         "star": 0,
         "maxstar": 2,
         "pictureno": 1221,
@@ -716,7 +716,7 @@
     },
     {
         "id": 1230,
-        "kind": 1203,
+        "kind": 12,
         "star": 0,
         "maxstar": 2,
         "pictureno": 1230,
@@ -737,7 +737,7 @@
     },
     {
         "id": 1240,
-        "kind": 1204,
+        "kind": 12,
         "star": 0,
         "maxstar": 2,
         "pictureno": 1240,
