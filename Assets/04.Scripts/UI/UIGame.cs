@@ -303,7 +303,7 @@ public class UIGame : UIBase {
 
 		uiJoystick.Joystick.isActivated = false; 
 //		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
-		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(Screen.width * 0.2f, Screen.height * 0.85f);
+		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(Screen.width * 0.2f, Screen.height * 0.9f);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 	}

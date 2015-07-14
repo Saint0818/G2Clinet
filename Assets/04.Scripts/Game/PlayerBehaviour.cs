@@ -340,8 +340,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float CoolDownSteal = 0;
     public float CoolDownPush = 0;
     public float CoolDownElbow = 0;
-    public float AirDrag = 0f;
-    public float fracJourney = 0;
+//    public float AirDrag = 0f;
+//    public float fracJourney = 0;
     public int MoveIndex = -1;
     public bool isJoystick = false;
     public PlayerBehaviour DefPlayer = null;
@@ -396,9 +396,10 @@ public class PlayerBehaviour : MonoBehaviour
     private float pickCurveTime = 0;
     private TSharedCurve playerPickCurve;
 
-    //PassiveSkill
+    //PassiveSkill key: Kind  value: TSKill
 	private Dictionary<int, List<TSkill>> passiveSkills = new Dictionary<int, List<TSkill>>();
 	public int PassiveID;
+	public int PassiveLv;
 	
 	//ActiveSkill
 	private float activeTime  = 0;
@@ -556,57 +557,6 @@ public class PlayerBehaviour : MonoBehaviour
 						pss.Add(skill);
 						passiveSkills.Add(key, pss);
 					}
-					
-//					int rate = GameData.SkillData [Attribute.Skills[i].ID].Rate(Attribute.Skills [i].Lv);
-//					if (GameData.SkillData[Attribute.Skills[i].ID].Kind == (int)ESkillKind.MoveDodge) {
-//						isHaveMoveDodge = true;
-//						MoveDodgeRate = rate;
-//					}
-//
-//					if (skill.Animation == ESkillKind.Pick2.ToString()) {
-//						isHavePickBall2 = true;
-//						PickBall2Rate = rate;
-//					}
-
-//					TPassiveSkill ps = new TPassiveSkill();
-//					ps.ID = Attribute.Skills [i].ID;
-//					ps.Name = GameData.SkillData [Attribute.Skills [i].ID].Animation;
-//					ps.Kind = GameData.SkillData [Attribute.Skills [i].ID].Kind;
-//					ps.Rate = rate;
-//					int key = ps.Kind;
-//					if (key > 1000){
-//						key = (key / 100);
-//						int direct = 0;
-//						if(key % 10 == (int)EPassDirectState.Forward) 
-//							direct = (int)EPassDirectState.Forward;
-//						else 
-//						if(key % 10 == (int)EPassDirectState.Back) 
-//							direct = (int)EPassDirectState.Back;
-//						else 
-//						if(key % 10 == (int)EPassDirectState.Left) 
-//							direct = (int)EPassDirectState.Left;
-//						else 
-//						if(key % 10 == (int)EPassDirectState.Right) 
-//							direct = (int)EPassDirectState.Right;
-//
-//						if(passivePassDirects.ContainsKey(direct)) {
-//							List<TPassiveSkill> psTemps = passivePassDirects[direct];
-//							psTemps.Add(ps);
-//							passivePassDirects[direct] = psTemps;
-//						} else {
-//							List<TPassiveSkill> psTemps = new List<TPassiveSkill>();
-//							psTemps.Add(ps);
-//							passivePassDirects.Add(direct, psTemps);
-//						}
-//					}
-//
-//					if (passiveSkills.ContainsKey(key))
-//						passiveSkills [key].Add(ps);
-//					else {
-//						List<TPassiveSkill> pss = new List<TPassiveSkill>();
-//						pss.Add(ps);
-//						passiveSkills.Add(key, pss);
-//					}
 				}
 			}
 		}

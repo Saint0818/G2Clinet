@@ -20,18 +20,18 @@ public enum EGameSituation
     End            = 9
 }
 
-public enum EGameAction
-{
-    Def = 0,
-    Attack = 1
-}
-
-public enum EBodyType
-{
-    Small = 0,
-    Middle = 1,
-    Big = 2
-}
+//public enum EGameAction
+//{
+//    Def = 0,
+//    Attack = 1
+//}
+//
+//public enum EBodyType
+//{
+//    Small = 0,
+//    Middle = 1,
+//    Big = 2
+//}
 
 public enum ESceneTest
 {
@@ -580,23 +580,23 @@ public class GameController : KnightSingleton<GameController>
 
         Joysticker = PlayerList [0];
 
-		selectMe = setEffectMagager("SelectMe");
+		selectMe = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
-		passIcon[0] = setEffectMagager("PassMe");
+		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.3f)), 0), Joysticker.gameObject);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
-			passIcon[1] = setEffectMagager("PassA");
-			setEffectMagager("SelectA");
+			passIcon[1] =EffectManager.Get.PlayEffect("PassA", new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
+			EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
-			passIcon[2] = setEffectMagager("PassB");
-			setEffectMagager("SelectB");
+			passIcon[2] =EffectManager.Get.PlayEffect("PassB", new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
+			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 		}
 		UIGame.Get.InitLine();
 
@@ -1290,7 +1290,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
             case EGameSituation.TeeA:
 				CourtMgr.Get.Walls[1].SetActive(false);
-				setEffectMagager("ThrowInLineEffect");
+				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
                 break;
             case EGameSituation.TeeBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
@@ -1300,7 +1300,7 @@ public class GameController : KnightSingleton<GameController>
                 break;
 			case EGameSituation.TeeB:
 				CourtMgr.Get.Walls[0].SetActive(false);
-				setEffectMagager("ThrowInLineEffect");
+				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero, null, null, 0);
 				break;
 			case EGameSituation.End:
 				IsStart = false;
@@ -1358,7 +1358,6 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 
-	//Attack <15   Deffence >15  All
 	private void jodgeSkillUI (){
 		if (Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0) {
 
@@ -1466,7 +1465,7 @@ public class GameController : KnightSingleton<GameController>
 		float originalRate = 0;
 		if(shootDistance >= GameConst.TreePointDistance) {
 			originalRate = player.Attr.PointRate3;
-			setEffectMagager("ThreeLineEffect");
+			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else {
 			originalRate = player.Attr.PointRate2;
 		}
@@ -2345,7 +2344,7 @@ public class GameController : KnightSingleton<GameController>
     public void OnSkill() {
 		if (CandoBtn && DoSkill(Joysticker)) {
 			Joysticker.SetNoAiTime();
-			setEffectMagager("SkillSign");
+			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
 		}
     }
 
@@ -2366,7 +2365,7 @@ public class GameController : KnightSingleton<GameController>
 					IsSkillFirstScore = true;
 
 					break;
-				case 21:
+				case 21://buffer
 					switch (skill.TargetKind) {
 					case 0:
 						player.AddSkillAttribute(skill.ID, skill.AttrKind, 
@@ -2445,6 +2444,93 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 	
+	public void OnShowEffect (PlayerBehaviour player = null) {
+		List<GameObject> objs = new List<GameObject>();
+		
+		if(player != null)
+			objs = getPassiveSkillTarget(player);
+		if(objs.Count > 0){
+			if(player.PassiveID != -1) {
+				if(GameData.SkillData[player.PassiveID].Effect != 0) {
+					for(int i=0; i<objs.Count; i++) {
+						EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[player.PassiveID].Effect, 
+//						                             new Vector3 (0, (4 - (player.Attribute.BodyType * 0.5f)),0),
+						                             Vector3.zero,
+						                             objs[i].gameObject,
+						                             null,
+						                             0.5f);
+					}
+				}
+			}
+		}
+	}
+
+	
+	private List<GameObject> getPassiveSkillTarget (PlayerBehaviour player) {
+		int targetKind = -1;
+		if (GameData.SkillData.ContainsKey(player.PassiveID)) {
+			List<GameObject> objs =new List<GameObject>();
+			targetKind = GameData.SkillData[player.PassiveID].TargetKind;
+			switch(targetKind) {
+			case 0://0.自己
+				objs.Add(player.gameObject); 
+				break;
+			case 1://1.我方籃筐
+				objs.Add(CourtMgr.Get.BasketHoop[player.Team.GetHashCode()].gameObject);
+				break;
+			case 2://2.對方籃筐
+			{
+				int i = 1;
+				if (player.Team == ETeamKind.Npc)
+					i = 0;
+				
+				objs.Add(CourtMgr.Get.BasketHoop[i].gameObject);
+			}
+				break;
+			case 3://3.我方全隊
+				for(int i=0; i<PlayerList.Count; i++)
+					if(PlayerList[i].Team == player.Team) 
+						objs.Add(PlayerList[i].gameObject);
+				break;
+			case 4://4.距離內我方
+				for(int i=0; i<PlayerList.Count; i++){
+					if(PlayerList[i].Team == player.Team) {
+						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
+							objs.Add(PlayerList[i].gameObject);
+					}
+				}
+				break;
+			case 5://5.敵方全隊
+				for(int i=0; i<PlayerList.Count; i++)
+					if(PlayerList[i].Team != player.Team) 
+						objs.Add(PlayerList[i].gameObject);
+				break;
+			case 6://6.距離內敵方
+				for(int i=0; i<PlayerList.Count; i++){
+					if(PlayerList[i].Team != player.Team) {
+						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
+							objs.Add(PlayerList[i].gameObject);
+					}
+				}
+				break;
+			case 7://7.投籃者
+				objs.Add(Shooter.gameObject);
+				break;
+			case 8://8.接球者
+				objs.Add(Catcher.gameObject);
+				break;
+			case 9://9.傳球者
+				objs.Add(Passer.gameObject);
+				break;
+			case 10://10.球
+				objs.Add(CourtMgr.Get.RealBall);
+				break;
+			}
+			return objs;
+		}
+		return null;
+	}
+	
     public void OnJoystickMove(MovingJoystick move)
     {
 		if (Joysticker && (CanMoveSituation || Joysticker.CanMoveFirstDribble))
@@ -2487,11 +2573,6 @@ public class GameController : KnightSingleton<GameController>
             Joysticker.OnJoystickMoveEnd(move, ps);
         }
     }
-	
-	public void ShowPassiveEffect (int effect = -1, int targetKind = -1, int targetAnimation = -1, int targetEffect = -1){
-		if(effect != -1)
-			setEffectMagager("SkillEffect" + effect);
-	}
 
 	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
 		bool Result = false;
@@ -2525,12 +2606,13 @@ public class GameController : KnightSingleton<GameController>
 							if (Dir == 1) {
 								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge0;
-								player.AniState(playerState);
+								player.PassiveID = 1100;
 							} else {
 								player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge1;
-								player.AniState(playerState);
+								player.PassiveID = 1100;
 							}			
+							player.AniState(playerState);
 							
 							CoolDownCrossover = Time.time + 4;
 							Result = true;
@@ -2643,16 +2725,16 @@ public class GameController : KnightSingleton<GameController>
 			}	
 		}
 		try {
-//			Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "  PlayerState:"+playerState.ToString() );
+//			Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "  PlayerState: "+playerState.ToString() );
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
 //					Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "   PassiveID:"+ player.PassiveID + "   EffectID:"+ GameData.SkillData[player.PassiveID].Effect);
-					ShowPassiveEffect(GameData.SkillData[player.PassiveID].Effect);
+					OnShowEffect(player);
+					player.GameRecord.PassiveSkill++;
 				}
-				player.GameRecord.PassiveSkill++;
 			}
 		} catch {
-			Debug.Log(player.name  +" is no State: "+ State.ToString() +"OR have no PassiveID:"+ player.PassiveID);
+			Debug.Log(player.name  +" is no State: "+ State.ToString() +" or have no PassiveID:"+ player.PassiveID);
 		}
 
 		return Result;
@@ -4152,43 +4234,6 @@ public class GameController : KnightSingleton<GameController>
 //			}
 //		}
 //	}
-
-	private GameObject setEffectMagager (string effectName){
-		GameObject obj = null;
-		switch (effectName) {
-		case "SkillSign":
-		case "SkillSign01" :
-		case "SkillEffect1":
-		case "SkillEffect2":
-		case "SkillEffect101":
-		case "SkillEffect201":
-			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
-			break;
-		case "ThreeLineEffect":
-		case "ThrowInLineEffect":
-			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, null, 0);
-			break;
-		case "PassMe":
-			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.3f)), 0), Joysticker.gameObject);
-			break;
-		case "PassA":
-			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
-			break;
-		case "PassB":
-			obj = EffectManager.Get.PlayEffect(effectName, new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
-			break;
-		case "SelectA":
-			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, PlayerList [1].gameObject);
-			break;
-		case "SelectB":
-			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, PlayerList [2].gameObject);
-			break;
-		case "SelectMe":
-			obj = EffectManager.Get.PlayEffect(effectName, Vector3.zero, null, Joysticker.gameObject);
-			break;
-		}
-		return obj;
-	}	
 
 	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos, ref TActionPosition [] Result)
 	{
