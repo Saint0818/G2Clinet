@@ -172,6 +172,7 @@ public class UISelectRole : UIBase {
 		animatorLoading = GameObject.Find (UIName + "/Center/ViewLoading").GetComponent<Animator>();
 
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
+		uiSelect.SetActive(false);
 		uiOK = GameObject.Find (UIName + "/Right/CharacterCheck");
 //		uiInfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 
@@ -185,6 +186,7 @@ public class UISelectRole : UIBase {
 		spritesSelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/SpriteTypeB").GetComponent<UISprite>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
+		UIEventListener.Get(GameObject.Find(UIName + "/Center/ShowTimeCollider")).onClick = DoPlayerAnimator;
 
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
 			labelsSelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
@@ -230,6 +232,7 @@ public class UISelectRole : UIBase {
 			arrayPlayer[i].transform.parent = playerInfoModel.transform;
 			ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, GameData.DPlayers[arraySelectID[0]].BodyType, false, false);
 			arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
+			arrayPlayer[i].GetComponent<CapsuleCollider>().enabled = false;
 			arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
 			arrayPlayerData [i].AILevel = GameData.DPlayers [arraySelectID[0]].AILevel;
 			arrayPlayer[i].AddComponent<SelectEvent>();
@@ -272,8 +275,8 @@ public class UISelectRole : UIBase {
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 2, 0);
 		Invoke("playerDoAnimator", 0.95f);
 		Invoke("playerShowTime", 1);
+		Invoke("hideSelectRoleAnimator", 2.5f);
 
-		changeBigHead(SelectRoleIndex);
 		setTriangleData();
 	}
 
@@ -285,13 +288,9 @@ public class UISelectRole : UIBase {
 			}
 		}
 	}
-	private void playerDoAnimator(){
-		arrayPlayer[0].SetActive(true);
-		arrayAnimator[0].SetTrigger("SelectDown");
-	}
 
-	private void playerShowTime (){
-		arrayPlayer[0].transform.localPosition = new Vector3(0, -0.9f, 0);
+	public void DoPlayerAnimator(GameObject obj){
+		arrayAnimator[0].SetTrigger("Walk");
 	}
 
 	public void OnClickSixAttr(GameObject obj) {
@@ -357,6 +356,7 @@ public class UISelectRole : UIBase {
 		arrayPlayer[RoleIndex].name = RoleIndex.ToString();
 		arrayPlayer[RoleIndex].transform.parent = playerInfoModel.transform;
 		arrayPlayer[RoleIndex].transform.localPosition = arrayPlayerPosition[RoleIndex];
+		arrayPlayer[RoleIndex].GetComponent<CapsuleCollider>().enabled = false;
 		arrayPlayer[RoleIndex].AddComponent<SelectEvent>();
 		arrayPlayer[RoleIndex].transform.localPosition = temp.transform.localPosition;
 		arrayPlayer[RoleIndex].transform.localEulerAngles = temp.transform.localEulerAngles;
@@ -509,16 +509,13 @@ public class UISelectRole : UIBase {
 			break;
 		case EUIRoleSituation.ChooseRole:{
 			UITriangle.Get.Triangle.SetActive (false);
-			animatorLeft.SetTrigger("Close");
-			animatorRight.SetTrigger("Close");
-			animatorLoading.SetTrigger("Open");
+			uiSelect.SetActive(false);
 
 			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			
 			int RanID;
 			int Count;
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
-				arrayPlayer[i].SetActive(true);
 				
 				RanID = UnityEngine.Random.Range(0, arrayRoleID.Length - i);
 				Count = 0;
@@ -545,6 +542,7 @@ public class UISelectRole : UIBase {
 						}
 					}
 				}
+				arrayPlayer[i].SetActive(false);
 			}
 			
 			for(int i = 0; i < arraySelectID.Length; i++) {
@@ -563,14 +561,16 @@ public class UISelectRole : UIBase {
 				}
 			}
 			changeRoleInfo();
-			arrayAnimator[1].SetTrigger("SelectDown");
-			arrayAnimator[2].SetTrigger("SelectDown");
+			animatorLeft.SetTrigger("Close");
+			animatorRight.SetTrigger("Close");
+			Invoke("otherPlayerDoAnimator", 0.5f);
+			Invoke("otherPlayerShowTime", 0.55f);
+			Invoke("loadingShow", 1f);
 		}
 			break;
 		case EUIRoleSituation.BackToSelectMe:
 			Invoke("showUITriangle", 0.7f);
-			animatorLeft.SetTrigger("Open");
-			animatorRight.SetTrigger("Open");
+			Invoke("leftRightShow", 0.5f);
 			animatorLoading.SetTrigger("Close");
 			
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
@@ -611,9 +611,48 @@ public class UISelectRole : UIBase {
 		}
 	}
 
+	private void hideSelectRoleAnimator(){
+		changeBigHead(SelectRoleIndex);
+		uiSelect.SetActive(true);
+		this.GetComponent<Animator>().enabled = false;
+	}
+
+	private void playerDoAnimator(){
+		arrayPlayer[0].SetActive(true);
+		arrayAnimator[0].SetTrigger("SelectDown");
+	}
+	
+	private void playerShowTime (){
+		arrayPlayer[0].transform.localPosition = new Vector3(0, -0.9f, 0);
+	}
+
+	private void otherPlayerDoAnimator(){
+		arrayPlayer[1].transform.localPosition = new Vector3(0.5f , 3f, 2.87f);
+		arrayPlayer[2].transform.localPosition = new Vector3(-0.5f, 3f, 2.58f);
+		arrayPlayer[1].SetActive(true);
+		arrayPlayer[2].SetActive(true);
+		arrayAnimator[1].SetTrigger("SelectDown");
+		arrayAnimator[2].SetTrigger("SelectDown");
+	}
+
+	private void otherPlayerShowTime(){
+		arrayPlayer[1].transform.localPosition = new Vector3(0.5f , -0.6f, 2.87f);
+		arrayPlayer[2].transform.localPosition = new Vector3(-0.5f, -0.6f, 2.58f);
+	}
+
+	private void loadingShow(){
+		animatorLoading.SetTrigger("Open");
+	}
+
+	private void leftRightShow(){
+		animatorLeft.SetTrigger("Open");
+		animatorRight.SetTrigger("Open");
+	}
+	
 	private void showUITriangle(){
 		UITriangle.Get.Triangle.SetActive (true);
 		UITriangle.Get.TriangleScaleIn();
+		uiSelect.SetActive(true);
 	}
 }
 

@@ -98,8 +98,8 @@ public class UITriangle : KnightSingleton<UITriangle> {
 	public void TriangleScaleIn () {
 		TriangleInside.transform.localScale = new Vector3(0,0,0);
 		TriangleOutside.transform.localScale = new Vector3(0,0,0);
-		TriangleInside.transform.DOScale(new Vector3(1,1,1), 1f);
-		TriangleOutside.transform.DOScale(new Vector3(1,1,1), 1f);
+		TriangleInside.transform.DOScale(new Vector3(1,1,1), 0.4f);
+		TriangleOutside.transform.DOScale(new Vector3(1,1,1), 0.4f);
 	}
 
 	void FixedUpdate() {
