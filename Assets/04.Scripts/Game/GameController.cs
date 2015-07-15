@@ -2666,14 +2666,13 @@ public class GameController : KnightSingleton<GameController>
 			case ESkillSituation.Fall2:
 				Result = true;
 				break;
-			case ESkillSituation.Pass4:{
+			case ESkillSituation.Pass4:
 				skillKind = ESkillKind.Pass;
 				playerState = player.PassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass4)
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
-			}
 				break;
 			case ESkillSituation.Pass0:
 				skillKind = ESkillKind.Pass;

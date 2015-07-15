@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class UITriangle : KnightSingleton<UITriangle> {
 	private Mesh m_Mesh;
@@ -25,8 +26,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 
 	public GameObject Triangle;
 
-	public void CreateSixAttr(Vector3 v1)
-	{
+	public void CreateSixAttr(Vector3 v1) {
 		Triangle = new GameObject();
 		Triangle.name = "Triangle";
 		TriangleInside = new GameObject ();
@@ -66,10 +66,12 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		TriangleInside.transform.localPosition = new Vector3 (0, 0, -0.01f);
 //		Triangle.transform.localPosition = v1;
 //		Triangle.transform.localScale = new Vector3 (1.1f, 1.1f, 1.1f);
+		TriangleInside.transform.localScale = new Vector3(0,0,0);
+		TriangleOutside.transform.localScale = new Vector3(0,0,0);
+		Invoke("TriangleScaleIn", 1.9f);
 	}
 
-	private void CreateTriangle(Vector3 V1, Vector3 V2, Vector3 V3, int Index, Material ma)
-	{
+	private void CreateTriangle(Vector3 V1, Vector3 V2, Vector3 V3, int Index, Material ma) {
 		Vector3[] m_Vertexs = new Vector3[]{V1, V2, V3};
 		m_Mesh = new Mesh ();
 		m_Mesh.vertices = m_Vertexs;
@@ -81,14 +83,11 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		obj.AddComponent<MeshRenderer>();
 		obj.AddComponent<MeshFilter>();
 		obj.AddComponent<MeshCollider>();
-		if (Index >= 0 && Index < MeshAy.Length) 
-		{
+		if (Index >= 0 && Index < MeshAy.Length) {
 			MeshAy [Index] = obj.GetComponent<MeshFilter> ();
 			MeshAy [Index].mesh = m_Mesh;
 			obj.transform.parent = TriangleInside.transform;
-		}
-		else
-		{
+		} else {
 			obj.GetComponent<MeshFilter> ().mesh = m_Mesh;
 			obj.transform.parent = TriangleOutside.transform;
 		}
@@ -96,21 +95,23 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		obj.GetComponent<MeshRenderer> ().material = ma;
 	}
 
-	void FixedUpdate()
-	{
-		for(int i = 0; i < OldValueAy.Length; i++)
-		{
+	public void TriangleScaleIn () {
+		TriangleInside.transform.localScale = new Vector3(0,0,0);
+		TriangleOutside.transform.localScale = new Vector3(0,0,0);
+		TriangleInside.transform.DOScale(new Vector3(1,1,1), 1f);
+		TriangleOutside.transform.DOScale(new Vector3(1,1,1), 1f);
+	}
+
+	void FixedUpdate() {
+		for(int i = 0; i < OldValueAy.Length; i++) {
 			float a = Mathf.Round(OldValueAy[i] * 100.0f) / 100.0f;
 			float b = Mathf.Round(NewValueAy[i] * 100.0f) / 100.0f;
 //			if(OldValueAy[i] != NewValueAy[i])
-			if(a != b)
-			{
-				if(OldValueAy[i] >= NewValueAy[i])
-				{
+			if(a != b) {
+				if(OldValueAy[i] >= NewValueAy[i]) {
 					ChangeValue(i, OldValueAy[i] - 0.01f, true);
-				}
-				else if(OldValueAy[i] <= NewValueAy[i])
-				{
+				} else 
+				if(OldValueAy[i] <= NewValueAy[i]) {
 					ChangeValue(i, OldValueAy[i] + 0.01f, true);
 				}
 			}
@@ -119,34 +120,25 @@ public class UITriangle : KnightSingleton<UITriangle> {
 
 	private float [] OldValueAy = new float[6];
 	private float [] NewValueAy = new float[6];
-	public void ChangeValue(int Index, float Value, bool Update = false)
-	{
-		if (Index >= 0 && Index < MeshAy.Length) 
-		{
+	public void ChangeValue(int Index, float Value, bool Update = false) {
+		if (Index >= 0 && Index < MeshAy.Length) {
 			if(Value <= 0)
 				Value = 0;
 
 			if(Value >= 1)
 				Value = 1;
 
-			if(!Update)
-			{
-				if(OldValueAy[Index] == 0)
-				{
+			if(!Update) {
+				if(OldValueAy[Index] == 0) {
 					OldValueAy[Index] = Value;
 					NewValueAy[Index] = Value;
 					ChangeValue(Index, Value, true);
-				}
-				else
-				{
+				} else {
 					NewValueAy[Index] = Value;
 				}
-			}
-			else
-			{
+			} else {
 				OldValueAy[Index] = Value;
-				switch(Index)
-				{
+				switch(Index) {
 				case 0:
 					//A
 					A = new Vector3(A1.x * Value, A1.y * Value, A1.z);
@@ -188,10 +180,8 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		}
 	}
 
-	private void ResetMesh(Vector3 V1, Vector3 V2, Vector3 V3, int Index)
-	{
-		if (Index >= 0 && Index < MeshAy.Length && MeshAy [Index] != null) 
-		{
+	private void ResetMesh(Vector3 V1, Vector3 V2, Vector3 V3, int Index) {
+		if (Index >= 0 && Index < MeshAy.Length && MeshAy [Index] != null) {
 			Vector3[] m_Vertexs = new Vector3[]{V1, V2, V3};
 			m_Mesh = new Mesh ();
 			m_Mesh.vertices = m_Vertexs;

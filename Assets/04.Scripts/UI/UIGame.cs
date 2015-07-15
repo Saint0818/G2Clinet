@@ -696,21 +696,7 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[2].SetActive(false);
 			break;
 		case EUIControl.Pass:
-			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
-			uiShoot.SetActive(false);
-			uiPassObjectGroup[0].SetActive(false);
-			uiPassObjectGroup[1].SetActive(false);
-			uiPassObjectGroup[2].SetActive(false);
-			break;
 		case EUIControl.PassA:
-			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
-			uiShoot.SetActive(false);
-			uiPassObjectGroup[0].SetActive(false);
-			uiPassObjectGroup[1].SetActive(false);
-			uiPassObjectGroup[2].SetActive(false);
-			break;
 		case EUIControl.PassB:
 			ShowSkillUI(false);
 			uiAttackPush.SetActive(false);

@@ -2867,6 +2867,7 @@ public class PlayerBehaviour : MonoBehaviour
 			for (int i=0; i<passiveSkills[skillKind].Count; i++) {
 				if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
 					PassiveID = passiveSkills[skillKind][i].ID;
+					PassiveLv = passiveSkills[skillKind][i].Lv;
 					animationName = GameData.SkillData[PassiveID].Animation;
 					break;
 				}
