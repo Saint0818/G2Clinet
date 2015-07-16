@@ -620,7 +620,7 @@ public class UISelectRole : UIBase {
 	private void playerDoAnimator(){
 		arrayPlayer[0].SetActive(true);
 		arrayAnimator[0].SetTrigger("SelectDown");
-		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(0,0,0), null, null, 0.35f);
+		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(0,0,0), null, null, 1f);
 	}
 	
 	private void playerShowTime (){
@@ -634,8 +634,8 @@ public class UISelectRole : UIBase {
 		arrayPlayer[2].SetActive(true);
 		arrayAnimator[1].SetTrigger("SelectDown");
 		arrayAnimator[2].SetTrigger("SelectDown");
-		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(1,0,1.7f), null, null, 0.35f);
-		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(-1.7f,0,1.7f), null, null, 0.35f);
+		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(1,0,1.7f), null, null, 1f);
+		EffectManager.Get.PlayEffect("FX_SelectDown", new Vector3(-1.7f,0,1.7f), null, null, 1f);
 	}
 
 	private void otherPlayerShowTime(){
