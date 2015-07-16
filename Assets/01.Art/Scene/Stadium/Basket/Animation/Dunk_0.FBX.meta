@@ -64,7 +64,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -75,7 +75,7 @@ ModelImporter:
       name: Dunk_0
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 45.0000038
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -125,6 +125,8 @@ ModelImporter:
         weight: 1
       - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
         weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/IK Chain
+        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 0
@@ -164,7 +166,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  animationType: 2
   additionalBone: 0
   userData: 
   assetBundleName: 
