@@ -21,6 +21,31 @@ public enum EPlayerPostion
 	G = 2
 }
 
+public enum EAnimatorState
+{
+	Block,
+	Catch,
+	Defence,
+	Dribble,
+	Dunk,
+	Elbow,
+	Fall,
+	FakeShoot,
+	GotSteal,
+	HoldBall,
+	Idle,
+	Intercept,
+	Layup,
+	MoveDodge,
+	Push,
+	Pick,
+	Pass,
+	Rebound,
+	Run,
+	Shoot,
+	Steal
+}
+
 public enum EPlayerState
 {
 	Alleyoop,

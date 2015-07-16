@@ -272,7 +272,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private float angleByPlayerHoop = 0;
 
-	public static Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
+	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
 //	private float distanceBallToBasket = 0;
 
     void Start()
@@ -285,16 +285,11 @@ public class GameController : KnightSingleton<GameController>
 
 	void InitAniState()
 	{
-		LoopStates.Add (EPlayerState.Dribble0, false);
-		LoopStates.Add (EPlayerState.Dribble1, false);
-		LoopStates.Add (EPlayerState.Dribble2, false);
-		LoopStates.Add (EPlayerState.Defence0, false);    
-		LoopStates.Add (EPlayerState.Defence1, false);
-		LoopStates.Add (EPlayerState.HoldBall, false);
-		LoopStates.Add (EPlayerState.Idle, false);
-		LoopStates.Add (EPlayerState.Run0, false);            
-		LoopStates.Add (EPlayerState.Run1, false);            
-		LoopStates.Add (EPlayerState.RunningDefence, false);
+		LoopStates.Add (EAnimatorState.Dribble, false);
+		LoopStates.Add (EAnimatorState.Defence, false);   
+		LoopStates.Add (EAnimatorState.HoldBall, false);
+		LoopStates.Add (EAnimatorState.Idle, false);
+		LoopStates.Add (EAnimatorState.Run, false);        
 	}
 
 	void OnApplicationFocus(bool focusStatus)
@@ -4415,7 +4410,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public bool IsOnceAnimation(EPlayerState state)
+	public bool IsOnceAnimation(EAnimatorState state)
 	{
 		if (LoopStates.ContainsKey (state))
 			return false;
