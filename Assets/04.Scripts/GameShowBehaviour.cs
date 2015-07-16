@@ -10,10 +10,7 @@ public class GameShowBehaviour : StateMachineBehaviour {
 	
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		Debug.Log ("End : 1");
-
 		if (!GameController.Get.IsStart && GameController.Get.Situation != EGameSituation.JumpBall) {
-//			animator.SetBool("Start", false);
 			CourtMgr.Get.ShowEnd ();
 		}
 	}
@@ -24,7 +21,6 @@ public class GameShowBehaviour : StateMachineBehaviour {
 	
 	override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
 	{
-		Debug.Log ("End : 2");
 	}
 	
 	override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo ,int stateMachinePathHash)
