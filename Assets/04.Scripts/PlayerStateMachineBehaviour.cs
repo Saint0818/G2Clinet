@@ -10,32 +10,36 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		currentTime = Time.time;
 		isOnce = GameController.Get.IsOnceAnimation (state);
-		if(isOnce){
-			currentTime = Time.time;
-		}
 //		Debug.Log (state.ToString() + ".OnStateEnter");
 	}
 
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		currentTime = Time.time;
 //		Debug.Log (state.ToString() + ".OnStateExit");
 	}
 
 	override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
 	{
+		currentTime = Time.time;
 //		Debug.Log (state.ToString() + ".OnStateMachineEnter");
 	}
 
 	override public void OnStateMachineExit(Animator animator, int stateMachinePathHash)
 	{
+		currentTime = Time.time;
 //		Debug.Log (state.ToString() + ".OnStateMachineExit");
 	}
 
 	override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo ,int stateMachinePathHash)
 	{
+		if(!GameController.Get.IsStart)
+			currentTime = Time.time;
+		else
 		if (isOnce && Time.time - currentTime > checkTime)
-			Debug.LogError ("Animator Stuck : " + state.ToString());
+			Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + state.ToString());
 	}
 
 	override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
