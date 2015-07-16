@@ -238,13 +238,22 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
 	}
 
-	public void ShowEnd()
+	public void ShowEnd(bool isImmediately = false)
 	{
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.JumpBall);
 		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
 		UIGame.UIShow (true);
 		InitScoreboard ();
-		CameraMgr.Get.ShowCameraEnable (false);
+
+		CameraMgr.Get.PlayGameStartCamera ();
+		if (isImmediately)
+			CameraMgr.Get.ShowCameraEnable (false);
+	}
+
+	void OnGUI()
+	{
+		if(Input.GetKeyDown(KeyCode.B))
+			CameraMgr.Get.PlayGameStartCamera ();
 	}
 
 	public void CloneReallBall()

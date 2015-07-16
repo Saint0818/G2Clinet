@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameShoweBehaviour : StateMachineBehaviour {
+public class GameShowBehaviour : StateMachineBehaviour {
 	
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{

@@ -93,7 +93,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			InitTestTool();
 
 			showCamera = GameObject.Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
-			showCamera.SetActive(false);
 		}
 	}
 
@@ -102,6 +101,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		AudioMgr.Get.PlaySound (SoundType.Dunk);
 	}
 
+	private Animation anmaiton;
+	
 	public void SetCourtCamera(SceneName scene)
 	{
 		if(cameraFx && cameraFx.name != scene.ToString()){
@@ -112,7 +113,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = scene.ToString();
+			anmaiton = cameraFx.GetComponent<Animation>();
+			PlayGameStartCamera();
+
 		}
+	}
+
+
+
+	public void PlayGameStartCamera()
+	{
+		if (anmaiton ["InGameStart"])
+			anmaiton.Play ("InGameStart");
 	}
 
 	public void SetSelectRoleCamera()
@@ -124,6 +136,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = "Camera_SelectRole";
+
 		}
 	}
 
@@ -138,7 +151,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		if(team == ECameraSituation.Show)
 		{
 			ShowCameraEnable(true);
-			showCamera.GetComponent<Animator>().SetTrigger("ShowTrigger");
 			cameraGroupObj.SetActive(false);
 		}
 		else
@@ -149,7 +161,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void ShowCameraEnable(bool isEnable)
 	{
-		showCamera.SetActive(isEnable);
+		if(isEnable)
+			showCamera.GetComponent<Animator>().SetTrigger("ShowTrigger");
+		else
+			showCamera.GetComponent<Animator>().SetTrigger("CloseTrigger");
 	}
 
     public Camera CourtCamera

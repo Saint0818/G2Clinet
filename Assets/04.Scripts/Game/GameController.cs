@@ -285,11 +285,20 @@ public class GameController : KnightSingleton<GameController>
 
 	void InitAniState()
 	{
-		LoopStates.Add (EAnimatorState.Dribble, false);
-		LoopStates.Add (EAnimatorState.Defence, false);   
-		LoopStates.Add (EAnimatorState.HoldBall, false);
-		LoopStates.Add (EAnimatorState.Idle, false);
-		LoopStates.Add (EAnimatorState.Run, false);        
+		if(!LoopStates.ContainsKey(EAnimatorState.Dribble))
+			LoopStates.Add (EAnimatorState.Dribble, false);
+
+		if(!LoopStates.ContainsKey(EAnimatorState.Defence))
+			LoopStates.Add (EAnimatorState.Defence, false);  
+
+		if(!LoopStates.ContainsKey(EAnimatorState.HoldBall))
+			LoopStates.Add (EAnimatorState.HoldBall, false);
+
+		if(!LoopStates.ContainsKey(EAnimatorState.Idle))
+			LoopStates.Add (EAnimatorState.Idle, false);
+
+		if(!LoopStates.ContainsKey(EAnimatorState.Run))
+			LoopStates.Add (EAnimatorState.Run, false);        
 	}
 
 	void OnApplicationFocus(bool focusStatus)
