@@ -121,7 +121,7 @@ public class AnimatorEditor : EditorWindow {
 		else
 			GUI.backgroundColor = Color.white;
 
-		if(GUI.Button(new Rect(200, 40, 130, 20), "Get AnimationControl")) {
+		if(GUI.Button(new Rect(200, 40, 230, 20), "Get AnimationControl for Game")) {
 			allMotionAnimationClip.Clear();
 			allAnimationClip.Clear();
 			isGetAvatar = false;
