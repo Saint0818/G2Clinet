@@ -938,7 +938,7 @@ public class UIGame : UIBase {
 			ChangeControl(true);
 			SetPassButton();
 
-			CameraMgr.Get.InitCamera(ETeamKind.JumpBall);
+			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			break;
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;

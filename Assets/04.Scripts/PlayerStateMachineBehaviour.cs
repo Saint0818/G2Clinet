@@ -37,9 +37,10 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 	{
 		if(!GameController.Get.IsStart)
 			currentTime = Time.time;
-		else
-		if (isOnce && Time.time - currentTime > checkTime)
-			Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + state.ToString());
+		else{
+			if (isOnce && Time.time - currentTime > checkTime)
+				Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + state.ToString());
+		}
 	}
 
 	override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

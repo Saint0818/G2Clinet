@@ -8,6 +8,15 @@ public enum EZoomType
 	Out
 }
 
+public enum ECameraSituation
+{
+	Show = -2,
+	JumpBall = -1,
+	Self = 0,
+	Npc = 1,
+	Skiller = 2
+}
+
 public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	//Game const
@@ -45,7 +54,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //	private Camera cameraPlayer;
 
 	private GameObject focusTarget;
-	private ETeamKind curTeam = ETeamKind.Self;
+	private ECameraSituation situation = ECameraSituation.Self;
 	
 	public bool IsBallOnFloor = false;
 	public bool IsLongPass = false;
@@ -58,6 +67,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private GameObject focusStopAeraObj;
 
 	public EZoomType CrtZoom = EZoomType.Normal;
+	private GameObject showCamera;
 
 	public bool UICamVisible
 	{
@@ -81,6 +91,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraWithBasketBallCourtRate = new Vector2(cameraMoveAera.x / basketballCourt.x, cameraMoveAera.y / basketballCourt.y);
 			InitCamera();
 			InitTestTool();
+
+			showCamera = GameObject.Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
+			showCamera.SetActive(false);
 		}
 	}
 
@@ -116,11 +129,27 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public bool IsTee = false;
 
-	public void SetTeamCamera(ETeamKind team, bool isTee = false)
+	public void SetCameraSituation(ECameraSituation team, bool isTee = false)
 	{
 		IsTee = isTee;
-		curTeam = team;
+		situation = team;
 		SetTestToolPosition();
+
+		if(team == ECameraSituation.Show)
+		{
+			ShowCameraEnable(true);
+			showCamera.GetComponent<Animator>().SetTrigger("ShowTrigger");
+			cameraGroupObj.SetActive(false);
+		}
+		else
+		{
+			cameraGroupObj.SetActive(true);
+		}
+	}
+
+	public void ShowCameraEnable(bool isEnable)
+	{
+		showCamera.SetActive(isEnable);
 	}
 
     public Camera CourtCamera
@@ -128,9 +157,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		get {return cameraFx;}
     }
 
-	public void InitCamera(ETeamKind team)
+	public void InitCamera(ECameraSituation team)
 	{
-		SetTeamCamera (team);
+		SetCameraSituation (team);
 		InitCamera ();
 	}
 
@@ -201,7 +230,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private void SetTestToolPosition()
 	{
 		if (GameStart.Get.TestCameraMode == ECameraTest.RGB) {
-			if (curTeam == ETeamKind.Self) {
+			if (situation == ECameraSituation.Self) {
 				focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
 				focusStopAeraObj.transform.position = new Vector3 (0, -0.4f, focusStopPoint [0]);	
 			} else {
@@ -232,7 +261,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && curTeam != ETeamKind.JumpBall) {
+		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
+			if(situation == ECameraSituation.Show)
+				return;
+
 			ZoomCalculation();
 			HorizontalCameraHandle();
 		}
@@ -259,8 +291,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void HorizontalCameraHandle()
     {
 		//GroupOffset
-		if(curTeam != ETeamKind.Skiller && curTeam != ETeamKind.JumpBall)
-			cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[curTeam.GetHashCode()], groupOffsetSpeed);
+		if(situation != ECameraSituation.Skiller && situation != ECameraSituation.JumpBall)
+			cameraGroupObj.transform.position = Vector3.Lerp(cameraGroupObj.transform.position, groupOffsetPoint[situation.GetHashCode()], groupOffsetSpeed);
 
 		CameraOffset();
 		CameraFocus ();
@@ -273,7 +305,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void CameraOffset()
 	{
-		if (curTeam == ETeamKind.Skiller)
+		if (situation == ECameraSituation.Skiller)
 			return;
 		cameraOffsetRate.x = (11.5f - focusTarget.transform.position.x) / cameraMoveAera.x;
 		cameraOffsetRate.z = (22.5f - focusTarget.transform.position.z) / cameraMoveAera.y;
@@ -311,16 +343,17 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		focusObjectOffset ();
 
-		switch (curTeam) {
+		switch (situation) {
 
-		case ETeamKind.JumpBall:
+		case ECameraSituation.JumpBall:
+
 			cameraRotationObj.transform.localPosition = jumpBallPos;
 			cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
 //				new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 			break;
-		case ETeamKind.Self:
+		case ECameraSituation.Self:
 			if(!IsTee){
-				if (focusTarget.transform.position.z < focusStopPoint[curTeam.GetHashCode()]) {
+				if (focusTarget.transform.position.z < focusStopPoint[situation.GetHashCode()]) {
 					Lookat(focusTarget, Vector3.zero);
 					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 				}
@@ -336,9 +369,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			}
 
 			break;
-		case ETeamKind.Npc:
+		case ECameraSituation.Npc:
 			if(!IsTee){
-				if (focusTarget.transform.position.z > focusStopPoint[curTeam.GetHashCode()]) {
+				if (focusTarget.transform.position.z > focusStopPoint[situation.GetHashCode()]) {
 					Lookat(focusTarget, Vector3.zero);
 					cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 				}
@@ -355,7 +388,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			}
 			break;
 
-		case ETeamKind.Skiller:
+		case ECameraSituation.Skiller:
 			focusTarget.transform.position = new Vector3(skiller.transform.position.x , skiller.transform.position.y + 2, skiller.transform.position.z);
 			Lookat(focusTarget, Vector3.zero);
 			break;
@@ -375,11 +408,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		pos.x = CourtMgr.Get.RealBall.transform.position.x;
 		pos.y = 0;
 
-		switch (curTeam) {
-			case ETeamKind.JumpBall:
+		switch (situation) {
+		case ECameraSituation.JumpBall:
 				pos = Vector3.zero;
 				break;
-			case ETeamKind.Self:
+		case ECameraSituation.Self:
 					if(GameController.Get.BallOwner){
 						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
 						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
@@ -389,7 +422,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
 					}
 					break;
-				case ETeamKind.Npc:
+		case ECameraSituation.Npc:
 					if(GameController.Get.BallOwner){
 						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
 						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
@@ -399,7 +432,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
 					}
 					break;
-				case ETeamKind.Skiller:
+		case ECameraSituation.Skiller:
 					pos = skiller.transform.position;
 					break;
 		}
@@ -428,7 +461,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void SkillShow(GameObject player)
 	{
-		curTeam = ETeamKind.Skiller;
+		situation = ECameraSituation.Skiller;
 		skiller = player;
 	}
 

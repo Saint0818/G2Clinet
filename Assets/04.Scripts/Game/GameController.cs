@@ -310,12 +310,12 @@ public class GameController : KnightSingleton<GameController>
         TeeBackPosAy [1] = new Vector2(5.3f, 10);
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
-		BornAy [0] = new Vector3 (-5, 0, -2);//G_A
-		BornAy [1] = new Vector3 (0, 0, -1);//C_A
-		BornAy [2] = new Vector3 (5, 0, -2);//F_A
-		BornAy [3] = new Vector3 (5, 0, 2);//G_B
-		BornAy [4] = new Vector3 (0, 0, 1);//C_B
-		BornAy [5] = new Vector3 (-5, 0, 2);//F_B
+		BornAy [0] = new Vector3 (-3.5f, 0, -3);//G_A
+		BornAy [1] = new Vector3 (0, 0, -1.5f);//C_A
+		BornAy [2] = new Vector3 (3.5f, 0, -3);//F_A
+		BornAy [3] = new Vector3 (3.5f, 0, 3);//G_B
+		BornAy [4] = new Vector3 (0, 0, 1.5f);//C_B
+		BornAy [5] = new Vector3 (-3.5f, 0, 3);//F_B
     }
 
     public void InitGame() {
@@ -1275,29 +1275,29 @@ public class GameController : KnightSingleton<GameController>
 			switch (GS)
 			{
 			case EGameSituation.Opening:
-				IsStart = true;
 				jodgeSkillUI ();
 
 				break;
 			case EGameSituation.JumpBall:
+				IsStart = true;
 				for(int i = 0; i < PlayerList.Count; i++)
 					if(PlayerList[i].Postion == EPlayerPostion.C)
 						Rebound(PlayerList[i]);
 				break;
 			case EGameSituation.AttackA:
-				CameraMgr.Get.SetTeamCamera(ETeamKind.Self);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self);
 				jodgeSkillUI ();
 
 				break;
 			case EGameSituation.AttackB:
-				CameraMgr.Get.SetTeamCamera(ETeamKind.Npc);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc);
 				jodgeSkillUI ();
 
 				break;
 			case EGameSituation.TeeAPicking:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				UIGame.Get.ChangeControl(true);
-				CameraMgr.Get.SetTeamCamera(ETeamKind.Npc, true);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				PickBallplayer = null;
                 break;
             case EGameSituation.TeeA:
@@ -1307,7 +1307,7 @@ public class GameController : KnightSingleton<GameController>
             case EGameSituation.TeeBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
            	 	UIGame.Get.ChangeControl(false);
-           		CameraMgr.Get.SetTeamCamera(ETeamKind.Self, true);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				PickBallplayer = null;
                 break;
 			case EGameSituation.TeeB:

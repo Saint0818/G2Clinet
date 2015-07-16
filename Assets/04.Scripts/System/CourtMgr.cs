@@ -235,10 +235,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CloneReallBall();
 		CheckCollider();
 		ChangeBasket(2);
-		CameraMgr.Get.SetTeamCamera(ETeamKind.JumpBall);
+		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+	}
+
+	public void ShowEnd()
+	{
+		CameraMgr.Get.SetCameraSituation(ECameraSituation.JumpBall);
 		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
-		InitScoreboard ();
 		UIGame.UIShow (true);
+		InitScoreboard ();
+		CameraMgr.Get.ShowCameraEnable (false);
 	}
 
 	public void CloneReallBall()
