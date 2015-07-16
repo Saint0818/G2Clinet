@@ -170,7 +170,7 @@ public class EffectManager : MonoBehaviour
 
 	public bool IsCheckSpecial(string name)
 	{
-		string[] strs = new string[]{"SelectMe", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01", "PassMe", "PassA", "PassB", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201"};
+		string[] strs = new string[]{"FX_SelectDown","SelectMe", "SelectA", "SelectB", "MoveTo", "BallHolder", "SkillSign", "SkillSign01", "PassMe", "PassA", "PassB", "SkillSign1", "SkillSign2", "SkillSign101", "SkillSign201"};
 
 		for(int i = 0; i < strs.Length; i++)
 		{
