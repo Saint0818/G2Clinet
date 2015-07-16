@@ -84,6 +84,7 @@ public class UIGame : UIBase {
 	private GameObject uiAlleyoopA;
 	private GameObject uiAlleyoopB;
 
+	private UISprite spriteAttack;
 	//Force
 	private UISprite spriteSkill;
 	private UISprite spriteForce;
@@ -199,6 +200,7 @@ public class UIGame : UIBase {
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
 		spriteSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
 		spriteSkill.color = new Color32(69, 69, 69, 255);
+		spriteAttack = GameObject.Find (UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
 
 		uiSkillEnable = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
@@ -596,6 +598,7 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[2].SetActive(true);
 			GameController.Get.passIcon[1].SetActive(true);
 			GameController.Get.passIcon[2].SetActive(true);
+			spriteAttack.spriteName = "B_elbow";
 			break;
 		case (int)EUIPassType.ABallOwner:
 			viewPass.SetActive(true);
@@ -604,6 +607,7 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[2].SetActive(true);
 			GameController.Get.passIcon[1].SetActive(false);
 			GameController.Get.passIcon[2].SetActive(true);
+			spriteAttack.spriteName = "B_push";
 			break;
 		case (int)EUIPassType.BBallOwner:
 			viewPass.SetActive(true);
@@ -612,11 +616,13 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[2].SetActive(false);
 			GameController.Get.passIcon[1].SetActive(true);
 			GameController.Get.passIcon[2].SetActive(false);
+			spriteAttack.spriteName = "B_push";
 			break;
 		default:
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(false);
 			uiPassObjectGroup[2].SetActive(false);
+			spriteAttack.spriteName = "B_push";
 			if(GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.TeeBPicking) {
 				viewPass.SetActive(false);
 				GameController.Get.passIcon[1].SetActive(false);
@@ -733,6 +739,7 @@ public class UIGame : UIBase {
 			uiDefenceGroup[0].SetActive(true);
 			uiDefenceGroup[1].SetActive(true);
 			SetPassButton();
+
 			break;
 		}
 	}
@@ -827,20 +834,6 @@ public class UIGame : UIBase {
 			}
 			break;
 		case EUIControl.Pass:
-//			if(GameController.Get.Joysticker.IsBallOwner && 
-//			   !GameController.Get.Joysticker.IsFall && 
-//			   GameController.Get.situation == GameSituation.AttackA) {
-//				if(!GameController.Get.IsCanPassAir){
-//					if (state) 
-//						SetPassButton(4);
-//				}
-//			} else {
-//				GameController.Get.DoPass(0);
-//				GameController.Get.Joysticker.SetNoAiTime();
-//			}
-//			
-//			if(!state)
-//				SetPassButton(0);
 			if(!GameController.Get.Joysticker.IsBallOwner) {
 				UIMaskState(EUIControl.Pass);
 				if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(0)){
