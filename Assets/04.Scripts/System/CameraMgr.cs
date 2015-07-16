@@ -92,7 +92,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			InitCamera();
 			InitTestTool();
 
-			showCamera = GameObject.Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
+			showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
 		}
 	}
 
@@ -101,7 +101,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		AudioMgr.Get.PlaySound (SoundType.Dunk);
 	}
 
-	private Animation anmaiton;
+	private Animator animator;
 	
 	public void SetCourtCamera(SceneName scene)
 	{
@@ -113,9 +113,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = scene.ToString();
-			anmaiton = cameraFx.GetComponent<Animation>();
-			PlayGameStartCamera();
-
+			animator = cameraFx.GetComponent<Animator>();
 		}
 	}
 
@@ -123,8 +121,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void PlayGameStartCamera()
 	{
-		if (anmaiton ["InGameStart"])
-			anmaiton.Play ("InGameStart");
+		animator.SetTrigger ("InGameStart");
 	}
 
 	public void SetSelectRoleCamera()
