@@ -35,7 +35,6 @@ public class UISelectRole : UIBase {
 
 	private GameObject uiOK;
 	private GameObject uiSelect;
-//	private GameObject uiInfoRange;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
@@ -67,6 +66,8 @@ public class UISelectRole : UIBase {
 	
 	private int SelectRoleIndex = 0;
 
+	private float doubleClickTime = 3;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -82,9 +83,8 @@ public class UISelectRole : UIBase {
 				RemoveUI(UIName);
 			else
 				instance.Show(isShow);
-		}
-		else
-			if (isShow)
+		} else
+		if (isShow)
 				Get.Show(isShow);
 	}
 	
@@ -99,6 +99,12 @@ public class UISelectRole : UIBase {
 
 	
 	void FixedUpdate(){
+		if(doubleClickTime > 0) {
+			doubleClickTime -= Time.deltaTime;
+			if(doubleClickTime <= 0) {
+				doubleClickTime = 0;
+			}
+		}
 		if (SelectRoleIndex >= 0 && SelectRoleIndex < spritesLine.Length) {
 			if(spritesLine[SelectRoleIndex].fillAmount < 1)
 				spritesLine[SelectRoleIndex].fillAmount += 0.1f;		
@@ -119,7 +125,7 @@ public class UISelectRole : UIBase {
 //		if(Input.GetMouseButtonDown(0)) {
 //			arrayAnimator[0].SetTrigger("SelectDown");
 //		}
-		if(uiOK.activeInHierarchy) {
+		if(!arrayPlayer[1].activeInHierarchy) {
 			if(Input.GetMouseButton(0)) {
 				axisX = 0;
 				
@@ -174,7 +180,6 @@ public class UISelectRole : UIBase {
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
 		uiSelect.SetActive(false);
 		uiOK = GameObject.Find (UIName + "/Right/CharacterCheck");
-//		uiInfoRange = GameObject.Find (UIName + "/Right/InfoRange");
 
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
 		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;
@@ -300,7 +305,10 @@ public class UISelectRole : UIBase {
 	}
 	
 	public void DoBackToSelectMe() {
-		UIState(EUIRoleSituation.BackToSelectMe);
+		if(doubleClickTime == 0) {
+			doubleClickTime = 1;
+			UIState(EUIRoleSituation.BackToSelectMe);
+		}
 	}
 	
 	public void DoControlMusic() {
@@ -320,7 +328,10 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoChooseRole() {
-		UIState(EUIRoleSituation.ChooseRole);
+		if(doubleClickTime == 0) {
+			doubleClickTime = 1;
+			UIState(EUIRoleSituation.ChooseRole);
+		}
 	}
 
 	public void SelectRole() {
@@ -511,7 +522,6 @@ public class UISelectRole : UIBase {
 			UITriangle.Get.Triangle.SetActive (false);
 			uiSelect.SetActive(false);
 
-			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 			
 			int RanID;
 			int Count;
@@ -566,6 +576,7 @@ public class UISelectRole : UIBase {
 			Invoke("otherPlayerDoAnimator", 0.5f);
 			Invoke("otherPlayerShowTime", 0.55f);
 			Invoke("loadingShow", 1f);
+			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 		}
 			break;
 		case EUIRoleSituation.BackToSelectMe:
