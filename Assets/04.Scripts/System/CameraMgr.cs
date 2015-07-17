@@ -116,9 +116,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			animator = cameraFx.GetComponent<Animator>();
 		}
 	}
-
-
-
+	
 	public void PlayGameStartCamera()
 	{
 		animator.SetTrigger ("InGameStart");
@@ -133,7 +131,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = "Camera_SelectRole";
-
 		}
 	}
 

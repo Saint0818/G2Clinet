@@ -11,7 +11,7 @@ public class GameShowBehaviour : StateMachineBehaviour {
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		if (!GameController.Get.IsStart && GameController.Get.Situation != EGameSituation.JumpBall) {
-			CourtMgr.Get.ShowEnd ();
+			GameController.Get.ChangeSituation(EGameSituation.ShowOne);
 		}
 	}
 	

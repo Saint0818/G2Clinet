@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 
 public enum EGameSituation
 {
+	ShowOne           = -2,
+	ShowTwo           = -1,
     None           = 0,
     Opening        = 1,
     JumpBall       = 2,
@@ -344,10 +346,7 @@ public class GameController : KnightSingleton<GameController>
         PlayerList.Clear();
 		StateChecker.InitState();
         CreateTeam();
-		SetBallOwnerNull ();
-
-        Situation = EGameSituation.Opening;
-		ChangeSituation (EGameSituation.Opening);
+		SetBallOwnerNull ();  
     }
 
 	public void StartGame() {
@@ -680,9 +679,9 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.DoAttack();
 			}
 
-			if (Input.GetKeyDown(KeyCode.B))
+			if (Input.GetKeyDown(KeyCode.N))
 			{
-				UIDoubleClick.UIShow(true);
+				CourtMgr.Get.ShowEnd (true);
 			}
 
 			if (Input.GetKeyDown(KeyCode.T)){
@@ -1296,6 +1295,18 @@ public class GameController : KnightSingleton<GameController>
 
 			switch (GS)
 			{
+			case EGameSituation.ShowOne:
+				CourtMgr.Get.ShowEnd ();
+				break;
+			case EGameSituation.ShowTwo:
+
+				if(GameController.Get.IsStart == false)
+				{
+					UIGame.UIShow (true);
+					Situation = EGameSituation.Opening;
+					ChangeSituation (EGameSituation.Opening);
+				}
+				break;
 			case EGameSituation.Opening:
 				jodgeSkillUI ();
 
@@ -4150,6 +4161,7 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = true;
 		IsPassing = false;
 		Shooter = null;
+		IsStart = false;
 		SetBallOwnerNull ();
 
 		CourtMgr.Get.SetBallState (EPlayerState.Reset);
