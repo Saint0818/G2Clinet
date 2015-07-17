@@ -51,7 +51,6 @@ public class UILoading : UIBase {
 //		Get.isCloseUI = isShow;
 		if(isShow) {
 			Get.Show(isShow);
-			Get.CloseTime = 3;
 			
 			if (Get.PicNo != Kind.GetHashCode()) {
 				Get.windowGame.SetActive(true);
@@ -64,6 +63,7 @@ public class UILoading : UIBase {
 				Get.PicNo = Kind.GetHashCode();
 				Get.uiBG.mainTexture = (Texture)Resources.Load("Textures/LoadingPic/Loading" + Get.PicNo.ToString(), typeof(Texture));
 			} else {
+				Get.CloseTime = 1;
 				Get.windowGame.SetActive(false);
 				Get.windowLoading.SetActive(true);
 			}

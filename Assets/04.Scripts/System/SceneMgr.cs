@@ -38,7 +38,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				Invoke("selectRole", 3);
 				break;
 			case SceneName.Null:
-				UIWaitLoading.UIShow(true);
+//				UIWaitLoading.UIShow(true);
+				UILoading.UIShow(true, ELoadingGamePic.Game); 
 				break;
 		}
 

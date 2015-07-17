@@ -616,15 +616,17 @@ public class GameController : KnightSingleton<GameController>
 			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
-			passIcon[1] =EffectManager.Get.PlayEffect("PassA", new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
+			passIcon[1] = EffectManager.Get.PlayEffect("PassA", new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
 			EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
-			passIcon[2] =EffectManager.Get.PlayEffect("PassB", new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
+			passIcon[2] = EffectManager.Get.PlayEffect("PassB", new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
 			EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 		}
+		
 		UIGame.Get.InitLine();
+		SetPassIcon(false);
 
         for (int i = 0; i < PlayerList.Count; i ++)
         {
@@ -649,6 +651,12 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].OnUIAnger = UIGame.Get.SetAngerUI;
         }
     }
+
+	public void SetPassIcon(bool isShow) {
+		for(int i=0; i<3; i++) {
+			passIcon[i].SetActive(isShow);
+		}
+	}
 
 	private Shader loadShader(string path) {
 		if (shaderCache.ContainsKey(path)) {
@@ -2392,7 +2400,7 @@ public class GameController : KnightSingleton<GameController>
 
 					break;
 				case 21://buffer
-					switch (skill.TargetKind) {
+					switch (skill.TargetKind1) {
 					case 0:
 						player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 						    skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
@@ -2418,7 +2426,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private GameObject getSkillTarget(PlayerBehaviour player) {
 		if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-			switch (GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind) {
+			switch (GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1) {
 			case 0:
 				return player.gameObject;
 			case 1:
@@ -2477,14 +2485,18 @@ public class GameController : KnightSingleton<GameController>
 			objs = getPassiveSkillTarget(player);
 		if(objs.Count > 0){
 			if(player.PassiveID != -1) {
-				if(GameData.SkillData[player.PassiveID].Effect != 0) {
+				if(GameData.SkillData[player.PassiveID].TargetEffect1 != 0) {
 					for(int i=0; i<objs.Count; i++) {
-						EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[player.PassiveID].Effect, 
+						GameObject parent = null;
+						if(GameData.SkillData[player.PassiveID].EffectParent1 == 1) {
+							parent = objs[i].gameObject;
+						}
+						EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[player.PassiveID].TargetEffect1, 
 //						                             new Vector3 (0, (4 - (player.Attribute.BodyType * 0.5f)),0),
 						                             Vector3.zero,
-						                             objs[i].gameObject,
+						                             parent,
 						                             null,
-						                             0.5f);
+						                             GameData.SkillData[player.PassiveID].Duration1);
 					}
 				}
 			}
@@ -2496,7 +2508,7 @@ public class GameController : KnightSingleton<GameController>
 		int targetKind = -1;
 		if (GameData.SkillData.ContainsKey(player.PassiveID)) {
 			List<GameObject> objs =new List<GameObject>();
-			targetKind = GameData.SkillData[player.PassiveID].TargetKind;
+			targetKind = GameData.SkillData[player.PassiveID].TargetKind1;
 			switch(targetKind) {
 			case 0://0.自己
 				objs.Add(player.gameObject); 
@@ -2540,16 +2552,12 @@ public class GameController : KnightSingleton<GameController>
 				}
 				break;
 			case 7://7.投籃者
-				objs.Add(Shooter.gameObject);
 				break;
 			case 8://8.接球者
-				objs.Add(Catcher.gameObject);
 				break;
 			case 9://9.傳球者
-				objs.Add(Passer.gameObject);
 				break;
 			case 10://10.球
-				objs.Add(CourtMgr.Get.RealBall);
 				break;
 			}
 			return objs;

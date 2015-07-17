@@ -238,6 +238,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Push0",
+        "targeteffect1": 1,
         "effect": 1
     },
     {
@@ -279,6 +280,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Elbow",
+        "targeteffect1": 2,
         "effect": 2
     },
     {
@@ -380,6 +382,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot4",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -401,6 +407,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot5",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -422,6 +432,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot6",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -443,6 +457,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Shoot7",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -463,7 +481,11 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup1"
+        "animation": "Layup1",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1
     },
     {
         "id": 511,
@@ -483,7 +505,11 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup2"
+        "animation": "Layup2",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1
     },
     {
         "id": 512,
@@ -503,7 +529,11 @@
         "valuebase": 0,
         "rate": 40,
         "rateadd": 10,
-        "animation": "Layup3"
+        "animation": "Layup3",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1
     },
     {
         "id": 610,
@@ -524,6 +554,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk1",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -545,6 +579,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk2",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -566,6 +604,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk3",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -587,6 +629,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk4",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -608,6 +654,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk5",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -629,6 +679,10 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk6",
+        "targetkind1": 0,
+        "targeteffect1": 201,
+        "effectparent1": 1,
+        "duration1": 1,
         "effect": 201
     },
     {
@@ -649,7 +703,11 @@
         "valuebase": 10,
         "rate": 40,
         "rateadd": 10,
-        "animation": "MoveDodge0"
+        "animation": "MoveDodge0",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1
     },
     {
         "id": 1210,
@@ -670,6 +728,10 @@
         "rate": 60,
         "rateadd": 15,
         "animation": "Pass5",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "direct": 1
     },
     {
@@ -691,6 +753,10 @@
         "rate": 60,
         "rateadd": 15,
         "animation": "Pass6",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "direct": 2
     },
     {
@@ -712,6 +778,10 @@
         "rate": 60,
         "rateadd": 15,
         "animation": "Pass9",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "direct": 2
     },
     {
@@ -733,6 +803,10 @@
         "rate": 60,
         "rateadd": 15,
         "animation": "Pass7",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "direct": 3
     },
     {
@@ -754,6 +828,10 @@
         "rate": 60,
         "rateadd": 15,
         "animation": "Pass8",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1,
         "direct": 4
     },
     {
@@ -774,7 +852,11 @@
         "valuebase": 10,
         "rate": 100,
         "rateadd": 15,
-        "animation": "Pick2"
+        "animation": "Pick2",
+        "targetkind1": 0,
+        "targeteffect1": 101,
+        "effectparent1": 1,
+        "duration1": 1
     },
     {
         "id": 1610,
@@ -794,7 +876,8 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block1"
+        "animation": "Block1",
+        "targetkind1": 0
     },
     {
         "id": 1611,
@@ -814,7 +897,8 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block2"
+        "animation": "Block2",
+        "targetkind1": 0
     },
     {
         "id": 1911,
@@ -834,7 +918,8 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Fall0"
+        "animation": "Fall0",
+        "targetkind1": 0
     },
     {
         "id": 11000,
@@ -855,14 +940,14 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "targetkind": 1,
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
     },
     {
         "id": 12000,
-        "kind": 7,
         "star": 3,
         "maxstar": 5,
         "pictureno": 12000,
@@ -879,14 +964,14 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "targetkind": 1,
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
     },
     {
         "id": 13000,
-        "kind": 7,
         "star": 3,
         "maxstar": 5,
         "pictureno": 13000,
@@ -903,14 +988,14 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "targetkind": 1,
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
     },
     {
         "id": 14000,
-        "kind": 7,
         "star": 3,
         "maxstar": 5,
         "pictureno": 14000,
@@ -927,14 +1012,14 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "targetkind": 1,
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
     },
     {
         "id": 15000,
-        "kind": 7,
         "star": 3,
         "maxstar": 5,
         "pictureno": 15000,
@@ -951,7 +1036,8 @@
         "rate": 100,
         "rateadd": 20,
         "animation": "Dunk20",
-        "targetkind": 1,
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 7,
         "distanceadd": 2,
         "maxanger": 100
@@ -974,11 +1060,42 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
-        "animation": "Dunk6",
-        "targetkind": 1,
+        "animation": "Dunk_21",
+        "targetkind1": 0,
+        "targetkind2": 1,
         "distance": 5,
         "distanceadd": 2,
         "maxanger": 50
+    },
+    {
+        "id": 11500,
+        "kind": 15,
+        "star": 3,
+        "maxstar": 5,
+        "pictureno": 11500,
+        "nametw": "抄截大絕",
+        "space": 5,
+        "spaceadd": 1,
+        "lifetime": 0,
+        "attrkind": 0,
+        "valuebase": 0,
+        "rate": 100,
+        "rateadd": 20
+    },
+    {
+        "id": 11700,
+        "kind": 17,
+        "star": 3,
+        "maxstar": 5,
+        "pictureno": 11700,
+        "nametw": "旋轉木馬",
+        "space": 5,
+        "spaceadd": 1,
+        "lifetime": 0,
+        "attrkind": 0,
+        "valuebase": 0,
+        "rate": 100,
+        "rateadd": 20
     },
     {
         "id": 17000,
@@ -1000,7 +1117,8 @@
         "rate": 100,
         "rateadd": 10,
         "animation": "Elbow",
-        "targetkind": 0,
+        "targetkind1": 0,
+        "targetkind2": 0,
         "distance": 0,
         "distanceadd": 0,
         "maxanger": 30
@@ -1025,7 +1143,8 @@
         "rate": 100,
         "rateadd": 10,
         "animation": "Elbow",
-        "targetkind": 3,
+        "targetkind1": 3,
+        "targetkind2": 3,
         "distance": 0,
         "distanceadd": 0,
         "maxanger": 40

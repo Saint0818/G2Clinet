@@ -152,7 +152,6 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		
 		if(isPressA && isPressB)
 			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
 
@@ -629,7 +628,7 @@ public class UIGame : UIBase {
 				GameController.Get.passIcon[2].SetActive(false);
 			} else {
 				viewPass.SetActive(true);
-				if(GameController.Get.passIcon[0] != null) {
+				if(GameController.Get.passIcon[0] != null && GameController.Get.Situation == EGameSituation.AttackA ) {
 					GameController.Get.passIcon[0].SetActive(true);
 					GameController.Get.passIcon[1].SetActive(true);
 					GameController.Get.passIcon[2].SetActive(true);
