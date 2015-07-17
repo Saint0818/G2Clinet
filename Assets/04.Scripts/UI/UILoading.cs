@@ -6,16 +6,23 @@ public class UILoading : UIBase {
 	private static UILoading instance = null;
 	private const string UIName = "UILoading";
 
-	private UITexture LoadingPic;
-	private UISlider UIProgress;
 	public UILabel LabelVersion;
 	private UILabel UILoadingHint;
 	private UILabel LabelTitle;
 
-	public static bool Visible
-	{
-		get
-		{
+	private UITexture uiProgress;
+	private GameObject uiLight1;
+	private GameObject uiLight2;
+	private GameObject uiWord;
+
+
+	private int PicNo = -1;
+	private bool isCloseUI = false;
+	public float CloseTime = 0;
+	private UILabel Hint;
+
+	public static bool Visible{
+		get{
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
@@ -34,6 +41,36 @@ public class UILoading : UIBase {
 			Get.Show(isShow);
 	}
 
+//	public static void UIShow(bool isShow, ELoadingGamePic Kind = ELoadingGamePic.StagePic, string hint=""){
+//		Get.isCloseUI = isShow;
+//		if(isShow) {
+//			Get.Show(isShow);
+//			Get.CloseTime = 3;
+//			
+//			if (Get.PicNo != Kind.GetHashCode()) {
+//				if (Get.LoadingPic.mainTexture) {
+//					Get.LoadingPic.mainTexture = null;
+//					Resources.UnloadUnusedAssets();
+//				}
+//				
+//				Get.PicNo = Kind.GetHashCode();
+//				Get.LoadingPic.mainTexture = (Texture)Resources.Load("Textures/GameLoading" + Get.PicNo.ToString(), typeof(Texture));
+//			}
+//			
+//			if (hint != "")
+//				Get.Hint.text = hint;
+//			else
+//				Get.Hint.text = TextConst.S(405);
+//		}
+//		else 
+//		if(instance) {
+//			if (Get.CloseTime <= 0) {
+//				instance.Show(isShow);
+//				RemoveUI(UIName);
+//			}
+//		}
+//	}
+
 	public static UILoading Get
 	{
 		get {
@@ -43,16 +80,33 @@ public class UILoading : UIBase {
 			return instance;
 		}
 	}
+
+//	protected override void UpdateUI() {
+	void FixedUpdate () {
+		if (CloseTime > 0) {
+			CloseTime -= Time.deltaTime;
+			
+			if (CloseTime <=0 && !isCloseUI) {
+				UIShow(false);
+			}
+		}
+		uiLight1.transform.Rotate(new Vector3(0,0,-1));
+		uiLight2.transform.Rotate(new Vector3(0,0,1));
+		uiWord.transform.Rotate(new Vector3(0,0,-2f));
+	}
 	
 	protected override void InitCom() {
-		LoadingPic = GameObject.Find("UILoading/Window/LoadingPicture").GetComponent<UITexture>();
-		UIProgress = GameObject.Find("UILoading/Window/Progress").GetComponent<UISlider>();
-		LabelVersion = GameObject.Find("UILoading/Window/Version").GetComponent<UILabel>();
-		LabelTitle = GameObject.Find("UILoading/Window/Title").GetComponent<UILabel>();
+//		LabelVersion = GameObject.Find(UIName + "/Window/Version").GetComponent<UILabel>();
+//		LabelTitle = GameObject.Find(UIName + "/Window/Title").GetComponent<UILabel>();
+
+		uiProgress = GameObject.Find (UIName + "/Window/LoadingPic/UIProgressBar").GetComponent<UITexture>();
+		uiLight1 = GameObject.Find (UIName + "/Window/LoadingPic/UILight1");
+		uiLight2 = GameObject.Find (UIName + "/Window/LoadingPic/UILight2");
+		uiWord = GameObject.Find (UIName + "/Window/LoadingPic/UIWord");
 	}
 
 	protected override void InitData() {
-		UIProgress.value = 0;
+		uiProgress.fillAmount = 0;
 	}
 
 	public string Title{
@@ -62,29 +116,29 @@ public class UILoading : UIBase {
 	}
 
 	protected override void OnShow(bool isShow){
-		if(isShow) {
-			LabelVersion.text = BundleVersion.version.ToString();
-			UIProgress.value = 0;
-			if (!LoadingPic.mainTexture)
-				LoadingPic.mainTexture = (Texture)Resources.Load("Textures/GameLoading5", typeof(Texture));
-		} else {
-			LoadingPic.mainTexture = null;
-			Resources.UnloadUnusedAssets();
-			GC.Collect();
-		}
+//		if(isShow) {
+//			LabelVersion.text = BundleVersion.version.ToString();
+//			UIProgress.value = 0;
+//			if (!LoadingPic.mainTexture)
+//				LoadingPic.mainTexture = (Texture)Resources.Load("Textures/GameLoading5", typeof(Texture));
+//		} else {
+//			LoadingPic.mainTexture = null;
+//			Resources.UnloadUnusedAssets();
+//			GC.Collect();
+//		}
 	}
 
 	public float ProgressValue{
-		get{return UIProgress.value;}
+		get{return uiProgress.fillAmount;}
 	}
 
 	public bool DownloadDone{
-		get{return UIProgress.value >= 1;}
+		get{return uiProgress.fillAmount >= 1;}
 	}
 
 	public void UpdateProgress (){
 		float b = FileManager.DownlandCount;
 		float a = FileManager.AlreadyDownlandCount;
-		UIProgress.value = (float)(a / b);
+		uiProgress.fillAmount = (float)(a / b);
 	}
 }

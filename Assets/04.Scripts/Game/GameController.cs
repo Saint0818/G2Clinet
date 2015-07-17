@@ -20,6 +20,13 @@ public enum EGameSituation
     End            = 9
 }
 
+public enum ELoadingGamePic
+{
+	StagePic = 0,
+	PvPPic = 1,
+	PlayoffPic = 2,
+	MatchGamePic = 4
+}
 //public enum EGameAction
 //{
 //    Def = 0,
