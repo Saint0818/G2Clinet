@@ -23,6 +23,8 @@ public class Billboard : MonoBehaviour {
 		if (referenceCamera) {
 			mTransform.LookAt (transform.position + referenceCamera.transform.rotation * Vector3.forward,
 	         referenceCamera.transform.rotation * Vector3.up);
+		} else {
+			referenceCamera = CameraMgr.Get.CourtCamera;
 		}
 	}
 
