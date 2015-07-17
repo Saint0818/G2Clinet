@@ -625,7 +625,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 		
 		UIGame.Get.InitLine();
-		SetPassIcon(false);
+		setPassIcon(false);
 
         for (int i = 0; i < PlayerList.Count; i ++)
         {
@@ -651,7 +651,7 @@ public class GameController : KnightSingleton<GameController>
         }
     }
 
-	public void SetPassIcon(bool isShow) {
+	private void setPassIcon(bool isShow) {
 		for(int i=0; i<3; i++) {
 			passIcon[i].SetActive(isShow);
 		}
@@ -1293,6 +1293,8 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.Walls[0].SetActive(true);
 			CourtMgr.Get.Walls[1].SetActive(true);
 
+			Debug.Log("GS Situation:"+ GS);
+
 			switch (GS)
 			{
 			case EGameSituation.ShowOne:
@@ -1308,6 +1310,8 @@ public class GameController : KnightSingleton<GameController>
 				}
 				break;
 			case EGameSituation.Opening:
+				UIGame.UIShow (true);
+				setPassIcon(true);
 				jodgeSkillUI ();
 
 				break;
@@ -1708,9 +1712,12 @@ public class GameController : KnightSingleton<GameController>
 			} else 
 			if(player.crtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
+//					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
+//					                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
+//					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
 					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), GameStart.Get.TipInTime);
 				} else {
 					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 0.2f);
 				}
@@ -4205,6 +4212,7 @@ public class GameController : KnightSingleton<GameController>
 		Joysticker.SetAnger (-100);
 		Situation = EGameSituation.Opening;
 		ChangeSituation (EGameSituation.Opening);
+		setPassIcon(false);
     }
 
 	public void SetPlayerLevel(){

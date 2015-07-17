@@ -42,7 +42,7 @@ public class UIGame : UIBase {
 
 	//Game const
 	public float ButtonBTime = 0.14f; //Fake to shoot time
-	private float showScoreBarInitTime = 2;
+	private float showScoreBarInitTime = 5;
 	public int[] MaxScores = {13, 13};
 
 	private float shootBtnTime = 0;
@@ -143,6 +143,8 @@ public class UIGame : UIBase {
 	}
 	
 	public static void UIShow(bool isShow) {
+		if(isShow)
+			Get.drawLine.IsShow = isShow;
 		if(instance)
 			instance.Show(isShow);
 		else
@@ -920,7 +922,7 @@ public class UIGame : UIBase {
 			InitData ();
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
 			CourtMgr.Get.SetScoreboards (1, Scores [1]);
-			drawLine.IsShow = true;
+			drawLine.IsShow = false;
 			isShowOption = false;
 			isShowScoreBar = false;
 			
