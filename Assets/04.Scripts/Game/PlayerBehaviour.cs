@@ -308,6 +308,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction4 OnUIAnger = null;
     public OnPlayerAction3 OnDoubleClickMoment = null;
 
+	public int ShowPos = -1;
+
 	public string MoveName = "";
     public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;

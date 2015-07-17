@@ -194,17 +194,23 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		return list;
 	}
 
-	private void InitScoreboard()
+	public void InitScoreboard(bool isEnable = false)
 	{
-		Scoreboards [1] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel>();
+		if (Scoreboards [1] == null) {
+			Scoreboards [1] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel> ();
+		}
 
 		if (Scoreboards [1])
 			Scoreboards [1].text = "0";
 
-		Scoreboards [0] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
+		if(Scoreboards [0] == null)
+			Scoreboards [0] = GameObject.Find ("Scoreboard/Right").GetComponent<UILabel>();
 
 		if(Scoreboards [0])
 			Scoreboards [0].text = "0";
+
+		Scoreboards [0].enabled = isEnable;
+		Scoreboards [1].enabled = isEnable;
 
 		EffectEnable(GameData.Setting.Effect);
 	}
@@ -235,6 +241,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CloneReallBall();
 		CheckCollider();
 		ChangeBasket(2);
+		InitScoreboard ();
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
 	}
 
@@ -242,7 +249,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.JumpBall);
 		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
-		InitScoreboard ();
 
 		if (isImmediately)
 			CameraMgr.Get.ShowCameraEnable (false);
@@ -632,7 +638,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void SetScoreboards(int team, int score)
 	{
 		if (Scoreboards [team] == null) {
-			InitScoreboard();		
+			InitScoreboard(true);		
 		}
 
 		if(Scoreboards [team])

@@ -69,6 +69,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	public EZoomType CrtZoom = EZoomType.Normal;
 	private GameObject showCamera;
 
+	public GameObject[] CharacterPos = new GameObject[6];
+
 	public bool UICamVisible
 	{
 		set
@@ -93,6 +95,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			InitTestTool();
 
 			showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
+
+			if(showCamera)
+				for(int i = 0; i < CharacterPos.Length; i++)
+					CharacterPos[i] = showCamera.transform.FindChild(string.Format("CharacterPos/{0}", i)).gameObject;
 		}
 	}
 

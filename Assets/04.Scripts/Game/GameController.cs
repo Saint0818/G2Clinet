@@ -326,6 +326,12 @@ public class GameController : KnightSingleton<GameController>
         TeeBackPosAy [1] = new Vector2(5.3f, 10);
         TeeBackPosAy [2] = new Vector2(-5.3f, 10);
 
+		/*
+		 *     0	 5
+		 * 		 1 4
+		 * 	   2     3
+		 */
+
 		BornAy [0] = new Vector3 (-3.5f, 0, -3);//G_A
 		BornAy [1] = new Vector3 (0, 0, -1.5f);//C_A
 		BornAy [2] = new Vector3 (3.5f, 0, -3);//F_A
@@ -509,18 +515,24 @@ public class GameController : KnightSingleton<GameController>
 				//Team A
 				PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
 				PlayerList[aPosAy[0]].transform.position = BornAy[0];
+				PlayerList[aPosAy[0]].ShowPos = 1;
 				PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
 				PlayerList[aPosAy[1]].transform.position = BornAy[1];
+				PlayerList[aPosAy[1]].ShowPos = 0;
 				PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
 				PlayerList[aPosAy[2]].transform.position = BornAy[2];
+				PlayerList[aPosAy[2]].ShowPos = 2;
 
 				//Team B
 				PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
 				PlayerList[bPosAy[0]].transform.position = BornAy[3];
+				PlayerList[bPosAy[0]].ShowPos = 4;
 				PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
 				PlayerList[bPosAy[1]].transform.position = BornAy[4];
+				PlayerList[bPosAy[1]].ShowPos = 3;
 				PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
 				PlayerList[bPosAy[2]].transform.position = BornAy[5];
+				PlayerList[bPosAy[2]].ShowPos = 5;
                 break;
 			case EGameTest.All:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
@@ -1293,8 +1305,6 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.Walls[0].SetActive(true);
 			CourtMgr.Get.Walls[1].SetActive(true);
 
-			Debug.Log("GS Situation:"+ GS);
-
 			switch (GS)
 			{
 			case EGameSituation.ShowOne:
@@ -1307,6 +1317,7 @@ public class GameController : KnightSingleton<GameController>
 					UIGame.UIShow (true);
 					Situation = EGameSituation.Opening;
 					ChangeSituation (EGameSituation.Opening);
+					CourtMgr.Get.InitScoreboard (true);
 				}
 				break;
 			case EGameSituation.Opening:
@@ -1372,8 +1383,18 @@ public class GameController : KnightSingleton<GameController>
             
 	            switch (Situation)
 	            {
+					case EGameSituation.ShowOne:
+						
+						break;
+
+					case EGameSituation.ShowTwo:
+
+						break;
+
 	                case EGameSituation.None:
-                
+						for(int i = 0; i < PlayerList.Count; i++)
+						if(PlayerList[i].ShowPos != -1)
+							PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
 	                    break;
 	                case EGameSituation.Opening:
                 
