@@ -242,11 +242,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.JumpBall);
 		CameraMgr.Get.SetCourtCamera (SceneName.Court_0);
-		GameController.Get.SetPassIcon(true);
-		UIGame.UIShow (true);
 		InitScoreboard ();
 
-		CameraMgr.Get.PlayGameStartCamera ();
 		if (isImmediately)
 			CameraMgr.Get.ShowCameraEnable (false);
 	}
