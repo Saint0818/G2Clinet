@@ -34,9 +34,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				CourtMgr.Get.InitCourtScene ();
 				break;
 			case SceneName.SelectRole:
-				CameraMgr.Get.SetSelectRoleCamera();
-				UISelectRole.UIShow(true);
-				UI3DSelectRole.UIShow(true);
+				UILoading.UIShow(true, ELoadingGamePic.None);
+				Invoke("selectRole", 3);
 				break;
 			case SceneName.Null:
 				UIWaitLoading.UIShow(true);
@@ -46,6 +45,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		if (OnLevelWasLoaded != null) {
 			OnLevelWasLoaded ();
 		}
+	}
+
+	private void selectRole(){
+		CameraMgr.Get.SetSelectRoleCamera();
+		UISelectRole.UIShow(true);
+		UI3DSelectRole.UIShow(true);
 	}
 
 	void Awake()

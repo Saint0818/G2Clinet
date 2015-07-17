@@ -22,10 +22,8 @@ public enum EGameSituation
 
 public enum ELoadingGamePic
 {
-	StagePic = 0,
-	PvPPic = 1,
-	PlayoffPic = 2,
-	MatchGamePic = 4
+	None = -1,
+	Game = 1
 }
 //public enum EGameAction
 //{
