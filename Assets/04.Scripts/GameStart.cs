@@ -18,8 +18,8 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool IsDebugAnimation = false;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 
-	public float TipInHeightAdd = 1f;
-	public float TipInTime = 0.2f;
+	public float TipInHeightAdd = 1.1f;
+	public float TipInTime = 0.5f;
 	//server
 	public bool ConnectToServer = false;
 	

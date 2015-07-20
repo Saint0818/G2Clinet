@@ -85,6 +85,7 @@ public class UIGame : UIBase {
 	private GameObject uiAlleyoopA;
 	private GameObject uiAlleyoopB;
 
+	private Animator animatorScoreBar;
 	private UISprite spriteAttack;
 	//Force
 	private UISprite spriteSkill;
@@ -200,6 +201,7 @@ public class UIGame : UIBase {
 		viewTopLeft = GameObject.Find(UIName + "TopLeft");
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
+		animatorScoreBar = uiScoreBar.GetComponent<Animator>();
 		spriteSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
 		spriteSkill.color = new Color32(69, 69, 69, 255);
 		spriteAttack = GameObject.Find (UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
@@ -1045,6 +1047,7 @@ public class UIGame : UIBase {
 	}
 
 	private void showScoreBar(bool isStart){
+		animatorScoreBar.SetTrigger("Show");
 		if(isStart)
 			showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;

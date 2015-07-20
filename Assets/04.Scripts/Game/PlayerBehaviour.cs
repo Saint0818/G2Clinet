@@ -2696,16 +2696,16 @@ public class PlayerBehaviour : MonoBehaviour
             case "DunkJump":         
 
                 break;
-            case "OnlyScore":
+			case "DunkBasketStart":
+				CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
+				break;
+			case "OnlyScore":
                 if (OnOnlyScore != null)
                     OnOnlyScore(this);
-                CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
                 break;
             case "DunkBasket":
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
-                CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
-
                 break;
             case "DunkFallBall":
                 OnUI(this);

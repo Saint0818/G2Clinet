@@ -20,8 +20,6 @@ public class UILoading : UIBase {
 	private GameObject uiGameLight2;
 	private GameObject uiGameWord;
 
-//	public UILabel LabelVersion;
-
 	private ELoadingGamePic loadingKind;
 	private int PicNo = -1;
 	private bool isCloseUI = false;
@@ -47,18 +45,6 @@ public class UILoading : UIBase {
 		}
 	}
 
-
-//	public static void UIShow(bool isShow){
-//		if(instance) {
-//			if (!isShow)
-//				RemoveUI(UIName);
-//			else
-//				instance.Show(isShow);
-//		} else
-//		if(isShow)
-//			Get.Show(isShow);
-//	}
-
 	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint=""){
 //		Get.isCloseUI = isShow;
 		if(isShow) {
@@ -76,17 +62,14 @@ public class UILoading : UIBase {
 				Get.PicNo = kind.GetHashCode();
 				Get.uiBG.mainTexture = (Texture)Resources.Load("Textures/LoadingPic/Loading" + Get.PicNo.ToString(), typeof(Texture));
 			} else {
-				Get.CloseTime = 1;
 				Get.windowGame.SetActive(false);
 				Get.windowLoading.SetActive(true);
 			}
-			
+
 //			if (hint != "")
 //				Get.Hint.text = hint;
 //			else
 //				Get.Hint.text = "";
-
-
 		}else 
 		if(instance) {
 			if (Get.CloseTime <= 0) {
@@ -101,32 +84,19 @@ public class UILoading : UIBase {
 			StartCoroutine(DoLoading(loadingKind));
 	}
 
-	void FixedUpdate () {
-		if (CloseTime > 0) {
-			CloseTime -= Time.deltaTime;
-			
-			if (CloseTime <=0 && !isCloseUI) {
-				//UIShow(false);
-			}
-		}
-		if(windowGame != null) {
-			if(windowGame.activeInHierarchy) {
-				uiGameLight1.transform.Rotate(new Vector3(0,0,1));
-				uiGameLight2.transform.Rotate(new Vector3(0,0,-1));
-				uiGameWord.transform.Rotate(new Vector3(0,0,3f));
-			} else {
-				uiLoadingLight1.transform.Rotate(new Vector3(0,0,1));
-				uiLoadindLight2.transform.Rotate(new Vector3(0,0,-1));
-				uiLoadingWord.transform.Rotate(new Vector3(0,0,3f));
-			}
-		}
-	}
+//	void FixedUpdate () {
+//		if (CloseTime > 0) {
+//			CloseTime -= Time.deltaTime;
+//			
+//			if (CloseTime <=0 && !isCloseUI) {
+//				//UIShow(false);
+//			}
+//		}
+//	}
 	
 	protected override void InitCom() {
 		windowLoading = GameObject.Find (UIName + "/WindowLoading");
 		windowGame = GameObject.Find (UIName + "/WindowGame");
-
-//		LabelVersion = GameObject.Find(UIName + "/Window/Version").GetComponent<UILabel>();
 
 		uiLoadingProgress = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 		uiLoadingLight1 = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UILight1");
@@ -151,7 +121,6 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (1);
 			ModelManager.Get.LoadAllBody("Character/");
 			ModelManager.Get.LoadAllTexture("Character/");
-
 			yield return new WaitForSeconds (1);
 			loadSelectRole();
 			break;
