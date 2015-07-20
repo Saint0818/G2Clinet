@@ -592,6 +592,9 @@ public class UIGame : UIBase {
 		if(GameStart.Get.TestMode != EGameTest.None && GameStart.Get.TestMode != EGameTest.Pass) 
 			return;
 
+		if (GameController.Get.IsShowSituation)
+			return;
+
 		int who = GameController.Get.GetBallOwner;
 		switch (who) {
 		case (int)EUIPassType.MeBallOwner:
@@ -748,6 +751,10 @@ public class UIGame : UIBase {
 	}
 
 	public void UIControllerState (EUIControl controllerState, GameObject go = null, bool state = false) {
+
+		if (GameController.Get.IsShowSituation)
+			return;
+
 		switch(controllerState) {
 		case EUIControl.Skill:
 			UIMaskState(EUIControl.Skill);
@@ -888,7 +895,7 @@ public class UIGame : UIBase {
 			viewPass.SetActive(true);
 			controlButtonGroup[0].SetActive(true);
 			controlButtonGroup[1].SetActive(false);
-			
+			viewBottomRight.SetActive(true);
 			drawLine.IsShow = true;
 			break;
 		case EUISituation.Start:
@@ -962,7 +969,7 @@ public class UIGame : UIBase {
 			viewTools.SetActive(false);
 			viewOption.SetActive(false);
 			viewPause.SetActive(false);
-			viewBottomRight.SetActive(true);
+			viewBottomRight.SetActive(false);
 
 			uiJoystick.Joystick.isActivated = false;
 			uiSkill.SetActive(false);

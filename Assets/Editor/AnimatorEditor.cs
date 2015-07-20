@@ -47,6 +47,8 @@ public class AnimatorEditor : EditorWindow {
 		isGetAnimtor = false;
 	}
 
+	bool someOption;
+
 	void OnGUI(){
 		style.normal.textColor = Color.red;
 
@@ -192,7 +194,19 @@ public class AnimatorEditor : EditorWindow {
 				AssetDatabase.SaveAssets();
 			}
 		}
+
+		if(GUI.Button(new Rect(450, 40, 130, 20), "Get ShowControl")) {
+			allMotionAnimationClip.Clear();
+			allAnimationClip.Clear();
+			isGetAvatar = true;
+			isGetAnimtor = false;
+			isChange = false;
+			controller = Resources.Load("Character/PlayerModel_"+strId+"/ShowControl") as UnityEditor.Animations.AnimatorController;
+			if(controller)
+				getAllData();
+		}
 	}
+
 	private void getAllData(){
 		AnimationClip[] animationClip = controller.animationClips;
 		for(int i=0; i<animationClip.Length; i++) {

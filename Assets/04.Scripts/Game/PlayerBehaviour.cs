@@ -331,7 +331,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
     public Vector3 Translate;
     public Rigidbody PlayerRigidbody;
-    private Animator animator;
+    public Animator AnimatorControl;
     private GameObject selectTexture;
     private GameObject DefPoint;
 	private GameObject TopPoint;
@@ -482,7 +482,7 @@ public class PlayerBehaviour : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Player");
         gameObject.tag = "Player";
 
-        animator = gameObject.GetComponent<Animator>();
+        AnimatorControl = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 
         ScoreRate = GameStart.Get.ScoreRate;
@@ -590,7 +590,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		activeTime = 0;
 		if (GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
-			AnimationClip[] clips = animator.runtimeAnimatorController.animationClips;
+			AnimationClip[] clips = AnimatorControl.runtimeAnimatorController.animationClips;
 			if (clips != null && clips.Length > 0) {
 				for (int i=0; i<clips.Length; i++) {
 					if(clips[i].name.Equals(GameData.SkillData [Attribute.ActiveSkill.ID].Animation)) {
@@ -630,18 +630,18 @@ public class PlayerBehaviour : MonoBehaviour
 		GameObject obj = null;
 		switch (Attribute.BodyType) 
 		{
-		case 0:
-			obj = Resources.Load("Prefab/Player/BodyTrigger0") as GameObject;
-			break;
-		case 1:
-			obj = Resources.Load("Prefab/Player/BodyTrigger1") as GameObject;
-			break;
-		case 2:
-			obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
-			break;
-		default:
-			obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
-			break;
+			case 0:
+				obj = Resources.Load("Prefab/Player/BodyTrigger0") as GameObject;
+				break;
+			case 1:
+				obj = Resources.Load("Prefab/Player/BodyTrigger1") as GameObject;
+				break;
+			case 2:
+				obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
+				break;
+			default:
+				obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
+				break;
 		}
 
         if (obj)
@@ -701,7 +701,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-		if (Timer.state == TimeState.Paused) {
+		if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
 			return;
 		}
 
@@ -1223,7 +1223,7 @@ public class PlayerBehaviour : MonoBehaviour
                     smoothDirection = 0;
                 }
             }
-            animator.SetFloat("MoveSpeed", animationSpeed);
+            AnimatorControl.SetFloat("MoveSpeed", animationSpeed);
         }
     }
 
@@ -1233,7 +1233,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationPlayerHight()
     {
-        animator.SetFloat("CrtHight", gameObject.transform.localPosition.y);
+        AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
 
         if (isCheckLayerToReset)
         {
@@ -1665,7 +1665,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         //dir : 1 ++, -1 --, -2 : not smooth,  
 //        if (dir == 0)
-        animator.SetFloat("MoveSpeed", value);
+        AnimatorControl.SetFloat("MoveSpeed", value);
 //        else
 //        if (dir != -2)
 //            smoothDirection = dir;
@@ -1674,13 +1674,13 @@ public class PlayerBehaviour : MonoBehaviour
     private void AddActionFlag(EActionFlag Flag)
     {
         GameFunction.Add_ByteFlag(Flag.GetHashCode(), ref PlayerActionFlag);
-        animator.SetBool(Flag.ToString(), true);
+        AnimatorControl.SetBool(Flag.ToString(), true);
     }
 
     public void DelActionFlag(EActionFlag Flag)
     {
         GameFunction.Del_ByteFlag(Flag.GetHashCode(), ref PlayerActionFlag);
-        animator.SetBool(Flag.ToString(), false);
+        AnimatorControl.SetBool(Flag.ToString(), false);
     }
 
     public bool CheckAnimatorSate(EPlayerState state)
@@ -1693,6 +1693,9 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void ResetFlag(bool ClearMove = true)
     {
+		if(GameController.Get.IsShowSituation)
+			return;
+
         if (CheckAnimatorSate(EPlayerState.Idle) || CheckAnimatorSate(EPlayerState.Dribble1) || CheckAnimatorSate(EPlayerState.Dribble0))
         {
             NeedResetFlag = false;
@@ -1961,7 +1964,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 
                 ClearAnimatorFlag();
-                animator.SetTrigger("BlockTrigger");
+                AnimatorControl.SetTrigger("BlockTrigger");
                 isCanCatchBall = false;
 				GameRecord.BlockLaunch++;
                 Result = true;
@@ -1971,33 +1974,33 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerRigidbody.useGravity = false;
 				PlayerRigidbody.isKinematic = true;
                 ClearAnimatorFlag();
-                animator.SetTrigger("BlockCatchTrigger");
+                AnimatorControl.SetTrigger("BlockCatchTrigger");
                 IsPerfectBlockCatch = false;
                 isCanCatchBall = false;
                 Result = true;
                 break;
 
             case EPlayerState.CatchFlat:
-                animator.SetInteger("StateNo", 0);
+                AnimatorControl.SetInteger("StateNo", 0);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
-                animator.SetTrigger("CatchTrigger");
+                AnimatorControl.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
 
             case EPlayerState.CatchFloor:
-                animator.SetInteger("StateNo", 2);
+                AnimatorControl.SetInteger("StateNo", 2);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
-                animator.SetTrigger("CatchTrigger");
+                AnimatorControl.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
                 
             case EPlayerState.CatchParabola:
-                animator.SetInteger("StateNo", 1);
+                AnimatorControl.SetInteger("StateNo", 1);
                 SetSpeed(0, -1);
                 ClearAnimatorFlag();
-                animator.SetTrigger("CatchTrigger");
+                AnimatorControl.SetTrigger("CatchTrigger");
                 Result = true;
                 break;
 
@@ -2044,8 +2047,8 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.useGravity = false;
 				PlayerRigidbody.isKinematic = true;
                 ClearAnimatorFlag();
-                animator.SetInteger("StateNo", stateNo);
-                animator.SetTrigger("DunkTrigger");
+                AnimatorControl.SetInteger("StateNo", stateNo);
+                AnimatorControl.SetTrigger("DunkTrigger");
                 isCanCatchBall = false;
 
                 playerDunkCurve = null;
@@ -2094,7 +2097,7 @@ public class PlayerBehaviour : MonoBehaviour
 //                    if (!isJoystick)
 //                        SetSpeed(0, -1);
                     ClearAnimatorFlag();
-                    animator.SetInteger("StateNo", stateNo);
+                    AnimatorControl.SetInteger("StateNo", stateNo);
                     AddActionFlag(EActionFlag.IsDribble);
                     CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
                     isCanCatchBall = false;
@@ -2106,7 +2109,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow:
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
-                animator.SetTrigger("ElbowTrigger");
+                AnimatorControl.SetTrigger("ElbowTrigger");
                 isCanCatchBall = false;
 				GameRecord.ElbowLaunch++;
                 Result = true;
@@ -2117,7 +2120,7 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     PlayerRigidbody.mass = 5;
                     ClearAnimatorFlag();
-                    animator.SetTrigger("FakeShootTrigger");
+                    AnimatorControl.SetTrigger("FakeShootTrigger");
                     isCanCatchBall = false;
                     isFakeShoot = true;
 					GameRecord.Fake++;
@@ -2156,8 +2159,8 @@ public class PlayerBehaviour : MonoBehaviour
                 isDunk = false;
                 isShootJump = false;
                 ClearAnimatorFlag();
-                animator.SetInteger("StateNo", stateNo);
-                animator.SetTrigger("FallTrigger");
+                AnimatorControl.SetInteger("StateNo", stateNo);
+                AnimatorControl.SetTrigger("FallTrigger");
                 isCanCatchBall = false;
                 gameObject.transform.DOLocalMoveY(0, 1f);
                 if (OnFall != null)
@@ -2183,22 +2186,22 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Intercept0:
-                animator.SetInteger("StateNo", 0);
-                animator.SetTrigger("InterceptTrigger");
+                AnimatorControl.SetInteger("StateNo", 0);
+                AnimatorControl.SetTrigger("InterceptTrigger");
                 ClearAnimatorFlag();
                 Result = true;
                 break;
 
             case EPlayerState.Intercept1:
-                animator.SetInteger("StateNo", 1);
-                animator.SetTrigger("InterceptTrigger");
+                AnimatorControl.SetInteger("StateNo", 1);
+                AnimatorControl.SetTrigger("InterceptTrigger");
                 ClearAnimatorFlag();
                 Result = true;
                 break;
             
             case EPlayerState.MoveDodge0:
-                animator.SetInteger("StateNo", 0);
-                animator.SetTrigger("MoveDodge");
+                AnimatorControl.SetInteger("StateNo", 0);
+                AnimatorControl.SetTrigger("MoveDodge");
                 OnUICantUse(this);
 				if (MoveQueue.Count > 0)
 					MoveQueue.Dequeue();
@@ -2206,8 +2209,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.MoveDodge1:
-                animator.SetInteger("StateNo", 1);
-                animator.SetTrigger("MoveDodge");
+                AnimatorControl.SetInteger("StateNo", 1);
+                AnimatorControl.SetTrigger("MoveDodge");
                 OnUICantUse(this);
 				if (MoveQueue.Count > 0)
 					MoveQueue.Dequeue();
@@ -2259,8 +2262,8 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 ClearAnimatorFlag();
                 PlayerRigidbody.mass = 5;
-                animator.SetInteger("StateNo", stateNo);
-                animator.SetTrigger("PassTrigger");
+                AnimatorControl.SetInteger("StateNo", stateNo);
+                AnimatorControl.SetTrigger("PassTrigger");
 				GameRecord.Pass++;
                 Result = true;
                 break;
@@ -2277,7 +2280,7 @@ public class PlayerBehaviour : MonoBehaviour
                         isPush = true;
 						isFindCurve = true;
                     }
-                animator.SetTrigger("PushTrigger");
+                AnimatorControl.SetTrigger("PushTrigger");
 				GameRecord.PushLaunch++;
                 Result = true;
                 break;
@@ -2285,8 +2288,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.PickBall0:
                 isCanCatchBall = true;
                 ClearAnimatorFlag();
-                animator.SetInteger("StateNo", 0);
-                animator.SetTrigger("PickTrigger");
+                AnimatorControl.SetInteger("StateNo", 0);
+                AnimatorControl.SetTrigger("PickTrigger");
                 Result = true;
                 break;
 
@@ -2303,8 +2306,8 @@ public class PlayerBehaviour : MonoBehaviour
                         isPick = true;
 						isFindCurve = true;
                     }
-                animator.SetInteger("StateNo", 2);
-                animator.SetTrigger("PickTrigger");
+                AnimatorControl.SetInteger("StateNo", 2);
+                AnimatorControl.SetTrigger("PickTrigger");
 				GameRecord.SaveBallLaunch++;
                 Result = true;
                 break;
@@ -2324,7 +2327,7 @@ public class PlayerBehaviour : MonoBehaviour
 						DashEffectEnable(true);
                         break;
                 }
-                animator.SetInteger("StateNo", stateNo);
+                AnimatorControl.SetInteger("StateNo", stateNo);
                 ClearAnimatorFlag(EActionFlag.IsRun);
                 Result = true;
                 break;
@@ -2338,7 +2341,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Steal:
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
-                animator.SetTrigger("StealTrigger");
+                AnimatorControl.SetTrigger("StealTrigger");
                 isCanCatchBall = false;
 				GameRecord.StealLaunch++;
                 Result = true;
@@ -2346,7 +2349,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.GotSteal:
                 ClearAnimatorFlag();
-                animator.SetTrigger("GotStealTrigger");
+                AnimatorControl.SetTrigger("GotStealTrigger");
                 isCanCatchBall = false;
                 Result = true;
                 break;
@@ -2395,7 +2398,7 @@ public class PlayerBehaviour : MonoBehaviour
                 
 					PlayerRigidbody.useGravity = false;
 					PlayerRigidbody.isKinematic = true;
-                    animator.SetInteger("StateNo", stateNo);
+                    AnimatorControl.SetInteger("StateNo", stateNo);
                     curveName = string.Format("Shoot{0}", stateNo);
 					
                     for (int i = 0; i < aniCurve.Shoot.Length; i++)
@@ -2409,7 +2412,7 @@ public class PlayerBehaviour : MonoBehaviour
                         }
                     SetShooterLayer();
                     ClearAnimatorFlag();
-                    animator.SetTrigger("ShootTrigger");
+                    AnimatorControl.SetTrigger("ShootTrigger");
                     isCanCatchBall = false;
                     Result = true;
                 }
@@ -2454,7 +2457,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 					SetShooterLayer();
 					ClearAnimatorFlag();
-					animator.SetTrigger("LayupTrigger");
+					AnimatorControl.SetTrigger("LayupTrigger");
 					isCanCatchBall = false;
 	                Result = true;
                 }
@@ -2484,7 +2487,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 ClearAnimatorFlag();
                 SetShooterLayer();
-                animator.SetTrigger("ReboundTrigger");
+                AnimatorControl.SetTrigger("ReboundTrigger");
 				GameRecord.ReboundLaunch++;
                 Result = true;
                 break;
@@ -2492,12 +2495,12 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.TipIn:
                 ClearAnimatorFlag();
                 SetShooterLayer();
-                animator.SetTrigger("TipInTrigger");
+                AnimatorControl.SetTrigger("TipInTrigger");
                 Result = true;
                 break;
 
             case EPlayerState.ReboundCatch:
-                animator.SetTrigger("ReboundCatchTrigger");
+                AnimatorControl.SetTrigger("ReboundCatchTrigger");
                 break;
         }
 
@@ -2548,6 +2551,9 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void AnimationEvent(string animationName)
     {
+		if(GameController.Get.IsShowSituation)
+			return;
+
         switch (animationName)
         {
             case "Stealing":
@@ -2633,7 +2639,7 @@ public class PlayerBehaviour : MonoBehaviour
                 //2.Floor
                 //1 3.Parabola(Tee)
                 if (IsBallOwner)
-                    CourtMgr.Get.RealBallTrigger.PassBall(animator.GetInteger("StateNo"));      
+                    CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));      
                 break;
             case "PassEnd":
                 OnUI(this);
@@ -2693,12 +2699,12 @@ public class PlayerBehaviour : MonoBehaviour
             case "OnlyScore":
                 if (OnOnlyScore != null)
                     OnOnlyScore(this);
-                CourtMgr.Get.PlayDunk(Team.GetHashCode(), animator.GetInteger("StateNo"));
+                CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
                 break;
             case "DunkBasket":
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
-                CourtMgr.Get.PlayDunk(Team.GetHashCode(), animator.GetInteger("StateNo"));
+                CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
 
                 break;
             case "DunkFallBall":
@@ -3085,8 +3091,8 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsBallOwner
     {
 //        get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
-        get { return animator.GetBool("IsBallOwner");}
-        set { animator.SetBool("IsBallOwner", value);}
+        get { return AnimatorControl.GetBool("IsBallOwner");}
+        set { AnimatorControl.SetBool("IsBallOwner", value);}
     }
 
 	public bool IsBlock

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public enum EGameSituation
 {
+	InitShowContorl   = -3,
 	ShowOne           = -2,
 	ShowTwo           = -1,
     None           = 0,
@@ -1309,6 +1310,11 @@ public class GameController : KnightSingleton<GameController>
 
 			switch (GS)
 			{
+			case EGameSituation.InitShowContorl:
+				for(int i = 0; i < PlayerList.Count; i++)
+					if(PlayerList[i])
+						ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
+				break;
 			case EGameSituation.ShowOne:
 				CourtMgr.Get.ShowEnd ();
 				UIGame.UIShow (true);
@@ -1318,10 +1324,11 @@ public class GameController : KnightSingleton<GameController>
 
 				if(GameController.Get.IsStart == false)
 				{
-					if(!UIGame.Visible)
-						UIGame.UIShow (true);
+					UIGame.Get.UIState(EUISituation.ShowTwo);
+
 					Situation = EGameSituation.Opening;
 					ChangeSituation (EGameSituation.Opening);
+					CourtMgr.Get.InitScoreboard (true);
 				}
 				break;
 			case EGameSituation.Opening:
@@ -1330,10 +1337,15 @@ public class GameController : KnightSingleton<GameController>
 					UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.Opening);
 				jodgeSkillUI ();
-
 				break;
+				
 			case EGameSituation.JumpBall:
+				for(int i = 0; i < PlayerList.Count; i++)
+					if(PlayerList[i])
+						ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
+
 				IsStart = true;
+
 				for(int i = 0; i < PlayerList.Count; i++)
 					if(PlayerList[i].Postion == EPlayerPostion.C)
 						Rebound(PlayerList[i]);
@@ -4237,8 +4249,8 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		Joysticker.SetAnger (-100);
-		Situation = EGameSituation.Opening;
-		ChangeSituation (EGameSituation.Opening);
+		Situation = EGameSituation.ShowOne;
+		ChangeSituation (EGameSituation.ShowOne);
 		setPassIcon(false);
     }
 
@@ -4356,6 +4368,16 @@ public class GameController : KnightSingleton<GameController>
             return false;
         }
     }
+
+	public bool IsShowSituation
+	{
+		get{
+			if(Situation <= EGameSituation.Opening)
+				return true;
+			else
+				return false;
+		}
+	}
 
 	public bool IsCanPassAir
 	{

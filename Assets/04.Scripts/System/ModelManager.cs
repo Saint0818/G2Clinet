@@ -5,6 +5,13 @@ using UnityEngine;
 using GameStruct;
 using ProMaterialCombiner;
 
+public enum EanimatorType
+{
+	AnimationControl,
+	AvatarControl,
+	ShowControl
+}
+
 public class ModelManager : KnightSingleton<ModelManager> {
 	public const string Name = "ModelManager";
 
@@ -456,17 +463,28 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
 			if(runtimeAnimatorController == null) {
 				if(isUseRig)
-					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber));
+					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AnimationControl);
 				else
-					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
-				aniControl.runtimeAnimatorController = runtimeAnimatorController;
-				aniControl.applyRootMotion = false;
+					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
+					
+//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber));
+//				else
+//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
+//				aniControl.runtimeAnimatorController = runtimeAnimatorController;
+//				aniControl.applyRootMotion = false;
 
 			} else {
 				if(!isUseRig)
-					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
-				aniControl.runtimeAnimatorController = runtimeAnimatorController;
-				aniControl.applyRootMotion = false;
+					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
+				else
+				{
+					aniControl.runtimeAnimatorController = runtimeAnimatorController;
+					aniControl.applyRootMotion = false;
+				}
+//				if(!isUseRig)
+//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
+//				aniControl.runtimeAnimatorController = runtimeAnimatorController;
+//				aniControl.applyRootMotion = false;
 			}
 
 			
@@ -481,6 +499,14 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		} catch (UnityException e) {
 			Debug.Log(e.ToString());
 		}
+	}
+
+	public void ChangeAnimator(Animator ani,string bodyNumber, EanimatorType type)
+	{
+		RuntimeAnimatorController runtimeAnimatorController = ani.runtimeAnimatorController;
+		runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
+		ani.runtimeAnimatorController = runtimeAnimatorController;
+		ani.applyRootMotion = false;
 	}
 
 	public void ChangeLayersRecursively(Transform trans, string name) {
