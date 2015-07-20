@@ -34,7 +34,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
 	}
 
-	private void loadAllBody(string path) {
+	public void LoadAllBody(string path) {
 		GameObject[] resourceBody = Resources.LoadAll<GameObject> (path);
 		if (resourceBody != null) {
 			for (int i=0; i<resourceBody.Length; i++) {
@@ -46,7 +46,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	private void loadAllTexture(string path) {
+	public void LoadAllTexture(string path) {
 		Texture[] resourceTexture = Resources.LoadAll<Texture> (path);
 		if (resourceTexture != null) {
 			for (int i=0; i<resourceTexture.Length; i++) {

@@ -22,6 +22,7 @@ public class UILoading : UIBase {
 
 //	public UILabel LabelVersion;
 
+	private ELoadingGamePic loadingKind;
 	private int PicNo = -1;
 	private bool isCloseUI = false;
 	public float CloseTime = 0;
@@ -36,6 +37,17 @@ public class UILoading : UIBase {
 		}
 	}
 
+	public static UILoading Get
+	{
+		get {
+			if (!instance) 
+				instance = LoadUI(UIName) as UILoading;
+			
+			return instance;
+		}
+	}
+
+
 //	public static void UIShow(bool isShow){
 //		if(instance) {
 //			if (!isShow)
@@ -47,12 +59,13 @@ public class UILoading : UIBase {
 //			Get.Show(isShow);
 //	}
 
-	public static void UIShow(bool isShow, ELoadingGamePic Kind = ELoadingGamePic.None, string hint=""){
+	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint=""){
 //		Get.isCloseUI = isShow;
 		if(isShow) {
+			Get.loadingKind = kind;
 			Get.Show(isShow);
 			
-			if (Get.PicNo != Kind.GetHashCode()) {
+			if (Get.PicNo != kind.GetHashCode()) {
 				Get.windowGame.SetActive(true);
 				Get.windowLoading.SetActive(false);
 				if (Get.uiBG.mainTexture) {
@@ -60,7 +73,7 @@ public class UILoading : UIBase {
 					Resources.UnloadUnusedAssets();
 				}
 				
-				Get.PicNo = Kind.GetHashCode();
+				Get.PicNo = kind.GetHashCode();
 				Get.uiBG.mainTexture = (Texture)Resources.Load("Textures/LoadingPic/Loading" + Get.PicNo.ToString(), typeof(Texture));
 			} else {
 				Get.CloseTime = 1;
@@ -72,6 +85,8 @@ public class UILoading : UIBase {
 //				Get.Hint.text = hint;
 //			else
 //				Get.Hint.text = "";
+
+
 		}else 
 		if(instance) {
 			if (Get.CloseTime <= 0) {
@@ -81,14 +96,9 @@ public class UILoading : UIBase {
 		}
 	}
 
-	public static UILoading Get
-	{
-		get {
-			if (!instance) 
-				instance = LoadUI(UIName) as UILoading;
-			
-			return instance;
-		}
+	protected override void OnShow(bool isShow) {
+		if (isShow)
+			StartCoroutine(DoLoading(loadingKind));
 	}
 
 	void FixedUpdate () {
@@ -96,7 +106,7 @@ public class UILoading : UIBase {
 			CloseTime -= Time.deltaTime;
 			
 			if (CloseTime <=0 && !isCloseUI) {
-				UIShow(false);
+				//UIShow(false);
 			}
 		}
 		if(windowGame != null) {
@@ -134,18 +144,31 @@ public class UILoading : UIBase {
 		uiLoadingProgress.fillAmount = 0;
 		uiGameProgress.fillAmount = 0;
 	}
+	
+	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
+		switch (kind) {
+		case ELoadingGamePic.SelectRole:
+			yield return new WaitForSeconds (1);
+			ModelManager.Get.LoadAllBody("Character/");
+			ModelManager.Get.LoadAllTexture("Character/");
 
-	protected override void OnShow(bool isShow){
-//		if(isShow) {
-//			LabelVersion.text = BundleVersion.version.ToString();
-//			uiProgress.fillAmount = 0;
-//			if (!LoadingPic.mainTexture)
-//				LoadingPic.mainTexture = (Texture)Resources.Load("Textures/GameLoading5", typeof(Texture));
-//		} else {
-//			LoadingPic.mainTexture = null;
-//			Resources.UnloadUnusedAssets();
-//			GC.Collect();
-//		}
+			yield return new WaitForSeconds (1);
+			loadSelectRole();
+			break;
+		}
+	}
+	
+	public void UpdateProgress (){
+		float b = FileManager.DownlandCount;
+		float a = FileManager.AlreadyDownlandCount;
+		uiLoadingProgress.fillAmount = (float)(a / b);
+	}
+	
+	private void loadSelectRole(){
+		UIShow(false);
+		CameraMgr.Get.SetSelectRoleCamera();
+		UISelectRole.UIShow(true);
+		UI3DSelectRole.UIShow(true);
 	}
 
 	public float ProgressValue{
@@ -154,11 +177,5 @@ public class UILoading : UIBase {
 
 	public bool DownloadDone{
 		get{return uiLoadingProgress.fillAmount >= 1;}
-	}
-
-	public void UpdateProgress (){
-		float b = FileManager.DownlandCount;
-		float a = FileManager.AlreadyDownlandCount;
-		uiLoadingProgress.fillAmount = (float)(a / b);
 	}
 }

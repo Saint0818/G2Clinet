@@ -25,7 +25,7 @@ public enum EGameSituation
 
 public enum ELoadingGamePic
 {
-	None = -1,
+	SelectRole = -1,
 	Game = 1
 }
 //public enum EGameAction
