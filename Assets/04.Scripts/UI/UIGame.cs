@@ -189,6 +189,13 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitCom() {
+		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
+		GameObject obj;
+		#if !UNITY_EDITOR
+		obj = GameObject.Find (UIName + "/TopLeft/ButtonSpeed");
+		if (obj)
+			obj.SetActive(false);
+		#endif
 		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		uiJoystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
 
@@ -277,7 +284,7 @@ public class UIGame : UIBase {
 
 		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
 
-		SetBtnFun (UIName + "/TopLeft/ButtonPause", PauseGame);
+		SetBtnFun (UIName + "/TopLeft/ButtonPause", OnPause);
 		SetBtnFun (UIName + "/Center/ViewStart/ButtonStart", StartGame);
 		SetBtnFun (UIName + "/Center/AISelect/ButtonClose", AITimeChange);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
@@ -294,8 +301,6 @@ public class UIGame : UIBase {
 		viewOption.SetActive(false);
 		viewPause.SetActive(false);
 		viewTopLeft.SetActive(false);
-
-
 		uiSkill.SetActive(false);
 		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
@@ -403,7 +408,15 @@ public class UIGame : UIBase {
 		UIState(EUISituation.ReSelect);
 	}
 
-	public void PauseGame(){
+	public void OnSpeed(){
+		if (Time.timeScale == 1) 
+			Time.timeScale = 2;
+		else
+		if (Time.timeScale == 2) 
+			Time.timeScale = 1;
+	}
+
+	public void OnPause(){
 		if(Time.timeScale == 0) 
 			UIState(EUISituation.Continue);
 		else
