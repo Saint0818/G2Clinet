@@ -55,7 +55,6 @@ public class UISelectRole : UIBase {
 
 	private int [] arrayUnSelectID = new int[3];
 	private Animator [] arrayAnimator = new Animator[3];
-	private string [] arrayAnimatorName = new string[1]{""};
 	private GameObject [] arrayNamePic = new GameObject[6]; 
 	private float [] arrayOldNameValue = new float[6];
 	private float [] arrayNewNameValue = new float[6];
@@ -79,17 +78,6 @@ public class UISelectRole : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		} else
-		if (isShow)
-				Get.Show(isShow);
-	}
-	
 	public static UISelectRole Get {
 		get {
 			if (!instance) 
@@ -98,7 +86,17 @@ public class UISelectRole : UIBase {
 			return instance;
 		}
 	}
-
+	
+	public static void UIShow(bool isShow){
+		if (instance) {
+			if (!isShow)
+				RemoveUI(UIName);
+			else
+				instance.Show(isShow);
+		} else
+			if (isShow)
+				Get.Show(isShow);
+	}
 	
 	void FixedUpdate(){
 		if(doubleClickTime > 0) {
@@ -127,11 +125,7 @@ public class UISelectRole : UIBase {
 				}
 			}
 		}
-	
-//		if(Input.GetMouseButtonDown(0)) {
-//			arrayAnimator[0].SetTrigger("SelectDown");
-//		}
-		if(!arrayPlayer[1].activeInHierarchy) {
+		if(uiSelect.activeInHierarchy) {
 			if(Input.GetMouseButton(0)) {
 				axisX = 0;
 				
@@ -301,7 +295,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoPlayerAnimator(GameObject obj){
-		if(roleFallTime == 0) {
+		if(roleFallTime == 0 && uiSelect.activeInHierarchy) {
 			int ranAnimation = UnityEngine.Random.Range(0,9);
 			if(ranAnimation == 0)
 				roleFallTime = 3;
@@ -391,7 +385,6 @@ public class UISelectRole : UIBase {
 			}
 		}
 
-
 		arrayAnimator[RoleIndex] = arrayPlayer[RoleIndex].GetComponent<Animator>();
 		changeLayersRecursively(arrayPlayer[RoleIndex].transform, "UI");
 
@@ -409,10 +402,10 @@ public class UISelectRole : UIBase {
 
 	}
 
-	private void playAnimator(int Index, string name) {
-		if(Index == 0 && Index < arrayAnimator.Length && name != "" && arrayAnimator [Index] != null)
-			arrayAnimator [Index].SetTrigger (name);
-	}
+//	private void playAnimator(int Index, string name) {
+//		if(Index == 0 && Index < arrayAnimator.Length && name != "" && arrayAnimator [Index] != null)
+//			arrayAnimator [Index].SetTrigger (name);
+//	}
 
 	private void changeLayersRecursively(Transform trans, string name){
 		trans.gameObject.layer = LayerMask.NameToLayer(name);
@@ -515,7 +508,6 @@ public class UISelectRole : UIBase {
 
 					setPlayerAvatar(0, index);
 					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-					playAnimator(0, arrayAnimatorName[UnityEngine.Random.Range(0, arrayAnimatorName.Length)]);
 					
 					setTriangleData ();
 					arrayPlayerData[0].SetAttribute();
@@ -530,10 +522,10 @@ public class UISelectRole : UIBase {
 			AudioMgr.Get.MusicOn(spriteMusicOn.enabled);	
 			break;
 		case EUIRoleSituation.ChooseRole:{
-			UITriangle.Get.Triangle.SetActive (false);
 			uiSelect.SetActive(false);
+			arrayAnimator[0].SetTrigger(arrayRoleAnimation[1]);
+			UITriangle.Get.Triangle.SetActive (false);
 
-			
 			int RanID;
 			int Count;
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
