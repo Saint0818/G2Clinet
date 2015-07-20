@@ -14,7 +14,8 @@ public enum ECameraSituation
 	JumpBall = -1,
 	Self = 0,
 	Npc = 1,
-	Skiller = 2
+	Skiller = 2,
+	Finish = 3
 }
 
 public class CameraMgr : KnightSingleton<CameraMgr>
@@ -68,6 +69,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public EZoomType CrtZoom = EZoomType.Normal;
 	private GameObject showCamera;
+	public Animator ShowAnimatorControl;
 
 	public GameObject[] CharacterPos = new GameObject[6];
 
@@ -95,6 +97,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			InitTestTool();
 
 			showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
+			ShowAnimatorControl = showCamera.GetComponent<Animator>();
 
 			if(showCamera)
 				for(int i = 0; i < CharacterPos.Length; i++)
@@ -128,6 +131,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		animator.SetTrigger ("InGameStart");
 	}
 
+	public void FinishGame()
+	{
+		animator.SetTrigger ("FinishGame");
+	}
+
 	public void SetSelectRoleCamera()
 	{
 		if(cameraFx){
@@ -148,14 +156,17 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		situation = team;
 		SetTestToolPosition();
 
-		if(team == ECameraSituation.Show)
-		{
-			ShowCameraEnable(true);
-			cameraGroupObj.SetActive(false);
-		}
+		if (team == ECameraSituation.Finish)
+			return;
 		else
 		{
-			cameraGroupObj.SetActive(true);
+			if(team == ECameraSituation.Show)
+			{
+				ShowCameraEnable(true);
+				cameraGroupObj.SetActive(false);
+			}
+			else
+				cameraGroupObj.SetActive(true);
 		}
 	}
 
@@ -278,6 +289,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
 		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
 			if(situation == ECameraSituation.Show)
+				return;
+
+			if(situation == ECameraSituation.Finish)
 				return;
 
 			ZoomCalculation();

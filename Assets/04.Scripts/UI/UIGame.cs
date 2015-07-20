@@ -965,6 +965,8 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
 			uiSkill.SetActive(false);
+			GameController.Get.IsStart = false;
+			CameraMgr.Get.FinishGame();
 			break;
 		case EUISituation.Reset:
 			UIShow(false);

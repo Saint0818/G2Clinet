@@ -463,7 +463,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
 			if(runtimeAnimatorController == null) {
 				if(isUseRig)
-					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AnimationControl);
+					ChangeAnimator( aniControl, bodyNumber, EanimatorType.ShowControl);
 				else
 					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
 					
@@ -506,6 +506,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		RuntimeAnimatorController runtimeAnimatorController = ani.runtimeAnimatorController;
 		runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
 		ani.runtimeAnimatorController = runtimeAnimatorController;
+		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;
 	}
 

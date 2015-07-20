@@ -2,8 +2,9 @@
 using System.Collections;
 using System;
 
-public class CamerEvent : MonoBehaviour {
-	public void CamerTimeScale(AnimationEvent aniEvent) {
+public class CamEvent : MonoBehaviour {
+
+	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
 
 		//set all
@@ -12,12 +13,12 @@ public class CamerEvent : MonoBehaviour {
 	}
 
 	public void ZoomIn(float t) {
-		CameraMgr.Get.SkillShow (gameObject); 
+//		CameraMgr.Get.SkillShow (gameObject); 
 		CameraMgr.Get.SetRoomMode (EZoomType.In, t); 
 	}
 	
 	public void ZoomOut(float t) {
-		CameraMgr.Get.SkillShow (gameObject);
+//		CameraMgr.Get.SkillShow (gameObject);
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
 

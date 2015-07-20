@@ -1310,10 +1310,14 @@ public class GameController : KnightSingleton<GameController>
 
 			switch (GS)
 			{
-			case EGameSituation.InitShowContorl:
-				for(int i = 0; i < PlayerList.Count; i++)
-					if(PlayerList[i])
-						ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
+				case EGameSituation.InitShowContorl:
+					CameraMgr.Get.ShowAnimatorControl.enabled = false;
+					for(int i = 0; i < PlayerList.Count; i++)
+						if(PlayerList[i]){
+							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
+
+					CameraMgr.Get.ShowAnimatorControl.enabled = true;
+				}
 				break;
 			case EGameSituation.ShowOne:
 				CourtMgr.Get.ShowEnd ();
@@ -1383,7 +1387,9 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.End:
 				IsStart = false;
 				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].AniState(EPlayerState.Idle);					
+					PlayerList[i].AniState(EPlayerState.Idle);
+
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }       
         }
