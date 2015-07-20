@@ -522,7 +522,6 @@ namespace GameStruct
 		public string ExplainTW;
 		public string ExplainEN;
 		public string explain;
-		public string SkillExplain;
 		public int space;
 		public int spaceAdd;
 		public float lifeTime;

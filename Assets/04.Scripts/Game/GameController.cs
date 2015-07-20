@@ -1325,7 +1325,6 @@ public class GameController : KnightSingleton<GameController>
 				if(GameController.Get.IsStart == false)
 				{
 					UIGame.Get.UIState(EUISituation.ShowTwo);
-
 					Situation = EGameSituation.Opening;
 					ChangeSituation (EGameSituation.Opening);
 					CourtMgr.Get.InitScoreboard (true);
@@ -1345,6 +1344,7 @@ public class GameController : KnightSingleton<GameController>
 						ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
 
 				IsStart = true;
+				CourtMgr.Get.InitScoreboard (true);
 
 				for(int i = 0; i < PlayerList.Count; i++)
 					if(PlayerList[i].Postion == EPlayerPostion.C)

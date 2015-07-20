@@ -44,7 +44,7 @@ public class UIGame : UIBase {
 
 	//Game const
 	public float ButtonBTime = 0.14f; //Fake to shoot time
-	private float showScoreBarInitTime = 5;
+	private float showScoreBarInitTime = 2.2f;
 	public int[] MaxScores = {13, 13};
 
 	private float shootBtnTime = 0;
@@ -77,7 +77,6 @@ public class UIGame : UIBase {
 	private GameObject uiScoreBar;
 	private GameObject uiSkillEnable;
 	private GameObject uiSkill;
-	private GameObject uiAttackPush;
 	private GameObject uiPlayerLocation;
 	private GameObject uiShoot;
 
@@ -209,7 +208,6 @@ public class UIGame : UIBase {
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
-		uiAttackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 		uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
 		uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
 
@@ -307,8 +305,7 @@ public class UIGame : UIBase {
 		runForceBar ();
 
 		uiJoystick.Joystick.isActivated = false; 
-//		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
-		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(Screen.width * 0.2f, Screen.height * 0.9f);
+		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 	}
@@ -531,7 +528,7 @@ public class UIGame : UIBase {
 		spriteAnimation.ResetToBeginning();
 		runForceBar ();
 	}
-
+	
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
@@ -877,7 +874,7 @@ public class UIGame : UIBase {
 			uiSkill.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			viewTopLeft.SetActive(false);
-			uiAttackPush.SetActive(false);
+			viewBottomRight.SetActive(false);
 			
 			uiJoystick.gameObject.SetActive(false);
 			viewPass.SetActive(false);
@@ -889,7 +886,6 @@ public class UIGame : UIBase {
 		case EUISituation.Opening:
 			uiJoystick.Joystick.isActivated = true;
 			viewTopLeft.SetActive(true);
-			uiAttackPush.SetActive(true);
 			
 			uiJoystick.gameObject.SetActive(true);
 			viewPass.SetActive(true);
@@ -908,7 +904,7 @@ public class UIGame : UIBase {
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackA);
 			controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.AttackA);
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.AttackA);
-			uiAttackPush.SetActive(true);
+			viewBottomRight.SetActive(true);
 			SetPassButton();
 			GameController.Get.passIcon[0].SetActive(true);
 			
@@ -972,9 +968,9 @@ public class UIGame : UIBase {
 			viewBottomRight.SetActive(false);
 
 			uiJoystick.Joystick.isActivated = false;
+			uiJoystick.gameObject.SetActive(false);
 			uiSkill.SetActive(false);
 
-			uiJoystick.gameObject.SetActive(true);
 			ChangeControl(true);
 			SetPassButton();
 
