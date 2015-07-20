@@ -1401,6 +1401,11 @@ public class GameController : KnightSingleton<GameController>
             
 	            switch (Situation)
 	            {
+					case EGameSituation.InitShowContorl:
+						for(int i = 0; i < PlayerList.Count; i++)
+							if(PlayerList[i].ShowPos != -1)
+								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
+						break;
 					case EGameSituation.ShowOne:
 						
 						break;
@@ -1410,9 +1415,7 @@ public class GameController : KnightSingleton<GameController>
 						break;
 
 	                case EGameSituation.None:
-						for(int i = 0; i < PlayerList.Count; i++)
-						if(PlayerList[i].ShowPos != -1)
-							PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
+
 	                    break;
 	                case EGameSituation.Opening:
                 
