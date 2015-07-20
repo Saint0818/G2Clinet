@@ -20,4 +20,13 @@ public class CamerEvent : MonoBehaviour {
 		CameraMgr.Get.SkillShow (gameObject);
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
+
+	public void SetPlayerAni(AnimationEvent aniEvent)
+	{
+		int intParam = aniEvent.intParameter;
+		string stringParam = aniEvent.stringParameter;
+
+		GameController.Get.PlayShowAni (intParam, stringParam);
+	}
+
 }

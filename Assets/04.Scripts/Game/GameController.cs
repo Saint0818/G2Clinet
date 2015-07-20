@@ -2050,6 +2050,12 @@ public class GameController : KnightSingleton<GameController>
 		return Result;
     }
 
+	public void PlayShowAni(int playIndex, string aniName)
+	{
+		if (IsShowSituation && PlayerList [playIndex])
+			PlayerList [playIndex].AnimatorControl.SetTrigger (aniName);
+	}
+
 	public bool OnFall(PlayerBehaviour faller)
 	{
 		UIGame.Get.UICantUse(faller);
