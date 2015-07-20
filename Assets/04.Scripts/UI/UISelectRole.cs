@@ -19,6 +19,8 @@ public enum EUIRoleSituation {
 public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
+	private static string[] arrayRoleAnimation = new string[9]{"FallQuickStand","Idle","Idle1","DefenceStay","Stop0","Stop1","Stop3","StayDribble","StayDodge0"};
+	private float roleFallTime = 0;
 	public static int [] arrayRoleID = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
 	private TGreatPlayer data ;
@@ -101,9 +103,13 @@ public class UISelectRole : UIBase {
 	void FixedUpdate(){
 		if(doubleClickTime > 0) {
 			doubleClickTime -= Time.deltaTime;
-			if(doubleClickTime <= 0) {
+			if(doubleClickTime <= 0)
 				doubleClickTime = 0;
-			}
+		}
+		if(roleFallTime > 0) {
+			roleFallTime -= Time.deltaTime;
+			if(roleFallTime <= 0) 
+				roleFallTime = 0;
 		}
 		if (SelectRoleIndex >= 0 && SelectRoleIndex < spritesLine.Length) {
 			if(spritesLine[SelectRoleIndex].fillAmount < 1)
@@ -295,7 +301,12 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoPlayerAnimator(GameObject obj){
-		arrayAnimator[0].SetTrigger("Walk");
+		if(roleFallTime == 0) {
+			int ranAnimation = UnityEngine.Random.Range(0,9);
+			if(ranAnimation == 0)
+				roleFallTime = 3;
+			arrayAnimator[0].SetTrigger(arrayRoleAnimation[ranAnimation]);
+		}
 	}
 
 	public void OnClickSixAttr(GameObject obj) {

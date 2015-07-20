@@ -3,6 +3,8 @@ using System.Collections;
 using DG.Tweening;
 
 public enum EUISituation{
+	ShowTwo,
+	Opening,
 	Start, 
 	Pause, 
 	Continue, 
@@ -165,7 +167,7 @@ public class UIGame : UIBase {
 				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
 					GameController.Get.DoShoot(true);
 					GameController.Get.Joysticker.SetNoAiTime();
-					uiAttackPush.SetActive(false);
+					spriteAttack.gameObject.SetActive(false);
 					ShowSkillUI(false);
 
 					if(GameController.Get.IsCanPassAir) {
@@ -207,7 +209,7 @@ public class UIGame : UIBase {
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
-		uiAttackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack/SpriteAttack");
+		uiAttackPush = GameObject.Find(UIName + "/BottomRight/ButtonAttack");
 		uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
 		uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
 
@@ -535,7 +537,7 @@ public class UIGame : UIBase {
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
 		showScoreBar(GameController.Get.IsStart);
 		TweenRotation tweenRotation = TweenRotation.Begin(labelScores[team].gameObject, 0.5f, Quaternion.identity);
-		tweenRotation.delay = 0.5f;
+		tweenRotation.delay = 0.2f;
 		tweenRotation.to = new Vector3(0,720,0);
 		labelScores[team].text = Scores [team].ToString ();
 	}
@@ -552,7 +554,7 @@ public class UIGame : UIBase {
 			if (GameController.Get.IsStart) {
 				SetPassButton();
 				ShowSkillUI(false);
-				uiAttackPush.SetActive(true);
+				spriteAttack.gameObject.SetActive(true);
 			}
 			return true;
 		} else {
@@ -644,7 +646,7 @@ public class UIGame : UIBase {
 		switch (controllerState) {
 		case EUIControl.Skill:
 			ShowSkillUI(true);
-			uiAttackPush.SetActive(false);
+			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(false);
 			uiShoot.SetActive(false);
@@ -658,7 +660,7 @@ public class UIGame : UIBase {
 				UIEffectState(EUIControl.Attack);
 
 				uiShoot.SetActive(false);
-				uiAttackPush.SetActive(true);
+				spriteAttack.gameObject.SetActive(true);
 				uiDefenceGroup[0].SetActive(false);
 				uiDefenceGroup[1].SetActive(false);
 				uiPassObjectGroup[0].SetActive(false);
@@ -670,7 +672,7 @@ public class UIGame : UIBase {
 
 				ShowSkillUI(false);
 				uiShoot.SetActive(false);
-				uiAttackPush.SetActive(true);
+				spriteAttack.gameObject.SetActive(true);
 				uiDefenceGroup[0].SetActive(false);
 				uiDefenceGroup[1].SetActive(false);
 				uiPassObjectGroup[0].SetActive(false);
@@ -682,7 +684,7 @@ public class UIGame : UIBase {
 			UIEffectState(EUIControl.Block);
 
 			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
+			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(true);
 			break;
@@ -690,13 +692,13 @@ public class UIGame : UIBase {
 			UIEffectState(EUIControl.Steal);
 
 			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
+			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(true);
 			uiDefenceGroup[1].SetActive(false);
 			break;
 		case EUIControl.Shoot:
 			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
+			spriteAttack.gameObject.SetActive(false);
 			uiShoot.SetActive(true);
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(false);
@@ -706,7 +708,7 @@ public class UIGame : UIBase {
 		case EUIControl.PassA:
 		case EUIControl.PassB:
 			ShowSkillUI(false);
-			uiAttackPush.SetActive(false);
+			spriteAttack.gameObject.SetActive(false);
 			uiShoot.SetActive(false);
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(false);
@@ -721,7 +723,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[1].SetActive(false);
 
 			uiShoot.SetActive(true);
-			uiAttackPush.SetActive(true);
+			spriteAttack.gameObject.SetActive(true);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(false);
 			SetPassButton();
@@ -736,7 +738,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[1].SetActive(true);
 
 			uiShoot.SetActive(false);
-			uiAttackPush.SetActive(true);
+			spriteAttack.gameObject.SetActive(true);
 			uiDefenceGroup[0].SetActive(true);
 			uiDefenceGroup[1].SetActive(true);
 			SetPassButton();
@@ -863,6 +865,32 @@ public class UIGame : UIBase {
 
 	public void UIState(EUISituation situation){
 		switch(situation) {
+		case EUISituation.ShowTwo:
+			viewStart.SetActive (true);
+			uiSkill.SetActive(false);
+			uiJoystick.Joystick.isActivated = false;
+			viewTopLeft.SetActive(false);
+			uiAttackPush.SetActive(false);
+			
+			uiJoystick.gameObject.SetActive(false);
+			viewPass.SetActive(false);
+			controlButtonGroup[0].SetActive(false);
+			controlButtonGroup[1].SetActive(false);
+
+			drawLine.IsShow = false;
+			break;
+		case EUISituation.Opening:
+			uiJoystick.Joystick.isActivated = true;
+			viewTopLeft.SetActive(true);
+			uiAttackPush.SetActive(true);
+			
+			uiJoystick.gameObject.SetActive(true);
+			viewPass.SetActive(true);
+			controlButtonGroup[0].SetActive(true);
+			controlButtonGroup[1].SetActive(false);
+			
+			drawLine.IsShow = true;
+			break;
 		case EUISituation.Start:
 			viewStart.SetActive (false);
 			uiSkill.SetActive(true);
@@ -873,6 +901,9 @@ public class UIGame : UIBase {
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackA);
 			controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.AttackA);
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.AttackA);
+			uiAttackPush.SetActive(true);
+			SetPassButton();
+			GameController.Get.passIcon[0].SetActive(true);
 			
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
@@ -918,6 +949,7 @@ public class UIGame : UIBase {
 			uiSkill.SetActive(false);
 			break;
 		case EUISituation.Reset:
+			UIShow(false);
 			GameController.Get.Reset ();
 			InitData ();
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
@@ -941,7 +973,6 @@ public class UIGame : UIBase {
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			CameraMgr.Get.PlayGameStartCamera ();
-			UIShow(false);
 			break;
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;

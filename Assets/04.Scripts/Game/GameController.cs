@@ -664,8 +664,10 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private void setPassIcon(bool isShow) {
-		for(int i=0; i<3; i++) {
-			passIcon[i].SetActive(isShow);
+		if(GameStart.Get.TestMode == EGameTest.None) {
+			for(int i=0; i<3; i++) {
+				passIcon[i].SetActive(isShow);
+			}
 		}
 	}
 
@@ -1309,20 +1311,24 @@ public class GameController : KnightSingleton<GameController>
 			{
 			case EGameSituation.ShowOne:
 				CourtMgr.Get.ShowEnd ();
+				UIGame.UIShow (true);
+				UIGame.Get.UIState(EUISituation.ShowTwo);
 				break;
 			case EGameSituation.ShowTwo:
 
 				if(GameController.Get.IsStart == false)
 				{
-					UIGame.UIShow (true);
+					if(!UIGame.Visible)
+						UIGame.UIShow (true);
 					Situation = EGameSituation.Opening;
 					ChangeSituation (EGameSituation.Opening);
-					CourtMgr.Get.InitScoreboard (true);
 				}
 				break;
 			case EGameSituation.Opening:
-				UIGame.UIShow (true);
 				setPassIcon(true);
+				if(!UIGame.Visible)
+					UIGame.UIShow (true);
+				UIGame.Get.UIState(EUISituation.Opening);
 				jodgeSkillUI ();
 
 				break;
