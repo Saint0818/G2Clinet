@@ -279,7 +279,7 @@ public class UISelectRole : UIBase {
 
 		arrayPlayer[0].transform.localPosition = new Vector3(0, 2, 0);
 		Invoke("playerDoAnimator", 0.95f);
-		Invoke("playerShowTime", 1);
+		Invoke("playerShowTime", 1.1f);
 		Invoke("hideSelectRoleAnimator", 2.5f);
 
 		setTriangleData();
@@ -577,7 +577,7 @@ public class UISelectRole : UIBase {
 			animatorLeft.SetTrigger("Close");
 			animatorRight.SetTrigger("Close");
 			Invoke("otherPlayerDoAnimator", 0.5f);
-			Invoke("otherPlayerShowTime", 0.55f);
+			Invoke("otherPlayerShowTime", 0.65f);
 			Invoke("loadingShow", 1f);
 			arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 		}
