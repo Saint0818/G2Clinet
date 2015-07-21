@@ -15,7 +15,7 @@ public class AutoFollowGameObject : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		followPos = new Vector3 (0, 0.04f, 0);
+		followPos = new Vector3 (0, 0.08f, 0);
 		followRot = gameObject.transform.localEulerAngles;
 	}
 	
@@ -45,5 +45,11 @@ public class AutoFollowGameObject : MonoBehaviour
 			gameObject.transform.position = followPos;
 			gameObject.transform.localEulerAngles = followRot;
 		}
+	}
+
+	public void SetTarget(GameObject obj)
+	{
+		if (obj) 
+			Target = obj;
 	}
 }

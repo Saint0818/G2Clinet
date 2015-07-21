@@ -531,7 +531,7 @@ public class GameController : KnightSingleton<GameController>
 				ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
 		
 		for(int i = 0; i < PlayerList.Count; i++)
-			if(PlayerList[i])
+			if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)
 				PlayerList[i].AniState(EPlayerState.Idle);
 	}
 	
@@ -721,7 +721,6 @@ public class GameController : KnightSingleton<GameController>
 				CourtMgr.Get.ShowEnd (true);
 				InitIngameAnimator();
 				InitPosition();
-				Debug.Log("0");
 			}
 
 			if (Input.GetKeyDown(KeyCode.T)){
@@ -1349,6 +1348,10 @@ public class GameController : KnightSingleton<GameController>
 				CourtMgr.Get.ShowEnd ();
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.ShowTwo);
+				if(!IsSkip){
+					InitPosition();
+					InitIngameAnimator();
+				}
 				break;
 			case EGameSituation.ShowTwo:
 
@@ -1362,16 +1365,12 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.Opening:
 
-				if(!IsSkip){
-					InitPosition();
-					InitIngameAnimator();
-				}
-
 				setPassIcon(true);
 				if(!UIGame.Visible)
 					UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.Opening);
 				jodgeSkillUI ();
+				CourtMgr.Get.InitBallShadow();
 				break;
 				
 			case EGameSituation.JumpBall:
@@ -1438,10 +1437,10 @@ public class GameController : KnightSingleton<GameController>
 					case EGameSituation.InitShowContorl:
 						for(int i = 0; i < PlayerList.Count; i++)
 						{
-							if(PlayerList[i].ShowPos != -1 && IsSkip == false)
+							if(PlayerList[i].ShowPos != -1 && IsSkip == false){
 								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
-
-						//	Debug.Log("1");
+								PlayerList[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.eulerAngles;
+							}
 						}
 						break;
 					case EGameSituation.ShowOne:

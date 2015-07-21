@@ -311,6 +311,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1].IntTrigger = 1;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
+
 			BallShadow.gameObject.SetActive(false);
 
 			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
@@ -318,6 +319,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
         }
     }
+
+	public void InitBallShadow()
+	{
+		BallShadow.gameObject.SetActive(true);
+		BallShadow.SetTarget(RealBall);
+	}
 
 	private void switchGameobj(ref GameObject obj1, ref GameObject obj2) {
 		GameObject obj = obj1;
