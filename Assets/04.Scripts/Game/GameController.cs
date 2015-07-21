@@ -270,6 +270,7 @@ public class GameController : KnightSingleton<GameController>
 	public GameObject selectMe;
 	public GameObject BallHolder;
 	public GameObject[] passIcon = new GameObject[3];
+	private List<GameObject> objsPassiveEffect =new List<GameObject>();
 
 	private int shootAngle = 55;
 	public float StealBtnLiftTime = 1f;
@@ -2578,53 +2579,54 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	
 	private List<GameObject> getPassiveSkillTarget (PlayerBehaviour player) {
 		int targetKind = -1;
+		objsPassiveEffect.Clear();
+		GameObject obj = new GameObject();
 		if (GameData.SkillData.ContainsKey(player.PassiveID)) {
-			List<GameObject> objs =new List<GameObject>();
+
 			targetKind = GameData.SkillData[player.PassiveID].TargetKind1;
 			switch(targetKind) {
-			case 0://0.自己
-				objs.Add(player.gameObject); 
+			case 0:// 0.自己腳底
+				objsPassiveEffect.Add(player.gameObject); 
 				break;
-			case 1://1.我方籃筐
-				objs.Add(CourtMgr.Get.BasketHoop[player.Team.GetHashCode()].gameObject);
+			case 1://1.自己的身體（胸口
+				Transform tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+				if(tBody != null)
+					objsPassiveEffect.Add(tBody.gameObject);
 				break;
-			case 2://2.對方籃筐
-			{
-				int i = 1;
-				if (player.Team == ETeamKind.Npc)
-					i = 0;
-				
-				objs.Add(CourtMgr.Get.BasketHoop[i].gameObject);
-			}
+			case 2://2.自己頭上
+				obj.transform.position = new Vector3(player.transform.position.x, (4 - (player.Attribute.BodyType * 0.3f)), player.transform.position.z);
+				objsPassiveEffect.Add(obj);
 				break;
-			case 3://3.我方全隊
-				for(int i=0; i<PlayerList.Count; i++)
-					if(PlayerList[i].Team == player.Team) 
-						objs.Add(PlayerList[i].gameObject);
+			case 3://3.自己的手掌
+				Transform tHand = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
+				if(tHand != null)
+					objsPassiveEffect.Add(tHand.gameObject);
+//				for(int i=0; i<PlayerList.Count; i++)
+//					if(PlayerList[i].Team == player.Team) 
+//						objs.Add(PlayerList[i].gameObject);
 				break;
 			case 4://4.距離內我方
-				for(int i=0; i<PlayerList.Count; i++){
-					if(PlayerList[i].Team == player.Team) {
-						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
-							objs.Add(PlayerList[i].gameObject);
-					}
-				}
+//				for(int i=0; i<PlayerList.Count; i++){
+//					if(PlayerList[i].Team == player.Team) {
+//						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
+//							objsPassiveEffect.Add(PlayerList[i].gameObject);
+//					}
+//				}
 				break;
 			case 5://5.敵方全隊
-				for(int i=0; i<PlayerList.Count; i++)
-					if(PlayerList[i].Team != player.Team) 
-						objs.Add(PlayerList[i].gameObject);
+//				for(int i=0; i<PlayerList.Count; i++)
+//					if(PlayerList[i].Team != player.Team) 
+//						objsPassiveEffect.Add(PlayerList[i].gameObject);
 				break;
 			case 6://6.距離內敵方
-				for(int i=0; i<PlayerList.Count; i++){
-					if(PlayerList[i].Team != player.Team) {
-						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
-							objs.Add(PlayerList[i].gameObject);
-					}
-				}
+//				for(int i=0; i<PlayerList.Count; i++){
+//					if(PlayerList[i].Team != player.Team) {
+//						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
+//							objsPassiveEffect.Add(PlayerList[i].gameObject);
+//					}
+//				}
 				break;
 			case 7://7.投籃者
 				break;
@@ -2635,7 +2637,7 @@ public class GameController : KnightSingleton<GameController>
 			case 10://10.球
 				break;
 			}
-			return objs;
+			return objsPassiveEffect;
 		}
 		return null;
 	}
