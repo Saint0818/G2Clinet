@@ -1361,7 +1361,12 @@ public class GameController : KnightSingleton<GameController>
 				}
 				break;
 			case EGameSituation.Opening:
-				InitPosition();
+
+				if(!IsSkip){
+					InitPosition();
+					InitIngameAnimator();
+				}
+
 				setPassIcon(true);
 				if(!UIGame.Visible)
 					UIGame.UIShow (true);
