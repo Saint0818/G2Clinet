@@ -689,6 +689,9 @@ public class GameController : KnightSingleton<GameController>
 
 	void FixedUpdate() {
 		if (Joysticker) {
+			if (Input.GetKeyUp (KeyCode.K))
+				gameResult(0);
+
 			if (Input.GetKeyUp (KeyCode.D))
 			{
 				UIGame.Get.DoAttack();
