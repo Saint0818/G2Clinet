@@ -670,31 +670,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     public void PlayDunk(int team, int stageNo)
     {
-//        Animation animation;
-//		string animationName;
-////		AnimationClip clip;
-//		animationName = string.Format("Dunk_{0}", stageNo);
-//
-//        if (team == 0)
-//        {
-//			animation = pveBasketAy[0].GetComponent<Animation>();
-//			Hood[0].gameObject.SetActive(true);
-//        } else
-//        {
-//			if(isPve)
-//			{
-//				animation = pveBasketAy[1].GetComponent<Animation>();
-//			}
-//			else
-//			{
-//				animation = BuildBasket[1].GetComponent<Animation>();
-//			}
-//           
-//			Hood[1].gameObject.SetActive(true);
-//		}
-//
-//		if(animation[animationName])
-//			animation.Play (animationName);
 		Animator animator;
 		string animationName = string.Format("Dunk_{0}", stageNo);
 		if (team == 0)
@@ -722,30 +697,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void PlayShoot(int team)
 	{
-//		Animation animation;
-//		string animationName;
-//		animationName = "Shot_0";
-//		
-//		if (team == 0)
-//		{
-//			animation = pveBasketAy[0].GetComponent<Animation>();
-//			Hood[0].gameObject.SetActive(true);
-//		} else
-//		{
-//			if(isPve)
-//			{
-//				animation = pveBasketAy[1].GetComponent<Animation>();
-//			}
-//			else
-//			{
-//				animation = BuildBasket[1].GetComponent<Animation>();
-//			}
-//			
-//			Hood[1].gameObject.SetActive(true);
-//		}
-//		
-//		animation.Play (animationName);
-
 		Animator animator;
 		string animationName = "Shot_0";
 		if (team == 0)
@@ -772,30 +723,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void PlayShootNoScore(int team)
 	{
-//		Animation animation;
-//		string animationName;
-//		//		AnimationClip clip;
-//		animationName = "Shot_100";
-//		
-//		if (team == 0)
-//		{
-//			animation = pveBasketAy[0].GetComponent<Animation>();
-//			Hood[0].gameObject.SetActive(true);
-//		} else
-//		{
-//			if(isPve)
-//			{
-//				animation = pveBasketAy[1].GetComponent<Animation>();
-//			}
-//			else
-//			{
-//				animation = BuildBasket[1].GetComponent<Animation>();
-//			}
-//			
-//			Hood[1].gameObject.SetActive(true);
-//		}
-//		
-//		animation.Play (animationName);
 		Animator animator;
 		string animationName = "Shot_100";
 		if (team == 0)

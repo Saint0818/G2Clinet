@@ -15,6 +15,7 @@ public class UICharacterInfo : UIBase {
 	private TSelectAttrData [] arraySelectAttrData = new TSelectAttrData[12];
 	private float [] arrayOldValue = new float[12];
 	private float [] arrayNewValue = new float[12];
+	private float [] arraySortValue = new float[12];
 
 	private int activeID;
 	private GameObject viewSkillInfo;
@@ -35,7 +36,6 @@ public class UICharacterInfo : UIBase {
 	private float longPressMaxTime = 0.5f;
 	private float longPressTime = 0;
 
-	
 	public static bool Visible{
 		get{
 			if(instance)
@@ -107,7 +107,7 @@ public class UICharacterInfo : UIBase {
 		arraySelectAttrData [11].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
 
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onClick = CloseInfo;
-		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onPress = ShowDetailInfo;
+//		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onPress = ShowDetailInfo;
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard")).onPress = ShowDetailInfo;
 	}
 
@@ -284,5 +284,18 @@ public class UICharacterInfo : UIBase {
 			arrayNewValue[10] = data.Dribble;
 			arrayNewValue[11] = data.Pass;
 		}
+		checkThreeHeight();
+	}
+
+	private void checkThreeHeight() {
+		for(int i=0; i<arrayNewValue.Length; i++) 
+			arraySortValue[i] = arrayNewValue[i];
+
+		System.Array.Sort(arraySortValue);
+		for(int i=0; i<arrayNewValue.Length; i++) 
+			if(arrayNewValue[i] >= arraySortValue[9]) 
+				arraySelectAttrData[i].Value.color = new Color(255, 0, 0);
+			else 
+				arraySelectAttrData[i].Value.color = Color.white;
 	}
 }

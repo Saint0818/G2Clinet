@@ -37,8 +37,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
 				break;
 			case SceneName.Null:
-			//				UIWaitLoading.UIShow(true);
-//				OnLevelWasLoaded -= loadingShow;
 				UILoading.UIShow(true, ELoadingGamePic.Game); 
 				break;
 		}

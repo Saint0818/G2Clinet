@@ -10,21 +10,19 @@ public class UILoading : UIBase {
 	private GameObject windowGame;
 
 	private UITexture uiLoadingProgress;
-	private GameObject uiLoadingLight1;
-	private GameObject uiLoadindLight2;
-	private GameObject uiLoadingWord;
 
 	private UITexture uiBG;
 	private UITexture uiGameProgress;
-	private GameObject uiGameLight1;
-	private GameObject uiGameLight2;
-	private GameObject uiGameWord;
 
 	private ELoadingGamePic loadingKind;
 	private int PicNo = -1;
 	private bool isCloseUI = false;
 	public float CloseTime = 0;
-//	private UILabel Hint;
+	//	private UILabel Hint;
+
+	private int page = 1;
+	private int dir = 0;
+	private bool wasDragging = false;
 
 	public static bool Visible{
 		get{
@@ -99,15 +97,12 @@ public class UILoading : UIBase {
 		windowGame = GameObject.Find (UIName + "/WindowGame");
 
 		uiLoadingProgress = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIProgressBar").GetComponent<UITexture>();
-		uiLoadingLight1 = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UILight1");
-		uiLoadindLight2 = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UILight2");
-		uiLoadingWord = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIWord");
 
 		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
 		uiGameProgress = GameObject.Find (UIName + "/WindowGame/LoadingPic/UIProgressBar").GetComponent<UITexture>();
-		uiGameLight1 = GameObject.Find (UIName + "/WindowGame/LoadingPic/UILight1");
-		uiGameLight2 = GameObject.Find (UIName + "/WindowGame/LoadingPic/UILight2");
-		uiGameWord = GameObject.Find (UIName + "/WindowGame/LoadingPic/UIWord");
+
+		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
+		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
 	}
 
 	protected override void InitData() {
@@ -121,8 +116,11 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (1);
 			ModelManager.Get.LoadAllBody("Character/");
 			ModelManager.Get.LoadAllTexture("Character/");
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (2);
 			loadSelectRole();
+			break;
+		case ELoadingGamePic.Game:
+
 			break;
 		}
 	}
@@ -138,6 +136,37 @@ public class UILoading : UIBase {
 		CameraMgr.Get.SetSelectRoleCamera();
 		UISelectRole.UIShow(true);
 		UI3DSelectRole.UIShow(true);
+	}
+
+	public void PanelDrag(GameObject go, Vector2 delta) {
+		wasDragging = true;
+		if(delta.x > 0)
+			dir = -1;
+		else
+			dir = 1;
+	}
+
+	public void PanelPress(GameObject go, bool pressed) {
+		if (!pressed && wasDragging) {
+			wasDragging = false;
+			if(dir == 1)
+				DoRight();
+			else
+				DoLeft();
+			dir = 0;
+		}
+	}
+	
+	public void DoRight() {
+		if(page == 1) {
+			page ++;
+		}
+	}
+	
+	public void DoLeft() {
+		if(page == 2) {
+			page --;
+		}
 	}
 
 	public float ProgressValue{

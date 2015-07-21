@@ -35,7 +35,7 @@ public class UISelectRole : UIBase {
 	private Animator animatorRight;
 	private Animator animatorLoading;
 
-	private GameObject uiOK;
+//	private GameObject uiOK;
 	private GameObject uiSelect;
 
 	private UILabel labelPlayerName;
@@ -179,7 +179,7 @@ public class UISelectRole : UIBase {
 
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
 		uiSelect.SetActive(false);
-		uiOK = GameObject.Find (UIName + "/Right/CharacterCheck");
+//		uiOK = GameObject.Find (UIName + "/Right/CharacterCheck");
 
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
 		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;
