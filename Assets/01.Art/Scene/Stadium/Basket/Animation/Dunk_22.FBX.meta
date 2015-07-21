@@ -15,6 +15,12 @@ ModelImporter:
     100014: DummyNet
     100016: //RootNode
     100018: IK Chain
+    100020: Backboard
+    100022: BasketGlassA
+    100024: BasketGlassB
+    100026: BasketHoop
+    100028: BasketSupport
+    100030: DummyBasketRoot
     400000: Bone01
     400002: Bone02
     400004: Bone03
@@ -25,9 +31,25 @@ ModelImporter:
     400014: DummyNet
     400016: //RootNode
     400018: IK Chain
+    400020: Backboard
+    400022: BasketGlassA
+    400024: BasketGlassB
+    400026: BasketHoop
+    400028: BasketSupport
+    400030: DummyBasketRoot
+    4300000: BasketSupport
+    4300002: Backboard
+    4300004: BasketHoop
+    4300006: BasketGlassA
+    4300008: BasketGlassB
     7400000: Dunk_22
     9500000: //RootNode
     11100000: //RootNode
+    13700000: Backboard
+    13700002: BasketGlassA
+    13700004: BasketGlassB
+    13700006: BasketHoop
+    13700008: BasketSupport
   materials:
     importMaterials: 0
     materialName: 0
@@ -70,23 +92,35 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: Bone01
+      - path: Backboard
         weight: 1
-      - path: Bone01/Bone02
+      - path: BasketGlassA
         weight: 1
-      - path: Bone01/Bone02/Bone03
+      - path: BasketGlassB
         weight: 1
-      - path: Bone01/Bone02/Bone03/Bone04
+      - path: BasketHoop
         weight: 1
-      - path: DummyBasketIK
+      - path: BasketSupport
         weight: 1
-      - path: DummyBasketIK/DummyBackBoard
+      - path: DummyBasketRoot
         weight: 1
-      - path: DummyBasketIK/DummyBackBoard/DummyHoop
+      - path: DummyBasketRoot/Bone01
         weight: 1
-      - path: DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
+      - path: DummyBasketRoot/Bone01/Bone02
         weight: 1
-      - path: DummyBasketIK/IK Chain
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03/Bone04
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/IK Chain
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
