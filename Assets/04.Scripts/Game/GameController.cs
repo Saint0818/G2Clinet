@@ -231,6 +231,7 @@ public class GameController : KnightSingleton<GameController>
     public EGameSituation Situation = EGameSituation.None;
     private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 
+	public bool IsSkip = false;
     public bool IsStart = false;
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
@@ -437,6 +438,102 @@ public class GameController : KnightSingleton<GameController>
 			if (!GameData.DPlayers.ContainsKey(GameData.EnemyMembers[i].Player.ID))
 				GameData.EnemyMembers[i].Player.SetID(19 + i*10);
 	}
+
+	private void InitPosition()
+	{
+		float v1 = 0;
+		float v2 = 0;
+		int [] aPosAy = new int[3];
+		int [] bPosAy = new int[3];
+		for (int i = 0; i < PlayerList.Count; i++)
+		{
+			if(PlayerList[i].Team == ETeamKind.Self)
+			{
+				if(PlayerList[i].Attribute.Dribble > v1)
+				{
+					v1 = PlayerList[i].Attribute.Dribble;
+					aPosAy[0] = i;
+				}
+			}
+			else
+			{
+				if(PlayerList[i].Attribute.Dribble > v2)
+				{
+					v2 = PlayerList[i].Attribute.Dribble;
+					bPosAy[0] = i;
+				}
+			}
+		}
+		
+		v1 = 0;
+		v2 = 0;
+		for (int i = 0; i < PlayerList.Count; i++)
+		{
+			if(PlayerList[i].Team == ETeamKind.Self)
+			{
+				if(PlayerList[i].Attribute.Rebound > v1 && aPosAy[0] != i)
+				{
+					v1 = PlayerList[i].Attribute.Rebound;
+					aPosAy[1] = i;
+				}
+			}
+			else
+			{
+				if(PlayerList[i].Attribute.Rebound > v2 && bPosAy[0] != i)
+				{
+					v2 = PlayerList[i].Attribute.Rebound;
+					bPosAy[1] = i;
+				}
+			}
+		}
+		
+		for (int i = 0; i < PlayerList.Count; i++)
+		{
+			if(PlayerList[i].Team == ETeamKind.Self)
+			{
+				if(aPosAy[0] != i && aPosAy[1] != i)									
+					aPosAy[2] = i;
+			}
+			else
+			{
+				if(bPosAy[0] != i && bPosAy[1] != i)
+					bPosAy[2] = i;
+			}
+		}
+		
+		//Team A
+		PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
+		PlayerList[aPosAy[0]].transform.position = BornAy[0];
+		PlayerList[aPosAy[0]].ShowPos = 1;
+		PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
+		PlayerList[aPosAy[1]].transform.position = BornAy[1];
+		PlayerList[aPosAy[1]].ShowPos = 0;
+		PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
+		PlayerList[aPosAy[2]].transform.position = BornAy[2];
+		PlayerList[aPosAy[2]].ShowPos = 2;
+		
+		//Team B
+		PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
+		PlayerList[bPosAy[0]].transform.position = BornAy[3];
+		PlayerList[bPosAy[0]].ShowPos = 4;
+		PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
+		PlayerList[bPosAy[1]].transform.position = BornAy[4];
+		PlayerList[bPosAy[1]].ShowPos = 3;
+		PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
+		PlayerList[bPosAy[2]].transform.position = BornAy[5];
+		PlayerList[bPosAy[2]].ShowPos = 5;
+	}
+
+	private void InitIngameAnimator()
+	{
+		for(int i = 0; i < PlayerList.Count; i++)
+			if(PlayerList[i])
+				ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
+		
+		for(int i = 0; i < PlayerList.Count; i++)
+			if(PlayerList[i])
+				PlayerList[i].AniState(EPlayerState.Idle);
+	}
 	
 	public void CreateTeam() {
         switch (GameStart.Get.TestMode)
@@ -454,87 +551,7 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 
 				//1.G(Dribble) 2.C(Rebound) 3.F
-				float v1 = 0;
-				float v2 = 0;
-				int [] aPosAy = new int[3];
-				int [] bPosAy = new int[3];
-				for (int i = 0; i < PlayerList.Count; i++)
-				{
-					if(PlayerList[i].Team == ETeamKind.Self)
-					{
-						if(PlayerList[i].Attribute.Dribble > v1)
-						{
-							v1 = PlayerList[i].Attribute.Dribble;
-							aPosAy[0] = i;
-						}
-					}
-					else
-					{
-						if(PlayerList[i].Attribute.Dribble > v2)
-						{
-							v2 = PlayerList[i].Attribute.Dribble;
-							bPosAy[0] = i;
-						}
-					}
-				}
-
-				v1 = 0;
-				v2 = 0;
-				for (int i = 0; i < PlayerList.Count; i++)
-				{
-					if(PlayerList[i].Team == ETeamKind.Self)
-					{
-						if(PlayerList[i].Attribute.Rebound > v1 && aPosAy[0] != i)
-						{
-							v1 = PlayerList[i].Attribute.Rebound;
-							aPosAy[1] = i;
-						}
-					}
-					else
-					{
-						if(PlayerList[i].Attribute.Rebound > v2 && bPosAy[0] != i)
-						{
-							v2 = PlayerList[i].Attribute.Rebound;
-							bPosAy[1] = i;
-						}
-					}
-				}
-
-				for (int i = 0; i < PlayerList.Count; i++)
-				{
-					if(PlayerList[i].Team == ETeamKind.Self)
-					{
-						if(aPosAy[0] != i && aPosAy[1] != i)									
-							aPosAy[2] = i;
-					}
-					else
-					{
-						if(bPosAy[0] != i && bPosAy[1] != i)
-							bPosAy[2] = i;
-					}
-				}
-
-				//Team A
-				PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
-				PlayerList[aPosAy[0]].transform.position = BornAy[0];
-				PlayerList[aPosAy[0]].ShowPos = 1;
-				PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
-				PlayerList[aPosAy[1]].transform.position = BornAy[1];
-				PlayerList[aPosAy[1]].ShowPos = 0;
-				PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
-				PlayerList[aPosAy[2]].transform.position = BornAy[2];
-				PlayerList[aPosAy[2]].ShowPos = 2;
-
-				//Team B
-				PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
-				PlayerList[bPosAy[0]].transform.position = BornAy[3];
-				PlayerList[bPosAy[0]].ShowPos = 4;
-				PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
-				PlayerList[bPosAy[1]].transform.position = BornAy[4];
-				PlayerList[bPosAy[1]].ShowPos = 3;
-				PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
-				PlayerList[bPosAy[2]].transform.position = BornAy[5];
-				PlayerList[bPosAy[2]].ShowPos = 5;
+				InitPosition();
                 break;
 			case EGameTest.All:
 				PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, BornAy[0], new GameStruct.TPlayer(0)));	
@@ -700,7 +717,11 @@ public class GameController : KnightSingleton<GameController>
 
 			if (Input.GetKeyDown(KeyCode.N))
 			{
+				IsSkip = true;
 				CourtMgr.Get.ShowEnd (true);
+				InitIngameAnimator();
+				InitPosition();
+				Debug.Log("0");
 			}
 
 			if (Input.GetKeyDown(KeyCode.T)){
@@ -1315,6 +1336,7 @@ public class GameController : KnightSingleton<GameController>
 			switch (GS)
 			{
 				case EGameSituation.InitShowContorl:
+					IsSkip = false;
 					CameraMgr.Get.ShowAnimatorControl.enabled = false;
 					for(int i = 0; i < PlayerList.Count; i++)
 						if(PlayerList[i]){
@@ -1339,6 +1361,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 				break;
 			case EGameSituation.Opening:
+				InitPosition();
 				setPassIcon(true);
 				if(!UIGame.Visible)
 					UIGame.UIShow (true);
@@ -1347,10 +1370,6 @@ public class GameController : KnightSingleton<GameController>
 				break;
 				
 			case EGameSituation.JumpBall:
-				for(int i = 0; i < PlayerList.Count; i++)
-					if(PlayerList[i])
-						ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
-
 				IsStart = true;
 				CourtMgr.Get.InitScoreboard (true);
 
@@ -1413,8 +1432,12 @@ public class GameController : KnightSingleton<GameController>
 	            {
 					case EGameSituation.InitShowContorl:
 						for(int i = 0; i < PlayerList.Count; i++)
-							if(PlayerList[i].ShowPos != -1)
+						{
+							if(PlayerList[i].ShowPos != -1 && IsSkip == false)
 								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
+
+						//	Debug.Log("1");
+						}
 						break;
 					case EGameSituation.ShowOne:
 						
@@ -2065,8 +2088,10 @@ public class GameController : KnightSingleton<GameController>
 
 	public void PlayShowAni(int playIndex, string aniName)
 	{
-		if (IsShowSituation && PlayerList [playIndex])
-			PlayerList [playIndex].AnimatorControl.SetTrigger (aniName);
+		for (int i = 0; i < PlayerList.Count; i++) {
+			if (IsShowSituation && PlayerList [i].ShowPos == playIndex)
+				PlayerList [i].AnimatorControl.SetTrigger (aniName);
+		}
 	}
 
 	public bool OnFall(PlayerBehaviour faller)
