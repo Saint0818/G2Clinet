@@ -92,7 +92,6 @@ namespace GameStruct
 
 		public void SetAttribute() {
 			if (GameData.DPlayers.ContainsKey(ID)) {
-
 				Point2 = GameData.DPlayers[ID].Point2;
 				Point3 = GameData.DPlayers[ID].Point3;
 				Steal = GameData.DPlayers[ID].Steal;

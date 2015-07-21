@@ -143,12 +143,9 @@ public class UIBase: MonoBehaviour
 		  btn.onClick.Add(new EventDelegate(callBack));	
 	}
 
-	bool waitclose = false;
 	protected virtual void Show(bool isShow)
 	{		    
 	    if(gameObject) {
-			waitclose = false;
-
     	  gameObject.SetActive(isShow);
     	  OnShow(isShow);
 		}

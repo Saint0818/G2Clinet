@@ -168,18 +168,17 @@ public struct TMoveData
     public bool Shooting;
     public string FileName;
 
-    public TMoveData(int flag)
-    {
-        Target = Vector2.zero;
-        LookTarget = null;
-        MoveFinish = null;
-        FollowTarget = null;
-        DefPlayer = null;
-        Speedup = false;
-        Catcher = false;
-        Shooting = false;
-        FileName = "";
-    }
+	public void Clear() {
+		Target = Vector2.zero;
+		LookTarget = null;
+		MoveFinish = null;
+		FollowTarget = null;
+		DefPlayer = null;
+		Speedup = false;
+		Catcher = false;
+		Shooting = false;
+		FileName = "";
+	}
 }
 
 [System.Serializable]
@@ -1446,31 +1445,28 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void MoveTo(TMoveData Data, bool First = false)
     {
-        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block)
-        {
+        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block) {
             bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
             float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
             SetSpeed(0.3f, 0);
 
-            if (temp <= MoveCheckValue || !DoMove)
-            {
+            if (temp <= MoveCheckValue || !DoMove) {
                 MoveTurn = 0;
                 isMoving = false;
                 
-                if (IsDefence)
-                {
+                if (IsDefence) {
                     WaitMoveTime = 0;
-                    if (Data.DefPlayer != null)
-                    {
+                    if (Data.DefPlayer != null) {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         
-                        if (Data.LookTarget != null)
-                        {
+                        if (Data.LookTarget != null) {
                             if (Vector3.Distance(this.transform.position, Data.DefPlayer.transform.position) <= GameConst.StealBallDistance)
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                            else if (!DoMove)
+                            else 
+							if (!DoMove)
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                            else if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
+                            else 
+							if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
                                 rotateTo(MoveTarget.x, MoveTarget.y);
                             else
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -1485,29 +1481,29 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     
                     AniState(EPlayerState.Defence0);                          
-                } else
-                {
+                } else {
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
-                    else if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
+                    else 
+					if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
                         AniState(EPlayerState.Dribble0);
                     
                     if (First || GameStart.Get.TestMode == EGameTest.Edit)
                         WaitMoveTime = 0;
-                    else if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
-                    {
-                        dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
-                        if((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && GameController.Get.BallOwner != null)
-						{
-							if (dis <= 8)
-                            	WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 1);
-                       	 	else
-                            	WaitMoveTime = Time.time + UnityEngine.Random.Range(0, 3);
-						}
-                    }
+                    else 
+					if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && 
+						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0) {
+						dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
+						float t = 0;
+						if (dis <= 8)
+                    		t = UnityEngine.Random.Range(3, 11) * 0.1f;
+               	 		else
+							t = UnityEngine.Random.Range(3, 21) * 0.1f;
+
+						WaitMoveTime = Time.time + t;
+					}
                     
-                    if (IsBallOwner)
-                    {
+                    if (IsBallOwner) {
                         if (Team == ETeamKind.Self)
                             rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
                         else
@@ -1515,15 +1511,11 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (Data.Shooting && NoAiTime == 0)
                             GameController.Get.Shoot();
-                    } else
-                    {
-                        if (Data.LookTarget == null)
-                        {
+                    } else {
+                        if (Data.LookTarget == null) {
                             if (GameController.Get.BallOwner != null)
-                            {
                                 rotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
-                            } else
-                            {
+                            else {
                                 if (Team == ETeamKind.Self)
                                     rotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
                                 else
@@ -1532,10 +1524,8 @@ public class PlayerBehaviour : MonoBehaviour
                         } else
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
                         
-                        if (Data.Catcher)
-                        {
-                            if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB))
-                            {
+                        if (Data.Catcher) {
+                            if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) {
                                 if (GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = Data.Shooting;
                             }
@@ -1548,78 +1538,62 @@ public class PlayerBehaviour : MonoBehaviour
                 
                 if (MoveQueue.Count > 0)
                     MoveQueue.Dequeue();
-            } else if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
-            {                                          
+            } else 
+			if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null) {                                          
                 MoveTurn++;
                 rotateTo(MoveTarget.x, MoveTarget.y);
                 if (MoveTurn == 1)
                     MoveStartTime = Time.time + GameConst.DefMoveTime;           
-            } else
-            {
-                if (IsDefence)
-                {
-                    if (Data.DefPlayer != null)
-                    {
+            } else {
+                if (IsDefence) {
+                    if (Data.DefPlayer != null) {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Data.DefPlayer.Team.GetHashCode()].transform.position);
                         
 						if (dis <= GameConst.TreePointDistance + 4 || Vector3.Distance(transform.position, Data.LookTarget.position) <= 1.5f)
-                        {
                             rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
-                        } else
-                        {
+                        else
                             rotateTo(MoveTarget.x, MoveTarget.y);
-                        }
 
                         if (GetAngle(new Vector3(MoveTarget.x, 0, MoveTarget.y)) >= 90)
                             AniState(EPlayerState.Defence1);
                         else
                             AniState(EPlayerState.RunningDefence);
-                    } else
-                    {
+                    } else {
                         rotateTo(MoveTarget.x, MoveTarget.y);
                         AniState(EPlayerState.Run0);
                     }
                     
                     isMoving = true;
-                    if (MovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
-                    {
+                    if (MovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee) {
                         SetSpeed(1, 0);
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
                         isSpeedup = true;
-                    } else
-                    {
+                    } else {
                         transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue);
                         isSpeedup = false;
                     }
-                } else
-                {
+                } else {
                     rotateTo(MoveTarget.x, MoveTarget.y);                   
                     isMoving = true;
 
-                    if (IsBallOwner)
-                    {
-                        if (Data.Speedup && MovePower > 0)
-                        {
+                    if (IsBallOwner) {
+                        if (Data.Speedup && MovePower > 0) {
                             SetSpeed(1, 0);
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
                             AniState(EPlayerState.Dribble2);
                             isSpeedup = true;
-                        } else
-                        {
+                        } else {
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
                             AniState(EPlayerState.Dribble1);
                             isSpeedup = false;
                         }
-                    } else
-                    {
-                        if (Data.Speedup && MovePower > 0)
-                        {
+                    } else {
+                        if (Data.Speedup && MovePower > 0) {
                             SetSpeed(1, 0);
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
                             AniState(EPlayerState.Run1);
                             isSpeedup = true;
-                        } else
-                        {
+                        } else {
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue);
                             AniState(EPlayerState.Run0);
                             isSpeedup = false;
@@ -3031,7 +3005,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool CanUseSkill {
 		get {
-			if (!IsFall && CanMove) 
+			if (CanMove) 
 				return true;
 			else
 				return false;

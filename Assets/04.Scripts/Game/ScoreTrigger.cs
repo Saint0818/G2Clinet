@@ -19,13 +19,13 @@ public class ScoreTrigger : MonoBehaviour
 		if (c.tag == "RealBall") {
 			if(!GameController.Get.IsDunk && 
 			   !GameController.Get.IsAlleyoop && 
-			   GameController.Get.BasketSituationType != EBasketSituation.AirBall && 
+			   GameController.Get.BasketSituation != EBasketSituation.AirBall && 
 			   (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) &&
 			   (GameController.Get.Situation != EGameSituation.TeeAPicking || GameController.Get.Situation != EGameSituation.TeeBPicking) ) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
 						Into = true;
-						switch (GameController.Get.BasketSituationType) {
+						switch (GameController.Get.BasketSituation) {
 						case EBasketSituation.Swish:
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop);
 							break;
@@ -46,7 +46,7 @@ public class ScoreTrigger : MonoBehaviour
 						Into = true;
 						GameController.Get.PlusScore(Team, false, true);
 						CourtMgr.Get.PlayShoot(Team);
-						if(GameController.Get.BasketSituationType == EBasketSituation.Swish)
+						if(GameController.Get.BasketSituation == EBasketSituation.Swish)
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwishEnd, dummyHoop);
 					}
 				}
