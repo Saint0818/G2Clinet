@@ -117,7 +117,9 @@ public enum EPlayerState
 	Shoot7,
 	Steal,
 	TipIn,
-	JumpBall  
+	JumpBall,
+	Buff20, 
+	Buff21
 }
 
 public enum ETeamKind
@@ -281,6 +283,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Intercept1, true);
 			StopStates.Add(EPlayerState.MoveDodge0, true);
 			StopStates.Add(EPlayerState.MoveDodge1, true);
+			StopStates.Add(EPlayerState.Buff20, true);
+			StopStates.Add(EPlayerState.Buff21, true);
 		}
 	}
 }
@@ -1874,6 +1878,12 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
+			case EPlayerState.Buff20:
+			case EPlayerState.Buff21:
+				if(CanMove)
+					return true;
+				break;
+
             case EPlayerState.Idle:
                 return true;
         }
@@ -1944,6 +1954,21 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
+			case EPlayerState.Buff20:
+			case EPlayerState.Buff21:
+				switch (state)
+				{
+					case EPlayerState.Buff20:
+						stateNo = 20;
+						break;
+					case EPlayerState.Buff21:
+						stateNo = 21;
+						break;
+				}
+				ClearAnimatorFlag();
+				AnimatorControl.SetTrigger("BuffTrigger");
+				break;
+			
             case EPlayerState.BlockCatch:
 				PlayerRigidbody.useGravity = false;
 				PlayerRigidbody.isKinematic = true;
@@ -2560,7 +2585,17 @@ public class PlayerBehaviour : MonoBehaviour
                     OnDoubleClickMoment(this, crtState);
                 break;
 
-            case "BlockCatchMomentStart":
+			case "BuffEnd":
+				if (IsBallOwner)
+				{
+					AniState(EPlayerState.HoldBall);
+					IsFirstDribble = true;
+				}
+				else
+					AniState(EPlayerState.Idle);
+				break;
+			
+			case "BlockCatchMomentStart":
                 blockCatchTrigger.SetEnable(true);
                 break;
             

@@ -5,7 +5,7 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 
 	public EAnimatorState state = EAnimatorState.Idle;
 	public float currentTime;
-	public float checkTime = 10f;
+	private float checkTime = 20f;
 	public bool isOnce = false;
 
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

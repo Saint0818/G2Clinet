@@ -1319,12 +1319,9 @@ public class GameController : KnightSingleton<GameController> {
 			switch (gs) {
 			case EGameSituation.InitShowContorl:
 					isSkip = false;
-					CameraMgr.Get.ShowAnimatorControl.enabled = false;
 					for(int i = 0; i < PlayerList.Count; i++)
 						if(PlayerList[i]){
 							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
-
-					CameraMgr.Get.ShowAnimatorControl.enabled = true;
 				}
 				break;
 			case EGameSituation.ShowOne:
@@ -1337,12 +1334,13 @@ public class GameController : KnightSingleton<GameController> {
 				}
 				break;
 			case EGameSituation.ShowTwo:
-				if(IsStart == false) {
+				if(IsStart == false)
+				{
 					UIGame.Get.UIState(EUISituation.ShowTwo);
+					Situation = EGameSituation.Opening;
 					ChangeSituation (EGameSituation.Opening);
 					CourtMgr.Get.InitScoreboard (true);
 				}
-
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);
@@ -4222,6 +4220,7 @@ public class GameController : KnightSingleton<GameController> {
 		}
 
 		Joysticker.SetAnger (-100);
+		Situation = EGameSituation.ShowOne;
 		ChangeSituation (EGameSituation.ShowOne);
 		setPassIcon(false);
     }
