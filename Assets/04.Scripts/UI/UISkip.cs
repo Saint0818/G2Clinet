@@ -31,7 +31,7 @@ public class UISkip : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, ESkipSituation skipSituation) {
+	public static void UIShow(bool isShow, ESkipSituation skipSituation = ESkipSituation.Loading) {
 		if(isShow) {
 			Get.Show(isShow);
 			Get.sSituation = skipSituation;
@@ -59,11 +59,11 @@ public class UISkip : UIBase {
 		switch(sSituation) {
 			case ESkipSituation.Loading:
 				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
-				UIShow(false, ESkipSituation.Loading);
+				UIShow(false);
 				break;
 			case ESkipSituation.Game:
 				GameController.Get.SkipShow();
-				UIShow(false, ESkipSituation.Game);
+				UIShow(false);
 				break;
 		}
 	}
