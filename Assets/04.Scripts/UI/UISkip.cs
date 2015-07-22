@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum SkipSituation{
+public enum ESkipSituation{
 	Loading,
 	Game
 }
@@ -11,7 +11,7 @@ public class UISkip : UIBase {
 	private const string UIName = "UISkip";
 
 	private GameObject cover;
-	private SkipSituation sSituation;
+	private ESkipSituation sSituation;
 
 	public static UISkip Get {
 		get {
@@ -31,11 +31,11 @@ public class UISkip : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, SkipSituation skipSituation) {
+	public static void UIShow(bool isShow, ESkipSituation skipSituation) {
 		if(isShow) {
 			Get.Show(isShow);
 			Get.sSituation = skipSituation;
-			if(skipSituation == SkipSituation.Loading)
+			if(skipSituation == ESkipSituation.Loading)
 				Get.cover.SetActive(false);
 		}else 
 		if(instance) {
@@ -57,10 +57,13 @@ public class UISkip : UIBase {
 
 	public void SkipEvent() {
 		switch(sSituation) {
-			case SkipSituation.Loading:
+			case ESkipSituation.Loading:
 				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+				UIShow(false, ESkipSituation.Loading);
 				break;
-			case SkipSituation.Game:
+			case ESkipSituation.Game:
+				GameController.Get.SkipShow();
+				UIShow(false, ESkipSituation.Game);
 				break;
 		}
 	}

@@ -699,6 +699,14 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
+	public void SkipShow()
+	{
+		isSkip = true;
+		CourtMgr.Get.ShowEnd (true);
+		InitIngameAnimator();
+		InitPosition();
+	}
+
 	void FixedUpdate() {
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.K))
@@ -1324,6 +1332,7 @@ public class GameController : KnightSingleton<GameController> {
 						if(PlayerList[i]){
 							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
 				}
+				UISkip.UIShow(true, ESkipSituation.Game);
 				break;
 			case EGameSituation.ShowOne:
 				CourtMgr.Get.ShowEnd ();

@@ -141,7 +141,7 @@ public class UILoading : UIBase {
 		case ELoadingGamePic.Game:
 			yield return new WaitForSeconds (2);
 //			buttonSkip.SetActive(true);
-			UISkip.UIShow(true, SkipSituation.Loading);
+			UISkip.UIShow(true, ESkipSituation.Loading);
 			loadingPic.SetActive(false);
 
 			break;
