@@ -26,7 +26,7 @@ public enum EGameSituation
 public enum ELoadingGamePic
 {
 	SelectRole = -1,
-	Game = 1
+	Game = 2
 }
 //public enum EGameAction
 //{
@@ -2597,19 +2597,19 @@ public class GameController : KnightSingleton<GameController> {
 
 			targetKind = GameData.SkillData[player.PassiveID].TargetKind1;
 			switch(targetKind) {
-			case 0:// 0.自己腳底
+			case 0:// Feet
 				objsPassiveEffect.Add(player.gameObject); 
 				break;
-			case 1://1.自己的身體（胸口
+			case 1://Body (Chest)
 				Transform tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
 				if(tBody != null)
 					objsPassiveEffect.Add(tBody.gameObject);
 				break;
-			case 2://2.自己頭上
+			case 2://Head
 				obj.transform.position = new Vector3(player.transform.position.x, (4 - (player.Attribute.BodyType * 0.3f)), player.transform.position.z);
 				objsPassiveEffect.Add(obj);
 				break;
-			case 3://3.自己的手掌
+			case 3://Hand
 				Transform tHand = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
 				if(tHand != null)
 					objsPassiveEffect.Add(tHand.gameObject);
@@ -2617,7 +2617,7 @@ public class GameController : KnightSingleton<GameController> {
 //					if(PlayerList[i].Team == player.Team) 
 //						objs.Add(PlayerList[i].gameObject);
 				break;
-			case 4://4.距離內我方
+			case 4://
 //				for(int i=0; i<PlayerList.Count; i++){
 //					if(PlayerList[i].Team == player.Team) {
 //						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
@@ -2625,12 +2625,12 @@ public class GameController : KnightSingleton<GameController> {
 //					}
 //				}
 				break;
-			case 5://5.敵方全隊
+			case 5://
 //				for(int i=0; i<PlayerList.Count; i++)
 //					if(PlayerList[i].Team != player.Team) 
 //						objsPassiveEffect.Add(PlayerList[i].gameObject);
 				break;
-			case 6://6.距離內敵方
+			case 6://
 //				for(int i=0; i<PlayerList.Count; i++){
 //					if(PlayerList[i].Team != player.Team) {
 //						if(Vector3.Distance(PlayerList[i].gameObject.transform.position, Joysticker.gameObject.transform.position) <= GameData.SkillData[player.PassiveID].Distance(player.PassiveLv))
@@ -2638,13 +2638,13 @@ public class GameController : KnightSingleton<GameController> {
 //					}
 //				}
 				break;
-			case 7://7.投籃者
+			case 7://
 				break;
-			case 8://8.接球者
+			case 8://
 				break;
-			case 9://9.傳球者
+			case 9://
 				break;
-			case 10://10.球
+			case 10://
 				break;
 			}
 			return objsPassiveEffect;

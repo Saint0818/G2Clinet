@@ -109,6 +109,8 @@ public class UIGame : UIBase {
 
 	private DrawLine drawLine;
 
+	private TweenRotation[] rotate = new TweenRotation[2];
+
 	//FX
 	private float fxTime = 0.3f;
 	private GameObject buttonShootFX;
@@ -233,7 +235,9 @@ public class UIGame : UIBase {
 		controlButtonGroup [1] = GameObject.Find (UIName + "/BottomRight/ViewDefance");
 
 		labelScores [0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<UILabel>();
+		rotate[0] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore1").GetComponent<TweenRotation>();
 		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
+		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
 
 		aiLevelScrollBar = GameObject.Find (UIName + "/Center/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 		viewAISelect = GameObject.Find (UIName + "/Center/AISelect");
@@ -548,10 +552,19 @@ public class UIGame : UIBase {
 		Scores [team] += score;
 		CourtMgr.Get.SetScoreboards (team, Scores [team]);
 		showScoreBar(GameController.Get.IsStart);
-		TweenRotation tweenRotation = TweenRotation.Begin(labelScores[team].gameObject, 0.5f, Quaternion.identity);
-		tweenRotation.delay = 0.2f;
-		tweenRotation.to = new Vector3(0,720,0);
+		resetScoreRotate();
+		TweenRotation rotateScore = TweenRotation.Begin(labelScores[team].gameObject, 0.5f / Time.timeScale, Quaternion.identity);
+		rotateScore.delay = 0.2f / Time.timeScale;
+		rotateScore.from = Vector3.zero;
+		rotateScore.to = new Vector3(0,720,0);
 		labelScores[team].text = Scores [team].ToString ();
+	}
+
+	private void resetScoreRotate() {
+		for(int i=0; i<labelScores.Length; i++) {
+			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
+			rotate[i].enabled = false; 
+		}
 	}
 
 	public void ChangeControl(bool IsAttack) {
@@ -1062,11 +1075,11 @@ public class UIGame : UIBase {
 	}
 
 	private void showScoreBar(bool isStart){
-		animatorScoreBar.SetTrigger("Show");
 		if(isStart)
 			showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
 		uiScoreBar.SetActive(true);
+		animatorScoreBar.SetTrigger("Show");
 	}
 	
 	private void judgePlayerScreenPosition(){
