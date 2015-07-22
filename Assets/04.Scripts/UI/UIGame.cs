@@ -823,7 +823,7 @@ public class UIGame : UIBase {
 			   !GameController.Get.Joysticker.IsFall &&
 			   GameController.Get.Situation == EGameSituation.AttackB && 
 			   GameController.Get.StealBtnLiftTime <= 0 && 
-			   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal)) {
+			   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal0)) {
 				UIMaskState(EUIControl.Steal);
 				GameController.Get.DoSteal();
 				GameController.Get.Joysticker.SetNoAiTime();

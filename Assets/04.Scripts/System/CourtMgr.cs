@@ -530,7 +530,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				break;
 
-			case EPlayerState.Steal:
+			case EPlayerState.Steal0:
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;

@@ -117,7 +117,8 @@ public enum EPlayerState
 	Shoot5,
 	Shoot6,
 	Shoot7,
-	Steal,
+	Steal0,
+	Steal20,
 	TipIn,
 	JumpBall,
 	Buff20, 
@@ -278,7 +279,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Push20, true);
 			StopStates.Add(EPlayerState.PickBall0, true);
 			StopStates.Add(EPlayerState.PickBall2, true);
-			StopStates.Add(EPlayerState.Steal, true);
+			StopStates.Add(EPlayerState.Steal0, true);
+			StopStates.Add(EPlayerState.Steal20, true);
 			StopStates.Add(EPlayerState.Rebound, true);
 			StopStates.Add(EPlayerState.ReboundCatch, true);
 			StopStates.Add(EPlayerState.TipIn, true);
@@ -1808,7 +1810,8 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Push0:
             case EPlayerState.Push20:
-            case EPlayerState.Steal:
+            case EPlayerState.Steal0:
+            case EPlayerState.Steal20:
                 if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
@@ -2355,11 +2358,21 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case EPlayerState.Steal:
-                PlayerRigidbody.mass = 5;
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("StealTrigger");
-                isCanCatchBall = false;
+            case EPlayerState.Steal0:
+            case EPlayerState.Steal20:
+				switch (state)
+				{
+					case EPlayerState.Steal0:
+						stateNo = 0;
+						break;
+					case EPlayerState.Steal20:
+						stateNo = 20;
+						break;
+				}
+			PlayerRigidbody.mass = 5;
+			ClearAnimatorFlag();
+			AnimatorControl.SetTrigger("StealTrigger");
+			isCanCatchBall = false;
 				GameRecord.StealLaunch++;
                 Result = true;
                 break;
@@ -3176,6 +3189,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsLayup
 	{
 		get{ return crtState == EPlayerState.Layup0 || crtState == EPlayerState.Layup1 || crtState == EPlayerState.Layup2 || crtState == EPlayerState.Layup3;}
+	}
+
+	public bool IsSteal
+	{
+		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal20;}
 	}
 
     public bool IsUseSkill
