@@ -68,6 +68,7 @@ public enum EPlayerState
 	Dunk4,
 	Dunk6,
 	Dunk20,
+	Dunk22,
 	DunkBasket,
 	Defence0,    
 	Defence1,
@@ -99,7 +100,8 @@ public enum EPlayerState
 	Pass7,
 	Pass8,
 	Pass9,
-	Push,
+	Push0,
+	Push20,
     Run0,            
     Run1,            
     RunningDefence,
@@ -272,7 +274,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Pass1, true);
 			StopStates.Add(EPlayerState.Pass3, true);
 			StopStates.Add(EPlayerState.Pass4, true);
-			StopStates.Add(EPlayerState.Push, true);
+			StopStates.Add(EPlayerState.Push0, true);
+			StopStates.Add(EPlayerState.Push20, true);
 			StopStates.Add(EPlayerState.PickBall0, true);
 			StopStates.Add(EPlayerState.PickBall2, true);
 			StopStates.Add(EPlayerState.Steal, true);
@@ -1769,6 +1772,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk4:
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
+            case EPlayerState.Dunk22:
 				if (IsBallOwner && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                	 if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
                     return true;
@@ -1802,7 +1806,8 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
-            case EPlayerState.Push:
+            case EPlayerState.Push0:
+            case EPlayerState.Push20:
             case EPlayerState.Steal:
                 if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
@@ -2024,6 +2029,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk4:
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
+            case EPlayerState.Dunk22:
                 switch (state)
                 {
                     case EPlayerState.Dunk0:
@@ -2042,6 +2048,9 @@ public class PlayerBehaviour : MonoBehaviour
                     case EPlayerState.Dunk20:
                         stateNo = 20;
                         break;
+					case EPlayerState.Dunk22:
+						stateNo = 22;
+						break;
                 }
                 PlayerRigidbody.useGravity = false;
 				PlayerRigidbody.isKinematic = true;
@@ -2267,11 +2276,20 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case EPlayerState.Push:
-                ClearAnimatorFlag();
-                playerPushCurve = null;
-				curveName = "Push0";
-                for (int i = 0; i < aniCurve.Push.Length; i++)
+            case EPlayerState.Push0:
+            case EPlayerState.Push20:
+				switch (state){
+					case EPlayerState.Push0:
+						stateNo = 0;
+						break;
+					case EPlayerState.Push20:
+						stateNo = 20;
+						break;
+				}
+				ClearAnimatorFlag();
+				playerPushCurve = null;
+				curveName = string.Format("Push{0}", stateNo);
+				for (int i = 0; i < aniCurve.Push.Length; i++)
 					if (aniCurve.Push [i].Name == curveName)
                     {
                         playerPushCurve = aniCurve.Push [i];
@@ -3152,7 +3170,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDunk
     {
-		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20;}
+		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
     }
 
 	public bool IsLayup
@@ -3192,6 +3210,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return isFakeShoot;}
     }
+
+	public bool IsPush
+	{
+		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push20;}
+	}
 
     private bool isPerfectBlockCatch = false;
 

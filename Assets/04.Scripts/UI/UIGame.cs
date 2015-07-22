@@ -789,7 +789,7 @@ public class UIGame : UIBase {
 				if(isCanDefenceBtnPress && 
 				   !GameController.Get.Joysticker.IsFall &&
 				   (GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.AttackA) &&
-				   GameController.Get.Joysticker.CanUseState(EPlayerState.Push)) {
+				   GameController.Get.Joysticker.CanUseState(EPlayerState.Push0)) {
 					UIMaskState(EUIControl.Attack);
 					GameController.Get.DoPush();
 					GameController.Get.Joysticker.SetNoAiTime();

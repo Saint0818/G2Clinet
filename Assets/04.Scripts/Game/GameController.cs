@@ -1200,7 +1200,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	private void aiDefend(ref PlayerBehaviour npc)
 	{
-		if (npc.NoAiTime == 0 && !npc.CheckAnimatorSate(EPlayerState.Steal) && !npc.CheckAnimatorSate(EPlayerState.Push) && 
+		if (npc.NoAiTime == 0 && !npc.CheckAnimatorSate(EPlayerState.Steal) && !npc.CheckAnimatorSate(EPlayerState.Push0) && 
 		    BallOwner && !IsDunk && !IsShooting) {
 			bool pushRate = Random.Range(0, 100) < npc.Attr.PushingRate;        
 			bool sucess = false;
@@ -3144,7 +3144,7 @@ public class GameController : KnightSingleton<GameController> {
 					Npc2 = DisAy [i].Player;
 					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
 					    !Npc2.CheckAnimatorSate(EPlayerState.Steal) && 
-					    !Npc2.CheckAnimatorSate(EPlayerState.Push))
+					    !Npc2.IsPush)
 					{
 						float BlockRate = Npc2.Attr.BlockRate;
 						
@@ -3608,7 +3608,7 @@ public class GameController : KnightSingleton<GameController> {
 			   CourtMgr.Get.RealBallState == EPlayerState.Pass1 || 
 			   CourtMgr.Get.RealBallState == EPlayerState.Pass3)
 			{
-				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.CheckAnimatorSate(EPlayerState.Push))
+				if(BallOwner == null && (Rate > Passer.Attr.PassRate || dir == 5) && !player.IsPush)
 				{
 					if(dir == 6)
 					{
@@ -3671,7 +3671,7 @@ public class GameController : KnightSingleton<GameController> {
 		    IsShooting || 
 		    !player.IsCanCatchBall || 
 		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
-		    player.CheckAnimatorSate(EPlayerState.Push) || 
+		    player.IsPush || 
 		    dir == 6)
             return;
 		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
@@ -4114,7 +4114,7 @@ public class GameController : KnightSingleton<GameController> {
 
     public void SetEndPass()
     {
-		if (Catcher != null && !Catcher.IsFall && !Catcher.CheckAnimatorSate(EPlayerState.Push) && !Catcher.IsBlock && !Catcher.IsPass)
+		if (Catcher != null && !Catcher.IsFall && !Catcher.IsPush && !Catcher.IsBlock && !Catcher.IsPass)
         {
             if(SetBall(Catcher))
 				coolDownPass = Time.time + 3;
@@ -4350,7 +4350,7 @@ public class GameController : KnightSingleton<GameController> {
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Push))
+				if (PlayerList [i].IsPush)
 					return true;
 			
 			return false;
