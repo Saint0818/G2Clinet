@@ -294,7 +294,7 @@ public class UICharacterInfo : UIBase {
 		System.Array.Sort(arraySortValue);
 		for(int i=0; i<arrayNewValue.Length; i++) 
 			if(arrayNewValue[i] >= arraySortValue[9]) 
-				arraySelectAttrData[i].Value.color = new Color(255, 0, 0);
+				arraySelectAttrData[i].Value.color = new Color(255, 176, 19);
 			else 
 				arraySelectAttrData[i].Value.color = Color.white;
 	}

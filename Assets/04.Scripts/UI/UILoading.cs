@@ -12,7 +12,7 @@ public class UILoading : UIBase {
 	private GameObject[] pageOn = new GameObject[2];
 	private GameObject[] viewLoading = new GameObject[2];
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-	private GameObject buttonSkip;
+//	private GameObject buttonSkip;
 	private GameObject loadingPic;
 
 	private UITexture uiLoadingProgress;
@@ -105,7 +105,7 @@ public class UILoading : UIBase {
 		pageOn[1] = GameObject.Find (UIName + "/WindowGame/Pages/P2Button/Onpage");
 		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
 		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
-		buttonSkip = GameObject.Find (UIName + "WindowGame/SkipButton");
+//		buttonSkip = GameObject.Find (UIName + "WindowGame/SkipButton");
 		loadingPic = GameObject.Find (UIName + "/WindowGame/LoadingPic");
 
 		uiLoadingProgress = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIProgressBar").GetComponent<UITexture>();
@@ -113,7 +113,7 @@ public class UILoading : UIBase {
 		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
 		uiGameProgress = GameObject.Find (UIName + "/WindowGame/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 
-		SetBtnFun(UIName + "WindowGame/SkipButton", SkipToGame);
+//		SetBtnFun(UIName + "WindowGame/SkipButton", SkipToGame);
 
 		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
 		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
@@ -121,7 +121,7 @@ public class UILoading : UIBase {
 		loadingPic.SetActive(true);
 		pageOn[1].SetActive(false);
 		viewLoading[1].SetActive(false);
-		buttonSkip.SetActive(false);
+//		buttonSkip.SetActive(false);
 	}
 
 	protected override void InitData() {
@@ -140,7 +140,8 @@ public class UILoading : UIBase {
 			break;
 		case ELoadingGamePic.Game:
 			yield return new WaitForSeconds (2);
-			buttonSkip.SetActive(true);
+//			buttonSkip.SetActive(true);
+			UISkip.UIShow(true, SkipSituation.Loading);
 			loadingPic.SetActive(false);
 
 			break;
@@ -215,10 +216,6 @@ public class UILoading : UIBase {
 			pageLoading --;
 			showPage(pageLoading);
 		}
-	}
-
-	public void SkipToGame () {
-		SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 	}
 
 	public float ProgressValue{

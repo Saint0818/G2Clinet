@@ -271,7 +271,7 @@ public class GameController : KnightSingleton<GameController> {
 	private TActionPosition [] tacticalData;
     
     public GameObject[] passIcon = new GameObject[3];
-	private GameObject[] selectIcon = new GameObject[3];
+	private GameObject[] selectIcon = new GameObject[2];
 	private List<GameObject> objsPassiveEffect =new List<GameObject>();
 
 	public EPlayerState testState = EPlayerState.Shoot0;
@@ -628,7 +628,7 @@ public class GameController : KnightSingleton<GameController> {
 
         Joysticker = PlayerList [0];
 
-		selectIcon[0] = EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
@@ -639,12 +639,12 @@ public class GameController : KnightSingleton<GameController> {
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
 			passIcon[1] = EffectManager.Get.PlayEffect("PassA", new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
-			selectIcon[1] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
-			selectIcon[2] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 		}
 		
 		UIGame.Get.InitLine();
@@ -678,7 +678,8 @@ public class GameController : KnightSingleton<GameController> {
 		if(GameStart.Get.TestMode == EGameTest.None) {
 			for(int i=0; i<3; i++) {
 				passIcon[i].SetActive(isShow);
-				selectIcon[i].SetActive(isShow);
+				if(i<2)
+					selectIcon[i].SetActive(isShow);
 			}
 		}
 	}
