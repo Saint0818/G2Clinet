@@ -134,13 +134,13 @@ public enum ESkillSituation{
 	Fall1,
 	Fall2,
 	Layup0,
-	Steal,
+	Steal0,
 	Pass0,
 	Pass2,
 	Pass1,
 	Pass4,
 	PickBall0,
-	Push,
+	Push0,
 	Rebound,
 	Elbow,
 	Shoot0,
@@ -1191,7 +1191,7 @@ public class GameController : KnightSingleton<GameController> {
 				PlayerBehaviour NearPlayer = haveNearPlayer(npc, GameConst.StealBallDistance, false);
 				
 				if (NearPlayer && pushRate && npc.CoolDownPush == 0) { //Push
-					if(DoPassiveSkill(ESkillSituation.Push, npc, NearPlayer.transform.position))
+					if(DoPassiveSkill(ESkillSituation.Push0, npc, NearPlayer.transform.position))
 						npc.CoolDownPush = Time.time + 3;                    
 				} 
 			}   
@@ -1200,7 +1200,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	private void aiDefend(ref PlayerBehaviour npc)
 	{
-		if (npc.NoAiTime == 0 && !npc.CheckAnimatorSate(EPlayerState.Steal) && !npc.CheckAnimatorSate(EPlayerState.Push0) && 
+		if (npc.NoAiTime == 0 && !npc.IsSteal && !npc.CheckAnimatorSate(EPlayerState.Push0) && 
 		    BallOwner && !IsDunk && !IsShooting) {
 			bool pushRate = Random.Range(0, 100) < npc.Attr.PushingRate;        
 			bool sucess = false;
@@ -1211,7 +1211,7 @@ public class GameController : KnightSingleton<GameController> {
 				if (DisAy[i].Distance <= GameConst.StealBallDistance && 
 				    (DisAy[i].Player.crtState == EPlayerState.Idle && DisAy[i].Player.crtState == EPlayerState.Dribble0) && 
 				    pushRate && npc.CoolDownPush == 0) {
-					if(DoPassiveSkill(ESkillSituation.Push, npc, DisAy[i].Player.transform.position)) {
+					if(DoPassiveSkill(ESkillSituation.Push0, npc, DisAy[i].Player.transform.position)) {
 						npc.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
 						sucess = true;
 						
@@ -1222,7 +1222,7 @@ public class GameController : KnightSingleton<GameController> {
 			
 			if (!sucess && DisAy[0].Distance <= GameConst.StealBallDistance && waitStealTime == 0 && BallOwner.Invincible == 0 && npc.CoolDownSteal == 0) {
 				if(Random.Range(0, 100) < npc.Attr.StealRate) {
-					if(DoPassiveSkill(ESkillSituation.Steal, npc, BallOwner.gameObject.transform.position)) {
+					if(DoPassiveSkill(ESkillSituation.Steal0, npc, BallOwner.gameObject.transform.position)) {
 						npc.CoolDownSteal = Time.time + GameConst.CoolDownSteal;                              
 						waitStealTime = Time.time + GameConst.WaitStealTime;
 					}
@@ -1845,9 +1845,9 @@ public class GameController : KnightSingleton<GameController> {
 		if (Joysticker) {
 			PlayerBehaviour nearP = FindNearNpc();
 			if(nearP)
-				DoPassiveSkill (ESkillSituation.Push, Joysticker, nearP.transform.position);
+				DoPassiveSkill (ESkillSituation.Push0, Joysticker, nearP.transform.position);
 			else
-				DoPassiveSkill (ESkillSituation.Push, Joysticker);
+				DoPassiveSkill (ESkillSituation.Push0, Joysticker);
 		}
 	}
 
@@ -2214,9 +2214,9 @@ public class GameController : KnightSingleton<GameController> {
 			StealBtnLiftTime = 1f;
             if (BallOwner && BallOwner.Team != Joysticker.Team) {
 				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
-				DoPassiveSkill(ESkillSituation.Steal, Joysticker, BallOwner.transform.position);
+				DoPassiveSkill(ESkillSituation.Steal0, Joysticker, BallOwner.transform.position);
             } else
-				DoPassiveSkill(ESkillSituation.Steal, Joysticker);
+				DoPassiveSkill(ESkillSituation.Steal0, Joysticker);
         }
     }
 
@@ -2819,9 +2819,9 @@ public class GameController : KnightSingleton<GameController> {
 				else
 					Result = player.AniState(playerState, v);
 				break;
-			case ESkillSituation.Push:
+			case ESkillSituation.Push0:
 				skillKind = ESkillKind.Push;
-				playerState = player.PassiveSkill(ESkillSituation.Push, ESkillKind.Push);
+				playerState = player.PassiveSkill(ESkillSituation.Push0, ESkillKind.Push);
 				if(v == Vector3.zero)
 					Result = player.AniState(playerState);
 				else
@@ -2832,9 +2832,9 @@ public class GameController : KnightSingleton<GameController> {
 				playerState = player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
 				Result = player.AniState (playerState);
 				break;
-			case ESkillSituation.Steal:	
+			case ESkillSituation.Steal0:	
 				skillKind = ESkillKind.Steal;
-				playerState = player.PassiveSkill(ESkillSituation.Steal, ESkillKind.Steal);
+				playerState = player.PassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
 				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.PickBall0:
@@ -3143,7 +3143,7 @@ public class GameController : KnightSingleton<GameController> {
 				{
 					Npc2 = DisAy [i].Player;
 					if (Npc2 && Npc2 != Npc && Npc2.Team != Npc.Team && Npc2.NoAiTime == 0 && 
-					    !Npc2.CheckAnimatorSate(EPlayerState.Steal) && 
+					    !Npc2.IsSteal && 
 					    !Npc2.IsPush)
 					{
 						float BlockRate = Npc2.Attr.BlockRate;
@@ -3691,7 +3691,7 @@ public class GameController : KnightSingleton<GameController> {
 		case 0: //top ,rebound
 			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3 && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
-					if (GameStart.Get.TestMode == EGameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
+					if (GameStart.Get.TestMode == EGameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
 							Rebound(player);
 						}
@@ -4170,7 +4170,7 @@ public class GameController : KnightSingleton<GameController> {
 		}
 		
 		SetBall();
-		CourtMgr.Get.SetBallState(EPlayerState.Steal, player);
+		CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
 	}
 	
 	public void Reset()

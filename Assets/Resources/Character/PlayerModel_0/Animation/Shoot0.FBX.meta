@@ -148,38 +148,7 @@ ModelImporter:
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves:
-      - name: Curve
-        curve:
-          serializedVersion: 2
-          curve:
-          - time: 0
-            value: .000250312849
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          - time: .130146638
-            value: .0444242433
-            inSlope: -.0188499689
-            outSlope: -.0188499689
-            tangentMode: 0
-          - time: .219360411
-            value: .047430981
-            inSlope: -.0389479101
-            outSlope: -.0389479101
-            tangentMode: 0
-          - time: 1.43841767
-            value: 3.07851624
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          - time: 13.5156956
-            value: .00758898258
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-          preInfinity: 2
-          postInfinity: 2
+      curves: []
       events:
       - time: .0603961982
         functionName: AnimationEvent

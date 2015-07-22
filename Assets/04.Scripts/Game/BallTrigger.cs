@@ -181,7 +181,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.ShortBall.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(EPlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
@@ -189,7 +189,7 @@ public class BallTrigger : MonoBehaviour
 					if (ParabolaTime >= CourtMgr.Get.RealBallCurve.Ball.LifeTime)
 					{
 						if(GameController.Get.BallOwner == null)				
-							CourtMgr.Get.SetBallState(EPlayerState.Steal, GameController.Get.Passer);
+							CourtMgr.Get.SetBallState(EPlayerState.Steal0, GameController.Get.Passer);
 						
 						Parabolamove = false;
 					}
