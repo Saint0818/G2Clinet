@@ -34,6 +34,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				CourtMgr.Get.InitCourtScene ();
 				break;
 			case SceneName.SelectRole:
+				AudioMgr.Get.StartGame();
 				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
 				break;
 			case SceneName.Null:

@@ -17,6 +17,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixer MasterMix;
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
+	public AudioMixerSnapshot StartST;
 	public bool IsMusicOn = false;
 	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
@@ -40,9 +41,17 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		//KnightZhConverter.Get.Test ();
 	}
 
-	void Start()
+	public void StartGame()
 	{
 		MusicOn (PlayerPrefs.GetInt ("MusicOn") == 1 ? true : false);
+
+		AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{StartST};
+		float[] f = new float[1]{1};
+		MasterMix.TransitionToSnapshots (s, f, 1);
+
+		if(DAudios.ContainsKey("Audio"))
+			DAudios["Audio"].Play();
+		
 	}
 
 	public void PauseGame()
@@ -52,8 +61,8 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 				Paused.TransitionTo(.01f);	
 		}
 		else
-		if (Nomal)
-			Nomal.TransitionTo(.01f);
+			if (StartST)
+				StartST.TransitionTo(.01f);
 	}
 
 	public void PlaySound(SoundType type)
