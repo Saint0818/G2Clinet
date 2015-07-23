@@ -47,7 +47,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public BallCurve RealBallCurve;
 	public UILabel[] Scoreboards = new UILabel[2];
 
-	public Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
+	private Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
+	public Dictionary<string, Vector3> BasketShootWorldPosition = new Dictionary<string, Vector3>();
 	public Dictionary<int, List<string>> BasketAnimationName = new Dictionary<int, List<string>>(); 
 	public Dictionary<int, List<string>> BasketAnimationNoneState = new Dictionary<int, List<string>>();
 
@@ -179,8 +180,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
 				Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);
 				BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
+				
+				BasketHoopDummy[0].localPosition = position;
+				BasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
+				BasketHoopDummy[1].localPosition = position;
+				BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
 			}
+			BasketHoopDummy[0].localPosition = Vector3.zero;
+			BasketHoopDummy[1].localPosition = Vector3.zero;
 		}
+
 	}
 	
 	private List<string> arrayIntersection(string[] list1, List<string> list2) {
@@ -403,8 +412,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		
 		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
 		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
-		
+
 		InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
+
 	}
 
 	public void RealBallPath(int team, string animationName) {

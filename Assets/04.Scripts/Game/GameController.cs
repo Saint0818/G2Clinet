@@ -1851,12 +1851,13 @@ public class GameController : KnightSingleton<GameController> {
 //				CourtMgr.Get.RealBallRigidbody.velocity = 
 //					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 //					                         (CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName]), shootAngle);
-				CourtMgr.Get.RealBallRigidbody.velocity = 
-					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                         new Vector3(CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.x + CourtMgr.Get.BasketShootPosition[BasketAnimationName].x,
-											             CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.y + CourtMgr.Get.BasketShootPosition[BasketAnimationName].y,
-											             CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.z - CourtMgr.Get.BasketShootPosition[BasketAnimationName].z),
-					                         shootAngle);
+				if(CourtMgr.Get.BasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
+					CourtMgr.Get.RealBallRigidbody.velocity = 
+						GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+						                         CourtMgr.Get.BasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
+						                         shootAngle);
+				} else 
+					Debug.LogError("No key:"+player.Team.GetHashCode().ToString() + "_" + BasketAnimationName);
 			}
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
