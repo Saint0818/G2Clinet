@@ -9,8 +9,8 @@ public class UILoading : UIBase {
 
 	private GameObject windowLoading;
 	private GameObject windowGame;
-	private GameObject[] pageOn = new GameObject[2];
-	private GameObject[] viewLoading = new GameObject[2];
+	private GameObject[] pageOn = new GameObject[3];
+	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
 //	private GameObject buttonSkip;
 	private GameObject loadingPic;
@@ -103,8 +103,10 @@ public class UILoading : UIBase {
 		windowGame = GameObject.Find (UIName + "/WindowGame");
 		pageOn[0] = GameObject.Find (UIName + "/WindowGame/Pages/P1Button/Onpage");
 		pageOn[1] = GameObject.Find (UIName + "/WindowGame/Pages/P2Button/Onpage");
-		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
-		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
+		pageOn[2] = GameObject.Find (UIName + "/WindowGame/Pages/P3Button/Onpage");
+		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading1"); 
+		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
+		viewLoading [2] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
 //		buttonSkip = GameObject.Find (UIName + "WindowGame/SkipButton");
 		loadingPic = GameObject.Find (UIName + "/WindowGame/LoadingPic");
 
@@ -113,14 +115,18 @@ public class UILoading : UIBase {
 		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
 		uiGameProgress = GameObject.Find (UIName + "/WindowGame/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 
-//		SetBtnFun(UIName + "WindowGame/SkipButton", SkipToGame);
+		SetBtnFun(UIName + "/WindowGame/Pages/P1Button", Point1);
+		SetBtnFun(UIName + "/WindowGame/Pages/P2Button", Point2);
+		SetBtnFun(UIName + "/WindowGame/Pages/P3Button", Point3);
 
 		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
 		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
 
 		loadingPic.SetActive(true);
 		pageOn[1].SetActive(false);
+		pageOn[2].SetActive(false);
 		viewLoading[1].SetActive(false);
+		viewLoading[2].SetActive(false);
 //		buttonSkip.SetActive(false);
 	}
 
@@ -182,7 +188,7 @@ public class UILoading : UIBase {
 			viewLoading[i].SetActive(show); 
 			pageOn[i].SetActive(show);
 		}
-		uiBG.mainTexture = Get.loadTexture("Textures/LoadingPic/Loading" + (page+2).ToString());
+		uiBG.mainTexture = Get.loadTexture("Textures/LoadingPic/Loading" + (page+1).ToString());
 	}
 
 	public void PanelDrag(GameObject go, Vector2 delta) {
@@ -205,17 +211,32 @@ public class UILoading : UIBase {
 	}
 	
 	public void DoRight() {
-		if(pageLoading == 0) {
+		if(pageLoading < 2) {
 			pageLoading ++;
 			showPage(pageLoading);
-		}
+		} 
 	}
 	
 	public void DoLeft() {
-		if(pageLoading == 1) {
+		if(pageLoading > 0) {
 			pageLoading --;
 			showPage(pageLoading);
 		}
+	}
+
+	public void Point1(){
+		pageLoading = 0;
+		showPage(pageLoading);
+	}
+
+	public void Point2(){
+		pageLoading = 1;
+		showPage(pageLoading);
+	}
+
+	public void Point3(){
+		pageLoading = 2;
+		showPage(pageLoading);
 	}
 
 	public float ProgressValue{

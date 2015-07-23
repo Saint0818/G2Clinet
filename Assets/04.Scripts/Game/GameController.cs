@@ -101,7 +101,12 @@ public enum EBasketAnimationTest{
 	Basket104=16,
 	Basket105=17,
 	Basket106=18,
-	Basket107=19
+	Basket107=19,
+	Basket108=20,
+	Basket109=21,
+	Basket110=22,
+	Basket111=23,
+	Basket112=24,
 }
 
 public enum EPosKind
@@ -267,7 +272,7 @@ public class GameController : KnightSingleton<GameController> {
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	public string BasketAnimationName = "BasketballAction_1";
-	private string[] basketanimationTest = new string[20]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107"};
+	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
 
     public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
@@ -1608,6 +1613,8 @@ public class GameController : KnightSingleton<GameController> {
 					BasketAnimationName = CourtMgr.Get.BasketAnimationNoneState[basketDistanceAngleType][random];
 			}
 		}
+		if(string.IsNullOrEmpty(BasketAnimationName))
+			judgeBasketAnimationName(basketDistanceAngleType);
 	}
 
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
