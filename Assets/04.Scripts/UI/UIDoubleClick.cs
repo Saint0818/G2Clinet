@@ -170,7 +170,7 @@ public class UIDoubleClick : UIBase {
 
 	IEnumerator DelayClose()
 	{
-		yield return new WaitForSeconds (0.5f);
+		yield return new WaitForSeconds (0.75f);
 		UIShow (false);
 	}
 
