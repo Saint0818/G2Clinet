@@ -1858,10 +1858,6 @@ public class GameController : KnightSingleton<GameController> {
 											             CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.z - CourtMgr.Get.BasketShootPosition[BasketAnimationName].z),
 					                         shootAngle);
 			}
-			Debug.Log("BasketAnimationNamme:"+BasketAnimationName);
-			Debug.Log("pos1:"+CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position);
-			Debug.Log("pos2:"+CourtMgr.Get.BasketShootPosition[BasketAnimationName]);
-			Debug.Log("pos++:"+ (CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName]));
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
                     PlayerList [i].ResetMove();
