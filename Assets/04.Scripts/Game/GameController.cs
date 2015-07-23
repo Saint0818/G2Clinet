@@ -1664,7 +1664,7 @@ public class GameController : KnightSingleton<GameController> {
 
 		
 		if(GameStart.Get.TestMode == EGameTest.AttackA) {
-			if(BasketSituation != EBasketSituation.Swish || BasketSituation != EBasketSituation.AirBall)
+			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore)
 				UIHint.Get.ShowHint("BasketAnimationName: "+BasketAnimationName, Color.yellow);
 		}
 
