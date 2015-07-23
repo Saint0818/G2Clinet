@@ -29,8 +29,8 @@ TextureImporter:
   textureFormat: 12
   maxTextureSize: 256
   textureSettings:
-    filterMode: 0
-    aniso: -1
+    filterMode: 1
+    aniso: 0
     mipBias: -1
     wrapMode: -1
   nPOTScale: 1
@@ -46,7 +46,11 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 5
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 256
+    textureFormat: 12
+    compressionQuality: 50
   spriteSheet:
     sprites: []
   spritePackingTag: 
