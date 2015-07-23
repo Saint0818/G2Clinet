@@ -20,7 +20,7 @@ public class UIDoubleClick : UIBase {
 	private Vector2 SecondStartSize;
 
 	private UISprite[] checkCircle = new UISprite[2];
-	private UISprite[] lvSprite = new UISprite[3];  
+	private GameObject[] lvSprite = new GameObject[3];  
 
 
 	private IntDelegate finsh = null;
@@ -128,7 +128,7 @@ public class UIDoubleClick : UIBase {
 
 		for (int i = 0; i < lvSprite.Length; i++) {
 			name = string.Format("UIDoubleClick/SceneClick/Lv/{0}", i);
-			lvSprite[i] = GameObject.Find (name).GetComponent<UISprite>();
+			lvSprite[i] = GameObject.Find (name);
 		}
 
 		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
@@ -149,12 +149,12 @@ public class UIDoubleClick : UIBase {
 		Lv = index;
 		for (int i = 0; i < lvSprite.Length; i++) {
 			if(index == -1)
-				lvSprite[i].gameObject.SetActive(false);
+				lvSprite[i].SetActive(false);
 			else{
 				if(index == i)
-					lvSprite[i].gameObject.SetActive(true);
+					lvSprite[i].SetActive(true);
 				else
-					lvSprite[i].gameObject.SetActive(false);
+					lvSprite[i].SetActive(false);
 			}
 		}
 
