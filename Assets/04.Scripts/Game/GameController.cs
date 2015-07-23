@@ -1688,8 +1688,8 @@ public class GameController : KnightSingleton<GameController> {
 
 		
 		if(GameStart.Get.TestMode == EGameTest.AttackA) {
+			BasketSituation = EBasketSituation.Score;
 			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
-				BasketSituation = EBasketSituation.Score;
 				if((int)GameStart.Get.SelectBasketState > 100)
 					BasketSituation = EBasketSituation.NoScore;
 				BasketAnimationName = "BasketballAction_" + basketanimationTest[(int)GameStart.Get.SelectBasketState];
@@ -1726,7 +1726,7 @@ public class GameController : KnightSingleton<GameController> {
 
 				int t = BallOwner.Team.GetHashCode();
 				if (GameStart.Get.TestMode == EGameTest.Dunk)
-					BallOwner.AniState(EPlayerState.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
+					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [t].transform.position);
 				else 
 				if (BallOwner.IsRebound) {
 					if (inTipinDistance(BallOwner))
@@ -1783,10 +1783,10 @@ public class GameController : KnightSingleton<GameController> {
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(Mathf.Abs(angleByPlayerHoop) >= 85)
-				shootAngle = 55;
-			else
+			if(Mathf.Abs(angleByPlayerHoop) <= 85  && shootDistance < 5)
 				shootAngle = 80;
+			else
+				shootAngle = 55;
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1848,11 +1848,20 @@ public class GameController : KnightSingleton<GameController> {
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
+//				CourtMgr.Get.RealBallRigidbody.velocity = 
+//					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+//					                         (CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName]), shootAngle);
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                         CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName], shootAngle);
+					                         new Vector3(CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.x + CourtMgr.Get.BasketShootPosition[BasketAnimationName].x,
+											             CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.y + CourtMgr.Get.BasketShootPosition[BasketAnimationName].y,
+											             CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position.z - CourtMgr.Get.BasketShootPosition[BasketAnimationName].z),
+					                         shootAngle);
 			}
-
+			Debug.Log("BasketAnimationNamme:"+BasketAnimationName);
+			Debug.Log("pos1:"+CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position);
+			Debug.Log("pos2:"+CourtMgr.Get.BasketShootPosition[BasketAnimationName]);
+			Debug.Log("pos++:"+ (CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName]));
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
                     PlayerList [i].ResetMove();
@@ -2584,7 +2593,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	private List<GameObject> getActiveSkillTarget(PlayerBehaviour player) {
 		if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-			string key  = player.Team.ToString() + "_" + GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind;
+			string key  = player.Team.ToString() + "_"+ player.Index.ToString() + "_" + GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind;
 			if(activeSkillTargets.ContainsKey(key)) {
 				return activeSkillTargets[key];
 			} else {
