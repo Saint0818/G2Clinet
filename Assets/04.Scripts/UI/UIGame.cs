@@ -44,7 +44,7 @@ public class UIGame : UIBase {
 
 	//Game const
 	public float ButtonBTime = 0.14f; //Fake to shoot time
-	private float showScoreBarInitTime = 2.15f;
+	private float showScoreBarInitTime = 3.15f;
 	public int[] MaxScores = {13, 13};
 
 	private float shootBtnTime = 0;

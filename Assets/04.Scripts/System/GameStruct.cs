@@ -531,6 +531,7 @@ namespace GameStruct
 		public int rate;
 		public int rateAdd;
 		public string Animation;
+		public int TargetKind;
 		public int TargetKind1;
 		public int TargetEffect1;
 		public int EffectParent1;
