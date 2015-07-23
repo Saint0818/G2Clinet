@@ -81,6 +81,29 @@ public enum ECameraTest
     RGB
 }
 
+public enum EBasketAnimationTest{
+	Basket0=0,
+	Basket1=1,
+	Basket2=2,
+	Basket3=3,
+	Basket4=4,
+	Basket5=5,
+	Basket6=6,
+	Basket7=7,
+	Basket8=8,
+	Basket9=9,
+	Basket10=10,
+	Basket11=11,
+	Basket100=12,
+	Basket101=13,
+	Basket102=14,
+	Basket103=15,
+	Basket104=16,
+	Basket105=17,
+	Basket106=18,
+	Basket107=19
+}
+
 public enum EPosKind
 {
     None,
@@ -244,6 +267,7 @@ public class GameController : KnightSingleton<GameController> {
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	public string BasketAnimationName = "BasketballAction_1";
+	private string[] basketanimationTest = new string[20]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107"};
 
     public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
@@ -1664,8 +1688,13 @@ public class GameController : KnightSingleton<GameController> {
 
 		
 		if(GameStart.Get.TestMode == EGameTest.AttackA) {
-			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore)
+			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
+				BasketSituation = EBasketSituation.Score;
+				if((int)GameStart.Get.SelectBasketState > 100)
+					BasketSituation = EBasketSituation.NoScore;
+				BasketAnimationName = "BasketballAction_" + basketanimationTest[(int)GameStart.Get.SelectBasketState];
 				UIHint.Get.ShowHint("BasketAnimationName: "+BasketAnimationName, Color.yellow);
+			}
 		}
 
 		if (shootDistance >= GameConst.TreePointDistance)
