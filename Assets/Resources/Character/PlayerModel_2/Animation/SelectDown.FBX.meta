@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 4727cc0c11a9a354cb49c3ea79c917c3
-timeCreated: 1437723224
+timeCreated: 1437724686
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -176,7 +176,7 @@ ModelImporter:
         messageOptions: 0
       - time: .0502793379
         functionName: PlaySound
-        data: down
+        data: SD_down
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
         floatParameter: 0
@@ -184,7 +184,7 @@ ModelImporter:
         messageOptions: 0
       - time: .137184113
         functionName: PlaySound
-        data: touchfloor
+        data: SD_touchfloor
         objectReferenceParameter: {fileID: 8300000, guid: 064e4a2b12f07374bba97e08708fd0ad,
           type: 3}
         floatParameter: 0

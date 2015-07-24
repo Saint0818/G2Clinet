@@ -3965,7 +3965,7 @@ public class GameController : KnightSingleton<GameController> {
 					Passer.GameRecord.Assist++;
 			}
             
-			AudioMgr.Get.PlaySound(SoundType.Net);
+			AudioMgr.Get.PlaySound(SoundType.SD_Net);
             UIGame.Get.PlusScore(team, score);
 
 			if(isChangeSituation) {

@@ -6,10 +6,16 @@ using System.Collections.Generic;
 
 public enum SoundType
 {
-	Audio,
-	Dunk,
-	Net,
-	GameEnd
+	SD_Dunk,
+	SD_Net,
+	SD_GameEnd
+}
+
+public enum EMusicType
+{
+	MU_select,
+	MU_game0,
+	MU_game1
 }
 
 public class AudioMgr : KnightSingleton<AudioMgr>
@@ -49,9 +55,17 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		float[] f = new float[1]{1};
 		MasterMix.TransitionToSnapshots (s, f, 1);
 
-		if(DAudios.ContainsKey("Audio"))
-			DAudios["Audio"].Play();
+
+		PlayMusic ("select");
+//		if(DAudios.ContainsKey("Audio"))
+//			DAudios["Audio"].Play();
 		
+	}
+
+	public void PlayMusic(string name)
+	{
+		if(DAudios.ContainsKey(name))
+			DAudios[name].Play();
 	}
 
 	public void PauseGame()

@@ -107,7 +107,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void PlayShake() {
 		mShake.Play();
-		AudioMgr.Get.PlaySound (SoundType.Dunk);
+		AudioMgr.Get.PlaySound (SoundType.SD_Dunk);
 	}
 
 	private Animator animator;
