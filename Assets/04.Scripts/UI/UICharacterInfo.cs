@@ -106,8 +106,10 @@ public class UICharacterInfo : UIBase {
 		arraySelectAttrData [11].Slider = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass").GetComponent<UISlider>();
 		arraySelectAttrData [11].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
 
-		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onClick = CloseInfo;
-//		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onPress = ShowDetailInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/InfoBoard/Close")).onClick = CloseInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/AttributeBar/LineShoot0")).onPress = ShowDetailInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/AttributeBar/LineShoot1")).onPress = ShowDetailInfo;
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/AttributeBar/LineShoot2")).onPress = ShowDetailInfo;
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard")).onPress = ShowDetailInfo;
 	}
 
@@ -149,6 +151,18 @@ public class UICharacterInfo : UIBase {
 				labelSkillName.text = GameData.SkillData[activeID].Name;
 				labelSkillLevel.text = labelActiveLevel.text;
 				labelSkillInfo.text = GameData.SkillData[activeID].ExplainTW;
+			} else if(go.name.Equals("LineShoot0")){
+				labelSkillName.text = "SCORER";
+				labelSkillLevel.text = "0";
+				labelSkillInfo.text = TextConst.S(12);
+			} else if(go.name.Equals("LineShoot1")){
+				labelSkillName.text = "CENTER";
+				labelSkillLevel.text = "0";
+				labelSkillInfo.text = TextConst.S(13);
+			} else if(go.name.Equals("LineShoot2")){
+				labelSkillName.text = "POINT GUARD";
+				labelSkillLevel.text = "0";
+				labelSkillInfo.text = TextConst.S(14);
 			} else {
 				labelSkillName.text = GameData.SkillData[int.Parse(go.name)].Name;
 				labelSkillLevel.text = go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
@@ -159,10 +173,20 @@ public class UICharacterInfo : UIBase {
 
 	private void doLongPress() {
 		isPressDown = false;
+		float x = 0;
+		float y = 0;
 		if(Input.mousePosition.x < (Screen.width - 250))
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) + 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 160, 0);
+			x = Input.mousePosition.x - ((float)Screen.width * 0.5f) + 130;
 		else 
-			viewSkillInfo.transform.localPosition = new Vector3( Input.mousePosition.x - ((float)Screen.width / 2f) - 130, Input.mousePosition.y - ((float)Screen.height / 2f)+ 160, 0);
+			x = Input.mousePosition.x - ((float)Screen.width * 0.5f) - 130;
+
+//		Debug.Log("Input.mousePosition.y::  "+ Input.mousePosition.y);
+		if(Input.mousePosition.y > (Screen.height * 0.6f)) 
+			y = Input.mousePosition.y - ((float)Screen.height / 2f)- 160;
+		else 
+			y = Input.mousePosition.y - ((float)Screen.height / 2f)+ 160; 
+
+		viewSkillInfo.transform.localPosition = new Vector3( x, y, 0);
 		viewSkillInfo.SetActive(true);
 	}
 
