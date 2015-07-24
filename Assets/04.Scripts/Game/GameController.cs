@@ -26,7 +26,7 @@ public enum EGameSituation
 public enum ELoadingGamePic
 {
 	SelectRole = -1,
-	Game = 2
+	Game = 1
 }
 //public enum EGameAction
 //{
@@ -253,6 +253,7 @@ struct TPlayerDisData {
 }
 
 public class GameController : KnightSingleton<GameController> {
+	public OnSkillDCComplete onSkillDCComplete = null;
     private bool isSkip = false;
     public bool IsStart = false;
 	public bool IsReset = false;
@@ -2369,7 +2370,7 @@ public class GameController : KnightSingleton<GameController> {
 				break;
 			case 2: 
 				AddExtraScoreRate(GameData.ExtraPerfectRate);
-				Joysticker.SetAnger(GameConst.AddAnger_Perfect);				
+				Joysticker.SetAnger(GameConst.AddAnger_Perfect, null, CameraMgr.Get.DoubleClickDCBorn);				
 				break;
 		}
 
@@ -3770,7 +3771,7 @@ public class GameController : KnightSingleton<GameController> {
 				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
-						player.SetAnger(GameConst.AddAnger_Rebound);
+						player.SetAnger(GameConst.AddAnger_Rebound, player.gameObject);
 
 						if (player == BallOwner && inTipinDistance(player)) {
 							coolDownPass = Time.time + 3;
@@ -3978,7 +3979,7 @@ public class GameController : KnightSingleton<GameController> {
 					ChangeSituation(EGameSituation.TeeAPicking);
 
 				if(!isSkill && Shooter)
-					Shooter.SetAnger(GameConst.AddAnger_PlusScore);
+					Shooter.SetAnger(GameConst.AddAnger_PlusScore, CourtMgr.Get.ShootPoint[0].gameObject);
 			}
 		}
 

@@ -296,12 +296,12 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoPlayerAnimator(GameObject obj){
-		if(roleFallTime == 0 && uiSelect.activeInHierarchy) {
-			int ranAnimation = UnityEngine.Random.Range(0,9);
-			if(ranAnimation == 0)
-				roleFallTime = 3;
-			arrayAnimator[0].SetTrigger(arrayRoleAnimation[ranAnimation]);
-		}
+//		if(roleFallTime == 0 && uiSelect.activeInHierarchy) {
+//			int ranAnimation = UnityEngine.Random.Range(0,9);
+//			if(ranAnimation == 0)
+//				roleFallTime = 3;
+//			arrayAnimator[0].SetTrigger(arrayRoleAnimation[ranAnimation]);
+//		}
 	}
 
 	public void OnClickSixAttr(GameObject obj) {

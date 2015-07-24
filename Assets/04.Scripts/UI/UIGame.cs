@@ -84,6 +84,8 @@ public class UIGame : UIBase {
 	private GameObject uiPassB;
 	private GameObject uiAlleyoopA;
 	private GameObject uiAlleyoopB;
+	private GameObject uiDC;
+	private float dcLifeTime;
 
 	private Animator animatorScoreBar;
 	private UISprite spriteAttack;
@@ -91,6 +93,7 @@ public class UIGame : UIBase {
 	private UISprite spriteSkill;
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
+	private float baseForceValue;
 	private float oldForceValue;
 	private float newForceValue;
 	private float timeForce;
@@ -161,7 +164,16 @@ public class UIGame : UIBase {
 		if(isPressA && isPressB)
 			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
 
-		runForceValue ();
+		if(uiDC != null && uiDC.activeInHierarchy) {
+			if(dcLifeTime > 0) {
+				dcLifeTime -= Time.deltaTime;
+				if(dcLifeTime <= 0) {
+					uiDC.SetActive(false);
+				}
+			}
+		}
+
+//		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -191,6 +203,7 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitCom() {
+		GameController.Get.onSkillDCComplete += AddForceValue;
 		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 		GameObject obj;
 		#if !UNITY_EDITOR
@@ -218,6 +231,8 @@ public class UIGame : UIBase {
 		uiSkillEnable = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
+
+		uiDC = GameObject.Find (UIName + "/Bottom/ViewForceBar/GetDCSoul");
 
 		uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
 		uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
@@ -301,6 +316,7 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
 		SetBtnFun (UIName + "/Bottom/ViewForceBar/ButtonSkill", DoSkill);
 
+		uiDC.SetActive(false);
 		viewTools.SetActive(false);
 		viewOption.SetActive(false);
 		viewPause.SetActive(false);
@@ -494,6 +510,7 @@ public class UIGame : UIBase {
 		if (max > 0) {
 			oldForceValue = spriteForce.fillAmount;
 			newForceValue = anger / max;
+			baseForceValue = (newForceValue - oldForceValue) / 5;
 			spriteForceFirst.fillAmount = newForceValue;
 			if (newForceValue >= 1){
 				spriteSkill.color = new Color32(255, 255, 255, 255);
@@ -540,13 +557,6 @@ public class UIGame : UIBase {
 
 		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 	}
-
-	private void resetAnimation (){
-		uiSpriteAnimation.SetActive(true);
-		uiSpriteAnimation.transform.localPosition = new Vector3(-25, 0, 0);
-		spriteAnimation.ResetToBeginning();
-		runForceBar ();
-	}
 	
 	public void PlusScore(int team, int score) {
 		Scores [team] += score;
@@ -560,18 +570,24 @@ public class UIGame : UIBase {
 		labelScores[team].text = Scores [team].ToString ();
 	}
 
-	private void resetScoreRotate() {
-		for(int i=0; i<labelScores.Length; i++) {
-			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
-			rotate[i].enabled = false; 
-		}
-	}
-
 	public void ChangeControl(bool IsAttack) {
 		if(IsAttack) 
 			UIMaskState(EUIControl.AttackA);
 		else 
 			UIMaskState(EUIControl.AttackB);
+	}
+	
+	public bool AddForceValue(){
+		Debug.Log("add:"+baseForceValue);
+		dcLifeTime = 0.1f;
+		uiDC.SetActive(true);
+
+//		if(oldForceValue <= newForceValue) {
+			oldForceValue += baseForceValue;
+//		}
+		Mathf.Clamp(oldForceValue, 0, newForceValue);
+		spriteForce.fillAmount = oldForceValue;
+		return true;
 	}
 
 	public bool UICantUse(PlayerBehaviour p = null) {
@@ -1071,6 +1087,20 @@ public class UIGame : UIBase {
 			buttonStealFXTime = fxTime;
 			buttonStealFX.SetActive(true);
 			break;
+		}
+	}
+	
+	private void resetAnimation (){
+		uiSpriteAnimation.SetActive(true);
+		uiSpriteAnimation.transform.localPosition = new Vector3(-25, 0, 0);
+		spriteAnimation.ResetToBeginning();
+		runForceBar ();
+	}
+	
+	private void resetScoreRotate() {
+		for(int i=0; i<labelScores.Length; i++) {
+			rotate[i].transform.localRotation = Quaternion.Euler(Vector3.zero);
+			rotate[i].enabled = false; 
 		}
 	}
 

@@ -149,7 +149,9 @@ public class UILoading : UIBase {
 //			buttonSkip.SetActive(true);
 			UISkip.UIShow(true, ESkipSituation.Loading);
 			loadingPic.SetActive(false);
-
+			yield return new WaitForSeconds (10);
+			UIShow(false);
+			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 			break;
 		}
 	}

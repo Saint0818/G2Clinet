@@ -457,8 +457,13 @@ public class PlayerBehaviour : MonoBehaviour
 	private int angerPower = 0;
 	public ETimerKind CrtTimeKey = ETimerKind.Default;
 
-    public void SetAnger(int value)
+    public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
+		if(this == GameController.Get.Joysticker && value > 0) {
+			if(target)
+				SkillDCExplosion.Get.BornDC(5, gameObject, CameraMgr.Get.SkillDCTarget, parent);
+		}
+
 		isUseSkill = false;
         angerPower += value;
         if (angerPower > Attribute.MaxAnger) {

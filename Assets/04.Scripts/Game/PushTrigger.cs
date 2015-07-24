@@ -27,7 +27,7 @@ public class PushTrigger : MonoBehaviour {
 					{
 						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
-							pusher.SetAnger(GameConst.AddAnger_Push);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
 							pusher.GameRecord.Knock++;
 							faller.GameRecord.BeKnock++;
 						}
@@ -36,7 +36,7 @@ public class PushTrigger : MonoBehaviour {
 					{
 						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
-							pusher.SetAnger(GameConst.AddAnger_Push);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
 						}
 					}
 

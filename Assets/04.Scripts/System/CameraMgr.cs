@@ -72,6 +72,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	public Animator ShowAnimatorControl;
 
 	public GameObject[] CharacterPos = new GameObject[6];
+	public GameObject SkillDCTarget;
+	public GameObject DoubleClickDCBorn;
 
 	public bool UICamVisible
 	{
@@ -123,6 +125,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = scene.ToString();
 			animator = cameraFx.GetComponent<Animator>();
+			Transform tEnd= obj.transform.FindChild("DC_Pos/End_Point");
+			if(tEnd)
+				SkillDCTarget = tEnd.gameObject;
+			Transform tDC = obj.transform.FindChild("DC_Pos/DC_Point");
+			if(tDC)
+				DoubleClickDCBorn = tDC.gameObject;
 		}
 	}
 	
