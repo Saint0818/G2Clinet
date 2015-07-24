@@ -13,6 +13,7 @@ public enum SoundType
 
 public enum EMusicType
 {
+	None,
 	MU_select,
 	MU_game0,
 	MU_game1
@@ -20,6 +21,7 @@ public enum EMusicType
 
 public class AudioMgr : KnightSingleton<AudioMgr>
 {
+	public EMusicType CurrentMusic = EMusicType.None;
 	public AudioMixer MasterMix;
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
@@ -56,16 +58,23 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		MasterMix.TransitionToSnapshots (s, f, 1);
 
 
-		PlayMusic ("select");
+		PlayMusic (EMusicType.MU_select);
 //		if(DAudios.ContainsKey("Audio"))
 //			DAudios["Audio"].Play();
 		
 	}
 
-	public void PlayMusic(string name)
+	public void PlayMusic(EMusicType type)
 	{
-		if(DAudios.ContainsKey(name))
-			DAudios[name].Play();
+		string name = type.ToString ();
+		if (DAudios.ContainsKey (name)) {
+
+			if(CurrentMusic != EMusicType.None && DAudios.ContainsKey (CurrentMusic.ToString()))
+				DAudios[CurrentMusic.ToString()].Stop();
+
+			DAudios [name].Play ();
+			CurrentMusic = type;
+		}
 	}
 
 	public void PauseGame()

@@ -32,6 +32,14 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			case SceneName.Court_0:
 			case SceneName.Court_1:
 				CourtMgr.Get.InitCourtScene ();
+				
+				int rate = UnityEngine.Random.Range(0, 1);
+
+				if(rate == 0)
+					AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
+				else
+					AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+					
 				break;
 			case SceneName.SelectRole:
 				AudioMgr.Get.StartGame();

@@ -38,7 +38,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		if(!GameController.Get.IsStart)
 			currentTime = Time.time;
 		else{
-			if (isOnce && Time.time - currentTime > checkTime)
+
+			if (GameStart.Get.IsDebugAnimation && isOnce && Time.time - currentTime > checkTime)
 				Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + state.ToString());
 		}
 	}
