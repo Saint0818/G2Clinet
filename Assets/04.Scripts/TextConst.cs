@@ -41,6 +41,10 @@ public static class TextConst
 			AddString (9, "G", "G");
 			AddString (10, "前往更新Apk", "");
 			AddString (11, "前往更新IOS", "");
+			AddString (12, "2PT-2分球命中率\n3PT-3分球命中率\nSPD-速度\nSTA-耐力", "2PT-2Point\n3PT-3Point\nSPD-Speed\nSTA-Stamina"); 
+			AddString (13, "REB-籃板\nDNK-灌籃\nBLK-火鍋\nSTR-力量", "REB-Rebound\nDNK-Dunk\nBLK-Block\nSTR-Strength");
+			AddString (14, "DEF-防守\nSTL-抄截\nDRB-控球\nPAS-傳球", "DEF-Defence\nSTL-Steal\nDRB-Dribble\nPAS-Pass");
+
 		}
     }
 }
