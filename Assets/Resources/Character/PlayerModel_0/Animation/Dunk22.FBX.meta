@@ -276,23 +276,7 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
-      - path: 0_B_0
-        weight: 1
-      - path: Backboard
-        weight: 1
-      - path: BasketGlassA
-        weight: 1
-      - path: BasketGlassB
-        weight: 1
-      - path: BasketHoop
-        weight: 1
-      - path: BasketHoop002
-        weight: 1
-      - path: BasketSupport
-        weight: 1
       - path: Bip01
-        weight: 1
-      - path: Bip01/Bip01 Footsteps
         weight: 1
       - path: Bip01/Bip01 Pelvis
         weight: 1
@@ -419,30 +403,6 @@ ModelImporter:
       - path: Bip01/Bip01 Spine/Bip01 Spine1/DummyBack
         weight: 1
       - path: DummyBall
-        weight: 1
-      - path: DummyBall/HandBall01
-        weight: 1
-      - path: DummyBasketRoot
-        weight: 1
-      - path: DummyBasketRoot/Bone01
-        weight: 1
-      - path: DummyBasketRoot/Bone01/Bone02
-        weight: 1
-      - path: DummyBasketRoot/Bone01/Bone02/Bone03
-        weight: 1
-      - path: DummyBasketRoot/Bone01/Bone02/Bone03/Bone04
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK/BasketHoopBase
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
-        weight: 1
-      - path: DummyBasketRoot/DummyBasketIK/IK Chain
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
