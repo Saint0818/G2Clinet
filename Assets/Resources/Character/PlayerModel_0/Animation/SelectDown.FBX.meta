@@ -149,7 +149,47 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: -Infinity
+        functionName: SoundEvent
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: -Infinity
+        functionName: NewEvent
+        data: 
+        objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: -Infinity
+        functionName: SoundEvent
+        data: down
+        objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0502793379
+        functionName: SoundEvent
+        data: down
+        objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .137184113
+        functionName: SoundEvent
+        data: touchfloor
+        objectReferenceParameter: {fileID: 8300000, guid: 064e4a2b12f07374bba97e08708fd0ad,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
