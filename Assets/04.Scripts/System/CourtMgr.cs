@@ -700,10 +700,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Hood[1].gameObject.SetActive(true);
 		}
 		animator.SetTrigger(animationName);
+		PlayDunkEffect(team);
+    }
 
+	public void PlayDunkEffect(int team)
+	{
+		AudioMgr.Get.PlaySound (SoundType.SD_Dunk);
 		CameraMgr.Get.PlayShake ();
 		EffectManager.Get.PlayEffect ("DunkFX", new Vector3(DunkPoint[team].transform.position.x, 3.76f, DunkPoint[team].transform.position.z), null, null, 3f);
-    }
+	}
 
 	public void PlayShoot(int team)
 	{

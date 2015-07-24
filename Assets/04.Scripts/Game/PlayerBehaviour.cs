@@ -2749,6 +2749,7 @@ public class PlayerBehaviour : MonoBehaviour
                     OnOnlyScore(this);
                 break;
             case "DunkBasket":
+				CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
                 break;
@@ -2844,7 +2845,7 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void SoundEvent(string soundName)
+	public void PlaySound(string soundName)
 	{
 		AudioMgr.Get.PlaySound (soundName);
 	}
