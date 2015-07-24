@@ -237,6 +237,7 @@ public class UISelectRole : UIBase {
 			arrayPlayer[i].transform.parent = playerInfoModel.transform;
 			ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, GameData.DPlayers[arraySelectID[0]].BodyType, false, false);
 			arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
+			arrayAnimator[i].gameObject.AddComponent<SoundEvent>();
 			arrayPlayer[i].GetComponent<CapsuleCollider>().enabled = false;
 			arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
 			arrayPlayerData [i].AILevel = GameData.DPlayers [arraySelectID[0]].AILevel;

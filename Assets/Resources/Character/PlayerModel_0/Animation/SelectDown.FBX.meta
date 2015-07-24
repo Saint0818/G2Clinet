@@ -175,7 +175,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .0502793379
-        functionName: SoundEvent
+        functionName: PlaySound
         data: down
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
@@ -183,7 +183,7 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .137184113
-        functionName: SoundEvent
+        functionName: PlaySound
         data: touchfloor
         objectReferenceParameter: {fileID: 8300000, guid: 064e4a2b12f07374bba97e08708fd0ad,
           type: 3}

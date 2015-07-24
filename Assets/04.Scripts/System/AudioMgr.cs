@@ -68,8 +68,13 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public void PlaySound(SoundType type)
 	{
 		string soundName = type.ToString ();
-		if (DAudios.ContainsKey (soundName))
-			DAudios [soundName].Play ();
+		PlaySound(soundName);
+	}
+
+	public void PlaySound(string name)
+	{
+		if (DAudios.ContainsKey (name))
+			DAudios [name].Play ();
 	}
 
 	public void MusicOn(bool flag)

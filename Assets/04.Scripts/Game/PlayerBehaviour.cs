@@ -2839,6 +2839,11 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	public void SoundEvent(string soundName)
+	{
+		AudioMgr.Get.PlaySound (soundName);
+	}
+
 	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
 		int intParam = aniEvent.intParameter;
