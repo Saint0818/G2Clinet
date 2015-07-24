@@ -41,9 +41,12 @@ public static class TextConst
 			AddString (9, "G", "G");
 			AddString (10, "前往更新Apk", "");
 			AddString (11, "前往更新IOS", "");
-			AddString (12, "2PT-2分球命中率\n3PT-3分球命中率\nSPD-速度\nSTA-耐力", "2PT-2Point\n3PT-3Point\nSPD-Speed\nSTA-Stamina"); 
-			AddString (13, "REB-籃板\nDNK-灌籃\nBLK-火鍋\nSTR-力量", "REB-Rebound\nDNK-Dunk\nBLK-Block\nSTR-Strength");
-			AddString (14, "DEF-防守\nSTL-抄截\nDRB-控球\nPAS-傳球", "DEF-Defence\nSTL-Steal\nDRB-Dribble\nPAS-Pass");
+			AddString (12, "[33FFDD]2PT[-]-2分球命中率\n\n[33FFDD]3PT[-]-3分球命中率\n\n[33FFDD]SPD[-]-速度\n\n[33FFDD]STA[-]-耐力",
+			           "[33FFDD]2PT[-]-2Point\n\n[33FFDD]3PT[-]-3Point\n\n[33FFDD]SPD[-]-Speed\n\n[33FFDD]STA[-]-Stamina"); 
+			AddString (13, "[33FFDD]REB[-]-籃板\n\n[33FFDD]DNK[-]-灌籃\n\n[33FFDD]BLK[-]-火鍋\n\n[33FFDD]STR[-]-力量",
+			           "[33FFDD]REB[-]-Rebound\n\n[33FFDD]DNK[-]-Dunk\n\n[33FFDD]BLK[-]-Block\n\n[33FFDD]STR[-]-Strength");
+			AddString (14, "[33FFDD]DEF[-]-防守\n\n[33FFDD]STL[-]-抄截\n\n[33FFDD]DRB[-]-控球\n\n[33FFDD]PAS[-]-傳球",
+			           "[33FFDD]DEF[-]-Defence\n\n[33FFDD]STL[-]-Steal\n\n[33FFDD]DRB[-]-Dribble\n\n[33FFDD]PAS[-]-Pass");
 
 		}
     }
