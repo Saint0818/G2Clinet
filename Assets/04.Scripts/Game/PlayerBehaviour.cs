@@ -363,7 +363,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public ETeamKind Team;
 	public int Index;
-    public float NoAiTime = 0;
+    private float aiTime = 0;
     public bool HaveNoAiTime = false;
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
@@ -753,7 +753,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
         }
 
-        if (NoAiTime == 0)
+        if (aiTime == 0)
         {
             if (MoveQueue.Count > 0)
                 MoveTo(MoveQueue.Peek());
@@ -766,10 +766,10 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
             }
         } else
-        if (NoAiTime > 0 && Time.time >= NoAiTime)
+        if (aiTime > 0 && Time.time >= aiTime)
         {
             MoveQueue.Clear();
-            NoAiTime = 0;
+            aiTime = 0;
 
             if (AIActiveHint)
                 AIActiveHint.SetActive(true);
@@ -886,21 +886,18 @@ public class PlayerBehaviour : MonoBehaviour
 			dashSmoke.SetActive(isEnable);
 	}
 
-    public void SetNoAiTime()
-    {
-        if (situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking)
-        {
+    public void SetNoAiTime() {
+        if (situation == EGameSituation.AttackA || situation != EGameSituation.AttackB) {
             isJoystick = true;
-            NoAiTime = Time.time + GameData.Setting.AIChangeTime;
+            aiTime = Time.time + GameData.Setting.AIChangeTime;
             
             if (AIActiveHint)
                 AIActiveHint.SetActive(false);
 
             if (SpeedUpView)
                 SpeedUpView.enabled = true;
-        } else
-        {
-            NoAiTime = 0;
+        } else {
+            aiTime = 0;
             if (AIActiveHint)
                 AIActiveHint.SetActive(true);
 
@@ -911,7 +908,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAiTime()
     {
-        NoAiTime = 0;
+        aiTime = 0;
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
     }
@@ -1459,7 +1456,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void MoveTo(TMoveData Data, bool First = false)
     {
-        if ((CanMove || (NoAiTime == 0 && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block) {
+        if ((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block) {
             bool DoMove = GetMoveTarget(ref Data, ref MoveTarget);
             float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
             SetSpeed(0.3f, 0);
@@ -1480,7 +1477,7 @@ public class PlayerBehaviour : MonoBehaviour
 							if (!DoMove)
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
                             else 
-							if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.NoAiTime == 0 && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
+							if (dis > GameConst.TreePointDistance + 4 && (Data.DefPlayer.AIing && (Data.DefPlayer.WaitMoveTime == 0 || Data.DefPlayer.TargetPosNum > 0)))
                                 rotateTo(MoveTarget.x, MoveTarget.y);
                             else
                                 rotateTo(Data.LookTarget.position.x, Data.LookTarget.position.z);
@@ -1523,7 +1520,7 @@ public class PlayerBehaviour : MonoBehaviour
                         else
                             rotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
                         
-                        if (Data.Shooting && NoAiTime == 0)
+                        if (Data.Shooting && AIing)
                             GameController.Get.Shoot();
                     } else {
                         if (Data.LookTarget == null) {
@@ -2783,7 +2780,7 @@ public class PlayerBehaviour : MonoBehaviour
                         AniState(EPlayerState.Idle);
                     } else
                     {
-                        if (NoAiTime == 0)
+                        if (AIing)
                             AniState(EPlayerState.Dribble0);
                         else 
                             AniState(EPlayerState.HoldBall);
@@ -3274,6 +3271,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsAngerFull {
 		get { return angerPower >= Attribute.MaxAnger; }
+	}
+
+	public bool AIing {
+		get { return aiTime <= 0; }
 	}
 
     public int TargetPosNum

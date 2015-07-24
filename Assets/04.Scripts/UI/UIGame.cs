@@ -433,6 +433,9 @@ public class UIGame : UIBase {
 			Time.timeScale = 2;
 		else
 		if (Time.timeScale == 2) 
+			Time.timeScale = 0.5f;
+		else
+		if (Time.timeScale == 0.5f) 
 			Time.timeScale = 1;
 	}
 
@@ -607,7 +610,7 @@ public class UIGame : UIBase {
 
 	public bool OpenUIMask(PlayerBehaviour p = null){
 		if(p == GameController.Get.Joysticker) {
-			if(p.NoAiTime > 0)
+			if(p.AIing)
 				p.SetNoAiTime();
 
 			if (GameController.Get.IsStart) { 
