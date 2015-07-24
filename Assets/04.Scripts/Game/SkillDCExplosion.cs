@@ -33,9 +33,17 @@ public class SkillDCExplosion : MonoBehaviour {
 	public void BornDC (int count, GameObject position, GameObject target, GameObject parent = null) {
 		skillTarget = target;
 		if(count > 0) {
-			transform.position = position.transform.position;
-			if(parent)
-				this.transform.parent = parent.transform;
+			if(parent){
+				transform.parent = parent.transform;
+				transform.localPosition = Vector3.zero;
+			} else {
+				transform.position = position.transform.position;
+				if(position.transform.position.y <= 1) {
+					transform.position = new Vector3(position.transform.position.x,
+					                                 position.transform.position.y + 1.5f,
+					                                 position.transform.position.z);
+				}
+			}
 			for (int i=0; i<count; i++) {
 				GameObject obj =  getPooledObject();
 				obj.name = i.ToString();
@@ -60,10 +68,10 @@ public class SkillDCExplosion : MonoBehaviour {
 
 	private void moveTo (GameObject skillSoul) {
 		Tweener tweener =  skillSoul.transform.DOLocalMove(new Vector3(skillSoul.transform.localPosition.x + Random.Range(-2, 2) ,
-		                                                               skillSoul.transform.localPosition.y + Random.Range(0, 3),
-		                                                               skillSoul.transform.localPosition.z + Random.Range(-2, 2)),0.1f);
+		                                                               skillSoul.transform.localPosition.y + Random.Range(-2, 2),
+		                                                               skillSoul.transform.localPosition.z + Random.Range(-2, 2)),0.5f);
 
-		tweener.SetEase(Ease.OutCubic);
+		tweener.SetEase(Ease.InOutBack);
 		tweener.OnComplete(delegate(){
 			skillSoul.GetComponent<SkillDCMove>().IsMove = true;
 

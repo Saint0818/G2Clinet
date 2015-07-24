@@ -173,7 +173,7 @@ public class UIGame : UIBase {
 			}
 		}
 
-//		runForceValue ();
+		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -522,7 +522,7 @@ public class UIGame : UIBase {
 
 	private void runForceValue () {
 		timeForce += Time.fixedDeltaTime;
-		if(oldForceValue != newForceValue) 
+		if(oldForceValue > newForceValue) 
 			spriteForce.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
 	}
 
@@ -578,7 +578,6 @@ public class UIGame : UIBase {
 	}
 	
 	public bool AddForceValue(){
-		Debug.Log("add:"+baseForceValue);
 		dcLifeTime = 0.1f;
 		uiDC.SetActive(true);
 
@@ -1019,6 +1018,7 @@ public class UIGame : UIBase {
 
 			ChangeControl(true);
 			SetPassButton();
+			spriteForce.fillAmount = 0;
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			CameraMgr.Get.PlayGameStartCamera ();

@@ -2370,7 +2370,7 @@ public class GameController : KnightSingleton<GameController> {
 				break;
 			case 2: 
 				AddExtraScoreRate(GameData.ExtraPerfectRate);
-				Joysticker.SetAnger(GameConst.AddAnger_Perfect, null, CameraMgr.Get.DoubleClickDCBorn);				
+				Joysticker.SetAnger(GameConst.AddAnger_Perfect, CameraMgr.Get.DoubleClickDCBorn, CameraMgr.Get.DoubleClickDCBorn);				
 				break;
 		}
 

@@ -461,7 +461,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		if(this == GameController.Get.Joysticker && value > 0) {
 			if(target)
-				SkillDCExplosion.Get.BornDC(5, gameObject, CameraMgr.Get.SkillDCTarget, parent);
+				SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
 		}
 
 		isUseSkill = false;
