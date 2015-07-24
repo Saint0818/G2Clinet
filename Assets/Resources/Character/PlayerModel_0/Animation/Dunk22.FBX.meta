@@ -57,6 +57,26 @@ ModelImporter:
     100098: DummyHand_R
     100100: DummyHead
     100102: //RootNode
+    100104: 0_B_0
+    100106: Backboard
+    100108: BasketGlassA
+    100110: BasketGlassB
+    100112: BasketHoop
+    100114: BasketHoop002
+    100116: BasketHoopBase
+    100118: BasketSupport
+    100120: Bip01 Footsteps
+    100122: Bone01
+    100124: Bone02
+    100126: Bone03
+    100128: Bone04
+    100130: DummyBackBoard
+    100132: DummyBasketIK
+    100134: DummyBasketRoot
+    100136: DummyHoop
+    100138: DummyNet
+    100140: HandBall01
+    100142: IK Chain
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -109,8 +129,48 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
+    400104: 0_B_0
+    400106: Backboard
+    400108: BasketGlassA
+    400110: BasketGlassB
+    400112: BasketHoop
+    400114: BasketHoop002
+    400116: BasketHoopBase
+    400118: BasketSupport
+    400120: Bip01 Footsteps
+    400122: Bone01
+    400124: Bone02
+    400126: Bone03
+    400128: Bone04
+    400130: DummyBackBoard
+    400132: DummyBasketIK
+    400134: DummyBasketRoot
+    400136: DummyHoop
+    400138: DummyNet
+    400140: HandBall01
+    400142: IK Chain
+    2300000: BasketHoopBase
+    2300002: HandBall01
+    3300000: BasketHoopBase
+    3300002: HandBall01
+    4300000: HandBall01
+    4300002: 0_B_0
+    4300004: BasketHoopBase
+    4300006: BasketSupport
+    4300008: Backboard
+    4300010: BasketGlassA
+    4300012: BasketGlassB
+    4300014: BasketHoop
+    4300016: BasketHoop002
     7400000: Dunk22
     9500000: //RootNode
+    13700000: 0_B_0
+    13700002: Backboard
+    13700004: BasketGlassA
+    13700006: BasketGlassB
+    13700008: BasketHoop
+    13700010: BasketHoop002
+    13700012: BasketSupport
   materials:
     importMaterials: 0
     materialName: 0
@@ -150,6 +210,34 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: .28771928
+        functionName: ZoomIn
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: .321766555
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .100000001
+        intParameter: 0
+        messageOptions: 0
+      - time: .362742811
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 1
+        messageOptions: 0
+      - time: .611987352
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
       - time: .642167211
         functionName: AnimationEvent
         data: DunkBasketStart
@@ -171,6 +259,13 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: .949881017
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .100000001
+        intParameter: 0
+        messageOptions: 0
       - time: .999999642
         functionName: AnimationEvent
         data: AnimationEnd
@@ -181,7 +276,23 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: 0_B_0
+        weight: 1
+      - path: Backboard
+        weight: 1
+      - path: BasketGlassA
+        weight: 1
+      - path: BasketGlassB
+        weight: 1
+      - path: BasketHoop
+        weight: 1
+      - path: BasketHoop002
+        weight: 1
+      - path: BasketSupport
+        weight: 1
       - path: Bip01
+        weight: 1
+      - path: Bip01/Bip01 Footsteps
         weight: 1
       - path: Bip01/Bip01 Pelvis
         weight: 1
@@ -308,6 +419,30 @@ ModelImporter:
       - path: Bip01/Bip01 Spine/Bip01 Spine1/DummyBack
         weight: 1
       - path: DummyBall
+        weight: 1
+      - path: DummyBall/HandBall01
+        weight: 1
+      - path: DummyBasketRoot
+        weight: 1
+      - path: DummyBasketRoot/Bone01
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03
+        weight: 1
+      - path: DummyBasketRoot/Bone01/Bone02/Bone03/Bone04
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/BasketHoopBase
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/DummyBackBoard/DummyHoop/DummyNet
+        weight: 1
+      - path: DummyBasketRoot/DummyBasketIK/IK Chain
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

@@ -94,8 +94,6 @@ ModelImporter:
         weight: 1
       - path: Backboard
         weight: 1
-      - path: BasketGlassA
-        weight: 1
       - path: BasketGlassB
         weight: 1
       - path: BasketHoop
