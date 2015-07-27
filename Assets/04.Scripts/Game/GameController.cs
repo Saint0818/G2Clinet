@@ -3565,6 +3565,7 @@ public class GameController : KnightSingleton<GameController> {
 	
 	public void BallOnFloor()
     {
+		AudioMgr.Get.PlaySound (SoundType.SD_dribble);
 		CourtMgr.Get.ResetBasketEntra();
         Shooter = null;
 

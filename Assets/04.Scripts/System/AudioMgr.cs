@@ -8,7 +8,8 @@ public enum SoundType
 {
 	SD_Dunk,
 	SD_Net,
-	SD_GameEnd
+	SD_GameEnd,
+	SD_dribble
 }
 
 public enum EMusicType
