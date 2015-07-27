@@ -2978,7 +2978,6 @@ public class PlayerBehaviour : MonoBehaviour
 						Debug.LogError("Can't find SkillAnimation in EPlayerState");
 					}
 				}
-				
 				isUseSkill = true;
 			}
 		}
@@ -3075,7 +3074,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool CanUseSkill {
 		get {
-			if (CanMove) 
+			if (CanMove || crtState == EPlayerState.HoldBall) 
 				return true;
 			else
 				return false;

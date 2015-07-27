@@ -816,8 +816,10 @@ public class GameController : KnightSingleton<GameController> {
             }
 
 			if(Input.GetKeyDown(KeyCode.L)) {
-				for (int i = 0; i < PlayerList.Count; i ++)
+				for (int i = 0; i < PlayerList.Count; i ++){
 					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
+					UIGame.Get.AddAllForce();
+				}
 			}
 
 			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
