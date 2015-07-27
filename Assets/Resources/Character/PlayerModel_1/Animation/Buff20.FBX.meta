@@ -131,7 +131,7 @@ ModelImporter:
       name: Buff20
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 12
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -310,7 +310,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
+    splitTangentsAcrossUV: 0
     normalImportMode: 2
     tangentImportMode: 2
   importAnimation: 1
