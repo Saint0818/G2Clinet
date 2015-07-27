@@ -2499,7 +2499,6 @@ public class GameController : KnightSingleton<GameController> {
     public bool OnSkill() {
 		if (CandoBtn && DoSkill(Joysticker)) {
 			Joysticker.SetNoAiTime();
-			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
 			return true;
 		}
 		return false;
@@ -2539,7 +2538,8 @@ public class GameController : KnightSingleton<GameController> {
 							case 0:
 								player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 								                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
-								OnShowEffect (player);
+							EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (player.Attribute.BodyType * 0.5f)), 0), player.gameObject, null, 0.5f);
+
 								break;
 							case 3:
 								for (int i = 0; i < PlayerList.Count; i++) {
@@ -2547,7 +2547,8 @@ public class GameController : KnightSingleton<GameController> {
 										if(CheckSkill(player, PlayerList[i].gameObject)) {
 											PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
 											                                skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
-											OnShowEffect (PlayerList[i]);
+										
+											EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (PlayerList[i].Attribute.BodyType * 0.5f)), 0), PlayerList[i].gameObject, null, 0.5f);
 										}
 									}
 								}
