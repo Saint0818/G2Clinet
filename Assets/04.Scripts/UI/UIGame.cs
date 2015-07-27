@@ -333,6 +333,7 @@ public class UIGame : UIBase {
 
 		ChangeControl(true);
 		runForceBar ();
+		initAiTime();
 
 		uiJoystick.Joystick.isActivated = false; 
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
@@ -351,6 +352,23 @@ public class UIGame : UIBase {
 
 	protected override void InitText(){
 
+	}
+
+	private void initAiTime() {
+		float time = PlayerPrefs.GetFloat(SettingText.AITime);
+		if(time == 1) {
+			aiLevelScrollBar.value = 0;
+		} else if(time == 3) {
+			aiLevelScrollBar.value = 0.2f;
+		}else if(time == 5) {
+			aiLevelScrollBar.value = 0.4f;
+		}else if(time == 15) {
+			aiLevelScrollBar.value = 0.6f;
+		}else if(time == 30) {
+			aiLevelScrollBar.value = 0.8f;
+		}else if(time == 999999) {
+			aiLevelScrollBar.value = 1;
+		} 
 	}
 
 	public void InitLine() {

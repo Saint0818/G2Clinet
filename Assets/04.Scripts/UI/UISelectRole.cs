@@ -35,8 +35,8 @@ public class UISelectRole : UIBase {
 	private Animator animatorRight;
 	private Animator animatorLoading;
 
-//	private GameObject uiOK;
 	private GameObject uiSelect;
+	private GameObject uiShowTime;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
@@ -179,6 +179,7 @@ public class UISelectRole : UIBase {
 
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
 		uiSelect.SetActive(false);
+		uiShowTime = GameObject.Find(UIName + "/Center/ShowTimeCollider");
 
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
 		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;
@@ -527,6 +528,7 @@ public class UISelectRole : UIBase {
 			uiSelect.SetActive(false);
 			arrayAnimator[0].SetTrigger(arrayRoleAnimation[1]);
 			UITriangle.Get.Triangle.SetActive (false);
+			uiShowTime.SetActive(false);
 
 			int RanID;
 			int Count;
@@ -591,6 +593,7 @@ public class UISelectRole : UIBase {
 			
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
 				arrayPlayer[i].SetActive(false);
+			uiShowTime.SetActive(true);
 			break;
 		case EUIRoleSituation.Start:
 			SetEnemyMembers ();
