@@ -149,7 +149,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .376379669
+        functionName: playSound
+        data: SD_dash
+        objectReferenceParameter: {fileID: 8300000, guid: 1e9ddf55e8df1444994f14c27340837a,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1

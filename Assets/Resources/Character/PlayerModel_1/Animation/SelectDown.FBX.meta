@@ -159,16 +159,16 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: -Infinity
-        functionName: NewEvent
-        data: 
+        functionName: SoundEvent
+        data: down
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: -Infinity
-        functionName: SoundEvent
-        data: down
+        functionName: NewEvent
+        data: 
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
         floatParameter: 0
@@ -182,7 +182,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .137184113
+      - time: .186420113
         functionName: PlaySound
         data: SD_touchfloor
         objectReferenceParameter: {fileID: 8300000, guid: 064e4a2b12f07374bba97e08708fd0ad,
