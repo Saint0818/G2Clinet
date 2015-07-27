@@ -3527,6 +3527,7 @@ public class GameController : KnightSingleton<GameController> {
 			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, p);
 
         	if (p) {
+				AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
 				p.WaitMoveTime = 0;
 				p.IsFirstDribble = true;
 
