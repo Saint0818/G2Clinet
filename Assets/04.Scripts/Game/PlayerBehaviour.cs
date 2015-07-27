@@ -2978,7 +2978,6 @@ public class PlayerBehaviour : MonoBehaviour
 			SetAnger(-Attribute.MaxAnger);
 
 			if (Attribute.SkillAnimation != "") {
-				isUseSkill = true;
 				SetInvincible(activeTime);
 				if (target)
 					AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
@@ -2989,6 +2988,7 @@ public class PlayerBehaviour : MonoBehaviour
 						Debug.LogError("Can't find SkillAnimation in EPlayerState");
 					}
 				}
+				isUseSkill = true;
 			}
 		}
 	}

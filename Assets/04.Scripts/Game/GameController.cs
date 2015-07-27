@@ -818,8 +818,10 @@ public class GameController : KnightSingleton<GameController> {
 					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
 			}
 
-			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) 
+			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
 				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
+				UIGame.Get.AddAllForce();
+			}
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
 				UIGame.Get.DoSkill();
@@ -2494,11 +2496,13 @@ public class GameController : KnightSingleton<GameController> {
         return true;
     }
     
-    public void OnSkill() {
+    public bool OnSkill() {
 		if (CandoBtn && DoSkill(Joysticker)) {
 			Joysticker.SetNoAiTime();
 			EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.5f)), 0), Joysticker.gameObject, null, 0.5f);
+			return true;
 		}
+		return false;
     }
 
 	private bool DoSkill(PlayerBehaviour player) {
@@ -2549,7 +2553,6 @@ public class GameController : KnightSingleton<GameController> {
 								}
 								break;
 							}
-							
 							break;
 					}
 					
@@ -2558,7 +2561,6 @@ public class GameController : KnightSingleton<GameController> {
 				}
 			}
 		}
-
 		return result;
 	}
 
@@ -2575,7 +2577,6 @@ public class GameController : KnightSingleton<GameController> {
 					break;
 				case 1://my basket
 					objs.Add(CourtMgr.Get.BasketHoop[player.Team.GetHashCode()].gameObject);
-					activeSkillTargets.Add(key , objs);
 					break;
 				case 2:{//enemy basket
 					int i = 1;
@@ -2583,7 +2584,6 @@ public class GameController : KnightSingleton<GameController> {
 						i = 0;
 					
 					objs.Add(CourtMgr.Get.BasketHoop[i].gameObject);
-					activeSkillTargets.Add(key , objs);
 					break;
 				}
 				case 3://my all teammates
@@ -2594,9 +2594,7 @@ public class GameController : KnightSingleton<GameController> {
 					}
 					break;
 				}
-
-				if(!activeSkillTargets.ContainsKey(key))
-					activeSkillTargets.Add(key , objs);
+				activeSkillTargets.Add(key , objs);
 				return activeSkillTargets[key];
 			}
 
@@ -2606,11 +2604,13 @@ public class GameController : KnightSingleton<GameController> {
 
 	private bool checkSkillSituation(PlayerBehaviour player) {
 		int kind = GameData.SkillData[player.Attribute.ActiveSkill.ID].Kind;
+		if (kind == 21)
+			return true;
 		switch (Situation) {
 		case EGameSituation.AttackA:
 			if (kind >= 1 && kind <= 7 && player == BallOwner)
 				return true;
-
+				
 			break;
 		case EGameSituation.AttackB:
 			break;
@@ -2627,10 +2627,19 @@ public class GameController : KnightSingleton<GameController> {
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
 		if (player.IsAngerFull && player.CanUseSkill) {
 			if (target) {
-				if (target == player.gameObject || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
-				    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
-					if (checkSkillSituation(player))
-						return true;
+				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
+				   GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
+					if (target == player.gameObject || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
+					    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+						if (checkSkillSituation(player))
+							return true;
+					}
+				} else {
+					if (target == player.gameObject || getDis(ref player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
+					    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+						if (checkSkillSituation(player))
+							return true;
+					}
 				}
 			} else
 				return true;
