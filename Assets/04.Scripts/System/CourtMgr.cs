@@ -700,7 +700,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Hood[1].gameObject.SetActive(true);
 		}
 		animator.SetTrigger(animationName);
-		PlayDunkEffect(team);
     }
 
 	public void PlayDunkEffect(int team)

@@ -2740,13 +2740,18 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 			case "DunkBasketStart":
 				CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
+
+				if(IsBallOwner)
+					CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
+
 				break;
 			case "OnlyScore":
                 if (OnOnlyScore != null)
                     OnOnlyScore(this);
                 break;
             case "DunkBasket":
-				CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
+				if(IsBallOwner)
+					CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
 //                DelActionFlag(ActionFlag.IsDribble);
 //                DelActionFlag(ActionFlag.IsRun);
                 break;

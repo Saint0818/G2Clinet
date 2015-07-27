@@ -70,7 +70,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		}
 		else {
 			if (CurrentScene != scene) {
-				StartCoroutine(LoadLevelCoroutine(scene));
+				StartCoroutine(LoadLevelCoroutine(SceneName.Null));
 				LoadScene = scene;
 				OnLevelWasLoaded += WaitLoadScene;
 			}
