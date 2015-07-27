@@ -11,7 +11,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: CFX_Circular2
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -26,7 +26,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -46,9 +46,9 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
-    normalImportMode: 0
-    tangentImportMode: 1
+    splitTangentsAcrossUV: 0
+    normalImportMode: 2
+    tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
   humanDescription:

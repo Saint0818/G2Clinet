@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 61731318aa149ee4fae8598bd58b9859
-timeCreated: 1427444748
-licenseType: Pro
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -112,7 +110,7 @@ ModelImporter:
     7400000: DashDribble
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -120,7 +118,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -138,7 +136,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       loopTime: 1
-      loopBlend: 1
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -149,19 +147,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-<<<<<<< HEAD
-      events:
-      - time: .361479014
-        functionName: PlaySound
-        data: SD_dribble
-        objectReferenceParameter: {fileID: 8300000, guid: 4005475ec70d0c84387dbf53d04fc4b8,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-=======
       events: []
->>>>>>> origin/master
       transformMask:
       - path: 
         weight: 1
@@ -317,7 +303,7 @@ ModelImporter:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
     normalImportMode: 0
-    tangentImportMode: 2
+    tangentImportMode: 1
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
