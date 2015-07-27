@@ -459,7 +459,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			Animator aniControl = result.GetComponent<Animator>();
 			if(aniControl == null)
 				aniControl = result.AddComponent<Animator>();
-			
+
+			aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
 			if(runtimeAnimatorController == null) {
 				if(isUseRig)

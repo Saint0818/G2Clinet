@@ -183,16 +183,33 @@ public class UIGameResult : UIBase {
 		list.Add(string.Format("[0BF9FF]{0}:{1}[-]", "Skill", player.Skill));
 	}
 
-	private string getDetailString(ref TGamePlayerRecord player) {
-		return string.Format("{0}:{1}\n{2}:{3}\n{4}:{5}\n{6}:{7}\n{8}:{9}\n{10}:{11}\n{12}:{13}\n{14}:{15}\n{16}:{17}\n{18}:{19}\n{20}:{21}\n{22}:{23}\n{24}:{25}\n{26}:{27}\n{28}:{29}\n{30}:{31}\n{32}:{33}\n{34}:{35}\n{36}:{37}\n{38}:{39}\n{40}:{41}\n{42}:{43}\n{44}:{45}\n{46}:{47}\n{48}:{49}\n{50}:{51}\n{52}:{53}\n{54}:{55}\n{56}:{57}\n{58}:{59}\n{60}:{61}\n{62}:{63}\n{64}:{65}\n{66}:{67}\n{68}:{69}", 
-		                     "FG", player.FG, "FGIn", player.FGIn, "FG3", player.FG3, "FG3In", player.FG3In, "ShotError", player.ShotError, 
-		                     "Fake", player.Fake, "BeFake", player.BeFake, "ReboundLaunch", player.ReboundLaunch, "Rebound", player.Rebound,   
-		                     "Pass", player.Pass, "StealLaunch", player.StealLaunch, "Steal", player.Steal, "BeSteal", player.BeSteal, 
-		                     "Intercept", player.Intercept, "BlockLaunch", player.BlockLaunch, "Block", player.Block, "BeBlock", player.BeBlock, "PushLaunch", player.PushLaunch, 
-		                     "Push", player.Push, "BePush", player.BePush, "ElbowLaunch", player.ElbowLaunch, "Elbow", player.Elbow, "BeElbow", player.BeElbow, 
-		                     "BeKnock", player.BeKnock, "AlleyoopLaunch", player.AlleyoopLaunch, "Alleyoop", player.Alleyoop, "TipinLaunch", player.TipinLaunch,  
-		                     "DunkLaunch", player.DunkLaunch, "Dunk", player.Dunk, "SaveBallLaunch", player.SaveBallLaunch, "SaveBall", player.SaveBall, "AngerAdd", player.AngerAdd, 
-		                     "Tipin", player.Tipin, "PassiveSkill", player.PassiveSkill, "Skill", player.Skill);
+	public void AddDetailString(ref TPlayerAttribute Attr, int index) {
+		if (index >= 0 && index < recordTextList.Length) {
+			recordTextList[index].Add("[FF0000]Attribute-------------[-]");
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "PointRate2", Attr.PointRate2));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "PointRate3", Attr.PointRate3));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "StealRate", Attr.StealRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "DunkRate", Attr.DunkRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "TipInRate", Attr.TipInRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "AlleyOopRate", Attr.AlleyOopRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "StrengthRate", Attr.StrengthRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "BlockPushRate", Attr.BlockPushRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "ElbowingRate", Attr.ElbowingRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "ReboundRate", Attr.ReboundRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "BlockRate", Attr.BlockRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "FaketBlockRate", Attr.FaketBlockRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "JumpBallRate", Attr.JumpBallRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "PushingRate", Attr.PushingRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "PassRate", Attr.PassRate));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "AlleyOopPassRate", Attr.AlleyOopPassRate));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "ReboundHeadDistance", Attr.ReboundHeadDistance));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "ReboundHandDistance", Attr.ReboundHandDistance));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "BlockDistance", Attr.BlockDistance));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "DefDistance", Attr.DefDistance));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "SpeedValue", Attr.SpeedValue));
+			recordTextList[index].Add(string.Format("[0BF9FF]{0}:{1}[-]", "StaminaValue", Attr.StaminaValue));
+			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "AutoFollowTime", Attr.AutoFollowTime));
+		}
 	}
 
 	private void setInfo(int index, ref TGameRecord record) {
@@ -211,30 +228,10 @@ public class UIGameResult : UIBase {
 				break;
 			}
 		}
-
-		/*string str = "";
-		if (record.PlayerRecords.Length > 0)
-			str = getInfoString(ref record.PlayerRecords[0]);
-
-		SetLabel(UIName + "Center/ViewResult/PlayerMe/LabelValue", str);
-
-		if (record.PlayerRecords.Length > 1)
-			str = getInfoString(ref record.PlayerRecords[1]);
-		else
-			str = "";
-
-		SetLabel(UIName + "Center/ViewResult/PlayerA/LabelValue", str);
-
-		if (record.PlayerRecords.Length > 2)
-			str = getInfoString(ref record.PlayerRecords[2]);
-		else
-			str = "";
-		
-		SetLabel(UIName + "Center/ViewResult/PlayerB/LabelValue", str);*/
 	} 
 
 	private void setDetail(ref TGameRecord record) {
-		for (int i = 0; i < recordTextList.Length; i ++)
+		for (int i = 0; i < recordTextList.Length; i ++) 
 			addDetailString(ref record.PlayerRecords[i], ref recordTextList[i]);
 	}
 

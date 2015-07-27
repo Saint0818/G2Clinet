@@ -1285,11 +1285,7 @@ public class GameController : KnightSingleton<GameController> {
                 CourtMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++) {
 					if(gs == EGameSituation.TeeAPicking || gs == EGameSituation.TeeBPicking) {
-						if (!PlayerList[i].AIing) {
-							PlayerList[i].HaveNoAiTime = true;							
-							PlayerList[i].SetAiTime();
-						}
-
+						PlayerList[i].SetToAI();
 						PlayerList[i].ResetMove();
 					}												
 
@@ -1400,10 +1396,16 @@ public class GameController : KnightSingleton<GameController> {
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self);
 				jodgeSkillUI ();
 
+				if (Joysticker && GameData.Setting.AIChangeTime > 100)
+					Joysticker.SetNoAI();
+
 				break;
 			case EGameSituation.AttackB:
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc);
 				jodgeSkillUI ();
+
+				if (Joysticker && GameData.Setting.AIChangeTime > 100)
+					Joysticker.SetNoAI();
 
 				break;
 			case EGameSituation.TeeAPicking:
@@ -1711,15 +1713,14 @@ public class GameController : KnightSingleton<GameController> {
 		extraScoreRate = rate;
 	}
 
-	public void Shoot()
-    {
-        if (BallOwner)
-        {
+	public bool Shoot() {
+        if (BallOwner) {
 			Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
 			shootDistance = getDis(ref BallOwner, new Vector2(v.x, v.z));
 
 			if(GameStart.Get.TestMode == EGameTest.Shoot) {
 				BallOwner.AniState(testState, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position);
+				return true;
 			} else 
 			if (!BallOwner.IsDunk) {
 				extraScoreRate = 0;
@@ -1727,24 +1728,27 @@ public class GameController : KnightSingleton<GameController> {
 				CourtMgr.Get.ResetBasketEntra();
 
 				int t = BallOwner.Team.GetHashCode();
-				if (GameStart.Get.TestMode == EGameTest.Dunk)
+				if (GameStart.Get.TestMode == EGameTest.Dunk) {
 					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [t].transform.position);
-				else 
+					return true;
+				} else 
 				if (BallOwner.IsRebound) {
-					if (inTipinDistance(BallOwner))
+					if (inTipinDistance(BallOwner)) {
 						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+						return true;
+					}
 				} else {
-					if(BallOwner.IsMoving){
-						if(shootDistance > 15)
+					if (BallOwner.IsMoving) {
+						if (shootDistance > 15)
 							DoPassiveSkill(ESkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						else 
-						if(shootDistance > 9 && shootDistance <= 15) {
+						if (shootDistance > 9 && shootDistance <= 15) {
 							if (Random.Range(0, 2) == 0)
 								DoPassiveSkill(ESkillSituation.Shoot2, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 							else
 								DoPassiveSkill(ESkillSituation.Shoot0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						} else 
-						if(shootDistance > 7 && shootDistance <= 9) {
+						if (shootDistance > 7 && shootDistance <= 9) {
 							float rate = Random.Range(0, 100);
 							if(rate < BallOwner.Attr.DunkRate)
 								DoPassiveSkill(ESkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
@@ -1758,7 +1762,7 @@ public class GameController : KnightSingleton<GameController> {
 								DoPassiveSkill(ESkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						}
 					} else {
-						if(shootDistance > 15)
+						if (shootDistance > 15)
 							DoPassiveSkill(ESkillSituation.Shoot3, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 						else 
 						if (shootDistance > 9 && shootDistance <= 15)
@@ -1766,9 +1770,13 @@ public class GameController : KnightSingleton<GameController> {
 						else
 							DoPassiveSkill(ESkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 					}
+
+					return true;
 				}
 			}
         }
+
+		return false;
 	}
         
     public bool OnShooting(PlayerBehaviour player)
@@ -1870,7 +1878,7 @@ public class GameController : KnightSingleton<GameController> {
             return false;
     }
 
-	public void DoShoot(bool isshoot)
+	public bool DoShoot(bool isshoot)
     {
 		if (IsStart && CandoBtn) {
 			if (UIDoubleClick.Visible) {
@@ -1889,33 +1897,38 @@ public class GameController : KnightSingleton<GameController> {
 			} else
             if (Joysticker == BallOwner) {
 				if (isshoot)
-					Shoot ();
+					return Shoot ();
 				else
-					Joysticker.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
-            } else 
-			if (BallOwner && BallOwner.Team == ETeamKind.Self) 
+					return Joysticker.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Joysticker.Team.GetHashCode()].transform.position);
+            } else //someone else shot
+			if (BallOwner && BallOwner.Team == ETeamKind.Self) {
 				Shoot();
-			else 
+			} else 
 			if (!Joysticker.IsRebound)
-				Rebound(Joysticker);
+				return Rebound(Joysticker);
         }
+
+		return false;
     }
 
-	public void DoPush()
+	public bool DoPush()
 	{
 		if (Joysticker) {
 			PlayerBehaviour nearP = FindNearNpc();
 			if(nearP)
-				DoPassiveSkill (ESkillSituation.Push0, Joysticker, nearP.transform.position);
+				return DoPassiveSkill (ESkillSituation.Push0, Joysticker, nearP.transform.position);
 			else
-				DoPassiveSkill (ESkillSituation.Push0, Joysticker);
-		}
+				return DoPassiveSkill (ESkillSituation.Push0, Joysticker);
+		} else
+			return false;
 	}
 
-	public void DoElbow()
+	public bool DoElbow()
 	{
 		if (Joysticker)
-			DoPassiveSkill (ESkillSituation.Elbow, Joysticker);
+			return DoPassiveSkill (ESkillSituation.Elbow, Joysticker);
+		else
+			return false;
 	}
 
 	public bool OnOnlyScore(PlayerBehaviour player) {
@@ -1974,7 +1987,7 @@ public class GameController : KnightSingleton<GameController> {
 		bool Result = false;
 		bool CanPass = true;
 
-		if(BallOwner && BallOwner.AIing) {
+		if(BallOwner) {
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
 					float angle = GameFunction.GetPlayerToObjectAngleByVector(BallOwner.gameObject.transform, player.gameObject.transform.position);
@@ -2149,25 +2162,22 @@ public class GameController : KnightSingleton<GameController> {
 		return false;
 	}
 
-	public int GetEnemyDis(ref PlayerBehaviour npc){
+	public int GetEnemyDis(ref PlayerBehaviour npc) {
 		float [] DisAy = new float[3];
 		int Index = 0;
-		for (int i = 0; i < PlayerList.Count; i++) 
-		{
-			if(PlayerList[i].Team != npc.Team)
-			{
+		for (int i = 0; i < PlayerList.Count; i++) {
+			if (PlayerList[i].Team != npc.Team) {
 				DisAy[Index] = Vector3.Distance(npc.transform.position, PlayerList[i].transform.position);
 				Index++;
 			}		
 		}
 
-		for(int i = 0; i < DisAy.Length; i++)
-		{
-			if(DisAy[i] > 0)
-			{
-				if(DisAy[i] <= GameConst.StealBallDistance)
+		for (int i = 0; i < DisAy.Length; i++) {
+			if (DisAy[i] > 0) {
+				if (DisAy[i] <= GameConst.StealBallDistance)
 					return 2;
-				else if(DisAy[i] <= GameConst.DefDistance)
+				else 
+				if (DisAy[i] <= GameConst.DefDistance)
 					return 1;
 			}
 		}
@@ -2176,11 +2186,9 @@ public class GameController : KnightSingleton<GameController> {
 	}
     
     public bool DoPass(int playerid) {
-		if (IsStart && BallOwner && (!Shooter || IsCanPassAir) && Joysticker && BallOwner.Team == 0 && CandoBtn) {
-            if (PlayerList.Count > 1) {
-				//BallOwner.SetAiTime();
-                return Pass(PlayerList [playerid], false, true);
-            }
+		if (IsStart && BallOwner && Joysticker && BallOwner.Team == 0 && CandoBtn && 
+		    playerid < PlayerList.Count && (!Shooter || IsCanPassAir)) {
+        	return Pass(PlayerList [playerid], false, true);
         }
 
 		return false;
@@ -2243,16 +2251,17 @@ public class GameController : KnightSingleton<GameController> {
 			return false;
 	}
 
-    public void DoSteal()
+    public bool DoSteal()
     {
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn) {
 			StealBtnLiftTime = 1f;
             if (BallOwner && BallOwner.Team != Joysticker.Team) {
 				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
-				DoPassiveSkill(ESkillSituation.Steal0, Joysticker, BallOwner.transform.position);
+				return DoPassiveSkill(ESkillSituation.Steal0, Joysticker, BallOwner.transform.position);
             } else
-				DoPassiveSkill(ESkillSituation.Steal0, Joysticker);
-        }
+				return DoPassiveSkill(ESkillSituation.Steal0, Joysticker);
+        } else
+			return false;
     }
 
     private void Block(PlayerBehaviour player)
@@ -2407,62 +2416,31 @@ public class GameController : KnightSingleton<GameController> {
         return false;
     }
 
-//    public bool OnBlocking(PlayerBehaviour player)
-//    {
-//        int blockRate = UnityEngine.Random.Range(0, 100);
-//        if (blockRate < 30)
-//        {
-//            if (!BallOwner)
-//            {
-//                float dis = Vector3.Distance(player.transform.position, SceneMgr.Get.RealBall.transform.position);
-//                if (dis <= 4)
-//                {
-//                    SceneMgr.Get.SetBallState(EPlayerState.Block);
-//                    return true;
-//                }
-//            } else 
-//            if (BallOwner.CheckAnimatorSate(EPlayerState.Shooting))
-//            {
-//                float dis = Vector3.Distance(player.transform.position, BallOwner.transform.position);
-//                if (dis <= 4)
-//                {
-//                    for (int i = 0; i < PlayerList.Count; i++)
-//                        if (PlayerList [i].Team == BallOwner.Team)
-//                            PlayerList [i].ResetMove();
-//
-//                    SetBall(null);
-//                    SceneMgr.Get.SetBallState(EPlayerState.Block);
-//                    return true;
-//                }
-//            }
-//        }
-//
-//        return false;
-//    }
-
-    public void DoBlock()
-    {
-		if (IsStart && CandoBtn)
-		{
-			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch){
+    public bool DoBlock() {
+		if (IsStart && CandoBtn && Joysticker) {
+			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch) {
 				Joysticker.AniState(EPlayerState.BlockCatch);
 				if(UIDoubleClick.Visible)
 					UIDoubleClick.Get.ClickStop();
-			}else{
+
+				return true;
+			} else {
 				if (Shooter)
-					DoPassiveSkill(ESkillSituation.Block, Joysticker, Shooter.transform.position);
+					return DoPassiveSkill(ESkillSituation.Block, Joysticker, Shooter.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-					DoPassiveSkill(ESkillSituation.Block, Joysticker, BallOwner.transform.position);
+					return DoPassiveSkill(ESkillSituation.Block, Joysticker, BallOwner.transform.position);
 				} else {
-				if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == EGameTest.None)
-					Rebound(Joysticker);
-				else
-					DoPassiveSkill(ESkillSituation.Block, Joysticker);
+					if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == EGameTest.None)
+						return Rebound(Joysticker);
+					else
+						return DoPassiveSkill(ESkillSituation.Block, Joysticker);
 				}
 			}
-        }           
+        }
+
+		return false;
     }
 
 	private bool inReboundDistance(PlayerBehaviour player) {
@@ -2476,19 +2454,9 @@ public class GameController : KnightSingleton<GameController> {
 		            						CourtMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.z)) <= 6;
 	}
 
-    private void Rebound(PlayerBehaviour player)
+    private bool Rebound(PlayerBehaviour player)
     {
-		/*bool flag = true;
-		for (int i = 0; i < PlayerList.Count; i ++)
-		if (player.Index != i && PlayerList[i].Team == player.Team && player.IsRebound) {
-			flag = false;
-			break;
-		}
-
-		if (flag) {*/
-//			player.AniState(EPlayerState.Rebound, CourtMgr.Get.RealBall.transform.position);
-			DoPassiveSkill(ESkillSituation.Rebound, player, CourtMgr.Get.RealBall.transform.position);
-		//}
+		return DoPassiveSkill(ESkillSituation.Rebound, player, CourtMgr.Get.RealBall.transform.position);
 	}
 	
 	public bool OnRebound(PlayerBehaviour player)
@@ -2498,10 +2466,9 @@ public class GameController : KnightSingleton<GameController> {
     
     public bool OnSkill() {
 		if (CandoBtn && DoSkill(Joysticker)) {
-			Joysticker.SetNoAiTime();
 			return true;
-		}
-		return false;
+		} else
+			return false;
     }
 
 	private bool DoSkill(PlayerBehaviour player) {
@@ -2770,7 +2737,8 @@ public class GameController : KnightSingleton<GameController> {
 							//Crossover     
 							if(player.Team == ETeamKind.Self && player.transform.position.z >= 9.5)
 								return Result;
-							else if(player.Team == ETeamKind.Npc && player.transform.position.z <= -9.5)
+							else 
+							if(player.Team == ETeamKind.Npc && player.transform.position.z <= -9.5)
 								return Result;
 							
 							int AddZ = 6;
@@ -2857,6 +2825,7 @@ public class GameController : KnightSingleton<GameController> {
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
+
 				break;
 			case ESkillSituation.Pass2:
 				skillKind = ESkillKind.Pass;
@@ -2865,6 +2834,7 @@ public class GameController : KnightSingleton<GameController> {
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
+
 				break;
 			case ESkillSituation.Pass1:
 				skillKind = ESkillKind.Pass;
@@ -2873,6 +2843,7 @@ public class GameController : KnightSingleton<GameController> {
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
+
 				break;
 			case ESkillSituation.Push0:
 				skillKind = ESkillKind.Push;
@@ -2881,29 +2852,31 @@ public class GameController : KnightSingleton<GameController> {
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
+
 				break;
 			case ESkillSituation.Rebound:
 				skillKind = ESkillKind.Rebound;
 				playerState = player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
 				Result = player.AniState (playerState);
+
 				break;
 			case ESkillSituation.Steal0:	
 				skillKind = ESkillKind.Steal;
 				playerState = player.PassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
 				Result = player.AniState(playerState, v);
+
 				break;
 			case ESkillSituation.PickBall0:
 				skillKind = ESkillKind.Pick2;
 				playerState = player.PassiveSkill(ESkillSituation.PickBall0, ESkillKind.Pick2);
 				Result = player.AniState(playerState, v);
+
 				break;
 			}	
 		}
 		try {
-//			Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "  PlayerState: "+playerState.ToString() );
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-//					Debug.Log("Player : "+ player.name +"   ESkillSituation State : "+ State.ToString() + "   PassiveID:"+ player.PassiveID + "   EffectID:"+ GameData.SkillData[player.PassiveID].Effect);
 					OnShowEffect(player);
 					player.GameRecord.PassiveSkill++;
 				}
@@ -3523,16 +3496,7 @@ public class GameController : KnightSingleton<GameController> {
 			if (BallOwner && BallOwner.DefPlayer)
 				BallOwner.DefPlayer.SetAutoFollowTime();
 
-			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
-				for (int i = 0; i < PlayerList.Count; i++) {
-					if(PlayerList[i].HaveNoAiTime) {
-						PlayerList[i].HaveNoAiTime = false;
-						PlayerList[i].SetNoAiTime();
-					}
-				}
-			}
-
-        	UIGame.Get.ChangeControl(p.Team == ETeamKind.Self);
+			UIGame.Get.ChangeControl(p.Team == ETeamKind.Self);
 			UIGame.Get.SetPassButton();
 			CourtMgr.Get.SetBallState(EPlayerState.HoldBall, p);
 
@@ -3862,7 +3826,13 @@ public class GameController : KnightSingleton<GameController> {
 	IEnumerator playFinish() {
 		yield return new WaitForSeconds(2);
 
+		SetGameRecordToUI();
+	}
+
+	public void SetGameRecordToUI() {
 		UIGameResult.Get.SetGameRecord(ref GameRecord);
+		for (int i = 0; i < PlayerList.Count; i ++)
+			UIGameResult.Get.AddDetailString(ref PlayerList[i].Attr, i);
 	}
 
     private void gameResult(int team)
@@ -4182,6 +4152,11 @@ public class GameController : KnightSingleton<GameController> {
 		IsStart = false;
 		SetBallOwnerNull ();
 
+		if (GameData.Setting.AIChangeTime > 100)
+			Joysticker.SetNoAI();
+		else
+			Joysticker.SetToAI();
+
 		CourtMgr.Get.SetBallState (EPlayerState.Reset);
 
 		for (int i = 0; i < PlayerList.Count; i++) 
@@ -4227,9 +4202,11 @@ public class GameController : KnightSingleton<GameController> {
     }
 
 	public void SetPlayerLevel(){
-		PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
+		GameData.Setting.AIChangeTime = PlayerPrefs.GetFloat(SettingText.AITime, 1);
 		if (GameData.Setting.AIChangeTime > 100)
-			Joysticker.SetNoAiTime();
+			Joysticker.SetNoAI();
+		else
+			Joysticker.SetToAI();
 
 		for (int i = 0; i < PlayerList.Count; i++) {
 			if (PlayerList[i].Team == ETeamKind.Npc)

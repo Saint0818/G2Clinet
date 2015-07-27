@@ -181,10 +181,11 @@ public class UIGame : UIBase {
 			if(shootBtnTime <= 0){
 				isPressShootBtn = false;
 				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
-					GameController.Get.DoShoot(true);
-					GameController.Get.Joysticker.SetNoAiTime();
-					spriteAttack.gameObject.SetActive(false);
-					ShowSkillUI(false);
+					if (GameController.Get.DoShoot(true)) {
+						GameController.Get.Joysticker.SetNoAI();
+						spriteAttack.gameObject.SetActive(false);
+						ShowSkillUI(false);
+					}
 
 					if(GameController.Get.IsCanPassAir) {
 						SetPassButton();
@@ -380,6 +381,7 @@ public class UIGame : UIBase {
 			time = 999999;
 		}
 		GameData.Setting.AIChangeTime = time;
+
 	}
 	
 	public void DoAttack(){
@@ -624,9 +626,6 @@ public class UIGame : UIBase {
 
 	public bool OpenUIMask(PlayerBehaviour p = null){
 		if(p == GameController.Get.Joysticker) {
-			if(p.AIing)
-				p.SetNoAiTime();
-
 			if (GameController.Get.IsStart) { 
 				ShowAlleyoop(false);
 				
@@ -808,123 +807,133 @@ public class UIGame : UIBase {
 	}
 
 	public void UIControllerState (EUIControl controllerState, GameObject go = null, bool state = false) {
-
 		if (GameController.Get.IsShowSituation)
 			return;
+			
+		if (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) {
+			bool noAI = false;
+			switch(controllerState) {
+			case EUIControl.Skill:
+				noAI = GameController.Get.OnSkill();
+				if (noAI)
+					UIMaskState(EUIControl.Skill);
+					
+				break;
 
-		switch(controllerState) {
-		case EUIControl.Skill:
-			if(GameController.Get.OnSkill()) {
-				UIMaskState(EUIControl.Skill);
-			}
-			break;
-
-		case EUIControl.Attack:
-			if(GameController.Get.Joysticker.IsBallOwner) {
-				//Elbow
-				if(isPressElbowBtn && 
-				   !GameController.Get.Joysticker.IsFall && 
-				   GameController.Get.Situation == EGameSituation.AttackA &&
-				   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
-					UIMaskState(EUIControl.Attack);
-					GameController.Get.DoElbow ();
-					GameController.Get.Joysticker.SetNoAiTime();
+			case EUIControl.Attack:
+				if(GameController.Get.Joysticker.IsBallOwner) {
+					//Elbow
+					if(isPressElbowBtn && 
+					   !GameController.Get.Joysticker.IsFall && 
+					   GameController.Get.Situation == EGameSituation.AttackA &&
+					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
+						UIMaskState(EUIControl.Attack);
+						noAI = GameController.Get.DoElbow ();
+					}
+				} else {
+					//Push
+					if(isCanDefenceBtnPress && 
+					   !GameController.Get.Joysticker.IsFall &&
+					   (GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.AttackA) &&
+					    GameController.Get.Joysticker.CanUseState(EPlayerState.Push0)) {
+						UIMaskState(EUIControl.Attack);
+						noAI = GameController.Get.DoPush();
+					}
 				}
-			} else {
-				//Push
+
+				break;
+			case EUIControl.Block:
+				if(isCanDefenceBtnPress && 
+				   !GameController.Get.Joysticker.IsFall && 
+				   GameController.Get.Situation == EGameSituation.AttackB){
+					UIMaskState(EUIControl.Block);
+					noAI = GameController.Get.DoBlock();
+				}
+
+				break;
+			case EUIControl.Steal:
 				if(isCanDefenceBtnPress && 
 				   !GameController.Get.Joysticker.IsFall &&
-				   (GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.AttackA) &&
-				   GameController.Get.Joysticker.CanUseState(EPlayerState.Push0)) {
-					UIMaskState(EUIControl.Attack);
-					GameController.Get.DoPush();
-					GameController.Get.Joysticker.SetNoAiTime();
+				   GameController.Get.Situation == EGameSituation.AttackB && 
+				   GameController.Get.StealBtnLiftTime <= 0 && 
+				   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal0)) {
+					UIMaskState(EUIControl.Steal);
+					noAI = GameController.Get.DoSteal();
 				}
-			}
-			break;
-		case EUIControl.Block:
-			if(isCanDefenceBtnPress && 
-			   !GameController.Get.Joysticker.IsFall && 
-			   GameController.Get.Situation == EGameSituation.AttackB){
-				UIMaskState(EUIControl.Block);
-				GameController.Get.DoBlock();
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
-			break;
-		case EUIControl.Steal:
-			if(isCanDefenceBtnPress && 
-			   !GameController.Get.Joysticker.IsFall &&
-			   GameController.Get.Situation == EGameSituation.AttackB && 
-			   GameController.Get.StealBtnLiftTime <= 0 && 
-			   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal0)) {
-				UIMaskState(EUIControl.Steal);
-				GameController.Get.DoSteal();
-				GameController.Get.Joysticker.SetNoAiTime();
-			}
-			break;
-		case EUIControl.Shoot:
-			if(GameController.Get.IsShooting) {
-				if(state && UIDoubleClick.Visible){
-					UIDoubleClick.Get.ClickStop ();
-				}
-			} else {
-				if(GameController.Get.Joysticker.IsBallOwner &&
-				   GameController.Get.Situation == EGameSituation.AttackA && 
-				   !GameController.Get.Joysticker.IsFall && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
-				   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block)
-				   ) {
-					if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) {
-						isShootAvailable = false;
+				break;
+			case EUIControl.Shoot:
+				if(GameController.Get.IsShooting) {
+					if(state && UIDoubleClick.Visible){
+						UIDoubleClick.Get.ClickStop ();
 					}
-					if(state)
-						UIEffectState(EUIControl.Shoot);
-					else 
-					if(!state && shootBtnTime > 0 && isShootAvailable){
-						if(GameController.Get.BallOwner != null) {
-							if(GameController.Get.Joysticker.IsBallOwner) {
-								UIMaskState(EUIControl.Shoot);
-							}
-							shootBtnTime = ButtonBTime;
+				} else {
+					if(GameController.Get.Joysticker.IsBallOwner &&
+					   GameController.Get.Situation == EGameSituation.AttackA && 
+					   !GameController.Get.Joysticker.IsFall && 
+					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
+					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
+					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block)
+					   ) {
+						if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) {
+							isShootAvailable = false;
 						}
-						GameController.Get.DoShoot (false);
-						GameController.Get.Joysticker.SetNoAiTime();
-					}else
-					if(!state && !isShootAvailable) {
-						isShootAvailable = true;
+
+						if (state)
+							UIEffectState(EUIControl.Shoot);
+						else 
+						if (!state && shootBtnTime > 0 && isShootAvailable){
+							if(GameController.Get.BallOwner != null) {
+								if(GameController.Get.Joysticker.IsBallOwner) {
+									UIMaskState(EUIControl.Shoot);
+								}
+
+								shootBtnTime = ButtonBTime;
+							}
+
+							noAI = GameController.Get.DoShoot (false);
+						} else
+						if (!state && !isShootAvailable) {
+							isShootAvailable = true;
+						}
+						
+						isPressShootBtn = state;
+					} else 
+					if (!GameController.Get.Joysticker.IsBallOwner)
+						noAI = GameController.Get.DoShoot(true);
+				}
+
+				break;
+			case EUIControl.Pass:
+				if(!GameController.Get.Joysticker.IsBallOwner) {
+					UIMaskState(EUIControl.Pass);
+					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(0)){
+						noAI = true;
 					}
-					
-					isPressShootBtn = state;
-				} else 
-					if(!GameController.Get.Joysticker.IsBallOwner)
-						GameController.Get.DoShoot(true);
-			}
-			break;
-		case EUIControl.Pass:
-			if(!GameController.Get.Joysticker.IsBallOwner) {
-				UIMaskState(EUIControl.Pass);
-				if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(0)){
-					GameController.Get.Joysticker.SetNoAiTime();
 				}
-			}
-			break;
-		case EUIControl.PassA:
-			if(GameController.Get.GetBallOwner != 1) {
-				UIMaskState(EUIControl.PassA);
-				if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1)){
-					GameController.Get.Joysticker.SetNoAiTime();
+
+				break;
+			case EUIControl.PassA:
+				if(GameController.Get.GetBallOwner != 1) {
+					UIMaskState(EUIControl.PassA);
+					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1)){
+
+					}
 				}
-			}
-			break;
-		case EUIControl.PassB:
-			if(GameController.Get.GetBallOwner != 2) {
-				UIMaskState(EUIControl.PassB);
-				if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2)){
-					GameController.Get.Joysticker.SetNoAiTime();
+
+				break;
+			case EUIControl.PassB:
+				if(GameController.Get.GetBallOwner != 2) {
+					UIMaskState(EUIControl.PassB);
+					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2)){
+
+					}
 				}
+
+				break;
 			}
-			break;
+
+			if (noAI)
+				GameController.Get.Joysticker.SetNoAI();
 		}
 	}
 
@@ -985,7 +994,7 @@ public class UIGame : UIBase {
 				uiJoystick.gameObject.SetActive(false);
 
 				GameController.Get.SetGameRecord(false);
-				UIGameResult.Get.SetGameRecord(ref GameController.Get.GameRecord);
+				GameController.Get.SetGameRecordToUI();
 			}
 			break;
 		case EUISituation.Continue:
@@ -1078,11 +1087,15 @@ public class UIGame : UIBase {
 			musicGroup[1].SetActive(!isMusicOn);
 			break;
 		case EUISituation.AITimeChange:
-			GameController.Get.Joysticker.SetNoAiTime();
+			GameController.Get.Joysticker.SetNoAI();
 			UIGameResult.UIShow(viewAISelect.gameObject.activeInHierarchy);
-			if(UIGameResult.Visible)
-				UIGameResult.Get.SetGameRecord(ref GameController.Get.GameRecord);
+			if(UIGameResult.Visible) {
+				GameController.Get.SetGameRecordToUI();
+			}
+
 			viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
+			PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
+
 			break;
 		}
 		AudioMgr.Get.PauseGame();
