@@ -906,9 +906,7 @@
         "skill3": 412,
         "skilllv3": 2,
         "skill4": 413,
-        "skilllv4": 2,
-        "skill5": 1100,
-        "skilllv5": 3
+        "skilllv4": 2
     },
     {
         "id": 25,
@@ -1100,9 +1098,7 @@
         "skill5": 511,
         "skilllv5": 2,
         "skill6": 1911,
-        "skilllv6": 2,
-        "skill7": 1100,
-        "skilllv7": 3
+        "skilllv6": 2
     },
     {
         "id": 30,
@@ -1260,9 +1256,7 @@
         "skill2": 613,
         "skilllv2": 2,
         "skill3": 615,
-        "skilllv3": 2,
-        "skill4": 1100,
-        "skilllv4": 3
+        "skilllv3": 2
     },
     {
         "id": 35,
@@ -1434,8 +1428,6 @@
         "skill3": 615,
         "skilllv3": 2,
         "skill4": 1911,
-        "skilllv4": 2,
-        "skill5": 1100,
-        "skilllv5": 3
+        "skilllv4": 2
     }
 ]
