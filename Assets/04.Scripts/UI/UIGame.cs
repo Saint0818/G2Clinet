@@ -1033,6 +1033,7 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
 			uiSkill.SetActive(false);
+			uiPlayerLocation.SetActive(false);
 
 			ChangeControl(true);
 			SetPassButton();

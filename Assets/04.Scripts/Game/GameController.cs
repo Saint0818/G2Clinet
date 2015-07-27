@@ -2536,19 +2536,20 @@ public class GameController : KnightSingleton<GameController> {
 					case 21://buffer
 							switch (skill.TargetKind) {
 							case 0:
+							case 1:
+							case 10:
 								player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 								                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
-							EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (player.Attribute.BodyType * 0.5f)), 0), player.gameObject, null, 0.5f);
-
+								
+								OnShowEffect(player, false);
 								break;
 							case 3:
 								for (int i = 0; i < PlayerList.Count; i++) {
 									if (PlayerList[i].Team == player.Team) {
 										if(CheckSkill(player, PlayerList[i].gameObject)) {
 											PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
-											                                skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
-										
-											EffectManager.Get.PlayEffect("SkillSign", new Vector3(0, (4 - (PlayerList[i].Attribute.BodyType * 0.5f)), 0), PlayerList[i].gameObject, null, 0.5f);
+										                                skill.Value(PlayerList[i].Attribute.ActiveSkill.Lv), skill.LifeTime(PlayerList[i].Attribute.ActiveSkill.Lv));
+											OnShowEffect(PlayerList[i], false);
 										}
 									}
 								}
@@ -2593,6 +2594,9 @@ public class GameController : KnightSingleton<GameController> {
 							objs.Add(PlayerList[i].gameObject);
 						}
 					}
+					break;
+				case 10:
+					objs.Add(CourtMgr.Get.RealBall);
 					break;
 				}
 				activeSkillTargets.Add(key , objs);
@@ -2649,23 +2653,29 @@ public class GameController : KnightSingleton<GameController> {
 		return false;
 	}
 	
-	public void OnShowEffect (PlayerBehaviour player = null) {
+	public void OnShowEffect (PlayerBehaviour player = null, bool isPassiveID = true) {
 		GameObject obj = null;
+		int skillID = 0;
 		if(player != null)
 			obj = getPassiveSkillTarget(player);
 		if(obj){
-			if(player.PassiveID != -1) {
-				if(GameData.SkillData[player.PassiveID].TargetEffect1 != 0) {
-					GameObject parent = null;
-					if(GameData.SkillData[player.PassiveID].EffectParent1 == 1) {
-						parent = obj;
-					}
-					EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[player.PassiveID].TargetEffect1, 
-					                             Vector3.zero,
-					                             parent,
-					                             null,
-					                             GameData.SkillData[player.PassiveID].Duration1);
+			if(isPassiveID) {
+				if(player.PassiveID != -1) 
+					skillID = player.PassiveID;
+			} else {
+				if(player.Attribute.ActiveSkill.ID != 0)
+					skillID = player.Attribute.ActiveSkill.ID;
+			}
+			if(skillID != 0) {
+				GameObject parent = null;
+				if(GameData.SkillData[skillID].EffectParent1 == 1) {
+					parent = obj;
 				}
+				EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1, 
+				                             Vector3.zero,
+				                             parent,
+				                             null,
+				                             GameData.SkillData[skillID].Duration1);
 			}
 		}
 	}
