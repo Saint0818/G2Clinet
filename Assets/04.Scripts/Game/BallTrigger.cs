@@ -257,7 +257,6 @@ public class BallTrigger : MonoBehaviour
 					}
 				}
 
-
 				switch(PassKind)
 				{
 					case 0:

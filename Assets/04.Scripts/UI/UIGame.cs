@@ -617,6 +617,7 @@ public class UIGame : UIBase {
 	public bool AddForceValue(){
 		dcLifeTime = 0.1f;
 		uiDC.SetActive(true);
+		AudioMgr.Get.PlaySound(SoundType.SD_CatchMorale);
 
 //		if(oldForceValue <= newForceValue) {
 			oldForceValue += baseForceValue;

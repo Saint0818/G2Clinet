@@ -391,6 +391,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 		for (int i = 0; i < pveBasketAy.Length; i++) {
 			if (!pveBasketAy[i].GetComponent<Timeline>()){
+				if(!pveBasketAy[i].gameObject.GetComponent<SelectEvent>())
+					pveBasketAy[i].gameObject.AddComponent<SelectEvent>();
 				Timeline timer = pveBasketAy[i].AddComponent<Timeline> ();
 				timer.mode = TimelineMode.Global;
 				timer.globalClockKey = ETimerKind.Default.ToString();

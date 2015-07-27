@@ -10,7 +10,8 @@ public enum SoundType
 	SD_Net,
 	SD_GameEnd,
 	SD_dribble,
-	SD_CatchBall
+	SD_CatchBall,
+	SD_CatchMorale
 }
 
 public enum EMusicType
