@@ -149,15 +149,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .255767494
-        functionName: PlaySound
-        data: SD_dribble
-        objectReferenceParameter: {fileID: 8300000, guid: 4005475ec70d0c84387dbf53d04fc4b8,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1
