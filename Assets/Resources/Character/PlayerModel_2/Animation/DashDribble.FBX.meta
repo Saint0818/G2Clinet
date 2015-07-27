@@ -149,6 +149,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
+<<<<<<< HEAD
       events:
       - time: .361479014
         functionName: PlaySound
@@ -158,6 +159,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+=======
+      events: []
+>>>>>>> origin/master
       transformMask:
       - path: 
         weight: 1

@@ -161,8 +161,10 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if(isPressA && isPressB)
+		if(isPressA && isPressB) {
 			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
+			AddAllForce();
+		}
 
 		if(uiDC != null && uiDC.activeInHierarchy) {
 			if(dcLifeTime > 0) {
@@ -515,9 +517,14 @@ public class UIGame : UIBase {
 			newForceValue = anger / max;
 			baseForceValue = (newForceValue - oldForceValue) / 5;
 			spriteForceFirst.fillAmount = newForceValue;
-			if (newForceValue >= 1){
+			if (newForceValue >= 1) {
 				spriteSkill.color = new Color32(255, 255, 255, 255);
 				uiSpriteFull.SetActive (true);
+			} else if (newForceValue <=0 ) {
+				oldForceValue = 0;
+				newForceValue = 0;
+				spriteForce.fillAmount = 0;
+				spriteForceFirst.fillAmount = 0;
 			}
 		} else
 			spriteSkill.color = new Color32(69, 69, 69, 255);
@@ -578,6 +585,13 @@ public class UIGame : UIBase {
 			UIMaskState(EUIControl.AttackA);
 		else 
 			UIMaskState(EUIControl.AttackB);
+	}
+	/// <summary>
+	/// For GoldFinger
+	/// </summary>
+	public void AddAllForce (){
+		spriteForce.fillAmount = 1;
+		spriteForceFirst.fillAmount = 1;
 	}
 	
 	public bool AddForceValue(){
@@ -800,8 +814,9 @@ public class UIGame : UIBase {
 
 		switch(controllerState) {
 		case EUIControl.Skill:
-			UIMaskState(EUIControl.Skill);
-			GameController.Get.OnSkill();
+			if(GameController.Get.OnSkill()) {
+				UIMaskState(EUIControl.Skill);
+			}
 			break;
 
 		case EUIControl.Attack:

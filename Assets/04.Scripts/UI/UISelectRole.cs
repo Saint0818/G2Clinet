@@ -294,6 +294,9 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoPlayerAnimator(GameObject obj){
+		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
+		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
+		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 //		if(roleFallTime == 0 && uiSelect.activeInHierarchy) {
 //			int ranAnimation = UnityEngine.Random.Range(0,9);
 //			if(ranAnimation == 0)
