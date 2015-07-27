@@ -4179,6 +4179,7 @@ public class GameController : KnightSingleton<GameController> {
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
+			PlayerList [i].SetAnger (-100);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{
@@ -4210,7 +4211,6 @@ public class GameController : KnightSingleton<GameController> {
 				PlayerList[i].transform.localEulerAngles = Vector3.zero;
 		}
 
-		Joysticker.SetAnger (-100);
 		Situation = EGameSituation.ShowOne;
 		ChangeSituation (EGameSituation.ShowOne);
 		setPassIcon(false);
