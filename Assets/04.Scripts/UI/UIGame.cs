@@ -845,8 +845,9 @@ public class UIGame : UIBase {
 					   !GameController.Get.Joysticker.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackA &&
 					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
-						UIMaskState(EUIControl.Attack);
 						noAI = GameController.Get.DoElbow ();
+						if(noAI)
+							UIMaskState(EUIControl.Attack);
 					}
 				} else {
 					//Push
@@ -854,8 +855,9 @@ public class UIGame : UIBase {
 					   !GameController.Get.Joysticker.IsFall &&
 					   (GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.AttackA) &&
 					    GameController.Get.Joysticker.CanUseState(EPlayerState.Push0)) {
-						UIMaskState(EUIControl.Attack);
 						noAI = GameController.Get.DoPush();
+						if(noAI)
+							UIMaskState(EUIControl.Attack);
 					}
 				}
 
@@ -864,8 +866,9 @@ public class UIGame : UIBase {
 				if(isCanDefenceBtnPress && 
 				   !GameController.Get.Joysticker.IsFall && 
 				   GameController.Get.Situation == EGameSituation.AttackB){
-					UIMaskState(EUIControl.Block);
 					noAI = GameController.Get.DoBlock();
+					if(noAI)
+						UIMaskState(EUIControl.Block);
 				}
 
 				break;
@@ -875,8 +878,9 @@ public class UIGame : UIBase {
 				   GameController.Get.Situation == EGameSituation.AttackB && 
 				   GameController.Get.StealBtnLiftTime <= 0 && 
 				   GameController.Get.Joysticker.CanUseState(EPlayerState.Steal0)) {
-					UIMaskState(EUIControl.Steal);
 					noAI = GameController.Get.DoSteal();
+					if(noAI)
+						UIMaskState(EUIControl.Steal);
 				}
 				break;
 			case EUIControl.Shoot:
@@ -923,8 +927,8 @@ public class UIGame : UIBase {
 				break;
 			case EUIControl.Pass:
 				if(!GameController.Get.Joysticker.IsBallOwner) {
-					UIMaskState(EUIControl.Pass);
 					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(0)){
+						UIMaskState(EUIControl.Pass);
 						noAI = true;
 					}
 				}
@@ -932,18 +936,16 @@ public class UIGame : UIBase {
 				break;
 			case EUIControl.PassA:
 				if(GameController.Get.GetBallOwner != 1) {
-					UIMaskState(EUIControl.PassA);
 					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(1)){
-
+						UIMaskState(EUIControl.PassA);
 					}
 				}
 
 				break;
 			case EUIControl.PassB:
 				if(GameController.Get.GetBallOwner != 2) {
-					UIMaskState(EUIControl.PassB);
 					if((!GameController.Get.IsShooting || GameController.Get.IsCanPassAir) && GameController.Get.DoPass(2)){
-
+						UIMaskState(EUIControl.PassB);
 					}
 				}
 
