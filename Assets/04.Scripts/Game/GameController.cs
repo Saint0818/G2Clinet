@@ -2594,7 +2594,9 @@ public class GameController : KnightSingleton<GameController> {
 					}
 					break;
 				}
-				activeSkillTargets.Add(key , objs);
+
+				if(!activeSkillTargets.ContainsKey(key))
+					activeSkillTargets.Add(key , objs);
 				return activeSkillTargets[key];
 			}
 
