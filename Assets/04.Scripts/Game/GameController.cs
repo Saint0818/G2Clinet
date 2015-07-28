@@ -2651,7 +2651,7 @@ public class GameController : KnightSingleton<GameController> {
 						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
 				}
 			} else {
-				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+				if (target && GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
 						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
