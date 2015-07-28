@@ -2645,27 +2645,19 @@ public class GameController : KnightSingleton<GameController> {
 		int skillID = 0;
 		if(player != null) {
 			if(isPassiveID) {
-				if (GameData.SkillData.ContainsKey(player.PassiveID)) 
+				if (GameData.SkillData.ContainsKey(player.PassiveID)) {
 					if(GameData.SkillData[player.PassiveID].TargetKind1 != 0)
-						obj = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind1);
-			} else {
-				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) 
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
-						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1);
-			}
-		}
-		
-		if(target !=null) {
-			if(player.Index == target.Index)
-				return;
-			if(isPassiveID) {
-				if (GameData.SkillData.ContainsKey(player.PassiveID))
+						obj = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind1, target);
 					if(GameData.SkillData[player.PassiveID].TargetKind2 != 0)
-						obj2 = getPassiveSkillTarget(target, GameData.SkillData[player.PassiveID].TargetKind2, target);
+						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
+				}
 			} else {
-				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) 
+				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-						obj2 = getPassiveSkillTarget(target, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+				}
 			}
 		}
 		
