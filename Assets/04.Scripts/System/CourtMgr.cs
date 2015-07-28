@@ -410,6 +410,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		
 		BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
 		BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
+		BasketHoopAnimator[0].gameObject.AddComponent<SelectEvent> ();
+		BasketHoopAnimator[1].gameObject.AddComponent<SelectEvent> ();
 		
 		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
 		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
