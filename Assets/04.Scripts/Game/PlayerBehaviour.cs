@@ -1882,7 +1882,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case EPlayerState.Buff20:
 			case EPlayerState.Buff21:
-				if(CanMove)
+				if(CanMove && !IsBuff)
 					return true;
 				break;
 
@@ -1968,6 +1968,7 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 				}
 				ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
 				AnimatorControl.SetTrigger("BuffTrigger");
 				break;
 			
@@ -2285,6 +2286,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 				ClearAnimatorFlag();
 				playerPushCurve = null;
+				
 				curveName = string.Format("Push{0}", stateNo);
 				for (int i = 0; i < aniCurve.Push.Length; i++)
 					if (aniCurve.Push [i].Name == curveName)
@@ -2294,6 +2296,7 @@ public class PlayerBehaviour : MonoBehaviour
                         isPush = true;
 						isFindCurve = true;
                     }
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("PushTrigger");
 				GameRecord.PushLaunch++;
                 Result = true;
@@ -2312,7 +2315,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
 				curveName = "PickBall2";
 
-                for (int i = 0; i < aniCurve.Push.Length; i++)
+                for (int i = 0; i < aniCurve.PickBall.Length; i++)
 					if (aniCurve.PickBall [i].Name == curveName)
                     {
                         playerPickCurve = aniCurve.PickBall [i];
@@ -2365,6 +2368,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			PlayerRigidbody.mass = 5;
 			ClearAnimatorFlag();
+			AnimatorControl.SetInteger("StateNo", stateNo);
 			AnimatorControl.SetTrigger("StealTrigger");
 			isCanCatchBall = false;
 				GameRecord.StealLaunch++;
@@ -3165,6 +3169,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get { return StateChecker.ShootStates.ContainsKey(crtState); }
     }
+
+	public bool IsBuff
+	{
+		get { return crtState == EPlayerState.Buff20 || crtState == EPlayerState.Buff21;}
+	}
 
 	public bool IsAllShoot
 	{
