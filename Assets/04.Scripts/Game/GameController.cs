@@ -2503,10 +2503,8 @@ public class GameController : KnightSingleton<GameController> {
 						isFirstScore = true;
 						break;
 					case 15://steal
-						
-						break;
 					case 17://push
-						
+						onShowEffect(player, null, false);
 						break;
 					case 21://buffer
 							switch (skill.TargetKind) {
@@ -2516,15 +2514,15 @@ public class GameController : KnightSingleton<GameController> {
 								player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 								                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 								
-								OnShowEffect(player, false);
+									onShowEffect(player, null, false);
 								break;
 							case 3:
 								for (int i = 0; i < PlayerList.Count; i++) {
-									if (PlayerList[i].Team == player.Team) {
+									if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 										if(CheckSkill(player, PlayerList[i].gameObject)) {
 											PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
 										                                skill.Value(PlayerList[i].Attribute.ActiveSkill.Lv), skill.LifeTime(PlayerList[i].Attribute.ActiveSkill.Lv));
-											OnShowEffect(PlayerList[i], false);
+											onShowEffect(player, PlayerList[i], false);
 										}
 									}
 								}
@@ -2584,23 +2582,36 @@ public class GameController : KnightSingleton<GameController> {
 
 	private bool checkSkillSituation(PlayerBehaviour player) {
 		int kind = GameData.SkillData[player.Attribute.ActiveSkill.ID].Kind;
-		if (kind == 21)
-			return true;
 		switch (Situation) {
 		case EGameSituation.AttackA:
-			if (kind >= 1 && kind <= 7 && player == BallOwner)
+			if (kind >= 1 && kind <= 7 && player == BallOwner )
 				return true;
-				
+
+			else if (kind == 18 && player == BallOwner) 
+				return true;
+			
+			if (kind == 17 && player != BallOwner) 
+				return true;
+			
+			if (kind == 11 || kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+				return true;
+
 			break;
 		case EGameSituation.AttackB:
-			break;
-		default:
-			if (kind == 21)
+			if(kind == 15 || kind ==16)
+				return true;
+			
+			if (kind == 17 && player != BallOwner) 
+				return true;
+			
+			if (kind == 11 || kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
 				return true;
 
 			break;
 		}
 
+
+			
 		return false;
 	}
 
@@ -2628,19 +2639,45 @@ public class GameController : KnightSingleton<GameController> {
 		return false;
 	}
 	
-	public void OnShowEffect (PlayerBehaviour player = null, bool isPassiveID = true) {
+	private void onShowEffect (PlayerBehaviour player = null, PlayerBehaviour target = null, bool isPassiveID = true) {
 		GameObject obj = null;
+		GameObject obj2 = null;
 		int skillID = 0;
-		if(player != null)
-			obj = getPassiveSkillTarget(player);
-		if(obj){
+		if(player != null) {
 			if(isPassiveID) {
-				if(player.PassiveID != -1) 
-					skillID = player.PassiveID;
+				if (GameData.SkillData.ContainsKey(player.PassiveID)) 
+					if(GameData.SkillData[player.PassiveID].TargetKind1 != 0)
+						obj = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind1);
 			} else {
-				if(player.Attribute.ActiveSkill.ID != 0)
-					skillID = player.Attribute.ActiveSkill.ID;
+				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) 
+					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1);
 			}
+		}
+		
+		if(target !=null) {
+			if(player.Index == target.Index)
+				return;
+			if(isPassiveID) {
+				if (GameData.SkillData.ContainsKey(player.PassiveID))
+					if(GameData.SkillData[player.PassiveID].TargetKind2 != 0)
+						obj2 = getPassiveSkillTarget(target, GameData.SkillData[player.PassiveID].TargetKind2, target);
+			} else {
+				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) 
+					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
+						obj2 = getPassiveSkillTarget(target, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+			}
+		}
+		
+		if(isPassiveID) {
+			if(player.PassiveID != -1) 
+				skillID = player.PassiveID;
+		} else {
+			if(player.Attribute.ActiveSkill.ID != 0)
+				skillID = player.Attribute.ActiveSkill.ID;
+		}
+		
+		if(obj){
 			if(skillID != 0) {
 				GameObject parent = null;
 				if(GameData.SkillData[skillID].EffectParent1 == 1) {
@@ -2653,31 +2690,60 @@ public class GameController : KnightSingleton<GameController> {
 				                             GameData.SkillData[skillID].Duration1);
 			}
 		}
+		if(obj2) {
+			if(skillID != 0) {
+				GameObject parent = null;
+				if(GameData.SkillData[skillID].EffectParent2 == 1) {
+					parent = obj2;
+				}
+				EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2, 
+				                             Vector3.zero,
+				                             parent,
+				                             null,
+				                             GameData.SkillData[skillID].Duration2);
+			}
+		}
 	}
 
-	public GameObject getPassiveSkillTarget (PlayerBehaviour player) {
+	public GameObject getPassiveSkillTarget (PlayerBehaviour player, int effectkind, PlayerBehaviour target = null) {
 		int targetKind = -1;
-		if (GameData.SkillData.ContainsKey(player.PassiveID)) {
-			targetKind = GameData.SkillData[player.PassiveID].TargetKind1;
+		targetKind = effectkind;
+		if(targetKind != -1) {
 			switch(targetKind) {
-			case 0:// Feet
-				effectObjPos = player.gameObject; 
+			case 4:// Feet
+				if(target)
+					effectObjPos = target.gameObject;
+				else
+					effectObjPos = player.gameObject; 
 				break;
 			case 1://Body (Chest)
-				Transform tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+				Transform tBody = null;
+				if(target)
+					tBody = target.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+				else
+					tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+				 
 				if(tBody != null)
 					effectObjPos = tBody.gameObject;
 				break;
 			case 2://Head
-				effectObjPos.transform.position = new Vector3(player.transform.position.x, (4 - (player.Attribute.BodyType * 0.3f)), player.transform.position.z);	
+				if(target)
+					effectObjPos.transform.position = new Vector3(target.transform.position.x, (4 - (target.Attribute.BodyType * 0.3f)), target.transform.position.z);	
+				else
+					effectObjPos.transform.position = new Vector3(player.transform.position.x, (4 - (player.Attribute.BodyType * 0.3f)), player.transform.position.z);	
+
 				break;
 			case 3://Hand
-				Transform tHand = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
+				Transform tHand = null;
+				if(target)
+					tBody = target.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
+				else
+					tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R"); 
 				if(tHand != null)
 					effectObjPos = tHand.gameObject;
 				break;
 			}
-			return effectObjPos;
+		return effectObjPos;
 		}
 		return null;
 	}
@@ -2885,7 +2951,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					OnShowEffect(player);
+					onShowEffect(player);
 					player.GameRecord.PassiveSkill++;
 				}
 			}
@@ -3783,8 +3849,10 @@ public class GameController : KnightSingleton<GameController> {
 		if(player1.IsHavePickBall2) {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 				int rate = Random.Range(0, 100);
-				if(rate < player1.PickBall2Rate) 
+				if(rate < player1.PickBall2Rate) {
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+					onShowEffect(player1);
+				}
 			}
 		}
 	}

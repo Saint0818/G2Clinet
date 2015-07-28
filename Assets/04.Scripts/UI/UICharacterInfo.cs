@@ -33,7 +33,7 @@ public class UICharacterInfo : UIBase {
 	private UISprite spriteActiveCard;
 
 	private bool isPressDown = false;
-	private float longPressMaxTime = 0.5f;
+	private float longPressMaxTime = 0.3f;
 	private float longPressTime = 0;
 
 	public static bool Visible{
@@ -106,6 +106,7 @@ public class UICharacterInfo : UIBase {
 		arraySelectAttrData [11].Slider = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass").GetComponent<UISlider>();
 		arraySelectAttrData [11].Value = GameObject.Find (UIName + "/CharacterInfo/AttributeBar/Pass/LabelValue").GetComponent<UILabel>();
 
+		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo")).onClick = CloseInfo;
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/InfoBoard/Close")).onClick = CloseInfo;
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/AttributeBar/LineShoot0")).onPress = ShowDetailInfo;
 		UIEventListener.Get(GameObject.Find(UIName + "/CharacterInfo/AttributeBar/LineShoot1")).onPress = ShowDetailInfo;
@@ -175,7 +176,7 @@ public class UICharacterInfo : UIBase {
 		isPressDown = false;
 		float x = 0;
 		float y = 0;
-		if(Input.mousePosition.x < (Screen.width - 250))
+		if(Input.mousePosition.x < (Screen.width * 0.6f))
 			x = Input.mousePosition.x - ((float)Screen.width * 0.5f) + 130;
 		else 
 			x = Input.mousePosition.x - ((float)Screen.width * 0.5f) - 130;

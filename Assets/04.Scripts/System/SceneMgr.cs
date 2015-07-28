@@ -63,14 +63,17 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public SceneName CurrentScene = SceneName.Main;
 	public SceneName LoadScene = SceneName.Main;
 
-    public void ChangeLevel(SceneName scene)
+    public void ChangeLevel(SceneName scene, bool isNeedLoading = true)
     {
 		if (CurrentScene == SceneName.Main) {
 			StartCoroutine (LoadLevelCoroutine (scene));
 		}
 		else {
 			if (CurrentScene != scene) {
-				StartCoroutine(LoadLevelCoroutine(SceneName.Null));
+				if(isNeedLoading)
+					StartCoroutine(LoadLevelCoroutine(SceneName.Null));
+				else 
+					StartCoroutine(LoadLevelCoroutine(scene));
 				LoadScene = scene;
 				OnLevelWasLoaded += WaitLoadScene;
 			}

@@ -32,16 +32,16 @@ public class UISkip : UIBase {
 	}
 	
 	public static void UIShow(bool isShow, ESkipSituation skipSituation = ESkipSituation.Loading) {
-		if(isShow) {
+//		if(isShow) {
 			Get.Show(isShow);
 			Get.sSituation = skipSituation;
 			if(skipSituation == ESkipSituation.Loading)
 				Get.cover.SetActive(false);
-		}else 
-		if(instance) {
-			instance.Show(isShow);
-			RemoveUI(UIName);
-		}
+//		}else 
+//		if(instance) {
+//			instance.Show(isShow);
+//			RemoveUI(UIName);
+//		}
 	}
 
 	protected override void OnShow (bool isShow)

@@ -458,9 +458,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
-		if(this == GameController.Get.Joysticker && value > 0) {
-			if(target)
-				SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
+		if(GameController.Get.Situation != EGameSituation.End) {
+			if(this == GameController.Get.Joysticker && value > 0) {
+				if(target)
+					SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
+			}
 		}
 
 		isUseSkill = false;

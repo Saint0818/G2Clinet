@@ -170,8 +170,8 @@ public class UISelectRole : UIBase {
 
 		SetBtnFun (UIName + "/Right/MusicSwitch/ButtonMusic", DoControlMusic);
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
-		SetBtnFun (UIName + "/Center/ViewLoading/Back", DoBackToSelectMe);
-		SetBtnFun (UIName + "/Center/ViewLoading/GameStart", DoStart);
+		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
+		SetBtnFun (UIName + "/Right/GameStart", DoStart);
 
 		animatorLeft = GameObject.Find (UIName + "/Left").GetComponent<Animator>();
 		animatorRight = GameObject.Find (UIName + "/Right").GetComponent<Animator>();

@@ -122,6 +122,8 @@ public class UILoading : UIBase {
 		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
 		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
 
+		windowGame.SetActive(false);
+		windowLoading.SetActive(false);
 		loadingPic.SetActive(true);
 		pageOn[1].SetActive(false);
 		pageOn[2].SetActive(false);

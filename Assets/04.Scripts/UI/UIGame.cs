@@ -1063,7 +1063,6 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
 			uiSkill.SetActive(false);
-			uiPlayerLocation.SetActive(false);
 
 			ChangeControl(true);
 			SetPassButton();
@@ -1166,7 +1165,8 @@ public class UIGame : UIBase {
 	}
 	
 	private void judgePlayerScreenPosition(){
-		if(GameController.Get.IsStart && GameController.Get.Joysticker != null){
+		if(GameController.Get.IsStart && GameController.Get.Joysticker != null && 
+		   (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB)){
 			float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
 			float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
 			
@@ -1217,7 +1217,7 @@ public class UIGame : UIBase {
 			if(playerScreenPos.y == -330) {
 				angle = -90;
 			}
-			
+
 			if(playerInCameraX > -50 &&
 			   playerInCameraX < Screen.width + 100 &&
 			   playerInCameraY > -90 &&
@@ -1228,7 +1228,8 @@ public class UIGame : UIBase {
 				uiPlayerLocation.transform.localPosition = new Vector3(playerScreenPos.x, playerScreenPos.y, 0);
 				uiPlayerLocation.transform.localEulerAngles = new Vector3(0, 0, angle);
 			}
-		}
+		} else 
+			uiPlayerLocation.SetActive(false);
 	}
 
 	private void showButtonFX(){

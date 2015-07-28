@@ -26,6 +26,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 
 	public GameObject Triangle;
 
+
 	public void CreateSixAttr(Vector3 v1) {
 		Triangle = new GameObject();
 		Triangle.name = "Triangle";
@@ -59,7 +60,7 @@ public class UITriangle : KnightSingleton<UITriangle> {
 		GameObject selectRole = GameObject.Find("UI2D");
 		if(selectRole != null) {
 			Triangle.transform.parent = selectRole.transform;
-			Triangle.transform.localPosition = new Vector3(450, -58, 0);
+			Triangle.transform.localPosition = new Vector3(Screen.width * 0.45f, -58, 0);
 			Triangle.transform.localScale = new Vector3(70, 70, 70);
 		}
 
