@@ -1970,6 +1970,7 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
 				AnimatorControl.SetInteger("StateNo", stateNo);
 				AnimatorControl.SetTrigger("BuffTrigger");
+				Result = true;
 				break;
 			
             case EPlayerState.BlockCatch:

@@ -150,14 +150,22 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+<<<<<<< Updated upstream
       - time: .0241309162
+=======
+      - time: .334226966
+>>>>>>> Stashed changes
         functionName: AnimationEvent
         data: PushCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+<<<<<<< Updated upstream
       - time: .483301133
+=======
+      - time: .528558075
+>>>>>>> Stashed changes
         functionName: AnimationEvent
         data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
