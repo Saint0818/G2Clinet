@@ -350,9 +350,9 @@ public class GameController : KnightSingleton<GameController> {
 
     private void InitPos()
     {
-        teeBackPosAy [0] = new Vector2(0, 11.5f);   //C
-        teeBackPosAy [1] = new Vector2(5.3f, 8);    //F
-        teeBackPosAy [2] = new Vector2(-5.3f, 8);   //G
+        teeBackPosAy [0] = new Vector2(0, 14.5f);   //C
+        teeBackPosAy [1] = new Vector2(5.3f, 11);    //F
+        teeBackPosAy [2] = new Vector2(-5.3f, 11);   //G
 
 		/*
 		 *     0	 5
@@ -2651,12 +2651,19 @@ public class GameController : KnightSingleton<GameController> {
 						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
 				}
 			} else {
-				if (target && GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
-						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
-						obj2 = target.gameObject;
-//						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+
+				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+					if(target != null){
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
+							obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
+							obj2 = target.gameObject;
+					} else {
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+							obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
+							obj2 = target.gameObject;
+					}
 				}
 			}
 		}
