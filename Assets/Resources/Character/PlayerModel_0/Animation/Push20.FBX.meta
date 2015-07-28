@@ -150,14 +150,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .388664842
+      - time: .0241309162
         functionName: AnimationEvent
         data: PushCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .519090593
+      - time: .483301133
         functionName: AnimationEvent
         data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
