@@ -2652,11 +2652,17 @@ public class GameController : KnightSingleton<GameController> {
 				}
 			} else {
 				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
-						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
-						obj2 = target.gameObject;
-//						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+					if(target != null){
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
+							obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
+							obj2 = target.gameObject;
+					} else {
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+							obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
+						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
+							obj2 = target.gameObject;
+					}
 				}
 			}
 		}
