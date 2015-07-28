@@ -350,9 +350,9 @@ public class GameController : KnightSingleton<GameController> {
 
     private void InitPos()
     {
-        teeBackPosAy [0] = new Vector2(0, 11.5f);   //C
-        teeBackPosAy [1] = new Vector2(5.3f, 8);    //F
-        teeBackPosAy [2] = new Vector2(-5.3f, 8);   //G
+        teeBackPosAy [0] = new Vector2(0, 14.5f);   //C
+        teeBackPosAy [1] = new Vector2(5.3f, 11);    //F
+        teeBackPosAy [2] = new Vector2(-5.3f, 11);   //G
 
 		/*
 		 *     0	 5

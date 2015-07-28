@@ -1221,7 +1221,7 @@
         "targetkind2": 3,
         "targeteffect2": 1004,
         "effectparent2": 1,
-        "delaytime2": 1,
+        "delaytime2": 3,
         "duration2": 2
     }
 ]
