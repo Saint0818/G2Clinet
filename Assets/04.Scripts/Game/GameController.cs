@@ -2481,7 +2481,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	private bool DoSkill(PlayerBehaviour player) {
 		bool result = false;
-		if (player.Attribute.ActiveSkill.ID > 0) {
+		if (!player.IsUseSkill && player.IsAngerFull && player.Attribute.ActiveSkill.ID > 0) {
 			Vector3 v;
 //			GameObject target = getActiveSkillTarget(player);
 			List<GameObject> target = getActiveSkillTarget(player);
@@ -2530,7 +2530,6 @@ public class GameController : KnightSingleton<GameController> {
 							}
 							break;
 					}
-					
 					player.ActiveSkill(player.gameObject);
 					result = true;
 				}
@@ -2653,10 +2652,11 @@ public class GameController : KnightSingleton<GameController> {
 				}
 			} else {
 				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
 						obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
+						obj2 = target.gameObject;
+//						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
 				}
 			}
 		}
