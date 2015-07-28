@@ -722,14 +722,14 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
+        "direct": 1,
         "animation": "Pass5",
         "targetkind": 0,
         "targetkind1": 3,
         "targeteffect1": 302,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 1,
-        "direct": 1
+        "duration1": 1
     },
     {
         "id": 1220,
@@ -748,14 +748,14 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
+        "direct": 2,
         "animation": "Pass6",
         "targetkind": 0,
         "targetkind1": 3,
         "targeteffect1": 302,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 1,
-        "direct": 2
+        "duration1": 1
     },
     {
         "id": 1221,
@@ -774,14 +774,14 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
+        "direct": 2,
         "animation": "Pass9",
         "targetkind": 0,
         "targetkind1": 3,
         "targeteffect1": 302,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 1,
-        "direct": 2
+        "duration1": 1
     },
     {
         "id": 1230,
@@ -800,14 +800,14 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
+        "direct": 3,
         "animation": "Pass7",
         "targetkind": 0,
         "targetkind1": 3,
         "targeteffect1": 302,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 1,
-        "direct": 3
+        "duration1": 1
     },
     {
         "id": 1240,
@@ -826,14 +826,14 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
+        "direct": 4,
         "animation": "Pass8",
         "targetkind": 0,
         "targetkind1": 3,
         "targeteffect1": 302,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 1,
-        "direct": 4
+        "duration1": 1
     },
     {
         "id": 1310,
@@ -950,6 +950,9 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 11,
+        "distanceadd": 2,
+        "maxanger": 100,
         "animation": "Dunk20",
         "targetkind": 1,
         "targetkind1": 0,
@@ -957,13 +960,11 @@
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 11,
-        "distanceadd": 2,
-        "maxanger": 100
+        "targetkind2": 1
     },
     {
         "id": 12000,
+        "kind": 0,
         "star": 3,
         "maxstar": 5,
         "pictureno": 12000,
@@ -978,19 +979,20 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 7,
+        "distanceadd": 2,
+        "maxanger": 100,
         "animation": "Dunk20",
         "targetkind": 1,
         "targetkind1": 0,
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 7,
-        "distanceadd": 2,
-        "maxanger": 100
+        "targetkind2": 1
     },
     {
         "id": 13000,
+        "kind": 0,
         "star": 3,
         "maxstar": 5,
         "pictureno": 13000,
@@ -1005,19 +1007,20 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 7,
+        "distanceadd": 2,
+        "maxanger": 100,
         "animation": "Dunk20",
         "targetkind": 1,
         "targetkind1": 0,
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 7,
-        "distanceadd": 2,
-        "maxanger": 100
+        "targetkind2": 1
     },
     {
         "id": 14000,
+        "kind": 0,
         "star": 3,
         "maxstar": 5,
         "pictureno": 14000,
@@ -1032,19 +1035,20 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 7,
+        "distanceadd": 2,
+        "maxanger": 100,
         "animation": "Dunk20",
         "targetkind": 1,
         "targetkind1": 0,
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 7,
-        "distanceadd": 2,
-        "maxanger": 100
+        "targetkind2": 1
     },
     {
         "id": 15000,
+        "kind": 0,
         "star": 3,
         "maxstar": 5,
         "pictureno": 15000,
@@ -1059,16 +1063,16 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 7,
+        "distanceadd": 2,
+        "maxanger": 100,
         "animation": "Dunk20",
         "targetkind": 1,
         "targetkind1": 0,
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 7,
-        "distanceadd": 2,
-        "maxanger": 100
+        "targetkind2": 1
     },
     {
         "id": 10600,
@@ -1087,6 +1091,9 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 11,
+        "distanceadd": 2,
+        "maxanger": 50,
         "animation": "Dunk22",
         "targetkind": 1,
         "targetkind1": 0,
@@ -1094,10 +1101,7 @@
         "effectparent1": 1,
         "delaytime1": 1,
         "duration1": 2,
-        "targetkind2": 1,
-        "distance": 11,
-        "distanceadd": 2,
-        "maxanger": 50
+        "targetkind2": 1
     },
     {
         "id": 11500,
@@ -1116,16 +1120,16 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 5,
+        "distanceadd": 2,
+        "maxanger": 50,
         "animation": "Steal20",
         "targetkind": 10,
         "targetkind1": 0,
         "targeteffect1": 1002,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "distance": 5,
-        "distanceadd": 2,
-        "maxanger": 50
+        "duration1": 2
     },
     {
         "id": 11700,
@@ -1144,6 +1148,9 @@
         "valuebase": 0,
         "rate": 100,
         "rateadd": 20,
+        "distance": 5,
+        "distanceadd": 2,
+        "maxanger": 50,
         "animation": "Push20",
         "targetkind": 0,
         "targetkind1": 0,
@@ -1170,6 +1177,9 @@
         "valuebase": 20,
         "rate": 100,
         "rateadd": 10,
+        "distance": 0,
+        "distanceadd": 0,
+        "maxanger": 30,
         "animation": "Buff20",
         "targetkind": 0,
         "targetkind1": 0,
@@ -1178,10 +1188,7 @@
         "delaytime1": 1,
         "duration1": 2,
         "delaytime2": 1,
-        "duration2": 2,
-        "distance": 0,
-        "distanceadd": 0,
-        "maxanger": 30
+        "duration2": 2
     },
     {
         "id": 12101,
@@ -1201,6 +1208,9 @@
         "valuebase": 20,
         "rate": 100,
         "rateadd": 10,
+        "distance": 0,
+        "distanceadd": 0,
+        "maxanger": 40,
         "animation": "Buff21",
         "targetkind": 3,
         "targetkind1": 0,
@@ -1212,9 +1222,6 @@
         "targeteffect2": 1004,
         "effectparent2": 1,
         "delaytime2": 1,
-        "duration2": 2,
-        "distance": 0,
-        "distanceadd": 0,
-        "maxanger": 40
+        "duration2": 2
     }
 ]
