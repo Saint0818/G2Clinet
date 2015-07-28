@@ -205,6 +205,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void InitScoreboard(bool isEnable = false)
 	{
+		CourtMgr.Get.InitBallShadow();
 		if (Scoreboards [1] == null) {
 			Scoreboards [1] = GameObject.Find ("Scoreboard/Left").GetComponent<UILabel> ();
 		}
@@ -320,8 +321,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1].IntTrigger = 1;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
-
-			BallShadow.gameObject.SetActive(false);
 
 			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
 				for(int j = 0; j < Distance3Pos.GetLength(1); j++)

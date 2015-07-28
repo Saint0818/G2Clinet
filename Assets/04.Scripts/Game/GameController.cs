@@ -1391,13 +1391,11 @@ public class GameController : KnightSingleton<GameController> {
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.Opening);
 				jodgeSkillUI ();
-				CourtMgr.Get.InitBallShadow();
 				break;
 			case EGameSituation.JumpBall:
 				IsStart = true;
 				CourtMgr.Get.InitScoreboard (true);
 				setPassIcon(true);
-
 				for(int i = 0; i < PlayerList.Count; i++)
 					if(PlayerList[i].Postion == EPlayerPostion.C)
 						Rebound(PlayerList[i]);
