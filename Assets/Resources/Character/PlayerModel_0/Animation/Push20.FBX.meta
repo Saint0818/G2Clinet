@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: f4ef4038bc7abfa4b8199b0db27c0ee2
-timeCreated: 1437533681
-licenseType: Pro
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
@@ -150,22 +148,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-<<<<<<< Updated upstream
-      - time: .0241309162
-=======
-      - time: .334226966
->>>>>>> Stashed changes
+      - time: .388664842
         functionName: AnimationEvent
         data: PushCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-<<<<<<< Updated upstream
-      - time: .483301133
-=======
-      - time: .528558075
->>>>>>> Stashed changes
+      - time: .519090593
         functionName: AnimationEvent
         data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
