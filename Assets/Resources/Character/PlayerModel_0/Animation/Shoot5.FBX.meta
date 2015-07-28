@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8ad2521ccbd4afb469a630de8b6784a4
-timeCreated: 1437993326
+timeCreated: 1438062515
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,35 +157,35 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .290143579
-        functionName: TimeSacale
+      - time: .29014352
+        functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .400000006
         intParameter: 0
         messageOptions: 0
-      - time: .319739401
+      - time: .319739342
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .450586647
-        functionName: TimeSacale
+      - time: .450586557
+        functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .475358874
+      - time: .475358814
         functionName: AnimationEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .999999762
+      - time: .999999583
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
