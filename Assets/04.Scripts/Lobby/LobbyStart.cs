@@ -135,7 +135,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private void clickScene(Vector3 point) {
 		myPlayer.Target = point;
 		if (!moveToObject)
-			moveToObject = EffectManager.Get.PlayEffect("MoveTo", point);
+			moveToObject = EffectManager.Get.PlayEffect("SelectA", point);
 		else {
 			moveToObject.transform.position = point;
 			moveToObject.SetActive(true);
