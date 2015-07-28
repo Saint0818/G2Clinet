@@ -587,7 +587,7 @@ public class UISelectRole : UIBase {
 		}
 			break;
 		case EUIRoleSituation.BackToSelectMe:
-			Invoke("showUITriangle", 0.7f);
+			Invoke("showUITriangle", 1.25f);
 			Invoke("leftRightShow", 0.5f);
 			animatorLoading.SetTrigger("Close");
 			
