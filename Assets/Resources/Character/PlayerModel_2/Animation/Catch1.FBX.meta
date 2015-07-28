@@ -157,6 +157,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0
+        functionName: PlaySound
+        data: SD_CatchBall
+        objectReferenceParameter: {fileID: 8300000, guid: a025e2d6f6594e54bb85a9267824baae,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
