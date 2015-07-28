@@ -10,6 +10,7 @@ public enum EZoomType
 
 public enum ECameraSituation
 {
+	Loading = -3,
 	Show = -2,
 	JumpBall = -1,
 	Self = 0,
@@ -296,7 +297,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	void FixedUpdate()
     {
 		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
-			if(situation == ECameraSituation.Show)
+			if(situation == ECameraSituation.Show || situation == ECameraSituation.Loading)
 				return;
 
 			if(situation == ECameraSituation.Finish)

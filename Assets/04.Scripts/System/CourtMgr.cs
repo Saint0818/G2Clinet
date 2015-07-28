@@ -251,7 +251,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CheckCollider();
 		ChangeBasket(2);
 		InitScoreboard ();
-		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+		CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
 	}
 
 	public void ShowEnd(bool isImmediately = false)

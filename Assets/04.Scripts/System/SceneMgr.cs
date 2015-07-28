@@ -31,6 +31,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		switch (levelToLoad) {
 			case SceneName.Court_0:
 			case SceneName.Court_1:
+				UILoading.UIShow(true, ELoadingGamePic.Game); 
 				CourtMgr.Get.InitCourtScene ();
 				
 				int rate = UnityEngine.Random.Range(0, 1);
@@ -45,8 +46,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				AudioMgr.Get.StartGame();
 				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
 				break;
-			case SceneName.Null:
-				UILoading.UIShow(true, ELoadingGamePic.Game); 
+			case SceneName.Null:		
 				break;
 		}
 

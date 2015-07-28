@@ -151,7 +151,9 @@ public class UILoading : UIBase {
 			loadingPic.SetActive(false);
 			yield return new WaitForSeconds (10);
 			UIShow(false);
-			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+			UISkip.UIShow(false, ESkipSituation.Loading);
+			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+//			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 			break;
 		}
 	}

@@ -59,7 +59,10 @@ public class UISkip : UIBase {
 		switch(sSituation) {
 			case ESkipSituation.Loading:
 				UIShow(false);
-				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+				UILoading.UIShow(false);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+//				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+				
 				break;
 			case ESkipSituation.Game:
 				GameController.Get.SkipShow();

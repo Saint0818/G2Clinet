@@ -603,8 +603,8 @@ public class UISelectRole : UIBase {
 			GameData.TeamMembers [0].Player.SetAvatar ();
 			GameData.TeamMembers [1].Player.SetAttribute ();
 			GameData.TeamMembers [1].Player.SetAvatar ();		
-//			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
-			SceneMgr.Get.ChangeLevel (SceneName.Null);
+			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+//			SceneMgr.Get.ChangeLevel (SceneName.Null);
 			break;
 		case EUIRoleSituation.ListA: // 1
 		case EUIRoleSituation.ListB: // 2

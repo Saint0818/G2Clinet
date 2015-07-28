@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 public enum EGameSituation
 {
+	Loading           =-4,
 	InitShowContorl   = -3,
 	ShowOne           = -2,
 	ShowTwo           = -1,

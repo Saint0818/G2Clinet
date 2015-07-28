@@ -1727,7 +1727,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Pass4:
-			if (IsBallOwner && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+			if (IsBallOwner && !IsLayup && !IsDunk && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             
