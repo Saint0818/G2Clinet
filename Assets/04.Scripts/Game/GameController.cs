@@ -2481,7 +2481,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	private bool DoSkill(PlayerBehaviour player) {
 		bool result = false;
-		if (player.Attribute.ActiveSkill.ID > 0) {
+		if (!player.IsUseSkill && player.Attribute.ActiveSkill.ID > 0) {
 			Vector3 v;
 //			GameObject target = getActiveSkillTarget(player);
 			List<GameObject> target = getActiveSkillTarget(player);
