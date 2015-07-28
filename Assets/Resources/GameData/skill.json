@@ -1208,7 +1208,7 @@
         "valuebase": 20,
         "rate": 100,
         "rateadd": 10,
-        "distance": 0,
+        "distance": 30,
         "distanceadd": 0,
         "maxanger": 40,
         "animation": "Buff21",
