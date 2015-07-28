@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e1d91c3ee023ae94aa66b1f401cdf7f3
-timeCreated: 1437533602
+timeCreated: 1438077055
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -210,21 +210,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .28771928
+      - time: .28771925
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .321766555
+      - time: .321766526
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .362742811
+      - time: .362742782
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -238,35 +238,28 @@ ModelImporter:
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .642167211
+      - time: .642167151
         functionName: AnimationEvent
-        data: DunkBasketStart
+        data: DunkBasket
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .644394398
-        functionName: AnimationEvent
-        data: OnlyScore
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .685682893
+      - time: .685682833
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .949881017
+      - time: .949880958
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .999999642
+      - time: .999999583
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
