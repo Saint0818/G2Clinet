@@ -2654,8 +2654,18 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case "Shooting":
                 IsPassAirMoment = false;
-                if (OnShooting != null && crtState != EPlayerState.Pass4)
-                    OnShooting(this);
+                if (OnShooting != null) {
+					if (crtState != EPlayerState.Pass4)
+                    	OnShooting(this);
+					else 
+					if (crtState == EPlayerState.Layup0) {
+						if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
+							Debug.Log (gameObject.name + " layup no ball.");
+							GameController.Get.SetBall();
+						}
+					}
+				}
+
                 break;
 
             case "MoveDodgeEnd": 
@@ -2798,8 +2808,13 @@ public class PlayerBehaviour : MonoBehaviour
             case "AnimationEnd":
                 OnUI(this);
 
+				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
+					Debug.Log (gameObject.name + " AnimationEnd layup no ball.");
+					GameController.Get.SetBall();
+                }
+                    
 				if(!IsBallOwner)
-               	 AniState(EPlayerState.Idle);
+               	 	AniState(EPlayerState.Idle);
 				else{
 					if(firstDribble)
 						AniState(EPlayerState.Dribble0);
@@ -2978,6 +2993,7 @@ public class PlayerBehaviour : MonoBehaviour
 						Debug.LogError("Can't find SkillAnimation in EPlayerState");
 					}
 				}
+				
 				isUseSkill = true;
 			}
 		}

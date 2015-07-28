@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<string name="app_name">籃球黑幫2</string>
     <string name="IDS_SAPPS_POP_AN_ERROR_OCCURRED_WHILE_RESETTING_SAMSUNG_IN_APP_PURCHASE">重設 Samsung In-App Purchase 時發生錯誤</string>
     <string name="IDS_SAPPS_POP_AN_INVALID_VALUE_HAS_BEEN_PROVIDED_FOR_SAMSUNG_IN_APP_PURCHASE">提供給 Samsung In-App Purchase 的值無效</string>
     <string name="IDS_SAPPS_POP_AN_UNEXPECTED_ERROR_HAS_OCCURRED_SAMSUNG_ACCOUNT_AUTHENTICATION_HAS_BEEN_CANCELLED">發生意外錯誤。已取消三星帳號認證。</string>

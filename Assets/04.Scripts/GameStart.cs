@@ -24,6 +24,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool ConnectToServer = false;
 	
 	void Start(){
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		SceneMgr.Get.SetDontDestory (gameObject);
 
 		switch(SceneMode)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<string name="app_name">Basketball Gangs 2</string>
     <string name="dlg_msg_payment_success">The payment was successful</string>
 
     <string name="IDS_SAPPS_POP_AN_ERROR_OCCURRED_WHILE_RESETTING_SAMSUNG_IN_APP_PURCHASE">An error occurred while resetting Samsung In-App Purchase</string>

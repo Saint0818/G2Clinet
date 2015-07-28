@@ -74,6 +74,7 @@ public class UI2D : MonoBehaviour {
 		#if UNITY_EDITOR
 		
 		#else
+			/*
 			UnibillDemo ud = gameObject.GetComponent<UnibillDemo>();
 			if (!ud)
 				gameObject.AddComponent<UnibillDemo>();
@@ -88,6 +89,7 @@ public class UI2D : MonoBehaviour {
 			if (!pn)
 	            gameObject.AddComponent<PushNotificationsIOS>();
 			#endif
+			*/
 		#endif
 	}
 

@@ -1,6 +1,0 @@
-SKU	Product ID	Reference Name	Type	Cleared For Sale	Wholesale Price Tier	Displayed Name	Description	Screenshot Path
-102	com.outlinegames.100goldcoins.5	com.outlinegames.100goldcoins.5	Consumable	yes	33	100 Gold Coins	Standard issue coin, 0% gold by volume	
-102	com.outlinegames.sword.5	com.outlinegames.sword.5	Non-Consumable	yes	1	Magic Sword	Can slice through time	
-102	com.outlinegames.250goldcoins	com.outlinegames.250goldcoins	Consumable	yes	1	250 Gold coins	250 Gold coins	
-102	com.outlinegames.unibill.silver.100	com.outlinegames.unibill.silver.100	Consumable	yes	1	100 silver	100 silver	
-102	com.outlinegames.unibill.silver.500	com.outlinegames.unibill.silver.500	Consumable	yes	1	500 silver	500 silver	

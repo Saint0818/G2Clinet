@@ -664,7 +664,12 @@ public class GameController : KnightSingleton<GameController> {
 		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
 		#if UNITY_EDITOR
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
+		#else
+		GameObject obj = GameObject.Find("SelectMe/AI");
+		if (obj)
+			obj.SetActive(false);
 		#endif
+
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
 		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.3f)), 0), Joysticker.gameObject);
@@ -3870,7 +3875,7 @@ public class GameController : KnightSingleton<GameController> {
 				if (IsShooting)
 					Shooter.GameRecord.ShotError--;
 
-				if (Passer && Passer.DribbleTime <= 1)
+				if (Passer && Passer.DribbleTime <= 2)
 					Passer.GameRecord.Assist++;
 			}
             
