@@ -14,6 +14,9 @@ public enum SceneName
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
+	public SceneName CurrentScene = SceneName.Main;
+	public SceneName LoadScene = SceneName.Main;
+
 	public delegate void LevelWillBeLoaded();
 	public delegate void LevelWasLoaded();
 	
@@ -59,9 +62,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	{
 		DontDestroyOnLoad(transform.gameObject);
 	}
-
-	public SceneName CurrentScene = SceneName.Main;
-	public SceneName LoadScene = SceneName.Main;
 
     public void ChangeLevel(SceneName scene, bool isNeedLoading = true)
     {

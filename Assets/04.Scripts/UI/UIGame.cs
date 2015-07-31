@@ -101,6 +101,8 @@ public class UIGame : UIBase {
 	private GameObject uiSpriteAnimation;
 	private UISpriteAnimation spriteAnimation;
 
+	private JoystickController joystickController;
+
 	private GameObject[] uiDefenceGroup = new GameObject[2];
 	private GameObject[] controlButtonGroup= new GameObject[2];
 	private GameObject[] uiPassObjectGroup = new GameObject[3];
@@ -208,13 +210,17 @@ public class UIGame : UIBase {
 	protected override void InitCom() {
 		GameController.Get.onSkillDCComplete += AddForceValue;
 		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
-		GameObject obj;
+
 		#if !UNITY_EDITOR
+		GameObject obj;
 		obj = GameObject.Find (UIName + "/TopLeft/ButtonSpeed");
 		if (obj)
 			obj.SetActive(false);
 		#endif
 		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
+		if (uiJoystick)
+			joystickController = uiJoystick.gameObject.AddComponent<JoystickController> ();
+
 		uiJoystick.Joystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<EasyJoystick>();
 
 		viewStart = GameObject.Find (UIName + "/Center/ViewStart");
@@ -721,6 +727,7 @@ public class UIGame : UIBase {
 	}
 
 	public void UIMaskState (EUIControl controllerState) {
+		joystickController.UIMaskState(controllerState);
 		switch (controllerState) {
 		case EUIControl.Skill:
 			ShowSkillUI(true);
