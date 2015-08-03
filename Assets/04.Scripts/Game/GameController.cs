@@ -2845,22 +2845,22 @@ public class GameController : KnightSingleton<GameController> {
 				break;
 			case ESkillSituation.Shoot0:
 				skillKind = ESkillKind.Shoot;
-				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, isWideOpen(player));
 				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot3:
 				skillKind = ESkillKind.DownHand;
-				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, isWideOpen(player));
 				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot2:
 				skillKind = ESkillKind.UpHand;
-				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, isWideOpen(player));
 				Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Shoot1:
 				skillKind = ESkillKind.NearShoot;
-				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot);
+				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, isWideOpen(player));
 				Result = player.AniState(playerState, v );
 				break;
 			case ESkillSituation.Layup0:
@@ -3963,6 +3963,24 @@ public class GameController : KnightSingleton<GameController> {
 		isFirstScore = false;
 		shootDistance = 0;
     }
+
+	private bool isWideOpen (PlayerBehaviour player) {
+		bool result = true;
+		if(PlayerList.Count > 0) {
+			for(int i=0; i<PlayerList.Count; i++) {
+				if(PlayerList[i].Team != player.Team) {
+					if(player.Team == ETeamKind.Self)
+						if(PlayerList[i].transform.position.z < player.transform.position.z)
+							return false;
+					else 
+						if(PlayerList[i].transform.position.z > player.transform.position.z)
+							return false;
+				}
+			}
+		}
+
+		return result;
+	}
 
 	private PlayerBehaviour havePartner(ref PlayerBehaviour npc, float dis, float angle)
     {

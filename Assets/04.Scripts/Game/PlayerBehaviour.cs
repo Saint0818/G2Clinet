@@ -2935,7 +2935,7 @@ public class PlayerBehaviour : MonoBehaviour
 		return directState;
 	}
 
-    public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3)) {
+    public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), bool isWideOpen = false) {
         EPlayerState playerState = EPlayerState.Idle;
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -2965,8 +2965,30 @@ public class PlayerBehaviour : MonoBehaviour
 		if (isPerformPassive){
 			string animationName = string.Empty;
 			for (int i=0; i<passiveSkills[skillKind].Count; i++) {
-				if(GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
-					if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
+				if(kind == ESkillKind.Pass) {
+					if(GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
+						if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
+							PassiveID = passiveSkills[skillKind][i].ID;
+							PassiveLv = passiveSkills[skillKind][i].Lv;
+							animationName = GameData.SkillData[PassiveID].Animation;
+							break;
+						}
+					}
+				} else 
+				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || 
+					  kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
+					if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)) {
+						if(isWideOpen && (passiveSkills[skillKind][i].ID == 412 || passiveSkills[skillKind][i].ID == 413)) {
+							break;
+						}
+						PassiveID = passiveSkills[skillKind][i].ID;
+						PassiveLv = passiveSkills[skillKind][i].Lv;
+						animationName = GameData.SkillData[PassiveID].Animation;
+						break;
+					}
+
+				} else {
+					if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)) {
 						PassiveID = passiveSkills[skillKind][i].ID;
 						PassiveLv = passiveSkills[skillKind][i].Lv;
 						animationName = GameData.SkillData[PassiveID].Animation;
