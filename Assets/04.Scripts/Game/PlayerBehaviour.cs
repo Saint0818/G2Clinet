@@ -1328,10 +1328,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 	                SetNoAI();
 	                animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
-	                float angle = move.Axis2Angle(true);
-	                int a = 90;
-	                Vector3 rotation = new Vector3(0, angle + a, 0);
-	                transform.rotation = Quaternion.Euler(rotation);
+					if(!IsPass) {
+						float angle = move.Axis2Angle(true);
+						int a = 90;
+						Vector3 rotation = new Vector3(0, angle + a, 0);
+						transform.rotation = Quaternion.Euler(rotation);
+					}
 
 	                if (animationSpeed <= MoveMinSpeed || MovePower == 0) {
 	                    SetSpeed(0.3f, 0);
@@ -2943,7 +2945,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         bool isPerformPassive = false;
 		int skillKind = (int)kind;
-		if(passiveSkills.ContainsKey(skillKind)) {
+		if(passiveSkills.ContainsKey(skillKind) && !IsPass) {
 			if (passiveSkills[skillKind].Count > 0){
 				float angle = GameFunction.GetPlayerToObjectAngleByVector(this.transform, v);
 	            int passiveRate = -1;
@@ -2960,14 +2962,16 @@ public class PlayerBehaviour : MonoBehaviour
 	        }
 		}
 		
-        if (isPerformPassive){
+		if (isPerformPassive){
 			string animationName = string.Empty;
 			for (int i=0; i<passiveSkills[skillKind].Count; i++) {
-				if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
-					PassiveID = passiveSkills[skillKind][i].ID;
-					PassiveLv = passiveSkills[skillKind][i].Lv;
-					animationName = GameData.SkillData[PassiveID].Animation;
-					break;
+				if(GameData.SkillData[passiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
+					if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)){
+						PassiveID = passiveSkills[skillKind][i].ID;
+						PassiveLv = passiveSkills[skillKind][i].Lv;
+						animationName = GameData.SkillData[PassiveID].Animation;
+						break;
+					}
 				}
 			}
 			if (animationName != string.Empty) {
@@ -2985,7 +2989,7 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 	public void ActiveSkill(GameObject target = null) {
-		if (!IsUseSkill) {
+		if (CanUseSkill) {
 			GameRecord.Skill++;
 			SetAnger(-Attribute.MaxAnger);
 
@@ -3097,7 +3101,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool CanUseSkill {
 		get {
-			if (CanMove || crtState == EPlayerState.HoldBall) 
+			if ((CanMove || crtState == EPlayerState.HoldBall ) && !IsUseSkill && IsAngerFull) 
 				return true;
 			else
 				return false;

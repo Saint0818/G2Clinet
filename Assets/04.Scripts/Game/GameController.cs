@@ -1520,7 +1520,6 @@ public class GameController : KnightSingleton<GameController> {
 
 			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
 
-//			GameObject target = getActiveSkillTarget(Joysticker);
 			List<GameObject> target = getActiveSkillTarget(Joysticker);
 			bool result = false;
 			for(int i=0; i<target.Count; i++) {
@@ -2481,9 +2480,8 @@ public class GameController : KnightSingleton<GameController> {
 
 	private bool DoSkill(PlayerBehaviour player) {
 		bool result = false;
-		if (!player.IsUseSkill && player.IsAngerFull && player.Attribute.ActiveSkill.ID > 0) {
+		if (player != null && player.CanUseSkill && player.Attribute.ActiveSkill.ID > 0) {
 			Vector3 v;
-//			GameObject target = getActiveSkillTarget(player);
 			List<GameObject> target = getActiveSkillTarget(player);
 			if(target != null && target.Count > 0) {
 				for(int i=0; i<target.Count; i++){
@@ -2514,7 +2512,7 @@ public class GameController : KnightSingleton<GameController> {
 								player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 								                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 								
-									onShowEffect(player, null, false);
+								onShowEffect(player, null, false);
 								break;
 							case 3:
 								for (int i = 0; i < PlayerList.Count; i++) {
@@ -2576,6 +2574,7 @@ public class GameController : KnightSingleton<GameController> {
 			}
 
 		}
+
 		return null;
 	}
 
@@ -2586,36 +2585,34 @@ public class GameController : KnightSingleton<GameController> {
 			if (kind >= 1 && kind <= 7 && player == BallOwner )
 				return true;
 
-			else if (kind == 18 && player == BallOwner) 
+			if ((kind == 11 || kind == 18) && player == BallOwner) 
 				return true;
 			
 			if (kind == 17 && player != BallOwner) 
 				return true;
 			
-			if (kind == 11 || kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+			if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
 				return true;
 
 			break;
 		case EGameSituation.AttackB:
-			if(kind == 15 || kind ==16)
+			if(kind == 15 || kind == 16)
 				return true;
 			
 			if (kind == 17 && player != BallOwner) 
 				return true;
 			
-			if (kind == 11 || kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+			if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
 				return true;
 
 			break;
 		}
 
-
-			
 		return false;
 	}
 
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
-		if (player.IsAngerFull && player.CanUseSkill) {
+		if (player.CanUseSkill) {
 			if (target) {
 				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
 				   GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
@@ -2651,8 +2648,7 @@ public class GameController : KnightSingleton<GameController> {
 						obj2 = getPassiveSkillTarget(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
 				}
 			} else {
-
-				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+				if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID) && !player.IsUseSkill && player.IsAngerFull) {
 					if(target != null){
 						if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
 							obj = getPassiveSkillTarget(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
