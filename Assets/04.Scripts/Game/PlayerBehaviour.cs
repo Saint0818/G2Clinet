@@ -2935,7 +2935,7 @@ public class PlayerBehaviour : MonoBehaviour
 		return directState;
 	}
 
-    public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), bool isWideOpen = false) {
+    public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isWideOpen = 0) {
         EPlayerState playerState = EPlayerState.Idle;
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -2978,7 +2978,7 @@ public class PlayerBehaviour : MonoBehaviour
 				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || 
 					  kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
 					if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[passiveSkills[skillKind][i].ID].Rate(passiveSkills[skillKind][i].Lv)) {
-						if(isWideOpen && (passiveSkills[skillKind][i].ID == 412 || passiveSkills[skillKind][i].ID == 413)) {
+						if(isWideOpen != 0 && (passiveSkills[skillKind][i].ID == 412 || passiveSkills[skillKind][i].ID == 413)) {
 							break;
 						}
 						PassiveID = passiveSkills[skillKind][i].ID;
