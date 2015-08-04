@@ -23,6 +23,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 {
 	//Game const
 	private Shake mShake;
+	private float safeZ = 8;
 	private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 25;
 	private float zoomRange = 20;
@@ -75,6 +76,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	public GameObject[] CharacterPos = new GameObject[6];
 	public GameObject SkillDCTarget;
 	public GameObject DoubleClickDCBorn;
+	private Vector2 smothHight = Vector2.zero;
+	private float plusZ = 0;
 
 	public bool UICamVisible
 	{
@@ -339,8 +342,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //		}
     }
 
-	private Vector2 smothHight = Vector2.zero;
-
 	private void CameraOffset()
 	{
 		if (situation == ECameraSituation.Skiller)
@@ -373,7 +374,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			smothHight = Vector2.Lerp(smothHight, new Vector2(0, startPos.y), 0.1f);
 
 		cameraOffsetPos.y = smothHight.y;
-		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
+		plusZ = 0;
+
+		if (!GameController.Get.Joysticker.IsBallOwner) {
+			float z = CourtMgr.Get.RealBall.transform.position.z - GameController.Get.Joysticker.transform.position.z;
+			if(z > safeZ)
+			{
+				plusZ = z-safeZ;
+			}
+			else if(z < -safeZ)
+			{
+				plusZ = z + safeZ;
+			}
+		}
+		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - plusZ;
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 	}
 
