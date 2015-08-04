@@ -1319,7 +1319,7 @@ public class PlayerBehaviour : MonoBehaviour
 				Debug.LogError("HoldBallCanMove : " + HoldBallCanMove);
 			}
 
-            if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) {
+            if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB || GameStart.Get.TestMode != EGameTest.None) {
                 if ((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
                    !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && GameController.Get.DoPassiveSkill(ESkillSituation.MoveDodge, this))) {
 	                isMoving = true;
