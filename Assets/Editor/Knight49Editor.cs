@@ -4,6 +4,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Knight49Editor : EditorWindow
 {
@@ -13,8 +14,8 @@ public class Knight49Editor : EditorWindow
 		EditorWindow.GetWindowWithRect(typeof(Knight49Editor), new Rect(0, 0, 800, 400), true, "BuildTool").Show();
     }
     
-	public float mVersion = 0.101f;
-    public int mVersionCode = 1;
+	public float mVersion = 0.102f;
+    public int mVersionCode = 11;
     public string mPass = "csharp2014";
     public string mPath;
     public int HeadItemIndex = 51;
@@ -26,6 +27,8 @@ public class Knight49Editor : EditorWindow
 
 	const string ClassName = "BundleVersion";
 	const string TargetCodeFile = "Assets/04.Scripts/System/" + ClassName + ".cs";
+
+//	static string[] appName = new string[2]{"Gang of Basketball.apk", "Gang of Basketball 2.apk"};
 
     static string[] GetScenePaths()
     {
@@ -39,19 +42,68 @@ public class Knight49Editor : EditorWindow
         return scenes;
     }
 
+	public enum EAcouunt
+	{
+		nbaa,
+		g2
+	}
+	
+	private static string[] accounts = new string[2]{"nbaa", "g2"};
+	private string[] appName = new string[2]{"Gang of Basketball", "Gang of Basketball 2"};
+	private string companyName = "Nice Market";
+	private string bundleId = "com.nicemarket.g2";
+	private int selectedIndex = 1;
+	private int[] sizes = new int[]{0,1};
+	static string[] SCENES = FindEnabledEditorScenes();
+
+	private static string[] FindEnabledEditorScenes() {
+		List<string> EditorScenes = new List<string>();
+		foreach(EditorBuildSettingsScene scene in EditorBuildSettings.scenes) {
+			if(!scene.enabled) continue;
+			EditorScenes.Add(scene.path);
+		}
+		return EditorScenes.ToArray();
+	}
+
+	static void PerformAndroidBuild(string appname) {
+		string target_dir = appname;
+		string buildPath = System.IO.Directory.GetCurrentDirectory() + "/build-android";
+		CreateDirectory(buildPath);
+		GenericBuild(SCENES, buildPath + "/" +  target_dir, BuildTarget.Android, BuildOptions.None);
+	}
+
+	static private void CreateDirectory(string path){
+		if(!System.IO.Directory.Exists (path))
+			System.IO.Directory.CreateDirectory (path);
+	}
+
+	static void GenericBuild(string[] scenes, string target_dir, BuildTarget build_target, BuildOptions build_options) {
+		EditorUserBuildSettings.SwitchActiveBuildTarget(build_target);
+		string res = BuildPipeline.BuildPlayer(scenes, target_dir, build_target, build_options);
+		if(res.Length > 0) {
+			throw new Exception("BuildPlayer failure: " + res);
+		}
+	}
+
     void OnGUI()
     {
+		selectedIndex = EditorGUILayout.IntPopup("Games Select: ", selectedIndex, accounts, sizes);
 		mVersion = EditorGUILayout.FloatField("Bundle Version", mVersion);
 		mVersionCode = EditorGUILayout.IntField("Bundle mVersionCode", mVersionCode); 
 
-		if (GUILayout.Button("Setting", GUILayout.Width(200)))
+		if (GUILayout.Button("Build Android", GUILayout.Width(200)))
 		{
+			PlayerSettings.companyName = companyName;
+			PlayerSettings.productName = appName[selectedIndex];
+			PlayerSettings.bundleIdentifier = bundleId;
 		    PlayerSettings.bundleVersion = mVersion.ToString();
 		    PlayerSettings.Android.bundleVersionCode = mVersionCode;
 		    PlayerSettings.Android.keyaliasPass = mPass;
+			PlayerSettings.Android.keyaliasName = accounts [selectedIndex];
 		    PlayerSettings.Android.keystorePass = mPass;
 
-		    BundleVersionChecker();
+			BundleVersionChecker();
+//			PerformAndroidBuild(appName[selectedIndex]);
 		}
     }
 	
