@@ -619,6 +619,16 @@ public class UIGame : UIBase {
 		spriteForce.fillAmount = 1;
 		spriteForceFirst.fillAmount = 1;
 	}
+
+	public bool SetUIJoystick(PlayerBehaviour p = null, bool isShow = false){
+		if(p == GameController.Get.Joysticker) {
+			if (GameController.Get.IsStart) {
+				uiJoystick.gameObject.SetActive(isShow);
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	public bool AddForceValue(){
 		dcLifeTime = 0.1f;

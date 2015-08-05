@@ -181,11 +181,10 @@ public class UICharacterInfo : UIBase {
 		else 
 			x = Input.mousePosition.x - ((float)Screen.width * 0.7f);
 
-//		Debug.Log("Input.mousePosition.y::  "+ Input.mousePosition.y);
-		if(Input.mousePosition.y > (Screen.height * 0.6f)) 
-			y = Input.mousePosition.y - ((float)Screen.height * 0.7f);
+		if(Input.mousePosition.y < (Screen.height * 0.5f)) 
+			y = 150;
 		else 
-			y = Input.mousePosition.y - ((float)Screen.height * 0.2f); 
+			y = -50; 
 
 		viewSkillInfo.transform.localPosition = new Vector3( x, y, 0);
 		viewSkillInfo.SetActive(true);
