@@ -211,9 +211,9 @@ public class UICharacterInfo : UIBase {
 		
 		labelActiveName.text = GameData.SkillData[data.Active].Name;
 		if(GameData.SkillData[data.Active].PictureNo != 0)
-			spriteActivePic.mainTexture = UISelectRole.Get.CardTextures[GameData.SkillData[data.Active].PictureNo];
+			spriteActivePic.mainTexture = GameData.CardTextures[GameData.SkillData[data.Active].PictureNo];
 		else
-			spriteActivePic.mainTexture = UISelectRole.Get.CardTextures[data.Active];
+			spriteActivePic.mainTexture = GameData.CardTextures[data.Active];
 		
 		activeID = data.Active;
 	}
@@ -241,7 +241,7 @@ public class UICharacterInfo : UIBase {
 
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
-			t.gameObject.GetComponent<UITexture>().mainTexture = UISelectRole.Get.CardTextures[id];
+			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTextures[id];
 
 		t = obj.transform.FindChild("SkillLeval");
 		if(t != null)

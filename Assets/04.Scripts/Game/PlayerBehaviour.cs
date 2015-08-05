@@ -2922,6 +2922,8 @@ public class PlayerBehaviour : MonoBehaviour
 				GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 			
 			CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
+
+			UISkillEffect.UIShow(true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv);
 			
 			switch(skillEventKind) {
 			case 0://show self and rotate camera
@@ -2948,6 +2950,7 @@ public class PlayerBehaviour : MonoBehaviour
 				OnUIJoystick(this, true);
 
 			isSkillShow = false;
+			UISkillEffect.UIShow(false);
 			CameraMgr.Get.SkillShowActive(false);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 1);

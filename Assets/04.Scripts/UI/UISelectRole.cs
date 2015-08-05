@@ -59,8 +59,6 @@ public class UISelectRole : UIBase {
 	private float [] arrayOldNameValue = new float[6];
 	private float [] arrayNewNameValue = new float[6];
 
-	public Dictionary<int, Texture> CardTextures = new Dictionary<int, Texture>();
-
 	private int maxValue = 100;
 	private float value = 0;
 	private float axisX;
@@ -226,7 +224,6 @@ public class UISelectRole : UIBase {
 	}
 	
 	protected override void InitData() {
-		loadCardTextures();
 		SelectRoleIndex = UnityEngine.Random.Range (0, arrayRoleID.Length);
 		arraySelectID [0] = arrayRoleID[SelectRoleIndex];
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
@@ -285,14 +282,7 @@ public class UISelectRole : UIBase {
 		setTriangleData();
 	}
 
-	private void loadCardTextures(){
-		UnityEngine.Object[] obj = Resources.LoadAll("Textures/SkillCards");
-		if(obj.Length > 0) {
-			for(int i=0; i<obj.Length; i++) {
-				CardTextures.Add(int.Parse(obj[i].name), obj[i] as Texture);
-			}
-		}
-	}
+
 
 	public void DoPlayerAnimator(GameObject obj){
 		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);

@@ -22,6 +22,8 @@ public class GameData {
 	public static Dictionary<int, int[]> SituationPosition = new Dictionary<int, int[]>();
     public static TBasketShootPositionData[] BasketShootPosition;
 	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
+	
+	public static Dictionary<int, Texture> CardTextures = new Dictionary<int, Texture>();
 
 	public static string ServerVersion;
 	public static string SaveVersion;
@@ -52,9 +54,19 @@ public class GameData {
 			FileManager.Get.LoadFileResource (DownloadList);
 
 			loadGameSetting();
+			loadCardTextures();
 		}
 
 		Team.Init();
+	}
+
+	private static void loadCardTextures(){
+		UnityEngine.Object[] obj = Resources.LoadAll("Textures/SkillCards");
+		if(obj.Length > 0) {
+			for(int i=0; i<obj.Length; i++) {
+				CardTextures.Add(int.Parse(obj[i].name), obj[i] as Texture);
+			}
+		}
 	}
 
 	private static void loadGameSetting() {
