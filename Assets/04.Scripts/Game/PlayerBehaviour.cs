@@ -2869,15 +2869,14 @@ public class PlayerBehaviour : MonoBehaviour
 		AudioMgr.Get.PlaySound (soundName);
 	}
 
-	public void StartSkill(){
-		//Attribute.ActiveSkill.ID
+	public void StartSkill(int kind, float t){
 		if(!isSkillShow) {
 			isSkillShow = true;
 			if(OnUIJoystick != null)
 				OnUIJoystick(this, false);
 			string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
 			EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
-			CameraMgr.Get.SkillShow(true);
+			CameraMgr.Get.SkillShowActive(true, t);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 0);
 		}
@@ -2888,7 +2887,7 @@ public class PlayerBehaviour : MonoBehaviour
 			isSkillShow = false;
 			if(OnUIJoystick != null)
 				OnUIJoystick(this, true);
-			CameraMgr.Get.SkillShow(false);;
+			CameraMgr.Get.SkillShowActive(false);;
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 1);
 		}
@@ -2929,8 +2928,11 @@ public class PlayerBehaviour : MonoBehaviour
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
 
-	public void SkillEvent () {
-		StartSkill();
+	public void SkillEvent (AnimationEvent aniEvent) {
+		float t = aniEvent.floatParameter;
+		int kind = aniEvent.intParameter;
+
+		StartSkill(kind, t);
 	}
 
     public void ResetMove() {

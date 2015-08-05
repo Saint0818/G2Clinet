@@ -531,7 +531,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		skiller = player;
 	}
 
-	public void SkillShow (bool isShow) {
+	public void SkillShowActive (bool isShow, float t = 1.5f) {
 		if(isShow) {
 			cameraFx.enabled = !isShow;
 			cameraSkill.gameObject.SetActive(isShow);
@@ -540,9 +540,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 			if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 				GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
-			cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
 			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 15);
-			cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), 1.5f, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
+			cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
+			cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), t, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
 		} else {
 			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 25);
 			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;

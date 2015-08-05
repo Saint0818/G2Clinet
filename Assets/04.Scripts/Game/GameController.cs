@@ -838,10 +838,6 @@ public class GameController : KnightSingleton<GameController> {
 				UIGame.Get.DoSkill();
 			}
 
-			if(Input.GetKeyDown(KeyCode.I) && Joysticker != null) {
-				Joysticker.StartSkill();
-			}
-
 			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)
 				jodgeSkillUI();
 		}
