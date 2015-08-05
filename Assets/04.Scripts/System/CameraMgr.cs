@@ -25,6 +25,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	//Game const
 	private Shake mShake;
 	private float safeZ = 8;
+	private float safeZRate = 1.5f;
 	private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 25;
 	private float zoomRange = 20;
@@ -322,7 +323,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			ZoomCalculation();
 			HorizontalCameraHandle();
 		}
-
     }
 
 	private void ZoomCalculation()
@@ -401,7 +401,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				plusZ = z + safeZ;
 			}
 		}
-		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - plusZ;
+		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - safeZRate * plusZ;
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 	}
 
