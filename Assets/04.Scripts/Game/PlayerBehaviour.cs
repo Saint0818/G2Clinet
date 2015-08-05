@@ -1758,7 +1758,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Shoot5:
             case EPlayerState.Shoot6:
             case EPlayerState.Shoot7:
-				if (IsBallOwner && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+				if (IsBallOwner && !IsPickBall && !IsIntercept && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
 					return true;
 				break;
 
@@ -1766,7 +1766,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Layup1:
             case EPlayerState.Layup2:
             case EPlayerState.Layup3:
-				if (IsBallOwner && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+				if (IsBallOwner && !IsPickBall && !IsIntercept && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                     return true;
                 break;
 
@@ -1776,7 +1776,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
-				if (IsBallOwner && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+				if (IsBallOwner && !IsIntercept &&!IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                	 if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
                     return true;
                 break;
@@ -3358,6 +3358,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsPush
 	{
 		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push20;}
+	}
+
+	public bool IsIntercept
+	{
+		get{ return crtState == EPlayerState.Intercept0 || crtState == EPlayerState.Intercept1;}
 	}
 
     private bool isPerfectBlockCatch = false;

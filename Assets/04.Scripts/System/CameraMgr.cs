@@ -26,6 +26,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Shake mShake;
 	private float safeZ = 8;
 	private float safeZRate = 1.5f;
+	private float safeZRotateRate = 1f;
 	private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 25;
 	private float zoomRange = 20;
@@ -356,6 +357,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //		}
     }
 
+	private bool isOverCamera = false;
+	private float distanceZ;
+
 	private void CameraOffset()
 	{
 		if (situation == ECameraSituation.Skiller)
@@ -389,19 +393,46 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 		cameraOffsetPos.y = smothHight.y;
 		plusZ = 0;
+		isOverCamera = false;
+		distanceZ = 0;
 
 		if (!GameController.Get.Joysticker.IsBallOwner) {
-			float z = CourtMgr.Get.RealBall.transform.position.z - GameController.Get.Joysticker.transform.position.z;
-			if(z > safeZ)
+			distanceZ = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Joysticker.transform.position);
+			if(distanceZ > safeZ)
 			{
-				plusZ = z-safeZ;
+				isOverCamera = true;
+				plusZ = safeZRate * (distanceZ - safeZ);
+
 			}
-			else if(z < -safeZ)
+			else if(distanceZ < -safeZ)
 			{
-				plusZ = z + safeZ;
+				isOverCamera = true;
+				plusZ = safeZRate * (distanceZ + safeZ);
 			}
 		}
-		cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - safeZRate * plusZ;
+		switch (situation) {
+		case ECameraSituation.Self : 
+			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - plusZ;
+
+			if(isOverCamera)
+				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, -1 * distanceZ /2 * safeZRotateRate, 0f);
+			else
+				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
+			break;
+		case ECameraSituation.Npc:
+			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) + plusZ;
+
+			if(isOverCamera)
+				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, distanceZ /2 * safeZRotateRate, 0f);
+			else
+				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
+			break;
+		default :
+			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
+			break;
+		}
+
+
 		cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
 	}
 
