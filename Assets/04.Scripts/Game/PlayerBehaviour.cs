@@ -456,6 +456,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private int angerPower = 0;
 	public ETimerKind CrtTimeKey = ETimerKind.Default;
 
+	private bool isSkillShow = false;
+
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
 		if(GameController.Get.Situation != EGameSituation.End) {
@@ -1612,7 +1614,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void rotateTo(float lookAtX, float lookAtZ)
     {
-        if (isBlock)
+		if (isBlock || isSkillShow)
             return;
 
         gameObject.transform.LookAt(new Vector3(lookAtX, gameObject.transform.position.y, lookAtZ));
@@ -2864,6 +2866,24 @@ public class PlayerBehaviour : MonoBehaviour
 	public void PlaySound(string soundName)
 	{
 		AudioMgr.Get.PlaySound (soundName);
+	}
+
+	public void StartSkill(){
+		if(!isSkillShow) {
+			isSkillShow = true;
+			CameraMgr.Get.SkillShow(true);
+			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+				TimerMgr.Get.ChangeTime (item, 0);
+		}
+	}
+
+	public void StopSkill(){
+		if(isSkillShow) {
+			isSkillShow = false;
+			CameraMgr.Get.SkillShow(false);;
+			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+				TimerMgr.Get.ChangeTime (item, 1);
+		}
 	}
 
 	public void TimeScale(AnimationEvent aniEvent) {

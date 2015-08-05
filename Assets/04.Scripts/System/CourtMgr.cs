@@ -276,7 +276,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/RealBall")) as GameObject;
 			RealBallFX = RealBall.transform.FindChild ("BallFX").gameObject;
 			RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger> ();
-			RealBall.name = "ReallBall";
+			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
 

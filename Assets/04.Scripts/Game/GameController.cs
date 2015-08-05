@@ -833,8 +833,10 @@ public class GameController : KnightSingleton<GameController> {
 				UIGame.Get.AddAllForce();
 			}
 
-			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) 
+			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
 				UIGame.Get.DoSkill();
+				Joysticker.StartSkill();
+			}
 
 			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)
 				jodgeSkillUI();
@@ -3491,7 +3493,7 @@ public class GameController : KnightSingleton<GameController> {
             return -1;
     }	
 
-	private float getDis(Vector2 player1, Vector2 Target)
+	public float getDis(Vector2 player1, Vector2 Target)
 	{
 		if (player1 != null && Target != Vector2.zero)
 		{
