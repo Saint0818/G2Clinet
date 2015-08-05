@@ -55,7 +55,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private GameObject cameraOffsetObj;
 
 	private Camera cameraFx;
-	public GameObject cameraSkill;
+	private Camera cameraSkill;
 	private GameObject cameraSkillCenter;
 //	private Camera cameraPlayer;
 
@@ -133,11 +133,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.name = scene.ToString();
 			animator = cameraFx.GetComponent<Animator>();
 
-			cameraSkill = Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject;
-			cameraSkill.transform.parent = cameraRotationObj.transform;
-			cameraSkill.transform.localPosition = Vector3.zero;
-			cameraSkill.transform.localEulerAngles = Vector3.zero;
-			cameraSkill.SetActive(false);
+			cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
+			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
+			cameraSkill.gameObject.transform.localPosition = Vector3.zero;
+			cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
+			cameraSkill.gameObject.SetActive(false);
 
 			cameraSkillCenter = new GameObject();
 			cameraSkillCenter.name = "CameraSkillCenter";
@@ -533,33 +533,36 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void SkillShow (bool isShow) {
 		if(isShow) {
-			cameraSkill.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).OnComplete(RotatePlayer);
 			cameraFx.enabled = !isShow;
-			cameraSkill.SetActive(isShow);
+			cameraSkill.gameObject.SetActive(isShow);
 			cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
-			cameraSkill.transform.parent = cameraSkillCenter.transform;
-			GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "RealBall", "(Clone)");
+			cameraSkill.gameObject.transform.parent = cameraSkillCenter.transform;
+			GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+			GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+			cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
+			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 15);
+			GameController.Get.Joysticker.transform.DOLocalRotate(new Vector3(cameraSkillCenter.transform.eulerAngles.x, cameraSkillCenter.transform.eulerAngles.y + 360, cameraSkillCenter.transform.eulerAngles.z), 1.5f, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
+			
 		} else {
-			cameraSkill.transform.parent = cameraRotationObj.transform;
-			cameraSkill.transform.DOLocalMove(Vector3.zero, 0.3f);
-			cameraSkill.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
+			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 25);
+			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
+			cameraSkill.gameObject.transform.DOLocalMove(Vector3.zero, 0.3f);
+			cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
 		}
 	}
 
-	public void RotatePlayer (){
-		GameController.Get.Joysticker.transform.DOLocalRotate(new Vector3(cameraSkillCenter.transform.eulerAngles.x, cameraSkillCenter.transform.eulerAngles.y + 360, cameraSkillCenter.transform.eulerAngles.z), 3f, RotateMode.WorldAxisAdd).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
-	}
-
 	public void LootAtPlayer () {
-		cameraSkill.transform.LookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0));
+		cameraSkill.gameObject.transform.LookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0));
 	}
 
 	public void ResetCamera (){
 		cameraFx.enabled = true;
-		cameraSkill.SetActive(false);
-		cameraSkill.transform.localEulerAngles = Vector3.zero;
-		cameraSkill.transform.localPosition = Vector3.zero;
-		GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player","PlayerModel", "RealBall", "(Clone)");
+		cameraSkill.gameObject.SetActive(false);
+		cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
+		cameraSkill.gameObject.transform.localPosition = Vector3.zero;
+		GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player","PlayerModel", "(Clone)");
+		GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");
+		
 	}
 
 	public void SetRoomMode(EZoomType z, float t)

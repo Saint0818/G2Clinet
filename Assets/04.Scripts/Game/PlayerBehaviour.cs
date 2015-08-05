@@ -2871,6 +2871,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void StartSkill(){
 		if(!isSkillShow) {
 			isSkillShow = true;
+			EffectManager.Get.PlayEffect("UseSkillEffect_0", transform.position, null, null, 1);
 			CameraMgr.Get.SkillShow(true);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 0);
