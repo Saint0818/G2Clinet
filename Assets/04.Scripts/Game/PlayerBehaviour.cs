@@ -315,6 +315,7 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnUICantUse = null;
 	public OnPlayerAction4 OnUIAnger = null;
     public OnPlayerAction3 OnDoubleClickMoment = null;
+	public OnPlayerAction2 OnUIJoystick = null;
 
 	public int ShowPos = -1;
 
@@ -2869,9 +2870,13 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void StartSkill(){
+		//Attribute.ActiveSkill.ID
 		if(!isSkillShow) {
 			isSkillShow = true;
-			EffectManager.Get.PlayEffect("UseSkillEffect_0", transform.position, null, null, 1);
+			if(OnUIJoystick != null)
+				OnUIJoystick(this, false);
+			string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
+			EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
 			CameraMgr.Get.SkillShow(true);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 0);
@@ -2881,6 +2886,8 @@ public class PlayerBehaviour : MonoBehaviour
 	public void StopSkill(){
 		if(isSkillShow) {
 			isSkillShow = false;
+			if(OnUIJoystick != null)
+				OnUIJoystick(this, true);
 			CameraMgr.Get.SkillShow(false);;
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 1);
@@ -2920,6 +2927,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public void ZoomOut(float t) {
 		CameraMgr.Get.SkillShow (gameObject);
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
+	}
+
+	public void SkillEvent () {
+		StartSkill();
 	}
 
     public void ResetMove() {

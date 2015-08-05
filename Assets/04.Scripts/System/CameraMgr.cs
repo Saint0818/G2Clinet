@@ -538,11 +538,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
 			cameraSkill.gameObject.transform.parent = cameraSkillCenter.transform;
 			GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
-			GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+			if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
+				GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 			cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
 			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 15);
-			GameController.Get.Joysticker.transform.DOLocalRotate(new Vector3(cameraSkillCenter.transform.eulerAngles.x, cameraSkillCenter.transform.eulerAngles.y + 360, cameraSkillCenter.transform.eulerAngles.z), 1.5f, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
-			
+			cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), 1.5f, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
 		} else {
 			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 25);
 			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
@@ -561,7 +561,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
 		cameraSkill.gameObject.transform.localPosition = Vector3.zero;
 		GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player","PlayerModel", "(Clone)");
-		GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");
+		if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
+			GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");
 		
 	}
 

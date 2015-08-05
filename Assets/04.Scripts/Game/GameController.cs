@@ -691,6 +691,7 @@ public class GameController : KnightSingleton<GameController> {
 		UIGame.Get.InitLine();
 		setPassIcon(false);
 
+		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i ++)
         {
             PlayerList [i].OnShooting = OnShooting;
@@ -835,6 +836,9 @@ public class GameController : KnightSingleton<GameController> {
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
 				UIGame.Get.DoSkill();
+			}
+
+			if(Input.GetKeyDown(KeyCode.I) && Joysticker != null) {
 				Joysticker.StartSkill();
 			}
 
