@@ -86,5 +86,11 @@ public class GameConst
 												"fast2", 	   //11
 												"center",	   //12
 												"forward",     //13
-												"guard"};      //14
+												"guard",	   //14
+												"halftee0",        //15
+												"halftee1",        //16
+												"halftee2",        //17
+												"halfteedefence0", //18
+												"halfteedefence1", //19
+												"halfteedefence2"};//20     
 }

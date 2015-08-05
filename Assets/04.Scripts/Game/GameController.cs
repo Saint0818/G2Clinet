@@ -29,18 +29,6 @@ public enum ELoadingGamePic
 	SelectRole = -1,
 	Game = 1
 }
-//public enum EGameAction
-//{
-//    Def = 0,
-//    Attack = 1
-//}
-//
-//public enum EBodyType
-//{
-//    Small = 0,
-//    Middle = 1,
-//    Big = 2
-//}
 
 public enum ESceneTest
 {
@@ -68,12 +56,16 @@ public enum EGameTest
 	Skill
 }
 
-public enum EModelTest
-{
+public enum EModelTest {
 	None = -1,
 	Center = 0,
 	Forward = 1,
 	Defender = 2
+}
+
+public enum ECourtMode {
+	Full = 0,
+	Half = 1
 }
 
 public enum ECameraTest
@@ -82,7 +74,7 @@ public enum ECameraTest
     RGB
 }
 
-public enum EBasketAnimationTest{
+public enum EBasketAnimationTest {
 	Basket0=0,
 	Basket1=1,
 	Basket2=2,
@@ -116,7 +108,9 @@ public enum EPosKind
     Attack,
     Tee,
     TeeDefence,
-    Fast,
+	HalfTee,
+	HflfTeeDefence,
+	Fast,
 	Center,
 	Forward,
 	Guard
@@ -925,34 +919,39 @@ public class GameController : KnightSingleton<GameController> {
 
 	private int GetPosNameIndex(EPosKind Kind, int Index = -1)
 	{
-		switch (Kind)
-		{
+		switch (Kind) {
 		case EPosKind.Attack:
 			return 2;
 		case EPosKind.Tee:
 			if (Index == 0)
 				return 3;
-			else if (Index == 1)
+			else 
+			if (Index == 1)
 				return 4;
-			else if (Index == 2)
+			else 
+			if (Index == 2)
 				return 5;
 			else
 				return -1;
 		case EPosKind.TeeDefence:
 			if (Index == 0)
 				return 6;
-			else if (Index == 1)
+			else 
+			if (Index == 1)
 				return 7;
-			else if (Index == 2)
+			else 
+			if (Index == 2)
 				return 8;
 			else
 				return -1;
 		case EPosKind.Fast:
 			if (Index == 0)
 				return 9;
-			else if (Index == 1)
+			else 
+			if (Index == 1)
 				return 10;
-			else if (Index == 2)
+			else 
+			if (Index == 2)
 				return 11;
 			else
 				return -1;
@@ -1046,11 +1045,11 @@ public class GameController : KnightSingleton<GameController> {
 					if (npc.Team == team) {                      
 						if (!isShooting) {
                         	aiAttack(ref npc);
-							AIMove(ref npc, ref attackTactical);
+							aiMove(ref npc, ref attackTactical);
 						} else 
 						if (!npc.IsAllShoot) {
                         	aiAttack(ref npc);
-							AIMove(ref npc, ref attackTactical);
+							aiMove(ref npc, ref attackTactical);
 						}                                                       
                     } else
                     	aiDefend(ref npc);
@@ -1848,9 +1847,6 @@ public class GameController : KnightSingleton<GameController> {
 			} else 
 			if(player.crtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
-//					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-//					                                                   CourtMgr.Get.RealBall.transform.position.y - 0.1f,
-//					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 0.2f);
 					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), GameStart.Get.TipInTime);
@@ -1865,15 +1861,10 @@ public class GameController : KnightSingleton<GameController> {
 //				UIHint.Get.ShowHint("Swish", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-//				distanceBallToBasket = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z), new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z));
-//				Debug.Log("distanceBallToBasket : "+distanceBallToBasket);
 				CourtMgr.Get.RealBallRigidbody.velocity = 
 					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
-//				CourtMgr.Get.RealBallRigidbody.velocity = 
-//					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-//					                         (CourtMgr.Get.BasketHoop [player.Team.GetHashCode()].position + CourtMgr.Get.BasketShootPosition[BasketAnimationName]), shootAngle);
 				if(CourtMgr.Get.BasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
 					CourtMgr.Get.RealBallRigidbody.velocity = 
 						GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
@@ -1882,6 +1873,7 @@ public class GameController : KnightSingleton<GameController> {
 				} else 
 					Debug.LogError("No key:"+player.Team.GetHashCode().ToString() + "_" + BasketAnimationName);
 			}
+
             for (int i = 0; i < PlayerList.Count; i++)
                 if (PlayerList [i].Team == Shooter.Team)
                     PlayerList [i].ResetMove();
@@ -3292,7 +3284,7 @@ public class GameController : KnightSingleton<GameController> {
         return player;
     }
 
-    private void AIMove(ref PlayerBehaviour npc, ref TTactical pos)
+    private void aiMove(ref PlayerBehaviour npc, ref TTactical pos)
     {
         if (BallOwner == null) {
 			if(!Passer) {
@@ -3353,7 +3345,7 @@ public class GameController : KnightSingleton<GameController> {
 							moveData.Catcher = tacticalData [i].Catcher;
 							moveData.Shooting = tacticalData [i].Shooting;
 	                        int z = 1;
-	                        if (npc.Team != ETeamKind.Self)
+							if (GameStart.Get.CourtMode == ECourtMode.Full && npc.Team != ETeamKind.Self)
 	                            z = -1;
 	                        
 							moveData.Target = new Vector2(tacticalData [i].x, tacticalData [i].z * z);
@@ -3396,7 +3388,7 @@ public class GameController : KnightSingleton<GameController> {
 						player.DefPlayer.TargetPos = moveData;
                     } else {
                         float dis2;
-						float z = player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+						float z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 						dis2 = Vector2.Distance(new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z), 
                                                 new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
                         
@@ -3418,7 +3410,7 @@ public class GameController : KnightSingleton<GameController> {
 								player.DefPlayer.TargetPos = moveData;
                             } else {
                                 player.DefPlayer.ResetMove();
-								z = player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+								z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 								moveData.Target = new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z);
                               
                                 if (BallOwner != null)
@@ -3434,7 +3426,7 @@ public class GameController : KnightSingleton<GameController> {
                             }
                         } else {
                             player.DefPlayer.ResetMove();
-							z = player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+							z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 							moveData.Target = new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z);
 
                             if (BallOwner != null)
@@ -3493,7 +3485,7 @@ public class GameController : KnightSingleton<GameController> {
             return -1;
     }	
 
-	public float getDis(Vector2 player1, Vector2 Target)
+	private float getDis(Vector2 player1, Vector2 Target)
 	{
 		if (player1 != null && Target != Vector2.zero)
 		{
@@ -3926,6 +3918,9 @@ public class GameController : KnightSingleton<GameController> {
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
+		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
+			team = Shooter.Team.GetHashCode();
+
 		int score = 2;
 		if (shootDistance >= GameConst.TreePointDistance)
 			score = 3;
