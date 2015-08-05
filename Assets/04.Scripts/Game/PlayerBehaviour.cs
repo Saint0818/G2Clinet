@@ -457,7 +457,9 @@ public class PlayerBehaviour : MonoBehaviour
 	private int angerPower = 0;
 	public ETimerKind CrtTimeKey = ETimerKind.Default;
 
+	//SkillEvent
 	private bool isSkillShow = false;
+	private int skillEventKind = 0;
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -2869,30 +2871,6 @@ public class PlayerBehaviour : MonoBehaviour
 		AudioMgr.Get.PlaySound (soundName);
 	}
 
-	public void StartSkill(int kind, float t){
-		if(!isSkillShow) {
-			isSkillShow = true;
-			if(OnUIJoystick != null)
-				OnUIJoystick(this, false);
-			string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
-			EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
-			CameraMgr.Get.SkillShowActive(true, t);
-			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-				TimerMgr.Get.ChangeTime (item, 0);
-		}
-	}
-
-	public void StopSkill(){
-		if(isSkillShow) {
-			isSkillShow = false;
-			if(OnUIJoystick != null)
-				OnUIJoystick(this, true);
-			CameraMgr.Get.SkillShowActive(false);;
-			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-				TimerMgr.Get.ChangeTime (item, 1);
-		}
-	}
-
 	public void TimeScale(AnimationEvent aniEvent) {
 		float floatParam = aniEvent.floatParameter;
 		int intParam = aniEvent.intParameter;
@@ -2930,9 +2908,63 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void SkillEvent (AnimationEvent aniEvent) {
 		float t = aniEvent.floatParameter;
-		int kind = aniEvent.intParameter;
+		skillEventKind = aniEvent.intParameter;
 
-		StartSkill(kind, t);
+		if(!isSkillShow) {
+			if(OnUIJoystick != null)
+				OnUIJoystick(this, false);
+
+			isSkillShow = true;
+			string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
+			EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
+			
+			if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
+				GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+			
+			CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
+			
+			switch(skillEventKind) {
+			case 0://show self and rotate camera
+				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					TimerMgr.Get.ChangeTime (item, 0);
+				break;
+			case 1://show self
+				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+				break;
+			case 2://show all Player
+				GameController.Get.SetAllPlayerLayer("Player");
+
+				break;
+			}
+		}
+
+	}
+	
+	public void StopSkill(){
+		if(isSkillShow) {
+			if(OnUIJoystick != null)
+				OnUIJoystick(this, true);
+
+			isSkillShow = false;
+			CameraMgr.Get.SkillShowActive(false);
+			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+				TimerMgr.Get.ChangeTime (item, 1);
+		}
+	}
+
+	public void ResetSKillLayer (){
+		GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");
+		switch (skillEventKind) {
+			case 0://reset self  layer
+			case 1:
+				GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player","PlayerModel", "(Clone)");
+				break;
+			case 2://reset all player's layer
+				GameController.Get.SetAllPlayerLayer("Player");
+				break;
+		}
 	}
 
     public void ResetMove() {

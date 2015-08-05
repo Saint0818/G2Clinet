@@ -4317,6 +4317,11 @@ public class GameController : KnightSingleton<GameController> {
 			return null;
 	}
 
+	public void SetAllPlayerLayer (string layerName){
+		for (int i = 0; i < PlayerList.Count; i++)
+			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
+	}
+
 	public int GetBallOwner {
 		get {
 			for (int i = 0; i < PlayerList.Count; i++)            
