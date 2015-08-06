@@ -764,6 +764,11 @@ public class GameController : KnightSingleton<GameController> {
 				Joysticker.SkillEvent(e);
 			}
 
+			if (Input.GetKeyUp (KeyCode.D))
+			{
+				UIGame.Get.DoAttack();
+			}
+
 			if (Input.GetKeyDown(KeyCode.N))
 			{
 				isSkip = true;

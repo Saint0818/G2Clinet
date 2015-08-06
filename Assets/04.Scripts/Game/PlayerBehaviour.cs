@@ -2907,44 +2907,46 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void SkillEvent (AnimationEvent aniEvent) {
-		float t = aniEvent.floatParameter;
-		skillEventKind = aniEvent.intParameter;
+		if(this == GameController.Get.Joysticker) {
 
-		if(!isSkillShow) {
-			if(OnUIJoystick != null)
-				OnUIJoystick(this, false);
-
-			isSkillShow = true;
-			string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
-			EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
+			float t = aniEvent.floatParameter;
+			skillEventKind = aniEvent.intParameter;
 			
-			if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
-				GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
-			
-			CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
-			UISkillEffect.UIShow(true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv);
-
-			switch(skillEventKind) {
-			case 0://show self and rotate camera
-				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
-				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-					TimerMgr.Get.ChangeTime (item, 0);
-				break;
-			case 1://show self
-				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
-				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-					if(item != ETimerKind.Player0)
+			if(!isSkillShow) {
+				if(OnUIJoystick != null)
+					OnUIJoystick(this, false);
+				
+				isSkillShow = true;
+				string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
+				EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1);
+				
+				if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
+					GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+				
+				CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
+				UISkillEffect.UIShow(true, skillEventKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv);
+				
+				switch(skillEventKind) {
+				case 0://show self and rotate camera
+					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
-				break;
-			case 2://show all Player
-				GameController.Get.SetAllPlayerLayer("SkillPlayer");
-				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-					if(item != ETimerKind.Player0)
-						TimerMgr.Get.ChangeTime (item, 0);
-				break;
+					break;
+				case 1://show self
+					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+						if(item != ETimerKind.Player0)
+							TimerMgr.Get.ChangeTime (item, 0);
+					break;
+				case 2://show all Player
+					GameController.Get.SetAllPlayerLayer("SkillPlayer");
+					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+						if(item != ETimerKind.Player0)
+							TimerMgr.Get.ChangeTime (item, 0);
+					break;
+				}
 			}
 		}
-
 	}
 	
 	public void StopSkill(){
