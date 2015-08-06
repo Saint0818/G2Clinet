@@ -1177,8 +1177,8 @@ public class UIGame : UIBase {
 		if(isStart)
 			showScoreBarTime = showScoreBarInitTime;
 		isShowScoreBar = true;
+		uiScoreBar.SetActive(false);
 		uiScoreBar.SetActive(true);
-		animatorScoreBar.Play("UIScoreBar");
 	}
 	
 	private void judgePlayerScreenPosition(){

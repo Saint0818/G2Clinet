@@ -748,9 +748,20 @@ public class GameController : KnightSingleton<GameController> {
 			if (Input.GetKeyUp (KeyCode.K))
 				gameResult(0);
 
-			if (Input.GetKeyUp (KeyCode.D))
+			if (Input.GetKeyUp (KeyCode.I))
 			{
-				UIGame.Get.DoAttack();
+				AnimationEvent e = new AnimationEvent();
+				e.floatParameter = 1f;
+				e.intParameter = 1;
+				Joysticker.SkillEvent(e);
+			}
+
+			if (Input.GetKeyUp (KeyCode.U))
+			{
+				AnimationEvent e = new AnimationEvent();
+				e.floatParameter = 1f;
+				e.intParameter = 2;
+				Joysticker.SkillEvent(e);
 			}
 
 			if (Input.GetKeyDown(KeyCode.N))
@@ -3485,7 +3496,7 @@ public class GameController : KnightSingleton<GameController> {
             return -1;
     }	
 
-	private float getDis(Vector2 player1, Vector2 Target)
+	public float getDis(Vector2 player1, Vector2 Target)
 	{
 		if (player1 != null && Target != Vector2.zero)
 		{
