@@ -751,7 +751,7 @@ public class GameController : KnightSingleton<GameController> {
 			if (Input.GetKeyUp (KeyCode.I))
 			{
 				AnimationEvent e = new AnimationEvent();
-				e.floatParameter = 1f;
+				e.floatParameter = 1.5f;
 				e.intParameter = 1;
 				Joysticker.SkillEvent(e);
 			}
@@ -759,7 +759,7 @@ public class GameController : KnightSingleton<GameController> {
 			if (Input.GetKeyUp (KeyCode.U))
 			{
 				AnimationEvent e = new AnimationEvent();
-				e.floatParameter = 1f;
+				e.floatParameter = 1.5f;
 				e.intParameter = 2;
 				Joysticker.SkillEvent(e);
 			}

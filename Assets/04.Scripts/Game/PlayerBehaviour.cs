@@ -2923,18 +2923,24 @@ public class PlayerBehaviour : MonoBehaviour
 			
 			CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
 			UISkillEffect.UIShow(true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv);
-			
-			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-				TimerMgr.Get.ChangeTime (item, 0);
 
 			switch(skillEventKind) {
 			case 0://show self and rotate camera
+				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+					TimerMgr.Get.ChangeTime (item, 0);
+				break;
 			case 1://show self
 				GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+					if(item != ETimerKind.Player0)
+						TimerMgr.Get.ChangeTime (item, 0);
 				break;
 			case 2://show all Player
 				GameController.Get.SetAllPlayerLayer("SkillPlayer");
-
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+					if(item != ETimerKind.Player0)
+						TimerMgr.Get.ChangeTime (item, 0);
 				break;
 			}
 		}
