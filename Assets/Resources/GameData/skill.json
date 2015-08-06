@@ -1154,9 +1154,9 @@
         "animation": "Push20",
         "targetkind": 0,
         "targetkind1": 4,
-        "targeteffect1": 303,
-        "effectparent1": 1,
-        "delaytime1": 1,
+        "targeteffect1": 1700,
+        "effectparent1": 0,
+        "delaytime1": 0,
         "duration1": 2
     },
     {
