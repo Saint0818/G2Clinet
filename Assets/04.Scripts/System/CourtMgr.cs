@@ -184,7 +184,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				BasketHoopDummy[0].localPosition = position;
 				BasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
 				BasketHoopDummy[1].localPosition = position;
-				BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
+
+				if (GameStart.Get.CourtMode == ECourtMode.Full)
+					BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
+				else
+					BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
 			}
 			BasketHoopDummy[0].localPosition = Vector3.zero;
 			BasketHoopDummy[1].localPosition = Vector3.zero;
@@ -299,7 +303,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         {
 			crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
             crtCollider.transform.parent = gameObject.transform;
+			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
+		}
 
+		if (GameStart.Get.CourtMode == ECourtMode.Full) {
 			Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
 			Walls[1] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallB", crtCollider.name)); 
             Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
@@ -320,12 +327,35 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			BasketEntra[1, 0] = GetGameObjtInCollider(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1].IntTrigger = 1;
-			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
 
 			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
 				for(int j = 0; j < Distance3Pos.GetLength(1); j++)
 					Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, i, j));
-        }
+		} else {
+			Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));
+			Walls[1] = Walls[0];
+			Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
+			Hood[1] = Hood[0];
+			ShootPoint[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
+			ShootPoint[1] = ShootPoint[0];
+			MissPoint[0] = GetGameObjtInCollider(string.Format("{0}/MissPos/A", crtCollider.name));
+			MissPoint[1] = MissPoint[0];
+			DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/Point", crtCollider.name));
+			DunkPoint[1] = DunkPoint[0];
+			DunkJumpPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/JumpPoint", crtCollider.name));
+			DunkJumpPoint[1] = DunkJumpPoint[0];
+			CameraHood[0] = GetGameObjtInCollider(string.Format("{0}/CameraHood/A", crtCollider.name));
+			CameraHood[1] = CameraHood[0];
+			BasketEntra[0, 0] = GetGameObjtInCollider(string.Format("{0}/HoodA/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 1] = GetGameObjtInCollider(string.Format("{0}/HoodA/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
+			BasketEntra[0, 1].IntTrigger = 1;
+			BasketEntra[1, 0] = BasketEntra[0, 0];
+			BasketEntra[1, 1] = BasketEntra[0, 1];
+
+			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
+				for(int j = 0; j < Distance3Pos.GetLength(1); j++)
+					Distance3Pos[i, j] = GetGameObjtInCollider(string.Format("{0}/Distance3/{1}/Distance3_{2}", crtCollider.name, 0, j));
+		}
     }
 
 	public void InitBallShadow()
@@ -417,7 +447,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
 
 		InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
-
 	}
 
 	public void RealBallPath(int team, string animationName) {
