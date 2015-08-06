@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 66f9ff937155a5848bfe8f7b705ac543
-timeCreated: 1434340277
+timeCreated: 1438847824
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -153,6 +153,13 @@ ModelImporter:
       - time: .0908068344
         functionName: AnimationEvent
         data: DoubleClickMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .129629627
+        functionName: AnimationEvent
+        data: AirPassMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

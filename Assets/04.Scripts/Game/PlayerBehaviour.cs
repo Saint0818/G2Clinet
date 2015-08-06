@@ -1736,7 +1736,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Pass4:
-			if (IsBallOwner && !IsLayup && !IsDunk && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+//			if (IsBallOwner && !IsLayup && !IsDunk && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+			if (IsBallOwner && !IsLayup && !IsDunk && IsShoot && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             
@@ -2405,14 +2406,12 @@ public class PlayerBehaviour : MonoBehaviour
                     switch (state)
                     {
                         case EPlayerState.Shoot0:
-                            IsPassAirMoment = true;
                             stateNo = 0;
                             break;
                         case EPlayerState.Shoot1:
                             stateNo = 1;
                             break;
                         case EPlayerState.Shoot2:
-                            IsPassAirMoment = true;
                             stateNo = 2;
                             break;
                         case EPlayerState.Shoot3:
@@ -2603,7 +2602,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnGotSteal != null)
                     if (OnGotSteal(this))
 						GameRecord.BeSteal++;
-
                 break;  
                     
             case "FakeShootBlockMoment":
@@ -2614,8 +2612,11 @@ public class PlayerBehaviour : MonoBehaviour
             case "BlockMoment":
                 if (OnBlockMoment != null)
                     OnBlockMoment(this);
-
                 break;
+
+			case "AirPassMoment":
+				IsPassAirMoment = true;
+				break;
 
             case "DoubleClickMoment":
                 if (OnDoubleClickMoment != null)
@@ -2836,6 +2837,7 @@ public class PlayerBehaviour : MonoBehaviour
 						AniState(EPlayerState.HoldBall);
 				}
 
+				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
                 pushTrigger.SetActive(false);
                 elbowTrigger.SetActive(false);
