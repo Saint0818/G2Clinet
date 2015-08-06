@@ -2926,7 +2926,7 @@ public class PlayerBehaviour : MonoBehaviour
 					GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 				
 				CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
-				UISkillEffect.UIShow(true, skillEventKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv);
+				UISkillEffect.UIShow(true, skillEventKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].name);
 				
 				switch(skillEventKind) {
 				case 0://show self and rotate camera
