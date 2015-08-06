@@ -413,19 +413,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		switch (situation) {
 		case ECameraSituation.Self : 
 			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) - plusZ;
-
-			if(isOverCamera)
-				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, -1 * distanceZ /2 * safeZRotateRate, 0f);
-			else
-				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
 			break;
 		case ECameraSituation.Npc:
 			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z)) + plusZ;
-
-			if(isOverCamera)
-				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, distanceZ /2 * safeZRotateRate, 0f);
-			else
-				cameraGroupObj.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
 			break;
 		default :
 			cameraOffsetPos.z = offsetLimit[0].z - (cameraOffsetRate.z * (offsetLimit[0].z - offsetLimit[1].z));
@@ -446,7 +436,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 			cameraRotationObj.transform.localPosition = jumpBallPos;
 			cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
-//				new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 			break;
 		case ECameraSituation.Self:
 			if(!IsTee){
@@ -496,7 +485,30 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	{
 		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
 		Quaternion rot = Quaternion.LookRotation(dir);
-		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+
+		if(isOverCamera)
+		{
+			switch (situation) {
+				case ECameraSituation.Self : 
+					Debug.Log("Angle : " + rot.eulerAngles);
+					Debug.Log("Angle Y : " + (rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate)).ToString());
+					
+					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
+					
+					break;
+
+				case ECameraSituation.Npc:
+					Debug.Log("Angle : " + rot.eulerAngles);
+					Debug.Log("Angle Y : " + (rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate)).ToString());
+				
+					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
+					break;
+			}
+		}
+		else
+			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+
+
 	}
 
 	private void focusObjectOffset()
