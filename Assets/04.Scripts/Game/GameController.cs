@@ -1158,7 +1158,7 @@ public class GameController : KnightSingleton<GameController> {
 	{
 		bool suc = false;
 		
-		if (Self.IsRebound)
+		if (Self.IsRebound || Self.IsUseSkill)
 			suc = true;
 		else
 		if(!Self.CheckAnimatorSate(EPlayerState.HoldBall) && haveDefPlayer(ref Self, 5, 40) != 0) {
@@ -2687,6 +2687,7 @@ public class GameController : KnightSingleton<GameController> {
 				}
 				if (result) {
 					attackSkillEffect(player);
+					player.ActiveSkill(player.gameObject);
 					result = true;
 				}
 			}
@@ -2735,7 +2736,6 @@ public class GameController : KnightSingleton<GameController> {
 			}
 			break;
 		}
-		player.ActiveSkill(player.gameObject);
 	}
 	
 	private List<GameObject> getActiveSkillTarget(PlayerBehaviour player) {
@@ -4554,5 +4554,11 @@ public class GameController : KnightSingleton<GameController> {
 			return false;
 		else
 			return true;
+	}
+
+	public List<PlayerBehaviour> GetAllPlayer {
+		get {
+			return PlayerList;
+		}
 	}
 }

@@ -574,38 +574,33 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		skiller = player;
 	}
 
-	public void SkillShowActive (bool isShow, int kind = 0, float t = 1.5f) {
-		if(isShow) {
-			cameraFx.enabled = !isShow;
-			cameraSkill.gameObject.SetActive(isShow);
+	public void SkillShowActive (int kind = 0, float t = 1.5f) {
+			cameraFx.enabled = false;
+			cameraSkill.gameObject.SetActive(true);
 			cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
 			cameraSkill.gameObject.transform.parent = cameraSkillCenter.transform;
 			switch(kind) {
 				case 0: //rotate
 				case 1://take self
-					TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 15);
+					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
 					cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
 					if(kind == 0)	
-						cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), t, RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(GameController.Get.Joysticker.StopSkill);
+				cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t-0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
 					else
-						Invoke("StopSkill", t);
+						Invoke("StopSkill", (t-0.3f));
 					break;
 				case 2://take all player
-					TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 45);
-					Invoke("StopSkill", t);
+					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 45);
+				Invoke("StopSkill", (t-0.3f));
 				break;
 			}
-
-		} else {
-			TweenFOV.Begin(cameraSkill.gameObject, 0.5f, 25);
-			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
-			cameraSkill.gameObject.transform.DOLocalMove(Vector3.zero, 0.3f);
-			cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
-		}
 	}
 
 	public void StopSkill() {
-		GameController.Get.Joysticker.StopSkill();
+		TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 25);
+		cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
+		cameraSkill.gameObject.transform.DOLocalMove(Vector3.zero, 0.3f);
+		cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
 	}
 
 	public void LootAtPlayer () {
@@ -613,6 +608,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	}
 
 	public void ResetCamera (){
+		GameController.Get.Joysticker.StopSkill();
 		cameraFx.enabled = true;
 		cameraSkill.gameObject.SetActive(false);
 		cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;

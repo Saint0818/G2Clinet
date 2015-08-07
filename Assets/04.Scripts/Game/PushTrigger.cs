@@ -40,7 +40,7 @@ public class PushTrigger : MonoBehaviour {
 						}
 					}
 
-					gameObject.SetActive(false);
+//					gameObject.SetActive(false);
 
 					if (pusher.crtState == EPlayerState.Elbow) {
 						pusher.GameRecord.Elbow++;

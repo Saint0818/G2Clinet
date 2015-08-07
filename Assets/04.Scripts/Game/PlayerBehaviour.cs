@@ -469,10 +469,9 @@ public class PlayerBehaviour : MonoBehaviour
 					SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
 			}
 		}
-
-		isUseSkill = false;
-        angerPower += value;
-        if (angerPower > Attribute.MaxAnger) {
+//		isUseSkill = false;
+		angerPower += value;
+		if (angerPower > Attribute.MaxAnger) {
 			value -= angerPower - Attribute.MaxAnger;
 			angerPower = Attribute.MaxAnger;
 		}
@@ -1814,7 +1813,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
             case EPlayerState.Steal20:
-                if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
+			if (!IsTee  && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || IsSteal || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
@@ -1890,7 +1889,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 			case EPlayerState.Buff20:
 			case EPlayerState.Buff21:
-				if(CanMove && !IsBuff)
+				if(!IsBuff)
 					return true;
 				break;
 
@@ -2925,7 +2924,7 @@ public class PlayerBehaviour : MonoBehaviour
 				if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 					GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 				
-				CameraMgr.Get.SkillShowActive(true, skillEventKind, t);
+				CameraMgr.Get.SkillShowActive(skillEventKind, t);
 				UISkillEffect.UIShow(true, skillEventKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].name);
 				
 				switch(skillEventKind) {
@@ -2958,7 +2957,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 			isSkillShow = false;
 			UISkillEffect.UIShow(false);
-			CameraMgr.Get.SkillShowActive(false);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 1);
 		}
