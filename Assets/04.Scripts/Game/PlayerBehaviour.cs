@@ -2829,10 +2829,6 @@ public class PlayerBehaviour : MonoBehaviour
             case "AnimationEnd":
                 OnUI(this);
 
-				if(crtState == EPlayerState.Steal20) {
-					GameController.Get.SetBall(this);
-				}
-
 				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
 					Debug.Log (gameObject.name + " AnimationEnd layup no ball.");
 					GameController.Get.SetBall();
@@ -2943,22 +2939,38 @@ public class PlayerBehaviour : MonoBehaviour
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
+					Invoke("ShowActiveEffect", 1.5f);
 					break;
 				case 1://show self
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
+					Invoke("ShowActiveEffect", 1);
 					break;
 				case 2://show all Player
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
+					Invoke("ShowActiveEffect", 1);
 					break;
 				}
 			}
+		} else {
+			ShowActiveEffect ();
 		}
+	}
+
+	public void StealSkill () {
+		if(crtState == EPlayerState.Steal20) {
+			GameController.Get.SetBall(this);
+		}
+	}
+	
+	
+	public void ShowActiveEffect (){
+		GameController.Get.OnShowEffect(this, null, false);
 	}
 	
 	public void StopSkill(){

@@ -2710,7 +2710,6 @@ public class GameController : KnightSingleton<GameController> {
 			break;
 		case 15://steal
 		case 17://push
-			onShowEffect(player, null, false);
 			break;
 		case 21://buffer
 			switch (skill.TargetKind) {
@@ -2720,7 +2719,7 @@ public class GameController : KnightSingleton<GameController> {
 				player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 				
-				onShowEffect(player, null, false);
+				OnShowEffect(player, null, false);
 				break;
 			case 3:
 				for (int i = 0; i < PlayerList.Count; i++) {
@@ -2728,7 +2727,7 @@ public class GameController : KnightSingleton<GameController> {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
 							PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
 							                                skill.Value(PlayerList[i].Attribute.ActiveSkill.Lv), skill.LifeTime(PlayerList[i].Attribute.ActiveSkill.Lv));
-							onShowEffect(player, PlayerList[i], false);
+							OnShowEffect(player, PlayerList[i], false);
 						}
 					}
 				}
@@ -2838,7 +2837,7 @@ public class GameController : KnightSingleton<GameController> {
 		return false;
 	}
 	
-	private void onShowEffect (PlayerBehaviour player, PlayerBehaviour target = null, bool isPassiveID = true) {
+	public void OnShowEffect (PlayerBehaviour player, PlayerBehaviour target = null, bool isPassiveID = true) {
 		GameObject obj = null;
 		GameObject obj2 = null;
 		int skillID = 0;
@@ -2850,7 +2849,7 @@ public class GameController : KnightSingleton<GameController> {
 					obj2 = getSkillEffectPosition(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
 			}
 		} else {
-			if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID) && player.CanUseSkill) {
+			if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
 				if(target != null){
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
 						obj = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
@@ -2860,7 +2859,8 @@ public class GameController : KnightSingleton<GameController> {
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
 						obj = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
 					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-						obj2 = target.gameObject;
+						obj2 = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
+//						obj2 = target.gameObject;
 				}
 			}
 		}
@@ -3147,7 +3147,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					onShowEffect(player);
+					OnShowEffect(player);
 					player.GameRecord.PassiveSkill++;
 				}
 			}
@@ -3918,7 +3918,7 @@ public class GameController : KnightSingleton<GameController> {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.PickBall2Rate) {
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
-					onShowEffect(player1);
+					OnShowEffect(player1);
 				}
 			}
 		}

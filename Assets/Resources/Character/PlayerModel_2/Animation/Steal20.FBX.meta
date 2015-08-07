@@ -171,6 +171,13 @@ ModelImporter:
         floatParameter: 1.5
         intParameter: 0
         messageOptions: 0
+      - time: .436305732
+        functionName: StealSkill
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
