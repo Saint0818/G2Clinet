@@ -2797,10 +2797,10 @@ public class GameController : KnightSingleton<GameController> {
 
 			break;
 		case EGameSituation.AttackB:
-			if (kind == 15 || kind == 16)
+			if (kind == 16)
 				return true;
 			
-			if (kind == 17 && player != BallOwner) 
+			if ((kind == 15 || kind == 17) && player != BallOwner) 
 				return true;
 			
 			if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)

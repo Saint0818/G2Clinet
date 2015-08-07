@@ -24,11 +24,10 @@ public class UILoading : UIBase {
 	private int PicNo = -1;
 	private bool isCloseUI = false;
 	public float CloseTime = 0;
-	//	private UILabel Hint;
 
 	private int pageLoading = 0;
-	private int dir = 0;
-	private bool wasDragging = false;
+//	private int dir = 0;
+//	private bool wasDragging = false;
 
 	public static bool Visible{
 		get{
@@ -77,6 +76,7 @@ public class UILoading : UIBase {
 		}else 
 		if(instance) {
 			if (Get.CloseTime <= 0) {
+				Get.CancelInvoke("ChangePage");
 				instance.Show(isShow);
 				RemoveUI(UIName);
 			}
@@ -119,8 +119,8 @@ public class UILoading : UIBase {
 		SetBtnFun(UIName + "/WindowGame/Pages/P2Button", Point2);
 		SetBtnFun(UIName + "/WindowGame/Pages/P3Button", Point3);
 
-		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
-		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
+//		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
+//		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
 
 		windowGame.SetActive(false);
 		windowLoading.SetActive(false);
@@ -147,15 +147,14 @@ public class UILoading : UIBase {
 			loadSelectRole();
 			break;
 		case ELoadingGamePic.Game:
+			Invoke("ChangePage", 2);
 			yield return new WaitForSeconds (2);
-//			buttonSkip.SetActive(true);
 			UISkip.UIShow(true, ESkipSituation.Loading);
 			loadingPic.SetActive(false);
 			yield return new WaitForSeconds (10);
 			UIShow(false);
 			UISkip.UIShow(false, ESkipSituation.Loading);
 			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
-//			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
 			break;
 		}
 	}
@@ -197,23 +196,33 @@ public class UILoading : UIBase {
 		uiBG.mainTexture = Get.loadTexture("Textures/LoadingPic/Loading" + (page+1).ToString());
 	}
 
-	public void PanelDrag(GameObject go, Vector2 delta) {
-		wasDragging = true;
-		if(delta.x > 0)
-			dir = -1;
-		else
-			dir = 1;
-	}
+//	public void PanelDrag(GameObject go, Vector2 delta) {
+//		wasDragging = true;
+//		if(delta.x > 0)
+//			dir = -1;
+//		else
+//			dir = 1;
+//	}
+//
+//	public void PanelPress(GameObject go, bool pressed) {
+//		if (!pressed && wasDragging) {
+//			wasDragging = false;
+//			if(dir == 1)
+//				DoRight();
+//			else
+//				DoLeft();
+//			dir = 0;
+//		}
+//	}
 
-	public void PanelPress(GameObject go, bool pressed) {
-		if (!pressed && wasDragging) {
-			wasDragging = false;
-			if(dir == 1)
-				DoRight();
-			else
-				DoLeft();
-			dir = 0;
+	public void ChangePage(){
+		if(pageLoading < 2) {
+			pageLoading++;
+		} else {
+			pageLoading = 0;
 		}
+		showPage(pageLoading);
+		Invoke("ChangePage", 2);
 	}
 	
 	public void DoRight() {

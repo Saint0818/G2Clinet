@@ -2381,6 +2381,13 @@ public class PlayerBehaviour : MonoBehaviour
 			isCanCatchBall = false;
 				GameRecord.StealLaunch++;
                 Result = true;
+				if(stateNo == 20) {
+					if(GameController.Get.BallOwner != null) {
+						transform.position = GameController.Get.BallOwner.transform.position + Vector3.forward * (-2);
+						transform.LookAt(GameController.Get.BallOwner.transform.position);
+						GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+					}
+				}
                 break;
 
             case EPlayerState.GotSteal:
@@ -2821,6 +2828,10 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "AnimationEnd":
                 OnUI(this);
+
+				if(crtState == EPlayerState.Steal20) {
+					GameController.Get.SetBall(this);
+				}
 
 				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
 					Debug.Log (gameObject.name + " AnimationEnd layup no ball.");
