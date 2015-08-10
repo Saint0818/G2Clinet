@@ -125,11 +125,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	private void setHalfCourtCamera() {
 		if (GameStart.Get.CourtMode == ECourtMode.Half) {
-			cameraOffsetObj.transform.localPosition = new Vector3(0, 6.6f, -14.2f);
+			cameraOffsetObj.transform.localPosition = new Vector3(0, 10.35f, -15);
 			cameraOffsetObj.transform.eulerAngles = Vector3.zero;
 			cameraRotationObj.transform.localPosition = Vector3.zero;
-			cameraRotationObj.transform.eulerAngles = new Vector3(10, 0, 0);
-			cameraFx.fieldOfView = 30;
+			cameraRotationObj.transform.eulerAngles = new Vector3(21.15f, 0, 0);
+			cameraFx.fieldOfView = 35;
 		} else 
 			cameraFx.fieldOfView = 25;
 
