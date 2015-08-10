@@ -59,6 +59,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Camera cameraFx;
 	private Camera cameraSkill;
 	private GameObject cameraSkillCenter;
+	private Animator cameraAnimator;
+
 //	private Camera cameraPlayer;
 
 	private GameObject focusTarget;
@@ -104,7 +106,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraGroupObj.name = "CameraGroup";
 
 			cameraWithBasketBallCourtRate = new Vector2(cameraMoveAera.x / basketballCourt.x, cameraMoveAera.y / basketballCourt.y);
-			InitCamera();
+			initCamera();
 			InitTestTool();
 
 			showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
@@ -121,8 +123,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		AudioMgr.Get.PlaySound (SoundType.SD_Dunk);
 	}
 
-	private Animator animator;
-	
+	private void setHalfCourtCamera() {
+		if (GameStart.Get.CourtMode == ECourtMode.Half) {
+			cameraOffsetObj.transform.localPosition = new Vector3(0, 6.6f, -14.2f);
+			cameraOffsetObj.transform.eulerAngles = Vector3.zero;
+			cameraRotationObj.transform.localPosition = Vector3.zero;
+			cameraRotationObj.transform.eulerAngles = new Vector3(10, 0, 0);
+			cameraFx.fieldOfView = 30;
+		} else 
+			cameraFx.fieldOfView = 25;
+
+		if (cameraAnimator) 
+			cameraAnimator.enabled = GameStart.Get.CourtMode != ECourtMode.Half;
+	}
+
 	public void SetCourtCamera(SceneName scene)
 	{
 		if(cameraFx && cameraFx.name != scene.ToString()){
@@ -133,7 +147,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraFx.gameObject.transform.localPosition = Vector3.zero;
 			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
 			cameraFx.gameObject.name = scene.ToString();
-			animator = cameraFx.GetComponent<Animator>();
+			cameraAnimator = cameraFx.GetComponent<Animator>();
 
 			cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
 			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
@@ -147,20 +161,23 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			Transform tEnd= obj.transform.FindChild("DC_Pos/End_Point");
 			if(tEnd)
 				SkillDCTarget = tEnd.gameObject;
+
 			Transform tDC = obj.transform.FindChild("DC_Pos/DC_Point");
 			if(tDC)
 				DoubleClickDCBorn = tDC.gameObject;
 		}
+
+		setHalfCourtCamera();
 	}
 	
 	public void PlayGameStartCamera()
 	{
-		animator.SetTrigger ("InGameStart");
+		cameraAnimator.SetTrigger ("InGameStart");
 	}
 
 	public void FinishGame()
 	{
-		animator.SetTrigger ("FinishGame");
+		cameraAnimator.SetTrigger ("FinishGame");
 	}
 
 	public void SetSelectRoleCamera()
@@ -177,22 +194,16 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public bool IsTee = false;
 
-	public void SetCameraSituation(ECameraSituation team, bool isTee = false)
-	{
+	public void SetCameraSituation(ECameraSituation team, bool isTee = false) {
 		IsTee = isTee;
 		situation = team;
 		SetTestToolPosition();
 
-		if (team == ECameraSituation.Finish)
-			return;
-		else
-		{
-			if(team == ECameraSituation.Show)
-			{
+		if (team != ECameraSituation.Finish) {
+			if (team == ECameraSituation.Show) {
 				ShowCameraEnable(true);
 				cameraGroupObj.SetActive(false);
-			}
-			else
+			} else
 				cameraGroupObj.SetActive(true);
 		}
 	}
@@ -213,18 +224,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	public void InitCamera(ECameraSituation team)
 	{
 		SetCameraSituation (team);
-		InitCamera ();
+		initCamera ();
 	}
 
-	private void InitCamera()
+	private void initCamera()
 	{
 		if (cameraGroupObj) {
-			cameraOffsetObj = cameraGroupObj.gameObject.transform.FindChild("Offset").gameObject;
-			cameraRotationObj = cameraGroupObj.gameObject.transform.FindChild("Offset/Rotation").gameObject;
-			cameraFx = cameraRotationObj.gameObject.transform.GetComponentInChildren<Camera>();
+			cameraOffsetObj = cameraGroupObj.transform.FindChild("Offset").gameObject;
+			cameraRotationObj = cameraGroupObj.transform.FindChild("Offset/Rotation").gameObject;
+			cameraFx = cameraRotationObj.transform.GetComponentInChildren<Camera>();
 
-			if(!cameraOffsetObj.gameObject.GetComponent<Shake>())
-				mShake = cameraOffsetObj.gameObject.AddComponent<Shake>();
+			if(!cameraOffsetObj.GetComponent<Shake>())
+				mShake = cameraOffsetObj.AddComponent<Shake>();
 			
 			cameraRotationObj.transform.position = startPos;
 			smothHight.y = startPos.y;
@@ -234,6 +245,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		cameraGroupObj.transform.localPosition = Vector3.zero;
 		cameraRotationObj.transform.localPosition = jumpBallPos;
 		cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
+		setHalfCourtCamera();
 
 		if (focusTarget == null) {
 			focusTarget = GameObject.CreatePrimitive (PrimitiveType.Sphere);
@@ -314,13 +326,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if (SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
-			if(situation == ECameraSituation.Show || situation == ECameraSituation.Loading)
-				return;
-
-			if(situation == ECameraSituation.Finish)
-				return;
-
+		if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self || 
+		    situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller)) {
 			ZoomCalculation();
 			HorizontalCameraHandle();
 		}
@@ -431,9 +438,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		focusObjectOffset ();
 
 		switch (situation) {
-
 		case ECameraSituation.JumpBall:
-
 			cameraRotationObj.transform.localPosition = jumpBallPos;
 			cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
 			break;
