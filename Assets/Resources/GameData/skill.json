@@ -364,11 +364,11 @@
         "rateadd": 10,
         "animation": "Shoot4",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 102,
+        "targetkind1": 2,
+        "targeteffect1": 101,
         "effectparent1": 1,
-        "delaytime1": 2,
-        "duration1": 2,
+        "delaytime1": 0,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -390,11 +390,11 @@
         "rateadd": 10,
         "animation": "Shoot5",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 102,
+        "targetkind1": 2,
+        "targeteffect1": 101,
         "effectparent1": 1,
-        "delaytime1": 3,
-        "duration1": 2,
+        "delaytime1": 0,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -416,11 +416,11 @@
         "rateadd": 10,
         "animation": "Shoot6",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 103,
+        "targetkind1": 2,
+        "targeteffect1": 101,
         "effectparent1": 1,
-        "delaytime1": 3,
-        "duration1": 2,
+        "delaytime1": 0,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -442,11 +442,11 @@
         "rateadd": 10,
         "animation": "Shoot7",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 104,
+        "targetkind1": 2,
+        "targeteffect1": 101,
         "effectparent1": 1,
-        "delaytime1": 3,
-        "duration1": 2,
+        "delaytime1": 0,
+        "duration1": 1,
         "effect": 101
     },
     {
@@ -468,11 +468,11 @@
         "rateadd": 10,
         "animation": "Layup1",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 104,
+        "targetkind1": 2,
+        "targeteffect1": 102,
         "effectparent1": 1,
-        "delaytime1": 1,
-        "duration1": 2
+        "delaytime1": 0,
+        "duration1": 1
     },
     {
         "id": 511,
@@ -493,11 +493,11 @@
         "rateadd": 10,
         "animation": "Layup2",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 103,
+        "targetkind1": 2,
+        "targeteffect1": 102,
         "effectparent1": 1,
-        "delaytime1": 2,
-        "duration1": 2
+        "delaytime1": 0,
+        "duration1": 1
     },
     {
         "id": 512,
@@ -518,11 +518,11 @@
         "rateadd": 10,
         "animation": "Layup3",
         "targetkind": 0,
-        "targetkind1": 3,
-        "targeteffect1": 103,
+        "targetkind1": 2,
+        "targeteffect1": 102,
         "effectparent1": 1,
-        "delaytime1": 1,
-        "duration1": 2
+        "delaytime1": 0,
+        "duration1": 1
     },
     {
         "id": 610,
@@ -989,8 +989,7 @@
         "targeteffect1": 1001,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 12000,
@@ -1017,8 +1016,7 @@
         "targetkind1": 4,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 13000,
@@ -1045,8 +1043,7 @@
         "targetkind1": 4,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 14000,
@@ -1073,8 +1070,7 @@
         "targetkind1": 4,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 15000,
@@ -1101,8 +1097,7 @@
         "targetkind1": 4,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 10600,
@@ -1130,8 +1125,7 @@
         "targeteffect1": 1001,
         "effectparent1": 1,
         "delaytime1": 1,
-        "duration1": 2,
-        "targetkind2": 1
+        "duration1": 2
     },
     {
         "id": 11500,
