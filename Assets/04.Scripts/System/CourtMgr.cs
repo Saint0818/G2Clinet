@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using Chronos;
+using DG.Tweening;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
@@ -283,7 +284,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
-
+			TimerMgr.Get.InitRealBall();
+			
 			if(RealBallCurve == null || RealBallCurve.gameObject == null){
 				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
 				RealBallCurve = obj.GetComponent<BallCurve> ();
@@ -549,6 +551,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Layup2: 
 			case EPlayerState.Layup3: 
 			case EPlayerState.TipIn: 
+			case EPlayerState.Shooting: 
 				realBallCollider.enabled = true;
 				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = false;
@@ -674,15 +677,18 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.PickBall0:
 				realBallCollider.enabled = false;
 				if (player)
+				{
 					RealBall.transform.parent = player.DummyBall.transform;
+					RealBall.transform.localPosition = Vector3.zero;
+					RealBall.transform.DOKill();
+				}
 
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBall.transform.localScale = Vector3.one;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.gameObject.SetActive(false);
-				RealBall.transform.localPosition = Vector3.zero;
+				RealBallFX.gameObject.SetActive(false);				
 				break;
 		}
 	}

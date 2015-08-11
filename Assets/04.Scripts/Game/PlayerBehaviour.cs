@@ -122,7 +122,8 @@ public enum EPlayerState
 	TipIn,
 	JumpBall,
 	Buff20 = 12100, 
-	Buff21 = 12101
+	Buff21 = 12101,
+	Shooting
 }
 
 public enum ETeamKind
@@ -986,7 +987,7 @@ public class PlayerBehaviour : MonoBehaviour
         } else
         {
             isDunk = false;
-            Debug.LogError("playCurve is null");
+			LogMgr.Get.LogError("playCurve is null");
         }
     }
 
@@ -1021,7 +1022,7 @@ public class PlayerBehaviour : MonoBehaviour
         } else
         {
             isLayup = false;
-            Debug.LogError("playCurve is null");
+            LogMgr.Get.LogError("playCurve is null");
         }
     }
 
@@ -1296,19 +1297,19 @@ public class PlayerBehaviour : MonoBehaviour
 		//LayerCheck
 		if (gameObject.transform.localPosition.y > 0.2f && gameObject.layer == LayerMask.NameToLayer("Player"))
 		{
-			Debug.LogError("Error Layer: " + gameObject.name + " . crtState : " + crtState);
+			LogMgr.Get.AnimationError((int)Team * 3 + Index, "Error Layer: " + gameObject.name + " . crtState : " + crtState);
 		}
 
 		//IdleAirCheck
 		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
 		{
-			Debug.LogError(gameObject.name + " : Error State : Idle in the Air ");
+			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State : Idle in the Air ");
 		}
 
 		//Idle ballowner
 		if(crtState == EPlayerState.Idle && IsBallOwner)
 		{
-			Debug.LogError(gameObject.name + " : Error State: Idle BallOWner");
+			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State: Idle BallOWner");
 		}
 
 	}
@@ -1319,9 +1320,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (CanMove || stop || HoldBallCanMove) {
 			if (IsFall && GameStart.Get.IsDebugAnimation) {
-				Debug.LogError("CanMove : " + CanMove);
-				Debug.LogError("stop : " + stop);
-				Debug.LogError("HoldBallCanMove : " + HoldBallCanMove);
+				LogMgr.Get.LogError("CanMove : " + CanMove);
+				LogMgr.Get.LogError("stop : " + stop);
+				LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
 			}
 
             if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB || GameStart.Get.TestMode != EGameTest.None) {
@@ -1914,7 +1915,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!CanUseState(state))
             return false;
 		if(GameStart.Get.TestMode == EGameTest.Pass)
-			Debug.Log("name:"+gameObject.name + "Rotate");
+			LogMgr.Get.Log("name:"+gameObject.name + "Rotate");
         rotateTo(v.x, v.z);
         return AniState(state);
     }
@@ -1934,8 +1935,8 @@ public class PlayerBehaviour : MonoBehaviour
 		DribbleTime = 0;
 		isUseSkill = false;
 
-		if(GameStart.Get.IsDebugAnimation)
-			Debug.Log ("Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
+		if (GameStart.Get.IsDebugAnimation)
+			LogMgr.Get.AddAnimationLog ((int)Team * 3 + Index, "Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
 
 		DashEffectEnable (false);
         
@@ -2373,6 +2374,11 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Steal20:
 						stateNo = 20;
+						if(GameController.Get.BallOwner != null) {
+							transform.position = GameController.Get.BallOwner.transform.position + Vector3.forward * (-2);
+							transform.LookAt(GameController.Get.BallOwner.transform.position);
+							GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+						}
 						break;
 				}
 			PlayerRigidbody.mass = 5;
@@ -2382,13 +2388,6 @@ public class PlayerBehaviour : MonoBehaviour
 			isCanCatchBall = false;
 				GameRecord.StealLaunch++;
                 Result = true;
-				if(stateNo == 20) {
-					if(GameController.Get.BallOwner != null) {
-						transform.position = GameController.Get.BallOwner.transform.position + Vector3.forward * (-2);
-						transform.LookAt(GameController.Get.BallOwner.transform.position);
-						GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-					}
-				}
                 break;
 
             case EPlayerState.GotSteal:
@@ -2563,7 +2562,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private void DebugAnimationCurve(string curveName)
 	{
 		if(GameStart.Get.IsDebugAnimation)
-			Debug.LogError("Can not Find aniCurve: " + curveName);
+			LogMgr.Get.LogError("Can not Find aniCurve: " + curveName);
 	}
 
     public void SetShooterLayer()
@@ -2682,7 +2681,7 @@ public class PlayerBehaviour : MonoBehaviour
 					else 
 					if (crtState == EPlayerState.Layup0) {
 						if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-							Debug.Log (gameObject.name + " layup no ball.");
+							LogMgr.Get.Log (gameObject.name + " layup no ball.");
 							GameController.Get.SetBall();
 						}
 					}
@@ -2831,7 +2830,7 @@ public class PlayerBehaviour : MonoBehaviour
                 OnUI(this);
 
 				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-					Debug.Log (gameObject.name + " AnimationEnd layup no ball.");
+					LogMgr.Get.Log (gameObject.name + " AnimationEnd layup no ball.");
 					GameController.Get.SetBall();
                 }
                     
@@ -3274,7 +3273,7 @@ public class PlayerBehaviour : MonoBehaviour
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
 		} catch {
-			Debug.LogError("this situation isn't contain EPlayerState:" + situation.ToString());
+			LogMgr.Get.LogError("this situation isn't contain EPlayerState:" + situation.ToString());
 		}
 
         bool isPerformPassive = false;
@@ -3335,7 +3334,7 @@ public class PlayerBehaviour : MonoBehaviour
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 				} catch {
 					if(GameStart.Get.IsDebugAnimation)
-						Debug.LogError("AnimationName: '" + animationName + "'was not found.");
+						LogMgr.Get.LogError("AnimationName: '" + animationName + "'was not found.");
 					return playerState;
 				}
 			} else 
@@ -3357,7 +3356,7 @@ public class PlayerBehaviour : MonoBehaviour
 					try {
 						AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
 					} catch {
-						Debug.LogError("Can't find SkillAnimation in EPlayerState");
+						LogMgr.Get.LogError("Can't find SkillAnimation in EPlayerState");
 					}
 				}
 				

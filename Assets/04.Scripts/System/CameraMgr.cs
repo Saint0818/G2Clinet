@@ -326,8 +326,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self || 
-		    situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller)) {
+		if (GameStart.Get.CourtMode == ECourtMode.Full && SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
+			if(situation == ECameraSituation.Show || situation == ECameraSituation.Loading)
+				return;
+			
+			if(situation == ECameraSituation.Finish)
+				return;
+
 			ZoomCalculation();
 			HorizontalCameraHandle();
 		}
@@ -495,17 +500,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		{
 			switch (situation) {
 				case ECameraSituation.Self : 
-					Debug.Log("Angle : " + rot.eulerAngles);
-					Debug.Log("Angle Y : " + (rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate)).ToString());
-					
 					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
-					
 					break;
 
 				case ECameraSituation.Npc:
-					Debug.Log("Angle : " + rot.eulerAngles);
-					Debug.Log("Angle Y : " + (rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate)).ToString());
-				
 					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
 					break;
 			}

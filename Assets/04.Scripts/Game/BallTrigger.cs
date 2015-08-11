@@ -158,18 +158,18 @@ public class BallTrigger : MonoBehaviour
 		{
 			if(GameController.Get.Catcher && GameController.Get.Passer)
 			{
-				ParabolaTime += Time.deltaTime;
+				ParabolaTime += Time.deltaTime * GameController.Get.Passer.Timer.timeScale; 
 				float X = 0;
 				float Z = 0;
 
 				if(ParabolaDis < 8){
 					Parabolatarget.y =  CourtMgr.Get.RealBallCurve.ShortBall.aniCurve.Evaluate(ParabolaTime);
-					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime * GameController.Get.Passer.Timer.timeScale;
-					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime * GameController.Get.Passer.Timer.timeScale;
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.ShortBall.LifeTime) * ParabolaTime;
 				}else{
 					Parabolatarget.y =  BallHeight.aniCurve.Evaluate(ParabolaTime);
-					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime * GameController.Get.Passer.Timer.timeScale;
-					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime * GameController.Get.Passer.Timer.timeScale;
+					X = ((GameController.Get.Catcher.transform.position.x - Parabolatarget.x) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
+					Z = ((GameController.Get.Catcher.transform.position.z - Parabolatarget.z) / CourtMgr.Get.RealBallCurve.Ball.LifeTime) * ParabolaTime;
 				}
 
 				if (Parabolatarget.y < 0)
@@ -203,6 +203,9 @@ public class BallTrigger : MonoBehaviour
 	
 	private void PassUpdate()
 	{
+		if (GameController.Get.Passer && GameController.Get.Passer.Timer.timeScale == 0)
+		 return;
+
 		if (GameController.Get.Catcher != null && GameController.Get.Passer != null) 
 		{
 			if((Parabolamove && ParabolaTime >= 0.2f) || !Parabolamove && GameController.Get.Catcher != null)
@@ -306,11 +309,12 @@ public class BallTrigger : MonoBehaviour
 	{
 		CalculationParabolaMove();
 		gameObject.transform.localPosition = Vector3.zero;
-		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
-		{
-			PassCheckTime = 0;
-			GameController.Get.Catcher = null;
-			GameController.Get.IsPassing = false;
-		}
+
+//		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
+//		{
+//			PassCheckTime = 0;
+//			GameController.Get.Catcher = null;
+//			GameController.Get.IsPassing = false;
+//		}
 	}
 }

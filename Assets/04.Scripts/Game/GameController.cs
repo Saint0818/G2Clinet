@@ -748,19 +748,16 @@ public class GameController : KnightSingleton<GameController> {
 
 			if (Input.GetKeyDown(KeyCode.N))
 			{
-				isSkip = true;
-				CourtMgr.Get.ShowEnd (true);
-				InitIngameAnimator();
-				InitPosition();
+				TimerMgr.Get.PauseTime(true);
 			}
 
 			if (Input.GetKeyDown(KeyCode.T)){
 				UIDoubleClick.Get.ClickStop();
 			}
 
-			if (Input.GetKeyUp (KeyCode.N))
+			if (Input.GetKeyUp (KeyCode.M))
 			{
-				UIDoubleClick.Get.Init();
+				TimerMgr.Get.PauseTime(false);
 			}
 
 			if (Situation == EGameSituation.AttackA) {
@@ -2010,13 +2007,12 @@ public class GameController : KnightSingleton<GameController> {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
 					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
 					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), GameStart.Get.TipInTime);
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime); //GameStart.Get.TipInTime
 				} else {
-					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 0.2f);
+					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime); //0.2f	
 				}
-
-
-			} else 
+			} 
+			else 
 			if(BasketSituation == EBasketSituation.Swish) {
 //				#if UNITY_EDITOR
 //				UIHint.Get.ShowHint("Swish", Color.yellow);
@@ -4066,21 +4062,24 @@ public class GameController : KnightSingleton<GameController> {
 
     public void SetEndPass()
     {
-		if (Catcher != null && !Catcher.IsFall && !Catcher.IsPush && !Catcher.IsBlock && !Catcher.IsPass)
-        {
-            if(SetBall(Catcher))
-				coolDownPass = Time.time + 3;
+		if(IsPassing){
+			if (Catcher != null && !Catcher.IsFall && !Catcher.IsPush && !Catcher.IsBlock && !Catcher.IsPass)
+	        {
+	            if(SetBall(Catcher))
+					coolDownPass = Time.time + 3;
 
-			if(Catcher && Catcher.NeedShooting)
-			{
-				Shoot();
-				Catcher.NeedShooting = false;
+				if(Catcher && Catcher.NeedShooting)
+				{
+					Shoot();
+					Catcher.NeedShooting = false;
+				}
+
+				Catcher = null;
+			}else{
+	            setDropBall(Passer);
 			}
-		}else{
-            setDropBall(Passer);
+			IsPassing = false;
 		}
-
-		IsPassing = false;
     }
 
 	private void setDropBall(PlayerBehaviour player = null){
