@@ -64,11 +64,11 @@ public enum EPlayerState
 	Dribble1,
 	Dribble2,
 	Dunk0,
-	Dunk2,
-	Dunk4,
-	Dunk6,
-	Dunk20,
-	Dunk22,
+	Dunk2 = 611,
+	Dunk4 = 613,
+	Dunk6 = 615,
+	Dunk20 = 15000,
+	Dunk22 = 10600,
 	DunkBasket,
 	Defence0,    
 	Defence1,
@@ -83,10 +83,10 @@ public enum EPlayerState
 	Intercept0,
 	Intercept1,
 	Layup0, 
-	Layup1, 
-	Layup2, 
-	Layup3, 
-	MoveDodge0,
+	Layup1 = 510, 
+	Layup2 = 511, 
+	Layup3 = 512, 
+	MoveDodge0 = 1100,
 	MoveDodge1,
 	PickBall0,
 	PickBall2,
@@ -95,13 +95,13 @@ public enum EPlayerState
 	Pass2,
 	Pass3,
 	Pass4,
-	Pass5,
-	Pass6,
-	Pass7,
-	Pass8,
-	Pass9,
+	Pass5 = 1210,
+	Pass6 = 1220,
+	Pass7 = 1230,
+	Pass8 = 1240,
+	Pass9 = 1221,
 	Push0,
-	Push20,
+	Push20 = 11700,
     Run0,            
     Run1,            
     RunningDefence,
@@ -113,16 +113,16 @@ public enum EPlayerState
 	Shoot1,
 	Shoot2,
 	Shoot3,
-	Shoot4,
-	Shoot5,
-	Shoot6,
-	Shoot7,
+	Shoot4 = 410,
+	Shoot5 = 411,
+	Shoot6 = 412,
+	Shoot7 = 413,
 	Steal0,
-	Steal20,
+	Steal20 = 11500,
 	TipIn,
 	JumpBall,
-	Buff20, 
-	Buff21
+	Buff20 = 12100, 
+	Buff21 = 12101
 }
 
 public enum ETeamKind
@@ -431,7 +431,8 @@ public class PlayerBehaviour : MonoBehaviour
     private float pickCurveTime = 0;
     private TSharedCurve playerPickCurve;
 
-    //PassiveSkill key: Kind  value: TSKill
+	//PassiveSkill key: Kind  value: TSKill
+	private Dictionary<string, List<GameObject>> skillEffectPositions = new Dictionary<string, List<GameObject>>();
 	private Dictionary<int, List<TSkill>> passiveSkills = new Dictionary<int, List<TSkill>>();
 	public int PassiveID;
 	public int PassiveLv;
@@ -2915,8 +2916,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void SkillEvent (AnimationEvent aniEvent) {
-		if(this == GameController.Get.Joysticker) {
-
+		if(this == GameController.Get.Joysticker && GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
 			float t = aniEvent.floatParameter;
 			skillEventKind = aniEvent.intParameter;
 			
@@ -2967,10 +2967,9 @@ public class PlayerBehaviour : MonoBehaviour
 			GameController.Get.SetBall(this);
 		}
 	}
-	
-	
+
 	public void ShowActiveEffect (){
-		GameController.Get.OnShowEffect(this, null, false);
+		OnShowEffect(false);
 	}
 	
 	public void StopSkill(){
@@ -3013,6 +3012,204 @@ public class PlayerBehaviour : MonoBehaviour
         CloseDef = 0;
         AutoFollow = false;
     }
+
+	public void OnShowEffect (bool isPassiveID = true) {
+		int skillID = 0;
+		List<GameObject> objs1 = null;
+		List<GameObject> objs2 = null;
+		List<GameObject> objs3 = null;
+		if(isPassiveID) {
+			if (GameData.SkillData.ContainsKey(PassiveID)) {
+				if(GameData.SkillData[PassiveID].TargetKind1 != 0) 
+					objs1 = getSkillEffectPosition(1, GameData.SkillData[PassiveID].TargetKind1, isPassiveID);
+				if(GameData.SkillData[PassiveID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.SkillData[PassiveID].TargetKind2, isPassiveID);
+				if(GameData.SkillData[PassiveID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.SkillData[PassiveID].TargetKind3, isPassiveID);
+			}
+		} else {
+			if (GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
+				if(GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind1 != 0)
+					objs1 = getSkillEffectPosition(1, GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind1, isPassiveID);
+				if(GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind2, isPassiveID);
+				if(GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.SkillData[Attribute.ActiveSkill.ID].TargetKind3, isPassiveID);
+			}
+		}
+		
+		if(isPassiveID) {
+			if(PassiveID != -1) 
+				skillID = PassiveID;
+		} else {
+			if(Attribute.ActiveSkill.ID != 0)
+				skillID = Attribute.ActiveSkill.ID;
+		}
+		if(skillID != 0) {
+			if(objs1 != null && objs1.Count != 0){
+				for (int i=0; i<objs1.Count; i++) {
+					GameObject parent = null;
+					if(GameData.SkillData[skillID].EffectParent1 == 1) {
+						parent = objs1[i];
+					}
+					StartCoroutine(playEffect(skillID,
+					                          GameData.SkillData[skillID].DelayTime1,
+					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+					                          Vector3.zero,
+					                          parent,
+					                          null,
+					                          GameData.SkillData[skillID].Duration1));
+				}
+			}
+
+			if(objs2 != null && objs2.Count != 0) {
+				for (int i=0; i<objs2.Count; i++) {
+					GameObject parent = null;
+					if(GameData.SkillData[skillID].EffectParent2 == 1) {
+						parent = objs2[i];
+					}
+					StartCoroutine(playEffect(skillID,
+					                          GameData.SkillData[skillID].DelayTime2,
+					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+					                          Vector3.zero,
+					                          parent,
+					                          null,
+					                          GameData.SkillData[skillID].Duration2));
+				}
+			}
+			
+			if(objs3 != null && objs3.Count != 0) {
+				for (int i=0; i<objs3.Count; i++) {
+					GameObject parent = null;
+					if(GameData.SkillData[skillID].EffectParent3 == 1) {
+						parent = objs3[i];
+					}
+					StartCoroutine(playEffect(skillID,
+					                          GameData.SkillData[skillID].DelayTime3,
+					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+					                          Vector3.zero,
+											  parent,
+					                          null,
+					                          GameData.SkillData[skillID].Duration3));
+				}
+			}
+		}
+	}
+
+	private IEnumerator playEffect(int skillID, float delayTime, string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
+		yield return new WaitForSeconds(delayTime);
+		EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
+	}
+	
+	private void stopEffect (){
+		CancelInvoke("ShowActiveEffect");
+		StopCoroutine("playEffect");
+	}
+
+	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {
+		string key = string.Empty;
+		if(isPassive) 
+			key = PassiveID + "_"+ index + "_" + effectkind;
+		else 
+			key = Attribute.ActiveSkill.ID + "_"  + index + "_" + effectkind;
+		
+		if(skillEffectPositions.ContainsKey (key)) 
+			return skillEffectPositions[key];
+		
+		if(effectkind != 0) {
+			List<GameObject> objs = new List<GameObject>();
+			switch(effectkind) {
+			case 1://Self Body (Chest)
+				objs.Add(getPlayerChest(this));
+				break;
+			case 2://Self Head
+				objs.Add(getPlayerHead(this));
+				break;
+			case 3://Self Hand
+				objs.Add(getPlayerHand(this));				
+				break;
+			case 4://Self Feet
+				objs.Add(this.gameObject);
+				break;
+			case 5://Teammate Body (Chest)
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team == this.Team && GameController.Get.GetAllPlayer[i].Index != this.Index)
+						objs.Add(getPlayerChest(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 6://Teammate Head
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team == this.Team && GameController.Get.GetAllPlayer[i].Index != this.Index)
+						objs.Add(getPlayerHead(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 7://Teammate Hand
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team == this.Team && GameController.Get.GetAllPlayer[i].Index != this.Index)
+						objs.Add(getPlayerHand(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 8://Teammate Feet
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team == this.Team && GameController.Get.GetAllPlayer[i].Index != this.Index)
+						objs.Add(GameController.Get.GetAllPlayer[i].gameObject);
+				} 
+				break;
+			case 9://Emeny Body (Chest)
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team != this.Team)
+						objs.Add(getPlayerChest(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 10://Emeny Head
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team != this.Team)
+						objs.Add(getPlayerHead(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 11://Emeny Hand
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team != this.Team)
+						objs.Add(getPlayerHand(GameController.Get.GetAllPlayer[i]));
+				} 
+				break;
+			case 12://Emeny Feet
+				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
+					if(GameController.Get.GetAllPlayer[i].Team != this.Team)
+						objs.Add(GameController.Get.GetAllPlayer[i].gameObject);
+				} 
+				break;
+			}
+			skillEffectPositions.Add(key, objs);
+
+			return skillEffectPositions[key];
+		}
+		return null;
+	}
+	
+	private GameObject getPlayerChest (PlayerBehaviour player) {
+		Transform t = null;
+		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
+		if(t != null)
+			return t.gameObject;
+		return null;
+	}
+	
+	private GameObject getPlayerHead (PlayerBehaviour player) {
+		Transform t = null;
+		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
+		if(t != null)
+			return t.gameObject;
+		return null;
+	}
+	
+	private GameObject getPlayerHand (PlayerBehaviour player) {
+		Transform t = null;
+		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
+		if(t != null)
+			return t.gameObject;
+		return null;
+	}
 
 	private EPassDirectState judgeDirect(float angle) {
 		EPassDirectState directState = EPassDirectState.Forward;

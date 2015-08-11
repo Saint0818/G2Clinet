@@ -542,8 +542,13 @@ namespace GameStruct
 		public int EffectParent2;
 		public int DelayTime2;
 		public int Duration2;
-		public int Effect;
-		public int EffectDirection;
+		public int TargetKind3;
+		public int TargetEffect3;
+		public int EffectParent3;
+		public int DelayTime3;
+		public int Duration3;
+//		public int Effect;
+//		public int EffectDirection;
 		public string TargetAnimation;
 		public int Direct;
 		public float distance;

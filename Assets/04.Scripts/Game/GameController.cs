@@ -297,7 +297,6 @@ public class GameController : KnightSingleton<GameController> {
     public GameObject[] passIcon = new GameObject[3];
 	private GameObject[] selectIcon = new GameObject[2];
 	private List<GameObject> objsPassiveEffect =new List<GameObject>();
-	private GameObject effectObjPos;
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -368,8 +367,6 @@ public class GameController : KnightSingleton<GameController> {
 			Destroy (PlayerList[i]);
 			PlayerList[i] = null;
 		}
-		effectObjPos = new GameObject();
-		effectObjPos.name = "effectObjPos";
         PlayerList.Clear();
 		StateChecker.InitState();
         CreateTeam();
@@ -798,9 +795,12 @@ public class GameController : KnightSingleton<GameController> {
 
 				if (Input.GetKeyDown (KeyCode.S))
 				{
-					if(GameStart.Get.TestMode == EGameTest.AnimationUnit)
+					if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
-					else
+						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
+						if((int)GameStart.Get.SelectAniState > 100) 
+							Joysticker.OnShowEffect(true);
+					}else
 						UIGame.Get.DoShoot(null, true);
 				}
 				
@@ -2698,15 +2698,15 @@ public class GameController : KnightSingleton<GameController> {
 				player.AddSkillAttribute(skill.ID, skill.AttrKind, 
 				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 				
-				OnShowEffect(player, null, false);
+				player.OnShowEffect(false);
 				break;
 			case 3:
+				player.OnShowEffect(false);
 				for (int i = 0; i < PlayerList.Count; i++) {
 					if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
 							PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
 							                                skill.Value(PlayerList[i].Attribute.ActiveSkill.Lv), skill.LifeTime(PlayerList[i].Attribute.ActiveSkill.Lv));
-							OnShowEffect(player, PlayerList[i], false);
 						}
 					}
 				}
@@ -2815,115 +2815,8 @@ public class GameController : KnightSingleton<GameController> {
 
 		return false;
 	}
-	
-	public void OnShowEffect (PlayerBehaviour player, PlayerBehaviour target = null, bool isPassiveID = true) {
-		GameObject obj = null;
-		GameObject obj2 = null;
-		int skillID = 0;
-		if(isPassiveID) {
-			if (GameData.SkillData.ContainsKey(player.PassiveID)) {
-				if(GameData.SkillData[player.PassiveID].TargetKind1 != 0)
-					obj = getSkillEffectPosition(player, GameData.SkillData[player.PassiveID].TargetKind1, target);
-				if(GameData.SkillData[player.PassiveID].TargetKind2 != 0)
-					obj2 = getSkillEffectPosition(player, GameData.SkillData[player.PassiveID].TargetKind2, target);
-			}
-		} else {
-			if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-				if(target != null){
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0 && player.Index == target.Index)
-						obj = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0 && player.Index != target.Index)
-						obj2 = target.gameObject;
-				} else {
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
-						obj = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, target);
-					if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-						obj2 = getSkillEffectPosition(player, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, target);
-//						obj2 = target.gameObject;
-				}
-			}
-		}
-		
-		if(isPassiveID) {
-			if(player.PassiveID != -1) 
-				skillID = player.PassiveID;
-		} else {
-			if(player.Attribute.ActiveSkill.ID != 0)
-				skillID = player.Attribute.ActiveSkill.ID;
-		}
-		
-		if(obj){
-			if(skillID != 0) {
-				GameObject parent = null;
-				if(GameData.SkillData[skillID].EffectParent1 == 1) {
-					parent = obj;
-				}
-				EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1, 
-				                             Vector3.zero,
-				                             parent,
-				                             null,
-				                             GameData.SkillData[skillID].Duration1);
-			}
-		}
-		if(obj2) {
-			if(skillID != 0) {
-				GameObject parent = null;
-				if(GameData.SkillData[skillID].EffectParent2 == 1) {
-					parent = obj2;
-				}
-				EffectManager.Get.PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2, 
-				                             Vector3.zero,
-				                             parent,
-				                             null,
-				                             GameData.SkillData[skillID].Duration2);
-			}
-		}
-	}
 
-	public GameObject getSkillEffectPosition (PlayerBehaviour player, int effectkind, PlayerBehaviour target = null) {
-		int targetKind = -1;
-		targetKind = effectkind;
-		if(targetKind != -1) {
-			switch(targetKind) {
-			case 4:// Feet
-				if(target)
-					effectObjPos = target.gameObject;
-				else
-					effectObjPos = player.gameObject; 
-				break;
-			case 1://Body (Chest)
-				Transform tBody = null;
-				if(target)
-					tBody = target.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
-				else
-					tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
-				 
-				if(tBody != null)
-					effectObjPos = tBody.gameObject;
-				break;
-			case 2://Head
-				if(target)
-					effectObjPos.transform.position = new Vector3(target.transform.position.x, (4 - (target.Attribute.BodyType * 0.3f)), target.transform.position.z);	
-				else
-					effectObjPos.transform.position = new Vector3(player.transform.position.x, (4 - (player.Attribute.BodyType * 0.3f)), player.transform.position.z);	
-
-				break;
-			case 3://Hand
-				Transform tHand = null;
-				if(target)
-					tBody = target.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R");
-				else
-					tBody = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01 R Forearm/Bip01 R Hand/DummyHand_R"); 
-				if(tHand != null)
-					effectObjPos = tHand.gameObject;
-				break;
-			}
-			return effectObjPos;
-		}
-		return null;
-	}
-	
-    public void OnJoystickMove(MovingJoystick move)
+	public void OnJoystickMove(MovingJoystick move)
     {
 		if (Joysticker && (CanMoveSituation || Joysticker.CanMoveFirstDribble))
         {
@@ -3126,7 +3019,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					OnShowEffect(player);
+					player.OnShowEffect(player);
 					player.GameRecord.PassiveSkill++;
 				}
 			}
@@ -3878,7 +3771,7 @@ public class GameController : KnightSingleton<GameController> {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.PickBall2Rate) {
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
-					OnShowEffect(player1);
+					player1.OnShowEffect(player1);
 				}
 			}
 		}

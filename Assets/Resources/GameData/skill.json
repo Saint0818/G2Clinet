@@ -226,8 +226,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Push0",
-        "targeteffect1": 1,
-        "effect": 1
+        "targeteffect1": 1
     },
     {
         "id": 25,
@@ -266,8 +265,7 @@
         "rate": 0,
         "rateadd": 0,
         "animation": "Elbow",
-        "targeteffect1": 2,
-        "effect": 2
+        "targeteffect1": 2
     },
     {
         "id": 43,
@@ -368,8 +366,7 @@
         "targeteffect1": 101,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 1,
-        "effect": 101
+        "duration1": 1
     },
     {
         "id": 411,
@@ -394,8 +391,7 @@
         "targeteffect1": 101,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 1,
-        "effect": 101
+        "duration1": 1
     },
     {
         "id": 412,
@@ -420,8 +416,7 @@
         "targeteffect1": 101,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 1,
-        "effect": 101
+        "duration1": 1
     },
     {
         "id": 413,
@@ -446,8 +441,7 @@
         "targeteffect1": 101,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 1,
-        "effect": 101
+        "duration1": 1
     },
     {
         "id": 510,
@@ -552,8 +546,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 611,
@@ -583,8 +576,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 612,
@@ -614,8 +606,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 613,
@@ -645,8 +636,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 614,
@@ -676,8 +666,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 615,
@@ -707,8 +696,7 @@
         "targeteffect2": 2003,
         "effectparent2": 0,
         "delaytime2": 0.8,
-        "duration2": 1,
-        "effect": 201
+        "duration2": 1
     },
     {
         "id": 1100,
@@ -1182,7 +1170,7 @@
         "effectparent1": 1,
         "delaytime1": 0,
         "duration1": 4,
-        "targetkind2": 1,
+        "targetkind2": 9,
         "targeteffect2": 2002,
         "effectparent2": 1,
         "delaytime2": 0.7,
@@ -1215,9 +1203,7 @@
         "targeteffect1": 1003,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 2,
-        "delaytime2": 1,
-        "duration2": 2
+        "duration1": 2
     },
     {
         "id": 12101,
@@ -1246,6 +1232,11 @@
         "targeteffect1": 1004,
         "effectparent1": 1,
         "delaytime1": 0,
-        "duration1": 2
+        "duration1": 2,
+        "targetkind2": 8,
+        "targeteffect2": 1004,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 2
     }
 ]
