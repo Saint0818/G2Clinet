@@ -231,7 +231,7 @@ struct TPlayerDisData {
 
 public class GameController : KnightSingleton<GameController> {
 	public OnSkillDCComplete onSkillDCComplete = null;
-    private bool isSkip = false;
+    private bool isSkipClicked = false;
     public bool IsStart = false;
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
@@ -267,7 +267,12 @@ public class GameController : KnightSingleton<GameController> {
 	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
 	private List<int> TacticalDataList = new List<int>();
 	private Dictionary<string, Shader> shaderCache = new Dictionary<string, Shader>();
-	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
+
+    public List<PlayerBehaviour> GamePlayerList
+    {
+        get { return PlayerList; }
+    }
+    private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
     
     public TGameRecord GameRecord = new TGameRecord();
@@ -714,7 +719,7 @@ public class GameController : KnightSingleton<GameController> {
 
 	public void SkipShow()
 	{
-		isSkip = true;
+		isSkipClicked = true;
 		CourtMgr.Get.ShowEnd (true);
 		InitIngameAnimator();
 		InitPosition();
@@ -1521,19 +1526,19 @@ public class GameController : KnightSingleton<GameController> {
 
 			switch (gs) {
 			case EGameSituation.InitShowContorl:
-					isSkip = false;
-					for(int i = 0; i < PlayerList.Count; i++)
-						if(PlayerList[i]){
-							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
-				}
-				UISkip.UIShow(true, ESkipSituation.Game);
+					isSkipClicked = false;
+//					for(int i = 0; i < PlayerList.Count; i++)
+//						if(PlayerList[i]){
+//							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
+//				}
+//				UISkip.UIShow(true, ESkipSituation.Game);
 				break;
 			case EGameSituation.ShowOne:
 				UISkip.UIShow(false, ESkipSituation.Game);
 				CourtMgr.Get.ShowEnd ();
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.ShowTwo);
-				if(!isSkip){
+				if(!isSkipClicked){
 					InitPosition();
 					InitIngameAnimator();
 				}
@@ -1623,13 +1628,13 @@ public class GameController : KnightSingleton<GameController> {
 	            switch (Situation)
 	            {
 					case EGameSituation.InitShowContorl:
-						for(int i = 0; i < PlayerList.Count; i++)
-						{
-							if(PlayerList[i].ShowPos != -1 && isSkip == false){
-								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
-								PlayerList[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.eulerAngles;
-							}
-						}
+//						for(int i = 0; i < PlayerList.Count; i++)
+//						{
+//							if(PlayerList[i].ShowPos != -1 && isSkipClicked == false){
+//								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
+//								PlayerList[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.eulerAngles;
+//							}
+//						}
 						break;
 					case EGameSituation.ShowOne:
 						

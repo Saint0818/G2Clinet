@@ -5,9 +5,9 @@ using AI;
 
 public class GameStateFactory : IStateMachineFactory<EGameSituation>
 {
-    private readonly Dictionary<EGameSituation, IState> mStates = new Dictionary<EGameSituation, IState>();
+    private readonly Dictionary<EGameSituation, State<EGameSituation>> mStates = new Dictionary<EGameSituation, State<EGameSituation>>();
 
-    public IState CreateState(EGameSituation e)
+    public State<EGameSituation> CreateState(EGameSituation e)
     {
         if(!mStates.ContainsKey(e))
             mStates.Add(e, createStateImpl(e));
@@ -15,11 +15,13 @@ public class GameStateFactory : IStateMachineFactory<EGameSituation>
         return mStates[e];
     }
 
-    private IState createStateImpl(EGameSituation e)
+    private State<EGameSituation> createStateImpl(EGameSituation e)
     {
         switch(e)
         {
             case EGameSituation.None: return new NullState();
+            case EGameSituation.InitShowContorl: return new InitShowControlState();
+            case EGameSituation.ShowOne: return new ShowOneState();
         }
 
         throw new NotImplementedException(String.Format("Value:{0}", e));

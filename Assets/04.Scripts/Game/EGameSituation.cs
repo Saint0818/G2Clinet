@@ -1,12 +1,12 @@
 
 public enum EGameSituation
 {
-    Loading           =-4,
+//    Loading           =-4,
     InitShowContorl   = -3,
     ShowOne           = -2,
     ShowTwo           = -1,
     None           = 0,
-    Opening        = 1,
+    Opening        = 1, // ¶}²y.
     JumpBall       = 2,
     AttackA        = 3,
     AttackB        = 4,

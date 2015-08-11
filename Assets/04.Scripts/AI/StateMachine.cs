@@ -21,24 +21,31 @@ namespace AI
     /// where TEnum : struct, IConvertible, IComparable, IFormattable 是限制 TEnum 必須是 Enum.
     public class StateMachine<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
     {
-        private IState mGlobalState;
-        private IState mCurrentState = new NullState();
+        private State<TEnum> mGlobalState;
+        private State<TEnum> mCurrentState;
         private readonly IStateMachineFactory<TEnum> mFactory;
+        private readonly MessageDispatcher<TEnum> mDispatcher;
 
-        public StateMachine(IStateMachineFactory<TEnum> factory)
+        public StateMachine(IStateMachineFactory<TEnum> factory, MessageDispatcher<TEnum> dispatcher, 
+                            TEnum initState)
         {
             mFactory = factory;
+            mDispatcher = dispatcher;
+            mCurrentState = mFactory.CreateState(initState);
         }
 
-        public StateMachine(IState globalState, IStateMachineFactory<TEnum> factory)
+        public StateMachine(IStateMachineFactory<TEnum> factory, MessageDispatcher<TEnum> dispatcher,
+                            TEnum initState, State<TEnum> globalState)
         {
-            mGlobalState = globalState;
             mFactory = factory;
+            mDispatcher = dispatcher;
+            mCurrentState = mFactory.CreateState(initState);
+            mGlobalState = globalState;
         }
 
         public void Update()
         {
-            if (mGlobalState != null)
+            if(mGlobalState != null)
                 mGlobalState.Update();
 
             mCurrentState.Update();
@@ -46,15 +53,15 @@ namespace AI
 
         public void ChangeState(TEnum newState)
         {
-            if (!typeof(TEnum).IsEnum)
+            if(!typeof(TEnum).IsEnum)
                 throw new ArgumentException("TEnum must be an enum.");
 
             mCurrentState.Exit();
             mCurrentState = mFactory.CreateState(newState);
-            mCurrentState.Enter();
+            mCurrentState.Enter(this, mDispatcher);
         }
 
-        public void SetGlobalState(IState state)
+        public void SetGlobalState(State<TEnum> state)
         {
             mGlobalState = state;
         }

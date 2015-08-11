@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class GameShowBehaviour : StateMachineBehaviour {
+public class GameShowBehaviour : StateMachineBehaviour
+{
 	
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		GameController.Get.ChangeSituation(EGameSituation.InitShowContorl);
+        AIController.Get.ChangeState(EGameSituation.InitShowContorl);
 	}
 	
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (!GameController.Get.IsStart && GameController.Get.Situation != EGameSituation.JumpBall) {
+		if (!GameController.Get.IsStart && GameController.Get.Situation != EGameSituation.JumpBall)
+        {
 			GameController.Get.ChangeSituation(EGameSituation.ShowOne);
+            AIController.Get.ChangeState(EGameSituation.ShowOne);
 		}
 	}
 	
