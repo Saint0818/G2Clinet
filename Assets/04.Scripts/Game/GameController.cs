@@ -1999,17 +1999,17 @@ public class GameController : KnightSingleton<GameController> {
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
 				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
-				CourtMgr.Get.RealBallRigidbody.velocity = 
-					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 			} else 
 			if(player.crtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
-					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					 												   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime * 0.5f); //GameStart.Get.TipInTime
+
+					CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
+					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
+					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime);
 				} else {
-					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
+					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime); //0.2f	
 				}
 			} 
 			else 
@@ -2018,13 +2018,11 @@ public class GameController : KnightSingleton<GameController> {
 //				UIHint.Get.ShowHint("Swish", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				CourtMgr.Get.RealBallRigidbody.velocity = 
-					GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
 				if(CourtMgr.Get.BasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
-					CourtMgr.Get.RealBallRigidbody.velocity = 
-						GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 						                         CourtMgr.Get.BasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
 						                         shootAngle);
 				} else 

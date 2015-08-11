@@ -466,7 +466,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case "BasketNetPlay":
 				PlayShoot(team);
-				RealBallRigidbody.velocity = Vector3.zero;
+				RealBallVelocity = Vector3.zero;
 				break;
 			}
 		}
@@ -480,8 +480,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case EPlayerState.BasketActionSwishEnd:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
-				RealBallRigidbody.velocity = Vector3.zero;
-				RealBallRigidbody.AddForce(Vector3.down * 70);
+				RealBallVelocity = Vector3.zero;
+				RealBallAddForce(Vector3.down * 70);
 				break;
 			case EPlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -499,7 +499,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.parent = null;
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
-				RealBallRigidbody.AddForce(Vector3.down * 50);
+				RealBallAddForce(Vector3.down * 50);
 				GameController.Get.Passer = null;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
@@ -587,11 +587,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				GameController.Get.Passer = null;
 				
-				//				Vector3 v = GameFunction.CalculateNextPosition(RealBall.transform.position, RealBallRigidbody.velocity, 0.5f);
 				Vector3 v = RealBall.transform.forward * -1;
 				if(player != null)					
 					v = player.transform.forward * 10;
-				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+				RealBallVelocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 			break;
 			case EPlayerState.JumpBall:
@@ -610,12 +609,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						v = player.transform.forward * -6;
 					else
 						v = RealBall.transform.forward * -1;
-					
-//					RealBallRigidbody.velocity = v;
 
-					RealBallRigidbody.velocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
-
-
+					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 					RealBallFX.gameObject.SetActive(true);
 				}
 				break;
@@ -632,7 +627,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				v = RealBall.transform.forward * -1;
 				if(player != null)					
 					v = player.transform.forward * 10;
-				RealBallRigidbody.velocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+				RealBallVelocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
 
@@ -653,7 +648,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				if(player)
 					RealBall.transform.position = player.DummyBall.transform.position;
 
-				RealBallRigidbody.AddForce(Vector3.down * 2000);
+				RealBallAddForce(Vector3.down * 2000);
 				break;
 
 			case EPlayerState.Reset:
@@ -661,7 +656,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.position = new Vector3(0, 7, 0);
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
-				RealBallRigidbody.velocity = Vector3.zero;
+				RealBallVelocity = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBallFX.gameObject.SetActive(true);
 				break;
@@ -670,7 +665,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localPosition = new Vector3 (0, 6, 0);
 				RealBallRigidbody.isKinematic = false;
 				RealBallRigidbody.useGravity = true;
-				RealBallRigidbody.AddForce(Vector3.up * 3500);
+				RealBallAddForce(Vector3.up * 3500);
 				break;
 
 			case EPlayerState.HoldBall:
@@ -691,6 +686,22 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallFX.gameObject.SetActive(false);				
 				break;
 		}
+	}
+
+	public void RealBallAddForce(Vector3 v3)
+	{
+		RealBallRigidbody.AddForce (v3);
+	}
+
+	public void RealBallDoMove(Vector3 endValue, float duringtime)
+	{
+		RealBall.transform.DOMove (endValue, duringtime);
+	}
+
+	public Vector3 RealBallVelocity
+	{
+		get{return RealBallRigidbody.velocity;}
+		set{RealBallRigidbody.velocity = value;}
 	}
 
 	public void SetScoreboards(int team, int score)

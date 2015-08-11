@@ -1841,10 +1841,11 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Fall0:
             case EPlayerState.Fall1:
             case EPlayerState.Fall2:
-                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
-                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
-                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
-                    crtState == EPlayerState.RunningDefence) && Invincible == 0)
+				if(!IsTee && !IsFall)
+//                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
+//                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
+//                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
+//                    crtState == EPlayerState.RunningDefence) && Invincible == 0)
                     return true;
                 break;
 
@@ -2518,7 +2519,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 if (inReboundDistance()) {
                     reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
-				    reboundMove += CourtMgr.Get.RealBallRigidbody.velocity * 0.3f;
+					reboundMove += CourtMgr.Get.RealBallVelocity * 0.3f;
 				} else
                     reboundMove = Vector3.zero;
 

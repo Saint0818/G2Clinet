@@ -44,7 +44,7 @@ public class LogMgr : KnightSingleton<LogMgr> {
 
 	void OnGUI()
 	{
-		if(IsShowUI)
+		if(IsShowUI && GameStart.Get.IsDebugAnimation)
 			for(int i = 0; i < playerAni.Length; i ++)
 				if(GUI.Button(new Rect(10,10 + i * 50,100,50),"Player" + i.ToString()))
 					Log (playerAni [i].ToString ());

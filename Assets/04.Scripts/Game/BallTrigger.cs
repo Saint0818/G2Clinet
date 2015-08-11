@@ -13,7 +13,7 @@ public class BallTrigger : MonoBehaviour
 	private bool Parabolamove = false;  
 	private bool Passing = false;
 	public static int PassKind = -1;
-	private float PassCheckTime = 0;
+//	private float PassCheckTime = 0;
 	private float ParabolaTime = 0;
 	private float ParabolaDis = 0;
 	private TBallCurve BallHeight;
@@ -103,7 +103,7 @@ public class BallTrigger : MonoBehaviour
 
 			Passing = true;
 			GameController.Get.IsPassing = true;
-			PassCheckTime = Time.time + 2.5f;
+//			PassCheckTime = Time.time + 2.5f;
 			PassKind = Kind;
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
@@ -287,20 +287,20 @@ public class BallTrigger : MonoBehaviour
 
 	void LateUpdate()
 	{
-		if (gameObject.activeInHierarchy) {
-			if (gameObject.transform.position.y < 0)
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0.3f, gameObject.transform.position.z);
-
-			if (Mathf.Abs(gameObject.transform.position.x) > 20)
-			    gameObject.transform.position = Vector3.zero;
-
-			if (Mathf.Abs(gameObject.transform.position.z) > 20)
-			    gameObject.transform.position = Vector3.zero;
-		}
+//		if (gameObject.activeInHierarchy) {
+//			if (gameObject.transform.position.y < 0)
+//				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0.3f, gameObject.transform.position.z);
+//
+//			if (Mathf.Abs(gameObject.transform.position.x) > 20)
+//			    gameObject.transform.position = Vector3.zero;
+//
+//			if (Mathf.Abs(gameObject.transform.position.z) > 20)
+//			    gameObject.transform.position = Vector3.zero;
+//		}
 	}
 
 	public void PassEnd(){
-		PassCheckTime = 0;
+//		PassCheckTime = 0;
 		GameController.Get.SetEndPass();
 		CameraMgr.Get.IsLongPass = false;
 	}

@@ -526,7 +526,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				break;
 		case ECameraSituation.Self:
 					if(GameController.Get.BallOwner){
-						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
+						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x;
 						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
 					}
 					else
@@ -536,7 +536,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 					break;
 		case ECameraSituation.Npc:
 					if(GameController.Get.BallOwner){
-						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x;
+						pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x;;
 						pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
 					}
 					else

@@ -53,14 +53,14 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 		{
 			if(isPase)
 			{
-				ballvelocity = CourtMgr.Get.RealBallRigidbody.velocity;
+				ballvelocity = CourtMgr.Get.RealBallVelocity;
 				CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 				CourtMgr.Get.RealBall.transform.DOPause();
 			}
 			else
 			{
 				CourtMgr.Get.RealBallRigidbody.isKinematic = false;
-				CourtMgr.Get.RealBallRigidbody.velocity = ballvelocity;
+				CourtMgr.Get.RealBallVelocity = ballvelocity;
 				CourtMgr.Get.RealBall.transform.DOPlay();
 			}
 			IsPause = isPase;
