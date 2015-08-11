@@ -2946,21 +2946,21 @@ public class PlayerBehaviour : MonoBehaviour
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
-					Invoke("ShowActiveEffect", 1.5f);
+					Invoke("ShowActiveEffect", t);
 					break;
 				case 1://show self
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					Invoke("ShowActiveEffect", 1);
+					OnShowEffect(false);
 					break;
 				case 2://show all Player
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					Invoke("ShowActiveEffect", 1);
+					OnShowEffect(false);
 					break;
 				}
 			}

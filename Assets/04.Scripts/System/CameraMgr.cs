@@ -588,13 +588,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
 					cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
 					if(kind == 0)	
-				cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t-0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
+						cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t-0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
 					else
 						Invoke("StopSkill", (t-0.3f));
 					break;
 				case 2://take all player
 					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 45);
-				Invoke("StopSkill", (t-0.3f));
+					Invoke("StopSkill", (t-0.3f));
 				break;
 			}
 	}

@@ -2672,12 +2672,11 @@ public class GameController : KnightSingleton<GameController> {
 			case 1:
 			case 10:
 				player.AddSkillAttribute(skill.ID, skill.AttrKind, 
-				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
-				
-				player.OnShowEffect(false);
+				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));			
+//				player.OnShowEffect(false);
 				break;
 			case 3:
-				player.OnShowEffect(false);
+//				player.OnShowEffect(false);
 				for (int i = 0; i < PlayerList.Count; i++) {
 					if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
@@ -2995,7 +2994,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					player.OnShowEffect(player);
+					player.OnShowEffect(true);
 					player.GameRecord.PassiveSkill++;
 				}
 			}
@@ -3748,7 +3747,7 @@ public class GameController : KnightSingleton<GameController> {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.PickBall2Rate) {
 					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
-					player1.OnShowEffect(player1);
+					player1.OnShowEffect(true);
 				}
 			}
 		}
