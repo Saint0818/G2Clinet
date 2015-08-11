@@ -2006,10 +2006,10 @@ public class GameController : KnightSingleton<GameController> {
 			if(player.crtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
 					CourtMgr.Get.RealBall.transform.DOMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
-					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime); //GameStart.Get.TipInTime
+					 												   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
+					                                                   CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime * 0.5f); //GameStart.Get.TipInTime
 				} else {
-					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime); //0.2f	
+					CourtMgr.Get.RealBall.transform.DOMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
 				}
 			} 
 			else 
