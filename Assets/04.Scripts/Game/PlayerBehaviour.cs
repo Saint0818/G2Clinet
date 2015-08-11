@@ -338,7 +338,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
 
-    public Queue<TMoveData> MoveQueue = new Queue<TMoveData>();
+    private Queue<TMoveData> moveQueue = new Queue<TMoveData>();
     public Vector3 Translate;
     public Rigidbody PlayerRigidbody;
     public Animator AnimatorControl;
@@ -770,8 +770,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (aiTime == 0)
         {
-            if (MoveQueue.Count > 0)
-                MoveTo(MoveQueue.Peek());
+            if (moveQueue.Count > 0)
+                MoveTo(moveQueue.Peek());
             else
             {
                 isMoving = false;
@@ -783,7 +783,7 @@ public class PlayerBehaviour : MonoBehaviour
         } else
         if (aiTime > 0 && Time.time >= aiTime)
         {
-            MoveQueue.Clear();
+            moveQueue.Clear();
             aiTime = 0;
 
             if (AIActiveHint)
@@ -1554,8 +1554,8 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Data.MoveFinish != null)
                     Data.MoveFinish(this, Data.Speedup);
                 
-                if (MoveQueue.Count > 0)
-                    MoveQueue.Dequeue();
+                if (moveQueue.Count > 0)
+                    moveQueue.Dequeue();
             } else 
 			if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null) {                                          
                 MoveTurn++;
@@ -1703,7 +1703,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (ClearMove)
             {
-                MoveQueue.Clear();
+                moveQueue.Clear();
             }
 
             WaitMoveTime = 0;
@@ -1718,7 +1718,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void ClearMoveQueue()
     {
-        MoveQueue.Clear();
+        moveQueue.Clear();
     }
 
     private bool IsPassAirMoment = false;
@@ -2227,8 +2227,8 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.SetInteger("StateNo", 0);
                 AnimatorControl.SetTrigger("MoveDodge");
                 OnUICantUse(this);
-				if (MoveQueue.Count > 0)
-					MoveQueue.Dequeue();
+				if (moveQueue.Count > 0)
+					moveQueue.Dequeue();
                 Result = true;
                 break;
 
@@ -2236,8 +2236,8 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.SetInteger("StateNo", 1);
                 AnimatorControl.SetTrigger("MoveDodge");
                 OnUICantUse(this);
-				if (MoveQueue.Count > 0)
-					MoveQueue.Dequeue();
+				if (moveQueue.Count > 0)
+					moveQueue.Dequeue();
                 Result = true;
                 break;
 
@@ -3005,7 +3005,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
     public void ResetMove() {
-        MoveQueue.Clear();
+        moveQueue.Clear();
         WaitMoveTime = 0;
     }
     
@@ -3662,22 +3662,22 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool AIing {
-		get { return aiTime <= 0; }
+		get { return gameObject.activeSelf && aiTime <= 0; }
 	}
 
     public int TargetPosNum
     {
-        get { return MoveQueue.Count;}
+        get { return moveQueue.Count;}
     }
 
     public string TargetPosName
     {
         get
         { 
-            if (MoveQueue.Count == 0)
+            if (moveQueue.Count == 0)
                 return "";
             else
-                return MoveQueue.Peek().FileName;
+                return moveQueue.Peek().FileName;
         }
     }
 
@@ -3686,10 +3686,10 @@ public class PlayerBehaviour : MonoBehaviour
         set
         {
 			MoveName = value.FileName;
-            if (MoveQueue.Count == 0)
+            if (moveQueue.Count == 0)
                 MoveTurn = 0;
 
-            MoveQueue.Enqueue(value);
+            moveQueue.Enqueue(value);
 
 			if (value.Target != Vector2.zero)
 				GameRecord.PushMove(value.Target);

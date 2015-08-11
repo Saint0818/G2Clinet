@@ -377,7 +377,11 @@ public class UIGame : UIBase {
 		} 
 	}
 
-	public void InitLine() {
+	public void InitGameUI() {
+		initLine();
+	}
+
+	private void initLine() {
 		spriteSkill.spriteName = GameController.Get.Joysticker.Attribute.ActiveSkill.ID.ToString() + "s";
 		drawLine.ClearTarget();
 		if (drawLine.UIs.Length == 0) {
@@ -693,8 +697,8 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(true);
 			uiPassObjectGroup[2].SetActive(true);
-			GameController.Get.passIcon[1].SetActive(true);
-			GameController.Get.passIcon[2].SetActive(true);
+			//GameController.Get.passIcon[1].SetActive(true);
+			//GameController.Get.passIcon[2].SetActive(true);
 			spriteAttack.spriteName = "B_elbow";
 			break;
 		case (int)EUIPassType.ABallOwner:
@@ -702,8 +706,8 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(true);
 			uiPassObjectGroup[1].SetActive(false);
 			uiPassObjectGroup[2].SetActive(true);
-			GameController.Get.passIcon[1].SetActive(false);
-			GameController.Get.passIcon[2].SetActive(true);
+			//GameController.Get.passIcon[1].SetActive(false);
+			//GameController.Get.passIcon[2].SetActive(true);
 			spriteAttack.spriteName = "B_push";
 			break;
 		case (int)EUIPassType.BBallOwner:
@@ -711,8 +715,8 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[0].SetActive(true);
 			uiPassObjectGroup[1].SetActive(true);
 			uiPassObjectGroup[2].SetActive(false);
-			GameController.Get.passIcon[1].SetActive(true);
-			GameController.Get.passIcon[2].SetActive(false);
+			//GameController.Get.passIcon[1].SetActive(true);
+			//GameController.Get.passIcon[2].SetActive(false);
 			spriteAttack.spriteName = "B_push";
 			break;
 		default:
@@ -722,15 +726,16 @@ public class UIGame : UIBase {
 			spriteAttack.spriteName = "B_push";
 			if(GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.TeeBPicking) {
 				viewPass.SetActive(false);
-				GameController.Get.passIcon[1].SetActive(false);
-				GameController.Get.passIcon[2].SetActive(false);
+				//GameController.Get.passIcon[1].SetActive(false);
+				//GameController.Get.passIcon[2].SetActive(false);
 			} else {
 				viewPass.SetActive(true);
+				/*
 				if(GameController.Get.passIcon[0] != null && GameController.Get.Situation == EGameSituation.AttackA ) {
 					GameController.Get.passIcon[0].SetActive(true);
 					GameController.Get.passIcon[1].SetActive(true);
 					GameController.Get.passIcon[2].SetActive(true);
-				}
+				}*/
 			}
 			break;
 		}
@@ -1014,7 +1019,7 @@ public class UIGame : UIBase {
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.AttackA);
 			viewBottomRight.SetActive(true);
 			SetPassButton();
-			GameController.Get.passIcon[0].SetActive(true);
+			//GameController.Get.passIcon[0].SetActive(true);
 			
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();

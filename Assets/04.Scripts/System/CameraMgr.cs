@@ -64,7 +64,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //	private Camera cameraPlayer;
 
 	private GameObject focusTarget;
-	private ECameraSituation situation = ECameraSituation.Self;
+	private ECameraSituation situation = ECameraSituation.Loading;
 	
 	public bool IsBallOnFloor = false;
 	public bool IsLongPass = false;
@@ -194,13 +194,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public bool IsTee = false;
 
-	public void SetCameraSituation(ECameraSituation team, bool isTee = false) {
+	public void SetCameraSituation(ECameraSituation s, bool isTee = false) {
 		IsTee = isTee;
-		situation = team;
+		situation = s;
 		SetTestToolPosition();
 
-		if (team != ECameraSituation.Finish) {
-			if (team == ECameraSituation.Show) {
+		if (s != ECameraSituation.Finish) {
+			if (s == ECameraSituation.Show) {
 				ShowCameraEnable(true);
 				cameraGroupObj.SetActive(false);
 			} else
@@ -221,9 +221,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		get {return cameraFx;}
     }
 
-	public void InitCamera(ECameraSituation team)
+	public void InitCamera(ECameraSituation s)
 	{
-		SetCameraSituation (team);
+		SetCameraSituation (s);
 		initCamera ();
 	}
 
@@ -326,13 +326,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	void FixedUpdate()
     {
-		if (GameStart.Get.CourtMode == ECourtMode.Full && SceneMgr.Get.CurrentScene != SceneName.SelectRole && situation != ECameraSituation.JumpBall) {
-			if(situation == ECameraSituation.Show || situation == ECameraSituation.Loading)
-				return;
-			
-			if(situation == ECameraSituation.Finish)
-				return;
-
+		if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self || 
+		    situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller)) {
 			ZoomCalculation();
 			HorizontalCameraHandle();
 		}
@@ -573,8 +568,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 	public void SkillShow(GameObject player)
 	{
-		situation = ECameraSituation.Skiller;
 		skiller = player;
+		SetCameraSituation(ECameraSituation.Skiller);
 	}
 
 	public void SkillShowActive (int kind = 0, float t = 1.5f) {
@@ -583,18 +578,19 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
 			cameraSkill.gameObject.transform.parent = cameraSkillCenter.transform;
 			switch(kind) {
-				case 0: //rotate
-				case 1://take self
-					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
-					cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
-					if(kind == 0)	
-						cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t-0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
-					else
-						Invoke("StopSkill", (t-0.3f));
-					break;
-				case 2://take all player
-					TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 45);
+			case 0: //rotate
+			case 1://take self
+				TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
+				cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3 (0, 2, 0), 0.5f).SetEase(Ease.Linear);
+				if(kind == 0)	
+					cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t-0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
+				else
 					Invoke("StopSkill", (t-0.3f));
+
+				break;
+			case 2://take all player
+				TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 45);
+				Invoke("StopSkill", (t-0.3f));
 				break;
 			}
 	}

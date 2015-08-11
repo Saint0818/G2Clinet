@@ -87,10 +87,10 @@ public class GameConst
 												"center",	   //12
 												"forward",     //13
 												"guard",	   //14
-												"halftee0",        //15
-												"halftee1",        //16
-												"halftee2",        //17
-												"halfteedefence0", //18
-												"halfteedefence1", //19
-												"halfteedefence2"};//20     
+												"teehalf0",        //15
+												"teehalf1",        //16
+												"teehalf2",        //17
+												"teedefencehalf0", //18
+												"teedefencehalf1", //19
+												"teedefencehalf2"};//20     
 }

@@ -13,6 +13,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public ECourtMode CourtMode = ECourtMode.Full;
+	public int PlayerNumber = 3;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 0.8f;
 	public TScoreRate ScoreRate = new TScoreRate(1);
