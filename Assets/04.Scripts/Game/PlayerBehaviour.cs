@@ -3052,13 +3052,25 @@ public class PlayerBehaviour : MonoBehaviour
 					if(GameData.SkillData[skillID].EffectParent1 == 1) {
 						parent = objs1[i];
 					}
-					StartCoroutine(playEffect(skillID,
-					                          GameData.SkillData[skillID].DelayTime1,
-					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
-					                          Vector3.zero,
-					                          parent,
-					                          null,
-					                          GameData.SkillData[skillID].Duration1));
+					if(parent == null) {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime1,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+						                          Vector3.zero,
+						                          objs1[i],
+						                          null,
+						                          null,
+						                          GameData.SkillData[skillID].Duration1));
+					} else {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime1,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+						                          Vector3.zero,
+						                          null,
+						                          parent,
+						                          null,
+						                          GameData.SkillData[skillID].Duration1));
+					}
 				}
 			}
 
@@ -3068,13 +3080,26 @@ public class PlayerBehaviour : MonoBehaviour
 					if(GameData.SkillData[skillID].EffectParent2 == 1) {
 						parent = objs2[i];
 					}
-					StartCoroutine(playEffect(skillID,
-					                          GameData.SkillData[skillID].DelayTime2,
-					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
-					                          Vector3.zero,
-					                          parent,
-					                          null,
-					                          GameData.SkillData[skillID].Duration2));
+					if(parent == null) {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime2,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+						                          Vector3.zero,
+						                          objs2[i],
+						                          null,
+						                          null,
+						                          GameData.SkillData[skillID].Duration2));
+
+					} else {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime2,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+						                          Vector3.zero,
+						                          null,
+						                          parent,
+						                          null,
+						                          GameData.SkillData[skillID].Duration2));
+					}
 				}
 			}
 			
@@ -3084,21 +3109,36 @@ public class PlayerBehaviour : MonoBehaviour
 					if(GameData.SkillData[skillID].EffectParent3 == 1) {
 						parent = objs3[i];
 					}
-					StartCoroutine(playEffect(skillID,
-					                          GameData.SkillData[skillID].DelayTime3,
-					                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
-					                          Vector3.zero,
-											  parent,
-					                          null,
-					                          GameData.SkillData[skillID].Duration3));
+					if(parent == null) {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime3,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+						                          Vector3.zero,
+						                          objs3[i],
+						                          null,
+						                          null,
+						                          GameData.SkillData[skillID].Duration3));
+					} else {
+						StartCoroutine(playEffect(skillID,
+						                          GameData.SkillData[skillID].DelayTime3,
+						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+						                          Vector3.zero,
+						                          null,
+						                          parent,
+						                          null,
+						                          GameData.SkillData[skillID].Duration3));
+					}
 				}
 			}
 		}
 	}
 
-	private IEnumerator playEffect(int skillID, float delayTime, string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
+	private IEnumerator playEffect(int skillID, float delayTime, string effectName, Vector3 position, GameObject player = null, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
 		yield return new WaitForSeconds(delayTime);
-		EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
+		if(player == null)
+			EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
+		else 
+			EffectManager.Get.PlayEffect(effectName, player.transform.position, parent, followObj, lifeTime);
 	}
 	
 	private void stopEffect (){
