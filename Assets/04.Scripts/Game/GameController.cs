@@ -2006,7 +2006,7 @@ public class GameController : KnightSingleton<GameController> {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
 
 					CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
-					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + GameStart.Get.TipInHeightAdd,
+					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
 					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime);
 				} else {
 					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime); //0.2f	
