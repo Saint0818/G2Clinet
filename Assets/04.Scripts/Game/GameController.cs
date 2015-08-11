@@ -644,18 +644,18 @@ public class GameController : KnightSingleton<GameController> {
 
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
-		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", new Vector3(0, (4 - (Joysticker.Attribute.BodyType * 0.3f)), 0), Joysticker.gameObject);
+		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.gameObject);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
-			passIcon[1] = EffectManager.Get.PlayEffect("PassA", new Vector3(0, (4 - (PlayerList [1].Attribute.BodyType * 0.3f)), 0), PlayerList [1].gameObject);
+			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].gameObject);
 			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
-			passIcon[2] = EffectManager.Get.PlayEffect("PassB", new Vector3(0, (4 - (PlayerList [2].Attribute.BodyType * 0.3f)), 0), PlayerList [2].gameObject);
+			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].gameObject);
 			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 		}
 		
@@ -3459,7 +3459,8 @@ public class GameController : KnightSingleton<GameController> {
 				ballHolder.SetActive(true);
 				ballHolder.transform.parent = BallOwner.transform;
 				ballHolder.transform.localEulerAngles = Vector3.zero;
-				ballHolder.transform.localScale = Vector3.one;ballHolder.transform.localPosition = new Vector3(0, 4-BallOwner.Attribute.BodyType.GetHashCode()*0.5f, 0);
+				ballHolder.transform.localScale = Vector3.one;
+				ballHolder.transform.localPosition = BallOwner.BodyHeight.transform.localPosition;
 			}
 			
 			for(int i = 0 ; i < PlayerList.Count; i++)

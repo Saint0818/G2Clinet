@@ -357,6 +357,7 @@ public class PlayerBehaviour : MonoBehaviour
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
 	public Material BodyMaterial;
+	public GameObject BodyHeight;
 
 	public TPlayerAttribute Attr;
 	public TPlayer Attribute;
@@ -664,6 +665,12 @@ public class PlayerBehaviour : MonoBehaviour
 				obj = Resources.Load("Prefab/Player/BodyTrigger2") as GameObject;
 				break;
 		}
+
+		if(BodyHeight == null)
+			BodyHeight = new GameObject();
+		BodyHeight.name = "BodyHeight";
+		BodyHeight.transform.parent = transform;
+		BodyHeight.transform.localPosition = new Vector3(0, gameObject.GetComponent<CapsuleCollider>().height + 0.2f, 0);
 
         if (obj)
         {
@@ -3162,7 +3169,7 @@ public class PlayerBehaviour : MonoBehaviour
 				objs.Add(getPlayerChest(this));
 				break;
 			case 2://Self Head
-				objs.Add(getPlayerHead(this));
+				objs.Add(this.BodyHeight);
 				break;
 			case 3://Self Hand
 				objs.Add(getPlayerHand(this));				
@@ -3179,7 +3186,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case 6://Teammate Head
 				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
 					if(GameController.Get.GetAllPlayer[i].Team == this.Team && GameController.Get.GetAllPlayer[i].Index != this.Index)
-						objs.Add(getPlayerHead(GameController.Get.GetAllPlayer[i]));
+						objs.Add(GameController.Get.GetAllPlayer[i].BodyHeight);
 				} 
 				break;
 			case 7://Teammate Hand
@@ -3203,7 +3210,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case 10://Emeny Head
 				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
 					if(GameController.Get.GetAllPlayer[i].Team != this.Team)
-						objs.Add(getPlayerHead(GameController.Get.GetAllPlayer[i]));
+						objs.Add(GameController.Get.GetAllPlayer[i].BodyHeight);
 				} 
 				break;
 			case 11://Emeny Hand
@@ -3229,14 +3236,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject getPlayerChest (PlayerBehaviour player) {
 		Transform t = null;
 		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1");
-		if(t != null)
-			return t.gameObject;
-		return null;
-	}
-	
-	private GameObject getPlayerHead (PlayerBehaviour player) {
-		Transform t = null;
-		t = player.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
 		if(t != null)
 			return t.gameObject;
 		return null;
