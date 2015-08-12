@@ -6,14 +6,14 @@ public enum EGameSituation
     ShowOne           = -2,
     ShowTwo           = -1,
     None           = 0,
-    Opening        = 1, // ¶}²y.
+    Opening        = 1, // é–‹çƒ.
     JumpBall       = 2,
     AttackA        = 3,
     AttackB        = 4,
-    TeeAPicking    = 5, // A ¶¤(ª±®a) ¾ß²y.
-    TeeA           = 6, // A ¶¤(ª±®a) Ãä¬Éµo²y.
-    TeeBPicking    = 7, // B ¶¤(¹q¸£) ¾ß²y.
-    TeeB           = 8, // B ¶¤(¹q¸£) Ãä¬Éµo²y.
-    End            = 9, // ¤ñÁÉµ²§ô.
-    SpecialAction  = 10 // ²y­û¯S®íºt¥X, ²y­û±o¤À«á·|¶i¨ì¦¹ª¬ºA. ¤ñ¦p¹³ Jason Terry Âù¤â±i¶}¹³­¸¾÷ªº°Ê§@.
+    TeeAPicking    = 5, // A éšŠ(ç©å®¶) æ’¿çƒ.
+    TeeA           = 6, // A éšŠ(ç©å®¶) é‚Šç•Œç™¼çƒ.
+    TeeBPicking    = 7, // B éšŠ(é›»è…¦) æ’¿çƒ.
+    TeeB           = 8, // B éšŠ(é›»è…¦) é‚Šç•Œç™¼çƒ.
+    End            = 9, // æ¯”è³½çµæŸ.
+    SpecialAction  = 10 // çƒå“¡ç‰¹æ®Šæ¼”å‡º, çƒå“¡å¾—åˆ†å¾Œæœƒé€²åˆ°æ­¤ç‹€æ…‹. æ¯”å¦‚åƒ Jason Terry é›™æ‰‹å¼µé–‹åƒé£›æ©Ÿçš„å‹•ä½œ.
 }
