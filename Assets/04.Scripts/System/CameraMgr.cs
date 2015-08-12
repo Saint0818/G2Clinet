@@ -486,6 +486,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 		}
 	}
 
+	private bool isAddRotateAngle = false;
+
 	private void Lookat(GameObject obj, Vector3 pos)
 	{
 		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
@@ -493,18 +495,30 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 		if(isOverCamera)
 		{
-			switch (situation) {
-				case ECameraSituation.Self : 
-					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
-					break;
+				switch (situation) {
+					case ECameraSituation.Self : 
+//						Debug.Log("1 :  " + " Joysticker postion :" + GameController.Get.Joysticker.gameObject.transform.position);
+//						Debug.Log(" Ball postion :" + CourtMgr.Get.RealBall.transform.position);
+						isAddRotateAngle = true;
+//						Debug.Log("1");
+						break;
 
-				case ECameraSituation.Npc:
-					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate), rot.eulerAngles.z);
-					break;
-			}
+					case ECameraSituation.Npc:
+	//					Debug.Log("1 :  " + " Joysticker postion :" + GameController.Get.Joysticker.gameObject.transform.position);
+	//					Debug.Log(" Ball postion :" + CourtMgr.Get.RealBall.transform.position);
+						isAddRotateAngle = false;
+//						Debug.Log("2");
+						break;
+				}
+
+				if(isAddRotateAngle)
+					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ /2 * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
+				else
+					cameraRotationObj.transform.rotation = Quaternion.Euler (rot.eulerAngles.x, rot.eulerAngles.y - (distanceZ /2 * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
 		}
-		else
+		else{
 			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+		}
 
 
 	}
