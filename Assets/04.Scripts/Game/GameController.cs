@@ -1338,41 +1338,41 @@ public class GameController : KnightSingleton<GameController> {
 					if(PlayerList[i].Team == npc.Team && PlayerList[i] != npc && 
 					   pos.FileName != string.Empty && PlayerList[i].TargetPosName != pos.FileName)
 						PlayerList[i].ResetMove();
-				}
+		}
 				
 				if(pos.FileName != string.Empty) {
 					tacticalData = GetActionPosition(npc.Postion.GetHashCode(), ref pos);
 					
 					if (tacticalData != null) {
 						for (int i = 0; i < tacticalData.Length; i++) {
-							moveData.Clear();
+                        moveData.Clear();
 							moveData.Speedup = tacticalData [i].Speedup;
 							moveData.Catcher = tacticalData [i].Catcher;
 							moveData.Shooting = tacticalData [i].Shooting;
-							int z = 1;
+                        int z = 1;
 							if (GameStart.Get.CourtMode == ECourtMode.Full && npc.Team != ETeamKind.Self)
-								z = -1;
+                            z = -1;
 							
 							moveData.Target = new Vector2(tacticalData [i].x, tacticalData [i].z * z);
 							if (BallOwner != null && BallOwner != npc)
 								moveData.LookTarget = BallOwner.transform;  
 							
 							moveData.FileName = pos.FileName;
-							moveData.MoveFinish = DefMove;
+                        moveData.MoveFinish = DefMove;
 							npc.TargetPos = moveData;
-						}
+                    }
 						
 						DefMove(npc);
-					}
-				}
-			}
+                }
+            }
+        }
 			
 			if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
 				npc.AniState(EPlayerState.Dribble0);
 		}
-	}
+    }
 	
-	public bool DefMove(PlayerBehaviour player, bool speedup = false)
+    public bool DefMove(PlayerBehaviour player, bool speedup = false)
 	{
 		if (player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
@@ -1493,8 +1493,8 @@ public class GameController : KnightSingleton<GameController> {
             }
             
             Situation = gs;
-            
-			if (GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
+
+            if (GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
                 (oldgs == EGameSituation.TeeA || oldgs == EGameSituation.TeeB)) {
 				GetMovePath(GetPosNameIndex(EPosKind.Fast, player.Index), ref attackTactical);
                 
@@ -3673,6 +3673,11 @@ public class GameController : KnightSingleton<GameController> {
 
 		if(Situation == EGameSituation.TeeAPicking && player == Joysticker)
 			return;
+
+        // Special Action 要避免觸發任何的狀態切換, 狀態的切換應該要發生在 SpecialActionState.
+        // Refactor 完畢後, 這就可以刪除了.(trigger 換成是送 message 的方式)
+        if (Situation == EGameSituation.SpecialAction)
+            return;
         
 		switch (dir) {
 		case 0: //top ,rebound
@@ -3896,16 +3901,24 @@ public class GameController : KnightSingleton<GameController> {
 			AudioMgr.Get.PlaySound(SoundType.SD_Net);
             UIGame.Get.PlusScore(team, score);
 
-			if(isChangeSituation) {
-				if (UIGame.Get.Scores [team] >= UIGame.Get.MaxScores [team])
-					gameResult(team);
+			if(isChangeSituation)
+            {
+                if(UIGame.Get.Scores[team] >= UIGame.Get.MaxScores[team])
+                    gameResult(team);
+				else if(team == ETeamKind.Self.GetHashCode())
+				{
+                    //ChangeSituation(EGameSituation.TeeBPicking);
+                    ChangeSituation(EGameSituation.SpecialAction);
+				    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.TeeBPicking);
+				}
 				else
-				if (team == ETeamKind.Self.GetHashCode())
-					ChangeSituation(EGameSituation.TeeBPicking);
-				else
-					ChangeSituation(EGameSituation.TeeAPicking);
+				{
+                    //ChangeSituation(EGameSituation.TeeAPicking);
+                    ChangeSituation(EGameSituation.SpecialAction);
+                    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.TeeAPicking);
+				}
 
-				if(!isSkill && Shooter)
+                if (!isSkill && Shooter)
 					Shooter.SetAnger(GameConst.AddAnger_PlusScore, CourtMgr.Get.ShootPoint[0].gameObject);
 			}
 		}

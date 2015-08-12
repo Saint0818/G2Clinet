@@ -13,15 +13,15 @@ namespace AI
         /// <summary>
         /// 呼叫時機: FSM 改變狀態時, 表示此是新的狀態.
         /// </summary>
-        public void Enter(StateMachine<TEnum> machine, MessageDispatcher<TEnum> dispatcher)
+        public void Enter(StateMachine<TEnum> machine, MessageDispatcher<TEnum> dispatcher, Object extraInfo)
         {
             Parent = machine;
             MessageDispatcher = dispatcher;
 
-            EnterImpl();
+            EnterImpl(extraInfo);
         }
 
-        public abstract void EnterImpl();
+        public abstract void EnterImpl(object extraInfo);
 
         /// <summary>
         /// 呼叫時機: 每個 frame.

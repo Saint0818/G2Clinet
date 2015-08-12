@@ -22,6 +22,11 @@ public class GameStateFactory : IStateMachineFactory<EGameSituation>
             case EGameSituation.None: return new NullState();
             case EGameSituation.InitShowContorl: return new InitShowControlState();
             case EGameSituation.ShowOne: return new ShowOneState();
+            case EGameSituation.SpecialAction: return new SpecialActionState();
+            case EGameSituation.TeeAPicking: return new TeeAPickingState();
+            case EGameSituation.TeeA: return new TeeAState();
+            case EGameSituation.TeeBPicking: return new TeeBPickingState();
+            case EGameSituation.TeeB: return new TeeBState();
         }
 
         throw new NotImplementedException(String.Format("Value:{0}", e));

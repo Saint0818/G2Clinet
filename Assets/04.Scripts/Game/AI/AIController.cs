@@ -35,4 +35,9 @@ public class AIController : KnightSingleton<AIController>
     {
         mFSM.ChangeState(newState);
     }
+
+    public void ChangeState(EGameSituation newState, object extraInfo)
+    {
+        mFSM.ChangeState(newState, extraInfo);
+    }
 }

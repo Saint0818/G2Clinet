@@ -2,7 +2,7 @@
 
 public class InitShowControlState : State<EGameSituation>, ITelegraph<EGameSituation>
 {
-    public override void EnterImpl()
+    public override void EnterImpl(object extraInfo)
     {
         //        isSkip = false;
         foreach(PlayerBehaviour player in GameController.Get.GamePlayerList)

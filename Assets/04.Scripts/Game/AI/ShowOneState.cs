@@ -2,7 +2,7 @@
 
 public class ShowOneState : State<EGameSituation>
 {
-    public override void EnterImpl()
+    public override void EnterImpl(object extraInfo)
     {
         GameController.Get.SkipShow();
     }

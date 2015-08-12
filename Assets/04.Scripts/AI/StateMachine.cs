@@ -53,12 +53,17 @@ namespace AI
 
         public void ChangeState(TEnum newState)
         {
+            ChangeState(newState, null);
+        }
+
+        public void ChangeState(TEnum newState, Object extraInfo)
+        {
             if(!typeof(TEnum).IsEnum)
                 throw new ArgumentException("TEnum must be an enum.");
 
             mCurrentState.Exit();
             mCurrentState = mFactory.CreateState(newState);
-            mCurrentState.Enter(this, mDispatcher);
+            mCurrentState.Enter(this, mDispatcher, extraInfo);
         }
 
         public void SetGlobalState(State<TEnum> state)
