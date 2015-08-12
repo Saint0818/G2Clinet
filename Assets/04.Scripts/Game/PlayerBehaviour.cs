@@ -2953,7 +2953,7 @@ public class PlayerBehaviour : MonoBehaviour
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
-					StartCoroutine(DelayedExecutionMgr.Get.Execute(t,ShowActiveEffect));
+					Invoke("ShowActiveEffect", t);
 					break;
 				case 1://show self
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
