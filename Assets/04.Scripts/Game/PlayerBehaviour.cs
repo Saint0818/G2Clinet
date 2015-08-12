@@ -445,7 +445,9 @@ public class PlayerBehaviour : MonoBehaviour
 	public List<TSkillAttribute> SkillAttribute = new List<TSkillAttribute>();
 
 	public int MoveDodgeRate = 0;
+	public int MoveDodgeLv = 0;
 	public int PickBall2Rate = 0;
+	public int PickBall2Lv = 0;
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool isSpeedup = false;
@@ -589,11 +591,14 @@ public class PlayerBehaviour : MonoBehaviour
 
 					int key = skillData.Kind;
 
-					if (skillData.Kind == (int)ESkillKind.MoveDodge)
-						MoveDodgeRate = skillData.Rate(Attribute.Skills[i].Lv);
+					if (skillData.Kind == (int)ESkillKind.MoveDodge){
+						MoveDodgeLv = Attribute.Skills[i].Lv;
+						MoveDodgeRate = skillData.Rate(MoveDodgeLv);
+					}
 
 					if (skillData.Kind == (int)ESkillKind.Pick2) {
-						PickBall2Rate = skillData.Rate(Attribute.Skills[i].Lv);
+						PickBall2Lv = Attribute.Skills[i].Lv;
+						PickBall2Rate = skillData.Rate(PickBall2Lv);
 					}
 
 					TSkill skill = new TSkill();
@@ -3050,7 +3055,6 @@ public class PlayerBehaviour : MonoBehaviour
 		if(isPassiveID) {
 			if(PassiveID != -1) 
 				skillID = PassiveID;
-			UIPassiveEffect.UIShow(true, GameData.SkillData[PassiveID].PictureNo, PassiveLv, GameData.SkillData[PassiveID].Name);
 		} else {
 			if(Attribute.ActiveSkill.ID != 0)
 				skillID = Attribute.ActiveSkill.ID;
@@ -3334,6 +3338,7 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			}
 			if (animationName != string.Empty) {
+				UIPassiveEffect.UIShow(true, GameData.SkillData[PassiveID].PictureNo, PassiveLv, GameData.SkillData[PassiveID].Name);
 				try {
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 				} catch {

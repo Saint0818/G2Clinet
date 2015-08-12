@@ -2696,11 +2696,9 @@ public class GameController : KnightSingleton<GameController> {
 			case 1:
 			case 10:
 				player.AddSkillAttribute(skill.ID, skill.AttrKind, 
-				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));			
-//				player.OnShowEffect(false);
+				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 				break;
 			case 3:
-//				player.OnShowEffect(false);
 				for (int i = 0; i < PlayerList.Count; i++) {
 					if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
@@ -2869,6 +2867,15 @@ public class GameController : KnightSingleton<GameController> {
 
 		if(player) {
 			switch(State) {
+			case ESkillSituation.PickBall:
+				skillKind = ESkillKind.Pick2;
+				playerState = EPlayerState.PickBall2;
+				player.PassiveID = 1310;
+				player.PassiveLv = player.PickBall2Lv;
+				UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
+				Result = player.AniState(playerState, v);
+
+				break;
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
 					int Dir = haveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
@@ -2897,10 +2904,11 @@ public class GameController : KnightSingleton<GameController> {
 								playerState = EPlayerState.MoveDodge1;
 								player.PassiveID = 1100;
 							}			
-							player.AniState(playerState);
+							player.PassiveLv = player.MoveDodgeLv;
 							
 							CoolDownCrossover = Time.time + 4;
-							Result = true;
+							UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
+							Result = player.AniState(playerState);
 						}
 					} 
 				}
@@ -3004,10 +3012,6 @@ public class GameController : KnightSingleton<GameController> {
 			case ESkillSituation.Steal0:	
 				skillKind = ESkillKind.Steal;
 				playerState = player.PassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
-				Result = player.AniState(playerState, v);
-
-				break;
-			case ESkillSituation.PickBall:
 				Result = player.AniState(playerState, v);
 
 				break;
