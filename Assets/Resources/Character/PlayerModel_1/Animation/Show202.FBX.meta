@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 97828dc1038773244a7c4603deeedb24
-timeCreated: 1437468004
+guid: 8ecd7e6a459ab9c41bed4535f784c9e1
+timeCreated: 1439265067
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Idle500
+    7400000: Show202
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle500
+      name: Show202
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

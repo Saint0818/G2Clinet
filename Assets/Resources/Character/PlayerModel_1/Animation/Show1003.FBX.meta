@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 475873cd45497834da1e8b94dc9e1ca0
-timeCreated: 1430366029
+guid: ad570972694b68344958cd9ef94b2efb
+timeCreated: 1434531890
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Stop1
+    7400000: Show1003
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -121,17 +121,17 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0
+    animationPositionError: 0
+    animationScaleError: 0
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Stop1
+      name: Show1003
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -304,7 +304,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0

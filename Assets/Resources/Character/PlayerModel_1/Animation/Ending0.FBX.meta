@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 45dbad577de3ea84289a430ed3d59d61
-timeCreated: 1438930631
+guid: dd5e790497f05434ab49cffa3c40a788
+timeCreated: 1438748328
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Idle202
+    7400000: Ending0
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -121,14 +121,14 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0
+    animationPositionError: 0
+    animationScaleError: 0
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle202
+      name: Ending0
       takeName: Take 001
       firstFrame: 0
       lastFrame: 60

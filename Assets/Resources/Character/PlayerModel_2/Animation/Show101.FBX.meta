@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 40a77e6debdfcef43aaa3582c00ca736
-timeCreated: 1433840711
+guid: 39b47b38c3c1329488b8996bc255216e
+timeCreated: 1438660828
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Idle1
+    7400000: Show101
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle1
+      name: Show101
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 112
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -303,8 +303,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 0
-    normalImportMode: 0
+    splitTangentsAcrossUV: 1
+    normalImportMode: 2
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0

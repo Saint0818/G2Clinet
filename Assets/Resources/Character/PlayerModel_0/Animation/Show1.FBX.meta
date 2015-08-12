@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7283bf44594048048924e970e98728cd
-timeCreated: 1434595045
+guid: 40a77e6debdfcef43aaa3582c00ca736
+timeCreated: 1433840711
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Stop1
+    7400000: Show1
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Stop1
+      name: Show1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 112
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
