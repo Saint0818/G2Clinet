@@ -517,6 +517,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
         if (isOverCamera)
         {
+			Vector3 midle = (new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z)  + 
+			                 new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z)) * 1/2;
+			Vector3 dirMidle = midle - cameraRotationObj.transform.position;
+			Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
+
             switch (situation)
             {
                 case ECameraSituation.Self: 
@@ -528,16 +533,19 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
                 case ECameraSituation.Npc:
                     if(CourtMgr.Get.RealBall.transform.position.z > GameController.Get.Joysticker.gameObject.transform.position.z)
-                        isAddRotateAngle = false;
-                    else
                         isAddRotateAngle = true;
+                    else
+                        isAddRotateAngle = false;
                     break;
             }
 
-            if (isAddRotateAngle)
-                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ / 2 * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
-            else
-                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y - (distanceZ / 2 * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
+			if (isAddRotateAngle)
+				cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
+
+//            if (isAddRotateAngle)
+//                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y - (2 * distanceZ * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
+//            else
+//                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
         } else
         {
             cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
