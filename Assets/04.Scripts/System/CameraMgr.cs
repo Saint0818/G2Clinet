@@ -526,6 +526,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 					}
 					else
 					{
+						pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x;
 						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
 					}
 					break;
@@ -536,6 +537,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 					}
 					else
 					{
+						pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x;
 						pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
 					}
 					break;
