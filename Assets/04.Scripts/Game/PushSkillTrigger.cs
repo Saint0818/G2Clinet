@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class PushSkillTrigger : MonoBehaviour {
-	private PlayerBehaviour pusher;
+	public PlayerBehaviour pusher;
 	public float InRange = 5;
 	public float DelayActivityTime = 2;
 	void Start () {
-		pusher = gameObject.transform.parent.gameObject.GetComponent<PlayerBehaviour>();
-		Invoke("StartSkill", DelayActivityTime);
+//		pusher = gameObject.transform.parent.gameObject.GetComponent<PlayerBehaviour>();
+		StartCoroutine(DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill));
 	}
 
 	public void StartSkill() {
@@ -22,5 +22,4 @@ public class PushSkillTrigger : MonoBehaviour {
 			}
 		}
 	}
-
 }

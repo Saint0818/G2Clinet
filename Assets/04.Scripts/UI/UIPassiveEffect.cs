@@ -31,7 +31,8 @@ public class UIPassiveEffect : UIBase {
 	public static void UIShow(bool isShow, int picNo = 0, int lv = 0, string name = ""){
 		if(isShow) {
 			if(picNo != 0 && lv != 0) {
-				Get.Show(isShow);
+//				Get.Show(isShow);
+				Get.Show(!GameController.Get.Joysticker.IsSkillShow);
 				Get.uiCardMotion.SetActive(false);
 				Get.uiCardMotion.SetActive(isShow);
 				if(Get.IsInvoking("HiddenView")) {

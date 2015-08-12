@@ -2935,6 +2935,8 @@ public class PlayerBehaviour : MonoBehaviour
 			if(!isSkillShow) {
 				if(OnUIJoystick != null)
 					OnUIJoystick(this, false);
+				if(UIPassiveEffect.Visible)
+					UIPassiveEffect.UIShow(false);
 				
 				isSkillShow = true;
 				string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
@@ -2951,7 +2953,7 @@ public class PlayerBehaviour : MonoBehaviour
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
-					Invoke("ShowActiveEffect", t);
+					StartCoroutine(DelayedExecutionMgr.Get.Execute(t,ShowActiveEffect));
 					break;
 				case 1://show self
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
@@ -2976,16 +2978,17 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+
 	public void StealSkill () {
 		if(crtState == EPlayerState.Steal20) {
 			GameController.Get.SetBall(this);
 		}
 	}
 
-	public void ShowActiveEffect (){
+	public void ShowActiveEffect () {
 		OnShowEffect(false);
 	}
-	
+
 	public void StopSkill(){
 		if(isSkillShow) {
 			if(OnUIJoystick != null)
@@ -3062,102 +3065,111 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if(skillID != 0) {
 			if(objs1 != null && objs1.Count != 0){
+				int index = 0;
 				for (int i=0; i<objs1.Count; i++) {
 					GameObject parent = null;
 					if(GameData.SkillData[skillID].EffectParent1 == 1) {
 						parent = objs1[i];
+						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime1,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
-						                          Vector3.zero,
-						                          objs1[i],
-						                          null,
-						                          null,
-						                          GameData.SkillData[skillID].Duration1));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+							           Vector3.zero,
+							           objs1[index],
+							           null,
+							           null,
+							           GameData.SkillData[skillID].Duration1);
+						}));
 					} else {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime1,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
-						                          Vector3.zero,
-						                          null,
-						                          parent,
-						                          null,
-						                          GameData.SkillData[skillID].Duration1));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+							           Vector3.zero,
+							           null,
+							           parent,
+							           null,
+							           GameData.SkillData[skillID].Duration1);
+						}));
 					}
 				}
 			}
 
 			if(objs2 != null && objs2.Count != 0) {
+				int index = 0;
 				for (int i=0; i<objs2.Count; i++) {
 					GameObject parent = null;
 					if(GameData.SkillData[skillID].EffectParent2 == 1) {
 						parent = objs2[i];
+						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime2,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
-						                          Vector3.zero,
-						                          objs2[i],
-						                          null,
-						                          null,
-						                          GameData.SkillData[skillID].Duration2));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+							           Vector3.zero,
+							           objs2[index],
+							           null,
+							           null,
+							           GameData.SkillData[skillID].Duration2);
+						}));
 
 					} else {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime2,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
-						                          Vector3.zero,
-						                          null,
-						                          parent,
-						                          null,
-						                          GameData.SkillData[skillID].Duration2));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+							           Vector3.zero,
+							           null,
+							           parent,
+							           null,
+							           GameData.SkillData[skillID].Duration2);
+						}));
 					}
 				}
 			}
 			
 			if(objs3 != null && objs3.Count != 0) {
+				int index = 0;
 				for (int i=0; i<objs3.Count; i++) {
 					GameObject parent = null;
 					if(GameData.SkillData[skillID].EffectParent3 == 1) {
 						parent = objs3[i];
+						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime3,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
-						                          Vector3.zero,
-						                          objs3[i],
-						                          null,
-						                          null,
-						                          GameData.SkillData[skillID].Duration3));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+							           Vector3.zero,
+							           objs3[index],
+							           null,
+							           null,
+							           GameData.SkillData[skillID].Duration3);
+						}));
 					} else {
-						StartCoroutine(playEffect(skillID,
-						                          GameData.SkillData[skillID].DelayTime3,
-						                          "SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
-						                          Vector3.zero,
-						                          null,
-						                          parent,
-						                          null,
-						                          GameData.SkillData[skillID].Duration3));
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+							PlayEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+							           Vector3.zero,
+							           null,
+							           parent,
+							           null,
+							           GameData.SkillData[skillID].Duration3);
+						}));
 					}
 				}
 			}
 		}
 	}
 
-	private IEnumerator playEffect(int skillID, float delayTime, string effectName, Vector3 position, GameObject player = null, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
-		yield return new WaitForSeconds(delayTime);
+	public void PlayEffect (string effectName, Vector3 position, GameObject player = null, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
+		GameObject obj = null;
 		if(player == null)
-			EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
+			obj = EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
 		else 
-			EffectManager.Get.PlayEffect(effectName, player.transform.position, parent, followObj, lifeTime);
+			obj = EffectManager.Get.PlayEffect(effectName, player.transform.position, parent, followObj, lifeTime);
+
+		if(obj.GetComponent<PushSkillTrigger>() != null)
+			obj.GetComponent<PushSkillTrigger>().pusher = this;
 	}
 	
 	private void stopEffect (){
-		CancelInvoke("ShowActiveEffect");
+		DelayedExecutionMgr.Get.StopExecute();
 		StopCoroutine("playEffect");
 	}
 
@@ -3482,6 +3494,10 @@ public class PlayerBehaviour : MonoBehaviour
                 return false;
         }
     }
+
+	public bool IsSkillShow {
+		get {return isSkillShow;}
+	}
     
     public bool IsCatcher
     {
