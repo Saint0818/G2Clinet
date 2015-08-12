@@ -144,7 +144,7 @@ public enum ESkillSituation{
 	Pass2,
 	Pass1,
 	Pass4,
-	PickBall0,
+	PickBall,
 	Push0,
 	Rebound,
 	Elbow,
@@ -790,7 +790,7 @@ public class GameController : KnightSingleton<GameController> {
 					if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
 						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
-						if((int)GameStart.Get.SelectAniState > 100) 
+						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
 							Joysticker.OnShowEffect(true);
 					}else
 						UIGame.Get.DoShoot(null, true);
@@ -2031,9 +2031,9 @@ public class GameController : KnightSingleton<GameController> {
 
 					CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
 					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.5f,
-					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime);
+					                                       CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z), 1 / TimerMgr.Get.CrtTime * 0.5f);
 				} else {
-					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime); //0.2f	
+					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.2f); //0.2f	
 				}
 			} 
 			else 
@@ -3007,9 +3007,7 @@ public class GameController : KnightSingleton<GameController> {
 				Result = player.AniState(playerState, v);
 
 				break;
-			case ESkillSituation.PickBall0:
-				skillKind = ESkillKind.Pick2;
-				playerState = player.PassiveSkill(ESkillSituation.PickBall0, ESkillKind.Pick2);
+			case ESkillSituation.PickBall:
 				Result = player.AniState(playerState, v);
 
 				break;
@@ -3791,8 +3789,9 @@ public class GameController : KnightSingleton<GameController> {
 			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player1.PickBall2Rate) {
-					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
-					player1.OnShowEffect(true);
+					DoPassiveSkill(ESkillSituation.PickBall, player1, CourtMgr.Get.RealBall.transform.position);
+//					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
+//					player1.OnShowEffect(true);
 				}
 			}
 		}

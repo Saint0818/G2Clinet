@@ -2953,18 +2953,20 @@ public class PlayerBehaviour : MonoBehaviour
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					OnShowEffect(false);
+					ShowActiveEffect ();
 					break;
 				case 2://show all Player
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					OnShowEffect(false);
+					ShowActiveEffect ();
 					break;
 				}
 			}
 		} else {
+			//Teammate and Enemy's Active PassiveCard will be shown
+			UIPassiveEffect.UIShow (true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
 			ShowActiveEffect ();
 		}
 	}
@@ -3048,10 +3050,12 @@ public class PlayerBehaviour : MonoBehaviour
 		if(isPassiveID) {
 			if(PassiveID != -1) 
 				skillID = PassiveID;
+			UIPassiveEffect.UIShow(true, GameData.SkillData[PassiveID].PictureNo, PassiveLv, GameData.SkillData[PassiveID].Name);
 		} else {
 			if(Attribute.ActiveSkill.ID != 0)
 				skillID = Attribute.ActiveSkill.ID;
 		}
+
 		if(skillID != 0) {
 			if(objs1 != null && objs1.Count != 0){
 				for (int i=0; i<objs1.Count; i++) {
