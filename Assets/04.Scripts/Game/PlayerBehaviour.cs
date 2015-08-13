@@ -2980,11 +2980,23 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	public void StealMove (){
-		if(GameController.Get.BallOwner != null) {
-			transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), 0.3f);
-			transform.LookAt(GameController.Get.BallOwner.transform.position);
-			GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+	public void MoveEvent (AnimationEvent aniEvent){
+		float t = aniEvent.floatParameter;
+		int eventKind = aniEvent.intParameter;
+		switch (eventKind) {
+		case 0:
+			if(GameController.Get.BallOwner != null) {
+				transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), t);
+				rotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
+				GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+			} else {
+				if(GameController.Get.Catcher != null) {
+					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
+					rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
+					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
+				}
+			}
+			break;
 		}
 	}
 
