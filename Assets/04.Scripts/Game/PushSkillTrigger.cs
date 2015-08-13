@@ -8,11 +8,12 @@ public class PushSkillTrigger : MonoBehaviour {
 	void Start () {
 //		pusher = gameObject.transform.parent.gameObject.GetComponent<PlayerBehaviour>();
 		StartCoroutine(DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill));
+//		DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill);
 	}
 
 	public void StartSkill() {
 		for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-			if(pusher!= null && GameController.Get.GetAllPlayer[i].Team != pusher.Team) {
+			if(pusher != null && GameController.Get.GetAllPlayer[i].Team != pusher.Team) {
 				if(GameController.Get.getDis(new Vector2(GameController.Get.GetAllPlayer[i].transform.position.x, GameController.Get.GetAllPlayer[i].transform.position.z), 
 				                             new Vector2(pusher.transform.position.x, pusher.transform.position.z)) <= InRange) {
 					GameController.Get.GetAllPlayer[i].AniState(EPlayerState.Fall1, pusher.transform.position);

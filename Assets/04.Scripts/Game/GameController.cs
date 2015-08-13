@@ -383,6 +383,24 @@ public class GameController : KnightSingleton<GameController> {
     /// <param name="tactical"></param>
 	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
     {
+=======
+    {
+        findRandomMovePath(poskind.GetPosNameIndex(), ref tactical);
+    }
+
+    private void findRandomMovePath(EPosKind poskind, int index, ref TTactical tactical)
+    {
+        findRandomMovePath(poskind.GetPosNameIndex(index), ref tactical);
+    }
+
+    /// <summary>
+    /// 亂數找出一個戰術.
+    /// </summary>
+    /// <param name="tacticalIndex"> 哪一類的戰術. </param>
+    /// <param name="tactical"></param>
+	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
+    {
+>>>>>>> Stashed changes
 		if (tactical.PosAy1 == null)
 			tactical = new TTactical (false);
 
@@ -2794,31 +2812,61 @@ public class GameController : KnightSingleton<GameController> {
 		int kind = GameData.SkillData[player.Attribute.ActiveSkill.ID].Kind;
 		switch (Situation) {
 		case EGameSituation.AttackA:
-			if (kind >= 1 && kind <= 7 && player == BallOwner )
-				return true;
+			if(player.Team == ETeamKind.Self) {
+				if (kind >= 1 && kind <= 7 && player == BallOwner )
+					return true;
+				
+				if ((kind == 11 || kind == 18) && player == BallOwner) 
+					return true;
+				
+				if (kind == 17 && player != BallOwner) 
+					return true;
+				
+				if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					return true;
 
-			if ((kind == 11 || kind == 18) && player == BallOwner) 
-				return true;
-			
-			if (kind == 17 && player != BallOwner) 
-				return true;
-			
-			if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
-				return true;
+			} else {
+				if (kind == 16)
+					return true;
+				
+				if (kind == 15 && player != BallOwner && CanUseStealSkill) 
+					return true;
+				
+				if (kind == 17 && player != BallOwner) 
+					return true;
+				
+				if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					return true;
+			}
 
 			break;
 		case EGameSituation.AttackB:
-			if (kind == 16)
-				return true;
-			
-			if (kind == 15 && player != BallOwner && CanUseStealSkill) 
-				return true;
-			
-			if (kind == 17 && player != BallOwner) 
-				return true;
-			
-			if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
-				return true;
+			if(player.Team == ETeamKind.Self) {
+				if (kind == 16)
+					return true;
+				
+				if (kind == 15 && player != BallOwner && CanUseStealSkill) 
+					return true;
+				
+				if (kind == 17 && player != BallOwner) 
+					return true;
+				
+				if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					return true;
+
+			} else  {
+				if (kind >= 1 && kind <= 7 && player == BallOwner )
+					return true;
+				
+				if ((kind == 11 || kind == 18) && player == BallOwner) 
+					return true;
+				
+				if (kind == 17 && player != BallOwner) 
+					return true;
+				
+				if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					return true;
+			}
 
 			break;
 		}

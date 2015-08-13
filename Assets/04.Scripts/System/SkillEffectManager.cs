@@ -51,6 +51,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						index = i;
 					}
 					if(parent == null) {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+//							           Vector3.zero,
+//							           objs1[index],
+//							           null,
+//							           null,
+//							           GameData.SkillData[skillID].Duration1);
+//						});
 						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
 							           Vector3.zero,
@@ -60,6 +68,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 							           GameData.SkillData[skillID].Duration1);
 						}));
 					} else {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+//							           Vector3.zero,
+//							           null,
+//							           parent,
+//							           null,
+//							           GameData.SkillData[skillID].Duration1);
+//						});
 						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
 							           Vector3.zero,
@@ -81,6 +97,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						index = i;
 					}
 					if(parent == null) {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+//							           Vector3.zero,
+//							           objs2[index],
+//							           null,
+//							           null,
+//							           GameData.SkillData[skillID].Duration2);
+//						});
 						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
 							           Vector3.zero,
@@ -91,6 +115,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						}));
 						
 					} else {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+//							           Vector3.zero,
+//							           null,
+//							           parent,
+//							           null,
+//							           GameData.SkillData[skillID].Duration2);
+//						});
 						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
 							           Vector3.zero,
@@ -112,23 +144,39 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
 							           Vector3.zero,
-							           objs3[index],
+							           objs2[index],
 							           null,
 							           null,
 							           GameData.SkillData[skillID].Duration3);
-						}));
+						});
+//						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+//							           Vector3.zero,
+//							           objs3[index],
+//							           null,
+//							           null,
+//							           GameData.SkillData[skillID].Duration3);
+//						}));
 					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
 							           Vector3.zero,
 							           null,
 							           parent,
 							           null,
 							           GameData.SkillData[skillID].Duration3);
-						}));
+						});
+//						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+//							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+//							           Vector3.zero,
+//							           null,
+//							           parent,
+//							           null,
+//							           GameData.SkillData[skillID].Duration3);
+//						}));
 					}
 				}
 			}
@@ -151,7 +199,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			obj.GetComponent<PushSkillTrigger>().pusher = executePlayer;
 	}
 	
-	private void stopEffect (){
+	public void StopEffect (){
 		DelayedExecutionMgr.Get.StopExecute();
 	}
 

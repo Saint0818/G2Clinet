@@ -464,6 +464,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	//SkillEvent
 	private bool isSkillShow = false;
+	private int skillEffectKind = 0;
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -2890,12 +2891,12 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void SkillEvent (AnimationEvent aniEvent) {
 		if(this == GameController.Get.Joysticker && GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
-			float t = aniEvent.floatParameter;
-			int kind = aniEvent.intParameter;
-			
 			if(!isSkillShow) {
+				float t = aniEvent.floatParameter;
+				skillEffectKind = aniEvent.intParameter;
 				if(OnUIJoystick != null)
 					OnUIJoystick(this, false);
+
 				if(UIPassiveEffect.Visible)
 					UIPassiveEffect.UIShow(false);
 				
@@ -2905,30 +2906,30 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 					GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
-				
-				CameraMgr.Get.SkillShowActive(kind, t);
-				UISkillEffect.UIShow(true, kind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
 
-				switch(kind) {
+				CameraMgr.Get.SkillShowActive(skillEffectKind, t);
+				UISkillEffect.UIShow(true, skillEffectKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
+
+				switch(skillEffectKind) {
 				case 0://show self and rotate camera
+					Invoke("showActiveEffect", t - 0.1f);
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
-					Invoke("showActiveEffect", t);
 					break;
 				case 1://show self
+					showActiveEffect ();
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					showActiveEffect ();
 					break;
 				case 2://show all Player
+					showActiveEffect ();
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
-					showActiveEffect ();
 					break;
 				}
 			}
@@ -2982,7 +2983,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if(isSkillShow) {
 			if(OnUIJoystick != null)
 				OnUIJoystick(this, true);
-			
+
 			isSkillShow = false;
 			UISkillEffect.UIShow(false);
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
