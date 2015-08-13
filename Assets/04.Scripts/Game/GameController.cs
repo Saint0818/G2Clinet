@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
@@ -3674,8 +3674,8 @@ public class GameController : KnightSingleton<GameController> {
 		if(Situation == EGameSituation.TeeAPicking && player == Joysticker)
 			return;
 
-        // Special Action ­nÁ×§KÄ²µo¥ô¦óªºª¬ºA¤Á´«, ª¬ºAªº¤Á´«À³¸Ó­nµo¥Í¦b SpecialActionState.
-        // Refactor §¹²¦«á, ³o´N¥i¥H§R°£¤F.(trigger ´«¦¨¬O°e message ªº¤è¦¡)
+        // Special Action è¦é¿å…è§¸ç™¼ä»»ä½•çš„ç‹€æ…‹åˆ‡æ›, ç‹€æ…‹çš„åˆ‡æ›æ‡‰è©²è¦ç™¼ç”Ÿåœ¨ SpecialActionState.
+        // Refactor å®Œç•¢å¾Œ, é€™å°±å¯ä»¥åˆªé™¤äº†.(trigger æ›æˆæ˜¯é€ message çš„æ–¹å¼)
         if (Situation == EGameSituation.SpecialAction)
             return;
         

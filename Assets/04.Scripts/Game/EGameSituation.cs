@@ -9,7 +9,7 @@ public enum EGameSituation
     Opening        = 1, // 開球.
     JumpBall       = 2,
     AttackA        = 3,
-    AttackB        = 4,
+    AttackB        = 4, // B 隊攻擊.
     TeeAPicking    = 5, // A 隊(玩家) 撿球.
     TeeA           = 6, // A 隊(玩家) 邊界發球.
     TeeBPicking    = 7, // B 隊(電腦) 撿球.

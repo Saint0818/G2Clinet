@@ -21,8 +21,10 @@ public class GameData {
 	public static TTactical[] TacticalData;
 
     /// <summary>
-    /// key: GameConst.TacticalDataName 的索引值.
-    /// Value: GameData.TacticalData 的索引值.
+    /// <para> key: GameConst.TacticalDataName 的索引值. </para>
+    /// <para> Value: GameData.TacticalData 的索引值. </para>
+    /// <para> 原作者的用意是用 [a][b] 的方式取出 TacticalData 的某筆戰術. b 通常都是亂數</para>
+    /// 
     /// </summary>
 	public static Dictionary<int, int[]> SituationPosition = new Dictionary<int, int[]>();
     public static TBasketShootPositionData[] BasketShootPosition;
