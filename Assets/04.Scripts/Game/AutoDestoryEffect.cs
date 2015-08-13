@@ -62,5 +62,17 @@ public class AutoDestoryEffect : MonoBehaviour
 			if(DestoryDelayTime <= 0)
 			  GameObject.Destroy(this.gameObject);
 		} 
+
+		if(TimerMgr.Get.CrtTime == 0)
+		{
+			effect.Pause(true);
+//			effect.Simulate(0.1f, true, false);
+		}
+		else
+		{
+//			effect.Simulate(TimerMgr.Get.CrtTime, true, false);
+			if(effect.isPaused)
+				effect.Play(true);
+		}
 	}
 }

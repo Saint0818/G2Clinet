@@ -12,7 +12,7 @@ public class PushSkillTrigger : MonoBehaviour {
 
 	public void StartSkill() {
 		for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-			if(GameController.Get.GetAllPlayer[i].Team != pusher.Team) {
+			if(pusher!= null && GameController.Get.GetAllPlayer[i].Team != pusher.Team) {
 				if(GameController.Get.getDis(new Vector2(GameController.Get.GetAllPlayer[i].transform.position.x, GameController.Get.GetAllPlayer[i].transform.position.z), 
 				                             new Vector2(pusher.transform.position.x, pusher.transform.position.z)) <= InRange) {
 					GameController.Get.GetAllPlayer[i].AniState(EPlayerState.Fall1, pusher.transform.position);
