@@ -25,7 +25,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     //Game const
     private Shake mShake;
 	private float safeZ = 12f;
-	private float safeZRate = 1.5f;
+	private float safeZRateAdd = 1.5f;
+	private float safeZRateMinus = 1.5f;
 	private float safeZRotateRate = 0.8f;
     private float groupOffsetSpeed = 0.1f;
 	private float zoomNormal = 35;
@@ -440,12 +441,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             if (distanceZ > safeZ)
             {
                 isOverCamera = true;
-                plusZ = safeZRate * (distanceZ - safeZ);
+				plusZ = safeZRateMinus * (distanceZ - safeZ);
 
             } else if (distanceZ < -safeZ)
             {
                 isOverCamera = true;
-                plusZ = safeZRate * (distanceZ + safeZ);
+                plusZ = safeZRateAdd * (distanceZ + safeZ);
             }
         }
         switch (situation)

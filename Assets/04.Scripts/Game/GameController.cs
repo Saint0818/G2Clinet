@@ -383,8 +383,6 @@ public class GameController : KnightSingleton<GameController> {
     /// <param name="tactical"></param>
 	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
     {
-=======
-    {
         findRandomMovePath(poskind.GetPosNameIndex(), ref tactical);
     }
 
@@ -400,7 +398,7 @@ public class GameController : KnightSingleton<GameController> {
     /// <param name="tactical"></param>
 	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
     {
->>>>>>> Stashed changes
+
 		if (tactical.PosAy1 == null)
 			tactical = new TTactical (false);
 
