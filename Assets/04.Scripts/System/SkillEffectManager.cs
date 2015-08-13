@@ -144,39 +144,39 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						index = i;
 					}
 					if(parent == null) {
-						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
-							           Vector3.zero,
-							           objs2[index],
-							           null,
-							           null,
-							           GameData.SkillData[skillID].Duration3);
-						});
-//						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
 //							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
 //							           Vector3.zero,
 //							           objs3[index],
 //							           null,
 //							           null,
 //							           GameData.SkillData[skillID].Duration3);
-//						}));
-					} else {
-						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+//						});
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
 							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
 							           Vector3.zero,
+							           objs3[index],
 							           null,
-							           parent,
 							           null,
 							           GameData.SkillData[skillID].Duration3);
-						});
-//						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+						}));
+					} else {
+//						DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
 //							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
 //							           Vector3.zero,
 //							           null,
 //							           parent,
 //							           null,
 //							           GameData.SkillData[skillID].Duration3);
-//						}));
+//						});
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
+							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+							           Vector3.zero,
+							           null,
+							           parent,
+							           null,
+							           GameData.SkillData[skillID].Duration3);
+						}));
 					}
 				}
 			}
