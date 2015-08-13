@@ -110,7 +110,7 @@ public static class GameFunction
 	}
 
 	public static void SetLayerRecursively(GameObject obj, string layer, String containName1 = "", String containName2= "") {
-		obj.layer = LayerMask.NameToLayer(layer);
+//		obj.layer = LayerMask.NameToLayer(layer);
 		if (obj == null) return;
 		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
 			if(trans.name.Contains(containName1) || trans.name.Contains(containName2))
@@ -119,13 +119,13 @@ public static class GameFunction
 	}
 
 	public static void ReSetLayerRecursively(GameObject obj, string layer, String containName1= "", String containName2= "") {
-		obj.layer = LayerMask.NameToLayer(layer);
+//		obj.layer = LayerMask.NameToLayer(layer);
 		if (obj == null) return;
 		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
 			if(trans.name.Contains(containName1) || trans.name.Contains(containName2)){
 				if(trans.gameObject.tag.Equals("Untagged")) 
 					trans.gameObject.layer = LayerMask.NameToLayer(layer);
-				else
+				else 
 					trans.gameObject.layer = LayerMask.NameToLayer(trans.gameObject.tag);
 			}
 		}
