@@ -791,7 +791,7 @@ public class GameController : KnightSingleton<GameController> {
 						Joysticker.AniState(GameStart.Get.SelectAniState);
 						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
 						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
-							Joysticker.OnShowEffect(true);
+							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}else
 						UIGame.Get.DoShoot(null, true);
 				}
@@ -3020,7 +3020,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					player.OnShowEffect(true);
+					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}
 			}

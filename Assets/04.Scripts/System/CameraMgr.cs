@@ -87,6 +87,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     public GameObject DoubleClickDCBorn;
     private Vector2 smothHight = Vector2.zero;
     private float plusZ = 0;
+	
+	private int skillEventKind = 0;
 
     public bool UICamVisible
     {
@@ -592,7 +594,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
 
         focusTarget.transform.position = Vector3.Slerp(focusTarget.transform.position, pos, focusOffsetSpeed);
-    }
+	}
+	
+	private void resetSKillLayer (){
+		GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");
+		switch (skillEventKind) {
+		case 0://reset self  layer
+		case 1:
+			GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player","PlayerModel", "(Clone)");
+			break;
+		case 2://reset all player's layer
+			GameController.Get.SetAllPlayerLayer("Player");
+			break;
+		}
+	}
 
     public override string ResName
     {
@@ -621,6 +636,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     public void SkillShowActive(int kind = 0, float t = 1.5f)
     {
+		skillEventKind = kind;
         cameraFx.enabled = false;
         cameraSkill.gameObject.SetActive(true);
         cameraSkillCenter.transform.position = GameController.Get.Joysticker.transform.position;
@@ -664,7 +680,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         cameraSkill.gameObject.SetActive(false);
         cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
         cameraSkill.gameObject.transform.localPosition = Vector3.zero;
-        GameController.Get.Joysticker.ResetSKillLayer();
+        resetSKillLayer();
     }
 
     public void SetRoomMode(EZoomType z, float t)
