@@ -109,7 +109,6 @@ public class SkillPassiveManager : KnightSingleton<SkillPassiveManager> {
 				}
 			}
 			if (animationName != string.Empty) {
-				UIPassiveEffect.UIShow(true, GameData.SkillData[executePlayer.PassiveID].PictureNo, executePlayer.PassiveLv, GameData.SkillData[executePlayer.PassiveID].Name);
 				try {
 					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
 				} catch {

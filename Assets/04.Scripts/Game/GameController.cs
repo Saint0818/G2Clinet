@@ -2172,6 +2172,7 @@ public class GameController : KnightSingleton<GameController> {
 		bool CanPass = true;
 
 		if(BallOwner) {
+			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
 					float angle = GameFunction.GetPlayerToObjectAngleByVector(BallOwner.gameObject.transform, player.gameObject.transform.position);
@@ -2196,14 +2197,15 @@ public class GameController : KnightSingleton<GameController> {
 					}
 				} else 
 					Result = BallOwner.AniState(EPlayerState.Pass0, player.gameObject.transform.position);
-
+				
 				if(Result){
 					Catcher = player;
 					UIGame.Get.DoPassNone();
 				}
-
+				
 				return Result;
 			}
+			#endif
 
 			if(IsShooting)
 			{
@@ -3023,6 +3025,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
+					UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}
