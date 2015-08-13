@@ -62,7 +62,5 @@ public class AutoDestoryEffect : MonoBehaviour
 			if(DestoryDelayTime <= 0)
 			  GameObject.Destroy(this.gameObject);
 		} 
-
-		effect.time = TimerMgr.Get.CrtTime;
 	}
 }

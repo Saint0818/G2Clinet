@@ -2775,7 +2775,10 @@ public class GameController : KnightSingleton<GameController> {
 			if (kind == 16)
 				return true;
 			
-			if ((kind == 15 || kind == 17) && player != BallOwner) 
+			if (kind == 15 && player != BallOwner && CanUseStealSkill) 
+				return true;
+			
+			if (kind == 17 && player != BallOwner) 
 				return true;
 			
 			if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
@@ -4404,6 +4407,18 @@ public class GameController : KnightSingleton<GameController> {
 				Catcher = null;
 				Passer = null;
 			}
+		}
+	}
+
+	public bool CanUseStealSkill {
+		get {
+			for (int i=0; i<PlayerList.Count; i++) 
+				if(PlayerList[i].IsShoot || PlayerList[i].IsDunk)
+					return false;
+			if(BallOwner == null)
+				return false;
+
+			return true;
 		}
 	}
 

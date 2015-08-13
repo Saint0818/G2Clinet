@@ -2935,13 +2935,6 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-
-	public void SetBallEvent () {
-		if(crtState == EPlayerState.Steal20) {
-			GameController.Get.SetBall(this);
-		}
-	}
-
 	public void MoveEvent (AnimationEvent aniEvent){
 		float t = aniEvent.floatParameter;
 		int eventKind = aniEvent.intParameter;
@@ -2956,10 +2949,25 @@ public class PlayerBehaviour : MonoBehaviour
 					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
 					rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
 					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
+				} else if(GameController.Get.Shooter != null) {
+					transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), t);
+					rotateTo(GameController.Get.Shooter.transform.position.x, GameController.Get.Shooter.transform.position.z);
+					GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
 				}
 			}
 			break;
 		}
+	}
+	
+	public void SetBallEvent () {
+		GameController.Get.SetBall(this);
+		if(GameController.Get.Catcher != null) 
+			GameController.Get.Catcher = null;
+		if(GameController.Get.Passer != null)
+			GameController.Get.Passer = null;
+		if(GameController.Get.Shooter != null) 
+			GameController.Get.Shooter = null;
+		
 	}
 
 	private void showActiveEffect () {
