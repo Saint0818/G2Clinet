@@ -31,7 +31,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float zoomNormal = 25;
     private float zoomRange = 20;
     private float zoomTime = 1;
-    private float blankAera = 3.2f;
+	public Vector2 blankAera = new Vector2(-2, 5.2f);
     private float lockedFocusAngle = 30f;
     private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
@@ -323,11 +323,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             if (situation == ECameraSituation.Self)
             {
-                focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, blankAera);
+				focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, blankAera.y);
                 focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [0]);    
             } else
             {
-                focusMoveAeraObj.transform.position = new Vector3(0, -0.4f, -blankAera);
+				focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, -blankAera.y);
                 focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [1]);
             }
         }
@@ -581,24 +581,23 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             case ECameraSituation.Self:
                 if (GameController.Get.BallOwner)
                 {
-                    pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x;
-                    pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+				pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera.y;
                 } else
                 {
-                    pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x;
-                    pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera;
+				pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y + blankAera.y;
                 }
                 break;
             case ECameraSituation.Npc:
                 if (GameController.Get.BallOwner)
                 {
-                    pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x;
-                    ;
-                    pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+				pos.x = GameController.Get.BallOwner.gameObject.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+				pos.z = GameController.Get.BallOwner.gameObject.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera.y;
                 } else
                 {
-                    pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x;
-                    pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera;
+				pos.x = CourtMgr.Get.RealBall.transform.position.x * cameraWithBasketBallCourtRate.x + blankAera.x;
+				pos.z = CourtMgr.Get.RealBall.transform.position.z * cameraWithBasketBallCourtRate.y - blankAera.y;
                 }
                 break;
             case ECameraSituation.Skiller:
