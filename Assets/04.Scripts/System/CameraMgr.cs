@@ -68,7 +68,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 //  private Camera cameraPlayer;
 
-    private GameObject focusTarget;
+    private GameObject focusTargetOne;
+    private GameObject focusTargetTwo;
     private ECameraSituation situation = ECameraSituation.Loading;
     public bool IsBallOnFloor = false;
     public bool IsLongPass = false;
@@ -260,15 +261,21 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
         setHalfCourtCamera();
 
-        if (focusTarget == null)
+        if (focusTargetOne == null)
         {
-            focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            focusTarget.GetComponent<Collider>().enabled = false;
-            focusTarget.name = "focusPos";
+            focusTargetOne = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            focusTargetOne.GetComponent<Collider>().enabled = false;
+            focusTargetOne.name = "focusTargetOne";
         }
 
+		if (focusTargetTwo == null) {
+			focusTargetTwo = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			focusTargetTwo.GetComponent<Collider>().enabled = false;
+			focusTargetTwo.name = "focusTargetTwo";
+		}
+
         if (CourtMgr.Get.RealBall)
-            focusTarget.transform.position = CourtMgr.Get.RealBall.transform.position;
+            focusTargetOne.transform.position = CourtMgr.Get.RealBall.transform.position;
     }
 
     private void InitTestTool()
@@ -302,9 +309,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraOffsetAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
             focusMoveAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
             focusStopAeraObj.GetComponent<Renderer>().enabled = GameStart.Get.TestCameraMode == ECameraTest.RGB;
-            focusTarget.GetComponent<Renderer>().enabled = true;
-        } else
-            focusTarget.GetComponent<Renderer>().enabled = false;
+            focusTargetOne.GetComponent<Renderer>().enabled = true;
+            focusTargetTwo.GetComponent<Renderer>().enabled = true;
+        } else{
+            focusTargetOne.GetComponent<Renderer>().enabled = false;
+            focusTargetTwo.GetComponent<Renderer>().enabled = false;
+		}
     }
 
     private void SetTestToolPosition()
@@ -392,8 +402,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         if (situation == ECameraSituation.Skiller)
             return;
-        cameraOffsetRate.x = (11.5f - focusTarget.transform.position.x) / cameraMoveAera.x;
-        cameraOffsetRate.z = (22.5f - focusTarget.transform.position.z) / cameraMoveAera.y;
+        cameraOffsetRate.x = (11.5f - focusTargetOne.transform.position.x) / cameraMoveAera.x;
+        cameraOffsetRate.z = (22.5f - focusTargetOne.transform.position.z) / cameraMoveAera.y;
         if (cameraOffsetRate.x < 0)
             cameraOffsetRate.x = 0;
         else if (cameraOffsetRate.x > 1)
@@ -468,9 +478,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             case ECameraSituation.Self:
                 if (!IsTee)
                 {
-                    if (focusTarget.transform.position.z < focusStopPoint [situation.GetHashCode()])
+                    if (focusTargetOne.transform.position.z < focusStopPoint [situation.GetHashCode()])
                     {
-                        Lookat(focusTarget, Vector3.zero);
+                        Lookat(focusTargetOne, Vector3.zero);
                         cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
                     } else
                     {
@@ -487,9 +497,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             case ECameraSituation.Npc:
                 if (!IsTee)
                 {
-                    if (focusTarget.transform.position.z > focusStopPoint [situation.GetHashCode()])
+                    if (focusTargetOne.transform.position.z > focusStopPoint [situation.GetHashCode()])
                     {
-                        Lookat(focusTarget, Vector3.zero);
+                        Lookat(focusTargetOne, Vector3.zero);
                         cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
                     } else
                     {
@@ -504,13 +514,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 break;
 
             case ECameraSituation.Skiller:
-                focusTarget.transform.position = new Vector3(skiller.transform.position.x, skiller.transform.position.y + 2, skiller.transform.position.z);
-                Lookat(focusTarget, Vector3.zero);
+                focusTargetOne.transform.position = new Vector3(skiller.transform.position.x, skiller.transform.position.y + 2, skiller.transform.position.z);
+                Lookat(focusTargetOne, Vector3.zero);
                 break;
         }
     }
 
     private bool isAddRotateAngle = false;
+	private Vector3 focusSecondPos;
 
     private void Lookat(GameObject obj, Vector3 pos)
     {
@@ -519,9 +530,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
         if (isOverCamera)
         {
-			Vector3 midle = (new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z)  + 
+			focusSecondPos = (new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z)  + 
 			                 new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z)) * 1/2;
-			Vector3 dirMidle = midle - cameraRotationObj.transform.position;
+			Vector3 dirMidle = focusSecondPos - cameraRotationObj.transform.position;
 			Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
 
             switch (situation)
@@ -543,6 +554,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 			if (isAddRotateAngle)
 				cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
+
+			focusTargetTwo.transform.position = focusSecondPos;
 
 //            if (isAddRotateAngle)
 //                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y - (2 * distanceZ * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
@@ -593,8 +606,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 break;
         }
 
-        focusTarget.transform.position = Vector3.Slerp(focusTarget.transform.position, pos, focusOffsetSpeed);
-	}
+        focusTargetOne.transform.position = Vector3.Slerp(focusTargetOne.transform.position, pos, focusOffsetSpeed);
+    }
 	
 	private void resetSKillLayer (){
 		GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default","RealBall");

@@ -3076,7 +3076,7 @@ public class GameController : KnightSingleton<GameController> {
 
 					Vector2 v = new Vector2(npc.transform.position.x, TargetZ);
 					float dis = Vector2.Distance(new Vector2(npc.transform.position.x, npc.transform.position.z), v);
-					if (dis <= 1.5f) {
+					if (dis <= 1.7f) {
 						if (BallOwner)
 							StartCoroutine(AutoTee());
 					} else {
