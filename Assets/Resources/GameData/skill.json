@@ -499,12 +499,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk1",
-        "targetkind": 0,
-        "targetkind1": 4,
-        "targeteffect1": 2003,
-        "effectparent1": 0,
-        "delaytime1": 0.8,
-        "duration1": 0.5
+        "targetkind": 0
     },
     {
         "id": 611,
@@ -528,7 +523,7 @@
         "targetkind1": 4,
         "targeteffect1": 2003,
         "effectparent1": 0,
-        "delaytime1": 0.8,
+        "delaytime1": 0.9,
         "duration1": 0.5
     },
     {
@@ -549,12 +544,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk3",
-        "targetkind": 0,
-        "targetkind1": 4,
-        "targeteffect1": 2003,
-        "effectparent1": 0,
-        "delaytime1": 0.8,
-        "duration1": 0.5
+        "targetkind": 0
     },
     {
         "id": 613,
@@ -578,7 +568,7 @@
         "targetkind1": 4,
         "targeteffect1": 2003,
         "effectparent1": 0,
-        "delaytime1": 0.8,
+        "delaytime1": 0.4,
         "duration1": 0.5
     },
     {
@@ -599,12 +589,7 @@
         "rate": 40,
         "rateadd": 10,
         "animation": "Dunk5",
-        "targetkind": 0,
-        "targetkind1": 4,
-        "targeteffect1": 2003,
-        "effectparent1": 0,
-        "delaytime1": 0.8,
-        "duration1": 0.5
+        "targetkind": 0
     },
     {
         "id": 615,
@@ -628,7 +613,7 @@
         "targetkind1": 4,
         "targeteffect1": 2003,
         "effectparent1": 0,
-        "delaytime1": 0.8,
+        "delaytime1": 0.233,
         "duration1": 0.5
     },
     {
@@ -867,7 +852,12 @@
         "distanceadd": 2,
         "maxanger": 60,
         "animation": "Dunk20",
-        "targetkind": 1
+        "targetkind": 1,
+        "targetkind1": 4,
+        "targeteffect1": 2003,
+        "effectparent1": 0,
+        "delaytime1": 0.4,
+        "duration1": 0.5
     },
     {
         "id": 12000,
@@ -982,7 +972,12 @@
         "distanceadd": 2,
         "maxanger": 40,
         "animation": "Dunk22",
-        "targetkind": 1
+        "targetkind": 1,
+        "targetkind1": 4,
+        "targeteffect1": 2003,
+        "effectparent1": 0,
+        "delaytime1": 0.6,
+        "duration1": 0.5
     },
     {
         "id": 11500,
