@@ -2387,11 +2387,6 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Steal20:
 						stateNo = 20;
-						if(GameController.Get.BallOwner != null) {
-							transform.position = GameController.Get.BallOwner.transform.position + Vector3.forward * (-2);
-							transform.LookAt(GameController.Get.BallOwner.transform.position);
-							GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-						}
 						break;
 				}
 			PlayerRigidbody.mass = 5;
@@ -2985,6 +2980,14 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
+	public void StealMove (){
+		if(GameController.Get.BallOwner != null) {
+			transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), 0.3f);
+			transform.LookAt(GameController.Get.BallOwner.transform.position);
+			GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+		}
+	}
+
 	public void ShowActiveEffect () {
 		OnShowEffect(false);
 	}
@@ -3170,7 +3173,6 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	private void stopEffect (){
 		DelayedExecutionMgr.Get.StopExecute();
-		StopCoroutine("playEffect");
 	}
 
 	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {
