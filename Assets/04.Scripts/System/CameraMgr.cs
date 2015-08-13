@@ -24,37 +24,37 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 {
     //Game const
     private Shake mShake;
-    private float safeZ = 8;
-    private float safeZRate = 1.5f;
-    private float safeZRotateRate = 1f;
+	private float safeZ = 12f;
+	private float safeZRate = 1.5f;
+	private float safeZRotateRate = 0.8f;
     private float groupOffsetSpeed = 0.1f;
-    private float zoomNormal = 25;
+	private float zoomNormal = 35;
     private float zoomRange = 20;
     private float zoomTime = 1;
-	public Vector2 blankAera = new Vector2(-2, 5.2f);
-    private float lockedFocusAngle = 30f;
+	public Vector2 blankAera = new Vector2(-2, 4.2f);
+	private float lockedFocusAngle = 100f;
     private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
     private float focusSmoothSpeed = 0.02f;
     private float[] focusStopPoint = new float[]{21f, -21f};
-    private float cameraRotationSpeed = 10f;
+	private float cameraRotationSpeed = 2f;
     private float cameraOffsetSpeed = 0.1f;
     private Vector2 cameraWithBasketBallCourtRate;
-    private Vector2 cameraMoveAera = new Vector2(23f, 27.5f);
+	private Vector2 cameraMoveAera = new Vector2(12f, 21.5f); 
     private Vector3 cameraOffsetRate = Vector3.zero;
-    private Vector2 basketballCourt = new Vector2(23f, 34.5f);
+    private Vector2 basketballCourt = new Vector2(21f, 30.5f);
     private Vector3 restrictedAreaAngle = new Vector3(14f, 1, 0);
     private Vector3 cameraOffsetPos = Vector3.zero;
-    private Vector3 startPos = new Vector3(-17.36f, 8f, 0.67f);
+    private Vector3 startPos = new Vector3(-17.36f, 10f, 0.67f);
     private Vector3[] groupOffsetPoint = new Vector3[]
     {
-        new Vector3(0, 0, -6.625f),
-        new Vector3(0, 0, 7.625f)
+        new Vector3(0, 0, -4.625f),
+        new Vector3(0, 0, 9.625f)
     };
     private Vector3[] offsetLimit = new Vector3[]
     {
-        new Vector3(-13f, 0, 1.63f),
-        new Vector3(-30f, 0, -1.63f)
+        new Vector3(-12f, 0, 1.63f),
+        new Vector3(-31f, 0, -1.63f)
     };
     private Vector3 jumpBallPos = new Vector3(-25f, 8, 0);
     private Vector3 jumpBallRoate = new Vector3(12.5f, 90, 0);
@@ -531,7 +531,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         if (isOverCamera)
         {
 			focusSecondPos = (new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z)  + 
-			                 new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z)) * 1/2;
+			                 new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z)) * 4/5;
 			Vector3 dirMidle = focusSecondPos - cameraRotationObj.transform.position;
 			Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
 
@@ -552,7 +552,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                     break;
             }
 
-			if (isAddRotateAngle)
+//			if (isAddRotateAngle)
 				cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
 
 			focusTargetTwo.transform.position = focusSecondPos;
