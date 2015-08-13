@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f27e4737563cbb24d966f09cdaede74a
-timeCreated: 1433929866
+timeCreated: 1439456600
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -131,7 +131,7 @@ ModelImporter:
       name: Layup2
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 83
+      lastFrame: 75
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,28 +150,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .183960289
+      - time: .183960259
         functionName: AnimationEvent
         data: DoubleClickMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .331719309
+      - time: .416375309
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .472671121
+      - time: .599655151
         functionName: AnimationEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: .999999821
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}

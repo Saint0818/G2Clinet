@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 513ef48fc39e3ab49909b329fbf75646
-timeCreated: 1439456738
+guid: 3f5c558482cfab44d95a1292db784de4
+timeCreated: 1439454652
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Layup2
+    7400000: Layup3
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Layup2
+      name: Layup3
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 75
+      lastFrame: 70
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,28 +150,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .183960259
+      - time: .169312164
         functionName: AnimationEvent
         data: DoubleClickMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .416375309
+      - time: .325396836
         functionName: AnimationEvent
         data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .599655151
+      - time: .571428597
         functionName: AnimationEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .999999821
+      - time: .994709015
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
