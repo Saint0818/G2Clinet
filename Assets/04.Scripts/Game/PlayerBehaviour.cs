@@ -365,6 +365,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
 
     public ETeamKind Team;
+
+    /// <summary>
+    /// 0: Center, 1:Forward, 2:Guard.
+    /// </summary>
 	public int Index;
     private float aiTime = 0;
     public EGameSituation situation = EGameSituation.None;

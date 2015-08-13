@@ -23,8 +23,9 @@ public class GameData {
     /// <summary>
     /// <para> key: GameConst.TacticalDataName 的索引值. </para>
     /// <para> Value: GameData.TacticalData 的索引值. </para>
-    /// <para> 原作者的用意是用 [a][b] 的方式取出 TacticalData 的某筆戰術. b 通常都是亂數</para>
-    /// 
+    /// <para> 原作者的用意是用 [a][b] 的方式取出 TacticalData 的某筆戰術. 這個意思就是亂數找出某個情況下的戰術. </para>
+    /// <para> a: 會是遊戲中的某個情況, 比如跳球, 邊界發球等等. </para>
+    /// <para> b 通常都是亂數. </para>
     /// </summary>
 	public static Dictionary<int, int[]> SituationPosition = new Dictionary<int, int[]>();
     public static TBasketShootPositionData[] BasketShootPosition;

@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using GameStruct;
 using DG.Tweening;
 using Newtonsoft.Json;
+using Random = UnityEngine.Random;
 
 public enum ELoadingGamePic
 {
@@ -82,20 +84,6 @@ public enum EBasketAnimationTest {
 	Basket110=22,
 	Basket111=23,
 	Basket112=24,
-}
-
-public enum EPosKind
-{
-    None,
-    Attack,
-    Tee,
-    TeeDefence,
-	HalfTee,
-	HalfTeeDefence,
-	Fast,
-	Center,
-	Forward,
-	Guard
 }
 
 public enum EScoreType {
@@ -186,22 +174,6 @@ public enum EPassDirectState {
 	Right = 4
 }
 
-public struct TTactical
-{
-    public string FileName;
-    public TActionPosition[] PosAy1;
-    public TActionPosition[] PosAy2;
-    public TActionPosition[] PosAy3;
-
-    public TTactical(bool flag)
-    {
-        FileName = "";
-        PosAy1 = new TActionPosition[0];
-        PosAy2 = new TActionPosition[1];
-        PosAy3 = new TActionPosition[2];
-    }
-}
-
 public struct TActionPosition
 {
     public float x;
@@ -252,6 +224,10 @@ public class GameController : KnightSingleton<GameController> {
 	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
 
     public PlayerBehaviour BallOwner;
+
+    /// <summary>
+    /// 玩家控制的球員.
+    /// </summary>
 	public PlayerBehaviour Joysticker;
 	public PlayerBehaviour Shooter;
     public PlayerBehaviour Catcher;
@@ -390,20 +366,35 @@ public class GameController : KnightSingleton<GameController> {
 		ChangeSituation (EGameSituation.JumpBall);
 	}
 
-	private void GetMovePath(int index, ref TTactical Result)
+    private void findRandomMovePath(EPosKind poskind, ref TTactical tactical)
     {
-		if (Result.PosAy1 == null)
-			Result = new TTactical (false);
+        findRandomMovePath(poskind.GetPosNameIndex(), ref tactical);
+    }
 
-		Result.FileName = "";
+    private void findRandomMovePath(EPosKind poskind, int index, ref TTactical tactical)
+    {
+        findRandomMovePath(poskind.GetPosNameIndex(index), ref tactical);
+    }
 
-		if (index >= 0 && index < GameConst.TacticalDataName.Length)
+    /// <summary>
+    /// 亂數找出一個戰術.
+    /// </summary>
+    /// <param name="tacticalIndex"> 哪一類的戰術. </param>
+    /// <param name="tactical"></param>
+	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
+    {
+		if (tactical.PosAy1 == null)
+			tactical = new TTactical (false);
+
+		tactical.FileName = "";
+
+		if(tacticalIndex >= 0 && tacticalIndex < GameConst.TacticalDataName.Length)
         {
-			if (GameData.SituationPosition [index].Length > 0)
+			if(GameData.SituationPosition[tacticalIndex].Length > 0)
             {
-				int r = Random.Range(0, GameData.SituationPosition [index].Length);
-				int i = GameData.SituationPosition [index] [r];
-                Result = GameData.TacticalData [i];
+				int randomValue = Random.Range(0, GameData.SituationPosition[tacticalIndex].Length);
+				int i = GameData.SituationPosition[tacticalIndex][randomValue];
+                tactical = GameData.TacticalData[i];
             }
         }
     }
@@ -913,79 +904,81 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-	private int GetPosNameIndex(EPosKind Kind, int Index = -1)
-	{
-		switch (Kind) {
-		case EPosKind.Attack:
-			return 2;
-		case EPosKind.Tee:
-			if (Index == 0)
-				return 3;
-			else 
-			if (Index == 1)
-				return 4;
-			else 
-			if (Index == 2)
-				return 5;
-			else
-				return -1;
-		case EPosKind.TeeDefence:
-			if (Index == 0)
-				return 6;
-			else 
-			if (Index == 1)
-				return 7;
-			else 
-			if (Index == 2)
-				return 8;
-			else
-				return -1;
-		case EPosKind.HalfTee:
-			if (Index == 0)
-				return 15;
-			else 
-			if (Index == 1)
-				return 16;
-			else 
-			if (Index == 2)
-				return 17;
-			else
-				return -1;
-		case EPosKind.HalfTeeDefence:
-	        if (Index == 0)
-	            return 18;
-	        else 
-            if (Index == 1)
-                return 19;
-	        else 
-            if (Index == 2)
-                return 20;
-	        else
-	            return -1;
-		case EPosKind.Fast:
-			if (Index == 0)
-				return 9;
-			else 
-			if (Index == 1)
-				return 10;
-			else 
-			if (Index == 2)
-				return 11;
-			else
-				return -1;
-		case EPosKind.Center:
-			return 12;
-		case EPosKind.Forward:
-			return 13;
-		case EPosKind.Guard:
-			return 14;
-		default:
-			return -1;
-		}
-	}
+//	private static int GetPosNameIndex(EPosKind kind, int index = -1)
+//	{
+//		switch (kind)
+//        {
+//		case EPosKind.Attack:
+//			return 2;
+//		case EPosKind.Tee:
+//			if (index == 0)
+//				return 3;
+//			else 
+//			if (index == 1)
+//				return 4;
+//			else 
+//			if (index == 2)
+//				return 5;
+//			else
+//				return -1;
+//		case EPosKind.TeeDefence:
+//			if (index == 0)
+//				return 6;
+//			else 
+//			if (index == 1)
+//				return 7;
+//			else 
+//			if (index == 2)
+//				return 8;
+//			else
+//				return -1;
+//		case EPosKind.HalfTee:
+//			if (index == 0)
+//				return 15;
+//			else 
+//			if (index == 1)
+//				return 16;
+//			else 
+//			if (index == 2)
+//				return 17;
+//			else
+//				return -1;
+//		case EPosKind.HalfTeeDefence:
+//	        if (index == 0)
+//	            return 18;
+//	        else 
+//            if (index == 1)
+//                return 19;
+//	        else 
+//            if (index == 2)
+//                return 20;
+//	        else
+//	            return -1;
+//		case EPosKind.Fast:
+//			if (index == 0)
+//				return 9;
+//			else 
+//			if (index == 1)
+//				return 10;
+//			else 
+//			if (index == 2)
+//				return 11;
+//			else
+//				return -1;
+//		case EPosKind.Center:
+//			return 12;
+//		case EPosKind.Forward:
+//			return 13;
+//		case EPosKind.Guard:
+//			return 14;
+//		default:
+//			return -1;
+//		}
+//	}
     
     #if UNITY_EDITOR
-	void OnGUI() {
+	void OnGUI()
+    {
 		if (GameStart.Get.TestMode == EGameTest.Rebound) {
 			if (GUI.Button(new Rect(100, 100, 100, 100), "Reset")) {
 				resetTestMode();
@@ -1040,20 +1033,20 @@ public class GameController : KnightSingleton<GameController> {
 			if (BallOwner != null) {
 				switch (BallOwner.Postion) {
 				case EPlayerPostion.C:
-					GetMovePath(GetPosNameIndex(EPosKind.Center), ref attackTactical);
+					findRandomMovePath(EPosKind.Center, ref attackTactical);
 					break;
 				case EPlayerPostion.F:
-					GetMovePath(GetPosNameIndex(EPosKind.Forward), ref attackTactical);
+					findRandomMovePath(EPosKind.Forward, ref attackTactical);
 					break;
 				case EPlayerPostion.G:
-					GetMovePath(GetPosNameIndex(EPosKind.Guard), ref attackTactical);
+					findRandomMovePath(EPosKind.Guard, ref attackTactical);
 					break;
 				default:
-					GetMovePath(GetPosNameIndex(EPosKind.Attack), ref attackTactical);
+					findRandomMovePath(EPosKind.Attack, ref attackTactical);
 					break;
 				}
 			} else
-				GetMovePath(GetPosNameIndex(EPosKind.Attack), ref attackTactical);
+				findRandomMovePath(EPosKind.Attack, ref attackTactical);
 
 			bool isShooting = IsShooting;
 			for (int i = 0; i < PlayerList.Count; i++) {
@@ -1075,51 +1068,71 @@ public class GameController : KnightSingleton<GameController> {
         }
     }
 
+    /// <summary>
+    /// 某隊執行撿球.
+    /// </summary>
+    /// <param name="team"> 玩家 or 電腦隊伍. </param>
     private void SituationPickBall(ETeamKind team)
     {
-		if (!pickBallPlayer && !BallOwner && PlayerList.Count > 0) {
-			pickBallPlayer = NearBall(team);
+        if(pickBallPlayer || BallOwner || PlayerList.Count <= 0)
+            return;
 
-			if (pickBallPlayer) {
-				if (GameStart.Get.CourtMode == ECourtMode.Full) {
-					GetMovePath(GetPosNameIndex(EPosKind.Tee, pickBallPlayer.Index), ref attackTactical);
-					GetMovePath(GetPosNameIndex(EPosKind.TeeDefence, pickBallPlayer.Index), ref defTactical);
-				} else {
-					GetMovePath(GetPosNameIndex(EPosKind.HalfTee, pickBallPlayer.Index), ref attackTactical);
-					GetMovePath(GetPosNameIndex(EPosKind.HalfTeeDefence, pickBallPlayer.Index), ref defTactical);
-				}              
+        pickBallPlayer = findNearBallPlayer(team);
 
-	        	for (int i = 0; i < PlayerList.Count; i++) {
-					PlayerBehaviour npc = PlayerList[i];
-					if (npc.Team == team) {
-						if (npc == pickBallPlayer) 
-							PickBall(ref npc);
-	                	else 
-							TeeBall(ref npc, team, ref attackTactical);
-					} else 
-						BackToDef(ref npc, ETeamKind.Npc, ref defTactical);
-	        	}
-			}
-    	}
+        if(!pickBallPlayer)
+            return;
+
+        // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
+        if(GameStart.Get.CourtMode == ECourtMode.Full)
+        {
+            findRandomMovePath(EPosKind.Tee, pickBallPlayer.Index, ref attackTactical);
+            findRandomMovePath(EPosKind.TeeDefence, pickBallPlayer.Index, ref defTactical);
+        }
+        else
+        {
+            findRandomMovePath(EPosKind.HalfTee, pickBallPlayer.Index, ref attackTactical);
+            findRandomMovePath(EPosKind.HalfTeeDefence, pickBallPlayer.Index, ref defTactical);
+        }              
+
+        for(int i = 0; i < PlayerList.Count; i++)
+        {
+            PlayerBehaviour npc = PlayerList[i];
+            if(npc.Team == team)
+            {
+                if (npc == pickBallPlayer) 
+                    PickBall(ref npc);
+                else 
+                    TeeBall(ref npc, team, ref attackTactical);
+            }
+            else 
+                BackToDef(ref npc, ETeamKind.Npc, ref defTactical);
+        }
     }
 
     private void SituationTeeBall(ETeamKind team)
     {
-		if (PlayerList.Count > 0 && BallOwner) {
-			if (GameStart.Get.CourtMode == ECourtMode.Full) {
-				GetMovePath(GetPosNameIndex(EPosKind.Tee, BallOwner.Index), ref attackTactical);
-				GetMovePath(GetPosNameIndex(EPosKind.TeeDefence, BallOwner.Index), ref defTactical);
-			} else {
-				GetMovePath(GetPosNameIndex(EPosKind.HalfTee, BallOwner.Index), ref attackTactical);
-				GetMovePath(GetPosNameIndex(EPosKind.HalfTeeDefence, BallOwner.Index), ref defTactical);
+		if (PlayerList.Count > 0 && BallOwner)
+        {
+			if(GameStart.Get.CourtMode == ECourtMode.Full)
+            {
+				findRandomMovePath(EPosKind.Tee, BallOwner.Index, ref attackTactical);
+				findRandomMovePath(EPosKind.TeeDefence, BallOwner.Index, ref defTactical);
+			}
+            else
+            {
+				findRandomMovePath(EPosKind.HalfTee, BallOwner.Index, ref attackTactical);
+				findRandomMovePath(EPosKind.HalfTeeDefence, BallOwner.Index, ref defTactical);
 			}
 
-			for (int i = 0; i < PlayerList.Count; i++) {
+			for(int i = 0; i < PlayerList.Count; i++)
+            {
 				PlayerBehaviour npc = PlayerList [i];
-				if (npc.Team == team) {
+				if (npc.Team == team)
+                {
 					if (!IsPassing)
 						TeeBall(ref npc, team, ref attackTactical);
-				}  else                    
+				}
+                else
 					BackToDef(ref npc, npc.Team, ref defTactical);
 			}         
         }
@@ -1374,14 +1387,18 @@ public class GameController : KnightSingleton<GameController> {
 	
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
 	{
-		if (player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
+		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
-		    (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
-			if (player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0) {
-				if (BallOwner != null) {
+		    (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB))
+        {
+			if(player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
+            {
+				if(BallOwner != null)
+                {
 					int index = player.DefPlayer.Postion.GetHashCode();
 					moveData.Clear();
-					if (player == BallOwner) {
+					if (player == BallOwner)
+                    {
 						moveData.DefPlayer = player;
 						
 						if (BallOwner != null)
@@ -1391,7 +1408,9 @@ public class GameController : KnightSingleton<GameController> {
 						
 						moveData.Speedup = speedup;
 						player.DefPlayer.TargetPos = moveData;
-					} else {
+					}
+                    else
+                    {
 						float dis2;
 						float z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 						dis2 = Vector2.Distance(new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z), 
@@ -1429,7 +1448,9 @@ public class GameController : KnightSingleton<GameController> {
                                 
                                 player.DefPlayer.TargetPos = moveData;
                             }
-                        } else {
+                        }
+                        else
+                        {
                             player.DefPlayer.ResetMove();
                             z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
                             moveData.Target = new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z);
@@ -1446,7 +1467,9 @@ public class GameController : KnightSingleton<GameController> {
                             player.DefPlayer.TargetPos = moveData;                         
                         }
                     }
-                } else {
+                }
+                else
+                {
                     player.DefPlayer.ResetMove();
                     PickBall(ref player.DefPlayer, true);
                 }
@@ -1458,22 +1481,29 @@ public class GameController : KnightSingleton<GameController> {
     
     public void ChangeSituation(EGameSituation gs, PlayerBehaviour player = null)
     {
-		if (Situation != EGameSituation.End || gs == EGameSituation.Opening) {
+		if(Situation != EGameSituation.End || gs == EGameSituation.Opening)
+        {
             EGameSituation oldgs = Situation;
-            if (Situation != gs) {
+            if(Situation != gs)
+            {
                 RealBallFxTime = 0;
                 waitStealTime = 0;
                 CourtMgr.Get.RealBallFX.SetActive(false);
-                for (int i = 0; i < PlayerList.Count; i++) {
-                    if(gs == EGameSituation.TeeAPicking || gs == EGameSituation.TeeBPicking) {
+                for (int i = 0; i < PlayerList.Count; i++)
+                {
+                    if(gs == EGameSituation.TeeAPicking || gs == EGameSituation.TeeBPicking)
+                    {
                         PlayerList[i].SetToAI();
                         PlayerList[i].ResetMove();
                     }												
                     
-                    switch(PlayerList[i].Team) {
+                    switch(PlayerList[i].Team)
+                    {
                         case ETeamKind.Self:
-                            if((gs == EGameSituation.TeeB || (oldgs == EGameSituation.TeeB && gs == EGameSituation.AttackB)) == false) {
-                                if(!PlayerList[i].AIing) {
+                            if((gs == EGameSituation.TeeB || (oldgs == EGameSituation.TeeB && gs == EGameSituation.AttackB)) == false)
+                            {
+                                if(!PlayerList[i].AIing)
+                                {
                                     if(!(gs == EGameSituation.AttackA || gs == EGameSituation.AttackB))
                                         PlayerList[i].ResetFlag();
                                 } else
@@ -1495,13 +1525,17 @@ public class GameController : KnightSingleton<GameController> {
             Situation = gs;
 
             if (GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
-                (oldgs == EGameSituation.TeeA || oldgs == EGameSituation.TeeB)) {
-				GetMovePath(GetPosNameIndex(EPosKind.Fast, player.Index), ref attackTactical);
+               (oldgs == EGameSituation.TeeA || oldgs == EGameSituation.TeeB))
+            {
+				findRandomMovePath(EPosKind.Fast, player.Index, ref attackTactical);
                 
-				if (attackTactical.FileName != string.Empty) {
-					for (int i = 0; i < PlayerList.Count; i ++) {
+				if (attackTactical.FileName != string.Empty)
+                {
+					for (int i = 0; i < PlayerList.Count; i ++)
+                    {
 						PlayerBehaviour npc = PlayerList [i];
-						if (npc.Team == player.Team) {
+						if (npc.Team == player.Team)
+                        {
 							tacticalData = GetActionPosition(npc.Index, ref attackTactical);
 							
 							if (tacticalData != null) {
@@ -3037,43 +3071,57 @@ public class GameController : KnightSingleton<GameController> {
 		return Result;
 	}
 	
-	private void BackToDef(ref PlayerBehaviour npc, ETeamKind Team, ref TTactical pos, bool WatchBallOwner = false)
-    {
-		if (pos.FileName != string.Empty) {
-			if (npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {			
-				tacticalData = GetActionPosition(npc.Postion.GetHashCode(), ref pos);
-				
-				if (tacticalData != null) {
-					for (int i = 0; i < tacticalData.Length; i++) {
-						if (GameStart.Get.CourtMode == ECourtMode.Full && Team == ETeamKind.Self)
-							moveData.Target = new Vector2(tacticalData [i].x, -tacticalData [i].z);
-						else
-							moveData.Target = new Vector2(tacticalData [i].x, tacticalData [i].z);
-						
-						if (BallOwner != null)
-							moveData.LookTarget = BallOwner.transform;
-						else {
-							if (Team == ETeamKind.Self || GameStart.Get.CourtMode == ECourtMode.Half)
-								moveData.LookTarget = CourtMgr.Get.Hood [1].transform;
-							else
-								moveData.LookTarget = CourtMgr.Get.Hood [0].transform;
-						}
-						
-						if (!WatchBallOwner)
-							moveData.Speedup = true;
+	private void BackToDef(ref PlayerBehaviour npc, ETeamKind team, ref TTactical tactical, 
+                           bool watchBallOwner = false)
+	{
+	    if(tactical.FileName == string.Empty)
+            return;
 
-						moveData.FileName = pos.FileName;
-						npc.ResetMove();
-						npc.TargetPos = moveData;
-					}
-				}
-			}
-		}
+        if(npc.CanMove && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) // 是否之前設定的戰術跑完.
+        {
+	        tacticalData = GetActionPosition(npc.Index, ref tactical);
+
+            if(tacticalData == null)
+            {
+                Debug.LogWarning("tacticalData is null!");
+                return;
+            }
+
+            npc.ResetMove();
+            for(int i = 0; i < tacticalData.Length; i++)
+            {
+                moveData.Clear();
+                if (GameStart.Get.CourtMode == ECourtMode.Full && team == ETeamKind.Self)
+                    moveData.Target = new Vector2(tacticalData[i].x, -tacticalData[i].z);
+                else
+                    moveData.Target = new Vector2(tacticalData[i].x, tacticalData[i].z);
+						
+                if (BallOwner != null)
+                    moveData.LookTarget = BallOwner.transform;
+                else
+                {
+                    if (team == ETeamKind.Self || GameStart.Get.CourtMode == ECourtMode.Half)
+                        moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
+                    else
+                        moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
+                }
+						
+                if(!watchBallOwner)
+                    moveData.Speedup = true;
+
+                moveData.FileName = tactical.FileName;
+                npc.TargetPos = moveData;
+            }
+        }
 	}
-	
-	private void TeeBall(ref PlayerBehaviour npc, ETeamKind Team, ref TTactical pos) {
-		if (!IsPassing && (npc.CanMove || npc.CanMoveFirstDribble) && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0) {
-			moveData.Clear();
+
+    private void TeeBall(ref PlayerBehaviour npc, ETeamKind Team, ref TTactical pos)
+    {
+		if(!IsPassing && (npc.CanMove || npc.CanMoveFirstDribble) && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
+        {
+//            Debug.LogFormat("TeeBall, tactical:{0}", pos);
+
+            moveData.Clear();
 			if (GameStart.Get.CourtMode == ECourtMode.Full) {
 				if (npc == BallOwner) {
 					int TargetZ = 18;
@@ -3208,26 +3256,33 @@ public class GameController : KnightSingleton<GameController> {
         return NearPlayer;
     }
 
-    private PlayerBehaviour NearBall(ETeamKind team) {
-        PlayerBehaviour NearPlayer = null;
+    /// <summary>
+    /// 找出某隊離球最近的球員.
+    /// </summary>
+    /// <param name="team"> 玩家 or 電腦. </param>
+    /// <returns></returns>
+    private PlayerBehaviour findNearBallPlayer(ETeamKind team)
+    {
+        PlayerBehaviour nearPlayer = null;
         
-        for (int i = 0; i < PlayerList.Count; i++) {
-            PlayerBehaviour Npc = PlayerList [i];
-            if (Npc.Team == team) {
-				if(team == ETeamKind.Self && Npc == Joysticker)
-					continue;
-				else 
-				if(Npc.AIing){
-	                if (NearPlayer == null)
-	                    NearPlayer = Npc;
-	                else 
-					if (getDis(ref NearPlayer, CourtMgr.Get.RealBall.transform.position) > getDis(ref Npc, CourtMgr.Get.RealBall.transform.position))
-	                    NearPlayer = Npc;
-				}
+        for(int i = 0; i < PlayerList.Count; i++)
+        {
+            PlayerBehaviour someone = PlayerList[i];
+            if(someone.Team != team)
+                continue;
+
+            if(team == ETeamKind.Self && someone == Joysticker)
+                continue;
+            else if(someone.AIing)
+            {
+                if(nearPlayer == null)
+                    nearPlayer = someone;
+                else if(getDis(ref nearPlayer, CourtMgr.Get.RealBall.transform.position) > getDis(ref someone, CourtMgr.Get.RealBall.transform.position))
+                    nearPlayer = someone;
             }
         }
         
-        return NearPlayer;
+        return nearPlayer;
     }
 
 	public float GetAngle(Transform t1, Transform t2)
@@ -4259,18 +4314,22 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-	private TActionPosition [] GetActionPosition(int Index, ref TTactical pos)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"> 0:C, 1:F, 2:G </param>
+    /// <param name="tactical"></param>
+    /// <returns></returns>
+	private TActionPosition[] GetActionPosition(int index, ref TTactical tactical)
 	{
-		if (Index == 0)
-			return pos.PosAy1;
-		else 
-		if (Index == 1)
-			return pos.PosAy2;
-		else 
-		if (Index == 2)
-			return pos.PosAy3;
-		else
-			return null;
+		if (index == 0)
+			return tactical.PosAy1;
+		if (index == 1)
+			return tactical.PosAy2;
+		if (index == 2)
+			return tactical.PosAy3;
+
+        return null;
 	}
 
 	public void SetAllPlayerLayer (string layerName){

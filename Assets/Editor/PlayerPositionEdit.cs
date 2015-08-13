@@ -290,7 +290,7 @@ public class PlayerPositionEdit : EditorWindow
         if (PosAy1.Length > 0)
         {
             GUI.color = Color.yellow;   
-            EditorGUILayout.LabelField("Player1");
+            EditorGUILayout.LabelField("Player1(Center)");
             GUI.color = Color.white;   
             for (int i = 0; i < PosAy1.Length; i++)
             {
@@ -320,7 +320,7 @@ public class PlayerPositionEdit : EditorWindow
         if (PosAy2.Length > 0)
         {
             GUI.color = Color.green;   
-            EditorGUILayout.LabelField("Player2");
+            EditorGUILayout.LabelField("Player2(Forward)");
             GUI.color = Color.white;   
             for (int i = 0; i < PosAy2.Length; i++)
             {
@@ -350,7 +350,7 @@ public class PlayerPositionEdit : EditorWindow
         if (PosAy3.Length > 0)
         {
             GUI.color = Color.red;   
-            EditorGUILayout.LabelField("Player3");
+            EditorGUILayout.LabelField("Player3(Guard)");
             GUI.color = Color.white;   
             for (int i = 0; i < PosAy3.Length; i++)
             {
