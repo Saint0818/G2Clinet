@@ -178,7 +178,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				objs.Add(getPlayerHand(executePlayer));				
 				break;
 			case 4://Self Feet
-				objs.Add(this.gameObject);
+				objs.Add(executePlayer.gameObject);
 				break;
 			case 5://Teammate Body (Chest)
 				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
