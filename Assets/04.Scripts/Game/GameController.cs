@@ -383,21 +383,6 @@ public class GameController : KnightSingleton<GameController> {
     /// <param name="tactical"></param>
 	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
     {
-        findRandomMovePath(poskind.GetPosNameIndex(), ref tactical);
-    }
-
-    private void findRandomMovePath(EPosKind poskind, int index, ref TTactical tactical)
-    {
-        findRandomMovePath(poskind.GetPosNameIndex(index), ref tactical);
-    }
-
-    /// <summary>
-    /// 亂數找出一個戰術.
-    /// </summary>
-    /// <param name="tacticalIndex"> 哪一類的戰術. </param>
-    /// <param name="tactical"></param>
-	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
-    {
 
 		if (tactical.PosAy1 == null)
 			tactical = new TTactical (false);
@@ -1387,7 +1372,7 @@ public class GameController : KnightSingleton<GameController> {
 								moveData.LookTarget = BallOwner.transform;  
 							
 							moveData.FileName = pos.FileName;
-                        moveData.MoveFinish = DefMove;
+							moveData.MoveFinish = DefMove;
 							npc.TargetPos = moveData;
                     }
 						
