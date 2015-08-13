@@ -140,15 +140,15 @@ public class UILoading : UIBase {
 	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
 		switch (kind) {
 		case ELoadingGamePic.SelectRole:
-			yield return new WaitForSeconds (1);
+			yield return new WaitForEndOfFrame();
 			ModelManager.Get.LoadAllBody("Character/");
 			ModelManager.Get.LoadAllTexture("Character/");
-			yield return new WaitForSeconds (2);
+			yield return new WaitForSeconds (1);
 			loadSelectRole();
 			break;
 		case ELoadingGamePic.Game:
 			Invoke("ChangePage", 2);
-			yield return new WaitForSeconds (2);
+			yield return new WaitForEndOfFrame();
 			UISkip.UIShow(true, ESkipSituation.Loading);
 			loadingPic.SetActive(false);
 			yield return new WaitForSeconds (10);
@@ -182,9 +182,7 @@ public class UILoading : UIBase {
 
 	private void loadSelectRole(){
 		UIShow(false);
-		CameraMgr.Get.SetSelectRoleCamera();
-		UISelectRole.UIShow(true);
-		UI3DSelectRole.UIShow(true);
+		UIGameMode.UIShow (true);
 	}
 
 	private void showPage (int page) {

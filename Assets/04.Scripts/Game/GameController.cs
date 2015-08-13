@@ -52,6 +52,11 @@ public enum ECourtMode {
 	Half = 1
 }
 
+public enum EWinMode {
+	Score = 0,
+	Time = 1
+}
+
 public enum ECameraTest
 {
     None,
