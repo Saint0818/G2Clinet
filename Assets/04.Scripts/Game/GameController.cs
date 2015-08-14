@@ -3007,7 +3007,6 @@ public class GameController : KnightSingleton<GameController> {
 							player.PassiveLv = player.MoveDodgeLv;
 							
 							CoolDownCrossover = Time.time + 4;
-							UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 							Result = player.AniState(playerState);
 						}
 					} 
@@ -3119,7 +3118,7 @@ public class GameController : KnightSingleton<GameController> {
 		}
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
-				if(GameData.SkillData.ContainsKey(player.PassiveID) && player.CanUseState(playerState)) {
+				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
 					UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
