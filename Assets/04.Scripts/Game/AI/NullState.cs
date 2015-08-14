@@ -1,6 +1,6 @@
 ﻿using AI;
 
-public class NullState : State<EGameSituation>
+public class NullState : State<EGameSituation, EGameMsg>
 {
     public override void EnterImpl(object extraInfo)
     {

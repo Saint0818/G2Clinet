@@ -16,7 +16,7 @@ namespace AI
         /// </summary>
         public ITelegraph<TEnum> Receiver;
 
-        public TEnum Message;
+        public TEnum Msg;
 
         /// <summary>
         /// 訊息額外的資訊.
@@ -28,6 +28,11 @@ namespace AI
             Sender = null;
             Receiver = null;
             ExtraInfo = null;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Msg:{0}, Sender:{1}, Receiver:{2}, ExtraInfo:{3}", Msg, Sender, Receiver, ExtraInfo);
         }
     }
 }

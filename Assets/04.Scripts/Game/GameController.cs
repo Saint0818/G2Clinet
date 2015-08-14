@@ -206,9 +206,10 @@ struct TPlayerDisData {
 	public float Distance;
 }
 
-public class GameController : KnightSingleton<GameController> {
+public class GameController : KnightSingleton<GameController>
+{
 	public OnSkillDCComplete onSkillDCComplete = null;
-    private bool isSkipClicked = false;
+//    private bool isSkipClicked = false;
     public bool IsStart = false;
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
@@ -241,8 +242,12 @@ public class GameController : KnightSingleton<GameController> {
 	private PlayerBehaviour pickBallPlayer;
 	private GameObject ballHolder;
 
+    // 0:C, 1:F, 2:G
 	private Vector2[] teeBackPosAy = new Vector2[3];
-	private Vector3[] bornPosAy = new Vector3[6];
+
+    // A Team, 0:G, 1:C, 2:F
+    // B Team, 0:G, 1:C, 2:F
+    private Vector3[] bornPosAy = new Vector3[6];
 
 	public EGameSituation Situation = EGameSituation.None;
     private ESkillKind skillKind;
@@ -272,29 +277,30 @@ public class GameController : KnightSingleton<GameController> {
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
 	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
 
-    void Start() {
+    void Start()
+    {
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
-		InitAniState ();
+		InitAniState();
     }
 
 	void InitAniState()
 	{
 		if(!LoopStates.ContainsKey(EAnimatorState.Dribble))
-			LoopStates.Add (EAnimatorState.Dribble, false);
+			LoopStates.Add(EAnimatorState.Dribble, false);
 
 		if(!LoopStates.ContainsKey(EAnimatorState.Defence))
-			LoopStates.Add (EAnimatorState.Defence, false);  
+			LoopStates.Add(EAnimatorState.Defence, false);  
 
 		if(!LoopStates.ContainsKey(EAnimatorState.HoldBall))
-			LoopStates.Add (EAnimatorState.HoldBall, false);
+			LoopStates.Add(EAnimatorState.HoldBall, false);
 
 		if(!LoopStates.ContainsKey(EAnimatorState.Idle))
-			LoopStates.Add (EAnimatorState.Idle, false);
+			LoopStates.Add(EAnimatorState.Idle, false);
 
 		if(!LoopStates.ContainsKey(EAnimatorState.Run))
-			LoopStates.Add (EAnimatorState.Run, false);        
+			LoopStates.Add(EAnimatorState.Run, false);        
 	}
 
 	void OnApplicationFocus(bool focusStatus)
@@ -311,9 +317,9 @@ public class GameController : KnightSingleton<GameController> {
 
     private void InitPos()
     {
-        teeBackPosAy [0] = new Vector2(0, 14.5f);   //C
-        teeBackPosAy [1] = new Vector2(5.3f, 11);    //F
-        teeBackPosAy [2] = new Vector2(-5.3f, 11);   //G
+        teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
+        teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
+        teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
 
 		/*
 		 *     0	 5
@@ -321,15 +327,16 @@ public class GameController : KnightSingleton<GameController> {
 		 * 	   2     3
 		 */
 
-		bornPosAy [0] = new Vector3 (-3.5f, 0, -3);//G_A
-		bornPosAy [1] = new Vector3 (0, 0, -1.5f);//C_A
-		bornPosAy [2] = new Vector3 (3.5f, 0, -3);//F_A
-		bornPosAy [3] = new Vector3 (3.5f, 0, 3);//G_B
-		bornPosAy [4] = new Vector3 (0, 0, 1.5f);//C_B
-		bornPosAy [5] = new Vector3 (-3.5f, 0, 3);//F_B
+		bornPosAy[0] = new Vector3(-3.5f, 0, -3); // G_A
+		bornPosAy[1] = new Vector3(0, 0, -1.5f);  // C_A
+		bornPosAy[2] = new Vector3(3.5f, 0, -3);  // F_A
+		bornPosAy[3] = new Vector3(3.5f, 0, 3);   // G_B
+		bornPosAy[4] = new Vector3(0, 0, 1.5f);   // C_B
+		bornPosAy[5] = new Vector3(-3.5f, 0, 3);  // F_B
     }
 
-    public void InitGame() {
+    public void InitGame()
+    {
 		IsPassing = false;
 		Shooter = null;
 		for (var i = 0; i < PlayerList.Count; i ++)
@@ -339,7 +346,6 @@ public class GameController : KnightSingleton<GameController> {
 			}
 
         PlayerList.Clear();
-
 
 		gameTime = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
@@ -447,7 +453,7 @@ public class GameController : KnightSingleton<GameController> {
 				GameData.EnemyMembers[i].Player.SetID(19 + i*10);
 	}
 
-	private void InitPosition()
+	public void SetBornPositions()
 	{
 		float v1 = 0;
 		float v2 = 0;
@@ -532,7 +538,7 @@ public class GameController : KnightSingleton<GameController> {
 		PlayerList[bPosAy[2]].ShowPos = 5;
 	}
 
-	private void InitIngameAnimator()
+	public void InitIngameAnimator()
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i])
@@ -543,8 +549,10 @@ public class GameController : KnightSingleton<GameController> {
 				PlayerList[i].AniState(EPlayerState.Idle);
 	}
 	
-	public void CreateTeam() {
-        switch (GameStart.Get.TestMode) {               
+	public void CreateTeam()
+    {
+        switch (GameStart.Get.TestMode)
+        {
     	case EGameTest.None:
 			checkPlayerID();
 
@@ -569,7 +577,7 @@ public class GameController : KnightSingleton<GameController> {
 			}
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
-			InitPosition();
+			SetBornPositions();
 			
         	break;
 		case EGameTest.All:
@@ -730,13 +738,13 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-	public void SkipShow()
-	{
-		isSkipClicked = true;
-		CourtMgr.Get.ShowEnd (true);
-		InitIngameAnimator();
-		InitPosition();
-	}
+//	public void SkipShow()
+//	{
+//		isSkipClicked = true;
+//		CourtMgr.Get.ShowEnd(true);
+//		InitIngameAnimator();
+//		SetBornPositions();
+//	}
 
 	void FixedUpdate() {
 		if (Joysticker) {
@@ -1034,6 +1042,8 @@ public class GameController : KnightSingleton<GameController> {
 				}
 			}
 		}
+
+//        GUI.Label(new Rect(100, 100, 300, 50), Situation.ToString());
 	}
 	#endif
 
@@ -1552,12 +1562,12 @@ public class GameController : KnightSingleton<GameController> {
             
             Situation = gs;
 
-            if (GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
+            if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
                (oldgs == EGameSituation.TeeA || oldgs == EGameSituation.TeeB))
             {
 				findRandomMovePath(EPosKind.Fast, player.Index, ref attackTactical);
                 
-				if (attackTactical.FileName != string.Empty)
+				if(attackTactical.FileName != string.Empty)
                 {
 					for (int i = 0; i < PlayerList.Count; i ++)
                     {
@@ -1593,8 +1603,8 @@ public class GameController : KnightSingleton<GameController> {
 			CourtMgr.Get.Walls[1].SetActive(true);
 
 			switch (gs) {
-			case EGameSituation.InitShowContorl:
-					isSkipClicked = false;
+			case EGameSituation.Presentation:
+//					isSkipClicked = false;
 //					for(int i = 0; i < PlayerList.Count; i++)
 //						if(PlayerList[i]){
 //							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
@@ -1603,13 +1613,13 @@ public class GameController : KnightSingleton<GameController> {
 				break;
 			case EGameSituation.ShowOne:
 				UISkip.UIShow(false, ESkipSituation.Game);
-				CourtMgr.Get.ShowEnd ();
+				CourtMgr.Get.ShowEnd();
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.ShowTwo);
-				if(!isSkipClicked){
-					InitPosition();
-					InitIngameAnimator();
-				}
+//				if(!isSkipClicked){
+//					SetBornPositions();
+//					InitIngameAnimator();
+//				}
 				break;
 			case EGameSituation.ShowTwo:
 				if(IsStart == false)
@@ -1708,7 +1718,7 @@ public class GameController : KnightSingleton<GameController> {
             
 	            switch (Situation)
 	            {
-					case EGameSituation.InitShowContorl:
+					case EGameSituation.Presentation:
 //						for(int i = 0; i < PlayerList.Count; i++)
 //						{
 //							if(PlayerList[i].ShowPos != -1 && isSkipClicked == false){

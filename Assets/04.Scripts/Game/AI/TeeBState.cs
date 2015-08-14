@@ -1,6 +1,6 @@
 ﻿using AI;
 
-public class TeeBState : State<EGameSituation>
+public class TeeBState : State<EGameSituation, EGameMsg>
 {
     public override void EnterImpl(object extraInfo)
     {

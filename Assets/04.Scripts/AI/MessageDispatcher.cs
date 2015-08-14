@@ -72,12 +72,13 @@ namespace AI
             mListeners.Clear();
         }
 
-        public void SendMesssage(ITelegraph<TEnum> sender, ITelegraph<TEnum> receiver, TEnum msg, Object extraInfo)
+        public void SendMesssage(TEnum msg, ITelegraph<TEnum> sender = null, 
+                                 ITelegraph<TEnum> receiver = null, Object extraInfo = null)
         {
             mTelegram.Clear();
             mTelegram.Sender = sender;
             mTelegram.Receiver = receiver;
-            mTelegram.Message = msg;
+            mTelegram.Msg = msg;
             mTelegram.ExtraInfo = extraInfo;
 
             if(mTelegram.Receiver != null)

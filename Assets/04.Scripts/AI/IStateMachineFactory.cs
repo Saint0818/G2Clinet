@@ -5,8 +5,10 @@ using AI;
 /// <summary>
 /// 
 /// </summary>
-/// <typeparam name="TEnum"> 必須是 enum. </typeparam>
-public interface IStateMachineFactory<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
+/// <typeparam name="TEnumState"> 必須是 enum. </typeparam>
+public interface IStateMachineFactory<TEnumState, TEnumMsg> 
+    where TEnumState : struct, IConvertible, IComparable, IFormattable
+    where TEnumMsg : struct, IConvertible, IComparable, IFormattable
 {
-    State<TEnum> CreateState(TEnum e);
+    State<TEnumState, TEnumMsg> CreateState(TEnumState e);
 }

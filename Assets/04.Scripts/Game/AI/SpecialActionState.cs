@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// 這個狀態是用在球員得分後, 得分球員做的特寫 or 特殊動作. 比如 Jason Terry 得分後的招牌動作是滑翔翼.
 /// </summary>
-public class SpecialActionState : State<EGameSituation>
+public class SpecialActionState : State<EGameSituation, EGameMsg>
 {
     /// <summary>
     /// 幾秒後會切換到下一個狀態.

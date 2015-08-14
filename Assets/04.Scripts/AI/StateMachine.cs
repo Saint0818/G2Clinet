@@ -19,23 +19,32 @@ namespace AI
     /// </remarks>
     /// 
     /// where TEnum : struct, IConvertible, IComparable, IFormattable 是限制 TEnum 必須是 Enum.
-    public class StateMachine<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
+    public class StateMachine<TEnumState, TEnumMsg> 
+        where TEnumState : struct, IConvertible, IComparable, IFormattable
+        where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        private State<TEnum> mGlobalState;
-        private State<TEnum> mCurrentState;
-        private readonly IStateMachineFactory<TEnum> mFactory;
-        private readonly MessageDispatcher<TEnum> mDispatcher;
+        public MessageDispatcher<TEnumMsg> Dispatcher
+        {
+            get { return mDispatcher; }
+        }
 
-        public StateMachine(IStateMachineFactory<TEnum> factory, MessageDispatcher<TEnum> dispatcher, 
-                            TEnum initState)
+        private State<TEnumState, TEnumMsg> mGlobalState;
+        private State<TEnumState, TEnumMsg> mCurrentState;
+        private readonly IStateMachineFactory<TEnumState, TEnumMsg> mFactory;
+        private readonly MessageDispatcher<TEnumMsg> mDispatcher;
+
+        public StateMachine(IStateMachineFactory<TEnumState, TEnumMsg> factory, 
+                            MessageDispatcher<TEnumMsg> dispatcher, 
+                            TEnumState initState)
         {
             mFactory = factory;
             mDispatcher = dispatcher;
             mCurrentState = mFactory.CreateState(initState);
         }
 
-        public StateMachine(IStateMachineFactory<TEnum> factory, MessageDispatcher<TEnum> dispatcher,
-                            TEnum initState, State<TEnum> globalState)
+        public StateMachine(IStateMachineFactory<TEnumState, TEnumMsg> factory, 
+                            MessageDispatcher<TEnumMsg> dispatcher,
+                            TEnumState initState, State<TEnumState, TEnumMsg> globalState)
         {
             mFactory = factory;
             mDispatcher = dispatcher;
@@ -51,14 +60,14 @@ namespace AI
             mCurrentState.Update();
         }
 
-        public void ChangeState(TEnum newState)
+        public void ChangeState(TEnumState newState)
         {
             ChangeState(newState, null);
         }
 
-        public void ChangeState(TEnum newState, Object extraInfo)
+        public void ChangeState(TEnumState newState, Object extraInfo)
         {
-            if(!typeof(TEnum).IsEnum)
+            if(!typeof(TEnumState).IsEnum)
                 throw new ArgumentException("TEnum must be an enum.");
 
             mCurrentState.Exit();
@@ -66,7 +75,7 @@ namespace AI
             mCurrentState.Enter(this, mDispatcher, extraInfo);
         }
 
-        public void SetGlobalState(State<TEnum> state)
+        public void SetGlobalState(State<TEnumState, TEnumMsg> state)
         {
             mGlobalState = state;
         }

@@ -1,4 +1,5 @@
-﻿using AI;
+﻿using System;
+using AI;
 
 /// <summary>
 /// 目前是負責處理遊戲比賽 AI 的行為(實際全部的工作都拆分到 State 了).
@@ -18,12 +19,13 @@ public class AIController : KnightSingleton<AIController>
     }
     private readonly static AIController INSTANCE = new AIController();
 
-    private StateMachine<EGameSituation> mFSM;
+    private StateMachine<EGameSituation, EGameMsg> mFSM;
 
     private void Awake()
     {
-        mFSM = new StateMachine<EGameSituation>(new GameStateFactory(), 
-                                                new MessageDispatcher<EGameSituation>(), EGameSituation.None);
+        mFSM = new StateMachine<EGameSituation, EGameMsg>(new GameStateFactory(), 
+                                                          new MessageDispatcher<EGameMsg>(), 
+                                                          EGameSituation.None);
     }
 
     private void Update()
@@ -39,5 +41,11 @@ public class AIController : KnightSingleton<AIController>
     public void ChangeState(EGameSituation newState, object extraInfo)
     {
         mFSM.ChangeState(newState, extraInfo);
+    }
+
+    public void SendMesssage(EGameMsg msg, ITelegraph<EGameSituation> sender = null,
+                             ITelegraph<EGameSituation> receiver = null, Object extraInfo = null)
+    {
+        mFSM.Dispatcher.SendMesssage(msg);
     }
 }

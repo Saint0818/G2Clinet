@@ -2,9 +2,9 @@
 public enum EGameSituation
 {
 //    Loading           =-4,
-    InitShowContorl   = -3,
-    ShowOne           = -2,
-    ShowTwo           = -1,
+    Presentation   = -3,
+    ShowOne        = -2,
+    ShowTwo        = -1,
     None           = 0,
     Opening        = 1, // 開球.
     JumpBall       = 2,

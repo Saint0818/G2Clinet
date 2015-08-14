@@ -2,11 +2,10 @@
 
 public class GameShowBehaviour : StateMachineBehaviour
 {
-	
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		GameController.Get.ChangeSituation(EGameSituation.InitShowContorl);
-        AIController.Get.ChangeState(EGameSituation.InitShowContorl);
+		GameController.Get.ChangeSituation(EGameSituation.Presentation);
+        AIController.Get.ChangeState(EGameSituation.Presentation);
 	}
 	
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
