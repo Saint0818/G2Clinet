@@ -469,6 +469,9 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isSkillShow = false;
 	private int skillEffectKind = 0;
 
+	//Camera
+	private float yAxizOffset = 0;
+
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
 		if(GameController.Get.Situation != EGameSituation.End) {
@@ -1329,7 +1332,9 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void OnJoystickStart(MovingJoystick move) {
+		yAxizOffset = CameraMgr.Get.CourtCamera.transform.eulerAngles.y - 90;
 	}
+
     public void OnJoystickMove(MovingJoystick move, EPlayerState ps) {
 		if (Timer.timeScale == 0)
 			return;
@@ -1352,7 +1357,7 @@ public class PlayerBehaviour : MonoBehaviour
 	                animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
 					if(!IsPass) {
 						float angle = move.Axis2Angle(true);
-						int a = 90;
+						float a = 90 + yAxizOffset;
 						Vector3 rotation = new Vector3(0, angle + a, 0);
 						transform.rotation = Quaternion.Euler(rotation);
 					}
