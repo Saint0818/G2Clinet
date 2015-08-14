@@ -2973,7 +2973,6 @@ public class GameController : KnightSingleton<GameController> {
 				playerState = EPlayerState.PickBall2;
 				player.PassiveID = 1310;
 				player.PassiveLv = player.PickBall2Lv;
-				UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 				Result = player.AniState(playerState, v);
 
 				break;
