@@ -6,6 +6,7 @@
         "maxstar": 0,
         "pictureno": 3,
         "nametw": "基本火鍋",
+        "animation": "Block0",
         "nameen": "基本火鍋",
         "explaintw": "基本火鍋",
         "explainen": "基本火鍋",
@@ -15,8 +16,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Block0"
+        "rateadd": 0
     },
     {
         "id": 8,
@@ -25,6 +25,7 @@
         "maxstar": 0,
         "pictureno": 8,
         "nametw": "基本灌籃",
+        "animation": "Dunk0",
         "nameen": "基本灌籃",
         "explaintw": "基本灌籃",
         "explainen": "基本灌籃",
@@ -34,8 +35,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Dunk0"
+        "rateadd": 0
     },
     {
         "id": 10,
@@ -44,6 +44,7 @@
         "maxstar": 0,
         "pictureno": 10,
         "nametw": "A跌倒-B起身",
+        "animation": "FallStand",
         "nameen": "A跌倒-B起身",
         "explaintw": "A跌倒-B起身",
         "explainen": "A跌倒-B起身",
@@ -53,8 +54,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "FallStand"
+        "rateadd": 0
     },
     {
         "id": 11,
@@ -63,6 +63,7 @@
         "maxstar": 0,
         "pictureno": 11,
         "nametw": "B重心不穩",
+        "animation": "Fall2",
         "nameen": "B重心不穩",
         "explaintw": "B重心不穩",
         "explainen": "B重心不穩",
@@ -72,8 +73,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Fall2"
+        "rateadd": 0
     },
     {
         "id": 13,
@@ -82,6 +82,7 @@
         "maxstar": 0,
         "pictureno": 13,
         "nametw": "基本上籃",
+        "animation": "Layup0",
         "nameen": "基本上籃",
         "explaintw": "基本上籃",
         "explainen": "基本上籃",
@@ -91,8 +92,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Layup0"
+        "rateadd": 0
     },
     {
         "id": 14,
@@ -101,6 +101,7 @@
         "maxstar": 0,
         "pictureno": 14,
         "nametw": "基本抄截",
+        "animation": "Steal0",
         "nameen": "基本抄截",
         "explaintw": "基本抄截",
         "explainen": "基本抄截",
@@ -110,8 +111,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Steal0"
+        "rateadd": 0
     },
     {
         "id": 16,
@@ -120,6 +120,7 @@
         "maxstar": 0,
         "pictureno": 16,
         "nametw": "基本-正面傳球",
+        "animation": "Pass0",
         "nameen": "基本-正面傳球",
         "explaintw": "基本-正面傳球",
         "explainen": "基本-正面傳球",
@@ -129,8 +130,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Pass0"
+        "rateadd": 0
     },
     {
         "id": 17,
@@ -139,6 +139,7 @@
         "maxstar": 0,
         "pictureno": 17,
         "nametw": "基本-地板傳球",
+        "animation": "Pass2",
         "nameen": "基本-地板傳球",
         "explaintw": "基本-地板傳球",
         "explainen": "基本-地板傳球",
@@ -148,8 +149,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Pass2"
+        "rateadd": 0
     },
     {
         "id": 18,
@@ -158,6 +158,7 @@
         "maxstar": 0,
         "pictureno": 18,
         "nametw": "基本-上拋傳球",
+        "animation": "Pass1",
         "nameen": "基本-上拋傳球",
         "explaintw": "基本-上拋傳球",
         "explainen": "基本-上拋傳球",
@@ -167,8 +168,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Pass1"
+        "rateadd": 0
     },
     {
         "id": 19,
@@ -177,6 +177,7 @@
         "maxstar": 0,
         "pictureno": 19,
         "nametw": "基本-傳小球",
+        "animation": "Pass3",
         "nameen": "基本-傳小球",
         "explaintw": "基本-傳小球",
         "explainen": "基本-傳小球",
@@ -186,8 +187,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Pass3"
+        "rateadd": 0
     },
     {
         "id": 20,
@@ -196,6 +196,7 @@
         "maxstar": 0,
         "pictureno": 20,
         "nametw": "基本-投籃中傳球",
+        "animation": "Pass4",
         "nameen": "基本-投籃中傳球",
         "explaintw": "基本-投籃中傳球",
         "explainen": "基本-投籃中傳球",
@@ -205,8 +206,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Pass4"
+        "rateadd": 0
     },
     {
         "id": 21,
@@ -215,6 +215,7 @@
         "maxstar": 0,
         "pictureno": 21,
         "nametw": "基本推人",
+        "animation": "Push0",
         "nameen": "基本推人",
         "explaintw": "基本推人",
         "explainen": "基本推人",
@@ -224,8 +225,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Push0"
+        "rateadd": 0
     },
     {
         "id": 25,
@@ -234,6 +234,7 @@
         "maxstar": 0,
         "pictureno": 25,
         "nametw": "基本搶籃板",
+        "animation": "Rebound0",
         "nameen": "基本搶籃板",
         "explaintw": "基本搶籃板",
         "explainen": "基本搶籃板",
@@ -243,8 +244,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Rebound0"
+        "rateadd": 0
     },
     {
         "id": 37,
@@ -253,6 +253,7 @@
         "maxstar": 0,
         "pictureno": 37,
         "nametw": "基本肘擊",
+        "animation": "Elbow",
         "nameen": "基本肘擊",
         "explaintw": "基本肘擊",
         "explainen": "基本肘擊",
@@ -262,8 +263,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Elbow"
+        "rateadd": 0
     },
     {
         "id": 43,
@@ -272,6 +272,7 @@
         "maxstar": 0,
         "pictureno": 43,
         "nametw": "基本（立定中距）立定投籃",
+        "animation": "Shoot0",
         "nameen": "基本（立定中距）立定投籃",
         "explaintw": "基本（立定中距）立定投籃",
         "explainen": "基本（立定中距）立定投籃",
@@ -281,8 +282,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Shoot0"
+        "rateadd": 0
     },
     {
         "id": 44,
@@ -291,6 +291,7 @@
         "maxstar": 0,
         "pictureno": 44,
         "nametw": "基本（立定近距）投籃，勾射，後仰",
+        "animation": "Shoot6",
         "nameen": "基本（立定近距）投籃，勾射，後仰",
         "explaintw": "基本（立定近距）投籃，勾射，後仰",
         "explainen": "基本（立定近距）投籃，勾射，後仰",
@@ -300,8 +301,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Shoot6"
+        "rateadd": 0
     },
     {
         "id": 45,
@@ -310,6 +310,7 @@
         "maxstar": 0,
         "pictureno": 45,
         "nametw": "基本（跑動中距）上手騎馬射箭",
+        "animation": "Shoot2",
         "nameen": "基本（跑動中距）上手騎馬射箭",
         "explaintw": "基本（跑動中距）上手騎馬射箭",
         "explainen": "基本（跑動中距）上手騎馬射箭",
@@ -319,8 +320,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Shoot2"
+        "rateadd": 0
     },
     {
         "id": 46,
@@ -329,6 +329,7 @@
         "maxstar": 0,
         "pictureno": 46,
         "nametw": "基本（遠距）下手騎馬射箭",
+        "animation": "Shoot3",
         "nameen": "基本（遠距）下手騎馬射箭",
         "explaintw": "基本（遠距）下手騎馬射箭",
         "explainen": "基本（遠距）下手騎馬射箭",
@@ -338,8 +339,7 @@
         "attrkind": 0,
         "valuebase": 0,
         "rate": 0,
-        "rateadd": 0,
-        "animation": "Shoot3"
+        "rateadd": 0
     },
     {
         "id": 410,
@@ -348,6 +348,7 @@
         "maxstar": 3,
         "pictureno": 410,
         "nametw": "小勾射投籃",
+        "animation": "Shoot4",
         "nameen": "特殊投籃-小勾射",
         "explaintw": "特殊投籃-小勾射，避免遭到火鍋",
         "explainen": "特殊投籃-小勾射",
@@ -356,9 +357,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Shoot4",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -368,6 +368,7 @@
         "maxstar": 3,
         "pictureno": 411,
         "nametw": "大勾射投籃",
+        "animation": "Shoot5",
         "nameen": "特殊投籃-大勾射",
         "explaintw": "特殊投籃-大勾射，避免遭到火鍋",
         "explainen": "特殊投籃-大勾射",
@@ -376,9 +377,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Shoot5",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -388,6 +388,7 @@
         "maxstar": 3,
         "pictureno": 412,
         "nametw": "後仰跳投I",
+        "animation": "Shoot6",
         "nameen": "特殊投籃-後仰跳投",
         "explaintw": "特殊投籃-後仰跳投，避免遭到火鍋",
         "explainen": "特殊投籃-後仰跳投",
@@ -396,9 +397,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Shoot6",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -408,6 +408,7 @@
         "maxstar": 3,
         "pictureno": 413,
         "nametw": "後仰跳投II",
+        "animation": "Shoot7",
         "nameen": "特殊投籃-後仰拉杆跳投",
         "explaintw": "特殊投籃-後仰拉杆跳投，避免遭到火鍋",
         "explainen": "特殊投籃-後仰拉杆跳投",
@@ -416,9 +417,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Shoot7",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -428,6 +428,7 @@
         "maxstar": 3,
         "pictureno": 510,
         "nametw": "特殊上籃-拉杆之後小挑射",
+        "animation": "Layup1",
         "nameen": "特殊上籃-拉杆之後小挑射",
         "explaintw": "特殊上籃-拉杆之後小挑射",
         "explainen": "特殊上籃-拉杆之後小挑射",
@@ -436,9 +437,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Layup1",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -448,6 +448,7 @@
         "maxstar": 3,
         "pictureno": 511,
         "nametw": "換手拉杆",
+        "animation": "Layup2",
         "nameen": "特殊上籃-換手拉杆",
         "explaintw": "特殊上籃-換手拉杆，避免遭到火鍋",
         "explainen": "特殊上籃-換手拉杆",
@@ -456,9 +457,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Layup2",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -468,6 +468,7 @@
         "maxstar": 3,
         "pictureno": 512,
         "nametw": "特殊上籃-假灌籃真上籃",
+        "animation": "Layup3",
         "nameen": "特殊上籃-假灌籃真上籃",
         "explaintw": "特殊上籃-假灌籃真上籃",
         "explainen": "特殊上籃-假灌籃真上籃",
@@ -476,9 +477,8 @@
         "lifetime": 0,
         "attrkind": 0,
         "valuebase": 0,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Layup3",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -488,6 +488,7 @@
         "maxstar": 3,
         "pictureno": 610,
         "nametw": "特殊灌籃-假上籃真灌籃",
+        "animation": "Dunk1",
         "nameen": "特殊灌籃-假上籃真灌籃",
         "explaintw": "特殊灌籃-假上籃真灌籃",
         "explainen": "特殊灌籃-假上籃真灌籃",
@@ -496,9 +497,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk1",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -508,6 +508,7 @@
         "maxstar": 3,
         "pictureno": 611,
         "nametw": "繞腰灌籃",
+        "animation": "Dunk2",
         "nameen": "特殊灌籃-繞腰灌籃",
         "explaintw": "特殊灌籃-繞腰灌籃",
         "explainen": "特殊灌籃-繞腰灌籃",
@@ -516,9 +517,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk2",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 2003,
@@ -533,6 +533,7 @@
         "maxstar": 3,
         "pictureno": 612,
         "nametw": "特殊灌籃-倒掛灌籃",
+        "animation": "Dunk3",
         "nameen": "特殊灌籃-倒掛灌籃",
         "explaintw": "特殊灌籃-倒掛灌籃",
         "explainen": "特殊灌籃-倒掛灌籃",
@@ -541,9 +542,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk3",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -553,6 +553,7 @@
         "maxstar": 3,
         "pictureno": 613,
         "nametw": "胯下灌籃",
+        "animation": "Dunk4",
         "nameen": "特殊灌籃-胯下灌籃",
         "explaintw": "特殊灌籃-胯下灌籃",
         "explainen": "特殊灌籃-胯下灌籃",
@@ -561,9 +562,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk4",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 2003,
@@ -578,6 +578,7 @@
         "maxstar": 3,
         "pictureno": 614,
         "nametw": "特殊灌籃-飛人灌籃",
+        "animation": "Dunk5",
         "nameen": "特殊灌籃-飛人灌籃",
         "explaintw": "特殊灌籃-飛人灌籃",
         "explainen": "特殊灌籃-飛人灌籃",
@@ -586,9 +587,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk5",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0
     },
     {
@@ -598,6 +598,7 @@
         "maxstar": 3,
         "pictureno": 615,
         "nametw": "單手花式灌籃I",
+        "animation": "Dunk6",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "特殊灌籃-單手繞兩圈灌籃",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
@@ -606,9 +607,8 @@
         "lifetime": 0,
         "attrkind": 6,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "Dunk6",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 2003,
@@ -623,6 +623,7 @@
         "maxstar": 3,
         "pictureno": 1100,
         "nametw": "轉身運球過人",
+        "animation": "MoveDodge0",
         "nameen": "基本運球過人",
         "explaintw": "面對防守球員時的快速轉身過人",
         "explainen": "基本運球過人",
@@ -631,9 +632,8 @@
         "lifetime": 0,
         "attrkind": 11,
         "valuebase": 10,
-        "rate": 40,
-        "rateadd": 10,
-        "animation": "MoveDodge0",
+        "rate": 20,
+        "rateadd": 5,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 301,
@@ -648,6 +648,7 @@
         "maxstar": 2,
         "pictureno": 1210,
         "nametw": "跑速傳球",
+        "animation": "Pass5",
         "nameen": "正面邊跑邊傳",
         "explaintw": "正面邊跑邊傳",
         "explainen": "正面邊跑邊傳",
@@ -656,10 +657,9 @@
         "lifetime": 0,
         "attrkind": 12,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
+        "rate": 30,
+        "rateadd": 10,
         "direct": 1,
-        "animation": "Pass5",
         "targetkind": 0
     },
     {
@@ -669,6 +669,7 @@
         "maxstar": 2,
         "pictureno": 1220,
         "nametw": "跳騰傳球",
+        "animation": "Pass6",
         "nameen": "跳起來胯下往後傳",
         "explaintw": "跳起來胯下往後傳",
         "explainen": "跳起來胯下往後傳",
@@ -677,10 +678,9 @@
         "lifetime": 0,
         "attrkind": 12,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
+        "rate": 30,
+        "rateadd": 10,
         "direct": 2,
-        "animation": "Pass6",
         "targetkind": 0
     },
     {
@@ -690,6 +690,7 @@
         "maxstar": 2,
         "pictureno": 1221,
         "nametw": "絕殺快傳I",
+        "animation": "Pass9",
         "nameen": "背後上肩傳球",
         "explaintw": "背後上肩傳球",
         "explainen": "背後上肩傳球",
@@ -698,10 +699,9 @@
         "lifetime": 0,
         "attrkind": 12,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
+        "rate": 30,
+        "rateadd": 10,
         "direct": 2,
-        "animation": "Pass9",
         "targetkind": 0
     },
     {
@@ -711,6 +711,7 @@
         "maxstar": 2,
         "pictureno": 1230,
         "nametw": "絕殺快傳II",
+        "animation": "Pass7",
         "nameen": "左方背後傳球",
         "explaintw": "左方背後傳球",
         "explainen": "左方背後傳球",
@@ -719,10 +720,9 @@
         "lifetime": 0,
         "attrkind": 12,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
+        "rate": 30,
+        "rateadd": 10,
         "direct": 3,
-        "animation": "Pass7",
         "targetkind": 0
     },
     {
@@ -732,6 +732,7 @@
         "maxstar": 2,
         "pictureno": 1240,
         "nametw": "絕殺快傳III",
+        "animation": "Pass8",
         "nameen": "右方背後傳球",
         "explaintw": "右方背後傳球",
         "explainen": "右方背後傳球",
@@ -740,10 +741,9 @@
         "lifetime": 0,
         "attrkind": 12,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
+        "rate": 30,
+        "rateadd": 10,
         "direct": 4,
-        "animation": "Pass8",
         "targetkind": 0
     },
     {
@@ -753,6 +753,7 @@
         "maxstar": 2,
         "pictureno": 1310,
         "nametw": "飛身撲球",
+        "animation": "Pick2",
         "nameen": "飛身撲球",
         "explaintw": "飛身撲往球的方向救球",
         "explainen": "飛身撲球",
@@ -761,9 +762,8 @@
         "lifetime": 0,
         "attrkind": 3,
         "valuebase": 10,
-        "rate": 100,
-        "rateadd": 15,
-        "animation": "Pick2",
+        "rate": 20,
+        "rateadd": 10,
         "targetkind": 10,
         "targetkind1": 3,
         "targeteffect1": 303,
@@ -783,6 +783,7 @@
         "maxstar": 3,
         "pictureno": 1610,
         "nametw": "中級火鍋",
+        "animation": "Block1",
         "nameen": "中級火鍋",
         "explaintw": "中級火鍋",
         "explainen": "中級火鍋",
@@ -793,7 +794,6 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block1",
         "targetkind": 0
     },
     {
@@ -803,6 +803,7 @@
         "maxstar": 3,
         "pictureno": 1611,
         "nametw": "高級火鍋",
+        "animation": "Block2",
         "nameen": "高級火鍋",
         "explaintw": "高級火鍋",
         "explainen": "高級火鍋",
@@ -813,7 +814,6 @@
         "valuebase": 10,
         "rate": 60,
         "rateadd": 15,
-        "animation": "Block2",
         "targetkind": 0
     },
     {
@@ -823,6 +823,7 @@
         "maxstar": 2,
         "pictureno": 1911,
         "nametw": "鯉魚打挺",
+        "animation": "Fall0",
         "nameen": "A跌倒-B快速起身",
         "explaintw": "跌倒後的快速起身",
         "explainen": "A跌倒-B快速起身",
@@ -831,9 +832,8 @@
         "lifetime": 0,
         "attrkind": 4,
         "valuebase": 10,
-        "rate": 60,
-        "rateadd": 15,
-        "animation": "Fall0",
+        "rate": 30,
+        "rateadd": 10,
         "targetkind": 0
     },
     {
@@ -843,6 +843,7 @@
         "maxstar": 5,
         "pictureno": 11000,
         "nametw": "究極雙灌籃I",
+        "animation": "Dunk20",
         "nameen": "兩次灌籃",
         "explaintw": "究極兩次灌籃，一次獲得大量分數",
         "explainen": "兩次灌籃",
@@ -855,8 +856,7 @@
         "rateadd": 20,
         "distance": 11,
         "distanceadd": 2,
-        "maxanger": 60,
-        "animation": "Dunk20",
+        "maxanger": 100,
         "targetkind": 1,
         "targetkind1": 4,
         "targeteffect1": 2003,
@@ -876,6 +876,7 @@
         "maxstar": 5,
         "pictureno": 12000,
         "nametw": "究極兩次灌籃",
+        "animation": "Dunk20",
         "nameen": "兩次灌籃",
         "explaintw": "究極兩次灌籃",
         "explainen": "兩次灌籃",
@@ -888,8 +889,7 @@
         "rateadd": 20,
         "distance": 7,
         "distanceadd": 2,
-        "maxanger": 60,
-        "animation": "Dunk20",
+        "maxanger": 100,
         "targetkind": 1
     },
     {
@@ -899,6 +899,7 @@
         "maxstar": 5,
         "pictureno": 13000,
         "nametw": "究極兩次灌籃",
+        "animation": "Dunk20",
         "nameen": "兩次灌籃",
         "explaintw": "究極兩次灌籃",
         "explainen": "兩次灌籃",
@@ -911,8 +912,7 @@
         "rateadd": 20,
         "distance": 7,
         "distanceadd": 2,
-        "maxanger": 60,
-        "animation": "Dunk20",
+        "maxanger": 100,
         "targetkind": 1
     },
     {
@@ -922,6 +922,7 @@
         "maxstar": 5,
         "pictureno": 14000,
         "nametw": "究極兩次灌籃",
+        "animation": "Dunk20",
         "nameen": "兩次灌籃",
         "explaintw": "究極兩次灌籃",
         "explainen": "兩次灌籃",
@@ -934,8 +935,7 @@
         "rateadd": 20,
         "distance": 7,
         "distanceadd": 2,
-        "maxanger": 60,
-        "animation": "Dunk20",
+        "maxanger": 100,
         "targetkind": 1
     },
     {
@@ -945,6 +945,7 @@
         "maxstar": 5,
         "pictureno": 15000,
         "nametw": "究極兩次灌籃",
+        "animation": "Dunk20",
         "nameen": "兩次灌籃",
         "explaintw": "究極兩次灌籃",
         "explainen": "兩次灌籃",
@@ -957,8 +958,7 @@
         "rateadd": 20,
         "distance": 7,
         "distanceadd": 2,
-        "maxanger": 60,
-        "animation": "Dunk20",
+        "maxanger": 100,
         "targetkind": 1
     },
     {
@@ -968,6 +968,7 @@
         "maxstar": 5,
         "pictureno": 16000,
         "nametw": "大車輪爆扣",
+        "animation": "Dunk22",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "直接發動大車輪爆扣",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
@@ -980,8 +981,7 @@
         "rateadd": 20,
         "distance": 11,
         "distanceadd": 2,
-        "maxanger": 40,
-        "animation": "Dunk22",
+        "maxanger": 80,
         "targetkind": 1,
         "targetkind1": 4,
         "targeteffect1": 2003,
@@ -1001,6 +1001,7 @@
         "maxstar": 5,
         "pictureno": 11500,
         "nametw": "瞬移抄截",
+        "animation": "Steal20",
         "nameen": "瞬移抄截",
         "explaintw": "只要在距離內即可飛身前往抄球",
         "explainen": "只要在距離內即可飛身前往抄球",
@@ -1013,8 +1014,7 @@
         "rateadd": 20,
         "distance": 15,
         "distanceadd": 2,
-        "maxanger": 30,
-        "animation": "Steal20",
+        "maxanger": 60,
         "targetkind": 10,
         "targetkind1": 4,
         "targeteffect1": 1007,
@@ -1039,6 +1039,7 @@
         "maxstar": 5,
         "pictureno": 11700,
         "nametw": "飛身衝撞",
+        "animation": "Push20",
         "nameen": "飛身衝撞",
         "explaintw": "往前飛身衝撞對手",
         "explainen": "往前飛身衝撞對手",
@@ -1051,8 +1052,7 @@
         "rateadd": 20,
         "distance": 5,
         "distanceadd": 2,
-        "maxanger": 30,
-        "animation": "Push20",
+        "maxanger": 60,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 1700,
@@ -1072,6 +1072,7 @@
         "maxstar": 5,
         "pictureno": 17000,
         "nametw": "自我加速鼓舞",
+        "animation": "Buff20",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "個人的加速鼓舞，持續 10 秒",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
@@ -1085,8 +1086,7 @@
         "rateadd": 10,
         "distance": 0,
         "distanceadd": 0,
-        "maxanger": 20,
-        "animation": "Buff20",
+        "maxanger": 40,
         "targetkind": 0,
         "targetkind1": 4,
         "targeteffect1": 1003,
@@ -1101,6 +1101,7 @@
         "maxstar": 5,
         "pictureno": 18000,
         "nametw": "夥伴加速鼓舞",
+        "animation": "Buff21",
         "nameen": "特殊灌籃-單手繞兩圈灌籃",
         "explaintw": "全體的加速鼓舞，持續 10 秒",
         "explainen": "特殊灌籃-單手繞兩圈灌籃",
@@ -1114,8 +1115,7 @@
         "rateadd": 10,
         "distance": 30,
         "distanceadd": 0,
-        "maxanger": 30,
-        "animation": "Buff21",
+        "maxanger": 50,
         "targetkind": 3,
         "targetkind1": 4,
         "targeteffect1": 1004,
