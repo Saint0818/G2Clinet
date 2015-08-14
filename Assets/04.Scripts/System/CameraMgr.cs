@@ -437,7 +437,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
         if (!GameController.Get.Joysticker.IsBallOwner)
         {
-            distanceZ = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Joysticker.transform.position);
+			if(GameController.Get.BallOwner)
+				distanceZ = Vector3.Distance(GameController.Get.BallOwner.transform.position, GameController.Get.Joysticker.transform.position);
+			else
+            	distanceZ = Vector3.Distance(CourtMgr.Get.RealBall.transform.position, GameController.Get.Joysticker.transform.position);
+
             if (distanceZ > safeZ)
             {
                 isOverCamera = true;
@@ -461,7 +465,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 cameraOffsetPos.z = offsetLimit [0].z - (cameraOffsetRate.z * (offsetLimit [0].z - offsetLimit [1].z));
                 break;
         }
-
 
         cameraRotationObj.transform.localPosition = Vector3.Lerp(cameraRotationObj.transform.localPosition, cameraOffsetPos, cameraOffsetSpeed);
     }
@@ -528,40 +531,22 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
         Quaternion rot = Quaternion.LookRotation(dir);
+		Vector3 v1 = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z);
+		Vector3 v2;
 
         if (isOverCamera)
         {
-			focusSecondPos = (new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0,	CourtMgr.Get.RealBall.transform.position.z)  + 
-			                 new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z)) * 4/5;
+			if(GameController.Get.BallOwner && GameController.Get.BallOwner != GameController.Get.Joysticker)
+				v1 = new Vector3(GameController.Get.BallOwner.transform.position.x, 0, GameController.Get.BallOwner.transform.position.z);
+
+			v2 = new Vector3(GameController.Get.Joysticker.gameObject.transform.position.x, 0, GameController.Get.Joysticker.gameObject.transform.position.z);
+
+			focusSecondPos = (v1 + v2) * 4/5;
 			Vector3 dirMidle = focusSecondPos - cameraRotationObj.transform.position;
 			Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
 
-            switch (situation)
-            {
-                case ECameraSituation.Self: 
-                    if(CourtMgr.Get.RealBall.transform.position.z > GameController.Get.Joysticker.gameObject.transform.position.z)
-                        isAddRotateAngle = true;
-                    else
-                        isAddRotateAngle = false;
-                    break;
-
-                case ECameraSituation.Npc:
-                    if(CourtMgr.Get.RealBall.transform.position.z > GameController.Get.Joysticker.gameObject.transform.position.z)
-                        isAddRotateAngle = true;
-                    else
-                        isAddRotateAngle = false;
-                    break;
-            }
-
-//			if (isAddRotateAngle)
-				cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
-
 			focusTargetTwo.transform.position = focusSecondPos;
-
-//            if (isAddRotateAngle)
-//                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y - (2 * distanceZ * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
-//            else
-//                cameraRotationObj.transform.rotation = Quaternion.Euler(rot.eulerAngles.x, rot.eulerAngles.y + (distanceZ * safeZRotateRate) * Time.deltaTime, rot.eulerAngles.z);
+			cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
         } else
         {
             cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
