@@ -7,6 +7,7 @@ public class AutoDestoryEffect : MonoBehaviour
 	public bool OnlyDeactivate;
 	private ParticleSystem effect;
 	private bool startDestory = false;
+	public bool IsNeedPause = true;
 
 	void OnEnable()
 	{
@@ -62,17 +63,16 @@ public class AutoDestoryEffect : MonoBehaviour
 			if(DestoryDelayTime <= 0)
 			  GameObject.Destroy(this.gameObject);
 		} 
-
-		if(TimerMgr.Get.CrtTime == 0)
-		{
-			effect.Pause(true);
-//			effect.Simulate(0.1f, true, false);
-		}
-		else
-		{
-//			effect.Simulate(TimerMgr.Get.CrtTime, true, false);
-			if(effect.isPaused)
-				effect.Play(true);
+		if(IsNeedPause) {
+			if(TimerMgr.Get.CrtTime == 0)
+			{
+				effect.Pause(true);
+			}
+			else
+			{
+				if(effect.isPaused)
+					effect.Play(true);
+			}
 		}
 	}
 }

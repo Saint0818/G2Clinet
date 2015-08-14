@@ -121,7 +121,7 @@ public class EffectManager : MonoBehaviour
 		return null;
 	}
 
-	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0) {
+	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0, bool isNeedPause = true) {
 		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
@@ -146,6 +146,7 @@ public class EffectManager : MonoBehaviour
 						autoDestory = particles.AddComponent<AutoDestoryEffect>();
 					
 					autoDestory.SetDestoryTime = lifeTime;
+					autoDestory.IsNeedPause = isNeedPause;
 				}
 
 				if (followObj) {

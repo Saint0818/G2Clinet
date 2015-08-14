@@ -30,10 +30,6 @@ public class GameJoystick: MonoBehaviour {
 		rootHeight = UI2D.Get.RootHeight;
 	}
 
-	void On_JoystickMoveStart(MovingJoystick move) {
-
-	}
-	
 	void OnDisable(){
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
@@ -42,6 +38,10 @@ public class GameJoystick: MonoBehaviour {
 	void OnDestroy(){
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
+	}
+
+	void On_JoystickMoveStart(MovingJoystick move) {
+		GameController.Get.OnJoystickMoveStart(move);
 	}
 
 	void On_JoystickMove( MovingJoystick move){

@@ -267,7 +267,7 @@ public class BallTrigger : MonoBehaviour
 					case 2:
 					case 3:
 					if(GameController.Get.Passer != null && GameController.Get.Catcher != null)
-						GameController.Get.Passer.rotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
+						GameController.Get.Passer.RotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z); 
 					break;
 					default:
 						break;

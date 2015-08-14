@@ -341,8 +341,8 @@ public class UIGame : UIBase {
 		runForceBar ();
 		initAiTime();
 
-		uiJoystick.Joystick.isActivated = false; 
-		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, 545);
+		uiJoystick.Joystick.isActivated = false;
+		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, UI2D.Get.RootHeight - 145);
 
 		drawLine = gameObject.AddComponent<DrawLine>();
 	}

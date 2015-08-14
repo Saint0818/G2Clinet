@@ -2504,7 +2504,7 @@ public class GameController : KnightSingleton<GameController> {
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn) {
 			StealBtnLiftTime = 1f;
             if (BallOwner && BallOwner.Team != Joysticker.Team) {
-				Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
+				Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
 				return DoPassiveSkill(ESkillSituation.Steal0, Joysticker, BallOwner.transform.position);
             } else
 				return DoPassiveSkill(ESkillSituation.Steal0, Joysticker);
@@ -2677,7 +2677,7 @@ public class GameController : KnightSingleton<GameController> {
 					return DoPassiveSkill(ESkillSituation.Block, Joysticker, Shooter.transform.position);
 	            else
 	            if (BallOwner) {
-					Joysticker.rotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
+					Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
 					return DoPassiveSkill(ESkillSituation.Block, Joysticker, BallOwner.transform.position);
 				} else {
 					if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == EGameTest.None)
@@ -2910,6 +2910,10 @@ public class GameController : KnightSingleton<GameController> {
 		return false;
 	}
 
+	public void OnJoystickMoveStart(MovingJoystick move) {
+		Joysticker.OnJoystickStart(move);
+	}
+
 	public void OnJoystickMove(MovingJoystick move)
     {
 		if (Joysticker && (CanMoveSituation || Joysticker.CanMoveFirstDribble))
@@ -2990,7 +2994,7 @@ public class GameController : KnightSingleton<GameController> {
 							if(player.Team == ETeamKind.Npc)
 								AddZ = -6;
 							
-							player.rotateTo(pos.x, pos.z);
+							player.RotateTo(pos.x, pos.z);
 							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
 							if (Dir == 1) {
 								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
@@ -3116,7 +3120,7 @@ public class GameController : KnightSingleton<GameController> {
 		}
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
-				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
+				if(GameData.SkillData.ContainsKey(player.PassiveID) && player.CanUseState(playerState)) {
 					UIPassiveEffect.UIShow(true, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
@@ -3473,7 +3477,7 @@ public class GameController : KnightSingleton<GameController> {
 					player.TargetPos = moveData;
 				} else 
 				if(npc.crtState != EPlayerState.Block && npc.AIing)
-                    npc.rotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
+                    npc.RotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
             } else 
 			if (npc.CanMove && npc.WaitMoveTime == 0) {
 				moveData.Clear();
@@ -4532,10 +4536,10 @@ public class GameController : KnightSingleton<GameController> {
 
 	public bool CanUseStealSkill {
 		get {
-			for (int i=0; i<PlayerList.Count; i++) 
-				if(PlayerList[i].IsShoot || PlayerList[i].IsDunk)
-					return false;
-			if(BallOwner == null)
+			if(Passer == null && Catcher == null && BallOwner == null && Shooter == null)
+				return false;
+
+			if(Passer != null && Catcher == null && BallOwner == null && Shooter == null)
 				return false;
 
 			return true;
