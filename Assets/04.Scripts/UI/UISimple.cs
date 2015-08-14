@@ -16,6 +16,16 @@ public class UISimple : UIBase {
 		}
 	}
 
+	public static UISimple Get
+	{
+		get {
+			if (!instance) 
+				instance = LoadUI(UIName) as UISimple;
+			
+			return instance;
+		}
+	}
+
 	public static void UIShow(bool isShow){
 		if (instance) {
 			if (!isShow)
@@ -27,17 +37,7 @@ public class UISimple : UIBase {
 		if (isShow)
 			Get.Show(isShow);
 	}
-	
-	public static UISimple Get
-	{
-		get {
-			if (!instance) 
-				instance = LoadUI(UIName) as UISimple;
-			
-			return instance;
-		}
-	}
-	
+
 	protected override void InitCom() {
 
 	}

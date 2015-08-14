@@ -214,6 +214,7 @@ public class GameController : KnightSingleton<GameController> {
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
 	private bool isFirstScore = false;
+	private float gameTime = 0;
     private float coolDownPass = 0;
     public float CoolDownCrossover = 0;
     private float shootDistance = 0;
@@ -332,11 +333,18 @@ public class GameController : KnightSingleton<GameController> {
 		IsPassing = false;
 		Shooter = null;
 		for (var i = 0; i < PlayerList.Count; i ++)
-		if (PlayerList[i]) {
-			Destroy (PlayerList[i]);
-			PlayerList[i] = null;
-		}
+			if (PlayerList[i]) {
+				Destroy (PlayerList[i]);
+				PlayerList[i] = null;
+			}
+
         PlayerList.Clear();
+
+
+		gameTime = GameStart.Get.GameWinValue;
+		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
+		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+
 		StateChecker.InitState();
         CreateTeam();
 		SetBallOwnerNull ();  
@@ -733,7 +741,7 @@ public class GameController : KnightSingleton<GameController> {
 	void FixedUpdate() {
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.K))
-				gameResult(0);
+				gameResult();
 
 			if (Input.GetKeyUp (KeyCode.I))
 			{
@@ -862,6 +870,20 @@ public class GameController : KnightSingleton<GameController> {
 
 		if(passingStealBallTime > 0 && Time.time >= passingStealBallTime)		
 			passingStealBallTime = 0;
+
+		if (GameStart.Get.WinMode == EWinMode.Time && gameTime > 0) {
+			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
+				gameTime -= Time.deltaTime;
+				if (gameTime <= 0) {
+					gameTime = 0;
+
+					if(UIGame.Get.Scores[0] > UIGame.Get.MaxScores[1])
+						gameResult();
+					else
+						gameResult();
+				}
+			}
+		}
 	}
 	
 	private void resetTestMode() {
@@ -3957,7 +3979,7 @@ public class GameController : KnightSingleton<GameController> {
 			UIGameResult.Get.AddDetailString(ref PlayerList[i].Attr, i);
 	}
 
-    private void gameResult(int team)
+    private void gameResult()
     {
         ChangeSituation(EGameSituation.End);
 		UIGame.Get.GameOver();
@@ -4000,8 +4022,8 @@ public class GameController : KnightSingleton<GameController> {
 
 			if(isChangeSituation)
             {
-                if(UIGame.Get.Scores[team] >= UIGame.Get.MaxScores[team])
-                    gameResult(team);
+                if (GameStart.Get.WinMode == EWinMode.Score && UIGame.Get.Scores[team] >= UIGame.Get.MaxScores[team])
+                    gameResult();
 				else if(team == ETeamKind.Self.GetHashCode())
 				{
                     //ChangeSituation(EGameSituation.TeeBPicking);

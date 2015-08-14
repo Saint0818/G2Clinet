@@ -5,8 +5,14 @@ public class UIGameMode: UIBase {
 	private static UIGameMode instance = null;
 	private const string UIName = "UIGameMode";
 
+	private const float maxScore = 60;
+	private const float maxTime = 600;
+
 	private UIScrollBar timeScrollBar;
 	private UIScrollBar scoreScrollBar;
+
+	private UILabel timeLabel;
+	private UILabel scoreLabel;
 
 	public static bool Visible
 	{
@@ -19,18 +25,6 @@ public class UIGameMode: UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		}
-		else
-		if (isShow)
-			Get.Show(isShow);
-	}
-	
 	public static UIGameMode Get
 	{
 		get {
@@ -40,7 +34,32 @@ public class UIGameMode: UIBase {
 			return instance;
 		}
 	}
-	
+
+	public void FixedUpdate() {
+		int s = (int)(timeScrollBar.value * maxTime);
+		if (s <= 1)
+			s = 1;
+
+		timeLabel.text = s.ToString();
+
+		s = (int)(scoreScrollBar.value * maxScore);
+		if (s <= 1)
+			s = 1;
+
+		scoreLabel.text = s.ToString();
+	}
+
+	public static void UIShow(bool isShow){
+		if (instance) {
+			if (!isShow)
+				RemoveUI(UIName);
+			else
+				instance.Show(isShow);
+		} else
+		if (isShow)
+			Get.Show(isShow);
+	}
+
 	protected override void InitCom() {
 		SetBtnFun (UIName + "/Center/CourtMode/FullCourtBt", OnCourtMode);
 		SetBtnFun (UIName + "/Center/CourtMode/HalfCourtBt", OnCourtMode);
@@ -53,8 +72,13 @@ public class UIGameMode: UIBase {
 
 		SetBtnFun (UIName + "/BottomRight/ButtonNext", OnNext);
 
+		timeLabel = GameObject.Find (UIName + "/Center/GameMode/Time/TimeSlider/Label1").GetComponent<UILabel>();
+		scoreLabel = GameObject.Find (UIName + "/Center/GameMode/Score/ScoreSlider/Label1").GetComponent<UILabel>();
 		timeScrollBar = GameObject.Find (UIName + "/Center/GameMode/Time/TimeSlider").GetComponent<UIScrollBar>();
 		scoreScrollBar = GameObject.Find (UIName + "/Center/GameMode/Score/ScoreSlider").GetComponent<UIScrollBar>();
+
+		timeScrollBar.value = 120f / maxTime;
+		scoreScrollBar.value = 13f / maxScore;
 	}
 
 	protected override void InitData() {
@@ -101,9 +125,14 @@ public class UIGameMode: UIBase {
 	}
 
 	public void OnNext() {
-		int s = (int)(timeScrollBar.value * 600);
+		int s = (int)(timeScrollBar.value * maxTime);
 		if (GameStart.Get.WinMode == EWinMode.Score)
-			s = (int)(scoreScrollBar.value * 60);
+			s = (int)(scoreScrollBar.value * maxScore);
+
+		if (s <= 1)
+			s = 1;
+
+		GameStart.Get.GameWinValue = s;
 
 		UIShow (false);
 		CameraMgr.Get.SetSelectRoleCamera();

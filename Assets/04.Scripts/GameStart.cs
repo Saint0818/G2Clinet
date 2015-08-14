@@ -14,6 +14,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public ECourtMode CourtMode = ECourtMode.Full;
 	public EWinMode WinMode = EWinMode.Score;
+	public bool OpenGameMode = false;
 	public int PlayerNumber = 3;
 	public int GameWinValue = 13;
 	public float CrossTimeX = 0.5f;
