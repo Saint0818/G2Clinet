@@ -5,8 +5,11 @@ public class GameStartBehaviour : StateMachineBehaviour {
 	
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if(GameController.Get.Situation == EGameSituation.ShowOne)
-			GameController.Get.ChangeSituation(EGameSituation.ShowTwo);
+	    if(GameController.Get.Situation == EGameSituation.CameraMovement)
+	    {
+	        GameController.Get.ChangeSituation(EGameSituation.ShowTwo);
+            AIController.Get.ChangeState(EGameSituation.ShowTwo);
+	    }
 	}
 	
 //	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

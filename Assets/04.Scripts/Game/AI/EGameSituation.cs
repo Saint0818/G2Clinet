@@ -2,8 +2,8 @@
 public enum EGameSituation
 {
 //    Loading           =-4,
-    Presentation   = -3,
-    ShowOne        = -2,
+    Presentation   = -3, // 演出, 也就是雙方球員出場, 互相叫囂.
+    CameraMovement = -2, // 運鏡.
     ShowTwo        = -1,
     None           = 0,
     Opening        = 1, // 開球.

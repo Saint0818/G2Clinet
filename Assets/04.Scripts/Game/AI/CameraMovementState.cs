@@ -1,12 +1,17 @@
 ﻿using AI;
 
-public class ShowOneState : State<EGameSituation, EGameMsg>
+public class CameraMovementState : State<EGameSituation, EGameMsg>
 {
     public override void EnterImpl(object extraInfo)
     {
         CourtMgr.Get.ShowEnd(true);
         GameController.Get.InitIngameAnimator();
         GameController.Get.SetBornPositions();
+
+        UISkip.UIShow(false, ESkipSituation.Game);
+        CourtMgr.Get.ShowEnd();
+        UIGame.UIShow(true);
+        UIGame.Get.UIState(EUISituation.ShowTwo);
     }
 
     public override void Update()

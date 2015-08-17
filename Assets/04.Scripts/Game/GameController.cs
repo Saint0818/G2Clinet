@@ -45,7 +45,7 @@ public class GameController : KnightSingleton<GameController> {
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
-	private bool isFirstScore = false;
+//	private bool isFirstScore = false;
 	private float gameTime = 0;
     private float coolDownPass = 0;
     public float CoolDownCrossover = 0;
@@ -54,7 +54,7 @@ public class GameController : KnightSingleton<GameController> {
 	public float StealBtnLiftTime = 1f;
 	private float waitStealTime = 0;
 	private float passingStealBallTime = 0;
-	private int skillFirstScore = 2;
+//	private int skillFirstScore = 2;
 	private float angleByPlayerHoop = 0;
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
@@ -84,7 +84,7 @@ public class GameController : KnightSingleton<GameController> {
     private ESkillKind skillKind;
     public EBasketSituation BasketSituation;
 	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
-	private List<int> TacticalDataList = new List<int>();
+//	private List<int> TacticalDataList = new List<int>();
 	private Dictionary<string, Shader> shaderCache = new Dictionary<string, Shader>();
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
@@ -103,7 +103,7 @@ public class GameController : KnightSingleton<GameController> {
     
     public GameObject[] passIcon = new GameObject[3];
 	private GameObject[] selectIcon = new GameObject[2];
-	private List<GameObject> objsPassiveEffect =new List<GameObject>();
+//	private List<GameObject> objsPassiveEffect =new List<GameObject>();
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -1436,22 +1436,12 @@ public class GameController : KnightSingleton<GameController> {
 
 			switch (gs) {
 			case EGameSituation.Presentation:
-//					isSkipClicked = false;
-//					for(int i = 0; i < PlayerList.Count; i++)
-//						if(PlayerList[i]){
-//							ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.ShowControl);
-//				}
-//				UISkip.UIShow(true, ESkipSituation.Game);
 				break;
-			case EGameSituation.ShowOne:
-				UISkip.UIShow(false, ESkipSituation.Game);
-				CourtMgr.Get.ShowEnd();
-				UIGame.UIShow (true);
-				UIGame.Get.UIState(EUISituation.ShowTwo);
-//				if(!isSkipClicked){
-//					SetBornPositions();
-//					InitIngameAnimator();
-//				}
+			case EGameSituation.CameraMovement:
+//				UISkip.UIShow(false, ESkipSituation.Game);
+//				CourtMgr.Get.ShowEnd();
+//				UIGame.UIShow (true);
+//				UIGame.Get.UIState(EUISituation.ShowTwo);
 				break;
 			case EGameSituation.ShowTwo:
 				if(IsStart == false)
@@ -1551,27 +1541,10 @@ public class GameController : KnightSingleton<GameController> {
 	            switch (Situation)
 	            {
 					case EGameSituation.Presentation:
-//						for(int i = 0; i < PlayerList.Count; i++)
-//						{
-//							if(PlayerList[i].ShowPos != -1 && isSkipClicked == false){
-//								PlayerList[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.position;
-//								PlayerList[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[PlayerList[i].ShowPos].transform.eulerAngles;
-//							}
-//						}
-						break;
-					case EGameSituation.ShowOne:
-						
-						break;
-
+					case EGameSituation.CameraMovement:
 					case EGameSituation.ShowTwo:
-
-						break;
-
 	                case EGameSituation.None:
-
-	                    break;
 	                case EGameSituation.Opening:
-                
 	                    break;
 	                case EGameSituation.JumpBall:
 						JumpBall();
@@ -2591,7 +2564,7 @@ public class GameController : KnightSingleton<GameController> {
 		case 7://double dunk
 			v = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
 			shootDistance = getDis(ref player, new Vector2(v.x, v.z));
-			isFirstScore = true;
+//			isFirstScore = true;
 			break;
 		case 15://steal
 		case 17://push
@@ -3365,7 +3338,8 @@ public class GameController : KnightSingleton<GameController> {
 
 	public float getDis(Vector2 player1, Vector2 Target)
 	{
-		if (player1 != null && Target != Vector2.zero)
+//		if(player1 != null && Target != Vector2.zero)
+		if(Target != Vector2.zero)
 		{
 			Vector3 V1 = new Vector3(Target.x, 0, Target.y);
 			Vector3 V2 = new Vector3(player1.x, 0, player1.y);
@@ -3888,7 +3862,7 @@ public class GameController : KnightSingleton<GameController> {
 
 		Shooter = null;
 		IsPassing = false;
-		isFirstScore = false;
+//		isFirstScore = false;
 		shootDistance = 0;
     }
 

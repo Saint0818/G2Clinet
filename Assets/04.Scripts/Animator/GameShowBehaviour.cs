@@ -12,8 +12,8 @@ public class GameShowBehaviour : StateMachineBehaviour
 	{
 		if (!GameController.Get.IsStart && GameController.Get.Situation != EGameSituation.JumpBall)
         {
-			GameController.Get.ChangeSituation(EGameSituation.ShowOne);
-            AIController.Get.ChangeState(EGameSituation.ShowOne);
+			GameController.Get.ChangeSituation(EGameSituation.CameraMovement);
+            AIController.Get.ChangeState(EGameSituation.CameraMovement);
 		}
 	}
 	
