@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e1d91c3ee023ae94aa66b1f401cdf7f3
-timeCreated: 1438077055
+timeCreated: 1439794271
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -217,21 +217,21 @@ ModelImporter:
         floatParameter: 1.5
         intParameter: 0
         messageOptions: 0
-      - time: .28771925
+      - time: .28771922
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .321766526
+      - time: .321766496
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .362742782
+      - time: .362742752
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -245,30 +245,37 @@ ModelImporter:
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .662167132
+      - time: .662167072
         functionName: AnimationEvent
         data: DunkBasket
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .685682833
+      - time: .685682774
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .949880958
+      - time: .949880898
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .999999583
+      - time: .999999523
         functionName: AnimationEvent
         data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .662167072
+        functionName: AnimationEvent
+        data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

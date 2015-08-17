@@ -241,13 +241,6 @@ ModelImporter:
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .703399658
-        functionName: AnimationEvent
-        data: DunkBasket
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: .725771964
         functionName: AnimationEvent
         data: DunkFallBall
