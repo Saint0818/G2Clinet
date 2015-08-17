@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using GameEnum;
+using GamePlayEnum;
 
 public enum EZoomType
 {

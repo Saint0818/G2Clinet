@@ -3,6 +3,7 @@ using UnityEditor;
 using System;
 using System.IO;
 using Newtonsoft.Json;
+using GamePlayStruct;
 
 public class PlayerPositionEdit : EditorWindow
 {

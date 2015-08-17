@@ -1,10 +1,10 @@
-//#define En
-#define zh_TW
 using UnityEngine;
 using System;
 using System.Collections;
 using Newtonsoft.Json;
 using GameStruct;
+using GameEnum;
+using GamePlayEnum;
 
 public class GameStart : KnightSingleton<GameStart> {
 	public static GameStart instance;

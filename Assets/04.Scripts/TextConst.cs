@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using System.Text;
+using GameEnum;
 
 public static class TextConst
 {
@@ -12,8 +13,8 @@ public static class TextConst
 	private static void AddString(int key, string Text_TW, string Text_EN = ""){
 		if (!GameText.ContainsKey (key)) {
 			string [] Data = new string[2];
-			Data[GameStruct.ELanguage.TW.GetHashCode()] = Text_TW;
-			Data[GameStruct.ELanguage.EN.GetHashCode()] = Text_EN;
+			Data[ELanguage.TW.GetHashCode()] = Text_TW;
+			Data[ELanguage.EN.GetHashCode()] = Text_EN;
 			GameText.Add(key, Data);
 		}else
 			Debug.Log("Repeat text key : " + key);

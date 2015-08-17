@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using GameStruct; 
+using GameStruct;
+using GamePlayEnum;
 using Chronos;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);

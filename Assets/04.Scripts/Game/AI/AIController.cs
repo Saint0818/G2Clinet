@@ -28,7 +28,7 @@ public class AIController : KnightSingleton<AIController>
                                                           EGameSituation.None);
     }
 
-    private void Update()
+	private void FixedUpdate()
     {
         mFSM.Update();
     }

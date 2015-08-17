@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 using Newtonsoft.Json;
+using GameEnum;
 using GameStruct;
 
 public struct TTeamName

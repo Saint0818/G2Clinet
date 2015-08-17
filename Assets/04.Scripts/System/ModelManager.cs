@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GameStruct;
+using GameEnum;
 using ProMaterialCombiner;
 
 public enum EanimatorType

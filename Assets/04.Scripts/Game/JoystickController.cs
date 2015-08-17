@@ -37,7 +37,7 @@ public class JoystickController : MonoBehaviour {
 		}
 	}
 
-	void Update () 
+	void FixedUpdate () 
 	{
 		getAxis();
 		getButton();

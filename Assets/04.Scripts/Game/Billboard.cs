@@ -6,6 +6,7 @@ public enum ECameraType
 	UI,
 	Game
 }
+
 public class Billboard : MonoBehaviour {
 	private Camera referenceCamera;
 	private Transform mTransform;

@@ -1,11 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using GameEnum;
 
-namespace GameStruct
-{
-	public struct TTeam 
-	{
+namespace GameStruct {
+	public struct TTeam {
 		public string Identifier;
 		public string sessionID;
 		public string FBName;
@@ -219,8 +217,7 @@ namespace GameStruct
 		public int Exp;
 	}
 
-	public struct TPlayerAttribute
-	{
+	public struct TPlayerAttribute {
 		public float PointRate2;
 		public float PointRate3;
 		public float StealRate;
@@ -247,8 +244,7 @@ namespace GameStruct
 		public float AutoFollowTime;
 	}
 
-	public struct TAvatar
-	{	
+	public struct TAvatar {	
 		public int Body;
 		public int Hair;
 		public int AHeadDress;
@@ -489,27 +485,21 @@ namespace GameStruct
 		}
 	}
 
-	public enum ELanguage
-	{
-		TW = 0,
-		EN = 1
-	}
-
-	public struct TGameSetting
-	{
+	public struct TGameSetting {
 		public float AIChangeTime;
 		public ELanguage Language;
 		public bool Effect;
 	}
 
-	public struct TPlayerPackage{
+	public struct TPlayerPackage {
 
 	}
 
-	public struct TPlayerSkill{
+	public struct TPlayerSkill {
+
 	}
 	
-	public struct TSkillData{
+	public struct TSkillData {
 		public int ID;
 		public int Kind; 
 		public int Star;
@@ -555,8 +545,7 @@ namespace GameStruct
 		public float distanceAdd;
 		public int MaxAnger;
 		
-		public string Name
-		{
+		public string Name {
 			get {
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW:
@@ -573,8 +562,7 @@ namespace GameStruct
 			}
 		}
 		
-		public string Explain
-		{
+		public string Explain {
 			get{
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW:

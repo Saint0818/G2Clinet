@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using GameEnum;
 using GameStruct;
+using GamePlayStruct;
 
 public static class SettingText {
 	public const string TeamSave = "TeamSave";
