@@ -7,8 +7,8 @@ public class GameStartBehaviour : StateMachineBehaviour {
 	{
 	    if(GameController.Get.Situation == EGameSituation.CameraMovement)
 	    {
-	        GameController.Get.ChangeSituation(EGameSituation.ShowTwo);
-            AIController.Get.ChangeState(EGameSituation.ShowTwo);
+	        GameController.Get.ChangeSituation(EGameSituation.InitCourt);
+            AIController.Get.ChangeState(EGameSituation.InitCourt);
 	    }
 	}
 	

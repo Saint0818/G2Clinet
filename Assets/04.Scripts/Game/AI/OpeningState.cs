@@ -1,6 +1,6 @@
 using AI;
 
-public class ShowTwoState : State<EGameSituation, EGameMsg>
+public class OpeningState : State<EGameSituation, EGameMsg>
 {
     public override void EnterImpl(object extraInfo)
     {

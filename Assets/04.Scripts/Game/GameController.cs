@@ -1,14 +1,11 @@
-﻿using UnityEngine;
-using System;
-using System.IO;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using GameStruct;
-using GamePlayStruct;
-using GamePlayEnum;
 using DG.Tweening;
+using GamePlayEnum;
+using GamePlayStruct;
+using GameStruct;
 using Newtonsoft.Json;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 public enum EGameTest {
     None,
@@ -1443,14 +1440,14 @@ public class GameController : KnightSingleton<GameController> {
 //				UIGame.UIShow (true);
 //				UIGame.Get.UIState(EUISituation.ShowTwo);
 				break;
-			case EGameSituation.ShowTwo:
-				if(IsStart == false)
-				{
-					UIGame.Get.UIState(EUISituation.ShowTwo);
-					Situation = EGameSituation.Opening;
-					ChangeSituation (EGameSituation.Opening);
-					CourtMgr.Get.InitScoreboard (true);
-				}
+			case EGameSituation.InitCourt:
+//				if(IsStart == false)
+//				{
+//					UIGame.Get.UIState(EUISituation.ShowTwo);
+//					Situation = EGameSituation.Opening;
+//					ChangeSituation (EGameSituation.Opening);
+//					CourtMgr.Get.InitScoreboard (true);
+//				}
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);
@@ -1538,11 +1535,11 @@ public class GameController : KnightSingleton<GameController> {
 				if (Situation != EGameSituation.None && Situation != EGameSituation.Opening)
 					GameRecord.GameTime += Time.deltaTime;
             
-	            switch (Situation)
+	            switch(Situation)
 	            {
 					case EGameSituation.Presentation:
 					case EGameSituation.CameraMovement:
-					case EGameSituation.ShowTwo:
+					case EGameSituation.InitCourt:
 	                case EGameSituation.None:
 	                case EGameSituation.Opening:
 	                    break;

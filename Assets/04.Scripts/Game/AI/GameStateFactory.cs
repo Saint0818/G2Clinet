@@ -22,7 +22,8 @@ public class GameStateFactory : IStateMachineFactory<EGameSituation, EGameMsg>
             case EGameSituation.None: return new NullState();
             case EGameSituation.Presentation: return new PresentationState();
             case EGameSituation.CameraMovement: return new CameraMovementState();
-            case EGameSituation.ShowTwo: return new ShowTwoState();
+            case EGameSituation.InitCourt: return new InitCourtState();
+            case EGameSituation.Opening: return new OpeningState();
             case EGameSituation.SpecialAction: return new SpecialActionState();
             case EGameSituation.TeeAPicking: return new TeeAPickingState();
             case EGameSituation.TeeA: return new TeeAState();
