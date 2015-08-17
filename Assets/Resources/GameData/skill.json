@@ -660,7 +660,17 @@
         "rate": 30,
         "rateadd": 10,
         "direct": 1,
-        "targetkind": 0
+        "targetkind": 0,
+        "targetkind1": 15,
+        "targeteffect1": 304,
+        "effectparent1": 1,
+        "delaytime1": 0.1,
+        "duration1": 0.25,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 1
     },
     {
         "id": 1220,
@@ -681,7 +691,17 @@
         "rate": 30,
         "rateadd": 10,
         "direct": 2,
-        "targetkind": 0
+        "targetkind": 0,
+        "targetkind1": 15,
+        "targeteffect1": 304,
+        "effectparent1": 1,
+        "delaytime1": 0.1,
+        "duration1": 0.25,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 1
     },
     {
         "id": 1221,
@@ -702,7 +722,17 @@
         "rate": 30,
         "rateadd": 10,
         "direct": 2,
-        "targetkind": 0
+        "targetkind": 0,
+        "targetkind1": 15,
+        "targeteffect1": 304,
+        "effectparent1": 1,
+        "delaytime1": 0.1,
+        "duration1": 0.25,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 1
     },
     {
         "id": 1230,
@@ -723,7 +753,17 @@
         "rate": 30,
         "rateadd": 10,
         "direct": 3,
-        "targetkind": 0
+        "targetkind": 0,
+        "targetkind1": 15,
+        "targeteffect1": 304,
+        "effectparent1": 1,
+        "delaytime1": 0.1,
+        "duration1": 0.25,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 1
     },
     {
         "id": 1240,
@@ -744,7 +784,17 @@
         "rate": 30,
         "rateadd": 10,
         "direct": 4,
-        "targetkind": 0
+        "targetkind": 0,
+        "targetkind1": 15,
+        "targeteffect1": 304,
+        "effectparent1": 1,
+        "delaytime1": 0.1,
+        "duration1": 0.25,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0,
+        "duration2": 1
     },
     {
         "id": 1310,
@@ -765,15 +815,15 @@
         "rate": 20,
         "rateadd": 10,
         "targetkind": 10,
-        "targetkind1": 3,
-        "targeteffect1": 303,
-        "effectparent1": 1,
-        "delaytime1": 0.5,
+        "targetkind1": 4,
+        "targeteffect1": 2005,
+        "effectparent1": 0,
+        "delaytime1": 0,
         "duration1": 0.5,
-        "targetkind2": 4,
-        "targeteffect2": 304,
-        "effectparent2": 0,
-        "delaytime2": 0,
+        "targetkind2": 3,
+        "targeteffect2": 303,
+        "effectparent2": 1,
+        "delaytime2": 0.5,
         "duration2": 0.5
     },
     {
