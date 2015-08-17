@@ -6,9 +6,7 @@ public class PushSkillTrigger : MonoBehaviour {
 	public float InRange = 5;
 	public float DelayActivityTime = 2;
 	void Start () {
-//		pusher = gameObject.transform.parent.gameObject.GetComponent<PlayerBehaviour>();
 		StartCoroutine(DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill));
-//		DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill);
 	}
 
 	public void StartSkill() {

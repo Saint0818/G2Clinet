@@ -2939,8 +2939,8 @@ public class PlayerBehaviour : MonoBehaviour
 				if(OnUIJoystick != null)
 					OnUIJoystick(this, false);
 
-				if(UIPassiveEffect.Visible)
-					UIPassiveEffect.UIShow(false);
+//				if(UIPassiveEffect.Visible)
+//					UIPassiveEffect.UIShow(false);
 				
 				isSkillShow = true;
 				string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
@@ -2978,8 +2978,8 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		} else {
 			//Teammate and Enemy's Active PassiveCard will be shown
-			if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID))
-				UIPassiveEffect.UIShow (true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
+//			if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID))
+//				UIPassiveEffect.UIShow (true, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
 			showActiveEffect ();
 		}
 	}
