@@ -1,5 +1,6 @@
-﻿using System;
-using AI;
+﻿using AI;
+using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 目前是負責處理遊戲比賽 AI 的行為(實際全部的工作都拆分到 State 了).
@@ -11,6 +12,7 @@ using AI;
 /// <item> 修改 GameStateFactory. </item>
 /// </list>
 /// </remarks>
+[DisallowMultipleComponent]
 public class AIController : KnightSingleton<AIController>
 {
     public static AIController Instance
@@ -21,6 +23,7 @@ public class AIController : KnightSingleton<AIController>
 
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 
+    [UsedImplicitly]
     private void Awake()
     {
         mFSM = new StateMachine<EGameSituation, EGameMsg>(new GameStateFactory(), 
@@ -28,7 +31,8 @@ public class AIController : KnightSingleton<AIController>
                                                           EGameSituation.None);
     }
 
-	private void FixedUpdate()
+    [UsedImplicitly]
+    private void FixedUpdate()
     {
         mFSM.Update();
     }

@@ -1,9 +1,9 @@
-﻿public enum EPosKind
+﻿public enum ETactical
 {
     None,
     Attack,
-    Tee, 
-    TeeDefence,
+    Inbounds, 
+    InboundsDefence,
     HalfTee, // 半場邊界傳球.
     HalfTeeDefence,
     Fast,
@@ -12,7 +12,7 @@
     Guard
 }
 
-public static class EPosKindExtensions
+public static class ETacticalExtensions
 {
     /// <summary>
     /// 
@@ -20,13 +20,13 @@ public static class EPosKindExtensions
     /// <param name="kind"></param>
     /// <param name="index"> 球員在球隊打的位置. 0: C, 1:F, 2:G. </param>
     /// <returns></returns>
-    public static int GetPosNameIndex(this EPosKind kind, int index = -1)
+    public static int GetPosNameIndex(this ETactical kind, int index = -1)
     {
         switch (kind)
         {
-            case EPosKind.Attack:
+            case ETactical.Attack:
                 return 2;
-            case EPosKind.Tee:
+            case ETactical.Inbounds:
                 if (index == 0)
                     return 3;
                 if (index == 1)
@@ -34,7 +34,7 @@ public static class EPosKindExtensions
                 if (index == 2)
                     return 5;
                     return -1;
-            case EPosKind.TeeDefence:
+            case ETactical.InboundsDefence:
                 if (index == 0)
                     return 6;
                 if (index == 1)
@@ -42,7 +42,7 @@ public static class EPosKindExtensions
                 if (index == 2)
                     return 8;
                 return -1;
-            case EPosKind.HalfTee:
+            case ETactical.HalfTee:
                 if (index == 0)
                     return 15;
                 if (index == 1)
@@ -50,7 +50,7 @@ public static class EPosKindExtensions
                 if (index == 2)
                     return 17;
                 return -1;
-            case EPosKind.HalfTeeDefence:
+            case ETactical.HalfTeeDefence:
                 if (index == 0)
                     return 18;
                 if (index == 1)
@@ -58,7 +58,7 @@ public static class EPosKindExtensions
                 if (index == 2)
                     return 20;
                 return -1;
-            case EPosKind.Fast:
+            case ETactical.Fast:
                 if (index == 0)
                     return 9;
                 if (index == 1)
@@ -66,11 +66,11 @@ public static class EPosKindExtensions
                 if (index == 2)
                     return 11;
                 return -1;
-            case EPosKind.Center:
+            case ETactical.Center:
                 return 12;
-            case EPosKind.Forward:
+            case ETactical.Forward:
                 return 13;
-            case EPosKind.Guard:
+            case ETactical.Guard:
                 return 14;
             default:
                 return -1;

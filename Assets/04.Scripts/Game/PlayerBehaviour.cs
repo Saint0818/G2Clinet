@@ -1404,8 +1404,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void OnJoystickMoveEnd(MovingJoystick move, EPlayerState ps)
     {
         if (CanMove && 
-            situation != EGameSituation.TeeA && situation != EGameSituation.TeeAPicking && 
-            situation != EGameSituation.TeeB && situation != EGameSituation.TeeBPicking) {
+            situation != EGameSituation.InboundsA && situation != EGameSituation.InboundsAPicking && 
+            situation != EGameSituation.InboundsB && situation != EGameSituation.InboundsBPicking) {
             SetNoAI();
             isJoystick = false;
             isSpeedup = false;
@@ -1518,7 +1518,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
                     else 
-					if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
+					if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
                         AniState(EPlayerState.Dribble0);
                     
                     if (First || GameStart.Get.TestMode == EGameTest.Edit)
@@ -1929,7 +1929,7 @@ public class PlayerBehaviour : MonoBehaviour
     { 
         get
         {
-            return (situation == EGameSituation.TeeA || situation == EGameSituation.TeeAPicking || situation == EGameSituation.TeeB || situation == EGameSituation.TeeBPicking);
+            return (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsAPicking || situation == EGameSituation.InboundsB || situation == EGameSituation.InboundsBPicking);
         }
     }
 
@@ -2809,7 +2809,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "CatchEnd":
-                if (situation == EGameSituation.TeeA || situation == EGameSituation.TeeB)
+                if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
                 {
                     if (IsBallOwner)
                         AniState(EPlayerState.Dribble0);

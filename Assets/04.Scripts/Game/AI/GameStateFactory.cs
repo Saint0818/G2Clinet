@@ -25,10 +25,10 @@ public class GameStateFactory : IStateMachineFactory<EGameSituation, EGameMsg>
             case EGameSituation.InitCourt: return new InitCourtState();
             case EGameSituation.Opening: return new OpeningState();
             case EGameSituation.SpecialAction: return new SpecialActionState();
-            case EGameSituation.TeeAPicking: return new TeeAPickingState();
-            case EGameSituation.TeeA: return new TeeAState();
-            case EGameSituation.TeeBPicking: return new TeeBPickingState();
-            case EGameSituation.TeeB: return new TeeBState();
+            case EGameSituation.InboundsAPicking: return new TeeAPickingState();
+            case EGameSituation.InboundsA: return new InboundsAState();
+            case EGameSituation.InboundsBPicking: return new TeeBPickingState();
+            case EGameSituation.InboundsB: return new TeeBState();
         }
 
         throw new NotImplementedException(String.Format("Value:{0}", situation));

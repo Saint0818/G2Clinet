@@ -214,40 +214,6 @@ public class GameController : KnightSingleton<GameController> {
 		ChangeSituation (EGameSituation.JumpBall);
 	}
 
-    private void findRandomMovePath(EPosKind poskind, ref TTactical tactical)
-    {
-        findRandomMovePath(poskind.GetPosNameIndex(), ref tactical);
-    }
-
-    private void findRandomMovePath(EPosKind poskind, int index, ref TTactical tactical)
-    {
-        findRandomMovePath(poskind.GetPosNameIndex(index), ref tactical);
-    }
-
-    /// <summary>
-    /// 亂數找出一個戰術.
-    /// </summary>
-    /// <param name="tacticalIndex"> 哪一類的戰術. </param>
-    /// <param name="tactical"></param>
-	private void findRandomMovePath(int tacticalIndex, ref TTactical tactical)
-    {
-
-		if (tactical.PosAy1 == null)
-			tactical = new TTactical (false);
-
-		tactical.FileName = "";
-
-		if(tacticalIndex >= 0 && tacticalIndex < GameConst.TacticalDataName.Length)
-        {
-			if(GameData.SituationPosition[tacticalIndex].Length > 0)
-            {
-				int randomValue = Random.Range(0, GameData.SituationPosition[tacticalIndex].Length);
-				int i = GameData.SituationPosition[tacticalIndex][randomValue];
-                tactical = GameData.TacticalData[i];
-            }
-        }
-    }
-
     private PlayerBehaviour FindDefMen(PlayerBehaviour npc)
     {
         PlayerBehaviour Result = null;
@@ -769,78 +735,6 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-//	private static int GetPosNameIndex(EPosKind kind, int index = -1)
-//	{
-//		switch (kind)
-//        {
-//		case EPosKind.Attack:
-//			return 2;
-//		case EPosKind.Tee:
-//			if (index == 0)
-//				return 3;
-//			else 
-//			if (index == 1)
-//				return 4;
-//			else 
-//			if (index == 2)
-//				return 5;
-//			else
-//				return -1;
-//		case EPosKind.TeeDefence:
-//			if (index == 0)
-//				return 6;
-//			else 
-//			if (index == 1)
-//				return 7;
-//			else 
-//			if (index == 2)
-//				return 8;
-//			else
-//				return -1;
-//		case EPosKind.HalfTee:
-//			if (index == 0)
-//				return 15;
-//			else 
-//			if (index == 1)
-//				return 16;
-//			else 
-//			if (index == 2)
-//				return 17;
-//			else
-//				return -1;
-//		case EPosKind.HalfTeeDefence:
-//	        if (index == 0)
-//	            return 18;
-//	        else 
-//            if (index == 1)
-//                return 19;
-//	        else 
-//            if (index == 2)
-//                return 20;
-//	        else
-//	            return -1;
-//		case EPosKind.Fast:
-//			if (index == 0)
-//				return 9;
-//			else 
-//			if (index == 1)
-//				return 10;
-//			else 
-//			if (index == 2)
-//				return 11;
-//			else
-//				return -1;
-//		case EPosKind.Center:
-//			return 12;
-//		case EPosKind.Forward:
-//			return 13;
-//		case EPosKind.Guard:
-//			return 14;
-//		default:
-//			return -1;
-//		}
-//	}
-    
     #if UNITY_EDITOR
 	void OnGUI()
     {
@@ -900,20 +794,20 @@ public class GameController : KnightSingleton<GameController> {
 			if (BallOwner != null) {
 				switch (BallOwner.Postion) {
 				case EPlayerPostion.C:
-					findRandomMovePath(EPosKind.Center, ref attackTactical);
+				        AITools.RandomTactical(ETactical.Center, ref attackTactical);
 					break;
 				case EPlayerPostion.F:
-					findRandomMovePath(EPosKind.Forward, ref attackTactical);
+				        AITools.RandomTactical(ETactical.Forward, ref attackTactical);
 					break;
 				case EPlayerPostion.G:
-					findRandomMovePath(EPosKind.Guard, ref attackTactical);
+				        AITools.RandomTactical(ETactical.Guard, ref attackTactical);
 					break;
 				default:
-					findRandomMovePath(EPosKind.Attack, ref attackTactical);
+				        AITools.RandomTactical(ETactical.Attack, ref attackTactical);
 					break;
 				}
 			} else
-				findRandomMovePath(EPosKind.Attack, ref attackTactical);
+			    AITools.RandomTactical(ETactical.Attack, ref attackTactical);
 
 			bool isShooting = IsShooting;
 			for (int i = 0; i < PlayerList.Count; i++) {
@@ -952,13 +846,13 @@ public class GameController : KnightSingleton<GameController> {
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
         if(GameStart.Get.CourtMode == ECourtMode.Full)
         {
-            findRandomMovePath(EPosKind.Tee, pickBallPlayer.Index, ref attackTactical);
-            findRandomMovePath(EPosKind.TeeDefence, pickBallPlayer.Index, ref defTactical);
+            AITools.RandomTactical(ETactical.Inbounds, pickBallPlayer.Index, ref attackTactical);
+            AITools.RandomTactical(ETactical.InboundsDefence, pickBallPlayer.Index, ref defTactical);
         }
         else
         {
-            findRandomMovePath(EPosKind.HalfTee, pickBallPlayer.Index, ref attackTactical);
-            findRandomMovePath(EPosKind.HalfTeeDefence, pickBallPlayer.Index, ref defTactical);
+            AITools.RandomTactical(ETactical.HalfTee, pickBallPlayer.Index, ref attackTactical);
+            AITools.RandomTactical(ETactical.HalfTeeDefence, pickBallPlayer.Index, ref defTactical);
         }              
 
         for(int i = 0; i < PlayerList.Count; i++)
@@ -978,29 +872,29 @@ public class GameController : KnightSingleton<GameController> {
 
     private void SituationTeeBall(ETeamKind team)
     {
-		if (PlayerList.Count > 0 && BallOwner)
+		if(PlayerList.Count > 0 && BallOwner)
         {
 			if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-				findRandomMovePath(EPosKind.Tee, BallOwner.Index, ref attackTactical);
-				findRandomMovePath(EPosKind.TeeDefence, BallOwner.Index, ref defTactical);
+                AITools.RandomTactical(ETactical.Inbounds, BallOwner.Index, ref attackTactical);
+                AITools.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, ref defTactical);
 			}
             else
             {
-				findRandomMovePath(EPosKind.HalfTee, BallOwner.Index, ref attackTactical);
-				findRandomMovePath(EPosKind.HalfTeeDefence, BallOwner.Index, ref defTactical);
+                AITools.RandomTactical(ETactical.HalfTee, BallOwner.Index, ref attackTactical);
+                AITools.RandomTactical(ETactical.HalfTeeDefence, BallOwner.Index, ref defTactical);
 			}
 
 			for(int i = 0; i < PlayerList.Count; i++)
             {
-				PlayerBehaviour npc = PlayerList [i];
-				if (npc.Team == team)
+				PlayerBehaviour someone = PlayerList[i];
+				if (someone.Team == team)
                 {
-					if (!IsPassing)
-						TeeBall(ref npc, team, ref attackTactical);
+					if(!IsPassing)
+						TeeBall(ref someone, team, ref attackTactical);
 				}
                 else
-					BackToDef(ref npc, npc.Team, ref defTactical);
+					BackToDef(ref someone, someone.Team, ref defTactical);
 			}         
         }
     }
@@ -1358,7 +1252,7 @@ public class GameController : KnightSingleton<GameController> {
                 CourtMgr.Get.RealBallFX.SetActive(false);
                 for (int i = 0; i < PlayerList.Count; i++)
                 {
-                    if(gs == EGameSituation.TeeAPicking || gs == EGameSituation.TeeBPicking)
+                    if(gs == EGameSituation.InboundsAPicking || gs == EGameSituation.InboundsBPicking)
                     {
                         PlayerList[i].SetToAI();
                         PlayerList[i].ResetMove();
@@ -1367,7 +1261,7 @@ public class GameController : KnightSingleton<GameController> {
                     switch(PlayerList[i].Team)
                     {
                         case ETeamKind.Self:
-                            if((gs == EGameSituation.TeeB || (oldgs == EGameSituation.TeeB && gs == EGameSituation.AttackB)) == false)
+                            if((gs == EGameSituation.InboundsB || (oldgs == EGameSituation.InboundsB && gs == EGameSituation.AttackB)) == false)
                             {
                                 if(!PlayerList[i].AIing)
                                 {
@@ -1379,7 +1273,7 @@ public class GameController : KnightSingleton<GameController> {
 
 						break;
 					case ETeamKind.Npc:
-						if((gs == EGameSituation.TeeA || (oldgs == EGameSituation.TeeA && gs == EGameSituation.AttackA)) == false)
+						if((gs == EGameSituation.InboundsA || (oldgs == EGameSituation.InboundsA && gs == EGameSituation.AttackA)) == false)
 							PlayerList[i].ResetFlag();
 
 						break;
@@ -1392,9 +1286,9 @@ public class GameController : KnightSingleton<GameController> {
             Situation = gs;
 
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
-               (oldgs == EGameSituation.TeeA || oldgs == EGameSituation.TeeB))
+               (oldgs == EGameSituation.InboundsA || oldgs == EGameSituation.InboundsB))
             {
-				findRandomMovePath(EPosKind.Fast, player.Index, ref attackTactical);
+                AITools.RandomTactical(ETactical.Fast, player.Index, ref attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
                 {
@@ -1490,26 +1384,25 @@ public class GameController : KnightSingleton<GameController> {
 					Joysticker.SetNoAI();
 
 				break;
-			case EGameSituation.TeeAPicking:
+			case EGameSituation.InboundsAPicking:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				UIGame.Get.ChangeControl(true);
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				pickBallPlayer = null;
 
                 break;
-            case EGameSituation.TeeA:
+            case EGameSituation.InboundsA:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
-
                 break;
-            case EGameSituation.TeeBPicking:
+            case EGameSituation.InboundsBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
            	 	UIGame.Get.ChangeControl(false);
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				pickBallPlayer = null;
 
                 break;
-			case EGameSituation.TeeB:
+			case EGameSituation.InboundsB:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 
@@ -1552,16 +1445,16 @@ public class GameController : KnightSingleton<GameController> {
 	                case EGameSituation.AttackB:
 	                    SituationAttack(ETeamKind.Npc);
 	                    break;
-	                case EGameSituation.TeeAPicking:
+	                case EGameSituation.InboundsAPicking:
 	                    SituationPickBall(ETeamKind.Self);
 	                    break;
-	                case EGameSituation.TeeA:
+	                case EGameSituation.InboundsA:
 	                    SituationTeeBall(ETeamKind.Self);
 	                    break;
-	                case EGameSituation.TeeBPicking:
+	                case EGameSituation.InboundsBPicking:
 	                    SituationPickBall(ETeamKind.Npc);
 	                    break;
-	                case EGameSituation.TeeB:
+	                case EGameSituation.InboundsB:
 	                    SituationTeeBall(ETeamKind.Npc);
 	                    break;
 	                case EGameSituation.End:
@@ -3100,10 +2993,10 @@ public class GameController : KnightSingleton<GameController> {
 		}
 
 		if (!flag) {
-			if (Situation == EGameSituation.TeeA)
+			if (Situation == EGameSituation.InboundsA)
 				ChangeSituation(EGameSituation.AttackA);
 			else
-			if (Situation == EGameSituation.TeeB)
+			if (Situation == EGameSituation.InboundsB)
 				ChangeSituation(EGameSituation.AttackB);
 		}
 	}
@@ -3372,30 +3265,30 @@ public class GameController : KnightSingleton<GameController> {
 	                        ChangeSituation(EGameSituation.AttackA);
 					} else {
 						if (p.Team == ETeamKind.Self)
-							ChangeSituation(EGameSituation.TeeA);
+							ChangeSituation(EGameSituation.InboundsA);
 						else
-							ChangeSituation(EGameSituation.TeeB);
+							ChangeSituation(EGameSituation.InboundsB);
 					}
                 } else {
-                   	if (Situation == EGameSituation.TeeA)
+                   	if (Situation == EGameSituation.InboundsA)
                         ChangeSituation(EGameSituation.AttackA);
                     else
-					if (Situation == EGameSituation.TeeB)
+					if (Situation == EGameSituation.InboundsB)
                         ChangeSituation(EGameSituation.AttackB);
                     else
                         BallOwner.ResetFlag(false);
                 }
             } else {
-                if (Situation == EGameSituation.TeeAPicking)
-					ChangeSituation(EGameSituation.TeeA);
+                if (Situation == EGameSituation.InboundsAPicking)
+					ChangeSituation(EGameSituation.InboundsA);
                 else 
-				if (Situation == EGameSituation.TeeBPicking)
-					ChangeSituation(EGameSituation.TeeB);
+				if (Situation == EGameSituation.InboundsBPicking)
+					ChangeSituation(EGameSituation.InboundsB);
 				else
-				if (Situation == EGameSituation.TeeA)
+				if (Situation == EGameSituation.InboundsA)
 					ChangeSituation(EGameSituation.AttackA);
 				else
-				if (Situation == EGameSituation.TeeB)
+				if (Situation == EGameSituation.InboundsB)
 					ChangeSituation(EGameSituation.AttackB);
                 else {
 					if (GameStart.Get.CourtMode == ECourtMode.Full || 
@@ -3407,9 +3300,9 @@ public class GameController : KnightSingleton<GameController> {
 							ChangeSituation(EGameSituation.AttackB, p);
 					} else {
 						if (p.Team == ETeamKind.Self)
-							ChangeSituation(EGameSituation.TeeA);
+							ChangeSituation(EGameSituation.InboundsA);
 						else
-							ChangeSituation(EGameSituation.TeeB);
+							ChangeSituation(EGameSituation.InboundsB);
 					}
                 }
             }
@@ -3599,13 +3492,13 @@ public class GameController : KnightSingleton<GameController> {
 			Debug.LogError("name:" + player.name);
 
 		if (Catcher) {
-			if(Situation == EGameSituation.TeeAPicking || Situation == EGameSituation.TeeBPicking)
+			if(Situation == EGameSituation.InboundsAPicking || Situation == EGameSituation.InboundsBPicking)
 				IsPassing = false;
 			else
 				return;
 		}			
 
-		if(Situation == EGameSituation.TeeAPicking && player == Joysticker)
+		if(Situation == EGameSituation.InboundsAPicking && player == Joysticker)
 			return;
 
         // Special Action 要避免觸發任何的狀態切換, 狀態的切換應該要發生在 SpecialActionState.
@@ -3655,11 +3548,11 @@ public class GameController : KnightSingleton<GameController> {
 			bool CanSetball = false;
 			
 			if (!player.IsRebound && (player.IsCatcher || player.CanMove)) {
-				if (Situation == EGameSituation.TeeAPicking) {
+				if (Situation == EGameSituation.InboundsAPicking) {
 					if (player.Team == ETeamKind.Self)
 						CanSetball = true;
 				} else 
-				if (Situation == EGameSituation.TeeBPicking)
+				if (Situation == EGameSituation.InboundsBPicking)
 				{
 					if (player.Team == ETeamKind.Npc)
 						CanSetball = true;
@@ -3668,7 +3561,7 @@ public class GameController : KnightSingleton<GameController> {
 				
 				if (CanSetball && !IsPickBall)
 				{
-					if (Situation == EGameSituation.TeeAPicking || Situation == EGameSituation.TeeBPicking){
+					if (Situation == EGameSituation.InboundsAPicking || Situation == EGameSituation.InboundsBPicking){
 						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
 							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 						else
@@ -3843,13 +3736,13 @@ public class GameController : KnightSingleton<GameController> {
 				{
                     //ChangeSituation(EGameSituation.TeeBPicking);
                     ChangeSituation(EGameSituation.SpecialAction);
-				    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.TeeBPicking);
+				    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.InboundsBPicking);
 				}
 				else
 				{
                     //ChangeSituation(EGameSituation.TeeAPicking);
                     ChangeSituation(EGameSituation.SpecialAction);
-                    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.TeeAPicking);
+                    AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.InboundsAPicking);
 				}
 
                 if (!isSkill && Shooter)
@@ -4375,7 +4268,7 @@ public class GameController : KnightSingleton<GameController> {
 	{
 		get
 		{
-			if(Situation == EGameSituation.TeeA || Situation == EGameSituation.TeeB || Situation == EGameSituation.TeeAPicking || Situation == EGameSituation.TeeBPicking)
+			if(Situation == EGameSituation.InboundsA || Situation == EGameSituation.InboundsB || Situation == EGameSituation.InboundsAPicking || Situation == EGameSituation.InboundsBPicking)
 				return false;
 			else
 				return true;

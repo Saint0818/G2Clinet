@@ -724,7 +724,7 @@ public class UIGame : UIBase {
 			uiPassObjectGroup[1].SetActive(false);
 			uiPassObjectGroup[2].SetActive(false);
 			spriteAttack.spriteName = "B_push";
-			if(GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.TeeBPicking) {
+			if(GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.InboundsBPicking) {
 				viewPass.SetActive(false);
 				//GameController.Get.passIcon[1].SetActive(false);
 				//GameController.Get.passIcon[2].SetActive(false);
