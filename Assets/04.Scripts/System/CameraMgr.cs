@@ -328,6 +328,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             focusTargetOne.GetComponent<Renderer>().enabled = false;
             focusTargetTwo.GetComponent<Renderer>().enabled = false;
+			focusTarget.GetComponent<Renderer>().enabled = false;
             r.enabled = false;
         }
     }
