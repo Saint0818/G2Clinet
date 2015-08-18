@@ -152,8 +152,8 @@ public class UIPassiveEffect : UIBase {
 
 		for(int i=0; i<uiPassive.Length; i++) {
 			if(!uiPassive[i].activeInHierarchy) {
-				uiPassive[i].transform.localPosition = new Vector2(CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).x - (UI2D.Get.RootWidth * 0.5f), 
-				                                                   CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).y - (UI2D.Get.RootHeight * 0.5f));
+				uiPassive[i].transform.localPosition = new Vector2(CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).x - (Screen.width * 0.5f), 
+				                                                   CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).y - (Screen.height * 0.5f));
 				uiPassive[i].SetActive(true);
 				passiveTimers[i] = 0.5f;
 				uiPassive[i].transform.DOLocalMove(new Vector3(500, 200, 0), 0.25f).SetEase(Ease.Linear);
