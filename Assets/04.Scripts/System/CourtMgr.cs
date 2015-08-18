@@ -452,21 +452,21 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
 	}
 
-	public void RealBallPath(int team, string animationName) {
+	public void RealBallPath(int team, string animationName, int index) {
 		if(!GameController.Get.IsReset){
 			switch(animationName) {
 			case "ActionEnd":
 				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team]);
 				break;
 			case "ActionNoScoreShot":
-				PlayShootNoScore(team);
+//				PlayShootNoScore(team);
 				break;
 			case "ActionNoScoreEnd":
 				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
 				SetBallState(EPlayerState.Rebound);
 				break;
 			case "BasketNetPlay":
-				PlayShoot(team);
+				PlayShoot(team, index);
 				RealBallVelocity = Vector3.zero;
 				break;
 			}
@@ -769,10 +769,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 
-	public void PlayShoot(int team)
+	public void PlayShoot(int team, int index)
 	{
 		Animator animator;
-		string animationName = "Shot_0";
+		string animationName = "Shot_" + index.ToString();
 		if (team == 0)
 		{
 			animator = pveBasketAy[0].GetComponent<Animator>();
@@ -792,32 +792,32 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 		animator.SetTrigger(animationName);
 
-		EffectManager.Get.PlayEffect ("ShotFX", ShootPoint [team].transform.position, null, null, 3f);
+//		EffectManager.Get.PlayEffect ("ShotFX", ShootPoint [team].transform.position, null, null, 3f);
 	}
 
-	public void PlayShootNoScore(int team)
-	{
-		Animator animator;
-		string animationName = "Shot_100";
-		if (team == 0)
-		{
-			animator = pveBasketAy[0].GetComponent<Animator>();
-			Hood[0].gameObject.SetActive(true);
-		} else
-		{
-			if(isPve)
-			{
-				animator = pveBasketAy[1].GetComponent<Animator>();
-			}
-			else
-			{
-				animator = BuildBasket[1].GetComponent<Animator>();
-			}
-			
-			Hood[1].gameObject.SetActive(true);
-		}
-		animator.SetTrigger(animationName);
-	}
+//	public void PlayShootNoScore(int team)
+//	{
+//		Animator animator;
+//		string animationName = "Shot_100";
+//		if (team == 0)
+//		{
+//			animator = pveBasketAy[0].GetComponent<Animator>();
+//			Hood[0].gameObject.SetActive(true);
+//		} else
+//		{
+//			if(isPve)
+//			{
+//				animator = pveBasketAy[1].GetComponent<Animator>();
+//			}
+//			else
+//			{
+//				animator = BuildBasket[1].GetComponent<Animator>();
+//			}
+//			
+//			Hood[1].gameObject.SetActive(true);
+//		}
+//		animator.SetTrigger(animationName);
+//	}
 
     public void PlayBasketEffect(int teamIndex, int index)
     {

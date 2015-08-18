@@ -4,8 +4,10 @@ using System.Collections;
 public class BasketAnimation : MonoBehaviour {
 	public int Team;
 
-	public void AnimationEvent(string animationName) {
-		CourtMgr.Get.RealBallPath(Team, animationName);
+	public void AnimationEvent(AnimationEvent aniEvent) {
+		string animationName = aniEvent.stringParameter;
+		int index = aniEvent.intParameter;
+		CourtMgr.Get.RealBallPath(Team, animationName, index);
 	}
 
 	public void PlaySound(string soundName)
