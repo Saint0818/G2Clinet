@@ -45,10 +45,7 @@ public class UIPassiveEffect : UIBase {
 
 	public static void UIShow(bool isShow){
 		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
+			instance.Show(isShow);
 		} else
 			if (isShow)
 				Get.Show(isShow);

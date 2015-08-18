@@ -10,11 +10,6 @@ public class BasketAnimation : MonoBehaviour {
 		CourtMgr.Get.RealBallPath(Team, animationName, index);
 	}
 
-	public void PlaySound(string soundName)
-	{
-		AudioMgr.Get.PlaySound (soundName);
-	}
-
 	public void PlayEffect(AnimationEvent aniEvent) 
 	{
 		float duration = aniEvent.floatParameter;
