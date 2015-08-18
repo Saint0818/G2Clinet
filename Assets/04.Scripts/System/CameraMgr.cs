@@ -30,7 +30,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float safeZRateAdd = 1.5f;
     private float safeZRateMinus = 1.5f;
 	private float focusOffsetBuffer = 1f;
-//    private float safeZRotateRate = 0.8f;
+	private float overRangeRotationSpeed = 10f;
     private float groupOffsetSpeed = 0.1f;
     private float zoomNormal = 35;
     private float zoomRange = 20;
@@ -580,7 +580,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
 			Vector3 dirMidle = focusTarget.transform.position - cameraRotationObj.transform.position;
             Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
-            cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
+			cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, overRangeRotationSpeed * Time.deltaTime);
         } else
         {
 			if(Vector3.Distance(focusTarget.transform.position, focusTargetOne.transform.position) > 0.1f)
