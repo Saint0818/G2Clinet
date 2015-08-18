@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GameStruct;
+using GamePlayEnum;
 
 public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;
@@ -14,6 +15,8 @@ public class UIGameResult : UIBase {
 	private GameObject UISelect;
 	private GameObject UIWin;
 	private GameObject UILose;
+	private GameObject uiLimitScore;
+	private UILabel labelLimiteScore;
 	private UITextList[] recordTextList = new UITextList[0];
 
 	public static bool Visible
@@ -66,6 +69,14 @@ public class UIGameResult : UIBase {
 		UIWin.SetActive(false);
 		UILose = GameObject.Find(UIName + "/Bottom/Result/SpriteLose");
 		UILose.SetActive(false);
+
+		uiLimitScore = GameObject.Find(UIName + "/Center/LimitScore");
+		labelLimiteScore = GameObject.Find(UIName + "/Center/LimitScore/TargetScore").GetComponent<UILabel>();
+		if(GameStart.Get.WinMode == EWinMode.Score) {
+			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
+		} else {
+			uiLimitScore.SetActive(false);
+		}
 	}
 	
 	protected override void InitData() {

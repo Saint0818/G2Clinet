@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using GamePlayEnum;
 
 public enum EUISituation{
 	ShowTwo,
@@ -86,6 +87,12 @@ public class UIGame : UIBase {
 	private GameObject uiAlleyoopB;
 	private GameObject uiDC;
 	private float dcLifeTime;
+
+	//limitScore / limitTime
+	private GameObject uiLimitScore;
+	private UILabel labelLimiteScore;
+	private GameObject uiLimitTime;
+	private UILabel labelLimitTime;
 
 	private Animator animatorScoreBar;
 	private UISprite spriteAttack;
@@ -230,6 +237,19 @@ public class UIGame : UIBase {
 		viewPass = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass");
 		viewBottomRight = GameObject.Find(UIName + "/BottomRight");
 		viewTopLeft = GameObject.Find(UIName + "TopLeft");
+
+		uiLimitScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore");
+		labelLimiteScore = GameObject.Find (UIName + "/Bottom/UIScoreBar/LimitScore/TargetScore").GetComponent<UILabel>();
+		uiLimitTime = GameObject.Find (UIName + "/TopRight/Countdown");
+		labelLimitTime = GameObject.Find (UIName + "/TopRight/Countdown/TimeLabel").GetComponent<UILabel>();
+
+		if(GameStart.Get.WinMode == EWinMode.Score) {
+			uiLimitTime.SetActive(false);
+			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
+		} else {
+			uiLimitScore.SetActive(false);
+			labelLimitTime.text = GameStart.Get.GameWinValue.ToString();
+		}
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
 		animatorScoreBar = uiScoreBar.GetComponent<Animator>();
