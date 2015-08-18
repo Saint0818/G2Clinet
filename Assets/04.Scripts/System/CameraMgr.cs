@@ -29,13 +29,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float safeZ = 12f;
     private float safeZRateAdd = 1.5f;
     private float safeZRateMinus = 1.5f;
-    private float safeZRotateRate = 0.8f;
+	private float focusOffsetBuffer = 0.5f;
+//    private float safeZRotateRate = 0.8f;
     private float groupOffsetSpeed = 0.1f;
     private float zoomNormal = 35;
     private float zoomRange = 20;
     private float zoomTime = 1;
     public Vector2 blankAera = new Vector2(-2, 4.2f);
-    private float lockedFocusAngle = 100f;
+//    private float lockedFocusAngle = 100f;
     private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
     private float focusSmoothSpeed = 0.02f;
@@ -73,6 +74,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     private GameObject focusTargetOne;
     private GameObject focusTargetTwo;
+	private GameObject focusTarget;
     private ECameraSituation situation = ECameraSituation.Loading;
     public bool IsBallOnFloor = false;
     public bool IsLongPass = false;
@@ -277,8 +279,15 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             focusTargetTwo.name = "focusTargetTwo";
         }
 
-        if (CourtMgr.Get.RealBall)
-            focusTargetOne.transform.position = CourtMgr.Get.RealBall.transform.position;
+		if (focusTarget == null)
+		{
+			focusTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+			focusTarget.GetComponent<Collider>().enabled = false;
+			focusTarget.name = "focusTarget";
+		}
+		
+		if (CourtMgr.Get.RealBall)
+			focusTargetOne.transform.position = CourtMgr.Get.RealBall.transform.position;
     }
 
     private void InitTestTool()
@@ -315,7 +324,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             focusTargetTwo.GetComponent<Renderer>().enabled = true;
 
             r.material = Resources.Load("Materials/FocusAera_M") as Material;
-
         } else
         {
             focusTargetOne.GetComponent<Renderer>().enabled = false;
@@ -531,17 +539,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
-    private bool isAddRotateAngle = false;
     private Vector3 focusSecondPos;
 
     private void Lookat(GameObject obj, Vector3 pos)
     {
-        Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
-        Quaternion rot = Quaternion.LookRotation(dir);
-        Vector3 v1 = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
+		Vector3 v1;
+		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
+		Quaternion rot = Quaternion.LookRotation(dir);
 
-        if (GameController.Get.BallOwner && GameController.Get.BallOwner != GameController.Get.Joysticker)
+		if (GameController.Get.BallOwner && GameController.Get.BallOwner != GameController.Get.Joysticker)
             v1 = new Vector3(GameController.Get.BallOwner.transform.position.x, 0, GameController.Get.BallOwner.transform.position.z);
+		else
+			v1 = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
 
         Vector3 BarycentreV3 = new Vector3((cameraFx.gameObject.transform.position.x + GameController.Get.transform.position.x + v1.x) * 1/3,
                                    0, 
@@ -561,13 +570,25 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
         if (isOverCamera)
         {
-            Vector3 dirMidle = BarycentreV3 - cameraRotationObj.transform.position;
+			if(Vector3.Distance(focusTarget.transform.position, focusTargetTwo.transform.position) > 0.1f)
+			{
+				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
+				Debug.Log("1 ");
+			}
+
+			Vector3 dirMidle = focusTarget.transform.position - cameraRotationObj.transform.position;
             Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
             cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, 10 * Time.deltaTime);
-
         } else
         {
-            cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+			if(Vector3.Distance(focusTarget.transform.position, focusTargetOne.transform.position) > 0.1f)
+			{
+				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
+				dir = focusTarget.transform.position - cameraRotationObj.transform.position;
+				rot = Quaternion.LookRotation(dir);
+			}
+
+			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
         }
     }
 
