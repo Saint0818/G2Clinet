@@ -12,4 +12,12 @@ public class BasketAnimation : MonoBehaviour {
 	{
 		AudioMgr.Get.PlaySound (soundName);
 	}
+
+	public void PlayEffect(AnimationEvent aniEvent) 
+	{
+		float duration = aniEvent.floatParameter;
+		int eventKind = aniEvent.intParameter;
+		string effectName = aniEvent.stringParameter;
+		CourtMgr.Get.PlayDunkEffect(Team, effectName, eventKind, duration);
+	}
 }

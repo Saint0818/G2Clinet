@@ -2824,7 +2824,7 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-//					UIPassiveEffect.Get.ShowCard();
+					UIPassiveEffect.Get.ShowCard(player, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}
