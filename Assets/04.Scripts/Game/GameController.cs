@@ -4279,7 +4279,7 @@ public class GameController : KnightSingleton<GameController> {
 			return true;
 	}
 
-	public List<PlayerBehaviour> GetAllPlayer {
+	public List<PlayerBehaviour> GamePlayerList {
 		get {
 			return PlayerList;
 		}

@@ -229,11 +229,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				} 
 				break;
 			case 13:
-				objs.Add(CourtMgr.Get.ShootPoint[executePlayer.Team]);
+				objs.Add(CourtMgr.Get.ShootPoint[executePlayer.Team.GetHashCode()]);
 				break;
 			case 14:
 				int team = 0;
-				if(executePlayer.Team != team)
+				if(executePlayer.Team.GetHashCode() != team)
 					team = 1;
 				objs.Add(CourtMgr.Get.ShootPoint[team]);
 				break;
