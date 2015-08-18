@@ -22,4 +22,8 @@ public class BasketAnimation : MonoBehaviour {
 		string effectName = aniEvent.stringParameter;
 		CourtMgr.Get.PlayDunkEffect(Team, effectName, eventKind, duration);
 	}
+
+	public void PlayShake (string name) {
+		CameraMgr.Get.PlayShake ();
+	}
 }

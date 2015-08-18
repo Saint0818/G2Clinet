@@ -85,10 +85,6 @@ public class GameController : KnightSingleton<GameController> {
 	private Dictionary<string, Shader> shaderCache = new Dictionary<string, Shader>();
 
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
-    public List<PlayerBehaviour> GamePlayerList
-    {
-        get { return PlayerList; }
-    }
     
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
     

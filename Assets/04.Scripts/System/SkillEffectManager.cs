@@ -181,52 +181,64 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				objs.Add(executePlayer.gameObject);
 				break;
 			case 5://Teammate Body (Chest)
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team == executePlayer.Team && GameController.Get.GetAllPlayer[i].Index != executePlayer.Index)
-						objs.Add(getPlayerChest(GameController.Get.GetAllPlayer[i]));
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
+						objs.Add(getPlayerChest(GameController.Get.GamePlayerList[i]));
 				} 
 				break;
 			case 6://Teammate Head
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team == executePlayer.Team && GameController.Get.GetAllPlayer[i].Index != executePlayer.Index)
-						objs.Add(GameController.Get.GetAllPlayer[i].BodyHeight);
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
+						objs.Add(GameController.Get.GamePlayerList[i].BodyHeight);
 				} 
 				break;
 			case 7://Teammate Hand
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team == executePlayer.Team && GameController.Get.GetAllPlayer[i].Index != executePlayer.Index)
-						objs.Add(getPlayerHand(GameController.Get.GetAllPlayer[i]));
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
+						objs.Add(getPlayerHand(GameController.Get.GamePlayerList[i]));
 				} 
 				break;
 			case 8://Teammate Feet
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team == executePlayer.Team && GameController.Get.GetAllPlayer[i].Index != executePlayer.Index)
-						objs.Add(GameController.Get.GetAllPlayer[i].gameObject);
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
+						objs.Add(GameController.Get.GamePlayerList[i].gameObject);
 				} 
 				break;
 			case 9://Emeny Body (Chest)
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team != executePlayer.Team)
-						objs.Add(getPlayerChest(GameController.Get.GetAllPlayer[i]));
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
+						objs.Add(getPlayerChest(GameController.Get.GamePlayerList[i]));
 				} 
 				break;
 			case 10://Emeny Head
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team != executePlayer.Team)
-						objs.Add(GameController.Get.GetAllPlayer[i].BodyHeight);
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
+						objs.Add(GameController.Get.GamePlayerList[i].BodyHeight);
 				} 
 				break;
 			case 11://Emeny Hand
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team != executePlayer.Team)
-						objs.Add(getPlayerHand(GameController.Get.GetAllPlayer[i]));
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
+						objs.Add(getPlayerHand(GameController.Get.GamePlayerList[i]));
 				} 
 				break;
 			case 12://Emeny Feet
-				for(int i=0; i<GameController.Get.GetAllPlayer.Count; i++) {
-					if(GameController.Get.GetAllPlayer[i].Team != executePlayer.Team)
-						objs.Add(GameController.Get.GetAllPlayer[i].gameObject);
+				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
+					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
+						objs.Add(GameController.Get.GamePlayerList[i].gameObject);
 				} 
+				break;
+			case 13:
+				objs.Add(CourtMgr.Get.ShootPoint[executePlayer.Team]);
+				break;
+			case 14:
+				int team = 0;
+				if(executePlayer.Team != team)
+					team = 1;
+				objs.Add(CourtMgr.Get.ShootPoint[team]);
+				break;
+			case 15:
+				objs.Add(CourtMgr.Get.RealBall);
 				break;
 			}
 			skillEffectPositions.Add(key, objs);
