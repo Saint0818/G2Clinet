@@ -424,30 +424,13 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseTacticalData (string Version, string text, bool SaveVersion){
-		try {
-			GameData.TacticalData = (TTactical[])JsonConvert.DeserializeObject (text, typeof(TTactical[]));
+	private void parseTacticalData(string version, string jsonText, bool isSaveVersion)
+    {
+        TacticalMgr.Ins.Load(jsonText);
 
-			for(int i = 0; i < GameConst.TacticalDataName.Length; i++) {
-				if (!GameData.SituationPosition.ContainsKey(i)) {
-					List<int> TacticalDataList = new List<int>();
-					for (int j = 0; j < GameData.TacticalData.Length; j++) {
-						if (GameData.TacticalData [j].FileName.Contains(GameConst.TacticalDataName [i]))
-							TacticalDataList.Add(j);
-					}
-					
-					GameData.SituationPosition.Add(i, TacticalDataList.ToArray());
-				}
-			}
-
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "tactical", Version);
-			
-			Debug.Log ("[tactical parsed finished.] ");
-		} catch (System.Exception ex) {
-			Debug.LogError ("[tactical parsed error] " + ex.Message);
-		}
-	}
+        if(isSaveVersion)
+            SaveDataVersionAndJson(jsonText, "tactical", version);
+    }
 
 	private void parseBaseAttr (string Version, string text, bool SaveVersion){
 		try {

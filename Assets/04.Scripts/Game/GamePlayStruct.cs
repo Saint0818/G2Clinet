@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GamePlayStruct {
 	public struct TActionPosition {
@@ -9,19 +10,42 @@ namespace GamePlayStruct {
 		public bool Shooting;
 	}
 	
-	public struct TTactical {
+	public struct TTacticalData
+    {
 		public string FileName; // 戰術名稱.
 		public TActionPosition[] PosAy1; // 中鋒的資料.
 		public TActionPosition[] PosAy2; // 前鋒的資料.
 		public TActionPosition[] PosAy3; // 後衛的資料.
+
+	    public ETactical Tactical
+	    {
+	        get
+	        {
+	            if(mTactical == ETactical.None)
+                    convert();
+
+	            return mTactical;
+	        }
+	    }
+
+	    private ETactical mTactical;
+
+	    private void convert()
+	    {
+	        foreach(KeyValuePair<string, ETactical> pair in TacticalMgr.PrefixNameTacticalPairs)
+	        {
+	            if(FileName.StartsWith(pair.Key))
+	                mTactical = pair.Value;
+	        }
+	    }
 		
-		public TTactical(bool flag)
-		{
-			FileName = "";
-			PosAy1 = new TActionPosition[0];
-			PosAy2 = new TActionPosition[1];
-			PosAy3 = new TActionPosition[2];
-		}
+//		public TTacticalData()
+//		{
+//			FileName = "";
+//			PosAy1 = new TActionPosition[0];
+//			PosAy2 = new TActionPosition[1];
+//			PosAy3 = new TActionPosition[2];
+//		}
 		
 		public override string ToString()
 		{

@@ -7,7 +7,7 @@ using GameEnum;
 using GamePlayEnum;
 
 public class GameStart : KnightSingleton<GameStart> {
-	public static GameStart instance;
+//	public static GameStart instance;
 	public ESceneTest  SceneMode = ESceneTest.Single;
 	public EGameTest TestMode = EGameTest.None;
 	public EModelTest TestModel = EModelTest.None;

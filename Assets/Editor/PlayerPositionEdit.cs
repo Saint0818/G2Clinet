@@ -39,7 +39,7 @@ public class PlayerPositionEdit : EditorWindow
     private TActionPosition[] PosAy2 = new TActionPosition[0];
     private TActionPosition[] PosAy3 = new TActionPosition[0];
     private string[] ArrayString = new string[0];
-    private TTactical[] TacticalData = new TTactical[0];
+    private TTacticalData[] TacticalData = new TTacticalData[0];
 	private static Vector2 [] BornAy = new Vector2[3];
 
     void OnGUI()
@@ -177,7 +177,7 @@ public class PlayerPositionEdit : EditorWindow
             if (newSize > c1)
             {
                 for (int i = c1; i < newSize; i++)
-                    TacticalData [i] = new TTactical(true);
+                    TacticalData [i] = new TTacticalData();
             }
 
             FlashTacticalName();
@@ -212,7 +212,7 @@ public class PlayerPositionEdit : EditorWindow
             TextAsset tx = Resources.Load("GameData/tactical") as TextAsset;
             if (tx)
             {
-                TacticalData = (TTactical[])JsonConvert.DeserializeObject(tx.text, typeof(TTactical[]));
+                TacticalData = (TTacticalData[])JsonConvert.DeserializeObject(tx.text, typeof(TTacticalData[]));
                 FlashTacticalName();
             } 
         }

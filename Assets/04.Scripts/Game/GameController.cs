@@ -90,8 +90,8 @@ public class GameController : KnightSingleton<GameController> {
     
     public TGameRecord GameRecord = new TGameRecord();
 	private TMoveData moveData = new TMoveData();
-    private TTactical attackTactical;
-	private TTactical defTactical;
+    private TTacticalData attackTactical;
+	private TTacticalData defTactical;
 	private TActionPosition [] tacticalData;
     
     public GameObject[] passIcon = new GameObject[3];
@@ -790,20 +790,20 @@ public class GameController : KnightSingleton<GameController> {
 			if (BallOwner != null) {
 				switch (BallOwner.Postion) {
 				case EPlayerPostion.C:
-				        AITools.RandomTactical(ETactical.Center, ref attackTactical);
+				        TacticalMgr.Ins.RandomTactical(ETactical.Center, out attackTactical);
 					break;
 				case EPlayerPostion.F:
-				        AITools.RandomTactical(ETactical.Forward, ref attackTactical);
+				        TacticalMgr.Ins.RandomTactical(ETactical.Forward, out attackTactical);
 					break;
 				case EPlayerPostion.G:
-				        AITools.RandomTactical(ETactical.Guard, ref attackTactical);
+				        TacticalMgr.Ins.RandomTactical(ETactical.Guard, out attackTactical);
 					break;
 				default:
-				        AITools.RandomTactical(ETactical.Attack, ref attackTactical);
+				        TacticalMgr.Ins.RandomTactical(ETactical.Attack, out attackTactical);
 					break;
 				}
 			} else
-			    AITools.RandomTactical(ETactical.Attack, ref attackTactical);
+			    TacticalMgr.Ins.RandomTactical(ETactical.Attack, out attackTactical);
 
 			bool isShooting = IsShooting;
 			for (int i = 0; i < PlayerList.Count; i++) {
@@ -842,13 +842,13 @@ public class GameController : KnightSingleton<GameController> {
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
         if(GameStart.Get.CourtMode == ECourtMode.Full)
         {
-            AITools.RandomTactical(ETactical.Inbounds, pickBallPlayer.Index, ref attackTactical);
-            AITools.RandomTactical(ETactical.InboundsDefence, pickBallPlayer.Index, ref defTactical);
+            TacticalMgr.Ins.RandomTactical(ETactical.Inbounds, pickBallPlayer.Index, out attackTactical);
+            TacticalMgr.Ins.RandomTactical(ETactical.InboundsDefence, pickBallPlayer.Index, out defTactical);
         }
         else
         {
-            AITools.RandomTactical(ETactical.HalfTee, pickBallPlayer.Index, ref attackTactical);
-            AITools.RandomTactical(ETactical.HalfTeeDefence, pickBallPlayer.Index, ref defTactical);
+            TacticalMgr.Ins.RandomTactical(ETactical.HalfTee, pickBallPlayer.Index, out attackTactical);
+            TacticalMgr.Ins.RandomTactical(ETactical.HalfTeeDefence, pickBallPlayer.Index, out defTactical);
         }              
 
         for(int i = 0; i < PlayerList.Count; i++)
@@ -872,13 +872,13 @@ public class GameController : KnightSingleton<GameController> {
         {
 			if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-                AITools.RandomTactical(ETactical.Inbounds, BallOwner.Index, ref attackTactical);
-                AITools.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, ref defTactical);
+                TacticalMgr.Ins.RandomTactical(ETactical.Inbounds, BallOwner.Index, out attackTactical);
+                TacticalMgr.Ins.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, out defTactical);
 			}
             else
             {
-                AITools.RandomTactical(ETactical.HalfTee, BallOwner.Index, ref attackTactical);
-                AITools.RandomTactical(ETactical.HalfTeeDefence, BallOwner.Index, ref defTactical);
+                TacticalMgr.Ins.RandomTactical(ETactical.HalfTee, BallOwner.Index, out attackTactical);
+                TacticalMgr.Ins.RandomTactical(ETactical.HalfTeeDefence, BallOwner.Index, out defTactical);
 			}
 
 			for(int i = 0; i < PlayerList.Count; i++)
@@ -1060,7 +1060,7 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-	private void aiMove(ref PlayerBehaviour npc, ref TTactical pos) {
+	private void aiMove(ref PlayerBehaviour npc, ref TTacticalData pos) {
 		if (BallOwner == null) {
 			if(!Passer) {
 				if(Shooter == null) {
@@ -1284,7 +1284,7 @@ public class GameController : KnightSingleton<GameController> {
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != gs && player &&
                (oldgs == EGameSituation.InboundsA || oldgs == EGameSituation.InboundsB))
             {
-                AITools.RandomTactical(ETactical.Fast, player.Index, ref attackTactical);
+                TacticalMgr.Ins.RandomTactical(ETactical.Fast, player.Index, out attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
                 {
@@ -2832,7 +2832,7 @@ public class GameController : KnightSingleton<GameController> {
 		return Result;
 	}
 	
-	private void BackToDef(ref PlayerBehaviour npc, ETeamKind team, ref TTactical tactical, 
+	private void BackToDef(ref PlayerBehaviour npc, ETeamKind team, ref TTacticalData tactical, 
                            bool watchBallOwner = false)
 	{
 	    if(tactical.FileName == string.Empty)
@@ -2876,7 +2876,7 @@ public class GameController : KnightSingleton<GameController> {
         }
 	}
 
-    private void TeeBall(ref PlayerBehaviour npc, ETeamKind Team, ref TTactical pos)
+    private void TeeBall(ref PlayerBehaviour npc, ETeamKind Team, ref TTacticalData pos)
     {
 		if(!IsPassing && (npc.CanMove || npc.CanMoveFirstDribble) && !npc.IsMoving && npc.WaitMoveTime == 0 && npc.TargetPosNum == 0)
         {
@@ -4082,7 +4082,7 @@ public class GameController : KnightSingleton<GameController> {
     /// <param name="index"> 0:C, 1:F, 2:G </param>
     /// <param name="tactical"></param>
     /// <returns></returns>
-	private TActionPosition[] GetActionPosition(int index, ref TTactical tactical)
+	private TActionPosition[] GetActionPosition(int index, ref TTacticalData tactical)
 	{
 		if (index == 0)
 			return tactical.PosAy1;

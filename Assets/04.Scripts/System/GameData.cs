@@ -20,16 +20,7 @@ public static class SettingText {
 public class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static TPlayerAttribute[] BaseAttr;
-	public static TTactical[] TacticalData;
 
-    /// <summary>
-    /// <para> key: GameConst.TacticalDataName 的索引值. </para>
-    /// <para> Value: GameData.TacticalData 的索引值. </para>
-    /// <para> 原作者的用意是用 [a][b] 的方式取出 TacticalData 的某筆戰術. 這個意思就是亂數找出某個情況下的戰術. </para>
-    /// <para> a: 會是遊戲中的某個情況, 比如跳球, 邊界發球等等. </para>
-    /// <para> b 通常都是亂數. </para>
-    /// </summary>
-	public static Dictionary<int, int[]> SituationPosition = new Dictionary<int, int[]>();
     public static TBasketShootPositionData[] BasketShootPosition;
 	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
 	
@@ -53,15 +44,15 @@ public class GameData {
 	{
 		if (!isLoaded) {
 			isLoaded = true;
-			List<TDownloadData> DownloadList = new List<TDownloadData> ();
+			List<TDownloadData> downloadList = new List<TDownloadData>();
 
-			DownloadList.Add (new TDownloadData ("greatplayer", "0"));
-			DownloadList.Add (new TDownloadData ("baseattr", "0"));
-			DownloadList.Add (new TDownloadData ("tactical", "0"));
-			DownloadList.Add (new TDownloadData ("ballposition", "0"));
-			DownloadList.Add (new TDownloadData ("skill", "0"));
+			downloadList.Add (new TDownloadData ("greatplayer", "0"));
+			downloadList.Add (new TDownloadData ("baseattr", "0"));
+			downloadList.Add (new TDownloadData ("tactical", "0"));
+			downloadList.Add (new TDownloadData ("ballposition", "0"));
+			downloadList.Add (new TDownloadData ("skill", "0"));
 
-			FileManager.Get.LoadFileResource (DownloadList);
+			FileManager.Get.LoadFileResource (downloadList);
 
 			loadGameSetting();
 			loadCardTextures();

@@ -70,27 +70,5 @@ public class GameConst
 	
 	public static string[] DistanceNoScoreShort = {"100","101","102","103","104","105","106","112"}; 
 	public static string[] DistanceNoScoreMedium = {"101","102","103","104","105","106","107","108","109","110","111","112"}; 
-	public static string[] DistanceNoScoreLong = {"101","102","103","104"}; 
-
-	public static string[] TacticalDataName = {"jumpball0",    //0
-												"jumpball1",   //1
-												"normal",      //2      
-												"tee0",        //3
-												"tee1",        //4
-												"tee2",        //5
-												"teedefence0", //6
-												"teedefence1", //7
-												"teedefence2", //8
-												"fast0",       //9
-												"fast1",       //10
-												"fast2", 	   //11
-												"center",	   //12
-												"forward",     //13
-												"guard",	   //14
-												"teehalf0",        //15
-												"teehalf1",        //16
-												"teehalf2",        //17
-												"teedefencehalf0", //18
-												"teedefencehalf1", //19
-												"teedefencehalf2"};//20     
+	public static string[] DistanceNoScoreLong = {"101","102","103","104"};
 }
