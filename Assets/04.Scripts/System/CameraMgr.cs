@@ -29,7 +29,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float safeZ = 12f;
     private float safeZRateAdd = 1.5f;
     private float safeZRateMinus = 1.5f;
-	private float focusOffsetBuffer = 0.5f;
+	private float focusOffsetBuffer = 1f;
 //    private float safeZRotateRate = 0.8f;
     private float groupOffsetSpeed = 0.1f;
     private float zoomNormal = 35;
@@ -499,7 +499,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 {
 //                    if (focusTargetOne.transform.position.z < focusStopPoint [situation.GetHashCode()])
 //                    {
-                    Lookat(focusTargetOne, Vector3.zero);
+                    Lookat(Vector3.zero);
                     cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 //                    } else
 //                    {
@@ -518,7 +518,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 {
 //                    if (focusTargetOne.transform.position.z > focusStopPoint [situation.GetHashCode()])
 //                    {
-                    Lookat(focusTargetOne, Vector3.zero);
+                    Lookat(Vector3.zero);
                     cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
 //                    } else
 //                    {
@@ -534,17 +534,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
             case ECameraSituation.Skiller:
                 focusTargetOne.transform.position = new Vector3(skiller.transform.position.x, skiller.transform.position.y + 2, skiller.transform.position.z);
-                Lookat(focusTargetOne, Vector3.zero);
+                Lookat(Vector3.zero);
                 break;
         }
     }
 
     private Vector3 focusSecondPos;
 
-    private void Lookat(GameObject obj, Vector3 pos)
+    private void Lookat(Vector3 pos)
     {
 		Vector3 v1;
-		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
+//		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
+//		Quaternion rot = Quaternion.LookRotation(dir);
+
+		Vector3 dir = focusTarget.transform.position - cameraRotationObj.transform.position;
 		Quaternion rot = Quaternion.LookRotation(dir);
 
 		if (GameController.Get.BallOwner && GameController.Get.BallOwner != GameController.Get.Joysticker)
@@ -573,7 +576,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			if(Vector3.Distance(focusTarget.transform.position, focusTargetTwo.transform.position) > 0.1f)
 			{
 				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
-				Debug.Log("1 ");
 			}
 
 			Vector3 dirMidle = focusTarget.transform.position - cameraRotationObj.transform.position;
@@ -583,7 +585,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
 			if(Vector3.Distance(focusTarget.transform.position, focusTargetOne.transform.position) > 0.1f)
 			{
-				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
+				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, focusTargetOne.transform.position, focusOffsetBuffer * Time.deltaTime);
 				dir = focusTarget.transform.position - cameraRotationObj.transform.position;
 				rot = Quaternion.LookRotation(dir);
 			}
