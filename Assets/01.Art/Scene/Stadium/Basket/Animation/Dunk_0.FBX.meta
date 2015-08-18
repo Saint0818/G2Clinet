@@ -101,6 +101,20 @@ ModelImporter:
         floatParameter: 2
         intParameter: 1
         messageOptions: 0
+      - time: .00749041978
+        functionName: PlaySound
+        data: SD_Dunk
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0122904787
+        functionName: PlayShake
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
