@@ -3676,7 +3676,41 @@ public class GameController : KnightSingleton<GameController> {
 		GameRecord.Done = true;
 		SetGameRecord(true);
 		StartCoroutine(playFinish());
+
+
+		if (UIGame.Get.Scores [0] >= UIGame.Get.Scores [1]) {
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].Team == ETeamKind.Self)
+					PlayerList [i].AniState (EPlayerState.Ending0);
+				else
+					PlayerList [i].AniState (EPlayerState.Ending10);
+		}
+		else
+		{
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].Team == ETeamKind.Self)
+					PlayerList [i].AniState (EPlayerState.Ending10);
+			else
+				PlayerList [i].AniState (EPlayerState.Ending0);
+		}
     }
+
+	private EPlayerState[] shootInState = new EPlayerState[4]{EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
+	private EPlayerState[] shootOutState = new EPlayerState[2]{EPlayerState.Show201, EPlayerState.Show202};
+
+	public void ShowShootSate(bool isIn)
+	{
+		for(int i = 0; i < PlayerList.Count; i++)
+			if(PlayerList[i].Team == Shooter.Team)
+			{
+				if(!PlayerList[i].IsDunk){
+					if(isIn)
+						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
+					else
+						PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
+				}
+			}
+	}
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {

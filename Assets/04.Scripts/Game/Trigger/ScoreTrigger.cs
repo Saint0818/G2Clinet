@@ -32,6 +32,12 @@ public class ScoreTrigger : MonoBehaviour
 							break;
 						case EBasketSituation.Score:
 						case EBasketSituation.NoScore:
+
+							if(GameController.Get.BasketSituation == EBasketSituation.NoScore)
+								GameController.Get.ShowShootSate(false);
+							else
+								GameController.Get.ShowShootSate(true);
+							
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){
 								if(GameController.Get.BasketAnimationName != string.Empty)

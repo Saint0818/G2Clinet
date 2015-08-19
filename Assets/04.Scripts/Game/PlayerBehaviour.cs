@@ -125,7 +125,18 @@ public enum EPlayerState
 	JumpBall,
 	Buff20 = 12100, 
 	Buff21 = 12101,
-	Shooting
+	Shooting,
+	Show1, 
+	Show101, 
+	Show102, 
+	Show103, 
+	Show104, 
+	Show201, 
+	Show202, 
+	Show1001, 
+	Show1003,
+	Ending0,
+	Ending10
 }
 
 public enum ETeamKind
@@ -293,6 +304,19 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.MoveDodge1, true);
 			StopStates.Add(EPlayerState.Buff20, true);
 			StopStates.Add(EPlayerState.Buff21, true);
+
+			StopStates.Add(EPlayerState.Show1, true);
+			StopStates.Add(EPlayerState.Show101, true);
+			StopStates.Add(EPlayerState.Show102, true);
+			StopStates.Add(EPlayerState.Show103, true);
+			StopStates.Add(EPlayerState.Show104, true);
+			StopStates.Add(EPlayerState.Show201, true);
+			StopStates.Add(EPlayerState.Show202, true);
+			StopStates.Add(EPlayerState.Show1001, true);
+			StopStates.Add(EPlayerState.Show1003, true);
+
+			StopStates.Add(EPlayerState.Ending0, true);
+			StopStates.Add(EPlayerState.Ending10, true);
 		}
 	}
 }
@@ -1866,6 +1890,16 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case EPlayerState.Idle:
+            case EPlayerState.Show1:
+            case EPlayerState.Show1001:
+            case EPlayerState.Show1003:
+            case EPlayerState.Show101:
+            case EPlayerState.Show102:
+            case EPlayerState.Show103:
+            case EPlayerState.Show201:
+            case EPlayerState.Show202:
+            case EPlayerState.Ending0:
+            case EPlayerState.Ending10:
                 return true;
         }
 
@@ -2092,7 +2126,23 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case EPlayerState.Elbow:
+		case EPlayerState.Ending0:
+			switch (state)
+			{
+			case EPlayerState.Ending0:
+				stateNo = 0;
+				break;
+			case EPlayerState.Ending10:
+				stateNo = 10;
+				break;
+			}
+			ClearAnimatorFlag();
+			AnimatorControl.SetInteger("StateNo", stateNo);
+			AnimatorControl.SetTrigger("EndingTrigger");
+			Result = true;
+			break;
+			
+		case EPlayerState.Elbow:
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AnimatorControl.SetTrigger("ElbowTrigger");
@@ -2424,26 +2474,71 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case EPlayerState.Layup0:
-            case EPlayerState.Layup1:
-            case EPlayerState.Layup2:
-            case EPlayerState.Layup3:
-                if (IsBallOwner)
-                {
-                    playerLayupCurve = null;
+			case EPlayerState.Show1:
+			case EPlayerState.Show1001:
+			case EPlayerState.Show1003:
+			case EPlayerState.Show101:
+			case EPlayerState.Show102:
+			case EPlayerState.Show103:
+			case EPlayerState.Show104:
+			case EPlayerState.Show201:
+			case EPlayerState.Show202:
+				switch (state)
+				{
+				case EPlayerState.Show1:
+					stateNo = 1;
+					break;
+				case EPlayerState.Show1001:
+					stateNo = 1001;
+					break;
+				case EPlayerState.Show1003:
+					stateNo = 1003;
+					break;
+				case EPlayerState.Show101:
+					stateNo = 101;
+					break;
+				case EPlayerState.Show102:
+					stateNo = 102;
+					break;
+				case EPlayerState.Show103:
+					stateNo = 103;
+					break;
+				case EPlayerState.Show104:
+					stateNo = 103;
+					break;
+				case EPlayerState.Show201:
+					stateNo = 201;
+					break;
+				case EPlayerState.Show202:
+					stateNo = 202;
+					break;
+				}
 
-					switch (state)
-					{
-						case EPlayerState.Layup0:
-							stateNo = 0;
-							break;
-						case EPlayerState.Layup1:
-							stateNo = 1;
-							break;
-						case EPlayerState.Layup2:
-							stateNo = 2;
-							break;
-						case EPlayerState.Layup3:
+				AnimatorControl.SetInteger("StateNo", stateNo);
+				AnimatorControl.SetTrigger("ShowTrigger");
+				Result = true;
+			break;
+			
+		case EPlayerState.Layup0:
+		case EPlayerState.Layup1:
+		case EPlayerState.Layup2:
+		case EPlayerState.Layup3:
+			if (IsBallOwner)
+			{
+				playerLayupCurve = null;
+				
+				switch (state)
+				{
+				case EPlayerState.Layup0:
+					stateNo = 0;
+					break;
+				case EPlayerState.Layup1:
+					stateNo = 1;
+					break;
+				case EPlayerState.Layup2:
+					stateNo = 2;
+					break;
+				case EPlayerState.Layup3:
 							stateNo = 3;
 							break;
 					}
@@ -2669,6 +2764,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (IsBallOwner)
                     CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));      
                 break;
+
             case "PassEnd":
                 OnUI(this);
                 
@@ -2676,7 +2772,14 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
                 break;
 
-            case "PickUp": 
+			case "ShowEnd":
+				if (!IsBallOwner)
+					AniState(EPlayerState.Idle);
+				else
+					AniState(EPlayerState.HoldBall);
+					break;
+			
+			case "PickUp": 
                 if (OnPickUpBall != null)
                     if (OnPickUpBall(this))
 						GameRecord.SaveBall++;
