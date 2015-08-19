@@ -1383,7 +1383,7 @@ public class GameController : KnightSingleton<GameController> {
 			case EGameSituation.InboundsAPicking:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				UIGame.Get.ChangeControl(true);
-				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				pickBallPlayer = null;
 
                 break;
@@ -1394,7 +1394,7 @@ public class GameController : KnightSingleton<GameController> {
             case EGameSituation.InboundsBPicking:
 				CourtMgr.Get.Walls[0].SetActive(false);
            	 	UIGame.Get.ChangeControl(false);
-				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
+				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				pickBallPlayer = null;
 
                 break;

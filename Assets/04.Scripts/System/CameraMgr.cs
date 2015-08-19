@@ -496,41 +496,47 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
                 break;
             case ECameraSituation.Self:
-                if (!IsTee)
-                {
-//                    if (focusTargetOne.transform.position.z < focusStopPoint [situation.GetHashCode()])
-//                    {
-                    Lookat(Vector3.zero);
-                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
-//                    } else
-//                    {
-//                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
-//                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
-//                    }
-                } else
-                {
-                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedTeeFocusAngle, focusSmoothSpeed);
-                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
-                }
+
+			Lookat(Vector3.zero);
+			cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+
+//                if (!IsTee)
+//                {
+////                    if (focusTargetOne.transform.position.z < focusStopPoint [situation.GetHashCode()])
+////                    {
+//                    Lookat(Vector3.zero);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+////                    } else
+////                    {
+////                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
+////                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+////                    }
+//                } else
+//                {
+//                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedTeeFocusAngle, focusSmoothSpeed);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+//                }
 
                 break;
             case ECameraSituation.Npc:
-                if (!IsTee)
-                {
-//                    if (focusTargetOne.transform.position.z > focusStopPoint [situation.GetHashCode()])
-//                    {
-                    Lookat(Vector3.zero);
-                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
-//                    } else
-//                    {
-//                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
-//                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
-//                    }
-                } else
-                {
-                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedTeeFocusAngle, focusSmoothSpeed);
-                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
-                }
+			Lookat(Vector3.zero);
+			cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+//                if (!IsTee)
+//                {
+////                    if (focusTargetOne.transform.position.z > focusStopPoint [situation.GetHashCode()])
+////                    {
+//                    Lookat(Vector3.zero);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+////                    } else
+////                    {
+////                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
+////                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+////                    }
+//                } else
+//                {
+//                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedTeeFocusAngle, focusSmoothSpeed);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+//                }
                 break;
 
             case ECameraSituation.Skiller:
