@@ -42,8 +42,8 @@ public class AITools
                                                    out TTacticalData attData, out TTacticalData defData)
     {
         int randomValue = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(attTactical));
-        bool attStatus = TacticalMgr.Ins.GetData(attTactical, randomValue, out attData);
-        bool defStatus = TacticalMgr.Ins.GetData(defTactical, randomValue, out defData);
+        bool attStatus = TacticalMgr.Ins.GetData(convert(attTactical, posIndex), randomValue, out attData);
+        bool defStatus = TacticalMgr.Ins.GetData(convert(defTactical, posIndex), randomValue, out defData);
         return attStatus && defStatus;
     }
 
