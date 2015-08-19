@@ -23,7 +23,7 @@ public class UILoading : UIBase {
 	
 	private ELoadingGamePic loadingKind;
 	private int PicNo = -1;
-	private bool isCloseUI = false;
+//	private bool isCloseUI = false;
 	public float CloseTime = 0;
 
 	private int pageLoading = 0;

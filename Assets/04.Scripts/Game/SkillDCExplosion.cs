@@ -7,7 +7,6 @@ public class SkillDCExplosion : MonoBehaviour {
 	private static SkillDCExplosion instance = null;
 
 	private List<GameObject> pooledObjects;
-	private GameObject skillTarget;
 	private int completeCount;
 
 	public static SkillDCExplosion Get {
@@ -31,7 +30,6 @@ public class SkillDCExplosion : MonoBehaviour {
 	}
 
 	public void BornDC (int count, GameObject position, GameObject target, GameObject parent = null) {
-		skillTarget = target;
 		if(count > 0) {
 			if(parent){
 				transform.parent = parent.transform;
@@ -74,13 +72,6 @@ public class SkillDCExplosion : MonoBehaviour {
 		tweener.SetEase(Ease.InOutBack);
 		tweener.OnComplete(delegate(){
 			skillSoul.GetComponent<SkillDCMove>().IsMove = true;
-
-//			tweenerTwo.OnUpdate(delegate(){
-//			});
-//			tweenerTwo.OnUpdate (() => tweenerTwo.ChangeEndValue (skillTarget.transform.position, true));
-//			tweenerTwo.OnComplete(delegate(){
-//				
-//			});
 		});
 	}
 

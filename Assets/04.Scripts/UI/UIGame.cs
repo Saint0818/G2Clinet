@@ -94,7 +94,6 @@ public class UIGame : UIBase {
 	private GameObject uiLimitTime;
 	private UILabel labelLimitTime;
 
-	private Animator animatorScoreBar;
 	private UISprite spriteAttack;
 	//Force
 	private UISprite spriteSkill;
@@ -212,6 +211,7 @@ public class UIGame : UIBase {
         }
         showButtonFX();
         judgePlayerScreenPosition();
+		setGameTime();
 	}
 
 	protected override void InitCom() {
@@ -252,7 +252,6 @@ public class UIGame : UIBase {
 		}
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
-		animatorScoreBar = uiScoreBar.GetComponent<Animator>();
 		spriteSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
 		spriteSkill.color = new Color32(69, 69, 69, 255);
 		spriteAttack = GameObject.Find (UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
@@ -378,6 +377,15 @@ public class UIGame : UIBase {
 
 	protected override void InitText(){
 
+	}
+
+	private void setGameTime () {
+		int minute = (int) (GameController.Get.GameTime / 60f);
+		int second = (int) (GameController.Get.GameTime % 60f);
+		if(second == 0)
+			labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
+		else 
+			labelLimitTime.text = minute.ToString() + ":" + second.ToString();
 	}
 
 	private void initAiTime() {
@@ -659,9 +667,7 @@ public class UIGame : UIBase {
 		uiDC.SetActive(true);
 		AudioMgr.Get.PlaySound(SoundType.SD_CatchMorale);
 
-//		if(oldForceValue <= newForceValue) {
-			oldForceValue += baseForceValue;
-//		}
+		oldForceValue += baseForceValue;
 		Mathf.Clamp(oldForceValue, 0, newForceValue);
 		spriteForce.fillAmount = oldForceValue;
 		return true;

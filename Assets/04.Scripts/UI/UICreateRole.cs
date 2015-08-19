@@ -62,7 +62,6 @@ public class UICreateRole : UIBase {
 
 	private GameObject smallInfo;
 	private GameObject largeInfo;
-	private GameObject start;
 
 	private GameObject playerCenter;
 	private GameObject[] playerPos;
@@ -119,7 +118,6 @@ public class UICreateRole : UIBase {
 	protected override void InitCom() {
 		smallInfo = GameObject.Find(UIName + "/BottomLeft/ButtonInfo");
 		largeInfo = GameObject.Find(UIName + "/BottomLeft/ButtonOpen");
-		start = GameObject.Find(UIName + "/BottomRight/ButtonNext");
 
 		playerCenter = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center");
 		playerPos = new GameObject[playerCount];

@@ -14,7 +14,7 @@ public class UI3D : UIBase {
 	private Camera Camera3D;
 	private bool following = false;
 	private float followTime = 2f;
-	private GameObject followPos;
+	private GameObject followPos = null;
 
 	public static void UIShow(bool isShow){
 		if(instance)

@@ -439,20 +439,10 @@ public class PlayerBehaviour : MonoBehaviour
     private TSharedCurve playerPickCurve;
 
 	private SkillController skillController;
-	//PassiveSkill key: Kind  value: TSKill
-//	private Dictionary<int, List<TSkill>> passiveSkills = new Dictionary<int, List<TSkill>>();
-//	private EPassDirectState passDirect = EPassDirectState.Forward;
-//	private int passiveID;
-//	private int passiveLv;
-//	private int moveDodgeRate = 0;
-//	private int moveDodgeLv = 0;
-//	private int pickBall2Rate = 0;
-//	private int pickBall2Lv = 0;
 
 	//ActiveSkill
-	private float activeTime  = 0;
-	private bool isUseSkill = false;
 	public List<TSkillAttribute> SkillAttribute = new List<TSkillAttribute>();
+	private bool isUseSkill = false;
 
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
@@ -482,7 +472,6 @@ public class PlayerBehaviour : MonoBehaviour
 					SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
 			}
 		}
-//		isUseSkill = false;
 		angerPower += value;
 		if (angerPower > Attribute.MaxAnger) {
 			value -= angerPower - Attribute.MaxAnger;
@@ -590,20 +579,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void initSkill (){
 		SkillAttribute.Clear();
-		skillController.initSkillController(Attribute, gameObject);
-
-		activeTime = 0;
-		if (GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
-			AnimationClip[] clips = AnimatorControl.runtimeAnimatorController.animationClips;
-			if (clips != null && clips.Length > 0) {
-				for (int i=0; i<clips.Length; i++) {
-					if(clips[i].name.Equals(GameData.SkillData [Attribute.ActiveSkill.ID].Animation)) {
-						activeTime = clips[i].length;
-						break;
-					}
-				}
-			}
-		}
+		skillController.initSkillController(Attribute, gameObject, AnimatorControl);
 	}
 
     public void InitCurve(GameObject animatorCurve)
@@ -2950,7 +2926,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		} else {
 			//Teammate and Enemy's Active PassiveCard will be shown
-			if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID))
+			if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
 				UIPassiveEffect.Get.ShowCard(this, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
 			showActiveEffect ();
 		}
@@ -3033,7 +3009,7 @@ public class PlayerBehaviour : MonoBehaviour
 			SetAnger(-Attribute.MaxAnger);
 
 			if (Attribute.SkillAnimation != "") {
-				SetInvincible(activeTime);
+				SetInvincible(skillController.ActiveTime);
 				if (target)
 					AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
 				else{
@@ -3043,7 +3019,7 @@ public class PlayerBehaviour : MonoBehaviour
 						LogMgr.Get.LogError("Can't find SkillAnimation in EPlayerState");
 					}
 				}
-				
+
 				isUseSkill = true;
 			}
 		}
@@ -3105,41 +3081,41 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public int PassiveID {
-		get {return skillController.passiveID;}
-		set {skillController.passiveID = value;}
+		get {return skillController.PassiveID;}
+		set {skillController.PassiveID = value;}
 	}
 
 	public int PassiveLv {
-		get {return skillController.passiveLv;}
-		set {skillController.passiveLv = value;}
+		get {return skillController.PassiveLv;}
+		set {skillController.PassiveLv = value;}
 	}
 
 	public int MoveDodgeRate {
-		get {return skillController.moveDodgeRate;}
-		set {skillController.moveDodgeRate = value;}
+		get {return skillController.MoveDodgeRate;}
+		set {skillController.MoveDodgeRate = value;}
 	}
 
 	public int MoveDodgeLv {
-		get {return skillController.moveDodgeLv;}
-		set {skillController.moveDodgeLv = value;}
+		get {return skillController.MoveDodgeLv;}
+		set {skillController.MoveDodgeLv = value;}
 	}
 
 	public int PickBall2Rate {
-		get {return skillController.pickBall2Rate;}
-		set {skillController.pickBall2Rate = value;}
+		get {return skillController.PickBall2Rate;}
+		set {skillController.PickBall2Rate = value;}
 	}
 
 	public int PickBall2Lv {
-		get {return skillController.pickBall2Lv;}
-		set {skillController.pickBall2Lv = value;}
+		get {return skillController.PickBall2Lv;}
+		set {skillController.PickBall2Lv = value;}
 	}
 			                
     public bool IsHaveMoveDodge {
-        get {return skillController.passiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
+        get {return skillController.PassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
     }
 
 	public bool IsHavePickBall2{
-		get {return skillController.passiveSkills.ContainsKey((int)ESkillKind.Pick2);}
+		get {return skillController.PassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
 	}
 	
 	public bool CanMove

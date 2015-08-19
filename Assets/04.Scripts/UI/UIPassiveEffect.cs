@@ -13,14 +13,10 @@ public class UIPassiveEffect : UIBase {
 	private UILabel[] labelCardLabel = new UILabel[3];
 
 	private float[] timers = new float[3];
-	private float[] delaytTimers = new float[3];
 	private float[] delayCloseTimers = new float[3];
 	private int[] cardPicNos = new int[3];
 	private int[] cardLVs = new int[3];
 	private string[] cardNames = new string[3];
-	
-//	private GameObject[] uiPassive = new GameObject[6];
-//	private float[] passiveTimers = new float[6];
 
 	private int[] recordIndex = new int[3];
 
@@ -61,11 +57,6 @@ public class UIPassiveEffect : UIBase {
 			labelCardLabel[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardLabel").GetComponent<UILabel>();
 		}
 
-//		for (int i=0; i<uiPassive.Length; i++) {
-//			uiPassive[i] = GameObject.Find (UIName + "/Center/FX_Passive_" + (i+1).ToString());
-//			uiPassive[i].SetActive(false);
-//		}
-
 		for (int i=0; i<recordIndex.Length; i++) {
 			recordIndex[i] = -1;
 		}
@@ -101,12 +92,9 @@ public class UIPassiveEffect : UIBase {
 		recordIndex[2] = recordIndex[1];
 		recordIndex[1] = recordIndex[0];
 		recordIndex[0] = index;
-
-
 	}
 
 	private void initCard (int index, int picNo = 0, int lv = 0, string name = "") {
-//		delaytTimers[index] = 0f;
 		timers[index] = 2;
 		delayCloseTimers[index] = 999;
 		cardPicNos[index] = picNo;
@@ -134,8 +122,6 @@ public class UIPassiveEffect : UIBase {
 		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTextures[cardPicNos[recordIndex[0]]];
 		labelCardLabel[recordIndex[0]].text = cardNames[recordIndex[0]];
 		timers[recordIndex[0]] = 2;
-
-
 	}
 	
 	private void hideCard (int index) {
@@ -148,17 +134,6 @@ public class UIPassiveEffect : UIBase {
 			Show(true);
 
 		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.gameObject, null, 0.5f);
-
-//		for(int i=0; i<uiPassive.Length; i++) {
-//			if(!uiPassive[i].activeInHierarchy) {
-//				uiPassive[i].transform.localPosition = new Vector2(CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).x - (Screen.width * 0.5f), 
-//				                                                   CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).y - (Screen.height * 0.5f));
-//				uiPassive[i].SetActive(true);
-//				passiveTimers[i] = 0.5f;
-//				uiPassive[i].transform.DOLocalMove(new Vector3(500, 200, 0), 0.25f).SetEase(Ease.Linear);
-//				break;
-//			}
-//		}
 
 		for (int i=0; i<recordIndex.Length; i++) {
 			if(!contains(i)) {
@@ -176,26 +151,6 @@ public class UIPassiveEffect : UIBase {
 	}
 	
 	void FixedUpdate () {
-
-//		for (int i=0; i<passiveTimers.Length; i++) {
-//			if(passiveTimers[i] > 0) {
-//				passiveTimers[i] -= Time.deltaTime;
-//				if(passiveTimers[i] <= 0) {
-//					passiveTimers[i] = 0;
-//					uiPassive[i].SetActive(false);
-//				}
-//			}
-//		}
-
-//		for (int i=0; i< delaytTimers.Length; i++) {
-//			if (delaytTimers[i] > 0) {
-//				delaytTimers[i] -= Time.deltaTime;
-//				if (delaytTimers[i] <= 0) {
-//					delaytTimers[i] = 0;
-//					showCard(i);
-//				}
-//			}
-//		}
 
 		for (int i=0; i< timers.Length; i++) {
 			if (timers[i] > 0) {

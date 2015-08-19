@@ -71,6 +71,9 @@ public class UIGameMode: UIBase {
 		SetBtnFun (UIName + "/Center/TeamMode/4Bt", OnTeamMode);
 		SetBtnFun (UIName + "/Center/TeamMode/5Bt", OnTeamMode);
 
+		SetBtnFun (UIName + "/Center/GameMode/Time/ButtonTime", OnWinMode);
+		SetBtnFun (UIName + "/Center/GameMode/Score/ButtonScore", OnWinMode);
+
 		SetBtnFun (UIName + "/BottomRight/ButtonNext", OnNext);
 
 		timeLabel = GameObject.Find (UIName + "/Center/GameMode/Time/TimeSlider/Label1").GetComponent<UILabel>();

@@ -42,8 +42,7 @@ public class GameController : KnightSingleton<GameController> {
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
-//	private bool isFirstScore = false;
-	private float gameTime = 0;
+	public float GameTime = 0;
     private float coolDownPass = 0;
     public float CoolDownCrossover = 0;
     private float shootDistance = 0;
@@ -51,24 +50,17 @@ public class GameController : KnightSingleton<GameController> {
 	public float StealBtnLiftTime = 1f;
 	private float waitStealTime = 0;
 	private float passingStealBallTime = 0;
-//	private int skillFirstScore = 2;
-	private float angleByPlayerHoop = 0;
-	private int shootAngle = 55;
-	private float extraScoreRate = 0;
-	public string BasketAnimationName = "BasketballAction_1";
-	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
-
-    public PlayerBehaviour BallOwner;
 
     /// <summary>
     /// 玩家控制的球員.
     /// </summary>
+	public PlayerBehaviour BallOwner;
 	public PlayerBehaviour Joysticker;
 	public PlayerBehaviour Shooter;
     public PlayerBehaviour Catcher;
 	public PlayerBehaviour Passer;
 	private PlayerBehaviour pickBallPlayer;
-	private GameObject ballHolder;
+	private GameObject ballHolder = null;
 
     // 0:C, 1:F, 2:G
 	private Vector2[] teeBackPosAy = new Vector2[3];
@@ -77,26 +69,33 @@ public class GameController : KnightSingleton<GameController> {
     // B Team, 0:G, 1:C, 2:F
     private Vector3[] bornPosAy = new Vector3[6];
 
-	public EGameSituation Situation = EGameSituation.None;
-    private ESkillKind skillKind;
-    public EBasketSituation BasketSituation;
-	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
-//	private List<int> TacticalDataList = new List<int>();
-	private Dictionary<string, Shader> shaderCache = new Dictionary<string, Shader>();
-
 	private List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
-    
-	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
-    
-    public TGameRecord GameRecord = new TGameRecord();
+
+	public EGameSituation Situation = EGameSituation.None;
+	public TGameRecord GameRecord = new TGameRecord();
 	private TMoveData moveData = new TMoveData();
-    private TTacticalData attackTactical;
+	private TTacticalData attackTactical;
 	private TTacticalData defTactical;
 	private TActionPosition [] tacticalData;
-    
+
+	//Shoot
+	private int shootAngle = 55;
+	private float extraScoreRate = 0;
+	private float angleByPlayerHoop = 0;
+
+	//Basket
+	public EBasketSituation BasketSituation;
+	public string BasketAnimationName = "BasketballAction_1";
+	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
+	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
+	
+	//Skill
+	private ESkillKind skillKind;
+	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
+   
+	//Effect
     public GameObject[] passIcon = new GameObject[3];
 	private GameObject[] selectIcon = new GameObject[2];
-//	private List<GameObject> objsPassiveEffect =new List<GameObject>();
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -172,7 +171,7 @@ public class GameController : KnightSingleton<GameController> {
 
         PlayerList.Clear();
 
-		gameTime = GameStart.Get.GameWinValue;
+		GameTime = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
 
@@ -514,29 +513,6 @@ public class GameController : KnightSingleton<GameController> {
 		}
 	}
 
-	private Shader loadShader(string path) {
-		if (shaderCache.ContainsKey(path)) {
-			return shaderCache [path];
-		} else {
-			Shader obj = Resources.Load(path) as Shader;
-			if (obj) {
-				shaderCache.Add(path, obj);
-				return obj;
-			} else {
-				//download form server
-				return null;
-			}
-		}
-	}
-
-//	public void SkipShow()
-//	{
-//		isSkipClicked = true;
-//		CourtMgr.Get.ShowEnd(true);
-//		InitIngameAnimator();
-//		SetBornPositions();
-//	}
-
 	void FixedUpdate() {
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.K))
@@ -670,11 +646,11 @@ public class GameController : KnightSingleton<GameController> {
 		if(passingStealBallTime > 0 && Time.time >= passingStealBallTime)		
 			passingStealBallTime = 0;
 
-		if (GameStart.Get.WinMode == EWinMode.Time && gameTime > 0) {
+		if (GameStart.Get.WinMode == EWinMode.Time && GameTime > 0) {
 			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
-				gameTime -= Time.deltaTime;
-				if (gameTime <= 0) {
-					gameTime = 0;
+				GameTime -= Time.deltaTime;
+				if (GameTime <= 0) {
+					GameTime = 0;
 
 					if(UIGame.Get.Scores[0] > UIGame.Get.MaxScores[1])
 						gameResult();
@@ -1489,7 +1465,6 @@ public class GameController : KnightSingleton<GameController> {
 	
 	private void jodgeShootAngle(PlayerBehaviour player){
 		//Angle
-
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
@@ -2460,7 +2435,6 @@ public class GameController : KnightSingleton<GameController> {
 		case 7://double dunk
 			v = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
 			shootDistance = getDis(ref player, new Vector2(v.x, v.z));
-//			isFirstScore = true;
 			break;
 		case 15://steal
 		case 17://push
@@ -2622,7 +2596,8 @@ public class GameController : KnightSingleton<GameController> {
 	}
 
 	public void OnJoystickMoveStart(MovingJoystick move) {
-		Joysticker.OnJoystickStart(move);
+		if (Joysticker)
+			Joysticker.OnJoystickStart(move);
 	}
 
 	public void OnJoystickMove(MovingJoystick move)
@@ -2685,7 +2660,6 @@ public class GameController : KnightSingleton<GameController> {
 				player.PassiveID = 1310;
 				player.PassiveLv = player.PickBall2Lv;
 				Result = player.AniState(playerState, v);
-
 				break;
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
@@ -2830,7 +2804,8 @@ public class GameController : KnightSingleton<GameController> {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
-					UIPassiveEffect.Get.ShowCard(player, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
+					if(!player.IsUseSkill)
+						UIPassiveEffect.Get.ShowCard(player, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}
@@ -3758,7 +3733,6 @@ public class GameController : KnightSingleton<GameController> {
 
 		Shooter = null;
 		IsPassing = false;
-//		isFirstScore = false;
 		shootDistance = 0;
     }
 
