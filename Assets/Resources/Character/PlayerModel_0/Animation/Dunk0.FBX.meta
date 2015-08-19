@@ -150,13 +150,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0889411196
-        functionName: AnimationEvent
-        data: DunkJump
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: .160711884
         functionName: AnimationEvent
         data: CloneMesh
@@ -171,16 +164,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .502860606
+      - time: .501488864
         functionName: AnimationEvent
         data: DunkBasketStart
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .502860606
-        functionName: AnimationEvent
-        data: DunkBasket
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: fbda23770fdc8c04987bab917a3aa328
-timeCreated: 1437384422
+timeCreated: 1439892758
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -164,84 +164,77 @@ ModelImporter:
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .170258656
+      - time: .170258597
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
         intParameter: 1
         messageOptions: 0
-      - time: .171428546
+      - time: .171428487
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 2
         messageOptions: 0
-      - time: .306117684
+      - time: .306117564
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .330088407
+      - time: .330088288
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .333703965
+      - time: .333272666
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .333703995
+      - time: .351454467
         functionName: AnimationEvent
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .567164063
+      - time: .567163825
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .574903786
+      - time: .574903727
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
         intParameter: 0
         messageOptions: 0
-      - time: .678617001
+      - time: .678616762
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .695897937
-        functionName: AnimationEvent
-        data: DunkBasket
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .70096916
+      - time: .700968921
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .725772023
+      - time: .715090811
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
