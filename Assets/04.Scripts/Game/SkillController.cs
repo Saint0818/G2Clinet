@@ -21,22 +21,28 @@ namespace SkillControllerSpace {
 		public float ActiveTime  = 0;
 
 		//PlayerInfo
+		private bool isHavePlayerInfo = false;
 		private UILabel labelPlayerName;
 		private UISprite[] spriteBuff = new UISprite[4];
 		private GameObject[] buffPosition = new GameObject[4];
 
 		public void initSkillController(TPlayer Attribute, GameObject player, Animator animatorControl){
 			executePlayer = player;
+
 			//PlayerInfo
-			GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
-			obj.transform.parent = player.transform;
-			obj.transform.localPosition = Vector3.zero;
-			labelPlayerName = obj.transform.FindChild("Scale/Billboard/PlayerNameLabel").GetComponent<UILabel>();
-			labelPlayerName.text = Attribute.Name;
-			for(int i=0; i<buffPosition.Length; i++) {
-				buffPosition[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()).gameObject;
-				buffPosition[i].SetActive(false);
-				spriteBuff[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite").GetComponent<UISprite>();
+			if(!isHavePlayerInfo) {
+				isHavePlayerInfo = true;
+				GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
+				obj.transform.parent = player.transform;
+				obj.transform.name = "PlayerInfo";
+				obj.transform.localPosition = Vector3.zero;
+				labelPlayerName = obj.transform.FindChild("Scale/Billboard/PlayerNameLabel").GetComponent<UILabel>();
+				labelPlayerName.text = Attribute.Name;
+				for(int i=0; i<buffPosition.Length; i++) {
+					buffPosition[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()).gameObject;
+					buffPosition[i].SetActive(false);
+					spriteBuff[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite").GetComponent<UISprite>();
+				}
 			}
 
 			//Passive
