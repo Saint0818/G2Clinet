@@ -26,25 +26,25 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 {
     //Game const
     private Shake mShake;
-    private float safeZ = 12f;
+    private float safeZ = 15f;
     private float safeZRateAdd = 1.5f;
     private float safeZRateMinus = 1.5f;
-	private float focusOffsetBuffer = 1f;
+	private float focusOffsetBuffer = 3f;
 	private float overRangeRotationSpeed = 10f;
-    private float groupOffsetSpeed = 0.1f;
-    private float zoomNormal = 35;
+    private float groupOffsetSpeed = 0.005f;
+    private float zoomNormal = 30;
     private float zoomRange = 20;
     private float zoomTime = 1;
-    public Vector2 blankAera = new Vector2(-2, 4.2f);
+    public Vector2 blankAera = new Vector2(-2, 3.5f);
 //    private float lockedFocusAngle = 100f;
     private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
     private float focusSmoothSpeed = 0.02f;
-    private float[] focusStopPoint = new float[]{21f, -21f};
+    private float[] focusStopPoint = new float[]{21f, -25f};
     private float cameraRotationSpeed = 2f;
     private float cameraOffsetSpeed = 0.1f;
     private Vector2 cameraWithBasketBallCourtRate;
-    private Vector2 cameraMoveAera = new Vector2(12f, 21.5f);
+    private Vector2 cameraMoveAera = new Vector2(14f, 25f);
     private Vector3 cameraOffsetRate = Vector3.zero;
     private Vector2 basketballCourt = new Vector2(21f, 30.5f);
     private Vector3 restrictedAreaAngle = new Vector3(14f, 1, 0);
@@ -52,8 +52,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private Vector3 startPos = new Vector3(-17.36f, 10f, 0.67f);
     private Vector3[] groupOffsetPoint = new Vector3[]
     {
-        new Vector3(0, 0, -4.625f),
-        new Vector3(0, 0, 9.625f)
+        new Vector3(0, 0, -8f),
+        new Vector3(0, 0, 8f)
     };
     private Vector3[] offsetLimit = new Vector3[]
     {
