@@ -22,7 +22,6 @@ public class UIPassiveEffect : UIBase {
 	private GameObject[] uiPassive = new GameObject[6];
 	private float[] passiveTimers = new float[6];
 
-//	private List<int> recordIndex = new List<int>();
 	private int[] recordIndex = new int[3];
 
 	public static bool Visible{
@@ -107,33 +106,34 @@ public class UIPassiveEffect : UIBase {
 	}
 
 	private void initCard (int index, int picNo = 0, int lv = 0, string name = "") {
-		delaytTimers[index] = 0.25f;
+//		delaytTimers[index] = 0f;
 		timers[index] = 2;
 		delayCloseTimers[index] = 999;
 		cardPicNos[index] = picNo;
 		cardLVs[index] = lv;
 		cardNames[index] = name;
+		showCard();
 	}
 
-	private void showCard (int index) {
-		uiCardMotion[index].SetActive(false);
-		uiCardMotion[index].SetActive(true);
+	private void showCard () {
+		uiCardMotion[recordIndex[0]].SetActive(false);
+		uiCardMotion[recordIndex[0]].SetActive(true);
+		uiCardMotion[recordIndex[0]].transform.DOKill(true);
+		uiCardMotion[recordIndex[0]].transform.localPosition = new Vector3(500, 200, 0);
 		if(getRecordCount() < 3) {
 			for(int i=1; i<recordIndex.Length; i++) {
 				if(recordIndex[i] != -1)
 					uiCardMotion[recordIndex[i]].transform.DOLocalMoveX(500 - (200 * (getRecordCount () - i)), 0.2f);
 			}
-			uiCardMotion[index].transform.localPosition = new Vector3(500, 200, 0);
 		} else {
-			uiCardMotion[recordIndex[0]].transform.localPosition = new Vector3(500, 200, 0);
 			uiCardMotion[recordIndex[1]].transform.DOLocalMoveX(300, 0.2f);
 			uiCardMotion[recordIndex[2]].transform.DOLocalMoveX(100, 0.2f);
 			hideCard(recordIndex[2]);
 		}
-		spriteCardFrame[index].spriteName = "SkillCard" + cardLVs[index].ToString();
-		textureCardInfo[index].mainTexture = GameData.CardTextures[cardPicNos[index]];
-		labelCardLabel[index].text = cardNames[index];
-		timers[index] = 2;
+		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + cardLVs[recordIndex[0]].ToString();
+		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTextures[cardPicNos[recordIndex[0]]];
+		labelCardLabel[recordIndex[0]].text = cardNames[recordIndex[0]];
+		timers[recordIndex[0]] = 2;
 
 
 	}
@@ -147,26 +147,26 @@ public class UIPassiveEffect : UIBase {
 		if(!Visible)
 			Show(true);
 
-		for(int i=0; i<uiPassive.Length; i++) {
-			if(!uiPassive[i].activeInHierarchy) {
-				uiPassive[i].transform.localPosition = new Vector2(CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).x - (Screen.width * 0.5f), 
-				                                                   CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).y - (Screen.height * 0.5f));
-				uiPassive[i].SetActive(true);
-				passiveTimers[i] = 0.5f;
-				uiPassive[i].transform.DOLocalMove(new Vector3(500, 200, 0), 0.25f).SetEase(Ease.Linear);
-				break;
-			}
-		}
+//		for(int i=0; i<uiPassive.Length; i++) {
+//			if(!uiPassive[i].activeInHierarchy) {
+//				uiPassive[i].transform.localPosition = new Vector2(CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).x - (Screen.width * 0.5f), 
+//				                                                   CameraMgr.Get.CourtCamera.WorldToScreenPoint(player.gameObject.transform.position).y - (Screen.height * 0.5f));
+//				uiPassive[i].SetActive(true);
+//				passiveTimers[i] = 0.5f;
+//				uiPassive[i].transform.DOLocalMove(new Vector3(500, 200, 0), 0.25f).SetEase(Ease.Linear);
+//				break;
+//			}
+//		}
 
 		for (int i=0; i<recordIndex.Length; i++) {
 			if(!contains(i)) {
-				initCard(i, picNo, lv, name);
 				addValue(i);
+				initCard(i, picNo, lv, name);
 				break;
 			} else {
 				if(recordIndex[recordIndex.Length - 1] == i) {
-					initCard(i, picNo, lv, name);
 					addValue(i);
+					initCard(i, picNo, lv, name);
 					break;
 				}
 			}
@@ -175,25 +175,25 @@ public class UIPassiveEffect : UIBase {
 	
 	void FixedUpdate () {
 
-		for (int i=0; i<passiveTimers.Length; i++) {
-			if(passiveTimers[i] > 0) {
-				passiveTimers[i] -= Time.deltaTime;
-				if(passiveTimers[i] <= 0) {
-					passiveTimers[i] = 0;
-					uiPassive[i].SetActive(false);
-				}
-			}
-		}
+//		for (int i=0; i<passiveTimers.Length; i++) {
+//			if(passiveTimers[i] > 0) {
+//				passiveTimers[i] -= Time.deltaTime;
+//				if(passiveTimers[i] <= 0) {
+//					passiveTimers[i] = 0;
+//					uiPassive[i].SetActive(false);
+//				}
+//			}
+//		}
 
-		for (int i=0; i< delaytTimers.Length; i++) {
-			if (delaytTimers[i] > 0) {
-				delaytTimers[i] -= Time.deltaTime;
-				if (delaytTimers[i] <= 0) {
-					delaytTimers[i] = 0;
-					showCard(i);
-				}
-			}
-		}
+//		for (int i=0; i< delaytTimers.Length; i++) {
+//			if (delaytTimers[i] > 0) {
+//				delaytTimers[i] -= Time.deltaTime;
+//				if (delaytTimers[i] <= 0) {
+//					delaytTimers[i] = 0;
+//					showCard(i);
+//				}
+//			}
+//		}
 
 		for (int i=0; i< timers.Length; i++) {
 			if (timers[i] > 0) {
