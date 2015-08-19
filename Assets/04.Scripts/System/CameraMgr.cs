@@ -67,6 +67,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private GameObject cameraOffsetObj;
     private Camera cameraFx;
     private Camera cameraSkill;
+	private Camera cameraPlayerInfo;
     private GameObject cameraSkillCenter;
     private Animator cameraAnimator;
 
@@ -168,6 +169,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
             cameraSkill.gameObject.SetActive(false);
 
+			cameraPlayerInfo = (Instantiate(Resources.Load("Prefab/Camera/Camera_PlayerInfo")) as GameObject).GetComponent<Camera>();
+			cameraPlayerInfo.gameObject.transform.parent = cameraRotationObj.transform;
+			cameraPlayerInfo.gameObject.transform.localPosition = Vector3.zero;
+			cameraPlayerInfo.gameObject.transform.localEulerAngles = Vector3.zero;
+			cameraPlayerInfo.gameObject.SetActive(false);
+
             cameraSkillCenter = new GameObject();
             cameraSkillCenter.name = "CameraSkillCenter";
 
@@ -237,6 +244,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         get { return cameraFx;}
     }
+
+	public void ShowPlayerInfoCamera (bool isShow) {
+		cameraPlayerInfo.gameObject.SetActive(isShow);
+	}
 
     public void InitCamera(ECameraSituation s)
     {

@@ -1329,6 +1329,7 @@ public class GameController : KnightSingleton<GameController> {
 				setPassIcon(true);
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.Opening);
+				CameraMgr.Get.ShowPlayerInfoCamera (true);
 				jodgeSkillUI ();
 
 				break;
