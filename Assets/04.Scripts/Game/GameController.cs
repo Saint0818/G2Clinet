@@ -878,19 +878,17 @@ public class GameController : KnightSingleton<GameController> {
         {
             if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-                if(!AITools.RandomTactical(ETactical.Inbounds, BallOwner.Index, out attackTactical))
-                    Debug.LogErrorFormat("SituationTeeBall, Get Tactical fail, Tactical:{0}, Index:{1}", ETactical.Inbounds, BallOwner.Index);
-                if(!AITools.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, out defTactical))
-                    Debug.LogErrorFormat("SituationTeeBall, Get Tactical fail, Tactical:{0}, Index:{1}", ETactical.Inbounds, BallOwner.Index);
-                //                AITools.RandomCorrespondingTactical(ETactical.Inbounds, ETactical.InboundsDefence,
-                //                    BallOwner.Index, out attackTactical, out defTactical);
+//                AITools.RandomTactical(ETactical.Inbounds, BallOwner.Index, out attackTactical);
+//                AITools.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, out defTactical);
+                AITools.RandomCorrespondingTactical(ETactical.Inbounds, ETactical.InboundsDefence,
+                                    BallOwner.Index, out attackTactical, out defTactical);
             }
             else
             {
-                AITools.RandomTactical(ETactical.HalfInbounds, BallOwner.Index, out attackTactical);
-                AITools.RandomTactical(ETactical.HalfInboundsDefence, BallOwner.Index, out defTactical);
-//                AITools.RandomCorrespondingTactical(ETactical.HalfInbounds, ETactical.HalfInboundsDefence,
-//                    BallOwner.Index, out attackTactical, out defTactical);
+//                AITools.RandomTactical(ETactical.HalfInbounds, BallOwner.Index, out attackTactical);
+//                AITools.RandomTactical(ETactical.HalfInboundsDefence, BallOwner.Index, out defTactical);
+                AITools.RandomCorrespondingTactical(ETactical.HalfInbounds, ETactical.HalfInboundsDefence,
+                    BallOwner.Index, out attackTactical, out defTactical);
             }
 
 			for(int i = 0; i < PlayerList.Count; i++)
