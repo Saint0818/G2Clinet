@@ -95,16 +95,18 @@ public class BallTrigger : MonoBehaviour
 		ParentRigidbody.AddForce (new Vector3 (0, -100, 0));
 	}
 	
-	public bool PassBall(int Kind = 0)
+	public bool PassBall(int kind = 0)
 	{
-		if (GameController.Get.Catcher && GameController.Get.BallOwner != null && GameController.Get.IsPassing == false) {
+		if(GameController.Get.Catcher && GameController.Get.BallOwner != null && 
+           GameController.Get.IsPassing == false)
+        {
 			GameController.Get.Passer = GameController.Get.BallOwner;
 			GameController.Get.SetBallOwnerNull();
 
 			Passing = true;
 			GameController.Get.IsPassing = true;
 //			PassCheckTime = Time.time + 2.5f;
-			PassKind = Kind;
+			PassKind = kind;
 			if( Vector3.Distance(GameController.Get.Passer.transform.position, GameController.Get.Catcher.transform.position) > 15f)
 				CameraMgr.Get.IsLongPass = true;
 
@@ -112,7 +114,7 @@ public class BallTrigger : MonoBehaviour
 			float dis = Vector3.Distance (GameController.Get.Catcher.DummyBall.transform.position, CourtMgr.Get.RealBall.transform.position);
 			float time = dis / (GameConst.AttackSpeedup * Random.Range (3, 5));
 
-			switch(Kind)
+			switch(kind)
 			{
 			case 2:
 				Vector3 [] pathay = new Vector3[2];

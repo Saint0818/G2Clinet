@@ -32,7 +32,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
 	void Start () {
-		string os = Get.getOS();
+//		string os = Get.getOS();
 		Time.timeScale = 1;
 		if (ConnectToServer && SendHttp.Get.CheckNetwork()) {
 			WWWForm form = new WWWForm();

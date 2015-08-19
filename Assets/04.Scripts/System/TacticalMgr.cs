@@ -11,13 +11,25 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> 用 TacticalMgr.Ins 取得實體. </item>
-/// <item> Call RandomTactical 取得戰術. </item>
+/// <item> Call GetData 取得戰術. </item>
+/// <item> Call GetCount 取得戰術數量. </item>
+/// </list>
+/// 
+/// 新增戰術:
+/// <list type="number">
+/// <item> 修改 ETactical, PrefixNameTacticalPairs. </item>
 /// </list>
 /// 
 /// How to use:
 /// <list type="number">
 /// <item> use TacticalMgr.Ins to get instance. </item>
-/// <item> call RandomTactical method to find tactical data. </item>
+/// <item> call GetData method to find tactical data. </item>
+/// <item> call GetCount method to know tactical number. </item>
+/// </list>
+/// 
+/// How to add tactical:
+/// <list type="number">
+/// <item> modify ETactical and PrefixNameTacticalPairs. </item>
 /// </list>
 /// 
 /// 程式碼的壞味道:
@@ -34,16 +46,7 @@ public class TacticalMgr
         get { return INSTANCE; }
     }
 
-//    private TTacticalData[] mTacticals;
-
-//    /// <summary>
-//    /// <para> key: GameConst.mTacticalPrefixNames 的索引值. </para>
-//    /// <para> Value: GameData.TacticalData 的索引值. </para>
-//    /// <para> 原作者的用意是用 [a][b] 的方式取出 TacticalData 的某筆戰術. 這個意思就是亂數找出某個情況下的戰術. </para>
-//    /// <para> a: 會是遊戲中的某個情況, 比如跳球, 邊界發球等等. </para>
-//    /// <para> b 通常都是亂數. </para>
-//    /// </summary>
-//    private readonly Dictionary<int, int[]> mSituationPosition = new Dictionary<int, int[]>();
+    private static readonly TTacticalData EmptyData = new TTacticalData();
 
     private readonly Dictionary<ETactical, List<TTacticalData>> mTacticals = new Dictionary<ETactical, List<TTacticalData>>();
 
@@ -70,13 +73,13 @@ public class TacticalMgr
         {"forward", ETactical.Forward}, 
         {"guard", ETactical.Guard}, 
 
-        {"teehalf0", ETactical.HalfTeeCenter}, 
-        {"teehalf1", ETactical.HalfTeeForward},
-        {"teehalf2", ETactical.HalfTeeGuard}, 
+        {"teehalf0", ETactical.HalfInboundsCenter}, 
+        {"teehalf1", ETactical.HalfInboundsForward},
+        {"teehalf2", ETactical.HalfInboundsGuard}, 
 
-        {"teedefencehalf0", ETactical.HalfTeeDefenceCenter}, 
-        {"teedefencehalf1", ETactical.HalfTeeDefenceForward},
-        {"teedefencehalf2", ETactical.HalfTeeDefenceGuard}, 
+        {"teedefencehalf0", ETactical.HalfInboundsDefenceCenter}, 
+        {"teedefencehalf1", ETactical.HalfInboundsDefenceForward},
+        {"teedefencehalf2", ETactical.HalfInboundsDefenceGuard}, 
     };
 
     public void Load(string jsonText)
@@ -88,21 +91,6 @@ public class TacticalMgr
         {
             mTacticals[data.Tactical].Add(data);
         }
-
-//        for(int i = 0; i < mTacticalPrefixNames.Length; i++)
-//        {
-//            if (!mSituationPosition.ContainsKey(i))
-//            {
-//                List<int> TacticalDataList = new List<int>();
-//                for (int j = 0; j < tacticals.Length; j++)
-//                {
-//                    if(tacticals[j].FileName.Contains(mTacticalPrefixNames[i]))
-//                        TacticalDataList.Add(j);
-//                }
-//
-//                mSituationPosition.Add(i, TacticalDataList.ToArray());
-//            }
-//        }
 
         Debug.Log("[tactical parsed finished.]");
     }
@@ -116,106 +104,74 @@ public class TacticalMgr
         }
     }
 
+    public int GetCount(ETactical tactical)
+    {
+        return mTacticals[tactical].Count;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="tactical"></param>
-    /// <param name="posIndex"> 0:C, 1:F, 2:G </param>
-    /// <returns></returns>
-    private ETactical convert(ETactical tactical, int posIndex)
+    /// <param name="index"></param>
+    /// <param name="data"></param>
+    /// <returns> true: 資料取得成功. </returns>
+    public bool GetData(ETactical tactical, int index, out TTacticalData data)
     {
-        switch(tactical)
+        if(index < 0 || index >= mTacticals[tactical].Count)
         {
-            case ETactical.None:
-            case ETactical.Attack:
-            case ETactical.Center:
-            case ETactical.Forward:
-            case ETactical.Guard:
-                break;
-
-            case ETactical.Inbounds:
-                if(posIndex == 0)
-                    return ETactical.InboundsCenter;
-                if(posIndex == 1)
-                    return ETactical.InboundsForward;
-                if(posIndex == 2)
-                    return ETactical.InboundsGuard;
-                break;
-
-            case ETactical.InboundsDefence:
-                if(posIndex == 0)
-                    return ETactical.InboundsDefenceCenter;
-                if (posIndex == 1)
-                    return ETactical.InboundsDefenceForward;
-                if (posIndex == 2)
-                    return ETactical.InboundsDefenceGuard;
-                break;
-
-            case ETactical.HalfTee:
-                if (posIndex == 0)
-                    return ETactical.HalfTeeCenter;
-                if (posIndex == 1)
-                    return ETactical.HalfTeeForward;
-                if (posIndex == 2)
-                    return ETactical.HalfTeeGuard;
-                break;
-
-            case ETactical.HalfTeeDefence:
-                if (posIndex == 0)
-                    return ETactical.HalfTeeDefenceCenter;
-                if (posIndex == 1)
-                    return ETactical.HalfTeeDefenceForward;
-                if (posIndex == 2)
-                    return ETactical.HalfTeeDefenceGuard;
-                break;
-
-            case ETactical.Fast:
-                if (posIndex == 0)
-                    return ETactical.FastCenter;
-                if (posIndex == 1)
-                    return ETactical.FastForward;
-                if (posIndex == 2)
-                    return ETactical.FastGuard;
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException(String.Format("Tactical:{0}, PosIndex:{1}", tactical, posIndex));
+            data = EmptyData;
+            return false;
         }
 
-        throw new NotImplementedException(String.Format("Tactical:{0}", tactical));
-    }
-
-    public void RandomTactical(ETactical tactical, int index, out TTacticalData data)
-    {
-        RandomTactical(convert(tactical, index), out data);
-    }
-
-    public void RandomTactical(ETactical tactical, out TTacticalData data)
-    {
-        int randomValue = UnityEngine.Random.Range(0, mTacticals[tactical].Count);
-        data = mTacticals[tactical][randomValue];
+        data = mTacticals[tactical][index];
+        return true;
     }
 
 //    /// <summary>
-//    /// 亂數找出一個戰術.
+//    /// 
 //    /// </summary>
-//    /// <param name="tacticalIndex"> 哪一類的戰術. </param>
 //    /// <param name="tactical"></param>
-//    private void randomTactical(int tacticalIndex, ref TTacticalData tactical)
+//    /// <param name="posIndex"> 0:C, 1:F, 2:G. </param>
+//    /// <param name="data"></param>
+//    public void RandomTactical(ETactical tactical, int posIndex, out TTacticalData data)
 //    {
-//        if(tactical.PosAy1 == null)
-//            tactical = new TTacticalData();
+//        RandomTactical(convert(tactical, posIndex), out data);
+//    }
+
+//    public void RandomTactical(ETactical tactical, out TTacticalData data)
+//    {
+//        int randomValue = UnityEngine.Random.Range(0, mTacticals[tactical].Count);
+//        data = mTacticals[tactical][randomValue];
+//    }
+
+//    /// <summary>
+//    /// 
+//    /// </summary>
+//    /// <param name="attTactical"> att 是 attack 的縮寫. </param>
+//    /// <param name="defTactical"> def 是 defence 的縮寫. </param>
+//    /// <param name="attPosIndex"></param>
+//    /// <param name="attData"></param>
+//    /// <param name="defData"></param>
+//    public void RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, int attPosIndex,
+//                                            out TTacticalData attData, out TTacticalData defData)
+//    {
+//        RandomCorrespondingTactical(convert(attTactical, attPosIndex), convert(defTactical, attPosIndex),
+//                                    out attData, out defData);
+//    }
 //
-//        tactical.FileName = "";
-//
-//        if(tacticalIndex >= 0 && tacticalIndex < PrefixNames.Length)
-//        {
-//            if(mSituationPosition[tacticalIndex].Length > 0)
-//            {
-//                int randomValue = Random.Range(0, mSituationPosition[tacticalIndex].Length);
-//                int i = mSituationPosition[tacticalIndex][randomValue];
-//                tactical = mTacticals[i];
-//            }
-//        }
+//    /// <summary>
+//    /// 
+//    /// </summary>
+//    /// <param name="attTactical"> att 是 attack 的縮寫. </param>
+//    /// <param name="defTactical"></param>
+//    /// <param name="attData"></param>
+//    /// <param name="defData"></param>
+//    public void RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, 
+//                                            out TTacticalData attData, out TTacticalData defData)
+//    {
+//        int randomValue = UnityEngine.Random.Range(0, mTacticals[attTactical].Count);
+//        attData = mTacticals[attTactical][randomValue];
+//        defData = mTacticals[defTactical][randomValue];
 //    }
 }
