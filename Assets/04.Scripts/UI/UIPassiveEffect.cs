@@ -19,8 +19,8 @@ public class UIPassiveEffect : UIBase {
 	private int[] cardLVs = new int[3];
 	private string[] cardNames = new string[3];
 	
-	private GameObject[] uiPassive = new GameObject[6];
-	private float[] passiveTimers = new float[6];
+//	private GameObject[] uiPassive = new GameObject[6];
+//	private float[] passiveTimers = new float[6];
 
 	private int[] recordIndex = new int[3];
 
@@ -61,10 +61,10 @@ public class UIPassiveEffect : UIBase {
 			labelCardLabel[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardLabel").GetComponent<UILabel>();
 		}
 
-		for (int i=0; i<uiPassive.Length; i++) {
-			uiPassive[i] = GameObject.Find (UIName + "/Center/FX_Passive_" + (i+1).ToString());
-			uiPassive[i].SetActive(false);
-		}
+//		for (int i=0; i<uiPassive.Length; i++) {
+//			uiPassive[i] = GameObject.Find (UIName + "/Center/FX_Passive_" + (i+1).ToString());
+//			uiPassive[i].SetActive(false);
+//		}
 
 		for (int i=0; i<recordIndex.Length; i++) {
 			recordIndex[i] = -1;
@@ -146,6 +146,8 @@ public class UIPassiveEffect : UIBase {
 	public void ShowCard (PlayerBehaviour player = null, int picNo = 0, int lv = 0, string name = ""){
 		if(!Visible)
 			Show(true);
+
+		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.gameObject, null, 0.5f);
 
 //		for(int i=0; i<uiPassive.Length; i++) {
 //			if(!uiPassive[i].activeInHierarchy) {
