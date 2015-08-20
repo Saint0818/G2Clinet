@@ -150,9 +150,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .999765098
-        functionName: AnimationEvent
-        data: AnimationEnd
+      - time: .100342289
+        functionName: EffectEvent
+        data: ShakeFX_0
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -160,6 +160,13 @@ ModelImporter:
       - time: .402197808
         functionName: AnimationEvent
         data: GotStealing
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .999765098
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

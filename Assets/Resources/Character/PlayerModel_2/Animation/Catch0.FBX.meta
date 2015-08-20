@@ -150,25 +150,18 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: AnimationEvent
-        data: CatchEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .355432779
-        functionName: AnimationEvent
-        data: PickUp
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: 0
         functionName: PlaySound
         data: SD_CatchBall
         objectReferenceParameter: {fileID: 8300000, guid: a025e2d6f6594e54bb85a9267824baae,
           type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: CatchEnd
+        objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

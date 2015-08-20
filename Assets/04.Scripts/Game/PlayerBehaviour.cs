@@ -2935,9 +2935,13 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void EffectEvent(string effectName)
 	{
-		switch (effectName) {
+		switch (effectName) 
+		{
 			case "FallDownFX":
 				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position, null, null, 3);
+				break;
+			case "ShakeFX_0":
+			EffectManager.Get.PlayEffect(effectName, new Vector3(gameObject.transform.position.x, 1.5f, gameObject.transform.position.z), null, null, 0.5f);
 				break;
 		}
 	}

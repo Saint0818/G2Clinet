@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0d5a61c3b43666c4f9eb04cca27293c4
-timeCreated: 1434340270
+timeCreated: 1440042898
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -150,6 +150,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: .100342289
+        functionName: EffectEvent
+        data: ShakeFX_0
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: .402197808
         functionName: AnimationEvent
         data: GotStealing
