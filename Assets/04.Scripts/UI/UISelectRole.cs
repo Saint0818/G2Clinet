@@ -417,10 +417,8 @@ public class UISelectRole : UIBase {
 			   arrayRoleID[j] != GameData.TeamMembers[1].Player.ID) {
 				if(GameData.DPlayers.ContainsKey(arrayRoleID[j]))
 				{
-					GameData.EnemyMembers[Index].Player.ID = arrayRoleID[j];
 					GameData.EnemyMembers[Index].Player.Name = GameData.DPlayers[arrayRoleID[j]].Name;
-					GameData.EnemyMembers[Index].Player.SetAttribute();
-					GameData.EnemyMembers[Index].Player.SetAvatar();
+					GameData.EnemyMembers[Index].Player.SetID(arrayRoleID[j]);
 					Index++;
 				}
 			}

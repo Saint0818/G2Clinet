@@ -17,17 +17,16 @@ public static class SettingText {
 	public const string GameRecordEnd = "GameRecordEnd";
 }
 
-public class GameData {
-	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
+public static class GameData {
 	public static TPlayerAttribute[] BaseAttr;
-
     public static TBasketShootPositionData[] BasketShootPosition;
+	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
-	
+	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
 	public static Dictionary<int, Texture> CardTextures = new Dictionary<int, Texture>();
 
-	public static string ServerVersion;
-	public static string SaveVersion;
+	public static float ServerVersion;
+	public static float SaveVersion;
 	public static bool IsLoginRTS;
 	public static int RoomIndex = -1;
 
@@ -44,21 +43,11 @@ public class GameData {
 	{
 		if (!isLoaded) {
 			isLoaded = true;
-			List<TDownloadData> downloadList = new List<TDownloadData>();
 
-			downloadList.Add (new TDownloadData ("greatplayer", "0"));
-			downloadList.Add (new TDownloadData ("baseattr", "0"));
-			downloadList.Add (new TDownloadData ("tactical", "0"));
-			downloadList.Add (new TDownloadData ("ballposition", "0"));
-			downloadList.Add (new TDownloadData ("skill", "0"));
-
-			FileManager.Get.LoadFileResource (downloadList);
-
+			FileManager.Get.LoadFileResource ();
 			loadGameSetting();
 			loadCardTextures();
 		}
-
-		Team.Init();
 	}
 
 	private static void loadCardTextures(){
@@ -71,30 +60,50 @@ public class GameData {
 	}
 
 	private static void loadGameSetting() {
+		Setting.Language = ELanguage.EN;
 		if (PlayerPrefs.HasKey (SettingText.Language)) {
 			int temp = Convert.ToInt16(PlayerPrefs.GetString(SettingText.Language));
 
-			if(temp == ELanguage.TW.GetHashCode())
-				Setting.Language = ELanguage.TW;
-			else
+			switch (temp) {
+			case 0:
 				Setting.Language = ELanguage.EN;
+				break;
+			case 1:
+				Setting.Language = ELanguage.CN;
+				break;
+			case 3:
+				Setting.Language = ELanguage.JP;
+				break;
+			}
 		} else {
 			#if UNITY_EDITOR
-				#if En
-				GameData.Setting.Language = ELanguage.EN;
-				#endif
-				
-				#if zh_TW
+				#if TW
 				GameData.Setting.Language = ELanguage.TW;
 				#endif
+
+				#if CN
+				GameData.Setting.Language = ELanguage.CN;
+				#endif
+				
+				#if EN
+				GameData.Setting.Language = ELanguage.EN;
+				#endif
+
+				#if JP
+				GameData.Setting.Language = ELanguage.JP;
+				#endif
+
 			#else
 			switch (Application.systemLanguage) {
+			case SystemLanguage.ChineseTraditional:
 			case SystemLanguage.Chinese:
 				GameData.Setting.Language = ELanguage.TW;
 				break;
-			default:
-				GameData.Setting.Language = ELanguage.EN;
+			case SystemLanguage.ChineseSimplified:
+				GameData.Setting.Language = ELanguage.CN;
 				break;
+			case SystemLanguage.Japanese:
+				GameData.Setting.Language = ELanguage.JP;
 			}
 			#endif
 		}
@@ -133,6 +142,33 @@ public class GameData {
 			PlayerPrefs.SetString(SettingText.TeamSave, save);
 		} catch (Exception e) {
 			Debug.Log(e.ToString());
+		}
+	}
+
+	public static string OS {
+		get {
+			string os = "0";
+			#if UNITY_EDITOR
+			
+			#else
+				#if UNITY_IOS
+				os = "1";
+				#endif
+				#if UNITY_ANDROID
+				os = "2";
+				#endif
+				#if (!UNITY_IOS && !UNITY_ANDROID)
+				os = "3";
+				#endif
+			#endif
+			
+			return os;
+		}
+	}
+
+	public static string Company {
+		get {
+			return "NiceMarket";
 		}
 	}
 }

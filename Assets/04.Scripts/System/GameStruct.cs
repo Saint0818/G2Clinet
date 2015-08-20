@@ -16,6 +16,7 @@ namespace GameStruct {
 		public int Diamond;
 
 		public TPlayer Player;
+		public TSkill SkillCards;
 
 		public void Init() {
 			if (Identifier == null)
@@ -30,12 +31,12 @@ namespace GameStruct {
 			if (FBid == null)
 				FBid = "";
 
-			Player.SetAttribute();
-			Player.SetAvatar();
+			Player.Init();
 		} 
 	}
 
     public struct TPlayer {
+		public int RoleIndex;
         public int ID;
         public string Name;
 		public int Lv;
@@ -57,12 +58,14 @@ namespace GameStruct {
 		public TAvatar Avatar;
 		public TSkill ActiveSkill;
 		public TSkill[] Skills;
+		public TItem[] Items;
 
 		public TPlayer(int Level)
 		{
 			AILevel = Level;
-			ID = 0;
 			Name = "";
+			RoleIndex = 0;
+			ID = 0;
 			Lv = 0;
 			Point2 = 0;
 			Point3 = 0;
@@ -80,7 +83,20 @@ namespace GameStruct {
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];
+			Items = new TItem[0];
 		}
+
+		public void Init() {
+			if (Name == null)
+				Name = "";
+
+			if (Skills == null)
+			    Skills = new TSkill[0];
+
+			
+			SetAttribute();
+			SetAvatar();
+		} 
 
 		public void SetID(int id) {
 			ID = id;
@@ -89,7 +105,7 @@ namespace GameStruct {
 		}
 
 		public void SetAttribute() {
-			if (GameData.DPlayers.ContainsKey(ID)) {
+			if (ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
 				Point2 = GameData.DPlayers[ID].Point2;
 				Point3 = GameData.DPlayers[ID].Point3;
 				Steal = GameData.DPlayers[ID].Steal;
@@ -139,7 +155,7 @@ namespace GameStruct {
 		}
 
 		public void SetAvatar() {
-			if (GameData.DPlayers.ContainsKey(ID)) {
+			if (ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
 				Avatar.Body = GameData.DPlayers[ID].Body;
 				Avatar.Hair = GameData.DPlayers[ID].Hair;
 				Avatar.AHeadDress = GameData.DPlayers[ID].AHeadDress;
@@ -148,6 +164,40 @@ namespace GameStruct {
 				Avatar.Shoes = GameData.DPlayers[ID].Shoes;
 				Avatar.MHandDress = GameData.DPlayers[ID].MHandDress;
 				Avatar.ZBackEquip = GameData.DPlayers[ID].ZBackEquip;
+
+				if (Items != null) {
+					for (int i = 0; i < Items.Length; i ++) {
+						if (GameData.DItemData.ContainsKey(Items[i].ID)) {
+							TItemData item = GameData.DItemData[Items[i].ID];
+							switch (item.Kind) {
+							case 0:
+								Avatar.Body = item.Avatar;
+								break;
+							case 1:
+								Avatar.Hair = item.Avatar;
+								break;
+							case 2:
+								Avatar.AHeadDress = item.Avatar;
+								break;
+							case 3:
+								Avatar.Cloth = item.Avatar;
+								break;
+							case 4:
+								Avatar.Pants = item.Avatar;
+								break;
+							case 5:
+								Avatar.Shoes = item.Avatar;
+								break;
+							case 6:
+								Avatar.MHandDress = item.Avatar;
+								break;
+							case 7:
+								Avatar.ZBackEquip = item.Avatar;
+								break;
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -268,7 +318,10 @@ namespace GameStruct {
 
 	public struct TGreatPlayer {
 		public int ID;
-		public string Name;
+		public string NameTW;
+		public string NameCN;
+		public string NameEN;
+		public string NameJP;
 		public float Point2;
 		public float Point3;
 		public float Steal;
@@ -322,6 +375,17 @@ namespace GameStruct {
 		public int SkillLV13;
 		public int Skill14;
 		public int SkillLV14;
+
+		public string Name {
+			get {
+				switch (GameData.Setting.Language) {
+				case ELanguage.TW: return NameTW;
+				case ELanguage.CN: return NameCN;
+				case ELanguage.JP: return NameJP;
+				default : return NameEN;
+				}
+			}
+		}
 	}
 
 	public struct TScenePlayer {
@@ -598,5 +662,26 @@ namespace GameStruct {
 		public float Distance(int lv) {
 			return distance + lv * distanceAdd;
 		}
+	}
+
+	public struct TItem {
+		public int ID;
+	}
+
+	public struct TItemData {
+		public int ID;
+		public int Kind;
+		public int Position;
+		public int Avatar;
+		public int MaxStack;
+		public string Icon;
+		public string NameTW;
+		public string NameCN;
+		public string NameEN;
+		public string NameJP;
+		public string ExplainTW;
+		public string ExplainCN;
+		public string ExplainEN;
+		public string ExplainJP;
 	}
 }

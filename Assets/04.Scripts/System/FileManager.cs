@@ -47,7 +47,6 @@ public struct TStartCoroutine{
 }
 
 public class FileManager : KnightSingleton<FileManager> {
-	public static string[] DownloadFiles = {"TacticalData"};
 	#if Debug
 	public const string URL = "http://localhost:3600/";
 	public const VersionMode NowMode = VersionMode.debug;
@@ -67,44 +66,50 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
 
-	private static List<TDownloadData> Download_list = new List<TDownloadData>();
+	private static string[] downloadFiles = {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item"};
+
+	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
+	private static List<TDownloadData> dataList = new List<TDownloadData>();
+	private static List<TDownloadData> downloadList = new List<TDownloadData>();
 	private static Dictionary<string, DownloadFileText> CallBackFun = new Dictionary<string, DownloadFileText> ();
 	private static Dictionary<string, DownloadFileWWW> CallBackWWWFun = new Dictionary<string, DownloadFileWWW> ();
 	private static Dictionary<string, int> FailuresData = new Dictionary<string, int> ();
 	private static TDownloadTimeRecord NowDownloadFileName = new TDownloadTimeRecord (0);
 	private static DownloadFinsh FinishCallBack = null;
+
 	public static int DownlandCount = 0;
 	public static int AlreadyDownlandCount = 0;
 
 	public void LoadFileServer(List<TDownloadData> DataList, DownloadFinsh callback = null){
-		if (Download_list.Count > 0) {
-			for(int i = 0 ; i < Download_list.Count; i++)
-				Debug.LogError(Download_list[i].fileName);
+		if (downloadList.Count > 0) {
+			for(int i = 0 ; i < downloadList.Count; i++)
+				Debug.LogError(downloadList[i].fileName);
 		}
+
 		DownlandCount = DataList.Count;
 		AlreadyDownlandCount = 0;
 		FinishCallBack = callback;
-		Download_list.Clear ();
+		downloadList.Clear ();
 		
 		for(int i = 0; i < DataList.Count; i++)
-			Download_list.Add (DataList[i]);
+			downloadList.Add (DataList[i]);
 	}
 
-	public void LoadFileResource(List<TDownloadData> DataList, DownloadFinsh callback = null){
-		DownlandCount = DataList.Count;
+	public void LoadFileResource(DownloadFinsh callback = null){
+		DownlandCount = dataList.Count;
 		AlreadyDownlandCount = 0;
 		FinishCallBack = callback;
 
-		for (int i = 0; i < DataList.Count; i++) {
-			TextAsset tx = Resources.Load (ClientFilePath + DataList[i].fileName) as TextAsset;
+		for (int i = 0; i < dataList.Count; i++) {
+			TextAsset tx = Resources.Load (ClientFilePath + dataList[i].fileName) as TextAsset;
 			if (tx) {
-				if(CallBackFun.ContainsKey(DataList[i].fileName)){
-					CallBackFun[DataList[i].fileName](DataList[i].version, tx.text, false);
+				if(CallBackFun.ContainsKey(dataList[i].fileName)){
+					CallBackFun[dataList[i].fileName](dataList[i].version, tx.text, false);
 					AlreadyDownlandCount++;
 					if (UILoading.Visible)
 						UILoading.Get.UpdateProgress();
 				}else
-					Debug.LogError("No handle function : " + DataList[i].fileName);
+					Debug.LogError("No handle function : " + dataList[i].fileName);
 			}	
 		}
 
@@ -172,50 +177,56 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	void Awake () {
-		CallBackFun.Add ("greatplayer", parseGreatPlayerData);
-		CallBackFun.Add ("tactical", parseTacticalData);
-		CallBackFun.Add ("baseattr", parseBaseAttr);
-		CallBackFun.Add ("ballposition", parseBasketShootPositionData);
-		CallBackFun.Add ("skill", parseSkillnData);
+		downloadCallBack[0] = parseGreatPlayerData;
+		downloadCallBack[1] = parseTacticalData;
+		downloadCallBack[2] = parseBaseAttr;
+		downloadCallBack[3] = parseBasketShootPositionData;
+		downloadCallBack[4] = parseSkillData;
+		downloadCallBack[5] = parseItemData;
+
+		for (int i = 0; i < downloadFiles.Length; i ++) {
+			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
+			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
+		}
 	}
     
     private void DoStarDownload(){
-		if (Download_list.Count > 0) {
-			int Count = Download_list.Count;
+		if (downloadList.Count > 0) {
+			int Count = downloadList.Count;
 			for(int i = 0; i < Count; i++){
-				string[] strChars = Download_list[0].fileName.Split(new char[] {'.'});
+				string[] strChars = downloadList[0].fileName.Split(new char[] {'.'});
 				if(strChars.Length > 1){
 					if(strChars[strChars.Length - 1] == "json"){
 						if(CallBackFun.ContainsKey(strChars[0])){
-							DoDownload(Download_list[0].version, Download_list[0].fileName);
+							DoDownload(downloadList[0].version, downloadList[0].fileName);
 							break;
 						}else{
-							Debug.LogError("Download file no CallBackFun Function:" + Download_list[0].fileName);
-							Download_list.RemoveAt(0);
+							Debug.LogError("Download file no CallBackFun Function:" + downloadList[0].fileName);
+							downloadList.RemoveAt(0);
 						}
 					}else if(strChars[strChars.Length - 1] == "assetbundle"){
 						if(CallBackWWWFun.ContainsKey(strChars[0])){
-							DoDownload(Download_list[0].version, Download_list[0].fileName);
+							DoDownload(downloadList[0].version, downloadList[0].fileName);
 							break;
 						}else{
-							Debug.LogError("Download file no CallBackWWWFun Function:" + Download_list[0].fileName);
-							Download_list.RemoveAt(0);
+							Debug.LogError("Download file no CallBackWWWFun Function:" + downloadList[0].fileName);
+							downloadList.RemoveAt(0);
 						}
 					}else{
 						if(CallBackFun.ContainsKey(strChars[0])){
-							DoDownload(Download_list[0].version, Download_list[0].fileName);
+							DoDownload(downloadList[0].version, downloadList[0].fileName);
 							break;
 						}else{
-							Debug.LogError("Download file no CallBackFun Function:" + Download_list[0].fileName);
-							Download_list.RemoveAt(0);
+							Debug.LogError("Download file no CallBackFun Function:" + downloadList[0].fileName);
+							downloadList.RemoveAt(0);
 						}
 					}
 				}else{
 					if(CallBackFun.ContainsKey(strChars[0])){
-						DoDownload(Download_list[0].version, Download_list[0].fileName);
+						DoDownload(downloadList[0].version, downloadList[0].fileName);
 					}else{
-						Debug.LogError("Download file no CallBackFun Function:" + Download_list[0].fileName);
-						Download_list.RemoveAt(0);
+						Debug.LogError("Download file no CallBackFun Function:" + downloadList[0].fileName);
+						downloadList.RemoveAt(0);
 					}
 				}
 			}		
@@ -223,14 +234,14 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	void Update () {
-		if (Download_list.Count > 0) {
+		if (downloadList.Count > 0) {
 			if(NowDownloadFileName.FileName == ""){
 				DoStarDownload();
 			}else{
 				if (Time.time - NowDownloadFileName.StarTime >= FileDownloadLimitTime){
 					StopCoroutine("WaitForDownload");
-					TDownloadData retry = Download_list[0];
-					Download_list.RemoveAt (0);
+					TDownloadData retry = downloadList[0];
+					downloadList.RemoveAt (0);
 
 					if(FailuresData.ContainsKey(retry.fileName))
 						FailuresData[retry.fileName] = FailuresData[retry.fileName] + 1;
@@ -240,9 +251,9 @@ public class FileManager : KnightSingleton<FileManager> {
 					if(FailuresData[retry.fileName] >= 3)
 						Debug.LogWarning("Please check your Internet connection, [" + retry.fileName + "] downland error");
 					else
-						Download_list.Add(retry);
+						downloadList.Add(retry);
 
-					if(Download_list.Count > 0){
+					if(downloadList.Count > 0){
 						DoStarDownload();
 					}else
 						DownloadFinish();
@@ -278,9 +289,9 @@ public class FileManager : KnightSingleton<FileManager> {
 			Data.www = www;
 			StartCoroutine("WaitForDownload" , Data);	
 		}else{
-			Debug.LogError("Server Path error : " + Download_list[0].fileName);
-			Download_list.RemoveAt (0);
-			if(Download_list.Count > 0)
+			Debug.LogError("Server Path error : " + downloadList[0].fileName);
+			downloadList.RemoveAt (0);
+			if(downloadList.Count > 0)
 				DoStarDownload();
 			else
 				DownloadFinish();
@@ -314,13 +325,13 @@ public class FileManager : KnightSingleton<FileManager> {
 	private IEnumerator WaitForDownload(TStartCoroutine Data){
 		yield return Data.www;
 		string[] strChars;
-		if (Download_list != null && Download_list.Count > 0) {
+		if (downloadList != null && downloadList.Count > 0) {
 			if (string.IsNullOrEmpty (Data.www.error)) {
 				AlreadyDownlandCount++;
 				UILoading.Get.UpdateProgress();
-				string FileName = Download_list[0].fileName;
+				string FileName = downloadList[0].fileName;
 				strChars = FileName.Split(new char[] {'.'});
-				Download_list.RemoveAt (0);
+				downloadList.RemoveAt (0);
 
 				if(strChars.Length > 1){
 					switch(strChars[strChars.Length - 1]){
@@ -329,7 +340,7 @@ public class FileManager : KnightSingleton<FileManager> {
 							CallBackFun[strChars[0]](Data.Version, Data.www.text, true);
 						}else{
 							Debug.LogError("Download file no CallBackFun Function:" + FileName);
-							Download_list.RemoveAt(0);
+							downloadList.RemoveAt(0);
 						}
 						break;
 					case "assetbundle":
@@ -337,7 +348,7 @@ public class FileManager : KnightSingleton<FileManager> {
 							CallBackWWWFun[strChars[0]](Data.Version, strChars[0], Data.www);
 						}else{
 							Debug.LogError("Download file no CallBackWWWFun Function:" + FileName);
-							Download_list.RemoveAt(0);
+							downloadList.RemoveAt(0);
 						}
 						break;
 					default:
@@ -345,7 +356,7 @@ public class FileManager : KnightSingleton<FileManager> {
 							CallBackFun[strChars[0]](Data.Version, Data.www.text, true);
 						}else{
 							Debug.LogError("Download file no CallBackFun Function:" + FileName);
-							Download_list.RemoveAt(0);
+							downloadList.RemoveAt(0);
 						}
 						break;
 					}	
@@ -353,13 +364,13 @@ public class FileManager : KnightSingleton<FileManager> {
 					if(CallBackFun.ContainsKey(strChars[0])){
 						CallBackFun[strChars[0]](Data.Version, Data.www.text, true);
 					}else{
-						Debug.LogError("Download file no CallBackFun Function:" + Download_list[0].fileName);
-						Download_list.RemoveAt(0);
+						Debug.LogError("Download file no CallBackFun Function:" + downloadList[0].fileName);
+						downloadList.RemoveAt(0);
 					}
 				}
 			}else{
-				TDownloadData retry = Download_list[0];
-				Download_list.RemoveAt (0);
+				TDownloadData retry = downloadList[0];
+				downloadList.RemoveAt (0);
 				
 				if(FailuresData.ContainsKey(retry.fileName))
 					FailuresData[retry.fileName] = FailuresData[retry.fileName] + 1;
@@ -369,10 +380,10 @@ public class FileManager : KnightSingleton<FileManager> {
 				if(FailuresData[retry.fileName] >= 3)
 					Debug.LogWarning("Please check your Internet connection, [" + retry.fileName + "] downland error");
 				else
-					Download_list.Add(retry);
+					downloadList.Add(retry);
 			}
 
-			if (Download_list.Count > 0) 
+			if (downloadList.Count > 0) 
 				DoStarDownload();
 			else
 				DownloadFinish();
@@ -458,7 +469,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseSkillnData (string Version, string text, bool SaveVersion){
+	private void parseSkillData (string Version, string text, bool SaveVersion){
 		try {
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
@@ -474,4 +485,19 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
+	private void parseItemData (string Version, string text, bool SaveVersion){
+		try {
+			TItemData[] data = (TItemData[])JsonConvert.DeserializeObject (text, typeof(TItemData[]));
+			for (int i = 0; i < data.Length; i++) {
+				GameData.DItemData.Add(data[i].ID, data[i]);
+			}
+			
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "item", Version);
+			
+			Debug.Log ("[item parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[item parsed error] " + ex.Message);
+		}
+	}
 }

@@ -2,8 +2,23 @@
 
 namespace GameEnum {
 	public enum ELanguage {
-		TW = 0,
-		EN = 1
+		EN = 0,
+		TW = 1,
+		CN = 2,
+		JP = 3
+	}
+
+	public enum EOS {
+		EDITOR = 0,
+		IOS = 1,
+		ANDROID = 2
+	}
+
+	public enum ECompany {
+		NiceMarket = 0,
+		PubGame = 1,
+		R2 = 2,
+		MyGamez = 3
 	}
 
 	public enum ELoadingGamePic {

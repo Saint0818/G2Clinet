@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,18 +32,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
 	void Start () {
-//		string os = Get.getOS();
 		Time.timeScale = 1;
-		if (ConnectToServer && SendHttp.Get.CheckNetwork()) {
-			WWWForm form = new WWWForm();
-			form.AddField("OS", getOS());
-			SendHttp.Get.Command(URLConst.Version, waitVersion, form);
-		} else {
-			if (GameData.LoadTeamSave())
-				EnterLobby();
-			else 
-				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
-		}
 
 		RootScenePlayers = GameObject.Find("ScenePlayers");
 		if (!RootScenePlayers) {
@@ -57,9 +46,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			RootOnlinePlayers.name = "OnlinePlayers";
 		}
 
-		GameData.Init();
-		TextConst.Init();
-		SceneMgr.Get.CurrentScene = SceneName.Lobby;
+		if (GameData.Team.Identifier == "")
+			SendHttp.Get.CheckServerData(true);
+		else
+			EnterLobby();
     }
     
     void FixedUpdate() {
@@ -188,55 +178,6 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
-	private string getOS() {
-		string os = "0";
-		#if UNITY_EDITOR
-
-		#else
-			#if UNITY_IOS
-			os = "1";
-			#endif
-			#if UNITY_ANDROID
-			os = "2";
-			#endif
-			#if (!UNITY_IOS && !UNITY_ANDROID)
-			os = "3";
-			#endif
-		#endif
-
-		return os;
-	}
-
-	private void waitVersion(bool ok, WWW www) {
-		if (ok) {
-			GameData.ServerVersion = www.text;
-			if (www.text.CompareTo(BundleVersion.version.ToString()) != 1)
-				SendLogin();
-			else
-				UIHint.Get.ShowHint("Version is different.", Color.red);
-		} else
-			SceneMgr.Get.ChangeLevel(SceneName.Court_0);
-	}
-
-	private void waitDeviceLogin(bool flag, WWW www) {
-		if (flag) {
-			try {
-				string text = GSocket.Get.OnHttpText(www.text);
-				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text); 
-				
-				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
-					SendHttp.Get.CookieHeaders.Clear();
-					SendHttp.Get.CookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
-				}
-
-				OnCloseLoading();
-			} catch (Exception e) {
-				Debug.Log(e.ToString());
-			}
-		} else
-			Application.LoadLevel(GameConst.SceneGamePlay);
-	}
-
 	private void waitScenePlayer(bool flag, WWW www) {
 		if (flag) {
 			try {
@@ -257,24 +198,6 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				Debug.Log(e.ToString());
 			}
 		}
-	}
-
-	private void SendLogin() {
-		GameData.Team.Identifier = "";
-		WWWForm form = new WWWForm();
-		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-		form.AddField("Language", GameData.Setting.Language.GetHashCode());
-		form.AddField("OS", getOS ());
-		
-		SendHttp.Get.Command(URLConst.DeviceLogin, waitDeviceLogin, form);
-	}
-
-	private void OnCloseLoading()
-	{	
-		if (GameData.Team.Player.Lv == 0)
-			UICreateRole.UIShow(true);
-		else 
-			EnterLobby();
 	}
 
 	private bool addRPGController(GameObject player) {
@@ -465,11 +388,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     
     public void EnterLobby() {
 		try {
-			GameData.Init();
 			UIMain.UIShow(true);
 			createMyPlayer();
-			WWWForm form = new WWWForm();
-			SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
+			//WWWForm form = new WWWForm();
+			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
 		}

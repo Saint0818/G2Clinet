@@ -3,6 +3,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using GameStruct;
 
 public delegate void TBooleanWWWObj(bool ok, WWW www);
 
@@ -12,7 +14,6 @@ public static class URLConst {
 	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/BaskClub.apk";
 
 	public const string Version = "version";
-	public const string GetVersion = "getversion";
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
 	public const string LinkFB = "linkfb";
@@ -102,7 +103,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 			url = FileManager.URL + url;
 			WWW www = null;
 
-			if (form == null){
+			if (form == null) {
 				//http get
 				www = new WWW(url);
 			}else { 
@@ -165,6 +166,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 		if (string.IsNullOrEmpty(www.error)){
 			if (www.text.Contains("{err:")){
 				string e = www.text.Substring(6, www.text.Length - 7);
+				UIHint.Get.ShowHint(e, Color.red);
 				#if ShowHttpLog
 				Debug.LogError("Receive from URL and Error:" + e);
 				#endif
@@ -200,5 +202,73 @@ public class SendHttp : KnightSingleton<SendHttp>
 		}
 		
 		return false;
+	}
+
+	public void CheckServerData(bool connectToServer)
+	{
+		if (connectToServer) {
+			if (CheckNetwork()) {
+				WWWForm form = new WWWForm();
+				form.AddField("OS", GameData.OS);
+				Command(URLConst.Version, waitVersion, form);
+			} else 
+				if (GameData.LoadTeamSave())
+					SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+			else 
+				SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+		} else 
+			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+	}
+	
+	private void waitVersion(bool ok, WWW www) {
+		if (ok) {
+			if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion)
+				SendLogin();
+			else {
+				UIHint.Get.ShowHint("Version is different.", Color.red);
+				UIUpdate.UIShow(true);
+			}
+		} else
+			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+	}
+	
+	private void SendLogin() {
+		GameData.Team.Identifier = "";
+		WWWForm form = new WWWForm();
+		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("Language", GameData.Setting.Language.GetHashCode());
+		form.AddField("OS", GameData.OS);
+		form.AddField("Company", GameData.OS);
+
+		Command(URLConst.DeviceLogin, waitDeviceLogin, form);
+	}
+	
+	private void waitDeviceLogin(bool flag, WWW www)
+	{
+		if (flag) {
+			try {
+				string text = GSocket.Get.OnHttpText(www.text);
+				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text); 
+				GameData.Team.Init();
+
+				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
+					SendHttp.Get.CookieHeaders.Clear();
+					SendHttp.Get.CookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
+				}
+				
+				OnCloseLoading();
+			} catch (Exception e) {
+				Debug.Log(e.ToString());
+			}
+		} else
+			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+	}
+
+	private void OnCloseLoading() {	
+		if (GameData.Team.Player.Lv == 0)
+			UICreateRole.UIShow(true);
+		else {
+			SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+		}
 	}
 }

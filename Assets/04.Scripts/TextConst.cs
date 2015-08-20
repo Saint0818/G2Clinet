@@ -1,3 +1,4 @@
+//#define OutFile
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
@@ -8,21 +9,50 @@ using GameEnum;
 public static class TextConst
 {
 	private static bool loaded = false;
-	private static Dictionary<int, string[]> GameText = new Dictionary<int, string[]> ();
+	private static Dictionary<int, string[]> gameText = new Dictionary<int, string[]> ();
 
-	private static void AddString(int key, string Text_TW, string Text_EN = ""){
-		if (!GameText.ContainsKey (key)) {
-			string [] Data = new string[2];
-			Data[ELanguage.TW.GetHashCode()] = Text_TW;
-			Data[ELanguage.EN.GetHashCode()] = Text_EN;
-			GameText.Add(key, Data);
-		}else
-			Debug.Log("Repeat text key : " + key);
+	#if OutFile
+	private static StringBuilder sb = new StringBuilder();
+	#endif
+	
+	private static void AddString(int key, string textTW, string textCN = "", string textEN = "", string textJP = ""){
+		#if OutFile
+		if (!textTW.Contains("\n") && !textEN.Contains("\n")) {
+			sb.Append(key.ToString() + "\t" + textTW.ToString() + "\t" + textEN.ToString());
+		} else {
+			sb.Append(key.ToString() + "\t" + "-------------------");
+		}
+		
+		sb.AppendLine();
+		#endif
+
+		if (textCN == "")
+			textCN = textTW;
+
+		if (textEN == "")
+			textEN = textTW;
+
+		if (textJP == "")
+			textJP = textTW;
+
+		if (gameText.ContainsKey (key)) {
+			gameText[key][ELanguage.EN.GetHashCode()] = textEN;
+			gameText[key][ELanguage.TW.GetHashCode()] = textTW;
+			gameText[key][ELanguage.CN.GetHashCode()] = textCN;
+			gameText[key][ELanguage.JP.GetHashCode()] = textJP;
+		}else{
+			string [] Data = new string[4];
+			Data[ELanguage.EN.GetHashCode()] = textEN;
+			Data[ELanguage.TW.GetHashCode()] = textTW;
+			Data[ELanguage.CN.GetHashCode()] = textCN;
+			Data[ELanguage.JP.GetHashCode()] = textJP;
+			gameText.Add(key, Data);
+		}
 	}
 
 	public static string S (int index){
-		if(GameText.ContainsKey(index))
-			return GameText[index][GameData.Setting.Language.GetHashCode()];
+		if(gameText.ContainsKey(index))
+			return gameText[index][GameData.Setting.Language.GetHashCode()];
 		else
 			return "";
 	} 

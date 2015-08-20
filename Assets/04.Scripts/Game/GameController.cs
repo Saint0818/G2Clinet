@@ -688,7 +688,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public void SetGameRecord(bool upload) {
 		GameRecord.Identifier = SystemInfo.deviceUniqueIdentifier;
-		GameRecord.Version = BundleVersion.version;
+		GameRecord.Version = BundleVersion.Version;
 		GameRecord.End = System.DateTime.UtcNow;
 		GameRecord.PauseCount++;
 		GameRecord.Score1 = UIGame.Get.Scores [0];

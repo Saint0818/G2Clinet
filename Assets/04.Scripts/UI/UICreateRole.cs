@@ -67,7 +67,8 @@ public class UICreateRole : UIBase {
 	private GameObject[] playerPos;
 
 	private float[] limitAngle;
-	private GameStruct.TAvatar[] tAvatar;
+	private TAvatar[] tAvatar;
+	private int[] equipmentItems = new int[8];
 	private int playerCount = 6;
 	private int currentPlayer = 0;
 
@@ -184,12 +185,16 @@ public class UICreateRole : UIBase {
 
 	public void OnCreateRole() {
 		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
+			for (int i = 0; i < equipmentItems.Length; i++)
+				equipmentItems[i] = 1 + i*10;
+
 			WWWForm form = new WWWForm();
 			GameData.Team.Player.ID = GameData.DPlayers[currentPlayer+1].ID;
 			GameData.Team.Player.Name = labelName.text;
 			GameData.Team.Player.Avatar = tAvatar[currentPlayer];
 			form.AddField("PlayerID", GameData.Team.Player.ID);
 			form.AddField("Name", GameData.Team.Player.Name);
+			form.AddField("Items", JsonConvert.SerializeObject(equipmentItems));
 			
 			SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
 		}
@@ -197,6 +202,7 @@ public class UICreateRole : UIBase {
 
 	private void waitCreateRole(bool ok, WWW www) {
 		if (ok) {
+			GameData.Team.Player.Init();
 			GameData.SaveTeam();
 			UIShow(false);
 
@@ -208,28 +214,30 @@ public class UICreateRole : UIBase {
 	}
 
 	private void init(){
-		playerCount = GameData.DPlayers.Count;
+		playerCount = 3;
 		limitAngle = new float[playerCount];
-		tAvatar = new GameStruct.TAvatar[playerCount];
+		tAvatar = new TAvatar[playerCount];
 		for(int i=0; i<playerCount; i++) {
-			limitAngle[i] = (360 / playerCount) * i;
+			if (GameData.DPlayers.ContainsKey(i+1)) {
+				limitAngle[i] = (360 / playerCount) * i;
 
-			GameObject player = new GameObject();
-			GameStruct.TPlayer p = new GameStruct.TPlayer();
-			p.ID = i+1;
-			p.SetAvatar();
-			player.name = i.ToString();
-			player.transform.parent = playerPos[i].transform;
-			tAvatar[i] = p.Avatar;
-			ModelManager.Get.SetAvatar(ref player, p.Avatar, GameData.DPlayers[UISelectRole.arrayRoleID[i]].BodyType, false);
-			player.transform.localPosition = new Vector3(0, -1, 0);
-			player.transform.localEulerAngles = new Vector3(0, 180, 0);
-			player.transform.localScale = Vector3.one;
-			for (int j=0; j<player.transform.childCount; j++) { 
-				if(player.transform.GetChild(j).name.Contains("PlayerMode")) {
-					player.transform.GetChild(j).localScale = Vector3.one;
-					player.transform.GetChild(j).localEulerAngles = Vector3.zero;
-					player.transform.GetChild(j).localPosition = Vector3.zero;
+				GameObject player = new GameObject();
+				TPlayer p = new TPlayer(0);
+				p.ID = i+1;
+				p.SetAvatar();
+				player.name = i.ToString();
+				player.transform.parent = playerPos[i].transform;
+				tAvatar[i] = p.Avatar;
+				ModelManager.Get.SetAvatar(ref player, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
+				player.transform.localPosition = new Vector3(0, -1, 0);
+				player.transform.localEulerAngles = new Vector3(0, 180, 0);
+				player.transform.localScale = Vector3.one;
+				for (int j=0; j<player.transform.childCount; j++) { 
+					if(player.transform.GetChild(j).name.Contains("PlayerMode")) {
+						player.transform.GetChild(j).localScale = Vector3.one;
+						player.transform.GetChild(j).localEulerAngles = Vector3.zero;
+						player.transform.GetChild(j).localPosition = Vector3.zero;
+					}
 				}
 			}
 		}

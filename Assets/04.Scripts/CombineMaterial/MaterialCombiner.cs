@@ -366,10 +366,16 @@ namespace ProMaterialCombiner {
 	        return extractedMesh;
 	    }
         private string GetShaderName(GameObject g) {
-            string shaderName = g.GetComponent<Renderer>().sharedMaterials[0].shader.name;
-            if(Utils.IsShaderStandard(shaderName))
-                shaderName = Utils.ParseStandardShaderName(g.GetComponent<Renderer>().sharedMaterials[0]);
-            return shaderName;
+			Renderer rd = g.GetComponent<Renderer>();
+			if (rd && rd.sharedMaterials.Length > 0) {
+	            string shaderName = rd.sharedMaterials[0].shader.name;
+	            if (Utils.IsShaderStandard(shaderName))
+	                shaderName = Utils.ParseStandardShaderName(rd.sharedMaterials[0]);
+
+	            return shaderName;
+			} 
+
+			return "";
 	    }
 	}
 }

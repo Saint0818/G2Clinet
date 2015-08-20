@@ -109,7 +109,7 @@ public class Knight49Editor : EditorWindow
 	
     static void BundleVersionChecker () {
 		float bundleVersion = float.Parse(PlayerSettings.bundleVersion);
-		float lastVersion = BundleVersion.version;
+		float lastVersion = BundleVersion.Version;
 		if (lastVersion != bundleVersion) {
             UnityEngine.Debug.Log ("Found new bundle version " + bundleVersion + " replacing code from previous version " + lastVersion +" in file \"" + TargetCodeFile + "\"");
             CreateNewBuildVersionClassFile (bundleVersion);
