@@ -23,7 +23,7 @@ public class PresentationState : State<EGameSituation, EGameMsg>, ITelegraph<EGa
 
     public override void Update()
     {
-        foreach(PlayerBehaviour player in GameController.Get.GamePlayerList)
+        foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
         {
             if(player.ShowPos != -1)
             {

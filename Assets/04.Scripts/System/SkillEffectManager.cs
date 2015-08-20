@@ -181,51 +181,51 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				objs.Add(executePlayer.gameObject);
 				break;
 			case 5://Teammate Body (Chest)
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
-						objs.Add(getPlayerChest(GameController.Get.GamePlayerList[i]));
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+						objs.Add(getPlayerChest(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 6://Teammate Head
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
-						objs.Add(GameController.Get.GamePlayerList[i].BodyHeight);
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+						objs.Add(GameController.Get.GamePlayers[i].BodyHeight);
 				} 
 				break;
 			case 7://Teammate Hand
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
-						objs.Add(getPlayerHand(GameController.Get.GamePlayerList[i]));
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+						objs.Add(getPlayerHand(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 8://Teammate Feet
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team == executePlayer.Team && GameController.Get.GamePlayerList[i].Index != executePlayer.Index)
-						objs.Add(GameController.Get.GamePlayerList[i].gameObject);
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
+						objs.Add(GameController.Get.GamePlayers[i].gameObject);
 				} 
 				break;
 			case 9://Emeny Body (Chest)
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
-						objs.Add(getPlayerChest(GameController.Get.GamePlayerList[i]));
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+						objs.Add(getPlayerChest(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 10://Emeny Head
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
-						objs.Add(GameController.Get.GamePlayerList[i].BodyHeight);
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+						objs.Add(GameController.Get.GamePlayers[i].BodyHeight);
 				} 
 				break;
 			case 11://Emeny Hand
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
-						objs.Add(getPlayerHand(GameController.Get.GamePlayerList[i]));
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+						objs.Add(getPlayerHand(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 12://Emeny Feet
-				for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-					if(GameController.Get.GamePlayerList[i].Team != executePlayer.Team)
-						objs.Add(GameController.Get.GamePlayerList[i].gameObject);
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
+						objs.Add(GameController.Get.GamePlayers[i].gameObject);
 				} 
 				break;
 			case 13:

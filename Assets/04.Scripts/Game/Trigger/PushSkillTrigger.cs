@@ -10,13 +10,13 @@ public class PushSkillTrigger : MonoBehaviour {
 	}
 
 	public void StartSkill() {
-		for(int i=0; i<GameController.Get.GamePlayerList.Count; i++) {
-			if(pusher != null && GameController.Get.GamePlayerList[i].Team != pusher.Team) {
-				if(GameController.Get.getDis(new Vector2(GameController.Get.GamePlayerList[i].transform.position.x, GameController.Get.GamePlayerList[i].transform.position.z), 
+		for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+			if(pusher != null && GameController.Get.GamePlayers[i].Team != pusher.Team) {
+				if(GameController.Get.getDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
 				                             new Vector2(pusher.transform.position.x, pusher.transform.position.z)) <= InRange) {
-					GameController.Get.GamePlayerList[i].AniState(EPlayerState.Fall1, pusher.transform.position);
+					GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall1, pusher.transform.position);
 				} else {
-					GameController.Get.GamePlayerList[i].AniState(EPlayerState.Fall2, pusher.transform.position);
+					GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall2, pusher.transform.position);
 				}
 			}
 		}

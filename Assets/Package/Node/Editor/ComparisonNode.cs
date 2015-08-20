@@ -19,7 +19,7 @@ public class ComparisonNode : BaseInputNode {
 	private BaseInputNode input2;
 	private Rect input2Rect;
 
-	private string compareText = "";
+//	private string compareText = "";
 
 	public ComparisonNode()
 	{

@@ -30,7 +30,8 @@ public class BallTrigger : MonoBehaviour
 			box.enabled = isShow;
 	}
 
-	private bool touchPlayer(Collider other, bool isEnter) {
+	private bool touchPlayer(Collider other, bool isEnter)
+    {
 		int dir = -1;
 		int team = -1;
 		int index = -1;
@@ -43,26 +44,31 @@ public class BallTrigger : MonoBehaviour
 		if (other.gameObject.name == "TriggerBR")
 			dir = 3;
 		else
-		if (other.gameObject.name.Contains("TriggerFinger")) {
+		if (other.gameObject.name.Contains("TriggerFinger"))
+        {
 			dir = 5;
 			int.TryParse(other.gameObject.name[0].ToString(), out team); 
 			int.TryParse(other.gameObject.name[1].ToString(), out index); 
-		} else
-		if (other.gameObject.name == "TriggerSteal")
+		}
+        else if (other.gameObject.name == "TriggerSteal")
 			dir = 6;
 
-		if (dir > -1) {
-			if (team > -1 && index > -1) {
+		if (dir > -1)
+        {
+			if (team > -1 && index > -1)
+            {
 				GameController.Get.BallTouchPlayer(team * 3 + index, dir, isEnter);
-			} else
-			if (other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent) {
+			}
+            else if (other.gameObject.transform.parent &&  other.gameObject.transform.parent.parent)
+            {
 				PlayerBehaviour player = other.gameObject.transform.parent.parent.GetComponent<PlayerBehaviour>();
 				if (player) {
 					if(isEnter)
 					{
 						if (!GameController.Get.PassingStealBall(player, dir))
 							GameController.Get.BallTouchPlayer(player, dir, isEnter);
-					}else
+					}
+                    else
 						GameController.Get.BallTouchPlayer(player, dir, isEnter);
 					return true;
 				}
@@ -72,15 +78,17 @@ public class BallTrigger : MonoBehaviour
 		return false;
 	}
 	
-	void OnTriggerEnter(Collider other) {
-		if (touchPlayer(other, true)) {
+	void OnTriggerEnter(Collider other)
+    {
+		if(touchPlayer(other, true))
+        {
 
-		} else
-		if (other.gameObject.CompareTag("Floor")) 
+		}
+        else if(other.gameObject.CompareTag("Floor")) 
 		{
 			GameController.Get.BallOnFloor();
 		} 
-		else if (other.gameObject.CompareTag("Wall"))
+		else if(other.gameObject.CompareTag("Wall"))
 		{
 			EffectManager.Get.PlayEffect("BallTouchWall", gameObject.transform.position);
 		}

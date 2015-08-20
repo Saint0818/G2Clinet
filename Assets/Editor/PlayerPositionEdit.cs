@@ -35,9 +35,9 @@ public class PlayerPositionEdit : EditorWindow
     private string tacticalName = "";
     private static string FileName = "";
 	private static string BackupFileName = "";
-    private TActionPosition[] PosAy1 = new TActionPosition[0];
-    private TActionPosition[] PosAy2 = new TActionPosition[0];
-    private TActionPosition[] PosAy3 = new TActionPosition[0];
+    private TTacticalAction[] PosAy1 = new TTacticalAction[0];
+    private TTacticalAction[] PosAy2 = new TTacticalAction[0];
+    private TTacticalAction[] PosAy3 = new TTacticalAction[0];
     private string[] ArrayString = new string[0];
     private TTacticalData[] TacticalData = new TTacticalData[0];
 	private static Vector2 [] BornAy = new Vector2[3];
@@ -100,7 +100,7 @@ public class PlayerPositionEdit : EditorWindow
 
 		if (GUILayout.Button("BornPosition", GUILayout.Width(200)))
 		{
-			TActionPosition aa = new TActionPosition();
+			TTacticalAction aa = new TTacticalAction();
 			GameController.Get.ResetAll();
 			for(int i = 0; i < 3; i++)
 			{
@@ -223,15 +223,15 @@ public class PlayerPositionEdit : EditorWindow
         if (_oldIdx >= 0 && _oldIdx < ArrayString.Length)
         {
             PositionCount1 = TacticalData [_oldIdx].PosAy1.Length;
-            PosAy1 = new TActionPosition[PositionCount1];
+            PosAy1 = new TTacticalAction[PositionCount1];
             Array.Copy(TacticalData [_oldIdx].PosAy1, PosAy1, PositionCount1);
             
             PositionCount2 = TacticalData [_oldIdx].PosAy2.Length;
-            PosAy2 = new TActionPosition[PositionCount2];
+            PosAy2 = new TTacticalAction[PositionCount2];
             Array.Copy(TacticalData [_oldIdx].PosAy2, PosAy2, PositionCount2);
             
             PositionCount3 = TacticalData [_oldIdx].PosAy3.Length;
-            PosAy3 = new TActionPosition[PositionCount3];
+            PosAy3 = new TTacticalAction[PositionCount3];
             Array.Copy(TacticalData [_oldIdx].PosAy3, PosAy3, PositionCount3);
             
             tacticalName = ArrayString [_oldIdx];
@@ -248,13 +248,13 @@ public class PlayerPositionEdit : EditorWindow
             {
                 int i = EditIndex;
                 TacticalData [i].FileName = tacticalName;
-                TacticalData [i].PosAy1 = new TActionPosition[PosAy1.Length];
+                TacticalData [i].PosAy1 = new TTacticalAction[PosAy1.Length];
                 Array.Copy(PosAy1, TacticalData [i].PosAy1, PosAy1.Length);
                 
-                TacticalData [i].PosAy2 = new TActionPosition[PosAy2.Length];
+                TacticalData [i].PosAy2 = new TTacticalAction[PosAy2.Length];
                 Array.Copy(PosAy2, TacticalData [i].PosAy2, PosAy2.Length);
                 
-                TacticalData [i].PosAy3 = new TActionPosition[PosAy3.Length];
+                TacticalData [i].PosAy3 = new TTacticalAction[PosAy3.Length];
                 Array.Copy(PosAy3, TacticalData [i].PosAy3, PosAy3.Length);
                 
                 for (int j = 0; j < TacticalData[i].PosAy1.Length; j ++)

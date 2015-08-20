@@ -25,9 +25,9 @@ public class GameStateFactory : IStateMachineFactory<EGameSituation, EGameMsg>
             case EGameSituation.InitCourt: return new InitCourtState();
             case EGameSituation.Opening: return new OpeningState();
             case EGameSituation.SpecialAction: return new SpecialActionState();
-            case EGameSituation.InboundsAPicking: return new TeeAPickingState();
+            case EGameSituation.APickBallAfterScore: return new PickBallAfterScoreState();
             case EGameSituation.InboundsA: return new InboundsAState();
-            case EGameSituation.InboundsBPicking: return new TeeBPickingState();
+            case EGameSituation.BPickBallAfterScore: return new TeeBPickingState();
             case EGameSituation.InboundsB: return new TeeBState();
         }
 

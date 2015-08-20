@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace GamePlayStruct {
-	public struct TActionPosition {
+	public struct TTacticalAction {
 		public float x;
 		public float z;
 		public bool Speedup;
@@ -13,9 +13,9 @@ namespace GamePlayStruct {
 	public struct TTacticalData
     {
 		public string FileName; // 戰術名稱.
-		public TActionPosition[] PosAy1; // 中鋒的資料.
-		public TActionPosition[] PosAy2; // 前鋒的資料.
-		public TActionPosition[] PosAy3; // 後衛的資料.
+		public TTacticalAction[] PosAy1; // 中鋒的資料.
+		public TTacticalAction[] PosAy2; // 前鋒的資料.
+		public TTacticalAction[] PosAy3; // 後衛的資料.
 
 	    public ETactical Tactical
 	    {
@@ -51,7 +51,24 @@ namespace GamePlayStruct {
 		{
 			return String.Format("Name:{0}", FileName);
 		}
-	}
+
+	    /// <summary>
+	    /// 
+	    /// </summary>
+	    /// <param name="posIndex"> 0:C, 1:F, 2:G </param>
+	    /// <returns></returns>
+	    public TTacticalAction[] GetActions(int posIndex)
+	    {
+	        if(posIndex == 0)
+	            return PosAy1;
+	        if(posIndex == 1)
+	            return PosAy2;
+	        if(posIndex == 2)
+	            return PosAy3;
+
+	        return null;
+	    }
+    }
 	
 	public struct TBasketShootPositionData {
 		public string AnimationName;

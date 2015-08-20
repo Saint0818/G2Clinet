@@ -117,43 +117,54 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-    public PlayerBehaviour CreateGamePlayer(int TeamIndex, ETeamKind Team, Vector3 BornPos, TPlayer player, GameObject Res=null){
-		if (Res == null)
-			Res = new GameObject();
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="teamIndex"> 0:C, 1:F, 2:G </param>
+    /// <param name="team"></param>
+    /// <param name="bornPos"></param>
+    /// <param name="player"></param>
+    /// <param name="res"></param>
+    /// <returns></returns>
+    public PlayerBehaviour CreateGamePlayer(int teamIndex, ETeamKind team, Vector3 bornPos, TPlayer player, 
+                                            GameObject res = null)
+    {
+		if (res == null)
+			res = new GameObject();
 
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar (ref Res, player.Avatar, player.BodyType, true, false); 
+		SetAvatar (ref res, player.Avatar, player.BodyType, true, false); 
 
-		Res.transform.parent = PlayerInfoModel.transform;
-		Res.transform.localPosition = BornPos;
+		res.transform.parent = PlayerInfoModel.transform;
+		res.transform.localPosition = bornPos;
 
-		PlayerBehaviour PB = Res.AddComponent<PlayerBehaviour>();
+		PlayerBehaviour PB = res.AddComponent<PlayerBehaviour>();
 
-		PB.Team = Team;
+		PB.Team = team;
 		PB.MoveIndex = -1;
 		PB.Attribute = player;
-		PB.Index = TeamIndex;
-		if(Team == ETeamKind.Self)
-			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", TeamIndex)));
+		PB.Index = teamIndex;
+		if(team == ETeamKind.Self)
+			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
 		else
-			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +TeamIndex)));
+			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
 
-		if(TeamIndex == 0)
+		if(teamIndex == 0)
 			PB.Postion = EPlayerPostion.C;
-		else if(TeamIndex == 1)
+		else if(teamIndex == 1)
 			PB.Postion = EPlayerPostion.F;
-		else if(TeamIndex == 2)
+		else if(teamIndex == 2)
 			PB.Postion = EPlayerPostion.G;
 		
 		PB.InitTrigger (DefPointObject);
 		PB.InitCurve (AnimatorCurveManager);
 		PB.InitAttr ();
-		Res.name = Team.ToString() + TeamIndex.ToString();
+		res.name = team.ToString() + teamIndex.ToString();
 
-		if(Team == ETeamKind.Npc)
-			Res.transform.localEulerAngles = new Vector3(0, 180, 0);
+		if(team == ETeamKind.Npc)
+			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
 		return PB;
 	}
