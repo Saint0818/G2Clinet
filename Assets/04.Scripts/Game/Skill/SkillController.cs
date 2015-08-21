@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlayEnum;
 using GameStruct;
+using SkillBuffSpace;
 
 namespace SkillControllerSpace {
 	public class SkillController : MonoBehaviour {
@@ -21,53 +22,44 @@ namespace SkillControllerSpace {
 		public float ActiveTime  = 0;
 
 		//PlayerInfo
+		private SkillBuff skillBuff;
 		private bool isHavePlayerInfo = false;
-		private UILabel labelPlayerName;
-		private UISprite[] spriteBuff = new UISprite[4];
-		private GameObject[] buffPosition = new GameObject[4];
 
-		public void initSkillController(TPlayer Attribute, GameObject player, Animator animatorControl){
+
+		public void initSkillController(TPlayer attribute, GameObject player, Animator animatorControl){
 			executePlayer = player;
 
 			//PlayerInfo
 			if(!isHavePlayerInfo) {
 				isHavePlayerInfo = true;
 				GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
-				obj.transform.parent = player.transform;
-				obj.transform.name = "PlayerInfo";
-				obj.transform.localPosition = Vector3.zero;
-				labelPlayerName = obj.transform.FindChild("Scale/Billboard/PlayerNameLabel").GetComponent<UILabel>();
-				labelPlayerName.text = Attribute.Name;
-				for(int i=0; i<buffPosition.Length; i++) {
-					buffPosition[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()).gameObject;
-					buffPosition[i].SetActive(false);
-					spriteBuff[i] = obj.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite").GetComponent<UISprite>();
-				}
+				skillBuff = new SkillBuff();
+				skillBuff.InitBuff(obj, attribute, player);
 			}
 
 			//Passive
-			if (Attribute.Skills != null && Attribute.Skills.Length > 0) {
-				for (int i = 0; i < Attribute.Skills.Length; i++) {
-					if (GameData.SkillData.ContainsKey(Attribute.Skills[i].ID)) {
-						TSkillData skillData = GameData.SkillData[Attribute.Skills[i].ID];
+			if (attribute.Skills != null && attribute.Skills.Length > 0) {
+				for (int i = 0; i < attribute.Skills.Length; i++) {
+					if (GameData.SkillData.ContainsKey(attribute.Skills[i].ID)) {
+						TSkillData skillData = GameData.SkillData[attribute.Skills[i].ID];
 						
-						Attribute.AddAttribute(skillData.AttrKind, skillData.Value(Attribute.Skills[i].Lv));
+						attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.Skills[i].Lv));
 						
 						int key = skillData.Kind;
 						
 						if (skillData.Kind == (int)ESkillKind.MoveDodge){
-							MoveDodgeLv = Attribute.Skills[i].Lv;
+							MoveDodgeLv = attribute.Skills[i].Lv;
 							MoveDodgeRate = skillData.Rate(MoveDodgeLv);
 						}
 						
 						if (skillData.Kind == (int)ESkillKind.Pick2) {
-							PickBall2Lv = Attribute.Skills[i].Lv;
+							PickBall2Lv = attribute.Skills[i].Lv;
 							PickBall2Rate = skillData.Rate(PickBall2Lv);
 						}
 						
 						TSkill skill = new TSkill();
-						skill.ID = Attribute.Skills [i].ID;
-						skill.Lv = Attribute.Skills [i].Lv;
+						skill.ID = attribute.Skills [i].ID;
+						skill.Lv = attribute.Skills [i].Lv;
 						if (PassiveSkills.ContainsKey(key))
 							PassiveSkills [key].Add(skill);
 						else {
@@ -81,11 +73,11 @@ namespace SkillControllerSpace {
 
 			//Active
 			ActiveTime = 0;
-			if (GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
+			if (GameData.SkillData.ContainsKey(attribute.ActiveSkill.ID)) {
 				AnimationClip[] clips = animatorControl.runtimeAnimatorController.animationClips;
 				if (clips != null && clips.Length > 0) {
 					for (int i=0; i<clips.Length; i++) {
-						if(clips[i].name.Equals(GameData.SkillData [Attribute.ActiveSkill.ID].Animation)) {
+						if(clips[i].name.Equals(GameData.SkillData [attribute.ActiveSkill.ID].Animation)) {
 							ActiveTime = clips[i].length;
 							break;
 						}
@@ -187,5 +179,8 @@ namespace SkillControllerSpace {
 			return directState;
 		}
 
+		public void SkillUpdate () {
+			skillBuff.UpdateBuff();
+		}
 	}
 }

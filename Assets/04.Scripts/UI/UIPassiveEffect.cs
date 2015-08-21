@@ -2,6 +2,22 @@
 using System.Collections;
 using DG.Tweening;
 
+public struct TPassiveValue {
+	public float Timer;
+	public float DelayCloseTimers;
+	public int CardPicNos;
+	public int CardLVs;
+	public string CardNames;
+
+	public TPassiveValue (int i) {
+		Timer = 0;
+		DelayCloseTimers = 0;
+		CardPicNos = 0;
+		CardLVs = 0;
+		CardNames = "";
+	}
+}
+
 public class UIPassiveEffect : UIBase {
 	private static UIPassiveEffect instance = null;
 	private const string UIName = "UIPassiveEffect";
@@ -12,11 +28,7 @@ public class UIPassiveEffect : UIBase {
 	private UITexture[] textureCardInfo = new UITexture[3];
 	private UILabel[] labelCardLabel = new UILabel[3];
 
-	private float[] timers = new float[3];
-	private float[] delayCloseTimers = new float[3];
-	private int[] cardPicNos = new int[3];
-	private int[] cardLVs = new int[3];
-	private string[] cardNames = new string[3];
+	private TPassiveValue[] passiveValue = new TPassiveValue[3];
 
 	private int[] recordIndex = new int[3];
 
@@ -95,11 +107,11 @@ public class UIPassiveEffect : UIBase {
 	}
 
 	private void initCard (int index, int picNo = 0, int lv = 0, string name = "") {
-		timers[index] = 2;
-		delayCloseTimers[index] = 999;
-		cardPicNos[index] = picNo;
-		cardLVs[index] = lv;
-		cardNames[index] = name;
+		passiveValue[index].Timer = 2;
+		passiveValue[index].DelayCloseTimers = 999;
+		passiveValue[index].CardPicNos = picNo;
+		passiveValue[index].CardLVs = lv;
+		passiveValue[index].CardNames = name;
 		showCard();
 	}
 
@@ -118,15 +130,15 @@ public class UIPassiveEffect : UIBase {
 			uiCardMotion[recordIndex[2]].transform.DOLocalMoveX(100, 0.2f);
 			hideCard(recordIndex[2]);
 		}
-		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + cardLVs[recordIndex[0]].ToString();
-		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTextures[cardPicNos[recordIndex[0]]];
-		labelCardLabel[recordIndex[0]].text = cardNames[recordIndex[0]];
-		timers[recordIndex[0]] = 2;
+		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + passiveValue[recordIndex[0]].CardLVs.ToString();
+		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTextures[passiveValue[recordIndex[0]].CardPicNos];
+		labelCardLabel[recordIndex[0]].text = passiveValue[recordIndex[0]].CardNames;
+		passiveValue[recordIndex[0]].Timer = 2;
 	}
 	
 	private void hideCard (int index) {
 		animatorCardGroup[index].SetTrigger("Close");
-		delayCloseTimers[index] = 0.2f;
+		passiveValue[index].DelayCloseTimers = 0.2f;
 	}
 
 	public void ShowCard (PlayerBehaviour player = null, int picNo = 0, int lv = 0, string name = ""){
@@ -152,21 +164,19 @@ public class UIPassiveEffect : UIBase {
 	
 	void FixedUpdate () {
 
-		for (int i=0; i< timers.Length; i++) {
-			if (timers[i] > 0) {
-				timers[i] -= Time.deltaTime;
-				if (timers[i] <= 0) {
-					timers[i] = 0;
+		for (int i=0; i< passiveValue.Length; i++) {
+			if (passiveValue[i].Timer > 0) {
+				passiveValue[i].Timer -= Time.deltaTime;
+				if (passiveValue[i].Timer <= 0) {
+					passiveValue[i].Timer = 0;
 					hideCard(i);
 				}
 			}
-		}
 
-		for (int i=0; i< delayCloseTimers.Length; i++) {
-			if (delayCloseTimers[i] > 0) {
-				delayCloseTimers[i] -= Time.deltaTime;
-				if (delayCloseTimers[i] <= 0 ) {
-					delayCloseTimers[i] = 0;
+			if (passiveValue[i].DelayCloseTimers > 0) {
+				passiveValue[i].DelayCloseTimers -= Time.deltaTime;
+				if (passiveValue[i].DelayCloseTimers <= 0 ) {
+					passiveValue[i].DelayCloseTimers = 0;
 					uiCardMotion[i].SetActive(false);
 					if(indexOf(i) != -1)
 						recordIndex[indexOf(i)] = -1;
