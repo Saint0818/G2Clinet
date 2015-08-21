@@ -4,7 +4,6 @@ using GameStruct;
 
 namespace  SkillBuffSpace {
 
-	[System.Serializable]
 	public struct TBuff {
 		public UISprite SpriteBuff;
 		public GameObject Info;
@@ -23,7 +22,6 @@ namespace  SkillBuffSpace {
 		}
 	}
 
-	[System.Serializable]
 	public struct TBuffRefresh {
 		public int Index;
 		public float LifeTime;
@@ -126,7 +124,7 @@ namespace  SkillBuffSpace {
 						if(!buffInfo[i].Info.activeInHierarchy) {
 							buffInfo[i].LifeTime = lifeTime;
 							buffInfo[i].InfoIndex = index;
-//							buffInfo[i].SpriteBuff.name
+							buffInfo[i].SpriteBuff.spriteName = index.ToString() + "s";
 							buffInfo[i].isClose = false;
 							addRecord(i);
 							refreshBuff ();

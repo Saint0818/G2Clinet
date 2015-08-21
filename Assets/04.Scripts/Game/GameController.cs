@@ -1338,6 +1338,7 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.JumpBall:
 				IsStart = true;
 				CourtMgr.Get.InitScoreboard (true);
+				CameraMgr.Get.ShowPlayerInfoCamera (true);
 				setPassIcon(true);
 
 				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
@@ -2419,8 +2420,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 				if (result) {
 					attackSkillEffect(player);
-					player.ActiveSkill(player.gameObject);
-					result = true;
+					result = player.ActiveSkill(player.gameObject);
 				}
 			}
 		}
@@ -2455,7 +2455,7 @@ public class GameController : KnightSingleton<GameController>
 					if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
 							PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
-							                                skill.Value(PlayerList[i].Attribute.ActiveSkill.Lv), skill.LifeTime(PlayerList[i].Attribute.ActiveSkill.Lv));
+							                                skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 						}
 					}
 				}

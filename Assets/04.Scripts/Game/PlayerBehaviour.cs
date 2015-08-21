@@ -464,8 +464,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private SkillController skillController;
 
-	//ActiveSkill
-	public List<TSkillAttribute> SkillAttribute = new List<TSkillAttribute>();
+	//record 
 	private bool isUseSkill = false;
 
 	private bool firstDribble = true;
@@ -602,8 +601,8 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	private void initSkill (){
-		SkillAttribute.Clear();
 		skillController.initSkillController(Attribute, gameObject, AnimatorControl);
+		skillController.onAddAttribute += SetAttribute;
 	}
 
     public void InitCurve(GameObject animatorCurve)
@@ -715,7 +714,7 @@ public class PlayerBehaviour : MonoBehaviour
 			return;
 		}
 
-		UpdateSkillAttirbe();
+		skillController.SkillUpdate();
 
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
@@ -1841,7 +1840,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Fall0:
             case EPlayerState.Fall1:
             case EPlayerState.Fall2:
-				if(!IsTee && !IsFall)
+				if(!IsTee && !IsFall && !isUseSkill)
 //                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
 //                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
 //                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
@@ -3133,7 +3132,7 @@ public class PlayerBehaviour : MonoBehaviour
 		return skillController.PassiveSkill(situation, kind, v, isWideOpen);
 	}
 
-	public void ActiveSkill(GameObject target = null) {
+	public bool ActiveSkill(GameObject target = null) {
 		if (CanUseSkill) {
 			GameRecord.Skill++;
 			SetAnger(-Attribute.MaxAnger);
@@ -3141,73 +3140,29 @@ public class PlayerBehaviour : MonoBehaviour
 			if (Attribute.SkillAnimation != "") {
 				SetInvincible(skillController.ActiveTime);
 				if (target)
-					AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
+					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
 				else{
 					try {
-						AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
+						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
 					} catch {
 						LogMgr.Get.LogError("Can't find SkillAnimation in EPlayerState");
+						return false;
 					}
 				}
 
 				isUseSkill = true;
 			}
 		}
-	}
-
-	private int findSkillAttribute(int skillID) {
-		for (int i = 0; i < SkillAttribute.Count; i++)
-			if (SkillAttribute[i].ID == skillID) 
-				return i;
-		
-		return -1;
+		return false;
 	}
 
 	public void AddSkillAttribute(int skillID, int kind, float value, float lifetime) {
-		if (value != 0) {
-			int index = findSkillAttribute(skillID);
-			
-			if (index == -1) {
-				TSkillAttribute item = new TSkillAttribute();
-				item.ID = skillID;
-				item.Kind = kind;
-				item.Value = value;
-				item.CDTime = lifetime;
-				SkillAttribute.Add(item);
-				
-				Attribute.AddAttribute(kind, value);
-				initAttr();
-			} else {
-				float add = 0;
-				SkillAttribute[index].CDTime = lifetime;
-				if (value > 0 && value > SkillAttribute[index].Value) 
-					add = value - SkillAttribute[index].Value;
-				else
-					if (value < 0 && value < SkillAttribute[index].Value) 
-						add = value - SkillAttribute[index].Value;
-				
-				if (add != 0) {
-					Attribute.AddAttribute(kind, add);
-					initAttr();
-				}
-			}
-		}
+		skillController.AddSkillAttribute(skillID, kind, value, lifetime);
 	}
 
-	public void UpdateSkillAttirbe()
-	{
-		for (int i = SkillAttribute.Count-1; i >= 0; i--)
-		{ 
-			if (SkillAttribute [i].CDTime > 0) {
-				SkillAttribute [i].CDTime -= Time.deltaTime;   
-				if (SkillAttribute [i].CDTime <= 0)
-				{
-					Attribute.AddAttribute(SkillAttribute[i].Kind, -SkillAttribute[i].Value);
-					initAttr();
-					SkillAttribute.RemoveAt(i);
-				}
-			}
-		}
+	public void SetAttribute (int kind, float value) {
+		Attribute.AddAttribute(kind, value);
+		initAttr();
 	}
 
 	public int PassiveID {
@@ -3407,7 +3362,7 @@ public class PlayerBehaviour : MonoBehaviour
 		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal20;}
 	}
 
-    public bool IsUseSkill
+    public bool IsUseSkill //Only ActiveSkill
     {
 		get{ return isUseSkill;}
     }
