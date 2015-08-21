@@ -185,7 +185,7 @@ public struct TMoveData
     public bool Speedup;
     public bool Catcher;
     public bool Shooting;
-    public string FileName;
+    public string TacticalName; // for debug.
 
 	public void Clear() {
 		Target = Vector2.zero;
@@ -196,7 +196,7 @@ public struct TMoveData
 		Speedup = false;
 		Catcher = false;
 		Shooting = false;
-		FileName = "";
+		TacticalName = "";
 	}
 }
 
@@ -3497,7 +3497,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (moveQueue.Count == 0)
                 return "";
             else
-                return moveQueue.Peek().FileName;
+                return moveQueue.Peek().TacticalName;
         }
     }
 
@@ -3505,7 +3505,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         set
         {
-			MoveName = value.FileName;
+			MoveName = value.TacticalName;
             if (moveQueue.Count == 0)
                 MoveTurn = 0;
 

@@ -41,9 +41,17 @@ public class AITools
     public static bool RandomCorrespondingTactical(ETactical attTactical, ETactical defTactical, int posIndex,
                                                    out TTacticalData attData, out TTacticalData defData)
     {
-        int randomValue = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(attTactical));
-        bool attStatus = TacticalMgr.Ins.GetData(convert(attTactical, posIndex), randomValue, out attData);
-        bool defStatus = TacticalMgr.Ins.GetData(convert(defTactical, posIndex), randomValue, out defData);
+        ETactical convertAtt = convert(attTactical, posIndex);
+        ETactical convertDef = convert(defTactical, posIndex);
+
+        // 假如編輯的資料不足, 比如進攻有 4 筆, 防守只有 2 筆, 那麼在找戰術的時候,
+        // 進攻就會忽略 2 筆資料.
+        int randomAtt = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(convertAtt));
+        int randomDef = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(convertDef));
+        int randomValue = Math.Min(randomAtt, randomDef);
+
+        bool attStatus = TacticalMgr.Ins.GetData(convertAtt, randomValue, out attData);
+        bool defStatus = TacticalMgr.Ins.GetData(convertDef, randomValue, out defData);
         return attStatus && defStatus;
     }
 
