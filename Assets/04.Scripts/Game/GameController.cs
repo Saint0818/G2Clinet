@@ -753,19 +753,20 @@ public class GameController : KnightSingleton<GameController>
 	}
 	#endif
 
-	private void JumpBall()
+	private void jumpBall()
 	{
-		if (BallOwner == null)
+		if(BallOwner == null)
 		{
-			for(int i = 0; i < PlayerList.Count; i++)
+			foreach(PlayerBehaviour someone in PlayerList)
 			{
-				PlayerBehaviour npc = PlayerList[i];
-				if(npc.Team == ETeamKind.Self)
-				{
-					PickBall(npc);
-					if(npc.DefPlayer != null)
-						PickBall(npc.DefPlayer);
-				}
+                doPickBall(someone);
+
+//			    if(someone.Team == ETeamKind.Self)
+//			    {
+//			        doPickBall(someone);
+//			        if(someone.DefPlayer != null)
+//			            doPickBall(someone.DefPlayer);
+//			    }
 			}
 		}
 	}
@@ -801,11 +802,11 @@ public class GameController : KnightSingleton<GameController>
 					if (npc.Team == team) {                      
 						if (!isShooting) {
                         	aiAttack(ref npc);
-							aiMove(ref npc, ref attackTactical);
+							aiMove(npc, ref attackTactical);
 						} else 
 						if (!npc.IsAllShoot) {
                         	aiAttack(ref npc);
-							aiMove(ref npc, ref attackTactical);
+							aiMove(npc, ref attackTactical);
 						}                                                       
                     } else
                     	aiDefend(ref npc);
@@ -844,13 +845,12 @@ public class GameController : KnightSingleton<GameController>
                                                 pickBallPlayer.Index, out attackTactical, out defTactical);
         }
 
-        for(int i = 0; i < PlayerList.Count; i++)
+        foreach(PlayerBehaviour someone in PlayerList)
         {
-            PlayerBehaviour someone = PlayerList[i];
             if(someone.Team == team)
             {
                 if (someone == pickBallPlayer) 
-                    PickBall(someone);
+                    doPickBall(someone);
                 else 
                     InboundsBall(someone, team, ref attackTactical);
             }
@@ -1058,36 +1058,47 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private void aiMove(ref PlayerBehaviour npc, ref TTacticalData tacticalData) {
-		if (BallOwner == null) {
-			if(!Passer) {
-				if(Shooter == null) {
-					PickBall(npc, true);
-					PickBall(npc.DefPlayer, true);
-				} else {
-					if((Situation == EGameSituation.AttackA && npc.Team == ETeamKind.Self) || (Situation == EGameSituation.AttackB && npc.Team == ETeamKind.Npc))
-						if(!npc.IsShoot)
-							PickBall(npc, true);
+	private void aiMove(PlayerBehaviour someone, ref TTacticalData tacticalData)
+    {
+		if (BallOwner == null)
+        {
+			if(!Passer)
+            {
+				if(Shooter == null)
+				{
+				    // doPickBall(npc, true);
+				    nearestBallPlayerDoPickBall(someone);
+				    // doPickBall(npc.DefPlayer, true);
+                    nearestBallPlayerDoPickBall(someone.DefPlayer);
+                }
+				else
+                {
+					if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) || (Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
+					    if(!someone.IsShoot)
+					    {
+                            // doPickBall(npc, true);
+                            nearestBallPlayerDoPickBall(someone);
+                        }
 					
-					if((Situation == EGameSituation.AttackA && npc.DefPlayer.Team == ETeamKind.Npc) || 
-					   (Situation == EGameSituation.AttackB && npc.DefPlayer.Team == ETeamKind.Self)) {
-						PlayerBehaviour FearPlayer = null;
+					if((Situation == EGameSituation.AttackA && someone.DefPlayer.Team == ETeamKind.Npc) || 
+					   (Situation == EGameSituation.AttackB && someone.DefPlayer.Team == ETeamKind.Self)) {
+						PlayerBehaviour fearPlayer = null;
 						
 						for (int i = 0; i < PlayerList.Count; i++) {
 							PlayerBehaviour Npc1 = PlayerList [i];
-							if (Npc1.Team == npc.DefPlayer.Team && !npc.DefPlayer.IsFall && npc.DefPlayer.AIing) {
-								if (FearPlayer == null)
-									FearPlayer = Npc1;
+							if (Npc1.Team == someone.DefPlayer.Team && !someone.DefPlayer.IsFall && someone.DefPlayer.AIing) {
+								if (fearPlayer == null)
+									fearPlayer = Npc1;
 								else 
-									if (getDis(ref FearPlayer, CourtMgr.Get.RealBall.transform.position) < getDis(ref Npc1, CourtMgr.Get.RealBall.transform.position))
-										FearPlayer = Npc1;
+									if (getDis(ref fearPlayer, CourtMgr.Get.RealBall.transform.position) < getDis(ref Npc1, CourtMgr.Get.RealBall.transform.position))
+										fearPlayer = Npc1;
 							}
 						}
 						
-						if (FearPlayer) {
+						if (fearPlayer) {
 							for (int i = 0; i < PlayerList.Count; i++) {
-								if(FearPlayer.Team == PlayerList[i].Team) {
-									if(PlayerList[i] != FearPlayer) {
+								if(fearPlayer.Team == PlayerList[i].Team) {
+									if(PlayerList[i] != fearPlayer) {
 										if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0) {
 											moveData.Clear();
 											moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
@@ -1101,15 +1112,15 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		} else {
-			if (npc.CanMove && npc.TargetPosNum == 0) {
+			if (someone.CanMove && someone.TargetPosNum == 0) {
 				for(int i = 0; i < PlayerList.Count; i++) {
-					if(PlayerList[i].Team == npc.Team && PlayerList[i] != npc && 
+					if(PlayerList[i].Team == someone.Team && PlayerList[i] != someone && 
 					   tacticalData.FileName != string.Empty && PlayerList[i].TargetPosName != tacticalData.FileName)
 						PlayerList[i].ResetMove();
 		}
 				
 				if(tacticalData.FileName != string.Empty) {
-					tacticalActions = tacticalData.GetActions(npc.Postion.GetHashCode());
+					tacticalActions = tacticalData.GetActions(someone.Postion.GetHashCode());
 					
 					if (tacticalActions != null) {
 						for (int i = 0; i < tacticalActions.Length; i++) {
@@ -1118,28 +1129,28 @@ public class GameController : KnightSingleton<GameController>
 							moveData.Catcher = tacticalActions [i].Catcher;
 							moveData.Shooting = tacticalActions [i].Shooting;
                         int z = 1;
-							if (GameStart.Get.CourtMode == ECourtMode.Full && npc.Team != ETeamKind.Self)
+							if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
                             z = -1;
 							
 							moveData.Target = new Vector2(tacticalActions [i].x, tacticalActions [i].z * z);
-							if (BallOwner != null && BallOwner != npc)
+							if (BallOwner != null && BallOwner != someone)
 								moveData.LookTarget = BallOwner.transform;  
 							
 							moveData.TacticalName = tacticalData.FileName;
 							moveData.MoveFinish = DefMove;
-							npc.TargetPos = moveData;
+							someone.TargetPos = moveData;
                     }
 						
-						DefMove(npc);
+						DefMove(someone);
                 }
             }
         }
 			
-			if (npc.WaitMoveTime != 0 && BallOwner != null && npc == BallOwner)
-				npc.AniState(EPlayerState.Dribble0);
+			if (someone.WaitMoveTime != 0 && BallOwner != null && someone == BallOwner)
+				someone.AniState(EPlayerState.Dribble0);
 		}
     }
-	
+
     public bool DefMove(PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
@@ -1226,7 +1237,8 @@ public class GameController : KnightSingleton<GameController>
                 else
                 {
                     player.DefPlayer.ResetMove();
-                    PickBall(player.DefPlayer, true);
+//                    doPickBall(player.DefPlayer, true);
+                    nearestBallPlayerDoPickBall(player.DefPlayer);
                 }
             }
         }
@@ -1423,7 +1435,7 @@ public class GameController : KnightSingleton<GameController>
 	                case EGameSituation.Opening:
 	                    break;
 	                case EGameSituation.JumpBall:
-						JumpBall();
+						jumpBall();
 	                    break;
 	                case EGameSituation.AttackA:
 	                    SituationAttack(ETeamKind.Self);
@@ -3001,28 +3013,26 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-    private PlayerBehaviour findNearBallPlayer(PlayerBehaviour someone)
-    {
-        PlayerBehaviour nearPlayer = null;
-
-        for(int i = 0; i < PlayerList.Count; i++)
-        {
-            PlayerBehaviour npc1 = PlayerList [i];
-			if(npc1.Team == someone.Team && !someone.IsFall && someone.AIing && npc1.CanMove)
-            {
-                if (!nearPlayer)
-                    nearPlayer = npc1;
-                else 
-				if (getDis(ref nearPlayer, CourtMgr.Get.RealBall.transform.position) > getDis(ref npc1, CourtMgr.Get.RealBall.transform.position))
-                    nearPlayer = npc1;
-            }
-        }
-
-        if (someone != nearPlayer)
-            nearPlayer = null;
-
-        return nearPlayer;
-    }
+//    private PlayerBehaviour findNearBallPlayer(PlayerBehaviour someone)
+//    {
+//        PlayerBehaviour nearPlayer = null;
+//
+//        foreach(PlayerBehaviour npc in PlayerList)
+//        {
+//            if(npc.Team == someone.Team && !someone.IsFall && someone.AIing && npc.CanMove)
+//            {
+//                if (!nearPlayer)
+//                    nearPlayer = npc;
+//                else if(getDis(nearPlayer, CourtMgr.Get.RealBall.transform.position) > getDis(npc, CourtMgr.Get.RealBall.transform.position))
+//                    nearPlayer = npc;
+//            }
+//        }
+//
+//        if (someone != nearPlayer)
+//            nearPlayer = null;
+//
+//        return nearPlayer;
+//    }
 
     /// <summary>
     /// 找出某隊離球最近的球員.
@@ -3040,10 +3050,6 @@ public class GameController : KnightSingleton<GameController>
 
         foreach(PlayerBehaviour someone in PlayerList)
         {
-            // 現在的情況是 PlayerList 其實是有 6 個. 但是假如是 1 vs 1 的情況下,
-            // 只能叫在場上打球的球員去撿球. 所以這邊才需要用 GameObject.activeSelf 來檢查.
-            // 我認為應該是以後當 1 vs 1 時, PlayerList 只要放 2 個角色才對.
-//            if (someone.Team != team || !someone.gameObject.activeSelf)
             if (someone.Team != team)
                 continue;
 
@@ -3176,18 +3182,51 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 	}
-	
-	private PlayerBehaviour PickBall(PlayerBehaviour someone, bool findNear = false)
+
+    private void doLookAtBall(PlayerBehaviour someone)
+    {
+        if(someone.crtState != EPlayerState.Block && someone.AIing)
+            someone.RotateTo(CourtMgr.Get.RealBall.transform.position.x, 
+                             CourtMgr.Get.RealBall.transform.position.z);
+    }
+
+    /// <summary>
+    /// 是否球員是該隊最接近球的球員?
+    /// </summary>
+    /// <param name="someone"></param>
+    /// <returns></returns>
+    private bool isNearestBall(PlayerBehaviour someone)
+    {
+        return findNearBallPlayer(someone.Team) == someone;
+    }
+
+    private void nearestBallPlayerDoPickBall(PlayerBehaviour someone)
+    {
+        if (isNearestBall(someone))
+            doPickBall(someone);
+        else
+            doLookAtBall(someone);
+    }
+
+    //	private PlayerBehaviour PickBall(PlayerBehaviour someone/*, bool findNear = false*/)
+    private void doPickBall(PlayerBehaviour someone/*, bool findNear = false*/)
 	{
-		PlayerBehaviour player = null;
+	    if(someone.CanMove && someone.WaitMoveTime == 0)
+	    {
+	        moveData.Clear();
+	        moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
+	        someone.TargetPos = moveData;
+	    }
+
+	    /*PlayerBehaviour player = null;
 		
-		if (BallOwner == null)
+		if(BallOwner == null)
         {
             if(findNear)
             {
                 player = findNearBallPlayer(someone);
 
-				if (player != null && player.CanMove && player.WaitMoveTime == 0)
+				if(player != null && player.CanMove && player.WaitMoveTime == 0)
                 {
 					moveData.Clear();
 					moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
@@ -3205,7 +3244,7 @@ public class GameController : KnightSingleton<GameController>
             }
         }
 
-        return player;
+        return player;*/
     }
 	
     private float getDis(ref PlayerBehaviour player1, ref PlayerBehaviour player2)
@@ -3220,14 +3259,12 @@ public class GameController : KnightSingleton<GameController>
             return -1;
     }
 
-    private float getDis(ref PlayerBehaviour player1, Vector3 target)
+    private float getDis(PlayerBehaviour someone, Vector3 target)
     {
-        if (player1 != null && target != Vector3.zero)
-        {
-            Vector3 v1 = player1.transform.position;
-            return Vector3.Distance(v1, target);
-        } else
-            return -1;
+        if(someone != null && target != Vector3.zero)
+            return Vector3.Distance(someone.transform.position, target);
+
+        return -1;
     }
 
     private float getDis(ref PlayerBehaviour player1, Vector2 target)
