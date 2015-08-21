@@ -33,7 +33,10 @@ namespace  SkillBuffSpace {
 		}
 	}
 
+	public delegate void OnFinishBuffDelegate(int skillID);
+
 	public class SkillBuff{
+		public OnFinishBuffDelegate OnFinishBuff = null;
 		private UILabel labelPlayerName;
 		private TBuff[] buffInfo = new TBuff[4];
 		private TBuffRefresh[] refreshIndex = new TBuffRefresh[4];
@@ -70,6 +73,10 @@ namespace  SkillBuffSpace {
 //			initValue ();
 //		} 
 
+		public void HideName (){
+			labelPlayerName.gameObject.SetActive(false);
+		}
+
 		public void UpdateBuff () {
 			for (int i=0; i<buffInfo.Length; i++) {
 				if(buffInfo[i].LifeTime > 0) {
@@ -80,7 +87,6 @@ namespace  SkillBuffSpace {
 						
 					}
 					if(buffInfo[i].LifeTime <= 0) {
-						buffInfo[i].LifeTime = 0;
 						hideBuff(i);
 					}
 				}
@@ -93,12 +99,14 @@ namespace  SkillBuffSpace {
 		/// In the left, lifeTime is the shortest
 		/// In the Right, lifeTime is the longest
 		/// </summary>
+		/// 
+
 		public void RemoveAllBuff () {
 			initValue ();
 		}
 		
-		public void RemoveBuff (int index) {
-			int positionIndex = contains(index);
+		public void RemoveBuff (int skillIndex) {
+			int positionIndex = contains(skillIndex);
 			if(positionIndex != -1) {
 				buffInfo[positionIndex].Info.SetActive(false);
 				buffInfo[positionIndex].InfoIndex = -1;
@@ -109,9 +117,9 @@ namespace  SkillBuffSpace {
 			} 
 		}
 		
-		public void AddBuff (int index, float lifeTime) {
+		public void AddBuff (int skillIndex, float lifeTime) {
 			if(buffCount() <= 4) {
-				int positionIndex = contains(index);
+				int positionIndex = contains(skillIndex);
 				if(positionIndex != -1) {
 					if(buffInfo[positionIndex].LifeTime <= 3) 
 						buffInfo[positionIndex].Info.SetActive(false);
@@ -123,8 +131,8 @@ namespace  SkillBuffSpace {
 					for(int i=0; i<buffInfo.Length; i++) {
 						if(!buffInfo[i].Info.activeInHierarchy) {
 							buffInfo[i].LifeTime = lifeTime;
-							buffInfo[i].InfoIndex = index;
-							buffInfo[i].SpriteBuff.spriteName = index.ToString() + "s";
+							buffInfo[i].InfoIndex = skillIndex;
+							buffInfo[i].SpriteBuff.spriteName = skillIndex.ToString() + "s";
 							buffInfo[i].isClose = false;
 							addRecord(i);
 							refreshBuff ();
@@ -154,37 +162,44 @@ namespace  SkillBuffSpace {
 			return result;
 		}
 		
-		private int contains (int index) {
-			for (int i=0; i<buffInfo.Length; i++) {
-				if(buffInfo[i].InfoIndex == index){
+		private int contains (int skillID) {
+			for (int i=0; i<buffInfo.Length; i++) 
+				if(buffInfo[i].InfoIndex == skillID)
 					return i;
-				}
-			}
 			return -1;
 		}
-		
-		private bool containsBool (int index) {
-			for (int i=0; i<recordIndex.Length; i++) {
-				if(recordIndex[i] == index){
+
+		private bool containsSkill (int skillID) {
+			for (int i=0; i<buffInfo.Length; i++) 
+				if(buffInfo[i].InfoIndex == skillID)
 					return true;
-				}
-			}
+
 			return false;
 		}
 		
-		private int indexOf (int index) {
-			for (int i=0; i<recordIndex.Length; i++) {
-				if(recordIndex[i] == index)
+		private bool containsBool (int positioIndex) {
+			for (int i=0; i<recordIndex.Length; i++) 
+				if(recordIndex[i] == positioIndex)
+					return true;
+
+			return false;
+		}
+		
+		private int indexOf (int positionIndex) {
+			for (int i=0; i<recordIndex.Length; i++) 
+				if(recordIndex[i] == positionIndex)
 					return i;
-			}
+
 			return 0;
 		}
 		
-		private void hideBuff(int index){
-			buffInfo[index].Info.SetActive(false);
-			buffInfo[index].LifeTime = 0;
-			buffInfo[index].InfoIndex = -1;
-			recordIndex[indexOf(index)] = -1;
+		private void hideBuff(int positionIndex){
+			if(OnFinishBuff != null)
+				OnFinishBuff(buffInfo[positionIndex].InfoIndex);
+			buffInfo[positionIndex].Info.SetActive(false);
+			buffInfo[positionIndex].LifeTime = 0;
+			buffInfo[positionIndex].InfoIndex = -1;
+			recordIndex[indexOf(positionIndex)] = -1;
 			refreshBuff ();
 		}
 		
@@ -222,21 +237,21 @@ namespace  SkillBuffSpace {
 			
 		}
 		
-		private void addRecord (int index) {
-			if(!containsBool(index)) {
+		private void addRecord (int positionIndex) {
+			if(!containsBool(positionIndex)) {
 				for(int i=0; i<recordIndex.Length; i++) {
 					if(recordIndex[i] == -1){
-						recordIndex[i] = index;
+						recordIndex[i] = positionIndex;
 						break;
 					}
 				}
 			}
 		}
 		
-		private void removeRecord (int index) {
-			if(containsBool(index)) {
+		private void removeRecord (int positionIndex) {
+			if(containsBool(positionIndex)) {
 				for(int i=0; i<recordIndex.Length; i++) {
-					if(recordIndex[i] == index){
+					if(recordIndex[i] == positionIndex){
 						recordIndex[i] = -1;
 						break;
 					}

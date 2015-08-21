@@ -2459,15 +2459,19 @@ public class GameController : KnightSingleton<GameController>
 			case 0:
 			case 1:
 			case 10:
-				player.AddSkillAttribute(skill.ID, skill.AttrKind, 
-				                         skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
+				player.AddSkillAttribute(skill.ID, 
+				                         skill.AttrKind, 
+				                         skill.Value(player.Attribute.ActiveSkill.Lv), 
+				                         skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 				break;
 			case 3:
 				for (int i = 0; i < PlayerList.Count; i++) {
 					if (PlayerList[i].Team.GetHashCode() == player.Team.GetHashCode()) {
 						if(CheckSkill(player, PlayerList[i].gameObject)) {
-							PlayerList[i].AddSkillAttribute(skill.ID, skill.AttrKind, 
-							                                skill.Value(player.Attribute.ActiveSkill.Lv), skill.LifeTime(player.Attribute.ActiveSkill.Lv));
+							PlayerList[i].AddSkillAttribute(skill.ID, 
+							                                skill.AttrKind, 
+							                                skill.Value(player.Attribute.ActiveSkill.Lv), 
+							                                skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 						}
 					}
 				}

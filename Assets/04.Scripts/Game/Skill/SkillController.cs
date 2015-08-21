@@ -6,10 +6,10 @@ using GameStruct;
 using SkillBuffSpace;
 
 namespace SkillControllerSpace {
-	public delegate void OnAddAttribute(int kind, float value);
+	public delegate void OnAddAttributeDelegate(int kind, float value);
 
 	public class SkillController : MonoBehaviour {
-		public OnAddAttribute onAddAttribute = null;
+		public OnAddAttributeDelegate OnAddAttribute = null;
 
 		private GameObject executePlayer;
 		//PassiveSkill key: Kind  value: TSKill
@@ -33,8 +33,12 @@ namespace SkillControllerSpace {
 		private List<TSkillAttribute> skillAttribute = new List<TSkillAttribute>();
 
 		public void SkillUpdate () {
-			updateSkillAttirbe();
+//			updateSkillAttirbe();
 			skillBuff.UpdateBuff();
+		}
+
+		public void HidePlayerName (){
+			skillBuff.HideName();
 		}
 
 		public void initSkillController(TPlayer attribute, GameObject player, Animator animatorControl){
@@ -47,7 +51,7 @@ namespace SkillControllerSpace {
 				GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
 				skillBuff = new SkillBuff();
 				skillBuff.InitBuff(obj, attribute, player);
-
+				skillBuff.OnFinishBuff = FinishBuff;
 				//Passive
 				if (attribute.Skills != null && attribute.Skills.Length > 0) {
 					for (int i = 0; i < attribute.Skills.Length; i++) {
@@ -204,8 +208,8 @@ namespace SkillControllerSpace {
 					item.CDTime = lifetime;
 					skillAttribute.Add(item);
 
-					if(onAddAttribute != null) 
-						onAddAttribute(kind, value);
+					if(OnAddAttribute != null) 
+						OnAddAttribute(kind, value);
 				} else {
 					float add = 0;
 					skillAttribute[index].CDTime = lifetime;
@@ -216,8 +220,8 @@ namespace SkillControllerSpace {
 							add = value - skillAttribute[index].Value;
 					
 					if (add != 0) {
-						if(onAddAttribute != null) 
-							onAddAttribute(kind, add);
+						if(OnAddAttribute != null) 
+							OnAddAttribute(kind, add);
 					}
 				}
 			}
@@ -231,18 +235,25 @@ namespace SkillControllerSpace {
 			return -1;
 		}
 
-		private void updateSkillAttirbe() {
-			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-				if (skillAttribute [i].CDTime > 0) {
-					skillAttribute [i].CDTime -= Time.deltaTime;   
-					if (skillAttribute [i].CDTime <= 0) {
-						if(onAddAttribute != null) 
-							onAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
-						skillAttribute.RemoveAt(i);
-					}
-				}
-			}
+		public void FinishBuff (int skillID){
+			int index = findSkillAttribute(skillID);
+			if(OnAddAttribute != null) 
+				OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
+			skillAttribute.RemoveAt(index);
 		}
+		
+//		private void updateSkillAttirbe() {
+//			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
+//				if (skillAttribute [i].CDTime > 0) {
+//					skillAttribute [i].CDTime -= Time.deltaTime;  
+//					if (skillAttribute [i].CDTime <= 0) {
+//						if(onAddAttribute != null) 
+//							onAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
+//						skillAttribute.RemoveAt(i);
+//					}
+//				}
+//			}
+//		}
 
 
 	}
