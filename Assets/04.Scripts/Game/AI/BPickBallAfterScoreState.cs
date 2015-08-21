@@ -1,10 +1,10 @@
 ﻿using AI;
 
-public class InboundsAState : State<EGameSituation, EGameMsg>
+public class BPickBallAfterScoreState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
-        get { return EGameSituation.InboundsA; }
+        get { return EGameSituation.BPickBallAfterScore; }
     }
 
     public override void EnterImpl(object extraInfo)

@@ -3,13 +3,17 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// 目前是負責處理遊戲比賽 AI 的行為(實際全部的工作都拆分到 State 了).
+/// <para> 這就像是一個神物件, 對遊戲中的全部球員下達命令. 比如要球員執行什麼戰術, 並根據情況命令球員要做什麼動作
+/// (傳球, 投籃等等). </para>
+/// <para> It's like a god of the game. For example: AIController order all players to execute tactics
+/// under the circumstances(passing, shooting, etc.). </para>
+/// <para></para>
 /// </summary>
 /// <remarks>
-/// 添加新的 State:
+/// How to add State:
 /// <list type="number">
-/// <item> 繼承 AI.State. </item>
-/// <item> 修改 GameStateFactory. </item>
+/// <item> inherit AI.State. </item>
+/// <item> call StateMachine.AddState() in setup StateMachine. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -26,9 +30,18 @@ public class AIController : KnightSingleton<AIController>
     [UsedImplicitly]
     private void Awake()
     {
-        mFSM = new StateMachine<EGameSituation, EGameMsg>(new GameStateFactory(), 
-                                                          new MessageDispatcher<EGameMsg>(), 
-                                                          EGameSituation.None);
+        mFSM = new StateMachine<EGameSituation, EGameMsg>(new MessageDispatcher<EGameMsg>());
+        mFSM.AddState(new NullState());
+        mFSM.AddState(new PresentationState());
+        mFSM.AddState(new CameraMovementState());
+        mFSM.AddState(new InitCourtState());
+        mFSM.AddState(new OpeningState());
+        mFSM.AddState(new APickBallAfterScoreState());
+        mFSM.AddState(new InboundsAState());
+        mFSM.AddState(new BPickBallAfterScoreState());
+        mFSM.AddState(new InboundsBState());
+        mFSM.AddState(new SpecialActionState());
+        mFSM.ChangeState(EGameSituation.None);
     }
 
     [UsedImplicitly]

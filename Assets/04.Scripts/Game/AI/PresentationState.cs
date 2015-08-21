@@ -1,8 +1,12 @@
 ﻿using AI;
-using UnityEngine;
 
 public class PresentationState : State<EGameSituation, EGameMsg>, ITelegraph<EGameMsg>
 {
+    public override EGameSituation ID
+    {
+        get { return EGameSituation.Presentation; }
+    }
+
     public override void EnterImpl(object extraInfo)
     {
         Dispatcher.AddListener(this, EGameMsg.UISkipClickOnGaming);

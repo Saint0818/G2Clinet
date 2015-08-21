@@ -37,7 +37,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float zoomTime = 1;
     public Vector2 blankAera = new Vector2(-2, 3.5f);
 //    private float lockedFocusAngle = 100f;
-    private float lockedTeeFocusAngle = 50f;
+//    private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
     private float focusSmoothSpeed = 0.02f;
     private float[] focusStopPoint = new float[]{21f, -25f};

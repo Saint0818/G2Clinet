@@ -6,6 +6,11 @@ using UnityEngine;
 /// </summary>
 public class SpecialActionState : State<EGameSituation, EGameMsg>
 {
+    public override EGameSituation ID
+    {
+        get { return EGameSituation.SpecialAction; }
+    }
+
     /// <summary>
     /// <para> 幾秒後會切換到下一個狀態. </para>
     /// <para> switch to the next state, after a few seconds. </para>

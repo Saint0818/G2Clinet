@@ -12,6 +12,8 @@ namespace AI
         public StateMachine<TEnumState, TEnumMsg> Parent { get; private set; }
         public MessageDispatcher<TEnumMsg> Dispatcher { get; private set; }
 
+        public abstract TEnumState ID { get; }
+
         /// <summary>
         /// 呼叫時機: FSM 改變狀態時, 表示此是新的狀態.
         /// </summary>

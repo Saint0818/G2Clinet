@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace AI
 {
@@ -7,11 +9,12 @@ namespace AI
     /// 
     /// </summary>
     /// <remarks>
-    /// 使用方法:
+    /// How to use:
     /// <list type="number">
     /// <item> new instance. </item>
-    /// <item> call update(). </item>
-    /// <item> call ChangeState 改變狀態. </item>
+    /// <item> call Update() in every frame. </item>
+    /// <item> call AddState(). </item>
+    /// <item> call ChangeState() in setup state machine. </item>
     /// <item> (Optional) Call SetGlobalState. </item>
     /// </list>
     /// 
@@ -30,26 +33,25 @@ namespace AI
 
         private State<TEnumState, TEnumMsg> mGlobalState;
         private State<TEnumState, TEnumMsg> mCurrentState;
-        private readonly IStateMachineFactory<TEnumState, TEnumMsg> mFactory;
         private readonly MessageDispatcher<TEnumMsg> mDispatcher;
 
-        public StateMachine(IStateMachineFactory<TEnumState, TEnumMsg> factory, 
-                            MessageDispatcher<TEnumMsg> dispatcher, 
-                            TEnumState initState)
+        private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
+
+        public StateMachine(MessageDispatcher<TEnumMsg> dispatcher)
         {
-            mFactory = factory;
             mDispatcher = dispatcher;
-            mCurrentState = mFactory.CreateState(initState);
         }
 
-        public StateMachine(IStateMachineFactory<TEnumState, TEnumMsg> factory, 
-                            MessageDispatcher<TEnumMsg> dispatcher,
-                            TEnumState initState, State<TEnumState, TEnumMsg> globalState)
+        public bool AddState(State<TEnumState, TEnumMsg> state)
         {
-            mFactory = factory;
-            mDispatcher = dispatcher;
-            mCurrentState = mFactory.CreateState(initState);
-            mGlobalState = globalState;
+            if(mStates.ContainsKey(state.ID))
+            {
+                Debug.LogWarningFormat("State({0}) already exist!", state.ID);
+                return false;
+            }
+
+            mStates.Add(state.ID, state);
+            return true;
         }
 
         public void Update()
@@ -60,18 +62,20 @@ namespace AI
             mCurrentState.Update();
         }
 
-        public void ChangeState(TEnumState newState)
-        {
-            ChangeState(newState, null);
-        }
-
-        public void ChangeState(TEnumState newState, Object extraInfo)
+        public void ChangeState(TEnumState newState, object extraInfo = null)
         {
             if(!typeof(TEnumState).IsEnum)
                 throw new ArgumentException("TEnum must be an enum.");
 
-            mCurrentState.Exit();
-            mCurrentState = mFactory.CreateState(newState);
+            if(!mStates.ContainsKey(newState))
+            {
+                Debug.LogErrorFormat("State({0}) instance don't exist!", newState);
+                return;
+            }
+
+            if(mCurrentState != null)
+                mCurrentState.Exit();
+            mCurrentState = mStates[newState];
             mCurrentState.Enter(this, mDispatcher, extraInfo);
         }
 

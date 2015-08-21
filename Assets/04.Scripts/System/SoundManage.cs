@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class SoundManage : MonoBehaviour {
-	private static string[] BGMs = {"hey-yo-30", "so-fine", "Cowboy_Theme", "urban-edge"};
-	private static string[] Sounds = {"Mario_Jumping", "onepoint", "horn01", "Blop"};
+public class SoundManage : MonoBehaviour
+{
+//	private static string[] BGMs = {"hey-yo-30", "so-fine", "Cowboy_Theme", "urban-edge"};
+//    private static string[] Sounds = {"Mario_Jumping", "onepoint", "horn01", "Blop"};
 	private static int BGMIndex = -1;
 	public static float BGMVolume = 1;
 

@@ -2,6 +2,11 @@
 
 public class CameraMovementState : State<EGameSituation, EGameMsg>
 {
+    public override EGameSituation ID
+    {
+        get { return EGameSituation.CameraMovement; }
+    }
+
     public override void EnterImpl(object extraInfo)
     {
         CourtMgr.Get.ShowEnd(true);

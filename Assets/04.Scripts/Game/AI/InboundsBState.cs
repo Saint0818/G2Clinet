@@ -1,7 +1,12 @@
 ﻿using AI;
 
-public class TeeBState : State<EGameSituation, EGameMsg>
+public class InboundsBState : State<EGameSituation, EGameMsg>
 {
+    public override EGameSituation ID
+    {
+        get { return EGameSituation.InboundsB; }
+    }
+
     public override void EnterImpl(object extraInfo)
     {
     }
