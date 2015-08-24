@@ -149,9 +149,9 @@ public class UICharacterInfo : UIBase {
 			viewSkillInfo.SetActive(false);
 		if(!go.name.Equals("CharacterInfo")) {
 			if(go.name.Equals("ActiveCard")){
-				labelSkillName.text = GameData.SkillData[activeID].Name;
+				labelSkillName.text = GameData.DSkillData[activeID].Name;
 				labelSkillLevel.text = labelActiveLevel.text;
-				labelSkillInfo.text = GameData.SkillData[activeID].ExplainTW;
+				labelSkillInfo.text = GameData.DSkillData[activeID].ExplainTW;
 			} else if(go.name.Equals("LineShoot0")){
 				labelSkillName.text = "SCORER";
 				labelSkillLevel.text = "0";
@@ -165,9 +165,9 @@ public class UICharacterInfo : UIBase {
 				labelSkillLevel.text = "0";
 				labelSkillInfo.text = TextConst.S(14);
 			} else {
-				labelSkillName.text = GameData.SkillData[int.Parse(go.name)].Name;
+				labelSkillName.text = GameData.DSkillData[int.Parse(go.name)].Name;
 				labelSkillLevel.text = go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
-				labelSkillInfo.text = GameData.SkillData[int.Parse(go.name)].ExplainTW;
+				labelSkillInfo.text = GameData.DSkillData[int.Parse(go.name)].ExplainTW;
 			}
 		}
 	}
@@ -209,11 +209,11 @@ public class UICharacterInfo : UIBase {
 		labelActiveLevel.text = data.ActiveLV.ToString();
 		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
 		
-		labelActiveName.text = GameData.SkillData[data.Active].Name;
-		if(GameData.SkillData[data.Active].PictureNo != 0)
-			spriteActivePic.mainTexture = GameData.CardTextures[GameData.SkillData[data.Active].PictureNo];
+		labelActiveName.text = GameData.DSkillData[data.Active].Name;
+		if(GameData.DSkillData[data.Active].PictureNo != 0)
+			spriteActivePic.mainTexture = GameData.DCardTextures[GameData.DSkillData[data.Active].PictureNo];
 		else
-			spriteActivePic.mainTexture = GameData.CardTextures[data.Active];
+			spriteActivePic.mainTexture = GameData.DCardTextures[data.Active];
 		
 		activeID = data.Active;
 	}
@@ -241,7 +241,7 @@ public class UICharacterInfo : UIBase {
 
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
-			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTextures[id];
+			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.DCardTextures[id];
 
 		t = obj.transform.FindChild("SkillLeval");
 		if(t != null)
@@ -250,7 +250,7 @@ public class UICharacterInfo : UIBase {
 		
 		t = obj.transform.FindChild("SkillName");
 		if(t != null)
-			t.gameObject.GetComponent<UILabel>().text = GameData.SkillData[id].Name;
+			t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Name;
 	}
 
 	public void SetAttribute(TGreatPlayer data, TPlayer player) {

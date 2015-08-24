@@ -489,25 +489,27 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
-		if(GameController.Get.Situation != EGameSituation.End) {
-			if(this == GameController.Get.Joysticker && value > 0) {
-				if(target)
-					SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
+		if(IsHaveActiveSkill) {
+			if(GameController.Get.Situation != EGameSituation.End) {
+				if(this == GameController.Get.Joysticker && value > 0) {
+					if(target)
+						SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
+				}
 			}
-		}
-		angerPower += value;
-		if (angerPower > Attribute.MaxAnger) {
-			value -= angerPower - Attribute.MaxAnger;
-			angerPower = Attribute.MaxAnger;
-		}
-
-        if (angerPower < 0)
-            angerPower = 0;
-
-        if (Team == ETeamKind.Self && Index == 0) {
-			OnUIAnger(Attribute.MaxAnger, angerPower);
-			if (value > 0)
-				GameRecord.AngerAdd += value;
+			angerPower += value;
+			if (angerPower > Attribute.MaxAnger) {
+				value -= angerPower - Attribute.MaxAnger;
+				angerPower = Attribute.MaxAnger;
+			}
+			
+			if (angerPower < 0)
+				angerPower = 0;
+			
+			if (Team == ETeamKind.Self && Index == 0) {
+				OnUIAnger(Attribute.MaxAnger, angerPower);
+				if (value > 0)
+					GameRecord.AngerAdd += value;
+			}
 		}
     }
 
@@ -1715,6 +1717,10 @@ public class PlayerBehaviour : MonoBehaviour
         else
             NeedResetFlag = true;
     }
+
+	public void ResetSkill (){
+		skillController.Reset();
+	}
 
     public void ClearMoveQueue()
     {
@@ -3008,7 +3014,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void SkillEvent (AnimationEvent aniEvent) {
-		if(this == GameController.Get.Joysticker && GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
+		if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
 			if(!isSkillShow) {
 				float t = aniEvent.floatParameter;
 				int skillEffectKind = aniEvent.intParameter;
@@ -3019,15 +3025,15 @@ public class PlayerBehaviour : MonoBehaviour
 					UIPassiveEffect.UIShow(false);
 				
 				isSkillShow = true;
-				string effectName = string.Format("UseSkillEffect_{0}", GameData.SkillData[Attribute.ActiveSkill.ID].Kind);
+				string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[Attribute.ActiveSkill.ID].Kind);
 				EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
 				
 				if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 					GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 
 				CameraMgr.Get.SkillShowActive(skillEffectKind, t);
-				if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID))
-					UISkillEffect.UIShow(true, skillEffectKind, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
+				if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID))
+					UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
 
 				switch(skillEffectKind) {
 				case 0://show self and rotate camera
@@ -3054,8 +3060,8 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 		} else {
 			//Teammate and Enemy's Active PassiveCard will be shown
-			if(GameData.SkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
-				UIPassiveEffect.Get.ShowCard(this, GameData.SkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.SkillData[Attribute.ActiveSkill.ID].Name);
+			if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
+				UIPassiveEffect.Get.ShowCard(this, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
 			showActiveEffect ();
 		}
 	}
@@ -3198,11 +3204,15 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 			                
     public bool IsHaveMoveDodge {
-        get {return skillController.PassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
+        get {return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
     }
 
 	public bool IsHavePickBall2{
-		get {return skillController.PassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
+		get {return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
+	}
+
+	public bool IsHaveActiveSkill {
+		get {return GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID);}
 	}
 	
 	public bool CanMove

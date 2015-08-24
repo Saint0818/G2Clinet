@@ -18,11 +18,9 @@ public class ScoreTrigger : MonoBehaviour
 			animator = CourtMgr.Get.BasketHoopAnimator[Team];
 
 		if (c.tag == "RealBall") {
-			if(!GameController.Get.IsDunk && 
-			   !GameController.Get.IsAlleyoop && 
+			if(!GameController.Get.IsDunk && !GameController.Get.IsAlleyoop && 
 			   GameController.Get.BasketSituation != EBasketSituation.AirBall && 
-			   (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) &&
-			   (GameController.Get.Situation != EGameSituation.APickBallAfterScore || GameController.Get.Situation != EGameSituation.BPickBallAfterScore) ) {
+			  (GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB)) {
 				if (GameController.Visible) {
 					if(IntTrigger == 0 && !Into){
 						Into = true;
@@ -32,12 +30,7 @@ public class ScoreTrigger : MonoBehaviour
 							break;
 						case EBasketSituation.Score:
 						case EBasketSituation.NoScore:
-
-							if(GameController.Get.BasketSituation == EBasketSituation.NoScore)
-								GameController.Get.ShowShootSate(false);
-							else
-								GameController.Get.ShowShootSate(true);
-							
+							GameController.Get.ShowShootSate(GameController.Get.BasketSituation != EBasketSituation.NoScore);
 							CourtMgr.Get.SetBasketBallState(EPlayerState.BasketAnimationStart, dummyHoop);
 							if(animator != null ){
 								if(GameController.Get.BasketAnimationName != string.Empty)

@@ -349,7 +349,7 @@ public class UIGame : UIBase {
 		viewOption.SetActive(false);
 		viewPause.SetActive(false);
 		viewTopLeft.SetActive(false);
-		uiSkill.SetActive(false);
+		showActiveSkillUI(false);
 		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
@@ -568,7 +568,7 @@ public class UIGame : UIBase {
 	public void SetAngerUI (float max, float anger){
 		timeForce = 0;
 		uiSpriteFull.SetActive (false);
-		uiSkill.SetActive(GameController.Get.IsStart);
+		showActiveSkillUI(GameController.Get.IsStart);
 
 		if (max > 0) {
 			oldForceValue = spriteForce.fillAmount;
@@ -586,44 +586,6 @@ public class UIGame : UIBase {
 			}
 		} else
 			spriteSkill.color = new Color32(69, 69, 69, 255);
-	}
-
-	private void runForceValue () {
-		timeForce += Time.fixedDeltaTime;
-		if(oldForceValue > newForceValue) 
-			spriteForce.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
-	}
-
-	private void runForceBar () {
-		float endValue = 0;
-		if(spriteForce.fillAmount < 0.25f)
-			uiSpriteAnimation.SetActive(false);
-		else 
-		if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
-			endValue = 0;
-		else 
-		if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
-			endValue = 30;
-		else 
-		if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
-			endValue = 60;
-		else 
-		if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
-			endValue = 90;
-		else 
-		if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
-			endValue = 120;
-		else 
-		if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
-			endValue = 150;
-		else 
-		if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
-			endValue = 180;
-		else 
-		if(spriteForce.fillAmount >= 0.95f) 
-			endValue = 210;
-
-		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
 	}
 	
 	public void PlusScore(int team, int score) {
@@ -1010,7 +972,7 @@ public class UIGame : UIBase {
 		switch(situation) {
 		case EUISituation.ShowTwo:
 			viewStart.SetActive (true);
-			uiSkill.SetActive(false);
+			showActiveSkillUI(false);
 			uiJoystick.Joystick.isActivated = false;
 			viewTopLeft.SetActive(false);
 			viewBottomRight.SetActive(false);
@@ -1035,7 +997,7 @@ public class UIGame : UIBase {
 			break;
 		case EUISituation.Start:
 			viewStart.SetActive (false);
-			uiSkill.SetActive(true);
+			showActiveSkillUI(true);
 			uiJoystick.Joystick.isActivated = true;
 			viewTopLeft.SetActive(true);
 
@@ -1057,7 +1019,7 @@ public class UIGame : UIBase {
 				viewTools.SetActive(true);
 				viewPause.SetActive(true);
 				viewBottomRight.SetActive(false);
-				uiSkill.SetActive(false);
+				showActiveSkillUI(false);
 
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(false);
@@ -1076,7 +1038,7 @@ public class UIGame : UIBase {
 				viewBottomRight.SetActive(true);
 				viewAISelect.SetActive(false);
 
-				uiSkill.SetActive(true);
+				showActiveSkillUI(true);
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(true);
 				UIGameResult.UIShow(false);
@@ -1088,7 +1050,7 @@ public class UIGame : UIBase {
 			uiScoreBar.SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
-			uiSkill.SetActive(false);
+			showActiveSkillUI(false);
 			GameController.Get.IsStart = false;
 			CameraMgr.Get.FinishGame();
 			break;
@@ -1110,7 +1072,7 @@ public class UIGame : UIBase {
 
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
-			uiSkill.SetActive(false);
+			showActiveSkillUI(false);
 
 			ChangeControl(true);
 			SetPassButton();
@@ -1188,6 +1150,53 @@ public class UIGame : UIBase {
 			buttonStealFX.SetActive(true);
 			break;
 		}
+	}
+	
+	private void runForceValue () {
+		if(GameController.Get.Joysticker && GameController.Get.Joysticker.IsHaveActiveSkill) {
+			timeForce += Time.fixedDeltaTime;
+			if(oldForceValue > newForceValue) 
+				spriteForce.fillAmount = Mathf.Lerp(oldForceValue, newForceValue, timeForce);
+		}
+	}
+	
+	private void runForceBar () {
+		float endValue = 0;
+		if(spriteForce.fillAmount < 0.25f)
+			uiSpriteAnimation.SetActive(false);
+		else 
+			if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
+				endValue = 0;
+		else 
+			if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
+				endValue = 30;
+		else 
+			if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
+				endValue = 60;
+		else 
+			if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
+				endValue = 90;
+		else 
+			if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
+				endValue = 120;
+		else 
+			if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
+				endValue = 150;
+		else 
+			if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
+				endValue = 180;
+		else 
+			if(spriteForce.fillAmount >= 0.95f) 
+				endValue = 210;
+		
+		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+	}
+
+	private void showActiveSkillUI (bool isShow){
+		if(GameController.Get.Joysticker && !GameController.Get.Joysticker.IsHaveActiveSkill)
+			uiSkill.SetActive(false);
+		else 
+			uiSkill.SetActive(isShow);
 	}
 	
 	private void resetAnimation (){

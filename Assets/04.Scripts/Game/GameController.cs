@@ -663,10 +663,7 @@ public class GameController : KnightSingleton<GameController>
 				if (GameTime <= 0) {
 					GameTime = 0;
 
-					if(UIGame.Get.Scores[0] > UIGame.Get.MaxScores[1])
-						gameResult();
-					else
-						gameResult();
+					gameResult();
 				}
 			}
 		}
@@ -1343,14 +1340,12 @@ public class GameController : KnightSingleton<GameController>
 				setPassIcon(true);
 				UIGame.UIShow (true);
 				UIGame.Get.UIState(EUISituation.Opening);
-				CameraMgr.Get.ShowPlayerInfoCamera (true);
 				jodgeSkillUI ();
 
 				break;
 			case EGameSituation.JumpBall:
 				IsStart = true;
 				CourtMgr.Get.InitScoreboard (true);
-				CameraMgr.Get.ShowPlayerInfoCamera (true);
 				setPassIcon(true);
 
 				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
@@ -2441,7 +2436,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private void attackSkillEffect(PlayerBehaviour player) {
 		Vector3 v;
-		TSkillData skill = GameData.SkillData[player.Attribute.ActiveSkill.ID];
+		TSkillData skill = GameData.DSkillData[player.Attribute.ActiveSkill.ID];
 		switch (skill.Kind) {
 		case 6://dunk
 			v = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
@@ -2482,13 +2477,13 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	private List<GameObject> getActiveSkillTarget(PlayerBehaviour player) {
-		if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-			string key  = player.Team.ToString() + "_"+ player.Index.ToString() + "_" + GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind;
+		if (GameData.DSkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+			string key  = player.Team.ToString() + "_"+ player.Index.ToString() + "_" + GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind;
 			if(activeSkillTargets.ContainsKey(key)) {
 				return activeSkillTargets[key];
 			} else {
 				List<GameObject> objs = new List<GameObject>();
-				switch (GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind) {
+				switch (GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind) {
 				case 0:// self
 					objs.Add(player.gameObject);
 					break;
@@ -2523,7 +2518,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	private bool checkSkillSituation(PlayerBehaviour player) {
-		int kind = GameData.SkillData[player.Attribute.ActiveSkill.ID].Kind;
+		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Kind;
 		switch (Situation) {
 		case EGameSituation.AttackA:
 			if(player.Team == ETeamKind.Self) {
@@ -2591,18 +2586,18 @@ public class GameController : KnightSingleton<GameController>
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
 		if (player.CanUseSkill) {
 			if (target) {
-				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
-				   GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
+				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
+				   GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
 					//Target(People)
 					if (target == player.gameObject || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
-					    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
 						if (checkSkillSituation(player))
 							return true;
 					}
 				} else {
 					//Basket
 					if (target == player.gameObject || getDis(ref player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
-					    GameData.SkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
 						if (checkSkillSituation(player))
 							return true;
 					}
@@ -2822,9 +2817,9 @@ public class GameController : KnightSingleton<GameController>
 		}
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
-				if(GameData.SkillData.ContainsKey(player.PassiveID)) {
+				if(GameData.DSkillData.ContainsKey(player.PassiveID)) {
 					if(!player.IsUseSkill)
-						UIPassiveEffect.Get.ShowCard(player, GameData.SkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.SkillData[player.PassiveID].Name);
+						UIPassiveEffect.Get.ShowCard(player, GameData.DSkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.DSkillData[player.PassiveID].Name);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}
@@ -3775,8 +3770,9 @@ public class GameController : KnightSingleton<GameController>
 
 	public void ShowShootSate(bool isIn)
 	{
-		for(int i = 0; i < PlayerList.Count; i++)
-			if(PlayerList[i].Team == Shooter.Team)
+		if(Shooter) {
+			for(int i = 0; i < PlayerList.Count; i++)
+				if(PlayerList[i].Team == Shooter.Team)
 			{
 				if(!PlayerList[i].IsDunk){
 					if(isIn)
@@ -3785,6 +3781,7 @@ public class GameController : KnightSingleton<GameController>
 						PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
 				}
 			}
+		}
 	}
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
@@ -4101,6 +4098,12 @@ public class GameController : KnightSingleton<GameController>
 		IsStart = false;
 		SetBallOwnerNull ();
 
+		GameTime = GameStart.Get.GameWinValue;
+		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
+		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+		CameraMgr.Get.ShowPlayerInfoCamera (false);
+		UIPassiveEffect.Get.Reset();
+
 		if (GameData.Setting.AIChangeTime > 100)
 			Joysticker.SetNoAI();
 		else
@@ -4113,6 +4116,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
+			PlayerList [i].ResetSkill();
 			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)

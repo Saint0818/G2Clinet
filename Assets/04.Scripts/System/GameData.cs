@@ -21,9 +21,9 @@ public static class GameData {
 	public static TPlayerAttribute[] BaseAttr;
     public static TBasketShootPositionData[] BasketShootPosition;
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
-	public static Dictionary<int, TSkillData> SkillData = new Dictionary<int, TSkillData>();
+	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
-	public static Dictionary<int, Texture> CardTextures = new Dictionary<int, Texture>();
+	public static Dictionary<int, Texture> DCardTextures = new Dictionary<int, Texture>();
 
 	public static float ServerVersion;
 	public static float SaveVersion;
@@ -54,7 +54,7 @@ public static class GameData {
 		UnityEngine.Object[] obj = Resources.LoadAll("Textures/SkillCards");
 		if(obj.Length > 0) {
 			for(int i=0; i<obj.Length; i++) {
-				CardTextures.Add(int.Parse(obj[i].name), obj[i] as Texture);
+				DCardTextures.Add(int.Parse(obj[i].name), obj[i] as Texture);
 			}
 		}
 	}

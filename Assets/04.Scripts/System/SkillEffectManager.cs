@@ -14,22 +14,22 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		List<GameObject> objs2 = null;
 		List<GameObject> objs3 = null;
 		if(isPassiveID) {
-			if (GameData.SkillData.ContainsKey(player.PassiveID)) {
-				if(GameData.SkillData[player.PassiveID].TargetKind1 != 0) 
-					objs1 = getSkillEffectPosition(1, GameData.SkillData[player.PassiveID].TargetKind1, isPassiveID);
-				if(GameData.SkillData[player.PassiveID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.SkillData[player.PassiveID].TargetKind2, isPassiveID);
-				if(GameData.SkillData[player.PassiveID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.SkillData[player.PassiveID].TargetKind3, isPassiveID);
+			if (GameData.DSkillData.ContainsKey(player.PassiveID)) {
+				if(GameData.DSkillData[player.PassiveID].TargetKind1 != 0) 
+					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.PassiveID].TargetKind1, isPassiveID);
+				if(GameData.DSkillData[player.PassiveID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.PassiveID].TargetKind2, isPassiveID);
+				if(GameData.DSkillData[player.PassiveID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.PassiveID].TargetKind3, isPassiveID);
 			}
 		} else {
-			if (GameData.SkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
-					objs1 = getSkillEffectPosition(1, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind1, isPassiveID);
-				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind2, isPassiveID);
-				if(GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.SkillData[player.Attribute.ActiveSkill.ID].TargetKind3, isPassiveID);
+			if (GameData.DSkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
+				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
+					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind1, isPassiveID);
+				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind2, isPassiveID);
+				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind3, isPassiveID);
 			}
 		}
 
@@ -46,27 +46,27 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				int index = 0;
 				for (int i=0; i<objs1.Count; i++) {
 					GameObject parent = null;
-					if(GameData.SkillData[skillID].EffectParent1 == 1) {
+					if(GameData.DSkillData[skillID].EffectParent1 == 1) {
 						parent = objs1[i];
 						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime1, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect1,
 							           Vector3.zero,
 							           objs1[index],
 							           null,
 							           null,
-							           GameData.SkillData[skillID].Duration1);
+							           GameData.DSkillData[skillID].Duration1);
 						}));
 					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime1, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect1,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime1, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect1,
 							           Vector3.zero,
 							           null,
 							           parent,
 							           null,
-							           GameData.SkillData[skillID].Duration1);
+							           GameData.DSkillData[skillID].Duration1);
 						}));
 					}
 				}
@@ -76,28 +76,28 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				int index = 0;
 				for (int i=0; i<objs2.Count; i++) {
 					GameObject parent = null;
-					if(GameData.SkillData[skillID].EffectParent2 == 1) {
+					if(GameData.DSkillData[skillID].EffectParent2 == 1) {
 						parent = objs2[i];
 						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime2, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect2,
 							           Vector3.zero,
 							           objs2[index],
 							           null,
 							           null,
-							           GameData.SkillData[skillID].Duration2);
+							           GameData.DSkillData[skillID].Duration2);
 						}));
 						
 					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime2, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect2,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime2, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect2,
 							           Vector3.zero,
 							           null,
 							           parent,
 							           null,
-							           GameData.SkillData[skillID].Duration2);
+							           GameData.DSkillData[skillID].Duration2);
 						}));
 					}
 				}
@@ -107,27 +107,27 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				int index = 0;
 				for (int i=0; i<objs3.Count; i++) {
 					GameObject parent = null;
-					if(GameData.SkillData[skillID].EffectParent3 == 1) {
+					if(GameData.DSkillData[skillID].EffectParent3 == 1) {
 						parent = objs3[i];
 						index = i;
 					}
 					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime3, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect3,
 							           Vector3.zero,
 							           objs3[index],
 							           null,
 							           null,
-							           GameData.SkillData[skillID].Duration3);
+							           GameData.DSkillData[skillID].Duration3);
 						}));
 					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.SkillData[skillID].DelayTime3, delegate {
-							playEffect("SkillEffect" + GameData.SkillData[skillID].TargetEffect3,
+						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime3, delegate {
+							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect3,
 							           Vector3.zero,
 							           null,
 							           parent,
 							           null,
-							           GameData.SkillData[skillID].Duration3);
+							           GameData.DSkillData[skillID].Duration3);
 						}));
 					}
 				}

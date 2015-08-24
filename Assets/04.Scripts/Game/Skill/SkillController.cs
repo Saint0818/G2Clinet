@@ -14,7 +14,7 @@ namespace SkillControllerSpace {
 		private GameObject executePlayer;
 		//PassiveSkill key: Kind  value: TSKill
 		private EPassDirectState passDirect = EPassDirectState.Forward;
-		public Dictionary<int, List<TSkill>> PassiveSkills = new Dictionary<int, List<TSkill>>();
+		public Dictionary<int, List<TSkill>> DPassiveSkills = new Dictionary<int, List<TSkill>>();
 		public int PassiveID;
 		public int PassiveLv;
 		public int MoveDodgeRate = 0;
@@ -33,7 +33,6 @@ namespace SkillControllerSpace {
 		private List<TSkillAttribute> skillAttribute = new List<TSkillAttribute>();
 
 		public void SkillUpdate () {
-//			updateSkillAttirbe();
 			skillBuff.UpdateBuff();
 		}
 
@@ -55,8 +54,8 @@ namespace SkillControllerSpace {
 				//Passive
 				if (attribute.Skills != null && attribute.Skills.Length > 0) {
 					for (int i = 0; i < attribute.Skills.Length; i++) {
-						if (GameData.SkillData.ContainsKey(attribute.Skills[i].ID)) {
-							TSkillData skillData = GameData.SkillData[attribute.Skills[i].ID];
+						if (GameData.DSkillData.ContainsKey(attribute.Skills[i].ID)) {
+							TSkillData skillData = GameData.DSkillData[attribute.Skills[i].ID];
 							
 							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.Skills[i].Lv));
 							
@@ -75,12 +74,12 @@ namespace SkillControllerSpace {
 							TSkill skill = new TSkill();
 							skill.ID = attribute.Skills [i].ID;
 							skill.Lv = attribute.Skills [i].Lv;
-							if (PassiveSkills.ContainsKey(key))
-								PassiveSkills [key].Add(skill);
+							if (DPassiveSkills.ContainsKey(key))
+								DPassiveSkills [key].Add(skill);
 							else {
 								List<TSkill> pss = new List<TSkill>();
 								pss.Add(skill);
-								PassiveSkills.Add(key, pss);
+								DPassiveSkills.Add(key, pss);
 							}
 						}
 					}
@@ -88,11 +87,11 @@ namespace SkillControllerSpace {
 
 				//Active
 				ActiveTime = 0;
-				if (GameData.SkillData.ContainsKey(attribute.ActiveSkill.ID)) {
+				if (GameData.DSkillData.ContainsKey(attribute.ActiveSkill.ID)) {
 					AnimationClip[] clips = animatorControl.runtimeAnimatorController.animationClips;
 					if (clips != null && clips.Length > 0) {
 						for (int i=0; i<clips.Length; i++) {
-							if(clips[i].name.Equals(GameData.SkillData [attribute.ActiveSkill.ID].Animation)) {
+							if(clips[i].name.Equals(GameData.DSkillData [attribute.ActiveSkill.ID].Animation)) {
 								ActiveTime = clips[i].length;
 								break;
 							}
@@ -112,18 +111,18 @@ namespace SkillControllerSpace {
 			
 			bool isPerformPassive = false;
 			int skillKind = (int)kind;
-			if(PassiveSkills.ContainsKey(skillKind)) {
-				if (PassiveSkills[skillKind].Count > 0){
+			if(DPassiveSkills.ContainsKey(skillKind)) {
+				if (DPassiveSkills[skillKind].Count > 0){
 					float angle = GameFunction.GetPlayerToObjectAngleByVector(executePlayer.transform, v);
 					int passiveRate = -1;
 					if (kind == ESkillKind.Pass) {
 						passDirect = judgeDirect(angle);
-						for(int i=0; i<PassiveSkills[(int)skillKind].Count; i++) 
-							if (GameData.SkillData[PassiveSkills[skillKind][i].ID].Direct == (int)passDirect)
-								passiveRate += GameData.SkillData[PassiveSkills[(int)skillKind][i].ID].Rate(PassiveSkills[(int)skillKind][i].Lv);
+						for(int i=0; i<DPassiveSkills[(int)skillKind].Count; i++) 
+							if (GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect)
+								passiveRate += GameData.DSkillData[DPassiveSkills[(int)skillKind][i].ID].Rate(DPassiveSkills[(int)skillKind][i].Lv);
 					} else
-						for(int i=0; i<PassiveSkills[(int)skillKind].Count; i++)
-							passiveRate += GameData.SkillData[PassiveSkills[(int)skillKind][i].ID].Rate(PassiveSkills[(int)skillKind][i].Lv);
+						for(int i=0; i<DPassiveSkills[(int)skillKind].Count; i++)
+							passiveRate += GameData.DSkillData[DPassiveSkills[(int)skillKind][i].ID].Rate(DPassiveSkills[(int)skillKind][i].Lv);
 					
 					isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
 				}
@@ -131,34 +130,34 @@ namespace SkillControllerSpace {
 			
 			if (isPerformPassive){
 				string animationName = string.Empty;
-				for (int i=0; i<PassiveSkills[skillKind].Count; i++) {
+				for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
 					if(kind == ESkillKind.Pass) {
-						if(GameData.SkillData[PassiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
-							if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[PassiveSkills[skillKind][i].ID].Rate(PassiveSkills[skillKind][i].Lv)){
-								PassiveID = PassiveSkills[skillKind][i].ID;
-								PassiveLv = PassiveSkills[skillKind][i].Lv;
-								animationName = GameData.SkillData[PassiveID].Animation;
+						if(GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
+							if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)){
+								PassiveID = DPassiveSkills[skillKind][i].ID;
+								PassiveLv = DPassiveSkills[skillKind][i].Lv;
+								animationName = GameData.DSkillData[PassiveID].Animation;
 								break;
 							}
 						}
 					} else 
 						if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || 
 						  kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
-						if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[PassiveSkills[skillKind][i].ID].Rate(PassiveSkills[skillKind][i].Lv)) {
-							if(isWideOpen != 0 && (PassiveSkills[skillKind][i].ID == 412 || PassiveSkills[skillKind][i].ID == 413)) {
+						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
+							if(isWideOpen != 0 && (DPassiveSkills[skillKind][i].ID == 412 || DPassiveSkills[skillKind][i].ID == 413)) {
 								break;
 							}
-							PassiveID = PassiveSkills[skillKind][i].ID;
-							PassiveLv = PassiveSkills[skillKind][i].Lv;
-							animationName = GameData.SkillData[PassiveID].Animation;
+							PassiveID = DPassiveSkills[skillKind][i].ID;
+							PassiveLv = DPassiveSkills[skillKind][i].Lv;
+							animationName = GameData.DSkillData[PassiveID].Animation;
 							break;
 						}
 						
 					} else {
-						if(UnityEngine.Random.Range(0, 100) <= GameData.SkillData[PassiveSkills[skillKind][i].ID].Rate(PassiveSkills[skillKind][i].Lv)) {
-							PassiveID = PassiveSkills[skillKind][i].ID;
-							PassiveLv = PassiveSkills[skillKind][i].Lv;
-							animationName = GameData.SkillData[PassiveID].Animation;
+						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
+							PassiveID = DPassiveSkills[skillKind][i].ID;
+							PassiveLv = DPassiveSkills[skillKind][i].Lv;
+							animationName = GameData.DSkillData[PassiveID].Animation;
 							break;
 						}
 					}
@@ -241,6 +240,10 @@ namespace SkillControllerSpace {
 				OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
 			skillAttribute.RemoveAt(index);
 		}
+
+		public void Reset (){
+			skillBuff.RemoveAllBuff();
+		}
 		
 //		private void updateSkillAttirbe() {
 //			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
@@ -254,7 +257,5 @@ namespace SkillControllerSpace {
 //				}
 //			}
 //		}
-
-
 	}
 }

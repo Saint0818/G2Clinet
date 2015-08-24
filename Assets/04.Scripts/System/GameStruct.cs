@@ -244,8 +244,8 @@ namespace GameStruct {
 
 		public int MaxAnger {
 			get {
-				if (GameData.SkillData.ContainsKey(ActiveSkill.ID))
-					return GameData.SkillData[ActiveSkill.ID].MaxAnger;
+				if (GameData.DSkillData.ContainsKey(ActiveSkill.ID))
+					return GameData.DSkillData[ActiveSkill.ID].MaxAnger;
 				else
 					return 0;
 			}
@@ -253,8 +253,8 @@ namespace GameStruct {
 
 		public string SkillAnimation {
 			get {
-				if (GameData.SkillData.ContainsKey(ActiveSkill.ID))
-					return GameData.SkillData[ActiveSkill.ID].Animation;
+				if (GameData.DSkillData.ContainsKey(ActiveSkill.ID))
+					return GameData.DSkillData[ActiveSkill.ID].Animation;
 				else
 					return "";
 			}

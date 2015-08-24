@@ -10,6 +10,7 @@ public class GameStartBehaviour : StateMachineBehaviour {
 	        GameController.Get.ChangeSituation(EGameSituation.InitCourt);
             AIController.Get.ChangeState(EGameSituation.InitCourt);
 	    }
+		CameraMgr.Get.ShowPlayerInfoCamera (true);
 	}
 	
 //	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

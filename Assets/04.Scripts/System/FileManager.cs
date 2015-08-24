@@ -473,7 +473,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		try {
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
-				GameData.SkillData.Add(data[i].ID, data[i]);
+				GameData.DSkillData.Add(data[i].ID, data[i]);
 			}
 
 			if(SaveVersion)
