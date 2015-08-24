@@ -78,6 +78,18 @@ public static class TextConst
 			           "[33FFDD]REB[-]-Rebound\n\n[33FFDD]DNK[-]-Dunk\n\n[33FFDD]BLK[-]-Block\n\n[33FFDD]STR[-]-Strength");
 			AddString (14, "[33FFDD]DEF[-]-防守\n\n[33FFDD]STL[-]-抄截\n\n[33FFDD]DRB[-]-控球\n\n[33FFDD]PAS[-]-傳球",
 			           "[33FFDD]DEF[-]-Defence\n\n[33FFDD]STL[-]-Steal\n\n[33FFDD]DRB[-]-Dribble\n\n[33FFDD]PAS[-]-Pass");
+			AddString (15, "GUARD 後衛", "GUARD 後衛");
+			AddString (16, "FORWARDS 前鋒", "FORWARDS 前鋒");
+			AddString (17, "CENTER 中鋒", "CENTER 中鋒");
+			AddString (18, "貧民窟長大的女孩，父親失蹤，為了養活12個弟妹和沒有生活能力的母親，身兼多職，除了在充滿醉漢的碼頭酒吧工作練出一身靈活身法，還在複雜的新舊城區街道中擔任極速送報員，而擁有敏捷速度。"
+			           , "");
+			AddString (19, "原本是前途看好的中階軍官，因為一次無聊的閱兵發生意外，導致右半邊身體被炸毀，沒有背景的他被軍方作為新式機械療法的實驗品，變成半個機器人，但成果不如預期而遭到棄置。論及婚嫁的女友因他不再是個真男人而拋棄了他。"
+			           , "");
+			AddString (20, "大塊頭，因為巨大的身形與無匹的力量而成為地下摔角選手，其實是個實力相當高強的選手，但因為後台不夠硬始終無法成為明星。在某次講好的比賽中失手打敗對方，害組頭損失慘重而欠下巨債，妻小因此離開他。"
+			           , "");
+			AddString (21, "GUARD", "GUARD");
+			AddString (22, "FORWARDS", "FORWARDS");
+			AddString (23, "CENTER", "CENTER");
 
 		}
     }
