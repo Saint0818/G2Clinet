@@ -348,7 +348,7 @@ public class GameController : KnightSingleton<GameController>
     	case EGameTest.None:
 			checkPlayerID();
 
-			switch (GameStart.Get.PlayerNumber)
+			switch (GameStart.Get.FriendNumber)
             {
 			    case 1:
 //				    PlayerList[1].gameObject.SetActive(false);
@@ -3768,11 +3768,13 @@ public class GameController : KnightSingleton<GameController>
 	private EPlayerState[] shootInState = new EPlayerState[4]{EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
 	private EPlayerState[] shootOutState = new EPlayerState[2]{EPlayerState.Show201, EPlayerState.Show202};
 
-	public void ShowShootSate(bool isIn)
+	public void ShowShootSate(bool isIn, int team)
 	{
-		if(Shooter) {
-			for(int i = 0; i < PlayerList.Count; i++)
-				if(PlayerList[i].Team == Shooter.Team)
+		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
+			team = Shooter.Team.GetHashCode();
+
+		for (int i = 0; i < PlayerList.Count; i++)
+			if(PlayerList[i].Team.GetHashCode() == team)
 			{
 				if(!PlayerList[i].IsDunk){
 					if(isIn)
@@ -3781,7 +3783,6 @@ public class GameController : KnightSingleton<GameController>
 						PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
 				}
 			}
-		}
 	}
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)

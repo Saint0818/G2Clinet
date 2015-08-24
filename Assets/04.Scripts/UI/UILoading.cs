@@ -50,7 +50,6 @@ public class UILoading : UIBase {
 	}
 
 	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint=""){
-//		Get.isCloseUI = isShow;
 		if(isShow) {
 			Get.loadingKind = kind;
 			Get.Show(isShow);
@@ -157,6 +156,10 @@ public class UILoading : UIBase {
 			UISkip.UIShow(false, ESkipSituation.Loading);
 			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
 			break;
+		case ELoadingGamePic.Stage:
+			yield return new WaitForSeconds (2);
+			loadStage();
+			break;
 		}
 	}
 	
@@ -191,6 +194,14 @@ public class UILoading : UIBase {
 			UISelectRole.UIShow(true);
 			UI3DSelectRole.UIShow(true);
 		}
+	}
+
+	private void loadStage() {
+		UIShow(false);
+		CameraMgr.Get.SetSelectRoleCamera();
+		UISelectRole.UIShow(true);
+		UISelectRole.Get.SelectFriendMode();
+		UI3DSelectRole.UIShow(true);
 	}
 
 	private void showPage (int page) {

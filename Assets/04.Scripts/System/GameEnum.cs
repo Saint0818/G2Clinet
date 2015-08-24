@@ -23,7 +23,8 @@ namespace GameEnum {
 
 	public enum ELoadingGamePic {
 		SelectRole = -1,
-		Game = 1
+		Game = 1,
+		Stage = 2
 	}
 
 	public enum ESceneTest

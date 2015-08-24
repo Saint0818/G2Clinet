@@ -23,6 +23,8 @@ public static class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
+	public static TStage[] StageData;
+	public static Dictionary<int, TStage> DStageData = new Dictionary<int, TStage>();
 	public static Dictionary<int, Texture> DCardTextures = new Dictionary<int, Texture>();
 
 	public static float ServerVersion;
@@ -35,6 +37,8 @@ public static class GameData {
 	public static TTeam[] TeamMembers = new TTeam[2];
 	public static TTeam[] EnemyMembers = new TTeam[3];
 	public static TGameSetting Setting;
+
+	public static int StageID = -1;
 	public static float ExtraGreatRate = 5;
 	public static float ExtraPerfectRate = 10;
 
@@ -104,10 +108,12 @@ public static class GameData {
 				break;
 			case SystemLanguage.Japanese:
 				GameData.Setting.Language = ELanguage.JP;
+				break;
 			}
 			#endif
 		}
 
+		GameData.Setting.Language = ELanguage.TW;
 		if(PlayerPrefs.HasKey(SettingText.AITime))
 			Setting.AIChangeTime = PlayerPrefs.GetFloat(SettingText.AITime, 1);
 		else

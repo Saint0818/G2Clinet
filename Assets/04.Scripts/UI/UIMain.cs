@@ -55,20 +55,11 @@ public class UIMain : UIBase {
 	}
 	
 	protected override void InitCom() {
-		SetBtnFun(UIName + "/TopRight/ButtonCourt", OnCourt);
+		SetBtnFun(UIName + "/TopRight/ButtonCourt", OnStage);
 		SetBtnFun(UIName + "/TopRight/ButtonOpenRoom", OnOpenRoom);
 		SetBtnFun(UIName + "/TopRight/ButtonJoinRoom", OnLookingRoom);
 		SetBtnFun(UIName + "/TopLeft/ButtonAvatar", OnAvatar);
 
-
-		/*UIEventListener.Get (GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect")).onClick = DoEffectSwitch;
-
-		EffectSwitch [0] = GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect/LabelON");
-		EffectSwitch [1] = GameObject.Find (UIName + "/TopLeft/Option/ButtonEffect/LabelOff");
-
-		EffectSwitch [0].SetActive (GameData.Setting.Effect);
-		EffectSwitch [1].SetActive (!GameData.Setting.Effect);
-		*/
 		itemJoinRoom = Resources.Load("Prefab/UI/Items/ItemJoinRoom") as GameObject;
 		offsetRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/Anchor/Offset");
 		cameraRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/ViewCamera").GetComponent<UIDraggableCamera>();
@@ -129,6 +120,10 @@ public class UIMain : UIBase {
 		UIRoomInfo.SetActive(false);
 		SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Open Room");
 		LobbyStart.Get.ShowOnlinePlayers(false);
+	}
+
+	public void OnStage() {
+		UIStage.UIShow(!UIStage.Visible);
 	}
 
 	public void OnOpenRoom() {

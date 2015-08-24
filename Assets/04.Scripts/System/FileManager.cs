@@ -66,7 +66,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
 
-	private static string[] downloadFiles = {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item"};
+	private static string[] downloadFiles = {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage"};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
 	private static List<TDownloadData> dataList = new List<TDownloadData>();
@@ -183,6 +183,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[3] = parseBasketShootPositionData;
 		downloadCallBack[4] = parseSkillData;
 		downloadCallBack[5] = parseItemData;
+		downloadCallBack[6] = parseStageData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -498,6 +499,22 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.Log ("[item parsed finished.] ");
 		} catch (System.Exception ex) {
 			Debug.LogError ("[item parsed error] " + ex.Message);
+		}
+	}
+
+	private void parseStageData (string Version, string text, bool SaveVersion){
+		try {
+			GameData.StageData = (TStage[])JsonConvert.DeserializeObject (text, typeof(TStage[]));
+			for (int i = 0; i < GameData.StageData.Length; i++) {
+				GameData.DStageData.Add(GameData.StageData[i].ID, GameData.StageData[i]);
+			}
+			
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "stage", Version);
+			
+			Debug.Log ("[stage parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[stage parsed error] " + ex.Message);
 		}
 	}
 }

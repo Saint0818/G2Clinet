@@ -10,7 +10,8 @@ public enum SceneName
 	Lobby = 2,
 	Court_0 = 3,
 	Court_1 = 4,
-	SelectRole = 5
+	SelectRole = 5,
+	Stage = 6
 }
 
 public class SceneMgr : KnightSingleton<SceneMgr>
@@ -50,7 +51,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 				AudioMgr.Get.StartGame();
 				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
 				break;
-			case SceneName.Null:		
+			case SceneName.Stage:
+				AudioMgr.Get.StartGame();
+				UILoading.UIShow(true, ELoadingGamePic.Stage);
+				break;
+			case SceneName.Null:
 				break;
 		}
 

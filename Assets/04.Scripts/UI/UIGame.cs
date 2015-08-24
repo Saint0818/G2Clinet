@@ -1323,4 +1323,8 @@ public class UIGame : UIBase {
 			}
 		}
 	}
+
+	public bool isStage {
+		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
+	}
 }

@@ -122,35 +122,38 @@ namespace GameStruct {
 				AILevel = GameData.DPlayers[ID].AILevel;
 				ActiveSkill.ID = GameData.DPlayers[ID].Active;
 				ActiveSkill.Lv = GameData.DPlayers[ID].ActiveLV;
-				Skills = new TSkill[14];
-				Skills[0].ID =  GameData.DPlayers[ID].Skill1;
-				Skills[0].Lv =  GameData.DPlayers[ID].SkillLV1;
-				Skills[1].ID =  GameData.DPlayers[ID].Skill2;
-				Skills[1].Lv =  GameData.DPlayers[ID].SkillLV2;
-				Skills[2].ID =  GameData.DPlayers[ID].Skill3;
-				Skills[2].Lv =  GameData.DPlayers[ID].SkillLV3;
-				Skills[3].ID =  GameData.DPlayers[ID].Skill4;
-				Skills[3].Lv =  GameData.DPlayers[ID].SkillLV4;
-				Skills[4].ID =  GameData.DPlayers[ID].Skill5;
-				Skills[4].Lv =  GameData.DPlayers[ID].SkillLV5;
-				Skills[5].ID =  GameData.DPlayers[ID].Skill6;
-				Skills[5].Lv =  GameData.DPlayers[ID].SkillLV6;
-				Skills[6].ID =  GameData.DPlayers[ID].Skill7;
-				Skills[6].Lv =  GameData.DPlayers[ID].SkillLV7;
-				Skills[7].ID =  GameData.DPlayers[ID].Skill8;
-				Skills[7].Lv =  GameData.DPlayers[ID].SkillLV8;
-				Skills[8].ID =  GameData.DPlayers[ID].Skill9;
-				Skills[8].Lv =  GameData.DPlayers[ID].SkillLV9;
-				Skills[9].ID =  GameData.DPlayers[ID].Skill10;
-				Skills[9].Lv =  GameData.DPlayers[ID].SkillLV10;
-				Skills[10].ID =  GameData.DPlayers[ID].Skill11;
-				Skills[10].Lv =  GameData.DPlayers[ID].SkillLV11;
-				Skills[11].ID =  GameData.DPlayers[ID].Skill12;
-				Skills[11].Lv =  GameData.DPlayers[ID].SkillLV12;
-				Skills[12].ID =  GameData.DPlayers[ID].Skill13;
-				Skills[12].Lv =  GameData.DPlayers[ID].SkillLV13;
-				Skills[13].ID =  GameData.DPlayers[ID].Skill14;
-				Skills[13].Lv =  GameData.DPlayers[ID].SkillLV14;
+
+				if (Skills == null) {
+					Skills = new TSkill[14];
+					Skills[0].ID =  GameData.DPlayers[ID].Skill1;
+					Skills[0].Lv =  GameData.DPlayers[ID].SkillLV1;
+					Skills[1].ID =  GameData.DPlayers[ID].Skill2;
+					Skills[1].Lv =  GameData.DPlayers[ID].SkillLV2;
+					Skills[2].ID =  GameData.DPlayers[ID].Skill3;
+					Skills[2].Lv =  GameData.DPlayers[ID].SkillLV3;
+					Skills[3].ID =  GameData.DPlayers[ID].Skill4;
+					Skills[3].Lv =  GameData.DPlayers[ID].SkillLV4;
+					Skills[4].ID =  GameData.DPlayers[ID].Skill5;
+					Skills[4].Lv =  GameData.DPlayers[ID].SkillLV5;
+					Skills[5].ID =  GameData.DPlayers[ID].Skill6;
+					Skills[5].Lv =  GameData.DPlayers[ID].SkillLV6;
+					Skills[6].ID =  GameData.DPlayers[ID].Skill7;
+					Skills[6].Lv =  GameData.DPlayers[ID].SkillLV7;
+					Skills[7].ID =  GameData.DPlayers[ID].Skill8;
+					Skills[7].Lv =  GameData.DPlayers[ID].SkillLV8;
+					Skills[8].ID =  GameData.DPlayers[ID].Skill9;
+					Skills[8].Lv =  GameData.DPlayers[ID].SkillLV9;
+					Skills[9].ID =  GameData.DPlayers[ID].Skill10;
+					Skills[9].Lv =  GameData.DPlayers[ID].SkillLV10;
+					Skills[10].ID =  GameData.DPlayers[ID].Skill11;
+					Skills[10].Lv =  GameData.DPlayers[ID].SkillLV11;
+					Skills[11].ID =  GameData.DPlayers[ID].Skill12;
+					Skills[11].Lv =  GameData.DPlayers[ID].SkillLV12;
+					Skills[12].ID =  GameData.DPlayers[ID].Skill13;
+					Skills[12].Lv =  GameData.DPlayers[ID].SkillLV13;
+					Skills[13].ID =  GameData.DPlayers[ID].Skill14;
+					Skills[13].Lv =  GameData.DPlayers[ID].SkillLV14;
+				}
 			}
 		}
 
@@ -322,6 +325,10 @@ namespace GameStruct {
 		public string NameCN;
 		public string NameEN;
 		public string NameJP;
+		public string ExplainTW;
+		public string ExplainCN;
+		public string ExplainEN;
+		public string ExplainJP;
 		public float Point2;
 		public float Point3;
 		public float Steal;
@@ -383,6 +390,17 @@ namespace GameStruct {
 				case ELanguage.CN: return NameCN;
 				case ELanguage.JP: return NameJP;
 				default : return NameEN;
+				}
+			}
+		}
+
+		public string Explain {
+			get {
+				switch (GameData.Setting.Language) {
+				case ELanguage.TW: return ExplainTW;
+				case ELanguage.CN: return ExplainCN;
+				case ELanguage.JP: return ExplainJP;
+				default : return ExplainEN;
 				}
 			}
 		}
@@ -683,5 +701,50 @@ namespace GameStruct {
 		public string ExplainCN;
 		public string ExplainEN;
 		public string ExplainJP;
+	}
+
+	public struct TStage {
+		public int ID;
+		public int Chapter;
+		public int CourtMode;
+		public int WinMode;
+		public int WinValue;
+		public int FriendNumber;
+
+		public int PlayerID1;
+		public int PlayerID2;
+		public int PlayerID3;
+		public int PlayerID4;
+		public int PlayerID5;
+		public string NameTW;
+		public string NameCN;
+		public string NameEN;
+		public string NameJP;
+		public string ExplainTW;
+		public string ExplainCN;
+		public string ExplainEN;
+		public string ExplainJP;
+
+		public string Name {
+			get {
+				switch (GameData.Setting.Language) {
+				case ELanguage.TW: return NameTW;
+				case ELanguage.CN: return NameCN;
+				case ELanguage.JP: return NameJP;
+				default : return NameEN;
+				}
+			}
+		}
+
+		public string Explain {
+			get {
+				switch (GameData.Setting.Language) {
+				case ELanguage.TW: return ExplainTW;
+				case ELanguage.CN: return ExplainCN;
+				case ELanguage.JP: return ExplainJP;
+				default : return ExplainEN;
+				}
+			}
+		}
 	}
 }

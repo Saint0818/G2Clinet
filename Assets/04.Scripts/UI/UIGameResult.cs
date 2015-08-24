@@ -102,7 +102,10 @@ public class UIGameResult : UIBase {
 	public void OnReturn() {
 		Time.timeScale = 1;
 		UIShow(false);
-		SceneMgr.Get.ChangeLevel (SceneName.SelectRole, false);
+		if (isStage)
+			SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+		else
+			SceneMgr.Get.ChangeLevel (SceneName.SelectRole, false);
 	}
 
 	public void OnResume() {
@@ -312,5 +315,9 @@ public class UIGameResult : UIBase {
 		setDetail(ref record);
 		
 		ResultDetail.SetActive(false);
+	}
+
+	public bool isStage {
+		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
 	}
 }

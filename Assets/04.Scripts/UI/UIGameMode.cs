@@ -113,19 +113,19 @@ public class UIGameMode: UIBase {
 
 	public void OnTeamMode() {
 		if (UIButton.current.name == "1Bt")
-			GameStart.Get.PlayerNumber = 1;
+			GameStart.Get.FriendNumber = 1;
 		else
 		if (UIButton.current.name == "2Bt")
-			GameStart.Get.PlayerNumber = 2;
+			GameStart.Get.FriendNumber = 2;
 		else
 		if (UIButton.current.name == "3Bt")
-			GameStart.Get.PlayerNumber = 3;
+			GameStart.Get.FriendNumber = 3;
 		else
 		if (UIButton.current.name == "4Bt")
-			GameStart.Get.PlayerNumber = 4;
+			GameStart.Get.FriendNumber = 4;
 		else
 		if (UIButton.current.name == "5Bt")
-			GameStart.Get.PlayerNumber = 5;
+			GameStart.Get.FriendNumber = 5;
 	}
 
 	public void OnNext() {
