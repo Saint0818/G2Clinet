@@ -1,92 +1,2933 @@
 [
     {
         "id": 1,
-        "name": "身體1",
+        "nametw": "中鋒身體1",
         "kind": 0,
+        "position": 0,
         "avatar": 1,
         "maxstack": 1
     },
     {
-        "id": 10,
-        "name": "身體10",
+        "id": 2,
+        "nametw": "中鋒身體2",
         "kind": 0,
+        "position": 0,
+        "avatar": 10,
+        "maxstack": 1
+    },
+    {
+        "id": 3,
+        "nametw": "中鋒身體3",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4,
+        "nametw": "中鋒身體4",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5,
+        "nametw": "中鋒身體5",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 6,
+        "nametw": "中鋒身體6",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 7,
+        "nametw": "中鋒身體7",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 8,
+        "nametw": "中鋒身體8",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 9,
+        "nametw": "中鋒身體9",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 10,
+        "nametw": "中鋒身體10",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 11,
+        "nametw": "中鋒身體11",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 12,
+        "nametw": "中鋒身體12",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 13,
+        "nametw": "中鋒身體13",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 14,
+        "nametw": "中鋒身體14",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 15,
+        "nametw": "中鋒身體15",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 16,
+        "nametw": "中鋒身體16",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 17,
+        "nametw": "中鋒身體17",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 18,
+        "nametw": "中鋒身體18",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 19,
+        "nametw": "中鋒身體19",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 20,
+        "nametw": "中鋒身體20",
+        "kind": 0,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 101,
+        "nametw": "前鋒身體1",
+        "kind": 0,
+        "position": 1,
+        "avatar": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 102,
+        "nametw": "前鋒身體2",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 103,
+        "nametw": "前鋒身體3",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 104,
+        "nametw": "前鋒身體4",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 105,
+        "nametw": "前鋒身體5",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 106,
+        "nametw": "前鋒身體6",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 107,
+        "nametw": "前鋒身體7",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 108,
+        "nametw": "前鋒身體8",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 109,
+        "nametw": "前鋒身體9",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 110,
+        "nametw": "前鋒身體10",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 111,
+        "nametw": "前鋒身體11",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 112,
+        "nametw": "前鋒身體12",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 113,
+        "nametw": "前鋒身體13",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 114,
+        "nametw": "前鋒身體14",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 115,
+        "nametw": "前鋒身體15",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 116,
+        "nametw": "前鋒身體16",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 117,
+        "nametw": "前鋒身體17",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 118,
+        "nametw": "前鋒身體18",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 119,
+        "nametw": "前鋒身體19",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 120,
+        "nametw": "前鋒身體20",
+        "kind": 0,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 201,
+        "nametw": "後衛身體1",
+        "kind": 0,
+        "position": 2,
+        "avatar": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 202,
+        "nametw": "後衛身體2",
+        "kind": 0,
+        "position": 2,
+        "avatar": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 203,
+        "nametw": "後衛身體3",
+        "kind": 0,
+        "position": 2,
+        "avatar": 12,
+        "maxstack": 1
+    },
+    {
+        "id": 204,
+        "nametw": "後衛身體4",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 205,
+        "nametw": "後衛身體5",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 206,
+        "nametw": "後衛身體6",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 207,
+        "nametw": "後衛身體7",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 208,
+        "nametw": "後衛身體8",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 209,
+        "nametw": "後衛身體9",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 210,
+        "nametw": "後衛身體10",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 211,
+        "nametw": "後衛身體11",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 212,
+        "nametw": "後衛身體12",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 213,
+        "nametw": "後衛身體13",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 214,
+        "nametw": "後衛身體14",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 215,
+        "nametw": "後衛身體15",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 216,
+        "nametw": "後衛身體16",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 217,
+        "nametw": "後衛身體17",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 218,
+        "nametw": "後衛身體18",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 219,
+        "nametw": "後衛身體19",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 220,
+        "nametw": "後衛身體20",
+        "kind": 0,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1001,
+        "nametw": "中鋒頭髮1",
+        "kind": 1,
+        "position": 0,
+        "avatar": 2001,
+        "maxstack": 1
+    },
+    {
+        "id": 1002,
+        "nametw": "中鋒頭髮2",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1003,
+        "nametw": "中鋒頭髮3",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1004,
+        "nametw": "中鋒頭髮4",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1005,
+        "nametw": "中鋒頭髮5",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1006,
+        "nametw": "中鋒頭髮6",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1007,
+        "nametw": "中鋒頭髮7",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1008,
+        "nametw": "中鋒頭髮8",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1009,
+        "nametw": "中鋒頭髮9",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1010,
+        "nametw": "中鋒頭髮10",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1011,
+        "nametw": "中鋒頭髮11",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1012,
+        "nametw": "中鋒頭髮12",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1013,
+        "nametw": "中鋒頭髮13",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1014,
+        "nametw": "中鋒頭髮14",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1015,
+        "nametw": "中鋒頭髮15",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1016,
+        "nametw": "中鋒頭髮16",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1017,
+        "nametw": "中鋒頭髮17",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1018,
+        "nametw": "中鋒頭髮18",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1019,
+        "nametw": "中鋒頭髮19",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1020,
+        "nametw": "中鋒頭髮20",
+        "kind": 1,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 1101,
+        "nametw": "前鋒頭髮1",
+        "kind": 1,
+        "position": 1,
+        "avatar": 2001,
+        "maxstack": 1
+    },
+    {
+        "id": 1102,
+        "nametw": "前鋒頭髮2",
+        "kind": 1,
+        "position": 1,
+        "avatar": 11001,
+        "maxstack": 1
+    },
+    {
+        "id": 1103,
+        "nametw": "前鋒頭髮3",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1104,
+        "nametw": "前鋒頭髮4",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1105,
+        "nametw": "前鋒頭髮5",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1106,
+        "nametw": "前鋒頭髮6",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1107,
+        "nametw": "前鋒頭髮7",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1108,
+        "nametw": "前鋒頭髮8",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1109,
+        "nametw": "前鋒頭髮9",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1110,
+        "nametw": "前鋒頭髮10",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1111,
+        "nametw": "前鋒頭髮11",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1112,
+        "nametw": "前鋒頭髮12",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1113,
+        "nametw": "前鋒頭髮13",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1114,
+        "nametw": "前鋒頭髮14",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1115,
+        "nametw": "前鋒頭髮15",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1116,
+        "nametw": "前鋒頭髮16",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1117,
+        "nametw": "前鋒頭髮17",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1118,
+        "nametw": "前鋒頭髮18",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1119,
+        "nametw": "前鋒頭髮19",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1120,
+        "nametw": "前鋒頭髮20",
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 1201,
+        "nametw": "後衛頭髮1",
+        "kind": 1,
+        "position": 2,
+        "avatar": 2002,
+        "maxstack": 1
+    },
+    {
+        "id": 1202,
+        "nametw": "後衛頭髮2",
+        "kind": 1,
+        "position": 2,
+        "avatar": 3001,
+        "maxstack": 1
+    },
+    {
+        "id": 1203,
+        "nametw": "後衛頭髮3",
+        "kind": 1,
+        "position": 2,
+        "avatar": 12001,
+        "maxstack": 1
+    },
+    {
+        "id": 1204,
+        "nametw": "後衛頭髮4",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1205,
+        "nametw": "後衛頭髮5",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1206,
+        "nametw": "後衛頭髮6",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1207,
+        "nametw": "後衛頭髮7",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1208,
+        "nametw": "後衛頭髮8",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1209,
+        "nametw": "後衛頭髮9",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1210,
+        "nametw": "後衛頭髮10",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1211,
+        "nametw": "後衛頭髮11",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1212,
+        "nametw": "後衛頭髮12",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1213,
+        "nametw": "後衛頭髮13",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1214,
+        "nametw": "後衛頭髮14",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1215,
+        "nametw": "後衛頭髮15",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1216,
+        "nametw": "後衛頭髮16",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1217,
+        "nametw": "後衛頭髮17",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1218,
+        "nametw": "後衛頭髮18",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1219,
+        "nametw": "後衛頭髮19",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 1220,
+        "nametw": "後衛頭髮20",
+        "kind": 1,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2001,
+        "nametw": "中鋒頭飾1",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2002,
+        "nametw": "中鋒頭飾2",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2003,
+        "nametw": "中鋒頭飾3",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2004,
+        "nametw": "中鋒頭飾4",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2005,
+        "nametw": "中鋒頭飾5",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2006,
+        "nametw": "中鋒頭飾6",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2007,
+        "nametw": "中鋒頭飾7",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2008,
+        "nametw": "中鋒頭飾8",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2009,
+        "nametw": "中鋒頭飾9",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2010,
+        "nametw": "中鋒頭飾10",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2011,
+        "nametw": "中鋒頭飾11",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2012,
+        "nametw": "中鋒頭飾12",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2013,
+        "nametw": "中鋒頭飾13",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2014,
+        "nametw": "中鋒頭飾14",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2015,
+        "nametw": "中鋒頭飾15",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2016,
+        "nametw": "中鋒頭飾16",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2017,
+        "nametw": "中鋒頭飾17",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2018,
+        "nametw": "中鋒頭飾18",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2019,
+        "nametw": "中鋒頭飾19",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2020,
+        "nametw": "中鋒頭飾20",
+        "kind": 2,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 2101,
+        "nametw": "前鋒頭飾1",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2102,
+        "nametw": "前鋒頭飾2",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2103,
+        "nametw": "前鋒頭飾3",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2104,
+        "nametw": "前鋒頭飾4",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2105,
+        "nametw": "前鋒頭飾5",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2106,
+        "nametw": "前鋒頭飾6",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2107,
+        "nametw": "前鋒頭飾7",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2108,
+        "nametw": "前鋒頭飾8",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2109,
+        "nametw": "前鋒頭飾9",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2110,
+        "nametw": "前鋒頭飾10",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2111,
+        "nametw": "前鋒頭飾11",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2112,
+        "nametw": "前鋒頭飾12",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2113,
+        "nametw": "前鋒頭飾13",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2114,
+        "nametw": "前鋒頭飾14",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2115,
+        "nametw": "前鋒頭飾15",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2116,
+        "nametw": "前鋒頭飾16",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2117,
+        "nametw": "前鋒頭飾17",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2118,
+        "nametw": "前鋒頭飾18",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2119,
+        "nametw": "前鋒頭飾19",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2120,
+        "nametw": "前鋒頭飾20",
+        "kind": 2,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 2201,
+        "nametw": "後衛頭飾1",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2202,
+        "nametw": "後衛頭飾2",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2203,
+        "nametw": "後衛頭飾3",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2204,
+        "nametw": "後衛頭飾4",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2205,
+        "nametw": "後衛頭飾5",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2206,
+        "nametw": "後衛頭飾6",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2207,
+        "nametw": "後衛頭飾7",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2208,
+        "nametw": "後衛頭飾8",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2209,
+        "nametw": "後衛頭飾9",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2210,
+        "nametw": "後衛頭飾10",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2211,
+        "nametw": "後衛頭飾11",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2212,
+        "nametw": "後衛頭飾12",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2213,
+        "nametw": "後衛頭飾13",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2214,
+        "nametw": "後衛頭飾14",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2215,
+        "nametw": "後衛頭飾15",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2216,
+        "nametw": "後衛頭飾16",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2217,
+        "nametw": "後衛頭飾17",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2218,
+        "nametw": "後衛頭飾18",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2219,
+        "nametw": "後衛頭飾19",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 2220,
+        "nametw": "後衛頭飾20",
+        "kind": 2,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3001,
+        "nametw": "中鋒衣服1",
+        "kind": 3,
+        "position": 0,
+        "avatar": 2002,
+        "maxstack": 1
+    },
+    {
+        "id": 3002,
+        "nametw": "中鋒衣服2",
+        "kind": 3,
+        "position": 0,
+        "avatar": 10001,
+        "maxstack": 1
+    },
+    {
+        "id": 3003,
+        "nametw": "中鋒衣服3",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3004,
+        "nametw": "中鋒衣服4",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3005,
+        "nametw": "中鋒衣服5",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3006,
+        "nametw": "中鋒衣服6",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3007,
+        "nametw": "中鋒衣服7",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3008,
+        "nametw": "中鋒衣服8",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3009,
+        "nametw": "中鋒衣服9",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3010,
+        "nametw": "中鋒衣服10",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3011,
+        "nametw": "中鋒衣服11",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3012,
+        "nametw": "中鋒衣服12",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3013,
+        "nametw": "中鋒衣服13",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3014,
+        "nametw": "中鋒衣服14",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3015,
+        "nametw": "中鋒衣服15",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3016,
+        "nametw": "中鋒衣服16",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3017,
+        "nametw": "中鋒衣服17",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3018,
+        "nametw": "中鋒衣服18",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3019,
+        "nametw": "中鋒衣服19",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3020,
+        "nametw": "中鋒衣服20",
+        "kind": 3,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 3101,
+        "nametw": "前鋒衣服1",
+        "kind": 3,
+        "position": 1,
+        "avatar": 2001,
+        "maxstack": 1
+    },
+    {
+        "id": 3102,
+        "nametw": "前鋒衣服2",
+        "kind": 3,
+        "position": 1,
+        "avatar": 11001,
+        "maxstack": 1
+    },
+    {
+        "id": 3103,
+        "nametw": "前鋒衣服3",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3104,
+        "nametw": "前鋒衣服4",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3105,
+        "nametw": "前鋒衣服5",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3106,
+        "nametw": "前鋒衣服6",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3107,
+        "nametw": "前鋒衣服7",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3108,
+        "nametw": "前鋒衣服8",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3109,
+        "nametw": "前鋒衣服9",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3110,
+        "nametw": "前鋒衣服10",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3111,
+        "nametw": "前鋒衣服11",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3112,
+        "nametw": "前鋒衣服12",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3113,
+        "nametw": "前鋒衣服13",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3114,
+        "nametw": "前鋒衣服14",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3115,
+        "nametw": "前鋒衣服15",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3116,
+        "nametw": "前鋒衣服16",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3117,
+        "nametw": "前鋒衣服17",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3118,
+        "nametw": "前鋒衣服18",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3119,
+        "nametw": "前鋒衣服19",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3120,
+        "nametw": "前鋒衣服20",
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 3201,
+        "nametw": "後衛衣服1",
+        "kind": 3,
+        "position": 2,
+        "avatar": 5001,
+        "maxstack": 1
+    },
+    {
+        "id": 3202,
+        "nametw": "後衛衣服2",
+        "kind": 3,
+        "position": 2,
+        "avatar": 5002,
+        "maxstack": 1
+    },
+    {
+        "id": 3203,
+        "nametw": "後衛衣服3",
+        "kind": 3,
+        "position": 2,
+        "avatar": 12001,
+        "maxstack": 1
+    },
+    {
+        "id": 3204,
+        "nametw": "後衛衣服4",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3205,
+        "nametw": "後衛衣服5",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3206,
+        "nametw": "後衛衣服6",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3207,
+        "nametw": "後衛衣服7",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3208,
+        "nametw": "後衛衣服8",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3209,
+        "nametw": "後衛衣服9",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3210,
+        "nametw": "後衛衣服10",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3211,
+        "nametw": "後衛衣服11",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3212,
+        "nametw": "後衛衣服12",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3213,
+        "nametw": "後衛衣服13",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3214,
+        "nametw": "後衛衣服14",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3215,
+        "nametw": "後衛衣服15",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3216,
+        "nametw": "後衛衣服16",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3217,
+        "nametw": "後衛衣服17",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3218,
+        "nametw": "後衛衣服18",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3219,
+        "nametw": "後衛衣服19",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 3220,
+        "nametw": "後衛衣服20",
+        "kind": 3,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4001,
+        "nametw": "中鋒褲子1",
+        "kind": 4,
+        "position": 0,
+        "avatar": 5001,
+        "maxstack": 1
+    },
+    {
+        "id": 4002,
+        "nametw": "中鋒褲子2",
+        "kind": 4,
+        "position": 0,
+        "avatar": 10001,
+        "maxstack": 1
+    },
+    {
+        "id": 4003,
+        "nametw": "中鋒褲子3",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4004,
+        "nametw": "中鋒褲子4",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4005,
+        "nametw": "中鋒褲子5",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4006,
+        "nametw": "中鋒褲子6",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4007,
+        "nametw": "中鋒褲子7",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4008,
+        "nametw": "中鋒褲子8",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4009,
+        "nametw": "中鋒褲子9",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4010,
+        "nametw": "中鋒褲子10",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4011,
+        "nametw": "中鋒褲子11",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4012,
+        "nametw": "中鋒褲子12",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4013,
+        "nametw": "中鋒褲子13",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4014,
+        "nametw": "中鋒褲子14",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4015,
+        "nametw": "中鋒褲子15",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4016,
+        "nametw": "中鋒褲子16",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4017,
+        "nametw": "中鋒褲子17",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4018,
+        "nametw": "中鋒褲子18",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4019,
+        "nametw": "中鋒褲子19",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4020,
+        "nametw": "中鋒褲子20",
+        "kind": 4,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 4101,
+        "nametw": "前鋒褲子1",
+        "kind": 4,
+        "position": 1,
+        "avatar": 3001,
+        "maxstack": 1
+    },
+    {
+        "id": 4102,
+        "nametw": "前鋒褲子2",
+        "kind": 4,
+        "position": 1,
+        "avatar": 11001,
+        "maxstack": 1
+    },
+    {
+        "id": 4103,
+        "nametw": "前鋒褲子3",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4104,
+        "nametw": "前鋒褲子4",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4105,
+        "nametw": "前鋒褲子5",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4106,
+        "nametw": "前鋒褲子6",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4107,
+        "nametw": "前鋒褲子7",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4108,
+        "nametw": "前鋒褲子8",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4109,
+        "nametw": "前鋒褲子9",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4110,
+        "nametw": "前鋒褲子10",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4111,
+        "nametw": "前鋒褲子11",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4112,
+        "nametw": "前鋒褲子12",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4113,
+        "nametw": "前鋒褲子13",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4114,
+        "nametw": "前鋒褲子14",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4115,
+        "nametw": "前鋒褲子15",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4116,
+        "nametw": "前鋒褲子16",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4117,
+        "nametw": "前鋒褲子17",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4118,
+        "nametw": "前鋒褲子18",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4119,
+        "nametw": "前鋒褲子19",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4120,
+        "nametw": "前鋒褲子20",
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 4201,
+        "nametw": "後衛褲子1",
+        "kind": 4,
+        "position": 2,
+        "avatar": 6001,
+        "maxstack": 1
+    },
+    {
+        "id": 4202,
+        "nametw": "後衛褲子2",
+        "kind": 4,
+        "position": 2,
+        "avatar": 6002,
+        "maxstack": 1
+    },
+    {
+        "id": 4203,
+        "nametw": "後衛褲子3",
+        "kind": 4,
+        "position": 2,
+        "avatar": 12001,
+        "maxstack": 1
+    },
+    {
+        "id": 4204,
+        "nametw": "後衛褲子4",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4205,
+        "nametw": "後衛褲子5",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4206,
+        "nametw": "後衛褲子6",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4207,
+        "nametw": "後衛褲子7",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4208,
+        "nametw": "後衛褲子8",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4209,
+        "nametw": "後衛褲子9",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4210,
+        "nametw": "後衛褲子10",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4211,
+        "nametw": "後衛褲子11",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4212,
+        "nametw": "後衛褲子12",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4213,
+        "nametw": "後衛褲子13",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4214,
+        "nametw": "後衛褲子14",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4215,
+        "nametw": "後衛褲子15",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4216,
+        "nametw": "後衛褲子16",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4217,
+        "nametw": "後衛褲子17",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4218,
+        "nametw": "後衛褲子18",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4219,
+        "nametw": "後衛褲子19",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 4220,
+        "nametw": "後衛褲子20",
+        "kind": 4,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5001,
+        "nametw": "中鋒鞋子1",
+        "kind": 5,
+        "position": 0,
+        "avatar": 1001,
+        "maxstack": 1
+    },
+    {
+        "id": 5002,
+        "nametw": "中鋒鞋子2",
+        "kind": 5,
+        "position": 0,
+        "avatar": 10001,
+        "maxstack": 1
+    },
+    {
+        "id": 5003,
+        "nametw": "中鋒鞋子3",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5004,
+        "nametw": "中鋒鞋子4",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5005,
+        "nametw": "中鋒鞋子5",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5006,
+        "nametw": "中鋒鞋子6",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5007,
+        "nametw": "中鋒鞋子7",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5008,
+        "nametw": "中鋒鞋子8",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5009,
+        "nametw": "中鋒鞋子9",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5010,
+        "nametw": "中鋒鞋子10",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5011,
+        "nametw": "中鋒鞋子11",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5012,
+        "nametw": "中鋒鞋子12",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5013,
+        "nametw": "中鋒鞋子13",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5014,
+        "nametw": "中鋒鞋子14",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5015,
+        "nametw": "中鋒鞋子15",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5016,
+        "nametw": "中鋒鞋子16",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5017,
+        "nametw": "中鋒鞋子17",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5018,
+        "nametw": "中鋒鞋子18",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5019,
+        "nametw": "中鋒鞋子19",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5020,
+        "nametw": "中鋒鞋子20",
+        "kind": 5,
+        "position": 0,
+        "maxstack": 1
+    },
+    {
+        "id": 5101,
+        "nametw": "前鋒鞋子1",
+        "kind": 5,
+        "position": 1,
+        "avatar": 1001,
+        "maxstack": 1
+    },
+    {
+        "id": 5102,
+        "nametw": "前鋒鞋子2",
+        "kind": 5,
+        "position": 1,
+        "avatar": 11001,
+        "maxstack": 1
+    },
+    {
+        "id": 5103,
+        "nametw": "前鋒鞋子3",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5104,
+        "nametw": "前鋒鞋子4",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5105,
+        "nametw": "前鋒鞋子5",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5106,
+        "nametw": "前鋒鞋子6",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5107,
+        "nametw": "前鋒鞋子7",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5108,
+        "nametw": "前鋒鞋子8",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5109,
+        "nametw": "前鋒鞋子9",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5110,
+        "nametw": "前鋒鞋子10",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5111,
+        "nametw": "前鋒鞋子11",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5112,
+        "nametw": "前鋒鞋子12",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5113,
+        "nametw": "前鋒鞋子13",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5114,
+        "nametw": "前鋒鞋子14",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5115,
+        "nametw": "前鋒鞋子15",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5116,
+        "nametw": "前鋒鞋子16",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5117,
+        "nametw": "前鋒鞋子17",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5118,
+        "nametw": "前鋒鞋子18",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5119,
+        "nametw": "前鋒鞋子19",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5120,
+        "nametw": "前鋒鞋子20",
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1
+    },
+    {
+        "id": 5201,
+        "nametw": "後衛鞋子1",
+        "kind": 5,
+        "position": 2,
+        "avatar": 1001,
+        "maxstack": 1
+    },
+    {
+        "id": 5202,
+        "nametw": "後衛鞋子2",
+        "kind": 5,
+        "position": 2,
+        "avatar": 1002,
+        "maxstack": 1
+    },
+    {
+        "id": 5203,
+        "nametw": "後衛鞋子3",
+        "kind": 5,
+        "position": 2,
+        "avatar": 12001,
+        "maxstack": 1
+    },
+    {
+        "id": 5204,
+        "nametw": "後衛鞋子4",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5205,
+        "nametw": "後衛鞋子5",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5206,
+        "nametw": "後衛鞋子6",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5207,
+        "nametw": "後衛鞋子7",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5208,
+        "nametw": "後衛鞋子8",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5209,
+        "nametw": "後衛鞋子9",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5210,
+        "nametw": "後衛鞋子10",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5211,
+        "nametw": "後衛鞋子11",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5212,
+        "nametw": "後衛鞋子12",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5213,
+        "nametw": "後衛鞋子13",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5214,
+        "nametw": "後衛鞋子14",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5215,
+        "nametw": "後衛鞋子15",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5216,
+        "nametw": "後衛鞋子16",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5217,
+        "nametw": "後衛鞋子17",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5218,
+        "nametw": "後衛鞋子18",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5219,
+        "nametw": "後衛鞋子19",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 5220,
+        "nametw": "後衛鞋子20",
+        "kind": 5,
+        "position": 2,
+        "maxstack": 1
+    },
+    {
+        "id": 6001,
+        "nametw": "手飾1",
+        "kind": 6,
+        "position": 3,
+        "avatar": 10001,
+        "maxstack": 1
+    },
+    {
+        "id": 6002,
+        "nametw": "手飾2",
+        "kind": 6,
+        "position": 3,
+        "avatar": 11001,
+        "maxstack": 1
+    },
+    {
+        "id": 6003,
+        "nametw": "手飾3",
+        "kind": 6,
+        "position": 3,
+        "avatar": 12001,
+        "maxstack": 1
+    },
+    {
+        "id": 6004,
+        "nametw": "手飾4",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6005,
+        "nametw": "手飾5",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6006,
+        "nametw": "手飾6",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6007,
+        "nametw": "手飾7",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6008,
+        "nametw": "手飾8",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6009,
+        "nametw": "手飾9",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6010,
+        "nametw": "手飾10",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6011,
+        "nametw": "手飾11",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6012,
+        "nametw": "手飾12",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6013,
+        "nametw": "手飾13",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6014,
+        "nametw": "手飾14",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6015,
+        "nametw": "手飾15",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6016,
+        "nametw": "手飾16",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6017,
+        "nametw": "手飾17",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6018,
+        "nametw": "手飾18",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6019,
+        "nametw": "手飾19",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 6020,
+        "nametw": "手飾20",
+        "kind": 6,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7001,
+        "nametw": "背飾1",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7002,
+        "nametw": "背飾2",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7003,
+        "nametw": "背飾3",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7004,
+        "nametw": "背飾4",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7005,
+        "nametw": "背飾5",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7006,
+        "nametw": "背飾6",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7007,
+        "nametw": "背飾7",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7008,
+        "nametw": "背飾8",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7009,
+        "nametw": "背飾9",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7010,
+        "nametw": "背飾10",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7011,
+        "nametw": "背飾11",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7012,
+        "nametw": "背飾12",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7013,
+        "nametw": "背飾13",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7014,
+        "nametw": "背飾14",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7015,
+        "nametw": "背飾15",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7016,
+        "nametw": "背飾16",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7017,
+        "nametw": "背飾17",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7018,
+        "nametw": "背飾18",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7019,
+        "nametw": "背飾19",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 7020,
+        "nametw": "背飾20",
+        "kind": 7,
+        "position": 3,
+        "maxstack": 1
+    },
+    {
+        "id": 10,
+        "nametw": "身體10",
+        "kind": 0,
+        "position": 1,
         "avatar": 10,
         "maxstack": 1
     },
     {
         "id": 21,
-        "name": "頭髮1",
+        "nametw": "頭髮1",
         "kind": 1,
+        "position": 2,
         "avatar": 2001,
         "maxstack": 1
     },
     {
         "id": 31,
-        "name": "頭飾1",
+        "nametw": "頭飾1",
         "kind": 2,
+        "position": 3,
         "avatar": 10001,
         "maxstack": 1
     },
     {
         "id": 32,
-        "name": "頭飾2",
+        "nametw": "頭飾2",
         "kind": 2,
+        "position": 3,
         "avatar": 11001,
         "maxstack": 1
     },
     {
         "id": 41,
-        "name": "上衣1",
+        "nametw": "上衣1",
         "kind": 3,
+        "position": 3,
         "avatar": 2001,
         "maxstack": 1
     },
     {
         "id": 42,
-        "name": "上衣2",
+        "nametw": "上衣2",
         "kind": 3,
+        "position": 3,
         "avatar": 5001,
         "maxstack": 1
     },
     {
         "id": 51,
-        "name": "褲子1",
+        "nametw": "褲子1",
         "kind": 4,
+        "position": 3,
         "avatar": 5001,
         "maxstack": 1
     },
     {
         "id": 52,
-        "name": "褲子2",
+        "nametw": "褲子2",
         "kind": 4,
+        "position": 3,
         "avatar": 5002,
         "maxstack": 1
     },
     {
         "id": 61,
-        "name": "鞋子1",
+        "nametw": "鞋子1",
         "kind": 5,
+        "position": 3,
         "avatar": 1001,
         "maxstack": 1
     },
     {
         "id": 62,
-        "name": "鞋子2",
+        "nametw": "鞋子2",
         "kind": 5,
+        "position": 3,
         "avatar": 1002,
         "maxstack": 1
     },
     {
         "id": 71,
-        "name": "手飾1",
+        "nametw": "手飾1",
         "kind": 6,
+        "position": 3,
         "avatar": 12001,
         "maxstack": 1
     },
     {
         "id": 81,
-        "name": "背飾1",
+        "nametw": "背飾1",
         "kind": 7,
+        "position": 3,
         "maxstack": 1
     },
     {
@@ -177,6 +3018,16 @@
     {
         "id": 7000,
         "kind": 7,
-        "position": 3
+        "position": 0
+    },
+    {
+        "id": 7001,
+        "kind": 7,
+        "position": 1
+    },
+    {
+        "id": 7002,
+        "kind": 7,
+        "position": 2
     }
 ]
