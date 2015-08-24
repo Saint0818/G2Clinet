@@ -1,66 +1,14 @@
-using UnityEngine;
-using System.Collections;
 using DG.Tweening;
-using Newtonsoft.Json;
-using GameEnum;
 using GameStruct;
+using Newtonsoft.Json;
+using UnityEngine;
 
-public struct TTeamName
+public class UICreateRole : UIBase
 {
-	public string TeamName1TW;
-	public string TeamName2TW;
-	public string TeamName3TW;
-	public string TeamName1EN;
-	public string TeamName2EN;
-	public string TeamName3EN;
-	
-	public string TeamName1{
-		get{
-			switch(GameData.Setting.Language){
-			case ELanguage.TW:
-				return TeamName1TW;
-			case ELanguage.EN:
-				return TeamName1EN;
-			default:
-				return TeamName1EN;
-			}
-		}
-	}
-	
-	public string TeamName2{
-		get{
-			switch(GameData.Setting.Language){
-			case ELanguage.TW:
-				return TeamName2TW;
-			case ELanguage.EN:
-				return TeamName2EN;
-			default:
-				return TeamName2EN;
-			}
-		}
-	}
-	
-	public string TeamName3{
-		get{
-			switch(GameData.Setting.Language){
-			case ELanguage.TW:
-				return TeamName3TW;
-			case ELanguage.EN:
-				return TeamName3EN;
-			default:
-				return TeamName3EN;
-			}
-		}
-	}
-}
-
-public class UICreateRole : UIBase {
-	private static UICreateRole instance = null;
+	private static UICreateRole Instance = null;
 	private const string UIName = "UICreateRole";
-	
-	public static TTeamName[] TeamNameAy;
 
-	private GameObject smallInfo;
+    private GameObject smallInfo;
 	private GameObject largeInfo;
 
 	private GameObject playerCenter;
@@ -84,63 +32,68 @@ public class UICreateRole : UIBase {
 	{
 		get
 		{
-			if(instance)
-				return instance.gameObject.activeInHierarchy;
+			if(Instance)
+				return Instance.gameObject.activeInHierarchy;
 			else
 				return false;
 		}
 	}
 	
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
+	public static void SetVisible(bool visible)
+    {
+		if(Instance)
+        {
+			if(visible)
+                Instance.Show(true);
 			else
-				instance.Show(isShow);
-		}
-		else
-		if (isShow){
+                RemoveUI(UIName);
+        }
+		else if(visible)
+        {
 			UI3D.UIShow(true);
 			UI3D.Get.Open3DUI(UIKind.CreateRole);
-			Get.Show(isShow);
+			Get.Show(true);
 		}
 	}
 	
 	public static UICreateRole Get
 	{
-		get {
-			if (!instance) 
-				instance = Load3DUI(UIName) as UICreateRole;
+		get
+        {
+			if(!Instance) 
+//				Instance = Load3DUI(UIName) as UICreateRole;
+				Instance = LoadUI(UIName) as UICreateRole;
 			
-			return instance;
+			return Instance;
 		}
 	}
 	
-	protected override void InitCom() {
-		smallInfo = GameObject.Find(UIName + "/BottomLeft/ButtonInfo");
-		largeInfo = GameObject.Find(UIName + "/BottomLeft/ButtonOpen");
+	protected override void InitCom()
+    {
+//		smallInfo = GameObject.Find(UIName + "/BottomLeft/ButtonInfo");
+//		largeInfo = GameObject.Find(UIName + "/BottomLeft/ButtonOpen");
+//
+//		playerCenter = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center");
+//		playerPos = new GameObject[playerCount];
+//		playerPos[0] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos1");
+//		playerPos[1] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos2");
+//		playerPos[2] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos3");
+//		playerPos[3] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos4");
+//		playerPos[4] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos5");
+//		playerPos[5] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos6");
+//
+//		labelName = GameObject.Find(UIName + "/BottomCenter/InputName/LabelEnter").GetComponent<UILabel>();
+//
+//		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonRight")).onPress = OnRotateRight;
+//		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonLeft")).onPress = OnRotateLeft;
+//
+//		SetBtnFun (UIName + "/BottomLeft/ButtonInfo", OnClickSmallInfo);
+//		SetBtnFun (UIName + "/BottomLeft/ButtonOpen", OnClickLargeInfo);
+//		SetBtnFun (UIName + "/BottomRight/ButtonNext", OnCreateRole);
+//		SetBtnFun (UIName + "/BottomCenter/ButtonRoll", OnRandomName);
 
-		playerCenter = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center");
-		playerPos = new GameObject[playerCount];
-		playerPos[0] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos1");
-		playerPos[1] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos2");
-		playerPos[2] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos3");
-		playerPos[3] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos4");
-		playerPos[4] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos5");
-		playerPos[5] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos6");
-
-		labelName = GameObject.Find(UIName + "/BottomCenter/InputName/LabelEnter").GetComponent<UILabel>();
-
-		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonRight")).onPress = OnRotateRight;
-		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonLeft")).onPress = OnRotateLeft;
-
-		SetBtnFun (UIName + "/BottomLeft/ButtonInfo", OnClickSmallInfo);
-		SetBtnFun (UIName + "/BottomLeft/ButtonOpen", OnClickLargeInfo);
-		SetBtnFun (UIName + "/BottomRight/ButtonNext", OnCreateRole);
-		SetBtnFun (UIName + "/BottomCenter/ButtonRoll", OnRandomName);
-
-		largeInfo.SetActive(false);
-		init();
+//		largeInfo.SetActive(false);
+//		init();
 	}
 	
 	protected override void InitData() {
@@ -151,21 +104,13 @@ public class UICreateRole : UIBase {
 
 	}
 	
-	protected override void OnShow(bool isShow) {
-		loadJSON();
-		OnRandomName();
+	protected override void OnShow(bool isShow)
+    {
+//		loadJSON();
+//		OnRandomName();
 	}
 
-	public void OnRandomName(){
-		if (TeamNameAy != null && TeamNameAy.Length > 0) {
-			int index1 = UnityEngine.Random.Range (0, TeamNameAy.Length - 1);
-			int index2 = UnityEngine.Random.Range (0, TeamNameAy.Length - 1);
-			int index3 = UnityEngine.Random.Range (0, TeamNameAy.Length - 1);
-			labelName.text = TeamNameAy [index1].TeamName1 + TeamNameAy [index2].TeamName2 + TeamNameAy [index3].TeamName3;
-		}
-	}
-
-	public void OnRotateRight(GameObject go, bool state){
+    public void OnRotateRight(GameObject go, bool state){
 		isRotateRight = state;
 	}
 
@@ -183,7 +128,8 @@ public class UICreateRole : UIBase {
 		largeInfo.SetActive(false);
 	}
 
-	public void OnCreateRole() {
+	public void OnCreateRole()
+    {
 		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
 			for (int i = 0; i < equipmentItems.Length; i++)
 				equipmentItems[i] = 1 + i*10;
@@ -204,7 +150,7 @@ public class UICreateRole : UIBase {
 		if (ok) {
 			GameData.Team.Player.Init();
 			GameData.SaveTeam();
-			UIShow(false);
+			SetVisible(false);
 
 			if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
@@ -272,15 +218,7 @@ public class UICreateRole : UIBase {
 		}
 	}
 
-	private static void loadJSON() {
-		if(TeamNameAy == null || TeamNameAy.Length == 0){
-			TextAsset tx = Resources.Load ("GameData/teamname") as TextAsset;
-			if (tx)
-				TeamNameAy = (TTeamName[])JsonConvert.DeserializeObject (tx.text, typeof(TTeamName[]));
-		}
-	}
-
-	void FixedUpdate(){
+    void FixedUpdate(){
 		if(isRotateLeft && !isRotateRight) {
 			playerPos[currentPlayer].transform.Rotate(new Vector3(0,2,0));
 		} else if(!isRotateLeft && isRotateRight) {

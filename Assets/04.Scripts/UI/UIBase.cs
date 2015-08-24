@@ -1,11 +1,18 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Text;
-using Newtonsoft.Json;
+using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
+/// How to use:
+/// <list type="number">
+/// <item> Inherit. </item>
+/// <item> Make singleton pattern in child class. Singleton instance must be created by LoadUI() or Load3DUI().  </item>
+/// <item> Call RemoveUI when UI non-visible. </item>
+/// <item> Call SetBtnFun to set callback method. </item>
+/// <item> Call Show to control GameObject active flag. </item>
+/// </list>
 public class UIBase: MonoBehaviour
 {  
 	protected const string UIPrefab = "Prefab/UI/";
@@ -39,14 +46,15 @@ public class UIBase: MonoBehaviour
 
 	protected static UIBase LoadUI(string path)
 	{
-		if(path != null && path != ""){
+		if(!string.IsNullOrEmpty(path))
+        {
 			UI2D.UIShow(true);
 			GameObject obj = LoadPrefab(UIPrefab + path);
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
 				if(obj2) {
 					AddUI(path, ref obj2);
-					string[] strChars = path.Split(new char[] {'/'}); 
+					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
@@ -74,13 +82,13 @@ public class UIBase: MonoBehaviour
 
 	protected static UIBase Load3DUI(string path)
 	{
-		if(path != null && path != ""){
+		if(!string.IsNullOrEmpty(path)){
 			GameObject obj = LoadPrefab(UIPrefab + path);
 			if(obj) {
 				GameObject obj2 = Instantiate(obj) as GameObject;
 				if(obj2) {
 					AddUI(path, ref obj2);
-					string[] strChars = path.Split(new char[] {'/'}); 
+					string[] strChars = path.Split('/'); 
 					if(strChars.Length > 0) {
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
@@ -151,22 +159,25 @@ public class UIBase: MonoBehaviour
 		}
   	} 
   
-  protected virtual void OnShow(bool isShow)
-  {
-  }    
+    protected virtual void OnShow(bool isShow)
+    {
+    }    
 
-  protected virtual void InitText()
-  {
+    protected virtual void InitText()
+    {
 		
-  }
+    }
   
-  protected virtual void InitCom()
-  {
+    /// <summary>
+    /// 子類別要設定按鈕的事件.
+    /// </summary>
+    protected virtual void InitCom()
+    {
 
-  }
+    }
 
-  protected virtual void InitData()
-  {
+    protected virtual void InitData()
+    {
 
-  }
+    }
 }

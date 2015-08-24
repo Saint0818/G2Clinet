@@ -266,7 +266,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 
 	private void OnCloseLoading() {	
 		if (GameData.Team.Player.Lv == 0)
-			UICreateRole.UIShow(true);
+			UICreateRole.SetVisible(true);
 		else {
 			SceneMgr.Get.ChangeLevel(SceneName.Lobby);
 		}
