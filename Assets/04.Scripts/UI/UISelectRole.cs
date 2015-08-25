@@ -12,7 +12,8 @@ public enum EUIRoleSituation {
 	ControlMusic = 4,
 	ChooseRole = 5,
 	BackToSelectMe = 6,
-	Start = 7
+	Start = 7,
+	BackToMode = 8
 }
 
 
@@ -171,6 +172,7 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
 		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
 		SetBtnFun (UIName + "/Right/GameStart", DoStart);
+		SetBtnFun (UIName + "/Left/SelectCharacter/Back", DoBackToMode);
 
 		animatorLeft = GameObject.Find (UIName + "/Left").GetComponent<Animator>();
 		animatorRight = GameObject.Find (UIName + "/Right").GetComponent<Animator>();
@@ -325,6 +327,10 @@ public class UISelectRole : UIBase {
 
 	public void DoListB(){
 		UIState(EUIRoleSituation.ListB);
+	}
+
+	public void DoBackToMode(){
+		UIState(EUIRoleSituation.BackToMode);
 	}
 
 	public void DoChooseRole() {
@@ -627,6 +633,9 @@ public class UISelectRole : UIBase {
 				
 				changeRoleInfo ();
 			}
+			break;
+		case EUIRoleSituation.BackToMode:
+			UIGameMode.UIShow (true);
 			break;
 		}
 	}

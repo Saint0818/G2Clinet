@@ -75,14 +75,14 @@ public static class GameFunction
 		return angle;
 	}
 
-	public static Vector3 GetVelocity(Vector3 source, Vector3 target, float angle)
+	public static Vector3 GetVelocity(Vector3 source, Vector3 target, float angle, float distOffset = 0f)
 	{
 		try
 		{
 			Vector3 dir = target - source;  // get target direction
 			float h = dir.y;  // get height difference
 			dir.y = 0;  // retain only the horizontal direction
-			float dist = dir.magnitude;  // get horizontal distance
+			float dist = dir.magnitude + distOffset;  // get horizontal distance
 			float a = angle * Mathf.Deg2Rad;  // convert angle to radians
 			float tan = Mathf.Tan(a);
 			dir.y = dist * tan;  // set dir to the elevation angle

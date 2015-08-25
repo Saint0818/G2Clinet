@@ -1547,16 +1547,16 @@ public class GameController : KnightSingleton<GameController>
 
 	private void judgeBasketAnimationName (int basketDistanceAngleType) {
 		if(BasketSituation == EBasketSituation.Score){
-			if(CourtMgr.Get.BasketAnimationName.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count){
-				int random = Random.Range(0, CourtMgr.Get.BasketAnimationName[basketDistanceAngleType].Count);
-				if(CourtMgr.Get.BasketAnimationName.Count > 0 && random < CourtMgr.Get.BasketAnimationName.Count)
-					BasketAnimationName = CourtMgr.Get.BasketAnimationName[basketDistanceAngleType][random];
+			if(CourtMgr.Get.DBasketAnimationName.Count > 0 && basketDistanceAngleType < CourtMgr.Get.DBasketAnimationName.Count){
+				int random = Random.Range(0, CourtMgr.Get.DBasketAnimationName[basketDistanceAngleType].Count);
+				if(CourtMgr.Get.DBasketAnimationName.Count > 0 && random < CourtMgr.Get.DBasketAnimationName.Count)
+					BasketAnimationName = CourtMgr.Get.DBasketAnimationName[basketDistanceAngleType][random];
 			}
 		}else if(BasketSituation == EBasketSituation.NoScore){
-			if(CourtMgr.Get.BasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.BasketAnimationName.Count) {
-				int random = Random.Range(0, CourtMgr.Get.BasketAnimationNoneState[basketDistanceAngleType].Count);
-				if(CourtMgr.Get.BasketAnimationNoneState.Count > 0 && random < CourtMgr.Get.BasketAnimationName.Count)
-					BasketAnimationName = CourtMgr.Get.BasketAnimationNoneState[basketDistanceAngleType][random];
+			if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.DBasketAnimationName.Count) {
+				int random = Random.Range(0, CourtMgr.Get.DBasketAnimationNoneState[basketDistanceAngleType].Count);
+				if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && random < CourtMgr.Get.DBasketAnimationName.Count)
+					BasketAnimationName = CourtMgr.Get.DBasketAnimationNoneState[basketDistanceAngleType][random];
 			}
 		}
 		if(string.IsNullOrEmpty(BasketAnimationName))
@@ -1564,7 +1564,6 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
-		jodgeShootAngle(player);
 		//Score Rate
 		float originalRate = 0;
 		if(shootDistance >= GameConst.TreePointDistance) {
@@ -1619,7 +1618,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 	
-		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 7)
+		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 9)
 			isAirBall = false;
 
 		if(shootDistance > 15) 
@@ -1749,7 +1748,7 @@ public class GameController : KnightSingleton<GameController>
 			if(Mathf.Abs(angleByPlayerHoop) <= 85  && shootDistance < 5)
 				shootAngle = 80;
 			else
-				shootAngle = 55;
+				shootAngle = 50;
 
 			if(player.crtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
@@ -1767,7 +1766,8 @@ public class GameController : KnightSingleton<GameController>
 			if(skillKind == ESkillKind.Layup) {
 				st = EScoreType.LayUp;
 			}
-
+			
+			jodgeShootAngle(player);
 			judgeBasketAnimationName ((int)basketDistanceAngle);
 			calculationScoreRate(player, st);
 
@@ -1804,10 +1804,16 @@ public class GameController : KnightSingleton<GameController>
 				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
-				if(CourtMgr.Get.BasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
+				if(CourtMgr.Get.DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
+					float dis = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
+					                   new Vector2(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
+					if(dis>10)
+						dis = 10;
 					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-						                         CourtMgr.Get.BasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
-						                         shootAngle);
+						                         							 CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
+						                         							 shootAngle,
+					                                                         dis * 0.05f);
+
 				} else 
 					Debug.LogError("No key:"+player.Team.GetHashCode().ToString() + "_" + BasketAnimationName);
 			}
@@ -3678,8 +3684,6 @@ public class GameController : KnightSingleton<GameController>
 				int rate = Random.Range(0, 100);
 				if(rate < player1.PickBall2Rate) {
 					DoPassiveSkill(ESkillSituation.PickBall, player1, CourtMgr.Get.RealBall.transform.position);
-//					player1.AniState(EPlayerState.PickBall2, CourtMgr.Get.RealBall.transform.position);
-//					player1.OnShowEffect(true);
 				}
 			}
 		}

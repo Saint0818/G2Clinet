@@ -50,10 +50,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public BallCurve RealBallCurve;
 	public UILabel[] Scoreboards = new UILabel[2];
 
-	private Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
-	public Dictionary<string, Vector3> BasketShootWorldPosition = new Dictionary<string, Vector3>();
-	public Dictionary<int, List<string>> BasketAnimationName = new Dictionary<int, List<string>>(); 
-	public Dictionary<int, List<string>> BasketAnimationNoneState = new Dictionary<int, List<string>>();
+//	private Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
+	public Dictionary<string, Vector3> DBasketShootWorldPosition = new Dictionary<string, Vector3>();
+	public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>(); 
+	public Dictionary<int, List<string>> DBasketAnimationNoneState = new Dictionary<int, List<string>>();
 
 	private void InitBasket(RuntimeAnimatorController controller){
 		AnimationClip[] clip = controller.animationClips;
@@ -109,21 +109,21 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						BasketScoreAnimationStateLeftWing.Add(scoreName[i]);
 				}
 			}
-			BasketAnimationName.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRightWing));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRightWing));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRightWing));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRight));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRight));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRight));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateCenter));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateCenter));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateCenter));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeft));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeft));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeft));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeftWing));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeftWing));
-			BasketAnimationName.Add((int)EBasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeftWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRightWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRightWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRightWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRight));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRight));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRight));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateCenter));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateCenter));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateCenter));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeft));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeft));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeft));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateLeftWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateLeftWing));
+			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateLeftWing));
 		}
 		//No Score
 		List<string> BasketNoScoreAnimationStateRightWing = new List<string>();
@@ -160,21 +160,21 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						BasketNoScoreAnimationStateLeftWing.Add(noScoreName[i]);
 				}
 			}
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRightWing));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRightWing));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRightWing));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRight));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRight));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRight));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateCenter));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateCenter));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateCenter));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeft));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeft));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeft));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeftWing));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeftWing));
-			BasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeftWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRightWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRightWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRightWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortRight, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRight));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumRight, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRight));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongRight, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRight));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortCenter, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateCenter));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumCenter, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateCenter));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongCenter, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateCenter));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortLeft, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeft));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumLeft, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeft));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongLeft, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeft));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortLeftWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateLeftWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeftWing));
+			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeftWing));
 		}
 		
 		
@@ -182,16 +182,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(GameData.BasketShootPosition != null && GameData.BasketShootPosition.Length > 0) {
 			for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
 				Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);
-				BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
+//				BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
 				
 				BasketHoopDummy[0].localPosition = position;
-				BasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
+				DBasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
 				BasketHoopDummy[1].localPosition = position;
 
 				if (GameStart.Get.CourtMode == ECourtMode.Full)
-					BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
+					DBasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[1].position);
 				else
-					BasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
+					DBasketShootWorldPosition.Add("1_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
 			}
 			BasketHoopDummy[0].localPosition = Vector3.zero;
 			BasketHoopDummy[1].localPosition = Vector3.zero;
@@ -460,13 +460,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(!GameController.Get.IsReset){
 			switch(animationName) {
 			case "ActionEnd":
-				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team]);
+				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team], team);
 				break;
 			case "ActionNoScoreShot":
 //				PlayShootNoScore(team);
 				break;
 			case "ActionNoScoreEnd":
-				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team]);
+				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
 				SetBallState(EPlayerState.Rebound);
 				break;
 			case "BasketNetPlay":
@@ -478,13 +478,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 	
-	public void SetBasketBallState(EPlayerState state, Transform dummy = null){
+	public void SetBasketBallState(EPlayerState state, Transform dummy = null, int team = 0){
 		if(!GameController.Get.IsReset){
 			switch(state){
 			case EPlayerState.BasketActionSwish:
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				break;
 			case EPlayerState.BasketActionSwishEnd:
+				GameController.Get.ShowShootSate(true, team);
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallVelocity = Vector3.zero;
 				RealBallAddForce(Vector3.down * 70);
@@ -499,6 +500,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case EPlayerState.BasketActionEnd:
+				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
@@ -509,6 +511,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				GameController.Get.Passer = null;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
+				GameController.Get.ShowShootSate(false, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
