@@ -341,7 +341,7 @@ namespace GameStruct {
 		public float Dribble;
 		public float Defence;
 		public float Pass;
-		public int BodyType;
+		public int BodyType; // 0:C, 1:F, 2:G.
 		public int AILevel;
 		public int Body;
 		public int Hair;
