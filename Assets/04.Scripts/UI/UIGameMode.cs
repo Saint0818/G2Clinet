@@ -142,5 +142,6 @@ public class UIGameMode: UIBase {
 		CameraMgr.Get.SetSelectRoleCamera();
 		UISelectRole.UIShow(true);
 		UI3DSelectRole.UIShow(true);
+		UI3D.Get.ShowCamera(true);
 	}
 }

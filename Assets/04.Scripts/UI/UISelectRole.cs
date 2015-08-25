@@ -635,6 +635,9 @@ public class UISelectRole : UIBase {
 			}
 			break;
 		case EUIRoleSituation.BackToMode:
+			Destroy(playerInfoModel);
+			UIShow(false);
+			UI3D.Get.ShowCamera(false);
 			UIGameMode.UIShow (true);
 			break;
 		}
