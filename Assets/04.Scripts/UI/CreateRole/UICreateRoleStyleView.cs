@@ -166,6 +166,55 @@ public class UICreateRoleStyleView : MonoBehaviour
         }
     }
 
+    private UILabel getCurrentPartLabel()
+    {
+        if(mCurrentPart == EPart.Hair)
+            return HairLabel;
+        if(mCurrentPart == EPart.Cloth)
+            return ClothLabel;
+        if(mCurrentPart == EPart.Pants)
+            return PantsLabel;
+        if(mCurrentPart == EPart.Shoes)
+            return ShoesLabel;
+        return null;
+    }
+
+    public void OnPart1Clicked()
+    {
+        if(UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[0].text;
+    }
+
+    public void OnPart2Clicked()
+    {
+        if (UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[1].text;
+    }
+
+    public void OnPart3Clicked()
+    {
+        if (UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[2].text;
+    }
+
+    public void OnPart4Clicked()
+    {
+        if (UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[3].text;
+    }
+
+    public void OnPart5Clicked()
+    {
+        if (UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[4].text;
+    }
+
+    public void OnPart6Clicked()
+    {
+        if (UIToggle.current.value)
+            getCurrentPartLabel().text = PartLabels[5].text;
+    }
+
     public void OnBackClicked()
     {
         GetComponent<UICreateRole>().ShowPositionView();
