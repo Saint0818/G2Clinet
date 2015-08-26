@@ -136,7 +136,9 @@ public enum EPlayerState
 	Show1001, 
 	Show1003,
 	Ending0,
-	Ending10
+	Ending10,
+	KnockDown0,
+	KnockDown1
 }
 
 public enum ETeamKind
@@ -1853,6 +1855,9 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Fall0:
             case EPlayerState.Fall1:
             case EPlayerState.Fall2:
+			case EPlayerState.KnockDown0:
+			case EPlayerState.KnockDown1:
+
 				if(!IsTee && !IsFall && !isUseSkill)
 //                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
 //                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
@@ -2190,14 +2195,36 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 break;
 
-            case EPlayerState.Fall0:
-            case EPlayerState.Fall1:
-            case EPlayerState.Fall2:
-                switch (state)
-                {
-                    case EPlayerState.Fall0:
-                        stateNo = 0;
-                        break;
+		case EPlayerState.KnockDown0:
+		case EPlayerState.KnockDown1:
+			switch (state)
+			{
+				case EPlayerState.KnockDown0:
+					stateNo = 0;
+					break;
+				case EPlayerState.KnockDown1:
+					stateNo = 1;
+					break;
+			}
+			SetShooterLayer();
+			isDunk = false;
+			isShootJump = false;
+			ClearAnimatorFlag();
+			AnimatorControl.SetInteger("StateNo", stateNo);
+			AnimatorControl.SetTrigger("KnockDownTrigger");
+			isCanCatchBall = false;
+			gameObject.transform.DOLocalMoveY(0, 1f);
+			Result = true;
+			break;
+			
+		case EPlayerState.Fall0:
+		case EPlayerState.Fall1:
+		case EPlayerState.Fall2:
+			switch (state)
+			{
+			case EPlayerState.Fall0:
+				stateNo = 0;
+				break;
                     case EPlayerState.Fall1:
                         stateNo = 1;
                         break;
