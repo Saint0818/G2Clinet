@@ -1998,7 +1998,7 @@ public class GameController : KnightSingleton<GameController>
 				
 				if(IsTee)
 				{
-					if(BallOwner.AniState(EPlayerState.Pass1, player.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass50, player.transform.position))
 					{
 						Catcher = player;
 						Result = true;

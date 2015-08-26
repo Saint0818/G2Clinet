@@ -102,6 +102,7 @@ public enum EPlayerState
 	Pass7 = 1230,
 	Pass8 = 1240,
 	Pass9 = 1221,
+	Pass50,
 	Push0,
 	Push20 = 11700,
     Run0,            
@@ -291,6 +292,7 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Pass1, true);
 			StopStates.Add(EPlayerState.Pass3, true);
 			StopStates.Add(EPlayerState.Pass4, true);
+			StopStates.Add(EPlayerState.Pass50, true);
 			StopStates.Add(EPlayerState.Push0, true);
 			StopStates.Add(EPlayerState.Push20, true);
 			StopStates.Add(EPlayerState.PickBall0, true);
@@ -1745,7 +1747,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass6:
             case EPlayerState.Pass7:
             case EPlayerState.Pass8:
-            case EPlayerState.Pass9:
+			case EPlayerState.Pass9:
+			case EPlayerState.Pass50:
 			if (IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                 {
                     return true;
@@ -2322,7 +2325,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass7:
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
-                switch (state)
+			case EPlayerState.Pass50:
+			switch (state)
                 {
                     case EPlayerState.Pass0:
                         stateNo = 0;
@@ -2353,6 +2357,9 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Pass9:
 						stateNo = 9;
+						break;
+					case EPlayerState.Pass50:
+						stateNo = 50;
 						break;
                 }
                 ClearAnimatorFlag();
