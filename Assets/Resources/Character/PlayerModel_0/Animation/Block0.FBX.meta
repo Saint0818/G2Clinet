@@ -150,9 +150,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .032962516
+      - time: .0318975523
         functionName: AnimationEvent
-        data: BlcokCalculateStart
+        data: BlockCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -164,16 +164,9 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .201255873
-        functionName: AnimationEvent
-        data: Blocking
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
       - time: .46380949
         functionName: AnimationEvent
-        data: BlcokCalculateEnd
+        data: BlockCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

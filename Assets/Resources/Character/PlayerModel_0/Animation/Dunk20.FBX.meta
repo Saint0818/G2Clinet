@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3cdac98881af0074a8d3e718017df39c
-timeCreated: 1439892683
+timeCreated: 1440573697
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -150,98 +150,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: SkillEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1.5
-        intParameter: 0
-        messageOptions: 0
-      - time: .0523013175
-        functionName: ZoomIn
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .100000001
-        intParameter: 0
-        messageOptions: 0
-      - time: .170258611
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 1
-        messageOptions: 0
-      - time: .171428502
-        functionName: TimeScale
-        data: 
+      - time: .103680506
+        functionName: AnimationEvent
+        data: BlockMoment
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: .306117594
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .330088317
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
-        intParameter: 0
-        messageOptions: 0
-      - time: .333272696
+      - time: .189527988
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .351454496
-        functionName: AnimationEvent
-        data: OnlyScore
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .567163885
-        functionName: ZoomIn
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .100000001
-        intParameter: 0
-        messageOptions: 0
-      - time: .574903727
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 0
-        messageOptions: 0
-      - time: .678616822
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
-        intParameter: 0
-        messageOptions: 0
-      - time: .700968981
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .300000012
-        intParameter: 0
-        messageOptions: 0
-      - time: .715090871
+      - time: .208141655
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .999999821
+      - time: .575757563
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}

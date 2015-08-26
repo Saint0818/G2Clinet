@@ -527,7 +527,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
 	{
-		if (!GameController.Get.IsStart && state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
+		if (!GameController.Get.IsStart && state != EPlayerState.Start && state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
 			return;
 
 		RealBallState = state;

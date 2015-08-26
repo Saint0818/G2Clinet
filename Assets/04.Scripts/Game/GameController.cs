@@ -1351,13 +1351,15 @@ public class GameController : KnightSingleton<GameController>
 				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
 				if (npc) {
 					npc.transform.position = bornPosAy[1];
-					Rebound(npc);
+					JumpBall(npc);
+//					Rebound(npc);
 				}
 
 				npc = findJumpBallPlayer(ETeamKind.Npc);
 				if (npc) {
 					npc.transform.position = bornPosAy[1];
-					Rebound(npc);
+					JumpBall(npc);
+//					Rebound(npc);
 				}
 
 				break;
@@ -2409,6 +2411,11 @@ public class GameController : KnightSingleton<GameController>
     {
 		return DoPassiveSkill(ESkillSituation.Rebound, player, CourtMgr.Get.RealBall.transform.position);
 	}
+
+	private bool JumpBall(PlayerBehaviour player)
+	{
+		return DoPassiveSkill(ESkillSituation.JumpBall, player, CourtMgr.Get.RealBall.transform.position);
+	}
 	
 	public bool OnRebound(PlayerBehaviour player)
     {
@@ -2805,14 +2812,19 @@ public class GameController : KnightSingleton<GameController>
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
-
 				break;
 			case ESkillSituation.Rebound:
 				skillKind = ESkillKind.Rebound;
 				playerState = player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
 				Result = player.AniState (playerState);
-
 				break;
+
+			case ESkillSituation.JumpBall:
+				skillKind = ESkillKind.JumpBall;
+				playerState = player.PassiveSkill(ESkillSituation.JumpBall, ESkillKind.JumpBall);
+				Result = player.AniState (playerState);
+				break;
+
 			case ESkillSituation.Steal0:	
 				skillKind = ESkillKind.Steal;
 				playerState = player.PassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);

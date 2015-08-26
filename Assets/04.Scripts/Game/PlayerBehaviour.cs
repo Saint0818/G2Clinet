@@ -1808,7 +1808,12 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Rebound:
-                if (CanMove && crtState != EPlayerState.Rebound)
+				if (CanMove && crtState != EPlayerState.Rebound)
+					return true;
+				break;
+
+            case EPlayerState.JumpBall:
+                if (CanMove && crtState != EPlayerState.JumpBall)
                     return true;
                 break;
 
@@ -2615,10 +2620,17 @@ public class PlayerBehaviour : MonoBehaviour
 
                 ClearAnimatorFlag();
                 SetShooterLayer();
-                AnimatorControl.SetTrigger("ReboundTrigger");
+				AnimatorControl.SetTrigger("ReboundTrigger");
 				GameRecord.ReboundLaunch++;
                 Result = true;
                 break;
+
+			case EPlayerState.JumpBall:
+				AnimatorControl.SetTrigger("JumpBallTrigger");
+				ClearAnimatorFlag();
+				SetShooterLayer();
+				Result = true;
+			break;
 
             case EPlayerState.TipIn:
                 ClearAnimatorFlag();
@@ -2739,11 +2751,6 @@ public class PlayerBehaviour : MonoBehaviour
                     OnBlockJump(this);
                 break;
 
-            case "BlockCatching":
-//              if(OnBlockCatching != null)
-//                  OnBlockCatching(this);
-                break;
-
             case "BlockCatchingEnd":
                 if (IsBallOwner)
                 {
@@ -2755,11 +2762,6 @@ public class PlayerBehaviour : MonoBehaviour
                 IsPerfectBlockCatch = false;
                 break;
 
-            case "Blocking":
-//                if (OnBlocking != null)
-//                    OnBlocking(this);
-
-                break;
             case "Shooting":
                 IsPassAirMoment = false;
                 if (OnShooting != null) {
@@ -2837,40 +2839,29 @@ public class PlayerBehaviour : MonoBehaviour
                 elbowTrigger.SetActive(false);
                 break;
 
-            case "BlcokCalculateStart":
+			case "BlockCalculateStart":
                 blockTrigger.gameObject.SetActive(true);
                 break;
 
-            case "BlcokCalculateEnd":
+            case "BlockCalculateEnd":
                 blockTrigger.gameObject.SetActive(false);
                 break;
+
             case "CloneMesh":
                 if (!IsBallOwner)
                     EffectManager.Get.CloneMesh(gameObject, playerDunkCurve.CloneMaterial, 
                         playerDunkCurve.CloneDeltaTime, playerDunkCurve.CloneCount);
-
                 break;
 
-            case "DunkJump":         
-
-                break;
 			case "DunkBasketStart":
 				CourtMgr.Get.PlayDunk(Team.GetHashCode(), AnimatorControl.GetInteger("StateNo"));
-
-//				if(IsBallOwner)
-//					CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
 
 				break;
 			case "OnlyScore":
                 if (OnOnlyScore != null)
                     OnOnlyScore(this);
                 break;
-            case "DunkBasket":
-//				if(IsBallOwner)
-//					CourtMgr.Get.PlayDunkEffect(Team.GetHashCode());
-//                DelActionFlag(ActionFlag.IsDribble);
-//                DelActionFlag(ActionFlag.IsRun);
-                break;
+
             case "DunkFallBall":
                 OnUI(this);
                 if (OnDunkBasket != null)
