@@ -98,7 +98,11 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public bool Visible
     {
-        set { Window.SetActive(value); }
+        set
+        {
+            Window.SetActive(value);
+            updateUI(EPlayerPostion.G);
+        }
     }
 
     public void OnGuardClicked()

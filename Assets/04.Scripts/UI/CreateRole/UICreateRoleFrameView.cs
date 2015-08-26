@@ -19,15 +19,23 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
     }
 
-    [UsedImplicitly]
-    // Update is called once per frame
-    private void Update()
-    {
-	
-	}
-
     public bool Visible
     {
         set { Window.SetActive(value);}
+    }
+
+    public void OnSlot1Clicked()
+    {
+        GetComponent<UICreateRole>().ShowPositionView();
+    }
+
+    public void OnSlot2Clicked()
+    {
+        GetComponent<UICreateRole>().ShowPositionView();
+    }
+
+    public void OnSlot3Clicked()
+    {
+        GetComponent<UICreateRole>().ShowPositionView();
     }
 }
