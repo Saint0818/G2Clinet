@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 346fafc74efbfb849ba9ae645d28a782
-timeCreated: 1438587224
+guid: e3856df97ed46e0429f347fd91bedf46
+timeCreated: 1438587218
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: ThrowIn
+    7400000: Pass50
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -121,14 +121,14 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0
+    animationPositionError: 0
+    animationScaleError: 0
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ThrowIn
+      name: Pass50
       takeName: Take 001
       firstFrame: 0
       lastFrame: 24
@@ -159,7 +159,7 @@ ModelImporter:
         messageOptions: 0
       - time: .99999994
         functionName: AnimationEvent
-        data: AnimationEnd
+        data: PassEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
