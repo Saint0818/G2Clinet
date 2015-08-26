@@ -9,8 +9,8 @@ public class UICreateRole : UIBase
 	private const string UIName = "UICreateRole";
 
     private UICreateRoleFrameView mFrameView;
-    private GameObject mPositionView;
-    private GameObject mStyleView;
+    private UICreateRolePositionView mPositionView;
+    private UICreateRoleStyleView mStyleView;
     private GameObject mButtonLeft;
     private GameObject mButtonRight;
 
@@ -41,32 +41,47 @@ public class UICreateRole : UIBase
 			return Instance.gameObject.activeInHierarchy;
 		}
 
-        set
-        {
-            if(value)
-                Show(true);
-            else
-                RemoveUI(UIName);
-        }
-    }
-
-//	public static void SetVisible(bool visible)
-//    {
-//		if(Instance)
+//        set
 //        {
-//			if(visible)
-//                Instance.Show(true);
-//			else
+//            if(value)
+//                Show(true);
+//            else
 //                RemoveUI(UIName);
 //        }
-//		else if(visible)
-//        {
-//			UI3D.UIShow(true);
-//			UI3D.Get.Open3DUI(UIKind.CreateRole);
-//			Get.Show(true);
-//		}
-//	}
-	
+    }
+
+    public void ShowFrameView()
+    {
+        Show(true);
+
+        mFrameView.Visible = true;
+        mPositionView.Visible = false;
+        mStyleView.Visible = false;
+    }
+
+    public void ShowPositionView()
+    {
+        Show(true);
+
+        mFrameView.Visible = false;
+        mPositionView.Visible = true;
+        mStyleView.Visible = false;
+    }
+
+    public void ShowStyleView()
+    {
+        Show(true);
+
+        mFrameView.Visible = false;
+        mPositionView.Visible = false;
+        mStyleView.Visible = true;
+    }
+
+    public void Hide()
+    {
+        RemoveUI(UIName);
+    }
+
 	public static UICreateRole Get
 	{
 		get
@@ -86,11 +101,11 @@ public class UICreateRole : UIBase
 	    mFrameView = GetComponent<UICreateRoleFrameView>();
 	    mFrameView.Visible = true;
 
-        mPositionView = GameObject.Find(UIName + "/Window/PositionView");
-        mPositionView.SetActive(false);
+	    mPositionView = GetComponent<UICreateRolePositionView>();
+	    mPositionView.Visible = false;
 
-        mStyleView = GameObject.Find(UIName + "/Window/StyleView");
-        mStyleView.SetActive(false);
+        mStyleView = GetComponent<UICreateRoleStyleView>();
+	    mStyleView.Visible = false;
 
         mButtonLeft = GameObject.Find(UIName + "/Window/BottomLeft");
         mButtonLeft.SetActive(false);
@@ -178,7 +193,7 @@ public class UICreateRole : UIBase
 
 	    GameData.Team.Player.Init();
 	    GameData.SaveTeam();
-	    Visible = false;
+	    Hide();
 
 	    if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
 	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
@@ -186,66 +201,66 @@ public class UICreateRole : UIBase
 	        LobbyStart.Get.EnterLobby();
     }
 
-	private void init()
-    {
-		playerCount = 3;
-		limitAngle = new float[playerCount];
-		tAvatar = new TAvatar[playerCount];
-		for(int i=0; i<playerCount; i++) {
-			if (GameData.DPlayers.ContainsKey(i+1)) {
-				limitAngle[i] = (360 / playerCount) * i;
+//	private void init()
+//    {
+//		playerCount = 3;
+//		limitAngle = new float[playerCount];
+//		tAvatar = new TAvatar[playerCount];
+//		for(int i=0; i<playerCount; i++) {
+//			if (GameData.DPlayers.ContainsKey(i+1)) {
+//				limitAngle[i] = (360 / playerCount) * i;
+//
+//				GameObject player = new GameObject();
+//				TPlayer p = new TPlayer(0);
+//				p.ID = i+1;
+//				p.SetAvatar();
+//				player.name = i.ToString();
+//				player.transform.parent = playerPos[i].transform;
+//				tAvatar[i] = p.Avatar;
+//				ModelManager.Get.SetAvatar(ref player, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
+//				player.transform.localPosition = new Vector3(0, -1, 0);
+//				player.transform.localEulerAngles = new Vector3(0, 180, 0);
+//				player.transform.localScale = Vector3.one;
+//				for (int j=0; j<player.transform.childCount; j++) { 
+//					if(player.transform.GetChild(j).name.Contains("PlayerMode")) {
+//						player.transform.GetChild(j).localScale = Vector3.one;
+//						player.transform.GetChild(j).localEulerAngles = Vector3.zero;
+//						player.transform.GetChild(j).localPosition = Vector3.zero;
+//					}
+//				}
+//			}
+//		}
+//	}
 
-				GameObject player = new GameObject();
-				TPlayer p = new TPlayer(0);
-				p.ID = i+1;
-				p.SetAvatar();
-				player.name = i.ToString();
-				player.transform.parent = playerPos[i].transform;
-				tAvatar[i] = p.Avatar;
-				ModelManager.Get.SetAvatar(ref player, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
-				player.transform.localPosition = new Vector3(0, -1, 0);
-				player.transform.localEulerAngles = new Vector3(0, 180, 0);
-				player.transform.localScale = Vector3.one;
-				for (int j=0; j<player.transform.childCount; j++) { 
-					if(player.transform.GetChild(j).name.Contains("PlayerMode")) {
-						player.transform.GetChild(j).localScale = Vector3.one;
-						player.transform.GetChild(j).localEulerAngles = Vector3.zero;
-						player.transform.GetChild(j).localPosition = Vector3.zero;
-					}
-				}
-			}
-		}
-	}
+//	private int findNearPlayer(float vy){
+//		int index = 0;
+//		float temp = 0;
+//		if(vy < 0) 
+//			vy = 360 + vy;
+//		for (int i=0; i<playerCount; i++){
+//			float minusValue = Mathf.Abs(vy - limitAngle[i]);
+//			if (i==0)
+//				temp = vy;
+//			else {
+//				if((360 - vy) < 30) 
+//					index = 0;
+//				else
+//				if(minusValue < temp) {
+//					temp = minusValue;
+//					index = i;
+//				}
+//			}
+//		}
+//		return index;
+//	}
 
-	private int findNearPlayer(float vy){
-		int index = 0;
-		float temp = 0;
-		if(vy < 0) 
-			vy = 360 + vy;
-		for (int i=0; i<playerCount; i++){
-			float minusValue = Mathf.Abs(vy - limitAngle[i]);
-			if (i==0)
-				temp = vy;
-			else {
-				if((360 - vy) < 30) 
-					index = 0;
-				else
-				if(minusValue < temp) {
-					temp = minusValue;
-					index = i;
-				}
-			}
-		}
-		return index;
-	}
-
-	private void resetPlayerEuler()
-    {
-		for (int i=0; i<playerCount; i++) {
-			playerPos[i].transform.localEulerAngles = Vector3.zero;
-			playerPos[i].transform.LookAt(playerPos[i].transform.position + new Vector3(1, 0, 0) , Vector3.up);
-		}
-	}
+//	private void resetPlayerEuler()
+//    {
+//		for (int i=0; i<playerCount; i++) {
+//			playerPos[i].transform.localEulerAngles = Vector3.zero;
+//			playerPos[i].transform.LookAt(playerPos[i].transform.position + new Vector3(1, 0, 0) , Vector3.up);
+//		}
+//	}
 
     void FixedUpdate()
     {

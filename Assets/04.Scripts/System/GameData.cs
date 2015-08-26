@@ -20,6 +20,10 @@ public static class SettingText {
 public static class GameData {
 	public static TPlayerAttribute[] BaseAttr;
     public static TBasketShootPositionData[] BasketShootPosition;
+    
+    /// <summary>
+    /// key: ID
+    /// </summary>
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();

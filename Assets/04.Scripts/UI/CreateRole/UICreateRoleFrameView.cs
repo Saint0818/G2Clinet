@@ -5,18 +5,18 @@ using JetBrains.Annotations;
 public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
-    public UICreateRolePlayerFrame Frame1;
-    public UICreateRolePlayerFrame Frame2;
-    public UICreateRolePlayerFrame Frame3;
+    public UICreateRolePlayerFrame[] Frames;
 
     public string[] PosSpriteNames;
 
     [UsedImplicitly]
 	private void Awake()
     {
-        Frame1.PosSpriteNames = PosSpriteNames;
-        Frame2.PosSpriteNames = PosSpriteNames;
-        Frame3.PosSpriteNames = PosSpriteNames;
+        for(int i = 0; i < Frames.Length; i++)
+        {
+            Frames[i].PosSpriteNames = PosSpriteNames;
+//            Frames[i].SetPlayer(GameData.DPlayers[i]);
+        }
     }
 
     [UsedImplicitly]

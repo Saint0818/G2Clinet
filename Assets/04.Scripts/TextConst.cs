@@ -1,9 +1,6 @@
 //#define OutFile
-using UnityEngine;
+
 using System.Collections.Generic;
-using System.Collections;
-using System.IO;
-using System.Text;
 using GameEnum;
 
 public static class TextConst

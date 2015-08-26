@@ -267,11 +267,9 @@ public class SendHttp : KnightSingleton<SendHttp>
 	private void OnCloseLoading()
 	{
 	    if(GameData.Team.Player.Lv == 0)
-//			UICreateRole.SetVisible(true);
-	        UICreateRole.Get.Visible = true;
+//	        UICreateRole.Get.Visible = true;
+            UICreateRole.Get.ShowPositionView();
 	    else
-	    {
 	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
-	    }
 	}
 }
