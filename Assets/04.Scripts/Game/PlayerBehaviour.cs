@@ -318,6 +318,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Show202, true);
 			StopStates.Add(EPlayerState.Show1001, true);
 			StopStates.Add(EPlayerState.Show1003, true);
+			StopStates.Add(EPlayerState.KnockDown0, true);
+			StopStates.Add(EPlayerState.KnockDown1, true);
 
 			StopStates.Add(EPlayerState.Ending0, true);
 			StopStates.Add(EPlayerState.Ending10, true);
@@ -2209,6 +2211,13 @@ public class PlayerBehaviour : MonoBehaviour
 					stateNo = 1;
 					break;
 			}
+
+			if(IsBallOwner && (situation != EGameSituation.APickBallAfterScore || situation != EGameSituation.BPickBallAfterScore))
+			{
+				GameController.Get.SetBall();
+				CourtMgr.Get.SetBallState(state);
+			}
+
 			SetShooterLayer();
 			isDunk = false;
 			isShootJump = false;
@@ -3418,10 +3427,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsFall
     {
-        get{ return crtState == EPlayerState.Fall0 || crtState == EPlayerState.Fall1 || crtState == EPlayerState.Fall2;}
-        
-    }
-
+		get{ return crtState == EPlayerState.Fall0 || crtState == EPlayerState.Fall1 || crtState == EPlayerState.Fall2 || crtState == EPlayerState.KnockDown0 || crtState == EPlayerState.KnockDown1;}
+	}
+	
     public bool IsCatch
     {
         get{ return crtState == EPlayerState.CatchFlat || crtState == EPlayerState.CatchFloor || crtState == EPlayerState.CatchParabola;}

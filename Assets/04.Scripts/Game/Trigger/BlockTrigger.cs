@@ -33,6 +33,11 @@ public class BlockTrigger : MonoBehaviour {
 									gameObject.SetActive (false);
 								}
 							} else {
+								if(faller.IsBallOwner)
+								{
+									GameController.Get.SetBall();
+									CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
+								}
 //								faller.AniState(EPlayerState.Fall1);
 								faller.AniState(EPlayerState.KnockDown1);
 							

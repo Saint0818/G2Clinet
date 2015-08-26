@@ -526,6 +526,9 @@ public class GameController : KnightSingleton<GameController>
 
 	void FixedUpdate() {
 		if (Joysticker) {
+			if (Input.GetKeyUp (KeyCode.V))
+				BallOwner.AniState(EPlayerState.KnockDown1);
+
 			if (Input.GetKeyUp (KeyCode.K))
 				gameResult();
 
