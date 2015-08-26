@@ -1,9 +1,18 @@
-﻿using JetBrains.Annotations;
+﻿using System.ComponentModel;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class UICreateRoleStyleView : MonoBehaviour
 {
+    private enum EPart
+    {
+        Hair,
+        Cloth,
+        Pants,
+        Shoes
+    }
+
     public GameObject Window;
     public Transform ModelPreview;
     public UICreateRolePartButton HairButton;
@@ -12,8 +21,17 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRolePartButton ShoesButton;
 
     public UILabel[] ColorLabels;
+    public UILabel HairLabel;
+    public UILabel ClothLabel;
+    public UILabel PantsLabel;
+    public UILabel ShoesLabel;
+
+    public UILabel[] PartLabels;
 
     private GameObject mModel;
+
+    private EPart mCurrentPart = EPart.Hair;
+    private EPlayerPostion mCurrentPos = EPlayerPostion.G;
 
     [UsedImplicitly]
     private void Start()
@@ -26,16 +44,60 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void Show(EPlayerPostion pos)
     {
+        mCurrentPos = pos;
+
         Window.SetActive(true);
 
         if(mModel)
             Destroy(mModel);
         mModel = UICreateRole.CreateModel(pos, ModelPreview);
 
+        updateUI(pos);
+    }
+
+    private void updateUI(EPlayerPostion pos)
+    {
         int[] colorItems = CreateRoleDataMgr.Ins.GetColors(pos);
         for(int i = 0; i < ColorLabels.Length; i++)
         {
-            ColorLabels[i].text = colorItems[i].ToString();
+            ColorLabels[i].text = GameData.DItemData[colorItems[i]].NameTW;
+        }
+
+        int[] hairItemIDs = CreateRoleDataMgr.Ins.GetHairs(pos);
+        HairLabel.text = GameData.DItemData[hairItemIDs[0]].NameTW;
+
+        int[] clothItemIDs = CreateRoleDataMgr.Ins.GetCloths(pos);
+        ClothLabel.text = GameData.DItemData[clothItemIDs[0]].NameTW;
+
+        int[] pantsItemIDs = CreateRoleDataMgr.Ins.GetPants(pos);
+        PantsLabel.text = GameData.DItemData[pantsItemIDs[0]].NameTW;
+
+        int[] shoesItemIDs = CreateRoleDataMgr.Ins.GetShoes(pos);
+        ShoesLabel.text = GameData.DItemData[shoesItemIDs[0]].NameTW;
+
+        if (mCurrentPart == EPart.Hair)
+            updateParts(hairItemIDs);
+        else if(mCurrentPart == EPart.Cloth)
+            updateParts(clothItemIDs);
+        else if(mCurrentPart == EPart.Pants)
+            updateParts(pantsItemIDs);
+        else if(mCurrentPart == EPart.Shoes)
+            updateParts(shoesItemIDs);
+        else
+            throw new InvalidEnumArgumentException(pos.ToString());
+    }
+
+    private void updateParts(int[] itemIDs)
+    {
+        for(int i = 0; i < PartLabels.Length; i++)
+        {
+            if(i >= itemIDs.Length)
+                return;
+
+            if(GameData.DItemData.ContainsKey(itemIDs[i]))
+                PartLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
+            else
+                Debug.LogErrorFormat("ItemID({0}) don't exist");
         }
     }
 
@@ -53,6 +115,9 @@ public class UICreateRoleStyleView : MonoBehaviour
             ClothButton.Hide();
             PantsButton.Hide();
             ShoesButton.Hide();
+
+            mCurrentPart = EPart.Hair;
+            updateUI(mCurrentPos);
         }
     }
 
@@ -65,6 +130,9 @@ public class UICreateRoleStyleView : MonoBehaviour
             ClothButton.Play();
             PantsButton.Hide();
             ShoesButton.Hide();
+
+            mCurrentPart = EPart.Cloth;
+            updateUI(mCurrentPos);
         }
     }
 
@@ -77,6 +145,9 @@ public class UICreateRoleStyleView : MonoBehaviour
             ClothButton.Hide();
             PantsButton.Play();
             ShoesButton.Hide();
+
+            mCurrentPart = EPart.Pants;
+            updateUI(mCurrentPos);
         }
     }
 
@@ -89,6 +160,9 @@ public class UICreateRoleStyleView : MonoBehaviour
             ClothButton.Hide();
             PantsButton.Hide();
             ShoesButton.Play();
+
+            mCurrentPart = EPart.Shoes;
+            updateUI(mCurrentPos);
         }
     }
 

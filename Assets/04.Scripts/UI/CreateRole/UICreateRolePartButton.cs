@@ -32,7 +32,7 @@ public class UICreateRolePartButton : MonoBehaviour
         mElapsedTime += Time.deltaTime;
         Slider.fillAmount = mElapsedTime / ShowTime;
 
-        Debug.LogFormat("ElapsedTime:{0}, FillAmount:{1}", mElapsedTime, Slider.fillAmount);
+//        Debug.LogFormat("ElapsedTime:{0}, FillAmount:{1}", mElapsedTime, Slider.fillAmount);
     }
 
     public void Play()
