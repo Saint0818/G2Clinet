@@ -625,6 +625,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			
 			case EPlayerState.Block: 
+			case EPlayerState.KnockDown0: 
+			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;
 				GameController.Get.Passer = null;
 				realBallCollider.enabled = true;
