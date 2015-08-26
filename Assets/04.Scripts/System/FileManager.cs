@@ -66,9 +66,10 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
 
-	private static string[] downloadFiles = {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage"};
+	private static readonly string[] DownloadFiles = 
+        {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "createroleitem"};
 
-	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
+	private static readonly DownloadFileText[] DownloadCallBack = new DownloadFileText[DownloadFiles.Length];
 	private static List<TDownloadData> dataList = new List<TDownloadData>();
 	private static List<TDownloadData> downloadList = new List<TDownloadData>();
 	private static Dictionary<string, DownloadFileText> CallBackFun = new Dictionary<string, DownloadFileText> ();
@@ -177,17 +178,18 @@ public class FileManager : KnightSingleton<FileManager> {
 	}
 
 	void Awake () {
-		downloadCallBack[0] = parseGreatPlayerData;
-		downloadCallBack[1] = parseTacticalData;
-		downloadCallBack[2] = parseBaseAttr;
-		downloadCallBack[3] = parseBasketShootPositionData;
-		downloadCallBack[4] = parseSkillData;
-		downloadCallBack[5] = parseItemData;
-		downloadCallBack[6] = parseStageData;
+		DownloadCallBack[0] = parseGreatPlayerData;
+		DownloadCallBack[1] = parseTacticalData;
+		DownloadCallBack[2] = parseBaseAttr;
+		DownloadCallBack[3] = parseBasketShootPositionData;
+		DownloadCallBack[4] = parseSkillData;
+		DownloadCallBack[5] = parseItemData;
+		DownloadCallBack[6] = parseStageData;
+		DownloadCallBack[7] = parseCreateRoleData;
 
-		for (int i = 0; i < downloadFiles.Length; i ++) {
-			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
-			dataList.Add (new TDownloadData (downloadFiles[i], "0"));
+		for (int i = 0; i < DownloadFiles.Length; i ++) {
+			CallBackFun.Add (DownloadFiles[i], DownloadCallBack[i]);
+			dataList.Add (new TDownloadData (DownloadFiles[i], "0"));
 		}
 	}
     
@@ -444,7 +446,15 @@ public class FileManager : KnightSingleton<FileManager> {
             SaveDataVersionAndJson(jsonText, "tactical", version);
     }
 
-	private void parseBaseAttr (string Version, string text, bool SaveVersion){
+    private void parseCreateRoleData(string version, string jsonText, bool isSaveVersion)
+    {
+        CreateRoleDataMgr.Ins.Load(jsonText);
+
+        if (isSaveVersion)
+            SaveDataVersionAndJson(jsonText, "tactical", version);
+    }
+
+    private void parseBaseAttr (string Version, string text, bool SaveVersion){
 		try {
 			GameData.BaseAttr = (TPlayerAttribute[])JsonConvert.DeserializeObject (text, typeof(TPlayerAttribute[]));
 			

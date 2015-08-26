@@ -11,6 +11,8 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRolePartButton PantsButton;
     public UICreateRolePartButton ShoesButton;
 
+    public UILabel[] ColorLabels;
+
     private GameObject mModel;
 
     [UsedImplicitly]
@@ -29,6 +31,12 @@ public class UICreateRoleStyleView : MonoBehaviour
         if(mModel)
             Destroy(mModel);
         mModel = UICreateRole.CreateModel(pos, ModelPreview);
+
+        int[] colorItems = CreateRoleDataMgr.Ins.GetColors(pos);
+        for(int i = 0; i < ColorLabels.Length; i++)
+        {
+            ColorLabels[i].text = colorItems[i].ToString();
+        }
     }
 
     public void Hide()

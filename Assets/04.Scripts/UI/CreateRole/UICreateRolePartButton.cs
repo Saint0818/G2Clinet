@@ -5,6 +5,7 @@ using UnityEngine;
 public class UICreateRolePartButton : MonoBehaviour
 {
     public UISprite Slider;
+    public UILabel Label;
 
     public const float ShowTime = 0.15f; // 單位: 秒.
     private float mElapsedTime;
@@ -48,5 +49,10 @@ public class UICreateRolePartButton : MonoBehaviour
         Slider.gameObject.SetActive(false);
 
         mIsPlaying = false;
+    }
+
+    public string Name
+    {
+        set { Label.text = value; }
     }
 }

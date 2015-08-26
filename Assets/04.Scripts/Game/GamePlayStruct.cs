@@ -39,14 +39,6 @@ namespace GamePlayStruct {
 	        }
 	    }
 		
-//		public TTacticalData()
-//		{
-//			FileName = "";
-//			PosAy1 = new TActionPosition[0];
-//			PosAy2 = new TActionPosition[1];
-//			PosAy3 = new TActionPosition[2];
-//		}
-		
 		public override string ToString()
 		{
 			return String.Format("Name:{0}", FileName);
