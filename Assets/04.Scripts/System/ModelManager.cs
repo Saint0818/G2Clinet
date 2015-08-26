@@ -244,7 +244,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, GameStruct.TAvatar attr, int bodyType, bool isUseRig, bool combine = true, bool Reset = false) {
+	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, bool isUseRig, bool combine = true, bool Reset = false) {
 		try {
 //			string bodyNumber = (attr.Body / 1000).ToString();
 //			Debug.Log("bodyType:"+ bodyType);

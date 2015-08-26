@@ -14,25 +14,25 @@ public class UICreateRole : UIBase
     private GameObject mButtonLeft;
     private GameObject mButtonRight;
 
-    private GameObject smallInfo;
-	private GameObject largeInfo;
+//    private GameObject smallInfo;
+//	private GameObject largeInfo;
 
-	private GameObject playerCenter;
-	private GameObject[] playerPos;
+//	private GameObject playerCenter;
+//	private GameObject[] playerPos;
 
-	private float[] limitAngle;
-	private TAvatar[] tAvatar;
+//	private float[] limitAngle;
+//	private TAvatar[] tAvatar;
 	private int[] equipmentItems = new int[8];
-	private int playerCount = 6;
-	private int currentPlayer = 0;
+//	private int playerCount = 6;
+//	private int currentPlayer = 0;
 
-	private UILabel labelName;
+//	private UILabel labelName;
 
-	private bool isTouchRotate;
+//	private bool isTouchRotate;
 //	private bool isRotateRight;
 //	private bool isRotateLeft;
-	private bool isDrag;
-	private float axisX;
+//	private bool isDrag;
+//	private float axisX;
 
     public bool Visible
     {
@@ -112,44 +112,8 @@ public class UICreateRole : UIBase
 
         mButtonRight = GameObject.Find(UIName + "/Window/BottomRight");
         mButtonRight.SetActive(false);
-        //		smallInfo = GameObject.Find(UIName + "/BottomLeft/ButtonInfo");
-        //		largeInfo = GameObject.Find(UIName + "/BottomLeft/ButtonOpen");
-        //
-        //		playerCenter = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center");
-        //		playerPos = new GameObject[playerCount];
-        //		playerPos[0] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos1");
-        //		playerPos[1] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos2");
-        //		playerPos[2] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos3");
-        //		playerPos[3] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos4");
-        //		playerPos[4] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos5");
-        //		playerPos[5] = GameObject.Find(UIName + "/PlayerList/CenterTurn/Center/pos6");
-        //
-        //		labelName = GameObject.Find(UIName + "/BottomCenter/InputName/LabelEnter").GetComponent<UILabel>();
-        //
-        //		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonRight")).onPress = OnRotateRight;
-        //		UIEventListener.Get(GameObject.Find (UIName + "/BottomCenter/RotationButton/ButtonLeft")).onPress = OnRotateLeft;
-        //
-        //		SetBtnFun (UIName + "/BottomLeft/ButtonInfo", OnClickSmallInfo);
-        //		SetBtnFun (UIName + "/BottomLeft/ButtonOpen", OnClickLargeInfo);
-        //		SetBtnFun (UIName + "/BottomRight/ButtonNext", OnCreateRole);
-        //		SetBtnFun (UIName + "/BottomCenter/ButtonRoll", OnRandomName);
-
-        //		largeInfo.SetActive(false);
-        //		init();
     }
 	
-	protected override void InitData() {
-		
-	}
-
-	protected override void InitText(){
-
-	}
-	
-	protected override void OnShow(bool isShow)
-    {
-	}
-
 //    public void OnRotateRight(GameObject go, bool state){
 //		isRotateRight = state;
 //	}
@@ -158,48 +122,48 @@ public class UICreateRole : UIBase
 //		isRotateLeft = state;
 //	}
 
-	public void OnClickSmallInfo(){
-		smallInfo.SetActive(false);
-		largeInfo.SetActive(true);
-	}
+//	public void OnClickSmallInfo(){
+//		smallInfo.SetActive(false);
+//		largeInfo.SetActive(true);
+//	}
+//
+//	public void OnClickLargeInfo(){
+//		smallInfo.SetActive(true);
+//		largeInfo.SetActive(false);
+//	}
 
-	public void OnClickLargeInfo(){
-		smallInfo.SetActive(true);
-		largeInfo.SetActive(false);
-	}
+//	public void OnCreateRole()
+//    {
+//		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
+//			for (int i = 0; i < equipmentItems.Length; i++)
+//				equipmentItems[i] = 1 + i*10;
+//
+//			WWWForm form = new WWWForm();
+//			GameData.Team.Player.ID = GameData.DPlayers[currentPlayer+1].ID;
+//			GameData.Team.Player.Name = labelName.text;
+//			GameData.Team.Player.Avatar = tAvatar[currentPlayer];
+//			form.AddField("PlayerID", GameData.Team.Player.ID);
+//			form.AddField("Name", GameData.Team.Player.Name);
+//			form.AddField("Items", JsonConvert.SerializeObject(equipmentItems));
+//			
+//			SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
+//		}
+//	}
 
-	public void OnCreateRole()
-    {
-		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
-			for (int i = 0; i < equipmentItems.Length; i++)
-				equipmentItems[i] = 1 + i*10;
-
-			WWWForm form = new WWWForm();
-			GameData.Team.Player.ID = GameData.DPlayers[currentPlayer+1].ID;
-			GameData.Team.Player.Name = labelName.text;
-			GameData.Team.Player.Avatar = tAvatar[currentPlayer];
-			form.AddField("PlayerID", GameData.Team.Player.ID);
-			form.AddField("Name", GameData.Team.Player.Name);
-			form.AddField("Items", JsonConvert.SerializeObject(equipmentItems));
-			
-			SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
-		}
-	}
-
-	private void waitCreateRole(bool ok, WWW www)
-    {
-	    if(!ok)
-            return;
-
-	    GameData.Team.Player.Init();
-	    GameData.SaveTeam();
-	    Hide();
-
-	    if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
-	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
-	    else
-	        LobbyStart.Get.EnterLobby();
-    }
+//	private void waitCreateRole(bool ok, WWW www)
+//    {
+//	    if(!ok)
+//            return;
+//
+//	    GameData.Team.Player.Init();
+//	    GameData.SaveTeam();
+//	    Hide();
+//
+//	    if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+//	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+//	    else
+//	        LobbyStart.Get.EnterLobby();
+//    }
 
 //	private void init()
 //    {
@@ -262,8 +226,8 @@ public class UICreateRole : UIBase
 //		}
 //	}
 
-    void FixedUpdate()
-    {
+//    void FixedUpdate()
+//    {
 //		if(isRotateLeft && !isRotateRight) {
 //			playerPos[currentPlayer].transform.Rotate(new Vector3(0,2,0));
 //		} else if(!isRotateLeft && isRotateRight) {
@@ -310,5 +274,5 @@ public class UICreateRole : UIBase
 //				resetPlayerEuler();
 //			}
 //		}
-	}
+//	}
 }
