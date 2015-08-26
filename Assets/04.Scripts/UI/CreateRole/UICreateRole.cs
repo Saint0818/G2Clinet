@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using GameStruct;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -11,8 +13,6 @@ public class UICreateRole : UIBase
     private UICreateRoleFrameView mFrameView;
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
-    private GameObject mButtonLeft;
-    private GameObject mButtonRight;
 
 //    private GameObject smallInfo;
 //	private GameObject largeInfo;
@@ -56,7 +56,7 @@ public class UICreateRole : UIBase
 
         mFrameView.Visible = true;
         mPositionView.Visible = false;
-        mStyleView.Visible = false;
+        mStyleView.Hide();
     }
 
     public void ShowPositionView()
@@ -65,16 +65,16 @@ public class UICreateRole : UIBase
 
         mFrameView.Visible = false;
         mPositionView.Visible = true;
-        mStyleView.Visible = false;
+        mStyleView.Hide();
     }
 
-    public void ShowStyleView()
+    public void ShowStyleView(EPlayerPostion pos)
     {
         Show(true);
 
         mFrameView.Visible = false;
         mPositionView.Visible = false;
-        mStyleView.Visible = true;
+        mStyleView.Show(pos);
     }
 
     public void Hide()
@@ -95,23 +95,23 @@ public class UICreateRole : UIBase
 			return Instance;
 		}
 	}
-	
-	protected override void InitCom()
-	{
-	    mFrameView = GetComponent<UICreateRoleFrameView>();
-	    mFrameView.Visible = true;
 
-	    mPositionView = GetComponent<UICreateRolePositionView>();
-	    mPositionView.Visible = false;
+    [UsedImplicitly]
+    private void Awake()
+    {
+        mFrameView = GetComponent<UICreateRoleFrameView>();
+        mFrameView.Visible = true;
+
+        mPositionView = GetComponent<UICreateRolePositionView>();
+        mPositionView.Visible = false;
 
         mStyleView = GetComponent<UICreateRoleStyleView>();
-	    mStyleView.Visible = false;
+        mStyleView.Hide();
+    }
 
-        mButtonLeft = GameObject.Find(UIName + "/Window/BottomLeft");
-        mButtonLeft.SetActive(false);
-
-        mButtonRight = GameObject.Find(UIName + "/Window/BottomRight");
-        mButtonRight.SetActive(false);
+	protected override void InitCom()
+	{
+	    
     }
 	
 //    public void OnRotateRight(GameObject go, bool state){
@@ -275,4 +275,32 @@ public class UICreateRole : UIBase
 //			}
 //		}
 //	}
+    public static GameObject CreateModel(EPlayerPostion pos, Transform parent)
+    {
+        TPlayer p;
+        if(pos == EPlayerPostion.G)
+            p = new TPlayer(0) {ID = 10};
+        else if(pos == EPlayerPostion.F)
+            p = new TPlayer(0) { ID = 20 };
+        else if(pos == EPlayerPostion.C)
+            p = new TPlayer(0) { ID = 30 };
+        else
+            throw new InvalidEnumArgumentException(pos.ToString());
+        p.SetAvatar();
+
+        GameObject model = new GameObject {name = pos.ToString()};
+        ModelManager.Get.SetAvatar(ref model, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
+
+        model.transform.parent = parent;
+        model.transform.localPosition = Vector3.zero;
+        model.transform.localRotation = Quaternion.identity;
+        model.transform.localScale = Vector3.one;
+        model.layer = LayerMask.NameToLayer("UI");
+        foreach(Transform child in model.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer("UI");
+        }
+
+        return model;
+    }
 }

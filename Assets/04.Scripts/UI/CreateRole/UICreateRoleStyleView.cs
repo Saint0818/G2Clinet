@@ -5,14 +5,36 @@ using UnityEngine;
 public class UICreateRoleStyleView : MonoBehaviour
 {
     public GameObject Window;
+    public Transform ModelPreview;
+
+    private GameObject mModel;
 
     [UsedImplicitly]
     private void Start()
     {
     }
 
-    public bool Visible
+    public void Show(EPlayerPostion pos)
     {
-        set { Window.SetActive(value); }
+        Window.SetActive(true);
+
+        if(mModel)
+            Destroy(mModel);
+        mModel = UICreateRole.CreateModel(pos, ModelPreview);
+    }
+
+    public void Hide()
+    {
+        Window.SetActive(false);
+    }
+
+    public void OnBackClicked()
+    {
+        GetComponent<UICreateRole>().ShowPositionView();
+    }
+
+    public void OnNextClicked()
+    {
+        Debug.Log("Next Button Click!");
     }
 }

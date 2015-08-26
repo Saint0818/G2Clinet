@@ -14,62 +14,37 @@ public class UICreateRolePositionView : MonoBehaviour
     public UILabel PosCLabel;
     public UILabel PosNameLabel;
     public UILabel PosDescriptionLabel;
+//    public UIToggle GuardToggle;
 
     private GameObject mGuardModel;
     private GameObject mForwardModel;
     private GameObject mCenterModel;
 
+    private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
+
     [UsedImplicitly]
     private void Awake()
     {
-        mGuardModel = createModel(EPlayerPostion.G);
+        mGuardModel = UICreateRole.CreateModel(EPlayerPostion.G, ModelPreview);
         mGuardModel.SetActive(false);
-        mForwardModel = createModel(EPlayerPostion.F);
+        mForwardModel = UICreateRole.CreateModel(EPlayerPostion.F, ModelPreview);
         mForwardModel.SetActive(false);
-        mCenterModel = createModel(EPlayerPostion.C);
+        mCenterModel = UICreateRole.CreateModel(EPlayerPostion.C, ModelPreview);
         mCenterModel.SetActive(false);
     }
 
     [UsedImplicitly]
     private void Start()
     {
-        updateUI(EPlayerPostion.G);
+        selectPos(EPlayerPostion.G);
     }
 
-    private GameObject createModel(EPlayerPostion pos)
-    {
-        TPlayer p;
-        if(pos == EPlayerPostion.G)
-            p = new TPlayer(0) {ID = 10};
-        else if(pos == EPlayerPostion.F)
-            p = new TPlayer(0) { ID = 20 };
-        else if(pos == EPlayerPostion.C)
-            p = new TPlayer(0) { ID = 30 };
-        else
-            throw new InvalidEnumArgumentException(pos.ToString());
-        p.SetAvatar();
-
-        GameObject model = new GameObject {name = pos.ToString()};
-        ModelManager.Get.SetAvatar(ref model, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
-
-        model.transform.parent = ModelPreview;
-        model.transform.localPosition = Vector3.zero;
-        model.transform.localRotation = Quaternion.identity;
-        model.transform.localScale = Vector3.one;
-        model.layer = LayerMask.NameToLayer("UI");
-        foreach(Transform child in model.transform)
-        {
-            child.gameObject.layer = LayerMask.NameToLayer("UI");
-        }
-
-        return model;
-    }
-
-    private void updateUI(EPlayerPostion pos)
+    private void selectPos(EPlayerPostion pos)
     {
         mGuardModel.SetActive(false);
         mForwardModel.SetActive(false);
         mCenterModel.SetActive(false);
+        mCurrentPostion = pos;
 
 	    if(pos == EPlayerPostion.G)
 	    {
@@ -101,7 +76,9 @@ public class UICreateRolePositionView : MonoBehaviour
         set
         {
             Window.SetActive(value);
-            updateUI(EPlayerPostion.G);
+
+//            GuardToggle.Set(true);
+//            selectPos(EPlayerPostion.G);
         }
     }
 
@@ -109,14 +86,14 @@ public class UICreateRolePositionView : MonoBehaviour
     {
 //        Debug.LogFormat("Guard, Value:{0}", UIToggle.current.value);
         if(UIToggle.current.value)
-            updateUI(EPlayerPostion.G);
+            selectPos(EPlayerPostion.G);
     }
 
     public void OnForwardClicked()
     {
         //        Debug.LogFormat("Forward, Value:{0}", UIToggle.current.value);
         if(UIToggle.current.value)
-            updateUI(EPlayerPostion.F);
+            selectPos(EPlayerPostion.F);
     }
 
     public void OnCenterClicked()
@@ -124,7 +101,7 @@ public class UICreateRolePositionView : MonoBehaviour
         //        Debug.LogFormat("Center, Value:{0}", UIToggle.current.value);
 
         if(UIToggle.current.value)
-            updateUI(EPlayerPostion.C);
+            selectPos(EPlayerPostion.C);
     }
 
     public void OnBackClicked()
@@ -134,6 +111,6 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public void OnNextClicked()
     {
-        GetComponent<UICreateRole>().ShowStyleView();
+        GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion);
     }
 }
