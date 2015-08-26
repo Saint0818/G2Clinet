@@ -130,8 +130,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Pass5
       takeName: Take 001
-      firstFrame: 5
-      lastFrame: 20
+      firstFrame: 0
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
