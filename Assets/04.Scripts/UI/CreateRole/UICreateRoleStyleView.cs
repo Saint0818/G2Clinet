@@ -290,6 +290,36 @@ public class UICreateRoleStyleView : MonoBehaviour
         }
     }
 
+    public void OnSkinColor1Clicked()
+    {
+        if(UIToggle.current.value)
+        {
+            mCurrentSkinColorIndex = 0;
+
+            updateModel();
+        }
+    }
+
+    public void OnSkinColor2Clicked()
+    {
+        if (UIToggle.current.value)
+        {
+            mCurrentSkinColorIndex = 1;
+
+            updateModel();
+        }
+    }
+
+    public void OnSkinColor3Clicked()
+    {
+        if (UIToggle.current.value)
+        {
+            mCurrentSkinColorIndex = 2;
+
+            updateModel();
+        }
+    }
+
     public void OnBackClicked()
     {
         GetComponent<UICreateRole>().ShowPositionView();
