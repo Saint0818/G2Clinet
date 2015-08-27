@@ -298,30 +298,22 @@ public class UICreateRole : UIBase
         return model;
     }
 
-    public static GameObject CreateModel(EPlayerPostion pos, Transform parent, int color, int hair, 
+    public static GameObject CreateModel(Transform parent, string name, int playerID, int color, int hair, 
                                          int cloth, int pants, int shoes)
     {
-        TPlayer p;
-        if (pos == EPlayerPostion.G)
-            p = new TPlayer(0) { ID = 1 };
-        else if (pos == EPlayerPostion.F)
-            p = new TPlayer(0) { ID = 2 };
-        else if (pos == EPlayerPostion.C)
-            p = new TPlayer(0) { ID = 3 };
-        else
-            throw new InvalidEnumArgumentException(pos.ToString());
-        p.SetAvatar();
+        TPlayer player = new TPlayer(0) { ID = playerID };
+        player.SetAvatar();
 
-//        p.Avatar.Body = color;
-        p.Avatar.Hair = hair;
-        p.Avatar.Cloth = cloth;
-        p.Avatar.Pants = pants;
-        p.Avatar.Shoes = shoes;
+        player.Avatar.Body = color;
+        player.Avatar.Hair = hair;
+        player.Avatar.Cloth = cloth;
+        player.Avatar.Pants = pants;
+        player.Avatar.Shoes = shoes;
 
-        Debug.LogFormat("Avatar:{0}", p.Avatar);
+//        Debug.LogFormat("Player:{0}, Avatar:{1}", player, player.Avatar);
 
-        GameObject model = new GameObject { name = pos.ToString() };
-        ModelManager.Get.SetAvatar(ref model, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
+        GameObject model = new GameObject { name = name };
+        ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, false);
 
         model.transform.parent = parent;
         model.transform.localPosition = Vector3.zero;

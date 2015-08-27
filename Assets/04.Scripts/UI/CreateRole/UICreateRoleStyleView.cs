@@ -39,6 +39,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     private readonly Dictionary<EPart, int[]> mData = new Dictionary<EPart, int[]>();
 
     private GameObject mModel;
+    private int mPlayerID;
 
     private EPart mCurrentPart = EPart.Hair;
     private int mCurrentSkinColorIndex;
@@ -60,6 +61,15 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         Window.SetActive(true);
 
+        if(pos == EPlayerPostion.G)
+            mPlayerID = 1;
+        else if(pos == EPlayerPostion.F)
+            mPlayerID = 2;
+        else if(pos == EPlayerPostion.C)
+            mPlayerID = 3;
+        else
+            Debug.LogErrorFormat("UnSupport Position:{0}", pos);
+
         mData.Clear();
         mData.Add(EPart.SkinColor, CreateRoleDataMgr.Ins.GetBody(pos));
         mData.Add(EPart.Hair, CreateRoleDataMgr.Ins.GetHairs(pos));
@@ -75,6 +85,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         mCurrentPart = EPart.Hair;
 
         updateUI();
+        updateModel();
     }
 
     private void updateUI()
@@ -96,20 +107,29 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         for(int i = 0; i < PartItemLabels.Length; i++)
         {
-            if(i >= itemIDs.Length)
+            if(i >= itemIDs.Length || !GameData.DItemData.ContainsKey(itemIDs[i]))
             {
                 PartItemLabels[i].transform.parent.gameObject.SetActive(false);
                 continue;
             }
 
-            if(GameData.DItemData.ContainsKey(itemIDs[i]))
-            {
-                PartItemLabels[i].transform.parent.gameObject.SetActive(true);
-                PartItemLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
-            }
-            else
-                Debug.LogErrorFormat("ItemID({0}) don't exist");
+            PartItemLabels[i].transform.parent.gameObject.SetActive(true);
+            PartItemLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
         }
+    }
+
+    private void updateModel()
+    {
+        if(mModel)
+            Destroy(mModel);
+
+        int skinColorAvatar = GameData.DItemData[mData[EPart.SkinColor][mCurrentSkinColorIndex]].Avatar;
+        int hairAvatar = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].Avatar;
+        int clothAvatar = GameData.DItemData[mData[EPart.Cloth][mCurrentClothIndex]].Avatar;
+        int pantsAvatar = GameData.DItemData[mData[EPart.Pants][mCurrentPantsIndex]].Avatar;
+        int shoesAvatar = GameData.DItemData[mData[EPart.Shoes][mCurrentShoesIndex]].Avatar;
+        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, skinColorAvatar, 
+            hairAvatar, clothAvatar, pantsAvatar, shoesAvatar);
     }
 
     public void Hide()
@@ -130,6 +150,7 @@ public class UICreateRoleStyleView : MonoBehaviour
             mCurrentHairIndex = 0;
 
             updateUI();
+            updateModel();
         }
     }
 
@@ -146,6 +167,7 @@ public class UICreateRoleStyleView : MonoBehaviour
             mCurrentClothIndex = 0;
 
             updateUI();
+            updateModel();
         }
     }
 
@@ -162,6 +184,7 @@ public class UICreateRoleStyleView : MonoBehaviour
             mCurrentPantsIndex = 0;
 
             updateUI();
+            updateModel();
         }
     }
 
@@ -178,28 +201,18 @@ public class UICreateRoleStyleView : MonoBehaviour
             mCurrentShoesIndex = 0;
 
             updateUI();
+            updateModel();
         }
     }
-
-//    private UILabel getCurrentPartLabel()
-//    {
-//        if(mCurrentPart == EPart.Hair)
-//            return HairLabel;
-//        if(mCurrentPart == EPart.Cloth)
-//            return ClothLabel;
-//        if(mCurrentPart == EPart.Pants)
-//            return PantsLabel;
-//        if(mCurrentPart == EPart.Shoes)
-//            return ShoesLabel;
-//        return null;
-//    }
 
     public void OnPart1Clicked()
     {
         if(UIToggle.current.value)
         {
             setCurrentIndex(0);
+
             updateUI();
+            updateModel();
         }
     }
 
@@ -227,7 +240,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         if(UIToggle.current.value)
         {
             setCurrentIndex(1);
+
             updateUI();
+            updateModel();
         }
     }
 
@@ -236,7 +251,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         if (UIToggle.current.value)
         {
             setCurrentIndex(2);
+
             updateUI();
+            updateModel();
         }
     }
 
@@ -245,7 +262,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         if (UIToggle.current.value)
         {
             setCurrentIndex(3);
+
             updateUI();
+            updateModel();
         }
     }
 
@@ -254,7 +273,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         if (UIToggle.current.value)
         {
             setCurrentIndex(4);
+
             updateUI();
+            updateModel();
         }
     }
 
@@ -263,7 +284,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         if (UIToggle.current.value)
         {
             setCurrentIndex(5);
+
             updateUI();
+            updateModel();
         }
     }
 

@@ -86,7 +86,12 @@ namespace GameStruct {
 			Items = new TItem[0];
 		}
 
-		public void Init() {
+        public override string ToString()
+        {
+            return string.Format("ID:{0}, Name:{1}", ID, Name);
+        }
+
+        public void Init() {
 			if (Name == null)
 				Name = "";
 
