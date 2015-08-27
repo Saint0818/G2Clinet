@@ -2529,8 +2529,8 @@ public class PlayerBehaviour : MonoBehaviour
                 
 					PlayerRigidbody.useGravity = false;
 					PlayerRigidbody.isKinematic = true;
-                    AnimatorControl.SetInteger("StateNo", stateNo);
-                    curveName = string.Format("Shoot{0}", stateNo);
+					
+					curveName = string.Format("Shoot{0}", stateNo);
 					
                     for (int i = 0; i < aniCurve.Shoot.Length; i++)
                         if (aniCurve.Shoot [i].Name == curveName)
@@ -2543,8 +2543,9 @@ public class PlayerBehaviour : MonoBehaviour
                         }
                     SetShooterLayer();
                     ClearAnimatorFlag();
-                    AnimatorControl.SetTrigger("ShootTrigger");
-                    isCanCatchBall = false;
+					AnimatorControl.SetInteger("StateNo", stateNo);
+					AnimatorControl.SetTrigger("ShootTrigger");
+					isCanCatchBall = false;
                     Result = true;
                 }
                 break;
