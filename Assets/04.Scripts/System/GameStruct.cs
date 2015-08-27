@@ -299,7 +299,7 @@ namespace GameStruct {
 
 	public struct TAvatar {	
 		public int Body;
-		public int Hair;
+		public int Hair; // Item.Avatar
 		public int AHeadDress;
 		public int Cloth;
 		public int Pants;
@@ -317,6 +317,11 @@ namespace GameStruct {
 			AHeadDress = 0;
 			ZBackEquip = 0;
 		}
+
+	    public override string ToString()
+	    {
+	        return string.Format("Body:{0}, Hair:{1}, Cloth:{2}, Pants:{3}, Shoes:{4}", Body, Hair, Cloth, Pants, Shoes);
+	    }
 	}
 
 	public struct TGreatPlayer {

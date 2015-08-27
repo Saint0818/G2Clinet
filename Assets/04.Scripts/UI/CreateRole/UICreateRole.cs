@@ -126,24 +126,6 @@ public class UICreateRole : UIBase
 	    
     }
 	
-//    public void OnRotateRight(GameObject go, bool state){
-//		isRotateRight = state;
-//	}
-//
-//	public void OnRotateLeft(GameObject go, bool state){
-//		isRotateLeft = state;
-//	}
-
-//	public void OnClickSmallInfo(){
-//		smallInfo.SetActive(false);
-//		largeInfo.SetActive(true);
-//	}
-//
-//	public void OnClickLargeInfo(){
-//		smallInfo.SetActive(true);
-//		largeInfo.SetActive(false);
-//	}
-
 //	public void OnCreateRole()
 //    {
 //		if (GameData.DPlayers.ContainsKey(currentPlayer+1)) {
@@ -309,6 +291,44 @@ public class UICreateRole : UIBase
         model.transform.localScale = Vector3.one;
         model.layer = LayerMask.NameToLayer("UI");
         foreach(Transform child in model.transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer("UI");
+        }
+
+        return model;
+    }
+
+    public static GameObject CreateModel(EPlayerPostion pos, Transform parent, int color, int hair, 
+                                         int cloth, int pants, int shoes)
+    {
+        TPlayer p;
+        if (pos == EPlayerPostion.G)
+            p = new TPlayer(0) { ID = 1 };
+        else if (pos == EPlayerPostion.F)
+            p = new TPlayer(0) { ID = 2 };
+        else if (pos == EPlayerPostion.C)
+            p = new TPlayer(0) { ID = 3 };
+        else
+            throw new InvalidEnumArgumentException(pos.ToString());
+        p.SetAvatar();
+
+//        p.Avatar.Body = color;
+        p.Avatar.Hair = hair;
+        p.Avatar.Cloth = cloth;
+        p.Avatar.Pants = pants;
+        p.Avatar.Shoes = shoes;
+
+        Debug.LogFormat("Avatar:{0}", p.Avatar);
+
+        GameObject model = new GameObject { name = pos.ToString() };
+        ModelManager.Get.SetAvatar(ref model, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
+
+        model.transform.parent = parent;
+        model.transform.localPosition = Vector3.zero;
+        model.transform.localRotation = Quaternion.identity;
+        model.transform.localScale = Vector3.one;
+        model.layer = LayerMask.NameToLayer("UI");
+        foreach (Transform child in model.transform)
         {
             child.gameObject.layer = LayerMask.NameToLayer("UI");
         }
