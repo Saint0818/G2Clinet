@@ -269,34 +269,6 @@ public class UICreateRole : UIBase
 //			}
 //		}
 //	}
-    public static GameObject CreateModel(EPlayerPostion pos, Transform parent)
-    {
-        TPlayer p;
-        if(pos == EPlayerPostion.G)
-            p = new TPlayer(0) {ID = 10};
-        else if(pos == EPlayerPostion.F)
-            p = new TPlayer(0) { ID = 20 };
-        else if(pos == EPlayerPostion.C)
-            p = new TPlayer(0) { ID = 30 };
-        else
-            throw new InvalidEnumArgumentException(pos.ToString());
-        p.SetAvatar();
-
-        GameObject model = new GameObject {name = pos.ToString()};
-        ModelManager.Get.SetAvatar(ref model, p.Avatar, GameData.DPlayers[p.ID].BodyType, false);
-
-        model.transform.parent = parent;
-        model.transform.localPosition = Vector3.zero;
-        model.transform.localRotation = Quaternion.identity;
-        model.transform.localScale = Vector3.one;
-        model.layer = LayerMask.NameToLayer("UI");
-        foreach(Transform child in model.transform)
-        {
-            child.gameObject.layer = LayerMask.NameToLayer("UI");
-        }
-
-        return model;
-    }
 
     public static GameObject CreateModel(Transform parent, string name, int playerID, int color, int hair, 
                                          int cloth, int pants, int shoes)
