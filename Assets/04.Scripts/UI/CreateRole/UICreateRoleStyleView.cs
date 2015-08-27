@@ -14,9 +14,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         Shoes
     }
 
-	public int PlayerID;
-	public string PlayerName;
-	private int[] equipmentItems;
+	public int[] EquipmentItems = new int[8];
 
     public GameObject Window;
     public Transform ModelPreview;
@@ -184,9 +182,16 @@ public class UICreateRoleStyleView : MonoBehaviour
         return null;
     }
 
+	public void OnPartClicked()
+	{
+		if(UIToggle.current.value)
+			getCurrentPartLabel().text = PartLabels[0].text;
+	}
+
     public void OnPart1Clicked()
     {
         if(UIToggle.current.value)
+
             getCurrentPartLabel().text = PartLabels[0].text;
     }
 
@@ -227,20 +232,16 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnNextClicked()
     {
-		GameData.Team.Player.Items = new GameStruct.TItem[equipmentItems.Length];
-		for (int i = 0; i < equipmentItems.Length; i++) {
-			equipmentItems[i] = 1 + i*10;
-			GameData.Team.Player.Items[i].ID = equipmentItems[i];
-		}
+		GameData.Team.Player.Items = new GameStruct.TItem[EquipmentItems.Length];
+		for (int i = 0; i < EquipmentItems.Length; i++) 
+			GameData.Team.Player.Items[i].ID = EquipmentItems[i];
 		
-		WWWForm form = new WWWForm();
-		GameData.Team.Player.ID = PlayerID;
-		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
 		GameData.Team.Player.Init();
 
+		WWWForm form = new WWWForm();
 		form.AddField("PlayerID", GameData.Team.Player.ID);
 		form.AddField("Name", GameData.Team.Player.Name);
-		form.AddField("Items", JsonConvert.SerializeObject(equipmentItems));
+		form.AddField("Items", JsonConvert.SerializeObject(EquipmentItems));
 		
 		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
     }
