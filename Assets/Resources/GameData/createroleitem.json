@@ -22,7 +22,6 @@
         "clothc": 3002,
         "pantsc": 4002,
         "shoesc": 5002,
-        "colorf": 102,
         "hairf": 1102,
         "clothf": 3102,
         "pantsf": 4102,
@@ -34,12 +33,10 @@
         "shoesg": 5202
     },
     {
-        "colorc": 3,
         "hairc": 1003,
         "clothc": 3003,
         "pantsc": 4003,
         "shoesc": 5003,
-        "colorf": 103,
         "hairf": 1103,
         "clothf": 3103,
         "pantsf": 4103,
