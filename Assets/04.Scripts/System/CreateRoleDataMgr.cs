@@ -65,7 +65,7 @@ public class CreateRoleDataMgr
         }
     }
 
-    public int[] GetColors(EPlayerPostion pos)
+    public int[] GetBody(EPlayerPostion pos)
     {
         return mColors[pos].ToArray();
     }
@@ -89,4 +89,54 @@ public class CreateRoleDataMgr
     {
         return mShoes[pos].ToArray();
     }
+
+	public int GetBodyCount(EPlayerPostion pos)
+	{
+		return mColors[pos].Count;
+	}
+	
+	public int GetHairsCount(EPlayerPostion pos)
+	{
+		return mHairs[pos].Count;
+	}
+	
+	public int GetClothsCount(EPlayerPostion pos)
+	{
+		return mCloths[pos].Count;
+	}
+	
+	public int GetPantsCount(EPlayerPostion pos)
+	{
+		return mPants[pos].Count;
+	}
+	
+	public int GetShoesCount(EPlayerPostion pos)
+	{
+		return mShoes[pos].Count;
+	}
+
+	public int Body(EPlayerPostion pos, int index)
+	{
+		return mColors[pos].IndexOf(index);
+	}
+	
+	public int Hairs(EPlayerPostion pos, int index)
+	{
+		return mHairs[pos].IndexOf(index);
+	}
+	
+	public int Cloths(EPlayerPostion pos, int index)
+	{
+		return mCloths[pos].IndexOf(index);
+	}
+	
+	public int Pants(EPlayerPostion pos, int index)
+	{
+		return mPants[pos].IndexOf(index);
+	}
+	
+	public int Shoes(EPlayerPostion pos, int index)
+	{
+		return mShoes[pos].IndexOf(index);
+	}
 }

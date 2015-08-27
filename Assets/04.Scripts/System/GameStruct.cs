@@ -747,4 +747,6 @@ namespace GameStruct {
 			}
 		}
 	}
+
+
 }

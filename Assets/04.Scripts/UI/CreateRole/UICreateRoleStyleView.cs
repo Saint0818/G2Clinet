@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using JetBrains.Annotations;
 using UnityEngine;
+using Newtonsoft.Json;
 
 [DisallowMultipleComponent]
 public class UICreateRoleStyleView : MonoBehaviour
@@ -12,6 +13,10 @@ public class UICreateRoleStyleView : MonoBehaviour
         Pants,
         Shoes
     }
+
+	public int PlayerID;
+	public string PlayerName;
+	private int[] equipmentItems;
 
     public GameObject Window;
     public Transform ModelPreview;
@@ -57,7 +62,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void updateUI(EPlayerPostion pos)
     {
-        int[] colorItems = CreateRoleDataMgr.Ins.GetColors(pos);
+        int[] colorItems = CreateRoleDataMgr.Ins.GetBody(pos);
         for(int i = 0; i < ColorLabels.Length; i++)
         {
             ColorLabels[i].text = GameData.DItemData[colorItems[i]].NameTW;
@@ -222,6 +227,34 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnNextClicked()
     {
-        Debug.Log("Next Button Click!");
+		GameData.Team.Player.Items = new GameStruct.TItem[equipmentItems.Length];
+		for (int i = 0; i < equipmentItems.Length; i++) {
+			equipmentItems[i] = 1 + i*10;
+			GameData.Team.Player.Items[i].ID = equipmentItems[i];
+		}
+		
+		WWWForm form = new WWWForm();
+		GameData.Team.Player.ID = PlayerID;
+		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
+		GameData.Team.Player.Init();
+
+		form.AddField("PlayerID", GameData.Team.Player.ID);
+		form.AddField("Name", GameData.Team.Player.Name);
+		form.AddField("Items", JsonConvert.SerializeObject(equipmentItems));
+		
+		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
     }
+
+	private void waitCreateRole(bool ok, WWW www) {
+		if (ok) {
+			GameData.Team.Player.Init();
+			GameData.SaveTeam();
+			UICreateRole.Visible = false;
+			
+			if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+			else
+				LobbyStart.Get.EnterLobby();
+		}
+	}
 }

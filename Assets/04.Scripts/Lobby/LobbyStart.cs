@@ -388,7 +388,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     
     public void EnterLobby() {
 		try {
-			UIMain.UIShow(true);
+			UIMain.Visible = true;
 			createMyPlayer();
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);

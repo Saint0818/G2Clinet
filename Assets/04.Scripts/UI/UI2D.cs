@@ -47,12 +47,12 @@ public class UI2D : MonoBehaviour {
 		}
 	}
 
-	public static void UIShow(bool isShow)
-    {
+	public static void UIShow(bool isShow) {
 		if(instance)
 			instance.Show(isShow);
-		else if(isShow)
-        	Get.Show(true);
+		else
+		if(isShow)
+        	Get.Show(isShow);
 	}
 
 	private void Show(bool isShow) {

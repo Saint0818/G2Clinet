@@ -7,7 +7,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UICreateRole : UIBase
 {
-	private static UICreateRole Instance;
+	private static UICreateRole instance;
 	private const string UIName = "UICreateRole";
 
     private UICreateRoleFrameView mFrameView;
@@ -34,21 +34,25 @@ public class UICreateRole : UIBase
 //	private bool isDrag;
 //	private float axisX;
 
-    public bool Visible
-    {
-        get
-		{
-			return Instance.gameObject.activeInHierarchy;
+	public static bool Visible {
+		get {
+			if(instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
 		}
-
-//        set
-//        {
-//            if(value)
-//                Show(true);
-//            else
-//                RemoveUI(UIName);
-//        }
-    }
+		
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+			if (value)
+				Get.Show(value);
+		}
+	}
 
     public void ShowFrameView()
     {
@@ -86,13 +90,13 @@ public class UICreateRole : UIBase
 	{
 		get
         {
-            if(!Instance)
+            if(!instance)
             {
                 UI2D.UIShow(true);
-                Instance = LoadUI(UIName) as UICreateRole;
+                instance = LoadUI(UIName) as UICreateRole;
             }
 			
-			return Instance;
+			return instance;
 		}
 	}
 

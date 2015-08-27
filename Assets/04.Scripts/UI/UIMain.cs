@@ -22,28 +22,26 @@ public class UIMain : UIBase {
 	private UIDraggableCamera cameraRoom;
 	public Camera CameraScrollView;
 	
-	public static bool Visible
-	{
-		get
-		{
+	public static bool Visible {
+		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
 				return false;
 		}
+
+		set {
+			if (instance) {
+				if (!value)
+					RemoveUI(UIName);
+				else
+					instance.Show(value);
+			} else
+			if (value)
+				Get.Show(value);
+		}
 	}
-	
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		} else
-		if (isShow)
-			Get.Show(isShow);
-	}
-	
+
 	public static UIMain Get
 	{
 		get {
