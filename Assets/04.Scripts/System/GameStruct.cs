@@ -15,8 +15,8 @@ namespace GameStruct {
 		public int Power;
 		public int Diamond;
 
-		public TPlayer Player;
-		public TSkill SkillCards;
+		public TPlayer Player;//Player 
+		public TSkill SkillCards;//Public SkillCards(Public Bank)
 
 		public void Init() {
 			if (Identifier == null)
@@ -54,6 +54,7 @@ namespace GameStruct {
 		public float Dribble; //kind11
 		public float Pass; //kind12
 		public int BodyType;
+		public int MaxSkillSpace;
 
 		public TAvatar Avatar;
 		public TSkill ActiveSkill;
@@ -80,6 +81,7 @@ namespace GameStruct {
 			Defence = 0;
 			Pass = 0;
 			BodyType = 0;
+			MaxSkillSpace = 0;
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			Skills = new TSkill[0];
@@ -127,8 +129,7 @@ namespace GameStruct {
 				AILevel = GameData.DPlayers[ID].AILevel;
 				ActiveSkill.ID = GameData.DPlayers[ID].Active;
 				ActiveSkill.Lv = GameData.DPlayers[ID].ActiveLV;
-
-				if (Skills == null) {
+				if(Skills == null) {
 					Skills = new TSkill[14];
 					Skills[0].ID =  GameData.DPlayers[ID].Skill1;
 					Skills[0].Lv =  GameData.DPlayers[ID].SkillLV1;
