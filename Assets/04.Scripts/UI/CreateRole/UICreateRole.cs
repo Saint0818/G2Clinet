@@ -115,8 +115,8 @@ public class UICreateRole : UIBase
 		GameData.Team.Player.ID = 1;
 		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
 		mStyleView.EquipmentItems[0] = CreateRoleDataMgr.Ins.Body(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[1] = CreateRoleDataMgr.Ins.Hairs(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[3] = CreateRoleDataMgr.Ins.Cloths(EPlayerPostion.G, 0);
+		mStyleView.EquipmentItems[1] = CreateRoleDataMgr.Ins.Hair(EPlayerPostion.G, 0);
+		mStyleView.EquipmentItems[3] = CreateRoleDataMgr.Ins.Cloth(EPlayerPostion.G, 0);
 		mStyleView.EquipmentItems[4] = CreateRoleDataMgr.Ins.Pants(EPlayerPostion.G, 0);
 		mStyleView.EquipmentItems[5] = CreateRoleDataMgr.Ins.Shoes(EPlayerPostion.G, 0);
     }

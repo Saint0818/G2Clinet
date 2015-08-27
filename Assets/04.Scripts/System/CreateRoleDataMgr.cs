@@ -117,26 +117,41 @@ public class CreateRoleDataMgr
 
 	public int Body(EPlayerPostion pos, int index)
 	{
-		return mColors[pos].IndexOf(index);
+		if (index >= 0 && index < mColors[pos].Count)
+			return mColors[pos][index];
+		else
+			return 0;
 	}
 	
-	public int Hairs(EPlayerPostion pos, int index)
+	public int Hair(EPlayerPostion pos, int index)
 	{
-		return mHairs[pos].IndexOf(index);
+		if (index >= 0 && index < mHairs[pos].Count)
+			return mHairs[pos][index];
+		else
+			return 0;
 	}
 	
-	public int Cloths(EPlayerPostion pos, int index)
+	public int Cloth(EPlayerPostion pos, int index)
 	{
-		return mCloths[pos].IndexOf(index);
+		if (index >= 0 && index < mCloths[pos].Count)
+			return mCloths[pos][index];
+		else
+			return 0;
 	}
 	
 	public int Pants(EPlayerPostion pos, int index)
 	{
-		return mPants[pos].IndexOf(index);
+		if (index >= 0 && index < mPants[pos].Count)
+			return mPants[pos][index];
+		else
+			return 0;
 	}
 	
 	public int Shoes(EPlayerPostion pos, int index)
 	{
-		return mShoes[pos].IndexOf(index);
+		if (index >= 0 && index < mShoes[pos].Count)
+			return mShoes[pos][index];
+		else
+			return 0;
 	}
 }
