@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using GameStruct;
 
 public class TRoomObject {
 	public TRoomInfo roomInfo;
@@ -57,6 +58,7 @@ public class UIMain : UIBase {
 		SetBtnFun(UIName + "/TopRight/ButtonOpenRoom", OnOpenRoom);
 		SetBtnFun(UIName + "/TopRight/ButtonJoinRoom", OnLookingRoom);
 		SetBtnFun(UIName + "/TopLeft/ButtonAvatar", OnAvatar);
+		SetBtnFun(UIName + "/TopLeft/ButtonCreateRole", OnLookPlayerBank);
 
 		itemJoinRoom = Resources.Load("Prefab/UI/Items/ItemJoinRoom") as GameObject;
 		offsetRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/Anchor/Offset");
@@ -118,6 +120,19 @@ public class UIMain : UIBase {
 		UIRoomInfo.SetActive(false);
 		SetLabel(UIName + "/TopRight/ButtonOpenRoom", "Open Room");
 		LobbyStart.Get.ShowOnlinePlayers(false);
+	}
+
+	public void OnLookPlayerBank() {
+		WWWForm form = new WWWForm();
+		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+	}
+
+	private void waitLookPlayerBank(bool ok, WWW www)
+	{
+		if (ok) {
+			TPlayerBank[] playerBank = JsonConvert.DeserializeObject <TPlayerBank[]>(www.text);
+			Debug.Log(playerBank.ToString());
+		}
 	}
 
 	public void OnStage() {

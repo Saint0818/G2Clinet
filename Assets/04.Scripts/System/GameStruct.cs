@@ -16,7 +16,7 @@ namespace GameStruct {
 		public int Diamond;
 
 		public TPlayer Player;//Player 
-		public TSkill SkillCards;//Public SkillCards(Public Bank)
+		public TSkill[] SkillCards;//Public SkillCards(Public Bank)
 
 		public void Init() {
 			if (Identifier == null)
@@ -33,6 +33,12 @@ namespace GameStruct {
 
 			Player.Init();
 		} 
+	}
+	public struct TPlayerBank {
+		public int RoleIndex;
+		public int ID;
+		public string Name;
+		public TItem[] Items;
 	}
 
     public struct TPlayer {

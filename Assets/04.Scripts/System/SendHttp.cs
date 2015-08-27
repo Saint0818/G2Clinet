@@ -17,6 +17,7 @@ public static class URLConst {
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
 	public const string LinkFB = "linkfb";
+	public const string LookPlayerBank = "lookplayerbank";
 	public const string CreateRole = "createrole";
 	public const string TeamName = "teamname";
 	public const string ScenePlayer = "sceneplayer";
@@ -267,7 +268,6 @@ public class SendHttp : KnightSingleton<SendHttp>
 	private void OnCloseLoading()
 	{
 	    if(GameData.Team.Player.Lv == 0)
-//	        UICreateRole.Get.Visible = true;
             UICreateRole.Get.ShowPositionView();
 	    else
 	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
