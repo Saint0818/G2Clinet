@@ -99,7 +99,6 @@ namespace GameStruct {
 
 			if (Skills == null)
 			    Skills = new TSkill[0];
-
 			
 			SetAttribute();
 			SetAvatar();

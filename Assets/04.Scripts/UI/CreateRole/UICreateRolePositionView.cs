@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -24,24 +23,25 @@ public class UICreateRolePositionView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
+        // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
         mGuardModel = UICreateRole.CreateModel(ModelPreview, "G", 1, 
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.G)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.G)[0]].Avatar);
+            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0],
+            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0],
+            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0],
+            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.G)[0],
+            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.G)[0]);
         mForwardModel = UICreateRole.CreateModel(ModelPreview, "F", 2,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.F)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.F)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.F)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.F)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.F)[0]].Avatar);
+            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.F)[0],
+            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.F)[0],
+            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.F)[0],
+            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.F)[0],
+            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.F)[0]);
         mCenterModel = UICreateRole.CreateModel(ModelPreview, "C", 3,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.C)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.C)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.C)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.C)[0]].Avatar,
-            GameData.DItemData[CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.C)[0]].Avatar);
+            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.C)[0],
+            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.C)[0],
+            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.C)[0],
+            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.C)[0],
+            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.C)[0]);
     }
 
     [UsedImplicitly]

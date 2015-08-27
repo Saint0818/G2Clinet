@@ -9,7 +9,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 {
     private enum EPart
     {
-        SkinColor,
+        Body,
         Hair,
         Cloth,
         Pants,
@@ -71,7 +71,7 @@ public class UICreateRoleStyleView : MonoBehaviour
             Debug.LogErrorFormat("UnSupport Position:{0}", pos);
 
         mData.Clear();
-        mData.Add(EPart.SkinColor, CreateRoleDataMgr.Ins.GetBody(pos));
+        mData.Add(EPart.Body, CreateRoleDataMgr.Ins.GetBody(pos));
         mData.Add(EPart.Hair, CreateRoleDataMgr.Ins.GetHairs(pos));
         mData.Add(EPart.Cloth, CreateRoleDataMgr.Ins.GetCloths(pos));
         mData.Add(EPart.Pants, CreateRoleDataMgr.Ins.GetPants(pos));
@@ -92,7 +92,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         for(int i = 0; i < ColorLabels.Length; i++)
         {
-            ColorLabels[i].text = GameData.DItemData[mData[EPart.SkinColor][i]].NameTW;
+            ColorLabels[i].text = GameData.DItemData[mData[EPart.Body][i]].NameTW;
         }
 
         HairButton.Name = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].NameTW;
@@ -123,13 +123,12 @@ public class UICreateRoleStyleView : MonoBehaviour
         if(mModel)
             Destroy(mModel);
 
-        int skinColorAvatar = GameData.DItemData[mData[EPart.SkinColor][mCurrentSkinColorIndex]].Avatar;
-        int hairAvatar = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].Avatar;
-        int clothAvatar = GameData.DItemData[mData[EPart.Cloth][mCurrentClothIndex]].Avatar;
-        int pantsAvatar = GameData.DItemData[mData[EPart.Pants][mCurrentPantsIndex]].Avatar;
-        int shoesAvatar = GameData.DItemData[mData[EPart.Shoes][mCurrentShoesIndex]].Avatar;
-        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, skinColorAvatar, 
-            hairAvatar, clothAvatar, pantsAvatar, shoesAvatar);
+        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, 
+            mData[EPart.Body][mCurrentSkinColorIndex],
+            mData[EPart.Hair][mCurrentHairIndex],
+            mData[EPart.Cloth][mCurrentClothIndex],
+            mData[EPart.Pants][mCurrentPantsIndex],
+            mData[EPart.Shoes][mCurrentShoesIndex]);
     }
 
     public void Hide()
@@ -327,22 +326,30 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnNextClicked()
     {
-		GameData.Team.Player.Items = new GameStruct.TItem[EquipmentItems.Length];
+        EquipmentItems[0] = mData[EPart.Body][mCurrentSkinColorIndex];
+        EquipmentItems[1] = mData[EPart.Hair][mCurrentHairIndex];
+        EquipmentItems[3] = mData[EPart.Cloth][mCurrentClothIndex];
+        EquipmentItems[4] = mData[EPart.Pants][mCurrentPantsIndex];
+        EquipmentItems[5] = mData[EPart.Shoes][mCurrentShoesIndex];
+
+        GameData.Team.Player.ID = mPlayerID;
+        GameData.Team.Player.Items = new GameStruct.TItem[EquipmentItems.Length];
 		for (int i = 0; i < EquipmentItems.Length; i++) 
 			GameData.Team.Player.Items[i].ID = EquipmentItems[i];
-		
 		GameData.Team.Player.Init();
 
 		WWWForm form = new WWWForm();
-		form.AddField("PlayerID", GameData.Team.Player.ID);
+        form.AddField("PlayerID", mPlayerID);
 		form.AddField("Name", GameData.Team.Player.Name);
 		form.AddField("Items", JsonConvert.SerializeObject(EquipmentItems));
 		
 		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
     }
 
-	private void waitCreateRole(bool ok, WWW www) {
-		if (ok) {
+	private void waitCreateRole(bool ok, WWW www)
+    {
+		if(ok)
+        {
 			GameData.Team.Player.Init();
 			GameData.SaveTeam();
 			UICreateRole.Visible = false;
