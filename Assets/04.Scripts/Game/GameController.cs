@@ -84,6 +84,9 @@ public class GameController : KnightSingleton<GameController>
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;
+	private EPlayerState[] shootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
+	private EPlayerState[] shootInState = new EPlayerState[4]{EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
+	private EPlayerState[] shootOutState = new EPlayerState[2]{EPlayerState.Show201, EPlayerState.Show202};
 
 	//Basket
 	public EBasketSituation BasketSituation;
@@ -99,9 +102,10 @@ public class GameController : KnightSingleton<GameController>
     public GameObject[] passIcon = new GameObject[3];
 	private GameObject[] selectIcon = new GameObject[2];
 
-	public EPlayerState testState = EPlayerState.Shoot0;
-	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
 	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
+
+	//TestTool
+	public EPlayerState testState = EPlayerState.Shoot0;
 
     void Start()
     {
@@ -749,9 +753,9 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		if (GameStart.Get.TestMode == EGameTest.Shoot) {
-			for(int i = 0 ; i < ShootStates.Length; i++){
-				if (GUI.Button(new Rect(Screen.width / 2, 50 + i * 50, 100, 50), ShootStates[i].ToString())) {	
-					testState = ShootStates[i];
+			for(int i = 0 ; i < shootStates.Length; i++){
+				if (GUI.Button(new Rect(Screen.width / 2, 50 + i * 50, 100, 50), shootStates[i].ToString())) {	
+					testState = shootStates[i];
 				}
 			}
 		}
@@ -1043,7 +1047,7 @@ public class GameController : KnightSingleton<GameController>
 			
 			for (int i = 0; i < DisAy.Length; i++) {
 				if (DisAy[i].Distance <= GameConst.StealBallDistance && 
-				    (DisAy[i].Player.crtState == EPlayerState.Idle && DisAy[i].Player.crtState == EPlayerState.Dribble0) && 
+				    (DisAy[i].Player.CrtState == EPlayerState.Idle && DisAy[i].Player.CrtState == EPlayerState.Dribble0) && 
 				    pushRate && npc.CoolDownPush == 0) {
 					if(DoPassiveSkill(ESkillSituation.Push0, npc, DisAy[i].Player.transform.position)) {
 						npc.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
@@ -1292,7 +1296,7 @@ public class GameController : KnightSingleton<GameController>
 						break;
 					}
 
-                    PlayerList [i].situation = newSituation;
+                    PlayerList [i].Situation = newSituation;
                 }
             }
 
@@ -1762,7 +1766,7 @@ public class GameController : KnightSingleton<GameController>
 			else
 				shootAngle = 50;
 
-			if(player.crtState == EPlayerState.TipIn){
+			if(player.CrtState == EPlayerState.TipIn){
 				st = EScoreType.LayUp;
 				player.GameRecord.TipinLaunch++;
 			} else 
@@ -1785,7 +1789,7 @@ public class GameController : KnightSingleton<GameController>
 
 			SetBall();
             CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
-			CourtMgr.Get.SetBallState(player.crtState);
+			CourtMgr.Get.SetBallState(player.CrtState);
 
 			if(BasketSituation == EBasketSituation.AirBall) {
 				//AirBall
@@ -1797,7 +1801,7 @@ public class GameController : KnightSingleton<GameController>
 				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 			} else 
-			if(player.crtState == EPlayerState.TipIn) {
+			if(player.CrtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
 
 					CourtMgr.Get.RealBallDoMove(new Vector3(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x,
@@ -1912,7 +1916,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if (player == BallOwner)
         {
-			if (player.crtState == EPlayerState.Alleyoop)
+			if (player.CrtState == EPlayerState.Alleyoop)
 				player.GameRecord.Alleyoop++;
 
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
@@ -2026,7 +2030,7 @@ public class GameController : KnightSingleton<GameController>
 					float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 					int disKind = GetEnemyDis(ref player);
 					int rate = UnityEngine.Random.Range(0, 2);
-					if(player.crtState == EPlayerState.Alleyoop)
+					if(player.CrtState == EPlayerState.Alleyoop)
 						Result = BallOwner.AniState(EPlayerState.Pass3, player.transform.position);
 					else
 					if(dis <= GameConst.FastPassDistance)
@@ -2381,7 +2385,7 @@ public class GameController : KnightSingleton<GameController>
 
     public bool DoBlock() {
 		if (IsStart && CandoBtn && Joysticker) {
-			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch) {
+			if(Joysticker.CrtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch) {
 				Joysticker.AniState(EPlayerState.BlockCatch);
 				if(UIDoubleClick.Visible)
 					UIDoubleClick.Get.ClickStop();
@@ -2644,7 +2648,7 @@ public class GameController : KnightSingleton<GameController>
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
                 Joysticker.ClearMoveQueue();
-				EPlayerState ps = Joysticker.crtState;
+				EPlayerState ps = Joysticker.CrtState;
 
 				if(!Joysticker.IsFall)
 				{
@@ -2667,9 +2671,9 @@ public class GameController : KnightSingleton<GameController>
 
 			if (BallOwner == Joysticker)
 			{
-				if(Joysticker.crtState == EPlayerState.Elbow)
+				if(Joysticker.CrtState == EPlayerState.Elbow)
 					ps = EPlayerState.Elbow;
-				else if(Joysticker.crtState == EPlayerState.HoldBall)
+				else if(Joysticker.CrtState == EPlayerState.HoldBall)
 					ps = EPlayerState.HoldBall;
 				else
 					ps = EPlayerState.Dribble0;
@@ -3212,7 +3216,7 @@ public class GameController : KnightSingleton<GameController>
 
     private void doLookAtBall(PlayerBehaviour someone)
     {
-        if(someone.crtState != EPlayerState.Block && someone.AIing)
+        if(someone.CrtState != EPlayerState.Block && someone.AIing)
             someone.RotateTo(CourtMgr.Get.RealBall.transform.position.x, 
                              CourtMgr.Get.RealBall.transform.position.z);
     }
@@ -3568,7 +3572,7 @@ public class GameController : KnightSingleton<GameController>
 		    player.IsPush || 
 		    dir == 6)
             return;
-		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
+		if(player.CrtState == EPlayerState.Pass5 || player.CrtState == EPlayerState.Pass6  ||player.CrtState == EPlayerState.Pass7 || player.CrtState == EPlayerState.Pass8  )
 			Debug.LogError("name:" + player.name);
 
 		if (Catcher) {
@@ -3722,12 +3726,12 @@ public class GameController : KnightSingleton<GameController>
     }
     
 	public void PlayerEnterPaint(int team, GameObject obj) {
-		if (BallOwner && canPassToAlleyoop(BallOwner.crtState) &&
+		if (BallOwner && canPassToAlleyoop(BallOwner.CrtState) &&
 		   (GameStart.Get.TestMode == EGameTest.Alleyoop || 
 		 	Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList[i].crtState == EPlayerState.Alleyoop) {
+				if (PlayerList[i].CrtState == EPlayerState.Alleyoop) {
 					flag = false;
 					break;
 				}
@@ -3791,9 +3795,6 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-	private EPlayerState[] shootInState = new EPlayerState[4]{EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
-	private EPlayerState[] shootOutState = new EPlayerState[2]{EPlayerState.Show201, EPlayerState.Show202};
-
 	public void ShowShootSate(bool isIn, int team)
 	{
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
@@ -3830,7 +3831,7 @@ public class GameController : KnightSingleton<GameController>
 				else
 					Shooter.GameRecord.FGIn++;
 
-				if (Shooter.crtState == EPlayerState.TipIn)
+				if (Shooter.CrtState == EPlayerState.TipIn)
 					Shooter.GameRecord.Tipin++;
 
 				if (IsShooting)
@@ -3982,7 +3983,7 @@ public class GameController : KnightSingleton<GameController>
 	                    break;
 	                }
 	            } else {
-	                if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.crtState == EPlayerState.Idle) {
+	                if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.CrtState == EPlayerState.Idle) {
 	                    Result = Npc;
 	                    break;
 	                }
@@ -4061,10 +4062,10 @@ public class GameController : KnightSingleton<GameController>
 	            if(SetBall(Catcher))
 					coolDownPass = Time.time + 3;
 
-				if(Catcher && Catcher.NeedShooting)
+				if(Catcher && Catcher.IsNeedShooting)
 				{
 					Shoot();
-					Catcher.NeedShooting = false;
+					Catcher.IsNeedShooting = false;
 				}
 
 				Catcher = null;
@@ -4095,10 +4096,10 @@ public class GameController : KnightSingleton<GameController>
 			if (Catcher != null)
 			{
 //				Catcher.DelActionFlag(ActionFlag.IsCatcher);
-				if(Catcher.NeedShooting)
+				if(Catcher.IsNeedShooting)
 				{
 					Shoot();
-					Catcher.NeedShooting = false;
+					Catcher.IsNeedShooting = false;
 				}
 			}
 //			else{
@@ -4140,7 +4141,7 @@ public class GameController : KnightSingleton<GameController>
 
 		for (int i = 0; i < PlayerList.Count; i++) 
 		{
-			PlayerList [i].crtState = EPlayerState.Idle;
+			PlayerList [i].CrtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
 			PlayerList [i].ResetSkill();

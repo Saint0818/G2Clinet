@@ -644,7 +644,7 @@ public class UIGame : UIBase {
 			}
 			return true;
 		} else {
-			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
+			if (p.Team == GameController.Get.Joysticker.Team && p.CrtState == EPlayerState.Alleyoop)
 				SetPassButton();
 			
 			return false;
@@ -664,7 +664,7 @@ public class UIGame : UIBase {
 
 			return true;
 		} else {
-			if (p.Team == GameController.Get.Joysticker.Team && p.crtState == EPlayerState.Alleyoop)
+			if (p.Team == GameController.Get.Joysticker.Team && p.CrtState == EPlayerState.Alleyoop)
 				ShowAlleyoop(false);
 
 			return false;
