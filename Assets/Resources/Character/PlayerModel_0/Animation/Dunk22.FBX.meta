@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e1d91c3ee023ae94aa66b1f401cdf7f3
-timeCreated: 1439794271
+timeCreated: 1440745142
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -217,14 +217,14 @@ ModelImporter:
         floatParameter: 1.5
         intParameter: 0
         messageOptions: 0
-      - time: .28771922
+      - time: .28771916
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .321766496
+      - time: .321766436
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -245,28 +245,28 @@ ModelImporter:
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .658296108
+      - time: .658295989
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .685682774
+      - time: .685682714
         functionName: AnimationEvent
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .949880898
+      - time: .949880779
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .999999523
+      - time: .999999344
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}

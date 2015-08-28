@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 02cc3b37f752700409a4593d53bdee34
-timeCreated: 1439892044
+timeCreated: 1440745164
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -150,7 +150,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .16071187
+      - time: .160711855
         functionName: AnimationEvent
         data: CloneMesh
         objectReferenceParameter: {instanceID: 0}
@@ -164,7 +164,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .501488805
+      - time: .501488745
         functionName: AnimationEvent
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
@@ -178,7 +178,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .999999762
+      - time: .999999702
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}

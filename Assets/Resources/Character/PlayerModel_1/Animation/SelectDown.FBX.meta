@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 77e93cdf8e6c4d6449492baf1e51ef87
-timeCreated: 1437724677
+timeCreated: 1440745173
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -159,16 +159,16 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: -Infinity
-        functionName: SoundEvent
-        data: down
+        functionName: NewEvent
+        data: 
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: -Infinity
-        functionName: NewEvent
-        data: 
+        functionName: SoundEvent
+        data: down
         objectReferenceParameter: {fileID: 8300000, guid: 06e0b8222f002264ea5d0d8c7209203e,
           type: 3}
         floatParameter: 0
@@ -182,7 +182,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .186420113
+      - time: .210189208
         functionName: PlaySound
         data: SD_touchfloor
         objectReferenceParameter: {fileID: 8300000, guid: 064e4a2b12f07374bba97e08708fd0ad,
