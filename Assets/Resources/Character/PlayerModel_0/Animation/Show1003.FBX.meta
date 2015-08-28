@@ -293,10 +293,6 @@ ModelImporter:
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/DummyBack
         weight: 1
-      - path: Shape001
-        weight: 1
-      - path: Shape002
-        weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
     isReadable: 0
