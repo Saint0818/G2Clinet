@@ -35,9 +35,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private float zoomNormal = 30;
     private float zoomRange = 20;
     private float zoomTime = 1;
-	public Vector2 blankAera = new Vector2(-2, 3.5f);
-
+    public Vector2 blankAera = new Vector2(-2, 3.5f);
+//    private float lockedFocusAngle = 100f;
+//    private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
+    private float focusSmoothSpeed = 0.02f;
     private float[] focusStopPoint = new float[]{21f, -25f};
     private float cameraRotationSpeed = 2f;
     private float cameraOffsetSpeed = 0.1f;
@@ -69,6 +71,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private GameObject cameraSkillCenter;
     private Animator cameraAnimator;
 
+//  private Camera cameraPlayer;
+
     private GameObject focusTargetOne;
     private GameObject focusTargetTwo;
 	private GameObject focusTarget;
@@ -91,12 +95,18 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private Vector2 smothHight = Vector2.zero;
     private float plusZ = 0;
     private int skillEventKind = 0;
-	public bool IsTee = false;
-	private bool isOverCamera = false;
-	private float distanceZ;
-	private Vector3 focusSecondPos;
-	private Vector2 focusLimitX;
-	private Vector2 focusLimitZ;
+
+    public bool UICamVisible
+    {
+        set
+        {
+            cameraRotationObj.gameObject.SetActive(value);
+        }
+        get
+        {
+            return cameraRotationObj.gameObject.activeInHierarchy;
+        }
+    }
 
     void Awake()
     {
@@ -117,16 +127,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                     CharacterPos [i] = showCamera.transform.FindChild(string.Format("CharacterPos/{0}", i)).gameObject;
         }
     }
-
-	void FixedUpdate()
-	{
-		if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self || 
-		                                                   situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller))
-		{
-			ZoomCalculation();
-			HorizontalCameraHandle();
-		}
-	}
 
     public void PlayShake()
     {
@@ -149,6 +149,46 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         if (cameraAnimator) 
             cameraAnimator.enabled = GameStart.Get.CourtMode != ECourtMode.Half;
     }
+
+    public void SetCourtCamera(SceneName scene)
+    {
+        if (cameraFx && cameraFx.name != scene.ToString())
+        {
+            Destroy(cameraFx.gameObject);
+            GameObject obj = Instantiate(Resources.Load(string.Format("Prefab/Camera/Camera_{0}", scene.ToString()))) as GameObject;
+            cameraFx = obj.GetComponent<Camera>();
+            cameraFx.gameObject.transform.parent = cameraRotationObj.transform;
+            cameraFx.gameObject.transform.localPosition = Vector3.zero;
+            cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
+            cameraFx.gameObject.name = scene.ToString();
+            cameraAnimator = cameraFx.GetComponent<Animator>();
+
+            cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
+            cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
+            cameraSkill.gameObject.transform.localPosition = Vector3.zero;
+            cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
+            cameraSkill.gameObject.SetActive(false);
+
+			cameraPlayerInfo = (Instantiate(Resources.Load("Prefab/Camera/Camera_PlayerInfo")) as GameObject).GetComponent<Camera>();
+			cameraPlayerInfo.gameObject.transform.parent = cameraRotationObj.transform;
+			cameraPlayerInfo.gameObject.transform.localPosition = Vector3.zero;
+			cameraPlayerInfo.gameObject.transform.localEulerAngles = Vector3.zero;
+			cameraPlayerInfo.gameObject.SetActive(false);
+
+            cameraSkillCenter = new GameObject();
+            cameraSkillCenter.name = "CameraSkillCenter";
+
+            Transform tEnd = obj.transform.FindChild("DC_Pos/End_Point");
+            if (tEnd)
+                SkillDCTarget = tEnd.gameObject;
+
+            Transform tDC = obj.transform.FindChild("DC_Pos/DC_Point");
+            if (tDC)
+                DoubleClickDCBorn = tDC.gameObject;
+        }
+
+        setHalfCourtCamera();
+    }
     
     public void PlayGameStartCamera()
     {
@@ -159,6 +199,21 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         cameraAnimator.SetTrigger("FinishGame");
     }
+
+    public void SetSelectRoleCamera()
+    {
+        if (cameraFx)
+        {
+            Destroy(cameraFx.gameObject);
+            GameObject obj = Instantiate(Resources.Load("Prefab/Camera/Camera_SelectRole")) as GameObject;
+            cameraFx = obj.GetComponent<Camera>();
+            cameraFx.gameObject.transform.localPosition = Vector3.zero;
+            cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
+            cameraFx.gameObject.name = "Camera_SelectRole";
+        }
+    }
+
+    public bool IsTee = false;
 
     public void SetCameraSituation(ECameraSituation s, bool isTee = false)
     {
@@ -183,6 +238,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             showCamera.GetComponent<Animator>().SetTrigger("ShowTrigger");
         else
             showCamera.GetComponent<Animator>().SetTrigger("CloseTrigger");
+    }
+
+    public Camera CourtCamera
+    {
+        get { return cameraFx;}
     }
 
 	public void ShowPlayerInfoCamera (bool isShow) {
@@ -284,6 +344,51 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
+    private void SetTestToolPosition()
+    {
+        if (GameStart.Get.TestCameraMode == ECameraTest.RGB)
+        {
+            if (situation == ECameraSituation.Self)
+            {
+                focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, blankAera.y);
+                focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [0]);    
+            } else
+            {
+                focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, -blankAera.y);
+                focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [1]);
+            }
+        }
+    }
+
+    public void SetFocus(FocusSensor.FocusSensorMode sensorMode, GameObject sensorObj, GameObject ball, bool isReal)
+    { 
+        switch (sensorMode)
+        {
+            case FocusSensor.FocusSensorMode.Center:
+            case FocusSensor.FocusSensorMode.LeftTop:
+            case FocusSensor.FocusSensorMode.RightTop:
+            case FocusSensor.FocusSensorMode.Left:
+            case FocusSensor.FocusSensorMode.LeftUp:
+            case FocusSensor.FocusSensorMode.LeftDown:
+            case FocusSensor.FocusSensorMode.Right:
+            case FocusSensor.FocusSensorMode.RightUp:
+            case FocusSensor.FocusSensorMode.RightDown:
+            case FocusSensor.FocusSensorMode.CenterDown:
+            case FocusSensor.FocusSensorMode.CenterUp:
+                break;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (GameStart.Get.CourtMode == ECourtMode.Full && (situation == ECameraSituation.Self || 
+            situation == ECameraSituation.Npc || situation == ECameraSituation.Skiller))
+        {
+            ZoomCalculation();
+            HorizontalCameraHandle();
+        }
+    }
+
     private void ZoomCalculation()
     {
         if (isStartRoom)
@@ -312,7 +417,13 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
         CameraOffset();
         CameraFocus();
+//      if(cameraPlayer && GameController.Get.Joysticker != null) {
+//          cameraPlayer.gameObject.transform.LookAt(GameController.Get.Joysticker.gameObject.transform);
+//      }
     }
+
+    private bool isOverCamera = false;
+    private float distanceZ;
 
     private void CameraOffset()
     {
@@ -395,10 +506,48 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 cameraRotationObj.transform.localPosition = jumpBallPos;
                 cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
                 break;
-
             case ECameraSituation.Self:
-				Lookat(Vector3.zero);
-				cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+
+			Lookat(Vector3.zero);
+			cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+
+//                if (!IsTee)
+//                {
+////                    if (focusTargetOne.transform.position.z < focusStopPoint [situation.GetHashCode()])
+////                    {
+//                    Lookat(Vector3.zero);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+////                    } else
+////                    {
+////                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedFocusAngle, focusSmoothSpeed);
+////                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+////                    }
+//                } else
+//                {
+//                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, lockedTeeFocusAngle, focusSmoothSpeed);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+//                }
+
+                break;
+            case ECameraSituation.Npc:
+			Lookat(Vector3.zero);
+			cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+//                if (!IsTee)
+//                {
+////                    if (focusTargetOne.transform.position.z > focusStopPoint [situation.GetHashCode()])
+////                    {
+//                    Lookat(Vector3.zero);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, cameraRotationObj.transform.localEulerAngles.y, restrictedAreaAngle.z);
+////                    } else
+////                    {
+////                        float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedFocusAngle, focusSmoothSpeed);
+////                        cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+////                    }
+//                } else
+//                {
+//                    float angle = Mathf.LerpAngle(cameraRotationObj.transform.localEulerAngles.y, 180 - lockedTeeFocusAngle, focusSmoothSpeed);
+//                    cameraRotationObj.transform.localEulerAngles = new Vector3(restrictedAreaAngle.x, angle, restrictedAreaAngle.z);
+//                }
                 break;
 
             case ECameraSituation.Skiller:
@@ -408,9 +557,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
+    private Vector3 focusSecondPos;
+
     private void Lookat(Vector3 pos)
     {
 		Vector3 v1;
+//		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
+//		Quaternion rot = Quaternion.LookRotation(dir);
+
 		Vector3 dir = focusTarget.transform.position - cameraRotationObj.transform.position;
 		Quaternion rot = Quaternion.LookRotation(dir);
 
@@ -457,6 +611,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
         }
     }
+
+    private Vector2 focusLimitX;
+    private Vector2 focusLimitZ;
 
     private void focusObjectOffset()
     {
@@ -543,6 +700,25 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
+    public override string ResName
+    {
+        get
+        {
+            return "CameraMgr";
+        }
+    }
+
+    public GameObject GetTouch(int Layer)
+    {
+        GameObject result = null;
+        RaycastHit hit;
+
+        if (Physics.Raycast(cameraFx.ScreenPointToRay(Input.mousePosition), out hit, 100, 1 << Layer) && hit.collider)
+            result = hit.collider.gameObject;
+        
+        return result;
+    }
+
     public void SkillShow(GameObject player)
     {
         skiller = player;
@@ -563,7 +739,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 15);
                 cameraSkill.gameObject.transform.DOLookAt(GameController.Get.Joysticker.transform.position + new Vector3(0, 2, 0), 0.5f).SetEase(Ease.Linear);
                 if (kind == 0)  
-                    cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t - 0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(lootAtPlayer).OnComplete(stopSkill);
+                    cameraSkillCenter.transform.DOLocalRotate(cameraSkillCenter.transform.eulerAngles + new Vector3(0, 360, 0), (t - 0.3f), RotateMode.WorldAxisAdd).SetEase(Ease.Linear).OnUpdate(LootAtPlayer).OnComplete(StopSkill);
                 else
                     Invoke("StopSkill", (t - 0.3f));
 
@@ -575,20 +751,20 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
-    private void stopSkill()
+    public void StopSkill()
     {
         TweenFOV.Begin(cameraSkill.gameObject, 0.3f, 25);
         cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
         cameraSkill.gameObject.transform.DOLocalMove(Vector3.zero, 0.3f);
-        cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(resetCamera);
+        cameraSkill.gameObject.transform.DOLocalRotate(Vector3.zero, 0.3f).OnComplete(ResetCamera);
     }
 
-    private void lootAtPlayer()
+    public void LootAtPlayer()
     {
         cameraSkill.gameObject.transform.LookAt(GameController.Get.Joysticker.transform.position + new Vector3(0, 2, 0));
     }
 
-    private void resetCamera()
+    public void ResetCamera()
     {
         GameController.Get.Joysticker.StopSkill();
         cameraFx.enabled = true;
@@ -598,126 +774,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         resetSKillLayer();
     }
 
-	public void SetCourtCamera(SceneName scene)
-	{
-		if (cameraFx && cameraFx.name != scene.ToString())
-		{
-			Destroy(cameraFx.gameObject);
-			GameObject obj = Instantiate(Resources.Load(string.Format("Prefab/Camera/Camera_{0}", scene.ToString()))) as GameObject;
-			cameraFx = obj.GetComponent<Camera>();
-			cameraFx.gameObject.transform.parent = cameraRotationObj.transform;
-			cameraFx.gameObject.transform.localPosition = Vector3.zero;
-			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
-			cameraFx.gameObject.name = scene.ToString();
-			cameraAnimator = cameraFx.GetComponent<Animator>();
-			
-			cameraSkill = (Instantiate(Resources.Load("Prefab/Camera/Camera_Skill")) as GameObject).GetComponent<Camera>();
-			cameraSkill.gameObject.transform.parent = cameraRotationObj.transform;
-			cameraSkill.gameObject.transform.localPosition = Vector3.zero;
-			cameraSkill.gameObject.transform.localEulerAngles = Vector3.zero;
-			cameraSkill.gameObject.SetActive(false);
-			
-			cameraPlayerInfo = (Instantiate(Resources.Load("Prefab/Camera/Camera_PlayerInfo")) as GameObject).GetComponent<Camera>();
-			cameraPlayerInfo.gameObject.transform.parent = cameraRotationObj.transform;
-			cameraPlayerInfo.gameObject.transform.localPosition = Vector3.zero;
-			cameraPlayerInfo.gameObject.transform.localEulerAngles = Vector3.zero;
-			cameraPlayerInfo.gameObject.SetActive(false);
-			
-			cameraSkillCenter = new GameObject();
-			cameraSkillCenter.name = "CameraSkillCenter";
-			
-			Transform tEnd = obj.transform.FindChild("DC_Pos/End_Point");
-			if (tEnd)
-				SkillDCTarget = tEnd.gameObject;
-			
-			Transform tDC = obj.transform.FindChild("DC_Pos/DC_Point");
-			if (tDC)
-				DoubleClickDCBorn = tDC.gameObject;
-		}
-		
-		setHalfCourtCamera();
-	}
-
     public void SetRoomMode(EZoomType z, float t)
     {
         CrtZoom = z;
         zoomTime = t;
         isStartRoom = true;
     }
-
-	public void SetSelectRoleCamera()
-	{
-		if (cameraFx)
-		{
-			Destroy(cameraFx.gameObject);
-			GameObject obj = Instantiate(Resources.Load("Prefab/Camera/Camera_SelectRole")) as GameObject;
-			cameraFx = obj.GetComponent<Camera>();
-			cameraFx.gameObject.transform.localPosition = Vector3.zero;
-			cameraFx.gameObject.transform.localEulerAngles = Vector3.zero;
-			cameraFx.gameObject.name = "Camera_SelectRole";
-		}
-	}
-
-	private void SetTestToolPosition()
-	{
-		if (GameStart.Get.TestCameraMode == ECameraTest.RGB)
-		{
-			if (situation == ECameraSituation.Self)
-			{
-				focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, blankAera.y);
-				focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [0]);    
-			} else
-			{
-				focusMoveAeraObj.transform.position = new Vector3(blankAera.x, -0.4f, -blankAera.y);
-				focusStopAeraObj.transform.position = new Vector3(0, -0.4f, focusStopPoint [1]);
-			}
-		}
-	}
-	
-	public void SetFocus(FocusSensor.FocusSensorMode sensorMode, GameObject sensorObj, GameObject ball, bool isReal)
-	{ 
-		switch (sensorMode)
-		{
-		case FocusSensor.FocusSensorMode.Center:
-		case FocusSensor.FocusSensorMode.LeftTop:
-		case FocusSensor.FocusSensorMode.RightTop:
-		case FocusSensor.FocusSensorMode.Left:
-		case FocusSensor.FocusSensorMode.LeftUp:
-		case FocusSensor.FocusSensorMode.LeftDown:
-		case FocusSensor.FocusSensorMode.Right:
-		case FocusSensor.FocusSensorMode.RightUp:
-		case FocusSensor.FocusSensorMode.RightDown:
-		case FocusSensor.FocusSensorMode.CenterDown:
-		case FocusSensor.FocusSensorMode.CenterUp:
-			break;
-		}
-	}
-
-	private GameObject getTouch(int Layer)
-	{
-		GameObject result = null;
-		RaycastHit hit;
-		
-		if (Physics.Raycast(cameraFx.ScreenPointToRay(Input.mousePosition), out hit, 100, 1 << Layer) && hit.collider)
-			result = hit.collider.gameObject;
-		
-		return result;
-	}
-
-	public Camera CourtCamera
-	{
-		get { return cameraFx;}
-	}
-
-	public bool UICamVisible
-	{
-		set
-		{
-			cameraRotationObj.gameObject.SetActive(value);
-		}
-		get
-		{
-			return cameraRotationObj.gameObject.activeInHierarchy;
-		}
-	}
 }
