@@ -330,6 +330,13 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].ShowPos = 5;
 	}
 
+	private void PlayZreoPosition()
+	{
+		for(int i = 0; i < PlayerList.Count; i++)
+			if(PlayerList[i])
+				PlayerList[i].transform.position = Vector3.zero;
+	}
+
 	public void InitIngameAnimator()
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
@@ -379,7 +386,7 @@ public class GameController : KnightSingleton<GameController>
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
 			SetBornPositions();
-			
+			PlayZreoPosition ();
         	break;
 		case EGameTest.All:
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], new GameStruct.TPlayer(0)));	
