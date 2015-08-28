@@ -1353,14 +1353,14 @@ public class GameController : KnightSingleton<GameController>
 
 				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
 				if (npc) {
-					npc.transform.position = bornPosAy[1];
+//					npc.transform.position = bornPosAy[1];
 					JumpBall(npc);
 //					Rebound(npc);
 				}
 
 				npc = findJumpBallPlayer(ETeamKind.Npc);
 				if (npc) {
-					npc.transform.position = bornPosAy[1];
+//					npc.transform.position = bornPosAy[1];
 					JumpBall(npc);
 //					Rebound(npc);
 				}

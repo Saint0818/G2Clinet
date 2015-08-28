@@ -25,11 +25,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRolePartButton PantsButton;
     public UICreateRolePartButton ShoesButton;
 
-    public UILabel[] ColorLabels;
-//    public UILabel HairLabel;
-//    public UILabel ClothLabel;
-//    public UILabel PantsLabel;
-//    public UILabel ShoesLabel;
+    public UILabel[] BodyLabels;
 
     public UILabel[] PartItemLabels;
 
@@ -90,9 +86,16 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void updateUI()
     {
-        for(int i = 0; i < ColorLabels.Length; i++)
+        for(int i = 0; i < BodyLabels.Length; i++)
         {
-            ColorLabels[i].text = GameData.DItemData[mData[EPart.Body][i]].NameTW;
+            int itemID = mData[EPart.Body][i];
+            if(GameData.DItemData.ContainsKey(itemID))
+            {
+                BodyLabels[i].text = GameData.DItemData[itemID].NameTW;
+                BodyLabels[i].transform.parent.gameObject.SetActive(true);
+            }
+            else
+                BodyLabels[i].transform.parent.gameObject.SetActive(false);
         }
 
         HairButton.Name = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].NameTW;
