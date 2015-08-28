@@ -7,6 +7,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 {
     public delegate void Action(TPlayerBank bank);
     public event Action OnClickListener;
+    public event Action OnDeleteListener;
 
     public GameObject PlusButton;
     public GameObject RemoveButton;
@@ -60,5 +61,11 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     {
         if(OnClickListener != null)
             OnClickListener(mPlayerBank);
+    }
+
+    public void OnDeleteClick()
+    {
+        if(OnDeleteListener != null)
+            OnDeleteListener(mPlayerBank);
     }
 }

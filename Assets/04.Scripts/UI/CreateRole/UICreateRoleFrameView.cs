@@ -7,6 +7,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
     public UICreateRolePlayerFrame[] Frames;
+    public UIConfirmDialog ConfirmDialog;
 
     public string[] PosSpriteNames;
 
@@ -16,8 +17,11 @@ public class UICreateRoleFrameView : MonoBehaviour
         for(int i = 0; i < Frames.Length; i++)
         {
             Frames[i].PosSpriteNames = PosSpriteNames;
-            Frames[i].OnClickListener += OnSlotClick;
+            Frames[i].OnClickListener += onSlotClick;
+            Frames[i].OnDeleteListener += onDeleteClick;
         }
+
+        ConfirmDialog.OnYesListener += onConfirmDelete;
     }
 
     public void Show()
@@ -45,7 +49,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    public void OnSlotClick(TPlayerBank playerBank)
+    private void onSlotClick(TPlayerBank playerBank)
     {
         if(playerBank.IsValid)
         {
@@ -53,5 +57,17 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
         else
             GetComponent<UICreateRole>().ShowPositionView();
+    }
+
+    private void onDeleteClick(TPlayerBank playerBank)
+    {
+        Debug.Log("onDeleteClick");
+
+        ConfirmDialog.Show();
+    }
+
+    private void onConfirmDelete()
+    {
+        Debug.Log("onConfirmDelete");
     }
 }
