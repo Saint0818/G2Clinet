@@ -5,36 +5,60 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UICreateRolePlayerFrame : MonoBehaviour
 {
+    public delegate void Action(TPlayerBank bank);
+    public event Action OnClickListener;
+
+    public GameObject PlusButton;
     public GameObject RemoveButton;
-    public UISprite Position;
+    public UISprite PosSprite;
 
     [HideInInspector]
     public string[] PosSpriteNames;
 
+    private TPlayerBank mPlayerBank;
+
 	[UsedImplicitly]
-	private void Start()
+	private void Awake()
     {
 	    Clear();
 	}
 
-    [UsedImplicitly]
-    // Update is called once per frame
-    private void Update()
-    {
-	
-	}
-
     public void Clear()
     {
+        PlusButton.SetActive(true);
         RemoveButton.SetActive(false);
-        Position.gameObject.SetActive(false);
+        PosSprite.gameObject.SetActive(false);
+
+        mPlayerBank = new TPlayerBank();
     }
 
-    public void SetPlayer(TGreatPlayer player)
+    public void SetData(TPlayerBank player)
     {
-        RemoveButton.SetActive(true);
+        if(!player.IsValid || !GameData.DPlayers.ContainsKey(player.ID))
+        {
+            Debug.LogErrorFormat("PlayerID({0}) don't exit.", mPlayerBank.ID);
+            return;
+        }
 
-        Position.gameObject.SetActive(true);
-        Position.spriteName = PosSpriteNames[player.BodyType];
+        PlusButton.SetActive(false);
+        RemoveButton.SetActive(true);
+        PosSprite.gameObject.SetActive(true);
+
+        mPlayerBank = player;
+        
+        int bodyType = GameData.DPlayers[mPlayerBank.ID].BodyType;
+        if(bodyType < 0 || bodyType >= PosSpriteNames.Length)
+        {
+            Debug.LogErrorFormat("BodyType({0}) error.", bodyType);
+            return;
+        }
+
+        PosSprite.spriteName = PosSpriteNames[bodyType];
+    }
+
+    public void OnClick()
+    {
+        if(OnClickListener != null)
+            OnClickListener(mPlayerBank);
     }
 }

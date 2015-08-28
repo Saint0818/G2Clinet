@@ -1,7 +1,5 @@
-using System.ComponentModel;
 using GameStruct;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -13,8 +11,6 @@ public class UICreateRole : UIBase
     private UICreateRoleFrameView mFrameView;
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
-
-	private int[] equipmentItems = new int[8];
 
 	public static bool Visible {
 		get {
@@ -40,7 +36,16 @@ public class UICreateRole : UIBase
     {
         Show(true);
 
-        mFrameView.Visible = true;
+        mFrameView.Show();
+        mPositionView.Visible = false;
+        mStyleView.Hide();
+    }
+
+    public void ShowFrameView(TPlayerBank[] playerBanks)
+    {
+        Show(true);
+
+        mFrameView.Show(playerBanks);
         mPositionView.Visible = false;
         mStyleView.Hide();
     }
@@ -49,7 +54,7 @@ public class UICreateRole : UIBase
     {
         Show(true);
 
-        mFrameView.Visible = false;
+        mFrameView.Hide();
         mPositionView.Visible = true;
         mStyleView.Hide();
     }
@@ -58,7 +63,7 @@ public class UICreateRole : UIBase
     {
         Show(true);
 
-        mFrameView.Visible = false;
+        mFrameView.Hide();
         mPositionView.Visible = false;
         mStyleView.Show(pos);
     }
@@ -86,7 +91,7 @@ public class UICreateRole : UIBase
     private void Awake()
     {
         mFrameView = GetComponent<UICreateRoleFrameView>();
-        mFrameView.Visible = true;
+        mFrameView.Hide();
 
         mPositionView = GetComponent<UICreateRolePositionView>();
         mPositionView.Visible = false;

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameStruct;
+using UnityEngine;
 using JetBrains.Annotations;
 
 [DisallowMultipleComponent]
@@ -15,27 +16,42 @@ public class UICreateRoleFrameView : MonoBehaviour
         for(int i = 0; i < Frames.Length; i++)
         {
             Frames[i].PosSpriteNames = PosSpriteNames;
-//            Frames[i].SetPlayer(GameData.DPlayers[i]);
+            Frames[i].OnClickListener += OnSlotClick;
         }
     }
 
-    public bool Visible
+    public void Show()
     {
-        set { Window.SetActive(value);}
+        Window.SetActive(true);
     }
 
-    public void OnSlot1Clicked()
+    public void Show([NotNull] TPlayerBank[] playerBanks)
     {
-        GetComponent<UICreateRole>().ShowPositionView();
+        Window.SetActive(true);
+
+        for(int i = 0; i < Frames.Length; i++)
+        {
+            Frames[i].Clear();
+
+            if(i >= playerBanks.Length)
+                continue;
+
+            Frames[i].SetData(playerBanks[i]);
+        }
     }
 
-    public void OnSlot2Clicked()
+    public void Hide()
     {
-        GetComponent<UICreateRole>().ShowPositionView();
+        Window.SetActive(false);
     }
 
-    public void OnSlot3Clicked()
+    public void OnSlotClick(TPlayerBank playerBank)
     {
-        GetComponent<UICreateRole>().ShowPositionView();
+        if(playerBank.IsValid)
+        {
+            
+        }
+        else
+            GetComponent<UICreateRole>().ShowPositionView();
     }
 }

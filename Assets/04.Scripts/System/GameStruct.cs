@@ -34,12 +34,24 @@ namespace GameStruct {
 			Player.Init();
 		} 
 	}
-	public struct TPlayerBank {
+
+    public struct TPlayerBank
+    {
 		public int RoleIndex;
 		public int ID;
 		public string Name;
 		public TItem[] Items;
-	}
+
+        public bool IsValid
+        {
+            get { return !string.IsNullOrEmpty(Name); }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ID:{0}, Name:{1}, RoleIndex:{2}", ID, Name, RoleIndex);
+        }
+    }
 
     public struct TPlayer {
 		public int RoleIndex;

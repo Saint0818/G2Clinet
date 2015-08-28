@@ -130,10 +130,19 @@ public class UIMain : UIBase {
 
 	private void waitLookPlayerBank(bool ok, WWW www)
 	{
-		if (ok) {
-			TPlayerBank[] playerBank = JsonConvert.DeserializeObject <TPlayerBank[]>(www.text);
-			Debug.Log(playerBank.ToString());
+		if(ok)
+        {
+			TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+
+            foreach(var bank in playerBank)
+            {
+                Debug.Log(bank);
+            }
+            Visible = false;
+            UICreateRole.Get.ShowFrameView(playerBank);
 		}
+        else
+		    Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
 	}
 
 	public void OnStage() {
