@@ -45,4 +45,9 @@ namespace GameEnum {
 		None,
 		RGB
 	}
+
+	public enum ESkillType {
+		NPC,
+		Player
+	}
 }

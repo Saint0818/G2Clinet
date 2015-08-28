@@ -32,9 +32,9 @@ public class UIMain : UIBase {
 
 		set {
 			if (instance) {
-				if (!value)
-					RemoveUI(UIName);
-				else
+//				if (!value)
+//					RemoveUI(UIName);
+//				else
 					instance.Show(value);
 			} else
 			if (value)
@@ -57,6 +57,7 @@ public class UIMain : UIBase {
 		SetBtnFun(UIName + "/TopRight/ButtonOpenRoom", OnOpenRoom);
 		SetBtnFun(UIName + "/TopRight/ButtonJoinRoom", OnLookingRoom);
 		SetBtnFun(UIName + "/TopLeft/ButtonAvatar", OnAvatar);
+		SetBtnFun(UIName + "/TopLeft/ButtonSkillFormation", OnSkillFormation);
 
 		itemJoinRoom = Resources.Load("Prefab/UI/Items/ItemJoinRoom") as GameObject;
 		offsetRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/Anchor/Offset");
@@ -122,6 +123,11 @@ public class UIMain : UIBase {
 
 	public void OnStage() {
 		UIStage.UIShow(!UIStage.Visible);
+	}
+
+	public void OnSkillFormation() {
+		Visible = false;
+		UISkillFormation.UIShow(!UISkillFormation.Visible);
 	}
 
 	public void OnOpenRoom() {
