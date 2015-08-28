@@ -1,13 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using GameStruct;
 using JetBrains.Annotations;
-using UnityEngine;
 using Newtonsoft.Json;
+using UnityEngine;
 
+/// <summary>
+/// Avatar Setup View.
+/// </summary>
 [DisallowMultipleComponent]
 public class UICreateRoleStyleView : MonoBehaviour
 {
-    private enum EPart
+    public enum EEquip
     {
         Body,
         Hair,
@@ -16,122 +20,216 @@ public class UICreateRoleStyleView : MonoBehaviour
         Shoes
     }
 
-	public int[] EquipmentItems = new int[8];
-
     public GameObject Window;
     public Transform ModelPreview;
-    public UICreateRolePartButton HairButton;
-    public UICreateRolePartButton ClothButton;
-    public UICreateRolePartButton PantsButton;
-    public UICreateRolePartButton ShoesButton;
+    public UICreateRoleStyleViewGroup HairGroup;
+    public UICreateRoleStyleViewGroup ClothGroup;
+    public UICreateRoleStyleViewGroup PantsGroup;
+    public UICreateRoleStyleViewGroup ShoesGroup;
 
     public UILabel[] BodyLabels;
 
+    public UIToggle[] PartItemToogles;
     public UILabel[] PartItemLabels;
-
-    /// <summary>
-    /// value: Item ID.
-    /// </summary>
-    private readonly Dictionary<EPart, int[]> mData = new Dictionary<EPart, int[]>();
 
     private GameObject mModel;
     private int mPlayerID;
 
-    private EPart mCurrentPart = EPart.Hair;
-    private int mCurrentSkinColorIndex;
-    private int mCurrentHairIndex;
-    private int mCurrentClothIndex;
-    private int mCurrentPantsIndex;
-    private int mCurrentShoesIndex;
+    private EEquip mCurrentEquip = EEquip.Hair;
 
+    private int[] mBodyItemIDs;
+
+    private readonly Dictionary<EEquip, UICreateRoleStyleViewGroup> mGroups = new Dictionary<EEquip, UICreateRoleStyleViewGroup>();
+    private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
+        
     [UsedImplicitly]
-    private void Start()
+    private void Awake()
     {
-        HairButton.Play();
-        ClothButton.Hide();
-        PantsButton.Hide();
-        ShoesButton.Hide();
+        mGroups.Add(EEquip.Hair, HairGroup);
+        mGroups.Add(EEquip.Cloth, ClothGroup);
+        mGroups.Add(EEquip.Pants, PantsGroup);
+        mGroups.Add(EEquip.Shoes, ShoesGroup);
+
+        HairGroup.OnTitleClickListener += onGroupTitleClick;
+        HairGroup.OnEquipClickListener += onEquipClick;
+
+        ClothGroup.OnTitleClickListener += onGroupTitleClick;
+        ClothGroup.OnEquipClickListener += onEquipClick;
+
+        PantsGroup.OnTitleClickListener += onGroupTitleClick;
+        PantsGroup.OnEquipClickListener += onEquipClick;
+
+        ShoesGroup.OnTitleClickListener += onGroupTitleClick;
+        ShoesGroup.OnEquipClickListener += onEquipClick;
     }
 
     public void Show(EPlayerPostion pos)
     {
         Window.SetActive(true);
 
-        if(pos == EPlayerPostion.G)
+        initData(pos);
+
+        updateBodyLabels();
+        updateModel();
+    }
+
+    private void initData(EPlayerPostion pos)
+    {
+        if (pos == EPlayerPostion.G)
             mPlayerID = 1;
-        else if(pos == EPlayerPostion.F)
+        else if (pos == EPlayerPostion.F)
             mPlayerID = 2;
-        else if(pos == EPlayerPostion.C)
+        else if (pos == EPlayerPostion.C)
             mPlayerID = 3;
         else
             Debug.LogErrorFormat("UnSupport Position:{0}", pos);
 
-        mData.Clear();
-        mData.Add(EPart.Body, CreateRoleDataMgr.Ins.GetBody(pos));
-        mData.Add(EPart.Hair, CreateRoleDataMgr.Ins.GetHairs(pos));
-        mData.Add(EPart.Cloth, CreateRoleDataMgr.Ins.GetCloths(pos));
-        mData.Add(EPart.Pants, CreateRoleDataMgr.Ins.GetPants(pos));
-        mData.Add(EPart.Shoes, CreateRoleDataMgr.Ins.GetShoes(pos));
+        mBodyItemIDs = CreateRoleDataMgr.Ins.GetBody(pos);
 
-        mCurrentSkinColorIndex = 0;
-        mCurrentHairIndex = 0;
-        mCurrentClothIndex = 0;
-        mCurrentPantsIndex = 0;
-        mCurrentShoesIndex = 0;
-        mCurrentPart = EPart.Hair;
+        mEquips.Clear();
 
-        updateUI();
-        updateModel();
+        TItemData[] items = findItems(mBodyItemIDs);
+        mEquips.Add(EEquip.Body, items[0]);
+
+        items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
+        mEquips.Add(EEquip.Hair, items[0]);
+        HairGroup.Init(EEquip.Hair, items);
+        HairGroup.Play();
+        HairGroup.SetSelected();
+
+        items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
+        mEquips.Add(EEquip.Cloth, items[0]);
+        ClothGroup.Init(EEquip.Cloth, items);
+        ClothGroup.Hide();
+
+        items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
+        mEquips.Add(EEquip.Pants, items[0]);
+        PantsGroup.Init(EEquip.Pants, items);
+        PantsGroup.Hide();
+
+        items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
+        mEquips.Add(EEquip.Shoes, items[0]);
+        ShoesGroup.Init(EEquip.Shoes, items);
+        ShoesGroup.Hide();
+
+        mCurrentEquip = EEquip.Hair;
     }
 
-    private void updateUI()
+    private TItemData[] findItems(int[] itemIDs)
     {
-        for(int i = 0; i < BodyLabels.Length; i++)
+        List<TItemData> data = new List<TItemData>();
+
+        foreach(var itemID in itemIDs)
         {
-            int itemID = mData[EPart.Body][i];
             if(GameData.DItemData.ContainsKey(itemID))
+                data.Add(GameData.DItemData[itemID]);
+        }
+
+        return data.ToArray();
+    }
+
+    private void updateBodyLabels()
+    {
+        for (int i = 0; i < BodyLabels.Length; i++)
+        {
+            if(GameData.DItemData.ContainsKey(mBodyItemIDs[i]))
             {
-                BodyLabels[i].text = GameData.DItemData[itemID].NameTW;
+                BodyLabels[i].text = GameData.DItemData[mBodyItemIDs[i]].Name;
                 BodyLabels[i].transform.parent.gameObject.SetActive(true);
             }
             else
                 BodyLabels[i].transform.parent.gameObject.SetActive(false);
         }
-
-        HairButton.Name = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].NameTW;
-        ClothButton.Name = GameData.DItemData[mData[EPart.Cloth][mCurrentClothIndex]].NameTW;
-        PantsButton.Name = GameData.DItemData[mData[EPart.Pants][mCurrentPantsIndex]].NameTW;
-        ShoesButton.Name = GameData.DItemData[mData[EPart.Shoes][mCurrentShoesIndex]].NameTW;
-
-        updatePartItems(mData[mCurrentPart]);
     }
 
-    private void updatePartItems(int[] itemIDs)
+    private void onGroupTitleClick(EEquip equip)
     {
-        for(int i = 0; i < PartItemLabels.Length; i++)
-        {
-            if(i >= itemIDs.Length || !GameData.DItemData.ContainsKey(itemIDs[i]))
-            {
-                PartItemLabels[i].transform.parent.gameObject.SetActive(false);
-                continue;
-            }
+//        Debug.LogFormat("onGroupTitleClick, equip:{0}", equip);
 
-            PartItemLabels[i].transform.parent.gameObject.SetActive(true);
-            PartItemLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
+        if(mCurrentEquip == equip)
+            return;
+
+        mCurrentEquip = equip;
+
+        foreach(KeyValuePair<EEquip, UICreateRoleStyleViewGroup> pair in mGroups)
+        {
+            if(pair.Key == mCurrentEquip)
+                pair.Value.Play();
+            else
+                pair.Value.Hide();
         }
     }
 
+    private void onEquipClick(EEquip equip, TItemData item)
+    {
+//        Debug.LogFormat("onEquipClick, equip:{0}, item:{1}", equip, item);
+
+        if(mEquips.ContainsKey(equip))
+            mEquips[equip] = item;
+        else
+            mEquips.Add(equip, item);
+
+        updateModel();
+    }
+
+    //    private void updateUI()
+    //    {
+    //        for(int i = 0; i < BodyLabels.Length; i++)
+    //        {
+    //            int itemID = mData[EPart.Body][i];
+    //            if(GameData.DItemData.ContainsKey(itemID))
+    //            {
+    //                BodyLabels[i].text = GameData.DItemData[itemID].NameTW;
+    //                BodyLabels[i].transform.parent.gameObject.SetActive(true);
+    //            }
+    //            else
+    //                BodyLabels[i].transform.parent.gameObject.SetActive(false);
+    //        }
+    //
+    ////        HairButton.Name = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].NameTW;
+    ////        ClothButton.Name = GameData.DItemData[mData[EPart.Cloth][mCurrentClothIndex]].NameTW;
+    ////        PantsButton.Name = GameData.DItemData[mData[EPart.Pants][mCurrentPantsIndex]].NameTW;
+    ////        ShoesButton.Name = GameData.DItemData[mData[EPart.Shoes][mCurrentShoesIndex]].NameTW;
+    //
+    //        updatePartItems(mData[mCurrentPart]);
+    //    }
+
+    //    private void updatePartItems(int[] itemIDs)
+    //    {
+    //        for(int i = 0; i < PartItemLabels.Length; i++)
+    //        {
+    //            if(i >= itemIDs.Length || !GameData.DItemData.ContainsKey(itemIDs[i]))
+    //            {
+    //                PartItemLabels[i].transform.parent.gameObject.SetActive(false);
+    //                continue;
+    //            }
+    //
+    //            PartItemLabels[i].transform.parent.gameObject.SetActive(true);
+    //            PartItemLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
+    //        }
+    //    }
+
     private void updateModel()
     {
-        if(mModel)
-            Destroy(mModel);
+        if (mEquips.Count < 5)
+            return;
 
-        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, 
-            mData[EPart.Body][mCurrentSkinColorIndex],
-            mData[EPart.Hair][mCurrentHairIndex],
-            mData[EPart.Cloth][mCurrentClothIndex],
-            mData[EPart.Pants][mCurrentPantsIndex],
-            mData[EPart.Shoes][mCurrentShoesIndex]);
+        if (mModel)
+            Destroy(mModel);
+    
+//        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, 
+//            mData[EPart.Body][mCurrentSkinColorIndex],
+//            mData[EPart.Hair][mCurrentHairIndex],
+//            mData[EPart.Cloth][mCurrentClothIndex],
+//            mData[EPart.Pants][mCurrentPantsIndex],
+//            mData[EPart.Shoes][mCurrentShoesIndex]);
+
+        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID,
+            mEquips[EEquip.Body].ID,
+            mEquips[EEquip.Hair].ID,
+            mEquips[EEquip.Cloth].ID,
+            mEquips[EEquip.Pants].ID,
+            mEquips[EEquip.Shoes].ID);
     }
 
     public void Hide()
@@ -139,20 +237,51 @@ public class UICreateRoleStyleView : MonoBehaviour
         Window.SetActive(false);
     }
 
+    private void play(EEquip part)
+    {
+        switch(part)
+        {
+            case EEquip.Hair:
+                HairGroup.Play();
+//                ClothButton.Hide();
+//                PantsButton.Hide();
+//                ShoesButton.Hide();
+                break;
+            case EEquip.Cloth:
+                HairGroup.Hide();
+//                ClothButton.Play();
+//                PantsButton.Hide();
+//                ShoesButton.Hide();
+                break;
+            case EEquip.Pants:
+                HairGroup.Hide();
+//                ClothButton.Hide();
+//                PantsButton.Play();
+//                ShoesButton.Hide();
+                break;
+            case EEquip.Shoes:
+                HairGroup.Hide();
+//                ClothButton.Hide();
+//                PantsButton.Hide();
+//                ShoesButton.Play();
+                break;
+
+            default:
+                throw new InvalidEnumArgumentException(part.ToString());
+        }
+    }
+
     public void OnHairClicked()
     {
         if(UIToggle.current.value)
         {
-            HairButton.Play();
-            ClothButton.Hide();
-            PantsButton.Hide();
-            ShoesButton.Hide();
+            play(EEquip.Hair);
 
-            mCurrentPart = EPart.Hair;
-            mCurrentHairIndex = 0;
+            mCurrentEquip = EEquip.Hair;
+//            mCurrentHairIndex = 0;
 
-            updateUI();
-            updateModel();
+//            updateUI();
+//            updateModel();
         }
     }
 
@@ -160,16 +289,13 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if(UIToggle.current.value)
         {
-            HairButton.Hide();
-            ClothButton.Play();
-            PantsButton.Hide();
-            ShoesButton.Hide();
+            play(EEquip.Cloth);
 
-            mCurrentPart = EPart.Cloth;
-            mCurrentClothIndex = 0;
+            mCurrentEquip = EEquip.Cloth;
+//            mCurrentClothIndex = 0;
 
-            updateUI();
-            updateModel();
+//            updateUI();
+//            updateModel();
         }
     }
 
@@ -177,16 +303,13 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if(UIToggle.current.value)
         {
-            HairButton.Hide();
-            ClothButton.Hide();
-            PantsButton.Play();
-            ShoesButton.Hide();
+            play(EEquip.Pants);
 
-            mCurrentPart = EPart.Pants;
-            mCurrentPantsIndex = 0;
+            mCurrentEquip = EEquip.Pants;
+//            mCurrentPantsIndex = 0;
 
-            updateUI();
-            updateModel();
+//            updateUI();
+//            updateModel();
         }
     }
 
@@ -194,46 +317,64 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if(UIToggle.current.value)
         {
-            HairButton.Hide();
-            ClothButton.Hide();
-            PantsButton.Hide();
-            ShoesButton.Play();
+            play(EEquip.Shoes);
 
-            mCurrentPart = EPart.Shoes;
-            mCurrentShoesIndex = 0;
+            mCurrentEquip = EEquip.Shoes;
+//            mCurrentShoesIndex = 0;
 
-            updateUI();
-            updateModel();
+//            updateUI();
+//            updateModel();
         }
     }
+
+//    /// <summary>
+//    /// 
+//    /// </summary>
+//    /// <param name="index"></param>
+//    /// <returns> true: success, false:fail. </returns>
+//    private bool setCurrentIndex(int index)
+//    {
+//        switch(mCurrentPart)
+//        {
+//            case EPart.Hair:
+//                if(mCurrentHairIndex != index)
+//                {
+//                    mCurrentHairIndex = index;
+//                    return true;
+//                }
+//                return false;
+//            case EPart.Cloth:
+//                if(mCurrentClothIndex != index)
+//                {
+//                    mCurrentClothIndex = index;
+//                    return true;
+//                }
+//                return false;
+//            case EPart.Pants:
+//                if(mCurrentPantsIndex != index)
+//                {
+//                    mCurrentPantsIndex = index;
+//                    return true;
+//                }
+//                return false;
+//            case EPart.Shoes:
+//                if(mCurrentShoesIndex != index)
+//                {
+//                    mCurrentShoesIndex = index;
+//                    return true;
+//                }
+//                return false;
+//
+//            default:
+//                throw new InvalidEnumArgumentException(mCurrentPart.ToString());
+//        }
+//    }
 
     public void OnPart1Clicked()
     {
         if(UIToggle.current.value)
         {
-            setCurrentIndex(0);
-
-            updateUI();
-            updateModel();
-        }
-    }
-
-    private void setCurrentIndex(int index)
-    {
-        switch(mCurrentPart)
-        {
-            case EPart.Hair:
-                mCurrentHairIndex = index;
-                break;
-            case EPart.Cloth:
-                mCurrentClothIndex = index;
-                break;
-            case EPart.Pants:
-                mCurrentPantsIndex = index;
-                break;
-            case EPart.Shoes:
-                mCurrentShoesIndex = index;
-                break;
+            onPartClicked(0);
         }
     }
 
@@ -241,10 +382,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if(UIToggle.current.value)
         {
-            setCurrentIndex(1);
-
-            updateUI();
-            updateModel();
+            onPartClicked(1);
         }
     }
 
@@ -252,10 +390,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if (UIToggle.current.value)
         {
-            setCurrentIndex(2);
-
-            updateUI();
-            updateModel();
+            onPartClicked(2);
         }
     }
 
@@ -263,10 +398,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if (UIToggle.current.value)
         {
-            setCurrentIndex(3);
-
-            updateUI();
-            updateModel();
+            onPartClicked(3);
         }
     }
 
@@ -274,10 +406,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if (UIToggle.current.value)
         {
-            setCurrentIndex(4);
-
-            updateUI();
-            updateModel();
+            onPartClicked(4);
         }
     }
 
@@ -285,38 +414,60 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
         if (UIToggle.current.value)
         {
-            setCurrentIndex(5);
-
-            updateUI();
-            updateModel();
+            onPartClicked(5);
         }
     }
 
-    public void OnSkinColor1Clicked()
+    private void onPartClicked(int index)
+    {
+//        var isChange = setCurrentIndex(index);
+//        if(isChange)
+//        {
+//            updateUI();
+//            updateModel();
+//        }
+    }
+
+    public void OnBody1Click()
     {
         if(UIToggle.current.value)
         {
-            mCurrentSkinColorIndex = 0;
+//            mCurrentSkinColorIndex = 0;
+
+            if(mEquips.ContainsKey(EEquip.Body))
+                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[0]];
+            else
+                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[0]]);
 
             updateModel();
         }
     }
 
-    public void OnSkinColor2Clicked()
+    public void OnBody2Click()
     {
         if (UIToggle.current.value)
         {
-            mCurrentSkinColorIndex = 1;
+            //            mCurrentSkinColorIndex = 1;
+
+            if (mEquips.ContainsKey(EEquip.Body))
+                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[1]];
+            else
+                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[1]]);
 
             updateModel();
         }
     }
 
-    public void OnSkinColor3Clicked()
+    public void OnBody3Click()
     {
         if (UIToggle.current.value)
         {
-            mCurrentSkinColorIndex = 2;
+            //            mCurrentSkinColorIndex = 2;
+
+            if (mEquips.ContainsKey(EEquip.Body))
+                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[2]];
+            else
+                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[2]]);
 
             updateModel();
         }
@@ -329,22 +480,23 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnNextClicked()
     {
-        EquipmentItems[0] = mData[EPart.Body][mCurrentSkinColorIndex];
-        EquipmentItems[1] = mData[EPart.Hair][mCurrentHairIndex];
-        EquipmentItems[3] = mData[EPart.Cloth][mCurrentClothIndex];
-        EquipmentItems[4] = mData[EPart.Pants][mCurrentPantsIndex];
-        EquipmentItems[5] = mData[EPart.Shoes][mCurrentShoesIndex];
+        int[] equipmentItemIDs = new int[8];
+        equipmentItemIDs[0] = mEquips[EEquip.Body].ID;
+        equipmentItemIDs[1] = mEquips[EEquip.Hair].ID;
+        equipmentItemIDs[3] = mEquips[EEquip.Cloth].ID;
+        equipmentItemIDs[4] = mEquips[EEquip.Pants].ID;
+        equipmentItemIDs[5] = mEquips[EEquip.Shoes].ID; ;
 
         GameData.Team.Player.ID = mPlayerID;
-        GameData.Team.Player.Items = new GameStruct.TItem[EquipmentItems.Length];
-		for (int i = 0; i < EquipmentItems.Length; i++) 
-			GameData.Team.Player.Items[i].ID = EquipmentItems[i];
+        GameData.Team.Player.Items = new GameStruct.TItem[equipmentItemIDs.Length];
+		for (int i = 0; i < equipmentItemIDs.Length; i++) 
+			GameData.Team.Player.Items[i].ID = equipmentItemIDs[i];
 		GameData.Team.Player.Init();
 
 		WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
 		form.AddField("Name", GameData.Team.Player.Name);
-		form.AddField("Items", JsonConvert.SerializeObject(EquipmentItems));
+		form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
 		
 		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
     }

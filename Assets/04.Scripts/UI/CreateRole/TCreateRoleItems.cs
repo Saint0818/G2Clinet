@@ -1,6 +1,3 @@
-using JetBrains.Annotations;
-using UnityEngine;
-
 public struct TCreateRoleItems
 {
     public int ColorC;

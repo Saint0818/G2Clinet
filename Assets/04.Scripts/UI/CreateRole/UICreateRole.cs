@@ -96,11 +96,6 @@ public class UICreateRole : UIBase
 
 		GameData.Team.Player.ID = 1;
 		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
-		mStyleView.EquipmentItems[0] = CreateRoleDataMgr.Ins.Body(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[1] = CreateRoleDataMgr.Ins.Hair(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[3] = CreateRoleDataMgr.Ins.Cloth(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[4] = CreateRoleDataMgr.Ins.Pants(EPlayerPostion.G, 0);
-		mStyleView.EquipmentItems[5] = CreateRoleDataMgr.Ins.Shoes(EPlayerPostion.G, 0);
     }
 
 	protected override void InitCom()
@@ -109,12 +104,12 @@ public class UICreateRole : UIBase
     }
 
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
-        int skinItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
+        int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
     {
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
 
-        player.Avatar.Body = GameData.DItemData[skinItemID].Avatar;
+        player.Avatar.Body = GameData.DItemData[bodyItemID].Avatar;
         player.Avatar.Hair = GameData.DItemData[hairItemID].Avatar;
         player.Avatar.Cloth = GameData.DItemData[clothItemID].Avatar;
         player.Avatar.Pants = GameData.DItemData[pantsItemID].Avatar;

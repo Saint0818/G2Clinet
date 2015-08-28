@@ -749,7 +749,40 @@ namespace GameStruct {
 		public string ExplainCN;
 		public string ExplainEN;
 		public string ExplainJP;
-	}
+
+	    public override string ToString()
+	    {
+	        return string.Format("ID:{0}, Name:{1}, Explain:{2}", ID, Name, Explain);
+	    }
+
+	    public string Name
+        {
+            get
+            {
+                switch(GameData.Setting.Language)
+                {
+                    case ELanguage.TW: return NameTW;
+                    case ELanguage.CN: return NameCN;
+                    case ELanguage.JP: return NameJP;
+                    default: return NameEN;
+                }
+            }
+        }
+
+        public string Explain
+        {
+            get
+            {
+                switch(GameData.Setting.Language)
+                {
+                    case ELanguage.TW: return ExplainTW;
+                    case ELanguage.CN: return ExplainCN;
+                    case ELanguage.JP: return ExplainJP;
+                    default: return ExplainEN;
+                }
+            }
+        }
+    }
 
 	public struct TStage {
 		public int ID;
