@@ -468,8 +468,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case "ActionNoScoreEnd":
 				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
 				SetBallState(EPlayerState.Rebound);
+				GameController.Get.ShowShootSate(false, team);
 				break;
 			case "BasketNetPlay":
+				GameController.Get.ShowShootSate(true, team);
 				PlayShoot(team, index);
 				if(index < 100)
 					RealBallVelocity = Vector3.zero;
@@ -485,7 +487,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				break;
 			case EPlayerState.BasketActionSwishEnd:
-				GameController.Get.ShowShootSate(true, team);
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallVelocity = Vector3.zero;
 				RealBallAddForce(Vector3.down * 70);
@@ -500,7 +501,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case EPlayerState.BasketActionEnd:
-				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
@@ -511,7 +511,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				GameController.Get.Passer = null;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
-				GameController.Get.ShowShootSate(false, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
