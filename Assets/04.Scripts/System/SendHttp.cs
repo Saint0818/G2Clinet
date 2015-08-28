@@ -19,6 +19,7 @@ public static class URLConst {
 	public const string LinkFB = "linkfb";
 	public const string LookPlayerBank = "lookplayerbank";
 	public const string CreateRole = "createrole";
+	public const string EquipsSkillCard = "equipskillcard";
 	public const string TeamName = "teamname";
 	public const string ScenePlayer = "sceneplayer";
 	public const string Conference = "conference";

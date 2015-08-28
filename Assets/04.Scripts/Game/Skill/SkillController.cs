@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using GamePlayEnum;
@@ -52,28 +52,28 @@ namespace SkillControllerSpace {
 				skillBuff.InitBuff(obj, attribute, player);
 				skillBuff.OnFinishBuff = FinishBuff;
 				//Passive
-				if (attribute.Skills != null && attribute.Skills.Length > 0) {
-					for (int i = 0; i < attribute.Skills.Length; i++) {
-						if (GameData.DSkillData.ContainsKey(attribute.Skills[i].ID)) {
-							TSkillData skillData = GameData.DSkillData[attribute.Skills[i].ID];
+				if (attribute.SkillCards != null && attribute.SkillCards.Length > 0) {
+					for (int i = 0; i < attribute.SkillCards.Length; i++) {
+						if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID)) {
+							TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 							
-							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.Skills[i].Lv));
+							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.SkillCards[i].Lv));
 							
 							int key = skillData.Kind;
 							
 							if (skillData.Kind == (int)ESkillKind.MoveDodge){
-								MoveDodgeLv = attribute.Skills[i].Lv;
+								MoveDodgeLv = attribute.SkillCards[i].Lv;
 								MoveDodgeRate = skillData.Rate(MoveDodgeLv);
 							}
 							
 							if (skillData.Kind == (int)ESkillKind.Pick2) {
-								PickBall2Lv = attribute.Skills[i].Lv;
+								PickBall2Lv = attribute.SkillCards[i].Lv;
 								PickBall2Rate = skillData.Rate(PickBall2Lv);
 							}
 							
 							TSkill skill = new TSkill();
-							skill.ID = attribute.Skills [i].ID;
-							skill.Lv = attribute.Skills [i].Lv;
+							skill.ID = attribute.SkillCards [i].ID;
+							skill.Lv = attribute.SkillCards [i].Lv;
 							if (DPassiveSkills.ContainsKey(key))
 								DPassiveSkills [key].Add(skill);
 							else {

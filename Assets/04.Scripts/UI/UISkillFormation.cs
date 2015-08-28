@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using GameStruct;
 
 public enum ESkillFormationPage {
@@ -8,10 +9,18 @@ public enum ESkillFormationPage {
 	Passive
 }
 
+public struct TEquipSkillCardResult {
+	public TSkill[] SkillCards;
+	public TSkill[] PlayerCards;
+}
+
 public class UISkillFormation : UIBase {
 	private static UISkillFormation instance = null;
 	private const string UIName = "UISkillFormation";
 	private const int IDLimit = 10000;
+
+	private int[] removeIndexs = new int[0];
+	private int[] addIndexs = new int[0];
 
 	//CenterCard
 	private List<GameObject> skillCards = new List<GameObject>();
@@ -157,7 +166,7 @@ public class UISkillFormation : UIBase {
 
 		Transform t = obj.transform.FindChild("SkillCard");
 		if(t != null)
-			t.gameObject.GetComponent<UISprite>().spriteName = "SkillCard" + lv.ToString();
+			t.gameObject.GetComponent<UISprite>().spriteName = "SkillCard" + Mathf.Max (3, Mathf.Min (1, lv)).ToString();
 		
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null){
@@ -439,7 +448,21 @@ public class UISkillFormation : UIBase {
 
 	public void DoFinish() {
 		UIShow(false);
-		UIMain.Visible = !UIMain.Visible;
+
+		if (removeIndexs.Length > 0 || addIndexs.Length > 0) {
+			WWWForm form = new WWWForm();
+			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
+			form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
+			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
+		}
+	}
+
+	private void waitEquipSkillCard(bool ok, WWW www) {
+		if (ok) {
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Player.SkillCards = result.PlayerCards;
+		}
 	}
 
 	public void SetSort (ECondition condition, EFilter filter) {

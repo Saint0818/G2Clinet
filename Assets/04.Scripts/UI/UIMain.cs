@@ -141,7 +141,6 @@ public class UIMain : UIBase {
 	}
 
 	public void OnSkillFormation() {
-		Visible = false;
 		UISkillFormation.UIShow(!UISkillFormation.Visible);
 	}
 

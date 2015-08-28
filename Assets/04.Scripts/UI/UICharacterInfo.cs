@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using GameStruct;
 
@@ -219,9 +219,9 @@ public class UICharacterInfo : UIBase {
 	}
 
 	private void setPassiveCard(TPlayer player){
-		for (int i=0; i<player.Skills.Length; i++) {
-			if(player.Skills[i].ID > 0) {
-				addPassiveCard(i, player.Skills[i].ID, player.Skills[i].Lv);
+		for (int i=0; i<player.SkillCards.Length; i++) {
+			if(player.SkillCards[i].ID > 0) {
+				addPassiveCard(i, player.SkillCards[i].ID, player.SkillCards[i].Lv);
 			}
 		}
 		panelPassive.transform.localPosition = new Vector3(27, -25, 0);
