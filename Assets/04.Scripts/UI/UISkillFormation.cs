@@ -106,6 +106,7 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/CardsView/Center/SortBtn", DoSort);
 		SetBtnFun (UIName + "/MainView/Right/ActiveField", DoOpenActive);
 		SetBtnFun (UIName + "/MainView/Right/PassiveField", DoOpenPassive);
+		SetBtnFun (UIName + "/MainView/Right/CheckBtn", DoFinish);
 		initCards ();
 	}
 
@@ -434,6 +435,11 @@ public class UISkillFormation : UIBase {
 
 	public void DoSort() {
 		UISort.UIShow(!UISort.Visible);
+	}
+
+	public void DoFinish() {
+		UIShow(false);
+		UIMain.Visible = !UIMain.Visible;
 	}
 
 	public void SetSort (ECondition condition, EFilter filter) {
