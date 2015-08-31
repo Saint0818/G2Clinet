@@ -1746,7 +1746,8 @@ public class GameController : KnightSingleton<GameController>
     public bool OnShooting(PlayerBehaviour player)
     {
         if (BallOwner && BallOwner == player)
-		{                   
+		{     
+			CourtMgr.Get.RealBallTrigger.IsAutoRotate = true;
 			Shooter = player;
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
@@ -3418,6 +3419,7 @@ public class GameController : KnightSingleton<GameController>
 				AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
 				p.WaitMoveTime = 0;
 				p.IsFirstDribble = true;
+				CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
 
 				for (int i = 0; i < PlayerList.Count; i++){
 					if (PlayerList [i].Team != p.Team) {

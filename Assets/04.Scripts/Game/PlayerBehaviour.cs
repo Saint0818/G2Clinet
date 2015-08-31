@@ -377,6 +377,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject selectTexture;
     private GameObject DefPoint;
 	private GameObject TopPoint;
+	public GameObject CatchBallPoint;
 	private GameObject FingerPoint;
     private GameObject pushTrigger;
     private GameObject elbowTrigger;
@@ -684,6 +685,7 @@ public class PlayerBehaviour : MonoBehaviour
             
             DefPoint = obj2.transform.FindChild("DefRange").gameObject;          
 			TopPoint = obj2.transform.FindChild("TriggerTop").gameObject; 
+			CatchBallPoint = obj2.transform.FindChild("CatchBall").gameObject; 
             obj2.transform.parent = transform;
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
