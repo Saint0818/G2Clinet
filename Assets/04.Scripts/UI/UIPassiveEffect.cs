@@ -187,7 +187,8 @@ public class UIPassiveEffect : UIBase {
 			hideCard(recordIndex[2]);
 		}
 		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + passiveValue[recordIndex[0]].CardLVs.ToString();
-		textureCardInfo[recordIndex[0]].mainTexture = GameData.DCardTextures[passiveValue[recordIndex[0]].CardPicNos];
+		if(GameData.DCardTextures.ContainsKey(passiveValue[recordIndex[0]].CardPicNos))
+			textureCardInfo[recordIndex[0]].mainTexture = GameData.DCardTextures[passiveValue[recordIndex[0]].CardPicNos];
 		labelCardLabel[recordIndex[0]].text = passiveValue[recordIndex[0]].CardNames;
 		passiveValue[recordIndex[0]].Timer = 2;
 	}

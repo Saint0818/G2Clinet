@@ -103,8 +103,6 @@ public class UISort : UIBase {
 	}
 
 	public void CheckEvent() {
-		if(UISkillFormation.Visible)
-			UISkillFormation.Get.SetSort(sortCondition, sortFilter);
 		UIShow(false);
 	}
 
@@ -150,6 +148,8 @@ public class UISort : UIBase {
 				toggleCondition[i].value = (i == (int)condition);
 			}
 			sortCondition = condition;
+			if(UISkillFormation.Visible)
+				UISkillFormation.Get.SetSort(sortCondition, sortFilter);
 		}
 	}
 
@@ -159,6 +159,8 @@ public class UISort : UIBase {
 				toggleFilter[i].value = (i == (int)filter);
 			}
 			sortFilter = filter;
+			if(UISkillFormation.Visible)
+				UISkillFormation.Get.SetSort(sortCondition, sortFilter);
 		}
 	}
 

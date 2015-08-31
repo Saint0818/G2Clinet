@@ -8,6 +8,12 @@ public class UISkillInfo : UIBase {
 	private UILabel labelSkillName;
 	private UILabel labelSkillLevel;
 	private UILabel labelSkillInfo;
+
+	private UISprite spriteSkillCard;
+	private UITexture textureSkillPic;
+	private UILabel labelSkillCardLevel;
+	private UILabel labelSkillCardName;
+	private UILabel labelSkillCardCost;
 	
 	public static bool Visible {
 		get {
@@ -27,11 +33,18 @@ public class UISkillInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, string name = "", string level = "", string info = ""){
+	public static void UIShow(bool isShow, int id = 0, string name = "", string level = "", string info = ""){
 		if(isShow) {
 			Get.labelSkillName.text = name;
 			Get.labelSkillLevel.text = level;
 			Get.labelSkillInfo.text = info;
+
+			Get.spriteSkillCard.spriteName = "SkillCard" + level;
+			if( GameData.DCardTextures.ContainsKey(id))
+				Get.textureSkillPic.mainTexture = GameData.DCardTextures[id];
+			Get.labelSkillCardName.text = name;
+			Get.labelSkillCardLevel.text = level;
+			Get.labelSkillCardCost.text = GameData.DSkillData[id].Space(int.Parse(level)).ToString(); 
 		}
 		if (instance) {
 			if (!isShow)
@@ -47,7 +60,15 @@ public class UISkillInfo : UIBase {
 		labelSkillName = GameObject.Find (UIName + "/Window/LabelNameTW").GetComponent<UILabel>();
 		labelSkillLevel = GameObject.Find (UIName + "/Window/LabelLevel").GetComponent<UILabel>();
 		labelSkillInfo = GameObject.Find (UIName + "/Window/LabelSkillinfo").GetComponent<UILabel>();
+
+		spriteSkillCard = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCard").GetComponent<UISprite>();
+		textureSkillPic = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillPic").GetComponent<UITexture>();
+		labelSkillCardLevel = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillLevel").GetComponent<UILabel>();
+		labelSkillCardName = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillName").GetComponent<UILabel>();
+		labelSkillCardCost = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCost").GetComponent<UILabel>();
+
 		SetBtnFun(UIName + "/BoxCollider", Close);
+		SetBtnFun(UIName + "/Window/BtnMediumCard", OpenCard);
 	}
 	
 	protected override void InitData() {
@@ -60,6 +81,9 @@ public class UISkillInfo : UIBase {
 
 	public void Close (){
 		UIShow(false);
+	}
+	public void OpenCard (){
+
 	}
 }
 
