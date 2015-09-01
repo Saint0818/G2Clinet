@@ -27,18 +27,12 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRoleStyleViewGroup ClothGroup;
     public UICreateRoleStyleViewGroup PantsGroup;
     public UICreateRoleStyleViewGroup ShoesGroup;
-
-    public UILabel[] BodyLabels;
-
-    public UIToggle[] PartItemToogles;
-    public UILabel[] PartItemLabels;
+    public UICreateRoleStyleViewGroup BodyGroup;
 
     private GameObject mModel;
     private int mPlayerID;
 
     private EEquip mCurrentEquip = EEquip.Hair;
-
-    private int[] mBodyItemIDs;
 
     private readonly Dictionary<EEquip, UICreateRoleStyleViewGroup> mGroups = new Dictionary<EEquip, UICreateRoleStyleViewGroup>();
     private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
@@ -50,6 +44,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         mGroups.Add(EEquip.Cloth, ClothGroup);
         mGroups.Add(EEquip.Pants, PantsGroup);
         mGroups.Add(EEquip.Shoes, ShoesGroup);
+        mGroups.Add(EEquip.Body, BodyGroup);
 
         HairGroup.OnTitleClickListener += onGroupTitleClick;
         HairGroup.OnEquipClickListener += onEquipClick;
@@ -62,6 +57,9 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         ShoesGroup.OnTitleClickListener += onGroupTitleClick;
         ShoesGroup.OnEquipClickListener += onEquipClick;
+
+        BodyGroup.OnTitleClickListener += onGroupTitleClick;
+        BodyGroup.OnEquipClickListener += onEquipClick;
     }
 
     public void Show(EPlayerPostion pos)
@@ -70,7 +68,6 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         initData(pos);
 
-        updateBodyLabels();
         updateModel();
     }
 
@@ -85,14 +82,14 @@ public class UICreateRoleStyleView : MonoBehaviour
         else
             Debug.LogErrorFormat("UnSupport Position:{0}", pos);
 
-        mBodyItemIDs = CreateRoleDataMgr.Ins.GetBody(pos);
+//        mBodyItemIDs = CreateRoleDataMgr.Ins.GetBody(pos);
 
         mEquips.Clear();
 
-        TItemData[] items = findItems(mBodyItemIDs);
-        mEquips.Add(EEquip.Body, items[0]);
+        //        TItemData[] items = findItems(mBodyItemIDs);
+        //        mEquips.Add(EEquip.Body, items[0]);
 
-        items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
+        TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
         mEquips.Add(EEquip.Hair, items[0]);
         HairGroup.Init(EEquip.Hair, items);
         HairGroup.Play();
@@ -113,6 +110,11 @@ public class UICreateRoleStyleView : MonoBehaviour
         ShoesGroup.Init(EEquip.Shoes, items);
         ShoesGroup.Hide();
 
+        items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
+        mEquips.Add(EEquip.Body, items[0]);
+        BodyGroup.Init(EEquip.Body, items);
+        BodyGroup.Hide();
+
         mCurrentEquip = EEquip.Hair;
     }
 
@@ -127,20 +129,6 @@ public class UICreateRoleStyleView : MonoBehaviour
         }
 
         return data.ToArray();
-    }
-
-    private void updateBodyLabels()
-    {
-        for (int i = 0; i < BodyLabels.Length; i++)
-        {
-            if(GameData.DItemData.ContainsKey(mBodyItemIDs[i]))
-            {
-                BodyLabels[i].text = GameData.DItemData[mBodyItemIDs[i]].Name;
-                BodyLabels[i].transform.parent.gameObject.SetActive(true);
-            }
-            else
-                BodyLabels[i].transform.parent.gameObject.SetActive(false);
-        }
     }
 
     private void onGroupTitleClick(EEquip equip)
@@ -173,43 +161,6 @@ public class UICreateRoleStyleView : MonoBehaviour
         updateModel();
     }
 
-    //    private void updateUI()
-    //    {
-    //        for(int i = 0; i < BodyLabels.Length; i++)
-    //        {
-    //            int itemID = mData[EPart.Body][i];
-    //            if(GameData.DItemData.ContainsKey(itemID))
-    //            {
-    //                BodyLabels[i].text = GameData.DItemData[itemID].NameTW;
-    //                BodyLabels[i].transform.parent.gameObject.SetActive(true);
-    //            }
-    //            else
-    //                BodyLabels[i].transform.parent.gameObject.SetActive(false);
-    //        }
-    //
-    ////        HairButton.Name = GameData.DItemData[mData[EPart.Hair][mCurrentHairIndex]].NameTW;
-    ////        ClothButton.Name = GameData.DItemData[mData[EPart.Cloth][mCurrentClothIndex]].NameTW;
-    ////        PantsButton.Name = GameData.DItemData[mData[EPart.Pants][mCurrentPantsIndex]].NameTW;
-    ////        ShoesButton.Name = GameData.DItemData[mData[EPart.Shoes][mCurrentShoesIndex]].NameTW;
-    //
-    //        updatePartItems(mData[mCurrentPart]);
-    //    }
-
-    //    private void updatePartItems(int[] itemIDs)
-    //    {
-    //        for(int i = 0; i < PartItemLabels.Length; i++)
-    //        {
-    //            if(i >= itemIDs.Length || !GameData.DItemData.ContainsKey(itemIDs[i]))
-    //            {
-    //                PartItemLabels[i].transform.parent.gameObject.SetActive(false);
-    //                continue;
-    //            }
-    //
-    //            PartItemLabels[i].transform.parent.gameObject.SetActive(true);
-    //            PartItemLabels[i].text = GameData.DItemData[itemIDs[i]].NameTW;
-    //        }
-    //    }
-
     private void updateModel()
     {
         if (mEquips.Count < 5)
@@ -218,13 +169,6 @@ public class UICreateRoleStyleView : MonoBehaviour
         if (mModel)
             Destroy(mModel);
     
-//        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID, 
-//            mData[EPart.Body][mCurrentSkinColorIndex],
-//            mData[EPart.Hair][mCurrentHairIndex],
-//            mData[EPart.Cloth][mCurrentClothIndex],
-//            mData[EPart.Pants][mCurrentPantsIndex],
-//            mData[EPart.Shoes][mCurrentShoesIndex]);
-
         mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID,
             mEquips[EEquip.Body].ID,
             mEquips[EEquip.Hair].ID,
@@ -238,241 +182,158 @@ public class UICreateRoleStyleView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    private void play(EEquip part)
-    {
-        switch(part)
-        {
-            case EEquip.Hair:
-                HairGroup.Play();
-//                ClothButton.Hide();
-//                PantsButton.Hide();
-//                ShoesButton.Hide();
-                break;
-            case EEquip.Cloth:
-                HairGroup.Hide();
-//                ClothButton.Play();
-//                PantsButton.Hide();
-//                ShoesButton.Hide();
-                break;
-            case EEquip.Pants:
-                HairGroup.Hide();
-//                ClothButton.Hide();
-//                PantsButton.Play();
-//                ShoesButton.Hide();
-                break;
-            case EEquip.Shoes:
-                HairGroup.Hide();
-//                ClothButton.Hide();
-//                PantsButton.Hide();
-//                ShoesButton.Play();
-                break;
-
-            default:
-                throw new InvalidEnumArgumentException(part.ToString());
-        }
-    }
-
-    public void OnHairClicked()
-    {
-        if(UIToggle.current.value)
-        {
-            play(EEquip.Hair);
-
-            mCurrentEquip = EEquip.Hair;
-//            mCurrentHairIndex = 0;
-
-//            updateUI();
-//            updateModel();
-        }
-    }
-
-    public void OnClothClicked()
-    {
-        if(UIToggle.current.value)
-        {
-            play(EEquip.Cloth);
-
-            mCurrentEquip = EEquip.Cloth;
-//            mCurrentClothIndex = 0;
-
-//            updateUI();
-//            updateModel();
-        }
-    }
-
-    public void OnPantsClicked()
-    {
-        if(UIToggle.current.value)
-        {
-            play(EEquip.Pants);
-
-            mCurrentEquip = EEquip.Pants;
-//            mCurrentPantsIndex = 0;
-
-//            updateUI();
-//            updateModel();
-        }
-    }
-
-    public void OnShoesClicked()
-    {
-        if(UIToggle.current.value)
-        {
-            play(EEquip.Shoes);
-
-            mCurrentEquip = EEquip.Shoes;
-//            mCurrentShoesIndex = 0;
-
-//            updateUI();
-//            updateModel();
-        }
-    }
-
-//    /// <summary>
-//    /// 
-//    /// </summary>
-//    /// <param name="index"></param>
-//    /// <returns> true: success, false:fail. </returns>
-//    private bool setCurrentIndex(int index)
+//    private void play(EEquip part)
 //    {
-//        switch(mCurrentPart)
+//        switch(part)
 //        {
-//            case EPart.Hair:
-//                if(mCurrentHairIndex != index)
-//                {
-//                    mCurrentHairIndex = index;
-//                    return true;
-//                }
-//                return false;
-//            case EPart.Cloth:
-//                if(mCurrentClothIndex != index)
-//                {
-//                    mCurrentClothIndex = index;
-//                    return true;
-//                }
-//                return false;
-//            case EPart.Pants:
-//                if(mCurrentPantsIndex != index)
-//                {
-//                    mCurrentPantsIndex = index;
-//                    return true;
-//                }
-//                return false;
-//            case EPart.Shoes:
-//                if(mCurrentShoesIndex != index)
-//                {
-//                    mCurrentShoesIndex = index;
-//                    return true;
-//                }
-//                return false;
+//            case EEquip.Hair:
+//                HairGroup.Play();
+//                break;
+//            case EEquip.Cloth:
+//                HairGroup.Hide();
+//                break;
+//            case EEquip.Pants:
+//                HairGroup.Hide();
+//                break;
+//            case EEquip.Shoes:
+//                HairGroup.Hide();
+//                break;
 //
 //            default:
-//                throw new InvalidEnumArgumentException(mCurrentPart.ToString());
+//                throw new InvalidEnumArgumentException(part.ToString());
+//        }
+//    }
+//
+//    public void OnHairClicked()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            play(EEquip.Hair);
+//
+//            mCurrentEquip = EEquip.Hair;
+//        }
+//    }
+//
+//    public void OnClothClicked()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            play(EEquip.Cloth);
+//
+//            mCurrentEquip = EEquip.Cloth;
+//        }
+//    }
+//
+//    public void OnPantsClicked()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            play(EEquip.Pants);
+//
+//            mCurrentEquip = EEquip.Pants;
+//        }
+//    }
+//
+//    public void OnShoesClicked()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            play(EEquip.Shoes);
+//
+//            mCurrentEquip = EEquip.Shoes;
 //        }
 //    }
 
-    public void OnPart1Clicked()
-    {
-        if(UIToggle.current.value)
-        {
-            onPartClicked(0);
-        }
-    }
-
-    public void OnPart2Clicked()
-    {
-        if(UIToggle.current.value)
-        {
-            onPartClicked(1);
-        }
-    }
-
-    public void OnPart3Clicked()
-    {
-        if (UIToggle.current.value)
-        {
-            onPartClicked(2);
-        }
-    }
-
-    public void OnPart4Clicked()
-    {
-        if (UIToggle.current.value)
-        {
-            onPartClicked(3);
-        }
-    }
-
-    public void OnPart5Clicked()
-    {
-        if (UIToggle.current.value)
-        {
-            onPartClicked(4);
-        }
-    }
-
-    public void OnPart6Clicked()
-    {
-        if (UIToggle.current.value)
-        {
-            onPartClicked(5);
-        }
-    }
-
-    private void onPartClicked(int index)
-    {
-//        var isChange = setCurrentIndex(index);
-//        if(isChange)
+//    public void OnPart1Clicked()
+//    {
+//        if(UIToggle.current.value)
 //        {
-//            updateUI();
+//            onPartClicked(0);
+//        }
+//    }
+//
+//    public void OnPart2Clicked()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            onPartClicked(1);
+//        }
+//    }
+//
+//    public void OnPart3Clicked()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            onPartClicked(2);
+//        }
+//    }
+//
+//    public void OnPart4Clicked()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            onPartClicked(3);
+//        }
+//    }
+//
+//    public void OnPart5Clicked()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            onPartClicked(4);
+//        }
+//    }
+//
+//    public void OnPart6Clicked()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            onPartClicked(5);
+//        }
+//    }
+
+//    public void OnBody1Click()
+//    {
+//        if(UIToggle.current.value)
+//        {
+//            if(mEquips.ContainsKey(EEquip.Body))
+//                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[0]];
+//            else
+//                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[0]]);
+//
 //            updateModel();
 //        }
-    }
-
-    public void OnBody1Click()
-    {
-        if(UIToggle.current.value)
-        {
-//            mCurrentSkinColorIndex = 0;
-
-            if(mEquips.ContainsKey(EEquip.Body))
-                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[0]];
-            else
-                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[0]]);
-
-            updateModel();
-        }
-    }
-
-    public void OnBody2Click()
-    {
-        if (UIToggle.current.value)
-        {
-            //            mCurrentSkinColorIndex = 1;
-
-            if (mEquips.ContainsKey(EEquip.Body))
-                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[1]];
-            else
-                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[1]]);
-
-            updateModel();
-        }
-    }
-
-    public void OnBody3Click()
-    {
-        if (UIToggle.current.value)
-        {
-            //            mCurrentSkinColorIndex = 2;
-
-            if (mEquips.ContainsKey(EEquip.Body))
-                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[2]];
-            else
-                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[2]]);
-
-            updateModel();
-        }
-    }
+//    }
+//
+//    public void OnBody2Click()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            //            mCurrentSkinColorIndex = 1;
+//
+//            if (mEquips.ContainsKey(EEquip.Body))
+//                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[1]];
+//            else
+//                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[1]]);
+//
+//            updateModel();
+//        }
+//    }
+//
+//    public void OnBody3Click()
+//    {
+//        if (UIToggle.current.value)
+//        {
+//            //            mCurrentSkinColorIndex = 2;
+//
+//            if (mEquips.ContainsKey(EEquip.Body))
+//                mEquips[EEquip.Body] = GameData.DItemData[mBodyItemIDs[2]];
+//            else
+//                mEquips.Add(EEquip.Body, GameData.DItemData[mBodyItemIDs[2]]);
+//
+//            updateModel();
+//        }
+//    }
 
     public void OnBackClicked()
     {
