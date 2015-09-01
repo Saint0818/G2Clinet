@@ -118,6 +118,38 @@ public class AnimatorEditor : EditorWindow {
 				getAllData();
 		}
 
+		if (GUI.Button (new Rect (400, 0, 200, 20), "Init All AnimationContorller")) {
+
+			UnityEditor.Animations.AnimatorController[] aniAy = new UnityEditor.Animations.AnimatorController[2];
+
+			for(int i = 0; i < aniAy.Length; i++)
+			{
+				allAnimationClip.Clear();
+				UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_"+i+"/Animation", typeof(AnimationClip));
+				for(int k=0; k<animationObjs.Length; k++) {
+					AnimationClip clip = animationObjs[k] as AnimationClip;
+					if(!allAnimationClip.Contains(clip))
+						allAnimationClip.Add(clip);
+				}
+
+				AssetDatabase.DeleteAsset("Assets/Resources/Character/PlayerModel_"+ i +"/AnimationControl.controller");
+				AssetDatabase.CopyAsset ("Assets/Resources/Character/PlayerModel_2/AnimationControl.controller", "Assets/Resources/Character/PlayerModel_"+ i +"/AnimationControl.controller");
+
+				AssetDatabase.Refresh();
+				aniAy[i] = Resources.Load(string.Format("Character/PlayerModel_{0}/AnimationControl", i)) as UnityEditor.Animations.AnimatorController;
+
+				if(aniAy[i])
+					for(int j=0; j<aniAy[i].layers.Length; j++){
+						recurrenceSubState(aniAy[i].layers[j].stateMachine);
+				}
+				else
+					Debug.LogError("Error");
+			}
+
+			AssetDatabase.SaveAssets();
+
+		}
+
 		if(isGetAnimtor) 
 			GUI.backgroundColor = Color.red;
 		else
