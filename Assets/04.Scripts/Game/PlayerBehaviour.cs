@@ -469,9 +469,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float pickCurveTime = 0;
     private TSharedCurve playerPickCurve;
 
+	//Skill
 	private SkillController skillController;
+	private ESkillKind skillKind;
 
-	//record 
+	//Active
 	private bool isUseSkill = false;
 
 	private bool firstDribble = true;
@@ -1986,6 +1988,7 @@ public class PlayerBehaviour : MonoBehaviour
         switch (state)
         {
             case EPlayerState.Block:
+				skillKind = ESkillKind.Block;
                 SetShooterLayer();
                 playerBlockCurve = null;
 				curveName = "Block";
@@ -2081,6 +2084,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
+				skillKind = ESkillKind.Dunk;
                 switch (state)
                 {
                     case EPlayerState.Dunk0:
@@ -2182,7 +2186,8 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
 			
 		case EPlayerState.Elbow:
-                PlayerRigidbody.mass = 5;
+				skillKind = ESkillKind.Elbow;
+				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AnimatorControl.SetTrigger("ElbowTrigger");
                 isCanCatchBall = false;
@@ -2338,6 +2343,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
 			case EPlayerState.Pass50:
+			skillKind = ESkillKind.Pass;
 			switch (state)
                 {
                     case EPlayerState.Pass0:
@@ -2383,8 +2389,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Push0:
-            case EPlayerState.Push20:
-				switch (state){
+			case EPlayerState.Push20:
+			skillKind = ESkillKind.Push;
+			switch (state){
 					case EPlayerState.Push0:
 						stateNo = 0;
 						break;
@@ -2410,8 +2417,9 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-            case EPlayerState.PickBall0:
-                isCanCatchBall = true;
+			case EPlayerState.PickBall0:
+			skillKind = ESkillKind.Pick2;
+			isCanCatchBall = true;
                 ClearAnimatorFlag();
                 AnimatorControl.SetInteger("StateNo", 0);
                 AnimatorControl.SetTrigger("PickTrigger");
@@ -2464,8 +2472,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Steal0:
-            case EPlayerState.Steal20:
-				switch (state)
+			case EPlayerState.Steal20:
+			skillKind = ESkillKind.Steal;
+			switch (state)
 				{
 					case EPlayerState.Steal0:
 						stateNo = 0;
@@ -2505,28 +2514,36 @@ public class PlayerBehaviour : MonoBehaviour
                     switch (state)
                     {
                         case EPlayerState.Shoot0:
-                            stateNo = 0;
-                            break;
-                        case EPlayerState.Shoot1:
+							stateNo = 0;
+							skillKind = ESkillKind.Shoot;
+							break;
+						case EPlayerState.Shoot1:
                             stateNo = 1;
+							skillKind = ESkillKind.NearShoot;
                             break;
                         case EPlayerState.Shoot2:
                             stateNo = 2;
+							skillKind = ESkillKind.UpHand;
                             break;
                         case EPlayerState.Shoot3:
                             stateNo = 3;
-                            break;
+							skillKind = ESkillKind.DownHand;
+							break;
 						case EPlayerState.Shoot4:
 							stateNo = 4;
+							skillKind = ESkillKind.Shoot;
 							break;
 						case EPlayerState.Shoot5:
 							stateNo = 5;
+							skillKind = ESkillKind.Shoot;
 							break;
                         case EPlayerState.Shoot6:
                             stateNo = 6;
-                            break;
+							skillKind = ESkillKind.Shoot;
+							break;
 						case EPlayerState.Shoot7:
 							stateNo = 7;
+							skillKind = ESkillKind.Shoot;
 							break;
                     }
                 
@@ -2605,6 +2622,7 @@ public class PlayerBehaviour : MonoBehaviour
 			if (IsBallOwner)
 			{
 				playerLayupCurve = null;
+				skillKind = ESkillKind.Layup;
 				
 				switch (state)
 				{
@@ -2618,10 +2636,9 @@ public class PlayerBehaviour : MonoBehaviour
 					stateNo = 2;
 					break;
 				case EPlayerState.Layup3:
-							stateNo = 3;
-							break;
-					}
-
+					stateNo = 3;
+					break;
+				}
 					PlayerRigidbody.useGravity = false;
 					IsKinematic = true;
 					curveName = string.Format("Layup{0}", stateNo);
@@ -2644,6 +2661,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Rebound:
+				skillKind = ESkillKind.Rebound;
                 playerReboundCurve = null;
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
@@ -2673,6 +2691,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.JumpBall:
+				skillKind = ESkillKind.JumpBall;
 				AnimatorControl.SetTrigger("JumpBallTrigger");
 				ClearAnimatorFlag();
 				SetShooterLayer();
@@ -2680,7 +2699,7 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
 
             case EPlayerState.TipIn:
-                ClearAnimatorFlag();
+				ClearAnimatorFlag();
                 SetShooterLayer();
                 AnimatorControl.SetTrigger("TipInTrigger");
                 Result = true;
@@ -3239,6 +3258,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public int PickBall2Lv {
 		get {return skillController.PickBall2Lv;}
 		set {skillController.PickBall2Lv = value;}
+	}
+
+	public ESkillKind GetSkillKind {
+		get{return skillKind;}
 	}
 			                
     public bool IsHaveMoveDodge {

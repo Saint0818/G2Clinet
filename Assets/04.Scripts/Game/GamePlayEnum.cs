@@ -93,7 +93,8 @@ namespace GamePlayEnum {
 		Shoot1,
 		Shoot2,
 		Shoot3,
-		JumpBall
+		JumpBall,
+		KnockDown0
 	}
 	
 	public enum ESkillKind {
@@ -119,7 +120,8 @@ namespace GamePlayEnum {
 		Special4 = 104,
 		Special5 = 105,
 		Special6 = 106,
-		JumpBall
+		JumpBall,
+		KnockDown0
 	}
 	
 	public enum EPassDirectState {

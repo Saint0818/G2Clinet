@@ -92,7 +92,6 @@ public class GameController : KnightSingleton<GameController>
 	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
 	
 	//Skill
-	private ESkillKind skillKind;
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
    
 	//Effect
@@ -1752,8 +1751,8 @@ public class GameController : KnightSingleton<GameController>
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
 
-			EScoreType st = EScoreType.Normal;
-			if(player.name.Contains("Self")) 
+			EScoreType scoreType = EScoreType.Normal;
+			if(player.Team == ETeamKind.Self) 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
@@ -1764,25 +1763,25 @@ public class GameController : KnightSingleton<GameController>
 				shootAngle = 50;
 
 			if(player.crtState == EPlayerState.TipIn){
-				st = EScoreType.LayUp;
+				scoreType = EScoreType.LayUp;
 				player.GameRecord.TipinLaunch++;
 			} else 
-			if(skillKind == ESkillKind.NearShoot) 
-				st = EScoreType.NearShot;
+			if(player.GetSkillKind == ESkillKind.NearShoot) 
+				scoreType = EScoreType.NearShot;
 			else 
-			if(skillKind == ESkillKind.UpHand) 
-				st = EScoreType.UpHand;
+			if(player.GetSkillKind == ESkillKind.UpHand) 
+				scoreType = EScoreType.UpHand;
 			else 
-			if(skillKind == ESkillKind.DownHand) 
-				st = EScoreType.DownHand;
+			if(player.GetSkillKind == ESkillKind.DownHand) 
+				scoreType = EScoreType.DownHand;
 			else 
-			if(skillKind == ESkillKind.Layup) {
-				st = EScoreType.LayUp;
+			if(player.GetSkillKind == ESkillKind.Layup) {
+				scoreType = EScoreType.LayUp;
 			}
 			
 			jodgeShootAngle(player);
 			judgeBasketAnimationName ((int)basketDistanceAngle);
-			calculationScoreRate(player, st);
+			calculationScoreRate(player, scoreType);
 
 			SetBall();
             CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
@@ -1814,18 +1813,25 @@ public class GameController : KnightSingleton<GameController>
 //				UIHint.Get.ShowHint("Swish", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                         CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
+				if(scoreType == EScoreType.LayUp) {
+					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
+				} else 
+					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+				    	                                                     CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
 				if(CourtMgr.Get.DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
-					float dis = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
-					                   new Vector2(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
-					if(dis>10)
-						dis = 10;
-					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-						                         							 CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
-						                         							 shootAngle,
-					                                                         dis * 0.05f);
+					if(scoreType == EScoreType.LayUp) {
+						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
+					} else {
+						float dis = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
+						                   new Vector2(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
+						if(dis>10)
+							dis = 10;
+						CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+						                                                         CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName],
+						                                                         shootAngle,
+						                                                         dis * 0.05f);
+					}
 
 				} else 
 					Debug.LogError("No key:"+player.Team.GetHashCode().ToString() + "_" + BasketAnimationName);
@@ -2693,12 +2699,12 @@ public class GameController : KnightSingleton<GameController>
 		if(player) {
 			switch(State) {
 			case ESkillSituation.PickBall:
-				skillKind = ESkillKind.Pick2;
 				playerState = EPlayerState.PickBall2;
 				player.PassiveID = 1310;
 				player.PassiveLv = player.PickBall2Lv;
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
 					int Dir = haveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
@@ -2735,62 +2741,64 @@ public class GameController : KnightSingleton<GameController>
 					} 
 				}
 				break;
+
 			case ESkillSituation.Block:
-				skillKind = ESkillKind.Block;
 				playerState = player.PassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Dunk0:
-				skillKind = ESkillKind.Dunk;
 				playerState = player.PassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Shoot0:
-				skillKind = ESkillKind.Shoot;
 				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, haveDefPlayer(ref player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Shoot3:
-				skillKind = ESkillKind.DownHand;
 				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Shoot2:
-				skillKind = ESkillKind.UpHand;
 				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Shoot1:
-				skillKind = ESkillKind.NearShoot;
 				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
 				Result = player.AniState(playerState, v );
 				break;
+
 			case ESkillSituation.Layup0:
-				skillKind = ESkillKind.Layup;
 				playerState = player.PassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
 				Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Elbow:
-				skillKind = ESkillKind.Elbow;
 				playerState = player.PassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
 				Result = player.AniState (playerState);
 				break;
+
 			case ESkillSituation.Fall1:
 				Result = true;
 				break;
+
 			case ESkillSituation.Fall2:
 				Result = true;
 				break;
+
 			case ESkillSituation.Pass4:
-				skillKind = ESkillKind.Pass;
 				playerState = player.PassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass4)
 					Result = player.AniState(playerState);
 				else
 					Result = player.AniState(playerState, v);
 				break;
+
 			case ESkillSituation.Pass0:
-				skillKind = ESkillKind.Pass;
 				playerState = player.PassiveSkill(ESkillSituation.Pass0, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass0)
 					Result = player.AniState(playerState);
@@ -2798,8 +2806,8 @@ public class GameController : KnightSingleton<GameController>
 					Result = player.AniState(playerState, v);
 
 				break;
+
 			case ESkillSituation.Pass2:
-				skillKind = ESkillKind.Pass;
 				playerState = player.PassiveSkill(ESkillSituation.Pass2, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass2)
 					Result = player.AniState(playerState);
@@ -2807,8 +2815,8 @@ public class GameController : KnightSingleton<GameController>
 					Result = player.AniState(playerState, v);
 
 				break;
+
 			case ESkillSituation.Pass1:
-				skillKind = ESkillKind.Pass;
 				playerState = player.PassiveSkill(ESkillSituation.Pass1, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass1)
 					Result = player.AniState(playerState);
@@ -2816,8 +2824,8 @@ public class GameController : KnightSingleton<GameController>
 					Result = player.AniState(playerState, v);
 
 				break;
+
 			case ESkillSituation.Push0:
-				skillKind = ESkillKind.Push;
 				playerState = player.PassiveSkill(ESkillSituation.Push0, ESkillKind.Push);
 				if(v == Vector3.zero)
 					Result = player.AniState(playerState);
@@ -2825,22 +2833,23 @@ public class GameController : KnightSingleton<GameController>
 					Result = player.AniState(playerState, v);
 				break;
 			case ESkillSituation.Rebound:
-				skillKind = ESkillKind.Rebound;
 				playerState = player.PassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
 				Result = player.AniState (playerState);
 				break;
 
 			case ESkillSituation.JumpBall:
-				skillKind = ESkillKind.JumpBall;
 				playerState = player.PassiveSkill(ESkillSituation.JumpBall, ESkillKind.JumpBall);
 				Result = player.AniState (playerState);
 				break;
 
 			case ESkillSituation.Steal0:	
-				skillKind = ESkillKind.Steal;
 				playerState = player.PassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
 				Result = player.AniState(playerState, v);
+				break;
 
+			case ESkillSituation.KnockDown0:
+				playerState = player.PassiveSkill(ESkillSituation.KnockDown0, ESkillKind.KnockDown0);
+				Result = player.AniState(playerState, v);
 				break;
 			}	
 		}
