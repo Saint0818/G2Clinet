@@ -38,6 +38,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] MissPoint = new GameObject[2];
 	public GameObject[] Walls = new GameObject[2];
 	public ScoreTrigger[,] BasketEntra = new ScoreTrigger[2, 2];
+	public AirBallTrigger[] BasketAirBall = new AirBallTrigger[2];
 	public GameObject[,] Distance3Pos = new GameObject[2,5];
 	public Animator[] BasketHoopAnimator = new Animator[2];
 	public Transform[] BasketHoop = new Transform[2];
@@ -331,6 +332,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			BasketEntra[1, 0] = GetGameObjtInCollider(string.Format("{0}/HoodB/Entra", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1] = GetGameObjtInCollider(string.Format("{0}/HoodB/Sale", crtCollider.name)).GetComponent<ScoreTrigger>();
 			BasketEntra[1, 1].IntTrigger = 1;
+			BasketAirBall[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+			BasketAirBall[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
 
 			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
 				for(int j = 0; j < Distance3Pos.GetLength(1); j++)
@@ -355,6 +358,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			BasketEntra[0, 1].IntTrigger = 1;
 			BasketEntra[1, 0] = BasketEntra[0, 0];
 			BasketEntra[1, 1] = BasketEntra[0, 1];
+			BasketAirBall[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/AirBall", crtCollider.name)).GetComponent<AirBallTrigger>();
+			BasketAirBall[1] = BasketAirBall[0];
 
 			for(int i = 0; i < Distance3Pos.GetLength(0); i++)
 				for(int j = 0; j < Distance3Pos.GetLength(1); j++)
@@ -735,9 +740,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void ResetBasketEntra() {
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), false);
-		for (int i = 0; i < 2; i ++)
+		for (int i = 0; i < 2; i ++) {
+			BasketAirBall[i].Into = false;
 			for (int j = 0; j < 2; j ++)
 				BasketEntra[i, j].Into = false;
+		}
+
 	}
 
     public void PlayDunk(int team, int stageNo)

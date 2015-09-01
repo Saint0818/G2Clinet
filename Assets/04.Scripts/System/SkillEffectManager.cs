@@ -147,8 +147,10 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			obj.transform.rotation = player.transform.rotation;
 		}
 		
-		if(obj.GetComponent<PushSkillTrigger>() != null)
+		if(obj.GetComponent<PushSkillTrigger>() != null) {
 			obj.GetComponent<PushSkillTrigger>().pusher = executePlayer;
+			obj.GetComponent<PushSkillTrigger>().InRange = GameData.DSkillData[executePlayer.Attribute.ActiveSkill.ID].Distance(executePlayer.Attribute.ActiveSkill.Lv);
+		}
 	}
 	
 	public void StopEffect (){

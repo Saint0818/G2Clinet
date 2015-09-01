@@ -1793,9 +1793,12 @@ public class GameController : KnightSingleton<GameController>
 //				UIHint.Get.ShowHint("AirBall", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
-				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
+//				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
+//				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
+//					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
+				                                                         CourtMgr.Get.BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
+
 			} else 
 			if(player.crtState == EPlayerState.TipIn) {
 				if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
@@ -4349,6 +4352,16 @@ public class GameController : KnightSingleton<GameController>
 				Catcher = null;
 				Passer = null;
 			}
+		}
+	}
+
+	public bool CanUseActiveSkill {
+		get {
+			for (int i=0; i<PlayerList.Count; i++) {
+				if(PlayerList[i].IsUseSkill)
+					return false;
+			}
+			return true;
 		}
 	}
 
