@@ -1,7 +1,10 @@
 ﻿using GameStruct;
-using UnityEngine;
 using JetBrains.Annotations;
+using UnityEngine;
 
+/// <summary>
+/// FrameView 會列出玩家擁有的全部角色.
+/// </summary>
 [DisallowMultipleComponent]
 public class UICreateRoleFrameView : MonoBehaviour
 {
@@ -59,10 +62,22 @@ public class UICreateRoleFrameView : MonoBehaviour
             GetComponent<UICreateRole>().ShowPositionView();
     }
 
+    public void OnBackClick()
+    {
+//        Debug.Log("OnBackClick");
+
+        UICreateRole.Get.Hide();
+
+        if(SceneMgr.Get.CurrentScene != SceneName.Lobby)
+            SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+        else
+            LobbyStart.Get.EnterLobby();
+    }
+
     private void onDeleteClick(TPlayerBank playerBank)
     {
         Debug.Log("onDeleteClick");
-
+        
         ConfirmDialog.Show();
     }
 

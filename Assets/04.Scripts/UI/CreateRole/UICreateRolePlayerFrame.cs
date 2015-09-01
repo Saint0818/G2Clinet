@@ -2,6 +2,9 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
+/// <summary>
+/// UICreateRoleFrameView 會使用的元件, 專門用來顯示某位角色的相關資訊.
+/// </summary>
 [DisallowMultipleComponent]
 public class UICreateRolePlayerFrame : MonoBehaviour
 {

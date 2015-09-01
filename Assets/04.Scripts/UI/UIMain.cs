@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using GameStruct;
+using Newtonsoft.Json;
+using UnityEngine;
 
 public class TRoomObject {
 	public TRoomInfo roomInfo;
