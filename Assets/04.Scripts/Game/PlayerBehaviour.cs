@@ -2654,6 +2654,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 					SetShooterLayer();
 					ClearAnimatorFlag();
+					AnimatorControl.SetInteger("StateNo", stateNo);
 					AnimatorControl.SetTrigger("LayupTrigger");
 					isCanCatchBall = false;
 	                Result = true;
