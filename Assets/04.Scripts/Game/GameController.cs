@@ -1816,14 +1816,14 @@ public class GameController : KnightSingleton<GameController>
 //				UIHint.Get.ShowHint("Swish", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
-				if(scoreType == EScoreType.LayUp) {
+				if(player.GetSkillKind == ESkillKind.LayupSpecial) {
 					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
 				} else 
 					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 				    	                                                     CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
 				if(CourtMgr.Get.DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
-					if(scoreType == EScoreType.LayUp) {
+					if(player.GetSkillKind == ESkillKind.LayupSpecial) {
 						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
 					} else {
 						float dis = getDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
@@ -3819,8 +3819,10 @@ public class GameController : KnightSingleton<GameController>
 				if(!PlayerList[i].IsDunk){
 					if(isIn)
 						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
-					else
-						PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
+					else {
+						if(PlayerList[i].crtState == EPlayerState.Idle)
+							PlayerList[i].AniState(shootOutState[Random.Range(0, shootOutState.Length -1)]);
+					}
 				}
 			}
 	}

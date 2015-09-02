@@ -40,6 +40,10 @@ namespace SkillControllerSpace {
 			skillBuff.HideName();
 		}
 
+		public List<int> GetAllBuff (){
+			return skillBuff.GetAllBuff();
+		}
+
 		public void initSkillController(TPlayer attribute, GameObject player, Animator animatorControl){
 			executePlayer = player;
 			skillAttribute.Clear();

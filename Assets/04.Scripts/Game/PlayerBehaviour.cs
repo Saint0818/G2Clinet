@@ -2622,21 +2622,24 @@ public class PlayerBehaviour : MonoBehaviour
 			if (IsBallOwner)
 			{
 				playerLayupCurve = null;
-				skillKind = ESkillKind.Layup;
 				
 				switch (state)
 				{
 				case EPlayerState.Layup0:
 					stateNo = 0;
+					skillKind = ESkillKind.Layup;
 					break;
 				case EPlayerState.Layup1:
 					stateNo = 1;
+					skillKind = ESkillKind.LayupSpecial;
 					break;
 				case EPlayerState.Layup2:
 					stateNo = 2;
+					skillKind = ESkillKind.LayupSpecial;
 					break;
 				case EPlayerState.Layup3:
 					stateNo = 3;
+					skillKind = ESkillKind.LayupSpecial;
 					break;
 				}
 					PlayerRigidbody.useGravity = false;
@@ -3259,6 +3262,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public int PickBall2Lv {
 		get {return skillController.PickBall2Lv;}
 		set {skillController.PickBall2Lv = value;}
+	}
+
+	public List<int> GetAllBuffs {
+		get {return skillController.GetAllBuff();}
 	}
 
 	public ESkillKind GetSkillKind {

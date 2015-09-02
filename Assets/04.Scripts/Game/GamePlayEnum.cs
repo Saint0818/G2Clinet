@@ -121,7 +121,8 @@ namespace GamePlayEnum {
 		Special5 = 105,
 		Special6 = 106,
 		JumpBall,
-		KnockDown0
+		KnockDown0,
+		LayupSpecial
 	}
 	
 	public enum EPassDirectState {

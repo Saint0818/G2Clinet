@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using GameStruct;
 
 namespace  SkillBuffSpace {
@@ -91,6 +92,16 @@ namespace  SkillBuffSpace {
 					}
 				}
 			}
+		}
+
+		public List<int> GetAllBuff (){
+			List<int> buffIDs = new List<int>();
+			if(recordIndex.Length > 0) {
+				for (int i=0; i<recordIndex.Length; i++) {
+					buffIDs.Add(buffInfo[i].InfoIndex);
+				}
+			}
+			return buffIDs;
 		}
 
 		/// <summary>
