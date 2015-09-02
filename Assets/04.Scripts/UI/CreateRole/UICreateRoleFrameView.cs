@@ -1,5 +1,7 @@
-﻿using GameStruct;
+﻿using System.Collections.Generic;
+using GameStruct;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +16,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     public string[] PosSpriteNames;
 
+    private TPlayerBank mDeletePlayerBank;
+
     [UsedImplicitly]
 	private void Awake()
     {
@@ -25,6 +29,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
+        ConfirmDialog.OnCancelClickListener += onCancelDelete;
     }
 
     public void Show()
@@ -56,7 +61,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         if(playerBank.IsValid)
         {
-            
+            // 切換角色.
         }
         else
             GetComponent<UICreateRole>().ShowPositionView();
@@ -76,13 +81,54 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private void onDeleteClick(TPlayerBank playerBank)
     {
-        Debug.Log("onDeleteClick");
+//        Debug.Log("onDeleteClick");
+
+        mDeletePlayerBank = playerBank;
         
         ConfirmDialog.Show();
     }
 
     private void onConfirmDelete()
     {
-        Debug.Log("onConfirmDelete");
+        //        Debug.Log("onConfirmDelete");
+        // 刪除角色.
+
+        if(mDeletePlayerBank.IsValid)
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("RoleIndex", mDeletePlayerBank.RoleIndex);
+
+            SendHttp.Get.Command(URLConst.DeleteRole, waitDeleteRole, form, true);
+        }
+        else
+            Debug.LogError("Flow is error....");
+    }
+
+    private void onCancelDelete()
+    {
+        Debug.Log("onCancelDelete");
+        mDeletePlayerBank = new TPlayerBank();
+    }
+
+    private void waitDeleteRole(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitDeleteRole, ok:{0}", ok);
+
+        if(ok)
+        {
+            WWWForm form = new WWWForm();
+            SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+        }
+    }
+
+    private void waitLookPlayerBank(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+            Show(playerBank);
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
     }
 }
