@@ -131,7 +131,7 @@ ModelImporter:
       name: Show102
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 24
+      lastFrame: 36
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -227,22 +227,11 @@ ModelImporter:
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
           L Forearm/Bip01 L Hand/Bip01 L Finger2/Bip01 L Finger21/Bip01 L Finger2Nub
         weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
-          L Forearm/Bip01 L Hand/DummyHand_L
-        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bip01 HeadNub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2/Bone_Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle
         weight: 1
@@ -280,13 +269,6 @@ ModelImporter:
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/Bip01 R Finger2Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
-          R Forearm/Bip01 R Hand/DummyHand_R
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/DummyBack
-        weight: 1
-      - path: DummyBall
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}

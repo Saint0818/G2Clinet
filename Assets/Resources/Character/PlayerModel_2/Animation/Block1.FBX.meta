@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8ecd7e6a459ab9c41bed4535f784c9e1
-timeCreated: 1440745176
+guid: 7f4810f1b232c0b4daf95784eee66bd8
+timeCreated: 1441099228
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -48,15 +48,15 @@ ModelImporter:
     100080: Bip01 R UpperArm
     100082: Bip01 Spine
     100084: Bip01 Spine1
-    100086: Bone_Hair_1
-    100088: Bone_Hair_2
-    100090: Bone_Nub
-    100092: DummyBack
-    100094: DummyBall
-    100096: DummyHand_L
-    100098: DummyHand_R
-    100100: DummyHead
-    100102: //RootNode
+    100086: //RootNode
+    100088: Bone_Hair_1
+    100090: Bone_Hair_2
+    100092: Bone_Nub
+    100094: DummyBack
+    100096: DummyBall
+    100098: DummyHand_L
+    100100: DummyHand_R
+    100102: DummyHead
     400000: Bip01
     400002: Bip01 Head
     400004: Bip01 HeadNub
@@ -100,16 +100,16 @@ ModelImporter:
     400080: Bip01 R UpperArm
     400082: Bip01 Spine
     400084: Bip01 Spine1
-    400086: Bone_Hair_1
-    400088: Bone_Hair_2
-    400090: Bone_Nub
-    400092: DummyBack
-    400094: DummyBall
-    400096: DummyHand_L
-    400098: DummyHand_R
-    400100: DummyHead
-    400102: //RootNode
-    7400000: Show202
+    400086: //RootNode
+    400088: Bone_Hair_1
+    400090: Bone_Hair_2
+    400092: Bone_Nub
+    400094: DummyBack
+    400096: DummyBall
+    400098: DummyHand_L
+    400100: DummyHand_R
+    400102: DummyHead
+    7400000: Block1
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -121,17 +121,17 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationCompression: 1
-    animationRotationError: 0
-    animationPositionError: 0
-    animationScaleError: 0
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Show202
+      name: Block1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 36
+      lastFrame: 47
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,9 +150,37 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .99999994
+      - time: .0410557203
         functionName: AnimationEvent
-        data: ShowEnd
+        data: BlockCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .170087978
+        functionName: AnimationEvent
+        data: BlockCatchMomentStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .563049853
+        functionName: AnimationEvent
+        data: BlockCalculateEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .630498528
+        functionName: AnimationEvent
+        data: BlockCatchMomentEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -311,7 +339,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
