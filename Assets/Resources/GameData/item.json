@@ -12,7 +12,7 @@
         "nametw": "中鋒身體2",
         "kind": 0,
         "position": 0,
-        "avatar": 10,
+        "avatar": 2,
         "maxstack": 1
     },
     {
@@ -20,6 +20,7 @@
         "nametw": "中鋒身體3",
         "kind": 0,
         "position": 0,
+        "avatar": 10,
         "maxstack": 1
     },
     {
@@ -430,7 +431,7 @@
         "nametw": "中鋒頭髮1",
         "kind": 1,
         "position": 0,
-        "avatar": 2001,
+        "avatar": 1001,
         "maxstack": 1
     },
     {
@@ -438,6 +439,7 @@
         "nametw": "中鋒頭髮2",
         "kind": 1,
         "position": 0,
+        "avatar": 1002,
         "maxstack": 1
     },
     {
@@ -445,6 +447,7 @@
         "nametw": "中鋒頭髮3",
         "kind": 1,
         "position": 0,
+        "avatar": 1003,
         "maxstack": 1
     },
     {
@@ -452,6 +455,7 @@
         "nametw": "中鋒頭髮4",
         "kind": 1,
         "position": 0,
+        "avatar": 2001,
         "maxstack": 1
     },
     {
@@ -1277,7 +1281,7 @@
         "nametw": "中鋒衣服1",
         "kind": 3,
         "position": 0,
-        "avatar": 2002,
+        "avatar": 1001,
         "maxstack": 1
     },
     {
@@ -1285,7 +1289,7 @@
         "nametw": "中鋒衣服2",
         "kind": 3,
         "position": 0,
-        "avatar": 10001,
+        "avatar": 1002,
         "maxstack": 1
     },
     {
@@ -1293,6 +1297,7 @@
         "nametw": "中鋒衣服3",
         "kind": 3,
         "position": 0,
+        "avatar": 1003,
         "maxstack": 1
     },
     {
@@ -1300,6 +1305,7 @@
         "nametw": "中鋒衣服4",
         "kind": 3,
         "position": 0,
+        "avatar": 2002,
         "maxstack": 1
     },
     {
@@ -1307,6 +1313,7 @@
         "nametw": "中鋒衣服5",
         "kind": 3,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1
     },
     {
@@ -1705,7 +1712,7 @@
         "nametw": "中鋒褲子1",
         "kind": 4,
         "position": 0,
-        "avatar": 5001,
+        "avatar": 1001,
         "maxstack": 1
     },
     {
@@ -1713,7 +1720,7 @@
         "nametw": "中鋒褲子2",
         "kind": 4,
         "position": 0,
-        "avatar": 10001,
+        "avatar": 1002,
         "maxstack": 1
     },
     {
@@ -1721,6 +1728,7 @@
         "nametw": "中鋒褲子3",
         "kind": 4,
         "position": 0,
+        "avatar": 1003,
         "maxstack": 1
     },
     {
@@ -1728,6 +1736,7 @@
         "nametw": "中鋒褲子4",
         "kind": 4,
         "position": 0,
+        "avatar": 5001,
         "maxstack": 1
     },
     {
@@ -1735,6 +1744,7 @@
         "nametw": "中鋒褲子5",
         "kind": 4,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1
     },
     {
@@ -2141,7 +2151,7 @@
         "nametw": "中鋒鞋子2",
         "kind": 5,
         "position": 0,
-        "avatar": 10001,
+        "avatar": 1002,
         "maxstack": 1
     },
     {
@@ -2149,6 +2159,7 @@
         "nametw": "中鋒鞋子3",
         "kind": 5,
         "position": 0,
+        "avatar": 1003,
         "maxstack": 1
     },
     {
@@ -2156,6 +2167,7 @@
         "nametw": "中鋒鞋子4",
         "kind": 5,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1
     },
     {

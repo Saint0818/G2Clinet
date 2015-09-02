@@ -33,6 +33,7 @@
         "shoesg": 5202
     },
     {
+        "colorc": 3,
         "hairc": 1003,
         "clothc": 3003,
         "pantsc": 4003,
@@ -48,9 +49,17 @@
         "shoesg": 5203
     },
     {
+        "hairc": 1004,
+        "clothc": 3004,
+        "pantsc": 4004,
+        "shoesc": 5004,
         "hairg": 1204,
         "clothg": 3204,
         "pantsg": 4204,
         "shoesg": 5204
+    },
+    {
+        "clothc": 3005,
+        "pantsc": 4005
     }
 ]
