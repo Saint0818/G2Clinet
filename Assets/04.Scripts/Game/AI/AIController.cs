@@ -36,11 +36,15 @@ public class AIController : KnightSingleton<AIController>
         mFSM.AddState(new CameraMovementState());
         mFSM.AddState(new InitCourtState());
         mFSM.AddState(new OpeningState());
+        mFSM.AddState(new JumpBallState());
+        mFSM.AddState(new AttackAState());
+        mFSM.AddState(new AttackBState());
         mFSM.AddState(new APickBallAfterScoreState());
         mFSM.AddState(new InboundsAState());
         mFSM.AddState(new BPickBallAfterScoreState());
         mFSM.AddState(new InboundsBState());
         mFSM.AddState(new SpecialActionState());
+        mFSM.AddState(new EndState());
         mFSM.ChangeState(EGameSituation.None);
     }
 

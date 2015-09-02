@@ -1,5 +1,4 @@
 ﻿using AI;
-using GamePlayStruct;
 
 /// <summary>
 /// 某隊得分後, 另一隊執行撿球.
