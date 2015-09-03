@@ -72,7 +72,7 @@ public class UISkillFormation : UIBase {
 
 	private Vector3 point;
 	private int costSpace = 0;
-	private int costSpaceMax = 99;
+	private int costSpaceMax = 15;
 
 	public static bool Visible {
 		get {
