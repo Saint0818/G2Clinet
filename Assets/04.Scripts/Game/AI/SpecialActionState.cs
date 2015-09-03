@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// <para> 這個狀態是用在球員得分後, 得分球員做的特寫 or 特殊動作. 比如 Jason Terry 得分後的招牌動作是滑翔翼. </para>
 /// </summary>
-public class SpecialActionState : State<EGameSituation, EGameMsg>
+public class SpecialActionState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
@@ -28,7 +28,7 @@ public class SpecialActionState : State<EGameSituation, EGameMsg>
     /// </summary>
     private EGameSituation mNextState;
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
         mChangeStateTime = Time.time + NextStateTime;
         mNextState = (EGameSituation)extraInfo;

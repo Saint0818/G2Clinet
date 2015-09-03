@@ -1,13 +1,13 @@
 ﻿using AI;
 
-public class CameraMovementState : State<EGameSituation, EGameMsg>
+public class CameraMovementState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.CameraMovement; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
         CourtMgr.Get.ShowEnd(true);
         GameController.Get.InitIngameAnimator();

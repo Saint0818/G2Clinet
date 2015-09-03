@@ -1,13 +1,13 @@
 using AI;
 
-public class InitCourtState : State<EGameSituation, EGameMsg>
+public class InitCourtState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.InitCourt; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
         if(GameController.Get.IsStart == false)
         {

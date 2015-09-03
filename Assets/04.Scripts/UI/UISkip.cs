@@ -64,7 +64,8 @@ public class UISkip : UIBase {
 				break;
 			case ESkipSituation.Game:
 //				GameController.Get.SkipShow();
-                AIController.Get.SendMesssage(EGameMsg.UISkipClickOnGaming);
+//                AIController.Get.SendMesssage(EGameMsg.UISkipClickOnGaming);
+                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.UISkipClickOnGaming);
 				UIShow(false);
 				break;
 		}

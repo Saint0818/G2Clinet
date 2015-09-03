@@ -3,14 +3,14 @@
 /// <summary>
 /// A 隊(玩家)進攻, B 隊(電腦)防守.
 /// </summary>
-public class AttackBState : State<EGameSituation, EGameMsg>
+public class AttackBState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.AttackB; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
         CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc);
 

@@ -1,15 +1,16 @@
 ﻿using AI;
 
-public class PresentationState : State<EGameSituation, EGameMsg>, ITelegraph<EGameMsg>
+public class PresentationState : State<EGameSituation>, ITelegraph<EGameMsg>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.Presentation; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
-        Dispatcher.AddListener(this, EGameMsg.UISkipClickOnGaming);
+//        Dispatcher.AddListener(this, EGameMsg.UISkipClickOnGaming);
+        GameMsgDispatcher.Ins.AddListener(this, EGameMsg.UISkipClickOnGaming);
 
 //        foreach(PlayerBehaviour player in GameController.Get.GamePlayerList)
 //        {
@@ -22,7 +23,8 @@ public class PresentationState : State<EGameSituation, EGameMsg>, ITelegraph<EGa
 
     public override void Exit()
     {
-        Dispatcher.RemoveListener(this, EGameMsg.UISkipClickOnGaming);
+//        Dispatcher.RemoveListener(this, EGameMsg.UISkipClickOnGaming);
+        GameMsgDispatcher.Ins.RemoveListener(this, EGameMsg.UISkipClickOnGaming);
     }
 
     public override void Update()
@@ -41,8 +43,6 @@ public class PresentationState : State<EGameSituation, EGameMsg>, ITelegraph<EGa
     {
         if(msg.Msg == EGameMsg.UISkipClickOnGaming)
         {
-//            Debug.Log(msg);
-
             CourtMgr.Get.ShowEnd(true);
             GameController.Get.InitIngameAnimator();
             GameController.Get.SetBornPositions();

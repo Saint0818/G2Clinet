@@ -1,16 +1,17 @@
 ﻿using AI;
+using GamePlayStruct;
 
 /// <summary>
 /// A 隊(玩家)進攻, B 隊(電腦)防守.
 /// </summary>
-public class AttackAState : State<EGameSituation, EGameMsg>
+public class AttackAState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.AttackA; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
         CameraMgr.Get.SetCameraSituation(ECameraSituation.Self);
 //        judgeSkillUI();
@@ -21,50 +22,51 @@ public class AttackAState : State<EGameSituation, EGameMsg>
 
     public override void Update()
     {
-//        if (PlayerList.Count > 0)
-//        {
-//            if (BallOwner != null)
-//            {
-//                switch (BallOwner.Postion)
-//                {
-//                    case EPlayerPostion.C:
-//                        AITools.RandomTactical(ETactical.Center, out attackTactical);
-//                        break;
-//                    case EPlayerPostion.F:
-//                        AITools.RandomTactical(ETactical.Forward, out attackTactical);
-//                        break;
-//                    case EPlayerPostion.G:
-//                        AITools.RandomTactical(ETactical.Guard, out attackTactical);
-//                        break;
-//                    default:
-//                        AITools.RandomTactical(ETactical.Attack, out attackTactical);
-//                        break;
-//                }
-//            }
-//            else
-//                AITools.RandomTactical(ETactical.Attack, out attackTactical);
+//        if(GameController.Get.GamePlayers.Count <= 0)
+//            return;
 //
-//            for (int i = 0; i < PlayerList.Count; i++)
+//        TTacticalData attackTactical;
+//        if (GameController.Get.BallOwner != null)
+//        {
+//            switch(GameController.Get.BallOwner.Postion)
 //            {
-//                PlayerBehaviour npc = PlayerList[i];
-//                if (npc.AIing && !DoSkill(npc))
+//                case EPlayerPostion.C:
+//                    AITools.RandomTactical(ETactical.Center, out attackTactical);
+//                    break;
+//                case EPlayerPostion.F:
+//                    AITools.RandomTactical(ETactical.Forward, out attackTactical);
+//                    break;
+//                case EPlayerPostion.G:
+//                    AITools.RandomTactical(ETactical.Guard, out attackTactical);
+//                    break;
+//                default:
+//                    AITools.RandomTactical(ETactical.Attack, out attackTactical);
+//                    break;
+//            }
+//        }
+//        else
+//            AITools.RandomTactical(ETactical.Attack, out attackTactical);
+//
+//        for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+//        {
+//            PlayerBehaviour npc = GameController.Get.GamePlayers[i];
+//            if(npc.AIing && !GameController.Get.DoSkill(npc))
+//            {
+//                if(npc.Team == ETeamKind.Self)
 //                {
-//                    if (npc.Team == team)
+//                    if(!GameController.Get.IsShooting)
 //                    {
-//                        if (!IsShooting)
-//                        {
-//                            aiAttack(ref npc);
-//                            aiMove(npc, ref attackTactical);
-//                        }
-//                        else if (!npc.IsAllShoot)
-//                        {
-//                            aiAttack(ref npc);
-//                            aiMove(npc, ref attackTactical);
-//                        }
+//                        GameController.Get.aiAttack(ref npc);
+//                        GameController.Get.aiMove(npc, ref attackTactical);
 //                    }
-//                    else
-//                        aiDefend(ref npc);
+//                    else if (!npc.IsAllShoot)
+//                    {
+//                        GameController.Get.aiAttack(ref npc);
+//                        GameController.Get.aiMove(npc, ref attackTactical);
+//                    }
 //                }
+//                else
+//                    GameController.Get.aiDefend(ref npc);
 //            }
 //        }
     }

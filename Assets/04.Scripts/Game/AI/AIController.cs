@@ -25,13 +25,13 @@ public class AIController : KnightSingleton<AIController>
     }
     private readonly static AIController INSTANCE = new AIController();
 
-    private StateMachine<EGameSituation, EGameMsg> mFSM;
+    private StateMachine<EGameSituation> mFSM;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mFSM = new StateMachine<EGameSituation, EGameMsg>(new MessageDispatcher<EGameMsg>());
-        mFSM.AddState(new NullState());
+        mFSM = new StateMachine<EGameSituation>();
+        mFSM.AddState(new NoneState());
         mFSM.AddState(new PresentationState());
         mFSM.AddState(new CameraMovementState());
         mFSM.AddState(new InitCourtState());
@@ -64,9 +64,9 @@ public class AIController : KnightSingleton<AIController>
         mFSM.ChangeState(newState, extraInfo);
     }
 
-    public void SendMesssage(EGameMsg msg, ITelegraph<EGameSituation> sender = null,
-                             ITelegraph<EGameSituation> receiver = null, Object extraInfo = null)
-    {
-        mFSM.Dispatcher.SendMesssage(msg);
-    }
+//    public void SendMesssage(EGameMsg msg, ITelegraph<EGameSituation> sender = null,
+//                             ITelegraph<EGameSituation> receiver = null, Object extraInfo = null)
+//    {
+//        mFSM.Dispatcher.SendMesssage(msg);
+//    }
 }

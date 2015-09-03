@@ -5,28 +5,27 @@ namespace AI
     /// <summary>
     /// StateMachine 中的某一個狀態.
     /// </summary>
-    public abstract class State<TEnumState, TEnumMsg> 
+    public abstract class State<TEnumState> 
         where TEnumState : struct, IConvertible, IComparable, IFormattable
-        where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        public StateMachine<TEnumState, TEnumMsg> Parent { get; private set; }
-        public MessageDispatcher<TEnumMsg> Dispatcher { get; private set; }
+        public StateMachine<TEnumState> Parent { get; private set; }
+//        public MessageDispatcher<TEnumMsg> Dispatcher { get; private set; }
 
         public abstract TEnumState ID { get; }
 
         /// <summary>
         /// 呼叫時機: FSM 改變狀態時, 表示此是新的狀態.
         /// </summary>
-        public void Enter(StateMachine<TEnumState, TEnumMsg> machine, MessageDispatcher<TEnumMsg> dispatcher, 
+        public void _Enter(StateMachine<TEnumState> machine, //MessageDispatcher<TEnumMsg> dispatcher, 
                           Object extraInfo)
         {
             Parent = machine;
-            Dispatcher = dispatcher;
+//            Dispatcher = dispatcher;
 
-            EnterImpl(extraInfo);
+            Enter(extraInfo);
         }
 
-        public abstract void EnterImpl(object extraInfo);
+        public abstract void Enter(object extraInfo);
 
         /// <summary>
         /// 呼叫時機: FSM 改變狀態時, 表示此狀態要結束.

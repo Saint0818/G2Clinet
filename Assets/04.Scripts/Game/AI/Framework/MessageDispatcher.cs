@@ -22,7 +22,7 @@ namespace AI
     public class MessageDispatcher<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
     {
         private readonly Dictionary<TEnum, List<ITelegraph<TEnum>>> mListeners = new Dictionary<TEnum, List<ITelegraph<TEnum>>>();
-        private Telegram<TEnum> mTelegram = new Telegram<TEnum>();
+        private Telegram<TEnum> mTelegram;
 
         public void AddListeners(ITelegraph<TEnum> listener, params TEnum[] msgs)
         {

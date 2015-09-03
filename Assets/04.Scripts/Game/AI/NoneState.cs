@@ -1,13 +1,13 @@
 ﻿using AI;
 
-public class NullState : State<EGameSituation, EGameMsg>
+public class NoneState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.None; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
     }
 

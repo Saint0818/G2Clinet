@@ -1,13 +1,13 @@
 using AI;
 
-public class EndState : State<EGameSituation, EGameMsg>
+public class EndState : State<EGameSituation>
 {
     public override EGameSituation ID
     {
         get { return EGameSituation.End; }
     }
 
-    public override void EnterImpl(object extraInfo)
+    public override void Enter(object extraInfo)
     {
     }
 

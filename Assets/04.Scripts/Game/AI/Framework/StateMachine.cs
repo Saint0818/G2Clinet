@@ -22,27 +22,15 @@ namespace AI
     /// </remarks>
     /// 
     /// where TEnum : struct, IConvertible, IComparable, IFormattable 是限制 TEnum 必須是 Enum.
-    public class StateMachine<TEnumState, TEnumMsg> 
+    public class StateMachine<TEnumState> 
         where TEnumState : struct, IConvertible, IComparable, IFormattable
-        where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        public MessageDispatcher<TEnumMsg> Dispatcher
-        {
-            get { return mDispatcher; }
-        }
+        private State<TEnumState> mGlobalState;
+        private State<TEnumState> mCurrentState;
 
-        private State<TEnumState, TEnumMsg> mGlobalState;
-        private State<TEnumState, TEnumMsg> mCurrentState;
-        private readonly MessageDispatcher<TEnumMsg> mDispatcher;
+        private readonly Dictionary<TEnumState, State<TEnumState>> mStates = new Dictionary<TEnumState, State<TEnumState>>();
 
-        private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
-
-        public StateMachine(MessageDispatcher<TEnumMsg> dispatcher)
-        {
-            mDispatcher = dispatcher;
-        }
-
-        public bool AddState(State<TEnumState, TEnumMsg> state)
+        public bool AddState(State<TEnumState> state)
         {
             if(mStates.ContainsKey(state.ID))
             {
@@ -76,10 +64,11 @@ namespace AI
             if(mCurrentState != null)
                 mCurrentState.Exit();
             mCurrentState = mStates[newState];
-            mCurrentState.Enter(this, mDispatcher, extraInfo);
+//            mCurrentState.Enter(this, mDispatcher, extraInfo);
+            mCurrentState._Enter(this, extraInfo);
         }
 
-        public void SetGlobalState(State<TEnumState, TEnumMsg> state)
+        public void SetGlobalState(State<TEnumState> state)
         {
             mGlobalState = state;
         }
