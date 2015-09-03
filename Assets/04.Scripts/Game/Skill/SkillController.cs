@@ -11,6 +11,8 @@ namespace SkillControllerSpace {
 	public class SkillController : MonoBehaviour {
 		public OnAddAttributeDelegate OnAddAttribute = null;
 
+		private const int IDLimitActive = 10000;
+
 		private GameObject executePlayer;
 		//PassiveSkill key: Kind  value: TSKill
 		private EPassDirectState passDirect = EPassDirectState.Forward;
@@ -34,6 +36,7 @@ namespace SkillControllerSpace {
 
 		public void SkillUpdate () {
 			skillBuff.UpdateBuff();
+			updateSkillAttribute();
 		}
 
 		public void HidePlayerName (){
@@ -46,11 +49,11 @@ namespace SkillControllerSpace {
 
 		public void initSkillController(TPlayer attribute, GameObject player, Animator animatorControl){
 			executePlayer = player;
-			skillAttribute.Clear();
 
 			//PlayerInfo
 			if(!isHavePlayerInfo) {
 				isHavePlayerInfo = true;
+				skillAttribute.Clear();
 				GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
 				skillBuff = new SkillBuff();
 				skillBuff.InitBuff(obj, attribute, player);
@@ -61,7 +64,7 @@ namespace SkillControllerSpace {
 						if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID)) {
 							TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 							
-							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.SkillCards[i].Lv));
+//							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.SkillCards[i].Lv));
 							
 							int key = skillData.Kind;
 							
@@ -201,7 +204,8 @@ namespace SkillControllerSpace {
 		public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
 			if (value != 0) {
 				int index = findSkillAttribute(skillID);
-				skillBuff.AddBuff(skillID, lifetime);
+				if(skillID >= IDLimitActive)
+					skillBuff.AddBuff(skillID, lifetime);
 				
 				if (index == -1) {
 					TSkillAttribute item = new TSkillAttribute();
@@ -248,18 +252,19 @@ namespace SkillControllerSpace {
 		public void Reset (){
 			skillBuff.RemoveAllBuff();
 		}
-		
-//		private void updateSkillAttirbe() {
-//			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-//				if (skillAttribute [i].CDTime > 0) {
-//					skillAttribute [i].CDTime -= Time.deltaTime;  
-//					if (skillAttribute [i].CDTime <= 0) {
-//						if(onAddAttribute != null) 
-//							onAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
-//						skillAttribute.RemoveAt(i);
-//					}
-//				}
-//			}
-//		}
+
+		//without Active
+		private void updateSkillAttribute() {
+			for (int i = skillAttribute.Count-1; i >= 0; i--) { 
+				if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID <= IDLimitActive) {
+					skillAttribute [i].CDTime -= Time.deltaTime;  
+					if (skillAttribute [i].CDTime <= 0) {
+						if(OnAddAttribute != null) 
+							OnAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
+						skillAttribute.RemoveAt(i);
+					}
+				}
+			}
+		}
 	}
 }

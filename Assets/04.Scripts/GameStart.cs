@@ -15,6 +15,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool ConnectToServer = false;
 	public bool OpenGameMode = false;
 	public bool IsDebugAnimation = false;
+	public bool IsShowPlayerInfo = false;
 	public int FriendNumber = 3;
 	public int GameWinValue = 13;
 	public float CrossTimeX = 0.5f;

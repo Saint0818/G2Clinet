@@ -562,7 +562,6 @@ public class PlayerBehaviour : MonoBehaviour
 			gameObject.transform.DOPause();
 		else
 			gameObject.transform.DOPlay();
-		//		Timer.timeScale = time;
 	}
 
     public void InitAttr()
@@ -613,8 +612,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	private void initSkill (){
 		skillController.initSkillController(Attribute, gameObject, AnimatorControl);
-//		if(Team == ETeamKind.Npc)
-//			skillController.HidePlayerName();
 		skillController.OnAddAttribute += SetAttribute;
 	}
 

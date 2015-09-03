@@ -643,11 +643,8 @@ namespace GameStruct {
 		public int MaxStar;
 		public int PictureNo;
 		public string NameTW;
-		public string NameEN;
-		public string name;
-		public string ExplainTW;
-		public string ExplainEN;
-		public string explain;
+		public string Animation;
+		public int Situation;
 		public int space;
 		public int spaceAdd;
 		public float lifeTime;
@@ -657,7 +654,10 @@ namespace GameStruct {
 		public float ValueAdd;
 		public int rate;
 		public int rateAdd;
-		public string Animation;
+		public int Direct;
+		public float distance;
+		public float distanceAdd;
+		public int MaxAnger;
 		public int TargetKind;
 		public int TargetKind1;
 		public int TargetEffect1;
@@ -674,25 +674,33 @@ namespace GameStruct {
 		public int EffectParent3;
 		public float DelayTime3;
 		public float Duration3;
-//		public int Effect;
-//		public int EffectDirection;
-		public string TargetAnimation;
-		public int Direct;
-		public float distance;
-		public float distanceAdd;
-		public int MaxAnger;
+		public string NameCN;
+		public string NameEN;
+		public string NameJP;
+		public string name;
+		public string ExplainTW;
+		public string ExplainCN;
+		public string ExplainEN;
+		public string ExplainJP;
+		public string explain;
 		
 		public string Name {
 			get {
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW:
-					name =  NameTW;
+					name = NameTW;
+					break;
+				case ELanguage.CN:
+					name = NameCN;
 					break;
 				case ELanguage.EN:
-					name =  NameEN;
+					name = NameEN;
+					break;
+				case ELanguage.JP:
+					name = NameJP;
 					break;
 				default:
-					name =  NameEN;
+					name = NameEN;
 					break;
 				}
 				return name;
@@ -703,13 +711,19 @@ namespace GameStruct {
 			get{
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW:
-					explain =  ExplainTW;
+					explain = ExplainTW;
+					break;
+				case ELanguage.CN:
+					explain = ExplainCN;
 					break;
 				case ELanguage.EN:
-					explain =  ExplainEN;
+					explain = ExplainEN;
+					break;
+				case ELanguage.JP:
+					explain = ExplainJP;
 					break;
 				default:
-					explain =  ExplainEN;
+					explain = ExplainEN;
 					break;
 				}
 				return explain;
