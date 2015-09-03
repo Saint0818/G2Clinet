@@ -403,7 +403,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// 0: Center, 1:Forward, 2:Guard.
     /// </summary>
 	public int Index;
-    private float aiTime = 0;
+    private float aiTime = 0; // 什麼時間點, 角色要被 AI 控制?
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
@@ -3202,7 +3202,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool ActiveSkill(GameObject target = null) {
-		if (CanUseSkill) {
+		if (CanUseActiveSkill) {
 			GameRecord.Skill++;
 			SetAnger(-Attribute.MaxAnger);
 
@@ -3306,12 +3306,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public bool CanUseSkill {
-		get {
-			if ((CanMove || crtState == EPlayerState.HoldBall ) && !IsUseSkill && IsAngerFull) 
+	public bool CanUseActiveSkill
+    {
+		get
+        {
+			if((CanMove || crtState == EPlayerState.HoldBall) &&
+               !IsUseSkill && IsAngerFull && IsHaveActiveSkill)
 				return true;
-			else
-				return false;
+
+            return false;
 		}
 	}
     

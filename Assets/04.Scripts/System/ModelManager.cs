@@ -140,33 +140,33 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;
 
-		PlayerBehaviour PB = res.AddComponent<PlayerBehaviour>();
+		PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
 
-		PB.Team = team;
-		PB.MoveIndex = -1;
-		PB.Attribute = player;
-		PB.Index = teamIndex;
+		playerBehaviour.Team = team;
+		playerBehaviour.MoveIndex = -1;
+		playerBehaviour.Attribute = player;
+		playerBehaviour.Index = teamIndex;
 		if(team == ETeamKind.Self)
-			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
+			playerBehaviour.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
 		else
-			PB.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
+			playerBehaviour.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
 
 		if(teamIndex == 0)
-			PB.Postion = EPlayerPostion.C;
+			playerBehaviour.Postion = EPlayerPostion.C;
 		else if(teamIndex == 1)
-			PB.Postion = EPlayerPostion.F;
+			playerBehaviour.Postion = EPlayerPostion.F;
 		else if(teamIndex == 2)
-			PB.Postion = EPlayerPostion.G;
+			playerBehaviour.Postion = EPlayerPostion.G;
 		
-		PB.InitTrigger (DefPointObject);
-		PB.InitCurve (AnimatorCurveManager);
-		PB.InitAttr ();
+		playerBehaviour.InitTrigger (DefPointObject);
+		playerBehaviour.InitCurve (AnimatorCurveManager);
+		playerBehaviour.InitAttr ();
 		res.name = team.ToString() + teamIndex.ToString();
 
 		if(team == ETeamKind.Npc)
 			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-		return PB;
+		return playerBehaviour;
 	}
 
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {

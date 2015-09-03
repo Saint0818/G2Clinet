@@ -913,7 +913,7 @@ public class GameController : KnightSingleton<GameController>
 		if (Self.IsRebound || Self.IsUseSkill)
 			suc = true;
 		else
-		if(!Self.CheckAnimatorSate(EPlayerState.HoldBall) && haveDefPlayer(ref Self, 5, 40) != 0) {
+		if(!Self.CheckAnimatorSate(EPlayerState.HoldBall) && haveDefPlayer(Self, 5, 40) != 0) {
 			int FakeRate = Random.Range (0, 100);
 			
 			if(FakeRate < GameConst.FakeShootRate) {
@@ -921,7 +921,7 @@ public class GameController : KnightSingleton<GameController>
 					for (int i = 0; i < PlayerList.Count; i++) {
 						PlayerBehaviour Npc = PlayerList [i];
 						
-						if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= GameConst.BlockDistance) {
+						if (Npc != Self && Npc.Team != Self.Team && getDis(Self, Npc) <= GameConst.BlockDistance) {
 							Self.AniState(EPlayerState.FakeShoot, CourtMgr.Get.ShootPoint [Self.Team.GetHashCode()].transform.position);
 							suc = true;
 							break;
@@ -955,7 +955,7 @@ public class GameController : KnightSingleton<GameController>
 				if (PlayerList [j].gameObject.activeInHierarchy && PlayerList [j].Team == npc.Team && PlayerList [j] != npc) {
 					PlayerBehaviour anpc = PlayerList [j];
 					
-					if (haveDefPlayer(ref anpc, 1.5f, 40) == 0 || Who == find) {
+					if (haveDefPlayer(anpc, 1.5f, 40) == 0 || Who == find) {
 						Pass(PlayerList [j]);
 						break;
 					}
@@ -966,7 +966,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 	
-	private void aiAttack(ref PlayerBehaviour npc) {
+	public void aiAttack(ref PlayerBehaviour npc) {
 		if (BallOwner) {
 			bool dunkRate = Random.Range(0, 100) < 30;
 			bool shootRate = Random.Range(0, 100) < 10;
@@ -993,19 +993,19 @@ public class GameController : KnightSingleton<GameController>
 			}
 			
 			if (npc.Team == ETeamKind.Self)
-				ShootPointDis = getDis(ref npc, new Vector2(pos.x, pos.z));
+				ShootPointDis = getDis(npc, new Vector2(pos.x, pos.z));
 			else
-				ShootPointDis = getDis(ref npc, new Vector2(pos.x, pos.z));
+				ShootPointDis = getDis(npc, new Vector2(pos.x, pos.z));
 			
 			if (npc == BallOwner) {
 				//Dunk shoot shoot3 pass                
 				if (ShootPointDis <= GameConst.DunkDistance && (dunkRate || npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref npc))
 					aiShoot(ref npc);
 				else 
-				if (ShootPointDis <= GameConst.TwoPointDistance && (haveDefPlayer(ref npc.DefPlayer, 1.5f, 40) == 0 || shootRate || npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref npc))
+				if (ShootPointDis <= GameConst.TwoPointDistance && (haveDefPlayer(npc.DefPlayer, 1.5f, 40) == 0 || shootRate || npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref npc))
 					aiShoot(ref npc);
 				else 
-				if (ShootPointDis <= GameConst.TreePointDistance + 1 && (haveDefPlayer(ref npc.DefPlayer, Shoot3Dis, Shoot3Angel) == 0 || shoot3Rate || npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref npc))
+				if (ShootPointDis <= GameConst.TreePointDistance + 1 && (haveDefPlayer(npc.DefPlayer, Shoot3Dis, Shoot3Angel) == 0 || shoot3Rate || npc.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(ref npc))
 					aiShoot(ref npc);
 				else 
 				if (ElbowRate && CheckAttack(ref npc) && (haveDefPlayer(ref npc, GameConst.StealBallDistance, 90, out man) != 0) && 
@@ -1038,7 +1038,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private void aiDefend(ref PlayerBehaviour npc)
+	public void aiDefend(ref PlayerBehaviour npc)
 	{
 		if (npc.AIing && !npc.IsSteal && !npc.CheckAnimatorSate(EPlayerState.Push0) && 
 		    BallOwner && !IsDunk && !IsShooting) {
@@ -1071,7 +1071,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	private void aiMove(PlayerBehaviour someone, ref TTacticalData tacticalData)
+	public void aiMove(PlayerBehaviour someone, ref TTacticalData tacticalData)
     {
 		if (BallOwner == null)
         {
@@ -1103,7 +1103,7 @@ public class GameController : KnightSingleton<GameController>
 								if (fearPlayer == null)
 									fearPlayer = Npc1;
 								else 
-									if (getDis(ref fearPlayer, CourtMgr.Get.RealBall.transform.position) < getDis(ref Npc1, CourtMgr.Get.RealBall.transform.position))
+									if (getDis(fearPlayer, CourtMgr.Get.RealBall.transform.position) < getDis(Npc1, CourtMgr.Get.RealBall.transform.position))
 										fearPlayer = Npc1;
 							}
 						}
@@ -1200,7 +1200,7 @@ public class GameController : KnightSingleton<GameController>
 							if (p != null)
 								moveData.DefPlayer = p;
 							else 
-								if (getDis(ref player, ref player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
+								if (getDis(player, player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
 									moveData.DefPlayer = player;
 							
 							if (moveData.DefPlayer != null) {
@@ -1683,7 +1683,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool Shoot() {
         if (BallOwner) {
 			Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
-			shootDistance = getDis(ref BallOwner, new Vector2(v.x, v.z));
+			shootDistance = getDis(BallOwner, new Vector2(v.x, v.z));
 
 			if(GameStart.Get.TestMode == EGameTest.Shoot) {
 				BallOwner.AniState(testState, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position);
@@ -1726,7 +1726,7 @@ public class GameController : KnightSingleton<GameController>
 							if (rate < BallOwner.Attr.DunkRate)
 								DoPassiveSkill(ESkillSituation.Dunk0, BallOwner, CourtMgr.Get.ShootPoint [t].transform.position);
 							else {
-								if(haveDefPlayer(ref BallOwner, 1.5f, 40) == 0)
+								if(haveDefPlayer(BallOwner, 1.5f, 40) == 0)
 									DoPassiveSkill(ESkillSituation.Layup0, BallOwner, CourtMgr.Get.Hood [t].transform.position);
 								else
 									DoPassiveSkill(ESkillSituation.Shoot1, BallOwner, CourtMgr.Get.Hood [t].transform.position);
@@ -1955,7 +1955,7 @@ public class GameController : KnightSingleton<GameController>
         {
             Shooter = player;
 			Vector3 v = CourtMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position;
-            shootDistance = getDis(ref Shooter, new Vector2(v.x, v.z));
+            shootDistance = getDis(Shooter, new Vector2(v.x, v.z));
 			player.GameRecord.DunkLaunch++;
             return true;
         } else
@@ -2209,7 +2209,7 @@ public class GameController : KnightSingleton<GameController>
 						return true;
 					}
 				} else 
-				if(BallOwner != null && haveStealPlayer(ref player, ref BallOwner, GameConst.StealBallDistance, 15) != 0) {
+				if(BallOwner != null && haveStealPlayer(player, BallOwner, GameConst.StealBallDistance, 15) != 0) {
 					stealRate = Random.Range(0, 100) + 1;
 					
 					if(stealRate <= r) {
@@ -2457,9 +2457,11 @@ public class GameController : KnightSingleton<GameController>
 			return false;
     }
 
-	private bool DoSkill(PlayerBehaviour player) {
+	public bool DoSkill(PlayerBehaviour player)
+    {
 		bool result = false;
-		if (player.CanUseSkill && player.Attribute.ActiveSkill.ID > 0) {
+		if(player.CanUseActiveSkill)
+        {
 			List<GameObject> target = getActiveSkillTarget(player);
 			if(target != null && target.Count > 0) {
 				for(int i=0; i<target.Count; i++){
@@ -2481,11 +2483,11 @@ public class GameController : KnightSingleton<GameController>
 		switch (skill.Kind) {
 		case 6://dunk
 			v = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
-			shootDistance = getDis(ref player, new Vector2(v.x, v.z));
+			shootDistance = getDis(player, new Vector2(v.x, v.z));
 			break;
 		case 7://double dunk
 			v = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
-			shootDistance = getDis(ref player, new Vector2(v.x, v.z));
+			shootDistance = getDis(player, new Vector2(v.x, v.z));
 			break;
 		case 15://steal
 		case 17://push
@@ -2625,19 +2627,19 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
-		if (player.CanUseSkill) {
+		if (player.CanUseActiveSkill) {
 			if (target) {
 				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
 				   GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
 					//Target(People)
-					if (target == player.gameObject || getDis(ref player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
+					if (target == player.gameObject || getDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
 					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
 						if (checkSkillSituation(player))
 							return true;
 					}
 				} else {
 					//Basket
-					if (target == player.gameObject || getDis(ref player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
+					if (target == player.gameObject || getDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
 					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
 						if (checkSkillSituation(player))
 							return true;
@@ -2718,7 +2720,7 @@ public class GameController : KnightSingleton<GameController>
 
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
-					int Dir = haveDefPlayer(ref player, GameConst.CrossOverDistance, 50);
+					int Dir = haveDefPlayer(player, GameConst.CrossOverDistance, 50);
 					if(Dir != 0 && player.IsHaveMoveDodge) {
 						if(Random.Range(0, 100) <= player.MoveDodgeRate) {
 							Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
@@ -2764,22 +2766,22 @@ public class GameController : KnightSingleton<GameController>
 				break;
 
 			case ESkillSituation.Shoot0:
-				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, haveDefPlayer(ref player, 1.5f, 40));
+				playerState = player.PassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, haveDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 
 			case ESkillSituation.Shoot3:
-				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
+				playerState = player.PassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, haveDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 
 			case ESkillSituation.Shoot2:
-				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
+				playerState = player.PassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, haveDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 
 			case ESkillSituation.Shoot1:
-				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, haveDefPlayer(ref player, 1.5f, 40));
+				playerState = player.PassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, haveDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v );
 				break;
 
@@ -3154,7 +3156,7 @@ public class GameController : KnightSingleton<GameController>
 								if(Angel)
 									DisAy[j].Distance = Mathf.Abs(GetAngle(Self.transform, anpc.transform));
 								else
-									DisAy[j].Distance = getDis(ref anpc, ref Self);
+									DisAy[j].Distance = getDis(anpc, Self);
 								DisAy[j].Player = anpc;
 								break;
 							}
@@ -3173,7 +3175,7 @@ public class GameController : KnightSingleton<GameController>
 								if(Angel)
 									DisAy[j].Distance = Mathf.Abs(GetAngle(Self.transform, anpc.transform));
 								else
-									DisAy[j].Distance = getDis(ref anpc, ref Self);
+									DisAy[j].Distance = getDis(anpc, Self);
 								DisAy[j].Player = anpc;
 								break;
 							}
@@ -3220,7 +3222,7 @@ public class GameController : KnightSingleton<GameController>
 						
 						float mAngle = GetAngle(Npc.transform, PlayerList [i].transform);
 						
-						if (getDis(ref Npc, ref Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70) {
+						if (getDis(Npc, Npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70) {
 							if (Rate < BlockRate) {
 								if(DoPassiveSkill(ESkillSituation.Block, Npc2, Npc.transform.position)) {
 									if (Kind == 1)
@@ -3300,7 +3302,7 @@ public class GameController : KnightSingleton<GameController>
         return player;*/
     }
 	
-    private float getDis(ref PlayerBehaviour player1, ref PlayerBehaviour player2)
+    private float getDis(PlayerBehaviour player1, PlayerBehaviour player2)
     {
         if (player1 != null && player2 != null && player1 != player2)
         {
@@ -3320,7 +3322,7 @@ public class GameController : KnightSingleton<GameController>
         return -1;
     }
 
-    private float getDis(ref PlayerBehaviour player1, Vector2 target)
+    private float getDis(PlayerBehaviour player1, Vector2 target)
     {
         if (player1 != null && target != Vector2.zero)
         {
@@ -3328,8 +3330,9 @@ public class GameController : KnightSingleton<GameController>
             Vector3 v2 = player1.transform.position;
             v1.y = v2.y;
             return Vector3.Distance(v1, v2);
-        } else
-            return -1;
+        }
+
+        return -1;
     }	
 
 	public float getDis(Vector2 player1, Vector2 target)
@@ -3944,7 +3947,7 @@ public class GameController : KnightSingleton<GameController>
 	    for (int i = 0; i < PlayerList.Count; i++) {
 			PlayerBehaviour targetNpc = PlayerList [i];
 			if (targetNpc.gameObject.activeSelf && targetNpc != npc && targetNpc.Team == npc.Team && 
-			    getDis(ref npc, ref targetNpc) <= dis && haveDefPlayer(ref targetNpc, 1.5f, 40) == 0) {
+			    getDis(npc, targetNpc) <= dis && haveDefPlayer(targetNpc, 1.5f, 40) == 0) {
 				mangle = GetAngle(npc.transform, targetNpc.transform);
 	            
                 if (mangle >= 0 && mangle <= angle)
@@ -3958,7 +3961,7 @@ public class GameController : KnightSingleton<GameController>
         return null;
     }
 
-	private int haveDefPlayer(ref PlayerBehaviour npc, float dis, float angle) {
+	private int haveDefPlayer(PlayerBehaviour npc, float dis, float angle) {
         int result = 0;
         float mangle;
         
@@ -3967,7 +3970,7 @@ public class GameController : KnightSingleton<GameController>
 	            PlayerBehaviour targetNpc = PlayerList [i];
 				mangle = GetAngle(npc.transform, targetNpc.transform);
 	            
-	            if (getDis(ref npc, ref targetNpc) <= dis) {
+	            if (getDis(npc, targetNpc) <= dis) {
 	                if (mangle >= 0 && mangle <= angle) {
 	                    result = 1;
 	                    break;
@@ -3984,7 +3987,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private int haveDefPlayer(ref PlayerBehaviour npc, float dis, float angle, out PlayerBehaviour man) {
-		int Result = 0;
+		int result = 0;
 		float mangle;
 		man = null;
 
@@ -3993,14 +3996,14 @@ public class GameController : KnightSingleton<GameController>
 				PlayerBehaviour TargetNpc = PlayerList [i];
 				mangle = GetAngle(npc.transform, TargetNpc.transform);
 				
-				if (getDis(ref npc, ref TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(EPlayerState.Idle)) {
+				if (getDis(npc, TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(EPlayerState.Idle)) {
 					if (mangle >= 0 && mangle <= angle) {
-						Result = 1;
+						result = 1;
 						man = TargetNpc;
 						break;
 					} else 
 					if (mangle <= 0 && mangle >= -angle) {
-						Result = 2;
+						result = 2;
 						man = TargetNpc;
 						break;
 					}
@@ -4008,26 +4011,27 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 		
-		return Result;
+		return result;
 	}
 
-	private int haveStealPlayer(ref PlayerBehaviour P1, ref PlayerBehaviour P2, float dis, float angle) {
-		int Result = 0;
+	private int haveStealPlayer(PlayerBehaviour p1, PlayerBehaviour p2, float dis, float angle)
+    {
+		int result = 0;
 		float mangle;
 
-		if (P1 != null && P2 != null && P1 != P2) {
-			mangle = GetAngle(P1.transform, P2.transform);
+		if (p1 != null && p2 != null && p1 != p2) {
+			mangle = GetAngle(p1.transform, p2.transform);
 			
-			if (getDis(ref P1, ref P2) <= dis) {
+			if (getDis(p1, p2) <= dis) {
 				if (mangle >= 0 && mangle <= angle)				
-					Result = 1;
+					result = 1;
 				else 
 				if (mangle <= 0 && mangle >= -angle)				
-					Result = 2;
+					result = 2;
 			}
 		}
 		
-		return Result;
+		return result;
 	}
     
     private PlayerBehaviour haveNearPlayer(PlayerBehaviour Self, float Dis, bool SameTeam, bool FindBallOwnerFirst = false) {
@@ -4039,18 +4043,18 @@ public class GameController : KnightSingleton<GameController>
 		        Npc = PlayerList [i];
 		        
 		        if (SameTeam) {
-		            if (PlayerList [i] != Self && PlayerList [i].Team == Self.Team && getDis(ref Self, ref Npc) <= Dis) {
+		            if (PlayerList [i] != Self && PlayerList [i].Team == Self.Team && getDis(Self, Npc) <= Dis) {
 		                Result = Npc;
 		                break;
 		            }
 		        } else {
 	            if (FindBallOwnerFirst) {
-	                if (Npc != Self && Npc.Team != Self.Team && Npc == BallOwner && getDis(ref Self, ref Npc) <= Dis) {
+	                if (Npc != Self && Npc.Team != Self.Team && Npc == BallOwner && getDis(Self, Npc) <= Dis) {
 	                    Result = Npc;
 	                    break;
 	                }
 	            } else {
-	                if (Npc != Self && Npc.Team != Self.Team && getDis(ref Self, ref Npc) <= Dis && Npc.crtState == EPlayerState.Idle) {
+	                if (Npc != Self && Npc.Team != Self.Team && getDis(Self, Npc) <= Dis && Npc.crtState == EPlayerState.Idle) {
 	                    Result = Npc;
 	                    break;
 	                }
