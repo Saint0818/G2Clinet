@@ -135,11 +135,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar (ref res, player.Avatar, player.BodyType, true, false); 
+		SetAvatar(ref res, player.Avatar, player.BodyType, true, false); 
 
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;
 
+        res.AddComponent<PlayerAI>();
 		PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
 
 		playerBehaviour.Team = team;

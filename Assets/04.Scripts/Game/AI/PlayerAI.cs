@@ -28,4 +28,9 @@ public class PlayerAI : MonoBehaviour
     {
 	    mMachine.Update();
 	}
+
+    public void ChangeState(EPlayerAIState newState, object extraInfo = null)
+    {
+        mMachine.ChangeState(newState, extraInfo);
+    }
 }
