@@ -3,10 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
+using DG.Tweening;
 
-public enum ESkillFormationPage {
-	Active,
-	Passive
+public struct TSkillInfo {
+	public int ID;
+	public string Name;
+	public string Lv;
+	public string Info;
+	public TSkillInfo (int i){
+		this.ID = 0;
+		this.Name = "";
+		this.Lv = "";
+		this.Info = "";
+	}
 }
 
 public struct TEquipSkillCardResult {
@@ -19,17 +28,17 @@ public class UISkillFormation : UIBase {
 	private const string UIName = "UISkillFormation";
 	private const int IDActiveLimit = 10000;
 
+	//Send Value
 	private int[] removeIndexs = new int[0]; //From already setted skillCard's index
 	private int[] addIndexs = new int[0];//From skillCards's index in the center area
 
 	//CenterCard
-	private List<GameObject> skillCards = new List<GameObject>();//By Date of Sort
 	private List<GameObject> skillSortCards = new List<GameObject>();//By Sort
-	private List<string> skillsOriginal = new List<string>();//record alread setted   rule: index_id
+	private List<string> skillsOriginal = new List<string>();//record alread setted   rule: index_id_skillsOriginal(Equiped)
 	private List<string> skillsRecord = new List<string>();
 
 	//key:GameData.SkillCards.index_cardID_skillsOriginal(Equiped) Value: TSkill   For Get Level
-	//skillsOriginal(Equiped) 0:Not Equiped 1:Equiped (First Time)
+	//only record skillsOriginal(Equiped) 0:Not Equiped 1:Equiped (First Time)
 	private Dictionary<string, TSkill> skillActiveCards = new Dictionary<string, TSkill>(); 
 	private Dictionary<string, TSkill> skillPassiveCards = new Dictionary<string, TSkill>();
 
@@ -44,6 +53,7 @@ public class UISkillFormation : UIBase {
 	//Right(Put itemCardEquipped Object)
 	private GameObject gridActiveCardBase; 
 	private GameObject gridPassiveCardBase;
+	private UIScrollView scrollViewItemList;
 	
 	private UILabel labelCostValue;
 
@@ -52,22 +62,17 @@ public class UISkillFormation : UIBase {
 	private GameObject gridCardList;
 	private UIScrollView scrollViewCardList;
 
-	private ECondition cardCondition = ECondition.Date;
-	private EFilter cardFilter = EFilter.All;
-
 	//LongPress 
 	private bool isPressDown = false;
 	private float longPressMaxTime = 0.5f;
 	private float longPressTime = 0;
 
 	//Info
-	private int infoID;
-	private string infoName;
-	private string infoLv;
-	private string infoInfo;
+	private TSkillInfo skillInfo = new TSkillInfo();
 
 	private Vector3 point;
-	private ESkillFormationPage page = ESkillFormationPage.Active;
+	private int costSpace = 0;
+	private int costSpaceMax = 99;
 
 	public static bool Visible {
 		get {
@@ -117,10 +122,13 @@ public class UISkillFormation : UIBase {
 		gridActiveCardBase = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase");
 		gridPassiveCardBase = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList/UIGrid");
 		labelCostValue = GameObject.Find (UIName + "/MainView/Top/LabelCost/CostValue").GetComponent<UILabel>();
+		scrollViewItemList = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
+		scrollViewItemList.onStoppedMoving =ItemDragFinish;
 
 		uiCardGroup = GameObject.Find (UIName + "/CardsView/Center/CardsGroup");
 		gridCardList = GameObject.Find (UIName + "/CardsView/Center/CardsGroup/CardList/UIGrid");
 		scrollViewCardList = GameObject.Find (UIName + "/CardsView/Center/CardsGroup/CardList").GetComponent<UIScrollView>();
+
 
 		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
 		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
@@ -130,6 +138,7 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/MainView/Right/PassiveField", DoOpenPassive);
 		SetBtnFun (UIName + "/MainView/Right/CheckBtn", DoFinish);
 		initCards ();
+		labelCostValue.text = costSpace + "/" + costSpaceMax;
 	}
 
 	protected override void InitData() {
@@ -141,44 +150,33 @@ public class UISkillFormation : UIBase {
 	}
 
 	private void initCards () {
+//		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
 		int index = -1;
 		if(GameData.Team.Player.SkillCards.Length > 0) {
 			for(int i=0; i<GameData.Team.Player.SkillCards.Length; i++) {
 				if(GameData.Team.Player.SkillCards[i].ID > 100) {
 					GameObject obj = null;
-					Transform t;
+					index ++;
+					obj = addUICards(i,
+					                 index, 
+					                 GameData.Team.Player.SkillCards[i].ID, 
+					                 GameData.Team.Player.SkillCards[i].Lv,
+					                 gridCardList, 
+					                 "1");
+					addItems(i, GameData.Team.Player.SkillCards[i].ID, GameData.Team.Player.SkillCards[i].Lv, "1");
 					if(GameData.Team.Player.SkillCards[i].ID < IDActiveLimit) {
-						addPassiveItems(i, GameData.Team.Player.SkillCards[i].ID, GameData.Team.Player.SkillCards[i].Lv, "1");
-						obj = addCards(i,
-			                           0, // First time it Show Active Card, so value is 0; 
-						               GameData.Team.Player.SkillCards[i].ID, 
-						               GameData.Team.Player.SkillCards[i].Lv,
-			                           gridCardList, 
-						               GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Space(GameData.Team.Player.SkillCards[i].Lv),
-						               "1");
-						obj.SetActive(false);
-						t = obj.transform.FindChild("Selected");
-						if(t != null)
-							t.gameObject.SetActive(true);
-						skillPassiveCards.Add(i.ToString() + "_" + GameData.Team.Player.SkillCards[i].ID.ToString() + "_1", GameData.Team.Player.SkillCards[i]);
+						skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					} else {
-						addActiveItems(i, GameData.Team.Player.SkillCards[i].ID, GameData.Team.Player.SkillCards[i].Lv, "1");
-						index ++;
-						obj = addCards(i,
-			                           index, 
-						               GameData.Team.Player.SkillCards[i].ID, 
-						               GameData.Team.Player.SkillCards[i].Lv,
-			                           gridCardList, 
-						               GameData.DSkillData[GameData.Team.Player.SkillCards[i].ID].Space(GameData.Team.Player.SkillCards[i].Lv),
-						               "1");
-						t = obj.transform.FindChild("Selected");
-						if(t != null)
-							t.gameObject.SetActive(true);
-						skillActiveCards.Add(i.ToString() + "_" + GameData.Team.Player.SkillCards[i].ID.ToString() + "_1", GameData.Team.Player.SkillCards[i]);
+						skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					}
-					skillCards.Add(obj);
+
+					Transform t = obj.transform.FindChild("Selected");
+					if(t != null)
+						t.gameObject.SetActive(true);
+
 					skillSortCards.Add(obj);
-					skillsOriginal.Add(i + "_" + GameData.Team.Player.SkillCards[i].ID + "_1");
+					skillsRecord.Add(obj.name);
+					skillsOriginal.Add(obj.name);
 				}
 			}
 		}
@@ -187,29 +185,18 @@ public class UISkillFormation : UIBase {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				GameObject obj = null;
 				if(GameData.Team.SkillCards[i].ID > 100) {
-					if(GameData.Team.SkillCards[i].ID < IDActiveLimit) {
-						obj = addCards(i,
-						               0, // First time it Show Active Card, so value is 0; 
-						               GameData.Team.SkillCards[i].ID, 
-						               GameData.Team.SkillCards[i].Lv,
-						               gridCardList, 
-						               GameData.DSkillData[GameData.Team.SkillCards[i].ID].Space(GameData.Team.SkillCards[i].Lv),
-						               "0");
-						obj.SetActive(false);
-						skillPassiveCards.Add(i.ToString() + "_" + GameData.Team.SkillCards[i].ID.ToString() + "_0", GameData.Team.SkillCards[i]);
-					} else
-					if(GameData.Team.SkillCards[i].ID >= IDActiveLimit){
-						index ++;
-						obj = addCards(i,
-						               index, 
-						               GameData.Team.SkillCards[i].ID, 
-						               GameData.Team.SkillCards[i].Lv,
-						               gridCardList, 
-						               GameData.DSkillData[GameData.Team.SkillCards[i].ID].Space(GameData.Team.SkillCards[i].Lv),
-						               "0");
-						skillActiveCards.Add(i.ToString() + "_" + GameData.Team.SkillCards[i].ID.ToString() + "_0", GameData.Team.SkillCards[i]);
-					}
-					skillCards.Add(obj);
+					index ++;
+					obj = addUICards(i,
+					                 index, 
+					                 GameData.Team.SkillCards[i].ID, 
+					                 GameData.Team.SkillCards[i].Lv,
+					                 gridCardList, 
+					                 "0");
+					if(GameData.Team.SkillCards[i].ID < IDActiveLimit) 
+						skillPassiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
+					else 
+						skillActiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
+
 					skillSortCards.Add(obj);
 				}
 			}
@@ -231,26 +218,25 @@ public class UISkillFormation : UIBase {
 		return "0";
 	}
 
-	private bool checkCardBeEquiped (int id) {
-		for (int i=0; i<skillsRecord.Count; i++) {
-			int recordID = getIndex(skillsRecord[i], false);
-			if(recordID == id)
-				return true;
-		}
-		return false;
+	private string combineToName(int cardIndex, int cardId, string equiptype){
+		return string.Format("{0}_{1}_{2}",cardIndex.ToString(),cardId.ToString(),equiptype);
 	}
 
-	/// <summary>
-	/// Adds the cards.
-	/// </summary>
-	/// <returns>The cards.</returns>
-	/// <param name="skillCardIndex">GameData.Team.SkillCards's index.</param>
-	/// <param name="positionIndex">Put ScrollView Position index.</param>
-	/// <param name="id">Identifier.</param>
-	/// <param name="lv">Lv.</param>
-	/// <param name="parent">Parent.</param>
-	/// <param name="cost">Cost.</param>
-	private GameObject addCards (int skillCardIndex, int positionIndex, int id, int lv, GameObject parent, int cost, string equiptype) {
+	private void doLongPress() {
+		isPressDown = false;
+		UISkillInfo.UIShow(true, skillInfo);
+	}
+	
+	private bool setCost(int space) {
+		if((costSpace + space) <= costSpaceMax) {
+			costSpace += space;
+			labelCostValue.text = costSpace + "/" + costSpaceMax; 
+			return true;
+		} else 
+			return false;
+	}
+
+	private GameObject addUICards (int skillCardIndex, int positionIndex, int id, int lv, GameObject parent, string equiptype) {
 		GameObject obj = Instantiate(itemSkillCard, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = parent.transform;
 		obj.transform.name = skillCardIndex.ToString() + "_" + id.ToString() + "_" + equiptype;
@@ -263,30 +249,28 @@ public class UISkillFormation : UIBase {
 			t.gameObject.GetComponent<UISprite>().spriteName = "SkillCard" + Mathf.Clamp(lv, 1, 3).ToString();
 		
 		t = obj.transform.FindChild("SkillPic");
-		if(t != null){
+		if(t != null)
 			if(GameData.DCardTextures.ContainsKey(id))
 				t.gameObject.GetComponent<UITexture>().mainTexture = GameData.DCardTextures[id];
-		}
 		
 		t = obj.transform.FindChild("SkillLevel");
 		if(t != null)
 			t.gameObject.GetComponent<UILabel>().text = lv.ToString();
 
 		t = obj.transform.FindChild("SkillName");
-		if(t != null) {
+		if(t != null) 
 			if(GameData.DSkillData.ContainsKey(id))
 				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Name;
-		}
 
 		t = obj.transform.FindChild("SkillCost");
-		if(t != null){
+		if(t != null)
 			if(GameData.DSkillData.ContainsKey(id))
 				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Space(lv).ToString();
-		}
+
 		return obj;
 	}
 
-	private GameObject addItems (int skillCardIndex, int positionIndex, int id, int lv, GameObject parent, int cost, string equiptype) {
+	private GameObject addUIItems (int skillCardIndex, int positionIndex, int id, int lv, GameObject parent, string equiptype) {
 		GameObject obj = Instantiate(itemCardEquipped, Vector3.zero, Quaternion.identity) as GameObject;
 		obj.transform.parent = parent.transform;
 		obj.transform.name = skillCardIndex.ToString() + "_" + id.ToString() + "_" + equiptype;
@@ -298,86 +282,85 @@ public class UISkillFormation : UIBase {
 
 		UIEventListener.Get(obj).onPress = OnItemDetailInfo;
 
-		if(obj.transform.FindChild("BtnRemove") != null) {
+		if(obj.transform.FindChild("BtnRemove") != null) 
 			UIEventListener.Get(obj.transform.FindChild("BtnRemove").gameObject).onPress = OnRomveItem;
-		}
 		
 		Transform t = obj.transform.FindChild("SkillLevel");
 		if(t != null)
 			t.gameObject.GetComponent<UILabel>().text = Mathf.Clamp(lv, 1, 3).ToString();
 		
 		t = obj.transform.FindChild("SkillName");
-		if(t != null) {
+		if(t != null)
 			if(GameData.DSkillData.ContainsKey(id))
 				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Name;
-		}
 		
 		t = obj.transform.FindChild("SkillCost");
-		if(t != null){
+		if(t != null)
 			if(GameData.DSkillData.ContainsKey(id))
 				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Space(lv).ToString();
-		}
+
 		return obj;
 	}
 
-	private void doLongPress() {
-		isPressDown = false;
-		UISkillInfo.UIShow(true, infoID, infoName, infoLv, infoInfo);
-	}
-	
-	private void addActiveItems(int cardIndex, int cardId, int lv, string equiptype) {
-		itemActiveCard = addItems(cardIndex,
-		                          0,
-		                          cardId,
-		                          lv,
-		                          gridActiveCardBase,
-		                          GameData.DSkillData[cardId].Space(lv),
-		                          equiptype);
-		if(!skillsRecord.Contains (cardIndex.ToString() + "_" + cardId.ToString() + "_" + equiptype))
-			skillsRecord.Add(cardIndex.ToString() + "_" + cardId.ToString() + "_" + equiptype);
-	}
-	
-	private void removeActiveItems() {
-		if(skillsRecord.Contains(itemActiveCard.name))
-			skillsRecord.Remove(itemActiveCard.name);
-		Destroy(itemActiveCard);
-	}
-	
-	private void addPassiveItems(int cardIndex, int cardId, int lv, string equiptype) {
-		int index = itemPassiveCards.Count;
-		itemPassiveCards.Add(addItems(cardIndex,
-									  index,
-		                              cardId,
-		                              lv,
-		                              gridPassiveCardBase,
-		                              GameData.DSkillData[cardId].Space(lv),
-		                              equiptype));
-		if(!skillsRecord.Contains (cardIndex.ToString() + "_" + cardId.ToString() + "_" + equiptype))
-			skillsRecord.Add(cardIndex.ToString() + "_" + cardId.ToString() + "_" + equiptype);
-	}
-	
-	private void removePassiveItems(GameObject go) {
-		if(skillsRecord.Contains(go.name))
-			skillsRecord.Remove(go.name);
-		for(int i=0 ;i<itemPassiveCards.Count; i++) {
-			if(itemPassiveCards[i].name.Equals(go.name)){
-				Destroy(itemPassiveCards[i]);
-				itemPassiveCards.RemoveAt(i);
-				break;
+	private bool addItems(int cardIndex, int cardId, int lv, string equiptype) {
+		if(setCost(GameData.DSkillData[cardId].Space(lv))) {
+			if(cardId < IDActiveLimit) {
+				itemPassiveCards.Add(addUIItems(cardIndex,
+				                                itemPassiveCards.Count,
+				                                cardId,
+				                                lv,
+				                                gridPassiveCardBase,
+				                                equiptype));
+				
+				scrollViewItemList.UpdateScrollbars();
+			} else {
+				if(itemActiveCard != null)
+					refreshCards(itemActiveCard.name);
+				itemActiveCard = addUIItems(cardIndex,
+				                            0,
+				                            cardId,
+				                            lv,
+				                            gridActiveCardBase,
+				                            equiptype);
 			}
+			if(!skillsRecord.Contains (combineToName(cardIndex, cardId, equiptype)))
+				skillsRecord.Add(combineToName(cardIndex, cardId, equiptype));
+
+			return true;
+		} else 
+			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+		return false;
+	}
+
+	private void removeItems(int id, GameObject go = null) {
+		if(id < IDActiveLimit) {
+			int cardId = getIndex(go.name, false);
+			Transform t = go.transform.FindChild("SkillCost");
+			if(t)
+				setCost(-int.Parse(t.GetComponent<UILabel>().text));
+			
+			if(skillsRecord.Contains(go.name))
+				skillsRecord.Remove(go.name);
+			for(int i=0 ;i<itemPassiveCards.Count; i++) {
+				if(itemPassiveCards[i].name.Equals(go.name)){
+					Destroy(itemPassiveCards[i]);
+					itemPassiveCards.RemoveAt(i);
+					break;
+				}
+			}
+			refreshPassiveItems();
+		} else {
+			Transform t = itemActiveCard.transform.FindChild("SkillCost");
+			if(t)
+				setCost(-int.Parse(t.GetComponent<UILabel>().text));
+			
+			if(skillsRecord.Contains(itemActiveCard.name))
+				skillsRecord.Remove(itemActiveCard.name);
+			Destroy(itemActiveCard);
 		}
-		refreshPassiveItems();
 	}
 	
 	private void refreshCards(string id) {
-		for(int i=0 ;i<skillCards.Count; i++) {
-			if(skillCards[i].name.Equals(id)) {
-				Transform t = skillCards[i].transform.FindChild("Selected");
-				if(t != null)
-					t.gameObject.SetActive(false);
-			}
-		}
-		
 		for(int i=0 ;i<skillSortCards.Count; i++) {
 			if(skillSortCards[i].name.Equals(id)) {
 				Transform t = skillSortCards[i].transform.FindChild("Selected");
@@ -385,7 +368,6 @@ public class UISkillFormation : UIBase {
 					t.gameObject.SetActive(false);
 			}
 		}
-		
 		gridCardList.SetActive(false);
 		gridCardList.SetActive(true);
 	}
@@ -395,42 +377,40 @@ public class UISkillFormation : UIBase {
 			itemPassiveCards[i].transform.localPosition = new Vector3(0, 200 - 80 * i, 0);
 		}
 		
+		scrollViewItemList.RestrictWithinBounds(true);
 		gridPassiveCardBase.SetActive(false);
 		gridPassiveCardBase.SetActive(true);
 	}
 
-	private bool cardsVisible (Dictionary<string, TSkill> dcard, int i, int index, GameObject card){
-		if(dcard.ContainsKey(card.name)) {
-			if(cardFilter == EFilter.All) {
-				card.transform.localPosition = new Vector3(-120 + 200 * (index % 4), 120 - 265 * (index / 4), 0);
-				card.SetActive(true);
+	private bool sortIsAvailable(GameObject card) {
+		Transform t = card.transform.FindChild("Selected");
+		if(t != null)
+			if(!t.gameObject.activeSelf)
 				return true;
-			} else
-			if(cardFilter == EFilter.Available){
-				Transform t = card.transform.FindChild("Selected");
-				if(t != null){
-					if(!t.gameObject.activeSelf){
-						card.transform.localPosition = new Vector3(-120 + 200 * (index % 4), 120 - 265 * (index / 4), 0);
-						card.SetActive(true);
-						return true;
-					}
-				}
-			} else {
-				Transform t = card.transform.FindChild("Selected");
-				if(t != null){
-					if(t.gameObject.activeSelf){
-						card.transform.localPosition = new Vector3(-120 + 200 * (index % 4), 120 - 265 * (index / 4), 0);
-						card.SetActive(true);
-						return true;
-					}
-				}
-			}
-		}
-		card.SetActive(false);
 		return false;
 	}
 
-	private void sortSkill(ECondition condition) {
+	private bool sortIsSelected(GameObject card) {
+		Transform t = card.transform.FindChild("Selected");
+		if(t != null)
+			if(t.gameObject.activeSelf)
+				return true;
+		return false;
+	}
+
+	private bool sortIsActive (GameObject card) {
+		if(skillActiveCards.ContainsKey(card.name))
+			return true;
+		return false;
+	}
+
+	private bool sortIsPassive (GameObject card) {
+		if(skillPassiveCards.ContainsKey(card.name))
+			return true;
+		return false;
+	}
+	
+	private void sortSkillCondition(ECondition condition) {
 		int value1 = 0;
 		int value2 = 0;
 		for(int i=0; i<skillSortCards.Count; i++) {
@@ -491,6 +471,84 @@ public class UISkillFormation : UIBase {
 			}
 		}
 	}
+	
+	private void sortSkillFilter (int filter){
+		int index = 0;
+		for(int i=0; i<skillSortCards.Count; i++) { 
+			bool result = false;
+			switch (filter) {
+			case 0:
+			case 15://All Choose
+				result = true;
+				break;
+			case 1://Available
+				result = sortIsAvailable(skillSortCards[i]);
+				break;
+			case 2://Select
+				result = sortIsSelected(skillSortCards[i]);
+				break;
+			case 3://Available + Select
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]));
+				break;
+			case 4://Active
+				result = sortIsActive(skillSortCards[i]);
+				break;
+			case 5://Available + Active
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
+				break;
+			case 6://Select + Active
+				result = (sortIsSelected(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
+				break;
+			case 7://Available + Select + Active
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
+				break;
+			case 8://Passive
+				result = sortIsPassive(skillSortCards[i]);
+				break;
+			case 9://Available + Passive
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			case 10://Select + Passive
+				result = (sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			case 11://Available + Select + Passive
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			case 12://Passive + Active
+				result = (sortIsActive(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			case 13://Available + Passive + Active
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsActive(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			case 14://Available + Passive + Select
+				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
+				break;
+			}
+			if(result){
+				skillSortCards[i].transform.localPosition = new Vector3(-120 + 200 * (index % 4), 120 - 265 * (index / 4), 0);
+				index++;
+			}
+			skillSortCards[i].SetActive(result);
+		}
+	}
+
+	private void setInfo (GameObject go, int cardId) {
+		skillInfo.ID = cardId;
+		skillInfo.Name = GameData.DSkillData[cardId].Name;
+		skillInfo.Lv = go.transform.FindChild("SkillLevel").GetComponent<UILabel>().text;
+		skillInfo.Info = GameData.DSkillData[cardId].Explain;
+	}
+
+	public void ItemDragFinish(){
+		if(itemPassiveCards.Count < 5){
+			scrollViewItemList.transform.DOLocalMoveY(-4, 0.2f).OnUpdate(updateClipOffset);
+		}
+	}
+
+	public void updateClipOffset(){
+		scrollViewItemList.panel.clipOffset = new Vector2(0, -scrollViewItemList.transform.localPosition.y);
+	}
+			                                                            
 
 	public void OnCardDetailInfo (GameObject go, bool state){
 		int cardIndex = getIndex(go.name, true);
@@ -505,35 +563,29 @@ public class UISkillFormation : UIBase {
 				if(isPressDown) {
 					Transform t = go.transform.FindChild("Selected");
 					if(t != null) {
-						if(page == ESkillFormationPage.Active) {
+						if(cardId >= IDActiveLimit) {
 							if(itemActiveCard == null){
-								t.gameObject.SetActive(true);
-								addActiveItems(cardIndex, cardId, skillActiveCards[cardIndex.ToString() + "_" + cardId.ToString() + "_" + equipType].Lv, equipType);
-
+								if(addItems(cardIndex, cardId, skillActiveCards[go.name].Lv, equipType))
+									t.gameObject.SetActive(true);
 							} else {
+								removeItems(cardId);
 								if(itemActiveCard.name.Equals(go.name)) {
-									removeActiveItems();
 									t.gameObject.SetActive(false);
 								}else {
+									if(addItems(cardIndex, cardId, skillActiveCards[go.name].Lv, equipType))
 									t.gameObject.SetActive(true);
-									refreshCards(itemActiveCard.name);
-									removeActiveItems();
-									addActiveItems(cardIndex, cardId, skillActiveCards[cardIndex.ToString() + "_" + cardId.ToString()+ "_" + equipType].Lv, equipType);
 								}
 							}
 						} else {
 							if(t.gameObject.activeInHierarchy) {
 								//Selected to NoSelected
 								t.gameObject.SetActive(!t.gameObject.activeInHierarchy);
-								removePassiveItems(go);
+								removeItems(cardId, go);
 							} else {
 								//NoSelected to Selected
-								if(!checkCardBeEquiped(cardId)){
+								if(addItems(cardIndex, cardId, skillPassiveCards[go.name].Lv, equipType ))
 									t.gameObject.SetActive(!t.gameObject.activeInHierarchy);
-									addPassiveItems(cardIndex, cardId, skillPassiveCards[cardIndex.ToString() + "_" + cardId.ToString()+ "_" + equipType].Lv, equipType );
-								} else {
-									//be equiped (Same CardID)
-								}
+
 							}
 						}
 					}
@@ -542,10 +594,7 @@ public class UISkillFormation : UIBase {
 		}
 		
 		isPressDown = state;
-		infoID = cardId;
-		infoName = GameData.DSkillData[cardId].Name;
-		infoLv = go.transform.FindChild("SkillLevel").GetComponent<UILabel>().text;
-		infoInfo = GameData.DSkillData[cardId].Explain;
+		setInfo(go, cardId);
 	}
 
 	public void OnItemDetailInfo (GameObject go, bool state){
@@ -558,59 +607,34 @@ public class UISkillFormation : UIBase {
 			if(!UISkillInfo.Visible) {
 				//Click Item
 				if(isPressDown) {
-					UISkillInfo.UIShow(true, infoID, infoName, infoLv, infoInfo);
+					UISkillInfo.UIShow(true, skillInfo);
 				}
 			}
 		}
 
 		isPressDown = state;
-		infoID = cardId;
-		infoName = GameData.DSkillData[cardId].Name;
-		infoLv = go.transform.FindChild("SkillLevel").GetComponent<UILabel>().text;
-		infoInfo = GameData.DSkillData[cardId].Explain;
+		setInfo(go, cardId);
 	}
 
 	//From Item RemoveButton
 	public void OnRomveItem(GameObject go, bool state){
 		int id = getIndex(go.transform.parent.name, false);
-		if(id >= IDActiveLimit) {
-			//Active
-			removeActiveItems();
-		} else {
-			//Passive
-			removePassiveItems(go.transform.parent.gameObject);
-			refreshPassiveItems();
-		}
+		removeItems(id, go.transform.parent.gameObject);
 		refreshCards(go.transform.parent.name);
-
 	}
 	
-	public void SetSort (ECondition condition, EFilter filter) {
-		cardCondition = condition;
-		cardFilter = filter;
+	public void SetSort (ECondition condition, int filter) {
+		sortSkillCondition(condition);
+		sortSkillFilter(filter);
 		
-		sortSkill(condition);
-		
-		if(page == ESkillFormationPage.Active)
-			DoOpenActive();
-		else
-			DoOpenPassive();
-		
+		scrollViewCardList.ResetPosition();
+		gridCardList.SetActive(false);
+		gridCardList.SetActive(true);
 	}
 
 	public void DoOpenActive (){
 		//Open Actvie Cards
-		page = ESkillFormationPage.Active;
-		int index = 0;
-		for (int i=0; i<skillCards.Count; i++) {
-			if(cardCondition == ECondition.Date) {
-				if(cardsVisible(skillActiveCards, i, index, skillCards[i]))
-					index++;
-			} else {
-				if(cardsVisible(skillActiveCards, i, index, skillSortCards[i]))
-					index++;
-			}
-		}
+		sortSkillFilter((int)EFilter.Active);
 		scrollViewCardList.ResetPosition();
 		gridCardList.SetActive(false);
 		gridCardList.SetActive(true);
@@ -618,24 +642,12 @@ public class UISkillFormation : UIBase {
 
 	public void DoOpenPassive (){
 		//Open Passive Cards
-		page = ESkillFormationPage.Passive;
-		int index = 0;
-		for (int i=0; i<skillCards.Count; i++) {
-			if(cardCondition == ECondition.Date) {
-				if(cardsVisible(skillPassiveCards, i, index, skillCards[i]))
-					index ++;
-			} else {
-				if(cardsVisible(skillPassiveCards, i, index, skillSortCards[i]))
-					index ++;
-			}
-		}
+		sortSkillFilter((int)EFilter.Passive);
 		scrollViewCardList.ResetPosition();
 		gridCardList.SetActive(false);
 		gridCardList.SetActive(true);
 	}
-
-
-
+	
 	public void DoSort() {
 		UISort.UIShow(!UISort.Visible);
 	}

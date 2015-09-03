@@ -33,18 +33,18 @@ public class UISkillInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, int id = 0, string name = "", string level = "", string info = ""){
+	public static void UIShow(bool isShow, TSkillInfo info){
 		if(isShow) {
-			Get.labelSkillName.text = name;
-			Get.labelSkillLevel.text = level;
-			Get.labelSkillInfo.text = info;
+			Get.labelSkillName.text = info.Name;
+			Get.labelSkillLevel.text = info.Lv;
+			Get.labelSkillInfo.text = info.Info;
 
-			Get.spriteSkillCard.spriteName = "SkillCard" + level;
-			if( GameData.DCardTextures.ContainsKey(id))
-				Get.textureSkillPic.mainTexture = GameData.DCardTextures[id];
-			Get.labelSkillCardName.text = name;
-			Get.labelSkillCardLevel.text = level;
-			Get.labelSkillCardCost.text = GameData.DSkillData[id].Space(int.Parse(level)).ToString(); 
+			Get.spriteSkillCard.spriteName = "SkillCard" + info.Lv;
+			if( GameData.DCardTextures.ContainsKey(info.ID))
+				Get.textureSkillPic.mainTexture = GameData.DCardTextures[info.ID];
+			Get.labelSkillCardName.text = info.Name;
+			Get.labelSkillCardLevel.text = info.Lv;
+			Get.labelSkillCardCost.text = GameData.DSkillData[info.ID].Space(int.Parse(info.Lv)).ToString(); 
 		}
 		if (instance) {
 			if (!isShow)
@@ -80,7 +80,8 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void Close (){
-		UIShow(false);
+		TSkillInfo info = new TSkillInfo();
+		UIShow(false, info);
 	}
 	public void OpenCard (){
 

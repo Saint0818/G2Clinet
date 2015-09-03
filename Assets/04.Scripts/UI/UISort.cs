@@ -2,18 +2,20 @@
 using System.Collections;
 
 public enum ECondition {
-	Date = 0,
-	Rare = 1,
-	Cost = 2,
-	Level = 3,
-	Kind = 4,
-	Attribute = 5
+	None = -1,
+	Rare = 0,
+	Cost = 1,
+	Level = 2,
+	Kind = 3,
+	Attribute = 4
 }
 
 public enum EFilter {
-	All = 0,
-	Available = 1,
-	Select = 2
+	None = 0,
+	Available = 1<<0,//1
+	Select = 1<<1,//2
+	Active = 1<<2,//4
+	Passive = 1<<3//8
 }
 
 public class UISort : UIBase {
@@ -23,13 +25,11 @@ public class UISort : UIBase {
 	private GameObject uiSortTeam;
 	private GameObject uiSortCard;
 
-	private UIToggle[] toggleCondition = new UIToggle[6];
-	private UIToggle[] toggleFilter = new UIToggle[3];
+	private UIToggle[] toggleCondition = new UIToggle[5];
+	private UIToggle[] toggleFilter = new UIToggle[4];
 
 	private ECondition sortCondition;
-	private EFilter sortFilter;
-
-	private bool isInit = true;
+	private int sortFilter = 0;
 
 	public static bool Visible {
 		get {
@@ -51,7 +51,10 @@ public class UISort : UIBase {
 	
 	public static void UIShow(bool isShow){
 		if (instance) {
-			instance.Show(isShow);
+			if (!isShow)
+				RemoveUI(UIName);
+			else
+				instance.Show(isShow);
 		} else
 			if (isShow)
 				Get.Show(isShow);
@@ -61,37 +64,33 @@ public class UISort : UIBase {
 		uiSortTeam = GameObject.Find (UIName + "/Center/SortTeamGroup");
 		uiSortCard = GameObject.Find (UIName + "/Center/SortCardGroup");
 
-		toggleCondition[0] = GameObject.Find (UIName + "/Center/SortCardGroup/DateCheck").GetComponent<UIToggle>();
-		toggleCondition[1] = GameObject.Find (UIName + "/Center/SortCardGroup/RarityCheck").GetComponent<UIToggle>();
-		toggleCondition[2] = GameObject.Find (UIName + "/Center/SortCardGroup/CostCheck").GetComponent<UIToggle>();
-		toggleCondition[3] = GameObject.Find (UIName + "/Center/SortCardGroup/LevelCheck").GetComponent<UIToggle>();
-		toggleCondition[4] = GameObject.Find (UIName + "/Center/SortCardGroup/KindCheck").GetComponent<UIToggle>();
-		toggleCondition[5] = GameObject.Find (UIName + "/Center/SortCardGroup/AttributeCheck").GetComponent<UIToggle>();
+		toggleCondition[0] = GameObject.Find (UIName + "/Center/SortCardGroup/RarityCheck").GetComponent<UIToggle>();
+		toggleCondition[1] = GameObject.Find (UIName + "/Center/SortCardGroup/CostCheck").GetComponent<UIToggle>();
+		toggleCondition[2] = GameObject.Find (UIName + "/Center/SortCardGroup/LevelCheck").GetComponent<UIToggle>();
+		toggleCondition[3] = GameObject.Find (UIName + "/Center/SortCardGroup/KindCheck").GetComponent<UIToggle>();
+		toggleCondition[4] = GameObject.Find (UIName + "/Center/SortCardGroup/AttributeCheck").GetComponent<UIToggle>();
 
-		toggleFilter[0] = GameObject.Find (UIName + "/Center/SortCardGroup/AllCheck").GetComponent<UIToggle>();
-		toggleFilter[1] = GameObject.Find (UIName + "/Center/SortCardGroup/AvailableCheck").GetComponent<UIToggle>();
-		toggleFilter[2] = GameObject.Find (UIName + "/Center/SortCardGroup/SelectedCheck").GetComponent<UIToggle>();
+		toggleFilter[0] = GameObject.Find (UIName + "/Center/SortCardGroup/AvailableCheck").GetComponent<UIToggle>();
+		toggleFilter[1] = GameObject.Find (UIName + "/Center/SortCardGroup/SelectedCheck").GetComponent<UIToggle>();
+		toggleFilter[2] = GameObject.Find (UIName + "/Center/SortCardGroup/ActiveCheck").GetComponent<UIToggle>();
+		toggleFilter[3] = GameObject.Find (UIName + "/Center/SortCardGroup/PassiveCheck").GetComponent<UIToggle>();
 
-
-		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/DateCheck")).onClick = DateChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/RarityCheck")).onClick = RareChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/CostCheck")).onClick = CostChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/LevelCheck")).onClick = LevelChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/KindCheck")).onClick = KindChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/AttributeCheck")).onClick = AttributeChange;
-		
-		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/AllCheck")).onClick = AllChange;
+
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/AvailableCheck")).onClick = AvailableChange;
 		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/SelectedCheck")).onClick = SelectedChange;
+		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/ActiveCheck")).onClick = ActiveChange;
+		UIEventListener.Get (GameObject.Find (UIName + "/Center/SortCardGroup/PassiveCheck")).onClick = PassiveChange;
 		for(int i=0; i<toggleCondition.Length; i++) {
 			toggleCondition[i].value = (i == 0);
 		}
-		for(int i=0; i<toggleFilter.Length; i++) {
-			toggleFilter[i].value = (i == 0);
-		}
 
 		SetBtnFun(UIName + "/Center/SortCardGroup/CheckBtn", CheckEvent);
-		isInit = false;
+		SetBtnFun(UIName + "/Center", CheckEvent);
 	}
 
 	protected override void InitData() {
@@ -104,10 +103,6 @@ public class UISort : UIBase {
 
 	public void CheckEvent() {
 		UIShow(false);
-	}
-
-	public void DateChange(GameObject obj) {
-		conditionChange(ECondition.Date);
 	}
 
 	public void RareChange(GameObject obj) { // Star
@@ -130,38 +125,39 @@ public class UISort : UIBase {
 		conditionChange(ECondition.Attribute);
 	}
 
-	public void AllChange(GameObject obj) {
-		filterChange(EFilter.All);
-	}
-
 	public void AvailableChange(GameObject obj) {
-		filterChange(EFilter.Available);
+		filterChange(EFilter.Available, toggleFilter[0].value);
 	}
 
 	public void SelectedChange(GameObject obj) {
-		filterChange(EFilter.Select);
+		filterChange(EFilter.Select, toggleFilter[1].value);
+	}
+	
+	public void ActiveChange(GameObject obj) {
+		filterChange(EFilter.Active, toggleFilter[2].value);
+	}
+	
+	public void PassiveChange(GameObject obj) {
+		filterChange(EFilter.Passive, toggleFilter[3].value);
 	}
 
 	private void conditionChange(ECondition condition) {
-		if(!isInit){
-			for(int i=0; i<toggleCondition.Length; i++) {
-				toggleCondition[i].value = (i == (int)condition);
-			}
-			sortCondition = condition;
-			if(UISkillFormation.Visible)
-				UISkillFormation.Get.SetSort(sortCondition, sortFilter);
+		for(int i=0; i<toggleCondition.Length; i++) {
+			toggleCondition[i].value = (i == (int)condition);
 		}
+		sortCondition = condition;
+		if(UISkillFormation.Visible)
+			UISkillFormation.Get.SetSort(sortCondition, sortFilter);
 	}
 
-	private void filterChange(EFilter filter) {
-		if(!isInit) {
-			for(int i=0; i<toggleFilter.Length; i++) {
-				toggleFilter[i].value = (i == (int)filter);
-			}
-			sortFilter = filter;
-			if(UISkillFormation.Visible)
-				UISkillFormation.Get.SetSort(sortCondition, sortFilter);
-		}
+	private void filterChange(EFilter filter, bool isAdd) {
+		if(isAdd)
+			sortFilter += (int)filter;
+		else 
+			sortFilter -= (int)filter;
+		Debug.Log("sortFilter:"+sortFilter);
+		if(UISkillFormation.Visible)
+			UISkillFormation.Get.SetSort(sortCondition, Mathf.Clamp(sortFilter,0, 15));
 	}
 
 
