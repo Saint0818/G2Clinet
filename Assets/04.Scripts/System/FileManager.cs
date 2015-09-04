@@ -65,7 +65,11 @@ public class FileManager : KnightSingleton<FileManager> {
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
 
-	private static string[] downloadFiles = {"greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "createroleitem"};
+	private static string[] downloadFiles =
+	{
+	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage",
+        "createroleitem", "aiskilllv"
+	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
 	private static List<TDownloadData> dataList = new List<TDownloadData>();
@@ -184,6 +188,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[5] = parseItemData;
 		downloadCallBack[6] = parseStageData;
 		downloadCallBack[7] = parseCreateRoleData;
+		downloadCallBack[8] = parseAISkillData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -449,7 +454,15 @@ public class FileManager : KnightSingleton<FileManager> {
         CreateRoleDataMgr.Ins.Load(jsonText);
 
         if (isSaveVersion)
-            SaveDataVersionAndJson(jsonText, "tactical", version);
+            SaveDataVersionAndJson(jsonText, "createrole", version);
+    }
+
+    private void parseAISkillData(string version, string jsonText, bool isSaveVersion)
+    {
+        AISkillLvMgr.Ins.Load(jsonText);
+
+        if (isSaveVersion)
+            SaveDataVersionAndJson(jsonText, "aiskill", version);
     }
 
     private void parseBaseAttr (string Version, string text, bool SaveVersion){

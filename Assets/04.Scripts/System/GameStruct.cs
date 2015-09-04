@@ -398,6 +398,7 @@ namespace GameStruct {
 		public float Pass;
 		public int BodyType; // 0:C, 1:F, 2:G.
 		public int AILevel;
+		public int AISkillLevel;
 		public int Body;
 		public int Hair;
 		public int Cloth;
