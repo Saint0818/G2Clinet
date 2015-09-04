@@ -542,7 +542,7 @@ public class PlayerBehaviour : MonoBehaviour
         ScoreRate = GameStart.Get.ScoreRate;
 		DashEffectEnable (false);
 
-		skillController = new SkillController();
+		skillController = gameObject.GetComponent<SkillController>();
     }
 
 	public void SetTimerKey(ETimerKind key)
