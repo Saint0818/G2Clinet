@@ -611,7 +611,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	private void initSkill (){
-		skillController.initSkillController(Attribute, gameObject, AnimatorControl);
+		skillController.initSkillController(Attribute, this, AnimatorControl);
 		skillController.OnAddAttribute += SetAttribute;
 	}
 
@@ -3101,14 +3101,14 @@ public class PlayerBehaviour : MonoBehaviour
 						TimerMgr.Get.ChangeTime (item, 0);
 					break;
 				case 1://show self
-					showActiveEffect ();
+					SkillEffectManager.Get.OnShowEffect(this, false);
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
 					break;
 				case 2://show all Player
-					showActiveEffect ();
+					SkillEffectManager.Get.OnShowEffect(this, false);
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
@@ -3120,7 +3120,7 @@ public class PlayerBehaviour : MonoBehaviour
 			//Teammate and Enemy's Active PassiveCard will be shown
 			if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
 				UIPassiveEffect.Get.ShowCard(this, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
-			showActiveEffect ();
+			SkillEffectManager.Get.OnShowEffect(this, false);
 		}
 	}
 
@@ -3157,10 +3157,6 @@ public class PlayerBehaviour : MonoBehaviour
 		if(GameController.Get.Shooter != null) 
 			GameController.Get.Shooter = null;
 		
-	}
-
-	private void showActiveEffect () {
-		SkillEffectManager.Get.OnShowEffect(this, false);
 	}
 	
 	public void StopSkill(){
@@ -3229,6 +3225,14 @@ public class PlayerBehaviour : MonoBehaviour
 	public void SetAttribute (int kind, float value) {
 		Attribute.AddAttribute(kind, value);
 		initAttr();
+	}
+
+	public bool CheckSkillSituation{
+		get{return skillController.CheckSkillSituationForAI(this);}
+	}
+
+	public List<GameObject> GetActiveSkillTarget {
+		get{return skillController.GetActiveSkillTarget(this);}
 	}
 
 	public int PassiveID {

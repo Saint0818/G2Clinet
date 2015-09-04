@@ -90,9 +90,6 @@ public class GameController : KnightSingleton<GameController>
 	public string BasketAnimationName = "BasketballAction_1";
 	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
 	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
-	
-	//Skill
-	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
    
 	//Effect
     public GameObject[] passIcon = new GameObject[3];
@@ -677,6 +674,8 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
+
+		judgeSkillUI ();
 	}
 	
 	private void resetTestMode() {
@@ -1513,11 +1512,10 @@ public class GameController : KnightSingleton<GameController>
         {
 			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
 
-			List<GameObject> target = getActiveSkillTarget(Joysticker);
 			bool isSkillCanUse = false;
-			for(int i=0; i<target.Count; i++)
+			for(int i=0; i<Joysticker.GetActiveSkillTarget.Count; i++)
             {
-				if(CheckSkill(Joysticker, target[i])) 
+				if(CheckSkill(Joysticker, Joysticker.GetActiveSkillTarget[i])) 
 					isSkillCanUse = true;
 			}
 			UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, isSkillCanUse);
@@ -2491,12 +2489,11 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoSkill(PlayerBehaviour player)
     {
 		bool result = false;
-		if(player.CanUseActiveSkill)
+		if(player.CanUseActiveSkill && CheckOthersUseSkill)
         {
-			List<GameObject> target = getActiveSkillTarget(player);
-			if(target != null && target.Count > 0) {
-				for(int i=0; i<target.Count; i++){
-					if (CheckSkill(player, target[i])) 
+			if(player.GetActiveSkillTarget != null && player.GetActiveSkillTarget.Count > 0) {
+				for(int i=0; i<player.GetActiveSkillTarget.Count; i++){
+					if (CheckSkill(player, player.GetActiveSkillTarget[i])) 
 						result = true;
 				}
 				if (result) {
@@ -2529,83 +2526,6 @@ public class GameController : KnightSingleton<GameController>
 			                         skill.LifeTime(player.Attribute.ActiveSkill.Lv));
 		}
 	}
-	
-	private List<GameObject> getActiveSkillTarget(PlayerBehaviour player) {
-		if (GameData.DSkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-			string key  = player.Team.ToString() + "_"+ player.Index.ToString() + "_" + GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind;
-			if(activeSkillTargets.ContainsKey(key)) {
-				return activeSkillTargets[key];
-			} else {
-				List<GameObject> objs = new List<GameObject>();
-				switch (GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind) {
-				case 0:// self
-					objs.Add(player.gameObject);
-					break;
-				case 1://my basket
-					objs.Add(CourtMgr.Get.BasketHoop[player.Team.GetHashCode()].gameObject);
-					break;
-				case 2:{//enemy basket
-					int i = 1;
-					if (player.Team == ETeamKind.Npc)
-						i = 0;
-					
-					objs.Add(CourtMgr.Get.BasketHoop[i].gameObject);
-					break;
-				}
-				case 3://my all teammates
-					for (int i = 0; i < PlayerList.Count; i++) {
-						if (PlayerList[i].Team == player.Team) {
-							objs.Add(PlayerList[i].gameObject);
-						}
-					}
-					break;
-				case 10://ball
-					objs.Add(CourtMgr.Get.RealBall);
-					break;
-				}
-				activeSkillTargets.Add(key , objs);
-				return activeSkillTargets[key];
-			}
-		}
-
-		return null;
-	}
-
-	private bool checkSkillSituation(PlayerBehaviour player) {
-		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Situation;
-		if(kind == 0)
-			return true;
-
-		if(kind == 1) {
-			if(player.Team == ETeamKind.Self && Situation == EGameSituation.AttackA)
-				return true;	
-
-			if(player.Team == ETeamKind.Npc && Situation == EGameSituation.AttackB) 
-				return true;	
-		}
-
-		if(kind == 2) {
-			if(player.Team == ETeamKind.Self && Situation == EGameSituation.AttackB) 
-				return true;	
-			
-			if(player.Team == ETeamKind.Npc && Situation == EGameSituation.AttackA) 
-				return true;	
-		}
-
-		if(kind == 3) {
-			float distance = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv);
-			for(int i=0; i<PlayerList.Count; i++) {
-				if(PlayerList[i].Team != player.Team)
-					if(distance >= getDis(PlayerList[i], player.transform.position))
-						return true;
-			}
-		}
-
-		if(kind == 4 && player.IsBallOwner)
-			return true;
-
-		return false;
-	}
 
 	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
 		if (player.CanUseActiveSkill) {
@@ -2615,14 +2535,14 @@ public class GameController : KnightSingleton<GameController>
 					//Target(People)
 					if (target == player.gameObject || getDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
 					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
-						if (checkSkillSituation(player))
+						if (player.CheckSkillSituation)
 							return true;
 					}
 				} else {
 					//Basket
 					if (target == player.gameObject || getDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
 					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
-						if (checkSkillSituation(player))
+						if (player.CheckSkillSituation)
 							return true;
 					}
 				}
@@ -4397,7 +4317,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public bool CanUseActiveSkill {
+	public bool CheckOthersUseSkill {
 		get {
 			for (int i=0; i<PlayerList.Count; i++) {
 				if(PlayerList[i].IsUseSkill)
