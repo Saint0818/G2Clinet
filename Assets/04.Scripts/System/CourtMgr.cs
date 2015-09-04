@@ -496,6 +496,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallAddForce(Vector3.down * 70);
 				break;
 			case EPlayerState.BasketAnimationStart:
+				realBallDoMoveFinish();
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBallTrigger.SetBoxColliderEnable(false);
@@ -712,6 +713,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void RealBallDoMove(Vector3 endValue, float duringtime)
 	{
 		RealBall.transform.DOMove (endValue, duringtime);
+	}
+
+	private void realBallDoMoveFinish (){
+		RealBall.transform.DOKill(true);
 	}
 
 	public Vector3 RealBallVelocity
