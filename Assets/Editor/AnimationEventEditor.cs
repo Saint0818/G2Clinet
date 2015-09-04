@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class AnimationEventEditor : EditorWindow {
 	[MenuItem ("GameEditor/AnimationEventEditor")]
 	public static void BuildTool() {
-		EditorWindow.GetWindowWithRect(typeof(AnimationEventEditor), new Rect(0, 0, 600, 600), true, "AnimationEventEditor").Show();
+		EditorWindow.GetWindowWithRect(typeof(AnimationEventEditor), new Rect(0, 0, 600, 800), true, "AnimationEventEditor").Show();
 	}
 
 	private AnimationClip sourceObject;
@@ -19,28 +19,55 @@ public class AnimationEventEditor : EditorWindow {
 	private List<Object> aryTempObject = new List<Object>();
 	private List<float> aryTempTime = new List<float>();
 
+	private List<string> aryTagName = new List<string>();
+	private string separateName = string.Empty;
+	private int count = 0;
+	private bool isCal = false;
+	private int showCount = 0;
 
 	private AnimationEvent[] aryEvent = new AnimationEvent[0];
 
 	private Vector2 scrollPosition = Vector2.zero;
+	private Vector2 scrollTagPosition = Vector2.zero;
 	
 	private GUIStyle style = new GUIStyle();
 
-	private int baseHeight = 140;
+	private int baseHeight = 200;
+
+	private int index = 0;
+	private string[] options;
+	public List<AnimationClip> allAnimationClip = new List<AnimationClip>();
+
+	void OnFocus(){
+		allAnimationClip.Clear();
+		UnityEngine.Object[] animationObjs = Resources.LoadAll("Character/PlayerModel_2/Animation", typeof(AnimationClip));
+		for(int i=0; i<animationObjs.Length; i++) {
+			AnimationClip clip = animationObjs[i] as AnimationClip;
+			if(!allAnimationClip.Contains(clip))
+				allAnimationClip.Add(clip);
+		}
+		options = new string[allAnimationClip.Count];
+		for(int i=0; i<allAnimationClip.Count; i++){
+			options[i] = allAnimationClip[i].name;
+		}
+	}
 
 	void OnGUI(){
 		style.normal.textColor = Color.yellow;
 
-		if(GUI.Button(new Rect (0, 20, 100, 20), "Get Event")) {
+		if(GUI.Button(new Rect (0, 50, 100, 20), "Get Event")) {
 			init();
 			loadEvent();
 		}
-		if(GUI.Button(new Rect (150, 20, 100, 20), "Add Event")) {
+		if(GUI.Button(new Rect (150, 50, 100, 20), "Add Event")) {
 			addEvent();
 		}
-		
-		GUI.Label(new Rect(0, 50, 100, 20), "AnimationObject:");
-		sourceObject = EditorGUI.ObjectField(new Rect(100, 50, 200, 20), sourceObject, typeof(AnimationClip), true) as AnimationClip;
+
+//		GUI.Label(new Rect(0, 50, 100, 20), "AnimationObject:");
+		if(options != null)
+			index = EditorGUI.Popup(new Rect(0, 20, 200, 20), "AnimationObject:", index, options);
+		sourceObject = allAnimationClip[index];
+//		sourceObject = EditorGUI.ObjectField(new Rect(100, 50, 200, 20), sourceObject, typeof(AnimationClip), true) as AnimationClip;
 		
 		
 		GUI.Label(new Rect(0, 80, 180, 30), "AnimationClip Totally Length :");
@@ -54,43 +81,95 @@ public class AnimationEventEditor : EditorWindow {
 
 		GUI.Label(new Rect(0, 120, 150, 20), "AnimationEvent List Count:", style);
 		GUI.Label(new Rect(160, 120, 100, 20), aryTempEvent.Count.ToString(), style);
-		scrollPosition = GUI.BeginScrollView(new Rect(0, baseHeight, 530, 400), scrollPosition, new Rect(0, baseHeight, 500, (aryTempEvent.Count * 140)));
+
+
+		scrollTagPosition = GUI.BeginScrollView(new Rect(0, 140, 600, 80), scrollTagPosition, new Rect(0, 140, aryTagName.Count + 100, 80));
+
+		if(GUI.Button(new Rect (0, 140, 100, 40), "All")){
+			separateName = string.Empty;
+			isCal = false;
+			showCount = 0;
+		}
+		for (int i=0; i<aryTagName.Count; i++) {
+			if(GUI.Button(new Rect (100 + 100*i, 140, 100, 40), aryTagName[i])){
+				separateName = aryTagName[i];
+				isCal = false;
+				showCount = 0;
+			}
+		}
+
+		GUI.EndScrollView();
+
+		scrollPosition = GUI.BeginScrollView(new Rect(0, baseHeight, 530, 550), scrollPosition, new Rect(0, baseHeight, 500, (showCount * 200)));
+		count = 0;
 		if(aryTempEvent.Count > 0){
 			for(int i=0; i<aryTempEvent.Count; i++) {
-				GUI.Label(new Rect(0, 140 + 20 + baseHeight * i, 100, 20), "FunctionName");
-//				GUI.Label(new Rect(100, 140 + 20 + baseHeight * i, 100, 20), aryTempEvent[i].functionName);
-				aryTempFunctionName[i] = GUI.TextField(new Rect(100, 140 + 20 + baseHeight * i, 200, 20) , aryTempFunctionName[i]);
+				if(string.IsNullOrEmpty(separateName)) {
+					GUI.Label(new Rect(0, baseHeight + 20 + baseHeight * i, 100, 20), "FunctionName");
+					aryTempFunctionName[i] = GUI.TextField(new Rect(100, baseHeight + 20 + baseHeight * i, 200, 20) , aryTempFunctionName[i]);
 
-				GUI.Label(new Rect(0, 140 + 40 + baseHeight * i, 100, 20), "Float");
-//				GUI.Label(new Rect(100, 140 + 40 + baseHeight * i, 100, 20), aryTempEvent[i].floatParameter.ToString());
-				aryTempFloatParameter[i] = EditorGUI.FloatField(new Rect(100, 140 + 40 + baseHeight * i, 200, 20), aryTempFloatParameter[i]);
+					GUI.Label(new Rect(0, baseHeight + 40 + baseHeight * i, 100, 20), "Float");
+					aryTempFloatParameter[i] = EditorGUI.FloatField(new Rect(100, baseHeight + 40 + baseHeight * i, 200, 20), aryTempFloatParameter[i]);
 
-				GUI.Label(new Rect(0, 140 + 60 + baseHeight * i, 100, 20), "Int");
-//				GUI.Label(new Rect(100, 140 + 60 + baseHeight * i, 100, 20), aryTempEvent[i].intParameter.ToString());
-				aryTempIntParameter[i] = EditorGUI.IntField(new Rect(100, 140 + 60 + baseHeight * i, 200, 20), aryTempIntParameter[i]);
-				
-				GUI.Label(new Rect(0, 140 + 80 + baseHeight * i, 100, 20), "String");
-//				GUI.Label(new Rect(100, 140 + 80 + baseHeight * i, 100, 20), aryTempEvent[i].stringParameter);
-				aryTempString[i] = EditorGUI.TextField(new Rect(100, 140 + 80 + baseHeight * i, 200, 20), aryTempString[i]);
-				
-				GUI.Label(new Rect(0, 140 + 100 + baseHeight * i, 100, 20), "Object");
-				aryTempObject[i] = EditorGUI.ObjectField(new Rect(100, 140 + 100+ baseHeight * i, 200, 20), aryTempObject[i], typeof(Object), true) as Object;
+					GUI.Label(new Rect(0, baseHeight + 60 + baseHeight * i, 100, 20), "Int");
+					aryTempIntParameter[i] = EditorGUI.IntField(new Rect(100, baseHeight + 60 + baseHeight * i, 200, 20), aryTempIntParameter[i]);
+					
+					GUI.Label(new Rect(0, baseHeight + 80 + baseHeight * i, 100, 20), "String");
+					aryTempString[i] = EditorGUI.TextField(new Rect(100, baseHeight + 80 + baseHeight * i, 200, 20), aryTempString[i]);
+					
+					GUI.Label(new Rect(0, baseHeight + 100 + baseHeight * i, 100, 20), "Object");
+					aryTempObject[i] = EditorGUI.ObjectField(new Rect(100, baseHeight + 100+ baseHeight * i, 200, 20), aryTempObject[i], typeof(Object), true) as Object;
 
-				GUI.Label(new Rect(0, 140 + 120 + baseHeight * i, 100, 20), "Time");
-//				GUI.Label(new Rect(100, 140 + 120 + baseHeight * i, 100, 20),(aryTempEvent[i].time/ sourceObject.length).ToString());
-				aryTempTime[i] = EditorGUI.FloatField(new Rect(100, 140 + 120 + baseHeight * i, 200, 20), aryTempTime[i]);
+					GUI.Label(new Rect(0, baseHeight + 120 + baseHeight * i, 100, 20), "Time");
+					aryTempTime[i] = EditorGUI.FloatField(new Rect(100, baseHeight + 120 + baseHeight * i, 200, 20), aryTempTime[i]);
 
-				
-				if(GUI.Button(new Rect(320, 140 + 20 + baseHeight * i, 180, 20), "Delete Event Index:"+(i+1).ToString())) {
-					deleteEvent(i);
+					
+					if(GUI.Button(new Rect(320, baseHeight + 40 + baseHeight * i, 180, 20), "Delete Event Index:"+(i+1).ToString())) {
+						deleteEvent(i);
+					}
+					GUI.Label(new Rect(0, baseHeight + 140 + baseHeight * i, 600, 20), "=====================================================================================================================================");
+					if(!isCal){
+						showCount++;
+					}
+				} else {
+					if(aryTempFunctionName[i].Equals(separateName)) {
+						GUI.Label(new Rect(0, baseHeight + 20 + baseHeight * count, 100, 20), "FunctionName");
+						aryTempFunctionName[i] = GUI.TextField(new Rect(100, baseHeight + 20 + baseHeight * count, 200, 20) , aryTempFunctionName[i]);
+						
+						GUI.Label(new Rect(0, baseHeight + 40 + baseHeight * count, 100, 20), "Float");
+						aryTempFloatParameter[i] = EditorGUI.FloatField(new Rect(100, baseHeight + 40 + baseHeight * count, 200, 20), aryTempFloatParameter[i]);
+						
+						GUI.Label(new Rect(0, baseHeight + 60 + baseHeight * count, 100, 20), "Int");
+						aryTempIntParameter[i] = EditorGUI.IntField(new Rect(100, baseHeight + 60 + baseHeight * count, 200, 20), aryTempIntParameter[i]);
+						
+						GUI.Label(new Rect(0, baseHeight + 80 + baseHeight * count, 100, 20), "String");
+						aryTempString[i] = EditorGUI.TextField(new Rect(100, baseHeight + 80 + baseHeight * count, 200, 20), aryTempString[i]);
+						
+						GUI.Label(new Rect(0, baseHeight + 100 + baseHeight * count, 100, 20), "Object");
+						aryTempObject[i] = EditorGUI.ObjectField(new Rect(100, baseHeight + 100+ baseHeight * count, 200, 20), aryTempObject[i], typeof(Object), true) as Object;
+						
+						GUI.Label(new Rect(0, baseHeight + 120 + baseHeight * count, 100, 20), "Time");
+						aryTempTime[i] = EditorGUI.FloatField(new Rect(100, baseHeight + 120 + baseHeight * count, 200, 20), aryTempTime[i]);
+						
+						
+						if(GUI.Button(new Rect(320, baseHeight + 40 + baseHeight * count, 180, 20), "Delete Event Index:"+(count+1).ToString())) {
+							deleteEvent(i);
+						}
+						GUI.Label(new Rect(0, baseHeight + 140 + baseHeight * count, 600, 20), "=====================================================================================================================================");
+						count ++;
+					}
 				}
-				GUI.Label(new Rect(0, 140 + 140 + baseHeight * i, 600, 20), "=====================================================================================================================================");
 			}
 		}
 		GUI.EndScrollView();
+		if(!string.IsNullOrEmpty(separateName)) 
+			showCount = count;
+		else { 
+			if(!isCal)
+				isCal = true;
+		}
 
-
-		if(GUI.Button(new Rect (300, 550, 100, 20), "Save Event")) {
+		if(GUI.Button(new Rect (500, 770, 100, 20), "Save Event")) {
 			isSave = true;
 			AnimationEvent[] newEvents = new AnimationEvent[aryTempEvent.Count];
 			for (int i=0; i<newEvents.Length; i++) {
@@ -110,7 +189,9 @@ public class AnimationEventEditor : EditorWindow {
 	}
 
 	private void init(){
+		separateName = string.Empty;
 		isSave = false;
+		aryTagName.Clear();
 		aryTempEvent.Clear();
 		aryTempFunctionName.Clear();
 		aryTempFloatParameter.Clear();
@@ -121,6 +202,8 @@ public class AnimationEventEditor : EditorWindow {
 	}
 
 	private void loadEvent(){
+		isCal = false;
+		showCount = 0;
 		if(sourceObject == null)
 			return;
 		aryEvent = AnimationUtility.GetAnimationEvents(sourceObject);
@@ -132,6 +215,9 @@ public class AnimationEventEditor : EditorWindow {
 			aryTempString.Add(aryEvent[i].stringParameter);
 			aryTempObject.Add(aryEvent[i].objectReferenceParameter);
 			aryTempTime.Add(aryEvent[i].time);
+
+			if(!aryTagName.Contains(aryEvent[i].functionName))
+				aryTagName.Add(aryEvent[i].functionName);
 		}
 	}
 
