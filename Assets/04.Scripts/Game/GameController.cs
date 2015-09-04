@@ -327,7 +327,7 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].ShowPos = 5;
 	}
 
-	private void PlayZreoPosition()
+	private void PlayZeroPosition()
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i])
@@ -383,7 +383,7 @@ public class GameController : KnightSingleton<GameController>
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
 			SetBornPositions();
-			PlayZreoPosition ();
+			PlayZeroPosition ();
         	break;
 		case EGameTest.All:
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], new GameStruct.TPlayer(0)));	
@@ -520,8 +520,6 @@ public class GameController : KnightSingleton<GameController>
 	private void setPassIcon(bool isShow) {
 		if(GameStart.Get.TestMode == EGameTest.None) {
 			for(int i=0; i<3; i++) {
-				//passIcon[i].SetActive(isShow);
-
 				if (i < 2 && selectIcon[i])
 					selectIcon[i].SetActive(isShow);
 			}
@@ -529,6 +527,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	void FixedUpdate() {
+		#if UNITY_EDITOR
 		if (Joysticker) {
 			if (Input.GetKeyUp (KeyCode.V))
 				BallOwner.AniState(EPlayerState.KnockDown1);
@@ -639,6 +638,7 @@ public class GameController : KnightSingleton<GameController>
 			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)
 				judgeSkillUI();
 		}
+		#endif
 
 		if (coolDownPass > 0 && Time.time >= coolDownPass)
             coolDownPass = 0;
@@ -1523,7 +1523,6 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	private void jodgeShootAngle(PlayerBehaviour player){
-		//Angle
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
@@ -1830,9 +1829,6 @@ public class GameController : KnightSingleton<GameController>
 //				UIHint.Get.ShowHint("AirBall", Color.yellow);
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
-//				Vector3 ori = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position - CourtMgr.Get.RealBall.transform.position;
-//				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
-//					                         CourtMgr.Get.RealBall.transform.position + (ori * 0.8f), shootAngle);
 				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 				                                                         CourtMgr.Get.BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
 

@@ -3101,14 +3101,14 @@ public class PlayerBehaviour : MonoBehaviour
 						TimerMgr.Get.ChangeTime (item, 0);
 					break;
 				case 1://show self
-					SkillEffectManager.Get.OnShowEffect(this, false);
+					showActiveEffect();
 					GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
 					break;
 				case 2://show all Player
-					SkillEffectManager.Get.OnShowEffect(this, false);
+					showActiveEffect();
 					GameController.Get.SetAllPlayerLayer("SkillPlayer");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
@@ -3120,7 +3120,7 @@ public class PlayerBehaviour : MonoBehaviour
 			//Teammate and Enemy's Active PassiveCard will be shown
 			if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
 				UIPassiveEffect.Get.ShowCard(this, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
-			SkillEffectManager.Get.OnShowEffect(this, false);
+			showActiveEffect();
 		}
 	}
 
@@ -3169,6 +3169,10 @@ public class PlayerBehaviour : MonoBehaviour
 			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 				TimerMgr.Get.ChangeTime (item, 1);
 		}
+	}
+
+	public void showActiveEffect(){
+		SkillEffectManager.Get.OnShowEffect(this, false);
 	}
 
     public void ResetMove()
@@ -3228,7 +3232,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool CheckSkillSituation{
-		get{return skillController.CheckSkillSituationForAI(this);}
+		get{return (skillController.CheckSkillSituationForAI(this) && skillController.CheckSkillBaseSituation(this));}
 	}
 
 	public List<GameObject> GetActiveSkillTarget {

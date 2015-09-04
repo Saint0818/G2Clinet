@@ -321,6 +321,71 @@ namespace SkillControllerSpace {
 			
 			return false;
 		}
+
+		public bool CheckSkillBaseSituation(PlayerBehaviour player) {
+			int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Kind;
+			switch (GameController.Get.Situation) {
+			case EGameSituation.AttackA:
+				if(player.Team == ETeamKind.Self) {
+					if (kind >= 1 && kind <= 7 && player.IsBallOwner )
+						return true;
+					
+					if ((kind == 11 || kind == 18) && player.IsBallOwner) 
+						return true;
+					
+					if (kind == 17 && !player.IsBallOwner) 
+						return true;
+					
+					if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+						return true;
+					
+				} else {
+					if (kind == 16)
+						return true;
+					
+					if (kind == 15 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
+						return true;
+					
+					if (kind == 17 && !player.IsBallOwner) 
+						return true;
+					
+					if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+						return true;
+				}	
+					
+				break;
+				case EGameSituation.AttackB:
+				if(player.Team == ETeamKind.Self) {
+					if (kind == 16)
+						return true;
+					
+					if (kind == 15 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
+						return true;
+					
+					if (kind == 17 && !player.IsBallOwner) 
+						return true;
+					
+					if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+						return true;
+
+				} else  {
+					if (kind >= 1 && kind <= 7 && player.IsBallOwner )
+						return true;
+					
+					if ((kind == 11 || kind == 18) && player.IsBallOwner) 
+						return true;
+					
+					if (kind == 17 && !player.IsBallOwner) 
+						return true;
+					
+					if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+						return true;
+				}
+				
+				break;
+			}
+			return false;
+		}
 		
 		public List<GameObject> GetActiveSkillTarget(PlayerBehaviour player) {
 			if (GameData.DSkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
