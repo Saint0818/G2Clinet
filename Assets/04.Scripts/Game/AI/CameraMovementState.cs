@@ -1,6 +1,6 @@
 ﻿using AI;
 
-public class CameraMovementState : State<EGameSituation>
+public class CameraMovementState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
@@ -24,6 +24,10 @@ public class CameraMovementState : State<EGameSituation>
     }
 
     public override void Exit()
+    {
+    }
+
+    public override void HandleMessage(Telegram<EGameMsg> msg)
     {
     }
 }

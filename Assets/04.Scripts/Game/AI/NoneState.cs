@@ -1,6 +1,6 @@
 ﻿using AI;
 
-public class NoneState : State<EGameSituation>
+public class NoneState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
@@ -16,6 +16,10 @@ public class NoneState : State<EGameSituation>
     }
 
     public override void Exit()
+    {
+    }
+
+    public override void HandleMessage(Telegram<EGameMsg> msg)
     {
     }
 }

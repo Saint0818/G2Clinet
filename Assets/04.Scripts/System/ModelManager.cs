@@ -140,7 +140,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;
 
-        res.AddComponent<PlayerAI>();
 		PlayerBehaviour playerBehaviour = res.AddComponent<PlayerBehaviour>();
 
 		playerBehaviour.Team = team;
@@ -148,9 +147,9 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		playerBehaviour.Attribute = player;
 		playerBehaviour.Index = teamIndex;
 		if(team == ETeamKind.Self)
-			playerBehaviour.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
+			playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", teamIndex)));
 		else
-			playerBehaviour.SetTimerKey((ETimerKind)System.Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
+			playerBehaviour.SetTimerKey((ETimerKind)Enum.Parse(typeof(ETimerKind), string.Format("Player{0}", 3 +teamIndex)));
 
 		if(teamIndex == 0)
 			playerBehaviour.Postion = EPlayerPostion.C;
@@ -167,7 +166,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if(team == ETeamKind.Npc)
 			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-		return playerBehaviour;
+        // 目前 PlayerAI 必須要依賴 PlayerBehavior 才能做事情, 所以 PlayerAI 加到
+        // GameObject 時, PlayerBehavior 必須要已經存在了.
+        res.AddComponent<PlayerAI>();
+
+        return playerBehaviour;
 	}
 
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {

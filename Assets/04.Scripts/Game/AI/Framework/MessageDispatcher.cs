@@ -37,7 +37,8 @@ namespace AI
             if(!mListeners.ContainsKey(msg))
                 mListeners.Add(msg, new List<ITelegraph<TEnum>>());
 
-            mListeners[msg].Add(listener);
+            if(!mListeners[msg].Contains(listener))
+                mListeners[msg].Add(listener);
         }
 
         public void RemoveListener(ITelegraph<TEnum> listener, params TEnum[] msgs)
@@ -72,8 +73,8 @@ namespace AI
             mListeners.Clear();
         }
 
-        public void SendMesssage(TEnum msg, ITelegraph<TEnum> sender = null, 
-                                 ITelegraph<TEnum> receiver = null, Object extraInfo = null)
+        public void SendMesssage(TEnum msg, Object extraInfo = null, 
+                                 ITelegraph<TEnum> sender = null, ITelegraph<TEnum> receiver = null)
         {
             mTelegram.Clear();
             mTelegram.Sender = sender;

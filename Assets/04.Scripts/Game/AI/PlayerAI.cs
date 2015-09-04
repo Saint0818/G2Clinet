@@ -11,26 +11,28 @@ public enum EPlayerAIState
 
 public class PlayerAI : MonoBehaviour
 {
-    private StateMachine<EPlayerAIState> mMachine;
+    private StateMachine<EPlayerAIState, EGameMsg> mFSM;
         
     [UsedImplicitly]
 	private void Awake()
     {
-	    mMachine = new StateMachine<EPlayerAIState>();
-        mMachine.AddState(new PlayerNoneState());
-        mMachine.AddState(new PlayerAttackState());
-        mMachine.AddState(new PlayerDefenseState());
-        mMachine.ChangeState(EPlayerAIState.None);
+	    mFSM = new StateMachine<EPlayerAIState, EGameMsg>();
+        mFSM.AddState(new PlayerNoneState());
+        mFSM.AddState(new PlayerAttackState(GetComponent<PlayerBehaviour>()));
+        mFSM.AddState(new PlayerDefenseState(GetComponent<PlayerBehaviour>()));
+        mFSM.ChangeState(EPlayerAIState.None);
+
+        GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.CoachOrderAttackTactical);
     }
 
     [UsedImplicitly]
     private void FixedUpdate()
     {
-	    mMachine.Update();
+	    mFSM.Update();
 	}
 
     public void ChangeState(EPlayerAIState newState, object extraInfo = null)
     {
-        mMachine.ChangeState(newState, extraInfo);
+        mFSM.ChangeState(newState, extraInfo);
     }
 }

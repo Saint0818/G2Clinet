@@ -1,6 +1,6 @@
 using AI;
 
-public class JumpBallState : State<EGameSituation>
+public class JumpBallState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
@@ -16,6 +16,10 @@ public class JumpBallState : State<EGameSituation>
     }
 
     public override void Exit()
+    {
+    }
+
+    public override void HandleMessage(Telegram<EGameMsg> msg)
     {
     }
 }
