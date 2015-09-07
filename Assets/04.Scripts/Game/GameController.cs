@@ -47,7 +47,7 @@ public class GameController : KnightSingleton<GameController>
 	public float GameTime = 0;
     private float coolDownPass = 0;
     public float CoolDownCrossover = 0;
-    private float shootDistance = 0;
+    public float ShootDistance = 0;
     public float RealBallFxTime = 0;
 	public float StealBtnLiftTime = 1f;
 	private float waitStealTime = 0;
