@@ -34,6 +34,7 @@ ModelImporter:
     2300012: Sphere02
     2300014: Object03
     2300016: Object04
+    2300018: //RootNode
     3300000: Cone01
     3300002: Cone02
     3300004: Cone03
@@ -43,6 +44,7 @@ ModelImporter:
     3300012: Sphere02
     3300014: Object03
     3300016: Object04
+    3300018: //RootNode
     4300000: Object01
     4300002: Object02
     4300004: Sphere02
@@ -52,9 +54,10 @@ ModelImporter:
     4300012: Cone04
     4300014: Object03
     4300016: Object04
+    4300018: Balls
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
