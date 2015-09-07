@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GamePlayEnum;
 using GameStruct;
 using SkillBuffSpace;
+using DG.Tweening;
 
 
 public delegate void OnAddAttributeDelegate(int kind, float value);
@@ -35,7 +36,7 @@ public class SkillController : MonoBehaviour {
 	private SkillBuff skillBuff;
 	private List<TSkillAttribute> skillAttribute = new List<TSkillAttribute>();
 
-	public void SkillUpdate () {
+	void FixedUpdate() {
 		skillBuff.UpdateBuff();
 		updateSkillAttribute();
 	}
@@ -114,13 +115,6 @@ public class SkillController : MonoBehaviour {
 			}
 		}
 	}
-
-	private float getDis(Vector3 someone, Vector3 target) {
-		if(someone != null && target != Vector3.zero)
-			return Vector3.Distance(someone, target);
-		
-		return -1;
-	}
 	
 	private int findSkillAttribute(int skillID) {
 		for (int i = 0; i < skillAttribute.Count; i++)
@@ -148,60 +142,8 @@ public class SkillController : MonoBehaviour {
 		
 		return directState;
 	}
-	
-	public void HidePlayerName (){
-		skillBuff.HideName();
-	}
-	
-	public List<int> GetAllBuff (){
-		return skillBuff.GetAllBuff();
-	}
-	
-	public void FinishBuff (int skillID){
-		int index = findSkillAttribute(skillID);
-		if(OnAddAttribute != null) 
-			OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
-		skillAttribute.RemoveAt(index);
-	}
-	
-	public void Reset (){
-		skillBuff.RemoveAllBuff();
-	}
 
-	public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
-		if (value != 0) {
-			int index = findSkillAttribute(skillID);
-			if(skillID >= IDLimitActive)
-				skillBuff.AddBuff(skillID, lifetime);
-			
-			if (index == -1) {
-				TSkillAttribute item = new TSkillAttribute();
-				item.ID = skillID;
-				item.Kind = kind;
-				item.Value = value;
-				item.CDTime = lifetime;
-				skillAttribute.Add(item);
-
-				if(OnAddAttribute != null) 
-					OnAddAttribute(kind, value);
-			} else {
-				float add = 0;
-				skillAttribute[index].CDTime = lifetime;
-				if (value > 0 && value > skillAttribute[index].Value) 
-					add = value - skillAttribute[index].Value;
-				else
-					if (value < 0 && value < skillAttribute[index].Value) 
-						add = value - skillAttribute[index].Value;
-				
-				if (add != 0) {
-					if(OnAddAttribute != null) 
-						OnAddAttribute(kind, add);
-				}
-			}
-		}
-	}
-	
-	public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isWideOpen = 0) {
+	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isWideOpen = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -275,13 +217,13 @@ public class SkillController : MonoBehaviour {
 		} else
 			return playerState;
 	}
-
-	public bool CheckSkillSituationForAI(PlayerBehaviour player) {
+	
+	private bool checkSkillSituationForAI(PlayerBehaviour player) {
 		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Situation;
-
+		
 		if(GameController.Get.Joysticker == executePlayer)
 			return true;
-
+		
 		// all the time
 		if(kind == 0) 
 			return true;
@@ -309,7 +251,7 @@ public class SkillController : MonoBehaviour {
 			float distance = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv);
 			for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				if(GameController.Get.GamePlayers[i].Team != player.Team)
-					if(distance >= getDis(GameController.Get.GamePlayers[i].transform.position, player.transform.position))
+					if(distance >= GameController.Get.GetDis(GameController.Get.GamePlayers[i].transform.position, player.transform.position))
 						return true;
 			}
 		}
@@ -320,8 +262,8 @@ public class SkillController : MonoBehaviour {
 		
 		return false;
 	}
-
-	public bool CheckSkillBaseSituation(PlayerBehaviour player) {
+	
+	private bool checkSkillBaseSituation(PlayerBehaviour player) {
 		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Kind;
 		switch (GameController.Get.Situation) {
 		case EGameSituation.AttackA:
@@ -351,9 +293,9 @@ public class SkillController : MonoBehaviour {
 				if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
 					return true;
 			}	
-				
+			
 			break;
-			case EGameSituation.AttackB:
+		case EGameSituation.AttackB:
 			if(player.Team == ETeamKind.Self) {
 				if (kind == 16)
 					return true;
@@ -366,7 +308,7 @@ public class SkillController : MonoBehaviour {
 				
 				if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
 					return true;
-
+				
 			} else  {
 				if (kind >= 1 && kind <= 7 && player.IsBallOwner )
 					return true;
@@ -384,6 +326,289 @@ public class SkillController : MonoBehaviour {
 			break;
 		}
 		return false;
+	}
+	
+	public void HidePlayerName (){
+		skillBuff.HideName();
+	}
+	
+	public List<int> GetAllBuff (){
+		return skillBuff.GetAllBuff();
+	}
+	
+	public void FinishBuff (int skillID){
+		int index = findSkillAttribute(skillID);
+		if(OnAddAttribute != null) 
+			OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
+		skillAttribute.RemoveAt(index);
+	}
+	
+	public void Reset (){
+		skillBuff.RemoveAllBuff();
+	}
+
+	public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
+		if (value != 0) {
+			int index = findSkillAttribute(skillID);
+			if(skillID >= IDLimitActive)
+				skillBuff.AddBuff(skillID, lifetime);
+			
+			if (index == -1) {
+				TSkillAttribute item = new TSkillAttribute();
+				item.ID = skillID;
+				item.Kind = kind;
+				item.Value = value;
+				item.CDTime = lifetime;
+				skillAttribute.Add(item);
+
+				if(OnAddAttribute != null) 
+					OnAddAttribute(kind, value);
+			} else {
+				float add = 0;
+				skillAttribute[index].CDTime = lifetime;
+				if (value > 0 && value > skillAttribute[index].Value) 
+					add = value - skillAttribute[index].Value;
+				else
+					if (value < 0 && value < skillAttribute[index].Value) 
+						add = value - skillAttribute[index].Value;
+				
+				if (add != 0) {
+					if(OnAddAttribute != null) 
+						OnAddAttribute(kind, add);
+				}
+			}
+		}
+	}
+
+	public bool CheckSkill(PlayerBehaviour player, GameObject target = null) {
+		if (player.CanUseActiveSkill) {
+			if (target) {
+				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 1 && 
+				   GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind != 2) {
+					//Target(People)
+					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
+					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+						if (checkSkillSituationForAI(player) && checkSkillBaseSituation(player))
+							return true;
+					}
+				} else {
+					//Basket
+					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
+					    GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv)) {
+						if (checkSkillSituationForAI(player) && checkSkillBaseSituation(player))
+							return true;
+					}
+				}
+			} else
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public void AttackSkillEffect(PlayerBehaviour player, int skillID) {
+		Vector3 v;
+		TSkillData skill = GameData.DSkillData[skillID];
+		if(skill.Kind == 21 && skill.TargetKind == 3) {
+			for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
+				if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
+					if(CheckSkill(player, GameController.Get.GamePlayers[i].gameObject)) {
+						GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
+											                                skill.AttrKind, 
+											                                skill.Value(player.Attribute.ActiveSkill.Lv), 
+											                                skill.LifeTime(player.Attribute.ActiveSkill.Lv));
+					}
+				}
+			}
+		} else {
+			player.AddSkillAttribute(skill.ID, 
+			                         skill.AttrKind, 
+			                         skill.Value(player.Attribute.ActiveSkill.Lv), 
+			                         skill.LifeTime(player.Attribute.ActiveSkill.Lv));
+		}
+	}
+
+	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
+		bool Result = false;
+		EPlayerState playerState = EPlayerState.Idle;
+		try {
+			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), State.ToString());
+		} catch {
+			playerState = EPlayerState.Idle;
+		}
+		
+		if(player) {
+			switch(State) {
+			case ESkillSituation.PickBall:
+				playerState = EPlayerState.PickBall2;
+				player.PassiveID = 1310;
+				player.PassiveLv = player.PickBall2Lv;
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.MoveDodge:
+				if(player.IsBallOwner) {
+					int Dir = GameController.Get.HaveDefPlayer(player, GameConst.CrossOverDistance, 50);
+					if(Dir != 0 && player.IsHaveMoveDodge) {
+						if(Random.Range(0, 100) <= player.MoveDodgeRate) {
+							Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
+							//Crossover     
+							if(player.Team == ETeamKind.Self && player.transform.position.z >= 9.5)
+								return Result;
+							else 
+								if(player.Team == ETeamKind.Npc && player.transform.position.z <= -9.5)
+									return Result;
+							
+							int AddZ = 6;
+							if(player.Team == ETeamKind.Npc)
+								AddZ = -6;
+							
+							player.RotateTo(pos.x, pos.z);
+							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+							if (Dir == 1) {
+								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								playerState = EPlayerState.MoveDodge0;
+								player.PassiveID = 1100;
+							} else {
+								player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								playerState = EPlayerState.MoveDodge1;
+								player.PassiveID = 1100;
+							}			
+							player.PassiveLv = player.MoveDodgeLv;
+							
+							GameController.Get.CoolDownCrossover = Time.time + 4;
+							Result = player.AniState(playerState);
+						}
+					} 
+				}
+				break;
+				
+			case ESkillSituation.Block:
+				playerState = getPassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Dunk0:
+				playerState = getPassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot0:
+				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot3:
+				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot2:
+				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot1:
+				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v );
+				break;
+				
+			case ESkillSituation.Layup0:
+				playerState = getPassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Elbow:
+				playerState = getPassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
+				Result = player.AniState (playerState);
+				break;
+				
+			case ESkillSituation.Fall1:
+				Result = true;
+				break;
+				
+			case ESkillSituation.Fall2:
+				Result = true;
+				break;
+				
+			case ESkillSituation.Pass4:
+				playerState = getPassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass4)
+					Result = player.AniState(playerState);
+				else
+					Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Pass0:
+				playerState = getPassiveSkill(ESkillSituation.Pass0, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass0)
+					Result = player.AniState(playerState);
+				else
+					Result = player.AniState(playerState, v);
+				
+				break;
+				
+			case ESkillSituation.Pass2:
+				playerState = getPassiveSkill(ESkillSituation.Pass2, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass2)
+					Result = player.AniState(playerState);
+				else
+					Result = player.AniState(playerState, v);
+				
+				break;
+				
+			case ESkillSituation.Pass1:
+				playerState = getPassiveSkill(ESkillSituation.Pass1, ESkillKind.Pass, v);
+				if(playerState != EPlayerState.Pass1)
+					Result = player.AniState(playerState);
+				else
+					Result = player.AniState(playerState, v);
+				
+				break;
+				
+			case ESkillSituation.Push0:
+				playerState = getPassiveSkill(ESkillSituation.Push0, ESkillKind.Push);
+				if(v == Vector3.zero)
+					Result = player.AniState(playerState);
+				else
+					Result = player.AniState(playerState, v);
+				break;
+			case ESkillSituation.Rebound:
+				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
+				Result = player.AniState (playerState);
+				break;
+				
+			case ESkillSituation.JumpBall:
+				playerState = getPassiveSkill(ESkillSituation.JumpBall, ESkillKind.JumpBall);
+				Result = player.AniState (playerState);
+				break;
+				
+			case ESkillSituation.Steal0:	
+				playerState = getPassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.KnockDown0:
+				playerState = getPassiveSkill(ESkillSituation.KnockDown0, ESkillKind.KnockDown0);
+				Result = player.AniState(playerState, v);
+				break;
+			}	
+		}
+		try {
+			if(Result && !playerState.ToString().Equals(State.ToString())){
+				if(GameData.DSkillData.ContainsKey(player.PassiveID)) {
+					AttackSkillEffect(player, player.PassiveID);
+					if(!player.IsUseSkill)
+						UIPassiveEffect.Get.ShowCard(player, GameData.DSkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.DSkillData[player.PassiveID].Name);
+					SkillEffectManager.Get.OnShowEffect(player, true);
+					player.GameRecord.PassiveSkill++;
+				}
+			}
+		} catch {
+			Debug.Log(player.name  +" is no State: "+ State.ToString() +" or have no PassiveID:"+ player.PassiveID);
+		}
+		
+		return Result;
 	}
 	
 	public List<GameObject> GetActiveSkillTarget(PlayerBehaviour player) {

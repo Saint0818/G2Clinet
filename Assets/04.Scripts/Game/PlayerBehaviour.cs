@@ -6,7 +6,6 @@ using DG.Tweening;
 using GameStruct;
 using GamePlayEnum;
 using Chronos;
-using SkillControllerSpace;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
@@ -725,8 +724,6 @@ public class PlayerBehaviour : MonoBehaviour
 			return;
 		}
 
-		skillController.SkillUpdate();
-
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
         CalculationBlock();
@@ -1324,7 +1321,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB || GameStart.Get.TestMode != EGameTest.None) {
                 if ((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
-                   !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && GameController.Get.DoPassiveSkill(ESkillSituation.MoveDodge, this))) {
+                   !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && DoPassiveSkill(ESkillSituation.MoveDodge))) {
 	                isMoving = true;
 	                if (!isJoystick)
 	                    moveStartTime = Time.time + GameConst.DefMoveTime;
@@ -3194,8 +3191,9 @@ public class PlayerBehaviour : MonoBehaviour
         AutoFollow = false;
     }
 
-	public EPlayerState PassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isWideOpen = 0) {
-		return skillController.PassiveSkill(situation, kind, v, isWideOpen);
+	//=====Skill=====
+	public bool DoPassiveSkill(ESkillSituation state, Vector3 v = default(Vector3)) {
+		return skillController.DoPassiveSkill(state, this, v);
 	}
 
 	public bool ActiveSkill(GameObject target = null) {
@@ -3231,12 +3229,20 @@ public class PlayerBehaviour : MonoBehaviour
 		initAttr();
 	}
 
-	public bool CheckSkillSituation{
-		get{return (skillController.CheckSkillSituationForAI(this) && skillController.CheckSkillBaseSituation(this));}
+	public void AttackSkillEffect (int skillID) {
+		skillController.AttackSkillEffect(this, skillID);
 	}
 
-	public List<GameObject> GetActiveSkillTarget {
-		get{return skillController.GetActiveSkillTarget(this);}
+	public bool CheckSkill() {
+		bool result = false;
+		if(skillController.GetActiveSkillTarget(this).Count > 0){
+			for(int i=0; i<skillController.GetActiveSkillTarget(this).Count; i++)
+			{
+				if(skillController.CheckSkill(this, skillController.GetActiveSkillTarget(this)[i])) 
+					result = true;
+			}
+		}
+		return result;
 	}
 
 	public int PassiveID {

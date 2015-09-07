@@ -58,7 +58,6 @@ public class UISkillFormation : UIBase {
 	private UILabel labelCostValue;
 
 	//Center
-	private GameObject uiCardGroup;
 	private GameObject gridCardList;
 	private UIScrollView scrollViewCardList;
 
@@ -125,7 +124,6 @@ public class UISkillFormation : UIBase {
 		scrollViewItemList = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
 		scrollViewItemList.onStoppedMoving =ItemDragFinish;
 
-		uiCardGroup = GameObject.Find (UIName + "/CardsView/Center/CardsGroup");
 		gridCardList = GameObject.Find (UIName + "/CardsView/Center/CardsGroup/CardList/UIGrid");
 		scrollViewCardList = GameObject.Find (UIName + "/CardsView/Center/CardsGroup/CardList").GetComponent<UIScrollView>();
 
@@ -334,7 +332,6 @@ public class UISkillFormation : UIBase {
 
 	private void removeItems(int id, GameObject go = null) {
 		if(id < IDActiveLimit) {
-			int cardId = getIndex(go.name, false);
 			Transform t = go.transform.FindChild("SkillCost");
 			if(t)
 				setCost(-int.Parse(t.GetComponent<UILabel>().text));
@@ -598,7 +595,6 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void OnItemDetailInfo (GameObject go, bool state){
-		int cardIndex = getIndex(go.name, true);
 		int cardId = getIndex(go.name, false);
 		
 		if (state) {
