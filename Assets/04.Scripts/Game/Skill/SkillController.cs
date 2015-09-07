@@ -251,7 +251,8 @@ public class SkillController : MonoBehaviour {
 			float distance = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv);
 			for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				if(GameController.Get.GamePlayers[i].Team != player.Team)
-					if(distance >= GameController.Get.GetDis(GameController.Get.GamePlayers[i].transform.position, player.transform.position))
+					if(distance >= GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
+					                                         new Vector2(player.transform.position.x, player.transform.position.z)))
 						return true;
 			}
 		}
