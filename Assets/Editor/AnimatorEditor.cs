@@ -140,14 +140,17 @@ public class AnimatorEditor : EditorWindow {
 
 				if(aniAy[i])
 					for(int j=0; j<aniAy[i].layers.Length; j++){
-						recurrenceSubState(aniAy[i].layers[j].stateMachine);
+						if(j < aniAy[i].layers.Length)
+							EditorUtility.DisplayProgressBar("SwitchAnimationClip", "Animator", j / aniAy[i].layers.Length);
+					recurrenceSubState(aniAy[i].layers[j].stateMachine);
 				}
 				else
 					Debug.LogError("Error");
 			}
 
+			EditorUtility.ClearProgressBar();
 			AssetDatabase.SaveAssets();
-
+			ShowHint("Done");
 		}
 
 		if(isGetAnimtor) 
@@ -304,4 +307,8 @@ public class AnimatorEditor : EditorWindow {
 		}
 	}
 
+	private void ShowHint(string str)
+	{
+		this.ShowNotification(new GUIContent(str));
+	}
 }

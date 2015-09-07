@@ -132,6 +132,7 @@ public class BallTrigger : MonoBehaviour
 				pathay[0] = GetMiddlePosition(GameController.Get.Passer.transform.position, GameController.Get.Catcher.CatchBallPoint.transform.position);
 				pathay[1] = GameController.Get.Catcher.CatchBallPoint.transform.position;
 				CourtMgr.Get.RealBall.transform.DOPath(pathay, time * 1/GameController.Get.Passer.Timer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.Timer.timeScale, 10, 1);
 				break;
 			case 1:
 				ParabolaTime = 0;
@@ -157,7 +158,7 @@ public class BallTrigger : MonoBehaviour
 				break;
 			default:
 				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, time * 1/GameController.Get.Passer.Timer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
-				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 360), time * 1/GameController.Get.Passer.Timer.timeScale, 10, 1);
+				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.Timer.timeScale, 10, 1);
 				break;
 			}
 
@@ -172,6 +173,8 @@ public class BallTrigger : MonoBehaviour
 		{
 			if(GameController.Get.Catcher && GameController.Get.Passer)
 			{
+				IsAutoRotate = true;
+
 				ParabolaTime += Time.deltaTime * GameController.Get.Passer.Timer.timeScale; 
 				float X = 0;
 				float Z = 0;

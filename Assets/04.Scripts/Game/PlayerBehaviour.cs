@@ -261,6 +261,7 @@ public static class StateChecker {
 	private static bool isInit = false;
 	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
 	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
+	public static Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
 
 	public static void InitState() {
 		if (!isInit) {
@@ -322,6 +323,16 @@ public static class StateChecker {
 
 			StopStates.Add(EPlayerState.Ending0, true);
 			StopStates.Add(EPlayerState.Ending10, true);
+
+			ShowStates.Add(EPlayerState.Show1, true);
+			ShowStates.Add(EPlayerState.Show101, true);
+			ShowStates.Add(EPlayerState.Show102, true);
+			ShowStates.Add(EPlayerState.Show103, true);
+			ShowStates.Add(EPlayerState.Show104, true);
+			ShowStates.Add(EPlayerState.Show201, true);
+			ShowStates.Add(EPlayerState.Show202, true);
+			ShowStates.Add(EPlayerState.Show1001, true);
+			ShowStates.Add(EPlayerState.Show1003, true);
 		}
 	}
 }
@@ -402,7 +413,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// 0: Center, 1:Forward, 2:Guard.
     /// </summary>
 	public int Index;
-    private float aiTime = 0; // 什麼時間點, 角色要被 AI 控制?
+    private float aiTime = 0;
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
@@ -1917,27 +1928,32 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 
             case EPlayerState.Idle:
-            case EPlayerState.Show1:
-            case EPlayerState.Show1001:
-            case EPlayerState.Show1003:
-            case EPlayerState.Show101:
-            case EPlayerState.Show102:
-            case EPlayerState.Show103:
-            case EPlayerState.Show201:
-            case EPlayerState.Show202:
-            case EPlayerState.Ending0:
-            case EPlayerState.Ending10:
                 return true;
-        }
+				break;
 
-        return false;
-    }
-
-    public bool IsTee
-    { 
-        get
-        {
-            return (situation == EGameSituation.InboundsA || situation == EGameSituation.APickBallAfterScore || situation == EGameSituation.InboundsB || situation == EGameSituation.BPickBallAfterScore);
+			case EPlayerState.Show1:
+			case EPlayerState.Show1001:
+			case EPlayerState.Show1003:
+			case EPlayerState.Show101:
+			case EPlayerState.Show102:
+			case EPlayerState.Show103:
+			case EPlayerState.Show201:
+			case EPlayerState.Show202:
+			case EPlayerState.Ending0:
+			case EPlayerState.Ending10:
+				if(!IsShow)
+					return true;
+			break;
+		}
+		
+		return false;
+	}
+	
+	public bool IsTee
+	{ 
+		get
+		{
+			return (situation == EGameSituation.InboundsA || situation == EGameSituation.APickBallAfterScore || situation == EGameSituation.InboundsB || situation == EGameSituation.BPickBallAfterScore);
         }
     }
 
@@ -2220,15 +2236,21 @@ public class PlayerBehaviour : MonoBehaviour
 				GameController.Get.SetBall();
 				CourtMgr.Get.SetBallState(state);
 			}
-
+			if(IsDunk)
+			{
+				isDunk = false;
+				IsAnimatorMove = false;
+				gameObject.transform.DOKill();
+				gameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
+			}
 			SetShooterLayer();
-			isDunk = false;
+
 			isShootJump = false;
 			ClearAnimatorFlag();
 			AnimatorControl.SetInteger("StateNo", stateNo);
 			AnimatorControl.SetTrigger("KnockDownTrigger");
 			isCanCatchBall = false;
-			gameObject.transform.DOLocalMoveY(0, 1f);
+		
 			Result = true;
 			break;
 			
@@ -2261,6 +2283,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
 
                 isDunk = false;
+				IsAnimatorMove = false;
                 isShootJump = false;
                 ClearAnimatorFlag();
                 AnimatorControl.SetInteger("StateNo", stateNo);
@@ -3403,6 +3426,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get { return StateChecker.ShootStates.ContainsKey(crtState); }
     }
+
+	public bool IsShow
+	{
+		get{ return StateChecker.ShowStates.ContainsKey(crtState);}
+	}
 
 	public bool IsBuff
 	{
