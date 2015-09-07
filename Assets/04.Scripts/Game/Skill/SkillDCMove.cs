@@ -17,10 +17,10 @@ public class SkillDCMove : MonoBehaviour {
 			distance = Vector3.Distance(transform.position, Target.transform.position);
 			transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, 20 * Time.deltaTime);
 			if(distance <= 0.2f){
-				if(GameController.Get.onSkillDCComplete != null)
-					GameController.Get.onSkillDCComplete();
 				gameObject.SetActive(false);
 				transform.position = Born.transform.position;
+				if(GameController.Get.onSkillDCComplete != null)
+					GameController.Get.onSkillDCComplete();
 			}
 		}
 	}

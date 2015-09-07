@@ -524,7 +524,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.parent = null;
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
-				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* 70,ForceMode.Impulse);
+				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* (70 + GameController.Get.ShootDistance * 2),ForceMode.Impulse);
 				GameController.Get.Passer = null;
 				break;
 			}

@@ -13,7 +13,7 @@ public delegate bool OnPlayerAction2(PlayerBehaviour player,bool speedup);
 
 public delegate bool OnPlayerAction3(PlayerBehaviour player,EPlayerState state);
 
-public delegate void OnPlayerAction4(float max, float anger);
+public delegate void OnPlayerAction4(float max, float anger, int count);
 
 public enum EPlayerPostion
 {
@@ -233,17 +233,17 @@ public struct TScoreRate
         ThreeScoreRateDeviation = 0.5f;
         DownHandScoreRate = 40;
         DownHandSwishRate = 50;
-        DownHandAirBallRate = 25;
+        DownHandAirBallRate = 35;
         UpHandScoreRate = 20;
         UpHandSwishRate = 30;
-        UpHandAirBallRate = 12;
+        UpHandAirBallRate = 15;
         NormalScoreRate = 0;
         NormalSwishRate = 0;
-        NormalAirBallRate = 6;
-        NearShotScoreRate = 0;
+        NormalAirBallRate = 8;
+        NearShotScoreRate = 10;
         NearShotSwishRate = 10;
         NearShotAirBallRate = 3;
-        LayUpScoreRate = 0;
+        LayUpScoreRate = 20;
         LayUpSwishRate = 20;
         LayUpAirBallRate = 2;
     }
@@ -514,7 +514,7 @@ public class PlayerBehaviour : MonoBehaviour
 				angerPower = 0;
 			
 			if (Team == ETeamKind.Self && Index == 0) {
-				OnUIAnger(Attribute.MaxAnger, angerPower);
+				OnUIAnger(Attribute.MaxAnger, angerPower, 5);
 				if (value > 0)
 					GameRecord.AngerAdd += value;
 			}
@@ -537,11 +537,11 @@ public class PlayerBehaviour : MonoBehaviour
 
         AnimatorControl = gameObject.GetComponent<Animator>();
         PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
+		skillController = gameObject.GetComponent<SkillController>();
 
-        ScoreRate = GameStart.Get.ScoreRate;
+		ScoreRate = new TScoreRate(1);
 		DashEffectEnable (false);
 
-		skillController = gameObject.GetComponent<SkillController>();
     }
 
 	public void SetTimerKey(ETimerKind key)
@@ -977,6 +977,7 @@ public class PlayerBehaviour : MonoBehaviour
         } else
         {
             isDunk = false;
+			IsAnimatorMove = false;
 			LogMgr.Get.LogError("playCurve is null");
         }
     }
@@ -2116,8 +2117,8 @@ public class PlayerBehaviour : MonoBehaviour
 					if (aniCurve.Dunk [i].Name == curveName)
                     {
                         playerDunkCurve = aniCurve.Dunk [i];
+						IsAnimatorMove = false;
                         isDunk = true;
-//                        isDunkZmove = false;
                         dunkCurveTime = 0;
 						isFindCurve = true;
                     }
@@ -3233,16 +3234,18 @@ public class PlayerBehaviour : MonoBehaviour
 		skillController.AttackSkillEffect(this, skillID);
 	}
 
-	public bool CheckSkill() {
-		bool result = false;
-		if(skillController.GetActiveSkillTarget(this).Count > 0){
-			for(int i=0; i<skillController.GetActiveSkillTarget(this).Count; i++)
-			{
-				if(skillController.CheckSkill(this, skillController.GetActiveSkillTarget(this)[i])) 
-					result = true;
+	public bool CheckSkill {
+		get {
+			bool result = false;
+			if(skillController.GetActiveSkillTarget(this).Count > 0){
+				for(int i=0; i<skillController.GetActiveSkillTarget(this).Count; i++)
+				{
+					if(skillController.CheckSkill(this, skillController.GetActiveSkillTarget(this)[i])) 
+						result = true;
+				}
 			}
+			return result;
 		}
-		return result;
 	}
 
 	public int PassiveID {

@@ -99,6 +99,7 @@ public class UIGame : UIBase {
 	private UISprite spriteSkill;
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
+	private int dcCount = 0;
 	private float baseForceValue;
 	private float oldForceValue;
 	private float newForceValue;
@@ -565,7 +566,7 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void SetAngerUI (float max, float anger){
+	public void SetAngerUI (float max, float anger, int count){
 		timeForce = 0;
 		uiSpriteFull.SetActive (false);
 		showActiveSkillUI(GameController.Get.IsStart);
@@ -573,7 +574,8 @@ public class UIGame : UIBase {
 		if (max > 0) {
 			oldForceValue = spriteForce.fillAmount;
 			newForceValue = anger / max;
-			baseForceValue = (newForceValue - oldForceValue) / 5;
+			dcCount += count;
+			baseForceValue = (newForceValue - oldForceValue) / dcCount;
 			spriteForceFirst.fillAmount = newForceValue;
 			if (newForceValue >= 1) {
 				spriteSkill.color = new Color32(255, 255, 255, 255);
@@ -630,8 +632,15 @@ public class UIGame : UIBase {
 		AudioMgr.Get.PlaySound(SoundType.SD_CatchMorale);
 
 		oldForceValue += baseForceValue;
-		Mathf.Clamp(oldForceValue, 0, newForceValue);
+		if(dcCount >= 0)
+			dcCount --;
+
+		oldForceValue = Mathf.Clamp(oldForceValue, 0, newForceValue);
 		spriteForce.fillAmount = oldForceValue;
+		if(!SkillDCExplosion.Get.IsHaveDC) {
+			dcCount = 0;
+			spriteForce.fillAmount = newForceValue;
+		}
 		return true;
 	}
 
@@ -1077,6 +1086,7 @@ public class UIGame : UIBase {
 			ChangeControl(true);
 			SetPassButton();
 			spriteForce.fillAmount = 0;
+			dcCount = 0;
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			CameraMgr.Get.PlayGameStartCamera ();

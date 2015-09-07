@@ -88,4 +88,13 @@ public class SkillDCExplosion : MonoBehaviour {
 		return obj;
 	}
 
+	public bool IsHaveDC {
+		get {
+			for(int i=0; i<pooledObjects.Count; i++) {
+				if(pooledObjects[i].activeInHierarchy)
+					return true;
+			}
+			return false;
+		}
+	}
 }

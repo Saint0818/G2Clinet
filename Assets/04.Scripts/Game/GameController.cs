@@ -1511,8 +1511,7 @@ public class GameController : KnightSingleton<GameController>
 		if(Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0)
         {
 			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
-
-			UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, Joysticker.CheckSkill());
+			UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, Joysticker.CheckSkill);
 		}
 	}
 	
@@ -1527,13 +1526,13 @@ public class GameController : KnightSingleton<GameController>
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		}
 		//Distance
-		if(shootDistance >= 0 && shootDistance < 9) {
+		if(ShootDistance >= 0 && ShootDistance < 9) {
 			distanceType = 0;
 		} else 
-		if(shootDistance >= 9 && shootDistance < 12) {
+		if(ShootDistance >= 9 && ShootDistance < 12) {
 			distanceType = 1;
 		} else 
-		if(shootDistance >= 12) {
+		if(ShootDistance >= 12) {
 			distanceType = 2;
 		}
 		//Angle
@@ -1607,7 +1606,7 @@ public class GameController : KnightSingleton<GameController>
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
 		//Score Rate
 		float originalRate = 0;
-		if(shootDistance >= GameConst.TreePointDistance) {
+		if(ShootDistance >= GameConst.TreePointDistance) {
 			originalRate = player.Attr.PointRate3;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else {
@@ -1659,10 +1658,10 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 	
-		if(extraScoreRate == GameData.ExtraPerfectRate || shootDistance < 9)
+		if(extraScoreRate == GameData.ExtraPerfectRate || ShootDistance < 9)
 			isAirBall = false;
 
-		if(shootDistance > 15) 
+		if(ShootDistance > 15) 
 			isSwich = false;
 
 		if(isScore) {
@@ -1690,7 +1689,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-		if (shootDistance >= GameConst.TreePointDistance)
+		if (ShootDistance >= GameConst.TreePointDistance)
 			player.GameRecord.FG3++;
 		else
 			player.GameRecord.FG++;
@@ -1705,7 +1704,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool Shoot() {
         if (BallOwner) {
 			Vector3 v = CourtMgr.Get.ShootPoint [BallOwner.Team.GetHashCode()].transform.position;
-			shootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
+			ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
 
 			if(GameStart.Get.TestMode == EGameTest.Shoot) {
 				BallOwner.AniState(testState, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position);
@@ -1728,16 +1727,16 @@ public class GameController : KnightSingleton<GameController>
 					}
 				} else {
 					if (BallOwner.IsMoving) {
-						if (shootDistance > 15)
+						if (ShootDistance > 15)
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood [t].transform.position);
 						else 
-						if (shootDistance > 9 && shootDistance <= 15) {
+						if (ShootDistance > 9 && ShootDistance <= 15) {
 							if (Random.Range(0, 2) == 0)
 								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.Hood [t].transform.position);
 							else
 								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood [t].transform.position);
 						} else 
-						if (shootDistance > 7 && shootDistance <= 9) {
+						if (ShootDistance > 7 && ShootDistance <= 9) {
 							float rate = Random.Range(0, 100);
 							if(rate < BallOwner.Attr.DunkRate)
 								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
@@ -1755,10 +1754,10 @@ public class GameController : KnightSingleton<GameController>
 							}
 						}
 					} else {
-						if (shootDistance > 15)
+						if (ShootDistance > 15)
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood [t].transform.position);
 						else 
-						if (shootDistance > 9 && shootDistance <= 15)
+						if (ShootDistance > 9 && ShootDistance <= 15)
 								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood [t].transform.position);
 						else
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.Hood [t].transform.position);
@@ -1787,7 +1786,7 @@ public class GameController : KnightSingleton<GameController>
 			else 
 				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
-			if(Mathf.Abs(angleByPlayerHoop) <= 85  && shootDistance < 5)
+			if(Mathf.Abs(angleByPlayerHoop) <= 85  && ShootDistance < 5)
 				shootAngle = 80;
 			else
 				shootAngle = 50;
@@ -1944,7 +1943,7 @@ public class GameController : KnightSingleton<GameController>
 			PlusScore(player.Team.GetHashCode(), true, false);
 
 			player.GameRecord.Dunk++;
-			if (shootDistance >= GameConst.TreePointDistance)
+			if (ShootDistance >= GameConst.TreePointDistance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -1967,7 +1966,7 @@ public class GameController : KnightSingleton<GameController>
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
-			if (shootDistance >= GameConst.TreePointDistance)
+			if (ShootDistance >= GameConst.TreePointDistance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -1983,7 +1982,7 @@ public class GameController : KnightSingleton<GameController>
         {
             Shooter = player;
 			Vector3 v = CourtMgr.Get.ShootPoint [Shooter.Team.GetHashCode()].transform.position;
-            shootDistance = GetDis(Shooter, new Vector2(v.x, v.z));
+            ShootDistance = GetDis(Shooter, new Vector2(v.x, v.z));
 			player.GameRecord.DunkLaunch++;
             return true;
         } else
@@ -2490,7 +2489,7 @@ public class GameController : KnightSingleton<GameController>
 		bool result = false;
 		if(player.CanUseActiveSkill && CheckOthersUseSkill)
         {
-			result = player.CheckSkill();
+			result = player.CheckSkill;
 			if (result) {
 				player.AttackSkillEffect(player.Attribute.ActiveSkill.ID);
 				result = player.ActiveSkill(player.gameObject);
@@ -3558,7 +3557,7 @@ public class GameController : KnightSingleton<GameController>
 			team = Shooter.Team.GetHashCode();
 
 		int score = 2;
-		if (shootDistance >= GameConst.TreePointDistance)
+		if (ShootDistance >= GameConst.TreePointDistance)
 			score = 3;
 
 		if (GameStart.Get.TestMode == EGameTest.Skill)
@@ -3566,7 +3565,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 		if (IsStart && GameStart.Get.TestMode == EGameTest.None) {
 			if (Shooter) {
-				if (shootDistance >= GameConst.TreePointDistance)
+				if (ShootDistance >= GameConst.TreePointDistance)
 					Shooter.GameRecord.FG3In++;
 				else
 					Shooter.GameRecord.FGIn++;
@@ -3608,7 +3607,7 @@ public class GameController : KnightSingleton<GameController>
 
 		Shooter = null;
 		IsPassing = false;
-		shootDistance = 0;
+		ShootDistance = 0;
     }
 
 	private PlayerBehaviour havePartner(PlayerBehaviour player, float dis, float angle)
