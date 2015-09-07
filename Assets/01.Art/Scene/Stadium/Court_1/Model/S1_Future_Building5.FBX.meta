@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 1791427cd992e654ab7ba806b19ff9fd
-timeCreated: 1441274294
+guid: 733ff91864364dd428c7df6721a5f2cd
+timeCreated: 1441612709
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -9,11 +9,10 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: B2_Top
-    4300002: Building2_Top
+    4300000: Building5_Tube
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -51,7 +50,7 @@ ModelImporter:
     splitTangentsAcrossUV: 1
     normalImportMode: 0
     tangentImportMode: 1
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []

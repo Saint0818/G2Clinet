@@ -10,9 +10,10 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: B2_Bot
+    4300002: Building2_Bot
     9500000: //RootNode
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
