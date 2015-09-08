@@ -131,4 +131,11 @@ namespace GamePlayEnum {
 		Left = 3,
 		Right = 4
 	}
+
+	public enum EDoubleType {
+		None,
+		Weak,
+		Good,
+		Perfect
+	}
 }

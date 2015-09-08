@@ -123,6 +123,8 @@ public class UIGame : UIBase {
 
 	private TweenRotation[] rotate = new TweenRotation[2];
 
+	public float RecordTimeScale = 1;
+
 	//FX
 	private float fxTime = 0.3f;
 	private GameObject buttonShootFX;
@@ -368,8 +370,8 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitData() {
-		MaxScores[0] = 13;
-		MaxScores[1] = 13;
+		MaxScores[0] = GameStart.Get.GameWinValue;
+		MaxScores[1] = GameStart.Get.GameWinValue;
 		Scores [0] = 0;
 		Scores [1] = 0;
 		labelScores[0].text = "0";
@@ -498,6 +500,8 @@ public class UIGame : UIBase {
 		else
 		if (Time.timeScale == 0.5f) 
 			Time.timeScale = 1;
+
+		RecordTimeScale = Time.timeScale;
 	}
 
 	public void OnPause(){
@@ -1033,6 +1037,9 @@ public class UIGame : UIBase {
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(false);
 
+				if(UIPassiveEffect.Visible)
+					UIPassiveEffect.UIShow(false);
+
 				GameController.Get.SetGameRecord(false);
 				GameController.Get.SetGameRecordToUI();
 			}
@@ -1051,6 +1058,7 @@ public class UIGame : UIBase {
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(true);
 				UIGameResult.UIShow(false);
+				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
 			}
 			break;
 		case EUISituation.Finish:
@@ -1062,6 +1070,7 @@ public class UIGame : UIBase {
 			showActiveSkillUI(false);
 			GameController.Get.IsStart = false;
 			CameraMgr.Get.FinishGame();
+
 			break;
 		case EUISituation.Reset:
 			UIShow(false);
@@ -1082,6 +1091,7 @@ public class UIGame : UIBase {
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);
 			showActiveSkillUI(false);
+			UIPassiveEffect.Get.Reset();
 
 			ChangeControl(true);
 			SetPassButton();

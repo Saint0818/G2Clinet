@@ -93,6 +93,7 @@ public class UIDoubleClick : UIBase {
 
 			if(size.x <= 0){
 				isStart = false;
+				GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.None;
 				if(finsh != null)
 					finsh(0);
 				UIShow(false);
@@ -115,12 +116,16 @@ public class UIDoubleClick : UIBase {
 	private void CheckLv()
 	{
 		Lv = -1;
-		if(size.x < 150 || size.x > 400)
+		if(size.x < 150 || size.x > 400) {
 			SetLv(0);
-		else if(size.x > 250 && size.x <= 400)
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
+		} else if(size.x > 250 && size.x <= 400) {
 			SetLv(1);
-		else if(size.x >= 150 && size.x <= 250)
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
+		} else if(size.x >= 150 && size.x <= 250) {
 			SetLv(2);
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
+		}
 	}
 
 	protected override void InitCom() {

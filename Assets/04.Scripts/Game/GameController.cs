@@ -84,6 +84,7 @@ public class GameController : KnightSingleton<GameController>
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;
+	private EDoubleType doubleType = EDoubleType.None;
 
 	//Basket
 	public EBasketSituation BasketSituation;
@@ -1661,11 +1662,10 @@ public class GameController : KnightSingleton<GameController>
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
 			}
 		}
-	
-		if(extraScoreRate == GameData.ExtraPerfectRate || ShootDistance < 9)
+		if(DoubleClickType == EDoubleType.Perfect || ShootDistance < 9)
 			isAirBall = false;
 
-		if(ShootDistance > 15) 
+		if(DoubleClickType == EDoubleType.Weak || ShootDistance > 15) 
 			isSwich = false;
 
 		if(isScore) {
@@ -1715,7 +1715,6 @@ public class GameController : KnightSingleton<GameController>
 				return true;
 			} else 
 			if (!BallOwner.IsDunk) {
-				extraScoreRate = 0;
 				UIGame.Get.DoPassNone();
 				CourtMgr.Get.ResetBasketEntra();
 
@@ -1856,14 +1855,14 @@ public class GameController : KnightSingleton<GameController>
 //				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
+					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
 				} else 
 					CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 				    	                                                     CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position , shootAngle);	
 			} else {
 				if(CourtMgr.Get.DBasketShootWorldPosition.ContainsKey (player.Team.GetHashCode().ToString() + "_" + BasketAnimationName)) {
 					if(player.GetSkillKind == ESkillKind.LayupSpecial) {
-						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * GameStart.Get.LayupBallSpeed); //0.2
+						CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
 					} else {
 						float dis = GetDis(new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z),
 						                   new Vector2(CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].x, CourtMgr.Get.DBasketShootWorldPosition[player.Team.GetHashCode().ToString() + "_" + BasketAnimationName].z));
@@ -2353,6 +2352,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		switch (lv) {
 			case 0: 
+				AddExtraScoreRate(0);
 				break;
 			case 1: 
 				AddExtraScoreRate(GameData.ExtraGreatRate);
@@ -2385,6 +2385,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		switch (lv) {
 		case 0: 
+			AddExtraScoreRate(0);
 			break;
 		case 1: 
 			AddExtraScoreRate(GameData.ExtraGreatRate);
@@ -3494,8 +3495,16 @@ public class GameController : KnightSingleton<GameController>
 		yield return new WaitForSeconds(2);
 
 		SetGameRecordToUI();
+		if(GameStart.Get.IsAutoReplay){
+			UIGameResult.Get.OnAgain();
+			Invoke("JumpBallForReplay", 1);
+		}
 	}
-
+	
+	public void JumpBallForReplay () {
+		UIGame.Get.UIState(EUISituation.Start);
+	}
+	
 	public void SetGameRecordToUI() {
 		UIGameResult.Get.SetGameRecord(ref GameRecord);
 		for (int i = 0; i < PlayerList.Count; i ++)
@@ -3957,6 +3966,11 @@ public class GameController : KnightSingleton<GameController>
     public void SetAllPlayerLayer (string layerName){
 		for (int i = 0; i < PlayerList.Count; i++)
 			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
+	}
+
+	public EDoubleType DoubleClickType {
+		get {return doubleType;}
+		set {doubleType = value;}
 	}
 
 	public int GetBallOwner {

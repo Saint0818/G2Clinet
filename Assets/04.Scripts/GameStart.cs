@@ -15,12 +15,12 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool ConnectToServer = false;
 	public bool OpenGameMode = false;
 	public bool IsDebugAnimation = false;
+	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;
 	public int FriendNumber = 3;
 	public int GameWinValue = 13;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 0.8f;
-	public float LayupBallSpeed = 0.4f;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
 

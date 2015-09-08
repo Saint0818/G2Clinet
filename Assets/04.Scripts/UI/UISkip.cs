@@ -63,8 +63,6 @@ public class UISkip : UIBase {
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
 				break;
 			case ESkipSituation.Game:
-//				GameController.Get.SkipShow();
-//                AIController.Get.SendMesssage(EGameMsg.UISkipClickOnGaming);
                 GameMsgDispatcher.Ins.SendMesssage(EGameMsg.UISkipClickOnGaming);
 				UIShow(false);
 				break;
