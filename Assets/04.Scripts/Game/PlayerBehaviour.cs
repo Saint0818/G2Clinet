@@ -1993,7 +1993,8 @@ public class PlayerBehaviour : MonoBehaviour
 		isUseSkill = false;
 
 		if (GameStart.Get.IsDebugAnimation)
-			LogMgr.Get.AddAnimationLog ((int)Team * 3 + Index, "Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
+//			LogMgr.Get.AddAnimationLog ((int)Team * 3 + Index, "Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
+			Debug.Log (gameObject.name + ".CrtState : " + crtState + ", NextState : " + state);
 
 		DashEffectEnable (false);
         
