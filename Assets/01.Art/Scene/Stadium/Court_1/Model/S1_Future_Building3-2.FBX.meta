@@ -14,6 +14,9 @@ ModelImporter:
     100012: Building3_03
     100014: Building3_04
     100016: Building3_2
+    100018: Building3_3
+    100020: Building3_4
+    100022: Building3_Lift
     400000: Building3
     400002: Building3_Bot
     400004: Building3_Bot01
@@ -23,6 +26,9 @@ ModelImporter:
     400012: Building3_03
     400014: Building3_04
     400016: Building3_2
+    400018: Building3_3
+    400020: Building3_4
+    400022: Building3_Lift
     2300000: Building3
     2300002: Building3_Bot
     2300004: Building3_Bot01
@@ -31,6 +37,9 @@ ModelImporter:
     2300010: Building3_03
     2300012: Building3_04
     2300014: Building3_2
+    2300016: Building3_3
+    2300018: Building3_4
+    2300020: Building3_Lift
     3300000: Building3
     3300002: Building3_Bot
     3300004: Building3_Bot01
@@ -39,6 +48,9 @@ ModelImporter:
     3300010: Building3_03
     3300012: Building3_04
     3300014: Building3_2
+    3300016: Building3_3
+    3300018: Building3_4
+    3300020: Building3_Lift
     4300000: Building3
     4300002: Building3_Bot
     4300004: Building3_Bot01
@@ -47,6 +59,9 @@ ModelImporter:
     4300010: Building04
     4300012: Building3_03
     4300014: Building3_04
+    4300016: Building3_Lift
+    4300018: Building3_3
+    4300020: Building3_4
     9500000: //RootNode
   materials:
     importMaterials: 1

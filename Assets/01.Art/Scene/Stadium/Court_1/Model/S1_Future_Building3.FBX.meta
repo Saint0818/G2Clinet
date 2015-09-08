@@ -6,11 +6,25 @@ ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Building3
+    100004: Building3_Bot
+    100006: Building3_Lift
     400000: //RootNode
+    400002: Building3
+    400004: Building3_Bot
+    400006: Building3_Lift
     2300000: //RootNode
+    2300002: Building3
+    2300004: Building3_Bot
+    2300006: Building3_Lift
     3300000: //RootNode
+    3300002: Building3
+    3300004: Building3_Bot
+    3300006: Building3_Lift
     4300000: Box01
     4300002: Building3
+    4300004: Building3_Bot
+    4300006: Building3_Lift
     9500000: //RootNode
   materials:
     importMaterials: 1
