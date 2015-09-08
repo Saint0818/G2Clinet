@@ -41,9 +41,10 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		if(!GameController.Get.IsStart)
 			currentTime = Time.time;
 		else{
-			if (GameStart.Get.IsDebugAnimation && isOnce && Time.time - currentTime > checkTime && pb.crtState != EPlayerState.Idle)
+			if (isOnce && Time.time - currentTime > checkTime && pb.crtState != EPlayerState.Idle)
 			{
-				Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString());
+				if(GameStart.Get.IsDebugAnimation)
+					Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString());
 
 				if(pb.IsBallOwner)
 					GameController.Get.SetBall();
