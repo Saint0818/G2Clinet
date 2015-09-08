@@ -19,8 +19,7 @@ public class PushTrigger : MonoBehaviour {
 			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;
 			if(pusher != null && pusher.gameObject != toucher){
 				faller = toucher.GetComponent<PlayerBehaviour>();
-				if(pusher && faller && pusher.Team != faller.Team){
-
+				if(pusher && faller && pusher.Team != faller.Team && !faller.IsBlock){
 					int rate = UnityEngine.Random.Range(0, 100);
 					
 					if(rate < faller.Attr.StrengthRate)

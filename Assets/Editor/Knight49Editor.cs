@@ -14,8 +14,8 @@ public class Knight49Editor : EditorWindow
 		EditorWindow.GetWindowWithRect(typeof(Knight49Editor), new Rect(0, 0, 800, 400), true, "BuildTool").Show();
     }
     
-	public float mVersion = 0.121f;
-    public int mVersionCode = 12;
+	public float mVersion = 0.131f;
+    public int mVersionCode = 13;
     public string mPass = "csharp2014";
     public string mPath;
     public int HeadItemIndex = 51;

@@ -1918,7 +1918,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-                if (CanMove && !IsBallOwner)
+			if (CanMove && !IsBallOwner && situation != EGameSituation.APickBallAfterScore && situation != EGameSituation.BPickBallAfterScore && situation != EGameSituation.InboundsA && situation != EGameSituation.InboundsB)
                     return true;
                 break;
 
@@ -2315,16 +2315,19 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Intercept0:
-                AnimatorControl.SetInteger("StateNo", 0);
+			case EPlayerState.Intercept1:
+				switch(state)
+				{
+					case EPlayerState.Intercept0:
+						stateNo = 1;
+						break;
+					case EPlayerState.Intercept1:
+						stateNo = 2;
+						break;
+				}
+				ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("InterceptTrigger");
-                ClearAnimatorFlag();
-                Result = true;
-                break;
-
-            case EPlayerState.Intercept1:
-                AnimatorControl.SetInteger("StateNo", 1);
-                AnimatorControl.SetTrigger("InterceptTrigger");
-                ClearAnimatorFlag();
                 Result = true;
                 break;
             
