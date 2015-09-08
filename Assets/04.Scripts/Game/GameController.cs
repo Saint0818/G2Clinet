@@ -1027,18 +1027,22 @@ public class GameController : KnightSingleton<GameController>
 			else
 				shootPointDis = GetDis(player, new Vector2(pos.x, pos.z));
 			
-			if (player == BallOwner) {
+			if (player == BallOwner)
+            {
 				//Dunk shoot shoot3 pass                
-				if (shootPointDis <= GameConst.DunkDistance && (dunkRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(player))
+				if(shootPointDis <= GameConst.DunkDistance && 
+                  (dunkRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(player))
+					aiShoot(player);
+				else if(shootPointDis <= GameConst.TwoPointDistance && 
+                        (HaveDefPlayer(player.DefPlayer, 1.5f, 40) == 0 || shootRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && 
+                        CheckAttack(player))
 					aiShoot(player);
 				else 
-				if (shootPointDis <= GameConst.TwoPointDistance && (HaveDefPlayer(player.DefPlayer, 1.5f, 40) == 0 || shootRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(player))
+				if (shootPointDis <= GameConst.TreePointDistance + 1 && 
+                    (HaveDefPlayer(player.DefPlayer, shoot3Dis, shoot3Angel) == 0 || shoot3Rate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && 
+                    CheckAttack(player))
 					aiShoot(player);
-				else 
-				if (shootPointDis <= GameConst.TreePointDistance + 1 && (HaveDefPlayer(player.DefPlayer, shoot3Dis, shoot3Angel) == 0 || shoot3Rate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && CheckAttack(player))
-					aiShoot(player);
-				else 
-				if (elbowRate && CheckAttack(player) && (HaveDefPlayer(player, GameConst.StealBallDistance, 90, out man) != 0) && 
+				else if(elbowRate && CheckAttack(player) && (HaveDefPlayer(player, GameConst.StealBallDistance, 90, out man) != 0) && 
 				   player.CoolDownElbow ==0 && !player.CheckAnimatorSate(EPlayerState.Elbow)) {
 					if (player.DoPassiveSkill(ESkillSituation.Elbow, man.transform.position)) {
 						coolDownPass = 0;
@@ -1109,32 +1113,31 @@ public class GameController : KnightSingleton<GameController>
             {
 				if(Shooter == null)
 				{
-				    // doPickBall(npc, true);
 				    nearestBallPlayerDoPickBall(someone);
-				    // doPickBall(npc.DefPlayer, true);
-                    nearestBallPlayerDoPickBall(someone.DefPlayer);
+                    if(someone.DefPlayer != null)
+                        nearestBallPlayerDoPickBall(someone.DefPlayer);
                 }
 				else
                 {
-					if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) || (Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
+					if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) || 
+                       (Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
 					    if(!someone.IsShoot)
 					    {
-                            // doPickBall(npc, true);
                             nearestBallPlayerDoPickBall(someone);
                         }
 					
-					if((Situation == EGameSituation.AttackA && someone.DefPlayer.Team == ETeamKind.Npc) || 
-					   (Situation == EGameSituation.AttackB && someone.DefPlayer.Team == ETeamKind.Self)) {
+					if((Situation == EGameSituation.AttackA && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Npc) || 
+					   (Situation == EGameSituation.AttackB && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Self)) {
 						PlayerBehaviour fearPlayer = null;
 						
 						for (int i = 0; i < PlayerList.Count; i++) {
-							PlayerBehaviour Npc1 = PlayerList [i];
-							if (Npc1.Team == someone.DefPlayer.Team && !someone.DefPlayer.IsFall && someone.DefPlayer.AIing) {
+							PlayerBehaviour npc = PlayerList [i];
+							if (npc.Team == someone.DefPlayer.Team && !someone.DefPlayer.IsFall && someone.DefPlayer.AIing) {
 								if (fearPlayer == null)
-									fearPlayer = Npc1;
+									fearPlayer = npc;
 								else 
-									if (GetDis(fearPlayer, CourtMgr.Get.RealBall.transform.position) < GetDis(Npc1, CourtMgr.Get.RealBall.transform.position))
-										fearPlayer = Npc1;
+									if (GetDis(fearPlayer, CourtMgr.Get.RealBall.transform.position) < GetDis(npc, CourtMgr.Get.RealBall.transform.position))
+										fearPlayer = npc;
 							}
 						}
 						
@@ -1280,8 +1283,9 @@ public class GameController : KnightSingleton<GameController>
                 else
                 {
                     player.DefPlayer.ResetMove();
-//                    doPickBall(player.DefPlayer, true);
-                    nearestBallPlayerDoPickBall(player.DefPlayer);
+
+                    if(player.DefPlayer)
+                        nearestBallPlayerDoPickBall(player.DefPlayer);
                 }
             }
         }
@@ -2916,12 +2920,12 @@ public class GameController : KnightSingleton<GameController>
     /// </summary>
     /// <param name="someone"></param>
     /// <returns></returns>
-    private bool isNearestBall(PlayerBehaviour someone)
+    private bool isNearestBall([NotNull]PlayerBehaviour someone)
     {
         return findNearBallPlayer(someone.Team) == someone;
     }
 
-    private void nearestBallPlayerDoPickBall(PlayerBehaviour someone)
+    private void nearestBallPlayerDoPickBall([NotNull]PlayerBehaviour someone)
     {
         if (isNearestBall(someone))
             doPickBall(someone);
@@ -3631,21 +3635,27 @@ public class GameController : KnightSingleton<GameController>
         return null;
     }
 
-	public int HaveDefPlayer(PlayerBehaviour npc, float dis, float angle) {
+	public int HaveDefPlayer(PlayerBehaviour npc, float dis, float angle)
+    {
         int result = 0;
         float mangle;
         
-	    for (int i = 0; i < PlayerList.Count; i++) {
-			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team != npc.Team)  {
-	            PlayerBehaviour targetNpc = PlayerList [i];
+	    for(int i = 0; i < PlayerList.Count; i++)
+        {
+			if(PlayerList[i].gameObject.activeInHierarchy && npc != null && PlayerList[i].Team != npc.Team)
+            {
+	            PlayerBehaviour targetNpc = PlayerList[i];
 				mangle = GetAngle(npc.transform, targetNpc.transform);
 	            
-	            if (GetDis(npc, targetNpc) <= dis) {
-	                if (mangle >= 0 && mangle <= angle) {
+	            if(GetDis(npc, targetNpc) <= dis)
+                {
+	                if (mangle >= 0 && mangle <= angle)
+                    {
 	                    result = 1;
 	                    break;
-	                } else 
-					if (mangle <= 0 && mangle >= -angle) {
+	                }
+					if(mangle <= 0 && mangle >= -angle)
+                    {
 	                    result = 2;
 	                    break;
 	                }

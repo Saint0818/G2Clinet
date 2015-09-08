@@ -6,6 +6,7 @@ using DG.Tweening;
 using GameStruct;
 using GamePlayEnum;
 using Chronos;
+using JetBrains.Annotations;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
@@ -427,7 +428,7 @@ public class PlayerBehaviour : MonoBehaviour
 //    public float fracJourney = 0;
     public int MoveIndex = -1;
     public bool isJoystick = false;
-    public PlayerBehaviour DefPlayer = null;
+    [CanBeNull]public PlayerBehaviour DefPlayer = null;
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
