@@ -7,12 +7,15 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 	public float currentTime;
 	private float checkTime = 10f;
 	public bool isOnce = false;
-
+	private PlayerBehaviour pb;
+	
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		if (pb == null)
+			pb = animator.gameObject.GetComponent<PlayerBehaviour> ();
+
 		currentTime = Time.time;
 		isOnce = GameController.Get.IsOnceAnimation (state);
-//		Debug.Log (state.ToString() + ".OnStateEnter");
 	}
 
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -38,9 +41,16 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		if(!GameController.Get.IsStart)
 			currentTime = Time.time;
 		else{
+			if (GameStart.Get.IsDebugAnimation && isOnce && Time.time - currentTime > checkTime && pb.crtState != EPlayerState.Idle)
+			{
+				Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString());
 
-			if (GameStart.Get.IsDebugAnimation && isOnce && Time.time - currentTime > checkTime)
-				Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + state.ToString());
+				if(pb.IsBallOwner)
+					GameController.Get.SetBall();
+
+				pb.AniState(EPlayerState.Idle);
+			}
+				
 		}
 	}
 
