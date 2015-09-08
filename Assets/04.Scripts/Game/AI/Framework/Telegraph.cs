@@ -7,9 +7,9 @@ namespace AI
     /// <summary>
     /// 實作此介面就可以接受訊息.
     /// </summary>
-    public interface ITelegraph<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
+    public interface ITelegraph<TEnumMsg> where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        void HandleMessage(Telegram<TEnum> msg);
+        void HandleMessage(Telegram<TEnumMsg> msg);
     }
 }
 

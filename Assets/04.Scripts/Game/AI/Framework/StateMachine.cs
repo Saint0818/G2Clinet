@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AI
@@ -17,6 +18,7 @@ namespace AI
     /// <item> call ChangeState() in setup state machine. </item>
     /// <item> call MessageDispatcher.AddListener to receive message. </item>
     /// <item> (Optional) Call SetGlobalState. </item>
+    /// <item> (Optional) 用 indexer property 取出 State. </item>
     /// </list>
     /// 
     /// 設計決策:
@@ -49,12 +51,24 @@ namespace AI
             return true;
         }
 
+        [CanBeNull]
+        public State<TEnumState, TEnumMsg> this[TEnumState index]
+        {
+            get
+            {
+                if(mStates.ContainsKey(index))
+                    return mStates[index];
+                return null;
+            }
+        }
+
         public void Update()
         {
-            if (mGlobalState != null)
+            if(mGlobalState != null)
                 mGlobalState.Update();
 
-            mCurrentState.Update();
+            if(mCurrentState != null)
+                mCurrentState.Update();
         }
 
         public void ChangeState(TEnumState newState, object extraInfo = null)

@@ -10,5 +10,11 @@ public enum EGameMsg
     /// <para> 教練下達進攻戰術給球員. </para>
     /// <para> Telegram.ExtraInfo:TTacticalData. </para>
     /// </summary>
-    CoachOrderAttackTactical
+    CoachOrderAttackTactical,
+
+    /// <summary>
+    /// <para> 遊戲裡的球員創建完畢. </para>
+    /// <para> Telegram.ExtraInfo: PlayerBehavior[]. </para>
+    /// </summary>
+    GamePlayersCreated
 }

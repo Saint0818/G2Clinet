@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace AI
 {
@@ -10,88 +11,164 @@ namespace AI
     /// 假設玩家要攻擊一群正在巡邏的守衛時, 只要玩家攻擊, 就會產生一個事件(這裡稱為 Message),
     /// 然後這群守衛收到玩家攻擊的事件後, 就可以做出對應的事情. 比如反擊(也就是攻擊玩家)等等.
     /// </summary>
-    /// <typeparam name="TEnum"> 必須是 Enum. </typeparam>
+    /// <typeparam name="TEnumMsg"> 必須是 Enum. </typeparam>
     /// <remarks>
     /// 使用方法:
     /// <list type="number">
-    /// <item> new instance. </item>
-    /// <item> call AddListener(), 和系統說明要監聽哪些事件. </item>
+    /// <item> 繼承(Singleton). </item>
+    /// <item> call Update in every frame. </item>
+    /// <item> call AddListener(), 向系統說明要監聽哪些事件. </item>
+    /// <item> call RemoveListener(), ClearListeners() 向系統說明取消監聽哪些事件. </item>
     /// <item> call SendMesssage() 送出訊息. </item>
     /// </list>
+    /// 
+    /// 實作細節:
+    /// <list type="number">
+    /// <item> 內部會將使用者的操作都包裝成 Operation, 會這樣設計的原因是避免 InvalidOperationException. 
+    /// "collection was modified in a foreach-loop". </item>
+    /// </list>
     /// </remarks>
-    public class MessageDispatcher<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
+    public class MessageDispatcher<TEnumMsg> where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
-        private readonly Dictionary<TEnum, List<ITelegraph<TEnum>>> mListeners = new Dictionary<TEnum, List<ITelegraph<TEnum>>>();
-        private Telegram<TEnum> mTelegram;
+        private readonly Dictionary<TEnumMsg, List<ITelegraph<TEnumMsg>>> mListeners = new Dictionary<TEnumMsg, List<ITelegraph<TEnumMsg>>>();
+//        private Telegram<TEnumMsg> mTelegram;
 
-        public void AddListeners(ITelegraph<TEnum> listener, params TEnum[] msgs)
+        private enum EOperation
         {
-            foreach(TEnum msg in msgs)
+            AddListener, RemoveListener, ClearMsg, ClearAllMsg, SendMsg
+        }
+        private struct Operation
+        {
+            public EOperation Op;
+            public TEnumMsg Msg;
+            public ITelegraph<TEnumMsg> Listener;
+            public Telegram<TEnumMsg> Tel;
+        }
+
+        private readonly List<Operation> mOperations = new List<Operation>();
+
+        public void AddListeners(ITelegraph<TEnumMsg> listener, params TEnumMsg[] msgs)
+        {
+            foreach(TEnumMsg msg in msgs)
             {
                 AddListener(listener, msg);
             }
         }
 
-        public void AddListener(ITelegraph<TEnum> listener, TEnum msg)
+        public void AddListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
         {
-            if(!mListeners.ContainsKey(msg))
-                mListeners.Add(msg, new List<ITelegraph<TEnum>>());
+            mOperations.Add(new Operation {Op = EOperation.AddListener, Listener = listener, Msg = msg});
+        }
 
-            if(!mListeners[msg].Contains(listener))
+        private void addListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
+        {
+            if (!mListeners.ContainsKey(msg))
+                mListeners.Add(msg, new List<ITelegraph<TEnumMsg>>());
+
+            if (!mListeners[msg].Contains(listener))
                 mListeners[msg].Add(listener);
         }
 
-        public void RemoveListener(ITelegraph<TEnum> listener, params TEnum[] msgs)
+        public void RemoveListener(ITelegraph<TEnumMsg> listener, params TEnumMsg[] msgs)
         {
-            foreach(TEnum msg in msgs)
+            foreach(TEnumMsg msg in msgs)
             {
                 RemoveListener(listener, msg);
             }
         }
 
-        public void RemoveListener(ITelegraph<TEnum> listener, TEnum msg)
+        public void RemoveListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
+        {
+            mOperations.Add(new Operation {Op = EOperation.RemoveListener, Listener = listener, Msg = msg});
+        }
+
+        private void removeListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
         {
             if(mListeners.ContainsKey(msg))
                 mListeners[msg].Remove(listener);
         }
 
-        public void ClearListeners(params TEnum[] msgs)
+        public void ClearListeners(params TEnumMsg[] msgs)
         {
-            foreach(TEnum msg in msgs)
+            foreach(TEnumMsg msg in msgs)
             {
                 ClearListeners(msg);
             }
         }
 
-        public void ClearListeners(TEnum msg)
+        public void ClearListeners(TEnumMsg msg)
         {
-            mListeners.Remove(msg);
+            mOperations.Add(new Operation {Op = EOperation.ClearMsg, Msg = msg});
         }
 
-        public void ClearListeners()
+//        private void clearListeners(TEnumMsg msg)
+//        {
+//            mListeners.Remove(msg);
+//        }
+
+        public void ClearAllListeners()
         {
-            mListeners.Clear();
+            mOperations.Add(new Operation {Op = EOperation.ClearAllMsg});
+//            mListeners.Clear();
         }
 
-        public void SendMesssage(TEnum msg, Object extraInfo = null, 
-                                 ITelegraph<TEnum> sender = null, ITelegraph<TEnum> receiver = null)
+        public void Update()
         {
-            mTelegram.Clear();
-            mTelegram.Sender = sender;
-            mTelegram.Receiver = receiver;
-            mTelegram.Msg = msg;
-            mTelegram.ExtraInfo = extraInfo;
+            if(mOperations.Count == 0)
+                return;
 
-            if(mTelegram.Receiver != null)
-                mTelegram.Receiver.HandleMessage(mTelegram);
+            for(int i = 0; i < mOperations.Count; i++)
+            {
+                switch(mOperations[i].Op)
+                {
+                    case EOperation.AddListener:
+                        addListener(mOperations[i].Listener, mOperations[i].Msg);
+                        break;
+                    case EOperation.RemoveListener:
+                        removeListener(mOperations[i].Listener, mOperations[i].Msg);
+                        break;
+                    case EOperation.ClearMsg:
+                        mListeners.Remove(mOperations[i].Msg);
+                        break;
+                    case EOperation.ClearAllMsg:
+                        mListeners.Clear();
+                        break;
+                    case EOperation.SendMsg:
+                        sendMessage(mOperations[i].Tel);
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException(mOperations[i].Op.ToString());
+                }
+            }
+            mOperations.Clear();
+        }
+
+        public void SendMesssage(TEnumMsg msg, Object extraInfo = null, 
+                                 ITelegraph<TEnumMsg> sender = null, ITelegraph<TEnumMsg> receiver = null)
+        {
+            Telegram<TEnumMsg> telegram = new Telegram<TEnumMsg>
+            {
+                Sender = sender,
+                Receiver = receiver,
+                Msg = msg,
+                ExtraInfo = extraInfo
+            };
+            
+            mOperations.Add(new Operation {Op = EOperation.SendMsg, Tel = telegram});
+        }
+
+        private void sendMessage(Telegram<TEnumMsg> telegram)
+        {
+            if (telegram.Receiver != null)
+                telegram.Receiver.HandleMessage(telegram);
             else
             {
-                if(!mListeners.ContainsKey(msg))
+                if(!mListeners.ContainsKey(telegram.Msg))
                     return;
 
-                foreach(ITelegraph<TEnum> r in mListeners[msg])
+                foreach(ITelegraph<TEnumMsg> receiver in mListeners[telegram.Msg])
                 {
-                    r.HandleMessage(mTelegram);
+                    receiver.HandleMessage(telegram);
                 }
             }
         }

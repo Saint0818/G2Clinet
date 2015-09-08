@@ -218,50 +218,53 @@ public class SkillController : MonoBehaviour {
 			return playerState;
 	}
 	
-	private bool checkSkillSituationForAI(PlayerBehaviour player) {
-		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Situation;
-		
-		if(GameController.Get.Joysticker == executePlayer)
-			return true;
-		
-		// all the time
-		if(kind == 0) 
-			return true;
-		
-		//Attack
-		if(kind == 1) { 
-			if(player.Team == ETeamKind.Self && GameController.Get.Situation == EGameSituation.AttackA)
-				return true;	
-			
-			if(player.Team == ETeamKind.Npc && GameController.Get.Situation == EGameSituation.AttackB) 
-				return true;	
-		}
-		
-		//Deffence
-		if(kind == 2) { 
-			if(player.Team == ETeamKind.Self && GameController.Get.Situation == EGameSituation.AttackB) 
-				return true;	
-			
-			if(player.Team == ETeamKind.Npc && GameController.Get.Situation == EGameSituation.AttackA) 
-				return true;	
-		}
-		
-		//It has enemy in own deffence range
-		if(kind == 3) { 
-			float distance = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv);
-			for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-				if(GameController.Get.GamePlayers[i].Team != player.Team)
-					if(distance >= GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
-					                                         new Vector2(player.transform.position.x, player.transform.position.z)))
-						return true;
-			}
-		}
-		
-		//Player is BallOwner
-		if(kind == 4 && player.IsBallOwner)
-			return true;
-		
-		return false;
+	private bool checkSkillSituationForAI(PlayerBehaviour player)
+	{
+	    return true;
+
+//		int kind = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Situation;
+//		
+//		if(GameController.Get.Joysticker == executePlayer)
+//			return true;
+//		
+//		// all the time
+//		if(kind == 0) 
+//			return true;
+//		
+//		//Attack
+//		if(kind == 1) { 
+//			if(player.Team == ETeamKind.Self && GameController.Get.Situation == EGameSituation.AttackA)
+//				return true;	
+//			
+//			if(player.Team == ETeamKind.Npc && GameController.Get.Situation == EGameSituation.AttackB) 
+//				return true;	
+//		}
+//		
+//		//Deffence
+//		if(kind == 2) { 
+//			if(player.Team == ETeamKind.Self && GameController.Get.Situation == EGameSituation.AttackB) 
+//				return true;	
+//			
+//			if(player.Team == ETeamKind.Npc && GameController.Get.Situation == EGameSituation.AttackA) 
+//				return true;	
+//		}
+//		
+//		//It has enemy in own deffence range
+//		if(kind == 3) { 
+//			float distance = GameData.DSkillData[player.Attribute.ActiveSkill.ID].Distance(player.Attribute.ActiveSkill.Lv);
+//			for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+//				if(GameController.Get.GamePlayers[i].Team != player.Team)
+//					if(distance >= GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
+//					                                         new Vector2(player.transform.position.x, player.transform.position.z)))
+//						return true;
+//			}
+//		}
+//		
+//		//Player is BallOwner
+//		if(kind == 4 && player.IsBallOwner)
+//			return true;
+//		
+//		return false;
 	}
 	
 	private bool checkSkillBaseSituation(PlayerBehaviour player) {

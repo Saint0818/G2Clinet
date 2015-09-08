@@ -159,9 +159,9 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		else if(teamIndex == 2)
 			playerBehaviour.Postion = EPlayerPostion.G;
 		
-		playerBehaviour.InitTrigger (DefPointObject);
-		playerBehaviour.InitCurve (AnimatorCurveManager);
-		playerBehaviour.InitAttr ();
+		playerBehaviour.InitTrigger(DefPointObject);
+		playerBehaviour.InitCurve(AnimatorCurveManager);
+		playerBehaviour.InitAttr();
 		res.name = team.ToString() + teamIndex.ToString();
 
 		if(team == ETeamKind.Npc)

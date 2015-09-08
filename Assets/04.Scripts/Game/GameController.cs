@@ -53,12 +53,9 @@ public class GameController : KnightSingleton<GameController>
 	private float waitStealTime = 0;
 	private float passingStealBallTime = 0;
 
-    /// <summary>
-    /// 玩家控制的球員.
-    /// </summary>
-	public PlayerBehaviour BallOwner;
-	public PlayerBehaviour Joysticker;
-	public PlayerBehaviour Shooter;
+	public PlayerBehaviour BallOwner; // 持球的球員.
+	public PlayerBehaviour Joysticker; // 玩家控制的球員.
+    public PlayerBehaviour Shooter;
     public PlayerBehaviour Catcher;
 	public PlayerBehaviour Passer;
 	private PlayerBehaviour pickBallPlayer;
@@ -348,7 +345,7 @@ public class GameController : KnightSingleton<GameController>
 	
 	public void CreateTeam()
     {
-        switch (GameStart.Get.TestMode)
+        switch(GameStart.Get.TestMode)
         {
     	case EGameTest.None:
 			checkPlayerID();
@@ -356,16 +353,10 @@ public class GameController : KnightSingleton<GameController>
 			switch (GameStart.Get.FriendNumber)
             {
 			    case 1:
-//				    PlayerList[1].gameObject.SetActive(false);
-//				    PlayerList[2].gameObject.SetActive(false);
-//				    PlayerList[4].gameObject.SetActive(false);
-//				    PlayerList[5].gameObject.SetActive(false);
                     PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
                     PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], GameData.EnemyMembers[0].Player));
                     break;
 			    case 2:
-//				    PlayerList[2].gameObject.SetActive(false);
-//				    PlayerList[5].gameObject.SetActive(false);
                     PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
                     PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, bornPosAy[1], GameData.TeamMembers[0].Player));
                     PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], GameData.EnemyMembers[0].Player));
@@ -462,7 +453,7 @@ public class GameController : KnightSingleton<GameController>
 		for (int i = 0; i < PlayerList.Count; i++)
 			PlayerList [i].DefPlayer = FindDefMen(PlayerList [i]);
 
-        Joysticker = PlayerList [0];
+        Joysticker = PlayerList[0];
 
 		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
 		#if UNITY_EDITOR
@@ -516,6 +507,8 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].OnUICantUse = UIGame.Get.UICantUse;
 			PlayerList [i].OnUIAnger = UIGame.Get.SetAngerUI;
         }
+
+        GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
 
 	private void setPassIcon(bool isShow) {
@@ -623,7 +616,7 @@ public class GameController : KnightSingleton<GameController>
 			if(Input.GetKeyDown(KeyCode.L)) {
 				for (int i = 0; i < PlayerList.Count; i ++){
 					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
-					UIGame.Get.AddAllForce();
+                UIGame.Get.AddAllForce();
 				}
 			}
 
@@ -3008,14 +3001,14 @@ public class GameController : KnightSingleton<GameController>
 
 	public float GetDis(Vector2 player1, Vector2 target)
 	{
-//		if(player1 != null && Target != Vector2.zero)
 		if(target != Vector2.zero)
 		{
 			Vector3 v1 = new Vector3(target.x, 0, target.y);
 			Vector3 v2 = new Vector3(player1.x, 0, player1.y);
 			return Vector3.Distance(v1, v2);
-		} else
-			return -1;
+		}
+
+        return -1;
 	}
 	
 	public void SetBallOwnerNull()

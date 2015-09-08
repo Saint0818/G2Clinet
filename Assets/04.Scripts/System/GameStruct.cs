@@ -408,7 +408,7 @@ namespace GameStruct {
 		public int AHeadDress;
 		public int ZBackEquip;
 
-		public int Active;
+		public int Active; // 主動技, 數值是 Skill ID.
 		public int ActiveLV;
 		public int Skill1;
 		public int SkillLV1;
@@ -645,7 +645,7 @@ namespace GameStruct {
 		public int PictureNo;
 		public string NameTW;
 		public string Animation;
-		public int Situation;
+		public string Situation;
 		public int space;
 		public int spaceAdd;
 		public float lifeTime;

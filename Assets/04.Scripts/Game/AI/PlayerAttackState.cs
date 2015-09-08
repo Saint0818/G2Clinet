@@ -1,6 +1,7 @@
 ﻿using AI;
 using GamePlayStruct;
-using UnityEngine;
+using GameStruct;
+using JetBrains.Annotations;
 
 public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 {
@@ -11,14 +12,25 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 
     private TTacticalData mTactical;
     private readonly PlayerBehaviour mPlayer;
+    private AISkillJudger mSkillJudger;
 
     public PlayerAttackState(PlayerBehaviour player)
     {
         mPlayer = player;
     }
 
+    public void Init(PlayerBehaviour[] players)
+    {
+        mSkillJudger = new AISkillJudger(mPlayer, players, true);
+    }
+
     public override void Enter(object extraInfo)
     {
+        if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
+        {
+            TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
+            mSkillJudger.SetCondition(skill.Situation, 0);
+        }
     }
 
     public override void Exit()
@@ -27,13 +39,19 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 
     public override void Update()
     {
-        if(mPlayer.AIing && !GameController.Get.DoSkill(mPlayer))
+        if(!mPlayer.AIing)
+            return;
+
+        if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
         {
-            if(!GameController.Get.IsShooting || !mPlayer.IsAllShoot)
-            {
-                GameController.Get.AIAttack(mPlayer);
-                GameController.Get.AIMove(mPlayer, ref mTactical);
-            }
+            GameController.Get.DoSkill(mPlayer);
+            return;
+        }
+
+        if(!GameController.Get.IsShooting || !mPlayer.IsAllShoot)
+        {
+            GameController.Get.AIAttack(mPlayer);
+            GameController.Get.AIMove(mPlayer, ref mTactical);
         }
     }
 

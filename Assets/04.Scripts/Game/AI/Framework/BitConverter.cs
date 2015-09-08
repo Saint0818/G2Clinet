@@ -11,8 +11,13 @@ namespace AI
         /// </summary>
         private const int MaxBitsNum = 50;
 
+        /// <summary>
+        /// 將 "100111" 轉換成 int array. index 0 就是 bit 0, index 1 就是 bit 1, 已此類推.
+        /// </summary>
+        /// <param name="bitString"></param>
+        /// <returns></returns>
         [CanBeNull]
-        public static bool[] Convert(string bitString)
+        public static int[] Convert([NotNull] string bitString)
         {
             if(bitString.Length >= MaxBitsNum)
             {
@@ -20,20 +25,17 @@ namespace AI
                 return null;
             }
 
-            bool[] bits = new bool[bitString.Length];
             int[] ints = new int[bitString.Length];
             for(int i = 0; i < bitString.Length; ++i)
             {
                 if(!int.TryParse(bitString[bitString.Length - 1 - i].ToString(), out ints[i]))
                 {
-                    Debug.LogErrorFormat("Parse bool fail. char:{0}, index:{1}", bitString[i], i);
+                    Debug.LogErrorFormat("Parse int fail. char:{0}, index:{1}", bitString[i], i);
                     return null;
                 }
-
-                bits[i] = System.Convert.ToBoolean(ints[i]);
             }
 
-            return bits;
+            return ints;
         }
     }
 } // end of the namespace AI

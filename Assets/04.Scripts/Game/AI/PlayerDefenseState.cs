@@ -1,4 +1,5 @@
 ﻿using AI;
+using GameStruct;
 
 public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
 {
@@ -8,14 +9,25 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
     }
 
     private readonly PlayerBehaviour mPlayer;
+    private AISkillJudger mSkillJudger;
 
     public PlayerDefenseState(PlayerBehaviour player)
     {
         mPlayer = player;
     }
 
+    public void Init(PlayerBehaviour[] players)
+    {
+        mSkillJudger = new AISkillJudger(mPlayer, players, false);
+    }
+
     public override void Enter(object extraInfo)
     {
+        if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
+        {
+            TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
+            mSkillJudger.SetCondition(skill.Situation, 0);
+        }
     }
 
     public override void Exit()
@@ -24,8 +36,16 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
 
     public override void Update()
     {
-        if(mPlayer.AIing && !GameController.Get.DoSkill(mPlayer))
-            GameController.Get.AIDefend(mPlayer);
+        if(!mPlayer.AIing)
+            return;
+
+        if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
+        {
+            GameController.Get.DoSkill(mPlayer);
+            return;
+        }
+
+        GameController.Get.AIDefend(mPlayer);
     }
 
     public override void HandleMessage(Telegram<EGameMsg> msg)

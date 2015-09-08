@@ -15,6 +15,8 @@ using UnityEngine;
 /// <item> inherit AI.State. </item>
 /// <item> call StateMachine.AddState() in setup StateMachine. </item>
 /// </list>
+/// 
+/// <para> 預期未來這個類別會變成 Coach, 所以變成整個遊戲會有 2 個 instance, 各自對自己的隊伍下命令. </para>
 /// </remarks>
 [DisallowMultipleComponent]
 public class AIController : KnightSingleton<AIController>
@@ -54,6 +56,9 @@ public class AIController : KnightSingleton<AIController>
     private void FixedUpdate()
     {
         mFSM.Update();
+
+        // 暫時在 AIController 做更新, 往後如果有更適當的地方再改變.
+        GameMsgDispatcher.Ins.Update();
     }
 
     public void ChangeState(EGameSituation newState)
