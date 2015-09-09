@@ -263,6 +263,7 @@ public static class StateChecker {
 	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
 	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
 	public static Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
+	public static Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
 
 	public static void InitState() {
 		if (!isInit) {
@@ -334,6 +335,15 @@ public static class StateChecker {
 			ShowStates.Add(EPlayerState.Show202, true);
 			ShowStates.Add(EPlayerState.Show1001, true);
 			ShowStates.Add(EPlayerState.Show1003, true);
+
+			LoopStates.Add(EPlayerState.Idle,true);
+			LoopStates.Add(EPlayerState.Run0,true);
+			LoopStates.Add(EPlayerState.Run1,true);
+			LoopStates.Add(EPlayerState.Defence0,true);
+			LoopStates.Add(EPlayerState.Defence1,true);
+			LoopStates.Add(EPlayerState.Dribble0,true);
+			LoopStates.Add(EPlayerState.Dribble1,true);
+			LoopStates.Add(EPlayerState.Dribble2,true);
 		}
 	}
 }
@@ -1304,10 +1314,10 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 
 		//IdleAirCheck
-		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
-		{
-			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State : Idle in the Air ");
-		}
+//		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
+//		{
+//			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State : Idle in the Air ");
+//		}
 
 		//Idle ballowner
 		if(crtState == EPlayerState.Idle && IsBallOwner)
@@ -1844,7 +1854,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
             case EPlayerState.Steal20:
-			if (!IsTee  && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || IsSteal || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
+			if (!IsTee  && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || IsSteal || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
@@ -1910,7 +1920,7 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
             case EPlayerState.MoveDodge0:
             case EPlayerState.MoveDodge1:
-                if (crtState != state && !IsPass && !IsAllShoot)
+                if (crtState != state && !IsPass && !IsAllShoot && !IsBlock && !IsFall)
                     return true;
                 break;
             case EPlayerState.CatchFlat:
@@ -1918,7 +1928,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-			if (CanMove && !IsBallOwner && situation != EGameSituation.APickBallAfterScore && situation != EGameSituation.BPickBallAfterScore && situation != EGameSituation.InboundsA && situation != EGameSituation.InboundsB)
+			if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.APickBallAfterScore && situation != EGameSituation.BPickBallAfterScore && situation != EGameSituation.InboundsA && situation != EGameSituation.InboundsB)
                     return true;
                 break;
 
@@ -3018,8 +3028,8 @@ public class PlayerBehaviour : MonoBehaviour
 				else{
 					if(firstDribble)
 						AniState(EPlayerState.Dribble0);
-					else
-						AniState(EPlayerState.HoldBall);
+//						else
+//							AniState(EPlayerState.HoldBall);
 				}
 
 				IsPassAirMoment = false;
@@ -3435,6 +3445,11 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsShow
 	{
 		get{ return StateChecker.ShowStates.ContainsKey(crtState);}
+	}
+
+	public bool IsLoopState
+	{
+		get{ return StateChecker.LoopStates.ContainsKey(crtState);}
 	}
 
 	public bool IsBuff

@@ -3284,7 +3284,7 @@ public class GameController : KnightSingleton<GameController>
 						
 						if(SetBall(player))
 						{
-							player.AniState(EPlayerState.HoldBall);
+//							player.AniState(EPlayerState.HoldBall);
 							passingStealBallTime = Time.time + 2;
 						}
 
