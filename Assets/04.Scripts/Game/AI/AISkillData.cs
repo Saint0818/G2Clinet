@@ -1,6 +1,11 @@
 ﻿
-public class AISkillData
+
+namespace AI
 {
-    public int ID;
-    public float Distance;
+    public class AISkillData
+    {
+        public int ID;
+        public float AttackBasketDistance; // 球員到進攻籃框的距離.
+    }
 }
+

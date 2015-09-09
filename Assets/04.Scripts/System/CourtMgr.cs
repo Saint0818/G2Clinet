@@ -33,6 +33,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] DunkPoint = new GameObject[2];
 	public GameObject[] DunkJumpPoint = new GameObject[2];
 	public GameObject[] Hood = new GameObject[2];
+
+    /// <summary>
+    /// index 0: 玩家進攻的籃框; index 1: 對手進攻的籃框.
+    /// </summary>
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] EffectPoint = new GameObject[2];
 	public GameObject[] MissPoint = new GameObject[2];

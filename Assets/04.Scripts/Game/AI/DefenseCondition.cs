@@ -1,11 +1,16 @@
-﻿public class DefenseCondition : Condition
-{
-    public DefenseCondition(AISkillJudger parent) : base(parent)
-    {
-    }
+﻿
 
-    public override bool IsValid()
+namespace AI
+{
+    public class DefenseCondition : Condition
     {
-        return !Parent.IsAttack;
+        public DefenseCondition(AISkillJudger parent) : base(parent)
+        {
+        }
+
+        public override bool IsValid()
+        {
+            return !Parent.IsAttack;
+        }
     }
 }

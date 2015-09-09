@@ -73,6 +73,7 @@ namespace GameStruct {
 		public float Pass; //kind12
 		public int BodyType;
 		public int MaxSkillSpace;
+        public int AISkillLv;
 
 		public TAvatar Avatar;
 		public TSkill ActiveSkill;
@@ -100,6 +101,7 @@ namespace GameStruct {
 			Pass = 0;
 			BodyType = 0;
 			MaxSkillSpace = 0;
+		    AISkillLv = 0;
 			Avatar = new TAvatar(0);
 			ActiveSkill = new TSkill();
 			SkillCards = new TSkill[0];
@@ -144,6 +146,7 @@ namespace GameStruct {
 				Pass = GameData.DPlayers[ID].Pass;
 				BodyType = GameData.DPlayers[ID].BodyType;
 				AILevel = GameData.DPlayers[ID].AILevel;
+			    AISkillLv = GameData.DPlayers[ID].AISkillLv;
 				SetSkill(ESkillType.NPC);
 			}
 		}
@@ -398,7 +401,7 @@ namespace GameStruct {
 		public float Pass;
 		public int BodyType; // 0:C, 1:F, 2:G.
 		public int AILevel;
-		public int AISkillLevel;
+		public int AISkillLv;
 		public int Body;
 		public int Hair;
 		public int Cloth;

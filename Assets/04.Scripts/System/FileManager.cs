@@ -459,7 +459,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
     private void parseAISkillData(string version, string jsonText, bool isSaveVersion)
     {
-        AISkillLvMgr.Ins.Load(jsonText);
+        AI.AISkillLvMgr.Ins.Load(jsonText);
 
         if (isSaveVersion)
             SaveDataVersionAndJson(jsonText, "aiskill", version);

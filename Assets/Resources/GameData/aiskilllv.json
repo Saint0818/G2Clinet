@@ -1,22 +1,22 @@
 [
     {
         "id": 1,
-        "distance": 15
+        "attackbasketdistance": 35
     },
     {
         "id": 2,
-        "distance": 12
+        "attackbasketdistance": 30
     },
     {
         "id": 3,
-        "distance": 10
+        "attackbasketdistance": 25
     },
     {
         "id": 4,
-        "distance": 8
+        "attackbasketdistance": 20
     },
     {
         "id": 5,
-        "distance": 5
+        "attackbasketdistance": 15
     }
 ]

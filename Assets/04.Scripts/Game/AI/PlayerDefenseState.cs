@@ -26,7 +26,7 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
         if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
         {
             TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
-            mSkillJudger.SetCondition(skill.Situation, 0);
+            mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
         }
     }
 

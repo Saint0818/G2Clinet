@@ -1,17 +1,22 @@
-﻿public class IsBallOwnerCondition : Condition
+﻿
+
+namespace AI
 {
-    private readonly int mValue;
-
-    public IsBallOwnerCondition(AISkillJudger parent, int value) : base(parent)
+    public class IsBallOwnerCondition : Condition
     {
-        mValue = value;
-    }
+        private readonly int mValue;
 
-    public override bool IsValid()
-    {
-        if(mValue == 1)
-            return Parent.FocusPlayer.IsBallOwner;
+        public IsBallOwnerCondition(AISkillJudger parent, int value) : base(parent)
+        {
+            mValue = value;
+        }
 
-        return true;
+        public override bool IsValid()
+        {
+            if(mValue == 1)
+                return Parent.FocusPlayer.IsBallOwner;
+
+            return true;
+        }
     }
 }
