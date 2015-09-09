@@ -26,6 +26,7 @@ public class EffectManager : MonoBehaviour
 	private List<GameObject> cloneObjects = new List<GameObject>();
 	
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
+	private Dictionary<string, List<GameObject>> pooledObjects = new Dictionary<string, List<GameObject>>();
 
 	void Awake() {
 
@@ -36,7 +37,6 @@ public class EffectManager : MonoBehaviour
 		ObjPool = new GameObject ();
 		ObjPool.name = "ObjPool";
 		ObjPool.transform.parent = gameObject.transform;
-		ObjPool.SetActive (false);
 	}
 
 	public static EffectManager Get {
@@ -86,6 +86,28 @@ public class EffectManager : MonoBehaviour
 		return obj;
 	}
 
+	private GameObject getPooledObject (string effectName, GameObject obj) {
+		if(pooledObjects.ContainsKey(effectName)) {
+			if(pooledObjects[effectName].Count > 0) {
+				for(int i=0; i<pooledObjects[effectName].Count; i++) {
+					if(!pooledObjects[effectName][i].activeInHierarchy)
+						return pooledObjects[effectName][i];
+				}
+			}
+			List<GameObject> obj1 = pooledObjects[effectName];
+			GameObject objDuplicate1 = (GameObject)Instantiate(obj);
+			obj1.Add(objDuplicate1);
+			pooledObjects[effectName] = obj1;
+			return objDuplicate1;
+		}
+
+		List<GameObject> obj2 = new List<GameObject>();
+		GameObject objDuplicate2 = (GameObject)Instantiate(obj);
+		obj2.Add(objDuplicate2);
+		pooledObjects.Add(effectName, obj2);
+		return objDuplicate2;
+	}
+
 	public void LoadGameEffect() {
 		if (!GameEffectLoaded) {
 			GameEffectLoaded = true;
@@ -100,7 +122,8 @@ public class EffectManager : MonoBehaviour
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
-				GameObject particles = (GameObject)Instantiate(obj);
+//				GameObject particles = (GameObject)Instantiate(obj);
+				GameObject particles = getPooledObject(effectName, obj);
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
@@ -126,7 +149,8 @@ public class EffectManager : MonoBehaviour
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
-				GameObject particles = (GameObject)Instantiate(obj);
+//				GameObject particles = (GameObject)Instantiate(obj);
+				GameObject particles = getPooledObject(effectName, obj);
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
@@ -146,6 +170,7 @@ public class EffectManager : MonoBehaviour
 						autoDestory = particles.AddComponent<AutoDestoryEffect>();
 					
 					autoDestory.SetDestoryTime = lifeTime;
+//					autoDestory.OnlyDeactivate = true;
 					autoDestory.IsNeedPause = isNeedPause;
 				}
 
@@ -157,8 +182,10 @@ public class EffectManager : MonoBehaviour
 				if (parent) {
 					particles.transform.parent = parent.transform;
 					particles.transform.localPosition = position;
-				} else
+				} else {
+					particles.transform.parent = ObjPool.transform;
 					particles.transform.position = position;
+				}
 
 				particles.transform.localScale = Vector3.one;
 

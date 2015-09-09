@@ -4,7 +4,7 @@ using System.Collections;
 public class AutoDestoryEffect : MonoBehaviour 
 {
 	public float DestoryDelayTime = 0;
-	public bool OnlyDeactivate;
+	public bool OnlyDeactivate = true;
 	private ParticleSystem effect;
 	private bool startDestory = false;
 	public bool IsNeedPause = true;
@@ -60,8 +60,18 @@ public class AutoDestoryEffect : MonoBehaviour
 		if (startDestory) 
 		{
 			DestoryDelayTime -= Time.deltaTime * TimerMgr.Get.CrtTime;
-			if(DestoryDelayTime <= 0)
-			  GameObject.Destroy(this.gameObject);
+			if(DestoryDelayTime <= 0){
+				if(OnlyDeactivate && this.gameObject.activeInHierarchy)
+				{
+					#if UNITY_3_5
+					this.gameObject.SetActiveRecursively(false);
+					#else
+					this.gameObject.SetActive(false);
+					#endif
+				}
+				else
+					GameObject.Destroy(this.gameObject);
+			}
 		} 
 		if(IsNeedPause) {
 			if(TimerMgr.Get.CrtTime == 0)
