@@ -37,8 +37,8 @@ namespace AI
 
         private readonly List<Condition> mConditions = new List<Condition>();
 
-        private readonly AISkillSituationFactory mSituationFactory = new AISkillSituationFactory();
-        private readonly AISkillLvFactory mSkillLvFactory = new AISkillLvFactory();
+        private readonly AISkillSituationFactory mSituationFactory;
+        private readonly AISkillLvFactory mSkillLvFactory;
 
         /// <summary>
         /// 是否是進攻方.
@@ -63,6 +63,9 @@ namespace AI
             mFocusPlayer = focusPlayer;
             mPlayers = players;
             mIsAttack = isAttack;
+
+            mSituationFactory = new AISkillSituationFactory(this);
+            mSkillLvFactory = new AISkillLvFactory(this);
         }
 
         public void SetCondition([NotNull]string situation, int aiSkillLvID)
@@ -81,7 +84,7 @@ namespace AI
 
             for(int bitNum = 0; bitNum < bits.Length; bitNum++)
             {
-                var condition = mSituationFactory.Create(bitNum, bits[bitNum], this);
+                var condition = mSituationFactory.Create(bitNum, bits[bitNum]);
                 if (condition != null)
                     mConditions.Add(condition);
             }
@@ -93,7 +96,7 @@ namespace AI
             if(data == null)
                 return;
 
-            mConditions.Add(mSkillLvFactory.Create(EAISkillLv.AttackBasketDistance, data.AttackBasketDistance, this));
+            mConditions.Add(mSkillLvFactory.Create(EAISkillLv.AttackBasketDistance, data.AttackBasketDistance));
         }
 
         public bool IsMatchCondition()

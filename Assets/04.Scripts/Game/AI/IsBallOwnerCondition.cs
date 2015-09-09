@@ -2,13 +2,20 @@
 
 namespace AI
 {
+    /// <summary>
+    /// 是否球員有持球.
+    /// </summary>
     public class IsBallOwnerCondition : Condition
     {
-        private readonly int mValue;
+        private int mValue;
 
-        public IsBallOwnerCondition(AISkillJudger parent, int value) : base(parent)
+        public IsBallOwnerCondition(AISkillJudger parent) : base(parent)
         {
-            mValue = value;
+        }
+
+        public override void Init(object value)
+        {
+            mValue = (int)value;
         }
 
         public override bool IsValid()

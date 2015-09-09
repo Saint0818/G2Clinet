@@ -362,7 +362,7 @@ public class SkillController : MonoBehaviour {
 	}
 	
 	public void AttackSkillEffect(PlayerBehaviour player, int skillID) {
-		Vector3 v;
+//		Vector3 v;
 		TSkillData skill = GameData.DSkillData[skillID];
 		if(skill.Kind == 21 && skill.TargetKind == 3) {
 			for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {

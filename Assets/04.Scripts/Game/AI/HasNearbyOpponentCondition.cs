@@ -11,14 +11,18 @@ namespace AI
         /// <summary>
         /// 幾個人靠近此球員時, 條件式會判定為 true.
         /// </summary>
-        private readonly int mNearNum;
+        private int mNearNum;
 
         private Vector2 mFocusPos = Vector2.zero;
         private Vector2 mOtherPos = Vector2.zero;
 
-        public HasNearbyOpponentCondition(AISkillJudger parent, int value) : base(parent)
+        public HasNearbyOpponentCondition(AISkillJudger parent) : base(parent)
         {
-            mNearNum = value;
+        }
+
+        public override void Init(object value)
+        {
+            mNearNum = (int)value;
         }
 
         public override bool IsValid()

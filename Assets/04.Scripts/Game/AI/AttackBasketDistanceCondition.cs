@@ -7,16 +7,20 @@ namespace AI
     /// </summary>
     public class AttackBasketDistanceCondition : Condition
     {
-        private readonly float mMaxDistance;
+        private float mMaxDistance;
 
         private Vector2 mFocusPos = Vector2.zero;
         private Vector2 mBasketPos = Vector2.zero;
 
-        public AttackBasketDistanceCondition(AISkillJudger parent, float value) : base(parent)
+        public AttackBasketDistanceCondition(AISkillJudger parent) : base(parent)
         {
-            mMaxDistance = value;
+        }
 
-            if(mMaxDistance < 0)
+        public override void Init(object value)
+        {
+            mMaxDistance = (float)value;
+
+            if (mMaxDistance < 0)
                 Debug.LogWarningFormat("AttackBasketDistanceCondition, value({0}) must be great than zero.", value);
         }
 

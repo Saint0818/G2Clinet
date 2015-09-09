@@ -19,6 +19,8 @@ namespace AI
             mParent = parent;
         }
 
+        public abstract void Init(object value);
+
         /// <summary>
         /// 判斷式的結果.
         /// </summary>

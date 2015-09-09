@@ -8,6 +8,10 @@ namespace AI
         {
         }
 
+        public override void Init(object value)
+        {
+        }
+
         public override bool IsValid()
         {
             return true;
