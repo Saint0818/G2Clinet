@@ -1009,6 +1009,7 @@ public class UIGame : UIBase {
 			drawLine.IsShow = true;
 			break;
 		case EUISituation.Start:
+			GameController.Get.PlayCount ++;
 			viewStart.SetActive (false);
 			showActiveSkillUI(true);
 			uiJoystick.Joystick.isActivated = true;

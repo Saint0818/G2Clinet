@@ -23,6 +23,8 @@ public class ScoreTrigger : MonoBehaviour
 			if (GameController.Visible) {
 				if(IntTrigger == 0 && !Into){
 					Into = true;
+					CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
+					CourtMgr.Get.RealBallDoMoveFinish();
 					switch (GameController.Get.BasketSituation) {
 					case EBasketSituation.Swish:
 						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop, Team);
