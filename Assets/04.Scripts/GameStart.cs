@@ -25,6 +25,8 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
 
 	void Start() {
+		Time.timeScale = 1;
+
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		SceneMgr.Get.SetDontDestory (gameObject);
 

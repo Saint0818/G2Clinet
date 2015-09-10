@@ -106,11 +106,6 @@ public class GameController : KnightSingleton<GameController>
 
     void Start()
 	{
-		if(GameStart.Get.IsDebugAnimation){
-			RecordTimeScale = 1;
-			Time.timeScale = RecordTimeScale;
-		}
-
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
