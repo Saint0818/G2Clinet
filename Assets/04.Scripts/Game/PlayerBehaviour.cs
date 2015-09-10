@@ -264,6 +264,7 @@ public static class StateChecker {
 	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
 	public static Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
 	public static Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
+	public static Dictionary<EPlayerState, bool> PassStates = new Dictionary<EPlayerState, bool>();
 
 	public static void InitState() {
 		if (!isInit) {
@@ -344,6 +345,18 @@ public static class StateChecker {
 			LoopStates.Add(EPlayerState.Dribble0,true);
 			LoopStates.Add(EPlayerState.Dribble1,true);
 			LoopStates.Add(EPlayerState.Dribble2,true);
+
+			PassStates.Add(EPlayerState.Pass0, true);
+			PassStates.Add(EPlayerState.Pass1, true);
+			PassStates.Add(EPlayerState.Pass2, true);
+			PassStates.Add(EPlayerState.Pass3, true);
+			PassStates.Add(EPlayerState.Pass4, true);
+			PassStates.Add(EPlayerState.Pass5, true);
+			PassStates.Add(EPlayerState.Pass6, true);
+			PassStates.Add(EPlayerState.Pass7, true);
+			PassStates.Add(EPlayerState.Pass8, true);
+			PassStates.Add(EPlayerState.Pass9, true);
+			PassStates.Add(EPlayerState.Pass50, true);
 		}
 	}
 }
@@ -3483,8 +3496,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsPass
     {
-		get{ return crtState == EPlayerState.Pass0 || crtState == EPlayerState.Pass2 || crtState == EPlayerState.Pass1 || crtState == EPlayerState.Pass3 ||  crtState == EPlayerState.Pass4 ||
-			crtState == EPlayerState.Pass5 || crtState == EPlayerState.Pass6 || crtState == EPlayerState.Pass7 || crtState == EPlayerState.Pass8 || crtState == EPlayerState.Pass9;}
+		get{ return StateChecker.PassStates.ContainsKey(crtState);}
     }
 
 	public bool IsPickBall
