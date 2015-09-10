@@ -785,7 +785,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		if(!string.IsNullOrEmpty(effectName)) {
 			if(effectName.Equals("ShotFX")) {
-				GameController.Get.PlusScore(team, false, true);
+				Debug.LogWarning ("PlusScore Event : " + Time.time);
+//				GameController.Get.PlusScore(team, false, true);
 			}
 			if(parent == 0) { // Global
 //				EffectManager.Get.PlayEffect (effectName, new Vector3(DunkPoint[team].transform.position.x, 3.76f, DunkPoint[team].transform.position.z), null, null, duration);

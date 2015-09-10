@@ -44,7 +44,7 @@ public class ScoreTrigger : MonoBehaviour
 				}else
 				if(IntTrigger == 1 && CourtMgr.Get.BasketEntra[Team, 0].Into && !CourtMgr.Get.BasketEntra[Team, 1].Into) {
 					Into = true;
-//					GameController.Get.PlusScore(Team, false, true);
+					GameController.Get.PlusScore(Team, false, true);
 					if(GameController.Get.BasketSituation == EBasketSituation.Swish){
 						CourtMgr.Get.PlayShoot(Team, 0);
 						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwishEnd, dummyHoop, Team);

@@ -3583,6 +3583,8 @@ public class GameController : KnightSingleton<GameController>
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
+		Debug.LogWarning ("PlusScore team : " + Time.time);
+
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
 			team = Shooter.Team.GetHashCode();
 
