@@ -708,6 +708,7 @@ public class UISkillFormation : UIBase {
 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.Player.Init();
 			UIShow(false);
 		} else {
 			Debug.LogError("text:"+www.text);

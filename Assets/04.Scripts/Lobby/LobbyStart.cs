@@ -14,7 +14,7 @@ public struct TPlayerObject {
 }
 
 public class LobbyStart : KnightSingleton<LobbyStart> {
-	public bool ConnectToServer = false;
+	public bool RPGMove = false;
 
 	private int avatarID = 1;
 	private TSend2_1 send2_1 = new TSend2_1();
@@ -22,8 +22,9 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	public GameObject RootScenePlayers;
 	public GameObject RootOnlinePlayers;
 	private GameObject touchObject;
+	private GameObject mySelfObject;
 	private RPGCamera rpgCamera;
-	private RPGMotor myPlayer;
+	private RPGMotor myRPGMotor;
 	private GameObject moveToObject;
 	private RPGMotor[] followPlayers = new RPGMotor[2];
 	private GameObject[] followPoints = new GameObject[2];
@@ -51,9 +52,9 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		else
 			EnterLobby();
     }
-    
-    void FixedUpdate() {
-		if (rpgCamera != null && rpgCamera.UsedCamera != null) {
+
+	private void sceneMove() {
+		if (RPGMove && rpgCamera != null && rpgCamera.UsedCamera != null) {
 			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) {
 				Ray ray = UI2D.Get.Camera2D.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;  
@@ -65,35 +66,39 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 						if (Physics.Raycast (ray, out hit, 100, mask.value))
 							return;
 					}
-
+					
 					if (Input.GetMouseButtonDown(0)) {
 						ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
 						mask = 1 << LayerMask.NameToLayer("Player"); 
 						if (Physics.Raycast (ray, out hit, 100, mask.value))
 							touchObject = hit.collider.gameObject;
 						else
-						if (myPlayer && !touchObject) {
+						if (myRPGMotor && !touchObject) {
 							mask = 1 << LayerMask.NameToLayer("Scene");
 							if (Physics.Raycast (ray, out hit, 100, mask.value))
-		                        clickScene(hit.point);
-		                }
-		            }
-
+								clickScene(hit.point);
+						}
+					}
+					
 					if (Input.GetMouseButtonUp(0)) {
 						ray = rpgCamera.UsedCamera.ScreenPointToRay (Input.mousePosition);
 						mask = 1 << LayerMask.NameToLayer("Player"); 
 						if (Physics.Raycast (ray, out hit, 100, mask.value) && hit.collider.gameObject == touchObject) 
 							clickPlayer(hit.collider.gameObject);
-
+						
 						touchObject = null;
-			        }
+					}
 				}
 			}
 		}
+	}
+    
+    void FixedUpdate() {
+		sceneMove();
     }
     
     private void clickPlayer(GameObject player) {
-		if (player != myPlayer.gameObject) {
+		if (player != myRPGMotor.gameObject) {
 			for (int i = 0; i < followPlayers.Length; i ++) {
 				if (followPlayers[i] && followPlayers[i].gameObject == player) {
 					SetTeamMember(i, "");
@@ -123,7 +128,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	}
 
 	private void clickScene(Vector3 point) {
-		myPlayer.Target = point;
+		myRPGMotor.Target = point;
 		if (!moveToObject)
 			moveToObject = EffectManager.Get.PlayEffect("SelectA", point);
 		else {
@@ -150,8 +155,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		GameData.ScenePlayer.X = MyPlayerX;
 		GameData.ScenePlayer.Z = MyPlayerZ;
 
-		if (other.transform.name == "Myself" && myPlayer) {
-			myPlayer.Target = myPlayer.transform.position;
+		if (other.transform.name == "Myself" && myRPGMotor) {
+			myRPGMotor.Target = myRPGMotor.transform.position;
 			trigger.SetActive(false);
 
 			if (GameData.IsLoginRTS && GameData.RoomIndex > -1 && GSocket.Get.Connected) {
@@ -202,8 +207,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 	private bool addRPGController(GameObject player) {
 		if (player) {
-			rpgCamera = player.AddComponent<RPGCamera>();
-			if (rpgCamera != null) {
+			if (rpgCamera == null) {
+				rpgCamera = player.AddComponent<RPGCamera>();
 				rpgCamera.CameraPivotLocalPosition = new Vector3(0, 3, 0);
 				rpgCamera.LockMouseX = true;
 				rpgCamera.LockMouseY = true;
@@ -212,6 +217,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
 													(1 << LayerMask.NameToLayer("Player")) | 
 													(1 << LayerMask.NameToLayer("Scene"));
+
+				rpgCamera.UsedCamera.transform.position = new Vector3(19.54f, 1.92f, -8);
+				rpgCamera.UsedCamera.transform.eulerAngles = new Vector3(1.75f, 90, 0);
+				rpgCamera.enabled = false;
 			}
 			
 			RPGViewFrustum vf = player.GetComponent<RPGViewFrustum>();
@@ -220,8 +229,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			
 			RPGController rpgController = player.AddComponent<RPGController>();
 			rpgController.AcceptInput = true;
-			myPlayer = player.GetComponent<RPGMotor>();
-			myPlayer.Target = player.transform.position;
+			myRPGMotor = player.GetComponent<RPGMotor>();
+			myRPGMotor.Target = player.transform.position;
 
 			CharacterController c = player.GetComponent<CharacterController>();
 			if (c != null) 
@@ -281,12 +290,12 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
 		Res.transform.localPosition = Vector3.zero;
 
-		Animator ani = Res.GetComponent<Animator>();
+		/*Animator ani = Res.GetComponent<Animator>();
 		if (ani != null) {
 			RuntimeAnimatorController con = Resources.Load("Character/MMOCharacter") as RuntimeAnimatorController;
 			if (con != null) 
 				ani.runtimeAnimatorController = con;
-		}
+		}*/
 		
 		CapsuleCollider cc = Res.GetComponent<CapsuleCollider>();
 		if (cc != null)
@@ -327,26 +336,32 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     }
     
     private void createMyPlayer() {
-        if (!myPlayer) {
-			GameObject player = createScenePlayer(ref GameData.Team.Player);
-			player.name = "Myself";
-			player.transform.eulerAngles = new Vector3(0, 90, 0);
-            GameObject obj = Resources.Load("Prefab/Lobby/Follow") as GameObject;
-			if (obj) {
-				GameObject obj2 = Instantiate(obj);
-				obj2.name = "Follow";
-
-				obj2.transform.parent = player.transform;
-				obj2.transform.localScale = Vector3.one;
-				obj2.transform.localEulerAngles = Vector3.zero;
-				obj2.transform.localPosition = Vector3.zero;
-
-				followPoints[0] = GameObject.Find("PlayerInfoModel/Myself/Follow/LeftBottom");
-				followPoints[1] = GameObject.Find("PlayerInfoModel/Myself/Follow/RightBottom");
-            }
-           
-            addRPGController(player);
+		if (mySelfObject) {
+			Destroy(mySelfObject);
+			mySelfObject = null;
+			myRPGMotor = null;
+			rpgCamera = null;
 		}
+
+		mySelfObject = createScenePlayer(ref GameData.Team.Player);
+		mySelfObject.name = "Myself";
+		mySelfObject.transform.position = new Vector3(24, 0.18f, -8);
+		mySelfObject.transform.eulerAngles = new Vector3(0, 270, 0);
+    	GameObject obj = Resources.Load("Prefab/Lobby/Follow") as GameObject;
+		if (obj) {
+			GameObject obj2 = Instantiate(obj);
+			obj2.name = "Follow";
+
+			obj2.transform.parent = mySelfObject.transform;
+			obj2.transform.localScale = Vector3.one;
+			obj2.transform.localEulerAngles = Vector3.zero;
+			obj2.transform.localPosition = Vector3.zero;
+
+			followPoints[0] = GameObject.Find("PlayerInfoModel/Myself/Follow/LeftBottom");
+			followPoints[1] = GameObject.Find("PlayerInfoModel/Myself/Follow/RightBottom");
+    	}
+   
+		addRPGController(mySelfObject);
 	}
 
 	private void waitScenePlayers() {
@@ -484,12 +499,12 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		a.MHandDress = 1000 + avatarID;
 		a.ZBackEquip = 1000 + avatarID;
 		
-		GameObject obj = myPlayer.gameObject;
+		GameObject obj = myRPGMotor.gameObject;
 		ModelManager.Get.SetAvatar(ref obj, a, 0, false);
 	}
 
 	public void OnAvatar() {
-		if (myPlayer != null) {
+		if (myRPGMotor != null) {
 			if (avatarID == 1)
 				avatarID = 2;
 			else
@@ -501,8 +516,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 	public float MyPlayerX {
 		get {
-			if (myPlayer) 
-				return (float) (Mathf.Floor(myPlayer.transform.position.x * 100) / 100);
+			if (myRPGMotor) 
+				return (float) (Mathf.Floor(myRPGMotor.transform.position.x * 100) / 100);
 			else
 				return 0;
 		}
@@ -510,8 +525,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 	public float MyPlayerZ {
 		get {
-			if (myPlayer) 
-				return (float) (Mathf.Floor(myPlayer.transform.position.z * 100) / 100);
+			if (myRPGMotor) 
+				return (float) (Mathf.Floor(myRPGMotor.transform.position.z * 100) / 100);
             else
                 return 0;
         }
@@ -519,8 +534,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 	public float MyPlayerDir {
 		get {
-			if (myPlayer) 
-				return (float) (Mathf.Floor(myPlayer.transform.rotation.y * 100) / 100);
+			if (myRPGMotor) 
+				return (float) (Mathf.Floor(myRPGMotor.transform.rotation.y * 100) / 100);
 			else
 				return 0;
 		}

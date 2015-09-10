@@ -15,8 +15,9 @@ namespace GameStruct {
 		public int Power;
 		public int Diamond;
 
-		public TPlayer Player;//Player 
-		public TSkill[] SkillCards;//Public SkillCards(Public Bank)
+		public TPlayer Player;
+		public TSkill[] SkillCards;
+		public TPlayerBank[] PlayerBank;
 
 		public void Init() {
 			if (Identifier == null)

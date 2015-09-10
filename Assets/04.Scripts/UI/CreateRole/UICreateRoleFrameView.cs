@@ -116,8 +116,9 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         if(ok)
         {
-            WWWForm form = new WWWForm();
-            SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+			GameData.Team.Player = team.Player;
+			Show(team.PlayerBank);
         }
     }
 

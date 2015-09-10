@@ -16,13 +16,14 @@ public static class URLConst {
 	public const string Version = "version";
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
-	public const string LinkFB = "linkfb";
 	public const string LookPlayerBank = "lookplayerbank";
 	public const string CreateRole = "createrole";
 	public const string DeleteRole = "deleterole";
 	public const string EquipsSkillCard = "equipskillcard";
-	public const string TeamName = "teamname";
 	public const string ScenePlayer = "sceneplayer";
+
+	public const string LinkFB = "linkfb";
+	public const string TeamName = "teamname";
 	public const string Conference = "conference";
 	public const string GameRecord = "gamerecord";
 	public const string PVPAward = "pvpaward";

@@ -26,8 +26,8 @@ public struct TDownloadData
 
 public enum VersionMode
 {
-	debug = 1,
-	release = 2
+	Debug = 1,
+	Release = 2
 }
 
 public struct TDownloadTimeRecord{
@@ -48,16 +48,18 @@ public struct TStartCoroutine{
 public class FileManager : KnightSingleton<FileManager> {
 	#if Debug
 	public const string URL = "http://localhost:3600/";
-	public const VersionMode NowMode = VersionMode.debug;
+	public const VersionMode NowMode = VersionMode.Debug;
 	#endif
 	
 	#if Release
 	public const string URL = "http://g2.nicemarket.com.tw/";
-	public const VersionMode NowMode = VersionMode.release;								
+	public const VersionMode NowMode = VersionMode.Release;								
 	#endif
+
 	private const int FileDownloadLimitTime = 30;
 	private const string ServerFilePath = URL + "gamedata/";
 	private const string ClientFilePath = "GameData/";
+
 	#if UNITY_ANDROID
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/android/";
 	#endif
