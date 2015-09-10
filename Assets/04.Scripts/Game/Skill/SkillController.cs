@@ -19,14 +19,21 @@ public class SkillController : MonoBehaviour {
 	private EPassDirectState passDirect = EPassDirectState.Forward;
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
 	public Dictionary<int, List<TSkill>> DPassiveSkills = new Dictionary<int, List<TSkill>>();//Skill
+	[HideInInspector]
 	public int PassiveID;
+	[HideInInspector]
 	public int PassiveLv;
+	[HideInInspector]
 	public int MoveDodgeRate = 0;
+	[HideInInspector]
 	public int MoveDodgeLv = 0;
+	[HideInInspector]
 	public int PickBall2Rate = 0;
+	[HideInInspector]
 	public int PickBall2Lv = 0;
 
 	//ActiveSkill
+	[HideInInspector]
 	public float ActiveTime  = 0;
 
 	//PlayerInfo

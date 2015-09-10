@@ -113,7 +113,7 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnAgain() {
-		Time.timeScale = UIGame.Get.RecordTimeScale;
+		Time.timeScale = GameController.Get.RecordTimeScale;
 		UIGame.Get.UIState(EUISituation.Reset);
 		UIShow(false);
 	}

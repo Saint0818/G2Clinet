@@ -22,9 +22,6 @@ public class UISort : UIBase {
 	private static UISort instance = null;
 	private const string UIName = "UISort";
 
-	private GameObject uiSortTeam;
-	private GameObject uiSortCard;
-
 	private UIToggle[] toggleCondition = new UIToggle[5];
 	private UIToggle[] toggleFilter = new UIToggle[4];
 
@@ -61,8 +58,6 @@ public class UISort : UIBase {
 	}
 
 	protected override void InitCom() {
-		uiSortTeam = GameObject.Find (UIName + "/Center/SortTeamGroup");
-		uiSortCard = GameObject.Find (UIName + "/Center/SortCardGroup");
 
 		toggleCondition[0] = GameObject.Find (UIName + "/Center/SortCardGroup/RarityCheck").GetComponent<UIToggle>();
 		toggleCondition[1] = GameObject.Find (UIName + "/Center/SortCardGroup/CostCheck").GetComponent<UIToggle>();

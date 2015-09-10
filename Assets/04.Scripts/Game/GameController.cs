@@ -99,12 +99,18 @@ public class GameController : KnightSingleton<GameController>
 
 
 	//debug value
+	public float RecordTimeScale = 1;
 	public int PlayCount = 0;
 	public int SelfWin = 0;
 	public int NpcWin = 0;
 
     void Start()
-    {
+	{
+		if(GameStart.Get.IsDebugAnimation){
+			RecordTimeScale = 1;
+			Time.timeScale = RecordTimeScale;
+		}
+
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();

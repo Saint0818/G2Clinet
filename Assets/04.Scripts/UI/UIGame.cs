@@ -123,8 +123,6 @@ public class UIGame : UIBase {
 
 	private TweenRotation[] rotate = new TweenRotation[2];
 
-	public float RecordTimeScale = 1;
-
 	//FX
 	private float fxTime = 0.3f;
 	private GameObject buttonShootFX;
@@ -501,7 +499,7 @@ public class UIGame : UIBase {
 		if (Time.timeScale == 0.5f) 
 			Time.timeScale = 1;
 
-		RecordTimeScale = Time.timeScale;
+		GameController.Get.RecordTimeScale = Time.timeScale;
 	}
 
 	public void OnPause(){
