@@ -784,6 +784,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void PlayDunkEffect(int team, string effectName, int parent, float duration)
 	{
 		if(!string.IsNullOrEmpty(effectName)) {
+			if(effectName.Equals("ShotFX")) {
+				GameController.Get.PlusScore(team, false, true);
+			}
 			if(parent == 0) { // Global
 //				EffectManager.Get.PlayEffect (effectName, new Vector3(DunkPoint[team].transform.position.x, 3.76f, DunkPoint[team].transform.position.z), null, null, duration);
 				EffectManager.Get.PlayEffect (effectName, ShootPoint[team].transform.position, null, null, duration);

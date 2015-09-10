@@ -100,6 +100,8 @@ public class GameController : KnightSingleton<GameController>
 
 	//debug value
 	public int PlayCount = 0;
+	public int SelfWin = 0;
+	public int NpcWin = 0;
 
     void Start()
     {
@@ -780,8 +782,11 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
-		if(GameStart.Get.IsDebugAnimation)
+		if(GameStart.Get.IsDebugAnimation){
 			GUI.Label(new Rect(Screen.width * 0.5f - 25, 100, 300, 50), "Play Counts:" + PlayCount.ToString());
+			GUI.Label(new Rect(Screen.width * 0.25f - 25, 100, 300, 50), "Self Wins:" + SelfWin.ToString());
+			GUI.Label(new Rect(Screen.width * 0.75f - 25, 100, 300, 50), "Npc Wins:" + NpcWin.ToString());
+		}
 	}
 	#endif
 
@@ -3532,6 +3537,7 @@ public class GameController : KnightSingleton<GameController>
 
 
 		if (UIGame.Get.Scores [0] >= UIGame.Get.Scores [1]) {
+			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList [i].Team == ETeamKind.Self)
 					PlayerList [i].AniState (EPlayerState.Ending0);
@@ -3540,6 +3546,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 		else
 		{
+			NpcWin ++;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList [i].Team == ETeamKind.Self)
 					PlayerList [i].AniState (EPlayerState.Ending10);

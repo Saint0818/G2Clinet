@@ -5,7 +5,7 @@ public class PushSkillTrigger : MonoBehaviour {
 	public PlayerBehaviour pusher;
 	public float InRange = 5;
 	public float DelayActivityTime = 2;
-	void Start () {
+	void OnEnable () {
 		StartCoroutine(DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill));
 	}
 
