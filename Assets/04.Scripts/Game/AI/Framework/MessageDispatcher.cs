@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using JetBrains.Annotations;
 
 namespace AI
 {
@@ -31,21 +32,38 @@ namespace AI
     public class MessageDispatcher<TEnumMsg> where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
         private readonly Dictionary<TEnumMsg, List<ITelegraph<TEnumMsg>>> mListeners = new Dictionary<TEnumMsg, List<ITelegraph<TEnumMsg>>>();
-//        private Telegram<TEnumMsg> mTelegram;
 
         private enum EOperation
         {
             AddListener, RemoveListener, ClearMsg, ClearAllMsg, SendMsg
         }
-        private struct Operation
+        private class Operation
         {
             public EOperation Op;
             public TEnumMsg Msg;
-            public ITelegraph<TEnumMsg> Listener;
-            public Telegram<TEnumMsg> Tel;
+            [CanBeNull]public ITelegraph<TEnumMsg> Listener;
+            [CanBeNull]public Telegram<TEnumMsg> Tel;
+
+            public void Clear()
+            {
+                Listener = null;
+                Tel = null;
+            }
         }
 
         private readonly List<Operation> mOperations = new List<Operation>();
+
+        private readonly Pool<Operation> mOperationPool;
+        private readonly Pool<Telegram<TEnumMsg>> mTelegramPool;
+
+        public MessageDispatcher()
+        {
+            mOperationPool = new Pool<Operation>(() => new Operation(), 
+                                        operation => operation.Clear());
+
+            mTelegramPool= new Pool<Telegram<TEnumMsg>>(() => new Telegram<TEnumMsg>(), 
+                                                        telegram => telegram.Clear());
+        }
 
         public void AddListeners(ITelegraph<TEnumMsg> listener, params TEnumMsg[] msgs)
         {
@@ -57,7 +75,16 @@ namespace AI
 
         public void AddListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
         {
-            mOperations.Add(new Operation {Op = EOperation.AddListener, Listener = listener, Msg = msg});
+            Operation operation = mOperationPool.CreateOrGet();
+            if(operation != null)
+            {
+                operation.Op = EOperation.AddListener;
+                operation.Listener = listener;
+                operation.Msg = msg;
+                mOperations.Add(operation);
+            }
+            
+//            mOperations.Add(new Operation {Op = EOperation.AddListener, Listener = listener, Msg = msg});
         }
 
         private void addListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
@@ -79,7 +106,17 @@ namespace AI
 
         public void RemoveListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
         {
-            mOperations.Add(new Operation {Op = EOperation.RemoveListener, Listener = listener, Msg = msg});
+            Operation op = mOperationPool.CreateOrGet();
+            if(op != null)
+            {
+                op.Op = EOperation.RemoveListener;
+                op.Listener = listener;
+                op.Msg = msg;
+
+                mOperations.Add(op);
+            }
+
+//            mOperations.Add(new Operation {Op = EOperation.RemoveListener, Listener = listener, Msg = msg});
         }
 
         private void removeListener(ITelegraph<TEnumMsg> listener, TEnumMsg msg)
@@ -98,18 +135,29 @@ namespace AI
 
         public void ClearListeners(TEnumMsg msg)
         {
-            mOperations.Add(new Operation {Op = EOperation.ClearMsg, Msg = msg});
-        }
+            Operation op = mOperationPool.CreateOrGet();
+            if(op != null)
+            {
+                op.Op = EOperation.ClearMsg;
+                op.Msg = msg;
 
-//        private void clearListeners(TEnumMsg msg)
-//        {
-//            mListeners.Remove(msg);
-//        }
+                mOperations.Add(op);
+            }
+
+//            mOperations.Add(new Operation {Op = EOperation.ClearMsg, Msg = msg});
+        }
 
         public void ClearAllListeners()
         {
-            mOperations.Add(new Operation {Op = EOperation.ClearAllMsg});
-//            mListeners.Clear();
+            Operation op = mOperationPool.CreateOrGet();
+            if(op != null)
+            {
+                op.Op = EOperation.ClearAllMsg;
+
+                mOperations.Add(op);
+            }
+
+//            mOperations.Add(new Operation {Op = EOperation.ClearAllMsg});
         }
 
         public void Update()
@@ -140,21 +188,50 @@ namespace AI
                         throw new InvalidEnumArgumentException(mOperations[i].Op.ToString());
                 }
             }
+            freeMemory();
+        }
+
+        private void freeMemory()
+        {
+            for(int i = 0; i < mOperations.Count; i++)
+            {
+                if(mOperations[i].Tel != null)
+                    mTelegramPool.Free(mOperations[i].Tel);
+                mOperationPool.Free(mOperations[i]);
+            }
+
             mOperations.Clear();
         }
 
         public void SendMesssage(TEnumMsg msg, Object extraInfo = null, 
                                  ITelegraph<TEnumMsg> sender = null, ITelegraph<TEnumMsg> receiver = null)
         {
-            Telegram<TEnumMsg> telegram = new Telegram<TEnumMsg>
-            {
-                Sender = sender,
-                Receiver = receiver,
-                Msg = msg,
-                ExtraInfo = extraInfo
-            };
+            Telegram<TEnumMsg> telegram = mTelegramPool.CreateOrGet();
+            if(telegram == null)
+                return;
+
+            telegram.Sender = sender;
+            telegram.Receiver = receiver;
+            telegram.Msg = msg;
+            telegram.ExtraInfo = extraInfo;
             
-            mOperations.Add(new Operation {Op = EOperation.SendMsg, Tel = telegram});
+//            Telegram<TEnumMsg> telegram = new Telegram<TEnumMsg>
+//            {
+//                Sender = sender,
+//                Receiver = receiver,
+//                Msg = msg,
+//                ExtraInfo = extraInfo
+//            };
+
+            Operation op = mOperationPool.CreateOrGet();
+            if(op != null)
+            {
+                op.Op = EOperation.SendMsg;
+                op.Tel = telegram;
+
+                mOperations.Add(op);
+            }
+//            mOperations.Add(new Operation {Op = EOperation.SendMsg, Tel = telegram});
         }
 
         private void sendMessage(Telegram<TEnumMsg> telegram)

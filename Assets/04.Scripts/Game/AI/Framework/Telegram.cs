@@ -4,7 +4,7 @@ using System;
 
 namespace AI
 {
-    public struct Telegram<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
+    public class Telegram<TEnum> where TEnum : struct, IConvertible, IComparable, IFormattable
     {
         /// <summary>
         /// 哪一個 Agent 送訊息.
