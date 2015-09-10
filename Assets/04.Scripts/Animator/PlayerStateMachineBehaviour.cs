@@ -44,7 +44,11 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			if (pb && isOnce && Time.time - currentTime > checkTime && !pb.IsLoopState)
 			{
 				if(GameStart.Get.IsDebugAnimation)
-					Debug.LogError ("Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString());
+				{
+					string message = "Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString();
+					Debug.LogError (message);
+					MailMgr.Get.BugReport(message);
+				}
 				else
 				{
 					//Mistake-proofing

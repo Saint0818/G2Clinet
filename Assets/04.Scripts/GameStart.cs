@@ -39,6 +39,7 @@ public class GameStart : KnightSingleton<GameStart> {
 
 		TextConst.Init();
 		GameData.Init();
+		Application.runInBackground = IsDebugAnimation;
 	}
 	
 	void OnGUI() {

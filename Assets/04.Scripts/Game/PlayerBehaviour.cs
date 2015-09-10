@@ -3022,15 +3022,19 @@ public class PlayerBehaviour : MonoBehaviour
 					LogMgr.Get.Log (gameObject.name + " AnimationEnd layup no ball.");
 					GameController.Get.SetBall();
                 }
-                    
-				if(!IsBallOwner)
-               	 	AniState(EPlayerState.Idle);
-				else{
-					if(firstDribble)
-						AniState(EPlayerState.Dribble0);
+
+				Debug.LogWarning(gameObject.name + ".AnimationEnd : " +crtState.ToString());
+
+
+					if(!IsBallOwner)
+						AniState(EPlayerState.Idle);
+					else{
+						if(firstDribble)
+							AniState(EPlayerState.Dribble0);
 //						else
 //							AniState(EPlayerState.HoldBall);
-				}
+					}
+
 
 				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
