@@ -14,7 +14,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
     public GameObject PlusButton;
     public GameObject RemoveButton;
-    public UISprite PosSprite;
 
     [HideInInspector]
     public string[] PosSpriteNames;
@@ -31,7 +30,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     {
         PlusButton.SetActive(true);
         RemoveButton.SetActive(false);
-        PosSprite.gameObject.SetActive(false);
 
         mPlayerBank = new TPlayerBank();
     }
@@ -46,18 +44,15 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
         PlusButton.SetActive(false);
         RemoveButton.SetActive(true);
-        PosSprite.gameObject.SetActive(true);
 
         mPlayerBank = player;
         
-        int bodyType = GameData.DPlayers[mPlayerBank.ID].BodyType;
-        if(bodyType < 0 || bodyType >= PosSpriteNames.Length)
-        {
-            Debug.LogErrorFormat("BodyType({0}) error.", bodyType);
-            return;
-        }
-
-        PosSprite.spriteName = PosSpriteNames[bodyType];
+//        int bodyType = GameData.DPlayers[mPlayerBank.ID].BodyType;
+//        if(bodyType < 0 || bodyType >= PosSpriteNames.Length)
+//        {
+//            Debug.LogErrorFormat("BodyType({0}) error.", bodyType);
+//            return;
+//        }
     }
 
     public void OnClick()
