@@ -60,13 +60,13 @@ public class UIPassiveEffect : UIBase {
 
 	protected override void InitCom() {
 		for(int i=0; i<uiCardMotion.Length; i++) {
-			uiCardMotion[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString());
+			uiCardMotion[i] = GameObject.Find (UIName + "/Anchor/Center/CardMotion_" + (i+1).ToString());
 			uiCardMotion[i].transform.localPosition = new Vector3(500, 200, 0);
 			uiCardMotion[i].SetActive(false);
-			animatorCardGroup[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup").GetComponent<Animator>();
-			spriteCardFrame[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardFrame").GetComponent<UISprite>();
-			textureCardInfo[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardInfo").GetComponent<UITexture>();
-			labelCardLabel[i] = GameObject.Find (UIName + "/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardLabel").GetComponent<UILabel>();
+			animatorCardGroup[i] = GameObject.Find (UIName + "/Anchor/Center/CardMotion_" + (i+1).ToString() + "/CardGroup").GetComponent<Animator>();
+			spriteCardFrame[i] = GameObject.Find (UIName + "/Anchor/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardFrame").GetComponent<UISprite>();
+			textureCardInfo[i] = GameObject.Find (UIName + "/Anchor/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardInfo").GetComponent<UITexture>();
+			labelCardLabel[i] = GameObject.Find (UIName + "/Anchor/Center/CardMotion_" + (i+1).ToString() + "/CardGroup/CardLabel").GetComponent<UILabel>();
 		}
 
 		for (int i=0; i<recordIndex.Length; i++) {

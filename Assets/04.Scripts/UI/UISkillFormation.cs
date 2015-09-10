@@ -418,16 +418,22 @@ public class UISkillFormation : UIBase {
 				string cardIdjstr = getIndex(skillSortCards[j].name, true).ToString() + "_" + getIndex(skillSortCards[j].name, false).ToString() + "_" + getEquipedType(skillSortCards[j].name);
 
 				if(condition == ECondition.Rare) {
-					value1 = GameData.DSkillData[cardIdi].Star;
-					value2 = GameData.DSkillData[cardIdj].Star;
+					if(GameData.DSkillData.ContainsKey(cardIdi))
+						value1 = GameData.DSkillData[cardIdi].Star;
+					if(GameData.DSkillData.ContainsKey(cardIdj))
+						value2 = GameData.DSkillData[cardIdj].Star;
 				} else 
 				if(condition == ECondition.Kind){
-					value1 = GameData.DSkillData[cardIdi].Kind;
-					value2 = GameData.DSkillData[cardIdj].Kind;
+					if(GameData.DSkillData.ContainsKey(cardIdi))
+						value1 = GameData.DSkillData[cardIdi].Kind;
+					if(GameData.DSkillData.ContainsKey(cardIdj))
+						value2 = GameData.DSkillData[cardIdj].Kind;
 				} else 
 				if(condition == ECondition.Attribute){
-					value1 = GameData.DSkillData[cardIdi].AttrKind;
-					value2 = GameData.DSkillData[cardIdj].AttrKind;
+					if(GameData.DSkillData.ContainsKey(cardIdi))
+						value1 = GameData.DSkillData[cardIdi].AttrKind;
+					if(GameData.DSkillData.ContainsKey(cardIdj))
+						value2 = GameData.DSkillData[cardIdj].AttrKind;
 				}  else 
 				if(condition == ECondition.Level){
 					if(GameData.DSkillData.ContainsKey(cardIdi) && GameData.DSkillData.ContainsKey(cardIdj)){

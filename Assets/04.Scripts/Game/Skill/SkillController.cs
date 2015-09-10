@@ -394,10 +394,41 @@ public class SkillController : MonoBehaviour {
 		
 		if(player) {
 			switch(State) {
-			case ESkillSituation.PickBall:
-				playerState = EPlayerState.PickBall2;
-				player.PassiveID = 1310;
-				player.PassiveLv = player.PickBall2Lv;
+			case ESkillSituation.Block:
+				playerState = getPassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Dunk0:
+				playerState = getPassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Fall1:
+				Result = true;
+				break;
+				
+			case ESkillSituation.Fall2:
+				Result = true;
+				break;
+
+			case ESkillSituation.Elbow:
+				playerState = getPassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
+				Result = player.AniState (playerState);
+				break;
+				
+			case ESkillSituation.JumpBall:
+				playerState = getPassiveSkill(ESkillSituation.JumpBall, ESkillKind.JumpBall);
+				Result = player.AniState (playerState);
+				break;
+				
+			case ESkillSituation.KnockDown0:
+				playerState = getPassiveSkill(ESkillSituation.KnockDown0, ESkillKind.KnockDown0);
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Layup0:
+				playerState = getPassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
 				Result = player.AniState(playerState, v);
 				break;
 				
@@ -438,52 +469,11 @@ public class SkillController : MonoBehaviour {
 				}
 				break;
 				
-			case ESkillSituation.Block:
-				playerState = getPassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
+			case ESkillSituation.PickBall:
+				playerState = EPlayerState.PickBall2;
+				player.PassiveID = 1310;
+				player.PassiveLv = player.PickBall2Lv;
 				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Dunk0:
-				playerState = getPassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
-				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Shoot0:
-				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
-				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Shoot3:
-				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
-				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Shoot2:
-				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
-				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Shoot1:
-				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
-				Result = player.AniState(playerState, v );
-				break;
-				
-			case ESkillSituation.Layup0:
-				playerState = getPassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
-				Result = player.AniState(playerState, v);
-				break;
-				
-			case ESkillSituation.Elbow:
-				playerState = getPassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
-				Result = player.AniState (playerState);
-				break;
-				
-			case ESkillSituation.Fall1:
-				Result = true;
-				break;
-				
-			case ESkillSituation.Fall2:
-				Result = true;
 				break;
 				
 			case ESkillSituation.Pass4:
@@ -528,24 +518,35 @@ public class SkillController : MonoBehaviour {
 				else
 					Result = player.AniState(playerState, v);
 				break;
-			case ESkillSituation.Rebound:
-				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
-				Result = player.AniState (playerState);
+				
+			case ESkillSituation.Shoot0:
+				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
 				break;
 				
-			case ESkillSituation.JumpBall:
-				playerState = getPassiveSkill(ESkillSituation.JumpBall, ESkillKind.JumpBall);
-				Result = player.AniState (playerState);
+			case ESkillSituation.Shoot3:
+				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot2:
+				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v);
+				break;
+				
+			case ESkillSituation.Shoot1:
+				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				Result = player.AniState(playerState, v );
 				break;
 				
 			case ESkillSituation.Steal0:	
 				playerState = getPassiveSkill(ESkillSituation.Steal0, ESkillKind.Steal);
 				Result = player.AniState(playerState, v);
 				break;
-				
-			case ESkillSituation.KnockDown0:
-				playerState = getPassiveSkill(ESkillSituation.KnockDown0, ESkillKind.KnockDown0);
-				Result = player.AniState(playerState, v);
+
+			case ESkillSituation.Rebound:
+				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
+				Result = player.AniState (playerState);
 				break;
 			}	
 		}
