@@ -689,10 +689,12 @@ public class UISkillFormation : UIBase {
 					addIndexs[i] = getIndex(skillsRecord[i], true);
 			}
 
-			WWWForm form = new WWWForm();
-			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
-			form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
-			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
+			if(addIndexs.Length > 0 || removeIndexs.Length > 0) {
+				WWWForm form = new WWWForm();
+				form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
+				form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
+				SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
+			}
 		} else 
 			UIShow(false);
 	}
