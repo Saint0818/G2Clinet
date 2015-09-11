@@ -3266,8 +3266,8 @@ public class GameController : KnightSingleton<GameController>
 		    player.IsPush || 
 		    dir == 6)
             return;
-		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
-			Debug.LogError("name:" + player.name);
+//		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
+//			Debug.LogError("name:" + player.name);
 
 		if (Catcher) {
 			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
@@ -3512,7 +3512,7 @@ public class GameController : KnightSingleton<GameController>
 		for (int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i].Team.GetHashCode() == team)
 			{
-				if(!PlayerList[i].IsDunk){
+				if(PlayerList[i] != pickBallPlayer && !PlayerList[i].IsDunk){
 					if(isIn)
 						PlayerList[i].AniState(shootInState[Random.Range(0, shootInState.Length -1)]);
 					else {
