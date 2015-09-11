@@ -490,6 +490,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void IfSwishNoScore (){
+		if(GameStart.Get.IsDebugAnimation)
+			Debug.LogWarning("RealBall Swish Out:"+ GameController.Get.BasketAnimationName);
 		if(scoreTeam != -1) {
 			GameController.Get.PlusScore(scoreTeam, false, true);
 			GameController.Get.ShowShootSate(true, scoreTeam);
@@ -513,14 +515,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case EPlayerState.BasketActionSwishEnd:
 				CourtMgr.Get.RealBallDoMoveFinish();
-				if(scoreTeam != -1) {
-					GameController.Get.PlusScore(scoreTeam, false, true);
-					GameController.Get.ShowShootSate(true, scoreTeam);
-					Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
-					RealBallVelocity = Vector3.zero;
-					RealBallAddForce(Vector3.down * 70);
-					scoreTeam = -1;
-				}
+				IfSwishNoScore ();
 				break;
 			case EPlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -532,6 +527,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case EPlayerState.BasketActionEnd:
+				if(GameStart.Get.IsDebugAnimation)
+					Debug.LogWarning("RealBall Score Out:"+ GameController.Get.BasketAnimationName);
 				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;
@@ -544,6 +541,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				GameController.Get.Passer = null;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
+				if(GameStart.Get.IsDebugAnimation)
+					Debug.LogWarning("RealBall NoScore Out:"+ GameController.Get.BasketAnimationName);
 				GameController.Get.ShowShootSate(false, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
