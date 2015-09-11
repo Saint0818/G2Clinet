@@ -1,25 +1,29 @@
-﻿using AI;
-
-public class NoneState : State<EGameSituation, EGameMsg>
+﻿
+namespace AI
 {
-    public override EGameSituation ID
+    public class NoneState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.None; }
-    }
+        public override EGameSituation ID
+        {
+            get { return EGameSituation.None; }
+        }
 
-    public override void Enter(object extraInfo)
-    {
-    }
+        public override void Enter(object extraInfo)
+        {
+        }
 
-    public override void Update()
-    {
-    }
+        public override void Update()
+        {
+        }
 
-    public override void Exit()
-    {
-    }
+        public override void Exit()
+        {
+        }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
     }
-}
+} // end of the namespace AI.
+
+

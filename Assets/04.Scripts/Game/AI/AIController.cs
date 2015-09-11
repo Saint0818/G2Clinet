@@ -16,18 +16,25 @@ using UnityEngine;
 /// <item> call StateMachine.AddState() in setup StateMachine. </item>
 /// </list>
 /// 
-/// <para> 預期未來這個類別會變成 Coach, 所以變成整個遊戲會有 2 個 instance, 各自對自己的隊伍下命令. </para>
+/// <para> 預期未來這個類別的責任會寫到 Team, 各 Team 對自己的球員下達命令. </para>
 /// </remarks>
 [DisallowMultipleComponent]
-public class AIController : KnightSingleton<AIController>
+public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
 {
-    public static AIController Instance
-    {
-        get { return INSTANCE; }
-    }
-    private readonly static AIController INSTANCE = new AIController();
-
     private StateMachine<EGameSituation, EGameMsg> mFSM;
+
+    public Team PlayerTeam
+    {
+        get { return mPlayerTeam; }
+    }
+
+    public Team NpcTeam
+    {
+        get { return mNpcTeam; }
+    }
+
+    private readonly Team mPlayerTeam = new Team(ETeamKind.Self);
+    private readonly Team mNpcTeam = new Team(ETeamKind.Npc);
 
     [UsedImplicitly]
     private void Awake()
@@ -50,6 +57,26 @@ public class AIController : KnightSingleton<AIController>
         mFSM.ChangeState(EGameSituation.None);
 
         GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.UISkipClickOnGaming);
+        GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
+    }
+
+    public void HandleMessage(Telegram<EGameMsg> e)
+    {
+        if(e.Msg == EGameMsg.GamePlayersCreated)
+        {
+            // 這段是整個 AI 的框架的初始化過程.
+            mPlayerTeam.Clear();
+            mNpcTeam.Clear();
+
+            PlayerBehaviour[] players = (PlayerBehaviour[])e.ExtraInfo;
+            foreach(var player in players)
+            {
+                if(player.Team == ETeamKind.Self)
+                    mPlayerTeam.AddPlayer(player.GetComponent<PlayerAI>());
+                else if(player.Team == ETeamKind.Npc)
+                    mNpcTeam.AddPlayer(player.GetComponent<PlayerAI>());
+            }
+        }
     }
 
     [UsedImplicitly]

@@ -144,10 +144,10 @@ public enum EPlayerState
 
 public enum ETeamKind
 {
-	JumpBall = -1,
+//	JumpBall = -1,
     Self = 0,
-    Npc = 1,
-	Skiller = 2
+    Npc = 1
+//	Skiller = 2
 }
 
 public enum EDefPointKind

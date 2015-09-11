@@ -9,6 +9,10 @@ public class BPickBallAfterScoreState : State<EGameSituation, EGameMsg>
 
     public override void Enter(object extraInfo)
     {
+        CourtMgr.Get.Walls[0].SetActive(false);
+        UIGame.Get.ChangeControl(false);
+        CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
+//        pickBallPlayer = null;
     }
 
     public override void Update()

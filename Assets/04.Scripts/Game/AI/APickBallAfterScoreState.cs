@@ -1,7 +1,7 @@
 ﻿using AI;
 
 /// <summary>
-/// 某隊得分後, 另一隊執行撿球.
+/// 對手得分, 玩家隊伍執行撿球.
 /// </summary>
 public class APickBallAfterScoreState : State<EGameSituation, EGameMsg>
 {
@@ -12,7 +12,10 @@ public class APickBallAfterScoreState : State<EGameSituation, EGameMsg>
 
     public override void Enter(object extraInfo)
     {
-        
+        CourtMgr.Get.Walls[1].SetActive(false);
+        UIGame.Get.ChangeControl(true);
+        CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
+//        pickBallPlayer = null;
     }
 
     public override void Update()

@@ -1,7 +1,6 @@
 
 public enum EGameSituation
 {
-//    Loading           =-4,
     Presentation   = -3, // 演出, 也就是雙方球員出場, 互相叫囂.
     CameraMovement = -2, // 運鏡.
     InitCourt      = -1,

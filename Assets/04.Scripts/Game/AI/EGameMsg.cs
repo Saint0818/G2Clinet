@@ -14,7 +14,7 @@ public enum EGameMsg
 
     /// <summary>
     /// <para> 遊戲裡的球員創建完畢. </para>
-    /// <para> Telegram.ExtraInfo: PlayerBehavior[]. </para>
+    /// <para> Telegram.ExtraInfo: PlayerBehaviour[]. </para>
     /// </summary>
     GamePlayersCreated
 }

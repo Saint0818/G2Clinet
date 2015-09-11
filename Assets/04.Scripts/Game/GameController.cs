@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using AI;
 using DG.Tweening;
 using G2;
 using GamePlayEnum;
@@ -105,7 +106,15 @@ public class GameController : KnightSingleton<GameController>
 	public int SelfWin = 0;
 	public int NpcWin = 0;
 
-    void Start()
+    [UsedImplicitly]
+    private void Awake()
+    {
+        // 這是 AI 整個框架初始化的起點.
+        AIController.Get.ChangeState(EGameSituation.None);
+    }
+
+    [UsedImplicitly]
+    private void Start()
 	{
         EffectManager.Get.LoadGameEffect();
         InitPos();
@@ -113,7 +122,7 @@ public class GameController : KnightSingleton<GameController>
 		InitAniState();
     }
 
-	void InitAniState()
+    void InitAniState()
 	{
 		if(!LoopStates.ContainsKey(EAnimatorState.Dribble))
 			LoopStates.Add(EAnimatorState.Dribble, false);
@@ -798,7 +807,7 @@ public class GameController : KnightSingleton<GameController>
 		{
 			foreach(PlayerBehaviour someone in PlayerList)
 			{
-                doPickBall(someone);
+                DoPickBall(someone);
 
 //			    if(someone.Team == ETeamKind.Self)
 //			    {
@@ -819,7 +828,18 @@ public class GameController : KnightSingleton<GameController>
         if(pickBallPlayer || BallOwner || PlayerList.Count <= 0)
             return;
 
-        pickBallPlayer = findNearBallPlayer(team);
+        if(team == ETeamKind.Self)
+        {
+            var player = AIController.Get.PlayerTeam.FindNearBallPlayer();
+            if(player != null)
+                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
+        }
+        else if(team == ETeamKind.Npc)
+        {
+            var player = AIController.Get.NpcTeam.FindNearBallPlayer();
+            if(player != null)
+                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
+        }
 
         if(pickBallPlayer == null)
             return;
@@ -841,7 +861,7 @@ public class GameController : KnightSingleton<GameController>
             if(PlayerList[i].Team == team)
             {
                 if (PlayerList[i] == pickBallPlayer) 
-                    doPickBall(PlayerList[i]);
+                    DoPickBall(PlayerList[i]);
                 else 
                     InboundsBall(PlayerList[i], team, ref attackTactical);
             }
@@ -1387,9 +1407,9 @@ public class GameController : KnightSingleton<GameController>
 
 				break;
 			case EGameSituation.APickBallAfterScore:
-				CourtMgr.Get.Walls[1].SetActive(false);
-				UIGame.Get.ChangeControl(true);
-				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
+//				CourtMgr.Get.Walls[1].SetActive(false);
+//				UIGame.Get.ChangeControl(true);
+//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				pickBallPlayer = null;
 
                 break;
@@ -1397,10 +1417,11 @@ public class GameController : KnightSingleton<GameController>
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
                 break;
+
             case EGameSituation.BPickBallAfterScore:
-				CourtMgr.Get.Walls[0].SetActive(false);
-           	 	UIGame.Get.ChangeControl(false);
-				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
+//				CourtMgr.Get.Walls[0].SetActive(false);
+//         	 	UIGame.Get.ChangeControl(false);
+//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				pickBallPlayer = null;
 
                 break;
@@ -1473,14 +1494,14 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 	
-	private void jodgeShootAngle(PlayerBehaviour player){
+	private void judgeShootAngle(PlayerBehaviour player){
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
-			angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+			angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		} else {
-			angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
+			angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		}
 		//Distance
@@ -1745,9 +1766,9 @@ public class GameController : KnightSingleton<GameController>
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
-				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+				angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
 			else 
-				angleByPlayerHoop = GameFunction.GetPlayerToObjectAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
+				angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
 
 			if(Mathf.Abs(angleByPlayerHoop) <= 85  && ShootDistance < 5)
 				shootAngle = 80;
@@ -1771,7 +1792,7 @@ public class GameController : KnightSingleton<GameController>
 				scoreType = EScoreType.LayUp;
 			}
 			
-			jodgeShootAngle(player);
+			judgeShootAngle(player);
 			judgeBasketAnimationName ((int)basketDistanceAngle);
 			calculationScoreRate(player, scoreType);
 
@@ -2704,59 +2725,38 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-//    private PlayerBehaviour findNearBallPlayer(PlayerBehaviour someone)
+//    /// <summary>
+//    /// 找出某隊離球最近的球員.
+//    /// </summary>
+//    /// <param name="team"> 玩家 or 電腦. </param>
+//    /// <returns></returns>
+//    [CanBeNull]
+//    private PlayerBehaviour findNearBallPlayer(ETeamKind team)
 //    {
+//        float nearDis = float.MaxValue;
 //        PlayerBehaviour nearPlayer = null;
 //
-//        foreach(PlayerBehaviour npc in PlayerList)
+//        Vector2 ballPos = Vector2.zero;
+//        ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
+//
+//        foreach(PlayerBehaviour someone in PlayerList)
 //        {
-//            if(npc.Team == someone.Team && !someone.IsFall && someone.AIing && npc.CanMove)
+//            if (someone.Team != team)
+//                continue;
+//
+//            Vector2 someonePos = Vector2.zero;
+//            someonePos.Set(someone.transform.position.x, someone.transform.position.z);
+//
+//            var dis = Vector2.Distance(ballPos, someonePos);
+//            if(dis < nearDis)
 //            {
-//                if (!nearPlayer)
-//                    nearPlayer = npc;
-//                else if(getDis(nearPlayer, CourtMgr.Get.RealBall.transform.position) > getDis(npc, CourtMgr.Get.RealBall.transform.position))
-//                    nearPlayer = npc;
+//                nearDis = dis;
+//                nearPlayer = someone;
 //            }
 //        }
-//
-//        if (someone != nearPlayer)
-//            nearPlayer = null;
-//
+//        
 //        return nearPlayer;
 //    }
-
-    /// <summary>
-    /// 找出某隊離球最近的球員.
-    /// </summary>
-    /// <param name="team"> 玩家 or 電腦. </param>
-    /// <returns></returns>
-    [CanBeNull]
-    private PlayerBehaviour findNearBallPlayer(ETeamKind team)
-    {
-        float nearDis = float.MaxValue;
-        PlayerBehaviour nearPlayer = null;
-
-        Vector2 ballPos = Vector2.zero;
-        ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
-
-        foreach(PlayerBehaviour someone in PlayerList)
-        {
-            if (someone.Team != team)
-                continue;
-
-            Vector2 someonePos = Vector2.zero;
-            someonePos.Set(someone.transform.position.x, someone.transform.position.z);
-
-            var dis = Vector2.Distance(ballPos, someonePos);
-            if(dis < nearDis)
-            {
-                nearDis = dis;
-                nearPlayer = someone;
-            }
-        }
-        
-        return nearPlayer;
-    }
 
     private TPlayerDisData [] GetPlayerDisAy(PlayerBehaviour Self, bool SameTeam = false, bool Angel = false)
 	{
@@ -2882,19 +2882,20 @@ public class GameController : KnightSingleton<GameController>
     /// <returns></returns>
     private bool isNearestBall([NotNull]PlayerBehaviour someone)
     {
-        return findNearBallPlayer(someone.Team) == someone;
+//        return findNearBallPlayer(someone.Team) == someone;
+
+        return someone.GetComponent<PlayerAI>().isNearestBall();
     }
 
     private void nearestBallPlayerDoPickBall([NotNull]PlayerBehaviour someone)
     {
         if (isNearestBall(someone))
-            doPickBall(someone);
+            DoPickBall(someone);
         else
             doLookAtBall(someone);
     }
 
-    //	private PlayerBehaviour PickBall(PlayerBehaviour someone/*, bool findNear = false*/)
-    private void doPickBall(PlayerBehaviour someone/*, bool findNear = false*/)
+    public void DoPickBall(PlayerBehaviour someone)
 	{
 	    if(someone.CanMove && someone.WaitMoveTime == 0)
 	    {
@@ -3500,8 +3501,8 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-	private EPlayerState[] shootInState = new EPlayerState[4]{EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
-	private EPlayerState[] shootOutState = new EPlayerState[2]{EPlayerState.Show201, EPlayerState.Show202};
+	private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
+	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
 
 	public void ShowShootSate(bool isIn, int team)
 	{
@@ -3527,7 +3528,7 @@ public class GameController : KnightSingleton<GameController>
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
-		Debug.LogWarning ("PlusScore team : " + Time.time);
+		    Debug.LogWarning ("PlusScore team : " + Time.time);
 
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
 			team = Shooter.Team.GetHashCode();
