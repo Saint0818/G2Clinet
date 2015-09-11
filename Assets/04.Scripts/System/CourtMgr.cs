@@ -60,6 +60,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>(); 
 	public Dictionary<int, List<string>> DBasketAnimationNoneState = new Dictionary<int, List<string>>();
 
+	private int scoreTeam = 0;
+
 	private void InitBasket(RuntimeAnimatorController controller){
 		AnimationClip[] clip = controller.animationClips;
 		List<string> scoreName = new List<string>();
@@ -486,18 +488,39 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			}
 		}
 	}
+
+	public void IfSwishNoScore (){
+		if(scoreTeam != -1) {
+			GameController.Get.PlusScore(scoreTeam, false, true);
+			GameController.Get.ShowShootSate(true, scoreTeam);
+			Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
+			RealBallVelocity = Vector3.zero;
+			RealBallAddForce(Vector3.down * 70);
+			scoreTeam = -1;
+		}
+	}
 	
 	public void SetBasketBallState(EPlayerState state, Transform dummy = null, int team = 0){
 		if(!GameController.Get.IsReset){
 			switch(state){
 			case EPlayerState.BasketActionSwish:
+				scoreTeam = team;
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
+				RealBall.transform.DOMove(new Vector3(BasketEntra[team,1].transform.position.x + Mathf.Clamp(-(RealBall.transform.position.x - BasketEntra[team,0].transform.position.x), -BasketEntra[team,1].transform.localPosition.x, BasketEntra[team,1].transform.localPosition.x),
+				                                      BasketEntra[team,1].transform.position.y,
+				                                      BasketEntra[team,1].transform.position.z + Mathf.Clamp(-(RealBall.transform.position.z - BasketEntra[team,0].transform.position.z), -BasketEntra[team,1].transform.localPosition.z, BasketEntra[team,1].transform.localPosition.z)), 0.2f).OnComplete(IfSwishNoScore);
+
 				break;
 			case EPlayerState.BasketActionSwishEnd:
-				GameController.Get.ShowShootSate(true, team);
-				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
-				RealBallVelocity = Vector3.zero;
-				RealBallAddForce(Vector3.down * 70);
+				CourtMgr.Get.RealBallDoMoveFinish();
+				if(scoreTeam != -1) {
+					GameController.Get.PlusScore(scoreTeam, false, true);
+					GameController.Get.ShowShootSate(true, scoreTeam);
+					Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
+					RealBallVelocity = Vector3.zero;
+					RealBallAddForce(Vector3.down * 70);
+					scoreTeam = -1;
+				}
 				break;
 			case EPlayerState.BasketAnimationStart:
 				RealBallRigidbody.useGravity = false;
@@ -509,6 +532,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case EPlayerState.BasketActionEnd:
+				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
@@ -719,7 +743,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void RealBallDoMoveFinish (){
-		RealBall.transform.DOKill(true);
+		RealBall.transform.DOKill(false);
 	}
 
 	public Vector3 RealBallVelocity
@@ -785,7 +809,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		if(!string.IsNullOrEmpty(effectName)) {
 			if(effectName.Equals("ShotFX")) {
-				Debug.LogWarning ("PlusScore Event : " + Time.time);
+
 //				GameController.Get.PlusScore(team, false, true);
 			}
 			if(parent == 0) { // Global

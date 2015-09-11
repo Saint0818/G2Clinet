@@ -262,7 +262,7 @@ public class UISkillFormation : UIBase {
 
 		t = obj.transform.FindChild("SkillCost");
 		if(t != null)
-			if(GameData.DSkillData.ContainsKey(id))
+			if(GameData.DSkillData.ContainsKey(id) && t.gameObject.GetComponent<UILabel>() != null)
 				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[id].Space(lv).ToString();
 
 		return obj;
