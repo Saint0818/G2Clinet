@@ -45,7 +45,7 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			{
 				if(GameStart.Get.IsDebugAnimation)
 				{
-					string message = "Animator Stuck : " + "Player : " + animator.gameObject.name + " .State : " + pb.crtState.ToString();
+					string message = "Animator Stuck : Player  " + animator.gameObject.name + " .State : " + pb.crtState.ToString() + "GameCount : " + GameController.Get.PlayCount.ToString();
 					Debug.LogError (message);
 					MailMgr.Get.BugReport(message);
 				}
