@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections.Generic;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityEngine;
 
 public class NodeEditor : EditorWindow {
 
@@ -14,7 +13,8 @@ public class NodeEditor : EditorWindow {
 	[MenuItem("GameEditor/Node Editor")]
 	static void ShowEditor()
 	{
-		NodeEditor editor = EditorWindow.GetWindow<NodeEditor> ();
+//		NodeEditor editor = EditorWindow.GetWindow<NodeEditor> ();
+		EditorWindow.GetWindow<NodeEditor>();
 	}
 
 	void OnGUI()
@@ -26,13 +26,13 @@ public class NodeEditor : EditorWindow {
 		if (e.button == 1 && !makeTransitionMode) {
 			if(e.type == EventType.MouseDown){
 				bool clickedOnWindow = false;
-				int selectIndex = -1;
+//				int selectIndex = -1;
 
 				for(int i=0; i < windows.Count; i++)
 				{
 					if(windows[i].windowRect.Contains(mousePos))
 					{
-						selectIndex = i;
+//						selectIndex = i;
 						clickedOnWindow = true;
 						break;
 					}
