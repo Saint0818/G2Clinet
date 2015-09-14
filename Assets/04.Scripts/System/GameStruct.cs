@@ -761,7 +761,7 @@ namespace GameStruct {
 		public int ID;
 		public DateTime UseTime;
 
-		public bool Kind {
+		public int Kind {
 			get {
 				if (UseTime.Year > 2014)
 					return 1;
