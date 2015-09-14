@@ -57,7 +57,11 @@ public class GameController : KnightSingleton<GameController>
 
 	public PlayerBehaviour BallOwner; // 持球的球員.
 	public PlayerBehaviour Joysticker; // 玩家控制的球員.
-    public PlayerBehaviour Shooter;
+
+    /// <summary>
+    /// 投籃出手的人. OnShooting 會有值, 得分後才會設定為 null.
+    /// </summary>
+    [CanBeNull]public PlayerBehaviour Shooter;
     public PlayerBehaviour Catcher;
 	public PlayerBehaviour Passer;
 	private PlayerBehaviour pickBallPlayer;
@@ -1054,7 +1058,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public void AIDefend(PlayerBehaviour player)
+	public void AIDefend([NotNull] PlayerBehaviour player)
 	{
 		if (player.AIing && !player.IsSteal && !player.CheckAnimatorSate(EPlayerState.Push0) && 
 		    BallOwner && !IsDunk && !IsShooting) {
@@ -1087,10 +1091,11 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-	public void AIMove(PlayerBehaviour someone, ref TTacticalData tacticalData)
+	public void AIMove([NotNull] PlayerBehaviour someone, ref TTacticalData tacticalData)
     {
-		if (BallOwner == null)
+		if(BallOwner == null)
         {
+            // 沒人有球, 所以要開始搶球. 最接近球的球員去撿球就好.
 			if(!Passer)
             {
 				if(Shooter == null)
@@ -1101,85 +1106,103 @@ public class GameController : KnightSingleton<GameController>
                 }
 				else
                 {
-					if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) || 
+                    // 投籃者出手, 此時球在空中飛行.
+                    if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) ||
                        (Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
-					    if(!someone.IsShoot)
-					    {
+                    {
+                        if(!someone.IsShoot)
                             nearestBallPlayerDoPickBall(someone);
-                        }
+                        if(someone.DefPlayer != null)
+                            nearestBallPlayerDoPickBall(someone.DefPlayer);
+                    }
+					    
 					
-					if((Situation == EGameSituation.AttackA && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Npc) || 
-					   (Situation == EGameSituation.AttackB && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Self)) {
-						PlayerBehaviour fearPlayer = null;
-						
-						for (int i = 0; i < PlayerList.Count; i++) {
-							PlayerBehaviour npc = PlayerList [i];
-							if (npc.Team == someone.DefPlayer.Team && !someone.DefPlayer.IsFall && someone.DefPlayer.AIing) {
-								if (fearPlayer == null)
-									fearPlayer = npc;
-								else 
-									if (GetDis(fearPlayer, CourtMgr.Get.RealBall.transform.position) < GetDis(npc, CourtMgr.Get.RealBall.transform.position))
-										fearPlayer = npc;
-							}
-						}
-						
-						if (fearPlayer) {
-							for (int i = 0; i < PlayerList.Count; i++) {
-								if(fearPlayer.Team == PlayerList[i].Team) {
-									if(PlayerList[i] != fearPlayer) {
-										if (PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0) {
-											moveData.Clear();
-											moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
-											PlayerList[i].TargetPos = moveData;
-										}
-									}
-								}
-							}
-						}
-					}
+//					if((Situation == EGameSituation.AttackA && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Npc) || 
+//					   (Situation == EGameSituation.AttackB && someone.DefPlayer != null && someone.DefPlayer.Team == ETeamKind.Self))
+//                    {
+//						PlayerBehaviour fearPlayer = null;
+//						for (int i = 0; i < PlayerList.Count; i++)
+//                        {
+//							PlayerBehaviour player = PlayerList[i];
+//							if(player.Team == someone.DefPlayer.Team && !someone.DefPlayer.IsFall && someone.DefPlayer.AIing)
+//                            {
+//								if(fearPlayer == null)
+//									fearPlayer = player;
+//								else if(GetDis(fearPlayer, CourtMgr.Get.RealBall.transform.position) < GetDis(player, CourtMgr.Get.RealBall.transform.position))
+//									fearPlayer = player;
+//							}
+//						}
+//						
+//						if(fearPlayer)
+//                        {
+//							for(int i = 0; i < PlayerList.Count; i++)
+//                            {
+//								if(fearPlayer.Team == PlayerList[i].Team)
+//                                {
+//									if(PlayerList[i] != fearPlayer)
+//                                    {
+//										if(PlayerList[i] != null && PlayerList[i].CanMove && PlayerList[i].WaitMoveTime == 0)
+//                                        {
+//											moveData.Clear();
+//											moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
+//											PlayerList[i].TargetPos = moveData;
+//										}
+//									}
+//								}
+//							}
+//						}
+//					}
 				}
 			}
-		} else {
-			if (someone.CanMove && someone.TargetPosNum == 0) {
-				for(int i = 0; i < PlayerList.Count; i++) {
+		}
+        else
+        {
+			if(someone.CanMove && someone.TargetPosNum == 0)
+            {
+				for(int i = 0; i < PlayerList.Count; i++)
+                {
 					if(PlayerList[i].Team == someone.Team && PlayerList[i] != someone && 
 					   tacticalData.FileName != string.Empty && PlayerList[i].TargetPosName != tacticalData.FileName)
 						PlayerList[i].ResetMove();
-		}
+		        }
 				
-				if(tacticalData.FileName != string.Empty) {
+				if(tacticalData.FileName != string.Empty)
+                {
 					tacticalActions = tacticalData.GetActions(someone.Postion.GetHashCode());
 					
-					if (tacticalActions != null) {
-						for (int i = 0; i < tacticalActions.Length; i++) {
-                        moveData.Clear();
+					if (tacticalActions != null)
+                    {
+						for (int i = 0; i < tacticalActions.Length; i++)
+                        {
+                            moveData.Clear();
 							moveData.Speedup = tacticalActions [i].Speedup;
 							moveData.Catcher = tacticalActions [i].Catcher;
 							moveData.Shooting = tacticalActions [i].Shooting;
-                        int z = 1;
-							if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
+                            int z = 1;
+
+                            if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
                             z = -1;
 							
 							moveData.Target = new Vector2(tacticalActions [i].x, tacticalActions [i].z * z);
-							if (BallOwner != null && BallOwner != someone)
+							if(BallOwner != null && BallOwner != someone)
 								moveData.LookTarget = BallOwner.transform;  
 							
 							moveData.TacticalName = tacticalData.FileName;
 							moveData.MoveFinish = DefMove;
 							someone.TargetPos = moveData;
-                    }
+                        }
 						
 						DefMove(someone);
+                    }
                 }
             }
-        }
 			
 			if (someone.WaitMoveTime != 0 && BallOwner != null && someone == BallOwner)
 				someone.AniState(EPlayerState.Dribble0);
 		}
     }
 
-    public bool DefMove(PlayerBehaviour player, bool speedup = false)
+    public bool DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
@@ -2541,8 +2564,6 @@ public class GameController : KnightSingleton<GameController>
             Joysticker.OnJoystickMoveEnd(move, ps);
         }
     }
-
-
 	
 	private void BackToDef(PlayerBehaviour someone, ETeamKind team, ref TTacticalData tactical, 
                            bool watchBallOwner = false)
@@ -2900,10 +2921,11 @@ public class GameController : KnightSingleton<GameController>
             doLookAtBall(someone);
     }
 
-    public void DoPickBall(PlayerBehaviour someone)
+    public void DoPickBall([NotNull] PlayerBehaviour someone)
 	{
 	    if(someone.CanMove && someone.WaitMoveTime == 0)
 	    {
+            // 球員移動到球的位置.
 	        moveData.Clear();
 	        moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
 	        someone.TargetPos = moveData;
@@ -3533,9 +3555,9 @@ public class GameController : KnightSingleton<GameController>
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
-		    Debug.LogWarning ("PlusScore team : " + Time.time);
+		Debug.LogWarning ("PlusScore team : " + Time.time);
 
-		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
+		if(GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
 			team = Shooter.Team.GetHashCode();
 
 		int score = 2;
