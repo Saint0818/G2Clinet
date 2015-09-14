@@ -42,7 +42,7 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-    public void ShowFrameView(TPlayerBank[] playerBanks)
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks)
     {
         Show(true);
 
@@ -51,7 +51,7 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-    public void ShowFrameView(TPlayerBank[] playerBanks, int showNum)
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int showNum)
     {
         Show(true);
 

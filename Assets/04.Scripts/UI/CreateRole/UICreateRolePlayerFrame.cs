@@ -1,6 +1,8 @@
-﻿using GameStruct;
+﻿using System.Collections.Generic;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// UICreateRoleFrameView 會使用的元件, 專門用來顯示某位角色的相關資訊.
@@ -16,34 +18,64 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UICreateRolePlayerFrame : MonoBehaviour
 {
-    public delegate void Action(TPlayerBank bank, bool isLock);
+    public struct Data
+    {
+        public int PlayerID;
+        public int RoleIndex;
+        public EPlayerPostion Position;
+        public string Name;
+        public int Level;
+    }
+
+    public delegate void Action(Data bank, bool isLock);
     public event Action OnClickListener;
     public event Action OnDeleteListener;
 
-    public UISprite PlusButton;
+    private readonly Dictionary<EPlayerPostion, string> mPosNames = new Dictionary<EPlayerPostion, string>
+    {
+        { EPlayerPostion.G, "Guard"},
+        { EPlayerPostion.F, "Forward"},
+        { EPlayerPostion.C, "Center"}
+    };
+        
+    [FormerlySerializedAs("PlusButton")]
+    public UISprite CenterButton;
     public GameObject RemoveButton;
     public UISprite BGLeft;
     public UISprite BGRight;
 
     public GameObject PlayerInfo;
-    public UISprite PosSprite;
+    public UILabel PosLabel;
     public UILabel NameLabel;
     public UILabel LevelLabel;
 
-    [HideInInspector]
-    public string[] PosSpriteNames;
+    private const string LockSpriteName = "Icon_lock";
+    private const string LockBGSpriteName = "BtnLocked";
 
-    [HideInInspector]
-    public string LockButtonSpriteName;
-
-    [HideInInspector]
-    public string LockBGSpriteName;
-
-    private TPlayerBank mPlayerBank;
-
+//    [HideInInspector] public string LockButtonSpriteName;
+//    [HideInInspector] public string LockBGSpriteName;
     private bool mIsLock;
 
-	[UsedImplicitly]
+    private const string AddSpriteName = "Icon_Create";
+    private const string AddBGSpriteName = "BtnEmpty";
+
+    private readonly Dictionary<EPlayerPostion, string> mSelectSpriteNames = new Dictionary<EPlayerPostion, string>
+    {
+        {EPlayerPostion.C, "BtnCircle0"},
+        {EPlayerPostion.F, "BtnCircle2"},
+        {EPlayerPostion.G, "BtnCircle1"},
+    };
+    private readonly Dictionary<EPlayerPostion, string> mSelectBGSpriteNames = new Dictionary<EPlayerPostion, string>
+    {
+        {EPlayerPostion.C, "BtnCreatedCenter"},
+        {EPlayerPostion.F, "BtnCreatedForward"},
+        {EPlayerPostion.G, "BtnCreatedGuard"},
+    };
+
+//    private TPlayerBank mPlayerBank;
+    private Data mData;
+
+    [UsedImplicitly]
 	private void Awake()
     {
 	    Clear();
@@ -51,18 +83,23 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
     public void Clear()
     {
-        PlusButton.gameObject.SetActive(true);
+        CenterButton.spriteName = AddSpriteName;
+
+        BGLeft.spriteName = AddBGSpriteName;
+        BGRight.spriteName = AddBGSpriteName;
+
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
 
-        mPlayerBank = new TPlayerBank();
+//        mPlayerBank = new TPlayerBank();
+        mData = new Data();
 
         mIsLock = false;
     }
 
     public void SetLock()
     {
-        PlusButton.spriteName = LockButtonSpriteName;
+        CenterButton.spriteName = LockSpriteName;
         BGLeft.spriteName = LockBGSpriteName;
         BGRight.spriteName = LockBGSpriteName;
         RemoveButton.SetActive(false);
@@ -71,24 +108,26 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         mIsLock = true;
     }
 
-    public void SetData(TPlayerBank player)
+    public void SetData(Data data)
     {
-        if(!player.IsValid || !GameData.DPlayers.ContainsKey(player.ID))
-        {
-            Debug.LogErrorFormat("PlayerID({0}) don't exit.", mPlayerBank.ID);
-            return;
-        }
+        mData = data;
 
-        PlusButton.gameObject.SetActive(false);
+        CenterButton.spriteName = mSelectSpriteNames[mData.Position];
+
+        BGLeft.spriteName = mSelectBGSpriteNames[mData.Position];
+        BGRight.spriteName = mSelectBGSpriteNames[mData.Position];
+
         RemoveButton.SetActive(true);
         PlayerInfo.SetActive(true);
 
+        PosLabel.text = mPosNames[mData.Position];
+        NameLabel.text = mData.Name;
+        LevelLabel.text = mData.Level.ToString();
+
         mIsLock = false;
 
-        mPlayerBank = player;
-        
 //        int bodyType = GameData.DPlayers[mPlayerBank.ID].BodyType;
-//        if(bodyType < 0 || bodyType >= PosSpriteNames.Length)
+//        if(bodyType < 0)
 //        {
 //            Debug.LogErrorFormat("BodyType({0}) error.", bodyType);
 //            return;
@@ -101,7 +140,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public void OnClick()
     {
         if(OnClickListener != null)
-            OnClickListener(mPlayerBank, mIsLock);
+            OnClickListener(mData, mIsLock);
     }
 
     /// <summary>
@@ -110,6 +149,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public void OnDeleteClick()
     {
         if(OnDeleteListener != null)
-            OnDeleteListener(mPlayerBank, mIsLock);
+            OnDeleteListener(mData, mIsLock);
     }
 }

@@ -48,6 +48,7 @@ namespace GameStruct {
     {
 		public int RoleIndex;
 		public int ID;
+        public int Lv;
 		public string Name;
 		public TItem[] Items;
 

@@ -18,12 +18,13 @@ public class UICreateRoleFrameView : MonoBehaviour
     public UICreateRolePlayerFrame[] Frames;
     public UIConfirmDialog ConfirmDialog;
 
-    public string[] PosSpriteNames;
+//    public string[] PosSpriteNames;
 
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
 
-    private TPlayerBank mDeletePlayerBank;
+//    private TPlayerBank mDeletePlayerBank;
+    private UICreateRolePlayerFrame.Data mDeleteData;
 
     private const int DefaultShowNum = 2;
 
@@ -32,9 +33,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         for(int i = 0; i < Frames.Length; i++)
         {
-            Frames[i].PosSpriteNames = PosSpriteNames;
-            Frames[i].LockButtonSpriteName = LockButtonSpriteName;
-            Frames[i].LockBGSpriteName = LockBGSpriteName;
+//            Frames[i].PosSpriteNames = PosSpriteNames;
+//            Frames[i].LockButtonSpriteName = LockButtonSpriteName;
+//            Frames[i].LockBGSpriteName = LockBGSpriteName;
             Frames[i].OnClickListener += onSlotClick;
             Frames[i].OnDeleteListener += onDeleteClick;
         }
@@ -80,8 +81,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="playerBanks"></param>
-    public void Show([NotNull] TPlayerBank[] playerBanks)
+    /// <param name="data"></param>
+//    public void Show([NotNull] TPlayerBank[] playerBanks)
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data)
     {
         Window.SetActive(true);
 
@@ -89,21 +91,22 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             Frames[i].Clear();
 
-            if(i >= playerBanks.Length)
+            if(i >= data.Length)
                 continue;
 
-            Frames[i].SetData(playerBanks[i]);
+            Frames[i].SetData(data[i]);
         }
     }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="playerBanks"></param>
+    /// <param name="data"></param>
     /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
-    public void Show([NotNull] TPlayerBank[] playerBanks, int showNum)
+//    public void Show([NotNull] TPlayerBank[] playerBanks, int showNum)
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int showNum)
     {
-        Show(playerBanks);
+        Show(data);
 
         ShowNum = showNum;
     }
@@ -113,16 +116,16 @@ public class UICreateRoleFrameView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    private void onSlotClick(TPlayerBank playerBank, bool isLock)
+    private void onSlotClick(UICreateRolePlayerFrame.Data data, bool isLock)
     {
         if(isLock)
             return;
 
-        if(playerBank.IsValid)
-        {
+//        if(data.IsValid)
+//        {
             // 切換角色.
-        }
-        else
+//        }
+//        else
             GetComponent<UICreateRole>().ShowPositionView();
     }
 
@@ -138,11 +141,12 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeleteClick(TPlayerBank playerBank, bool isLock)
+    private void onDeleteClick(UICreateRolePlayerFrame.Data data, bool isLock)
     {
 //        Debug.Log("onDeleteClick");
 
-        mDeletePlayerBank = playerBank;
+//        mDeletePlayerBank = data;
+        mDeleteData = data;
         
         ConfirmDialog.Show();
     }
@@ -152,21 +156,23 @@ public class UICreateRoleFrameView : MonoBehaviour
         //        Debug.Log("onConfirmDelete");
         // 刪除角色.
 
-        if(mDeletePlayerBank.IsValid)
-        {
+//        if(mDeletePlayerBank.IsValid)
+//        {
             WWWForm form = new WWWForm();
-            form.AddField("RoleIndex", mDeletePlayerBank.RoleIndex);
+//            form.AddField("RoleIndex", mDeletePlayerBank.RoleIndex);
+            form.AddField("RoleIndex", mDeleteData.RoleIndex);
 
             SendHttp.Get.Command(URLConst.DeleteRole, waitDeleteRole, form, true);
-        }
-        else
-            Debug.LogError("Flow is error....");
+//        }
+//        else
+//            Debug.LogError("Flow is error....");
     }
 
     private void onCancelDelete()
     {
         Debug.Log("onCancelDelete");
-        mDeletePlayerBank = new TPlayerBank();
+//        mDeletePlayerBank = new TPlayerBank();
+        mDeleteData = new UICreateRolePlayerFrame.Data();
     }
 
     private void waitDeleteRole(bool ok, WWW www)
@@ -177,7 +183,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
 			GameData.Team.Player = team.Player;
-			Show(team.PlayerBank);
+//			Show(team.PlayerBank);
         }
     }
 
