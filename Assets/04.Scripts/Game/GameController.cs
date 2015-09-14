@@ -80,6 +80,7 @@ public class GameController : KnightSingleton<GameController>
 	private TTacticalAction[] tacticalActions;
 
 	//Shoot
+	public bool IsSwishIn = false;
 	private int shootAngle = 55;
 	private float extraScoreRate = 0;
 	private float angleByPlayerHoop = 0;
@@ -105,6 +106,8 @@ public class GameController : KnightSingleton<GameController>
 	public int PlayCount = 0;
 	public int SelfWin = 0;
 	public int NpcWin = 0;
+	public int shootTimes = 0;
+	public int shootScoreTimes = 0;
 
     [UsedImplicitly]
     private void Awake()
@@ -797,6 +800,8 @@ public class GameController : KnightSingleton<GameController>
 			GUI.Label(new Rect(Screen.width * 0.5f - 25, 100, 300, 50), "Play Counts:" + PlayCount.ToString());
 			GUI.Label(new Rect(Screen.width * 0.25f - 25, 100, 300, 50), "Self Wins:" + SelfWin.ToString());
 			GUI.Label(new Rect(Screen.width * 0.75f - 25, 100, 300, 50), "Npc Wins:" + NpcWin.ToString());
+			GUI.Label(new Rect(Screen.width * 0.25f - 25, 200, 300, 50), "Shoot Times:" + shootTimes.ToString());
+			GUI.Label(new Rect(Screen.width * 0.75f - 25, 200, 300, 50), "Shoot Score Times:" + shootScoreTimes.ToString());
 		}
 	}
 	#endif
@@ -3585,7 +3590,14 @@ public class GameController : KnightSingleton<GameController>
 		Shooter = null;
 		IsPassing = false;
 		ShootDistance = 0;
+
+		if (GameStart.Get.TestMode == EGameTest.AttackA) {
+			if(shootTimes != shootScoreTimes)
+				Debug.LogError("BUG !!!!!!");
+			SetBall(Joysticker);
+		}
     }
+
 
 	private PlayerBehaviour havePartner(PlayerBehaviour player, float dis, float angle)
     {

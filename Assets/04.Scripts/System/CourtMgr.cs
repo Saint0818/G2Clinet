@@ -490,15 +490,20 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void IfSwishNoScore (){
-		if(GameStart.Get.IsDebugAnimation)
-			Debug.LogWarning("RealBall Swish Out:"+ GameController.Get.BasketAnimationName);
-		if(scoreTeam != -1) {
-			GameController.Get.PlusScore(scoreTeam, false, true);
-			GameController.Get.ShowShootSate(true, scoreTeam);
-			Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
-			RealBallVelocity = Vector3.zero;
-			RealBallAddForce(Vector3.down * 70);
-			scoreTeam = -1;
+		if(GameController.Get.IsSwishIn) {
+			GameController.Get.IsSwishIn = false;
+			if(GameStart.Get.IsDebugAnimation){
+				GameController.Get.shootScoreTimes++;
+				Debug.LogWarning("RealBall Swish Out:"+ Time.time);
+			}
+			if(scoreTeam != -1) {
+				GameController.Get.PlusScore(scoreTeam, false, true);
+				GameController.Get.ShowShootSate(true, scoreTeam);
+				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
+				RealBallVelocity = Vector3.zero;
+				RealBallAddForce(Vector3.down * 70);
+				scoreTeam = -1;
+			}
 		}
 	}
 	
@@ -510,7 +515,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				RealBall.transform.DOMove(new Vector3(BasketEntra[team,1].transform.position.x + Mathf.Clamp(-(RealBall.transform.position.x - BasketEntra[team,0].transform.position.x), -BasketEntra[team,1].transform.localPosition.x, BasketEntra[team,1].transform.localPosition.x),
 				                                      BasketEntra[team,1].transform.position.y,
-				                                      BasketEntra[team,1].transform.position.z + Mathf.Clamp(-(RealBall.transform.position.z - BasketEntra[team,0].transform.position.z), -BasketEntra[team,1].transform.localPosition.z, BasketEntra[team,1].transform.localPosition.z)), 0.2f).OnComplete(IfSwishNoScore);
+				                                      BasketEntra[team,1].transform.position.z + Mathf.Clamp(-(RealBall.transform.position.z - BasketEntra[team,0].transform.position.z), -BasketEntra[team,1].transform.localPosition.z, BasketEntra[team,1].transform.localPosition.z)), 0.15f).OnComplete(IfSwishNoScore);
 
 				break;
 			case EPlayerState.BasketActionSwishEnd:

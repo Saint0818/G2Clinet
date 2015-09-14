@@ -28,9 +28,10 @@ public class ScoreTrigger : MonoBehaviour
 					switch (GameController.Get.BasketSituation) {
 					case EBasketSituation.Swish:
 						if(GameStart.Get.IsDebugAnimation){
-							Debug.LogWarning("RealBall Swish IN:"+ GameController.Get.BasketAnimationName);
+							Debug.LogWarning("RealBall Swish IN:"+ Time.time);
+							GameController.Get.shootTimes++;
 						}
-
+						GameController.Get.IsSwishIn = true;
 						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop, Team);
 						break;
 					case EBasketSituation.Score:
