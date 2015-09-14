@@ -140,7 +140,7 @@ public class UIMain : UIBase {
             }
             Visible = false;
 
-            var data = convert(playerBanks);
+            var data = UICreateRole.Convert(playerBanks);
             if(data != null)
                 UICreateRole.Get.ShowFrameView(data, GameData.Team.PlayerNum);
             else
@@ -150,27 +150,7 @@ public class UIMain : UIBase {
 		    Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
 	}
 
-    [CanBeNull]
-    private UICreateRolePlayerFrame.Data[] convert(TPlayerBank[] playerBanks)
-    {
-        UICreateRolePlayerFrame.Data[] data = new UICreateRolePlayerFrame.Data[playerBanks.Length];
-        for(int i = 0; i < playerBanks.Length; i++)
-        {
-            if(!GameData.DPlayers.ContainsKey(playerBanks[i].ID))
-            {
-                Debug.LogErrorFormat("Can't find Player by ID:{0}", playerBanks[i].ID);
-                return null;
-            }
-
-            data[i].PlayerID = playerBanks[i].ID;
-            data[i].RoleIndex = playerBanks[i].RoleIndex;
-            data[i].Position = (EPlayerPostion)GameData.DPlayers[playerBanks[i].ID].BodyType;
-            data[i].Name = playerBanks[i].Name;
-            data[i].Level = playerBanks[i].Lv;
-        }
-
-        return data;
-    }
+    
 
 	public void OnStage() {
 		UIStage.UIShow(!UIStage.Visible);

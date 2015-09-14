@@ -29,7 +29,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
     public delegate void Action(Data bank, bool isLock);
     public event Action OnClickListener;
-    public event Action OnDeleteListener;
+    public event Action OnDeleteListener; // 刪除角色的按鈕按下.
 
     private readonly Dictionary<EPlayerPostion, string> mPosNames = new Dictionary<EPlayerPostion, string>
     {
@@ -148,6 +148,8 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     /// </summary>
     public void OnDeleteClick()
     {
+//        Debug.Log("OnDeleteClick");
+
         if(OnDeleteListener != null)
             OnDeleteListener(mData, mIsLock);
     }

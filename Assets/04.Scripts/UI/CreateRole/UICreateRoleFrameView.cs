@@ -18,12 +18,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     public UICreateRolePlayerFrame[] Frames;
     public UIConfirmDialog ConfirmDialog;
 
-//    public string[] PosSpriteNames;
-
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
 
-//    private TPlayerBank mDeletePlayerBank;
     private UICreateRolePlayerFrame.Data mDeleteData;
 
     private const int DefaultShowNum = 2;
@@ -33,11 +30,8 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         for(int i = 0; i < Frames.Length; i++)
         {
-//            Frames[i].PosSpriteNames = PosSpriteNames;
-//            Frames[i].LockButtonSpriteName = LockButtonSpriteName;
-//            Frames[i].LockBGSpriteName = LockBGSpriteName;
             Frames[i].OnClickListener += onSlotClick;
-            Frames[i].OnDeleteListener += onDeleteClick;
+            Frames[i].OnDeleteListener += onDeletePlayer;
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
@@ -82,7 +76,6 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="data"></param>
-//    public void Show([NotNull] TPlayerBank[] playerBanks)
     public void Show([NotNull] UICreateRolePlayerFrame.Data[] data)
     {
         Window.SetActive(true);
@@ -103,7 +96,6 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// </summary>
     /// <param name="data"></param>
     /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
-//    public void Show([NotNull] TPlayerBank[] playerBanks, int showNum)
     public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int showNum)
     {
         Show(data);
@@ -141,11 +133,13 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeleteClick(UICreateRolePlayerFrame.Data data, bool isLock)
+    private void onDeletePlayer(UICreateRolePlayerFrame.Data data, bool isLock)
     {
-//        Debug.Log("onDeleteClick");
+        Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
 
-//        mDeletePlayerBank = data;
+        if(isLock)
+            return;
+
         mDeleteData = data;
         
         ConfirmDialog.Show();
@@ -153,48 +147,35 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private void onConfirmDelete()
     {
-        //        Debug.Log("onConfirmDelete");
-        // 刪除角色.
+//        Debug.Log("onConfirmDelete");
+        
+        // 做刪除角色流程.
+        WWWForm form = new WWWForm();
+        form.AddField("RoleIndex", mDeleteData.RoleIndex);
 
-//        if(mDeletePlayerBank.IsValid)
-//        {
-            WWWForm form = new WWWForm();
-//            form.AddField("RoleIndex", mDeletePlayerBank.RoleIndex);
-            form.AddField("RoleIndex", mDeleteData.RoleIndex);
-
-            SendHttp.Get.Command(URLConst.DeleteRole, waitDeleteRole, form, true);
-//        }
-//        else
-//            Debug.LogError("Flow is error....");
+        SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
     }
 
     private void onCancelDelete()
     {
-        Debug.Log("onCancelDelete");
-//        mDeletePlayerBank = new TPlayerBank();
+//        Debug.Log("onCancelDelete");
         mDeleteData = new UICreateRolePlayerFrame.Data();
     }
 
-    private void waitDeleteRole(bool ok, WWW www)
+    private void waitDeletePlayer(bool ok, WWW www)
     {
-        Debug.LogFormat("waitDeleteRole, ok:{0}", ok);
+        Debug.LogFormat("waitDeletePlayer, ok:{0}", ok);
 
         if(ok)
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
 			GameData.Team.Player = team.Player;
-//			Show(team.PlayerBank);
+
+            var data = UICreateRole.Convert(team.PlayerBank);
+            if (data != null)
+                Show(data);
+            else
+                Debug.LogError("Data Error!");
         }
     }
-
-//    private void waitLookPlayerBank(bool ok, WWW www)
-//    {
-//        if(ok)
-//        {
-//            TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
-//            Show(playerBank);
-//        }
-//        else
-//            Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
-//    }
 }
