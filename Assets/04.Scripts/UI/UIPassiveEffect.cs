@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 
@@ -74,21 +74,25 @@ public class UIPassiveEffect : UIBase {
 		}
 	}
 	
-	public void ShowCard (PlayerBehaviour player = null, int picNo = 0, int lv = 0, string name = ""){
+	public void ShowCard (PlayerBehaviour player = null, int id = 0, int lv = 0){
 		if(!Visible)
 			Show(true);
+
+		string name = "";
+		if (GameData.DSkillData.ContainsKey(id))
+			name = GameData.DSkillData[id].Name;
 		
 		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.gameObject, null, 0.5f);
 		
 		for (int i=0; i<recordIndex.Length; i++) {
 			if(!contains(i)) {
 				addValue(i);
-				initCard(i, picNo, lv, name);
+				initCard(i, id, lv, name);
 				break;
 			} else {
 				if(recordIndex[recordIndex.Length - 1] == i) {
 					addValue(i);
-					initCard(i, picNo, lv, name);
+					initCard(i, id, lv, name);
 					break;
 				}
 			}
@@ -187,8 +191,7 @@ public class UIPassiveEffect : UIBase {
 			hideCard(recordIndex[2]);
 		}
 		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + passiveValue[recordIndex[0]].CardLVs.ToString();
-		if(GameData.DCardTextures.ContainsKey(passiveValue[recordIndex[0]].CardPicNos))
-			textureCardInfo[recordIndex[0]].mainTexture = GameData.DCardTextures[passiveValue[recordIndex[0]].CardPicNos];
+		textureCardInfo[recordIndex[0]].mainTexture = GameData.CardTexture(passiveValue[recordIndex[0]].CardPicNos);
 		labelCardLabel[recordIndex[0]].text = passiveValue[recordIndex[0]].CardNames;
 		passiveValue[recordIndex[0]].Timer = 2;
 	}

@@ -3172,7 +3172,7 @@ public class PlayerBehaviour : MonoBehaviour
 		} else {
 			//Teammate and Enemy's Active PassiveCard will be shown
 			if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
-				UIPassiveEffect.Get.ShowCard(this, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
+				UIPassiveEffect.Get.ShowCard(this, Attribute.ActiveSkill.ID, Attribute.ActiveSkill.Lv);
 			showActiveEffect();
 		}
 	}

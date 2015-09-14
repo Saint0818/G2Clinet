@@ -7,7 +7,8 @@ public class GameConst
 {
 	public const string SceneLobby = "Lobby";
 	public const string SceneGamePlay = "Court_0";
-	public const string SceneSelectRole = "SelectRole";
+
+	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
 
 	//Game play move speed
 	public const float DefSpeedup = 8.2f;

@@ -112,7 +112,7 @@ namespace GameStruct {
 			BodyType = 0;
 			MaxSkillSpace = 0;
 		    AISkillLv = 0;
-			Avatar = new TAvatar(0);
+			Avatar = new TAvatar(1);
 			ActiveSkill = new TSkill();
 			SkillCards = new TSkill[0];
 			Items = new TItem[0];
@@ -218,6 +218,10 @@ namespace GameStruct {
 					}
 				break;
 			}
+
+			if (skills != null)
+				for(int i=0; i<skills.Length; i++)
+					GameData.CardTexture(skills[i].ID);
 		}
 		
 		public void SetAvatar() {
@@ -370,15 +374,26 @@ namespace GameStruct {
 		public int MHandDress;
 		public int ZBackEquip;
 		
-		public TAvatar (int i){
-			Body = 2001;
-			Hair = 2001;
-			Cloth = 5001;
-			Pants = 6001;
-			Shoes = 1001;
-			MHandDress = 0;
-			AHeadDress = 0;
-			ZBackEquip = 0;
+		public TAvatar (int id){
+			if (GameData.DPlayers.ContainsKey(id)) {
+				Body = GameData.DPlayers[id].Body;
+				Hair = GameData.DPlayers[id].Hair;
+				Cloth = GameData.DPlayers[id].Cloth;
+				Pants = GameData.DPlayers[id].Pants;
+				Shoes = GameData.DPlayers[id].Shoes;
+				MHandDress = GameData.DPlayers[id].MHandDress;
+				AHeadDress = GameData.DPlayers[id].AHeadDress;
+				ZBackEquip = GameData.DPlayers[id].ZBackEquip;
+			} else {
+				Body = 2001;
+				Hair = 2001;
+				Cloth = 5001;
+				Pants = 6001;
+				Shoes = 1001;
+                MHandDress = 0;
+                AHeadDress = 0;
+                ZBackEquip = 0;
+			}
 		}
 
 	    public override string ToString()
@@ -691,7 +706,6 @@ namespace GameStruct {
 		public string NameCN;
 		public string NameEN;
 		public string NameJP;
-		public string name;
 		public string ExplainTW;
 		public string ExplainCN;
 		public string ExplainEN;
@@ -701,23 +715,12 @@ namespace GameStruct {
 		public string Name {
 			get {
 				switch(GameData.Setting.Language) {
-				case ELanguage.TW:
-					name = NameTW;
-					break;
-				case ELanguage.CN:
-					name = NameCN;
-					break;
-				case ELanguage.EN:
-					name = NameEN;
-					break;
-				case ELanguage.JP:
-					name = NameJP;
-					break;
-				default:
-					name = NameEN;
-					break;
+				case ELanguage.TW: return NameTW;
+				case ELanguage.CN: return NameCN;
+				case ELanguage.EN: return NameEN;
+				case ELanguage.JP: return NameJP;
+				default: return NameEN;
 				}
-				return name;
 			}
 		}
 		

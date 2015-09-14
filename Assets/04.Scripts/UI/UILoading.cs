@@ -141,8 +141,7 @@ public class UILoading : UIBase {
 		switch (kind) {
 		case ELoadingGamePic.SelectRole:
 			yield return new WaitForEndOfFrame();
-			ModelManager.Get.LoadAllBody("Character/");
-			ModelManager.Get.LoadAllTexture("Character/");
+			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
 			yield return new WaitForSeconds (1);
 			loadSelectRole();
 			break;

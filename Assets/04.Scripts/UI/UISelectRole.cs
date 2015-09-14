@@ -22,7 +22,6 @@ public class UISelectRole : UIBase {
 	private const string UIName = "UISelectRole";
 	private static string[] arrayRoleAnimation = new string[9]{"FallQuickStand","Idle","Idle1","DefenceStay","Stop0","Stop1","Stop3","StayDribble","StayDodge0"};
 	private float roleFallTime = 0;
-	private static int [] arrayRoleID = new int[6]{14, 24, 34, 19, 29, 39};  // playerID
 
 	private TGreatPlayer data ;
 	public GameObject playerInfoModel = null;
@@ -161,7 +160,7 @@ public class UISelectRole : UIBase {
 		for (int i = 0; i < 6; i++) {
 			SetBtnFun(UIName + "/Left/SelectCharacter/Button" + i.ToString(), SelectRole);
 			spritesBigHead[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
-			spritesBigHead[i].spriteName = GameData.DPlayers[arrayRoleID[i]].Name;
+			spritesBigHead[i].spriteName = GameData.PlayerName(GameConst.SelectRoleID[i]);
 			arrayNamePic[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/Sprite");
 			buttonSelectRole[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString());
 			spritesLine[i] = GameObject.Find(UIName + "/Left/SelectCharacter/Button" + i.ToString() + "/SpriteLine").GetComponent<UISprite>();
@@ -229,8 +228,8 @@ public class UISelectRole : UIBase {
 	}
 	
 	protected override void InitData() {
-		SelectRoleIndex = UnityEngine.Random.Range (0, arrayRoleID.Length);
-		arraySelectID [0] = arrayRoleID[SelectRoleIndex];
+		SelectRoleIndex = UnityEngine.Random.Range (0, GameConst.SelectRoleID.Length);
+		arraySelectID [0] = GameConst.SelectRoleID[SelectRoleIndex];
 		for(int i = 0; i < arrayPlayerPosition.Length; i++) {
 			arrayPlayer[i] = new GameObject();
 			arrayPlayerData[i] = new TPlayer(0);
@@ -247,7 +246,7 @@ public class UISelectRole : UIBase {
 			if(i == 0) {
 				arrayPlayer[i].transform.localPosition = new Vector3(0, -0.9f, 0);
 				arrayPlayer[i].transform.localEulerAngles = new Vector3(0, 180, 0);
-				labelPlayerName.text = GameData.DPlayers [arrayPlayerData[i].ID].Name;
+				labelPlayerName.text = GameData.PlayerName (arrayPlayerData[i].ID);
 				SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [arrayPlayerData[i].ID].BodyType);
 			}else 
 			if(i == 1) {
@@ -363,13 +362,14 @@ public class UISelectRole : UIBase {
 	}
 
 	private void setPlayerAvatar(int RoleIndex, int Index) {
-		arrayPlayerData[RoleIndex].ID = arrayRoleID[Index];
-		arrayPlayerData [RoleIndex].AILevel = GameData.DPlayers [arrayRoleID [Index]].AILevel;
-		arraySelectID[RoleIndex] = arrayRoleID[Index];
+		int id = GameConst.SelectRoleID[Index];
+		arrayPlayerData[RoleIndex].ID = id;
+		arrayPlayerData [RoleIndex].AILevel = GameData.DPlayers [id].AILevel;
+		arraySelectID[RoleIndex] = GameConst.SelectRoleID[Index];
 		arrayPlayerData[RoleIndex].SetAvatar();
 		GameObject temp = arrayPlayer [RoleIndex];
 
-		ModelManager.Get.SetAvatar(ref arrayPlayer[RoleIndex], arrayPlayerData[RoleIndex].Avatar, GameData.DPlayers [arrayRoleID [Index]].BodyType, false, false, true);
+		ModelManager.Get.SetAvatar(ref arrayPlayer[RoleIndex], arrayPlayerData[RoleIndex].Avatar, GameData.DPlayers [id].BodyType, false, false, true);
 
 		arrayPlayer[RoleIndex].name = RoleIndex.ToString();
 		arrayPlayer[RoleIndex].transform.parent = playerInfoModel.transform;
@@ -392,13 +392,13 @@ public class UISelectRole : UIBase {
 
 		switch(RoleIndex) {
 		case 0:
-			labelPlayerName.text = GameData.DPlayers [arrayRoleID [Index]].Name;
-			SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [arrayRoleID [Index]].BodyType);
+			labelPlayerName.text = GameData.PlayerName(id);
+			SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [id].BodyType);
 			break;
 		case 1:
 		case 2:
-			labelsSelectABName[RoleIndex - 1].text = GameData.DPlayers [arrayRoleID [Index]].Name;
-			SetBodyPic(ref spritesSelectABBody[RoleIndex - 1], GameData.DPlayers [arrayRoleID [Index]].BodyType);
+			labelsSelectABName[RoleIndex - 1].text = GameData.PlayerName(id);
+			SetBodyPic(ref spritesSelectABBody[RoleIndex - 1], GameData.DPlayers [id].BodyType);
 			break;
 		}
 
@@ -425,14 +425,14 @@ public class UISelectRole : UIBase {
 		} else {
 			int index = 0;
 
-			for(int j = 0; j < arrayRoleID.Length; j++) {
-				if(arrayRoleID[j] != GameData.Team.Player.ID &&
-				   arrayRoleID[j] != GameData.TeamMembers[0].Player.ID &&
-				   arrayRoleID[j] != GameData.TeamMembers[1].Player.ID) {
-					if(GameData.DPlayers.ContainsKey(arrayRoleID[j]))
+			for(int j = 0; j < GameConst.SelectRoleID.Length; j++) {
+				if(GameConst.SelectRoleID[j] != GameData.Team.Player.ID &&
+				   GameConst.SelectRoleID[j] != GameData.TeamMembers[0].Player.ID &&
+				   GameConst.SelectRoleID[j] != GameData.TeamMembers[1].Player.ID) {
+					if(GameData.DPlayers.ContainsKey(GameConst.SelectRoleID[j]))
 					{
-						GameData.EnemyMembers[index].Player.Name = GameData.DPlayers[arrayRoleID[j]].Name;
-						GameData.EnemyMembers[index].Player.SetID(arrayRoleID[j]);
+						GameData.EnemyMembers[index].Player.Name = GameData.PlayerName(GameConst.SelectRoleID[j]);
+						GameData.EnemyMembers[index].Player.SetID(GameConst.SelectRoleID[j]);
 						index++;
 						if (index >= GameData.EnemyMembers.Length)
 							break;
@@ -444,12 +444,12 @@ public class UISelectRole : UIBase {
 
 	private void changeRoleInfo () {
 		int index = 0;
-		for(int j = 0; j < arrayRoleID.Length; j++){
-			if(arrayRoleID[j] != GameData.Team.Player.ID &&
-			   arrayRoleID[j] != GameData.TeamMembers[0].Player.ID &&
-			   arrayRoleID[j] != GameData.TeamMembers[1].Player.ID) {
-				if(GameData.DPlayers.ContainsKey(arrayRoleID[j])) {
-					arrayUnSelectID[index] = arrayRoleID[j];
+		for(int j = 0; j < GameConst.SelectRoleID.Length; j++){
+			if(GameConst.SelectRoleID[j] != GameData.Team.Player.ID &&
+			   GameConst.SelectRoleID[j] != GameData.TeamMembers[0].Player.ID &&
+			   GameConst.SelectRoleID[j] != GameData.TeamMembers[1].Player.ID) {
+				if(GameData.DPlayers.ContainsKey(GameConst.SelectRoleID[j])) {
+					arrayUnSelectID[index] = GameConst.SelectRoleID[j];
 					index++;
 					if (index >= arrayUnSelectID.Length)
 						break;
@@ -459,11 +459,11 @@ public class UISelectRole : UIBase {
 		
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
 			labelsSelectAListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
-			spritesSelectAListBigPic[i].spriteName = GameData.DPlayers[arrayUnSelectID[i]].Name;
+			spritesSelectAListBigPic[i].spriteName = GameData.PlayerName (arrayUnSelectID[i]);
 			SetBodyPic(ref spritesSelectAListPic[i], GameData.DPlayers[arrayUnSelectID[i]].BodyType);
 			
 			labelsSelectBListName [i].text = "";//GameData.DPlayers[UnSelectIDAy[i]].Name;
-			spritesSelectBListBigPic[i].spriteName = GameData.DPlayers[arrayUnSelectID[i]].Name;
+			spritesSelectBListBigPic[i].spriteName = GameData.PlayerName (arrayUnSelectID[i]);
 			SetBodyPic(ref spritesSelectBListPic[i], GameData.DPlayers[arrayUnSelectID[i]].BodyType);
 		}
 	}
@@ -541,13 +541,13 @@ public class UISelectRole : UIBase {
 			int Count;
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
 				
-				RanID = UnityEngine.Random.Range(0, arrayRoleID.Length - i);
+				RanID = UnityEngine.Random.Range(0, GameConst.SelectRoleID.Length - i);
 				Count = 0;
 				
-				for(int j = 0; j < arrayRoleID.Length; j++) {
-					if(GameData.DPlayers.ContainsKey(arrayRoleID[j])) {
+				for(int j = 0; j < GameConst.SelectRoleID.Length; j++) {
+					if(GameData.DPlayers.ContainsKey(GameConst.SelectRoleID[j])) {
 						if(i == 1) {
-							if(arrayRoleID[j] != arraySelectID[0]) {
+							if(GameConst.SelectRoleID[j] != arraySelectID[0]) {
 								if(Count == RanID) {
 									setPlayerAvatar(i, j);
 									break;
@@ -556,7 +556,7 @@ public class UISelectRole : UIBase {
 									Count++; 
 							}
 						} else {
-							if(arrayRoleID[j] != arraySelectID[0] && arrayRoleID[j] != arraySelectID[1]) {
+							if(GameConst.SelectRoleID[j] != arraySelectID[0] && GameConst.SelectRoleID[j] != arraySelectID[1]) {
 								if(Count == RanID) {
 									setPlayerAvatar(i, j);
 									break;
@@ -573,13 +573,13 @@ public class UISelectRole : UIBase {
 				if(i == 0) {
 					if(GameData.DPlayers.ContainsKey(arraySelectID[i])) {
 						GameData.Team.Player.ID = GameData.DPlayers[arraySelectID[i]].ID;
-						GameData.Team.Player.Name = GameData.DPlayers[arraySelectID[i]].Name;
+						GameData.Team.Player.Name = GameData.PlayerName (arraySelectID[i]);
 						GameData.Team.Player.AILevel = GameData.DPlayers[arraySelectID[i]].AILevel;
 					}
 				} else {
 					if(GameData.DPlayers.ContainsKey(arraySelectID[i])) {
 						GameData.TeamMembers[i - 1].Player.ID = GameData.DPlayers[arraySelectID[i]].ID;
-						GameData.TeamMembers[i - 1].Player.Name = GameData.DPlayers[arraySelectID[i]].Name;
+						GameData.TeamMembers[i - 1].Player.Name = GameData.PlayerName (arraySelectID[i]);
 						GameData.TeamMembers[i - 1].Player.AILevel = GameData.DPlayers[arraySelectID[i]].AILevel;
 					}
 				}
@@ -618,8 +618,8 @@ public class UISelectRole : UIBase {
 			int mIndex;
 			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out mIndex)) {
 				int SelectIndex = 0;
-				for(int i = 0; i < arrayRoleID.Length; i++) {
-					if(arrayRoleID[i] == arrayUnSelectID[mIndex]) {
+				for(int i = 0; i < GameConst.SelectRoleID.Length; i++) {
+					if(GameConst.SelectRoleID[i] == arrayUnSelectID[mIndex]) {
 						SelectIndex = i;
 						break;
 					}
@@ -628,7 +628,7 @@ public class UISelectRole : UIBase {
 				setPlayerAvatar((int)state, SelectIndex);
 				if(GameData.DPlayers.ContainsKey(arraySelectID[(int)state])) {
 					GameData.TeamMembers[(int)state - 1].Player.ID = GameData.DPlayers[arraySelectID[(int)state]].ID;
-					GameData.TeamMembers[(int)state - 1].Player.Name = GameData.DPlayers[arraySelectID[(int)state]].Name;
+					GameData.TeamMembers[(int)state - 1].Player.Name = GameData.PlayerName (arraySelectID[(int)state]);
 					GameData.TeamMembers[(int)state - 1].Player.AILevel = GameData.DPlayers[arraySelectID[(int)state]].AILevel;
 				}
 				
@@ -719,8 +719,8 @@ public class UISelectRole : UIBase {
 		arrayAnimator[0] = arrayPlayer[0].GetComponent<Animator>();
 		changeLayersRecursively(arrayPlayer[0].transform, "UI");
 
-		labelPlayerName.text = GameData.DPlayers [arrayRoleID [0]].Name;
-		SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [arrayRoleID [0]].BodyType);
+		labelPlayerName.text = GameData.PlayerName (GameConst.SelectRoleID [0]);
+		SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [GameConst.SelectRoleID [0]].BodyType);
 		uiBack.SetActive(false);
 
 		doubleClickTime = 1;
