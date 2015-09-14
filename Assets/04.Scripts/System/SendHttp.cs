@@ -92,6 +92,7 @@ public static class URLConst {
 	public const string PlayoffReset = "playoffreset";
 	public const string PlayoffExchange = "playoffexchange";
 	public const string TeamStarting = "teamstarting";
+	public const string GMAddItem = "gmadditem";
 }
 
 public class SendHttp : KnightSingleton<SendHttp>
