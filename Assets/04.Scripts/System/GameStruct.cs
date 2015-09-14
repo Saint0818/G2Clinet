@@ -3,13 +3,15 @@ using System;
 using GameEnum;
 
 namespace GameStruct {
-	public struct TTeam {
+	public struct TTeam
+    {
 		public string Identifier;
 		public string sessionID;
 		public string FBName;
 		public string FBid;
 		public DateTime PowerCD;
 		public DateTime FreeLuckBox;
+	    public int PlayerNum; // 玩家擁有幾位角色.
 
 		public int Money;
 		public int Power;
@@ -34,8 +36,13 @@ namespace GameStruct {
 				FBid = "";
 
 			Player.Init();
-		} 
-	}
+		}
+
+	    public override string ToString()
+	    {
+	        return string.Format("PlayerNum:{0}", PlayerNum);
+	    }
+    }
 
     public struct TPlayerBank
     {

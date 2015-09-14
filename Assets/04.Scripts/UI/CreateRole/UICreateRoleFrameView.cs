@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GameStruct;
+﻿using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -7,6 +6,11 @@ using UnityEngine;
 /// <summary>
 /// FrameView 會列出玩家擁有的全部角色.
 /// </summary>
+/// <remarks>
+/// <list type="number">
+/// <item> Call Show() or Hide() 控制 UI 的顯示邏輯. </item>
+/// </list>
+/// </remarks>
 [DisallowMultipleComponent]
 public class UICreateRoleFrameView : MonoBehaviour
 {
@@ -16,7 +20,12 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     public string[] PosSpriteNames;
 
+    public string LockButtonSpriteName;
+    public string LockBGSpriteName;
+
     private TPlayerBank mDeletePlayerBank;
+
+    private const int DefaultShowNum = 2;
 
     [UsedImplicitly]
 	private void Awake()
@@ -24,19 +33,54 @@ public class UICreateRoleFrameView : MonoBehaviour
         for(int i = 0; i < Frames.Length; i++)
         {
             Frames[i].PosSpriteNames = PosSpriteNames;
+            Frames[i].LockButtonSpriteName = LockButtonSpriteName;
+            Frames[i].LockBGSpriteName = LockBGSpriteName;
             Frames[i].OnClickListener += onSlotClick;
             Frames[i].OnDeleteListener += onDeleteClick;
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
         ConfirmDialog.OnCancelClickListener += onCancelDelete;
+
+        ShowNum = DefaultShowNum;
     }
+
+    /// <summary>
+    /// 最多顯示幾位球員. 超過的部分會用 lock 來顯示.
+    /// </summary>
+    private int ShowNum
+    {
+        get { return mShowNum; }
+
+        set
+        {
+            if(value < 0)
+                return;
+
+            mShowNum = value;
+            updateLockUI(mShowNum);
+        }
+    }
+
+    private void updateLockUI(int showNum)
+    {
+        for(int i = showNum; i < Frames.Length; i++)
+        {
+            Frames[i].SetLock();
+        }
+    }
+
+    private int mShowNum;
 
     public void Show()
     {
         Window.SetActive(true);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerBanks"></param>
     public void Show([NotNull] TPlayerBank[] playerBanks)
     {
         Window.SetActive(true);
@@ -52,13 +96,28 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="playerBanks"></param>
+    /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
+    public void Show([NotNull] TPlayerBank[] playerBanks, int showNum)
+    {
+        Show(playerBanks);
+
+        ShowNum = showNum;
+    }
+
     public void Hide()
     {
         Window.SetActive(false);
     }
 
-    private void onSlotClick(TPlayerBank playerBank)
+    private void onSlotClick(TPlayerBank playerBank, bool isLock)
     {
+        if(isLock)
+            return;
+
         if(playerBank.IsValid)
         {
             // 切換角色.
@@ -79,7 +138,7 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeleteClick(TPlayerBank playerBank)
+    private void onDeleteClick(TPlayerBank playerBank, bool isLock)
     {
 //        Debug.Log("onDeleteClick");
 
@@ -122,14 +181,14 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
     }
 
-    private void waitLookPlayerBank(bool ok, WWW www)
-    {
-        if(ok)
-        {
-            TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
-            Show(playerBank);
-        }
-        else
-            Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
-    }
+//    private void waitLookPlayerBank(bool ok, WWW www)
+//    {
+//        if(ok)
+//        {
+//            TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+//            Show(playerBank);
+//        }
+//        else
+//            Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
+//    }
 }

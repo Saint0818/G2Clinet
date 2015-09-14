@@ -138,7 +138,7 @@ public class UIMain : UIBase {
                 Debug.Log(bank);
             }
             Visible = false;
-            UICreateRole.Get.ShowFrameView(playerBank);
+            UICreateRole.Get.ShowFrameView(playerBank, GameData.Team.PlayerNum);
 		}
         else
 		    Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);

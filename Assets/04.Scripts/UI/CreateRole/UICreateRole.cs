@@ -51,6 +51,15 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
+    public void ShowFrameView(TPlayerBank[] playerBanks, int showNum)
+    {
+        Show(true);
+
+        mFrameView.Show(playerBanks,showNum);
+        mPositionView.Visible = false;
+        mStyleView.Hide();
+    }
+
     public void ShowPositionView()
     {
         Show(true);
