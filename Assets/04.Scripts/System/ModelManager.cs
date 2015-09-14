@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using AI;
 using UnityEngine;
 using GameStruct;
 using GameEnum;
@@ -136,7 +135,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar(ref res, player.Avatar, player.BodyType, true, false); 
+		SetAvatar(ref res, player.Avatar, player.BodyType, true, true); 
 
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;

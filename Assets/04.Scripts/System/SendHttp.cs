@@ -242,7 +242,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
 		form.AddField("Language", GameData.Setting.Language.GetHashCode());
 		form.AddField("OS", GameData.OS);
-		form.AddField("Company", GameData.OS);
+		form.AddField("Company", GameData.Company);
 
 		Command(URLConst.DeviceLogin, waitDeviceLogin, form);
 	}

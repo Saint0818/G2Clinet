@@ -16,6 +16,7 @@ namespace GameStruct {
 		public int Diamond;
 
 		public TPlayer Player;
+		public TItem[] Items;
 		public TSkill[] SkillCards;
 		public TPlayerBank[] PlayerBank;
 
@@ -758,6 +759,16 @@ namespace GameStruct {
 
 	public struct TItem {
 		public int ID;
+		public DateTime UseTime;
+
+		public bool Kind {
+			get {
+				if (UseTime.Year > 2014)
+					return 1;
+				else 
+					return 0;
+			}
+		}
 	}
 
 	public struct TItemData {
