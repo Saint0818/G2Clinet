@@ -133,7 +133,7 @@ namespace GameStruct {
 
 		public void SetID(int id) {
 			ID = id;
-			SetAttribute();
+			SetAttribute(ESkillType.NPC);
 			SetAvatar();
 		}
 
@@ -164,7 +164,7 @@ namespace GameStruct {
 				if(GameData.DPlayers.ContainsKey(ID)) {
 					ActiveSkill.ID = GameData.DPlayers[ID].Active;
 					ActiveSkill.Lv = GameData.DPlayers[ID].ActiveLV;
-					if(SkillCards == null) {
+					if(SkillCards == null || SkillCards.Length == 0) {
 						SkillCards = new TSkill[14];
 						SkillCards[0].ID = GameData.DPlayers[ID].Skill1;
 						SkillCards[0].Lv = GameData.DPlayers[ID].SkillLV1;
