@@ -67,7 +67,7 @@ public class UICharacterInfo : UIBase {
 
 	protected override void InitCom() {
 		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillName").GetComponent<UILabel>();
-		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillLeval").GetComponent<UILabel>();
+		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillLevel").GetComponent<UILabel>();
 		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillCard").GetComponent<UISprite>();
 		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UITexture>();
 
@@ -166,7 +166,7 @@ public class UICharacterInfo : UIBase {
 				labelSkillInfo.text = TextConst.S(14);
 			} else {
 				labelSkillName.text = GameData.DSkillData[int.Parse(go.name)].Name;
-				labelSkillLevel.text = go.transform.FindChild("SkillLeval").GetComponent<UILabel>().text;
+				labelSkillLevel.text = go.transform.FindChild("SkillLevel").GetComponent<UILabel>().text;
 				labelSkillInfo.text = GameData.DSkillData[int.Parse(go.name)].ExplainTW;
 			}
 		}
@@ -240,7 +240,7 @@ public class UICharacterInfo : UIBase {
 		if(t != null)
 			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTexture(id);
 
-		t = obj.transform.FindChild("SkillLeval");
+		t = obj.transform.FindChild("SkillLevel");
 		if(t != null)
 			t.gameObject.GetComponent<UILabel>().text = lv.ToString();
 

@@ -4,6 +4,8 @@ using System.Collections;
 public class UISkillInfo : UIBase {
 	private static UISkillInfo instance = null;
 	private const string UIName = "UISkillInfo";
+
+	private GameObject buttonEquip;
 	
 	private UILabel labelSkillName;
 	private UILabel labelSkillLevel;
@@ -33,8 +35,10 @@ public class UISkillInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, TSkillInfo info){
+	public static void UIShow(bool isShow, TSkillInfo info, bool isEquip){
 		if(isShow) {
+			Get.buttonEquip.SetActive(!isEquip);
+
 			Get.labelSkillName.text = info.Name;
 			Get.labelSkillLevel.text = info.Lv;
 			Get.labelSkillInfo.text = info.Info;
@@ -56,6 +60,8 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitCom() {
+		buttonEquip = GameObject.Find (UIName + "/EquipBtn");
+
 		labelSkillName = GameObject.Find (UIName + "/Window/LabelNameTW").GetComponent<UILabel>();
 		labelSkillLevel = GameObject.Find (UIName + "/Window/LabelLevel").GetComponent<UILabel>();
 		labelSkillInfo = GameObject.Find (UIName + "/Window/LabelSkillinfo").GetComponent<UILabel>();
@@ -64,9 +70,12 @@ public class UISkillInfo : UIBase {
 		textureSkillPic = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillPic").GetComponent<UITexture>();
 		labelSkillCardLevel = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillLevel").GetComponent<UILabel>();
 		labelSkillCardName = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillName").GetComponent<UILabel>();
-		labelSkillCardCost = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCost").GetComponent<UILabel>();
+		labelSkillCardCost = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCost/LabelValue").GetComponent<UILabel>();
 
-		SetBtnFun(UIName + "/BoxCollider", Close);
+		UIEventListener.Get(GameObject.Find (UIName + "/BoxCollider")).onClick = Close;
+
+//		SetBtnFun(UIName + "/BoxCollider", Close);
+		SetBtnFun(UIName + "/EquipBtn", OnEquip);
 		SetBtnFun(UIName + "/Window/BtnMediumCard", OpenCard);
 	}
 	
@@ -78,12 +87,19 @@ public class UISkillInfo : UIBase {
 		
 	}
 
-	public void Close (){
+	public void Close(GameObject go) {
 		TSkillInfo info = new TSkillInfo();
-		UIShow(false, info);
+		UIShow(false, info, false);
 	}
-	public void OpenCard (){
+
+	public void OpenCard() {
 
 	}
+
+	public void OnEquip() {
+		UISkillFormation.Get.DoEquipCard();
+		Close(null);
+	}
+
 }
 

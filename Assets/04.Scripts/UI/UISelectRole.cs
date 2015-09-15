@@ -520,7 +520,7 @@ public class UISelectRole : UIBase {
 					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 					
 					setTriangleData ();
-					arrayPlayerData[0].SetAttribute();
+					arrayPlayerData[0].SetAttribute(GameEnum.ESkillType.NPC);
 					if(UICharacterInfo.Visible)
 						UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
 				}
@@ -604,11 +604,11 @@ public class UISelectRole : UIBase {
 			break;
 		case EUIRoleSituation.Start:
 			SetEnemyMembers ();
-			GameData.Team.Player.SetAttribute();
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.NPC);
 			GameData.Team.Player.SetAvatar();
-			GameData.TeamMembers [0].Player.SetAttribute ();
+			GameData.TeamMembers [0].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [0].Player.SetAvatar ();
-			GameData.TeamMembers [1].Player.SetAttribute ();
+			GameData.TeamMembers [1].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [1].Player.SetAvatar ();		
 			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
 

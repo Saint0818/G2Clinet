@@ -604,7 +604,11 @@ public class PlayerBehaviour : MonoBehaviour
 		GameRecord.Init();
 		GameRecord.ID = Attribute.ID;
 
-		Attribute.SetAttribute();
+		if(Index == 0 && Team == ETeamKind.Self)
+			Attribute.SetAttribute(GameEnum.ESkillType.Player);
+		else
+			Attribute.SetAttribute(GameEnum.ESkillType.NPC);
+
 		initSkill();
 		initAttr();
     }
