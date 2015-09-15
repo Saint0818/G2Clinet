@@ -770,14 +770,14 @@ namespace GameStruct {
 		public int ID;
 		public DateTime UseTime;
 
-		public int Kind {
-			get {
-				if (UseTime.Year > 2014)
-					return 1;
-				else 
-					return 0;
-			}
-		}
+//		public int Kind {
+//			get {
+//				if (UseTime.Year > 2014)
+//					return 1;
+//				else 
+//					return 0;
+//			}
+//		}
 	}
 
 	public struct TItemData {

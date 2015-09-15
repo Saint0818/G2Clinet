@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using Newtonsoft.Json;
+using GameStruct;
 
 public class GMTool : EditorWindow
 {
 	[MenuItem ("GameEditor/GMTool")]
 	private static void GMToolWindow()
     {
-		EditorWindow.GetWindowWithRect(typeof(GMTool), new Rect(0, 0, 600, 400), true, "GMTool").Show();
+		EditorWindow.GetWindowWithRect(typeof(GMTool), new Rect(0, 0, 600, 400), false, "GMTool").Show();
     }
 
 	private int options = 0;
@@ -15,26 +17,29 @@ public class GMTool : EditorWindow
 	
     void OnGUI()
     {
-		options = GUILayout.Toolbar(options, optionsTitle);
-		switch (options)
-		{
-			case 0:
-				ItemHandel();
-				break;
-			case 1:
-				SteageHandel();
-				break;
-			case 2:
-				BattleHandel();
-				break;
-			case 3:
-				ItemHandel();
-				break;
+		if (EditorApplication.isPlaying) {
+			options = GUILayout.Toolbar(options, optionsTitle);
+			switch (options) {
+				case 0:
+					ItemHandel ();
+					break;
+				case 1:
+					SteageHandel ();
+					break;
+				case 2:
+					BattleHandel ();
+					break;
+				case 3:
+					ItemHandel ();
+					break;
+			}
 		}
+		else
+			GUILayout.Label("想用？先執行遊戲再說"); 
     }
 
-	private int addItemId = 0;
-	private int delItemId = 0;
+	private int addItemCount = 1;
+	private int[] itemIds;
 	private string mArea = "---------------------------------------------------------------------------------------------";
 
 	private void ItemHandel()
@@ -43,39 +48,54 @@ public class GMTool : EditorWindow
 
 		//Add Item
 		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("物品編號 : "); 
-		addItemId = EditorGUILayout.IntField (addItemId, GUILayout.Width(100));
-
-		if (GUILayout.Button("AddItem", GUILayout.Width(200)))
-		{
-			if(addItemId >0){
-				WWWForm form = new WWWForm();
-				form.AddField("RemoveIndexs", addItemId);
-				form.AddField("AddIndexs", 0);
-
-				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
-			}
-			else
-				ShowHint("請填物品編號");
+		GUILayout.Label("物品數量 : "); 
+		addItemCount = EditorGUILayout.IntField (addItemCount, GUILayout.Width(100));
+		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
+			itemIds = new int[addItemCount];
+			for(int i = 0; i < itemIds.Length; i++)
+				itemIds[i] = -1;
 		}
 		EditorGUILayout.EndHorizontal();
 
-		//Del Item
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("物品編號 : "); 
-		delItemId = EditorGUILayout.IntField (delItemId, GUILayout.Width(100));
-		
-		if (GUILayout.Button("DeleteItem", GUILayout.Width(200)))
-		{
-			if(delItemId >0){
-				WWWForm form = new WWWForm();
-				form.AddField("RemoveIndexs", delItemId);
+		if(itemIds != null && itemIds.Length > 0)
+			for (int i = 0; i < itemIds.Length; i++) {
+				EditorGUILayout.BeginHorizontal ();
+				GUILayout.Label("物品編號 : "); 
+				itemIds[i] = EditorGUILayout.IntField (itemIds[i], GUILayout.Width(100));
+				EditorGUILayout.EndHorizontal ();
+			}
 
+		EditorGUILayout.BeginHorizontal();
+
+		if (GUILayout.Button("AddItem", GUILayout.Width(200)))
+		{
+			if(itemIds != null && itemIds.Length > 0){
+				WWWForm form = new WWWForm();
+				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds));
 				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
 			}
 			else
-				ShowHint("請填物品編號");
+				ShowHint("請設定Item數量");
 		}
+
+		if (GUILayout.Button("Remove", GUILayout.Width(200)))
+		{
+			if(itemIds != null && itemIds.Length > 0){
+			WWWForm form = new WWWForm();
+			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(itemIds));
+			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
+			}
+			else
+				ShowHint("請設定Item數量");
+		}
+
+		if(GUILayout.Button("刪除背包", GUILayout.Width(200)))
+		{
+			WWWForm form = new WWWForm();
+			form.AddField("RemoveAll", "true");
+			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
+		}
+
 		EditorGUILayout.EndHorizontal();
 	}
 
@@ -84,14 +104,13 @@ public class GMTool : EditorWindow
 		if(ok)
 		{
 			ShowHint("Server Return : " + www.text);
-//			TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
-//			
-//			foreach(var bank in playerBank)
-//			{
-//				Debug.Log(bank);
-//			}
-//			Visible = false;
-//			UICreateRole.Get.ShowFrameView(playerBank);
+
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			
+			if(team.Items.Length > 0)
+				for(int i = 0; i < team.Items.Length; i++)
+					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
+						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
