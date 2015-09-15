@@ -3986,6 +3986,14 @@ public class GameController : KnightSingleton<GameController>
 		for (int i = 0; i < PlayerList.Count; i++)
 			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
 	}
+	
+	public bool IsOnceAnimation(EAnimatorState state)
+	{
+		if (LoopStates.ContainsKey (state))
+			return false;
+		else
+			return true;
+	}
 
 	public EDoubleType DoubleClickType {
 		get {return doubleType;}
@@ -4172,14 +4180,6 @@ public class GameController : KnightSingleton<GameController>
 			else
 				return true;
 		}
-	}
-
-	public bool IsOnceAnimation(EAnimatorState state)
-	{
-		if (LoopStates.ContainsKey (state))
-			return false;
-		else
-			return true;
 	}
 
 	public List<PlayerBehaviour> GamePlayers {

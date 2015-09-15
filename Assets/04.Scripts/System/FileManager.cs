@@ -70,7 +70,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage",
-        "createroleitem", "aiskilllv"
+        "createroleitem", "aiskilllv", "preloadeffect"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -191,6 +191,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[6] = parseStageData;
 		downloadCallBack[7] = parseCreateRoleData;
 		downloadCallBack[8] = parseAISkillData;
+		downloadCallBack[9] = parsePreloadEffect;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -466,6 +467,14 @@ public class FileManager : KnightSingleton<FileManager> {
         if (isSaveVersion)
             SaveDataVersionAndJson(jsonText, "aiskill", version);
     }
+
+	private void parsePreloadEffect(string version, string jsonText, bool isSaveVersion)
+	{
+		GameData.PreloadEffect = (TPreloadEffect[])JsonConvert.DeserializeObject (jsonText, typeof(TPreloadEffect[]));
+		
+		if (isSaveVersion)
+			SaveDataVersionAndJson(jsonText, "preloadEeffect", version);
+	}
 
     private void parseBaseAttr (string Version, string text, bool SaveVersion){
 		try {

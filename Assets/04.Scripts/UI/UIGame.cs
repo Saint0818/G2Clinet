@@ -219,12 +219,14 @@ public class UIGame : UIBase {
 		GameController.Get.onSkillDCComplete += AddForceValue;
 		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
+		/*
 		#if !UNITY_EDITOR
 		GameObject obj;
 		obj = GameObject.Find (UIName + "/TopLeft/ButtonSpeed");
 		if (obj)
 			obj.SetActive(false);
 		#endif
+		*/
 		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		if (uiJoystick)
 			joystickController = uiJoystick.gameObject.AddComponent<JoystickController> ();

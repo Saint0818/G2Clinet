@@ -30,6 +30,7 @@ public static class GameData {
 	public static TStage[] StageData;
 	public static Dictionary<int, TStage> DStageData = new Dictionary<int, TStage>();
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
+	public static TPreloadEffect[] PreloadEffect;
 
 	public static float ServerVersion;
 	public static float SaveVersion;

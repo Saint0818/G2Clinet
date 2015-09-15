@@ -1,0 +1,116 @@
+[
+    {
+        "name": "GreatCircle"
+    },
+    {
+        "name": "PerfectCircle"
+    },
+    {
+        "name": "ThreeLineEffect"
+    },
+    {
+        "name": "ThrowInLineEffect"
+    },
+    {
+        "name": "BallShadow"
+    },
+    {
+        "name": "BallTouchWall"
+    },
+    {
+        "name": "DashSmoke"
+    },
+    {
+        "name": "DC_Soul"
+    },
+    {
+        "name": "DunkFX"
+    },
+    {
+        "name": "EffectFire"
+    },
+    {
+        "name": "FallDownFX"
+    },
+    {
+        "name": "FX_SelectDown"
+    },
+    {
+        "name": "GreatCircle"
+    },
+    {
+        "name": "JumpDownFX"
+    },
+    {
+        "name": "MoveTo"
+    },
+    {
+        "name": "PassA"
+    },
+    {
+        "name": "PassB"
+    },
+    {
+        "name": "PassiveFX"
+    },
+    {
+        "name": "PassMe"
+    },
+    {
+        "name": "PerfectCircle"
+    },
+    {
+        "name": "PlayerInfo"
+    },
+    {
+        "name": "SelectA"
+    },
+    {
+        "name": "SelectAni"
+    },
+    {
+        "name": "SelectB"
+    },
+    {
+        "name": "SelectMe"
+    },
+    {
+        "name": "Shadow01"
+    },
+    {
+        "name": "ShakeFX_0"
+    },
+    {
+        "name": "ShotFX"
+    },
+    {
+        "name": "SkillAreaFX"
+    },
+    {
+        "name": "SpriteLose"
+    },
+    {
+        "name": "SpriteWin"
+    },
+    {
+        "name": "TeamFull"
+    },
+    {
+        "name": "TeamJoin"
+    },
+    {
+        "name": "TeamQuit"
+    },
+    {
+        "name": "UI_FX_A_21"
+    },
+    {
+        "name": "UseSkillEffect_6"
+    },
+    {
+        "name": "UseSkillEffect_7"
+    },
+    {
+        "name": "UseSkillEffect_21"
+    }
+]

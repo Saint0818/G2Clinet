@@ -17,7 +17,6 @@ public class EffectManager : MonoBehaviour
 	public float CloneLiveTime = 1;
 	public GameObject ObjPool;
 	private static EffectManager instance = null;
-	private static string[] GameEffects = {"ThreePointEffect", "TwoPointEffect", "ShockEffect", "BlockEffect", "DunkEffect", "StealEffect",  "ThreeLineEffect", "ThrowInLineEffect", "DoubleClick01", "DoubleClick02"};
 	private bool GameEffectLoaded = false;
 
 	private List<TCloneMesh> cloneMeshs = new List<TCloneMesh>();
@@ -75,12 +74,9 @@ public class EffectManager : MonoBehaviour
 		if(effectList.ContainsKey(effectName))
 			obj = effectList[effectName];
 		else {
-			obj = (GameObject) Resources.Load("Prefab/Effect/"+effectName, typeof(GameObject));
-			if(obj == null)
-				obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
-			if(obj == null)
-				obj = (GameObject)Resources.Load("Effect/Skill/" + effectName, typeof(GameObject));
-			effectList.Add(effectName, obj);
+			obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
+			if (obj)
+				effectList.Add(effectName, obj);
 		}
 
 		return obj;
@@ -94,6 +90,7 @@ public class EffectManager : MonoBehaviour
 						return pooledObjects[effectName][i];
 				}
 			}
+
 			List<GameObject> obj1 = pooledObjects[effectName];
 			GameObject objDuplicate1 = (GameObject)Instantiate(obj);
 			obj1.Add(objDuplicate1);
@@ -111,8 +108,8 @@ public class EffectManager : MonoBehaviour
 	public void LoadGameEffect() {
 		if (!GameEffectLoaded) {
 			GameEffectLoaded = true;
-			for (int i = 0; i < GameEffects.Length; i ++) 
-				LoadEffect(GameEffects[i]);
+			for (int i = 0; i < GameData.PreloadEffect.Length; i ++) 
+				LoadEffect(GameData.PreloadEffect[i].Name);
 		}
 	}
 

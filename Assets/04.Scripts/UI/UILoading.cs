@@ -13,7 +13,6 @@ public class UILoading : UIBase {
 	private GameObject[] pageOn = new GameObject[3];
 	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-//	private GameObject buttonSkip;
 	private GameObject loadingPic;
 
 	private UITexture uiLoadingProgress;
@@ -51,28 +50,8 @@ public class UILoading : UIBase {
 
 	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint=""){
 		if(isShow) {
-			Get.loadingKind = kind;
-			Get.Show(isShow);
-			
-			if (Get.PicNo != kind.GetHashCode()) {
-				Get.windowGame.SetActive(true);
-				Get.windowLoading.SetActive(false);
-				if (Get.uiBG.mainTexture) {
-					Get.uiBG.mainTexture = null;
-					Resources.UnloadUnusedAssets();
-				}
-				
-				Get.PicNo = kind.GetHashCode();
-				Get.uiBG.mainTexture = Get.loadTexture("Textures/LoadingPic/Loading" + Get.PicNo.ToString());
-			} else {
-				Get.windowGame.SetActive(false);
-				Get.windowLoading.SetActive(true);
-			}
-
-//			if (hint != "")
-//				Get.Hint.text = hint;
-//			else
-//				Get.Hint.text = "";
+			Get.initLoadingPic(kind, hint);
+			Get.Show(true);
 		}else 
 		if(instance) {
 			if (Get.CloseTime <= 0) {
@@ -88,16 +67,32 @@ public class UILoading : UIBase {
 			StartCoroutine(DoLoading(loadingKind));
 	}
 
-//	void FixedUpdate () {
-//		if (CloseTime > 0) {
-//			CloseTime -= Time.deltaTime;
-//			
-//			if (CloseTime <=0 && !isCloseUI) {
-//				//UIShow(false);
-//			}
-//		}
-//	}
-	
+	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint="") {
+		loadingKind = kind;
+		
+		if (PicNo != kind.GetHashCode()) {
+			windowGame.SetActive(true);
+			windowLoading.SetActive(false);
+			
+			PicNo = kind.GetHashCode();
+			Texture2D txt = loadTexture("Textures/LoadingPic/Loading" + PicNo.ToString()) as Texture2D;
+			if (txt) {
+				uiBG.mainTexture = txt;
+				//uiBG.width = txt.width;
+				//uiBG.height = txt.height;
+			}
+
+		} else {
+			windowGame.SetActive(false);
+			windowLoading.SetActive(true);
+		}
+		
+		//			if (hint != "")
+		//				Hint.text = hint;
+		//			else
+		//				Hint.text = "";
+	}
+
 	protected override void InitCom() {
 		windowLoading = GameObject.Find (UIName + "/WindowLoading");
 		windowGame = GameObject.Find (UIName + "/WindowGame");
@@ -107,7 +102,6 @@ public class UILoading : UIBase {
 		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading1"); 
 		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
 		viewLoading [2] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
-//		buttonSkip = GameObject.Find (UIName + "WindowGame/SkipButton");
 		loadingPic = GameObject.Find (UIName + "/WindowGame/LoadingPic");
 
 		uiLoadingProgress = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIProgressBar").GetComponent<UITexture>();

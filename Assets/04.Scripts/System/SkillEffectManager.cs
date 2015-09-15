@@ -140,16 +140,25 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		if(player == null){
 			//local
 			obj = EffectManager.Get.PlayEffect(effectName, position, parent, followObj, lifeTime);
-			obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
+			if (obj)
+				obj.transform.localRotation = Quaternion.Euler(Vector3.zero);
+			else
+				Debug.Log("Effect not found " + effectName);
 		} else {
 			//global
 			obj = EffectManager.Get.PlayEffect(effectName, player.transform.position, parent, followObj, lifeTime);
-			obj.transform.rotation = player.transform.rotation;
+			if (obj)
+				obj.transform.rotation = player.transform.rotation;
+			else
+				Debug.Log("Effect not found " + effectName);
 		}
 		
-		if(obj.GetComponent<PushSkillTrigger>() != null) {
-			obj.GetComponent<PushSkillTrigger>().pusher = executePlayer;
-			obj.GetComponent<PushSkillTrigger>().InRange = GameData.DSkillData[executePlayer.Attribute.ActiveSkill.ID].Distance(executePlayer.Attribute.ActiveSkill.Lv);
+		if (effectName == "SkillEffect1700" && obj) {
+			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
+			if (ps) {
+				ps.pusher = executePlayer;
+				ps.InRange = GameData.DSkillData[executePlayer.Attribute.ActiveSkill.ID].Distance(executePlayer.Attribute.ActiveSkill.Lv);
+			}
 		}
 	}
 	

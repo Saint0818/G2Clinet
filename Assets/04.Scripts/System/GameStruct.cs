@@ -875,5 +875,7 @@ namespace GameStruct {
 		}
 	}
 
-
+	public struct TPreloadEffect {
+		public string Name;
+	}
 }

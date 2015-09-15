@@ -29,7 +29,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixerSnapshot Nomal;
 	public AudioMixerSnapshot Paused;
 	public AudioMixerSnapshot StartST;
-	public bool IsMusicOn = false;
+	private bool isMusicOn = false;
 	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
@@ -117,8 +117,15 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 			if (MasterMix)
 				MasterMix.SetFloat ("masterVol", -80);
 		}
+
+		//NGUITools.soundVolume = 0;
+
 		PlayerPrefs.Save ();
 	}
 
+	public bool IsMusicOn {
+		get { return isMusicOn; }
+		set { isMusicOn = value; }
+	}
 }
 
