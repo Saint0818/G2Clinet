@@ -23,6 +23,9 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private UICreateRolePlayerFrame.Data mDeleteData;
 
+    /// <summary>
+    /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
+    /// </summary>
     private const int DefaultShowNum = 2;
 
     [UsedImplicitly]
@@ -113,12 +116,48 @@ public class UICreateRoleFrameView : MonoBehaviour
         if(isLock)
             return;
 
-//        if(data.IsValid)
-//        {
-            // 切換角色.
-//        }
-//        else
+        if(!data.IsValid())
+        {
+            // 沒有資料, 所以進入創角流程.
             GetComponent<UICreateRole>().ShowPositionView();
+            return;
+        }
+
+        if(GameData.Team.Player.RoleIndex == data.RoleIndex)
+        {
+            // 是相同的角色, 直接進入大廳.
+            UICreateRole.Visible = false;
+            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            else
+                LobbyStart.Get.EnterLobby();
+        }
+        else
+        {
+            // 通知 Server 切換角色.
+            WWWForm form = new WWWForm();
+            form.AddField("RoleIndex", data.RoleIndex);
+            SendHttp.Get.Command(URLConst.SelectRole, waitSelectPlayer, form, true);
+        }
+    }
+
+    private void waitSelectPlayer(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitSelectPlayer, ok:{0}", ok);
+
+        if (ok)
+        {
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player = team.Player;
+            GameData.Team.Player.Init();
+            GameData.SaveTeam();
+
+            UICreateRole.Visible = false;
+            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            else
+                LobbyStart.Get.EnterLobby();
+        }
     }
 
     public void OnBackClick()

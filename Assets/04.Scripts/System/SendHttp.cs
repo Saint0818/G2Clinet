@@ -18,6 +18,7 @@ public static class URLConst {
 	public const string DeviceLogin = "devicelogin";
 	public const string LookPlayerBank = "lookplayerbank";
 	public const string CreateRole = "createrole";
+	public const string SelectRole = "selectrole";
 	public const string DeleteRole = "deleterole";
 	public const string EquipsSkillCard = "equipskillcard";
 	public const string ScenePlayer = "sceneplayer";

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -214,7 +212,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     {
 		if(ok)
         {
-			TTeam team = JsonConvert.DeserializeObject <TTeam>(www.text); 
+			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text); 
 			GameData.Team.Player = team.Player;
 			GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.Player.Init();

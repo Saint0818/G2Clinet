@@ -25,6 +25,11 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         public EPlayerPostion Position;
         public string Name;
         public int Level;
+
+        public bool IsValid()
+        {
+            return PlayerID > 0 && RoleIndex >= 0 && !string.IsNullOrEmpty(Name) && Level >= 1;
+        }
     }
 
     public delegate void Action(Data bank, bool isLock);
