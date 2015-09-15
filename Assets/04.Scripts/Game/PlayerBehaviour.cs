@@ -2102,6 +2102,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 setSpeed(0, -1);
+				AnimatorControl.SetInteger("StateNo", 0);
                 AddActionFlag(EActionFlag.IsDefence);
                 Result = true;
                 break;
@@ -2109,6 +2110,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Defence1:
                 isCanCatchBall = true;
                 setSpeed(1, 1);
+				AnimatorControl.SetInteger("StateNo", 1);
                 ClearAnimatorFlag(EActionFlag.IsDefence);
                 Result = true;
                 break;

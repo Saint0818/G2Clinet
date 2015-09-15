@@ -39,7 +39,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 //    private float lockedFocusAngle = 100f;
 //    private float lockedTeeFocusAngle = 50f;
     private float focusOffsetSpeed = 0.8f;
-    private float focusSmoothSpeed = 0.02f;
     private float[] focusStopPoint = new float[]{21f, -25f};
     private float cameraRotationSpeed = 2f;
     private float cameraOffsetSpeed = 0.1f;
@@ -562,9 +561,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private void Lookat(Vector3 pos)
     {
 		Vector3 v1;
-//		Vector3 dir = obj.transform.position - cameraRotationObj.transform.position;
-//		Quaternion rot = Quaternion.LookRotation(dir);
-
+		float sp;
 		Vector3 dir = focusTarget.transform.position - cameraRotationObj.transform.position;
 		Quaternion rot = Quaternion.LookRotation(dir);
 
@@ -587,7 +584,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         else if (BarycentreV3.z < focusLimitZ.y)
             BarycentreV3.z = focusLimitZ.y;
         
-        focusTargetTwo.transform.position = BarycentreV3;
+		focusTargetTwo.transform.position = Vector3.Lerp(focusTargetTwo.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
 
         if (isOverCamera)
         {
@@ -595,10 +592,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 			{
 				focusTarget.transform.position = Vector3.Lerp(focusTarget.transform.position, BarycentreV3, focusOffsetBuffer * Time.deltaTime);
 			}
-
+			sp = overRangeRotationSpeed * Time.deltaTime;
 			Vector3 dirMidle = focusTarget.transform.position - cameraRotationObj.transform.position;
             Quaternion rotMidle = Quaternion.LookRotation(dirMidle);
-			cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, overRangeRotationSpeed * Time.deltaTime);
+
+			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rotMidle, sp);
+//			cameraRotationObj.transform.rotation = Quaternion.Lerp(rot, rotMidle, sp);
         } else
         {
 			if(Vector3.Distance(focusTarget.transform.position, focusTargetOne.transform.position) > 0.1f)
@@ -607,9 +606,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 				dir = focusTarget.transform.position - cameraRotationObj.transform.position;
 				rot = Quaternion.LookRotation(dir);
 			}
+			sp = cameraRotationSpeed * Time.deltaTime;
 
-			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, cameraRotationSpeed * Time.deltaTime);
+//			cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, );
         }
+
+		cameraRotationObj.transform.rotation = Quaternion.Lerp(cameraRotationObj.transform.rotation, rot, sp);
     }
 
     private Vector2 focusLimitX;
