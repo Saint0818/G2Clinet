@@ -60,8 +60,10 @@ public class UISelectRole : UIBase {
 	private float [] arrayOldNameValue = new float[6];
 	private float [] arrayNewNameValue = new float[6];
 
-	private int maxValue = 100;
-	private float value = 0;
+    private UIAttributes mUIAttributes;
+
+	private const int MaxValue = 200;
+//	private float value = 0;
 	private float axisX;
 	
 	private int SelectRoleIndex = 0;
@@ -192,7 +194,7 @@ public class UISelectRole : UIBase {
 		labelsSelectABName[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/Label").GetComponent<UILabel>();
 		spritesSelectABBody[1] = GameObject.Find(UIName + "/Center/ViewLoading/SelectB/PlayerNameB/SpriteTypeB").GetComponent<UISprite>();
 
-		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/AttributeHexagon")).onClick = OnClickSixAttr;
+		UIEventListener.Get(GameObject.Find(UIName + "/Right/InfoRange/UIAttributeHexagon")).onClick = OnClickSixAttr;
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/ShowTimeCollider")).onClick = DoPlayerAnimator;
 
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
@@ -210,17 +212,26 @@ public class UISelectRole : UIBase {
 		}
 
 
-		float WH = (float)Screen.width / (float)Screen.height;
-		if(WH >= 1.33f && WH <= 1.34f)
-			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 34));
-		else if(WH >= 1.59f && WH <= 1.61f)
-			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 28.3f));
-		else if(WH >= 1.66f && WH <= 1.67f)
-			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 27f));
-		else if(WH >= 1.7f && WH <= 1.71f)
-			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 26.5f));
-		else
-			UITriangle.Get.CreateSixAttr (new Vector3(7, -0.9f, 25.3f));
+        //		float WH = (float)Screen.width / (float)Screen.height;
+        //		if(WH >= 1.33f && WH <= 1.34f)
+        //			UITriangle.Get.CreateSixAttr(new Vector3(7, -0.9f, 34));
+        //			UIAttributes.Get.CreateSixAttr();
+        //		else if(WH >= 1.59f && WH <= 1.61f)
+        //			UITriangle.Get.CreateSixAttr(new Vector3(7, -0.9f, 28.3f));
+        //			UIAttributes.Get.CreateSixAttr();
+        //		else if(WH >= 1.66f && WH <= 1.67f)
+        //			UITriangle.Get.CreateSixAttr(new Vector3(7, -0.9f, 27f));
+        //			UIAttributes.Get.CreateSixAttr();
+        //		else if(WH >= 1.7f && WH <= 1.71f)
+        //			UITriangle.Get.CreateSixAttr(new Vector3(7, -0.9f, 26.5f));
+        //			UIAttributes.Get.CreateSixAttr();
+        //		else
+        //			UITriangle.Get.CreateSixAttr(new Vector3(7, -0.9f, 25.3f));
+
+        GameObject obj = GameObject.Find("UISelectRole/Right/InfoRange/UIAttributeHexagon");
+//        obj.GetComponent<UIAttributes>().Initialize(obj.transform, new Vector3(0, 0, 50), new Vector3(70, 70, 1));
+        mUIAttributes = obj.GetComponent<UIAttributes>();
+        mUIAttributes.Play(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
 	}
 	
 	protected override void OnShow(bool isShow) {
@@ -285,8 +296,6 @@ public class UISelectRole : UIBase {
 
 		setTriangleData();
 	}
-
-
 
 	public void DoPlayerAnimator(GameObject obj){
 		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
@@ -481,28 +490,32 @@ public class UISelectRole : UIBase {
 		}
 	}
 
-	private void setTriangleData (){
-		if(GameData.DPlayers.ContainsKey(arraySelectID [0])) {
-			data = GameData.DPlayers[arraySelectID [0]];
+	private void setTriangleData()
+    {
+		if(GameData.DPlayers.ContainsKey(arraySelectID[0]))
+        {
+			data = GameData.DPlayers[arraySelectID[0]];
 			
-			value = data.Strength + data.Block;
-			UITriangle.Get.ChangeValue (0, value / 2 / maxValue);
+			var value = data.Strength + data.Block;
+			mUIAttributes.SetValue(UIAttributes.EAttribute.StrBlk, value / MaxValue);
 			
 			value = data.Defence + data.Steal;
-			UITriangle.Get.ChangeValue (1, value / 2 / maxValue);
+            mUIAttributes.SetValue(UIAttributes.EAttribute.DefStl, value / MaxValue);
 			
 			value = data.Dribble + data.Pass;
-			UITriangle.Get.ChangeValue (2, value / 2 / maxValue);
+            mUIAttributes.SetValue(UIAttributes.EAttribute.DrbPass, value / MaxValue);
 			
 			value = data.Speed + data.Stamina;
-			UITriangle.Get.ChangeValue (3, value / 2 / maxValue);
+            mUIAttributes.SetValue(UIAttributes.EAttribute.SpdSta, value / MaxValue);
 			
 			value = data.Point2 + data.Point3;
-			UITriangle.Get.ChangeValue (4, value / 2 / maxValue);
+            mUIAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / MaxValue);
 			
 			value = data.Rebound + data.Dunk;
-			UITriangle.Get.ChangeValue (5, value / 2 / maxValue);
+            mUIAttributes.SetValue(UIAttributes.EAttribute.RebDnk, value / MaxValue);
 		}
+        else
+		    Debug.LogErrorFormat("Can't find Player by ID:{0}", arraySelectID[0]);
 	}
 
 	private void UIState(EUIRoleSituation state) {
@@ -519,7 +532,7 @@ public class UISelectRole : UIBase {
 					setPlayerAvatar(0, index);
 					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
 					
-					setTriangleData ();
+					setTriangleData();
 					arrayPlayerData[0].SetAttribute(GameEnum.ESkillType.NPC);
 					if(UICharacterInfo.Visible)
 						UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
@@ -534,7 +547,8 @@ public class UISelectRole : UIBase {
 		case EUIRoleSituation.ChooseRole:{
 			uiSelect.SetActive(false);
 			arrayAnimator[0].SetTrigger(arrayRoleAnimation[1]);
-			UITriangle.Get.Triangle.SetActive (false);
+//			UIAttributes.Get.Triangle.SetActive (false);
+            mUIAttributes.SetVisible(false);
 			uiShowTime.SetActive(false);
 
 			int RanID;
@@ -688,8 +702,9 @@ public class UISelectRole : UIBase {
 	}
 	
 	private void showUITriangle(){
-		UITriangle.Get.Triangle.SetActive (true);
-		UITriangle.Get.TriangleScaleIn();
+//		UIAttributes.Get.Triangle.SetActive (true);
+		mUIAttributes.SetVisible(true);
+		mUIAttributes.Play();
 		uiSelect.SetActive(true);
 	}
 
