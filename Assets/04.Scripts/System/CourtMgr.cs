@@ -493,7 +493,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(GameController.Get.IsSwishIn) {
 			GameController.Get.IsSwishIn = false;
 			if(GameStart.Get.IsDebugAnimation){
-				GameController.Get.shootScoreTimes++;
+				GameController.Get.shootScoreSwishTimes++;
 				Debug.LogWarning("RealBall Swish Out:"+ Time.time);
 			}
 			if(scoreTeam != -1) {
@@ -532,8 +532,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				break;
 			case EPlayerState.BasketActionEnd:
-				if(GameStart.Get.IsDebugAnimation)
+				if(GameStart.Get.IsDebugAnimation) {
+					GameController.Get.shootScoreTimes++;
 					Debug.LogWarning("RealBall Score Out:"+ GameController.Get.BasketAnimationName);
+				}
 				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
 				RealBallRigidbody.useGravity = true;

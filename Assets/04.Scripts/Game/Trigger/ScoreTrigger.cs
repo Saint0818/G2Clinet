@@ -29,15 +29,19 @@ public class ScoreTrigger : MonoBehaviour
 					case EBasketSituation.Swish:
 						if(GameStart.Get.IsDebugAnimation){
 							Debug.LogWarning("RealBall Swish IN:"+ Time.time);
-							GameController.Get.shootTimes++;
+							GameController.Get.shootSwishTimes++;
 						}
 						GameController.Get.IsSwishIn = true;
 						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop, Team);
 						break;
 					case EBasketSituation.Score:
 					case EBasketSituation.NoScore:
-						if(GameStart.Get.IsDebugAnimation)
+						if(GameStart.Get.IsDebugAnimation) {
 							Debug.LogWarning("RealBall IN:"+ GameController.Get.BasketAnimationName);
+							string[] nameSplit = GameController.Get.BasketAnimationName.Split("_"[0]);
+							if(int.Parse(nameSplit[1]) < 100)
+								GameController.Get.shootTimes ++ ;
+						}
 
 						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketAnimationStart, dummyHoop, Team);
 						if(animator != null ){
