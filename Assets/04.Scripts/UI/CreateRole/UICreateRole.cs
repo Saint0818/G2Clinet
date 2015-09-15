@@ -42,11 +42,20 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-    public void ShowFrameView(TPlayerBank[] playerBanks)
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks)
     {
         Show(true);
 
         mFrameView.Show(playerBanks);
+        mPositionView.Visible = false;
+        mStyleView.Hide();
+    }
+
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int showNum)
+    {
+        Show(true);
+
+        mFrameView.Show(playerBanks,showNum);
         mPositionView.Visible = false;
         mStyleView.Hide();
     }
@@ -142,5 +151,27 @@ public class UICreateRole : UIBase
         }
 
         return model;
+    }
+
+    [CanBeNull]
+    public static UICreateRolePlayerFrame.Data[] Convert(TPlayerBank[] playerBanks)
+    {
+        UICreateRolePlayerFrame.Data[] data = new UICreateRolePlayerFrame.Data[playerBanks.Length];
+        for (int i = 0; i < playerBanks.Length; i++)
+        {
+            if (!GameData.DPlayers.ContainsKey(playerBanks[i].ID))
+            {
+                Debug.LogErrorFormat("Can't find Player by ID:{0}", playerBanks[i].ID);
+                return null;
+            }
+
+            data[i].PlayerID = playerBanks[i].ID;
+            data[i].RoleIndex = playerBanks[i].RoleIndex;
+            data[i].Position = (EPlayerPostion)GameData.DPlayers[playerBanks[i].ID].BodyType;
+            data[i].Name = playerBanks[i].Name;
+            data[i].Level = playerBanks[i].Lv;
+        }
+
+        return data;
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using GameStruct;
+﻿using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -7,6 +6,11 @@ using UnityEngine;
 /// <summary>
 /// FrameView 會列出玩家擁有的全部角色.
 /// </summary>
+/// <remarks>
+/// <list type="number">
+/// <item> Call Show() or Hide() 控制 UI 的顯示邏輯. </item>
+/// </list>
+/// </remarks>
 [DisallowMultipleComponent]
 public class UICreateRoleFrameView : MonoBehaviour
 {
@@ -14,30 +18,68 @@ public class UICreateRoleFrameView : MonoBehaviour
     public UICreateRolePlayerFrame[] Frames;
     public UIConfirmDialog ConfirmDialog;
 
-    public string[] PosSpriteNames;
+    public string LockButtonSpriteName;
+    public string LockBGSpriteName;
 
-    private TPlayerBank mDeletePlayerBank;
+    private UICreateRolePlayerFrame.Data mDeleteData;
+
+    /// <summary>
+    /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
+    /// </summary>
+    private const int DefaultShowNum = 2;
 
     [UsedImplicitly]
 	private void Awake()
     {
         for(int i = 0; i < Frames.Length; i++)
         {
-            Frames[i].PosSpriteNames = PosSpriteNames;
             Frames[i].OnClickListener += onSlotClick;
-            Frames[i].OnDeleteListener += onDeleteClick;
+            Frames[i].OnDeleteListener += onDeletePlayer;
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
         ConfirmDialog.OnCancelClickListener += onCancelDelete;
+
+        ShowNum = DefaultShowNum;
     }
+
+    /// <summary>
+    /// 最多顯示幾位球員. 超過的部分會用 lock 來顯示.
+    /// </summary>
+    private int ShowNum
+    {
+        get { return mShowNum; }
+
+        set
+        {
+            if(value < 0)
+                return;
+
+            mShowNum = value;
+            updateLockUI(mShowNum);
+        }
+    }
+
+    private void updateLockUI(int showNum)
+    {
+        for(int i = showNum; i < Frames.Length; i++)
+        {
+            Frames[i].SetLock();
+        }
+    }
+
+    private int mShowNum;
 
     public void Show()
     {
         Window.SetActive(true);
     }
 
-    public void Show([NotNull] TPlayerBank[] playerBanks)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data)
     {
         Window.SetActive(true);
 
@@ -45,11 +87,23 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             Frames[i].Clear();
 
-            if(i >= playerBanks.Length)
+            if(i >= data.Length)
                 continue;
 
-            Frames[i].SetData(playerBanks[i]);
+            Frames[i].SetData(data[i]);
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int showNum)
+    {
+        Show(data);
+
+        ShowNum = showNum;
     }
 
     public void Hide()
@@ -57,14 +111,53 @@ public class UICreateRoleFrameView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    private void onSlotClick(TPlayerBank playerBank)
+    private void onSlotClick(UICreateRolePlayerFrame.Data data, bool isLock)
     {
-        if(playerBank.IsValid)
+        if(isLock)
+            return;
+
+        if(!data.IsValid())
         {
-            // 切換角色.
+            // 沒有資料, 所以進入創角流程.
+            GetComponent<UICreateRole>().ShowPositionView();
+            return;
+        }
+
+        if(GameData.Team.Player.RoleIndex == data.RoleIndex)
+        {
+            // 是相同的角色, 直接進入大廳.
+            UICreateRole.Visible = false;
+            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            else
+                LobbyStart.Get.EnterLobby();
         }
         else
-            GetComponent<UICreateRole>().ShowPositionView();
+        {
+            // 通知 Server 切換角色.
+            WWWForm form = new WWWForm();
+            form.AddField("RoleIndex", data.RoleIndex);
+            SendHttp.Get.Command(URLConst.SelectRole, waitSelectPlayer, form, true);
+        }
+    }
+
+    private void waitSelectPlayer(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitSelectPlayer, ok:{0}", ok);
+
+        if (ok)
+        {
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player = team.Player;
+            GameData.Team.Player.Init();
+            GameData.SaveTeam();
+
+            UICreateRole.Visible = false;
+            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            else
+                LobbyStart.Get.EnterLobby();
+        }
     }
 
     public void OnBackClick()
@@ -79,57 +172,49 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeleteClick(TPlayerBank playerBank)
+    private void onDeletePlayer(UICreateRolePlayerFrame.Data data, bool isLock)
     {
-//        Debug.Log("onDeleteClick");
+        Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
 
-        mDeletePlayerBank = playerBank;
+        if(isLock)
+            return;
+
+        mDeleteData = data;
         
         ConfirmDialog.Show();
     }
 
     private void onConfirmDelete()
     {
-        //        Debug.Log("onConfirmDelete");
-        // 刪除角色.
+//        Debug.Log("onConfirmDelete");
+        
+        // 做刪除角色流程.
+        WWWForm form = new WWWForm();
+        form.AddField("RoleIndex", mDeleteData.RoleIndex);
 
-        if(mDeletePlayerBank.IsValid)
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("RoleIndex", mDeletePlayerBank.RoleIndex);
-
-            SendHttp.Get.Command(URLConst.DeleteRole, waitDeleteRole, form, true);
-        }
-        else
-            Debug.LogError("Flow is error....");
+        SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
     }
 
     private void onCancelDelete()
     {
-        Debug.Log("onCancelDelete");
-        mDeletePlayerBank = new TPlayerBank();
+//        Debug.Log("onCancelDelete");
+        mDeleteData = new UICreateRolePlayerFrame.Data();
     }
 
-    private void waitDeleteRole(bool ok, WWW www)
+    private void waitDeletePlayer(bool ok, WWW www)
     {
-        Debug.LogFormat("waitDeleteRole, ok:{0}", ok);
+        Debug.LogFormat("waitDeletePlayer, ok:{0}", ok);
 
         if(ok)
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
 			GameData.Team.Player = team.Player;
-			Show(team.PlayerBank);
-        }
-    }
 
-    private void waitLookPlayerBank(bool ok, WWW www)
-    {
-        if(ok)
-        {
-            TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
-            Show(playerBank);
+            var data = UICreateRole.Convert(team.PlayerBank);
+            if (data != null)
+                Show(data);
+            else
+                Debug.LogError("Data Error!");
         }
-        else
-            Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
     }
 }

@@ -572,7 +572,7 @@ public class SkillController : MonoBehaviour {
 				if(GameData.DSkillData.ContainsKey(player.PassiveID)) {
 					AttackSkillEffect(player, player.PassiveID);
 					if(!player.IsUseSkill)
-						UIPassiveEffect.Get.ShowCard(player, GameData.DSkillData[player.PassiveID].PictureNo, player.PassiveLv, GameData.DSkillData[player.PassiveID].Name);
+						UIPassiveEffect.Get.ShowCard(player, player.PassiveID, player.PassiveLv);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
 				}

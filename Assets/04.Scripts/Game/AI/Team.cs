@@ -44,26 +44,26 @@ namespace AI
         [CanBeNull]
         public PlayerAI FindNearBallPlayer()
         {
-            float nearDis = float.MaxValue;
-            PlayerAI nearBallPlayer = null;
+            float nearestDis = float.MaxValue;
+            PlayerAI nearestBallPlayer = null;
 
             Vector2 ballPos = Vector2.zero;
             ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
 
             for(int i = 0; i < mPlayers.Count; i++)
             {
-                Vector2 someonePos = Vector2.zero;
-                someonePos.Set(mPlayers[i].transform.position.x, mPlayers[i].transform.position.z);
+                Vector2 playerPos = Vector2.zero;
+                playerPos.Set(mPlayers[i].transform.position.x, mPlayers[i].transform.position.z);
 
-                var dis = Vector2.Distance(ballPos, someonePos);
-                if(dis < nearDis)
+                var dis = Vector2.Distance(ballPos, playerPos);
+                if(dis < nearestDis)
                 {
-                    nearDis = dis;
-                    nearBallPlayer = mPlayers[i];
+                    nearestDis = dis;
+                    nearestBallPlayer = mPlayers[i];
                 }
             }
 
-            return nearBallPlayer;
+            return nearestBallPlayer;
         }
 
     } // end of the class Team.

@@ -29,7 +29,7 @@ public static class GameData {
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
 	public static TStage[] StageData;
 	public static Dictionary<int, TStage> DStageData = new Dictionary<int, TStage>();
-	public static Dictionary<int, Texture> DCardTextures = new Dictionary<int, Texture>();
+	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
 
 	public static float ServerVersion;
 	public static float SaveVersion;
@@ -54,18 +54,30 @@ public static class GameData {
 
 			FileManager.Get.LoadFileResource ();
 			loadGameSetting();
-			loadCardTextures();
 		}
 	}
 
-	private static void loadCardTextures(){
-		UnityEngine.Object[] obj = Resources.LoadAll("Textures/SkillCards");
-		if(obj.Length > 0) {
-			for(int i=0; i<obj.Length; i++) {
-				DCardTextures.Add(int.Parse(obj[i].name), obj[i] as Texture);
-			}
-		}
-	}
+	public static Texture2D CardTexture(int id) {
+		if (GameData.DSkillData.ContainsKey(id)) {
+			if (GameData.DSkillData[id].PictureNo > 0)
+				id = GameData.DSkillData[id].PictureNo;
+
+			if (cardTextureCache.ContainsKey(id)) {
+				return cardTextureCache [id];
+			}else {
+				string path = "Textures/SkillCards/" + id.ToString();
+	            Texture2D obj = Resources.Load(path) as Texture2D;
+				if (obj) {
+					cardTextureCache.Add(id, obj);
+					return obj;
+				} else {
+					//download form server
+	                return null;
+	            }
+	        }
+		} else
+		return null;
+    }
 
 	private static void loadGameSetting() {
 		Setting.Language = ELanguage.EN;
@@ -180,5 +192,12 @@ public static class GameData {
 		get {
 			return "NiceMarket";
 		}
+	}
+
+	public static string PlayerName(int id) {
+		if (GameData.DPlayers.ContainsKey(id))
+			return DPlayers[id].Name;
+		else
+			return "";
 	}
 }

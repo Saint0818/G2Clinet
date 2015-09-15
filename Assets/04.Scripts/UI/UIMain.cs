@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -131,18 +132,25 @@ public class UIMain : UIBase {
 	{
 		if(ok)
         {
-			TPlayerBank[] playerBank = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+			TPlayerBank[] playerBanks = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
 
-            foreach(var bank in playerBank)
+            foreach(var bank in playerBanks)
             {
                 Debug.Log(bank);
             }
             Visible = false;
-            UICreateRole.Get.ShowFrameView(playerBank);
+
+            var data = UICreateRole.Convert(playerBanks);
+            if(data != null)
+                UICreateRole.Get.ShowFrameView(data, GameData.Team.PlayerNum);
+            else
+                Debug.LogError("Data Error!");
 		}
         else
 		    Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
 	}
+
+    
 
 	public void OnStage() {
 		UIStage.UIShow(!UIStage.Visible);

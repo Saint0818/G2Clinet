@@ -248,8 +248,7 @@ public class UISkillFormation : UIBase {
 		
 		t = obj.transform.FindChild("SkillPic");
 		if(t != null)
-			if(GameData.DCardTextures.ContainsKey(id))
-				t.gameObject.GetComponent<UITexture>().mainTexture = GameData.DCardTextures[id];
+			t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTexture(id);
 		
 		t = obj.transform.FindChild("SkillLevel");
 		if(t != null)

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class UISkillEffect : UIBase {
@@ -37,7 +37,7 @@ public class UISkillEffect : UIBase {
 					if(kind == i) {
 						Get.uiMotion[i].SetActive(true);
 						Get.spriteCardFrame[kind].spriteName = "SkillCard" + lv.ToString();
-						Get.textureCardInfo[kind].mainTexture = GameData.DCardTextures[picNo];
+						Get.textureCardInfo[kind].mainTexture = GameData.CardTexture(picNo);
 						Get.labelCardName[kind].text = name;
 					} else {
 						Get.uiMotion[i].SetActive(false);

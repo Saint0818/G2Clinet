@@ -36,25 +36,41 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
 	}
 
-	public void LoadAllBody(string path) {
-		GameObject[] resourceBody = Resources.LoadAll<GameObject> (path);
-		if (resourceBody != null) {
-			for (int i=0; i<resourceBody.Length; i++) {
-				if(!resourceBody[i].name.Contains("PlayerModel")){
-					string keyPath = string.Format("{0}/{1}",path, resourceBody[i].name);
-					loadBody(keyPath);
+	public void PreloadResource(TAvatar attr, int bodyType) {
+		string bodyNumber = bodyType.ToString();
+		string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
+		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
+		int[] avatarIndex = new int[] {attr.Body, attr.Cloth, attr.Hair, attr.MHandDress, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
+		string path;
+		string texturePath;
+		for (int i = 0; i < avatarIndex.Length; i++) {
+			if (avatarIndex [i] > 0) {
+				int avatarBody = avatarIndex[i] / 1000;
+				int avatarBodyTexture = avatarIndex[i] % 1000;
+				if (i == 0) {
+					path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyNumber, mainBody); 
+					texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, "B", "0", avatarBodyTexture);
+				} else 
+				if (i < 6) {
+					path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber, avatarPart [i], avatarBody);
+					texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, avatarPart [i], avatarBody, avatarBodyTexture);
+				} else  {//it maybe A or Z
+					path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarBody);
+					texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart [i], avatarBody, avatarBodyTexture);
 				}
-			}
-		}
-	}
+				
+				GameObject resObj = loadBody(path);
+				if (resObj) 
+					loadTexture(texturePath);
+            }
+        }
+    }
 
-	public void LoadAllTexture(string path) {
-		Texture[] resourceTexture = Resources.LoadAll<Texture> (path);
-		if (resourceTexture != null) {
-			for (int i=0; i<resourceTexture.Length; i++) {
-				string keyPath = string.Format("{0}/{1}",path, resourceTexture[i].name);
-				loadTexture(keyPath);
-			}
+	public void LoadAllSelectPlayer(int[] id) {
+		for (int i = 0; i < id.Length; i++)
+		if (GameData.DPlayers.ContainsKey(id[i])) {
+			TAvatar avatar = new TAvatar(id[i]);
+			PreloadResource(avatar, GameData.DPlayers[id[i]].BodyType);
 		}
 	}
 
@@ -136,7 +152,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar(ref res, player.Avatar, player.BodyType, true, false); 
+		SetAvatar(ref res, player.Avatar, player.BodyType, true, true); 
 
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;
@@ -177,9 +193,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
-//			string bodyNumber = (Attr.Body / 1000).ToString();
 			string bodyNumber = bodyType.ToString();;
-//			string mainBody = string.Format("PlayerModel_{0}", bodyNumber);
 			string mainBody = "PlayerModel";
 			string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
 			if(BodyPart < 6) {
@@ -215,12 +229,14 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						Texture texture = loadTexture(namePath);
 						if(!texture)
 							texture = loadTexture(path);
+
 						Renderer renderers = obj.GetComponent<Renderer>();
 						Material[] materials = renderers.materials;
 						for(int i=0; i<materials.Length; i++){
 							if(materials[i].name.Equals(strPart[BodyPart])) {
 								if(texture)
 									materials[i].mainTexture = texture;
+
 								break;
 							}
 						}
@@ -252,8 +268,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, bool isUseRig, bool combine = true, bool Reset = false) {
 		try {
-//			string bodyNumber = (attr.Body / 1000).ToString();
-//			Debug.Log("bodyType:"+ bodyType);
 			string bodyNumber = bodyType.ToString();
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};

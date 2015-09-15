@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class UISkillInfo : UIBase {
@@ -40,8 +40,7 @@ public class UISkillInfo : UIBase {
 			Get.labelSkillInfo.text = info.Info;
 
 			Get.spriteSkillCard.spriteName = "SkillCard" + info.Lv;
-			if( GameData.DCardTextures.ContainsKey(info.ID))
-				Get.textureSkillPic.mainTexture = GameData.DCardTextures[info.ID];
+			Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
 			Get.labelSkillCardName.text = info.Name;
 			Get.labelSkillCardLevel.text = info.Lv;
 			Get.labelSkillCardCost.text = GameData.DSkillData[info.ID].Space(int.Parse(info.Lv)).ToString(); 
