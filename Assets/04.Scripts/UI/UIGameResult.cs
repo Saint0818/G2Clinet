@@ -70,8 +70,8 @@ public class UIGameResult : UIBase {
 		UILose = GameObject.Find(UIName + "/Bottom/Result/SpriteLose");
 		UILose.SetActive(false);
 
-		uiLimitScore = GameObject.Find(UIName + "/Center/LimitScore");
-		labelLimiteScore = GameObject.Find(UIName + "/Center/LimitScore/TargetScore").GetComponent<UILabel>();
+		uiLimitScore = GameObject.Find(UIName + "/Center/ViewResult/LimitScore");
+		labelLimiteScore = GameObject.Find(UIName + "/Center/ViewResult/LimitScore/TargetScore").GetComponent<UILabel>();
 		if(GameStart.Get.WinMode == EWinMode.Score) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 		} else {

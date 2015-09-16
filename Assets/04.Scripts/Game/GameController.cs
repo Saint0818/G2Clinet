@@ -123,7 +123,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
     [UsedImplicitly]
-    private void Start()
+    void Start()
 	{
         EffectManager.Get.LoadGameEffect();
         InitPos();

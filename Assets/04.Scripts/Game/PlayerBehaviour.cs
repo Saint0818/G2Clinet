@@ -651,6 +651,9 @@ public class PlayerBehaviour : MonoBehaviour
 	private void initSkill (){
 		skillController.initSkillController(Attribute, this, AnimatorControl);
 		skillController.OnAddAttribute += SetAttribute;
+
+		if (Team == ETeamKind.Npc) 
+			skillController.HidePlayerName();
 	}
 
     public void InitCurve(GameObject animatorCurve)
