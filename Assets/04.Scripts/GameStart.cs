@@ -1,9 +1,6 @@
-using UnityEngine;
-using System;
-using System.Collections;
-using GameStruct;
 using GameEnum;
 using GamePlayEnum;
+using UnityEngine;
 
 public class GameStart : KnightSingleton<GameStart> {
 	public ESceneTest  SceneMode = ESceneTest.Single;
