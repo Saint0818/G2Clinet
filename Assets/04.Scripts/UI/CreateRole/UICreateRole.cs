@@ -12,26 +12,6 @@ public class UICreateRole : UIBase
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
 
-	public static bool Visible {
-		get {
-			if(instance)
-				return instance.gameObject.activeInHierarchy;
-			else
-				return false;
-		}
-		
-		set {
-			if (instance) {
-				if (!value)
-					RemoveUI(UIName);
-				else
-					instance.Show(value);
-			} else
-			if (value)
-				Get.Show(value);
-		}
-	}
-
     public void ShowFrameView()
     {
         Show(true);
@@ -39,6 +19,8 @@ public class UICreateRole : UIBase
         mFrameView.Show();
         mPositionView.Visible = false;
         mStyleView.Hide();
+
+        UI3DCreateRole.Get.Hide();
     }
 
     public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks)
@@ -48,6 +30,8 @@ public class UICreateRole : UIBase
         mFrameView.Show(playerBanks);
         mPositionView.Visible = false;
         mStyleView.Hide();
+
+        UI3DCreateRole.Get.Hide();
     }
 
     public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int showNum)
@@ -57,6 +41,8 @@ public class UICreateRole : UIBase
         mFrameView.Show(playerBanks,showNum);
         mPositionView.Visible = false;
         mStyleView.Hide();
+
+        UI3DCreateRole.Get.Hide();
     }
 
     public void ShowPositionView()
@@ -66,6 +52,8 @@ public class UICreateRole : UIBase
         mFrameView.Hide();
         mPositionView.Visible = true;
         mStyleView.Hide();
+
+        UI3DCreateRole.Get.Show();
     }
 
     public void ShowStyleView(EPlayerPostion pos)
@@ -75,6 +63,8 @@ public class UICreateRole : UIBase
         mFrameView.Hide();
         mPositionView.Visible = false;
         mStyleView.Show(pos);
+
+        UI3DCreateRole.Get.Show();
     }
 
     public void Hide()
@@ -112,11 +102,6 @@ public class UICreateRole : UIBase
 		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
     }
 
-	protected override void InitCom()
-	{
-	    
-    }
-
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
         int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
     {
@@ -143,10 +128,10 @@ public class UICreateRole : UIBase
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         model.transform.localScale = Vector3.one;
-        model.layer = LayerMask.NameToLayer("UI");
+        model.layer = LayerMask.NameToLayer("UI3D");
         foreach (Transform child in model.transform)
         {
-            child.gameObject.layer = LayerMask.NameToLayer("UI");
+            child.gameObject.layer = LayerMask.NameToLayer("UI3D");
         }
 
         return model;

@@ -57,7 +57,7 @@ public class UICreateRoleStyleViewGroup : MonoBehaviour
 
         mEquip = equip;
         mItems = items;
-
+        /*
         TitleLabel.text = mItems[0].Name;
 
         for(int i = 0; i < Buttons.Length; i++)
@@ -71,7 +71,7 @@ public class UICreateRoleStyleViewGroup : MonoBehaviour
             Buttons[i].Show(mItems[i].Name);
         }
 
-        resetButtonSelected();
+        resetButtonSelected();*/
     }
 
     private void resetButtonSelected()
@@ -86,19 +86,19 @@ public class UICreateRoleStyleViewGroup : MonoBehaviour
 
     public void Play()
     {
-        Slider.gameObject.SetActive(true);
-        Slider.fillAmount = 0;
+//        Slider.gameObject.SetActive(true);
+//        Slider.fillAmount = 0;
 
-        ButtonGroup.SetActive(true);
+//        ButtonGroup.SetActive(true);
 
-        mElapsedTime = 0;
-        mIsPlaying = true;
+//        mElapsedTime = 0;
+//        mIsPlaying = true;
     }
 
     public void Hide()
     {
-        Slider.gameObject.SetActive(false);
-        ButtonGroup.SetActive(false);
+//        Slider.gameObject.SetActive(false);
+//        ButtonGroup.SetActive(false);
 
         mIsPlaying = false;
     }

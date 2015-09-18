@@ -80,13 +80,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         else
             Debug.LogErrorFormat("UnSupport Position:{0}", pos);
 
-//        mBodyItemIDs = CreateRoleDataMgr.Ins.GetBody(pos);
-
         mEquips.Clear();
 
-        //        TItemData[] items = findItems(mBodyItemIDs);
-        //        mEquips.Add(EEquip.Body, items[0]);
-
+        /*
         TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
         mEquips.Add(EEquip.Hair, items[0]);
         HairGroup.Init(EEquip.Hair, items);
@@ -112,7 +108,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         mEquips.Add(EEquip.Body, items[0]);
         BodyGroup.Init(EEquip.Body, items);
         BodyGroup.Hide();
-
+        */
         mCurrentEquip = EEquip.Hair;
     }
 
@@ -217,7 +213,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 			GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.Player.Init();
 			GameData.SaveTeam();
-			UICreateRole.Visible = false;
+			UICreateRole.Get.Hide();
 			
 			if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(SceneName.Lobby);

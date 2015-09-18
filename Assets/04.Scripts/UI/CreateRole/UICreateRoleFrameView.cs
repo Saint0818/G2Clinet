@@ -126,7 +126,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         if(GameData.Team.Player.RoleIndex == data.RoleIndex)
         {
             // 是相同的角色, 直接進入大廳.
-            UICreateRole.Visible = false;
+            UICreateRole.Get.Hide();;
             if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
                 SceneMgr.Get.ChangeLevel(SceneName.Lobby);
             else
@@ -152,7 +152,7 @@ public class UICreateRoleFrameView : MonoBehaviour
             GameData.Team.Player.Init();
             GameData.SaveTeam();
 
-            UICreateRole.Visible = false;
+            UICreateRole.Get.Hide();
             if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
                 SceneMgr.Get.ChangeLevel(SceneName.Lobby);
             else
