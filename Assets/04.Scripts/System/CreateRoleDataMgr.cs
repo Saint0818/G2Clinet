@@ -12,7 +12,7 @@ public class CreateRoleDataMgr
         get { return INSTANCE; }
     }
 
-    private readonly Dictionary<EPlayerPostion, List<int>> mColors = new Dictionary<EPlayerPostion, List<int>>();
+    private readonly Dictionary<EPlayerPostion, List<int>> mBodies = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mHairs = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mCloths = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mPants = new Dictionary<EPlayerPostion, List<int>>();
@@ -25,19 +25,19 @@ public class CreateRoleDataMgr
         TCreateRoleItems[] items = (TCreateRoleItems[])JsonConvert.DeserializeObject(jsonText, typeof(TCreateRoleItems[]));
         foreach(var item in items)
         {
-            mColors[EPlayerPostion.C].Add(item.ColorC);
+            mBodies[EPlayerPostion.C].Add(item.ColorC);
             mHairs[EPlayerPostion.C].Add(item.HairC);
             mCloths[EPlayerPostion.C].Add(item.ClothC);
             mPants[EPlayerPostion.C].Add(item.PantsC);
             mShoes[EPlayerPostion.C].Add(item.ShoesC);
 
-            mColors[EPlayerPostion.F].Add(item.ColorF);
+            mBodies[EPlayerPostion.F].Add(item.ColorF);
             mHairs[EPlayerPostion.F].Add(item.HairF);
             mCloths[EPlayerPostion.F].Add(item.ClothF);
             mPants[EPlayerPostion.F].Add(item.PantsF);
             mShoes[EPlayerPostion.F].Add(item.ShoesF);
 
-            mColors[EPlayerPostion.G].Add(item.ColorG);
+            mBodies[EPlayerPostion.G].Add(item.ColorG);
             mHairs[EPlayerPostion.G].Add(item.HairG);
             mCloths[EPlayerPostion.G].Add(item.ClothG);
             mPants[EPlayerPostion.G].Add(item.PantsG);
@@ -49,7 +49,7 @@ public class CreateRoleDataMgr
 
     public void Clear()
     {
-        mColors.Clear();
+        mBodies.Clear();
         mHairs.Clear();
         mCloths.Clear();
         mPants.Clear();
@@ -57,7 +57,7 @@ public class CreateRoleDataMgr
 
         foreach(EPlayerPostion pos in Enum.GetValues(typeof(EPlayerPostion)))
         {
-            mColors.Add(pos, new List<int>());
+            mBodies.Add(pos, new List<int>());
             mHairs.Add(pos, new List<int>());
             mCloths.Add(pos, new List<int>());
             mPants.Add(pos, new List<int>());
@@ -67,7 +67,7 @@ public class CreateRoleDataMgr
 
     public int[] GetBody(EPlayerPostion pos)
     {
-        return mColors[pos].ToArray();
+        return mBodies[pos].ToArray();
     }
 
     public int[] GetHairs(EPlayerPostion pos)
@@ -92,7 +92,7 @@ public class CreateRoleDataMgr
 
 	public int GetBodyCount(EPlayerPostion pos)
 	{
-		return mColors[pos].Count;
+		return mBodies[pos].Count;
 	}
 	
 	public int GetHairsCount(EPlayerPostion pos)
@@ -117,8 +117,8 @@ public class CreateRoleDataMgr
 
 	public int Body(EPlayerPostion pos, int index)
 	{
-		if (index >= 0 && index < mColors[pos].Count)
-			return mColors[pos][index];
+		if (index >= 0 && index < mBodies[pos].Count)
+			return mBodies[pos][index];
 		else
 			return 0;
 	}

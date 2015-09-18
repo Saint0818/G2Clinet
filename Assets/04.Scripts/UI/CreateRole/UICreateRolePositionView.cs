@@ -23,8 +23,10 @@ public class UICreateRolePositionView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
+        Visible = false;
+
         // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
-        mGuardModel = UICreateRole.CreateModel(ModelPreview, "G", 1, 
+        mGuardModel = UICreateRole.CreateModel(ModelPreview, "G", 1,
             CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0],
             CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0],
             CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0],

@@ -44,20 +44,20 @@ public class UICreateRoleStyleView : MonoBehaviour
         mGroups.Add(EEquip.Shoes, ShoesGroup);
         mGroups.Add(EEquip.Body, BodyGroup);
 
-        HairGroup.OnTitleClickListener += onGroupTitleClick;
-        HairGroup.OnEquipClickListener += onEquipClick;
-
-        ClothGroup.OnTitleClickListener += onGroupTitleClick;
-        ClothGroup.OnEquipClickListener += onEquipClick;
-
-        PantsGroup.OnTitleClickListener += onGroupTitleClick;
-        PantsGroup.OnEquipClickListener += onEquipClick;
-
-        ShoesGroup.OnTitleClickListener += onGroupTitleClick;
-        ShoesGroup.OnEquipClickListener += onEquipClick;
-
-        BodyGroup.OnTitleClickListener += onGroupTitleClick;
-        BodyGroup.OnEquipClickListener += onEquipClick;
+//        HairGroup.OnTitleClickListener += onGroupTitleClick;
+//        HairGroup.OnEquipClickListener += onEquipClick;
+//
+//        ClothGroup.OnTitleClickListener += onGroupTitleClick;
+//        ClothGroup.OnEquipClickListener += onEquipClick;
+//
+//        PantsGroup.OnTitleClickListener += onGroupTitleClick;
+//        PantsGroup.OnEquipClickListener += onEquipClick;
+//
+//        ShoesGroup.OnTitleClickListener += onGroupTitleClick;
+//        ShoesGroup.OnEquipClickListener += onEquipClick;
+//
+//        BodyGroup.OnTitleClickListener += onGroupTitleClick;
+//        BodyGroup.OnEquipClickListener += onEquipClick;
     }
 
     public void Show(EPlayerPostion pos)

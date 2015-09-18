@@ -21,7 +21,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
 
-    private UICreateRolePlayerFrame.Data mDeleteData;
+//    private UICreateRolePlayerFrame.Data mDeleteData;
 
     /// <summary>
     /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
@@ -38,7 +38,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
-        ConfirmDialog.OnCancelClickListener += onCancelDelete;
+//        ConfirmDialog.OnCancelClickListener += onCancelDelete;
 
         ShowNum = DefaultShowNum;
     }
@@ -179,27 +179,28 @@ public class UICreateRoleFrameView : MonoBehaviour
         if(isLock)
             return;
 
-        mDeleteData = data;
+//        mDeleteData = data;
         
-        ConfirmDialog.Show();
+        ConfirmDialog.Show(data);
     }
 
-    private void onConfirmDelete()
+    private void onConfirmDelete(object extraInfo)
     {
 //        Debug.Log("onConfirmDelete");
         
         // 做刪除角色流程.
         WWWForm form = new WWWForm();
-        form.AddField("RoleIndex", mDeleteData.RoleIndex);
+        UICreateRolePlayerFrame.Data data = (UICreateRolePlayerFrame.Data)extraInfo;
+        form.AddField("RoleIndex", data.RoleIndex);
 
         SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
     }
 
-    private void onCancelDelete()
-    {
+//    private void onCancelDelete()
+//    {
 //        Debug.Log("onCancelDelete");
-        mDeleteData = new UICreateRolePlayerFrame.Data();
-    }
+//        mDeleteData = new UICreateRolePlayerFrame.Data();
+//    }
 
     private void waitDeletePlayer(bool ok, WWW www)
     {

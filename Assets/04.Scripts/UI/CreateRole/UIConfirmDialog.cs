@@ -5,10 +5,13 @@ using UnityEngine;
 public class UIConfirmDialog : MonoBehaviour
 {
     public delegate void Action();
-    public event Action OnYesListener;
+    public delegate void Action2(object extraInfo);
+    public event Action2 OnYesListener;
     public event Action OnCancelClickListener;
 
     public GameObject Window;
+
+    private object mExtraInfo;
 
     [UsedImplicitly]
     private void Awake()
@@ -16,9 +19,10 @@ public class UIConfirmDialog : MonoBehaviour
         Hide();
     }
 
-    public void Show()
+    public void Show(object extraInfo = null)
     {
         Window.SetActive(true);
+        mExtraInfo = extraInfo;
     }
 
     public void Hide()
@@ -31,7 +35,7 @@ public class UIConfirmDialog : MonoBehaviour
         Hide();
 
         if(OnYesListener != null)
-            OnYesListener();
+            OnYesListener(mExtraInfo);
     }
 
     public void OnCancelClick()

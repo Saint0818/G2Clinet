@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,9 +37,9 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
     private readonly Dictionary<EPlayerPostion, string> mPosNames = new Dictionary<EPlayerPostion, string>
     {
-        { EPlayerPostion.G, "Guard"},
-        { EPlayerPostion.F, "Forward"},
-        { EPlayerPostion.C, "Center"}
+        { EPlayerPostion.G, "Labelguard"},
+        { EPlayerPostion.F, "Labelforward"},
+        { EPlayerPostion.C, "Labelcenter"}
     };
         
     [FormerlySerializedAs("PlusButton")]
@@ -50,15 +49,13 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public UISprite BGRight;
 
     public GameObject PlayerInfo;
-    public UILabel PosLabel;
+    public UISprite PosSprite;
     public UILabel NameLabel;
     public UILabel LevelLabel;
 
     private const string LockSpriteName = "Icon_lock";
     private const string LockBGSpriteName = "BtnLocked";
 
-//    [HideInInspector] public string LockButtonSpriteName;
-//    [HideInInspector] public string LockBGSpriteName;
     private bool mIsLock;
 
     private const string AddSpriteName = "Icon_Create";
@@ -125,7 +122,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         RemoveButton.SetActive(true);
         PlayerInfo.SetActive(true);
 
-        PosLabel.text = mPosNames[mData.Position];
+        PosSprite.spriteName = mPosNames[mData.Position];
         NameLabel.text = mData.Name;
         LevelLabel.text = mData.Level.ToString();
 

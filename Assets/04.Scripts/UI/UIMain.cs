@@ -140,6 +140,9 @@ public class UIMain : UIBase {
             }
             Visible = false;
 
+            // 因為現在創角 UI 並沒有擋住後面的介面, 所以我暫時需要將模型關閉.
+            ModelManager.Get.PlayerInfoModel.SetActive(false);
+
             var data = UICreateRole.Convert(playerBanks);
             if(data != null)
                 UICreateRole.Get.ShowFrameView(data, GameData.Team.PlayerNum);
