@@ -145,6 +145,23 @@ public class UIBase: MonoBehaviour
 			Debug.Log("Can not find path " + path);
 	}
 
+	public static void SetBtnFunReName(string path, EventDelegate.Callback callBack, string reName = "")
+	{
+		GameObject obj = GameObject.Find(path);
+		if (obj) {
+			UIButton btn = obj.GetComponent<UIButton>();
+			if (btn) {
+				btn.onClick.Add(new EventDelegate(callBack));
+
+				if(reName != string.Empty)
+					btn.name = reName;
+			}
+			else
+				Debug.Log("Can not find component UIButton in " + path);
+		} else
+			Debug.Log("Can not find path " + path);
+	}
+
 	public static void SetBtnFun(ref UIButton btn, EventDelegate.Callback callBack)
 	{
 		if (btn)

@@ -60,6 +60,7 @@ public class UIMain : UIBase {
 		SetBtnFun(UIName + "/TopLeft/ButtonAvatar", OnAvatar);
 		SetBtnFun(UIName + "/TopLeft/ButtonCreateRole", OnLookPlayerBank);
 		SetBtnFun(UIName + "/TopLeft/ButtonSkillFormation", OnSkillFormation);
+		SetBtnFun(UIName + "/TopLeft/ButtonAvatarFitted", OnAvatarFitted);
 
 		itemJoinRoom = Resources.Load("Prefab/UI/Items/ItemJoinRoom") as GameObject;
 		offsetRoom = GameObject.Find(UIName + "/TopRight/RoomInfo/View/Anchor/Offset");
@@ -161,6 +162,10 @@ public class UIMain : UIBase {
 
 	public void OnSkillFormation() {
 		UISkillFormation.UIShow(!UISkillFormation.Visible);
+	}
+
+	public void OnAvatarFitted() {
+		UIAvatarFitted.UIShow(!UIAvatarFitted.Visible);
 	}
 
 	public void OnOpenRoom() {

@@ -6,7 +6,7 @@ using GameStruct;
 
 public class GMTool : EditorWindow
 {
-	[MenuItem ("GameEditor/GMTool")]
+	[MenuItem ("Knight49/GMTool")]
 	private static void GMToolWindow()
     {
 		EditorWindow.GetWindowWithRect(typeof(GMTool), new Rect(0, 0, 600, 400), false, "GMTool").Show();
@@ -40,7 +40,9 @@ public class GMTool : EditorWindow
 
 	private int addItemCount = 1;
 	private int[] itemIds;
+	private int[] itemIds2;
 	private string mArea = "---------------------------------------------------------------------------------------------";
+	private int countprekind = 1;
 
 	private void ItemHandel()
 	{
@@ -95,6 +97,29 @@ public class GMTool : EditorWindow
 			form.AddField("RemoveAll", "true");
 			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
 		}
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.LabelField(mArea);
+
+		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label("各部位＋ : "); 
+		countprekind = EditorGUILayout.IntField (countprekind, GUILayout.Width(30));
+		GUILayout.Label("個"); 
+
+		if (GUILayout.Button("Add", GUILayout.Width(200)))
+		{
+			int partCount = 8;
+			itemIds2 = new int[partCount * countprekind];
+			for(int i =0; i< itemIds2.Length; i++)
+				itemIds2[i] = (int)(i / countprekind) * 1000 + (i % countprekind) + 1;
+			
+			if(itemIds2 != null && itemIds2.Length > 0){
+				WWWForm form = new WWWForm();
+				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds2));
+				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
+			}
+			else
+				ShowHint("請設定Item數量");
+		}
 
 		EditorGUILayout.EndHorizontal();
 	}
@@ -106,7 +131,7 @@ public class GMTool : EditorWindow
 			ShowHint("Server Return : " + www.text);
 
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			
+			GameData.Team.Items = team.Items;
 			if(team.Items.Length > 0)
 				for(int i = 0; i < team.Items.Length; i++)
 					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
