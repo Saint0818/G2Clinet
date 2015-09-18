@@ -80,29 +80,6 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-//    private void updateModel(EPlayerPostion pos)
-//    {
-//        mGuardModel.SetActive(false);
-//        mForwardModel.SetActive(false);
-//        mCenterModel.SetActive(false);
-//
-//        switch (pos)
-//        {
-//            case EPlayerPostion.G:
-//                mGuardModel.SetActive(true);
-//                break;
-//            case EPlayerPostion.F:
-//                mForwardModel.SetActive(true);
-//                break;
-//            case EPlayerPostion.C:
-//                mCenterModel.SetActive(true);
-//                break;
-//
-//            default:
-//                throw new InvalidEnumArgumentException(pos.ToString());
-//        }
-//    }
-
     public bool Visible
     {
         set
@@ -111,50 +88,47 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public void OnGuardClicked()
+    public void OnGuardClick()
     {
         if(UIToggle.current.value)
         {
             mCurrentPostion = EPlayerPostion.G;
             updateUI(mCurrentPostion);
-//            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.G);
         }
     }
 
-    public void OnForwardClicked()
+    public void OnForwardClick()
     {
         if(UIToggle.current.value)
         {
             mCurrentPostion = EPlayerPostion.F;
 
             updateUI(mCurrentPostion);
-            //            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.F);
         }
     }
 
-    public void OnCenterClicked()
+    public void OnCenterClick()
     {
         if(UIToggle.current.value)
         {
             mCurrentPostion = EPlayerPostion.C;
 
             updateUI(mCurrentPostion);
-            //            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.C);
         }
     }
 
-    public void OnBackClicked()
+    public void OnBackClick()
     {
         GetComponent<UICreateRole>().ShowFrameView();
     }
 
-    public void OnNextClicked()
+    public void OnNextClick()
     {
         GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion);
     }
