@@ -8,9 +8,9 @@ public class UICreateRolePositionView : MonoBehaviour
     public GameObject Window;
     public Transform ModelPreview;
 
-    public UILabel PosGLabel;
-    public UILabel PosFLabel;
-    public UILabel PosCLabel;
+//    public UILabel PosGLabel;
+//    public UILabel PosFLabel;
+//    public UILabel PosCLabel;
     public UILabel PosNameLabel;
     public UILabel PosDescriptionLabel;
 
@@ -60,17 +60,17 @@ public class UICreateRolePositionView : MonoBehaviour
         switch(pos)
         {
             case EPlayerPostion.G:
-                PosGLabel.text = TextConst.S(21);
+//                PosGLabel.text = TextConst.S(21);
                 PosNameLabel.text = TextConst.S(15);
                 PosDescriptionLabel.text = TextConst.S(18);
                 break;
             case EPlayerPostion.F:
-                PosFLabel.text = TextConst.S(22);
+//                PosFLabel.text = TextConst.S(22);
                 PosNameLabel.text = TextConst.S(16);
                 PosDescriptionLabel.text = TextConst.S(19);
                 break;
             case EPlayerPostion.C:
-                PosCLabel.text = TextConst.S(23);
+//                PosCLabel.text = TextConst.S(23);
                 PosNameLabel.text = TextConst.S(17);
                 PosDescriptionLabel.text = TextConst.S(20);
                 break;
