@@ -231,7 +231,7 @@ public class UISelectRole : UIBase {
         GameObject obj = GameObject.Find("UISelectRole/Right/InfoRange/UIAttributeHexagon");
 //        obj.GetComponent<UIAttributes>().Initialize(obj.transform, new Vector3(0, 0, 50), new Vector3(70, 70, 1));
         mUIAttributes = obj.GetComponent<UIAttributes>();
-        mUIAttributes.Play(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
+        mUIAttributes.PlayScale(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
 	}
 	
 	protected override void OnShow(bool isShow) {

@@ -13,7 +13,7 @@ using UnityEngine;
 /// <item> 將 UIAttributeHexagon prefab 拖曳到 NGUI UIRoot 底下. </item>
 /// <item> Call SetValue() 設定數值. </item>
 /// <item> Call SetVisible() 設定要不要顯示. </item>
-/// <item> Call Play() 播放 Animation. </item>
+/// <item> Call PlayScale() 播放 Animation. </item>
 /// </list>
 /// </remarks>
 public class UIAttributes : MonoBehaviour
@@ -21,6 +21,7 @@ public class UIAttributes : MonoBehaviour
     public GameObject Root;
     public GameObject Inside;
     public GameObject Outside;
+    public GameObject Click;
 
     public enum EAttribute
     {
@@ -32,13 +33,9 @@ public class UIAttributes : MonoBehaviour
         RebDnk = 5
     }
 
-//	private Mesh mMesh;
 	private readonly Material[] mMaterials = new Material[2];
-//	private GameObject mInside;
-//	private GameObject mOutside;
 	private readonly int[] mIndices = {0,1,2};
 	private readonly MeshFilter[] mMeshFilters = new MeshFilter[6];
-//	private readonly Vector3 mSource = new Vector3 (0, 0, 0);
 
     // 目前點的位置.
 	private Vector3 mCurrentA = new Vector3(2, 0, 0);
@@ -56,11 +53,8 @@ public class UIAttributes : MonoBehaviour
 	private readonly Vector3 mMaxE = new Vector3(-1, -Mathf.Sqrt(3), 0);
 	private readonly Vector3 mMaxF = new Vector3(1, -Mathf.Sqrt(3), 0);
 
-//	private GameObject mRootObj;
-
     public void SetVisible(bool visible)
     {
-//        mRootObj.SetActive(visible);
         Root.SetActive(visible);
     }
 
@@ -92,55 +86,6 @@ public class UIAttributes : MonoBehaviour
 
         SetVisible(false);
     }
-
-//	public void Initialize([NotNull]Transform parent, Vector3 localPos, Vector3 localScale)
-//    {
-//		mRootObj = new GameObject("RootObj");
-//		Triangle.name = "Triangle";
-//		mInside = new GameObject("Inside");
-//		mInside.name = "TriangleInside";
-//		mInside.transform.parent = mRootObj.transform;
-//		mOutside = new GameObject("Outside");
-//		mOutside.name = "TriangleOutside";
-//		mOutside.transform.parent = mRootObj.transform;
-//		mMaterials[0] = Resources.Load("Materials/TriangleMaterial_Outside") as Material;
-//		mMaterials[1] = Resources.Load("Materials/TriangleMaterial_Inside") as Material;
-
-//		mRootObj.layer = LayerMask.NameToLayer("UI");
-//		mInside.layer = LayerMask.NameToLayer("UI");
-//		mOutside.layer = LayerMask.NameToLayer("UI");
-
-//		createTriangle(mSource, B1, A1, 10, mMaterials[0]);
-//		createTriangle(mSource, C1, B1, 11, mMaterials[0]);
-//		createTriangle(mSource, D1, C1, 12, mMaterials[0]);
-//		createTriangle(mSource, E1, D1, 13, mMaterials[0]);
-//		createTriangle(mSource, F1, E1, 14, mMaterials[0]);
-//		createTriangle(mSource, A1, F1, 15, mMaterials[0]);
-//
-//		createTriangle(mSource, B, A, 0, mMaterials[1]);
-//		createTriangle(mSource, C, B, 1, mMaterials[1]);
-//		createTriangle(mSource, D, C, 2, mMaterials[1]);
-//		createTriangle(mSource, E, D, 3, mMaterials[1]);
-//		createTriangle(mSource, F, E, 4, mMaterials[1]);
-//		createTriangle(mSource, A, F, 5, mMaterials[1]);
-
-//		mInside.transform.localPosition = new Vector3 (0, 0, -0.01f);
-//		mInside.transform.localScale = new Vector3(0,0,0);
-//		mOutside.transform.localScale = new Vector3(0,0,0);
-//		Invoke("Play", 1.9f);
-
-//	    mRootObj.transform.parent = parent;
-//        mRootObj.transform.localPosition = localPos;
-//        mRootObj.transform.localScale = localScale;
-
-//        GameObject obj = GameObject.Find("UISelectRole/Right/InfoRange/AttributeHexagon");
-//        if(obj)
-//        {
-//			mRootObj.transform.parent = obj.transform;
-//			mRootObj.transform.localPosition = new Vector3(0, 0, 50);
-//			mRootObj.transform.localScale = new Vector3(70, 70, 1);
-//		}
-//	}
 
 	private void createTriangle(Vector3 v1, Vector3 v2, Vector3 v3, int index, Material ma)
     {
@@ -179,7 +124,7 @@ public class UIAttributes : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="delay"> 經過幾秒後才播放, 單位: 秒. </param>
-    public void Play(float delay)
+    public void PlayScale(float delay)
     {
         if(delay > 0)
             Invoke("Play", delay);
@@ -193,29 +138,13 @@ public class UIAttributes : MonoBehaviour
 
 		Inside.transform.localScale = new Vector3(0,0,0);
 		Outside.transform.localScale = new Vector3(0,0,0);
-//		Inside.transform.DOScale(new Vector3(1,1,1), 0.4f);
 		Inside.transform.DOScale(Vector3.one, 0.4f);
-//		Outside.transform.DOScale(new Vector3(1,1,1), 0.4f);
 		Outside.transform.DOScale(Vector3.one, 0.4f);
 	}
 
     [UsedImplicitly]
 	private void FixedUpdate()
     {
-        //		for(int i = 0; i < mOldValues.Count; i++)
-        //        {
-        //			float a = Mathf.Round(mOldValues[i] * 100.0f) / 100.0f;
-        //			float b = Mathf.Round(mNewValues[i] * 100.0f) / 100.0f;
-        ////			if(OldValueAy[i] != NewValueAy[i])
-        //			if(a != b)
-        //            {
-        //				if(mOldValues[i] >= mNewValues[i])
-        //					SetValue(i, mOldValues[i] - 0.01f, true);
-        //                else if(mOldValues[i] <= mNewValues[i])
-        //					SetValue(i, mOldValues[i] + 0.01f, true);
-        //			}
-        //		}
-
         foreach(EAttribute attribute in Enum.GetValues(typeof(EAttribute)))
         {
             float a = Mathf.Round(mOldValues[attribute] * 100.0f) / 100.0f;
@@ -231,7 +160,6 @@ public class UIAttributes : MonoBehaviour
     }
 
 	private readonly Dictionary<EAttribute, float> mOldValues = new Dictionary<EAttribute, float>();
-//	private readonly float[] mNewValues = new float[6];
 	private readonly Dictionary<EAttribute, float> mNewValues = new Dictionary<EAttribute, float>();
 
     /// <summary>
@@ -242,15 +170,7 @@ public class UIAttributes : MonoBehaviour
     /// <param name="isUpdateMesh"></param>
 	public void SetValue(EAttribute attribute, float percent, bool isUpdateMesh = false)
     {
-//		if (index >= 0 && index < mMeshFilters.Length)
-//        {
-
         percent = Mathf.Clamp01(percent);
-
-//		if(percent < 0)
-//			percent = 0;
-//		if(percent > 1)
-//			percent = 1;
 
 		if(!isUpdateMesh)
         {
@@ -300,7 +220,6 @@ public class UIAttributes : MonoBehaviour
 				break;
 			}
 		}
-//		}
 	}
 
 	private void updateMesh(Vector3 v1, Vector3 v2, Vector3 v3, int index)
@@ -318,4 +237,12 @@ public class UIAttributes : MonoBehaviour
 			mMeshFilters[index].mesh = mesh;
 		}
 	}
+
+    public bool ClickVisible
+    {
+        set
+        {
+            Click.SetActive(value);
+        }
+    }
 }

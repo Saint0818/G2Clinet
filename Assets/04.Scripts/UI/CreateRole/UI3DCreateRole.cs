@@ -2,6 +2,17 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
+/// <summary>
+/// 負責創角時 3D 相關的東西(模型等等).
+/// </summary>
+/// <remarks>
+/// <list type="number">
+/// <item> Call Get 取得 instance. </item>
+/// <item> Call Show() or Hide() 控制 UI 要不要顯示. </item>
+/// <item> Call Select() 通知某個 3D 模型被選擇. </item>
+/// <item> Call GetPlayerID() 取得資訊. </item>
+/// </list>
+/// </remarks>
 [DisallowMultipleComponent]
 public class UI3DCreateRole : UIBase
 {
@@ -9,6 +20,12 @@ public class UI3DCreateRole : UIBase
     private const string UIName = "UI3DCreateRole";
 
     private readonly Dictionary<EPlayerPostion, GameObject> mModels = new Dictionary<EPlayerPostion, GameObject>();
+    private readonly Dictionary<EPlayerPostion, int> mPlayerIDs = new Dictionary<EPlayerPostion, int>
+    {
+        {EPlayerPostion.G, 1},
+        {EPlayerPostion.F, 2},
+        {EPlayerPostion.C, 3}
+    };
 
     private UI3DCreateRoleHelp mHelp;
 
@@ -18,7 +35,7 @@ public class UI3DCreateRole : UIBase
         mHelp = GetComponent<UI3DCreateRoleHelp>();
 
         // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
-        var obj = UICreateRole.CreateModel(mHelp.GuardParent, "GuardModel", 1,
+        var obj = UICreateRole.CreateModel(mHelp.GuardParent, "GuardModel", mPlayerIDs[EPlayerPostion.G],
             CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0],
             CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0],
             CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0],
@@ -27,7 +44,7 @@ public class UI3DCreateRole : UIBase
         obj.AddComponent<SelectEvent>(); // 避免發生 Error.
         mModels.Add(EPlayerPostion.G, obj);
 
-        obj = UICreateRole.CreateModel(mHelp.ForwardParent, "ForwardModel", 2,
+        obj = UICreateRole.CreateModel(mHelp.ForwardParent, "ForwardModel", mPlayerIDs[EPlayerPostion.F],
             CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.F)[0],
             CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.F)[0],
             CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.F)[0],
@@ -36,7 +53,7 @@ public class UI3DCreateRole : UIBase
         obj.AddComponent<SelectEvent>(); // 避免發生 Error.
         mModels.Add(EPlayerPostion.F, obj);
 
-        obj = UICreateRole.CreateModel(mHelp.CenterParent, "CenterModel", 3,
+        obj = UICreateRole.CreateModel(mHelp.CenterParent, "CenterModel", mPlayerIDs[EPlayerPostion.C],
             CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.C)[0],
             CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.C)[0],
             CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.C)[0],
@@ -83,5 +100,10 @@ public class UI3DCreateRole : UIBase
 
             return instance;
         }
+    }
+
+    public int GetPlayerID(EPlayerPostion pos)
+    {
+        return mPlayerIDs[pos];
     }
 }

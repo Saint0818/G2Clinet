@@ -17,6 +17,8 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public Animator UIAnimator;
 
+    public UIAttributes Attributes;
+
     private delegate void Action();
 
     /// <summary>
@@ -24,25 +26,38 @@ public class UICreateRolePositionView : MonoBehaviour
     /// </summary>
     private const float HideAnimationTime = 0.8f;
 
+    /// <summary>
+    /// 第一次進入此頁面時, 要 delay 多久才播放 Attribute Scale 的動畫. 單位: 秒.
+    /// </summary>
+    private const float AttributeScaleDelayTime = 1;
+
+    /// <summary>
+    /// 屬性全滿的值.
+    /// </summary>
+    private const float AttributeMax = 200;
+
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
     [UsedImplicitly]
     private void Awake()
     {
         Visible = false;
+
+        mCurrentPostion = EPlayerPostion.G;
+
+        Attributes.ClickVisible = false;
     }
 
     [UsedImplicitly]
     private void Start()
     {
-        mCurrentPostion = EPlayerPostion.G;
-
-        updateUI(mCurrentPostion);
     }
 
-    private void updateUI(EPlayerPostion pos)
+    private void updateUI()
     {
-        switch(pos)
+        updateAttributes();
+
+        switch (mCurrentPostion)
         {
             case EPlayerPostion.G:
                 PosNameLabel.text = TextConst.S(15);
@@ -58,7 +73,7 @@ public class UICreateRolePositionView : MonoBehaviour
                 break;
 
             default:
-                throw new InvalidEnumArgumentException(pos.ToString());
+                throw new InvalidEnumArgumentException(mCurrentPostion.ToString());
         }
     }
 
@@ -67,6 +82,11 @@ public class UICreateRolePositionView : MonoBehaviour
         set
         {
             Window.SetActive(value);
+            if(value)
+            {
+                updateUI();
+                Attributes.PlayScale(AttributeScaleDelayTime);
+            }
         }
     }
 
@@ -75,8 +95,9 @@ public class UICreateRolePositionView : MonoBehaviour
         if(UIToggle.current.value)
         {
             mCurrentPostion = EPlayerPostion.G;
-            updateUI(mCurrentPostion);
 
+            updateUI();
+            
             UI3DCreateRole.Get.Select(EPlayerPostion.G);
         }
     }
@@ -87,7 +108,7 @@ public class UICreateRolePositionView : MonoBehaviour
         {
             mCurrentPostion = EPlayerPostion.F;
 
-            updateUI(mCurrentPostion);
+            updateUI();
 
             UI3DCreateRole.Get.Select(EPlayerPostion.F);
         }
@@ -99,7 +120,7 @@ public class UICreateRolePositionView : MonoBehaviour
         {
             mCurrentPostion = EPlayerPostion.C;
 
-            updateUI(mCurrentPostion);
+            updateUI();
 
             UI3DCreateRole.Get.Select(EPlayerPostion.C);
         }
@@ -131,5 +152,34 @@ public class UICreateRolePositionView : MonoBehaviour
         yield return new WaitForSeconds(HideAnimationTime);
 
         action();
+    }
+
+    private void updateAttributes()
+    {
+        int playerID = UI3DCreateRole.Get.GetPlayerID(mCurrentPostion);
+        if(GameData.DPlayers.ContainsKey(playerID))
+        {
+            var player = GameData.DPlayers[playerID];
+
+            var value = player.Strength + player.Block;
+            Attributes.SetValue(UIAttributes.EAttribute.StrBlk, value / AttributeMax);
+
+            value = player.Defence + player.Steal;
+            Attributes.SetValue(UIAttributes.EAttribute.DefStl, value / AttributeMax);
+
+            value = player.Dribble + player.Pass;
+            Attributes.SetValue(UIAttributes.EAttribute.DrbPass, value / AttributeMax);
+
+            value = player.Speed + player.Stamina;
+            Attributes.SetValue(UIAttributes.EAttribute.SpdSta, value / AttributeMax);
+
+            value = player.Point2 + player.Point3;
+            Attributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / AttributeMax);
+
+            value = player.Rebound + player.Dunk;
+            Attributes.SetValue(UIAttributes.EAttribute.RebDnk, value / AttributeMax);
+        }
+        else
+            Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);
     }
 }
