@@ -82,33 +82,32 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         mEquips.Clear();
 
-        /*
         TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
         mEquips.Add(EEquip.Hair, items[0]);
-        HairGroup.Init(EEquip.Hair, items);
-        HairGroup.Play();
-        HairGroup.SetSelected();
+//        HairGroup.Init(EEquip.Hair, items);
+//        HairGroup.Play();
+//        HairGroup.SetSelected();
 
         items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
         mEquips.Add(EEquip.Cloth, items[0]);
-        ClothGroup.Init(EEquip.Cloth, items);
-        ClothGroup.Hide();
+//        ClothGroup.Init(EEquip.Cloth, items);
+//        ClothGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
         mEquips.Add(EEquip.Pants, items[0]);
-        PantsGroup.Init(EEquip.Pants, items);
-        PantsGroup.Hide();
+//        PantsGroup.Init(EEquip.Pants, items);
+//        PantsGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
         mEquips.Add(EEquip.Shoes, items[0]);
-        ShoesGroup.Init(EEquip.Shoes, items);
-        ShoesGroup.Hide();
+//        ShoesGroup.Init(EEquip.Shoes, items);
+//        ShoesGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
         mEquips.Add(EEquip.Body, items[0]);
-        BodyGroup.Init(EEquip.Body, items);
-        BodyGroup.Hide();
-        */
+//        BodyGroup.Init(EEquip.Body, items);
+//        BodyGroup.Hide();
+
         mCurrentEquip = EEquip.Hair;
     }
 
@@ -176,12 +175,12 @@ public class UICreateRoleStyleView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    public void OnBackClicked()
+    public void OnBackClick()
     {
         GetComponent<UICreateRole>().ShowPositionView();
     }
 
-    public void OnNextClicked()
+    public void OnNextClick()
     {
         int[] equipmentItemIDs = new int[8];
         equipmentItemIDs[0] = mEquips[EEquip.Body].ID;

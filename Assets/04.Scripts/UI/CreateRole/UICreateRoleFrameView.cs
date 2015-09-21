@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System.Collections;
+using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -15,13 +16,16 @@ using UnityEngine;
 public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
-    public UICreateRolePlayerFrame[] Frames;
+    public UICreateRolePlayerFrame[] Slots;
     public UIConfirmDialog ConfirmDialog;
 
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
 
-//    private UICreateRolePlayerFrame.Data mDeleteData;
+    /// <summary>
+    /// Slot 點擊時, 撥動作的等待時間.(要等動作撥完, 才進入下一個階段)
+    /// </summary>
+    private const float SlotAnimationTime = 0.9f;
 
     /// <summary>
     /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
@@ -31,14 +35,13 @@ public class UICreateRoleFrameView : MonoBehaviour
     [UsedImplicitly]
 	private void Awake()
     {
-        for(int i = 0; i < Frames.Length; i++)
+        for(int i = 0; i < Slots.Length; i++)
         {
-            Frames[i].OnClickListener += onSlotClick;
-            Frames[i].OnDeleteListener += onDeletePlayer;
+            Slots[i].OnClickListener += onSlotClick;
+            Slots[i].OnDeleteListener += onDeletePlayer;
         }
 
         ConfirmDialog.OnYesListener += onConfirmDelete;
-//        ConfirmDialog.OnCancelClickListener += onCancelDelete;
 
         ShowNum = DefaultShowNum;
     }
@@ -62,9 +65,9 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private void updateLockUI(int showNum)
     {
-        for(int i = showNum; i < Frames.Length; i++)
+        for(int i = showNum; i < Slots.Length; i++)
         {
-            Frames[i].SetLock();
+            Slots[i].SetLock();
         }
     }
 
@@ -83,14 +86,14 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         Window.SetActive(true);
 
-        for(int i = 0; i < Frames.Length; i++)
+        for(int i = 0; i < Slots.Length; i++)
         {
-            Frames[i].Clear();
+            Slots[i].Clear();
 
             if(i >= data.Length)
                 continue;
 
-            Frames[i].SetData(data[i]);
+            Slots[i].SetData(data[i]);
         }
     }
 
@@ -111,22 +114,35 @@ public class UICreateRoleFrameView : MonoBehaviour
         Window.SetActive(false);
     }
 
-    private void onSlotClick(UICreateRolePlayerFrame.Data data, bool isLock)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"> 哪一個 slot 被點擊. </param>
+    /// <param name="data"> 該 Slot 的角色資訊. </param>
+    /// <param name="isLock"> 該 Slot 是否是鎖住的狀態. </param>
+    private void onSlotClick(int index, UICreateRolePlayerFrame.Data data, bool isLock)
     {
         if(isLock)
             return;
+
+        StartCoroutine(runNexAction(index, data));
+    }
+
+    private IEnumerator runNexAction(int index, UICreateRolePlayerFrame.Data data)
+    {
+        playAnimation(index);
+
+        yield return new WaitForSeconds(SlotAnimationTime);
 
         if(!data.IsValid())
         {
             // 沒有資料, 所以進入創角流程.
             GetComponent<UICreateRole>().ShowPositionView();
-            return;
         }
-
-        if(GameData.Team.Player.RoleIndex == data.RoleIndex)
+        else if(GameData.Team.Player.RoleIndex == data.RoleIndex)
         {
             // 是相同的角色, 直接進入大廳.
-            UICreateRole.Get.Hide();;
+            UICreateRole.Get.Hide();
             if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
                 SceneMgr.Get.ChangeLevel(SceneName.Lobby);
             else
@@ -138,6 +154,17 @@ public class UICreateRoleFrameView : MonoBehaviour
             WWWForm form = new WWWForm();
             form.AddField("RoleIndex", data.RoleIndex);
             SendHttp.Get.Command(URLConst.SelectRole, waitSelectPlayer, form, true);
+        }
+    }
+
+    private void playAnimation(int slotIndex)
+    {
+        for(int i = 0; i < Slots.Length; i++)
+        {
+            if(i == slotIndex)
+                Slots[i].GetComponent<Animator>().SetTrigger("Open");
+            else
+                Slots[i].GetComponent<Animator>().SetTrigger("Down");
         }
     }
 
@@ -172,15 +199,13 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeletePlayer(UICreateRolePlayerFrame.Data data, bool isLock)
+    private void onDeletePlayer(int index, UICreateRolePlayerFrame.Data data, bool isLock)
     {
         Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
 
         if(isLock)
             return;
 
-//        mDeleteData = data;
-        
         ConfirmDialog.Show(data);
     }
 
@@ -195,12 +220,6 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
     }
-
-//    private void onCancelDelete()
-//    {
-//        Debug.Log("onCancelDelete");
-//        mDeleteData = new UICreateRolePlayerFrame.Data();
-//    }
 
     private void waitDeletePlayer(bool ok, WWW www)
     {

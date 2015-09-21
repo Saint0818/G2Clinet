@@ -2,21 +2,17 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
+/// <summary>
+/// 創角介面:選擇位置介面.
+/// </summary>
 [DisallowMultipleComponent]
 public class UICreateRolePositionView : MonoBehaviour
 {
     public GameObject Window;
     public Transform ModelPreview;
 
-//    public UILabel PosGLabel;
-//    public UILabel PosFLabel;
-//    public UILabel PosCLabel;
     public UILabel PosNameLabel;
     public UILabel PosDescriptionLabel;
-
-//    private GameObject mGuardModel;
-//    private GameObject mForwardModel;
-//    private GameObject mCenterModel;
 
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
@@ -52,7 +48,6 @@ public class UICreateRolePositionView : MonoBehaviour
         mCurrentPostion = EPlayerPostion.G;
 
         updateUI(mCurrentPostion);
-//        updateModel(mCurrentPostion);
     }
 
     private void updateUI(EPlayerPostion pos)
@@ -60,17 +55,14 @@ public class UICreateRolePositionView : MonoBehaviour
         switch(pos)
         {
             case EPlayerPostion.G:
-//                PosGLabel.text = TextConst.S(21);
                 PosNameLabel.text = TextConst.S(15);
                 PosDescriptionLabel.text = TextConst.S(18);
                 break;
             case EPlayerPostion.F:
-//                PosFLabel.text = TextConst.S(22);
                 PosNameLabel.text = TextConst.S(16);
                 PosDescriptionLabel.text = TextConst.S(19);
                 break;
             case EPlayerPostion.C:
-//                PosCLabel.text = TextConst.S(23);
                 PosNameLabel.text = TextConst.S(17);
                 PosDescriptionLabel.text = TextConst.S(20);
                 break;
@@ -80,29 +72,6 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-//    private void updateModel(EPlayerPostion pos)
-//    {
-//        mGuardModel.SetActive(false);
-//        mForwardModel.SetActive(false);
-//        mCenterModel.SetActive(false);
-//
-//        switch (pos)
-//        {
-//            case EPlayerPostion.G:
-//                mGuardModel.SetActive(true);
-//                break;
-//            case EPlayerPostion.F:
-//                mForwardModel.SetActive(true);
-//                break;
-//            case EPlayerPostion.C:
-//                mCenterModel.SetActive(true);
-//                break;
-//
-//            default:
-//                throw new InvalidEnumArgumentException(pos.ToString());
-//        }
-//    }
-
     public bool Visible
     {
         set
@@ -111,7 +80,7 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public void OnGuardClicked()
+    public void OnGuardClick()
     {
         if(UIToggle.current.value)
         {
@@ -123,7 +92,7 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public void OnForwardClicked()
+    public void OnForwardClick()
     {
         if(UIToggle.current.value)
         {
@@ -136,7 +105,7 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public void OnCenterClicked()
+    public void OnCenterClick()
     {
         if(UIToggle.current.value)
         {
@@ -149,12 +118,12 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public void OnBackClicked()
+    public void OnBackClick()
     {
         GetComponent<UICreateRole>().ShowFrameView();
     }
 
-    public void OnNextClicked()
+    public void OnNextClick()
     {
         GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion);
     }

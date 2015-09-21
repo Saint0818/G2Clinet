@@ -31,7 +31,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         }
     }
 
-    public delegate void Action(Data bank, bool isLock);
+    public delegate void Action(int index, Data data, bool isLock);
     public event Action OnClickListener;
     public event Action OnDeleteListener; // 刪除角色的按鈕按下.
 
@@ -42,7 +42,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         { EPlayerPostion.C, "Labelcenter"}
     };
         
-    [FormerlySerializedAs("PlusButton")]
     public UISprite CenterButton;
     public GameObject RemoveButton;
     public UISprite BGLeft;
@@ -52,6 +51,11 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public UISprite PosSprite;
     public UILabel NameLabel;
     public UILabel LevelLabel;
+
+    /// <summary>
+    /// 方便外部使用者可以得知哪一個 Slot 被點擊了.
+    /// </summary>
+    public int Index;
 
     private const string LockSpriteName = "Icon_lock";
     private const string LockBGSpriteName = "BtnLocked";
@@ -74,7 +78,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         {EPlayerPostion.G, "BtnCreatedGuard"},
     };
 
-//    private TPlayerBank mPlayerBank;
     private Data mData;
 
     [UsedImplicitly]
@@ -93,7 +96,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
 
-//        mPlayerBank = new TPlayerBank();
         mData = new Data();
 
         mIsLock = false;
@@ -127,13 +129,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         LevelLabel.text = mData.Level.ToString();
 
         mIsLock = false;
-
-//        int bodyType = GameData.DPlayers[mPlayerBank.ID].BodyType;
-//        if(bodyType < 0)
-//        {
-//            Debug.LogErrorFormat("BodyType({0}) error.", bodyType);
-//            return;
-//        }
     }
 
     /// <summary>
@@ -142,7 +137,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public void OnClick()
     {
         if(OnClickListener != null)
-            OnClickListener(mData, mIsLock);
+            OnClickListener(Index, mData, mIsLock);
     }
 
     /// <summary>
@@ -153,6 +148,6 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 //        Debug.Log("OnDeleteClick");
 
         if(OnDeleteListener != null)
-            OnDeleteListener(mData, mIsLock);
+            OnDeleteListener(Index, mData, mIsLock);
     }
 }
