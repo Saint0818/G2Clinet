@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.ComponentModel;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -14,32 +15,21 @@ public class UICreateRolePositionView : MonoBehaviour
     public UILabel PosNameLabel;
     public UILabel PosDescriptionLabel;
 
+    public Animator UIAnimator;
+
+    private delegate void Action();
+
+    /// <summary>
+    /// 離開此頁面撥動畫的時間, 單位:秒.
+    /// </summary>
+    private const float HideAnimationTime = 0.8f;
+
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
     [UsedImplicitly]
     private void Awake()
     {
         Visible = false;
-
-//        // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
-//        mGuardModel = UICreateRole.CreateModel(ModelPreview, "G", 1,
-//            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0],
-//            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0],
-//            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0],
-//            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.G)[0],
-//            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.G)[0]);
-//        mForwardModel = UICreateRole.CreateModel(ModelPreview, "F", 2,
-//            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.F)[0],
-//            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.F)[0],
-//            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.F)[0],
-//            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.F)[0],
-//            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.F)[0]);
-//        mCenterModel = UICreateRole.CreateModel(ModelPreview, "C", 3,
-//            CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.C)[0],
-//            CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.C)[0],
-//            CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.C)[0],
-//            CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.C)[0],
-//            CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.C)[0]);
     }
 
     [UsedImplicitly]
@@ -86,7 +76,6 @@ public class UICreateRolePositionView : MonoBehaviour
         {
             mCurrentPostion = EPlayerPostion.G;
             updateUI(mCurrentPostion);
-//            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.G);
         }
@@ -99,7 +88,6 @@ public class UICreateRolePositionView : MonoBehaviour
             mCurrentPostion = EPlayerPostion.F;
 
             updateUI(mCurrentPostion);
-            //            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.F);
         }
@@ -112,7 +100,6 @@ public class UICreateRolePositionView : MonoBehaviour
             mCurrentPostion = EPlayerPostion.C;
 
             updateUI(mCurrentPostion);
-            //            updateModel(mCurrentPostion);
 
             UI3DCreateRole.Get.Select(EPlayerPostion.C);
         }
@@ -120,11 +107,29 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public void OnBackClick()
     {
+        StartCoroutine(playHideAnimation(showPreviousPage));
+    }
+
+    private void showPreviousPage()
+    {
         GetComponent<UICreateRole>().ShowFrameView();
     }
 
     public void OnNextClick()
     {
+        StartCoroutine(playHideAnimation(showNextPage));
+    }
+
+    private void showNextPage()
+    {
         GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion);
+    }
+
+    private IEnumerator playHideAnimation(Action action)
+    {
+        UIAnimator.SetTrigger("Close");
+        yield return new WaitForSeconds(HideAnimationTime);
+
+        action();
     }
 }
