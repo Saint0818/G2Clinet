@@ -86,6 +86,7 @@ public class UI3DCreateRole : UIBase
     public void Select(EPlayerPostion pos)
     {
         mHelp.SelectSFX.localPosition = mHelp.GetTransformByPos(pos).localPosition;
+        mHelp.SelectSFXAnimator.SetTrigger("Start");
     }
 
     public static UI3DCreateRole Get

@@ -8,6 +8,7 @@ public class UI3DCreateRoleHelp : MonoBehaviour
     public Transform ForwardParent;
     public Transform GuardParent;
     public Transform SelectSFX;
+    public Animator SelectSFXAnimator;
 
     private readonly Dictionary<EPlayerPostion, Transform> mPositions = new Dictionary<EPlayerPostion, Transform>();
 

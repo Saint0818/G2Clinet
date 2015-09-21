@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
-/// Avatar Setup View.
+/// 創角介面中的重要頁面, 設定角色外觀. 可以更換頭髮, 衣服, 鞋子, 褲子, 身體.
 /// </summary>
 [DisallowMultipleComponent]
 public class UICreateRoleStyleView : MonoBehaviour
@@ -27,6 +28,8 @@ public class UICreateRoleStyleView : MonoBehaviour
     public UICreateRoleStyleViewGroup ShoesGroup;
     public UICreateRoleStyleViewGroup BodyGroup;
 
+    public Animator UIAnimator;
+
     private GameObject mModel;
     private int mPlayerID;
 
@@ -34,7 +37,12 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private readonly Dictionary<EEquip, UICreateRoleStyleViewGroup> mGroups = new Dictionary<EEquip, UICreateRoleStyleViewGroup>();
     private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
-        
+
+    /// <summary>
+    /// 撥頁面隱藏時的時間, 單位: 秒.
+    /// </summary>
+    private const float HideAnimationTime = 1;
+
     [UsedImplicitly]
     private void Awake()
     {
@@ -177,10 +185,28 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnBackClick()
     {
+        StartCoroutine(playHideAnimation(showPreviousPage));
+    }
+
+    private void showPreviousPage()
+    {
         GetComponent<UICreateRole>().ShowPositionView();
     }
 
+    private IEnumerator playHideAnimation(CommonDelegateMethods.Action action)
+    {
+        UIAnimator.SetTrigger("Close");
+        yield return new WaitForSeconds(HideAnimationTime);
+
+        action();
+    }
+
     public void OnNextClick()
+    {
+        StartCoroutine(playHideAnimation(showNextPage));
+    }
+
+    private void showNextPage()
     {
         int[] equipmentItemIDs = new int[8];
         equipmentItemIDs[0] = mEquips[EEquip.Body].ID;
@@ -191,19 +217,19 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         GameData.Team.Player.ID = mPlayerID;
         GameData.Team.Player.Items = new GameStruct.TItem[equipmentItemIDs.Length];
-		for (int i = 0; i < equipmentItemIDs.Length; i++) 
-			GameData.Team.Player.Items[i].ID = equipmentItemIDs[i];
-		GameData.Team.Player.Init();
+        for (int i = 0; i < equipmentItemIDs.Length; i++)
+            GameData.Team.Player.Items[i].ID = equipmentItemIDs[i];
+        GameData.Team.Player.Init();
 
-		WWWForm form = new WWWForm();
+        WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
-		form.AddField("Name", GameData.Team.Player.Name);
-		form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
-		
-		SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
+        form.AddField("Name", GameData.Team.Player.Name);
+        form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
+
+        SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
     }
 
-	private void waitCreateRole(bool ok, WWW www)
+    private void waitCreateRole(bool ok, WWW www)
     {
 		if(ok)
         {
@@ -219,5 +245,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 			else
 				LobbyStart.Get.EnterLobby();
 		}
+        else
+		    Debug.LogError("Create Role fail!");
 	}
 }
