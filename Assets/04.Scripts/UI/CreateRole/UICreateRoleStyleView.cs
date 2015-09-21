@@ -68,25 +68,19 @@ public class UICreateRoleStyleView : MonoBehaviour
 //        BodyGroup.OnEquipClickListener += onEquipClick;
     }
 
-    public void Show(EPlayerPostion pos)
+    public void Show(EPlayerPostion pos, int playerID)
     {
         Window.SetActive(true);
 
-        initData(pos);
+        initData(pos, playerID);
 
-        updateModel();
+//        updateModel();
     }
 
-    private void initData(EPlayerPostion pos)
+    private void initData(EPlayerPostion pos, int playerID)
     {
-        if (pos == EPlayerPostion.G)
-            mPlayerID = 1;
-        else if (pos == EPlayerPostion.F)
-            mPlayerID = 2;
-        else if (pos == EPlayerPostion.C)
-            mPlayerID = 3;
-        else
-            Debug.LogErrorFormat("UnSupport Position:{0}", pos);
+//        mPlayerID = UI3DCreateRole.Get.GetPlayerID(pos);
+        mPlayerID = playerID;
 
         mEquips.Clear();
 
@@ -159,24 +153,24 @@ public class UICreateRoleStyleView : MonoBehaviour
         else
             mEquips.Add(equip, item);
 
-        updateModel();
+//        updateModel();
     }
 
-    private void updateModel()
-    {
-        if (mEquips.Count < 5)
-            return;
-
-        if (mModel)
-            Destroy(mModel);
-    
-        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID,
-            mEquips[EEquip.Body].ID,
-            mEquips[EEquip.Hair].ID,
-            mEquips[EEquip.Cloth].ID,
-            mEquips[EEquip.Pants].ID,
-            mEquips[EEquip.Shoes].ID);
-    }
+//    private void updateModel()
+//    {
+//        if (mEquips.Count < 5)
+//            return;
+//
+//        if (mModel)
+//            Destroy(mModel);
+//    
+//        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID,
+//            mEquips[EEquip.Body].ID,
+//            mEquips[EEquip.Hair].ID,
+//            mEquips[EEquip.Cloth].ID,
+//            mEquips[EEquip.Pants].ID,
+//            mEquips[EEquip.Shoes].ID);
+//    }
 
     public void Hide()
     {

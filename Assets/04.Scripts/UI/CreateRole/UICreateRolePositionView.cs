@@ -98,7 +98,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
             updateUI();
             
-            UI3DCreateRole.Get.Select(EPlayerPostion.G);
+            UI3DCreateRole.Get.PositionView.Select(EPlayerPostion.G);
         }
     }
 
@@ -110,7 +110,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
             updateUI();
 
-            UI3DCreateRole.Get.Select(EPlayerPostion.F);
+            UI3DCreateRole.Get.PositionView.Select(EPlayerPostion.F);
         }
     }
 
@@ -122,7 +122,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
             updateUI();
 
-            UI3DCreateRole.Get.Select(EPlayerPostion.C);
+            UI3DCreateRole.Get.PositionView.Select(EPlayerPostion.C);
         }
     }
 
@@ -143,7 +143,8 @@ public class UICreateRolePositionView : MonoBehaviour
 
     private void showNextPage()
     {
-        GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion);
+        var playerID = UI3DCreateRole.Get.PositionView.GetPlayerID(mCurrentPostion);
+        GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion, playerID);
     }
 
     private IEnumerator playHideAnimation(Action action)
@@ -156,7 +157,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
     private void updateAttributes()
     {
-        int playerID = UI3DCreateRole.Get.GetPlayerID(mCurrentPostion);
+        int playerID = UI3DCreateRole.Get.PositionView.GetPlayerID(mCurrentPostion);
         if(GameData.DPlayers.ContainsKey(playerID))
         {
             var player = GameData.DPlayers[playerID];

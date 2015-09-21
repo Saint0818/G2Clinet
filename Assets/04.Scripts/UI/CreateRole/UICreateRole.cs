@@ -53,18 +53,18 @@ public class UICreateRole : UIBase
         mPositionView.Visible = true;
         mStyleView.Hide();
 
-        UI3DCreateRole.Get.Show();
+        UI3DCreateRole.Get.ShowPositionView();
     }
 
-    public void ShowStyleView(EPlayerPostion pos)
+    public void ShowStyleView(EPlayerPostion pos, int playerID)
     {
         Show(true);
 
         mFrameView.Hide();
         mPositionView.Visible = false;
-        mStyleView.Show(pos);
+        mStyleView.Show(pos, playerID);
 
-        UI3DCreateRole.Get.Show();
+        UI3DCreateRole.Get.ShowStyleView(pos);
     }
 
     public void Hide()
