@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 57c1d4c398457004c8fc4b57db396c4c
-timeCreated: 1442549689
+guid: 820da3fb660ceb543aeeff658a3fe412
+timeCreated: 1442821377
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: CreateRole_SelectModel
+    100000: CreateRole_SelectModel
+    100002: //RootNode
     100004: Dummy001
     100006: Dummy002
     100008: Dummy003
@@ -27,8 +27,8 @@ ModelImporter:
     100038: Dummy018
     100040: Dummy_CyTop
     100042: Dummy_Pivot
-    400000: //RootNode
-    400002: CreateRole_SelectModel
+    400000: CreateRole_SelectModel
+    400002: //RootNode
     400004: Dummy001
     400006: Dummy002
     400008: Dummy003
@@ -49,11 +49,8 @@ ModelImporter:
     400038: Dummy018
     400040: Dummy_CyTop
     400042: Dummy_Pivot
-    2300000: //RootNode
-    2300002: CreateRole_SelectModel
-    3300000: //RootNode
-    3300002: CreateRole_SelectModel
     4300000: CreateRole_SelectModel
+    7400000: Take 001
     9500000: //RootNode
     13700000: CreateRole_SelectModel
   materials:
@@ -65,7 +62,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -76,13 +73,13 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 3
+    meshCompression: 0
     addColliders: 0
-    importBlendShapes: 1
+    importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
@@ -93,9 +90,9 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 0
+    normalImportMode: 2
     tangentImportMode: 2
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     human: []
