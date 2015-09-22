@@ -21,21 +21,20 @@ public class UICreateRoleStyleView : MonoBehaviour
     }
 
     public GameObject Window;
-    public Transform ModelPreview;
-    public UICreateRoleStyleViewGroup HairGroup;
-    public UICreateRoleStyleViewGroup ClothGroup;
-    public UICreateRoleStyleViewGroup PantsGroup;
-    public UICreateRoleStyleViewGroup ShoesGroup;
-    public UICreateRoleStyleViewGroup BodyGroup;
+    public UICreateRolePartButton HairBtn;
+    public UICreateRolePartButton ClothBtn;
+    public UICreateRolePartButton PantsBtn;
+    public UICreateRolePartButton ShoesBtn;
+    public UICreateRolePartButton BodyBtn;
 
     public Animator UIAnimator;
 
     private GameObject mModel;
     private int mPlayerID;
 
-    private EEquip mCurrentEquip = EEquip.Hair;
+    private EEquip mCurrentEquip = EEquip.Body;
 
-    private readonly Dictionary<EEquip, UICreateRoleStyleViewGroup> mGroups = new Dictionary<EEquip, UICreateRoleStyleViewGroup>();
+    private readonly Dictionary<EEquip, UICreateRolePartButton> mGroups = new Dictionary<EEquip, UICreateRolePartButton>();
     private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
 
     /// <summary>
@@ -46,26 +45,11 @@ public class UICreateRoleStyleView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        mGroups.Add(EEquip.Hair, HairGroup);
-        mGroups.Add(EEquip.Cloth, ClothGroup);
-        mGroups.Add(EEquip.Pants, PantsGroup);
-        mGroups.Add(EEquip.Shoes, ShoesGroup);
-        mGroups.Add(EEquip.Body, BodyGroup);
-
-//        HairGroup.OnTitleClickListener += onGroupTitleClick;
-//        HairGroup.OnEquipClickListener += onEquipClick;
-//
-//        ClothGroup.OnTitleClickListener += onGroupTitleClick;
-//        ClothGroup.OnEquipClickListener += onEquipClick;
-//
-//        PantsGroup.OnTitleClickListener += onGroupTitleClick;
-//        PantsGroup.OnEquipClickListener += onEquipClick;
-//
-//        ShoesGroup.OnTitleClickListener += onGroupTitleClick;
-//        ShoesGroup.OnEquipClickListener += onEquipClick;
-//
-//        BodyGroup.OnTitleClickListener += onGroupTitleClick;
-//        BodyGroup.OnEquipClickListener += onEquipClick;
+        mGroups.Add(EEquip.Hair, HairBtn);
+        mGroups.Add(EEquip.Cloth, ClothBtn);
+        mGroups.Add(EEquip.Pants, PantsBtn);
+        mGroups.Add(EEquip.Shoes, ShoesBtn);
+        mGroups.Add(EEquip.Body, BodyBtn);
     }
 
     public void Show(EPlayerPostion pos, int playerID)
@@ -78,36 +62,24 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void initData(EPlayerPostion pos, int playerID)
     {
-//        mPlayerID = UI3DCreateRole.Get.GetPlayerID(pos);
         mPlayerID = playerID;
 
         mEquips.Clear();
 
         TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
         mEquips.Add(EEquip.Hair, items[0]);
-//        HairGroup.Init(EEquip.Hair, items);
-//        HairGroup.Play();
-//        HairGroup.SetSelected();
 
         items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
         mEquips.Add(EEquip.Cloth, items[0]);
-//        ClothGroup.Init(EEquip.Cloth, items);
-//        ClothGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
         mEquips.Add(EEquip.Pants, items[0]);
-//        PantsGroup.Init(EEquip.Pants, items);
-//        PantsGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
         mEquips.Add(EEquip.Shoes, items[0]);
-//        ShoesGroup.Init(EEquip.Shoes, items);
-//        ShoesGroup.Hide();
 
         items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
         mEquips.Add(EEquip.Body, items[0]);
-//        BodyGroup.Init(EEquip.Body, items);
-//        BodyGroup.Hide();
 
         mCurrentEquip = EEquip.Hair;
     }
@@ -134,13 +106,13 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         mCurrentEquip = equip;
 
-        foreach(KeyValuePair<EEquip, UICreateRoleStyleViewGroup> pair in mGroups)
-        {
-            if(pair.Key == mCurrentEquip)
-                pair.Value.Play();
-            else
-                pair.Value.Hide();
-        }
+//        foreach(KeyValuePair<EEquip, UICreateRolePartButton> pair in mGroups)
+//        {
+//            if(pair.Key == mCurrentEquip)
+//                pair.Value.Play();
+//            else
+//                pair.Value.Hide();
+//        }
     }
 
     private void onEquipClick(EEquip equip, TItemData item)
