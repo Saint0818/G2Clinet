@@ -1,16 +1,22 @@
-﻿using JetBrains.Annotations;
+﻿using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 {
+    public UIScrollView ScrollView;
+
     [UsedImplicitly]
 	private void Start()
     {
 	
 	}
 
-    public void UpdateData(UICreateRoleStyleView.EEquip equip)
+    public void UpdateData(TItemData[] data)
     {
-        Debug.LogFormat("Equip:{0}", equip);
+        foreach(TItemData item in data)
+        {
+            Debug.LogFormat("Item:{0}", item);
+        }
     }
 }

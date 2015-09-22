@@ -29,12 +29,15 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public Animator UIAnimator;
 
-    private GameObject mModel;
     private int mPlayerID;
 
     private EEquip mCurrentEquip = EEquip.Body;
 
-    private readonly Dictionary<EEquip, UICreateRolePartButton> mGroups = new Dictionary<EEquip, UICreateRolePartButton>();
+//    private readonly Dictionary<EEquip, UICreateRolePartButton> mButtons = new Dictionary<EEquip, UICreateRolePartButton>();
+
+    /// <summary>
+    /// 目前球員穿搭的配件.
+    /// </summary>
     private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
 
     /// <summary>
@@ -45,11 +48,11 @@ public class UICreateRoleStyleView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        mGroups.Add(EEquip.Hair, HairBtn);
-        mGroups.Add(EEquip.Cloth, ClothBtn);
-        mGroups.Add(EEquip.Pants, PantsBtn);
-        mGroups.Add(EEquip.Shoes, ShoesBtn);
-        mGroups.Add(EEquip.Body, BodyBtn);
+//        mButtons.Add(EEquip.Hair, HairBtn);
+//        mButtons.Add(EEquip.Cloth, ClothBtn);
+//        mButtons.Add(EEquip.Pants, PantsBtn);
+//        mButtons.Add(EEquip.Shoes, ShoesBtn);
+//        mButtons.Add(EEquip.Body, BodyBtn);
     }
 
     public void Show(EPlayerPostion pos, int playerID)
@@ -68,20 +71,24 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
         mEquips.Add(EEquip.Hair, items[0]);
+        HairBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
         mEquips.Add(EEquip.Cloth, items[0]);
+        ClothBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
         mEquips.Add(EEquip.Pants, items[0]);
+        PantsBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
         mEquips.Add(EEquip.Shoes, items[0]);
+        ShoesBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
         mEquips.Add(EEquip.Body, items[0]);
-
-        mCurrentEquip = EEquip.Hair;
+        BodyBtn.SetData(items);
+        BodyBtn.SetSelected(); // 強制每次進入時, 都是 Body 按鈕被選擇.
     }
 
     private TItemData[] findItems(int[] itemIDs)
