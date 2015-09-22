@@ -2,11 +2,13 @@
 using System.Collections;
 using GameStruct;
 using System;
+using System.Collections.Generic;
 
 public struct TItemAvatar
 {
 	public int Index;
 	public int ID;
+	public int Position;
 	public string AbilityKind;
 	public string AbilityValue;
 	public GameObject gameobject;
@@ -107,6 +109,12 @@ public struct TItemAvatar
 	}
 }
 
+public struct TEquip
+{
+	public int ID;
+	public int Kind;
+}
+
 public class UIAvatarFitted : UIBase {
 	private static UIAvatarFitted instance = null;
 	private const string UIName = "UIAvatarFitted";
@@ -117,6 +125,8 @@ public class UIAvatarFitted : UIBase {
 	private UIGrid grid;
 	private UIScrollView scrollView;
 	private GameObject disableGroup;
+
+	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 
 	public static bool Visible {
 		get {
@@ -176,17 +186,66 @@ public class UIAvatarFitted : UIBase {
 		disableGroup.name = "disableGroup";
 		disableGroup.transform.parent = scrollView.transform;
 
+		InitEquips ();
+
 		isInit = true;
 	}
 
-	private int avatarPart = 0; 
+	private int avatarPart = 0;
+
+	private int GetItemKind(int id)
+	{
+		if (GameData.DItemData.ContainsKey (id)) {
+			return	GameData.DItemData[id].Kind;
+		} else {
+			Debug.LogError("Can not find ID in ItemData");
+			return -1;
+		}
+	}
+
+	private void InitEquips()
+	{
+		if (GameData.Team.Player.Items.Length > 0) {
+			for(int i = 0; i < GameData.Team.Player.Items.Length;i++)
+			{
+				int kind = GetItemKind(GameData.Team.Player.Items[i].ID);
+
+				if(kind > 0 && kind < 8 && !Equips.ContainsKey(GameData.Team.Player.Items[i].ID))
+				{
+					TEquip equip = new TEquip();
+					equip.ID = GameData.Team.Player.Items[i].ID;
+					equip.Kind = kind;
+					Equips.Add(equip.ID, equip);
+				}
+			}
+		}
+
+	}
 
 	public void DoAvatarTab()
 	{
 		if (int.TryParse (UIButton.current.name, out avatarPart)) {
-			if(CheckItemCount())
-				InitItems();	
+			if(CheckItemCount()){
+				InitItems();
+				InitEquipState();
+			}
 		}
+	}
+
+	private bool CheckSameEquip()
+	{
+		if (GameData.Team.Player.Items.Length > 0) {
+			if(Equips.Count > 0){
+				for(int i = 0; i < GameData.Team.Player.Items.Length; i++)
+					if(!Equips.ContainsKey(GameData.Team.Player.Items[i].ID))
+						return false;
+			}
+		} else {
+			if(Equips.Count > 0)
+				return false;
+		}
+	
+		return true;
 	}
 
 	private bool CheckItemCount()
@@ -205,11 +264,6 @@ public class UIAvatarFitted : UIBase {
 					else if(GameData.Team.Items.Length > items.Length){
 						Array.Resize(ref items, GameData.Team.Items.Length);
 					}
-
-					//check Visable
-					for(int i = 0; i < items.Length; i++){
-
-					}
 				}
 				return true;
 			}
@@ -220,7 +274,6 @@ public class UIAvatarFitted : UIBase {
 
 	private void InitItems()
 	{
-		int y = 0;
 		for(int i = 0; i < items.Length; i++){
 			if(items[i].gameobject == null){
 				items[i].gameobject = Instantiate(item) as GameObject;
@@ -229,17 +282,17 @@ public class UIAvatarFitted : UIBase {
 				items[i].gameobject.name = i.ToString();
 				items[i].DisablePool = disableGroup.gameObject.transform;
 				items[i].EnablePool = grid.gameObject.transform;
-//				items[i].Index = i.ToString();
 				items[i].Init();
 			}
 
 			if(items[i].ID != GameData.Team.Items[i].ID)
 			{
 				items[i].ID = GameData.Team.Items[i].ID;
+				items[i].Position = GameData.DItemData[items[i].ID].Position;
 				items[i].UseTime = GameData.Team.Items[i].UseTime;
 				items[i].Name =  GameData.DItemData[items[i].ID].Name;
 				items[i].Pic = GameData.DItemData[items[i].ID].Icon;
-				items[i].AbilityKind = GameData.DItemData[items[i].ID].Kind.ToString();
+				items[i].AbilityKind = GetItemKind(items[i].ID).ToString();
 			}
 
 			if(i >= GameData.Team.Items.Length)
@@ -247,15 +300,21 @@ public class UIAvatarFitted : UIBase {
 				items[i].Enable = false;
 			}
 			else {
-				if(GameData.DItemData.ContainsKey(items[i].ID) && GameData.DItemData[items[i].ID].Kind != avatarPart)
+				if(GameData.DItemData.ContainsKey(items[i].ID) && GetItemKind(items[i].ID) != avatarPart)
 				{
 					items[i].gameobject.transform.localPosition = Vector3.zero;
 					items[i].Enable = false;
 				}
 				else
 				{
+					#if UIAvatarFitted_ShowAll
 					items[i].Enable = true;
-					y++;
+					#else
+					if(items[i].Position != GameData.Team.Player.BodyType)
+						items[i].Enable = false;
+					else
+						items[i].Enable = true;
+					#endif
 				}
 			}
 		}
@@ -279,6 +338,31 @@ public class UIAvatarFitted : UIBase {
 			Debug.Log ("Buy id : " + index);
 	}
 
+	public void InitEquipState()
+	{
+		UnEquipAll();
+
+		if (GameData.Team.Player.Items.Length > 0) {
+			for(int i = 0; i < GameData.Team.Player.Items.Length; i++)
+			{
+				if(GameData.DItemData.ContainsKey(GameData.Team.Player.Items[i].ID) && 
+				   GetItemKind(GameData.Team.Player.Items[i].ID) == avatarPart){
+					for(int y = 0; y < items.Length; y++)
+					{
+						if(GameData.Team.Player.Items[i].ID == items[y].ID)
+							items[y].Equip = true;
+					}
+				}
+			}
+		} 
+	}
+
+	private void UnEquipAll()
+	{
+		for(int i = 0; i < items.Length;i++)
+			items[i].Equip = false;
+	}
+
 	public void OnEquip()
 	{
 		int index;
@@ -288,11 +372,24 @@ public class UIAvatarFitted : UIBase {
 			{
 				if(!items[index].Equip){
 					items[index].Equip = true;
+
+					if(!Equips.ContainsKey(items[index].ID))
+					{
+						TEquip equip = new TEquip();
+						equip.ID = items[index].ID;
+						equip.Kind = GetItemKind(items[index].ID);
+						Equips.Add(equip.ID, equip);
+					}
+
 					for(int i = 0; i < items.Length;i++)
 					{
 						//找出已裝備的Item
 						if(items[index].Enable && i != index)
+						{
 							items[i].Equip = false;
+							if(Equips.ContainsKey(items[i].ID))
+								Equips.Remove(items[i].ID);
+						}
 					}
 				}
 				else
@@ -312,8 +409,15 @@ public class UIAvatarFitted : UIBase {
 
 	private void DoSave()
 	{
-		//TODO: save serverdata
 		DoReturn ();
+
+		for (int i = 0; i < Equips.Count; i++) {
+			Debug.Log("** Equips : " + GameData.DItemData[Equips[i].ID].Name);
+		}
+			
+		if (!CheckSameEquip ()) {
+			Debug.LogWarning("save serverdata");
+		}
 	}
 
 	protected override void InitData() {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
 
@@ -43,6 +44,7 @@ public class GMTool : EditorWindow
 	private int[] itemIds2;
 	private string mArea = "---------------------------------------------------------------------------------------------";
 	private int countprekind = 1;
+	private int position = 0;
 
 	private void ItemHandel()
 	{
@@ -98,19 +100,48 @@ public class GMTool : EditorWindow
 			SendHttp.Get.Command(URLConst.GMRemoveItem, waitGMAddItem, form);
 		}
 		EditorGUILayout.EndHorizontal();
-		EditorGUILayout.LabelField(mArea);
 
+
+		PrePartAddItem ();
+		LimitPartAddItem();
+	}
+
+	//每部位加Item
+	private void PrePartAddItem()
+	{
+		EditorGUILayout.LabelField(mArea);
 		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label("位置： : "); 
+		position = EditorGUILayout.IntField (position, GUILayout.Width(30));
+		GUILayout.Label ("(中鋒: 0 、前鋒：1、後衛：２)");
+		
 		GUILayout.Label("各部位＋ : "); 
 		countprekind = EditorGUILayout.IntField (countprekind, GUILayout.Width(30));
 		GUILayout.Label("個"); 
-
+		
 		if (GUILayout.Button("Add", GUILayout.Width(200)))
 		{
 			int partCount = 8;
+			int findCount;
 			itemIds2 = new int[partCount * countprekind];
-			for(int i =0; i< itemIds2.Length; i++)
-				itemIds2[i] = (int)(i / countprekind) * 1000 + (i % countprekind) + 1;
+			
+			for(int i = 0; i < partCount;i++)
+			{
+				findCount = 0;
+				
+				foreach( KeyValuePair<int, TItemData> item in GameData.DItemData )
+				{
+					if(item.Value.Kind == i)
+					{
+						if(findCount < countprekind){
+							itemIds2[i * 10 + findCount] = item.Value.ID;
+							findCount++;
+						}
+						else
+							continue;
+					}
+				}
+			}
 			
 			if(itemIds2 != null && itemIds2.Length > 0){
 				WWWForm form = new WWWForm();
@@ -120,7 +151,86 @@ public class GMTool : EditorWindow
 			else
 				ShowHint("請設定Item數量");
 		}
+		
+		EditorGUILayout.EndHorizontal();
+	}
+	
+	//指定部位加Item
+	private int limitposition = 0;
+	private int limitcountprekind = 1;
+	private int limitItemkind = 0;
+	private int[] itemIds3;
 
+	private void LimitPartAddItem()
+	{
+		EditorGUILayout.LabelField(mArea);
+		EditorGUILayout.BeginHorizontal();
+
+		GUILayout.Label("位置:"); 
+		limitposition = EditorGUILayout.IntField (limitposition, GUILayout.Width(30));
+		GUILayout.Label ("(中鋒: 0 、前鋒：1、後衛：２)");
+
+		GUILayout.Label("部位:(Kind) "); 
+		limitItemkind = EditorGUILayout.IntField (limitItemkind, GUILayout.Width(30));
+
+		if (limitItemkind > 7)
+			ShowHint ("Error Kind : " + limitItemkind);
+		
+		GUILayout.Label("各部位＋ : "); 
+		limitcountprekind = EditorGUILayout.IntField (limitcountprekind, GUILayout.Width(30));
+		GUILayout.Label("個"); 
+		
+		if (GUILayout.Button("Add", GUILayout.Width(200)))
+		{
+			int findCount;
+//			itemIds3 = new int[limitcountprekind];
+			findCount = 0;
+			List<int> itemIds3 = new List<int>();
+				
+			foreach( KeyValuePair<int, TItemData> item in GameData.DItemData )
+			{
+				if(limitItemkind < 6)
+				{
+					if(item.Value.Kind == limitItemkind && item.Value.Position == limitposition)
+					{
+						if(findCount < countprekind){
+							itemIds3.Add(item.Value.ID);
+//							itemIds3[findCount] = item.Value.ID;
+							findCount++;
+						}
+						else
+							continue;
+					}
+				}
+				else
+				{
+					if(item.Value.Kind == limitItemkind)
+					{
+						if(findCount < limitcountprekind){
+							itemIds3.Add(item.Value.ID);
+//							itemIds3[findCount] = item.Value.ID;
+							findCount++;
+						}
+						else
+							continue;
+					}
+				}
+			}
+
+			for(int i = 0; i < itemIds3.Count; i++)
+			{
+				Debug.LogError("Find : " + itemIds3[i]);
+			}
+
+			if(itemIds3 != null && itemIds3.Count > 0){
+				WWWForm form = new WWWForm();
+				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds3));
+				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
+			}
+			else
+				ShowHint("請設定Item數量");
+		}
+		
 		EditorGUILayout.EndHorizontal();
 	}
 

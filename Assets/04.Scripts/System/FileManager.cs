@@ -50,10 +50,15 @@ public class FileManager : KnightSingleton<FileManager> {
 	public const string URL = "http://localhost:3600/";
 	public const VersionMode NowMode = VersionMode.Debug;
 	#endif
+
+	#if Knight49_Server
+	public const string URL = "http://172.19.0.49:3600/";
+	public const VersionMode NowMode = VersionMode.Debug;
+	#endif
 	
 	#if Release
 	public const string URL = "http://g2.nicemarket.com.tw/";
-	public const VersionMode NowMode = VersionMode.Release;								
+	public const VersionMode NowMode = VersionMode.Release;
 	#endif
 
 	private const int FileDownloadLimitTime = 30;
