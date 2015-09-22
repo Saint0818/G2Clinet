@@ -76,6 +76,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     public void Show()
     {
         Window.SetActive(true);
+        UI3DCreateRole.Get.Hide();
     }
 
     /// <summary>
@@ -85,8 +86,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     public void Show([NotNull] UICreateRolePlayerFrame.Data[] data)
     {
         Window.SetActive(true);
+        UI3DCreateRole.Get.Hide();
 
-        for(int i = 0; i < Slots.Length; i++)
+        for (int i = 0; i < Slots.Length; i++)
         {
             Slots[i].Clear();
 

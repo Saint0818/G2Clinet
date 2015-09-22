@@ -22,10 +22,17 @@ public class UI3DCreateRole : UIBase
     }
     private UI3DCreateRolePositionView mPositionView;
 
+    public UI3DCreateRoleStyleView StyleView
+    {
+        get { return mStyleView; }
+    }
+    private UI3DCreateRoleStyleView mStyleView;
+
     [UsedImplicitly]
     private void Awake()
     {
         mPositionView = GetComponent<UI3DCreateRolePositionView>();
+        mStyleView = GetComponent<UI3DCreateRoleStyleView>();
     }
 
     [UsedImplicitly]
@@ -46,17 +53,20 @@ public class UI3DCreateRole : UIBase
         Show(true);
 
         mPositionView.Show();
+        mStyleView.Hide();
     }
 
     /// <summary>
     /// 僅顯示某一位球員.
     /// </summary>
     /// <param name="pos"></param>
-    public void ShowStyleView(EPlayerPostion pos)
+    /// <param name="playerID"></param>
+    public void ShowStyleView(EPlayerPostion pos, int playerID)
     {
         Show(true);
 
         mPositionView.Hide();
+        mStyleView.Show(pos, playerID);
     }
 
     public void Hide()

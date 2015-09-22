@@ -71,10 +71,9 @@ public class UICreateRoleStyleView : MonoBehaviour
     public void Show(EPlayerPostion pos, int playerID)
     {
         Window.SetActive(true);
+        UI3DCreateRole.Get.ShowStyleView(pos, playerID);
 
         initData(pos, playerID);
-
-//        updateModel();
     }
 
     private void initData(EPlayerPostion pos, int playerID)

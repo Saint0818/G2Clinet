@@ -84,6 +84,8 @@ public class UICreateRolePositionView : MonoBehaviour
             Window.SetActive(value);
             if(value)
             {
+                UI3DCreateRole.Get.ShowPositionView();
+
                 updateUI();
                 Attributes.PlayScale(AttributeScaleDelayTime);
             }

@@ -15,14 +15,14 @@ using JetBrains.Annotations;
 /// </remarks>
 public class UI3DCreateRolePositionView : MonoBehaviour
 {
-    public Transform CenterParent;
-    public GameObject CenterShadow;
-
-    public Transform ForwardParent;
-    public GameObject ForwardShadow;
-
-    public Transform GuardParent;
-    public GameObject GuardShadow;
+//    public Transform CenterParent;
+//    public GameObject CenterShadow;
+//
+//    public Transform ForwardParent;
+//    public GameObject ForwardShadow;
+//
+//    public Transform GuardParent;
+//    public GameObject GuardShadow;
 
     public Transform SelectSFX;
     public Animator SelectSFXAnimator;
@@ -70,21 +70,25 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         }
     }
 
-    private readonly Dictionary<EPlayerPostion, Transform> mParents = new Dictionary<EPlayerPostion, Transform>();
+//    private readonly Dictionary<EPlayerPostion, Transform> mParents = new Dictionary<EPlayerPostion, Transform>();
 
     private readonly Dictionary<EPlayerPostion, Player> mPlayers = new Dictionary<EPlayerPostion, Player>();
-        
+
+    private UI3DCreateRoleCommon mCommon;
+
     [UsedImplicitly]
 	private void Awake()
     {
-        mParents.Add(EPlayerPostion.G, GuardParent);
-        mParents.Add(EPlayerPostion.F, ForwardParent);
-        mParents.Add(EPlayerPostion.C, CenterParent);
+        mCommon = GetComponent<UI3DCreateRoleCommon>();
+
+//        mParents.Add(EPlayerPostion.G, GuardParent);
+//        mParents.Add(EPlayerPostion.F, ForwardParent);
+//        mParents.Add(EPlayerPostion.C, CenterParent);
 
         // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
-        mPlayers.Add(EPlayerPostion.G, new Player(GuardParent, GuardShadow, "Guard", 1));
-        mPlayers.Add(EPlayerPostion.F, new Player(ForwardParent, ForwardShadow, "Forward", 2));
-        mPlayers.Add(EPlayerPostion.C, new Player(CenterParent, CenterShadow, "Center", 3));
+        mPlayers.Add(EPlayerPostion.G, new Player(mCommon.GuardParent, mCommon.GuardShadow, "Guard", 1));
+        mPlayers.Add(EPlayerPostion.F, new Player(mCommon.ForwardParent, mCommon.ForwardShadow, "Forward", 2));
+        mPlayers.Add(EPlayerPostion.C, new Player(mCommon.CenterParent, mCommon.CenterShadow, "Center", 3));
     }
 
     public void Show()
@@ -96,6 +100,7 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         }
 
         SelectSFX.gameObject.SetActive(true);
+//        mCommon.SetAllShadowVisible(true);
     }
 
     public void Hide()
@@ -106,11 +111,13 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         }
 
         SelectSFX.gameObject.SetActive(false);
+//        mCommon.SetAllShadowVisible(false);
     }
 
     public void Select(EPlayerPostion pos)
     {
-        SelectSFX.localPosition = mParents[pos].localPosition;
+//        SelectSFX.localPosition = mParents[pos].localPosition;
+        SelectSFX.localPosition = mCommon.GetParent(pos).localPosition;
         SelectSFXAnimator.SetTrigger("Start");
     }
 
