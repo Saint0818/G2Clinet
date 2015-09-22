@@ -4,9 +4,17 @@ using System.Collections;
 public class PushSkillTrigger : MonoBehaviour {
 	public PlayerBehaviour pusher;
 	public float InRange = 5;
-	public float DelayActivityTime = 2;
+	public float DelayActivityTime;
 	void OnEnable () {
-		StartCoroutine(DelayedExecutionMgr.Get.Execute(DelayActivityTime, StartSkill));
+		DelayActivityTime = 0.2f;
+	}
+
+	void FixedUpdate (){
+		if(DelayActivityTime > 0) {
+			DelayActivityTime -= Time.deltaTime * TimerMgr.Get.CrtTime;
+			if(DelayActivityTime <= 0)
+				StartSkill();
+		}
 	}
 
 	public void StartSkill() {

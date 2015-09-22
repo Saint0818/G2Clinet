@@ -2,10 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public class TSkillEffect {
+	public int SkillID;
+	public string EffectName;
+	public Vector3 Position;
+	public GameObject Player;
+	public GameObject Parent;
+	public float Duration;
+	public float DelayTime;
+}
+
 public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private Dictionary<string, List<GameObject>> skillEffectPositions = new Dictionary<string, List<GameObject>>();
 	private PlayerBehaviour executePlayer;
+
+	private List<TSkillEffect> skillEffects = new List<TSkillEffect>();
+
+	void FixedUpdate() {
+		if(skillEffects.Count > 0) {
+			for (int i=0; i<skillEffects.Count; i++) {
+				if (skillEffects [i].DelayTime > 0) {
+					skillEffects [i].DelayTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
+					if (skillEffects [i].DelayTime <= 0) {
+						Debug.Log("EffectName:"+skillEffects[i].EffectName);
+						playEffect(skillEffects[i].EffectName,
+						           Vector3.zero,
+						           skillEffects[i].Player,
+						           skillEffects[i].Parent,
+						           null,
+						           skillEffects[i].Duration);
+						skillEffects.RemoveAt(i);
+					}
+				}
+			}
+		}
+	}
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
 		executePlayer = player;
@@ -50,25 +82,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						parent = objs1[i];
 						index = i;
 					}
-					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime1, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect1,
-							           Vector3.zero,
-							           objs1[index],
-							           null,
-							           null,
-							           GameData.DSkillData[skillID].Duration1);
-						}));
-					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime1, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect1,
-							           Vector3.zero,
-							           null,
-							           parent,
-							           null,
-							           GameData.DSkillData[skillID].Duration1);
-						}));
-					}
+					TSkillEffect skillEffect = new TSkillEffect();
+					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
+					skillEffect.Position = Vector3.zero;
+					skillEffect.Player = objs1[index];
+					skillEffect.Parent = parent;
+					skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
+					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
+					skillEffects.Add(skillEffect);
 				}
 			}
 			
@@ -80,26 +101,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						parent = objs2[i];
 						index = i;
 					}
-					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime2, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect2,
-							           Vector3.zero,
-							           objs2[index],
-							           null,
-							           null,
-							           GameData.DSkillData[skillID].Duration2);
-						}));
-						
-					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime2, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect2,
-							           Vector3.zero,
-							           null,
-							           parent,
-							           null,
-							           GameData.DSkillData[skillID].Duration2);
-						}));
-					}
+					TSkillEffect skillEffect = new TSkillEffect();
+					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
+					skillEffect.Position = Vector3.zero;
+					skillEffect.Player = objs2[index];
+					skillEffect.Parent = parent;
+					skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
+					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
+					skillEffects.Add(skillEffect);
 				}
 			}
 			
@@ -111,25 +120,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 						parent = objs3[i];
 						index = i;
 					}
-					if(parent == null) {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime3, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect3,
-							           Vector3.zero,
-							           objs3[index],
-							           null,
-							           null,
-							           GameData.DSkillData[skillID].Duration3);
-						}));
-					} else {
-						StartCoroutine (DelayedExecutionMgr.Get.Execute(GameData.DSkillData[skillID].DelayTime3, delegate {
-							playEffect("SkillEffect" + GameData.DSkillData[skillID].TargetEffect3,
-							           Vector3.zero,
-							           null,
-							           parent,
-							           null,
-							           GameData.DSkillData[skillID].Duration3);
-						}));
-					}
+					TSkillEffect skillEffect = new TSkillEffect();
+					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
+					skillEffect.Position = Vector3.zero;
+					skillEffect.Player = objs3[index];
+					skillEffect.Parent = parent;
+					skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
+					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
+					skillEffects.Add(skillEffect);
 				}
 			}
 		}
@@ -160,10 +158,6 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				ps.InRange = GameData.DSkillData[executePlayer.Attribute.ActiveSkill.ID].Distance(executePlayer.Attribute.ActiveSkill.Lv);
 			}
 		}
-	}
-	
-	public void StopEffect (){
-		DelayedExecutionMgr.Get.StopExecute();
 	}
 
 	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {

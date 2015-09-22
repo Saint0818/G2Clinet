@@ -113,7 +113,7 @@ public class SkillController : MonoBehaviour {
 	private void updateSkillAttribute() {
 		for (int i = skillAttribute.Count-1; i >= 0; i--) { 
 			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID <= IDLimitActive) {
-				skillAttribute [i].CDTime -= Time.deltaTime;  
+				skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 				if (skillAttribute [i].CDTime <= 0) {
 					if(OnAddAttribute != null) 
 						OnAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
@@ -150,7 +150,7 @@ public class SkillController : MonoBehaviour {
 		return directState;
 	}
 
-	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isWideOpen = 0) {
+	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -161,73 +161,62 @@ public class SkillController : MonoBehaviour {
 			playerState = EPlayerState.Pass50;
 		}
 		if(GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) {
-			bool isPerformPassive = false;
-			int skillKind = (int)kind;
-			if(DPassiveSkills.ContainsKey(skillKind)) {
-				if (DPassiveSkills[skillKind].Count > 0){
-					float angle = GameFunction.GetPlayerToObjectAngleByVector(executePlayer.gameObject.transform, v);
-					int passiveRate = -1;
-					if (kind == ESkillKind.Pass) {
-						passDirect = judgeDirect(angle);
-						for(int i=0; i<DPassiveSkills[(int)skillKind].Count; i++) 
-							if (GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect)
-								passiveRate += GameData.DSkillData[DPassiveSkills[(int)skillKind][i].ID].Rate(DPassiveSkills[(int)skillKind][i].Lv);
-					} else
-						for(int i=0; i<DPassiveSkills[(int)skillKind].Count; i++)
-							passiveRate += GameData.DSkillData[DPassiveSkills[(int)skillKind][i].ID].Rate(DPassiveSkills[(int)skillKind][i].Lv);
-					
-					isPerformPassive = (UnityEngine.Random.Range(0, 100) <= passiveRate) ? true : false;
-				}
-			}
-			
-			if (isPerformPassive){
-				string animationName = string.Empty;
-				for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
-					if(kind == ESkillKind.Pass) {
-						if(GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect) {
-							if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)){
-								PassiveID = DPassiveSkills[skillKind][i].ID;
-								PassiveLv = DPassiveSkills[skillKind][i].Lv;
-								animationName = GameData.DSkillData[PassiveID].Animation;
-								break;
-							}
-						}
-					} else 
-						if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || 
-						  kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
-						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
-							if(isWideOpen != 0 && (DPassiveSkills[skillKind][i].ID == 412 || DPassiveSkills[skillKind][i].ID == 413)) {
-								break;
-							}
-							PassiveID = DPassiveSkills[skillKind][i].ID;
-							PassiveLv = DPassiveSkills[skillKind][i].Lv;
-							animationName = GameData.DSkillData[PassiveID].Animation;
-							break;
-						}
-						
-					} else {
-						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
-							PassiveID = DPassiveSkills[skillKind][i].ID;
-							PassiveLv = DPassiveSkills[skillKind][i].Lv;
-							animationName = GameData.DSkillData[PassiveID].Animation;
-							break;
-						}
-					}
-				}
-				if (animationName != string.Empty) {
-					try {
-						return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
-					} catch {
-						if(GameStart.Get.IsDebugAnimation)
-							LogMgr.Get.LogError("AnimationName: '" + animationName + "'was not found.");
-						return playerState;
-					}
-				} else 
+			string animationName = randomPassive(kind, v, isHaveDefPlayer);
+
+			if (animationName != string.Empty) {
+				try {
+					return (EPlayerState)System.Enum.Parse(typeof(EPlayerState), animationName);
+				} catch {
+					if(GameStart.Get.IsDebugAnimation)
+						LogMgr.Get.LogError("AnimationName: '" + animationName + "'was not found.");
 					return playerState;
-			} else
+				}
+			} else 
 				return playerState;
 		} else
 			return playerState;
+	}
+
+	private string randomPassive(ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0) {
+		int skillKind = (int)kind;
+		//Part 1. Get Passive which is choosed. 
+		List<TSkill> skills = new List<TSkill>();
+
+		float angle = GameFunction.GetPlayerToObjectAngleByVector(executePlayer.gameObject.transform, v);
+		passDirect = judgeDirect(angle);
+
+		if(DPassiveSkills.ContainsKey(skillKind)) {
+			for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
+				if(kind == ESkillKind.Pass) 
+					if(GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect) 
+						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv))
+							skills.Add(DPassiveSkills[skillKind][i]);
+				else 
+				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
+					if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
+						if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].ID == 412 || DPassiveSkills[skillKind][i].ID == 413))
+							break;
+						
+						skills.Add(DPassiveSkills[skillKind][i]);
+					}
+				} else
+					if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv))
+						skills.Add(DPassiveSkills[skillKind][i]);
+			}
+			//Part 2. Get Passive 
+			if(skills.Count > 0) {
+				AI.WeightedRandomizer<TSkill> randomizer = new AI.WeightedRandomizer<TSkill>();
+				for(int i=0; i<skills.Count; i++) 
+					randomizer.AddOrUpdate(skills[i], GameData.DSkillData[skills[i].ID].Rate(skills[i].Lv));
+				
+				TSkill skill = randomizer.GetNext();
+				PassiveID = skill.ID;
+				PassiveLv = skill.Lv;
+				return GameData.DSkillData[PassiveID].Animation;
+			} else 
+				return string.Empty;
+		} else 
+			return string.Empty;
 	}
 	
 	private bool checkSkillBaseSituation(PlayerBehaviour player) {
