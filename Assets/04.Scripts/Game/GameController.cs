@@ -76,6 +76,9 @@ public class GameController : KnightSingleton<GameController>
 
 	private readonly List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 
+	//Alleyoop
+	public bool IsCatcherAlleyoop = false;
+
 	public EGameSituation Situation = EGameSituation.None;
 	public TGameRecord GameRecord = new TGameRecord();
 	private TMoveData moveData = new TMoveData();
@@ -1981,6 +1984,8 @@ public class GameController : KnightSingleton<GameController>
 				player.GameRecord.Alleyoop++;
 
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
+			if(GameStart.Get.TestMode == EGameTest.Alleyoop) 
+				UIHint.Get.ShowHint("Alleyoop Score.", Color.yellow);
 			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
             SetBall();
 
@@ -2091,9 +2096,10 @@ public class GameController : KnightSingleton<GameController>
 					float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
 					int disKind = GetEnemyDis(ref player);
 					int rate = UnityEngine.Random.Range(0, 2);
-					if(player.crtState == EPlayerState.Alleyoop)
-						Result = BallOwner.AniState(EPlayerState.Pass3, player.transform.position);
-					else
+					if(player.crtState == EPlayerState.Alleyoop) {
+						IsCatcherAlleyoop = true;
+						Result = BallOwner.AniState(EPlayerState.Pass0, player.transform.position);
+					} else
 					if(dis <= GameConst.FastPassDistance)
 					{
 						Result = BallOwner.DoPassiveSkill(ESkillSituation.Pass4, player.transform.position);
@@ -3464,7 +3470,7 @@ public class GameController : KnightSingleton<GameController>
 				PlayerBehaviour player = obj.GetComponent<PlayerBehaviour>();
 				if (player && player.Team.GetHashCode() == team) {
 					if (player != BallOwner && player.Team == BallOwner.Team) {
-						if (Random.Range(0, 100) < player.Attr.AlleyOopRate) {
+						if (Random.Range(0, 100) < player.Attr.AlleyOopRate || GameStart.Get.TestMode == EGameTest.Alleyoop) {
 							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {

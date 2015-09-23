@@ -685,7 +685,7 @@ public class UIGame : UIBase {
 	}
 
 	public void SetPassButton() {
-		if(GameStart.Get.TestMode != EGameTest.None && GameStart.Get.TestMode != EGameTest.Pass) 
+		if(GameStart.Get.TestMode != EGameTest.None && GameStart.Get.TestMode != EGameTest.Pass && GameStart.Get.TestMode != EGameTest.Alleyoop) 
 			return;
 
 		if (GameController.Get.IsShowSituation)

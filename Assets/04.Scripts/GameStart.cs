@@ -14,6 +14,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool IsDebugAnimation = false;
 	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;
+	public float AlleyoopPassTime = 0.3f;
 	public int FriendNumber = 3;
 	public int GameWinValue = 13;
 	public float CrossTimeX = 0.5f;

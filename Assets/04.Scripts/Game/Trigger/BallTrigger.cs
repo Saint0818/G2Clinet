@@ -156,6 +156,12 @@ public class BallTrigger : MonoBehaviour
 				GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
 				PassEnd();
 				break;
+
+			case 99://Alleyoop
+				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, GameStart.Get.AlleyoopPassTime * 1/GameController.Get.Passer.Timer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
+				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.Timer.timeScale, 10, 1);
+				break;
+
 			default:
 				CourtMgr.Get.RealBall.transform.DOMove(GameController.Get.Catcher.CatchBallPoint.transform.position, time * 1/GameController.Get.Passer.Timer.timeScale).OnComplete(PassEnd).SetEase(Ease.Linear).OnUpdate(PassUpdate);
 				CourtMgr.Get.RealBall.transform.DOPunchRotation(new Vector3(0, 0, 720), time * 1/GameController.Get.Passer.Timer.timeScale, 10, 1);

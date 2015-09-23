@@ -2915,8 +2915,13 @@ public class PlayerBehaviour : MonoBehaviour
                 //0.Flat
                 //2.Floor
                 //1 3.Parabola(Tee)
-                if (IsBallOwner)
-                    CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));      
+                if (IsBallOwner) {
+					if(GameController.Get.IsCatcherAlleyoop) {
+						CourtMgr.Get.RealBallTrigger.PassBall(99);   
+					} else
+						CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));      
+					GameController.Get.IsCatcherAlleyoop = false;
+				}
                 break;
 
             case "PassEnd":
