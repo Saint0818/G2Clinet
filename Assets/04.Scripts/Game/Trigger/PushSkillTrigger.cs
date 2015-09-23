@@ -2,17 +2,20 @@ using UnityEngine;
 using System.Collections;
 
 public class PushSkillTrigger : MonoBehaviour {
+	[HideInInspector]
 	public PlayerBehaviour pusher;
+	[HideInInspector]
 	public float InRange = 5;
 	public float DelayActivityTime;
+	private float delay;
 	void OnEnable () {
-		DelayActivityTime = 0.2f;
+		delay = DelayActivityTime;
 	}
 
 	void FixedUpdate (){
-		if(DelayActivityTime > 0) {
-			DelayActivityTime -= Time.deltaTime * TimerMgr.Get.CrtTime;
-			if(DelayActivityTime <= 0)
+		if(delay > 0) {
+			delay -= Time.deltaTime * TimerMgr.Get.CrtTime;
+			if(delay <= 0)
 				StartSkill();
 		}
 	}

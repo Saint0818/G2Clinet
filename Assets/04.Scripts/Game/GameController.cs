@@ -814,6 +814,12 @@ public class GameController : KnightSingleton<GameController>
 			GUI.Label(new Rect(Screen.width * 0.25f - 25, 200, 300, 50), "Shoot Times:" + shootTimes.ToString());
 			GUI.Label(new Rect(Screen.width * 0.75f - 25, 200, 300, 50), "Shoot Score Times:" + shootScoreTimes.ToString());
 		}
+
+		if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
+			if (GUI.Button(new Rect(0, 0, 100, 100), "shine player")) {
+				Joysticker.IsChangeColor = true;
+			}
+		}
 	}
 	#endif
 
@@ -3027,11 +3033,11 @@ public class GameController : KnightSingleton<GameController>
     {
 		if(p != null && GameStart.Get.IsDebugAnimation)
 			Debug.Log ("SetBall P : " + p.gameObject.name);
-
 		bool result = false;
 		IsPassing = false;
-        if (p != null && Situation != EGameSituation.End) {
-            if (BallOwner != null) {
+		if (p != null && Situation != EGameSituation.End) {
+			p.IsChangeColor = true;
+			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {
 					    if(Situation == EGameSituation.AttackA)

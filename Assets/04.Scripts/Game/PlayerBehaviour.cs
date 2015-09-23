@@ -530,6 +530,12 @@ public class PlayerBehaviour : MonoBehaviour
 	//Camera
 	private float yAxizOffset = 0;
 
+	//Change Player Color Value
+	private bool isChangeColor = false;
+	private float changeTime;
+	private Color colorStart = new Color32(150, 150, 150, 255);
+	private Color colorEnd = new Color32(255, 255, 255, 255);
+
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
 		if(IsHaveActiveSkill) {
@@ -563,8 +569,21 @@ public class PlayerBehaviour : MonoBehaviour
             SlowDownTime += Time.time + Value;
             Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue * GameConst.SlowDownValue;
         }
-    }
-    
+	}
+
+	private void changePlayerColor (){
+		if(isChangeColor) {
+			changeTime += Time.deltaTime;
+			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 210 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) + 150;
+			BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, (byte)lerp, 255);
+			if(changeTime >= GameStart.Get.PlayerShineTime)
+				isChangeColor = false;
+		} else {
+			changeTime = 0;
+			BodyMaterial.color = colorStart;
+		}
+	}
+	
     void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -765,7 +784,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
 			return;
 		}
-
+		changePlayerColor ();
         CalculationPlayerHight();
         CalculationAnimatorSmoothSpeed();
         CalculationBlock();
@@ -3411,6 +3430,11 @@ public class PlayerBehaviour : MonoBehaviour
                 return false;
         }
     }
+
+	public bool IsChangeColor {
+		get{return isChangeColor;}
+		set{isChangeColor = value;}
+	}
 
 	public bool IsSkillShow {
 		get {return isSkillShow;}
