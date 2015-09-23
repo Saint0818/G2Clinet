@@ -1558,7 +1558,7 @@
         "explainen": "只要在距離內即可飛身阻止對手灌籃"
     },
     {
-        "id": 11700,
+         "id": 11700,
         "kind": 17,
         "star": 3,
         "maxstar": 3,
@@ -1577,12 +1577,17 @@
         "distance": 5,
         "distanceadd": 2,
         "maxanger": 60,
-        "targetkind": 0,
+        "targetkind": 0,      
         "targetkind1": 4,
         "targeteffect1": 1700,
         "effectparent1": 0,
         "delaytime1": 0.7,
         "duration1": 1,
+        "targetkind2": 12,
+        "targeteffect2": 1710,
+        "effectparent2": 0,
+        "delaytime2": 0.7,
+        "duration2": 1,
         "nameen": "飛身衝撞",
         "explaintw": "往前飛身衝撞對手",
         "explainen": "往前飛身衝撞對手"
