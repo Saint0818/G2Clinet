@@ -98,7 +98,7 @@ public class GameController : KnightSingleton<GameController>
    
 	//Effect
     public GameObject[] passIcon = new GameObject[3];
-	private GameObject[] selectIcon = new GameObject[2];
+//	private GameObject[] selectIcon = new GameObject[2];
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -499,12 +499,12 @@ public class GameController : KnightSingleton<GameController>
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
 			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].gameObject);
-			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+//			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].gameObject);
-			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+//			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
 		}
 		
 		UIGame.Get.InitGameUI();
@@ -538,12 +538,12 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private void setPassIcon(bool isShow) {
-		if(GameStart.Get.TestMode == EGameTest.None) {
-			for(int i=0; i<3; i++) {
-				if (i < 2 && selectIcon[i])
-					selectIcon[i].SetActive(isShow);
-			}
-		}
+//		if(GameStart.Get.TestMode == EGameTest.None) {
+//			for(int i=0; i<3; i++) {
+//				if (i < 2 && selectIcon[i])
+//					selectIcon[i].SetActive(isShow);
+//			}
+//		}
 	}
 
 	void FixedUpdate() {

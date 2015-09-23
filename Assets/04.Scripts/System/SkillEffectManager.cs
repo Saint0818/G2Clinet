@@ -25,7 +25,6 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				if (skillEffects [i].DelayTime > 0) {
 					skillEffects [i].DelayTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 					if (skillEffects [i].DelayTime <= 0) {
-						Debug.Log("EffectName:"+skillEffects[i].EffectName);
 						playEffect(skillEffects[i].EffectName,
 						           Vector3.zero,
 						           skillEffects[i].Player,
