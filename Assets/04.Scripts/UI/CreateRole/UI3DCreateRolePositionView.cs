@@ -13,6 +13,7 @@ using JetBrains.Annotations;
 /// <item> Call Select() 通知哪位球員被選擇. </item>
 /// </list>
 /// </remarks>
+[DisallowMultipleComponent]
 public class UI3DCreateRolePositionView : MonoBehaviour
 {
 //    public Transform CenterParent;

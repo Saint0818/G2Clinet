@@ -11,6 +11,7 @@ using UnityEngine;
 /// <item> Call Show() or Hide() 控制球員要不要顯示. </item>
 /// </list>
 /// </remarks>
+[DisallowMultipleComponent]
 public class UI3DCreateRoleStyleView : MonoBehaviour
 {
     public Animator CamerAnimator;

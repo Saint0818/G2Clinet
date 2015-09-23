@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 給 UI3DCreateRoleXXX 使用, 主要是放相同的東西.
 /// </summary>
+[DisallowMultipleComponent]
 public class UI3DCreateRoleCommon : MonoBehaviour
 {
     public Transform CenterParent;

@@ -333,6 +333,11 @@ namespace GameStruct {
 		public int ID;
 		public int Lv;
 		public int Exp;
+
+	    public override string ToString()
+	    {
+	        return string.Format("ID: {0}, Lv: {1}, Exp: {2}", ID, Lv, Exp);
+	    }
 	}
 
 	public struct TPlayerAttribute {
