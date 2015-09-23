@@ -41,7 +41,6 @@ public class GMTool : EditorWindow
 
 	private int addItemCount = 1;
 	private int[] itemIds;
-	private int[] itemIds2;
 	private string mArea = "---------------------------------------------------------------------------------------------";
 	private int countprekind = 1;
 	private int position = 0;
@@ -106,6 +105,8 @@ public class GMTool : EditorWindow
 		LimitPartAddItem();
 	}
 
+	List<int> itemIds2 = new List<int>();
+
 	//每部位加Item
 	private void PrePartAddItem()
 	{
@@ -123,7 +124,7 @@ public class GMTool : EditorWindow
 		{
 			int partCount = 8;
 			int findCount;
-			itemIds2 = new int[partCount * countprekind];
+			itemIds2.Clear();
 			
 			for(int i = 0; i < partCount;i++)
 			{
@@ -134,7 +135,8 @@ public class GMTool : EditorWindow
 					if(item.Value.Kind == i)
 					{
 						if(findCount < countprekind){
-							itemIds2[i * 10 + findCount] = item.Value.ID;
+							itemIds2.Add(item.Value.ID);
+//							itemIds2[i * 10 + findCount] = item.Value.ID;
 							findCount++;
 						}
 						else
@@ -143,7 +145,7 @@ public class GMTool : EditorWindow
 				}
 			}
 			
-			if(itemIds2 != null && itemIds2.Length > 0){
+			if(itemIds2 != null && itemIds2.Count > 0){
 				WWWForm form = new WWWForm();
 				form.AddField("AddIndexs", JsonConvert.SerializeObject(itemIds2));
 				SendHttp.Get.Command(URLConst.GMAddItem, waitGMAddItem, form);
