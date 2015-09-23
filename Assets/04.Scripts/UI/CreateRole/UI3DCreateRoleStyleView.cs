@@ -27,9 +27,10 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
     public void Show(EPlayerPostion pos, int playerID)
     {
-        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
-                                                  "StyleViewPlayer", playerID);
         CamerAnimator.enabled = false;
+
+        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
+                                                  "StyleViewPlayer", playerID, pos);
     }
 
     public void Hide()

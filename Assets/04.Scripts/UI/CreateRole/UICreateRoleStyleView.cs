@@ -21,6 +21,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     }
 
     public GameObject Window;
+    public UICreateRoleStyleViewPartsWindow PartsWindow;
     public UICreateRolePartButton HairBtn;
     public UICreateRolePartButton ClothBtn;
     public UICreateRolePartButton PantsBtn;
@@ -32,8 +33,6 @@ public class UICreateRoleStyleView : MonoBehaviour
     private int mPlayerID;
 
     private EEquip mCurrentEquip = EEquip.Body;
-
-//    private readonly Dictionary<EEquip, UICreateRolePartButton> mButtons = new Dictionary<EEquip, UICreateRolePartButton>();
 
     /// <summary>
     /// 目前球員穿搭的配件.
@@ -48,11 +47,12 @@ public class UICreateRoleStyleView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-//        mButtons.Add(EEquip.Hair, HairBtn);
-//        mButtons.Add(EEquip.Cloth, ClothBtn);
-//        mButtons.Add(EEquip.Pants, PantsBtn);
-//        mButtons.Add(EEquip.Shoes, ShoesBtn);
-//        mButtons.Add(EEquip.Body, BodyBtn);
+        PartsWindow.SelectListener += HairBtn.OnPartItemSelected;
+        PartsWindow.SelectListener += ClothBtn.OnPartItemSelected;
+        PartsWindow.SelectListener += PantsBtn.OnPartItemSelected;
+        PartsWindow.SelectListener += ShoesBtn.OnPartItemSelected;
+        PartsWindow.SelectListener += BodyBtn.OnPartItemSelected;
+        PartsWindow.SelectListener += OnPartItemSelected;
     }
 
     public void Show(EPlayerPostion pos, int playerID)
@@ -104,22 +104,9 @@ public class UICreateRoleStyleView : MonoBehaviour
         return data.ToArray();
     }
 
-    private void onGroupTitleClick(EEquip equip)
+    public void OnPartItemSelected(EEquip equip, int index, int itemID)
     {
-//        Debug.LogFormat("onGroupTitleClick, equip:{0}", equip);
-
-        if(mCurrentEquip == equip)
-            return;
-
-        mCurrentEquip = equip;
-
-//        foreach(KeyValuePair<EEquip, UICreateRolePartButton> pair in mGroups)
-//        {
-//            if(pair.Key == mCurrentEquip)
-//                pair.Value.Play();
-//            else
-//                pair.Value.Hide();
-//        }
+        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
     }
 
     private void onEquipClick(EEquip equip, TItemData item)

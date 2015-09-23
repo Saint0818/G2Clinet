@@ -17,6 +17,11 @@ public class UICreateRolePartButton : MonoBehaviour
 
     private TItemData[] mItems;
 
+    /// <summary>
+    /// 右邊視窗的項目中, 哪一個被點選.
+    /// </summary>
+    public int SelectedIndex { set; get; }
+
     [UsedImplicitly]
     private void Awake()
     {
@@ -24,6 +29,7 @@ public class UICreateRolePartButton : MonoBehaviour
 
     public void SetData(TItemData[] data)
     {
+        SelectedIndex = 0;
         mItems = data;
     }
 
@@ -32,7 +38,7 @@ public class UICreateRolePartButton : MonoBehaviour
         if(UIToggle.current.value)
         {
             Button.localPosition = mOnPos;
-            Window.UpdateData(mItems);
+            Window.UpdateData(Equipment, mItems, SelectedIndex);
         }
         else
             Button.localPosition = mOffPos;
@@ -44,8 +50,16 @@ public class UICreateRolePartButton : MonoBehaviour
 
         // 因為當 Toggle 是 true 時, 再設定為 true, 事件並不會送出, 所以才有這段特別的程式碼.
         if (toggle.value) 
-            Window.UpdateData(mItems);
+            Window.UpdateData(Equipment, mItems, SelectedIndex);
         else
             toggle.Set(true);
+    }
+
+    public void OnPartItemSelected(UICreateRoleStyleView.EEquip equip, int index, int itemID)
+    {
+        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
+
+        if(equip == Equipment)
+            SelectedIndex = index;
     }
 }

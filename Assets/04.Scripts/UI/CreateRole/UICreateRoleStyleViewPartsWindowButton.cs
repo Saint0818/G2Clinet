@@ -7,6 +7,11 @@ using JetBrains.Annotations;
 [DisallowMultipleComponent]
 public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
 {
+    /// <summary>
+    /// value1: Index, value2: ItemID.
+    /// </summary>
+    public event CommonDelegateMethods.Action2 ClickListener;
+
     public UILabel NameLabel;
     public UISprite IconSprite;
 
@@ -14,6 +19,13 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
 	private void Start()
     {
 	}
+
+    /// <summary>
+    /// 這在視窗中, 是第幾個按鈕.
+    /// </summary>
+    public int Index { set; get; }
+
+    public int ItemID { set; get; }
 
     public string Name
     {
@@ -28,5 +40,14 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
     public void SetSelected()
     {
         GetComponent<UIToggle>().Set(true);
+    }
+
+    /// <summary>
+    /// NGUI Event.
+    /// </summary>
+    public void OnClick()
+    {
+        if(ClickListener != null)
+            ClickListener(Index, ItemID);
     }
 }

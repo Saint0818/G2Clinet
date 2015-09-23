@@ -33,31 +33,77 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             }
         }
 
-        private readonly GameObject mModel;
+        private readonly Transform mParent;
+        private readonly string mName;
+        private GameObject mModel;
         private readonly GameObject mShadow;
         private readonly int mPlayerID;
-        private readonly Animator mAnimator;
+        private Animator mAnimator;
 
-        public Player(Transform parent, GameObject shadow, string name, int playerID)
+        /// <summary>
+        /// 給預設套裝.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="shadow"></param>
+        /// <param name="name"></param>
+        /// <param name="playerID"></param>
+        /// <param name="pos"></param>
+        public Player(Transform parent, GameObject shadow, string name, int playerID, EPlayerPostion pos)
         {
+            mParent = parent;
+            mName = name;
             mPlayerID = playerID;
             mShadow = shadow;
 
-            mModel = UICreateRole.CreateModel(parent, name, mPlayerID,
-                CreateRoleDataMgr.Ins.GetBody(EPlayerPostion.G)[0],
-                CreateRoleDataMgr.Ins.GetHairs(EPlayerPostion.G)[0],
-                CreateRoleDataMgr.Ins.GetCloths(EPlayerPostion.G)[0],
-                CreateRoleDataMgr.Ins.GetPants(EPlayerPostion.G)[0],
-                CreateRoleDataMgr.Ins.GetShoes(EPlayerPostion.G)[0]);
-            mModel.AddComponent<SelectEvent>(); // 避免發生 Error.
+            UpdateParts(
+                CreateRoleDataMgr.Ins.GetBody(pos)[0],
+                CreateRoleDataMgr.Ins.GetHairs(pos)[0],
+                CreateRoleDataMgr.Ins.GetCloths(pos)[0],
+                CreateRoleDataMgr.Ins.GetPants(pos)[0],
+                CreateRoleDataMgr.Ins.GetShoes(pos)[0]);
+        }
 
-            mAnimator = mModel.GetComponent<Animator>();
+        /// <summary>
+        /// 給自定套裝.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="shadow"></param>
+        /// <param name="name"></param>
+        /// <param name="playerID"></param>
+        /// <param name="bodyItemID"></param>
+        /// <param name="hairItemID"></param>
+        /// <param name="clothItemID"></param>
+        /// <param name="pantsItemID"></param>
+        /// <param name="shoesItemID"></param>
+        public Player(Transform parent, GameObject shadow, string name, int playerID, 
+                      int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
+        {
+            mParent = parent;
+            mName = name;
+            mPlayerID = playerID;
+            mShadow = shadow;
+
+            UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
         public void PlayAnimation(string animName)
         {
-//            mAnimator.SetTrigger("SelectDown");
             mAnimator.SetTrigger(animName);
+        }
+
+        public void UpdateParts(int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, 
+                                int shoesItemID)
+        {
+            mModel = UICreateRole.CreateModel(mParent, mName, mPlayerID, bodyItemID, hairItemID,
+                                              clothItemID, pantsItemID, shoesItemID
+//                CreateRoleDataMgr.Ins.GetBody(),
+//                CreateRoleDataMgr.Ins.GetHairs(mPosition)[0],
+//                CreateRoleDataMgr.Ins.GetCloths(mPosition)[0],
+//                CreateRoleDataMgr.Ins.GetPants(mPosition)[0],
+//                CreateRoleDataMgr.Ins.GetShoes(mPosition)[0]
+                );
+            mModel.AddComponent<SelectEvent>(); // 避免發生 Error.
+            mAnimator = mModel.GetComponent<Animator>();
         }
     }
 

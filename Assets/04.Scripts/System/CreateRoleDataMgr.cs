@@ -12,6 +12,9 @@ public class CreateRoleDataMgr
         get { return INSTANCE; }
     }
 
+    /// <summary>
+    /// Value: Item ID.
+    /// </summary>
     private readonly Dictionary<EPlayerPostion, List<int>> mBodies = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mHairs = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mCloths = new Dictionary<EPlayerPostion, List<int>>();
