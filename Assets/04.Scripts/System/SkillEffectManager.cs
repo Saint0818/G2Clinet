@@ -24,18 +24,22 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			for (int i=0; i<skillEffects.Count; i++) {
 				if (skillEffects [i].DelayTime > 0) {
 					skillEffects [i].DelayTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
-					if (skillEffects [i].DelayTime <= 0) {
-						playEffect(skillEffects[i].EffectName,
-						           Vector3.zero,
-						           skillEffects[i].Player,
-						           skillEffects[i].Parent,
-						           null,
-						           skillEffects[i].Duration);
-						skillEffects.RemoveAt(i);
-					}
-				}
+					if (skillEffects [i].DelayTime <= 0) 
+						playSkillEffect(i);
+				} else
+					playSkillEffect(i);
 			}
 		}
+	}
+
+	private void playSkillEffect (int index){
+		playEffect(skillEffects[index].EffectName,
+		           Vector3.zero,
+		           skillEffects[index].Player,
+		           skillEffects[index].Parent,
+		           null,
+		           skillEffects[index].Duration);
+		skillEffects.RemoveAt(index);
 	}
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
