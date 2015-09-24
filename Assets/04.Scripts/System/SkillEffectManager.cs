@@ -74,18 +74,17 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		
 		if(skillID != 0) {
 			if(objs1 != null && objs1.Count != 0){
-				int index = 0;
 				for (int i=0; i<objs1.Count; i++) {
-					GameObject parent = null;
-					if(GameData.DSkillData[skillID].EffectParent1 == 1) {
-						parent = objs1[i];
-						index = i;
-					}
 					TSkillEffect skillEffect = new TSkillEffect();
 					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
 					skillEffect.Position = Vector3.zero;
-					skillEffect.Player = objs1[index];
-					skillEffect.Parent = parent;
+					if(GameData.DSkillData[skillID].EffectParent1 == 1) {
+						skillEffect.Player = null;
+						skillEffect.Parent = objs1[i];
+					} else {
+						skillEffect.Player = objs1[i];
+						skillEffect.Parent = null;
+					}
 					skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
 					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
 					skillEffects.Add(skillEffect);
@@ -93,18 +92,17 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			}
 			
 			if(objs2 != null && objs2.Count != 0) {
-				int index = 0;
 				for (int i=0; i<objs2.Count; i++) {
-					GameObject parent = null;
-					if(GameData.DSkillData[skillID].EffectParent2 == 1) {
-						parent = objs2[i];
-						index = i;
-					}
 					TSkillEffect skillEffect = new TSkillEffect();
 					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
 					skillEffect.Position = Vector3.zero;
-					skillEffect.Player = objs2[index];
-					skillEffect.Parent = parent;
+					if(GameData.DSkillData[skillID].EffectParent2 == 1) {
+						skillEffect.Player = null;
+						skillEffect.Parent = objs2[i];
+					} else {
+						skillEffect.Player = objs2[i];
+						skillEffect.Parent = null;
+					}
 					skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
 					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
 					skillEffects.Add(skillEffect);
@@ -112,18 +110,17 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			}
 			
 			if(objs3 != null && objs3.Count != 0) {
-				int index = 0;
 				for (int i=0; i<objs3.Count; i++) {
-					GameObject parent = null;
-					if(GameData.DSkillData[skillID].EffectParent3 == 1) {
-						parent = objs3[i];
-						index = i;
-					}
 					TSkillEffect skillEffect = new TSkillEffect();
 					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
 					skillEffect.Position = Vector3.zero;
-					skillEffect.Player = objs3[index];
-					skillEffect.Parent = parent;
+					if(GameData.DSkillData[skillID].EffectParent3 == 1) {
+						skillEffect.Player = null;
+						skillEffect.Parent = objs3[i];
+					} else {
+						skillEffect.Player = objs3[i];
+						skillEffect.Parent = null;
+					}
 					skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
 					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
 					skillEffects.Add(skillEffect);
