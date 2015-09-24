@@ -6,10 +6,13 @@ public class PushSkillTrigger : MonoBehaviour {
 	public PlayerBehaviour pusher;
 	[HideInInspector]
 	public float InRange = 5;
-	public float DelayActivityTime;
+	public float DelayActivityTime = 0;
 	private float delay;
 	void OnEnable () {
-		delay = DelayActivityTime;
+		if (DelayActivityTime > 0)
+			delay = DelayActivityTime;
+		else
+			delay = 0.05f;
 	}
 
 	void FixedUpdate (){
