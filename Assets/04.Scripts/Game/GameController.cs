@@ -93,6 +93,9 @@ public class GameController : KnightSingleton<GameController>
 	private float angleByPlayerHoop = 0;
 	private EDoubleType doubleType = EDoubleType.None;
 
+	//Rebound
+	public bool IsReboundTime = false;
+
 	//Basket
 	public EBasketSituation BasketSituation;
 	public string BasketAnimationName = "BasketballAction_1";
@@ -1939,7 +1942,7 @@ public class GameController : KnightSingleton<GameController>
 			if (BallOwner && BallOwner.Team == ETeamKind.Self) {
 				Shoot();
 			} else 
-			if (!Joysticker.IsRebound)
+			if (!Joysticker.IsRebound && IsReboundTime)
 				return Rebound(Joysticker);
         }
 
@@ -2468,13 +2471,16 @@ public class GameController : KnightSingleton<GameController>
 				return true;
 			} else {
 				if (Shooter)
-					return Joysticker.DoPassiveSkill(ESkillSituation.Block, Shooter.transform.position);
+					if(IsReboundTime)
+						return Rebound(Joysticker);
+					else
+						return Joysticker.DoPassiveSkill(ESkillSituation.Block, Shooter.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
 					return Joysticker.DoPassiveSkill(ESkillSituation.Block, BallOwner.transform.position);
 				} else {
-					if (!Shooter && inReboundDistance(Joysticker) && GameStart.Get.TestMode == EGameTest.None)
+					if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
 						return Rebound(Joysticker);
 					else
 						return Joysticker.DoPassiveSkill(ESkillSituation.Block);
@@ -2484,11 +2490,6 @@ public class GameController : KnightSingleton<GameController>
 
 		return false;
     }
-
-	private bool inReboundDistance(PlayerBehaviour player) {
-		return Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), 
-		                        new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z)) <= 6;
-	}
 
 	private bool inTipinDistance(PlayerBehaviour player) {
 		return Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), 
@@ -3037,6 +3038,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		if (p != null && Situation != EGameSituation.End) {
 			p.IsChangeColor = true;
+			IsReboundTime = false;
 			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {

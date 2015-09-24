@@ -530,6 +530,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localScale = Vector3.one;
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
+				GameController.Get.IsReboundTime = true;
 				break;
 			case EPlayerState.BasketActionEnd:
 				if(GameStart.Get.IsDebugAnimation) {
@@ -779,6 +780,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void ResetBasketEntra() {
 		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), false);
+		GameController.Get.IsReboundTime = false;
 		for (int i = 0; i < 2; i ++) {
 			BasketAirBall[i].Into = false;
 			for (int j = 0; j < 2; j ++)
@@ -811,7 +813,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		animator.SetTrigger(animationName);
     }
 
-	public void PlayDunkEffect(int team, string effectName, int parent, float duration)
+	public void PlayBasketEffect(int team, string effectName, int parent, float duration)
 	{
 		if(!string.IsNullOrEmpty(effectName)) {
 			if(effectName.Equals("ShotFX")) {

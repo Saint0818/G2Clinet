@@ -539,10 +539,13 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
 		if(IsHaveActiveSkill) {
+			int v = (int)(value / 10);
+			if(v <= 0)
+				v = 0;
 			if(GameController.Get.Situation != EGameSituation.End) {
 				if(this == GameController.Get.Joysticker && value > 0) {
 					if(target)
-						SkillDCExplosion.Get.BornDC(5, target, CameraMgr.Get.SkillDCTarget, parent);
+						SkillDCExplosion.Get.BornDC( v, target, CameraMgr.Get.SkillDCTarget, parent);
 				}
 			}
 			angerPower += value;
@@ -555,7 +558,7 @@ public class PlayerBehaviour : MonoBehaviour
 				angerPower = 0;
 			
 			if (Team == ETeamKind.Self && Index == 0) {
-				OnUIAnger(Attribute.MaxAnger, angerPower, 5);
+				OnUIAnger(Attribute.MaxAnger, angerPower, v);
 				if (value > 0)
 					GameRecord.AngerAdd += value;
 			}
@@ -1078,10 +1081,10 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private bool inReboundDistance()
+    public  bool InReboundDistance
     {
-        return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
-                                new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z)) <= 6;
+        get{ return Vector2.Distance(new Vector2(transform.position.x, transform.position.z), 
+			                         new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z)) <= 6;}
     }
     
     private void CalculationRebound()
@@ -2744,7 +2747,7 @@ public class PlayerBehaviour : MonoBehaviour
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
 
-                if (inReboundDistance()) {
+                if (InReboundDistance) {
                     reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
 					reboundMove += CourtMgr.Get.RealBallVelocity * 0.3f;
 				} else

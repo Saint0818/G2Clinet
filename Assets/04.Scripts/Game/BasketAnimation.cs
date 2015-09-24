@@ -15,7 +15,7 @@ public class BasketAnimation : MonoBehaviour {
 		float duration = aniEvent.floatParameter;
 		int eventKind = aniEvent.intParameter;
 		string effectName = aniEvent.stringParameter;
-		CourtMgr.Get.PlayDunkEffect(Team, effectName, eventKind, duration);
+		CourtMgr.Get.PlayBasketEffect(Team, effectName, eventKind, duration);
 	}
 
 	public void PlayShake (string name) {
