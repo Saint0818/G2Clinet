@@ -57,7 +57,7 @@ public class UICreateRolePartButton : MonoBehaviour
 
     public void OnPartItemSelected(UICreateRoleStyleView.EEquip equip, int index, int itemID)
     {
-        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
+//        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
 
         if(equip == Equipment)
             SelectedIndex = index;

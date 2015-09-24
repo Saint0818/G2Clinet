@@ -17,6 +17,17 @@ public class UI3DCreateRoleCommon : MonoBehaviour
     public Transform GuardParent;
     public GameObject GuardShadow;
 
+    /// <summary>
+    /// 創角中的 3D 球員.
+    /// </summary>
+    /// <remarks>
+    /// 使用方法:
+    /// <list type="number">
+    /// <item> new instance. </item>
+    /// <item> Call UpdateXXX() 更新球員穿戴品. </item>
+    /// <item> 使用完畢後, 呼叫 Destroy(). </item>
+    /// </list>
+    /// </remarks>
     public class Player
     {
         public int PlayerID
@@ -40,6 +51,8 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         private readonly int mPlayerID;
         private Animator mAnimator;
 
+        private readonly Dictionary<UICreateRoleStyleView.EEquip, int> mItemIDs = new Dictionary<UICreateRoleStyleView.EEquip, int>();
+
         /// <summary>
         /// 給預設套裝.
         /// </summary>
@@ -55,12 +68,17 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mPlayerID = playerID;
             mShadow = shadow;
 
-            UpdateParts(
-                CreateRoleDataMgr.Ins.GetBody(pos)[0],
-                CreateRoleDataMgr.Ins.GetHairs(pos)[0],
-                CreateRoleDataMgr.Ins.GetCloths(pos)[0],
-                CreateRoleDataMgr.Ins.GetPants(pos)[0],
-                CreateRoleDataMgr.Ins.GetShoes(pos)[0]);
+            int bodyItemID = CreateRoleDataMgr.Ins.GetBody(pos)[0];
+            int hairItemID = CreateRoleDataMgr.Ins.GetHairs(pos)[0];
+            int clothItemID = CreateRoleDataMgr.Ins.GetCloths(pos)[0];
+            int pantsItemID = CreateRoleDataMgr.Ins.GetPants(pos)[0];
+            int shoesItemID = CreateRoleDataMgr.Ins.GetShoes(pos)[0];
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
+            UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
         /// <summary>
@@ -83,6 +101,11 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mPlayerID = playerID;
             mShadow = shadow;
 
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
+            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
             UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
@@ -91,17 +114,48 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mAnimator.SetTrigger(animName);
         }
 
+        public void Destroy()
+        {
+            Object.Destroy(mModel);
+            mModel = null;
+        }
+
+        public void UpdatePart(UICreateRoleStyleView.EEquip equip, int itemID)
+        {
+            var bodyItemID = mItemIDs[UICreateRoleStyleView.EEquip.Body];
+            var hairItemID = mItemIDs[UICreateRoleStyleView.EEquip.Hair];
+            var clothItemID = mItemIDs[UICreateRoleStyleView.EEquip.Cloth];
+            var pantsItemID = mItemIDs[UICreateRoleStyleView.EEquip.Pants];
+            var shoesItemID = mItemIDs[UICreateRoleStyleView.EEquip.Shoes];
+
+            if(equip == UICreateRoleStyleView.EEquip.Body)
+                bodyItemID = itemID;
+            else if(equip == UICreateRoleStyleView.EEquip.Hair)
+                hairItemID = itemID;
+            else if (equip == UICreateRoleStyleView.EEquip.Cloth)
+                clothItemID = itemID;
+            else if (equip == UICreateRoleStyleView.EEquip.Pants)
+                pantsItemID = itemID;
+            else if (equip == UICreateRoleStyleView.EEquip.Shoes)
+                shoesItemID = itemID;
+
+            UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
+        }
+
         public void UpdateParts(int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, 
                                 int shoesItemID)
         {
+            mItemIDs[UICreateRoleStyleView.EEquip.Body] = bodyItemID;
+            mItemIDs[UICreateRoleStyleView.EEquip.Hair] = hairItemID;
+            mItemIDs[UICreateRoleStyleView.EEquip.Cloth] = clothItemID;
+            mItemIDs[UICreateRoleStyleView.EEquip.Pants] = pantsItemID;
+            mItemIDs[UICreateRoleStyleView.EEquip.Shoes] = shoesItemID;
+
+            if(mModel)
+                Object.Destroy(mModel);
+
             mModel = UICreateRole.CreateModel(mParent, mName, mPlayerID, bodyItemID, hairItemID,
-                                              clothItemID, pantsItemID, shoesItemID
-//                CreateRoleDataMgr.Ins.GetBody(),
-//                CreateRoleDataMgr.Ins.GetHairs(mPosition)[0],
-//                CreateRoleDataMgr.Ins.GetCloths(mPosition)[0],
-//                CreateRoleDataMgr.Ins.GetPants(mPosition)[0],
-//                CreateRoleDataMgr.Ins.GetShoes(mPosition)[0]
-                );
+                                              clothItemID, pantsItemID, shoesItemID);
             mModel.AddComponent<SelectEvent>(); // 避免發生 Error.
             mAnimator = mModel.GetComponent<Animator>();
         }

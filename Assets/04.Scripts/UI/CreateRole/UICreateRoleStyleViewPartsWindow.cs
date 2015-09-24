@@ -57,10 +57,10 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <param name="selectedIndex"> 預設哪一個要被選擇. </param>
     public void UpdateData(UICreateRoleStyleView.EEquip equip, TItemData[] items, int selectedIndex)
     {
-        foreach(TItemData item in items)
-        {
-            Debug.Log(item);
-        }
+//        foreach(TItemData item in items)
+//        {
+//            Debug.Log(item);
+//        }
 
         mEquip = equip;
 
@@ -127,7 +127,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
     private void onPartSelected(int index, int itemID)
     {
-        Debug.LogFormat("Index:{0}, ItemID:{1}", index, itemID);
+//        Debug.LogFormat("Index:{0}, ItemID:{1}", index, itemID);
 
         if(SelectListener != null)
             SelectListener(mEquip, index, itemID);

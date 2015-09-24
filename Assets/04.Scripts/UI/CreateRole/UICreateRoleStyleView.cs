@@ -35,9 +35,9 @@ public class UICreateRoleStyleView : MonoBehaviour
     private EEquip mCurrentEquip = EEquip.Body;
 
     /// <summary>
-    /// 目前球員穿搭的配件.
+    /// 目前球員穿搭的配件. Value: ItemID.
     /// </summary>
-    private readonly Dictionary<EEquip, TItemData> mEquips = new Dictionary<EEquip, TItemData>();
+    private readonly Dictionary<EEquip, int> mEquips = new Dictionary<EEquip, int>();
 
     /// <summary>
     /// 撥頁面隱藏時的時間, 單位: 秒.
@@ -70,23 +70,23 @@ public class UICreateRoleStyleView : MonoBehaviour
         mEquips.Clear();
 
         TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
-        mEquips.Add(EEquip.Hair, items[0]);
+        mEquips.Add(EEquip.Hair, items[0].ID);
         HairBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
-        mEquips.Add(EEquip.Cloth, items[0]);
+        mEquips.Add(EEquip.Cloth, items[0].ID);
         ClothBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
-        mEquips.Add(EEquip.Pants, items[0]);
+        mEquips.Add(EEquip.Pants, items[0].ID);
         PantsBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
-        mEquips.Add(EEquip.Shoes, items[0]);
+        mEquips.Add(EEquip.Shoes, items[0].ID);
         ShoesBtn.SetData(items);
 
         items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
-        mEquips.Add(EEquip.Body, items[0]);
+        mEquips.Add(EEquip.Body, items[0].ID);
         BodyBtn.SetData(items);
         BodyBtn.SetSelected(); // 強制每次進入時, 都是 Body 按鈕被選擇.
     }
@@ -106,19 +106,10 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnPartItemSelected(EEquip equip, int index, int itemID)
     {
-        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
-    }
+//        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
 
-    private void onEquipClick(EEquip equip, TItemData item)
-    {
-//        Debug.LogFormat("onEquipClick, equip:{0}, item:{1}", equip, item);
-
-        if(mEquips.ContainsKey(equip))
-            mEquips[equip] = item;
-        else
-            mEquips.Add(equip, item);
-
-//        updateModel();
+        UI3DCreateRole.Get.StyleView.UpdateModel(equip, itemID);
+        mEquips[equip] = itemID;
     }
 
 //    private void updateModel()
@@ -168,11 +159,11 @@ public class UICreateRoleStyleView : MonoBehaviour
     private void showNextPage()
     {
         int[] equipmentItemIDs = new int[8];
-        equipmentItemIDs[0] = mEquips[EEquip.Body].ID;
-        equipmentItemIDs[1] = mEquips[EEquip.Hair].ID;
-        equipmentItemIDs[3] = mEquips[EEquip.Cloth].ID;
-        equipmentItemIDs[4] = mEquips[EEquip.Pants].ID;
-        equipmentItemIDs[5] = mEquips[EEquip.Shoes].ID; ;
+        equipmentItemIDs[0] = mEquips[EEquip.Body];
+        equipmentItemIDs[1] = mEquips[EEquip.Hair];
+        equipmentItemIDs[3] = mEquips[EEquip.Cloth];
+        equipmentItemIDs[4] = mEquips[EEquip.Pants];
+        equipmentItemIDs[5] = mEquips[EEquip.Shoes];
 
         GameData.Team.Player.ID = mPlayerID;
         GameData.Team.Player.Items = new GameStruct.TItem[equipmentItemIDs.Length];

@@ -9,6 +9,7 @@ using UnityEngine;
 /// <list type="number">
 /// <item> 用 UI3DCreateRole.Get.StyleView 取得 instance. </item>
 /// <item> Call Show() or Hide() 控制球員要不要顯示. </item>
+/// <item> Call UpdateModel() 幫模型換裝. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -28,9 +29,22 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     public void Show(EPlayerPostion pos, int playerID)
     {
         CamerAnimator.enabled = false;
+        CamerAnimator.transform.localPosition = new Vector3(0, -18, 325);
 
-        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
+        if(mPlayer != null)
+            mPlayer.Destroy();
+
+//        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
+//                                                  "StyleViewPlayer", playerID, pos);
+        // todo 目前暫時將球員定位在固定位置, 也不做 Camera 位置內差.
+        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(EPlayerPostion.F), mCommon.GetShadow(pos),
                                                   "StyleViewPlayer", playerID, pos);
+    }
+
+    public void UpdateModel(UICreateRoleStyleView.EEquip equip, int itemID)
+    {
+        if(mPlayer != null)
+            mPlayer.UpdatePart(equip, itemID);
     }
 
     public void Hide()
