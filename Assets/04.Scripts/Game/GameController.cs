@@ -3331,8 +3331,14 @@ public class GameController : KnightSingleton<GameController>
 			if (Situation == EGameSituation.JumpBall) {	
 				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
 			} else
-			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) && player != BallOwner && CourtMgr.Get.RealBall.transform.position.y >= 3 && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
-				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
+			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
+				   player != BallOwner &&
+				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
+				   (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+
+				if (GameStart.Get.TestMode == EGameTest.Rebound ||
+				    Situation == EGameSituation.AttackA ||
+				    Situation == EGameSituation.AttackB) {
 					if (GameStart.Get.TestMode == EGameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
 							Rebound(player);

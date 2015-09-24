@@ -244,6 +244,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         get { return cameraFx;}
     }
 
+	public Animator CourtCameraAnimator {
+		get {return cameraAnimator; }
+	}
+
 	public void ShowPlayerInfoCamera (bool isShow) {
 		cameraPlayerInfo.gameObject.SetActive(isShow);
 	}
