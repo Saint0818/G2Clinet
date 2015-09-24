@@ -16,18 +16,27 @@ public struct TItemAvatar
 	public Transform EnablePool;
 	private bool isEquip;
 	private bool isInit;
+	private bool isInitBtn;
+	private bool isRental;
 
 	private UILabel name;
 	private UILabel usetime;
 	private UILabel abilityValue;
 	private UILabel price;
+	private UILabel PriceLabel;
+	private UILabel FinishLabel;
+
 	private UISprite pic;
 	private UIButton equipBtn;
+	private UILabel equipLabel;
 	private UIButton buyBtn;
+	private UISprite TrimBottom;
+	public DateTime EndUseTime;
 
 	public bool Enable
 	{
 		set{
+			CheckItemKind();
 			if(gameobject){
 				gameobject.SetActive(value);
 				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
@@ -55,6 +64,19 @@ public struct TItemAvatar
 		}
 	}
 
+	public bool IsRental
+	{
+		set{
+			isRental = value;
+			if(isRental)
+				usetime.gameObject.SetActive(true);
+			else
+				usetime.gameObject.SetActive(false);
+		}
+
+		get{return isRental;}
+	}
+
 	public string Pic
 	{
 		set{
@@ -63,26 +85,73 @@ public struct TItemAvatar
 		}
 	}
 
-	public DateTime UseTime
+	private TimeSpan currentTime;
+	private bool isReantimeEnd;
+
+	public TimeSpan UseTime
 	{
 		set{
+
+			if(IsRental == false){
+				return;
+			}
+
+			currentTime = value;
+
 			if(usetime)
-				usetime.text = value.ToLongTimeString();
+				usetime.text = currentTime.Days + " : " + currentTime.Hours + " : " + currentTime.Minutes;
+
+			if(currentTime.TotalSeconds < 0){
+				if(isReantimeEnd == false)
+				{
+					//End
+					if(IsRental){
+						usetime.gameObject.SetActive(false);
+					}
+				}
+			}
 		}
-//		get{
-//			if(usetime)
-//				return usetime.text;
-//			else
-//				return null;
-//		}
+
+		get{return currentTime;}
+	}
+
+	public void CheckEquipBtnName()
+	{
+		if (IsRental) {
+			if(currentTime.TotalSeconds > 0){
+
+				if(TrimBottom.color != Color.white)
+					TrimBottom.color = Color.white;
+
+				if(Equip)
+					equipLabel.text = "EQUIPED";
+				else
+					equipLabel.text = "EQUIP";
+			}
+			else{
+
+				if(TrimBottom.color != Color.black)
+					TrimBottom.color = Color.black;
+				equipLabel.text = "FETTING";
+			}
+		} else {
+			if(TrimBottom.color != Color.white)
+				TrimBottom.color = Color.white;
+
+			if(Equip)
+				equipLabel.text = "EQUIPED";
+			else
+				equipLabel.text = "EQUIP";	
+		}
 	}
 
 	public bool Equip
 	{
 		set{
 			isEquip = value;
-			equipBtn.defaultColor = (isEquip == true) ? new Color(0.431f, 0.976f, 0.843f,1) : Color.gray;
-			equipBtn.hover = (isEquip == true) ? new Color(0.431f, 0.976f, 0.843f,1) : Color.gray;
+			equipBtn.defaultColor = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+			equipBtn.hover = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+			CheckEquipBtnName();
 		}
 		get{
 			return isEquip;
@@ -97,15 +166,69 @@ public struct TItemAvatar
 				usetime = gameobject.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
 				abilityValue = gameobject.transform.FindChild ("BuyBtn/FinishLabel").gameObject.GetComponent<UILabel> ();
 				pic = gameobject.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
+				TrimBottom = gameobject.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
+
 				equipBtn = gameobject.transform.FindChild ("EquipBtn").gameObject.GetComponent<UIButton> ();
-				equipBtn.name = gameobject.name;
+				if(equipBtn){
+					equipBtn.name = gameobject.name;
+					equipLabel = equipBtn.transform.FindChild("EquipLabel").gameObject.GetComponent<UILabel>();
+				}
+
 				buyBtn = gameobject.transform.FindChild ("BuyBtn").gameObject.GetComponent<UIButton> ();
-				buyBtn.name = gameobject.name;
-				buyBtn.onClick.Add(new EventDelegate(UIAvatarFitted.Get.OnBuy));
-				equipBtn.onClick.Add(new EventDelegate(UIAvatarFitted.Get.OnEquip));
+
+				if(buyBtn){
+					buyBtn.name = gameobject.name;
+					PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
+					FinishLabel = buyBtn.transform.FindChild("FinishLabel").gameObject.GetComponent<UILabel>();
+				}
 			}
 		}
 		isInit = name && usetime && abilityValue && pic;
+	}
+
+	private void CheckItemKind()
+	{
+		if(GameData.DItemData.ContainsKey(ID))
+		{
+			if(GameData.DItemData[ID].UseTime > 0)
+			{
+				IsRental = true;
+
+
+				PriceLabel.gameObject.SetActive(true);
+				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
+			}
+			else
+			{
+				IsRental = false;
+				equipLabel.text = "FITTING";
+				TrimBottom.color = Color.black;
+				PriceLabel.gameObject.SetActive(false);
+				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
+			}
+		}
+	}
+
+	public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc)
+	{
+		if (isInitBtn)
+			return;
+
+		if (buyBtn)
+			buyBtn.onClick.Add (BuyFunc);
+		else {
+			isInitBtn = false;
+			return;
+		}
+
+		if (equipBtn)
+			equipBtn.onClick.Add(EquipFunc);
+		else{
+			isInitBtn = false;
+			return;
+		}
+
+		isInitBtn = true;
 	}
 }
 
@@ -118,7 +241,7 @@ public struct TEquip
 public class UIAvatarFitted : UIBase {
 	private static UIAvatarFitted instance = null;
 	private const string UIName = "UIAvatarFitted";
-	private const int avatarPartCount = 6;
+	private const int avatarPartCount = 7;
 	private GameObject item;
 	private TItemAvatar[] items;
 	private bool isInit = false;
@@ -157,19 +280,53 @@ public class UIAvatarFitted : UIBase {
 				Get.Show(isShow);
 	}
 
-	void FixedUpdate(){
-		
+	private TimeSpan checktime;
+
+	void Update()
+	{
+		for(int i = 0; i < items.Length; i++)
+		{
+			if(items[i].Enable)
+			{
+				checktime = items[i].EndUseTime - System.DateTime.UtcNow;
+				items[i].UseTime = checktime;
+
+//				if(items[i].isTimeEnd == flase && checktime.TotalSeconds > 0)
+//				{
+//					items[i].UseTime = checktime.Days + " : " + checktime.Hours + ":" + checktime.Minutes;
+//				}
+//				else
+//				{
+//					items[i].isTimeEnd = true;
+//				}
+
+
+
+
+//				if(checktime.TotalSeconds > 0)
+//				{
+//					items[i].UseTime = (items[i].EndUseTime - System.DateTime.UtcNow);
+//				}
+			}
+
+		}
 	}
 
-	private string[] btnPaths = new string[6];
+	void FixedUpdate(){
+	}
+
+	private string[] btnPaths = new string[avatarPartCount];
+	private int test = 0;
 
 	protected override void InitCom() {
-		btnPaths [0] = UIName + "/MainView/Left/MainButton/HairBtn";
-		btnPaths [1] = UIName + "/MainView/Left/MainButton/ClothesBtn";
-		btnPaths [2] = UIName + "/MainView/Left/MainButton/PantsBtn";
-		btnPaths [3] = UIName + "/MainView/Left/MainButton/ShoesBtn";
-		btnPaths [4] = UIName + "/MainView/Left/MainButton/HandsBtn";
-		btnPaths [5] = UIName + "/MainView/Left/MainButton/BacksBtn";
+		string mainBtnPath = UIName + "/MainView/Left/MainButton/";
+		btnPaths [0] = mainBtnPath + "HairBtn";
+		btnPaths [1] = mainBtnPath + "HandsBtn";
+		btnPaths [2] = mainBtnPath + "ClothesBtn";
+		btnPaths [3] = mainBtnPath + "PantsBtn";
+		btnPaths [4] = mainBtnPath + "ShoesBtn";
+		btnPaths [5] = mainBtnPath + "FaceBtn";
+		btnPaths [6] = mainBtnPath + "BacksBtn";
 
 		for(int i = 0; i < btnPaths.Length; i++){
 			SetBtnFunReName (btnPaths[i], DoAvatarTab, i.ToString());
@@ -198,7 +355,6 @@ public class UIAvatarFitted : UIBase {
 		if (GameData.DItemData.ContainsKey (id)) {
 			return	GameData.DItemData[id].Kind;
 		} else {
-			Debug.LogError("Can not find ID in ItemData");
 			return -1;
 		}
 	}
@@ -224,14 +380,56 @@ public class UIAvatarFitted : UIBase {
 
 	public void DoAvatarTab()
 	{
-		if (int.TryParse (UIButton.current.name, out avatarPart)) {
-			if(CheckItemCount()){
-				InitItems();
-				InitEquipState();
-			}
+		int index;
+
+		if (int.TryParse (UIButton.current.name, out index)) {
+			InitAvatarView(index);
 		}
+
 	}
 
+	public void InitAvatarView(int index)
+	{
+		switch(index)
+		{
+		case 0:
+			avatarPart = 1;//頭髮
+			break;
+		case 1:
+			avatarPart = 2;//手飾
+			break;
+			
+		case 2:
+			avatarPart = 3;//上身
+			break;
+			
+		case 3:
+			avatarPart = 4;//下身
+			break;
+			
+		case 4:
+			avatarPart = 5;//鞋
+			break;
+			
+		case 5:
+			avatarPart = 10;//頭飾(共用）
+			break;
+			
+		case 6:
+			avatarPart = 11;//背部(共用)
+			break;
+			
+		default:
+			Debug.LogError("Can't found ItemKind");
+			return;
+		}
+		
+		if(CheckItemCount()){
+			InitItems();
+			InitEquipState();
+		}
+	}
+	
 	private bool CheckSameEquip()
 	{
 		if (GameData.Team.Player.Items.Length > 0) {
@@ -251,7 +449,7 @@ public class UIAvatarFitted : UIBase {
 	private bool CheckItemCount()
 	{
 		if (isInit && GameData.Team.Items!= null) {
-			if (GameData.Team.Items.Length > 0 && item && avatarPart < btnPaths.Length) {
+			if (GameData.Team.Items.Length > 0 && item) {
 				if(items == null){
 					items = new TItemAvatar[GameData.Team.Items.Length];
 				}
@@ -283,13 +481,14 @@ public class UIAvatarFitted : UIBase {
 				items[i].DisablePool = disableGroup.gameObject.transform;
 				items[i].EnablePool = grid.gameObject.transform;
 				items[i].Init();
+				items[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
 			}
 
 			if(items[i].ID != GameData.Team.Items[i].ID)
 			{
 				items[i].ID = GameData.Team.Items[i].ID;
 				items[i].Position = GameData.DItemData[items[i].ID].Position;
-				items[i].UseTime = GameData.Team.Items[i].UseTime;
+				items[i].EndUseTime = GameData.Team.Items[i].UseTime;
 				items[i].Name =  GameData.DItemData[items[i].ID].Name;
 				items[i].Pic = GameData.DItemData[items[i].ID].Icon;
 				items[i].AbilityKind = GetItemKind(items[i].ID).ToString();
@@ -410,22 +609,21 @@ public class UIAvatarFitted : UIBase {
 	private void DoSave()
 	{
 		DoReturn ();
-
-		for (int i = 0; i < Equips.Count; i++) {
-			Debug.Log("** Equips : " + GameData.DItemData[Equips[i].ID].Name);
-		}
 			
 		if (!CheckSameEquip ()) {
 			Debug.LogWarning("save serverdata");
 		}
+
+		foreach (KeyValuePair<int, TEquip> item in Equips) {
+			Debug.Log("** Equips : " + GameData.DItemData[item.Value.ID].Name);
+		}
 	}
 
 	protected override void InitData() {
-		
+		InitAvatarView (0);
 	}
 	
 	protected override void OnShow(bool isShow) {
 		
 	}
-
 }

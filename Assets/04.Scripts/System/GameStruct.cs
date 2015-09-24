@@ -791,6 +791,7 @@ namespace GameStruct {
 		public int Position;
 		public int Avatar;
 		public int MaxStack;
+		public int UseTime;
 		public string Icon;
 		public string NameTW;
 		public string NameCN;

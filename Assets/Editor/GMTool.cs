@@ -122,21 +122,21 @@ public class GMTool : EditorWindow
 		
 		if (GUILayout.Button("Add", GUILayout.Width(200)))
 		{
-			int partCount = 8;
+			//note : Item data all kind 
+			int[] partKind = new int[7]{1, 2, 3, 4, 5, 10, 11};
 			int findCount;
 			itemIds2.Clear();
 			
-			for(int i = 0; i < partCount;i++)
+			for(int i = 0; i < partKind.Length;i++)
 			{
 				findCount = 0;
 				
 				foreach( KeyValuePair<int, TItemData> item in GameData.DItemData )
 				{
-					if(item.Value.Kind == i)
+					if(item.Value.Kind == partKind[i] && item.Value.Position == position)
 					{
 						if(findCount < countprekind){
 							itemIds2.Add(item.Value.ID);
-//							itemIds2[i * 10 + findCount] = item.Value.ID;
 							findCount++;
 						}
 						else
