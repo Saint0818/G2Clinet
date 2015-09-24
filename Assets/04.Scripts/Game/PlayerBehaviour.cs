@@ -574,7 +574,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private void changePlayerColor (){
 		if(isChangeColor) {
 			changeTime += Time.deltaTime;
-			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 210 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) + 150;
+			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 510 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) ;
 			BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, (byte)lerp, 255);
 			if(changeTime >= GameStart.Get.PlayerShineTime)
 				isChangeColor = false;
