@@ -263,7 +263,7 @@ public class UIGame : UIBase {
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
-		uiDC = GameObject.Find (UIName + "/Bottom/ViewForceBar/GetDCSoul");
+		uiDC = GameObject.Find (UIName + "/BottomRight/ButtonSkill/GetDCSoul");
 
 		uiDefenceGroup[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal/SpriteSteal");
 		uiDefenceGroup[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock/SpriteBlock");
