@@ -341,8 +341,8 @@ namespace GameStruct {
 	}
 
 	public struct TPlayerAttribute {
-		public float PointRate2;
-		public float PointRate3;
+		public float PointRate2; // 投 2 分球的機率.
+		public float PointRate3; // 投 3 分球的機率.
 		public float StealRate;
 		public float DunkRate;
 		public float TipInRate;

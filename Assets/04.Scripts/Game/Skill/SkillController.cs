@@ -440,7 +440,7 @@ public class SkillController : MonoBehaviour {
 				
 			case ESkillSituation.MoveDodge:
 				if(player.IsBallOwner) {
-					int Dir = GameController.Get.HaveDefPlayer(player, GameConst.CrossOverDistance, 50);
+					int Dir = GameController.Get.HasDefPlayer(player, GameConst.CrossOverDistance, 50);
 					if(Dir != 0 && player.IsHaveMoveDodge) {
 						if(Random.Range(0, 100) <= player.MoveDodgeRate) {
 							Vector3 pos = CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position;
@@ -526,22 +526,22 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Shoot0:
-				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HasDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot3:
-				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot2:
-				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot1:
-				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HaveDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v );
 				break;
 				

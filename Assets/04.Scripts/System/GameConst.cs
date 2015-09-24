@@ -21,7 +21,7 @@ public class GameConst
 	public const float TwoPointDistance = 3;
 	public const float DunkDistance = 7;
 	public const float PickBallDistance = 2.5f;
-	public const float StealBallDistance = 3;
+	public const float StealBallDistance = 3; // 這其實是推人, 抄球的距離.
 	public const float BlockDistance = 5;
 	public const int FakeShootRate = 40; // 做假動作的機率.
 	public const float DefMoveTime = 0.2f;

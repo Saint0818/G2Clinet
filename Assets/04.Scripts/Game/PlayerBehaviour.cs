@@ -122,7 +122,7 @@ public enum EPlayerState
 	Shoot7 = 413,
 	Steal0,
 	Steal20 = 11500,
-	TipIn,
+	TipIn, // 籃下補籃.
 	JumpBall,
 	Buff20 = 12100, 
 	Buff21 = 12101,
@@ -635,40 +635,45 @@ public class PlayerBehaviour : MonoBehaviour
 		initAttr();
     }
 
-	private void initAttr() {
-		if (GameData.BaseAttr.Length > 0 && Attribute.AILevel >= 0 && Attribute.AILevel < GameData.BaseAttr.Length) {
-			Attr.PointRate2 = Math.Min(GameData.BaseAttr [Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f), 100);
-			Attr.PointRate3 = Math.Min(GameData.BaseAttr [Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f), 100);
-			Attr.StealRate = Math.Min(GameData.BaseAttr [Attribute.AILevel].StealRate + (Attribute.Steal / 10), 100);
-			Attr.DunkRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].DunkRate + (Attribute.Dunk * 0.9f), 100);
-			Attr.TipInRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].TipInRate + (Attribute.Dunk * 0.9f), 100);
-			Attr.AlleyOopRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].AlleyOopRate + (Attribute.Dunk * 0.6f), 100);
-			Attr.StrengthRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].StrengthRate + (Attribute.Strength * 0.9f), 100);
-			Attr.BlockPushRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].BlockPushRate + (Attribute.Strength * 0.5f), 100);
-			Attr.ElbowingRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].ElbowingRate + (Attribute.Strength * 0.8f), 100);
-			Attr.ReboundRate = Math.Min(GameData.BaseAttr [Attribute.AILevel].ReboundRate + (Attribute.Rebound * 0.9f), 100);
-			Attr.BlockRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].BlockRate + (Attribute.Block * 0.9f), 100);
-			Attr.FaketBlockRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].FaketBlockRate + (100-(Attribute.Block / 1.15f)), 100);
-			Attr.JumpBallRate = Math.Min(GameData.BaseAttr [Attribute.AILevel].JumpBallRate, 100);
-			Attr.PushingRate = Math.Min(GameData.BaseAttr [Attribute.AILevel].PushingRate + (Attribute.Defence * 1), 100);
-			Attr.PassRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].PassRate + (Attribute.Pass * 0.7f), 100);
-			Attr.AlleyOopPassRate = Math.Min(GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate + (Attribute.Pass * 0.6f), 100);
-			Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound / 200);
-			Attr.ReboundHandDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHandDistance + (Attribute.Rebound / 50);
-			Attr.BlockDistance = GameData.BaseAttr [Attribute.AILevel].BlockDistance + (Attribute.Block / 100);
-			Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + (Attribute.Defence * 0.1f);
-			Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.002f);
-			Attr.StaminaValue = GameData.BaseAttr[Attribute.AILevel].StaminaValue + (Attribute.Stamina * 1.2f);
-			Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
+	private void initAttr()
+    {
+	    if(GameData.BaseAttr.Length <= 0 || Attribute.AILevel < 0 || Attribute.AILevel >= GameData.BaseAttr.Length)
+	    {
+	        Debug.LogErrorFormat("initialize attributes fail, BaseAttr:{0}, AILevel:{1}.", GameData.BaseAttr.Length, Attribute.AILevel);
+	        return;
+	    }
+
+	    Attr.PointRate2 = GameData.BaseAttr[Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f);
+	    Attr.PointRate3 = GameData.BaseAttr[Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f);
+	    Attr.StealRate = GameData.BaseAttr[Attribute.AILevel].StealRate + (Attribute.Steal / 10);
+	    Attr.DunkRate = GameData.BaseAttr[Attribute.AILevel].DunkRate + (Attribute.Dunk * 0.9f);
+	    Attr.TipInRate = GameData.BaseAttr[Attribute.AILevel].TipInRate + (Attribute.Dunk * 0.9f);
+	    Attr.AlleyOopRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopRate + (Attribute.Dunk * 0.6f);
+	    Attr.StrengthRate = GameData.BaseAttr[Attribute.AILevel].StrengthRate + (Attribute.Strength * 0.9f);
+	    Attr.BlockPushRate = GameData.BaseAttr[Attribute.AILevel].BlockPushRate + (Attribute.Strength * 0.5f);
+	    Attr.ElbowingRate = GameData.BaseAttr[Attribute.AILevel].ElbowingRate + (Attribute.Strength * 0.8f);
+	    Attr.ReboundRate = GameData.BaseAttr [Attribute.AILevel].ReboundRate + (Attribute.Rebound * 0.9f);
+	    Attr.BlockRate = GameData.BaseAttr[Attribute.AILevel].BlockRate + (Attribute.Block * 0.9f);
+	    Attr.FaketBlockRate = GameData.BaseAttr[Attribute.AILevel].FaketBlockRate + (100-(Attribute.Block / 1.15f));
+	    Attr.JumpBallRate = GameData.BaseAttr [Attribute.AILevel].JumpBallRate;
+	    Attr.PushingRate = GameData.BaseAttr [Attribute.AILevel].PushingRate + (Attribute.Defence * 1);
+	    Attr.PassRate = GameData.BaseAttr[Attribute.AILevel].PassRate + (Attribute.Pass * 0.7f);
+	    Attr.AlleyOopPassRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate + (Attribute.Pass * 0.6f);
+	    Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound / 200);
+	    Attr.ReboundHandDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHandDistance + (Attribute.Rebound / 50);
+	    Attr.BlockDistance = GameData.BaseAttr [Attribute.AILevel].BlockDistance + (Attribute.Block / 100);
+	    Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + (Attribute.Defence * 0.1f);
+	    Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.002f);
+	    Attr.StaminaValue = GameData.BaseAttr[Attribute.AILevel].StaminaValue + (Attribute.Stamina * 1.2f);
+	    Attr.AutoFollowTime = GameData.BaseAttr [Attribute.AILevel].AutoFollowTime;
 			
-			DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
-			TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
-			FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
-			blockTrigger.transform.localScale = new Vector3( blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
-			if (Attr.StaminaValue > 0)
-				setMovePower(Attr.StaminaValue);
-		}
-	}
+	    DefPoint.transform.localScale = new Vector3(Attr.DefDistance, Attr.DefDistance, Attr.DefDistance);
+	    TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
+	    FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
+	    blockTrigger.transform.localScale = new Vector3( blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
+	    if (Attr.StaminaValue > 0)
+	        setMovePower(Attr.StaminaValue);
+    }
 
 	private void initSkill (){
 		skillController.initSkillController(Attribute, this, AnimatorControl);
@@ -1584,7 +1589,7 @@ public class PlayerBehaviour : MonoBehaviour
                             RotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
                         
                         if (data.Shooting && AIing)
-                            GameController.Get.Shoot();
+                            GameController.Get.DoShoot();
                     } else {
                         if (data.LookTarget == null) {
                             if (GameController.Get.BallOwner != null)
@@ -3355,6 +3360,9 @@ public class PlayerBehaviour : MonoBehaviour
 		set {skillController.PassiveLv = value;}
 	}
 
+    /// <summary>
+    /// 轉身運球機率.
+    /// </summary>
 	public int MoveDodgeRate {
 		get {return skillController.MoveDodgeRate;}
 		set {skillController.MoveDodgeRate = value;}
