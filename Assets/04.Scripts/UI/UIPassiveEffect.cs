@@ -179,15 +179,15 @@ public class UIPassiveEffect : UIBase {
 		uiCardMotion[recordIndex[0]].SetActive(false);
 		uiCardMotion[recordIndex[0]].SetActive(true);
 		uiCardMotion[recordIndex[0]].transform.DOKill(true);
-		uiCardMotion[recordIndex[0]].transform.localPosition = new Vector3(500, 200, 0);
+		uiCardMotion[recordIndex[0]].transform.localPosition = new Vector3(380, 220, 0);
 		if(getRecordCount() < 3) {
 			for(int i=1; i<recordIndex.Length; i++) {
 				if(recordIndex[i] != -1)
-					uiCardMotion[recordIndex[i]].transform.DOLocalMoveX(500 - (200 * (getRecordCount () - i)), 0.2f);
+					uiCardMotion[recordIndex[i]].transform.DOLocalMoveX(380 - (180 * (getRecordCount () - i)), 0.2f);
 			}
 		} else {
-			uiCardMotion[recordIndex[1]].transform.DOLocalMoveX(300, 0.2f);
-			uiCardMotion[recordIndex[2]].transform.DOLocalMoveX(100, 0.2f);
+			uiCardMotion[recordIndex[1]].transform.DOLocalMoveX(200, 0.2f);
+			uiCardMotion[recordIndex[2]].transform.DOLocalMoveX(20, 0.2f);
 			hideCard(recordIndex[2]);
 		}
 		spriteCardFrame[recordIndex[0]].spriteName = "SkillCard" + passiveValue[recordIndex[0]].CardLVs.ToString();
