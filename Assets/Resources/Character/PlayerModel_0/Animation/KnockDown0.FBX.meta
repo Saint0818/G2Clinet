@@ -288,7 +288,7 @@ ModelImporter:
       name: KnockDownUp0
       takeName: Take 001
       firstFrame: 12
-      lastFrame: 42
+      lastFrame: 51
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -307,7 +307,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .999999881
+      - time: 1
         functionName: AnimationEvent
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
