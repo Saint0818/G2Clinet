@@ -255,11 +255,11 @@ public class UIGame : UIBase {
 		}
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
-		spriteSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
+		spriteSkill = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteSkill").GetComponent<UISprite>();
 		spriteSkill.color = new Color32(69, 69, 69, 255);
 		spriteAttack = GameObject.Find (UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
 
-		uiSkillEnable = GameObject.Find(UIName + "/Bottom/ViewForceBar/ButtonSkill/SpriteFull");
+		uiSkillEnable = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
@@ -345,7 +345,7 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
 		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
-		SetBtnFun (UIName + "/Bottom/ViewForceBar/ButtonSkill", DoSkill);
+		SetBtnFun (UIName + "/BottomRight/ButtonSkill", DoSkill);
 
 		uiDC.SetActive(false);
 		viewTools.SetActive(false);
