@@ -91,7 +91,7 @@ public class UIStage : UIBase {
 				GameStart.Get.FriendNumber =  GameData.DStageData[id].FriendNumber;
 
 			UIShow(false);
-			SceneMgr.Get.ChangeLevel(SceneName.Stage);
+			SceneMgr.Get.ChangeLevel(ESceneName.Court_0);
 		}
 	}
 }

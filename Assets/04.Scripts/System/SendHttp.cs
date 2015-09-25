@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -219,11 +219,11 @@ public class SendHttp : KnightSingleton<SendHttp>
 				Command(URLConst.Version, waitVersion, form);
 			} else 
 				if (GameData.LoadTeamSave())
-					SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else 
-				SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 		} else 
-			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 	
 	private void waitVersion(bool ok, WWW www) {
@@ -235,7 +235,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 				UIUpdate.UIShow(true);
 			}
 		} else
-			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 	
 	private void SendLogin() {
@@ -267,7 +267,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 				Debug.Log(e.ToString());
 			}
 		} else
-			SceneMgr.Get.ChangeLevel(SceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 
 	private void OnCloseLoading()
@@ -275,6 +275,6 @@ public class SendHttp : KnightSingleton<SendHttp>
 	    if(GameData.Team.Player.Lv == 0)
             UICreateRole.Get.ShowPositionView();
 	    else
-	        SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 	}
 }

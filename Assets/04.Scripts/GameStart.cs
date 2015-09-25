@@ -33,7 +33,7 @@ public class GameStart : KnightSingleton<GameStart> {
 
 		switch(SceneMode) {
 		case ESceneTest.Single:
-			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+			SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
 			break;
 		case ESceneTest.Release:
 			SendHttp.Get.CheckServerData(ConnectToServer);
@@ -43,15 +43,5 @@ public class GameStart : KnightSingleton<GameStart> {
 		TextConst.Init();
 		GameData.Init();
 		Application.runInBackground = IsDebugAnimation;
-	}
-	
-	void OnGUI() {
-		if (SceneMode == ESceneTest.Multi) {
-			if (GUI.Button (new Rect (100, 0, 100, 50), "Lobby"))
-				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
-				
-			if (GUI.Button (new Rect (200 , 0, 100, 50), "InGame"))
-				SceneMgr.Get.ChangeLevel(SceneName.Court_0);
-		}
 	}
 }

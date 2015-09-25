@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class PlayerStateMachineBehaviour : StateMachineBehaviour {
-
+	#if UNITY_EDITOR
 	public EAnimatorState state = EAnimatorState.Idle;
 	public float currentTime;
 	private float checkTime = 10f;
 	public bool isOnce = false;
 	private PlayerBehaviour pb;
-	
+
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		if (pb == null)
@@ -66,4 +66,5 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 	{
 //		Debug.Log("On Attack Move ");
 	}
+	#endif
 }

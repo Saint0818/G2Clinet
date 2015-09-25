@@ -122,7 +122,7 @@ public enum EPlayerState
 	Shoot7 = 413,
 	Steal0,
 	Steal20 = 11500,
-	TipIn, // 籃下補籃.
+	TipIn,
 	JumpBall,
 	Buff20 = 12100, 
 	Buff21 = 12101,
@@ -574,21 +574,21 @@ public class PlayerBehaviour : MonoBehaviour
             SlowDownTime += Time.time + Value;
             Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue * GameConst.SlowDownValue;
         }
-	}
+    }
 
-	private void changePlayerColor (){
-		if(isChangeColor) {
-			changeTime += Time.deltaTime;
-			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 510 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) ;
-			BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, (byte)lerp, 255);
-			if(changeTime >= GameStart.Get.PlayerShineTime)
-				isChangeColor = false;
-		} else {
-			changeTime = 0;
-			BodyMaterial.color = colorStart;
-		}
+	void OnDestroy() {
+		if (AnimatorControl)
+			Destroy (AnimatorControl);
+
+		AnimatorControl = null;
+
+		if (BodyMaterial)
+			Destroy(BodyMaterial);
+
+		BodyMaterial = null;
+		Destroy(gameObject);
 	}
-	
+    
     void Awake()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -602,6 +602,19 @@ public class PlayerBehaviour : MonoBehaviour
 		DashEffectEnable (false);
 
     }
+	
+	private void changePlayerColor (){
+		if(isChangeColor) {
+			changeTime += Time.deltaTime;
+			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 510 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) ;
+			BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, (byte)lerp, 255);
+			if(changeTime >= GameStart.Get.PlayerShineTime)
+				isChangeColor = false;
+		} else {
+			changeTime = 0;
+			BodyMaterial.color = colorStart;
+		}
+	}
 
 	public void SetTimerKey(ETimerKind key)
 	{
@@ -3223,7 +3236,6 @@ public class PlayerBehaviour : MonoBehaviour
 		} else {
 			CameraMgr.Get.CourtCameraAnimator.SetTrigger(cameraAction);
 		}
-
 	}
 
 	public void MoveEvent (AnimationEvent aniEvent){
@@ -3362,9 +3374,6 @@ public class PlayerBehaviour : MonoBehaviour
 		set {skillController.PassiveLv = value;}
 	}
 
-    /// <summary>
-    /// 轉身運球機率.
-    /// </summary>
 	public int MoveDodgeRate {
 		get {return skillController.MoveDodgeRate;}
 		set {skillController.MoveDodgeRate = value;}

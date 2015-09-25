@@ -104,7 +104,6 @@ public class GameController : KnightSingleton<GameController>
    
 	//Effect
     public GameObject[] passIcon = new GameObject[3];
-//	private GameObject[] selectIcon = new GameObject[2];
 
 	public EPlayerState testState = EPlayerState.Shoot0;
 	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
@@ -127,21 +126,23 @@ public class GameController : KnightSingleton<GameController>
 	public float downhandRate = 0;
 	public float layupRate = 0;
 	public float nearshotRate = 0;
+	
+	void OnDestroy() {
+		for (int i = 0; i < PlayerList.Count; i++) 
+			Destroy(PlayerList[i]);
+
+		PlayerList.Clear();
+	}
 
     [UsedImplicitly]
     private void Awake()
     {
         // 這是 AI 整個框架初始化的起點.
         AIController.Get.ChangeState(EGameSituation.None);
-    }
-
-    [UsedImplicitly]
-    void Start()
-	{
 		UITransition.Visible = true;
-        EffectManager.Get.LoadGameEffect();
-        InitPos();
-        InitGame();
+		EffectManager.Get.LoadGameEffect();
+		InitPos();
+		InitGame();
 		InitAniState();
     }
 
@@ -1340,7 +1341,7 @@ public class GameController : KnightSingleton<GameController>
     
     public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
     {
-		if(Situation != EGameSituation.End || newSituation == EGameSituation.Opening)
+		if(Situation != EGameSituation.End || newSituation == EGameSituation.None || newSituation == EGameSituation.Opening)
         {
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
@@ -1381,13 +1382,10 @@ public class GameController : KnightSingleton<GameController>
                 }
             }
 
-//            Debug.LogFormat("{0} -> {1}", Situation, newSituation);
-
             Situation = newSituation;
 
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != newSituation && player &&
-               (oldgs == EGameSituation.InboundsA || oldgs == EGameSituation.InboundsB))
-            {
+               (oldgs == EGameSituation.InboundsA || oldgs == EGameSituation.InboundsB)) {
                 AITools.RandomTactical(ETactical.Fast, player.Index, out attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
@@ -1430,6 +1428,10 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.Presentation:
 			case EGameSituation.CameraMovement:
 			case EGameSituation.InitCourt:
+				break;
+			case EGameSituation.None:
+				UIGame.UIShow(true);
+				UIGame.UIShow(false);
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);
@@ -1547,7 +1549,6 @@ public class GameController : KnightSingleton<GameController>
 	                    SituationInbounds(ETeamKind.Npc);
 	                    break;
 	                case EGameSituation.End:
-                
 	                    break;
 	            }
 			}
@@ -3101,8 +3102,6 @@ public class GameController : KnightSingleton<GameController>
 
     public bool SetBall(PlayerBehaviour p = null)
     {
-		if(p != null && GameStart.Get.IsDebugAnimation)
-			Debug.Log ("SetBall P : " + p.gameObject.name);
 		bool result = false;
 		IsPassing = false;
 		if (p != null && Situation != EGameSituation.End) {
@@ -3374,15 +3373,14 @@ public class GameController : KnightSingleton<GameController>
 	}
 
     public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter) {
-		if (BallOwner || 
+		if (Situation == EGameSituation.None || 
+			BallOwner || 
 		    IsShooting || 
 		    !player.IsCanCatchBall || 
 		    player.CheckAnimatorSate(EPlayerState.GotSteal) || 
 		    player.IsPush || 
 		    dir == 6)
             return;
-//		if(player.crtState == EPlayerState.Pass5 || player.crtState == EPlayerState.Pass6  ||player.crtState == EPlayerState.Pass7 || player.crtState == EPlayerState.Pass8  )
-//			Debug.LogError("name:" + player.name);
 
 		if (Catcher) {
 			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
@@ -3625,7 +3623,7 @@ public class GameController : KnightSingleton<GameController>
 	private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
 	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
 
-    public void ShowShootSate(bool isIn, int team)
+	public void ShowShootSate(bool isIn, int team)
 	{
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter)
 			team = Shooter.Team.GetHashCode();

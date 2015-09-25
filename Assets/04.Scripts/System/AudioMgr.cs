@@ -59,12 +59,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 		AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{StartST};
 		float[] f = new float[1]{1};
 		MasterMix.TransitionToSnapshots (s, f, 1);
-
-
 		PlayMusic (EMusicType.MU_select);
-//		if(DAudios.ContainsKey("Audio"))
-//			DAudios["Audio"].Play();
-		
 	}
 
 	public void PlayMusic(EMusicType type)

@@ -21,22 +21,28 @@ public class ModelManager : KnightSingleton<ModelManager> {
 	public GameObject PlayerInfoModel = null;
 	public GameObject AnimatorCurveManager;
 
+	private Material materialSource;
 	private Dictionary<string, GameObject> bodyCache = new Dictionary<string, GameObject>();
-	private Dictionary<string, Material> materialCache = new Dictionary<string, Material>();
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 	private Dictionary<string, RuntimeAnimatorController> controllorCache = new Dictionary<string, RuntimeAnimatorController>();
 
 	void Awake() {
 		PlayerInfoModel = new GameObject();
 		PlayerInfoModel.name = "PlayerInfoModel";
-		//UIPanel up = PlayerInfoModel.AddComponent<UIPanel>();
-		//up.depth = 2;
 
+		materialSource = Resources.Load("Character/Materials/Material_0") as Material;
 		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
 	}
 
 	public void PreloadResource(TAvatar attr, int bodyType) {
+		//load animator
+		for (int i = 0; i < 3; i++) {
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.AnimationControl.ToString()));
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.AvatarControl.ToString()));
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.ShowControl.ToString()));
+		}
+
 		string bodyNumber = bodyType.ToString();
 		string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
@@ -81,21 +87,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			GameObject obj = Resources.Load(path) as GameObject;
 			if (obj) {
 				bodyCache.Add(path, obj);
-				return obj;
-			} else {
-				//download form server
-				return null;
-			}
-		}
-	}
-
-	private Material loadMaterial(string path) {
-		if (materialCache.ContainsKey(path)) {
-			return materialCache [path];
-		} else {
-			Material obj = Resources.Load(path) as Material;
-			if (obj) {
-				materialCache.Add(path, obj);
 				return obj;
 			} else {
 				//download form server
@@ -253,6 +244,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							if(materials[i].name.Equals(strPart[BodyPart] + " (Instance)")) {
 								if(texture)
 									materials[i].mainTexture = texture;
+
 								break;
 							}
 						}
@@ -298,6 +290,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						if(materials[i].name.Equals(strPart[BodyPart])) {
 							if(texture)
 								materials[i].mainTexture = texture;
+
 							break;
 						}
 					}
@@ -328,7 +321,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 			string path = string.Empty;
 			string texturePath = string.Empty;
-			Material matObj = loadMaterial ("Character/Materials/Material_0");
+			Material matObj = materialSource;
 
 			Transform dt = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
 			if (dt != null) 
@@ -424,7 +417,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							} else 
 							if (i == 6) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead");
-								Material matObj1 = Instantiate(Resources.Load("Character/Materials/Material_0") as Material);
+								Material matObj1 = Instantiate(materialSource);
 								if (t != null && matObj1 != null) {
 									for (int j=0; j<t.childCount; j++) 
 										Destroy(t.GetChild(j).gameObject);
@@ -441,7 +434,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 							} else 
 							if (i == 7) {
 								Transform t = result.transform.FindChild("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack");
-								Material matObj1 = Instantiate(Resources.Load("Character/Materials/Material_0") as Material);
+								Material matObj1 = Instantiate(materialSource);
 								if (t != null && matObj1!= null) 
 									for (int j=0; j<t.childCount; j++) 
 										Destroy(t.GetChild(j).gameObject);
@@ -481,6 +474,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			resultSmr.materials = materials.ToArray();
 			resultSmr.gameObject.isStatic = true;
 			resultSmr.receiveShadows = false;
+			resultSmr.useLightProbes = false;
 
 			if (!combine) {
 				clone.transform.parent = result.transform;
@@ -503,13 +497,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			if(collider == null)
 				collider = result.AddComponent<CapsuleCollider>();
 			
-			switch (bodyType)
-			{
-				case 0:
-					collider.radius = 1;
-					collider.height = 3.5f;
-					break;
-					
+			switch (bodyType) {
 				case 1:
 					collider.radius = 0.88f;
 		            collider.height = 3.2f;
@@ -533,36 +521,20 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				aniControl = result.AddComponent<Animator>();
 
 			aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-			RuntimeAnimatorController runtimeAnimatorController = aniControl.runtimeAnimatorController;
-			if(runtimeAnimatorController == null) {
+			if(aniControl.runtimeAnimatorController == null) {
 				if(isUseRig)
 					ChangeAnimator( aniControl, bodyNumber, EanimatorType.ShowControl);
 				else
 					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
-					
-//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AnimationControl", bodyNumber));
-//				else
-//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
-//				aniControl.runtimeAnimatorController = runtimeAnimatorController;
-//				aniControl.applyRootMotion = false;
-
 			} else {
 				if(!isUseRig)
 					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
-				else
-				{
-					aniControl.runtimeAnimatorController = runtimeAnimatorController;
+				else 
 					aniControl.applyRootMotion = false;
-				}
-//				if(!isUseRig)
-//					runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/AvatarControl", bodyNumber));
-//				aniControl.runtimeAnimatorController = runtimeAnimatorController;
-//				aniControl.applyRootMotion = false;
 			}
-
 			
 			//rig
-			if(isUseRig){
+			if (isUseRig) {
 				Rigidbody rig = result.GetComponent<Rigidbody> ();
 				if (rig == null)
 					rig = result.AddComponent<Rigidbody> ();
@@ -574,19 +546,10 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void ChangeAnimator(Animator ani,string bodyNumber, EanimatorType type)
-	{
-		RuntimeAnimatorController runtimeAnimatorController = ani.runtimeAnimatorController;
-		runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
+	public void ChangeAnimator(Animator ani,string bodyNumber, EanimatorType type) {
+		RuntimeAnimatorController runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
 		ani.runtimeAnimatorController = runtimeAnimatorController;
 		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;
-	}
-
-	public void ChangeLayersRecursively(Transform trans, string name) {
-		trans.gameObject.layer = LayerMask.NameToLayer(name);
-		foreach(Transform child in trans) {            
-			ChangeLayersRecursively(child, name);
-		}
 	}
 }

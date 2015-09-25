@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -97,7 +97,7 @@ public class UIMain : UIBase {
 	}
 
 	public void OnCourt() {
-		SceneMgr.Get.ChangeLevel(SceneName.Court_0);
+		SceneMgr.Get.ChangeLevel(ESceneName.Court_0);
 	}
 
 	private void waitRec1_2(JSONObject obj) {

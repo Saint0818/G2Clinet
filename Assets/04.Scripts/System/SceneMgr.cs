@@ -3,21 +3,20 @@ using System;
 using System.Collections;
 using GameEnum;
 
-public enum SceneName
+public enum ESceneName
 {
-	Main = 0,
-	Null = 1,
+	Null = 0,
+	Main = 1,
 	Lobby = 2,
-	Court_0 = 3,
-	Court_1 = 4,
-	SelectRole = 5,
-	Stage = 6
+	SelectRole = 3,
+	Court_0 = 4,
+	Court_1 = 5,
 }
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
-	public SceneName CurrentScene = SceneName.Main;
-	public SceneName LoadScene = SceneName.Main;
+	public ESceneName CurrentScene = ESceneName.Main;
+	public ESceneName LoadScene = ESceneName.Main;
 
 	public delegate void LevelWillBeLoaded();
 	public delegate void LevelWasLoaded();
@@ -25,7 +24,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public static event LevelWillBeLoaded OnLevelWillBeLoaded;
 	public static event LevelWasLoaded OnLevelWasLoaded;
 	
-	IEnumerator LoadLevelCoroutine(SceneName levelToLoad)
+	IEnumerator LoadLevelCoroutine(ESceneName levelToLoad)
 	{
 		if (OnLevelWillBeLoaded != null)
 			OnLevelWillBeLoaded();
@@ -34,34 +33,28 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			CurrentScene = levelToLoad;
 
 		switch (levelToLoad) {
-			case SceneName.Court_0:
-			case SceneName.Court_1:
-				UILoading.UIShow(true, ELoadingGamePic.Game); 
-				CourtMgr.Get.InitCourtScene ();
-				
-				int rate = UnityEngine.Random.Range(0, 1);
-
-				if(rate == 0)
-					AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
+			case ESceneName.Court_0:
+			case ESceneName.Court_1:
+				if (GameData.StageID >= 0)
+					UILoading.UIShow(true, ELoadingGamePic.Stage); 
 				else
-					AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
-					
+					UILoading.UIShow(true, ELoadingGamePic.Game); 
+
 				break;
-			case SceneName.SelectRole:
-				AudioMgr.Get.StartGame();
+
+			case ESceneName.SelectRole:
 				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
 				break;
-			case SceneName.Stage:
-				AudioMgr.Get.StartGame();
-				UILoading.UIShow(true, ELoadingGamePic.Stage);
-				break;
-			case SceneName.Null:
+
+			case ESceneName.Null:
 				break;
 		}
 
 		if (OnLevelWasLoaded != null) {
 			OnLevelWasLoaded ();
 		}
+
+		Resources.UnloadUnusedAssets();
 	}
 
 	void Awake()
@@ -69,15 +62,15 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		DontDestroyOnLoad(transform.gameObject);
 	}
 
-    public void ChangeLevel(SceneName scene, bool isNeedLoading = true)
+    public void ChangeLevel(ESceneName scene, bool isNeedLoading = true)
     {
-		if (CurrentScene == SceneName.Main) {
+		if (CurrentScene == ESceneName.Main) {
 			StartCoroutine (LoadLevelCoroutine (scene));
 		}
 		else {
 			if (CurrentScene != scene) {
 				if(isNeedLoading)
-					StartCoroutine(LoadLevelCoroutine(SceneName.Null));
+					StartCoroutine(LoadLevelCoroutine(ESceneName.Null));
 				else 
 					StartCoroutine(LoadLevelCoroutine(scene));
 

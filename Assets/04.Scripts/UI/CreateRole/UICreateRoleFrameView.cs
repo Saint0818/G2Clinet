@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -145,8 +145,8 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             // 是相同的角色, 直接進入大廳.
             UICreateRole.Get.Hide();
-            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
-                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
                 LobbyStart.Get.EnterLobby();
         }
@@ -182,8 +182,8 @@ public class UICreateRoleFrameView : MonoBehaviour
             GameData.SaveTeam();
 
             UICreateRole.Get.Hide();
-            if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
-                SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
             else
                 LobbyStart.Get.EnterLobby();
         }
@@ -195,8 +195,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         UICreateRole.Get.Hide();
 
-        if(SceneMgr.Get.CurrentScene != SceneName.Lobby)
-            SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+        if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
         else
             LobbyStart.Get.EnterLobby();
     }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using GameStruct;
 using System;
@@ -87,6 +87,45 @@ public class UISelectRole : UIBase {
 			return instance;
 		}
 	}
+
+	void OnDestroy() {
+		if (animatorLeft)
+			Destroy (animatorLeft);
+
+		if (animatorRight)
+			Destroy (animatorRight);
+
+		if (animatorLoading)
+			Destroy (animatorLoading);
+
+		animatorLeft = null;
+		animatorRight = null;
+		animatorLoading = null;
+
+		for (int i = 0; i < arrayAnimator.Length; i++)
+			Destroy(arrayAnimator[i]);
+
+		arrayAnimator = new Animator[0];
+
+		for (int i = 0; i < arrayPlayer.Length; i ++) {
+			if (arrayPlayer[i]) {
+				SkinnedMeshRenderer smr = arrayPlayer[i].GetComponent<SkinnedMeshRenderer>();
+				if (smr) {
+					Material[] mats = smr.materials;
+					for (int j = 0; j < mats.Length; j++) {
+						Destroy(mats[j]);
+						mats[j] = null;
+					}
+
+					smr.materials = new Material[0];
+				}
+
+				Destroy(arrayPlayer[i]);
+			}
+		}
+
+		arrayPlayer = new GameObject[0];
+	}
 	
 	public static void UIShow(bool isShow){
 		if (instance) {
@@ -95,8 +134,8 @@ public class UISelectRole : UIBase {
 			else
 				instance.Show(isShow);
 		} else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 	
 	void FixedUpdate(){
@@ -413,11 +452,6 @@ public class UISelectRole : UIBase {
 
 	}
 
-//	private void playAnimator(int Index, string name) {
-//		if(Index == 0 && Index < arrayAnimator.Length && name != "" && arrayAnimator [Index] != null)
-//			arrayAnimator [Index].SetTrigger (name);
-//	}
-
 	private void changeLayersRecursively(Transform trans, string name){
 		trans.gameObject.layer = LayerMask.NameToLayer(name);
 		foreach(Transform child in trans)
@@ -624,7 +658,7 @@ public class UISelectRole : UIBase {
 			GameData.TeamMembers [0].Player.SetAvatar ();
 			GameData.TeamMembers [1].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [1].Player.SetAvatar ();		
-			SceneMgr.Get.ChangeLevel (SceneName.Court_0);
+			SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
 
 			break;
 		case EUIRoleSituation.ListA: // 1

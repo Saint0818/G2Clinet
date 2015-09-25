@@ -9,7 +9,10 @@ public class BlockTrigger : MonoBehaviour {
 	void Start()
 	{
 		blocker = gameObject.transform.parent.parent.gameObject.GetComponent<PlayerBehaviour>();
-		gameObject.GetComponent<MeshRenderer> ().enabled = false;
+		MeshRenderer mr = gameObject.GetComponent<MeshRenderer> ();
+		if (mr)
+			mr.enabled = false;
+
 		gameObject.SetActive(false);
 	}
 

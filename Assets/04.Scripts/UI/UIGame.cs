@@ -1114,12 +1114,12 @@ public class UIGame : UIBase {
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;
 			UIGameResult.UIShow(false);
-			SceneMgr.Get.ChangeLevel (SceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 			break;
 		case EUISituation.MainMenu:
 			Time.timeScale = 1;
 			UIGameResult.UIShow(false);
-			SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			break;
 		case EUISituation.EffectSwitch:
 			GameData.Setting.Effect = !GameData.Setting.Effect;

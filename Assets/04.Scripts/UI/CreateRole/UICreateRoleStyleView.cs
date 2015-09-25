@@ -190,8 +190,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 			GameData.SaveTeam();
 			UICreateRole.Get.Hide();
 			
-			if (SceneMgr.Get.CurrentScene != SceneName.Lobby)
-				SceneMgr.Get.ChangeLevel(SceneName.Lobby);
+			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else
 				LobbyStart.Get.EnterLobby();
 		}

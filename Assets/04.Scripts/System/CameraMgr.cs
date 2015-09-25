@@ -149,7 +149,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraAnimator.enabled = GameStart.Get.CourtMode != ECourtMode.Half;
     }
 
-    public void SetCourtCamera(SceneName scene)
+    public void SetCourtCamera(ESceneName scene)
     {
         if (cameraFx && cameraFx.name != scene.ToString())
         {

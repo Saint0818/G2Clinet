@@ -1,5 +1,3 @@
-//#define Debug
-#define Release
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -46,15 +44,12 @@ public struct TStartCoroutine{
 }
 
 public class FileManager : KnightSingleton<FileManager> {
-	#if Debug
-	public const string URL = "http://localhost:3600/";
-	public const VersionMode NowMode = VersionMode.Debug;
-	#elif Knight49_Server
-	public const string URL = "http://172.19.0.49:3600/";
-	public const VersionMode NowMode = VersionMode.Debug;
-	#else
+	#if Release
 	public const string URL = "http://g2.nicemarket.com.tw/";
 	public const VersionMode NowMode = VersionMode.Release;
+	#else
+	public const string URL = "http://localhost:3600/";
+	public const VersionMode NowMode = VersionMode.Debug;						
 	#endif
 
 	private const int FileDownloadLimitTime = 30;

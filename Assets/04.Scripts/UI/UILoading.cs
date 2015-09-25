@@ -10,24 +10,19 @@ public class UILoading : UIBase {
 
 	private GameObject windowLoading;
 	private GameObject windowGame;
+	private GameObject loadingPic;
+	private GameObject buttonNext;
+	private UITexture uiBG;
+	private UITexture uiLoadingProgress;
+	private TweenRotation loadingRotation;
 	private GameObject[] pageOn = new GameObject[3];
 	private GameObject[] viewLoading = new GameObject[3];
-	private Dictionary<string, Texture> textureCache = new Dictionary<string, Texture>();
-	private GameObject loadingPic;
+	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
-	private UITexture uiLoadingProgress;
-
-	private UITexture uiBG;
-	private UITexture uiGameProgress;
-	
 	private ELoadingGamePic loadingKind;
 	private int PicNo = -1;
-//	private bool isCloseUI = false;
-	public float CloseTime = 0;
-
 	private int pageLoading = 0;
-//	private int dir = 0;
-//	private bool wasDragging = false;
+	private float startTimer = 0;
 
 	public static bool Visible{
 		get{
@@ -54,11 +49,8 @@ public class UILoading : UIBase {
 			Get.Show(true);
 		}else 
 		if(instance) {
-			if (Get.CloseTime <= 0) {
-				Get.CancelInvoke("ChangePage");
-				instance.Show(isShow);
-				RemoveUI(UIName);
-			}
+			Get.Show(false);
+			//RemoveUI(UIName);
 		}
 	}
 
@@ -69,13 +61,14 @@ public class UILoading : UIBase {
 
 	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint="") {
 		loadingKind = kind;
-		
+		startTimer = Time.time;
+
 		if (PicNo != kind.GetHashCode()) {
 			windowGame.SetActive(true);
 			windowLoading.SetActive(false);
 			
 			PicNo = kind.GetHashCode();
-			Texture2D txt = loadTexture("Textures/LoadingPic/Loading" + PicNo.ToString()) as Texture2D;
+			Texture2D txt = loadTexture("Textures/LoadingPic/Loading" + PicNo.ToString());
 			if (txt) {
 				uiBG.mainTexture = txt;
 				//uiBG.width = txt.width;
@@ -94,6 +87,11 @@ public class UILoading : UIBase {
 	}
 
 	protected override void InitCom() {
+		SetBtnFun(UIName + "/WindowGame/Pages/P1Button", OnChangePage);
+		SetBtnFun(UIName + "/WindowGame/Pages/P2Button", OnChangePage);
+		SetBtnFun(UIName + "/WindowGame/Pages/P3Button", OnChangePage);
+		SetBtnFun(UIName + "/WindowGame/Right/Next", OnNext);
+
 		windowLoading = GameObject.Find (UIName + "/WindowLoading");
 		windowGame = GameObject.Find (UIName + "/WindowGame");
 		pageOn[0] = GameObject.Find (UIName + "/WindowGame/Pages/P1Button/Onpage");
@@ -102,19 +100,13 @@ public class UILoading : UIBase {
 		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading1"); 
 		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
 		viewLoading [2] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
-		loadingPic = GameObject.Find (UIName + "/WindowGame/LoadingPic");
+		buttonNext = GameObject.Find (UIName + "/WindowGame/Right/Next");
+		buttonNext.SetActive(false);
 
-		uiLoadingProgress = GameObject.Find (UIName + "/WindowLoading/LoadingPic/UIProgressBar").GetComponent<UITexture>();
-
+		loadingPic = GameObject.Find (UIName + "/LoadingPic");
+		uiLoadingProgress = GameObject.Find (UIName + "/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
-		uiGameProgress = GameObject.Find (UIName + "/WindowGame/LoadingPic/UIProgressBar").GetComponent<UITexture>();
-
-		SetBtnFun(UIName + "/WindowGame/Pages/P1Button", Point1);
-		SetBtnFun(UIName + "/WindowGame/Pages/P2Button", Point2);
-		SetBtnFun(UIName + "/WindowGame/Pages/P3Button", Point3);
-
-//		UIEventListener.Get(uiBG.gameObject).onDrag = PanelDrag;
-//		UIEventListener.Get(uiBG.gameObject).onPress = PanelPress;
+		loadingRotation = GameObject.Find (UIName + "/LoadingPic/UILight1").GetComponent<TweenRotation>();
 
 		windowGame.SetActive(false);
 		windowLoading.SetActive(false);
@@ -123,34 +115,47 @@ public class UILoading : UIBase {
 		pageOn[2].SetActive(false);
 		viewLoading[1].SetActive(false);
 		viewLoading[2].SetActive(false);
-//		buttonSkip.SetActive(false);
 	}
 
 	protected override void InitData() {
 		uiLoadingProgress.fillAmount = 0;
-		uiGameProgress.fillAmount = 0;
 	}
 	
 	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
+		float waitTime = 1.5f;
+
 		switch (kind) {
 		case ELoadingGamePic.SelectRole:
-			yield return new WaitForEndOfFrame();
+			yield return new WaitForSeconds (1.5f);
+			AudioMgr.Get.StartGame();
 			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
-			yield return new WaitForSeconds (1);
+
+			waitTime = Mathf.Max(0.1f, 2 - Time.time + startTimer);
+			yield return new WaitForSeconds (waitTime);
 			loadSelectRole();
+
 			break;
 		case ELoadingGamePic.Game:
-			Invoke("ChangePage", 2);
-			yield return new WaitForEndOfFrame();
-			UISkip.UIShow(true, ESkipSituation.Loading);
+			yield return new WaitForSeconds (1.5f);
+
+			GameController.Get.ChangeSituation(EGameSituation.None);
+			CourtMgr.Get.InitCourtScene ();
+			AudioMgr.Get.StartGame();
+			int rate = UnityEngine.Random.Range(0, 2);
+			if(rate == 0)
+				AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
+			else
+				AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+
+			waitTime = Mathf.Max(0.1f, 2 - Time.time + startTimer);
+			yield return new WaitForSeconds (waitTime);
+
+			buttonNext.SetActive(true);
 			loadingPic.SetActive(false);
-			yield return new WaitForSeconds (10);
-			UIShow(false);
-			UISkip.UIShow(false, ESkipSituation.Loading);
-			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+
 			break;
 		case ELoadingGamePic.Stage:
-			yield return new WaitForSeconds (2);
+			yield return new WaitForSeconds (1);
 			loadStage();
 			break;
 		}
@@ -162,7 +167,7 @@ public class UILoading : UIBase {
 		uiLoadingProgress.fillAmount = (float)(a / b);
 	}
 
-	private Texture loadTexture(string path) {
+	private Texture2D loadTexture(string path) {
 		if (textureCache.ContainsKey(path)) {
 			return textureCache [path];
 		}else {
@@ -178,8 +183,6 @@ public class UILoading : UIBase {
 	}
 
 	private void loadSelectRole(){
-		UIShow(false);
-
 		if (GameStart.Get.OpenGameMode) 
 			UIGameMode.UIShow (true);
 		else {
@@ -187,6 +190,8 @@ public class UILoading : UIBase {
 			UISelectRole.UIShow(true);
 			UI3DSelectRole.UIShow(true);
 		}
+
+		UIShow(false);
 	}
 
 	private void loadStage() {
@@ -198,32 +203,13 @@ public class UILoading : UIBase {
 	}
 
 	private void showPage (int page) {
-		for (int i=0; i<viewLoading.Length; i++) {
+		uiBG.mainTexture = loadTexture("Textures/LoadingPic/Loading" + (page+1).ToString());
+		for (int i=0; i < viewLoading.Length; i++) {
 			bool show = (i == page) ?true:false;
 			viewLoading[i].SetActive(show); 
 			pageOn[i].SetActive(show);
 		}
-		uiBG.mainTexture = Get.loadTexture("Textures/LoadingPic/Loading" + (page+1).ToString());
 	}
-
-//	public void PanelDrag(GameObject go, Vector2 delta) {
-//		wasDragging = true;
-//		if(delta.x > 0)
-//			dir = -1;
-//		else
-//			dir = 1;
-//	}
-//
-//	public void PanelPress(GameObject go, bool pressed) {
-//		if (!pressed && wasDragging) {
-//			wasDragging = false;
-//			if(dir == 1)
-//				DoRight();
-//			else
-//				DoLeft();
-//			dir = 0;
-//		}
-//	}
 
 	public void ChangePage(){
 		if(pageLoading < 2) {
@@ -249,19 +235,17 @@ public class UILoading : UIBase {
 		}
 	}
 
-	public void Point1(){
-		pageLoading = 0;
-		showPage(pageLoading);
+	public void OnChangePage() {
+		int index = -1;
+		if (int.TryParse(UIButton.current.name.Substring(1, 1), out index)) {
+			pageLoading = index-1;
+			showPage(pageLoading);
+		}
 	}
 
-	public void Point2(){
-		pageLoading = 1;
-		showPage(pageLoading);
-	}
-
-	public void Point3(){
-		pageLoading = 2;
-		showPage(pageLoading);
+	public void OnNext() {
+		UIShow(false);
+		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
 	}
 
 	public float ProgressValue{

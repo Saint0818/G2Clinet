@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class UI2D : MonoBehaviour {
@@ -63,7 +63,7 @@ public class UI2D : MonoBehaviour {
 		Camera2D = GameObject.Find(UIName + "/2DCamera").GetComponent<Camera>();
 		CameraTop = GameObject.Find(UIName + "/TopCamera").GetComponent<Camera>();
 
-		if(SceneMgr.Get.CurrentScene == SceneName.Court_0 || SceneMgr.Get.CurrentScene == SceneName.Court_1)
+		if (SceneMgr.Get.CurrentScene != ESceneName.SelectRole)
 			gameObject.transform.localPosition = Vector3.up * 10;
 
 		initResolution();
