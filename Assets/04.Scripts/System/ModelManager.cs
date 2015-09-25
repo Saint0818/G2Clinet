@@ -191,6 +191,46 @@ public class ModelManager : KnightSingleton<ModelManager> {
         return playerBehaviour;
 	}
 
+	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyKind, int avatarNo) {
+		int ModelPart = (int)(avatarNo / 1000);
+		int TexturePart = avatarNo % 1000;
+		int BodyPart = -1;
+
+		switch (BodyKind) {
+			case 1:
+				BodyPart = 2; // H
+				break;
+				
+			case 2:
+				BodyPart = 3; // M
+				break;
+				
+			case 3:
+				BodyPart = 1; // C
+				break;
+				
+			case 4:
+				BodyPart = 4; //P
+				break;
+				
+			case 5:
+				BodyPart = 5;//S
+				break;
+				
+			case 10:
+				BodyPart = 6;//A
+				break;
+				
+			case 11:
+				BodyPart = 7; //Z
+				break;	
+		
+		}
+
+		if(BodyPart > 0)
+			SetAvatarTexture(Player, Attr, bodyType, BodyPart, ModelPart, TexturePart);
+	}
+
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
 			string bodyNumber = bodyType.ToString();;

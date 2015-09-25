@@ -248,8 +248,9 @@ public class UIAvatarFitted : UIBase {
 	private UIGrid grid;
 	private UIScrollView scrollView;
 	private GameObject disableGroup;
-
+	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
+	private TAvatar EquipsAvatar = new TAvatar();
 
 	public static bool Visible {
 		get {
@@ -578,6 +579,8 @@ public class UIAvatarFitted : UIBase {
 						equip.ID = items[index].ID;
 						equip.Kind = GetItemKind(items[index].ID);
 						Equips.Add(equip.ID, equip);
+						ItemIdTranslateAvatar(equip.ID);
+						ModelManager.Get.SetAvatarTexture(avatar, EquipsAvatar, GameData.Team.Player.BodyType, avatarPart,GameData.DItemData[items[index].ID].Avatar);
 					}
 
 					for(int i = 0; i < items.Length;i++)
@@ -600,6 +603,46 @@ public class UIAvatarFitted : UIBase {
 			Debug.Log ("Equip id : " + index);
 	}
 
+	private int GetTextureIndex(int avatarindex)
+	{
+		return avatarindex % 1000;
+	}
+
+	private void ItemIdTranslateAvatar(int id)
+	{
+		switch(avatarPart)
+		{
+			case 1:
+				EquipsAvatar.Hair = id;
+				break;
+
+			case 2:
+				EquipsAvatar.MHandDress = id;//手飾
+				break;
+				
+			case 3:
+				EquipsAvatar.Cloth = id;//上身
+				break;
+				
+			case 4:
+				EquipsAvatar.Pants = id;//下身
+				break;
+				
+			case 5:
+				EquipsAvatar.Shoes = id;//鞋
+				break;
+				
+			case 10:
+				EquipsAvatar.AHeadDress = id;//頭飾(共用）
+				break;
+				
+			case 11:
+				EquipsAvatar.ZBackEquip = id;//背部(共用)
+				break;
+		}
+		
+	}
+
 	private void DoReturn()
 	{
 		Show (false);
@@ -619,10 +662,24 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
+	private GameObject avatar;
+
 	protected override void InitData() {
 		InitAvatarView (0);
+		avatar = new GameObject ();
+		avatar.name = "UIPlayer";
+		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, false, false);
+		changeLayersRecursively (avatar.transform, "UIPlayer");
 	}
-	
+
+	private void changeLayersRecursively(Transform trans, string name){
+		trans.gameObject.layer = LayerMask.NameToLayer(name);
+		foreach(Transform child in trans)
+		{            
+			changeLayersRecursively(child, name);
+		}
+	}
+
 	protected override void OnShow(bool isShow) {
 		
 	}
