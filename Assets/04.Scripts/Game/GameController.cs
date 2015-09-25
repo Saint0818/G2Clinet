@@ -131,6 +131,7 @@ public class GameController : KnightSingleton<GameController>
     [UsedImplicitly]
     void Start()
 	{
+		UITransition.Visible = true;
         EffectManager.Get.LoadGameEffect();
         InitPos();
         InitGame();
@@ -1454,6 +1455,7 @@ public class GameController : KnightSingleton<GameController>
             case EGameSituation.InboundsA:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
+				UITransition.Get.SelfAttack();
                 break;
 
             case EGameSituation.BPickBallAfterScore:
@@ -1466,7 +1468,7 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.InboundsB:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
-
+				UITransition.Get.SelfOffense();
 				break;
 			case EGameSituation.End:
 				IsStart = false;
