@@ -51,6 +51,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public UISprite PosSprite;
     public UILabel NameLabel;
     public UILabel LevelLabel;
+    public GameObject SelectedIcon; // 用來標示哪一位球員是目前正在使用的球員.
 
     /// <summary>
     /// 方便外部使用者可以得知哪一個 Slot 被點擊了.
@@ -95,6 +96,7 @@ public class UICreateRolePlayerFrame : MonoBehaviour
 
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
+        SelectedIcon.SetActive(false);
 
         mData = new Data();
 
@@ -129,6 +131,11 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         LevelLabel.text = mData.Level.ToString();
 
         mIsLock = false;
+    }
+
+    public void SetSelected()
+    {
+        SelectedIcon.SetActive(true);
     }
 
     /// <summary>

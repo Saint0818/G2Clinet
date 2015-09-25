@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -12,12 +13,13 @@ public class UICreateRolePositionView : MonoBehaviour
     public GameObject Window;
     public Transform ModelPreview;
 
-    public UILabel PosNameLabel;
+    public UISprite PosNameSprite; // 顯示位置(Guard, Forward, Center)
     public UILabel PosDescriptionLabel;
 
     public Animator UIAnimator;
 
     public UIAttributes Attributes;
+    public UIToggle ForwardToggle;
 
     private delegate void Action();
 
@@ -38,6 +40,13 @@ public class UICreateRolePositionView : MonoBehaviour
 
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
+    private readonly Dictionary<EPlayerPostion, string> mPosSprites = new Dictionary<EPlayerPostion, string>
+    {
+        {EPlayerPostion.G, "Labelguard"},
+        {EPlayerPostion.F, "Labelforward"},
+        {EPlayerPostion.C, "Labelcenter"}
+    };
+    
     [UsedImplicitly]
     private void Awake()
     {
@@ -60,15 +69,15 @@ public class UICreateRolePositionView : MonoBehaviour
         switch (mCurrentPostion)
         {
             case EPlayerPostion.G:
-                PosNameLabel.text = TextConst.S(15);
+                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.G];
                 PosDescriptionLabel.text = TextConst.S(18);
                 break;
             case EPlayerPostion.F:
-                PosNameLabel.text = TextConst.S(16);
+                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.F];
                 PosDescriptionLabel.text = TextConst.S(19);
                 break;
             case EPlayerPostion.C:
-                PosNameLabel.text = TextConst.S(17);
+                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.C];
                 PosDescriptionLabel.text = TextConst.S(20);
                 break;
 
@@ -88,6 +97,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
                 updateUI();
                 Attributes.PlayScale(AttributeScaleDelayTime);
+                ForwardToggle.Set(true);
             }
         }
     }

@@ -44,6 +44,17 @@ namespace GameStruct {
 	    }
     }
 
+    public struct TLookUpData
+    {
+        public int SelectedRoleIndex;
+        public TPlayerBank[] PlayerBanks;
+
+        public override string ToString()
+        {
+            return string.Format("SelectedRoleIndex: {0}", SelectedRoleIndex);
+        }
+    }
+
     public struct TPlayerBank
     {
 		public int RoleIndex;

@@ -23,22 +23,22 @@ public class UICreateRole : UIBase
 //        UI3DCreateRole.Get.Hide();
     }
 
-    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks)
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex)
     {
         Show(true);
 
-        mFrameView.Show(playerBanks);
+        mFrameView.Show(playerBanks, selectedIndex);
         mPositionView.Visible = false;
         mStyleView.Hide();
 
 //        UI3DCreateRole.Get.Hide();
     }
 
-    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int showNum)
+    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex, int showNum)
     {
         Show(true);
 
-        mFrameView.Show(playerBanks,showNum);
+        mFrameView.Show(playerBanks, selectedIndex, showNum);
         mPositionView.Visible = false;
         mStyleView.Hide();
 

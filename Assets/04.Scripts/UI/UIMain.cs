@@ -133,20 +133,18 @@ public class UIMain : UIBase {
 	{
 		if(ok)
         {
-			TPlayerBank[] playerBanks = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+//			TPlayerBank[] playerBanks = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
+			TLookUpData lookUpData = JsonConvert.DeserializeObject<TLookUpData>(www.text);
+            Debug.LogFormat("LookUpData:{0}", lookUpData);
 
-            foreach(var bank in playerBanks)
-            {
-                Debug.Log(bank);
-            }
             Visible = false;
 
             // 因為現在創角 UI 並沒有擋住後面的介面, 所以我暫時需要將模型關閉.
             ModelManager.Get.PlayerInfoModel.SetActive(false);
 
-            var data = UICreateRole.Convert(playerBanks);
+            var data = UICreateRole.Convert(lookUpData.PlayerBanks);
             if(data != null)
-                UICreateRole.Get.ShowFrameView(data, GameData.Team.PlayerNum);
+                UICreateRole.Get.ShowFrameView(data, lookUpData.SelectedRoleIndex, GameData.Team.PlayerNum);
             else
                 Debug.LogError("Data Error!");
 		}
