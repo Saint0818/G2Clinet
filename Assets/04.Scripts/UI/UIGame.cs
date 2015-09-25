@@ -105,8 +105,9 @@ public class UIGame : UIBase {
 	private float newForceValue;
 	private float timeForce;
 	private GameObject uiSpriteFull;
-	private GameObject uiSpriteAnimation;
-	private UISpriteAnimation spriteAnimation;
+	private GameObject uiSpriteFullCanUse;
+//	private GameObject uiSpriteAnimation;
+//	private UISpriteAnimation spriteAnimation;
 
 	private JoystickController joystickController;
 
@@ -217,7 +218,7 @@ public class UIGame : UIBase {
 
 	protected override void InitCom() {
 		GameController.Get.onSkillDCComplete += AddForceValue;
-		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
+//		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
 		/*
 		#if !UNITY_EDITOR
@@ -260,6 +261,7 @@ public class UIGame : UIBase {
 		spriteAttack = GameObject.Find (UIName + "/BottomRight/ButtonAttack/SpriteAttack").GetComponent<UISprite>();
 
 		uiSkillEnable = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
+		uiSpriteFullCanUse = GameObject.Find (UIName + "/BottomRight/SkillFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
@@ -302,11 +304,12 @@ public class UIGame : UIBase {
 
 		spriteForce = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
-		uiSpriteFull = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/SpriteFullTween");
-		uiSpriteAnimation = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/forcebar");
-		spriteAnimation = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/forcebar").GetComponent<UISpriteAnimation>();
-		spriteAnimation.framesPerSecond = 25;
+		uiSpriteFull = GameObject.Find (UIName + "/Bottom/ViewForceBar/ForcebarFull");
+//		uiSpriteAnimation = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/forcebar");
+//		spriteAnimation = GameObject.Find (UIName + "/Bottom/ViewForceBar/Forcebar/forcebar").GetComponent<UISpriteAnimation>();
+//		spriteAnimation.framesPerSecond = 25;
 		uiSpriteFull.SetActive(false);
+		uiSpriteFullCanUse.SetActive(false);
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
 
@@ -360,7 +363,6 @@ public class UIGame : UIBase {
 		ShowSkillUI(false);
 
 		ChangeControl(true);
-		runForceBar ();
 		initAiTime();
 
 		uiJoystick.Joystick.isActivated = false;
@@ -550,6 +552,8 @@ public class UIGame : UIBase {
 				uiSkillEnable.SetActive(canUse);
 			else
 				uiSkillEnable.SetActive(false);
+
+			uiSpriteFullCanUse.SetActive(uiSkillEnable.activeInHierarchy);
 		}
 	}
 	
@@ -1181,37 +1185,37 @@ public class UIGame : UIBase {
 		}
 	}
 	
-	private void runForceBar () {
-		float endValue = 0;
-		if(spriteForce.fillAmount < 0.25f)
-			uiSpriteAnimation.SetActive(false);
-		else 
-			if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
-				endValue = 0;
-		else 
-			if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
-				endValue = 30;
-		else 
-			if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
-				endValue = 60;
-		else 
-			if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
-				endValue = 90;
-		else 
-			if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
-				endValue = 120;
-		else 
-			if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
-				endValue = 150;
-		else 
-			if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
-				endValue = 180;
-		else 
-			if(spriteForce.fillAmount >= 0.95f) 
-				endValue = 210;
-		
-		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
-	}
+//	private void runForceBar () {
+//		float endValue = 0;
+//		if(spriteForce.fillAmount < 0.25f)
+//			uiSpriteAnimation.SetActive(false);
+//		else 
+//			if(spriteForce.fillAmount >=0.25f && spriteForce.fillAmount < 0.35f) 
+//				endValue = 0;
+//		else 
+//			if(spriteForce.fillAmount >= 0.35f && spriteForce.fillAmount < 0.45f) 
+//				endValue = 30;
+//		else 
+//			if(spriteForce.fillAmount >= 0.45f && spriteForce.fillAmount < 0.55f) 
+//				endValue = 60;
+//		else 
+//			if(spriteForce.fillAmount >= 0.55f && spriteForce.fillAmount < 0.65f) 
+//				endValue = 90;
+//		else 
+//			if(spriteForce.fillAmount >= 0.65f && spriteForce.fillAmount < 0.75f) 
+//				endValue = 120;
+//		else 
+//			if(spriteForce.fillAmount >= 0.75f && spriteForce.fillAmount < 0.85f) 
+//				endValue = 150;
+//		else 
+//			if(spriteForce.fillAmount >= 0.85f && spriteForce.fillAmount < 0.95f) 
+//				endValue = 180;
+//		else 
+//			if(spriteForce.fillAmount >= 0.95f) 
+//				endValue = 210;
+//		
+//		uiSpriteAnimation.transform.DOLocalMoveX(endValue, 1f).OnStepComplete(resetAnimation).SetEase(Ease.Linear);
+//	}
 
 	private void showActiveSkillUI (bool isShow){
 		if(GameController.Get.Joysticker && !GameController.Get.Joysticker.IsHaveActiveSkill)
@@ -1220,12 +1224,12 @@ public class UIGame : UIBase {
 			uiSkill.SetActive(isShow);
 	}
 	
-	private void resetAnimation (){
-		uiSpriteAnimation.SetActive(true);
-		uiSpriteAnimation.transform.localPosition = new Vector3(-25, 0, 0);
-		spriteAnimation.ResetToBeginning();
-		runForceBar ();
-	}
+//	private void resetAnimation (){
+//		uiSpriteAnimation.SetActive(true);
+//		uiSpriteAnimation.transform.localPosition = new Vector3(-25, 0, 0);
+//		spriteAnimation.ResetToBeginning();
+//		runForceBar ();
+//	}
 	
 	private void resetScoreRotate() {
 		for(int i=0; i<labelScores.Length; i++) {
