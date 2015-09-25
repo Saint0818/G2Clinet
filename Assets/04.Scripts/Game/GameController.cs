@@ -1432,6 +1432,8 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.None:
 				UIGame.UIShow(true);
 				UIGame.UIShow(false);
+				UIPassiveEffect.UIShow(true);
+				UITransition.UIShow(true);
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);

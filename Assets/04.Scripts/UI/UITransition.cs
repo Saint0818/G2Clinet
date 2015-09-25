@@ -36,6 +36,13 @@ public class UITransition : UIBase {
 			return instance;
 		}
 	}
+	public static void UIShow(bool isShow){
+		if (instance) {
+			instance.Show(isShow);
+		} else
+			if (isShow)
+				Get.Show(isShow);
+	}
 	
 	protected override void InitCom() {
 		transitionAnimator = GameObject.Find (UIName).GetComponent<Animator>();

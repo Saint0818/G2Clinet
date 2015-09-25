@@ -552,7 +552,7 @@ public class SkillController : MonoBehaviour {
 
 			case ESkillSituation.Rebound:
 				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
-				Result = player.AniState (playerState);
+				Result = player.AniState (playerState, v);
 				break;
 			}	
 		}
