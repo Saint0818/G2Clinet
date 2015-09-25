@@ -96,6 +96,7 @@ public class UIGame : UIBase {
 
 	private UISprite spriteAttack;
 	//Force
+	private GameObject uiButtonSkill;
 	private UISprite spriteSkill;
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
@@ -263,6 +264,7 @@ public class UIGame : UIBase {
 		uiSkillEnable = GameObject.Find(UIName + "/BottomRight/ButtonSkill/SpriteFull");
 		uiSpriteFullCanUse = GameObject.Find (UIName + "/BottomRight/SkillFull");
 		uiSkill = GameObject.Find(UIName + "/Bottom/ViewForceBar");
+		uiButtonSkill = GameObject.Find(UIName + "/BottomRight/ButtonSkill");
 		uiPlayerLocation = GameObject.Find (UIName + "/Right");
 
 		uiDC = GameObject.Find (UIName + "/BottomRight/ButtonSkill/GetDCSoul");
@@ -1105,6 +1107,9 @@ public class UIGame : UIBase {
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			CameraMgr.Get.PlayGameStartCamera ();
+
+			UIState(EUISituation.Opening);
+
 			break;
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;
@@ -1222,6 +1227,8 @@ public class UIGame : UIBase {
 			uiSkill.SetActive(false);
 		else 
 			uiSkill.SetActive(isShow);
+		
+		uiButtonSkill.SetActive(uiSkill.activeInHierarchy);
 	}
 	
 //	private void resetAnimation (){
