@@ -36,6 +36,7 @@ public struct TItemAvatar
 	public bool Enable
 	{
 		set{
+			CheckEquipBtnName();
 			CheckItemKind();
 			if(gameobject){
 				gameobject.SetActive(value);
@@ -108,6 +109,8 @@ public struct TItemAvatar
 					if(IsRental){
 						usetime.gameObject.SetActive(false);
 					}
+					CheckEquipBtnName();
+					isReantimeEnd = true;
 				}
 			}
 		}
@@ -193,16 +196,12 @@ public struct TItemAvatar
 			if(GameData.DItemData[ID].UseTime > 0)
 			{
 				IsRental = true;
-
-
 				PriceLabel.gameObject.SetActive(true);
 				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
 			}
 			else
 			{
 				IsRental = false;
-				equipLabel.text = "FITTING";
-				TrimBottom.color = Color.black;
 				PriceLabel.gameObject.SetActive(false);
 				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
 			}
@@ -285,32 +284,34 @@ public class UIAvatarFitted : UIBase {
 
 	void Update()
 	{
-		for(int i = 0; i < items.Length; i++)
-		{
-			if(items[i].Enable)
+		if(items != null)
+			for(int i = 0; i < items.Length; i++)
 			{
-				checktime = items[i].EndUseTime - System.DateTime.UtcNow;
-				items[i].UseTime = checktime;
-
-//				if(items[i].isTimeEnd == flase && checktime.TotalSeconds > 0)
-//				{
-//					items[i].UseTime = checktime.Days + " : " + checktime.Hours + ":" + checktime.Minutes;
-//				}
-//				else
-//				{
-//					items[i].isTimeEnd = true;
-//				}
+				if(items[i].Enable)
+				{
+					checktime = items[i].EndUseTime - System.DateTime.UtcNow;
+					items[i].UseTime = checktime;
 
 
+	//				if(items[i].isTimeEnd == flase && checktime.TotalSeconds > 0)
+	//				{
+	//					items[i].UseTime = checktime.Days + " : " + checktime.Hours + ":" + checktime.Minutes;
+	//				}
+	//				else
+	//				{
+	//					items[i].isTimeEnd = true;
+	//				}
 
 
-//				if(checktime.TotalSeconds > 0)
-//				{
-//					items[i].UseTime = (items[i].EndUseTime - System.DateTime.UtcNow);
-//				}
+
+
+	//				if(checktime.TotalSeconds > 0)
+	//				{
+	//					items[i].UseTime = (items[i].EndUseTime - System.DateTime.UtcNow);
+	//				}
+				}
+
 			}
-
-		}
 	}
 
 	void FixedUpdate(){
@@ -668,6 +669,10 @@ public class UIAvatarFitted : UIBase {
 		InitAvatarView (0);
 		avatar = new GameObject ();
 		avatar.name = "UIPlayer";
+		avatar.transform.parent = gameObject.transform;
+		avatar.transform.localScale = Vector3.one * 500;
+		avatar.transform.localPosition = new Vector3 (-1160, -633, -2000);
+
 		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, false, false);
 		changeLayersRecursively (avatar.transform, "UIPlayer");
 	}
