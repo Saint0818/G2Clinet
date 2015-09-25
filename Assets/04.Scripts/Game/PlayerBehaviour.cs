@@ -384,6 +384,8 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction3 OnDoubleClickMoment = null;
 	public OnPlayerAction2 OnUIJoystick = null;
 
+	public bool IsJumpBallPlayer = false;
+
 	public int ShowPos = -1;
 
 	public string MoveName = "";

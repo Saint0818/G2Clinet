@@ -339,23 +339,29 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
 		PlayerList[aPosAy[0]].transform.position = bornPosAy[0];
 		PlayerList[aPosAy[0]].ShowPos = 1;
+		PlayerList[aPosAy[0]].IsJumpBallPlayer = false;
 		PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
 		PlayerList[aPosAy[1]].transform.position = bornPosAy[1];
 		PlayerList[aPosAy[1]].ShowPos = 0;
+		PlayerList[aPosAy[1]].IsJumpBallPlayer = true;
 		PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
 		PlayerList[aPosAy[2]].transform.position = bornPosAy[2];
 		PlayerList[aPosAy[2]].ShowPos = 2;
+		PlayerList[aPosAy[2]].IsJumpBallPlayer = false;
 		
 		//Team B
 		PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
 		PlayerList[bPosAy[0]].transform.position = bornPosAy[3];
 		PlayerList[bPosAy[0]].ShowPos = 4;
+		PlayerList[bPosAy[0]].IsJumpBallPlayer = false;
 		PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
 		PlayerList[bPosAy[1]].transform.position = bornPosAy[4];
 		PlayerList[bPosAy[1]].ShowPos = 3;
+		PlayerList[bPosAy[1]].IsJumpBallPlayer = true;
 		PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
 		PlayerList[bPosAy[2]].transform.position = bornPosAy[5];
 		PlayerList[bPosAy[2]].ShowPos = 5;
+		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
 	}
 
 	private void PlayZeroPosition()
@@ -3203,16 +3209,12 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private PlayerBehaviour findJumpBallPlayer(ETeamKind team) {
-		float rebound = 0;
 		int findIndex = team == 0? 0 : 3;
 		PlayerBehaviour npc = null;
 		for (int i = 0; i < PlayerList.Count; i++)
-			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team) {
-				if(PlayerList[i].Attribute.Rebound > rebound){
-					rebound = PlayerList[i].Attribute.Block;
-					findIndex = i;
-				}
-			}
+		if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team && PlayerList [i].IsJumpBallPlayer) {
+			findIndex = i;
+		}
 				
 		npc = PlayerList[findIndex];
 		return npc;
