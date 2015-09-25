@@ -121,6 +121,13 @@ public class GameController : KnightSingleton<GameController>
 	public int shootTimes = 0;
 	public int shootScoreTimes = 0;
 
+	public float randomrate = 0;
+	public float normalRate = 0;
+	public float uphandRate = 0;
+	public float downhandRate = 0;
+	public float layupRate = 0;
+	public float nearshotRate = 0;
+
     [UsedImplicitly]
     private void Awake()
     {
@@ -830,6 +837,16 @@ public class GameController : KnightSingleton<GameController>
 				Joysticker.IsChangeColor = true;
 			}
 		}
+
+		if(GameStart.Get.IsShowShootRate) {
+			GUILayout.Label("random rate:"+ randomrate);
+			GUILayout.Label("normal rate:"+ normalRate);
+			GUILayout.Label("uphand rate:"+ uphandRate);
+			GUILayout.Label("downhand rate:"+ downhandRate);
+			GUILayout.Label("nearshot rate:"+ nearshotRate);
+			GUILayout.Label("layup rate:"+ layupRate);
+		}
+
 	}
 	#endif
 
@@ -1642,46 +1659,67 @@ public class GameController : KnightSingleton<GameController>
 		} else {
 			originalRate = player.Attr.PointRate2;
 		}
-		float rate = (Random.Range(0, 100) + 1);
+
+		
+		randomrate = 0;
+		normalRate = 0;
+		uphandRate = 0;
+		downhandRate = 0;
+		nearshotRate = 0;
+		layupRate = 0;
+
+
+		float rate = (Random.Range(0f, 100f) + 1);
+		randomrate = rate;
 		int airRate = (Random.Range(0, 100) + 1);
 		bool isScore = false;
 		bool isSwich = false;
 		bool isAirBall = false;
 		if(type == EScoreType.DownHand) {
-			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			downhandRate = (originalRate - (originalRate * (player.ScoreRate.DownHandScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
+				rate = (Random.Range(0, 100) + 1);
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.DownHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.DownHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.UpHand) {
-			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			uphandRate = (originalRate - (originalRate * (player.ScoreRate.UpHandScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
+				rate = (Random.Range(0, 100) + 1);
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.UpHandSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.UpHandAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.Normal) {
-			isScore = rate <= (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = (rate <= (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			normalRate = (originalRate - (originalRate * (player.ScoreRate.NormalScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
+				rate = (Random.Range(0, 100) + 1);
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NormalSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NormalAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.NearShot) {
-			isScore = rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			nearshotRate = (originalRate + (originalRate * (player.ScoreRate.NearShotScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
+				rate = (Random.Range(0, 100) + 1);
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.NearShotSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.NearShotAirBallRate ? true : false;
 			}
 		} else 
 		if(type == EScoreType.LayUp) {
-			isScore = rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate) ? true : false;
+			isScore = (rate <= (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate)) ? true : false;
+			layupRate = (originalRate + (originalRate * (player.ScoreRate.LayUpScoreRate / 100f)) + extraScoreRate);
 			if(isScore) {
+				rate = (Random.Range(0, 100) + 1);
 				isSwich = rate <= (originalRate - (originalRate * (player.ScoreRate.LayUpSwishRate / 100f))) ? true : false;
 			} else {
 				isAirBall = airRate <= player.ScoreRate.LayUpAirBallRate ? true : false;
@@ -1709,14 +1747,17 @@ public class GameController : KnightSingleton<GameController>
 
 		
 		if(GameStart.Get.TestMode == EGameTest.AttackA) {
-			BasketSituation = EBasketSituation.Score;
-			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
-				if((int)GameStart.Get.SelectBasketState > 100)
-					BasketSituation = EBasketSituation.NoScore;
-				BasketAnimationName = "BasketballAction_" + basketanimationTest[(int)GameStart.Get.SelectBasketState];
-				UIHint.Get.ShowHint("BasketAnimationName: "+BasketAnimationName, Color.yellow);
-			}
+			BasketSituation = EBasketSituation.Swish;
+//			BasketSituation = EBasketSituation.Score;
+//			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
+//				if((int)GameStart.Get.SelectBasketState > 100)
+//					BasketSituation = EBasketSituation.NoScore;
+//				BasketAnimationName = "BasketballAction_" + basketanimationTest[(int)GameStart.Get.SelectBasketState];
+//				UIHint.Get.ShowHint("BasketAnimationName: "+BasketAnimationName, Color.yellow);
+//			}
 		}
+		
+		judgeBasketAnimationName ((int)basketDistanceAngle);
 
 		if (ShootDistance >= GameConst.TreePointDistance)
 			player.GameRecord.FG3++;
@@ -1859,7 +1900,6 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			basketDistanceAngle = judgeShootAngle(player);
-			judgeBasketAnimationName ((int)basketDistanceAngle);
 			calculationScoreRate(player, scoreType);
 
 			SetBall();
@@ -2548,8 +2588,7 @@ public class GameController : KnightSingleton<GameController>
 		bool result = false;
 		if(player.CanUseActiveSkill && CheckOthersUseSkill)
         {
-			result = player.CheckSkill;
-			if (result) {
+			if (player.CheckSkill) {
 				player.AttackSkillEffect(player.Attribute.ActiveSkill.ID);
 				result = player.ActiveSkill(player.gameObject);
 			}

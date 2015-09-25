@@ -47,6 +47,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Animator[] BasketHoopAnimator = new Animator[2];
 	public Transform[] BasketHoop = new Transform[2];
 	public Transform[] BasketHoopDummy = new Transform[2];
+	public GameObject[] BasketRangeCenter = new GameObject[2];
 	public GameObject Effect;
 
 	public AutoFollowGameObject BallShadow;
@@ -323,7 +324,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
             Hood[0] = GetGameObjtInCollider(string.Format("{0}/HoodA", crtCollider.name));
             Hood[1] = GetGameObjtInCollider(string.Format("{0}/HoodB", crtCollider.name)); 
 			ShootPoint[0] = GetGameObjtInCollider(string.Format("{0}/HoodA/ShootPoint", crtCollider.name));
-            ShootPoint[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
+			ShootPoint[1] = GetGameObjtInCollider(string.Format("{0}/HoodB/ShootPoint", crtCollider.name));
+			BasketRangeCenter[0] = GetGameObjtInCollider(string.Format("{0}/RangeOfActionCenterL", crtCollider.name));
+			BasketRangeCenter[1] = GetGameObjtInCollider(string.Format("{0}/RangeOfActionCenterR", crtCollider.name));
 			MissPoint[0] = GetGameObjtInCollider(string.Format("{0}/MissPos/A", crtCollider.name));
             MissPoint[1] = GetGameObjtInCollider(string.Format("{0}/MissPos/B", crtCollider.name));
             DunkPoint[0] = GetGameObjtInCollider(string.Format("{0}/DunkL/Point", crtCollider.name));
