@@ -219,7 +219,7 @@ public class UIGame : UIBase {
 
 	protected override void InitCom() {
 		GameController.Get.onSkillDCComplete += AddForceValue;
-//		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
+		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
 		/*
 		#if !UNITY_EDITOR
