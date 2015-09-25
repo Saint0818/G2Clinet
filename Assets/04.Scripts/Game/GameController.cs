@@ -3203,13 +3203,13 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private PlayerBehaviour findJumpBallPlayer(ETeamKind team) {
-		float block = 0;
+		float rebound = 0;
 		int findIndex = team == 0? 0 : 3;
 		PlayerBehaviour npc = null;
 		for (int i = 0; i < PlayerList.Count; i++)
 			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team) {
-				if(PlayerList[i].Attribute.Block > block){
-					block = PlayerList[i].Attribute.Block;
+				if(PlayerList[i].Attribute.Rebound > rebound){
+					rebound = PlayerList[i].Attribute.Block;
 					findIndex = i;
 				}
 			}
