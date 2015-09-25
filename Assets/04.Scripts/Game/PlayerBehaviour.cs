@@ -657,8 +657,8 @@ public class PlayerBehaviour : MonoBehaviour
 	    Attr.ReboundRate = GameData.BaseAttr [Attribute.AILevel].ReboundRate + (Attribute.Rebound * 0.9f);
 	    Attr.BlockRate = GameData.BaseAttr[Attribute.AILevel].BlockRate + (Attribute.Block * 0.9f);
 	    Attr.FaketBlockRate = GameData.BaseAttr[Attribute.AILevel].FaketBlockRate + (100-(Attribute.Block / 1.15f));
-	    Attr.JumpBallRate = GameData.BaseAttr [Attribute.AILevel].JumpBallRate;
-	    Attr.PushingRate = GameData.BaseAttr [Attribute.AILevel].PushingRate + (Attribute.Defence * 1);
+	    Attr.JumpBallRate = GameData.BaseAttr[Attribute.AILevel].JumpBallRate;
+        Attr.PushingRate = GameData.BaseAttr[Attribute.AILevel].PushingRate + (Attribute.Defence * 1);
 	    Attr.PassRate = GameData.BaseAttr[Attribute.AILevel].PassRate + (Attribute.Pass * 0.7f);
 	    Attr.AlleyOopPassRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate + (Attribute.Pass * 0.6f);
 	    Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound / 200);
@@ -2017,13 +2017,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public bool AniState(EPlayerState state, Vector3 v)
+    public bool AniState(EPlayerState state, Vector3 lookAtPoint)
     {
         if (!CanUseState(state))
             return false;
 		if(GameStart.Get.TestMode == EGameTest.Pass)
 			LogMgr.Get.Log("name:"+gameObject.name + "Rotate");
-        RotateTo(v.x, v.z);
+        RotateTo(lookAtPoint.x, lookAtPoint.z);
         return AniState(state);
     }
 

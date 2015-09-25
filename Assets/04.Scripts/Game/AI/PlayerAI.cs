@@ -14,7 +14,7 @@ namespace AI
     [RequireComponent(typeof(PlayerBehaviour))]
     public class PlayerAI : MonoBehaviour, ITelegraph<EGameMsg>
     {
-        public Team Parent { set; get; }
+        public Team Team { set; get; }
 
         private StateMachine<EPlayerAIState, EGameMsg> mFSM;
 
@@ -23,7 +23,7 @@ namespace AI
         {
             mFSM = new StateMachine<EPlayerAIState, EGameMsg>();
             mFSM.AddState(new PlayerNoneState());
-            mFSM.AddState(new PlayerAttackState(GetComponent<PlayerBehaviour>()));
+            mFSM.AddState(new PlayerAttackState(this, GetComponent<PlayerBehaviour>()));
             mFSM.AddState(new PlayerDefenseState(GetComponent<PlayerBehaviour>()));
             mFSM.ChangeState(EPlayerAIState.None);
 
@@ -66,7 +66,7 @@ namespace AI
         /// <returns></returns>
         public bool isNearestBall()
         {
-            return Parent.FindNearBallPlayer() == this;
+            return Team.FindNearBallPlayer() == this;
         }
     } // end of the class PlayerAI.
 } // end of the namespace AI.

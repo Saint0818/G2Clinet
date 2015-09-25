@@ -72,9 +72,15 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
             foreach(var player in players)
             {
                 if(player.Team == ETeamKind.Self)
+                {
                     mPlayerTeam.AddPlayer(player.GetComponent<PlayerAI>());
+                    mNpcTeam.AddOpponentPlayer(player.GetComponent<PlayerAI>());
+                }
                 else if(player.Team == ETeamKind.Npc)
+                {
+                    mPlayerTeam.AddOpponentPlayer(player.GetComponent<PlayerAI>());
                     mNpcTeam.AddPlayer(player.GetComponent<PlayerAI>());
+                }
             }
         }
     }

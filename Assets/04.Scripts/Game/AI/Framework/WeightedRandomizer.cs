@@ -53,6 +53,11 @@ namespace AI
             }
         }
 
+        public bool IsEmpty()
+        {
+            return mRandomizer.IsEmpty();
+        }
+
         public T GetNext()
         {
             return mRandomizer.GetNext();

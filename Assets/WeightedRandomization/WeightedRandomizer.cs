@@ -29,6 +29,11 @@ namespace WeightedRandomization
             mAdjusted = false; 
         }
 
+        public bool IsEmpty()
+        {
+            return mWeights.Count == 0;
+        }
+
         public void Remove(T value)
         {
             WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Value, value));
