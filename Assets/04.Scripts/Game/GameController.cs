@@ -3387,8 +3387,6 @@ public class GameController : KnightSingleton<GameController>
 		if (Catcher) {
 			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
 				IsPassing = false;
-			else
-				return;
 		}			
 
 //		if(Situation == EGameSituation.APickBallAfterScore && player == Joysticker)
