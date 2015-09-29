@@ -56,7 +56,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public BallCurve RealBallCurve;
 	public UILabel[] Scoreboards = new UILabel[2];
 
-//	private Dictionary<string, Vector3> BasketShootPosition = new Dictionary<string, Vector3>();
 	public Dictionary<string, Vector3> DBasketShootWorldPosition = new Dictionary<string, Vector3>();
 	public Dictionary<int, List<string>> DBasketAnimationName = new Dictionary<int, List<string>>(); 
 	public Dictionary<int, List<string>> DBasketAnimationNoneState = new Dictionary<int, List<string>>();
@@ -184,14 +183,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumLeftWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateLeftWing));
 			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongLeftWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateLeftWing));
 		}
-		
-		
+
 		//Get Basket Animation InitPosition
 		if(GameData.BasketShootPosition != null && GameData.BasketShootPosition.Length > 0) {
 			for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
 				Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);
-//				BasketShootPosition.Add(GameData.BasketShootPosition[i].AnimationName, position);
-				
+
 				BasketHoopDummy[0].localPosition = position;
 				DBasketShootWorldPosition.Add("0_" + GameData.BasketShootPosition[i].AnimationName, BasketHoopDummy[0].position);
 				BasketHoopDummy[1].localPosition = position;
@@ -789,7 +786,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			for (int j = 0; j < 2; j ++)
 				BasketEntra[i, j].Into = false;
 		}
-
 	}
 
     public void PlayDunk(int team, int stageNo)
@@ -821,10 +817,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(!string.IsNullOrEmpty(effectName)) {
 			if(effectName.Equals("ShotFX")) {
 
-//				GameController.Get.PlusScore(team, false, true);
 			}
-			if(parent == 0) { // Global
-//				EffectManager.Get.PlayEffect (effectName, new Vector3(DunkPoint[team].transform.position.x, 3.76f, DunkPoint[team].transform.position.z), null, null, duration);
+
+			if(parent == 0) { 
 				EffectManager.Get.PlayEffect (effectName, ShootPoint[team].transform.position, null, null, duration);
 			} else {
 				EffectManager.Get.PlayEffect (effectName, Vector3.zero, EffectPoint[team], null, duration);
@@ -854,75 +849,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Hood[1].gameObject.SetActive(true);
 		}
 		animator.SetTrigger(animationName);
-
-//		EffectManager.Get.PlayEffect ("ShotFX", ShootPoint [team].transform.position, null, null, 3f);
 	}
-
-//	public void PlayShootNoScore(int team)
-//	{
-//		Animator animator;
-//		string animationName = "Shot_100";
-//		if (team == 0)
-//		{
-//			animator = pveBasketAy[0].GetComponent<Animator>();
-//			Hood[0].gameObject.SetActive(true);
-//		} else
-//		{
-//			if(isPve)
-//			{
-//				animator = pveBasketAy[1].GetComponent<Animator>();
-//			}
-//			else
-//			{
-//				animator = BuildBasket[1].GetComponent<Animator>();
-//			}
-//			
-//			Hood[1].gameObject.SetActive(true);
-//		}
-//		animator.SetTrigger(animationName);
-//	}
-
-//    public void PlayBasketEffect(int teamIndex, int index)
-//    {
-//        Animation animation;
-//        string animationName = string.Empty;
-//
-//        if (teamIndex == 1)
-//        {
-//			if(isPve)
-//			{
-//				animation = pveBasketAy[0].GetComponent<Animation>();
-//				animationName = string.Format("BasketL{0}", index);
-//			}
-//            else
-//			{
-//				animation = BuildBasket[0].GetComponent<Animation>();
-//				if(index == 161)
-//					animationName = "Basket162";
-//			}
-//        
-//			Hood[0].gameObject.SetActive(false);
-//        } else
-//        {
-//			if(isPve)
-//			{
-//				animation = pveBasketAy[1].GetComponent<Animation>();
-//				animationName = string.Format("BasketR{0}", index);
-//			}
-//			else
-//			{
-//				animation = BuildBasket[1].GetComponent<Animation>();
-//				if(index == 161)
-//					animationName = "Basket162";
-//			}
-//           
-//			Hood[1].gameObject.SetActive(false);
-//        }
-//
-//		StartCoroutine("Reset");
-//		animation.wrapMode = WrapMode.Once;
-//        animation.Play(animationName);
-//    }
 
 	IEnumerator Reset()
 	{  

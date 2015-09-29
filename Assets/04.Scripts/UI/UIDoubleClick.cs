@@ -47,10 +47,9 @@ public class UIDoubleClick : UIBase {
 	public static void UIShow(bool isShow) {
 		if (instance)
 			instance.Show (isShow);
-		else {
-			if (isShow)
-				Get.Show (isShow);
-		}
+		else 
+		if (isShow)
+			Get.Show (isShow);
 	}
 
 	public void Init()

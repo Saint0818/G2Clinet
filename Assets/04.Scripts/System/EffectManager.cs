@@ -27,17 +27,6 @@ public class EffectManager : MonoBehaviour
 	private Dictionary<string, GameObject> effectList = new Dictionary<string, GameObject>();
 	private Dictionary<string, List<GameObject>> pooledObjects = new Dictionary<string, List<GameObject>>();
 
-	void Awake() {
-
-		Material mat = Resources.Load("Effect/Materials/CloneMesh0") as Material;
-		if (mat)
-			materials.Add(mat);
-
-		ObjPool = new GameObject ();
-		ObjPool.name = "ObjPool";
-		ObjPool.transform.parent = gameObject.transform;
-	}
-
 	public static EffectManager Get {
 		get
 		{
@@ -48,6 +37,16 @@ public class EffectManager : MonoBehaviour
 			}
 			return instance;
 		}
+	}
+
+	void Awake() {
+		Material mat = Resources.Load("Effect/Materials/CloneMesh0") as Material;
+		if (mat)
+			materials.Add(mat);
+
+		ObjPool = new GameObject ();
+		ObjPool.name = "ObjPool";
+		ObjPool.transform.parent = gameObject.transform;
 	}
 
 	void Update() {
@@ -119,18 +118,10 @@ public class EffectManager : MonoBehaviour
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
-//				GameObject particles = (GameObject)Instantiate(obj);
 				GameObject particles = getPooledObject(effectName, obj);
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
-				
-				if(particles.GetComponent<ParticleSystem>() == null) {
-					ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
-					if (ps)
-						ps.Play();
-				} else
-					particles.GetComponent<ParticleSystem>().Play();
 
 				particles.transform.localPosition = position;
 				particles.transform.localScale = Vector3.one;				
@@ -146,18 +137,10 @@ public class EffectManager : MonoBehaviour
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
-//				GameObject particles = (GameObject)Instantiate(obj);
 				GameObject particles = getPooledObject(effectName, obj);
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
-
-				if(particles.GetComponent<ParticleSystem>() == null) {
-					ParticleSystem ps =	particles.GetComponentInChildren<ParticleSystem>();
-					if (ps)
-						ps.Play();
-				} else
-					particles.GetComponent<ParticleSystem>().Play();
 
 				if (lifeTime > 0)
 				{
@@ -167,7 +150,6 @@ public class EffectManager : MonoBehaviour
 						autoDestory = particles.AddComponent<AutoDestoryEffect>();
 					
 					autoDestory.SetDestoryTime = lifeTime;
-//					autoDestory.OnlyDeactivate = true;
 					autoDestory.IsNeedPause = isNeedPause;
 				}
 

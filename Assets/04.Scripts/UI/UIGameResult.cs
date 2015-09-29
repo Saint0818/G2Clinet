@@ -29,18 +29,7 @@ public class UIGameResult : UIBase {
 				return false;
 		}
 	}
-	
-	public static void UIShow(bool isShow){
-		if (instance) {
-			if (!isShow)
-				RemoveUI(UIName);
-			else
-				instance.Show(isShow);
-		} else
-		if (isShow)
-			Get.Show(isShow);
-	}
-	
+
 	public static UIGameResult Get
 	{
 		get {
@@ -49,6 +38,14 @@ public class UIGameResult : UIBase {
 			
 			return instance;
 		}
+	} 
+
+	public static void UIShow(bool isShow){
+		if (instance)
+			instance.Show(isShow);
+		else
+		if (isShow)
+			Get.Show(isShow);
 	}
 	
 	protected override void InitCom() {

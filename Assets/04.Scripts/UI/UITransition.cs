@@ -16,14 +16,11 @@ public class UITransition : UIBase {
 		}
 		
 		set {
-			if (instance) {
-				if (!value)
-					RemoveUI(UIName);
-				else
-					instance.Show(value);
-			} else
-				if (value)
-					Get.Show(value);
+			if (instance)
+				instance.Show(value);
+			else
+			if (value)
+				Get.Show(value);
 		}
 	}
 	

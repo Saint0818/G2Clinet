@@ -54,8 +54,8 @@ public class UIPassiveEffect : UIBase {
 		if (instance) {
 			instance.Show(isShow);
 		} else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 
 	protected override void InitCom() {
