@@ -169,6 +169,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		
 		playerBehaviour.InitTrigger(DefPointObject);
 		playerBehaviour.InitCurve(AnimatorCurveManager);
+		playerBehaviour.InitDoubleClick ();
 		playerBehaviour.InitAttr();
 		res.name = team.ToString() + teamIndex.ToString();
 

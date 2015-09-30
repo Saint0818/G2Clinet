@@ -1058,8 +1058,10 @@ public class UIGame : UIBase {
 				break;
 			case EUIControl.Shoot:
 				if(GameController.Get.IsShooting) {
-					if(state && UIDoubleClick.Visible){
-						UIDoubleClick.Get.ClickStop ();
+					if(state){
+						int index = GameController.Get.GetShootPlayerIndex();
+						if(index!= -1 && index < UIDoubleClick.Get.DoubleClicks.Length && UIDoubleClick.Get.DoubleClicks[index].Enable)
+							UIDoubleClick.Get.ClickStop (index);
 					}
 				} else {
 					if(GameController.Get.Joysticker.IsBallOwner &&

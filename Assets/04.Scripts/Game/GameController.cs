@@ -620,7 +620,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			if (Input.GetKeyDown(KeyCode.T)){
-				UIDoubleClick.Get.ClickStop();
+				UIDoubleClick.Get.ClickStop(0);
 			}
 
 			if (Input.GetKeyUp (KeyCode.M))
@@ -1450,7 +1450,8 @@ public class GameController : KnightSingleton<GameController>
 				UIGameResult.UIShow(true);
 				UIGameResult.UIShow(false);
 				UIDoubleClick.UIShow(true);
-				UIDoubleClick.UIShow(false);
+				for(int i = 0; i < PlayerList.Count; i++)
+					UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);
 				break;
@@ -2008,11 +2009,28 @@ public class GameController : KnightSingleton<GameController>
             return false;
     }
 
+	public int GetShootPlayerIndex()
+	{
+		int result = -1;
+
+		for(int i = 0; i < PlayerList.Count; i++)
+		{
+			if(Shooter && PlayerList[i] == Shooter)
+				result = i;
+			else if(BallOwner && PlayerList[i] == BallOwner)
+				result = i;
+		}
+
+		return result;
+	}
+
 	public bool DoShoot(bool isshoot)
     {
 		if (IsStart && CandoBtn) {
-			if (UIDoubleClick.Visible) {
-				UIDoubleClick.Get.ClickStop ();
+			int index = GetShootPlayerIndex();
+			if(index >= 0 && UIDoubleClick.Get.DoubleClicks[index].Enable){
+
+				UIDoubleClick.Get.ClickStop (index);
 				switch (UIDoubleClick.Get.Lv) {
 				case 0:
 					GameRecord.DoubleClickLv1++;
@@ -2431,46 +2449,44 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
-		if (player.Team == ETeamKind.Self && !UIDoubleClick.Visible && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
 			GameRecord.DoubleClickLaunch++;
+			int playerindex = -1;
+
+			for(int i = 0;i < PlayerList.Count;i++)
+				if(PlayerList[i] == player)
+					playerindex = i;
 
 			switch (state) {
 				case EPlayerState.Shoot0:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot1:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1.23f, DoubleShoot);
+					UIDoubleClick.Get.SetData(playerindex, 1.23f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot2:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot3:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot6:
 					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData( 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Layup0:
 				case EPlayerState.Layup1:
 				case EPlayerState.Layup2:
 				case EPlayerState.Layup3:
-					UIDoubleClick.Get.SetData(1.3f, DoubleShoot);
-					UIDoubleClick.UIShow(true);
+					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
 					return true;
 
 				case EPlayerState.Block:
 				case EPlayerState.BlockCatch:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData(0.7f, null, DoubleBlock, player);
+					UIDoubleClick.Get.SetData(playerindex, 0.7f, null, DoubleBlock, player);
 					return true;
 				case EPlayerState.Rebound:
-					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData(0.75f, DoubleRebound);
+					UIDoubleClick.Get.SetData(playerindex, 0.75f, DoubleRebound);
 					return true;
 			}
 		}
@@ -2562,8 +2578,8 @@ public class GameController : KnightSingleton<GameController>
 		if (IsStart && CandoBtn && Joysticker) {
 			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch) {
 				Joysticker.AniState(EPlayerState.BlockCatch);
-				if(UIDoubleClick.Visible)
-					UIDoubleClick.Get.ClickStop();
+				if(UIDoubleClick.Get.DoubleClicks[0].Enable)
+					UIDoubleClick.Get.ClickStop(0);
 
 				return true;
 			} else {

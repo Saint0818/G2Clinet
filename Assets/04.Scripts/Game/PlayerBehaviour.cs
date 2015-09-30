@@ -421,6 +421,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject dashSmoke;
     private BlockCatchTrigger blockCatchTrigger;
     public GameObject AIActiveHint = null;
+	public GameObject DoubleClick = null;
     public GameObject DummyBall;
     public UISprite SpeedUpView = null;
     public UISprite AngerView = null;
@@ -699,6 +700,16 @@ public class PlayerBehaviour : MonoBehaviour
 
 		if (Team == ETeamKind.Npc) 
 			skillController.HidePlayerName();
+	}
+
+	public void InitDoubleClick()
+	{
+		if (DoubleClick == null) {
+				DoubleClick	= Instantiate(Resources.Load("Effect/DoubleClick")) as GameObject;
+				DoubleClick.name = "DoubleClick";
+				DoubleClick.transform.parent = gameObject.transform;
+				DoubleClick.transform.localPosition = Vector3.zero;
+		} 
 	}
 
     public void InitCurve(GameObject animatorCurve)

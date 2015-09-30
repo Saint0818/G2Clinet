@@ -1,30 +1,154 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public delegate void IntDelegate (int lv);
+public delegate void PlayerDelegate (int lv, PlayerBehaviour player);
+
+public struct TDoubleClick
+{
+	public int Team;
+	private GameObject Group;
+	private UISprite runSprite;
+	private UISprite targetSprite;
+	public float CrtValue;
+	private float CheckValue;
+	private bool isInit;
+	
+	private IntDelegate finsh;
+	private PlayerDelegate finshPalyer;
+	private PlayerBehaviour crtPlayer;
+	private float speed;
+	public float FramSpeed;
+	public bool IsStart;
+	
+	public void Init(GameObject obj)
+	{
+		Group = obj;
+		finsh = null;
+		finshPalyer = null;
+		speed = 1;
+		CrtValue = 800;
+		FramSpeed =  CrtValue / (speed * 30);
+
+		string mainPath = "Scale/Billboard/QTEGroup/";
+		runSprite = obj.transform.FindChild (mainPath + "BarSprite").gameObject.GetComponent<UISprite>();
+		targetSprite = obj.transform.FindChild (mainPath + "TargetSprite").gameObject.GetComponent<UISprite>();
+		IsStart = false;
+		Enable = false;
+
+		Group.SetActive (false);
+
+//		isInit = runSprite && targetSprite;
+	}
+	
+	public bool Clicked
+	{
+		set{ if(value){
+				CheckLv();
+			}
+		}
+	}
+	
+	public bool Enable
+	{
+		set{ Group.SetActive(value);}
+		get{ 
+			if(Group && Group.activeSelf)
+				return true;
+			else
+				return false;}
+	}
+	
+	public void CheckLv()
+	{
+		if(CheckValue < 150 || CheckValue> 400) {
+			Debug.Log("week");
+			SetLv(0);
+
+		} else if(CheckValue > 250 && CheckValue <= 400) {
+			Debug.Log("good");
+			SetLv(1);
+
+		} else if(CheckValue >= 150 && CheckValue <= 250) {
+			Debug.Log("perfab");
+			SetLv(2);
+		}
+	}
+	
+	public void SetData(float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	{
+		Enable = true;
+		finsh = intFunction;
+		finshPalyer = playerFunction;
+		crtPlayer = player;
+		speed = value;
+		FramSpeed = 800 / (speed * 30);
+		IsStart = true;
+	}
+	
+	private void SetLv(int index)
+	{
+		switch (index) {
+		case 0:
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
+			UIDoubleClick.Get.ShowLvEffect(index);
+			break;
+		case 1:
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
+			UIDoubleClick.Get.ShowLvEffect(index);
+			break;
+		case 2:
+			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
+			UIDoubleClick.Get.ShowLvEffect(index);
+			break;
+		}
+		if (index != -1) {
+			if(finsh != null)
+				finsh(index);
+			else if(crtPlayer != null)
+				finshPalyer(index, crtPlayer);
+			
+			Enable = false;
+		}
+	}
+
+	public void ClickStop()
+	{
+		if (Enable) {
+			CheckValue = CrtValue;
+			IsStart = false;
+			CrtValue = 800;
+			CheckLv ();
+		}
+	}
+
+	public void ValueCalculation()
+	{
+		if (IsStart) {
+			CrtValue -= FramSpeed;
+			float y = 50 - (100 * CrtValue / 800);
+			runSprite.transform.localPosition = new Vector3 (0, y, 0);
+
+			if (CrtValue <= 0) {
+				ClickStop();
+			}
+		}
+	}
+}
+
 public class UIDoubleClick : UIBase {
-	public delegate void IntDelegate (int lv);
-	public delegate void PlayerDelegate (int lv, PlayerBehaviour player);
+
+	public TDoubleClick[] DoubleClicks = new TDoubleClick[6];
 
 	private static UIDoubleClick instance = null;
 	private const string UIName = "UIDoubleClick";
 
 	public int Lv = -1;
-	private float framSpeed = 0;
-	private float framSpeed2 = 0;
-	private float speed = 1f;
-//	private float SecondSpeed = 1f;
-	private float SecondSpeedRate = 0.8f;
-	private bool isStart = true;
 	private Vector2 size;
 	private Vector2 size2;
 	private Vector2 SecondStartSize;
-
-	private UISprite[] checkCircle = new UISprite[2];
-	private GameObject[] lvSprite = new GameObject[3];  
-
-
-	private IntDelegate finsh = null;
-	private PlayerDelegate finshPalyer = null;
+	private ParticleSystem[] lvEffect = new ParticleSystem[2];
+	private GameObject BottomRight; 
 
 	public static UIDoubleClick Get {
 		get {
@@ -52,22 +176,6 @@ public class UIDoubleClick : UIBase {
 			Get.Show (isShow);
 	}
 
-	public void Init()
-	{
-		if (instance) {
-			checkCircle[0].width = 800;
-			checkCircle[0].height = 800;
-			checkCircle[1].width = 800;
-			checkCircle[1].height = 800;
-			size = new Vector2 (800, 800);
-			size2 = new Vector2 (800, 800);
-			SecondStartSize = size * SecondSpeedRate;
-			isStart = true;
-			SetLv(-1);
-			checkCircle[1].gameObject.SetActive(false);
-		}
-	}
-
 	public void DoBtn(GameObject go, bool state)
 	{
 		GameController.Get.DoShoot (true);
@@ -75,114 +183,74 @@ public class UIDoubleClick : UIBase {
 
 	void FixedUpdate()
 	{
-		if (isStart) {
-			size -= Vector2.one * framSpeed;
-			checkCircle[0].width = (int)size.x;
-			checkCircle[0].height = (int)size.y;
-
-			if(size.x < SecondStartSize.x){
-				checkCircle[1].gameObject.SetActive(true);
-				size2 -= Vector2.one * framSpeed2;
-				checkCircle[1].width = (int)size2.x;
-				checkCircle[1].height = (int)size2.y;
-				if(size2.x <= 0){
-					checkCircle[1].gameObject.SetActive(false);
-				}
-			}
-
-			if(size.x <= 0){
-				isStart = false;
-				GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.None;
-				if(finsh != null)
-					finsh(0);
-				UIShow(false);
-			}
+		for (int i = 0; i < DoubleClicks.Length; i++) {
+			if(DoubleClicks[i].Enable && DoubleClicks[i].IsStart){
+				DoubleClicks[i].ValueCalculation();
+			}		
 		}
 	}
 
-	private PlayerBehaviour crtPlayer;
-
-	public void SetData(float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	public void SetData(int playerIndex, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
-		finsh = intFunction;
-		finshPalyer = playerFunction;
-		crtPlayer = player;
-		speed = value;
-		framSpeed = 800 / (speed * 30);
-		framSpeed2 = 800 / (speed * 30 * SecondSpeedRate);
-	}
-
-	private void CheckLv()
-	{
-		Lv = -1;
-		if(size.x < 150 || size.x > 400) {
-			SetLv(0);
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
-		} else if(size.x > 250 && size.x <= 400) {
-			SetLv(1);
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
-		} else if(size.x >= 150 && size.x <= 250) {
-			SetLv(2);
-			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
+		if (playerIndex != -1 && playerIndex < DoubleClicks.Length) {
+			UIShow(true);
+			DoubleClicks[playerIndex].SetData(value, intFunction, playerFunction, player);
+			if(BottomRight)
+				BottomRight.SetActive(true);
 		}
 	}
 
 	protected override void InitCom() {
 		string name;
 
-		for (int i = 0; i < lvSprite.Length; i++) {
-			name = string.Format("UIDoubleClick/SceneClick/Lv/{0}", i);
-			lvSprite[i] = GameObject.Find (name);
+		for (int i = 0; i < lvEffect.Length; i++) {
+			name = string.Format("UIDoubleClick/Lv/{0}", i);
+			lvEffect[i] = GameObject.Find (name).GetComponent<ParticleSystem>();
+			if(lvEffect[i] != null)
+				lvEffect[i].Stop();
 		}
 
-		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
-		checkCircle[1] = GameObject.Find (UIName + "/SceneClick/CheckCircle1").GetComponent<UISprite> ();
+//		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
+//		checkCircle[1] = GameObject.Find (UIName + "/SceneClick/CheckCircle1").GetComponent<UISprite> ();
 		//			SetBtnFun(UIName + "/SceneClick", DoBtn);
-		UIEventListener.Get (GameObject.Find (UIName + "/SceneClick")).onPress = DoBtn;
+//		UIEventListener.Get (GameObject.Find (UIName + "/SceneClick")).onPress = DoBtn;
+		BottomRight = GameObject.Find (UIName + "/BottomRight");
+		BottomRight.SetActive (false);
 	}
 
-	protected override void OnShow (bool isShow)
+	public void InitDoubleClick(PlayerBehaviour player, int index)
 	{
-		base.OnShow (isShow);
-		if(isShow)
-			Init();
+		if (index < DoubleClicks.Length && player.DoubleClick) {
+			DoubleClicks[index].Init(player.DoubleClick);
+			DoubleClicks[index].Team = (int)player.Team;
+		}
 	}
 
-	private void SetLv(int index)
+	public void ShowLvEffect(int index)
 	{
 		Lv = index;
-		for (int i = 0; i < lvSprite.Length; i++) {
-			if(index == -1)
-				lvSprite[i].SetActive(false);
-			else{
-				if(index == i)
-					lvSprite[i].SetActive(true);
-				else
-					lvSprite[i].SetActive(false);
-			}
-		}
 
-		if (index != -1) {
-			if(finsh != null)
-				finsh(index);
-			else if(crtPlayer != null)
-				finshPalyer(index, crtPlayer);
-
-			StartCoroutine("DelayClose");
+		switch(Lv)
+		{
+			case 0:
+				lvEffect[0].Play();
+				break;
+			case 1:
+			case 2:
+				lvEffect[1].Play();
+				break;
 		}
 	}
 
-	IEnumerator DelayClose()
+	public void ClickStop(int index)
 	{
-		yield return new WaitForSeconds (0.75f);
-		UIShow (false);
-	}
-
-	public void ClickStop()
-	{
-		if (isStart) {
-			isStart = false;
-			CheckLv ();
+		if (index != -1 && DoubleClicks[index].Team == 0) {
+			DoubleClicks[index].ClickStop();
+			BottomRight.SetActive(false);
 		}
+//		if (isStart) {
+//			isStart = false;
+//			CheckLv ();
+//		}
 	}
 }
