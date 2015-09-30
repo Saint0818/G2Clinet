@@ -138,4 +138,12 @@ namespace GamePlayEnum {
 		Good,
 		Perfect
 	}
+
+	public enum EShowWordType {
+		Block,
+		Dunk,
+		NiceShot,
+		Punch,
+		Steal
+	}
 }

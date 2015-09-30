@@ -2363,6 +2363,8 @@ public class GameController : KnightSingleton<GameController>
 				if (stealRate <= (r + AddRate) && Mathf.Abs(MathUtils.GetAngle(BallOwner.transform, player.transform)) <= 90 + AddAngle) {
 					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal)) {
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
+						if(player.isJoystick)
+							ShowWord(EShowWordType.Steal, 0, player.gameObject);
 						return true;
 					}
 				} else 
@@ -4120,6 +4122,26 @@ public class GameController : KnightSingleton<GameController>
 			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
 	}
 
+	public void ShowWord (EShowWordType type, int team = 0, GameObject parent = null) {
+		switch(type) {
+		case EShowWordType.Block:
+			EffectManager.Get.PlayEffect("ShowWord_Block", Vector3.zero, parent, null, 0.5f, true);
+			break;
+		case EShowWordType.Dunk:
+			EffectManager.Get.PlayEffect("ShowWord_Dunk", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 0.5f, true);
+			break;
+		case EShowWordType.NiceShot:
+			EffectManager.Get.PlayEffect("ShowWord_NiceShot", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 0.5f, true);
+			break;
+		case EShowWordType.Punch:
+			EffectManager.Get.PlayEffect("ShowWord_Punch", Vector3.zero, parent, null, 0.5f, true);
+			break;
+		case EShowWordType.Steal:
+			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 0.5f, true);
+			break;
+		}
+	}
+
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
 		for (int i = 0; i < PlayerList.Count; i++) {
@@ -4128,11 +4150,13 @@ public class GameController : KnightSingleton<GameController>
 					int rate = UnityEngine.Random.Range(0, 100);
 					PlayerBehaviour faller = PlayerList[i];
 					PlayerBehaviour pusher = player;
-					
+
 					if(rate < faller.Attr.StrengthRate){
 						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+							if(faller.isJoystick || pusher.isJoystick)
+								ShowWord(EShowWordType.Punch, 0, pusher.gameObject);
 							pusher.GameRecord.Knock++;
 							faller.GameRecord.BeKnock++;
 						}

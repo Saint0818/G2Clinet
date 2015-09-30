@@ -512,6 +512,9 @@ public class PlayerBehaviour : MonoBehaviour
 	//Active
 	private bool isUseSkill = false;
 
+	//ShowWord
+	public GameObject ShowWord;
+
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool isSpeedup = false;
@@ -752,6 +755,7 @@ public class PlayerBehaviour : MonoBehaviour
             pushTrigger = obj2.transform.FindChild("Push").gameObject;
             elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
             blockTrigger = obj2.transform.FindChild("Block").gameObject;
+			ShowWord = obj2.transform.FindChild("ShowWord").gameObject;
             
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();

@@ -75,6 +75,8 @@ public class BlockTrigger : MonoBehaviour {
 			}
 
 			blocker.GameRecord.Block++;
+			if(blocker.isJoystick)
+				GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.gameObject);
 			if (faller)
 				faller.GameRecord.BeBlock++;
 		}
