@@ -2068,7 +2068,8 @@ public class GameController : KnightSingleton<GameController>
 		if (player == BallOwner)
 		{
 			PlusScore(player.Team.GetHashCode(), true, false);
-
+			GameController.Get.ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
+			
 			player.GameRecord.Dunk++;
 			if (ShootDistance >= GameConst.TreePointDistance)
 				player.GameRecord.FG3++;
@@ -2086,6 +2087,8 @@ public class GameController : KnightSingleton<GameController>
         {
 			if (player.crtState == EPlayerState.Alleyoop)
 				player.GameRecord.Alleyoop++;
+			else
+				GameController.Get.ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
 			if(GameStart.Get.TestMode == EGameTest.Alleyoop) 
@@ -2364,7 +2367,7 @@ public class GameController : KnightSingleton<GameController>
 					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal)) {
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						if(player.isJoystick)
-							ShowWord(EShowWordType.Steal, 0, player.gameObject);
+							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 						return true;
 					}
 				} else 
@@ -3679,8 +3682,10 @@ public class GameController : KnightSingleton<GameController>
 			team = Shooter.Team.GetHashCode();
 
 		int score = 2;
-		if (ShootDistance >= GameConst.TreePointDistance)
+		if (ShootDistance >= GameConst.TreePointDistance) {
 			score = 3;
+			GameController.Get.ShowWord(EShowWordType.NiceShot, team);
+		}
 
 		if (GameStart.Get.TestMode == EGameTest.Skill)
 			UIGame.Get.PlusScore(team, score);
@@ -4155,8 +4160,6 @@ public class GameController : KnightSingleton<GameController>
 						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
-							if(faller.isJoystick || pusher.isJoystick)
-								ShowWord(EShowWordType.Punch, 0, pusher.gameObject);
 							pusher.GameRecord.Knock++;
 							faller.GameRecord.BeKnock++;
 						}
@@ -4165,6 +4168,8 @@ public class GameController : KnightSingleton<GameController>
 						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+							if(faller.isJoystick || pusher.isJoystick)
+								ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
 					}
 

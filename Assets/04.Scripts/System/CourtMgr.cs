@@ -518,7 +518,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			if(scoreTeam != -1) {
 				GameController.Get.PlusScore(scoreTeam, false, true);
 				GameController.Get.ShowShootSate(true, scoreTeam);
-				GameController.Get.ShowWord(EShowWordType.NiceShot, scoreTeam);
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
 				RealBallVelocity = Vector3.zero;
 				RealBallAddForce(Vector3.down * 70);
@@ -559,7 +558,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				}
 				GameController.Get.PlusScore(team, false, true);
 				GameController.Get.ShowShootSate(true, team);
-				GameController.Get.ShowWord(EShowWordType.NiceShot, team);
 				RealBallRigidbody.useGravity = true;
 				RealBallRigidbody.isKinematic = false;
 				RealBallTrigger.SetBoxColliderEnable(true);
@@ -831,7 +829,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Hood[1].gameObject.SetActive(true);
 		}
 		animator.SetTrigger(animationName);
-		GameController.Get.ShowWord(EShowWordType.Dunk, team);
     }
 
 	public void PlayBasketEffect(int team, string effectName, int parent, float duration)
