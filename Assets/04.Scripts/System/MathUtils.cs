@@ -18,6 +18,18 @@ namespace G2
             Vector3 relative = t1.InverseTransformPoint(t2.position);
             return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
         }
+
+		public static float GetAngle(Transform source, Vector3 target){
+			Vector3 relative = source.InverseTransformPoint(target);
+			return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+		}
+
+        public static float Find2DDis(Vector3 v1, Vector3 v2)
+        {
+            v1.y = 0;
+            v2.y = 0;
+            return Vector3.Distance(v1, v2);
+        }
     }
 }
 

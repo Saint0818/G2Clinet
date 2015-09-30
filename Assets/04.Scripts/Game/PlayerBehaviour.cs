@@ -512,6 +512,9 @@ public class PlayerBehaviour : MonoBehaviour
 	//Active
 	private bool isUseSkill = false;
 
+	//ShowWord
+	public GameObject ShowWord;
+
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool isSpeedup = false;
@@ -752,6 +755,7 @@ public class PlayerBehaviour : MonoBehaviour
             pushTrigger = obj2.transform.FindChild("Push").gameObject;
             elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
             blockTrigger = obj2.transform.FindChild("Block").gameObject;
+			ShowWord = obj2.transform.FindChild("ShowWord").gameObject;
             
             obj2.name = "BodyTrigger";
             PlayerTrigger[] objs = obj2.GetComponentsInChildren<PlayerTrigger>();
@@ -983,19 +987,24 @@ public class PlayerBehaviour : MonoBehaviour
 		aiTime += aniTime;
 	}
 
-    public void SetNoAI() {
-		if (Team == ETeamKind.Self && Index == 0) {
-	        if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) {
+    public void SetNoAI()
+    {
+		if (Team == ETeamKind.Self && Index == 0)
+        {
+	        if(situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
+            {
 	            isJoystick = true;
 				aiTime = Time.time + GameData.Setting.AIChangeTime;
-				StartCoroutine(GetCurrentClipLength());
+                StartCoroutine(GetCurrentClipLength());
 
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(false);
 
 	            if (SpeedUpView)
 	                SpeedUpView.enabled = true;
-	        } else {
+	        }
+            else
+            {
 	            aiTime = 0;
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(true);
@@ -2996,19 +3005,22 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "PushCalculateStart":
-                pushTrigger.gameObject.SetActive(true);
+				GameController.Get.PushCalculate(this, 3, 30);
+//				IsPushCalculate = true;
+//                pushTrigger.gameObject.SetActive(true);
                 break;
 
             case "PushCalculateEnd":
-                pushTrigger.SetActive(false);
+//				IsPushCalculate = false;
+//                pushTrigger.SetActive(false);
                 break;
 
             case "ElbowCalculateStart":
-                elbowTrigger.gameObject.SetActive(true);
+				GameController.Get.PushCalculate(this, 3, 270);
                 break;
                 
             case "ElbowCalculateEnd":
-                elbowTrigger.SetActive(false);
+//                elbowTrigger.SetActive(false);
                 break;
 
 			case "BlockCalculateStart":

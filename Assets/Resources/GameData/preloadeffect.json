@@ -112,5 +112,20 @@
     },
     {
         "name": "UseSkillEffect_21"
+    },
+    {
+        "name": "ShowWord_Block"
+    },
+    {
+        "name": "ShowWord_Dunk"
+    },
+    {
+        "name": "ShowWord_NiceShot"
+    },
+    {
+        "name": "ShowWord_Punch"
+    },
+    {
+        "name": "ShowWord_Steal"
     }
 ]

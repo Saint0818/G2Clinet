@@ -6,7 +6,7 @@ public class DefTrigger : MonoBehaviour {
 	public PlayerBehaviour Player;
 	
 	void OnTriggerEnter(Collider other) {
-		if (GameController.Visible){
+		if (GameController.Visible && GameController.Get.IsStart){
 			if (other.gameObject.CompareTag("PlayerTrigger"))
 			{
 				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
@@ -23,7 +23,7 @@ public class DefTrigger : MonoBehaviour {
 	}
 	
 	void OnTriggerExit(Collider other) {
-		if (GameController.Visible) {
+		if (GameController.Visible && GameController.Get.IsStart) {
 			if (other.gameObject.CompareTag("PlayerTrigger")){
 				PlayerTrigger obj = other.gameObject.GetComponent<PlayerTrigger>();
 				if (obj){

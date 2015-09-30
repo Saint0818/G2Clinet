@@ -17,6 +17,9 @@ public class BlockTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		if (!GameController.Get.IsStart)
+			return;
+
 		if (GameController.Visible && other.gameObject.CompareTag ("PlayerTrigger")) {
 			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;
 			if (toucher.layer == LayerMask.NameToLayer("Shooter") && blocker != null && blocker.gameObject != toucher) {
@@ -72,6 +75,8 @@ public class BlockTrigger : MonoBehaviour {
 			}
 
 			blocker.GameRecord.Block++;
+			if(blocker == GameController.Get.Joysticker)
+				GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
 			if (faller)
 				faller.GameRecord.BeBlock++;
 		}

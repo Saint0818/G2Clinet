@@ -9,18 +9,23 @@ namespace AI
     {
         public T Symbol;
         public float Value;
+
+        public void Clear()
+        {
+            Value = 0;
+        }
     }
 
     /// <summary>
     /// 可針對每個 Symbol 下不同權重的亂數產生器.
     /// </summary>
-    /// <typeparam name="T"> enum or primitive type. </typeparam>
+    /// <typeparam name="T"> enum, int, class. </typeparam>
     /// <remarks>
     /// 使用說明:
     /// <list type="number">
     /// <item> new instance. </item>
     /// <item> Call AddOrUpdate() 多次, 設定每個 Symbol 不同的權重. </item>
-    /// <item> Call GetNext() 取出亂數. </item>
+    /// <item> Call GetNext() 取出亂數 Symbol. </item>
     /// </list>
     /// </remarks>
     public class WeightedRandomizer<T>
@@ -29,16 +34,34 @@ namespace AI
 
         private readonly List<WeightedChance<T>> mWeights = new List<WeightedChance<T>>();
 
-        public void AddOrUpdate(T symbol, float value)
-        {
-            if(value <= 0)
-                throw new ArgumentException("value cannot have a 0% chance.");
+        private readonly Pool<WeightedChance<T>> mPool;
 
-            WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Value, value));
+        public WeightedRandomizer()
+        {
+            mPool = new Pool<WeightedChance<T>>(() => new WeightedChance<T>(), 
+                                                weightChance => weightChance.Clear());
+        }
+
+        public void AddOrUpdate(T symbol, float weight)
+        {
+            if(weight <= 0)
+                throw new ArgumentException("weight cannot have a zero chance.");
+
+            WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Value, weight));
             if(existing == null)
-                mWeights.Add(new WeightedChance<T> { Symbol = symbol, Value = value });
+            {
+                var weightChance = mPool.CreateOrGet();
+                if(weightChance == null)
+                {
+                    Debug.LogErrorFormat("Pool is full, ignore Symbol:{0}, Value:{1}", symbol, weight);
+                    return;
+                }
+                weightChance.Symbol = symbol;
+                weightChance.Value = weight;
+                mWeights.Add(weightChance);
+            }
             else
-                existing.Value = value;
+                existing.Value = weight;
 
             updateWeights();
         }
@@ -67,13 +90,21 @@ namespace AI
         {
             WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Symbol, symbol));
             if(existing != null)
+            {
                 mWeights.Remove(existing);
+                mPool.Free(existing);
+            }
             mRandomizer.Remove(symbol);
         }
 
         public void Clear()
         {
+            for(int i = 0; i < mWeights.Count; i++)
+            {
+                mPool.Free(mWeights[i]);
+            }
             mWeights.Clear();
+
             mRandomizer.Clear();
         }
     } // end of the class WeightedRandomizer.

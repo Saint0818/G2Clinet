@@ -25,6 +25,16 @@ public class AttackBState : State<EGameSituation, EGameMsg>
             else if (player.Team == ETeamKind.Npc)
                 player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Attack);
         }
+
+        if (extraInfo != null)
+        {
+            bool isFromInbounds = (bool)extraInfo;
+            if (isFromInbounds)
+            {
+                GameController.Get.Joysticker.SetNoAI();
+                GameController.Get.Joysticker.AniState(EPlayerState.Idle);
+            }
+        }
     }
 
     public override void Update()

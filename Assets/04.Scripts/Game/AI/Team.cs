@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using G2;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -91,7 +92,7 @@ namespace AI
             float nearDis = float.MaxValue;
             for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                var newDis = AITools.Find2DDis(mOpponentPlayers[i].transform.position, position);
+                var newDis = MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, position);
                 if(newDis < nearDis)
                 {
                     nearDis = newDis;
@@ -116,6 +117,60 @@ namespace AI
                player.transform.position.x <= 1 && player.transform.position.x >= -1)
                 return false;
             return true;
+        }
+
+        public enum EFindPlayerResult
+        {
+            CannotFound, // 找不到防守球員.
+            InFront, // 防守球員在前方.
+            InBack // 防守球員在後方.
+        }
+        /// <summary>
+        /// 某位球員在某個距離和角度內, 是否有防守球員?
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="dis"></param>
+        /// <param name="angle"></param>
+        /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
+        public EFindPlayerResult HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
+        {
+            PlayerAI defPlayer;
+            return FindDefPlayer(player, dis, angle, out defPlayer);
+        }
+
+        /// <summary>
+        /// 某位球員在某個距離和角度內, 是否有防守球員?
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="dis"></param>
+        /// <param name="angle"></param>
+        /// <param name="defPlayer"></param>
+        /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
+        public EFindPlayerResult FindDefPlayer([NotNull]PlayerAI player, float dis, float angle, 
+                                               out PlayerAI defPlayer)
+        {
+            defPlayer = null;
+
+            for (int i = 0; i < mOpponentPlayers.Count; i++)
+            {
+                float realAngle = MathUtils.GetAngle(player.transform, mOpponentPlayers[i].transform);
+
+                if (MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position) <= dis)
+                {
+                    if(realAngle >= 0 && realAngle <= angle)
+                    {
+                        defPlayer = mOpponentPlayers[i];
+                        return EFindPlayerResult.InFront;
+                    }
+                    if(realAngle <= 0 && realAngle >= -angle)
+                    {
+                        defPlayer = mOpponentPlayers[i];
+                        return EFindPlayerResult.InBack;
+                    }
+                }
+            }
+
+            return EFindPlayerResult.CannotFound;
         }
 
     } // end of the class Team.

@@ -5,7 +5,7 @@ using GamePlayEnum;
 using GameStruct;
 using SkillBuffSpace;
 using DG.Tweening;
-
+using G2;
 
 public delegate void OnAddAttributeDelegate(int kind, float value);
 
@@ -181,7 +181,7 @@ public class SkillController : MonoBehaviour {
 		//Part 1. Get Passive which is choosed. 
 		List<TSkill> skills = new List<TSkill>();
 
-		float angle = GameFunction.GetPlayerToObjectAngleByVector(executePlayer.gameObject.transform, v);
+		float angle = MathUtils.GetAngle(executePlayer.gameObject.transform, v);
 		passDirect = judgeDirect(angle);
 
 		if(DPassiveSkills.ContainsKey(skillKind)) {

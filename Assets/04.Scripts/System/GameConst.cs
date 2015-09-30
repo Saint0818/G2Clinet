@@ -18,7 +18,7 @@ public class GameConst
 	public const float AttackSpeedup = 8;
 	public const float AttackSpeedNormal = 7;
 	public const float TreePointDistance = 10.6f;
-	public const float TwoPointDistance = 3;
+	public const float TwoPointDistance = 7;
 	public const float DunkDistance = 7;
 	public const float PickBallDistance = 2.5f;
 	public const float StealBallDistance = 3; // 這其實是推人, 抄球的距離.
@@ -29,6 +29,13 @@ public class GameConst
 	public const float CoolDownPushTime = 3;
 	public const float CoolDownSteal = 1.2f;
 	public const float WaitStealTime = 0.5f;
+
+    /// <summary>
+    /// 當對手和球員在 TheatDistance and ThreatAngle 範圍內時, 表示雙方處理威脅狀態. 
+    /// 會影響假動作, 投籃的邏輯.
+    /// </summary>
+	public const float ThreatDistance = 1.5f;
+	public const float ThreatAngle = 40f;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 10;

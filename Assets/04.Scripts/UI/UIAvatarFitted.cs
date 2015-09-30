@@ -3,6 +3,7 @@ using System.Collections;
 using GameStruct;
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public struct TItemAvatar
 {
@@ -37,7 +38,7 @@ public struct TItemAvatar
 	{
 		set{
 			CheckEquipBtnName();
-			CheckItemKind();
+
 			if(gameobject){
 				gameobject.SetActive(value);
 				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
@@ -184,6 +185,8 @@ public struct TItemAvatar
 					PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
 					FinishLabel = buyBtn.transform.FindChild("FinishLabel").gameObject.GetComponent<UILabel>();
 				}
+
+				CheckItemKind();
 			}
 		}
 		isInit = name && usetime && abilityValue && pic;
@@ -291,34 +294,12 @@ public class UIAvatarFitted : UIBase {
 				{
 					checktime = items[i].EndUseTime - System.DateTime.UtcNow;
 					items[i].UseTime = checktime;
-
-
-	//				if(items[i].isTimeEnd == flase && checktime.TotalSeconds > 0)
-	//				{
-	//					items[i].UseTime = checktime.Days + " : " + checktime.Hours + ":" + checktime.Minutes;
-	//				}
-	//				else
-	//				{
-	//					items[i].isTimeEnd = true;
-	//				}
-
-
-
-
-	//				if(checktime.TotalSeconds > 0)
-	//				{
-	//					items[i].UseTime = (items[i].EndUseTime - System.DateTime.UtcNow);
-	//				}
 				}
 
 			}
 	}
 
-	void FixedUpdate(){
-	}
-
 	private string[] btnPaths = new string[avatarPartCount];
-	private int test = 0;
 
 	protected override void InitCom() {
 		string mainBtnPath = UIName + "/MainView/Left/MainButton/";
@@ -330,9 +311,8 @@ public class UIAvatarFitted : UIBase {
 		btnPaths [5] = mainBtnPath + "FaceBtn";
 		btnPaths [6] = mainBtnPath + "BacksBtn";
 
-		for(int i = 0; i < btnPaths.Length; i++){
+		for(int i = 0; i < btnPaths.Length; i++)
 			SetBtnFunReName (btnPaths[i], DoAvatarTab, i.ToString());
-		}
 
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", DoReturn);
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", DoSave);
@@ -346,7 +326,6 @@ public class UIAvatarFitted : UIBase {
 		disableGroup.transform.parent = scrollView.transform;
 
 		InitEquips ();
-
 		isInit = true;
 	}
 
@@ -364,12 +343,10 @@ public class UIAvatarFitted : UIBase {
 	private void InitEquips()
 	{
 		if (GameData.Team.Player.Items.Length > 0) {
-			for(int i = 0; i < GameData.Team.Player.Items.Length;i++)
-			{
+			for(int i = 0; i < GameData.Team.Player.Items.Length;i++){
 				int kind = GetItemKind(GameData.Team.Player.Items[i].ID);
 
-				if(kind > 0 && kind < 8 && !Equips.ContainsKey(GameData.Team.Player.Items[i].ID))
-				{
+				if(kind > 0 && kind < 8 && !Equips.ContainsKey(GameData.Team.Player.Items[i].ID)){
 					TEquip equip = new TEquip();
 					equip.ID = GameData.Team.Player.Items[i].ID;
 					equip.Kind = kind;
@@ -377,7 +354,6 @@ public class UIAvatarFitted : UIBase {
 				}
 			}
 		}
-
 	}
 
 	public void DoAvatarTab()
@@ -387,7 +363,6 @@ public class UIAvatarFitted : UIBase {
 		if (int.TryParse (UIButton.current.name, out index)) {
 			InitAvatarView(index);
 		}
-
 	}
 
 	public void InitAvatarView(int index)
@@ -655,14 +630,29 @@ public class UIAvatarFitted : UIBase {
 		DoReturn ();
 			
 		if (!CheckSameEquip ()) {
+			WWWForm form = new WWWForm();
+			form.AddField("Indexs", JsonConvert.SerializeObject(EquipsAvatar));
+			SendHttp.Get.Command(URLConst.EquipPlayerItem, waitEquipPlayerItem, form);
 			Debug.LogWarning("save serverdata");
-		}
-
-		foreach (KeyValuePair<int, TEquip> item in Equips) {
-			Debug.Log("** Equips : " + GameData.DItemData[item.Value.ID].Name);
 		}
 	}
 
+	private void waitEquipPlayerItem(bool ok, WWW www)
+	{
+		if(ok)
+		{
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.Items = team.Items;
+
+			if(team.Items.Length > 0)
+				for(int i = 0; i < team.Items.Length; i++)
+					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
+						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
+		}
+		else
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
+	}
+	
 	private GameObject avatar;
 
 	protected override void InitData() {

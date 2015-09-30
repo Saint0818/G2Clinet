@@ -23,12 +23,16 @@ public class Pool<T> where T:class
     private readonly Action mCreateMethod;
     private readonly Action2 mResetMethod;
 
-    private readonly Queue<T> mQueue = new Queue<T>();
+    private readonly Queue<T> mFreeObjs = new Queue<T>();
 
+    /// <summary>
+    /// 已經 new 了幾個物件. 注意, 這和 FreeObjs 的數量不一定是相同的. 
+    /// 比如使用者可能還在使用某個 instance, 還沒有釋放給 Pool.
+    /// </summary>
     private int mSize;
     private readonly int mMaxSize;
 
-    public Pool(Action createMethod, Action2 resetMethod, int defaultSize = 100, int maxSize = 2000)
+    public Pool(Action createMethod, Action2 resetMethod, int defaultSize = 10, int maxSize = 2000)
     {
         mCreateMethod = createMethod;
         mResetMethod = resetMethod;
@@ -47,9 +51,9 @@ public class Pool<T> where T:class
     [CanBeNull]
     public T CreateOrGet()
     {
-        if(mQueue.Count > 0)
+        if(mFreeObjs.Count > 0)
         {
-            var obj = mQueue.Dequeue();
+            var obj = mFreeObjs.Dequeue();
             mResetMethod(obj);
             return obj;
         }
@@ -67,6 +71,6 @@ public class Pool<T> where T:class
 
     public void Free([NotNull]T obj)
     {
-        mQueue.Enqueue(obj);
+        mFreeObjs.Enqueue(obj);
     }
 }
