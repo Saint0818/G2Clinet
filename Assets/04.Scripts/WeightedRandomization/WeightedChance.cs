@@ -5,7 +5,7 @@
         /// <summary>
         /// Target value of this randomization
         /// </summary>
-        public T Value { get; set; }
+        public T Symbol { get; set; }
 
         /// <summary>
         /// Weight from 0..1
@@ -15,6 +15,12 @@
         /// <summary>
         /// Adjusted weight based on the weights of other items added to the randomizer
         /// </summary>
-        public float AdjustedWeight { get; set; }        
+        public float AdjustedWeight { get; set; }
+
+        public void Clear()
+        {
+            Weight = 0;
+            AdjustedWeight = 0;
+        }
     }
 }
