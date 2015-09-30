@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AI;
+using G2;
 using GamePlayEnum;
 using GamePlayStruct;
 using GameStruct;
@@ -134,14 +135,10 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
     {
         mRandomizer.Clear();
 
-        //        bool dunkRate = Random.Range(0, 100) < 30;
-        //        bool shootRate = Random.Range(0, 100) < 10;
-        //        bool shoot3Rate = Random.Range(0, 100) < 1;
-        //        bool passRate = Random.Range(0, 100) < 20;
-        //        bool elbowRate = Random.Range(0, 100) < mPlayer.Attr.ElbowingRate;
-
-        float shootPointDis = AITools.Find2DDis(mPlayer.transform.position,
+        float shootPointDis = MathUtils.Find2DDis(mPlayer.transform.position,
                                     CourtMgr.Get.ShootPoint[mPlayer.Team.GetHashCode()].transform.position);
+
+        var threat = mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle);
 
         // 是否可以灌籃.
         if (shootPointDis <= GameConst.DunkDistance &&
@@ -153,7 +150,9 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
         // 是否可以投 2 分球.
         if (shootPointDis <= GameConst.TwoPointDistance &&
 //                (GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0 || shootRate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
-                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0 &&
+//                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0 &&
+//                mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) == 0 &&
+                threat != Team.EFindPlayerResult.InFront &&
                 mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
                 /*Team.IsInUpfield(mPlayer)*/)
             //            GameController.Get.AIFakeShoot(mPlayer);
@@ -162,7 +161,9 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
         // 是否可以投 3 分球.
         if(shootPointDis <= GameConst.TreePointDistance + 1 &&
 //                (GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 3.5f, 40) == 0 || shoot3Rate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
-                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 3.5f, 40) == 0 &&
+//                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 3.5f, 40) == 0 &&
+//                mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) == 0 &&
+                threat != Team.EFindPlayerResult.InFront &&
                 mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
                 /*Team.IsInUpfield(mPlayer)*/)
             //            GameController.Get.AIFakeShoot(mPlayer);
@@ -171,7 +172,9 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
         // 是否可以做假動作
         if(shootPointDis <= GameConst.TreePointDistance + 1 &&
            !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) && 
-           GameController.Get.HasDefPlayer(mPlayer, GameConst.BlockDistance, 40) != 0)
+//           GameController.Get.HasDefPlayer(mPlayer, GameConst.BlockDistance, 40) != 0)
+//           mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) != 0)
+           threat == Team.EFindPlayerResult.InFront)
         {
             mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
         }

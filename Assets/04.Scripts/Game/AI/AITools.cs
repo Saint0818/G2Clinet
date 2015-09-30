@@ -117,11 +117,4 @@ public class AITools
     
         throw new NotImplementedException(String.Format("Tactical:{0}", tactical));
     }
-
-    public static float Find2DDis(Vector3 v1, Vector3 v2)
-    {
-        v1.y = 0;
-        v2.y = 0;
-        return Vector3.Distance(v1, v2);
-    }
 }

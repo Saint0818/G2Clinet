@@ -3751,22 +3751,26 @@ public class GameController : KnightSingleton<GameController>
     /// <summary>
     /// 某位球員在某個距離和角度內, 是否有防守球員?
     /// </summary>
-    /// <param name="npc"></param>
+    /// <param name="player"></param>
     /// <param name="dis"></param>
     /// <param name="angle"></param>
     /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
-	public int HasDefPlayer(PlayerBehaviour npc, float dis, float angle)
+	public int HasDefPlayer(PlayerBehaviour player, float dis, float angle)
     {
+        if (player == null)
+            return 0;
+
         int result = 0;
 
         for(int i = 0; i < PlayerList.Count; i++)
         {
-			if(PlayerList[i].gameObject.activeInHierarchy && npc != null && PlayerList[i].Team != npc.Team)
+			if(PlayerList[i].gameObject.activeInHierarchy && PlayerList[i].Team != player.Team)
             {
 	            PlayerBehaviour targetNpc = PlayerList[i];
-				float realAngle = MathUtils.GetAngle(npc.transform, targetNpc.transform);
+				float realAngle = MathUtils.GetAngle(player.transform, targetNpc.transform);
 	            
-	            if(GetDis(npc, targetNpc) <= dis)
+//	            if(GetDis(npc, targetNpc) <= dis)
+	            if(MathUtils.Find2DDis(player.transform.position, targetNpc.transform.position) <= dis)
                 {
 	                if(realAngle >= 0 && realAngle <= angle)
                     {
@@ -3849,7 +3853,7 @@ public class GameController : KnightSingleton<GameController>
                 {
 		            if(PlayerList[i] != self && PlayerList[i].Team == self.Team && 
 //                       GetDis(self, npc) <= dis)
-                       AITools.Find2DDis(self.transform.position, npc.transform.position) <= dis)
+                       MathUtils.Find2DDis(self.transform.position, npc.transform.position) <= dis)
                     {
 		                nearPlayer = npc;
 		                break;
