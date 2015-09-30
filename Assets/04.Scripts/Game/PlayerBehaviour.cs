@@ -2996,19 +2996,22 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "PushCalculateStart":
-                pushTrigger.gameObject.SetActive(true);
+				GameController.Get.PushCalculate(this, 3, 30);
+//				IsPushCalculate = true;
+//                pushTrigger.gameObject.SetActive(true);
                 break;
 
             case "PushCalculateEnd":
-                pushTrigger.SetActive(false);
+//				IsPushCalculate = false;
+//                pushTrigger.SetActive(false);
                 break;
 
             case "ElbowCalculateStart":
-                elbowTrigger.gameObject.SetActive(true);
+				GameController.Get.PushCalculate(this, 3, 30);
                 break;
                 
             case "ElbowCalculateEnd":
-                elbowTrigger.SetActive(false);
+//                elbowTrigger.SetActive(false);
                 break;
 
 			case "BlockCalculateStart":

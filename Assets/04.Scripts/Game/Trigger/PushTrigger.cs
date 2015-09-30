@@ -17,6 +17,9 @@ public class PushTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+		if (!GameController.Get.IsStart)
+			return;
+
 		if (GameController.Visible && other.gameObject.CompareTag("PlayerTrigger"))
 		{
 			GameObject toucher = other.gameObject.transform.parent.parent.gameObject;

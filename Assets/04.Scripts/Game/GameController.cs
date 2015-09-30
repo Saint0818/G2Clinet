@@ -2323,7 +2323,7 @@ public class GameController : KnightSingleton<GameController>
 	
 	public bool OnStealMoment(PlayerBehaviour player) {
         if (BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk) {
-			if(Vector3.Distance(BallOwner.transform.position, player.transform.position) <= GameConst.StealBallDistance) {
+			if(Vector3.Distance(BallOwner.transform.position, player.transform.position) <= GameConst.StealBallDistance && GameFunction.IsTouchPlayerArea(player.transform, BallOwner.transform.position, 30)) {
 				int r = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
 				int maxRate = 100;
 				int minRate = 10;
@@ -4099,6 +4099,44 @@ public class GameController : KnightSingleton<GameController>
     public void SetAllPlayerLayer (string layerName){
 		for (int i = 0; i < PlayerList.Count; i++)
 			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
+	}
+
+	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
+	{
+		for (int i = 0; i < PlayerList.Count; i++) {
+			if(PlayerList[i] && PlayerList[i].Team != player.Team){
+				if((Vector3.Distance(PlayerList[i].transform.position, player.transform.position) < dis) && GameFunction.IsTouchPlayerArea(player.transform, PlayerList[i].transform.position, angle)){
+					int rate = UnityEngine.Random.Range(0, 100);
+					PlayerBehaviour faller = PlayerList[i];
+					PlayerBehaviour pusher = player;
+					
+					if(rate < faller.Attr.StrengthRate){
+						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
+							faller.SetAnger(GameConst.DelAnger_Fall2);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+							pusher.GameRecord.Knock++;
+							faller.GameRecord.BeKnock++;
+						}
+					}
+					else{
+						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
+							faller.SetAnger(GameConst.DelAnger_Fall1);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+						}
+					}
+
+					if (pusher.crtState == EPlayerState.Elbow) {
+						pusher.GameRecord.Elbow++;
+						faller.GameRecord.BeElbow++;
+					} else {
+						pusher.GameRecord.Push++;
+						faller.GameRecord.BePush++;
+					}
+				}
+
+			}
+		}
+		
 	}
 	
 	public bool IsOnceAnimation(EAnimatorState state)
