@@ -138,83 +138,67 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
         float shootPointDis = MathUtils.Find2DDis(mPlayer.transform.position,
                                     CourtMgr.Get.ShootPoint[mPlayer.Team.GetHashCode()].transform.position);
 
-        var threat = mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle);
+        var threat = mPlayerAI.Team.HasDefPlayer(mPlayerAI, GameConst.ThreatDistance, GameConst.ThreatAngle);
 
         // 是否可以灌籃.
         if (shootPointDis <= GameConst.DunkDistance &&
-//            (dunkRate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
             mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) /*&& Team.IsInUpfield(mPlayer)*/)
             mRandomizer.AddOrUpdate(EAction.Dunk, mPlayer.Attr.DunkRate);
-        //            GameController.Get.AIFakeShoot(mPlayer);
 
         // 是否可以投 2 分球.
         if (shootPointDis <= GameConst.TwoPointDistance &&
-//                (GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0 || shootRate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
-//                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0 &&
-//                mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) == 0 &&
                 threat != Team.EFindPlayerResult.InFront &&
                 mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
                 /*Team.IsInUpfield(mPlayer)*/)
-            //            GameController.Get.AIFakeShoot(mPlayer);
             mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
         // 是否可以投 3 分球.
         if(shootPointDis <= GameConst.TreePointDistance + 1 &&
-//                (GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 3.5f, 40) == 0 || shoot3Rate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
-//                GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 3.5f, 40) == 0 &&
-//                mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) == 0 &&
                 threat != Team.EFindPlayerResult.InFront &&
                 mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
                 /*Team.IsInUpfield(mPlayer)*/)
-            //            GameController.Get.AIFakeShoot(mPlayer);
             mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
         // 是否可以做假動作
         if(shootPointDis <= GameConst.TreePointDistance + 1 &&
            !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) && 
-//           GameController.Get.HasDefPlayer(mPlayer, GameConst.BlockDistance, 40) != 0)
-//           mPlayerAI.Team.HasDefPlayer(mPlayer, GameConst.ThreatDistance, GameConst.ThreatAngle) != 0)
            threat == Team.EFindPlayerResult.InFront)
         {
             mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
         }
 
         // 是否可以用 Elbow 攻擊對方.
-        PlayerBehaviour defPlayer;
-        //        if(elbowRate && GameController.Get.IsInUpfield(mPlayer) && 
-        if(GameController.Get.IsInUpfield(mPlayer) &&
-           GameController.Get.HaveDefPlayer(mPlayer, GameConst.StealBallDistance, 90, out defPlayer) != 0 &&
+        PlayerAI defPlayer;
+        var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
+//        if(GameController.Get.IsInUpfield(mPlayer) &&
+        if(Team.IsInUpfield(mPlayer) &&
+//           GameController.Get.HaveDefPlayer(mPlayer, GameConst.StealBallDistance, 90, out defPlayer) != 0 &&
+           stealThreat != Team.EFindPlayerResult.CannotFound && 
+           defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
            mPlayer.CoolDownElbow == 0 && !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
         {
             mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
-            //            if (mPlayer.DoPassiveSkill(ESkillSituation.Elbow, defPlayer.transform.position))
-            //            {
-            //                GameController.Get.coolDownPass = 0;
-            //                mPlayer.CoolDownElbow = Time.time + 3;
-            //                GameController.Get.RealBallFxTime = 1f;
-            //                CourtMgr.Get.RealBallFX.SetActive(true);
-            //            }
         }
 
         // 是否可以傳球.
-        //        if((passRate || mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) && 
         if ((mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
            GameController.Get.coolDownPass == 0 && /*!IsShooting && !IsDunk &&*/
-           !mPlayer.CheckAnimatorSate(EPlayerState.Elbow)/* && BallOwner.AIing*/)
-            //            GameController.Get.AIPass(mPlayer);
+           !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
             mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
 
         // 是否可以轉身運球過人.
         if (mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover == 0 && mPlayer.CanMove &&
-            GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0)
+//            GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0)
+            threat != Team.EFindPlayerResult.CannotFound)
         {
             mRandomizer.AddOrUpdate(EAction.MoveDodge, mPlayer.MoveDodgeRate);
-            //            if(Random.Range(0, 100) <= mPlayer.MoveDodgeRate)
-            //                mPlayer.DoPassiveSkill(ESkillSituation.MoveDodge);
         }
 
         if(mRandomizer.IsEmpty())
+        {
+//            Debug.Log("Randomizer is empty!");
             return EAction.None;
+        }
         return mRandomizer.GetNext();
     }
 
@@ -222,10 +206,8 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
     {
         // 參數 player 並未持球, 所以只能做 Push 被動技.
         // 這裡的企劃規則是, 附近的敵對球員必須是 Idle 狀態時, 才會真的執行推人行為.
-//        var nearPlayer = GameController.Get.hasNearPlayer(mPlayer, GameConst.StealBallDistance, false);
         var nearPlayer = mPlayerAI.Team.FindNearestOpponentPlayer(mPlayerAI.transform.position);
         bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
-//        if(nearPlayer && pushRate && mPlayer.CoolDownPush == 0)
         if(nearPlayer && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
            nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
         {
@@ -251,9 +233,11 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 
     private void doElbow()
     {
-        PlayerBehaviour defPlayer;
-        GameController.Get.HaveDefPlayer(mPlayer, GameConst.StealBallDistance, 90, out defPlayer);
-        if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow, defPlayer.transform.position))
+//        PlayerAI defPlayer;
+//        GameController.Get.HaveDefPlayer(mPlayer, GameConst.StealBallDistance, 90, out defPlayer);
+//        mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
+//        if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow, defPlayer.transform.position))
+        if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow))
         {
             GameController.Get.coolDownPass = 0;
             mPlayer.CoolDownElbow = Time.time + 3;

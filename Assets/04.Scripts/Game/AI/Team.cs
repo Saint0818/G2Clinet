@@ -132,18 +132,41 @@ namespace AI
         /// <param name="dis"></param>
         /// <param name="angle"></param>
         /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
-        public EFindPlayerResult HasDefPlayer([NotNull]PlayerBehaviour player, float dis, float angle)
+        public EFindPlayerResult HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
         {
-            for(int i = 0; i < mOpponentPlayers.Count; i++)
+            PlayerAI defPlayer;
+            return FindDefPlayer(player, dis, angle, out defPlayer);
+        }
+
+        /// <summary>
+        /// 某位球員在某個距離和角度內, 是否有防守球員?
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="dis"></param>
+        /// <param name="angle"></param>
+        /// <param name="defPlayer"></param>
+        /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
+        public EFindPlayerResult FindDefPlayer([NotNull]PlayerAI player, float dis, float angle, 
+                                               out PlayerAI defPlayer)
+        {
+            defPlayer = null;
+
+            for (int i = 0; i < mOpponentPlayers.Count; i++)
             {
                 float realAngle = MathUtils.GetAngle(player.transform, mOpponentPlayers[i].transform);
 
                 if (MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position) <= dis)
                 {
-                    if (realAngle >= 0 && realAngle <= angle)
+                    if(realAngle >= 0 && realAngle <= angle)
+                    {
+                        defPlayer = mOpponentPlayers[i];
                         return EFindPlayerResult.InFront;
-                    if (realAngle <= 0 && realAngle >= -angle)
+                    }
+                    if(realAngle <= 0 && realAngle >= -angle)
+                    {
+                        defPlayer = mOpponentPlayers[i];
                         return EFindPlayerResult.InBack;
+                    }
                 }
             }
 

@@ -3790,34 +3790,34 @@ public class GameController : KnightSingleton<GameController>
         return result;
     }
 
-	public int HaveDefPlayer(PlayerBehaviour player, float dis, float angle, out PlayerBehaviour defPlayer)
-    {
-		int result = 0;
-		float mangle;
-		defPlayer = null;
-
-		for (int i = 0; i < PlayerList.Count; i++) {
-			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team != player.Team) {
-				PlayerBehaviour TargetNpc = PlayerList [i];
-				mangle = MathUtils.GetAngle(player.transform, TargetNpc.transform);
-				
-				if (GetDis(player, TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(EPlayerState.Idle)) {
-					if (mangle >= 0 && mangle <= angle) {
-						result = 1;
-						defPlayer = TargetNpc;
-						break;
-					} else 
-					if (mangle <= 0 && mangle >= -angle) {
-						result = 2;
-						defPlayer = TargetNpc;
-						break;
-					}
-				}
-			}
-		}
-		
-		return result;
-	}
+//	public int HaveDefPlayer(PlayerBehaviour player, float dis, float angle, out PlayerBehaviour defPlayer)
+//    {
+//		int result = 0;
+//		float mangle;
+//		defPlayer = null;
+//
+//		for (int i = 0; i < PlayerList.Count; i++) {
+//			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team != player.Team) {
+//				PlayerBehaviour TargetNpc = PlayerList [i];
+//				mangle = MathUtils.GetAngle(player.transform, TargetNpc.transform);
+//				
+//				if (GetDis(player, TargetNpc) <= dis && TargetNpc.CheckAnimatorSate(EPlayerState.Idle)) {
+//					if (mangle >= 0 && mangle <= angle) {
+//						result = 1;
+//						defPlayer = TargetNpc;
+//						break;
+//					} else 
+//					if (mangle <= 0 && mangle >= -angle) {
+//						result = 2;
+//						defPlayer = TargetNpc;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//		
+//		return result;
+//	}
 
 	private int haveStealPlayer(PlayerBehaviour p1, PlayerBehaviour p2, float dis, float angle)
     {
