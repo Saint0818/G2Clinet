@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 6e087be3718cc864cb93c4ed97a1a5c2
-timeCreated: 1440745149
+guid: 8f47b184798e5f640913d4342b98f8fc
+timeCreated: 1443603362
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Pass8
+    7400000: Steal1
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Pass8
+      name: Steal1
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,16 +150,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .313681453
+      - time: .654592693
         functionName: AnimationEvent
-        data: Passing
+        data: Stealing
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
+      - time: .999999881
         functionName: AnimationEvent
-        data: PassEnd
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
