@@ -2126,7 +2126,7 @@ public class GameController : KnightSingleton<GameController>
 			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
-					float angle = GameFunction.GetPlayerToObjectAngleByVector(BallOwner.gameObject.transform, player.gameObject.transform.position);
+					float angle = MathUtils.GetAngle(BallOwner.gameObject.transform, player.gameObject.transform);
 					if (angle < 60f && angle > -60f){
 						UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
 						result = BallOwner.AniState(EPlayerState.Pass5);
@@ -2363,7 +2363,7 @@ public class GameController : KnightSingleton<GameController>
 				if (stealRate <= (r + AddRate) && Mathf.Abs(MathUtils.GetAngle(BallOwner.transform, player.transform)) <= 90 + AddAngle) {
 					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal)) {
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
-						if(player.isJoystick)
+						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 						return true;
 					}
@@ -4165,7 +4165,7 @@ public class GameController : KnightSingleton<GameController>
 						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
-							if(faller.isJoystick || pusher.isJoystick)
+							if(faller == Joysticker || pusher == Joysticker)
 								ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
 					}

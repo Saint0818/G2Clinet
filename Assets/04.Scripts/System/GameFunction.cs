@@ -46,22 +46,22 @@ public static class GameFunction
 			return Vector3.zero;
 	}
 
-	public static float ElevationAngle(Vector3 source, Vector3 target)
-	{
-		// find the cannon->target vector:
-		Vector3 dir = target - source;
-		// create a horizontal version of it:
-		Vector3 dirH = new Vector3(dir.x, 0, dir.y);
-		// measure the unsigned angle between them:
-		float ang = Vector3.Angle(dir, dirH);
-		// add the signal (negative is below the cannon):
-		if (dir.y < 0)
-		{ 
-			ang = -ang;
-		}
-		
-		return ang;
-	}
+//	public static float ElevationAngle(Vector3 source, Vector3 target)
+//	{
+//		// find the cannon->target vector:
+//		Vector3 dir = target - source;
+//		// create a horizontal version of it:
+//		Vector3 dirH = new Vector3(dir.x, 0, dir.y);
+//		// measure the unsigned angle between them:
+//		float ang = Vector3.Angle(dir, dirH);
+//		// add the signal (negative is below the cannon):
+//		if (dir.y < 0)
+//		{ 
+//			ang = -ang;
+//		}
+//		
+//		return ang;
+//	}
 
 	public static bool IsTouchPlayerArea(Transform source, Vector3 target, float areaAngle)
 	{
@@ -72,12 +72,6 @@ public static class GameFunction
 			return true;
 		else
 			return false;
-	}
-
-	public static float GetPlayerToObjectAngleByVector(Transform source, Vector3 target){
-		Vector3 relative = source.InverseTransformPoint(target);
-		float angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-		return angle;
 	}
 
 	public static Vector3 GetVelocity(Vector3 source, Vector3 target, float angle, float distOffset = 0f)

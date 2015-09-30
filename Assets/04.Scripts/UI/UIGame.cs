@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using DG.Tweening;
 using GamePlayEnum;
+using G2;
 
 public enum EUISituation{
 	ShowTwo,
@@ -196,10 +197,10 @@ public class UIGame : UIBase {
 		if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
 			if(isShowPushRange) {
 				nearP = GameController.Get.FindNearNpc();
-				CourtMgr.Get.RangeOfActionEuler( GameFunction.GetPlayerToObjectAngleByVector(GameController.Get.Joysticker.transform, nearP.transform.position));
+				CourtMgr.Get.RangeOfActionEuler( MathUtils.GetAngle(GameController.Get.Joysticker.transform, nearP.transform));
 			} else if(isShowStealRange) {
 				if(GameController.Get.BallOwner != null)
-					CourtMgr.Get.RangeOfActionEuler( GameFunction.GetPlayerToObjectAngleByVector(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform.position));
+					CourtMgr.Get.RangeOfActionEuler( MathUtils.GetAngle(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform));
 			}
 
 
@@ -512,7 +513,7 @@ public class UIGame : UIBase {
 				isShowStealRange = !state;
 				if(getSkillRangeTarget() != null){
 					skillRangeTarget = getSkillRangeTarget().transform;
-					CourtMgr.Get.ShowRangeOfAction(state, GameController.Get.Joysticker.transform, 360, GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].Distance(GameController.Get.Joysticker.Attribute.ActiveSkill.Lv)); 
+					CourtMgr.Get.ShowRangeOfAction(state, skillRangeTarget, 360, GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].Distance(GameController.Get.Joysticker.Attribute.ActiveSkill.Lv)); 
 				}
 				break;
 			case EUIRangeType.Elbow:
