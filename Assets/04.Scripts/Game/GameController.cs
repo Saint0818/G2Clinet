@@ -943,15 +943,11 @@ public class GameController : KnightSingleton<GameController>
 		{
 		    if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
-//                AITools.RandomTactical(ETactical.Inbounds, BallOwner.Index, out attackTactical);
-//                AITools.RandomTactical(ETactical.InboundsDefence, BallOwner.Index, out defTactical);
                 AITools.RandomCorrespondingTactical(ETactical.Inbounds, ETactical.InboundsDefence,
                                     BallOwner.Index, out attackTactical, out defTactical);
             }
             else
             {
-//                AITools.RandomTactical(ETactical.HalfInbounds, BallOwner.Index, out attackTactical);
-//                AITools.RandomTactical(ETactical.HalfInboundsDefence, BallOwner.Index, out defTactical);
                 AITools.RandomCorrespondingTactical(ETactical.HalfInbounds, ETactical.HalfInboundsDefence,
                     BallOwner.Index, out attackTactical, out defTactical);
             }
@@ -2857,12 +2853,12 @@ public class GameController : KnightSingleton<GameController>
 		    if(Situation == EGameSituation.InboundsA)
 		    {
 		        ChangeSituation(EGameSituation.AttackA);
-                AIController.Get.ChangeState(EGameSituation.AttackA);
+                AIController.Get.ChangeState(EGameSituation.AttackA, true);
 		    }
 			else if(Situation == EGameSituation.InboundsB)
 			{
 			    ChangeSituation(EGameSituation.AttackB);
-                AIController.Get.ChangeState(EGameSituation.AttackB);
+                AIController.Get.ChangeState(EGameSituation.AttackB, true);
 			}
 		}
 	}
@@ -3143,12 +3139,12 @@ public class GameController : KnightSingleton<GameController>
 					    if(Situation == EGameSituation.AttackA)
 					    {
 					        ChangeSituation(EGameSituation.AttackB);
-                            AIController.Get.ChangeState(EGameSituation.AttackB);
+                            AIController.Get.ChangeState(EGameSituation.AttackB, false);
 					    }
 	                    else if(Situation == EGameSituation.AttackB)
 	                    {
 	                        ChangeSituation(EGameSituation.AttackA);
-                            AIController.Get.ChangeState(EGameSituation.AttackA);
+                            AIController.Get.ChangeState(EGameSituation.AttackA, false);
 	                    }
 					} else {
 					    if(p.Team == ETeamKind.Self)
@@ -3166,12 +3162,12 @@ public class GameController : KnightSingleton<GameController>
                     if(Situation == EGameSituation.InboundsA)
                     {
                         ChangeSituation(EGameSituation.AttackA);
-                        AIController.Get.ChangeState(EGameSituation.AttackA);
+                        AIController.Get.ChangeState(EGameSituation.AttackA, true);
                     }
                     else if(Situation == EGameSituation.InboundsB)
                     {
                         ChangeSituation(EGameSituation.AttackB);
-                        AIController.Get.ChangeState(EGameSituation.AttackB);
+                        AIController.Get.ChangeState(EGameSituation.AttackB, true);
                     }
                     else
                         BallOwner.ResetFlag(false);
@@ -3190,12 +3186,12 @@ public class GameController : KnightSingleton<GameController>
 				else if(Situation == EGameSituation.InboundsA)
 				{
 				    ChangeSituation(EGameSituation.AttackA);
-                    AIController.Get.ChangeState(EGameSituation.AttackA);
+                    AIController.Get.ChangeState(EGameSituation.AttackA, true);
 				}
 				else if(Situation == EGameSituation.InboundsB)
 				{
 				    ChangeSituation(EGameSituation.AttackB);
-                    AIController.Get.ChangeState(EGameSituation.AttackB);
+                    AIController.Get.ChangeState(EGameSituation.AttackB, true);
 				}
                 else {
 					if (GameStart.Get.CourtMode == ECourtMode.Full || 

@@ -29,8 +29,8 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
             mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
         }
 
-        mPlayer.SetNoAI();
-        mPlayer.AniState(EPlayerState.Idle);
+//        mPlayer.SetNoAI();
+//        mPlayer.AniState(EPlayerState.Idle);
     }
 
     public override void Exit()
