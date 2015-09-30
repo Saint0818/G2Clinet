@@ -70,6 +70,9 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
             TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
             mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
         }
+
+        mPlayer.SetNoAI();
+        mPlayer.AniState(EPlayerState.Idle);
     }
 
     public override void Exit()

@@ -987,19 +987,24 @@ public class PlayerBehaviour : MonoBehaviour
 		aiTime += aniTime;
 	}
 
-    public void SetNoAI() {
-		if (Team == ETeamKind.Self && Index == 0) {
-	        if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) {
+    public void SetNoAI()
+    {
+		if (Team == ETeamKind.Self && Index == 0)
+        {
+	        if(situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
+            {
 	            isJoystick = true;
 				aiTime = Time.time + GameData.Setting.AIChangeTime;
-				StartCoroutine(GetCurrentClipLength());
+                StartCoroutine(GetCurrentClipLength());
 
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(false);
 
 	            if (SpeedUpView)
 	                SpeedUpView.enabled = true;
-	        } else {
+	        }
+            else
+            {
 	            aiTime = 0;
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(true);

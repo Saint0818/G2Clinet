@@ -865,7 +865,6 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("nearshot rate:"+ nearshotRate);
 			GUILayout.Label("layup rate:"+ layupRate);
 		}
-
 	}
 	#endif
 
@@ -1359,7 +1358,8 @@ public class GameController : KnightSingleton<GameController>
     
     public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
     {
-		if(Situation != EGameSituation.End || newSituation == EGameSituation.None || newSituation == EGameSituation.Opening)
+		if(Situation != EGameSituation.End || newSituation == EGameSituation.None || 
+           newSituation == EGameSituation.Opening)
         {
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
@@ -1369,7 +1369,8 @@ public class GameController : KnightSingleton<GameController>
                 CourtMgr.Get.RealBallFX.SetActive(false);
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
-                    if(newSituation == EGameSituation.APickBallAfterScore || newSituation == EGameSituation.BPickBallAfterScore)
+                    if(newSituation == EGameSituation.APickBallAfterScore || 
+                       newSituation == EGameSituation.BPickBallAfterScore)
                     {
                         PlayerList[i].SetToAI();
                         PlayerList[i].ResetMove();
