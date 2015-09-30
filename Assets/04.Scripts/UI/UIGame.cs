@@ -39,6 +39,13 @@ public enum EUIPassType {
 	BBallOwner = 2
 }
 
+public enum EUIRangeType {
+	Skill,
+	Push,
+	Elbow,
+	Steal
+}
+
 public class UIGame : UIBase {
 	private static UIGame instance = null;
 	private const string UIName = "UIGame";
@@ -125,6 +132,15 @@ public class UIGame : UIBase {
 
 	private TweenRotation[] rotate = new TweenRotation[2];
 
+	private bool isCanShowRange = true;
+	private bool isShowSkillRange;
+	private bool isShowPushRange;
+	private bool isShowElbowRange;
+	private bool isShowStealRange;
+	private Vector2 originalPosition;
+	private Transform skillRangeTarget;
+	private PlayerBehaviour nearP;
+
 	//FX
 	private float fxTime = 0.3f;
 	private GameObject buttonShootFX;
@@ -175,6 +191,24 @@ public class UIGame : UIBase {
 		if(isPressA && isPressB) {
 			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
 			AddAllForce();
+		}
+
+		if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
+			if(isShowPushRange) {
+				nearP = GameController.Get.FindNearNpc();
+				CourtMgr.Get.RangeOfActionEuler( GameFunction.GetPlayerToObjectAngleByVector(GameController.Get.Joysticker.transform, nearP.transform.position));
+			} else if(isShowStealRange) {
+				if(GameController.Get.BallOwner != null)
+					CourtMgr.Get.RangeOfActionEuler( GameFunction.GetPlayerToObjectAngleByVector(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform.position));
+			}
+
+
+			if(skillRangeTarget != null)
+				CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
+
+			if(Vector2.Distance(Input.mousePosition, originalPosition) > 3) {
+				resetRange ();
+			}
 		}
 
 		if(uiDC != null && uiDC.activeInHierarchy) {
@@ -347,10 +381,13 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
 		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonAITime", AITimeChange);
-		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
-		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
-		SetBtnFun (UIName + "/BottomRight/ButtonSkill", DoSkill);
+//		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onPress = DoAttack;
+//		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onPress = DoSteal;
+//		SetBtnFun (UIName + "/BottomRight/ButtonSkill", DoSkill);
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonSkill")).onPress = DoSkill;
 
 		uiDC.SetActive(false);
 		viewTools.SetActive(false);
@@ -359,6 +396,7 @@ public class UIGame : UIBase {
 		viewTopLeft.SetActive(false);
 		showActiveSkillUI(false);
 		uiScoreBar.SetActive(false);
+		uiButtonSkill.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
 		uiPlayerLocation.SetActive(false);
@@ -416,6 +454,15 @@ public class UIGame : UIBase {
 		initLine();
 	}
 
+	private void resetRange () {
+		isCanShowRange = true;
+		isShowElbowRange = false;
+		isShowPushRange = false;
+		isShowSkillRange = false;
+		isShowStealRange = false;
+		CourtMgr.Get.ShowRangeOfAction(false);
+	}
+	
 	private void initLine() {
 		spriteSkill.spriteName = GameController.Get.Joysticker.Attribute.ActiveSkill.ID.ToString() + "s";
 		drawLine.ClearTarget();
@@ -425,6 +472,78 @@ public class UIGame : UIBase {
 				drawLine.AddTarget(uiPassObjectGroup[0], obj);
 		}
 		drawLine.Show(true);
+	}
+
+	private GameObject getSkillRangeTarget (){
+		if(GameStart.Get.TestMode == EGameTest.AttackA) 
+			return GameController.Get.Joysticker.gameObject;
+		if (GameData.DSkillData.ContainsKey(GameController.Get.Joysticker.Attribute.ActiveSkill.ID)) {
+			switch (GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].TargetKind) {
+			case 0:
+			case 4:
+			case 6:
+			case 10:
+				return GameController.Get.Joysticker.gameObject;
+				break;
+			case 1:
+				return CourtMgr.Get.BasketRangeCenter[0];
+				break;
+			case 2:
+				return CourtMgr.Get.BasketRangeCenter[1];
+				break;
+			default:
+				return null;
+				break;
+			}
+		}
+		return null;
+	}
+
+	private void showRange (EUIRangeType type, bool state) {
+		skillRangeTarget = null;
+		originalPosition = Input.mousePosition;
+		isCanShowRange = false;
+		if(state) {
+			switch (type){
+			case EUIRangeType.Skill:
+				isShowSkillRange = state;
+				isShowElbowRange = !state;
+				isShowPushRange = !state;
+				isShowStealRange = !state;
+				if(getSkillRangeTarget() != null){
+					skillRangeTarget = getSkillRangeTarget().transform;
+					CourtMgr.Get.ShowRangeOfAction(state, GameController.Get.Joysticker.transform, 360, GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].Distance(GameController.Get.Joysticker.Attribute.ActiveSkill.Lv)); 
+				}
+				break;
+			case EUIRangeType.Elbow:
+				isShowSkillRange = !state;
+				isShowElbowRange = state;
+				isShowPushRange = !state;
+				isShowStealRange = !state;
+				skillRangeTarget = GameController.Get.Joysticker.transform;
+				CourtMgr.Get.ShowRangeOfAction(state, GameController.Get.Joysticker.transform, 270, 3); 
+				break;
+			case EUIRangeType.Push:
+				isShowSkillRange = !state;
+				isShowElbowRange = !state;
+				isShowPushRange = state;
+				isShowStealRange = !state;
+				skillRangeTarget = GameController.Get.Joysticker.transform;
+				CourtMgr.Get.ShowRangeOfAction(state, GameController.Get.Joysticker.transform, 30, 3); 
+				break;
+			case EUIRangeType.Steal:
+				isShowSkillRange = !state;
+				isShowElbowRange = !state;
+				isShowPushRange = !state;
+				isShowStealRange = state;
+				skillRangeTarget = GameController.Get.Joysticker.transform;
+				CourtMgr.Get.ShowRangeOfAction(state, GameController.Get.Joysticker.transform, 30, GameConst.StealBallDistance); 
+				break;
+			}
+		} else {
+			CourtMgr.Get.ShowRangeOfAction(state);
+
+		}
 	}
 
 	public void changeAIChangeTime(){
@@ -447,8 +566,20 @@ public class UIGame : UIBase {
 
 	}
 	
-	public void DoAttack(){
-		UIControllerState(EUIControl.Attack);
+	public void DoAttack(GameObject go, bool state){
+		if(GameController.Get.Joysticker.IsBallOwner) {
+			//Elbow
+			if(!state) 
+				if(isShowElbowRange)
+					UIControllerState(EUIControl.Attack);
+			showRange(EUIRangeType.Elbow, state);
+		} else {
+			//Push
+			if(!state) 
+				if(isShowPushRange)
+					UIControllerState(EUIControl.Attack);
+			showRange(EUIRangeType.Push, state);
+		}
 	}
 
 	//Defence
@@ -456,15 +587,23 @@ public class UIGame : UIBase {
 		UIControllerState(EUIControl.Block);
 	}
 
-	public void DoSteal(){
-		UIControllerState(EUIControl.Steal);
+	public void DoSteal(GameObject go, bool state){
+		if(!state) 
+			if(isShowStealRange)
+				UIControllerState(EUIControl.Steal);
+		
+		showRange(EUIRangeType.Steal, state);
 	}
 	
 	//Attack
-	public void DoSkill(){
-		UIControllerState(EUIControl.Skill);
+	public void DoSkill(GameObject go, bool state){
+		if(!state) 
+			if(isShowSkillRange)
+				UIControllerState(EUIControl.Skill);
+
+		showRange(EUIRangeType.Skill, state);
 	}
-	
+
 	public void DoShoot(GameObject go, bool state) {
 		UIControllerState(EUIControl.Shoot, go, state);
 	}
@@ -659,6 +798,7 @@ public class UIGame : UIBase {
 			if (GameController.Get.IsStart) {
 				SetPassButton();
 				ShowSkillUI(false);
+				resetRange ();
 				spriteAttack.gameObject.SetActive(true);
 			}
 			return true;
@@ -674,6 +814,7 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if (GameController.Get.IsStart) { 
 				ShowAlleyoop(false);
+				isCanShowRange = true;
 				
 				if(GameController.Get.Situation == EGameSituation.AttackA) 
 					UIMaskState(EUIControl.AttackA);
@@ -700,6 +841,7 @@ public class UIGame : UIBase {
 		int who = GameController.Get.GetBallOwner;
 		switch (who) {
 		case (int)EUIPassType.MeBallOwner:
+			resetRange ();
 			viewPass.SetActive(true);
 			uiPassObjectGroup[0].SetActive(false);
 			uiPassObjectGroup[1].SetActive(true);
@@ -885,7 +1027,7 @@ public class UIGame : UIBase {
 					   !GameController.Get.Joysticker.IsFall &&
 					   (GameController.Get.Situation == EGameSituation.AttackB || GameController.Get.Situation == EGameSituation.AttackA) &&
 					    GameController.Get.Joysticker.CanUseState(EPlayerState.Push0)) {
-						noAI = GameController.Get.DoPush();
+						noAI = GameController.Get.DoPush(nearP);
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
 					}
@@ -988,6 +1130,7 @@ public class UIGame : UIBase {
 	}
 
 	public void UIState(EUISituation situation){
+		resetRange ();
 		switch(situation) {
 		case EUISituation.ShowTwo:
 			viewStart.SetActive (true);

@@ -3007,7 +3007,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ElbowCalculateStart":
-				GameController.Get.PushCalculate(this, 3, 30);
+				GameController.Get.PushCalculate(this, 3, 270);
                 break;
                 
             case "ElbowCalculateEnd":

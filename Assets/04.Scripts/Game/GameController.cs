@@ -594,7 +594,8 @@ public class GameController : KnightSingleton<GameController>
 
 			if (Input.GetKeyUp (KeyCode.D))
 			{
-				UIGame.Get.DoAttack();
+				UIGame.Get.DoAttack(null, true);
+				UIGame.Get.DoAttack(null, false);
 			}
 
 			if (Input.GetKeyDown(KeyCode.N))
@@ -642,7 +643,8 @@ public class GameController : KnightSingleton<GameController>
 			}
 			else if(Situation == EGameSituation.AttackB){
 				if(Input.GetKeyDown (KeyCode.A)){
-					UIGame.Get.DoSteal();
+					UIGame.Get.DoSteal(null, true);
+					UIGame.Get.DoSteal(null, false);
 				}
 
 				if(Input.GetKeyDown (KeyCode.S)){
@@ -673,7 +675,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
-				UIGame.Get.DoSkill();
+				UIGame.Get.DoSkill(null, false);
 			}
 
 			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)
@@ -1438,9 +1440,6 @@ public class GameController : KnightSingleton<GameController>
 				UIDoubleClick.UIShow(false);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);
-
-
-
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);
@@ -1566,7 +1565,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private void judgeSkillUI()
     {
-		if(Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0)
+		if(Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0 && IsStart)
         {
 			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
 			UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, Joysticker.CheckSkill);
@@ -2029,14 +2028,14 @@ public class GameController : KnightSingleton<GameController>
 		return false;
     }
 
-	public bool DoPush()
+	public bool DoPush(PlayerBehaviour nearP)
 	{
 		if (Joysticker) {
-			PlayerBehaviour nearP = FindNearNpc();
-			if(nearP)
+//			PlayerBehaviour nearP = FindNearNpc();
+//			if(nearP)
 				return Joysticker.DoPassiveSkill (ESkillSituation.Push0, nearP.transform.position);
-			else
-				return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
+//			else
+//				return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
 		} else
 			return false;
 	}
@@ -3394,6 +3393,8 @@ public class GameController : KnightSingleton<GameController>
 		if (Catcher) {
 			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
 				IsPassing = false;
+			else
+				return;
 		}			
 
 //		if(Situation == EGameSituation.APickBallAfterScore && player == Joysticker)

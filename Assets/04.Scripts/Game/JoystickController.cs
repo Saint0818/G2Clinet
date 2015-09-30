@@ -175,16 +175,20 @@ public class JoystickController : MonoBehaviour {
 				if(Input.GetButton(BtnsName[EJoystickBtn.A.GetHashCode()]))
 			    	UIGame.Get.DoBlock();
 
-				if(Input.GetButton(BtnsName[EJoystickBtn.B.GetHashCode()]))
-					UIGame.Get.DoSteal();
+				if(Input.GetButton(BtnsName[EJoystickBtn.B.GetHashCode()])){
+					UIGame.Get.DoSteal(null, true);
+					UIGame.Get.DoSteal(null, false);
+				}
 				break;
 		}
 
 		if(Input.GetButton(BtnsName[EJoystickBtn.L1.GetHashCode()]))
-			UIGame.Get.DoSkill();
+			UIGame.Get.DoSkill(null, false);
 
-		if(Input.GetButton(BtnsName[EJoystickBtn.R1.GetHashCode()]))
-			UIGame.Get.DoAttack();
+		if(Input.GetButton(BtnsName[EJoystickBtn.R1.GetHashCode()])){
+			UIGame.Get.DoAttack(null, true);
+			UIGame.Get.DoAttack(null, false);
+		}
 
 		if (Input.GetButton (BtnsName [EJoystickBtn.Select.GetHashCode ()]))
 			isShowGUI = !isShowGUI;

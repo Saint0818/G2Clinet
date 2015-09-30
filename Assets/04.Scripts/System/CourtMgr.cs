@@ -49,6 +49,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public Transform[] BasketHoopDummy = new Transform[2];
 	public GameObject[] BasketRangeCenter = new GameObject[2];
 	public GameObject Effect;
+	public CircularSectorMeshRenderer SkillRangeOfAction;
 
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
@@ -264,7 +265,25 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		CheckCollider();
 		ChangeBasket(2);
 		InitScoreboard ();
+		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
+
+	}
+
+	public void ShowRangeOfAction (bool isShow, Transform parent = null, float degree = 0 , float dis = 0){
+		if(parent != null)
+			SkillRangeOfAction.transform.parent = parent;
+		SkillRangeOfAction.transform.localEulerAngles = Vector3.zero;
+		SkillRangeOfAction.gameObject.SetActive(isShow);
+		SkillRangeOfAction.ChangeValue(degree, dis);
+	}
+
+	public void RangeOfActionPosition (Vector3 position) {
+		SkillRangeOfAction.gameObject.transform.position = new Vector3(position.x, 0.1f, position.z);
+	}
+
+	public void RangeOfActionEuler (float euler) {
+		SkillRangeOfAction.gameObject.transform.localEulerAngles = new Vector3(0 ,euler, 0);
 	}
 
 	public void ShowEnd(bool isImmediately = false)
