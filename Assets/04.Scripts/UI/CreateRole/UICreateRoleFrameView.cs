@@ -83,7 +83,8 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="data"></param>
-    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data)
+    /// <param name="selectedIndex"> 哪一位球員是目前選擇的球員. </param>
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex)
     {
         Window.SetActive(true);
         UI3DCreateRole.Get.Hide();
@@ -96,6 +97,8 @@ public class UICreateRoleFrameView : MonoBehaviour
                 continue;
 
             Slots[i].SetData(data[i]);
+            if(selectedIndex == i)
+                Slots[i].SetSelected();
         }
     }
 
@@ -103,10 +106,11 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="data"></param>
+    /// <param name="selectedIndex"></param>
     /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
-    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int showNum)
+    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex, int showNum)
     {
-        Show(data);
+        Show(data, selectedIndex);
 
         ShowNum = showNum;
     }
@@ -234,7 +238,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 
             var data = UICreateRole.Convert(team.PlayerBank);
             if (data != null)
-                Show(data);
+                Show(data, GameData.Team.Player.RoleIndex);
             else
                 Debug.LogError("Data Error!");
         }

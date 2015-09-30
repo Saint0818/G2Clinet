@@ -16,14 +16,11 @@ public class UITransition : UIBase {
 		}
 		
 		set {
-			if (instance) {
-				if (!value)
-					RemoveUI(UIName);
-				else
-					instance.Show(value);
-			} else
-				if (value)
-					Get.Show(value);
+			if (instance)
+				instance.Show(value);
+			else
+			if (value)
+				Get.Show(value);
 		}
 	}
 	
@@ -35,6 +32,13 @@ public class UITransition : UIBase {
 			
 			return instance;
 		}
+	}
+	public static void UIShow(bool isShow){
+		if (instance) {
+			instance.Show(isShow);
+		} else
+			if (isShow)
+				Get.Show(isShow);
 	}
 	
 	protected override void InitCom() {

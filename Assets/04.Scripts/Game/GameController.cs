@@ -214,7 +214,7 @@ public class GameController : KnightSingleton<GameController>
 
 		StateChecker.InitState();
         CreateTeam();
-		SetBallOwnerNull ();  
+		SetBallOwnerNull (); 
     }
 
 	public void StartGame() {
@@ -1432,6 +1432,15 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.None:
 				UIGame.UIShow(true);
 				UIGame.UIShow(false);
+				UIGameResult.UIShow(true);
+				UIGameResult.UIShow(false);
+				UIDoubleClick.UIShow(true);
+				UIDoubleClick.UIShow(false);
+				UIPassiveEffect.UIShow(true);
+				UITransition.UIShow(true);
+
+
+
 				break;
 			case EGameSituation.Opening:
 				setPassIcon(true);

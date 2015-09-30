@@ -128,6 +128,7 @@ public class UILoading : UIBase {
 		case ELoadingGamePic.SelectRole:
 			yield return new WaitForSeconds (1.5f);
 			AudioMgr.Get.StartGame();
+			yield return new WaitForSeconds (0.2f);
 			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
 
 			waitTime = Mathf.Max(0.1f, 2 - Time.time + startTimer);
@@ -139,8 +140,11 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (1.5f);
 
 			GameController.Get.ChangeSituation(EGameSituation.None);
+			yield return new WaitForSeconds (0.2f);
 			CourtMgr.Get.InitCourtScene ();
+			yield return new WaitForSeconds (0.2f);
 			AudioMgr.Get.StartGame();
+			yield return new WaitForSeconds (0.2f);
 			int rate = UnityEngine.Random.Range(0, 2);
 			if(rate == 0)
 				AudioMgr.Get.PlayMusic(EMusicType.MU_game0);

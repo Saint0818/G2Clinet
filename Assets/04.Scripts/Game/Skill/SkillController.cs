@@ -12,7 +12,7 @@ public delegate void OnAddAttributeDelegate(int kind, float value);
 public class SkillController : MonoBehaviour {
 	public OnAddAttributeDelegate OnAddAttribute = null;
 
-	private const int IDLimitActive = 10000;
+	private const int ID_LimitActive = 10000;
 
 	private PlayerBehaviour executePlayer;
 	//PassiveSkill key: Kind  value: TSKill
@@ -63,10 +63,8 @@ public class SkillController : MonoBehaviour {
 			if (attribute.SkillCards != null && attribute.SkillCards.Length > 0) {
 				for (int i = 0; i < attribute.SkillCards.Length; i++) {
 					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID)) {
+						GameData.CardTexture(attribute.SkillCards[i].ID);
 						TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
-						
-//							attribute.AddAttribute(skillData.AttrKind, skillData.Value(attribute.SkillCards[i].Lv));
-						
 						int key = skillData.Kind;
 						
 						if (skillData.Kind == (int)ESkillKind.MoveDodge){
@@ -112,11 +110,12 @@ public class SkillController : MonoBehaviour {
 	//without Active, Acitve is run at the SkillBuff
 	private void updateSkillAttribute() {
 		for (int i = skillAttribute.Count-1; i >= 0; i--) { 
-			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID <= IDLimitActive) {
+			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID <= ID_LimitActive) {
 				skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 				if (skillAttribute [i].CDTime <= 0) {
 					if(OnAddAttribute != null) 
 						OnAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
+
 					skillAttribute.RemoveAt(i);
 				}
 			}
@@ -306,7 +305,7 @@ public class SkillController : MonoBehaviour {
 	public void AddSkillAttribute (int skillID, int kind, float value, float lifetime) {
 		if (value != 0) {
 			int index = findSkillAttribute(skillID);
-			if(skillID >= IDLimitActive)
+			if(skillID >= ID_LimitActive)
 				skillBuff.AddBuff(skillID, lifetime);
 			
 			if (index == -1) {
@@ -552,7 +551,7 @@ public class SkillController : MonoBehaviour {
 
 			case ESkillSituation.Rebound:
 				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
-				Result = player.AniState (playerState);
+				Result = player.AniState (playerState, v);
 				break;
 			}	
 		}
