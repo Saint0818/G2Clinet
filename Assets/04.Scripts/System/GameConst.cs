@@ -15,6 +15,7 @@ public class GameConst
 	public const float DefSpeedNormal = 7.2f;
 	public const float BallOwnerSpeedup = 7.5f;
 	public const float BallOwnerSpeedNormal = 6.5f;
+	public const float WalkSpeed = 5.5f;
 	public const float AttackSpeedup = 8;
 	public const float AttackSpeedNormal = 7;
 	public const float TreePointDistance = 10.6f;
