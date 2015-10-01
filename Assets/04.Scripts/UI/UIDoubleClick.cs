@@ -239,6 +239,7 @@ public class UIDoubleClick : UIBase {
 	public void ShowLvEffect(int index, EDoubleClick type)
 	{
 		Lv = index;
+		BottomRight.SetActive(false);
 
 		switch(Lv)
 		{
@@ -265,7 +266,6 @@ public class UIDoubleClick : UIBase {
 	{
 		if (index != -1 && DoubleClicks[index].Team == 0) {
 			DoubleClicks[index].ClickStop();
-			BottomRight.SetActive(false);
 		}
 //		if (isStart) {
 //			isStart = false;
