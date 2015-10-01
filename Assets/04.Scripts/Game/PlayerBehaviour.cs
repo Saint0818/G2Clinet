@@ -3115,7 +3115,7 @@ public class PlayerBehaviour : MonoBehaviour
 					GameController.Get.SetBall();
                 }
 
-				Debug.LogWarning(gameObject.name + ".AnimationEnd : " +crtState.ToString());
+//				Debug.LogWarning(gameObject.name + ".AnimationEnd : " +crtState.ToString());
 
 
 					if(!IsBallOwner)

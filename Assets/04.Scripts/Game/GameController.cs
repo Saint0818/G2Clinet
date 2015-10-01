@@ -2412,34 +2412,34 @@ public class GameController : KnightSingleton<GameController>
 
 			switch (state) {
 				case EPlayerState.Shoot0:
-					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot1:
-					UIDoubleClick.Get.SetData(playerindex, 1.23f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.23f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot2:
-					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot3:
-					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Shoot6:
 					UIDoubleClick.UIShow(true);
-					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 				case EPlayerState.Layup0:
 				case EPlayerState.Layup1:
 				case EPlayerState.Layup2:
 				case EPlayerState.Layup3:
-					UIDoubleClick.Get.SetData(playerindex, 1.3f, DoubleShoot);
+					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 
 				case EPlayerState.Block:
 				case EPlayerState.BlockCatch:
-					UIDoubleClick.Get.SetData(playerindex, 0.7f, null, DoubleBlock, player);
+					UIDoubleClick.Get.SetData(EDoubleClick.Block, playerindex, 0.7f, null, DoubleBlock, player);
 					return true;
 				case EPlayerState.Rebound:
-					UIDoubleClick.Get.SetData(playerindex, 0.75f, DoubleRebound);
+					UIDoubleClick.Get.SetData(EDoubleClick.Rebound, playerindex, 0.75f, DoubleRebound);
 					return true;
 			}
 		}

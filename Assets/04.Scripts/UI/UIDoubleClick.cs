@@ -4,6 +4,13 @@ using System.Collections;
 public delegate void IntDelegate (int lv);
 public delegate void PlayerDelegate (int lv, PlayerBehaviour player);
 
+public enum EDoubleClick
+{
+	Shoot,
+	Block,
+	Rebound
+}
+
 public struct TDoubleClick
 {
 	public int Team;
@@ -20,6 +27,7 @@ public struct TDoubleClick
 	private float speed;
 	public float FramSpeed;
 	public bool IsStart;
+	private EDoubleClick crtType;
 	
 	public void Init(GameObject obj)
 	{
@@ -75,8 +83,9 @@ public struct TDoubleClick
 		}
 	}
 	
-	public void SetData(float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	public void SetData(EDoubleClick type, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
+		crtType = type;
 		Enable = true;
 		finsh = intFunction;
 		finshPalyer = playerFunction;
@@ -91,15 +100,15 @@ public struct TDoubleClick
 		switch (index) {
 		case 0:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
-			UIDoubleClick.Get.ShowLvEffect(index);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType);
 			break;
 		case 1:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
-			UIDoubleClick.Get.ShowLvEffect(index);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType);
 			break;
 		case 2:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
-			UIDoubleClick.Get.ShowLvEffect(index);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType);
 			break;
 		}
 		if (index != -1) {
@@ -147,6 +156,7 @@ public class UIDoubleClick : UIBase {
 	private Vector2 size;
 	private Vector2 size2;
 	private Vector2 SecondStartSize;
+	private int combo = 0;
 	private ParticleSystem[] lvEffect = new ParticleSystem[2];
 	private GameObject BottomRight; 
 
@@ -190,11 +200,11 @@ public class UIDoubleClick : UIBase {
 		}
 	}
 
-	public void SetData(int playerIndex, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
+	public void SetData(EDoubleClick type, int playerIndex, float value, IntDelegate intFunction = null, PlayerDelegate playerFunction = null ,PlayerBehaviour player = null)
 	{
 		if (playerIndex != -1 && playerIndex < DoubleClicks.Length) {
 			UIShow(true);
-			DoubleClicks[playerIndex].SetData(value, intFunction, playerFunction, player);
+			DoubleClicks[playerIndex].SetData(type, value, intFunction, playerFunction, player);
 			if(BottomRight)
 				BottomRight.SetActive(true);
 		}
@@ -207,7 +217,7 @@ public class UIDoubleClick : UIBase {
 			name = string.Format("UIDoubleClick/Lv/{0}", i);
 			lvEffect[i] = GameObject.Find (name).GetComponent<ParticleSystem>();
 			if(lvEffect[i] != null)
-				lvEffect[i].Stop();
+				lvEffect[i].gameObject.SetActive(false);
 		}
 
 //		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
@@ -226,20 +236,29 @@ public class UIDoubleClick : UIBase {
 		}
 	}
 
-	public void ShowLvEffect(int index)
+	public void ShowLvEffect(int index, EDoubleClick type)
 	{
 		Lv = index;
 
 		switch(Lv)
 		{
 			case 0:
+				lvEffect[0].gameObject.SetActive(true);
 				lvEffect[0].Play();
+				if(type == EDoubleClick.Shoot)
+					combo = 0;
 				break;
 			case 1:
 			case 2:
+				if(type == EDoubleClick.Shoot)
+					combo++;
+				lvEffect[1].gameObject.SetActive(true);
 				lvEffect[1].Play();
 				break;
 		}
+
+		//Show Combo here
+		Debug.LogError ("Combo : " + combo);
 	}
 
 	public void ClickStop(int index)
