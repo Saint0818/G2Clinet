@@ -3817,8 +3817,8 @@ public class GameController : KnightSingleton<GameController>
 		int score = 2;
 		if (ShootDistance >= GameConst.TreePointDistance) {
 			score = 3;
-			if(Shooter.crtState != EPlayerState.Alleyoop)
-				GameController.Get.ShowWord(EShowWordType.NiceShot, team);
+//			if(Shooter && Shooter.crtState != EPlayerState.Alleyoop)
+			GameController.Get.ShowWord(EShowWordType.NiceShot, team);
 		}
 
 		if (GameStart.Get.TestMode == EGameTest.Skill)
