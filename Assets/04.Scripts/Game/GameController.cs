@@ -895,20 +895,24 @@ public class GameController : KnightSingleton<GameController>
         if(pickBallPlayer || BallOwner || PlayerList.Count <= 0)
             return;
 
-        if(team == ETeamKind.Self)
-        {
-            var player = AIController.Get.PlayerTeam.FindNearBallPlayer();
-            if(player != null)
-                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
-        }
-        else if(team == ETeamKind.Npc)
-        {
-            var player = AIController.Get.NpcTeam.FindNearBallPlayer();
-            if(player != null)
-                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
-        }
+//        if(team == ETeamKind.Self)
+//        {
+//            var player = AIController.Get.PlayerTeam.FindNearBallPlayer();
+//            if(player != null)
+//                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
+//        }
+//        else if(team == ETeamKind.Npc)
+//        {
+//            var player = AIController.Get.NpcTeam.FindNearBallPlayer();
+//            if(player != null)
+//                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
+//        }
 
-        if(pickBallPlayer == null)
+        var player = AIController.Get.GeTeam(team).FindNearBallPlayer();
+        if (player != null)
+            pickBallPlayer = player.GetComponent<PlayerBehaviour>();
+
+        if (pickBallPlayer == null)
             return;
 
         // 根據撿球員的位置(C,F,G) 選擇適當的進攻和防守戰術.
@@ -3363,12 +3367,20 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 	}
 
-	public void BallTouchPlayer(int index, int dir, bool isEnter) {
-		if (index >= 0 && index < PlayerList.Count)
-			BallTouchPlayer(PlayerList[index], dir, isEnter);
+	public void BallTouchPlayer(int index, int dir, bool isEnter)
+    {
+	    if(index < 0 || index >= PlayerList.Count)
+	    {
+	        Debug.LogWarningFormat("Index({0}) out of range.", index);
+            return;
+	    }
+
+//        if(index >= 0 && index < PlayerList.Count)
+        BallTouchPlayer(PlayerList[index], dir, isEnter);
 	}
 
-    public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter) {
+    public void BallTouchPlayer(PlayerBehaviour player, int dir, bool isEnter)
+    {
 		if (Situation == EGameSituation.None || 
 			BallOwner || 
 		    IsShooting || 
@@ -3393,12 +3405,15 @@ public class GameController : KnightSingleton<GameController>
         if (Situation == EGameSituation.SpecialAction)
             return;
         
-		switch (dir) {
+		switch (dir)
+        {
 		case 0: //top ,rebound
-			if (Situation == EGameSituation.JumpBall) {	
-				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
-			} else
-			if ((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
+			if(Situation == EGameSituation.JumpBall)
+            {
+//				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
+                GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
+			}
+            else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
 				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
 				   (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
@@ -4008,7 +4023,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		IsStart = false;
-		SetBallOwnerNull ();
+		SetBallOwnerNull();
 
 		GameTime = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
@@ -4021,7 +4036,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 			Joysticker.SetToAI();
 
-		CourtMgr.Get.SetBallState (EPlayerState.Reset);
+		CourtMgr.Get.SetBallState(EPlayerState.Reset);
 
 		for (int i = 0; i < PlayerList.Count; i++) 
 		{
@@ -4053,7 +4068,7 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList[i].transform.position = bornPosAy[5];
 			}
 
-			PlayerList [i].AniState(EPlayerState.Idle);
+			PlayerList[i].AniState(EPlayerState.Idle);
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
 				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);

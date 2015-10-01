@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using System;
 using System.Collections.Generic;
@@ -35,7 +35,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] Hood = new GameObject[2];
 
     /// <summary>
-    /// index 0: ª±®a¶i§ğªºÄx®Ø; index 1: ¹ï¤â¶i§ğªºÄx®Ø.
+    /// index 0: ç©å®¶é€²æ”»çš„ç±ƒæ¡†; index 1: å°æ‰‹é€²æ”»çš„ç±ƒæ¡†.
     /// </summary>
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] EffectPoint = new GameObject[2];
@@ -586,7 +586,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
 	{
-		if (!GameController.Get.IsStart && state != EPlayerState.Start && state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
+		if(!GameController.Get.IsStart && state != EPlayerState.Start && 
+           state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
 			return;
 
 		RealBallState = state;
@@ -673,12 +674,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					RealBall.transform.localScale = Vector3.one;
 					GameController.Get.Passer = null;
 
-					if(player != null)	
-						v = player.transform.forward * -6;
+				    if(player != null)
+//						v = player.transform.forward * -6;
+				        v = player.transform.position; // çƒè¦æ‹åˆ°æŸä½çƒå“¡çš„ä½ç½®.
 					else
 						v = RealBall.transform.forward * -1;
 
-					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v, 60);
+					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v, 40);
 					RealBallFX.gameObject.SetActive(true);
 				}
 				break;

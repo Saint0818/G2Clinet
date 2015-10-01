@@ -16,5 +16,11 @@ public enum EGameMsg
     /// <para> 遊戲裡的球員創建完畢. </para>
     /// <para> Telegram.ExtraInfo: PlayerBehaviour[]. </para>
     /// </summary>
-    GamePlayersCreated
+    GamePlayersCreated,
+
+    /// <summary>
+    /// <para> 跳球時, 第一個碰到球的球員, 應該要送出此訊息. </para>
+    /// <para> Telegram.ExtraInfo: PlayerBehaviour, 跳球時, 第一個碰到球的球員. </para>
+    /// </summary>
+    PlayerTouchBallWhenJumpBall
 }

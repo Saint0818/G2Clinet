@@ -1,4 +1,5 @@
-﻿using AI;
+﻿using System.Collections.Generic;
+using AI;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -23,19 +24,24 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
 {
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 
-    public Team PlayerTeam
+//    public Team PlayerTeam
+//    {
+//        get { return mPlayerTeam; }
+//    }
+//
+//    public Team NpcTeam
+//    {
+//        get { return mNpcTeam; }
+//    }
+//
+//    private readonly Team mPlayerTeam = new Team(ETeamKind.Self);
+//    private readonly Team mNpcTeam = new Team(ETeamKind.Npc);
+    private readonly Dictionary<ETeamKind, Team> mTeams = new Dictionary<ETeamKind, Team>
     {
-        get { return mPlayerTeam; }
-    }
-
-    public Team NpcTeam
-    {
-        get { return mNpcTeam; }
-    }
-
-    private readonly Team mPlayerTeam = new Team(ETeamKind.Self);
-    private readonly Team mNpcTeam = new Team(ETeamKind.Npc);
-
+        {ETeamKind.Self, new Team(ETeamKind.Self) },
+        {ETeamKind.Npc, new Team(ETeamKind.Npc) }
+    };
+        
     [UsedImplicitly]
     private void Awake()
     {
@@ -57,6 +63,7 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         mFSM.ChangeState(EGameSituation.None);
 
         GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.UISkipClickOnGaming);
+        GameMsgDispatcher.Ins.AddListener(mFSM, EGameMsg.PlayerTouchBallWhenJumpBall);
         GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
     }
 
@@ -65,21 +72,21 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         if(e.Msg == EGameMsg.GamePlayersCreated)
         {
             // 這段是整個 AI 的框架的初始化過程.
-            mPlayerTeam.Clear();
-            mNpcTeam.Clear();
+            mTeams[ETeamKind.Self].Clear();
+            mTeams[ETeamKind.Npc].Clear();
 
             PlayerBehaviour[] players = (PlayerBehaviour[])e.ExtraInfo;
             foreach(var player in players)
             {
                 if(player.Team == ETeamKind.Self)
                 {
-                    mPlayerTeam.AddPlayer(player.GetComponent<PlayerAI>());
-                    mNpcTeam.AddOpponentPlayer(player.GetComponent<PlayerAI>());
+                    mTeams[ETeamKind.Self].AddPlayer(player.GetComponent<PlayerAI>());
+                    mTeams[ETeamKind.Npc].AddOpponentPlayer(player.GetComponent<PlayerAI>());
                 }
                 else if(player.Team == ETeamKind.Npc)
                 {
-                    mPlayerTeam.AddOpponentPlayer(player.GetComponent<PlayerAI>());
-                    mNpcTeam.AddPlayer(player.GetComponent<PlayerAI>());
+                    mTeams[ETeamKind.Self].AddOpponentPlayer(player.GetComponent<PlayerAI>());
+                    mTeams[ETeamKind.Npc].AddPlayer(player.GetComponent<PlayerAI>());
                 }
             }
         }
@@ -102,5 +109,10 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
     public void ChangeState(EGameSituation newState, object extraInfo)
     {
         mFSM.ChangeState(newState, extraInfo);
+    }
+
+    public Team GeTeam(ETeamKind team)
+    {
+        return mTeams[team];
     }
 }
