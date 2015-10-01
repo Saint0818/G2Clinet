@@ -461,7 +461,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				timer.mode = TimelineMode.Global;
 				timer.globalClockKey = ETimerKind.Default.ToString();
 				timer.recordTransform = false;
-				timer.SetRecording(30, 30);
 			}
 		}
 		

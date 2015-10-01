@@ -107,6 +107,7 @@ public enum EPlayerState
 	Push20 = 11700,
     Run0,            
     Run1,            
+    Run2,            
     RunningDefence,
 	Rebound,
 	ReboundCatch,
@@ -340,6 +341,7 @@ public static class StateChecker {
 			LoopStates.Add(EPlayerState.Idle,true);
 			LoopStates.Add(EPlayerState.Run0,true);
 			LoopStates.Add(EPlayerState.Run1,true);
+			LoopStates.Add(EPlayerState.Run2,true);
 			LoopStates.Add(EPlayerState.Defence0,true);
 			LoopStates.Add(EPlayerState.Defence1,true);
 			LoopStates.Add(EPlayerState.Dribble0,true);
@@ -415,8 +417,8 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject TopPoint;
 	public GameObject CatchBallPoint;
 	private GameObject FingerPoint;
-    private GameObject pushTrigger;
-    private GameObject elbowTrigger;
+//    private GameObject pushTrigger;
+//    private GameObject elbowTrigger;
     private GameObject blockTrigger;
 	private GameObject dashSmoke;
     private BlockCatchTrigger blockCatchTrigger;
@@ -628,7 +630,7 @@ public class PlayerBehaviour : MonoBehaviour
 			Timer.mode = TimelineMode.Global;
 			Timer.globalClockKey = CrtTimeKey.ToString();
 			Timer.recordTransform = false;
-			Timer.SetRecording(30, 30);
+			SetTimerKey( CrtTimeKey);
 		}
 	}
 
@@ -764,8 +766,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-            pushTrigger = obj2.transform.FindChild("Push").gameObject;
-            elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
+//            pushTrigger = obj2.transform.FindChild("Push").gameObject;
+//            elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
             blockTrigger = obj2.transform.FindChild("Block").gameObject;
 			ShowWord = obj2.transform.FindChild("ShowWord").gameObject;
             
@@ -866,7 +868,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isMoving = false;
                 if (IsDefence && (CheckAnimatorSate(EPlayerState.RunningDefence) || CheckAnimatorSate(EPlayerState.Defence1)))
                     AniState(EPlayerState.Defence0);
-                else if (!IsDefence && !IsBallOwner && (CheckAnimatorSate(EPlayerState.Run0) || CheckAnimatorSate(EPlayerState.Run1)))
+				else if (!IsDefence && !IsBallOwner && IsRun)
                     AniState(EPlayerState.Idle);
             }
         } else
@@ -1418,6 +1420,9 @@ public class PlayerBehaviour : MonoBehaviour
 		if (Timer.timeScale == 0)
 			return;
 
+		int moveKind = 0;
+		float CalculateSpeed = 1;
+
         if (CanMove || stop || HoldBallCanMove) {
 			if (IsFall && GameStart.Get.IsDebugAnimation) {
 				LogMgr.Get.LogError("CanMove : " + CanMove);
@@ -1441,36 +1446,68 @@ public class PlayerBehaviour : MonoBehaviour
 						transform.rotation = Quaternion.Euler(rotation);
 					}
 
-	                if (animationSpeed <= MoveMinSpeed || MovePower == 0) {
-	                    setSpeed(0.3f, 0);
-	                    if (animationSpeed <= MoveMinSpeed)
-	                        isSpeedup = false;
-	                    
-	                    if (IsBallOwner) {                       
-							translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedNormal * Timer.timeScale;
-	                        ps = EPlayerState.Dribble1;
-	                    } else {
-	                        ps = EPlayerState.Run0;
-	                        if (IsDefence)
-								translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedNormal * Timer.timeScale;
-	                        else
-								translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedNormal * Timer.timeScale;
-	                    }                       
+	                if (animationSpeed <= MoveMinSpeed){ 
+						//Run
+
+						moveKind = 1;                      
 	                } else {
-	                    isSpeedup = true;
-	                    setSpeed(1, 0);
-	                    if (IsBallOwner) {
-							translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.BallOwnerSpeedup * Timer.timeScale;
-	                        ps = EPlayerState.Dribble2;
-	                    } else {
-	                        ps = EPlayerState.Run1;
-	                        if (IsDefence)
-								translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.DefSpeedup * Timer.timeScale;
-	                        else
-								translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * GameConst.AttackSpeedup * Timer.timeScale;
-	                    }
+						if(MovePower == 0){ //Walk
+							moveKind = 0;
+						}
+						else{ //Dash
+							moveKind = 2;
+						}
 	                }
 
+					switch(moveKind)
+					{
+						case 0:
+							setSpeed(0.2f, 0);
+							if (IsBallOwner)                      
+								ps = EPlayerState.Dribble1;
+							else
+								ps = EPlayerState.Run0;
+
+							CalculateSpeed = GameConst.WalkSpeed;
+							break;
+						case 1:
+							if (animationSpeed <= MoveMinSpeed)
+								isSpeedup = false;
+							setSpeed(0.3f, 0);
+							if (IsBallOwner) {  
+								CalculateSpeed = GameConst.BallOwnerSpeedNormal;
+								ps = EPlayerState.Dribble1;
+							}
+							else
+							{
+								ps = EPlayerState.Run2;
+								if (IsDefence)
+									CalculateSpeed = GameConst.DefSpeedNormal;
+								else
+									CalculateSpeed = GameConst.AttackSpeedNormal;
+							}
+							break;
+						case 2:
+							isSpeedup = true;
+							setSpeed(1f, 0);
+
+							if (IsBallOwner) {  
+								CalculateSpeed = GameConst.BallOwnerSpeedup;
+								ps = EPlayerState.Dribble2;
+							}
+							else
+							{
+								ps = EPlayerState.Run1;
+								if (IsDefence)
+									CalculateSpeed = GameConst.DefSpeedup;
+								else
+									CalculateSpeed = GameConst.AttackSpeedup;
+							}
+
+							break;
+					}
+					Debug.Log("MoveKind : " + moveKind);
+					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * CalculateSpeed * Timer.timeScale;
 	                transform.Translate(translate); 
 	                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 	                AniState(ps);
@@ -1928,7 +1965,7 @@ public class PlayerBehaviour : MonoBehaviour
            
             case EPlayerState.PickBall0:
             case EPlayerState.PickBall2:
-                if (CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
+                if (CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
@@ -1937,13 +1974,13 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
             case EPlayerState.Steal20:
-			if (!IsTee  && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || IsSteal || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
+			if (!IsTee  && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
 
             case EPlayerState.Block:
-                if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence1 ||
+                if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence || IsDunk))
                     return true;
                 break;
@@ -1968,15 +2005,13 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.GotSteal:
-                if (!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow && 
+                if (!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow && IsRun &&
                     (crtState == EPlayerState.Dribble0 ||
                     crtState == EPlayerState.Dribble1 || 
                     crtState == EPlayerState.Dribble2 || 
                     crtState == EPlayerState.FakeShoot || 
                     crtState == EPlayerState.HoldBall || 
                     crtState == EPlayerState.Idle || 
-                    crtState == EPlayerState.Run0 ||
-                    crtState == EPlayerState.Run1 ||
                     crtState == EPlayerState.Defence0 || 
                     crtState == EPlayerState.Defence1 || 
                     crtState == EPlayerState.RunningDefence))
@@ -1995,6 +2030,7 @@ public class PlayerBehaviour : MonoBehaviour
             
             case EPlayerState.Run0:   
             case EPlayerState.Run1:   
+            case EPlayerState.Run2:   
             case EPlayerState.RunningDefence:
             case EPlayerState.Defence0:
             case EPlayerState.Defence1:
@@ -2565,6 +2601,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Run0:
             case EPlayerState.Run1:
+            case EPlayerState.Run2:
                 if (!isJoystick)
                     setSpeed(1, 1); 
 
@@ -2577,6 +2614,9 @@ public class PlayerBehaviour : MonoBehaviour
                         stateNo = 1;
 						DashEffectEnable(true);
                         break;
+					case EPlayerState.Run2:
+						stateNo = 2;
+						break;
                 }
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 ClearAnimatorFlag(EActionFlag.IsRun);
@@ -3131,8 +3171,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
-                pushTrigger.SetActive(false);
-                elbowTrigger.SetActive(false);
+//                pushTrigger.SetActive(false);
+//                elbowTrigger.SetActive(false);
                 isCanCatchBall = true;
                 PlayerRigidbody.useGravity = true;
 				IsKinematic = false;
@@ -3581,7 +3621,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsRun
 	{
-		get{ return crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1;}
+		get{ return crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Run2;}
 	}
 
     public bool IsPass

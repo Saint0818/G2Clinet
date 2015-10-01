@@ -128,6 +128,8 @@ public class RPGMotor : MonoBehaviour {
 
 		// Determine the current motion state
 		_currentMotionState = DetermineMotionState();
+
+		#if RPGController
 		if (_animator) {
 			float transitionDamping = 10.0f;
 			// Pass values important for animations to the animator
@@ -137,6 +139,7 @@ public class RPGMotor : MonoBehaviour {
 			_animator.SetFloat("StrafeDirection X", _playerDirection.x, 1.0f, transitionDamping * Time.deltaTime);
 			_animator.SetFloat("StrafeDirection Z", _playerDirection.z, 1.0f, transitionDamping * Time.deltaTime);
 		}
+		#endif
 	}
 
 	/* Applies sliding to the character if it is standing on too steep terrain  */

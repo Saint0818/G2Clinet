@@ -571,7 +571,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public void SetPlayerAI(bool enable){
 		for(int i = 0; i < PlayerList.Count; i++)
-			PlayerList[0].GetComponent<PlayerAI>().enabled = enable;
+			PlayerList[i].GetComponent<PlayerAI>().enabled = enable;
 	}
 
 	private void setPassIcon(bool isShow) {
