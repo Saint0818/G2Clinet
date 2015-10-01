@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e3ca842e6a094e54fab2c1edffe1ddd0
-timeCreated: 1429089804
+timeCreated: 1443678370
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -150,7 +150,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: .123867065
+        functionName: EffectEvent
+        data: ShakeFX_0
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
