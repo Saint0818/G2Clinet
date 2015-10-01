@@ -708,10 +708,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public void InitDoubleClick()
 	{
 		if (DoubleClick == null) {
-				DoubleClick	= Instantiate(Resources.Load("Effect/DoubleClick")) as GameObject;
-				DoubleClick.name = "DoubleClick";
-				DoubleClick.transform.parent = gameObject.transform;
-				DoubleClick.transform.localPosition = Vector3.zero;
+			DoubleClick	= Instantiate(Resources.Load("Effect/DoubleClick")) as GameObject;
+			DoubleClick.name = "DoubleClick";
+			DoubleClick.transform.parent = gameObject.transform;
+			DoubleClick.transform.localPosition = Vector3.zero;
 		} 
 	}
 

@@ -14,6 +14,7 @@ public enum EDoubleClick
 public struct TDoubleClick
 {
 	public int Team;
+	public int Index;
 	private GameObject Group;
 	private UISprite runSprite;
 	private UISprite targetSprite;
@@ -28,25 +29,43 @@ public struct TDoubleClick
 	public float FramSpeed;
 	public bool IsStart;
 	private EDoubleClick crtType;
+	private GameObject DoubleClickEffect;
+	private UISprite DoubleClickEffectSp;
 	
 	public void Init(GameObject obj)
 	{
-		Group = obj;
+		string mainPath = "Scale/Billboard/QTEGroup/";
+		Group = obj.transform.FindChild(mainPath).gameObject;
 		finsh = null;
 		finshPalyer = null;
 		speed = 1;
 		CrtValue = 800;
 		FramSpeed =  CrtValue / (speed * 30);
-
-		string mainPath = "Scale/Billboard/QTEGroup/";
-		runSprite = obj.transform.FindChild (mainPath + "BarSprite").gameObject.GetComponent<UISprite>();
-		targetSprite = obj.transform.FindChild (mainPath + "TargetSprite").gameObject.GetComponent<UISprite>();
+		runSprite = Group.transform.FindChild ("BarSprite").gameObject.GetComponent<UISprite>();
+		targetSprite = Group.transform.FindChild ("TargetSprite").gameObject.GetComponent<UISprite>();
 		IsStart = false;
 		Enable = false;
-
 		Group.SetActive (false);
 
-//		isInit = runSprite && targetSprite;
+		DoubleClickEffect = obj.transform.FindChild("Scale/Billboard/Combo").gameObject;
+		DoubleClickEffectSp = DoubleClickEffect.transform.FindChild("HitSprite").gameObject.GetComponent<UISprite>();
+		DoubleClickEffect.SetActive(false);
+	}
+
+	public void SetComBoEffect(int index)
+	{
+		if (index > 1) {
+			DoubleClickEffect.SetActive (false);
+
+			if(index > 4)
+				DoubleClickEffectSp.spriteName = "maxhits";
+			else
+				DoubleClickEffectSp.spriteName = string.Format("{0}hits", index);
+
+			DoubleClickEffect.SetActive (true);
+		}
+		else
+			DoubleClickEffect.SetActive(false);	
 	}
 	
 	public bool Clicked
@@ -71,15 +90,15 @@ public struct TDoubleClick
 	{
 		if(CheckValue < 150 || CheckValue> 400) {
 			Debug.Log("week");
-			SetLv(0);
+			SetLv(0, Index);
 
 		} else if(CheckValue > 250 && CheckValue <= 400) {
 			Debug.Log("good");
-			SetLv(1);
+			SetLv(1, Index);
 
 		} else if(CheckValue >= 150 && CheckValue <= 250) {
 			Debug.Log("perfab");
-			SetLv(2);
+			SetLv(2, Index);
 		}
 	}
 	
@@ -95,20 +114,20 @@ public struct TDoubleClick
 		IsStart = true;
 	}
 	
-	private void SetLv(int index)
+	private void SetLv(int index, int playerIndex)
 	{
 		switch (index) {
 		case 0:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Weak;
-			UIDoubleClick.Get.ShowLvEffect(index, crtType);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		case 1:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Good;
-			UIDoubleClick.Get.ShowLvEffect(index, crtType);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		case 2:
 			GameController.Get.DoubleClickType = GamePlayEnum.EDoubleType.Perfect;
-			UIDoubleClick.Get.ShowLvEffect(index, crtType);
+			UIDoubleClick.Get.ShowLvEffect(index, crtType, playerIndex);
 			break;
 		}
 		if (index != -1) {
@@ -220,10 +239,6 @@ public class UIDoubleClick : UIBase {
 				lvEffect[i].gameObject.SetActive(false);
 		}
 
-//		checkCircle[0] = GameObject.Find (UIName + "/SceneClick/CheckCircle0").GetComponent<UISprite> ();
-//		checkCircle[1] = GameObject.Find (UIName + "/SceneClick/CheckCircle1").GetComponent<UISprite> ();
-		//			SetBtnFun(UIName + "/SceneClick", DoBtn);
-//		UIEventListener.Get (GameObject.Find (UIName + "/SceneClick")).onPress = DoBtn;
 		BottomRight = GameObject.Find (UIName + "/BottomRight");
 		BottomRight.SetActive (false);
 	}
@@ -233,10 +248,11 @@ public class UIDoubleClick : UIBase {
 		if (index < DoubleClicks.Length && player.DoubleClick) {
 			DoubleClicks[index].Init(player.DoubleClick);
 			DoubleClicks[index].Team = (int)player.Team;
+			DoubleClicks[index].Index = index;
 		}
 	}
 
-	public void ShowLvEffect(int index, EDoubleClick type)
+	public void ShowLvEffect(int index, EDoubleClick type, int playerIndex)
 	{
 		Lv = index;
 		BottomRight.SetActive(false);
@@ -258,18 +274,15 @@ public class UIDoubleClick : UIBase {
 				break;
 		}
 
-		//Show Combo here
-		Debug.LogError ("Combo : " + combo);
+		if (type == EDoubleClick.Shoot && Lv > 0)
+			DoubleClicks [playerIndex].SetComBoEffect (combo);	
+		else
+			DoubleClicks [playerIndex].SetComBoEffect (0);
 	}
 
 	public void ClickStop(int index)
 	{
-		if (index != -1 && DoubleClicks[index].Team == 0) {
+		if (index != -1 && DoubleClicks[index].Team == 0)
 			DoubleClicks[index].ClickStop();
-		}
-//		if (isStart) {
-//			isStart = false;
-//			CheckLv ();
-//		}
 	}
 }
