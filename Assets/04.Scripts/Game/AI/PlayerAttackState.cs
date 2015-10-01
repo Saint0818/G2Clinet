@@ -70,9 +70,6 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
             TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
             mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
         }
-
-//        mPlayer.SetNoAI();
-//        mPlayer.AniState(EPlayerState.Idle);
     }
 
     public override void Exit()
@@ -102,7 +99,7 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 
 //            GameController.Get.AIAttack(mPlayer);
 //            if(!isDoingAction)
-                GameController.Get.AIMove(mPlayer, ref mTactical);
+            moveByTactical(mPlayer, ref mTactical);
         }
     }
 
@@ -191,7 +188,6 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
 
         // 是否可以轉身運球過人.
         if (mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover == 0 && mPlayer.CanMove &&
-//            GameController.Get.HasDefPlayer(mPlayer.DefPlayer, 1.5f, 40) == 0)
             threat != Team.EFindPlayerResult.CannotFound)
         {
             mRandomizer.AddOrUpdate(EAction.MoveDodge, mPlayer.MoveDodgeRate);
@@ -261,5 +257,82 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
     private void doMoveDodge()
     {
         mPlayer.DoPassiveSkill(ESkillSituation.MoveDodge);
+    }
+
+    public void moveByTactical([NotNull] PlayerBehaviour someone, ref TTacticalData tacticalData)
+    {
+        if(GameController.Get.BallOwner == null)
+        {
+            // 沒人有球, 所以要開始搶球. 最接近球的球員去撿球就好.
+            if (!GameController.Get.Passer)
+            {
+                if (GameController.Get.Shooter == null)
+                {
+                    GameController.Get.NearestBallPlayerDoPickBall(someone);
+                    if (someone.DefPlayer != null)
+                        GameController.Get.NearestBallPlayerDoPickBall(someone.DefPlayer);
+                }
+                else
+                {
+                    // 投籃者出手, 此時球在空中飛行.
+                    if ((GameController.Get.Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) ||
+                       (GameController.Get.Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
+                    {
+                        if (!someone.IsShoot)
+                            GameController.Get.NearestBallPlayerDoPickBall(someone);
+                        if (someone.DefPlayer != null)
+                            GameController.Get.NearestBallPlayerDoPickBall(someone.DefPlayer);
+                    }
+                }
+            }
+        }
+        else
+        {
+            // 有人有球.
+            if(someone.CanMove && someone.TargetPosNum == 0)
+            {
+                // 該球員目前沒有任何移動位置.
+                for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+                {
+                    if (GameController.Get.GamePlayers[i].Team == someone.Team && GameController.Get.GamePlayers[i] != someone &&
+                       tacticalData.FileName != string.Empty && GameController.Get.GamePlayers[i].TargetPosName != tacticalData.FileName)
+                        GameController.Get.GamePlayers[i].ResetMove();
+                }
+
+                if (tacticalData.FileName != string.Empty)
+                {
+                    var tacticalActions = tacticalData.GetActions(someone.Postion.GetHashCode());
+
+                    if (tacticalActions != null)
+                    {
+                        for (int i = 0; i < tacticalActions.Length; i++)
+                        {
+                            TMoveData moveData = new TMoveData();
+                            moveData.Clear();
+                            moveData.Speedup = tacticalActions[i].Speedup;
+                            moveData.Catcher = tacticalActions[i].Catcher;
+                            moveData.Shooting = tacticalActions[i].Shooting;
+                            int z = 1;
+
+                            if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
+                                z = -1;
+
+                            moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z * z);
+                            if (GameController.Get.BallOwner != null && GameController.Get.BallOwner != someone)
+                                moveData.LookTarget = GameController.Get.BallOwner.transform;
+
+                            moveData.TacticalName = tacticalData.FileName;
+                            moveData.MoveFinish = GameController.Get.DefMove;
+                            someone.TargetPos = moveData;
+                        }
+
+                        GameController.Get.DefMove(someone);
+                    }
+                }
+            }
+
+            if (someone.WaitMoveTime != 0 && GameController.Get.BallOwner != null && someone == GameController.Get.BallOwner)
+                someone.AniState(EPlayerState.Dribble0);
+        }
     }
 }
