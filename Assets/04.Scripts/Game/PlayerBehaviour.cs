@@ -871,8 +871,8 @@ public class PlayerBehaviour : MonoBehaviour
 				else if (!IsDefence && !IsBallOwner && IsRun)
                     AniState(EPlayerState.Idle);
             }
-        } else
-        if (aiTime > 0 && Time.time >= aiTime)
+        }
+        else if(aiTime > 0 && Time.time >= aiTime)
         {
             moveQueue.Clear();
 //            Debug.Log("FixedUpdate(), moveQueue.Clear().");
@@ -884,7 +884,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (SpeedUpView)
                 SpeedUpView.enabled = false;
-
         }
 
         if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
@@ -1000,6 +999,28 @@ public class PlayerBehaviour : MonoBehaviour
 		float aniTime = AnimatorControl.GetCurrentAnimatorStateInfo(0).length;
 		aiTime += aniTime;
 	}
+
+    public float AIRemainTime
+    {
+        get
+        {
+            if(aiTime <= 0)
+                return 0;
+            return aiTime - Time.time;
+        }
+    }
+
+    public void SetAITime(float time)
+    {
+        aiTime = Time.time + time;
+        StartCoroutine(GetCurrentClipLength());
+
+        if (AIActiveHint)
+            AIActiveHint.SetActive(false);
+
+        if (SpeedUpView)
+            SpeedUpView.enabled = true;
+    }
 
     public void SetNoAI()
     {

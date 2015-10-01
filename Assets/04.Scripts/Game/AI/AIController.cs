@@ -22,20 +22,12 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
 {
+    // todo 這個是暫時的作法, 以後要記得拿掉. 這主要是要解決換場時, 被 AI 控管的時間不要被計算.
+    // todo 如果沒有這樣做, 就可能換場時, 球員就被 AI 控制, 然後就馬上發動主動技.
+    public float AIRemainTime { get; set; }
+
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 
-//    public Team PlayerTeam
-//    {
-//        get { return mPlayerTeam; }
-//    }
-//
-//    public Team NpcTeam
-//    {
-//        get { return mNpcTeam; }
-//    }
-//
-//    private readonly Team mPlayerTeam = new Team(ETeamKind.Self);
-//    private readonly Team mNpcTeam = new Team(ETeamKind.Npc);
     private readonly Dictionary<ETeamKind, Team> mTeams = new Dictionary<ETeamKind, Team>
     {
         {ETeamKind.Self, new Team(ETeamKind.Self) },

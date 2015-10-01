@@ -26,14 +26,11 @@ public class AttackAState : State<EGameSituation, EGameMsg>
                 player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.Defense);
         }
 
-        if(extraInfo != null)
+        if(AIController.Get.AIRemainTime > 0)
         {
-            bool isFromInbounds = (bool)extraInfo;
-            if (isFromInbounds)
-            {
-                GameController.Get.Joysticker.SetNoAI();
-                GameController.Get.Joysticker.AniState(EPlayerState.Idle);
-            }
+            GameController.Get.Joysticker.SetAITime(AIController.Get.AIRemainTime);
+            GameController.Get.Joysticker.AniState(EPlayerState.Idle);
+            AIController.Get.AIRemainTime = 0;
         }
     }
 
