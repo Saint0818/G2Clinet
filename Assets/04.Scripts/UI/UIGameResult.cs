@@ -69,7 +69,10 @@ public class UIGameResult : UIBase {
 
 		uiLimitScore = GameObject.Find(UIName + "/Center/ViewResult/LimitScore");
 		labelLimiteScore = GameObject.Find(UIName + "/Center/ViewResult/LimitScore/TargetScore").GetComponent<UILabel>();
-		if(GameStart.Get.WinMode == EWinMode.Score) {
+		//Target Score
+		//Lost Score
+		//Score Compare
+		if(GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.TimeScore) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 		} else {
 			uiLimitScore.SetActive(false);
@@ -253,7 +256,9 @@ public class UIGameResult : UIBase {
 
 		if (record.Done) {
 			buttonResume.SetActive(false);
-			if (record.Score1 > record.Score2) {
+			//judge victory or lose
+//			if (record.Score1 > record.Score2) {
+			if (GameController.Get.IsGameVictory) {
 				UIWin.SetActive(true);
 				UILose.SetActive(false);
 			} else {

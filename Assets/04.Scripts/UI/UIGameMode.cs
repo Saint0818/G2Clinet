@@ -103,11 +103,11 @@ public class UIGameMode: UIBase {
 	}
 
 	public void OnWinMode() {
-		if (UIButton.current.name == "ButtonTime")
-			GameStart.Get.WinMode = EWinMode.Time;
-		else
-		if (UIButton.current.name == "ButtonScore")
-			GameStart.Get.WinMode = EWinMode.Score;
+//		if (UIButton.current.name == "ButtonTime")
+//			GameStart.Get.WinMode = EWinMode.Time;
+//		else
+//		if (UIButton.current.name == "ButtonScore")
+//			GameStart.Get.WinMode = EWinMode.Score;
 		
 	}
 
@@ -130,13 +130,15 @@ public class UIGameMode: UIBase {
 
 	public void OnNext() {
 		int s = (int)(timeScrollBar.value * maxTime);
-		if (GameStart.Get.WinMode == EWinMode.Score)
-			s = (int)(scoreScrollBar.value * maxScore);
+		GameStart.Get.GameWinTimeValue = s;
+
+//		if (GameStart.Get.WinMode == EWinMode.Score)
+//			s = (int)(scoreScrollBar.value * maxScore);
 
 		if (s <= 1)
 			s = 1;
-
-		GameStart.Get.GameWinValue = s;
+//		if (GameStart.Get.WinMode == EWinMode.Score)
+//			GameStart.Get.GameWinValue = s;
 
 		UIShow (false);
 		CameraMgr.Get.SetSelectRoleCamera();

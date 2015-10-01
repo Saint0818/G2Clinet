@@ -283,12 +283,18 @@ public class UIGame : UIBase {
 		uiLimitTime = GameObject.Find (UIName + "/TopRight/Countdown");
 		labelLimitTime = GameObject.Find (UIName + "/TopRight/Countdown/TimeLabel").GetComponent<UILabel>();
 
-		if(GameStart.Get.WinMode == EWinMode.Score) {
+		if(GameStart.Get.WinMode == EWinMode.NoTimeLostScore || GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare) {
 			uiLimitTime.SetActive(false);
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
+		} else if(GameStart.Get.WinMode == EWinMode.TimeNoScore) {
+			uiLimitScore.SetActive(false);
+			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
+		} else if(GameStart.Get.WinMode == EWinMode.TimeScore || GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
+			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
+			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
 		} else {
 			uiLimitScore.SetActive(false);
-			labelLimitTime.text = GameStart.Get.GameWinValue.ToString();
+			uiLimitTime.SetActive(false);
 		}
 
 		uiScoreBar = GameObject.Find (UIName + "/Bottom/UIScoreBar");
@@ -428,7 +434,7 @@ public class UIGame : UIBase {
 	private void setGameTime () {
 		int minute = (int) (GameController.Get.GameTime / 60f);
 		int second = (int) (GameController.Get.GameTime % 60f);
-		if(second == 0)
+		if(second < 10)
 			labelLimitTime.text = minute.ToString() + ":0" + second.ToString();
 		else 
 			labelLimitTime.text = minute.ToString() + ":" + second.ToString();

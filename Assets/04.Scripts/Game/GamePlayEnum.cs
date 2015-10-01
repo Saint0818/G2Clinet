@@ -7,8 +7,14 @@ namespace GamePlayEnum {
 	}
 	
 	public enum EWinMode {
-		Score = 0,
-		Time = 1
+		None = 0,//00
+		NoTimeScore = 1,//01
+		NoTimeLostScore = 2,//02
+		NoTimeScoreCompare = 3,//03
+		TimeNoScore = 4, //10
+		TimeScore = 5, //11
+		TimeLostScore = 6, //12
+		TimeScoreCompare = 7 //13
 	}
 
 	public enum EBasketAnimationTest {

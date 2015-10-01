@@ -271,8 +271,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void ShowRangeOfAction (bool isShow, Transform parent = null, float degree = 0 , float dis = 0){
-//		if(parent != null
-			SkillRangeOfAction.transform.parent = parent;
+		SkillRangeOfAction.transform.parent = parent;
 		SkillRangeOfAction.transform.localEulerAngles = Vector3.zero;
 		SkillRangeOfAction.ChangeValue(degree, dis);
 		SkillRangeOfAction.gameObject.SetActive(isShow);

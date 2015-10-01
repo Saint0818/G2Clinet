@@ -213,7 +213,7 @@ public class UISelectRole : UIBase {
 		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
 		SetBtnFun (UIName + "/Right/GameStart", DoStart);
 		SetBtnFun (UIName + "/Left/SelectCharacter/Back", DoBackToMode);
-		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(GameStart.Get.OpenGameMode);
+		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(false);
 
 		animatorLeft = GameObject.Find (UIName + "/Left").GetComponent<Animator>();
 		animatorRight = GameObject.Find (UIName + "/Right").GetComponent<Animator>();

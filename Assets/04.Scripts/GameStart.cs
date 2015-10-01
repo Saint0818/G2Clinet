@@ -8,9 +8,9 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public ECourtMode CourtMode = ECourtMode.Full;
-	public EWinMode WinMode = EWinMode.Score;
+	public EWinMode WinMode = EWinMode.NoTimeScore;
 	public bool ConnectToServer = false;
-	public bool OpenGameMode = false;
+//	public bool OpenGameMode = false;
 	public bool IsDebugAnimation = false;
 	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;
@@ -20,10 +20,15 @@ public class GameStart : KnightSingleton<GameStart> {
 	public int PlayerShineCount = 3;
 	public int FriendNumber = 3;
 	public int GameWinValue = 13;
+	public int GameWinTimeValue = 0;
 	public float CrossTimeX = 0.5f;
 	public float CrossTimeZ = 0.8f;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
+	[HideInInspector]
+	public int[] StageHint;
+	[HideInInspector]
+	public bool IsReadStageData = true;
 
 	void Start() {
 		Time.timeScale = 1;
@@ -43,5 +48,44 @@ public class GameStart : KnightSingleton<GameStart> {
 		TextConst.Init();
 		GameData.Init();
 		Application.runInBackground = IsDebugAnimation;
+		
+		if(IsReadStageData)
+			StageJoin(1);
+		else {
+			WinMode = EWinMode.NoTimeScore;
+		}
+	}
+
+	public void StageJoin (int id) {
+		if(GameData.DStageData.ContainsKey(id)) {
+			StageHint = AI.BitConverter.Convert(GameData.DStageData[id].Hint);
+//			GameData.StageID = id;
+			
+//			GameStart.Get.CourtMode =  (ECourtMode)GameData.DStageData[id].CourtMode;
+
+			if(StageHint[0] == 0 && StageHint[1] == 0)
+				WinMode = EWinMode.None;
+			else if(StageHint[0] == 0 && StageHint[1] == 1)
+				WinMode = EWinMode.NoTimeScore;
+			else if(StageHint[0] == 0 && StageHint[1] == 2)
+				WinMode = EWinMode.NoTimeLostScore;
+			else if(StageHint[0] == 0 && StageHint[1] == 3)
+				WinMode = EWinMode.NoTimeScoreCompare;
+			else if(StageHint[0] == 1 && StageHint[1] == 0)
+				WinMode = EWinMode.TimeNoScore;
+			else if(StageHint[0] == 1 && StageHint[1] == 1)
+				WinMode = EWinMode.TimeScore;
+			else if(StageHint[0] == 1 && StageHint[1] == 2)
+				WinMode = EWinMode.TimeLostScore;
+			else if(StageHint[0] == 1 && StageHint[1] == 3)
+				WinMode = EWinMode.TimeScoreCompare;
+
+
+			GameStart.Get.GameWinTimeValue = GameData.DStageData[id].Bit0Num;
+			GameStart.Get.GameWinValue =  GameData.DStageData[id].Bit1Num;
+//			GameStart.Get.FriendNumber =  GameData.DStageData[id].FriendNumber;
+
+		}
+
 	}
 }

@@ -850,6 +850,11 @@ namespace GameStruct {
 	public struct TStage {
 		public int ID;
 		public int Chapter;
+		public string Hint;
+		public int Bit0Num;
+		public int Bit1Num;
+		public int Bit2Num;
+		public int Bit3Num;
 		public int CourtMode;
 		public int WinMode;
 		public int WinValue;

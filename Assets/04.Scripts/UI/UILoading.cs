@@ -187,13 +187,13 @@ public class UILoading : UIBase {
 	}
 
 	private void loadSelectRole(){
-		if (GameStart.Get.OpenGameMode) 
-			UIGameMode.UIShow (true);
-		else {
+//		if (GameStart.Get.OpenGameMode) 
+//			UIGameMode.UIShow (true);
+//		else {
 			CameraMgr.Get.SetSelectRoleCamera();
 			UISelectRole.UIShow(true);
 			UI3DSelectRole.UIShow(true);
-		}
+//		}
 
 		UIShow(false);
 	}
