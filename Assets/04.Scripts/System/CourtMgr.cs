@@ -456,11 +456,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			if (!pveBasketAy[i].GetComponent<Timeline>()){
 				if(!pveBasketAy[i].gameObject.GetComponent<SelectEvent>())
 					pveBasketAy[i].gameObject.AddComponent<SelectEvent>();
+
 				Timeline timer = pveBasketAy[i].AddComponent<Timeline> ();
 				timer.mode = TimelineMode.Global;
 				timer.globalClockKey = ETimerKind.Default.ToString();
+				timer.recordTransform = false;
+				timer.SetRecording(30, 30);
 			}
 		}
+		
 		animPos[0] = pveBasketAy[0].transform.localPosition;
 		animPos[1] = pveBasketAy[1].transform.localPosition;
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
@@ -471,6 +475,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		
 		BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
 		BasketHoop[1] = crtBasket.transform.FindChild("Right/BasketballAction");
+		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
+		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
 
 		EffectPoint[0] = crtBasket.transform.FindChild("Left/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint").gameObject;
 		EffectPoint[1] = crtBasket.transform.FindChild("Right/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint").gameObject;
@@ -480,8 +486,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		BasketHoopAnimator[0].gameObject.AddComponent<SelectEvent> ();
 		BasketHoopAnimator[1].gameObject.AddComponent<SelectEvent> ();
 		
-		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
-		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
+
 
 		InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
 	}

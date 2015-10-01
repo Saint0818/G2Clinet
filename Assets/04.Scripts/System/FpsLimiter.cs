@@ -7,8 +7,8 @@ public class FpsLimiter : MonoBehaviour {
 	float theDeltaTime= 0.0F;
 	float curTime= 0.0F;
 	float timeTaken = 0.0F;
-	public int FrameRate = 30;
-	public bool ShowFPS = false;
+	public int FrameRate = 60;
+	public bool ShowFPS = true;
 
 	private  float updateInterval = 0.5F;
 	private string fpsText = "";
@@ -43,7 +43,7 @@ public class FpsLimiter : MonoBehaviour {
 		{
 			// display two fractional digits (f2 format)
 			float fps = accum/frames;
-			fpsText = System.String.Format("{0:F2} FPS",fps);
+			fpsText = System.String.Format("FPS {0:F2}",fps);
 
 			timeleft = updateInterval;
 			accum = 0.0F;

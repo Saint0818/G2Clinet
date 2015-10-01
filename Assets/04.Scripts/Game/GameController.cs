@@ -383,7 +383,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i])
-				ModelManager.Get.ChangeAnimator(PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
+				ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EanimatorType.AnimationControl);
 		
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)
@@ -4023,7 +4023,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		IsStart = false;
-		SetBallOwnerNull();
+		SetBallOwnerNull ();
 
 		GameTime = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
@@ -4036,7 +4036,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 			Joysticker.SetToAI();
 
-		CourtMgr.Get.SetBallState(EPlayerState.Reset);
+		CourtMgr.Get.SetBallState (EPlayerState.Reset);
 
 		for (int i = 0; i < PlayerList.Count; i++) 
 		{
@@ -4068,7 +4068,7 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList[i].transform.position = bornPosAy[5];
 			}
 
-			PlayerList[i].AniState(EPlayerState.Idle);
+			PlayerList [i].AniState(EPlayerState.Idle);
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
 				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);

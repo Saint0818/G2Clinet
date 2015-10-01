@@ -627,7 +627,8 @@ public class PlayerBehaviour : MonoBehaviour
 			Timer = gameObject.AddComponent<Timeline>();
 			Timer.mode = TimelineMode.Global;
 			Timer.globalClockKey = CrtTimeKey.ToString();
-			SetTimerKey( CrtTimeKey);
+			Timer.recordTransform = false;
+			Timer.SetRecording(30, 30);
 		}
 	}
 

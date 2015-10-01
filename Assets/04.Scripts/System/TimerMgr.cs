@@ -45,7 +45,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 	{
 		float time = (isPase == true ? 0 : 1);
 		foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-		 TimerMgr.Get.ChangeTime (item, time);
+			ChangeTime (item, time);
 
 		if (IsPause == isPase)
 			return;

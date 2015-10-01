@@ -524,12 +524,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 			if(aniControl.runtimeAnimatorController == null) {
 				if(isUseRig)
-					ChangeAnimator( aniControl, bodyNumber, EanimatorType.ShowControl);
+					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.ShowControl);
 				else
-					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
+					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.AvatarControl);
 			} else {
 				if(!isUseRig)
-					ChangeAnimator( aniControl, bodyNumber, EanimatorType.AvatarControl);
+					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.AvatarControl);
 				else 
 					aniControl.applyRootMotion = false;
 			}
@@ -547,9 +547,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void ChangeAnimator(Animator ani,string bodyNumber, EanimatorType type) {
-		RuntimeAnimatorController runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
-		ani.runtimeAnimatorController = runtimeAnimatorController;
+	public void ChangeAnimator(ref Animator ani,string bodyNumber, EanimatorType type) {
+		ani.runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
 		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;
 	}
