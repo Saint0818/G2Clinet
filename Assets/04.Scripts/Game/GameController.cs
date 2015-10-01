@@ -1419,10 +1419,10 @@ public class GameController : KnightSingleton<GameController>
 				UITransition.UIShow(true);
 				break;
 			case EGameSituation.Opening:
-				setPassIcon(true);
-				UIGame.UIShow (true);
-				UIGame.Get.UIState(EUISituation.Opening);
-				judgeSkillUI ();
+//				setPassIcon(true);
+//				UIGame.UIShow (true);
+//				UIGame.Get.UIState(EUISituation.Opening);
+				judgeSkillUI();
 
 				break;
 			case EGameSituation.JumpBall:
@@ -1504,7 +1504,6 @@ public class GameController : KnightSingleton<GameController>
 					case EGameSituation.InitCourt:
 	                case EGameSituation.None:
 	                case EGameSituation.Opening:
-	                    break;
 	                case EGameSituation.JumpBall:
 //						jumpBall();
 	                    break;

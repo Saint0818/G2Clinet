@@ -5,8 +5,8 @@ public enum EGameSituation
     CameraMovement = -2, // 運鏡.
     InitCourt      = -1,
     None           = 0,
-    Opening        = 1, // 開球.
-    JumpBall       = 2,
+    Opening        = 1, // 開球.(球員站在中場, 等待裁判發球)
+    JumpBall       = 2, // 裁判發球, 中間球員跳球, 其餘球員撿球.
     AttackA        = 3, // A 隊進攻.
     AttackB        = 4, // B 隊進攻.
     APickBallAfterScore    = 5, // 對方得分後, A 隊(玩家) 撿球.

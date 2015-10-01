@@ -11,13 +11,6 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
 
     public override void Enter(object extraInfo)
     {
-        foreach(var player in GameController.Get.GamePlayers)
-        {
-            player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.None);
-            player.ResetFlag();
-            player.AniState(EPlayerState.Idle);
-        }
-
         GameController.Get.IsStart = true;
         CourtMgr.Get.InitScoreboard(true);
 //        GameController.Get.setPassIcon(true);
