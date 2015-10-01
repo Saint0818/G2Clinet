@@ -868,23 +868,23 @@ public class GameController : KnightSingleton<GameController>
 	}
 	#endif
 
-	private void jumpBall()
-	{
-		if(BallOwner == null)
-		{
-			foreach(PlayerBehaviour someone in PlayerList)
-			{
-                DoPickBall(someone);
-
-//			    if(someone.Team == ETeamKind.Self)
-//			    {
-//			        doPickBall(someone);
-//			        if(someone.DefPlayer != null)
-//			            doPickBall(someone.DefPlayer);
-//			    }
-			}
-		}
-	}
+//	private void jumpBall()
+//	{
+//		if(BallOwner == null)
+//		{
+//			foreach(PlayerBehaviour someone in PlayerList)
+//			{
+//                DoPickBall(someone);
+//
+////			    if(someone.Team == ETeamKind.Self)
+////			    {
+////			        doPickBall(someone);
+////			        if(someone.DefPlayer != null)
+////			            doPickBall(someone.DefPlayer);
+////			    }
+//			}
+//		}
+//	}
 
     /// <summary>
     /// 某隊得分, 另一隊執行撿球.
@@ -1426,23 +1426,23 @@ public class GameController : KnightSingleton<GameController>
 
 				break;
 			case EGameSituation.JumpBall:
-				IsStart = true;
-				CourtMgr.Get.InitScoreboard (true);
-				setPassIcon(true);
-
-				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
-				if (npc) {
-//					npc.transform.position = bornPosAy[1];
-					JumpBall(npc);
-//					Rebound(npc);
-				}
-
-				npc = findJumpBallPlayer(ETeamKind.Npc);
-				if (npc) {
-//					npc.transform.position = bornPosAy[1];
-					JumpBall(npc);
-//					Rebound(npc);
-				}
+//				IsStart = true;
+//				CourtMgr.Get.InitScoreboard (true);
+//				setPassIcon(true);
+//
+//				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
+//				if (npc) {
+////					npc.transform.position = bornPosAy[1];
+//					JumpBall(npc);
+////					Rebound(npc);
+//				}
+//
+//				npc = findJumpBallPlayer(ETeamKind.Npc);
+//				if (npc) {
+////					npc.transform.position = bornPosAy[1];
+//					JumpBall(npc);
+////					Rebound(npc);
+//				}
 
 				break;
 			case EGameSituation.AttackA:
@@ -1506,7 +1506,7 @@ public class GameController : KnightSingleton<GameController>
 	                case EGameSituation.Opening:
 	                    break;
 	                case EGameSituation.JumpBall:
-						jumpBall();
+//						jumpBall();
 	                    break;
 	                case EGameSituation.AttackA:
 	                case EGameSituation.AttackB:
