@@ -1610,7 +1610,7 @@ public class EasyJoystick : MonoBehaviour {
 								}
 								break;
 							case DynamicArea.Custom:
-								if (gesture.position.y< Screen.height * 0.9f && gesture.position.x< Screen.width * 0.6f){
+								if (gesture.position.y< Screen.height * 0.8f && gesture.position.x< Screen.width * 0.5f){
 									virtualJoystick = true;	
 									isVirtualTouch = true;
 								}

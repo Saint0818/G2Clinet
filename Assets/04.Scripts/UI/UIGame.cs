@@ -138,7 +138,6 @@ public class UIGame : UIBase {
 	private bool isShowPushRange;
 	private bool isShowElbowRange;
 	private bool isShowStealRange;
-	private Vector2 originalPosition;
 	private Transform skillRangeTarget;
 	private PlayerBehaviour nearP;
 
@@ -207,9 +206,7 @@ public class UIGame : UIBase {
 			if(skillRangeTarget != null)
 				CourtMgr.Get.RangeOfActionPosition(skillRangeTarget.position);
 
-			if(Vector2.Distance(Input.mousePosition, originalPosition) > 3) {
-				resetRange ();
-			}
+			
 		}
 
 		if(uiDC != null && uiDC.activeInHierarchy) {
@@ -391,10 +388,13 @@ public class UIGame : UIBase {
 		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonBlock", DoBlock);
 //		SetBtnFun (UIName + "/BottomRight/ButtonAttack", DoAttack);
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onPress = DoAttack;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonAttack")).onDragOver = DoAttackOut;
 //		SetBtnFun (UIName + "/BottomRight/ViewDefance/ButtonSteal", DoSteal);
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onPress = DoSteal;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
 //		SetBtnFun (UIName + "/BottomRight/ButtonSkill", DoSkill);
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonSkill")).onPress = DoSkill;
+		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ButtonSkill")).onDragOver = DoSkillOut;
 
 		uiDC.SetActive(false);
 		viewTools.SetActive(false);
@@ -508,7 +508,7 @@ public class UIGame : UIBase {
 
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
-		originalPosition = Input.mousePosition;
+
 		isCanShowRange = false;
 		if(state) {
 			switch (type){
@@ -572,6 +572,18 @@ public class UIGame : UIBase {
 		GameData.Setting.AIChangeTime = time;
 
 	}
+
+	public void DoAttackOut (GameObject go) {
+		if(GameController.Get.Joysticker.IsBallOwner) {
+			//Elbow
+			if(isShowElbowRange)
+				resetRange();
+		} else {
+			//Push
+			if(isShowPushRange)
+				resetRange();
+		}
+	}
 	
 	public void DoAttack(GameObject go, bool state){
 		if(GameController.Get.Joysticker.IsBallOwner) {
@@ -594,6 +606,10 @@ public class UIGame : UIBase {
 		UIControllerState(EUIControl.Block);
 	}
 
+	public void DoStealOut (GameObject go) {
+		if(isShowStealRange) 
+			resetRange ();
+	}
 	public void DoSteal(GameObject go, bool state){
 		if(!state) 
 			if(isShowStealRange)
@@ -603,6 +619,10 @@ public class UIGame : UIBase {
 	}
 	
 	//Attack
+	public void DoSkillOut (GameObject go) {
+		if(isShowSkillRange) 
+			resetRange ();
+	}
 	public void DoSkill(GameObject go, bool state){
 		if(!state) 
 			if(isShowSkillRange)
@@ -1156,7 +1176,7 @@ public class UIGame : UIBase {
 			drawLine.IsShow = false;
 			break;
 		case EUISituation.Opening:
-			uiJoystick.Joystick.isActivated = true;
+			uiJoystick.Joystick.isActivated = false;
 			viewTopLeft.SetActive(true);
 			
 			uiJoystick.gameObject.SetActive(true);

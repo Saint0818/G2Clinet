@@ -1430,6 +1430,8 @@ public class GameController : KnightSingleton<GameController>
 					UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);
+				UICourtInstant.UIShow(true);
+				UICourtInstant.UIShow(false);
 				break;
 			case EGameSituation.Opening:
 //				setPassIcon(true);
@@ -2465,10 +2467,10 @@ public class GameController : KnightSingleton<GameController>
 				AddExtraScoreRate(0);
 				break;
 			case 1: 
-				AddExtraScoreRate(GameData.ExtraGreatRate);
+				AddExtraScoreRate(GameData.ExtraGreatRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
 				break;
 			case 2: 
-				AddExtraScoreRate(GameData.ExtraPerfectRate);
+				AddExtraScoreRate(GameData.ExtraPerfectRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
 				Joysticker.SetAnger(GameConst.AddAnger_Perfect, CameraMgr.Get.DoubleClickDCBorn, CameraMgr.Get.DoubleClickDCBorn);				
 				break;
 		}
@@ -2498,11 +2500,11 @@ public class GameController : KnightSingleton<GameController>
 			AddExtraScoreRate(0);
 			break;
 		case 1: 
-			AddExtraScoreRate(GameData.ExtraGreatRate);
+			AddExtraScoreRate(GameData.ExtraGreatRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
 			DoShoot();
 			break;
 		case 2: 
-			AddExtraScoreRate(GameData.ExtraPerfectRate);
+			AddExtraScoreRate(GameData.ExtraPerfectRate + Mathf.Min(UIDoubleClick.Get.Combo * 4, 20));
 			DoShoot();
 			break;
 		}
@@ -3818,7 +3820,7 @@ public class GameController : KnightSingleton<GameController>
 		if (ShootDistance >= GameConst.TreePointDistance) {
 			score = 3;
 //			if(Shooter && Shooter.crtState != EPlayerState.Alleyoop)
-			GameController.Get.ShowWord(EShowWordType.NiceShot, team);
+			ShowWord(EShowWordType.NiceShot, team);
 		}
 
 		if (GameStart.Get.TestMode == EGameTest.Skill)

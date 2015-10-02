@@ -560,7 +560,7 @@ public class PlayerBehaviour : MonoBehaviour
 			}
 			angerPower += value;
 			if (angerPower > Attribute.MaxAnger) {
-				value -= angerPower - Attribute.MaxAnger;
+//				value -= angerPower - Attribute.MaxAnger;
 				angerPower = Attribute.MaxAnger;
 			}
 			
