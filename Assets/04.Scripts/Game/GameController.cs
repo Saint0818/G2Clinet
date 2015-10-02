@@ -4269,19 +4269,19 @@ public class GameController : KnightSingleton<GameController>
 	public void ShowWord (EShowWordType type, int team = 0, GameObject parent = null) {
 		switch(type) {
 		case EShowWordType.Block:
-			EffectManager.Get.PlayEffect("ShowWord_Block", Vector3.zero, parent, null, 0.5f, true);
+			EffectManager.Get.PlayEffect("ShowWord_Block", Vector3.zero, parent, null, 1, true);
 			break;
 		case EShowWordType.Dunk:
-			EffectManager.Get.PlayEffect("ShowWord_Dunk", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 0.5f, true);
+			EffectManager.Get.PlayEffect("ShowWord_Dunk", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1, true);
 			break;
 		case EShowWordType.NiceShot:
-			EffectManager.Get.PlayEffect("ShowWord_NiceShot", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 0.5f, true);
+			EffectManager.Get.PlayEffect("ShowWord_NiceShot", Vector3.zero, CourtMgr.Get.ShootPoint[team], null, 1, true);
 			break;
 		case EShowWordType.Punch:
-			EffectManager.Get.PlayEffect("ShowWord_Punch", Vector3.zero, parent, null, 0.5f, true);
+			EffectManager.Get.PlayEffect("ShowWord_Punch", Vector3.zero, parent, null, 1, true);
 			break;
 		case EShowWordType.Steal:
-			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 0.5f, true);
+			EffectManager.Get.PlayEffect("ShowWord_Steal", Vector3.zero, parent, null, 1, true);
 			break;
 		}
 	}
