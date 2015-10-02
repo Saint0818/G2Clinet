@@ -1,20 +1,20 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// ·f°t UICreateRoleStyleView ¤@°_¨Ï¥Îªº¤¶­±, ±Mªù­t³d²y­û´«¸Ë.
+/// æ­é… UICreateRoleStyleView ä¸€èµ·ä½¿ç”¨çš„ä»‹é¢, å°ˆé–€è² è²¬çƒå“¡æ›è£.
 /// </summary>
 /// <remarks>
-/// ¨Ï¥Î¤èªk:
+/// ä½¿ç”¨æ–¹æ³•:
 /// <list type="number">
-/// <item> ¥Î UI3DCreateRole.Get.StyleView ¨ú±o instance. </item>
-/// <item> Call Show() or Hide() ±±¨î²y­û­n¤£­nÅã¥Ü. </item>
-/// <item> Call UpdateModel() À°¼Ò«¬´«¸Ë. </item>
-/// <item> Call SetCamera() ³]©w Camera ªº¦ì¸m. </item>
-/// <item> Call PlayAnimation() ¼·´«¸Ë²y­ûªº°Ê§@. </item>
+/// <item> ç”¨ UI3DCreateRole.Get.StyleView å–å¾— instance. </item>
+/// <item> Call Show() or Hide() æ§åˆ¶çƒå“¡è¦ä¸è¦é¡¯ç¤º. </item>
+/// <item> Call UpdateModel() å¹«æ¨¡å‹æ›è£. </item>
+/// <item> Call SetCamera() è¨­å®š Camera çš„ä½ç½®. </item>
+/// <item> Call PlayAnimation() æ’¥æ›è£çƒå“¡çš„å‹•ä½œ. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -34,7 +34,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     }
 
     /// <summary>
-    /// Camera ¤º®t®É¶¡, ³æ¦ì: ¬í.
+    /// Camera å…§å·®æ™‚é–“, å–®ä½: ç§’.
     /// </summary>
     private const float TweenTime = 0.3f;
 
@@ -68,7 +68,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     };
 
     /// <summary>
-    /// ·í¼·°Ê§@§¹²¦«á, ­n¸g¹L´X¬í¤~·|Åã¥Ü²y.
+    /// ç•¶æ’¥å‹•ä½œå®Œç•¢å¾Œ, è¦ç¶“éå¹¾ç§’æ‰æœƒé¡¯ç¤ºçƒ.
     /// </summary>
     private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
     {
