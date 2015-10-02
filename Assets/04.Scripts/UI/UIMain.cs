@@ -149,7 +149,7 @@ public class UIMain : UIBase {
                 Debug.LogError("Data Error!");
 		}
         else
-		    Debug.LogErrorFormat("Protocol:{0}", URLConst.LookPlayerBank);
+		    Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
 	}
 
     

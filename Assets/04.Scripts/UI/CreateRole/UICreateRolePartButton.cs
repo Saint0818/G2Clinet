@@ -12,6 +12,12 @@ public class UICreateRolePartButton : MonoBehaviour
     public UICreateRoleStyleViewPartsWindow Window;
     public Transform Button;
 
+    public delegate void Action(UICreateRoleStyleView.EEquip equip);
+    /// <summary>
+    /// 呼叫時機: 當按鈕被點選時.
+    /// </summary>
+    public event Action SelectedListener;
+
     private readonly Vector3 mOnPos = new Vector3(45, 0, 0);
     private readonly Vector3 mOffPos = new Vector3(-45, 0, 0);
 
@@ -39,6 +45,7 @@ public class UICreateRolePartButton : MonoBehaviour
         {
             Button.localPosition = mOnPos;
             Window.UpdateData(Equipment, mItems, SelectedIndex);
+            notifySelected();
         }
         else
             Button.localPosition = mOffPos;
@@ -49,8 +56,11 @@ public class UICreateRolePartButton : MonoBehaviour
         var toggle = GetComponent<UIToggle>();
 
         // 因為當 Toggle 是 true 時, 再設定為 true, 事件並不會送出, 所以才有這段特別的程式碼.
-        if (toggle.value) 
+        if (toggle.value)
+        {
             Window.UpdateData(Equipment, mItems, SelectedIndex);
+            notifySelected();
+        }
         else
             toggle.Set(true);
     }
@@ -61,5 +71,11 @@ public class UICreateRolePartButton : MonoBehaviour
 
         if(equip == Equipment)
             SelectedIndex = index;
+    }
+
+    private void notifySelected()
+    {
+        if(SelectedListener != null)
+            SelectedListener(Equipment);
     }
 }

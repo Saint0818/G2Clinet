@@ -22,11 +22,11 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public GameObject Window;
     public UICreateRoleStyleViewPartsWindow PartsWindow;
+    public UICreateRolePartButton BodyBtn;
     public UICreateRolePartButton HairBtn;
     public UICreateRolePartButton ClothBtn;
     public UICreateRolePartButton PantsBtn;
     public UICreateRolePartButton ShoesBtn;
-    public UICreateRolePartButton BodyBtn;
 
     public Animator UIAnimator;
 
@@ -47,12 +47,18 @@ public class UICreateRoleStyleView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
+        PartsWindow.SelectListener += BodyBtn.OnPartItemSelected;
         PartsWindow.SelectListener += HairBtn.OnPartItemSelected;
         PartsWindow.SelectListener += ClothBtn.OnPartItemSelected;
         PartsWindow.SelectListener += PantsBtn.OnPartItemSelected;
         PartsWindow.SelectListener += ShoesBtn.OnPartItemSelected;
-        PartsWindow.SelectListener += BodyBtn.OnPartItemSelected;
-        PartsWindow.SelectListener += OnPartItemSelected;
+        PartsWindow.SelectListener += onPartItemSelected;
+
+        BodyBtn.SelectedListener += onPartSelected;
+        HairBtn.SelectedListener += onPartSelected;
+        ClothBtn.SelectedListener += onPartSelected;
+        PantsBtn.SelectedListener += onPartSelected;
+        ShoesBtn.SelectedListener += onPartSelected;
     }
 
     public void Show(EPlayerPostion pos, int playerID)
@@ -104,29 +110,18 @@ public class UICreateRoleStyleView : MonoBehaviour
         return data.ToArray();
     }
 
-    public void OnPartItemSelected(EEquip equip, int index, int itemID)
+    private void onPartSelected(EEquip equip)
+    {
+        UI3DCreateRole.Get.StyleView.SetCamera(equip);
+    }
+
+    private void onPartItemSelected(EEquip equip, int index, int itemID)
     {
 //        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
 
         UI3DCreateRole.Get.StyleView.UpdateModel(equip, itemID);
         mEquips[equip] = itemID;
     }
-
-//    private void updateModel()
-//    {
-//        if (mEquips.Count < 5)
-//            return;
-//
-//        if (mModel)
-//            Destroy(mModel);
-//    
-//        mModel = UICreateRole.CreateModel(ModelPreview, "StyleViewModel", mPlayerID,
-//            mEquips[EEquip.Body].ID,
-//            mEquips[EEquip.Hair].ID,
-//            mEquips[EEquip.Cloth].ID,
-//            mEquips[EEquip.Pants].ID,
-//            mEquips[EEquip.Shoes].ID);
-//    }
 
     public void Hide()
     {

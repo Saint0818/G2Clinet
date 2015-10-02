@@ -51,7 +51,18 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         private readonly int mPlayerID;
         private Animator mAnimator;
 
-        private readonly Dictionary<UICreateRoleStyleView.EEquip, int> mItemIDs = new Dictionary<UICreateRoleStyleView.EEquip, int>();
+        /// <summary>
+        /// 目前角色裝備的物品.
+        /// </summary>
+        private readonly Dictionary<UICreateRoleStyleView.EEquip, int> mItemIDs = 
+            new Dictionary<UICreateRoleStyleView.EEquip, int>
+            {
+                {UICreateRoleStyleView.EEquip.Body, -1},
+                {UICreateRoleStyleView.EEquip.Hair, -1},
+                {UICreateRoleStyleView.EEquip.Cloth, -1},
+                {UICreateRoleStyleView.EEquip.Pants, -1},
+                {UICreateRoleStyleView.EEquip.Shoes, -1}
+            };
 
         /// <summary>
         /// 給預設套裝.
@@ -73,11 +84,11 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             int clothItemID = CreateRoleDataMgr.Ins.GetCloths(pos)[0];
             int pantsItemID = CreateRoleDataMgr.Ins.GetPants(pos)[0];
             int shoesItemID = CreateRoleDataMgr.Ins.GetShoes(pos)[0];
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
             UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
@@ -101,11 +112,11 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mPlayerID = playerID;
             mShadow = shadow;
 
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
-            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Body, bodyItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Hair, hairItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Cloth, clothItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Pants, pantsItemID);
+//            mItemIDs.Add(UICreateRoleStyleView.EEquip.Shoes, shoesItemID);
             UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
@@ -145,6 +156,13 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         public void UpdateParts(int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, 
                                 int shoesItemID)
         {
+            if(mItemIDs[UICreateRoleStyleView.EEquip.Body] == bodyItemID &&
+               mItemIDs[UICreateRoleStyleView.EEquip.Hair] == hairItemID &&
+               mItemIDs[UICreateRoleStyleView.EEquip.Cloth] == clothItemID &&
+               mItemIDs[UICreateRoleStyleView.EEquip.Pants] == pantsItemID &&
+               mItemIDs[UICreateRoleStyleView.EEquip.Shoes] == shoesItemID)
+                return; // 沒有任何部件需要更新.
+
             mItemIDs[UICreateRoleStyleView.EEquip.Body] = bodyItemID;
             mItemIDs[UICreateRoleStyleView.EEquip.Hair] = hairItemID;
             mItemIDs[UICreateRoleStyleView.EEquip.Cloth] = clothItemID;
