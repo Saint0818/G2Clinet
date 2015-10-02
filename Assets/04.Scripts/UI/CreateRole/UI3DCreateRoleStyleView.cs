@@ -36,7 +36,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     /// <summary>
     /// Camera 內差時間, 單位: 秒.
     /// </summary>
-    private const float TweenTime = 0.3f;
+    private const float TweenTime = 0.75f;
 
     private readonly Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>> mCameraPos =
         new Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>>
@@ -72,9 +72,9 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     /// </summary>
     private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
     {
-        {EPlayerPostion.G, 1.2f},
-        {EPlayerPostion.F, 1.2f},
-        {EPlayerPostion.C, 1.2f},
+        {EPlayerPostion.G, 0.5f},
+        {EPlayerPostion.F, 0.5f},
+        {EPlayerPostion.C, 1.0f},
     };
 
     private UI3DCreateRoleCommon mCommon;
