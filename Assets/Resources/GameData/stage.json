@@ -4,14 +4,14 @@
         "chapter": 1,
         "nametw": "1-1",
         "hint": 2111,
-        "bit0num": 180,
+        "bit0num": 240,
         "bit1num": 20,
         "bit2num": 6,
         "bit3num": 1,
         "courtmode": 1,
         "winmode": 1,
         "winvalue": 20,
-        "friendnumber": 3,
+        "friendnumber": 1,
         "playerid1": 10,
         "playerid2": 20,
         "playerid3": 30
@@ -112,5 +112,161 @@
         "playerid1": 39,
         "playerid2": 39,
         "playerid3": 39
+    },
+    {
+        "hint": 1
+    },
+    {
+        "hint": 1
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 2
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 10
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 101
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
+    },
+    {
+        "hint": 0
     }
 ]
