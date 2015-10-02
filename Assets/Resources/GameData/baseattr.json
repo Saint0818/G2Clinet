@@ -21,7 +21,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 10
     },
     {
@@ -46,7 +46,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 8
     },
     {
@@ -71,7 +71,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 6
     },
     {
@@ -96,7 +96,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 4
     },
     {
@@ -121,7 +121,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 2
     },
     {
@@ -146,7 +146,7 @@
         "blockdistance": 0,
         "defdistance": 0,
         "speedvalue": 0.85,
-        "staminavalue": 20,
+        "staminavalue": 10,
         "autofollowtime": 1
     }
 ]

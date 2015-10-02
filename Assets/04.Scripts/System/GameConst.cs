@@ -11,13 +11,13 @@ public class GameConst
 	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
 
 	//Game play move speed
-	public const float DefSpeedup = 8.2f;
-	public const float DefSpeedNormal = 7.2f;
-	public const float BallOwnerSpeedup = 7.5f;
-	public const float BallOwnerSpeedNormal = 6.5f;
-	public const float WalkSpeed = 5.5f;
-	public const float AttackSpeedup = 8;
-	public const float AttackSpeedNormal = 7;
+	public const float DefSpeedup = 7.5f;
+	public const float DefSpeedNormal = 6.2f;
+	public const float BallOwnerSpeedup = 6.5f;
+	public const float BallOwnerSpeedNormal = 5f;
+	public const float WalkSpeed = 3.2f;
+	public const float AttackSpeedup = 7;
+	public const float AttackSpeedNormal = 5.7f;
 	public const float TreePointDistance = 10.6f;
 	public const float TwoPointDistance = 7;
 	public const float DunkDistance = 7;
