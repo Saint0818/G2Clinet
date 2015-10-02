@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -27,6 +28,11 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         public Vector3 Position;
         public Vector3 EulerAngle;
     }
+
+    /// <summary>
+    /// Camera 內差時間, 單位: 秒.
+    /// </summary>
+    private const float TweenTime = 0.3f;
 
     private readonly Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>> mCameraPos =
         new Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>>
@@ -89,8 +95,8 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
     public void SetCamera(UICreateRoleStyleView.EEquip equip)
     {
-        CamerAnimator.transform.localPosition = mCameraPos[mCurrentPos][equip].Position;
-        CamerAnimator.transform.eulerAngles = mCameraPos[mCurrentPos][equip].EulerAngle;
+        CamerAnimator.transform.DOLocalMove(mCameraPos[mCurrentPos][equip].Position, TweenTime);
+        CamerAnimator.transform.DOLocalRotate(mCameraPos[mCurrentPos][equip].EulerAngle, TweenTime);
     }
 
     public void Hide()
