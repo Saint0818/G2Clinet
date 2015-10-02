@@ -175,7 +175,7 @@ public class UIDoubleClick : UIBase {
 	private Vector2 size;
 	private Vector2 size2;
 	private Vector2 SecondStartSize;
-	private int combo = 0;
+	public int Combo = 0;
 	private ParticleSystem[] lvEffect = new ParticleSystem[2];
 	private GameObject BottomRight; 
 
@@ -263,19 +263,19 @@ public class UIDoubleClick : UIBase {
 				lvEffect[0].gameObject.SetActive(true);
 				lvEffect[0].Play();
 				if(type == EDoubleClick.Shoot)
-					combo = 0;
+					Combo = 0;
 				break;
 			case 1:
 			case 2:
 				if(type == EDoubleClick.Shoot)
-					combo++;
+					Combo++;
 				lvEffect[1].gameObject.SetActive(true);
 				lvEffect[1].Play();
 				break;
 		}
 
 		if (type == EDoubleClick.Shoot && Lv > 0)
-			DoubleClicks [playerIndex].SetComBoEffect (combo);	
+			DoubleClicks [playerIndex].SetComBoEffect (Combo);	
 		else
 			DoubleClicks [playerIndex].SetComBoEffect (0);
 	}
