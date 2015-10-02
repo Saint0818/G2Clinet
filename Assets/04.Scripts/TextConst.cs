@@ -89,57 +89,57 @@ public static class TextConst
 			AddString (23, "CENTER", "CENTER");
 
 
-			AddString (2000011, "競賽開始邁入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
+			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");
-			AddString (2000012, "競賽時間剩下最後[FF3355]{0}秒[-]就要結束比賽！！！", 
+			AddString (2000012, "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
 			           "Game time last remaining [FF3355] {0} seconds [-] will end the game! ! !");
 			AddString (2000100, "[FFDD33]{1}[-][BBFF33]已達成得分目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] have reached the target score! ! ! [-]");
 			AddString (2000101, "[FFDD33]{1}[-]已達成一半的得分目標。", 
 			           "[FFDD33]{1}[-] have reached half scoring goals.");
-			AddString (2000102, "[FFDD33]{1}[-]只要再得到[FF3355]{0}分[-]即可獲得勝利！！！", 
+			AddString (2000102, "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可獲得勝利！！！", 
 			           "[FFDD33]{1}[-] as long again to get [FF3355] {0} minutes [-] to win! ! !");
-			AddString (2000201, "[FFDD33]{1}[-]只要再失去[FF3355]{0}分[-]就會輸掉這場競賽。", 
+			AddString (2000201, "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就會輸掉這場競賽。", 
 			           "[FFDD33] {1} [-] as long to lose [FF3355] {0} minutes [-] will lose the race.");
 			AddString (2000202, "[FFDD33]{1}[-]要守住最後的[FF3355]{0}分[-]啊！！！", 
 			           "[FFDD33] {1} [-] to hold the final [FF3355] {0} minutes [-] ah! ! !");
-			AddString (2000301, "[FFDD33]{1}[-]只要再得到[FF3355]{0}分[-]就可以獲得勝利。", 
+			AddString (2000301, "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。", 
 			           "FFDD33] {1} [-] as long again to get [FF3355] {0} minutes [-] can win.");
 			AddString (2000302, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！", 
 			           "[FFDD33] {1} [-] distance wins're just [FF3355] {0} minutes [-]! ! !");
 			AddString (2001000, "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] has reached a 2-point goal! ! ! [-]");
-			AddString (2001001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球就可以獲得勝利。", 
+			AddString (2001001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。", 
 			           "[FFDD33] {1} [-] Just then dropped [FF3355] {0} teeth [-] 2-point shot can win.");
 			AddString (2001002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！", 
 			           "[FFDD33] {1} [-] distance wins're just [FF3355] {0} teeth [-] 2-point shot! ! !");
 			AddString (2002000, "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] has reached a 3-point goal! ! ! [-]");
-			AddString (2002001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球就可以獲得勝利。", 
+			AddString (2002001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then dropped [FF3355] {0} teeth [-] 3-point shot can win.");
 			AddString (2002002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} teeth [-] 3-point shot! ! !");
 			AddString (2003000, "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] dunk goal has been reached! ! ! [-]");
-			AddString (2003001, "[FFDD33]{1}[-]只要再進行[FF3355]{0}次[-]灌籃就可以獲得勝利。", 
+			AddString (2003001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] dunk you can win.");
 			AddString (2003002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] dunk! ! !");
 			AddString (2004000, "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] tear down the goal has been reached! ! ! [-]");
-			AddString (2004001, "[FFDD33]{1}[-]只要再進行[FF3355]{0}次[-]推倒就可以獲得勝利。", 
+			AddString (2004001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] down you can win.");
 			AddString (2004002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] down! ! !");
 			AddString (2005000, "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] steals the goal has been reached! ! ! [-]");
-			AddString (2005001, "[FFDD33]{1}[-]只要再進行[FF3355]{0}次[-]抄截就可以獲得勝利。", 
+			AddString (2005001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] steals you can win.");
 			AddString (2005002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] steals! ! !");
 			AddString (2006000, "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] have reached a hot target! ! ! [-]");
-			AddString (2006001, "[FFDD33]{1}[-]只要再進行[FF3355]{0}次[-]火鍋就可以獲得勝利。", 
+			AddString (2006001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] pot you can win.");
 			AddString (2006002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] hot! ! !");
