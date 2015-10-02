@@ -65,6 +65,7 @@ public enum EPlayerState
 	Dribble0,
 	Dribble1,
 	Dribble2,
+	Dribble3,
 	Dunk0,
 	Dunk2 = 611,
 	Dunk4 = 613,
@@ -347,6 +348,7 @@ public static class StateChecker {
 			LoopStates.Add(EPlayerState.Dribble0,true);
 			LoopStates.Add(EPlayerState.Dribble1,true);
 			LoopStates.Add(EPlayerState.Dribble2,true);
+			LoopStates.Add(EPlayerState.Dribble3,true);
 
 			PassStates.Add(EPlayerState.Pass0, true);
 			PassStates.Add(EPlayerState.Pass1, true);
@@ -1471,30 +1473,17 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 
 	                if (animationSpeed <= MoveMinSpeed){ 
-						//Run
-
-						moveKind = 1;                      
+						moveKind = 0;                      
 	                } else {
-						if(MovePower == 0){ //Walk
-							moveKind = 0;
-						}
-						else{ //Dash
+						if(MovePower == 0)
 							moveKind = 2;
-						}
+						else
+							moveKind = 1;
 	                }
 
 					switch(moveKind)
 					{
-						case 0:
-							setSpeed(0.2f, 0);
-							if (IsBallOwner)                      
-								ps = EPlayerState.Dribble1;
-							else
-								ps = EPlayerState.Run0;
-
-							CalculateSpeed = GameConst.WalkSpeed;
-							break;
-						case 1:
+						case 0://run
 							if (animationSpeed <= MoveMinSpeed)
 								isSpeedup = false;
 							setSpeed(0.3f, 0);
@@ -1502,16 +1491,16 @@ public class PlayerBehaviour : MonoBehaviour
 								CalculateSpeed = GameConst.BallOwnerSpeedNormal;
 								ps = EPlayerState.Dribble1;
 							}
-							else
-							{
-								ps = EPlayerState.Run2;
+							else{
+								ps = EPlayerState.Run0;
 								if (IsDefence)
 									CalculateSpeed = GameConst.DefSpeedNormal;
 								else
 									CalculateSpeed = GameConst.AttackSpeedNormal;
 							}
 							break;
-						case 2:
+
+						case 1://dash
 							isSpeedup = true;
 							setSpeed(1f, 0);
 
@@ -1519,8 +1508,7 @@ public class PlayerBehaviour : MonoBehaviour
 								CalculateSpeed = GameConst.BallOwnerSpeedup;
 								ps = EPlayerState.Dribble2;
 							}
-							else
-							{
+							else{
 								ps = EPlayerState.Run1;
 								if (IsDefence)
 									CalculateSpeed = GameConst.DefSpeedup;
@@ -1528,6 +1516,16 @@ public class PlayerBehaviour : MonoBehaviour
 									CalculateSpeed = GameConst.AttackSpeedup;
 							}
 
+							break;
+
+						case 2://walk
+							setSpeed(0.2f, 0);
+							if (IsBallOwner)                      
+								ps = EPlayerState.Dribble3;
+							else
+								ps = EPlayerState.Run2;
+							
+							CalculateSpeed = GameConst.WalkSpeed;
 							break;
 					}
 					Debug.Log("MoveKind : " + moveKind);
@@ -2029,11 +2027,8 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.GotSteal:
-                if (!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow && IsRun &&
-                    (crtState == EPlayerState.Dribble0 ||
-                    crtState == EPlayerState.Dribble1 || 
-                    crtState == EPlayerState.Dribble2 || 
-                    crtState == EPlayerState.FakeShoot || 
+			if (!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow && IsRun && IsDribble &&
+                    (crtState == EPlayerState.FakeShoot || 
                     crtState == EPlayerState.HoldBall || 
                     crtState == EPlayerState.Idle || 
                     crtState == EPlayerState.Defence0 || 
@@ -2045,6 +2040,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble0:
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
+            case EPlayerState.Dribble3:
 			if (IsBallOwner && !IsPickBall && !IsPass && !IsAllShoot)
 				if((!CanMove && IsFirstDribble) || (CanMove && crtState != state) || (crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1))
                 {
@@ -2307,6 +2303,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dribble0:
             case EPlayerState.Dribble1:
             case EPlayerState.Dribble2:
+            case EPlayerState.Dribble3:
                 if (GameController.Get.BallOwner == this)
                 {
                     switch (state)
@@ -2324,9 +2321,12 @@ public class PlayerBehaviour : MonoBehaviour
                             stateNo = 2;
 							DashEffectEnable(true);
                             break;
+						case EPlayerState.Dribble3:
+							PlayerRigidbody.mass = 0;
+							stateNo = 3;
+							DashEffectEnable(false);
+							break;
                     }
-//                    if (!isJoystick)
-//                        SetSpeed(0, -1);
                     ClearAnimatorFlag();
                     AnimatorControl.SetInteger("StateNo", stateNo);
                     AddActionFlag(EActionFlag.IsDribble);
@@ -3660,7 +3660,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDribble
     {
-        get{ return crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2;}
+		get{ return crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.Dribble3;}
     }
 
     public bool IsDunk
