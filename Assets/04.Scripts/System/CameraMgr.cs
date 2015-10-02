@@ -26,7 +26,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 {
     //Game const
     private Shake mShake;
-    private float safeZ = 15f;
+    private float safeZ = 16.5f;
     private float safeZRateAdd = 1.5f;
     private float safeZRateMinus = 1.5f;
 	private float focusOffsetBuffer = 3f;
