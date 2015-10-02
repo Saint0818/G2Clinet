@@ -2048,7 +2048,7 @@ public class GameController : KnightSingleton<GameController>
 		if (player == BallOwner)
 		{
 			PlusScore(player.Team.GetHashCode(), true, false);
-			GameController.Get.ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
+			ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 			
 			player.GameRecord.Dunk++;
 			if (ShootDistance >= GameConst.TreePointDistance)
@@ -2068,7 +2068,7 @@ public class GameController : KnightSingleton<GameController>
 			if (player.crtState == EPlayerState.Alleyoop)
 				player.GameRecord.Alleyoop++;
 			else
-				GameController.Get.ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
+				ShowWord(EShowWordType.Dunk, player.Team.GetHashCode());
 
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
 			if(GameStart.Get.TestMode == EGameTest.Alleyoop) 
