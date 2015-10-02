@@ -3786,10 +3786,10 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    private void setMovePower(float Value)
+    private void setMovePower(float value)
     {
-        MaxMovePower = Value;
-        MovePower = Value;
+        MaxMovePower = value;
+        MovePower = value;
     }
 
     private int isTouchPalyer = 0;

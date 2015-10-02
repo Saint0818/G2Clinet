@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using JetBrains.Annotations;
@@ -13,6 +14,7 @@ using UnityEngine;
 /// <item> Call Show() or Hide() 控制球員要不要顯示. </item>
 /// <item> Call UpdateModel() 幫模型換裝. </item>
 /// <item> Call SetCamera() 設定 Camera 的位置. </item>
+/// <item> Call PlayAnimation() 撥換裝球員的動作. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -20,6 +22,8 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 {
     [Header("3D Camera")]
     public Animator CamerAnimator;
+
+    public GameObject Ball;
 
     [CanBeNull] private UI3DCreateRoleCommon.Player mPlayer;
 
@@ -60,7 +64,17 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
             { UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(640, -60, 410), EulerAngle = new Vector3(0, -7.5f, 0)} },
             { UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(640, -270, 410), EulerAngle = new Vector3(0, -7.5f, 0)} },
             { UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(720, -365, 435), EulerAngle = new Vector3(0, -7.5f, 0)} },
-        }},
+        }}
+    };
+
+    /// <summary>
+    /// 當撥動作完畢後, 要經過幾秒才會顯示球.
+    /// </summary>
+    private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
+    {
+        {EPlayerPostion.G, 1.2f},
+        {EPlayerPostion.F, 1.2f},
+        {EPlayerPostion.C, 1.2f},
     };
 
     private UI3DCreateRoleCommon mCommon;
@@ -78,13 +92,13 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         mCurrentPos = pos;
 
         CamerAnimator.enabled = false;
-//        CamerAnimator.transform.localPosition = new Vector3(0, -18, 325);
 
         if(mPlayer != null)
             mPlayer.Destroy();
 
         mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
                                                   "StyleViewPlayer", playerID, pos);
+        mPlayer.SetBall(Instantiate(Ball));
     }
 
     public void UpdateModel(UICreateRoleStyleView.EEquip equip, int itemID)
@@ -97,6 +111,22 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     {
         CamerAnimator.transform.DOLocalMove(mCameraPos[mCurrentPos][equip].Position, TweenTime);
         CamerAnimator.transform.DOLocalRotate(mCameraPos[mCurrentPos][equip].EulerAngle, TweenTime);
+    }
+
+    public void PlayAnimation(string animName)
+    {
+        if(mPlayer != null)
+        {
+            mPlayer.PlayAnimation(animName);
+            StartCoroutine(showBall());
+        }
+    }
+
+    private IEnumerator showBall()
+    {
+        yield return new WaitForSeconds(mShowBallTime[mCurrentPos]);
+        if(mPlayer != null)
+            mPlayer.ShowBall();
     }
 
     public void Hide()
