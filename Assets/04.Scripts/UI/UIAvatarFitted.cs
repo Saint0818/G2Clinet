@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 public struct TItemAvatar
 {
-	public int Index;
+	public int Index; //-1 : Player.Item 
 	public int ID;
 	public int Position;
 	public string AbilityKind;
@@ -245,13 +245,16 @@ public class UIAvatarFitted : UIBase {
 	private const string UIName = "UIAvatarFitted";
 	private const int avatarPartCount = 7;
 	private GameObject item;
-	private TItemAvatar[] items;
+	private TItemAvatar[] backpackItems;
+	private TItemAvatar[] playerItems;
 	private bool isInit = false;
 	private UIGrid grid;
 	private UIScrollView scrollView;
 	private GameObject disableGroup;
+	private int enableCount = 0;
 	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
+	private int [] AvatarKind = new int [7]{1,2,3,4,5,10,11};
 	private TAvatar EquipsAvatar = new TAvatar();
 
 	public static bool Visible {
@@ -287,15 +290,12 @@ public class UIAvatarFitted : UIBase {
 
 	void Update()
 	{
-		if(items != null)
-			for(int i = 0; i < items.Length; i++)
-			{
-				if(items[i].Enable)
-				{
-					checktime = items[i].EndUseTime - System.DateTime.UtcNow;
-					items[i].UseTime = checktime;
+		if(backpackItems != null)
+			for(int i = 0; i < backpackItems.Length; i++){
+				if(backpackItems[i].Enable){
+					checktime = backpackItems[i].EndUseTime - System.DateTime.UtcNow;
+					backpackItems[i].UseTime = checktime;
 				}
-
 			}
 	}
 
@@ -423,23 +423,59 @@ public class UIAvatarFitted : UIBase {
 		return true;
 	}
 
+	private bool IsAvatarKind(int kind)
+	{
+		for(int i = 0; i < AvatarKind.Length;i++)
+			if(AvatarKind[i] == kind)
+				return true;
+
+		return false;
+
+	}
+
+	private int GetAvatarCountInTeamItem()
+	{
+//		int result = 0;
+//
+//		if (GameData.Team.Items.Length > 0) {
+//			for(int i = 0; i < GameData.Team.Items.Length;i++)
+//			{
+//				if(IsAvatarKind(GetItemKind(GameData.Team.Items[i].ID)))
+//					result++;
+//			}
+//		}
+//
+//		return result;
+		return GameData.Team.Items.Length;
+	}
+
+	private int GetAvatarCountInPlayerItem()
+	{
+//		int result = 0;
+//		if(GameData.Team.Player.Items.Length > 0)
+//			for(int i = 0; i < GameData.Team.Player.Items.Length;i++)
+//				if(GameData.Team.Player.Items[i].ID > 0)
+//					result++;
+//
+//		return result;
+
+		return GameData.Team.Player.Items.Length;
+	}
+
 	private bool CheckItemCount()
 	{
-		if (isInit && GameData.Team.Items!= null) {
-			if (GameData.Team.Items.Length > 0 && item) {
-				if(items == null){
-					items = new TItemAvatar[GameData.Team.Items.Length];
-				}
-				else
-				{
-					if(GameData.Team.Items.Length == items.Length)
-					{
-						return true;
-					}
-					else if(GameData.Team.Items.Length > items.Length){
-						Array.Resize(ref items, GameData.Team.Items.Length);
-					}
-				}
+		int all =  GetAvatarCountInTeamItem() + GetAvatarCountInPlayerItem();
+
+		if (backpackItems == null) {
+			backpackItems = new TItemAvatar[all];		
+			return true;
+		}
+		else
+		{
+			if(all == backpackItems.Length)
+				return true;
+			else if(all > backpackItems.Length){
+				Array.Resize(ref backpackItems, GameData.Team.Items.Length);
 				return true;
 			}
 		}
@@ -449,59 +485,92 @@ public class UIAvatarFitted : UIBase {
 
 	private void InitItems()
 	{
-		for(int i = 0; i < items.Length; i++){
-			if(items[i].gameobject == null){
-				items[i].gameobject = Instantiate(item) as GameObject;
-				items[i].gameobject.transform.parent = grid.transform;
-				items[i].gameobject.transform.localScale = Vector3.one;
-				items[i].gameobject.name = i.ToString();
-				items[i].DisablePool = disableGroup.gameObject.transform;
-				items[i].EnablePool = grid.gameObject.transform;
-				items[i].Init();
-				items[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
+		enableCount = 0;
+
+		for(int i = 0; i < backpackItems.Length; i++){
+			if(backpackItems[i].gameobject == null){
+				backpackItems[i].gameobject = Instantiate(item) as GameObject;
+				backpackItems[i].gameobject.transform.parent = grid.transform;
+				backpackItems[i].gameobject.transform.localScale = Vector3.one;
+				backpackItems[i].gameobject.name = i.ToString();
+				backpackItems[i].DisablePool = disableGroup.gameObject.transform;
+				backpackItems[i].EnablePool = grid.gameObject.transform;
+				backpackItems[i].Init();
+				backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
 			}
 
-			if(items[i].ID != GameData.Team.Items[i].ID)
+			if(i < GameData.Team.Items.Length)
 			{
-				items[i].ID = GameData.Team.Items[i].ID;
-				items[i].Position = GameData.DItemData[items[i].ID].Position;
-				items[i].EndUseTime = GameData.Team.Items[i].UseTime;
-				items[i].Name =  GameData.DItemData[items[i].ID].Name;
-				items[i].Pic = GameData.DItemData[items[i].ID].Icon;
-				items[i].AbilityKind = GetItemKind(items[i].ID).ToString();
-			}
-
-			if(i >= GameData.Team.Items.Length)
-			{
-				items[i].Enable = false;
-			}
-			else {
-				if(GameData.DItemData.ContainsKey(items[i].ID) && GetItemKind(items[i].ID) != avatarPart)
+				//Team.Items
+				if(backpackItems[i].ID != GameData.Team.Items[i].ID)
 				{
-					items[i].gameobject.transform.localPosition = Vector3.zero;
-					items[i].Enable = false;
+					backpackItems[i].ID = GameData.Team.Items[i].ID;
+					backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
+					backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
+					backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
+					backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
+					backpackItems[i].AbilityKind = GetItemKind(backpackItems[i].ID).ToString();
+					backpackItems[i].Index = i;
 				}
-				else
+			}
+			else
+			{
+				int playerItemIndex = i - GameData.Team.Items.Length;
+				if(playerItemIndex < GameData.Team.Player.Items.Length){
+					if(backpackItems[i].ID !=  GameData.Team.Player.Items[playerItemIndex].ID)
+					{
+						backpackItems[i].ID = GameData.Team.Player.Items[playerItemIndex].ID;
+						backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
+						backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
+						backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
+						backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
+						backpackItems[i].AbilityKind = GetItemKind(backpackItems[i].ID).ToString();
+						backpackItems[i].Index = -1;
+					}
+				}
+			}
+
+			Debug.Log("backpackItems[i].ID :" + backpackItems[i].ID);
+			//ItemVisable
+			int kind = GetItemKind(backpackItems[i].ID);
+
+			if(GameData.DItemData.ContainsKey(backpackItems[i].ID) && kind == avatarPart)
+			{
+				#if UIAvatarFitted_ShowAll
+				items[i].Enable = true;
+				#else
+				if(kind < 10)
 				{
-					#if UIAvatarFitted_ShowAll
-					items[i].Enable = true;
-					#else
-					if(items[i].Position != GameData.Team.Player.BodyType)
-						items[i].Enable = false;
+					if(backpackItems[i].Position != GameData.Team.Player.BodyType)
+						backpackItems[i].Enable = false;
 					else
-						items[i].Enable = true;
-					#endif
+					{
+						backpackItems[i].Enable = true;
+						enableCount++;
+					}
 				}
+				else{
+					backpackItems[i].Enable = true;
+					enableCount++;
+				}
+				#endif
 			}
+			else
+			{
+				backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
+				backpackItems[i].Enable = false;
+			}
+				
 		}
 
 		grid.Reposition ();
 		grid.gameObject.SetActive (false);
 		grid.gameObject.SetActive (true);
-
 		scrollView.ResetPosition ();
 		scrollView.enabled = false;
 		scrollView.enabled = true;
+
+		Debug.Log ("enableCount : " + enableCount);
 	}
 
 	public void OnBuy()
@@ -523,10 +592,10 @@ public class UIAvatarFitted : UIBase {
 			{
 				if(GameData.DItemData.ContainsKey(GameData.Team.Player.Items[i].ID) && 
 				   GetItemKind(GameData.Team.Player.Items[i].ID) == avatarPart){
-					for(int y = 0; y < items.Length; y++)
+					for(int y = 0; y < backpackItems.Length; y++)
 					{
-						if(GameData.Team.Player.Items[i].ID == items[y].ID)
-							items[y].Equip = true;
+						if(GameData.Team.Player.Items[i].ID == backpackItems[y].ID)
+							backpackItems[y].Equip = true;
 					}
 				}
 			}
@@ -535,44 +604,49 @@ public class UIAvatarFitted : UIBase {
 
 	private void UnEquipAll()
 	{
-		for(int i = 0; i < items.Length;i++)
-			items[i].Equip = false;
+		for(int i = 0; i < backpackItems.Length;i++)
+			backpackItems[i].Equip = false;
 	}
 
 	public void OnEquip()
 	{
 		int index;
 
-		if (int.TryParse (UIButton.current.name, out index)) {
-			if(index < items.Length)
-			{
-				if(!items[index].Equip){
-					items[index].Equip = true;
+		if (enableCount <= 1 && avatarPart < 10) {
+			Debug.Log("need two Item");
+			return;		
+		}
 
-					if(!Equips.ContainsKey(items[index].ID))
+		if (int.TryParse (UIButton.current.name, out index)) {
+			if(index < backpackItems.Length)
+			{
+				if(!backpackItems[index].Equip){
+					backpackItems[index].Equip = true;
+
+					if(!Equips.ContainsKey(backpackItems[index].ID))
 					{
 						TEquip equip = new TEquip();
-						equip.ID = items[index].ID;
-						equip.Kind = GetItemKind(items[index].ID);
+						equip.ID = backpackItems[index].ID;
+						equip.Kind = GetItemKind(backpackItems[index].ID);
 						Equips.Add(equip.ID, equip);
 						ItemIdTranslateAvatar(equip.ID);
-						ModelManager.Get.SetAvatarTexture(avatar, EquipsAvatar, GameData.Team.Player.BodyType, avatarPart,GameData.DItemData[items[index].ID].Avatar);
+						ModelManager.Get.SetAvatarTexture(avatar, EquipsAvatar, GameData.Team.Player.BodyType, avatarPart,GameData.DItemData[backpackItems[index].ID].Avatar);
 					}
 
-					for(int i = 0; i < items.Length;i++)
+					for(int i = 0; i < backpackItems.Length;i++)
 					{
 						//找出已裝備的Item
-						if(items[index].Enable && i != index)
+						if(backpackItems[index].Enable && i != index)
 						{
-							items[i].Equip = false;
-							if(Equips.ContainsKey(items[i].ID))
-								Equips.Remove(items[i].ID);
+							backpackItems[i].Equip = false;
+							if(Equips.ContainsKey(backpackItems[i].ID))
+								Equips.Remove(backpackItems[i].ID);
 						}
 					}
 				}
 				else
 				{
-					items[index].Equip = false;
+					backpackItems[index].Equip = false;
 				}
 			}
 		}
