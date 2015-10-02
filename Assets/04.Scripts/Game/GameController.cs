@@ -438,7 +438,7 @@ public class GameController : KnightSingleton<GameController>
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
 			SetBornPositions();
-			PlayZeroPosition ();
+			//PlayZeroPosition ();
         	break;
 		case EGameTest.All:
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], new GameStruct.TPlayer(0)));	

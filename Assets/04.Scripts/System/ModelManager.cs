@@ -541,6 +541,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					rig = result.AddComponent<Rigidbody> ();
 				
 				rig.freezeRotation = true;
+				rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 			}
 		} catch (UnityException e) {
 			Debug.Log(e.ToString());
