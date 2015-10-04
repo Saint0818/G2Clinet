@@ -603,12 +603,16 @@ public class PlayerBehaviour : MonoBehaviour
         gameObject.tag = "Player";
 
         AnimatorControl = gameObject.GetComponent<Animator>();
-        PlayerRigidbody = gameObject.GetComponent<Rigidbody>();
 		skillController = gameObject.GetComponent<SkillController>();
+		PlayerRigidbody = gameObject.GetComponent<Rigidbody> ();
+		if (PlayerRigidbody == null)
+			PlayerRigidbody = gameObject.AddComponent<Rigidbody> ();
+
+		PlayerRigidbody.mass = 0.1f;
+		PlayerRigidbody.freezeRotation = true;
 
 		ScoreRate = new TScoreRate(1);
 		DashEffectEnable (false);
-
     }
 	
 	private void changePlayerColor (){
@@ -1385,7 +1389,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationPlayerHight()
     {
-        AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
+        /*AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
 
         if (isCheckLayerToReset)
         {
@@ -1398,7 +1402,7 @@ public class PlayerBehaviour : MonoBehaviour
                 isCheckLayerToReset = false;
                 isStartCheckLayer = false;
             }
-        }
+        }*/
 
 		//Effect Handel
 		if (gameObject.transform.localPosition.y > 0.5f) {
@@ -2135,14 +2139,16 @@ public class PlayerBehaviour : MonoBehaviour
         int stateNo = 0;
         string curveName = string.Empty;
 		bool isFindCurve = false;
-        PlayerRigidbody.mass = 0;
+        PlayerRigidbody.mass = 0.1f;
 		PlayerRigidbody.useGravity = true;
 		IsKinematic = false;
 		DribbleTime = 0;
 		isUseSkill = false;
 
+		if (gameObject.layer == LayerMask.NameToLayer("Shooter"))
+			gameObject.layer = LayerMask.NameToLayer("Player");
+
 		if (GameStart.Get.IsDebugAnimation)
-//			LogMgr.Get.AddAnimationLog ((int)Team * 3 + Index, "Do ** " + gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
 			Debug.Log (gameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
 
 		DashEffectEnable (false);
@@ -2313,16 +2319,13 @@ public class PlayerBehaviour : MonoBehaviour
                             stateNo = 0;
                             break;
                         case EPlayerState.Dribble1:
-                            PlayerRigidbody.mass = 0;
                             stateNo = 1;
                             break;
                         case EPlayerState.Dribble2:
-                            PlayerRigidbody.mass = 0;
                             stateNo = 2;
 							DashEffectEnable(true);
                             break;
 						case EPlayerState.Dribble3:
-							PlayerRigidbody.mass = 0;
 							stateNo = 3;
 							DashEffectEnable(false);
 							break;

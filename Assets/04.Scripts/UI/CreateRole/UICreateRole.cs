@@ -115,20 +115,14 @@ public class UICreateRole : UIBase
 
     public static GameObject CreateModel(string name, TPlayer player, Transform parent)
     {
-//        Debug.LogFormat("Player:{0}, Avatar:{1}", player, player.Avatar);
-
         GameObject model = new GameObject { name = name };
-        ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, false);
+		ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, EAnimatorType.AvatarControl);
 
         model.transform.parent = parent;
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         model.transform.localScale = Vector3.one;
         model.layer = LayerMask.NameToLayer("UI3D");
-        foreach (Transform child in model.transform)
-        {
-            child.gameObject.layer = LayerMask.NameToLayer("UI3D");
-        }
 
         return model;
     }

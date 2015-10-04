@@ -13,7 +13,6 @@ public class BallTrigger : MonoBehaviour
 	private bool Parabolamove = false;  
 	private bool Passing = false;
 	public static int PassKind = -1;
-//	private float PassCheckTime = 0;
 	private float ParabolaTime = 0;
 	private float ParabolaDis = 0;
 	private TBallCurve BallHeight;
@@ -87,6 +86,7 @@ public class BallTrigger : MonoBehaviour
 		}
         else if(other.gameObject.CompareTag("Floor")) 
 		{
+			AudioMgr.Get.PlaySound (SoundType.SD_dribble);
 			GameController.Get.BallOnFloor();
 			IsAutoRotate = false;
 		} 
@@ -308,22 +308,7 @@ public class BallTrigger : MonoBehaviour
 		return Result;
 	}
 
-	void LateUpdate()
-	{
-//		if (gameObject.activeInHierarchy) {
-//			if (gameObject.transform.position.y < 0)
-//				gameObject.transform.position = new Vector3(gameObject.transform.position.x, 0.3f, gameObject.transform.position.z);
-//
-//			if (Mathf.Abs(gameObject.transform.position.x) > 20)
-//			    gameObject.transform.position = Vector3.zero;
-//
-//			if (Mathf.Abs(gameObject.transform.position.z) > 20)
-//			    gameObject.transform.position = Vector3.zero;
-//		}
-	}
-
 	public void PassEnd(){
-//		PassCheckTime = 0;
 		GameController.Get.SetEndPass();
 		CameraMgr.Get.IsLongPass = false;
 	}
@@ -336,14 +321,6 @@ public class BallTrigger : MonoBehaviour
 		if (IsAutoRotate) {
 			ParentRigidbody.gameObject.transform.Rotate (ParentRigidbody.gameObject.transform.forward * -10);
 		}
-
-
-//		if(GameController.Get.IsPassing && PassCheckTime > 0 && Time.time >= PassCheckTime)
-//		{
-//			PassCheckTime = 0;
-//			GameController.Get.Catcher = null;
-//			GameController.Get.IsPassing = false;
-//		}
 	}
 
 	public bool IsAutoRotate 

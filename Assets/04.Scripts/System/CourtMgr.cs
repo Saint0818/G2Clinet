@@ -28,7 +28,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	private GameObject[] skillAeraEffect = new GameObject[2];
 	private Vector3[] animPos = new Vector3[2];
 	private Vector3[] animRotate = new Vector3[2];
-	private LightmapData[] lightmapData = new LightmapData[1];
 
 	public GameObject[] DunkPoint = new GameObject[2];
 	public GameObject[] DunkJumpPoint = new GameObject[2];
@@ -249,14 +248,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
     void Awake()
     {
-		lightmapData[0] = new LightmapData();
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("RealBall"));
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("RealBall"));
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("BasketCollider"));
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Player"), LayerMask.NameToLayer ("Shooter"));
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Shooter"), LayerMask.NameToLayer ("Shooter"));
-        
-        CheckCollider();
+		CheckCollider();
 	}
 
 	public void InitCourtScene()
@@ -591,6 +583,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
 	{
+		realBallCollider.enabled = true;
+		RealBallRigidbody.isKinematic = false;
+		RealBallRigidbody.useGravity = true;
+
 		if(!GameController.Get.IsStart && state != EPlayerState.Start && 
            state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
 			return;

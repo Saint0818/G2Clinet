@@ -534,6 +534,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		try {
 			GameData.StageData = (TStage[])JsonConvert.DeserializeObject (text, typeof(TStage[]));
 			for (int i = 0; i < GameData.StageData.Length; i++) {
+				if (GameData.StageData[i].ID > 0 && !GameData.DStageData.ContainsKey(GameData.StageData[i].ID))
 				GameData.DStageData.Add(GameData.StageData[i].ID, GameData.StageData[i]);
 			}
 			

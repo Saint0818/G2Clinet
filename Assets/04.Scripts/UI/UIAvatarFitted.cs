@@ -737,7 +737,7 @@ public class UIAvatarFitted : UIBase {
 		avatar.transform.localScale = Vector3.one * 500;
 		avatar.transform.localPosition = new Vector3 (-1160, -633, -2000);
 
-		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, false, false);
+		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
 		changeLayersRecursively (avatar.transform, "UIPlayer");
 	}
 

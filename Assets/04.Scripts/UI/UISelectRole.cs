@@ -286,7 +286,7 @@ public class UISelectRole : UIBase {
 			arrayPlayerData[i].SetID(arraySelectID[0]);
 			arrayPlayer[i].name = i.ToString();
 			arrayPlayer[i].transform.parent = playerInfoModel.transform;
-			ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, GameData.DPlayers[arraySelectID[0]].BodyType, false, false);
+			ModelManager.Get.SetAvatar(ref arrayPlayer[i], arrayPlayerData[i].Avatar, GameData.DPlayers[arraySelectID[0]].BodyType, EAnimatorType.AvatarControl, false);
 			arrayAnimator[i] = arrayPlayer[i].GetComponent<Animator>();
 			arrayPlayer[i].GetComponent<CapsuleCollider>().enabled = false;
 			arrayPlayer[i].transform.localPosition = arrayPlayerPosition[i];
@@ -417,7 +417,7 @@ public class UISelectRole : UIBase {
 		arrayPlayerData[RoleIndex].SetAvatar();
 		GameObject temp = arrayPlayer [RoleIndex];
 
-		ModelManager.Get.SetAvatar(ref arrayPlayer[RoleIndex], arrayPlayerData[RoleIndex].Avatar, GameData.DPlayers [id].BodyType, false, false, true);
+		ModelManager.Get.SetAvatar(ref arrayPlayer[RoleIndex], arrayPlayerData[RoleIndex].Avatar, GameData.DPlayers [id].BodyType, EAnimatorType.AvatarControl, false, true);
 
 		arrayPlayer[RoleIndex].name = RoleIndex.ToString();
 		arrayPlayer[RoleIndex].transform.parent = playerInfoModel.transform;
@@ -747,7 +747,7 @@ public class UISelectRole : UIBase {
 		arrayPlayerData[0] = GameData.Team.Player;
 
 		GameObject temp = arrayPlayer [0];
-		ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, false, false, true);
+		ModelManager.Get.SetAvatar(ref arrayPlayer[0], GameData.Team.Player.Avatar, GameData.DPlayers [GameData.Team.Player.ID].BodyType, EAnimatorType.AvatarControl, false, true);
 
 		arrayPlayer[0].name = 0.ToString();
 		arrayPlayer[0].transform.parent = playerInfoModel.transform;

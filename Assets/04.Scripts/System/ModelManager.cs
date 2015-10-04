@@ -7,7 +7,7 @@ using GameStruct;
 using GameEnum;
 using ProMaterialCombiner;
 
-public enum EanimatorType
+public enum EAnimatorType
 {
 	AnimationControl,
 	AvatarControl,
@@ -36,13 +36,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 	}
 
 	public void PreloadResource(TAvatar attr, int bodyType) {
-		//load animator
-		for (int i = 0; i < 3; i++) {
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.AnimationControl.ToString()));
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.AvatarControl.ToString()));
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EanimatorType.ShowControl.ToString()));
-		}
-
 		string bodyNumber = bodyType.ToString();
 		string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 		string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
@@ -73,11 +66,17 @@ public class ModelManager : KnightSingleton<ModelManager> {
     }
 
 	public void LoadAllSelectPlayer(int[] id) {
-		for (int i = 0; i < id.Length; i++)
-		if (GameData.DPlayers.ContainsKey(id[i])) {
-			TAvatar avatar = new TAvatar(id[i]);
-			PreloadResource(avatar, GameData.DPlayers[id[i]].BodyType);
+		//load animator
+		for (int i = 0; i < 3; i++) {
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()));
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString()));
 		}
+
+		for (int i = 0; i < id.Length; i++)
+			if (GameData.DPlayers.ContainsKey(id[i])) {
+				TAvatar avatar = new TAvatar(id[i]);
+				PreloadResource(avatar, GameData.DPlayers[id[i]].BodyType);
+			}
 	}
 
 	private GameObject loadBody(string path) {
@@ -143,7 +142,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if (GameStart.Get.TestModel != EModelTest.None && GameStart.Get.TestMode != EGameTest.None)
 			player.BodyType = (int)GameStart.Get.TestModel;
 
-		SetAvatar(ref res, player.Avatar, player.BodyType, true, true); 
+		SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.ShowControl); 
 
 		res.transform.parent = PlayerInfoModel.transform;
 		res.transform.localPosition = bornPos;
@@ -300,7 +299,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, bool isUseRig, bool combine = true, bool Reset = false) {
+	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false) {
 		try {
 			string bodyNumber = bodyType.ToString();
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
@@ -500,12 +499,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			
 			switch (bodyType) {
 				case 1:
-					collider.radius = 0.88f;
+					collider.radius = 0.9f;
 		            collider.height = 3.2f;
 		            break;
 		            
 		        case 2:
-		            collider.radius = 0.88f;
+		            collider.radius = 0.8f;
 		            collider.height = 3f;
 		            break;
 				default: 
@@ -521,34 +520,15 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			if(aniControl == null)
 				aniControl = result.AddComponent<Animator>();
 
+			aniControl.applyRootMotion = false;
 			aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-			if(aniControl.runtimeAnimatorController == null) {
-				if(isUseRig)
-					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.ShowControl);
-				else
-					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.AvatarControl);
-			} else {
-				if(!isUseRig)
-					ChangeAnimator(ref aniControl, bodyNumber, EanimatorType.AvatarControl);
-				else 
-					aniControl.applyRootMotion = false;
-			}
-			
-			//rig
-			if (isUseRig) {
-				Rigidbody rig = result.GetComponent<Rigidbody> ();
-				if (rig == null)
-					rig = result.AddComponent<Rigidbody> ();
-				
-				rig.freezeRotation = true;
-				rig.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-			}
+			ChangeAnimator(ref aniControl, bodyNumber, animatorType);
 		} catch (UnityException e) {
 			Debug.Log(e.ToString());
 		}
 	}
 
-	public void ChangeAnimator(ref Animator ani,string bodyNumber, EanimatorType type) {
+	public void ChangeAnimator(ref Animator ani,string bodyNumber, EAnimatorType type) {
 		ani.runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
 		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;

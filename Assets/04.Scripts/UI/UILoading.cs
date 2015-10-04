@@ -131,7 +131,7 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (0.2f);
 			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
 
-			waitTime = Mathf.Max(0.1f, 2 - Time.time + startTimer);
+			waitTime = Mathf.Max(0.5f, 3 - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 			loadSelectRole();
 
@@ -151,7 +151,7 @@ public class UILoading : UIBase {
 			else
 				AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
-			waitTime = Mathf.Max(0.1f, 2 - Time.time + startTimer);
+			waitTime = Mathf.Max(0.5f, 3 - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 
 			buttonNext.SetActive(true);
