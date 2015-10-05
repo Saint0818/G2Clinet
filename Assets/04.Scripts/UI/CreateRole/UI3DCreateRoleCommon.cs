@@ -17,6 +17,9 @@ public class UI3DCreateRoleCommon : MonoBehaviour
     public Transform GuardParent;
     public GameObject GuardShadow;
 
+    public GameObject SFXBall;
+    public GameObject Ball;
+
     /// <summary>
     /// 創角中的 3D 球員.
     /// </summary>
@@ -207,6 +210,9 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         mParents.Add(EPlayerPostion.G, GuardParent);
         mParents.Add(EPlayerPostion.F, ForwardParent);
         mParents.Add(EPlayerPostion.C, CenterParent);
+
+        SFXBall.SetActive(false);
+        Ball.SetActive(false);
     }
 
 //    public void ShowShadow(EPlayerPostion pos)

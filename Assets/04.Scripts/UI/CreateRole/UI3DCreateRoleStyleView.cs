@@ -23,8 +23,6 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     [Header("3D Camera")]
     public Animator CamerAnimator;
 
-    public GameObject Ball;
-
     [CanBeNull] private UI3DCreateRoleCommon.Player mPlayer;
 
     private struct CamTransform
@@ -98,7 +96,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
         mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
                                                   "StyleViewPlayer", playerID, pos);
-        mPlayer.SetBall(Instantiate(Ball));
+        mPlayer.SetBall(Instantiate(mCommon.SFXBall));
     }
 
     public void UpdateModel(UICreateRoleStyleView.EEquip equip, int itemID)
@@ -106,7 +104,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         if(mPlayer != null)
         {
             mPlayer.UpdatePart(equip, itemID);
-            mPlayer.SetBall(Instantiate(Ball));
+            mPlayer.SetBall(Instantiate(mCommon.Ball));
         }
     }
 
