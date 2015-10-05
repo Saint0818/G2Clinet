@@ -238,7 +238,7 @@ public class UICreateRoleFrameView : MonoBehaviour
 
             var data = UICreateRole.Convert(team.PlayerBank);
             if (data != null)
-                Show(data, GameData.Team.Player.RoleIndex);
+                Show(data, GameData.Team.Player.RoleIndex, ShowNum);
             else
                 Debug.LogError("Data Error!");
         }
