@@ -609,7 +609,6 @@ public class PlayerBehaviour : MonoBehaviour
 			PlayerRigidbody = gameObject.AddComponent<Rigidbody> ();
 
 		PlayerRigidbody.mass = 0.1f;
-		PlayerRigidbody.drag = 0.8f;
 		PlayerRigidbody.freezeRotation = true;
 
 		ScoreRate = new TScoreRate(1);

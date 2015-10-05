@@ -32,7 +32,7 @@ public class ScoreTrigger : MonoBehaviour
 							GameController.Get.shootSwishTimes++;
 						}
 						GameController.Get.IsSwishIn = true;
-						CourtMgr.Get.SetBasketState(EPlayerState.BasketActionSwish, dummyHoop, Team);
+						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop, Team);
 						break;
 					case EBasketSituation.Score:
 					case EBasketSituation.NoScore:
@@ -43,14 +43,14 @@ public class ScoreTrigger : MonoBehaviour
 								GameController.Get.shootTimes ++ ;
 						}
 
-						CourtMgr.Get.SetBasketState(EPlayerState.BasketAnimationStart, dummyHoop, Team);
+						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketAnimationStart, dummyHoop, Team);
 						if(animator != null ){
 							if(GameController.Get.BasketAnimationName != string.Empty)
 								animator.SetTrigger(GameController.Get.BasketAnimationName);
 						}
 						break;
 					default:
-						CourtMgr.Get.SetBasketState(EPlayerState.BasketActionSwish, dummyHoop, Team);
+						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwish, dummyHoop, Team);
 						break;
 					}
 				}else
@@ -58,7 +58,7 @@ public class ScoreTrigger : MonoBehaviour
 					Into = true;
 					if(GameController.Get.BasketSituation == EBasketSituation.Swish){
 						CourtMgr.Get.PlayShoot(Team, 0);
-						CourtMgr.Get.SetBasketState(EPlayerState.BasketActionSwishEnd, dummyHoop, Team);
+						CourtMgr.Get.SetBasketBallState(EPlayerState.BasketActionSwishEnd, dummyHoop, Team);
 					}
 				}
 			}
