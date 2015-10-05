@@ -214,12 +214,15 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				rpgCamera.LockMouseY = true;
 				rpgCamera.MinDistance = 9;
 				rpgCamera.MaxDistance = 9;
-				rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
-													(1 << LayerMask.NameToLayer("Player")) | 
-													(1 << LayerMask.NameToLayer("Scene"));
+				if (rpgCamera.UsedCamera) {
+					rpgCamera.UsedCamera.cullingMask =  (1 << LayerMask.NameToLayer("Default")) | 
+														(1 << LayerMask.NameToLayer("Player")) | 
+														(1 << LayerMask.NameToLayer("Scene"));
 
-				rpgCamera.UsedCamera.transform.position = new Vector3(19.54f, 1.92f, -8);
-				rpgCamera.UsedCamera.transform.eulerAngles = new Vector3(1.75f, 90, 0);
+					rpgCamera.UsedCamera.transform.position = new Vector3(19.54f, 1.92f, -8);
+					rpgCamera.UsedCamera.transform.eulerAngles = new Vector3(1.75f, 90, 0);
+				}
+
 				rpgCamera.enabled = false;
 			}
 			

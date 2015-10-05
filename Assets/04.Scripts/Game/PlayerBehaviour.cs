@@ -2892,7 +2892,9 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
                 SetShooterLayer();
                 AnimatorControl.SetTrigger("TipInTrigger");
+				CourtMgr.Get.SetBallState(EPlayerState.TipIn);
                 Result = true;
+
                 break;
 
             case EPlayerState.ReboundCatch:
