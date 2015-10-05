@@ -58,8 +58,9 @@ public class GameStart : KnightSingleton<GameStart> {
 
 	public void StageJoin (int id) {
 		if(GameData.DStageData.ContainsKey(id)) {
-			StageHint = AI.BitConverter.Convert(GameData.DStageData[id].Hint);
-//			GameData.StageID = id;
+//			StageHint = AI.BitConverter.Convert(GameData.DStageData[id].Hint);
+			StageHint = GameData.DStageData[id].HintBit;
+			GameData.StageID = id;
 			
 //			GameStart.Get.CourtMode =  (ECourtMode)GameData.DStageData[id].CourtMode;
 

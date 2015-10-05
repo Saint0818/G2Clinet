@@ -258,7 +258,7 @@ public class UIGameResult : UIBase {
 			buttonResume.SetActive(false);
 			//judge victory or lose
 //			if (record.Score1 > record.Score2) {
-			if (GameController.Get.IsGameVictory) {
+			if (GameController.Get.IsGameVictory((int)ETeamKind.Self)) {
 				UIWin.SetActive(true);
 				UILose.SetActive(false);
 			} else {

@@ -874,6 +874,12 @@ namespace GameStruct {
 		public string ExplainEN;
 		public string ExplainJP;
 
+		public int[] HintBit {
+			get {
+				return AI.BitConverter.Convert(GameData.DStageData[ID].Hint);
+			}
+		}
+
 		public string Name {
 			get {
 				switch (GameData.Setting.Language) {
