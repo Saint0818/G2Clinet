@@ -28,10 +28,10 @@ public class UICreateRolePositionView : MonoBehaviour
     /// </summary>
     private const float HideAnimationTime = 0.8f;
 
-    /// <summary>
-    /// 第一次進入此頁面時, 要 delay 多久才播放 Attribute Scale 的動畫. 單位: 秒.
-    /// </summary>
-    private const float AttributeScaleDelayTime = 1;
+//    /// <summary>
+//    /// 第一次進入此頁面時, 要 delay 多久才播放 Attribute Scale 的動畫. 單位: 秒.
+//    /// </summary>
+//    private const float AttributeScaleDelayTime = 1;
 
     /// <summary>
     /// 屬性全滿的值.
@@ -96,7 +96,8 @@ public class UICreateRolePositionView : MonoBehaviour
                 UI3DCreateRole.Get.ShowPositionView();
 
                 updateUI();
-                Attributes.PlayScale(AttributeScaleDelayTime);
+//                Attributes.PlayScale(AttributeScaleDelayTime);
+                Attributes.SetVisible(true);
                 ForwardToggle.Set(true);
             }
         }
