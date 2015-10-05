@@ -14,7 +14,7 @@ using UnityEngine;
 /// <item> Call Show() or Hide() 控制球員要不要顯示. </item>
 /// <item> Call UpdateModel() 幫模型換裝. </item>
 /// <item> Call SetCamera() 設定 Camera 的位置. </item>
-/// <item> Call PlayAnimation() 撥換裝球員的動作. </item>
+/// <item> Call PlayXXXAnimation() 撥換裝球員的動作. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -68,13 +68,13 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     };
 
     /// <summary>
-    /// 當撥動作完畢後, 要經過幾秒才會顯示球.
+    /// 當撥 CreateRoleGetBall 動作後, 要經過幾秒才會顯示球.
     /// </summary>
     private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
     {
         {EPlayerPostion.G, 0.5f},
         {EPlayerPostion.F, 0.5f},
-        {EPlayerPostion.C, 1.0f},
+        {EPlayerPostion.C, 1.0f}
     };
 
     private UI3DCreateRoleCommon mCommon;
@@ -104,7 +104,10 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     public void UpdateModel(UICreateRoleStyleView.EEquip equip, int itemID)
     {
         if(mPlayer != null)
+        {
             mPlayer.UpdatePart(equip, itemID);
+            mPlayer.SetBall(Instantiate(Ball));
+        }
     }
 
     public void SetCamera(UICreateRoleStyleView.EEquip equip)
@@ -113,11 +116,23 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         CamerAnimator.transform.DOLocalRotate(mCameraPos[mCurrentPos][equip].EulerAngle, TweenTime);
     }
 
-    public void PlayAnimation(string animName)
+    public void PlayIdleAnimation()
     {
         if(mPlayer != null)
         {
-            mPlayer.PlayAnimation(animName);
+            mPlayer.PlayAnimation("CreateRoleIdle");
+            mPlayer.ShowBall();
+        }
+    }
+
+    /// <summary>
+    /// 一系列的運球動作.
+    /// </summary>
+    public void PlayGetBallAnimation()
+    {
+        if(mPlayer != null)
+        {
+            mPlayer.PlayAnimation("CreateRoleGetBall");
             StartCoroutine(showBall());
         }
     }
