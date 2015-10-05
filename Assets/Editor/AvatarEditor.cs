@@ -223,7 +223,7 @@ public class AvatarEditor :  EditorWindow{
 				GameObject obj = new GameObject();
 				obj.name = name;
 				obj.AddComponent<DragRotateObject>();
-				ModelManager.Get.SetAvatar(ref obj, attr, int.Parse(name), false, false);
+				ModelManager.Get.SetAvatar(ref obj, attr, int.Parse(name), EAnimatorType.AvatarControl, false);
 				obj.AddComponent<AvatarAnimationTest>();
 				if(name.Equals("0")) {
 					obj.transform.position = new Vector3(2,0,0);
@@ -775,7 +775,7 @@ public class AvatarEditor :  EditorWindow{
 		if(showBodyTexture.Count > 0)
 			bodyTextureText = showBodyTexture[0].name;
 
-		ModelManager.Get.SetAvatar(ref selectGameObject, attr, modelId, false, false);
+		ModelManager.Get.SetAvatar(ref selectGameObject, attr, modelId, EAnimatorType.AvatarControl, false);
 	}
 
 	void judgeBodyName(string body){
