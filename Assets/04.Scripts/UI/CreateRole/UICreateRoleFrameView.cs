@@ -115,6 +115,8 @@ public class UICreateRoleFrameView : MonoBehaviour
             if(selectedIndex == i)
                 Slots[i].SetSelected();
         }
+
+        updateLockUI(ShowNum);
     }
 
     private void slotPlayAnimation()
@@ -250,7 +252,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 
             var data = UICreateRole.Convert(team.PlayerBank);
             if (data != null)
-                Show(data, GameData.Team.Player.RoleIndex, ShowNum);
+//                Show(data, GameData.Team.Player.RoleIndex, ShowNum);
+                setData(data, GameData.Team.Player.RoleIndex);
             else
                 Debug.LogError("Data Error!");
         }
