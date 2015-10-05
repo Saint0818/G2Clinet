@@ -608,6 +608,7 @@ public class PlayerBehaviour : MonoBehaviour
 			PlayerRigidbody = gameObject.AddComponent<Rigidbody> ();
 
 		PlayerRigidbody.mass = 0.1f;
+		PlayerRigidbody.drag = 10f;
 		PlayerRigidbody.freezeRotation = true;
 
 		ScoreRate = new TScoreRate(1);
@@ -2299,7 +2300,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 SetShooterLayer();
 
-				CourtMgr.Get.SetBallState(EPlayerState.Dunk0);
+				CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
 				if (OnDunkJump != null)
 					OnDunkJump(this);
 
