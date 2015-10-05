@@ -693,12 +693,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     
     private void resetSKillLayer()
     {
-        GameFunction.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default", "RealBall");
+		LayerMgr.Get.ReSetLayerRecursively(CourtMgr.Get.RealBall, "Default", "RealBall");
         switch (skillEventKind)
         {
             case 0://reset self  layer
             case 1:
-                GameFunction.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player", "PlayerModel", "(Clone)");
+			LayerMgr.Get.ReSetLayerRecursively(GameController.Get.Joysticker.gameObject, "Player", "PlayerModel", "(Clone)");
                 break;
             case 2://reset all player's layer
                 GameController.Get.SetAllPlayerLayer("Player");

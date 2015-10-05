@@ -4312,7 +4312,7 @@ public class GameController : KnightSingleton<GameController>
 
     public void SetAllPlayerLayer (string layerName){
 		for (int i = 0; i < PlayerList.Count; i++)
-			GameFunction.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
+			LayerMgr.Get.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
 	}
 
 	public void ShowWord (EShowWordType type, int team = 0, GameObject parent = null) {

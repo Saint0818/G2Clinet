@@ -515,7 +515,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			if(scoreTeam != -1) {
 				GameController.Get.PlusScore(scoreTeam, false, true);
 				GameController.Get.ShowShootSate(true, scoreTeam);
-				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), false);
+				LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, false);
 				RealBallVelocity = Vector3.zero;
 				RealBallAddForce(Vector3.down * 70);
 				scoreTeam = -1;
@@ -528,7 +528,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			switch(state){
 			case EPlayerState.BasketActionSwish:
 				scoreTeam = team;
-				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
+				LayerMgr.Get.IgnoreLayerCollision(ELayer.BasketCollider, ELayer.RealBall, true);
 				RealBall.transform.DOMove(new Vector3(BasketEntra[team,1].transform.position.x + Mathf.Clamp(-(RealBall.transform.position.x - BasketEntra[team,0].transform.position.x), -BasketEntra[team,1].transform.localPosition.x, BasketEntra[team,1].transform.localPosition.x),
 				                                      BasketEntra[team,1].transform.position.y,
 				                                      BasketEntra[team,1].transform.position.z + Mathf.Clamp(-(RealBall.transform.position.z - BasketEntra[team,0].transform.position.z), -BasketEntra[team,1].transform.localPosition.z, BasketEntra[team,1].transform.localPosition.z)), 0.15f).OnComplete(IfSwishNoScore);
@@ -801,7 +801,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	}
 
 	public void ResetBasketEntra() {
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), false);
+		LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, false);
 		GameController.Get.IsReboundTime = false;
 		for (int i = 0; i < 2; i ++) {
 			BasketAirBall[i].Into = false;

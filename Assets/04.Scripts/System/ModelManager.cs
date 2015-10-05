@@ -478,13 +478,13 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 			if (!combine) {
 				clone.transform.parent = result.transform;
-				clone.layer = LayerMask.NameToLayer ("Player");
+				LayerMgr.Get.SetLayer(clone, ELayer.Player);
 				clone.name = "PlayerModel";
 			} else {
 				MaterialCombiner materialCombiner = new MaterialCombiner(clone, true);
 				GameObject cobbineObject = materialCombiner.CombineMaterial (matObj);
 				cobbineObject.transform.parent = result.transform;
-				cobbineObject.layer = LayerMask.NameToLayer ("Player");
+				LayerMgr.Get.SetLayer(cobbineObject, ELayer.Player);
 				cobbineObject.name = "PlayerModel";
 
 				Destroy(clone);

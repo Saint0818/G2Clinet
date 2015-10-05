@@ -108,28 +108,6 @@ public static class GameFunction
 		}
 	}
 
-	public static void SetLayerRecursively(GameObject obj, string layer, String containName1 = "", String containName2= "") {
-//		obj.layer = LayerMask.NameToLayer(layer);
-		if (obj == null) return;
-		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
-			if(trans.name.Contains(containName1) || trans.name.Contains(containName2))
-				trans.gameObject.layer = LayerMask.NameToLayer(layer);
-		}
-	}
-
-	public static void ReSetLayerRecursively(GameObject obj, string layer, String containName1= "", String containName2= "") {
-//		obj.layer = LayerMask.NameToLayer(layer);
-		if (obj == null) return;
-		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
-			if(trans.name.Contains(containName1) || trans.name.Contains(containName2)){
-				if(trans.gameObject.tag.Equals("Untagged")) 
-					trans.gameObject.layer = LayerMask.NameToLayer(layer);
-				else 
-					trans.gameObject.layer = LayerMask.NameToLayer(trans.gameObject.tag);
-			}
-		}
-	}
-
 	public static Vector3 calculateTrajectory(Vector3 source, Vector3 target, Vector3 velocity, float distance)
 	{
 		velocity.y = 0;

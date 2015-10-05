@@ -107,7 +107,7 @@ public class UICreateRole : UIBase
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         model.transform.localScale = Vector3.one;
-        model.layer = LayerMask.NameToLayer("UI3D");
+		LayerMgr.Get.SetLayer(model, ELayer.UI3D);
 
         return model;
     }

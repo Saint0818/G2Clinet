@@ -599,8 +599,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     void Awake()
     {
-        gameObject.layer = LayerMask.NameToLayer("Player");
-        gameObject.tag = "Player";
+		LayerMgr.Get.SetLayerAndTag (gameObject, ELayer.Player, ETag.Player);
 
         AnimatorControl = gameObject.GetComponent<Animator>();
 		skillController = gameObject.GetComponent<SkillController>();
@@ -1423,7 +1422,7 @@ public class PlayerBehaviour : MonoBehaviour
 			return;
 
 		//LayerCheck
-		if (gameObject.transform.localPosition.y > 0.2f && gameObject.layer == LayerMask.NameToLayer("Player"))
+		if (gameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(gameObject, ELayer.Player))
 		{
 			LogMgr.Get.AnimationError((int)Team * 3 + Index, "Error Layer: " + gameObject.name + " . crtState : " + crtState);
 		}
@@ -1435,7 +1434,7 @@ public class PlayerBehaviour : MonoBehaviour
 //		}
 
 		//Idle ballowner
-		if(crtState == EPlayerState.Idle && IsBallOwner)
+		if(crtState == EPlayerState.Idle && IsBallOwner && GameController.Get.Situation != EGameSituation.End)
 		{
 			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State: Idle BallOWner");
 		}
@@ -2145,8 +2144,8 @@ public class PlayerBehaviour : MonoBehaviour
 		DribbleTime = 0;
 		isUseSkill = false;
 
-		if (gameObject.layer == LayerMask.NameToLayer("Shooter"))
-			gameObject.layer = LayerMask.NameToLayer("Player");
+		if (LayerMgr.Get.CheckLayer (gameObject, ELayer.Shooter))
+			LayerMgr.Get.SetLayer (gameObject, ELayer.Player);
 
 		if (GameStart.Get.IsDebugAnimation)
 			Debug.Log (gameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
@@ -3289,7 +3288,7 @@ public class PlayerBehaviour : MonoBehaviour
 					EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
 					
 					if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
-						GameFunction.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+						LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 					
 					CameraMgr.Get.SkillShowActive(skillEffectKind, t);
 					if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID))
@@ -3298,13 +3297,13 @@ public class PlayerBehaviour : MonoBehaviour
 					switch(skillEffectKind) {
 					case 0://show self and rotate camera
 						Invoke("showActiveEffect", t);
-						GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							TimerMgr.Get.ChangeTime (item, 0);
 						break;
 					case 1://show self
 						showActiveEffect();
-						GameFunction.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
 						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							if(item != ETimerKind.Player0)
 								TimerMgr.Get.ChangeTime (item, 0);
