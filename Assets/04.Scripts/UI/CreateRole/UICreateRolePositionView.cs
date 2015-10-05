@@ -21,6 +21,9 @@ public class UICreateRolePositionView : MonoBehaviour
     public UIAttributes Attributes;
     public UIToggle ForwardToggle;
 
+    [Tooltip("左下角的前一頁按鈕")]
+    public GameObject PreviousButton;
+
     private delegate void Action();
 
     /// <summary>
@@ -45,7 +48,7 @@ public class UICreateRolePositionView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        Visible = false;
+        Hide();
 
         mCurrentPostion = EPlayerPostion.G;
 
@@ -81,20 +84,38 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-    public bool Visible
-    {
-        set
-        {
-            Window.SetActive(value);
-            if(value)
-            {
-                UI3DCreateRole.Get.ShowPositionView();
+//    public bool Visible
+//    {
+//        set
+//        {
+//            Window.SetActive(value);
+//            if(value)
+//            {
+//                UI3DCreateRole.Get.ShowPositionView();
+//
+//                updateUI();
+//                Attributes.SetVisible(true);
+//                ForwardToggle.Set(true);
+//            }
+//        }
+//    }
 
-                updateUI();
-                Attributes.SetVisible(true);
-                ForwardToggle.Set(true);
-            }
-        }
+    public void Show(bool showPreviousButton)
+    {
+        Window.SetActive(true);
+
+        UI3DCreateRole.Get.ShowPositionView();
+
+        updateUI();
+        Attributes.SetVisible(true);
+        ForwardToggle.Set(true); // 預設前鋒會被選擇.
+
+        PreviousButton.SetActive(showPreviousButton);
+    }
+
+    public void Hide()
+    {
+        Window.SetActive(false);
     }
 
     public void OnGuardClick()

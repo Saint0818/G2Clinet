@@ -1,4 +1,4 @@
-using GameStruct;
+﻿using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -17,7 +17,7 @@ public class UICreateRole : UIBase
         Show(true);
 
         mFrameView.Show();
-        mPositionView.Visible = false;
+        mPositionView.Hide();
         mStyleView.Hide();
     }
 
@@ -26,7 +26,7 @@ public class UICreateRole : UIBase
         Show(true);
 
         mFrameView.Show(playerBanks, selectedIndex, showNum);
-        mPositionView.Visible = false;
+        mPositionView.Hide();
         mStyleView.Hide();
     }
 
@@ -35,7 +35,7 @@ public class UICreateRole : UIBase
         Show(true);
 
         mFrameView.Hide();
-        mPositionView.Visible = true;
+        mPositionView.Show(GameData.Team.Player.Lv > 0); // 大於 0 表示玩家有創角色.
         mStyleView.Hide();
     }
 
@@ -44,7 +44,7 @@ public class UICreateRole : UIBase
         Show(true);
 
         mFrameView.Hide();
-        mPositionView.Visible = false;
+        mPositionView.Hide();
         mStyleView.Show(pos, playerID);
     }
 
@@ -74,7 +74,7 @@ public class UICreateRole : UIBase
         mFrameView.Hide();
 
         mPositionView = GetComponent<UICreateRolePositionView>();
-        mPositionView.Visible = false;
+        mPositionView.Hide();
 
         mStyleView = GetComponent<UICreateRoleStyleView>();
         mStyleView.Hide();
