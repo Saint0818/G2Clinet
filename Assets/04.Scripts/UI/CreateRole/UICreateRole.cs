@@ -21,16 +21,7 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-//    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex)
-//    {
-//        Show(true);
-//
-//        mFrameView.Show(playerBanks, selectedIndex);
-//        mPositionView.Visible = false;
-//        mStyleView.Hide();
-//    }
-
-    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex, int showNum)
+    public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] playerBanks, int selectedIndex, int showNum)
     {
         Show(true);
 
@@ -122,9 +113,9 @@ public class UICreateRole : UIBase
     }
 
     [CanBeNull]
-    public static UICreateRolePlayerFrame.Data[] Convert(TPlayerBank[] playerBanks)
+    public static UICreateRolePlayerSlot.Data[] Convert(TPlayerBank[] playerBanks)
     {
-        UICreateRolePlayerFrame.Data[] data = new UICreateRolePlayerFrame.Data[playerBanks.Length];
+        UICreateRolePlayerSlot.Data[] data = new UICreateRolePlayerSlot.Data[playerBanks.Length];
         for (int i = 0; i < playerBanks.Length; i++)
         {
             if (!GameData.DPlayers.ContainsKey(playerBanks[i].ID))

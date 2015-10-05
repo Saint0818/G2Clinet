@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// UICreateRoleFrameView 會使用的元件, 專門用來顯示某位角色的相關資訊.
@@ -12,10 +12,12 @@ using UnityEngine.Serialization;
 /// <item> Call Clear() 重置. </item>
 /// <item> Call SetData() 設定要顯示的資料. </item>
 /// <item> Call SetLock() 將 Frame 設定為鎖定狀態. </item>
+/// <item> Call SetVisible() 控制要不要顯示. </item>
+/// <item> Call PlayAnimation() 控制 Slot 進入畫面的時間. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
-public class UICreateRolePlayerFrame : MonoBehaviour
+public class UICreateRolePlayerSlot : MonoBehaviour
 {
     public struct Data
     {
@@ -41,7 +43,8 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         { EPlayerPostion.F, "Labelforward"},
         { EPlayerPostion.C, "Labelcenter"}
     };
-        
+
+    public GameObject Window;
     public UISprite CenterButton;
     public GameObject RemoveButton;
     public UISprite BGLeft;
@@ -101,6 +104,21 @@ public class UICreateRolePlayerFrame : MonoBehaviour
         mData = new Data();
 
         mIsLock = false;
+
+        GetComponent<Animator>().enabled = false;
+    }
+
+    private IEnumerator enableAnimator(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        SetVisible(true);
+        GetComponent<Animator>().enabled = true;
+    }
+
+    public void PlayAnimation(float delayTime)
+    {
+        GetComponent<Animator>().enabled = false;
+        StartCoroutine(enableAnimator(delayTime));
     }
 
     public void SetLock()
@@ -136,6 +154,11 @@ public class UICreateRolePlayerFrame : MonoBehaviour
     public void SetSelected()
     {
         SelectedIcon.SetActive(true);
+    }
+
+    public void SetVisible(bool visible)
+    {
+        Window.SetActive(visible);
     }
 
     /// <summary>

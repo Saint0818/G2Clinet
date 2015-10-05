@@ -16,7 +16,7 @@ using UnityEngine;
 public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
-    public UICreateRolePlayerFrame[] Slots;
+    public UICreateRolePlayerSlot[] Slots;
     public UIConfirmDialog ConfirmDialog;
 
     public string LockButtonSpriteName;
@@ -31,6 +31,11 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
     /// </summary>
     private const int DefaultShowNum = 2;
+
+    /// <summary>
+    /// 剛顯示頁面時, Slot 延遲幾秒才進入畫面的時間.
+    /// </summary>
+    private readonly float[] slotDelayTimes = {0, 0.5f, 1f};
 
     [UsedImplicitly]
 	private void Awake()
@@ -77,57 +82,48 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         Window.SetActive(true);
         UI3DCreateRole.Get.Hide();
+        slotPlayAnimation();
     }
-
-//    /// <summary>
-//    /// 
-//    /// </summary>
-//    /// <param name="data"></param>
-//    /// <param name="selectedIndex"> 哪一位球員是目前選擇的球員. </param>
-//    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex)
-//    {
-//        Window.SetActive(true);
-//        UI3DCreateRole.Get.Hide();
-//
-//        for (int i = 0; i < Slots.Length; i++)
-//        {
-//            Slots[i].Clear();
-//
-//            if(i >= data.Length)
-//                continue;
-//
-//            Slots[i].SetData(data[i]);
-//            if(selectedIndex == i)
-//                Slots[i].SetSelected();
-//        }
-//    }
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="data"></param>
-    /// <param name="selectedIndex"></param>
+    /// <param name="selectedIndex"> 哪一個 Slot 是玩家正在使用的球員. </param>
     /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
-    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex, int showNum)
+    public void Show([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex, int showNum)
     {
-//        Show(data, selectedIndex);
-
         Window.SetActive(true);
         UI3DCreateRole.Get.Hide();
 
-        for (int i = 0; i < Slots.Length; i++)
+        setData(data, selectedIndex);
+        slotPlayAnimation();
+
+        ShowNum = showNum;
+    }
+
+    private void setData(UICreateRolePlayerSlot.Data[] data, int selectedIndex)
+    {
+        for(int i = 0; i < Slots.Length; i++)
         {
             Slots[i].Clear();
 
-            if (i >= data.Length)
+            if(i >= data.Length)
                 continue;
 
             Slots[i].SetData(data[i]);
-            if (selectedIndex == i)
+            if(selectedIndex == i)
                 Slots[i].SetSelected();
         }
+    }
 
-        ShowNum = showNum;
+    private void slotPlayAnimation()
+    {
+        for(int i = 0; i < Slots.Length; i++)
+        {
+            Slots[i].SetVisible(false);
+            Slots[i].PlayAnimation(slotDelayTimes[i]);
+        }
     }
 
     public void Hide()
@@ -141,7 +137,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <param name="index"> 哪一個 slot 被點擊. </param>
     /// <param name="data"> 該 Slot 的角色資訊. </param>
     /// <param name="isLock"> 該 Slot 是否是鎖住的狀態. </param>
-    private void onSlotClick(int index, UICreateRolePlayerFrame.Data data, bool isLock)
+    private void onSlotClick(int index, UICreateRolePlayerSlot.Data data, bool isLock)
     {
         if(isLock)
             return;
@@ -149,7 +145,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         StartCoroutine(runNexAction(index, data));
     }
 
-    private IEnumerator runNexAction(int index, UICreateRolePlayerFrame.Data data)
+    private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
         playAnimation(index);
 
@@ -220,7 +216,7 @@ public class UICreateRoleFrameView : MonoBehaviour
             LobbyStart.Get.EnterLobby();
     }
 
-    private void onDeletePlayer(int index, UICreateRolePlayerFrame.Data data, bool isLock)
+    private void onDeletePlayer(int index, UICreateRolePlayerSlot.Data data, bool isLock)
     {
         Debug.LogFormat("onDeletePlayer, isLock:{0}", isLock);
 
@@ -236,7 +232,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         
         // 做刪除角色流程.
         WWWForm form = new WWWForm();
-        UICreateRolePlayerFrame.Data data = (UICreateRolePlayerFrame.Data)extraInfo;
+        UICreateRolePlayerSlot.Data data = (UICreateRolePlayerSlot.Data)extraInfo;
         form.AddField("RoleIndex", data.RoleIndex);
 
         SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
