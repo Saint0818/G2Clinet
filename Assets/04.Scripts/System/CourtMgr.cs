@@ -487,13 +487,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(!GameController.Get.IsReset){
 			switch(animationName) {
 			case "ActionEnd":
-				SetBasketState(EPlayerState.BasketActionEnd, BasketHoopDummy[team], team);
+				SetBasketBallState(EPlayerState.BasketActionEnd, BasketHoopDummy[team], team);
 				break;
 			case "ActionNoScoreShot":
 //				PlayShootNoScore(team);
 				break;
 			case "ActionNoScoreEnd":
-				SetBasketState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
+				SetBasketBallState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
 				SetBallState(EPlayerState.Rebound);
 				break;
 			case "BasketNetPlay":
@@ -523,7 +523,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 	
-	public void SetBasketState(EPlayerState state, Transform dummy = null, int team = 0){
+	public void SetBasketBallState(EPlayerState state, Transform dummy = null, int team = 0){
 		if(!GameController.Get.IsReset){
 			switch(state){
 			case EPlayerState.BasketActionSwish:
@@ -583,32 +583,29 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
 	{
-		if(!GameController.Get.IsStart  && state != EPlayerState.Start && 
-           state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
-			return;
-
 		realBallCollider.enabled = true;
 		RealBallRigidbody.isKinematic = false;
 		RealBallRigidbody.useGravity = true;
-		RealBallTrigger.SetBoxColliderEnable(true);
-		RealBall.transform.parent = null;
+
+		if(!GameController.Get.IsStart && state != EPlayerState.Start && 
+           state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
+			return;
 
 		RealBallState = state;
 		switch(state)
 		{
-			case EPlayerState.Dunk0:
 			case EPlayerState.Dribble0:
 				realBallCollider.enabled = false;
-				RealBallRigidbody.isKinematic = true;
-				RealBallRigidbody.useGravity = false;
-
 				if (player)
 					RealBall.transform.parent = player.DummyBall.transform;
 
+				RealBallRigidbody.useGravity = false;
+				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
+				RealBall.transform.localScale = Vector3.one;
 				RealBallTrigger.SetBoxColliderEnable(false);
 				RealBallFX.gameObject.SetActive(false);
-				
+				RealBall.transform.localPosition = Vector3.zero;
 				break;
 
 			case EPlayerState.Shoot0: 
@@ -625,6 +622,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Layup3: 
 			case EPlayerState.TipIn: 
 			case EPlayerState.Shooting: 
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.localScale = Vector3.one;
 				break;
 
 			case EPlayerState.Pass0: 
@@ -637,28 +640,43 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Pass7: 
 			case EPlayerState.Pass8: 
 			case EPlayerState.Pass9: 
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
-
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.localScale = Vector3.one;
 				break;
 
 			case EPlayerState.Steal0:
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.localScale = Vector3.one;
 				GameController.Get.Passer = null;
 				
 				Vector3 v = RealBall.transform.forward * -1;
 				if(player != null)					
 					v = player.transform.forward * 10;
-
-				RealBallVelocity = v;
+				RealBallVelocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 			break;
 			case EPlayerState.JumpBall:
 				if(!GameController.Get.IsJumpBall)
 				{
 					GameController.Get.IsJumpBall = true;
+					realBallCollider.enabled = true;
+					RealBall.transform.parent = null;
+					RealBallRigidbody.isKinematic = false;
+					RealBallRigidbody.useGravity = true;
+					RealBallTrigger.SetBoxColliderEnable(true);
+					RealBall.transform.localScale = Vector3.one;
 					GameController.Get.Passer = null;
 
 				    if(player != null)
+//						v = player.transform.forward * -6;
 				        v = player.transform.position; // 球要拍到某位球員的位置.
 					else
 						v = RealBall.transform.forward * -1;
@@ -673,16 +691,33 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;
 				GameController.Get.Passer = null;
-				
+				realBallCollider.enabled = true;
+				RealBall.transform.parent = null;
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.localScale = Vector3.one;
 				v = RealBall.transform.forward * -1;
 				if(player != null)					
 					v = player.transform.forward * 10;
-
-				RealBallVelocity = v;
+				RealBallVelocity = v;//GameFunction.GetVelocity(RealBall.transform.position, v, 60);
 				RealBallFX.gameObject.SetActive(true);
 				break;
 
+			case EPlayerState.Dunk0:
+				realBallCollider.enabled = true;
+				RealBallFX.gameObject.SetActive(false);
+				RealBall.transform.localScale = Vector3.one;
+				break;
+
 			case EPlayerState.DunkBasket:
+				realBallCollider.enabled = true;
+				RealBallRigidbody.useGravity = true;
+				RealBallRigidbody.isKinematic = false;
+				RealBallTrigger.SetBoxColliderEnable(true);
+				RealBall.transform.parent = null;
+				RealBall.transform.localScale = Vector3.one;
+
 				if(player)
 					RealBall.transform.position = player.DummyBall.transform.position;
 
@@ -690,14 +725,19 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Reset:
+				RealBall.transform.parent = null;
+				RealBall.transform.position = new Vector3(0, 7, 0);
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
-				RealBall.transform.position = new Vector3(0, 7, 0);
+				RealBallVelocity = Vector3.zero;
+				RealBallTrigger.SetBoxColliderEnable(true);
 				RealBallFX.gameObject.SetActive(true);
 				break;
 
 			case EPlayerState.Start:
 				RealBall.transform.localPosition = new Vector3 (0, 6, 0);
+				RealBallRigidbody.isKinematic = false;
+				RealBallRigidbody.useGravity = true;
 				RealBallAddForce(Vector3.up * 3500);
 				break;
 
@@ -707,20 +747,18 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				if (player)
 				{
 					RealBall.transform.parent = player.DummyBall.transform;
+					RealBall.transform.localPosition = Vector3.zero;
 					RealBall.transform.DOKill();
 				}
 
 				RealBallRigidbody.useGravity = false;
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
+				RealBall.transform.localScale = Vector3.one;
 				RealBallTrigger.SetBoxColliderEnable(false);
 				RealBallFX.gameObject.SetActive(false);				
 				break;
 		}
-
-		RealBall.transform.localScale = Vector3.one;
-        if (RealBall.transform.parent) 
-			RealBall.transform.localPosition = Vector3.zero;
 	}
 
 	public void RealBallAddForce(Vector3 v3)
