@@ -33,16 +33,6 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         {EPlayerPostion.C, 1.25f }
     };
 
-    /// <summary>
-    /// 當撥 CreateRoleGetBall 動作後, 要經過幾秒才會顯示球.
-    /// </summary>
-    private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
-    {
-        {EPlayerPostion.G, 0.5f},
-        {EPlayerPostion.F, 0.5f},
-        {EPlayerPostion.C, 1.0f}
-    };
-
     private UI3DCreateRoleCommon mCommon;
 
     [UsedImplicitly]
@@ -54,15 +44,6 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         mPlayers.Add(EPlayerPostion.G, new UI3DCreateRoleCommon.Player(mCommon.GuardParent, mCommon.GuardShadow, "Guard", 1, EPlayerPostion.G));
         mPlayers.Add(EPlayerPostion.F, new UI3DCreateRoleCommon.Player(mCommon.ForwardParent, mCommon.ForwardShadow, "Forward", 2, EPlayerPostion.F));
         mPlayers.Add(EPlayerPostion.C, new UI3DCreateRoleCommon.Player(mCommon.CenterParent, mCommon.CenterShadow, "Center", 3, EPlayerPostion.C));
-
-        mPlayers[EPlayerPostion.G].SetBall(Instantiate(mCommon.SFXBall));
-        mPlayers[EPlayerPostion.G].SetBallVisible(false);
-
-        mPlayers[EPlayerPostion.F].SetBall(Instantiate(mCommon.SFXBall));
-        mPlayers[EPlayerPostion.F].SetBallVisible(false);
-
-        mPlayers[EPlayerPostion.C].SetBall(Instantiate(mCommon.SFXBall));
-        mPlayers[EPlayerPostion.C].SetBallVisible(false);
     }
 
     public void Show()
@@ -82,7 +63,6 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     {
         foreach(KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
         {
-//            pair.Value.PlayAnimation("SelectDown");
             StartCoroutine(playAnimation(pair.Value, "SelectDown", mDelayTimes[pair.Key]));
         }
     }
@@ -114,20 +94,5 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     public int GetPlayerID(EPlayerPostion pos)
     {
         return mPlayers[pos].PlayerID;
-    }
-
-    /// <summary>
-    /// 一系列的運球動作.
-    /// </summary>
-    public void PlayGetBallAnimation(EPlayerPostion pos)
-    {
-        mPlayers[pos].PlayAnimation("CreateRoleGetBall");
-        StartCoroutine(showBall(pos));
-    }
-
-    private IEnumerator showBall(EPlayerPostion pos)
-    {
-        yield return new WaitForSeconds(mShowBallTime[pos]);
-        mPlayers[pos].SetBallVisible(true);
     }
 }

@@ -65,15 +65,15 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 			}}
 	};
 
-//    /// <summary>
-//    /// 當撥 CreateRoleGetBall 動作後, 要經過幾秒才會顯示球.
-//    /// </summary>
-//    private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
-//    {
-//        {EPlayerPostion.G, 0.5f},
-//        {EPlayerPostion.F, 0.5f},
-//        {EPlayerPostion.C, 1.0f}
-//    };
+    /// <summary>
+    /// 當撥 CreateRoleGetBall 動作後, 要經過幾秒才會顯示球.
+    /// </summary>
+    private readonly Dictionary<EPlayerPostion, float> mShowBallTime = new Dictionary<EPlayerPostion, float>
+    {
+        {EPlayerPostion.G, 0.5f},
+        {EPlayerPostion.F, 0.5f},
+        {EPlayerPostion.C, 1.0f}
+    };
 
     private UI3DCreateRoleCommon mCommon;
 
@@ -96,8 +96,8 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
         mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
                                                   "StyleViewPlayer", playerID, pos);
-        mPlayer.SetBall(Instantiate(mCommon.Ball));
-        PlayIdleAnimation();
+        mPlayer.SetBall(Instantiate(mCommon.SFXBall));
+        playGetBallAnimation();
     }
 
     public void UpdateModel(UICreateRoleStyleView.EEquip equip, int itemID)
@@ -124,24 +124,24 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         }
     }
 
-//    /// <summary>
-//    /// 一系列的運球動作.
-//    /// </summary>
-//    public void PlayGetBallAnimation()
-//    {
-//        if(mPlayer != null)
-//        {
-//            mPlayer.PlayAnimation("CreateRoleGetBall");
-//            StartCoroutine(showBall());
-//        }
-//    }
-//
-//    private IEnumerator showBall()
-//    {
-//        yield return new WaitForSeconds(mShowBallTime[mCurrentPos]);
-//        if(mPlayer != null)
-//            mPlayer.ShowBall();
-//    }
+    /// <summary>
+    /// 一系列的運球動作.
+    /// </summary>
+    private void playGetBallAnimation()
+    {
+        if(mPlayer != null)
+        {
+            mPlayer.PlayAnimation("CreateRoleGetBall");
+            StartCoroutine(showBall());
+        }
+    }
+
+    private IEnumerator showBall()
+    {
+        yield return new WaitForSeconds(mShowBallTime[mCurrentPos]);
+        if(mPlayer != null)
+            mPlayer.SetBallVisible(true);
+    }
 
     public void Hide()
     {

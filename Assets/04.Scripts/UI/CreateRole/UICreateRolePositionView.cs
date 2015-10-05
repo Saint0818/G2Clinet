@@ -29,7 +29,7 @@ public class UICreateRolePositionView : MonoBehaviour
     /// <summary>
     /// 離開此頁面撥動畫的時間, 單位:秒.
     /// </summary>
-    private const float HideAnimationTime = 2.0f;
+    private const float HideAnimationTime = 0.8f;
 
     /// <summary>
     /// 屬性全滿的數值.
@@ -166,7 +166,6 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public void OnNextClick()
     {
-        UI3DCreateRole.Get.PositionView.PlayGetBallAnimation(mCurrentPostion);
         StartCoroutine(playHideAnimation(showNextPage));
     }
 
