@@ -35,7 +35,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <summary>
     /// 剛顯示頁面時, Slot 延遲幾秒才進入畫面的時間.
     /// </summary>
-    private readonly float[] slotDelayTimes = {0, 0.5f, 1.0f};
+    private readonly float[] slotDelayTimes = {0, 0.15f, 0.3f};
 
     [UsedImplicitly]
 	private void Awake()

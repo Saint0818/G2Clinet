@@ -29,8 +29,8 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     private readonly Dictionary<EPlayerPostion, float> mDelayTimes = new Dictionary<EPlayerPostion, float>
     {
         {EPlayerPostion.G, 1.0f },
-        {EPlayerPostion.F, 0.0f },
-        {EPlayerPostion.C, 2.0f }
+        {EPlayerPostion.F, 0.5f },
+        {EPlayerPostion.C, 1.25f }
     };
 
     /// <summary>
