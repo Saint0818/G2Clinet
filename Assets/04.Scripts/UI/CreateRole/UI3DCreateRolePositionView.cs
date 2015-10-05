@@ -67,13 +67,28 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         }
     }
 
-    private IEnumerator playAnimation(UI3DCreateRoleCommon.Player player, string animName, float delayTime)
+    private IEnumerator playAnimation(UI3DCreateRoleCommon.Player player,  string animName, float delayTime)
     {
         player.Visible = false;
         yield return new WaitForSeconds(delayTime);
         player.Visible = true;
+
+        // 如果不做這段程式碼, 撥往下掉的 Animation 時, 會有 1 個 frame 看到球員往上跳.
+        // 解法是將 Parent GameObject 稍微往上拉，然後過 0.1 秒之後，再拉回原本的位置就可以了.
+        var originPos = player.Parent.position;
+        var newPos = player.Parent.position;
+        newPos.y += 10;
+        player.Parent.position = newPos;
         player.PlayAnimation(animName);
-    } 
+
+        StartCoroutine(resetTransform(0.1f, player.Parent, originPos));
+    }
+
+    private IEnumerator resetTransform(float delayTime, Transform trans, Vector3 originPos)
+    {
+        yield return new WaitForSeconds(delayTime);
+        trans.position = originPos;
+    }
 
     public void Hide()
     {

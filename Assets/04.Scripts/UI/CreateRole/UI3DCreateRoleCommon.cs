@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// µ¹ UI3DCreateRoleXXX ¨Ï¥Î, ¥D­n¬O©ñ¬Û¦PªºªF¦è.
+/// çµ¦ UI3DCreateRoleXXX ä½¿ç”¨, ä¸»è¦æ˜¯æ”¾ç›¸åŒçš„æ±è¥¿.
 /// </summary>
 [DisallowMultipleComponent]
 public class UI3DCreateRoleCommon : MonoBehaviour
@@ -21,15 +21,15 @@ public class UI3DCreateRoleCommon : MonoBehaviour
     public GameObject Ball;
 
     /// <summary>
-    /// ³Ğ¨¤¤¤ªº 3D ²y­û.
+    /// å‰µè§’ä¸­çš„ 3D çƒå“¡.
     /// </summary>
     /// <remarks>
-    /// ¨Ï¥Î¤èªk:
+    /// ä½¿ç”¨æ–¹æ³•:
     /// <list type="number">
     /// <item> new instance. </item>
-    /// <item> Call UpdateXXX() §ó·s²y­û¬ïÀ¹«~. </item>
+    /// <item> Call UpdateXXX() æ›´æ–°çƒå“¡ç©¿æˆ´å“. </item>
     /// <item> Call SetBallVisible(). </item>
-    /// <item> ¨Ï¥Î§¹²¦«á, ©I¥s Destroy(). </item>
+    /// <item> ä½¿ç”¨å®Œç•¢å¾Œ, å‘¼å« Destroy(). </item>
     /// </list>
     /// </remarks>
     public class Player
@@ -49,6 +49,11 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             }
         }
 
+        public Transform Parent
+        {
+            get { return mParent; }
+        }
+
         private readonly Transform mParent;
         private readonly string mName;
         [CanBeNull]private GameObject mModel;
@@ -56,11 +61,11 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         private readonly int mPlayerID;
 
         [CanBeNull]private Animator mAnimator;
-        [CanBeNull]private Transform mDummy; // Ball ­n©ñ¦b¦¹ GameObject ¤U.
+        [CanBeNull]private Transform mDummy; // Ball è¦æ”¾åœ¨æ­¤ GameObject ä¸‹.
         [CanBeNull]private GameObject mBall;
 
         /// <summary>
-        /// ¥Ø«e¨¤¦â¸Ë³Æªºª««~.
+        /// ç›®å‰è§’è‰²è£å‚™çš„ç‰©å“.
         /// </summary>
         private readonly Dictionary<UICreateRoleStyleView.EEquip, int> mItemIDs = 
             new Dictionary<UICreateRoleStyleView.EEquip, int>
@@ -73,7 +78,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             };
 
         /// <summary>
-        /// µ¹¹w³]®M¸Ë.
+        /// çµ¦é è¨­å¥—è£.
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="shadow"></param>
@@ -97,7 +102,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         }
 
         /// <summary>
-        /// µ¹¦Û©w®M¸Ë.
+        /// çµ¦è‡ªå®šå¥—è£.
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="shadow"></param>
@@ -182,7 +187,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
                mItemIDs[UICreateRoleStyleView.EEquip.Cloth] == clothItemID &&
                mItemIDs[UICreateRoleStyleView.EEquip.Pants] == pantsItemID &&
                mItemIDs[UICreateRoleStyleView.EEquip.Shoes] == shoesItemID)
-                return; // ¨S¦³¥ô¦ó³¡¥ó»İ­n§ó·s.
+                return; // æ²’æœ‰ä»»ä½•éƒ¨ä»¶éœ€è¦æ›´æ–°.
 
             mItemIDs[UICreateRoleStyleView.EEquip.Body] = bodyItemID;
             mItemIDs[UICreateRoleStyleView.EEquip.Hair] = hairItemID;
@@ -194,7 +199,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
 
             mModel = UICreateRole.CreateModel(mParent, mName, mPlayerID, bodyItemID, hairItemID,
                                               clothItemID, pantsItemID, shoesItemID);
-            mModel.AddComponent<SelectEvent>(); // Á×§Kµo¥Í Error.
+            mModel.AddComponent<SelectEvent>(); // é¿å…ç™¼ç”Ÿ Error.
             mAnimator = mModel.GetComponent<Animator>();
             mDummy = mModel.transform.FindChild("DummyBall");
         }
