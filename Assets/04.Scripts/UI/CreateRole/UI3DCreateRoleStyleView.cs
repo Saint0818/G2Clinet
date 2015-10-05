@@ -38,32 +38,32 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
 
     private readonly Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>> mCameraPos =
         new Dictionary<EPlayerPostion, Dictionary<UICreateRoleStyleView.EEquip, CamTransform>>
-    {
-        { EPlayerPostion.G, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
-        {
-            { UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(-400, 0, 380), EulerAngle = new Vector3(0, 10, 0)} },
-            { UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(-290, 220, 1100), EulerAngle = new Vector3(0, 10, 0)} },
-            { UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(-325, 30, 910), EulerAngle = new Vector3(0, 10, 0)} },
-            { UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(-345, -285, 740), EulerAngle = new Vector3(0, 10, 0)} },
-            { UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(-330, -445, 820), EulerAngle = new Vector3(0, 10, 0)} },
-        }},
-        { EPlayerPostion.F, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
-        {
-            { UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(0, -18, 325), EulerAngle = Vector3.zero} },
-            { UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(0, 300, 1110), EulerAngle = Vector3.zero} },
-            { UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(0, 65, 780), EulerAngle = Vector3.zero} },
-            { UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(0, -200, 650), EulerAngle = Vector3.zero} },
-            { UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(0, -380, 600), EulerAngle = Vector3.zero} },
-        }},
-        { EPlayerPostion.C, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
-        {
-            { UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(740, -10, 170), EulerAngle = new Vector3(0, -7.5f, 0)} },
-            { UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(600, 70, 725), EulerAngle = new Vector3(0, -7.5f, 0)} },
-            { UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(640, -60, 410), EulerAngle = new Vector3(0, -7.5f, 0)} },
-            { UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(640, -270, 410), EulerAngle = new Vector3(0, -7.5f, 0)} },
-            { UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(720, -365, 435), EulerAngle = new Vector3(0, -7.5f, 0)} },
-        }}
-    };
+	{
+		{ EPlayerPostion.G, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
+			{
+				{ UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(-425, -80, 455), EulerAngle = new Vector3(0, 10, 0)} },
+				{ UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(-325, 160, 1100), EulerAngle = new Vector3(0, 10, 0)} },
+				{ UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(-325, 30, 910), EulerAngle = new Vector3(0, 10, 0)} },
+				{ UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(-370, -250, 755), EulerAngle = new Vector3(0, 10, 0)} },
+				{ UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(-400, -395, 840), EulerAngle = new Vector3(0, 10, 0)} },
+			}},
+		{ EPlayerPostion.F, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
+			{
+				{ UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(18, -40, 300), EulerAngle = Vector3.zero} },
+				{ UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(-10, 290, 1080), EulerAngle = Vector3.zero} },
+				{ UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(0, 115, 755), EulerAngle = Vector3.zero} },
+				{ UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(15, -200, 610), EulerAngle = Vector3.zero} },
+				{ UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(0, -300, 600), EulerAngle = Vector3.zero} },
+			}},
+		{ EPlayerPostion.C, new Dictionary<UICreateRoleStyleView.EEquip, CamTransform>
+			{
+				{ UICreateRoleStyleView.EEquip.Body, new CamTransform {Position = new Vector3(750, 35, 225), EulerAngle = new Vector3(0, -7.5f, 0)} },
+				{ UICreateRoleStyleView.EEquip.Hair, new CamTransform {Position = new Vector3(625, 310, 1000), EulerAngle = new Vector3(0, -7.5f, 0)} },
+				{ UICreateRoleStyleView.EEquip.Cloth, new CamTransform {Position = new Vector3(680, 95, 670), EulerAngle = new Vector3(0, -7.5f, 0)} },
+				{ UICreateRoleStyleView.EEquip.Pants, new CamTransform {Position = new Vector3(680, -160, 585), EulerAngle = new Vector3(0, -7.5f, 0)} },
+				{ UICreateRoleStyleView.EEquip.Shoes, new CamTransform {Position = new Vector3(690, -270, 575), EulerAngle = new Vector3(0, -7.5f, 0)} },
+			}}
+	};
 
     /// <summary>
     /// 當撥 CreateRoleGetBall 動作後, 要經過幾秒才會顯示球.
