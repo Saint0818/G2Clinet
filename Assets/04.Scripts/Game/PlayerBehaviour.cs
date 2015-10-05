@@ -653,7 +653,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void InitAttr()
     {
-		setMovePower(100);
+//		setMovePower(100);
 		GameRecord.Init();
 		GameRecord.ID = Attribute.ID;
 
@@ -663,6 +663,8 @@ public class PlayerBehaviour : MonoBehaviour
 			Attribute.SetAttribute(GameEnum.ESkillType.NPC);
 
 		initSkill();
+		if (Attr.StaminaValue > 0)
+			setMovePower(Attr.StaminaValue);
 		initAttr();
     }
 
@@ -702,8 +704,7 @@ public class PlayerBehaviour : MonoBehaviour
 	    TopPoint.transform.localScale = new Vector3(4 + Attr.ReboundHeadDistance, TopPoint.transform.localScale.y, 4 + Attr.ReboundHeadDistance);
 	    FingerPoint.transform.localScale = new Vector3(Attr.ReboundHandDistance,Attr.ReboundHandDistance,Attr.ReboundHandDistance);
 	    blockTrigger.transform.localScale = new Vector3( blockTrigger.transform.localScale.x, 3.2f + Attr.BlockDistance, blockTrigger.transform.localScale.z);
-	    if (Attr.StaminaValue > 0)
-	        setMovePower(Attr.StaminaValue);
+	  
     }
 
 	private void initSkill (){
@@ -1532,7 +1533,7 @@ public class PlayerBehaviour : MonoBehaviour
 							CalculateSpeed = GameConst.WalkSpeed;
 							break;
 					}
-					Debug.Log("MoveKind : " + moveKind);
+//					Debug.Log("MoveKind : " + moveKind);
 					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * CalculateSpeed * Timer.timeScale;
 	                transform.Translate(translate); 
 	                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
