@@ -206,8 +206,12 @@ public class PlayerAttackState : State<EPlayerAIState, EGameMsg>
         // 參數 player 並未持球, 所以只能做 Push 被動技.
         // 這裡的企劃規則是, 附近的敵對球員必須是 Idle 狀態時, 才會真的執行推人行為.
         var nearPlayer = mPlayerAI.Team.FindNearestOpponentPlayer(mPlayerAI.transform.position);
+        if(nearPlayer == null)
+            return false;
+
         bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
-        if(nearPlayer && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
+        bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealBallDistance;
+        if(isClose && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
            nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
         {
             if(mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
