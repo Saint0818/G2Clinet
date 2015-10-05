@@ -85,6 +85,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mName = name;
             mPlayerID = playerID;
             mShadow = shadow;
+            mShadow.SetActive(true);
 
             int bodyItemID = CreateRoleDataMgr.Ins.GetBody(pos)[0];
             int hairItemID = CreateRoleDataMgr.Ins.GetHairs(pos)[0];
@@ -113,6 +114,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mName = name;
             mPlayerID = playerID;
             mShadow = shadow;
+            mShadow.SetActive(true);
 
             UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
