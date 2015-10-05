@@ -28,6 +28,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
     /// <list type="number">
     /// <item> new instance. </item>
     /// <item> Call UpdateXXX() 更新球員穿戴品. </item>
+    /// <item> Call SetBallVisible(). </item>
     /// <item> 使用完畢後, 呼叫 Destroy(). </item>
     /// </list>
     /// </remarks>
@@ -134,10 +135,10 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mBall.transform.localScale = Vector3.one;
         }
 
-        public void ShowBall()
+        public void SetBallVisible(bool visible)
         {
             if(mBall != null)
-                mBall.SetActive(true);
+                mBall.SetActive(visible);
         }
 
         public void Destroy()

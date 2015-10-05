@@ -67,7 +67,6 @@ public class UI3DCreateRole : UIBase
 
         mPositionView.Hide();
         mStyleView.Show(pos, playerID);
-        mStyleView.PlayGetBallAnimation();
     }
 
     public void Hide()
