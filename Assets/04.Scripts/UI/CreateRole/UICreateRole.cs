@@ -19,20 +19,16 @@ public class UICreateRole : UIBase
         mFrameView.Show();
         mPositionView.Visible = false;
         mStyleView.Hide();
-
-//        UI3DCreateRole.Get.Hide();
     }
 
-    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex)
-    {
-        Show(true);
-
-        mFrameView.Show(playerBanks, selectedIndex);
-        mPositionView.Visible = false;
-        mStyleView.Hide();
-
-//        UI3DCreateRole.Get.Hide();
-    }
+//    public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex)
+//    {
+//        Show(true);
+//
+//        mFrameView.Show(playerBanks, selectedIndex);
+//        mPositionView.Visible = false;
+//        mStyleView.Hide();
+//    }
 
     public void ShowFrameView([NotNull] UICreateRolePlayerFrame.Data[] playerBanks, int selectedIndex, int showNum)
     {
@@ -41,8 +37,6 @@ public class UICreateRole : UIBase
         mFrameView.Show(playerBanks, selectedIndex, showNum);
         mPositionView.Visible = false;
         mStyleView.Hide();
-
-//        UI3DCreateRole.Get.Hide();
     }
 
     public void ShowPositionView()

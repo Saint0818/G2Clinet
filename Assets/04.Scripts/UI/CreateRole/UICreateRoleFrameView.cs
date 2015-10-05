@@ -79,28 +79,28 @@ public class UICreateRoleFrameView : MonoBehaviour
         UI3DCreateRole.Get.Hide();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="data"></param>
-    /// <param name="selectedIndex"> 哪一位球員是目前選擇的球員. </param>
-    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex)
-    {
-        Window.SetActive(true);
-        UI3DCreateRole.Get.Hide();
-
-        for (int i = 0; i < Slots.Length; i++)
-        {
-            Slots[i].Clear();
-
-            if(i >= data.Length)
-                continue;
-
-            Slots[i].SetData(data[i]);
-            if(selectedIndex == i)
-                Slots[i].SetSelected();
-        }
-    }
+//    /// <summary>
+//    /// 
+//    /// </summary>
+//    /// <param name="data"></param>
+//    /// <param name="selectedIndex"> 哪一位球員是目前選擇的球員. </param>
+//    public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex)
+//    {
+//        Window.SetActive(true);
+//        UI3DCreateRole.Get.Hide();
+//
+//        for (int i = 0; i < Slots.Length; i++)
+//        {
+//            Slots[i].Clear();
+//
+//            if(i >= data.Length)
+//                continue;
+//
+//            Slots[i].SetData(data[i]);
+//            if(selectedIndex == i)
+//                Slots[i].SetSelected();
+//        }
+//    }
 
     /// <summary>
     /// 
@@ -110,7 +110,22 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <param name="showNum"> 最多顯示幾位球員. 超過的部分會用 lock 來顯示. </param>
     public void Show([NotNull] UICreateRolePlayerFrame.Data[] data, int selectedIndex, int showNum)
     {
-        Show(data, selectedIndex);
+//        Show(data, selectedIndex);
+
+        Window.SetActive(true);
+        UI3DCreateRole.Get.Hide();
+
+        for (int i = 0; i < Slots.Length; i++)
+        {
+            Slots[i].Clear();
+
+            if (i >= data.Length)
+                continue;
+
+            Slots[i].SetData(data[i]);
+            if (selectedIndex == i)
+                Slots[i].SetSelected();
+        }
 
         ShowNum = showNum;
     }
