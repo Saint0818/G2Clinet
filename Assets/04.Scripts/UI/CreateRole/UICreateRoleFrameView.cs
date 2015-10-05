@@ -35,7 +35,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <summary>
     /// 剛顯示頁面時, Slot 延遲幾秒才進入畫面的時間.
     /// </summary>
-    private readonly float[] slotDelayTimes = {0, 0.5f, 1f};
+    private readonly float[] slotDelayTimes = {0, 0.5f, 1.0f};
 
     [UsedImplicitly]
 	private void Awake()
@@ -155,6 +155,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             // 沒有資料, 所以進入創角流程.
             GetComponent<UICreateRole>().ShowPositionView();
+            UI3DCreateRole.Get.PositionView.PlayDropAnimation();
         }
         else if(GameData.Team.Player.RoleIndex == data.RoleIndex)
         {

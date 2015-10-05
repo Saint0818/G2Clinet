@@ -96,7 +96,6 @@ public class UICreateRolePositionView : MonoBehaviour
                 UI3DCreateRole.Get.ShowPositionView();
 
                 updateUI();
-//                Attributes.PlayScale(AttributeScaleDelayTime);
                 Attributes.SetVisible(true);
                 ForwardToggle.Set(true);
             }

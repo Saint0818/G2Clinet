@@ -274,7 +274,10 @@ public class SendHttp : KnightSingleton<SendHttp>
 	private void OnCloseLoading()
 	{
 	    if(GameData.Team.Player.Lv == 0)
-            UICreateRole.Get.ShowPositionView();
+	    {
+	        UICreateRole.Get.ShowPositionView();
+            UI3DCreateRole.Get.PositionView.PlayDropAnimation();
+	    }
 	    else
 	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 	}

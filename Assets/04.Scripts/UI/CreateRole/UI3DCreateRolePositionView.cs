@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using JetBrains.Annotations;
 
@@ -11,6 +12,7 @@ using JetBrains.Annotations;
 /// <item> 用 UI3DCreateRole.Get.PositionView 取得 instance. </item>
 /// <item> Call Show() or Hide() 控制球員要不要顯示. </item>
 /// <item> Call Select() 通知哪位球員被選擇. </item>
+/// <item> Call PlayDropAnimation() 撥球員往下跳的動作. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -20,6 +22,16 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     public Animator SelectSFXAnimator;
 
     private readonly Dictionary<EPlayerPostion, UI3DCreateRoleCommon.Player> mPlayers = new Dictionary<EPlayerPostion, UI3DCreateRoleCommon.Player>();
+
+    /// <summary>
+    /// 球員跳入場景的時間, 單位:秒.
+    /// </summary>
+    private readonly Dictionary<EPlayerPostion, float> mDelayTimes = new Dictionary<EPlayerPostion, float>
+    {
+        {EPlayerPostion.G, 1.0f },
+        {EPlayerPostion.F, 0.0f },
+        {EPlayerPostion.C, 2.0f }
+    };
 
     private UI3DCreateRoleCommon mCommon;
 
@@ -39,11 +51,30 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         foreach(KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
         {
             pair.Value.Visible = true;
-            pair.Value.PlayAnimation("SelectDown");
         }
 
         SelectSFX.gameObject.SetActive(true);
     }
+
+    /// <summary>
+    /// 撥球員往下跳的動作.
+    /// </summary>
+    public void PlayDropAnimation()
+    {
+        foreach(KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
+        {
+//            pair.Value.PlayAnimation("SelectDown");
+            StartCoroutine(playAnimation(pair.Value, "SelectDown", mDelayTimes[pair.Key]));
+        }
+    }
+
+    private IEnumerator playAnimation(UI3DCreateRoleCommon.Player player, string animName, float delayTime)
+    {
+        player.Visible = false;
+        yield return new WaitForSeconds(delayTime);
+        player.Visible = true;
+        player.PlayAnimation(animName);
+    } 
 
     public void Hide()
     {
