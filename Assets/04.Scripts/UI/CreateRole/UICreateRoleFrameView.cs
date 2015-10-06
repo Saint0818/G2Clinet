@@ -141,7 +141,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <param name="isLock"> 該 Slot 是否是鎖住的狀態. </param>
     private void onSlotClick(int index, UICreateRolePlayerSlot.Data data, bool isLock)
     {
-//        Debug.LogFormat("onSlotClick, index:{0}, isLock:{1}", index, isLock);
+//        Debug.LogFormat("onSlotClick, index:{0}, isLock:{1}, data:{2}", index, isLock, data);
 
         if(isLock)
             return;

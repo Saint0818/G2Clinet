@@ -31,6 +31,11 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         {
             return PlayerID > 0 && RoleIndex >= 0 && !string.IsNullOrEmpty(Name) && Level >= 1;
         }
+
+        public override string ToString()
+        {
+            return string.Format("PlayerID: {0}, RoleIndex: {1}, Position: {2}, Name: {3}, Level: {4}", PlayerID, RoleIndex, Position, Name, Level);
+        }
     }
 
     public delegate void Action(int index, Data data, bool isLock);

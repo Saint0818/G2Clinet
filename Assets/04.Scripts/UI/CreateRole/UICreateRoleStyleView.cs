@@ -147,12 +147,15 @@ public class UICreateRoleStyleView : MonoBehaviour
         action();
     }
 
+    /// <summary>
+    /// 呼叫時機: 右下角的 Next 按鈕按下.
+    /// </summary>
     public void OnNextClick()
     {
-        StartCoroutine(playHideAnimation(showNextPage));
+        StartCoroutine(playHideAnimation(sendDataToServer));
     }
 
-    private void showNextPage()
+    private void sendDataToServer()
     {
         int[] equipmentItemIDs = new int[8];
         equipmentItemIDs[0] = mEquips[EEquip.Body];
@@ -169,7 +172,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("PlayerID", mPlayerID);
-        form.AddField("Name", GameData.Team.Player.Name);
+//        form.AddField("Name", GameData.Team.Player.Name);
+        form.AddField("Name", SystemInfo.deviceUniqueIdentifier);
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
 
         SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
