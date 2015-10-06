@@ -789,9 +789,9 @@ public class PlayerBehaviour : MonoBehaviour
                     objs [i].Player = this;
             }
             
-            DefTrigger obj3 = obj2.GetComponentInChildren<DefTrigger>(); 
-            if (obj3 != null)
-                obj3.Player = this;
+            DefTrigger defTrigger = obj2.GetComponentInChildren<DefTrigger>(); 
+            if(defTrigger != null)
+                defTrigger.Player = this;
             
             DefPoint = obj2.transform.FindChild("DefRange").gameObject;          
 			TopPoint = obj2.transform.FindChild("TriggerTop").gameObject; 
@@ -2811,44 +2811,45 @@ public class PlayerBehaviour : MonoBehaviour
 				
 				switch (state)
 				{
-				case EPlayerState.Layup0:
-					stateNo = 0;
-					skillKind = ESkillKind.Layup;
-					break;
-				case EPlayerState.Layup1:
-					stateNo = 1;
-					skillKind = ESkillKind.LayupSpecial;
-					break;
-				case EPlayerState.Layup2:
-					stateNo = 2;
-					skillKind = ESkillKind.LayupSpecial;
-					break;
-				case EPlayerState.Layup3:
-					stateNo = 3;
-					skillKind = ESkillKind.LayupSpecial;
-					break;
+				    case EPlayerState.Layup0:
+					    stateNo = 0;
+					    skillKind = ESkillKind.Layup;
+					    break;
+				    case EPlayerState.Layup1:
+					    stateNo = 1;
+					    skillKind = ESkillKind.LayupSpecial;
+					    break;
+				    case EPlayerState.Layup2:
+					    stateNo = 2;
+					    skillKind = ESkillKind.LayupSpecial;
+					    break;
+				    case EPlayerState.Layup3:
+					    stateNo = 3;
+					    skillKind = ESkillKind.LayupSpecial;
+					    break;
 				}
-					PlayerRigidbody.useGravity = false;
-					IsKinematic = true;
-					curveName = string.Format("Layup{0}", stateNo);
+
+                PlayerRigidbody.useGravity = false;
+				IsKinematic = true;
+				curveName = string.Format("Layup{0}", stateNo);
 					
-					for (int i = 0; i < aniCurve.Layup.Length; i++)
-						if (aniCurve.Layup [i].Name == curveName)
-					{
-						playerLayupCurve = aniCurve.Layup [i];
-						layupCurveTime = 0;
-						isLayup = true;
-						isLayupZmove = false;
-						isFindCurve = true;
-					}
-					SetShooterLayer();
-					ClearAnimatorFlag();
-					AnimatorControl.SetInteger("StateNo", stateNo);
-					AnimatorControl.SetTrigger("LayupTrigger");
-					isCanCatchBall = false;
-	                Result = true;
-                }
-                break;
+				for (int i = 0; i < aniCurve.Layup.Length; i++)
+					if (aniCurve.Layup [i].Name == curveName)
+				{
+					playerLayupCurve = aniCurve.Layup [i];
+					layupCurveTime = 0;
+					isLayup = true;
+					isLayupZmove = false;
+					isFindCurve = true;
+				}
+				SetShooterLayer();
+				ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
+				AnimatorControl.SetTrigger("LayupTrigger");
+				isCanCatchBall = false;
+	            Result = true;
+            }
+            break;
 
             case EPlayerState.Rebound:
 				skillKind = ESkillKind.Rebound;

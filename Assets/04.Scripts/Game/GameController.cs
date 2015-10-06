@@ -80,8 +80,16 @@ public class GameController : KnightSingleton<GameController>
 	private PlayerBehaviour pickBallPlayer;
 	private GameObject ballHolder = null;
 
+//    teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
+//    teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
+//    teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
     // 0:C, 1:F, 2:G
-	private Vector2[] teeBackPosAy = new Vector2[3];
+    private readonly Vector2[] mHomePositions =
+    {
+        new Vector2(0, 14.5f),
+        new Vector2(5.3f, 11),
+        new Vector2(-5.3f, 11)
+    };
 
     /*
 	 *     0	 5
@@ -130,7 +138,7 @@ public class GameController : KnightSingleton<GameController>
     public GameObject[] passIcon = new GameObject[3];
 
 	public EPlayerState testState = EPlayerState.Shoot0;
-	public EPlayerState[] ShootStates = new EPlayerState[]{EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
+	public EPlayerState[] ShootStates = {EPlayerState.Shoot0, EPlayerState.Shoot1, EPlayerState.Shoot2, EPlayerState.Shoot3, EPlayerState.Shoot6, EPlayerState.Layup0, EPlayerState.Layup1, EPlayerState.Layup2, EPlayerState.Layup3};
 	public static Dictionary<EAnimatorState, bool> LoopStates = new Dictionary<EAnimatorState, bool>();
 
 	//Instant
@@ -168,7 +176,7 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		CourtInstant = new TCourtInstant(1);
-		InitPos();
+//		InitPos();
 		InitGame();
 		InitAniState();
 		checkStageReasonable ();
@@ -204,11 +212,11 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-    private void InitPos()
-    {
-        teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
-        teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
-        teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
+//    private void InitPos()
+//    {
+//        teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
+//        teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
+//        teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
 
 		/*
 		 *     0	 5
@@ -222,7 +230,7 @@ public class GameController : KnightSingleton<GameController>
 //		bornPosAy[3] = new Vector3(3.5f, 0, 3);   // G_B
 //		bornPosAy[4] = new Vector3(0, 0, 1.5f);   // C_B
 //		bornPosAy[5] = new Vector3(-3.5f, 0, 3);  // F_B
-    }
+//    }
 
     public void InitGame()
     {
@@ -1069,74 +1077,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 	
-    
-//	public void AIAttack([NotNull]PlayerBehaviour player)
-//    {
-//	    if(!BallOwner)
-//            return;
-//
-//	    bool dunkRate = Random.Range(0, 100) < 30;
-//	    bool shootRate = Random.Range(0, 100) < 10;
-//	    bool shoot3Rate = Random.Range(0, 100) < 1;
-//	    bool passRate = Random.Range(0, 100) < 20;
-//	    
-//	    bool elbowRate = Random.Range(0, 100) < player.Attr.ElbowingRate;
-//			
-//	    if(player == BallOwner)
-//	    {
-//	        Vector3 pos = CourtMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position;
-//	        float shootPointDis = GetDis(player, new Vector2(pos.x, pos.z));
-//
-//	        if(shootPointDis <= GameConst.DunkDistance && 
-//	           (dunkRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && 
-//	           IsInUpfield(player))
-//	            AIFakeShoot(player);
-//	        else if(shootPointDis <= GameConst.TwoPointDistance && 
-//	                (HasDefPlayer(player.DefPlayer, 1.5f, 40) == 0 || shootRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && 
-//	                IsInUpfield(player))
-//	            AIFakeShoot(player);
-//	        else if(shootPointDis <= GameConst.TreePointDistance + 1 && 
-//	                (HasDefPlayer(player.DefPlayer, 3.5f, 40) == 0 || shoot3Rate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && 
-//	                IsInUpfield(player))
-//	            AIFakeShoot(player);
-//	        else
-//	        {
-//	            // 做 Elbow 攻擊對方.
-//	            PlayerBehaviour man = null;
-//	            if(elbowRate && IsInUpfield(player) && (HaveDefPlayer(player, GameConst.StealBallDistance, 90, out man) != 0) && 
-//	               player.CoolDownElbow ==0 && !player.CheckAnimatorSate(EPlayerState.Elbow))
-//	            {
-//	                if (player.DoPassiveSkill(ESkillSituation.Elbow, man.transform.position))
-//	                {
-//	                    coolDownPass = 0;
-//	                    player.CoolDownElbow = Time.time + 3;
-//	                    RealBallFxTime = 1f;
-//	                    CourtMgr.Get.RealBallFX.SetActive(true);
-//	                }
-//	            }
-//	            else if((passRate || player.CheckAnimatorSate(EPlayerState.HoldBall)) && coolDownPass == 0 && !IsShooting && !IsDunk && 
-//	                    !player.CheckAnimatorSate(EPlayerState.Elbow) && BallOwner.AIing)
-//	                AIPass(player);
-//	            else if(player.IsHaveMoveDodge && CoolDownCrossover == 0 && player.CanMove)
-//	            {
-//	                if(Random.Range(0, 100) <= player.MoveDodgeRate)
-//	                    player.DoPassiveSkill(ESkillSituation.MoveDodge);
-//	            }
-//	        }
-//	    }
-//	    else
-//	    {
-//	        // 參數 player 並未持球, 所以只能做 Push 被動技.
-//	        PlayerBehaviour nearPlayer = hasNearPlayer(player, GameConst.StealBallDistance, false);
-//            bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;
-//            if(nearPlayer && pushRate && player.CoolDownPush == 0)
-//	        { 
-//	            if(player.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
-//	                player.CoolDownPush = Time.time + 3;                    
-//	        } 
-//	    }
-//    }
-
 	public void AIDefend([NotNull] PlayerBehaviour player)
 	{
 		if (player.AIing && !player.IsSteal && !player.CheckAnimatorSate(EPlayerState.Push0) && 
@@ -1170,80 +1110,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-//	public void AIMove([NotNull] PlayerBehaviour someone, ref TTacticalData tacticalData)
-//    {
-//		if(BallOwner == null)
-//        {
-//            // 沒人有球, 所以要開始搶球. 最接近球的球員去撿球就好.
-//			if(!Passer)
-//            {
-//				if(Shooter == null)
-//				{
-//				    NearestBallPlayerDoPickBall(someone);
-//                    if(someone.DefPlayer != null)
-//                        NearestBallPlayerDoPickBall(someone.DefPlayer);
-//                }
-//				else
-//                {
-//                    // 投籃者出手, 此時球在空中飛行.
-//                    if((Situation == EGameSituation.AttackA && someone.Team == ETeamKind.Self) ||
-//                       (Situation == EGameSituation.AttackB && someone.Team == ETeamKind.Npc))
-//                    {
-//                        if(!someone.IsShoot)
-//                            NearestBallPlayerDoPickBall(someone);
-//                        if(someone.DefPlayer != null)
-//                            NearestBallPlayerDoPickBall(someone.DefPlayer);
-//                    }
-//				}
-//			}
-//		}
-//        else
-//        {
-//			if(someone.CanMove && someone.TargetPosNum == 0)
-//            {
-//				for(int i = 0; i < PlayerList.Count; i++)
-//                {
-//					if(PlayerList[i].Team == someone.Team && PlayerList[i] != someone && 
-//					   tacticalData.FileName != string.Empty && PlayerList[i].TargetPosName != tacticalData.FileName)
-//						PlayerList[i].ResetMove();
-//		        }
-//				
-//				if(tacticalData.FileName != string.Empty)
-//                {
-//					tacticalActions = tacticalData.GetActions(someone.Postion.GetHashCode());
-//					
-//					if (tacticalActions != null)
-//                    {
-//						for (int i = 0; i < tacticalActions.Length; i++)
-//                        {
-//                            moveData.Clear();
-//							moveData.Speedup = tacticalActions [i].Speedup;
-//							moveData.Catcher = tacticalActions [i].Catcher;
-//							moveData.Shooting = tacticalActions [i].Shooting;
-//                            int z = 1;
-//
-//                            if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
-//                            z = -1;
-//							
-//							moveData.Target = new Vector2(tacticalActions [i].x, tacticalActions [i].z * z);
-//							if(BallOwner != null && BallOwner != someone)
-//								moveData.LookTarget = BallOwner.transform;  
-//							
-//							moveData.TacticalName = tacticalData.FileName;
-//							moveData.MoveFinish = DefMove;
-//							someone.TargetPos = moveData;
-//                        }
-//						
-//						DefMove(someone);
-//                    }
-//                }
-//            }
-//			
-//			if (someone.WaitMoveTime != 0 && BallOwner != null && someone == BallOwner)
-//				someone.AniState(EPlayerState.Dribble0);
-//		}
-//    }
-
     public bool DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
@@ -1254,10 +1120,11 @@ public class GameController : KnightSingleton<GameController>
             {
 				if(BallOwner != null)
                 {
-					int index = player.DefPlayer.Postion.GetHashCode();
+					
 					moveData.Clear();
 					if (player == BallOwner)
                     {
+                        // 我是持球人, 我要防守球員跟著我.
 						moveData.DefPlayer = player;
 						
 						if (BallOwner != null)
@@ -1270,20 +1137,27 @@ public class GameController : KnightSingleton<GameController>
 					}
                     else
                     {
-						float dis2;
-						float z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-						dis2 = Vector2.Distance(new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z), 
-						                        new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
+                        // 我不是持球人.
+
+                        int index = player.DefPlayer.Postion.GetHashCode();
+                        float z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+						float distance = Vector2.Distance(
+                            new Vector2(mHomePositions[index].x, mHomePositions[index].y * z), 
+						    new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						
-						if (dis2 <= player.DefPlayer.Attr.DefDistance) {
+						if(distance <= player.DefPlayer.Attr.DefDistance)
+                        {
+                            // 防守者離 HomePosition 很接近了.
+
+                            // 如果有接近的球員, 要靠近他; 沒有接近的球員, 繼續往 Home Region 移動.
 							PlayerBehaviour p = hasNearPlayer(player.DefPlayer, player.DefPlayer.Attr.DefDistance, false, true);
 							if (p != null)
 								moveData.DefPlayer = p;
-							else 
-								if (GetDis(player, player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
-									moveData.DefPlayer = player;
+							else if(GetDis(player, player.DefPlayer) <= player.DefPlayer.Attr.DefDistance)
+								moveData.DefPlayer = player;
 							
-							if (moveData.DefPlayer != null) {
+							if(moveData.DefPlayer != null)
+                            {
 								if (BallOwner != null)
 									moveData.LookTarget = BallOwner.transform;
 								else
@@ -1291,18 +1165,21 @@ public class GameController : KnightSingleton<GameController>
 								
 								moveData.Speedup = speedup;
 								player.DefPlayer.TargetPos = moveData;
-							} else {
+							}
+                            else
+                            {
 								player.DefPlayer.ResetMove();
 								z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-                                moveData.Target = new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z);
+                                moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
                                 
                                 if (BallOwner != null)
                                     moveData.LookTarget = BallOwner.transform;
-                                else {
+                                else
+                                {
                                     if (player.Team == ETeamKind.Self)
-                                        moveData.LookTarget = CourtMgr.Get.Hood [1].transform;
+                                        moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
                                     else
-                                        moveData.LookTarget = CourtMgr.Get.Hood [0].transform;
+                                        moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
                                 }                                   
                                 
                                 player.DefPlayer.TargetPos = moveData;
@@ -1310,17 +1187,20 @@ public class GameController : KnightSingleton<GameController>
                         }
                         else
                         {
+                            // 防守者離 Home Region 不夠進.
+                            // 要防守者往 Home Region 跑.
                             player.DefPlayer.ResetMove();
                             z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-                            moveData.Target = new Vector2(teeBackPosAy [index].x, teeBackPosAy [index].y * z);
+                            moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
                             
-                            if (BallOwner != null)
+                            if(BallOwner != null)
                                 moveData.LookTarget = BallOwner.transform;
-                            else {
+                            else
+                            {
                                 if (player.Team == ETeamKind.Self)
-                                    moveData.LookTarget = CourtMgr.Get.Hood [1].transform;
+                                    moveData.LookTarget = CourtMgr.Get.Hood[1].transform;
                                 else
-                                    moveData.LookTarget = CourtMgr.Get.Hood [0].transform;
+                                    moveData.LookTarget = CourtMgr.Get.Hood[0].transform;
                             }                                   
                             
                             player.DefPlayer.TargetPos = moveData;                         
@@ -1329,6 +1209,7 @@ public class GameController : KnightSingleton<GameController>
                 }
                 else
                 {
+                    // 沒有人持球.
                     player.DefPlayer.ResetMove();
 
                     if(player.DefPlayer)
@@ -3547,7 +3428,7 @@ public class GameController : KnightSingleton<GameController>
 
     public void DefRangeTouch(PlayerBehaviour player1, PlayerBehaviour player2)
     {
-        if (player1.IsDefence)
+        if(player1.IsDefence)
         {
             DefMove(player1.DefPlayer);     
         }
