@@ -49,7 +49,6 @@ public struct TItemAvatar
 				return gameobject.activeSelf;
 			else
 			{
-				Debug.LogError("Must be Inited TItemAvatarPart.gameobject");
 				return false;
 			}
 		}
@@ -153,9 +152,11 @@ public struct TItemAvatar
 	{
 		set{
 			isEquip = value;
-			equipBtn.defaultColor = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
-			equipBtn.hover = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
-			CheckEquipBtnName();
+			if (equipBtn) {
+				equipBtn.defaultColor = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+				equipBtn.hover = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+				CheckEquipBtnName();
+			}
 		}
 		get{
 			return isEquip;
@@ -435,18 +436,10 @@ public class UIAvatarFitted : UIBase {
 
 	private int GetAvatarCountInTeamItem()
 	{
-//		int result = 0;
-//
-//		if (GameData.Team.Items.Length > 0) {
-//			for(int i = 0; i < GameData.Team.Items.Length;i++)
-//			{
-//				if(IsAvatarKind(GetItemKind(GameData.Team.Items[i].ID)))
-//					result++;
-//			}
-//		}
-//
-//		return result;
-		return GameData.Team.Items.Length;
+		if (GameData.Team.Items != null)
+			return GameData.Team.Items.Length;
+		else
+			return 0;
 	}
 
 	private int GetAvatarCountInPlayerItem()
@@ -487,88 +480,90 @@ public class UIAvatarFitted : UIBase {
 	{
 		enableCount = 0;
 
-		for(int i = 0; i < backpackItems.Length; i++){
-			if(backpackItems[i].gameobject == null){
-				backpackItems[i].gameobject = Instantiate(item) as GameObject;
-				backpackItems[i].gameobject.transform.parent = grid.transform;
-				backpackItems[i].gameobject.transform.localScale = Vector3.one;
-				backpackItems[i].gameobject.name = i.ToString();
-				backpackItems[i].DisablePool = disableGroup.gameObject.transform;
-				backpackItems[i].EnablePool = grid.gameObject.transform;
-				backpackItems[i].Init();
-				backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
-			}
-
-			if(i < GameData.Team.Items.Length)
-			{
-				//Team.Items
-				if(backpackItems[i].ID != GameData.Team.Items[i].ID)
-				{
-					backpackItems[i].ID = GameData.Team.Items[i].ID;
-					backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
-					backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
-					backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
-					backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
-					backpackItems[i].AbilityKind = GetItemKind(backpackItems[i].ID).ToString();
-					backpackItems[i].Index = i;
+		if (GameData.Team.Items != null) {
+			for(int i = 0; i < backpackItems.Length; i++){
+				if(backpackItems[i].gameobject == null){
+					backpackItems[i].gameobject = Instantiate(item) as GameObject;
+					backpackItems[i].gameobject.transform.parent = grid.transform;
+					backpackItems[i].gameobject.transform.localScale = Vector3.one;
+					backpackItems[i].gameobject.name = i.ToString();
+					backpackItems[i].DisablePool = disableGroup.gameObject.transform;
+					backpackItems[i].EnablePool = grid.gameObject.transform;
+					backpackItems[i].Init();
+					backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
 				}
-			}
-			else
-			{
-				int playerItemIndex = i - GameData.Team.Items.Length;
-				if(playerItemIndex < GameData.Team.Player.Items.Length){
-					if(backpackItems[i].ID !=  GameData.Team.Player.Items[playerItemIndex].ID)
+
+				if(i < GameData.Team.Items.Length)
+				{
+					//Team.Items
+					if(backpackItems[i].ID != GameData.Team.Items[i].ID)
 					{
-						backpackItems[i].ID = GameData.Team.Player.Items[playerItemIndex].ID;
+						backpackItems[i].ID = GameData.Team.Items[i].ID;
 						backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
-						backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
+						backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
 						backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
 						backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
 						backpackItems[i].AbilityKind = GetItemKind(backpackItems[i].ID).ToString();
-						backpackItems[i].Index = -1;
+						backpackItems[i].Index = i;
 					}
 				}
-			}
-
-			Debug.Log("backpackItems[i].ID :" + backpackItems[i].ID);
-			//ItemVisable
-			int kind = GetItemKind(backpackItems[i].ID);
-
-			if(GameData.DItemData.ContainsKey(backpackItems[i].ID) && kind == avatarPart)
-			{
-				#if UIAvatarFitted_ShowAll
-				items[i].Enable = true;
-				#else
-				if(kind < 10)
+				else
 				{
-					if(backpackItems[i].Position != GameData.Team.Player.BodyType)
-						backpackItems[i].Enable = false;
-					else
+					int playerItemIndex = i - GameData.Team.Items.Length;
+					if(playerItemIndex < GameData.Team.Player.Items.Length){
+						if(backpackItems[i].ID !=  GameData.Team.Player.Items[playerItemIndex].ID)
+						{
+							backpackItems[i].ID = GameData.Team.Player.Items[playerItemIndex].ID;
+							backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
+							backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
+							backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
+							backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
+							backpackItems[i].AbilityKind = GetItemKind(backpackItems[i].ID).ToString();
+							backpackItems[i].Index = -1;
+						}
+					}
+				}
+
+				Debug.Log("backpackItems[i].ID :" + backpackItems[i].ID);
+				//ItemVisable
+				int kind = GetItemKind(backpackItems[i].ID);
+
+				if(GameData.DItemData.ContainsKey(backpackItems[i].ID) && kind == avatarPart)
+				{
+					#if UIAvatarFitted_ShowAll
+					items[i].Enable = true;
+					#else
+					if(kind < 10)
 					{
+						if(backpackItems[i].Position != GameData.Team.Player.BodyType)
+							backpackItems[i].Enable = false;
+						else
+						{
+							backpackItems[i].Enable = true;
+							enableCount++;
+						}
+					}
+					else{
 						backpackItems[i].Enable = true;
 						enableCount++;
 					}
+					#endif
 				}
-				else{
-					backpackItems[i].Enable = true;
-					enableCount++;
+				else
+				{
+					backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
+					backpackItems[i].Enable = false;
 				}
-				#endif
+					
 			}
-			else
-			{
-				backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
-				backpackItems[i].Enable = false;
-			}
-				
-		}
 
-		grid.Reposition ();
-		grid.gameObject.SetActive (false);
-		grid.gameObject.SetActive (true);
-		scrollView.ResetPosition ();
-		scrollView.enabled = false;
-		scrollView.enabled = true;
+			grid.Reposition ();
+			grid.gameObject.SetActive (false);
+			grid.gameObject.SetActive (true);
+			scrollView.ResetPosition ();
+			scrollView.enabled = false;
+			scrollView.enabled = true;
+		}
 
 		Debug.Log ("enableCount : " + enableCount);
 	}

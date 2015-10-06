@@ -27,8 +27,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
 	[HideInInspector]
 	public int[] StageHint;
-	[HideInInspector]
-	public bool IsReadStageData = true;
 
 	void Start() {
 		Time.timeScale = 1;
@@ -47,13 +45,14 @@ public class GameStart : KnightSingleton<GameStart> {
 
 		TextConst.Init();
 		GameData.Init();
+		#if UNITY_EDITOR
 		Application.runInBackground = IsDebugAnimation;
-		
-		if(IsReadStageData)
-			StageJoin(1);
-		else {
-			WinMode = EWinMode.NoTimeScore;
-		}
+		#else
+		Application.runInBackground = false;
+		#endif
+
+		StageJoin(1);
+		GameData.StageID = -1;
 	}
 
 	public void StageJoin (int id) {

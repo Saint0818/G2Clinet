@@ -1390,9 +1390,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationPlayerHight()
     {
-        /*AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
+        AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
 
-        if (isCheckLayerToReset)
+		/*if (isCheckLayerToReset)
         {
             if (gameObject.transform.localPosition.y > 0.2f)
                 isStartCheckLayer = true;
@@ -2111,17 +2111,7 @@ public class PlayerBehaviour : MonoBehaviour
 			return (situation == EGameSituation.InboundsA || situation == EGameSituation.APickBallAfterScore || situation == EGameSituation.InboundsB || situation == EGameSituation.BPickBallAfterScore);
         }
     }
-
-    public bool AniState(EPlayerState state, Vector3 lookAtPoint)
-    {
-        if (!CanUseState(state))
-            return false;
-		if(GameStart.Get.TestMode == EGameTest.Pass)
-			LogMgr.Get.Log("name:"+gameObject.name + "Rotate");
-        RotateTo(lookAtPoint.x, lookAtPoint.z);
-        return AniState(state);
-    }
-
+	
 	public bool IsKinematic
 	{
 		get{return PlayerRigidbody.isKinematic;}
@@ -2130,6 +2120,18 @@ public class PlayerBehaviour : MonoBehaviour
 			Timer.rigidbody.isKinematic = value;
 		}
 	}
+
+    public bool AniState(EPlayerState state, Vector3 lookAtPoint)
+    {
+		if (AniState(state)) {
+			RotateTo(lookAtPoint.x, lookAtPoint.z);
+			if(GameStart.Get.TestMode == EGameTest.Pass)
+				LogMgr.Get.Log("name:"+gameObject.name + "Rotate");
+
+			return true;
+		} else 
+			return false;
+    }
 
     public bool AniState(EPlayerState state)
     {
@@ -2145,6 +2147,7 @@ public class PlayerBehaviour : MonoBehaviour
 		IsKinematic = false;
 		DribbleTime = 0;
 		isUseSkill = false;
+		isCanCatchBall = true;
 
 		if (LayerMgr.Get.CheckLayer (gameObject, ELayer.Shooter))
 			LayerMgr.Get.SetLayer (gameObject, ELayer.Player);
@@ -2241,7 +2244,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Defence1:
-                isCanCatchBall = true;
                 setSpeed(1, 1);
 				AnimatorControl.SetInteger("StateNo", 1);
                 ClearAnimatorFlag(EActionFlag.IsDefence);
@@ -2468,7 +2470,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.mass = 5;
                 setSpeed(0, -1);
                 ClearAnimatorFlag();
-                isCanCatchBall = true;
+
                 isMoving = false;
                 Result = true;
                 break;
@@ -2600,8 +2602,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.PickBall0:
-			skillKind = ESkillKind.Pick2;
-			isCanCatchBall = true;
+				skillKind = ESkillKind.Pick2;
                 ClearAnimatorFlag();
                 AnimatorControl.SetInteger("StateNo", 0);
                 AnimatorControl.SetTrigger("PickTrigger");
@@ -2609,7 +2610,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.PickBall2:
-                isCanCatchBall = true;
                 ClearAnimatorFlag();
 				curveName = "PickBall2";
 
@@ -2892,7 +2892,6 @@ public class PlayerBehaviour : MonoBehaviour
 				ClearAnimatorFlag();
                 SetShooterLayer();
                 AnimatorControl.SetTrigger("TipInTrigger");
-				CourtMgr.Get.SetBallState(EPlayerState.TipIn);
                 Result = true;
 
                 break;
@@ -3052,7 +3051,8 @@ public class PlayerBehaviour : MonoBehaviour
 					if(GameController.Get.IsCatcherAlleyoop) {
 						CourtMgr.Get.RealBallTrigger.PassBall(99);   
 					} else
-						CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));      
+						CourtMgr.Get.RealBallTrigger.PassBall(AnimatorControl.GetInteger("StateNo"));
+
 					GameController.Get.IsCatcherAlleyoop = false;
 				}
                 break;
@@ -3201,9 +3201,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
-//                pushTrigger.SetActive(false);
-//                elbowTrigger.SetActive(false);
-                isCanCatchBall = true;
                 PlayerRigidbody.useGravity = true;
 				IsKinematic = false;
                 IsPerfectBlockCatch = false;

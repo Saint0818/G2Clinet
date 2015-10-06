@@ -35,14 +35,11 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 		switch (levelToLoad) {
 			case ESceneName.Court_0:
 			case ESceneName.Court_1:
-				if(GameStart.Get.IsReadStageData) {
-					UILoading.UIShow(true, ELoadingGamePic.Game); 
-				} else {
-					if (GameData.StageID >= 0)
-						UILoading.UIShow(true, ELoadingGamePic.Stage); 
-					else
-						UILoading.UIShow(true, ELoadingGamePic.Game); 
-				}
+				if (GameData.StageID >= 0)
+					UILoading.UIShow(true, ELoadingGamePic.Stage); 
+				else
+					UILoading.UIShow(true, ELoadingGamePic.Game);
+
 				break;
 
 			case ESceneName.SelectRole:

@@ -581,17 +581,21 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 	}
 
+	public void SetBallOwnerNull() {
+		realBallCollider.enabled = true;
+		RealBallRigidbody.isKinematic = false;
+		RealBallRigidbody.useGravity = true;
+		RealBallTrigger.SetBoxColliderEnable(true);
+		RealBall.transform.parent = null;
+	}
+
 	public void SetBallState(EPlayerState state, PlayerBehaviour player = null)
 	{
 		if(!GameController.Get.IsStart  && state != EPlayerState.Start && 
            state != EPlayerState.Reset && GameStart.Get.TestMode == EGameTest.None)
 			return;
 
-		realBallCollider.enabled = true;
-		RealBallRigidbody.isKinematic = false;
-		RealBallRigidbody.useGravity = true;
-		RealBallTrigger.SetBoxColliderEnable(true);
-		RealBall.transform.parent = null;
+		SetBallOwnerNull();
 
 		RealBallState = state;
 		switch(state)

@@ -454,7 +454,7 @@ public class GameController : KnightSingleton<GameController>
     	case EGameTest.Shoot:
     	case EGameTest.Dunk:
 		case EGameTest.Rebound:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[1], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, bornPosAy[4], new GameStruct.TPlayer(0)));	
 			SetBornPositions();
         	UIGame.Get.ChangeControl(true);
@@ -751,13 +751,14 @@ public class GameController : KnightSingleton<GameController>
 		SetBall();
 		CourtMgr.Get.RealBall.transform.localEulerAngles = Vector3.zero;
 		CourtMgr.Get.SetBallState(EPlayerState.Shoot0);
-		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
+		CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5.2f, 13);
 		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
-		UIGame.Get.ChangeControl(true);
-//		TMoveData md = new TMoveData(1);
-		//md.Target = new Vector2(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
-		PlayerList[1].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z);
-		PlayerList[1].AniState(EPlayerState.Idle);
+		UIGame.Get.ChangeControl(false);
+
+		ChangeSituation(EGameSituation.AttackA);
+
+		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z-1);
+		PlayerList[0].AniState(EPlayerState.Idle);
     }
 
 	public void SetGameRecord(bool upload) {
@@ -3106,7 +3107,7 @@ public class GameController : KnightSingleton<GameController>
 		if (BallOwner != null) {
 			BallOwner.IsBallOwner = false;
 			BallOwner = null;
-			CourtMgr.Get.RealBall.transform.parent = null;
+			CourtMgr.Get.SetBallOwnerNull();
 		}
 	}
 
@@ -3405,8 +3406,6 @@ public class GameController : KnightSingleton<GameController>
 		if (Catcher) {
 			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
 				IsPassing = false;
-			else
-				return;
 		}			
 
 //		if(Situation == EGameSituation.APickBallAfterScore && player == Joysticker)
@@ -3433,7 +3432,11 @@ public class GameController : KnightSingleton<GameController>
 				if (GameStart.Get.TestMode == EGameTest.Rebound ||
 				    Situation == EGameSituation.AttackA ||
 				    Situation == EGameSituation.AttackB) {
-					if (GameStart.Get.TestMode == EGameTest.Rebound || CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
+
+					if (GameStart.Get.TestMode == EGameTest.Rebound)
+						Rebound(player);
+					else
+					if (CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
 						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
 							Rebound(player);
 						}
