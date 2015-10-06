@@ -87,8 +87,10 @@ public class UI3D : UIBase {
 
 	public void ShowCamera(bool isShow)
 	{
-		UIShow(isShow);
-		mCamera3D.gameObject.SetActive (isShow);
+        if(isShow)
+		    UIShow(true);
+
+		mCamera3D.gameObject.SetActive(isShow);
 	}
 
     public void Set3DCameraActive(bool active)

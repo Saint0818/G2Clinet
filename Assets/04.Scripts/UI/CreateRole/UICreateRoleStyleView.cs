@@ -162,7 +162,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         equipmentItemIDs[5] = mEquips[EEquip.Shoes];
 
         GameData.Team.Player.ID = mPlayerID;
-        GameData.Team.Player.Items = new GameStruct.TItem[equipmentItemIDs.Length];
+        GameData.Team.Player.Items = new TItem[equipmentItemIDs.Length];
         for (int i = 0; i < equipmentItemIDs.Length; i++)
             GameData.Team.Player.Items[i].ID = equipmentItemIDs[i];
         GameData.Team.Player.Init();
@@ -177,14 +177,16 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void waitCreateRole(bool ok, WWW www)
     {
-		if(ok)
+        UICreateRole.Get.Hide();
+        UI3DCreateRole.Get.Hide();
+
+        if(ok)
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text); 
 			GameData.Team.Player = team.Player;
 			GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.Player.Init();
 			GameData.SaveTeam();
-			UICreateRole.Get.Hide();
 			
 			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
