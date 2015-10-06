@@ -23,9 +23,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     public string LockBGSpriteName;
 
     /// <summary>
-    /// Slot 點擊時, 撥動作的等待時間.(要等動作撥完, 才進入下一個階段)
+    /// 離開 FrameView, 進入 PositionView 的等待時間. 這個等待時間是要等 Slot 撥完離開的 Animation.
     /// </summary>
-    private const float SlotAnimationTime = 0.9f;
+    private const float ExitAnimationTime = 0.9f;
 
     /// <summary>
     /// 預設顯示幾位球員. 超過的部分會用 lock 來顯示.
@@ -82,7 +82,7 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         Window.SetActive(true);
         UI3DCreateRole.Get.Hide();
-        slotPlayAnimation();
+        playEnterAnimations();
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         UI3DCreateRole.Get.Hide();
 
         setData(data, selectedIndex);
-        slotPlayAnimation();
+        playEnterAnimations();
 
         ShowNum = showNum;
     }
@@ -119,12 +119,12 @@ public class UICreateRoleFrameView : MonoBehaviour
         updateLockUI(ShowNum);
     }
 
-    private void slotPlayAnimation()
+    private void playEnterAnimations()
     {
         for(int i = 0; i < Slots.Length; i++)
         {
             Slots[i].SetVisible(false);
-            Slots[i].PlayAnimation(slotDelayTimes[i]);
+            Slots[i].PlayEnterAnimation(slotDelayTimes[i]);
         }
     }
 
@@ -141,6 +141,8 @@ public class UICreateRoleFrameView : MonoBehaviour
     /// <param name="isLock"> 該 Slot 是否是鎖住的狀態. </param>
     private void onSlotClick(int index, UICreateRolePlayerSlot.Data data, bool isLock)
     {
+//        Debug.LogFormat("onSlotClick, index:{0}, isLock:{1}", index, isLock);
+
         if(isLock)
             return;
 
@@ -149,9 +151,9 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
-        playAnimation(index);
+        playExitAnimation(index);
 
-        yield return new WaitForSeconds(SlotAnimationTime);
+        yield return new WaitForSeconds(ExitAnimationTime);
 
         if(!data.IsValid())
         {
@@ -177,14 +179,20 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
     }
 
-    private void playAnimation(int slotIndex)
+    /// <summary>
+    /// 播放離開 FrameView 時的 Animation.
+    /// </summary>
+    /// <param name="slotOpenIndex"> 哪一個 slot 被點擊. </param>
+    private void playExitAnimation(int slotOpenIndex)
     {
         for(int i = 0; i < Slots.Length; i++)
         {
-            if(i == slotIndex)
-                Slots[i].GetComponent<Animator>().SetTrigger("Open");
+            if(i == slotOpenIndex)
+//                Slots[i].GetComponent<Animator>().SetTrigger("Open");
+                Slots[i].PlayOpenAnimation();
             else
-                Slots[i].GetComponent<Animator>().SetTrigger("Down");
+//                Slots[i].GetComponent<Animator>().SetTrigger("Down");
+                Slots[i].PlayExitAnimation();
         }
     }
 
@@ -252,7 +260,6 @@ public class UICreateRoleFrameView : MonoBehaviour
 
             var data = UICreateRole.Convert(team.PlayerBank);
             if (data != null)
-//                Show(data, GameData.Team.Player.RoleIndex, ShowNum);
                 setData(data, GameData.Team.Player.RoleIndex);
             else
                 Debug.LogError("Data Error!");

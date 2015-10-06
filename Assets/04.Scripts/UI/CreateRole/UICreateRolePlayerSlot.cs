@@ -13,7 +13,7 @@ using UnityEngine;
 /// <item> Call SetData() 設定要顯示的資料. </item>
 /// <item> Call SetLock() 將 Frame 設定為鎖定狀態. </item>
 /// <item> Call SetVisible() 控制要不要顯示. </item>
-/// <item> Call PlayAnimation() 控制 Slot 進入畫面的時間. </item>
+/// <item> Call PlayEnterAnimation() 控制 Slot 進入畫面的時間. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -108,17 +108,37 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         GetComponent<Animator>().enabled = false;
     }
 
-    private IEnumerator enableAnimator(float delayTime)
+    private IEnumerator playAnimation(float delayTime, string animName = null)
     {
+        var animator = GetComponent<Animator>();
+        animator.enabled = false;
         yield return new WaitForSeconds(delayTime);
         SetVisible(true);
-        GetComponent<Animator>().enabled = true;
+        animator.enabled = true;
+
+        if(!string.IsNullOrEmpty(animName))
+            animator.SetTrigger(animName);
     }
 
-    public void PlayAnimation(float delayTime)
+    public void PlayEnterAnimation(float delayTime)
     {
-        GetComponent<Animator>().enabled = false;
-        StartCoroutine(enableAnimator(delayTime));
+        StartCoroutine(playAnimation(delayTime));
+    }
+
+    public void PlayOpenAnimation()
+    {
+//        GetComponent<Animator>().SetTrigger("Open");
+
+        // 0.05 只是我 try and error 的數值. 只是要讓 Animator 關閉後, 再打開, 行為才是正常的.
+        StartCoroutine(playAnimation(0.05f, "Open")); 
+    }
+
+    public void PlayExitAnimation()
+    {
+//        GetComponent<Animator>().SetTrigger("Down");
+
+        // 0.05 只是我 try and error 的數值. 只是要讓 Animator 關閉後, 再打開, 行為才是正常的.
+        StartCoroutine(playAnimation(0.05f, "Down"));
     }
 
     public void SetLock()
