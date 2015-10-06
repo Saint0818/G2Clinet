@@ -49,6 +49,11 @@ namespace AI
                 Listener = null;
                 Tel = null;
             }
+
+            public override string ToString()
+            {
+                return string.Format("Op: {0}, Msg: {1}, Telegram:{2}", Op, Msg, Tel);
+            }
         }
 
         private readonly List<Operation> mOperations = new List<Operation>();

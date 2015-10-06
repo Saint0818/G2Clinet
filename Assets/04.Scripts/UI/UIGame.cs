@@ -1275,7 +1275,7 @@ public class UIGame : UIBase {
 			break;
 		case EUISituation.Reset:
 			UIShow(false);
-			GameController.Get.Reset ();
+			GameController.Get.Reset();
 			InitData ();
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
 			CourtMgr.Get.SetScoreboards (1, Scores [1]);

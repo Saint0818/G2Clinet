@@ -1,6 +1,7 @@
 using AI;
 using GamePlayEnum;
 using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 球飛向誰的程式碼在 CourtMgr.SetBallState(EPlayerState.JumpBall).
@@ -11,6 +12,8 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
     {
         get { return EGameSituation.JumpBall; }
     }
+
+    private readonly PlayerBehaviour[] mJumpBallPlayers = new PlayerBehaviour[2];
 
     /// <summary>
     /// 這是要接球的球員.
@@ -24,24 +27,19 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
 //        GameController.Get.setPassIcon(true);
 
         // 找出 2 位要跳球的球員.
-        PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
-        if(npc)
-            npc.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
+        mJumpBallPlayers[0] = findJumpBallPlayer(ETeamKind.Self);
+        if(mJumpBallPlayers[0] != null)
+            mJumpBallPlayers[0].DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
 
-        npc = findJumpBallPlayer(ETeamKind.Npc);
-        if(npc)
-            npc.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
+        mJumpBallPlayers[1] = findJumpBallPlayer(ETeamKind.Npc);
+        if(mJumpBallPlayers[1] != null)
+            mJumpBallPlayers[1].DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
     }
 
     public override void Update()
     {
         if(GameController.Get.BallOwner == null && mReceiveBallPlayer != null)
         {
-            //            for(int i = 0; i < GameController.Get.GamePlayers.Count; i++)
-            //            {
-            //                GameController.Get.DoPickBall(GameController.Get.GamePlayers[i]);
-            //            }
-
             GameController.Get.DoPickBall(mReceiveBallPlayer);
         }
     }
@@ -54,11 +52,16 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
     {
         if(msg.Msg == EGameMsg.PlayerTouchBallWhenJumpBall)
         {
-            PlayerBehaviour touchPlayer = (PlayerBehaviour)msg.ExtraInfo;
-            mReceiveBallPlayer = randomReceiveBallPlayer(touchPlayer);
+            var touchPlayer = randomTouchBallPlayer();
+            if(touchPlayer != null)
+            {
+                mReceiveBallPlayer = randomReceiveBallPlayer(touchPlayer);
 
-            // 要求籃球飛向 ReceiveBallPlayer.
-            CourtMgr.Get.SetBallState(EPlayerState.JumpBall, mReceiveBallPlayer);
+                // 要求籃球飛向 ReceiveBallPlayer.
+                CourtMgr.Get.SetBallState(EPlayerState.JumpBall, mReceiveBallPlayer);
+            }
+            else
+                Debug.LogWarning("Can't found any jump player!");
         }
     }
 
@@ -84,7 +87,7 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
     }
 
     [CanBeNull]
-    private PlayerBehaviour randomReceiveBallPlayer(PlayerBehaviour exceptPlayer)
+    private PlayerBehaviour randomReceiveBallPlayer([NotNull] PlayerBehaviour exceptPlayer)
     {
         var team = AIController.Get.GeTeam(exceptPlayer.Team);
         PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.GetComponent<PlayerAI>());
@@ -92,5 +95,24 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
         if(receivalBallPlayer != null)
             return receivalBallPlayer.GetComponent<PlayerBehaviour>();
         return null;
+    }
+
+    [CanBeNull]
+    private PlayerBehaviour randomTouchBallPlayer()
+    {
+        if(mJumpBallPlayers[0] == null && mJumpBallPlayers[1] == null)
+            return null;
+
+        if(mJumpBallPlayers[0] != null && mJumpBallPlayers[1] == null)
+            return mJumpBallPlayers[0];
+
+        if(mJumpBallPlayers[0] == null && mJumpBallPlayers[1] != null)
+            return mJumpBallPlayers[1];
+
+        WeightedRandomizer<int> randomizer = new WeightedRandomizer<int>();
+        randomizer.AddOrUpdate(0, mJumpBallPlayers[0].Attribute.Rebound);
+        randomizer.AddOrUpdate(1, mJumpBallPlayers[1].Attribute.Rebound);
+        int index = randomizer.GetNext();
+        return mJumpBallPlayers[index];
     }
 }

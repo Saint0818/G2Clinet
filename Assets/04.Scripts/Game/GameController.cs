@@ -83,9 +83,20 @@ public class GameController : KnightSingleton<GameController>
     // 0:C, 1:F, 2:G
 	private Vector2[] teeBackPosAy = new Vector2[3];
 
-    // A Team, 0:G, 1:C, 2:F
-    // B Team, 0:G, 1:C, 2:F
-    private Vector3[] bornPosAy = new Vector3[6];
+    /*
+	 *     0	 5
+	 * 		 1 4
+	 * 	   2     3
+	 */
+    private readonly Vector3[] mJumpBallPos = //new Vector3[6]
+    {
+        new Vector3(-3.5f, 0, -3), // G
+        new Vector3(0, 0, -1.5f), // C
+        new Vector3(3.5f, 0, -3), // F
+        new Vector3(3.5f, 0, 3), // G
+        new Vector3(0, 0, 1.5f), // C
+        new Vector3(-3.5f, 0, 3) // F
+    };
 
 	private readonly List<PlayerBehaviour> PlayerList = new List<PlayerBehaviour>();
 
@@ -205,12 +216,12 @@ public class GameController : KnightSingleton<GameController>
 		 * 	   2     3
 		 */
 
-		bornPosAy[0] = new Vector3(-3.5f, 0, -3); // G_A
-		bornPosAy[1] = new Vector3(0, 0, -1.5f);  // C_A
-		bornPosAy[2] = new Vector3(3.5f, 0, -3);  // F_A
-		bornPosAy[3] = new Vector3(3.5f, 0, 3);   // G_B
-		bornPosAy[4] = new Vector3(0, 0, 1.5f);   // C_B
-		bornPosAy[5] = new Vector3(-3.5f, 0, 3);  // F_B
+//		bornPosAy[0] = new Vector3(-3.5f, 0, -3); // G_A
+//		bornPosAy[1] = new Vector3(0, 0, -1.5f);  // C_A
+//		bornPosAy[2] = new Vector3(3.5f, 0, -3);  // F_A
+//		bornPosAy[3] = new Vector3(3.5f, 0, 3);   // G_B
+//		bornPosAy[4] = new Vector3(0, 0, 1.5f);   // C_B
+//		bornPosAy[5] = new Vector3(-3.5f, 0, 3);  // F_B
     }
 
     public void InitGame()
@@ -362,39 +373,39 @@ public class GameController : KnightSingleton<GameController>
 		
 		//Team A
 		PlayerList[aPosAy[0]].Postion = EPlayerPostion.G;
-		PlayerList[aPosAy[0]].transform.position = bornPosAy[0];
+		PlayerList[aPosAy[0]].transform.position = mJumpBallPos[0];
 		PlayerList[aPosAy[0]].ShowPos = 1;
 		PlayerList[aPosAy[0]].IsJumpBallPlayer = false;
 		PlayerList[aPosAy[1]].Postion = EPlayerPostion.C;
-		PlayerList[aPosAy[1]].transform.position = bornPosAy[1];
+		PlayerList[aPosAy[1]].transform.position = mJumpBallPos[1];
 		PlayerList[aPosAy[1]].ShowPos = 0;
 		PlayerList[aPosAy[1]].IsJumpBallPlayer = true;
 		PlayerList[aPosAy[2]].Postion = EPlayerPostion.F;
-		PlayerList[aPosAy[2]].transform.position = bornPosAy[2];
+		PlayerList[aPosAy[2]].transform.position = mJumpBallPos[2];
 		PlayerList[aPosAy[2]].ShowPos = 2;
 		PlayerList[aPosAy[2]].IsJumpBallPlayer = false;
 		
 		//Team B
 		PlayerList[bPosAy[0]].Postion = EPlayerPostion.G;
-		PlayerList[bPosAy[0]].transform.position = bornPosAy[3];
+		PlayerList[bPosAy[0]].transform.position = mJumpBallPos[3];
 		PlayerList[bPosAy[0]].ShowPos = 4;
 		PlayerList[bPosAy[0]].IsJumpBallPlayer = false;
 		PlayerList[bPosAy[1]].Postion = EPlayerPostion.C;
-		PlayerList[bPosAy[1]].transform.position = bornPosAy[4];
+		PlayerList[bPosAy[1]].transform.position = mJumpBallPos[4];
 		PlayerList[bPosAy[1]].ShowPos = 3;
 		PlayerList[bPosAy[1]].IsJumpBallPlayer = true;
 		PlayerList[bPosAy[2]].Postion = EPlayerPostion.F;
-		PlayerList[bPosAy[2]].transform.position = bornPosAy[5];
+		PlayerList[bPosAy[2]].transform.position = mJumpBallPos[5];
 		PlayerList[bPosAy[2]].ShowPos = 5;
 		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
 	}
 
-	private void PlayZeroPosition()
-	{
-		for(int i = 0; i < PlayerList.Count; i++)
-			if(PlayerList[i])
-				PlayerList[i].transform.position = Vector3.zero;
-	}
+//	private void PlayZeroPosition()
+//	{
+//		for(int i = 0; i < PlayerList.Count; i++)
+//			if(PlayerList[i])
+//				PlayerList[i].transform.position = Vector3.zero;
+//	}
 
 	public void InitIngameAnimator()
 	{
@@ -417,23 +428,23 @@ public class GameController : KnightSingleton<GameController>
 			switch (GameStart.Get.FriendNumber)
             {
 			    case 1:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], GameData.EnemyMembers[0].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
                     break;
 			    case 2:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, bornPosAy[1], GameData.TeamMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], GameData.EnemyMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, bornPosAy[4], GameData.EnemyMembers[1].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
                     break;
 
                 case 3:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, bornPosAy[1], GameData.TeamMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, bornPosAy[2], GameData.TeamMembers[1].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], GameData.EnemyMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, bornPosAy[4], GameData.EnemyMembers[1].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, bornPosAy[5], GameData.EnemyMembers[2].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
+                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], GameData.EnemyMembers[2].Player));
                     break;
             }
 
@@ -442,20 +453,20 @@ public class GameController : KnightSingleton<GameController>
 			//PlayZeroPosition ();
         	break;
 		case EGameTest.All:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, bornPosAy[1], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, bornPosAy[2], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, bornPosAy[3], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, bornPosAy[4], new GameStruct.TPlayer(0)));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, bornPosAy[5], new GameStruct.TPlayer(0)));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], new GameStruct.TPlayer(0)));
 
 			break;
     	case EGameTest.AttackA:
     	case EGameTest.Shoot:
     	case EGameTest.Dunk:
 		case EGameTest.Rebound:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, bornPosAy[4], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new GameStruct.TPlayer(0)));	
 			SetBornPositions();
         	UIGame.Get.ChangeControl(true);
 			SetPlayerAI(false);
@@ -502,9 +513,9 @@ public class GameController : KnightSingleton<GameController>
 			GameData.Team.Player.SetID(34);		
 			GameData.TeamMembers[0].Player.SetID(24);			
 			GameData.TeamMembers[1].Player.SetID(14);
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, bornPosAy[1], GameData.TeamMembers[0].Player));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, bornPosAy[2], GameData.TeamMembers[1].Player));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
 			PlayerList[0].IsJumpBallPlayer = true;
 			break;
 		case EGameTest.CrossOver:
@@ -520,7 +531,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, bornPosAy[0], GameData.Team.Player));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
 			SetPlayerAI(false);
 			break;
         }
@@ -2584,10 +2595,10 @@ public class GameController : KnightSingleton<GameController>
 		return player.DoPassiveSkill(ESkillSituation.Rebound, CourtMgr.Get.RealBall.transform.position);
 	}
 
-	private bool JumpBall(PlayerBehaviour player)
-	{
-		return player.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
-	}
+//	private bool JumpBall(PlayerBehaviour player)
+//	{
+//		return player.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
+//	}
 	
 	public bool OnRebound(PlayerBehaviour player)
     {
@@ -3263,19 +3274,19 @@ public class GameController : KnightSingleton<GameController>
 		return result;
     }
 
-	private PlayerBehaviour findJumpBallPlayer(ETeamKind team) {
-		int findIndex = team == 0? 0 : 3;
-		PlayerBehaviour npc = null;
-		for (int i = 0; i < PlayerList.Count; i++)
-			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team && PlayerList [i].IsJumpBallPlayer) {
-				findIndex = i;
-			}
-			
-		if(findIndex < PlayerList.Count)
-			npc = PlayerList[findIndex];
-
-		return npc;
-	}
+//	private PlayerBehaviour findJumpBallPlayer(ETeamKind team) {
+//		int findIndex = team == 0? 0 : 3;
+//		PlayerBehaviour npc = null;
+//		for (int i = 0; i < PlayerList.Count; i++)
+//			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team && PlayerList [i].IsJumpBallPlayer) {
+//				findIndex = i;
+//			}
+//			
+//		if(findIndex < PlayerList.Count)
+//			npc = PlayerList[findIndex];
+//
+//		return npc;
+//	}
 
 	public PlayerBehaviour FindNearNpc(){
 		PlayerBehaviour p = null;
@@ -3419,7 +3430,7 @@ public class GameController : KnightSingleton<GameController>
 		switch (dir)
         {
 		case 0: //top ,rebound
-			if(Situation == EGameSituation.JumpBall)
+			if(Situation == EGameSituation.JumpBall && isEnter)
             {
 //				CourtMgr.Get.SetBallState(EPlayerState.JumpBall, player);
                 GameMsgDispatcher.Ins.SendMesssage(EGameMsg.PlayerTouchBallWhenJumpBall, player);
@@ -4234,7 +4245,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		IsStart = false;
-		SetBallOwnerNull ();
+		SetBallOwnerNull();
 
 		GameTime = GameStart.Get.GameWinTimeValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
@@ -4249,7 +4260,7 @@ public class GameController : KnightSingleton<GameController>
 
 		CourtMgr.Get.SetBallState (EPlayerState.Reset);
 
-		for (int i = 0; i < PlayerList.Count; i++) 
+		for(int i = 0; i < PlayerList.Count; i++) 
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
@@ -4260,23 +4271,23 @@ public class GameController : KnightSingleton<GameController>
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = bornPosAy[0];
+					PlayerList[i].transform.position = mJumpBallPos[0];
 				else
-					PlayerList[i].transform.position = bornPosAy[3];
+					PlayerList[i].transform.position = mJumpBallPos[3];
 			}
 			else if(PlayerList[i].Postion == EPlayerPostion.C)
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = bornPosAy[1];
+					PlayerList[i].transform.position = mJumpBallPos[1];
 				else
-					PlayerList[i].transform.position = bornPosAy[4];
+					PlayerList[i].transform.position = mJumpBallPos[4];
 			}
 			else
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = bornPosAy[2];
+					PlayerList[i].transform.position = mJumpBallPos[2];
 				else
-					PlayerList[i].transform.position = bornPosAy[5];
+					PlayerList[i].transform.position = mJumpBallPos[5];
 			}
 
 			PlayerList [i].AniState(EPlayerState.Idle);

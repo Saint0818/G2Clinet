@@ -43,7 +43,7 @@ public class PresentationState : State<EGameSituation, EGameMsg>//, ITelegraph<E
         {
             CourtMgr.Get.ShowEnd(true);
             GameController.Get.InitIngameAnimator();
-            GameController.Get.SetBornPositions();
+//            GameController.Get.SetBornPositions();
         }
     }
 }

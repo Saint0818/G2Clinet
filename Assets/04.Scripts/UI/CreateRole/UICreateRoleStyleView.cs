@@ -32,7 +32,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private int mPlayerID;
 
-    private EEquip mCurrentEquip = EEquip.Body;
+//    private EEquip mCurrentEquip = EEquip.Body;
 
     /// <summary>
     /// 目前球員穿搭的配件. Value: ItemID.

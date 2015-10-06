@@ -10,17 +10,17 @@ namespace AI
     {
         private readonly ETeamKind mTeam;
 
-//        /// <summary>
-//        /// 該隊球員.
-//        /// </summary>
-//        private readonly List<PlayerAI> mPlayers = new List<PlayerAI>();
-//
-//        /// <summary>
-//        /// 敵對球員.
-//        /// </summary>
-//        private readonly List<PlayerAI> mOpponentPlayers = new List<PlayerAI>();
+        /// <summary>
+        /// 該隊球員.
+        /// </summary>
+        private readonly List<PlayerAI> mPlayers = new List<PlayerAI>();
 
-        private readonly Dictionary<ETeamKind, List<PlayerAI>> mPlayers = new Dictionary<ETeamKind, List<PlayerAI>>();
+        /// <summary>
+        /// 敵對球員.
+        /// </summary>
+        private readonly List<PlayerAI> mOpponentPlayers = new List<PlayerAI>();
+
+//        private readonly Dictionary<ETeamKind, List<PlayerAI>> mPlayers = new Dictionary<ETeamKind, List<PlayerAI>>();
 
         /// <summary>
         /// 代表的球員的某個隊伍. 目前只是放 utility method, 讓 Player AI 執行的時候使用.
@@ -30,27 +30,29 @@ namespace AI
         {
             mTeam = team;
 
-            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
-            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
+//            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
+//            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
         }
 
         public void Clear()
         {
             mPlayers.Clear();
-            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
-            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
-            //            mOpponentPlayers.Clear();
+//            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
+//            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
+            mOpponentPlayers.Clear();
         }
 
         public void AddPlayer([NotNull]PlayerAI player)
         {
-            mPlayers[ETeamKind.Self].Add(player);
+//            mPlayers[ETeamKind.Self].Add(player);
+            mPlayers.Add(player);
             player.Team = this;
         }
 
         public void AddOpponentPlayer([NotNull] PlayerAI player)
         {
-            mPlayers[ETeamKind.Npc].Add(player);
+//            mPlayers[ETeamKind.Npc].Add(player);
+            mOpponentPlayers.Add(player);
 //            mOpponentPlayers.Add(player);
         }
 
@@ -72,16 +74,16 @@ namespace AI
             Vector2 ballPos = Vector2.zero;
             ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
 
-            for(int i = 0; i < mPlayers[ETeamKind.Self].Count; i++)
+            for(int i = 0; i < mPlayers.Count; i++)
             {
                 Vector2 playerPos = Vector2.zero;
-                playerPos.Set(mPlayers[ETeamKind.Self][i].transform.position.x, mPlayers[ETeamKind.Self][i].transform.position.z);
+                playerPos.Set(mPlayers[i].transform.position.x, mPlayers[i].transform.position.z);
 
                 var dis = Vector2.Distance(ballPos, playerPos);
                 if(dis < nearestDis)
                 {
                     nearestDis = dis;
-                    nearestBallPlayer = mPlayers[ETeamKind.Self][i];
+                    nearestBallPlayer = mPlayers[i];
                 }
             }
 
@@ -98,13 +100,13 @@ namespace AI
         {
             PlayerAI nearPlayer = null;
             float nearDis = float.MaxValue;
-            for(int i = 0; i < mPlayers[ETeamKind.Npc].Count; i++)
+            for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                var newDis = MathUtils.Find2DDis(mPlayers[ETeamKind.Npc][i].transform.position, position);
+                var newDis = MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, position);
                 if(newDis < nearDis)
                 {
                     nearDis = newDis;
-                    nearPlayer = mPlayers[ETeamKind.Npc][i];
+                    nearPlayer = mOpponentPlayers[i];
                 }
             }
 
@@ -159,20 +161,20 @@ namespace AI
         {
             defPlayer = null;
 
-            for (int i = 0; i < mPlayers[ETeamKind.Npc].Count; i++)
+            for (int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                float realAngle = MathUtils.GetAngle(player.transform, mPlayers[ETeamKind.Npc][i].transform);
+                float realAngle = MathUtils.GetAngle(player.transform, mOpponentPlayers[i].transform);
 
-                if (MathUtils.Find2DDis(player.transform.position, mPlayers[ETeamKind.Npc][i].transform.position) <= dis)
+                if (MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position) <= dis)
                 {
                     if(realAngle >= 0 && realAngle <= angle)
                     {
-                        defPlayer = mPlayers[ETeamKind.Npc][i];
+                        defPlayer = mOpponentPlayers[i];
                         return EFindPlayerResult.InFront;
                     }
                     if(realAngle <= 0 && realAngle >= -angle)
                     {
-                        defPlayer = mPlayers[ETeamKind.Npc][i];
+                        defPlayer = mOpponentPlayers[i];
                         return EFindPlayerResult.InBack;
                     }
                 }
@@ -184,20 +186,22 @@ namespace AI
         [CanBeNull]
         public PlayerAI RandomSameTeamPlayer([NotNull] PlayerAI exceptPlayer)
         {
-            List<PlayerAI> list = new List<PlayerAI>();
-            var team = exceptPlayer.GetComponent<PlayerBehaviour>().Team;
-            foreach(PlayerAI playerAI in mPlayers[team])
+            if(exceptPlayer.GetComponent<PlayerBehaviour>().Team != mTeam)
+                Debug.LogWarningFormat("Except Player isn't same team player");
+
+            List<PlayerAI> otherPlayers = new List<PlayerAI>();
+            foreach(PlayerAI playerAI in mPlayers)
             {
                 if(playerAI == exceptPlayer)
                     continue;
-                list.Add(playerAI);
+                otherPlayers.Add(playerAI);
             }
 
-            if(list.Count == 0)
+            if(otherPlayers.Count == 0)
                 return null;
 
-            var randomIndex = Random.Range(0, list.Count);
-            return list[randomIndex];
+            var randomIndex = Random.Range(0, otherPlayers.Count);
+            return otherPlayers[randomIndex];
         }
     } // end of the class Team.
 } // end of the namespace AI.
