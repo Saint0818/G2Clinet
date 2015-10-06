@@ -63,8 +63,8 @@ public class UI2D : MonoBehaviour {
 		Camera2D = GameObject.Find(UIName + "/2DCamera").GetComponent<Camera>();
 		CameraTop = GameObject.Find(UIName + "/TopCamera").GetComponent<Camera>();
 
-		if (SceneMgr.Get.CurrentScene != ESceneName.SelectRole)
-			gameObject.transform.localPosition = Vector3.up * 10;
+		//if (SceneMgr.Get.CurrentScene != ESceneName.SelectRole)
+		//	gameObject.transform.localPosition = Vector3.up * 10;
 
 		initResolution();
 		FpsLimiter fl = gameObject.GetComponent<FpsLimiter>();

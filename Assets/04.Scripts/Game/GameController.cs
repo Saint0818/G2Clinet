@@ -59,6 +59,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
+	public float MaxGameTime = 0;
 	public float GameTime = 0;
     public float coolDownPass = 0;
     public float CoolDownCrossover = 0;
@@ -244,6 +245,7 @@ public class GameController : KnightSingleton<GameController>
 
         PlayerList.Clear();
 
+		MaxGameTime = GameStart.Get.GameWinTimeValue;
 		GameTime = GameStart.Get.GameWinTimeValue;
 		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
 		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
@@ -408,13 +410,6 @@ public class GameController : KnightSingleton<GameController>
 		PlayerList[bPosAy[2]].IsJumpBallPlayer = false;
 	}
 
-//	private void PlayZeroPosition()
-//	{
-//		for(int i = 0; i < PlayerList.Count; i++)
-//			if(PlayerList[i])
-//				PlayerList[i].transform.position = Vector3.zero;
-//	}
-
 	public void InitIngameAnimator()
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
@@ -458,7 +453,6 @@ public class GameController : KnightSingleton<GameController>
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
 			SetBornPositions();
-			//PlayZeroPosition ();
         	break;
 		case EGameTest.All:
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], new GameStruct.TPlayer(0)));	
@@ -2475,11 +2469,6 @@ public class GameController : KnightSingleton<GameController>
     {
 		return player.DoPassiveSkill(ESkillSituation.Rebound, CourtMgr.Get.RealBall.transform.position);
 	}
-
-//	private bool JumpBall(PlayerBehaviour player)
-//	{
-//		return player.DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
-//	}
 	
 	public bool OnRebound(PlayerBehaviour player)
     {
@@ -3155,20 +3144,6 @@ public class GameController : KnightSingleton<GameController>
 		return result;
     }
 
-//	private PlayerBehaviour findJumpBallPlayer(ETeamKind team) {
-//		int findIndex = team == 0? 0 : 3;
-//		PlayerBehaviour npc = null;
-//		for (int i = 0; i < PlayerList.Count; i++)
-//			if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == team && PlayerList [i].IsJumpBallPlayer) {
-//				findIndex = i;
-//			}
-//			
-//		if(findIndex < PlayerList.Count)
-//			npc = PlayerList[findIndex];
-//
-//		return npc;
-//	}
-
 	public PlayerBehaviour FindNearNpc(){
 		PlayerBehaviour p = null;
 		float dis = 0;
@@ -3575,7 +3550,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	public void CheckConditionText (PlayerBehaviour player){
-		if(player == Joysticker) {
+		if(player == Joysticker && GameData.DStageData.ContainsKey(GameData.StageID)) {
 			int[] bits = GameData.DStageData[GameData.StageID].HintBit;
 			if(bits[1] > 0) {
 				if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= GameData.DStageData[GameData.StageID].Bit1Num) ){
@@ -3631,29 +3606,30 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	public bool IsTimePass() {
-		if (GameStart.Get.TestMode == EGameTest.None && 
-			IsStart &&
+		if (GameStart.Get.TestMode == EGameTest.None && IsStart && GameTime > 0 &&
 		    (GameStart.Get.WinMode == EWinMode.TimeNoScore || 
 		     GameStart.Get.WinMode == EWinMode.TimeScore ||
 		     GameStart.Get.WinMode == EWinMode.TimeLostScore ||
-		     GameStart.Get.WinMode == EWinMode.TimeScoreCompare) && 
-		    GameTime > 0 ) {
+		     GameStart.Get.WinMode == EWinMode.TimeScoreCompare)) {
 //			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
 				GameTime -= Time.deltaTime;
-				if(!CourtInstant.TimeInstant[1] && (GameTime < GameData.DStageData[GameData.StageID].Bit0Num / 2)){
-					ShowCourtInstant(1, 1, 1, GameData.DStageData[GameData.StageID].Bit0Num / 2);
+				if(!CourtInstant.TimeInstant[1] && (GameTime < MaxGameTime / 2)){
+					ShowCourtInstant(1, 1, 1, (int)(MaxGameTime / 2f));
 					CourtInstant.TimeInstant[1] = true;
 				}
-				if(!CourtInstant.TimeInstant[2] && (GameTime < GameData.DStageData[GameData.StageID].Bit0Num / 10)) {
-					ShowCourtInstant(1, 1, 2, GameData.DStageData[GameData.StageID].Bit0Num / 10);
+
+				if(!CourtInstant.TimeInstant[2] && (GameTime < MaxGameTime / 10)) {
+					ShowCourtInstant(1, 1, 2, (int)(MaxGameTime / 10f));
 					CourtInstant.TimeInstant[2] = true;
 				}
+
 				if (GameTime <= 0) {
 					GameTime = 0;
 					return true;
 				}
 //			}
 		}
+
 		return false;
 	}
 
@@ -3663,6 +3639,7 @@ public class GameController : KnightSingleton<GameController>
 			int enemy = 0;
 			if(self == (int) ETeamKind.Npc)
 				enemy = 1;
+
 			if(GameData.DStageData[GameData.StageID].Bit1Num == 0)
 				return true;
 			else {

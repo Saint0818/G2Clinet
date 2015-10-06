@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using GameStruct;
+using GameEnum;
 using System;
 using System.Collections.Generic;
 using DG.Tweening; 
@@ -657,8 +658,12 @@ public class UISelectRole : UIBase {
 			GameData.TeamMembers [0].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [0].Player.SetAvatar ();
 			GameData.TeamMembers [1].Player.SetAttribute (GameEnum.ESkillType.NPC);
-			GameData.TeamMembers [1].Player.SetAvatar ();		
-			SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
+			GameData.TeamMembers [1].Player.SetAvatar ();
+
+			if (SceneMgr.Get.CurrentScene == ESceneName.Court_0)
+				UILoading.UIShow(true, ELoadingGamePic.Game);
+			else
+				SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
 
 			break;
 		case EUIRoleSituation.ListA: // 1

@@ -33,17 +33,22 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			CurrentScene = levelToLoad;
 
 		switch (levelToLoad) {
-			case ESceneName.Court_0:
+			case ESceneName.Lobby:
+				GameData.StageID = -1;
+				break;
+            case ESceneName.Court_0:
 			case ESceneName.Court_1:
-				if (GameData.StageID >= 0)
-					UILoading.UIShow(true, ELoadingGamePic.Stage); 
-				else
-					UILoading.UIShow(true, ELoadingGamePic.Game);
-
+				UILoading.UIShow(true, ELoadingGamePic.Game);
 				break;
 
 			case ESceneName.SelectRole:
-				UILoading.UIShow(true, ELoadingGamePic.SelectRole);
+				if (GameData.StageID >= 0)
+					UILoading.UIShow(true, ELoadingGamePic.Stage); 
+				else {
+					GameData.StageID = -1;
+	                UILoading.UIShow(true, ELoadingGamePic.SelectRole);
+				}
+
 				break;
 
 			case ESceneName.Null:
@@ -66,6 +71,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     {
 		if (CurrentScene == ESceneName.Main) {
 			StartCoroutine (LoadLevelCoroutine (scene));
+			LoadScene = scene;
 		}
 		else {
 			if (CurrentScene != scene) {

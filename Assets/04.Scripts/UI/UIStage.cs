@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using GamePlayEnum;
+using GameEnum;
 
 public class UIStage : UIBase {
 	private static UIStage instance = null;
@@ -91,7 +92,7 @@ public class UIStage : UIBase {
 				GameStart.Get.FriendNumber =  GameData.DStageData[id].FriendNumber;
 
 			UIShow(false);
-			SceneMgr.Get.ChangeLevel(ESceneName.Court_0);
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 		}
 	}
 }

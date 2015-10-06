@@ -81,10 +81,9 @@ public class GameStart : KnightSingleton<GameStart> {
 				WinMode = EWinMode.TimeScoreCompare;
 
 
-			GameStart.Get.GameWinTimeValue = GameData.DStageData[id].Bit0Num;
-			GameStart.Get.GameWinValue =  GameData.DStageData[id].Bit1Num;
+			GameWinTimeValue = GameData.DStageData[id].Bit0Num;
+			GameWinValue =  GameData.DStageData[id].Bit1Num;
 //			GameStart.Get.FriendNumber =  GameData.DStageData[id].FriendNumber;
-
 		}
 
 	}
