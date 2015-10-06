@@ -79,8 +79,8 @@ public class UICreateRole : UIBase
         mStyleView = GetComponent<UICreateRoleStyleView>();
         mStyleView.Hide();
 
-		GameData.Team.Player.ID = 1;
-		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
+//		GameData.Team.Player.ID = 1;
+//		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
     }
 
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
