@@ -85,8 +85,28 @@ public static class TextConst
 			AddString (20, "大塊頭，因為巨大的身形與無匹的力量而成為地下摔角選手，其實是個實力相當高強的選手，但因為後台不夠硬始終無法成為明星。在某次講好的比賽中失手打敗對方，害組頭損失慘重而欠下巨債，妻小因此離開他。"
 			           , "");
 			AddString (21, "GUARD", "GUARD");
-			AddString (22, "FORWARDS", "FORWARDS");
+			AddString (22, "FORWARD", "FORWARD");
 			AddString (23, "CENTER", "CENTER");
+			AddString (24, "GAME TARGET", "GAME TARGET");
+			AddString (25, "HOME TEAM", "HOME TEAM");
+			AddString (26, "AWAY TEAM", "AWAY TEAM");
+			AddString (27, "時間限制", "時間限制");
+			AddString (28, "得分須達到", "得分須達到");
+			AddString (29, "失分不超過", "失分不超過");
+			AddString (30, "需贏對手", "需贏對手");
+			AddString (31, "2分球數量", "2分球數量");
+			AddString (32, "3分球數量", "3分球數量");
+			AddString (33, "灌籃成功次數", "灌籃成功次數");
+			AddString (34, "推倒成功次數", "推倒成功次數");
+			AddString (35, "抄截成功次數", "抄截成功次數");
+			AddString (36, "火鍋成功次數", "火鍋成功次數");
+			AddString (37, "SCORE", "SCORE");
+			AddString (38, "2POINT", "2POINT");
+			AddString (39, "3POINT", "3POINT");
+			AddString (40, "DUNK", "DUNK");
+			AddString (41, "PUSH", "PUSH");
+			AddString (42, "STEAL", "STEAL");
+			AddString (43, "BLOCK", "BLOCK");
 
 
 			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
