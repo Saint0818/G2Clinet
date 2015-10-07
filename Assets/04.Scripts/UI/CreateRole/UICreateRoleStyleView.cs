@@ -32,8 +32,6 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private int mPlayerID;
 
-//    private EEquip mCurrentEquip = EEquip.Body;
-
     /// <summary>
     /// 目前球員穿搭的配件. Value: ItemID.
     /// </summary>
@@ -131,7 +129,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     public void OnBackClick()
     {
-        StartCoroutine(playHideAnimation(showPreviousPage));
+        StartCoroutine(playExitAnimation(showPreviousPage));
     }
 
     private void showPreviousPage()
@@ -139,10 +137,12 @@ public class UICreateRoleStyleView : MonoBehaviour
         GetComponent<UICreateRole>().ShowPositionView();
     }
 
-    private IEnumerator playHideAnimation(CommonDelegateMethods.Action action)
+    private IEnumerator playExitAnimation(CommonDelegateMethods.Action action)
     {
+        UICreateRole.Get.EnableBlock(true);
         UIAnimator.SetTrigger("Close");
         yield return new WaitForSeconds(HideAnimationTime);
+        UICreateRole.Get.EnableBlock(false);
 
         action();
     }
@@ -152,7 +152,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     /// </summary>
     public void OnNextClick()
     {
-        StartCoroutine(playHideAnimation(sendDataToServer));
+        StartCoroutine(playExitAnimation(sendDataToServer));
     }
 
     private void sendDataToServer()
@@ -186,18 +186,18 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         if(ok)
         {
-			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text); 
-			GameData.Team.Player = team.Player;
-			GameData.Team.SkillCards = team.SkillCards;
-			GameData.Team.Player.Init();
-			GameData.SaveTeam();
-			
-			if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			else
-				LobbyStart.Get.EnterLobby();
-		}
+            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player = team.Player;
+            GameData.Team.SkillCards = team.SkillCards;
+            GameData.Team.Player.Init();
+            GameData.SaveTeam();
+        }
         else
-		    Debug.LogError("Create Role fail!");
-	}
+            Debug.LogError("Create Role fail!");
+
+        if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+        else
+            LobbyStart.Get.EnterLobby();
+    }
 }

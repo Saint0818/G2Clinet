@@ -84,22 +84,6 @@ public class UICreateRolePositionView : MonoBehaviour
         }
     }
 
-//    public bool Visible
-//    {
-//        set
-//        {
-//            Window.SetActive(value);
-//            if(value)
-//            {
-//                UI3DCreateRole.Get.ShowPositionView();
-//
-//                updateUI();
-//                Attributes.SetVisible(true);
-//                ForwardToggle.Set(true);
-//            }
-//        }
-//    }
-
     public void Show(bool showPreviousButton)
     {
         Window.SetActive(true);
@@ -156,7 +140,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public void OnBackClick()
     {
-        StartCoroutine(playHideAnimation(showPreviousPage));
+        StartCoroutine(playExitAnimation(showPreviousPage));
     }
 
     private void showPreviousPage()
@@ -166,7 +150,7 @@ public class UICreateRolePositionView : MonoBehaviour
 
     public void OnNextClick()
     {
-        StartCoroutine(playHideAnimation(showNextPage));
+        StartCoroutine(playExitAnimation(showNextPage));
     }
 
     private void showNextPage()
@@ -175,11 +159,12 @@ public class UICreateRolePositionView : MonoBehaviour
         GetComponent<UICreateRole>().ShowStyleView(mCurrentPostion, playerID);
     }
 
-    private IEnumerator playHideAnimation(Action action)
+    private IEnumerator playExitAnimation(Action action)
     {
+        UICreateRole.Get.EnableBlock(true);
         UIAnimator.SetTrigger("Close");
         yield return new WaitForSeconds(HideAnimationTime);
-
+        UICreateRole.Get.EnableBlock(false);
         action();
     }
 

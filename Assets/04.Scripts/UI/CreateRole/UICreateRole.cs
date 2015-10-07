@@ -2,6 +2,17 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
+/// <summary>
+/// 創角主程式.
+/// </summary>
+/// <remarks>
+/// 使用方法:
+/// <list type="number">
+/// <item> 用 UICreateRole.Get 取得 instance. </item>
+/// <item> Call ShowXXX() 顯示某個頁面. </item>
+/// <item> Call Hide() 將整個創角流程關閉. </item>
+/// </list>
+/// </remarks>
 [DisallowMultipleComponent]
 public class UICreateRole : UIBase
 {
@@ -11,6 +22,8 @@ public class UICreateRole : UIBase
     private UICreateRoleFrameView mFrameView;
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
+
+    private GameObject mFullScreenBlock;
 
     public void ShowFrameView()
     {
@@ -50,7 +63,17 @@ public class UICreateRole : UIBase
 
     public void Hide()
     {
+        UI3DCreateRole.Get.Hide();
         RemoveUI(UIName);
+    }
+
+    /// <summary>
+    /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
+    /// </summary>
+    /// <param name="enable"></param>
+    public void EnableBlock(bool enable)
+    {
+        mFullScreenBlock.SetActive(enable);
     }
 
 	public static UICreateRole Get
@@ -79,10 +102,22 @@ public class UICreateRole : UIBase
         mStyleView = GetComponent<UICreateRoleStyleView>();
         mStyleView.Hide();
 
-//		GameData.Team.Player.ID = 1;
-//		GameData.Team.Player.Name = SystemInfo.deviceUniqueIdentifier;
+        mFullScreenBlock = GameObject.Find("Window/FullScreenInvisibleWidget");
+        mFullScreenBlock.SetActive(false);
     }
 
+    /// <summary>
+    /// 內部使用, 一般使用者不要使用.
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="name"></param>
+    /// <param name="playerID"></param>
+    /// <param name="bodyItemID"></param>
+    /// <param name="hairItemID"></param>
+    /// <param name="clothItemID"></param>
+    /// <param name="pantsItemID"></param>
+    /// <param name="shoesItemID"></param>
+    /// <returns></returns>
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
         int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
     {
@@ -98,6 +133,13 @@ public class UICreateRole : UIBase
         return CreateModel(name, player, parent);
     }
 
+    /// <summary>
+    /// 內部使用, 一般使用者不要使用.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="player"></param>
+    /// <param name="parent"></param>
+    /// <returns></returns>
     public static GameObject CreateModel(string name, TPlayer player, Transform parent)
     {
         GameObject model = new GameObject { name = name };

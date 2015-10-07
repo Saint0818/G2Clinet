@@ -151,9 +151,12 @@ public class UICreateRoleFrameView : MonoBehaviour
 
     private IEnumerator runNexAction(int index, UICreateRolePlayerSlot.Data data)
     {
+        UICreateRole.Get.EnableBlock(true);
         playExitAnimation(index);
 
         yield return new WaitForSeconds(ExitAnimationTime);
+
+        UICreateRole.Get.EnableBlock(false);
 
         if(!data.IsValid())
         {
@@ -188,10 +191,8 @@ public class UICreateRoleFrameView : MonoBehaviour
         for(int i = 0; i < Slots.Length; i++)
         {
             if(i == slotOpenIndex)
-//                Slots[i].GetComponent<Animator>().SetTrigger("Open");
                 Slots[i].PlayOpenAnimation();
             else
-//                Slots[i].GetComponent<Animator>().SetTrigger("Down");
                 Slots[i].PlayExitAnimation();
         }
     }
@@ -200,7 +201,9 @@ public class UICreateRoleFrameView : MonoBehaviour
     {
         Debug.LogFormat("waitSelectPlayer, ok:{0}", ok);
 
-        if (ok)
+        UICreateRole.Get.Hide();
+
+        if(ok)
         {
             var team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Player = team.Player;
