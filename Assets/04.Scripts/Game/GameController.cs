@@ -674,7 +674,7 @@ public class GameController : KnightSingleton<GameController>
 				{
 					if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
-						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
+//						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
 						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}else
@@ -709,15 +709,15 @@ public class GameController : KnightSingleton<GameController>
             }
 
 			if(Input.GetKeyDown(KeyCode.L)) {
-				for (int i = 0; i < PlayerList.Count; i ++){
-					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
-                UIGame.Get.AddAllForce();
-				}
+//				for (int i = 0; i < PlayerList.Count; i ++){
+//					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
+//                UIGame.Get.AddAllForce();
+//				}
 			}
 
 			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
-				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
-				UIGame.Get.AddAllForce();
+//				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
+//				UIGame.Get.AddAllForce();
 			}
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
@@ -1433,10 +1433,12 @@ public class GameController : KnightSingleton<GameController>
 
 	private void judgeSkillUI()
     {
-		if(Joysticker && Joysticker.Attribute.ActiveSkill.ID > 0 && IsStart)
-        {
-			CourtMgr.Get.SkillAera((int)Joysticker.Team, Joysticker.IsAngerFull);
-			UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull, Joysticker.CheckSkill);
+		if(Joysticker.Attribute.ActiveSkills.Count > 0 ){
+			if(Joysticker && Joysticker.Attribute.ActiveSkills[0].ID > 0 && IsStart)
+			{
+				CourtMgr.Get.SkillArea((int)Joysticker.Team, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[0]));
+				UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[0]), Joysticker.CheckSkill(Joysticker.Attribute.ActiveSkills[0]));
+			}
 		}
 	}
 	
@@ -2497,21 +2499,21 @@ public class GameController : KnightSingleton<GameController>
         return true;
     }
     
-    public bool OnSkill() {
-		if (CandoBtn && DoSkill(Joysticker)) {
+	public bool OnSkill(TSkill tSkill) {
+		if (CandoBtn && DoSkill(Joysticker, tSkill)) {
 			return true;
 		} else
 			return false;
     }
 
-	public bool DoSkill(PlayerBehaviour player)
+	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
     {
 		bool result = false;
-		if(player.CanUseActiveSkill && CheckOthersUseSkill)
+		if(player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill)
         {
-			if (player.CheckSkill) {
-				player.AttackSkillEffect(player.Attribute.ActiveSkill.ID);
-				result = player.ActiveSkill(player.gameObject);
+			if (player.CheckSkill(tSkill)) {
+				player.AttackSkillEffect(tSkill);
+				result = player.ActiveSkill(tSkill, player.gameObject);
 			}
 		}
 		return result;
@@ -3681,12 +3683,13 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsConditionPass (PlayerBehaviour player) {
 		if(GameData.DStageData.ContainsKey(GameData.StageID)) {
-			if(GameStart.Get.StageHint[2] > 0) 
-				if(!checkCountEnough(player, GameStart.Get.StageHint[2], GameData.DStageData[GameData.StageID].Bit2Num))
+			int[] stageHint = GameData.DStageData[GameData.StageID].HintBit;
+			if(stageHint[2] > 0) 
+				if(!checkCountEnough(player, stageHint[2], GameData.DStageData[GameData.StageID].Bit2Num))
 					return false;
 			
-			if(GameStart.Get.StageHint[3] > 0) 
-				if(!checkCountEnough(player, GameStart.Get.StageHint[3], GameData.DStageData[GameData.StageID].Bit3Num))
+			if(stageHint[3] > 0) 
+				if(!checkCountEnough(player, stageHint[3], GameData.DStageData[GameData.StageID].Bit3Num))
 					return false;
 
 			return true;
@@ -4146,7 +4149,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
 			PlayerList [i].ResetSkill();
-			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
+//			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{

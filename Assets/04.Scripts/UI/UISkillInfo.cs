@@ -5,7 +5,7 @@ public class UISkillInfo : UIBase {
 	private static UISkillInfo instance = null;
 	private const string UIName = "UISkillInfo";
 
-	private GameObject buttonEquip;
+	private UILabel labelEquip;
 	
 	private UILabel labelSkillName;
 	private UILabel labelSkillLevel;
@@ -13,9 +13,11 @@ public class UISkillInfo : UIBase {
 
 	private UISprite spriteSkillCard;
 	private UITexture textureSkillPic;
-	private UILabel labelSkillCardLevel;
+	private UISprite spriteSkillCardLevel;
 	private UILabel labelSkillCardName;
-	private UILabel labelSkillCardCost;
+	private UISprite spriteSkillStar;
+
+	private bool isAlreadyEquip;
 	
 	public static bool Visible {
 		get {
@@ -35,19 +37,25 @@ public class UISkillInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, TSkillInfo info, bool isEquip){
+	public static void UIShow(bool isShow, TSkillInfo info, bool isEquip, bool isMaskOpen){
 		if(isShow) {
-			Get.buttonEquip.SetActive(!isEquip);
+			Get.labelEquip.gameObject.SetActive(!isMaskOpen);
+
+			Get.isAlreadyEquip = isEquip;
+			if(isEquip)
+				Get.labelEquip.text = "UNEQUIP";
+			else
+				Get.labelEquip.text = "EQUIP";
 
 			Get.labelSkillName.text = info.Name;
 			Get.labelSkillLevel.text = info.Lv;
 			Get.labelSkillInfo.text = info.Info;
 
-			Get.spriteSkillCard.spriteName = "SkillCard" + info.Lv;
+			Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[info.ID].Quality, 1, 5);
 			Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
 			Get.labelSkillCardName.text = info.Name;
-			Get.labelSkillCardLevel.text = info.Lv;
-			Get.labelSkillCardCost.text = GameData.DSkillData[info.ID].Space(int.Parse(info.Lv)).ToString(); 
+			Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv;
+			Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[info.ID].Star, 1, 5).ToString();
 		}
 		if (instance) {
 			if (!isShow)
@@ -60,23 +68,22 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitCom() {
-		buttonEquip = GameObject.Find (UIName + "/EquipBtn");
+		labelEquip = GameObject.Find (UIName + "/Right/EquipBtn/Label").GetComponent<UILabel>();
 
-		labelSkillName = GameObject.Find (UIName + "/Window/LabelNameTW").GetComponent<UILabel>();
-		labelSkillLevel = GameObject.Find (UIName + "/Window/LabelLevel").GetComponent<UILabel>();
-		labelSkillInfo = GameObject.Find (UIName + "/Window/LabelSkillinfo").GetComponent<UILabel>();
+		labelSkillName = GameObject.Find (UIName + "/Right/Info/LabelNameTW").GetComponent<UILabel>();
+		labelSkillLevel = GameObject.Find (UIName + "/Right/Info/LabelLevel").GetComponent<UILabel>();
+		labelSkillInfo = GameObject.Find (UIName + "/Right/Info/LabelSkillinfo").GetComponent<UILabel>();
 
-		spriteSkillCard = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCard").GetComponent<UISprite>();
-		textureSkillPic = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillPic").GetComponent<UITexture>();
-		labelSkillCardLevel = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillLevel").GetComponent<UILabel>();
-		labelSkillCardName = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillName").GetComponent<UILabel>();
-		labelSkillCardCost = GameObject.Find (UIName + "/Window/BtnMediumCard/SkillCost/LabelValue").GetComponent<UILabel>();
+		spriteSkillCard = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillCard").GetComponent<UISprite>();
+		textureSkillPic = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillPic").GetComponent<UITexture>();
+		spriteSkillCardLevel = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillLevel").GetComponent<UISprite>();
+		labelSkillCardName = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillName").GetComponent<UILabel>();
+		spriteSkillStar = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillStar").GetComponent<UISprite>();
 
 		UIEventListener.Get(GameObject.Find (UIName + "/BoxCollider")).onClick = Close;
 
-//		SetBtnFun(UIName + "/BoxCollider", Close);
-		SetBtnFun(UIName + "/EquipBtn", OnEquip);
-		SetBtnFun(UIName + "/Window/BtnMediumCard", OpenCard);
+		SetBtnFun(UIName + "/Right/EquipBtn", OnEquip);
+		SetBtnFun(UIName + "/Left/BtnMediumCard", OpenCard);
 	}
 	
 	protected override void InitData() {
@@ -89,7 +96,7 @@ public class UISkillInfo : UIBase {
 
 	public void Close(GameObject go) {
 		TSkillInfo info = new TSkillInfo();
-		UIShow(false, info, false);
+		UIShow(false, info, false, false);
 	}
 
 	public void OpenCard() {
@@ -97,7 +104,10 @@ public class UISkillInfo : UIBase {
 	}
 
 	public void OnEquip() {
-		UISkillFormation.Get.DoEquipCard();
+		if(isAlreadyEquip)
+			UISkillFormation.Get.DoUnEquipCard();
+		else
+			UISkillFormation.Get.DoEquipCard();
 		Close(null);
 	}
 

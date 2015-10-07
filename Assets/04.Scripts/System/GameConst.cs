@@ -4,6 +4,8 @@
 	public const string SceneGamePlay = "Court_0";
 
 	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
+	
+	public const int ID_LimitActive = 10000;
 
 	//Game play move speed
 	public const float DefSpeedup = 7.5f;

@@ -49,31 +49,31 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		List<GameObject> objs2 = null;
 		List<GameObject> objs3 = null;
 		if(isPassiveID) {
-			if (GameData.DSkillData.ContainsKey(player.PassiveID)) {
-				if(GameData.DSkillData[player.PassiveID].TargetKind1 != 0) 
-					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.PassiveID].TargetKind1, isPassiveID);
-				if(GameData.DSkillData[player.PassiveID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.PassiveID].TargetKind2, isPassiveID);
-				if(GameData.DSkillData[player.PassiveID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.PassiveID].TargetKind3, isPassiveID);
+			if (GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
+				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1 != 0) 
+					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind1, isPassiveID);
+				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind2, isPassiveID);
+				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 		} else {
-			if (GameData.DSkillData.ContainsKey(player.Attribute.ActiveSkill.ID)) {
-				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind1 != 0)
-					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind1, isPassiveID);
-				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind2 != 0)
-					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind2, isPassiveID);
-				if(GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind3 != 0)
-					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.Attribute.ActiveSkill.ID].TargetKind3, isPassiveID);
+			if (GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID)) {
+				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1 != 0)
+					objs1 = getSkillEffectPosition(1, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1, isPassiveID);
+				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2 != 0)
+					objs2 = getSkillEffectPosition(2, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind2, isPassiveID);
+				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
+					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
 		}
 
 		if(isPassiveID) {
-			if(player.PassiveID != -1) 
-				skillID = player.PassiveID;
+			if(player.PassiveSkillUsed.ID != -1) 
+				skillID = player.PassiveSkillUsed.ID;
 		} else {
-			if(player.Attribute.ActiveSkill.ID != 0)
-				skillID = player.Attribute.ActiveSkill.ID;
+			if(player.ActiveSkillUsed.ID != 0)
+				skillID = player.ActiveSkillUsed.ID;
 		}
 		
 		if(skillID != 0) {
@@ -155,7 +155,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
 			if (ps) {
 				ps.pusher = executePlayer;
-				ps.InRange = GameData.DSkillData[executePlayer.Attribute.ActiveSkill.ID].Distance(executePlayer.Attribute.ActiveSkill.Lv);
+				ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
 			}
 		}
 	}
@@ -163,9 +163,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {
 		string key = string.Empty;
 		if(isPassive) 
-			key = executePlayer.PassiveID + "_"+ index + "_" + effectkind;
+			key = executePlayer.PassiveSkillUsed.ID + "_"+ index + "_" + effectkind;
 		else 
-			key = executePlayer.Attribute.ActiveSkill.ID + "_"  + index + "_" + effectkind;
+			key = executePlayer.ActiveSkillUsed.ID + "_"  + index + "_" + effectkind;
 		
 		if(skillEffectPositions.ContainsKey (key)) 
 			return skillEffectPositions[key];

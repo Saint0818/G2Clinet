@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using GameEnum;
+using System.Collections.Generic;
 
 namespace GameStruct {
 	public struct TTeam
@@ -97,7 +98,7 @@ namespace GameStruct {
         public int AISkillLv;
 
 		public TAvatar Avatar;
-		public TSkill ActiveSkill;
+		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
 		public TItem[] Items;
 
@@ -124,7 +125,7 @@ namespace GameStruct {
 			MaxSkillSpace = 0;
 		    AISkillLv = 0;
 			Avatar = new TAvatar(1);
-			ActiveSkill = new TSkill();
+			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
 			Items = new TItem[0];
 		}
@@ -170,11 +171,12 @@ namespace GameStruct {
 		}
 
 		public void SetSkill (ESkillType type){
+			if(ActiveSkills == null)
+				ActiveSkills = new List<TSkill>();
+
 			switch (type) {
 				case ESkillType.NPC:
 				if(GameData.DPlayers.ContainsKey(ID)) {
-					ActiveSkill.ID = GameData.DPlayers[ID].Active;
-					ActiveSkill.Lv = GameData.DPlayers[ID].ActiveLV;
 					if(SkillCards == null || SkillCards.Length == 0) 
 						SkillCards = new TSkill[14];
 					SkillCards[0].ID = GameData.DPlayers[ID].Skill1;
@@ -205,31 +207,28 @@ namespace GameStruct {
 					SkillCards[12].Lv = GameData.DPlayers[ID].SkillLV13;
 					SkillCards[13].ID = GameData.DPlayers[ID].Skill14;
 					SkillCards[13].Lv = GameData.DPlayers[ID].SkillLV14;
+
+					for(int i=0; i<SkillCards.Length; i++) {
+						if(SkillCards[i].ID > GameConst.ID_LimitActive && SkillCards[i].ID > 0){
+							if(!ActiveSkills.Contains(SkillCards[i]))
+								ActiveSkills.Add(SkillCards[i]);
+						}
+					}
 				}
 					break;
 				case ESkillType.Player:
 					if(SkillCards == null)
 						SkillCards = new TSkill[0];
-					int length = SkillCards.Length;
-					if(length > 0) {
+					if(SkillCards.Length > 0) {
 						for(int i=0; i<SkillCards.Length; i++) {
-							if(SkillCards[i].ID > 10000){
-								ActiveSkill.ID = SkillCards[i].ID;
-								ActiveSkill.Lv = SkillCards[i].Lv;
-								length -- ;
-							}
-						}
-
-						int index = 0;
-						for(int i=0; i<SkillCards.Length; i++) {
-							if(SkillCards[i].ID < 10000){
-								SkillCards[index].ID = SkillCards[i].ID;
-								SkillCards[index].Lv = SkillCards[i].Lv;
-								index ++;
+							if(SkillCards[i].ID >= GameConst.ID_LimitActive){
+								if(!ActiveSkills.Contains(SkillCards[i]))
+									ActiveSkills.Add(SkillCards[i]);
 							}
 						}
 					}
 				break;
+
 			}
 		}
 		
@@ -321,24 +320,44 @@ namespace GameStruct {
 			}
 		}
 
-		public int MaxAnger {
-			get {
-				if (GameData.DSkillData.ContainsKey(ActiveSkill.ID))
-					return GameData.DSkillData[ActiveSkill.ID].MaxAnger;
-				else
+		public int MaxAnger{
+			get{
+				if(ActiveSkills.Count > 0) {
+					int maxAnger = 0;
+					for (int i=0; i<ActiveSkills.Count; i++) {
+						if (GameData.DSkillData.ContainsKey(ActiveSkills[i].ID))
+							maxAnger += GameData.DSkillData[ActiveSkills[i].ID].MaxAnger;
+					}
+					return maxAnger;
+				} else
 					return 0;
 			}
 		}
 
-		public string SkillAnimation {
-			get {
-				if (GameData.DSkillData.ContainsKey(ActiveSkill.ID))
-					return GameData.DSkillData[ActiveSkill.ID].Animation;
-				else
-					return "";
+		public bool CheckIfMaxAnger (int activeID, int value) {
+			if(ActiveSkills.Count > 0) {
+				if (GameData.DSkillData.ContainsKey(activeID))
+					return (value >= GameData.DSkillData[activeID].MaxAnger);
 			}
+			return false;
 		}
-    }
+
+		public int MaxAngerOne(int activeID){
+			if(ActiveSkills.Count > 0) {
+				if (GameData.DSkillData.ContainsKey(activeID))
+					return GameData.DSkillData[activeID].MaxAnger;
+			}
+			return 0;
+		}
+
+		public string SkillAnimation (int activeID) {
+			if (GameData.DSkillData.ContainsKey(activeID))
+				return GameData.DSkillData[activeID].Animation;
+			else
+				return string.Empty;
+				
+		}
+	}
 
 	public struct TSkill {
 		public int ID;
@@ -450,8 +469,8 @@ namespace GameStruct {
 		public int AHeadDress;
 		public int ZBackEquip;
 
-		public int Active; // 主動技, 數值是 Skill ID.
-		public int ActiveLV;
+//		public int Active; // 主動技, 數值是 Skill ID.
+//		public int ActiveLV;
 		public int Skill1;
 		public int SkillLV1;
 		public int Skill2;
@@ -682,7 +701,8 @@ namespace GameStruct {
 	public struct TSkillData {
 		public int ID;
 		public int Kind; 
-		public int Star;
+		public int Quality; //Card Color
+		public int Star; // Space
 		public int MaxStar;
 		public int PictureNo;
 		public string NameTW;
@@ -766,7 +786,7 @@ namespace GameStruct {
 		}
 
 		public int Space(int lv) {
-			return space + lv * spaceAdd;
+			return space + Star * spaceAdd;
 		}
 
 		public float LifeTime(int lv) {
@@ -780,6 +800,10 @@ namespace GameStruct {
 		public float Distance(int lv) {
 			return distance + lv * distanceAdd;
 		}
+
+//		public int StarCount (int lv) {
+//			return Mathf.Clamp(Star + (lv - 1), 1, MaxStar);
+//		}
 	}
 
 	public struct TItem {

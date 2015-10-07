@@ -185,8 +185,8 @@ public class UISelectRole : UIBase {
 				axisX = -Input.GetAxis ("Mouse X");
 				#endif
 				#endif
-				if(!UICharacterInfo.Visible)
-					arrayPlayer[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
+//				if(!UICharacterInfo.Visible)
+//					arrayPlayer[0].transform.Rotate(new Vector3(0, axisX, 0), Space.Self);
 			} 
 		}
 	}
@@ -338,9 +338,9 @@ public class UISelectRole : UIBase {
 	}
 
 	public void DoPlayerAnimator(GameObject obj){
-		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
-		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
-		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
+//		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
+//		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
+//		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 //		if(roleFallTime == 0 && uiSelect.activeInHierarchy) {
 //			int ranAnimation = UnityEngine.Random.Range(0,9);
 //			if(ranAnimation == 0)
@@ -350,9 +350,9 @@ public class UISelectRole : UIBase {
 	}
 
 	public void OnClickSixAttr(GameObject obj) {
-		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
-		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
-		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
+//		UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
+//		UICharacterInfo.Get.transform.localPosition = new Vector3(0, 0, -200);
+//		UICharacterInfo.UIShow(!UICharacterInfo.Visible);
 	}
 	
 	public void DoBackToSelectMe() {
@@ -569,8 +569,8 @@ public class UISelectRole : UIBase {
 					
 					setTriangleData();
 					arrayPlayerData[0].SetAttribute(GameEnum.ESkillType.NPC);
-					if(UICharacterInfo.Visible)
-						UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
+//					if(UICharacterInfo.Visible)
+//						UICharacterInfo.Get.SetAttribute(data, arrayPlayerData[0]);
 				}
 			}
 		}

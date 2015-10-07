@@ -878,7 +878,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         return result;
     }
 
-	public void SkillAera(int team, bool isEnable)
+	public void SkillArea(int team, bool isEnable)
 	{
 //		if (team < skillAeraEffect.Length && skillAeraEffect [team] == null) {
 //			if(team == 0)

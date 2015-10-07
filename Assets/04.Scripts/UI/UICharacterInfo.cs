@@ -206,21 +206,21 @@ public class UICharacterInfo : UIBase {
 	}
 
 	private void setActiveCard (TGreatPlayer data) {
-		labelActiveLevel.text = data.ActiveLV.ToString();
-		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
+//		labelActiveLevel.text = data.ActiveLV.ToString();
+//		spriteActiveCard.spriteName = "SkillCard" + data.ActiveLV;
 		
-		labelActiveName.text = GameData.DSkillData[data.Active].Name;
-		spriteActivePic.mainTexture = GameData.CardTexture(data.Active);
+//		labelActiveName.text = GameData.DSkillData[data.Active].Name;
+//		spriteActivePic.mainTexture = GameData.CardTexture(data.Active);
 		
-		activeID = data.Active;
+//		activeID = data.Active;
 	}
 
 	private void setPassiveCard(TPlayer player){
-		for (int i=0; i<player.SkillCards.Length; i++) {
-			if(player.SkillCards[i].ID > 0) {
-				addPassiveCard(i, player.SkillCards[i].ID, player.SkillCards[i].Lv);
-			}
-		}
+//		for (int i=0; i<player.SkillCards.Length; i++) {
+//			if(player.SkillCards[i].ID > 0) {
+//				addPassiveCard(i, player.SkillCards[i].ID, player.SkillCards[i].Lv);
+//			}
+//		}
 		panelPassive.transform.localPosition = new Vector3(27, -25, 0);
 		panelPassive.clipOffset = new Vector2(8, 0);
 	}

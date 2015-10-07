@@ -548,30 +548,27 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
-		if(IsHaveActiveSkill) {
-			int v = (int)(value / 10);
-			if(v <= 0)
-				v = 0;
-			if(GameController.Get.Situation != EGameSituation.End) {
-				if(this == GameController.Get.Joysticker && value > 0) {
-					if(target)
-						SkillDCExplosion.Get.BornDC( v, target, CameraMgr.Get.SkillDCTarget, parent);
-				}
+		int v = (int)(value / 10);
+		if(v <= 0)
+			v = 0;
+		if(GameController.Get.Situation != EGameSituation.End) {
+			if(this == GameController.Get.Joysticker && value > 0) {
+				if(target)
+					SkillDCExplosion.Get.BornDC( v, target, CameraMgr.Get.SkillDCTarget, parent);
 			}
-			angerPower += value;
-			if (angerPower > Attribute.MaxAnger) {
-//				value -= angerPower - Attribute.MaxAnger;
-				angerPower = Attribute.MaxAnger;
-			}
-			
-			if (angerPower < 0)
-				angerPower = 0;
-			
-			if (Team == ETeamKind.Self && Index == 0) {
-				OnUIAnger(Attribute.MaxAnger, angerPower, v);
-				if (value > 0)
-					GameRecord.AngerAdd += value;
-			}
+		}
+		angerPower += value;
+		if (angerPower > Attribute.MaxAnger) {
+			angerPower = Attribute.MaxAnger;
+		}
+		
+		if (angerPower < 0)
+			angerPower = 0;
+		
+		if (Team == ETeamKind.Self && Index == 0) {
+			OnUIAnger(Attribute.MaxAnger, angerPower, v);
+			if (value > 0)
+				GameRecord.AngerAdd += value;
 		}
     }
 
@@ -3090,7 +3087,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "PushCalculateStart":
-				GameController.Get.PushCalculate(this, 3, 30);
+				GameController.Get.PushCalculate(this, GameConst.StealBallDistance, 30);
 //				IsPushCalculate = true;
 //                pushTrigger.gameObject.SetActive(true);
                 break;
@@ -3101,7 +3098,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ElbowCalculateStart":
-				GameController.Get.PushCalculate(this, 3, 270);
+				GameController.Get.PushCalculate(this, GameConst.StealBallDistance, 270);
                 break;
                 
             case "ElbowCalculateEnd":
@@ -3279,7 +3276,7 @@ public class PlayerBehaviour : MonoBehaviour
 		int skillEffectKind = aniEvent.intParameter;
 		string cameraAction = aniEvent.stringParameter;
 		if(skillEffectKind < 10) {
-			if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID)) {
+			if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
 				if(!isSkillShow) {
 					if(OnUIJoystick != null)
 						OnUIJoystick(this, false);
@@ -3288,15 +3285,15 @@ public class PlayerBehaviour : MonoBehaviour
 						UIPassiveEffect.UIShow(false);
 					
 					isSkillShow = true;
-					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[Attribute.ActiveSkill.ID].Kind);
+					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
 					EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
 					
 					if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 						LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 					
 					CameraMgr.Get.SkillShowActive(skillEffectKind, t);
-					if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID))
-						UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[Attribute.ActiveSkill.ID].PictureNo, Attribute.ActiveSkill.Lv, GameData.DSkillData[Attribute.ActiveSkill.ID].Name);
+					if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+						UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData[ActiveSkillUsed.ID].Name);
 					
 					switch(skillEffectKind) {
 					case 0://show self and rotate camera
@@ -3323,8 +3320,8 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			} else {
 				//Teammate and Enemy's Active PassiveCard will be shown
-				if(GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID) && !IsUseSkill)
-					UIPassiveEffect.Get.ShowCard(this, Attribute.ActiveSkill.ID, Attribute.ActiveSkill.Lv);
+				if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseSkill)
+					UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
 				showActiveEffect();
 			}
 		} else {
@@ -3407,18 +3404,19 @@ public class PlayerBehaviour : MonoBehaviour
 		return skillController.DoPassiveSkill(state, this, v);
 	}
 
-	public bool ActiveSkill(GameObject target = null) {
-		if (CanUseActiveSkill) {
+	public bool ActiveSkill(TSkill tSkill, GameObject target = null) {
+		if (CanUseActiveSkill(tSkill)) {
 			GameRecord.Skill++;
-			SetAnger(-Attribute.MaxAnger);
+			ActiveSkillUsed = tSkill;
+			SetAnger(-Attribute.MaxAngerOne(tSkill.ID));
 
-			if (Attribute.SkillAnimation != "") {
-				SetInvincible(skillController.ActiveTime);
+			if (Attribute.SkillAnimation(tSkill.ID) != "") {
+//				SetInvincible(skillController.ActiveTime[index]);
 				if (target)
-					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation), target.transform.position);
+					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(tSkill.ID)), target.transform.position);
 				else{
 					try {
-						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation));
+						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(tSkill.ID)));
 					} catch {
 						LogMgr.Get.LogError("Can't find SkillAnimation in EPlayerState");
 						return false;
@@ -3440,33 +3438,48 @@ public class PlayerBehaviour : MonoBehaviour
 		initAttr();
 	}
 
-	public void AttackSkillEffect (int skillID) {
-		skillController.AttackSkillEffect(this, skillID);
+	public void AttackSkillEffect (TSkill activeSkill) {
+		skillController.AttackSkillEffect(this, activeSkill);
 	}
 
-	public bool CheckSkill {
-		get {
-			bool result = false;
-			if(skillController.GetActiveSkillTarget(this).Count > 0){
-				for(int i=0; i<skillController.GetActiveSkillTarget(this).Count; i++)
-				{
-					if(skillController.CheckSkill(this, skillController.GetActiveSkillTarget(this)[i])) 
+	public bool CheckSkill (TSkill tSkill) {
+		bool result = false;
+		if(skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
+			for(int i=0; i<skillController.GetActiveSkillTarget(this, tSkill).Count; i++)
+				if(skillController.CheckSkill(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill)[i])) 
 						result = true;
-				}
-			}
-			return result;
-		}
+		return result;
 	}
 
-	public int PassiveID {
-		get {return skillController.PassiveID;}
-		set {skillController.PassiveID = value;}
+	public TSkill ActiveSkillUsed {
+		get {return skillController.ActiveSkillUsed;}
+		set {skillController.ActiveSkillUsed = value;}
 	}
 
-	public int PassiveLv {
-		get {return skillController.PassiveLv;}
-		set {skillController.PassiveLv = value;}
+	public TSkill PassiveSkillUsed {
+		get {return skillController.PassiveSkillUsed;}
+		set {skillController.PassiveSkillUsed = value;}
 	}
+
+//	public int ActiveID {
+//		get {return skillController.ActiveSkillUsed.ID;}
+//		set {skillController.ActiveID = value;}
+//	}
+//
+//	public int ActiveLv {
+//		get {return skillController.ActiveLv;}
+//		set {skillController.ActiveLv = value;}
+//	}
+//
+//	public int PassiveID {
+//		get {return skillController.PassiveID;}
+//		set {skillController.PassiveID = value;}
+//	}
+//
+//	public int PassiveLv {
+//		get {return skillController.PassiveLv;}
+//		set {skillController.PassiveLv = value;}
+//	}
 
 	public int MoveDodgeRate {
 		get {return skillController.MoveDodgeRate;}
@@ -3504,9 +3517,9 @@ public class PlayerBehaviour : MonoBehaviour
 		get {return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
 	}
 
-	public bool IsHaveActiveSkill {
-		get {return GameData.DSkillData.ContainsKey(Attribute.ActiveSkill.ID);}
-	}
+//	public bool IsHaveActiveSkill (int activeID) {
+//		return GameData.DSkillData.ContainsKey(Attribute.Contains(activeID));
+//	}
 	
 	public bool CanMove
 	{
@@ -3530,16 +3543,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-	public bool CanUseActiveSkill
+	public bool CanUseActiveSkill (TSkill tSkill)
     {
-		get
-        {
 			if((CanMove || crtState == EPlayerState.HoldBall) &&
-               !IsUseSkill && IsAngerFull && IsHaveActiveSkill)
+               !IsUseSkill && IsAngerFull(tSkill))
 				return true;
 
             return false;
-		}
 	}
     
     public bool HoldBallCanMove
@@ -3753,8 +3763,8 @@ public class PlayerBehaviour : MonoBehaviour
         set{ firstDribble = value;}
     }
 
-	public bool IsAngerFull {
-		get { return angerPower >= Attribute.MaxAnger; }
+	public bool IsAngerFull (TSkill tSkill) {
+		return Attribute.CheckIfMaxAnger(tSkill.ID, angerPower);
 	}
 
 	public bool AIing {

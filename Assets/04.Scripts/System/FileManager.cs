@@ -502,7 +502,10 @@ public class FileManager : KnightSingleton<FileManager> {
 		try {
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
-				GameData.DSkillData.Add(data[i].ID, data[i]);
+				if(!GameData.DSkillData.ContainsKey(data[i].ID))
+					GameData.DSkillData.Add(data[i].ID, data[i]);
+				else
+					Debug.LogError("GameData.DSkillData is ContainsKey:"+ data[i].ID);
 			}
 
 			if(SaveVersion)
@@ -518,7 +521,10 @@ public class FileManager : KnightSingleton<FileManager> {
 		try {
 			TItemData[] data = (TItemData[])JsonConvert.DeserializeObject (text, typeof(TItemData[]));
 			for (int i = 0; i < data.Length; i++) {
-				GameData.DItemData.Add(data[i].ID, data[i]);
+				if(!GameData.DItemData.ContainsKey(data[i].ID))
+					GameData.DItemData.Add(data[i].ID, data[i]);
+				else 
+					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
 			}
 			
 			if(SaveVersion)
@@ -536,8 +542,9 @@ public class FileManager : KnightSingleton<FileManager> {
 			for (int i = 0; i < GameData.StageData.Length; i++) {
 				if (GameData.StageData[i].ID > 0 && !GameData.DStageData.ContainsKey(GameData.StageData[i].ID))
 					GameData.DStageData.Add(GameData.StageData[i].ID, GameData.StageData[i]);
-				else
+				else 
 					Debug.Log ("Stage ID error " + i.ToString());
+
 			}
 			
 			if(SaveVersion)

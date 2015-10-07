@@ -25,8 +25,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	public float CrossTimeZ = 0.8f;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
-	[HideInInspector]
-	public int[] StageHint;
 
 	void Start() {
 		Time.timeScale = 1;
@@ -57,27 +55,26 @@ public class GameStart : KnightSingleton<GameStart> {
 
 	public void StageJoin (int id) {
 		if(GameData.DStageData.ContainsKey(id)) {
-//			StageHint = AI.BitConverter.Convert(GameData.DStageData[id].Hint);
-			StageHint = GameData.DStageData[id].HintBit;
+			int[] stageHint = GameData.DStageData[id].HintBit;
 			GameData.StageID = id;
 			
 //			GameStart.Get.CourtMode =  (ECourtMode)GameData.DStageData[id].CourtMode;
 
-			if(StageHint[0] == 0 && StageHint[1] == 0)
+			if(stageHint[0] == 0 && stageHint[1] == 0)
 				WinMode = EWinMode.None;
-			else if(StageHint[0] == 0 && StageHint[1] == 1)
+			else if(stageHint[0] == 0 && stageHint[1] == 1)
 				WinMode = EWinMode.NoTimeScore;
-			else if(StageHint[0] == 0 && StageHint[1] == 2)
+			else if(stageHint[0] == 0 && stageHint[1] == 2)
 				WinMode = EWinMode.NoTimeLostScore;
-			else if(StageHint[0] == 0 && StageHint[1] == 3)
+			else if(stageHint[0] == 0 && stageHint[1] == 3)
 				WinMode = EWinMode.NoTimeScoreCompare;
-			else if(StageHint[0] == 1 && StageHint[1] == 0)
+			else if(stageHint[0] == 1 && stageHint[1] == 0)
 				WinMode = EWinMode.TimeNoScore;
-			else if(StageHint[0] == 1 && StageHint[1] == 1)
+			else if(stageHint[0] == 1 && stageHint[1] == 1)
 				WinMode = EWinMode.TimeScore;
-			else if(StageHint[0] == 1 && StageHint[1] == 2)
+			else if(stageHint[0] == 1 && stageHint[1] == 2)
 				WinMode = EWinMode.TimeLostScore;
-			else if(StageHint[0] == 1 && StageHint[1] == 3)
+			else if(stageHint[0] == 1 && stageHint[1] == 3)
 				WinMode = EWinMode.TimeScoreCompare;
 
 
