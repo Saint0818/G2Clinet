@@ -119,7 +119,7 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         UI3DCreateRole.Get.StyleView.UpdateModel(equip, itemID);
         mEquips[equip] = itemID;
-        UI3DCreateRole.Get.StyleView.PlayIdleAnimation();
+//        UI3DCreateRole.Get.StyleView.PlayIdleAnimation();
     }
 
     public void Hide()

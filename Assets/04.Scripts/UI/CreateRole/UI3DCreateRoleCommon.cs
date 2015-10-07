@@ -159,7 +159,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             }
         }
 
-        public void UpdatePart(UICreateRoleStyleView.EEquip equip, int itemID)
+        public bool UpdatePart(UICreateRoleStyleView.EEquip equip, int itemID)
         {
             var bodyItemID = mItemIDs[UICreateRoleStyleView.EEquip.Body];
             var hairItemID = mItemIDs[UICreateRoleStyleView.EEquip.Hair];
@@ -178,10 +178,19 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             else if (equip == UICreateRoleStyleView.EEquip.Shoes)
                 shoesItemID = itemID;
 
-            UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
+            return UpdateParts(bodyItemID, hairItemID, clothItemID, pantsItemID, shoesItemID);
         }
 
-        public void UpdateParts(int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bodyItemID"></param>
+        /// <param name="hairItemID"></param>
+        /// <param name="clothItemID"></param>
+        /// <param name="pantsItemID"></param>
+        /// <param name="shoesItemID"></param>
+        /// <returns> true:真的有做更新; false:資料都一樣, 所以沒有真的更新. </returns>
+        public bool UpdateParts(int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, 
                                 int shoesItemID)
         {
             if(mItemIDs[UICreateRoleStyleView.EEquip.Body] == bodyItemID &&
@@ -189,7 +198,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
                mItemIDs[UICreateRoleStyleView.EEquip.Cloth] == clothItemID &&
                mItemIDs[UICreateRoleStyleView.EEquip.Pants] == pantsItemID &&
                mItemIDs[UICreateRoleStyleView.EEquip.Shoes] == shoesItemID)
-                return; // 沒有任何部件需要更新.
+                return false; // 沒有任何部件需要更新.
 
             mItemIDs[UICreateRoleStyleView.EEquip.Body] = bodyItemID;
             mItemIDs[UICreateRoleStyleView.EEquip.Hair] = hairItemID;
@@ -206,6 +215,8 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mDummy = mModel.transform.FindChild("DummyBall");
 
             EnableSelfRotationByTouch(mEnableSelfRotation);
+
+            return true;
         }
 
         public void EnableSelfRotationByTouch(bool enable)

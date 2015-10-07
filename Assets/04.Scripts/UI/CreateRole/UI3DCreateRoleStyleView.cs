@@ -105,8 +105,12 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     {
         if(mPlayer != null)
         {
-            mPlayer.UpdatePart(equip, itemID);
-            mPlayer.SetBall(Instantiate(mCommon.Ball));
+            if(mPlayer.UpdatePart(equip, itemID))
+            {
+                mPlayer.SetBall(Instantiate(mCommon.Ball));
+                mPlayer.SetBallVisible(true);
+                mPlayer.PlayAnimation("CreateRoleIdle");
+            }
         }
     }
 
@@ -116,14 +120,14 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         CamerAnimator.transform.DOLocalRotate(mCameraPos[mCurrentPos][equip].EulerAngle, TweenTime);
     }
 
-    public void PlayIdleAnimation()
-    {
-        if(mPlayer != null)
-        {
-            mPlayer.PlayAnimation("CreateRoleIdle");
-            mPlayer.SetBallVisible(true);
-        }
-    }
+//    public void PlayIdleAnimation()
+//    {
+//        if(mPlayer != null)
+//        {
+//            mPlayer.PlayAnimation("CreateRoleIdle");
+//            mPlayer.SetBallVisible(true);
+//        }
+//    }
 
     /// <summary>
     /// 一系列的運球動作.
