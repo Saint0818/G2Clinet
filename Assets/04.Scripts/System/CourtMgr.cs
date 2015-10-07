@@ -34,7 +34,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] Hood = new GameObject[2];
 
     /// <summary>
-    /// index 0: 玩家進攻的籃框; index 1: 對手進攻的籃框.
+    /// index 0: 玩家進攻的籃框; index 1: 對手進攻的籃框.(這對應到 ETeamKind 的數值)
     /// </summary>
     public GameObject[] ShootPoint = new GameObject[2];
 	public GameObject[] EffectPoint = new GameObject[2];

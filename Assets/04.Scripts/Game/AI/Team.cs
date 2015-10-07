@@ -6,6 +6,15 @@ using UnityEngine;
 
 namespace AI
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    /// 設計:
+    /// <list type="number">
+    /// <item> 不要用 ETeamKind 來記錄球員, 分開兩者比較好. 因為這樣邏輯比較清晰, 不會被 ETeamKind 的值混淆. </item>
+    /// </list>
+    /// </remarks>
     public class Team
     {
         private readonly ETeamKind mTeam;
@@ -20,8 +29,6 @@ namespace AI
         /// </summary>
         private readonly List<PlayerAI> mOpponentPlayers = new List<PlayerAI>();
 
-//        private readonly Dictionary<ETeamKind, List<PlayerAI>> mPlayers = new Dictionary<ETeamKind, List<PlayerAI>>();
-
         /// <summary>
         /// 代表的球員的某個隊伍. 目前只是放 utility method, 讓 Player AI 執行的時候使用.
         /// </summary>
@@ -29,31 +36,23 @@ namespace AI
         public Team(ETeamKind team)
         {
             mTeam = team;
-
-//            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
-//            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
         }
 
         public void Clear()
         {
             mPlayers.Clear();
-//            mPlayers.Add(ETeamKind.Self, new List<PlayerAI>());
-//            mPlayers.Add(ETeamKind.Npc, new List<PlayerAI>());
             mOpponentPlayers.Clear();
         }
 
         public void AddPlayer([NotNull]PlayerAI player)
         {
-//            mPlayers[ETeamKind.Self].Add(player);
             mPlayers.Add(player);
             player.Team = this;
         }
 
         public void AddOpponentPlayer([NotNull] PlayerAI player)
         {
-//            mPlayers[ETeamKind.Npc].Add(player);
             mOpponentPlayers.Add(player);
-//            mOpponentPlayers.Add(player);
         }
 
         public override string ToString()
@@ -202,6 +201,19 @@ namespace AI
 
             var randomIndex = Random.Range(0, otherPlayers.Count);
             return otherPlayers[randomIndex];
+        }
+
+        public bool IsAllOpponentsBehindMe(Vector3 position)
+        {
+            var targetPos = CourtMgr.Get.ShootPoint[(int)mTeam].transform.position;
+            var meDis = MathUtils.Find2DDis(targetPos, position);
+            for(int i = 0; i < mOpponentPlayers.Count; i++)
+            {
+                if(MathUtils.Find2DDis(mOpponentPlayers[i].transform.position, targetPos) < meDis)
+                    return false;
+            }
+
+            return true;
         }
     } // end of the class Team.
 } // end of the namespace AI.
