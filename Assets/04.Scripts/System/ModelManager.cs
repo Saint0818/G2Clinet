@@ -185,55 +185,64 @@ public class ModelManager : KnightSingleton<ModelManager> {
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyKind, int avatarNo) {
 		int ModelPart = (int)(avatarNo / 1000);
 		int TexturePart = avatarNo % 1000;
-		int BodyPart = -1;
+		SetAvatarTexture(Player, Attr, bodyType, BodyKind, ModelPart, TexturePart);
+	}
 
-		switch (BodyKind) {
+	public string GetAvatarPartString(int index)
+	{
+		string result = string.Empty;
+
+		switch(index)
+		{
+			case 0:
+				result = "B";
+				break;
 			case 1:
-				BodyPart = 2; // H
+				result = "H";
 				break;
-				
 			case 2:
-				BodyPart = 3; // M
-				break;
-				
+				result = "M";
+					break;
 			case 3:
-				BodyPart = 1; // C
+				result = "C";
 				break;
-				
 			case 4:
-				BodyPart = 4; //P
+				result = "P";
 				break;
-				
 			case 5:
-				BodyPart = 5;//S
+				result = "S";
 				break;
-				
-			case 10:
-				BodyPart = 6;//A
+			case 6:
+				result = "A";
 				break;
-				
-			case 11:
-				BodyPart = 7; //Z
-				break;	
-		
+			case 7:
+				result = "Z";
+				break;
 		}
 
-		if(BodyPart > 0)
-			SetAvatarTexture(Player, Attr, bodyType, BodyPart, ModelPart, TexturePart);
+		return result;
 	}
 
 	public void SetAvatarTexture(GameObject Player, GameStruct.TAvatar Attr, int bodyType, int BodyPart, int ModelPart, int TexturePart) {
 		if (Player) {
 			string bodyNumber = bodyType.ToString();;
 			string mainBody = "PlayerModel";
-			string[] strPart = new string[]{"B", "C", "H", "M", "P", "S", "A", "Z"};
+			string strPart = GetAvatarPartString(BodyPart);
+
+			if(strPart == string.Empty)
+			{
+				Debug.LogError("Avatar.BodyPart can't found");
+				return;
+			}
+
 			if(BodyPart < 6) {
 				Transform t = Player.transform.FindChild(mainBody);
 				if (t != null) {
 					GameObject obj = t.gameObject;
+
 					if(obj) {
-						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
-						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}",bodyNumber, strPart, ModelPart, TexturePart);
+						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart, ModelPart, TexturePart);
 						Texture texture = loadTexture(namePath);
 						if(!texture)
 							texture = loadTexture(path);
@@ -241,7 +250,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						Renderer renderers = obj.GetComponent<Renderer>();
 						Material[] materials = renderers.materials;
 						for(int i=0; i<materials.Length; i++){
-							if(materials[i].name.Equals(strPart[BodyPart] + " (Instance)")) {
+							if(materials[i].name.Equals(strPart + " (Instance)")) {
 								if(texture)
 									materials[i].mainTexture = texture;
 
@@ -251,13 +260,13 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					}
 				}
 			} else if(BodyPart == 6){
-				string bodyPath = string.Format("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead/3_{0}_{1}(Clone)", strPart[BodyPart], ModelPart);
+				string bodyPath = string.Format("Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead/3_{0}_{1}(Clone)", strPart, ModelPart);
 				Transform t = Player.transform.Find(bodyPath);
 				if (t != null) {
 					GameObject obj = t.gameObject;
 					if(obj) {
-						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
-						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+						string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart, ModelPart, TexturePart);
+						string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart, ModelPart, TexturePart);
 						Texture texture = loadTexture(namePath);
 						if(!texture)
 							texture = loadTexture(path);
@@ -265,7 +274,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 						Renderer renderers = obj.GetComponent<Renderer>();
 						Material[] materials = renderers.materials;
 						for(int i=0; i<materials.Length; i++){
-							if(materials[i].name.Equals(strPart[BodyPart])) {
+							if(materials[i].name.Equals(strPart)) {
 								if(texture)
 									materials[i].mainTexture = texture;
 
@@ -275,11 +284,11 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					}
 				}
 			} else if (BodyPart == 7){
-				string bodyPath = string.Format("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack/3_{0}_{1}(Clone)", strPart[BodyPart], ModelPart);
+				string bodyPath = string.Format("Bip01/Bip01 Spine/Bip01 Spine1/DummyBack/3_{0}_{1}(Clone)", strPart, ModelPart);
 				GameObject obj = Player.transform.Find(bodyPath).gameObject;
 				if(obj) {
-					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart[BodyPart], ModelPart, TexturePart);
-					string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart[BodyPart], ModelPart, TexturePart);
+					string path = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", strPart, ModelPart, TexturePart);
+					string namePath = string.Format("{0}_{1}_{2}_{3}",bodyNumber, strPart, ModelPart, TexturePart);
 					Texture texture = loadTexture(namePath);
 					if(!texture)
 						texture = loadTexture(path);
@@ -287,7 +296,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					Renderer renderers = obj.GetComponent<Renderer>();
 					Material[] materials = renderers.materials;
 					for(int i=0; i<materials.Length; i++){
-						if(materials[i].name.Equals(strPart[BodyPart])) {
+						if(materials[i].name.Equals(strPart)) {
 							if(texture)
 								materials[i].mainTexture = texture;
 
@@ -301,10 +310,12 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false) {
 		try {
+
+			Transform parent = result.transform.parent;
+			Vector3 localposition = result.transform.localPosition;
 			string bodyNumber = bodyType.ToString();
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
-			string[] avatarPart = new string[]{mainBody, "C", "H", "M", "P", "S", "A", "Z"};
-			int[] avatarIndex = new int[] {attr.Body, attr.Cloth, attr.Hair, attr.MHandDress, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
+			int[] avatarIndex = new int[] {attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
 
 			if(Reset){
 				Destroy(result);			
@@ -337,16 +348,19 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				if (avatarIndex [i] > 0) {
 					int avatarBody = avatarIndex[i] / 1000;
 					int avatarBodyTexture = avatarIndex[i] % 1000;
+					string avatarPart = GetAvatarPartString(i);
+
 					if (i == 0) {
 						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyNumber, mainBody); 
 						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, "B", "0", avatarBodyTexture);
 					}else 
 					if (i < 6) {
-						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber, avatarPart [i], avatarBody);
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, avatarPart [i], avatarBody, avatarBodyTexture);
+
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber, avatarPart, avatarBody);
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, avatarPart, avatarBody, avatarBodyTexture);
 					} else  {//it maybe A or Z
-						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart [i], avatarBody);
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart [i], avatarBody, avatarBodyTexture);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart, avatarBody);
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart, avatarBody, avatarBodyTexture);
 					}
 					
 					GameObject resObj = loadBody(path);
@@ -388,10 +402,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 									SkinnedMeshRenderer smr = avatarPartGO.GetComponentInChildren<SkinnedMeshRenderer> ();
 									if (smr != null) {
 										smr.material = matObj;
-										if (i == 0) 
-											smr.material.name = "B";
-										else
-											smr.material.name = avatarPart [i];
+										smr.material.name = avatarPart;
 										ci.mesh = smr.sharedMesh;
 									}
 
@@ -491,41 +502,52 @@ public class ModelManager : KnightSingleton<ModelManager> {
 				clone = null;
 			}
 
-			//collider
-			CapsuleCollider collider = result.GetComponent<CapsuleCollider>();
-			
-			if(collider == null)
-				collider = result.AddComponent<CapsuleCollider>();
-			
-			switch (bodyType) {
-				case 1:
-					collider.radius = 0.9f;
-		            collider.height = 3.2f;
-		            break;
-		            
-		        case 2:
-		            collider.radius = 0.8f;
-		            collider.height = 3f;
-		            break;
-				default: 
-					collider.radius = 1;
-					collider.height = 3.5f;
-				break;
-            }
-            
-            collider.center = new Vector3 (0, collider.height / 2f, 0);
+			InitCapsuleCollider(result, bodyType);
+			InitAnimator(result, bodyNumber, animatorType);
+			result.transform.parent = parent;
+			result.transform.localPosition = localposition;
 
-			//animator
-			Animator aniControl = result.GetComponent<Animator>();
-			if(aniControl == null)
-				aniControl = result.AddComponent<Animator>();
-
-			aniControl.applyRootMotion = false;
-			aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-			ChangeAnimator(ref aniControl, bodyNumber, animatorType);
 		} catch (UnityException e) {
 			Debug.Log(e.ToString());
 		}
+	}
+
+	private void InitCapsuleCollider(GameObject obj, int bodyType)
+	{
+		//collider
+		CapsuleCollider collider = obj.GetComponent<CapsuleCollider>();
+		
+		if(collider == null)
+			collider = obj.AddComponent<CapsuleCollider>();
+		
+		switch (bodyType) {
+		case 1:
+			collider.radius = 0.9f;
+			collider.height = 3.2f;
+			break;
+			
+		case 2:
+			collider.radius = 0.8f;
+			collider.height = 3f;
+			break;
+		default: 
+			collider.radius = 1;
+			collider.height = 3.5f;
+			break;
+		}
+		
+		collider.center = new Vector3 (0, collider.height / 2f, 0);
+	}
+
+	private void InitAnimator(GameObject obj, string bodyNumber, EAnimatorType animatorType)
+	{
+		Animator aniControl = obj.GetComponent<Animator>();
+		if(aniControl == null)
+			aniControl = obj.AddComponent<Animator>();
+		
+		aniControl.applyRootMotion = false;
+		aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+		ChangeAnimator(ref aniControl, bodyNumber, animatorType);
 	}
 
 	public void ChangeAnimator(ref Animator ani,string bodyNumber, EAnimatorType type) {

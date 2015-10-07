@@ -94,7 +94,7 @@ public static class URLConst {
 	public const string TeamStarting = "teamstarting";
 	public const string GMAddItem = "gmadditem";
 	public const string GMRemoveItem = "gmremoveitem";
-	public const string EquipPlayerItem = "equipplayeritem";
+	public const string ChangeAvatar = "changeavatar";
 }
 
 public class SendHttp : KnightSingleton<SendHttp>

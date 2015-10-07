@@ -2934,7 +2934,7 @@
     {
         "id": 6001,
         "nametw": "頭飾1",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "avatar": 10001,
         "maxstack": 1,
@@ -2943,7 +2943,7 @@
     {
         "id": 6002,
         "nametw": "頭飾2",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "avatar": 11001,
         "maxstack": 1,
@@ -2952,7 +2952,7 @@
     {
         "id": 6003,
         "nametw": "頭飾3",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -2960,7 +2960,7 @@
     {
         "id": 6004,
         "nametw": "頭飾4",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -2968,7 +2968,7 @@
     {
         "id": 6005,
         "nametw": "頭飾5",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -2976,7 +2976,7 @@
     {
         "id": 6006,
         "nametw": "頭飾6",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -2984,7 +2984,7 @@
     {
         "id": 6007,
         "nametw": "頭飾7",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -2992,7 +2992,7 @@
     {
         "id": 6008,
         "nametw": "頭飾8",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3000,7 +3000,7 @@
     {
         "id": 6009,
         "nametw": "頭飾9",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3008,7 +3008,7 @@
     {
         "id": 6010,
         "nametw": "頭飾10",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3016,7 +3016,7 @@
     {
         "id": 6011,
         "nametw": "頭飾11",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3024,7 +3024,7 @@
     {
         "id": 6012,
         "nametw": "頭飾12",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3032,7 +3032,7 @@
     {
         "id": 6013,
         "nametw": "頭飾13",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3040,7 +3040,7 @@
     {
         "id": 6014,
         "nametw": "頭飾14",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3048,7 +3048,7 @@
     {
         "id": 6015,
         "nametw": "頭飾15",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3056,7 +3056,7 @@
     {
         "id": 6016,
         "nametw": "頭飾16",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3064,7 +3064,7 @@
     {
         "id": 6017,
         "nametw": "頭飾17",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3072,7 +3072,7 @@
     {
         "id": 6018,
         "nametw": "頭飾18",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3080,7 +3080,7 @@
     {
         "id": 6019,
         "nametw": "頭飾19",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3088,7 +3088,7 @@
     {
         "id": 6020,
         "nametw": "頭飾20",
-        "kind": 10,
+        "kind": 6,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3096,7 +3096,7 @@
     {
         "id": 7001,
         "nametw": "背飾1",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3104,7 +3104,7 @@
     {
         "id": 7002,
         "nametw": "背飾2",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3112,7 +3112,7 @@
     {
         "id": 7003,
         "nametw": "背飾3",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3120,7 +3120,7 @@
     {
         "id": 7004,
         "nametw": "背飾4",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3128,7 +3128,7 @@
     {
         "id": 7005,
         "nametw": "背飾5",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3136,7 +3136,7 @@
     {
         "id": 7006,
         "nametw": "背飾6",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3144,7 +3144,7 @@
     {
         "id": 7007,
         "nametw": "背飾7",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3152,7 +3152,7 @@
     {
         "id": 7008,
         "nametw": "背飾8",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3160,7 +3160,7 @@
     {
         "id": 7009,
         "nametw": "背飾9",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3168,7 +3168,7 @@
     {
         "id": 7010,
         "nametw": "背飾10",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3176,7 +3176,7 @@
     {
         "id": 7011,
         "nametw": "背飾11",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3184,7 +3184,7 @@
     {
         "id": 7012,
         "nametw": "背飾12",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3192,7 +3192,7 @@
     {
         "id": 7013,
         "nametw": "背飾13",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3200,7 +3200,7 @@
     {
         "id": 7014,
         "nametw": "背飾14",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3208,7 +3208,7 @@
     {
         "id": 7015,
         "nametw": "背飾15",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3216,7 +3216,7 @@
     {
         "id": 7016,
         "nametw": "背飾16",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3224,7 +3224,7 @@
     {
         "id": 7017,
         "nametw": "背飾17",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3232,7 +3232,7 @@
     {
         "id": 7018,
         "nametw": "背飾18",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3240,7 +3240,7 @@
     {
         "id": 7019,
         "nametw": "背飾19",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
@@ -3248,7 +3248,7 @@
     {
         "id": 7020,
         "nametw": "背飾20",
-        "kind": 11,
+        "kind": 7,
         "position": 3,
         "maxstack": 1,
         "usetime": 1
