@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using System.Collections.Generic;
 using Chronos;
 using DG.Tweening;
@@ -891,5 +890,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		if(skillAeraEffect [team])
 			skillAeraEffect [team].SetActive(isEnable);
 	}
+
+    public Vector3 GetHoodPosition(ETeamKind teamKind)
+    {
+        return Hood[(int)teamKind].transform.position;
+    }
+
+    public Vector3 GetShootPointPosition(ETeamKind teamKind)
+    {
+        return ShootPoint[(int)teamKind].transform.position;
+    }
 }
 

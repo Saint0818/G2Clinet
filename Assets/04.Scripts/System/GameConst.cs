@@ -1,9 +1,4 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
-public class GameConst
+﻿public class GameConst
 {
 	public const string SceneLobby = "Lobby";
 	public const string SceneGamePlay = "Court_0";
@@ -18,13 +13,19 @@ public class GameConst
 	public const float WalkSpeed = 3.2f;
 	public const float AttackSpeedup = 7;
 	public const float AttackSpeedNormal = 5.7f;
+
+    /// <summary>
+    /// 超過此距離投籃, 會是撥長距離投籃的動作.
+    /// </summary>
+	public const float LongShootDistance = 15f;
 	public const float TreePointDistance = 10.6f;
 	public const float TwoPointDistance = 7;
-	public const float DunkDistance = 7;
+	public const float DunkDistance = 7; // 在此距離內, 才會做上籃 or 灌籃.
 	public const float PickBallDistance = 2.5f;
 	public const float StealBallDistance = 3; // 這其實是推人, 抄球的距離.
 	public const float BlockDistance = 5;
-	public const int FakeShootRate = 40; // 做假動作的機率.
+
+    public const int FakeShootRate = 40; // 做假動作的機率.
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
 	public const float CoolDownPushTime = 3;

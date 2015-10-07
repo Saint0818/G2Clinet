@@ -54,7 +54,7 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
-            if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
+            if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
             {
                 TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
                 mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
@@ -85,8 +85,16 @@ namespace AI
 
         public override void Update()
         {
-            if (!mPlayer.AIing)
+            if(!mPlayer.AIing)
                 return;
+
+//            if(GameController.Get.BallOwner == mPlayer &&
+//               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
+//            {
+//                // 我是持球者, 而且我前方沒有任何人.
+//                Parent.ChangeState(PlayerAttackState.EPlayerAttackState.FastBreak);
+//                return;
+//            }
 
             if (mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
             {

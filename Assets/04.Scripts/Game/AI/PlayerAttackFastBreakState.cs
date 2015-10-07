@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+
 namespace AI
 {
     public class PlayerAttackFastBreakState : State<PlayerAttackState.EPlayerAttackState, EGameMsg>
@@ -7,8 +9,21 @@ namespace AI
             get { return PlayerAttackState.EPlayerAttackState.FastBreak;}
         }
 
+        private readonly PlayerAI mPlayerAI;
+        private readonly PlayerBehaviour mPlayer;
+
+        public PlayerAttackFastBreakState([NotNull] PlayerAI playerAI, [NotNull] PlayerBehaviour player)
+        {
+            mPlayerAI = playerAI;
+            mPlayer = player;
+        }
+
         public override void Enter(object extraInfo)
         {
+            mPlayer.ResetMove();
+
+//            TMoveData moveData = new TMoveData {Target = };
+//            mPlayer.TargetPos = moveData;
         }
 
         public override void Exit()

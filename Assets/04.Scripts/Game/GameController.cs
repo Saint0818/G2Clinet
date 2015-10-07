@@ -1662,6 +1662,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if(BallOwner)
         {
+            // 有持球者才可以投籃.
 			Vector3 v = CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position;
 			ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
 
@@ -1673,63 +1674,84 @@ public class GameController : KnightSingleton<GameController>
              
 			if(!BallOwner.IsDunk)
             {
+                // 持球者不在灌籃中...
 				UIGame.Get.DoPassNone();
 				CourtMgr.Get.ResetBasketEntra();
 
-				int t = BallOwner.Team.GetHashCode();
-				if (GameStart.Get.TestMode == EGameTest.Dunk)
+//				int t = BallOwner.Team.GetHashCode();
+                if(GameStart.Get.TestMode == EGameTest.Dunk)
                 {
-					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint [t].transform.position);
+//					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint[t].transform.position);
+					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+					
 					return true;
 				}
 
                 if(BallOwner.IsRebound)
                 {
+                    // 持球者不在灌籃中, 但是搶籃板中 ...
 					if(inTipinDistance(BallOwner))
                     {
-						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.ShootPoint [t].transform.position);
+//						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.ShootPoint[t].transform.position);
+						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 						return true;
 					}
 				}
                 else
                 {
+                    // 持球者不在灌籃和搶籃板狀態.
+
 					if(BallOwner.IsMoving)
                     {
-						if (ShootDistance > 15)
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-						else 
-						if (ShootDistance > 9 && ShootDistance <= 15) {
+						if(ShootDistance > GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood[t].transform.position);
+							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						else if(ShootDistance > 9 && ShootDistance <= GameConst.LongShootDistance)
+						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
+                        {
 							if (Random.Range(0, 2) == 0)
-								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.Hood [t].transform.position);
+//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.Hood[t].transform.position);
+								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 							else
-								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood [t].transform.position);
-						} else 
-						if (ShootDistance > 7 && ShootDistance <= 9) {
-							float rate = Random.Range(0, 100);
-							if(rate < BallOwner.Attr.DunkRate)
-								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
-							else
-								BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.Hood [t].transform.position);
-						} else {
+//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood[t].transform.position);
+								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+						}
+//                        else if(ShootDistance > 7 && ShootDistance <= 9)
+//                        {
+//							float rate = Random.Range(0, 100);
+//							if(rate < BallOwner.Attr.DunkRate)
+//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+//							else
+//								BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						}
+                        else
+                        {
 							float rate = Random.Range(0, 100);
 							if (rate < BallOwner.Attr.DunkRate)
-								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.ShootPoint [t].transform.position);
-							else {
+//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.ShootPoint[t].transform.position);
+								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+							else
+                            {
 								if(HasDefPlayer(BallOwner, 1.5f, 40) == 0)
-									BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.Hood [t].transform.position);
+									BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 								else
-									BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.Hood [t].transform.position);
+									BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 							}
 						}
 					}
                     else
                     {
-						if (ShootDistance > 15)
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood [t].transform.position);
-						else if(ShootDistance > 9 && ShootDistance <= 15)
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood [t].transform.position);
+                        // 站在原地投籃.
+						if(ShootDistance > GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood[t].transform.position);
+							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						else if(ShootDistance > 9 && ShootDistance <= GameConst.LongShootDistance)
+						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood[t].transform.position);
+							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 						else
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.Hood [t].transform.position);
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.Hood[t].transform.position);
+							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 					}
 
 					return true;
