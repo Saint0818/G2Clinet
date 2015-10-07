@@ -97,6 +97,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
                                                   "StyleViewPlayer", playerID, pos);
         mPlayer.SetBall(Instantiate(mCommon.SFXBall));
+        mPlayer.EnableSelfRotationByTouch(true);
         playGetBallAnimation();
     }
 

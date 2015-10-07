@@ -1,29 +1,28 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
-[AddComponentMenu("NGUI/Examples/Spin With Mouse")]
+[AddComponentMenu("NGUI/Examples/Spin With Mouse"), DisallowMultipleComponent]
 public class SpinWithMouse : MonoBehaviour
 {
-	public Transform target;
-	public float speed = 1f;
+	public Transform Target;
+	public float Speed = 1f;
 	
 	Transform mTrans;
 	
-	void Start ()
+    [UsedImplicitly]
+	void Start()
 	{
 		mTrans = transform;
 	}
-	
-	void OnDrag (Vector2 delta)
+
+    [UsedImplicitly]
+    void OnDrag(Vector2 delta)
 	{
 		UICamera.currentTouch.clickNotification = UICamera.ClickNotification.None;
 		
-		if (target != null)
-		{
-			target.localRotation = Quaternion.Euler(0f, -0.5f * delta.x * speed, 0f) * target.localRotation;
-		}
+		if (Target != null)
+			Target.localRotation = Quaternion.Euler(0f, -0.5f * delta.x * Speed, 0f) * Target.localRotation;
 		else
-		{
-			mTrans.localRotation = Quaternion.Euler(0f, -0.5f * delta.x * speed, 0f) * mTrans.localRotation;
-		}
+			mTrans.localRotation = Quaternion.Euler(0f, -0.5f * delta.x * Speed, 0f) * mTrans.localRotation;
 	}
 }

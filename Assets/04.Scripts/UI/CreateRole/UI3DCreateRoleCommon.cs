@@ -28,7 +28,8 @@ public class UI3DCreateRoleCommon : MonoBehaviour
     /// <list type="number">
     /// <item> new instance. </item>
     /// <item> Call UpdateXXX() 更新球員穿戴品. </item>
-    /// <item> Call SetBallVisible(). </item>
+    /// <item> (Optional)Call SetBallVisible(). </item>
+    /// <item> (Optional)Call EnableSelfRotationByTouch(). </item>
     /// <item> 使用完畢後, 呼叫 Destroy(). </item>
     /// </list>
     /// </remarks>
@@ -63,6 +64,7 @@ public class UI3DCreateRoleCommon : MonoBehaviour
         [CanBeNull]private Animator mAnimator;
         [CanBeNull]private Transform mDummy; // Ball 要放在此 GameObject 下.
         [CanBeNull]private GameObject mBall;
+        private bool mEnableSelfRotation;
 
         /// <summary>
         /// 目前角色裝備的物品.
@@ -202,6 +204,28 @@ public class UI3DCreateRoleCommon : MonoBehaviour
             mModel.AddComponent<SelectEvent>(); // 避免發生 Error.
             mAnimator = mModel.GetComponent<Animator>();
             mDummy = mModel.transform.FindChild("DummyBall");
+
+            EnableSelfRotationByTouch(mEnableSelfRotation);
+        }
+
+        public void EnableSelfRotationByTouch(bool enable)
+        {
+            if(mModel == null)
+                return;
+
+            mEnableSelfRotation = enable;
+
+            if(mEnableSelfRotation)
+            {
+                if(mModel.GetComponent<SpinWithMouse>() == null)
+                    mModel.AddComponent<SpinWithMouse>();
+            }
+            else
+            {
+                var spin = mModel.GetComponent<SpinWithMouse>();
+                if(spin != null)
+                    Object.Destroy(spin);
+            }
         }
     }
 
