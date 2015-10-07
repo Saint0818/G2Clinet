@@ -2564,7 +2564,9 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 50;
 						break;
                 }
+
                 ClearAnimatorFlag();
+				isCanCatchBall = false;
                 PlayerRigidbody.mass = 5;
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("PassTrigger");

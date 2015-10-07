@@ -8,13 +8,13 @@
         "bit1num": 20,
         "bit2num": 6,
         "bit3num": 1,
-        "courtmode": 1,
-        "winmode": 1,
+        "courtmode": 0,
+        "winmode": 0,
         "winvalue": 20,
-        "friendnumber": 1,
-        "playerid1": 10,
-        "playerid2": 20,
-        "playerid3": 30
+        "friendnumber": 3,
+        "playerid1": 14,
+        "playerid2": 24,
+        "playerid3": 34
     },
     {
         "id": 2,
@@ -53,6 +53,7 @@
         "id": 5,
         "chapter": 2,
         "nametw": "2-1",
+        "winvalue": 13,
         "playerid1": 14,
         "playerid2": 24,
         "playerid3": 34
@@ -61,6 +62,7 @@
         "id": 6,
         "chapter": 2,
         "nametw": "2-2",
+        "winvalue": 13,
         "playerid1": 14,
         "playerid2": 14,
         "playerid3": 14
@@ -69,6 +71,7 @@
         "id": 7,
         "chapter": 2,
         "nametw": "2-3",
+        "winvalue": 13,
         "playerid1": 24,
         "playerid2": 24,
         "playerid3": 24
@@ -77,6 +80,7 @@
         "id": 8,
         "chapter": 2,
         "nametw": "2-4",
+        "winvalue": 13,
         "playerid1": 34,
         "playerid2": 34,
         "playerid3": 34
@@ -85,6 +89,7 @@
         "id": 9,
         "chapter": 3,
         "nametw": "3-1",
+        "winvalue": 13,
         "playerid1": 19,
         "playerid2": 29,
         "playerid3": 39
@@ -93,6 +98,7 @@
         "id": 10,
         "chapter": 3,
         "nametw": "3-2",
+        "winvalue": 13,
         "playerid1": 19,
         "playerid2": 19,
         "playerid3": 19
@@ -101,6 +107,7 @@
         "id": 11,
         "chapter": 3,
         "nametw": "3-3",
+        "winvalue": 13,
         "playerid1": 29,
         "playerid2": 29,
         "playerid3": 29
@@ -109,8 +116,12 @@
         "id": 12,
         "chapter": 3,
         "nametw": "3-4",
+        "winvalue": 13,
         "playerid1": 39,
         "playerid2": 39,
         "playerid3": 39
+    },
+    {
+        "hint": 1
     }
 ]
