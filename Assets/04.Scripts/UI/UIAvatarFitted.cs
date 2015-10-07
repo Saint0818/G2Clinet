@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 public struct TItemAvatar
 {
 	public int Index; //-1 : Player.Item 
-	public int ID;
 	public int Position;
 	public int Kind;
 	public string AbilityKind;
@@ -20,6 +19,8 @@ public struct TItemAvatar
 	private bool isInit;
 	private bool isInitBtn;
 	private bool isRental;
+	private bool isSelect;
+	private int id;
 
 	private UILabel name;
 	private UILabel usetime;
@@ -33,7 +34,17 @@ public struct TItemAvatar
 	private UILabel equipLabel;
 	private UIButton buyBtn;
 	private UISprite TrimBottom;
+	private UISprite SellSelect;
 	public DateTime EndUseTime;
+
+	public int ID 
+	{
+		set{
+			id = value;
+			CheckItemKind();
+		}
+		get{return id;}
+	}
 
 	public bool Enable
 	{
@@ -53,6 +64,17 @@ public struct TItemAvatar
 				Debug.LogError("Must be Inited TItemAvatarPart.gameobject");
 				return false;
 			}
+		}
+	}
+
+	public bool Selected
+	{
+		set{
+			isSelect = value;
+			SellSelect.gameObject.SetActive(isSelect);
+		}
+		get {
+			return isSelect;
 		}
 	}
 
@@ -172,8 +194,10 @@ public struct TItemAvatar
 				abilityValue = gameobject.transform.FindChild ("BuyBtn/FinishLabel").gameObject.GetComponent<UILabel> ();
 				pic = gameobject.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
 				TrimBottom = gameobject.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
-
+				SellSelect = gameobject.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
+				Selected = false;
 				equipBtn = gameobject.transform.FindChild ("EquipBtn").gameObject.GetComponent<UIButton> ();
+
 				if(equipBtn){
 					equipBtn.name = gameobject.name;
 					equipLabel = equipBtn.transform.FindChild("EquipLabel").gameObject.GetComponent<UILabel>();
@@ -186,14 +210,12 @@ public struct TItemAvatar
 					PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
 					FinishLabel = buyBtn.transform.FindChild("FinishLabel").gameObject.GetComponent<UILabel>();
 				}
-
-				CheckItemKind();
 			}
 		}
 		isInit = name && usetime && abilityValue && pic;
 	}
 
-	private void CheckItemKind()
+	public void CheckItemKind()
 	{
 		if(GameData.DItemData.ContainsKey(ID))
 		{
@@ -248,8 +270,6 @@ public class UIAvatarFitted : UIBase {
 	private const int avatarPartCount = 7;
 	private GameObject item;
 	private TItemAvatar[] backpackItems;
-//	private TItemAvatar[] playerItems;
-//	private bool isInit = false;
 	private UIGrid grid;
 	private UIScrollView scrollView;
 	private GameObject disableGroup;
@@ -258,7 +278,6 @@ public class UIAvatarFitted : UIBase {
 	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
-	private int [] AvatarKind = new int [7]{1,2,3,4,5,10,11};
 	private TAvatar EquipsAvatar = new TAvatar();
 
 	private TimeSpan checktime;
@@ -399,15 +418,6 @@ public class UIAvatarFitted : UIBase {
 		return true;
 	}
 
-	private bool IsAvatarKind(int kind)
-	{
-		for(int i = 0; i < AvatarKind.Length;i++)
-			if(AvatarKind[i] == kind)
-				return true;
-
-		return false;
-	}
-
 	private int GetAvatarCountInTeamItem()
 	{
 		if (GameData.Team.Items != null)
@@ -496,10 +506,7 @@ public class UIAvatarFitted : UIBase {
 				}
 			}
 
-			Debug.Log("backpackItems[i].ID :" + backpackItems[i].ID);
 			//ItemVisable
-//			int kind = GetItemKind(backpackItems[i].ID);
-
 			if(GameData.DItemData.ContainsKey(backpackItems[i].ID) && backpackItems[i].Kind == avatarPart)
 			{
 				#if UIAvatarFitted_ShowAll
@@ -544,9 +551,14 @@ public class UIAvatarFitted : UIBase {
 		int index;
 
 		if (int.TryParse (UIButton.current.name, out index)) {
-					
+			
 		}
-			Debug.Log ("Buy id : " + index);
+		Debug.Log ("Buy id : " + index);
+	}
+
+	public void OnSellMode()
+	{
+
 	}
 
 	public void InitEquipState()
@@ -565,21 +577,6 @@ public class UIAvatarFitted : UIBase {
 				}
 			}
 		}
-
-//		if (GameData.Team.Player.Items.Length > 0) {
-//			for(int i = 0; i < GameData.Team.Player.Items.Length; i++)
-//			{
-//				if(GameData.DItemData.ContainsKey(GameData.Team.Player.Items[i].ID){
-//					int kind = GetItemKind(GameData.Team.Player.Items[i].ID);
-//					if(kind == avatarPart)
-//					for(int y = 0; y < backpackItems.Length; y++)
-//					{
-//						if(GameData.Team.Player.Items[i].ID == backpackItems[y].ID)
-//							backpackItems[y].Equip = true;
-//					}
-//				}
-//			}
-//		} 
 	}
 
 	private void UnEquipAll()
@@ -631,14 +628,9 @@ public class UIAvatarFitted : UIBase {
 						DeleteUnEquipItem(kind, equip);
 					}
 
-
 					ItemIdTranslateAvatar();
-
 					ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-//					ModelManager.Get.SetAvatarTexture(avatar, EquipsAvatar, GameData.Team.Player.BodyType, avatarPart,GameData.DItemData[backpackItems[index].ID].Avatar);
 					InitUIPlayer();
-
-//					ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, EAnimatorType.AvatarControl);
 				}
 				else
 				{
@@ -647,7 +639,6 @@ public class UIAvatarFitted : UIBase {
 				}
 			}
 		}
-			Debug.Log ("Equip id : " + index);
 	}
 
 	private void AddEquipItem(int kind, TEquip item)
