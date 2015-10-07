@@ -10,8 +10,10 @@ namespace AI
         Defense
     }
 
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(PlayerBehaviour))]
+    /// <summary>
+    /// 每一位球員身上都會掛上此 Component.
+    /// </summary>
+    [DisallowMultipleComponent, RequireComponent(typeof(PlayerBehaviour))]
     public class PlayerAI : MonoBehaviour, ITelegraph<EGameMsg>
     {
         public Team Team { set; get; }
@@ -34,6 +36,12 @@ namespace AI
         private void FixedUpdate()
         {
             mFSM.Update();
+
+//            if(GameController.Get.BallOwner == GetComponent<PlayerBehaviour>())
+//            {
+//                var isBehindMe = Team.IsAllOpponentsBehindMe(transform.position);
+//                Debug.LogFormat("Name:{0}, IsBehindMe:{1}", name, isBehindMe);
+//            }
         }
 
         public void ChangeState(EPlayerAIState newState, object extraInfo = null)
@@ -45,7 +53,7 @@ namespace AI
         {
             if (msg.Msg == EGameMsg.GamePlayersCreated)
             {
-                //            Debug.Log("Receiving [EGameMsg.GamePlayersCreated]...");
+//            Debug.Log("Receiving [EGameMsg.GamePlayersCreated]...");
 
                 PlayerBehaviour[] players = (PlayerBehaviour[])msg.ExtraInfo;
                 var attack = (PlayerAttackState)(mFSM[EPlayerAIState.Attack]);

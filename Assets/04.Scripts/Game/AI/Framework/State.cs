@@ -3,7 +3,10 @@
 namespace AI
 {
     /// <summary>
-    /// StateMachine 中的某一個狀態.
+    /// <para> StateMachine 中的某一個狀態. </para>
+    /// <para> 特別注意: State 不要實作 ITelegraph, 是 StateMachine 才要實作. 這麼做的原因是
+    /// 1 個 StateMachine 只會有 1 個 State 是運作中, 如果 State 實作 ITelegraph, 那麼 State 即使不是
+    /// 運作中, 也可能會收到訊息, 這會造成無法預期的錯誤. </para>
     /// </summary>
     public abstract class State<TEnumState, TEnumMsg> 
         where TEnumState : struct, IConvertible, IComparable, IFormattable
@@ -16,11 +19,9 @@ namespace AI
         /// <summary>
         /// 呼叫時機: FSM 改變狀態時, 表示此是新的狀態.
         /// </summary>
-        public void _Enter(StateMachine<TEnumState, TEnumMsg> machine, //MessageDispatcher<TEnumMsg> dispatcher, 
-                          Object extraInfo)
+        public void _Enter(StateMachine<TEnumState, TEnumMsg> machine, Object extraInfo)
         {
             Parent = machine;
-//            Dispatcher = dispatcher;
 
             Enter(extraInfo);
         }

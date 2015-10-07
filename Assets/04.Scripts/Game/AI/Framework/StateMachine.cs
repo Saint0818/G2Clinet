@@ -14,8 +14,7 @@ namespace AI
     /// <list type="number">
     /// <item> new instance. </item>
     /// <item> call Update() in every frame. </item>
-    /// <item> call AddState(). </item>
-    /// <item> call ChangeState() in setup state machine. </item>
+    /// <item> call AddState() and ChangeState() in setup state machine. </item>
     /// <item> call MessageDispatcher.AddListener to receive message. </item>
     /// <item> (Optional) Call SetGlobalState. </item>
     /// <item> (Optional) 用 indexer property 取出 State. </item>
@@ -35,7 +34,6 @@ namespace AI
         where TEnumMsg : struct, IConvertible, IComparable, IFormattable
     {
         private State<TEnumState, TEnumMsg> mGlobalState;
-        private State<TEnumState, TEnumMsg> mCurrentState;
 
         private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
 
@@ -62,13 +60,16 @@ namespace AI
             }
         }
 
+        [CanBeNull]
+        public State<TEnumState, TEnumMsg> CurrentState { get; private set; }
+
         public void Update()
         {
             if(mGlobalState != null)
                 mGlobalState.Update();
 
-            if(mCurrentState != null)
-                mCurrentState.Update();
+            if(CurrentState != null)
+                CurrentState.Update();
         }
 
         public void ChangeState(TEnumState newState, object extraInfo = null)
@@ -82,10 +83,10 @@ namespace AI
                 return;
             }
 
-            if(mCurrentState != null)
-                mCurrentState.Exit();
-            mCurrentState = mStates[newState];
-            mCurrentState._Enter(this, extraInfo);
+            if(CurrentState != null)
+                CurrentState.Exit();
+            CurrentState = mStates[newState];
+            CurrentState._Enter(this, extraInfo);
         }
 
         public void SetGlobalState(State<TEnumState, TEnumMsg> state)
@@ -95,8 +96,8 @@ namespace AI
 
         public void HandleMessage(Telegram<TEnumMsg> msg)
         {
-            if(mCurrentState != null)
-                mCurrentState.HandleMessage(msg);
+            if(CurrentState != null)
+                CurrentState.HandleMessage(msg);
         }
     } // end of the class StateMachine.
 } // end of the namespace AI.
