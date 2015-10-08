@@ -54,6 +54,8 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+//            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
+
 //            if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
 //            {
 //                TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
@@ -88,29 +90,25 @@ namespace AI
             if(!mPlayer.AIing)
                 return;
 
-//            if(GameController.Get.BallOwner == mPlayer &&
-//               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
-//            {
-//                // 我是持球者, 而且我前方沒有任何人.
-//                Parent.ChangeState(PlayerAttackState.EPlayerAttackState.FastBreak);
-//                return;
-//            }
+            if(GameController.Get.BallOwner == mPlayer &&
+               mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
+            {
+                // 我是持球者, 而且我前方沒有任何人.
+                Parent.ChangeState(PlayerAttackState.EPlayerAttackState.FastBreak);
+                return;
+            }
 
 			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
 			{
-				if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
+				if(mPlayer.Attribute.ActiveSkills.Count > 0 && 
+                   mSkillJudger.IsMatchCondition() && 
+                   mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
 				{
 					GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);
 					return;
 				}
 			}
 			
-//            if (mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
-//            {
-//                GameController.Get.DoSkill(mPlayer);
-//                return;
-//            }
-
             if (!mPlayer.IsAllShoot)
             {
                 //            bool isDoingAction;

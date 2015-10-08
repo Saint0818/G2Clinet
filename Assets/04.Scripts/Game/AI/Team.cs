@@ -17,7 +17,7 @@ namespace AI
     /// </remarks>
     public class Team
     {
-        private readonly ETeamKind mTeam;
+        private readonly ETeamKind mTeamKind;
 
         /// <summary>
         /// 該隊球員.
@@ -32,10 +32,10 @@ namespace AI
         /// <summary>
         /// 代表的球員的某個隊伍. 目前只是放 utility method, 讓 Player AI 執行的時候使用.
         /// </summary>
-        /// <param name="team"></param>
-        public Team(ETeamKind team)
+        /// <param name="teamKind"></param>
+        public Team(ETeamKind teamKind)
         {
-            mTeam = team;
+            mTeamKind = teamKind;
         }
 
         public void Clear()
@@ -57,7 +57,7 @@ namespace AI
 
         public override string ToString()
         {
-            return string.Format("Team:{0}", mTeam);
+            return string.Format("Team:{0}", mTeamKind);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace AI
         [CanBeNull]
         public PlayerAI RandomSameTeamPlayer([NotNull] PlayerAI exceptPlayer)
         {
-            if(exceptPlayer.GetComponent<PlayerBehaviour>().Team != mTeam)
+            if(exceptPlayer.GetComponent<PlayerBehaviour>().Team != mTeamKind)
                 Debug.LogWarningFormat("Except Player isn't same team player");
 
             List<PlayerAI> otherPlayers = new List<PlayerAI>();
@@ -205,7 +205,7 @@ namespace AI
 
         public bool IsAllOpponentsBehindMe(Vector3 position)
         {
-            var targetPos = CourtMgr.Get.ShootPoint[(int)mTeam].transform.position;
+            var targetPos = CourtMgr.Get.ShootPoint[(int)mTeamKind].transform.position;
             var meDis = MathUtils.Find2DDis(targetPos, position);
             for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
@@ -214,6 +214,11 @@ namespace AI
             }
 
             return true;
+        }
+
+        public Vector3 GetShootPoint()
+        {
+            return CourtMgr.Get.GetShootPointPosition(mTeamKind);
         }
     } // end of the class Team.
 } // end of the namespace AI.

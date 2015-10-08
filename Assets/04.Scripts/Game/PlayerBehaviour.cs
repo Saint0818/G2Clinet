@@ -192,7 +192,8 @@ public struct TMoveData
     public bool Shooting;
     public string TacticalName; // for debug.
 
-	public void Clear() {
+	public void Clear()
+    {
 		Target = Vector2.zero;
 		LookTarget = null;
 		MoveFinish = null;
@@ -410,7 +411,7 @@ public class PlayerBehaviour : MonoBehaviour
     private float MoveMinSpeed = 0.5f;
     private float canDunkDis = 30f;
 
-    private Queue<TMoveData> moveQueue = new Queue<TMoveData>();
+    private readonly Queue<TMoveData> moveQueue = new Queue<TMoveData>();
     private Vector3 translate;
     public Rigidbody PlayerRigidbody;
     public Animator AnimatorControl;
@@ -1564,71 +1565,81 @@ public class PlayerBehaviour : MonoBehaviour
         isMoving = false;
     }
 
-    private bool GetMoveTarget(ref TMoveData Data, ref Vector2 Result)
+    private bool GetMoveTarget(ref TMoveData data, out Vector2 result)
     {
-        bool ResultBool = false;
-        Result = Vector2.zero;
+        bool resultBool = false;
+        result = Vector2.zero;
 
-        if (Data.DefPlayer != null)
+        if (data.DefPlayer != null)
         {
-            if (Data.DefPlayer.Index == Index && AutoFollow)
+            if(data.DefPlayer.Index == Index && AutoFollow)
             {
-                Result.x = Data.DefPlayer.transform.position.x;
-                Result.y = Data.DefPlayer.transform.position.z;
-                ResultBool = true;
-            } else
+                result.x = data.DefPlayer.transform.position.x;
+                result.y = data.DefPlayer.transform.position.z;
+                resultBool = true;
+            }
+            else
             {
-                Vector3 aP1 = Data.DefPlayer.transform.position;
-                Vector3 aP2 = CourtMgr.Get.Hood [Data.DefPlayer.Team.GetHashCode()].transform.position;
-                Result = GetStealPostion(aP1, aP2, Data.DefPlayer.Index);
-                if (Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
+                Vector3 aP1 = data.DefPlayer.transform.position;
+                Vector3 aP2 = CourtMgr.Get.Hood [data.DefPlayer.Team.GetHashCode()].transform.position;
+                result = GetStealPostion(aP1, aP2, data.DefPlayer.Index);
+                if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
                 {
-                    if (Math.Abs(GetAngle(Data.DefPlayer.transform, this.transform)) >= 30 && 
+                    if (Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
                     {
-                        ResultBool = true;
-                    } else
-                    {
-                        Result.x = gameObject.transform.position.x;
-                        Result.y = gameObject.transform.position.z;
+                        resultBool = true;
                     }
-                } else
-                    ResultBool = true;
+                    else
+                    {
+                        result.x = gameObject.transform.position.x;
+                        result.y = gameObject.transform.position.z;
+                    }
+                }
+                else
+                    resultBool = true;
             }
-        } else if (Data.FollowTarget != null)
+        }
+        else if(data.FollowTarget != null)
         {
-            Result.x = Data.FollowTarget.position.x;
-            Result.y = Data.FollowTarget.position.z;
+            result.x = data.FollowTarget.position.x;
+            result.y = data.FollowTarget.position.z;
 
-            if (Vector2.Distance(Result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= MoveCheckValue)
+            if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= MoveCheckValue)
             {
-                Result.x = gameObject.transform.position.x;
-                Result.y = gameObject.transform.position.z;
-            } else
-                ResultBool = true;
-        } else
+                result.x = gameObject.transform.position.x;
+                result.y = gameObject.transform.position.z;
+            }
+            else
+                resultBool = true;
+        }
+        else
         {
-            Result = Data.Target;
-            ResultBool = true;
+            result = data.Target;
+            resultBool = true;
         }
 
-        return ResultBool;
+        return resultBool;
     }
     
     private void moveTo(TMoveData data, bool first = false)
     {
-        if ((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && GameStart.Get.TestMode != EGameTest.Block) {
-            bool DoMove = GetMoveTarget(ref data, ref MoveTarget);
+        if((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && 
+            GameStart.Get.TestMode != EGameTest.Block)
+        {
+            bool doMove = GetMoveTarget(ref data, out MoveTarget);
             float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
             setSpeed(0.3f, 0);
 
-            if (temp <= MoveCheckValue || !DoMove)
+            if(temp <= MoveCheckValue || !doMove)
             {
+                // 移動距離太短 or 不移動.
                 MoveTurn = 0;
                 isMoving = false;
                 
                 if(IsDefence)
                 {
+                    // 距離很短 or 不移動, 球員又是在防守狀態.
                     WaitMoveTime = 0;
                     if (data.DefPlayer != null) {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
@@ -1637,7 +1648,7 @@ public class PlayerBehaviour : MonoBehaviour
                             if (Vector3.Distance(this.transform.position, data.DefPlayer.transform.position) <= GameConst.StealBallDistance)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                             else 
-							if (!DoMove)
+							if (!doMove)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                             else 
 							if (dis > GameConst.TreePointDistance + 4 && (data.DefPlayer.AIing && (data.DefPlayer.WaitMoveTime == 0 || data.DefPlayer.TargetPosNum > 0)))
@@ -1658,17 +1669,17 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
+                    // 距離很短 or 不移動, 球員又是在進攻狀態.
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
-                    else 
-					if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
+                    else if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
                         AniState(EPlayerState.Dribble0);
                     
                     if (first || GameStart.Get.TestMode == EGameTest.Edit)
                         WaitMoveTime = 0;
-                    else 
-					if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && 
-						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0) {
+                    else if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && 
+						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+                    {
 						dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
 						float t = 0;
 						if (dis <= 8)
@@ -1712,14 +1723,17 @@ public class PlayerBehaviour : MonoBehaviour
                 if(data.MoveFinish != null)
                     data.MoveFinish(this, data.Speedup);
 
+                // 移動到非常接近 target, 所以刪除這筆, 接著移動到下一個 target.
                 if(moveQueue.Count > 0)
                 {
                     moveQueue.Dequeue();
 //                    Debug.LogFormat("moveTo(), moveQueue.Dequeue()");
                 }
             }
-            else if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && GameController.Get.BallOwner != null)
+            else if((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && 
+                    GameController.Get.BallOwner != null)
             {
+                // 這段應該是不做移動, 只做轉身, 然後用 6 個 frame 做轉身.
                 MoveTurn++;
                 RotateTo(MoveTarget.x, MoveTarget.y);
                 if (MoveTurn == 1)
@@ -1727,8 +1741,11 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
-                if (IsDefence) {
-                    if (data.DefPlayer != null) {
+                if(IsDefence)
+                {
+                    // 防守移動.
+                    if(data.DefPlayer != null)
+                    {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
                         
 						if (dis <= GameConst.TreePointDistance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
@@ -1740,42 +1757,67 @@ public class PlayerBehaviour : MonoBehaviour
                             AniState(EPlayerState.Defence1);
                         else
                             AniState(EPlayerState.RunningDefence);
-                    } else {
+                    }
+                    else
+                    {
                         RotateTo(MoveTarget.x, MoveTarget.y);
                         AniState(EPlayerState.Run0);
                     }
                     
                     isMoving = true;
-                    if (MovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee) {
+                    if(MovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
+                    {
                         setSpeed(1, 0);
-                        transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
+                        transform.position = Vector3.MoveTowards(transform.position, 
+                                                new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                                                Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
                         isSpeedup = true;
-                    } else {
-                        transform.position = Vector3.MoveTowards(transform.position, new Vector3(MoveTarget.x, 0, MoveTarget.y), Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue);
+                    }
+                    else
+                    {
+                        transform.position = Vector3.MoveTowards(transform.position, 
+                            new Vector3(MoveTarget.x, 0, MoveTarget.y), 
+                            Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue);
                         isSpeedup = false;
                     }
-                } else {
+                }
+                else
+                {
+                    // 進攻移動.
                     RotateTo(MoveTarget.x, MoveTarget.y);                   
                     isMoving = true;
 
-                    if (IsBallOwner) {
-                        if (data.Speedup && MovePower > 0) {
+                    if(IsBallOwner)
+                    {
+                        // 持球者移動.
+                        if(data.Speedup && MovePower > 0)
+                        {
+                            // 持球者加速移動.(因為球員已經轉身了, 所以往 forward 移動就可以了)
                             setSpeed(1, 0);
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
                             AniState(EPlayerState.Dribble2);
                             isSpeedup = true;
-                        } else {
+                        }
+                        else
+                        {
+                            // 持球者一般移動.
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
                             AniState(EPlayerState.Dribble1);
                             isSpeedup = false;
                         }
-                    } else {
-                        if (data.Speedup && MovePower > 0) {
+                    }
+                    else
+                    {
+                        // 未持球者移動.
+                        if(data.Speedup && MovePower > 0)
+                        {
                             setSpeed(1, 0);
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
                             AniState(EPlayerState.Run1);
                             isSpeedup = true;
-                        } else {
+                        }
+                        else
+                        {
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue);
                             AniState(EPlayerState.Run0);
                             isSpeedup = false;
@@ -1783,7 +1825,8 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
             } 
-        } else
+        }
+        else
             isMoving = false;
     }
 
@@ -3596,13 +3639,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (situation == EGameSituation.AttackA && Team == ETeamKind.Npc)
+            if(situation == EGameSituation.AttackA && Team == ETeamKind.Npc)
                 return true;
-            else 
-			if (situation == EGameSituation.AttackB && Team == ETeamKind.Self)
+			if(situation == EGameSituation.AttackB && Team == ETeamKind.Self)
                 return true;
-            else
-                return false;
+            return false;
         }
     }
     
