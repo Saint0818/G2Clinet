@@ -20,7 +20,9 @@ public struct TItemAvatar
 	private bool isInitBtn;
 	private bool isRental;
 	private bool isSelect;
+	private bool isEnableBuy;
 	private int id;
+	private int usekind; 
 
 	private UILabel name;
 	private UILabel usetime;
@@ -41,9 +43,19 @@ public struct TItemAvatar
 	{
 		set{
 			id = value;
-			CheckItemKind();
+			CheckItemUseKind();
 		}
 		get{return id;}
+	}
+
+	public int UseKind
+	{
+		// 永久性裝備 : -1, 時效性裝備 : 1, 已過期裝備 : 2
+		set{
+			usekind = value;
+			CheckItemUseKind();
+		}
+		get{return usekind;}
 	}
 
 	public bool Enable
@@ -65,6 +77,17 @@ public struct TItemAvatar
 				return false;
 			}
 		}
+	}
+
+	public bool EnableBuy
+	{
+		set{
+			isEnableBuy = value;
+			PriceLabel.gameObject.SetActive(isEnableBuy);
+			FinishLabel.gameObject.SetActive(!isEnableBuy);
+		}
+
+		get{return isEnableBuy;}
 	}
 
 	public bool Selected
@@ -89,18 +112,18 @@ public struct TItemAvatar
 		}
 	}
 
-	public bool IsRental
-	{
-		set{
-			isRental = value;
-			if(isRental)
-				usetime.gameObject.SetActive(true);
-			else
-				usetime.gameObject.SetActive(false);
-		}
-
-		get{return isRental;}
-	}
+//	public bool IsRental
+//	{
+//		set{
+//			isRental = value;
+//			if(isRental)
+//				usetime.gameObject.SetActive(true);
+//			else
+//
+//		}
+//
+//		get{return isRental;}
+//	}
 
 	public string Pic
 	{
@@ -117,26 +140,26 @@ public struct TItemAvatar
 	{
 		set{
 
-			if(IsRental == false){
-				return;
-			}
-
+//			if(IsRental == false){
+//				return;
+//			}
+//
 			currentTime = value;
 
 			if(usetime)
-				usetime.text = currentTime.Days + " : " + currentTime.Hours + " : " + currentTime.Minutes;
+				usetime.text = value.Days + " : " + value.Hours + " : " + value.Minutes;
 
-			if(currentTime.TotalSeconds < 0){
-				if(isReantimeEnd == false)
-				{
-					//End
-					if(IsRental){
-						usetime.gameObject.SetActive(false);
-					}
-					CheckEquipBtnName();
-					isReantimeEnd = true;
-				}
-			}
+//			if(currentTime.TotalSeconds < 0){
+//				if(isReantimeEnd == false)
+//				{
+//					//End
+//					if(IsRental){
+//						usetime.gameObject.SetActive(false);
+//					}
+//					CheckEquipBtnName();
+//					isReantimeEnd = true;
+//				}
+//			}
 		}
 
 		get{return currentTime;}
@@ -144,31 +167,22 @@ public struct TItemAvatar
 
 	public void CheckEquipBtnName()
 	{
-		if (IsRental) {
-			if(currentTime.TotalSeconds > 0){
-
+		switch (UseKind) 
+		{
+			case 2:
+				if(TrimBottom.color != Color.black)
+					TrimBottom.color = Color.black;
+				equipLabel.text = "FETTING";
+				break;
+			default:
 				if(TrimBottom.color != Color.white)
 					TrimBottom.color = Color.white;
-
+				
 				if(Equip)
 					equipLabel.text = "EQUIPED";
 				else
 					equipLabel.text = "EQUIP";
-			}
-			else{
-
-				if(TrimBottom.color != Color.black)
-					TrimBottom.color = Color.black;
-				equipLabel.text = "FETTING";
-			}
-		} else {
-			if(TrimBottom.color != Color.white)
-				TrimBottom.color = Color.white;
-
-			if(Equip)
-				equipLabel.text = "EQUIPED";
-			else
-				equipLabel.text = "EQUIP";	
+			break;
 		}
 	}
 
@@ -215,23 +229,32 @@ public struct TItemAvatar
 		isInit = name && usetime && abilityValue && pic;
 	}
 
-	public void CheckItemKind()
+	public void CheckItemUseKind()
 	{
-		if(GameData.DItemData.ContainsKey(ID))
-		{
-			if(GameData.DItemData[ID].UseTime > 0)
-			{
-				IsRental = true;
-				PriceLabel.gameObject.SetActive(true);
-				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
-			}
-			else
-			{
-				IsRental = false;
-				PriceLabel.gameObject.SetActive(false);
-				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
-			}
-		}
+//		if(GameData.DItemData.ContainsKey(ID))
+//		{
+//			switch(usekind)
+//			{
+//				case -1:
+//					usetime.gameObject.SetActive(false);
+//					break;
+//				case 1:
+//					usetime.gameObject.SetActive(true);
+//					break;
+//			}
+//			if(GameData.DItemData[ID].UseTime > 0)
+//			{
+//				IsRental = true;
+//				PriceLabel.gameObject.SetActive(true);
+//				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
+//			}
+//			else
+//			{
+//				IsRental = false;
+//				PriceLabel.gameObject.SetActive(false);
+//				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
+//			}
+//		}
 	}
 
 	public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc)
@@ -254,6 +277,31 @@ public struct TItemAvatar
 		}
 
 		isInitBtn = true;
+	}
+
+	public void Update()
+	{
+		if(Enable){
+			switch (UseKind) {
+				case 1:
+					TimeSpan checktime;
+					checktime = EndUseTime - System.DateTime.UtcNow;
+					if(checktime.TotalSeconds > 0)
+						UseTime = checktime;
+					else
+						UseKind = 2;
+					EnableBuy = false;
+					break;
+				case 2:
+					usetime.gameObject.SetActive(false);
+					EnableBuy = true;
+					break;
+				default:
+					usetime.gameObject.SetActive(false);
+					EnableBuy = false;
+					break;
+			}
+		}
 	}
 }
 
@@ -315,13 +363,9 @@ public class UIAvatarFitted : UIBase {
 
 	void Update()
 	{
-		if(backpackItems != null)
-			for(int i = 0; i < backpackItems.Length; i++){
-				if(backpackItems[i].Enable){
-					checktime = backpackItems[i].EndUseTime - System.DateTime.UtcNow;
-					backpackItems[i].UseTime = checktime;
-				}
-			}
+		if(backpackItems.Length > 0)
+			for(int i = 0; i < backpackItems.Length; i++)
+				backpackItems[i].Update();
 	}
 
 	protected override void InitCom() {
@@ -485,6 +529,7 @@ public class UIAvatarFitted : UIBase {
 					backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
 					backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
 					backpackItems[i].Kind = GetItemKind(backpackItems[i].ID);
+					backpackItems[i].UseKind = GameData.Team.Items[i].UseKind;
 					backpackItems[i].Index = i;
 				}
 			}
@@ -501,6 +546,7 @@ public class UIAvatarFitted : UIBase {
 						backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
 						backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
 						backpackItems[i].Kind = GetItemKind(backpackItems[i].ID);
+						backpackItems[i].UseKind = GameData.Team.Player.Items[playerItemIndex].UseKind;
 						backpackItems[i].Index = -1;
 					}
 				}
@@ -542,8 +588,6 @@ public class UIAvatarFitted : UIBase {
 		scrollView.ResetPosition ();
 		scrollView.enabled = false;
 		scrollView.enabled = true;
-
-		Debug.Log ("enableCount : " + enableCount);
 	}
 
 	public void OnBuy()
@@ -575,6 +619,7 @@ public class UIAvatarFitted : UIBase {
 				{
 					backpackItems[y].Equip = true;
 				}
+				backpackItems[y].CheckItemUseKind();
 			}
 		}
 	}
