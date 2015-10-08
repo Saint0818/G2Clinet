@@ -23,6 +23,14 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
 
     public override void Enter(object extraInfo)
     {
+		if(mPlayer.Attribute.ActiveSkills.Count > 0) 
+		{
+			if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
+	        {
+	            TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
+	            mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
+	        }
+		}
 //        if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
 //        {
 //            TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
@@ -38,6 +46,15 @@ public class PlayerDefenseState : State<EPlayerAIState, EGameMsg>
     {
         if(!mPlayer.AIing)
             return;
+
+		if(mPlayer.Attribute.ActiveSkills.Count > 0) 
+		{
+			if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
+	        {
+				GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);
+				return;
+	        }
+		}
 
 //        if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
 //        {

@@ -1650,6 +1650,7 @@
         "targetkind1": 4,
         "targeteffect1": 1700,
         "effectparent1": 0,
+        "delaytime1": 0.7,
         "duration1": 1,
         "targetkind2": 12,
         "targeteffect2": 1710,

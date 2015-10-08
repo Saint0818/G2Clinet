@@ -226,9 +226,9 @@ public class SkillController : MonoBehaviour {
 			return string.Empty;
 	}
 	
-	private bool checkSkillBaseSituation(PlayerBehaviour player) {
+	private bool checkSkillBaseSituation(PlayerBehaviour player, TSkill tSkill) {
 		if(player.Attribute.ActiveSkills.Count > 0) {
-			int kind = GameData.DSkillData[ActiveSkillUsed.ID].Kind;
+			int kind = GameData.DSkillData[tSkill.ID].Kind;
 			switch (GameController.Get.Situation) {
 			case EGameSituation.AttackA:
 				if(player.Team == ETeamKind.Self) {
@@ -353,14 +353,14 @@ public class SkillController : MonoBehaviour {
 					//Target(People)
 					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
 					    GameData.DSkillData[tSkill.ID].Distance(tSkill.Lv)) {
-						if (checkSkillBaseSituation(player))
+						if (checkSkillBaseSituation(player, tSkill))
 							return true;
 					}
 				} else {
 					//Basket
 					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
 					    GameData.DSkillData[tSkill.ID].Distance(tSkill.Lv)) {
-						if (checkSkillBaseSituation(player))
+						if (checkSkillBaseSituation(player, tSkill))
 							return true;
 					}
 				}

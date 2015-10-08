@@ -32,8 +32,11 @@ namespace AI
 
 			return false;
 
-			float skillDis = 0;
 //            float skillDis = GameData.DSkillData[Parent.FocusPlayer.Attribute.ActiveSkill.ID].Distance(Parent.FocusPlayer.Attribute.ActiveSkill.Lv);
+			float skillDis = 0;
+			if(Parent.FocusPlayer.Attribute.ActiveSkills.Count > 0) {
+				skillDis = GameData.DSkillData[Parent.FocusPlayer.Attribute.ActiveSkills[0].ID].Distance(Parent.FocusPlayer.Attribute.ActiveSkills[0].Lv);
+			}
 
             int inRangeCount = 0;
             for(int i = 0; i < Parent.Players.Length; i++)

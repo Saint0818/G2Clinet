@@ -3407,7 +3407,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool ActiveSkill(TSkill tSkill, GameObject target = null) {
 		if (CanUseActiveSkill(tSkill)) {
 			GameRecord.Skill++;
-			ActiveSkillUsed = tSkill;
 			SetAnger(-Attribute.MaxAngerOne(tSkill.ID));
 
 			if (Attribute.SkillAnimation(tSkill.ID) != "") {

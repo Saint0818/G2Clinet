@@ -520,10 +520,10 @@ public class UIGame : UIBase {
 				isShowStealRange = !state;
 				if(getSkillRangeTarget() != null){
 					skillRangeTarget = getSkillRangeTarget().transform;
-//					CourtMgr.Get.ShowRangeOfAction(state, 
-//					                               skillRangeTarget, 
-//					                               360, 
-//					                               GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].Distance(GameController.Get.Joysticker.Attribute.ActiveSkill.Lv)); 
+					CourtMgr.Get.ShowRangeOfAction(state, 
+					                               skillRangeTarget, 
+					                               360, 
+					                               GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].Distance(GameController.Get.Joysticker.ActiveSkillUsed.Lv)); 
 				}
 				break;
 			case EUIRangeType.Elbow:
@@ -646,11 +646,14 @@ public class UIGame : UIBase {
 			resetRange ();
 	}
 	public void DoSkill(GameObject go, bool state){
-		if(!state) 
-			if(isShowSkillRange)
-				UIControllerState(EUIControl.Skill);
-
-		showRange(EUIRangeType.Skill, state);
+		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+			GameController.Get.Joysticker.ActiveSkillUsed = GameController.Get.Joysticker.Attribute.ActiveSkills[0];
+			if(!state) 
+				if(isShowSkillRange)
+					UIControllerState(EUIControl.Skill);
+			
+			showRange(EUIRangeType.Skill, state);
+		}
 	}
 
 	public void DoShoot(GameObject go, bool state) {
@@ -1054,7 +1057,7 @@ public class UIGame : UIBase {
 			switch(controllerState) {
 			case EUIControl.Skill:
 				if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0)
-					noAI = GameController.Get.OnSkill(GameController.Get.Joysticker.Attribute.ActiveSkills[0]);
+					noAI = GameController.Get.OnSkill(GameController.Get.Joysticker.ActiveSkillUsed);
 				if (noAI)
 					UIMaskState(EUIControl.Skill);
 					

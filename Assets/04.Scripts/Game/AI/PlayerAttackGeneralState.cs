@@ -96,6 +96,15 @@ namespace AI
 //                return;
 //            }
 
+			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
+			{
+				if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
+				{
+					GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);
+					return;
+				}
+			}
+			
 //            if (mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
 //            {
 //                GameController.Get.DoSkill(mPlayer);

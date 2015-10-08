@@ -709,18 +709,19 @@ public class GameController : KnightSingleton<GameController>
             }
 
 			if(Input.GetKeyDown(KeyCode.L)) {
-//				for (int i = 0; i < PlayerList.Count; i ++){
-//					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
-//                UIGame.Get.AddAllForce();
-//				}
+				for (int i = 0; i < PlayerList.Count; i ++){
+					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
+                UIGame.Get.AddAllForce();
+				}
 			}
 
 			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
-//				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
-//				UIGame.Get.AddAllForce();
+				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
+				UIGame.Get.AddAllForce();
 			}
 
 			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
+				UIGame.Get.DoSkill(null, true);
 				UIGame.Get.DoSkill(null, false);
 			}
 
