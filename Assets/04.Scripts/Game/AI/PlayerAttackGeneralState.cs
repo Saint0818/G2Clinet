@@ -56,6 +56,15 @@ namespace AI
         {
 //            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
 
+			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
+			{
+				if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
+				{
+					TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkills[0].ID];
+					mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
+				}
+			}
+
 //            if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
 //            {
 //                TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
