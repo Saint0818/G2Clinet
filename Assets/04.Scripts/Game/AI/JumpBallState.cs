@@ -1,10 +1,10 @@
-using AI;
+ï»¿using AI;
 using GamePlayEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// ²y­¸¦V½Öªºµ{¦¡½X¦b CourtMgr.SetBallState(EPlayerState.JumpBall).
+/// çƒé£›å‘èª°çš„ç¨‹å¼ç¢¼åœ¨ CourtMgr.SetBallState(EPlayerState.JumpBall).
 /// </summary>
 public class JumpBallState : State<EGameSituation, EGameMsg>
 {
@@ -16,7 +16,7 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
     private readonly PlayerBehaviour[] mJumpBallPlayers = new PlayerBehaviour[2];
 
     /// <summary>
-    /// ³o¬O­n±µ²yªº²y­û.
+    /// é€™æ˜¯è¦æ¥çƒçš„çƒå“¡.
     /// </summary>
     [CanBeNull]private PlayerBehaviour mReceiveBallPlayer;
 
@@ -26,7 +26,7 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
         CourtMgr.Get.InitScoreboard(true);
 //        GameController.Get.setPassIcon(true);
 
-        // §ä¥X 2 ¦ì­n¸õ²yªº²y­û.
+        // æ‰¾å‡º 2 ä½è¦è·³çƒçš„çƒå“¡.
         mJumpBallPlayers[0] = findJumpBallPlayer(ETeamKind.Self);
         if(mJumpBallPlayers[0] != null)
             mJumpBallPlayers[0].DoPassiveSkill(ESkillSituation.JumpBall, CourtMgr.Get.RealBall.transform.position);
@@ -57,7 +57,7 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
             {
                 mReceiveBallPlayer = randomReceiveBallPlayer(touchPlayer);
 
-                // ­n¨DÄx²y­¸¦V ReceiveBallPlayer.
+                // è¦æ±‚ç±ƒçƒé£›å‘ ReceiveBallPlayer.
                 CourtMgr.Get.SetBallState(EPlayerState.JumpBall, mReceiveBallPlayer);
             }
             else
@@ -89,7 +89,7 @@ public class JumpBallState : State<EGameSituation, EGameMsg>
     [CanBeNull]
     private PlayerBehaviour randomReceiveBallPlayer([NotNull] PlayerBehaviour exceptPlayer)
     {
-        var team = AIController.Get.GeTeam(exceptPlayer.Team);
+        var team = AIController.Get.GetTeam(exceptPlayer.Team);
         PlayerAI receivalBallPlayer = team.RandomSameTeamPlayer(exceptPlayer.GetComponent<PlayerAI>());
 
         if(receivalBallPlayer != null)

@@ -28,15 +28,39 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
 
     private StateMachine<EGameSituation, EGameMsg> mFSM;
 
-    private readonly Dictionary<ETeamKind, Team> mTeams = new Dictionary<ETeamKind, Team>
+    /// <summary>
+    /// 防守時的 Home Position.
+    /// </summary>
+    private readonly Dictionary<ETeamKind, Dictionary<EPlayerPostion, Vector2>> mHomePositions = new Dictionary<ETeamKind, Dictionary<EPlayerPostion, Vector2>>
     {
-        {ETeamKind.Self, new Team(ETeamKind.Self) },
-        {ETeamKind.Npc, new Team(ETeamKind.Npc) }
-    };
+        {
+            ETeamKind.Npc, new Dictionary<EPlayerPostion, Vector2>
+            {
+                {EPlayerPostion.G, new Vector2(-5.3f, 11)},
+                {EPlayerPostion.F, new Vector2(5.3f, 11)},
+                {EPlayerPostion.C, new Vector2(0, 14.5f)}
+            }
         
+        },
+
+        {
+            ETeamKind.Self, new Dictionary<EPlayerPostion, Vector2>
+            {
+                {EPlayerPostion.G, new Vector2(-5.3f, -11)},
+                {EPlayerPostion.F, new Vector2(5.3f, -11)},
+                {EPlayerPostion.C, new Vector2(0, -14.5f)}
+            }
+        }
+    };
+
+    private readonly Dictionary<ETeamKind, Team> mTeams = new Dictionary<ETeamKind, Team>();
+
     [UsedImplicitly]
     private void Awake()
     {
+        mTeams.Add(ETeamKind.Self, new Team(ETeamKind.Self, mHomePositions[ETeamKind.Self]));
+        mTeams.Add(ETeamKind.Npc, new Team(ETeamKind.Npc, mHomePositions[ETeamKind.Npc]));
+
         mFSM = new StateMachine<EGameSituation, EGameMsg>();
         mFSM.AddState(new NoneState());
         mFSM.AddState(new PresentationState());
@@ -103,7 +127,7 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         mFSM.ChangeState(newState, extraInfo);
     }
 
-    public Team GeTeam(ETeamKind team)
+    public Team GetTeam(ETeamKind team)
     {
         return mTeams[team];
     }

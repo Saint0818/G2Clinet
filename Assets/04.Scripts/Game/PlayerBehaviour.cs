@@ -10,11 +10,13 @@ using JetBrains.Annotations;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
-public delegate bool OnPlayerAction2(PlayerBehaviour player,bool speedup);
+public delegate void OnPlayerAction2(PlayerBehaviour player, bool speedup);
 
-public delegate bool OnPlayerAction3(PlayerBehaviour player,EPlayerState state);
+public delegate bool OnPlayerAction3(PlayerBehaviour player,bool speedup);
 
-public delegate void OnPlayerAction4(float max, float anger, int count);
+public delegate bool OnPlayerAction4(PlayerBehaviour player,EPlayerState state);
+
+public delegate void OnPlayerAction5(float max, float anger, int count);
 
 public enum EPlayerPostion
 {
@@ -395,9 +397,9 @@ public class PlayerBehaviour : MonoBehaviour
     public OnPlayerAction OnOnlyScore = null;
     public OnPlayerAction OnUI = null;
     public OnPlayerAction OnUICantUse = null;
-	public OnPlayerAction4 OnUIAnger = null;
-    public OnPlayerAction3 OnDoubleClickMoment = null;
-	public OnPlayerAction2 OnUIJoystick = null;
+	public OnPlayerAction5 OnUIAnger = null;
+    public OnPlayerAction4 OnDoubleClickMoment = null;
+	public OnPlayerAction3 OnUIJoystick = null;
 
 	public bool IsJumpBallPlayer = false;
 

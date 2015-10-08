@@ -17,6 +17,16 @@ namespace AI
     /// </remarks>
     public class Team
     {
+        public List<PlayerAI> Players
+        {
+            get { return mPlayers; }
+        }
+
+        public List<PlayerAI> OpponentPlayers
+        {
+            get { return mOpponentPlayers; }
+        }
+
         private readonly ETeamKind mTeamKind;
 
         /// <summary>
@@ -29,13 +39,18 @@ namespace AI
         /// </summary>
         private readonly List<PlayerAI> mOpponentPlayers = new List<PlayerAI>();
 
+        private readonly Dictionary<EPlayerPostion, Vector2> mHomePositions;
+
         /// <summary>
         /// 代表的球員的某個隊伍. 目前只是放 utility method, 讓 Player AI 執行的時候使用.
         /// </summary>
         /// <param name="teamKind"></param>
-        public Team(ETeamKind teamKind)
+        /// <param name="homePositions"></param>
+        public Team(ETeamKind teamKind, Dictionary<EPlayerPostion, Vector2> homePositions)
         {
             mTeamKind = teamKind;
+
+            mHomePositions = new Dictionary<EPlayerPostion, Vector2>(homePositions);
         }
 
         public void Clear()
@@ -219,6 +234,11 @@ namespace AI
         public Vector3 GetShootPoint()
         {
             return CourtMgr.Get.GetShootPointPosition(mTeamKind);
+        }
+
+        public Vector2 GetHomePosition(EPlayerPostion pos)
+        {
+            return mHomePositions[pos];
         }
     } // end of the class Team.
 } // end of the namespace AI.

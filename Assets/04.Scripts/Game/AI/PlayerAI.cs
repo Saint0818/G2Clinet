@@ -7,7 +7,8 @@ namespace AI
     {
         None,
         Attack,
-        Defense
+        Defense,
+        ReturnToHome
     }
 
     /// <summary>
@@ -27,6 +28,7 @@ namespace AI
             mFSM.AddState(new PlayerNoneState());
             mFSM.AddState(new PlayerAttackState(this, GetComponent<PlayerBehaviour>()));
             mFSM.AddState(new PlayerDefenseState(GetComponent<PlayerBehaviour>()));
+            mFSM.AddState(new PlayerReturnToHomeState(this, GetComponent<PlayerBehaviour>()));
             mFSM.ChangeState(EPlayerAIState.None);
 
             GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);

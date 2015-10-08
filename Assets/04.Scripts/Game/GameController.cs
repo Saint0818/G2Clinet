@@ -81,15 +81,12 @@ public class GameController : KnightSingleton<GameController>
 	private PlayerBehaviour pickBallPlayer;
 	private GameObject ballHolder = null;
 
-//    teeBackPosAy[0] = new Vector2(0, 14.5f);   // C
-//    teeBackPosAy[1] = new Vector2(5.3f, 11);   // F
-//    teeBackPosAy[2] = new Vector2(-5.3f, 11);  // G
     // 0:C, 1:F, 2:G
     private readonly Vector2[] mHomePositions =
     {
-        new Vector2(0, 14.5f),
-        new Vector2(5.3f, 11),
-        new Vector2(-5.3f, 11)
+        new Vector2(0, 14.5f), // C
+        new Vector2(5.3f, 11), // F
+        new Vector2(-5.3f, 11) // G
     };
 
     /*
@@ -889,6 +886,8 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("nearshot rate:"+ nearshotRate);
 			GUILayout.Label("layup rate:"+ layupRate);
 		}
+
+//        GUI.Label(new Rect(100, 100, 300, 100), string.Format("{0}", Situation));
 	}
 	#endif
 
@@ -932,7 +931,7 @@ public class GameController : KnightSingleton<GameController>
 //                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
 //        }
 
-        var player = AIController.Get.GeTeam(team).FindNearBallPlayer();
+        var player = AIController.Get.GetTeam(team).FindNearBallPlayer();
         if (player != null)
             pickBallPlayer = player.GetComponent<PlayerBehaviour>();
 
@@ -1105,7 +1104,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
-    public bool DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
+    public void DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
@@ -1135,9 +1134,9 @@ public class GameController : KnightSingleton<GameController>
                         // 我不是持球人.
 
                         int index = player.DefPlayer.Postion.GetHashCode();
-                        float z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+                        float sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 						float distance = Vector2.Distance(
-                            new Vector2(mHomePositions[index].x, mHomePositions[index].y * z), 
+                            new Vector2(mHomePositions[index].x, mHomePositions[index].y * sign), 
 						    new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
 						
 						if(distance <= player.DefPlayer.Attr.DefDistance)
@@ -1164,9 +1163,9 @@ public class GameController : KnightSingleton<GameController>
                             else
                             {
 								player.DefPlayer.ResetMove();
-								z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+								sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 //                                moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
-                                moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * z);
+                                moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                                 
                                 if (BallOwner != null)
                                     moveData.LookTarget = BallOwner.transform;
@@ -1186,9 +1185,9 @@ public class GameController : KnightSingleton<GameController>
                             // 防守者離 Home Region 不夠進.
                             // 要防守者往 Home Region 跑.
                             player.DefPlayer.ResetMove();
-                            z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
+                            sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 //                            moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
-                            moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * z);
+                            moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                             
                             if(BallOwner != null)
                                 moveData.LookTarget = BallOwner.transform;
@@ -1215,7 +1214,7 @@ public class GameController : KnightSingleton<GameController>
             }
         }
         
-        return true;
+//        return true;
     }
     
     public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
