@@ -30,8 +30,6 @@ namespace AI
             if(mNearNum <= 0) // 0: 表示關閉此檢查.
                 return true;
 
-			return false;
-
 //            float skillDis = GameData.DSkillData[Parent.FocusPlayer.Attribute.ActiveSkill.ID].Distance(Parent.FocusPlayer.Attribute.ActiveSkill.Lv);
 			float skillDis = 0;
 			if(Parent.FocusPlayer.Attribute.ActiveSkills.Count > 0) {

@@ -127,7 +127,7 @@ public class UIGame : UIBase {
 //	private GameObject[] musicGroup = new GameObject[2];
 
 	private UILabel[] labelScores = new UILabel[2];
-	private UIScrollBar aiLevelScrollBar;
+//	private UIScrollBar aiLevelScrollBar;
 
 	private DrawLine drawLine;
 
@@ -328,7 +328,7 @@ public class UIGame : UIBase {
 		labelScores [1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<UILabel>();
 		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
 
-		aiLevelScrollBar = GameObject.Find (UIName + "/Center/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
+//		aiLevelScrollBar = GameObject.Find (UIName + "/Center/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 		viewAISelect = GameObject.Find (UIName + "/Center/AISelect");
 		viewAISelect.SetActive(false);
 
@@ -376,11 +376,11 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopA")).onPress = DoPassTeammateA;
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/AlleyoopB")).onPress = DoPassTeammateB;
 
-		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
+//		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
 
 		SetBtnFun (UIName + "/TopLeft/ButtonPause", OnPause);
 		SetBtnFun (UIName + "/Center/ViewStart/ButtonStart", StartGame);
-		SetBtnFun (UIName + "/Center/AISelect/ButtonClose", AITimeChange);
+//		SetBtnFun (UIName + "/Center/AISelect/ButtonClose", AITimeChange);
 //		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
 //		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
 //		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
@@ -411,7 +411,7 @@ public class UIGame : UIBase {
 		ShowSkillUI(false);
 
 		ChangeControl(true);
-		initAiTime();
+//		initAiTime();
 
 		uiJoystick.Joystick.isActivated = false;
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, UI2D.Get.RootHeight - 145);
@@ -441,22 +441,22 @@ public class UIGame : UIBase {
 			labelLimitTime.text = minute.ToString() + ":" + second.ToString();
 	}
 
-	private void initAiTime() {
-		float time = PlayerPrefs.GetFloat(SettingText.AITime);
-		if(time == 1) {
-			aiLevelScrollBar.value = 0;
-		} else if(time == 3) {
-			aiLevelScrollBar.value = 0.2f;
-		}else if(time == 5) {
-			aiLevelScrollBar.value = 0.4f;
-		}else if(time == 15) {
-			aiLevelScrollBar.value = 0.6f;
-		}else if(time == 30) {
-			aiLevelScrollBar.value = 0.8f;
-		}else if(time == 999999) {
-			aiLevelScrollBar.value = 1;
-		} 
-	}
+//	private void initAiTime() {
+//		float time = PlayerPrefs.GetFloat(SettingText.AITime);
+//		if(time == 1) {
+//			aiLevelScrollBar.value = 0;
+//		} else if(time == 3) {
+//			aiLevelScrollBar.value = 0.2f;
+//		}else if(time == 5) {
+//			aiLevelScrollBar.value = 0.4f;
+//		}else if(time == 15) {
+//			aiLevelScrollBar.value = 0.6f;
+//		}else if(time == 30) {
+//			aiLevelScrollBar.value = 0.8f;
+//		}else if(time == 999999) {
+//			aiLevelScrollBar.value = 1;
+//		} 
+//	}
 
 	public void InitGameUI() {
 		initLine();
@@ -575,25 +575,25 @@ public class UIGame : UIBase {
 		}
 	}
 
-	public void changeAIChangeTime(){
-		int level = (int)  Mathf.Round(aiLevelScrollBar.value * 5);
-		float time = 1;
-		if(level == 0) {
-			time = 1;
-		} else if(level == 1) {
-			time = 3;
-		}else if(level == 2) {
-			time = 5;
-		}else if(level == 3) {
-			time = 15;
-		}else if(level == 4) {
-			time = 30;
-		}else if(level == 5) {
-			time = 999999;
-		}
-		GameData.Setting.AIChangeTime = time;
-
-	}
+//	public void changeAIChangeTime(){
+//		int level = (int)  Mathf.Round(aiLevelScrollBar.value * 5);
+//		float time = 1;
+//		if(level == 0) {
+//			time = 1;
+//		} else if(level == 1) {
+//			time = 3;
+//		}else if(level == 2) {
+//			time = 5;
+//		}else if(level == 3) {
+//			time = 15;
+//		}else if(level == 4) {
+//			time = 30;
+//		}else if(level == 5) {
+//			time = 999999;
+//		}
+//		GameData.Setting.AIChangeTime = time;
+//
+//	}
 
 	public void DoAttackOut (GameObject go) {
 		if(GameController.Get.Joysticker.IsBallOwner) {
@@ -678,9 +678,9 @@ public class UIGame : UIBase {
 		SetPassButton();
 	}
 	
-	public void BackMainMenu() {
-		UIState(EUISituation.MainMenu);
-	}
+//	public void BackMainMenu() {
+//		UIState(EUISituation.MainMenu);
+//	}
 
 	public void OnReselect() {
 		UIState(EUISituation.ReSelect);
@@ -718,21 +718,21 @@ public class UIGame : UIBase {
 		UIState(EUISituation.Finish);
 	}
 
-	public void EffectSwitch(){
-		UIState(EUISituation.EffectSwitch);
-	}
-
-	public void OptionSelect(){
-		UIState(EUISituation.OptionSelect);
-	}
-
-	public void MusicSwitch(){
-		UIState(EUISituation.MusicSwitch);
-	}
-
-	public void AITimeChange (){
-		UIState(EUISituation.AITimeChange);
-	}
+//	public void EffectSwitch(){
+//		UIState(EUISituation.EffectSwitch);
+//	}
+//
+//	public void OptionSelect(){
+//		UIState(EUISituation.OptionSelect);
+//	}
+//
+//	public void MusicSwitch(){
+//		UIState(EUISituation.MusicSwitch);
+//	}
+//
+//	public void AITimeChange (){
+//		UIState(EUISituation.AITimeChange);
+//	}
 
 	public void ShowSkillUI (bool isShow, bool angerFull = false, bool canUse = false){
 		if(angerFull)
@@ -1245,25 +1245,33 @@ public class UIGame : UIBase {
 				if(UIPassiveEffect.Visible)
 					UIPassiveEffect.UIShow(false);
 
-				GameController.Get.SetGameRecord(false);
-				GameController.Get.SetGameRecordToUI();
+//				GameController.Get.SetGameRecord(false);
+//				GameController.Get.SetGameRecordToUI();
+
+				for (int i = 0; i < GameController.Get.GamePlayers.Count; i ++) {
+					if (i < GameController.Get.GameRecord.PlayerRecords.Length) {
+						GameController.Get.GameRecord.PlayerRecords[i] = GameController.Get.GamePlayers[i].GameRecord;
+					}
+				}
+				UIGamePause.Get.SetGameRecord(ref GameController.Get.GameRecord);
 			}
 			break;
 		case EUISituation.Continue:
 			if (GameController.Get.IsStart) {
 				Time.timeScale = 1;
-				isShowOption = false;
+//				isShowOption = false;
 //				viewTools.SetActive(false);
 				viewPause.SetActive(false);
 //				viewOption.SetActive(false);
 				viewBottomRight.SetActive(true);
-				viewAISelect.SetActive(false);
+//				viewAISelect.SetActive(false);
 
 				showActiveSkillUI(true);
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(true);
 				UIGameResult.UIShow(false);
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
+				UIGamePause.UIShow(false);
 			}
 			break;
 		case EUISituation.Finish:
@@ -1314,47 +1322,47 @@ public class UIGame : UIBase {
 			UIGameResult.UIShow(false);
 			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 			break;
-		case EUISituation.MainMenu:
-			Time.timeScale = 1;
-			UIGameResult.UIShow(false);
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			break;
-		case EUISituation.EffectSwitch:
-			GameData.Setting.Effect = !GameData.Setting.Effect;
-//			effectGroup [0].SetActive (GameData.Setting.Effect);
-//			effectGroup [1].SetActive (!GameData.Setting.Effect);
-			
-			int index = 0;
-			
-			if (GameData.Setting.Effect)
-				index = 1;
-			
-			CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
-			
-			PlayerPrefs.SetInt (SettingText.Effect, index);
-			PlayerPrefs.Save ();
-			break;
-		case EUISituation.OptionSelect:
-			isShowOption = !isShowOption;
-//			viewOption.SetActive(isShowOption);
-			break;
-		case EUISituation.MusicSwitch:
-			isMusicOn = !isMusicOn;
-			AudioMgr.Get.MusicOn(isMusicOn);
-//			musicGroup[0].SetActive(isMusicOn);
-//			musicGroup[1].SetActive(!isMusicOn);
-			break;
-		case EUISituation.AITimeChange:
-			GameController.Get.Joysticker.SetNoAI();
-			UIGameResult.UIShow(viewAISelect.gameObject.activeInHierarchy);
-			if(UIGameResult.Visible) {
-				GameController.Get.SetGameRecordToUI();
-			}
-
-			viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
-			PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
-
-			break;
+//		case EUISituation.MainMenu:
+//			Time.timeScale = 1;
+//			UIGameResult.UIShow(false);
+//			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+//			break;
+//		case EUISituation.EffectSwitch:
+//			GameData.Setting.Effect = !GameData.Setting.Effect;
+////			effectGroup [0].SetActive (GameData.Setting.Effect);
+////			effectGroup [1].SetActive (!GameData.Setting.Effect);
+//			
+//			int index = 0;
+//			
+//			if (GameData.Setting.Effect)
+//				index = 1;
+//			
+//			CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
+//			
+//			PlayerPrefs.SetInt (SettingText.Effect, index);
+//			PlayerPrefs.Save ();
+//			break;
+//		case EUISituation.OptionSelect:
+//			isShowOption = !isShowOption;
+////			viewOption.SetActive(isShowOption);
+//			break;
+//		case EUISituation.MusicSwitch:
+//			isMusicOn = !isMusicOn;
+//			AudioMgr.Get.MusicOn(isMusicOn);
+////			musicGroup[0].SetActive(isMusicOn);
+////			musicGroup[1].SetActive(!isMusicOn);
+//			break;
+//		case EUISituation.AITimeChange:
+//			GameController.Get.Joysticker.SetNoAI();
+//			UIGameResult.UIShow(viewAISelect.gameObject.activeInHierarchy);
+//			if(UIGameResult.Visible) {
+//				GameController.Get.SetGameRecordToUI();
+//			}
+//
+//			viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
+//			PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
+//
+//			break;
 		}
 		AudioMgr.Get.PauseGame();
 	}

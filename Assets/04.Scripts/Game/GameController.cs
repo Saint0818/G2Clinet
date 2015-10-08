@@ -3624,7 +3624,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(player, bits[3], GameData.DStageData[GameData.StageID].Bit3Num / 2)) 
 				if(!CourtInstant.Condition2Instant[1]) {
 					if(GameData.DStageData[GameData.StageID].Bit3Num / 2 >= 0){
-						ShowCourtInstant(4, bits[3], 2, GameData.DStageData[GameData.StageID].Bit3Num / 2);
+						ShowCourtInstant(3, bits[3], 2, GameData.DStageData[GameData.StageID].Bit3Num / 2);
 						CourtInstant.Condition2Instant[1] = true;
 					}
 				}
@@ -3632,7 +3632,7 @@ public class GameController : KnightSingleton<GameController>
 				if(checkCountEnough(player, bits[3], GameData.DStageData[GameData.StageID].Bit3Num / 10)) 
 				if(!CourtInstant.Condition2Instant[2]) {
 					if(GameData.DStageData[GameData.StageID].Bit3Num / 10 >= 0){
-						ShowCourtInstant(4, bits[3], 2, GameData.DStageData[GameData.StageID].Bit3Num / 10);
+						ShowCourtInstant(3, bits[3], 2, GameData.DStageData[GameData.StageID].Bit3Num / 10);
 						CourtInstant.Condition2Instant[2] = true;
 					}
 				}
