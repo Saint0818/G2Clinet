@@ -182,7 +182,12 @@ public enum EBallDirection
 
 public struct TMoveData
 {
-    public Vector2 Target;
+    public Vector2 Target
+    {
+        get { return mTarget; }
+    }
+
+    private Vector2 mTarget;
     public Transform LookTarget;
     public Transform FollowTarget;
     public PlayerBehaviour DefPlayer;
@@ -194,7 +199,7 @@ public struct TMoveData
 
 	public void Clear()
     {
-		Target = Vector2.zero;
+		mTarget = Vector2.zero;
 		LookTarget = null;
 		MoveFinish = null;
 		FollowTarget = null;
@@ -204,6 +209,11 @@ public struct TMoveData
 		Shooting = false;
 		TacticalName = "";
 	}
+
+    public void SetTarget(float x, float y)
+    {
+        mTarget.Set(x, y);
+    }
 }
 
 [System.Serializable]

@@ -332,7 +332,9 @@ namespace AI
                                 if (GameStart.Get.CourtMode == ECourtMode.Full && someone.Team != ETeamKind.Self)
                                     z = -1;
 
-                                moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z * z);
+//                                moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z * z);
+                                moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z * z);
+
                                 if (GameController.Get.BallOwner != null && GameController.Get.BallOwner != someone)
                                     moveData.LookTarget = GameController.Get.BallOwner.transform;
 

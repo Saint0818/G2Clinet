@@ -31,7 +31,8 @@ namespace AI
             mPlayer.ResetMove();
 
             Vector3 shootPoint = mPlayerAI.Team.GetShootPoint();
-            TMoveData moveData = new TMoveData {Target = new Vector2(shootPoint.x, shootPoint.z)};
+            TMoveData moveData = new TMoveData();
+            moveData.SetTarget(shootPoint.x, shootPoint.y);
             mPlayer.TargetPos = moveData;
         }
 

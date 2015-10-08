@@ -1165,7 +1165,8 @@ public class GameController : KnightSingleton<GameController>
                             {
 								player.DefPlayer.ResetMove();
 								z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-                                moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
+//                                moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
+                                moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * z);
                                 
                                 if (BallOwner != null)
                                     moveData.LookTarget = BallOwner.transform;
@@ -1186,7 +1187,8 @@ public class GameController : KnightSingleton<GameController>
                             // 要防守者往 Home Region 跑.
                             player.DefPlayer.ResetMove();
                             z = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
-                            moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
+//                            moveData.Target = new Vector2(mHomePositions[index].x, mHomePositions[index].y * z);
+                            moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * z);
                             
                             if(BallOwner != null)
                                 moveData.LookTarget = BallOwner.transform;
@@ -1284,9 +1286,11 @@ public class GameController : KnightSingleton<GameController>
 									moveData.Shooting = tacticalActions [j].Shooting;
 									moveData.TacticalName = attackTactical.FileName;
 									if(npc.Team == ETeamKind.Self)
-										moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
+//										moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
+										moveData.SetTarget(tacticalActions[j].x, tacticalActions[j].z);
 									else
-										moveData.Target = new Vector2(tacticalActions [j].x, -tacticalActions [j].z);
+//										moveData.Target = new Vector2(tacticalActions [j].x, -tacticalActions [j].z);
+										moveData.SetTarget(tacticalActions[j].x, -tacticalActions[j].z);
 
 									if (BallOwner != null && BallOwner != npc)
 										moveData.LookTarget = BallOwner.transform;  
@@ -2589,9 +2593,11 @@ public class GameController : KnightSingleton<GameController>
             {
                 moveData.Clear();
                 if (GameStart.Get.CourtMode == ECourtMode.Full && team == ETeamKind.Self)
-                    moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
+//                    moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
+                    moveData.SetTarget(tacticalActions[i].x, -tacticalActions[i].z);
                 else
-                    moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
+//                    moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
+                    moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z);
 						
                 if (BallOwner != null)
                     moveData.LookTarget = BallOwner.transform;
@@ -2637,7 +2643,8 @@ public class GameController : KnightSingleton<GameController>
                     else
                     {
 						moveData.TacticalName = data.FileName;
-						moveData.Target = new Vector2(someone.transform.position.x, targetZ);
+//						moveData.Target = new Vector2(someone.transform.position.x, targetZ);
+						moveData.SetTarget(someone.transform.position.x, targetZ);
 						someone.TargetPos = moveData;
 					}
 	            }
@@ -2654,9 +2661,11 @@ public class GameController : KnightSingleton<GameController>
 							moveData.Catcher = tacticalActions[i].Catcher;
 							moveData.Shooting = tacticalActions[i].Shooting;
 	                        if(team == ETeamKind.Self) 
-								moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
+//								moveData.Target = new Vector2(tacticalActions[i].x, tacticalActions[i].z);
+								moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z);
 	                        else
-								moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
+//								moveData.Target = new Vector2(tacticalActions[i].x, -tacticalActions[i].z);
+								moveData.SetTarget(tacticalActions[i].x, -tacticalActions[i].z);
 
 							moveData.TacticalName = data.FileName;
 							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
@@ -2676,7 +2685,8 @@ public class GameController : KnightSingleton<GameController>
 							StartCoroutine(AutoTee());
 					} else {
 						moveData.TacticalName = data.FileName;
-						moveData.Target = v;
+//						moveData.Target = v;
+						moveData.SetTarget(v.x, v.y);
 						someone.TargetPos = moveData;
 					}
 				}
@@ -2692,7 +2702,8 @@ public class GameController : KnightSingleton<GameController>
 							moveData.Speedup = tacticalActions [j].Speedup;
 							moveData.Catcher = tacticalActions [j].Catcher;
 							moveData.Shooting = tacticalActions [j].Shooting;
-							moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
+//							moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
+							moveData.SetTarget(tacticalActions[j].x, tacticalActions[j].z);
 							
 							moveData.TacticalName = data.FileName;
 							moveData.LookTarget = CourtMgr.Get.RealBall.transform;
@@ -4028,15 +4039,16 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList[i].ResetFlag();
 	}
 
-    public void EditSetMove(TTacticalAction ActionPosition, int index)
+    public void EditSetMove(TTacticalAction actionPosition, int index)
     {
         if (PlayerList.Count > index)
         {
 			moveData.Clear();
-			moveData.Target = new Vector2(ActionPosition.x, ActionPosition.z);
-			moveData.Speedup = ActionPosition.Speedup;
-			moveData.Catcher = ActionPosition.Catcher;
-			moveData.Shooting = ActionPosition.Shooting;
+//			moveData.Target = new Vector2(ActionPosition.x, ActionPosition.z);
+			moveData.SetTarget(actionPosition.x, actionPosition.z);
+			moveData.Speedup = actionPosition.Speedup;
+			moveData.Catcher = actionPosition.Catcher;
+			moveData.Shooting = actionPosition.Shooting;
 			PlayerList [index].TargetPos = moveData;
         }
     }
@@ -4046,7 +4058,8 @@ public class GameController : KnightSingleton<GameController>
 		if (PlayerList.Count > index)
 		{
 			moveData.Clear();
-			moveData.Target = ActionPosition;
+//			moveData.Target = ActionPosition;
+			moveData.SetTarget(ActionPosition.x, ActionPosition.y); 
 			PlayerList [index].TargetPos = moveData;
 		}
 	}
