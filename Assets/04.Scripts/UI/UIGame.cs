@@ -485,25 +485,25 @@ public class UIGame : UIBase {
 	private GameObject getSkillRangeTarget (){
 		if(GameStart.Get.TestMode == EGameTest.AttackA) 
 			return GameController.Get.Joysticker.gameObject;
-//		if (GameData.DSkillData.ContainsKey(GameController.Get.Joysticker.Attribute.ActiveSkill.ID)) {
-//			switch (GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkill.ID].TargetKind) {
-//			case 0:
-//			case 4:
-//			case 6:
-//			case 10:
-//				return GameController.Get.Joysticker.gameObject;
-//				break;
-//			case 1:
-//				return CourtMgr.Get.BasketRangeCenter[0];
-//				break;
-//			case 2:
-//				return CourtMgr.Get.BasketRangeCenter[1];
-//				break;
-//			default:
-//				return null;
-//				break;
-//			}
-//		}
+		if (GameData.DSkillData.ContainsKey(GameController.Get.Joysticker.ActiveSkillUsed.ID)) {
+			switch (GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].TargetKind) {
+			case 0:
+			case 4:
+			case 6:
+			case 10:
+				return GameController.Get.Joysticker.gameObject;
+				break;
+			case 1:
+				return CourtMgr.Get.BasketRangeCenter[0];
+				break;
+			case 2:
+				return CourtMgr.Get.BasketRangeCenter[1];
+				break;
+			default:
+				return null;
+				break;
+			}
+		}
 		return null;
 	}
 
