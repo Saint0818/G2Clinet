@@ -47,14 +47,14 @@ namespace AI
 
         private void defensePlayerGoHomePosition()
         {
-            if(mNextState == EGameSituation.APickBallAfterScore)
+            if(mNextState == EGameSituation.GamerPickBall)
             {
                 foreach(PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Npc).Players)
                 {
                     playerAI.ChangeState(EPlayerAIState.ReturnToHome);
                 }
             }
-            else if(mNextState == EGameSituation.BPickBallAfterScore)
+            else if(mNextState == EGameSituation.NPCPickBall)
             {
                 foreach(PlayerAI playerAI in AIController.Get.GetTeam(ETeamKind.Self).Players)
                 {

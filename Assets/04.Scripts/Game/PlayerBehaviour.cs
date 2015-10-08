@@ -906,7 +906,7 @@ public class PlayerBehaviour : MonoBehaviour
                 SpeedUpView.enabled = false;
         }
 
-        if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
+        if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
         {
             if (!IsDefence)
             {
@@ -1046,7 +1046,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		if (Team == ETeamKind.Self && Index == 0)
         {
-	        if(situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)
+	        if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
             {
 	            isJoystick = true;
 				aiTime = Time.time + GameData.Setting.AIChangeTime;
@@ -1471,7 +1471,7 @@ public class PlayerBehaviour : MonoBehaviour
 				LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
 			}
 
-            if (situation == EGameSituation.AttackA || situation == EGameSituation.AttackB || GameStart.Get.TestMode != EGameTest.None) {
+            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC || GameStart.Get.TestMode != EGameTest.None) {
                 if ((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
                    !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && DoPassiveSkill(ESkillSituation.MoveDodge))) {
 	                isMoving = true;
@@ -1556,8 +1556,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void OnJoystickMoveEnd(MovingJoystick move, EPlayerState ps)
     {
         if (CanMove && 
-            situation != EGameSituation.InboundsA && situation != EGameSituation.APickBallAfterScore && 
-            situation != EGameSituation.InboundsB && situation != EGameSituation.BPickBallAfterScore) {
+            situation != EGameSituation.InboundsGamer && situation != EGameSituation.GamerPickBall && 
+            situation != EGameSituation.InboundsNPC && situation != EGameSituation.NPCPickBall) {
             SetNoAI();
             isJoystick = false;
             isSpeedup = false;
@@ -1566,10 +1566,10 @@ public class PlayerBehaviour : MonoBehaviour
                 AniState(ps);
 
             if (crtState == EPlayerState.Dribble0) {
-                if (situation == EGameSituation.AttackA)
+                if (situation == EGameSituation.AttackGamer)
                     RotateTo(CourtMgr.Get.ShootPoint [0].transform.position.x, CourtMgr.Get.ShootPoint [0].transform.position.z);
                 else 
-				if (situation == EGameSituation.AttackB)
+				if (situation == EGameSituation.AttackNPC)
                     RotateTo(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
             }
         }
@@ -1684,12 +1684,12 @@ public class PlayerBehaviour : MonoBehaviour
                     // 距離很短 or 不移動, 球員又是在進攻狀態.
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
-                    else if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
+                    else if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
                         AniState(EPlayerState.Dribble0);
                     
                     if (first || GameStart.Get.TestMode == EGameTest.Edit)
                         WaitMoveTime = 0;
-                    else if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB) && 
+                    else if ((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC) && 
 						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
                     {
 						dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
@@ -1724,7 +1724,7 @@ public class PlayerBehaviour : MonoBehaviour
                             RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                         
                         if (data.Catcher) {
-                            if ((situation == EGameSituation.AttackA || situation == EGameSituation.AttackB)) {
+                            if ((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)) {
                                 if (GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = data.Shooting;
                             }
@@ -2124,7 +2124,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.CatchParabola:
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-			if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.APickBallAfterScore && situation != EGameSituation.BPickBallAfterScore && situation != EGameSituation.InboundsA && situation != EGameSituation.InboundsB)
+			if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.InboundsGamer && situation != EGameSituation.InboundsNPC)
                     return true;
                 break;
 
@@ -2160,7 +2160,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{ 
 		get
 		{
-			return (situation == EGameSituation.InboundsA || situation == EGameSituation.APickBallAfterScore || situation == EGameSituation.InboundsB || situation == EGameSituation.BPickBallAfterScore);
+			return (situation == EGameSituation.InboundsGamer || situation == EGameSituation.GamerPickBall || situation == EGameSituation.InboundsNPC || situation == EGameSituation.NPCPickBall);
         }
     }
 	
@@ -2446,7 +2446,7 @@ public class PlayerBehaviour : MonoBehaviour
 					break;
 			}
 
-			if(IsBallOwner && (situation != EGameSituation.APickBallAfterScore || situation != EGameSituation.BPickBallAfterScore))
+			if(IsBallOwner && (situation != EGameSituation.GamerPickBall || situation != EGameSituation.NPCPickBall))
 			{
 				GameController.Get.SetBall();
 				CourtMgr.Get.SetBallState(state);
@@ -3198,7 +3198,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "CatchEnd":
-                if (situation == EGameSituation.InboundsA || situation == EGameSituation.InboundsB)
+                if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
                 {
                     if (IsBallOwner)
                         AniState(EPlayerState.Dribble0);
@@ -3651,9 +3651,9 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if(situation == EGameSituation.AttackA && Team == ETeamKind.Npc)
+            if(situation == EGameSituation.AttackGamer && Team == ETeamKind.Npc)
                 return true;
-			if(situation == EGameSituation.AttackB && Team == ETeamKind.Self)
+			if(situation == EGameSituation.AttackNPC && Team == ETeamKind.Self)
                 return true;
             return false;
         }

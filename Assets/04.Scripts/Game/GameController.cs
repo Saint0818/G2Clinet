@@ -655,7 +655,7 @@ public class GameController : KnightSingleton<GameController>
 				TimerMgr.Get.PauseTime(false);
 			}
 
-			if (Situation == EGameSituation.AttackA) {
+			if (Situation == EGameSituation.AttackGamer) {
 				if (Input.GetKeyUp (KeyCode.A))
 				{
 					UIGame.Get.DoPassChoose(null, false);
@@ -684,7 +684,7 @@ public class GameController : KnightSingleton<GameController>
 						UIGame.Get.DoShoot(null, false);
 				}
 			}
-			else if(Situation == EGameSituation.AttackB){
+			else if(Situation == EGameSituation.AttackNPC){
 				if(Input.GetKeyDown (KeyCode.A)){
 					UIGame.Get.DoSteal(null, true);
 					UIGame.Get.DoSteal(null, false);
@@ -722,7 +722,7 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.DoSkill(null, false);
 			}
 
-			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)
+			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
 				judgeSkillUI();
 		}
 		#endif
@@ -766,7 +766,7 @@ public class GameController : KnightSingleton<GameController>
 		CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 		UIGame.Get.ChangeControl(false);
 
-		ChangeSituation(EGameSituation.AttackA);
+		ChangeSituation(EGameSituation.AttackGamer);
 
 		PlayerList[0].transform.position = new Vector3(CourtMgr.Get.RealBall.transform.position.x, 0, CourtMgr.Get.RealBall.transform.position.z-1);
 		PlayerList[0].AniState(EPlayerState.Idle);
@@ -1108,7 +1108,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		if(player && player.DefPlayer && !player.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
-		    (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB))
+		    (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
         {
 			if(player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
             {
@@ -1230,8 +1230,8 @@ public class GameController : KnightSingleton<GameController>
                 CourtMgr.Get.RealBallFX.SetActive(false);
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
-                    if(newSituation == EGameSituation.APickBallAfterScore || 
-                       newSituation == EGameSituation.BPickBallAfterScore)
+                    if(newSituation == EGameSituation.GamerPickBall || 
+                       newSituation == EGameSituation.NPCPickBall)
                     {
                         PlayerList[i].SetToAI();
                         PlayerList[i].ResetMove();
@@ -1240,11 +1240,11 @@ public class GameController : KnightSingleton<GameController>
                     switch(PlayerList[i].Team)
                     {
                         case ETeamKind.Self:
-                            if((newSituation == EGameSituation.InboundsB || (oldgs == EGameSituation.InboundsB && newSituation == EGameSituation.AttackB)) == false)
+                            if((newSituation == EGameSituation.InboundsNPC || (oldgs == EGameSituation.InboundsNPC && newSituation == EGameSituation.AttackNPC)) == false)
                             {
                                 if(!PlayerList[i].AIing)
                                 {
-                                    if(!(newSituation == EGameSituation.AttackA || newSituation == EGameSituation.AttackB))
+                                    if(!(newSituation == EGameSituation.AttackGamer || newSituation == EGameSituation.AttackNPC))
                                         PlayerList[i].ResetFlag();
                                 } else
                                     PlayerList[i].ResetFlag();
@@ -1252,7 +1252,7 @@ public class GameController : KnightSingleton<GameController>
 
 						break;
 					case ETeamKind.Npc:
-						if((newSituation == EGameSituation.InboundsA || (oldgs == EGameSituation.InboundsA && newSituation == EGameSituation.AttackA)) == false)
+						if((newSituation == EGameSituation.InboundsGamer || (oldgs == EGameSituation.InboundsGamer && newSituation == EGameSituation.AttackGamer)) == false)
 							PlayerList[i].ResetFlag();
 
 						break;
@@ -1265,7 +1265,7 @@ public class GameController : KnightSingleton<GameController>
             Situation = newSituation;
 
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != newSituation && player &&
-               (oldgs == EGameSituation.InboundsA || oldgs == EGameSituation.InboundsB)) {
+               (oldgs == EGameSituation.InboundsGamer || oldgs == EGameSituation.InboundsNPC)) {
                 AITools.RandomTactical(ETactical.Fast, player.Index, out attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
@@ -1351,33 +1351,33 @@ public class GameController : KnightSingleton<GameController>
 //				}
 
 				break;
-			case EGameSituation.AttackA:
+			case EGameSituation.AttackGamer:
 				judgeSkillUI();
 				break;
-			case EGameSituation.AttackB:
+			case EGameSituation.AttackNPC:
 				judgeSkillUI ();
 				break;
-			case EGameSituation.APickBallAfterScore:
+			case EGameSituation.GamerPickBall:
 //				CourtMgr.Get.Walls[1].SetActive(false);
 //				UIGame.Get.ChangeControl(true);
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				pickBallPlayer = null;
 
                 break;
-            case EGameSituation.InboundsA:
+            case EGameSituation.InboundsGamer:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				UITransition.Get.SelfAttack();
                 break;
 
-            case EGameSituation.BPickBallAfterScore:
+            case EGameSituation.NPCPickBall:
 //				CourtMgr.Get.Walls[0].SetActive(false);
 //         	 	UIGame.Get.ChangeControl(false);
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				pickBallPlayer = null;
 
                 break;
-			case EGameSituation.InboundsB:
+			case EGameSituation.InboundsNPC:
 				CourtMgr.Get.Walls[0].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				UITransition.Get.SelfOffense();
@@ -1413,19 +1413,19 @@ public class GameController : KnightSingleton<GameController>
 	                case EGameSituation.JumpBall:
 //						jumpBall();
 	                    break;
-	                case EGameSituation.AttackA:
-	                case EGameSituation.AttackB:
+	                case EGameSituation.AttackGamer:
+	                case EGameSituation.AttackNPC:
 	                    break;
-	                case EGameSituation.APickBallAfterScore:
+	                case EGameSituation.GamerPickBall:
 	                    SituationPickBall(ETeamKind.Self);
 	                    break;
-	                case EGameSituation.InboundsA:
+	                case EGameSituation.InboundsGamer:
 	                    SituationInbounds(ETeamKind.Self);
 	                    break;
-	                case EGameSituation.BPickBallAfterScore:
+	                case EGameSituation.NPCPickBall:
 	                    SituationPickBall(ETeamKind.Npc);
 	                    break;
-	                case EGameSituation.InboundsB:
+	                case EGameSituation.InboundsNPC:
 	                    SituationInbounds(ETeamKind.Npc);
 	                    break;
 	                case EGameSituation.End:
@@ -2169,7 +2169,7 @@ public class GameController : KnightSingleton<GameController>
 					
 					if(result){
 						Catcher = player;
-						if (BallOwner && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) 
+						if (BallOwner && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) 
 							BallOwner.GameRecord.Pass++;
 						
 						UIGame.Get.DoPassNone();
@@ -2332,7 +2332,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool OnDoubleClickMoment(PlayerBehaviour player, EPlayerState state)
 	{
-		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+		if (player.Team == ETeamKind.Self && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
 			GameRecord.DoubleClickLaunch++;
 			int playerindex = -1;
 
@@ -2751,15 +2751,15 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		if (!flag) {
-		    if(Situation == EGameSituation.InboundsA)
+		    if(Situation == EGameSituation.InboundsGamer)
 		    {
-		        ChangeSituation(EGameSituation.AttackA);
-                AIController.Get.ChangeState(EGameSituation.AttackA);
+		        ChangeSituation(EGameSituation.AttackGamer);
+                AIController.Get.ChangeState(EGameSituation.AttackGamer);
 		    }
-			else if(Situation == EGameSituation.InboundsB)
+			else if(Situation == EGameSituation.InboundsNPC)
 			{
-			    ChangeSituation(EGameSituation.AttackB);
-                AIController.Get.ChangeState(EGameSituation.AttackB);
+			    ChangeSituation(EGameSituation.AttackNPC);
+                AIController.Get.ChangeState(EGameSituation.AttackNPC);
 			}
 		}
 	}
@@ -3037,87 +3037,87 @@ public class GameController : KnightSingleton<GameController>
 			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {
-					    if(Situation == EGameSituation.AttackA)
+					    if(Situation == EGameSituation.AttackGamer)
 					    {
-					        ChangeSituation(EGameSituation.AttackB);
-                            AIController.Get.ChangeState(EGameSituation.AttackB);
+					        ChangeSituation(EGameSituation.AttackNPC);
+                            AIController.Get.ChangeState(EGameSituation.AttackNPC);
 					    }
-	                    else if(Situation == EGameSituation.AttackB)
+	                    else if(Situation == EGameSituation.AttackNPC)
 	                    {
-	                        ChangeSituation(EGameSituation.AttackA);
-                            AIController.Get.ChangeState(EGameSituation.AttackA);
+	                        ChangeSituation(EGameSituation.AttackGamer);
+                            AIController.Get.ChangeState(EGameSituation.AttackGamer);
 	                    }
 					} else {
 					    if(p.Team == ETeamKind.Self)
 					    {
-					        ChangeSituation(EGameSituation.InboundsA);
-					        AIController.Get.ChangeState(EGameSituation.InboundsA);
+					        ChangeSituation(EGameSituation.InboundsGamer);
+					        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
 					    }
 					    else
 					    {
-					        ChangeSituation(EGameSituation.InboundsB);
-                            AIController.Get.ChangeState(EGameSituation.InboundsB);
+					        ChangeSituation(EGameSituation.InboundsNPC);
+                            AIController.Get.ChangeState(EGameSituation.InboundsNPC);
 					    }
 					}
                 } else {
-                    if(Situation == EGameSituation.InboundsA)
+                    if(Situation == EGameSituation.InboundsGamer)
                     {
-                        ChangeSituation(EGameSituation.AttackA);
-                        AIController.Get.ChangeState(EGameSituation.AttackA);
+                        ChangeSituation(EGameSituation.AttackGamer);
+                        AIController.Get.ChangeState(EGameSituation.AttackGamer);
                     }
-                    else if(Situation == EGameSituation.InboundsB)
+                    else if(Situation == EGameSituation.InboundsNPC)
                     {
-                        ChangeSituation(EGameSituation.AttackB);
-                        AIController.Get.ChangeState(EGameSituation.AttackB);
+                        ChangeSituation(EGameSituation.AttackNPC);
+                        AIController.Get.ChangeState(EGameSituation.AttackNPC);
                     }
                     else
                         BallOwner.ResetFlag(false);
                 }
             } else {
-                if(Situation == EGameSituation.APickBallAfterScore)
+                if(Situation == EGameSituation.GamerPickBall)
                 {
-                    ChangeSituation(EGameSituation.InboundsA);
-                    AIController.Get.ChangeState(EGameSituation.InboundsA);
+                    ChangeSituation(EGameSituation.InboundsGamer);
+                    AIController.Get.ChangeState(EGameSituation.InboundsGamer);
                 }
-                else if(Situation == EGameSituation.BPickBallAfterScore)
+                else if(Situation == EGameSituation.NPCPickBall)
                 {
-                    ChangeSituation(EGameSituation.InboundsB);
-                    AIController.Get.ChangeState(EGameSituation.InboundsB);
+                    ChangeSituation(EGameSituation.InboundsNPC);
+                    AIController.Get.ChangeState(EGameSituation.InboundsNPC);
                 }
-				else if(Situation == EGameSituation.InboundsA)
+				else if(Situation == EGameSituation.InboundsGamer)
 				{
-				    ChangeSituation(EGameSituation.AttackA);
-                    AIController.Get.ChangeState(EGameSituation.AttackA);
+				    ChangeSituation(EGameSituation.AttackGamer);
+                    AIController.Get.ChangeState(EGameSituation.AttackGamer);
 				}
-				else if(Situation == EGameSituation.InboundsB)
+				else if(Situation == EGameSituation.InboundsNPC)
 				{
-				    ChangeSituation(EGameSituation.AttackB);
-                    AIController.Get.ChangeState(EGameSituation.AttackB);
+				    ChangeSituation(EGameSituation.AttackNPC);
+                    AIController.Get.ChangeState(EGameSituation.AttackNPC);
 				}
                 else {
 					if (GameStart.Get.CourtMode == ECourtMode.Full || 
-					   (p.Team == ETeamKind.Self && Situation == EGameSituation.AttackA) ||
-					   (p.Team == ETeamKind.Npc && Situation == EGameSituation.AttackB)) {
+					   (p.Team == ETeamKind.Self && Situation == EGameSituation.AttackGamer) ||
+					   (p.Team == ETeamKind.Npc && Situation == EGameSituation.AttackNPC)) {
 					       if(p.Team == ETeamKind.Self)
 					       {
-					           ChangeSituation(EGameSituation.AttackA, p);
-					           AIController.Get.ChangeState(EGameSituation.AttackA);
+					           ChangeSituation(EGameSituation.AttackGamer, p);
+					           AIController.Get.ChangeState(EGameSituation.AttackGamer);
 					       }
 					       else
 					       {
-					           ChangeSituation(EGameSituation.AttackB, p);
-                                AIController.Get.ChangeState(EGameSituation.AttackB);
+					           ChangeSituation(EGameSituation.AttackNPC, p);
+                                AIController.Get.ChangeState(EGameSituation.AttackNPC);
 					       }
 					} else {
 					    if(p.Team == ETeamKind.Self)
 					    {
-					        ChangeSituation(EGameSituation.InboundsA);
-					        AIController.Get.ChangeState(EGameSituation.InboundsA);
+					        ChangeSituation(EGameSituation.InboundsGamer);
+					        AIController.Get.ChangeState(EGameSituation.InboundsGamer);
 					    }
 					    else
 					    {
-					        ChangeSituation(EGameSituation.InboundsB);
-                            AIController.Get.ChangeState(EGameSituation.InboundsB);
+					        ChangeSituation(EGameSituation.InboundsNPC);
+                            AIController.Get.ChangeState(EGameSituation.InboundsNPC);
 					    }
 					}
                 }
@@ -3217,7 +3217,7 @@ public class GameController : KnightSingleton<GameController>
 	
 	public bool PassingStealBall(PlayerBehaviour player, int dir)
 	{
-		if(player.IsDefence && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) && Passer && passingStealBallTime == 0)
+		if(player.IsDefence && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) && Passer && passingStealBallTime == 0)
 		{
 			if(Catcher == player)
 				return false;
@@ -3306,7 +3306,7 @@ public class GameController : KnightSingleton<GameController>
             return;
 
 		if (Catcher) {
-			if(Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
+			if(Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall)
 				IsPassing = false;
 		}			
 
@@ -3329,11 +3329,11 @@ public class GameController : KnightSingleton<GameController>
             else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
 				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
-				   (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+				   (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
 
 				if (GameStart.Get.TestMode == EGameTest.Rebound ||
-				    Situation == EGameSituation.AttackA ||
-				    Situation == EGameSituation.AttackB) {
+				    Situation == EGameSituation.AttackGamer ||
+				    Situation == EGameSituation.AttackNPC) {
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
@@ -3348,7 +3348,7 @@ public class GameController : KnightSingleton<GameController>
             break;
 		case 5: //finger
 			if (isEnter && !player.IsBallOwner && player.IsRebound && !IsTipin) {
-				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
+				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
 						player.SetAnger(GameConst.AddAnger_Rebound, player.gameObject);
@@ -3373,11 +3373,11 @@ public class GameController : KnightSingleton<GameController>
 			bool canSetball = false;
 			
 			if (!player.IsRebound && (player.IsCatcher || player.CanMove)) {
-				if (Situation == EGameSituation.APickBallAfterScore) {
+				if (Situation == EGameSituation.GamerPickBall) {
 					if (player.Team == ETeamKind.Self)
 						canSetball = true;
 				} else 
-				if (Situation == EGameSituation.BPickBallAfterScore)
+				if (Situation == EGameSituation.NPCPickBall)
 				{
 					if (player.Team == ETeamKind.Npc)
 						canSetball = true;
@@ -3386,7 +3386,7 @@ public class GameController : KnightSingleton<GameController>
 				
 				if (canSetball && !IsPickBall)
 				{
-					if (Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore){
+					if (Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall){
 						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
 							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 						else
@@ -3447,7 +3447,7 @@ public class GameController : KnightSingleton<GameController>
 	public void DefRangeTouchBall(PlayerBehaviour player)
 	{
 		if(player.IsHavePickBall2) {
-			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+			if (BallOwner == null && Shooter == null && Catcher == null && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
 				int rate = Random.Range(0, 100);
 				if(rate < player.PickBall2Rate) {
 					player.DoPassiveSkill(ESkillSituation.PickBall, CourtMgr.Get.RealBall.transform.position);
@@ -3469,7 +3469,7 @@ public class GameController : KnightSingleton<GameController>
 	public void PlayerEnterPaint(int team, GameObject obj) {
 		if (BallOwner && canPassToAlleyoop(BallOwner.crtState) &&
 		   (GameStart.Get.TestMode == EGameTest.Alleyoop || 
-		 	Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB)) {
+		 	Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
 			bool flag = true;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList[i].crtState == EPlayerState.Alleyoop) {
@@ -3817,13 +3817,13 @@ public class GameController : KnightSingleton<GameController>
 					{
 						//ChangeSituation(EGameSituation.TeeBPicking);
 						ChangeSituation(EGameSituation.SpecialAction);
-						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.BPickBallAfterScore);
+						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.NPCPickBall);
 					}
 					else
 					{
 						//ChangeSituation(EGameSituation.TeeAPicking);
 						ChangeSituation(EGameSituation.SpecialAction);
-						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.APickBallAfterScore);
+						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.GamerPickBall);
 					}
 					
 					if (!isSkill && Shooter)
@@ -4460,8 +4460,8 @@ public class GameController : KnightSingleton<GameController>
 	{
 		get
 		{
-			if (Situation == EGameSituation.AttackA ||
-			    Situation == EGameSituation.AttackB ||
+			if (Situation == EGameSituation.AttackGamer ||
+			    Situation == EGameSituation.AttackNPC ||
 			    Situation == EGameSituation.Opening || 
 			    Situation == EGameSituation.JumpBall)
 				return true;
@@ -4474,7 +4474,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		get
 		{
-			if(Situation == EGameSituation.InboundsA || Situation == EGameSituation.InboundsB || Situation == EGameSituation.APickBallAfterScore || Situation == EGameSituation.BPickBallAfterScore)
+			if(Situation == EGameSituation.InboundsGamer || Situation == EGameSituation.InboundsNPC || Situation == EGameSituation.GamerPickBall || Situation == EGameSituation.NPCPickBall)
 				return false;
 			else
 				return true;

@@ -4,11 +4,11 @@ using GamePlayStruct;
 /// <summary>
 /// A 隊(玩家)防守, B 隊(電腦)進攻.
 /// </summary>
-public class AttackBState : State<EGameSituation, EGameMsg>
+public class AttackNPCState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
-        get { return EGameSituation.AttackB; }
+        get { return EGameSituation.AttackNPC; }
     }
 
     public override void Enter(object extraInfo)

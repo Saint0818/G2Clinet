@@ -1,10 +1,10 @@
 ﻿using AI;
 
-public class InboundsBState : State<EGameSituation, EGameMsg>
+public class InboundsNPCState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
-        get { return EGameSituation.InboundsB; }
+        get { return EGameSituation.InboundsNPC; }
     }
 
     public override void Enter(object extraInfo)

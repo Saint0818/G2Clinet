@@ -68,12 +68,12 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         mFSM.AddState(new InitCourtState());
         mFSM.AddState(new OpeningState());
         mFSM.AddState(new JumpBallState());
-        mFSM.AddState(new AttackAState());
-        mFSM.AddState(new AttackBState());
-        mFSM.AddState(new APickBallAfterScoreState());
-        mFSM.AddState(new InboundsAState());
-        mFSM.AddState(new BPickBallAfterScoreState());
-        mFSM.AddState(new InboundsBState());
+        mFSM.AddState(new AttackGamerState());
+        mFSM.AddState(new AttackNPCState());
+        mFSM.AddState(new GamerPickBallState());
+        mFSM.AddState(new InboundsGamerState());
+        mFSM.AddState(new NPCPickBallState());
+        mFSM.AddState(new InboundsNPCState());
         mFSM.AddState(new SpecialActionState());
         mFSM.AddState(new EndState());
         mFSM.ChangeState(EGameSituation.None);

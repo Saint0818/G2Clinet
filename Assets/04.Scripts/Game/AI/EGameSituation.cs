@@ -7,12 +7,12 @@ public enum EGameSituation
     None           = 0,
     Opening        = 1, // 開球.(球員站在中場, 等待裁判發球)
     JumpBall       = 2, // 裁判發球, 中間球員跳球, 其餘球員撿球.
-    AttackA        = 3, // A 隊進攻.
-    AttackB        = 4, // B 隊進攻.
-    APickBallAfterScore    = 5, // 對方得分後, A 隊(玩家) 撿球.
-    InboundsA      = 6, // A 隊(玩家) 邊界發球.
-    BPickBallAfterScore    = 7, // 對方得分後, B 隊(電腦) 撿球.
-    InboundsB      = 8, // B 隊(電腦) 邊界發球.
+    AttackGamer    = 3, // 玩家球隊進攻.
+    AttackNPC      = 4, // 電腦球隊進攻.
+    GamerPickBall  = 5, // 對方得分後, 玩家球隊撿球.
+    InboundsGamer  = 6, // 玩家球隊做邊界發球.
+    NPCPickBall    = 7, // 對方得分後, 電腦球隊撿球.
+    InboundsNPC    = 8, // 電腦球隊做邊界發球.
     End            = 9, // 比賽結束.
     SpecialAction  = 10 // 球員特殊演出, 球員得分後會進到此狀態. 比如像 Jason Terry 雙手張開像飛機的動作.
 }

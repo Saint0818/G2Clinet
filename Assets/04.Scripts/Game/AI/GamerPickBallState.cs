@@ -3,11 +3,11 @@
 /// <summary>
 /// 對手得分, 玩家隊伍執行撿球.
 /// </summary>
-public class APickBallAfterScoreState : State<EGameSituation, EGameMsg>
+public class GamerPickBallState : State<EGameSituation, EGameMsg>
 {
     public override EGameSituation ID
     {
-        get { return EGameSituation.APickBallAfterScore; }
+        get { return EGameSituation.GamerPickBall; }
     }
 
     public override void Enter(object extraInfo)

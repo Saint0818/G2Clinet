@@ -163,10 +163,10 @@ public class SkillController : MonoBehaviour {
 		} catch {
 			LogMgr.Get.LogError("this situation isn't contain EPlayerState:" + situation.ToString());
 		}
-		if((GameController.Get.Situation == EGameSituation.InboundsA || GameController.Get.Situation == EGameSituation.InboundsB) && kind == ESkillKind.Pass) {
+		if((GameController.Get.Situation == EGameSituation.InboundsGamer || GameController.Get.Situation == EGameSituation.InboundsNPC) && kind == ESkillKind.Pass) {
 			playerState = EPlayerState.Pass50;
 		}
-		if(GameController.Get.Situation == EGameSituation.AttackA || GameController.Get.Situation == EGameSituation.AttackB) {
+		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) {
 			string animationName = randomPassive(kind, v, isHaveDefPlayer);
 
 			if (animationName != string.Empty) {
@@ -230,7 +230,7 @@ public class SkillController : MonoBehaviour {
 		if(player.Attribute.ActiveSkills.Count > 0) {
 			int kind = GameData.DSkillData[tSkill.ID].Kind;
 			switch (GameController.Get.Situation) {
-			case EGameSituation.AttackA:
+			case EGameSituation.AttackGamer:
 				if(player.Team == ETeamKind.Self) {
 					if (kind >= 1 && kind <= 7 && player.IsBallOwner )
 						return true;
@@ -259,7 +259,7 @@ public class SkillController : MonoBehaviour {
 				}	
 				
 				break;
-			case EGameSituation.AttackB:
+			case EGameSituation.AttackNPC:
 				if(player.Team == ETeamKind.Self) {
 					if (kind == 16)
 						return true;
@@ -410,10 +410,10 @@ public class SkillController : MonoBehaviour {
 			playerState = EPlayerState.Idle;
 		}
 		
-		if(player && (GameController.Get.Situation == EGameSituation.AttackA || 
-		              GameController.Get.Situation == EGameSituation.AttackB || 
-		              GameController.Get.Situation == EGameSituation.InboundsA|| 
-		              GameController.Get.Situation == EGameSituation.InboundsB||
+		if(player && (GameController.Get.Situation == EGameSituation.AttackGamer || 
+		              GameController.Get.Situation == EGameSituation.AttackNPC || 
+		              GameController.Get.Situation == EGameSituation.InboundsGamer|| 
+		              GameController.Get.Situation == EGameSituation.InboundsNPC||
 		              GameController.Get.Situation == EGameSituation.Opening||
 		              GameController.Get.Situation == EGameSituation.JumpBall)) {
 			switch(State) {
