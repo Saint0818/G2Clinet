@@ -19,6 +19,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private int avatarID = 1;
 	private TSend2_1 send2_1 = new TSend2_1();
 
+	private TPlayer myPlayerData;
+
 	public GameObject RootScenePlayers;
 	public GameObject RootOnlinePlayers;
 	private GameObject touchObject;
@@ -337,7 +339,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 		return Res;
     }
-    
+
     private void createMyPlayer() {
 		if (mySelfObject) {
 			Destroy(mySelfObject);
@@ -346,6 +348,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			rpgCamera = null;
 		}
 
+		myPlayerData = GameData.Team.Player;
 		mySelfObject = createScenePlayer(ref GameData.Team.Player);
 		mySelfObject.name = "Myself";
 		mySelfObject.transform.position = new Vector3(24, 0.18f, -8);
@@ -407,7 +410,11 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     public void EnterLobby() {
 		try {
 			UIMain.Visible = true;
-			createMyPlayer();
+			ModelManager.Get.PlayerInfoModel.SetActive(true);
+
+			if (roleChanged)
+				createMyPlayer();
+
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			if (UI3D.Visible)
@@ -514,6 +521,18 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				avatarID = 1;
 
 			StartCoroutine(exchangeAvatar());
+		}
+	}
+
+	private bool roleChanged {
+		get {
+			if (mySelfObject == null)
+				return true;
+			else 
+				if (GameData.Team.Player.BodyType != myPlayerData.BodyType) 
+					return true;
+			else
+				return false;
 		}
 	}
 
