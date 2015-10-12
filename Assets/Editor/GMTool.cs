@@ -248,6 +248,9 @@ public class GMTool : EditorWindow
 				for(int i = 0; i < team.Items.Length; i++)
 					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
 						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
+
+			if(UIAvatarFitted.Visible)
+				UIAvatarFitted.Get.UpdateAvatar(true);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
