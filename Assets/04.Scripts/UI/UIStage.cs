@@ -72,8 +72,10 @@ public class UIStage : UIBase {
 		}
 	}
 
-	public void OnClose() {
+	public void OnClose()
+    {
 		UIShow(false);
+        UIMainLobby.Get.Show();
 	}
 
 	public void OnJoinStage() {

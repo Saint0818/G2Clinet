@@ -769,8 +769,9 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnReturn()
 	{
-		Show (false);
-		UIMain.Visible = true;
+		Show(false);
+//		UIMain.Visible = true;
+        UIMainLobby.Get.Show();
 	}
 
 	private void OnSave()

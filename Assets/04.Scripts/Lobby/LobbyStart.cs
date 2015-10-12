@@ -407,13 +407,17 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
     }
     
-    public void EnterLobby() {
-		try {
-			UIMain.Visible = true;
-			ModelManager.Get.PlayerInfoModel.SetActive(true);
+    public void EnterLobby()
+    {
+		try
+        {
+//			UIMain.Visible = true;
+//			ModelManager.Get.PlayerInfoModel.SetActive(true);
 
-			if (roleChanged)
-				createMyPlayer();
+            UIMainLobby.Get.Show();
+
+//			if (roleChanged)
+//				createMyPlayer();
 
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);

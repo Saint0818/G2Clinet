@@ -124,7 +124,8 @@ public class UIMain : UIBase {
 		LobbyStart.Get.ShowOnlinePlayers(false);
 	}
 
-	public void OnLookPlayerBank() {
+	public void OnLookPlayerBank()
+    {
 		WWWForm form = new WWWForm();
 		SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
 	}
@@ -133,7 +134,6 @@ public class UIMain : UIBase {
 	{
 		if(ok)
         {
-//			TPlayerBank[] playerBanks = JsonConvert.DeserializeObject<TPlayerBank[]>(www.text);
 			TLookUpData lookUpData = JsonConvert.DeserializeObject<TLookUpData>(www.text);
             Debug.LogFormat("LookUpData:{0}", lookUpData);
 
@@ -151,8 +151,6 @@ public class UIMain : UIBase {
         else
 		    Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
 	}
-
-    
 
 	public void OnStage() {
 		UIStage.UIShow(!UIStage.Visible);
