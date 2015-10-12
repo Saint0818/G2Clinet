@@ -107,7 +107,7 @@ public class UICreateRole : UIBase
     }
 
     /// <summary>
-    /// 內部使用, 一般使用者不要使用.
+    /// 內部使用, 一般使用者不要使用. 建立新的球員模型(動作會被重置).
     /// </summary>
     /// <param name="parent"></param>
     /// <param name="name"></param>
@@ -134,7 +134,7 @@ public class UICreateRole : UIBase
     }
 
     /// <summary>
-    /// 內部使用, 一般使用者不要使用.
+    /// 內部使用, 一般使用者不要使用. 建立新的球員模型(動作會被重置).
     /// </summary>
     /// <param name="name"></param>
     /// <param name="player"></param>
@@ -143,13 +143,61 @@ public class UICreateRole : UIBase
     public static GameObject CreateModel(string name, TPlayer player, Transform parent)
     {
         GameObject model = new GameObject { name = name };
-		ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, EAnimatorType.AvatarControl);
+		ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, 
+                                   EAnimatorType.AvatarControl, false);
 
         model.transform.parent = parent;
         model.transform.localPosition = Vector3.zero;
         model.transform.localRotation = Quaternion.identity;
         model.transform.localScale = Vector3.one;
 		LayerMgr.Get.SetLayer(model, ELayer.UI3D);
+
+        return model;
+    }
+
+    /// <summary>
+    /// 內部使用, 一般使用者不要使用. 更新球員模型(動作不會重置).
+    /// </summary>
+    /// <param name="parent"></param>
+    /// <param name="name"></param>
+    /// <param name="playerID"></param>
+    /// <param name="bodyItemID"></param>
+    /// <param name="hairItemID"></param>
+    /// <param name="clothItemID"></param>
+    /// <param name="pantsItemID"></param>
+    /// <param name="shoesItemID"></param>
+    /// <returns></returns>
+    public static GameObject UpdateModel(Transform parent, string name, int playerID,
+        int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
+    {
+        TPlayer player = new TPlayer(0) { ID = playerID };
+        player.SetAvatar();
+
+        player.Avatar.Body = GameData.DItemData[bodyItemID].Avatar;
+        player.Avatar.Hair = GameData.DItemData[hairItemID].Avatar;
+        player.Avatar.Cloth = GameData.DItemData[clothItemID].Avatar;
+        player.Avatar.Pants = GameData.DItemData[pantsItemID].Avatar;
+        player.Avatar.Shoes = GameData.DItemData[shoesItemID].Avatar;
+
+        return CreateModel(name, player, parent);
+    }
+
+    /// <summary>
+    /// 內部使用, 一般使用者不要使用. 更新球員模型(動作不會重置).
+    /// </summary>
+    /// <param name="model"></param>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public static GameObject UpdateModel(GameObject model, TPlayer player/*, Transform parent*/)
+    {
+        ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType,
+                                   EAnimatorType.AvatarControl, false);
+
+//        model.transform.parent = parent;
+        model.transform.localPosition = Vector3.zero;
+        model.transform.localRotation = Quaternion.identity;
+        model.transform.localScale = Vector3.one;
+        LayerMgr.Get.SetLayer(model, ELayer.UI3D);
 
         return model;
     }
