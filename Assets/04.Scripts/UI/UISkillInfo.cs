@@ -7,7 +7,8 @@ public class UISkillInfo : UIBase {
 
 	private UILabel labelEquip;
 	
-	private UILabel labelSkillName;
+//	private UILabel labelSkillName;
+	//space attribute lifetime 
 	private UILabel labelSkillLevel;
 	private UILabel labelSkillInfo;
 
@@ -47,7 +48,7 @@ public class UISkillInfo : UIBase {
 			else
 				Get.labelEquip.text = "EQUIP";
 
-			Get.labelSkillName.text = info.Name;
+//			Get.labelSkillName.text = info.Name;
 			Get.labelSkillLevel.text = info.Lv;
 			Get.labelSkillInfo.text = info.Info;
 
@@ -68,11 +69,11 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitCom() {
-		labelEquip = GameObject.Find (UIName + "/Right/EquipBtn/Label").GetComponent<UILabel>();
+		labelEquip = GameObject.Find (UIName + "/TopRight/EquipBtn/Label").GetComponent<UILabel>();
 
-		labelSkillName = GameObject.Find (UIName + "/Right/Info/LabelNameTW").GetComponent<UILabel>();
-		labelSkillLevel = GameObject.Find (UIName + "/Right/Info/LabelLevel").GetComponent<UILabel>();
-		labelSkillInfo = GameObject.Find (UIName + "/Right/Info/LabelSkillinfo").GetComponent<UILabel>();
+//		labelSkillName = GameObject.Find (UIName + "/Left/Info/LabelNameTW").GetComponent<UILabel>();
+		labelSkillLevel = GameObject.Find (UIName + "/Left/Info/LabelKindTitle/LabelLv").GetComponent<UILabel>();
+		labelSkillInfo = GameObject.Find (UIName + "/Left/Info/LabelExplain").GetComponent<UILabel>();
 
 		spriteSkillCard = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillCard").GetComponent<UISprite>();
 		textureSkillPic = GameObject.Find (UIName + "/Left/BtnMediumCard/SkillPic").GetComponent<UITexture>();
@@ -82,7 +83,7 @@ public class UISkillInfo : UIBase {
 
 		UIEventListener.Get(GameObject.Find (UIName + "/BoxCollider")).onClick = Close;
 
-		SetBtnFun(UIName + "/Right/EquipBtn", OnEquip);
+		SetBtnFun(UIName + "/TopRight/EquipBtn", OnEquip);
 		SetBtnFun(UIName + "/Left/BtnMediumCard", OpenCard);
 	}
 	

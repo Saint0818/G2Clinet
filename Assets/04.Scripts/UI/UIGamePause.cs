@@ -147,43 +147,41 @@ public class UIGamePause : UIBase {
 		
 	}
 
-	private void initTarget() {
-		int stage = 1;
-		int[] bits = GameData.DStageData[stage].HintBit;
+	private void initTarget() {;
 		int index = 0;
-		if(bits.Length > 0 && bits[0] > 0) {
+		if(GameController.Get.StageHintBit.Length > 0 && GameController.Get.StageHintBit[0] > 0) {
 			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(index + 1, bits[0], 8);
-			gameTargets[index].LabelTargetName.text = setText(index + 1, bits[0], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameData.DStageData[stage].Bit0Num;
+			gameTargets[index].LabelCaption.text = setText(index + 1, GameController.Get.StageHintBit[0], 8);
+			gameTargets[index].LabelTargetName.text = setText(index + 1, GameController.Get.StageHintBit[0], 9);
+			gameTargets[index].LabelTargetValue.text = "/"+  GameController.Get.StageBitNum[0];
 			gameTargets[index].LabelValue.text = GameController.Get.GameTime.ToString();
 			index ++;
 		}
 
-		if(bits.Length > 1 && bits[1] > 0) {
+		if(GameController.Get.StageHintBit.Length > 1 && GameController.Get.StageHintBit[1] > 0) {
 			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(index + 1, bits[1], 8);
-			gameTargets[index].LabelTargetName.text = setText(index + 1, bits[1], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameData.DStageData[stage].Bit1Num;
+			gameTargets[index].LabelCaption.text = setText(index + 1, GameController.Get.StageHintBit[1], 8);
+			gameTargets[index].LabelTargetName.text = setText(index + 1, GameController.Get.StageHintBit[1], 9);
+			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[1];
 			gameTargets[index].LabelValue.text = UIGame.Get.Scores[(int) ETeamKind.Self].ToString();
 			index ++;
 		}
 		
-		if(bits.Length > 2 && bits[2] > 0) {
+		if(GameController.Get.StageHintBit.Length > 2 && GameController.Get.StageHintBit[2] > 0) {
 			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(3, bits[2], 8);
-			gameTargets[index].LabelTargetName.text = setText(3, bits[2], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameData.DStageData[stage].Bit2Num;
-			gameTargets[index].LabelValue.text = getConditionCount(bits[2]).ToString();
+			gameTargets[index].LabelCaption.text = setText(3, GameController.Get.StageHintBit[2], 8);
+			gameTargets[index].LabelTargetName.text = setText(3, GameController.Get.StageHintBit[2], 9);
+			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[2];
+			gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[2]).ToString();
 			index ++;
 		}
 		
-		if(bits.Length > 3 && bits[3] > 0) {
+		if(GameController.Get.StageHintBit.Length > 3 && GameController.Get.StageHintBit[3] > 0) {
 			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(3, bits[3], 8);
-			gameTargets[index].LabelTargetName.text = setText(3, bits[3], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameData.DStageData[stage].Bit3Num;
-			gameTargets[index].LabelValue.text = getConditionCount(bits[3]).ToString();
+			gameTargets[index].LabelCaption.text = setText(3, GameController.Get.StageHintBit[3], 8);
+			gameTargets[index].LabelTargetName.text = setText(3, GameController.Get.StageHintBit[3], 9);
+			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[3];
+			gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[3]).ToString();
 			index ++;
 		}
 	}
