@@ -60,6 +60,7 @@ public struct TUICard{
 	public GameObject Selected;
 	public GameObject InListCard;
 	public GameObject SellSelect;
+	public GameObject SellSelectCover;
 	public int CardIndex;
 	public int CardID;
 	public string EquipedType;
@@ -76,6 +77,7 @@ public struct TUICard{
 		Selected = null;
 		InListCard = null;
 		SellSelect = null;
+		SellSelectCover = null;
 		CardIndex = -1;
 		CardID = 0;
 		EquipedType = "0";
@@ -91,6 +93,13 @@ public class UISkillFormation : UIBase {
 	//Send Value
 	private int[] removeIndexs = new int[0]; //From already setted skillCard's index
 	private int[] addIndexs = new int[0];//From skillCards's index in the center area
+
+	//Sell Value
+	private List<string> sellNames = new List<string>();
+	
+	//Instantiate Object
+	private GameObject itemSkillCard;
+	private GameObject itemCardEquipped;
 
 	//CenterCard
 	private List<GameObject> skillSortCards = new List<GameObject>();//By Sort
@@ -108,19 +117,22 @@ public class UISkillFormation : UIBase {
 	private List<GameObject> itemPassiveCards = new List<GameObject>();
 	private GameObject itemPassiveField;
 
-	//Instantiate Object
-	private GameObject itemSkillCard;
-	private GameObject itemCardEquipped;
-
-	//Right(Put itemCardEquipped Object)
+	//Right(itemCardEquipped Parent)
 	private GameObject gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
-	
+
+	//Total Cost
 	private UILabel labelCostValue;
 
-	//Center
+	//Left CardView
 	private GameObject gridCardList;
 	private UIScrollView scrollViewCardList;
+
+	//Sell
+	private UILabel labelSell;
+	private GameObject goSellCount;
+	private UILabel labelTotalPrice;
+	private int sellPrice;
 
 	//Info
 	private TSkillInfo skillInfo = new TSkillInfo();
@@ -132,6 +144,7 @@ public class UISkillFormation : UIBase {
 	private Vector3 point;
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
+	private bool isEdit = false;
 
 	public static bool Visible {
 		get {
@@ -163,6 +176,8 @@ public class UISkillFormation : UIBase {
 	}
 
 	protected override void InitCom() {
+		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
+		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
 		for(int i=0; i<activeStruct.Length; i++) {
 			activeStruct[i].gridActiveCardBase = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase"+i.ToString());
 			activeStruct[i].itemActiveField = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase" + i.ToString() + "/ActiveField/Icon");
@@ -176,12 +191,16 @@ public class UISkillFormation : UIBase {
 
 		gridCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList");
 		scrollViewCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
-
-		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
-		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
 		itemPassiveField = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveField/Icon");
 
+		labelSell = GameObject.Find (UIName + "/BottomLeft/SellBtn/Icon").GetComponent<UILabel>();
+		goSellCount = GameObject.Find (UIName + "/BottomLeft/SellBtn/SellCount");
+		goSellCount.SetActive(false);
+		labelTotalPrice = GameObject.Find (UIName + "/BottomLeft/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
+
 		SetBtnFun (UIName + "/BottomLeft/SortBtn", DoSort);
+		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSell);
+		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoSell);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 		initCards ();
@@ -272,8 +291,41 @@ public class UISkillFormation : UIBase {
 				uicard.Value.InListCard.SetActive(false);
 				uicard.Value.UnavailableMask.SetActive((uicard.Value.Cost > (costSpaceMax - costSpace)));
 			}
-
 		}
+	}
+
+	private void setEditState (bool isEdit) {
+		goSellCount.SetActive(isEdit);
+		labelTotalPrice.text = "0";
+		if(isEdit) {
+			sellNames.Clear();
+			sellPrice = 0;
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
+				if(!uicard.Value.InListCard.activeInHierarchy) 
+					uicard.Value.SellSelect.SetActive (true);
+				uicard.Value.SellSelectCover.SetActive(false);
+			}
+		} else {
+			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
+				uicard.Value.SellSelect.SetActive (false);
+			labelSell.text = "SELL";
+		}
+	}
+
+	private void addSellCards (string name) {
+		if(!sellNames.Contains(name))
+			sellNames.Add(name);
+		sellPrice ++;
+		labelTotalPrice.text = sellPrice.ToString();
+		labelSell.text = "SELL"+sellNames.Count.ToString();
+	}
+
+	private void removeSellCards (string name) {
+		if(sellNames.Contains(name))
+			sellNames.Remove(name);
+		sellPrice --;
+		labelTotalPrice.text = sellPrice.ToString();
+		labelSell.text = "SELL"+sellNames.Count.ToString();
 	}
 
 	private bool setCost(int space) {
@@ -352,6 +404,16 @@ public class UISkillFormation : UIBase {
 		if(t != null)
 			uicard.SellSelect = t.gameObject;
 
+		t = obj.transform.FindChild("SellSelect/SellCover");
+		if(t != null) 
+			uicard.SellSelectCover = t.gameObject;
+
+		uicard.UnavailableMask.SetActive(false);
+		uicard.Selected.SetActive(false);
+		uicard.InListCard.SetActive(false);
+		uicard.SellSelect.SetActive(false);
+		uicard.SellSelectCover.SetActive(false);
+
 		uiCards.Add(obj.transform.name, uicard);
 
 		return obj;
@@ -405,66 +467,68 @@ public class UISkillFormation : UIBase {
 	/// <param name="lv">Lv.</param>
 	/// <param name="equiptype">Equiptype.</param>
 	private bool addItems(TUICard uicard, int activeStructIndex = -1) {
-		if(setCost(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV))) {
-			GameObject obj = null;
-			if(uicard.CardID < GameConst.ID_LimitActive) {
-				obj = addUIItems(uicard, itemPassiveCards.Count, gridPassiveCardBase);
-				itemPassiveCards.Add(obj);
-				itemPassiveField.SetActive(false);
-			} else {
-				if(activeStructIndex != -1 && activeStructIndex < 3) {
-					obj = addUIItems(uicard, 0, activeStruct[activeStructIndex].gridActiveCardBase);
-					activeStruct[activeStructIndex].itemEquipActiveCard = obj;
-					activeStruct[activeStructIndex].CardID = uicard.CardID;
-					activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
-					activeStruct[activeStructIndex].CardLV = uicard.CardLV;
-					activeStruct[activeStructIndex].EquipedType = uicard.EquipedType;
-					activeStruct[activeStructIndex].itemActiveField.SetActive(false);
+		if(!isEdit) {
+			if(setCost(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV))) {
+				GameObject obj = null;
+				if(uicard.CardID < GameConst.ID_LimitActive) {
+					obj = addUIItems(uicard, itemPassiveCards.Count, gridPassiveCardBase);
+					itemPassiveCards.Add(obj);
+					itemPassiveField.SetActive(false);
+				} else {
+					if(activeStructIndex != -1 && activeStructIndex < 3) {
+						obj = addUIItems(uicard, 0, activeStruct[activeStructIndex].gridActiveCardBase);
+						activeStruct[activeStructIndex].itemEquipActiveCard = obj;
+						activeStruct[activeStructIndex].CardID = uicard.CardID;
+						activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
+						activeStruct[activeStructIndex].CardLV = uicard.CardLV;
+						activeStruct[activeStructIndex].EquipedType = uicard.EquipedType;
+						activeStruct[activeStructIndex].itemActiveField.SetActive(false);
+					}
 				}
-			}
-			if(!skillsRecord.Contains (obj.name))
-				skillsRecord.Add(obj.name);
-			checkCostIfMask();
-			return true;
+				if(!skillsRecord.Contains (obj.name))
+					skillsRecord.Add(obj.name);
+				checkCostIfMask();
+				return true;
+			} else 
+				UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 		} else 
-			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+			UIHint.Get.ShowHint("It's Edit State.", Color.red);
 		return false;
 	}
 
 	private void removeItems(int id, GameObject go = null) {
-//		Transform t = go.transform.FindChild("SkillCost");
-//		if(t) 
-//		if(setCost(-int.Parse(t.GetComponent<UILabel>().text)))
-		
-		if(setCost(-uiCards[go.name].Cost)){
-			if(skillsRecord.Contains(go.name))
-				skillsRecord.Remove(go.name);
-			if(id < GameConst.ID_LimitActive) {
-				for(int i=0 ;i<itemPassiveCards.Count; i++) {
-					if(itemPassiveCards[i].name.Equals(go.name)){
-						Destroy(itemPassiveCards[i]);
-						itemPassiveCards.RemoveAt(i);
-						break;
+		if(!isEdit) {
+			if(setCost(-uiCards[go.name].Cost)){
+				if(skillsRecord.Contains(go.name))
+					skillsRecord.Remove(go.name);
+				if(id < GameConst.ID_LimitActive) {
+					for(int i=0 ;i<itemPassiveCards.Count; i++) {
+						if(itemPassiveCards[i].name.Equals(go.name)){
+							Destroy(itemPassiveCards[i]);
+							itemPassiveCards.RemoveAt(i);
+							break;
+						}
 					}
+					
+					if(itemPassiveCards.Count == 0)
+						itemPassiveField.SetActive(true);
+					
+					refreshPassiveItems();
+				} else {
+					int index = getContainActiveID(id);
+					//				if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
+					//					skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
+					if(activeStruct[index].itemEquipActiveCard != null)
+						Destroy(activeStruct[index].itemEquipActiveCard);
+					
+					activeStruct[index].ActiveClear();
+					
+					refreshActiveItems();
 				}
-
-				if(itemPassiveCards.Count == 0)
-					itemPassiveField.SetActive(true);
-
-				refreshPassiveItems();
-			} else {
-				int index = getContainActiveID(id);
-//				if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
-//					skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
-				if(activeStruct[index].itemEquipActiveCard != null)
-					Destroy(activeStruct[index].itemEquipActiveCard);
-
-				activeStruct[index].ActiveClear();
-
-				refreshActiveItems();
+				checkCostIfMask();
 			}
-			checkCostIfMask();
-		}
+		} else 
+			UIHint.Get.ShowHint("It's Edit State.", Color.red);
 	}
 	
 	private void refreshCards(string name) {
@@ -726,21 +790,33 @@ public class UISkillFormation : UIBase {
 
 	public void OnCardDetailInfo (GameObject go){
 		TUICard uicard = uiCards[go.name];
-		if(uicard.UnavailableMask != null) {
-			if(tempObj != null) {
-				if(tempObj != go) {
-					if(tempUICard.Selected != null)
-						tempUICard.Selected.SetActive(false);
+		if(!isEdit) {
+			if(uicard.UnavailableMask != null) {
+				if(tempObj != null) {
+					if(tempObj != go) {
+						if(tempUICard.Selected != null)
+							tempUICard.Selected.SetActive(false);
+					}
+				}
+				tempObj = go;
+				tempUICard = uicard;
+				setInfo(go);
+				
+				//Click Card
+				if(uicard.Selected != null && uicard.InListCard != null) {
+					uicard.Selected.SetActive(true);
+					UISkillInfo.UIShow(true, skillInfo, uicard.InListCard.gameObject.activeSelf, uicard.UnavailableMask.activeSelf);
 				}
 			}
-			tempObj = go;
-			tempUICard = uicard;
-			setInfo(go);
-			
-			//Click Card
-			if(uicard.Selected != null && uicard.InListCard != null) {
-				uicard.Selected.SetActive(true);
-				UISkillInfo.UIShow(true, skillInfo, uicard.InListCard.gameObject.activeSelf, uicard.UnavailableMask.activeSelf);
+		} else {
+			if(uicard.InListCard != null && uicard.InListCard.activeSelf)
+				UIHint.Get.ShowHint("It's Edit State.", Color.red);
+			else {
+				if(!uicard.SellSelectCover.activeSelf)
+					addSellCards(go.name);
+				else
+					removeSellCards(go.name);
+				uicard.SellSelectCover.SetActive(!uicard.SellSelectCover.activeSelf);
 			}
 		}
 	}
@@ -785,6 +861,11 @@ public class UISkillFormation : UIBase {
 		gridCardList.transform.localPosition = Vector3.zero;
 		gridCardList.SetActive(false);
 		gridCardList.SetActive(true);
+	}
+
+	public void DoSell() {
+		setEditState(!isEdit);
+		isEdit = !isEdit;
 	}
 	
 	public void DoSort() {
