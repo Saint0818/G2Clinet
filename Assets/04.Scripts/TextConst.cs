@@ -90,23 +90,7 @@ public static class TextConst
 			AddString (24, "GAME TARGET", "GAME TARGET");
 			AddString (25, "HOME TEAM", "HOME TEAM");
 			AddString (26, "AWAY TEAM", "AWAY TEAM");
-			AddString (27, "時間限制", "時間限制");
-			AddString (28, "得分須達到", "得分須達到");
-			AddString (29, "失分不超過", "失分不超過");
-			AddString (30, "需贏對手", "需贏對手");
-			AddString (31, "2分球數量", "2分球數量");
-			AddString (32, "3分球數量", "3分球數量");
-			AddString (33, "灌籃成功次數", "灌籃成功次數");
-			AddString (34, "推倒成功次數", "推倒成功次數");
-			AddString (35, "抄截成功次數", "抄截成功次數");
-			AddString (36, "火鍋成功次數", "火鍋成功次數");
-			AddString (37, "SCORE", "SCORE");
-			AddString (38, "2POINT", "2POINT");
-			AddString (39, "3POINT", "3POINT");
-			AddString (40, "DUNK", "DUNK");
-			AddString (41, "PUSH", "PUSH");
-			AddString (42, "STEAL", "STEAL");
-			AddString (43, "BLOCK", "BLOCK");
+
 
 
 			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
