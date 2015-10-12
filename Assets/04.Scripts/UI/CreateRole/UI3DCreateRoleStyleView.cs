@@ -23,7 +23,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
     [Header("3D Camera")]
     public Animator CamerAnimator;
 
-    [CanBeNull] private UI3DCreateRoleCommon.Player mPlayer;
+    [CanBeNull] private AvatarPlayer mPlayer;
 
     private struct CamTransform
     {
@@ -94,7 +94,7 @@ public class UI3DCreateRoleStyleView : MonoBehaviour
         if(mPlayer != null)
             mPlayer.Destroy();
 
-        mPlayer = new UI3DCreateRoleCommon.Player(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
+        mPlayer = new AvatarPlayer(mCommon.GetParent(pos), mCommon.GetShadow(pos), 
                                                   "StyleViewPlayer", playerID, pos);
         mPlayer.SetBall(Instantiate(mCommon.SFXBall));
         mPlayer.EnableSelfRotationByTouch(true);
