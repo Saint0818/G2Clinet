@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using AI;
@@ -17,7 +17,7 @@ public enum EAnimatorType
 public class ModelManager : KnightSingleton<ModelManager> {
 	public const string Name = "ModelManager";
 
-	private GameObject DefPointObject = null;
+	private GameObject defPointObject = null;
 	public GameObject PlayerInfoModel = null;
 	public GameObject AnimatorCurveManager;
 
@@ -31,7 +31,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		PlayerInfoModel.name = "PlayerInfoModel";
 
 		materialSource = Resources.Load("Character/Materials/Material_0") as Material;
-		DefPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
+		defPointObject = Resources.Load("Character/Component/DefPoint") as GameObject;
 		AnimatorCurveManager = Resources.Load("Character/Component/AnimatorCurve") as GameObject;
 	}
 
@@ -166,7 +166,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		else if(teamIndex == 2)
 			playerBehaviour.Postion = EPlayerPostion.G;
 		
-		playerBehaviour.InitTrigger(DefPointObject);
+		playerBehaviour.InitTrigger(defPointObject);
 		playerBehaviour.InitCurve(AnimatorCurveManager);
 		playerBehaviour.InitDoubleClick ();
 		playerBehaviour.InitAttr();
@@ -175,8 +175,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if(team == ETeamKind.Npc)
 			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-        // ¥Ø«e PlayerAI ¥²¶·­n¨Ì¿à PlayerBehavior ¤~¯à°µ¨Æ±¡, ©Ò¥H PlayerAI ¥[¨ì
-        // GameObject ®É, PlayerBehavior ¥²¶·­n¤w¸g¦s¦b¤F.
+        // ç›®å‰ PlayerAI å¿…é ˆè¦ä¾è³´ PlayerBehavior æ‰èƒ½åšäº‹æƒ…, æ‰€ä»¥ PlayerAI åŠ åˆ°
+        // GameObject æ™‚, PlayerBehavior å¿…é ˆè¦å·²ç¶“å­˜åœ¨äº†.
         res.AddComponent<PlayerAI>();
 
         return playerBehaviour;
@@ -308,7 +308,9 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, EAnimatorType animatorType, bool combine = true, bool Reset = false) {
+	public void SetAvatar(ref GameObject result, TAvatar attr, int bodyType, 
+                          EAnimatorType animatorType, bool combine = true, bool reset = false)
+    {
 		try {
 
 			Transform parent = result.transform.parent;
@@ -317,7 +319,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
 			int[] avatarIndex = new int[] {attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
 
-			if(Reset){
+			if(reset){
 				Destroy(result);			
 				result = new GameObject();
 			}

@@ -158,7 +158,7 @@ public class UICreateRoleStyleView : MonoBehaviour
     private void sendDataToServer()
     {
         int[] equipmentItemIDs = new int[8];
-        equipmentItemIDs[0] = mEquips[EEquip.Body];
+        equipmentItemIDs[0] = mEquips[EEquip.Body]; // 陣列的魔術數字其實是對應到 TItemData.Kind.
         equipmentItemIDs[1] = mEquips[EEquip.Hair];
         equipmentItemIDs[3] = mEquips[EEquip.Cloth];
         equipmentItemIDs[4] = mEquips[EEquip.Pants];

@@ -102,9 +102,9 @@ namespace GameStruct {
 		public TSkill[] SkillCards;
 		public TItem[] Items;
 
-		public TPlayer(int Level)
+		public TPlayer(int level)
 		{
-			AILevel = Level;
+			AILevel = level;
 			Name = "";
 			RoleIndex = 0;
 			ID = 0;
@@ -278,6 +278,53 @@ namespace GameStruct {
 				}
 			}
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>-1: can't find.</returns>
+        public int GetBodyItemID()
+        {
+            return getItemID(0);
+        }
+
+        public int GetHairItemID()
+        {
+            return getItemID(1);
+        }
+
+        public int GetClothItemID()
+        {
+            return getItemID(3);
+        }
+
+        public int GetPantsItemID()
+        {
+            return getItemID(4);
+        }
+
+        public int GetShoesItemID()
+        {
+            return getItemID(5);
+        }
+
+        private int getItemID(int kind)
+        {
+            if(Items == null)
+                return -1;
+
+            for(int i = 0; i < Items.Length; i++)
+            {
+                if(!GameData.DItemData.ContainsKey(Items[i].ID))
+                    continue;
+
+                TItemData item = GameData.DItemData[Items[i].ID];
+                if(item.Kind == kind)
+                    return item.ID;
+            }
+
+            return -1;
+        }
 
 		public void AddAttribute(int kind, float value) {
 			switch (kind) {
@@ -812,9 +859,14 @@ namespace GameStruct {
 		public DateTime UseTime;
 	}
 
-	public struct TItemData {
+	public struct TItemData
+    {
 		public int ID;
-		public int Kind;
+
+        // [0]:Body, [1]:Hair, [2]:AHeadDress, [3]:Cloth, [4]:Pants
+        // [5]:Shoes, [6]:MHandDress, [7]:ZBackEquip
+        public int Kind;
+
 		public int Position;
 		public int Avatar;
 		public int MaxStack;

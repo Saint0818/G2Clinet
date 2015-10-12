@@ -1,15 +1,15 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// ¤jÆU¥Dµ{¦¡.
+/// å¤§å»³ä¸»ç¨‹å¼.
 /// </summary>
 /// <remarks>
-/// ¨Ï¥Î¤èªk:
+/// ä½¿ç”¨æ–¹æ³•:
 /// <list type="number">
-/// <item> ¥Î Get ¨ú±o instance. </item>
-/// <item> Call Show() Åã¥Ü¬Y­Ó­¶­±. </item>
-/// <item> Call Hide() ±N¤jÆUÃö³¬. </item>
+/// <item> ç”¨ Get å–å¾— instance. </item>
+/// <item> Call Show() é¡¯ç¤ºæŸå€‹é é¢. </item>
+/// <item> Call Hide() å°‡å¤§å»³é—œé–‰. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -17,6 +17,14 @@ public class UIMainLobby : UIBase
 {
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
+
+    private UIMainLobbyImpl mImpl;
+
+    [UsedImplicitly]
+    private void Awake()
+    {
+        mImpl = GetComponent<UIMainLobbyImpl>();
+    }
 
     public void Show()
     {
@@ -28,6 +36,7 @@ public class UIMainLobby : UIBase
     public void Hide()
     {
         UI3DMainLobby.Get.Hide();
+
         RemoveUI(UIName);
     }
 

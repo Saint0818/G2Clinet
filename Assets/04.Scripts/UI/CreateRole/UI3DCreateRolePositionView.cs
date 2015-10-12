@@ -21,7 +21,7 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     public Transform SelectSFX;
     public Animator SelectSFXAnimator;
 
-    private readonly Dictionary<EPlayerPostion, UI3DCreateRoleCommon.Player> mPlayers = new Dictionary<EPlayerPostion, UI3DCreateRoleCommon.Player>();
+    private readonly Dictionary<EPlayerPostion, AvatarPlayer> mPlayers = new Dictionary<EPlayerPostion, AvatarPlayer>();
 
     /// <summary>
     /// 球員跳入場景的時間, 單位:秒.
@@ -41,14 +41,14 @@ public class UI3DCreateRolePositionView : MonoBehaviour
         mCommon = GetComponent<UI3DCreateRoleCommon>();
 
         // 現在的版本是讓玩家可以選擇 ID: 1, 2, 3 的角色.
-        mPlayers.Add(EPlayerPostion.G, new UI3DCreateRoleCommon.Player(mCommon.GuardParent, mCommon.GuardShadow, "Guard", 1, EPlayerPostion.G));
-        mPlayers.Add(EPlayerPostion.F, new UI3DCreateRoleCommon.Player(mCommon.ForwardParent, mCommon.ForwardShadow, "Forward", 2, EPlayerPostion.F));
-        mPlayers.Add(EPlayerPostion.C, new UI3DCreateRoleCommon.Player(mCommon.CenterParent, mCommon.CenterShadow, "Center", 3, EPlayerPostion.C));
+        mPlayers.Add(EPlayerPostion.G, new AvatarPlayer(mCommon.GuardParent, mCommon.GuardShadow, "Guard", 1, EPlayerPostion.G));
+        mPlayers.Add(EPlayerPostion.F, new AvatarPlayer(mCommon.ForwardParent, mCommon.ForwardShadow, "Forward", 2, EPlayerPostion.F));
+        mPlayers.Add(EPlayerPostion.C, new AvatarPlayer(mCommon.CenterParent, mCommon.CenterShadow, "Center", 3, EPlayerPostion.C));
     }
 
     public void Show()
     {
-        foreach(KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
+        foreach(KeyValuePair<EPlayerPostion, AvatarPlayer> pair in mPlayers)
         {
             pair.Value.Visible = true;
         }
@@ -61,13 +61,13 @@ public class UI3DCreateRolePositionView : MonoBehaviour
     /// </summary>
     public void PlayDropAnimation()
     {
-        foreach(KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
+        foreach(KeyValuePair<EPlayerPostion, AvatarPlayer> pair in mPlayers)
         {
             StartCoroutine(playAnimation(pair.Value, "SelectDown", mDelayTimes[pair.Key]));
         }
     }
 
-    private IEnumerator playAnimation(UI3DCreateRoleCommon.Player player,  string animName, float delayTime)
+    private IEnumerator playAnimation(AvatarPlayer player,  string animName, float delayTime)
     {
         player.Visible = false;
         yield return new WaitForSeconds(delayTime);
@@ -92,7 +92,7 @@ public class UI3DCreateRolePositionView : MonoBehaviour
 
     public void Hide()
     {
-        foreach (KeyValuePair<EPlayerPostion, UI3DCreateRoleCommon.Player> pair in mPlayers)
+        foreach (KeyValuePair<EPlayerPostion, AvatarPlayer> pair in mPlayers)
         {
             pair.Value.Visible = false;
         }

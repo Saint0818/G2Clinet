@@ -1,14 +1,14 @@
-using JetBrains.Annotations;
+ï»¿using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// ­t³d¤jÆU 3D ¬ÛÃöªºªF¦è(¼Ò«¬µ¥µ¥).
+/// è² è²¬å¤§å»³ 3D ç›¸é—œçš„æ±è¥¿(æ¨¡å‹ç­‰ç­‰).
 /// </summary>
 /// <remarks>
-/// ¨Ï¥Î¤èªk:
+/// ä½¿ç”¨æ–¹æ³•:
 /// <list type="number">
-/// <item> Call Get ¨ú±o instance. </item>
-/// <item> Call Show() or Hide() ±±¨î UI ­n¤£­nÅã¥Ü. </item>
+/// <item> Call Get å–å¾— instance. </item>
+/// <item> Call Show() or Hide() æ§åˆ¶ UI è¦ä¸è¦é¡¯ç¤º. </item>
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
@@ -17,10 +17,12 @@ public class UI3DMainLobby : UIBase
     private static UI3DMainLobby instance = null;
     private const string UIName = "UI3DMainLobby";
 
+    private UI3DMainLobbyImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()
     {
+        mImpl = GetComponent<UI3DMainLobbyImpl>();
     }
 
     [UsedImplicitly]
@@ -36,10 +38,14 @@ public class UI3DMainLobby : UIBase
     public void Show()
     {
         Show(true);
+
+        mImpl.Show();
     }
 
     public void Hide()
     {
+        mImpl.Hide();
+
         RemoveUI(UIName);
     }
 

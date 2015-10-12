@@ -286,14 +286,17 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			callback();
 	}
 
-	private GameObject createScenePlayer(ref TPlayer player) {
-		GameObject Res = new GameObject();
-		Res.name = player.Name;
-		Res.layer = LayerMask.NameToLayer ("Player");
-		
-		ModelManager.Get.SetAvatar (ref Res, player.Avatar, player.BodyType, EAnimatorType.AvatarControl, true);
-		Res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
-		Res.transform.localPosition = Vector3.zero;
+	private GameObject createScenePlayer(ref TPlayer player)
+    {
+	    GameObject res = new GameObject
+	    {
+	        name = player.Name,
+	        layer = LayerMask.NameToLayer("Player")
+	    };
+
+	    ModelManager.Get.SetAvatar(ref res, player.Avatar, player.BodyType, EAnimatorType.AvatarControl, true);
+		res.transform.parent = ModelManager.Get.PlayerInfoModel.transform;
+		res.transform.localPosition = Vector3.zero;
 
 		/*Animator ani = Res.GetComponent<Animator>();
 		if (ani != null) {
@@ -302,7 +305,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 				ani.runtimeAnimatorController = con;
 		}*/
 		
-		CapsuleCollider cc = Res.GetComponent<CapsuleCollider>();
+		CapsuleCollider cc = res.GetComponent<CapsuleCollider>();
 		if (cc != null)
 			cc.enabled = false;
 
@@ -310,7 +313,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		if (DummyBall) 
 			DummyBall.SetActive(false);
 
-		BoxCollider bc = Res.AddComponent<BoxCollider>();
+		BoxCollider bc = res.AddComponent<BoxCollider>();
 		bc.center = new Vector3(0, 1.5f, 0);
 		bc.size = new Vector3(0, 3, 0);
 		bc.isTrigger = true;
@@ -319,7 +322,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		if (obj) {
 			GameObject obj1 = Instantiate(obj);
 			obj1.name = "Projector";
-			obj1.transform.parent = Res.transform;
+			obj1.transform.parent = res.transform;
 			obj1.transform.localScale = Vector3.one;
 			obj1.transform.localPosition = Vector3.zero;
 		}
@@ -332,12 +335,12 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			if (label)
 				label.text = player.Name;
 
-			obj1.transform.parent = Res.transform;
+			obj1.transform.parent = res.transform;
 			obj1.transform.localScale = new Vector3(0.004f, 0.004f, 0.004f);
 			obj1.transform.localPosition = new Vector3(0, 3.5f, 0);
 		}
 
-		return Res;
+		return res;
     }
 
     private void createMyPlayer() {

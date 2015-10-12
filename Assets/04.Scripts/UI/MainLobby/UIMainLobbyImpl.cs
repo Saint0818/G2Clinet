@@ -1,4 +1,4 @@
-using GameStruct;
+ï»¿using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIMainLobbyImpl : MonoBehaviour
 {
     public GameObject FullScreenBlock;
+    public Transform PlayerPos;
 
     [UsedImplicitly]
     private void Awake()
@@ -15,7 +16,7 @@ public class UIMainLobbyImpl : MonoBehaviour
     }
 
     /// <summary>
-    /// Block ªº¥Øªº¬OÁ×§K¨Ï¥ÎªÌÂIÀ»¥ô¦ó UI ¤¸¥ó.(¤º³¡¨Ï¥Î, ¤@¯ë¨Ï¥ÎªÌ¤£­n¨Ï¥Î)
+    /// Block çš„ç›®çš„æ˜¯é¿å…ä½¿ç”¨è€…é»æ“Šä»»ä½• UI å…ƒä»¶.(å…§éƒ¨ä½¿ç”¨, ä¸€èˆ¬ä½¿ç”¨è€…ä¸è¦ä½¿ç”¨)
     /// </summary>
     /// <param name="enable"></param>
     public void EnableBlock(bool enable)
