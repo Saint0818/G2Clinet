@@ -195,10 +195,14 @@ public class AvatarPlayer
         mItemIDs[UICreateRoleStyleView.EEquip.Pants] = pantsItemID;
         mItemIDs[UICreateRoleStyleView.EEquip.Shoes] = shoesItemID;
 
-        Destroy();
+//        Destroy();
 
-        mModel = UICreateRole.CreateModel(mParent, mName, mPlayerID, bodyItemID, hairItemID,
-            clothItemID, pantsItemID, shoesItemID);
+        if(mModel == null)
+            mModel = UICreateRole.CreateModel(mParent, mName, mPlayerID, bodyItemID, hairItemID,
+                                          clothItemID, pantsItemID, shoesItemID);
+        else
+            UICreateRole.UpdateModel(mModel, mPlayerID, bodyItemID, hairItemID,
+                                          clothItemID, pantsItemID, shoesItemID);
         mModel.AddComponent<SelectEvent>(); // 避免發生 Error.
         mAnimator = mModel.GetComponent<Animator>();
         mDummy = mModel.transform.FindChild("DummyBall");
