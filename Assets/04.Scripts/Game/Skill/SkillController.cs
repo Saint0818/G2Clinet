@@ -217,8 +217,6 @@ public class SkillController : MonoBehaviour {
 				
 				TSkill skill = randomizer.GetNext();
 				PassiveSkillUsed = skill;
-//				PassiveID = skill.ID;
-//				PassiveLv = skill.Lv;
 				return GameData.DSkillData[skill.ID].Animation;
 			} else 
 				return string.Empty;

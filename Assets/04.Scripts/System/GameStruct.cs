@@ -208,6 +208,7 @@ namespace GameStruct {
 					SkillCards[13].ID = GameData.DPlayers[ID].Skill14;
 					SkillCards[13].Lv = GameData.DPlayers[ID].SkillLV14;
 
+					ActiveSkills.Clear();
 					for(int i=0; i<SkillCards.Length; i++) {
 						if(SkillCards[i].ID > GameConst.ID_LimitActive && SkillCards[i].ID > 0){
 							if(!ActiveSkills.Contains(SkillCards[i]))
@@ -217,6 +218,7 @@ namespace GameStruct {
 				}
 					break;
 				case ESkillType.Player:
+					ActiveSkills.Clear();
 					if(SkillCards == null)
 						SkillCards = new TSkill[0];
 					if(SkillCards.Length > 0) {
