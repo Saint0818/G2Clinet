@@ -270,7 +270,6 @@ public class UISkillFormation : UIBase {
 						                 "1");
 
 						skillsOriginal.Add (obj.name);
-						addItems(uiCards[obj.name], i);
 
 					if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
 						actvieIndex++;
@@ -549,10 +548,10 @@ public class UISkillFormation : UIBase {
 
 	private void removeItems(int id, GameObject go = null) {
 		if(setCost(-uiCards[go.name].Cost)){
-			ItemMoveOne();
 			if(skillsRecord.Contains(go.name))
 				skillsRecord.Remove(go.name);
 			if(id < GameConst.ID_LimitActive) {
+				ItemMoveOne();
 				for(int i=0 ;i<itemPassiveCards.Count; i++) {
 					if(itemPassiveCards[i].name.Equals(go.name)){
 						Destroy(itemPassiveCards[i]);
