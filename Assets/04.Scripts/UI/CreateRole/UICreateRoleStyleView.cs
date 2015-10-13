@@ -197,6 +197,6 @@ public class UICreateRoleStyleView : MonoBehaviour
 			else
 				LobbyStart.Get.EnterLobby();
         } else
-            Debug.LogError("Create Role fail!");
+			UIHint.Get.ShowHint("Create Role fail!", Color.red);
     }
 }
