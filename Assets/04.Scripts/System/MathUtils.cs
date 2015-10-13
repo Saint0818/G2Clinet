@@ -1,4 +1,5 @@
 ﻿
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace G2
@@ -9,20 +10,29 @@ namespace G2
         /// <seealso cref="http://answers.unity3d.com/questions/15822/how-to-get-the-positive-or-negative-angle-between.html"/>
         /// <para> You can use Mathf.Atan2 to compute the angle between 2D vectors. This only works 
         /// for 2d rotations though, however often that's all you need even in a 3d game. </para>
+        /// <para> 以 source 的 +Z 軸為基準, 算出某點和 source +Z 軸的夾角. , 會得到 0 ~ 90 度; 當,</para>
+        /// 夾角說明:
+        /// <list type="number">
+        /// <item> target 在 source 的 +X and +Z 區塊時: return 0 ~ 90. </item>
+        /// <item> target 在 source 的 +X and -Z 區塊時: return 90 ~ 180. </item>
+        /// <item> target 在 source 的 -X and +Z 區塊時: return 0 ~ -90. </item>
+        /// <item> target 在 source 的 -X and -Z 區塊時: return -90 ~ -180. </item>
+        /// </list>
         /// </summary>
-        /// <param name="t1"></param>
-        /// <param name="t2"></param>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
         /// <returns></returns>
-        public static float GetAngle(Transform t1, Transform t2)
+        public static float FindAngle(Transform source, Vector3 target)
         {
-            Vector3 relative = t1.InverseTransformPoint(t2.position);
-            return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-        }
-
-		public static float GetAngle(Transform source, Vector3 target){
 			Vector3 relative = source.InverseTransformPoint(target);
 			return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 		}
+
+//        public static float GetAngle([NotNull]Transform source, Transform target)
+//        {
+//            Vector3 relative = source.InverseTransformPoint(target.position);
+//            return Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+//        }
 
         public static float Find2DDis(Vector3 v1, Vector3 v2)
         {

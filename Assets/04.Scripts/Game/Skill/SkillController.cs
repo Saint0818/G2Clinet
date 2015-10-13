@@ -188,7 +188,7 @@ public class SkillController : MonoBehaviour {
 		//Part 1. Get Passive which is choosed. 
 		List<TSkill> skills = new List<TSkill>();
 
-		float angle = MathUtils.GetAngle(executePlayer.gameObject.transform, v);
+		float angle = MathUtils.FindAngle(executePlayer.gameObject.transform, v);
 		passDirect = judgeDirect(angle);
 
 		if(DPassiveSkills.ContainsKey(skillKind)) {

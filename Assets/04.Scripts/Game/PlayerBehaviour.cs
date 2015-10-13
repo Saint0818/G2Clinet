@@ -9,6 +9,7 @@ using Chronos;
 using JetBrains.Annotations;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
+public delegate void OnPlayerAction1(PlayerBehaviour player);
 
 public delegate void OnPlayerAction2(PlayerBehaviour player, bool speedup);
 
@@ -381,7 +382,7 @@ public static class StateChecker {
 public class PlayerBehaviour : MonoBehaviour
 {
 	public Timeline Timer;
-    public OnPlayerAction OnShooting = null;
+    public OnPlayerAction1 OnShooting = null;
     public OnPlayerAction OnPass = null;
     public OnPlayerAction OnStealMoment = null;
     public OnPlayerAction OnBlockJump = null;

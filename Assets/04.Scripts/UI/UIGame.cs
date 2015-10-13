@@ -197,10 +197,10 @@ public class UIGame : UIBase {
 		if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
 			if(isShowPushRange) {
 				nearP = GameController.Get.FindNearNpc();
-				CourtMgr.Get.RangeOfActionEuler( MathUtils.GetAngle(GameController.Get.Joysticker.transform, nearP.transform));
+				CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(GameController.Get.Joysticker.transform, nearP.transform.position));
 			} else if(isShowStealRange) {
 				if(GameController.Get.BallOwner != null)
-					CourtMgr.Get.RangeOfActionEuler( MathUtils.GetAngle(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform));
+					CourtMgr.Get.RangeOfActionEuler( MathUtils.FindAngle(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform.position));
 			}
 
 
@@ -546,7 +546,7 @@ public class UIGame : UIBase {
 				eulor = 0;
 				nearP = GameController.Get.FindNearNpc();
 				if(nearP)
-					eulor = MathUtils.GetAngle(GameController.Get.Joysticker.transform, nearP.transform);
+					eulor = MathUtils.FindAngle(GameController.Get.Joysticker.transform, nearP.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               GameController.Get.Joysticker.transform, 
 				                               30, 
@@ -561,7 +561,7 @@ public class UIGame : UIBase {
 				skillRangeTarget = GameController.Get.Joysticker.transform;
 				eulor = 0;
 				if (GameController.Get.BallOwner)
-					eulor = MathUtils.GetAngle(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform);
+					eulor = MathUtils.FindAngle(GameController.Get.Joysticker.transform, GameController.Get.BallOwner.transform.position);
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               GameController.Get.Joysticker.transform, 
 				                               30, 

@@ -924,24 +924,6 @@ public class GameController : KnightSingleton<GameController>
 	}
 	#endif
 
-//	private void jumpBall()
-//	{
-//		if(BallOwner == null)
-//		{
-//			foreach(PlayerBehaviour someone in PlayerList)
-//			{
-//                DoPickBall(someone);
-//
-////			    if(someone.Team == ETeamKind.Self)
-////			    {
-////			        doPickBall(someone);
-////			        if(someone.DefPlayer != null)
-////			            doPickBall(someone.DefPlayer);
-////			    }
-//			}
-//		}
-//	}
-
     /// <summary>
     /// 某隊得分, 另一隊執行撿球.
     /// </summary>
@@ -950,19 +932,6 @@ public class GameController : KnightSingleton<GameController>
     {
         if(pickBallPlayer || BallOwner || PlayerList.Count <= 0)
             return;
-
-//        if(team == ETeamKind.Self)
-//        {
-//            var player = AIController.Get.PlayerTeam.FindNearBallPlayer();
-//            if(player != null)
-//                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
-//        }
-//        else if(team == ETeamKind.Npc)
-//        {
-//            var player = AIController.Get.NpcTeam.FindNearBallPlayer();
-//            if(player != null)
-//                pickBallPlayer = player.GetComponent<PlayerBehaviour>();
-//        }
 
         var player = AIController.Get.GetTeam(team).FindNearBallPlayer();
         if (player != null)
@@ -1485,10 +1454,10 @@ public class GameController : KnightSingleton<GameController>
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
-			angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform.position);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		} else {
-			angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
+			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform.position);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		}
 		//Distance
@@ -1808,9 +1777,9 @@ public class GameController : KnightSingleton<GameController>
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public bool OnShooting([NotNull]PlayerBehaviour player)
+    public void OnShooting([NotNull]PlayerBehaviour player)
     {
-        if (BallOwner && BallOwner == player)
+        if(BallOwner && BallOwner == player)
 		{     
 			CourtMgr.Get.RealBallTrigger.IsAutoRotate = true;
 			Shooter = player;
@@ -1819,9 +1788,9 @@ public class GameController : KnightSingleton<GameController>
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
-				angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform);
+				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform.position);
 			else 
-				angleByPlayerHoop = MathUtils.GetAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform);
+				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform.position);
 
 			if(Mathf.Abs(angleByPlayerHoop) <= 85  && ShootDistance < 5)
 				shootAngle = 80;
@@ -1921,9 +1890,7 @@ public class GameController : KnightSingleton<GameController>
 					if (PlayerList [i].Team == Shooter.Team)
 						PlayerList [i].ResetMove();
 				}
-			return true;
-        } else
-            return false;
+        }
     }
 
 	public int GetShootPlayerIndex()
@@ -2061,7 +2028,7 @@ public class GameController : KnightSingleton<GameController>
 			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
-					float angle = MathUtils.GetAngle(BallOwner.gameObject.transform, player.gameObject.transform);
+					float angle = MathUtils.FindAngle(BallOwner.gameObject.transform, player.gameObject.transform.position);
 					if (angle < 60f && angle > -60f){
 						UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
 						result = BallOwner.AniState(EPlayerState.Pass5);
@@ -2295,7 +2262,7 @@ public class GameController : KnightSingleton<GameController>
 					AddAngle = 90;
 				}
 				
-				if (stealRate <= (r + AddRate) && Mathf.Abs(MathUtils.GetAngle(BallOwner.transform, player.transform)) <= 90 + AddAngle) {
+				if (stealRate <= (r + AddRate) && Mathf.Abs(MathUtils.FindAngle(BallOwner.transform, player.transform.position)) <= 90 + AddAngle) {
 					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal)) {
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						if(player == Joysticker || BallOwner == Joysticker)
@@ -2858,7 +2825,7 @@ public class GameController : KnightSingleton<GameController>
 							if(DisAy[j].Distance == 0)
 							{
 								if(Angel)
-									DisAy[j].Distance = Mathf.Abs(MathUtils.GetAngle(Self.transform, anpc.transform));
+									DisAy[j].Distance = Mathf.Abs(MathUtils.FindAngle(Self.transform, anpc.transform.position));
 								else
 									DisAy[j].Distance = GetDis(anpc, Self);
 								DisAy[j].Player = anpc;
@@ -2877,7 +2844,7 @@ public class GameController : KnightSingleton<GameController>
 							if(DisAy[j].Distance == 0)
 							{
 								if(Angel)
-									DisAy[j].Distance = Mathf.Abs(MathUtils.GetAngle(Self.transform, anpc.transform));
+									DisAy[j].Distance = Mathf.Abs(MathUtils.FindAngle(Self.transform, anpc.transform.position));
 								else
 									DisAy[j].Distance = GetDis(anpc, Self);
 								DisAy[j].Player = anpc;
@@ -2924,7 +2891,7 @@ public class GameController : KnightSingleton<GameController>
 						if(kind == 1)
 							BlockRate = npc2.Attr.FaketBlockRate;	
 						
-						float mAngle = MathUtils.GetAngle(npc.transform, PlayerList [i].transform);
+						float mAngle = MathUtils.FindAngle(npc.transform, PlayerList [i].transform.position);
 						
 						if (GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70) {
 							if (rate < BlockRate) {
@@ -3464,7 +3431,7 @@ public class GameController : KnightSingleton<GameController>
 			case 2:
 				if(!player2.IsDefence && player1.IsDefence)
 				{
-					if(Mathf.Abs(MathUtils.GetAngle(player2.transform, player1.transform)) <= GameConst.SlowDownAngle)
+					if(Mathf.Abs(MathUtils.FindAngle(player2.transform, player1.transform.position)) <= GameConst.SlowDownAngle)
 						player2.SetSlowDown(GameConst.SlowDownTime);
 				}
                 break;
@@ -3889,7 +3856,7 @@ public class GameController : KnightSingleton<GameController>
 			if(targetNpc.gameObject.activeSelf && targetNpc != player && targetNpc.Team == player.Team && 
 			    GetDis(player, targetNpc) <= dis && HasDefPlayer(targetNpc, 1.5f, 40) == 0)
             {
-				float mangle = MathUtils.GetAngle(player.transform, targetNpc.transform);
+				float mangle = MathUtils.FindAngle(player.transform, targetNpc.transform.position);
 	            
                 if (mangle >= 0 && mangle <= angle)
 					return targetNpc;
@@ -3920,7 +3887,7 @@ public class GameController : KnightSingleton<GameController>
 			if(PlayerList[i].gameObject.activeInHierarchy && PlayerList[i].Team != player.Team)
             {
 	            PlayerBehaviour targetNpc = PlayerList[i];
-				float realAngle = MathUtils.GetAngle(player.transform, targetNpc.transform);
+				float realAngle = MathUtils.FindAngle(player.transform, targetNpc.transform.position);
 	            
 //	            if(GetDis(npc, targetNpc) <= dis)
 	            if(MathUtils.Find2DDis(player.transform.position, targetNpc.transform.position) <= dis)
@@ -3977,7 +3944,7 @@ public class GameController : KnightSingleton<GameController>
 		float mangle;
 
 		if (p1 != null && p2 != null && p1 != p2) {
-			mangle = MathUtils.GetAngle(p1.transform, p2.transform);
+			mangle = MathUtils.FindAngle(p1.transform, p2.transform.position);
 			
 			if (GetDis(p1, p2) <= dis) {
 				if (mangle >= 0 && mangle <= angle)				

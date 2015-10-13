@@ -177,7 +177,7 @@ namespace AI
 
             for (int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                float realAngle = MathUtils.GetAngle(player.transform, mOpponentPlayers[i].transform);
+                float realAngle = MathUtils.FindAngle(player.transform, mOpponentPlayers[i].transform.position);
 
                 if (MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position) <= dis)
                 {
