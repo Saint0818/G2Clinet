@@ -396,7 +396,7 @@ public class UISkillFormation : UIBase {
 			uicard.CardLV = lv;
 			uicard.EquipedType = equiptype;
 			if(GameData.DSkillData.ContainsKey(id))
-				uicard.Cost = GameData.DSkillData[id].Space(lv);
+				uicard.Cost = Mathf.Max(GameData.DSkillData[id].Space(lv), 1);
 
 			Transform t = obj.transform.FindChild("SkillCard");
 			if(t != null) {
@@ -495,7 +495,7 @@ public class UISkillFormation : UIBase {
 		t = obj.transform.FindChild("SkillCost");
 		if(t != null)
 			if(GameData.DSkillData.ContainsKey(uicard.CardID))
-				t.gameObject.GetComponent<UILabel>().text = GameData.DSkillData[uicard.CardID].Space(uicard.CardLV).ToString();
+				t.gameObject.GetComponent<UILabel>().text = Mathf.Max(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV), 1).ToString();
 
 		//no texture
 //		t = obj.transform.FindChild("SkillTexture");
@@ -516,7 +516,7 @@ public class UISkillFormation : UIBase {
 	/// <param name="lv">Lv.</param>
 	/// <param name="equiptype">Equiptype.</param>
 	private bool addItems(TUICard uicard, int activeStructIndex = -1) {
-		if(setCost(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV))) {
+		if(setCost(Mathf.Max(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV), 1))) {
 			GameObject obj = null;
 			if(uicard.CardID < GameConst.ID_LimitActive) {
 				obj = addUIItems(uicard, itemPassiveCards.Count, gridPassiveCardBase);

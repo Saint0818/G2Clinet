@@ -540,6 +540,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, ETeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
+			SetPlayerAI(false);
 			break;
     	case EGameTest.Edit:
 			GameData.Team.Player.SetID(34);		
@@ -704,7 +705,9 @@ public class GameController : KnightSingleton<GameController>
 				{
 					if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
-//						Joysticker.PassiveID = (int )GameStart.Get.SelectAniState;
+						TSkill skill = new TSkill();
+						skill.ID = (int )GameStart.Get.SelectAniState;
+						Joysticker.PassiveSkillUsed = skill;
 						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
 					}else
@@ -2171,8 +2174,8 @@ public class GameController : KnightSingleton<GameController>
 					
 					if(result){
 						Catcher = player;
-						if (BallOwner && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) 
-							BallOwner.GameRecord.Pass++;
+//						if (BallOwner && (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) 
+//							BallOwner.GameRecord.Pass++;
 						
 						UIGame.Get.DoPassNone();
 					}

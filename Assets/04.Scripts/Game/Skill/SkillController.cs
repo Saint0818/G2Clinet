@@ -371,7 +371,7 @@ public class SkillController : MonoBehaviour {
 		return false;
 	}
 	
-	public void AttackSkillEffect(PlayerBehaviour player, TSkill tSkill) {
+	public void AddSkillAttribute(PlayerBehaviour player, TSkill tSkill) {
 		TSkillData skill = GameData.DSkillData[tSkill.ID];
 		if(tSkill.ID >= GameConst.ID_LimitActive) {
 			if(player.Attribute.ActiveSkills.Count > 0) {
@@ -582,7 +582,7 @@ public class SkillController : MonoBehaviour {
 		try {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
-					AttackSkillEffect(player, player.PassiveSkillUsed);
+					AddSkillAttribute(player, player.PassiveSkillUsed);
 					if(!player.IsUseSkill)
 						UIPassiveEffect.Get.ShowCard(player, player.PassiveSkillUsed.ID, player.PassiveSkillUsed.Lv);
 					SkillEffectManager.Get.OnShowEffect(player, true);

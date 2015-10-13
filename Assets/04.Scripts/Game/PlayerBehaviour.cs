@@ -527,6 +527,7 @@ public class PlayerBehaviour : MonoBehaviour
 	//Skill
 	private SkillController skillController;
 	private ESkillKind skillKind;
+	private bool isUsePassive = false;
 
 	//Active
 	private bool isUseSkill = false;
@@ -2200,7 +2201,8 @@ public class PlayerBehaviour : MonoBehaviour
 		IsKinematic = false;
 		DribbleTime = 0;
 		isUseSkill = false;
-		isCanCatchBall = true;
+		if(!isUsePassive)
+			isCanCatchBall = true;
 
 		if (LayerMgr.Get.CheckLayer (gameObject, ELayer.Shooter))
 			LayerMgr.Get.SetLayer (gameObject, ELayer.Player);
@@ -2620,6 +2622,8 @@ public class PlayerBehaviour : MonoBehaviour
 
                 ClearAnimatorFlag();
 				isCanCatchBall = false;
+				if(stateNo == 5 || stateNo == 6 || stateNo == 7 || stateNo == 8 || stateNo == 9 )
+					isUsePassive = true;
                 PlayerRigidbody.mass = 5;
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("PassTrigger");
@@ -3254,7 +3258,7 @@ public class PlayerBehaviour : MonoBehaviour
 //							AniState(EPlayerState.HoldBall);
 					}
 
-
+				isUsePassive = false;
 				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
                 PlayerRigidbody.useGravity = true;
@@ -3494,7 +3498,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void AttackSkillEffect (TSkill activeSkill) {
-		skillController.AttackSkillEffect(this, activeSkill);
+		skillController.AddSkillAttribute(this, activeSkill);
 	}
 
 	public bool CheckSkill (TSkill tSkill) {
