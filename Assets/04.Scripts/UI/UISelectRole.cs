@@ -653,7 +653,7 @@ public class UISelectRole : UIBase {
 			break;
 		case EUIRoleSituation.Start:
 			SetEnemyMembers ();
-			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.NPC);
+			GameData.Team.Player.SetAttribute(GameEnum.ESkillType.Player);
 			GameData.Team.Player.SetAvatar();
 			GameData.TeamMembers [0].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [0].Player.SetAvatar ();
