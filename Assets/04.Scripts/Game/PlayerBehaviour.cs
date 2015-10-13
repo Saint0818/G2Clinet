@@ -3482,7 +3482,6 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 				}
 
-				isUseSkill = true;
 			}
 		}
 		return false;
@@ -3754,6 +3753,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsUseSkill //Only ActiveSkill
     {
 		get{ return isUseSkill;}
+		set{isUseSkill = value;}
     }
 
     private bool isMoving = false;

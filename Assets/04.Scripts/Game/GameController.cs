@@ -2523,6 +2523,7 @@ public class GameController : KnightSingleton<GameController>
 			if (player.CheckSkill(tSkill)) {
 				player.AttackSkillEffect(tSkill);
 				result = player.ActiveSkill(tSkill, player.gameObject);
+				player.IsUseSkill = true;
 			}
 		}
 		return result;
