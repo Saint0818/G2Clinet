@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using G2;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AI
@@ -38,11 +39,23 @@ namespace AI
         private void FixedUpdate()
         {
             mFSM.Update();
+        }
 
+        [UsedImplicitly]
+        private void OnGUI()
+        {
 //            if(GameController.Get.BallOwner == GetComponent<PlayerBehaviour>())
 //            {
 //                var isBehindMe = Team.IsAllOpponentsBehindMe(transform.position);
 //                Debug.LogFormat("Name:{0}, IsBehindMe:{1}", name, isBehindMe);
+//                var angle = Team.FindAttackAngle(GameController.Get.BallOwner.transform.position,
+//                    GameController.Get.BallOwner.DefPlayer.transform.position);
+//                var dis = MathUtils.Find2DDis(GameController.Get.BallOwner.transform.position,
+//                    GameController.Get.BallOwner.DefPlayer.transform.position);
+//                string msg = string.Format("Att:{0}, Def:{1}, Angle:{2}, Dis:{3}", 
+//                        GameController.Get.BallOwner.name, 
+//                        GameController.Get.BallOwner.DefPlayer.name, angle, dis);
+//                GUI.Label(new Rect(100, 100, 300, 50), msg);
 //            }
         }
 

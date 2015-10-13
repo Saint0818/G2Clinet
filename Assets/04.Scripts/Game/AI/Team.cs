@@ -143,12 +143,12 @@ namespace AI
             return true;
         }
 
-        public enum EFindPlayerResult
-        {
-            CannotFound, // 找不到防守球員.
-            InFront, // 防守球員在前方.
-            InBack // 防守球員在後方.
-        }
+//        public enum EFindPlayerResult
+//        {
+//            CannotFound, // 找不到防守球員.
+//            InFront, // 防守球員在前方.
+//            InBack // 防守球員在後方.
+//        }
         /// <summary>
         /// 某位球員在某個距離和角度內, 是否有防守球員?
         /// </summary>
@@ -156,45 +156,69 @@ namespace AI
         /// <param name="dis"></param>
         /// <param name="angle"></param>
         /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
-        public EFindPlayerResult HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
+//        public EFindPlayerResult HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
+        public bool HasDefPlayer([NotNull]PlayerAI player, float dis, float angle)
         {
             PlayerAI defPlayer;
             return FindDefPlayer(player, dis, angle, out defPlayer);
         }
 
         /// <summary>
-        /// 某位球員在某個距離和角度內, 是否有防守球員?
+        /// 某位球員進攻時, 在某個距離和角度內, 是否有防守球員?
         /// </summary>
         /// <param name="player"></param>
-        /// <param name="dis"></param>
-        /// <param name="angle"></param>
+        /// <param name="dis"> 進攻球員和防守球員的距離. </param>
+        /// <param name="angle"> 進攻球員和防守球員的夾角, 單位:度. </param>
         /// <param name="defPlayer"></param>
-        /// <returns> 0: 找不到防守球員; 1: 有找到, 防守球員在前方; 2: 有找到, 防守球員在後方. </returns>
-        public EFindPlayerResult FindDefPlayer([NotNull]PlayerAI player, float dis, float angle, 
-                                               out PlayerAI defPlayer)
+        /// <returns> true:有找到防守球員. </returns>
+        public bool FindDefPlayer([NotNull]PlayerAI player, float dis, float angle, 
+                                  out PlayerAI defPlayer)
         {
             defPlayer = null;
 
-            for (int i = 0; i < mOpponentPlayers.Count; i++)
+            for(int i = 0; i < mOpponentPlayers.Count; i++)
             {
-                float realAngle = MathUtils.FindAngle(player.transform, mOpponentPlayers[i].transform.position);
+//                float realAngle = MathUtils.FindAngle(player.transform, mOpponentPlayers[i].transform.position);
+                float angleBetween = FindAttackAngle(player.transform.position,
+                                                     mOpponentPlayers[i].transform.position);
 
-                if (MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position) <= dis)
+                float disBetween = MathUtils.Find2DDis(player.transform.position, mOpponentPlayers[i].transform.position);
+                if(disBetween <= dis && angleBetween <= angle)
                 {
-                    if(realAngle >= 0 && realAngle <= angle)
-                    {
-                        defPlayer = mOpponentPlayers[i];
-                        return EFindPlayerResult.InFront;
-                    }
-                    if(realAngle <= 0 && realAngle >= -angle)
-                    {
-                        defPlayer = mOpponentPlayers[i];
-                        return EFindPlayerResult.InBack;
-                    }
+//                    if(realAngle >= 0 && realAngle <= angle)
+//                    {
+//                        defPlayer = mOpponentPlayers[i];
+//                        return EFindPlayerResult.InFront;
+//                    }
+//                    if(realAngle <= 0 && realAngle >= -angle)
+//                    {
+//                        defPlayer = mOpponentPlayers[i];
+//                        return EFindPlayerResult.InBack;
+//                    }
+                    defPlayer = mOpponentPlayers[i];
+                    return true;
                 }
             }
 
-            return EFindPlayerResult.CannotFound;
+//            return EFindPlayerResult.CannotFound;
+            return false;
+        }
+
+        /// <summary>
+        /// 找出進攻球員和防守球員的夾角.(和進攻藍框的位置有密切的關係)
+        /// </summary>
+        /// <param name="attackPlayerPos"></param>
+        /// <param name="defPlayerPos"></param>
+        /// <returns> 0 ~ 180, 單位:度. </returns>
+        public float FindAttackAngle(Vector3 attackPlayerPos, Vector3 defPlayerPos)
+        {
+            Vector2 shootPoint = MathUtils.Convert2D(GetShootPoint());
+            Vector2 srcPos = MathUtils.Convert2D(attackPlayerPos);
+            Vector2 opponentPos = MathUtils.Convert2D(defPlayerPos);
+
+            Vector2 playerToShootPoint = shootPoint - srcPos;
+            Vector2 playerToOpp = opponentPos - srcPos;
+            return Vector2.Angle(playerToShootPoint, playerToOpp);
         }
 
         [CanBeNull]

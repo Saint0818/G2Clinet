@@ -40,6 +40,13 @@ namespace G2
             v2.y = 0;
             return Vector3.Distance(v1, v2);
         }
+
+        public static Vector2 Convert2D(Vector3 value)
+        {
+            Vector2 v = Vector2.zero;
+            v.Set(value.x, value.z);
+            return v;
+        }
     }
 }
 

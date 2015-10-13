@@ -160,31 +160,27 @@ namespace AI
             float shootPointDis = MathUtils.Find2DDis(mPlayer.transform.position,
                                         CourtMgr.Get.ShootPoint[mPlayer.Team.GetHashCode()].transform.position);
 
-            var threat = mPlayerAI.Team.HasDefPlayer(mPlayerAI, GameConst.ThreatDistance, GameConst.ThreatAngle);
+            var hasDefPlayer = mPlayerAI.Team.HasDefPlayer(mPlayerAI, GameConst.ThreatDistance, 
+                                                           GameConst.ThreatAngle);
 
             // 是否可以灌籃.
             if (shootPointDis <= GameConst.DunkDistance &&
-                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) /*&& Team.IsInUpfield(mPlayer)*/)
+                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Dunk, mPlayer.Attr.DunkRate);
 
             // 是否可以投 2 分球.
-            if (shootPointDis <= GameConst.TwoPointDistance &&
-                    threat != Team.EFindPlayerResult.InFront &&
-                    mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
-                    /*Team.IsInUpfield(mPlayer)*/)
+            if(shootPointDis <= GameConst.TwoPointDistance && !hasDefPlayer &&
+               mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
             // 是否可以投 3 分球.
-            if (shootPointDis <= GameConst.TreePointDistance + 1 &&
-                    threat != Team.EFindPlayerResult.InFront &&
-                    mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)
-                    /*Team.IsInUpfield(mPlayer)*/)
+            if(shootPointDis <= GameConst.TreePointDistance + 1 && !hasDefPlayer &&
+               mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
             if (shootPointDis <= GameConst.TreePointDistance + 1 &&
-               !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) &&
-               threat == Team.EFindPlayerResult.InFront)
+               !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) && hasDefPlayer)
             {
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
             }
@@ -192,8 +188,9 @@ namespace AI
             // 是否可以用 Elbow 攻擊對方.
             PlayerAI defPlayer;
             var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
-            if (Team.IsInUpfield(mPlayer) &&
-               stealThreat != Team.EFindPlayerResult.CannotFound &&
+            if (Team.IsInUpfield(mPlayer) && hasDefPlayer &&
+//               stealThreat != Team.EFindPlayerResult.CannotFound &&
+                stealThreat &&
                defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
                mPlayer.CoolDownElbow == 0 && !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
             {
@@ -201,14 +198,15 @@ namespace AI
             }
 
             // 是否可以傳球.
-            if ((mPlayer.CheckAnimatorSate(EPlayerState.HoldBall)) &&
-               GameController.Get.coolDownPass == 0 && /*!IsShooting && !IsDunk &&*/
-               !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
+            if(mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) &&
+               GameController.Get.coolDownPass == 0 /*&& 
+               !mPlayer.CheckAnimatorSate(EPlayerState.Elbow)*/)
                 mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
 
             // 是否可以轉身運球過人.
-            if (mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover == 0 && mPlayer.CanMove &&
-                threat != Team.EFindPlayerResult.CannotFound)
+            if(mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover == 0 && mPlayer.CanMove &&
+                hasDefPlayer)
+//                threat != Team.EFindPlayerResult.CannotFound)
             {
                 mRandomizer.AddOrUpdate(EAction.MoveDodge, mPlayer.MoveDodgeRate);
             }
