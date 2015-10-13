@@ -1022,7 +1022,7 @@ public class UISkillFormation : UIBase {
 			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
 		} else
 			if(!isEdit)
-				UIShow(false);
+				DoBack();
 			else {
 				setEditState(isEdit);
 			}
@@ -1036,7 +1036,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.Init();
 
 			if(!isEdit) 
-				UIShow(false);
+				DoBack();
 			else 
 				refreshBeforeSell();
 
