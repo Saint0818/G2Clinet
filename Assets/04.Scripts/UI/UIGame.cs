@@ -492,16 +492,12 @@ public class UIGame : UIBase {
 			case 6:
 			case 10:
 				return GameController.Get.Joysticker.gameObject;
-				break;
 			case 1:
 				return CourtMgr.Get.BasketRangeCenter[0];
-				break;
 			case 2:
 				return CourtMgr.Get.BasketRangeCenter[1];
-				break;
 			default:
 				return null;
-				break;
 			}
 		}
 		return null;

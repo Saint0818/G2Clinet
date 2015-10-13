@@ -150,10 +150,10 @@ public class MovePlayerList : MonoBehaviour {
 }
 
 public class UIPlayerShow : UIBase {
-	private int[] skillNo = new int[3];
+//	private int[] skillNo = new int[3];
 	private UILabel labelPlayerName; 
-	private UILabel labelPlayerPosition;
-	private UILabel labelPlayerPower;
+//	private UILabel labelPlayerPosition;
+//	private UILabel labelPlayerPower;
 	private UILabel labelShoot;
 	private UILabel labelShoot3;
 	private UILabel labeldunk;
@@ -166,15 +166,15 @@ public class UIPlayerShow : UIBase {
 	private UISprite[] skillSpAy = new UISprite[3];
 	private UISprite[] stars = new UISprite[5];
 	public UISprite BG;
-	private string[] skillExplain = new string[3];
-	private string[] skillTitle = new string[3];
+//	private string[] skillExplain = new string[3];
+//	private string[] skillTitle = new string[3];
 	private UILabel labelSkillExplain;
 	private UILabel labelSkillTitle;
-	private MovePlayerList moveList;
-	private UIButton[] DraftBtn = new UIButton[2];
+//	private MovePlayerList moveList;
+//	private UIButton[] DraftBtn = new UIButton[2];
 	private UIButton freeBtn;
-	private UILabel labelDraftTitle;
-	private UILabel labelDraftExplain;
+//	private UILabel labelDraftTitle;
+//	private UILabel labelDraftExplain;
 
 	private UILabel labelbuy10Cost;
 	private UILabel labelbuy1Cost;
@@ -182,7 +182,7 @@ public class UIPlayerShow : UIBase {
 	
 	private static UIPlayerShow instance = null;
 	private const string UIName = "UIPlayerShow";
-	private GameObject RedPoint;
+//	private GameObject RedPoint;
 	private UILabel[] translateLabel = new UILabel[2];
 
 	public static bool Visible
@@ -248,10 +248,10 @@ public class UIPlayerShow : UIBase {
 		translateLabel[1] = GameObject.Find(UIName + "/Window/Buy/1/Back").GetComponent<UILabel>();
 		translateLabel [0].text = TextConst.S(30407);
 		translateLabel[1].text = TextConst.S(30408);
-		RedPoint = GameObject.Find(UIName + "/Window/Buy/FreeBt/Redpoint");
+//		RedPoint = GameObject.Find(UIName + "/Window/Buy/FreeBt/Redpoint");
 		labelPlayerName = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PlayerName/Name").GetComponent<UILabel> ();
-		labelPlayerPosition = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PlayerPostion/Postion").GetComponent<UILabel> ();
-		labelPlayerPower = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PlayerCombat/CombatValue").GetComponent<UILabel> ();
+//		labelPlayerPosition = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PlayerPostion/Postion").GetComponent<UILabel> ();
+//		labelPlayerPower = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PlayerCombat/CombatValue").GetComponent<UILabel> ();
 		GameObject.Find (UIName + "/Window/PlayerData/LeftData/PVPRecord/2Point").GetComponent<UILabel> ().text = TextConst.S (20021);
 		labelShoot = GameObject.Find (UIName + "/Window/PlayerData/LeftData/PVPRecord/2PointValue").GetComponent<UILabel> ();
 		GameObject.Find (UIName + "/Window/PlayerData/LeftData/PVPRecord/3Point").GetComponent<UILabel> ().text = TextConst.S (20022);
@@ -271,7 +271,7 @@ public class UIPlayerShow : UIBase {
 
 		BG = GameObject.Find (UIName + "/Window/UITiledSprite").GetComponent<UISprite>();
 
-		moveList = GameObject.Find (UIName + "/Window/PlayerList").GetComponent<MovePlayerList>();
+//		moveList = GameObject.Find (UIName + "/Window/PlayerList").GetComponent<MovePlayerList>();
 
 		for (int i = 0; i < skillBtnAy.Length; i++) {
 			skillBtnAy[i] = GameObject.Find (string.Format(UIName + "/Window/PlayerData/RightData/Skill/{0}/{0}", i)).GetComponent<UIButton>();
@@ -287,8 +287,8 @@ public class UIPlayerShow : UIBase {
 		labelSkillExplain = GameObject.Find (UIName + "/Window/PlayerData/RightData/Skill/Explain/SkillExplain").GetComponent<UILabel>();
 		labelSkillTitle = GameObject.Find (UIName + "/Window/PlayerData/RightData/Skill/Explain/SkillName").GetComponent<UILabel>();
 
-		labelDraftTitle = GameObject.Find(UIName +"/Window/Top/UITitle/ItemName").GetComponent<UILabel>();
-		labelDraftExplain = GameObject.Find(UIName +"/Window/Top/UITitle/BulletinExplain").GetComponent<UILabel>();
+//		labelDraftTitle = GameObject.Find(UIName +"/Window/Top/UITitle/ItemName").GetComponent<UILabel>();
+//		labelDraftExplain = GameObject.Find(UIName +"/Window/Top/UITitle/BulletinExplain").GetComponent<UILabel>();
 	}
 	
 	protected override void InitData() {

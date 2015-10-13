@@ -222,22 +222,16 @@ public class UIGamePause : UIBase {
 		switch (type){
 		case 1://two score
 			return GameController.Get.Joysticker.GameRecord.FGIn;
-			break;
 		case 2://three score
 			return GameController.Get.Joysticker.GameRecord.FG3In;
-			break;
 		case 3://dunk
 			return GameController.Get.Joysticker.GameRecord.Dunk;
-			break;
 		case 4://push
 			return GameController.Get.Joysticker.GameRecord.Push;
-			break;
 		case 5://steal
 			return GameController.Get.Joysticker.GameRecord.Steal;
-			break;
 		case 6://block
 			return GameController.Get.Joysticker.GameRecord.Block;
-			break;
 		}
 		return 0;
 	}

@@ -3716,22 +3716,16 @@ public class GameController : KnightSingleton<GameController>
 			switch (type){
 			case 1://two score
 				return (player.GameRecord.FGIn >= count);
-				break;
 			case 2://three score
 				return (player.GameRecord.FG3In >= count);
-				break;
 			case 3://dunk
 				return (player.GameRecord.Dunk >= count);
-				break;
 			case 4://push
 				return (player.GameRecord.Push >= count);
-				break;
 			case 5://steal
 				return (player.GameRecord.Steal >= count);
-				break;
 			case 6://block
 				return (player.GameRecord.Block >= count);
-				break;
 			}
 		}
 		return false;

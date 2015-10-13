@@ -18,12 +18,12 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
-    private UIMainLobbyImpl mImpl;
+//    private UIMainLobbyImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mImpl = GetComponent<UIMainLobbyImpl>();
+//        mImpl = GetComponent<UIMainLobbyImpl>();
     }
 
     public void Show()
