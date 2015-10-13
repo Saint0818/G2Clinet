@@ -31,7 +31,8 @@ public class UISort : UIBase {
 
 	//Avatar
 	private GameObject[] objGroup = new GameObject[3];
-	private UIToggle[] avatarCondition = new UIToggle[4];
+	private UIToggle[] avatarSort = new UIToggle[5];
+	private UIToggle[] avatarFilter = new UIToggle[5];
 
 	public static bool Visible {
 		get {
@@ -107,15 +108,21 @@ public class UISort : UIBase {
 			else if(i == 1)
 			{
 				//Avatar
-				avatarCondition[0] = objGroup[i].transform.FindChild("TimelimitCheck").gameObject.GetComponent<UIToggle>();
-				avatarCondition[1] = objGroup[i].transform.FindChild("TimelessCheck").gameObject.GetComponent<UIToggle>();
-				avatarCondition[2] = objGroup[i].transform.FindChild("AvailableCheck").GetComponent<UIToggle>();
-				avatarCondition[3] = objGroup[i].transform.FindChild("SelectedCheck").GetComponent<UIToggle>();
+				avatarSort[0] = objGroup[i].transform.FindChild("TimelimitCheck").gameObject.GetComponent<UIToggle>();
+				avatarSort[1] = objGroup[i].transform.FindChild("TimelessCheck").gameObject.GetComponent<UIToggle>();
 
-				for(int j = 0; j < avatarCondition.Length; j++)
-				{
-					avatarCondition[j].name = j.ToString();
-					UIEventListener.Get (avatarCondition[j].gameObject).onClick = OnSort;
+				for(int j = 0; j < avatarSort.Length; j++){
+					avatarSort[j].name = j.ToString();
+					UIEventListener.Get (avatarSort[j].gameObject).onClick = OnSort;
+				}
+
+				avatarFilter[0] = objGroup[i].transform.FindChild("AvailableCheck").GetComponent<UIToggle>();
+				avatarFilter[1] = objGroup[i].transform.FindChild("SelectedCheck").GetComponent<UIToggle>();
+				avatarFilter[2] = objGroup[i].transform.FindChild("All").GetComponent<UIToggle>();
+
+				for(int k = 0; k < avatarFilter.Length; k++){
+					avatarFilter[k].name = k.ToString();
+					UIEventListener.Get (avatarFilter[k].gameObject).onClick = OnSort;
 				}
 			}
 			else
@@ -137,7 +144,7 @@ public class UISort : UIBase {
 					break;	
 				case 1:
 					if(UIAvatarFitted.Visible)
-						UIAvatarFitted.Get.SortView(index);
+						UIAvatarFitted.Get.Sort(index);
 					break;
 				case 2:
 					break;
@@ -145,6 +152,24 @@ public class UISort : UIBase {
 		}
 	}
 
+	public void OnFilter(GameObject obj)
+	{
+		int index;
+		
+		if (int.TryParse (obj.name, out index)) {
+			switch (sortFilter) {
+			case 0:
+				break;	
+			case 1:
+				if(UIAvatarFitted.Visible)
+					UIAvatarFitted.Get.Filter(index);
+				break;
+			case 2:
+				break;
+			}
+		}
+	}
+	
 	protected override void InitData() {
 		
 	}

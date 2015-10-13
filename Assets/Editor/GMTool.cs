@@ -240,7 +240,7 @@ public class GMTool : EditorWindow
 	{
 		if(ok)
 		{
-			ShowHint("Server Return : " + www.text);
+//			ShowHint("Server Return : " + www.text);
 
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Items = team.Items;

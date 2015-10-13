@@ -406,6 +406,14 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
+	private int GetItemAvatarIndex(int id)
+	{
+		if (GameData.DItemData.ContainsKey (id)) {
+			return	GameData.DItemData[id].Avatar;
+		}else
+			return -1;
+	}
+
 	private void InitEquips()
 	{
 		if (GameData.Team.Player.Items.Length > 0) {
@@ -438,32 +446,14 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
-	public void SortView(int index)
-	{
-		switch (index) {
-			case 0://TimelimitCheck
-				
-				break;
-			case 1://TimelessCheck
-				
-				break;
-			case 2://AvailableCheck
-				
-				break;
-			case 3://SelectedCheck
-				
-				break;
-		}
-		
-	}
-
 	public void UpdateAvatar(bool clearEquipsData = false)
 	{
 		if(clearEquipsData)
 			InitEquips ();
 
 		InitItemCount();
-		InitItems();
+		InitItemsData();
+		UpdateView();
 		InitEquipState();
 	}
 	
@@ -513,12 +503,9 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
-	private void InitItems()
+	private void InitItemsData()
 	{
-		enableCount = 0;
-
 		for(int i = 0; i < backpackItems.Length; i++){
-
 			//InitCom
 			if(backpackItems[i].gameobject == null){
 				backpackItems[i].gameobject = Instantiate(item) as GameObject;
@@ -535,8 +522,6 @@ public class UIAvatarFitted : UIBase {
 			if(GetAvatarCountInTeamItem() > 0 && i < GetAvatarCountInTeamItem())
 			{
 				//Team.Items
-//				if(backpackItems[i].ID != GameData.Team.Items[i].ID)
-//				{
 					backpackItems[i].ID = GameData.Team.Items[i].ID;
 					backpackItems[i].Position = GameData.DItemData[backpackItems[i].ID].Position;
 					backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
@@ -545,7 +530,6 @@ public class UIAvatarFitted : UIBase {
 					backpackItems[i].Kind = GetItemKind(backpackItems[i].ID);
 					backpackItems[i].UseKind = GameData.Team.Items[i].UseKind;
 					backpackItems[i].Index = i;
-//				}
 			}
 			else if(i >= GetAvatarCountInTeamItem() && i < GetAvatarCountInPlayerItem() + GetAvatarCountInTeamItem())
 			{
@@ -556,9 +540,7 @@ public class UIAvatarFitted : UIBase {
 
 					int id = GameData.Team.Player.Items[playerItemIndex].ID;
 
-//					if(backpackItems[i].ID != id)
-//					{
-						backpackItems[i].ID = id;
+					backpackItems[i].ID = id;
 
 						if(id > 0){
 							backpackItems[i].Position = GameData.DItemData[id].Position;
@@ -569,14 +551,20 @@ public class UIAvatarFitted : UIBase {
 							backpackItems[i].UseKind = GameData.Team.Player.Items[playerItemIndex].UseKind;
 							backpackItems[i].Index = -1;
 						}
-//					}
 				}
 			}
 			else
 			{
 				backpackItems[i].ID = 0;
 			}
+		}
+	}
 
+	public void UpdateView(int sort = 0)
+	{
+		enableCount = 0;
+
+		for (int i = 0; i < backpackItems.Length; i++) {
 			//ItemVisable
 			if(backpackItems[i].ID > 0 && GameData.DItemData.ContainsKey(backpackItems[i].ID) && backpackItems[i].Kind == avatarPart)
 			{
@@ -604,7 +592,6 @@ public class UIAvatarFitted : UIBase {
 				backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
 				backpackItems[i].Enable = false;
 			}
-				
 		}
 
 		grid.Reposition ();
@@ -661,7 +648,7 @@ public class UIAvatarFitted : UIBase {
 	{
 		int index;
 
-		if (enableCount <= 1 && avatarPart < 5) {
+		if (enableCount <= 1 && avatarPart < 5 && avatarPart != 2) {
 			Debug.Log("need two Item");
 			return;		
 		}
@@ -685,17 +672,17 @@ public class UIAvatarFitted : UIBase {
 						if(index != i && backpackItems[i].Kind == avatarPart && backpackItems[i].Enable)
 							backpackItems[i].Equip = false;
 
-					if(Equips.ContainsKey(kind))
-					{
-						if(Equips[kind].ID > 0)
-						{
+					if(Equips.ContainsKey(kind)){
+						//檢查同部位是否有裝裝備
+						if(Equips[kind].ID > 0){ 
 							AddUnEquipItem(kind, Equips[kind]);
 							Equips[kind] = equip;
+						}else{ 
+							//此部位未裝備任何裝備
+							AddEquipItem(kind, equip);
+							Equips[kind] = equip;
 						}
-						else
-						   Equips[kind] = equip;
-					}
-					else{
+					}else{
 						AddEquipItem(kind, equip);
 						DeleteUnEquipItem(kind, equip);
 					}
@@ -708,6 +695,8 @@ public class UIAvatarFitted : UIBase {
 				{
 					AddUnEquipItem(kind, equip);
 					backpackItems[index].Equip = false;
+					equip.ID = 0;
+					Equips[kind] = equip;
 				}
 			}
 		}
@@ -723,12 +712,9 @@ public class UIAvatarFitted : UIBase {
 
 	private void DeleteUnEquipItem(int kind, TEquip item)
 	{
-		if (UnEquips.ContainsKey (kind)) {
+		if (UnEquips.ContainsKey (kind))
 			if(UnEquips[kind].ID == item.ID && UnEquips[kind].Index == item.Index)
-			{
 				UnEquips.Remove(kind);
-			}
-		}
 	}
 
 	private void AddUnEquipItem(int kind, TEquip item)
@@ -746,9 +732,51 @@ public class UIAvatarFitted : UIBase {
 		return avatarindex % 1000;
 	}
 
+	private void ItemIdTranslateAvatar(ref TAvatar avatar, TItem[] items)
+	{
+		for (int i = 0; i < items.Length; i++) {
+			int kind = GetItemKind(items[i].ID);
+			int index = GetItemAvatarIndex(items[i].ID);
+
+			switch(kind)		
+			{
+			case 0:
+				avatar.Body = GameData.Team.Player.Avatar.Body;
+				break;
+				
+			case 1:
+				avatar.Hair = index;
+				break;
+				
+			case 2:
+				avatar.MHandDress = index;//手飾
+				break;
+				
+			case 3:
+				avatar.Cloth = index;//上身
+				break;
+				
+			case 4:
+				avatar.Pants = index;//下身
+				break;
+				
+			case 5:
+				avatar.Shoes = index;//鞋
+				break;
+				
+			case 6:
+				avatar.AHeadDress = index;//頭飾(共用）
+				break;
+				
+			case 7:
+				avatar.ZBackEquip = index;//背部(共用)
+				break;
+			}
+		}
+	}
+
 	private void ItemIdTranslateAvatar()
 	{
-
 		foreach (KeyValuePair<int, TEquip> item in Equips) {
 			int avatarIndex;
 
@@ -796,8 +824,7 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnReturn()
 	{
-		UIShow(false);
-//		UIMain.Visible = true;
+		UIShow (false);
         UIMainLobby.Get.Show();
 	}
 
@@ -806,12 +833,36 @@ public class UIAvatarFitted : UIBase {
 		UISort.UIShow (!UISort.Visible, 1);
 	}
 
+	public void Filter(int index)
+	{
+		switch (index) {
+			case 0://AvailableCheck
+				break;
+			case 1://SelectedCheck
+				break;
+			case 2://All
+				break;
+		}
+	}
+
+	public void Sort(int index)
+	{
+		switch (index) {
+			case 0://TimelimitCheck
+				
+				break;
+			case 1://TimelessCheck
+				
+				break;
+			case 2://All
+				break;
+		}
+	}
+
 	private void OnSave()
 	{
-			
 		if (!CheckSameEquip ()) {
-			Debug.LogError("Update Server data");
-
+//			Debug.LogError("Update Server data");
 			List<int> add = new List<int>();
 			List<int> move = new List<int>();
 
@@ -819,18 +870,23 @@ public class UIAvatarFitted : UIBase {
 				if(item.Value.ID > 0 && item.Value.Index > 0)
 				{
 					add.Add(item.Value.Index);
-					Debug.LogError("目前裝備" + GameData.DItemData[item.Value.ID].Name);
+//					Debug.LogError("目前裝備" + GameData.DItemData[item.Value.ID].Name);
 				}
 			}
+
+			add.Sort((x, y) => { return x.CompareTo(y); });
 
 			//找出脫掉裝備，不穿裝備的Item
 			foreach (KeyValuePair<int, TEquip> item in UnEquips) {
 				if(item.Value.ID > 0 && Equips.ContainsKey(item.Value.Kind) && Equips[item.Value.Kind].ID == 0)
 				{
 					move.Add(item.Value.Kind);
-					Debug.LogError("目前卸除" + GameData.DItemData[item.Value.ID].Name);
+//					Debug.LogError("目前卸除" + GameData.DItemData[item.Value.ID].Name);
 				}
 			}
+
+			move.Sort((x, y) => { return x.CompareTo(y); });
+
 			WWWForm form = new WWWForm();
 			form.AddField("AddIndexs", JsonConvert.SerializeObject(add));
 			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(move));
@@ -846,10 +902,7 @@ public class UIAvatarFitted : UIBase {
 			GameData.Team.Items = team.Items;
 			GameData.Team.Player.Items = team.Player.Items;
 
-			if(team.Items.Length > 0)
-				for(int i = 0; i < team.Items.Length; i++)
-					if(GameData.DItemData.ContainsKey(team.Items[i].ID))
-						Debug.Log("item : " + GameData.DItemData[team.Items[i].ID].Name);
+			ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
@@ -858,7 +911,7 @@ public class UIAvatarFitted : UIBase {
 	}
 
 	protected override void InitData() {
-		UpdateAvatar();
+		UpdateAvatar(true);
 		avatar = new GameObject ();
 		avatar.name = "UIPlayer";
 		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
@@ -882,6 +935,9 @@ public class UIAvatarFitted : UIBase {
 	}
 
 	protected override void OnShow(bool isShow) {
-		
+		if(isShow)
+		{
+
+		}
 	}
 }
