@@ -803,7 +803,7 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnSort()
 	{
-		UISort.UIShow (1, true);
+		UISort.UIShow (true);
 	}
 
 	private void OnSave()

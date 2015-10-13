@@ -181,9 +181,6 @@ public class UICreateRoleStyleView : MonoBehaviour
 
     private void waitCreateRole(bool ok, WWW www)
     {
-        UICreateRole.Get.Hide();
-        UI3DCreateRole.Get.Hide();
-
         if(ok)
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
@@ -191,13 +188,15 @@ public class UICreateRoleStyleView : MonoBehaviour
             GameData.Team.SkillCards = team.SkillCards;
             GameData.Team.Player.Init();
             GameData.SaveTeam();
-        }
-        else
-            Debug.LogError("Create Role fail!");
 
-        if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-        else
-            LobbyStart.Get.EnterLobby();
+			UICreateRole.Get.Hide();
+			UI3DCreateRole.Get.Hide();
+
+			if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			else
+				LobbyStart.Get.EnterLobby();
+        } else
+            Debug.LogError("Create Role fail!");
     }
 }

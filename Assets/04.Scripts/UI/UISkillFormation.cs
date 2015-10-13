@@ -219,32 +219,35 @@ public class UISkillFormation : UIBase {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
 		int index = -1;
 		//Already Equiped
-		if(GameData.Team.Player.SkillCards.Length > 0) {
+		if(GameData.Team.Player.SkillCards != null && GameData.Team.Player.SkillCards.Length > 0) {
 			for (int i=0; i<GameData.Team.Player.SkillCards.Length; i++) {
-				GameObject obj = null;
-				index ++;
-				obj = addUICards(i,
-				                 index, 
-				                 GameData.Team.Player.SkillCards[i].ID, 
-				                 GameData.Team.Player.SkillCards[i].Lv,
-				                 gridCardList, 
-				                 "1");
-				skillsOriginal.Add (obj.name);
-				addItems(uiCards[obj.name], i);
+				if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID)) {
+					GameObject obj = null;
+					index ++;
+					obj = addUICards(i,
+					                 index, 
+					                 GameData.Team.Player.SkillCards[i].ID, 
+					                 GameData.Team.Player.SkillCards[i].Lv,
+					                 gridCardList, 
+					                 "1");
 
-				if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
-					skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
-				} else {
-					skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+					skillsOriginal.Add (obj.name);
+					addItems(uiCards[obj.name], i);
+
+					if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
+						skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+					} else {
+						skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+					}
+					skillSortCards.Add(obj);
 				}
-				skillSortCards.Add(obj);
 			}
 		}
 		// not equiped
-		if(GameData.Team.SkillCards.Length > 0) {
+		if(GameData.Team.SkillCards != null && GameData.Team.SkillCards.Length > 0) {
 			for(int i=0; i<GameData.Team.SkillCards.Length; i++) {
 				GameObject obj = null;
-				if(GameData.Team.SkillCards[i].ID > 100) {
+				if(GameData.Team.SkillCards[i].ID > 100 && GameData.DSkillData.ContainsKey(GameData.Team.SkillCards[i].ID)) {
 					index ++;
 					obj = addUICards(i,
 					                 index, 
@@ -338,85 +341,88 @@ public class UISkillFormation : UIBase {
 	}
 
 	private GameObject addUICards (int skillCardIndex, int positionIndex, int id, int lv, GameObject parent, string equiptype) {
-		GameObject obj = Instantiate(itemSkillCard, Vector3.zero, Quaternion.identity) as GameObject;
-		obj.transform.parent = parent.transform;
-		obj.transform.name = skillCardIndex.ToString() + "_" + id.ToString()+ "_" + equiptype + "_" + lv.ToString();
-		obj.transform.localPosition = new Vector3(-230 + 200 * (positionIndex / 2), 100 - 265 * (positionIndex % 2), 0);
-		obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-		UIEventListener.Get(obj).onClick = OnCardDetailInfo;
+		if (GameData.DSkillData.ContainsKey(id)) {
+			GameObject obj = Instantiate(itemSkillCard, Vector3.zero, Quaternion.identity) as GameObject;
+			obj.transform.parent = parent.transform;
+			obj.transform.name = skillCardIndex.ToString() + "_" + id.ToString()+ "_" + equiptype + "_" + lv.ToString();
+			obj.transform.localPosition = new Vector3(-230 + 200 * (positionIndex / 2), 100 - 265 * (positionIndex % 2), 0);
+			obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+			UIEventListener.Get(obj).onClick = OnCardDetailInfo;
 
-		TUICard uicard = new TUICard(1);
-		uicard.Self = obj;
-		uicard.CardID = id;
-		uicard.CardIndex = skillCardIndex;
-		uicard.CardLV = lv;
-		uicard.EquipedType = equiptype;
-		if(GameData.DSkillData.ContainsKey(id))
-			uicard.Cost = GameData.DSkillData[id].Space(lv);
-
-		Transform t = obj.transform.FindChild("SkillCard");
-		if(t != null) {
-			uicard.SkillCard = t.gameObject.GetComponent<UISprite>();
-			uicard.SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[id].Quality, 1, 5).ToString();
-		}
-
-		t = obj.transform.FindChild("SkillPic");
-		if(t != null){
-			uicard.SkillPic = t.gameObject.GetComponent<UITexture>();
-			uicard.SkillPic.mainTexture = GameData.CardTexture(id);
-		}
-		
-		t = obj.transform.FindChild("SkillLevel");
-		if(t != null) {
-			uicard.SkillLevel = t.gameObject.GetComponent<UISprite>();
-			uicard.SkillLevel.spriteName = "Levelball" + Mathf.Clamp(lv, 1, 5).ToString();
-		}
-
-		t = obj.transform.FindChild("SkillName");
-		if(t != null) {
-			uicard.SkillName = t.gameObject.GetComponent<UILabel>();
+			TUICard uicard = new TUICard(1);
+			uicard.Self = obj;
+			uicard.CardID = id;
+			uicard.CardIndex = skillCardIndex;
+			uicard.CardLV = lv;
+			uicard.EquipedType = equiptype;
 			if(GameData.DSkillData.ContainsKey(id))
-				uicard.SkillName.text = GameData.DSkillData[id].Name;
-		}
+				uicard.Cost = GameData.DSkillData[id].Space(lv);
 
-		t = obj.transform.FindChild("SkillStar");
-		if(t != null) {
-			uicard.SkillStar = t.gameObject.GetComponent<UISprite>();
-			if(GameData.DSkillData.ContainsKey(id))
-				uicard.SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[id].Star, 1, GameData.DSkillData[id].MaxStar).ToString();
-		}
+			Transform t = obj.transform.FindChild("SkillCard");
+			if(t != null) {
+				uicard.SkillCard = t.gameObject.GetComponent<UISprite>();
+				uicard.SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[id].Quality, 1, 5).ToString();
+			}
 
-		t = obj.transform.FindChild("UnavailableMask");
-		if(t != null)
-			uicard.UnavailableMask = t.gameObject;
+			t = obj.transform.FindChild("SkillPic");
+			if(t != null){
+				uicard.SkillPic = t.gameObject.GetComponent<UITexture>();
+				uicard.SkillPic.mainTexture = GameData.CardTexture(id);
+			}
+			
+			t = obj.transform.FindChild("SkillLevel");
+			if(t != null) {
+				uicard.SkillLevel = t.gameObject.GetComponent<UISprite>();
+				uicard.SkillLevel.spriteName = "Levelball" + Mathf.Clamp(lv, 1, 5).ToString();
+			}
 
-		t = obj.transform.FindChild("Selected");
-		if(t != null)
-			uicard.Selected = t.gameObject;
+			t = obj.transform.FindChild("SkillName");
+			if(t != null) {
+				uicard.SkillName = t.gameObject.GetComponent<UILabel>();
+				if(GameData.DSkillData.ContainsKey(id))
+					uicard.SkillName.text = GameData.DSkillData[id].Name;
+			}
 
-		t = obj.transform.FindChild("InListCard");
-		if(t != null)
-			uicard.InListCard = t.gameObject;
+			t = obj.transform.FindChild("SkillStar");
+			if(t != null) {
+				uicard.SkillStar = t.gameObject.GetComponent<UISprite>();
+				if(GameData.DSkillData.ContainsKey(id))
+					uicard.SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[id].Star, 1, GameData.DSkillData[id].MaxStar).ToString();
+			}
 
-		uicard.InListCard.SetActive((equiptype.Equals("1")));
+			t = obj.transform.FindChild("UnavailableMask");
+			if(t != null)
+				uicard.UnavailableMask = t.gameObject;
 
-		t = obj.transform.FindChild("SellSelect");
-		if(t != null)
-			uicard.SellSelect = t.gameObject;
+			t = obj.transform.FindChild("Selected");
+			if(t != null)
+				uicard.Selected = t.gameObject;
 
-		t = obj.transform.FindChild("SellSelect/SellCover");
-		if(t != null) 
-			uicard.SellSelectCover = t.gameObject;
+			t = obj.transform.FindChild("InListCard");
+			if(t != null)
+				uicard.InListCard = t.gameObject;
 
-		uicard.UnavailableMask.SetActive(false);
-		uicard.Selected.SetActive(false);
-		uicard.InListCard.SetActive(false);
-		uicard.SellSelect.SetActive(false);
-		uicard.SellSelectCover.SetActive(false);
+			uicard.InListCard.SetActive((equiptype.Equals("1")));
 
-		uiCards.Add(obj.transform.name, uicard);
+			t = obj.transform.FindChild("SellSelect");
+			if(t != null)
+				uicard.SellSelect = t.gameObject;
 
-		return obj;
+			t = obj.transform.FindChild("SellSelect/SellCover");
+			if(t != null) 
+				uicard.SellSelectCover = t.gameObject;
+
+			uicard.UnavailableMask.SetActive(false);
+			uicard.Selected.SetActive(false);
+			uicard.InListCard.SetActive(false);
+			uicard.SellSelect.SetActive(false);
+			uicard.SellSelectCover.SetActive(false);
+
+			uiCards.Add(obj.transform.name, uicard);
+
+			return obj;
+		} else
+			return null;
 	}
 
 	private GameObject addUIItems (TUICard uicard, int positionIndex, GameObject parent) {

@@ -211,18 +211,28 @@ public class SendHttp : KnightSingleton<SendHttp>
 		return false;
 	}
 
+	private void addLoginInfo(ref WWWForm form) {
+		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("Language", GameData.Setting.Language.GetHashCode());
+		form.AddField("OS", GameData.OS);
+		form.AddField("Company", GameData.Company);
+		form.AddField("Version", BundleVersion.Version.ToString());
+	}
+
 	public void CheckServerData(bool connectToServer)
 	{
 		if (connectToServer) {
 			if (CheckNetwork()) {
 				WWWForm form = new WWWForm();
-				form.AddField("OS", GameData.OS);
+				addLoginInfo(ref form);
 				Command(URLConst.Version, waitVersion, form);
-			} else 
-				if (GameData.LoadTeamSave())
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			} else
+				UIHint.Get.ShowHint("Please check your network for login.", Color.red);
+
+			/*if (GameData.LoadTeamSave())
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else 
-				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);*/
 		} else 
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
@@ -242,11 +252,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 	private void SendLogin() {
 		GameData.Team.Identifier = "";
 		WWWForm form = new WWWForm();
-		form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
-		form.AddField("Language", GameData.Setting.Language.GetHashCode());
-		form.AddField("OS", GameData.OS);
-		form.AddField("Company", GameData.Company);
-
+		addLoginInfo(ref form);
 		Command(URLConst.DeviceLogin, waitDeviceLogin, form);
 	}
 	
@@ -268,7 +274,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 				Debug.Log(e.ToString());
 			}
 		} else
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			UIHint.Get.ShowHint("Login fail.", Color.red);
 	}
 
 	private void OnCloseLoading()

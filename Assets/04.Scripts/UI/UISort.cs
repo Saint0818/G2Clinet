@@ -53,8 +53,8 @@ public class UISort : UIBase {
 			else
 				instance.Show(isShow);
 		} else
-			if (isShow)
-				Get.Show(isShow);
+		if (isShow)
+			Get.Show(isShow);
 	}
 
 	protected override void InitCom() {
