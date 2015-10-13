@@ -382,7 +382,7 @@ public class UIAvatarFitted : UIBase {
 			SetBtnFunReName (btnPaths[i], DoAvatarTab, i.ToString());
 
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
-//		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSort);
+		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSort);
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
 
 		item = Resources.Load ("Prefab/UI/Items/ItemAvatarBtn") as GameObject;
@@ -803,7 +803,7 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnSort()
 	{
-		UISort.UIShow (true);
+		UISort.UIShow (!UISort.Visible, 1);
 	}
 
 	private void OnSave()
