@@ -178,7 +178,8 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		CourtInstant = new TCourtInstant(1);
-//		InitPos();
+		//		InitPos();
+		LoadStageBit(GameData.StageID);
 		InitGame();
 		InitAniState();
 		checkStageReasonable ();
@@ -264,6 +265,24 @@ public class GameController : KnightSingleton<GameController>
 			StageBitNum[2] = GameData.DStageData[id].Bit2Num;
 			StageBitNum[3] = GameData.DStageData[id].Bit3Num;
 			StageHintBit = GameData.DStageData[id].HintBit;
+			if(StageHintBit[0] == 0 && StageHintBit[1] == 0)
+				GameStart.Get.WinMode = EWinMode.None;
+			else if(StageHintBit[0] == 0 && StageHintBit[1] == 1)
+				GameStart.Get.WinMode = EWinMode.NoTimeScore;
+			else if(StageHintBit[0] == 0 && StageHintBit[1] == 2)
+				GameStart.Get.WinMode = EWinMode.NoTimeLostScore;
+			else if(StageHintBit[0] == 0 && StageHintBit[1] == 3)
+				GameStart.Get.WinMode = EWinMode.NoTimeScoreCompare;
+			else if(StageHintBit[0] == 1 && StageHintBit[1] == 0)
+				GameStart.Get.WinMode = EWinMode.TimeNoScore;
+			else if(StageHintBit[0] == 1 && StageHintBit[1] == 1)
+				GameStart.Get.WinMode = EWinMode.TimeScore;
+			else if(StageHintBit[0] == 1 && StageHintBit[1] == 2)
+				GameStart.Get.WinMode = EWinMode.TimeLostScore;
+			else if(StageHintBit[0] == 1 && StageHintBit[1] == 3)
+				GameStart.Get.WinMode = EWinMode.TimeScoreCompare;
+			GameStart.Get.GameWinTimeValue = StageBitNum[0];
+			GameStart.Get.GameWinValue =  StageBitNum[1];
 		}
 	}
 
@@ -271,7 +290,6 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
-		LoadStageBit(GameData.StageID);
 		if (SendHttp.Get.CheckNetwork()) {
 			string str = PlayerPrefs.GetString(SettingText.GameRecord);
 			if (str != "") {
@@ -3798,7 +3816,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 		if (IsStart && GameStart.Get.TestMode == EGameTest.None) {
 			if (Shooter) {
-				if (ShootDistance >= GameConst.TreePointDistance)
+				if (score == 3)
 					Shooter.GameRecord.FG3In++;
 				else
 					Shooter.GameRecord.FGIn++;
@@ -3827,24 +3845,22 @@ public class GameController : KnightSingleton<GameController>
 					Debug.LogWarning ("UIGame.Get.MaxScores [1] : " + UIGame.Get.MaxScores [1]);
 				}
 				
-				if(!IsScorePass(team)) {
+				if(IsScorePass(team) && StageBitNum[1] != 0) {
+					gameResult();
+				} else {
 					if(team == ETeamKind.Self.GetHashCode())
 					{
-						//ChangeSituation(EGameSituation.TeeBPicking);
 						ChangeSituation(EGameSituation.SpecialAction);
 						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.NPCPickBall);
 					}
 					else
 					{
-						//ChangeSituation(EGameSituation.TeeAPicking);
 						ChangeSituation(EGameSituation.SpecialAction);
 						AIController.Get.ChangeState(EGameSituation.SpecialAction, EGameSituation.GamerPickBall);
 					}
 					
 					if (!isSkill && Shooter)
 						Shooter.SetAnger(GameConst.AddAnger_PlusScore, CourtMgr.Get.ShootPoint[0].gameObject);
-				} else {
-					gameResult();
 				}
 			}
 		}

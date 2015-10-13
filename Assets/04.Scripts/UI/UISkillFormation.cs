@@ -200,7 +200,7 @@ public class UISkillFormation : UIBase {
 
 		SetBtnFun (UIName + "/BottomLeft/SortBtn", DoSort);
 		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSell);
-		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoSell);
+		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 		initCards ();
@@ -215,28 +215,69 @@ public class UISkillFormation : UIBase {
 		
 	}
 
+	private void refresh(){
+		costSpace = 0;
+		for(int i=0; i<skillSortCards.Count; i++) {
+			Destroy(skillSortCards[i]);
+		}
+		skillSortCards.Clear();
+		skillsOriginal.Clear();
+		skillsRecord.Clear();
+		skillActiveCards.Clear();
+		skillPassiveCards.Clear();
+		uiCards.Clear();
+		for (int i=0; i<activeStruct.Length; i++) {
+			if(activeStruct[i].itemEquipActiveCard != null)
+				Destroy(activeStruct[i].itemEquipActiveCard);
+			activeStruct[i].itemActiveField.SetActive(true);
+			activeStruct[i].ActiveClear();
+		}
+		for (int i=0; i<itemPassiveCards.Count; i++) {
+			Destroy(itemPassiveCards[i]);
+		}
+		itemPassiveCards.Clear();
+		itemPassiveField.SetActive(true);
+	}
+
+	private void refreshBeforeSell () {
+		refresh();
+		initCards ();
+		Debug.Log("isEdit:"+isEdit);
+		setEditState(true);
+	}
+	
+	private void refreshAfterSell () {
+		refresh();
+		DoCloseSell();
+		initCards ();
+	}
+
 	private void initCards () {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
 		int index = -1;
+		int actvieIndex = -1;
 		//Already Equiped
 		if(GameData.Team.Player.SkillCards != null && GameData.Team.Player.SkillCards.Length > 0) {
 			for (int i=0; i<GameData.Team.Player.SkillCards.Length; i++) {
 				if (GameData.DSkillData.ContainsKey(GameData.Team.Player.SkillCards[i].ID)) {
 					GameObject obj = null;
-					index ++;
-					obj = addUICards(i,
-					                 index, 
-					                 GameData.Team.Player.SkillCards[i].ID, 
-					                 GameData.Team.Player.SkillCards[i].Lv,
-					                 gridCardList, 
-					                 "1");
+						index ++;
+						obj = addUICards(i,
+						                 index, 
+						                 GameData.Team.Player.SkillCards[i].ID, 
+						                 GameData.Team.Player.SkillCards[i].Lv,
+						                 gridCardList, 
+						                 "1");
 
-					skillsOriginal.Add (obj.name);
-					addItems(uiCards[obj.name], i);
+						skillsOriginal.Add (obj.name);
+						addItems(uiCards[obj.name], i);
 
 					if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
+						actvieIndex++;
+						addItems(uiCards[obj.name], actvieIndex);
 						skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					} else {
+						addItems(uiCards[obj.name]);
 						skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					}
 					skillSortCards.Add(obj);
@@ -297,10 +338,10 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
-	private void setEditState (bool isEdit) {
-		goSellCount.SetActive(isEdit);
+	private void setEditState (bool isedit) {
+		goSellCount.SetActive(isedit);
 		labelTotalPrice.text = "0";
-		if(isEdit) {
+		if(isedit) {
 			sellNames.Clear();
 			sellPrice = 0;
 			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
@@ -390,35 +431,38 @@ public class UISkillFormation : UIBase {
 					uicard.SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[id].Star, 1, GameData.DSkillData[id].MaxStar).ToString();
 			}
 
-			t = obj.transform.FindChild("UnavailableMask");
-			if(t != null)
-				uicard.UnavailableMask = t.gameObject;
-
-			t = obj.transform.FindChild("Selected");
-			if(t != null)
-				uicard.Selected = t.gameObject;
-
-			t = obj.transform.FindChild("InListCard");
-			if(t != null)
-				uicard.InListCard = t.gameObject;
-
-			uicard.InListCard.SetActive((equiptype.Equals("1")));
-
-			t = obj.transform.FindChild("SellSelect");
-			if(t != null)
-				uicard.SellSelect = t.gameObject;
-
-			t = obj.transform.FindChild("SellSelect/SellCover");
-			if(t != null) 
-				uicard.SellSelectCover = t.gameObject;
-
+		t = obj.transform.FindChild("UnavailableMask");
+		if(t != null) {
+			uicard.UnavailableMask = t.gameObject;
 			uicard.UnavailableMask.SetActive(false);
-			uicard.Selected.SetActive(false);
-			uicard.InListCard.SetActive(false);
-			uicard.SellSelect.SetActive(false);
-			uicard.SellSelectCover.SetActive(false);
+		}
 
-			uiCards.Add(obj.transform.name, uicard);
+		t = obj.transform.FindChild("Selected");
+		if(t != null) {
+			uicard.Selected = t.gameObject;
+			uicard.Selected.SetActive(false);
+		}
+
+		t = obj.transform.FindChild("InListCard");
+		if(t != null) {
+			uicard.InListCard = t.gameObject;
+			uicard.InListCard.SetActive(equiptype.Equals("1"));
+		}
+
+		t = obj.transform.FindChild("SellSelect");
+		if(t != null) {
+			uicard.SellSelect = t.gameObject;
+			uicard.SellSelect.SetActive(false);
+		}
+
+		t = obj.transform.FindChild("SellSelect/SellCover");
+		if(t != null)  {
+			uicard.SellSelectCover = t.gameObject;
+			uicard.SellSelectCover.SetActive(false);
+		}
+
+
+		uiCards.Add(obj.transform.name, uicard);
 
 			return obj;
 		} else
@@ -473,68 +517,68 @@ public class UISkillFormation : UIBase {
 	/// <param name="lv">Lv.</param>
 	/// <param name="equiptype">Equiptype.</param>
 	private bool addItems(TUICard uicard, int activeStructIndex = -1) {
-		if(!isEdit) {
-			if(setCost(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV))) {
-				GameObject obj = null;
-				if(uicard.CardID < GameConst.ID_LimitActive) {
-					obj = addUIItems(uicard, itemPassiveCards.Count, gridPassiveCardBase);
-					itemPassiveCards.Add(obj);
-					itemPassiveField.SetActive(false);
-				} else {
-					if(activeStructIndex != -1 && activeStructIndex < 3) {
-						obj = addUIItems(uicard, 0, activeStruct[activeStructIndex].gridActiveCardBase);
-						activeStruct[activeStructIndex].itemEquipActiveCard = obj;
-						activeStruct[activeStructIndex].CardID = uicard.CardID;
-						activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
-						activeStruct[activeStructIndex].CardLV = uicard.CardLV;
-						activeStruct[activeStructIndex].EquipedType = uicard.EquipedType;
-						activeStruct[activeStructIndex].itemActiveField.SetActive(false);
-					}
+		if(setCost(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV))) {
+			GameObject obj = null;
+			if(uicard.CardID < GameConst.ID_LimitActive) {
+				obj = addUIItems(uicard, itemPassiveCards.Count, gridPassiveCardBase);
+				itemPassiveCards.Add(obj);
+				itemPassiveField.SetActive(false);
+			} else {
+				if(activeStructIndex != -1 && activeStructIndex < 3) {
+					obj = addUIItems(uicard, 0, activeStruct[activeStructIndex].gridActiveCardBase);
+					activeStruct[activeStructIndex].itemEquipActiveCard = obj;
+					activeStruct[activeStructIndex].CardID = uicard.CardID;
+					activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
+					activeStruct[activeStructIndex].CardLV = uicard.CardLV;
+					activeStruct[activeStructIndex].EquipedType = uicard.EquipedType;
+					activeStruct[activeStructIndex].itemActiveField.SetActive(false);
 				}
+			}
+			if(obj != null) {
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
-				checkCostIfMask();
-				return true;
 			} else 
-				UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+				Debug.LogError("addItems obj: null");
+			checkCostIfMask();
+			return true;
 		} else 
-			UIHint.Get.ShowHint("It's Edit State.", Color.red);
+			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+
 		return false;
 	}
 
 	private void removeItems(int id, GameObject go = null) {
-		if(!isEdit) {
-			if(setCost(-uiCards[go.name].Cost)){
-				if(skillsRecord.Contains(go.name))
-					skillsRecord.Remove(go.name);
-				if(id < GameConst.ID_LimitActive) {
-					for(int i=0 ;i<itemPassiveCards.Count; i++) {
-						if(itemPassiveCards[i].name.Equals(go.name)){
-							Destroy(itemPassiveCards[i]);
-							itemPassiveCards.RemoveAt(i);
-							break;
-						}
+		if(setCost(-uiCards[go.name].Cost)){
+			ItemMoveOne();
+			if(skillsRecord.Contains(go.name))
+				skillsRecord.Remove(go.name);
+			if(id < GameConst.ID_LimitActive) {
+				for(int i=0 ;i<itemPassiveCards.Count; i++) {
+					if(itemPassiveCards[i].name.Equals(go.name)){
+						Destroy(itemPassiveCards[i]);
+						itemPassiveCards.RemoveAt(i);
+						break;
 					}
-					
-					if(itemPassiveCards.Count == 0)
-						itemPassiveField.SetActive(true);
-					
-					refreshPassiveItems();
-				} else {
-					int index = getContainActiveID(id);
-					//				if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
-					//					skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
-					if(activeStruct[index].itemEquipActiveCard != null)
-						Destroy(activeStruct[index].itemEquipActiveCard);
-					
-					activeStruct[index].ActiveClear();
-					
-					refreshActiveItems();
 				}
-				checkCostIfMask();
+				
+				if(itemPassiveCards.Count == 0)
+					itemPassiveField.SetActive(true);
+				
+				refreshPassiveItems();
+			} else {
+				int index = getContainActiveID(id);
+				if(activeStruct[index].itemEquipActiveCard != null) {
+					if(skillsRecord.Contains(activeStruct[index].itemEquipActiveCard.name))
+						skillsRecord.Remove(activeStruct[index].itemEquipActiveCard.name);
+					Destroy(activeStruct[index].itemEquipActiveCard);
+				}
+				
+				activeStruct[index].ActiveClear();
+				
+				refreshActiveItems();
 			}
-		} else 
-			UIHint.Get.ShowHint("It's Edit State.", Color.red);
+			checkCostIfMask();
+		}
 	}
 	
 	private void refreshCards(string name) {
@@ -761,37 +805,50 @@ public class UISkillFormation : UIBase {
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 	}
 
+	public void ItemMoveOne(){ 
+		if(itemPassiveCards.Count > 4){
+			scrollViewItemList.transform.DOLocalMoveY(scrollViewItemList.transform.localPosition.y - 75 , 0.2f);
+			scrollViewItemList.panel.clipOffset = new Vector2(12, scrollViewItemList.panel.clipOffset.y + 75);
+		}
+	}
+
 	public void DoUnEquipCard (){
-		removeItems(uiCards[tempObj.name].CardID, tempObj);
-		refreshCards(tempObj.name);
+		if(!isEdit) {
+			removeItems(uiCards[tempObj.name].CardID, tempObj);
+			refreshCards(tempObj.name);
+		} else 
+			UIHint.Get.ShowHint("It's Edit State.", Color.red);
 	}
 
 	public void DoEquipCard (){
-		if(tempUICard.CardID >= GameConst.ID_LimitActive) {
-			if(getContainActiveID(tempUICard.CardID) == -1){
-				int temp = getActiveFieldNull();
-				if(temp != -1) {
-					if(addItems(tempUICard, temp)) 
-						tempUICard.InListCard.SetActive(true);
-				} else 
-					UIHint.Get.ShowHint("Active is Full.", Color.red); 
+		if(!isEdit) {
+			if(tempUICard.CardID >= GameConst.ID_LimitActive) {
+				if(getContainActiveID(tempUICard.CardID) == -1){
+					int temp = getActiveFieldNull();
+					if(temp != -1) {
+						if(addItems(tempUICard, temp)) 
+							tempUICard.InListCard.SetActive(true);
+					} else 
+						UIHint.Get.ShowHint("Active is Full.", Color.red); 
+				} else {
+					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
+				}
+				refreshActiveItems();
 			} else {
-				UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
-			}
-			refreshActiveItems();
-		} else {
-			if(tempUICard.InListCard.activeInHierarchy) {
-				//Selected to NoSelected
-				tempUICard.InListCard.SetActive(!tempUICard.InListCard.activeInHierarchy);
-				removeItems(tempUICard.CardID, tempObj);
-			} else {
-				//NoSelected to Selected
-				if(addItems(tempUICard))
+				if(tempUICard.InListCard.activeInHierarchy) {
+					//Selected to NoSelected
 					tempUICard.InListCard.SetActive(!tempUICard.InListCard.activeInHierarchy);
-				
+					removeItems(tempUICard.CardID, tempObj);
+				} else {
+					//NoSelected to Selected
+					if(addItems(tempUICard))
+						tempUICard.InListCard.SetActive(!tempUICard.InListCard.activeInHierarchy);
+					
+				}
 			}
-		}
-		refreshCards(tempObj.name);
+			refreshCards(tempObj.name);
+		} else 
+			UIHint.Get.ShowHint("It's Edit State.", Color.red);
 	}
 
 	public void OnCardDetailInfo (GameObject go){
@@ -870,8 +927,17 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoSell() {
-		setEditState(!isEdit);
-		isEdit = !isEdit;
+		if(!isEdit) {
+			isEdit = true;
+			DoFinish();
+		} else {
+			//update sell index
+		}
+	}
+
+	public void DoCloseSell () {
+		isEdit = false;
+		setEditState(false);
 	}
 	
 	public void DoSort() {
@@ -880,11 +946,13 @@ public class UISkillFormation : UIBase {
 
 	public void DoBack() {
 		UIShow(false);
+		UIMainLobby.Get.Show();
 	}
-
+	
 	public void DoFinish() {
 		List<string> tempNoUpdate = new List<string>();
 		List<string> tempRemoveIndex = new List<string>();
+		List<string> tempAddIndex = new List<string>();
 		for (int i =0; i<skillsOriginal.Count; i++) {
 			if(skillsRecord.Contains(skillsOriginal[i])) {
 				//it doesn't need to update
@@ -902,20 +970,39 @@ public class UISkillFormation : UIBase {
 			}
 		}
 
-		if(tempNoUpdate.Count > 0) {
-			for (int i=0; i<tempNoUpdate.Count; i++) {
-				if(skillsRecord.Contains(tempNoUpdate[i])) {
-					skillsRecord.Remove(tempNoUpdate[i]);	
+		for (int i=0; i<skillsRecord.Count; i++) {
+			if(!tempNoUpdate.Contains(skillsRecord[i])) {
+				tempAddIndex.Add(skillsRecord[i]);	
+			}
+		}
+
+		addIndexs = new int[tempAddIndex.Count];
+		if(tempAddIndex.Count > 0) {
+			for(int i=0; i<addIndexs.Length; i++) 
+				addIndexs[i] = uiCards[tempAddIndex[i]].CardIndex;
+		}
+
+		for (int i = 0; i > addIndexs.Length; i++){
+			for (int j = 0; j < addIndexs.Length; j++){
+				if (addIndexs[i] > addIndexs[j]){
+
 				}
 			}
 		}
 
-		addIndexs = new int[skillsRecord.Count];
-		if(skillsRecord.Count > 0) {
-			for(int i=0; i<addIndexs.Length; i++) 
-				addIndexs[i] = uiCards[skillsRecord[i]].CardIndex;
+		//Bobble Sort
+		if(removeIndexs.Length > 1) {
+			for(int i=0; i<removeIndexs.Length; i++) {
+				for (int j=i+1; j<removeIndexs.Length; j++){
+					if (removeIndexs[i] <= removeIndexs[j]){
+						int temp = removeIndexs[i];
+						removeIndexs[i] = removeIndexs[j];
+						removeIndexs[j] = temp;
+					}
+				}
+			}
 		}
-
+		//Bobble Sort
 		if(addIndexs.Length > 1) {
 			for(int i=0; i<addIndexs.Length; i++) {
 				for (int j=i+1; j<addIndexs.Length; j++){
@@ -933,21 +1020,26 @@ public class UISkillFormation : UIBase {
 			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
 			form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
 			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
-		} else 
-			UIShow(false);
+		} else
+			if(!isEdit)
+				UIShow(false);
+			else {
+				setEditState(isEdit);
+			}
 	}
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
-			
-			for (int i=0; i<result.PlayerCards.Length; i++) 
-				Debug.Log("result.PlayerCards["+i+"]:"+ result.PlayerCards[i].ID);
-
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Player.Init();
-			UIShow(false);
+
+			if(!isEdit) 
+				UIShow(false);
+			else 
+				refreshBeforeSell();
+
 		} else {
 			Debug.LogError("text:"+www.text);
 		}
