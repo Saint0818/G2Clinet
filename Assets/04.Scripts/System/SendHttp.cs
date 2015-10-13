@@ -174,19 +174,13 @@ public class SendHttp : KnightSingleton<SendHttp>
 			if (www.text.Contains("{err:")){
 				string e = www.text.Substring(6, www.text.Length - 7);
 				UIHint.Get.ShowHint(e, Color.red);
-				#if ShowHttpLog
 				Debug.LogError("Receive from URL and Error:" + e);
-				#endif
-			} else {
-				#if ShowHttpLog
-				Debug.Log("Receive from URL and Success:" + www.text);
-				#endif
+			} else 
 				return true;
-			}
 		}else {
+			Debug.LogError("Server error : " + www.error);
 			#if ShowHttpLog
 			UIHint.Get.ShowHint("Server error : " + www.error, Color.red);
-			Debug.LogError("Server error : " + www.error);
 			#endif
 
 			if (www.error == "couldn't connect to host")
@@ -246,7 +240,9 @@ public class SendHttp : KnightSingleton<SendHttp>
 				UIUpdate.UIShow(true);
 			}
 		} else
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			UIHint.Get.ShowHint("Check version fail.", Color.red);
+
+		//	SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 	
 	private void SendLogin() {
@@ -277,14 +273,11 @@ public class SendHttp : KnightSingleton<SendHttp>
 			UIHint.Get.ShowHint("Login fail.", Color.red);
 	}
 
-	private void OnCloseLoading()
-	{
-	    if(GameData.Team.Player.Lv == 0)
-	    {
+	private void OnCloseLoading() {
+	    if(GameData.Team.Player.Lv == 0) {
 	        UICreateRole.Get.ShowPositionView();
             UI3DCreateRole.Get.PositionView.PlayDropAnimation();
-	    }
-	    else
+	    } else
 	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 	}
 }
