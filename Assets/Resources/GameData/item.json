@@ -24,7 +24,6 @@
         "nametw": "中鋒身體3",
         "kind": 0,
         "position": 0,
-        "avatar": 10,
         "maxstack": 1,
         "usetime": 96
     },
@@ -81,6 +80,7 @@
         "nametw": "中鋒身體10",
         "kind": 0,
         "position": 0,
+        "avatar": 10,
         "maxstack": 1,
         "usetime": 96
     },
@@ -178,6 +178,7 @@
         "nametw": "前鋒身體2",
         "kind": 0,
         "position": 1,
+        "avatar": 2,
         "maxstack": 1,
         "usetime": 96
     },
@@ -348,7 +349,6 @@
         "nametw": "後衛身體3",
         "kind": 0,
         "position": 2,
-        "avatar": 12,
         "maxstack": 1,
         "usetime": 96
     },
@@ -421,6 +421,7 @@
         "nametw": "後衛身體12",
         "kind": 0,
         "position": 2,
+        "avatar": 12,
         "maxstack": 1,
         "usetime": 96
     },
@@ -657,7 +658,7 @@
         "nametw": "前鋒頭髮1",
         "kind": 1,
         "position": 1,
-        "avatar": 2001,
+        "avatar": 1001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -666,7 +667,7 @@
         "nametw": "前鋒頭髮2",
         "kind": 1,
         "position": 1,
-        "avatar": 11001,
+        "avatar": 1002,
         "maxstack": 1,
         "usetime": 96
     },
@@ -675,6 +676,7 @@
         "nametw": "前鋒頭髮3",
         "kind": 1,
         "position": 1,
+        "avatar": 1003,
         "maxstack": 1,
         "usetime": 96
     },
@@ -683,6 +685,7 @@
         "nametw": "前鋒頭髮4",
         "kind": 1,
         "position": 1,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -739,6 +742,7 @@
         "nametw": "前鋒頭髮11",
         "kind": 1,
         "position": 1,
+        "avatar": 11001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -846,7 +850,6 @@
         "nametw": "後衛頭髮4",
         "kind": 1,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -911,6 +914,7 @@
         "nametw": "後衛頭髮12",
         "kind": 1,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1502,7 +1506,6 @@
         "nametw": "中鋒衣服5",
         "kind": 3,
         "position": 0,
-        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1543,6 +1546,7 @@
         "nametw": "中鋒衣服10",
         "kind": 3,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1631,7 +1635,7 @@
         "nametw": "前鋒衣服1",
         "kind": 3,
         "position": 1,
-        "avatar": 2001,
+        "avatar": 1001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1640,7 +1644,7 @@
         "nametw": "前鋒衣服2",
         "kind": 3,
         "position": 1,
-        "avatar": 11001,
+        "avatar": 1002,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1649,6 +1653,7 @@
         "nametw": "前鋒衣服3",
         "kind": 3,
         "position": 1,
+        "avatar": 1003,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1657,6 +1662,7 @@
         "nametw": "前鋒衣服4",
         "kind": 3,
         "position": 1,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1713,6 +1719,7 @@
         "nametw": "前鋒衣服11",
         "kind": 3,
         "position": 1,
+        "avatar": 11001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1820,7 +1827,6 @@
         "nametw": "後衛衣服4",
         "kind": 3,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1885,6 +1891,7 @@
         "nametw": "後衛衣服12",
         "kind": 3,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -1993,7 +2000,6 @@
         "nametw": "中鋒褲子5",
         "kind": 4,
         "position": 0,
-        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2034,6 +2040,7 @@
         "nametw": "中鋒褲子10",
         "kind": 4,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2122,7 +2129,7 @@
         "nametw": "前鋒褲子1",
         "kind": 4,
         "position": 1,
-        "avatar": 3001,
+        "avatar": 1001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2131,7 +2138,7 @@
         "nametw": "前鋒褲子2",
         "kind": 4,
         "position": 1,
-        "avatar": 11001,
+        "avatar": 1002,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2140,6 +2147,7 @@
         "nametw": "前鋒褲子3",
         "kind": 4,
         "position": 1,
+        "avatar": 1003,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2148,6 +2156,7 @@
         "nametw": "前鋒褲子4",
         "kind": 4,
         "position": 1,
+        "avatar": 3001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2204,6 +2213,7 @@
         "nametw": "前鋒褲子11",
         "kind": 4,
         "position": 1,
+        "avatar": 11001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2311,7 +2321,6 @@
         "nametw": "後衛褲子4",
         "kind": 4,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2376,6 +2385,7 @@
         "nametw": "後衛褲子12",
         "kind": 4,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2475,7 +2485,6 @@
         "nametw": "中鋒鞋子4",
         "kind": 5,
         "position": 0,
-        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2524,6 +2533,7 @@
         "nametw": "中鋒鞋子10",
         "kind": 5,
         "position": 0,
+        "avatar": 10001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2621,7 +2631,7 @@
         "nametw": "前鋒鞋子2",
         "kind": 5,
         "position": 1,
-        "avatar": 11001,
+        "avatar": 1002,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2630,6 +2640,7 @@
         "nametw": "前鋒鞋子3",
         "kind": 5,
         "position": 1,
+        "avatar": 1003,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2694,6 +2705,7 @@
         "nametw": "前鋒鞋子11",
         "kind": 5,
         "position": 1,
+        "avatar": 11001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2801,7 +2813,6 @@
         "nametw": "後衛鞋子4",
         "kind": 5,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
@@ -2866,6 +2877,7 @@
         "nametw": "後衛鞋子12",
         "kind": 5,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96
     },
