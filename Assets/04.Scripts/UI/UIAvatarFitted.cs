@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GameStruct;
+using GameEnum;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
@@ -319,6 +320,7 @@ public class UIAvatarFitted : UIBase {
 	private GameObject item;
 	private TItemAvatar[] backpackItems;
 	private UIGrid grid;
+	private Transform enablePool;
 	private UIScrollView scrollView;
 	private GameObject disableGroup;
 	private int enableCount = 0;
@@ -386,7 +388,8 @@ public class UIAvatarFitted : UIBase {
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
 
 		item = Resources.Load ("Prefab/UI/Items/ItemAvatarBtn") as GameObject;
-		grid = GameObject.Find (UIName + "/MainView/Left/ItemList/UIGrid").GetComponent<UIGrid>();
+//		grid = GameObject.Find (UIName + "/MainView/Left/ItemList/UIGrid").GetComponent<UIGrid>();
+		enablePool = GameObject.Find (UIName + "/MainView/Left/ItemList").transform;
 		scrollView = GameObject.Find (UIName + "/MainView/Left/ItemList").GetComponent<UIScrollView>();
 
 		disableGroup = new GameObject ();
@@ -453,8 +456,8 @@ public class UIAvatarFitted : UIBase {
 
 		InitItemCount();
 		InitItemsData();
-		UpdateView();
 		InitEquipState();
+		UpdateView();
 	}
 	
 	private bool CheckSameEquip()
@@ -509,11 +512,13 @@ public class UIAvatarFitted : UIBase {
 			//InitCom
 			if(backpackItems[i].gameobject == null){
 				backpackItems[i].gameobject = Instantiate(item) as GameObject;
-				backpackItems[i].gameobject.transform.parent = grid.transform;
+				backpackItems[i].gameobject.transform.parent = enablePool;
+//					grid.transform;
 				backpackItems[i].gameobject.transform.localScale = Vector3.one;
 				backpackItems[i].gameobject.name = i.ToString();
 				backpackItems[i].DisablePool = disableGroup.gameObject.transform;
-				backpackItems[i].EnablePool = grid.gameObject.transform;
+				backpackItems[i].EnablePool = enablePool;
+//					grid.gameObject.transform;
 				backpackItems[i].Init();
 				backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
 			}
@@ -560,9 +565,12 @@ public class UIAvatarFitted : UIBase {
 		}
 	}
 
-	public void UpdateView(int sort = 0)
+	public void UpdateView()
 	{
 		enableCount = 0;
+
+		int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
+		int filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
 
 		for (int i = 0; i < backpackItems.Length; i++) {
 			//ItemVisable
@@ -586,6 +594,18 @@ public class UIAvatarFitted : UIBase {
 					enableCount++;
 				}
 				#endif
+
+				switch(filter)
+				{
+					case 0:
+						if(!backpackItems[i].Equip)
+							backpackItems[i].Enable = false;
+						break;
+					case 1:
+						if(backpackItems[i].Equip)
+							backpackItems[i].Enable = false;
+						break;
+				}
 			}
 			else
 			{
@@ -594,9 +614,47 @@ public class UIAvatarFitted : UIBase {
 			}
 		}
 
-		grid.Reposition ();
-		grid.gameObject.SetActive (false);
-		grid.gameObject.SetActive (true);
+		int count = 0;
+
+		List<TItemAvatar> sortlist = new List<TItemAvatar> ();
+		for (int i = 0; i < backpackItems.Length; i++)
+			if (backpackItems [i].Enable)
+				sortlist.Add (backpackItems [i]);
+			
+		switch(sort)
+		{
+			case 0:
+				sortlist.Sort((x, y) => { return -x.EndUseTime.CompareTo(y.EndUseTime); });
+				for(int i = 0; i< sortlist.Count;i++){
+					Debug.Log("sort : " + sortlist[i].Index);
+					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+					count++;
+				}
+			break;
+			case 1:
+				sortlist.Sort((x, y) => { return x.EndUseTime.CompareTo(y.EndUseTime); });
+				for(int i = 0; i< sortlist.Count;i++){
+					Debug.Log("sort : " + sortlist[i].Index);
+					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+					count++;
+				}
+				break;
+			default:
+				for(int i = 0; i < backpackItems.Length; i++)
+					if(backpackItems[i].Enable)
+					{
+						backpackItems[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+						count++;
+					}
+						break;
+		}
+
+		sortlist.Clear ();
+		enablePool.gameObject.SetActive (false);
+		enablePool.gameObject.SetActive (true);
+//		grid.Reposition ();
+//		grid.gameObject.SetActive (false);
+//		grid.gameObject.SetActive (true);
 		scrollView.ResetPosition ();
 		scrollView.enabled = false;
 		scrollView.enabled = true;
@@ -669,7 +727,7 @@ public class UIAvatarFitted : UIBase {
 
 					//卸除已裝備的Item
 					for(int i = 0; i < backpackItems.Length;i++)
-						if(index != i && backpackItems[i].Kind == avatarPart && backpackItems[i].Enable)
+						if(index != i && backpackItems[i].Kind == avatarPart)
 							backpackItems[i].Equip = false;
 
 					if(Equips.ContainsKey(kind)){
@@ -833,36 +891,9 @@ public class UIAvatarFitted : UIBase {
 		UISort.UIShow (!UISort.Visible, 1);
 	}
 
-	public void Filter(int index)
-	{
-		switch (index) {
-			case 0://AvailableCheck
-				break;
-			case 1://SelectedCheck
-				break;
-			case 2://All
-				break;
-		}
-	}
-
-	public void Sort(int index)
-	{
-		switch (index) {
-			case 0://TimelimitCheck
-				
-				break;
-			case 1://TimelessCheck
-				
-				break;
-			case 2://All
-				break;
-		}
-	}
-
 	private void OnSave()
 	{
 		if (!CheckSameEquip ()) {
-//			Debug.LogError("Update Server data");
 			List<int> add = new List<int>();
 			List<int> move = new List<int>();
 

@@ -187,9 +187,6 @@ public class UISort : UIBase {
 
 					break;	
 				case 1:
-					if(UIAvatarFitted.Visible)
-						UIAvatarFitted.Get.Sort(index);
-					
 					for(int i = 0; i < avatarSort.Length; i++)
 						if(i != index)
 							avatarSort[i].value = false;
@@ -198,7 +195,9 @@ public class UISort : UIBase {
 						index = -1;
 
 					PlayerPrefs.SetInt (ESave.AvatarSort.ToString(), index);
-					PlayerPrefs.Save();		
+					PlayerPrefs.Save();	
+					if(UIAvatarFitted.Visible)
+						UIAvatarFitted.Get.UpdateView();
 					break;
 				case 2:
 					break;
@@ -211,19 +210,23 @@ public class UISort : UIBase {
 		int index;
 		
 		if (int.TryParse (obj.name, out index)) {
-			switch (sortFilter) {
+			switch (sortKind) {
 			case 0:
 				break;	
 			case 1:
-				if(UIAvatarFitted.Visible)
-					UIAvatarFitted.Get.Filter(index);
-					
 				for(int i = 0; i < avatarFilter.Length; i++)
 					if(i != index)
 						avatarFilter[i].value = false;
 
+				if(index != 2 && avatarFilter[index].value == false){
+					avatarFilter[2].value = true;
+					index = 2;
+				}
+
 				PlayerPrefs.SetInt (ESave.AvatarFilter.ToString(), index);
 				PlayerPrefs.Save();
+				if(UIAvatarFitted.Visible)
+					UIAvatarFitted.Get.UpdateView();
 				break;
 			case 2:
 				break;
