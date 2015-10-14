@@ -154,13 +154,14 @@ public class UISort : UIBase {
 					break;	
 				case 1:
 					if(UIAvatarFitted.Visible)
-						UIAvatarFitted.Get.SortView(index);
+						UIAvatarFitted.Get.Sort(index);
 					break;
 				case 2:
 					break;
 			}
 		}
 	}
+
 	public void OnFilter(GameObject obj)
 	{
 		int index;

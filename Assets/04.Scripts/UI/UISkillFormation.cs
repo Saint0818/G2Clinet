@@ -816,7 +816,7 @@ public class UISkillFormation : UIBase {
 			removeItems(uiCards[tempObj.name].CardID, tempObj);
 			refreshCards(tempObj.name);
 		} else 
-			UIHint.Get.ShowHint("It's Edit State.", Color.red);
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void DoEquipCard (){
@@ -847,7 +847,7 @@ public class UISkillFormation : UIBase {
 			}
 			refreshCards(tempObj.name);
 		} else 
-			UIHint.Get.ShowHint("It's Edit State.", Color.red);
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void OnCardDetailInfo (GameObject go){
@@ -872,7 +872,7 @@ public class UISkillFormation : UIBase {
 			}
 		} else {
 			if(uicard.InListCard != null && uicard.InListCard.activeSelf)
-				UIHint.Get.ShowHint("It's Edit State.", Color.red);
+				UIHint.Get.ShowHint("It's Buy State.", Color.red);
 			else {
 				if(!uicard.SellSelectCover.activeSelf)
 					addSellCards(go.name);
@@ -940,7 +940,10 @@ public class UISkillFormation : UIBase {
 	}
 	
 	public void DoSort() {
-		UISort.UIShow(!UISort.Visible);
+		if(!isEdit) {
+			UISort.UIShow(!UISort.Visible, 0);
+		} else 
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void DoBack() {
@@ -993,7 +996,7 @@ public class UISkillFormation : UIBase {
 		if(removeIndexs.Length > 1) {
 			for(int i=0; i<removeIndexs.Length; i++) {
 				for (int j=i+1; j<removeIndexs.Length; j++){
-					if (removeIndexs[i] <= removeIndexs[j]){
+					if (removeIndexs[i] >= removeIndexs[j]){
 						int temp = removeIndexs[i];
 						removeIndexs[i] = removeIndexs[j];
 						removeIndexs[j] = temp;
@@ -1005,7 +1008,7 @@ public class UISkillFormation : UIBase {
 		if(addIndexs.Length > 1) {
 			for(int i=0; i<addIndexs.Length; i++) {
 				for (int j=i+1; j<addIndexs.Length; j++){
-					if (addIndexs[i] <= addIndexs[j]){
+					if (addIndexs[i] >= addIndexs[j]){
 						int temp = addIndexs[i];
 						addIndexs[i] = addIndexs[j];
 						addIndexs[j] = temp;
