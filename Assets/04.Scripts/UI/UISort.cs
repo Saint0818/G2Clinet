@@ -75,31 +75,26 @@ public class UISort : UIBase {
 
 			if(i == 0 && objGroup[i])
 			{
-				//skill
-				toggleCondition[0] = GameObject.Find (UIName + "/Center/SortCardGroup/RarityCheck").GetComponent<UIToggle>();
-				toggleCondition[1] = GameObject.Find (UIName + "/Center/SortCardGroup/CostCheck").GetComponent<UIToggle>();
-				toggleCondition[2] = GameObject.Find (UIName + "/Center/SortCardGroup/LevelCheck").GetComponent<UIToggle>();
-				toggleCondition[3] = GameObject.Find (UIName + "/Center/SortCardGroup/KindCheck").GetComponent<UIToggle>();
-				toggleCondition[4] = GameObject.Find (UIName + "/Center/SortCardGroup/AttributeCheck").GetComponent<UIToggle>();
-				
-				toggleFilter[0] = GameObject.Find (UIName + "/Center/SortCardGroup/AvailableCheck").GetComponent<UIToggle>();
-				toggleFilter[1] = GameObject.Find (UIName + "/Center/SortCardGroup/SelectedCheck").GetComponent<UIToggle>();
-				toggleFilter[2] = GameObject.Find (UIName + "/Center/SortCardGroup/ActiveCheck").GetComponent<UIToggle>();
-				toggleFilter[3] = GameObject.Find (UIName + "/Center/SortCardGroup/PassiveCheck").GetComponent<UIToggle>();
-				
-				UIEventListener.Get (toggleCondition[0].gameObject).onClick = RareChange;
-				UIEventListener.Get (toggleCondition[1].gameObject).onClick = CostChange;
-				UIEventListener.Get (toggleCondition[2].gameObject).onClick = LevelChange;
-				UIEventListener.Get (toggleCondition[3].gameObject).onClick = KindChange;
-				UIEventListener.Get (toggleCondition[4].gameObject).onClick = AttributeChange;
-				
-				UIEventListener.Get (toggleFilter[0].gameObject).onClick = AvailableChange;
-				UIEventListener.Get (toggleFilter[1].gameObject).onClick = SelectedChange;
-				UIEventListener.Get (toggleFilter[2].gameObject).onClick = ActiveChange;
-				UIEventListener.Get (toggleFilter[3].gameObject).onClick = PassiveChange;
+				toggleCondition[0] = objGroup[i].transform.FindChild ("RarityCheck").GetComponent<UIToggle>();
+				toggleCondition[1] = objGroup[i].transform.FindChild ("CostCheck").GetComponent<UIToggle>();
+				toggleCondition[2] = objGroup[i].transform.FindChild ("LevelCheck").GetComponent<UIToggle>();
+				toggleCondition[3] = objGroup[i].transform.FindChild ("KindCheck").GetComponent<UIToggle>();
+				toggleCondition[4] = objGroup[i].transform.FindChild ("AttributeCheck").GetComponent<UIToggle>();
 
-				for(int j=0; j <toggleCondition.Length; j++) {
+				toggleFilter[0] = objGroup[i].transform.FindChild ("AvailableCheck").GetComponent<UIToggle>();
+				toggleFilter[1] = objGroup[i].transform.FindChild ("SelectedCheck").GetComponent<UIToggle>();
+				toggleFilter[2] = objGroup[i].transform.FindChild ("ActiveCheck").GetComponent<UIToggle>();
+				toggleFilter[3] = objGroup[i].transform.FindChild ("PassiveCheck").GetComponent<UIToggle>();
+
+				for (int j=0; j<toggleCondition.Length; j++) {
+					toggleCondition[j].name = j.ToString();
 					toggleCondition[j].value = (j == 0);
+					UIEventListener.Get (toggleCondition[j].gameObject).onClick = OnSort;
+				}
+
+				for (int j=0; j<toggleFilter.Length; j++) {
+					toggleFilter[j].name = (j+10).ToString();
+					UIEventListener.Get (toggleFilter[j].gameObject).onClick = OnSort;
 				}
 				
 				SetBtnFun(UIName + "/Center/SortCardGroup/CheckBtn", CheckEvent);
@@ -141,17 +136,31 @@ public class UISort : UIBase {
 		if (int.TryParse (obj.name, out index)) {
 			switch (sortKind) {
 				case 0:
+					if(index < 10) {//condition
+						for(int i=0; i<toggleCondition.Length; i++) {
+							toggleCondition[i].value = (i == index);
+						}
+						sortCondition = (ECondition)index;
+					} else {//filter
+						if(toggleFilter[index - 10].value)
+							sortFilter += (int)Mathf.Pow(2, (index - 10));
+						else 
+							sortFilter -= (int)Mathf.Pow(2, (index - 10));
+					}
+				
+					if(UISkillFormation.Visible)
+						UISkillFormation.Get.SetSort(sortCondition, Mathf.Clamp(sortFilter,0, 15));
+
 					break;	
 				case 1:
 					if(UIAvatarFitted.Visible)
-						UIAvatarFitted.Get.Sort(index);
+						UIAvatarFitted.Get.SortView(index);
 					break;
 				case 2:
 					break;
 			}
 		}
 	}
-
 	public void OnFilter(GameObject obj)
 	{
 		int index;
@@ -169,7 +178,7 @@ public class UISort : UIBase {
 			}
 		}
 	}
-	
+
 	protected override void InitData() {
 		
 	}
@@ -184,42 +193,6 @@ public class UISort : UIBase {
 		UIShow(false);
 	}
 
-	public void RareChange(GameObject obj) { // Star
-		conditionChange(ECondition.Rare);
-	}
-
-	public void CostChange(GameObject obj) { // Space
-		conditionChange(ECondition.Cost);
-	}
-	
-	public void LevelChange(GameObject obj) { // Lv
-		conditionChange(ECondition.Level);
-	}
-	
-	public void KindChange(GameObject obj) { // Kind
-		conditionChange(ECondition.Kind);
-	}
-	
-	public void AttributeChange(GameObject obj) { //Attribute
-		conditionChange(ECondition.Attribute);
-	}
-
-	public void AvailableChange(GameObject obj) {
-		filterChange(EFilter.Available, toggleFilter[0].value);
-	}
-
-	public void SelectedChange(GameObject obj) {
-		filterChange(EFilter.Select, toggleFilter[1].value);
-	}
-	
-	public void ActiveChange(GameObject obj) {
-		filterChange(EFilter.Active, toggleFilter[2].value);
-	}
-	
-	public void PassiveChange(GameObject obj) {
-		filterChange(EFilter.Passive, toggleFilter[3].value);
-	}
-
 	public static void SetKind(int kind)
 	{
 		sortKind = kind;
@@ -231,24 +204,5 @@ public class UISort : UIBase {
 			for (int i = 0; i < objGroup.Length; i++){
 				objGroup[i].gameObject.SetActive(i == kind);
 			}
-	}
-	
-	private void conditionChange(ECondition condition) {
-		for(int i=0; i<toggleCondition.Length; i++) {
-			toggleCondition[i].value = (i == (int)condition);
-		}
-		sortCondition = condition;
-		if(UISkillFormation.Visible)
-			UISkillFormation.Get.SetSort(sortCondition, sortFilter);
-	}
-
-	private void filterChange(EFilter filter, bool isAdd) {
-		if(isAdd)
-			sortFilter += (int)filter;
-		else 
-			sortFilter -= (int)filter;
-		Debug.Log("sortFilter:"+sortFilter);
-		if(UISkillFormation.Visible)
-			UISkillFormation.Get.SetSort(sortCondition, Mathf.Clamp(sortFilter,0, 15));
 	}
 }
