@@ -43,7 +43,7 @@ namespace AI
         {
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             if (!mPlayer.AIing)
                 return;
@@ -65,6 +65,10 @@ namespace AI
 
             GameController.Get.AIDefend(mPlayer);
         }
+
+//        public override void Update()
+//        {
+//        }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {

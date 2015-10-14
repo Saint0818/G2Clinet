@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace AI
@@ -13,6 +14,11 @@ namespace AI
         public void Clear()
         {
             Value = 0;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}", Symbol, Value);
         }
     }
 
@@ -40,6 +46,21 @@ namespace AI
         {
             mPool = new Pool<WeightedChance<T>>(() => new WeightedChance<T>(), 
                                                 weightChance => weightChance.Clear());
+        }
+
+        private readonly StringBuilder mBuilder = new StringBuilder();
+        public override string ToString()
+        {
+            mBuilder.Remove(0, mBuilder.Length);
+
+            if(mWeights.Count == 0)
+                return "Empty";
+
+            for(int i = 0; i < mWeights.Count; i++)
+            {
+                mBuilder.AppendFormat("{0}, ", mWeights[i]);
+            }
+            return mBuilder.ToString();
         }
 
         public void AddOrUpdate(T symbol, float weight)

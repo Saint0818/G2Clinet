@@ -117,6 +117,14 @@ public class AIController : KnightSingleton<AIController>, ITelegraph<EGameMsg>
         GameMsgDispatcher.Ins.Update();
     }
 
+    [UsedImplicitly]
+    private void OnGUI()
+    {
+//        GUI.Label(new Rect(100, 100, 600, 100), string.Format("GameController:{0}", GameController.Get.Situation));
+//        GUI.Label(new Rect(100, 130, 600, 100), string.Format("{0}", mTeams[ETeamKind.Self]));
+//        GUI.Label(new Rect(100, 160, 600, 100), string.Format("{0}", mTeams[ETeamKind.Npc]));
+    }
+
     public void ChangeState(EGameSituation newState)
     {
         mFSM.ChangeState(newState);

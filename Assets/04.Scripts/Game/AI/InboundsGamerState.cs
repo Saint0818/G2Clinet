@@ -1,25 +1,33 @@
-﻿using AI;
-
-public class InboundsGamerState : State<EGameSituation, EGameMsg>
+﻿
+namespace AI
 {
-    public override EGameSituation ID
+    public class InboundsGamerState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.InboundsGamer; }
-    }
+        public override EGameSituation ID
+        {
+            get { return EGameSituation.InboundsGamer; }
+        }
 
-    public override void Enter(object extraInfo)
-    {
-    }
+        public override void Enter(object extraInfo)
+        {
+        }
 
-    public override void Update()
-    {
-    }
+        public override void UpdateAI()
+        {
+        }
 
-    public override void Exit()
-    {
-    }
+//        public override void Update()
+//        {
+//        }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
-    }
-}
+        public override void Exit()
+        {
+        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
+    } // end of the class.
+} // end of the namespace.
+
+

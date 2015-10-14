@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AI
 {
@@ -65,7 +64,7 @@ namespace AI
                 Debug.LogWarning("Next State must be APickBallAfterScore or BPickBallAfterScore.");
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             if(Time.time >= mChangeStateTime)
             {
@@ -73,6 +72,10 @@ namespace AI
                 GameController.Get.ChangeSituation(mNextState);
             }
         }
+
+//        public override void Update()
+//        {
+//        }
 
         public override void Exit()
         {

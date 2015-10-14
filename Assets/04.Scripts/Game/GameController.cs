@@ -61,7 +61,7 @@ public class GameController : KnightSingleton<GameController>
 	private bool isPassing = false;
 	public float MaxGameTime = 0;
 	public float GameTime = 0;
-    public float coolDownPass = 0;
+    public float CoolDownPass = 0;
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
     public float RealBallFxTime = 0;
@@ -763,8 +763,8 @@ public class GameController : KnightSingleton<GameController>
 		}
 		#endif
 
-		if (coolDownPass > 0 && Time.time >= coolDownPass)
-            coolDownPass = 0;
+		if (CoolDownPass > 0 && Time.time >= CoolDownPass)
+            CoolDownPass = 0;
 
 		if (CoolDownCrossover > 0 && Time.time >= CoolDownCrossover)
             CoolDownCrossover = 0;
@@ -922,8 +922,6 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("nearshot rate:"+ nearshotRate);
 			GUILayout.Label("layup rate:"+ layupRate);
 		}
-
-//        GUI.Label(new Rect(100, 100, 300, 100), string.Format("{0}", Situation));
 	}
 	#endif
 
@@ -1418,11 +1416,9 @@ public class GameController : KnightSingleton<GameController>
 	                case EGameSituation.None:
 	                case EGameSituation.Opening:
 	                case EGameSituation.JumpBall:
-//						jumpBall();
-	                    break;
 	                case EGameSituation.AttackGamer:
 	                case EGameSituation.AttackNPC:
-	                    break;
+                        break;
 	                case EGameSituation.GamerPickBall:
 	                    SituationPickBall(ETeamKind.Self);
 	                    break;
@@ -2079,7 +2075,7 @@ public class GameController : KnightSingleton<GameController>
 
 			if (!IsPassing && canPass && !IsDunk && player != BallOwner)
 			{
-				if(!(isBtn || movePass) && coolDownPass != 0)
+				if(!(isBtn || movePass) && CoolDownPass != 0)
 					return result;
 				
 				if(!isBtn && !BallOwner.AIing)
@@ -3360,7 +3356,7 @@ public class GameController : KnightSingleton<GameController>
 						player.SetAnger(GameConst.AddAnger_Rebound, player.gameObject);
 
 						if (player == BallOwner && inTipinDistance(player)) {
-							coolDownPass = Time.time + 3;
+							CoolDownPass = Time.time + GameConst.PassCoolDownTime;
 							if (player == Joysticker)
 								OnDoubleClickMoment(player, EPlayerState.Rebound);
 							else
@@ -4073,7 +4069,7 @@ public class GameController : KnightSingleton<GameController>
 			if (Catcher != null && !Catcher.IsFall && !Catcher.IsPush && !Catcher.IsBlock && !Catcher.IsPass)
 	        {
 	            if(SetBall(Catcher))
-					coolDownPass = Time.time + 3;
+					CoolDownPass = Time.time + GameConst.PassCoolDownTime;
 
 				if(Catcher && Catcher.NeedShooting)
 				{

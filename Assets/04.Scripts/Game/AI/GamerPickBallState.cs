@@ -1,32 +1,38 @@
-﻿using AI;
-
-/// <summary>
-/// 對手得分, 玩家隊伍執行撿球.
-/// </summary>
-public class GamerPickBallState : State<EGameSituation, EGameMsg>
+﻿
+namespace AI
 {
-    public override EGameSituation ID
+    /// <summary>
+    /// 對手得分, 玩家隊伍執行撿球.
+    /// </summary>
+    public class GamerPickBallState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.GamerPickBall; }
-    }
+        public override EGameSituation ID
+        {
+            get { return EGameSituation.GamerPickBall; }
+        }
 
-    public override void Enter(object extraInfo)
-    {
-        CourtMgr.Get.Walls[1].SetActive(false);
-        UIGame.Get.ChangeControl(true);
-        CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
-//        pickBallPlayer = null;
-    }
+        public override void Enter(object extraInfo)
+        {
+            CourtMgr.Get.Walls[1].SetActive(false);
+            UIGame.Get.ChangeControl(true);
+            CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
+            //        pickBallPlayer = null;
+        }
 
-    public override void Update()
-    {
-    }
+        public override void UpdateAI()
+        {
+        }
 
-    public override void Exit()
-    {
-    }
+//        public override void Update()
+//        {
+//        }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
-    }
-}
+        public override void Exit()
+        {
+        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
+    } // end of the class.
+} // end of the namespace.

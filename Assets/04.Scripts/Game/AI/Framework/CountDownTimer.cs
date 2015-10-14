@@ -1,61 +1,89 @@
 ﻿
-/// <summary>
-/// 
-/// </summary>
-/// How to use:
-/// <list type="number">
-/// <item> new instance. </item>
-/// <item> call Update in every frame. </item>
-/// <item> register listener. </item>
-/// <item> call RunOnce or RunForever. </item>
-/// </list>
-public class CountDownTimer
+
+using UnityEngine;
+
+namespace AI
 {
-    public delegate void Action(float elapsedTime);
-    public event Action Listener;
-
-    private float mElapsedTime;
-    private float mCountDownTime;
-    private bool mRunning;
-    private bool mIsRunOnce;
-
-    public void RunOnce(float countDownTime)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// How to use:
+    /// <list type="number">
+    /// <item> new instance. </item>
+    /// <item> Call Update in every frame. </item>
+    /// <item> Call Start() or StartAgain(). </item>
+    /// <item> Call IsTimeUp() 檢查是否倒數完畢. </item>
+    /// </list>
+    public class CountDownTimer
     {
-        mElapsedTime = 0;
-        mCountDownTime = countDownTime;
-        mRunning = true;
-        mIsRunOnce = true;
-    }
+        /// <summary>
+        /// 倒數完畢時的數值.
+        /// </summary>
+        private const float TimeUpTime = -1;
 
-    public void RunForever(float countDownTime)
-    {
-        mElapsedTime = 0;
-        mCountDownTime = countDownTime;
-        mRunning = true;
-        mIsRunOnce = false;
-    }
+        /// <summary>
+        /// 剩下的倒數時間(單位:秒), 當小於等於 0 時, 表示倒數完畢.
+        /// </summary>
+        private float mRemainTime = TimeUpTime;
 
-    public void Stop()
-    {
-        mRunning = false;
-    }
+        /// <summary>
+        /// 前一次的倒數時間.
+        /// </summary>
+        private float mLastRemainTime;
+        private bool mIsUpdating;
 
-    public void Update(float elapsedTime)
-    {
-        if(!mRunning)
-            return;
+        public CountDownTimer(float defaultRemainTime)
+        {
+            if(defaultRemainTime <= 0)
+            {
+                Debug.LogErrorFormat("defaultRemainTime({0}) must be great than zero.", defaultRemainTime);
+                return;
+            }
 
-        mElapsedTime += elapsedTime;
+            mLastRemainTime = defaultRemainTime;
+        }
 
-        if(mElapsedTime < mCountDownTime)
-            return;
+        public void Start(float remainSecond)
+        {
+            mLastRemainTime = remainSecond;
+            mRemainTime = remainSecond;
+            mIsUpdating = true;
+        }
 
-        if(Listener != null)
-            Listener(mElapsedTime);
+        public void StartAgain()
+        {
+            mRemainTime = mLastRemainTime;
+            mIsUpdating = true;
+        }
 
-        mElapsedTime = 0;
+        public void Resume()
+        {
+            mIsUpdating = true;
+        }
 
-        if(mIsRunOnce)
-            mRunning = false;
-    }
-}
+        public void Pause()
+        {
+            mIsUpdating = false;
+        }
+
+        public bool IsTimeUp()
+        {
+            return mRemainTime <= 0;
+        }
+
+        public void Update(float elapsedTime)
+        {
+            if(!mIsUpdating)
+                return;
+
+            mRemainTime -= elapsedTime;
+            if(mRemainTime < 0)
+            {
+                mRemainTime = TimeUpTime; // 表示時間已經到了.
+                mIsUpdating = false;
+            }
+        }
+    } // end of the class.
+} // end of the namespace.
+
+

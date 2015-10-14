@@ -1,29 +1,34 @@
-﻿using AI;
-
-public class NPCPickBallState : State<EGameSituation, EGameMsg>
+﻿namespace AI
 {
-    public override EGameSituation ID
+    public class NPCPickBallState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.NPCPickBall; }
-    }
+        public override EGameSituation ID
+        {
+            get { return EGameSituation.NPCPickBall; }
+        }
 
-    public override void Enter(object extraInfo)
-    {
-        CourtMgr.Get.Walls[0].SetActive(false);
-        UIGame.Get.ChangeControl(false);
-        CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
-//        pickBallPlayer = null;
-    }
+        public override void Enter(object extraInfo)
+        {
+            CourtMgr.Get.Walls[0].SetActive(false);
+            UIGame.Get.ChangeControl(false);
+            CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
+            //        pickBallPlayer = null;
+        }
 
-    public override void Update()
-    {
-    }
+        public override void UpdateAI()
+        {
+        }
 
-    public override void Exit()
-    {
-    }
+//        public override void Update()
+//        {
+//        }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
+        public override void Exit()
+        {
+        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
     }
 }

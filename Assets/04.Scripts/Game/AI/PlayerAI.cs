@@ -1,5 +1,4 @@
-﻿using G2;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AI
@@ -64,6 +63,17 @@ namespace AI
             mFSM.ChangeState(newState, extraInfo);
         }
 
+        public string GetCurrentStateName()
+        {
+            if(mFSM.CurrentState.ID == EPlayerAIState.Attack)
+            {
+                var attack = (PlayerAttackState)mFSM.CurrentState;
+                return string.Format("{0}.{1}", attack.ID, attack.GetCurrentState());
+            }
+
+            return string.Format("{0}", mFSM.CurrentState.ID);
+        }
+
         public void HandleMessage(Telegram<EGameMsg> msg)
         {
             if (msg.Msg == EGameMsg.GamePlayersCreated)
@@ -90,6 +100,11 @@ namespace AI
         public bool isNearestBall()
         {
             return Team.FindNearBallPlayer() == this;
+        }
+
+        public bool IsInUpfield()
+        {
+            return Team.IsInUpfield(transform.position);
         }
     } // end of the class PlayerAI.
 } // end of the namespace AI.

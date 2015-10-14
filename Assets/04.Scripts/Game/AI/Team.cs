@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Text;
 using G2;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -53,6 +54,19 @@ namespace AI
             mHomePositions = new Dictionary<EPlayerPostion, Vector2>(homePositions);
         }
 
+        private readonly StringBuilder mBuilder = new StringBuilder();
+        public override string ToString()
+        {
+            mBuilder.Remove(0, mBuilder.Length);
+            mBuilder.AppendFormat("Team:{0}, ", mTeamKind);
+            for(int i = 0; i < mPlayers.Count; i++)
+            {
+                mBuilder.AppendFormat("{0}:{1}, ", mPlayers[i].name, mPlayers[i].GetCurrentStateName());
+            }
+
+            return mBuilder.ToString();
+        }
+
         public void Clear()
         {
             mPlayers.Clear();
@@ -68,11 +82,6 @@ namespace AI
         public void AddOpponentPlayer([NotNull] PlayerAI player)
         {
             mOpponentPlayers.Add(player);
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Team:{0}", mTeamKind);
         }
 
         /// <summary>
@@ -130,17 +139,29 @@ namespace AI
         /// <summary>
         /// 是否球員在前場.
         /// </summary>
-        /// <param name="player"></param>
+        /// <param name="pos"></param>
         /// <returns></returns>
-        public static bool IsInUpfield([NotNull]PlayerBehaviour player)
+        public bool IsInUpfield(Vector3 pos)
         {
-            if(player.Team == ETeamKind.Self && player.transform.position.z >= 15.5f && 
-               player.transform.position.x <= 1 && player.transform.position.x >= -1)
-                return false;
-            if(player.Team == ETeamKind.Npc && player.transform.position.z <= -15.5f && 
-               player.transform.position.x <= 1 && player.transform.position.x >= -1)
-                return false;
-            return true;
+            if(mTeamKind == ETeamKind.Self)
+            {
+                if(-12 <= pos.x && pos.x <= 12 &&
+                   0 <= pos.z && pos.z <= 17.0f)
+                    return true;
+            }
+            else if(mTeamKind == ETeamKind.Npc)
+            {
+                if(-12 <= pos.x && pos.x <= 12 &&
+                   -17.0f <= pos.z && pos.z <= 0)
+                    return true;
+            }
+//            if(pos.Team == ETeamKind.Self && pos.transform.position.z >= 15.5f && 
+//               pos.transform.position.x <= 1 && pos.transform.position.x >= -1)
+//                return false;
+//            if(pos.Team == ETeamKind.Npc && pos.transform.position.z <= -15.5f && 
+//               pos.transform.position.x <= 1 && pos.transform.position.x >= -1)
+//                return false;
+            return false;
         }
 
 //        public enum EFindPlayerResult

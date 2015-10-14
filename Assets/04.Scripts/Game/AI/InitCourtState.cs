@@ -1,35 +1,41 @@
-using AI;
-
-public class InitCourtState : State<EGameSituation, EGameMsg>
+﻿
+namespace AI
 {
-    public override EGameSituation ID
+    public class InitCourtState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.InitCourt; }
-    }
-
-    public override void Enter(object extraInfo)
-    {
-        if(GameController.Get.IsStart == false)
+        public override EGameSituation ID
         {
-            UIGame.Get.UIState(EUISituation.ShowTwo);
-
-            GameController.Get.Situation = EGameSituation.Opening;
-            GameController.Get.ChangeSituation(EGameSituation.Opening);
-            Parent.ChangeState(EGameSituation.Opening);
-
-            CourtMgr.Get.InitScoreboard(true);
+            get { return EGameSituation.InitCourt; }
         }
-    }
 
-    public override void Update()
-    {
-    }
+        public override void Enter(object extraInfo)
+        {
+            if (GameController.Get.IsStart == false)
+            {
+                UIGame.Get.UIState(EUISituation.ShowTwo);
 
-    public override void Exit()
-    {
-    }
+                GameController.Get.Situation = EGameSituation.Opening;
+                GameController.Get.ChangeSituation(EGameSituation.Opening);
+                Parent.ChangeState(EGameSituation.Opening);
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
+                CourtMgr.Get.InitScoreboard(true);
+            }
+        }
+
+        public override void UpdateAI()
+        {
+        }
+
+//        public override void Update()
+//        {
+//        }
+
+        public override void Exit()
+        {
+        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
     }
 }

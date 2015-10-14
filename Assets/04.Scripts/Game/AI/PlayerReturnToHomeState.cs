@@ -54,14 +54,18 @@ namespace AI
 //            Debug.LogFormat("PlayerReturnToHomeState.Exit, Player:{0}", mPlayer.name);
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             if(mPlayer.TargetPosNum <= 0)
                 moveToHomePosition();
         }
 
+//        public override void Update()
+//        {
+//        }
+
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
         }
-    }
-}
+    } // end of the class.
+} // end of the namespace.

@@ -37,6 +37,21 @@ namespace AI
 
         private readonly Dictionary<TEnumState, State<TEnumState, TEnumMsg>> mStates = new Dictionary<TEnumState, State<TEnumState, TEnumMsg>>();
 
+        /// <summary>
+        /// 下一次更新 AI 邏輯的時間. 單位:秒.
+        /// </summary>
+        private float mNextUpdateAITime;
+
+        /// <summary>
+        /// 幾秒更新一次.
+        /// </summary>
+        private readonly float mUpdateInterval;
+
+        public StateMachine(float updateInterval = 0.016f)
+        {
+            mUpdateInterval = updateInterval;
+        }
+
         public bool AddState(State<TEnumState, TEnumMsg> state)
         {
             if(mStates.ContainsKey(state.ID))
@@ -65,11 +80,22 @@ namespace AI
 
         public void Update()
         {
-            if(mGlobalState != null)
-                mGlobalState.Update();
+            if(Time.time >= mNextUpdateAITime)
+            {
+                mNextUpdateAITime = Time.time + mUpdateInterval;
 
-            if(CurrentState != null)
-                CurrentState.Update();
+                if(mGlobalState != null)
+                    mGlobalState.UpdateAI();
+
+                if(CurrentState != null)
+                    CurrentState.UpdateAI();
+            }
+
+//            if(mGlobalState != null)
+//                mGlobalState.Update();
+//
+//            if(CurrentState != null)
+//                CurrentState.Update();
         }
 
         public void ChangeState(TEnumState newState, object extraInfo = null)

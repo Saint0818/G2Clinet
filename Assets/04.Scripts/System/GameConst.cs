@@ -38,8 +38,14 @@
     /// 當對手和球員在 TheatDistance and ThreatAngle 範圍內時, 表示雙方處理威脅狀態. 
     /// 會影響假動作, 投籃的邏輯.
     /// </summary>
-	public const float ThreatDistance = 3.0f;
-	public const float ThreatAngle = 30f;
+	public const float ThreatDistance = 1.5f;
+	public const float ThreatAngle = 40f;
+
+    /// <summary>
+    /// 這是避免一直傳球的參數, 傳球後, 經過此時間, 才可以做下一次傳球.
+    /// </summary>
+//    public const float PassCoolDownTime = 1.2f;
+    public const float PassCoolDownTime = 3.0f;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 10;

@@ -45,7 +45,7 @@ namespace AI
         {
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             if(GameController.Get.BallOwner == mPlayer &&
                !mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
@@ -62,5 +62,9 @@ namespace AI
                 Parent.ChangeState(PlayerAttackState.EPlayerAttackState.General);
             }
         }
-    }
-}
+
+//        public override void Update()
+//        {
+//        }
+    } // end of the class.
+} // end of the namespace AI.

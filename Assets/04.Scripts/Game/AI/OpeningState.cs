@@ -1,33 +1,38 @@
-using AI;
-
-public class OpeningState : State<EGameSituation, EGameMsg>
+﻿namespace AI
 {
-    public override EGameSituation ID
+    public class OpeningState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.Opening; }
-    }
-
-    public override void Enter(object extraInfo)
-    {
-        foreach(var player in GameController.Get.GamePlayers)
+        public override EGameSituation ID
         {
-            player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.None);
+            get { return EGameSituation.Opening; }
         }
 
-        //        setPassIcon(true);
-        UIGame.UIShow(true);
-        UIGame.Get.UIState(EUISituation.Opening);
-    }
+        public override void Enter(object extraInfo)
+        {
+            foreach (var player in GameController.Get.GamePlayers)
+            {
+                player.GetComponent<PlayerAI>().ChangeState(EPlayerAIState.None);
+            }
 
-    public override void Update()
-    {
-    }
+            //        setPassIcon(true);
+            UIGame.UIShow(true);
+            UIGame.Get.UIState(EUISituation.Opening);
+        }
 
-    public override void Exit()
-    {
-    }
+        public override void UpdateAI()
+        {
+        }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
+//        public override void Update()
+//        {
+//        }
+
+        public override void Exit()
+        {
+        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
+        {
+        }
     }
 }

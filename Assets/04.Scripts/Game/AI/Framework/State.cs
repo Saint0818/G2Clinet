@@ -34,9 +34,15 @@ namespace AI
         public abstract void Exit();
 
         /// <summary>
-        /// 呼叫時機: 每個 frame.
+        /// 呼叫時機: 每經過 StateMachine.updateInterval 秒後, 才會呼叫一次.
+        /// 假如 lag 的時間是 StateMachine.updateInterval 的 n 倍, 也只會呼叫一次, 不會呼叫多次.
         /// </summary>
-        public abstract void Update();
+        public abstract void UpdateAI();
+
+//        /// <summary>
+//        /// 呼叫時機: 每個 frame.
+//        /// </summary>
+//        public abstract void Update();
 
         /// <summary>
         /// 呼叫時機: 收到訊息.

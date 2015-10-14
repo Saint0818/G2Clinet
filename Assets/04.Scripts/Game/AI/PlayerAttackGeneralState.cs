@@ -18,6 +18,8 @@ namespace AI
         private readonly PlayerBehaviour mPlayer;
         private AISkillJudger mSkillJudger;
 
+        private readonly CountDownTimer mTimer = new CountDownTimer(2);
+
         /// <summary>
         /// 進攻狀態會做的行為. 這會根據情況, 用亂數的方式找出一個來做.
         /// </summary>
@@ -46,7 +48,7 @@ namespace AI
             mProbabilityActions.Add(EAction.Shoot2, doShoot);
             mProbabilityActions.Add(EAction.Shoot3, doShoot);
             mProbabilityActions.Add(EAction.Pass, doPass);
-            //        mProbabilityActions.Add(EProbability.Push, doPush);
+//        mProbabilityActions.Add(EProbability.Push, doPush);
             mProbabilityActions.Add(EAction.Elbow, doElbow);
             mProbabilityActions.Add(EAction.FakeShoot, doFakeShoot);
             mProbabilityActions.Add(EAction.MoveDodge, doMoveDodge);
@@ -70,6 +72,8 @@ namespace AI
 //                TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
 //                mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
 //            }
+
+            mTimer.StartAgain();
         }
 
         public override void Exit()
@@ -94,10 +98,12 @@ namespace AI
             mSkillJudger = new AISkillJudger(mPlayer, players, true);
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             if(!mPlayer.AIing)
                 return;
+
+            mTimer.Update(Time.deltaTime);
 
             if(GameController.Get.BallOwner == mPlayer &&
                mPlayerAI.Team.IsAllOpponentsBehindMe(mPlayerAI.transform.position))
@@ -134,6 +140,10 @@ namespace AI
             }
         }
 
+//        public override void Update()
+//        {
+//        }
+
         private bool isBallOwner()
         {
             return GameController.Get.BallOwner == mPlayer;
@@ -145,10 +155,19 @@ namespace AI
                 return false;
 
             var probability = randomProbability();
-            if (probability == EAction.None)
-                return false;
+            if(probability == EAction.None)
+            {
+                if(mTimer.IsTimeUp())
+                {
+                    probability = randomSpecialProbability();
+//                    Debug.LogFormat("randomSpecialProbability:{0}", probability);
+                }
+                else 
+                    return false;
+            }
 
             mProbabilityActions[probability]();
+            mTimer.StartAgain();
 
             return true;
         }
@@ -173,50 +192,84 @@ namespace AI
                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
-            // 是否可以投 3 分球.
+            // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
             if(shootPointDis <= GameConst.TreePointDistance + 1 && !hasDefPlayer &&
                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
-            if (shootPointDis <= GameConst.TreePointDistance + 1 &&
-               !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) && hasDefPlayer)
+            if(shootPointDis <= GameConst.TreePointDistance + 1 && hasDefPlayer &&
+               !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
             {
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
             }
 
-            // 是否可以用 Elbow 攻擊對方.
+            // 是否可以用 Elbow 攻擊對方.(對方必須是 Idle 動作時, 才可以做 Elbow, 主要是避免打不到對方)
             PlayerAI defPlayer;
-            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
-            if (Team.IsInUpfield(mPlayer) && hasDefPlayer &&
-//               stealThreat != Team.EFindPlayerResult.CannotFound &&
-                stealThreat &&
+//            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
+            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 160, out defPlayer);
+            if(/*Team.IsInUpfield(mPlayer) &&*/ stealThreat &&
                defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
-               mPlayer.CoolDownElbow == 0 && !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
+               mPlayer.CoolDownElbow <= 0 && !mPlayer.CheckAnimatorSate(EPlayerState.Elbow))
             {
                 mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
             }
 
             // 是否可以傳球.
             if(mPlayer.CheckAnimatorSate(EPlayerState.HoldBall) &&
-               GameController.Get.coolDownPass == 0 /*&& 
+               GameController.Get.CoolDownPass <= 0 /*&& 
                !mPlayer.CheckAnimatorSate(EPlayerState.Elbow)*/)
                 mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
 
             // 是否可以轉身運球過人.
-            if(mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover == 0 && mPlayer.CanMove &&
+            if(mPlayer.IsHaveMoveDodge && GameController.Get.CoolDownCrossover <= 0 && mPlayer.CanMove &&
                 hasDefPlayer)
-//                threat != Team.EFindPlayerResult.CannotFound)
             {
                 mRandomizer.AddOrUpdate(EAction.MoveDodge, mPlayer.MoveDodgeRate);
             }
 
-            if (mRandomizer.IsEmpty())
+//            Debug.Log(mRandomizer);
+
+            if(mRandomizer.IsEmpty())
             {
-                //            Debug.Log("Randomizer is empty!");
+//            Debug.Log("Randomizer is empty!");
                 return EAction.None;
             }
             return mRandomizer.GetNext();
+        }
+
+        private EAction randomSpecialProbability()
+        {
+            mRandomizer.Clear();
+
+            float shootPointDis = MathUtils.Find2DDis(mPlayer.transform.position,
+                                        CourtMgr.Get.ShootPoint[mPlayer.Team.GetHashCode()].transform.position);
+
+            // 是否可以灌籃.
+            if(shootPointDis <= GameConst.DunkDistance)
+                mRandomizer.AddOrUpdate(EAction.Dunk, mPlayer.Attr.DunkRate);
+
+            // 是否可以投 2 分球.
+            if(shootPointDis <= GameConst.TwoPointDistance)
+                mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
+
+            // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
+            if(shootPointDis <= GameConst.TreePointDistance + 1)
+                mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
+
+            // 是否可以做假動作
+            if(shootPointDis <= GameConst.TreePointDistance + 1)
+                mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
+
+//            mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
+            mRandomizer.AddOrUpdate(EAction.Pass, mPlayer.Attr.PassRate);
+            GameController.Get.CoolDownPass = 0;
+
+            EAction action = mRandomizer.GetNext();
+
+//            Debug.LogFormat("randomSpecialProbability:{0}, Action:{1}", mRandomizer, action);
+
+            return action;
         }
 
         private bool tryDoPush()
@@ -254,13 +307,9 @@ namespace AI
 
         private void doElbow()
         {
-            //        PlayerAI defPlayer;
-            //        GameController.Get.HaveDefPlayer(mPlayer, GameConst.StealBallDistance, 90, out defPlayer);
-            //        mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
-            //        if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow, defPlayer.transform.position))
             if (mPlayer.DoPassiveSkill(ESkillSituation.Elbow))
             {
-                GameController.Get.coolDownPass = 0;
+//                GameController.Get.CoolDownPass = 0;
                 mPlayer.CoolDownElbow = Time.time + 3;
                 GameController.Get.RealBallFxTime = 1f;
                 CourtMgr.Get.RealBallFX.SetActive(true);
@@ -274,6 +323,7 @@ namespace AI
         private void doPass()
         {
             GameController.Get.AIPass(mPlayer);
+            GameController.Get.CoolDownPass = Time.time + GameConst.PassCoolDownTime;
         }
 
         private void doMoveDodge()
@@ -316,8 +366,10 @@ namespace AI
                     // 該球員目前沒有任何移動位置.
                     for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
                     {
-                        if (GameController.Get.GamePlayers[i].Team == someone.Team && GameController.Get.GamePlayers[i] != someone &&
-                           tacticalData.FileName != string.Empty && GameController.Get.GamePlayers[i].TargetPosName != tacticalData.FileName)
+                        if(GameController.Get.GamePlayers[i].Team == someone.Team && 
+                           GameController.Get.GamePlayers[i] != someone &&
+                           tacticalData.FileName != string.Empty && 
+                           GameController.Get.GamePlayers[i].TargetPosName != tacticalData.FileName)
                             GameController.Get.GamePlayers[i].ResetMove();
                     }
 
@@ -355,7 +407,8 @@ namespace AI
                     }
                 }
 
-                if (someone.WaitMoveTime != 0 && GameController.Get.BallOwner != null && someone == GameController.Get.BallOwner)
+                if(someone.WaitMoveTime != 0 /*&& GameController.Get.BallOwner != null*/ && 
+                   someone == GameController.Get.BallOwner)
                     someone.AniState(EPlayerState.Dribble0);
             }
         }

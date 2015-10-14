@@ -1,49 +1,45 @@
-﻿using AI;
-
-public class PresentationState : State<EGameSituation, EGameMsg>//, ITelegraph<EGameMsg>
+﻿namespace AI
 {
-    public override EGameSituation ID
+    public class PresentationState : State<EGameSituation, EGameMsg>
     {
-        get { return EGameSituation.Presentation; }
-    }
-
-    public override void Enter(object extraInfo)
-    {
-//        GameMsgDispatcher.Ins.AddListener(this, EGameMsg.UISkipClickOnGaming);
-
-//        foreach(PlayerBehaviour player in GameController.Get.GamePlayerList)
-//        {
-//            ModelManager.Get.ChangeAnimator(player.AnimatorControl,
-//                                            player.Attribute.BodyType.ToString(),
-//                                            EanimatorType.ShowControl);
-//        }
-        UISkip.UIShow(true, ESkipSituation.Game);
-    }
-
-    public override void Exit()
-    {
-//        GameMsgDispatcher.Ins.RemoveListener(this, EGameMsg.UISkipClickOnGaming);
-    }
-
-    public override void Update()
-    {
-        foreach(PlayerBehaviour player in GameController.Get.GamePlayers)
+        public override EGameSituation ID
         {
-            if(player.ShowPos != -1)
+            get { return EGameSituation.Presentation; }
+        }
+
+        public override void Enter(object extraInfo)
+        {
+            UISkip.UIShow(true, ESkipSituation.Game);
+        }
+
+        public override void Exit()
+        {
+        }
+
+        public override void UpdateAI()
+        {
+            for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
             {
-                player.gameObject.transform.position = CameraMgr.Get.CharacterPos[player.ShowPos].transform.position;
-                player.gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[player.ShowPos].transform.eulerAngles;
+                if (GameController.Get.GamePlayers[i].ShowPos != -1)
+                {
+                    GameController.Get.GamePlayers[i].gameObject.transform.position = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.position;
+                    GameController.Get.GamePlayers[i].gameObject.transform.eulerAngles = CameraMgr.Get.CharacterPos[GameController.Get.GamePlayers[i].ShowPos].transform.eulerAngles;
+                }
             }
         }
-    }
 
-    public override void HandleMessage(Telegram<EGameMsg> msg)
-    {
-        if(msg.Msg == EGameMsg.UISkipClickOnGaming)
+//        public override void Update()
+//        {
+//        }
+
+        public override void HandleMessage(Telegram<EGameMsg> msg)
         {
-            CourtMgr.Get.ShowEnd(true);
-            GameController.Get.InitIngameAnimator();
-//            GameController.Get.SetBornPositions();
+            if (msg.Msg == EGameMsg.UISkipClickOnGaming)
+            {
+                CourtMgr.Get.ShowEnd(true);
+                GameController.Get.InitIngameAnimator();
+                //            GameController.Get.SetBornPositions();
+            }
         }
     }
 }

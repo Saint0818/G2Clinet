@@ -12,9 +12,13 @@ namespace AI
         {
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
         }
+
+//        public override void Update()
+//        {
+//        }
 
         public override void Exit()
         {
@@ -23,7 +27,7 @@ namespace AI
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
         }
-    }
+    } // end of the class.
 } // end of the namespace AI.
 
 

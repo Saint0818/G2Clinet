@@ -19,9 +19,6 @@ namespace AI
             General // 尚未準確分類...
         }
 
-//        private readonly PlayerBehaviour mPlayer;
-//        private readonly PlayerAI mPlayerAI;
-
         private readonly StateMachine<EPlayerAttackState, EGameMsg> mFSM = new StateMachine<EPlayerAttackState, EGameMsg>();
 
         public PlayerAttackState([NotNull]PlayerAI playerAI, [NotNull] PlayerBehaviour player)
@@ -30,9 +27,6 @@ namespace AI
             mFSM.AddState(new PlayerAttackGeneralState(playerAI, player));
             mFSM.AddState(new PlayerAttackFastBreakState(playerAI, player));
             mFSM.ChangeState(EPlayerAttackState.None);
-
-//            mPlayer = player;
-//            mPlayerAI = playerAI;
         }
 
         /// <summary>
@@ -45,6 +39,11 @@ namespace AI
             general.Init(players);
         }
 
+        public EPlayerAttackState GetCurrentState()
+        {
+            return mFSM.CurrentState.ID;
+        }
+
         public override void Enter(object extraInfo)
         {
             mFSM.ChangeState(EPlayerAttackState.General);
@@ -55,10 +54,14 @@ namespace AI
             mFSM.ChangeState(EPlayerAttackState.None);
         }
 
-        public override void Update()
+        public override void UpdateAI()
         {
             mFSM.Update();
         }
+
+//        public override void Update()
+//        {
+//        }
 
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
