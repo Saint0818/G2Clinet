@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -415,6 +415,9 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 //			ModelManager.Get.PlayerInfoModel.SetActive(true);
 
             UIMainLobby.Get.Show();
+            UIMainLobby.Get.Money = GameData.Team.Money;
+            UIMainLobby.Get.Diamond = GameData.Team.Diamond;
+            UIMainLobby.Get.Power = GameData.Team.Power;
 
 //			if (roleChanged)
 //				createMyPlayer();

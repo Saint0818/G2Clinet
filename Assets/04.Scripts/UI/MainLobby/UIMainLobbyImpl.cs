@@ -7,12 +7,29 @@ using UnityEngine;
 public class UIMainLobbyImpl : MonoBehaviour
 {
     public GameObject FullScreenBlock;
-    public Transform PlayerPos;
+    public UILabel MoneyLabel;
+    public UILabel DiamondLabel;
+    public UILabel PowerLabel;
 
     [UsedImplicitly]
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
+    }
+
+    public int Money
+    {
+        set { MoneyLabel.text = value.ToString(); }
+    }
+
+    public int Diamond
+    {
+        set { DiamondLabel.text = value.ToString(); }
+    }
+
+    public int Power
+    {
+        set { PowerLabel.text = value.ToString(); }
     }
 
     /// <summary>

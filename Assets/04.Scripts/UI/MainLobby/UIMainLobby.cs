@@ -18,12 +18,27 @@ public class UIMainLobby : UIBase
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
 
-//    private UIMainLobbyImpl mImpl;
+    private UIMainLobbyImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()
     {
-//        mImpl = GetComponent<UIMainLobbyImpl>();
+        mImpl = GetComponent<UIMainLobbyImpl>();
+    }
+
+    public int Money
+    {
+        set { mImpl.Money = value; }
+    }
+
+    public int Diamond
+    {
+        set { mImpl.Diamond = value; }
+    }
+
+    public int Power
+    {
+        set { mImpl.Power = value; }
     }
 
     public void Show()
