@@ -20,7 +20,7 @@ public class UILoading : UIBase {
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
 	private ELoadingGamePic loadingKind;
-	private int PicNo = -1;
+	private int PicNo = -2;
 	private int pageLoading = 0;
 	private float startTimer = 0;
 
@@ -47,7 +47,7 @@ public class UILoading : UIBase {
 		if(isShow) {
 			Get.initLoadingPic(kind, hint);
 			Get.Show(true);
-		}else 
+		} else 
 		if(instance) {
 			Get.Show(false);
 			//RemoveUI(UIName);
@@ -62,19 +62,9 @@ public class UILoading : UIBase {
 	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint="") {
 		loadingKind = kind;
 		startTimer = Time.time;
-
-		if (PicNo != kind.GetHashCode()) {
+		if (kind == ELoadingGamePic.Game) {
 			windowGame.SetActive(true);
 			windowLoading.SetActive(false);
-			
-			PicNo = kind.GetHashCode();
-			Texture2D txt = loadTexture("Textures/LoadingPic/Loading" + PicNo.ToString());
-			if (txt) {
-				uiBG.mainTexture = txt;
-				//uiBG.width = txt.width;
-				//uiBG.height = txt.height;
-			}
-
 		} else {
 			windowGame.SetActive(false);
 			windowLoading.SetActive(true);
@@ -122,23 +112,50 @@ public class UILoading : UIBase {
 	}
 	
 	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
-		float waitTime = 1.5f;
+		float minWait = 2;
+		float maxWait = 4;
+		float waitTime = 1;
+		yield return new WaitForSeconds (1);
 
 		switch (kind) {
 		case ELoadingGamePic.SelectRole:
-			yield return new WaitForSeconds (1.5f);
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
 			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
 
-			waitTime = Mathf.Max(0.5f, 3 - Time.time + startTimer);
+			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 			loadSelectRole();
 
 			break;
-		case ELoadingGamePic.Game:
-			yield return new WaitForSeconds (1.5f);
+		case ELoadingGamePic.Login:
 
+			break;
+		case ELoadingGamePic.CreateRole:
+			UICreateRole.Get.ShowPositionView();
+			UI3DCreateRole.Get.PositionView.PlayDropAnimation();
+
+			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
+			yield return new WaitForSeconds (waitTime);
+			UIShow(false);
+
+			break;
+		case ELoadingGamePic.Lobby:
+			UIMainLobby.Get.Show();
+			UIMainLobby.Get.Money = GameData.Team.Money;
+			UIMainLobby.Get.Diamond = GameData.Team.Diamond;
+			UIMainLobby.Get.Power = GameData.Team.Power;
+
+			if (UI3D.Visible)
+				UI3D.Get.ShowCamera(false);
+
+			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
+			yield return new WaitForSeconds (waitTime);
+			UIShow(false);
+
+			break;
+		case ELoadingGamePic.Game:
 			GameController.Get.ChangeSituation(EGameSituation.None);
 			yield return new WaitForSeconds (0.2f);
 			CourtMgr.Get.InitCourtScene ();
@@ -151,7 +168,7 @@ public class UILoading : UIBase {
 			else
 				AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
-			waitTime = Mathf.Max(0.5f, 3 - Time.time + startTimer);
+			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 
 			buttonNext.SetActive(true);
@@ -159,7 +176,6 @@ public class UILoading : UIBase {
 
 			break;
 		case ELoadingGamePic.Stage:
-			yield return new WaitForSeconds (1);
 			loadStage();
 			break;
 		}
@@ -186,14 +202,10 @@ public class UILoading : UIBase {
 		}
 	}
 
-	private void loadSelectRole(){
-//		if (GameStart.Get.OpenGameMode) 
-//			UIGameMode.UIShow (true);
-//		else {
-			CameraMgr.Get.SetSelectRoleCamera();
-			UISelectRole.UIShow(true);
-			UI3DSelectRole.UIShow(true);
-//		}
+	private void loadSelectRole() {
+		CameraMgr.Get.SetSelectRoleCamera();
+		UISelectRole.UIShow(true);
+		UI3DSelectRole.UIShow(true);
 
 		UIShow(false);
 	}

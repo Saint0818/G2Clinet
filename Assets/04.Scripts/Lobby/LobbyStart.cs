@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -413,17 +413,15 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
         {
 //			UIMain.Visible = true;
 //			ModelManager.Get.PlayerInfoModel.SetActive(true);
-
-            UIMainLobby.Get.Show();
-            UIMainLobby.Get.Money = GameData.Team.Money;
-            UIMainLobby.Get.Diamond = GameData.Team.Diamond;
-            UIMainLobby.Get.Power = GameData.Team.Power;
-
 //			if (roleChanged)
 //				createMyPlayer();
 
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
+			UIMainLobby.Get.Show();
+            UIMainLobby.Get.Money = GameData.Team.Money;
+            UIMainLobby.Get.Diamond = GameData.Team.Diamond;
+            UIMainLobby.Get.Power = GameData.Team.Power;
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
 		}

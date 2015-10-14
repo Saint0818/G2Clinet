@@ -175,8 +175,9 @@ public class UICreateRoleStyleView : MonoBehaviour
 //        form.AddField("Name", GameData.Team.Player.Name);
         form.AddField("Name", SystemInfo.deviceUniqueIdentifier);
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
-
-        SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form, true);
+		
+		UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+        SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
     }
 
     private void waitCreateRole(bool ok, WWW www)
@@ -197,7 +198,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else
 				LobbyStart.Get.EnterLobby();
-        } else
+        } else {
 			UIHint.Get.ShowHint("Create Role fail!", Color.red);
+		}
     }
 }

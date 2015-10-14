@@ -10,7 +10,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	public ECourtMode CourtMode = ECourtMode.Full;
 	public EWinMode WinMode = EWinMode.NoTimeScore;
 	public bool ConnectToServer = false;
-//	public bool OpenGameMode = false;
 	public bool IsDebugAnimation = false;
 	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;
@@ -27,10 +26,19 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
 
 	void Start() {
+		#if UNITY_EDITOR
+		Application.runInBackground = IsDebugAnimation;
+		#else
+		Application.runInBackground = false;
+		#endif
+
 		Time.timeScale = 1;
 
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		SceneMgr.Get.SetDontDestory (gameObject);
+
+		TextConst.Init();
+		GameData.Init();
 
 		switch(SceneMode) {
 		case ESceneTest.Single:
@@ -40,14 +48,6 @@ public class GameStart : KnightSingleton<GameStart> {
 			SendHttp.Get.CheckServerData(ConnectToServer);
 			break;
 		}
-
-		TextConst.Init();
-		GameData.Init();
-		#if UNITY_EDITOR
-		Application.runInBackground = IsDebugAnimation;
-		#else
-		Application.runInBackground = false;
-		#endif
 
 		StageJoin(1);
 		GameData.StageID = -1;

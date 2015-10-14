@@ -57,7 +57,7 @@ public static class TextConst
 	public static void Init(){
 		if (!loaded) {
 			loaded = true;
-			AddString (0, "", "");
+
 			AddString (1, "重新開始", "重新開始"); //1~1000 UI
 			AddString (2, "點擊開始", "點擊開始");
 			AddString (3, "點擊繼續", "點擊繼續");
@@ -91,7 +91,9 @@ public static class TextConst
 			AddString (25, "HOME TEAM", "HOME TEAM");
 			AddString (26, "AWAY TEAM", "AWAY TEAM");
 
-
+			AddString (101, "Try Again", "Try Again");
+			AddString (102, "Waiting for network.", "Waiting for network.");
+			AddString (103, "Network no responds. Please try again.", "Network no responds. Please try again.");
 
 			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");

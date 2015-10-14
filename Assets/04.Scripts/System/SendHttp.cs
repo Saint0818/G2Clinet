@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
 
+public struct TSessionResult {
+	public string sessionID;
+}
+
 public delegate void TBooleanWWWObj(bool ok, WWW www);
 
 public static class URLConst {
@@ -97,12 +101,33 @@ public static class URLConst {
 	public const string ChangeAvatar = "changeavatar";
 }
 
-public class SendHttp : KnightSingleton<SendHttp>
-{
-	public Dictionary<string, string> CookieHeaders = new Dictionary<string, string>();
+public class SendHttp : KnightSingleton<SendHttp> {
+	public JsonSerializerSettings JsonSetting = new JsonSerializerSettings();
+	private Dictionary<string, string> cookieHeaders = new Dictionary<string, string>();
+	private bool versionChecked = false;
+	private int focusCount = 0;
 
 	protected override void Init() {
+		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
 		DontDestroyOnLoad(gameObject);
+	}
+
+	void OnApplicationFocus(bool focusStatus) {
+		if (!focusStatus) {
+
+		} else {
+			focusCount++;
+			if (focusCount > 1 && CheckNetwork()) {
+				if (UILoading.Visible && !UIUpdateVersion.Visible) {
+					checkVersion ();
+				} else
+				if (GameData.Team.Player.Lv > 0) {
+
+					if (DateTime.UtcNow.Day != GameData.Team.LoginTime.ToUniversalTime().Day)
+						Command(URLConst.CheckResetToday, waitResetToday);
+				}
+			}
+		}
 	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
@@ -110,96 +135,145 @@ public class SendHttp : KnightSingleton<SendHttp>
 			url = FileManager.URL + url;
 			WWW www = null;
 
-			if (form == null) {
-				//http get
-				www = new WWW(url);
-			}else { 
-				//http post
-				if (form == null)
-					form = new WWWForm();
-				
-				if (!string.IsNullOrEmpty(GameData.Team.sessionID)) 
-					form.AddField("sessionID", GameData.Team.sessionID);
-
-				if(CookieHeaders.Count == 0)
-					www = new WWW(url, form.data);
-				else
-					www = new WWW(url, form.data, CookieHeaders);
-			}
+			//http post
+			if (form == null)
+				form = new WWWForm();
 			
+			if (!string.IsNullOrEmpty(GameData.Team.sessionID)) 
+				form.AddField("sessionID", GameData.Team.sessionID);
+
+			if(cookieHeaders.Count == 0)
+				www = new WWW(url, form.data);
+			else
+				www = new WWW(url, form.data, cookieHeaders);
+
 			StartCoroutine(WaitForRequest(www, callback));
 
-			#if ShowHttpLog
-			Debug.Log("Send To Server:" + url);
-			#endif
+			if (waiting) 
+				UIWaitingHttp.Get.SaveProtocol(url, callback, form);
 		}
 	}
 	
-	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj BoolWWWObj) {
+	private IEnumerator WaitForRequest(WWW www,TBooleanWWWObj callback) {
 		yield return www;
-
-		if (BoolWWWObj != null) {
-			if(checkResponse(www))
-				BoolWWWObj(true, www);
-			else
-				BoolWWWObj(false, www);
+		
+		bool flag = false;
+		if (checkResponse(www)) {
+			#if ShowHttpLog
+			Debug.Log("Rec From Server:" + www.text);
+			#endif
+			
+			if (UIWaitingHttp.Visible) { 
+				if (www.url == URLConst.Polling || www.url == URLConst.AutoPower) {
+					
+				} else
+					UIWaitingHttp.UIShow(false);
+			}
+			
+			flag = true;
 		}
-
+		
+		try {
+			if (callback != null)
+				callback(flag, www);
+		} catch (Exception e) {
+			Debug.Log(e.ToString());
+		}
+		
 		www.Dispose();
 	}
 
 	public bool CheckNetwork(){
-		bool internetPossiblyAvailable;
-		switch (Application.internetReachability)
-		{
-		case NetworkReachability.ReachableViaLocalAreaNetwork:
-			internetPossiblyAvailable = true;
-			break;
-		case NetworkReachability.ReachableViaCarrierDataNetwork:
-			internetPossiblyAvailable = true;
-			break;
-		default:
-			internetPossiblyAvailable = false;
-			break;
-		}
+		bool internetPossiblyAvailable = false;
 		
-		//if (!internetPossiblyAvailable)
-		//	UIMessage.Get.ShowMessage("", TextConst.S (93));
+		#if UNITY_EDITOR
+		if (Network.player.ipAddress != "127.0.0.1" && Network.player.ipAddress != "0.0.0.0")
+			internetPossiblyAvailable = true;
+		#else
+		if (Application.internetReachability != NetworkReachability.NotReachable)
+			internetPossiblyAvailable = true;
+		#endif
+		
+		//if (showHint && !internetPossiblyAvailable)
+		//	UIMessage.Get.ShowMessage(TextConst.S(37), TextConst.S(93));
 		
 		return internetPossiblyAvailable;
 	}
 
 	private bool checkResponse(WWW www){
-		if (string.IsNullOrEmpty(www.error)){
-			if (www.text.Contains("{err:")){
+		if (string.IsNullOrEmpty(www.error)) {
+			if (www.text.Contains("{err:")) {
 				string e = www.text.Substring(6, www.text.Length - 7);
-				UIHint.Get.ShowHint(e, Color.red);
-				Debug.LogError("Receive from URL and Error:" + e);
-			} else 
+				Debug.Log(e);
+				
+				if (e.Contains("Your data error")) {
+					UIMessage.Get.ShowMessage(TextConst.S(36), e);
+					return false;
+				}
+				
+				if (UILoading.Visible) {
+					if (!versionChecked)
+						checkVersion();
+					else
+						SendLogin();
+					
+					return false;
+				}
+				
+				if (e == "Please login first.") {
+					if (UIWaitingHttp.Visible) {
+						WWWForm form = new WWWForm();
+						form.AddField("Identifier", SystemInfo.deviceUniqueIdentifier);
+						Command(URLConst.CheckSession, waitCheckSession, form);
+						if (UIWaitingHttp.Visible)
+							UIWaitingHttp.Get.WaitForCheckSession();
+					}
+				}
+				else
+					if (e == "Team not Found." ||
+					    e == "You have not created." ||
+					   e.Contains("connect")) {
+					if (UIWaitingHttp.Visible)
+						UIWaitingHttp.Get.ShowResend();
+				} else
+				if (e == "Fight end." || e == "Receipt error.") {
+					UIWaitingHttp.UIShow(false);
+					Debug.Log(e);
+				} else {
+					UIWaitingHttp.UIShow(false);
+				}
+			} else
 				return true;
-		}else {
-			Debug.LogError("Server error : " + www.error);
-			#if ShowHttpLog
-			UIHint.Get.ShowHint("Server error : " + www.error, Color.red);
-			#endif
-
-			if (www.error == "couldn't connect to host")
+		} else
+		{
+			Debug.Log(www.error);
+			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host"))
 				UIMessage.Get.ShowMessage(TextConst.S(38), TextConst.S(7));
-			else 
-			if ( www.error.Contains("java")|| 
-			     www.error.Contains("parse")||
-			     www.error.Contains("key") || 
-			     www.error.Contains("host") || 
-			     www.error.Contains("time out") ||
-			     www.error.Contains("request")|| 
-			     www.error.Contains("connect") ||
-			     www.error.Contains("Connection") ||
-			     www.error == "Empty reply from server"){
-
+			else
+			if (UILoading.Visible) {
+				if (!versionChecked)
+					checkVersion();
+				else
+					SendLogin();
+			} else
+				if (www.error.Contains("java")|| 
+				    www.error.Contains("parse")||
+				    www.error.Contains("key") || 
+				    www.error.Contains("host") || 
+				    www.error.Contains("time out") ||
+				    www.error.Contains("request")|| 
+				    www.error.Contains("connect") ||
+				    www.error.Contains("Connection") ||
+				    www.error == "Empty reply from server")
+			{
+				if (UIWaitingHttp.Visible)
+					UIWaitingHttp.Get.ShowResend();
 			} else 
 			if (www.error.Contains("404 Not Found")){
-
-			} 
+				UIWaitingHttp.UIShow(false);
+			} else {
+				//UIMessage.Get.ShowMessage(TextConst.S(36), www.error);
+			}
 		}
 		
 		return false;
@@ -213,36 +287,54 @@ public class SendHttp : KnightSingleton<SendHttp>
 		form.AddField("Version", BundleVersion.Version.ToString());
 	}
 
+	private void waitResetToday(bool Value, WWW www) {
+		if(Value){
+			if(string.Empty != www.text){
+				TTeam result = JsonConvert.DeserializeObject<TTeam> (www.text, JsonSetting);		
+				GameData.Team.LoginTime = result.LoginTime;
+			}
+		}
+	}
+
+	private void waitCheckSession(bool ok, WWW www) {
+		if (ok) {
+			TSessionResult result = (TSessionResult)JsonConvert.DeserializeObject(www.text, (typeof(TSessionResult)));
+			GameData.Team.sessionID = result.sessionID;
+			UIMessage.Get.ShowMessage(TextConst.S(36), TextConst.S(39));
+			
+			if (www.responseHeaders.ContainsKey("SET-COOKIE")) {
+				cookieHeaders.Clear();
+				cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
+			}
+		}
+	}
+
+	private void checkVersion() {
+		UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+		WWWForm form = new WWWForm();
+		addLoginInfo(ref form);
+		Command(URLConst.Version, waitVersion, form);
+	}
+
 	public void CheckServerData(bool connectToServer)
 	{
-		if (connectToServer) {
-			if (CheckNetwork()) {
-				WWWForm form = new WWWForm();
-				addLoginInfo(ref form);
-				Command(URLConst.Version, waitVersion, form);
-			} else
-				UIHint.Get.ShowHint("Please check your network for login.", Color.red);
-
-			/*if (GameData.LoadTeamSave())
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			else 
-				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);*/
-		} else 
+		if (connectToServer)
+			checkVersion();
+		else 
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 	
 	private void waitVersion(bool ok, WWW www) {
 		if (ok) {
+			versionChecked = true;
 			if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion)
 				SendLogin();
 			else {
 				UIHint.Get.ShowHint("Version is different.", Color.red);
-				UIUpdate.UIShow(true);
+				//UIUpdate.UIShow(true);
 			}
 		} else
 			UIHint.Get.ShowHint("Check version fail.", Color.red);
-
-		//	SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 	}
 	
 	private void SendLogin() {
@@ -257,12 +349,12 @@ public class SendHttp : KnightSingleton<SendHttp>
 		if (flag) {
 			try {
 				string text = GSocket.Get.OnHttpText(www.text);
-				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text); 
+				GameData.Team = JsonConvert.DeserializeObject <TTeam>(text, JsonSetting); 
 				GameData.Team.Init();
 
 				if (www.responseHeaders.ContainsKey("SET-COOKIE")){
-					SendHttp.Get.CookieHeaders.Clear();
-					SendHttp.Get.CookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
+					SendHttp.Get.cookieHeaders.Clear();
+					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
 				}
 				
 				OnCloseLoading();
@@ -275,8 +367,7 @@ public class SendHttp : KnightSingleton<SendHttp>
 
 	private void OnCloseLoading() {
 	    if(GameData.Team.Player.Lv == 0) {
-	        UICreateRole.Get.ShowPositionView();
-            UI3DCreateRole.Get.PositionView.PlayDropAnimation();
+			UILoading.UIShow(true, GameEnum.ELoadingGamePic.CreateRole);
 	    } else
 	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 	}

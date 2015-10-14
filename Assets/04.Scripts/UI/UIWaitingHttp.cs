@@ -30,7 +30,7 @@ public class UIWaitingHttp : UIBase {
 			SpriteLoading.SetActive(false);
 			ButtonSend.SetActive(true);
 			UILoadingHint.SetActive(true);
-			labelLoadingHint.text = TextConst.S(328);
+			labelLoadingHint.text = TextConst.S(103);
 		}
 	}
 
@@ -51,11 +51,16 @@ public class UIWaitingHttp : UIBase {
 	}
 
 	public static void UIShow(bool isShow){
-		if(isShow) 
+		if(isShow) {
 			Get.Show(isShow);
-		else 
-		if(instance) 
+		} else 
+		if(instance) {
 			instance.Show(isShow);
+			instance.waitingCallback = null;
+			instance.waitingForm = null;
+			instance.sendedTime = 0;
+			instance.resendCount = 0;
+		}
 	}
 
 	public void ReleaseUI() {
@@ -76,7 +81,6 @@ public class UIWaitingHttp : UIBase {
 		UILoadingHint = GameObject.Find(UIName + "/Window/LoadingHint");
 		SpriteLoading = GameObject.Find(UIName + "/Window/SpriteLoading");
 		labelLoadingHint = GameObject.Find(UIName + "/Window/LoadingHint").GetComponent<UILabel>();
-		labelLoadingHint.text = TextConst.S(138);
 
 		ButtonSend = GameObject.Find(UIName + "/Window/Send");
 		SetBtnFun(UIName + "/Window/Send", OnResend);
@@ -84,32 +88,16 @@ public class UIWaitingHttp : UIBase {
 	}
 
 	protected override void InitText(){
-		SetLabel (UIName + "/Window/LoadingHint", TextConst.S(138));
-		SetLabel (UIName + "/Window/Send/UILabel", TextConst.S(20214));
-	}
-
-	protected override void Show(bool isShow) {
-		if(isShow) {
-			ButtonSend.SetActive(isShow);
-			SpriteLoading.SetActive(isShow);
-			UILoadingHint.SetActive(isShow);
-			labelLoadingHint.text = TextConst.S(138);
-		} else {
-			waitingCallback = null;
-			waitingForm = null;
-			sendedTime = 0;
-			resendCount = 0;
-		}
+		SetLabel (UIName + "/Window/Send/UILabel", TextConst.S(101));
 	}
 
 	public void OnResend() {
 		if (waitingCallback != null) {
 			SendHttp.Get.Command(waitingURL, waitingCallback, waitingForm);
 			resendCount ++;
-			if (resendCount >= 5)
+			if (resendCount >= 5)// && !UIMall.Visible)
 				Show(false);
-		}
-		else
+		} else
 			UIShow(false);
 	}
 
@@ -123,6 +111,9 @@ public class UIWaitingHttp : UIBase {
 		UILoadingHint.SetActive(false);
 		ButtonSend.SetActive(false);
 		sendedTime = 15;
+
+		if (UILoading.Visible)
+			SpriteLoading.SetActive(false);
 	}
 
 	public bool KeepAlive 

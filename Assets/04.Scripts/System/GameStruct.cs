@@ -10,6 +10,7 @@ namespace GameStruct {
 		public string sessionID;
 		public string FBName;
 		public string FBid;
+		public DateTime LoginTime;
 		public DateTime PowerCD;
 		public DateTime FreeLuckBox;
 	    public int PlayerNum; // 玩家擁有幾位角色.

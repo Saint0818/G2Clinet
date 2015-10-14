@@ -44,8 +44,7 @@ public class UIMainLobby : UIBase
     public void Show()
     {
         Show(true);
-
-        UI3DMainLobby.Get.Show();
+		UI3DMainLobby.Get.Show();
     }
 
     public void Hide()

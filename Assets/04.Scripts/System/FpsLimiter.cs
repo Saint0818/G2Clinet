@@ -8,7 +8,7 @@ public class FpsLimiter : MonoBehaviour {
 	float curTime= 0.0F;
 	float timeTaken = 0.0F;
 	public int FrameRate = 60;
-	public bool ShowFPS = true;
+	public bool ShowFPS = false;
 
 	private  float updateInterval = 0.5F;
 	private string fpsText = "";

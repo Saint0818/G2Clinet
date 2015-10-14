@@ -178,7 +178,7 @@ public class UICreateRoleFrameView : MonoBehaviour
             // 通知 Server 切換角色.
             WWWForm form = new WWWForm();
             form.AddField("RoleIndex", data.RoleIndex);
-            SendHttp.Get.Command(URLConst.SelectRole, waitSelectPlayer, form, true);
+            SendHttp.Get.Command(URLConst.SelectRole, waitSelectPlayer, form);
         }
     }
 
@@ -249,7 +249,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         UICreateRolePlayerSlot.Data data = (UICreateRolePlayerSlot.Data)extraInfo;
         form.AddField("RoleIndex", data.RoleIndex);
 
-        SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form, true);
+        SendHttp.Get.Command(URLConst.DeleteRole, waitDeletePlayer, form);
     }
 
     private void waitDeletePlayer(bool ok, WWW www)

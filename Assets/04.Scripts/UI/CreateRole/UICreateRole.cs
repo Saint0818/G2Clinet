@@ -104,6 +104,9 @@ public class UICreateRole : UIBase
 
         mFullScreenBlock = GameObject.Find("Window/FullScreenInvisibleWidget");
         mFullScreenBlock.SetActive(false);
+
+		UILoading.UIShow (false);
+		AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
     }
 
     /// <summary>

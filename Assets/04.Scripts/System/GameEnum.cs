@@ -8,23 +8,27 @@ namespace GameEnum {
 		JP = 3
 	}
 
-	public enum EOS {
-		EDITOR = 0,
-		IOS = 1,
-		ANDROID = 2
+	public static class EOS {
+		public const string Editor = "0";
+		public const string IOS = "1";
+		public const string Android = "2";
+		public const string Other = "3";
 	}
 
-	public enum ECompany {
-		NiceMarket = 0,
-		PubGame = 1,
-		R2 = 2,
-		MyGamez = 3
+	public static class ECompany {
+		public const string NiceMarket = "NiceMarket";
+		public const string PubGame = "PubGame";
+		public const string R2 = "R2";
+		public const string MyGamez = "MyGamez";
 	}
 
 	public enum ELoadingGamePic {
 		SelectRole = -1,
-		Game = 1,
-		Stage = 2
+		Login = 0,
+		CreateRole = 1,
+		Lobby = 2,
+		Game = 3,
+		Stage = 4
 	}
 
 	public enum ESceneTest
