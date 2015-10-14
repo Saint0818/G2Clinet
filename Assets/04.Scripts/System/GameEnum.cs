@@ -50,4 +50,9 @@ namespace GameEnum {
 		NPC,
 		Player
 	}
+
+	public enum ESave{
+		AvatarSort,
+		AvatarFilter
+	}
 }

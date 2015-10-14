@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameEnum;
 
 public enum ECondition {
 	None = -1,
@@ -31,8 +32,8 @@ public class UISort : UIBase {
 
 	//Avatar
 	private GameObject[] objGroup = new GameObject[3];
-	private UIToggle[] avatarSort = new UIToggle[5];
-	private UIToggle[] avatarFilter = new UIToggle[5];
+	private UIToggle[] avatarSort = new UIToggle[2];
+	private UIToggle[] avatarFilter = new UIToggle[3];
 
 	public static bool Visible {
 		get {
@@ -111,14 +112,19 @@ public class UISort : UIBase {
 					UIEventListener.Get (avatarSort[j].gameObject).onClick = OnSort;
 				}
 
-				avatarFilter[0] = objGroup[i].transform.FindChild("AvailableCheck").GetComponent<UIToggle>();
-				avatarFilter[1] = objGroup[i].transform.FindChild("SelectedCheck").GetComponent<UIToggle>();
-				avatarFilter[2] = objGroup[i].transform.FindChild("All").GetComponent<UIToggle>();
+				avatarFilter[0] = objGroup[i].transform.FindChild("AvailableCheck").gameObject.GetComponent<UIToggle>();
+				avatarFilter[1] = objGroup[i].transform.FindChild("SelectedCheck").gameObject.GetComponent<UIToggle>();
+				avatarFilter[2] = objGroup[i].transform.FindChild("AllCheck").gameObject.GetComponent<UIToggle>();
+
+				ReadSaveData(avatarSort, avatarFilter);
 
 				for(int k = 0; k < avatarFilter.Length; k++){
 					avatarFilter[k].name = k.ToString();
-					UIEventListener.Get (avatarFilter[k].gameObject).onClick = OnSort;
+					UIEventListener.Get (avatarFilter[k].gameObject).onClick = OnFilter;
 				}
+
+				UIButton btn = objGroup[i].transform.FindChild("CheckBtn").gameObject.GetComponent<UIButton>();
+				SetBtnFun(ref btn, OnOK);
 			}
 			else
 			{
@@ -127,6 +133,34 @@ public class UISort : UIBase {
 
 			objGroup[i].SetActive(false);
 		}
+	}
+
+	private void ReadSaveData(UIToggle[] sorts, UIToggle[] filters)
+	{
+		int index;
+		if(PlayerPrefs.HasKey(ESave.AvatarSort.ToString())){
+			index = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
+			if(index != -1 && index < sorts.Length){
+				sorts[index].value = true;
+			}
+		}
+		else
+		{
+			PlayerPrefs.SetInt(ESave.AvatarSort.ToString(), -1);
+		}
+
+		if(PlayerPrefs.HasKey(ESave.AvatarFilter.ToString())){
+			index = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
+			if(index != -1 && index < filters.Length){
+				filters[index].value = true;
+			}
+		}
+		else{
+			PlayerPrefs.SetInt(ESave.AvatarFilter.ToString(), 2);
+			filters[2].value = true;
+		}
+
+		PlayerPrefs.Save ();
 	}
 
 	public void OnSort(GameObject obj)
@@ -155,6 +189,16 @@ public class UISort : UIBase {
 				case 1:
 					if(UIAvatarFitted.Visible)
 						UIAvatarFitted.Get.Sort(index);
+					
+					for(int i = 0; i < avatarSort.Length; i++)
+						if(i != index)
+							avatarSort[i].value = false;
+
+					if(!avatarSort[index].value)
+						index = -1;
+
+					PlayerPrefs.SetInt (ESave.AvatarSort.ToString(), index);
+					PlayerPrefs.Save();		
 					break;
 				case 2:
 					break;
@@ -173,6 +217,13 @@ public class UISort : UIBase {
 			case 1:
 				if(UIAvatarFitted.Visible)
 					UIAvatarFitted.Get.Filter(index);
+					
+				for(int i = 0; i < avatarFilter.Length; i++)
+					if(i != index)
+						avatarFilter[i].value = false;
+
+				PlayerPrefs.SetInt (ESave.AvatarFilter.ToString(), index);
+				PlayerPrefs.Save();
 				break;
 			case 2:
 				break;
@@ -180,6 +231,11 @@ public class UISort : UIBase {
 		}
 	}
 
+	public void OnOK()
+	{
+		UIShow (false);
+	}
+	
 	protected override void InitData() {
 		
 	}
