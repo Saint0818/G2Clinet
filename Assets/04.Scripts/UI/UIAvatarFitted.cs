@@ -23,7 +23,8 @@ public struct TItemAvatar
 	private bool isSelect;
 	private bool isEnableBuy;
 	private int id;
-	private int usekind; 
+	private int usekind;
+	private EAvatarMode mode;
 
 	private UILabel name;
 	private UILabel usetime;
@@ -40,11 +41,34 @@ public struct TItemAvatar
 	private UISprite SellSelect;
 	public DateTime EndUseTime;
 
+	public EAvatarMode Mode
+	{
+		set{
+			mode = value;
+
+			if(mode == EAvatarMode.Sell)
+			{
+				if(!Equip){
+					equipBtn.defaultColor = Color.red;
+					equipBtn.hover = Color.gray;
+				}
+			}
+			else
+			{
+				if(equipBtn){
+					equipBtn.defaultColor = (Equip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+					equipBtn.hover = (Equip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+				}
+			}
+		}
+		get{return mode;}
+	}
+
 	public int ID 
 	{
 		set{
 			id = value;
-			CheckItemUseKind();
+//			CheckItemUseKind();
 		}
 		get{return id;}
 	}
@@ -54,7 +78,7 @@ public struct TItemAvatar
 		// 永久性裝備 : -1, 時效性裝備 : 1, 已過期裝備 : 2
 		set{
 			usekind = value;
-			CheckItemUseKind();
+//			CheckItemUseKind();
 		}
 		get{return usekind;}
 	}
@@ -96,6 +120,12 @@ public struct TItemAvatar
 		set{
 			isSelect = value;
 			SellSelect.gameObject.SetActive(isSelect);
+
+			if(Mode == EAvatarMode.Sell)
+			{
+
+			}
+
 		}
 		get {
 			return isSelect;
@@ -140,27 +170,10 @@ public struct TItemAvatar
 	public TimeSpan UseTime
 	{
 		set{
-
-//			if(IsRental == false){
-//				return;
-//			}
-//
 			currentTime = value;
 
 			if(usetime)
 				usetime.text = value.Days + " : " + value.Hours + " : " + value.Minutes;
-
-//			if(currentTime.TotalSeconds < 0){
-//				if(isReantimeEnd == false)
-//				{
-//					//End
-//					if(IsRental){
-//						usetime.gameObject.SetActive(false);
-//					}
-//					CheckEquipBtnName();
-//					isReantimeEnd = true;
-//				}
-//			}
 		}
 
 		get{return currentTime;}
@@ -171,18 +184,29 @@ public struct TItemAvatar
 		switch (UseKind) 
 		{
 			case 2:
-				if(TrimBottom.color != Color.black)
-					TrimBottom.color = Color.black;
-				equipLabel.text = "FETTING";
+				if(mode == EAvatarMode.Sell){
+					equipLabel.text = "SELL";
+				}else{
+					if(TrimBottom.color != Color.black)
+						TrimBottom.color = Color.black;
+					equipLabel.text = "FETTING";
+				}
 				break;
 			default:
-				if(TrimBottom.color != Color.white)
-					TrimBottom.color = Color.white;
-				
-				if(Equip)
-					equipLabel.text = "EQUIPED";
-				else
-					equipLabel.text = "EQUIP";
+				if(mode == EAvatarMode.Sell){
+					if(Equip)
+						equipLabel.text = "EQUIPED";
+					else
+						equipLabel.text = "SELL";
+				}else{
+					if(TrimBottom.color != Color.white)
+						TrimBottom.color = Color.white;
+					
+					if(Equip)
+						equipLabel.text = "EQUIPED";
+					else
+						equipLabel.text = "EQUIP";
+				}
 			break;
 		}
 	}
@@ -204,6 +228,7 @@ public struct TItemAvatar
 	{
 		if (!isInit) {
 			if (gameobject) {
+				Mode = EAvatarMode.Normal;
 				name = gameobject.transform.FindChild ("ItemName").gameObject.GetComponent<UILabel> ();
 				usetime = gameobject.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
 				abilityValue = gameobject.transform.FindChild ("BuyBtn/FinishLabel").gameObject.GetComponent<UILabel> ();
@@ -230,8 +255,8 @@ public struct TItemAvatar
 		isInit = name && usetime && abilityValue && pic;
 	}
 
-	public void CheckItemUseKind()
-	{
+//	public void CheckItemUseKind()
+//	{
 //		if(GameData.DItemData.ContainsKey(ID))
 //		{
 //			switch(usekind)
@@ -256,7 +281,7 @@ public struct TItemAvatar
 //				FinishLabel.gameObject.SetActive(!PriceLabel.gameObject.activeSelf);
 //			}
 //		}
-	}
+//	}
 
 	public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc)
 	{
@@ -313,6 +338,13 @@ public struct TEquip
 	public int Index;
 }
 
+public enum EAvatarMode
+{
+	Sell,
+	Sort,
+	Normal
+}
+
 public class UIAvatarFitted : UIBase {
 	private static UIAvatarFitted instance = null;
 	private const string UIName = "UIAvatarFitted";
@@ -333,6 +365,7 @@ public class UIAvatarFitted : UIBase {
 	private TimeSpan checktime;
 	private GameObject avatar;
 	private string[] btnPaths = new string[avatarPartCount];
+	public EAvatarMode Mode = EAvatarMode.Normal;
 
 	public static bool Visible {
 		get {
@@ -384,8 +417,10 @@ public class UIAvatarFitted : UIBase {
 			SetBtnFunReName (btnPaths[i], DoAvatarTab, i.ToString());
 
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
-		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSort);
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
+		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
+//		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
+
 
 		item = Resources.Load ("Prefab/UI/Items/ItemAvatarBtn") as GameObject;
 //		grid = GameObject.Find (UIName + "/MainView/Left/ItemList/UIGrid").GetComponent<UIGrid>();
@@ -626,7 +661,6 @@ public class UIAvatarFitted : UIBase {
 			case 0:
 				sortlist.Sort((x, y) => { return -x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					Debug.Log("sort : " + sortlist[i].Index);
 					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
 					count++;
 				}
@@ -634,7 +668,6 @@ public class UIAvatarFitted : UIBase {
 			case 1:
 				sortlist.Sort((x, y) => { return x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					Debug.Log("sort : " + sortlist[i].Index);
 					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
 					count++;
 				}
@@ -665,14 +698,23 @@ public class UIAvatarFitted : UIBase {
 		int index;
 
 		if (int.TryParse (UIButton.current.name, out index)) {
-			
+			Debug.Log ("Buy id : " + index);
 		}
-		Debug.Log ("Buy id : " + index);
 	}
 
 	public void OnSellMode()
 	{
-
+		if (Mode == EAvatarMode.Sort)
+			return;
+		else
+		{
+			if(Mode == EAvatarMode.Normal)
+				ChangeMode(EAvatarMode.Sell);
+			else{
+				//sell something
+				ChangeMode(EAvatarMode.Normal);
+			}
+		}
 	}
 
 	public void InitEquipState()
@@ -691,7 +733,7 @@ public class UIAvatarFitted : UIBase {
 				   	if(Equips[avatarPart].Index == backpackItems[i].Index)
 						backpackItems[i].Equip = true;
 				}
-				backpackItems[i].CheckItemUseKind();
+//				backpackItems[i].CheckItemUseKind();
 			}
 		}
 	}
@@ -714,48 +756,60 @@ public class UIAvatarFitted : UIBase {
 		if (int.TryParse (UIButton.current.name, out index)) {
 			if(index < backpackItems.Length)
 			{
-				TEquip equip = new TEquip();
-				int kind = GetItemKind(backpackItems[index].ID);
-				equip.ID = backpackItems[index].ID;
-				equip.Kind = kind;
-				equip.Index = backpackItems[index].Index;
-
-				if(!backpackItems[index].Equip){
-
-					//裝備Item
-					backpackItems[index].Equip = true;
-
-					//卸除已裝備的Item
-					for(int i = 0; i < backpackItems.Length;i++)
-						if(index != i && backpackItems[i].Kind == avatarPart)
-							backpackItems[i].Equip = false;
-
-					if(Equips.ContainsKey(kind)){
-						//檢查同部位是否有裝裝備
-						if(Equips[kind].ID > 0){ 
-							AddUnEquipItem(kind, Equips[kind]);
-							Equips[kind] = equip;
-						}else{ 
-							//此部位未裝備任何裝備
-							AddEquipItem(kind, equip);
+				switch(Mode)
+				{
+					case EAvatarMode.Sell:
+						if(backpackItems[index].Equip)
+							return;
+						else
+							backpackItems[index].Selected = !backpackItems[index].Selected;
+						break;
+					default:
+						TEquip equip = new TEquip();
+						int kind = GetItemKind(backpackItems[index].ID);
+						equip.ID = backpackItems[index].ID;
+						equip.Kind = kind;
+						equip.Index = backpackItems[index].Index;
+						
+						if(!backpackItems[index].Equip){
+							
+							//裝備Item
+							backpackItems[index].Equip = true;
+							
+							//卸除已裝備的Item
+							for(int i = 0; i < backpackItems.Length;i++)
+								if(index != i && backpackItems[i].Kind == avatarPart)
+									backpackItems[i].Equip = false;
+							
+							if(Equips.ContainsKey(kind)){
+								//檢查同部位是否有裝裝備
+								if(Equips[kind].ID > 0){ 
+									AddUnEquipItem(kind, Equips[kind]);
+									Equips[kind] = equip;
+								}else{ 
+									//此部位未裝備任何裝備
+									AddEquipItem(kind, equip);
+									Equips[kind] = equip;
+								}
+							}else{
+								AddEquipItem(kind, equip);
+								DeleteUnEquipItem(kind, equip);
+							}
+							
+							ItemIdTranslateAvatar();
+							ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
+							InitUIPlayer();
+						}
+						else
+						{
+							AddUnEquipItem(kind, equip);
+							backpackItems[index].Equip = false;
+							equip.ID = 0;
 							Equips[kind] = equip;
 						}
-					}else{
-						AddEquipItem(kind, equip);
-						DeleteUnEquipItem(kind, equip);
-					}
+						break;
+				}
 
-					ItemIdTranslateAvatar();
-					ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-					InitUIPlayer();
-				}
-				else
-				{
-					AddUnEquipItem(kind, equip);
-					backpackItems[index].Equip = false;
-					equip.ID = 0;
-					Equips[kind] = equip;
-				}
 			}
 		}
 	}
@@ -886,9 +940,22 @@ public class UIAvatarFitted : UIBase {
         UIMainLobby.Get.Show();
 	}
 
-	private void OnSort()
+	public void ChangeMode(EAvatarMode mode)
+	{
+		for (int i = 0; i < backpackItems.Length; i++)
+			backpackItems [i].Mode = mode;
+		Mode = mode;
+		UpdateView ();
+	}
+
+	private void OnSortMode()
 	{
 		UISort.UIShow (!UISort.Visible, 1);
+
+		if(!UISort.Visible)
+			ChangeMode (EAvatarMode.Normal);
+		else
+			ChangeMode (EAvatarMode.Sort);
 	}
 
 	private void OnSave()
