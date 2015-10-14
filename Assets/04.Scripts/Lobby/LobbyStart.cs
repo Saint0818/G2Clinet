@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,7 +75,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
         else
             UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
 
-        UIMainLobby.Get.PlayerName = GameData.Team.Player.Name;
+        UIMainLobby.Get.UpdateUI();
     }
 
     private void sceneMove() {
@@ -443,7 +443,6 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			UILoading.UIShow(false);
 			UIMainLobby.Get.Show();
-            updateLobbyInformation();
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
@@ -453,14 +452,6 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			Debug.Log(e.ToString());
 		}
 	}
-
-    private void updateLobbyInformation()
-    {
-        UIMainLobby.Get.Money = GameData.Team.Money;
-        UIMainLobby.Get.Diamond = GameData.Team.Diamond;
-        UIMainLobby.Get.Power = GameData.Team.Power;
-        UIMainLobby.Get.PlayerName = GameData.Team.Player.Name;
-    }
 
 	public void InitOnlinePlayers(ref TTeam[] teams, ref TScenePlayer[] scenePlayers) {
 		ClearOnlinePlayers();

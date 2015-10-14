@@ -147,7 +147,7 @@ public class UIGamePause : UIBase {
 		
 	}
 
-	private void initTarget() {;
+	private void initTarget() {
 		int index = 0;
 		if(GameController.Get.StageHintBit.Length > 0 && GameController.Get.StageHintBit[0] > 0) {
 			gameTargets[index].Self.SetActive(true);

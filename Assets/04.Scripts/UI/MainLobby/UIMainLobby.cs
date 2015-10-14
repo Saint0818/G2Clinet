@@ -26,31 +26,20 @@ public class UIMainLobby : UIBase
         Impl = GetComponent<UIMainLobbyImpl>();
     }
 
-    public int Money
-    {
-        set { Impl.Money = value; }
-    }
-
-    public int Diamond
-    {
-        set { Impl.Diamond = value; }
-    }
-
-    public int Power
-    {
-        set { Impl.Power = value; }
-    }
-
-    public string PlayerName
-    {
-        set { Impl.PlayerName = value; }
-    }
-
     public void Show()
     {
         Show(true);
-
         UI3DMainLobby.Get.Show();
+
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        Impl.Money = GameData.Team.Money;
+        Impl.Diamond = GameData.Team.Diamond;
+        Impl.Power = GameData.Team.Power;
+        Impl.PlayerName = GameData.Team.Player.Name;
     }
 
     public void Hide()

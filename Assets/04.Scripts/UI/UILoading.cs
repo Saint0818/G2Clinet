@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -142,9 +142,6 @@ public class UILoading : UIBase {
 			break;
 		case ELoadingGamePic.Lobby:
 			UIMainLobby.Get.Show();
-			UIMainLobby.Get.Money = GameData.Team.Money;
-			UIMainLobby.Get.Diamond = GameData.Team.Diamond;
-			UIMainLobby.Get.Power = GameData.Team.Power;
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
