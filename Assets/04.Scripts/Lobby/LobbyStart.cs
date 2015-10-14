@@ -34,7 +34,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 	private TPlayerObject[] scenePlayers = new TPlayerObject[5];
 	private TPlayerObject[] onlinePlayers = new TPlayerObject[2];
 
-	void Start () {
+	void Start ()
+    {
 		Time.timeScale = 1;
 
 		RootScenePlayers = GameObject.Find("ScenePlayers");
@@ -49,13 +50,35 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			RootOnlinePlayers.name = "OnlinePlayers";
 		}
 
-		if (GameData.Team.Identifier == "")
+	    UIMainLobby.Get.Impl.ChangePlayerNameListener += changePlayerName;
+
+		if(GameData.Team.Identifier == "")
 			SendHttp.Get.CheckServerData(true);
 		else
 			EnterLobby();
     }
 
-	private void sceneMove() {
+    private void changePlayerName()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("NewPlayerName", UIInput.current.value);
+        SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
+    }
+
+    private void waitChangePlayerName(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            GameData.Team.Player.Name = www.text;
+            UIHint.Get.ShowHint("Change Name Success!", Color.black);
+        }
+        else
+            UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
+
+        UIMainLobby.Get.PlayerName = GameData.Team.Player.Name;
+    }
+
+    private void sceneMove() {
 		if (RPGMove && rpgCamera != null && rpgCamera.UsedCamera != null) {
 			if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonUp(0)) {
 				Ray ray = UI2D.Get.Camera2D.ScreenPointToRay (Input.mousePosition);
@@ -419,9 +442,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			UIMainLobby.Get.Show();
-            UIMainLobby.Get.Money = GameData.Team.Money;
-            UIMainLobby.Get.Diamond = GameData.Team.Diamond;
-            UIMainLobby.Get.Power = GameData.Team.Power;
+            updateLobbyInformation();
+
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
 		}
@@ -430,6 +452,14 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			Debug.Log(e.ToString());
 		}
 	}
+
+    private void updateLobbyInformation()
+    {
+        UIMainLobby.Get.Money = GameData.Team.Money;
+        UIMainLobby.Get.Diamond = GameData.Team.Diamond;
+        UIMainLobby.Get.Power = GameData.Team.Power;
+        UIMainLobby.Get.PlayerName = GameData.Team.Player.Name;
+    }
 
 	public void InitOnlinePlayers(ref TTeam[] teams, ref TScenePlayer[] scenePlayers) {
 		ClearOnlinePlayers();

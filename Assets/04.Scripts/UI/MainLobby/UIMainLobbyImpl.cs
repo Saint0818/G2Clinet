@@ -6,10 +6,16 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIMainLobbyImpl : MonoBehaviour
 {
+    /// <summary>
+    /// 呼叫時機: 當玩家更改球員名稱時.
+    /// </summary>
+    public event CommonDelegateMethods.Action ChangePlayerNameListener;
+
     public GameObject FullScreenBlock;
     public UILabel MoneyLabel;
     public UILabel DiamondLabel;
     public UILabel PowerLabel;
+    public UIInput NameInput;
 
     [UsedImplicitly]
     private void Awake()
@@ -30,6 +36,11 @@ public class UIMainLobbyImpl : MonoBehaviour
     public int Power
     {
         set { PowerLabel.text = value.ToString(); }
+    }
+
+    public string PlayerName
+    {
+        set { NameInput.value = value; }
     }
 
     /// <summary>
@@ -82,5 +93,14 @@ public class UIMainLobbyImpl : MonoBehaviour
     {
         UISkillFormation.UIShow(true);
         UIMainLobby.Get.Hide();
+    }
+
+    public void ChangePlayerName()
+    {
+        if(UIInput.current.value.Length <= 0)
+            return;
+
+        if(ChangePlayerNameListener != null)
+            ChangePlayerNameListener();
     }
 }

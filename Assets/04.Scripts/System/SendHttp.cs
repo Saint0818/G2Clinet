@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +25,7 @@ public static class URLConst {
 	public const string DeleteRole = "deleterole";
 	public const string EquipsSkillCard = "equipskillcard";
 	public const string ScenePlayer = "sceneplayer";
+	public const string ChangePlayerName = "changeplayername";
 
 	public const string LinkFB = "linkfb";
 	public const string TeamName = "teamname";
@@ -57,7 +58,7 @@ public static class URLConst {
 	public const string Polling = "polling";
 	public const string ItemUp = "itemup";
 	public const string SellItem = "sellitem";
-	public const string fullPower = "fullPower";
+	public const string FullPower = "fullPower";
 	public const string BuyLuckBox = "buyluckbox";
 	public const string BuyStoreItem = "buystoreitem";
 	public const string PlayerEvo = "playerevo";
