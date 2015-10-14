@@ -119,7 +119,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else {
 			focusCount++;
 			if (focusCount > 1 && CheckNetwork()) {
-				if (UILoading.Visible && !UIUpdateVersion.Visible) {
+				if (GameData.Team.Identifier == "" && !UIUpdateVersion.Visible) {
 					checkVersion ();
 				} else
 				if (GameData.Team.Player.Lv > 0) {

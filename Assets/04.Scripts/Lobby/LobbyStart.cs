@@ -441,6 +441,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
+			UILoading.UIShow(false);
 			UIMainLobby.Get.Show();
             updateLobbyInformation();
 
