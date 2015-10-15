@@ -8,7 +8,8 @@
         "maxstack": 1,
         "usetime": 96,
         "effectkind": 1,
-        "effectvalue": 10
+        "effectvalue": 10,
+        "money": 100
     },
     {
         "id": 2,
@@ -17,7 +18,8 @@
         "position": 0,
         "avatar": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3,
@@ -25,7 +27,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4,
@@ -33,7 +36,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5,
@@ -41,7 +45,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6,
@@ -49,7 +54,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7,
@@ -57,7 +63,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 8,
@@ -65,7 +72,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 9,
@@ -73,7 +81,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 10,
@@ -82,7 +91,8 @@
         "position": 0,
         "avatar": 10,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 11,
@@ -90,7 +100,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 12,
@@ -98,7 +109,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 13,
@@ -106,7 +118,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 14,
@@ -114,7 +127,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 15,
@@ -122,7 +136,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 16,
@@ -130,7 +145,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 17,
@@ -138,7 +154,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 18,
@@ -146,7 +163,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 19,
@@ -154,7 +172,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 20,
@@ -162,7 +181,8 @@
         "kind": 0,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 101,
@@ -171,7 +191,8 @@
         "position": 1,
         "avatar": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 102,
@@ -180,7 +201,8 @@
         "position": 1,
         "avatar": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 103,
@@ -188,7 +210,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 104,
@@ -196,7 +219,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 105,
@@ -204,7 +228,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 106,
@@ -212,7 +237,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 107,
@@ -220,7 +246,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 108,
@@ -228,7 +255,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 109,
@@ -236,7 +264,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 110,
@@ -244,7 +273,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 111,
@@ -252,7 +282,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 112,
@@ -260,7 +291,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 113,
@@ -268,7 +300,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 114,
@@ -276,7 +309,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 115,
@@ -284,7 +318,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 116,
@@ -292,7 +327,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 117,
@@ -300,7 +336,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 118,
@@ -308,7 +345,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 119,
@@ -316,7 +354,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 120,
@@ -324,7 +363,8 @@
         "kind": 0,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 201,
@@ -333,7 +373,8 @@
         "position": 2,
         "avatar": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 202,
@@ -342,7 +383,8 @@
         "position": 2,
         "avatar": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 203,
@@ -350,7 +392,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 204,
@@ -358,7 +401,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 205,
@@ -366,7 +410,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 206,
@@ -374,7 +419,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 207,
@@ -382,7 +428,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 208,
@@ -390,7 +437,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 209,
@@ -398,7 +446,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 210,
@@ -406,7 +455,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 211,
@@ -414,7 +464,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 212,
@@ -423,7 +474,8 @@
         "position": 2,
         "avatar": 12,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 213,
@@ -431,7 +483,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 214,
@@ -439,7 +492,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 215,
@@ -447,7 +501,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 216,
@@ -455,7 +510,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 217,
@@ -463,7 +519,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 218,
@@ -471,7 +528,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 219,
@@ -479,7 +537,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 220,
@@ -487,7 +546,8 @@
         "kind": 0,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1001,
@@ -496,7 +556,8 @@
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1002,
@@ -505,7 +566,8 @@
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1003,
@@ -514,7 +576,8 @@
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1004,
@@ -523,7 +586,8 @@
         "position": 0,
         "avatar": 2001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1005,
@@ -531,7 +595,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1006,
@@ -539,7 +604,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1007,
@@ -547,7 +613,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1008,
@@ -555,7 +622,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1009,
@@ -563,7 +631,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1010,
@@ -571,7 +640,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1011,
@@ -579,7 +649,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1012,
@@ -587,7 +658,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1013,
@@ -595,7 +667,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1014,
@@ -603,7 +676,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1015,
@@ -611,7 +685,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1016,
@@ -619,7 +694,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1017,
@@ -627,7 +703,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1018,
@@ -635,7 +712,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1019,
@@ -643,7 +721,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1020,
@@ -651,7 +730,8 @@
         "kind": 1,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1101,
@@ -660,7 +740,8 @@
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1102,
@@ -669,7 +750,8 @@
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1103,
@@ -678,7 +760,8 @@
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1104,
@@ -687,7 +770,8 @@
         "position": 1,
         "avatar": 2001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1105,
@@ -695,7 +779,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1106,
@@ -703,7 +788,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1107,
@@ -711,7 +797,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1108,
@@ -719,7 +806,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1109,
@@ -727,7 +815,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1110,
@@ -735,7 +824,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1111,
@@ -744,7 +834,8 @@
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1112,
@@ -752,7 +843,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1113,
@@ -760,7 +852,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1114,
@@ -768,7 +861,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1115,
@@ -776,7 +870,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1116,
@@ -784,7 +879,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1117,
@@ -792,7 +888,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1118,
@@ -800,7 +897,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1119,
@@ -808,7 +906,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1120,
@@ -816,7 +915,8 @@
         "kind": 1,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1201,
@@ -825,7 +925,8 @@
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1202,
@@ -834,7 +935,8 @@
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1203,
@@ -843,7 +945,8 @@
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1204,
@@ -851,7 +954,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1205,
@@ -859,7 +963,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1206,
@@ -867,7 +972,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1207,
@@ -875,7 +981,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1208,
@@ -883,7 +990,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1209,
@@ -891,7 +999,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1210,
@@ -899,7 +1008,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1211,
@@ -907,7 +1017,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1212,
@@ -916,7 +1027,8 @@
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1213,
@@ -924,7 +1036,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1214,
@@ -932,7 +1045,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1215,
@@ -940,7 +1054,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1216,
@@ -948,7 +1063,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1217,
@@ -956,7 +1072,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1218,
@@ -964,7 +1081,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1219,
@@ -972,7 +1090,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 1220,
@@ -980,7 +1099,8 @@
         "kind": 1,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2001,
@@ -989,7 +1109,8 @@
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2002,
@@ -997,7 +1118,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2003,
@@ -1005,7 +1127,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2004,
@@ -1013,7 +1136,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2005,
@@ -1021,7 +1145,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2006,
@@ -1029,7 +1154,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2007,
@@ -1037,7 +1163,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2008,
@@ -1045,7 +1172,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2009,
@@ -1053,7 +1181,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2010,
@@ -1061,7 +1190,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2011,
@@ -1069,7 +1199,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2012,
@@ -1077,7 +1208,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2013,
@@ -1085,7 +1217,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2014,
@@ -1093,7 +1226,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2015,
@@ -1101,7 +1235,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2016,
@@ -1109,7 +1244,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2017,
@@ -1117,7 +1253,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2018,
@@ -1125,7 +1262,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2019,
@@ -1133,7 +1271,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2020,
@@ -1141,7 +1280,8 @@
         "kind": 2,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2101,
@@ -1150,7 +1290,8 @@
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2102,
@@ -1158,7 +1299,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2103,
@@ -1166,7 +1308,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2104,
@@ -1174,7 +1317,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2105,
@@ -1182,7 +1326,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2106,
@@ -1190,7 +1335,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2107,
@@ -1198,7 +1344,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2108,
@@ -1206,7 +1353,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2109,
@@ -1214,7 +1362,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2110,
@@ -1222,7 +1371,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2111,
@@ -1230,7 +1380,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2112,
@@ -1238,7 +1389,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2113,
@@ -1246,7 +1398,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2114,
@@ -1254,7 +1407,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2115,
@@ -1262,7 +1416,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2116,
@@ -1270,7 +1425,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2117,
@@ -1278,7 +1434,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2118,
@@ -1286,7 +1443,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2119,
@@ -1294,7 +1452,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2120,
@@ -1302,7 +1461,8 @@
         "kind": 2,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2201,
@@ -1311,7 +1471,8 @@
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2202,
@@ -1319,7 +1480,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2203,
@@ -1327,7 +1489,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2204,
@@ -1335,7 +1498,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2205,
@@ -1343,7 +1507,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2206,
@@ -1351,7 +1516,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2207,
@@ -1359,7 +1525,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2208,
@@ -1367,7 +1534,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2209,
@@ -1375,7 +1543,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2210,
@@ -1383,7 +1552,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2211,
@@ -1391,7 +1561,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2212,
@@ -1399,7 +1570,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2213,
@@ -1407,7 +1579,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2214,
@@ -1415,7 +1588,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2215,
@@ -1423,7 +1597,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2216,
@@ -1431,7 +1606,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2217,
@@ -1439,7 +1615,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2218,
@@ -1447,7 +1624,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2219,
@@ -1455,7 +1633,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 2220,
@@ -1463,7 +1642,8 @@
         "kind": 2,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3001,
@@ -1472,7 +1652,8 @@
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3002,
@@ -1481,7 +1662,8 @@
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3003,
@@ -1490,7 +1672,8 @@
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3004,
@@ -1499,7 +1682,8 @@
         "position": 0,
         "avatar": 2002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3005,
@@ -1507,7 +1691,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3006,
@@ -1515,7 +1700,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3007,
@@ -1523,7 +1709,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3008,
@@ -1531,7 +1718,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3009,
@@ -1539,7 +1727,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3010,
@@ -1548,7 +1737,8 @@
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3011,
@@ -1556,7 +1746,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3012,
@@ -1564,7 +1755,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3013,
@@ -1572,7 +1764,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3014,
@@ -1580,7 +1773,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3015,
@@ -1588,7 +1782,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3016,
@@ -1596,7 +1791,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3017,
@@ -1604,7 +1800,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3018,
@@ -1612,7 +1809,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3019,
@@ -1620,7 +1818,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3020,
@@ -1628,7 +1827,8 @@
         "kind": 3,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3101,
@@ -1637,7 +1837,8 @@
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3102,
@@ -1646,7 +1847,8 @@
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3103,
@@ -1655,7 +1857,8 @@
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3104,
@@ -1664,7 +1867,8 @@
         "position": 1,
         "avatar": 2001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3105,
@@ -1672,7 +1876,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3106,
@@ -1680,7 +1885,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3107,
@@ -1688,7 +1894,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3108,
@@ -1696,7 +1903,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3109,
@@ -1704,7 +1912,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3110,
@@ -1712,7 +1921,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3111,
@@ -1721,7 +1931,8 @@
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3112,
@@ -1729,7 +1940,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3113,
@@ -1737,7 +1949,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3114,
@@ -1745,7 +1958,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3115,
@@ -1753,7 +1967,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3116,
@@ -1761,7 +1976,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3117,
@@ -1769,7 +1985,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3118,
@@ -1777,7 +1994,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3119,
@@ -1785,7 +2003,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3120,
@@ -1793,7 +2012,8 @@
         "kind": 3,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3201,
@@ -1802,7 +2022,8 @@
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3202,
@@ -1811,7 +2032,8 @@
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3203,
@@ -1820,7 +2042,8 @@
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3204,
@@ -1828,7 +2051,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3205,
@@ -1836,7 +2060,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3206,
@@ -1844,7 +2069,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3207,
@@ -1852,7 +2078,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3208,
@@ -1860,7 +2087,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3209,
@@ -1868,7 +2096,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3210,
@@ -1876,7 +2105,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3211,
@@ -1884,7 +2114,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3212,
@@ -1893,7 +2124,8 @@
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3213,
@@ -1901,7 +2133,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3214,
@@ -1909,7 +2142,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3215,
@@ -1917,7 +2151,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3216,
@@ -1925,7 +2160,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3217,
@@ -1933,7 +2169,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3218,
@@ -1941,7 +2178,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3219,
@@ -1949,7 +2187,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 3220,
@@ -1957,7 +2196,8 @@
         "kind": 3,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4001,
@@ -1966,7 +2206,8 @@
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4002,
@@ -1975,7 +2216,8 @@
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4003,
@@ -1984,7 +2226,8 @@
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4004,
@@ -1993,7 +2236,8 @@
         "position": 0,
         "avatar": 5001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4005,
@@ -2001,7 +2245,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4006,
@@ -2009,7 +2254,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4007,
@@ -2017,7 +2263,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4008,
@@ -2025,7 +2272,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4009,
@@ -2033,7 +2281,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4010,
@@ -2042,7 +2291,8 @@
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4011,
@@ -2050,7 +2300,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4012,
@@ -2058,7 +2309,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4013,
@@ -2066,7 +2318,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4014,
@@ -2074,7 +2327,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4015,
@@ -2082,7 +2336,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4016,
@@ -2090,7 +2345,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4017,
@@ -2098,7 +2354,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4018,
@@ -2106,7 +2363,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4019,
@@ -2114,7 +2372,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4020,
@@ -2122,7 +2381,8 @@
         "kind": 4,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4101,
@@ -2131,7 +2391,8 @@
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4102,
@@ -2140,7 +2401,8 @@
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4103,
@@ -2149,7 +2411,8 @@
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4104,
@@ -2158,7 +2421,8 @@
         "position": 1,
         "avatar": 3001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4105,
@@ -2166,7 +2430,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4106,
@@ -2174,7 +2439,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4107,
@@ -2182,7 +2448,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4108,
@@ -2190,7 +2457,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4109,
@@ -2198,7 +2466,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4110,
@@ -2206,7 +2475,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4111,
@@ -2215,7 +2485,8 @@
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4112,
@@ -2223,7 +2494,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4113,
@@ -2231,7 +2503,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4114,
@@ -2239,7 +2512,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4115,
@@ -2247,7 +2521,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4116,
@@ -2255,7 +2530,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4117,
@@ -2263,7 +2539,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4118,
@@ -2271,7 +2548,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4119,
@@ -2279,7 +2557,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4120,
@@ -2287,7 +2566,8 @@
         "kind": 4,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4201,
@@ -2296,7 +2576,8 @@
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4202,
@@ -2305,7 +2586,8 @@
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4203,
@@ -2314,7 +2596,8 @@
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4204,
@@ -2322,7 +2605,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4205,
@@ -2330,7 +2614,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4206,
@@ -2338,7 +2623,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4207,
@@ -2346,7 +2632,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4208,
@@ -2354,7 +2641,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4209,
@@ -2362,7 +2650,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4210,
@@ -2370,7 +2659,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4211,
@@ -2378,7 +2668,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4212,
@@ -2387,7 +2678,8 @@
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4213,
@@ -2395,7 +2687,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4214,
@@ -2403,7 +2696,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4215,
@@ -2411,7 +2705,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4216,
@@ -2419,7 +2714,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4217,
@@ -2427,7 +2723,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4218,
@@ -2435,7 +2732,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4219,
@@ -2443,7 +2741,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 4220,
@@ -2451,7 +2750,8 @@
         "kind": 4,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5001,
@@ -2460,7 +2760,8 @@
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5002,
@@ -2469,7 +2770,8 @@
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5003,
@@ -2478,7 +2780,8 @@
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5004,
@@ -2486,7 +2789,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5005,
@@ -2494,7 +2798,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5006,
@@ -2502,7 +2807,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5007,
@@ -2510,7 +2816,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5008,
@@ -2518,7 +2825,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5009,
@@ -2526,7 +2834,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5010,
@@ -2535,7 +2844,8 @@
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5011,
@@ -2543,7 +2853,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5012,
@@ -2551,7 +2862,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5013,
@@ -2559,7 +2871,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5014,
@@ -2567,7 +2880,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5015,
@@ -2575,7 +2889,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5016,
@@ -2583,7 +2898,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5017,
@@ -2591,7 +2907,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5018,
@@ -2599,7 +2916,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5019,
@@ -2607,7 +2925,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5020,
@@ -2615,7 +2934,8 @@
         "kind": 5,
         "position": 0,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5101,
@@ -2624,7 +2944,8 @@
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5102,
@@ -2633,7 +2954,8 @@
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5103,
@@ -2642,7 +2964,8 @@
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5104,
@@ -2650,7 +2973,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5105,
@@ -2658,7 +2982,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5106,
@@ -2666,7 +2991,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5107,
@@ -2674,7 +3000,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5108,
@@ -2682,7 +3009,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5109,
@@ -2690,7 +3018,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5110,
@@ -2698,7 +3027,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5111,
@@ -2707,7 +3037,8 @@
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5112,
@@ -2715,7 +3046,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5113,
@@ -2723,7 +3055,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5114,
@@ -2731,7 +3064,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5115,
@@ -2739,7 +3073,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5116,
@@ -2747,7 +3082,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5117,
@@ -2755,7 +3091,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5118,
@@ -2763,7 +3100,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5119,
@@ -2771,7 +3109,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5120,
@@ -2779,7 +3118,8 @@
         "kind": 5,
         "position": 1,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5201,
@@ -2788,7 +3128,8 @@
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5202,
@@ -2797,7 +3138,8 @@
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5203,
@@ -2806,7 +3148,8 @@
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5204,
@@ -2814,7 +3157,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5205,
@@ -2822,7 +3166,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5206,
@@ -2830,7 +3175,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5207,
@@ -2838,7 +3184,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5208,
@@ -2846,7 +3193,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5209,
@@ -2854,7 +3202,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5210,
@@ -2862,7 +3211,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5211,
@@ -2870,7 +3220,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5212,
@@ -2879,7 +3230,8 @@
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5213,
@@ -2887,7 +3239,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5214,
@@ -2895,7 +3248,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5215,
@@ -2903,7 +3257,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5216,
@@ -2911,7 +3266,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5217,
@@ -2919,7 +3275,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5218,
@@ -2927,7 +3284,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5219,
@@ -2935,7 +3293,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 5220,
@@ -2943,7 +3302,8 @@
         "kind": 5,
         "position": 2,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6001,
@@ -2952,7 +3312,8 @@
         "position": 3,
         "avatar": 10001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6002,
@@ -2961,7 +3322,8 @@
         "position": 3,
         "avatar": 11001,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6003,
@@ -2969,7 +3331,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6004,
@@ -2977,7 +3340,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6005,
@@ -2985,7 +3349,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6006,
@@ -2993,7 +3358,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6007,
@@ -3001,7 +3367,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6008,
@@ -3009,7 +3376,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6009,
@@ -3017,7 +3385,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6010,
@@ -3025,7 +3394,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6011,
@@ -3033,7 +3403,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6012,
@@ -3041,7 +3412,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6013,
@@ -3049,7 +3421,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6014,
@@ -3057,7 +3430,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6015,
@@ -3065,7 +3439,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6016,
@@ -3073,7 +3448,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6017,
@@ -3081,7 +3457,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6018,
@@ -3089,7 +3466,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6019,
@@ -3097,7 +3475,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 6020,
@@ -3105,7 +3484,8 @@
         "kind": 6,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7001,
@@ -3113,7 +3493,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7002,
@@ -3121,7 +3502,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7003,
@@ -3129,7 +3511,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7004,
@@ -3137,7 +3520,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7005,
@@ -3145,7 +3529,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7006,
@@ -3153,7 +3538,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7007,
@@ -3161,7 +3547,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7008,
@@ -3169,7 +3556,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7009,
@@ -3177,7 +3565,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7010,
@@ -3185,7 +3574,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7011,
@@ -3193,7 +3583,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7012,
@@ -3201,7 +3592,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7013,
@@ -3209,7 +3601,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7014,
@@ -3217,7 +3610,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7015,
@@ -3225,7 +3619,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7016,
@@ -3233,7 +3628,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7017,
@@ -3241,7 +3637,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7018,
@@ -3249,7 +3646,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7019,
@@ -3257,7 +3655,8 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     },
     {
         "id": 7020,
@@ -3265,6 +3664,7 @@
         "kind": 7,
         "position": 3,
         "maxstack": 1,
-        "usetime": 96
+        "usetime": 96,
+        "money": 100
     }
 ]
