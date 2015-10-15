@@ -124,8 +124,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				} else
 				if (GameData.Team.Player.Lv > 0) {
 
-					if (DateTime.UtcNow.Day != GameData.Team.LoginTime.ToUniversalTime().Day)
-						Command(URLConst.CheckResetToday, waitResetToday);
+					//if (DateTime.UtcNow.Day != GameData.Team.LoginTime.ToUniversalTime().Day)
+						//Command(URLConst.CheckResetToday, waitResetToday);
 				}
 			}
 		}
