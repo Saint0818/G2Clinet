@@ -525,8 +525,6 @@ namespace GameStruct {
 		public int AHeadDress;
 		public int ZBackEquip;
 
-//		public int Active; // 主動技, 數值是 Skill ID.
-//		public int ActiveLV;
 		public int Skill1;
 		public int SkillLV1;
 		public int Skill2;
@@ -842,7 +840,7 @@ namespace GameStruct {
 		}
 
 		public int Space(int lv) {
-			return space + Star * spaceAdd;
+			return Mathf.Max(space + Star * spaceAdd, 1);
 		}
 
 		public float LifeTime(int lv) {
@@ -856,10 +854,6 @@ namespace GameStruct {
 		public float Distance(int lv) {
 			return distance + lv * distanceAdd;
 		}
-
-//		public int StarCount (int lv) {
-//			return Mathf.Clamp(Star + (lv - 1), 1, MaxStar);
-//		}
 	}
 
 	public struct TItem {
