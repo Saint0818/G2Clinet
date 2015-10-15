@@ -1035,11 +1035,10 @@ public class UIAvatarFitted : UIBase {
 
 	private void OnSortMode()
 	{
-		UISort.UIShow (!UISort.Visible, 1);
-
 		if (Mode == EAvatarMode.Sell) {
 			return;
 		} else {
+			UISort.UIShow (!UISort.Visible, 1);
 			if(!UISort.Visible)
 				ChangeMode (EAvatarMode.Normal);
 			else
