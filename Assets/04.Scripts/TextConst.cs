@@ -78,11 +78,11 @@ public static class TextConst
 			AddString (15, "GUARD 後衛", "GUARD 後衛");
 			AddString (16, "FORWARDS 前鋒", "FORWARDS 前鋒");
 			AddString (17, "CENTER 中鋒", "CENTER 中鋒");
-			AddString (18, "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在酒吧練出花俏的手技。\n\n[33FFDD]擁有敏捷的動態視力。"
+			AddString (18, "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在酒吧練出花俏的手技。\n\n[33FFDD]擁有敏捷的動態視力"
 			           , "");
-			AddString (19, "因為階級鬥爭而喪失記憶與右臂的軍方臥底，因而被改造成半機械的生化人。為了尋找回憶中的女人，走上了復仇之路。\n\n[33FFDD]擁有高超的命中率。"
+			AddString (19, "因為階級鬥爭而喪失記憶與右臂的軍方臥底，因而被改造成半機械的生化人。\n\n為了尋找回憶中的女人，走上了復仇之路。\n\n[33FFDD]擁有高超的命中率"
 			           , "");
-			AddString (20, "摔角界的明日之星，但為了錢而一直打假比賽。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。\n\n[33FFDD]擁有強壯的體格。"
+			AddString (20, "摔角界的明日之星，但為了錢而一直打假比賽。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。\n\n[33FFDD]擁有強壯的體格"
 			           , "");
 			AddString (21, "GUARD", "GUARD");
 			AddString (22, "FORWARD", "FORWARD");
