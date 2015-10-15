@@ -1441,10 +1441,12 @@ public class GameController : KnightSingleton<GameController>
 	private void judgeSkillUI()
     {
 		if(Joysticker.Attribute.ActiveSkills.Count > 0 ){
-			if(Joysticker && Joysticker.Attribute.ActiveSkills[0].ID > 0 && IsStart)
-			{
-				CourtMgr.Get.SkillArea((int)Joysticker.Team, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[0]));
-				UIGame.Get.ShowSkillUI(IsStart, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[0]), Joysticker.CheckSkill(Joysticker.Attribute.ActiveSkills[0]));
+			for(int i=0; i<Joysticker.Attribute.ActiveSkills.Count; i++) {
+				if(Joysticker && Joysticker.Attribute.ActiveSkills[i].ID > 0 && IsStart)
+				{
+					CourtMgr.Get.SkillArea((int)Joysticker.Team, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[i]));
+					UIGame.Get.ShowSkillUI(IsStart, i, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[i]), Joysticker.CheckSkill(Joysticker.Attribute.ActiveSkills[i]));
+				}
 			}
 		}
 	}

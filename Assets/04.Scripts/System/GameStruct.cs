@@ -132,7 +132,7 @@ namespace GameStruct {
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
-			SkillCardPages = new int[0, 0];
+			SkillCardPages = new int[0,0];
 			Items = new TItem[0];
 		}
 
@@ -377,15 +377,16 @@ namespace GameStruct {
 
 		public int MaxAnger{
 			get{
-				if(ActiveSkills.Count > 0) {
-					int maxAnger = 0;
-					for (int i=0; i<ActiveSkills.Count; i++) {
-						if (GameData.DSkillData.ContainsKey(ActiveSkills[i].ID))
-							maxAnger += GameData.DSkillData[ActiveSkills[i].ID].MaxAnger;
-					}
-					return maxAnger;
-				} else
-					return 0;
+//				if(ActiveSkills.Count > 0) {
+//					int maxAnger = 0;
+//					for (int i=0; i<ActiveSkills.Count; i++) {
+//						if (GameData.DSkillData.ContainsKey(ActiveSkills[i].ID))
+//							maxAnger += GameData.DSkillData[ActiveSkills[i].ID].MaxAnger;
+//					}
+//					return maxAnger;
+//				} else
+//					return 0;
+				return 100;
 			}
 		}
 
@@ -869,6 +870,7 @@ namespace GameStruct {
         // [0]:Body, [1]:Hair, [2]:AHeadDress, [3]:Cloth, [4]:Pants
         // [5]:Shoes, [6]:MHandDress, [7]:ZBackEquip
         public int Kind;
+
 		public int Position;
 		public int Avatar;
 		public int MaxStack;

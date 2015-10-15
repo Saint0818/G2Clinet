@@ -225,8 +225,8 @@ public class UISkillFormation : UIBase {
 		labelTotalPrice = GameObject.Find (UIName + "/BottomLeft/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
 
 		SetBtnFun (UIName + "/BottomLeft/SortBtn", DoSort);
-		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSell);
-		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
+//		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSell);
+//		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 //		initCards ();
