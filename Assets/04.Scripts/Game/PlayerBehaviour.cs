@@ -3184,7 +3184,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				break;
 			case "OnlyScore":
-                if (OnOnlyScore != null)
+				if (OnOnlyScore != null) 
                     OnOnlyScore(this);
                 break;
 
@@ -3415,6 +3415,7 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	public void SetBallEvent () {
 		GameController.Get.SetBall(this);
+		GameRecord.Steal ++;
 		if(GameController.Get.Catcher != null) 
 			GameController.Get.Catcher = null;
 		if(GameController.Get.Passer != null)
