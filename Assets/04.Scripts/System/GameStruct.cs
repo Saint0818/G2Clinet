@@ -97,10 +97,12 @@ namespace GameStruct {
 		public int BodyType;
 		public int MaxSkillSpace;
         public int AISkillLv;
+		public int SkillPage;
 
 		public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
+		public int[,] SkillCardPages;
 		public TItem[] Items;
 
 		public TPlayer(int level)
@@ -125,9 +127,12 @@ namespace GameStruct {
 			BodyType = 0;
 			MaxSkillSpace = 0;
 		    AISkillLv = 0;
+			SkillPage = 0;
+
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
+			SkillCardPages = new int[0,0];
 			Items = new TItem[0];
 		}
 

@@ -175,8 +175,10 @@ public class UICreateRoleStyleView : MonoBehaviour
 //        form.AddField("Name", GameData.Team.Player.Name);
         form.AddField("Name", SystemInfo.deviceUniqueIdentifier);
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
-		
-		UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+
+		if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+			UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+
         SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
     }
 

@@ -643,13 +643,23 @@ public class UISelectRole : UIBase {
 		}
 			break;
 		case EUIRoleSituation.BackToSelectMe:
-			Invoke("showUITriangle", 1.25f);
-			Invoke("leftRightShow", 0.5f);
-			animatorLoading.SetTrigger("Close");
-			
-			for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
-				arrayPlayer[i].SetActive(false);
-			uiShowTime.SetActive(true);
+			if (GameData.StageID > -1) {
+				UIShow(false);
+				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+				else
+					LobbyStart.Get.EnterLobby();
+			} else {
+				Invoke("showUITriangle", 1.25f);
+				Invoke("leftRightShow", 0.5f);
+				animatorLoading.SetTrigger("Close");
+				
+				for(int i = 1; i < arrayPlayerPosition.Length; i++) 	
+					arrayPlayer[i].SetActive(false);
+
+				uiShowTime.SetActive(true);
+			}
+
 			break;
 		case EUIRoleSituation.Start:
 			SetEnemyMembers ();
@@ -775,7 +785,7 @@ public class UISelectRole : UIBase {
 
 		labelPlayerName.text = GameData.PlayerName (GameConst.SelectRoleID [0]);
 		SetBodyPic(ref spritePlayerBodyPic, GameData.DPlayers [GameConst.SelectRoleID [0]].BodyType);
-		uiBack.SetActive(false);
+		//uiBack.SetActive(false);
 
 		doubleClickTime = 1;
 		UIState(EUIRoleSituation.ChooseRole);

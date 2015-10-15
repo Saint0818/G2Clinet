@@ -19,8 +19,10 @@ public struct TSkillInfo {
 }
 
 public struct TEquipSkillCardResult {
+	public int SkillPage;
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
+	public int[,] SkillCardPages;
 }
 
 public struct TActiveStruct {
@@ -1035,6 +1037,7 @@ public class UISkillFormation : UIBase {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 
 			if(!isEdit) 
