@@ -132,7 +132,7 @@ namespace GameStruct {
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
-			SkillCardPages = new int[0,0];
+			SkillCardPages = new int[0, 0];
 			Items = new TItem[0];
 		}
 
