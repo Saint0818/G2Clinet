@@ -29,7 +29,7 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         public bool IsValid()
         {
-            return PlayerID > 0 && RoleIndex >= 0 && !string.IsNullOrEmpty(Name) && Level >= 1;
+            return PlayerID > 0 && RoleIndex >= 0 && Level >= 1;
         }
 
         public override string ToString()
