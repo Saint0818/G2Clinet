@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "nametw": "中鋒身體1",
+        "nametw": "白人",
         "kind": 0,
         "position": 0,
         "avatar": 1,
@@ -13,7 +13,7 @@
     },
     {
         "id": 2,
-        "nametw": "中鋒身體2",
+        "nametw": "黑人",
         "kind": 0,
         "position": 0,
         "avatar": 2,
@@ -86,7 +86,7 @@
     },
     {
         "id": 10,
-        "nametw": "中鋒身體10",
+        "nametw": "印地安人",
         "kind": 0,
         "position": 0,
         "avatar": 10,
@@ -186,7 +186,7 @@
     },
     {
         "id": 101,
-        "nametw": "前鋒身體1",
+        "nametw": "東亞人",
         "kind": 0,
         "position": 1,
         "avatar": 1,
@@ -196,7 +196,7 @@
     },
     {
         "id": 102,
-        "nametw": "前鋒身體2",
+        "nametw": "白人",
         "kind": 0,
         "position": 1,
         "avatar": 2,
@@ -368,7 +368,7 @@
     },
     {
         "id": 201,
-        "nametw": "後衛身體1",
+        "nametw": "白人",
         "kind": 0,
         "position": 2,
         "avatar": 1,
@@ -378,7 +378,7 @@
     },
     {
         "id": 202,
-        "nametw": "後衛身體2",
+        "nametw": "南美洲人",
         "kind": 0,
         "position": 2,
         "avatar": 2,
@@ -469,7 +469,7 @@
     },
     {
         "id": 212,
-        "nametw": "後衛身體12",
+        "nametw": "歐洲人",
         "kind": 0,
         "position": 2,
         "avatar": 12,
@@ -551,7 +551,7 @@
     },
     {
         "id": 1001,
-        "nametw": "中鋒頭髮1",
+        "nametw": "辮子頭(黑)",
         "kind": 1,
         "position": 0,
         "avatar": 1001,
@@ -561,7 +561,7 @@
     },
     {
         "id": 1002,
-        "nametw": "中鋒頭髮2",
+        "nametw": "辮子頭(金)",
         "kind": 1,
         "position": 0,
         "avatar": 1002,
@@ -571,7 +571,7 @@
     },
     {
         "id": 1003,
-        "nametw": "中鋒頭髮3",
+        "nametw": "辮子頭(白)",
         "kind": 1,
         "position": 0,
         "avatar": 1003,
@@ -735,7 +735,7 @@
     },
     {
         "id": 1101,
-        "nametw": "前鋒頭髮1",
+        "nametw": "賽亞頭(紅)",
         "kind": 1,
         "position": 1,
         "avatar": 1001,
@@ -745,7 +745,7 @@
     },
     {
         "id": 1102,
-        "nametw": "前鋒頭髮2",
+        "nametw": "賽亞頭(黑",
         "kind": 1,
         "position": 1,
         "avatar": 1002,
@@ -755,7 +755,7 @@
     },
     {
         "id": 1103,
-        "nametw": "前鋒頭髮3",
+        "nametw": "賽亞頭(金)",
         "kind": 1,
         "position": 1,
         "avatar": 1003,
@@ -829,7 +829,7 @@
     },
     {
         "id": 1111,
-        "nametw": "前鋒頭髮11",
+        "nametw": "復仇紫",
         "kind": 1,
         "position": 1,
         "avatar": 11001,
@@ -920,7 +920,7 @@
     },
     {
         "id": 1201,
-        "nametw": "後衛頭髮1",
+        "nametw": "繽紛金",
         "kind": 1,
         "position": 2,
         "avatar": 1001,
@@ -930,7 +930,7 @@
     },
     {
         "id": 1202,
-        "nametw": "後衛頭髮2",
+        "nametw": "神秘紫",
         "kind": 1,
         "position": 2,
         "avatar": 1002,
@@ -940,7 +940,7 @@
     },
     {
         "id": 1203,
-        "nametw": "後衛頭髮3",
+        "nametw": "亮眼藍",
         "kind": 1,
         "position": 2,
         "avatar": 1003,
@@ -1022,7 +1022,7 @@
     },
     {
         "id": 1212,
-        "nametw": "後衛頭髮12",
+        "nametw": "黑人頭",
         "kind": 1,
         "position": 2,
         "avatar": 12001,
@@ -1647,7 +1647,7 @@
     },
     {
         "id": 3001,
-        "nametw": "中鋒衣服1",
+        "nametw": "幫派夾克(黑)",
         "kind": 3,
         "position": 0,
         "avatar": 1001,
@@ -1657,7 +1657,7 @@
     },
     {
         "id": 3002,
-        "nametw": "中鋒衣服2",
+        "nametw": "幫派夾克(牛仔)",
         "kind": 3,
         "position": 0,
         "avatar": 1002,
@@ -1667,7 +1667,7 @@
     },
     {
         "id": 3003,
-        "nametw": "中鋒衣服3",
+        "nametw": "幫派夾克(綠)",
         "kind": 3,
         "position": 0,
         "avatar": 1003,
@@ -1723,7 +1723,7 @@
     },
     {
         "id": 3009,
-        "nametw": "中鋒衣服9",
+        "nametw": "法力刺青",
         "kind": 3,
         "position": 0,
         "maxstack": 1,
@@ -1832,7 +1832,7 @@
     },
     {
         "id": 3101,
-        "nametw": "前鋒衣服1",
+        "nametw": "運動外套(綠藍)",
         "kind": 3,
         "position": 1,
         "avatar": 1001,
@@ -1842,7 +1842,7 @@
     },
     {
         "id": 3102,
-        "nametw": "前鋒衣服2",
+        "nametw": "運動外套(黑紅)",
         "kind": 3,
         "position": 1,
         "avatar": 1002,
@@ -1852,7 +1852,7 @@
     },
     {
         "id": 3103,
-        "nametw": "前鋒衣服3",
+        "nametw": "運動外套(白紫)",
         "kind": 3,
         "position": 1,
         "avatar": 1003,
@@ -1926,7 +1926,7 @@
     },
     {
         "id": 3111,
-        "nametw": "前鋒衣服11",
+        "nametw": "生化衣",
         "kind": 3,
         "position": 1,
         "avatar": 11001,
@@ -2017,7 +2017,7 @@
     },
     {
         "id": 3201,
-        "nametw": "後衛衣服1",
+        "nametw": "皮外套(黑)",
         "kind": 3,
         "position": 2,
         "avatar": 1001,
@@ -2027,7 +2027,7 @@
     },
     {
         "id": 3202,
-        "nametw": "後衛衣服2",
+        "nametw": "皮外套(桃紅)",
         "kind": 3,
         "position": 2,
         "avatar": 1002,
@@ -2037,7 +2037,7 @@
     },
     {
         "id": 3203,
-        "nametw": "後衛衣服3",
+        "nametw": "皮外套(白)",
         "kind": 3,
         "position": 2,
         "avatar": 1003,
@@ -2119,7 +2119,7 @@
     },
     {
         "id": 3212,
-        "nametw": "後衛衣服12",
+        "nametw": "酒保套裝",
         "kind": 3,
         "position": 2,
         "avatar": 12001,
@@ -2201,7 +2201,7 @@
     },
     {
         "id": 4001,
-        "nametw": "中鋒褲子1",
+        "nametw": "超憋褲(黑)",
         "kind": 4,
         "position": 0,
         "avatar": 1001,
@@ -2211,7 +2211,7 @@
     },
     {
         "id": 4002,
-        "nametw": "中鋒褲子2",
+        "nametw": "超憋褲(牛仔)",
         "kind": 4,
         "position": 0,
         "avatar": 1002,
@@ -2221,7 +2221,7 @@
     },
     {
         "id": 4003,
-        "nametw": "中鋒褲子3",
+        "nametw": "超憋褲(綠)",
         "kind": 4,
         "position": 0,
         "avatar": 1003,
@@ -2286,7 +2286,7 @@
     },
     {
         "id": 4010,
-        "nametw": "中鋒褲子10",
+        "nametw": "摔角手冠軍褲",
         "kind": 4,
         "position": 0,
         "avatar": 10001,
@@ -2386,7 +2386,7 @@
     },
     {
         "id": 4101,
-        "nametw": "前鋒褲子1",
+        "nametw": "反摺褲(藍)",
         "kind": 4,
         "position": 1,
         "avatar": 1001,
@@ -2396,7 +2396,7 @@
     },
     {
         "id": 4102,
-        "nametw": "前鋒褲子2",
+        "nametw": "反摺褲(黑)",
         "kind": 4,
         "position": 1,
         "avatar": 1002,
@@ -2406,7 +2406,7 @@
     },
     {
         "id": 4103,
-        "nametw": "前鋒褲子3",
+        "nametw": "反摺褲(紫)",
         "kind": 4,
         "position": 1,
         "avatar": 1003,
@@ -2480,7 +2480,7 @@
     },
     {
         "id": 4111,
-        "nametw": "前鋒褲子11",
+        "nametw": "生化褲",
         "kind": 4,
         "position": 1,
         "avatar": 11001,
@@ -2571,7 +2571,7 @@
     },
     {
         "id": 4201,
-        "nametw": "後衛褲子1",
+        "nametw": "熱褲(珊瑚紅)",
         "kind": 4,
         "position": 2,
         "avatar": 1001,
@@ -2581,7 +2581,7 @@
     },
     {
         "id": 4202,
-        "nametw": "後衛褲子2",
+        "nametw": "熱褲(黃)",
         "kind": 4,
         "position": 2,
         "avatar": 1002,
@@ -2591,7 +2591,7 @@
     },
     {
         "id": 4203,
-        "nametw": "後衛褲子3",
+        "nametw": "熱褲(紅)",
         "kind": 4,
         "position": 2,
         "avatar": 1003,
@@ -2673,7 +2673,7 @@
     },
     {
         "id": 4212,
-        "nametw": "後衛褲子12",
+        "nametw": "酒保短裙",
         "kind": 4,
         "position": 2,
         "avatar": 12001,
@@ -2755,7 +2755,7 @@
     },
     {
         "id": 5001,
-        "nametw": "中鋒鞋子1",
+        "nametw": "拳擊高筒靴(紅)",
         "kind": 5,
         "position": 0,
         "avatar": 1001,
@@ -2765,7 +2765,7 @@
     },
     {
         "id": 5002,
-        "nametw": "中鋒鞋子2",
+        "nametw": "拳擊高筒靴(黃)",
         "kind": 5,
         "position": 0,
         "avatar": 1002,
@@ -2775,7 +2775,7 @@
     },
     {
         "id": 5003,
-        "nametw": "中鋒鞋子3",
+        "nametw": "拳擊高筒靴(藍)",
         "kind": 5,
         "position": 0,
         "avatar": 1003,
@@ -2839,7 +2839,7 @@
     },
     {
         "id": 5010,
-        "nametw": "中鋒鞋子10",
+        "nametw": "印第安摔角靴",
         "kind": 5,
         "position": 0,
         "avatar": 10001,
@@ -2939,7 +2939,7 @@
     },
     {
         "id": 5101,
-        "nametw": "前鋒鞋子1",
+        "nametw": "運動鞋(紅)",
         "kind": 5,
         "position": 1,
         "avatar": 1001,
@@ -2949,7 +2949,7 @@
     },
     {
         "id": 5102,
-        "nametw": "前鋒鞋子2",
+        "nametw": "運動鞋鐵灰)",
         "kind": 5,
         "position": 1,
         "avatar": 1002,
@@ -2959,7 +2959,7 @@
     },
     {
         "id": 5103,
-        "nametw": "前鋒鞋子3",
+        "nametw": "運動鞋(白)",
         "kind": 5,
         "position": 1,
         "avatar": 1003,
@@ -3032,7 +3032,7 @@
     },
     {
         "id": 5111,
-        "nametw": "前鋒鞋子11",
+        "nametw": "反摺靴",
         "kind": 5,
         "position": 1,
         "avatar": 11001,
@@ -3123,7 +3123,7 @@
     },
     {
         "id": 5201,
-        "nametw": "後衛鞋子1",
+        "nametw": "長靴(黑)",
         "kind": 5,
         "position": 2,
         "avatar": 1001,
@@ -3133,7 +3133,7 @@
     },
     {
         "id": 5202,
-        "nametw": "後衛鞋子2",
+        "nametw": "長靴(桃紅)",
         "kind": 5,
         "position": 2,
         "avatar": 1002,
@@ -3143,7 +3143,7 @@
     },
     {
         "id": 5203,
-        "nametw": "後衛鞋子3",
+        "nametw": "長靴(藍)",
         "kind": 5,
         "position": 2,
         "avatar": 1003,
@@ -3225,7 +3225,7 @@
     },
     {
         "id": 5212,
-        "nametw": "後衛鞋子12",
+        "nametw": "溜冰靴",
         "kind": 5,
         "position": 2,
         "avatar": 12001,
