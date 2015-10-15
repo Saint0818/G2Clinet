@@ -869,11 +869,11 @@ namespace GameStruct {
         // [0]:Body, [1]:Hair, [2]:AHeadDress, [3]:Cloth, [4]:Pants
         // [5]:Shoes, [6]:MHandDress, [7]:ZBackEquip
         public int Kind;
-
 		public int Position;
 		public int Avatar;
 		public int MaxStack;
 		public int UseTime;
+		public int Money;
 		public string Icon;
 		public string NameTW;
 		public string NameCN;

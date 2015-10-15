@@ -120,12 +120,6 @@ public struct TItemAvatar
 		set{
 			isSelect = value;
 			SellSelect.gameObject.SetActive(isSelect);
-
-			if(Mode == EAvatarMode.Sell)
-			{
-
-			}
-
 		}
 		get {
 			return isSelect;
@@ -357,6 +351,8 @@ public class UIAvatarFitted : UIBase {
 	private GameObject disableGroup;
 	private int enableCount = 0;
 	private int avatarPart = 1;
+	private GameObject SellCount;
+	private UILabel TotalPrice;
 	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
@@ -419,9 +415,12 @@ public class UIAvatarFitted : UIBase {
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SortBtn", OnSortMode);
-//		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
-
-
+		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
+		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
+		SellCount = GameObject.Find (UIName + "/MainView/BottomLeft/SellBtn/SellCount");
+		TotalPrice = SellCount.transform.FindChild ("TotalPrice").gameObject.GetComponent<UILabel> ();
+		SellCount.SetActive (false);
+	
 		item = Resources.Load ("Prefab/UI/Items/ItemAvatarBtn") as GameObject;
 //		grid = GameObject.Find (UIName + "/MainView/Left/ItemList/UIGrid").GetComponent<UIGrid>();
 		enablePool = GameObject.Find (UIName + "/MainView/Left/ItemList").transform;
@@ -493,6 +492,21 @@ public class UIAvatarFitted : UIBase {
 		InitItemsData();
 		InitEquipState();
 		UpdateView();
+	}
+
+	private void UpdateSellMoney()
+	{
+		int total = 0;
+
+		for (int i = 0; i < backpackItems.Length; i++)
+			if (backpackItems [i].Selected)
+			{
+				int id = backpackItems [i].ID;
+				if(GameData.DItemData.ContainsKey(id))
+					total += GameData.DItemData [id].Money;
+			}
+
+		TotalPrice.text = string.Format("Total : {0}", total);
 	}
 	
 	private bool CheckSameEquip()
@@ -611,6 +625,7 @@ public class UIAvatarFitted : UIBase {
 			//ItemVisable
 			if(backpackItems[i].ID > 0 && GameData.DItemData.ContainsKey(backpackItems[i].ID) && backpackItems[i].Kind == avatarPart)
 			{
+				backpackItems[i].Mode = Mode;
 				#if UIAvatarFitted_ShowAll
 				items[i].Enable = true;
 				#else
@@ -647,6 +662,9 @@ public class UIAvatarFitted : UIBase {
 				backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
 				backpackItems[i].Enable = false;
 			}
+
+			if(Mode == EAvatarMode.Sell && backpackItems[i].Equip)
+				backpackItems[i].Enable = false;
 		}
 
 		int count = 0;
@@ -661,14 +679,14 @@ public class UIAvatarFitted : UIBase {
 			case 0:
 				sortlist.Sort((x, y) => { return -x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
 					count++;
 				}
 			break;
 			case 1:
 				sortlist.Sort((x, y) => { return x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+				sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
 					count++;
 				}
 				break;
@@ -676,7 +694,7 @@ public class UIAvatarFitted : UIBase {
 				for(int i = 0; i < backpackItems.Length; i++)
 					if(backpackItems[i].Enable)
 					{
-						backpackItems[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 130 : -130), 0);
+				backpackItems[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
 						count++;
 					}
 						break;
@@ -708,12 +726,65 @@ public class UIAvatarFitted : UIBase {
 			return;
 		else
 		{
-			if(Mode == EAvatarMode.Normal)
-				ChangeMode(EAvatarMode.Sell);
+			UpdateSellMoney ();
+
+			if(Mode == EAvatarMode.Normal){
+				if(CheckSameEquip())
+				{
+					ChangeMode(EAvatarMode.Sell);
+				}
+				else
+				{
+
+					//ask need save
+					OnSave();//yes
+//					UpdateAvatar(true);//No
+
+					ChangeMode(EAvatarMode.Sell);
+				}
+			}
 			else{
 				//sell something
-				ChangeMode(EAvatarMode.Normal);
+				AskSell();
 			}
+		}
+	}
+
+	private void OnCancelSell()
+	{
+		for(int i = 0; i < backpackItems.Length; i++)
+			backpackItems[i].Selected = false;
+
+		UpdateSellMoney ();
+		ChangeMode (EAvatarMode.Normal);
+	}
+
+	private void AskSell()
+	{
+		bool ans = true;
+
+		//Yes
+		if (ans) {
+			List<int> sells = new List<int>();
+
+			for(int i = 0; i < backpackItems.Length; i++)
+				if(backpackItems[i].Index != -1 && backpackItems[i].Selected)
+				{
+					sells.Add(backpackItems[i].Index);
+					backpackItems[i].Enable = false;
+					backpackItems[i].Selected = false;
+				}
+
+			sells.Sort((x, y) => { return x.CompareTo(y); });
+
+			//SendtoServer
+			WWWForm form = new WWWForm();
+			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(sells));
+			SendHttp.Get.Command(URLConst.SellItem, waitSellItem, form);
+		}
+		else
+		{
+			OnCancelSell();
 		}
 	}
 
@@ -761,8 +832,10 @@ public class UIAvatarFitted : UIBase {
 					case EAvatarMode.Sell:
 						if(backpackItems[index].Equip)
 							return;
-						else
+						else{
 							backpackItems[index].Selected = !backpackItems[index].Selected;
+							UpdateSellMoney ();
+						}
 						break;
 					default:
 						TEquip equip = new TEquip();
@@ -942,20 +1015,36 @@ public class UIAvatarFitted : UIBase {
 
 	public void ChangeMode(EAvatarMode mode)
 	{
-		for (int i = 0; i < backpackItems.Length; i++)
-			backpackItems [i].Mode = mode;
+//		for (int i = 0; i < backpackItems.Length; i++)
+//			backpackItems [i].Mode = mode;
 		Mode = mode;
 		UpdateView ();
+
+		switch (Mode) {
+			case EAvatarMode.Normal:
+				SellCount.SetActive (false);
+				break;
+			case EAvatarMode.Sell:
+				SellCount.SetActive (true);
+				break;
+			case EAvatarMode.Sort:
+				SellCount.SetActive (false);
+				break;
+		}
 	}
 
 	private void OnSortMode()
 	{
 		UISort.UIShow (!UISort.Visible, 1);
 
-		if(!UISort.Visible)
-			ChangeMode (EAvatarMode.Normal);
-		else
-			ChangeMode (EAvatarMode.Sort);
+		if (Mode == EAvatarMode.Sell) {
+			return;
+		} else {
+			if(!UISort.Visible)
+				ChangeMode (EAvatarMode.Normal);
+			else
+				ChangeMode (EAvatarMode.Sort);
+		}
 	}
 
 	private void OnSave()
@@ -965,10 +1054,8 @@ public class UIAvatarFitted : UIBase {
 			List<int> move = new List<int>();
 
 			foreach (KeyValuePair<int, TEquip> item in Equips) {
-				if(item.Value.ID > 0 && item.Value.Index > 0)
-				{
+				if(item.Value.ID > 0 && item.Value.Index > 0){
 					add.Add(item.Value.Index);
-//					Debug.LogError("目前裝備" + GameData.DItemData[item.Value.ID].Name);
 				}
 			}
 
@@ -976,10 +1063,8 @@ public class UIAvatarFitted : UIBase {
 
 			//找出脫掉裝備，不穿裝備的Item
 			foreach (KeyValuePair<int, TEquip> item in UnEquips) {
-				if(item.Value.ID > 0 && Equips.ContainsKey(item.Value.Kind) && Equips[item.Value.Kind].ID == 0)
-				{
+				if(item.Value.ID > 0 && Equips.ContainsKey(item.Value.Kind) && Equips[item.Value.Kind].ID == 0){
 					move.Add(item.Value.Kind);
-//					Debug.LogError("目前卸除" + GameData.DItemData[item.Value.ID].Name);
 				}
 			}
 
@@ -989,6 +1074,17 @@ public class UIAvatarFitted : UIBase {
 			form.AddField("AddIndexs", JsonConvert.SerializeObject(add));
 			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(move));
 			SendHttp.Get.Command(URLConst.ChangeAvatar, waitEquipPlayerItem, form);
+		}
+	}
+
+	private void waitSellItem(bool ok, WWW www)
+	{
+		if(ok)
+		{
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.Items = team.Items;
+			ChangeMode(EAvatarMode.Normal);
+			UpdateAvatar();
 		}
 	}
 
@@ -1005,7 +1101,7 @@ public class UIAvatarFitted : UIBase {
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
 
-		OnReturn ();
+//		OnReturn ();
 	}
 
 	protected override void InitData() {
@@ -1019,7 +1115,7 @@ public class UIAvatarFitted : UIBase {
 	private void InitUIPlayer()
 	{
 		avatar.transform.parent = gameObject.transform;
-		avatar.transform.localScale = Vector3.one * 500;
+		avatar.transform.localScale = Vector3.one * 445;
 		avatar.transform.localPosition = new Vector3 (-1160, -633, -2000);
 		changeLayersRecursively (avatar.transform, "UIPlayer");
 	}
