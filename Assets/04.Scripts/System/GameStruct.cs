@@ -76,6 +76,10 @@ namespace GameStruct {
         }
     }
 
+	public struct TSkillCardPage {
+		public int[] SNs;
+	}
+
     public struct TPlayer {
 		public int RoleIndex;
         public int ID;
@@ -102,7 +106,7 @@ namespace GameStruct {
 		public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
-		public int[,] SkillCardPages;
+		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
 
 		public TPlayer(int level)
@@ -132,7 +136,7 @@ namespace GameStruct {
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
-			SkillCardPages = new int[0,0];
+			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
 		}
 
