@@ -95,6 +95,10 @@ public static class TextConst
 			AddString (102, "Waiting for network.", "Waiting for network.");
 			AddString (103, "Network no responds. Please try again.", "Network no responds. Please try again.");
 
+			AddString (201, "AVATAR", "AVATAR");
+			AddString (202, "CARDS", "CARDS");
+			AddString (203, "確定售出？", "");
+
 			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");
 			AddString (2000012, "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
