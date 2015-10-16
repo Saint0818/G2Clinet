@@ -60,7 +60,7 @@
     /// <summary>
     /// 籃球特效時間. 單位:秒.
     /// </summary>
-    public const float BallSFXTime = 1;
+    public const float BallSFXTime = 3;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
