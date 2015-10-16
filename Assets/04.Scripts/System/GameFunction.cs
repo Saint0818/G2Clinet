@@ -3,6 +3,7 @@ using System.IO;
 using G2;
 using JetBrains.Annotations;
 using UnityEngine;
+using GameStruct;
 
 public static class GameFunction
 {
@@ -155,5 +156,70 @@ public static class GameFunction
 		myReader.Close();
 		myFile.Close();
 		return InData;
+	}
+
+	public static void ItemIdTranslateAvatar(ref TAvatar avatar, TItem[] items)
+	{
+		for (int i = 0; i < items.Length; i++) {
+			int kind = GetItemKind(items[i].ID);
+			int index = GetItemAvatarIndex(items[i].ID);
+			
+			switch(kind)		
+			{
+			case 0:
+				avatar.Body = GameData.Team.Player.Avatar.Body;
+				break;
+				
+			case 1:
+				avatar.Hair = index;
+				break;
+				
+			case 2:
+				avatar.MHandDress = index;//手飾
+				break;
+				
+			case 3:
+				avatar.Cloth = index;//上身
+				break;
+				
+			case 4:
+				avatar.Pants = index;//下身
+				break;
+				
+			case 5:
+				avatar.Shoes = index;//鞋
+				break;
+				
+			case 6:
+				avatar.AHeadDress = index;//頭飾(共用）
+				break;
+				
+			case 7:
+				avatar.ZBackEquip = index;//背部(共用)
+				break;
+			}
+		}
+	}
+
+	public static int GetTextureIndex(int avatarindex)
+	{
+		return avatarindex % 1000;
+	}
+
+	public static int GetItemKind(int id)
+	{
+		if (GameData.DItemData.ContainsKey (id)) {
+			return	GameData.DItemData[id].Kind;
+		} else {
+			return -1;
+		}
+	}
+	
+	public static int GetItemAvatarIndex(int id)
+	{
+		if (GameData.DItemData.ContainsKey (id)) {
+			return	GameData.DItemData[id].Avatar;
+		}else
+			return -1;
 	}
 }

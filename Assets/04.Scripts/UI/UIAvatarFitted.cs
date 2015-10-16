@@ -434,22 +434,7 @@ public class UIAvatarFitted : UIBase {
 //		isInit = true;
 	}
 
-	private int GetItemKind(int id)
-	{
-		if (GameData.DItemData.ContainsKey (id)) {
-			return	GameData.DItemData[id].Kind;
-		} else {
-			return -1;
-		}
-	}
 
-	private int GetItemAvatarIndex(int id)
-	{
-		if (GameData.DItemData.ContainsKey (id)) {
-			return	GameData.DItemData[id].Avatar;
-		}else
-			return -1;
-	}
 
 	private void InitEquips()
 	{
@@ -457,7 +442,7 @@ public class UIAvatarFitted : UIBase {
 			for(int i = 0; i < GameData.Team.Player.Items.Length;i++){
 				int kind = i;
 				if(GameData.Team.Player.Items[i].ID > 0)
-					kind = GetItemKind(GameData.Team.Player.Items[i].ID);
+					kind = GameFunction.GetItemKind(GameData.Team.Player.Items[i].ID);
 
 				if(kind < 8){
 					TEquip equip = new TEquip();
@@ -581,7 +566,7 @@ public class UIAvatarFitted : UIBase {
 					backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
 					backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
 					backpackItems[i].Pic = GameData.DItemData[backpackItems[i].ID].Icon;
-					backpackItems[i].Kind = GetItemKind(backpackItems[i].ID);
+					backpackItems[i].Kind = GameFunction.GetItemKind(backpackItems[i].ID);
 					backpackItems[i].UseKind = GameData.Team.Items[i].UseKind;
 					backpackItems[i].Index = i;
 			}
@@ -601,7 +586,7 @@ public class UIAvatarFitted : UIBase {
 							backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
 							backpackItems[i].Name =  GameData.DItemData[id].Name;
 							backpackItems[i].Pic = GameData.DItemData[id].Icon;
-							backpackItems[i].Kind = GetItemKind(id);
+							backpackItems[i].Kind = GameFunction.GetItemKind(id);
 							backpackItems[i].UseKind = GameData.Team.Player.Items[playerItemIndex].UseKind;
 							backpackItems[i].Index = -1;
 						}
@@ -839,7 +824,7 @@ public class UIAvatarFitted : UIBase {
 						break;
 					default:
 						TEquip equip = new TEquip();
-						int kind = GetItemKind(backpackItems[index].ID);
+						int kind = GameFunction.GetItemKind(backpackItems[index].ID);
 						equip.ID = backpackItems[index].ID;
 						equip.Kind = kind;
 						equip.Index = backpackItems[index].Index;
@@ -875,10 +860,15 @@ public class UIAvatarFitted : UIBase {
 						}
 						else
 						{
-							AddUnEquipItem(kind, equip);
-							backpackItems[index].Equip = false;
-							equip.ID = 0;
-							Equips[kind] = equip;
+							if(kind == 2 || kind == 6 || kind == 7){	
+								AddUnEquipItem(kind, equip);
+								backpackItems[index].Equip = false;
+								equip.ID = 0;
+								Equips[kind] = equip;
+								ItemIdTranslateAvatar();
+								ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
+								InitUIPlayer();
+							}
 						}
 						break;
 				}
@@ -909,54 +899,6 @@ public class UIAvatarFitted : UIBase {
 				UnEquips [kind] = item;
 			else
 				UnEquips.Add (kind, item);
-		}
-	}
-
-	private int GetTextureIndex(int avatarindex)
-	{
-		return avatarindex % 1000;
-	}
-
-	private void ItemIdTranslateAvatar(ref TAvatar avatar, TItem[] items)
-	{
-		for (int i = 0; i < items.Length; i++) {
-			int kind = GetItemKind(items[i].ID);
-			int index = GetItemAvatarIndex(items[i].ID);
-
-			switch(kind)		
-			{
-			case 0:
-				avatar.Body = GameData.Team.Player.Avatar.Body;
-				break;
-				
-			case 1:
-				avatar.Hair = index;
-				break;
-				
-			case 2:
-				avatar.MHandDress = index;//手飾
-				break;
-				
-			case 3:
-				avatar.Cloth = index;//上身
-				break;
-				
-			case 4:
-				avatar.Pants = index;//下身
-				break;
-				
-			case 5:
-				avatar.Shoes = index;//鞋
-				break;
-				
-			case 6:
-				avatar.AHeadDress = index;//頭飾(共用）
-				break;
-				
-			case 7:
-				avatar.ZBackEquip = index;//背部(共用)
-				break;
-			}
 		}
 	}
 
@@ -1011,12 +953,12 @@ public class UIAvatarFitted : UIBase {
 	{
 		UIShow (false);
         UIMainLobby.Get.Show();
+		if (UISort.Visible)
+			UISort.UIShow (false);
 	}
 
 	public void ChangeMode(EAvatarMode mode)
 	{
-//		for (int i = 0; i < backpackItems.Length; i++)
-//			backpackItems [i].Mode = mode;
 		Mode = mode;
 		UpdateView ();
 
@@ -1094,20 +1036,17 @@ public class UIAvatarFitted : UIBase {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Items = team.Items;
 			GameData.Team.Player.Items = team.Player.Items;
-
-			ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
+			GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
-
-//		OnReturn ();
 	}
 
 	protected override void InitData() {
 		UpdateAvatar(true);
 		avatar = new GameObject ();
 		avatar.name = "UIPlayer";
-		ModelManager.Get.SetAvatar(ref avatar, GameData.Team.Player.Avatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
+		ModelManager.Get.SetAvatarByItem(ref avatar, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
 		InitUIPlayer ();
 	}
 
