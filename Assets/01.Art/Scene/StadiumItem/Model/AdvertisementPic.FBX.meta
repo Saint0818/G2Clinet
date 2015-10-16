@@ -1,0 +1,268 @@
+fileFormatVersion: 2
+guid: 2bf9aa3ab156c114ba74430e28014a58
+timeCreated: 1444897965
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: AdPic_Dummy
+    100004: AdPic_Dummy1
+    100006: AdPic_Dummy2
+    100008: AdPic_Dummy3
+    100010: AdPic_Dummy4
+    100012: AdPic_Dummy5
+    100014: AdPic_Dummy6
+    100016: AdvertisementPic
+    400000: //RootNode
+    400002: AdPic_Dummy
+    400004: AdPic_Dummy1
+    400006: AdPic_Dummy2
+    400008: AdPic_Dummy3
+    400010: AdPic_Dummy4
+    400012: AdPic_Dummy5
+    400014: AdPic_Dummy6
+    400016: AdvertisementPic
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: AdvertisementPic
+    7400000: Stay
+    7400002: Act1
+    7400004: Act2
+    7400006: Act3
+    9500000: //RootNode
+    13700000: AdvertisementPic
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Stay
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AdPic_Dummy
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy1
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy2
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy3
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy4
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy5
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy6
+        weight: 1
+      - path: AdvertisementPic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Act1
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AdPic_Dummy
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy1
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy2
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy3
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy4
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy5
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy6
+        weight: 1
+      - path: AdvertisementPic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Act2
+      takeName: Take 001
+      firstFrame: 21
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AdPic_Dummy
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy1
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy2
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy3
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy4
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy5
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy6
+        weight: 1
+      - path: AdvertisementPic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Act3
+      takeName: Take 001
+      firstFrame: 41
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: AdPic_Dummy
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy1
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy2
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy3
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy4
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy5
+        weight: 1
+      - path: AdPic_Dummy/AdPic_Dummy6
+        weight: 1
+      - path: AdvertisementPic
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 0
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
