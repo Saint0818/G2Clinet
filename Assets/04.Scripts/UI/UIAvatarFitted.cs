@@ -352,7 +352,8 @@ public class UIAvatarFitted : UIBase {
 	private int enableCount = 0;
 	private int avatarPart = 1;
 	private GameObject SellCount;
-	private UILabel TotalPrice;
+	private UILabel TotalPriceLabel;
+	private int totalPrice = 0;
 	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
@@ -418,7 +419,7 @@ public class UIAvatarFitted : UIBase {
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn", OnSellMode);
 		SetBtnFun (UIName + "/MainView/BottomLeft/SellBtn/SellCount/CancelBtn", OnCancelSell);
 		SellCount = GameObject.Find (UIName + "/MainView/BottomLeft/SellBtn/SellCount");
-		TotalPrice = SellCount.transform.FindChild ("TotalPrice").gameObject.GetComponent<UILabel> ();
+		TotalPriceLabel = SellCount.transform.FindChild ("TotalPrice").gameObject.GetComponent<UILabel> ();
 		SellCount.SetActive (false);
 	
 		item = Resources.Load ("Prefab/UI/Items/ItemAvatarBtn") as GameObject;
@@ -491,7 +492,8 @@ public class UIAvatarFitted : UIBase {
 					total += GameData.DItemData [id].Money;
 			}
 
-		TotalPrice.text = string.Format("Total : {0}", total);
+		totalPrice = total;
+		TotalPriceLabel.text = string.Format("Total : {0}", totalPrice);
 	}
 	
 	private bool CheckSameEquip()
@@ -709,17 +711,13 @@ public class UIAvatarFitted : UIBase {
 	{
 		if (Mode == EAvatarMode.Sort)
 			return;
-		else
-		{
+		else{
 			UpdateSellMoney ();
 
 			if(Mode == EAvatarMode.Normal){
-				if(CheckSameEquip())
-				{
+				if(CheckSameEquip()){
 					ChangeMode(EAvatarMode.Sell);
-				}
-				else
-				{
+				}else{
 					//ask need save?
 					OnSave();//yes
 //					UpdateAvatar(true);//No
@@ -728,7 +726,10 @@ public class UIAvatarFitted : UIBase {
 			}
 			else{
 				//sell something
-				UIMessage.Get.ShowMessage(TextConst.S(201), TextConst.S(203), OnYesSell);
+				if(totalPrice > 0)
+					UIMessage.Get.ShowMessage(TextConst.S(201), TextConst.S(203), OnYesSell);
+				else
+					ChangeMode(EAvatarMode.Normal);
 			}
 		}
 	}
