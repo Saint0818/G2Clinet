@@ -49,6 +49,13 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         { EPlayerPostion.C, "Labelcenter"}
     };
 
+    private readonly Dictionary<EPlayerPostion, string> mPosBGs = new Dictionary<EPlayerPostion, string>
+    {
+        { EPlayerPostion.G, "Nameplate_guard"},
+        { EPlayerPostion.F, "Nameplate_forward"},
+        { EPlayerPostion.C, "Nameplate_center"}
+    };
+
     public GameObject Window;
     public UISprite CenterButton;
     public GameObject RemoveButton;
@@ -57,6 +64,7 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
     public GameObject PlayerInfo;
     public UISprite PosSprite;
+    public UISprite PosBG;
     public UILabel NameLabel;
     public UILabel LevelLabel;
     public GameObject SelectedIcon; // 用來標示哪一位球員是目前正在使用的球員.
@@ -170,6 +178,7 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         PlayerInfo.SetActive(true);
 
         PosSprite.spriteName = mPosNames[mData.Position];
+        PosBG.spriteName = mPosBGs[mData.Position];
         NameLabel.text = mData.Name;
         LevelLabel.text = mData.Level.ToString();
 
