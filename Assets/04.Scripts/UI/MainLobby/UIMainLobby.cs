@@ -24,6 +24,7 @@ public class UIMainLobby : UIBase
     private void Awake()
     {
         Impl = GetComponent<UIMainLobbyImpl>();
+        Impl.ChangePlayerNameListener += changePlayerName;
     }
 
     public void Show()
@@ -47,6 +48,26 @@ public class UIMainLobby : UIBase
         UI3DMainLobby.Get.Hide();
 
         RemoveUI(UIName);
+    }
+
+    private void changePlayerName()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("NewPlayerName", UIInput.current.value);
+        SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
+    }
+
+    private void waitChangePlayerName(bool ok, WWW www)
+    {
+        if (ok)
+        {
+            GameData.Team.Player.Name = www.text;
+            UIHint.Get.ShowHint("Change Name Success!", Color.black);
+        }
+        else
+            UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
+
+        UpdateUI();
     }
 
     public static UIMainLobby Get

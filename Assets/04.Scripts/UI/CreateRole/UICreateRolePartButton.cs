@@ -8,11 +8,11 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UICreateRolePartButton : MonoBehaviour
 {
-    public UICreateRoleStyleView.EEquip Equipment;
+    public UICreateRole.EEquip Equipment;
     public UICreateRoleStyleViewPartsWindow Window;
     public Transform Button;
 
-    public delegate void Action(UICreateRoleStyleView.EEquip equip);
+    public delegate void Action(UICreateRole.EEquip equip);
     /// <summary>
     /// 呼叫時機: 當按鈕被點選時.
     /// </summary>
@@ -65,7 +65,7 @@ public class UICreateRolePartButton : MonoBehaviour
             toggle.Set(true);
     }
 
-    public void OnPartItemSelected(UICreateRoleStyleView.EEquip equip, int index, int itemID)
+    public void OnPartItemSelected(UICreateRole.EEquip equip, int index, int itemID)
     {
 //        Debug.LogFormat("Equip:{0}, Index:{1}, ItemID:{2}", equip, index, itemID);
 

@@ -269,7 +269,7 @@ namespace GameStruct {
 								Avatar.Hair = item.Avatar;
 								break;
 							case 2:
-								Avatar.AHeadDress = item.Avatar;
+								Avatar.MHandDress = item.Avatar;
 								break;
 							case 3:
 								Avatar.Cloth = item.Avatar;
@@ -281,7 +281,7 @@ namespace GameStruct {
 								Avatar.Shoes = item.Avatar;
 								break;
 							case 6:
-								Avatar.MHandDress = item.Avatar;
+								Avatar.AHeadDress = item.Avatar;
 								break;
 							case 7:
 								Avatar.ZBackEquip = item.Avatar;
@@ -307,6 +307,11 @@ namespace GameStruct {
             return getItemID(1);
         }
 
+        public int GetHeadItemID()
+        {
+            return getItemID(6);
+        }
+
         public int GetClothItemID()
         {
             return getItemID(3);
@@ -320,6 +325,16 @@ namespace GameStruct {
         public int GetShoesItemID()
         {
             return getItemID(5);
+        }
+
+        public int GetHandItemID()
+        {
+            return getItemID(2);
+        }
+
+        public int GetBackItemID()
+        {
+            return getItemID(7);
         }
 
         private int getItemID(int kind)
@@ -463,14 +478,14 @@ namespace GameStruct {
 	public struct TAvatar {	
 		public int Body;
 		public int Hair; // Item.Avatar
-		public int AHeadDress;
-		public int Cloth;
+		public int AHeadDress; // 頭飾(共用).
+        public int Cloth;
 		public int Pants;
 		public int Shoes;
-		public int MHandDress;
-		public int ZBackEquip;
-		
-		public TAvatar (int id){
+		public int MHandDress; // 手飾.
+        public int ZBackEquip; // 背飾(共用).
+
+        public TAvatar (int id){
 			if (GameData.DPlayers.ContainsKey(id)) {
 				Body = GameData.DPlayers[id].Body;
 				Hair = GameData.DPlayers[id].Hair;
@@ -873,8 +888,8 @@ namespace GameStruct {
     {
 		public int ID;
 
-        // [0]:Body, [1]:Hair, [2]:AHeadDress, [3]:Cloth, [4]:Pants
-        // [5]:Shoes, [6]:MHandDress, [7]:ZBackEquip
+        // [0]:Body, [1]:Hair, [2]:AHandDress, [3]:Cloth, [4]:Pants
+        // [5]:Shoes, [6]:MHeadDress, [7]:ZBackEquip
         public int Kind;
 
 		public int Position;

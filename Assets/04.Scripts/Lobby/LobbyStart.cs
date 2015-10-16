@@ -50,32 +50,10 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			RootOnlinePlayers.name = "OnlinePlayers";
 		}
 
-	    UIMainLobby.Get.Impl.ChangePlayerNameListener += changePlayerName;
-
 		if(GameData.Team.Identifier == "")
 			SendHttp.Get.CheckServerData(true);
 		else
 			EnterLobby();
-    }
-
-    private void changePlayerName()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("NewPlayerName", UIInput.current.value);
-        SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
-    }
-
-    private void waitChangePlayerName(bool ok, WWW www)
-    {
-        if(ok)
-        {
-            GameData.Team.Player.Name = www.text;
-            UIHint.Get.ShowHint("Change Name Success!", Color.black);
-        }
-        else
-            UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
-
-        UIMainLobby.Get.UpdateUI();
     }
 
     private void sceneMove() {

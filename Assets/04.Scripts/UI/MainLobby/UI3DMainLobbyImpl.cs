@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -24,18 +25,23 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
     public void UpdateAvatar()
     {
-        if(mAvatar == null)
-        {
-            var player = GameData.Team.Player;
-            mAvatar = new AvatarPlayer(PlayerPos, null, "LobbyAvatarPlayer", player.ID, player.GetBodyItemID(),
-                player.GetHairItemID(), player.GetClothItemID(), player.GetPantsItemID(), player.GetShoesItemID());
-        }
+        var player = GameData.Team.Player;
+        Dictionary<UICreateRole.EEquip, int> itemIDs = new Dictionary<UICreateRole.EEquip, int>
+            {
+                {UICreateRole.EEquip.Body, player.GetBodyItemID()},
+                {UICreateRole.EEquip.Hair, player.GetHairItemID()},
+                {UICreateRole.EEquip.Cloth, player.GetClothItemID()},
+                {UICreateRole.EEquip.Pants, player.GetPantsItemID()},
+                {UICreateRole.EEquip.Shoes, player.GetShoesItemID()},
+                {UICreateRole.EEquip.Head, player.GetHeadItemID()},
+                {UICreateRole.EEquip.Hand, player.GetHandItemID()},
+                {UICreateRole.EEquip.Back, player.GetBackItemID()}
+            };
+
+        if (mAvatar == null)
+            mAvatar = new AvatarPlayer(PlayerPos, null, "LobbyAvatarPlayer", player.ID, itemIDs);
         else
-        {
-            var player = GameData.Team.Player;
-            mAvatar.UpdateParts(player.GetBodyItemID(), player.GetHairItemID(), player.GetClothItemID(), 
-                                player.GetPantsItemID(), player.GetShoesItemID());
-        }
+            mAvatar.ChangeParts(itemIDs);
         
     }
 }

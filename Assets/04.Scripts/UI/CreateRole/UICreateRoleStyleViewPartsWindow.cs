@@ -16,7 +16,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <param name="equip"></param>
     /// <param name="index"> 視窗中, 又上往下數, 哪一個被點選.(從 0 開始) </param>
     /// <param name="itemID"></param>
-    public delegate void Action(UICreateRoleStyleView.EEquip equip, int index, int itemID);
+    public delegate void Action(UICreateRole.EEquip equip, int index, int itemID);
 
     /// <summary>
     /// 呼叫時機: 視窗內某個裝備被點擊時.
@@ -39,7 +39,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// </summary>
     private const int UIHeightInterval = 100;
 
-    private UICreateRoleStyleView.EEquip mEquip;
+    private UICreateRole.EEquip mEquip;
 
     private readonly List<GameObject> mButtons = new List<GameObject>();
 
@@ -55,7 +55,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <param name="equip"></param>
     /// <param name="items"></param>
     /// <param name="selectedIndex"> 預設哪一個要被選擇. </param>
-    public void UpdateData(UICreateRoleStyleView.EEquip equip, TItemData[] items, int selectedIndex)
+    public void UpdateData(UICreateRole.EEquip equip, TItemData[] items, int selectedIndex)
     {
 //        foreach(TItemData item in items)
 //        {

@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System.Collections.Generic;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -115,38 +116,58 @@ public class UICreateRole : UIBase
     /// <param name="parent"></param>
     /// <param name="name"></param>
     /// <param name="playerID"></param>
-    /// <param name="bodyItemID"></param>
-    /// <param name="hairItemID"></param>
-    /// <param name="clothItemID"></param>
-    /// <param name="pantsItemID"></param>
-    /// <param name="shoesItemID"></param>
+    /// <param name="itemIDs"></param>
     /// <returns></returns>
     public static GameObject CreateModel(Transform parent, string name, int playerID, 
-        int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
+                                         Dictionary<EEquip, int> itemIDs)
     {
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
 
-        player.Avatar.Body = GameData.DItemData[bodyItemID].Avatar;
-        player.Avatar.Hair = GameData.DItemData[hairItemID].Avatar;
-        player.Avatar.Cloth = GameData.DItemData[clothItemID].Avatar;
-        player.Avatar.Pants = GameData.DItemData[pantsItemID].Avatar;
-        player.Avatar.Shoes = GameData.DItemData[shoesItemID].Avatar;
+        extractAvatarData(ref player.Avatar, itemIDs);
 
-        return CreateModel(name, player, parent);
+        return CreateModel(name, playerID, player.Avatar, parent);
+    }
+
+    private static void extractAvatarData(ref TAvatar avatar, Dictionary<EEquip, int> itemIDs)
+    {
+        if(itemIDs.ContainsKey(EEquip.Body) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Body]))
+            avatar.Body = GameData.DItemData[itemIDs[EEquip.Body]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Hair) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Hair]))
+            avatar.Hair = GameData.DItemData[itemIDs[EEquip.Hair]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Cloth) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Cloth]))
+            avatar.Cloth = GameData.DItemData[itemIDs[EEquip.Cloth]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Pants) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Pants]))
+            avatar.Pants = GameData.DItemData[itemIDs[EEquip.Pants]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Shoes) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Shoes]))
+            avatar.Shoes = GameData.DItemData[itemIDs[EEquip.Shoes]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Head) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Head]))
+            avatar.AHeadDress = GameData.DItemData[itemIDs[EEquip.Head]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Hand) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Hand]))
+            avatar.MHandDress = GameData.DItemData[itemIDs[EEquip.Hand]].Avatar;
+
+        if(itemIDs.ContainsKey(EEquip.Back) && GameData.DItemData.ContainsKey(itemIDs[EEquip.Back]))
+            avatar.ZBackEquip = GameData.DItemData[itemIDs[EEquip.Back]].Avatar;
     }
 
     /// <summary>
     /// 內部使用, 一般使用者不要使用. 建立新的球員模型(動作會被重置).
     /// </summary>
     /// <param name="name"></param>
-    /// <param name="player"></param>
+    /// <param name="playerID"></param>
+    /// <param name="avatar"></param>
     /// <param name="parent"></param>
     /// <returns></returns>
-    public static GameObject CreateModel(string name, TPlayer player, Transform parent)
+    public static GameObject CreateModel(string name, int playerID, TAvatar avatar, Transform parent)
     {
         GameObject model = new GameObject { name = name };
-		ModelManager.Get.SetAvatar(ref model, player.Avatar, GameData.DPlayers[player.ID].BodyType, 
+		ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType, 
                                    EAnimatorType.AvatarControl, false);
 
         model.transform.parent = parent;
@@ -159,26 +180,19 @@ public class UICreateRole : UIBase
     }
 
     /// <summary>
-    /// 內部使用, 一般使用者不要使用. 更新球員模型(動作不會重置).
+    /// <para> 內部使用, 一般使用者不要使用. 更新球員模型(動作不會重置). </para>
+    /// <para> ItemID = 0 表示該部位沒有任何東西. </para>
     /// </summary>
     /// <param name="model"></param>
     /// <param name="playerID"></param>
-    /// <param name="bodyItemID"></param>
-    /// <param name="hairItemID"></param>
-    /// <param name="clothItemID"></param>
-    /// <param name="pantsItemID"></param>
-    /// <param name="shoesItemID"></param>
+    /// <param name="itemIDs"></param>
     /// <returns></returns>
-    public static void UpdateModel(GameObject model, int playerID, int bodyItemID, int hairItemID, int clothItemID, int pantsItemID, int shoesItemID)
+    public static void UpdateModel(GameObject model, int playerID, Dictionary<EEquip, int> itemIDs)
     {
         TPlayer player = new TPlayer(0) { ID = playerID };
         player.SetAvatar();
 
-        player.Avatar.Body = GameData.DItemData[bodyItemID].Avatar;
-        player.Avatar.Hair = GameData.DItemData[hairItemID].Avatar;
-        player.Avatar.Cloth = GameData.DItemData[clothItemID].Avatar;
-        player.Avatar.Pants = GameData.DItemData[pantsItemID].Avatar;
-        player.Avatar.Shoes = GameData.DItemData[shoesItemID].Avatar;
+        extractAvatarData(ref player.Avatar, itemIDs);
 
         UpdateModel(model, playerID, player.Avatar);
     }
@@ -190,18 +204,10 @@ public class UICreateRole : UIBase
     /// <param name="playerID"></param>
     /// <param name="avatar"></param>
     /// <returns></returns>
-    public static void UpdateModel(GameObject model, int playerID, TAvatar avatar /*, Transform parent*/)
+    public static void UpdateModel(GameObject model, int playerID, TAvatar avatar)
     {
         ModelManager.Get.SetAvatar(ref model, avatar, GameData.DPlayers[playerID].BodyType,
                                    EAnimatorType.AvatarControl, false);
-
-//        model.transform.parent = parent;
-//        model.transform.localPosition = Vector3.zero;
-//        model.transform.localRotation = Quaternion.identity;
-//        model.transform.localScale = Vector3.one;
-//        LayerMgr.Get.SetLayer(model, ELayer.UI3D);
-
-//        return model;
     }
 
     [CanBeNull]
@@ -224,5 +230,17 @@ public class UICreateRole : UIBase
         }
 
         return data;
+    }
+
+    public enum EEquip
+    {
+        Body,
+        Hair,
+        Cloth,
+        Pants,
+        Shoes,
+        Head,
+        Hand,
+        Back
     }
 }
