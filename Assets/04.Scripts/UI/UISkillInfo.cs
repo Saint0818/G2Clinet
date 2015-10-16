@@ -8,6 +8,7 @@ public class UISkillInfo : UIBase {
 	private const string UIName = "UISkillInfo";
 
 	private UILabel labelEquip;
+	private GameObject btnEquip;
 
 	//SkillInfo
 	private UISprite spriteSkillQuality;
@@ -64,7 +65,7 @@ public class UISkillInfo : UIBase {
 	
 	public static void UIShow(bool isShow, TSkillInfo info, bool isEquip, bool isMaskOpen){
 		if(isShow) {
-			Get.labelEquip.gameObject.SetActive(!isMaskOpen);
+			Get.btnEquip.SetActive(!isMaskOpen);
 
 			Get.isAlreadyEquip = isEquip;
 			if(isEquip)
@@ -115,6 +116,7 @@ public class UISkillInfo : UIBase {
 	
 	protected override void InitCom() {
 		labelEquip = GameObject.Find (UIName + "/TopRight/EquipBtn/Label").GetComponent<UILabel>();
+		btnEquip = GameObject.Find (UIName + "/TopRight/EquipBtn");
 		btnMedium = GameObject.Find (UIName + "/Left/BtnMediumCard");
 		btnMediumTop = GameObject.Find (UIName + "/Left/BtnMediumCard/Top");
 		btnMediumTop.SetActive(false);

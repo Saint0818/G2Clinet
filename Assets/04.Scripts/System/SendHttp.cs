@@ -24,6 +24,7 @@ public static class URLConst {
 	public const string SelectRole = "selectrole";
 	public const string DeleteRole = "deleterole";
 	public const string EquipsSkillCard = "equipskillcard";
+	public const string ChangeSkillPage = "changeskillpage";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
 

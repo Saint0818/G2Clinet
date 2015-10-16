@@ -656,9 +656,12 @@ public class UIGame : UIBase {
 					uiSkillEnables[index].SetActive(canUse);
 				else
 					uiSkillEnables[index].SetActive(false);
-			} else 
-				for(int i=0; i<uiSkillEnables.Length; i++) 
+			} else {
+				for(int i=0; i<uiSkillEnables.Length; i++) {
 					uiSkillEnables[i].SetActive(false);
+
+				}
+			}
 		}
 	}
 	

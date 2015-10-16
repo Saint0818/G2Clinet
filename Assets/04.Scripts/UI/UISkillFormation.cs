@@ -21,8 +21,7 @@ public struct TSkillInfo {
 public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
-//	public TSkillCardPage[] SkillCardPages;
-	public int[,] SkillCardPages;
+	public object[] SkillCardPages;
 }
 
 public struct TActiveStruct {
@@ -191,13 +190,13 @@ public class UISkillFormation : UIBase {
 	protected override void InitCom() {
 		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
 		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
+		tempPage = GameData.Team.Player.SkillPage;
 		for(int i=0; i<toggleDecks.Length; i++) {
 			toggleDecks[i] = GameObject.Find(UIName + "/MainView/Right/DecksList/DecksBtn"+ i.ToString()).GetComponent<UIToggle>();
-			toggleDecks[i].name = (i+1).ToString();
+			toggleDecks[i].name = i.ToString();
 			UIEventListener.Get (toggleDecks[i].gameObject).onClick = OnChangePage;
-			toggleDecks[i].value = ((i+1) == GameData.Team.Player.SkillPage);
-			if(i>1)
-				toggleDecks[i].gameObject.SetActive(false);
+			toggleDecks[i].value = (i == tempPage);
+			toggleDecks[i].gameObject.SetActive((i<2));// it need judge by player level
 		}
 		for(int i=0; i<activeStruct.Length; i++) {
 			activeStruct[i].gridActiveCardBase = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase"+i.ToString());
@@ -224,8 +223,7 @@ public class UISkillFormation : UIBase {
 //		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
-//		initCards ();
-		changePage( GameData.Team.Player.SkillPage);
+		initCards ();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 	}
 
@@ -284,7 +282,6 @@ public class UISkillFormation : UIBase {
 
 	private void initCards () {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
-		tempPage = GameData.Team.Player.SkillPage;
 		int index = -1;
 		int actvieIndex = -1;
 		//Already Equiped
@@ -442,7 +439,7 @@ public class UISkillFormation : UIBase {
 			t = obj.transform.FindChild("SkillLevel");
 			if(t != null) {
 				uicard.SkillLevel = t.gameObject.GetComponent<UISprite>();
-				uicard.SkillLevel.spriteName = "Levelball" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+				uicard.SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
 			}
 
 			t = obj.transform.FindChild("SkillName");
@@ -657,18 +654,34 @@ public class UISkillFormation : UIBase {
 			}
 		}
 	}
-	
+
+	//page 0 1 2 3 4
 	private void changePage (int page) {
-		if(!skillPages.ContainsKey(page)){
-			skillPages.Add(page, new List<int>());
-			skillPagesOriginal.Add(page, new List<int>());
+		if(page != tempPage) {
+			if(!skillPages.ContainsKey(page)){
+				skillPages.Add(page, new List<int>());
+				skillPagesOriginal.Add(page, new List<int>());
+			}
+			for(int i=0; i<toggleDecks.Length; i++) {
+				toggleDecks[i].value = (i == page);
+			}
+			isChangePage = true;
+			tempPage = page;
+			DoFinish();
 		}
-		for(int i=0; i<toggleDecks.Length; i++) {
-			toggleDecks[i].value = ((i+1) == page);
+	}
+
+	//For Sell
+	private bool isSkillCardInPages(int sn) {
+		for (int i=0; i<5; i++) {
+			int[] SNs = GameData.Team.Player.GetSkillCardPagesSN(i).SNs;
+			if (SNs.Length > 0) {
+				for (int j=0; j<SNs.Length; j++)
+					if (SNs[j] == sn)
+						return true;
+			}
 		}
-		isChangePage = true;
-		tempPage = page;
-		DoFinish();
+		return false;
 	}
 
 	private bool sortIsAvailable(GameObject card) {
@@ -1074,11 +1087,9 @@ public class UISkillFormation : UIBase {
 			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
 		} else
 			if(isChangePage) {
-				refreshAfterInstall ();
-				isChangePage = false; 
-//				WWWForm form = new WWWForm();
-//				form.AddField("Page", tempPage);
-//				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitEquipSkillCard, form);
+				WWWForm form = new WWWForm();
+				form.AddField("Page", tempPage);
+				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
 			} else 
 				setEditState(isEdit);
 	}
@@ -1096,6 +1107,7 @@ public class UISkillFormation : UIBase {
 					UIHint.Get.ShowHint("Install Success!!", Color.red);	
 				else {
 					isChangePage = false; 
+					GameData.Team.Player.SkillPage = tempPage;
 				}
 				refreshAfterInstall ();
 			} else 
@@ -1106,15 +1118,17 @@ public class UISkillFormation : UIBase {
 		}
 	}
 
-	private void wait(bool ok, WWW www) {
+	private void waitChangeSkillPage(bool ok, WWW www) {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
-
-
+			isChangePage = false; 
+			GameData.Team.Player.SkillPage = tempPage;
+			refreshAfterInstall ();
+			
 		} else {
 			Debug.LogError("text:"+www.text);
 		}
