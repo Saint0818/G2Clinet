@@ -1026,6 +1026,7 @@ public class UIAvatarFitted : UIBase {
 			GameData.Team.Items = team.Items;
 			GameData.Team.Player.Items = team.Player.Items;
 			GameFunction.ItemIdTranslateAvatar(ref GameData.Team.Player.Avatar, GameData.Team.Player.Items);
+			UpdateAvatar(true);
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
