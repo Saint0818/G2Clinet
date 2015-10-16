@@ -19,10 +19,10 @@ public struct TSkillInfo {
 }
 
 public struct TEquipSkillCardResult {
-//	public int SkillPage;
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
-//	public int[,] SkillCardPages;
+//	public TSkillCardPage[] SkillCardPages;
+	public int[,] SkillCardPages;
 }
 
 public struct TActiveStruct {
@@ -31,7 +31,6 @@ public struct TActiveStruct {
 	public GameObject gridActiveCardBase;
 	public int CardIndex;
 	public int CardID;
-//	public string EquipedType;
 	public int CardSN;
 	public int CardLV;
 	public TActiveStruct (int i){
@@ -40,7 +39,6 @@ public struct TActiveStruct {
 		this.gridActiveCardBase = null;
 		this.CardIndex = -1;
 		this.CardID = 0;
-//		this.EquipedType = "0";
 		this.CardSN = -1;
 		this.CardLV = 0;
 	}
@@ -48,7 +46,6 @@ public struct TActiveStruct {
 		this.itemEquipActiveCard = null;
 		this.CardIndex = -1;
 		this.CardID = 0;
-//		this.EquipedType = "0";
 		this.CardSN = -1;
 		this.CardLV = 0;
 	}
@@ -68,7 +65,6 @@ public struct TUICard{
 	public GameObject SellSelectCover;
 	public int CardIndex;
 	public int CardID;
-//	public string EquipedType;
 	public int CardLV;
 	public int Cost;
 	public int CardSN;
@@ -86,7 +82,6 @@ public struct TUICard{
 		SellSelectCover = null;
 		CardIndex = -1;
 		CardID = 0;
-//		EquipedType = "0";
 		CardLV = 0;
 		Cost = 0;
 		CardSN = -1;
@@ -428,7 +423,6 @@ public class UISkillFormation : UIBase {
 			uicard.CardID = skill.ID;
 			uicard.CardIndex = skillCardIndex;
 			uicard.CardLV = skill.Lv;
-//			uicard.EquipedType = equiptype;
 			uicard.CardSN = skill.SN;
 			if(GameData.DSkillData.ContainsKey(skill.ID))
 				uicard.Cost = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1);
@@ -644,7 +638,6 @@ public class UISkillFormation : UIBase {
 						activeStruct[i].CardID = temp.CardID;
 						activeStruct[i].CardIndex = temp.CardIndex;
 						activeStruct[i].CardLV = temp.CardLV;
-//						activeStruct[i].EquipedType = temp.EquipedType;
 						activeStruct[i].CardSN = temp.CardSN;
 						temp.itemEquipActiveCard.transform.parent = activeStruct[i].gridActiveCardBase.transform;
 						temp.itemEquipActiveCard.transform.localPosition = Vector3.zero;
@@ -1083,6 +1076,9 @@ public class UISkillFormation : UIBase {
 			if(isChangePage) {
 				refreshAfterInstall ();
 				isChangePage = false; 
+//				WWWForm form = new WWWForm();
+//				form.AddField("Page", tempPage);
+//				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitEquipSkillCard, form);
 			} else 
 				setEditState(isEdit);
 	}
@@ -1090,10 +1086,9 @@ public class UISkillFormation : UIBase {
 	private void waitEquipSkillCard(bool ok, WWW www) {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
-//			TEquipSkillCardResult result = json
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
-//			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
+			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 
 			if(!isEdit) {
@@ -1105,6 +1100,20 @@ public class UISkillFormation : UIBase {
 				refreshAfterInstall ();
 			} else 
 				refreshBeforeSell();
+
+		} else {
+			Debug.LogError("text:"+www.text);
+		}
+	}
+
+	private void wait(bool ok, WWW www) {
+		if (ok) {
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
+			GameData.Team.Player.Init();
+
 
 		} else {
 			Debug.LogError("text:"+www.text);
