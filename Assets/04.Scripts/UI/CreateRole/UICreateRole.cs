@@ -35,11 +35,11 @@ public class UICreateRole : UIBase
         mStyleView.Hide();
     }
 
-    public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] playerBanks, int selectedIndex, int showNum)
+    public void ShowFrameView([NotNull] UICreateRolePlayerSlot.Data[] data, int selectedIndex, int showNum)
     {
         Show(true);
 
-        mFrameView.Show(playerBanks, selectedIndex, showNum);
+        mFrameView.Show(data, selectedIndex, showNum);
         mPositionView.Hide();
         mStyleView.Hide();
     }
@@ -226,6 +226,8 @@ public class UICreateRole : UIBase
             data[i].RoleIndex = playerBanks[i].RoleIndex;
             data[i].Position = (EPlayerPostion)GameData.DPlayers[playerBanks[i].ID].BodyType;
             data[i].Name = playerBanks[i].Name;
+            if(data[i].Name == null)
+                data[i].Name = string.Empty;
             data[i].Level = playerBanks[i].Lv;
         }
 

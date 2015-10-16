@@ -24,7 +24,7 @@ public class UICreateRolePlayerSlot : MonoBehaviour
         public int PlayerID;
         public int RoleIndex;
         public EPlayerPostion Position;
-        public string Name;
+        [NotNull]public string Name;
         public int Level;
 
         public bool IsValid()
