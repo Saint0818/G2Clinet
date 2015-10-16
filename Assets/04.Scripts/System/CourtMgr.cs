@@ -609,7 +609,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.gameObject.SetActive(false);
+				RealBallFX.SetActive(false);
 				
 				break;
 
@@ -647,12 +647,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Steal0:
 				GameController.Get.Passer = null;
 				
-				Vector3 v = RealBall.transform.forward * -1;
-				if(player != null)					
-					v = player.transform.forward * 10;
+//				Vector3 v = RealBall.transform.forward * -1;
+//				if(player != null)					
+//					v = player.transform.forward * 10;
 
-				RealBallVelocity = v;
-				RealBallFX.gameObject.SetActive(true);
+                Vector3 newDir = Vector3.zero;
+                newDir.Set(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+
+                // 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
+                RealBallVelocity = newDir.normalized * 10;
+				RealBallFX.SetActive(true);
 			break;
 			case EPlayerState.JumpBall:
 				if(!GameController.Get.IsJumpBall)
@@ -660,13 +664,14 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					GameController.Get.IsJumpBall = true;
 					GameController.Get.Passer = null;
 
+				    Vector3 v1;
 				    if(player != null)
-				        v = player.transform.position; // 球要拍到某位球員的位置.
+				        v1 = player.transform.position; // 球要拍到某位球員的位置.
 					else
-						v = RealBall.transform.forward * -1;
+						v1 = RealBall.transform.forward * -1;
 
-					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v, 40);
-					RealBallFX.gameObject.SetActive(true);
+					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 40);
+					RealBallFX.SetActive(true);
 				}
 				break;
 			
@@ -676,12 +681,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				GameController.Get.Shooter = null;
 				GameController.Get.Passer = null;
 				
-				v = RealBall.transform.forward * -1;
+				Vector3 v = RealBall.transform.forward * -1;
 				if(player != null)					
 					v = player.transform.forward * 10;
 
 				RealBallVelocity = v;
-				RealBallFX.gameObject.SetActive(true);
+				RealBallFX.SetActive(true);
 				break;
 
 			case EPlayerState.Dunk0:
@@ -694,7 +699,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				
 				RealBall.transform.localEulerAngles = Vector3.zero;
                 RealBallTrigger.SetBoxColliderEnable(false);
-                RealBallFX.gameObject.SetActive(false);
+                RealBallFX.SetActive(false);
 
 				break;
 
@@ -709,7 +714,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
 				RealBall.transform.position = new Vector3(0, 7, 0);
-				RealBallFX.gameObject.SetActive(true);
+				RealBallFX.SetActive(true);
 				break;
 
 			case EPlayerState.Start:
@@ -730,7 +735,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.gameObject.SetActive(false);				
+				RealBallFX.SetActive(false);				
 				break;
 		}
 

@@ -1096,8 +1096,14 @@ public class GameController : KnightSingleton<GameController>
 				} 
 			}
 			
-			if (!sucess && disAy[0].Distance <= GameConst.StealBallDistance && waitStealTime == 0 && BallOwner.Invincible == 0 && player.CoolDownSteal == 0) {
-				if(Random.Range(0, 100) < player.Attr.StealRate) {
+			if(!sucess && disAy[0].Distance <= GameConst.StealBallDistance && 
+                waitStealTime == 0 && 
+//                BallOwner.Invincible == 0 && 
+                BallOwner.Invincible.IsOff() && 
+                player.CoolDownSteal == 0)
+            {
+				if(Random.Range(0, 100) < player.Attr.StealRate)
+                {
 					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position)) {
 						player.CoolDownSteal = Time.time + GameConst.CoolDownSteal;                              
 						waitStealTime = Time.time + GameConst.WaitStealTime;
@@ -1946,22 +1952,23 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool DoPush(PlayerBehaviour nearP)
 	{
-		if (Joysticker) {
-//			PlayerBehaviour nearP = FindNearNpc();
+		if(Joysticker)
+        {
 			if(nearP)
 				return Joysticker.DoPassiveSkill (ESkillSituation.Push0, nearP.transform.position);
-			else
-				return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
-		} else
-			return false;
+
+            return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
+		}
+
+        return false;
 	}
 
 	public bool DoElbow()
 	{
-		if (Joysticker)
-			return Joysticker.DoPassiveSkill (ESkillSituation.Elbow);
-		else
-			return false;
+		if(Joysticker)
+			return Joysticker.DoPassiveSkill(ESkillSituation.Elbow);
+
+        return false;
 	}
 
 	public bool OnOnlyScore(PlayerBehaviour player) {
@@ -2196,7 +2203,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		UIGame.Get.UICantUse(faller);
 		if (faller && BallOwner == faller) {
-			setDropBall ();
+			doDropBall();
 			return true;
 		}
 
@@ -2235,64 +2242,103 @@ public class GameController : KnightSingleton<GameController>
 		return false;
     }
 
-    private void Steal(PlayerBehaviour player) {
-        
-    }
+//    private void Steal(PlayerBehaviour player) {
+//        
+//    }
 	
-	public bool OnStealMoment(PlayerBehaviour player) {
-        if (BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk) {
-			if(Vector3.Distance(BallOwner.transform.position, player.transform.position) <= GameConst.StealBallDistance && GameFunction.IsTouchPlayerArea(player.transform, BallOwner.transform.position, 30)) {
-				int r = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
-				int maxRate = 100;
-				int minRate = 10;
-				
-				if (r > maxRate)
-					r = maxRate;
-				else 
-				if (r < minRate)
-					r = minRate;
-				
-				int stealRate = Random.Range(0, 100) + 1;
-				int AddRate = 0;
-				int AddAngle = 0;
-				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
-					AddRate = 30;
+    /// <summary>
+    /// 呼叫時機: 球員撥抄截動作, 在動作撥大概 40% 左右時, 會發出的 event.
+    /// </summary>
+    /// <param name="player"> 執行抄截的球員. </param>
+    /// <returns> true: 抄截成功; false:抄截失敗. </returns>
+	public bool OnStealMoment(PlayerBehaviour player)
+    {
+//        if(BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk)
+        if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
+        {
+//            float disPlayerToBallOwner = Vector3.Distance(BallOwner.transform.position, player.transform.position);
+            if(/*disPlayerToBallOwner <= GameConst.StealBallDistance && */
+               GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
+            {
+				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
+//				int maxRate = 100;
+//				int minRate = 10;
+//				if(probability > maxRate)
+//					probability = maxRate;
+//				else if (probability < minRate)
+//					probability = minRate;
 
-				if(Vector3.Distance(BallOwner.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance){
-					AddRate += 40;
-					AddAngle = 90;
-				}
+                probability = Mathf.Clamp(probability, 10, 100);
+//                probability = Mathf.Clamp(probability, 50, 100);
 				
-				if (stealRate <= (r + AddRate) && Mathf.Abs(MathUtils.FindAngle(BallOwner.transform, player.transform.position)) <= 90 + AddAngle) {
-					if(BallOwner && BallOwner.AniState(EPlayerState.GotSteal)) {
+//				int randomProbability = Random.Range(0, 100) + 1;
+				int addRate = 0;
+				int addAngle = 0;
+				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
+                    // 特效開啟, 就表示被懲罰的機率增加.
+					addRate = 30;
+
+				if(Vector3.Distance(BallOwner.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
+                {
+                    // 持球者靠近籃下時, 被抄截的機率增加, 抄截判定的範圍也加大.
+					addRate += 40;
+					addAngle = 90;
+				}
+
+//                Debug.LogFormat("probability:{0}, addRate:{1}, addAngle:{2}", probability, addRate, addAngle);
+				
+//				if(randomProbability <= (probability + addRate) && 
+				if(Random.Range(0, 100) <= (probability + addRate) && 
+//                   Mathf.Abs(MathUtils.FindAngle(BallOwner.transform, player.transform.position)) <= 90 + addAngle)
+                   Mathf.Abs(MathUtils.FindAngle(player.transform, BallOwner.transform.position)) <= 90 + addAngle)
+                {
+                    // 持球者嘗試撥被抄截的懲罰動作.
+					if(/*BallOwner &&*/ BallOwner.AniState(EPlayerState.GotSteal))
+                    {
+                        // 抄截成功, 是把對方的球直接抓走.
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 						CheckConditionText(player);
 						return true;
 					}
-				} else 
-				if(BallOwner != null && haveStealPlayer(player, BallOwner, GameConst.StealBallDistance, 15) != 0) {
-					stealRate = Random.Range(0, 100) + 1;
-					
-					if(stealRate <= r) {
-						RealBallFxTime = 1f;
-						CourtMgr.Get.RealBallFX.SetActive(true);
-					}
 				}
+//                else if(/*BallOwner != null && */
+//                        haveStealPlayer(player, BallOwner, GameConst.StealBallDistance, 15) != 0)
+//                        )
+//                {
+//					randomProbability = Random.Range(0, 100) + 1;
+
+//					if(randomProbability <= probability)
+
+                // 再 random 一次, 判斷要不要進入懲罰
+                if (Random.Range(0, 100) <= probability)
+                {
+                    // 進入懲罰.
+					RealBallFxTime = GameConst.BallSFXTime;
+					CourtMgr.Get.RealBallFX.SetActive(true);
+				}
+//				}
 			}
         }
-        
+
         return false;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns> true:被抄截. </returns>
 	public bool OnGotSteal(PlayerBehaviour player)
 	{
-		if (BallOwner == player) {
-			setDropBall (player);
+		if(BallOwner == player)
+        {
+			doDropBall(player);
 			return true;
-		} else
-			return false;
+		} 
+
+		return false;
 	}
 
     public bool DoSteal()
@@ -3333,19 +3379,21 @@ public class GameController : KnightSingleton<GameController>
             else if((isEnter || GameStart.Get.TestMode == EGameTest.Rebound) &&
 				   player != BallOwner &&
 				   CourtMgr.Get.RealBall.transform.position.y >= 3 &&
-				   (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)) {
+				   (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
+            {
 
 				if (GameStart.Get.TestMode == EGameTest.Rebound ||
 				    Situation == EGameSituation.AttackGamer ||
-				    Situation == EGameSituation.AttackNPC) {
+				    Situation == EGameSituation.AttackNPC)
+                    {
 
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
-					else
-					if (CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || CourtMgr.Get.RealBallState ==  EPlayerState.Rebound) {
-						if (Random.Range(0, 100) < player.Attr.ReboundRate) {
-							Rebound(player);
-						}
+					else if(CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || 
+                            CourtMgr.Get.RealBallState ==  EPlayerState.Rebound)
+                    {
+						    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
+					    		Rebound(player);
 					}
 				}
 			}
@@ -3937,21 +3985,21 @@ public class GameController : KnightSingleton<GameController>
 	private int haveStealPlayer(PlayerBehaviour p1, PlayerBehaviour p2, float dis, float angle)
     {
 		int result = 0;
-		float mangle;
 
-		if (p1 != null && p2 != null && p1 != p2) {
-			mangle = MathUtils.FindAngle(p1.transform, p2.transform.position);
-			
-			if (GetDis(p1, p2) <= dis) {
-				if (mangle >= 0 && mangle <= angle)				
+	    if (p1 != null && p2 != null && p1 != p2)
+		{
+		    float angleBetween = MathUtils.FindAngle(p1.transform, p2.transform.position);
+
+		    if (GetDis(p1, p2) <= dis)
+            {
+				if(angleBetween >= 0 && angleBetween <= angle)				
 					result = 1;
-				else 
-				if (mangle <= 0 && mangle >= -angle)				
+				else if(angleBetween <= 0 && angleBetween >= -angle)				
 					result = 2;
 			}
 		}
-		
-		return result;
+
+	    return result;
 	}
     
     private PlayerBehaviour hasNearPlayer(PlayerBehaviour self, float dis, bool isSameTeam, 
@@ -4081,13 +4129,18 @@ public class GameController : KnightSingleton<GameController>
 
 				Catcher = null;
 			}else{
-	            setDropBall(Passer);
+	            doDropBall(Passer);
 			}
 			IsPassing = false;
 		}
     }
 
-	private void setDropBall(PlayerBehaviour player = null){
+    /// <summary>
+    /// 執行球員掉球.
+    /// </summary>
+    /// <param name="player"></param>
+	private void doDropBall(PlayerBehaviour player = null)
+    {
 		if(IsPassing)
 		{
 //			if (BallOwner != null)
@@ -4241,10 +4294,14 @@ public class GameController : KnightSingleton<GameController>
 
 	public void PushCalculate(PlayerBehaviour player, float dis, float angle)
 	{
-		for (int i = 0; i < PlayerList.Count; i++) {
-			if(PlayerList[i] && PlayerList[i].Team != player.Team){
-				if((GetDis(PlayerList[i],new Vector2(player.transform.position.x, player.transform.position.z)) <= dis) && GameFunction.IsTouchPlayerArea(player.transform, PlayerList[i].transform.position, angle)){
-					int rate = UnityEngine.Random.Range(0, 100);
+		for (int i = 0; i < PlayerList.Count; i++)
+        {
+			if(PlayerList[i] && PlayerList[i].Team != player.Team)
+            {
+				if(/*GetDis(PlayerList[i],new Vector2(player.transform.position.x, player.transform.position.z)) <= dis && */
+                   GameFunction.IsInFanArea(player.transform, PlayerList[i].transform.position, dis, angle))
+                {
+					int rate = Random.Range(0, 100);
 					PlayerBehaviour faller = PlayerList[i];
 					PlayerBehaviour pusher = player;
 

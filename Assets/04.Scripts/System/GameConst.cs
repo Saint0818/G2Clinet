@@ -24,7 +24,17 @@
 	public const float TwoPointDistance = 7;
 	public const float DunkDistance = 7; // 在此距離內, 才會做上籃 or 灌籃.
 	public const float PickBallDistance = 2.5f;
-	public const float StealBallDistance = 3; // 這其實是推人, 抄球的距離.
+
+    /// <summary>
+    /// 這其實是推人, 抄球的距離.
+    /// </summary>
+	public const float StealBallDistance = 3; 
+
+    /// <summary>
+    /// 抄截時, 抄截角度判定.(球員 +Z 軸的扇形區域)
+    /// </summary>
+	public const float StealFanAngle = 30; 
+
 	public const float BlockDistance = 5;
 
     public const int FakeShootRate = 40; // 做假動作的機率.
@@ -46,6 +56,11 @@
     /// </summary>
 //    public const float PassCoolDownTime = 1.2f;
     public const float PassCoolDownTime = 3.0f;
+
+    /// <summary>
+    /// 籃球特效時間. 單位:秒.
+    /// </summary>
+    public const float BallSFXTime = 1;
 
 	public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 10;

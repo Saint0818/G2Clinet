@@ -66,6 +66,10 @@ namespace AI
             mIsUpdating = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns> true: 倒數完畢; false: 還在倒數中. </returns>
         public bool IsTimeUp()
         {
             return mRemainTime <= 0;

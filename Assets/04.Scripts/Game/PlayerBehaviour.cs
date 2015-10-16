@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using AI;
 using DG.Tweening;
 using GameStruct;
 using GamePlayEnum;
@@ -463,7 +464,8 @@ public class PlayerBehaviour : MonoBehaviour
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
     public float WaitMoveTime = 0;
-    public float Invincible = 0;
+//    public float Invincible = 0;
+    public readonly StatusTimer Invincible = new StatusTimer();
     public float JumpHight = 450f;
     public float CoolDownSteal = 0;
     public float CoolDownPush = 0;
@@ -863,8 +865,9 @@ public class PlayerBehaviour : MonoBehaviour
         if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
             WaitMoveTime = 0;
 
-        if (Invincible > 0 && Time.time >= Invincible)
-            Invincible = 0;
+//        if (Invincible > 0 && Time.time >= Invincible)
+//            Invincible = 0;
+        Invincible.Update(Time.deltaTime);
 
         if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
             CoolDownSteal = 0;
@@ -1868,10 +1871,11 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void SetInvincible(float time)
     {
-        if (Invincible == 0)
-            Invincible = Time.time + time;
-        else
-            Invincible += time;
+//        if (Invincible == 0)
+//            Invincible = Time.time + time;
+//        else
+//            Invincible += time;
+        Invincible.StartCounting(time);
     }
     
     private void setSpeed(float value, int dir = -2)
@@ -2086,8 +2090,9 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.GotSteal:
-			if (!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow && IsRun && IsDribble &&
-                    (crtState == EPlayerState.FakeShoot || 
+			if(!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow &&  
+                   (IsDribble || 
+                    crtState == EPlayerState.FakeShoot || 
                     crtState == EPlayerState.HoldBall || 
                     crtState == EPlayerState.Idle || 
                     crtState == EPlayerState.Defence0 || 
@@ -3198,7 +3203,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "ElbowEnd":
                 OnUI(this);
                 AniState(EPlayerState.HoldBall);
-                GameController.Get.RealBallFxTime = 1f;
+                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
                 CourtMgr.Get.RealBallFX.SetActive(true);
                 break;
 
@@ -3234,7 +3239,7 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
 
                 OnUI(this);
-                GameController.Get.RealBallFxTime = 1f;
+                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
                 CourtMgr.Get.RealBallFX.SetActive(true);
                 break;
 
