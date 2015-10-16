@@ -720,17 +720,15 @@ public class UIAvatarFitted : UIBase {
 				}
 				else
 				{
-
-					//ask need save
+					//ask need save?
 					OnSave();//yes
 //					UpdateAvatar(true);//No
-
 					ChangeMode(EAvatarMode.Sell);
 				}
 			}
 			else{
 				//sell something
-				AskSell();
+				UIMessage.Get.ShowMessage(TextConst.S(201), TextConst.S(203), OnYesSell);
 			}
 		}
 	}
@@ -744,33 +742,24 @@ public class UIAvatarFitted : UIBase {
 		ChangeMode (EAvatarMode.Normal);
 	}
 
-	private void AskSell()
+	private void OnYesSell()
 	{
-		bool ans = true;
+		List<int> sells = new List<int>();
 
-		//Yes
-		if (ans) {
-			List<int> sells = new List<int>();
+		for(int i = 0; i < backpackItems.Length; i++)
+			if(backpackItems[i].Index != -1 && backpackItems[i].Selected)
+			{
+				sells.Add(backpackItems[i].Index);
+				backpackItems[i].Enable = false;
+				backpackItems[i].Selected = false;
+			}
 
-			for(int i = 0; i < backpackItems.Length; i++)
-				if(backpackItems[i].Index != -1 && backpackItems[i].Selected)
-				{
-					sells.Add(backpackItems[i].Index);
-					backpackItems[i].Enable = false;
-					backpackItems[i].Selected = false;
-				}
+		sells.Sort((x, y) => { return x.CompareTo(y); });
 
-			sells.Sort((x, y) => { return x.CompareTo(y); });
-
-			//SendtoServer
-			WWWForm form = new WWWForm();
-			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(sells));
-			SendHttp.Get.Command(URLConst.SellItem, waitSellItem, form);
-		}
-		else
-		{
-			OnCancelSell();
-		}
+		//SendtoServer
+		WWWForm form = new WWWForm();
+		form.AddField("RemoveIndexs", JsonConvert.SerializeObject(sells));
+		SendHttp.Get.Command(URLConst.SellItem, waitSellItem, form);
 	}
 
 	public void InitEquipState()

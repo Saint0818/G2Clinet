@@ -5,6 +5,11 @@ public class UIMessage : UIBase {
 	private const string UIName = "UIMessage";
 	private UILabel LabelTitle;
 	private UILabel LabelMessage;
+	private UIButton YesBtn;
+	private UIButton NoBtn;
+
+	private CallBack YesFunc;
+	private CallBack NoFunc;
 
 	public static void UIShow(bool isShow){
 		if(instance) {
@@ -29,9 +34,14 @@ public class UIMessage : UIBase {
 	}
 
 	protected override void InitCom() {
-		LabelTitle = GameObject.Find("UIMessage/Window/Title").GetComponent<UILabel>();
-		LabelMessage = GameObject.Find("UIMessage/Window/Label").GetComponent<UILabel>();
-		SetBtnFun("UIMessage/Window/Finish", OnClose);
+		LabelTitle = GameObject.Find("UIMessage/Window/HighlightFrame/TitleLabel").GetComponent<UILabel>();
+		LabelMessage = GameObject.Find("UIMessage/Window/HighlightFrame/Contents/ContentsLabel").GetComponent<UILabel>();
+
+		YesBtn = GameObject.Find("UIMessage/Window/CheckBtn").GetComponent<UIButton>();
+		NoBtn = GameObject.Find("UIMessage/Window/NoBtn").GetComponent<UIButton>();
+
+		SetBtnFun(ref YesBtn, OnYes);
+		SetBtnFun(ref NoBtn, OnNo);
 	}
 
 	protected override void InitText(){
@@ -39,33 +49,40 @@ public class UIMessage : UIBase {
 		SetLabel (UIName + "/Window/Finish/UILabel", TextConst.S(136));
 	}
 
-	public void OnClose() {
-//		string text = LabelMessage.text;
-//		if (text == TextConst.S (7)) {
-//			if (!UILoading.Visible)
-//				UIController.Get.OnLogout();
-//
-//			if (!UIController.Get.VersionChecked)
-//				UIController.Get.CheckVersion();
-//			else
-//				UIController.Get.SendLogin();
-//		} else
-//		if (text == TextConst.S (33) || text == TextConst.S(93) || text == TextConst.S(101)) {
-//			UIController.Get.OnLogout();
-//			UIController.Get.CheckVersion();
-//		} 
+	public void OnYes() {
+		if (YesFunc != null)
+			YesFunc ();
 
-        UIShow(false);
+		UIShow(false);
 	}
 
-	public void ShowMessage (string title, string text) {
-//		UIWaitingHttp.UIShow(false);
-//		UIShow (true);
-//		LabelMessage.text = text;
-//
-//		if (title == "")
-//			LabelTitle.text = TextConst.S(139);
-//		else
-//			LabelTitle.text = title;
+	public void OnNo(){
+		if (NoFunc != null)
+			NoFunc ();
+
+		UIShow(false);
+	}
+	
+	public void ShowMessage (string titleStr, string messageStr, CallBack yes = null, CallBack no = null) {
+		YesFunc = yes;
+		NoFunc = no;
+
+		UIShow (true);
+
+//		if(YesBtn && NoBtn){
+//			NoBtn.enabled = NoFunc == null? false : true;
+//		}
+
+		if (LabelTitle != null)
+			LabelTitle.text = titleStr;
+
+		if (LabelMessage != null)
+			LabelMessage.text = messageStr;
+	}
+
+	protected override void OnShow(bool isShow) {
+		if(isShow){
+
+		}
 	}
 }
