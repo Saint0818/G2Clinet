@@ -2253,25 +2253,16 @@ public class GameController : KnightSingleton<GameController>
     /// <returns> true: 抄截成功; false:抄截失敗. </returns>
 	public bool OnStealMoment(PlayerBehaviour player)
     {
-//        if(BallOwner && BallOwner.Invincible == 0 && !IsShooting && !IsDunk)
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
-//            float disPlayerToBallOwner = Vector3.Distance(BallOwner.transform.position, player.transform.position);
-            if(/*disPlayerToBallOwner <= GameConst.StealBallDistance && */
-               GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
+//            if(GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
+            if(player.transform.IsInFanArea(BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
             {
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
-//				int maxRate = 100;
-//				int minRate = 10;
-//				if(probability > maxRate)
-//					probability = maxRate;
-//				else if (probability < minRate)
-//					probability = minRate;
 
                 probability = Mathf.Clamp(probability, 10, 100);
-//                probability = Mathf.Clamp(probability, 50, 100);
+//                probability = Mathf.Clamp(probability, 90, 100);
 				
-//				int randomProbability = Random.Range(0, 100) + 1;
 				int addRate = 0;
 				int addAngle = 0;
 				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
@@ -2287,15 +2278,13 @@ public class GameController : KnightSingleton<GameController>
 
 //                Debug.LogFormat("probability:{0}, addRate:{1}, addAngle:{2}", probability, addRate, addAngle);
 				
-//				if(randomProbability <= (probability + addRate) && 
 				if(Random.Range(0, 100) <= (probability + addRate) && 
-//                   Mathf.Abs(MathUtils.FindAngle(BallOwner.transform, player.transform.position)) <= 90 + addAngle)
                    Mathf.Abs(MathUtils.FindAngle(player.transform, BallOwner.transform.position)) <= 90 + addAngle)
                 {
                     // 持球者嘗試撥被抄截的懲罰動作.
-					if(/*BallOwner &&*/ BallOwner.AniState(EPlayerState.GotSteal))
+					if(BallOwner.AniState(EPlayerState.GotSteal))
                     {
-                        // 抄截成功, 是把對方的球直接抓走.
+                        // 抄截成功.
 						BallOwner.SetAnger(GameConst.DelAnger_Stealed);
 						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
@@ -2303,13 +2292,6 @@ public class GameController : KnightSingleton<GameController>
 						return true;
 					}
 				}
-//                else if(/*BallOwner != null && */
-//                        haveStealPlayer(player, BallOwner, GameConst.StealBallDistance, 15) != 0)
-//                        )
-//                {
-//					randomProbability = Random.Range(0, 100) + 1;
-
-//					if(randomProbability <= probability)
 
                 // 再 random 一次, 判斷要不要進入懲罰
                 if (Random.Range(0, 100) <= probability)
@@ -2318,7 +2300,6 @@ public class GameController : KnightSingleton<GameController>
 					RealBallFxTime = GameConst.BallSFXTime;
 					CourtMgr.Get.RealBallFX.SetActive(true);
 				}
-//				}
 			}
         }
 
@@ -4298,8 +4279,8 @@ public class GameController : KnightSingleton<GameController>
         {
 			if(PlayerList[i] && PlayerList[i].Team != player.Team)
             {
-				if(/*GetDis(PlayerList[i],new Vector2(player.transform.position.x, player.transform.position.z)) <= dis && */
-                   GameFunction.IsInFanArea(player.transform, PlayerList[i].transform.position, dis, angle))
+//				if(GameFunction.IsInFanArea(player.transform, PlayerList[i].transform.position, dis, angle))
+				if(player.transform.IsInFanArea(PlayerList[i].transform.position, dis, angle))
                 {
 					int rate = Random.Range(0, 100);
 					PlayerBehaviour faller = PlayerList[i];
@@ -4313,8 +4294,10 @@ public class GameController : KnightSingleton<GameController>
 							faller.GameRecord.BeKnock++;
 						}
 					}
-					else{
-						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position)) {
+					else
+                    {
+						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position))
+                        {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
 							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
 							if(faller == Joysticker || pusher == Joysticker)

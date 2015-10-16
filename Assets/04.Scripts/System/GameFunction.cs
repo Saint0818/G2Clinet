@@ -63,23 +63,23 @@ public static class GameFunction
 //		return ang;
 //	}
 
-    /// <summary>
-    /// target 是否在 source +Z 軸的扇形範圍內.
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="target"></param>
-    /// <param name="fanDis"></param>
-    /// <param name="fanAngle"></param>
-    /// <returns> true: target 在 source 的扇形範圍內. </returns>
-    public static bool IsInFanArea([NotNull] Transform source, Vector3 target, float fanDis, float fanAngle)
-	{
-//		Vector3 relative = source.InverseTransformPoint(target);
-//		float angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
-	    var betweenAngle = MathUtils.FindAngle(source, target);
-        var betweenDis = MathUtils.Find2DDis(source.position, target);
-
-		return Mathf.Abs(betweenAngle) <= fanAngle * 0.5f && betweenDis <= fanDis;
-	}
+//    /// <summary>
+//    /// target 是否在 source +Z 軸的扇形範圍內.
+//    /// </summary>
+//    /// <param name="source"></param>
+//    /// <param name="target"></param>
+//    /// <param name="fanDis"></param>
+//    /// <param name="fanAngle"></param>
+//    /// <returns> true: target 在 source 的扇形範圍內. </returns>
+//    public static bool IsInFanArea([NotNull] Transform source, Vector3 target, float fanDis, float fanAngle)
+//	{
+////		Vector3 relative = source.InverseTransformPoint(target);
+////		float angle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
+//	    var betweenAngle = MathUtils.FindAngle(source, target);
+//        var betweenDis = MathUtils.Find2DDis(source.position, target);
+//
+//		return Mathf.Abs(betweenAngle) <= fanAngle * 0.5f && betweenDis <= fanDis;
+//	}
 
 	public static Vector3 GetVelocity(Vector3 source, Vector3 target, float angle, float distOffset = 0f)
 	{
