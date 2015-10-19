@@ -417,18 +417,30 @@ namespace GameStruct {
 		}
 
 		public bool CheckIfMaxAnger (int activeID, int value) {
-			if(ActiveSkills.Count > 0) {
-				if (GameData.DSkillData.ContainsKey(activeID))
-					return (value >= GameData.DSkillData[activeID].MaxAnger);
-			}
+			if(ActiveSkills.Count > 0) 
+				return (value >= MaxAngerOne(activeID));
+	
 			return false;
 		}
 
 		public int MaxAngerOne(int activeID){
-			if(ActiveSkills.Count > 0) {
+			if(ActiveSkills.Count > 0) 
 				if (GameData.DSkillData.ContainsKey(activeID))
 					return GameData.DSkillData[activeID].MaxAnger;
-			}
+
+			return 0;
+		}
+
+		public float MaxAngerPercent(int activeID, float value){
+			if(ActiveSkills.Count > 0) 
+				if (GameData.DSkillData.ContainsKey(activeID)){
+				float p = (value / GameData.DSkillData[activeID].MaxAnger);
+					if( p > 1)
+						return 1;
+					else
+						return p;
+				}
+
 			return 0;
 		}
 

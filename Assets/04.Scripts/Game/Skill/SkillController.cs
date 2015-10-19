@@ -50,6 +50,23 @@ public class SkillController : MonoBehaviour {
 	void FixedUpdate() {
 		skillBuff.UpdateBuff();
 		updateSkillAttribute();
+		if (GameController.Get.Situation == EGameSituation.JumpBall || 
+		    GameController.Get.Situation == EGameSituation.AttackGamer || 
+		    GameController.Get.Situation == EGameSituation.AttackNPC)
+			judgeSkillUI();
+	}
+	
+	private void judgeSkillUI()
+	{
+		if(executePlayer && executePlayer == GameController.Get.Joysticker && GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 ){
+			for(int i=0; i<executePlayer.Attribute.ActiveSkills.Count; i++) {
+				if(executePlayer.Attribute.ActiveSkills[i].ID > 0 && GameController.Get.IsStart)
+				{
+					CourtMgr.Get.SkillArea(executePlayer.Team.GetHashCode(), executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]));
+					UIGame.Get.ShowSkillEnableUI(GameController.Get.IsStart, i, executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]), executePlayer.CheckSkill(executePlayer.Attribute.ActiveSkills[i]));
+				}
+			}
+		}
 	}
 
 	public void initSkillController(TPlayer attribute, PlayerBehaviour player, Animator animatorControl){

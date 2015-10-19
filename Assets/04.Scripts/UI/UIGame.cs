@@ -114,6 +114,7 @@ public class UIGame : UIBase {
 	private GameObject[] uiSkillEnables = new GameObject[3];
 	private GameObject[] uiDCs = new GameObject[3];
 	private UISprite[] spriteSkills = new UISprite[3];
+	private UISprite[] spriteEmptys = new UISprite[3];
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
 	private GameObject uiSpriteFull;
@@ -216,7 +217,7 @@ public class UIGame : UIBase {
 //			}
 //		}
 
-//		runForceValue ();
+		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -225,7 +226,7 @@ public class UIGame : UIBase {
 					if (GameController.Get.DoShoot(true)) {
 						GameController.Get.Joysticker.SetNoAI();
 						spriteAttack.gameObject.SetActive(false);
-						ShowSkillUI(false);
+						ShowSkillEnableUI(false);
 					}
 
 					if(GameController.Get.IsCanPassAir) {
@@ -312,7 +313,6 @@ public class UIGame : UIBase {
 		
 		//TopRight
 		viewForceBar = GameObject.Find(UIName + "/TopRight/ViewForceBar");
-		viewForceBar.SetActive(!(GameData.Team.Player.ActiveSkills.Count == 0));
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
 		uiSpriteFull = GameObject.Find (UIName + "/TopRight/ViewForceBar/ForcebarFull");
@@ -324,11 +324,15 @@ public class UIGame : UIBase {
 			uiDCs[i] = GameObject.Find (uiButtonSkill[i].name  + "/GetDCSoul");
 			uiDCs[i].SetActive(false);
 			spriteSkills[i] = GameObject.Find(uiButtonSkill[i].name  + "/SpriteSkill").GetComponent<UISprite>();
-			spriteSkills[i].color = new Color32(69, 69, 69, 255);
+			spriteEmptys[i] = GameObject.Find(uiButtonSkill[i].name  + "/SkillEmpty").GetComponent<UISprite>();
+			if(i < GameData.Team.Player.ActiveSkills.Count) {
+				spriteSkills[i].spriteName = GameData.DSkillData[GameData.Team.Player.ActiveSkills[i].ID].PictureNo + "s";
+				spriteEmptys[i].spriteName = GameData.DSkillData[GameData.Team.Player.ActiveSkills[i].ID].PictureNo + "s";
+			}
 			
 			UIEventListener.Get (uiButtonSkill[i]).onPress = DoSkill;
 			UIEventListener.Get (uiButtonSkill[i]).onDragOver = DoSkillOut;
-			uiButtonSkill[i].SetActive((i < GameData.Team.Player.ActiveSkills.Count));
+			uiButtonSkill[i].SetActive(false);
 		}
 
 		if(GameStart.Get.WinMode == EWinMode.NoTimeLostScore || GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare) {
@@ -378,7 +382,7 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
 
 		showViewForceBar(false);
-		ShowSkillUI(false);
+		ShowSkillEnableUI(false);
 
 		ChangeControl(true);
 		uiJoystick.Joystick.isActivated = false;
@@ -423,7 +427,6 @@ public class UIGame : UIBase {
 	}
 	
 	private void initLine() {
-//		spriteSkill.spriteName = GameController.Get.Joysticker.Attribute.ActiveSkill.ID.ToString() + "s";
 		drawLine.ClearTarget();
 		if (drawLine.UIs.Length == 0) {
 			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
@@ -540,29 +543,31 @@ public class UIGame : UIBase {
 			if(!state) 
 				if(isShowElbowRange)
 					UIControllerState(EUIControl.Attack);
+				else
+					resetRange();
 			showRange(EUIRangeType.Elbow, state);
 		} else {
 			//Push
 			if(!state) 
 				if(isShowPushRange)
 					UIControllerState(EUIControl.Attack);
+				else
+					resetRange();
 			showRange(EUIRangeType.Push, state);
 		}
 	}
 
 	//Defence
-	public void DoBlock() {
-		UIControllerState(EUIControl.Block);
-	}
+	public void DoBlock() {UIControllerState(EUIControl.Block);}
 
-	public void DoStealOut (GameObject go) {
-		if(isShowStealRange) 
-			resetRange ();
-	}
+	public void DoStealOut (GameObject go) {if(isShowStealRange) resetRange ();}
+
 	public void DoSteal(GameObject go, bool state){
 		if(!state) 
 			if(isShowStealRange)
 				UIControllerState(EUIControl.Steal);
+			else
+				resetRange();
 		
 		showRange(EUIRangeType.Steal, state);
 	}
@@ -573,43 +578,20 @@ public class UIGame : UIBase {
 			resetRange ();
 	}
 	public void DoSkill(GameObject go, bool state){
-		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 && go) {
 			int id = 0;
 			if(int.TryParse(go.name, out id)) {
 				GameController.Get.Joysticker.ActiveSkillUsed = GameController.Get.Joysticker.Attribute.ActiveSkills[id];
 				if(!state) 
 					if(isShowSkillRange)
 						UIControllerState(EUIControl.Skill);
+					else
+						resetRange();
 				
 				showRange(EUIRangeType.Skill, state);
 			}
-		}
-	}
-
-	public void DoShoot(GameObject go, bool state) {
-		UIControllerState(EUIControl.Shoot, go, state);
-	}
-	
-	public void DoPassChoose (GameObject obj, bool state) {
-		UIControllerState(EUIControl.Pass, obj, state);
-	}
-
-	public void DoPassTeammateA(GameObject obj, bool state) {
-		isPressA = state;
-		UIControllerState(EUIControl.PassA, obj, state);
-	}
-
-	public void DoPassTeammateB(GameObject obj, bool state) {
-		isPressB = state;
-		UIControllerState(EUIControl.PassB, obj, state);
-	}
-
-	public void DoPassNone() {
-		SetPassButton();
-	}
-
-	public void OnReselect() {
-		UIState(EUISituation.ReSelect);
+		} else
+			resetRange ();
 	}
 
 	public void OnSpeed(){
@@ -624,42 +606,43 @@ public class UIGame : UIBase {
 
 		GameController.Get.RecordTimeScale = Time.timeScale;
 	}
-
-	public void OnPause(){
-		if(Time.timeScale == 0) 
-			UIState(EUISituation.Continue);
-		else
-			UIState(EUISituation.Pause);
+	
+	public void DoShoot(GameObject go, bool state) {UIControllerState(EUIControl.Shoot, go, state);}
+	
+	public void DoPassChoose (GameObject obj, bool state) {UIControllerState(EUIControl.Pass, obj, state);}
+	
+	public void DoPassNone() {SetPassButton();}
+	
+	public void DoPassTeammateA(GameObject obj, bool state) {
+		isPressA = state;
+		UIControllerState(EUIControl.PassA, obj, state);
 	}
-
-	public void ResetGame() {
-		UIState(EUISituation.Reset);
+	
+	public void DoPassTeammateB(GameObject obj, bool state) {
+		isPressB = state;
+		UIControllerState(EUIControl.PassB, obj, state);
 	}
+	
+	public void OnReselect() {UIState(EUISituation.ReSelect);}
 
-	public void StartGame() {
-		UIState(EUISituation.Start);
-	}
+	public void OnPause(){if(Time.timeScale == 0) UIState(EUISituation.Continue);else UIState(EUISituation.Pause);}
 
-	public void GameOver(){
-		UIState(EUISituation.Finish);
-	}
+	public void ResetGame() {UIState(EUISituation.Reset);}
 
-	public void ShowSkillUI (bool isShow, int index = 0, bool angerFull = false, bool canUse = false){
-		if(GameData.Team.Player.ActiveSkills.Count > 0) {
-			if(angerFull)
-				spriteSkills[index].color = new Color32(255, 255, 255, 255);
-			else 
-				spriteSkills[index].color = new Color32(69, 69, 69, 255);
-			
+	public void StartGame() {UIState(EUISituation.Start);}
+
+	public void GameOver(){UIState(EUISituation.Finish);}
+
+	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
+		if(GameData.Team.Player.ActiveSkills.Count > 0 && index < GameData.Team.Player.ActiveSkills.Count) {
 			if (isShow) {
 				if(GameController.Get.IsStart)
-					uiSkillEnables[index].SetActive(canUse);
+					uiSkillEnables[index].SetActive((canUse && isAngerFull));
 				else
 					uiSkillEnables[index].SetActive(false);
 			} else {
 				for(int i=0; i<uiSkillEnables.Length; i++) {
 					uiSkillEnables[i].SetActive(false);
-
 				}
 			}
 		}
@@ -694,7 +677,6 @@ public class UIGame : UIBase {
 			baseForceValue = (newForceValue - oldForceValue) / dcCount;
 			spriteForceFirst.fillAmount = newForceValue;
 			if (newForceValue >= 1) {
-//				spriteSkill.color = new Color32(255, 255, 255, 255);
 				uiSpriteFull.SetActive (true);
 			} else if (newForceValue <=0 ) {
 				oldForceValue = 0;
@@ -702,9 +684,22 @@ public class UIGame : UIBase {
 				spriteForce.fillAmount = 0;
 				spriteForceFirst.fillAmount = 0;
 			}
+			spriteForce.gameObject.SetActive(false);
+			spriteForce.gameObject.SetActive(true);
+			spriteForceFirst.gameObject.SetActive(false);
+			spriteForceFirst.gameObject.SetActive(true);
 		}
-//		else
-//			spriteSkill.color = new Color32(69, 69, 69, 255);
+
+		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+			for(int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++) {
+				uiButtonSkill[i].SetActive((i < GameData.Team.Player.ActiveSkills.Count));
+				if(uiButtonSkill[i].activeSelf) {
+					spriteSkills[i].fillAmount = GameController.Get.Joysticker.Attribute.MaxAngerPercent(GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID, anger);
+					spriteSkills[i].gameObject.SetActive(false);
+					spriteSkills[i].gameObject.SetActive(true);
+				}
+			}
+		}
 	}
 	
 	public void PlusScore(int team, int score) {
@@ -764,7 +759,7 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if (GameController.Get.IsStart) {
 				SetPassButton();
-				ShowSkillUI(false);
+				ShowSkillEnableUI(false);
 				resetRange ();
 				spriteAttack.gameObject.SetActive(true);
 			}
@@ -847,7 +842,6 @@ public class UIGame : UIBase {
 		joystickController.UIMaskState(controllerState);
 		switch (controllerState) {
 		case EUIControl.Skill:
-			ShowSkillUI(true);
 			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(false);
@@ -872,7 +866,7 @@ public class UIGame : UIBase {
 				//Push Deffence
 				UIEffectState(EUIControl.Attack);
 
-				ShowSkillUI(false);
+				ShowSkillEnableUI(false);
 				uiShoot.SetActive(false);
 				spriteAttack.gameObject.SetActive(true);
 				uiDefenceGroup[0].SetActive(false);
@@ -885,7 +879,7 @@ public class UIGame : UIBase {
 		case EUIControl.Block:
 			UIEffectState(EUIControl.Block);
 
-			ShowSkillUI(false);
+			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(false);
 			uiDefenceGroup[1].SetActive(true);
@@ -893,13 +887,13 @@ public class UIGame : UIBase {
 		case EUIControl.Steal:
 			UIEffectState(EUIControl.Steal);
 
-			ShowSkillUI(false);
+			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiDefenceGroup[0].SetActive(true);
 			uiDefenceGroup[1].SetActive(false);
 			break;
 		case EUIControl.Shoot:
-			ShowSkillUI(false);
+			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiShoot.SetActive(true);
 			uiPassObjectGroup[0].SetActive(false);
@@ -909,7 +903,7 @@ public class UIGame : UIBase {
 		case EUIControl.Pass:
 		case EUIControl.PassA:
 		case EUIControl.PassB:
-			ShowSkillUI(false);
+			ShowSkillEnableUI(false);
 			spriteAttack.gameObject.SetActive(false);
 			uiShoot.SetActive(false);
 			uiPassObjectGroup[0].SetActive(false);
@@ -1139,6 +1133,7 @@ public class UIGame : UIBase {
 
 				uiScoreBar.SetActive(false);
 				uiJoystick.gameObject.SetActive(false);
+				ShowSkillEnableUI(false);
 
 				if(UIPassiveEffect.Visible)
 					UIPassiveEffect.UIShow(false);
@@ -1243,13 +1238,35 @@ public class UIGame : UIBase {
 	}
 
 	private void showViewForceBar (bool isShow){
-		if(!GameController.Get.Joysticker)
+		if(!GameController.Get.Joysticker) {
 			viewForceBar.SetActive(false);
-		else {
-			if(GameData.Team.Player.ActiveSkills.Count > 0)
+			showUIButtonSkill(false);
+		} else {
+			if(GameData.Team.Player.ActiveSkills.Count > 0) {
 				viewForceBar.SetActive(isShow);
-			else 
+				showUIButtonSkill(isShow);
+			} else {
 				viewForceBar.SetActive(false);
+				showUIButtonSkill(false);
+			}
+		}
+	}
+
+	private void showUIButtonSkill (bool isShow) {
+		if(GameController.Get.Joysticker)
+			for(int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++){
+				uiButtonSkill[i].SetActive(((i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count) && isShow));
+			}
+	}
+
+	
+	
+	private void showSkillRefUI (bool isShow) {
+		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+			viewForceBar.SetActive(isShow);
+
+		} else {
+			viewForceBar.SetActive(false);
 		}
 	}
 	

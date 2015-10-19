@@ -533,6 +533,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	//Active
 	private bool isUseSkill = false;
+	private int angerPower = 0;
 
 	//ShowWord
 	public GameObject ShowWord;
@@ -548,7 +549,6 @@ public class PlayerBehaviour : MonoBehaviour
     private bool canSpeedup = true;
     private float SlowDownTime = 0;
 	public float DribbleTime = 0;
-	private int angerPower = 0;
 	public ETimerKind CrtTimeKey = ETimerKind.Default;
 
 	//SkillEvent
@@ -568,7 +568,7 @@ public class PlayerBehaviour : MonoBehaviour
 		int v = (int)(value / 10);
 		if(v <= 0)
 			v = 0;
-		if(GameController.Get.Situation != EGameSituation.End) {
+		if(GameController.Get.Situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0) {
 			if(this == GameController.Get.Joysticker && value > 0) {
 				if(target)
 					SkillDCExplosion.Get.BornDC( v, target, CameraMgr.Get.SkillDCTarget, parent);

@@ -753,13 +753,15 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.Get.AddAllForce();
 			}
 
-			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {
-				UIGame.Get.DoSkill(null, true);
-				UIGame.Get.DoSkill(null, false);
-			}
+//			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {	
+//				if(Joysticker.Attribute.ActiveSkills.Count > 0) {
+//					for (int i=0; i<Joysticker.Attribute.ActiveSkills.Count; i++) {
+//						if(Joysticker.Attribute.CheckIfMaxAnger())
+//					}
+//				}
+//			}
 
-			if (Situation == EGameSituation.JumpBall || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
-				judgeSkillUI();
+
 		}
 		#endif
 
@@ -790,7 +792,6 @@ public class GameController : KnightSingleton<GameController>
 		if (IsTimePass())
 			gameResult();
 
-		judgeSkillUI ();
 	}
 	
 	private void resetTestMode() {
@@ -1339,7 +1340,6 @@ public class GameController : KnightSingleton<GameController>
 //				setPassIcon(true);
 //				UIGame.UIShow (true);
 //				UIGame.Get.UIState(EUISituation.Opening);
-				judgeSkillUI();
 
 				break;
 			case EGameSituation.JumpBall:
@@ -1363,10 +1363,8 @@ public class GameController : KnightSingleton<GameController>
 
 				break;
 			case EGameSituation.AttackGamer:
-				judgeSkillUI();
 				break;
 			case EGameSituation.AttackNPC:
-				judgeSkillUI ();
 				break;
 			case EGameSituation.GamerPickBall:
 //				CourtMgr.Get.Walls[1].SetActive(false);
@@ -1443,19 +1441,6 @@ public class GameController : KnightSingleton<GameController>
 			}
         }
     }
-
-	private void judgeSkillUI()
-    {
-		if(Joysticker.Attribute.ActiveSkills.Count > 0 ){
-			for(int i=0; i<Joysticker.Attribute.ActiveSkills.Count; i++) {
-				if(Joysticker && Joysticker.Attribute.ActiveSkills[i].ID > 0 && IsStart)
-				{
-					CourtMgr.Get.SkillArea((int)Joysticker.Team, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[i]));
-					UIGame.Get.ShowSkillUI(IsStart, i, Joysticker.IsAngerFull(Joysticker.Attribute.ActiveSkills[i]), Joysticker.CheckSkill(Joysticker.Attribute.ActiveSkills[i]));
-				}
-			}
-		}
-	}
 	
 	private EBasketDistanceAngle judgeShootAngle(PlayerBehaviour player){
 		float angle = 0;
