@@ -645,6 +645,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Steal0:
+			case EPlayerState.Steal1:
 				GameController.Get.Passer = null;
 				
 //				Vector3 v = RealBall.transform.forward * -1;
@@ -675,7 +676,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				}
 				break;
 			
-			case EPlayerState.Block: 
+			case EPlayerState.Block0: 
+			case EPlayerState.Block1: 
+			case EPlayerState.Block2: 
 			case EPlayerState.KnockDown0: 
 			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;
@@ -724,6 +727,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 			case EPlayerState.HoldBall:
 			case EPlayerState.PickBall0:
+			case EPlayerState.PickBall1:
+			case EPlayerState.PickBall2:
 				realBallCollider.enabled = false;
 				if (player)
 				{

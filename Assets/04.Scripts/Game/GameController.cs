@@ -647,121 +647,31 @@ public class GameController : KnightSingleton<GameController>
 	void FixedUpdate() {
 		#if UNITY_EDITOR
 		if (Joysticker) {
-			if (Input.GetKeyUp (KeyCode.V))
-				BallOwner.AniState(EPlayerState.KnockDown1);
+			switch(GameStart.Get.TestMode){
+				case EGameTest.Rebound:
+					if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
+						Joysticker.AniState (EPlayerState.ReboundCatch);
 
-			if (Input.GetKeyUp (KeyCode.K))
-				gameResult();
+					if (Input.GetKeyDown (KeyCode.Z)) {
+						resetTestMode();
+					}
+					break;
 
-			if (Input.GetKeyUp (KeyCode.I))
-			{
-				AnimationEvent e = new AnimationEvent();
-				e.floatParameter = 1.5f;
-				e.intParameter = 1;
-				Joysticker.SkillEvent(e);
-			}
-
-			if (Input.GetKeyUp (KeyCode.U))
-			{
-				AnimationEvent e = new AnimationEvent();
-				e.floatParameter = 1.5f;
-				e.intParameter = 2;
-				Joysticker.SkillEvent(e);
-			}
-
-			if (Input.GetKeyUp (KeyCode.D))
-			{
-				UIGame.Get.DoAttack(null, true);
-				UIGame.Get.DoAttack(null, false);
-			}
-
-			if (Input.GetKeyDown(KeyCode.N))
-			{
-				TimerMgr.Get.PauseTime(true);
-			}
-
-			if (Input.GetKeyDown(KeyCode.T)){
-				UIDoubleClick.Get.ClickStop(0);
-			}
-
-			if (Input.GetKeyUp (KeyCode.M))
-			{
-				TimerMgr.Get.PauseTime(false);
-			}
-
-			if (Situation == EGameSituation.AttackGamer) {
-				if (Input.GetKeyUp (KeyCode.A))
-				{
-					UIGame.Get.DoPassChoose(null, false);
-				}
-
-				if(Input.GetKeyDown (KeyCode.W))
-					UIGame.Get.DoPassTeammateA(null, true);
-				
-				if(Input.GetKeyDown (KeyCode.E))
-					UIGame.Get.DoPassTeammateB(null, true);
-
-				if (Input.GetKeyDown (KeyCode.S))
-				{
-					if(GameStart.Get.TestMode == EGameTest.AnimationUnit){
+				case EGameTest.AnimationUnit:
+					if (Input.GetKeyDown (KeyCode.S)){
 						Joysticker.AniState(GameStart.Get.SelectAniState);
 						TSkill skill = new TSkill();
 						skill.ID = (int )GameStart.Get.SelectAniState;
 						Joysticker.PassiveSkillUsed = skill;
 						if((int)GameStart.Get.SelectAniState > 100 && GameStart.Get.TestMode == EGameTest.AnimationUnit) 
 							SkillEffectManager.Get.OnShowEffect(Joysticker, true);
-					}else
-						UIGame.Get.DoShoot(null, true);
-				}
-				
-				if (Input.GetKeyUp (KeyCode.S))
-				{
-					if(GameStart.Get.TestMode != EGameTest.AnimationUnit)
-						UIGame.Get.DoShoot(null, false);
-				}
+					}
+					break;
+
+				default:
+					KeyboardControl();
+					break;
 			}
-			else if(Situation == EGameSituation.AttackNPC){
-				if(Input.GetKeyDown (KeyCode.A)){
-					UIGame.Get.DoSteal(null, true);
-					UIGame.Get.DoSteal(null, false);
-				}
-
-				if(Input.GetKeyDown (KeyCode.S)){
-					UIGame.Get.DoBlock();
-				}
-			}
-
-			if (Input.GetKeyDown (KeyCode.R) && Joysticker != null)
-				Joysticker.DoPassiveSkill(ESkillSituation.Rebound);
-
-			if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-				Joysticker.AniState (EPlayerState.ReboundCatch);
-
-			if (GameStart.Get.TestMode == EGameTest.Rebound && Input.GetKeyDown (KeyCode.Z)) {
-				resetTestMode();
-            }
-
-			if(Input.GetKeyDown(KeyCode.L)) {
-				for (int i = 0; i < PlayerList.Count; i ++){
-					PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
-                UIGame.Get.AddAllForce();
-				}
-			}
-
-			if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
-				Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
-				UIGame.Get.AddAllForce();
-			}
-
-//			if(Input.GetKeyDown(KeyCode.O) && Joysticker != null) {	
-//				if(Joysticker.Attribute.ActiveSkills.Count > 0) {
-//					for (int i=0; i<Joysticker.Attribute.ActiveSkills.Count; i++) {
-//						if(Joysticker.Attribute.CheckIfMaxAnger())
-//					}
-//				}
-//			}
-
-
 		}
 		#endif
 
@@ -791,7 +701,61 @@ public class GameController : KnightSingleton<GameController>
 
 		if (IsTimePass())
 			gameResult();
+	}
 
+	private void KeyboardControl()
+	{
+		if (Input.GetKeyUp (KeyCode.D))
+		{
+			UIGame.Get.DoAttack(null, true);
+			UIGame.Get.DoAttack(null, false);
+		}
+		
+		if (Situation == EGameSituation.AttackGamer) {
+			if (Input.GetKeyUp (KeyCode.A))
+			{
+				UIGame.Get.DoPassChoose(null, false);
+			}
+			
+			if(Input.GetKeyDown (KeyCode.W))
+				UIGame.Get.DoPassTeammateA(null, true);
+			
+			if(Input.GetKeyDown (KeyCode.E))
+				UIGame.Get.DoPassTeammateB(null, true);
+			
+			if (Input.GetKeyDown (KeyCode.S))
+			{
+				UIGame.Get.DoShoot(null, true);
+			}
+			
+			if (Input.GetKeyUp (KeyCode.S))
+			{
+				if(GameStart.Get.TestMode != EGameTest.AnimationUnit)
+					UIGame.Get.DoShoot(null, false);
+			}
+		}
+		else if(Situation == EGameSituation.AttackNPC){
+			if(Input.GetKeyDown (KeyCode.A)){
+				UIGame.Get.DoSteal(null, true);
+				UIGame.Get.DoSteal(null, false);
+			}
+			
+			if(Input.GetKeyDown (KeyCode.S)){
+				UIGame.Get.DoBlock();
+			}
+		}
+		
+		if(Input.GetKeyDown(KeyCode.L)) {
+			for (int i = 0; i < PlayerList.Count; i ++){
+				PlayerList[i].SetAnger(PlayerList[i].Attribute.MaxAnger);
+				UIGame.Get.AddAllForce();
+			}
+		}
+		
+		if(Input.GetKeyDown(KeyCode.P) && Joysticker != null) { 
+			Joysticker.SetAnger(Joysticker.Attribute.MaxAnger);
+			UIGame.Get.AddAllForce();
+		}
 	}
 	
 	private void resetTestMode() {
@@ -1077,7 +1041,7 @@ public class GameController : KnightSingleton<GameController>
 	
 	public void AIDefend([NotNull] PlayerBehaviour player)
 	{
-		if (player.AIing && !player.IsSteal && !player.CheckAnimatorSate(EPlayerState.Push0) && 
+		if (player.AIing && !player.IsSteal && !player.IsPush && 
 		    BallOwner && !IsDunk && !IsShooting) {
 			bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;        
 			bool sucess = false;
@@ -2380,7 +2344,9 @@ public class GameController : KnightSingleton<GameController>
 					UIDoubleClick.Get.SetData(EDoubleClick.Shoot, playerindex, 1.3f, DoubleShoot);
 					return true;
 
-				case EPlayerState.Block:
+				case EPlayerState.Block0:
+				case EPlayerState.Block1:
+				case EPlayerState.Block2:
 				case EPlayerState.BlockCatch:
 					UIDoubleClick.Get.SetData(EDoubleClick.Block, playerindex, 0.7f, null, DoubleBlock, player);
 					return true;
@@ -2415,9 +2381,9 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		case 1: 
 			if(Shooter)
-				CourtMgr.Get.SetBallState(EPlayerState.Block, Shooter);
+				CourtMgr.Get.SetBallState(EPlayerState.Block0, Shooter);
 			else
-				CourtMgr.Get.SetBallState(EPlayerState.Block, player);
+				CourtMgr.Get.SetBallState(EPlayerState.Block0, player);
 			break;
 		case 2: 
 			SetBall(player);
@@ -2475,7 +2441,7 @@ public class GameController : KnightSingleton<GameController>
 
     public bool DoBlock() {
 		if (IsStart && CandoBtn && Joysticker) {
-			if(Joysticker.crtState == EPlayerState.Block && Joysticker.IsPerfectBlockCatch) {
+			if(Joysticker.IsBlock && Joysticker.IsPerfectBlockCatch) {
 				Joysticker.AniState(EPlayerState.BlockCatch);
 				if(UIDoubleClick.Get.DoubleClicks[0].Enable)
 					UIDoubleClick.Get.ClickStop(0);
@@ -2575,8 +2541,8 @@ public class GameController : KnightSingleton<GameController>
 
 			if (BallOwner == Joysticker)
 			{
-				if(Joysticker.crtState == EPlayerState.Elbow)
-					ps = EPlayerState.Elbow;
+				if(Joysticker.crtState == EPlayerState.Elbow0)
+					ps = EPlayerState.Elbow0;
 				else if(Joysticker.crtState == EPlayerState.HoldBall)
 					ps = EPlayerState.HoldBall;
 				else
@@ -2930,7 +2896,7 @@ public class GameController : KnightSingleton<GameController>
 
     private void doLookAtBall(PlayerBehaviour someone)
     {
-        if(someone.crtState != EPlayerState.Block && someone.AIing)
+        if(!someone.IsBlock  && someone.AIing)
             someone.RotateTo(CourtMgr.Get.RealBall.transform.position.x, 
                              CourtMgr.Get.RealBall.transform.position.z);
     }
@@ -4033,7 +3999,7 @@ public class GameController : KnightSingleton<GameController>
             return false;
         if(player.Team == ETeamKind.Npc && player.transform.position.z <= -15.5f && player.transform.position.x <= 1 && player.transform.position.x >= -1)
             return false;
-		if(player.CheckAnimatorSate(EPlayerState.Elbow))
+		if(player.IsElbow)
 			return false;
         return true;
     }
@@ -4298,7 +4264,7 @@ public class GameController : KnightSingleton<GameController>
 						}
 					}
 
-					if (pusher.crtState == EPlayerState.Elbow) {
+					if (pusher.crtState == EPlayerState.Elbow0) {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
 					} else {
@@ -4405,7 +4371,7 @@ public class GameController : KnightSingleton<GameController>
         get
         {
             for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Block))
+				if (PlayerList [i].IsBlock)
 					return true;
             
             return false;
