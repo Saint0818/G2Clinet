@@ -21,7 +21,8 @@ public struct TSkillInfo {
 public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
-	public TSkillCardPage[] SkillCardPages;
+	public int[, ] SkillCardPages;
+	//public TSkillCardPage[] SkillCardPages;
 }
 
 public struct TActiveStruct {
@@ -673,14 +674,14 @@ public class UISkillFormation : UIBase {
 
 	//For Sell
 	private bool isSkillCardInPages(int sn) {
-		for (int i=0; i<5; i++) {
+		/*for (int i=0; i<5; i++) {
 			int[] SNs = GameData.Team.Player.GetSkillCardPagesSN(i).SNs;
 			if (SNs.Length > 0) {
 				for (int j=0; j<SNs.Length; j++)
 					if (SNs[j] == sn)
 						return true;
 			}
-		}
+		}*/
 		return false;
 	}
 

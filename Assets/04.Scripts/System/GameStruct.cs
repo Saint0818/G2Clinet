@@ -111,7 +111,8 @@ namespace GameStruct {
 		public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
-		public TSkillCardPage[] SkillCardPages;
+		//public TSkillCardPage[] SkillCardPages;
+		public int[,] SkillCardPages;
 		public TItem[] Items;
 
 		public TPlayer(int level)
@@ -141,7 +142,8 @@ namespace GameStruct {
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
-			SkillCardPages = new TSkillCardPage[0];
+			//SkillCardPages = new TSkillCardPage[0];
+			SkillCardPages = new int[0, 0];
 			Items = new TItem[0];
 		}
 
@@ -183,17 +185,6 @@ namespace GameStruct {
 			    AISkillLv = GameData.DPlayers[ID].AISkillLv;
 				SetSkill(type);
 			}
-		}
-
-		//skillPage 0 1 2 3 4
-		public TSkillCardPage GetSkillCardPagesSN (int skillPage = 0) {
-			TSkillCardPage page = new TSkillCardPage(1);
-			if(SkillCardPages != null && SkillCardPages.Length > 0 && skillPage >= 0 && skillPage < 5 && skillPage < SkillCardPages.Length) {
-				if(!SkillCardPages[skillPage].ToString().Equals("[]")) {
-					page = JsonConvert.DeserializeObject <TSkillCardPage>(SkillCardPages[skillPage].ToString(), SendHttp.Get.JsonSetting); 
-				}
-			} 
-			return page;
 		}
 
 		public void SetSkill (ESkillType type){
