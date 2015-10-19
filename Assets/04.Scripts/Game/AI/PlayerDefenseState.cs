@@ -32,11 +32,6 @@ namespace AI
                     mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
                 }
             }
-            //        if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkill.ID))
-            //        {
-            //            TSkillData skill = GameData.DSkillData[mPlayer.Attribute.ActiveSkill.ID];
-            //            mSkillJudger.SetCondition(skill.Situation, mPlayer.Attribute.AISkillLv);
-            //        }
         }
 
         public override void Exit()
@@ -56,12 +51,6 @@ namespace AI
                     return;
                 }
             }
-
-            //        if(mSkillJudger.IsMatchCondition() && mPlayer.CanUseActiveSkill)
-            //        {
-            //            GameController.Get.DoSkill(mPlayer);
-            //            return;
-            //        }
 
             GameController.Get.AIDefend(mPlayer);
         }

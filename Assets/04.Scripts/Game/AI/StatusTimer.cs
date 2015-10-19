@@ -20,6 +20,11 @@ namespace AI
             return mTimer.IsTimeUp();
         }
 
+        public void Clear()
+        {
+            mTimer.Stop();
+        }
+
         public void Update(float elapsedTime)
         {
             mTimer.Update(elapsedTime);

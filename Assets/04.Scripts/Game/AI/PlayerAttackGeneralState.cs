@@ -407,7 +407,8 @@ namespace AI
                     }
                 }
 
-                if(someone.WaitMoveTime != 0 /*&& GameController.Get.BallOwner != null*/ && 
+//                if(someone.WaitMoveTime != 0 /*&& GameController.Get.BallOwner != null*/ && 
+                if(someone.CantMoveTimer.IsOn()&& 
                    someone == GameController.Get.BallOwner)
                     someone.AniState(EPlayerState.Dribble0);
             }

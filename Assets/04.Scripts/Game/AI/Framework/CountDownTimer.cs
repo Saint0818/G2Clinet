@@ -66,6 +66,11 @@ namespace AI
             mIsUpdating = false;
         }
 
+        public void Stop()
+        {
+            mRemainTime = TimeUpTime;
+        }
+
         /// <summary>
         /// 
         /// </summary>

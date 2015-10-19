@@ -1120,7 +1120,8 @@ public class GameController : KnightSingleton<GameController>
 		    !player.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 		    (Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC))
         {
-			if(player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
+//			if(player.DefPlayer.CanMove && player.DefPlayer.WaitMoveTime == 0)
+			if(player.DefPlayer.CanMove && player.DefPlayer.CantMoveTimer.IsOff())
             {
 				if(BallOwner != null)
                 {
@@ -2593,7 +2594,8 @@ public class GameController : KnightSingleton<GameController>
 	    if(tactical.FileName == string.Empty)
             return;
 
-        if(someone.CanMove && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0) // 是否之前設定的戰術跑完.
+//        if(someone.CanMove && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0) // 是否之前設定的戰術跑完.
+        if(someone.CanMove && someone.CantMoveTimer.IsOff() && someone.TargetPosNum == 0) // 是否之前設定的戰術跑完.
         {
 	        tacticalActions = tactical.GetActions(someone.Index);
 
@@ -2635,7 +2637,9 @@ public class GameController : KnightSingleton<GameController>
 
     private void InboundsBall(PlayerBehaviour someone, ETeamKind team, ref TTacticalData data)
     {
-		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0)
+//		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0)
+		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && 
+            someone.CantMoveTimer.IsOff() && someone.TargetPosNum == 0)
         {
             // Debug.LogFormat("InboundsBall, tactical:{0}", tacticalData);
 
@@ -2729,7 +2733,8 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
         
-        if (someone.WaitMoveTime != 0 && someone == BallOwner)
+//        if (someone.WaitMoveTime != 0 && someone == BallOwner)
+        if (someone.CantMoveTimer.IsOn() && someone == BallOwner)
             someone.AniState(EPlayerState.Dribble0);
     }
 
@@ -2952,7 +2957,8 @@ public class GameController : KnightSingleton<GameController>
 
     public void DoPickBall([NotNull] PlayerBehaviour someone)
 	{
-	    if(someone.CanMove && someone.WaitMoveTime == 0)
+//	    if(someone.CanMove && someone.WaitMoveTime == 0)
+	    if(someone.CanMove && someone.CantMoveTimer.IsOff())
 	    {
             // 球員移動到球的位置.
 	        moveData.Clear();
@@ -3143,7 +3149,8 @@ public class GameController : KnightSingleton<GameController>
 				BallOwner.IsBallOwner = false;
 
         	BallOwner = p;
-			BallOwner.WaitMoveTime = 0;
+//			BallOwner.WaitMoveTime = 0;
+			BallOwner.CantMoveTimer.Clear();
 			BallOwner.IsBallOwner = true;
 			result = true;
 			Shooter = null;
@@ -3168,7 +3175,8 @@ public class GameController : KnightSingleton<GameController>
 
         	if (p) {
 				AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
-				p.WaitMoveTime = 0;
+//				p.WaitMoveTime = 0;
+				p.CantMoveTimer.Clear();
 				p.IsFirstDribble = true;
 				CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;
 

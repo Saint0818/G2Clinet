@@ -463,8 +463,12 @@ public class PlayerBehaviour : MonoBehaviour
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
-    public float WaitMoveTime = 0;
-//    public float Invincible = 0;
+//    public float WaitMoveTime = 0;
+
+    /// <summary>
+    /// 這是避免近距離時, 人物不斷轉向的問題, 而設計的解決方案.(這不好, 應該要換作法才對)
+    /// </summary>
+    public readonly StatusTimer CantMoveTimer = new StatusTimer();
     public readonly StatusTimer Invincible = new StatusTimer();
     public float JumpHight = 450f;
     public float CoolDownSteal = 0;
@@ -862,11 +866,10 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationPick();
 		DebugTool ();
         
-        if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
-            WaitMoveTime = 0;
+//        if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
+//            WaitMoveTime = 0;
+        CantMoveTimer.Update(Time.deltaTime);
 
-//        if (Invincible > 0 && Time.time >= Invincible)
-//            Invincible = 0;
         Invincible.Update(Time.deltaTime);
 
         if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
@@ -1641,7 +1644,8 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void moveTo(TMoveData data, bool first = false)
     {
-        if((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && 
+//        if((CanMove || (AIing && HoldBallCanMove)) && WaitMoveTime == 0 && 
+        if((CanMove || (AIing && HoldBallCanMove)) && CantMoveTimer.IsOff() && 
             GameStart.Get.TestMode != EGameTest.Block)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
@@ -1656,8 +1660,9 @@ public class PlayerBehaviour : MonoBehaviour
                 
                 if(IsDefence)
                 {
-                    // 距離很短 or 不移動, 球員又是在防守狀態.
-                    WaitMoveTime = 0;
+                    // 移動距離很短 or 不移動, 球員又是在防守狀態.
+//                    WaitMoveTime = 0;
+                    CantMoveTimer.Clear();
                     if (data.DefPlayer != null) {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
                         
@@ -1667,8 +1672,9 @@ public class PlayerBehaviour : MonoBehaviour
                             else 
 							if (!doMove)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                            else 
-							if (dis > GameConst.TreePointDistance + 4 && (data.DefPlayer.AIing && (data.DefPlayer.WaitMoveTime == 0 || data.DefPlayer.TargetPosNum > 0)))
+                            else if(dis > GameConst.TreePointDistance + 4 && data.DefPlayer.AIing &&
+//                                    (data.DefPlayer.WaitMoveTime == 0 || data.DefPlayer.TargetPosNum > 0))
+                                    (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
                                 RotateTo(MoveTarget.x, MoveTarget.y);
                             else
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
@@ -1686,26 +1692,31 @@ public class PlayerBehaviour : MonoBehaviour
                 }
                 else
                 {
-                    // 距離很短 or 不移動, 球員又是在進攻狀態.
+                    // 移動距離很短 or 不移動, 球員又是在進攻狀態.
                     if (!IsBallOwner)
                         AniState(EPlayerState.Idle);
                     else if (situation == EGameSituation.InboundsGamer || situation == EGameSituation.InboundsNPC)
                         AniState(EPlayerState.Dribble0);
                     
                     if (first || GameStart.Get.TestMode == EGameTest.Edit)
-                        WaitMoveTime = 0;
-                    else if ((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC) && 
-						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
+//                        WaitMoveTime = 0;
+                        CantMoveTimer.Clear();
+                    else if((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC) && 
+     						GameController.Get.BallOwner && UnityEngine.Random.Range(0, 3) == 0)
                     {
-						dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position);
-						float t = 0;
-						if (dis <= 8)
-                    		t = UnityEngine.Random.Range(3, 11) * 0.1f;
+                        // 目前猜測這段程式碼的功能是近距離防守時, 避免防守者不斷的轉向.
+                        // 因為當初寫這段程式碼的時候, AI 做決策其實是 1 秒 30 次以上.
+                        // 所以當 AI 做防守邏輯的時候, 會 1 秒下 30 的命令, 命令跑到某位球員的旁邊.
+                        // 就會造成防守球員會一直的轉向.(因為距離很近的時候, 對方移動一點距離, 防守者就必須轉向很多度
+                        // , 才可以正確的面相對方)
+						dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint[Team.GetHashCode()].transform.position);
+						if(dis <= 8)
+//                    		WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 1.1f);
+                    		CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 1.1f));
                	 		else
-							t = UnityEngine.Random.Range(3, 21) * 0.1f;
-
-						WaitMoveTime = Time.time + t;
-					}
+//							WaitMoveTime = Time.time + UnityEngine.Random.Range(0.3f, 2.1f);
+                            CantMoveTimer.StartCounting(UnityEngine.Random.Range(0.3f, 2.1f));
+                    }
                     
                     if (IsBallOwner) {
                         if (Team == ETeamKind.Self)
@@ -1931,7 +1942,8 @@ public class PlayerBehaviour : MonoBehaviour
 //                Debug.Log("ResetFlag(), moveQueue.Clear().");
             }
 
-            WaitMoveTime = 0;
+//            WaitMoveTime = 0;
+            CantMoveTimer.Clear();
             NeedShooting = false;
             isJoystick = false; 
             isMoving = false;
@@ -3449,7 +3461,8 @@ public class PlayerBehaviour : MonoBehaviour
     public void ResetMove()
     {
         moveQueue.Clear();
-        WaitMoveTime = 0;
+//        WaitMoveTime = 0;
+        CantMoveTimer.Clear();
 
 //        Debug.Log("ResetMove, moveQueue.Clear().");
     }
