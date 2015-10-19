@@ -57,6 +57,9 @@ namespace GameEnum {
 
 	public enum ESave{
 		AvatarSort,
-		AvatarFilter
+		AvatarFilter,
+		SkillCardCondition,
+		SkillCardFilter
+
 	}
 }

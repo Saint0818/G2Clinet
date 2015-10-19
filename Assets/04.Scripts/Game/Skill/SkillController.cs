@@ -432,8 +432,8 @@ public class SkillController : MonoBehaviour {
 		              GameController.Get.Situation == EGameSituation.Opening||
 		              GameController.Get.Situation == EGameSituation.JumpBall)) {
 			switch(State) {
-			case ESkillSituation.Block:
-				playerState = getPassiveSkill(ESkillSituation.Block, ESkillKind.Block, v);
+			case ESkillSituation.Block0:
+				playerState = getPassiveSkill(ESkillSituation.Block0, ESkillKind.Block0, v);
 				Result = player.AniState(playerState, v);
 				break;
 				
@@ -450,8 +450,8 @@ public class SkillController : MonoBehaviour {
 				Result = true;
 				break;
 
-			case ESkillSituation.Elbow:
-				playerState = getPassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow);
+			case ESkillSituation.Elbow0:
+				playerState = getPassiveSkill(ESkillSituation.Elbow0, ESkillKind.Elbow0);
 				Result = player.AniState (playerState);
 				break;
 				

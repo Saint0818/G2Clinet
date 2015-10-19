@@ -325,11 +325,10 @@ public class UIGame : UIBase {
 			uiDCs[i].SetActive(false);
 			spriteSkills[i] = GameObject.Find(uiButtonSkill[i].name  + "/SpriteSkill").GetComponent<UISprite>();
 			spriteEmptys[i] = GameObject.Find(uiButtonSkill[i].name  + "/SkillEmpty").GetComponent<UISprite>();
-			if(i < GameData.Team.Player.ActiveSkills.Count) {
-				spriteSkills[i].spriteName = GameData.DSkillData[GameData.Team.Player.ActiveSkills[i].ID].PictureNo + "s";
-				spriteEmptys[i].spriteName = GameData.DSkillData[GameData.Team.Player.ActiveSkills[i].ID].PictureNo + "s";
+			if(GameController.Get.Joysticker != null && GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+				spriteSkills[i].spriteName = GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+				spriteEmptys[i].spriteName = GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 			}
-			
 			UIEventListener.Get (uiButtonSkill[i]).onPress = DoSkill;
 			UIEventListener.Get (uiButtonSkill[i]).onDragOver = DoSkillOut;
 			uiButtonSkill[i].SetActive(false);
@@ -964,7 +963,7 @@ public class UIGame : UIBase {
 					if(isPressElbowBtn && 
 					   !GameController.Get.Joysticker.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackGamer &&
-					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
+					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow0)) {
 						noAI = GameController.Get.DoElbow ();
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
@@ -1016,7 +1015,7 @@ public class UIGame : UIBase {
 					   !GameController.Get.Joysticker.IsFall && 
 					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
-					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block)
+					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block0)
 					   ) {
 						if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) {
 							isShootAvailable = false;
@@ -1124,6 +1123,13 @@ public class UIGame : UIBase {
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
 			drawLine.IsShow = false;
+			
+			if(GameController.Get.Joysticker && GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+				for (int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++) {
+					spriteSkills[i].spriteName = GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+					spriteEmptys[i].spriteName = GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID].PictureNo + "s";
+				}
+			}
 			break;
 		case EUISituation.Pause:
 			if (!viewStart.activeInHierarchy) {

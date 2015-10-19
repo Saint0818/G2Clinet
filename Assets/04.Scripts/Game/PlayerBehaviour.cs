@@ -580,7 +580,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
-		int v = (int)(value / 10);
+		int v = (int)(Mathf.Abs(value) / 10);
 		if(v <= 0)
 			v = 0;
 		if(GameController.Get.Situation != EGameSituation.End && Attribute.ActiveSkills.Count > 0) {
@@ -686,7 +686,7 @@ public class PlayerBehaviour : MonoBehaviour
 		GameRecord.Init();
 		GameRecord.ID = Attribute.ID;
 
-		if(Index == 0 && Team == ETeamKind.Self)
+		if(Index == 0 && Team == ETeamKind.Self && GameStart.Get.ConnectToServer)
 			Attribute.SetAttribute(GameEnum.ESkillType.Player);
 		else
 			Attribute.SetAttribute(GameEnum.ESkillType.NPC);
@@ -2263,7 +2263,7 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 2;
 						break;
 				}
-				skillKind = ESkillKind.Block;
+				skillKind = ESkillKind.Block0;
                 SetShooterLayer();
                 playerBlockCurve = null;
 				curveName = string.Format("Block{0}", stateNo);
@@ -2474,7 +2474,7 @@ public class PlayerBehaviour : MonoBehaviour
 					stateNo = 1;
 					break;
 			}
-			skillKind = ESkillKind.Elbow;
+			skillKind = ESkillKind.Elbow0;
 			PlayerRigidbody.mass = 5;
       		ClearAnimatorFlag();
 			AnimatorControl.SetInteger("StateNo", stateNo);

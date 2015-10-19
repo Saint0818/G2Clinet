@@ -1916,7 +1916,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoElbow()
 	{
 		if(Joysticker)
-			return Joysticker.DoPassiveSkill(ESkillSituation.Elbow);
+			return Joysticker.DoPassiveSkill(ESkillSituation.Elbow0);
 
         return false;
 	}
@@ -2452,16 +2452,16 @@ public class GameController : KnightSingleton<GameController>
 					if(IsReboundTime)
 						return Rebound(Joysticker);
 					else
-						return Joysticker.DoPassiveSkill(ESkillSituation.Block, Shooter.transform.position);
+						return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.transform.position);
 	            else
 	            if (BallOwner) {
 					Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-					return Joysticker.DoPassiveSkill(ESkillSituation.Block, BallOwner.transform.position);
+					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, BallOwner.transform.position);
 				} else {
 					if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
 						return Rebound(Joysticker);
 					else
-						return Joysticker.DoPassiveSkill(ESkillSituation.Block);
+						return Joysticker.DoPassiveSkill(ESkillSituation.Block0);
 				}
 			}
         }
@@ -2880,7 +2880,7 @@ public class GameController : KnightSingleton<GameController>
 						
 						if (GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70) {
 							if (rate < BlockRate) {
-								if(npc2.DoPassiveSkill(ESkillSituation.Block, npc.transform.position)) {
+								if(npc2.DoPassiveSkill(ESkillSituation.Block0, npc.transform.position)) {
 									if (kind == 1)
 										npc2.GameRecord.BeFake++;
 

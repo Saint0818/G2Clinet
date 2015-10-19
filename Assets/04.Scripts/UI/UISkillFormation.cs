@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using GameEnum;
 using GameStruct;
 using DG.Tweening;
 
@@ -104,6 +105,7 @@ public class UISkillFormation : UIBase {
 	private GameObject itemCardEquipped;
 
 	//CenterCard
+	private List<GameObject> skillOriginalCards = new List<GameObject>();//By Sort
 	private List<GameObject> skillSortCards = new List<GameObject>();//By Sort
 	private List<string> skillsOriginal = new List<string>();//record alread equiped   rule: index_id_skillsOriginal(Equiped)_cardLV
 	private List<string> skillsRecord = new List<string>();
@@ -150,8 +152,8 @@ public class UISkillFormation : UIBase {
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
 	private bool isEdit = false;
-	private ECondition eCondition = ECondition.Rare;
-	private int eFilter = 0;
+	private int eCondition;
+	private int eFilter;
 
 	//page
 	private int tempPage = 0;
@@ -192,6 +194,7 @@ public class UISkillFormation : UIBase {
 		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
 		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
 		tempPage = GameData.Team.Player.SkillPage;
+
 		for(int i=0; i<toggleDecks.Length; i++) {
 			toggleDecks[i] = GameObject.Find(UIName + "/MainView/Right/DecksList/DecksBtn"+ i.ToString()).GetComponent<UIToggle>();
 			toggleDecks[i].name = i.ToString();
@@ -225,6 +228,7 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 		initCards ();
+		UpdateSort();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
 	}
 
@@ -243,6 +247,7 @@ public class UISkillFormation : UIBase {
 		}
 		skillPages.Clear();
 		skillPagesOriginal.Clear();
+		skillOriginalCards.Clear();
 		skillSortCards.Clear();
 		skillsOriginal.Clear();
 		skillsRecord.Clear();
@@ -265,7 +270,7 @@ public class UISkillFormation : UIBase {
 	private void refreshAfterInstall () {
 		refresh();
 		initCards ();
-		SetSort(eCondition, eFilter);
+		UpdateSort();
 	}
 
 	private void refreshBeforeSell () {
@@ -278,7 +283,7 @@ public class UISkillFormation : UIBase {
 		refresh();
 		DoCloseSell();
 		initCards ();
-		SetSort(eCondition, eFilter);
+		UpdateSort();
 	}
 
 	private void initCards () {
@@ -307,6 +312,7 @@ public class UISkillFormation : UIBase {
 						addItems(uiCards[obj.name]);
 						skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					}
+					skillOriginalCards.Add(obj);
 					skillSortCards.Add(obj);
 				}
 			}
@@ -327,6 +333,7 @@ public class UISkillFormation : UIBase {
 					else 
 						skillPassiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
 
+					skillOriginalCards.Add(obj);
 					skillSortCards.Add(obj);
 				}
 			}
@@ -709,69 +716,75 @@ public class UISkillFormation : UIBase {
 		return false;
 	}
 	
-	private void sortSkillCondition(ECondition condition) {
+	private void sortSkillCondition(int condition) {
 		int value1 = 0;
 		int value2 = 0;
-		for(int i=0; i<skillSortCards.Count; i++) {
-			for (int j=i+1; j<skillSortCards.Count; j++){
-				int cardIdi = uiCards[skillSortCards[i].name].CardID;
-				int cardIdj = uiCards[skillSortCards[j].name].CardID;
-				string cardIdistr = uiCards[skillSortCards[i].name].Self.name;
-				string cardIdjstr = uiCards[skillSortCards[j].name].Self.name;
-
-				if(condition == ECondition.Rare) {
-					if(GameData.DSkillData.ContainsKey(cardIdi))
-						value1 = Mathf.Clamp(GameData.DSkillData[cardIdi].Star, 1, 5);
-					if(GameData.DSkillData.ContainsKey(cardIdj))
-						value2 =Mathf.Clamp(GameData.DSkillData[cardIdj].Star, 1, 5);
-				} else 
-				if(condition == ECondition.Kind){
-					if(GameData.DSkillData.ContainsKey(cardIdi))
-						value1 = GameData.DSkillData[cardIdi].Kind;
-					if(GameData.DSkillData.ContainsKey(cardIdj))
-						value2 = GameData.DSkillData[cardIdj].Kind;
-				} else 
-				if(condition == ECondition.Attribute){
-					if(GameData.DSkillData.ContainsKey(cardIdi))
-						value1 = GameData.DSkillData[cardIdi].AttrKind;
-					if(GameData.DSkillData.ContainsKey(cardIdj))
-						value2 = GameData.DSkillData[cardIdj].AttrKind;
-				}  else 
-				if(condition == ECondition.Level){
-					if(GameData.DSkillData.ContainsKey(cardIdi) && GameData.DSkillData.ContainsKey(cardIdj)){
-						if(skillPassiveCards.ContainsKey(cardIdistr)) 
-							value1 = skillPassiveCards[cardIdistr].Lv;
-						else 
-							if(skillActiveCards.ContainsKey(cardIdistr))
-								value1 = skillActiveCards[cardIdistr].Lv;
-
-						if(skillPassiveCards.ContainsKey(cardIdjstr))
-							value2 = skillPassiveCards[cardIdjstr].Lv;
-						else
-							if(skillActiveCards.ContainsKey(cardIdjstr))
-								value2 = skillActiveCards[cardIdjstr].Lv;
+		if(condition == ECondition.None.GetHashCode()) {
+			skillSortCards.Clear();
+			for(int i=0; i<skillOriginalCards.Count; i++) 
+				skillSortCards.Add(skillOriginalCards[i]);
+		} else {
+			for(int i=0; i<skillSortCards.Count; i++) {
+				for (int j=i+1; j<skillSortCards.Count; j++){
+					int cardIdi = uiCards[skillSortCards[i].name].CardID;
+					int cardIdj = uiCards[skillSortCards[j].name].CardID;
+					string cardIdistr = uiCards[skillSortCards[i].name].Self.name;
+					string cardIdjstr = uiCards[skillSortCards[j].name].Self.name;
+					
+					if(condition == ECondition.Rare.GetHashCode()) {
+						if(GameData.DSkillData.ContainsKey(cardIdi))
+							value1 = Mathf.Clamp(GameData.DSkillData[cardIdi].Star, 1, 5);
+						if(GameData.DSkillData.ContainsKey(cardIdj))
+							value2 =Mathf.Clamp(GameData.DSkillData[cardIdj].Star, 1, 5);
+					} else 
+					if(condition == ECondition.Kind.GetHashCode()){
+						if(GameData.DSkillData.ContainsKey(cardIdi))
+							value1 = GameData.DSkillData[cardIdi].Kind;
+						if(GameData.DSkillData.ContainsKey(cardIdj))
+							value2 = GameData.DSkillData[cardIdj].Kind;
+					} else 
+					if(condition == ECondition.Attribute.GetHashCode()){
+						if(GameData.DSkillData.ContainsKey(cardIdi))
+							value1 = GameData.DSkillData[cardIdi].AttrKind;
+						if(GameData.DSkillData.ContainsKey(cardIdj))
+							value2 = GameData.DSkillData[cardIdj].AttrKind;
+					}  else 
+					if(condition == ECondition.Level.GetHashCode()){
+						if(GameData.DSkillData.ContainsKey(cardIdi) && GameData.DSkillData.ContainsKey(cardIdj)){
+							if(skillPassiveCards.ContainsKey(cardIdistr)) 
+								value1 = skillPassiveCards[cardIdistr].Lv;
+							else 
+								if(skillActiveCards.ContainsKey(cardIdistr))
+									value1 = skillActiveCards[cardIdistr].Lv;
+							
+							if(skillPassiveCards.ContainsKey(cardIdjstr))
+								value2 = skillPassiveCards[cardIdjstr].Lv;
+							else
+								if(skillActiveCards.ContainsKey(cardIdjstr))
+									value2 = skillActiveCards[cardIdjstr].Lv;
+						}
+					} else 
+					if(condition == ECondition.Cost.GetHashCode()){
+						if(GameData.DSkillData.ContainsKey(cardIdi) && GameData.DSkillData.ContainsKey(cardIdj)){
+							if(skillPassiveCards.ContainsKey(cardIdistr)) 
+								value1 = GameData.DSkillData[cardIdi].Space(skillPassiveCards[cardIdistr].Lv);
+							else 
+								if(skillActiveCards.ContainsKey(cardIdistr))
+									value1 = GameData.DSkillData[cardIdi].Space(skillActiveCards[cardIdistr].Lv);
+							
+							if(skillPassiveCards.ContainsKey(cardIdjstr))
+								value2 = GameData.DSkillData[cardIdj].Space(skillPassiveCards[cardIdjstr].Lv);
+							else
+								if(skillActiveCards.ContainsKey(cardIdjstr))
+									value2 = GameData.DSkillData[cardIdj].Space(skillActiveCards[cardIdjstr].Lv);
+						}
 					}
-				} else 
-				if(condition == ECondition.Cost){
-					if(GameData.DSkillData.ContainsKey(cardIdi) && GameData.DSkillData.ContainsKey(cardIdj)){
-						if(skillPassiveCards.ContainsKey(cardIdistr)) 
-							value1 = GameData.DSkillData[cardIdi].Space(skillPassiveCards[cardIdistr].Lv);
-						else 
-							if(skillActiveCards.ContainsKey(cardIdistr))
-								value1 = GameData.DSkillData[cardIdi].Space(skillActiveCards[cardIdistr].Lv);
-
-						if(skillPassiveCards.ContainsKey(cardIdjstr))
-							value2 = GameData.DSkillData[cardIdj].Space(skillPassiveCards[cardIdjstr].Lv);
-						else
-							if(skillActiveCards.ContainsKey(cardIdjstr))
-								value2 = GameData.DSkillData[cardIdj].Space(skillActiveCards[cardIdjstr].Lv);
+					
+					if (value1 > value2){
+						GameObject temp = skillSortCards[i];
+						skillSortCards[i] = skillSortCards[j];
+						skillSortCards[j] = temp;
 					}
-				}
-				
-				if (value1 > value2){
-					GameObject temp = skillSortCards[i];
-					skillSortCards[i] = skillSortCards[j];
-					skillSortCards[j] = temp;
 				}
 			}
 		}
@@ -782,51 +795,20 @@ public class UISkillFormation : UIBase {
 		for(int i=0; i<skillSortCards.Count; i++) { 
 			bool result = false;
 			switch (filter) {
-			case 0:
-			case 15://All Choose
+			case 4://All Choose
 				result = true;
 				break;
-			case 1://Available
+			case 0://Available
 				result = sortIsAvailable(skillSortCards[i]);
 				break;
-			case 2://Select
+			case 1://Select
 				result = sortIsSelected(skillSortCards[i]);
 				break;
-			case 3://Available + Select
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]));
-				break;
-			case 4://Active
+			case 2://Active
 				result = sortIsActive(skillSortCards[i]);
 				break;
-			case 5://Available + Active
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
-				break;
-			case 6://Select + Active
-				result = (sortIsSelected(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
-				break;
-			case 7://Available + Select + Active
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsActive(skillSortCards[i]));
-				break;
-			case 8://Passive
+			case 3://Passive
 				result = sortIsPassive(skillSortCards[i]);
-				break;
-			case 9://Available + Passive
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
-				break;
-			case 10://Select + Passive
-				result = (sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
-				break;
-			case 11://Available + Select + Passive
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
-				break;
-			case 12://Passive + Active
-				result = (sortIsActive(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
-				break;
-			case 13://Available + Passive + Active
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsActive(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
-				break;
-			case 14://Available + Passive + Select
-				result = (sortIsAvailable(skillSortCards[i]) || sortIsSelected(skillSortCards[i]) || sortIsPassive(skillSortCards[i]));
 				break;
 			}
 			if(result){
@@ -950,11 +932,11 @@ public class UISkillFormation : UIBase {
 		refreshCards(go.transform.parent.name);
 	}
 	
-	public void SetSort (ECondition condition, int filter) {
-		eCondition = condition;
-		eFilter = filter;
-		sortSkillCondition(condition);
-		sortSkillFilter(filter);
+	public void UpdateSort () {
+		eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
+		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+		sortSkillCondition(eCondition);
+		sortSkillFilter(eFilter);
 		
 		scrollViewCardList.ResetPosition();
 		gridCardList.transform.localPosition = Vector3.zero;
@@ -1006,6 +988,8 @@ public class UISkillFormation : UIBase {
 
 	public void DoBack() {
 		UIShow(false);
+		if(UISort.Visible)
+			UISort.UIShow(false);
 		UIMainLobby.Get.Show();
 	}
 
