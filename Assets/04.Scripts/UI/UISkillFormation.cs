@@ -21,7 +21,7 @@ public struct TSkillInfo {
 public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
-	public object[] SkillCardPages;
+	public TSkillCardPage[] SkillCardPages;
 }
 
 public struct TActiveStruct {

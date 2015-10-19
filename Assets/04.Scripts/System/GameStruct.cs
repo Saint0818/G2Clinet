@@ -111,7 +111,7 @@ namespace GameStruct {
 		public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
-		public object[] SkillCardPages;
+		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
 
 		public TPlayer(int level)
@@ -141,7 +141,7 @@ namespace GameStruct {
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
 			SkillCards = new TSkill[0];
-			SkillCardPages = new object[0];
+			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
 		}
 

@@ -248,7 +248,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				return true;
 		} else
 		{
-			Debug.Log(www.error);
+			Debug.Log(www.url + " : " + www.error);
 			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host"))
 				UIMessage.Get.ShowMessage(TextConst.S(38), TextConst.S(7));
 			else
