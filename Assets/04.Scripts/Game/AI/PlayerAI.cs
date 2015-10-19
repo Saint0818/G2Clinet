@@ -20,15 +20,18 @@ namespace AI
         public Team Team { set; get; }
 
         private StateMachine<EPlayerAIState, EGameMsg> mFSM;
+        private PlayerBehaviour mPlayer;
 
         [UsedImplicitly]
         private void Awake()
         {
+            mPlayer = GetComponent<PlayerBehaviour>();
+
             mFSM = new StateMachine<EPlayerAIState, EGameMsg>();
             mFSM.AddState(new PlayerNoneState());
-            mFSM.AddState(new PlayerAttackState(this, GetComponent<PlayerBehaviour>()));
-            mFSM.AddState(new PlayerDefenseState(GetComponent<PlayerBehaviour>()));
-            mFSM.AddState(new PlayerReturnToHomeState(this, GetComponent<PlayerBehaviour>()));
+            mFSM.AddState(new PlayerAttackState(this, mPlayer));
+            mFSM.AddState(new PlayerDefenseState(mPlayer));
+            mFSM.AddState(new PlayerReturnToHomeState(this, mPlayer));
             mFSM.ChangeState(EPlayerAIState.None);
 
             GameMsgDispatcher.Ins.AddListener(this, EGameMsg.GamePlayersCreated);
@@ -72,6 +75,11 @@ namespace AI
             }
 
             return string.Format("{0}", mFSM.CurrentState.ID);
+        }
+
+        public string GetCurrentAnimationName()
+        {
+            return string.Format("{0}", mPlayer.crtState);
         }
 
         public void HandleMessage(Telegram<EGameMsg> msg)
