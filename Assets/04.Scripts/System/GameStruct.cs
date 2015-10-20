@@ -24,6 +24,7 @@ namespace GameStruct {
 		public TItem[] Items;
 		public TSkill[] SkillCards;
 		public TPlayerBank[] PlayerBank;
+		public TMail[] Mails;
 
 		public void Init() {
 			if (Identifier == null)

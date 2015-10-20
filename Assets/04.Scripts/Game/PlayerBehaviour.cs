@@ -133,6 +133,7 @@ public enum EPlayerState
 	Shoot7 = 413,
 	Steal0,
 	Steal1,
+	Steal2,
 	Steal20 = 11500,
 	TipIn,
 	JumpBall,
@@ -329,6 +330,7 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.PickBall2, true);
 			StopStates.Add(EPlayerState.Steal0, true);
 			StopStates.Add(EPlayerState.Steal1, true);
+			StopStates.Add(EPlayerState.Steal2, true);
 			StopStates.Add(EPlayerState.Steal20, true);
 			StopStates.Add(EPlayerState.Rebound, true);
 			StopStates.Add(EPlayerState.ReboundCatch, true);
@@ -2084,6 +2086,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
             case EPlayerState.Steal1:
+            case EPlayerState.Steal2:
             case EPlayerState.Steal20:
 			if (!IsTee  && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
@@ -2793,6 +2796,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Steal0:
             case EPlayerState.Steal1:
+            case EPlayerState.Steal2:
 			case EPlayerState.Steal20:
 			skillKind = ESkillKind.Steal;
 			switch (state)
@@ -2801,6 +2805,9 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 0;
 						break;
 					case EPlayerState.Steal1:
+						stateNo = 1;
+						break;
+					case EPlayerState.Steal2:
 						stateNo = 1;
 						break;
 					case EPlayerState.Steal20:
@@ -3755,7 +3762,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsBallOwner
     {
-//        get { return SceneMgr.Get.RealBall.transform.parent == DummyBall.transform;}
         get { return AnimatorControl.GetBool("IsBallOwner");}
         set { AnimatorControl.SetBool("IsBallOwner", value);}
     }
@@ -3832,7 +3838,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsSteal
 	{
-		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal1 ||crtState == EPlayerState.Steal20;}
+		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal1 || crtState == EPlayerState.Steal2 ||crtState == EPlayerState.Steal20;}
 	}
 
     public bool IsUseSkill //Only ActiveSkill

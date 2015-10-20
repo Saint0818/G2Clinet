@@ -210,7 +210,7 @@ namespace AI
             var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 160, out defPlayer);
             if(/*Team.IsInUpfield(mPlayer) &&*/ stealThreat &&
                defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
-               mPlayer.CoolDownElbow <= 0 && !mPlayer.CheckAnimatorSate(EPlayerState.Elbow0))
+               mPlayer.CoolDownElbow <= 0 && !mPlayer.IsElbow)
             {
                 mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);
             }

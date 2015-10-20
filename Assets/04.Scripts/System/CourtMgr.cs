@@ -659,6 +659,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 			case EPlayerState.Steal0:
 			case EPlayerState.Steal1:
+			case EPlayerState.Steal2:
 				GameController.Get.Passer = null;
 				
 //				Vector3 v = RealBall.transform.forward * -1;
