@@ -14,6 +14,7 @@ ModelImporter:
     100012: Logo_Dummy2
     100014: Logo_Dummy3
     100016: Logo_Dummy4
+    100018: Logo1
     400000: //RootNode
     400002: Lo_Temp001
     400004: PlayerLogo_Temp001
@@ -23,6 +24,7 @@ ModelImporter:
     400012: Logo_Dummy2
     400014: Logo_Dummy3
     400016: Logo_Dummy4
+    400018: Logo1
     2300000: //RootNode
     2300002: Lo_Temp001
     2300004: PlayerLogo_Temp001
@@ -34,11 +36,13 @@ ModelImporter:
     4300000: Lo_Temp001
     4300002: PlayerLogo_Temp001
     4300004: PlayerLogo
+    4300006: Logo1
     7400000: Logo_Stay
     7400002: Logo_Act
     9500000: //RootNode
     13700000: Lo_Temp001
     13700002: PlayerLogo
+    13700004: Logo1
   materials:
     importMaterials: 0
     materialName: 1
