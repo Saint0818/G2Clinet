@@ -2808,7 +2808,7 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 1;
 						break;
 					case EPlayerState.Steal2:
-						stateNo = 1;
+						stateNo = 2;
 						break;
 					case EPlayerState.Steal20:
 						stateNo = 20;
