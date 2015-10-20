@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 38cc9e16321f5854c903318d24da28df
-timeCreated: 1445238711
+guid: 07b4a1ab383e5e245a3887bc6e1819b7
+timeCreated: 1445332757
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Steal2
+    7400000: Push2
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -128,10 +128,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Steal2
+      name: Push2
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 14
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -150,9 +150,16 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .577608109
+      - time: .527777731
         functionName: AnimationEvent
-        data: Stealing
+        data: PushCalculateStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .65147388
+        functionName: AnimationEvent
+        data: PushCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
