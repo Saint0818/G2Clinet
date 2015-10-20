@@ -27,6 +27,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	public GameObject[] Builds = new GameObject[BuildCount];
 	public Animator animator;
 	private UIButton[] Btns = new UIButton[BuildCount];
+	private GameObject advertisementPic;
 
     [UsedImplicitly]
     private void Awake()
@@ -42,6 +43,15 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 			//TODO:Read Server Data
 			InitBuilds(temp);
 			InitButtons();
+
+			if(advertisementPic == null){
+				advertisementPic = Instantiate(Resources.Load("Prefab/Stadium/StadiumItem/AdvertisementPic")) as GameObject;
+				advertisementPic.transform.parent = BuildPos[2].transform;
+				advertisementPic.transform.localPosition = Vector3.zero;
+				advertisementPic.transform.localScale = Vector3.one;
+				advertisementPic.transform.localEulerAngles = Vector3.zero;
+			}
+
 		}
 		else
 			Debug.LogError ("Setting Prefab Error");
