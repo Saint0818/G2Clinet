@@ -30,7 +30,7 @@ namespace AI
             mFSM = new StateMachine<EPlayerAIState, EGameMsg>();
             mFSM.AddState(new PlayerNoneState());
             mFSM.AddState(new PlayerAttackState(this, mPlayer));
-            mFSM.AddState(new PlayerDefenseState(mPlayer));
+            mFSM.AddState(new PlayerDefenseState(this, mPlayer));
             mFSM.AddState(new PlayerReturnToHomeState(this, mPlayer));
             mFSM.ChangeState(EPlayerAIState.None);
 
@@ -113,6 +113,12 @@ namespace AI
         public bool IsInUpfield()
         {
             return Team.IsInUpfield(transform.position);
+        }
+
+        [CanBeNull]
+        public PlayerAI FindNearestOpponentPlayer()
+        {
+            return Team.FindNearestOpponentPlayer(transform.position);
         }
     } // end of the class PlayerAI.
 } // end of the namespace AI.

@@ -14,7 +14,7 @@ public class UILoading : UIBase {
 	private GameObject buttonNext;
 	private UITexture uiBG;
 	private UITexture uiLoadingProgress;
-	private TweenRotation loadingRotation;
+//	private TweenRotation loadingRotation;
 	private GameObject[] pageOn = new GameObject[3];
 	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
@@ -96,7 +96,7 @@ public class UILoading : UIBase {
 		loadingPic = GameObject.Find (UIName + "/LoadingPic");
 		uiLoadingProgress = GameObject.Find (UIName + "/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
-		loadingRotation = GameObject.Find (UIName + "/LoadingPic/UILight1").GetComponent<TweenRotation>();
+//		loadingRotation = GameObject.Find (UIName + "/LoadingPic/UILight1").GetComponent<TweenRotation>();
 
 		windowGame.SetActive(false);
 		windowLoading.SetActive(false);

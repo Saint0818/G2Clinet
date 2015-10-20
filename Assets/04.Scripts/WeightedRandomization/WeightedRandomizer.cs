@@ -115,7 +115,7 @@ namespace WeightedRandomization
                     sorted[i].AdjustedWeight = sorted[i].Weight + sorted[i - 1].AdjustedWeight;                
             }
 
-            if(weightSum != 1.0m)
+            if(weightSum <= 0.98m || weightSum >= 1.02m)
 //                throw new InvalidOperationException("The weights of all items must add up to 1.0 ");
                 Debug.LogWarningFormat("The weights of all items don't equal 1.0, weightSum:{0}", weightSum);
 

@@ -40,9 +40,9 @@
     public const int FakeShootRate = 40; // 做假動作的機率.
 	public const float DefMoveTime = 0.2f;
 	public const float CrossOverDistance = 2.5f;
-	public const float CoolDownPushTime = 3;
-	public const float CoolDownSteal = 1.2f;
-	public const float WaitStealTime = 0.5f;
+	public const float CoolDownPushTime = 3; // 推人冷卻時間, 單位:秒.
+    public const float CoolDownStealTime = 1.2f; // 抄截冷卻時間, 單位:秒.
+//	public const float WaitStealTime = 0.5f;
 
     /// <summary>
     /// 當對手和球員在 TheatDistance and ThreatAngle 範圍內時, 表示雙方處理威脅狀態. 

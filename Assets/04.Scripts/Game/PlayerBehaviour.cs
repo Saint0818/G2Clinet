@@ -485,9 +485,20 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     public readonly StatusTimer CantMoveTimer = new StatusTimer();
     public readonly StatusTimer Invincible = new StatusTimer();
+
+    /// <summary>
+    /// 抄截冷卻時間.
+    /// </summary>
+    public readonly CountDownTimer StealCD = new CountDownTimer(GameConst.CoolDownStealTime);
+
+    /// <summary>
+    /// 推人冷卻時間.
+    /// </summary>
+    public readonly CountDownTimer PushCD = new CountDownTimer(GameConst.CoolDownPushTime);
+
     public float JumpHight = 450f;
-    public float CoolDownSteal = 0;
-    public float CoolDownPush = 0;
+//    public float CoolDownSteal = 0;
+//    public float CoolDownPush = 0;
     public float CoolDownElbow = 0;
 //    public float AirDrag = 0f;
 //    public float fracJourney = 0;
@@ -887,11 +898,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         Invincible.Update(Time.deltaTime);
 
-        if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
-            CoolDownSteal = 0;
+//        if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
+//            CoolDownSteal = 0;
+        StealCD.Update(Time.deltaTime);
 
-        if (CoolDownPush > 0 && Time.time >= CoolDownPush)
-            CoolDownPush = 0;
+//        if (CoolDownPush > 0 && Time.time >= CoolDownPush)
+//            CoolDownPush = 0;
+        PushCD.Update(Time.deltaTime);
 
         if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
             CoolDownElbow = 0;

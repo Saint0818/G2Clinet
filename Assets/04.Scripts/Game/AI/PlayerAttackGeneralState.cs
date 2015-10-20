@@ -282,12 +282,14 @@ namespace AI
 
             bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
             bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealPushDistance;
-            if (isClose && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
+//            if (isClose && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
+            if (isClose && pushRate && mPlayer.PushCD.IsTimeUp() &&
                nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
             {
                 if (mPlayer.DoPassiveSkill(ESkillSituation.Push0, nearPlayer.transform.position))
                 {
-                    mPlayer.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
+//                    mPlayer.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
+                    mPlayer.PushCD.StartAgain();
                     return true;
                 }
             }

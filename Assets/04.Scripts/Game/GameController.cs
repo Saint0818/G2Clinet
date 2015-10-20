@@ -9,6 +9,7 @@ using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum EGameTest {
     None,
@@ -67,10 +68,10 @@ public class GameController : KnightSingleton<GameController>
 	public float StealBtnLiftTime = 1f;
     //	private float waitStealTime = 0;
 
-    /// <summary>
-    /// 抄截冷卻時.
-    /// </summary>
-    private readonly CountDownTimer mStealCDTimer = new CountDownTimer(GameConst.WaitStealTime);
+//    /// <summary>
+//    /// 抄截冷卻時間.
+//    /// </summary>
+//    private readonly CountDownTimer mStealCDTimer = new CountDownTimer(GameConst.WaitStealTime);
 	private float passingStealBallTime = 0;
 
 	public PlayerBehaviour BallOwner; // 持球的球員.
@@ -697,9 +698,7 @@ public class GameController : KnightSingleton<GameController>
 		if(StealBtnLiftTime > 0)
 			StealBtnLiftTime -= Time.deltaTime;
 
-//		if(waitStealTime > 0 && Time.time >= waitStealTime)		
-//			waitStealTime = 0;
-        mStealCDTimer.Update(Time.deltaTime);
+//        mStealCDTimer.Update(Time.deltaTime);
 
 		if(passingStealBallTime > 0 && Time.time >= passingStealBallTime)		
 			passingStealBallTime = 0;
@@ -1044,47 +1043,48 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 	
-	public void AIDefend([NotNull] PlayerBehaviour player)
-	{
-		if (player.AIing && !player.IsSteal && !player.IsPush && 
-		    BallOwner && !IsDunk && !IsShooting) {
-			bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;        
-			bool sucess = false;
-
-			TPlayerDisData [] disAy = findPlayerDisData(player);
-			
-			for (int i = 0; i < disAy.Length; i++)
-            {
-				if (disAy[i].Distance <= GameConst.StealPushDistance && 
-				    (disAy[i].Player.crtState == EPlayerState.Idle || disAy[i].Player.crtState == EPlayerState.Dribble0) && 
-				    pushRate && player.CoolDownPush == 0)
-                {
-					if(player.DoPassiveSkill(ESkillSituation.Push0, disAy[i].Player.transform.position)) {
-						player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
-						sucess = true;
-						
-						break;
-					}
-				} 
-			}
-			
-			if(!sucess && disAy[0].Distance <= GameConst.StealPushDistance && 
-//                waitStealTime == 0 && 
-                mStealCDTimer.IsTimeUp() && 
-                BallOwner.Invincible.IsOff() && 
-                player.CoolDownSteal == 0)
-            {
-				if(Random.Range(0, 100) < player.Attr.StealRate)
-                {
-					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position)) {
-						player.CoolDownSteal = Time.time + GameConst.CoolDownSteal;                              
-//						waitStealTime = Time.time + GameConst.WaitStealTime;
-                        mStealCDTimer.StartAgain();
-					}
-				}
-			}           
-		}
-	}
+//	public void AIDefend([NotNull] PlayerBehaviour player)
+//	{
+//		if(player.AIing && !player.IsSteal && !player.IsPush && 
+//		    BallOwner && !IsDunk && !IsShooting)
+//        {
+//			bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;        
+//			bool sucess = false;
+//
+//			TPlayerDisData [] disAy = findPlayerDisData(player);
+//			
+//			for (int i = 0; i < disAy.Length; i++)
+//            {
+//				if (disAy[i].Distance <= GameConst.StealPushDistance && 
+//				    (disAy[i].Player.crtState == EPlayerState.Idle || disAy[i].Player.crtState == EPlayerState.Dribble0) && 
+//				    pushRate && player.CoolDownPush == 0)
+//                {
+//					if(player.DoPassiveSkill(ESkillSituation.Push0, disAy[i].Player.transform.position)) {
+//						player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
+//						sucess = true;
+//						
+//						break;
+//					}
+//				} 
+//			}
+//			
+//			if(!sucess && disAy[0].Distance <= GameConst.StealPushDistance && 
+////                waitStealTime == 0 && 
+//                mStealCDTimer.IsTimeUp() && 
+//                BallOwner.Invincible.IsOff() && 
+//                player.CoolDownSteal == 0)
+//            {
+//				if(Random.Range(0, 100) < player.Attr.StealRate)
+//                {
+//					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position)) {
+//						player.CoolDownSteal = Time.time + GameConst.CoolDownStealTime;                              
+////						waitStealTime = Time.time + GameConst.WaitStealTime;
+//                        mStealCDTimer.StartAgain();
+//					}
+//				}
+//			}           
+//		}
+//	}
 
     public void DefMove([NotNull] PlayerBehaviour player, bool speedup = false)
 	{
@@ -1209,7 +1209,7 @@ public class GameController : KnightSingleton<GameController>
             if(Situation != newSituation)
             {
 //                waitStealTime = 0;
-                mStealCDTimer.Stop();
+//                mStealCDTimer.Stop();
                 CourtMgr.Get.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
