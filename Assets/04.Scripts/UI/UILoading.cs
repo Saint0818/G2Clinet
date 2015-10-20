@@ -20,7 +20,7 @@ public class UILoading : UIBase {
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
 	private ELoadingGamePic loadingKind;
-	private int PicNo = -2;
+//	private int PicNo = -2;
 	private int pageLoading = 0;
 	private float startTimer = 0;
 

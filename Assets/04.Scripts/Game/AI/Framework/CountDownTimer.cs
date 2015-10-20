@@ -13,9 +13,12 @@ namespace AI
     /// <item> Call Update in every frame. </item>
     /// <item> Call Start() or StartAgain(). </item>
     /// <item> Call IsTimeUp() 檢查是否倒數完畢. </item>
+    /// <item> 向 TimeUpListener 註冊倒數完畢事件. </item>
     /// </list>
     public class CountDownTimer
     {
+        public event CommonDelegateMethods.Action TimeUpListener;
+
         /// <summary>
         /// 倒數完畢時的數值.
         /// </summary>
@@ -86,11 +89,19 @@ namespace AI
                 return;
 
             mRemainTime -= elapsedTime;
-            if(mRemainTime < 0)
+            if(mRemainTime <= 0)
             {
                 mRemainTime = TimeUpTime; // 表示時間已經到了.
                 mIsUpdating = false;
+
+                fireTimeUp();
             }
+        }
+
+        private void fireTimeUp()
+        {
+            if(TimeUpListener != null)
+                TimeUpListener();
         }
     } // end of the class.
 } // end of the namespace.

@@ -64,7 +64,7 @@ public class GameController : KnightSingleton<GameController>
     public float CoolDownPass = 0;
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
-    public float RealBallFxTime = 0;
+//    public float RealBallFxTime = 0;
 	public float StealBtnLiftTime = 1f;
 	private float waitStealTime = 0;
 	private float passingStealBallTime = 0;
@@ -681,12 +681,12 @@ public class GameController : KnightSingleton<GameController>
 		if (CoolDownCrossover > 0 && Time.time >= CoolDownCrossover)
             CoolDownCrossover = 0;
 
-        if (RealBallFxTime > 0)
-        {
-            RealBallFxTime -= Time.deltaTime;
-            if (RealBallFxTime <= 0)
-                CourtMgr.Get.RealBallFX.SetActive(false);
-        }
+//        if (RealBallFxTime > 0)
+//        {
+//            RealBallFxTime -= Time.deltaTime;
+//            if (RealBallFxTime <= 0)
+//                CourtMgr.Get.RealBallFX.SetActive(false);
+//        }
         
         handleSituation();
 
@@ -1200,9 +1200,10 @@ public class GameController : KnightSingleton<GameController>
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
             {
-                RealBallFxTime = 0;
+//                RealBallFxTime = 0;
                 waitStealTime = 0;
-                CourtMgr.Get.RealBallFX.SetActive(false);
+//                CourtMgr.Get.RealBallFX.SetActive(false);
+                CourtMgr.Get.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
                     if(newSituation == EGameSituation.GamerPickBall || 
@@ -2215,7 +2216,8 @@ public class GameController : KnightSingleton<GameController>
 				
 				int addRate = 0;
 				int addAngle = 0;
-				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
+//				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
+				if(CourtMgr.Get.IsBallSFXEnabled())
                     // 特效開啟, 就表示被懲罰的機率增加.
 					addRate = 30;
 
@@ -2247,8 +2249,9 @@ public class GameController : KnightSingleton<GameController>
                 if (Random.Range(0, 100) <= probability)
                 {
                     // 進入懲罰.
-					RealBallFxTime = GameConst.BallSFXTime;
-					CourtMgr.Get.RealBallFX.SetActive(true);
+//					RealBallFxTime = GameConst.BallSFXTime;
+//					CourtMgr.Get.RealBallFX.SetActive(true);
+                    CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
 				}
 			}
         }

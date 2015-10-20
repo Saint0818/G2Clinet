@@ -3277,8 +3277,9 @@ public class PlayerBehaviour : MonoBehaviour
             case "ElbowEnd":
                 OnUI(this);
                 AniState(EPlayerState.HoldBall);
-                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
-                CourtMgr.Get.RealBallFX.SetActive(true);
+//                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
+//                CourtMgr.Get.RealBallFX.SetActive(true);
+                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
                 break;
 
             case "CatchEnd":
@@ -3313,8 +3314,9 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
 
                 OnUI(this);
-                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
-                CourtMgr.Get.RealBallFX.SetActive(true);
+//                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
+//                CourtMgr.Get.RealBallFX.SetActive(true);
+                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
                 break;
 
             case "AnimationEnd":
@@ -3727,8 +3729,10 @@ public class PlayerBehaviour : MonoBehaviour
         set
         {
             isCanBlock = value;
-            if (CourtMgr.Get.RealBallFX.activeSelf != value)
-                CourtMgr.Get.RealBallFX.SetActive(value);
+//            if(CourtMgr.Get.RealBallFX.activeSelf != value)
+//                CourtMgr.Get.RealBallFX.SetActive(value);
+            if(CourtMgr.Get.IsBallSFXEnabled() != value)
+                CourtMgr.Get.ShowBallSFX();
         }
     }
 

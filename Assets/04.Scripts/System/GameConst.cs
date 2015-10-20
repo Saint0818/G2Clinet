@@ -58,7 +58,7 @@
     public const float PassCoolDownTime = 3.0f;
 
     /// <summary>
-    /// 籃球特效時間. 單位:秒.
+    /// 籃球特效時間(顯示時, 目前當做是懲罰). 單位:秒.
     /// </summary>
     public const float BallSFXTime = 3;
 

@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using AI;
 using Chronos;
 using DG.Tweening;
 using GamePlayEnum;
+using JetBrains.Annotations;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
@@ -17,8 +19,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	private SphereCollider realBallCollider;
 	public Rigidbody RealBallRigidbody;
 	public BallTrigger RealBallTrigger;
-	public GameObject RealBallFX;
+	private GameObject mRealBallSFX;
 	public EPlayerState RealBallState;
+    private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1); // 特效顯示的時間. 單位: 秒.
 
     private GameObject crtCollider;
 	private GameObject[] pveBasketAy = new GameObject[2];
@@ -245,10 +248,19 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			Effect.SetActive (enable);
 	}
 
+    [UsedImplicitly]
     void Awake()
     {
-		CheckCollider();
-	}
+        mRealBallSFXTimer.TimeUpListener += HideBallSFX;
+
+        CheckCollider();
+    }
+
+    [UsedImplicitly]
+    private void FixedUpdate()
+    {
+        mRealBallSFXTimer.Update(Time.deltaTime);
+    }
 
 	public void InitCourtScene()
 	{
@@ -297,7 +309,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		if (RealBall == null) {
 			RealBall = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/RealBall")) as GameObject;
-			RealBallFX = RealBall.transform.FindChild ("BallFX").gameObject;
+			mRealBallSFX = RealBall.transform.FindChild ("BallFX").gameObject;
 			RealBallTrigger = RealBall.GetComponentInChildren<BallTrigger> ();
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
@@ -609,7 +621,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.SetActive(false);
+//				mRealBallSFX.SetActive(false);
+                HideBallSFX();
 				
 				break;
 
@@ -657,7 +670,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
                 // 10 是速度. 如果給太低, 球會在持球者附近, 變成持球者還是可以繼續撿球.
                 RealBallVelocity = newDir.normalized * 10;
-				RealBallFX.SetActive(true);
+				mRealBallSFX.SetActive(true);
 			break;
 			case EPlayerState.JumpBall:
 				if(!GameController.Get.IsJumpBall)
@@ -672,7 +685,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						v1 = RealBall.transform.forward * -1;
 
 					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 40);
-					RealBallFX.SetActive(true);
+					mRealBallSFX.SetActive(true);
 				}
 				break;
 			
@@ -689,7 +702,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					v = player.transform.forward * 10;
 
 				RealBallVelocity = v;
-				RealBallFX.SetActive(true);
+				mRealBallSFX.SetActive(true);
 				break;
 
 			case EPlayerState.Dunk0:
@@ -702,7 +715,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				
 				RealBall.transform.localEulerAngles = Vector3.zero;
                 RealBallTrigger.SetBoxColliderEnable(false);
-                RealBallFX.SetActive(false);
+//                mRealBallSFX.SetActive(false);
+                HideBallSFX();
 
 				break;
 
@@ -717,7 +731,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
 				RealBall.transform.position = new Vector3(0, 7, 0);
-				RealBallFX.SetActive(true);
+				mRealBallSFX.SetActive(true);
 				break;
 
 			case EPlayerState.Start:
@@ -740,7 +754,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-				RealBallFX.SetActive(false);				
+//				mRealBallSFX.SetActive(false);
+                HideBallSFX();
 				break;
 		}
 
@@ -909,6 +924,28 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     public Vector3 GetShootPointPosition(ETeamKind teamKind)
     {
         return ShootPoint[(int)teamKind].transform.position;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="sfxTime"> 特效顯示的時間, 單位:秒. -1: 表示特效永遠顯示, 必須要手動關閉. </param>
+    public void ShowBallSFX(float sfxTime = -1)
+    {
+        mRealBallSFX.SetActive(true);
+        if(sfxTime > 0)
+            mRealBallSFXTimer.Start(sfxTime);
+    }
+
+    public bool IsBallSFXEnabled()
+    {
+        return mRealBallSFX.activeInHierarchy;
+    }
+
+    public void HideBallSFX()
+    {
+        mRealBallSFX.SetActive(false);
+        mRealBallSFXTimer.Stop();
     }
 }
 
