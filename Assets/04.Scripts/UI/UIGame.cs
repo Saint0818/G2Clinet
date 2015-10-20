@@ -484,7 +484,7 @@ public class UIGame : UIBase {
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               GameController.Get.Joysticker.transform, 
 				                               270, 
-				                               GameConst.StealBallDistance); 
+				                               GameConst.StealPushDistance); 
 				break;
 			case EUIRangeType.Push:
 				isShowSkillRange = !state;
@@ -499,7 +499,7 @@ public class UIGame : UIBase {
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               GameController.Get.Joysticker.transform, 
 				                               30, 
-				                               GameConst.StealBallDistance,
+				                               GameConst.StealPushDistance,
 				                               eulor); 
 				break;
 			case EUIRangeType.Steal:
@@ -514,7 +514,7 @@ public class UIGame : UIBase {
 				CourtMgr.Get.ShowRangeOfAction(state, 
 				                               GameController.Get.Joysticker.transform, 
 				                               30, 
-				                               GameConst.StealBallDistance,
+				                               GameConst.StealPushDistance,
 				                               eulor); 
 				break;
 			}

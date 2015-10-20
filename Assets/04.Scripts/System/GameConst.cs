@@ -26,9 +26,9 @@
 	public const float PickBallDistance = 2.5f;
 
     /// <summary>
-    /// 這其實是推人, 抄球的距離.
+    /// 推人, 抄球的距離.
     /// </summary>
-	public const float StealBallDistance = 3; 
+	public const float StealPushDistance = 3; 
 
     /// <summary>
     /// 抄截時, 抄截角度判定.(球員 +Z 軸的扇形區域)

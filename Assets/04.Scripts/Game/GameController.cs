@@ -1051,12 +1051,14 @@ public class GameController : KnightSingleton<GameController>
 			bool pushRate = Random.Range(0, 100) < player.Attr.PushingRate;        
 			bool sucess = false;
 
-			TPlayerDisData [] disAy = GetPlayerDisAy(player);
+			TPlayerDisData [] disAy = findPlayerDisData(player);
 			
-			for (int i = 0; i < disAy.Length; i++) {
-				if (disAy[i].Distance <= GameConst.StealBallDistance && 
-				    (disAy[i].Player.crtState == EPlayerState.Idle && disAy[i].Player.crtState == EPlayerState.Dribble0) && 
-				    pushRate && player.CoolDownPush == 0) {
+			for (int i = 0; i < disAy.Length; i++)
+            {
+				if (disAy[i].Distance <= GameConst.StealPushDistance && 
+				    (disAy[i].Player.crtState == EPlayerState.Idle || disAy[i].Player.crtState == EPlayerState.Dribble0) && 
+				    pushRate && player.CoolDownPush == 0)
+                {
 					if(player.DoPassiveSkill(ESkillSituation.Push0, disAy[i].Player.transform.position)) {
 						player.CoolDownPush = Time.time + GameConst.CoolDownPushTime;
 						sucess = true;
@@ -1066,7 +1068,7 @@ public class GameController : KnightSingleton<GameController>
 				} 
 			}
 			
-			if(!sucess && disAy[0].Distance <= GameConst.StealBallDistance && 
+			if(!sucess && disAy[0].Distance <= GameConst.StealPushDistance && 
 //                waitStealTime == 0 && 
                 mStealCDTimer.IsTimeUp() && 
                 BallOwner.Invincible.IsOff() && 
@@ -2178,7 +2180,7 @@ public class GameController : KnightSingleton<GameController>
 
 		for (int i = 0; i < DisAy.Length; i++) {
 			if (DisAy[i] > 0) {
-				if (DisAy[i] <= GameConst.StealBallDistance)
+				if (DisAy[i] <= GameConst.StealPushDistance)
 					return 2;
 				else 
 				if (DisAy[i] <= GameConst.DefDistance)
@@ -2212,7 +2214,7 @@ public class GameController : KnightSingleton<GameController>
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
 //            if(GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
-            if(player.transform.IsInFanArea(BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
+            if(player.transform.IsInFanArea(BallOwner.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
             {
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
 
@@ -2790,79 +2792,81 @@ public class GameController : KnightSingleton<GameController>
 //        return nearPlayer;
 //    }
 
-    private TPlayerDisData [] GetPlayerDisAy(PlayerBehaviour Self, bool SameTeam = false, bool Angel = false)
+    [CanBeNull]
+    private TPlayerDisData[] findPlayerDisData([NotNull]PlayerBehaviour player, bool isSameTeam = false, 
+                                               bool angle = false)
 	{
-		TPlayerDisData [] DisAy = null;
+		TPlayerDisData [] disData = null;
 
-		if(SameTeam)
+		if(isSameTeam)
 		{
 			if(PlayerList.Count > 2)
-				DisAy = new TPlayerDisData[(PlayerList.Count / 2) - 1];
+				disData = new TPlayerDisData[(PlayerList.Count / 2) - 1];
 		}
 		else
-			DisAy = new TPlayerDisData[PlayerList.Count / 2];
+			disData = new TPlayerDisData[PlayerList.Count / 2];
 
-		if (DisAy != null) 
-		{
-			for (int i = 0; i < PlayerList.Count; i++) 
-			{
-				if(SameTeam)
-				{
-					if(PlayerList[i].Team == Self.Team && PlayerList[i] != Self)
-					{
-						PlayerBehaviour anpc = PlayerList[i];
-						for(int j = 0; j < DisAy.Length; j++)
-						{
-							if(DisAy[j].Distance == 0)
-							{
-								if(Angel)
-									DisAy[j].Distance = Mathf.Abs(MathUtils.FindAngle(Self.transform, anpc.transform.position));
-								else
-									DisAy[j].Distance = GetDis(anpc, Self);
-								DisAy[j].Player = anpc;
-								break;
-							}
-						}
-					}
-				}
-				else
-				{
-					if(PlayerList[i].Team != Self.Team)
-					{
-						PlayerBehaviour anpc = PlayerList[i];
-						for(int j = 0; j < DisAy.Length; j++)
-						{
-							if(DisAy[j].Distance == 0)
-							{
-								if(Angel)
-									DisAy[j].Distance = Mathf.Abs(MathUtils.FindAngle(Self.transform, anpc.transform.position));
-								else
-									DisAy[j].Distance = GetDis(anpc, Self);
-								DisAy[j].Player = anpc;
-								break;
-							}
-						}
-					}
-				}
-			}
-			
-			TPlayerDisData temp = new TPlayerDisData ();
-			
-			for(int i = 0; i < DisAy.Length - 1; i ++)
-			{
-				for(int j = 0; j < DisAy.Length - 1; j++)
-				{
-					if(DisAy[j].Distance > DisAy[j + 1].Distance)
-					{
-						temp = DisAy[j];
-						DisAy[j] = DisAy[j + 1];
-						DisAy[j + 1] = temp;
-					}
-				}
-			}	
-		}
+        if(disData == null)
+            return null;
 
-		return DisAy;
+        for(int i = 0; i < PlayerList.Count; i++) 
+        {
+            if(isSameTeam)
+            {
+                if(PlayerList[i].Team == player.Team && PlayerList[i] != player)
+                {
+                    PlayerBehaviour anpc = PlayerList[i];
+                    for(int j = 0; j < disData.Length; j++)
+                    {
+                        if(disData[j].Distance == 0)
+                        {
+                            if(angle)
+                                disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.transform, anpc.transform.position));
+                            else
+                                disData[j].Distance = GetDis(anpc, player);
+                            disData[j].Player = anpc;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if(PlayerList[i].Team != player.Team)
+                {
+                    PlayerBehaviour anpc = PlayerList[i];
+                    for(int j = 0; j < disData.Length; j++)
+                    {
+                        if(disData[j].Distance == 0)
+                        {
+                            if(angle)
+                                disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.transform, anpc.transform.position));
+                            else
+                                disData[j].Distance = GetDis(anpc, player);
+                            disData[j].Player = anpc;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+			
+        TPlayerDisData temp = new TPlayerDisData ();
+			
+        for(int i = 0; i < disData.Length - 1; i ++)
+        {
+            for(int j = 0; j < disData.Length - 1; j++)
+            {
+                if(disData[j].Distance > disData[j + 1].Distance)
+                {
+                    temp = disData[j];
+                    disData[j] = disData[j + 1];
+                    disData[j + 1] = temp;
+                }
+            }
+        }
+
+        return disData;
 	}
 
     private void DefBlock(ref PlayerBehaviour npc, int kind = 0)
@@ -2870,22 +2874,26 @@ public class GameController : KnightSingleton<GameController>
 		if (PlayerList.Count > 0 && !IsPassing && !IsBlocking) {
 			PlayerBehaviour npc2;
 			int rate = Random.Range(0, 100);
-			TPlayerDisData [] DisAy = GetPlayerDisAy(npc, false, true);
+			TPlayerDisData [] playerDisData = findPlayerDisData(npc, false, true);
 
-			if(DisAy != null) {
-				for (int i = 0; i < DisAy.Length; i++) {
-					npc2 = DisAy [i].Player;
+			if(playerDisData != null)
+            {
+				for (int i = 0; i < playerDisData.Length; i++)
+                {
+					npc2 = playerDisData [i].Player;
 					if (npc2 && npc2 != npc && npc2.Team != npc.Team && npc2.AIing && 
 					    !npc2.IsSteal && !npc2.IsPush) {
-						float BlockRate = npc2.Attr.BlockRate;
+						float blockRate = npc2.Attr.BlockRate;
 						
 						if(kind == 1)
-							BlockRate = npc2.Attr.FaketBlockRate;	
+							blockRate = npc2.Attr.FaketBlockRate;	
 						
-						float mAngle = MathUtils.FindAngle(npc.transform, PlayerList [i].transform.position);
+						float angle = MathUtils.FindAngle(npc.transform, PlayerList [i].transform.position);
 						
-						if (GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(mAngle) <= 70) {
-							if (rate < BlockRate) {
+						if(GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(angle) <= 70)
+                        {
+							if(rate < blockRate)
+                            {
 								if(npc2.DoPassiveSkill(ESkillSituation.Block0, npc.transform.position)) {
 									if (kind == 1)
 										npc2.GameRecord.BeFake++;

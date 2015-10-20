@@ -1616,7 +1616,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Vector3 aP1 = data.DefPlayer.transform.position;
                 Vector3 aP2 = CourtMgr.Get.Hood [data.DefPlayer.Team.GetHashCode()].transform.position;
                 result = GetStealPostion(aP1, aP2, data.DefPlayer.Index);
-                if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealBallDistance)
+                if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
                     if (Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
@@ -1680,7 +1680,7 @@ public class PlayerBehaviour : MonoBehaviour
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
                         
                         if (data.LookTarget != null) {
-                            if (Vector3.Distance(this.transform.position, data.DefPlayer.transform.position) <= GameConst.StealBallDistance)
+                            if (Vector3.Distance(this.transform.position, data.DefPlayer.transform.position) <= GameConst.StealPushDistance)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                             else 
 							if (!doMove)
@@ -3233,7 +3233,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "PushCalculateStart":
-				GameController.Get.PushCalculate(this, GameConst.StealBallDistance, 30);
+				GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 30);
 //				IsPushCalculate = true;
 //                pushTrigger.gameObject.SetActive(true);
                 break;
@@ -3244,7 +3244,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case "ElbowCalculateStart":
-				GameController.Get.PushCalculate(this, GameConst.StealBallDistance, 270);
+				GameController.Get.PushCalculate(this, GameConst.StealPushDistance, 270);
                 break;
                 
             case "ElbowCalculateEnd":

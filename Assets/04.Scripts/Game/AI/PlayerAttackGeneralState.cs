@@ -207,7 +207,7 @@ namespace AI
             // 是否可以用 Elbow 攻擊對方.(對方必須是 Idle 動作時, 才可以做 Elbow, 主要是避免打不到對方)
             PlayerAI defPlayer;
 //            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 90, out defPlayer);
-            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealBallDistance, 160, out defPlayer);
+            var stealThreat = mPlayerAI.Team.FindDefPlayer(mPlayerAI, GameConst.StealPushDistance, 160, out defPlayer);
             if(/*Team.IsInUpfield(mPlayer) &&*/ stealThreat &&
                defPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle) &&
                mPlayer.CoolDownElbow <= 0 && !mPlayer.IsElbow)
@@ -281,7 +281,7 @@ namespace AI
                 return false;
 
             bool pushRate = Random.Range(0, 100) < mPlayer.Attr.PushingRate;
-            bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealBallDistance;
+            bool isClose = MathUtils.Find2DDis(nearPlayer.transform.position, mPlayerAI.transform.position) <= GameConst.StealPushDistance;
             if (isClose && pushRate && Math.Abs(mPlayer.CoolDownPush) < float.Epsilon &&
                nearPlayer.GetComponent<PlayerBehaviour>().CheckAnimatorSate(EPlayerState.Idle))
             {
