@@ -57,12 +57,19 @@
 //    public const float PassCoolDownTime = 1.2f;
     public const float PassCoolDownTime = 3.0f;
 
-    /// <summary>
-    /// 籃球特效時間(顯示時, 目前當做是懲罰). 單位:秒.
-    /// </summary>
-    public const float BallSFXTime = 3;
+//    /// <summary>
+//    /// 籃球特效時間(顯示時, 目前當做是懲罰). 單位:秒.
+//    /// </summary>
+//    public const float BallSFXTime = 3;
 
-	public const int AddAnger_PlusScore = 20;
+    /// <summary>
+    /// 預設的懲罰時間, 單位:秒. 
+    /// 目前懲罰時間用在球員做 elbow 攻擊時(or 被抄截,但是未成功), 
+    /// 球員身上的球會出現特效, 表示該球員目前被抄球的機率會增加.
+    /// </summary>
+    public const float DefaultPunishTime = 3;
+
+    public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
 	public const int AddAnger_Steal = 10;
 	public const int AddAnger_Push = 20;

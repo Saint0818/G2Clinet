@@ -466,7 +466,8 @@ namespace GameStruct {
 	    }
 	}
 
-	public struct TPlayerAttribute {
+	public class PlayerAttribute
+    {
 		public float PointRate2;
 		public float PointRate3;
 		public float StealRate;
@@ -491,7 +492,12 @@ namespace GameStruct {
 		public float SpeedValue;
 		public float StaminaValue;
 		public float AutoFollowTime;
-	}
+
+        /// <summary>
+        /// 懲罰時間, 單位:秒. 
+        /// </summary>
+	    public float PunishTime = GameConst.DefaultPunishTime;
+    }
 
 	public struct TAvatar {	
 		public int Body;

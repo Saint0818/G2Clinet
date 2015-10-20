@@ -309,17 +309,15 @@ namespace AI
         {
             if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow0))
             {
-//                GameController.Get.CoolDownPass = 0;
                 mPlayer.CoolDownElbow = Time.time + GameConst.PassCoolDownTime;
-//                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
-//                CourtMgr.Get.RealBallFX.SetActive(true);
-                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+//                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+                CourtMgr.Get.ShowBallSFX(mPlayer.Attr.PunishTime);
             }
         }
 
-        //    private void doPush()
-        //    {
-        //    }
+//    private void doPush()
+//    {
+//    }
 
         private void doPass()
         {

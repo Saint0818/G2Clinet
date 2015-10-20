@@ -38,7 +38,7 @@ public class UISelectRole : UIBase {
 
 	private GameObject uiSelect;
 	private GameObject uiShowTime;
-	private GameObject uiBack;
+//	private GameObject uiBack;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
@@ -223,7 +223,7 @@ public class UISelectRole : UIBase {
 		uiSelect = GameObject.Find (UIName + "/Left/Select");
 		uiSelect.SetActive(false);
 		uiShowTime = GameObject.Find(UIName + "/Center/ShowTimeCollider");
-		uiBack = GameObject.Find(UIName + "/Left/Back");
+//		uiBack = GameObject.Find(UIName + "/Left/Back");
 
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
 		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;

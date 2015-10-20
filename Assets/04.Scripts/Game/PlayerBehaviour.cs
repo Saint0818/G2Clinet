@@ -461,7 +461,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public Material BodyMaterial;
 	public GameObject BodyHeight;
 
-	public TPlayerAttribute Attr;
+	public PlayerAttribute Attr = new PlayerAttribute();
 	public TPlayer Attribute;
 	public TScoreRate ScoreRate;
 	public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
@@ -578,7 +578,7 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isChangeColor = false;
 	private float changeTime;
 	private Color colorStart = new Color32(150, 150, 150, 255);
-	private Color colorEnd = new Color32(255, 255, 255, 255);
+//	private Color colorEnd = new Color32(255, 255, 255, 255);
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -3284,9 +3284,8 @@ public class PlayerBehaviour : MonoBehaviour
             case "ElbowEnd":
                 OnUI(this);
                 AniState(EPlayerState.HoldBall);
-//                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
-//                CourtMgr.Get.RealBallFX.SetActive(true);
-                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+//                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+                CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 break;
 
             case "CatchEnd":
@@ -3321,9 +3320,8 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
 
                 OnUI(this);
-//                GameController.Get.RealBallFxTime = GameConst.BallSFXTime;
-//                CourtMgr.Get.RealBallFX.SetActive(true);
-                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+//                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+                CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 break;
 
             case "AnimationEnd":

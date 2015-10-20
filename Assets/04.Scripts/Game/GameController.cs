@@ -1360,7 +1360,7 @@ public class GameController : KnightSingleton<GameController>
 			case EGameSituation.End:
 				IsStart = false;
 				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].AniState(EPlayerState.Idle);			
+					PlayerList[i].AniState(EPlayerState.Idle);
 
 				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
@@ -2216,7 +2216,6 @@ public class GameController : KnightSingleton<GameController>
 				
 				int addRate = 0;
 				int addAngle = 0;
-//				if(CourtMgr.Get.RealBallFX.activeInHierarchy)
 				if(CourtMgr.Get.IsBallSFXEnabled())
                     // 特效開啟, 就表示被懲罰的機率增加.
 					addRate = 30;
@@ -2249,9 +2248,8 @@ public class GameController : KnightSingleton<GameController>
                 if (Random.Range(0, 100) <= probability)
                 {
                     // 進入懲罰.
-//					RealBallFxTime = GameConst.BallSFXTime;
-//					CourtMgr.Get.RealBallFX.SetActive(true);
-                    CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+//                    CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);
+                    CourtMgr.Get.ShowBallSFX(player.Attr.PunishTime);
 				}
 			}
         }
@@ -3510,7 +3508,7 @@ public class GameController : KnightSingleton<GameController>
 	public void SetGameRecordToUI() {
 		UIGameResult.Get.SetGameRecord(ref GameRecord);
 		for (int i = 0; i < PlayerList.Count; i ++)
-			UIGameResult.Get.AddDetailString(ref PlayerList[i].Attr, i);
+			UIGameResult.Get.AddDetailString(PlayerList[i].Attr, i);
 	}
 
     private void gameResult()
