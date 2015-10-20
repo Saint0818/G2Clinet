@@ -1,6 +1,17 @@
 ﻿
 namespace AI
 {
+    /// <summary>
+    /// 用在有冷卻時間的狀態.
+    /// </summary>
+    /// 使用方法:
+    /// <list type="number">
+    /// <item> new instance. </item>
+    /// <item> 每個 frame 呼叫 Update(). </item>
+    /// <item> Call StartCounting() 開始倒數計時. </item>
+    /// <item> Call IsOn() or IsOff() 檢查狀態. </item>
+    /// <item>  </item>
+    /// </list>
     public class StatusTimer
     {
         private readonly CountDownTimer mTimer = new CountDownTimer(1);

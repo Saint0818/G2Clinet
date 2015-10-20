@@ -14,6 +14,7 @@ namespace AI
     /// <item> Call Start() or StartAgain(). </item>
     /// <item> Call IsTimeUp() 檢查是否倒數完畢. </item>
     /// <item> 向 TimeUpListener 註冊倒數完畢事件. </item>
+    /// <item> (Optinal) 用 Resume(), Pause(), Stop() 做額外的控制. </item>
     /// </list>
     public class CountDownTimer
     {
@@ -72,6 +73,7 @@ namespace AI
         public void Stop()
         {
             mRemainTime = TimeUpTime;
+            mIsUpdating = false;
         }
 
         /// <summary>

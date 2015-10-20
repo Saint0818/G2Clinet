@@ -64,9 +64,13 @@ public class GameController : KnightSingleton<GameController>
     public float CoolDownPass = 0;
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
-//    public float RealBallFxTime = 0;
 	public float StealBtnLiftTime = 1f;
-	private float waitStealTime = 0;
+    //	private float waitStealTime = 0;
+
+    /// <summary>
+    /// 抄截冷卻時.
+    /// </summary>
+    private readonly CountDownTimer mStealCDTimer = new CountDownTimer(GameConst.WaitStealTime);
 	private float passingStealBallTime = 0;
 
 	public PlayerBehaviour BallOwner; // 持球的球員.
@@ -693,8 +697,9 @@ public class GameController : KnightSingleton<GameController>
 		if(StealBtnLiftTime > 0)
 			StealBtnLiftTime -= Time.deltaTime;
 
-		if(waitStealTime > 0 && Time.time >= waitStealTime)		
-			waitStealTime = 0;
+//		if(waitStealTime > 0 && Time.time >= waitStealTime)		
+//			waitStealTime = 0;
+        mStealCDTimer.Update(Time.deltaTime);
 
 		if(passingStealBallTime > 0 && Time.time >= passingStealBallTime)		
 			passingStealBallTime = 0;
@@ -1062,8 +1067,8 @@ public class GameController : KnightSingleton<GameController>
 			}
 			
 			if(!sucess && disAy[0].Distance <= GameConst.StealBallDistance && 
-                waitStealTime == 0 && 
-//                BallOwner.Invincible == 0 && 
+//                waitStealTime == 0 && 
+                mStealCDTimer.IsTimeUp() && 
                 BallOwner.Invincible.IsOff() && 
                 player.CoolDownSteal == 0)
             {
@@ -1071,7 +1076,8 @@ public class GameController : KnightSingleton<GameController>
                 {
 					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position)) {
 						player.CoolDownSteal = Time.time + GameConst.CoolDownSteal;                              
-						waitStealTime = Time.time + GameConst.WaitStealTime;
+//						waitStealTime = Time.time + GameConst.WaitStealTime;
+                        mStealCDTimer.StartAgain();
 					}
 				}
 			}           
@@ -1200,9 +1206,8 @@ public class GameController : KnightSingleton<GameController>
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
             {
-//                RealBallFxTime = 0;
-                waitStealTime = 0;
-//                CourtMgr.Get.RealBallFX.SetActive(false);
+//                waitStealTime = 0;
+                mStealCDTimer.Stop();
                 CourtMgr.Get.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {

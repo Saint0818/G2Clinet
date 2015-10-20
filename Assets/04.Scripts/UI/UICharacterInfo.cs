@@ -27,10 +27,10 @@ public class UICharacterInfo : UIBase {
 	private GameObject itemPassiveCard;
 	private UIPanel panelPassive;
 
-	private UILabel labelActiveName;
+//	private UILabel labelActiveName;
 	private UILabel labelActiveLevel;
-	private UITexture spriteActivePic;
-	private UISprite spriteActiveCard;
+//	private UITexture spriteActivePic;
+//	private UISprite spriteActiveCard;
 
 	private bool isPressDown = false;
 	private float longPressMaxTime = 0.3f;
@@ -66,10 +66,10 @@ public class UICharacterInfo : UIBase {
 	}
 
 	protected override void InitCom() {
-		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillName").GetComponent<UILabel>();
+//		labelActiveName = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillName").GetComponent<UILabel>();
 		labelActiveLevel = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillLevel").GetComponent<UILabel>();
-		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillCard").GetComponent<UISprite>();
-		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UITexture>();
+//		spriteActiveCard = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillCard").GetComponent<UISprite>();
+//		spriteActivePic = GameObject.Find (UIName + "/CharacterInfo/SkillCards/ActiveSkills/ActiveCard/SkillPic").GetComponent<UITexture>();
 
 		labelSkillLevel = GameObject.Find (UIName + "/SkillInfo/LabelLevel").GetComponent<UILabel>();
 		labelSkillInfo = GameObject.Find (UIName + "/SkillInfo/LabelSkillinfo").GetComponent<UILabel>();
