@@ -114,6 +114,7 @@ public enum EPlayerState
 	Pass50,
 	Push0,
 	Push1,
+	Push2,
 	Push20 = 11700,
     Run0,            
     Run1,            
@@ -325,6 +326,7 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Pass50, true);
 			StopStates.Add(EPlayerState.Push0, true);
 			StopStates.Add(EPlayerState.Push1, true);
+			StopStates.Add(EPlayerState.Push2, true);
 			StopStates.Add(EPlayerState.Push20, true);
 			StopStates.Add(EPlayerState.PickBall0, true);
 			StopStates.Add(EPlayerState.PickBall2, true);
@@ -2083,6 +2085,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Push0:
             case EPlayerState.Push1:
+            case EPlayerState.Push2:
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
             case EPlayerState.Steal1:
@@ -2696,6 +2699,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Push0:
             case EPlayerState.Push1:
+            case EPlayerState.Push2:
 			case EPlayerState.Push20:
 			skillKind = ESkillKind.Push;
 			switch (state){
@@ -2705,6 +2709,9 @@ public class PlayerBehaviour : MonoBehaviour
 					case EPlayerState.Push1:
 						stateNo = 1;
 						break;
+					case EPlayerState.Push2:
+							stateNo = 2;
+							break;
 					case EPlayerState.Push20:
 						stateNo = 20;
 						break;
@@ -3874,7 +3881,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsPush
 	{
-		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push1 ||crtState == EPlayerState.Push20;}
+		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push1 || crtState == EPlayerState.Push2 ||crtState == EPlayerState.Push20;}
 	}
 
 	public bool IsIntercept
