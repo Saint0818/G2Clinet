@@ -1,11 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using AI;
-using UnityEngine;
-using GameStruct;
 using GameEnum;
+using GameStruct;
 using ProMaterialCombiner;
+using UnityEngine;
 
 public enum EAnimatorType
 {

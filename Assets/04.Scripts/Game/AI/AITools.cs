@@ -24,8 +24,8 @@ public class AITools
     /// <returns> true: 取得戰術成功. </returns>
     public static bool RandomTactical(ETactical tactical, out TTacticalData data)
     {
-        int randomValue = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(tactical));
-        return TacticalMgr.Ins.GetData(tactical, randomValue, out data);
+        int randomValue = UnityEngine.Random.Range(0, TacticalTable.Ins.GetCount(tactical));
+        return TacticalTable.Ins.GetData(tactical, randomValue, out data);
     }
 
     /// <summary>
@@ -46,12 +46,12 @@ public class AITools
 
         // 假如編輯的資料不足, 比如進攻有 4 筆, 防守只有 2 筆, 那麼在找戰術的時候,
         // 進攻就會忽略 2 筆資料.
-        int randomAtt = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(convertAtt));
-        int randomDef = UnityEngine.Random.Range(0, TacticalMgr.Ins.GetCount(convertDef));
+        int randomAtt = UnityEngine.Random.Range(0, TacticalTable.Ins.GetCount(convertAtt));
+        int randomDef = UnityEngine.Random.Range(0, TacticalTable.Ins.GetCount(convertDef));
         int randomValue = Math.Min(randomAtt, randomDef);
 
-        bool attStatus = TacticalMgr.Ins.GetData(convertAtt, randomValue, out attData);
-        bool defStatus = TacticalMgr.Ins.GetData(convertDef, randomValue, out defData);
+        bool attStatus = TacticalTable.Ins.GetData(convertAtt, randomValue, out attData);
+        bool defStatus = TacticalTable.Ins.GetData(convertDef, randomValue, out defData);
         return attStatus && defStatus;
     }
 

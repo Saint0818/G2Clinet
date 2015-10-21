@@ -1,15 +1,12 @@
-using UnityEngine;
 using System;
-using System.Text;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Sockets;
-using System.IO.Compression;
-using Newtonsoft.Json;
-using WebSocketSharp;
-using SocketIO;
-using zlib;
 using GameStruct;
+using Newtonsoft.Json;
+using SocketIO;
+using UnityEngine;
+using WebSocketSharp;
+using zlib;
 
 public delegate void TNetMessageProc (string data);
 

@@ -32,7 +32,7 @@ namespace GamePlayStruct {
 
 	    private void convert()
 	    {
-	        foreach(KeyValuePair<string, ETactical> pair in TacticalMgr.PrefixNameTacticalPairs)
+	        foreach(KeyValuePair<string, ETactical> pair in TacticalTable.PrefixNameTacticalPairs)
 	        {
 	            if(FileName.StartsWith(pair.Key))
 	                mTactical = pair.Value;

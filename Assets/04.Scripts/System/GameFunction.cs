@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using G2;
-using JetBrains.Annotations;
-using UnityEngine;
 using GameStruct;
+using UnityEngine;
 
 public static class GameFunction
 {

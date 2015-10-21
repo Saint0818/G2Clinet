@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Text;
+﻿using System.Text;
+using UnityEngine;
 
 public class LogMgr : KnightSingleton<LogMgr> {
 

@@ -53,9 +53,13 @@ public class GameStart : KnightSingleton<GameStart> {
 		GameData.StageID = -1;
 	}
 
-	public void StageJoin (int id) {
-		if(GameData.DStageData.ContainsKey(id)) {
-			int[] stageHint = GameData.DStageData[id].HintBit;
+	public void StageJoin (int id)
+    {
+//		if(GameData.DStageData.ContainsKey(id))
+		if(StageTable.Ins.HasByID(id))
+        {
+//			int[] stageHint = GameData.DStageData[id].HintBit;
+			int[] stageHint = StageTable.Ins.GetByID(id).HintBit;
 			GameData.StageID = id;
 			
 //			GameStart.Get.CourtMode =  (ECourtMode)GameData.DStageData[id].CourtMode;
@@ -78,8 +82,10 @@ public class GameStart : KnightSingleton<GameStart> {
 				WinMode = EWinMode.TimeScoreCompare;
 
 
-			GameWinTimeValue = GameData.DStageData[id].Bit0Num;
-			GameWinValue =  GameData.DStageData[id].Bit1Num;
+//			GameWinTimeValue = GameData.DStageData[id].Bit0Num;
+			GameWinTimeValue = StageTable.Ins.GetByID(id).Bit0Num;
+//			GameWinValue =  GameData.DStageData[id].Bit1Num;
+			GameWinValue = StageTable.Ins.GetByID(id).Bit1Num;
 //			GameStart.Get.FriendNumber =  GameData.DStageData[id].FriendNumber;
 		}
 

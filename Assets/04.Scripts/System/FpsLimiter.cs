@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Threading;
+﻿using System.Threading;
+using UnityEngine;
 
 public class FpsLimiter : MonoBehaviour {
 	float oldTime = 0.0F;

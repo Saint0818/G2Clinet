@@ -64,23 +64,23 @@ public class UICreateRoleStyleView : MonoBehaviour
 
         mEquips.Clear();
 
-        TItemData[] items = findItems(CreateRoleDataMgr.Ins.GetHairs(pos));
+        TItemData[] items = findItems(CreateRoleTable.Ins.GetHairs(pos));
         mEquips.Add(UICreateRole.EEquip.Hair, items[0].ID);
         HairBtn.SetData(items);
 
-        items = findItems(CreateRoleDataMgr.Ins.GetCloths(pos));
+        items = findItems(CreateRoleTable.Ins.GetCloths(pos));
         mEquips.Add(UICreateRole.EEquip.Cloth, items[0].ID);
         ClothBtn.SetData(items);
 
-        items = findItems(CreateRoleDataMgr.Ins.GetPants(pos));
+        items = findItems(CreateRoleTable.Ins.GetPants(pos));
         mEquips.Add(UICreateRole.EEquip.Pants, items[0].ID);
         PantsBtn.SetData(items);
 
-        items = findItems(CreateRoleDataMgr.Ins.GetShoes(pos));
+        items = findItems(CreateRoleTable.Ins.GetShoes(pos));
         mEquips.Add(UICreateRole.EEquip.Shoes, items[0].ID);
         ShoesBtn.SetData(items);
 
-        items = findItems(CreateRoleDataMgr.Ins.GetBody(pos));
+        items = findItems(CreateRoleTable.Ins.GetBody(pos));
         mEquips.Add(UICreateRole.EEquip.Body, items[0].ID);
         BodyBtn.SetData(items);
         BodyBtn.SetSelected(); // 強制每次進入時, 都是 Body 按鈕被選擇.

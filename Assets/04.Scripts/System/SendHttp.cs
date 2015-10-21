@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using GameStruct;
+using Newtonsoft.Json;
+using UnityEngine;
 
 public struct TSessionResult {
 	public string sessionID;

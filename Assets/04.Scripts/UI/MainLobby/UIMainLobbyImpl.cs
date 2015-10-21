@@ -100,7 +100,8 @@ public class UIMainLobbyImpl : MonoBehaviour
 
     public void ShowStage()
     {
-        UIStage.UIShow(true);
+//        UIStage.UIShow(true);
+        UIGameLobby.Get.Show();
         UIMainLobby.Get.Hide();
     }
 

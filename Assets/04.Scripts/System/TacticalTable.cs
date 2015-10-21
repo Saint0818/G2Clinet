@@ -10,7 +10,7 @@ using UnityEngine;
 /// <remarks>
 /// 使用方法:
 /// <list type="number">
-/// <item> 用 TacticalMgr.Ins 取得實體. </item>
+/// <item> 用 TacticalTable.Ins 取得實體. </item>
 /// <item> Call GetData 取得戰術. </item>
 /// <item> Call GetCount 取得戰術數量. </item>
 /// </list>
@@ -22,7 +22,7 @@ using UnityEngine;
 /// 
 /// How to use:
 /// <list type="number">
-/// <item> use TacticalMgr.Ins to get instance. </item>
+/// <item> use TacticalTable.Ins to get instance. </item>
 /// <item> call GetData method to find tactical data. </item>
 /// <item> call GetCount method to know tactical number. </item>
 /// </list>
@@ -38,10 +38,10 @@ using UnityEngine;
 /// Bad Smell:
 /// <para> Shotgun Surgery: when add tactical. </para>
 /// </remarks>
-public class TacticalMgr
+public class TacticalTable
 {
-    private static readonly TacticalMgr INSTANCE = new TacticalMgr();
-    public static TacticalMgr Ins
+    private static readonly TacticalTable INSTANCE = new TacticalTable();
+    public static TacticalTable Ins
     {
         get { return INSTANCE; }
     }

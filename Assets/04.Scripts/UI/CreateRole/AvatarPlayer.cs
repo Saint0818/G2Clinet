@@ -88,11 +88,11 @@ public class AvatarPlayer
 
         Dictionary<UICreateRole.EEquip, int> itemIDs = new Dictionary<UICreateRole.EEquip, int>
         {
-            {UICreateRole.EEquip.Body, CreateRoleDataMgr.Ins.GetBody(pos)[0]},
-            {UICreateRole.EEquip.Hair, CreateRoleDataMgr.Ins.GetHairs(pos)[0]},
-            {UICreateRole.EEquip.Cloth, CreateRoleDataMgr.Ins.GetCloths(pos)[0]},
-            {UICreateRole.EEquip.Pants, CreateRoleDataMgr.Ins.GetPants(pos)[0]},
-            {UICreateRole.EEquip.Shoes, CreateRoleDataMgr.Ins.GetShoes(pos)[0]}
+            {UICreateRole.EEquip.Body, CreateRoleTable.Ins.GetBody(pos)[0]},
+            {UICreateRole.EEquip.Hair, CreateRoleTable.Ins.GetHairs(pos)[0]},
+            {UICreateRole.EEquip.Cloth, CreateRoleTable.Ins.GetCloths(pos)[0]},
+            {UICreateRole.EEquip.Pants, CreateRoleTable.Ins.GetPants(pos)[0]},
+            {UICreateRole.EEquip.Shoes, CreateRoleTable.Ins.GetShoes(pos)[0]}
         };
 //        int hairItemID = CreateRoleDataMgr.Ins.GetHairs(pos)[0];
 //        int clothItemID = CreateRoleDataMgr.Ins.GetCloths(pos)[0];

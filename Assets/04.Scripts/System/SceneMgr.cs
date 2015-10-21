@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using GameEnum;
+using UnityEngine;
 
 public enum ESceneName
 {

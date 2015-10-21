@@ -463,10 +463,13 @@ public class UISelectRole : UIBase {
 
 	public void SetEnemyMembers(){
 		if (isStage) {
-			GameData.EnemyMembers[0].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID1);
-			GameData.EnemyMembers[1].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID2);
-			GameData.EnemyMembers[2].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID3);
-		} else {
+//			GameData.EnemyMembers[0].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID1);
+//			GameData.EnemyMembers[1].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID2);
+//			GameData.EnemyMembers[2].Player.SetID(GameData.DStageData[GameData.StageID].PlayerID3);
+            GameData.EnemyMembers[0].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID1);
+            GameData.EnemyMembers[1].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID2);
+            GameData.EnemyMembers[2].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID3);
+        } else {
 			int index = 0;
 
 			for(int j = 0; j < GameConst.SelectRoleID.Length; j++) {
@@ -793,8 +796,10 @@ public class UISelectRole : UIBase {
 		uiSelect.SetActive(false);
 	}
 
-	private bool isStage {
-		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
+	private bool isStage
+    {
+//		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
+		get {return StageTable.Ins.HasByID(GameData.StageID); }
 	}
 }
 

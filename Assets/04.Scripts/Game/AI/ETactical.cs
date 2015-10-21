@@ -1,7 +1,7 @@
 ﻿
 /// <summary>
-/// <para> 這是戰術類型, 要搭配 TacticalMgr 一起使用. </para>
-/// <para> Tactical Category, used in TacticalMgr. </para>
+/// <para> 這是戰術類型, 要搭配 TacticalTable 一起使用. </para>
+/// <para> Tactical Category, used in TacticalTable. </para>
 /// </summary>
 public enum ETactical
 {

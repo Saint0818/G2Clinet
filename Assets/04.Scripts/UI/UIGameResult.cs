@@ -319,7 +319,9 @@ public class UIGameResult : UIBase {
 		ResultDetail.SetActive(false);
 	}
 
-	public bool isStage {
-		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
+	public bool isStage
+    {
+//		get {return GameData.DStageData.ContainsKey(GameData.StageID); }
+		get {return StageTable.Ins.HasByID(GameData.StageID); }
 	}
 }

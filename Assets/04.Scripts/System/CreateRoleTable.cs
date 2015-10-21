@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using GamePlayStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public class CreateRoleDataMgr
+public class CreateRoleTable
 {
-    private static readonly CreateRoleDataMgr INSTANCE = new CreateRoleDataMgr();
-    public static CreateRoleDataMgr Ins
+    private static readonly CreateRoleTable INSTANCE = new CreateRoleTable();
+    public static CreateRoleTable Ins
     {
         get { return INSTANCE; }
     }

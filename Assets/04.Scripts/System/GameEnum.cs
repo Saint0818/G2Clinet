@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameEnum {
+﻿namespace GameEnum {
 	public enum ELanguage {
 		EN = 0,
 		TW = 1,

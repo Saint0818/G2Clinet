@@ -445,7 +445,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseTacticalData(string version, string jsonText, bool isSaveVersion)
     {
-        TacticalMgr.Ins.Load(jsonText);
+        TacticalTable.Ins.Load(jsonText);
 
         if(isSaveVersion)
             SaveDataVersionAndJson(jsonText, "tactical", version);
@@ -453,7 +453,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
     private void parseCreateRoleData(string version, string jsonText, bool isSaveVersion)
     {
-        CreateRoleDataMgr.Ins.Load(jsonText);
+        CreateRoleTable.Ins.Load(jsonText);
 
         if (isSaveVersion)
             SaveDataVersionAndJson(jsonText, "createrole", version);
@@ -539,23 +539,11 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseStageData (string Version, string text, bool SaveVersion){
-		try {
-			GameData.StageData = (TStage[])JsonConvert.DeserializeObject (text, typeof(TStage[]));
-			for (int i = 0; i < GameData.StageData.Length; i++) {
-				if (GameData.StageData[i].ID > 0 && !GameData.DStageData.ContainsKey(GameData.StageData[i].ID))
-					GameData.DStageData.Add(GameData.StageData[i].ID, GameData.StageData[i]);
-				else 
-					Debug.Log ("Stage ID error " + i.ToString());
+	private void parseStageData(string version, string text, bool saveVersion)
+    {
+        StageTable.Ins.Load(text);
 
-			}
-			
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "stage", Version);
-			
-			Debug.Log ("[stage parsed finished.] ");
-		} catch (System.Exception ex) {
-			Debug.LogError ("[stage parsed error] " + ex.Message);
-		}
-	}
+        if(saveVersion)
+            SaveDataVersionAndJson(text, "stage", version);
+    }
 }

@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using Chronos;
 using DG.Tweening;
+using UnityEngine;
 
 public enum ETimerKind
 {

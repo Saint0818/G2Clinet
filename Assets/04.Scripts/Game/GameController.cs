@@ -262,14 +262,23 @@ public class GameController : KnightSingleton<GameController>
 		SetBallOwnerNull (); 
     }
 
-	public void LoadStageBit (int id){
-		if(GameData.DStageData.ContainsKey(id)) {
-			StageID = id;
-			StageBitNum[0] = GameData.DStageData[id].Bit0Num;
-			StageBitNum[1] = GameData.DStageData[id].Bit1Num;
-			StageBitNum[2] = GameData.DStageData[id].Bit2Num;
-			StageBitNum[3] = GameData.DStageData[id].Bit3Num;
-			StageHintBit = GameData.DStageData[id].HintBit;
+	public void LoadStageBit (int id)
+    {
+//		if(GameData.DStageData.ContainsKey(id))
+		if(StageTable.Ins.HasByID(id))
+        {
+//			StageID = id;
+//			StageBitNum[0] = GameData.DStageData[id].Bit0Num;
+//			StageBitNum[1] = GameData.DStageData[id].Bit1Num;
+//			StageBitNum[2] = GameData.DStageData[id].Bit2Num;
+//			StageBitNum[3] = GameData.DStageData[id].Bit3Num;
+//			StageHintBit = GameData.DStageData[id].HintBit;
+            StageID = id;
+			StageBitNum[0] = StageTable.Ins.GetByID(id).Bit0Num;
+			StageBitNum[1] = StageTable.Ins.GetByID(id).Bit1Num;
+			StageBitNum[2] = StageTable.Ins.GetByID(id).Bit2Num;
+			StageBitNum[3] = StageTable.Ins.GetByID(id).Bit3Num;
+			StageHintBit = StageTable.Ins.GetByID(id).HintBit;
 			if(StageHintBit[0] == 0 && StageHintBit[1] == 0)
 				GameStart.Get.WinMode = EWinMode.None;
 			else if(StageHintBit[0] == 0 && StageHintBit[1] == 1)
@@ -3579,8 +3588,11 @@ public class GameController : KnightSingleton<GameController>
 			}
 	}
 
-	private bool checkStageReasonable (){
-		if(GameData.DStageData.ContainsKey(StageID)) {
+	private bool checkStageReasonable ()
+    {
+//		if(GameData.DStageData.ContainsKey(StageID))
+		if(StageTable.Ins.HasByID(StageID))
+        {
 			if(StageBitNum[0] == 0 && StageBitNum[2] == 0 && StageBitNum[3] == 0 && 
 			   (StageBitNum[1] == 2 || StageBitNum[1] == 3))
 				return false;
@@ -3590,8 +3602,11 @@ public class GameController : KnightSingleton<GameController>
 			return false;
 	}
 
-	public void CheckConditionText (PlayerBehaviour player){
-		if(player == Joysticker && GameData.DStageData.ContainsKey(StageID)) {
+	public void CheckConditionText (PlayerBehaviour player)
+    {
+//		if(player == Joysticker && GameData.DStageData.ContainsKey(StageID))
+		if(player == Joysticker && StageTable.Ins.HasByID(StageID))
+        {
 			if(StageHintBit[1] > 0) {
 				if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1]) ){
 					ShowCourtInstant(2, StageHintBit[1], 0, (int)(StageBitNum[1]));
@@ -3673,8 +3688,11 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
-	public bool IsScorePass(int team) {
-		if(GameData.DStageData.ContainsKey(StageID)) {
+	public bool IsScorePass(int team)
+    {
+//		if(GameData.DStageData.ContainsKey(StageID))
+		if(StageTable.Ins.HasByID(StageID))
+        {
 			int self = team;
 			int enemy = 0;
 			if(self == (int) ETeamKind.Npc)
@@ -3697,8 +3715,11 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
-	public bool IsConditionPass (PlayerBehaviour player) {
-		if(GameData.DStageData.ContainsKey(StageID)) {
+	public bool IsConditionPass (PlayerBehaviour player)
+    {
+//		if(GameData.DStageData.ContainsKey(StageID))
+		if(StageTable.Ins.HasByID(StageID))
+        {
 			if(StageHintBit[2] > 0) 
 				if(!checkCountEnough(player, StageHintBit[2], StageBitNum[2]))
 					return false;

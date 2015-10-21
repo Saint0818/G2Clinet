@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System;
-using GameEnum;
-using Newtonsoft.Json;
+﻿using System;
 using System.Collections.Generic;
+using GameEnum;
+using UnityEngine;
 
 namespace GameStruct {
 	public struct TTeam
@@ -965,63 +964,7 @@ namespace GameStruct {
         }
     }
 
-	public struct TStage {
-		public int ID;
-		public int Chapter;
-		public string Hint;
-		public int Bit0Num;
-		public int Bit1Num;
-		public int Bit2Num;
-		public int Bit3Num;
-		public int CourtMode;
-		public int WinMode;
-		public int WinValue;
-		public int FriendNumber;
-
-		public int PlayerID1;
-		public int PlayerID2;
-		public int PlayerID3;
-		public int PlayerID4;
-		public int PlayerID5;
-		public string NameTW;
-		public string NameCN;
-		public string NameEN;
-		public string NameJP;
-		public string ExplainTW;
-		public string ExplainCN;
-		public string ExplainEN;
-		public string ExplainJP;
-
-		public int[] HintBit {
-			get {
-				return AI.BitConverter.Convert(GameData.DStageData[ID].Hint);
-			}
-		}
-
-		public string Name {
-			get {
-				switch (GameData.Setting.Language) {
-				case ELanguage.TW: return NameTW;
-				case ELanguage.CN: return NameCN;
-				case ELanguage.JP: return NameJP;
-				default : return NameEN;
-				}
-			}
-		}
-
-		public string Explain {
-			get {
-				switch (GameData.Setting.Language) {
-				case ELanguage.TW: return ExplainTW;
-				case ELanguage.CN: return ExplainCN;
-				case ELanguage.JP: return ExplainJP;
-				default : return ExplainEN;
-				}
-			}
-		}
-	}
-
-	public struct TPreloadEffect {
+    public struct TPreloadEffect {
 		public string Name;
 	}
 }

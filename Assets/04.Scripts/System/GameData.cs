@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using GameEnum;
-using GameStruct;
 using GamePlayStruct;
+using GameStruct;
+using Newtonsoft.Json;
+using UnityEngine;
 
 public static class SettingText {
 	public const string TeamSave = "TeamSave";
@@ -27,8 +26,8 @@ public static class GameData {
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
-	public static TStage[] StageData;
-	public static Dictionary<int, TStage> DStageData = new Dictionary<int, TStage>();
+//	public static TStage[] StageData;
+//	public static Dictionary<int, TStage> DStageData = new Dictionary<int, TStage>();
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
 	public static TPreloadEffect[] PreloadEffect;
 
