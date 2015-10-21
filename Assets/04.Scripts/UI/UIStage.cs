@@ -7,8 +7,8 @@ public class UIStage : UIBase {
 	private static UIStage instance = null;
 	private const string UIName = "UIStage";
 
-	private GameObject offsetStage;
-	private UIDraggableCamera cameraStage;
+//	private GameObject offsetStage;
+//	private UIDraggableCamera cameraStage;
 	private Camera cameraScrollView;
 
 	public static bool Visible
@@ -49,8 +49,8 @@ public class UIStage : UIBase {
 
 		GameObject obj = Resources.Load("Prefab/UI/Items/ItemJoinStage") as GameObject;
 		if (obj) {
-			offsetStage = GameObject.Find(UIName + "/Center/StageInfo/View/Anchor/Offset");
-			cameraStage = GameObject.Find(UIName + "/Center/StageInfo/View/ViewCamera").GetComponent<UIDraggableCamera>();
+//			offsetStage = GameObject.Find(UIName + "/Center/StageInfo/View/Anchor/Offset");
+//			cameraStage = GameObject.Find(UIName + "/Center/StageInfo/View/ViewCamera").GetComponent<UIDraggableCamera>();
 			cameraScrollView = GameObject.Find(UIName + "/Center/StageInfo/View/ViewCamera").GetComponent<Camera>();
 
 //			if (GameData.StageData != null && GameData.StageData.Length > 0) {

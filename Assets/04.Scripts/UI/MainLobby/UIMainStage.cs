@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 關卡主程式.
+/// 關卡頁面, 會顯示很多的小關卡.
 /// </summary>
 /// <remarks>
 /// 使用方法:
@@ -13,19 +13,18 @@ using UnityEngine;
 /// </list>
 /// </remarks>
 [DisallowMultipleComponent]
-public class UIGameLobby : UIBase
+public class UIMainStage : UIBase
 {
-    private static UIGameLobby instance;
-    private const string UIName = "UIGameLobby";
+    private static UIMainStage instance;
+    private const string UIName = "UIMainStage";
 
-    private UIGameLobbyImpl mImpl;
+    private UIMainStageImpl mImpl;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mImpl = GetComponent<UIGameLobbyImpl>();
-        mImpl.BackListener += goToMainLobby;
-        mImpl.MainListener += goToMainStage;
+        mImpl = GetComponent<UIMainStageImpl>();
+        mImpl.BackListener += goToGameLobby;
     }
 
     public void Show()
@@ -38,26 +37,20 @@ public class UIGameLobby : UIBase
         RemoveUI(UIName);
     }
 
-    private void goToMainLobby()
+    private void goToGameLobby()
     {
-        UIMainLobby.Get.Show();
+        UIGameLobby.Get.Show();
         Hide();
     }
 
-    private void goToMainStage()
-    {
-        UIMainStage.Get.Show();
-        Hide();
-    }
-
-    public static UIGameLobby Get
+    public static UIMainStage Get
     {
         get
         {
             if(!instance)
             {
                 UI2D.UIShow(true);
-                instance = LoadUI(UIName) as UIGameLobby;
+                instance = LoadUI(UIName) as UIMainStage;
             }
 			
             return instance;
