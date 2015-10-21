@@ -109,7 +109,8 @@ public class UISkillFormation : UIBase {
 	private int[] orderIndexs = new int[0];//From activeStruct index
 
 	//Sell Value
-	private List<string> sellNames = new List<string>();
+	private int[] sellIndexs = new int[0];
+	private List<int> sellNames = new List<int>();
 	
 	//Instantiate Object
 	private GameObject itemSkillCard;
@@ -137,7 +138,7 @@ public class UISkillFormation : UIBase {
 	//Right(itemCardEquipped Parent)
 	private GameObject gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
-	private UIToggle[] checkBoxSkill = new UIToggle[2];
+	private UIToggle[] toggleCheckBoxSkill = new UIToggle[2];
 
 	//Total Cost
 	private UILabel labelCostValue;
@@ -147,6 +148,7 @@ public class UISkillFormation : UIBase {
 	private UIScrollView scrollViewCardList;
 
 	//Sell
+	private bool isBuyState = false;
 	private UILabel labelSell;
 	private GameObject goSellCount;
 	private UILabel labelTotalPrice;
@@ -165,7 +167,6 @@ public class UISkillFormation : UIBase {
 	private Vector3 point;
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
-	private bool isEdit = false;
 	private int eCondition;
 	private int eFilter;
 
@@ -230,8 +231,8 @@ public class UISkillFormation : UIBase {
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 		scrollViewItemList.onStoppedMoving =ItemDragFinish;
 
-		checkBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
-		checkBoxSkill[1] = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
+		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
+		toggleCheckBoxSkill[1] = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
 		SetBtnFun (UIName + "/MainView/Right/STitle/ActiveCheck", DoOpenActive);
 		SetBtnFun (UIName + "/MainView/Right/STitle/PassiveCheck", DoOpenPassive);
 
@@ -248,8 +249,8 @@ public class UISkillFormation : UIBase {
 		labelTotalPrice = GameObject.Find (UIName + "/BottomLeft/SellBtn/SellCount/TotalPrice").GetComponent<UILabel>();
 
 		SetBtnFun (UIName + "/BottomLeft/SortBtn", DoSort);
-//		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSell);
-//		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
+		SetBtnFun (UIName + "/BottomLeft/SellBtn", DoSellState);
+		SetBtnFun (UIName + "/BottomLeft/SellBtn/SellCount/CancelBtn", DoCloseSell);
 		SetBtnFun (UIName + "/BottomLeft/BackBtn", DoBack);
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 		initCards ();
@@ -271,6 +272,7 @@ public class UISkillFormation : UIBase {
 			Destroy(skillSortCards[i]);
 		}
 		activeOriginalIndex.Clear();
+		sellNames.Clear();
 		skillPages.Clear();
 		skillPagesOriginal.Clear();
 		skillOriginalCards.Clear();
@@ -407,40 +409,6 @@ public class UISkillFormation : UIBase {
 					count++;
 			return count;
 		}
-	}
-
-	private void setEditState (bool isedit) {
-		goSellCount.SetActive(isedit);
-		labelTotalPrice.text = "0";
-		if(isedit) {
-			sellNames.Clear();
-			sellPrice = 0;
-			foreach (KeyValuePair<string, TUICard> uicard in uiCards){
-				if(!uicard.Value.InListCard.activeInHierarchy) 
-					uicard.Value.SellSelect.SetActive (true);
-				uicard.Value.SellSelectCover.SetActive(false);
-			}
-		} else {
-			foreach (KeyValuePair<string, TUICard> uicard in uiCards)
-				uicard.Value.SellSelect.SetActive (false);
-			labelSell.text = "SELL";
-		}
-	}
-
-	private void addSellCards (string name) {
-		if(!sellNames.Contains(name))
-			sellNames.Add(name);
-		sellPrice ++;
-		labelTotalPrice.text = sellPrice.ToString();
-		labelSell.text = "SELL"+sellNames.Count.ToString();
-	}
-
-	private void removeSellCards (string name) {
-		if(sellNames.Contains(name))
-			sellNames.Remove(name);
-		sellPrice --;
-		labelTotalPrice.text = sellPrice.ToString();
-		labelSell.text = "SELL"+sellNames.Count.ToString();
 	}
 
 	private bool checkCost (int space) {
@@ -818,17 +786,74 @@ public class UISkillFormation : UIBase {
 	}
 
 	//For Sell
-//	private bool isSkillCardInPages(int sn) {
-//		for (int i=0; i<5; i++) {
-//			int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
-//			if (SNs.Length > 0) {
-//				for (int j=0; j<SNs.Length; j++)
-//					if (SNs[j] == sn)
-//						return true;
-//			}
-//		}
-//		return false;
-//	}
+	private bool isSkillCardInPages(int sn) {
+		for (int i=0; i<5; i++) {
+			int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
+			if (SNs.Length > 0) {
+				for (int j=0; j<SNs.Length; j++)
+					if (SNs[j] == sn)
+						return true;
+			}
+		}
+		return false;
+	}
+
+	private void setEditState (bool isEditState) {
+		goSellCount.SetActive(isEditState);
+		labelTotalPrice.text = "0";
+		isBuyState = isEditState;
+		if(isEditState) {
+			sellNames.Clear();
+			sellPrice = 0;
+			int index = 0;
+			for(int i=0; i<skillSortCards.Count; i++) { 
+				if(sortIsCanSell(skillSortCards[i])) {
+					uiCards[skillSortCards[i].name].SellSelect.SetActive(true);
+					uiCards[skillSortCards[i].name].UnavailableMask.SetActive(false);
+					skillSortCards[i].transform.localPosition = new Vector3(-230 + 200 * (index / 2), 100 - 265 * (index % 2), 0);
+					skillSortCards[i].SetActive(true);
+					index++;
+				} else
+					skillSortCards[i].SetActive(false);
+			}
+		} else {
+			labelSell.text = "SELL";
+			for(int i=0; i<skillSortCards.Count; i++) {
+				if(uiCards.ContainsKey(skillSortCards[i].name)) {
+					skillSortCards[i].SetActive(true);
+					uiCards[skillSortCards[i].name].SellSelect.SetActive(false); 
+				}
+			}
+			refreshAfterInstall();
+		}
+
+	}
+	
+	private void addSellCards (string name) {
+		if(uiCards.ContainsKey(name)) {
+			if(!sellNames.Contains(uiCards[name].CardIndex))
+				sellNames.Add(uiCards[name].CardIndex);
+			sellPrice ++;
+			labelTotalPrice.text = sellPrice.ToString();
+			labelSell.text = "SELL"+sellNames.Count.ToString();
+		}
+	}
+	
+	private void removeSellCards (string name) {
+		if(uiCards.ContainsKey(name)) {
+			if(sellNames.Contains(uiCards[name].CardIndex))
+				sellNames.Remove(uiCards[name].CardIndex);
+			sellPrice --;
+			labelTotalPrice.text = sellPrice.ToString();
+			labelSell.text = "SELL"+sellNames.Count.ToString();
+		}
+	}
+
+	private bool sortIsCanSell (GameObject card) {
+		if(uiCards.ContainsKey(card.name))
+			return (!isSkillCardInPages(uiCards[card.name].CardSN));
+		return false;
+	}
 
 	private bool sortIsAvailable(GameObject card) {
 		if(uiCards.ContainsKey(card.name))
@@ -920,7 +945,7 @@ public class UISkillFormation : UIBase {
 						}
 					}
 					
-					if (value1 > value2){
+					if (value1 <= value2){
 						GameObject temp = skillSortCards[i];
 						skillSortCards[i] = skillSortCards[j];
 						skillSortCards[j] = temp;
@@ -992,7 +1017,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoUnEquipCard (){
-		if(!isEdit) {
+		if(!isBuyState) {
 			removeItems(uiCards[tempObj.name].CardID, tempObj);
 			refreshCards();
 		} else 
@@ -1000,7 +1025,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoEquipCard (){
-		if(!isEdit) {
+		if(!isBuyState) {
 			if(tempUICard.CardID >= GameConst.ID_LimitActive) {
 				if(getContainActiveID(tempUICard.CardID) == -1){
 					if(getActiveFieldNull != -1) {
@@ -1031,7 +1056,7 @@ public class UISkillFormation : UIBase {
 
 	public void OnCardDetailInfo (GameObject go){
 		TUICard uicard = uiCards[go.name];
-		if(!isEdit) {
+		if(!isBuyState) {
 			if(uicard.UnavailableMask != null) {
 				if(tempObj != null) {
 					if(tempObj != go) {
@@ -1081,65 +1106,81 @@ public class UISkillFormation : UIBase {
 
 		switch(eFilter) {
 			case (int)EFilter.All:
-				checkBoxSkill[0].value = true;
-				checkBoxSkill[1].value = true;
+				toggleCheckBoxSkill[0].value = true;
+				toggleCheckBoxSkill[1].value = true;
 				break;
 			case (int)EFilter.Active:
-				checkBoxSkill[0].value = true;
-				checkBoxSkill[1].value = false;
+				toggleCheckBoxSkill[0].value = true;
+				toggleCheckBoxSkill[1].value = false;
 				break;
 			case (int)EFilter.Passive:
-				checkBoxSkill[0].value = false;
-				checkBoxSkill[1].value = true;
+				toggleCheckBoxSkill[0].value = false;
+				toggleCheckBoxSkill[1].value = true;
 				break;
 			case (int)EFilter.Available:
 			case (int)EFilter.Select:
-				checkBoxSkill[0].value = false;
-				checkBoxSkill[1].value = false;
+				toggleCheckBoxSkill[0].value = false;
+				toggleCheckBoxSkill[1].value = false;
 				break;
 		}
-		
-		scrollViewCardList.ResetPosition();
-		gridCardList.transform.localPosition = Vector3.zero;
-		scrollViewCardList.panel.clipOffset = new Vector2(0, scrollViewCardList.panel.clipOffset.y);
 	}
 
 	public void DoOpenActive (){
 		//Open Actvie Cards
+		if(UISort.Visible)
+			UISort.UIShow(false);
+
 		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
-		if(eFilter != EFilter.Active.GetHashCode()) {
-			PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Active.GetHashCode());
-			PlayerPrefs.Save();
-			UpdateSort();
+		if(!isBuyState) {
+			toggleCheckBoxSkill[0].value = true;
+			if(eFilter != EFilter.Active.GetHashCode()) {
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Active.GetHashCode());
+				PlayerPrefs.Save();
+				UpdateSort();
+			}
+		} else {
+			toggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 		}
+
 	}
 
 	public void DoOpenPassive (){
 		//Open Passive Cards
+		if(UISort.Visible)
+			UISort.UIShow(false);
+
 		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
-		if(eFilter != EFilter.Passive.GetHashCode()) {
-			PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Passive.GetHashCode());
-			PlayerPrefs.Save();
-			UpdateSort();
+		if(!isBuyState) {
+			toggleCheckBoxSkill[1].value = true;
+			if(eFilter != EFilter.Passive.GetHashCode()) {
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Passive.GetHashCode());
+				PlayerPrefs.Save();
+				UpdateSort();
+			}
+		} else {
+			toggleCheckBoxSkill[1].value = (eFilter == EFilter.Passive.GetHashCode());
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 		}
 	}
 
-	public void DoSell() {
-		if(!isEdit) {
-			isEdit = true;
+	public void DoSellState() {
+		if(!isBuyState) {
+			isBuyState = true;
 			DoFinish();
 		} else {
 			//update sell index
+			DoSell();
 		}
 	}
 
 	public void DoCloseSell () {
-		isEdit = false;
+		isBuyState = false;
 		setEditState(false);
 	}
 	
 	public void DoSort() {
-		if(!isEdit) {
+		if(!isBuyState) {
 			UISort.UIShow(!UISort.Visible, 0);
 		} else 
 			UIHint.Get.ShowHint("It's Buy State.", Color.red);
@@ -1153,9 +1194,40 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void OnChangePage (GameObject obj) {
-		int index;
-		if(int.TryParse (obj.name, out index))
-			changePage(index);
+		if(!isBuyState) {
+			int index;
+			if(int.TryParse (obj.name, out index))
+				changePage(index);
+		} else {
+			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+			for(int i=0; i<toggleDecks.Length; i++) {
+				toggleDecks[i].value = (i == tempPage);
+			}
+		}
+	}
+
+	public void DoSell () {
+		if(sellNames.Count > 0) {
+			sellIndexs = new int[sellNames.Count];
+			for(int i=0; i<sellIndexs.Length; i++){
+				sellIndexs[i] = sellNames[i];
+			}
+
+			for(int i=0; i<sellIndexs.Length; i++) {
+				for (int j=i+1; j<sellIndexs.Length; j++){
+					if (sellIndexs[i] >= sellIndexs[j]){
+						int temp = sellIndexs[i];
+						sellIndexs[i] = sellIndexs[j];
+						sellIndexs[j] = temp;
+					}
+				}
+			}
+
+			WWWForm form = new WWWForm();
+			form.AddField("SellIndexs", JsonConvert.SerializeObject(sellIndexs));
+			SendHttp.Get.Command(URLConst.SellSkillcard, waitSellSkillPage, form);
+		} else 
+			DoCloseSell();
 	}
 	
 	public void DoFinish() {
@@ -1236,7 +1308,8 @@ public class UISkillFormation : UIBase {
 				form.AddField("Page", tempPage);
 				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
 			} else 
-				setEditState(isEdit);
+				if(isBuyState)
+					setEditState(isBuyState);
 	}
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
@@ -1247,7 +1320,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 
-			if(!isEdit) {
+			if(!isBuyState) {
 				if(!isChangePage)
 					UIHint.Get.ShowHint("Install Success!!", Color.red);	
 				else {
@@ -1274,6 +1347,19 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.SkillPage = tempPage;
 			refreshAfterInstall ();
 			
+		} else {
+			Debug.LogError("text:"+www.text);
+		}
+	}
+
+	private void waitSellSkillPage(bool ok, WWW www) {
+		if (ok) {
+			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
+			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Player.SkillCards = result.PlayerCards;
+			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
+			GameData.Team.Player.Init();
+			setEditState(false);
 		} else {
 			Debug.LogError("text:"+www.text);
 		}
