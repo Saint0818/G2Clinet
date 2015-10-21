@@ -137,6 +137,7 @@ public class UISkillFormation : UIBase {
 	//Right(itemCardEquipped Parent)
 	private GameObject gridPassiveCardBase;
 	private UIScrollView scrollViewItemList;
+	private UIToggle[] checkBoxSkill = new UIToggle[2];
 
 	//Total Cost
 	private UILabel labelCostValue;
@@ -228,6 +229,11 @@ public class UISkillFormation : UIBase {
 		scrollViewItemList.transform.localPosition = new Vector3(0, 15, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 		scrollViewItemList.onStoppedMoving =ItemDragFinish;
+
+		checkBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
+		checkBoxSkill[1] = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
+		SetBtnFun (UIName + "/MainView/Right/STitle/ActiveCheck", DoOpenActive);
+		SetBtnFun (UIName + "/MainView/Right/STitle/PassiveCheck", DoOpenPassive);
 
 		gridCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList");
 		scrollViewCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
@@ -466,7 +472,7 @@ public class UISkillFormation : UIBase {
 			UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
 			drag.cloneOnDrag = true;
 			drag.restriction = UIDragDropItem.Restriction.PressAndHold;
-			drag.pressAndHoldDelay = 0.2f;
+			drag.pressAndHoldDelay = 0.5f;
 
 
 			TUICard uicard = new TUICard(1);
@@ -1072,6 +1078,26 @@ public class UISkillFormation : UIBase {
 		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
 		sortSkillCondition(eCondition);
 		sortSkillFilter(eFilter);
+
+		switch(eFilter) {
+			case (int)EFilter.All:
+				checkBoxSkill[0].value = true;
+				checkBoxSkill[1].value = true;
+				break;
+			case (int)EFilter.Active:
+				checkBoxSkill[0].value = true;
+				checkBoxSkill[1].value = false;
+				break;
+			case (int)EFilter.Passive:
+				checkBoxSkill[0].value = false;
+				checkBoxSkill[1].value = true;
+				break;
+			case (int)EFilter.Available:
+			case (int)EFilter.Select:
+				checkBoxSkill[0].value = false;
+				checkBoxSkill[1].value = false;
+				break;
+		}
 		
 		scrollViewCardList.ResetPosition();
 		gridCardList.transform.localPosition = Vector3.zero;
@@ -1080,18 +1106,22 @@ public class UISkillFormation : UIBase {
 
 	public void DoOpenActive (){
 		//Open Actvie Cards
-		sortSkillFilter((int)EFilter.Active);
-		scrollViewCardList.ResetPosition();
-		scrollViewCardList.panel.clipOffset = new Vector2(0, scrollViewCardList.panel.clipOffset.y);
-		gridCardList.transform.localPosition = Vector3.zero;
+		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+		if(eFilter != EFilter.Active.GetHashCode()) {
+			PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Active.GetHashCode());
+			PlayerPrefs.Save();
+			UpdateSort();
+		}
 	}
 
 	public void DoOpenPassive (){
 		//Open Passive Cards
-		sortSkillFilter((int)EFilter.Passive);
-		scrollViewCardList.ResetPosition();
-		scrollViewCardList.panel.clipOffset = new Vector2(0, scrollViewCardList.panel.clipOffset.y);
-		gridCardList.transform.localPosition = Vector3.zero;
+		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+		if(eFilter != EFilter.Passive.GetHashCode()) {
+			PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Passive.GetHashCode());
+			PlayerPrefs.Save();
+			UpdateSort();
+		}
 	}
 
 	public void DoSell() {

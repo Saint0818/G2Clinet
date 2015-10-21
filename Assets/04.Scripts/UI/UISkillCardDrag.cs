@@ -79,7 +79,6 @@ public class UISkillCardDrag : UIDragDropItem {
 		base.OnDragDropRelease(surface);
 		UISkillFormation.Get.ShowInstallLight(gameObject, false);
 		int index = getPositionIndex(surface.transform.position.x, surface.transform.position.y);
-		Debug.LogWarning("surface.transform.position:"+ surface.transform.position);
 
 		if(transform.parent != null) {
 			if(transform.parent.name.Contains("ActiveCardBase")) {

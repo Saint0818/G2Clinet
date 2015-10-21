@@ -27,8 +27,6 @@ public class UISort : UIBase {
 	//Skill
 	private UIToggle[] toggleCondition = new UIToggle[5];
 	private UIToggle[] toggleFilter = new UIToggle[5];
-	private ECondition sortCondition;
-	private int sortFilter = 0;
 
 	//Avatar
 	private GameObject[] objGroup = new GameObject[3];
