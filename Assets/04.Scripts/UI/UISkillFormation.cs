@@ -466,7 +466,7 @@ public class UISkillFormation : UIBase {
 			UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
 			drag.cloneOnDrag = true;
 			drag.restriction = UIDragDropItem.Restriction.PressAndHold;
-			drag.pressAndHoldDelay = 0.5f;
+			drag.pressAndHoldDelay = 0.2f;
 
 
 			TUICard uicard = new TUICard(1);
@@ -695,33 +695,20 @@ public class UISkillFormation : UIBase {
 
 	public void SwitchItem(int sourceIndex, int targetIndex){
 		if(sourceIndex != targetIndex) {
-			activeStruct[sourceIndex].itemEquipActiveCard.transform.SetParent(activeStruct[targetIndex].gridActiveCardBase.transform);
 			TActiveStruct temp = activeStruct[sourceIndex];
-//			if(sourceIndex > targetIndex) {
-//				for (int i=0; i<activeStruct.Length; i++) {
-//					if(i == targetIndex) {
-//						for (int j=activeStruct.Length-1; j>i; j--) {
-//							if(activeStruct[j].itemEquipActiveCard != null) {
-//								activeStruct[j - 1].itemEquipActiveCard.transform.parent = activeStruct[j].gridActiveCardBase.transform;
-//								activeStruct[j].SetData(activeStruct[j - 1]);
-//								activeStruct[j].itemEquipActiveCard.transform.localPosition = Vector3.zero;
-//								activeStruct[j].itemActiveFieldIcon.SetActive((activeStruct[j].itemEquipActiveCard == null));
-//							}
-//						}
-//						break;
-//					}
-//				}
-//				activeStruct[targetIndex].itemEquipActiveCard.transform.SetParent(temp.gridActiveCardBase.transform);
-//				activeStruct[targetIndex].itemEquipActiveCard.transform.localPosition = Vector3.zero;
-//				activeStruct[targetIndex].SetData(temp);
-//			} else if(sourceIndex < targetIndex) {//small to big
+			if(activeStruct[targetIndex].itemEquipActiveCard != null) {
 				activeStruct[sourceIndex].itemEquipActiveCard.transform.SetParent(activeStruct[targetIndex].gridActiveCardBase.transform);
 				activeStruct[sourceIndex].itemEquipActiveCard.transform.localPosition = Vector3.zero;
 				activeStruct[sourceIndex].SetData(activeStruct[targetIndex]);
 				activeStruct[targetIndex].itemEquipActiveCard.transform.SetParent(temp.gridActiveCardBase.transform);
 				activeStruct[targetIndex].itemEquipActiveCard.transform.localPosition = Vector3.zero;
 				activeStruct[targetIndex].SetData(temp);
-//			}
+			} else {
+				activeStruct[targetIndex].SetData(temp);
+				activeStruct[targetIndex].itemEquipActiveCard.transform.SetParent(temp.gridActiveCardBase.transform);
+				activeStruct[targetIndex].itemEquipActiveCard.transform.localPosition = Vector3.zero;
+				activeStruct[sourceIndex].ActiveClear();
+			}
 
 			refreshActiveItems();
 		}

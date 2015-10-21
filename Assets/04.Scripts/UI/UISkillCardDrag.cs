@@ -8,7 +8,7 @@ public class UISkillCardDrag : UIDragDropItem {
 	protected override void OnDragDropStart ()
 	{
 		OrigalPosition = gameObject.transform.localPosition;
-		originalIndes = getPositionIndex(gameObject.transform.position.y);
+		originalIndes = getPositionIndex(gameObject.transform.position.x, gameObject.transform.position.y);
 		UISkillFormation.Get.ShowInstallLight(gameObject, true);
 		base.OnDragDropStart();
 	}
@@ -78,8 +78,8 @@ public class UISkillCardDrag : UIDragDropItem {
 			return ;
 		base.OnDragDropRelease(surface);
 		UISkillFormation.Get.ShowInstallLight(gameObject, false);
-		int index = getPositionIndex(surface.transform.position.y);
-		Debug.LogWarning("surface.transform.position.y:"+ surface.transform.position.y);
+		int index = getPositionIndex(surface.transform.position.x, surface.transform.position.y);
+		Debug.LogWarning("surface.transform.position:"+ surface.transform.position);
 
 		if(transform.parent != null) {
 			if(transform.parent.name.Contains("ActiveCardBase")) {
@@ -101,16 +101,18 @@ public class UISkillCardDrag : UIDragDropItem {
 
 	}
 
-	private int getPositionIndex (float y) {
-		if(y > 0) {
-			if(y >= 0.15f && y<=0.25f)
-				return 2;
-			else if(y >= 0.35f && y<=0.45f)
-				return 1;
-			else if(y >= 0.55f && y<=0.65f)
-				return 0;
-		} else if(y < 0)
-			return 4;
+	private int getPositionIndex (float x, float y) {
+		if(x > 0) {
+			if(y > 0) {
+				if(y >= 0.15f && y<=0.25f)
+					return 2;
+				else if(y >= 0.35f && y<=0.45f)
+					return 1;
+				else if(y >= 0.55f && y<=0.65f)
+					return 0;
+			} else if(y < 0)
+				return 4;
+		}
 		return -1;
 	}
 }
