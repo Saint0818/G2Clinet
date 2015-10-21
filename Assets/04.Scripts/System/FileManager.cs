@@ -65,9 +65,6 @@ public class FileManager : KnightSingleton<FileManager> {
 	#if UNITY_IPHONE
 	private const string ServerFilePathAssetBundle =  URL + "assetbundle/ios/";
 	#endif
-	#if UNITY_EDITOR
-	private const string ServerFilePathAssetBundle =  URL + "assetbundle/android/";
-	#endif
 
 	private static string[] downloadFiles =
 	{
