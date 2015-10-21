@@ -63,7 +63,6 @@ public class CC_StartupWindow : EditorWindow
 		FindAssets();
 
 		// First line in the changelog is the version string
-//		string version = ((TextAsset)Resources.LoadAssetAtPath(pathChangelog, typeof(TextAsset))).text.Split('\n')[0];
 		string version = ((TextAsset)AssetDatabase.LoadAssetAtPath(pathChangelog, typeof(TextAsset))).text.Split('\n')[0];
 
 		if (forceOpen || EditorPrefs.GetString(identifier) != version)

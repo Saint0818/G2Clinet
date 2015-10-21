@@ -967,4 +967,28 @@ namespace GameStruct {
     public struct TPreloadEffect {
 		public string Name;
 	}
+
+	public class TTutorial {
+		public int ID;
+		public int Line;
+		public string Title;
+		public int Offsetx;
+		public int Offsety;
+		public string UIpath;
+		public string TextTW;
+		public string TextCN;
+		public string TextJP;
+		public string TextEN;
+		
+		public string Text {
+			get{
+				switch(GameData.Setting.Language){
+				case ELanguage.TW: return TextTW;
+				case ELanguage.CN: return TextCN;
+				case ELanguage.JP: return TextJP;
+				default: return TextEN;
+				}
+			}
+		}
+	}
 }
