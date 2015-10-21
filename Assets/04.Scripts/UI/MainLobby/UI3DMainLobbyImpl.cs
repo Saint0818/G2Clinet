@@ -89,6 +89,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				selectIndex = -1;
 				SetAnimator(index, false);
 				UpdateButtonCollider(index, true);
+				UIMainLobby.Get.EnableImpl = true;
 				delay = 1;
 			}else{
 				//go
@@ -96,6 +97,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					selectIndex = index;
 					SetAnimator(index, true);
 					UpdateButtonCollider(index, false);
+					UIMainLobby.Get.EnableImpl = false;
 					delay = 1;
 				}
 			}

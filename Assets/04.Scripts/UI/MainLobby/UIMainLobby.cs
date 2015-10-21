@@ -31,7 +31,7 @@ public class UIMainLobby : UIBase
     {
         Show(true);
         UI3DMainLobby.Get.Show();
-
+		Impl.Enable = true;
         UpdateUI();
     }
 
@@ -46,9 +46,15 @@ public class UIMainLobby : UIBase
     public void Hide()
     {
         UI3DMainLobby.Get.Hide();
+		Impl.Enable = false;
 
-        RemoveUI(UIName);
+//        RemoveUI(UIName);
     }
+
+	public bool EnableImpl
+	{
+		set{Impl.Enable = value;}
+	}
 
     private void changePlayerName()
     {

@@ -16,6 +16,8 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UILabel DiamondLabel;
     public UILabel PowerLabel;
     public UIInput NameInput;
+	public Animator UIAnimator;
+	private bool isEnable;
 
     [UsedImplicitly]
     private void Awake()
@@ -51,6 +53,19 @@ public class UIMainLobbyImpl : MonoBehaviour
     {
         FullScreenBlock.SetActive(enable);
     }
+
+	public bool Enable
+	{
+		set{
+			isEnable = value;
+
+			if(isEnable)
+				UIAnimator.SetTrigger("MainLobby_Up");
+			else
+				UIAnimator.SetTrigger("MainLobby_Down");
+		}
+		get{return isEnable;}
+	}
 
     public void ShowCreateRole()
     {
