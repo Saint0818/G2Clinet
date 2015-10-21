@@ -633,15 +633,17 @@ public class UIGame : UIBase {
 	public void GameOver(){UIState(EUISituation.Finish);}
 
 	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
-		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 && index < GameController.Get.Joysticker.Attribute.ActiveSkills.Count) {
-			if (isShow) {
-				if(GameController.Get.IsStart)
-					uiSkillEnables[index].SetActive((canUse && isAngerFull));
-				else
-					uiSkillEnables[index].SetActive(false);
-			} else {
-				for(int i=0; i<uiSkillEnables.Length; i++) {
-					uiSkillEnables[i].SetActive(false);
+		if(GameController.Get.Joysticker != null) {
+			if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 && index < GameController.Get.Joysticker.Attribute.ActiveSkills.Count) {
+				if (isShow) {
+					if(GameController.Get.IsStart)
+						uiSkillEnables[index].SetActive((canUse && isAngerFull));
+					else
+						uiSkillEnables[index].SetActive(false);
+				} else {
+					for(int i=0; i<uiSkillEnables.Length; i++) {
+						uiSkillEnables[i].SetActive(false);
+					}
 				}
 			}
 		}
@@ -688,14 +690,15 @@ public class UIGame : UIBase {
 			spriteForceFirst.gameObject.SetActive(false);
 			spriteForceFirst.gameObject.SetActive(true);
 		}
-
-		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
-			for(int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++) {
-				uiButtonSkill[i].SetActive((i < GameController.Get.Joysticker.Attribute.ActiveSkills.Count));
-				if(uiButtonSkill[i].activeSelf) {
-					spriteSkills[i].fillAmount = GameController.Get.Joysticker.Attribute.MaxAngerPercent(GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID, anger);
-					spriteSkills[i].gameObject.SetActive(false);
-					spriteSkills[i].gameObject.SetActive(true);
+		if(GameController.Get.Joysticker != null) {
+			if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
+				for(int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++) {
+					uiButtonSkill[i].SetActive((i < GameController.Get.Joysticker.Attribute.ActiveSkills.Count));
+					if(uiButtonSkill[i].activeSelf) {
+						spriteSkills[i].fillAmount = GameController.Get.Joysticker.Attribute.MaxAngerPercent(GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID, anger);
+						spriteSkills[i].gameObject.SetActive(false);
+						spriteSkills[i].gameObject.SetActive(true);
+					}
 				}
 			}
 		}
