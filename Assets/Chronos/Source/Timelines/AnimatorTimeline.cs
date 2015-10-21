@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -8,12 +8,23 @@ namespace Chronos
 
 		protected internal const int DefaultRecordedFrames = 0;
 
+		private float _speed;
+
 		/// <summary>
 		/// The speed that is applied to the animator before time effects. Use this property instead of Animator.speed, which will be overwritten by the timeline at runtime. 
 		/// </summary>
-		public float speed { get; set; }
+		public float speed
+		{
+			get { return _speed; }
+			set
+			{
+				_speed = value;
+				AdjustProperties();
+			}
+		}
 
 		private int _recordedFrames = DefaultRecordedFrames;
+
 		/// <summary>
 		/// The maximum amount of frames (updates) that will be recorded. Higher values offer more rewind time but require more memory. A value of zero indicates an indefinite amount of frames.
 		/// </summary>

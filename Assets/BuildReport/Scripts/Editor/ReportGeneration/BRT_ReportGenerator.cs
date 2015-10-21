@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEditor;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -389,12 +388,25 @@ public class ReportGenerator
 	static string GetBuildTypeFromEditorLog(string editorLogPath)
 	{
 		const string BUILD_TYPE_KEY = "*** Completed 'Build.Player.";
+		const string CANCELLED_BUILD_TYPE_KEY = "*** Cancelled 'Build.Player.";
+
+		string returnValue = GetBuildTypeFromEditorLog(editorLogPath, BUILD_TYPE_KEY);
+		if (string.IsNullOrEmpty(returnValue))
+		{
+			returnValue = GetBuildTypeFromEditorLog(editorLogPath, CANCELLED_BUILD_TYPE_KEY);
+		}
+
+		return returnValue;
+	}
+
+	static string GetBuildTypeFromEditorLog(string editorLogPath, string buildTypeKey)
+	{
 		//Debug.Log("GetBuildTypeFromEditorLog path: " + editorLogPath);
-		foreach (string line in DldUtil.BigFileReader.ReadFile(editorLogPath, BUILD_TYPE_KEY))
+		foreach (string line in DldUtil.BigFileReader.ReadFile(editorLogPath, buildTypeKey))
 		{
 			//Debug.Log("GetBuildTypeFromEditorLog line: " + line);
 
-			int buildTypeIdx = line.LastIndexOf(BUILD_TYPE_KEY);
+			int buildTypeIdx = line.LastIndexOf(buildTypeKey);
 			//Debug.Log("buildTypeIdx: " + buildTypeIdx);
 
 			if (buildTypeIdx == -1)
@@ -405,7 +417,7 @@ public class ReportGenerator
 			int buildTypeEndIdx = line.IndexOf("' in ", buildTypeIdx);
 			//Debug.Log("buildTypeEndIdx: " + buildTypeEndIdx);
 
-			string buildType = line.Substring(buildTypeIdx+BUILD_TYPE_KEY.Length, buildTypeEndIdx-buildTypeIdx-BUILD_TYPE_KEY.Length);
+			string buildType = line.Substring(buildTypeIdx + buildTypeKey.Length, buildTypeEndIdx - buildTypeIdx - buildTypeKey.Length);
 			//Debug.Log("buildType got: " + buildType);
 
 			return buildType;
@@ -413,7 +425,6 @@ public class ReportGenerator
 
 		return "";
 	}
-
 
 
 
@@ -481,28 +492,28 @@ public class ReportGenerator
 		return buildSizes.ToArray();
 	}
 
+	const string ASSET_SIZES_KEY = "Used Assets, sorted by uncompressed size:";
+	const string ASSET_SIZES_KEY_2 = "Used Assets and files from the Resources folder, sorted by uncompressed size:";
+
 	static List<BuildReportTool.SizePart> ParseAssetSizesFromEditorLog(string editorLogPath, string[] prefabsUsedInScenes)
 	{
 		List<BuildReportTool.SizePart> assetSizes = new List<BuildReportTool.SizePart>();
 		Dictionary<string, bool> prefabsInBuildDict = new Dictionary<string, bool>();
 
 
-		const string ASSET_SIZES_KEY = "Used Assets, sorted by uncompressed size:";
 
 		long importedSizeBytes = -1;
 
 		// note: list gotten from editor log is already sorted by raw size, descending
 
-		foreach (string line in DldUtil.BigFileReader.ReadFile(_lastEditorLogPath, ASSET_SIZES_KEY))
+		foreach (string line in DldUtil.BigFileReader.ReadFile(_lastEditorLogPath, ASSET_SIZES_KEY, ASSET_SIZES_KEY_2))
 		{
 			if (string.IsNullOrEmpty(line) || line == "\n" || line == "\r\n")
 			{
 				break;
 			}
-			if (line.IndexOf(ASSET_SIZES_KEY) != -1)
-			{
-				continue;
-			}
+
+			//Debug.LogFormat("from line: {0}", line);
 
 			Match match = Regex.Match(line, @"^ [0-9].*[a-z0-9) ]$", RegexOptions.IgnoreCase);
 			if (match.Success)
@@ -1259,17 +1270,9 @@ public class ReportGenerator
 
 
 
-	public static bool DoesEditorLogUsedHaveBuildInfo()
+	public static bool DoesEditorLogHaveBuildInfo(string editorLogPath)
 	{
-		string gotBuildType = GetBuildTypeFromEditorLog(BuildReportTool.Util.UsedEditorLogPath);
-
-		if (string.IsNullOrEmpty(gotBuildType))
-		{
-			Debug.LogWarning(NO_BUILD_INFO_WARNING);
-			return false;
-		}
-
-		return true;
+		return DldUtil.BigFileReader.FileHasText(editorLogPath, ASSET_SIZES_KEY, ASSET_SIZES_KEY_2);
 	}
 
 	public static BuildSettingCategory GetBuildSettingCategoryFromBuildValues(BuildInfo buildReport)
@@ -1505,21 +1508,19 @@ public class ReportGenerator
 	{
 		BRT_BuildReportWindow.GetValueMessage = "Getting values...";
 
-
-		string gotBuildType = GetBuildTypeFromEditorLog(_lastEditorLogPath);
-
-		if (string.IsNullOrEmpty(gotBuildType))
+		if (!DoesEditorLogHaveBuildInfo(_lastEditorLogPath))
 		{
 			Debug.LogWarning(NO_BUILD_INFO_WARNING);
 			return;
 		}
 
 
-
 		// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		// determining build platform based on editor log
 		// much more reliable especially when using an override log
+		// if no build platform found from editor log, it will just use `buildInfo.BuildTargetUsed`
 
+		string gotBuildType = GetBuildTypeFromEditorLog(_lastEditorLogPath);
 		BuildPlatform buildPlatform = GetBuildPlatformFromString(gotBuildType, buildInfo.BuildTargetUsed);
 
 		buildInfo.BuildType = gotBuildType;
@@ -1851,9 +1852,10 @@ public class ReportGenerator
 		{
 			BuildReportTool.Util.ShouldGetBuildReportNow = false;
 		}
-
-		if (!DoesEditorLogUsedHaveBuildInfo())
+		
+		if (!DoesEditorLogHaveBuildInfo(BuildReportTool.Util.UsedEditorLogPath))
 		{
+			Debug.LogWarning(NO_BUILD_INFO_WARNING);
 			return false;
 		}
 

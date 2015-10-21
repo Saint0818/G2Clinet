@@ -163,11 +163,12 @@ public class UISprite : UIBasicSprite
 		{
 			if (type == Type.Sliced || type == Type.Advanced)
 			{
+				float ps = pixelSize;
 				Vector4 b = border * pixelSize;
 				int min = Mathf.RoundToInt(b.x + b.z);
 
 				UISpriteData sp = GetAtlasSprite();
-				if (sp != null) min += sp.paddingLeft + sp.paddingRight;
+				if (sp != null) min += Mathf.RoundToInt(ps * (sp.paddingLeft + sp.paddingRight));
 
 				return Mathf.Max(base.minWidth, ((min & 1) == 1) ? min + 1 : min);
 			}
@@ -185,11 +186,12 @@ public class UISprite : UIBasicSprite
 		{
 			if (type == Type.Sliced || type == Type.Advanced)
 			{
+				float ps = pixelSize;
 				Vector4 b = border * pixelSize;
 				int min = Mathf.RoundToInt(b.y + b.w);
 
 				UISpriteData sp = GetAtlasSprite();
-				if (sp != null) min += sp.paddingTop + sp.paddingBottom;
+				if (sp != null) min += Mathf.RoundToInt(ps * (sp.paddingTop + sp.paddingBottom));
 
 				return Mathf.Max(base.minHeight, ((min & 1) == 1) ? min + 1 : min);
 			}
@@ -220,6 +222,19 @@ public class UISprite : UIBasicSprite
 				int padBottom = mSprite.paddingBottom;
 				int padRight = mSprite.paddingRight;
 				int padTop = mSprite.paddingTop;
+
+				if (mType != Type.Simple)
+				{
+					float ps = pixelSize;
+
+					if (ps != 1f)
+					{
+						padLeft = Mathf.RoundToInt(ps * padLeft);
+						padBottom = Mathf.RoundToInt(ps * padBottom);
+						padRight = Mathf.RoundToInt(ps * padRight);
+						padTop = Mathf.RoundToInt(ps * padTop);
+					}
+				}
 
 				int w = mSprite.width + padLeft + padRight;
 				int h = mSprite.height + padBottom + padTop;

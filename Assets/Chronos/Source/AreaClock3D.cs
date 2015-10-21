@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -7,7 +7,7 @@ namespace Chronos
 	/// </summary>
 	[AddComponentMenu("Time/Area Clock 3D")]
 	[DisallowMultipleComponent]
-//	[HelpURL("http://ludiq.io/chronos/documentation#AreaClock")]
+	[HelpURL("http://ludiq.io/chronos/documentation#AreaClock")]
 	public class AreaClock3D : AreaClock<Collider, Vector3>
 	{
 		protected virtual void OnTriggerEnter(Collider other)

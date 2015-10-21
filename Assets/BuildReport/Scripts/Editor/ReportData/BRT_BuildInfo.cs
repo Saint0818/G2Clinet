@@ -1,17 +1,13 @@
-using UnityEngine;
 using UnityEditor;
 using System;
 using System.Xml.Serialization;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BuildReportTool
 {
 
 // class for holding a build report
 // this is the class that is serialized when saving a build report to a file
-[System.Serializable]
+[System.Serializable, XmlRoot("BuildInfo")]
 public class BuildInfo
 {
 	// General Info

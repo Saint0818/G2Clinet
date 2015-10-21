@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+using UnityEngine;
 
 namespace Chronos
 {
 	/// <summary>
 	/// An abstract base component that saves snapshots at regular intervals to enable rewinding.
 	/// </summary>
-//	[HelpURL("http://ludiq.io/chronos/documentation#Recorder")]
+	[HelpURL("http://ludiq.io/chronos/documentation#Recorder")]
 	public abstract class Recorder<TSnapshot> : MonoBehaviour
 	{
 		private class DelegatedRecorder : RecorderTimeline<Component, TSnapshot>
@@ -49,9 +48,9 @@ namespace Chronos
 		{
 			recorder.Update();
 		}
-		
-		protected Timeline timeline;
-		protected RecorderTimeline<Component, TSnapshot> recorder;
+
+		private Timeline timeline;
+		private RecorderTimeline<Component, TSnapshot> recorder;
 
 		protected abstract void ApplySnapshot(TSnapshot snapshot);
 		protected abstract TSnapshot CopySnapshot();

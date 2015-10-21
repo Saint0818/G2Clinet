@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos.Example
 {
@@ -9,11 +9,7 @@ namespace Chronos.Example
 	{
 		public Timeline time
 		{
-			get
-			{
-				return GetComponent<Timeline>();
-			}
+			get { return GetComponent<Timeline>(); }
 		}
 	}
-
 }

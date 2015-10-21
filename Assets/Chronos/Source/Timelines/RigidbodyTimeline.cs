@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -12,10 +12,12 @@ namespace Chronos
 
 	public abstract class RigidbodyTimeline<TComponent, TSnapshot> : RecorderTimeline<TComponent, TSnapshot>, IRigidbodyTimeline where TComponent : Component
 	{
-		public RigidbodyTimeline(Timeline timeline) : base(timeline) { }
+		public RigidbodyTimeline(Timeline timeline) : base(timeline) {}
 
 		public override void Update()
 		{
+			enableRecording = timeline.recordTransform;
+
 			float timeScale = timeline.timeScale;
 
 			if (lastTimeScale != 0 && timeScale == 0) // Arrived at halt
@@ -24,7 +26,7 @@ namespace Chronos
 				{
 					zeroSnapshot = CopySnapshot();
 				}
-				else if (lastTimeScale < 0)
+				else if (lastTimeScale < 0 && enableRecording)
 				{
 					zeroSnapshot = interpolatedSnapshot;
 				}
@@ -36,6 +38,7 @@ namespace Chronos
 				{
 					laterSnapshot = CopySnapshot();
 					laterTime = timeline.time;
+					interpolatedSnapshot = laterSnapshot;
 					canRewind = TryFindEarlierSnapshot(false);
 				}
 
@@ -49,7 +52,7 @@ namespace Chronos
 				{
 					ApplySnapshot(zeroSnapshot);
 				}
-				else if (lastTimeScale < 0) // Stopped rewind
+				else if (lastTimeScale < 0 && enableRecording) // Stopped rewind
 				{
 					ApplySnapshot(interpolatedSnapshot);
 				}
@@ -154,13 +157,6 @@ namespace Chronos
 		protected virtual Vector3 AdjustForce(Vector3 force)
 		{
 			return force * timeline.timeScale;
-		}
-
-		protected enum Severity
-		{
-			Ignore,
-			Warn,
-			Error
 		}
 
 		protected bool AssertForwardProperty(string property, Severity severity)

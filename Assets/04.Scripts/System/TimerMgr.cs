@@ -66,18 +66,5 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 			IsPause = isPase;
 		}
 	}
-
-	public void InitRealBall()
-	{
-		if (CourtMgr.Get.RealBall) {
-
-//			Debug.Log("rigidbody : " + timer.rigidbody);
-
-//			Timeline timer = CourtMgr.Get.RealBall.gameObject.AddComponent<Timeline>();
-//			timer.mode = TimelineMode.Global;
-//			timer.globalClockKey = ETimerKind.Ball.ToString();
-//			PhysicsTimer3D physics = CourtMgr.Get.RealBall.gameObject.AddComponent<PhysicsTimer3D>();
-		}
-	}
 }
 

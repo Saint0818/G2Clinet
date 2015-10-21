@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
 
 
@@ -51,7 +50,7 @@ public class BuildSettings : BaseScreen
 			GUILayout.Space(2);
 			if (!string.IsNullOrEmpty(val))
 			{
-				GUILayout.TextField(val, BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
+			GUILayout.TextField(val, BuildReportTool.Window.Settings.SETTING_VALUE_STYLE_NAME);
 			}
 		GUILayout.EndHorizontal();
 		GUILayout.Space(SETTING_SPACING);
@@ -267,7 +266,7 @@ public class BuildSettings : BaseScreen
 	// =================================================================================
 
 	void DrawProjectSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
-	{
+		{
 		DrawSettingsGroupTitle("Project");
 
 		DrawSetting("Product name:", settings.ProductName);
@@ -320,8 +319,8 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Content ID:", settings.PSVContentId);
 			DrawSetting("Master version:", settings.PSVMasterVersion);
 		}
-	}
-	
+		}
+
 	void DrawBuildSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
 	{
 		DrawSettingsGroupTitle("Build Settings");
@@ -368,7 +367,7 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Is game:", settings.AndroidIsGame);
 			DrawSetting("TV-compatible:", settings.AndroidTvCompatible);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
-			
+
 
 			DrawSetting("Force Internet permission:", settings.AndroidForceInternetPermission);
 			DrawSetting("Force SD card permission:", settings.AndroidForceSDCardPermission);
@@ -386,7 +385,7 @@ public class BuildSettings : BaseScreen
 
 			if (UnityMajorVersionUsedIsAtMost(4, buildReportToDisplay.UnityVersion))
 			{
-				DrawSetting("Author ID:", settings.BlackBerryAuthorID);
+			DrawSetting("Author ID:", settings.BlackBerryAuthorID);
 			}
 			
 			DrawSetting("Device address:", settings.BlackBerryDeviceAddress);
@@ -435,7 +434,7 @@ public class BuildSettings : BaseScreen
 			DrawSetting("NP Communications ID:", settings.PS3NpCommsId);
 			DrawSetting("NP Communications Signature:", settings.PS3NpCommsSig);
 			DrawSetting("NP Age Rating:", settings.PS3NpAgeRating);
-			
+
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 
 			DrawSetting("Title config filepath:", settings.PS3TitleConfigFilePath, true);
@@ -469,8 +468,8 @@ public class BuildSettings : BaseScreen
 			DrawSetting("App parameter 2:", settings.PS4AppParameter2);
 			DrawSetting("App parameter 3:", settings.PS4AppParameter3);
 			DrawSetting("App parameter 4:", settings.PS4AppParameter4);
-			
-			
+
+
 			DrawSetting("Enter button assignment:", settings.PS4EnterButtonAssignment);
 			DrawSetting("Remote play key assignment:", settings.PS4RemotePlayKeyAssignment);
 			
@@ -556,9 +555,8 @@ public class BuildSettings : BaseScreen
 		{
 			DrawSetting("Is appended build:", settings.iOSAppendedToProject);
 		}
-
 		DrawSetting("Install in build folder:", settings.InstallInBuildFolder);
-		
+
 		if (UnityMajorVersionUsedIsAtMost(4, buildReportToDisplay.UnityVersion))
 		{
 			DrawSetting("Physics code stripped:", settings.StripPhysicsCode);
@@ -567,7 +565,7 @@ public class BuildSettings : BaseScreen
 		DrawSetting("Bake collision meshes:", settings.BakeCollisionMeshes);
 		DrawSetting("Strip unused mesh components:", settings.StripUnusedMeshComponents);
 	}
-	
+
 	void DrawRuntimeSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
 	{
 		DrawSettingsGroupTitle("Runtime Settings");
@@ -581,7 +579,7 @@ public class BuildSettings : BaseScreen
 
 			if (UnityMajorVersionUsedIsAtMost(4, buildReportToDisplay.UnityVersion))
 			{
-				DrawSetting("Exit on suspend:", settings.iOSExitOnSuspend);
+			DrawSetting("Exit on suspend:", settings.iOSExitOnSuspend);
 			}
 			if (UnityMajorVersionUsedIsAtLeast(5, buildReportToDisplay.UnityVersion))
 			{
@@ -635,16 +633,15 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Has shared permissions:", settings.BlackBerryHasSharedPermissions);
 		}
 
-
 		if (IsShowingStandaloneSettings || IsShowingWebPlayerSettings || IsShowingBlackberrySettings)
 		{
 			DrawSetting("Run in background:", settings.RunInBackground);
 			GUILayout.Space(SETTINGS_GROUP_MINOR_SPACING);
 		}
 	}
-	
+
 	void DrawDebugSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
-	{
+		{
 		DrawSettingsGroupTitle("Debug Settings");
 
 		DrawSetting("Is development build:", settings.EnableDevelopmentBuild);
@@ -655,7 +652,7 @@ public class BuildSettings : BaseScreen
 		DrawSetting("Enable explicit null checks:", settings.EnableExplicitNullChecks);
 		DrawSetting("Action on .NET unhandled exception:", settings.ActionOnDotNetUnhandledException);
 		DrawSetting("Enable CrashReport API:", settings.EnableCrashReportApi);
-		
+
 		if (IsShowingPS3Settings)
 		{
 			DrawSetting("Enable verbose memory stats:", settings.PS3EnableVerboseMemoryStats);
@@ -665,7 +662,7 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Log Objective-C uncaught exceptions:", settings.iOSLogObjCUncaughtExceptions);
 		}
 	}
-	
+
 	void DrawCodeSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
 	{
 		DrawSettingsGroupTitle("Code Settings");
@@ -689,7 +686,7 @@ public class BuildSettings : BaseScreen
 			DrawSetting("Enable Player Prefs support:", settings.PS4EnablePlayerPrefsSupport);
 		}
 	}
-	
+
 	void DrawGraphicsSettings(BuildInfo buildReportToDisplay, UnityBuildSettings settings)
 	{
 		DrawSettingsGroupTitle("Graphics Settings");
@@ -754,8 +751,8 @@ public class BuildSettings : BaseScreen
 		{
 			if (UnityMajorVersionUsedIsAtMost(4, buildReportToDisplay.UnityVersion))
 			{
-				DrawSetting("Use 24-bit depth buffer:", settings.AndroidUse24BitDepthBuffer);
-			}
+			DrawSetting("Use 24-bit depth buffer:", settings.AndroidUse24BitDepthBuffer);
+		}
 			if (UnityMajorVersionUsedIsAtLeast(5, buildReportToDisplay.UnityVersion))
 			{
 				DrawSetting("Disable depth and stencil buffers:", settings.AndroidDisableDepthAndStencilBuffers);

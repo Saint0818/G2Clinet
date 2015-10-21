@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Chronos.Example
 {
@@ -13,12 +10,12 @@ namespace Chronos.Example
 		public GlobalClock clock;
 		public Text text;
 
-		Slider slider
+		private Slider slider
 		{
 			get { return GetComponent<Slider>(); }
 		}
 
-		void Start()
+		private void Start()
 		{
 			slider.onValueChanged.AddListener(OnValueChanged);
 		}
@@ -30,7 +27,7 @@ namespace Chronos.Example
 			clock.localTimeScale = value;
 		}
 
-		void Update()
+		private void Update()
 		{
 			// Update the slider value
 
@@ -47,7 +44,7 @@ namespace Chronos.Example
 			}
 			else if (clock.parentBlend == ClockBlend.Multiplicative)
 			{
-				sign = "×";
+				sign = "�";
 			}
 			else // if (clock.parentBlend == ClockBlend.Additive)
 			{
@@ -58,5 +55,4 @@ namespace Chronos.Example
 			text.text = string.Format("{0} ({1} {2:0.0} = {3:0.0})", clock.key, sign, value, clock.timeScale);
 		}
 	}
-
 }

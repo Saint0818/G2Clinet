@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -35,8 +35,6 @@ namespace Chronos
 
 		public override void CopyProperties(Rigidbody source)
 		{
-			if (component == null)
-				component = source;
 			isKinematic = source.isKinematic;
 			useGravity = source.useGravity;
 			source.useGravity = false;
@@ -172,7 +170,7 @@ namespace Chronos
 		public void AddForce(Vector3 force, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddForce(AdjustForce(force), mode);
+				component.AddForce(AdjustForce(force), mode);
 		}
 
 		/// <summary>
@@ -181,7 +179,7 @@ namespace Chronos
 		public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddRelativeForce(AdjustForce(force), mode);
+				component.AddRelativeForce(AdjustForce(force), mode);
 		}
 
 		/// <summary>
@@ -190,16 +188,17 @@ namespace Chronos
 		public void AddForceAtPosition(Vector3 force, Vector3 position, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddForceAtPosition(AdjustForce(force), position, mode);
+				component.AddForceAtPosition(AdjustForce(force), position, mode);
 		}
 
 		/// <summary>
 		/// The equivalent of Rigidbody.AddRelativeForce adjusted for time effects.
 		/// </summary>
-		public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius, float upwardsModifier = 0, ForceMode mode = ForceMode.Force)
+		public void AddExplosionForce(float explosionForce, Vector3 explosionPosition, float explosionRadius,
+			float upwardsModifier = 0, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddExplosionForce(AdjustForce(explosionForce), explosionPosition, explosionRadius, upwardsModifier, mode);
+				component.AddExplosionForce(AdjustForce(explosionForce), explosionPosition, explosionRadius, upwardsModifier, mode);
 		}
 
 		/// <summary>
@@ -208,7 +207,7 @@ namespace Chronos
 		public void AddTorque(Vector3 torque, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddTorque(AdjustForce(torque), mode);
+				component.AddTorque(AdjustForce(torque), mode);
 		}
 
 		/// <summary>
@@ -217,7 +216,7 @@ namespace Chronos
 		public void AddRelativeTorque(Vector3 torque, ForceMode mode = ForceMode.Force)
 		{
 			if (AssertForwardForce(Severity.Ignore))
-			component.AddRelativeTorque(AdjustForce(torque), mode);
+				component.AddRelativeTorque(AdjustForce(torque), mode);
 		}
 
 		#endregion

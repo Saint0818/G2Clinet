@@ -103,12 +103,18 @@ public class UIButtonColor : UIWidgetContainer
 
 	public void ResetDefaultColor () { defaultColor = mStartingColor; }
 
+	/// <summary>
+	/// Cache the default color -- should only happen once.
+	/// </summary>
+
+	public void CacheDefaultColor () { if (!mInitDone) OnInit(); }
+
 	void Start () { if (!mInitDone) OnInit(); if (!isEnabled) SetState(State.Disabled, true); }
 
 	protected virtual void OnInit ()
 	{
 		mInitDone = true;
-		if (tweenTarget == null) tweenTarget = gameObject;
+		if (tweenTarget == null && !Application.isPlaying) tweenTarget = gameObject;
 		if (tweenTarget != null) mWidget = tweenTarget.GetComponent<UIWidget>();
 
 		if (mWidget != null)
@@ -263,19 +269,6 @@ public class UIButtonColor : UIWidgetContainer
 		{
 			if (!mInitDone) OnInit();
 			if (tweenTarget != null) SetState(State.Normal, false);
-		}
-	}
-
-	/// <summary>
-	/// Set the selected state.
-	/// </summary>
-
-	protected virtual void OnSelect (bool isSelected)
-	{
-		if (isEnabled && tweenTarget != null)
-		{
-			if (UICamera.currentScheme == UICamera.ControlScheme.Controller) OnHover(isSelected);
-			else if (!isSelected && UICamera.touchCount < 2) OnHover(isSelected);
 		}
 	}
 

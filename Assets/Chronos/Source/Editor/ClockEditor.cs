@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,7 +22,11 @@ namespace Chronos
 
 		public override void OnInspectorGUI()
 		{
-			EditorGUILayout.PropertyField(parentKey, new GUIContent("Parent"));
+			EditorGUI.BeginDisabledGroup(Application.isPlaying);
+			{
+				EditorGUILayout.PropertyField(parentKey, new GUIContent("Parent"));
+			}
+			EditorGUI.EndDisabledGroup();
 
 			OnBlendsGUI();
 

@@ -5,19 +5,6 @@ Note: If you are upgrading Build Report Tool in your project, delete the current
 
 
 
-
-If you need to use Build Report Tool for a project using lower than Unity 4.5, use the included "Build Report Tool for Unity 3 or pre 4.5.unitypackage" file. Otherwise, you may ignore/delete it. 
-
-=== If you want to use the old Build Report Tool ===
-
-1. You will need at least Unity 4.5 to *download* the new Build Report Tool.
-2. It's recommended to create a new blank project whose purpose is to simply import the contents of the Build Report Tool.
-3. Upon download and import, simply move the "Build Report Tool for Unity 3 or pre 4.5.unitypackage" file outside this temporary project and import that into your real project.
-
-
-
-
-
 To show the Build Report Window, go to Window > Show Build Report.
 
 If Build Report Tool doesn't show up when you do that, you may have to reset your Unity Editor layout. Choose Window > Layouts > Default.

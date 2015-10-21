@@ -1,4 +1,4 @@
-﻿namespace Chronos
+namespace Chronos
 {
 	/// <summary>
 	/// Indicates the state of time.

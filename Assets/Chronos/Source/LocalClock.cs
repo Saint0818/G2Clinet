@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -6,7 +6,7 @@ namespace Chronos
 	/// A Clock that only affects a Timeline attached to the same GameObject. 
 	[AddComponentMenu("Time/Local Clock")]
 	[DisallowMultipleComponent]
-//	[HelpURL("http://ludiq.io/chronos/documentation#LocalClock")]
+	[HelpURL("http://ludiq.io/chronos/documentation#LocalClock")]
 	public class LocalClock : Clock
 	{
 		protected override void Awake()

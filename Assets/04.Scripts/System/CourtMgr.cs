@@ -270,7 +270,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		InitScoreboard ();
 		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
-
 	}
 
 	public void ShowRangeOfAction (bool isShow, Transform parent = null, float degree = 0 , float dis = 0, float euler = 0){
@@ -314,9 +313,12 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
-			TimerMgr.Get.InitRealBall();
+			Timeline tl = gameObject.AddComponent<Timeline>();
+			tl.mode = TimelineMode.Global;
+			tl.globalClockKey = ETimerKind.Ball.ToString();
+			tl.recordTransform = false;
 			
-			if(RealBallCurve == null || RealBallCurve.gameObject == null){
+			if(RealBallCurve == null || RealBallCurve.gameObject == null) {
 				GameObject obj = GameObject.Instantiate (Resources.Load ("Prefab/Stadium/BallCurve")) as GameObject;
 				RealBallCurve = obj.GetComponent<BallCurve> ();
 			}

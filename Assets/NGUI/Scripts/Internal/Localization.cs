@@ -60,6 +60,9 @@ public static class Localization
 	// Key = Values dictionary (multiple languages)
 	static Dictionary<string, string[]> mDictionary = new Dictionary<string, string[]>();
 
+	// Replacement dictionary forces a specific value instead of the existing entry
+	static Dictionary<string, string> mReplacement = new Dictionary<string, string>();
+
 	// Index of the selected language within the multi-language dictionary
 	static int mLanguageIndex = -1;
 
@@ -108,7 +111,6 @@ public static class Localization
 		{
 			if (string.IsNullOrEmpty(mLanguage))
 			{
-				localizationHasBeenSet = true;
 				mLanguage = PlayerPrefs.GetString("Language", "English");
 				LoadAndSelect(mLanguage);
 			}
@@ -210,6 +212,22 @@ public static class Localization
 	}
 
 	/// <summary>
+	/// Forcefully replace the specified key with another value.
+	/// </summary>
+
+	static public void ReplaceKey (string key, string val)
+	{
+		if (!string.IsNullOrEmpty(val)) mReplacement[key] = val;
+		else mReplacement.Remove(key);
+	}
+
+	/// <summary>
+	/// Clear the replacement values.
+	/// </summary>
+
+	static public void ClearReplacements () { mReplacement.Clear(); }
+
+	/// <summary>
 	/// Load the specified CSV file.
 	/// </summary>
 
@@ -283,7 +301,13 @@ public static class Localization
 				if (!HasLanguage(header[i]))
 				{
 					int newSize = mLanguages.Length + 1;
+#if UNITY_FLASH
+					string[] temp = new string[newSize];
+					for (int b = 0, bmax = arr.Length; b < bmax; ++b) temp[b] = mLanguages[b];
+					mLanguages = temp;
+#else
 					System.Array.Resize(ref mLanguages, newSize);
+#endif
 					mLanguages[newSize - 1] = header[i];
 
 					Dictionary<string, string[]> newDict = new Dictionary<string, string[]>();
@@ -291,7 +315,13 @@ public static class Localization
 					foreach (KeyValuePair<string, string[]> pair in mDictionary)
 					{
 						string[] arr = pair.Value;
+#if UNITY_FLASH
+						temp = new string[newSize];
+						for (int b = 0, bmax = arr.Length; b < bmax; ++b) temp[b] = arr[b];
+						arr = temp;
+#else
 						System.Array.Resize(ref arr, newSize);
+#endif
 						arr[newSize - 1] = arr[0];
 						newDict.Add(pair.Key, arr);
 					}
@@ -420,7 +450,7 @@ public static class Localization
 		mLanguage = languageName;
 		PlayerPrefs.SetString("Language", mLanguage);
 		mOldDictionary = dictionary;
-		localizationHasBeenSet = false;
+		localizationHasBeenSet = true;
 		mLanguageIndex = -1;
 		mLanguages = new string[] { languageName };
 		if (onLocalize != null) onLocalize();
@@ -478,20 +508,46 @@ public static class Localization
 
 		string val;
 		string[] vals;
-#if UNITY_IPHONE || UNITY_ANDROID
-		string mobKey = key + " Mobile";
 
-		if (mLanguageIndex != -1 && mDictionary.TryGetValue(mobKey, out vals))
+		UICamera.ControlScheme scheme = UICamera.currentScheme;
+
+
+		if (scheme == UICamera.ControlScheme.Touch)
 		{
-			if (mLanguageIndex < vals.Length)
-				return vals[mLanguageIndex];
+			string altKey = key + " Mobile";
+			if (mReplacement.TryGetValue(altKey, out val)) return val;
+
+			if (mLanguageIndex != -1 && mDictionary.TryGetValue(altKey, out vals))
+			{
+				if (mLanguageIndex < vals.Length)
+					return vals[mLanguageIndex];
+			}
+			if (mOldDictionary.TryGetValue(altKey, out val)) return val;
 		}
-		if (mOldDictionary.TryGetValue(mobKey, out val)) return val;
-#endif
+		else if (scheme == UICamera.ControlScheme.Controller)
+		{
+			string altKey = key + " Controller";
+			if (mReplacement.TryGetValue(altKey, out val)) return val;
+
+			if (mLanguageIndex != -1 && mDictionary.TryGetValue(altKey, out vals))
+			{
+				if (mLanguageIndex < vals.Length)
+					return vals[mLanguageIndex];
+			}
+			if (mOldDictionary.TryGetValue(altKey, out val)) return val;
+		}
+
+		if (mReplacement.TryGetValue(key, out val)) return val;
+
 		if (mLanguageIndex != -1 && mDictionary.TryGetValue(key, out vals))
 		{
 			if (mLanguageIndex < vals.Length)
-				return vals[mLanguageIndex];
+			{
+				string s = vals[mLanguageIndex];
+				if (string.IsNullOrEmpty(s)) s = vals[0];
+				return s;
+			}
+			return vals[0];
 		}
 		if (mOldDictionary.TryGetValue(key, out val)) return val;
 

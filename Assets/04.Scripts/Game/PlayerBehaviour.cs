@@ -683,7 +683,6 @@ public class PlayerBehaviour : MonoBehaviour
 			Timer.mode = TimelineMode.Global;
 			Timer.globalClockKey = CrtTimeKey.ToString();
 			Timer.recordTransform = false;
-			SetTimerKey( CrtTimeKey);
 		}
 	}
 

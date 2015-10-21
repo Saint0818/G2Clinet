@@ -20,11 +20,11 @@ public static class UnityBuildSettingsUtility
 		//
 		return new GUIContent[]
 		{
-			/*  0 */ new GUIContent("Windows"),
-			/*  1 */ new GUIContent("Mac"),
-			/*  2 */ new GUIContent("Linux"),
+			/* 0 */ new GUIContent("Windows"),
+			/* 1 */ new GUIContent("Mac"),
+			/* 2 */ new GUIContent("Linux"),
 
-			/*  3 */ new GUIContent("Web"),
+			/* 3 */ new GUIContent("Web"),
 			/*  4 */ new GUIContent("Web GL"),
 
 			/*  5 */ new GUIContent("iOS"),
@@ -134,7 +134,7 @@ public static class UnityBuildSettingsUtility
 		{
 			case BuildSettingCategory.WindowsDesktopStandalone:
 				return "Windows";
-				
+
 			case BuildSettingCategory.WindowsStoreApp:
 				return "Windows Store App";
 
@@ -213,7 +213,7 @@ public static class UnityBuildSettingsUtility
 		settings.ActionOnDotNetUnhandledException = PlayerSettings.actionOnDotNetUnhandledException.ToString();
 
 
-		
+
 		// build settings
 		// ---------------------------------------------------------------
 		
@@ -226,9 +226,9 @@ public static class UnityBuildSettingsUtility
 #endif
 		settings.BakeCollisionMeshes = PlayerSettings.bakeCollisionMeshes;
 		settings.StripUnusedMeshComponents = PlayerSettings.stripUnusedMeshComponents;
-		
-		
-		
+
+
+
 		// code settings
 		// ---------------------------------------------------------------
 
@@ -252,10 +252,13 @@ public static class UnityBuildSettingsUtility
 
 
 		settings.StrippingLevelUsed = PlayerSettings.strippingLevel.ToString();
+
 		settings.NETApiCompatibilityLevel = PlayerSettings.apiCompatibilityLevel.ToString();
+
 		settings.AOTOptions = PlayerSettings.aotOptions;
 		settings.LocationUsageDescription = PlayerSettings.locationUsageDescription;
-		
+
+
 
 
 		// rendering settings
@@ -265,10 +268,16 @@ public static class UnityBuildSettingsUtility
 		settings.UseGPUSkinning = PlayerSettings.gpuSkinning;
 		settings.RenderingPathUsed = PlayerSettings.renderingPath.ToString();
 		settings.VisibleInBackground = PlayerSettings.visibleInBackground;
-		
-		
+
+
 		// collect all aspect ratios
-		var aspectRatios = (AspectRatio[])System.Enum.GetValues(typeof(AspectRatio));
+		UnityEditor.AspectRatio[] aspectRatios = {
+			UnityEditor.AspectRatio.Aspect4by3,
+			UnityEditor.AspectRatio.Aspect5by4,
+			UnityEditor.AspectRatio.Aspect16by9,
+			UnityEditor.AspectRatio.Aspect16by10,
+			UnityEditor.AspectRatio.AspectOthers
+		};
 		List<string> aspectRatiosList = new List<string>();
 		for (int n = 0, len = aspectRatios.Length; n < len; ++n )
 		{
@@ -276,6 +285,11 @@ public static class UnityBuildSettingsUtility
 			{
 				aspectRatiosList.Add(aspectRatios[n].ToString());
 			}
+		}
+
+		if (aspectRatiosList.Count == 0)
+		{
+			aspectRatiosList.Add("none");
 		}
 		settings.AspectRatiosAllowed = aspectRatiosList.ToArray();
 
@@ -344,9 +358,9 @@ public static class UnityBuildSettingsUtility
 		// ---------------------------------------------------------------
 		settings.WSAGenerateReferenceProjects = EditorUserBuildSettings.wsaGenerateReferenceProjects;
 
-		
-		
-		
+
+
+
 		// mac only build settings
 		// ---------------------------------------------------------------
 		settings.MacUseAppStoreValidation = PlayerSettings.useMacAppStoreValidation;
@@ -409,7 +423,7 @@ public static class UnityBuildSettingsUtility
 #endif
 
 		settings.iOSShowProgressBarInLoadingScreen = PlayerSettings.iOS.showActivityIndicatorOnLoading.ToString();
-		
+
 		settings.iOSLogObjCUncaughtExceptions = PlayerSettings.logObjCUncaughtExceptions;
 		settings.iOSTargetGraphics = PlayerSettings.targetIOSGraphics.ToString();
 		
@@ -425,7 +439,7 @@ public static class UnityBuildSettingsUtility
 		settings.AndroidAsAndroidProject = EditorUserBuildSettings.exportAsGoogleAndroidProject;
 
 		settings.AndroidUseLicenseVerification = PlayerSettings.Android.licenseVerification;
-		
+
 		
 		settings.AndroidIsGame = PlayerSettings.Android.androidIsGame;
 		settings.AndroidTvCompatible = PlayerSettings.Android.androidTVCompatibility;
@@ -461,7 +475,7 @@ public static class UnityBuildSettingsUtility
 
 		settings.BlackBerryBuildSubtarget = EditorUserBuildSettings.blackberryBuildSubtarget.ToString();
 		settings.BlackBerryBuildType = EditorUserBuildSettings.blackberryBuildType.ToString();
-			
+
 #if !UNITY_5
 		settings.BlackBerryAuthorID = PlayerSettings.BlackBerry.authorId;
 #endif

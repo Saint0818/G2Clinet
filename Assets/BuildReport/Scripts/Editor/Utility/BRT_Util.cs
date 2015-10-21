@@ -17,7 +17,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -82,6 +81,8 @@ public static class Util
 #if !UNITY_5
 			case BuildTarget.NaCl:
 				return BuildPlatform.Web;
+
+
 			case BuildTarget.FlashPlayer:
 				return BuildPlatform.Flash;
 #endif

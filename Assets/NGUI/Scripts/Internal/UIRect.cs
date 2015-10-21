@@ -166,13 +166,11 @@ public abstract class UIRect : MonoBehaviour
 
 	public AnchorUpdate updateAnchors = AnchorUpdate.OnUpdate;
 
-	protected GameObject mGo;
-	protected Transform mTrans;
-	protected BetterList<UIRect> mChildren = new BetterList<UIRect>();
-	protected bool mChanged = true;
-	protected bool mStarted = false;
-	protected bool mParentFound = false;
-
+	[System.NonSerialized] protected GameObject mGo;
+	[System.NonSerialized] protected Transform mTrans;
+	[System.NonSerialized] protected BetterList<UIRect> mChildren = new BetterList<UIRect>();
+	[System.NonSerialized] protected bool mChanged = true;
+	[System.NonSerialized] protected bool mParentFound = false;
 	[System.NonSerialized] bool mUpdateAnchors = true;
 	[System.NonSerialized] int mUpdateFrame = -1;
 	[System.NonSerialized] bool mAnchorsCached = false;
@@ -180,6 +178,9 @@ public abstract class UIRect : MonoBehaviour
 	[System.NonSerialized] UIRect mParent;
 	[System.NonSerialized] bool mRootSet = false;
 	[System.NonSerialized] protected Camera mCam;
+
+	// Marking it as NonSerialized will cause widgets to disappear when code recompiles in edit mode
+	protected bool mStarted = false;
 
 	/// <summary>
 	/// Final calculated alpha.
@@ -436,6 +437,18 @@ public abstract class UIRect : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Reset 'mStarted' as Unity remembers its value. It can't be marked as [NonSerialized] because then
+	/// Unity edit mode stops working properly and code recompile causes widgets to disappear.
+	/// </summary>
+
+	protected virtual void Awake ()
+	{
+		mStarted = false;
+		mGo = gameObject;
+		mTrans = transform;
+	}
+
+	/// <summary>
 	/// Set anchor rect references on start.
 	/// </summary>
 
@@ -468,43 +481,7 @@ public abstract class UIRect : MonoBehaviour
 #else
 			if (updateAnchors == AnchorUpdate.OnUpdate || mUpdateAnchors)
 #endif
-			{
-				mUpdateFrame = frame;
-				mUpdateAnchors = false;
-
-				bool anchored = false;
-
-				if (leftAnchor.target)
-				{
-					anchored = true;
-					if (leftAnchor.rect != null && leftAnchor.rect.mUpdateFrame != frame)
-						leftAnchor.rect.Update();
-				}
-
-				if (bottomAnchor.target)
-				{
-					anchored = true;
-					if (bottomAnchor.rect != null && bottomAnchor.rect.mUpdateFrame != frame)
-						bottomAnchor.rect.Update();
-				}
-
-				if (rightAnchor.target)
-				{
-					anchored = true;
-					if (rightAnchor.rect != null && rightAnchor.rect.mUpdateFrame != frame)
-						rightAnchor.rect.Update();
-				}
-
-				if (topAnchor.target)
-				{
-					anchored = true;
-					if (topAnchor.rect != null && topAnchor.rect.mUpdateFrame != frame)
-						topAnchor.rect.Update();
-				}
-
-				// Update the dimensions using anchors
-				if (anchored) OnAnchor();
-			}
+				UpdateAnchorsInternal(frame);
 
 			// Continue with the update
 			OnUpdate();
@@ -512,10 +489,61 @@ public abstract class UIRect : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Update anchors.
+	/// </summary>
+
+	protected void UpdateAnchorsInternal (int frame)
+	{
+		mUpdateFrame = frame;
+		mUpdateAnchors = false;
+
+		bool anchored = false;
+
+		if (leftAnchor.target)
+		{
+			anchored = true;
+			if (leftAnchor.rect != null && leftAnchor.rect.mUpdateFrame != frame)
+				leftAnchor.rect.Update();
+		}
+
+		if (bottomAnchor.target)
+		{
+			anchored = true;
+			if (bottomAnchor.rect != null && bottomAnchor.rect.mUpdateFrame != frame)
+				bottomAnchor.rect.Update();
+		}
+
+		if (rightAnchor.target)
+		{
+			anchored = true;
+			if (rightAnchor.rect != null && rightAnchor.rect.mUpdateFrame != frame)
+				rightAnchor.rect.Update();
+		}
+
+		if (topAnchor.target)
+		{
+			anchored = true;
+			if (topAnchor.rect != null && topAnchor.rect.mUpdateFrame != frame)
+				topAnchor.rect.Update();
+		}
+
+		// Update the dimensions using anchors
+		if (anchored) OnAnchor();
+	}
+
+	/// <summary>
 	/// Manually update anchored sides.
 	/// </summary>
 
-	public void UpdateAnchors () { if (isAnchored && updateAnchors != AnchorUpdate.OnStart) OnAnchor(); }
+	public void UpdateAnchors ()
+	{
+		if (isAnchored)
+		{
+			mUpdateFrame = -1;
+			mUpdateAnchors = true;
+			UpdateAnchorsInternal(Time.frameCount);
+		}
+	}
 
 	/// <summary>
 	/// Update the dimensions of the rectangle using anchor points.

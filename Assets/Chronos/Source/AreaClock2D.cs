@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -7,7 +7,7 @@ namespace Chronos
 	/// </summary>
 	[AddComponentMenu("Time/Area Clock 2D")]
 	[DisallowMultipleComponent]
-//	[HelpURL("http://ludiq.io/chronos/documentation#AreaClock")]
+	[HelpURL("http://ludiq.io/chronos/documentation#AreaClock")]
 	public class AreaClock2D : AreaClock<Collider2D, Vector2>
 	{
 		protected virtual void OnTriggerEnter2D(Collider2D other)
@@ -41,7 +41,7 @@ namespace Chronos
 		protected override float PointToEdgeTimeScale(Vector3 position)
 		{
 			Vector2 center = transform.TransformPoint(this.center);
-			Vector2 delta = (Vector2)position - center;
+			Vector2 delta = (Vector2) position - center;
 			Vector2 direction = delta.normalized;
 			float distance = delta.magnitude;
 			float noEffect = innerBlend == ClockBlend.Multiplicative ? 1 : 0;
@@ -114,7 +114,7 @@ namespace Chronos
 			Bounds bounds = collider.bounds;
 			Vector3 size = bounds.size;
 			bounds.size = new Vector3(size.x, size.y, 999);
-			
+
 			return bounds.Contains(point);
 		}
 

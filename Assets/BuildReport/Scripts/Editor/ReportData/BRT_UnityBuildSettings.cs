@@ -1,5 +1,3 @@
-using UnityEngine;
-using System.Collections;
 
 namespace BuildReportTool
 {
@@ -30,11 +28,11 @@ public class UnityBuildSettings
 	public string ActionOnDotNetUnhandledException; // Unity 5: PlayerSettings.actionOnDotNetUnhandledException
 
 	
-	
-	
+
+
 	// build settings
 	// ---------------------------------------------------------------
-	
+
 	public bool EnableHeadlessMode; // EditorUserBuildSettings.enableHeadlessMode
 	public bool InstallInBuildFolder; // EditorUserBuildSettings.installInBuildFolder
 	public bool ForceInstallation; // EditorUserBuildSettings.forceInstallation
@@ -43,11 +41,11 @@ public class UnityBuildSettings
 	public bool BakeCollisionMeshes; // Unity 5: PlayerSettings.bakeCollisionMeshes
 	public bool StripUnusedMeshComponents; // PlayerSettings.stripUnusedMeshComponents
 
-	
-	
+
+
 	// code settings
 	// ---------------------------------------------------------------
-	
+
 	public string[] CompileDefines; // EditorUserBuildSettings.activeScriptCompilationDefines
 
 	public string StrippingLevelUsed; // PlayerSettings.strippingLevel
@@ -57,11 +55,11 @@ public class UnityBuildSettings
 	public string AOTOptions; // PlayerSettings.aotOptions
 
 	public string LocationUsageDescription; // PlayerSettings.locationUsageDescription
-	
 
 
-	
-	
+
+
+
 	// rendering settings
 	// ---------------------------------------------------------------
 
@@ -95,13 +93,13 @@ public class UnityBuildSettings
 	public int WebPlayerFirstStreamedLevelWithResources; // PlayerSettings.firstStreamedLevelWithResources
 
 
-	
+
 	// WebGL settings
 	// ---------------------------------------------------------------
 	public string WebGLOptimizationLevel; // EditorUserBuildSettings.webGLOptimizationLevel
 
 
-	
+
 	// flash player settings
 	// ---------------------------------------------------------------
 	// Unity 5: Flash support is dropped
@@ -153,7 +151,7 @@ public class UnityBuildSettings
 	public string MacFullscreenModeUsed; // PlayerSettings.macFullscreenMode
 
 
-	
+
 	// Windows Store App only build settings
 	// ---------------------------------------------------------------
 	
@@ -186,11 +184,9 @@ public class UnityBuildSettings
 
 	// iOS only build settings
 	// ---------------------------------------------------------------
-		
+
 	// Unity 5: EditorUserBuildSettings.appendProject is removed
 	public bool iOSAppendedToProject; // EditorUserBuildSettings.appendProject
-
-
 	public bool iOSSymlinkLibraries; // EditorUserBuildSettings.symlinkLibraries
 
 	public string iOSAppDisplayName; // PlayerSettings.iOS.applicationDisplayName
@@ -277,8 +273,6 @@ public class UnityBuildSettings
 
 	// Unity 5: PlayerSettings.BlackBerry.authorId removed
 	public string BlackBerryAuthorID; // PlayerSettings.BlackBerry.authorId
-
-
 	public string BlackBerryDeviceAddress; // PlayerSettings.BlackBerry.deviceAddress
 
 	public string BlackBerrySaveLogPath; // PlayerSettings.BlackBerry.saveLogPath
@@ -311,7 +305,7 @@ public class UnityBuildSettings
 	public string Xbox360SpaFilePath; // PlayerSettings.xboxSpaFilePath
 
 	public bool Xbox360AutoGenerateSpa; // PlayerSettings.xboxGenerateSpa
-	
+
 	public bool Xbox360EnableKinect; // PlayerSettings.xboxEnableKinect
 	public bool Xbox360EnableKinectAutoTracking; // PlayerSettings.xboxEnableKinectAutoTracking
 	public bool Xbox360EnableSpeech; // PlayerSettings.xboxEnableSpeech
@@ -356,13 +350,13 @@ public class UnityBuildSettings
 	public string XboxOnePackagingOverridePath; // PlayerSettings.XboxOne.PackagingOverridePath
 	
 
-	
-	
+
+
 	// used in PS3, but don't know which other Playstation platforms it also applies to
 	public bool CompressBuildWithPsArc; // EditorUserBuildSettings.compressWithPsArc
 
 	public bool NeedSubmissionMaterials; // EditorUserBuildSettings.needSubmissionMaterials
-	
+
 	// PS3 build settings
 	// ---------------------------------------------------------------
 
@@ -410,7 +404,7 @@ public class UnityBuildSettings
 	public string PS4Category; // PlayerSettings.PS4.category
 	public string PS4ContentId; // PlayerSettings.PS4.contentID
 	public string PS4MasterVersion; // PlayerSettings.PS4.masterVersion
-	
+
 	public string PS4EnterButtonAssignment; // PlayerSettings.PS4.enterButtonAssignment
 	public string PS4RemotePlayKeyAssignment; // PlayerSettings.PS4.remotePlayKeyAssignment
 	
@@ -440,8 +434,8 @@ public class UnityBuildSettings
 	public string PS4PronunciationXmlPath; // PlayerSettings.PS4.PronunciationXMLPath
 	public string PS4SaveDataImagePath; // PlayerSettings.PS4.SaveDataImagePath
 	public string PS4ShareFilePath; // PlayerSettings.PS4.ShareFilePath
-	
-	
+
+
 	// PS Vita build settings
 	// ---------------------------------------------------------------
 
@@ -454,15 +448,15 @@ public class UnityBuildSettings
 
 	
 	// new values in Unity 5:
-	
+
 	public string PSVBuildSubtarget; // EditorUserBuildSettings.psp2BuildSubtarget
-	
+
 	public string PSVShortTitle; // PlayerSettings.PSVita.shortTitle
 	public string PSVAppVersion; // PlayerSettings.PSVita.appVersion
 	public string PSVMasterVersion; // PlayerSettings.PSVita.masterVersion
 	public string PSVAppCategory; // PlayerSettings.PSVita.category
 	public string PSVContentId; // PlayerSettings.PSVita.contentID
-	
+
 	public string PSVNpAgeRating; // PlayerSettings.PSVita.npAgeRating
 	public string PSVParentalLevel; // PlayerSettings.PSVita.parentalLevel
 	
@@ -501,7 +495,7 @@ public class UnityBuildSettings
 	
 	// Samsung TV build settings
 	// ---------------------------------------------------------------
-	
+
 	public string SamsungTVDeviceAddress; // PlayerSettings.SamsungTV.deviceAddress
 	public string SamsungTVAuthor; // PlayerSettings.SamsungTV.productAuthor
 	public string SamsungTVAuthorEmail; // PlayerSettings.SamsungTV.productAuthorEmail
@@ -509,7 +503,7 @@ public class UnityBuildSettings
 	public string SamsungTVCategory; // PlayerSettings.SamsungTV.productCategory
 	public string SamsungTVDescription; // PlayerSettings.SamsungTV.productDescription
 
-	
+
 
 	// Derived Values
 	// ---------------------------------------------------------------

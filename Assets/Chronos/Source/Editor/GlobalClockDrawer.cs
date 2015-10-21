@@ -1,4 +1,4 @@
-﻿using Chronos;
+using Chronos;
 using Chronos.Controls;
 using System.Collections.Generic;
 using System.Linq;

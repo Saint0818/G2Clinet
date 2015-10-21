@@ -1,5 +1,4 @@
-using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,7 +7,52 @@ namespace DldUtil
 
 public static class BigFileReader
 {
-	public static IEnumerable<string> ReadFile(string path, string seekText = "")
+	public static bool FileHasText(string path, params string[] seekText)
+	{
+		FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+		BufferedStream bs = new BufferedStream(fs);
+		StreamReader sr = new StreamReader(bs);
+
+		string line = "";
+
+		long currentLine = 0;
+		while (true)
+		{
+			++currentLine;
+			line = sr.ReadLine();
+
+			if (line == null)
+			{
+				break;
+			}
+
+			for (var seekTextIdx = 0; seekTextIdx < seekText.Length; ++seekTextIdx)
+			{
+				if (line.IndexOf(seekText[seekTextIdx], StringComparison.Ordinal) >= 0)
+				{
+					sr.Close();
+					bs.Close();
+					fs.Close();
+
+					return true;
+				}
+			}
+		}
+
+		sr.Close();
+		bs.Close();
+		fs.Close();
+
+		return false;
+	}
+
+
+	public static IEnumerable<string> ReadFile(string path, params string[] seekText)
+	{
+		return ReadFile(path, true, seekText);
+	}
+
+	public static IEnumerable<string> ReadFile(string path, bool startAfterSeekedText, params string[] seekText)
 	{
 		FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 		BufferedStream bs = new BufferedStream(fs);
@@ -16,8 +60,8 @@ public static class BigFileReader
 
 		string line = "";
 		
-		bool seekTextRequested = !string.IsNullOrEmpty(seekText);
-		//bool seekTextFound = false;
+		bool seekTextRequested = (seekText != null) && (seekText.Length > 0) && !string.IsNullOrEmpty(seekText[0]);
+
 		
 		long seekTextFoundAtLine = -1;
 		
@@ -34,13 +78,23 @@ public static class BigFileReader
 				{
 					break;
 				}
-				
+
+				var atLeastOneSeekTextFound = false;
+				for (var seekTextIdx = 0; seekTextIdx < seekText.Length; ++seekTextIdx)
+				{
+					if (line.IndexOf(seekText[seekTextIdx], StringComparison.Ordinal) >= 0)
+					{
+						atLeastOneSeekTextFound = true;
+						break;
+					}
+				}
+
 				// if seekText not found yet, skip
-				if (line.IndexOf(seekText) == -1)
+				if (!atLeastOneSeekTextFound)
 				{
 					continue;
 				}
-				
+
 				seekTextFoundAtLine = currentLine;
 					
 				//Debug.Log("seeking: " + line);
@@ -49,18 +103,7 @@ public static class BigFileReader
 			//Debug.Log("done seeking");
 		
 			if (seekTextFoundAtLine != -1)
-			{
-				/*sr.Close();
-				bs.Close();
-				fs.Close();
-			
-				fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-				
-				//fs.Seek(positionOfLastSeekText, SeekOrigin.Begin);
-				fs.Position = positionOfLastSeekText;
-				bs = new BufferedStream(fs);
-				sr = new StreamReader(bs);*/
-				
+			{	
 				fs.Seek(0, SeekOrigin.Begin);
 				
 				currentLine = 0;
@@ -73,7 +116,11 @@ public static class BigFileReader
 					{
 						break;
 					}
-					if (currentLine < seekTextFoundAtLine)
+					if (startAfterSeekedText && currentLine <= seekTextFoundAtLine)
+					{
+						continue;
+					}
+					if (!startAfterSeekedText && currentLine < seekTextFoundAtLine)
 					{
 						continue;
 					}
@@ -101,6 +148,34 @@ public static class BigFileReader
 		
 		line = "";
 		
+		sr.Close();
+		bs.Close();
+		fs.Close();
+	}
+
+
+	public static IEnumerable<string> ReadFile(string path)
+	{
+		FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+		BufferedStream bs = new BufferedStream(fs);
+		StreamReader sr = new StreamReader(bs);
+
+		string line = "";
+
+		while (true)
+		{
+			line = sr.ReadLine();
+
+			if (line == null)
+			{
+				break;
+			}
+
+			yield return line;
+		}
+
+		line = "";
+
 		sr.Close();
 		bs.Close();
 		fs.Close();

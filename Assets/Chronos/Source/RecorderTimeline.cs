@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System;
+using UnityEngine;
 
 namespace Chronos
 {
@@ -16,6 +15,7 @@ namespace Chronos
 	{
 		public RecorderTimeline(Timeline timeline) : base(timeline)
 		{
+			enableRecording = true;
 			snapshots = new List<TSnapshot>();
 			times = new List<float>();
 		}
@@ -33,6 +33,7 @@ namespace Chronos
 			{
 				laterSnapshot = CopySnapshot();
 				laterTime = timeline.time;
+				interpolatedSnapshot = laterSnapshot;
 				canRewind = TryFindEarlierSnapshot(false);
 			}
 
@@ -74,11 +75,16 @@ namespace Chronos
 			get { return !canRewind; }
 		}
 
+		/// <summary>
+		/// Whether the timeline should save snapshots for rewinding.
+		/// </summary>
+		public bool enableRecording { get; set; }
+
 		#endregion
 
 		#region Flow
 
-		protected virtual void Progress()
+		protected void Progress()
 		{
 			if (recordingTimer >= timeline.recordingInterval)
 			{
@@ -90,8 +96,13 @@ namespace Chronos
 			recordingTimer += timeline.deltaTime;
 		}
 
-		protected virtual void Record()
+		protected void Record()
 		{
+			if (!enableRecording)
+			{
+				return;
+			}
+
 			if (snapshots.Count == capacity)
 			{
 				snapshots.RemoveAt(0);
@@ -104,7 +115,7 @@ namespace Chronos
 			canRewind = true;
 		}
 
-		protected virtual void Rewind()
+		protected void Rewind()
 		{
 			if (canRewind)
 			{
@@ -132,7 +143,7 @@ namespace Chronos
 			}
 		}
 
-		protected virtual void OnExhaustRewind()
+		protected void OnExhaustRewind()
 		{
 			if (Timekeeper.instance.debug)
 			{
@@ -177,33 +188,6 @@ namespace Chronos
 			return true;
 		}
 
-		protected bool TryFindLaterSnapshot(bool pop)
-		{
-			if (pop)
-			{
-				if (snapshots.Count < 1)
-				{
-					return false;
-				}
-
-				earlierSnapshot = snapshots[0];
-				earlierTime = times[0];
-
-				snapshots.RemoveAt(0);
-				times.RemoveAt(0);
-			}
-
-			if (snapshots.Count < 1)
-			{
-				return false;
-			}
-
-			laterSnapshot = snapshots[0];
-			laterTime = times[0];
-
-			return true;
-		}
-
 		public virtual void Reset()
 		{
 			if (timeline.recordingDuration < timeline.recordingInterval)
@@ -236,7 +220,8 @@ namespace Chronos
 		{
 			int structSize = Marshal.SizeOf(typeof(TSnapshot));
 			int structAmount = Mathf.CeilToInt(duration / interval);
-			int pointerAmount = 1; while (pointerAmount < structAmount) pointerAmount *= 2;
+			int pointerAmount = 1;
+			while (pointerAmount < structAmount) pointerAmount *= 2;
 			int pointerSize = IntPtr.Size;
 
 			return (structSize * structAmount) + (pointerSize * pointerAmount);

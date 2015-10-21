@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Chronos
@@ -9,7 +8,7 @@ namespace Chronos
 	/// A Clock that affects all Timeline and other global clocks configured as its children. 
 	/// </summary>
 	[AddComponentMenu("Time/Global Clock")]
-//	[HelpURL("http://ludiq.io/chronos/documentation#GlobalClock")]
+	[HelpURL("http://ludiq.io/chronos/documentation#GlobalClock")]
 	public class GlobalClock : Clock
 	{
 		public GlobalClock()
@@ -29,6 +28,7 @@ namespace Chronos
 
 		[SerializeField]
 		private string _key;
+
 		/// <summary>
 		/// The unique key of the global clock. 
 		/// </summary>

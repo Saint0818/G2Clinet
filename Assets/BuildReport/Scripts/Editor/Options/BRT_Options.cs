@@ -1,11 +1,5 @@
-using UnityEngine;
 using UnityEditor;
-using System;
-using System.Collections;
-using System.IO;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
+
 
 namespace BuildReportTool
 {

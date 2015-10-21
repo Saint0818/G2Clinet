@@ -1,7 +1,5 @@
-﻿using System;
 using System.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Chronos.Example
 {
@@ -20,13 +18,13 @@ namespace Chronos.Example
 		// The size of the potential destinations area
 		public Vector3 areaSize;
 
-		void Start()
+		private void Start()
 		{
 			// Start the coroutine
 			StartCoroutine(ChangeDestinationCoroutine());
 		}
-		
-		IEnumerator ChangeDestinationCoroutine()
+
+		private IEnumerator ChangeDestinationCoroutine()
 		{
 			// Loop forever
 			while (true)
@@ -41,7 +39,7 @@ namespace Chronos.Example
 			}
 		}
 
-		void ChangeDestination()
+		private void ChangeDestination()
 		{
 			// Choose a new destination within the potential area
 			Vector3 randomDestination = new Vector3()
@@ -54,14 +52,13 @@ namespace Chronos.Example
 			// Set it to the nav mesh agent
 			GetComponent<NavMeshAgent>().SetDestination(randomDestination);
 		}
-		
+
 		// Draw the area gizmos for easy manipulation
-		void OnDrawGizmos()
+		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.magenta;
 
 			Gizmos.DrawWireCube(areaCenter, areaSize);
 		}
 	}
-
 }

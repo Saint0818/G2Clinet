@@ -1,4 +1,20 @@
-﻿Version 3.0.9
+﻿Version 3.0.13
+- FIX: Added compatibility for Unity 5.2.1
+
+
+Version 3.0.12
+- FIX: Added fix for report not being created if user is building for iOS without Xcode present.
+
+
+Version 3.0.11
+- FIX: Fixed bug when project is using Multiplatform Toolkit (naming conflict with AspectRatio)
+
+
+Version 3.0.10
+- FIX: Added fix for error of getting aspect ratios used in project settings.
+
+
+Version 3.0.9
 - FIX: Updated build settings shown to be compatible for Unity 5.
 
 
