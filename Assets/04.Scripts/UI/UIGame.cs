@@ -633,7 +633,7 @@ public class UIGame : UIBase {
 	public void GameOver(){UIState(EUISituation.Finish);}
 
 	public void ShowSkillEnableUI (bool isShow, int index = 0, bool isAngerFull = false, bool canUse = false){
-		if(GameData.Team.Player.ActiveSkills.Count > 0 && index < GameData.Team.Player.ActiveSkills.Count) {
+		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 && index < GameController.Get.Joysticker.Attribute.ActiveSkills.Count) {
 			if (isShow) {
 				if(GameController.Get.IsStart)
 					uiSkillEnables[index].SetActive((canUse && isAngerFull));
@@ -691,7 +691,7 @@ public class UIGame : UIBase {
 
 		if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
 			for(int i=0; i<GameController.Get.Joysticker.Attribute.ActiveSkills.Count; i++) {
-				uiButtonSkill[i].SetActive((i < GameData.Team.Player.ActiveSkills.Count));
+				uiButtonSkill[i].SetActive((i < GameController.Get.Joysticker.Attribute.ActiveSkills.Count));
 				if(uiButtonSkill[i].activeSelf) {
 					spriteSkills[i].fillAmount = GameController.Get.Joysticker.Attribute.MaxAngerPercent(GameController.Get.Joysticker.Attribute.ActiveSkills[i].ID, anger);
 					spriteSkills[i].gameObject.SetActive(false);
@@ -1248,7 +1248,7 @@ public class UIGame : UIBase {
 			viewForceBar.SetActive(false);
 			showUIButtonSkill(false);
 		} else {
-			if(GameData.Team.Player.ActiveSkills.Count > 0) {
+			if(GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0) {
 				viewForceBar.SetActive(isShow);
 				showUIButtonSkill(isShow);
 			} else {

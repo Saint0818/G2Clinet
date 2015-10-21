@@ -2281,7 +2281,6 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 2;
 						break;
 				}
-				skillKind = ESkillKind.Block0;
                 SetShooterLayer();
                 playerBlockCurve = null;
 				curveName = string.Format("Block{0}", stateNo);
@@ -2379,7 +2378,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
-				skillKind = ESkillKind.Dunk;
                 switch (state)
                 {
                     case EPlayerState.Dunk0:
@@ -2492,7 +2490,6 @@ public class PlayerBehaviour : MonoBehaviour
 					stateNo = 1;
 					break;
 			}
-			skillKind = ESkillKind.Elbow0;
 			PlayerRigidbody.mass = 5;
       		ClearAnimatorFlag();
 			AnimatorControl.SetInteger("StateNo", stateNo);
@@ -2660,7 +2657,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
 			case EPlayerState.Pass50:
-			skillKind = ESkillKind.Pass;
 			switch (state)
                 {
                     case EPlayerState.Pass0:
@@ -2713,7 +2709,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push1:
             case EPlayerState.Push2:
 			case EPlayerState.Push20:
-			skillKind = ESkillKind.Push;
 			switch (state){
 					case EPlayerState.Push0:
 						stateNo = 0;
@@ -2747,7 +2742,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.PickBall0:
-				skillKind = ESkillKind.Pick2;
                 ClearAnimatorFlag();
                 AnimatorControl.SetInteger("StateNo", 0);
                 AnimatorControl.SetTrigger("PickTrigger");
@@ -2817,7 +2811,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Steal1:
             case EPlayerState.Steal2:
 			case EPlayerState.Steal20:
-			skillKind = ESkillKind.Steal;
 			switch (state)
 				{
 					case EPlayerState.Steal0:
@@ -3016,7 +3009,6 @@ public class PlayerBehaviour : MonoBehaviour
             break;
 
             case EPlayerState.Rebound:
-				skillKind = ESkillKind.Rebound;
                 playerReboundCurve = null;
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
@@ -3046,7 +3038,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.JumpBall:
-				skillKind = ESkillKind.JumpBall;
 				AnimatorControl.SetTrigger("JumpBallTrigger");
 				ClearAnimatorFlag();
 				SetShooterLayer();

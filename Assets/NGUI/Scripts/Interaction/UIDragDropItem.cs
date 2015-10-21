@@ -124,11 +124,11 @@ public class UIDragDropItem : MonoBehaviour
 
 	protected virtual void Update ()
 	{
-		if (restriction == Restriction.PressAndHold)
-		{
-			if (mPressed && !mDragging && mDragStartTime < RealTime.time)
-				StartDragging();
-		}
+//		if (restriction == Restriction.PressAndHold)
+//		{
+//			if (mPressed && !mDragging && mDragStartTime < RealTime.time)
+//				StartDragging();
+//		}
 	}
 
 	/// <summary>
@@ -156,7 +156,7 @@ public class UIDragDropItem : MonoBehaviour
 			else if (restriction == Restriction.PressAndHold)
 			{
 				// Checked in Update instead
-				return;
+				if (mDragStartTime > RealTime.time) return;
 			}
 		}
 		StartDragging();
