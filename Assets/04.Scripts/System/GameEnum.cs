@@ -1,4 +1,5 @@
-﻿namespace GameEnum {
+﻿
+namespace GameEnum {
 	public enum ELanguage {
 		EN = 0,
 		TW = 1,
@@ -59,5 +60,51 @@
 		SkillCardCondition,
 		SkillCardFilter
 
+	}
+
+	public enum EanimationEventFunction
+	{
+		AnimationEvent,
+		TimeScale,
+		ZoomIn,
+		ZoomOut,
+		MoveEvent,
+		SetBallEvent,
+		SkillEvent,
+		EffectEvent,
+		PlaySound
+	}
+
+	public enum EAnimationEventString{
+		Stealing,
+		GotStealing,
+		FakeShootBlockMoment,
+		BlockMoment,
+		AirPassMoment,
+		DoubleClickMoment,
+		BuffEnd,
+		BlockCatchMomentStart,
+		BlockCatchMomentEnd,
+		BlockJump,
+		BlockCatchingEnd,
+		Shooting,
+		MoveDodgeEnd,
+		Passing,
+		PassEnd,
+		ShowEnd,
+		PickUp,
+		PickEnd,
+		PushCalculateStart,
+		ElbowCalculateStart,
+		BlockCalculateStart,
+		BlockCalculateEnd,
+		CloneMesh,
+		DunkBasketStart,
+		OnlyScore,
+		DunkFallBall,
+		ElbowEnd,
+		CatchEnd,
+		FakeShootEnd,
+		AnimationEnd
 	}
 }
