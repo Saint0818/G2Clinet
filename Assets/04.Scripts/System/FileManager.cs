@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage",
-        "createroleitem", "aiskilllv", "preloadeffect"
+        "createroleitem", "aiskilllv", "preloadeffect", "tutorial"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -191,6 +191,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[7] = parseCreateRoleData;
 		downloadCallBack[8] = parseAISkillData;
 		downloadCallBack[9] = parsePreloadEffect;
+		downloadCallBack[10] = parseTutorialData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -425,7 +426,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		PlayerPrefs.Save();
 	}
 
-	private void parseGreatPlayerData (string Version, string text, bool SaveVersion){
+	private void parseGreatPlayerData (string version, string text, bool isSaveVersion){
 		try {
 			TGreatPlayer[] data = (TGreatPlayer[])JsonConvert.DeserializeObject (text, typeof(TGreatPlayer[]));
 			if (data != null) {
@@ -434,8 +435,8 @@ public class FileManager : KnightSingleton<FileManager> {
 						GameData.DPlayers.Add(data[i].ID, data[i]);
 			}
 
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "greatplayer", Version);
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "greatplayer", version);
 			
 			Debug.Log ("[greatplayer parsed finished.] ");
 		} catch (System.Exception ex) {
@@ -459,7 +460,7 @@ public class FileManager : KnightSingleton<FileManager> {
             SaveDataVersionAndJson(jsonText, "createrole", version);
     }
 
-    private void parseAISkillData(string version, string jsonText, bool isSaveVersion)
+	private void parseAISkillData(string version, string jsonText, bool isSaveVersion)
     {
         AI.AISkillLvMgr.Ins.Load(jsonText);
 
@@ -475,12 +476,12 @@ public class FileManager : KnightSingleton<FileManager> {
 			SaveDataVersionAndJson(jsonText, "preloadEeffect", version);
 	}
 
-    private void parseBaseAttr (string Version, string text, bool SaveVersion){
+	private void parseBaseAttr (string version, string text, bool isSaveVersion){
 		try {
 			GameData.BaseAttr = (PlayerAttribute[])JsonConvert.DeserializeObject (text, typeof(PlayerAttribute[]));
 			
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "BaseAttr", Version);
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "BaseAttr", version);
 			
 			Debug.Log ("[BaseAttr parsed finished.] ");
 		} catch (System.Exception ex) {
@@ -488,12 +489,12 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseBasketShootPositionData (string Version, string text, bool SaveVersion){
+	private void parseBasketShootPositionData (string version, string text, bool isSaveVersion){
 		try {
 			GameData.BasketShootPosition = (TBasketShootPositionData[])JsonConvert.DeserializeObject (text, typeof(TBasketShootPositionData[]));
 			
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "ballposition", Version);
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "ballposition", version);
 			
 			Debug.Log ("[ballposition parsed finished.] ");
 		} catch (System.Exception ex) {
@@ -501,7 +502,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseSkillData (string Version, string text, bool SaveVersion){
+	private void parseSkillData (string version, string text, bool isSaveVersion){
 		try {
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
@@ -511,8 +512,8 @@ public class FileManager : KnightSingleton<FileManager> {
 					Debug.LogError("GameData.DSkillData is ContainsKey:"+ data[i].ID);
 			}
 
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "skill", Version);
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "skill", version);
 			
 			Debug.Log ("[skill parsed finished.] ");
 		} catch (System.Exception ex) {
@@ -520,7 +521,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseItemData (string Version, string text, bool SaveVersion){
+	private void parseItemData (string version, string text, bool isSaveVersion){
 		try {
 			TItemData[] data = (TItemData[])JsonConvert.DeserializeObject (text, typeof(TItemData[]));
 			for (int i = 0; i < data.Length; i++) {
@@ -530,8 +531,8 @@ public class FileManager : KnightSingleton<FileManager> {
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
 			}
 			
-			if(SaveVersion)
-				SaveDataVersionAndJson(text, "item", Version);
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "item", version);
 			
 			Debug.Log ("[item parsed finished.] ");
 		} catch (System.Exception ex) {
@@ -539,11 +540,31 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseStageData(string version, string text, bool saveVersion)
-    {
+	private void parseStageData(string version, string text, bool isSaveVersion) {
         StageTable.Ins.Load(text);
 
-        if(saveVersion)
+		if(isSaveVersion)
             SaveDataVersionAndJson(text, "stage", version);
     }
+
+	private void parseTutorialData(string version, string text, bool isSaveVersion) {
+		var i = 0;
+		try {
+			TTutorial[] data = (TTutorial[])JsonConvert.DeserializeObject (text, typeof(TTutorial[]));
+			for (i = 0; i < data.Length; i++) {
+				int id = data[i].ID * 100 + data[i].Line;
+				if(!GameData.DTutorial.ContainsKey(id))
+					GameData.DTutorial.Add(id, data[i]);
+				else 
+					Debug.LogError("Tutorial key error i : " + i.ToString());
+			}
+			
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "tutorial", version);
+			
+			Debug.Log ("[tutorial parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Tutorial parsed error : " + ex.Message);
+		}
+	}
 }
