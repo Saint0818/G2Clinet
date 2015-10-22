@@ -151,7 +151,7 @@ public class UICharacterInfo : UIBase {
 			if(go.name.Equals("ActiveCard")){
 				labelSkillName.text = GameData.DSkillData[activeID].Name;
 				labelSkillLevel.text = labelActiveLevel.text;
-				labelSkillInfo.text = GameData.DSkillData[activeID].ExplainTW;
+				labelSkillInfo.text = GameData.DSkillData[activeID].Explain;
 			} else if(go.name.Equals("LineShoot0")){
 				labelSkillName.text = "SCORER";
 				labelSkillLevel.text = "0";
@@ -167,7 +167,7 @@ public class UICharacterInfo : UIBase {
 			} else {
 				labelSkillName.text = GameData.DSkillData[int.Parse(go.name)].Name;
 				labelSkillLevel.text = go.transform.FindChild("SkillLevel").GetComponent<UILabel>().text;
-				labelSkillInfo.text = GameData.DSkillData[int.Parse(go.name)].ExplainTW;
+				labelSkillInfo.text = GameData.DSkillData[int.Parse(go.name)].Explain;
 			}
 		}
 	}

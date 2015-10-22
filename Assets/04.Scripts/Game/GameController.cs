@@ -1315,6 +1315,7 @@ public class GameController : KnightSingleton<GameController>
 					UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);
+				UITransition.UIShow(false);
 				UICourtInstant.UIShow(true);
 				UICourtInstant.UIShow(false);
 				break;

@@ -3600,7 +3600,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool CheckSkill (TSkill tSkill) {
 		bool result = false;
-		if(skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
+		if(skillController.GetActiveSkillTarget(this, tSkill) != null && skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
 			for(int i=0; i<skillController.GetActiveSkillTarget(this, tSkill).Count; i++)
 				if(skillController.CheckSkill(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill)[i])) 
 						result = true;

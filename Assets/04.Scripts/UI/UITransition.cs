@@ -46,10 +46,12 @@ public class UITransition : UIBase {
 	}
 
 	public void SelfAttack (){
+		Show(true);
 		transitionAnimator.SetTrigger("AwayOffense");
 	}
 
 	public void SelfOffense (){
+		Show(true);
 		transitionAnimator.SetTrigger("HomeOffense");
 	}
 }

@@ -65,8 +65,6 @@ public class UIGame : UIBase {
 	private bool isPressShootBtn = false;
 	private bool isShowScoreBar = false;
 	private bool isShootAvailable = true;
-	private bool isShowOption = false;
-	private bool isMusicOn = false;
 
 	// GoldFinger
 	private bool isPressA = false;
@@ -118,7 +116,6 @@ public class UIGame : UIBase {
 	private UISprite spriteForce;
 	private UISprite spriteForceFirst;
 	private GameObject uiSpriteFull;
-	//	private GameObject uiSpriteFullCanUse;
 
 
 //	private float dcLifeTime;
@@ -129,9 +126,7 @@ public class UIGame : UIBase {
 	private float timeForce;
 
 	private DrawLine drawLine;
-
-
-	private bool isCanShowRange = true;
+	
 	private bool isShowSkillRange;
 	private bool isShowPushRange;
 	private bool isShowElbowRange;
@@ -417,7 +412,6 @@ public class UIGame : UIBase {
 	}
 
 	private void resetRange () {
-		isCanShowRange = true;
 		isShowElbowRange = false;
 		isShowPushRange = false;
 		isShowSkillRange = false;
@@ -459,7 +453,6 @@ public class UIGame : UIBase {
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
 
-		isCanShowRange = false;
 		if(state) {
 			switch (type){
 			case EUIRangeType.Skill:
@@ -778,7 +771,6 @@ public class UIGame : UIBase {
 		if(p == GameController.Get.Joysticker) {
 			if (GameController.Get.IsStart) { 
 				ShowAlleyoop(false);
-				isCanShowRange = true;
 				
 				if(GameController.Get.Situation == EGameSituation.AttackGamer) 
 					UIMaskState(EUIControl.AttackA);
@@ -1186,7 +1178,6 @@ public class UIGame : UIBase {
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
 			CourtMgr.Get.SetScoreboards (1, Scores [1]);
 			drawLine.IsShow = false;
-			isShowOption = false;
 			isShowScoreBar = false;
 			
 			viewStart.SetActive (true);

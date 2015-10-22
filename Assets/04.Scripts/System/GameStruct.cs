@@ -805,18 +805,24 @@ namespace GameStruct {
 		public string NameTW;
 		public string Animation;
 		public string Situation;
+		public int Sell;
+		public int Money;
 		public int space;
 		public int spaceAdd;
+		public int UpgradeExp;
+		public int ExtraExp;
 		public float lifeTime;
 		public float lifeTimeAdd;
 		public int AttrKind;
-		public float ValueBase;
-		public float ValueAdd;
+		public float valueBase;
+		public float valueAdd;
 		public int rate;
 		public int rateAdd;
 		public int Direct;
 		public float distance;
 		public float distanceAdd;
+		public int angle;
+		public int angleAdd;
 		public int MaxAnger;
 		public int TargetKind;
 		public int TargetKind1;
@@ -841,7 +847,6 @@ namespace GameStruct {
 		public string ExplainCN;
 		public string ExplainEN;
 		public string ExplainJP;
-		public string explain;
 		
 		public string Name {
 			get {
@@ -858,28 +863,17 @@ namespace GameStruct {
 		public string Explain {
 			get{
 				switch(GameData.Setting.Language) {
-				case ELanguage.TW:
-					explain = ExplainTW;
-					break;
-				case ELanguage.CN:
-					explain = ExplainCN;
-					break;
-				case ELanguage.EN:
-					explain = ExplainEN;
-					break;
-				case ELanguage.JP:
-					explain = ExplainJP;
-					break;
-				default:
-					explain = ExplainEN;
-					break;
+				case ELanguage.TW:return ExplainTW;
+				case ELanguage.CN:return ExplainCN;
+				case ELanguage.EN:return ExplainEN;
+				case ELanguage.JP:return ExplainJP;
+				default:return ExplainEN;
 				}
-				return explain;
 			}
 		}
 
 		public float Value(int lv) {
-			return ValueBase + lv * ValueAdd;
+			return valueBase + lv * valueAdd;
 		}
 
 		public int Space(int lv) {

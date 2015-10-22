@@ -29,7 +29,7 @@ public class UICourtInstant : UIBase {
 	public static void UIShow(bool isShow, string text = ""){
 		if(isShow) {
 			Get.labelInstant.text = text;
-			Get.Show(true);
+			Get.Show((!string.IsNullOrEmpty(text)));
 		}else 
 		if(instance) {
 			Get.Show(false);

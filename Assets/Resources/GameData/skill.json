@@ -322,7 +322,7 @@
         "spaceadd": 0,
         "lifetime": 0,
         "attrkind": 0,
-        "valuebase": " ",
+        "valuebase": 0,
         "rate": 0,
         "rateadd": 0,
         "nameen": "基本（立定中距）立定投籃",
