@@ -2509,10 +2509,9 @@ public class GameController : KnightSingleton<GameController>
 		if(player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill)
         {
 			if (player.CheckSkill(tSkill)) {
-				Joysticker.ActiveSkillUsed = tSkill;
+				player.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
 				result = player.ActiveSkill(tSkill, player.gameObject);
-				player.IsUseSkill = true;
 			}
 		}
 		return result;

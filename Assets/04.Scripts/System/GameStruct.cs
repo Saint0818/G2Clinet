@@ -824,6 +824,8 @@ namespace GameStruct {
 		public int angle;
 		public int angleAdd;
 		public int MaxAnger;
+		public int ActiveCamera;
+		public float ActiveCameraTime;
 		public int TargetKind;
 		public int TargetKind1;
 		public int TargetEffect1;
