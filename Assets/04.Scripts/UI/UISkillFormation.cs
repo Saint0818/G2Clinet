@@ -147,7 +147,7 @@ public class UISkillFormation : UIBase {
 	private UIScrollView scrollViewCardList;
 
 	//Sell
-	private bool isBuyState = false;
+	public bool IsBuyState = false;
 	private UILabel labelSell;
 	private GameObject goSellCount;
 	private UILabel labelTotalPrice;
@@ -800,7 +800,7 @@ public class UISkillFormation : UIBase {
 	private void setEditState (bool isEditState) {
 		goSellCount.SetActive(isEditState);
 		labelTotalPrice.text = "0";
-		isBuyState = isEditState;
+		IsBuyState = isEditState;
 		if(isEditState) {
 			sellNames.Clear();
 			sellPrice = 0;
@@ -832,7 +832,7 @@ public class UISkillFormation : UIBase {
 		if(uiCards.ContainsKey(name)) {
 			if(!sellNames.Contains(uiCards[name].CardIndex))
 				sellNames.Add(uiCards[name].CardIndex);
-			sellPrice ++;
+			sellPrice += GameData.DSkillData[uiCards[name].CardID].Money;
 			labelTotalPrice.text = sellPrice.ToString();
 			labelSell.text = "SELL"+sellNames.Count.ToString();
 		}
@@ -842,7 +842,7 @@ public class UISkillFormation : UIBase {
 		if(uiCards.ContainsKey(name)) {
 			if(sellNames.Contains(uiCards[name].CardIndex))
 				sellNames.Remove(uiCards[name].CardIndex);
-			sellPrice --;
+			sellPrice -= GameData.DSkillData[uiCards[name].CardID].Money;
 			labelTotalPrice.text = sellPrice.ToString();
 			labelSell.text = "SELL"+sellNames.Count.ToString();
 		}
@@ -1016,7 +1016,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoUnEquipCard (){
-		if(!isBuyState) {
+		if(!IsBuyState) {
 			removeItems(uiCards[tempObj.name].CardID, tempObj);
 			refreshCards();
 		} else 
@@ -1024,7 +1024,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoEquipCard (){
-		if(!isBuyState) {
+		if(!IsBuyState) {
 			if(tempUICard.CardID >= GameConst.ID_LimitActive) {
 				if(getContainActiveID(tempUICard.CardID) == -1){
 					if(getActiveFieldNull != -1) {
@@ -1055,7 +1055,7 @@ public class UISkillFormation : UIBase {
 
 	public void OnCardDetailInfo (GameObject go){
 		TUICard uicard = uiCards[go.name];
-		if(!isBuyState) {
+		if(!IsBuyState) {
 			if(uicard.UnavailableMask != null) {
 				if(tempObj != null) {
 					if(tempObj != go) {
@@ -1129,14 +1129,22 @@ public class UISkillFormation : UIBase {
 		if(UISort.Visible)
 			UISort.UIShow(false);
 
-		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
-		if(!isBuyState) {
-			toggleCheckBoxSkill[0].value = true;
-			if(eFilter != EFilter.Active.GetHashCode()) {
+		if(!IsBuyState) {
+			switch(eFilter) {
+			case (int)EFilter.All:
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Passive.GetHashCode());
+				break;
+			case (int)EFilter.Available:
+			case (int)EFilter.Select:
 				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Active.GetHashCode());
-				PlayerPrefs.Save();
-				UpdateSort();
+				break;
+			case (int)EFilter.Active:
+			case (int)EFilter.Passive:
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+				break;
 			}
+			PlayerPrefs.Save();
+			UpdateSort();
 		} else {
 			toggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
 			UIHint.Get.ShowHint("It's Buy State.", Color.red);
@@ -1149,14 +1157,22 @@ public class UISkillFormation : UIBase {
 		if(UISort.Visible)
 			UISort.UIShow(false);
 
-		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
-		if(!isBuyState) {
-			toggleCheckBoxSkill[1].value = true;
-			if(eFilter != EFilter.Passive.GetHashCode()) {
+		if(!IsBuyState) {
+			switch(eFilter) {
+			case (int)EFilter.All:
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Active.GetHashCode());
+				break;
+			case (int)EFilter.Available:
+			case (int)EFilter.Select:
 				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.Passive.GetHashCode());
-				PlayerPrefs.Save();
-				UpdateSort();
+				break;
+			case (int)EFilter.Active:
+			case (int)EFilter.Passive:
+				PlayerPrefs.SetInt (ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+				break;
 			}
+			PlayerPrefs.Save();
+			UpdateSort();
 		} else {
 			toggleCheckBoxSkill[1].value = (eFilter == EFilter.Passive.GetHashCode());
 			UIHint.Get.ShowHint("It's Buy State.", Color.red);
@@ -1164,8 +1180,8 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoSellState() {
-		if(!isBuyState) {
-			isBuyState = true;
+		if(!IsBuyState) {
+			IsBuyState = true;
 			DoFinish();
 		} else {
 			//update sell index
@@ -1174,12 +1190,12 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoCloseSell () {
-		isBuyState = false;
+		IsBuyState = false;
 		setEditState(false);
 	}
 	
 	public void DoSort() {
-		if(!isBuyState) {
+		if(!IsBuyState) {
 			UISort.UIShow(!UISort.Visible, 0);
 		} else 
 			UIHint.Get.ShowHint("It's Buy State.", Color.red);
@@ -1193,7 +1209,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void OnChangePage (GameObject obj) {
-		if(!isBuyState) {
+		if(!IsBuyState) {
 			int index;
 			if(int.TryParse (obj.name, out index))
 				changePage(index);
@@ -1264,10 +1280,14 @@ public class UISkillFormation : UIBase {
 		for (int i=0; i<getActiveInstall; i++) 
 			orderIndexs[i] = activeStruct[i].CardSN;
 
-		if(orderIndexs.Length == activeOriginalIndex.Count) 
+		if(orderIndexs.Length == activeOriginalIndex.Count) {
 			for(int i=0; i<orderIndexs.Length; i++) 
-				if(!orderIndexs[i].Equals(activeOriginalIndex[i]))
+				if(!orderIndexs[i].Equals(activeOriginalIndex[i])) {
 					flag = true;
+					break;
+				}
+		} else
+			flag = true;
 
 
 		//Bobble Sort
@@ -1307,8 +1327,8 @@ public class UISkillFormation : UIBase {
 				form.AddField("Page", tempPage);
 				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
 			} else 
-				if(isBuyState)
-					setEditState(isBuyState);
+				if(IsBuyState)
+					setEditState(IsBuyState);
 	}
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
@@ -1319,7 +1339,7 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 
-			if(!isBuyState) {
+			if(!IsBuyState) {
 				if(!isChangePage)
 					UIHint.Get.ShowHint("Install Success!!", Color.red);	
 				else {

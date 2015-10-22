@@ -853,7 +853,6 @@ namespace GameStruct {
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW: return NameTW;
 				case ELanguage.CN: return NameCN;
-				case ELanguage.EN: return NameEN;
 				case ELanguage.JP: return NameJP;
 				default: return NameEN;
 				}
@@ -891,6 +890,10 @@ namespace GameStruct {
 		public float Distance(int lv) {
 			return distance + lv * distanceAdd;
 		}
+
+		public int Angle(int lv) {
+			return angle + lv * angleAdd;
+		} 
 	}
 
 	public struct TItem {

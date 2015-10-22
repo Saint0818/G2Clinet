@@ -264,15 +264,8 @@ public class GameController : KnightSingleton<GameController>
 
 	public void LoadStageBit (int id)
     {
-//		if(GameData.DStageData.ContainsKey(id))
 		if(StageTable.Ins.HasByID(id))
         {
-//			StageID = id;
-//			StageBitNum[0] = GameData.DStageData[id].Bit0Num;
-//			StageBitNum[1] = GameData.DStageData[id].Bit1Num;
-//			StageBitNum[2] = GameData.DStageData[id].Bit2Num;
-//			StageBitNum[3] = GameData.DStageData[id].Bit3Num;
-//			StageHintBit = GameData.DStageData[id].HintBit;
             StageID = id;
 			StageBitNum[0] = StageTable.Ins.GetByID(id).Bit0Num;
 			StageBitNum[1] = StageTable.Ins.GetByID(id).Bit1Num;
@@ -2516,6 +2509,7 @@ public class GameController : KnightSingleton<GameController>
 		if(player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill)
         {
 			if (player.CheckSkill(tSkill)) {
+				Joysticker.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
 				result = player.ActiveSkill(tSkill, player.gameObject);
 				player.IsUseSkill = true;

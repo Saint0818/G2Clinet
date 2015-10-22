@@ -15,8 +15,8 @@ public class UISkillCardDrag : UIDragDropItem {
 
 	public override void StartDragging () {
 		if (!interactable) return;
-		
-		if (!mDragging)
+
+		if (!mDragging && !UISkillFormation.Get.IsBuyState)
 		{
 			if (cloneOnDrag)
 			{
