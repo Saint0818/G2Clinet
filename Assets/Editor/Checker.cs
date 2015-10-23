@@ -24,6 +24,7 @@ public class Checker : EditorWindow {
 	private Dictionary<string, string> AnimationEventFunctionData = new Dictionary<string, string>();
 	private Dictionary<string, string> AnimationEventStringData = new Dictionary<string, string>();
 	private Dictionary<string, string> AnimationStateData = new Dictionary<string, string>();
+	private Dictionary<string, string> SkillEffectData = new Dictionary<string, string>();
 	
 	void OnGUI()
 	{
@@ -40,8 +41,8 @@ public class Checker : EditorWindow {
 
 		}
 		GUILayout.Toggle (states[0], "AnimationEvent");
-		GUILayout.Toggle (states[1], "Animation Vs SkillData");
-		GUILayout.Toggle (states[2], "AnimationEvent");
+		GUILayout.Toggle (states[1], "Skill Animation");
+		GUILayout.Toggle (states[2], "Skill Effect");
 	}
 
 	public void TestAnimationEvent()
@@ -58,7 +59,7 @@ public class Checker : EditorWindow {
 							if(animationClip[j].events[k].functionName == EanimationEventFunction.AnimationEvent.ToString()){
 								if(!AnimationEventStringData.ContainsKey(animationClip[j].events[k].stringParameter)){
 									haveError = true;
-									Debug.LogError(string.Format("Error Animationve Event , Player : {0}, animationClip : {1} , stringParameter : {2}", 
+									Debug.LogError(string.Format("Type : Animationve Event , Player : {0}, animationClip : {1} , stringParameter : {2}", 
 									                             i, animationClip[j].name, animationClip[j].events[k].stringParameter));
 								}
 							}
@@ -70,7 +71,7 @@ public class Checker : EditorWindow {
 						else
 						{
 							haveError = true;
-							Debug.LogError(string.Format("Error Animationve Function not found, Player : {0}, animationClip :{1}, FunctionName :{2}", 
+							Debug.LogError(string.Format("Type : Animationve Function not found, Player : {0}, animationClip :{1}, FunctionName :{2}", 
 							                             i, animationClip[j].name, animationClip[j].events[k].functionName));
 
 						}
@@ -116,27 +117,58 @@ public class Checker : EditorWindow {
 			}
 		}
 
-		//
+		//SkillEffect
+		UnityEngine.Object[] effects = Resources.LoadAll ("Effect/", typeof(GameObject));
+
+		for (int i = 0; i < effects.Length; i++) {
+			string key = effects[i].name;
+			if(SkillEffectData.ContainsKey(key) == false){
+				SkillEffectData.Add(key, key);
+			}
+		}
 	}
 
 	private void TestAnimationVsSkillData ()
 	{
 		bool haveError = false;
+		bool haveError2 = false;
+
 		statesColor [1] = Color.grey;
 		TextAsset text = Resources.Load("GameData/skill") as TextAsset;
 		TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text.text, typeof(TSkillData[]));
 		for (int i = 0; i < data.Length; i++) {
+			//Skill animation
 			if(data[i].Animation == null || data[i].Animation == string.Empty)
-				Debug.LogError("Skill Data Error, ID : " + data[i].ID + ", Current Animation : Empty");
+				Debug.LogError("Type : Skill Animation, ID : " + data[i].ID + ", Current Animation : Empty");
 			else{
 				if(!AnimationStateData.ContainsKey(data[i].Animation)){
 					haveError = true;
-					Debug.LogError("Skill Data Error, ID : " + data[i].ID + ", Current Animation : " + data[i].Animation);
+					Debug.LogError("Type : Skill Animation, ID : " + data[i].ID + ", Current Animation : " + data[i].Animation);
 				}
 			}
+
+			//Skill Effect
+			{
+				int[] indexs = new int[3]{data[i].TargetEffect1, data[i].TargetEffect2, data[i].TargetEffect3};
+				string effect;
+
+				for(int j = 0;j < indexs.Length; j++){
+					if(indexs[j] > 0)
+					{
+						effect = string.Format("SkillEffect{0}", indexs[j]);
+						if(!SkillEffectData.ContainsKey(effect)){
+							Debug.LogError(string.Format("Type : SkillEffect, EffectID : {0}, Chekc TargetEffect{1} plz", data[i].ID, j+1));
+							haveError2 = true;
+						}
+					}
+				}
+			}
+
+
 		}
 
-		states [1] = !haveError;
-		statesColor [1] = (haveError == true? Color.red : Color.white);
+		states[1] = !haveError;
+		states[2] = !haveError2;
+//		statesColor [1] = (haveError == true? Color.red : Color.white);
 	}
 }
