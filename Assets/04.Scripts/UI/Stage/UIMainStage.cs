@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GamePlayEnum;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -41,6 +42,21 @@ public class UIMainStage : UIBase
         mImpl = GetComponent<UIMainStageImpl>();
         mImpl.BackListener += goToGameLobby;
         mImpl.Info.StartListener += enterGame;
+        mImpl.ChapterChangeListener.OnChangeListener += onChapterChange;
+    }
+
+    private void onChapterChange(int chapterID)
+    {
+//        Debug.LogFormat("onChapterChange, ChapterID:{0}", chapterID);
+
+        if(ChapterTable.Ins.Has(chapterID))
+        {
+            ChapterData data = ChapterTable.Ins.Get(chapterID);
+            mImpl.ChapterNum = data.Chapter;
+            mImpl.ChapterTitle = data.Name;
+        }
+        else
+            Debug.LogErrorFormat("Can't find ChapterID:{0}", chapterID);
     }
 
     public void Show()

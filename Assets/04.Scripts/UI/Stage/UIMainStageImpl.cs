@@ -23,6 +23,7 @@ public class UIMainStageImpl : MonoBehaviour
     public UILabel ChapterTitleLabel;
     public UIStageChapter[] Chapters;
     public UIStageInfo Info;
+    public UIChapterChangeListener ChapterChangeListener;
 
     /// <summary>
     /// key: Chapter.
