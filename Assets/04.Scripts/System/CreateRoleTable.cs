@@ -20,6 +20,10 @@ public class CreateRoleTable
     private readonly Dictionary<EPlayerPostion, List<int>> mPants = new Dictionary<EPlayerPostion, List<int>>();
     private readonly Dictionary<EPlayerPostion, List<int>> mShoes = new Dictionary<EPlayerPostion, List<int>>();
 
+    private CreateRoleTable()
+    {
+    }
+
     public void Load(string jsonText)
     {
         Clear();

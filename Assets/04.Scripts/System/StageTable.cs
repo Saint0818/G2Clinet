@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
-/// 
+/// 記錄關卡的相關資訊.
 /// </summary>
 /// 使用方法:
 /// <list type="number">
@@ -12,12 +12,6 @@ using UnityEngine;
 /// </list>
 public class StageTable
 {
-    /// <summary>
-    /// 主線關卡說明的 ID 範圍.
-    /// </summary>
-    public const int MinMainStageDescID = 1;
-    public const int MaxMainStageDescID = 100;
-
     /// <summary>
     /// 主線關卡 ID 的範圍.
     /// </summary>
@@ -31,19 +25,14 @@ public class StageTable
     }
 
     /// <summary>
-    /// key: StageID. 記錄主線內, 全部的關卡(小關卡資訊和章節說明).
+    /// key: StageID. 記錄主線內, 全部的小關卡.
     /// </summary>
-    private readonly Dictionary<int, StageData> mAllStageByIDs = new Dictionary<int, StageData>();
+    private readonly Dictionary<int, StageData> mStageByIDs = new Dictionary<int, StageData>();
 
     /// <summary>
     /// [ChapterID, [Order, instance]]. 記錄主線內, 全部的小關卡.
     /// </summary>
     private readonly Dictionary<int, Dictionary<int, StageData>> mStageByChapterOrders = new Dictionary<int, Dictionary<int, StageData>>();
-
-    /// <summary>
-    /// Key: ChapterID. 記錄章節說明.
-    /// </summary>
-    private readonly Dictionary<int, StageData> mChapterDescs = new Dictionary<int, StageData>();
 
     private StageTable() {}
 
@@ -54,7 +43,7 @@ public class StageTable
         var stages = (StageData[])JsonConvert.DeserializeObject(jsonText, typeof(StageData[]));
         foreach(StageData stage in stages)
         {
-            if(mAllStageByIDs.ContainsKey(stage.ID))
+            if(mStageByIDs.ContainsKey(stage.ID))
             {
                 Debug.LogErrorFormat("Stage ID repeat. {0}", stage.ID);
                 continue;
@@ -62,7 +51,6 @@ public class StageTable
 
             if(MinMainStageID <= stage.ID && stage.ID <= MaxMainStageID)
             {
-                // 小關卡.
                 if(!mStageByChapterOrders.ContainsKey(stage.Chapter))
                     mStageByChapterOrders.Add(stage.Chapter, new Dictionary<int, StageData>());
                 if (mStageByChapterOrders[stage.Chapter].ContainsKey(stage.Order))
@@ -71,24 +59,10 @@ public class StageTable
                     continue;
                 }
                 mStageByChapterOrders[stage.Chapter].Add(stage.Order, stage);
-            }
-            else if(MinMainStageDescID <= stage.ID && stage.ID <= MaxMainStageDescID)
-            {
-                // 章節說明.
-                if(mChapterDescs.ContainsKey(stage.Chapter))
-                {
-                    Debug.LogErrorFormat("Stage Chapter repeat. {0}", stage);
-                    continue;
-                }
-                mChapterDescs.Add(stage.Chapter, stage);
+                mStageByIDs.Add(stage.ID, stage);
             }
             else
-            {
                 Debug.LogErrorFormat("StageID({0}) out of range!", stage.ID);
-                continue;
-            }
-
-            mAllStageByIDs.Add(stage.ID, stage);
         }
 
         Debug.Log("[stage parsed finished.] ");
@@ -96,9 +70,8 @@ public class StageTable
 
     private void clear()
     {
-        mAllStageByIDs.Clear();
+        mStageByIDs.Clear();
         mStageByChapterOrders.Clear();
-        mChapterDescs.Clear();
     }
 
     public bool HasByChapterOrder(int chapter, int order)
@@ -140,26 +113,13 @@ public class StageTable
 
     public bool HasByID(int id)
     {
-        return mAllStageByIDs.ContainsKey(id);
+        return mStageByIDs.ContainsKey(id);
     }
 
     public StageData GetByID(int id)
     {
-        if(mAllStageByIDs.ContainsKey(id))
-            return mAllStageByIDs[id];
-
-        return mEmptyStage;
-    }
-
-    public bool HasChapterDesc(int chapterID)
-    {
-        return mChapterDescs.ContainsKey(chapterID);
-    }
-
-    public StageData GetChapterDesc(int chapterID)
-    {
-        if(mChapterDescs.ContainsKey(chapterID))
-            return mChapterDescs[chapterID];
+        if(mStageByIDs.ContainsKey(id))
+            return mStageByIDs[id];
 
         return mEmptyStage;
     }

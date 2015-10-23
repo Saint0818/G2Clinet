@@ -10,8 +10,8 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 public delegate void DownloadFinsh();
-public delegate void DownloadFileText(string Ver, string Text, bool SaveVersion);
-public delegate void DownloadFileWWW(string Ver, string FileName, WWW www);
+public delegate void DownloadFileText(string ver, string text, bool saveVersion);
+public delegate void DownloadFileWWW(string ver, string fileName, WWW www);
 
 public struct TDownloadData
 {
@@ -68,7 +68,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private static string[] downloadFiles =
 	{
-	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage",
+	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
         "createroleitem", "aiskilllv", "preloadeffect", "tutorial"
 	};
 
@@ -188,10 +188,11 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[4] = parseSkillData;
 		downloadCallBack[5] = parseItemData;
 		downloadCallBack[6] = parseStageData;
-		downloadCallBack[7] = parseCreateRoleData;
-		downloadCallBack[8] = parseAISkillData;
-		downloadCallBack[9] = parsePreloadEffect;
-		downloadCallBack[10] = parseTutorialData;
+		downloadCallBack[7] = parseStageChapterData;
+		downloadCallBack[8] = parseCreateRoleData;
+		downloadCallBack[9] = parseAISkillData;
+		downloadCallBack[10] = parsePreloadEffect;
+		downloadCallBack[11] = parseTutorialData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -546,14 +547,23 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	private void parseStageData(string version, string text, bool isSaveVersion) {
+	private void parseStageData(string version, string text, bool isSaveVersion)
+    {
         StageTable.Ins.Load(text);
 
 		if(isSaveVersion)
             SaveDataVersionAndJson(text, "stage", version);
     }
 
-	private void parseTutorialData(string version, string text, bool isSaveVersion) {
+    private void parseStageChapterData(string version, string text, bool isSaveVersion)
+    {
+        ChapterTable.Ins.Load(text);
+
+        if(isSaveVersion)
+            SaveDataVersionAndJson(text, "chapter", version);
+    }
+
+    private void parseTutorialData(string version, string text, bool isSaveVersion) {
 		var i = 0;
 		try {
 			GameData.DTutorial.Clear();

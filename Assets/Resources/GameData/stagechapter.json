@@ -1,0 +1,38 @@
+﻿[
+    {
+        "id": 1,
+        "chapter": 1,
+        "nametw": "序章",
+        "namecn": "序章",
+        "nameen": "Prologue",
+        "namejp": "発端",
+        "explaintw": "故事的開端",
+        "explaincn": "故事的开端",
+        "explainen": "The story begins",
+        "explainjp": "物語が始まります"
+    },
+    {
+        "id": 2,
+        "chapter": 2,
+        "nametw": "小試身手",
+        "namecn": "小试身手",
+        "nameen": "Small test their skills",
+        "namejp": "小テストのスキル",
+        "explaintw": "驚豔眾人的開始",
+        "explaincn": "惊艳众人的开始",
+        "explainen": "Everyone's stunning start",
+        "explainjp": "みんなの見事なスタート"
+    },
+    {
+        "id": 3,
+        "chapter": 3,
+        "nametw": "漸入佳境",
+        "namecn": "渐入佳境",
+        "nameen": "Getting better",
+        "namejp": "良くなります",
+        "explaintw": "立足籃壇的表現",
+        "explaincn": "立足篮坛的表现",
+        "explainen": "Based on the performance of basketball",
+        "explainjp": "バスケットボールのパフォーマンスに基づいて、"
+    }
+]

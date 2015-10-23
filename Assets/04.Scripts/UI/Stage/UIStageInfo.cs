@@ -21,6 +21,7 @@ public class UIStageInfo : MonoBehaviour
 
     public void Show(int stageID)
     {
+        gameObject.SetActive(true);
         Window.SetActive(true);
         mStageID = stageID;
     }

@@ -82,6 +82,10 @@ public class TacticalTable
         {"teedefencehalf2", ETactical.HalfInboundsDefenceGuard}, 
     };
 
+    private TacticalTable()
+    {
+    }
+
     public void Load(string jsonText)
     {
         clear();
