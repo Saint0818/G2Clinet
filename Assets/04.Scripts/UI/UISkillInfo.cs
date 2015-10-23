@@ -77,14 +77,14 @@ public class UISkillInfo : UIBase {
 			int lv = int.Parse(info.Lv);
 
 			//MediumCard
-			Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 5);
+			Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
 			Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
 			Get.labelSkillCardName.text = info.Name;
 			Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv;
 			Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
 
 			//SkillInfo
-			Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 5);
+			Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
 			Get.spriteSkillLevel.spriteName = "Cardicon" + info.Lv;
 			Get.labelSkillSpace.text = skillData.Space(lv).ToString();
 			Get.labelSkillExp.text = "0"; //=======

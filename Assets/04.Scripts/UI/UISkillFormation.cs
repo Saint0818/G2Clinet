@@ -454,7 +454,7 @@ public class UISkillFormation : UIBase {
 			Transform t = obj.transform.FindChild("SkillCard");
 			if(t != null) {
 				uicard.SkillCard = t.gameObject.GetComponent<UISprite>();
-				uicard.SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 5).ToString();
+				uicard.SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
 			}
 
 			t = obj.transform.FindChild("SkillPic");
@@ -1316,19 +1316,30 @@ public class UISkillFormation : UIBase {
 		}
 		
 		if(addIndexs.Length > 0 || removeIndexs.Length > 0 || flag) {
-			WWWForm form = new WWWForm();
-			form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
-			form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
-			form.AddField("OrderIndexs", JsonConvert.SerializeObject(orderIndexs));
-			SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
+			if(isChangePage) {
+				UIMessage.Get.ShowMessage("", TextConst.S(204), SendEquipSkillCard, SendChangeSkillPage);
+			} else
+				SendEquipSkillCard ();
 		} else
 			if(isChangePage) {
-				WWWForm form = new WWWForm();
-				form.AddField("Page", tempPage);
-				SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
+				SendChangeSkillPage();
 			} else 
 				if(IsBuyState)
 					setEditState(IsBuyState);
+	}
+
+	public void SendEquipSkillCard () {
+		WWWForm form = new WWWForm();
+		form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
+		form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
+		form.AddField("OrderIndexs", JsonConvert.SerializeObject(orderIndexs));
+		SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
+	}
+
+	public void SendChangeSkillPage() {
+		WWWForm form = new WWWForm();
+		form.AddField("Page", tempPage);
+		SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
 	}
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
@@ -1343,8 +1354,7 @@ public class UISkillFormation : UIBase {
 				if(!isChangePage)
 					UIHint.Get.ShowHint("Install Success!!", Color.red);	
 				else {
-					isChangePage = false; 
-					GameData.Team.Player.SkillPage = tempPage;
+					SendChangeSkillPage();
 				}
 				refreshAfterInstall ();
 			} else 
@@ -1365,7 +1375,6 @@ public class UISkillFormation : UIBase {
 			isChangePage = false; 
 			GameData.Team.Player.SkillPage = tempPage;
 			refreshAfterInstall ();
-			
 		} else {
 			Debug.LogError("text:"+www.text);
 		}
@@ -1375,8 +1384,6 @@ public class UISkillFormation : UIBase {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
-			GameData.Team.Player.SkillCards = result.PlayerCards;
-			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
 			GameData.Team.Player.Init();
 			setEditState(false);
 		} else {
