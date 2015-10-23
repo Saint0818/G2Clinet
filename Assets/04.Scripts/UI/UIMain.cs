@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameStruct;
-using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 

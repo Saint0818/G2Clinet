@@ -1,7 +1,6 @@
-using UnityEngine;
-using System.Collections;
 using GameStruct;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public class UITutorial : UIBase {
 	private static UITutorial instance = null;

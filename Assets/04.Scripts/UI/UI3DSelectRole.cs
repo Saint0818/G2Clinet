@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class UI3DSelectRole : UIBase {
+﻿public class UI3DSelectRole : UIBase {
 	private static UI3DSelectRole instance = null;
 	private const string UIName = "UI3DSelectRole";
 

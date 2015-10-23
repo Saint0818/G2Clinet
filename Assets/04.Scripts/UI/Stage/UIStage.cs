@@ -1,9 +1,7 @@
 using UnityEngine;
-using System.Collections;
-using GamePlayEnum;
-using GameEnum;
 
-public class UIStage : UIBase {
+public class UIStage : UIBase
+{
 	private static UIStage instance = null;
 	private const string UIName = "UIStage";
 

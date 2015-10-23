@@ -1,6 +1,3 @@
-using UnityEngine;
-using System.Collections;
-
 public class UISimple : UIBase {
 	private static UISimple instance = null;
 	private const string UIName = "UISimple";

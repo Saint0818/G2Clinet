@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UISkillCardDrag : UIDragDropItem {
 	private Vector3 OrigalPosition;

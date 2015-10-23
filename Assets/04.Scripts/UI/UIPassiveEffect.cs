@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using DG.Tweening;
+using UnityEngine;
 
 public struct TPassiveValue {
 	public float Timer;

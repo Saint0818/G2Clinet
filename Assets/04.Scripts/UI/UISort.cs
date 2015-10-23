@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameEnum;
+﻿using GameEnum;
+using UnityEngine;
 
 public enum ECondition {
 	Rare = 0,

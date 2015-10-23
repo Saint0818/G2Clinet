@@ -1,7 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameEnum;
-using System;
+﻿using System;
+using UnityEngine;
 
 public struct TMailItem
 {

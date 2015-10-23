@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class UIWaitingHttp : UIBase {
 	private static UIWaitingHttp instance = null;

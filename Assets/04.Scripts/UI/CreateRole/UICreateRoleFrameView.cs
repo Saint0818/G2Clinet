@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;

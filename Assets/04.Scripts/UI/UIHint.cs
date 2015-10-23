@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class UIHint : UIBase {
 	private static UIHint instance = null;

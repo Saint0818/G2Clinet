@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 public class UIStageInfo : MonoBehaviour
 {

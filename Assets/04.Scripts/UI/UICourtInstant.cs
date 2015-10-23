@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UICourtInstant : UIBase {
 	private static UICourtInstant instance = null;

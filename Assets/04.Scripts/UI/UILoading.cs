@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using GameEnum;
+using UnityEngine;
 
 public class UILoading : UIBase {
 	private static UILoading instance = null;

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class UISkillEffect : UIBase {
 	private static UISkillEffect instance = null;

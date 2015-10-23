@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 代表關卡中的某個章節.

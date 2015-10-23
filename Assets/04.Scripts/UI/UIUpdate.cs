@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UIUpdate : UIBase {
 	private static UIUpdate instance = null;

@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-using System;
 
 public enum EBildsType
 {

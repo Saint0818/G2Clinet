@@ -1,7 +1,6 @@
-using UnityEngine;
-using System.Collections;
-using GameStruct;
 using DG.Tweening;
+using GameStruct;
+using UnityEngine;
 
 public class UISkillInfo : UIBase {
 	private static UISkillInfo instance = null;

@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using GamePlayEnum;
+using UnityEngine;
 
 public class UIGameMode: UIBase {
 	private static UIGameMode instance = null;

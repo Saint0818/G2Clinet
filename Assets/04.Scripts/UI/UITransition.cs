@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UITransition : UIBase {
 	private static UITransition instance = null;

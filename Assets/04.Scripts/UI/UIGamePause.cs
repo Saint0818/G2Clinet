@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
+﻿using GameStruct;
+using UnityEngine;
 
 public struct TGameTarget {
 	public GameObject Self;

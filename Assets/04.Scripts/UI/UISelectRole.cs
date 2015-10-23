@@ -1,10 +1,6 @@
-using UnityEngine;
-using System.Collections;
+﻿using GameEnum;
 using GameStruct;
-using GameEnum;
-using System;
-using System.Collections.Generic;
-using DG.Tweening; 
+using UnityEngine;
 
 public enum EUIRoleSituation {
 	ListA = 1,

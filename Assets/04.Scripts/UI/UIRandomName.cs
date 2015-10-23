@@ -1,7 +1,7 @@
 ﻿using GameEnum;
-using UnityEngine;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using UnityEngine;
 
 /// <summary>
 /// 

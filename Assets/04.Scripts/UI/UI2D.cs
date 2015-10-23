@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class UI2D : MonoBehaviour {
 	private static UI2D instance = null;

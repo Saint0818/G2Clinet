@@ -1,7 +1,6 @@
-using UnityEngine;
-using System.Collections;
-using GameStruct;
 using GamePlayEnum;
+using GameStruct;
+using UnityEngine;
 
 public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;

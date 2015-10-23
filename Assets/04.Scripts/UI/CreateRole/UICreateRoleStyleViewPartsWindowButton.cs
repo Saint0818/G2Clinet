@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 創角 StyleView 右邊視窗的按鈕. 該按鈕顯示可換裝的裝備.

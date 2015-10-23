@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using GameStruct;
-using GameEnum;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GameEnum;
+using GameStruct;
 using Newtonsoft.Json;
+using UnityEngine;
 
 public struct TItemAvatar
 {

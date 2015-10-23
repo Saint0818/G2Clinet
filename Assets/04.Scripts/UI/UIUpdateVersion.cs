@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using GameEnum;
+using UnityEngine;
 
 public class UIUpdateVersion : UIBase {
 	private static UIUpdateVersion instance = null;

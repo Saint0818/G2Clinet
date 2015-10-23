@@ -1,10 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using GameEnum;
 using GameStruct;
-using DG.Tweening;
+using Newtonsoft.Json;
+using UnityEngine;
 
 public struct TSkillInfo {
 	public int ID;

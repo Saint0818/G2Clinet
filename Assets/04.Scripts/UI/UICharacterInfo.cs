@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using GameStruct;
+using UnityEngine;
 
 public struct TSelectAttrData{
 	public UISlider Slider;

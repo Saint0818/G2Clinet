@@ -1,8 +1,6 @@
-using UnityEngine;
-using System.Collections;
-using DG.Tweening;
-using GamePlayEnum;
 using G2;
+using GamePlayEnum;
+using UnityEngine;
 
 public enum EUISituation{
 	ShowTwo,
