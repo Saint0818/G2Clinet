@@ -3574,11 +3574,10 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool ActiveSkill(TSkill tSkill, GameObject target = null) {
-		if (CanUseActiveSkill(tSkill)) {
+		if (CanUseActiveSkill(tSkill)  || GameStart.Get.TestMode == EGameTest.Skill) {
 			GameRecord.Skill++;
 			SetAnger(-Attribute.MaxAngerOne(tSkill.ID));
 			startActiveCamera(tSkill);
-			IsUseSkill = true;
 
 			if (Attribute.SkillAnimation(tSkill.ID) != "") {
 //				SetInvincible(skillController.ActiveTime[index]);

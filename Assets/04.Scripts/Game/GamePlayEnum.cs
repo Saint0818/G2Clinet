@@ -99,6 +99,8 @@ namespace GamePlayEnum {
 		Shoot1,
 		Shoot2,
 		Shoot3,
+		ShowOwnIn,
+		ShowOwnOut,
 		JumpBall,
 		KnockDown0
 	}
@@ -120,12 +122,8 @@ namespace GamePlayEnum {
 		Elbow0 = 18,
 		Fall1 = 19,
 		Fall2 = 20,
-		Special1 = 101,
-		Special2 = 102,
-		Special3 = 103,
-		Special4 = 104,
-		Special5 = 105,
-		Special6 = 106,
+		ShowOwnIn = 22,
+		ShowOwnOut = 23,
 		JumpBall,
 		KnockDown0,
 		LayupSpecial

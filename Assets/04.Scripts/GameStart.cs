@@ -24,6 +24,8 @@ public class GameStart : KnightSingleton<GameStart> {
 	public float CrossTimeZ = 0.8f;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
+	public ETestActive TestID = ETestActive.Dunk20;
+	public int TestLv = 2;
 
 	void Start() {
 		#if UNITY_EDITOR

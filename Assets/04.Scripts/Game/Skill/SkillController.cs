@@ -19,14 +19,8 @@ public class SkillController : MonoBehaviour {
 	public Dictionary<int, List<TSkill>> DPassiveSkills = new Dictionary<int, List<TSkill>>();//Skill
 	[HideInInspector]
 	public TSkill ActiveSkillUsed;
-//	public int ActiveID;
-//	[HideInInspector]
-//	public int ActiveLv;
 	[HideInInspector]
 	public TSkill PassiveSkillUsed;
-//	public int PassiveID;
-//	[HideInInspector]
-//	public int PassiveLv;
 	[HideInInspector]
 	public int MoveDodgeRate = 0;
 	[HideInInspector]
@@ -581,6 +575,16 @@ public class SkillController : MonoBehaviour {
 			case ESkillSituation.Shoot1:
 				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
 				Result = player.AniState(playerState, v );
+				break;
+
+			case ESkillSituation.ShowOwnIn:
+				playerState = getPassiveSkill(ESkillSituation.ShowOwnIn, ESkillKind.ShowOwnIn);
+				Result = player.AniState(playerState);
+				break;
+
+			case ESkillSituation.ShowOwnOut:
+				playerState = getPassiveSkill(ESkillSituation.ShowOwnOut, ESkillKind.ShowOwnOut);
+				Result = player.AniState(playerState);
 				break;
 				
 			case ESkillSituation.Steal0:	

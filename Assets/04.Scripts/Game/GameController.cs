@@ -571,7 +571,8 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;
         }
@@ -731,13 +732,22 @@ public class GameController : KnightSingleton<GameController>
 			
 			if (Input.GetKeyDown (KeyCode.S))
 			{
-				UIGame.Get.DoShoot(null, true);
+				if(GameStart.Get.TestMode != EGameTest.Skill) 
+					UIGame.Get.DoShoot(null, true);
+
 			}
 			
 			if (Input.GetKeyUp (KeyCode.S))
 			{
+				if(GameStart.Get.TestMode == EGameTest.Skill) {
+					TSkill skill = new TSkill();
+					skill.ID = GameStart.Get.TestID.GetHashCode();
+					skill.Lv = GameStart.Get.TestLv;
+					DoSkill(Joysticker, skill);
+				} else
 				if(GameStart.Get.TestMode != EGameTest.AnimationUnit)
 					UIGame.Get.DoShoot(null, false);
+
 			}
 		}
 		else if(Situation == EGameSituation.AttackNPC){
@@ -747,7 +757,13 @@ public class GameController : KnightSingleton<GameController>
 			}
 			
 			if(Input.GetKeyDown (KeyCode.S)){
-				UIGame.Get.DoBlock();
+				if(GameStart.Get.TestMode == EGameTest.Skill) {
+					TSkill skill = new TSkill();
+					skill.ID = GameStart.Get.TestID.GetHashCode();
+					skill.Lv = GameStart.Get.TestLv;
+					DoSkill(Joysticker, skill);
+				} else
+					UIGame.Get.DoBlock();
 			}
 		}
 		
@@ -892,6 +908,17 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("downhand rate:"+ downhandRate);
 			GUILayout.Label("nearshot rate:"+ nearshotRate);
 			GUILayout.Label("layup rate:"+ layupRate);
+		}
+
+		if(GameStart.Get.TestMode == EGameTest.Skill) {
+			if (GUI.Button(new Rect(0, 0, 100, 100), "player get Ball")) {
+				SetBall(PlayerList[0]);
+				PlayerList[1].AniState(EPlayerState.Idle);
+			}
+			if (GUI.Button(new Rect(0, 150, 100, 100), "enemy get Ball")) {
+				SetBall(PlayerList[1]);
+				PlayerList[0].AniState(EPlayerState.Idle);
+			}
 		}
 	}
 	#endif
@@ -2506,12 +2533,13 @@ public class GameController : KnightSingleton<GameController>
 	public bool DoSkill(PlayerBehaviour player, TSkill tSkill)
     {
 		bool result = false;
-		if(player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill)
+		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill) || GameStart.Get.TestMode == EGameTest.Skill)
         {
-			if (player.CheckSkill(tSkill)) {
+			if (player.CheckSkill(tSkill) || GameStart.Get.TestMode == EGameTest.Skill) {
 				player.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
 				result = player.ActiveSkill(tSkill, player.gameObject);
+				player.IsUseSkill = true;
 			}
 		}
 		return result;

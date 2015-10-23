@@ -56,6 +56,9 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				if(GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3 != 0)
 					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.PassiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
+			
+			if(player.PassiveSkillUsed.ID != -1) 
+				skillID = player.PassiveSkillUsed.ID;
 		} else {
 			if (GameData.DSkillData.ContainsKey(player.ActiveSkillUsed.ID)) {
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind1 != 0)
@@ -65,17 +68,12 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				if(GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3 != 0)
 					objs3 = getSkillEffectPosition(3, GameData.DSkillData[player.ActiveSkillUsed.ID].TargetKind3, isPassiveID);
 			}
-		}
-
-		if(isPassiveID) {
-			if(player.PassiveSkillUsed.ID != -1) 
-				skillID = player.PassiveSkillUsed.ID;
-		} else {
+			
 			if(player.ActiveSkillUsed.ID != 0)
 				skillID = player.ActiveSkillUsed.ID;
 		}
-		
-		if(skillID != 0) {
+
+		if(skillID != 0 && GameData.DSkillData.ContainsKey(skillID)) {
 			if(objs1 != null && objs1.Count != 0){
 				for (int i=0; i<objs1.Count; i++) {
 					TSkillEffect skillEffect = new TSkillEffect();

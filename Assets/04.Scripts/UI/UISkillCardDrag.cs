@@ -4,19 +4,30 @@ using System.Collections;
 public class UISkillCardDrag : UIDragDropItem {
 	private Vector3 OrigalPosition;
 	private int originalIndes;
-	
+
+	protected override void Update ()
+	{
+		if (restriction == Restriction.PressAndHold)
+		{
+			if (mPressed && !mDragging && mDragStartTime < RealTime.time && !UISkillFormation.Get.CheckCardUsed(gameObject.name))
+				StartDragging();
+		}
+	}
+
 	protected override void OnDragDropStart ()
 	{
-		OrigalPosition = gameObject.transform.localPosition;
-		originalIndes = getPositionIndex(gameObject.transform.position.x, gameObject.transform.position.y);
-		UISkillFormation.Get.ShowInstallLight(gameObject, true);
-		base.OnDragDropStart();
+		if(!UISkillFormation.Get.CheckCardUsed(gameObject.name)) {
+			OrigalPosition = gameObject.transform.localPosition;
+			originalIndes = getPositionIndex(gameObject.transform.position.x, gameObject.transform.position.y);
+			UISkillFormation.Get.ShowInstallLight(gameObject, true);
+			base.OnDragDropStart();
+		}
 	}
 
 	public override void StartDragging () {
 		if (!interactable) return;
 
-		if (!mDragging && !UISkillFormation.Get.IsBuyState)
+		if (!mDragging && !UISkillFormation.Get.IsBuyState && !UISkillFormation.Get.IsDragNow)
 		{
 			if (cloneOnDrag)
 			{
@@ -66,7 +77,14 @@ public class UISkillCardDrag : UIDragDropItem {
 		gameObject.transform.localPosition = OrigalPosition;
 		base.OnDragDropEnd();
 	}
-	
+
+	protected override void OnDrag (Vector2 delta)
+	{
+		if (!interactable || UISkillFormation.Get.CheckCardUsed(gameObject.name)) return;
+		if (!mDragging || !enabled || mTouch != UICamera.currentTouch) return;
+		OnDragDropMove(delta * mRoot.pixelSizeAdjustment);
+	}
+
 	protected override void OnDragDropMove (Vector2 delta)
 	{
 		base.OnDragDropMove(delta);
@@ -91,7 +109,7 @@ public class UISkillCardDrag : UIDragDropItem {
 				}
 			}
 		} else {
-			if (index != -1){
+			if (index != -1 && Input.mousePosition.x > (Screen.width * 0.67f)){
 				UISkillFormation.Get.AddItem(gameObject, index);
 			}else{
 				NGUITools.Destroy(gameObject);
@@ -102,14 +120,14 @@ public class UISkillCardDrag : UIDragDropItem {
 
 	private int getPositionIndex (float x, float y) {
 		if(x > 0) {
-			if(y > 0) {
+			if(y > 0 && UISkillFormation.Get.IsCardActive) {
 				if(y >= 0.15f && y<=0.25f)
 					return 2;
 				else if(y >= 0.35f && y<=0.45f)
 					return 1;
 				else if(y >= 0.55f && y<=0.65f)
 					return 0;
-			} else if(y < 0)
+			} else if(y < 0 && !UISkillFormation.Get.IsCardActive)
 				return 4;
 		}
 		return -1;

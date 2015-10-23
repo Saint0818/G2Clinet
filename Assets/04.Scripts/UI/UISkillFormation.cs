@@ -162,7 +162,6 @@ public class UISkillFormation : UIBase {
 	private TUICard tempUICard;
 	private GameObject tempObj;
 
-
 	private Vector3 point;
 	private int costSpace = 0;
 	private int costSpaceMax = 15;
@@ -174,6 +173,9 @@ public class UISkillFormation : UIBase {
 	private bool isChangePage = false;
 	private Dictionary<int,List<int>> skillPagesOriginal = new Dictionary<int, List<int>>(); // page,  SN
 	private Dictionary<int,List<int>> skillPages = new Dictionary<int, List<int>>(); // page,  SN
+
+	public bool IsDragNow = false;
+	public bool IsCardActive = false;
 
 	public static bool Visible {
 		get {
@@ -237,6 +239,9 @@ public class UISkillFormation : UIBase {
 
 		gridCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList");
 		scrollViewCardList = GameObject.Find (UIName + "/CardsView/Left/CardsGroup/CardList").GetComponent<UIScrollView>();
+		scrollViewCardList.onDragStarted = CardDragStart;
+		scrollViewCardList.onStoppedMoving = CardDragEnd;
+
 		itemPassiveField = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveField/Icon");
 		itemPassiveSelected = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveField/Selected");
 		itemPassiveSelected.SetActive(false);
@@ -254,7 +259,6 @@ public class UISkillFormation : UIBase {
 		SetBtnFun (UIName + "/BottomRight/CheckBtn", DoFinish);
 		initCards ();
 		UpdateSort();
-		labelCostValue.text = costSpace + "/" + costSpaceMax;
 	}
 
 	protected override void InitData() {
@@ -368,6 +372,7 @@ public class UISkillFormation : UIBase {
 
 		refreshPassiveItems();
 		checkCostIfMask();
+		labelCostValue.text = costSpace + "/" + costSpaceMax;
 	}
 
 	private int getActiveFieldNull{
@@ -398,6 +403,14 @@ public class UISkillFormation : UIBase {
 				uicard.Value.UnavailableMask.SetActive((uicard.Value.Cost > (costSpaceMax - costSpace)));
 			}
 		}
+	}
+
+	public bool CheckCardUsed (string name) {
+		string nameSplit = name.Replace("(Clone)", "");
+		if (uiCards.ContainsKey(nameSplit))
+			return uiCards[nameSplit].InListCard.activeSelf;
+		else
+			return false;
 	}
 
 	private int getActiveInstall {
@@ -527,9 +540,7 @@ public class UISkillFormation : UIBase {
 		obj.transform.name = uicard.CardIndex.ToString() + "_" + uicard.CardID.ToString() + "_" + uicard.CardSN.ToString() + "_" + uicard.CardLV.ToString();
 		if(uicard.CardID >= GameConst.ID_LimitActive) {
 			obj.transform.localPosition = Vector3.zero;
-
 			UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
-//			drag.cloneOnDrag = true;
 			drag.restriction = UIDragDropItem.Restriction.Vertical;
 		} else 
 			obj.transform.localPosition = new Vector3(12, 110 - 70 * positionIndex, 0);
@@ -577,24 +588,28 @@ public class UISkillFormation : UIBase {
 			GameObject obj = null;
 			if(uicard.CardID < GameConst.ID_LimitActive) {
 				obj = addUIItems(uicard, gridPassiveCardBase, itemPassiveCards.Count);
-				itemPassiveCards.Add(obj);
-				itemPassiveField.SetActive(false);
+				if(obj != null) {
+					itemPassiveCards.Add(obj);
+					itemPassiveField.SetActive(false);
+				}
 			} else {
 				if(activeStructIndex != -1 && activeStructIndex < 3) {
 					obj = addUIItems(uicard, activeStruct[activeStructIndex].gridActiveCardBase);
-					activeStruct[activeStructIndex].itemEquipActiveCard = obj;
-					activeStruct[activeStructIndex].CardID = uicard.CardID;
-					activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
-					activeStruct[activeStructIndex].CardLV = uicard.CardLV;
-					activeStruct[activeStructIndex].CardSN = uicard.CardSN;
-					activeStruct[activeStructIndex].itemActiveFieldIcon.SetActive(false);
+					if(obj != null) {
+						activeStruct[activeStructIndex].itemEquipActiveCard = obj;
+						activeStruct[activeStructIndex].CardID = uicard.CardID;
+						activeStruct[activeStructIndex].CardIndex = uicard.CardIndex;
+						activeStruct[activeStructIndex].CardLV = uicard.CardLV;
+						activeStruct[activeStructIndex].CardSN = uicard.CardSN;
+						activeStruct[activeStructIndex].itemActiveFieldIcon.SetActive(false);
+					}
 				}
 			}
 			if(obj != null) {
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
 			} else 
-				Debug.LogError("addItems obj: null");
+				Debug.LogWarning("addItems obj: null");
 
 			checkCostIfMask();
 			return true;
@@ -691,10 +706,12 @@ public class UISkillFormation : UIBase {
 		string name = go.name.Replace("(Clone)", "");
 		if(uiCards.ContainsKey (name)) {
 			if(uiCards[name].CardID >= GameConst.ID_LimitActive) {
+				IsCardActive = true;
 				for(int i=0; i<activeStruct.Length; i++) {
 					activeStruct[i].itemActiveSelect.SetActive(isShow);
 				}
 			} else {
+				IsCardActive = false;
 				itemPassiveSelected.SetActive(isShow);
 			}
 		}
@@ -993,10 +1010,16 @@ public class UISkillFormation : UIBase {
 			skillInfo.Lv = uiCards[go.name].CardLV.ToString();
 			skillInfo.Info = GameData.DSkillData[uiCards[go.name].CardID].Explain;
 		} else 
-			Debug.LogError("cardId:"+uiCards[go.name].CardID);
+			Debug.LogWarning("cardId:"+uiCards[go.name].CardID);
 	}
 
+	public void CardDragStart() {
+		IsDragNow = true;
+	}
 
+	public void CardDragEnd() {
+		IsDragNow = false;
+	}
 
 	public void ItemDragFinish(){
 		if(itemPassiveCards.Count < 5){
