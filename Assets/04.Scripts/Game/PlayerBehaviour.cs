@@ -664,12 +664,12 @@ public class PlayerBehaviour : MonoBehaviour
 	private void changePlayerColor (){
 		if(isChangeColor) {
 			changeTime += Time.deltaTime;
-			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameStart.Get.PlayerShineTime / GameStart.Get.PlayerShineCount) * 310 * GameStart.Get.PlayerShineCount / GameStart.Get.PlayerShineTime) ;
+			float lerp = (Mathf.PingPong(changeTime, 0.5f * GameConst.PlayerShineTime / GameConst.PlayerShineCount) * 310 * GameConst.PlayerShineCount / GameConst.PlayerShineTime) ;
 			if(Team == ETeamKind.Self)
 				BodyMaterial.color = new Color32((byte)lerp, (byte)lerp, 255, 255);
 			else
 				BodyMaterial.color = new Color32(255, (byte)lerp, (byte)lerp, 255);
-			if(changeTime >= GameStart.Get.PlayerShineTime)
+			if(changeTime >= GameConst.PlayerShineTime)
 				isChangeColor = false;
 		} else {
 			changeTime = 0;
@@ -3491,56 +3491,58 @@ public class PlayerBehaviour : MonoBehaviour
 		}
 	}
 
-	private void startActiveCamera (TSkill tSkill){
-		int skillEffectKind = GameData.DSkillData[tSkill.ID].ActiveCamera;
-		float skillTime = GameData.DSkillData[tSkill.ID].ActiveCameraTime;
-		if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
-			if(!isSkillShow) {
-				if(OnUIJoystick != null)
-					OnUIJoystick(this, false);
-				
-				if(UIPassiveEffect.Visible)
-					UIPassiveEffect.UIShow(false);
-				
-				isSkillShow = true;
-				string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
-				EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
-				
-				if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
-					LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
-				
-				CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
-				if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
-					UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData[ActiveSkillUsed.ID].Name);
-				
-				switch(skillEffectKind) {
-				case 0://show self and rotate camera
-					Invoke("showActiveEffect", skillTime);
-					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
-					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-						TimerMgr.Get.ChangeTime (item, 0);
-					break;
-				case 1://show self
-					showActiveEffect();
-					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
-					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-						if(item != ETimerKind.Player0)
+	private void startActiveCamera (){
+		if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
+			int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
+			float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
+			if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
+				if(!isSkillShow) {
+					if(OnUIJoystick != null)
+						OnUIJoystick(this, false);
+					
+					if(UIPassiveEffect.Visible)
+						UIPassiveEffect.UIShow(false);
+					
+					isSkillShow = true;
+					string effectName = string.Format("UseSkillEffect_{0}", GameData.DSkillData[ActiveSkillUsed.ID].Kind);
+					EffectManager.Get.PlayEffect(effectName, transform.position, null, null, 1, false);
+					
+					if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
+						LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
+					
+					CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
+					if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+						UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData[ActiveSkillUsed.ID].Name);
+					
+					switch(skillEffectKind) {
+					case 0://show self and rotate camera
+						Invoke("showActiveEffect", skillTime);
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							TimerMgr.Get.ChangeTime (item, 0);
-					break;
-				case 2://show all Player
-					showActiveEffect();
-					GameController.Get.SetAllPlayerLayer("SkillPlayer");
-					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-						if(item != ETimerKind.Player0)
-							TimerMgr.Get.ChangeTime (item, 0);
-					break;
+						break;
+					case 1://show self
+						showActiveEffect();
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+							if(item != ETimerKind.Player0)
+								TimerMgr.Get.ChangeTime (item, 0);
+						break;
+					case 2://show all Player
+						showActiveEffect();
+						GameController.Get.SetAllPlayerLayer("SkillPlayer");
+						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+							if(item != ETimerKind.Player0)
+								TimerMgr.Get.ChangeTime (item, 0);
+						break;
+					}
 				}
+			} else {
+				//Teammate and Enemy's Active PassiveCard will be shown
+				if(!IsUseSkill)
+					UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
+				showActiveEffect();
 			}
-		} else {
-			//Teammate and Enemy's Active PassiveCard will be shown
-			if(GameData.DSkillData.ContainsKey(tSkill.ID) && !IsUseSkill)
-				UIPassiveEffect.Get.ShowCard(this, tSkill.ID, tSkill.Lv);
-			showActiveEffect();
 		}
 	}
 
@@ -3573,25 +3575,24 @@ public class PlayerBehaviour : MonoBehaviour
 		return skillController.DoPassiveSkill(state, this, v);
 	}
 
-	public bool ActiveSkill(TSkill tSkill, GameObject target = null) {
-		if (CanUseActiveSkill(tSkill)  || GameStart.Get.TestMode == EGameTest.Skill) {
+	public bool ActiveSkill(GameObject target = null) {
+		if (CanUseActiveSkill(ActiveSkillUsed)  || GameStart.Get.TestMode == EGameTest.Skill) {
 			GameRecord.Skill++;
-			SetAnger(-Attribute.MaxAngerOne(tSkill.ID));
-			startActiveCamera(tSkill);
+			SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID));
+			startActiveCamera();
 
-			if (Attribute.SkillAnimation(tSkill.ID) != "") {
+			if (Attribute.SkillAnimation(ActiveSkillUsed.ID) != "") {
 //				SetInvincible(skillController.ActiveTime[index]);
 				if (target)
-					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(tSkill.ID)), target.transform.position);
+					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(ActiveSkillUsed.ID)), target.transform.position);
 				else{
 					try {
-						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(tSkill.ID)));
+						return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(ActiveSkillUsed.ID)));
 					} catch {
 						LogMgr.Get.LogError("Can't find SkillAnimation in EPlayerState");
 						return false;
 					}
 				}
-
 			}
 		}
 		return false;

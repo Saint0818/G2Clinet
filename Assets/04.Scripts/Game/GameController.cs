@@ -866,14 +866,14 @@ public class GameController : KnightSingleton<GameController>
 
 		if (GameStart.Get.TestMode == EGameTest.CrossOver) {
 			if (GUI.Button(new Rect(20, 50, 100, 100), "Left")) {
-				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x - 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameConst.CrossTimeZ).SetEase(Ease.Linear);
 				PlayerList[0].AniState(EPlayerState.MoveDodge0);
 			}
 
 			if (GUI.Button(new Rect(120, 50, 100, 100), "Right")) {
-				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
-				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveX(PlayerList[0].transform.position.x + 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
+				PlayerList[0].transform.DOMoveZ(PlayerList[0].transform.position.z + 6, GameConst.CrossTimeZ).SetEase(Ease.Linear);
 				PlayerList[0].AniState(EPlayerState.MoveDodge1);
 			}
 		}
@@ -2538,7 +2538,7 @@ public class GameController : KnightSingleton<GameController>
 			if (player.CheckSkill(tSkill) || GameStart.Get.TestMode == EGameTest.Skill) {
 				player.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
-				result = player.ActiveSkill(tSkill, player.gameObject);
+				result = player.ActiveSkill(player.gameObject);
 				player.IsUseSkill = true;
 			}
 		}

@@ -90,6 +90,13 @@
 	public static float CloseDistance = 4;
 	public static float DefDistance = 3.5f;
 	public static float ExtraScoreRate = 10;
+
+	public const float AlleyoopPassTime = 0.3f;
+	public const float PlayerShineTime = 0.5f;
+	public const int PlayerShineCount = 3;
+	public const float CrossTimeX = 0.5f;
+	public const float CrossTimeZ = 1f;
+
 	//Score
 	public static string[] AngleScoreRightWing = {"0","3","10"};
 	public static string[] AngleScoreRight = {"0","3","4","6","8","11"};

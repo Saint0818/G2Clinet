@@ -482,14 +482,14 @@ public class SkillController : MonoBehaviour {
 								AddZ = -6;
 							
 							player.RotateTo(pos.x, pos.z);
-							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameStart.Get.CrossTimeZ).SetEase(Ease.Linear);
+							player.transform.DOMoveZ(player.transform.position.z + AddZ, GameConst.CrossTimeZ).SetEase(Ease.Linear);
 							TSkill skill = new TSkill();
 							if (Dir == 1) {
-								player.transform.DOMoveX(player.transform.position.x - 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								player.transform.DOMoveX(player.transform.position.x - 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge0;
 								skill.ID = 1100;
 							} else {
-								player.transform.DOMoveX(player.transform.position.x + 1, GameStart.Get.CrossTimeX).SetEase(Ease.Linear);
+								player.transform.DOMoveX(player.transform.position.x + 1, GameConst.CrossTimeX).SetEase(Ease.Linear);
 								playerState = EPlayerState.MoveDodge1;
 								skill.ID = 1100;
 							}			

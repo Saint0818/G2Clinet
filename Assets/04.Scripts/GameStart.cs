@@ -14,14 +14,9 @@ public class GameStart : KnightSingleton<GameStart> {
 	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;
 	public bool IsShowShootRate = false;
-	public float AlleyoopPassTime = 0.3f;
-	public float PlayerShineTime = 0.5f;
-	public int PlayerShineCount = 3;
 	public int FriendNumber = 3;
 	public int GameWinValue = 13;
 	public int GameWinTimeValue = 0;
-	public float CrossTimeX = 0.5f;
-	public float CrossTimeZ = 0.8f;
 	public EPlayerState SelectAniState = EPlayerState.Dunk6;
 	public EBasketAnimationTest SelectBasketState = EBasketAnimationTest.Basket0;
 	public ETestActive TestID = ETestActive.Dunk20;
