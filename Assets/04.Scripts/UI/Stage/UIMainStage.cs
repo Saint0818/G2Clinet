@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GamePlayEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -52,6 +53,27 @@ public class UIMainStage : UIBase
     private void enterGame(int stageID)
     {
         Debug.LogFormat("enterGame, StageID:{0}", stageID);
+
+        if(StageTable.Ins.HasByID(stageID))
+        {
+            GameData.StageID = stageID;
+
+            StageData stageData = StageTable.Ins.GetByID(GameData.StageID);
+            GameStart.Get.CourtMode = (ECourtMode)stageData.CourtMode;
+            GameStart.Get.WinMode = (EWinMode)stageData.WinMode;
+
+            if (stageData.WinValue > 0)
+                GameStart.Get.GameWinValue = stageData.WinValue;
+
+            if (stageData.FriendNumber > 0)
+                GameStart.Get.FriendNumber = stageData.FriendNumber;
+
+            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+
+            Hide();
+        }
+        else
+            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
     }
 
     /// <summary>
@@ -62,14 +84,14 @@ public class UIMainStage : UIBase
         mImpl.HideAllChapters();
         for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageSchedule; id++)
         {
-            Stage stage = StageTable.Ins.GetByID(id);
+            StageData stage = StageTable.Ins.GetByID(id);
             showStage(stage);
         }
 
         setLastChapterLock();
     }
 
-    private void showStage(Stage stageData)
+    private void showStage(StageData stageData)
     {
         if(!stageData.IsValid())
         {
@@ -100,7 +122,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void setLastChapterLock()
     {
-        Stage stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageSchedule);
+        StageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageSchedule);
         if(!stageData.IsValid())
             return;
 

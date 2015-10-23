@@ -1,99 +1,23 @@
 ﻿using System.Collections.Generic;
-using GameEnum;
 using Newtonsoft.Json;
 using UnityEngine;
-
-public struct Stage
-{
-    public int ID;
-    public int Chapter;
-    public int Order;
-
-    /// <summary>
-    /// 1.傳統
-    /// 2.得分
-    /// 3.防守
-    /// 4.攻擊
-    /// 9.挑戰魔王對手
-    /// </summary>
-    public int Kind;
-     
-    public string Hint;
-    public int Bit0Num;
-    public int Bit1Num;
-    public int Bit2Num;
-    public int Bit3Num;
-    public int CourtMode;
-    public int WinMode;
-    public int WinValue;
-    public int FriendNumber;
-
-    public int PlayerID1;
-    public int PlayerID2;
-    public int PlayerID3;
-    public int PlayerID4;
-    public int PlayerID5;
-    public string NameTW;
-    public string NameCN;
-    public string NameEN;
-    public string NameJP;
-    public string ExplainTW;
-    public string ExplainCN;
-    public string ExplainEN;
-    public string ExplainJP;
-
-    public bool IsValid()
-    {
-        return ID >= 1;
-    }
-
-    public override string ToString()
-    {
-        return string.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);
-    }
-
-    public int[] HintBit
-    {
-        get
-        {
-            return AI.BitConverter.Convert(Hint);
-        }
-    }
-
-    public string Name
-    {
-        get
-        {
-            switch(GameData.Setting.Language)
-            {
-                case ELanguage.TW: return NameTW;
-                case ELanguage.CN: return NameCN;
-                case ELanguage.JP: return NameJP;
-                default : return NameEN;
-            }
-        }
-    }
-
-    public string Explain
-    {
-        get
-        {
-            switch(GameData.Setting.Language)
-            {
-                case ELanguage.TW: return ExplainTW;
-                case ELanguage.CN: return ExplainCN;
-                case ELanguage.JP: return ExplainJP;
-                default : return ExplainEN;
-            }
-        }
-    }
-}
 
 /// <summary>
 /// 
 /// </summary>
+/// 使用方法:
+/// <list type="number">
+/// <item> 用 Ins 取得 instance. </item>
+/// <item> Call GetXXX 取得關卡資料; Call HasXXX 檢查關卡資料. </item>
+/// </list>
 public class StageTable
 {
+    /// <summary>
+    /// 主線關卡說明的 ID 範圍.
+    /// </summary>
+    public const int MinMainStageDescID = 1;
+    public const int MaxMainStageDescID = 100;
+
     /// <summary>
     /// 主線關卡 ID 的範圍.
     /// </summary>
@@ -107,41 +31,64 @@ public class StageTable
     }
 
     /// <summary>
-    /// key: StageID.
+    /// key: StageID. 記錄主線內, 全部的關卡(小關卡資訊和章節說明).
     /// </summary>
-    private readonly Dictionary<int, Stage> mStageIDs = new Dictionary<int, Stage>();
+    private readonly Dictionary<int, StageData> mAllStageByIDs = new Dictionary<int, StageData>();
 
     /// <summary>
-    /// [ChapterID, [Order, instance]].
+    /// [ChapterID, [Order, instance]]. 記錄主線內, 全部的小關卡.
     /// </summary>
-    private readonly Dictionary<int, Dictionary<int, Stage>> mStageChapters = new Dictionary<int, Dictionary<int, Stage>>();
+    private readonly Dictionary<int, Dictionary<int, StageData>> mStageByChapterOrders = new Dictionary<int, Dictionary<int, StageData>>();
 
-    private static Stage EmptyStage;
-    private readonly List<Stage> EmptyStages = new List<Stage>();
+    /// <summary>
+    /// Key: ChapterID. 記錄章節說明.
+    /// </summary>
+    private readonly Dictionary<int, StageData> mChapterDescs = new Dictionary<int, StageData>();
+
+    private StageTable() {}
 
     public void Load(string jsonText)
     {
         clear();
 
-        var stages = (Stage[])JsonConvert.DeserializeObject(jsonText, typeof(Stage[]));
-        foreach(Stage stage in stages)
+        var stages = (StageData[])JsonConvert.DeserializeObject(jsonText, typeof(StageData[]));
+        foreach(StageData stage in stages)
         {
-            if(mStageIDs.ContainsKey(stage.ID))
+            if(mAllStageByIDs.ContainsKey(stage.ID))
             {
                 Debug.LogErrorFormat("Stage ID repeat. {0}", stage.ID);
                 continue;
             }
-            
-            if(!mStageChapters.ContainsKey(stage.Chapter))
-                mStageChapters.Add(stage.Chapter, new Dictionary<int, Stage>());
-            if(mStageChapters[stage.Chapter].ContainsKey(stage.Order))
+
+            if(MinMainStageID <= stage.ID && stage.ID <= MaxMainStageID)
             {
-                Debug.LogErrorFormat("Stage Order repeat. {0}", stage);
+                // 小關卡.
+                if(!mStageByChapterOrders.ContainsKey(stage.Chapter))
+                    mStageByChapterOrders.Add(stage.Chapter, new Dictionary<int, StageData>());
+                if (mStageByChapterOrders[stage.Chapter].ContainsKey(stage.Order))
+                {
+                    Debug.LogErrorFormat("Stage Order repeat. {0}", stage);
+                    continue;
+                }
+                mStageByChapterOrders[stage.Chapter].Add(stage.Order, stage);
+            }
+            else if(MinMainStageDescID <= stage.ID && stage.ID <= MaxMainStageDescID)
+            {
+                // 章節說明.
+                if(mChapterDescs.ContainsKey(stage.Chapter))
+                {
+                    Debug.LogErrorFormat("Stage Chapter repeat. {0}", stage);
+                    continue;
+                }
+                mChapterDescs.Add(stage.Chapter, stage);
+            }
+            else
+            {
+                Debug.LogErrorFormat("StageID({0}) out of range!", stage.ID);
                 continue;
             }
 
-            mStageIDs.Add(stage.ID, stage);
-            mStageChapters[stage.Chapter].Add(stage.Order, stage);
+            mAllStageByIDs.Add(stage.ID, stage);
         }
 
         Debug.Log("[stage parsed finished.] ");
@@ -149,55 +96,71 @@ public class StageTable
 
     private void clear()
     {
-        mStageIDs.Clear();
-        mStageChapters.Clear();
+        mAllStageByIDs.Clear();
+        mStageByChapterOrders.Clear();
+        mChapterDescs.Clear();
     }
 
     public bool HasByChapterOrder(int chapter, int order)
     {
-        if(mStageChapters.ContainsKey(chapter) && mStageChapters[chapter].ContainsKey(order))
+        if(mStageByChapterOrders.ContainsKey(chapter) && mStageByChapterOrders[chapter].ContainsKey(order))
             return true;
 
         return false;
     }
 
-    public Stage GetByChapterOrder(int chapter, int order)
+    private readonly StageData mEmptyStage = new StageData();
+    private readonly List<StageData> mEmptyStages = new List<StageData>();
+    public StageData GetByChapterOrder(int chapter, int order)
     {
-        if(!mStageChapters.ContainsKey(chapter) || !mStageChapters[chapter].ContainsKey(order))
-            return EmptyStage;
+        if(!mStageByChapterOrders.ContainsKey(chapter) || !mStageByChapterOrders[chapter].ContainsKey(order))
+            return mEmptyStage;
 
-        return mStageChapters[chapter][order];
+        return mStageByChapterOrders[chapter][order];
     }
 
     public bool HasByChapter(int chapter)
     {
-        return mStageChapters.ContainsKey(chapter);
+        return mStageByChapterOrders.ContainsKey(chapter);
     }
 
-    public List<Stage> GetByChapter(int chapter)
+    public List<StageData> GetByChapter(int chapter)
     {
-        EmptyStages.Clear();
-        if(mStageChapters.ContainsKey(chapter))
+        mEmptyStages.Clear();
+        if(mStageByChapterOrders.ContainsKey(chapter))
         {
-            foreach(KeyValuePair<int, Stage> pair in mStageChapters[chapter])
+            foreach(KeyValuePair<int, StageData> pair in mStageByChapterOrders[chapter])
             {
-                EmptyStages.Add(pair.Value);
+                mEmptyStages.Add(pair.Value);
             }
         }
         
-        return EmptyStages;
+        return mEmptyStages;
     }
 
     public bool HasByID(int id)
     {
-        return mStageIDs.ContainsKey(id);
+        return mAllStageByIDs.ContainsKey(id);
     }
 
-    public Stage GetByID(int id)
+    public StageData GetByID(int id)
     {
-        if(mStageIDs.ContainsKey(id))
-            return mStageIDs[id];
+        if(mAllStageByIDs.ContainsKey(id))
+            return mAllStageByIDs[id];
 
-        return EmptyStage;
+        return mEmptyStage;
+    }
+
+    public bool HasChapterDesc(int chapterID)
+    {
+        return mChapterDescs.ContainsKey(chapterID);
+    }
+
+    public StageData GetChapterDesc(int chapterID)
+    {
+        if(mChapterDescs.ContainsKey(chapterID))
+            return mChapterDescs[chapterID];
+
+        return mEmptyStage;
     }
 }
