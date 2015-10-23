@@ -1,13 +1,25 @@
 ﻿using UnityEngine;
 
+public enum EUIDepth
+{
+	Tutorial = 200,
+	TutorialButton = 201,
+	TutorialGuide = 202
+}
+
 public enum ELayer
 {
+	//for UI
+	UI,
+	ScrollVies,
+	TopUI,
+	UI3D,
+	//for game play
 	Player,
 	Shooter,
 	BasketCollider,
 	RealBall,
-	IgnoreRaycast,
-	UI3D
+	IgnoreRaycast
 }
 
 public enum ETag

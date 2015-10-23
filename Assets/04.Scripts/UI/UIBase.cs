@@ -178,6 +178,10 @@ public class UIBase: MonoBehaviour
   
     protected virtual void OnShow(bool isShow)
     {
+		if (isShow) {
+			if (GameData.DTutorialFlag.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialFlag[this.name]))
+				UITutorial.Get.ShowTutorial(GameData.DTutorialFlag[this.name], 1);
+		}
     }    
 
     protected virtual void InitText()

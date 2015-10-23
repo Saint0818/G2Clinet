@@ -428,6 +428,8 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseGreatPlayerData (string version, string text, bool isSaveVersion){
 		try {
+			GameData.DPlayers.Clear();
+
 			TGreatPlayer[] data = (TGreatPlayer[])JsonConvert.DeserializeObject (text, typeof(TGreatPlayer[]));
 			if (data != null) {
 				for (int i = 0; i < data.Length; i++) 
@@ -504,6 +506,8 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseSkillData (string version, string text, bool isSaveVersion){
 		try {
+			GameData.DSkillData.Clear();
+
 			TSkillData[] data = (TSkillData[])JsonConvert.DeserializeObject (text, typeof(TSkillData[]));
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DSkillData.ContainsKey(data[i].ID))
@@ -523,6 +527,8 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseItemData (string version, string text, bool isSaveVersion){
 		try {
+			GameData.DItemData.Clear();
+
 			TItemData[] data = (TItemData[])JsonConvert.DeserializeObject (text, typeof(TItemData[]));
 			for (int i = 0; i < data.Length; i++) {
 				if(!GameData.DItemData.ContainsKey(data[i].ID))
@@ -550,16 +556,50 @@ public class FileManager : KnightSingleton<FileManager> {
 	private void parseTutorialData(string version, string text, bool isSaveVersion) {
 		var i = 0;
 		try {
+			GameData.DTutorial.Clear();
+			GameData.DTutorialFlag.Clear();
+			GameData.DTutorialStageStart.Clear();
+			GameData.DTutorialStageEnd.Clear();
+
 			TTutorial[] data = (TTutorial[])JsonConvert.DeserializeObject (text, typeof(TTutorial[]));
 			for (i = 0; i < data.Length; i++) {
 				int id = data[i].ID * 100 + data[i].Line;
-				if(!GameData.DTutorial.ContainsKey(id))
+				if (!GameData.DTutorial.ContainsKey(id)) {
 					GameData.DTutorial.Add(id, data[i]);
-				else 
+
+					if (!string.IsNullOrEmpty(data[i].UIName)) {
+						if (!GameData.DTutorialFlag.ContainsKey(data[i].UIName)) {
+							GameData.DTutorialFlag.Add(data[i].UIName, data[i].ID);
+						} else
+							Debug.LogError("Tutorial UI name repeat i : " + i.ToString());
+					}
+
+					switch (data[i].Kind) {
+					case 1:
+						if (data[i].Value > 0) {
+							if (!GameData.DTutorialStageStart.ContainsKey(data[i].Value)) {
+								GameData.DTutorialStageStart.Add(data[i].Value, data[i].ID);
+							} else
+								Debug.LogError("Tutorial stage start repeat i : " + i.ToString());
+						}
+
+						break;
+					case 2:
+						if (data[i].Value > 0) {
+							if (!GameData.DTutorialStageEnd.ContainsKey(data[i].Value)) {
+								GameData.DTutorialStageEnd.Add(data[i].Value, data[i].ID);
+							} else
+								Debug.LogError("Tutorial stage end i : " + i.ToString());
+						}
+						
+						break;
+					}
+
+				} else 
 					Debug.LogError("Tutorial key error i : " + i.ToString());
 			}
 			
-			if(isSaveVersion)
+			if (isSaveVersion)
 				SaveDataVersionAndJson(text, "tutorial", version);
 			
 			Debug.Log ("[tutorial parsed finished.] ");

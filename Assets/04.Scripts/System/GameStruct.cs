@@ -19,6 +19,7 @@ namespace GameStruct {
 		public int Power;
 		public int Diamond;
 
+		public int[] TutorialFlags;
 		public TPlayer Player;
 		public TItem[] Items;
 		public TSkill[] SkillCards;
@@ -45,6 +46,32 @@ namespace GameStruct {
 	    {
 	        return string.Format("PlayerNum:{0}", PlayerNum);
 	    }
+
+		public bool HaveTutorialFlag(int id) {
+			if (TutorialFlags != null) {
+				for (int i = 0; i < TutorialFlags.Length; i++) 
+					if (TutorialFlags[i] == id)
+						return true;
+			}
+
+			return false;
+		}
+
+		public void AddTutorialFlag(int id) {
+			if (TutorialFlags == null) 
+				TutorialFlags = new int[0];
+
+			Array.Resize(ref TutorialFlags, TutorialFlags.Length+1);
+			TutorialFlags[TutorialFlags.Length-1] = id;
+		}
+
+		public void RemoveTutorialFlag(int index) {
+			if (TutorialFlags == null) 
+				TutorialFlags = new int[0];
+			
+			if (index >= 0 && index < TutorialFlags.Length)
+				TutorialFlags[index] = -1;
+		}
     }
 
     public struct TLookUpData
@@ -866,7 +893,6 @@ namespace GameStruct {
 				switch(GameData.Setting.Language) {
 				case ELanguage.TW:return ExplainTW;
 				case ELanguage.CN:return ExplainCN;
-				case ELanguage.EN:return ExplainEN;
 				case ELanguage.JP:return ExplainJP;
 				default:return ExplainEN;
 				}
@@ -968,9 +994,10 @@ namespace GameStruct {
 	public class TTutorial {
 		public int ID;
 		public int Line;
+		public int Kind;
 		public string Title;
 		public string UIName;
-		public int StageNo;
+		public int Value;
 		public int Offsetx;
 		public int Offsety;
 		public string UIpath;

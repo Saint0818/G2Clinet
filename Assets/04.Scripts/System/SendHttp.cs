@@ -23,6 +23,8 @@ public static class URLConst {
 	public const string CreateRole = "createrole";
 	public const string SelectRole = "selectrole";
 	public const string DeleteRole = "deleterole";
+	public const string AddTutorialFlag = "addtutorialflag";
+	public const string ClearTutorialFlag = "cleartutorialflag";
 	public const string EquipsSkillCard = "equipskillcard";
 	public const string ChangeSkillPage = "changeskillpage";
 	public const string SellSkillcard = "sellskillcard";

@@ -83,7 +83,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 
 		int index;
 
-		if (int.TryParse (UIButton.current.name, out index)) {
+		if (!UITutorial.Visible && int.TryParse (UIButton.current.name, out index)) {
 			if(selectIndex == index){
 				//back 
 				selectIndex = -1;
