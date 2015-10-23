@@ -2515,7 +2515,7 @@ public class GameController : KnightSingleton<GameController>
 
     private bool Rebound(PlayerBehaviour player)
     {
-		return player.DoPassiveSkill(ESkillSituation.Rebound, CourtMgr.Get.RealBall.transform.position);
+		return player.DoPassiveSkill(ESkillSituation.Rebound0, CourtMgr.Get.RealBall.transform.position);
 	}
 	
 	public bool OnRebound(PlayerBehaviour player)

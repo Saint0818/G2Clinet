@@ -1093,6 +1093,8 @@ public class UISkillFormation : UIBase {
 				if(uicard.Selected != null && uicard.InListCard != null) {
 					uicard.Selected.SetActive(true);
 					UISkillInfo.UIShow(true, skillInfo, uicard.InListCard.gameObject.activeSelf, uicard.UnavailableMask.activeSelf);
+					if(UISort.Visible)
+						UISort.UIShow(false);
 				}
 			}
 		} else {
@@ -1111,6 +1113,8 @@ public class UISkillFormation : UIBase {
 	public void OnItemDetailInfo (GameObject go){
 		setInfo(go);
 		UISkillInfo.UIShow(true, skillInfo, true, false);
+		if(UISort.Visible)
+			UISort.UIShow(false);
 	}
 
 	//From Item RemoveButton

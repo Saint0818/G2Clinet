@@ -325,7 +325,7 @@ public class SkillController : MonoBehaviour {
 		if (value != 0) {
 			int index = findSkillAttribute(skillID);
 			if(skillID >= GameConst.ID_LimitActive)
-				skillBuff.AddBuff(skillID, lifetime);
+				skillBuff.AddBuff(kind, lifetime);
 			
 			if (index == -1) {
 				TSkillAttribute item = new TSkillAttribute();
@@ -592,8 +592,8 @@ public class SkillController : MonoBehaviour {
 				Result = player.AniState(playerState, v);
 				break;
 
-			case ESkillSituation.Rebound:
-				playerState = getPassiveSkill(ESkillSituation.Rebound, ESkillKind.Rebound);
+			case ESkillSituation.Rebound0:
+				playerState = getPassiveSkill(ESkillSituation.Rebound0, ESkillKind.Rebound);
 				Result = player.AniState (playerState, v);
 				break;
 			}	
