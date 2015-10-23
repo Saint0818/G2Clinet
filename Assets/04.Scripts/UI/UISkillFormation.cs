@@ -802,12 +802,15 @@ public class UISkillFormation : UIBase {
 
 	//For Sell
 	private bool isSkillCardInPages(int sn) {
-		for (int i=0; i<5; i++) {
-			int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
-			if (SNs.Length > 0) {
-				for (int j=0; j<SNs.Length; j++)
-					if (SNs[j] == sn)
-						return true;
+		if(GameData.Team.Player.SkillCardPages != null && 
+		   GameData.Team.Player.SkillCardPages.Length > 0) {
+			for (int i=0; i<GameData.Team.Player.SkillCardPages.Length; i++) {
+				int[] SNs = GameData.Team.Player.SkillCardPages[i].SNs;
+				if (SNs.Length > 0) {
+					for (int j=0; j<SNs.Length; j++)
+						if (SNs[j] == sn)
+							return true;
+				}
 			}
 		}
 		return false;
@@ -1206,6 +1209,9 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoSellState() {
+		if(UISort.Visible)
+			UISort.UIShow(false);
+		
 		if(!IsBuyState) {
 			IsBuyState = true;
 			DoFinish();
@@ -1396,21 +1402,19 @@ public class UISkillFormation : UIBase {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
 			GameData.Team.Player.SkillCards = result.PlayerCards;
-			GameData.Team.Player.SkillCardPages = result.SkillCardPages;
-			GameData.Team.Player.Init();
 			isChangePage = false; 
 			GameData.Team.Player.SkillPage = tempPage;
 			refreshAfterInstall ();
 		} else {
 			Debug.LogError("text:"+www.text);
-		}
+		} 
 	}
 
 	private void waitSellSkillPage(bool ok, WWW www) {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
-			GameData.Team.Player.Init();
+			GameData.Team.Player.SkillPage = tempPage;
 			setEditState(false);
 		} else {
 			Debug.LogError("text:"+www.text);
