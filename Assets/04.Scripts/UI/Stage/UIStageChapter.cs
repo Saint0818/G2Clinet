@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 /// 代表關卡中的某個章節.
 /// </summary>
 [DisallowMultipleComponent]
-public class StageChapter : MonoBehaviour
+public class UIStageChapter : MonoBehaviour
 {
     public int Chapter;
     public GameObject Lock;

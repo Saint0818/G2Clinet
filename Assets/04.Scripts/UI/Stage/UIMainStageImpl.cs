@@ -9,25 +9,30 @@ using UnityEngine;
 /// <list type="number">
 /// <item> Call HideAllChapters() 將整個關卡介面重置. </item>
 /// <item> Call ShowXXX() 設定顯示哪些章節和關卡. </item>
+/// <item> 向 UIStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
 public class UIMainStageImpl : MonoBehaviour
 {
+    /// <summary>
+    /// 呼叫時機: 返回按鈕按下時.
+    /// </summary>
     public event CommonDelegateMethods.Action BackListener;
 
     public UILabel ChapterNumLabel;
     public UILabel ChapterTitleLabel;
-    public StageChapter[] Chapters;
+    public UIStageChapter[] Chapters;
+    public UIStageInfo Info;
 
     /// <summary>
     /// key: Chapter.
     /// </summary>
-    private readonly Dictionary<int, StageChapter> mChapters = new Dictionary<int, StageChapter>();
+    private readonly Dictionary<int, UIStageChapter> mChapters = new Dictionary<int, UIStageChapter>();
 
     /// <summary>
     /// key: StageID.
     /// </summary>
-    private readonly Dictionary<int, StageSmall> mStageSmalls = new Dictionary<int, StageSmall>();
+    private readonly Dictionary<int, UIStageSmall> mStageSmalls = new Dictionary<int, UIStageSmall>();
 
     [UsedImplicitly]
     private void Awake()
@@ -37,7 +42,7 @@ public class UIMainStageImpl : MonoBehaviour
             mChapters.Add(chapter.Chapter, chapter);
         }
 
-        var stageSmalls = GetComponentsInChildren<StageSmall>();
+        var stageSmalls = GetComponentsInChildren<UIStageSmall>();
         foreach(var stageSmall in stageSmalls)
         {
             mStageSmalls.Add(stageSmall.StageID, stageSmall);

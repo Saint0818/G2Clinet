@@ -39,43 +39,25 @@ public class UIMainStage : UIBase
     {
         mImpl = GetComponent<UIMainStageImpl>();
         mImpl.BackListener += goToGameLobby;
+        mImpl.Info.StartListener += enterGame;
     }
 
     public void Show()
     {
         Show(true);
 
-        // 這是和企劃表非常有關係的設計. 主線關卡的 ID 範圍是 101 ~ 2000,
-        // 所以這樣判斷就可以知道玩家是否有打過任何關卡.
-//        if(GameData.Team.Player.NextMainStageSchedule <= 100)
-//            showStartChapter(); // 未打過任何關卡, 所以顯示第一章的資訊.
-//        else
-            showChapters();
+        showMainStages();
     }
 
-//    /// <summary>
-//    /// 顯示新手出現的關卡頁面.
-//    /// </summary>
-//    private void showStartChapter()
-//    {
-//        mImpl.HideAllChapters();
+    private void enterGame(int stageID)
+    {
+        Debug.LogFormat("enterGame, StageID:{0}", stageID);
+    }
 
-//        mImpl.ShowChapter(1);
-//        mImpl.ShowChapterLock(2);
-
-//        showStage(StageTable.Ins.GetByID(1));
-
-//        List<Stage> stageData = StageTable.Ins.GetByChapter(1);
-//        int minID = int.MaxValue;
-//        foreach(Stage data in stageData)
-//        {
-//            if(minID > data.ID && data.Order >= 1)
-//                minID = data.ID;
-//        }
-//        showStage(StageTable.Ins.GetByID(minID));
-//    }
-
-    private void showChapters()
+    /// <summary>
+    /// 顯示主線關卡.
+    /// </summary>
+    private void showMainStages()
     {
         mImpl.HideAllChapters();
         for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageSchedule; id++)
