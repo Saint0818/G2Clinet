@@ -2361,7 +2361,7 @@ public class GameController : KnightSingleton<GameController>
 				case EPlayerState.BlockCatch:
 					UIDoubleClick.Get.SetData(EDoubleClick.Block, playerindex, 0.7f, null, DoubleBlock, player);
 					return true;
-				case EPlayerState.Rebound:
+				case EPlayerState.Rebound0:
 					UIDoubleClick.Get.SetData(EDoubleClick.Rebound, playerindex, 0.75f, DoubleRebound);
 					return true;
 			}
@@ -3347,7 +3347,7 @@ public class GameController : KnightSingleton<GameController>
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
 					else if(CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || 
-                            CourtMgr.Get.RealBallState ==  EPlayerState.Rebound)
+                            CourtMgr.Get.RealBallState ==  EPlayerState.Rebound0)
                     {
 						    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
 					    		Rebound(player);
@@ -3365,13 +3365,13 @@ public class GameController : KnightSingleton<GameController>
 						if (player == BallOwner && inTipinDistance(player)) {
 							CoolDownPass = Time.time + GameConst.PassCoolDownTime;
 							if (player == Joysticker)
-								OnDoubleClickMoment(player, EPlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound0);
 							else
 							if (Random.Range(0, 100) < player.Attr.TipInRate)
 								DoShoot();
 							else
 							if (player.Team == Joysticker.Team)
-								OnDoubleClickMoment(player, EPlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound0);
 						}
 					}
 				}
@@ -3399,7 +3399,7 @@ public class GameController : KnightSingleton<GameController>
 						if(CourtMgr.Get.RealBall.transform.position.y > 1.7f)
 							player.AniState(EPlayerState.CatchFlat, CourtMgr.Get.RealBall.transform.position);
 						else
-							player.AniState(EPlayerState.PickBall0, CourtMgr.Get.RealBall.transform.position);
+							player.AniState(EPlayerState.Pick0, CourtMgr.Get.RealBall.transform.position);
 					} else 
 					if (SetBall(player)) {
 						if(player.AIing || player.IsIdle)
@@ -4436,7 +4436,7 @@ public class GameController : KnightSingleton<GameController>
 		get
 		{
 			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].CheckAnimatorSate(EPlayerState.PickBall0))
+				if (PlayerList [i].CheckAnimatorSate(EPlayerState.Pick0))
 					return true;
 			
 			return false;

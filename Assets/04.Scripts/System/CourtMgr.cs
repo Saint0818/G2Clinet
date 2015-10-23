@@ -507,7 +507,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case "ActionNoScoreEnd":
 				SetBasketState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
-				SetBallState(EPlayerState.Rebound);
+				SetBallState(EPlayerState.Rebound0);
 				break;
 			case "BasketNetPlay":
 				PlayShoot(team, index);
@@ -743,9 +743,9 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.HoldBall:
-			case EPlayerState.PickBall0:
-			case EPlayerState.PickBall1:
-			case EPlayerState.PickBall2:
+			case EPlayerState.Pick0:
+			case EPlayerState.Pick1:
+			case EPlayerState.Pick2:
 				realBallCollider.enabled = false;
 				if (player)
 				{
