@@ -100,7 +100,13 @@ public static class TextConst
 			AddString (203, "確定售出？", "");
 			AddString (204, "牌組變更，是否儲存？？", "");
 
-			AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
+            AddString(2000001, "傳統");
+            AddString(2000002, "得分");
+            AddString(2000003, "防守");
+            AddString(2000004, "攻擊");
+            AddString(2000005, "挑戰魔王對手");
+
+            AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");
 			AddString (2000012, "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
 			           "Game time last remaining [FF3355] {0} seconds [-] will end the game! ! !");
@@ -194,6 +200,8 @@ public static class TextConst
 			           "[33FFDD]The number of[-][FFDD33]BLOCKS[-]");
 			AddString (2006009, "[FFDD33]火鍋[-]", 
 			           "[FFDD33]BLOCKS[-]");
+
+            
 		}
     }
 }

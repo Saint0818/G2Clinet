@@ -141,6 +141,14 @@ namespace GameStruct {
 		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
 
+        /// <summary>
+        /// 主線關卡進度(下一個可以打的關卡). 範圍是 101 ~ 2000.
+        /// 101: 剛開始, 沒打過任何關卡.
+        /// 102: StageID = 101 的關卡已經過關了.
+        /// 105: StageID = 101,102,103,104 的關卡已經過關了.
+        /// </summary>
+        public int NextMainStageSchedule;
+
 		public TPlayer(int level)
 		{
 			AILevel = level;
@@ -170,6 +178,8 @@ namespace GameStruct {
 			SkillCards = new TSkill[0];
 			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
+
+		    NextMainStageSchedule = StageTable.MinMainStageID;
 		}
 
         public override string ToString()
