@@ -184,7 +184,6 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		CourtInstant = new TCourtInstant(1);
-		//		InitPos();
 		LoadStageBit(GameData.StageID);
 		InitGame();
 		InitAniState();
@@ -263,34 +262,36 @@ public class GameController : KnightSingleton<GameController>
 		SetBallOwnerNull (); 
     }
 
-	public void LoadStageBit (int id)
+	public void LoadStageBit(int id)
     {
 		if(StageTable.Ins.HasByID(id))
         {
             StageID = id;
-			StageBitNum[0] = StageTable.Ins.GetByID(id).Bit0Num;
-			StageBitNum[1] = StageTable.Ins.GetByID(id).Bit1Num;
-			StageBitNum[2] = StageTable.Ins.GetByID(id).Bit2Num;
-			StageBitNum[3] = StageTable.Ins.GetByID(id).Bit3Num;
-			StageHintBit = StageTable.Ins.GetByID(id).HintBit;
-			if(StageHintBit[0] == 0 && StageHintBit[1] == 0)
-				GameStart.Get.WinMode = EWinMode.None;
-			else if(StageHintBit[0] == 0 && StageHintBit[1] == 1)
-				GameStart.Get.WinMode = EWinMode.NoTimeScore;
-			else if(StageHintBit[0] == 0 && StageHintBit[1] == 2)
-				GameStart.Get.WinMode = EWinMode.NoTimeLostScore;
-			else if(StageHintBit[0] == 0 && StageHintBit[1] == 3)
-				GameStart.Get.WinMode = EWinMode.NoTimeScoreCompare;
-			else if(StageHintBit[0] == 1 && StageHintBit[1] == 0)
-				GameStart.Get.WinMode = EWinMode.TimeNoScore;
-			else if(StageHintBit[0] == 1 && StageHintBit[1] == 1)
-				GameStart.Get.WinMode = EWinMode.TimeScore;
-			else if(StageHintBit[0] == 1 && StageHintBit[1] == 2)
-				GameStart.Get.WinMode = EWinMode.TimeLostScore;
-			else if(StageHintBit[0] == 1 && StageHintBit[1] == 3)
-				GameStart.Get.WinMode = EWinMode.TimeScoreCompare;
+            StageData stageData = StageTable.Ins.GetByID(id);
+            StageBitNum[0] = stageData.Bit0Num;
+			StageBitNum[1] = stageData.Bit1Num;
+			StageBitNum[2] = stageData.Bit2Num;
+			StageBitNum[3] = stageData.Bit3Num;
+			StageHintBit = stageData.HintBit;
+            GameStart.Get.WinMode = stageData.ConvertWinMode();
+//			if(StageHintBit[0] == 0 && StageHintBit[1] == 0)
+//				GameStart.Get.WinMode = EWinMode.None;
+//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 1)
+//				GameStart.Get.WinMode = EWinMode.NoTimeScore;
+//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 2)
+//				GameStart.Get.WinMode = EWinMode.NoTimeLostScore;
+//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 3)
+//				GameStart.Get.WinMode = EWinMode.NoTimeScoreCompare;
+//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 0)
+//				GameStart.Get.WinMode = EWinMode.TimeNoScore;
+//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 1)
+//				GameStart.Get.WinMode = EWinMode.TimeScore;
+//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 2)
+//				GameStart.Get.WinMode = EWinMode.TimeLostScore;
+//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 3)
+//				GameStart.Get.WinMode = EWinMode.TimeScoreCompare;
 			GameStart.Get.GameWinTimeValue = StageBitNum[0];
-			GameStart.Get.GameWinValue =  StageBitNum[1];
+			GameStart.Get.GameWinValue = StageBitNum[1];
 		}
 	}
 

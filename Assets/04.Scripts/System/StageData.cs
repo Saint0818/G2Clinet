@@ -1,4 +1,5 @@
 ﻿using GameEnum;
+using GamePlayEnum;
 
 public struct StageData
 {
@@ -72,6 +73,29 @@ public struct StageData
         {
             return AI.BitConverter.Convert(Hint);
         }
+    }
+
+    public EWinMode ConvertWinMode()
+    {
+        var hintBits = HintBit;
+        if(hintBits[0] == 0 && hintBits[1] == 0)
+            return EWinMode.None;
+        if(hintBits[0] == 0 && hintBits[1] == 1)
+            return EWinMode.NoTimeScore;
+        if(hintBits[0] == 0 && hintBits[1] == 2)
+            return EWinMode.NoTimeLostScore;
+        if(hintBits[0] == 0 && hintBits[1] == 3)
+            return EWinMode.NoTimeScoreCompare;
+        if(hintBits[0] == 1 && hintBits[1] == 0)
+            return EWinMode.TimeNoScore;
+        if(hintBits[0] == 1 && hintBits[1] == 1)
+            return EWinMode.TimeScore;
+        if(hintBits[0] == 1 && hintBits[1] == 2)
+            return EWinMode.TimeLostScore;
+        if(hintBits[0] == 1 && hintBits[1] == 3)
+            return EWinMode.TimeScoreCompare;
+
+        return EWinMode.None;
     }
 
     public string Name

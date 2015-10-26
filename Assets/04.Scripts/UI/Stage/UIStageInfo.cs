@@ -24,6 +24,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel KindLabel;
     public UISprite RewardSprite;
     public UILabel RewardLabel;
+    public UIStageHint2 Hint;
 
     private int mStageID;
 
@@ -40,6 +41,8 @@ public class UIStageInfo : MonoBehaviour
         mStageID = stageID;
 
         updateUI(data);
+
+        Hint.UpdateUI(mStageID);
     }
 
     private void updateUI(Data data)

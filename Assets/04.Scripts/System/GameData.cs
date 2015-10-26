@@ -44,6 +44,9 @@ public static class GameData {
 	public static TTeam[] EnemyMembers = new TTeam[3];
 	public static TGameSetting Setting;
 
+    /// <summary>
+    /// 記錄玩家目前打的關卡.
+    /// </summary>
 	public static int StageID = -1;
 	public static float ExtraGreatRate = 5;
 	public static float ExtraPerfectRate = 10;

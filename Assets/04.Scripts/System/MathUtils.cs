@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace G2
 {
-    public class MathUtils
+    public static class MathUtils
     {
         /// <summary>
         /// <seealso cref="http://answers.unity3d.com/questions/15822/how-to-get-the-positive-or-negative-angle-between.html"/>
