@@ -463,11 +463,11 @@ public class PlayerBehaviour : MonoBehaviour
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
 	public Material BodyMaterial;
-	public GameObject BodyHeight;
+	[HideInInspector]public GameObject BodyHeight;
 
 	public PlayerAttribute Attr = new PlayerAttribute();
 	public TPlayer Attribute;
-	public TScoreRate ScoreRate;
+	[HideInInspector]public TScoreRate ScoreRate;
 	public TGamePlayerRecord GameRecord = new TGamePlayerRecord();
 
     public ETeamKind Team;
@@ -593,7 +593,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool isChangeColor = false;
 	private float changeTime;
 	private Color colorStart = new Color32(150, 150, 150, 255);
-//	private Color colorEnd = new Color32(255, 255, 255, 255);
 
     public void SetAnger(int value, GameObject target = null, GameObject parent = null)
     {
@@ -3630,26 +3629,6 @@ public class PlayerBehaviour : MonoBehaviour
 		set {skillController.PassiveSkillUsed = value;}
 	}
 
-//	public int ActiveID {
-//		get {return skillController.ActiveSkillUsed.ID;}
-//		set {skillController.ActiveID = value;}
-//	}
-//
-//	public int ActiveLv {
-//		get {return skillController.ActiveLv;}
-//		set {skillController.ActiveLv = value;}
-//	}
-//
-//	public int PassiveID {
-//		get {return skillController.PassiveID;}
-//		set {skillController.PassiveID = value;}
-//	}
-//
-//	public int PassiveLv {
-//		get {return skillController.PassiveLv;}
-//		set {skillController.PassiveLv = value;}
-//	}
-
 	public int MoveDodgeRate {
 		get {return skillController.MoveDodgeRate;}
 		set {skillController.MoveDodgeRate = value;}
@@ -3685,10 +3664,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool IsHavePickBall2{
 		get {return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
 	}
-
-//	public bool IsHaveActiveSkill (int activeID) {
-//		return GameData.DSkillData.ContainsKey(Attribute.Contains(activeID));
-//	}
 	
 	public bool CanMove
 	{

@@ -66,7 +66,6 @@ public class UIGame : UIBase {
 
 	// GoldFinger
 	private bool isPressA = false;
-	private bool isPressB = false;
 
 	//GameJoystick
 	private GameJoystick uiJoystick = null;
@@ -180,11 +179,6 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-//		if(isPressA && isPressB) {
-//			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
-//			AddAllForce();
-//		}
-
 		if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
 			if(isShowPushRange) {
 				nearP = GameController.Get.FindNearNpc();
@@ -609,7 +603,10 @@ public class UIGame : UIBase {
 	}
 	
 	public void DoPassTeammateB(GameObject obj, bool state) {
-		isPressB = state;
+		if(isPressA) {
+			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
+			AddAllForce();
+		}
 		UIControllerState(EUIControl.PassB, obj, state);
 	}
 	
@@ -1155,6 +1152,7 @@ public class UIGame : UIBase {
 				uiJoystick.gameObject.SetActive(true);
 				UIGameResult.UIShow(false);
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
+				UIStageHint.Get.ShowTarget(false, 0);
 				UIGamePause.UIShow(false);
 			}
 			break;

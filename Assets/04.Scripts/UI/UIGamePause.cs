@@ -19,7 +19,6 @@ public class UIGamePause : UIBase {
 	private static UIGamePause instance = null;
 	private const string UIName = "UIGamePause";
 
-	private GameObject uiGameTarget;
 	private GameObject uiGameResult;
 	private GameObject uiHomeButton;
 	private GameObject uiAwayButton;
@@ -27,7 +26,6 @@ public class UIGamePause : UIBase {
 	private GameObject uiButtonLeft;
 
 	private EPauseType pauseType = EPauseType.Target;
-	private TGameTarget[] gameTargets = new TGameTarget[5];
 
 	private GameObject uiSelect;
 
@@ -80,22 +78,12 @@ public class UIGamePause : UIBase {
 	}
 	
 	protected override void InitCom() {
-		uiGameTarget = GameObject.Find(UIName + "/Center/GameTarget");
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
 		uiHomeButton = GameObject.Find(UIName + "/Center/HomeBtn");
 		uiAwayButton = GameObject.Find(UIName + "/Center/AwayBtn");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
 		uiButtonRight = GameObject.Find(UIName + "/Center/GameResult/ButtonRight");
 		uiButtonLeft = GameObject.Find(UIName + "/Center/GameResult/ButtonLeft");
-
-		for(int i=0; i<gameTargets.Length; i++) {
-			gameTargets[i].Self = GameObject.Find(UIName + "/Center/GameTarget/Target"+i.ToString());
-			gameTargets[i].LabelTargetName = GameObject.Find(UIName + "/Center/GameTarget/Target"+i.ToString()+"/TargetLabel").GetComponent<UILabel>();
-			gameTargets[i].LabelTargetValue = GameObject.Find(UIName + "/Center/GameTarget/Target"+i.ToString()+"/BitNumLabel").GetComponent<UILabel>();
-			gameTargets[i].LabelValue = GameObject.Find(UIName + "/Center/GameTarget/Target"+i.ToString()+"/BitValueLabel").GetComponent<UILabel>();
-			gameTargets[i].LabelCaption = GameObject.Find(UIName + "/Center/GameTarget/Target"+i.ToString()+"/CaptionLabel").GetComponent<UILabel>();
-			gameTargets[i].Self.SetActive(false);
-		}
 
 		viewAISelect = GameObject.Find (UIName + "/AISelect");
 		SetBtnFun (UIName + "/AISelect/ButtonClose", AITimeChange);
@@ -146,45 +134,6 @@ public class UIGamePause : UIBase {
 		
 	}
 
-	private void initTarget() {
-		int index = 0;
-		if(GameController.Get.StageHintBit.Length > 0 && GameController.Get.StageHintBit[0] > 0) {
-			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(index + 1, GameController.Get.StageHintBit[0], 8);
-			gameTargets[index].LabelTargetName.text = setText(index + 1, GameController.Get.StageHintBit[0], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+  GameController.Get.StageBitNum[0];
-			gameTargets[index].LabelValue.text = GameController.Get.GameTime.ToString();
-			index ++;
-		}
-
-		if(GameController.Get.StageHintBit.Length > 1 && GameController.Get.StageHintBit[1] > 0) {
-			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(index + 1, GameController.Get.StageHintBit[1], 8);
-			gameTargets[index].LabelTargetName.text = setText(index + 1, GameController.Get.StageHintBit[1], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[1];
-			gameTargets[index].LabelValue.text = UIGame.Get.Scores[(int) ETeamKind.Self].ToString();
-			index ++;
-		}
-		
-		if(GameController.Get.StageHintBit.Length > 2 && GameController.Get.StageHintBit[2] > 0) {
-			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(3, GameController.Get.StageHintBit[2], 8);
-			gameTargets[index].LabelTargetName.text = setText(3, GameController.Get.StageHintBit[2], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[2];
-			gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[2]).ToString();
-			index ++;
-		}
-		
-		if(GameController.Get.StageHintBit.Length > 3 && GameController.Get.StageHintBit[3] > 0) {
-			gameTargets[index].Self.SetActive(true);
-			gameTargets[index].LabelCaption.text = setText(3, GameController.Get.StageHintBit[3], 8);
-			gameTargets[index].LabelTargetName.text = setText(3, GameController.Get.StageHintBit[3], 9);
-			gameTargets[index].LabelTargetValue.text = "/"+ GameController.Get.StageBitNum[3];
-			gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[3]).ToString();
-			index ++;
-		}
-	}
-
 	private void initHomeAway (){
 		int basemin = 0;
 		int basemax = 3;
@@ -217,34 +166,10 @@ public class UIGamePause : UIBase {
 		}
 	}
 
-	private int getConditionCount(int type){
-		switch (type){
-		case 1://two score
-			return GameController.Get.Joysticker.GameRecord.FGIn;
-		case 2://three score
-			return GameController.Get.Joysticker.GameRecord.FG3In;
-		case 3://dunk
-			return GameController.Get.Joysticker.GameRecord.Dunk;
-		case 4://push
-			return GameController.Get.Joysticker.GameRecord.Push;
-		case 5://steal
-			return GameController.Get.Joysticker.GameRecord.Steal;
-		case 6://block
-			return GameController.Get.Joysticker.GameRecord.Block;
-		}
-		return 0;
-	}
-		  
-	private string setText (int index, int value, int id){
-		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
-		return TextConst.S(baseValue);
-	}
-
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
+		UIStageHint.Get.ShowTarget(true, 0);
 		UIShow(true);
-		initTarget();
-		uiGameTarget.SetActive(true);
 		uiGameResult.SetActive(false);
 		uiHomeButton.SetActive(true);
 		uiAwayButton.SetActive(true);
@@ -323,6 +248,7 @@ public class UIGamePause : UIBase {
 
 	public void OnReturn() {
 		Time.timeScale = 1;
+		UIStageHint.Get.ShowTarget(false, 0);
 		UIShow(false);
 		if (isStage)
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
@@ -331,6 +257,7 @@ public class UIGamePause : UIBase {
 	}
 	
 	public void OnResume() {
+		UIStageHint.Get.ShowTarget(false, 0);
 		UIShow(false);
 		UIGame.Get.UIState(EUISituation.Continue);
 	}
@@ -338,6 +265,7 @@ public class UIGamePause : UIBase {
 	public void OnAgain() {
 		Time.timeScale = GameController.Get.RecordTimeScale;
 		UIGame.Get.UIState(EUISituation.Reset);
+		UIStageHint.Get.ShowTarget(false, 0);
 		UIShow(false);
 	}
 
@@ -347,7 +275,7 @@ public class UIGamePause : UIBase {
 		uiAwayButton.SetActive(false);
 		uiButtonRight.SetActive(false);
 		uiButtonLeft.SetActive(true);
-		uiGameTarget.SetActive(false);
+		UIStageHint.Get.ShowTarget(false, 0);
 		uiGameResult.SetActive(true);
 		setInfo(0, ref gameRecord);
 	}
@@ -358,7 +286,7 @@ public class UIGamePause : UIBase {
 		uiAwayButton.SetActive(false);
 		uiButtonRight.SetActive(true);
 		uiButtonLeft.SetActive(false);
-		uiGameTarget.SetActive(false);
+		UIStageHint.Get.ShowTarget(false, 0);
 		uiGameResult.SetActive(true);
 		setInfo(3, ref gameRecord);
 	}
@@ -369,7 +297,7 @@ public class UIGamePause : UIBase {
 		uiAwayButton.SetActive(true);
 		uiButtonRight.SetActive(false);
 		uiButtonLeft.SetActive(false);
-		uiGameTarget.SetActive(true);
+		UIStageHint.Get.ShowTarget(true, 0);
 		uiGameResult.SetActive(false);
 	}
 
@@ -414,7 +342,7 @@ public class UIGamePause : UIBase {
 			uiAwayButton.SetActive(false);
 			uiButtonRight.SetActive(false);
 			uiButtonLeft.SetActive(false);
-			uiGameTarget.SetActive(false);
+			UIStageHint.Get.ShowTarget(false, 0);
 			uiGameResult.SetActive(false);
 		} else {
 			pauseType = EPauseType.Target;
@@ -422,7 +350,7 @@ public class UIGamePause : UIBase {
 			uiAwayButton.SetActive(true);
 			uiButtonRight.SetActive(false);
 			uiButtonLeft.SetActive(false);
-			uiGameTarget.SetActive(true);
+			UIStageHint.Get.ShowTarget(true, 0);
 			uiGameResult.SetActive(false);
 		}
 		PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
