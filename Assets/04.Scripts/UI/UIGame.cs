@@ -180,10 +180,10 @@ public class UIGame : UIBase {
 
 	void FixedUpdate()
 	{
-		if(isPressA && isPressB) {
-			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
-			AddAllForce();
-		}
+//		if(isPressA && isPressB) {
+//			GameController.Get.Joysticker.SetAnger(GameController.Get.Joysticker.Attribute.MaxAnger);
+//			AddAllForce();
+//		}
 
 		if(isShowSkillRange || isShowElbowRange || isShowPushRange || isShowStealRange) {
 			if(isShowPushRange) {

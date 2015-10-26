@@ -205,13 +205,15 @@ namespace  SkillBuffSpace {
 		}
 		
 		private void hideBuff(int positionIndex){
-			if(OnFinishBuff != null)
-				OnFinishBuff(buffInfo[positionIndex].InfoIndex);
-			buffInfo[positionIndex].Info.SetActive(false);
-			buffInfo[positionIndex].LifeTime = 0;
-			buffInfo[positionIndex].InfoIndex = -1;
-			recordIndex[indexOf(positionIndex)] = -1;
-			refreshBuff ();
+			if(positionIndex >=0 && positionIndex < buffInfo.Length) {
+				if(OnFinishBuff != null) 
+					OnFinishBuff(buffInfo[positionIndex].InfoIndex);
+				buffInfo[positionIndex].Info.SetActive(false);
+				buffInfo[positionIndex].LifeTime = 0;
+				buffInfo[positionIndex].InfoIndex = -1;
+				recordIndex[indexOf(positionIndex)] = -1;
+				refreshBuff ();
+			}
 		}
 		
 		private void refreshBuff () {

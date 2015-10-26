@@ -312,9 +312,11 @@ public class SkillController : MonoBehaviour {
 	
 	public void FinishBuff (int skillID){
 		int index = findSkillAttribute(skillID);
-		if(OnAddAttribute != null) 
-			OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
-		skillAttribute.RemoveAt(index);
+		if(index != -1) {
+			if(OnAddAttribute != null) 
+				OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
+			skillAttribute.RemoveAt(index);
+		}
 	}
 	
 	public void Reset (){

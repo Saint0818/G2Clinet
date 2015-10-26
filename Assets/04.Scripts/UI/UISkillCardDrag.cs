@@ -3,19 +3,20 @@
 public class UISkillCardDrag : UIDragDropItem {
 	private Vector3 OrigalPosition;
 	private int originalIndes;
+	public bool isDragItem = false;
 
 	protected override void Update ()
 	{
 		if (restriction == Restriction.PressAndHold)
 		{
-			if (mPressed && !mDragging && mDragStartTime < RealTime.time && !UISkillFormation.Get.CheckCardUsed(gameObject.name))
+			if (mPressed && !mDragging && mDragStartTime < RealTime.time && (!UISkillFormation.Get.CheckCardUsed(gameObject.name) || isDragItem))
 				StartDragging();
 		}
 	}
 
 	protected override void OnDragDropStart ()
 	{
-		if(!UISkillFormation.Get.CheckCardUsed(gameObject.name)) {
+		if(!UISkillFormation.Get.CheckCardUsed(gameObject.name) || isDragItem) {
 			OrigalPosition = gameObject.transform.localPosition;
 			originalIndes = getPositionIndex(gameObject.transform.position.x, gameObject.transform.position.y);
 			UISkillFormation.Get.ShowInstallLight(gameObject, true);
@@ -79,7 +80,10 @@ public class UISkillCardDrag : UIDragDropItem {
 
 	protected override void OnDrag (Vector2 delta)
 	{
-		if (!interactable || UISkillFormation.Get.CheckCardUsed(gameObject.name)) return;
+		if (!isDragItem) 
+			if (!interactable || UISkillFormation.Get.CheckCardUsed(gameObject.name)) return;
+		else
+			if (!interactable) return;
 		if (!mDragging || !enabled || mTouch != UICamera.currentTouch) return;
 		OnDragDropMove(delta * mRoot.pixelSizeAdjustment);
 	}
@@ -119,14 +123,14 @@ public class UISkillCardDrag : UIDragDropItem {
 
 	private int getPositionIndex (float x, float y) {
 		if(x > 0) {
-			if(y > 0 && UISkillFormation.Get.IsCardActive) {
+			if(y > 0 && (UISkillFormation.Get.IsCardActive || isDragItem)) {
 				if(y >= 0.15f && y<=0.25f)
 					return 2;
 				else if(y >= 0.35f && y<=0.45f)
 					return 1;
 				else if(y >= 0.55f && y<=0.65f)
 					return 0;
-			} else if(y < 0 && !UISkillFormation.Get.IsCardActive)
+			} else if(y < 0 && (!UISkillFormation.Get.IsCardActive || isDragItem))
 				return 4;
 		}
 		return -1;

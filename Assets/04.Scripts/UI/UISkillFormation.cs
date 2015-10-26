@@ -541,6 +541,7 @@ public class UISkillFormation : UIBase {
 			obj.transform.localPosition = Vector3.zero;
 			UISkillCardDrag drag = obj.AddComponent<UISkillCardDrag>();
 			drag.restriction = UIDragDropItem.Restriction.Vertical;
+			drag.isDragItem = true;
 		} else 
 			obj.transform.localPosition = new Vector3(12, 110 - 70 * positionIndex, 0);
 		obj.transform.localScale = Vector3.one;
@@ -675,8 +676,7 @@ public class UISkillFormation : UIBase {
 					//Passive
 					addItems(uiCards[name]);
 				}
-			} else 
-				UIHint.Get.ShowHint("It Used.", Color.red);
+			}
 		}
 	}
 
