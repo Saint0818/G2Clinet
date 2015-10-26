@@ -78,11 +78,11 @@ public class UIMainStageImpl : MonoBehaviour
     /// 顯示某個小關卡.
     /// </summary>
     /// <param name="stageID"></param>
-    /// <param name="spriteName"></param>
-    public void ShowStage(int stageID, string spriteName)
+    /// <param name="data"></param>
+    public void ShowStage(int stageID, UIStageInfo.Data data)
     {
         if(mStageSmalls.ContainsKey(stageID))
-            mStageSmalls[stageID].Show(spriteName);
+            mStageSmalls[stageID].Show(data);
         else
             Debug.LogErrorFormat("Stage({0}) don't exist!", stageID);
     }

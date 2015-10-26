@@ -12,6 +12,8 @@ public class UIStageSmall : MonoBehaviour
     private const string LockSpriteName = "Icon_lock";
 //    private const string LockSpriteName = "Iconface";
 
+    private UIStageInfo.Data mData;
+
     private UIMainStageImpl mImpl;
 
     [UsedImplicitly]
@@ -20,13 +22,15 @@ public class UIStageSmall : MonoBehaviour
         mImpl = GetComponentInParent<UIMainStageImpl>();
     }
 
-    public void Show(string spriteName)
+    public void Show(UIStageInfo.Data data)
     {
-        GetComponent<UISprite>().spriteName = spriteName;
+        mData = data;
+
+        GetComponent<UISprite>().spriteName = mData.KindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
-        GetComponent<UIButton>().normalSprite = spriteName; 
+        GetComponent<UIButton>().normalSprite = mData.KindSpriteName; 
 
         GetComponent<BoxCollider>().enabled = true;
     }
@@ -48,6 +52,6 @@ public class UIStageSmall : MonoBehaviour
     [UsedImplicitly]
     private void OnClick()
     {
-        mImpl.Info.Show(StageID);
+        mImpl.Info.Show(StageID, mData);
     }
 }

@@ -9,7 +9,21 @@ public class UIStageInfo : MonoBehaviour
     /// </summary>
     public event CommonDelegateMethods.Action1 StartListener;
 
+    public class Data
+    {
+        public string Description { set; get; }
+        public string KindSpriteName { set; get; }
+        public string KindName { set; get; }
+        public string RewardSpriteName { set; get; }
+        public string RewardName { set; get; }
+    }
+
     public GameObject Window;
+    public UILabel DescriptionLabel;
+    public UISprite KindSprite;
+    public UILabel KindLabel;
+    public UISprite RewardSprite;
+    public UILabel RewardLabel;
 
     private int mStageID;
 
@@ -19,11 +33,22 @@ public class UIStageInfo : MonoBehaviour
 	    Hide();
 	}
 
-    public void Show(int stageID)
+    public void Show(int stageID, Data data)
     {
         gameObject.SetActive(true);
         Window.SetActive(true);
         mStageID = stageID;
+
+        updateUI(data);
+    }
+
+    private void updateUI(Data data)
+    {
+        DescriptionLabel.text = data.Description;
+        KindSprite.spriteName = data.KindSpriteName;
+        KindLabel.text = data.KindName;
+        RewardSprite.spriteName = data.RewardSpriteName;
+        RewardLabel.text = data.RewardName;
     }
 
     public void Hide()
