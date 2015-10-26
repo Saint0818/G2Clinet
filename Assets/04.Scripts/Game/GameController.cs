@@ -451,7 +451,7 @@ public class GameController : KnightSingleton<GameController>
 	{
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i])
-				ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType.ToString(), EAnimatorType.AnimationControl);
+				ModelManager.Get.ChangeAnimator(ref PlayerList[i].AnimatorControl, PlayerList[i].Attribute.BodyType, EAnimatorType.AnimationControl);
 		
 		for(int i = 0; i < PlayerList.Count; i++)
 			if(PlayerList[i].ShowPos != 0 || PlayerList[i].ShowPos != 3)

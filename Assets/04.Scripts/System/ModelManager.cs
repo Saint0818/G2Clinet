@@ -67,8 +67,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 	public void LoadAllSelectPlayer(int[] id) {
 		//load animator
 		for (int i = 0; i < 3; i++) {
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()));
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString()));
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()), string.Format("{0}{1}", EAnimatorType.AnimationControl,i));
+			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString()), string.Format("{0}{1}", EAnimatorType.ShowControl,i));
 		}
 
 		for (int i = 0; i < id.Length; i++)
@@ -108,13 +108,13 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	private RuntimeAnimatorController loadController(string path) {
-		if (controllorCache.ContainsKey(path)) {
-			return controllorCache [path];
+	private RuntimeAnimatorController loadController(string path, string key) {
+		if (controllorCache.ContainsKey(key)) {
+			return controllorCache [key];
 		}else {
 			RuntimeAnimatorController obj = Resources.Load(path) as RuntimeAnimatorController;
 			if (obj) {
-				controllorCache.Add(path, obj);
+				controllorCache.Add(key, obj);
 				return obj;
 			} else {
 				//download form server
@@ -323,8 +323,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		try {
 			Transform parent = result.transform.parent;
 			Vector3 localposition = result.transform.localPosition;
-			string bodyNumber = bodyType.ToString();
-			string mainBody = string.Format ("PlayerModel_{0}", bodyNumber);
+			string mainBody = string.Format ("PlayerModel_{0}", bodyType);
 			int[] avatarIndex = new int[] {attr.Body, attr.Hair, attr.MHandDress, attr.Cloth, attr.Pants, attr.Shoes, attr.AHeadDress, attr.ZBackEquip};
 
 			if(Reset){
@@ -361,13 +360,13 @@ public class ModelManager : KnightSingleton<ModelManager> {
 					string avatarPart = GetAvatarPartString(i);
 
 					if (i == 0) {
-						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyNumber, mainBody); 
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, "B", "0", avatarBodyTexture);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{1}", bodyType, mainBody); 
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, "B", "0", avatarBodyTexture);
 					}else 
 					if (i < 6) {
 
-						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyNumber, avatarPart, avatarBody);
-						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyNumber, avatarPart, avatarBody, avatarBodyTexture);
+						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", bodyType, avatarPart, avatarBody);
+						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", bodyType, avatarPart, avatarBody, avatarBodyTexture);
 					} else  {//it maybe A or Z
 						path = string.Format ("Character/PlayerModel_{0}/Model/{0}_{1}_{2}", "3", avatarPart, avatarBody);
 						texturePath = string.Format("Character/PlayerModel_{0}/Texture/{0}_{1}_{2}_{3}", "3", avatarPart, avatarBody, avatarBodyTexture);
@@ -513,7 +512,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 			}
 
 			InitCapsuleCollider(result, bodyType);
-			InitAnimator(result, bodyNumber, animatorType);
+			InitAnimator(result, bodyType, animatorType);
 			result.transform.parent = parent;
 			result.transform.localPosition = localposition;
 
@@ -549,19 +548,19 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		collider.center = new Vector3 (0, collider.height / 2f, 0);
 	}
 
-	private void InitAnimator(GameObject obj, string bodyNumber, EAnimatorType animatorType)
+	private void InitAnimator(GameObject obj, int bodyNumber, EAnimatorType animatorType)
 	{
 		Animator aniControl = obj.GetComponent<Animator>();
 		if(aniControl == null)
 			aniControl = obj.AddComponent<Animator>();
-		
 		aniControl.applyRootMotion = false;
 		aniControl.cullingMode = AnimatorCullingMode.AlwaysAnimate;
 		ChangeAnimator(ref aniControl, bodyNumber, animatorType);
 	}
 
-	public void ChangeAnimator(ref Animator ani,string bodyNumber, EAnimatorType type) {
-		ani.runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()));
+	public void ChangeAnimator(ref Animator ani,int bodyNumber, EAnimatorType type) {
+		string key = string.Format ("{0}{1}", type, bodyNumber);
+		ani.runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()), key);
 		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;
 	}
