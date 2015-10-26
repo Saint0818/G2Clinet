@@ -106,24 +106,24 @@ namespace GamePlayEnum {
 	}
 	
 	public enum ESkillKind {
-		DownHand = 1,
-		UpHand = 2,
-		Shoot = 3,
-		NearShoot = 4,
-		Layup = 5,
-		Dunk = 6,
-		MoveDodge = 11,
-		Pass = 12,
-		Pick2 = 13,
-		Rebound = 14,
-		Steal = 15,
-		Block0 = 16,
-		Push = 17,
-		Elbow0 = 18,
-		Fall1 = 19,
-		Fall2 = 20,
-		ShowOwnIn = 22,
-		ShowOwnOut = 23,
+		DownHand = 10,
+		UpHand = 20,
+		Shoot = 30,
+		NearShoot = 40,
+		Layup = 50,
+		Dunk = 60,
+		MoveDodge = 110,
+		Pass = 120,
+		Pick2 = 130,
+		Rebound = 140,
+		Steal = 150,
+		Block0 = 160,
+		Push = 170,
+		Elbow0 = 180,
+		Fall1 = 190,
+		Fall2 = 200,
+		ShowOwnIn = 220,
+		ShowOwnOut = 230,
 		JumpBall,
 		KnockDown0,
 		LayupSpecial
@@ -149,5 +149,14 @@ namespace GamePlayEnum {
 		NiceShot,
 		Punch,
 		Steal
+	}
+
+	public enum EBallState {
+		CanSteal,
+		CanBlock,
+		CanRebound,
+		CanDunkBlock,
+		None
+
 	}
 }

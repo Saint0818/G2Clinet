@@ -130,6 +130,7 @@ public class GameController : KnightSingleton<GameController>
 
 	//Rebound
 	public bool IsReboundTime = false;
+	public EBallState BallState = EBallState.None;
 
 	//Basket
 	public EBasketSituation BasketSituation;
@@ -1780,6 +1781,7 @@ public class GameController : KnightSingleton<GameController>
 			Shooter = player;
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
+			BallState = EBallState.CanBlock;
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
@@ -2535,7 +2537,7 @@ public class GameController : KnightSingleton<GameController>
 		bool result = false;
 		if((player.CanUseActiveSkill(tSkill) && CheckOthersUseSkill) || GameStart.Get.TestMode == EGameTest.Skill)
         {
-			if (player.CheckSkill(tSkill) || GameStart.Get.TestMode == EGameTest.Skill) {
+			if ((player.CheckSkillDistance(tSkill) && player.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
 				player.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
 				result = player.ActiveSkill(player.gameObject);
@@ -3067,6 +3069,10 @@ public class GameController : KnightSingleton<GameController>
 		if (p != null && Situation != EGameSituation.End) {
 			p.IsChangeColor = true;
 			IsReboundTime = false;
+			if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
+				BallState = EBallState.CanSteal;	
+			else
+				BallState = EBallState.None;	
 			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {
@@ -3712,7 +3718,6 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsScorePass(int team)
     {
-//		if(GameData.DStageData.ContainsKey(StageID))
 		if(StageTable.Ins.HasByID(StageID))
         {
 			int self = team;
@@ -3739,7 +3744,6 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsConditionPass (PlayerBehaviour player)
     {
-//		if(GameData.DStageData.ContainsKey(StageID))
 		if(StageTable.Ins.HasByID(StageID))
         {
 			if(StageHintBit[2] > 0) 
@@ -3811,6 +3815,8 @@ public class GameController : KnightSingleton<GameController>
     {
 		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter != null)
 			team = Shooter.Team.GetHashCode();
+
+		BallState = EBallState.None;
 
 		int score = 2;
 		if (ShootDistance >= GameConst.TreePointDistance) {

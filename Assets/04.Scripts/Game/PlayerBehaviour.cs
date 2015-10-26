@@ -3366,14 +3366,19 @@ public class PlayerBehaviour : MonoBehaviour
 		skillController.AddSkillAttribute(this, activeSkill);
 	}
 
-	public bool CheckSkill (TSkill tSkill) {
+	public bool CheckSkillDistance (TSkill tSkill) {
 		bool result = false;
 		if(skillController.GetActiveSkillTarget(this, tSkill) != null && skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
 			for(int i=0; i<skillController.GetActiveSkillTarget(this, tSkill).Count; i++)
-				if(skillController.CheckSkill(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill)[i])) 
+				if(skillController.CheckSkillDistance(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill)[i])) 
 						result = true;
 		return result;
 	}
+
+	public bool CheckSkillKind (TSkill tSkill) {
+		return skillController.CheckSkillKind(tSkill);
+	}
+
 
 	public TSkill ActiveSkillUsed {
 		get {return skillController.ActiveSkillUsed;}

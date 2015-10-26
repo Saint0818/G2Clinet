@@ -560,6 +560,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.localPosition = Vector3.zero;
 				RealBall.transform.eulerAngles = dummy.eulerAngles;
 				GameController.Get.IsReboundTime = true;
+				GameController.Get.BallState = EBallState.None;
 				break;
 			case EPlayerState.BasketActionEnd:
 				if(GameStart.Get.IsDebugAnimation) {
@@ -576,6 +577,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(Vector3.right * 50, ForceMode.Impulse);
 				GameController.Get.Passer = null;
+				GameController.Get.BallState = EBallState.None;
 				break;
 			case EPlayerState.BasketActionNoScoreEnd:
 				if(GameStart.Get.IsDebugAnimation)
@@ -589,6 +591,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBall.transform.eulerAngles = dummy.eulerAngles;	
 				RealBallRigidbody.AddRelativeForce(new Vector3(1,0,0)* (70 + GameController.Get.ShootDistance * 2),ForceMode.Impulse);
 				GameController.Get.Passer = null;
+				GameController.Get.BallState = EBallState.CanRebound;
 				break;
 			}
 		}
@@ -623,7 +626,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-//				mRealBallSFX.SetActive(false);
                 HideBallSFX();
 				
 				break;
@@ -709,6 +711,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Dunk0:
+				GameController.Get.BallState = EBallState.CanDunkBlock;
 				realBallCollider.enabled = true;
 				RealBallRigidbody.isKinematic = true;
 				RealBallRigidbody.useGravity = false;
@@ -718,7 +721,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				
 				RealBall.transform.localEulerAngles = Vector3.zero;
                 RealBallTrigger.SetBoxColliderEnable(false);
-//                mRealBallSFX.SetActive(false);
                 HideBallSFX();
 
 				break;
@@ -757,7 +759,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				RealBallRigidbody.isKinematic = true;
 				RealBall.transform.localEulerAngles = Vector3.zero;
 				RealBallTrigger.SetBoxColliderEnable(false);
-//				mRealBallSFX.SetActive(false);
                 HideBallSFX();
 				break;
 		}
@@ -809,6 +810,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void ResetBasketEntra() {
 		LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, false);
 		GameController.Get.IsReboundTime = false;
+		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) 
+			GameController.Get.BallState = EBallState.CanSteal;
+		 else 
+			GameController.Get.BallState = EBallState.None;
+
 		for (int i = 0; i < 2; i ++) {
 			BasketAirBall[i].Into = false;
 			for (int j = 0; j < 2; j ++)

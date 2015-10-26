@@ -57,7 +57,11 @@ public class SkillController : MonoBehaviour {
 				if(executePlayer.Attribute.ActiveSkills[i].ID > 0 && GameController.Get.IsStart)
 				{
 					CourtMgr.Get.SkillArea(executePlayer.Team.GetHashCode(), executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]));
-					UIGame.Get.ShowSkillEnableUI(GameController.Get.IsStart, i, executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]), executePlayer.CheckSkill(executePlayer.Attribute.ActiveSkills[i]));
+					UIGame.Get.ShowSkillEnableUI(GameController.Get.IsStart, 
+					                             i, 
+					                             executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]), 
+					                             (executePlayer.CheckSkillDistance(executePlayer.Attribute.ActiveSkills[i]) && executePlayer.CheckSkillKind(executePlayer.Attribute.ActiveSkills[i]))
+					                             );
 				}
 			}
 		}
@@ -241,58 +245,58 @@ public class SkillController : MonoBehaviour {
 			switch (GameController.Get.Situation) {
 			case EGameSituation.AttackGamer:
 				if(player.Team == ETeamKind.Self) {
-					if (kind >= 1 && kind <= 7 && player.IsBallOwner )
+					if (kind >= 10 && kind <= 70 && player.IsBallOwner )
 						return true;
 					
-					if ((kind == 11 || kind == 18) && player.IsBallOwner) 
+					if ((kind == 110 || kind == 180) && player.IsBallOwner) 
 						return true;
 					
-					if (kind == 17 && !player.IsBallOwner) 
+					if (kind == 170 && !player.IsBallOwner) 
 						return true;
 					
-					if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					if (kind == 120 || kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210)
 						return true;
 					
 				} else {
-					if (kind == 16)
+					if (kind == 160)
 						return true;
 					
-					if (kind == 15 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
+					if (kind == 150 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
 						return true;
 					
-					if (kind == 17 && !player.IsBallOwner) 
+					if (kind == 170 && !player.IsBallOwner) 
 						return true;
 					
-					if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					if (kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210)
 						return true;
 				}	
 				
 				break;
 			case EGameSituation.AttackNPC:
 				if(player.Team == ETeamKind.Self) {
-					if (kind == 16)
+					if (kind == 160)
 						return true;
 					
-					if (kind == 15 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
+					if (kind == 150 && !player.IsBallOwner && GameController.Get.CanUseStealSkill) 
 						return true;
 					
-					if (kind == 17 && !player.IsBallOwner) 
+					if (kind == 170 && !player.IsBallOwner) 
 						return true;
 					
-					if (kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					if (kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210)
 						return true;
 					
 				} else  {
-					if (kind >= 1 && kind <= 7 && player.IsBallOwner )
+					if (kind >= 10 && kind <= 70 && player.IsBallOwner )
 						return true;
 					
-					if ((kind == 11 || kind == 18) && player.IsBallOwner) 
+					if ((kind == 110 || kind == 180) && player.IsBallOwner) 
 						return true;
 					
-					if (kind == 17 && !player.IsBallOwner) 
+					if (kind == 170 && !player.IsBallOwner) 
 						return true;
 					
-					if (kind == 12 || kind == 13 || kind == 14 || kind == 19 || kind == 20 || kind == 21)
+					if (kind == 120 || kind == 130 || kind == 140 || kind == 190 || kind == 200 || kind == 210)
 						return true;
 				}
 				
@@ -356,7 +360,7 @@ public class SkillController : MonoBehaviour {
 		}
 	}
 
-	public bool CheckSkill(PlayerBehaviour player, TSkill tSkill, GameObject target = null) {
+	public bool CheckSkillDistance(PlayerBehaviour player, TSkill tSkill, GameObject target = null) {
 		if (player.CanUseActiveSkill(tSkill) && player.Attribute.ActiveSkills.Count > 0 && tSkill.ID > 0) {
 			if (target) {
 				if(GameData.DSkillData[tSkill.ID].TargetKind != 1 && 
@@ -378,7 +382,6 @@ public class SkillController : MonoBehaviour {
 			} else
 				return true;
 		}
-		
 		return false;
 	}
 	
@@ -386,10 +389,10 @@ public class SkillController : MonoBehaviour {
 		TSkillData skill = GameData.DSkillData[tSkill.ID];
 		if(tSkill.ID >= GameConst.ID_LimitActive) {
 			if(player.Attribute.ActiveSkills.Count > 0) {
-				if(skill.Kind == 21 && skill.TargetKind == 3) {
+				if(skill.Kind == 210 && skill.TargetKind == 30) {
 					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
 						if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
-							if(CheckSkill(player, tSkill, GameController.Get.GamePlayers[i].gameObject)) {
+							if(CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].gameObject)) {
 								GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
 								                                                    skill.AttrKind, 
 								                                                    skill.Value(tSkill.Lv), 
@@ -410,6 +413,35 @@ public class SkillController : MonoBehaviour {
 			                         skill.Value(tSkill.Lv), 
 			                         skill.LifeTime(tSkill.Lv));
 		}
+	}
+	
+	
+	public bool CheckSkillKind (TSkill tSkill) {
+		if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
+			int kind = GameData.DSkillData[tSkill.ID].Kind;
+			switch (kind) {
+			case 140://Rebound
+				if(GameController.Get.BallState == EBallState.CanRebound)
+					return true;
+				break;
+			case 150://Steal
+				if(GameController.Get.BallState == EBallState.CanSteal)
+					return true;
+				break;
+			case 160://Block
+				if(GameController.Get.BallState == EBallState.CanBlock)
+					return true;
+				break;
+			case 161:
+				if(GameController.Get.BallState == EBallState.CanDunkBlock)
+					return true;
+				break;
+			default:
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
