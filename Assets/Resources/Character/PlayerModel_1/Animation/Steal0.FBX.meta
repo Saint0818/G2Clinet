@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0ffd77b4968b9e14c82f3ded6dcc9220
-timeCreated: 1445423288
+timeCreated: 1445850164
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .267890334
         functionName: AnimationEvent
         data: Stealing
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

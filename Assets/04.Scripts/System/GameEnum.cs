@@ -104,8 +104,7 @@ namespace GameEnum {
 		DunkFallBall,
 		ElbowEnd,
 		CatchEnd,
-		FakeShootEnd,
-		AnimationEnd
+		FakeShootEnd
 	}
 
 	public enum ETestActive {

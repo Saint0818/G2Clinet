@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ad066cbb1ef2509489b1c1d7e1ac347b
-timeCreated: 1445423183
+timeCreated: 1445849951
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .0632134378
         functionName: EffectEvent
         data: ShakeFX_0
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .99999994
-        functionName: AnimationEvent
-        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
