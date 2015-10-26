@@ -40,8 +40,8 @@ public static class URLConst {
 	public const string Revenge = "revenge";
 	public const string PVPStart = "pvpstart";
 	public const string PVPEnd = "pvpend";
-	public const string StageStart = "pvestart";
-	public const string StageEnd = "pveend";
+	public const string PVEStart = "pvestart";
+	public const string PVEEnd = "pveend";
 	public const string Tutorial = "tutorial";
 	public const string PlayerKind = "playerkind";
 	public const string AutoPower = "autopower";

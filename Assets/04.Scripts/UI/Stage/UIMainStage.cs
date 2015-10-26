@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using GamePlayEnum;
+using GameStruct;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -33,6 +35,8 @@ public class UIMainStage : UIBase
         {4, 2000004},
         {9, 2000005}
     };
+
+    private int mCurrentStageID;
 
     private UIMainStageImpl mImpl;
 
@@ -72,9 +76,50 @@ public class UIMainStage : UIBase
 
         if(StageTable.Ins.HasByID(stageID))
         {
-            GameData.StageID = stageID;
+            StageData stageData = StageTable.Ins.GetByID(stageID);
 
-            StageData stageData = StageTable.Ins.GetByID(GameData.StageID);
+            if(verifyPlayer(stageData.CostKind, stageData.CostValue))
+                startPVE(stageID);
+            else
+                Debug.LogWarningFormat("Player can't enter game!");
+        }
+        else
+            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
+    }
+
+    private bool verifyPlayer(StageData.ECostKind costKind, int costValue)
+    {
+        if(costKind == StageData.ECostKind.Stamina)
+            return GameData.Team.Power >= costValue;
+
+        throw new NotImplementedException();
+    }
+
+    private void startPVE(int stageID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("StageID", stageID);
+        mCurrentStageID = stageID;
+        SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
+    }
+
+    private class PVEInfo
+    {
+        public int NewPower;
+    }
+
+    private void waitPVEStart(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitPVEStart, ok:{0}", ok);
+
+        if(ok)
+        {
+            var info = JsonConvert.DeserializeObject<PVEInfo>(www.text);
+            GameData.Team.Power = info.NewPower;
+
+            GameData.StageID = mCurrentStageID;
+            var stageData = StageTable.Ins.GetByID(mCurrentStageID);
+
             GameStart.Get.CourtMode = (ECourtMode)stageData.CourtMode;
             GameStart.Get.WinMode = (EWinMode)stageData.WinMode;
 
@@ -89,7 +134,7 @@ public class UIMainStage : UIBase
             Hide();
         }
         else
-            Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
+            UIHint.Get.ShowHint("Start PVE fail!", Color.red);
     }
 
     /// <summary>

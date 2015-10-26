@@ -1,4 +1,4 @@
-using GameEnum;
+﻿using GameEnum;
 
 public struct StageData
 {
@@ -7,11 +7,11 @@ public struct StageData
     public int Order;
 
     /// <summary>
-    /// 1.�ǲ�
-    /// 2.�o��
-    /// 3.���u
-    /// 4.����
-    /// 9.�D���]�����
+    /// 1.傳統
+    /// 2.得分
+    /// 3.防守
+    /// 4.攻擊
+    /// 9.挑戰魔王對手
     /// </summary>
     public int Kind;
      
@@ -21,6 +21,23 @@ public struct StageData
     public int Bit2Num;
     public int Bit3Num;
     public int CourtMode;
+
+    public enum ECostKind
+    {
+        Stamina = 0, // 體力.
+        Activity = 1, // 活動.
+        Challenger = 2 // 踢館.
+    }
+    /// <summary>
+    /// <para> 進入關卡要消耗的數值種類. </para>
+    /// </summary>
+    public ECostKind CostKind;
+
+    /// <summary>
+    /// 進入關卡要消耗的數值.
+    /// </summary>
+    public int CostValue;
+
     public int WinMode;
     public int WinValue;
     public int FriendNumber;
