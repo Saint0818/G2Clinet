@@ -45,39 +45,5 @@ public class GameStart : KnightSingleton<GameStart> {
 			SendHttp.Get.CheckServerData(ConnectToServer);
 			break;
 		}
-
-//		StageJoin(101);
-		GameData.StageID = -1;
 	}
-
-//	public void StageJoin(int id)
-//    {
-//		if(StageTable.Ins.HasByID(id))
-//        {
-//			int[] stageHint = StageTable.Ins.GetByID(id).HintBit;
-//			GameData.StageID = id;
-//			
-////			GameStart.Get.CourtMode = (ECourtMode)GameData.DStageData[id].CourtMode;
-//
-//			if(stageHint[0] == 0 && stageHint[1] == 0)
-//				WinMode = EWinMode.None;
-//			else if(stageHint[0] == 0 && stageHint[1] == 1)
-//				WinMode = EWinMode.NoTimeScore;
-//			else if(stageHint[0] == 0 && stageHint[1] == 2)
-//				WinMode = EWinMode.NoTimeLostScore;
-//			else if(stageHint[0] == 0 && stageHint[1] == 3)
-//				WinMode = EWinMode.NoTimeScoreCompare;
-//			else if(stageHint[0] == 1 && stageHint[1] == 0)
-//				WinMode = EWinMode.TimeNoScore;
-//			else if(stageHint[0] == 1 && stageHint[1] == 1)
-//				WinMode = EWinMode.TimeScore;
-//			else if(stageHint[0] == 1 && stageHint[1] == 2)
-//				WinMode = EWinMode.TimeLostScore;
-//			else if(stageHint[0] == 1 && stageHint[1] == 3)
-//				WinMode = EWinMode.TimeScoreCompare;
-//
-//			GameWinTimeValue = StageTable.Ins.GetByID(id).Bit0Num;
-//			GameWinValue = StageTable.Ins.GetByID(id).Bit1Num;
-//		}
-//	}
 }

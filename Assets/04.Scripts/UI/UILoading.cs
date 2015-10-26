@@ -257,7 +257,17 @@ public class UILoading : UIBase {
 
 	public void OnNext() {
 		UIShow(false);
-		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show);
+
+		if (GameStart.Get.TestMode == EGameTest.None)
+			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+		else {
+			CourtMgr.Get.ShowEnd();
+			GameController.Get.InitIngameAnimator();
+			GameController.Get.SetBornPositions();
+			GameController.Get.ChangeSituation(EGameSituation.JumpBall);
+			AIController.Get.ChangeState(EGameSituation.JumpBall);
+			CameraMgr.Get.ShowPlayerInfoCamera (true);
+		}
 	}
 
 	public float ProgressValue{

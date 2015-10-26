@@ -133,7 +133,8 @@ namespace GameStruct {
 		public int BodyType;
 		public int MaxSkillSpace;
         public int AISkillLv;
-		public int SkillPage;// 0 1 2 3 4 
+		public int SkillPage;// 0 1 2 3 4
+		public int NowStageID;
 
 		public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
@@ -172,6 +173,7 @@ namespace GameStruct {
 			MaxSkillSpace = 0;
 		    AISkillLv = 0;
 			SkillPage = 0;
+			NowStageID = 0;
 
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();

@@ -14,5 +14,6 @@ public enum EGameSituation
     NPCPickBall    = 7, // 對方得分後, 電腦球隊撿球.
     InboundsNPC    = 8, // 電腦球隊做邊界發球.
     End            = 9, // 比賽結束.
-    SpecialAction  = 10 // 球員特殊演出, 球員得分後會進到此狀態. 比如像 Jason Terry 雙手張開像飛機的動作.
+    SpecialAction  = 10,// 球員特殊演出, 球員得分後會進到此狀態. 比如像 Jason Terry 雙手張開像飛機的動作.
+	GamePlayEvent  = 11 // 比賽中觸發事件
 }

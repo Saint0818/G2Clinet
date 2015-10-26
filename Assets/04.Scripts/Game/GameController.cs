@@ -299,7 +299,8 @@ public class GameController : KnightSingleton<GameController>
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
-		if (SendHttp.Get.CheckNetwork()) {
+
+		if (GameStart.Get.TestMode == EGameTest.None && SendHttp.Get.CheckNetwork()) {
 			string str = PlayerPrefs.GetString(SettingText.GameRecord);
 			if (str != "") {
 				WWWForm form = new WWWForm();
@@ -315,9 +316,15 @@ public class GameController : KnightSingleton<GameController>
 			if (PlayerList[i]) 
 				PlayerList[i].GameRecord.Init();
 
-		if (GameStart.Get.TestMode == EGameTest.Rebound) {
+		switch (GameStart.Get.TestMode) {
+		case EGameTest.Rebound:
 			CourtMgr.Get.RealBallRigidbody.isKinematic = true;
 			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
+			break;
+		case EGameTest.Edit:
+			CourtMgr.Get.RealBall.SetActive(false);
+			UIGame.UIShow(false);
+			break;
 		}
 
 		ChangeSituation(EGameSituation.JumpBall);
@@ -813,7 +820,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-		if (upload) {
+		if (upload && GameStart.Get.TestMode == EGameTest.None) {
 			string str = JsonConvert.SerializeObject(GameRecord);
 			if (SendHttp.Get.CheckNetwork()) {
 				WWWForm form = new WWWForm();
@@ -1227,20 +1234,16 @@ public class GameController : KnightSingleton<GameController>
                 }
             }
         }
-        
-//        return true;
     }
     
     public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
     {
-		if(Situation != EGameSituation.End || newSituation == EGameSituation.None || 
+		if (Situation != EGameSituation.End || newSituation == EGameSituation.None || 
            newSituation == EGameSituation.Opening)
         {
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
             {
-//                waitStealTime = 0;
-//                mStealCDTimer.Stop();
                 CourtMgr.Get.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
@@ -1272,7 +1275,7 @@ public class GameController : KnightSingleton<GameController>
 						break;
 					}
 
-                    PlayerList [i].situation = newSituation;
+					PlayerList [i].situation = newSituation;
                 }
             }
 
@@ -1299,10 +1302,8 @@ public class GameController : KnightSingleton<GameController>
 									moveData.Shooting = tacticalActions [j].Shooting;
 									moveData.TacticalName = attackTactical.FileName;
 									if(npc.Team == ETeamKind.Self)
-//										moveData.Target = new Vector2(tacticalActions [j].x, tacticalActions [j].z);
 										moveData.SetTarget(tacticalActions[j].x, tacticalActions[j].z);
 									else
-//										moveData.Target = new Vector2(tacticalActions [j].x, -tacticalActions [j].z);
 										moveData.SetTarget(tacticalActions[j].x, -tacticalActions[j].z);
 
 									if (BallOwner != null && BallOwner != npc)
@@ -3073,7 +3074,8 @@ public class GameController : KnightSingleton<GameController>
 			if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
 				BallState = EBallState.CanSteal;	
 			else
-				BallState = EBallState.None;	
+				BallState = EBallState.None;
+					
 			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {
@@ -4089,7 +4091,6 @@ public class GameController : KnightSingleton<GameController>
         if (PlayerList.Count > index)
         {
 			moveData.Clear();
-//			moveData.Target = new Vector2(ActionPosition.x, ActionPosition.z);
 			moveData.SetTarget(actionPosition.x, actionPosition.z);
 			moveData.Speedup = actionPosition.Speedup;
 			moveData.Catcher = actionPosition.Catcher;

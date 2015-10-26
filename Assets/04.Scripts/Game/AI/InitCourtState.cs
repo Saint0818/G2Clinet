@@ -14,7 +14,6 @@ namespace AI
             {
                 UIGame.Get.UIState(EUISituation.ShowTwo);
 
-                GameController.Get.Situation = EGameSituation.Opening;
                 GameController.Get.ChangeSituation(EGameSituation.Opening);
                 Parent.ChangeState(EGameSituation.Opening);
 

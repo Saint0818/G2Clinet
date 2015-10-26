@@ -68,4 +68,28 @@ namespace GamePlayStruct {
 		public float ShootPositionY;
 		public float ShootPositionZ;
 	}
+
+	public struct TToturialAction {
+		public int Team;
+		public int Index;
+		public int MoveKind;
+		public TTacticalAction Action;
+	}
+
+	public struct TGamePlayEvent {
+		public int Kind;
+		public int ToturialID;
+		public int UIKind;
+		public int FinishCondition;
+		public int ConditionOperator;
+		public int ConditionValue;
+		public int NextEventID;
+
+		public TToturialAction[] Actions;
+	}
+
+	public struct TGamePlayToturial {
+		public int ID;
+		public TGamePlayEvent[] Events;
+	}
 }
