@@ -291,10 +291,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void ShowArrowOfAction (bool isShow, Transform parent = null, float dis = 0) {
 		SkillArrowOfAction.transform.parent = parent;
 		if(parent)
-			SkillArrowOfAction.transform.localPosition = new Vector3(0, 0.1f, 0);
+			SkillArrowOfAction.transform.localPosition = new Vector3(-1, 0.1f, 0);
 		SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
 		if(textureArrow)
-			textureArrow.SetRect(0, 0, 50 ,dis);
+			textureArrow.SetRect(0, 0, 200 ,dis * 100);
 		SkillArrowOfAction.gameObject.SetActive(isShow);
 	}
 
