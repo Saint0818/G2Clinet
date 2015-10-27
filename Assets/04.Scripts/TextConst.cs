@@ -100,11 +100,11 @@ public static class TextConst
 			AddString (203, "確定售出？", "");
 			AddString (204, "牌組變更，是否儲存？？", "");
 
-            AddString(2000001, "傳統");
-            AddString(2000002, "得分");
-            AddString(2000003, "防守");
-            AddString(2000004, "攻擊");
-            AddString(2000005, "挑戰魔王對手");
+			AddString(2000001, "時限內得分超過對手");
+			AddString(2000002, "時限內大量得分");
+			AddString(2000003, "時限內降低失分");
+			AddString(2000004, "時限內攻擊數量達到需求");
+			AddString(2000005, "挑戰章節關主");
 
             AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");

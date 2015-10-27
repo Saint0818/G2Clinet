@@ -1,6 +1,65 @@
 [
     {
+        "id": 100,
+        "chapter": 0,
+        "order": "1",
+        "nametw": "頂尖對決",
+        "kind": "1",
+        "hint": "0011",
+        "bit1num": 7,
+        "bit0num": 10,
+        "courtmode": 0,
+        "costkind": 0,
+        "costvalue": 0,
+        "challengenum": 0,
+        "money": 100,
+        "exp": 5,
+        "offlineplayer": 2,
+        "playerid1": 1,
+        "playerid2": 2,
+        "playerid3": 3
+    },
+    {
         "id": 101,
+        "chapter": 0,
+        "order": "2",
+        "nametw": "基本練習",
+        "kind": "2",
+        "hint": "0010",
+        "bit1num": 4,
+        "courtmode": 0,
+        "costkind": 0,
+        "costvalue": 0,
+        "challengenum": 0,
+        "money": 100,
+        "exp": 5,
+        "offlineplayer": 2,
+        "playerid1": 1,
+        "playerid2": 2,
+        "playerid3": 3
+    },
+    {
+        "id": 102,
+        "chapter": 0,
+        "order": "3",
+        "nametw": "搭配練習",
+        "kind": "3",
+        "hint": "0710",
+        "bit2num": 1,
+        "bit1num": 2,
+        "courtmode": 0,
+        "costkind": 0,
+        "costvalue": 0,
+        "challengenum": 0,
+        "money": 100,
+        "exp": 5,
+        "offlineplayer": 2,
+        "playerid1": 1,
+        "playerid2": 2,
+        "playerid3": 3
+    },
+    {
+        "id": 103,
         "chapter": 1,
         "order": "1",
         "nametw": "初試啼聲",
@@ -23,13 +82,13 @@
         "namecn": "初试啼声",
         "nameen": "Debut",
         "namejp": "デビューします",
-        "explaintw": "傳統競賽",
+        "explaintw": "時限內得分超過對手",
         "explaincn": "传统竞赛",
         "explainen": "Traditional contest",
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 102,
+        "id": 104,
         "chapter": 1,
         "order": "2",
         "nametw": "小試身手",
@@ -53,13 +112,13 @@
         "namecn": "小试身手",
         "nameen": "Small test their skills",
         "namejp": "小テストのスキル",
-        "explaintw": "得分競賽",
+        "explaintw": "時限內得分達到需求",
         "explaincn": "得分竞赛",
         "explainen": "Score contest",
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 103,
+        "id": 105,
         "chapter": 1,
         "order": "3",
         "nametw": "漸入佳境",
@@ -89,7 +148,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 104,
+        "id": 106,
         "chapter": 1,
         "order": "4",
         "nametw": "稱霸一方",
@@ -118,7 +177,7 @@
         "explainjp": "主な課題セクションオフ"
     },
     {
-        "id": 105,
+        "id": 107,
         "chapter": 2,
         "order": "1",
         "nametw": "初試啼聲",
@@ -147,7 +206,7 @@
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 106,
+        "id": 108,
         "chapter": 2,
         "order": "2",
         "nametw": "小試身手",
@@ -176,7 +235,7 @@
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 107,
+        "id": 109,
         "chapter": 2,
         "order": "3",
         "nametw": "漸入佳境",
@@ -205,7 +264,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 108,
+        "id": 110,
         "chapter": 2,
         "order": "4",
         "nametw": "稱霸一方",
@@ -236,7 +295,7 @@
         "explainjp": "主な課題セクションオフ"
     },
     {
-        "id": 109,
+        "id": 111,
         "chapter": 3,
         "order": "1",
         "nametw": "初試啼聲",
@@ -264,7 +323,7 @@
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 110,
+        "id": 112,
         "chapter": 3,
         "order": "2",
         "nametw": "小試身手",
@@ -292,7 +351,7 @@
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 111,
+        "id": 113,
         "chapter": 3,
         "order": "3",
         "nametw": "漸入佳境",
@@ -320,7 +379,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 112,
+        "id": 114,
         "chapter": 3,
         "order": "4",
         "nametw": "稱霸一方",
