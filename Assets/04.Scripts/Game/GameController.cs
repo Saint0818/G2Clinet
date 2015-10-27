@@ -2069,7 +2069,7 @@ public class GameController : KnightSingleton<GameController>
 					} else
 					if(dis <= GameConst.FastPassDistance)
 					{
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass4, player.transform.position);
+						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, player.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
 					{

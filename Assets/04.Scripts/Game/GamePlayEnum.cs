@@ -90,7 +90,7 @@ namespace GamePlayEnum {
 		Pass0,
 		Pass2,
 		Pass1,
-		Pass4,
+		Pass5,
 		PickBall,
 		Push0,
 		Rebound0,

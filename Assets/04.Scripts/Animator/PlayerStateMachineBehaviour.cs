@@ -97,7 +97,7 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		//Block, Dunk, GotSteal, Shoot, Steal, TipIn, Layup, KnockDown, Push, Fall, Show, Pass, Intercept, MoveDodge, Elbow, Rebound, Catch, FakeShoot
 		if(player){
 			player.AnimationEnd(state);
-			Debug.LogWarning(player.name + ".state : " + state.ToString() + " AnimationEnd");
+//			Debug.LogWarning(player.name + ".state : " + state.ToString() + " AnimationEnd");
 		}
 	}
 

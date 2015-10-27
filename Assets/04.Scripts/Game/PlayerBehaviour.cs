@@ -2397,9 +2397,11 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.HoldBall:
+				stateNo = 0;
                 PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AddActionFlag(EActionFlag.IsHoldBall);
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 isCanCatchBall = false;
                 Result = true;
                 break;
