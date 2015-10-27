@@ -103,8 +103,10 @@ public class UIMainStage : UIBase
         SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
     }
 
+    [UsedImplicitly]
     private class PVEInfo
     {
+        [UsedImplicitly]
         public int NewPower;
     }
 

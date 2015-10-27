@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [DisallowMultipleComponent]
 public class UIMainLobbyImpl : MonoBehaviour
@@ -16,6 +17,7 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UILabel DiamondLabel;
     public UILabel PowerLabel;
     public UIInput NameInput;
+    public UISprite PlayerIconSprite;
 	public Animator UIAnimator;
 	private bool isEnable;
 
@@ -43,6 +45,11 @@ public class UIMainLobbyImpl : MonoBehaviour
     public string PlayerName
     {
         set { NameInput.value = value; }
+    }
+
+    public string PlayerIcon
+    {
+        set { PlayerIconSprite.spriteName = value; }
     }
 
     /// <summary>

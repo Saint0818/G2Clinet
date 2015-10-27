@@ -130,8 +130,8 @@ namespace GameStruct {
 		public float Steal;	//kind10
 		public float Dribble; //kind11
 		public float Pass; //kind12
-		public int BodyType;
-		public int MaxSkillSpace;
+		public int BodyType; // 2:後衛, 1:前鋒, 0:中鋒.
+        public int MaxSkillSpace;
         public int AISkillLv;
 		public int SkillPage;// 0 1 2 3 4
 		public int NowStageID;

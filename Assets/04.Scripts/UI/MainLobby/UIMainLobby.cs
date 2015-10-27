@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -17,6 +18,13 @@ public class UIMainLobby : UIBase
 {
     private static UIMainLobby instance;
     private const string UIName = "UIMainLobby";
+
+    private readonly Dictionary<int, string> mPlayerIcons = new Dictionary<int, string>
+    {
+        {0, "Hank"}, // 中鋒.
+        {1, "Nick"}, // 前鋒.
+        {2, "Emma"}, // 後衛.
+    };
 
     public UIMainLobbyImpl Impl { get; private set; }
 
@@ -41,6 +49,7 @@ public class UIMainLobby : UIBase
         Impl.Diamond = GameData.Team.Diamond;
         Impl.Power = GameData.Team.Power;
         Impl.PlayerName = GameData.Team.Player.Name;
+        Impl.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
     }
 
     public void Hide()
