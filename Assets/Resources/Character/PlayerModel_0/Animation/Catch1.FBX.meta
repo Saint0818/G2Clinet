@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: aaa08936f3df14d43aa0571c6b69a94c
-timeCreated: 1445916295
+timeCreated: 1445936366
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -153,22 +153,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0
-        functionName: PlaySound
-        data: SD_CatchBall
-        objectReferenceParameter: {fileID: 8300000, guid: a025e2d6f6594e54bb85a9267824baae,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .99999994
-        functionName: AnimationEvent
-        data: CatchEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

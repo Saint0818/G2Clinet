@@ -728,6 +728,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Dunk0:
+			case EPlayerState.Dunk1:
 				GameController.Get.BallState = EBallState.CanDunkBlock;
 				realBallCollider.enabled = true;
 				RealBallRigidbody.isKinematic = true;

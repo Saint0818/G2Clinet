@@ -238,7 +238,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .828625262
+      - time: .82967031
         functionName: AnimationEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}

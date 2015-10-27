@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b95fd5f0a38934242b23ec3040f95489
-timeCreated: 1445916320
+timeCreated: 1445936397
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -157,13 +157,6 @@ ModelImporter:
       - time: .633833408
         functionName: AnimationEvent
         data: FakeShootBlockMoment
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: AnimationEvent
-        data: FakeShootEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

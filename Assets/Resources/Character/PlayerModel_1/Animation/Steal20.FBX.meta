@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2e4a513be74b62c45821d9f7d464109b
-timeCreated: 1445927237
+timeCreated: 1445936474
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,13 +154,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .00955414027
-        functionName: MoveEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .75
-        intParameter: 0
-        messageOptions: 0
       - time: .410708487
         functionName: AnimationEvent
         data: Stealing
@@ -175,7 +168,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .500941634
+      - time: .5
         functionName: AnimationEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}

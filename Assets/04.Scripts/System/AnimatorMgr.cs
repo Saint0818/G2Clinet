@@ -29,7 +29,8 @@ public enum EAnimatorState
 	Run,
 	Shoot,
 	Steal,
-	Show
+	Show,
+	BlockCatch
 }
 
 public enum EPlayerState
@@ -53,6 +54,7 @@ public enum EPlayerState
 	Dribble2,
 	Dribble3,
 	Dunk0,
+	Dunk1,
 	Dunk2 = 611,
 	Dunk4 = 613,
 	Dunk6 = 615,
@@ -135,6 +137,43 @@ public enum EPlayerState
 	Ending10,
 	KnockDown0,
 	KnockDown1
+}
+
+public enum EAnimationEventString{
+	ActiveSkillEnd,
+	Stealing,
+	GotStealing,
+	FakeShootBlockMoment,
+	BlockMoment,
+	AirPassMoment,
+	DoubleClickMoment,
+	BlockCatchMomentStart,
+	BlockCatchMomentEnd,
+	BlockJump,
+	Shooting,
+	Passing,
+	PickUp,
+	PushCalculateStart,
+	ElbowCalculateStart,
+	BlockCalculateStart,
+	BlockCalculateEnd,
+	CloneMesh,
+	DunkBasketStart,
+	OnlyScore,
+	DunkFallBall
+}
+
+public enum EanimationEventFunction
+{
+	AnimationEvent,
+	TimeScale,
+	ZoomIn,
+	ZoomOut,
+	MoveEvent,
+	SetBallEvent,
+	SkillEvent,
+	EffectEvent,
+	PlaySound
 }
 
 public static class StateChecker {
@@ -223,17 +262,6 @@ public static class StateChecker {
 			ShowStates.Add(EPlayerState.Show202, true);
 			ShowStates.Add(EPlayerState.Show1001, true);
 			ShowStates.Add(EPlayerState.Show1003, true);
-			
-//			LoopStates.Add(EPlayerState.Idle,true);
-//			LoopStates.Add(EPlayerState.Run0,true);
-//			LoopStates.Add(EPlayerState.Run1,true);
-//			LoopStates.Add(EPlayerState.Run2,true);
-//			LoopStates.Add(EPlayerState.Defence0,true);
-//			LoopStates.Add(EPlayerState.Defence1,true);
-//			LoopStates.Add(EPlayerState.Dribble0,true);
-//			LoopStates.Add(EPlayerState.Dribble1,true);
-//			LoopStates.Add(EPlayerState.Dribble2,true);
-//			LoopStates.Add(EPlayerState.Dribble3,true);
 			
 			PassStates.Add(EPlayerState.Pass0, true);
 			PassStates.Add(EPlayerState.Pass1, true);

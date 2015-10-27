@@ -62,51 +62,6 @@ namespace GameEnum {
 
 	}
 
-	public enum EanimationEventFunction
-	{
-		AnimationEvent,
-		TimeScale,
-		ZoomIn,
-		ZoomOut,
-		MoveEvent,
-		SetBallEvent,
-		SkillEvent,
-		EffectEvent,
-		PlaySound
-	}
-
-	public enum EAnimationEventString{
-		Stealing,
-		GotStealing,
-		FakeShootBlockMoment,
-		BlockMoment,
-		AirPassMoment,
-		DoubleClickMoment,
-		BuffEnd,
-		BlockCatchMomentStart,
-		BlockCatchMomentEnd,
-		BlockJump,
-		BlockCatchingEnd,
-		Shooting,
-		MoveDodgeEnd,
-		Passing,
-		PassEnd,
-		ShowEnd,
-		PickUp,
-		PickEnd,
-		PushCalculateStart,
-		ElbowCalculateStart,
-		BlockCalculateStart,
-		BlockCalculateEnd,
-		CloneMesh,
-		DunkBasketStart,
-		OnlyScore,
-		DunkFallBall,
-		ElbowEnd,
-		CatchEnd,
-		FakeShootEnd
-	}
-
 	public enum ETestActive {
 		Block1 = 11600,
 		Buff20 = 12100,

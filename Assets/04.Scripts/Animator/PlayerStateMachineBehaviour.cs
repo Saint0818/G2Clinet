@@ -74,6 +74,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 				if(StateNo == 20)
 					player.StartActiveCamera();
 				break;
+			case EAnimatorState.Show:
+				break;
 		}
 
 //		Debug.Log (animator.name.ToString() + ".OnStateMachineEnter");
@@ -92,46 +94,10 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		if(IsLoop)
 			return;
 
-		if(player)
-			Debug.LogWarning(player.name.ToString() + ".state : " + state.ToString() + " OnStateMachineExit");
-
-		switch (state) {
-			case EAnimatorState.Catch:
-			case EAnimatorState.Defence:
-			case EAnimatorState.Dribble:
-			case EAnimatorState.Elbow:
-			case EAnimatorState.FakeShoot:
-			case EAnimatorState.HoldBall:
-			case EAnimatorState.Idle:
-			case EAnimatorState.Intercept:
-			case EAnimatorState.MoveDodge:
-			case EAnimatorState.Pick:
-			case EAnimatorState.Pass:
-			case EAnimatorState.Rebound:
-			case EAnimatorState.Run:
-				break;
-
-			case EAnimatorState.Buff:
-				if(player)
-					player.BuffEnd();
-				break;
-
-			case EAnimatorState.Block:
-			case EAnimatorState.Dunk:
-			case EAnimatorState.GotSteal:
-			case EAnimatorState.Shoot:
-			case EAnimatorState.Steal:
-			case EAnimatorState.TipIn:
-			case EAnimatorState.Layup:
-			case EAnimatorState.KnockDown:
-			case EAnimatorState.Push:
-			case EAnimatorState.Fall:
-			case EAnimatorState.Show:
-				if(player){
-					player.AnimationEnd();
-					Debug.LogWarning(player.name + ".state : " + state.ToString() + " AnimationEnd");
-				}
-				break;
+		//Block, Dunk, GotSteal, Shoot, Steal, TipIn, Layup, KnockDown, Push, Fall, Show, Pass, Intercept, MoveDodge, Elbow, Rebound, Catch, FakeShoot
+		if(player){
+			player.AnimationEnd(state);
+			Debug.LogWarning(player.name + ".state : " + state.ToString() + " AnimationEnd");
 		}
 	}
 
