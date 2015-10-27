@@ -409,6 +409,7 @@ public class UIGame : UIBase {
 		isShowSkillRange = false;
 		isShowStealRange = false;
 		CourtMgr.Get.ShowRangeOfAction(false);
+		CourtMgr.Get.ShowArrowOfAction(false);
 	}
 	
 	private void initLine() {
@@ -442,6 +443,16 @@ public class UIGame : UIBase {
 		return null;
 	}
 
+	private bool isCircleRange{
+		get {
+			if(GameData.DSkillData.ContainsKey(GameController.Get.Joysticker.ActiveSkillUsed.ID)) {
+				if(GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].Kind == 171)
+					return false;
+			}
+			return true;
+		}
+	}
+
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
 
@@ -452,12 +463,20 @@ public class UIGame : UIBase {
 				isShowElbowRange = !state;
 				isShowPushRange = !state;
 				isShowStealRange = !state;
+
 				if(getSkillRangeTarget() != null){
 					skillRangeTarget = getSkillRangeTarget().transform;
-					CourtMgr.Get.ShowRangeOfAction(state, 
-					                               skillRangeTarget, 
-					                               360, 
-					                               GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].Distance(GameController.Get.Joysticker.ActiveSkillUsed.Lv)); 
+					if(isCircleRange) {
+						CourtMgr.Get.ShowRangeOfAction(state, 
+						                               skillRangeTarget, 
+						                               360, 
+						                               GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].Distance(GameController.Get.Joysticker.ActiveSkillUsed.Lv)); 
+					} else {
+						//Draw Arrow
+						CourtMgr.Get.ShowArrowOfAction(state,
+						                               skillRangeTarget,
+						                               GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].Distance(GameController.Get.Joysticker.ActiveSkillUsed.Lv));
+					}
 				}
 				break;
 			case EUIRangeType.Elbow:
@@ -505,7 +524,7 @@ public class UIGame : UIBase {
 			}
 		} else {
 			CourtMgr.Get.ShowRangeOfAction(state);
-
+			CourtMgr.Get.ShowArrowOfAction(state);
 		}
 	}
 

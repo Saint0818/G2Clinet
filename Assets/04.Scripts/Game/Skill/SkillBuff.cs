@@ -79,16 +79,18 @@ namespace  SkillBuffSpace {
 		}
 
 		public void UpdateBuff () {
-			for (int i=0; i<buffInfo.Length; i++) {
-				if(buffInfo[i].LifeTime > 0) {
-					buffInfo[i].LifeTime -= Time.deltaTime * TimerMgr.Get.CrtTime;
-					if(buffInfo[i].LifeTime > 0 && buffInfo[i].LifeTime <= 3 && !buffInfo[i].isClose) {
-						buffInfo[i].isClose = true;
-						buffInfo[i].AnimatorInfo.SetTrigger("TimeOut");
-						
-					}
-					if(buffInfo[i].LifeTime <= 0) {
-						hideBuff(i);
+			if(buffInfo.Length > 0) {
+				for (int i=0; i<buffInfo.Length; i++) {
+					if(buffInfo[i].LifeTime > 0) {
+						buffInfo[i].LifeTime -= Time.deltaTime * TimerMgr.Get.CrtTime;
+						if(buffInfo[i].LifeTime > 0 && buffInfo[i].LifeTime <= 3 && !buffInfo[i].isClose) {
+							buffInfo[i].isClose = true;
+							buffInfo[i].AnimatorInfo.SetTrigger("TimeOut");
+							
+						}
+						if(buffInfo[i].LifeTime <= 0) {
+							hideBuff(i);
+						}
 					}
 				}
 			}

@@ -32,13 +32,15 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 	}
 
 	private void playSkillEffect (int index){
-		playEffect(skillEffects[index].EffectName,
-		           Vector3.zero,
-		           skillEffects[index].Player,
-		           skillEffects[index].Parent,
-		           null,
-		           skillEffects[index].Duration);
-		skillEffects.RemoveAt(index);
+		if(index >= 0 && index < skillEffects.Count) {
+			playEffect(skillEffects[index].EffectName,
+			           Vector3.zero,
+			           skillEffects[index].Player,
+			           skillEffects[index].Parent,
+			           null,
+			           skillEffects[index].Duration);
+			skillEffects.RemoveAt(index);
+		}
 	}
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
@@ -152,7 +154,8 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
 			if (ps) {
 				ps.pusher = executePlayer;
-				ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
+				if(GameData.DSkillData.ContainsKey(executePlayer.ActiveSkillUsed.ID))
+					ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
 			}
 		}
 	}

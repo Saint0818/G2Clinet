@@ -51,6 +51,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public GameObject[] BasketRangeCenter = new GameObject[2];
 	public GameObject Effect;
 	public CircularSectorMeshRenderer SkillRangeOfAction;
+	public GameObject SkillArrowOfAction;
+	private UITexture textureArrow;
 
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
@@ -269,6 +271,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		ChangeBasket(2);
 		InitScoreboard ();
 		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+		SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
+		Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
+		if(t != null)
+			textureArrow = t.GetComponent<UITexture>();
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
 	}
 
@@ -279,6 +285,16 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		SkillRangeOfAction.transform.localEulerAngles = new Vector3(0 ,euler, 0);
 		SkillRangeOfAction.ChangeValue(degree, dis);
 		SkillRangeOfAction.gameObject.SetActive(isShow);
+	}
+
+	public void ShowArrowOfAction (bool isShow, Transform parent = null, float dis = 0) {
+		SkillArrowOfAction.transform.parent = parent;
+		if(parent)
+			SkillArrowOfAction.transform.localPosition = new Vector3(0, 0.1f, 0);
+		SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
+		if(textureArrow)
+			textureArrow.SetRect(0, 0, 50 ,dis);
+		SkillArrowOfAction.gameObject.SetActive(isShow);
 	}
 
 	public void RangeOfActionPosition (Vector3 position) {

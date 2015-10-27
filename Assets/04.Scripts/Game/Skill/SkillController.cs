@@ -42,7 +42,8 @@ public class SkillController : MonoBehaviour {
 	private List<TSkillAttribute> skillAttribute = new List<TSkillAttribute>();
 
 	void FixedUpdate() {
-		skillBuff.UpdateBuff();
+		if(skillBuff != null)
+			skillBuff.UpdateBuff();
 		updateSkillAttribute();
 		if (GameController.Get.Situation == EGameSituation.JumpBall || 
 		    GameController.Get.Situation == EGameSituation.AttackGamer || 

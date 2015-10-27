@@ -1366,7 +1366,8 @@ public class GameController : KnightSingleton<GameController>
 //					JumpBall(npc);
 ////					Rebound(npc);
 //				}
-
+				if(GameStart.Get.TestMode == EGameTest.AnimationUnit || GameStart.Get.TestMode == EGameTest.Skill)
+					UIGame.UIShow(true);
 				break;
 			case EGameSituation.AttackGamer:
 				break;

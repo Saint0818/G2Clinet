@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ef1ade5519b80f844b27b6ff05a5a92b
-timeCreated: 1445916370
+timeCreated: 1445927174
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,13 +154,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
-        functionName: SkillEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1.5
-        intParameter: 0
-        messageOptions: 0
       - time: .28771916
         functionName: ZoomIn
         data: 
@@ -201,6 +194,13 @@ ModelImporter:
         data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .828625202
+        functionName: AnimationEvent
+        data: ActiveSkillEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .949880779

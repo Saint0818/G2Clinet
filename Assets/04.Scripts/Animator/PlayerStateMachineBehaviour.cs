@@ -23,6 +23,10 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 		switch (state) {
 			case EAnimatorState.Block:
 				break;
+			case EAnimatorState.Buff:
+				if(StateNo == 20 || StateNo == 21) 
+					player.StartActiveCamera();
+				break;
 			case EAnimatorState.Catch:
 				break;
 			case EAnimatorState.Defence:
@@ -30,6 +34,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.Dribble:
 				break;
 			case EAnimatorState.Dunk:
+				if(StateNo == 20 || StateNo == 22)
+					player.StartActiveCamera();
 				break;
 			case EAnimatorState.Elbow:
 				break;
@@ -50,6 +56,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.MoveDodge:
 				break;
 			case EAnimatorState.Push:
+				if(StateNo == 20)
+					player.StartActiveCamera();
 				break;
 			case EAnimatorState.Pick:
 				break;
@@ -63,8 +71,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.TipIn:
 				break;
 			case EAnimatorState.Steal:
-				break;
-			case EAnimatorState.Show:
+				if(StateNo == 20)
+					player.StartActiveCamera();
 				break;
 		}
 
@@ -101,6 +109,11 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.Pass:
 			case EAnimatorState.Rebound:
 			case EAnimatorState.Run:
+				break;
+
+			case EAnimatorState.Buff:
+				if(player)
+					player.BuffEnd();
 				break;
 
 			case EAnimatorState.Block:
