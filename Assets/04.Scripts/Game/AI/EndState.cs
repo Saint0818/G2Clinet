@@ -10,6 +10,11 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
+            GameController.Get.IsStart = false;
+            for (int i = 0; i < GameController.Get.GamePlayers.Count; i++)
+                GameController.Get.GamePlayers[i].AniState(EPlayerState.Idle);
+
+            CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
         }
 
         public override void Exit()

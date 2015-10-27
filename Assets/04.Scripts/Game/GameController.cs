@@ -148,7 +148,7 @@ public class GameController : KnightSingleton<GameController>
 	//Instant
 	public TCourtInstant CourtInstant;
 
-	public int StageID = 0;
+	private int mCurrentStageID; // 目前打的關卡.(會影響比賽的勝利條件)
 	public int[] StageBitNum = new int[4];
 	public int[] StageHintBit = new int[4];
 
@@ -266,7 +266,7 @@ public class GameController : KnightSingleton<GameController>
     {
 		if(StageTable.Ins.HasByID(id))
         {
-            StageID = id;
+            mCurrentStageID = id;
             StageData stageData = StageTable.Ins.GetByID(id);
             StageBitNum[0] = stageData.Bit0Num;
 			StageBitNum[1] = stageData.Bit1Num;
@@ -274,22 +274,6 @@ public class GameController : KnightSingleton<GameController>
 			StageBitNum[3] = stageData.Bit3Num;
 			StageHintBit = stageData.HintBit;
             GameStart.Get.WinMode = stageData.ConvertWinMode();
-//			if(StageHintBit[0] == 0 && StageHintBit[1] == 0)
-//				GameStart.Get.WinMode = EWinMode.None;
-//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 1)
-//				GameStart.Get.WinMode = EWinMode.NoTimeScore;
-//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 2)
-//				GameStart.Get.WinMode = EWinMode.NoTimeLostScore;
-//			else if(StageHintBit[0] == 0 && StageHintBit[1] == 3)
-//				GameStart.Get.WinMode = EWinMode.NoTimeScoreCompare;
-//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 0)
-//				GameStart.Get.WinMode = EWinMode.TimeNoScore;
-//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 1)
-//				GameStart.Get.WinMode = EWinMode.TimeScore;
-//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 2)
-//				GameStart.Get.WinMode = EWinMode.TimeLostScore;
-//			else if(StageHintBit[0] == 1 && StageHintBit[1] == 3)
-//				GameStart.Get.WinMode = EWinMode.TimeScoreCompare;
 			GameStart.Get.GameWinTimeValue = StageBitNum[0];
 			GameStart.Get.GameWinValue = StageBitNum[1];
 		}
@@ -1238,12 +1222,17 @@ public class GameController : KnightSingleton<GameController>
     
     public void ChangeSituation(EGameSituation newSituation, PlayerBehaviour player = null)
     {
-		if (Situation != EGameSituation.End || newSituation == EGameSituation.None || 
+        // 不能切換狀態的條件是
+        // 目前狀態是 End, 新狀態不是 None, 也不是 Opening.
+        // 當目前是 End 的時候, 只能切換到 None or Opening 狀態.
+		if(Situation != EGameSituation.End || newSituation == EGameSituation.None || 
            newSituation == EGameSituation.Opening)
         {
             EGameSituation oldgs = Situation;
             if(Situation != newSituation)
             {
+                // 當要切換不同狀態的時候, 會將某些東西重置.
+                // todo 這段邏輯應該要打掉, 改寫在 PlayerAI 內.
                 CourtMgr.Get.HideBallSFX();
                 for(int i = 0; i < PlayerList.Count; i++)
                 {
@@ -1257,7 +1246,7 @@ public class GameController : KnightSingleton<GameController>
                     switch(PlayerList[i].Team)
                     {
                         case ETeamKind.Self:
-                            if((newSituation == EGameSituation.InboundsNPC || (oldgs == EGameSituation.InboundsNPC && newSituation == EGameSituation.AttackNPC)) == false)
+                            if(newSituation == EGameSituation.InboundsNPC || (oldgs == EGameSituation.InboundsNPC && newSituation == EGameSituation.AttackNPC) == false)
                             {
                                 if(!PlayerList[i].AIing)
                                 {
@@ -1275,21 +1264,24 @@ public class GameController : KnightSingleton<GameController>
 						break;
 					}
 
-					PlayerList [i].situation = newSituation;
+					PlayerList[i].situation = newSituation;
                 }
             }
 
             Situation = newSituation;
 
             if(GameStart.Get.CourtMode == ECourtMode.Full && oldgs != newSituation && player &&
-               (oldgs == EGameSituation.InboundsGamer || oldgs == EGameSituation.InboundsNPC)) {
+               (oldgs == EGameSituation.InboundsGamer || oldgs == EGameSituation.InboundsNPC))
+            {
+                // 狀態是邊界發球變成任何其它狀態時, 會設定 npc 的戰術路徑.
+                // todo 這段程式碼應該要拿掉才對, 要放到 PlayerAI 內.
                 AITools.RandomTactical(ETactical.Fast, player.Index, out attackTactical);
                 
 				if(attackTactical.FileName != string.Empty)
                 {
 					for (int i = 0; i < PlayerList.Count; i ++)
                     {
-						PlayerBehaviour npc = PlayerList [i];
+						PlayerBehaviour npc = PlayerList[i];
 						if (npc.Team == player.Team)
                         {
 							tacticalActions = attackTactical.GetActions(npc.Index);
@@ -1317,6 +1309,7 @@ public class GameController : KnightSingleton<GameController>
 				}               
 			}
 
+            // todo 這兩行應該要拉到 StateExit.(目前看到是邊界發球時, 會把牆壁關掉, 所以才會有這個重新開啟的行為)
 			CourtMgr.Get.Walls[0].SetActive(true);
 			CourtMgr.Get.Walls[1].SetActive(true);
 
@@ -1343,55 +1336,23 @@ public class GameController : KnightSingleton<GameController>
 				UICourtInstant.UIShow(false);
 				break;
 			case EGameSituation.Opening:
-//				setPassIcon(true);
-//				UIGame.UIShow (true);
-//				UIGame.Get.UIState(EUISituation.Opening);
-
-				break;
 			case EGameSituation.JumpBall:
-//				IsStart = true;
-//				CourtMgr.Get.InitScoreboard (true);
-//				setPassIcon(true);
-//
-//				PlayerBehaviour npc = findJumpBallPlayer(ETeamKind.Self);
-//				if (npc) {
-////					npc.transform.position = bornPosAy[1];
-//					JumpBall(npc);
-////					Rebound(npc);
-//				}
-//
-//				npc = findJumpBallPlayer(ETeamKind.Npc);
-//				if (npc) {
-////					npc.transform.position = bornPosAy[1];
-//					JumpBall(npc);
-////					Rebound(npc);
-//				}
 				if(GameStart.Get.TestMode == EGameTest.AnimationUnit || GameStart.Get.TestMode == EGameTest.Skill)
 					UIGame.UIShow(true);
 				break;
 			case EGameSituation.AttackGamer:
-				break;
 			case EGameSituation.AttackNPC:
 				break;
 			case EGameSituation.GamerPickBall:
-//				CourtMgr.Get.Walls[1].SetActive(false);
-//				UIGame.Get.ChangeControl(true);
-//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Self, true);
 				pickBallPlayer = null;
-
                 break;
             case EGameSituation.InboundsGamer:
 				CourtMgr.Get.Walls[1].SetActive(false);
 				EffectManager.Get.PlayEffect("ThrowInLineEffect", Vector3.zero);
 				UITransition.Get.SelfAttack();
                 break;
-
             case EGameSituation.NPCPickBall:
-//				CourtMgr.Get.Walls[0].SetActive(false);
-//         	 	UIGame.Get.ChangeControl(false);
-//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc, true);
 				pickBallPlayer = null;
-
                 break;
 			case EGameSituation.InboundsNPC:
 				CourtMgr.Get.Walls[0].SetActive(false);
@@ -1399,11 +1360,10 @@ public class GameController : KnightSingleton<GameController>
 				UITransition.Get.SelfOffense();
 				break;
 			case EGameSituation.End:
-				IsStart = false;
-				for(int i = 0; i < PlayerList.Count; i++)
-					PlayerList[i].AniState(EPlayerState.Idle);
-
-				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
+//				IsStart = false;
+//				for(int i = 0; i < PlayerList.Count; i++)
+//					PlayerList[i].AniState(EPlayerState.Idle);
+//				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
             }       
         }
@@ -3575,7 +3535,6 @@ public class GameController : KnightSingleton<GameController>
 		SetGameRecord(true);
 		StartCoroutine(playFinish());
 
-
 		if (UIGame.Get.Scores [0] >= UIGame.Get.Scores [1]) {
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++)
@@ -3623,7 +3582,7 @@ public class GameController : KnightSingleton<GameController>
 	private bool checkStageReasonable ()
     {
 //		if(GameData.DStageData.ContainsKey(StageID))
-		if(StageTable.Ins.HasByID(StageID))
+		if(StageTable.Ins.HasByID(mCurrentStageID))
         {
 			if(StageBitNum[0] == 0 && StageBitNum[2] == 0 && StageBitNum[3] == 0 && 
 			   (StageBitNum[1] == 2 || StageBitNum[1] == 3))
@@ -3637,7 +3596,7 @@ public class GameController : KnightSingleton<GameController>
 	public void CheckConditionText (PlayerBehaviour player)
     {
 //		if(player == Joysticker && GameData.DStageData.ContainsKey(StageID))
-		if(player == Joysticker && StageTable.Ins.HasByID(StageID))
+		if(player == Joysticker && StageTable.Ins.HasByID(mCurrentStageID))
         {
 			if(StageHintBit[1] > 0) {
 				if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1]) ){
@@ -3722,7 +3681,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsScorePass(int team)
     {
-		if(StageTable.Ins.HasByID(StageID))
+		if(StageTable.Ins.HasByID(mCurrentStageID))
         {
 			int self = team;
 			int enemy = 0;
@@ -3748,7 +3707,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsConditionPass (PlayerBehaviour player)
     {
-		if(StageTable.Ins.HasByID(StageID))
+		if(StageTable.Ins.HasByID(mCurrentStageID))
         {
 			if(StageHintBit[2] > 0) 
 				if(!checkCountEnough(player, StageHintBit[2], StageBitNum[2]))

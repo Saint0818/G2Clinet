@@ -2,7 +2,6 @@
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [DisallowMultipleComponent]
 public class UIMainLobbyImpl : MonoBehaviour

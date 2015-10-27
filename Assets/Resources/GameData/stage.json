@@ -1,6 +1,6 @@
 [
     {
-        "id": 100,
+        "id": 1,
         "chapter": 0,
         "order": "1",
         "nametw": "頂尖對決",
@@ -20,7 +20,7 @@
         "playerid3": 3
     },
     {
-        "id": 101,
+        "id": 2,
         "chapter": 0,
         "order": "2",
         "nametw": "基本練習",
@@ -39,7 +39,7 @@
         "playerid3": 3
     },
     {
-        "id": 102,
+        "id": 3,
         "chapter": 0,
         "order": "3",
         "nametw": "搭配練習",
@@ -59,7 +59,7 @@
         "playerid3": 3
     },
     {
-        "id": 103,
+        "id": 101,
         "chapter": 1,
         "order": "1",
         "nametw": "初試啼聲",
@@ -88,7 +88,7 @@
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 104,
+        "id": 102,
         "chapter": 1,
         "order": "2",
         "nametw": "小試身手",
@@ -118,7 +118,7 @@
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 105,
+        "id": 103,
         "chapter": 1,
         "order": "3",
         "nametw": "漸入佳境",
@@ -148,7 +148,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 106,
+        "id": 104,
         "chapter": 1,
         "order": "4",
         "nametw": "稱霸一方",
@@ -177,7 +177,7 @@
         "explainjp": "主な課題セクションオフ"
     },
     {
-        "id": 107,
+        "id": 105,
         "chapter": 2,
         "order": "1",
         "nametw": "初試啼聲",
@@ -206,7 +206,7 @@
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 108,
+        "id": 106,
         "chapter": 2,
         "order": "2",
         "nametw": "小試身手",
@@ -235,7 +235,7 @@
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 109,
+        "id": 107,
         "chapter": 2,
         "order": "3",
         "nametw": "漸入佳境",
@@ -264,7 +264,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 110,
+        "id": 108,
         "chapter": 2,
         "order": "4",
         "nametw": "稱霸一方",
@@ -295,7 +295,7 @@
         "explainjp": "主な課題セクションオフ"
     },
     {
-        "id": 111,
+        "id": 109,
         "chapter": 3,
         "order": "1",
         "nametw": "初試啼聲",
@@ -323,7 +323,7 @@
         "explainjp": "伝統的なコンテスト"
     },
     {
-        "id": 112,
+        "id": 110,
         "chapter": 3,
         "order": "2",
         "nametw": "小試身手",
@@ -351,7 +351,7 @@
         "explainjp": "スコアコンテスト"
     },
     {
-        "id": 113,
+        "id": 111,
         "chapter": 3,
         "order": "3",
         "nametw": "漸入佳境",
@@ -379,7 +379,7 @@
         "explainjp": "攻撃コンテスト"
     },
     {
-        "id": 114,
+        "id": 112,
         "chapter": 3,
         "order": "4",
         "nametw": "稱霸一方",
