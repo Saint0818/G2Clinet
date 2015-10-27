@@ -203,7 +203,6 @@ public class UISkillInfo : UIBase {
 		default:
 			return "";
 		}
-		return "";
 	}
 
 	private void openCardTurn(bool isRight) {

@@ -272,6 +272,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		InitScoreboard ();
 		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
 		SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
+		SkillArrowOfAction.gameObject.SetActive(false);
 		Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
 		if(t != null)
 			textureArrow = t.GetComponent<UITexture>();

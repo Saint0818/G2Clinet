@@ -307,6 +307,11 @@ public class PlayerBehaviour : MonoBehaviour
     private float pushCurveTime = 0;
     private TSharedCurve playerPushCurve;
 
+	//Steal
+	private bool isSteal = false;
+	private float stealCurveTime = 0;
+	private TStealCurve playerStealCurve;
+
     //Fall
     private bool isFall = false;
     private float fallCurveTime = 0;
@@ -649,6 +654,7 @@ public class PlayerBehaviour : MonoBehaviour
         CalculationPush();
         CalculationFall();
         CalculationPick();
+		CalculationSteal();
 		DebugTool ();
         
 //        if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
@@ -1024,16 +1030,48 @@ public class PlayerBehaviour : MonoBehaviour
                         break;
                     case AniCurveDirection.Back:
 					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
-                        break;
-                }
-            }
-
-            if (pushCurveTime >= playerPushCurve.LifeTime)
-                isPush = false;
-        }
-        
-    }
+					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					break;
+				}
+			}
+			
+			if (pushCurveTime >= playerPushCurve.LifeTime)
+				isPush = false;
+		}
+		
+	}
+	
+	private void CalculationSteal()
+	{
+		if (!isSteal)
+			return;
+		
+		if (playerStealCurve != null)
+		{
+			stealCurveTime += Time.deltaTime * TimerMgr.Get.CrtTime;
+			
+			if (stealCurveTime >= playerStealCurve.StartTime)
+			{
+				if(GameController.Get.BallOwner != null) {
+					transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
+					gameObject.transform.LookAt(new Vector3(GameController.Get.BallOwner.transform.position.x, gameObject.transform.position.y, GameController.Get.BallOwner.transform.position.z));
+					GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+				} else {
+					if(GameController.Get.Catcher != null) {
+						transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
+						gameObject.transform.LookAt(new Vector3(GameController.Get.Catcher.transform.position.x, gameObject.transform.position.y, GameController.Get.Catcher.transform.position.z));
+						GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
+					} else if(GameController.Get.Shooter != null) {
+						transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
+						gameObject.transform.LookAt(new Vector3(GameController.Get.Shooter.transform.position.x, gameObject.transform.position.y, GameController.Get.Shooter.transform.position.z));
+						GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
+					}
+				}
+				isSteal = false;
+			}
+		}
+		
+	}
 
     private void CalculationFall()
     {
@@ -2593,6 +2631,19 @@ public class PlayerBehaviour : MonoBehaviour
 				}
 			PlayerRigidbody.mass = 5;
 			ClearAnimatorFlag();
+
+			curveName = string.Format("Steal{0}", stateNo);
+
+			playerStealCurve = null;
+			for (int i = 0; i < aniCurve.Steal.Length; i++)
+				if (aniCurve.Steal [i].Name == curveName)
+				{
+					playerStealCurve = aniCurve.Steal [i];
+					stealCurveTime = 0;
+					isSteal = true;
+					isFindCurve = true;
+				}
+
 			AnimatorControl.SetInteger("StateNo", stateNo);
 			AnimatorControl.SetTrigger("StealTrigger");
 			isCanCatchBall = false;
@@ -3119,7 +3170,7 @@ public class PlayerBehaviour : MonoBehaviour
 		AnimationEvent("ActiveSkillEnd");
 	}
 
-	public void AnimationEnd()
+	public void AnimationEnd() 
 	{
 		OnUI(this);
 		
@@ -3209,7 +3260,6 @@ public class PlayerBehaviour : MonoBehaviour
 
 	//For Buff Start
 	public void SkillEvent (AnimationEvent aniEvent) {
-		float skillTime = aniEvent.floatParameter;
 		int skillEffectKind = aniEvent.intParameter;
 		string cameraAction = aniEvent.stringParameter;
 		if(skillEffectKind == 10) {
@@ -3218,27 +3268,27 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void MoveEvent (AnimationEvent aniEvent){
-		float t = aniEvent.floatParameter;
-		int eventKind = aniEvent.intParameter;
-		switch (eventKind) {
-		case 0:
-			if(GameController.Get.BallOwner != null) {
-				transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), t);
-				RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
-				GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-			} else {
-				if(GameController.Get.Catcher != null) {
-					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
-					RotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
-					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
-				} else if(GameController.Get.Shooter != null) {
-					transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), t);
-					RotateTo(GameController.Get.Shooter.transform.position.x, GameController.Get.Shooter.transform.position.z);
-					GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
-				}
-			}
-			break;
-		}
+//		float t = aniEvent.floatParameter;
+//		int eventKind = aniEvent.intParameter;
+//		switch (eventKind) {
+//		case 0:
+//			if(GameController.Get.BallOwner != null) {
+//				transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), t);
+//				RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
+//				GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
+//			} else {
+//				if(GameController.Get.Catcher != null) {
+//					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
+//					RotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
+//					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
+//				} else if(GameController.Get.Shooter != null) {
+//					transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), t);
+//					RotateTo(GameController.Get.Shooter.transform.position.x, GameController.Get.Shooter.transform.position.z);
+//					GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
+//				}
+//			}
+//			break;
+//		}
 	}
 	
 	public void SetBallEvent () {

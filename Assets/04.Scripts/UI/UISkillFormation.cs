@@ -104,7 +104,7 @@ public class UISkillFormation : UIBase {
 	//Send Value
 	private int[] removeIndexs = new int[0]; //From already setted skillCard's index
 	private int[] addIndexs = new int[0];//From skillCards's index in the center area
-	private int[] orderIndexs = new int[0];//From activeStruct index
+	private int[] orderSNs = new int[0];//From activeStruct index
 
 	//Sell Value
 	private int[] sellIndexs = new int[0];
@@ -115,7 +115,7 @@ public class UISkillFormation : UIBase {
 	private GameObject itemCardEquipped;
 
 	//CenterCard
-	private List<int> activeOriginalIndex = new List<int>();
+	private List<int> activeOriginalSN = new List<int>();
 	private List<GameObject> skillOriginalCards = new List<GameObject>();//By Sort
 	private List<GameObject> skillSortCards = new List<GameObject>();//By Sort
 	private List<string> skillsOriginal = new List<string>();//record alread equiped   rule: index_id_skillsOriginal(Equiped)_cardLV
@@ -128,8 +128,8 @@ public class UISkillFormation : UIBase {
 	private Dictionary<string, TUICard> uiCards = new Dictionary<string, TUICard>();
 
 	//RightItem  name:Skill
-	public TActiveStruct[] activeStruct = new TActiveStruct[3];
-	private List<GameObject> itemPassiveCards = new List<GameObject>();
+	public TActiveStruct[] activeStruct = new TActiveStruct[3];//Record of Active
+	private List<GameObject> itemPassiveCards = new List<GameObject>();// 
 	private GameObject itemPassiveField;
 	private GameObject itemPassiveSelected;
 
@@ -275,7 +275,7 @@ public class UISkillFormation : UIBase {
 		for(int i=0; i<skillSortCards.Count; i++) {
 			Destroy(skillSortCards[i]);
 		}
-		activeOriginalIndex.Clear();
+		activeOriginalSN.Clear();
 		sellNames.Clear();
 		skillPages.Clear();
 		skillPagesOriginal.Clear();
@@ -338,7 +338,7 @@ public class UISkillFormation : UIBase {
 					if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
 						actvieIndex++;
 						addItems(uiCards[obj.name], actvieIndex);
-						activeOriginalIndex.Add(uiCards[obj.name].CardSN);
+						activeOriginalSN.Add(uiCards[obj.name].CardSN);
 						skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
 					} else {
 						addItems(uiCards[obj.name]);
@@ -1147,6 +1147,7 @@ public class UISkillFormation : UIBase {
 			eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
 			sortSkillCondition(eCondition);
 		}
+
 		if(eFilter != PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode())) {
 			eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
 			sortSkillFilter(eFilter);
@@ -1328,13 +1329,13 @@ public class UISkillFormation : UIBase {
 
 		bool flag = false;
 
-		orderIndexs = new int[getActiveInstall];
+		orderSNs = new int[getActiveInstall];
 		for (int i=0; i<getActiveInstall; i++) 
-			orderIndexs[i] = activeStruct[i].CardSN;
+			orderSNs[i] = activeStruct[i].CardSN;
 
-		if(orderIndexs.Length == activeOriginalIndex.Count) {
-			for(int i=0; i<orderIndexs.Length; i++) 
-				if(!orderIndexs[i].Equals(activeOriginalIndex[i])) {
+		if(orderSNs.Length == activeOriginalSN.Count) {
+			for(int i=0; i<orderSNs.Length; i++) 
+				if(!orderSNs[i].Equals(activeOriginalSN[i])) {
 					flag = true;
 					break;
 				}
@@ -1384,7 +1385,7 @@ public class UISkillFormation : UIBase {
 		WWWForm form = new WWWForm();
 		form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
 		form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));
-		form.AddField("OrderIndexs", JsonConvert.SerializeObject(orderIndexs));
+		form.AddField("OrderIndexs", JsonConvert.SerializeObject(orderSNs));
 		SendHttp.Get.Command(URLConst.EquipsSkillCard, waitEquipSkillCard, form);
 	}
 
