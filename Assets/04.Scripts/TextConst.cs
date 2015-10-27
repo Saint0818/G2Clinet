@@ -98,8 +98,10 @@ public static class TextConst
 			AddString (201, "AVATAR", "AVATAR");
 			AddString (202, "CARDS", "CARDS");
 			AddString (203, "確定售出？", "");
-			AddString (204, "牌組變更，是否儲存？？", "");
-
+			AddString (204, "牌組變更，是否儲存？", "");
+			AddString (205, "CUSTOMIZED PLAYER", "CUSTOMIZED PLAYER");
+			AddString (206, "確定刪除此角色？", "");
+			AddString (207, "確定購買角色欄位？", "");
 			AddString(2000001, "時限內得分超過對手");
 			AddString(2000002, "時限內大量得分");
 			AddString(2000003, "時限內降低失分");
