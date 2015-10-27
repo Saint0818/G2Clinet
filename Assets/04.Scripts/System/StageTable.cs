@@ -49,20 +49,15 @@ public class StageTable
                 continue;
             }
 
-            if(MinMainStageID <= stage.ID && stage.ID <= MaxMainStageID)
+            if(!mStageByChapterOrders.ContainsKey(stage.Chapter))
+                mStageByChapterOrders.Add(stage.Chapter, new Dictionary<int, StageData>());
+            if (mStageByChapterOrders[stage.Chapter].ContainsKey(stage.Order))
             {
-                if(!mStageByChapterOrders.ContainsKey(stage.Chapter))
-                    mStageByChapterOrders.Add(stage.Chapter, new Dictionary<int, StageData>());
-                if (mStageByChapterOrders[stage.Chapter].ContainsKey(stage.Order))
-                {
-                    Debug.LogErrorFormat("Stage Order repeat. {0}", stage);
-                    continue;
-                }
-                mStageByChapterOrders[stage.Chapter].Add(stage.Order, stage);
-                mStageByIDs.Add(stage.ID, stage);
+                Debug.LogErrorFormat("Stage Order repeat. {0}", stage);
+                continue;
             }
-            else
-                Debug.LogErrorFormat("StageID({0}) out of range!", stage.ID);
+            mStageByChapterOrders[stage.Chapter].Add(stage.Order, stage);
+            mStageByIDs.Add(stage.ID, stage);
         }
 
         Debug.Log("[stage parsed finished.] ");
