@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//新增的狀態必須往後加，否則會引響animator的功能
 public enum EAnimatorState
 {
 	Block,
+	Buff,
 	Catch,
 	Defence,
 	Dribble,
@@ -26,7 +28,8 @@ public enum EAnimatorState
 	Rebound,
 	Run,
 	Shoot,
-	Steal
+	Steal,
+	Show
 }
 
 public enum EPlayerState

@@ -64,6 +64,8 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 				break;
 			case EAnimatorState.Steal:
 				break;
+			case EAnimatorState.Show:
+				break;
 		}
 
 //		Debug.Log (animator.name.ToString() + ".OnStateMachineEnter");
@@ -111,6 +113,7 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.KnockDown:
 			case EAnimatorState.Push:
 			case EAnimatorState.Fall:
+			case EAnimatorState.Show:
 				if(player){
 					player.AnimationEnd();
 					Debug.LogWarning(player.name + ".state : " + state.ToString() + " AnimationEnd");
