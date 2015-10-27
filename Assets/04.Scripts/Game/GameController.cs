@@ -3535,13 +3535,16 @@ public class GameController : KnightSingleton<GameController>
 		SetGameRecord(true);
 		StartCoroutine(playFinish());
 
-		if (UIGame.Get.Scores [0] >= UIGame.Get.Scores [1]) {
+		if(UIGame.Get.Scores[0] >= UIGame.Get.Scores[1])
+        {
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++)
 				if (PlayerList [i].Team == ETeamKind.Self)
-					PlayerList [i].AniState (EPlayerState.Ending0);
+					PlayerList [i].AniState(EPlayerState.Ending0);
 				else
-					PlayerList [i].AniState (EPlayerState.Ending10);
+					PlayerList [i].AniState(EPlayerState.Ending10);
+
+            endPVE(mCurrentStageID);
 		}
 		else
 		{
@@ -3554,7 +3557,35 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-	private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
+    private void endPVE(int stageID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("StageID", stageID);
+        mCurrentStageID = stageID;
+        SendHttp.Get.Command(URLConst.PVEEnd, waitEndPVE, form);
+    }
+
+    [UsedImplicitly]
+    private class EndPVEInfo
+    {
+        [UsedImplicitly]
+        public int NewNextMainStageSchedule;
+    }
+
+    private void waitEndPVE(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitEndPVE, ok:{0}", ok);
+
+        if(ok)
+        {
+            var info = JsonConvert.DeserializeObject<EndPVEInfo>(www.text);
+            GameData.Team.Player.NextMainStageSchedule = info.NewNextMainStageSchedule;
+        }
+        else
+            UIHint.Get.ShowHint("End PVE fail!", Color.red);
+    }
+
+    private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
 	private readonly EPlayerState[] shootOutState = {EPlayerState.Show201, EPlayerState.Show202};
 
 	public void ShowShootSate(bool isIn, int team)
