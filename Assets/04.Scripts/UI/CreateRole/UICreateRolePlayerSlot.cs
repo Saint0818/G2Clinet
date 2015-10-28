@@ -82,9 +82,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     private const string AddSpriteName = "Icon_Create";
     private const string AddBGSpriteName = "BtnEmpty";
 
-    private const string TriangleMarkOn = "Positionchange";
-    private const string TriangleMarkOff = "EmptyColor";
-
     private readonly Dictionary<EPlayerPostion, string> mSelectSpriteNames = new Dictionary<EPlayerPostion, string>
     {
         {EPlayerPostion.C, "BtnCircle0"},
@@ -119,7 +116,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         foreach(UISprite sprite in LeftRightMarks)
         {
-            sprite.spriteName = TriangleMarkOff;
             sprite.color = Color.white;
         }
 
@@ -148,7 +144,7 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
     public void PlayEnterAnimation(float delayTime)
     {
-        StartCoroutine(playAnimation(delayTime));
+        StartCoroutine(playAnimation(delayTime, "Start"));
     }
 
     public void PlayOpenAnimation()
@@ -179,7 +175,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         foreach(UISprite sprite in LeftRightMarks)
         {
-            sprite.spriteName = TriangleMarkOff;
             sprite.color = Color.white;
         }
 
@@ -200,7 +195,6 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         foreach(UISprite sprite in LeftRightMarks)
         {
-            sprite.spriteName = TriangleMarkOn;
             sprite.color = UICreateRole.Get.PosInfos[mData.Position].TextColor;
         }
 
