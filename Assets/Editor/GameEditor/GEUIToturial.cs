@@ -27,9 +27,7 @@ public class GEUIToturial : GEBase {
 			}
 
 			EditorGUILayout.EndHorizontal();
-
-			EditorGUILayout.Space();
-			EditorGUILayout.Space();
+			GUILayout.Space(2);
 		}
 
         EditorGUILayout.BeginHorizontal();
@@ -43,8 +41,7 @@ public class GEUIToturial : GEBase {
 		}
 
 		EditorGUILayout.EndHorizontal();
-		EditorGUILayout.Space();
-		EditorGUILayout.Space();
+		GUILayout.Space(2);
 		EditorGUILayout.BeginHorizontal();
 
         if (GameData.Team.TutorialFlags != null) {

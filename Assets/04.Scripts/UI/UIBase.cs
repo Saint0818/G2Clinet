@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -179,8 +179,8 @@ public class UIBase: MonoBehaviour
     protected virtual void OnShow(bool isShow)
     {
 		if (isShow) {
-			if (GameData.DTutorialFlag.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialFlag[this.name]))
-				UITutorial.Get.ShowTutorial(GameData.DTutorialFlag[this.name], 1);
+			//if (GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
+			//	UITutorial.Get.ShowTutorial(GameData.DTutorialUI[this.name], 1);
 		}
     }    
 

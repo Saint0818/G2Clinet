@@ -202,15 +202,11 @@ public class GEAIMove : GEBase {
 
     private void OnLoad()
     {
-        if (File.Exists(FileName))
-        {
-            TextAsset tx = Resources.Load("GameData/tactical") as TextAsset;
-            if (tx)
-            {
-                TacticalData = (TTacticalData[])JsonConvert.DeserializeObject(tx.text, typeof(TTacticalData[]));
-                FlashTacticalName();
-            } 
-        }
+		string data = LoadFile(FileName);
+		if (!string.IsNullOrEmpty(data)) {
+			TacticalData = (TTacticalData[])JsonConvert.DeserializeObject(data, typeof(TTacticalData[]));
+			FlashTacticalName();
+		}
     }
 
     private void OnLoadTactical()
@@ -372,38 +368,5 @@ public class GEAIMove : GEBase {
                 EditorGUILayout.EndHorizontal();
             }               
         }
-    }
-
-    public void SaveFile(string fileName, string Data)
-    {
-        if (File.Exists(fileName))
-            File.WriteAllText(fileName, string.Empty);
-
-        using (FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-        {
-            using (StreamWriter myWriter = new StreamWriter(myFile))
-            {
-                myWriter.Write(Data);
-                myWriter.Close();
-            }
-
-            myFile.Close();
-        }
-    }
-
-    public string LoadFile(string OpenFileName)
-    {
-        string InData = "";
-        using (FileStream myFile = File.Open(OpenFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
-        {
-            using (StreamReader myReader = new StreamReader(myFile))
-            {
-                InData = myReader.ReadToEnd();
-                myReader.Close();
-            }
-            myFile.Close();
-        }
-
-        return InData;
     }
 }

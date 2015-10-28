@@ -20,9 +20,9 @@ public class GEMainMenu: EditorWindow {
 		GEPlayerScoreRate.GetWindow<GEPlayerScoreRate>(true, "3.Player Score Rate").SetStyle();
 	}
 
-	[MenuItem (menuRoot + "4.Game Play Tutorial", false, 4)]
+	[MenuItem (menuRoot + "4.Stage Tutorial", false, 4)]
 	private static void OnGamePlayTutorial() {
-		GEGamePlayTutorial.GetWindow<GEGamePlayTutorial>(true, "4.Ball Position").SetStyle();
+		GEStageTutorial.GetWindow<GEStageTutorial>(true, "4.Stage Tutorial").SetStyle();
 	}
 
 	[MenuItem (menuRoot + "5.UI Toturial", false, 5)]

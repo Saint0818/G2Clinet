@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
-        "createroleitem", "aiskilllv", "preloadeffect", "tutorial"
+        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -193,6 +193,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[9] = parseAISkillData;
 		downloadCallBack[10] = parsePreloadEffect;
 		downloadCallBack[11] = parseTutorialData;
+		downloadCallBack[12] = ParseStageTutorialData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -567,7 +568,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		var i = 0;
 		try {
 			GameData.DTutorial.Clear();
-			GameData.DTutorialFlag.Clear();
+			GameData.DTutorialUI.Clear();
 			GameData.DTutorialStageStart.Clear();
 			GameData.DTutorialStageEnd.Clear();
 
@@ -578,8 +579,8 @@ public class FileManager : KnightSingleton<FileManager> {
 					GameData.DTutorial.Add(id, data[i]);
 
 					if (!string.IsNullOrEmpty(data[i].UIName)) {
-						if (!GameData.DTutorialFlag.ContainsKey(data[i].UIName)) {
-							GameData.DTutorialFlag.Add(data[i].UIName, data[i].ID);
+						if (!GameData.DTutorialUI.ContainsKey(data[i].UIName)) {
+							GameData.DTutorialUI.Add(data[i].UIName, data[i].ID);
 						} else
 							Debug.LogError("Tutorial UI name repeat i : " + i.ToString());
 					}
@@ -615,6 +616,32 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.Log ("[tutorial parsed finished.] ");
 		} catch (System.Exception ex) {
 			Debug.LogError ("Tutorial parsed error : " + ex.Message);
+		}
+	}
+
+	public void ParseStageTutorialData(string version, string text, bool isSaveVersion) {
+		var i = 0;
+		try {
+			GameData.DStageTutorial.Clear();
+			GameData.StageTutorial.Clear();
+
+			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject (text, typeof(TStageToturial[]));
+
+			for (i = 0; i < data.Length; i++) {
+				int id = data[i].ID;
+				if (!GameData.DStageTutorial.ContainsKey(id)) {
+					GameData.DStageTutorial.Add(id, data[i]);
+					GameData.StageTutorial.Add(data[i]);
+				} else 
+					Debug.LogError("Stage tutorial key error i : " + i.ToString());
+			}
+			
+			if (isSaveVersion)
+				SaveDataVersionAndJson(text, "stagetutorial", version);
+			
+			Debug.Log ("[Stage tutorial parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Stage tutorial parsed error : " + ex.Message);
 		}
 	}
 }

@@ -88,8 +88,13 @@ namespace GamePlayStruct {
 		public TToturialAction[] Actions;
 	}
 
-	public struct TGamePlayToturial {
+	public struct TStageToturial {
 		public int ID;
 		public TGamePlayEvent[] Events;
+
+		public TStageToturial(int i) {
+			ID = 0;
+			Events = new TGamePlayEvent[0];
+		}
 	}
 }

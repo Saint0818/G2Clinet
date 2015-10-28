@@ -6,18 +6,15 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using GamePlayStruct;
 
-public class GEGamePlayTutorial : GEBase {
+public class GEStageTutorial : GEBase {
 	private string stageID;
 	private static string FileName = "";
 	private static string BackupFileName = "";
-	private List<TStageToturial> toturialData = new List<TStageToturial>(0);
-
 	private Vector2 mScroll = Vector2.zero;
 
-
 	void OnEnable() {
-		FileName = Application.dataPath + "/Resources/GameData/gameplaytutorial.json";
-		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/gameplaytutorial_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
+		FileName = Application.dataPath + "/Resources/GameData/stagetutorial.json";
+		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/stagetutorial_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
 		OnLoad();
 	}
 
@@ -37,15 +34,15 @@ public class GEGamePlayTutorial : GEBase {
 		EditorGUILayout.EndHorizontal();
 		GUILayout.Space(2);
 
-		if(toturialData.Count > 0 ){
+		if(GameData.StageTutorial.Count > 0 ){
 			StyleLabel.normal.textColor = Color.yellow;
 			GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
 
 			StyleLabel.normal.textColor = Color.white;
 			mScroll = GUILayout.BeginScrollView(mScroll);
-			for (int i = 0; i < toturialData.Count; i++) {
+			for (int i = 0; i < GameData.StageTutorial.Count; i++) {
 				GUILayout.Space(2);
-				if (GUILayout.Button(toturialData[i].ID.ToString(), StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+				if (GUILayout.Button(GameData.StageTutorial[i].ID.ToString(), StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
 
 				}
 			}
@@ -56,29 +53,15 @@ public class GEGamePlayTutorial : GEBase {
 
 	private void OnLoad() {
 		string text = LoadFile(FileName);
-		if (!string.IsNullOrEmpty(text)) {
-			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject(text, typeof(TStageToturial[]));
-			toturialData.Clear();
-			for (int i = 0; i < data.Length; i++)
-				toturialData.Add(data[i]);
-		}
-		/*
-		if (File.Exists(FileName)) {
-			TextAsset tx = Resources.Load("GameData/gameplaytutorial") as TextAsset;
-			if (tx) {
-				TGamePlayToturial[] data = (TGamePlayToturial[])JsonConvert.DeserializeObject(tx.text, typeof(TGamePlayToturial[]));
-				toturialData.Clear();
-				for (int i = 0; i < data.Length; i++)
-					toturialData.Add(data[i]);
-			} 
-		}*/
+		if (!string.IsNullOrEmpty(text))
+			FileManager.Get.ParseStageTutorialData(BundleVersion.Version.ToString(), text, false);
 	}
 
 	public void OnSave() {
-		if (toturialData != null && toturialData.Count > 0) {
+		if (GameData.StageTutorial != null && GameData.StageTutorial.Count > 0) {
 			if (FileName != string.Empty) {
-				SaveFile(FileName, JsonConvert.SerializeObject(toturialData.ToArray()));
-				SaveFile(BackupFileName, JsonConvert.SerializeObject(toturialData.ToArray()));
+				SaveFile(FileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
+				SaveFile(BackupFileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
 
 				Debug.Log(FileName);
 				Debug.Log(BackupFileName);
@@ -89,29 +72,23 @@ public class GEGamePlayTutorial : GEBase {
 	}
 
 	private bool addTutorial(int id) {
-		for (int i = 0; i < toturialData.Count; i++)
-			if (toturialData[i].ID == id) {
+		for (int i = 0; i < GameData.StageTutorial.Count; i++)
+			if (GameData.StageTutorial[i].ID == id) {
 				Debug.LogError("Stage already exists.");
 				return false;
 			}
 
-		int index = toturialData.Count;
-		for (int i = 0; i < toturialData.Count; i++)
-			if (id < toturialData[i].ID) {
+		int index = GameData.StageTutorial.Count;
+		for (int i = 0; i < GameData.StageTutorial.Count; i++)
+			if (id < GameData.StageTutorial[i].ID) {
 				index = i;
 				break;
 			}
 
 		TStageToturial data = new TStageToturial(0);
 		data.ID = id;
-		toturialData.Insert(index, data);
+		GameData.StageTutorial.Insert(index, data);
 		OnSave();
 		return true;
-	}
-
-	public void SetStage(int id) {
-		if (id >= 0 && GameData.DStageTutorial.ContainsKey(id)) {
-
-		}
 	}
 }
