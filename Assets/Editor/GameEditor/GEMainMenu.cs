@@ -19,20 +19,25 @@ public class GEMainMenu: EditorWindow {
 	private static void OnPlayerScoreRate() {
 		GEPlayerScoreRate.GetWindow<GEPlayerScoreRate>(true, "3.Player Score Rate").SetStyle();
 	}
-
-	[MenuItem (menuRoot + "4.Stage Tutorial", false, 4)]
-	private static void OnGamePlayTutorial() {
-		GEStageTutorial.GetWindow<GEStageTutorial>(true, "4.Stage Tutorial").SetStyle();
+	
+	[MenuItem (menuRoot + "4.Player Passive Rate", false, 4)]
+	private static void OnPlayerPassiveRate() {
+		GEPlayerPassiveRate.GetWindow<GEPlayerPassiveRate>(true, "4.Player Passive Rate").SetStyle();
 	}
 
-	[MenuItem (menuRoot + "5.UI Toturial", false, 5)]
+	[MenuItem (menuRoot + "5.Stage Tutorial", false, 5)]
+	private static void OnGamePlayTutorial() {
+		GEStageTutorial.GetWindow<GEStageTutorial>(true, "5.Stage Tutorial").SetStyle();
+	}
+
+	[MenuItem (menuRoot + "6.UI Toturial", false, 6)]
 	private static void OnToturial() {
-		GEUIToturial.GetWindow<GEUIToturial>(true, "5.UI Toturial").SetStyle();
+		GEUIToturial.GetWindow<GEUIToturial>(true, "6.UI Toturial").SetStyle();
 	}
 	
-	[MenuItem (menuRoot + "6.Avatar", false, 6)]
+	[MenuItem (menuRoot + "7.Avatar", false, 7)]
 	private static void OnAvatar() {
-		GEAvatar.GetWindow<GEAvatar>(true, "6.Avatar").SetStyle();
+		GEAvatar.GetWindow<GEAvatar>(true, "7.Avatar").SetStyle();
 	}
 	
 	[MenuItem (menuRoot + "9.GM Tool", false, 9)]
@@ -53,10 +58,5 @@ public class GEMainMenu: EditorWindow {
 	[MenuItem (menuRoot + "12.Build Tool", false, 12)]
 	private static void OnBuildTool() {
 		GEBuildTool.GetWindow<GEBuildTool>(true, "12.Build Tool").SetStyle();
-	}
-	
-	[MenuItem (menuRoot + "13.Player Passive Rate", false, 13)]
-	private static void OnPlayerPassiveRate() {
-		GEPlayerPassiveRate.GetWindow<GEPlayerPassiveRate>(true, "13.Player Passive Rate").SetStyle();
 	}
 }

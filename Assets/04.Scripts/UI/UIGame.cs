@@ -1114,6 +1114,7 @@ public class UIGame : UIBase {
 			showViewForceBar(true);
 			uiJoystick.Joystick.isActivated = true;
 			viewTopLeft.SetActive(true);
+			uiSpriteFull.SetActive (false);
 
 			uiJoystick.gameObject.SetActive(true);
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
@@ -1190,6 +1191,7 @@ public class UIGame : UIBase {
 			
 			viewStart.SetActive (true);
 			viewBottomRight.SetActive(false);
+			uiSpriteFull.SetActive (false);
 
 			uiJoystick.Joystick.isActivated = false;
 			uiJoystick.gameObject.SetActive(false);

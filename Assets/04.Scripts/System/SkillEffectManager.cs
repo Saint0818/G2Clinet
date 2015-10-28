@@ -43,6 +43,11 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		}
 	}
 
+	private bool isInRange (GameObject obj) {
+		return Vector2.Distance(new Vector2(GameController.Get.Joysticker.PlayerRefGameObject.transform.position.x, GameController.Get.Joysticker.PlayerRefGameObject.transform.position.z), 
+		                        new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[executePlayer.PassiveSkillUsed.ID].Distance(executePlayer.PassiveSkillUsed.Lv);
+	}
+
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {
 		executePlayer = player;
 		int skillID = 0;
@@ -76,57 +81,88 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		}
 
 		if(skillID != 0 && GameData.DSkillData.ContainsKey(skillID)) {
+			bool isJudgeDistance = false;
+			if(!isPassiveID) {
+				if(GameData.DSkillData[skillID].TargetKind1 == 16 || GameData.DSkillData[skillID].TargetKind1 == 17 ||
+				   GameData.DSkillData[skillID].TargetKind1 == 18 || GameData.DSkillData[skillID].TargetKind1 == 19)
+					isJudgeDistance = true;
+				else 
+					isJudgeDistance = false;
+			}
+
 			if(objs1 != null && objs1.Count != 0){
 				for (int i=0; i<objs1.Count; i++) {
-					TSkillEffect skillEffect = new TSkillEffect();
-					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
-					skillEffect.Position = Vector3.zero;
-					if(GameData.DSkillData[skillID].EffectParent1 == 1) {
-						skillEffect.Player = null;
-						skillEffect.Parent = objs1[i];
-					} else {
-						skillEffect.Player = objs1[i];
-						skillEffect.Parent = null;
+					if((isJudgeDistance && isInRange(objs1[i])) || !isJudgeDistance) {
+						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
+						skillEffect.Position = Vector3.zero;
+						if(GameData.DSkillData[skillID].EffectParent1 == 1) {
+							skillEffect.Player = null;
+							skillEffect.Parent = objs1[i];
+						} else {
+							skillEffect.Player = objs1[i];
+							skillEffect.Parent = null;
+						}
+						skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
+						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
+						skillEffects.Add(skillEffect);
 					}
-					skillEffect.Duration = GameData.DSkillData[skillID].Duration1;
-					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime1;
-					skillEffects.Add(skillEffect);
 				}
+			}
+
+			if(!isPassiveID) {
+				if(GameData.DSkillData[skillID].TargetKind2 == 16 || GameData.DSkillData[skillID].TargetKind2 == 17 ||
+				   GameData.DSkillData[skillID].TargetKind2 == 18 || GameData.DSkillData[skillID].TargetKind2 == 19)
+					isJudgeDistance = true;
+				else 
+					isJudgeDistance = false;
 			}
 			
 			if(objs2 != null && objs2.Count != 0) {
 				for (int i=0; i<objs2.Count; i++) {
-					TSkillEffect skillEffect = new TSkillEffect();
-					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
-					skillEffect.Position = Vector3.zero;
-					if(GameData.DSkillData[skillID].EffectParent2 == 1) {
-						skillEffect.Player = null;
-						skillEffect.Parent = objs2[i];
-					} else {
-						skillEffect.Player = objs2[i];
-						skillEffect.Parent = null;
+					if((isJudgeDistance && isInRange(objs2[i])) || !isJudgeDistance) {
+						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
+						skillEffect.Position = Vector3.zero;
+						if(GameData.DSkillData[skillID].EffectParent2 == 1) {
+							skillEffect.Player = null;
+							skillEffect.Parent = objs2[i];
+						} else {
+							skillEffect.Player = objs2[i];
+							skillEffect.Parent = null;
+						}
+						skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
+						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
+						skillEffects.Add(skillEffect);
 					}
-					skillEffect.Duration = GameData.DSkillData[skillID].Duration2;
-					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime2;
-					skillEffects.Add(skillEffect);
 				}
+			}
+
+			if(!isPassiveID) {
+				if(GameData.DSkillData[skillID].TargetKind3 == 16 || GameData.DSkillData[skillID].TargetKind3 == 17 ||
+				   GameData.DSkillData[skillID].TargetKind3 == 18 || GameData.DSkillData[skillID].TargetKind3 == 19)
+					isJudgeDistance = true;
+				else 
+					isJudgeDistance = false;
 			}
 			
 			if(objs3 != null && objs3.Count != 0) {
 				for (int i=0; i<objs3.Count; i++) {
-					TSkillEffect skillEffect = new TSkillEffect();
-					skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
-					skillEffect.Position = Vector3.zero;
-					if(GameData.DSkillData[skillID].EffectParent3 == 1) {
-						skillEffect.Player = null;
-						skillEffect.Parent = objs3[i];
-					} else {
-						skillEffect.Player = objs3[i];
-						skillEffect.Parent = null;
+					if((isJudgeDistance && isInRange(objs3[i])) || !isJudgeDistance) {
+						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
+						skillEffect.Position = Vector3.zero;
+						if(GameData.DSkillData[skillID].EffectParent3 == 1) {
+							skillEffect.Player = null;
+							skillEffect.Parent = objs3[i];
+						} else {
+							skillEffect.Player = objs3[i];
+							skillEffect.Parent = null;
+						}
+						skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
+						skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
+						skillEffects.Add(skillEffect);
 					}
-					skillEffect.Duration = GameData.DSkillData[skillID].Duration3;
-					skillEffect.DelayTime = GameData.DSkillData[skillID].DelayTime3;
-					skillEffects.Add(skillEffect);
 				}
 			}
 		}
@@ -210,24 +246,28 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				} 
 				break;
 			case 9://Emeny Body (Chest)
+			case 16:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
 						objs.Add(getPlayerChest(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 10://Emeny Head
+			case 17:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
 						objs.Add(GameController.Get.GamePlayers[i].BodyHeight);
 				} 
 				break;
 			case 11://Emeny Hand
+			case 18:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
 						objs.Add(getPlayerHand(GameController.Get.GamePlayers[i]));
 				} 
 				break;
 			case 12://Emeny Feet
+			case 19:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
 						objs.Add(GameController.Get.GamePlayers[i].gameObject);
