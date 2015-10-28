@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using GamePlayEnum;
 using GameStruct;
@@ -145,7 +145,7 @@ public class UIMainStage : UIBase
     private void showMainStages()
     {
         mImpl.HideAllChapters();
-        for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageSchedule; id++)
+        for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageID; id++)
         {
             StageData stage = StageTable.Ins.GetByID(id);
             showStage(stage);
@@ -196,7 +196,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void setLastChapterLock()
     {
-        StageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageSchedule);
+        StageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
         if(!stageData.IsValid())
             return;
 

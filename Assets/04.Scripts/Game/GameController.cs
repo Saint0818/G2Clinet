@@ -3554,7 +3554,7 @@ public class GameController : KnightSingleton<GameController>
         if(ok)
         {
             var info = JsonConvert.DeserializeObject<EndPVEInfo>(www.text);
-            GameData.Team.Player.NextMainStageSchedule = info.NewNextMainStageSchedule;
+            GameData.Team.Player.NextMainStageID = info.NewNextMainStageSchedule;
         }
         else
             UIHint.Get.ShowHint("End PVE fail!", Color.red);

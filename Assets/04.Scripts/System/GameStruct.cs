@@ -148,7 +148,7 @@ namespace GameStruct {
         /// 102: StageID = 101 的關卡已經過關了.
         /// 105: StageID = 101,102,103,104 的關卡已經過關了.
         /// </summary>
-        public int NextMainStageSchedule;
+        public int NextMainStageID;
 
 		public TPlayer(int level)
 		{
@@ -181,7 +181,7 @@ namespace GameStruct {
 			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
 
-		    NextMainStageSchedule = StageTable.MinMainStageID;
+		    NextMainStageID = StageTable.MinMainStageID;
 		}
 
         public override string ToString()
