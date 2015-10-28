@@ -628,8 +628,15 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].OnUIAnger = UIGame.Get.SetAngerUI;
         }
 
+		preLoadSkillEffect();
         GameMsgDispatcher.Ins.SendMesssage(EGameMsg.GamePlayersCreated, PlayerList.ToArray());
     }
+
+	private void preLoadSkillEffect() {
+		for (int i = 0; i < PlayerList.Count; i++)
+			for (int j = 0; j < PlayerList[i].Attribute.SkillCards.Length; j++)
+				EffectManager.Get.PreLoadSkillEffect(PlayerList[i].Attribute.SkillCards[j].ID);
+	}
 
 	public void SetPlayerAI(bool enable){
 		for(int i = 0; i < PlayerList.Count; i++)

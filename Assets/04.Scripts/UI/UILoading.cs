@@ -13,13 +13,11 @@ public class UILoading : UIBase {
 	private GameObject buttonNext;
 	private UITexture uiBG;
 	private UITexture uiLoadingProgress;
-//	private TweenRotation loadingRotation;
 	private GameObject[] pageOn = new GameObject[3];
 	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
 	private ELoadingGamePic loadingKind;
-//	private int PicNo = -2;
 	private int pageLoading = 0;
 	private float startTimer = 0;
 

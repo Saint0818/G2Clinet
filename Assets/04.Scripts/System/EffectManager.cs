@@ -72,8 +72,13 @@ public class EffectManager : MonoBehaviour
 			obj = effectList[effectName];
 		else {
 			obj = (GameObject)Resources.Load("Effect/" + effectName, typeof(GameObject));
-			if (obj)
+			if (obj) {
 				effectList.Add(effectName, obj);
+				#if UNITY_EDITOR
+				if (GameController.Visible && GameController.Get.IsStart) 
+					Debug.LogError("Load effect in game : " + effectName);
+				#endif
+			}
 		}
 
 		return obj;
@@ -107,6 +112,17 @@ public class EffectManager : MonoBehaviour
 			GameEffectLoaded = true;
 			for (int i = 0; i < GameData.PreloadEffect.Length; i ++) 
 				LoadEffect(GameData.PreloadEffect[i].Name);
+		}
+	}
+
+	public void PreLoadSkillEffect(int id) {
+		if (GameData.DSkillData.ContainsKey(id)) {
+			string name = "SkillEffect" + GameData.DSkillData[id].TargetEffect1.ToString();
+			LoadEffect(name);
+			name = "SkillEffect" + GameData.DSkillData[id].TargetEffect2.ToString();
+			LoadEffect(name);
+			name = "SkillEffect" + GameData.DSkillData[id].TargetEffect3.ToString();
+			LoadEffect(name);
 		}
 	}
 
