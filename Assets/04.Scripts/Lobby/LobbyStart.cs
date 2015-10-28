@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
 
-public delegate void CallBack();
+//public delegate void CallBack();
 
 public struct TPlayerObject {
 	public GameObject PlayerObject;
@@ -267,7 +266,7 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 		}
 	}
 
-	private IEnumerator initScenePlayers(CallBack callback){
+	private IEnumerator initScenePlayers(CommonDelegateMethods.Action callback){
 		for (int i = 0; i < scenePlayers.Length; i ++) {
 			yield return new WaitForEndOfFrame();
 

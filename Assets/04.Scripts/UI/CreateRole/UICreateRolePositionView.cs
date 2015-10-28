@@ -13,7 +13,7 @@ public class UICreateRolePositionView : MonoBehaviour
     public GameObject Window;
     public Transform ModelPreview;
 
-    public UISprite PosNameSprite; // 顯示位置(Guard, Forward, Center)
+    public UILabel PosNameLabel; // 顯示位置(Guard, Forward, Center)
     public UILabel PosDescriptionLabel;
 
     public Animator UIAnimator;
@@ -38,13 +38,6 @@ public class UICreateRolePositionView : MonoBehaviour
 
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
-    private readonly Dictionary<EPlayerPostion, string> mPosSprites = new Dictionary<EPlayerPostion, string>
-    {
-        {EPlayerPostion.G, "Labelguard"},
-        {EPlayerPostion.F, "Labelforward"},
-        {EPlayerPostion.C, "Labelcenter"}
-    };
-    
     [UsedImplicitly]
     private void Awake()
     {
@@ -64,24 +57,25 @@ public class UICreateRolePositionView : MonoBehaviour
     {
         updateAttributes();
 
-        switch (mCurrentPostion)
-        {
-            case EPlayerPostion.G:
-                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.G];
-                PosDescriptionLabel.text = TextConst.S(18);
-                break;
-            case EPlayerPostion.F:
-                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.F];
-                PosDescriptionLabel.text = TextConst.S(19);
-                break;
-            case EPlayerPostion.C:
-                PosNameSprite.spriteName = mPosSprites[EPlayerPostion.C];
-                PosDescriptionLabel.text = TextConst.S(20);
-                break;
+        PosNameLabel.text = TextConst.S(UICreateRole.Get.PosInfos[mCurrentPostion].TextIndex);
+        PosNameLabel.color = UICreateRole.Get.PosInfos[mCurrentPostion].TextColor;
+        PosDescriptionLabel.text = TextConst.S(UICreateRole.Get.PosInfos[mCurrentPostion].DescIndex);
 
-            default:
-                throw new InvalidEnumArgumentException(mCurrentPostion.ToString());
-        }
+//        switch (mCurrentPostion)
+//        {
+//            case EPlayerPostion.G:
+//                PosDescriptionLabel.text = TextConst.S(18);
+//                break;
+//            case EPlayerPostion.F:
+//                PosDescriptionLabel.text = TextConst.S(19);
+//                break;
+//            case EPlayerPostion.C:
+//                PosDescriptionLabel.text = TextConst.S(20);
+//                break;
+//
+//            default:
+//                throw new InvalidEnumArgumentException(mCurrentPostion.ToString());
+//        }
     }
 
     public void Show(bool showPreviousButton)

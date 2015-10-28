@@ -8,8 +8,9 @@ public class UIMessage : UIBase {
 	private UIButton YesBtn;
 	private UIButton NoBtn;
 
-	private CallBack YesFunc;
-	private CallBack NoFunc;
+	private CommonDelegateMethods.Action3 YesFunc;
+	private CommonDelegateMethods.Action NoFunc;
+    private object mExtraInfo;
 
 	public static void UIShow(bool isShow){
 		if(instance) {
@@ -49,9 +50,10 @@ public class UIMessage : UIBase {
 		SetLabel (UIName + "/Window/Finish/UILabel", TextConst.S(136));
 	}
 
-	public void OnYes() {
-		if (YesFunc != null)
-			YesFunc ();
+	public void OnYes()
+    {
+		if(YesFunc != null)
+			YesFunc(mExtraInfo);
 
 		UIShow(false);
 	}
@@ -63,9 +65,12 @@ public class UIMessage : UIBase {
 		UIShow(false);
 	}
 	
-	public void ShowMessage (string titleStr, string messageStr, CallBack yes = null, CallBack no = null) {
+	public void ShowMessage(string titleStr, string messageStr, CommonDelegateMethods.Action3 yes = null,
+                            CommonDelegateMethods.Action no = null, object extraInfo = null)
+    {
 		YesFunc = yes;
 		NoFunc = no;
+	    mExtraInfo = extraInfo;
 
 		UIShow (true);
 

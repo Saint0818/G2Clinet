@@ -742,7 +742,7 @@ public class UIAvatarFitted : UIBase {
 		ChangeMode (EAvatarMode.Normal);
 	}
 
-	private void OnYesSell()
+	private void OnYesSell(object obj)
 	{
 		List<int> sells = new List<int>();
 

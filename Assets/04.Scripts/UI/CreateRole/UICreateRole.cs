@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class UICreateRole : UIBase
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
 
-    private GameObject mFullScreenBlock;
+//    private GameObject mFullScreenBlock;
 
     public void ShowFrameView()
     {
@@ -74,7 +75,7 @@ public class UICreateRole : UIBase
     /// <param name="enable"></param>
     public void EnableBlock(bool enable)
     {
-        mFullScreenBlock.SetActive(enable);
+        mFrameView.FullScreenBlock.SetActive(enable);
     }
 
 	public static UICreateRole Get
@@ -103,8 +104,8 @@ public class UICreateRole : UIBase
         mStyleView = GetComponent<UICreateRoleStyleView>();
         mStyleView.Hide();
 
-        mFullScreenBlock = GameObject.Find("Window/FullScreenInvisibleWidget");
-        mFullScreenBlock.SetActive(false);
+//        mFullScreenBlock = GameObject.Find("Window/FullScreenInvisibleWidget");
+//        mFullScreenBlock.SetActive(false);
 
 		UILoading.UIShow (false);
 		AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
@@ -227,7 +228,7 @@ public class UICreateRole : UIBase
             data[i].Position = (EPlayerPostion)GameData.DPlayers[playerBanks[i].ID].BodyType;
             data[i].Name = playerBanks[i].Name;
             if(data[i].Name == null)
-                data[i].Name = string.Empty;
+                data[i].Name = String.Empty;
             data[i].Level = playerBanks[i].Lv;
         }
 
@@ -245,4 +246,18 @@ public class UICreateRole : UIBase
         Hand,
         Back
     }
+
+    public struct PosInfo
+    {
+        public int TextIndex;
+        public int DescIndex;
+        public Color32 TextColor;
+    }
+
+    public readonly Dictionary<EPlayerPostion, PosInfo> PosInfos = new Dictionary<EPlayerPostion, PosInfo>
+    {
+        {EPlayerPostion.G, new PosInfo {TextIndex = 21, DescIndex = 18, TextColor = new Color32(57, 94, 204, 255)} },
+        {EPlayerPostion.F, new PosInfo {TextIndex = 22, DescIndex = 19, TextColor = new Color32(91, 255, 168, 255)} },
+        {EPlayerPostion.C, new PosInfo {TextIndex = 23, DescIndex = 20, TextColor = new Color32(180, 33, 35, 255)} }
+    };
 }

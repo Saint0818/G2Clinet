@@ -17,10 +17,11 @@ public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
     public UICreateRolePlayerSlot[] Slots;
-    public UIConfirmDialog ConfirmDialog;
+//    public UIConfirmDialog ConfirmDialog;
 
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
+    public GameObject FullScreenBlock;
 
     /// <summary>
     /// 離開 FrameView, 進入 PositionView 的等待時間. 這個等待時間是要等 Slot 撥完離開的 Animation.
@@ -46,7 +47,9 @@ public class UICreateRoleFrameView : MonoBehaviour
             Slots[i].OnDeleteListener += onDeletePlayer;
         }
 
-        ConfirmDialog.OnYesListener += onConfirmDelete;
+        FullScreenBlock.SetActive(false);
+
+//        ConfirmDialog.OnYesListener += onConfirmDelete;
 
         ShowNum = DefaultShowNum;
     }
@@ -237,7 +240,8 @@ public class UICreateRoleFrameView : MonoBehaviour
         if(isLock)
             return;
 
-        ConfirmDialog.Show(data);
+//        ConfirmDialog.Show(data);
+        UIMessage.Get.ShowMessage(TextConst.S(205), TextConst.S(206), onConfirmDelete, null, data);
     }
 
     private void onConfirmDelete(object extraInfo)

@@ -1369,7 +1369,7 @@ public class UISkillFormation : UIBase {
 			if(isChangePage) {
 				UIMessage.Get.ShowMessage("", TextConst.S(204), SendEquipSkillCard, SendChangeSkillPage);
 			} else
-				SendEquipSkillCard ();
+				SendEquipSkillCard(null);
 		} else
 			if(isChangePage) {
 				SendChangeSkillPage();
@@ -1378,7 +1378,7 @@ public class UISkillFormation : UIBase {
 					setEditState(IsBuyState);
 	}
 
-	public void SendEquipSkillCard () {
+	public void SendEquipSkillCard (object obj) {
 		WWWForm form = new WWWForm();
 		form.AddField("RemoveIndexs", JsonConvert.SerializeObject(removeIndexs));
 		form.AddField("AddIndexs", JsonConvert.SerializeObject(addIndexs));

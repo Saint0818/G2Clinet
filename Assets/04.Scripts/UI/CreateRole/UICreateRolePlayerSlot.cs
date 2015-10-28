@@ -42,11 +42,11 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     public event Action OnClickListener;
     public event Action OnDeleteListener; // 刪除角色的按鈕按下.
 
-    private readonly Dictionary<EPlayerPostion, string> mPosNames = new Dictionary<EPlayerPostion, string>
+    private readonly Dictionary<EPlayerPostion, int> mPosTextIndices = new Dictionary<EPlayerPostion, int>
     {
-        { EPlayerPostion.G, "Labelguard"},
-        { EPlayerPostion.F, "Labelforward"},
-        { EPlayerPostion.C, "Labelcenter"}
+        { EPlayerPostion.G, 21},
+        { EPlayerPostion.F, 22},
+        { EPlayerPostion.C, 23}
     };
 
     private readonly Dictionary<EPlayerPostion, string> mPosBGs = new Dictionary<EPlayerPostion, string>
@@ -59,15 +59,15 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     public GameObject Window;
     public UISprite CenterButton;
     public GameObject RemoveButton;
-    public UISprite BGLeft;
-    public UISprite BGRight;
+    public UISprite[] BGSprites;
 
     public GameObject PlayerInfo;
-    public UISprite PosSprite;
+    public UILabel PosNameLabel;
     public UISprite PosBG;
     public UILabel NameLabel;
     public UILabel LevelLabel;
     public GameObject SelectedIcon; // 用來標示哪一位球員是目前正在使用的球員.
+    public UISprite[] LeftRightMarks; // 左右兩邊的三角形圖示.
 
     /// <summary>
     /// 方便外部使用者可以得知哪一個 Slot 被點擊了.
@@ -82,18 +82,21 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     private const string AddSpriteName = "Icon_Create";
     private const string AddBGSpriteName = "BtnEmpty";
 
+    private const string TriangleMarkOn = "Positionchange";
+    private const string TriangleMarkOff = "EmptyColor";
+
     private readonly Dictionary<EPlayerPostion, string> mSelectSpriteNames = new Dictionary<EPlayerPostion, string>
     {
         {EPlayerPostion.C, "BtnCircle0"},
         {EPlayerPostion.F, "BtnCircle2"},
-        {EPlayerPostion.G, "BtnCircle1"},
+        {EPlayerPostion.G, "BtnCircle1"}
     };
-    private readonly Dictionary<EPlayerPostion, string> mSelectBGSpriteNames = new Dictionary<EPlayerPostion, string>
-    {
-        {EPlayerPostion.C, "BtnCreatedCenter"},
-        {EPlayerPostion.F, "BtnCreatedForward"},
-        {EPlayerPostion.G, "BtnCreatedGuard"},
-    };
+//    private readonly Dictionary<EPlayerPostion, string> mSelectBGSpriteNames = new Dictionary<EPlayerPostion, string>
+//    {
+//        {EPlayerPostion.C, "BtnCreatedCenter"},
+//        {EPlayerPostion.F, "BtnCreatedForward"},
+//        {EPlayerPostion.G, "BtnCreatedGuard"},
+//    };
 
     private Data mData;
 
@@ -107,8 +110,18 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     {
         CenterButton.spriteName = AddSpriteName;
 
-        BGLeft.spriteName = AddBGSpriteName;
-        BGRight.spriteName = AddBGSpriteName;
+        foreach(UISprite sprite in BGSprites)
+        {
+            sprite.spriteName = AddBGSpriteName;
+        }
+//        BGLeft.spriteName = AddBGSpriteName;
+//        BGRight.spriteName = AddBGSpriteName;
+
+        foreach(UISprite sprite in LeftRightMarks)
+        {
+            sprite.spriteName = TriangleMarkOff;
+            sprite.color = Color.white;
+        }
 
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
@@ -157,8 +170,19 @@ public class UICreateRolePlayerSlot : MonoBehaviour
     public void SetLock()
     {
         CenterButton.spriteName = LockSpriteName;
-        BGLeft.spriteName = LockBGSpriteName;
-        BGRight.spriteName = LockBGSpriteName;
+        foreach(UISprite sprite in BGSprites)
+        {
+            sprite.spriteName = LockBGSpriteName;
+        }
+//        BGLeft.spriteName = LockBGSpriteName;
+//        BGRight.spriteName = LockBGSpriteName;
+
+        foreach(UISprite sprite in LeftRightMarks)
+        {
+            sprite.spriteName = TriangleMarkOff;
+            sprite.color = Color.white;
+        }
+
         RemoveButton.SetActive(false);
         PlayerInfo.SetActive(false);
 
@@ -171,13 +195,19 @@ public class UICreateRolePlayerSlot : MonoBehaviour
 
         CenterButton.spriteName = mSelectSpriteNames[mData.Position];
 
-        BGLeft.spriteName = mSelectBGSpriteNames[mData.Position];
-        BGRight.spriteName = mSelectBGSpriteNames[mData.Position];
+//        BGLeft.spriteName = mSelectBGSpriteNames[mData.Position];
+//        BGRight.spriteName = mSelectBGSpriteNames[mData.Position];
+
+        foreach(UISprite sprite in LeftRightMarks)
+        {
+            sprite.spriteName = TriangleMarkOn;
+            sprite.color = UICreateRole.Get.PosInfos[mData.Position].TextColor;
+        }
 
         RemoveButton.SetActive(true);
         PlayerInfo.SetActive(true);
 
-        PosSprite.spriteName = mPosNames[mData.Position];
+        PosNameLabel.text = TextConst.S(mPosTextIndices[mData.Position]);
         PosBG.spriteName = mPosBGs[mData.Position];
         NameLabel.text = mData.Name;
         LevelLabel.text = mData.Level.ToString();
