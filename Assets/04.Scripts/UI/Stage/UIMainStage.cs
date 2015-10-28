@@ -24,8 +24,8 @@ public class UIMainStage : UIBase
     private const string UIName = "UIMainStage";
 
     /// <summary>
-    /// <para> 這是 Stage.Kind 參數的對照表. </para>
-    /// <para> 目前有一個特殊的假設, 對照表找出的數值, 就是關卡的圖片, 也就是該關卡的類型文字(比如:傳統, 計時賽等等). </para>
+    /// <para> 這是 Stage.Kind 參數的對照表. [Key:Kind, Value:TextConst Index]</para>
+    /// <para> 目前的規則是對照表找出的數值, 就是關卡的圖片, 也就是該關卡的類型文字(比如:傳統, 計時賽等等). </para>
     /// </summary>
     private readonly Dictionary<int, int> mStageKindMapping = new Dictionary<int, int>
     {
@@ -33,7 +33,7 @@ public class UIMainStage : UIBase
         {2, 2000002},
         {3, 2000003},
         {4, 2000004},
-        {9, 2000005}
+        {9, 2000009}
     };
 
     private int mCurrentStageID;
