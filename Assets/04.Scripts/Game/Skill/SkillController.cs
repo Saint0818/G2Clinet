@@ -9,6 +9,11 @@ using G2;
 
 public delegate void OnAddAttributeDelegate(int kind, float value);
 
+public struct TPassiveType {
+	public TSkill Tskill;
+	public int Rate;
+}
+
 public class SkillController : MonoBehaviour {
 	public OnAddAttributeDelegate OnAddAttribute = null;
 
@@ -16,7 +21,7 @@ public class SkillController : MonoBehaviour {
 	//PassiveSkill key: Kind  value: TSKill
 	private EPassDirectState passDirect = EPassDirectState.Forward;
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>();
-	public Dictionary<int, List<TSkill>> DPassiveSkills = new Dictionary<int, List<TSkill>>();//Skill
+	public Dictionary<int, List<TPassiveType>> DPassiveSkills = new Dictionary<int, List<TPassiveType>>();//Skill
 	[HideInInspector]
 	public TSkill ActiveSkillUsed;
 	[HideInInspector]
@@ -77,12 +82,12 @@ public class SkillController : MonoBehaviour {
 			skillAttribute.Clear();
 			GameObject obj = Instantiate((Resources.Load("Effect/PlayerInfo") as GameObject), Vector3.zero, Quaternion.identity) as GameObject;
 			skillBuff = new SkillBuff();
-			skillBuff.InitBuff(obj, attribute, player.gameObject);
+			skillBuff.InitBuff(obj, attribute, player.PlayerRefGameObject);
 			skillBuff.OnFinishBuff = FinishBuff;
 			//Passive
 			if (attribute.SkillCards != null && attribute.SkillCards.Length > 0) {
 				for (int i = 0; i < attribute.SkillCards.Length; i++) {
-					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID)) {
+					if (GameData.DSkillData.ContainsKey(attribute.SkillCards[i].ID) && attribute.SkillCards[i].ID < GameConst.ID_LimitActive) {
 						GameData.CardTexture(attribute.SkillCards[i].ID);
 						TSkillData skillData = GameData.DSkillData[attribute.SkillCards[i].ID];
 						int key = skillData.Kind;
@@ -96,15 +101,19 @@ public class SkillController : MonoBehaviour {
 							PickBall2Lv = attribute.SkillCards[i].Lv;
 							PickBall2Rate = skillData.Rate(PickBall2Lv);
 						}
-						
+
+						TPassiveType type = new TPassiveType();
 						TSkill skill = new TSkill();
 						skill.ID = attribute.SkillCards [i].ID;
 						skill.Lv = attribute.SkillCards [i].Lv;
+						type.Tskill = skill;
+						type.Rate = GameData.DSkillData[attribute.SkillCards [i].ID].Rate(attribute.SkillCards [i].Lv);
 						if (DPassiveSkills.ContainsKey(key))
-							DPassiveSkills [key].Add(skill);
+							DPassiveSkills [key].Add(type);
 						else {
-							List<TSkill> pss = new List<TSkill>();
-							pss.Add(skill);
+//							List<TSkill> pss = new List<TSkill>();
+							List<TPassiveType> pss = new List<TPassiveType>();
+							pss.Add(type);
 							DPassiveSkills.Add(key, pss);
 						}
 					}
@@ -202,38 +211,38 @@ public class SkillController : MonoBehaviour {
 	private string randomPassive(ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0) {
 		int skillKind = (int)kind;
 		//Part 1. Get Passive which is choosed. 
-		List<TSkill> skills = new List<TSkill>();
+		List<TPassiveType> skills = new List<TPassiveType>();
 
-		float angle = MathUtils.FindAngle(executePlayer.gameObject.transform, v);
+		float angle = MathUtils.FindAngle(executePlayer.PlayerRefGameObject.transform, v);
 		passDirect = judgeDirect(angle);
 
 		if(DPassiveSkills.ContainsKey(skillKind)) {
 			for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
 				if(kind == ESkillKind.Pass) 
-					if(GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Direct == (int)passDirect) 
-						if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv))
+					if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Direct == (int)passDirect) 
+						if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate)
 							skills.Add(DPassiveSkills[skillKind][i]);
 				else 
 				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
-					if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv)) {
-						if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].ID == 412 || DPassiveSkills[skillKind][i].ID == 413))
+					if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate) {
+						if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].Tskill.ID == 412 || DPassiveSkills[skillKind][i].Tskill.ID == 413))//if no def player, don't use 
 							break;
 						
 						skills.Add(DPassiveSkills[skillKind][i]);
 					}
 				} else
-					if(UnityEngine.Random.Range(0, 100) <= GameData.DSkillData[DPassiveSkills[skillKind][i].ID].Rate(DPassiveSkills[skillKind][i].Lv))
+					if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate)
 						skills.Add(DPassiveSkills[skillKind][i]);
 			}
 			//Part 2. Get Passive 
 			if(skills.Count > 0) {
-				AI.WeightedRandomizer<TSkill> randomizer = new AI.WeightedRandomizer<TSkill>();
+				AI.WeightedRandomizer<TPassiveType> randomizer = new AI.WeightedRandomizer<TPassiveType>();
 				for(int i=0; i<skills.Count; i++) 
-					randomizer.AddOrUpdate(skills[i], GameData.DSkillData[skills[i].ID].Rate(skills[i].Lv));
+					randomizer.AddOrUpdate(skills[i], skills[i].Rate);
 				
-				TSkill skill = randomizer.GetNext();
-				PassiveSkillUsed = skill;
-				return GameData.DSkillData[skill.ID].Animation;
+				TPassiveType type = randomizer.GetNext();
+				PassiveSkillUsed = type.Tskill;
+				return GameData.DSkillData[type.Tskill.ID].Animation;
 			} else 
 				return string.Empty;
 		} else 
@@ -367,14 +376,14 @@ public class SkillController : MonoBehaviour {
 				if(GameData.DSkillData[tSkill.ID].TargetKind != 1 && 
 				   GameData.DSkillData[tSkill.ID].TargetKind != 2) {
 					//Target(People)
-					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
+					if (target == player.PlayerRefGameObject || GameController.Get.GetDis(player, new Vector2(target.transform.position.x, target.transform.position.z)) <= 
 					    GameData.DSkillData[tSkill.ID].Distance(tSkill.Lv)) {
 						if (checkSkillBaseSituation(player, tSkill))
 							return true;
 					}
 				} else {
 					//Basket
-					if (target == player.gameObject || GameController.Get.GetDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
+					if (target == player.PlayerRefGameObject || GameController.Get.GetDis(player, new Vector2(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.x, CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.z)) <= 
 					    GameData.DSkillData[tSkill.ID].Distance(tSkill.Lv)) {
 						if (checkSkillBaseSituation(player, tSkill))
 							return true;
@@ -394,7 +403,7 @@ public class SkillController : MonoBehaviour {
 					if(skill.Kind == 210 && skill.TargetKind == 30) {
 						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
 							if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
-								if(CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].gameObject)) {
+								if(CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].PlayerRefGameObject)) {
 									GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
 									                                                    skill.AttrKind, 
 									                                                    skill.Value(tSkill.Lv), 
@@ -662,7 +671,7 @@ public class SkillController : MonoBehaviour {
 					List<GameObject> objs = new List<GameObject>();
 					switch (GameData.DSkillData[tSkill.ID].TargetKind) {
 					case 0:// self
-						objs.Add(player.gameObject);
+						objs.Add(player.PlayerRefGameObject);
 						break;
 					case 1://my basket
 						objs.Add(CourtMgr.Get.BasketHoop[player.Team.GetHashCode()].gameObject);
@@ -678,7 +687,7 @@ public class SkillController : MonoBehaviour {
 					case 3://my all teammates
 						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
 							if (GameController.Get.GamePlayers[i].Team == player.Team) {
-								objs.Add(GameController.Get.GamePlayers[i].gameObject);
+								objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 							}
 						}
 						break;

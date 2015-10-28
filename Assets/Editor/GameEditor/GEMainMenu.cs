@@ -54,4 +54,9 @@ public class GEMainMenu: EditorWindow {
 	private static void OnBuildTool() {
 		GEBuildTool.GetWindow<GEBuildTool>(true, "12.Build Tool").SetStyle();
 	}
+	
+	[MenuItem (menuRoot + "13.Player Passive Rate", false, 13)]
+	private static void OnPlayerPassiveRate() {
+		GEPlayerPassiveRate.GetWindow<GEPlayerPassiveRate>(true, "13.Player Passive Rate").SetStyle();
+	}
 }
