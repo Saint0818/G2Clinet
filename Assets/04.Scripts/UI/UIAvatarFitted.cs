@@ -38,7 +38,10 @@ public struct TItemAvatar
 	private UIButton buyBtn;
 	private UISprite TrimBottom;
 	private UISprite SellSelect;
+	private UISprite EquipedIcon;
+	private UISlider timeBar;
 	public DateTime EndUseTime;
+	public int UseTotalScenes;
 
 	public EAvatarMode Mode
 	{
@@ -48,15 +51,15 @@ public struct TItemAvatar
 			if(mode == EAvatarMode.Sell)
 			{
 				if(!Equip){
-					equipBtn.defaultColor = Color.red;
-					equipBtn.hover = Color.gray;
+					equipBtn.defaultColor = GColor.Red;
+					equipBtn.hover = GColor.Red;
 				}
 			}
 			else
 			{
 				if(equipBtn){
-					equipBtn.defaultColor = (Equip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
-					equipBtn.hover = (Equip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+					equipBtn.defaultColor = (Equip == true) ? GColor.Equip : Color.white;
+					equipBtn.hover = (Equip == true) ? GColor.Equip : Color.white;
 				}
 			}
 		}
@@ -164,9 +167,12 @@ public struct TItemAvatar
 	{
 		set{
 			currentTime = value;
-
-			if(usetime)
-				usetime.text = value.Days + " : " + value.Hours + " : " + value.Minutes;
+			if(currentTime.TotalDays > 1)
+				usetime.text = string.Format("{0} Day", currentTime.Days);
+			else if(currentTime.TotalHours > 1 && currentTime.TotalDays < 1)
+				usetime.text = string.Format("{0}H {1}M", currentTime.Hours, currentTime.Minutes);
+			else
+				usetime.text = string.Format("{0}M {1}S", currentTime.Minutes, currentTime.Seconds);
 		}
 
 		get{return currentTime;}
@@ -180,8 +186,7 @@ public struct TItemAvatar
 				if(mode == EAvatarMode.Sell){
 					equipLabel.text = "SELL";
 				}else{
-					if(TrimBottom.color != Color.black)
-						TrimBottom.color = Color.black;
+					TrimBottom.enabled = true;
 					equipLabel.text = "FETTING";
 				}
 				break;
@@ -192,8 +197,7 @@ public struct TItemAvatar
 					else
 						equipLabel.text = "SELL";
 				}else{
-					if(TrimBottom.color != Color.white)
-						TrimBottom.color = Color.white;
+					TrimBottom.enabled = false;
 					
 					if(Equip)
 						equipLabel.text = "EQUIPED";
@@ -208,8 +212,9 @@ public struct TItemAvatar
 	{
 		set{
 			isEquip = value;
-			equipBtn.defaultColor = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
-			equipBtn.hover = (isEquip == true) ? Color.gray : new Color(0.431f, 0.976f, 0.843f,1);
+			EquipedIcon.enabled = isEquip;
+			equipBtn.defaultColor = (isEquip == true) ? GColor.Equip : GColor.White;
+			equipBtn.hover = (isEquip == true) ? GColor.Equip : GColor.White;
 			CheckEquipBtnName();
 		}
 		get{
@@ -224,11 +229,13 @@ public struct TItemAvatar
 				Mode = EAvatarMode.Normal;
 				name = gameobject.transform.FindChild ("ItemName").gameObject.GetComponent<UILabel> ();
 				usetime = gameobject.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
+				timeBar = usetime.transform.FindChild ("TimeBar").gameObject.GetComponent<UISlider> ();
 				abilityValue = gameobject.transform.FindChild ("BuyBtn/FinishLabel").gameObject.GetComponent<UILabel> ();
 				pic = gameobject.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
 				TrimBottom = gameobject.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
 				SellSelect = gameobject.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
 				Selected = false;
+				EquipedIcon = gameobject.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
 				equipBtn = gameobject.transform.FindChild ("EquipBtn").gameObject.GetComponent<UIButton> ();
 
 				if(equipBtn){
@@ -305,19 +312,31 @@ public struct TItemAvatar
 				case 1:
 					TimeSpan checktime;
 					checktime = EndUseTime - System.DateTime.UtcNow;
+					
 					if(checktime.TotalSeconds > 0)
+					{
+						if(timeBar.enabled == false)
+							timeBar.enabled = true;
+						
+						EnableBuy = false;
+						timeBar.value = (float)checktime.TotalSeconds / (float)UseTotalScenes;
 						UseTime = checktime;
-					else
+					}
+					else{
 						UseKind = 2;
-					EnableBuy = false;
+					}
 					break;
 				case 2:
+					timeBar.enabled = false;
 					usetime.gameObject.SetActive(false);
 					EnableBuy = true;
+					abilityValue.enabled = false;
 					break;
 				default:
 					usetime.gameObject.SetActive(false);
 					EnableBuy = false;
+					timeBar.enabled = false;
+					abilityValue.enabled = true;
 					break;
 			}
 		}
@@ -570,6 +589,7 @@ public class UIAvatarFitted : UIBase {
 					backpackItems[i].Kind = GameFunction.GetItemKind(backpackItems[i].ID);
 					backpackItems[i].UseKind = GameData.Team.Items[i].UseKind;
 					backpackItems[i].Index = i;
+					backpackItems[i].UseTotalScenes = GameData.DItemData[backpackItems[i].ID].UseTime * 3600;
 			}
 			else if(i >= GetAvatarCountInTeamItem() && i < GetAvatarCountInPlayerItem() + GetAvatarCountInTeamItem())
 			{
@@ -598,6 +618,11 @@ public class UIAvatarFitted : UIBase {
 				backpackItems[i].ID = 0;
 			}
 		}
+	}
+
+	private Vector3 GetItemPos(int count)
+	{
+		return new Vector3 (194 * (int)(count / 2), (count % 2 == 0 ? 68 : -151), 0);
 	}
 
 	public void UpdateView()
@@ -635,11 +660,11 @@ public class UIAvatarFitted : UIBase {
 				{
 					case 0:
 						if(!backpackItems[i].Equip)
-							backpackItems[i].Enable = false;
+							backpackItems[i].Enable = true;
 						break;
 					case 1:
 						if(backpackItems[i].Equip)
-							backpackItems[i].Enable = false;
+							backpackItems[i].Enable = true;
 						break;
 				}
 			}
@@ -665,14 +690,14 @@ public class UIAvatarFitted : UIBase {
 			case 0:
 				sortlist.Sort((x, y) => { return -x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
+					sortlist[i].gameobject.transform.localPosition = GetItemPos(count);
 					count++;
 				}
 			break;
 			case 1:
 				sortlist.Sort((x, y) => { return x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-				sortlist[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
+					sortlist[i].gameobject.transform.localPosition = GetItemPos(count);;
 					count++;
 				}
 				break;
@@ -680,7 +705,7 @@ public class UIAvatarFitted : UIBase {
 				for(int i = 0; i < backpackItems.Length; i++)
 					if(backpackItems[i].Enable)
 					{
-				backpackItems[i].gameobject.transform.localPosition = new Vector3(200 * (int)(count / 2), (count % 2 ==0? 120 : -130), 0);
+						backpackItems[i].gameobject.transform.localPosition = GetItemPos(count);;
 						count++;
 					}
 						break;
