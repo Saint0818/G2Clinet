@@ -59,7 +59,7 @@ public class UIChapterChangeListener : MonoBehaviour
     private void Awake()
     {
         UIStageChapter[] chapters = GetComponentsInChildren<UIStageChapter>();
-        float width = chapters[0].GetComponent<UISprite>().width;
+        float width = chapters[0].GetComponent<UITexture>().width;
 
         for(int i = 0; i < chapters.Length; i++)
         {

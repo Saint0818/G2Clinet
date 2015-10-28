@@ -42,7 +42,7 @@ public class UIStageInfo : MonoBehaviour
 
         updateUI(data);
 
-        Hint.UpdateUI(mStageID);
+//        Hint.UpdateUI(mStageID);
     }
 
     private void updateUI(Data data)
