@@ -24,8 +24,10 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour {
 			case EAnimatorState.Block:
 				break;
 			case EAnimatorState.Buff:
-				if(StateNo == 20 || StateNo == 21) 
+				if(StateNo == 20 || StateNo == 21) {
 					player.StartActiveCamera();
+					CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_0");
+				}
 				break;
 			case EAnimatorState.Catch:
 				break;

@@ -231,7 +231,7 @@ public class UISkillFormation : UIBase {
 		scrollViewItemList = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
 		scrollViewItemList.transform.localPosition = new Vector3(0, 15, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
-		scrollViewItemList.onStoppedMoving =ItemDragFinish;
+		scrollViewItemList.onDragFinished =ItemDragFinish;
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
 		toggleCheckBoxSkill[1] = GameObject.Find (UIName + "/MainView/Right/STitle/PassiveCheck").GetComponent<UIToggle>();
@@ -297,6 +297,8 @@ public class UISkillFormation : UIBase {
 		}
 		itemPassiveCards.Clear();
 		itemPassiveField.SetActive(true);
+		scrollViewItemList.transform.localPosition = new Vector3(0, 15, 0);
+		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 	}
 
 	private void refreshAfterInstall () {
@@ -1143,16 +1145,11 @@ public class UISkillFormation : UIBase {
 	}
 	
 	public void UpdateSort () {
-		if(eCondition != PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode())){
-			eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
-			sortSkillCondition(eCondition);
-		}
+		eCondition = PlayerPrefs.GetInt(ESave.SkillCardCondition.ToString(), ECondition.None.GetHashCode());
+		sortSkillCondition(eCondition);
 
-		if(eFilter != PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode())) {
-			eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
-			sortSkillFilter(eFilter);
-		}
-
+		eFilter = PlayerPrefs.GetInt(ESave.SkillCardFilter.ToString(), EFilter.All.GetHashCode());
+		sortSkillFilter(eFilter);
 		switch(eFilter) {
 			case (int)EFilter.All:
 				toggleCheckBoxSkill[0].value = true;

@@ -3229,35 +3229,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 	//For Buff Start
 	public void SkillEvent (AnimationEvent aniEvent) {
-		int skillEffectKind = aniEvent.intParameter;
-		string cameraAction = aniEvent.stringParameter;
-		if(skillEffectKind == 10) {
-			CameraMgr.Get.CourtCameraAnimator.SetTrigger(cameraAction);
-		}
+		Debug.LogWarning("SkillEvent:"+crtState);
 	}
 
 	public void MoveEvent (AnimationEvent aniEvent){
-//		float t = aniEvent.floatParameter;
-//		int eventKind = aniEvent.intParameter;
-//		switch (eventKind) {
-//		case 0:
-//			if(GameController.Get.BallOwner != null) {
-//				transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), t);
-//				RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
-//				GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-//			} else {
-//				if(GameController.Get.Catcher != null) {
-//					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
-//					RotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
-//					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
-//				} else if(GameController.Get.Shooter != null) {
-//					transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), t);
-//					RotateTo(GameController.Get.Shooter.transform.position.x, GameController.Get.Shooter.transform.position.z);
-//					GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
-//				}
-//			}
-//			break;
-//		}
+		Debug.LogWarning("MoveEvent:"+crtState);
 	}
 	
 	public void SetBallEvent () {
@@ -3274,16 +3250,6 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	public void StopSkill(){
 		TimerMgr.Get.ChangeTime (ETimerKind.Player0, 1);
-//		if(isSkillShow) {
-//			if(OnUIJoystick != null)
-//				OnUIJoystick(this, true);
-//			
-//			UISkillEffect.UIShow(false);
-//			//			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-//			//				TimerMgr.Get.ChangeTime (item, 1);
-//			
-//			isSkillShow = false;
-//		}
 	}
 
 	public void StartActiveCamera (){

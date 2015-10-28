@@ -60,20 +60,6 @@ namespace  SkillBuffSpace {
 			initValue ();
 		}
 
-//		public void InitBuff (GameObject playerInfo){
-//			playerInfo.transform.name = "PlayerInfo";
-//			playerInfo.transform.localPosition = Vector3.zero;
-//			labelPlayerName = playerInfo.transform.FindChild("Scale/Billboard/PlayerNameLabel").GetComponent<UILabel>();
-//			for(int i=0; i<buffInfo.Length; i++) {
-//				buffInfo[i].Info = playerInfo.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()).gameObject;
-//				buffInfo[i].AnimatorInfo = buffInfo[i].Info.GetComponent<Animator>();
-//				buffInfo[i].Info.SetActive(false);
-//				buffInfo[i].SpriteBuff = playerInfo.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite").GetComponent<UISprite>();
-//			}
-//			
-//			initValue ();
-//		} 
-
 		public void HideName (){
 			labelPlayerName.gameObject.SetActive(false);
 		}
@@ -131,7 +117,7 @@ namespace  SkillBuffSpace {
 		}
 		
 		public void AddBuff (int skillIndex, float lifeTime) {
-			if(buffCount() <= 4) {
+			if(buffCount <= 4) {
 				int positionIndex = contains(skillIndex);
 				if(positionIndex != -1) {
 					if(buffInfo[positionIndex].LifeTime <= 3) 
@@ -166,13 +152,15 @@ namespace  SkillBuffSpace {
 			}
 		}
 		
-		private int buffCount () {
-			int result = 0;
-			for (int i=0; i<recordIndex.Length; i++) {
-				if(recordIndex[i] != -1)
-					result ++;
+		private int buffCount  {
+			get {
+				int result = 0;
+				for (int i=0; i<recordIndex.Length; i++) {
+					if(recordIndex[i] != -1)
+						result ++;
+				}
+				return result;
 			}
-			return result;
 		}
 		
 		private int contains (int skillID) {

@@ -241,7 +241,7 @@ public class SkillController : MonoBehaviour {
 	}
 	
 	private bool checkSkillBaseSituation(PlayerBehaviour player, TSkill tSkill) {
-		if(player.Attribute.ActiveSkills.Count > 0) {
+		if(player.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(tSkill.ID)) {
 			int kind = GameData.DSkillData[tSkill.ID].Kind;
 			switch (GameController.Get.Situation) {
 			case EGameSituation.AttackGamer:
@@ -362,7 +362,7 @@ public class SkillController : MonoBehaviour {
 	}
 
 	public bool CheckSkillDistance(PlayerBehaviour player, TSkill tSkill, GameObject target = null) {
-		if (player.CanUseActiveSkill(tSkill) && player.Attribute.ActiveSkills.Count > 0 && tSkill.ID > 0) {
+		if (player.CanUseActiveSkill(tSkill) && player.Attribute.ActiveSkills.Count > 0 && tSkill.ID > 0 && GameData.DSkillData.ContainsKey(tSkill.ID)) {
 			if (target) {
 				if(GameData.DSkillData[tSkill.ID].TargetKind != 1 && 
 				   GameData.DSkillData[tSkill.ID].TargetKind != 2) {
@@ -387,32 +387,34 @@ public class SkillController : MonoBehaviour {
 	}
 	
 	public void AddSkillAttribute(PlayerBehaviour player, TSkill tSkill) {
-		TSkillData skill = GameData.DSkillData[tSkill.ID];
-		if(tSkill.ID >= GameConst.ID_LimitActive) {
-			if(player.Attribute.ActiveSkills.Count > 0) {
-				if(skill.Kind == 210 && skill.TargetKind == 30) {
-					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
-						if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
-							if(CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].gameObject)) {
-								GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
-								                                                    skill.AttrKind, 
-								                                                    skill.Value(tSkill.Lv), 
-								                                                    skill.LifeTime(tSkill.Lv));
+		if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
+			TSkillData skill = GameData.DSkillData[tSkill.ID];
+			if(tSkill.ID >= GameConst.ID_LimitActive) {
+				if(player.Attribute.ActiveSkills.Count > 0) {
+					if(skill.Kind == 210 && skill.TargetKind == 30) {
+						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
+							if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
+								if(CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].gameObject)) {
+									GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
+									                                                    skill.AttrKind, 
+									                                                    skill.Value(tSkill.Lv), 
+									                                                    skill.LifeTime(tSkill.Lv));
+								}
 							}
 						}
+					} else {
+						player.AddSkillAttribute(skill.ID, 
+						                         skill.AttrKind, 
+						                         skill.Value(tSkill.Lv), 
+						                         skill.LifeTime(tSkill.Lv));
 					}
-				} else {
-					player.AddSkillAttribute(skill.ID, 
-					                         skill.AttrKind, 
-					                         skill.Value(tSkill.Lv), 
-					                         skill.LifeTime(tSkill.Lv));
 				}
+			} else {
+				player.AddSkillAttribute(skill.ID, 
+				                         skill.AttrKind, 
+				                         skill.Value(tSkill.Lv), 
+				                         skill.LifeTime(tSkill.Lv));
 			}
-		} else {
-			player.AddSkillAttribute(skill.ID, 
-			                         skill.AttrKind, 
-			                         skill.Value(tSkill.Lv), 
-			                         skill.LifeTime(tSkill.Lv));
 		}
 	}
 	
@@ -549,8 +551,8 @@ public class SkillController : MonoBehaviour {
 				break;
 			}
 				
-			case ESkillSituation.Pass4:
-				playerState = getPassiveSkill(ESkillSituation.Pass4, ESkillKind.Pass, v);
+			case ESkillSituation.Pass5:
+				playerState = getPassiveSkill(ESkillSituation.Pass5, ESkillKind.Pass, v);
 				if(playerState != EPlayerState.Pass4)
 					Result = player.AniState(playerState);
 				else
