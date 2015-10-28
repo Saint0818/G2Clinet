@@ -104,7 +104,7 @@ public enum EPlayerState
 	Run2,            
 	RunningDefence,
 	Rebound0,
-	ReboundCatch,
+//	ReboundCatch,
 	Reset,
 	Start,
 	Shoot0,
@@ -229,7 +229,7 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Steal2, true);
 			StopStates.Add(EPlayerState.Steal20, true);
 			StopStates.Add(EPlayerState.Rebound0, true);
-			StopStates.Add(EPlayerState.ReboundCatch, true);
+//			StopStates.Add(EPlayerState.ReboundCatch, true);
 			StopStates.Add(EPlayerState.TipIn, true);
 			StopStates.Add(EPlayerState.Intercept0, true);
 			StopStates.Add(EPlayerState.Intercept1, true);

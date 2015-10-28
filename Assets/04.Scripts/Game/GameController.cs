@@ -657,8 +657,8 @@ public class GameController : KnightSingleton<GameController>
 		if (Joysticker) {
 			switch(GameStart.Get.TestMode){
 				case EGameTest.Rebound:
-					if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-						Joysticker.AniState (EPlayerState.ReboundCatch);
+//					if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
+//						Joysticker.AniState (EPlayerState.ReboundCatch);
 
 					if (Input.GetKeyDown (KeyCode.Z)) {
 						resetTestMode();
