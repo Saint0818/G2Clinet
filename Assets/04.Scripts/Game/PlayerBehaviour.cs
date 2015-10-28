@@ -269,7 +269,8 @@ public class PlayerBehaviour : MonoBehaviour
     /// 0: Center, 1:Forward, 2:Guard.
     /// </summary>
 	public int Index;
-    private float aiTime = 0;
+//    private float aiTime = 0; // 0: AI 控制中; > 0 玩家控制中.
+    private readonly StatusTimer mUserControl = new StatusTimer();
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
@@ -292,8 +293,6 @@ public class PlayerBehaviour : MonoBehaviour
     public readonly CountDownTimer PushCD = new CountDownTimer(GameConst.CoolDownPushTime);
 
     public float JumpHight = 450f;
-//    public float CoolDownSteal = 0;
-//    public float CoolDownPush = 0;
     public float CoolDownElbow = 0;
 //    public float AirDrag = 0f;
 //    public float fracJourney = 0;
@@ -442,6 +441,8 @@ public class PlayerBehaviour : MonoBehaviour
     
     void Awake()
     {
+        mUserControl.TimeUpListener += userControlTimeUp;
+
 		PlayerRefGameObject = gameObject;
 		LayerMgr.Get.SetLayerAndTag (PlayerRefGameObject, ELayer.Player, ETag.Player);
 
@@ -457,6 +458,17 @@ public class PlayerBehaviour : MonoBehaviour
 
 		ScoreRate = new TScoreRate(1);
 		DashEffectEnable (false);
+    }
+
+    private void userControlTimeUp()
+    {
+        moveQueue.Clear();
+
+        if(AIActiveHint)
+            AIActiveHint.SetActive(true);
+
+        if(SpeedUpView)
+            SpeedUpView.enabled = false;
     }
 	
 	private void changePlayerColor (){
@@ -692,19 +704,11 @@ public class PlayerBehaviour : MonoBehaviour
 		CalculationSteal();
 		DebugTool ();
         
-//        if (WaitMoveTime > 0 && Time.time >= WaitMoveTime)
-//            WaitMoveTime = 0;
         CantMoveTimer.Update(Time.deltaTime);
-
         Invincible.Update(Time.deltaTime);
-
-//        if (CoolDownSteal > 0 && Time.time >= CoolDownSteal)
-//            CoolDownSteal = 0;
         StealCD.Update(Time.deltaTime);
-
-//        if (CoolDownPush > 0 && Time.time >= CoolDownPush)
-//            CoolDownPush = 0;
         PushCD.Update(Time.deltaTime);
+        mUserControl.Update(Time.deltaTime);
 
         if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
             CoolDownElbow = 0;
@@ -715,8 +719,10 @@ public class PlayerBehaviour : MonoBehaviour
 			Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.005f);
         }
 
-        if (aiTime == 0)
+//        if(aiTime == 0)
+        if(mUserControl.IsOff())
         {
+            // AI 控制中.
             if (moveQueue.Count > 0)
                 moveTo(moveQueue.Peek());
             else
@@ -728,19 +734,19 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
             }
         }
-        else if(aiTime > 0 && Time.time >= aiTime)
-        {
-            moveQueue.Clear();
-//            Debug.Log("FixedUpdate(), moveQueue.Clear().");
-
-            aiTime = 0;
-
-            if (AIActiveHint)
-                AIActiveHint.SetActive(true);
-
-            if (SpeedUpView)
-                SpeedUpView.enabled = false;
-        }
+//        else if(aiTime > 0 && Time.time >= aiTime)
+//        {
+//            moveQueue.Clear();
+////            Debug.Log("FixedUpdate(), moveQueue.Clear().");
+//
+//            aiTime = 0;
+//
+//            if (AIActiveHint)
+//                AIActiveHint.SetActive(true);
+//
+//            if (SpeedUpView)
+//                SpeedUpView.enabled = false;
+//        }
 
         if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
         {
@@ -853,22 +859,24 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		yield return new WaitForEndOfFrame();
 		float aniTime = AnimatorControl.GetCurrentAnimatorStateInfo(0).length;
-		aiTime += aniTime;
+//		aiTime += aniTime;
+        mUserControl.StartCounting(mUserControl.RemainTime + aniTime);
 	}
 
-    public float AIRemainTime
-    {
-        get
-        {
-            if(aiTime <= 0)
-                return 0;
-            return aiTime - Time.time;
-        }
-    }
+//    public float AIRemainTime
+//    {
+//        get
+//        {
+//            if(aiTime <= 0)
+//                return 0;
+//            return aiTime - Time.time;
+//        }
+//    }
 
     public void SetAITime(float time)
     {
-        aiTime = Time.time + time;
+//        aiTime = Time.time + time;
+        mUserControl.StartCounting(time);
         StartCoroutine(GetCurrentClipLength());
 
         if (AIActiveHint)
@@ -885,7 +893,8 @@ public class PlayerBehaviour : MonoBehaviour
 	        if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
             {
 	            isJoystick = true;
-				aiTime = Time.time + GameData.Setting.AIChangeTime;
+//				aiTime = Time.time + GameData.Setting.AIChangeTime;
+                mUserControl.StartCounting(GameData.Setting.AIChangeTime);
                 StartCoroutine(GetCurrentClipLength());
 
 	            if (AIActiveHint)
@@ -896,7 +905,8 @@ public class PlayerBehaviour : MonoBehaviour
 	        }
             else
             {
-	            aiTime = 0;
+//	            aiTime = 0;
+                mUserControl.Clear();
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(true);
 
@@ -908,7 +918,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void SetToAI()
     {
-        aiTime = 0;
+//        aiTime = 0;
+        mUserControl.Clear();
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
     }
@@ -3688,8 +3699,10 @@ public class PlayerBehaviour : MonoBehaviour
 		return Attribute.CheckIfMaxAnger(tSkill.ID, angerPower);
 	}
 
-	public bool AIing {
-		get { return PlayerRefGameObject.activeSelf && aiTime <= 0; }
+	public bool AIing
+    {
+//		get { return PlayerRefGameObject.activeSelf && aiTime <= 0; }
+		get { return PlayerRefGameObject.activeSelf && mUserControl.IsOff(); }
 	}
 
     public int TargetPosNum

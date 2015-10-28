@@ -61,7 +61,7 @@ namespace AI
             mBuilder.AppendFormat("Team:{0}, ", mTeamKind);
             for(int i = 0; i < mPlayers.Count; i++)
             {
-                mBuilder.AppendFormat("{0}:{1}", mPlayers[i].name, mPlayers[i].GetCurrentStateName());
+                mBuilder.AppendFormat("{0}:{1}, ", mPlayers[i].name, mPlayers[i].GetCurrentStateName());
             }
 
             mBuilder.AppendLine();

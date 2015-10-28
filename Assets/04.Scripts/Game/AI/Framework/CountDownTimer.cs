@@ -28,6 +28,10 @@ namespace AI
         /// <summary>
         /// 剩下的倒數時間(單位:秒), 當小於等於 0 時, 表示倒數完畢.
         /// </summary>
+        public float RemainTime
+        {
+            get { return mRemainTime; }
+        }
         private float mRemainTime = TimeUpTime;
 
         /// <summary>

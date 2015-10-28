@@ -255,7 +255,7 @@ public class BallTrigger : MonoBehaviour
 					}
 					else
 					{
-						if ((dis < 6) && Passing)
+						if(dis < 6 && Passing)
 						{
 							Passing = false;
 							if(PassKind == 0)
@@ -264,7 +264,8 @@ public class BallTrigger : MonoBehaviour
 								GameController.Get.Catcher.AniState (EPlayerState.CatchFloor, GameController.Get.Passer.transform.position);	
 							else
 								GameController.Get.Catcher.AniState(EPlayerState.CatchParabola, GameController.Get.Passer.transform.position);
-						}else if(dis <= 2.5f)
+						}
+                        else if(dis <= 2.5f)
 						{
 							Parabolamove = false;
 							PassEnd();
