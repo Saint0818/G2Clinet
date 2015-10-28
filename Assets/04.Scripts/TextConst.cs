@@ -90,6 +90,7 @@ public static class TextConst
 			AddString (24, "GAME TARGET", "GAME TARGET");
 			AddString (25, "HOME TEAM", "HOME TEAM");
 			AddString (26, "AWAY TEAM", "AWAY TEAM");
+			AddString (27, "有機率獲得", "");
 
 			AddString (101, "Try Again", "Try Again");
 			AddString (102, "Waiting for network.", "Waiting for network.");
