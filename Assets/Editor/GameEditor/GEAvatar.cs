@@ -434,32 +434,40 @@ public class GEAvatar : GEBase {
 							attrString = "0" + name[3];
 						else if(int.Parse(name[3]) >= 100)
 							attrString = name[3];
+						int bodyPartTemp = 0;
 						if(name[1].Equals("B")){
-							int bodyPartTemp = attr.Body / 1000;
+							bodyPartTemp = attr.Body / 1000;
+							bodyPart = 0;
 							attr.Body = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("C")){
-							int bodyPartTemp = attr.Cloth / 1000;
+							bodyPartTemp = attr.Cloth / 1000;
+							bodyPart = 3;
 							attr.Cloth = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("H")){
-							int bodyPartTemp = attr.Hair / 1000;
+							bodyPartTemp = attr.Hair / 1000;
+							bodyPart = 1;
 							attr.Hair = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("M")){
-							int bodyPartTemp = attr.MHandDress / 1000;
+							bodyPartTemp = attr.MHandDress / 1000;
+							bodyPart = 2;
 							attr.MHandDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("P")){
-							int bodyPartTemp = attr.Pants / 1000;
+							bodyPartTemp = attr.Pants / 1000;
+							bodyPart = 4;
 							attr.Pants = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("S")){
-							int bodyPartTemp = attr.Shoes / 1000;
+							bodyPartTemp = attr.Shoes / 1000;
+							bodyPart = 5;
 							attr.Shoes = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("A")){
-							int bodyPartTemp = attr.AHeadDress / 1000;
+							bodyPartTemp = attr.AHeadDress / 1000;
+							bodyPart = 6;
 							attr.AHeadDress = int.Parse(bodyPartTemp + attrString);
 						} else if(name[1].Equals("Z")){
-							int bodyPartTemp = attr.ZBackEquip / 1000;
+							bodyPartTemp = attr.ZBackEquip / 1000;
+							bodyPart = 7;
 							attr.ZBackEquip = int.Parse(bodyPartTemp + attrString);
 						}
-						bodyPart = Array.IndexOf(strPart, name[1]);
 						ModelManager.Get.SetAvatarTexture(Selection.gameObjects[0] ,attr, modelId, bodyPart, int.Parse(name[2]), int.Parse(name[3]));
 					}
 				}

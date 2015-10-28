@@ -424,14 +424,14 @@ public class UIGame : UIBase {
 
 	private GameObject getSkillRangeTarget (){
 		if(GameStart.Get.TestMode == EGameTest.AttackA) 
-			return GameController.Get.Joysticker.gameObject;
+			return GameController.Get.Joysticker.PlayerRefGameObject;
 		if (GameData.DSkillData.ContainsKey(GameController.Get.Joysticker.ActiveSkillUsed.ID)) {
 			switch (GameData.DSkillData[GameController.Get.Joysticker.ActiveSkillUsed.ID].TargetKind) {
 			case 0:
 			case 4:
 			case 6:
 			case 10:
-				return GameController.Get.Joysticker.gameObject;
+				return GameController.Get.Joysticker.PlayerRefGameObject;
 			case 1:
 				return CourtMgr.Get.BasketRangeCenter[0];
 			case 2:
@@ -1296,11 +1296,11 @@ public class UIGame : UIBase {
 	private void judgePlayerScreenPosition(){
 		if(GameController.Get.IsStart && GameController.Get.Joysticker != null && 
 		   (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC)){
-			float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).x;
-			float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.gameObject.transform.position).y;
+			float playerInCameraX = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.PlayerRefGameObject.transform.position).x;
+			float playerInCameraY = CameraMgr.Get.CourtCamera.WorldToScreenPoint(GameController.Get.Joysticker.PlayerRefGameObject.transform.position).y;
 			
-			float playerInBoardX = GameController.Get.Joysticker.gameObject.transform.position.z;
-			float playerInBoardY = GameController.Get.Joysticker.gameObject.transform.position.x;
+			float playerInBoardX = GameController.Get.Joysticker.PlayerRefGameObject.transform.position.z;
+			float playerInBoardY = GameController.Get.Joysticker.PlayerRefGameObject.transform.position.x;
 			
 			float baseValueX = 37.65f; 
 			float baseValueY = 13.37f;
