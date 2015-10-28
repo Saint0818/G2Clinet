@@ -211,7 +211,7 @@ public class UIGame : UIBase {
 				isPressShootBtn = false;
 				if (GameController.Get.BallOwner == GameController.Get.Joysticker) {
 					if (GameController.Get.DoShoot(true)) {
-						GameController.Get.Joysticker.SetNoAI();
+						GameController.Get.Joysticker.SetManually();
 						spriteAttack.gameObject.SetActive(false);
 						ShowSkillEnableUI(false);
 					}
@@ -1076,7 +1076,7 @@ public class UIGame : UIBase {
 			}
 
 			if (noAI)
-				GameController.Get.Joysticker.SetNoAI();
+				GameController.Get.Joysticker.SetManually();
 		}
 	}
 

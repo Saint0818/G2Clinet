@@ -335,7 +335,7 @@ public class UIGamePause : UIBase {
 	}
 
 	public void AITimeChange (){
-		GameController.Get.Joysticker.SetNoAI();
+		GameController.Get.Joysticker.SetManually();
 		viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
 		if(viewAISelect.gameObject.activeInHierarchy){
 			uiHomeButton.SetActive(false);

@@ -270,7 +270,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
 	public int Index;
 //    private float aiTime = 0; // 0: AI 控制中; > 0 玩家控制中.
-    private readonly StatusTimer mUserControl = new StatusTimer();
+    private readonly StatusTimer mManually = new StatusTimer();
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
     public Transform[] DefPointAy = new Transform[8];
@@ -441,7 +441,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     void Awake()
     {
-        mUserControl.TimeUpListener += userControlTimeUp;
+        mManually.TimeUpListener += manuallyTimeUp;
 
 		PlayerRefGameObject = gameObject;
 		LayerMgr.Get.SetLayerAndTag (PlayerRefGameObject, ELayer.Player, ETag.Player);
@@ -460,7 +460,7 @@ public class PlayerBehaviour : MonoBehaviour
 		DashEffectEnable (false);
     }
 
-    private void userControlTimeUp()
+    private void manuallyTimeUp()
     {
         moveQueue.Clear();
 
@@ -708,7 +708,7 @@ public class PlayerBehaviour : MonoBehaviour
         Invincible.Update(Time.deltaTime);
         StealCD.Update(Time.deltaTime);
         PushCD.Update(Time.deltaTime);
-        mUserControl.Update(Time.deltaTime);
+        mManually.Update(Time.deltaTime);
 
         if (CoolDownElbow > 0 && Time.time >= CoolDownElbow)
             CoolDownElbow = 0;
@@ -720,17 +720,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
 
 //        if(aiTime == 0)
-        if(mUserControl.IsOff())
+        if(mManually.IsOff())
         {
             // AI 控制中.
-            if (moveQueue.Count > 0)
+            if (moveQueue.Count > 0) // 移動到某點.
                 moveTo(moveQueue.Peek());
             else
             {
+                // 移動完畢時. 若是防守方, 要撥防守動作; 若是進攻方, 要撥 Idle.
                 isMoving = false;
-                if (IsDefence && (CheckAnimatorSate(EPlayerState.RunningDefence) || CheckAnimatorSate(EPlayerState.Defence1)))
+                if(IsDefence && (CheckAnimatorSate(EPlayerState.RunningDefence) || CheckAnimatorSate(EPlayerState.Defence1)))
                     AniState(EPlayerState.Defence0);
-				else if (!IsDefence && !IsBallOwner && IsRun)
+				else if(!IsDefence && !IsBallOwner && IsRun)
                     AniState(EPlayerState.Idle);
             }
         }
@@ -860,7 +861,7 @@ public class PlayerBehaviour : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		float aniTime = AnimatorControl.GetCurrentAnimatorStateInfo(0).length;
 //		aiTime += aniTime;
-        mUserControl.StartCounting(mUserControl.RemainTime + aniTime);
+        mManually.StartCounting(mManually.RemainTime + aniTime);
 	}
 
 //    public float AIRemainTime
@@ -876,7 +877,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetAITime(float time)
     {
 //        aiTime = Time.time + time;
-        mUserControl.StartCounting(time);
+        mManually.StartCounting(time);
         StartCoroutine(GetCurrentClipLength());
 
         if (AIActiveHint)
@@ -886,15 +887,19 @@ public class PlayerBehaviour : MonoBehaviour
             SpeedUpView.enabled = true;
     }
 
-    public void SetNoAI()
+    /// <summary>
+    /// 進入手控狀態.
+    /// </summary>
+    public void SetManually()
     {
-		if (Team == ETeamKind.Self && Index == 0)
+		if(Team == ETeamKind.Self && Index == 0)
         {
-	        if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
+	        if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC ||
+               GameStart.Get.TestMode != EGameTest.None)
             {
 	            isJoystick = true;
 //				aiTime = Time.time + GameData.Setting.AIChangeTime;
-                mUserControl.StartCounting(GameData.Setting.AIChangeTime);
+                mManually.StartCounting(GameData.Setting.AIChangeTime);
                 StartCoroutine(GetCurrentClipLength());
 
 	            if (AIActiveHint)
@@ -906,7 +911,7 @@ public class PlayerBehaviour : MonoBehaviour
             else
             {
 //	            aiTime = 0;
-                mUserControl.Clear();
+                mManually.Clear();
 	            if (AIActiveHint)
 	                AIActiveHint.SetActive(true);
 
@@ -919,7 +924,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetToAI()
     {
 //        aiTime = 0;
-        mUserControl.Clear();
+        mManually.Clear();
         if (AIActiveHint)
             AIActiveHint.SetActive(true);
     }
@@ -1336,28 +1341,34 @@ public class PlayerBehaviour : MonoBehaviour
 		yAxizOffset = CameraMgr.Get.CourtCamera.transform.eulerAngles.y - 90;
 	}
 
-    public void OnJoystickMove(MovingJoystick move, EPlayerState ps) {
-		if (Timer.timeScale == 0)
+    public void OnJoystickMove(MovingJoystick move, EPlayerState ps)
+    {
+		if(Timer.timeScale == 0)
 			return;
 
 		int moveKind = 0;
-		float CalculateSpeed = 1;
+		float calculateSpeed = 1;
 
-        if (CanMove || stop || HoldBallCanMove) {
+        if(CanMove || stop || HoldBallCanMove)
+        {
 			if (IsFall && GameStart.Get.IsDebugAnimation) {
 				LogMgr.Get.LogError("CanMove : " + CanMove);
 				LogMgr.Get.LogError("stop : " + stop);
 				LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
 			}
 
-            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC || GameStart.Get.TestMode != EGameTest.None) {
-                if ((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
-                   !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && DoPassiveSkill(ESkillSituation.MoveDodge))) {
+            if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC || 
+                GameStart.Get.TestMode != EGameTest.None)
+            {
+                if((Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0) &&
+                   !(GameController.Get.CoolDownCrossover == 0 && !IsDefence && 
+                   DoPassiveSkill(ESkillSituation.MoveDodge)))
+                {
 	                isMoving = true;
-	                if (!isJoystick)
+	                if(!isJoystick)
 	                    moveStartTime = Time.time + GameConst.DefMoveTime;
 
-	                SetNoAI();
+	                SetManually();
 	                animationSpeed = Vector2.Distance(new Vector2(move.joystickAxis.x, 0), new Vector2(0, move.joystickAxis.y));
 					if(!IsPass) {
 						float angle = move.Axis2Angle(true);
@@ -1366,9 +1377,10 @@ public class PlayerBehaviour : MonoBehaviour
 						transform.rotation = Quaternion.Euler(rotation);
 					}
 
-	                if (animationSpeed <= MoveMinSpeed){ 
+	                if(animationSpeed <= MoveMinSpeed)
 						moveKind = 0;                      
-	                } else {
+                    else
+                    {
 						if(MovePower == 0)
 							moveKind = 2;
 						else
@@ -1382,15 +1394,15 @@ public class PlayerBehaviour : MonoBehaviour
 								isSpeedup = false;
 							setSpeed(0.3f, 0);
 							if (IsBallOwner) {  
-								CalculateSpeed = GameConst.BallOwnerSpeedNormal;
+								calculateSpeed = GameConst.BallOwnerSpeedNormal;
 								ps = EPlayerState.Dribble1;
 							}
 							else{
 								ps = EPlayerState.Run0;
 								if (IsDefence)
-									CalculateSpeed = GameConst.DefSpeedNormal;
+									calculateSpeed = GameConst.DefSpeedNormal;
 								else
-									CalculateSpeed = GameConst.AttackSpeedNormal;
+									calculateSpeed = GameConst.AttackSpeedNormal;
 							}
 							break;
 
@@ -1399,15 +1411,15 @@ public class PlayerBehaviour : MonoBehaviour
 							setSpeed(1f, 0);
 
 							if (IsBallOwner) {  
-								CalculateSpeed = GameConst.BallOwnerSpeedup;
+								calculateSpeed = GameConst.BallOwnerSpeedup;
 								ps = EPlayerState.Dribble2;
 							}
 							else{
 								ps = EPlayerState.Run1;
 								if (IsDefence)
-									CalculateSpeed = GameConst.DefSpeedup;
+									calculateSpeed = GameConst.DefSpeedup;
 								else
-									CalculateSpeed = GameConst.AttackSpeedup;
+									calculateSpeed = GameConst.AttackSpeedup;
 							}
 
 							break;
@@ -1419,11 +1431,11 @@ public class PlayerBehaviour : MonoBehaviour
 							else
 								ps = EPlayerState.Run2;
 							
-							CalculateSpeed = GameConst.WalkSpeed;
+							calculateSpeed = GameConst.WalkSpeed;
 							break;
 					}
 //					Debug.Log("MoveKind : " + moveKind);
-					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * CalculateSpeed * Timer.timeScale;
+					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * Timer.timeScale;
 	                transform.Translate(translate); 
 	                transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 	                AniState(ps);
@@ -1437,7 +1449,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (CanMove && 
             situation != EGameSituation.InboundsGamer && situation != EGameSituation.GamerPickBall && 
             situation != EGameSituation.InboundsNPC && situation != EGameSituation.NPCPickBall) {
-            SetNoAI();
+            SetManually();
             isJoystick = false;
             isSpeedup = false;
 
@@ -3702,7 +3714,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool AIing
     {
 //		get { return PlayerRefGameObject.activeSelf && aiTime <= 0; }
-		get { return PlayerRefGameObject.activeSelf && mUserControl.IsOff(); }
+		get { return PlayerRefGameObject.activeSelf && mManually.IsOff(); }
 	}
 
     public int TargetPosNum

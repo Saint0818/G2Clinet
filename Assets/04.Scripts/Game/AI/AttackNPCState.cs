@@ -17,7 +17,7 @@ namespace AI
             CameraMgr.Get.SetCameraSituation(ECameraSituation.Npc);
 
             if (GameController.Get.Joysticker && GameData.Setting.AIChangeTime > 100)
-                GameController.Get.Joysticker.SetNoAI();
+                GameController.Get.Joysticker.SetManually();
 
             foreach (PlayerBehaviour player in GameController.Get.GamePlayers)
             {

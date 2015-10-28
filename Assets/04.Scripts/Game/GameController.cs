@@ -4168,7 +4168,7 @@ public class GameController : KnightSingleton<GameController>
 		UIPassiveEffect.Get.Reset();
 
 		if (GameData.Setting.AIChangeTime > 100)
-			Joysticker.SetNoAI();
+			Joysticker.SetManually();
 		else
 			Joysticker.SetToAI();
 
@@ -4219,7 +4219,7 @@ public class GameController : KnightSingleton<GameController>
 	public void SetPlayerLevel(){
 		GameData.Setting.AIChangeTime = PlayerPrefs.GetFloat(SettingText.AITime, 1);
 		if (GameData.Setting.AIChangeTime > 100)
-			Joysticker.SetNoAI();
+			Joysticker.SetManually();
 		else
 			Joysticker.SetToAI();
 
