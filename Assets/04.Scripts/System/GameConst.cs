@@ -3,6 +3,13 @@
 	public const string SceneLobby = "Lobby";
 	public const string SceneGamePlay = "Court_0";
 
+	//Sync with the server
+	public const int Max_RoleNum = 3;
+	public const int Default_RoleNum = 2;
+	public const int Max_Money = 1000000;
+	public const int Max_Power = 20;
+	public const int Default_MainStageID = 101;
+
 	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
 	
 	public const int ID_LimitActive = 10000;
