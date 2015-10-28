@@ -1787,25 +1787,41 @@ public class PlayerBehaviour : MonoBehaviour
 		AnimatorControl.SetInteger("StateNo", index);
 
 		switch (trigger) {
+			case EActionTrigger.Idle:
+				if(!IsIdle)
+					AnimatorControl.SetTrigger(trigger.ToString());
+				break;
 			case EActionTrigger.Dribble:
 				if(!IsDribble)
+				{
+					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
 					AnimatorControl.SetTrigger(trigger.ToString());
+				}
 			break;
 			case EActionTrigger.Defence:
 				if(!IsDefence)
+				{
+					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
 					AnimatorControl.SetTrigger(trigger.ToString());
+				}
 			break;
 
 			case EActionTrigger.HoldBall:
 				if(!IsHoldBall)
+				{
+					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
 					AnimatorControl.SetTrigger(trigger.ToString());
+				}
 				break;
 
 			case EActionTrigger.Run:
 			Debug.Log("CrtSate : " + crtState.ToString() + " IsRun : " + IsRun);
 				
 				if(!IsRun)
+				{
+					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
 					AnimatorControl.SetTrigger(trigger.ToString());
+				}
 				break;
 
 			default:
