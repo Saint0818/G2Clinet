@@ -62,6 +62,7 @@
         "line": 1,
         "title": "Skill",
         "uiname": "UISkillFormation",
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt",
         "texttw": "[f6f6f6]強大的[ff6060]『技能卡片』[-]將對比賽的結果造成決定性的影響。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -78,6 +79,7 @@
         "line": 1,
         "title": "Avatar",
         "uiname": "UIAvatarFitted",
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt",
         "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]『造型特色』[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
