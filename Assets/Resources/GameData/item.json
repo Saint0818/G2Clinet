@@ -2,6 +2,7 @@
     {
         "id": 1,
         "nametw": "白人",
+        "icon": 1,
         "kind": 0,
         "position": 0,
         "avatar": 1,
@@ -9,17 +10,20 @@
         "usetime": 96,
         "effectkind": 1,
         "effectvalue": 10,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2,
         "nametw": "黑人",
+        "icon": 2,
         "kind": 0,
         "position": 0,
         "avatar": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3,
@@ -28,7 +32,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4,
@@ -37,7 +42,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5,
@@ -46,7 +52,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6,
@@ -55,7 +62,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7,
@@ -64,7 +72,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 8,
@@ -73,7 +82,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 9,
@@ -82,17 +92,20 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 10,
         "nametw": "印地安人",
+        "icon": 10,
         "kind": 0,
         "position": 0,
         "avatar": 10,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 11,
@@ -101,7 +114,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 12,
@@ -110,7 +124,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 13,
@@ -119,7 +134,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 14,
@@ -128,7 +144,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 15,
@@ -137,7 +154,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 16,
@@ -146,7 +164,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 17,
@@ -155,7 +174,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 18,
@@ -164,7 +184,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 19,
@@ -173,7 +194,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 20,
@@ -182,27 +204,32 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 101,
         "nametw": "東亞人",
+        "icon": 101,
         "kind": 0,
         "position": 1,
         "avatar": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 102,
         "nametw": "白人",
+        "icon": 102,
         "kind": 0,
         "position": 1,
         "avatar": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 103,
@@ -211,7 +238,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 104,
@@ -220,7 +248,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 105,
@@ -229,7 +258,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 106,
@@ -238,7 +268,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 107,
@@ -247,7 +278,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 108,
@@ -256,7 +288,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 109,
@@ -265,7 +298,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 110,
@@ -274,7 +308,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 111,
@@ -283,7 +318,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 112,
@@ -292,7 +328,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 113,
@@ -301,7 +338,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 114,
@@ -310,7 +348,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 115,
@@ -319,7 +358,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 116,
@@ -328,7 +368,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 117,
@@ -337,7 +378,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 118,
@@ -346,7 +388,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 119,
@@ -355,7 +398,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 120,
@@ -364,27 +408,32 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 201,
         "nametw": "白人",
+        "icon": 201,
         "kind": 0,
         "position": 2,
         "avatar": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 202,
         "nametw": "南美洲人",
+        "icon": 202,
         "kind": 0,
         "position": 2,
         "avatar": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 203,
@@ -393,7 +442,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 204,
@@ -402,7 +452,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 205,
@@ -411,7 +462,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 206,
@@ -420,7 +472,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 207,
@@ -429,7 +482,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 208,
@@ -438,7 +492,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 209,
@@ -447,7 +502,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 210,
@@ -456,7 +512,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 211,
@@ -465,17 +522,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 212,
         "nametw": "歐洲人",
+        "icon": 212,
         "kind": 0,
         "position": 2,
         "avatar": 12,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 213,
@@ -484,7 +544,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 214,
@@ -493,7 +554,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 215,
@@ -502,7 +564,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 216,
@@ -511,7 +574,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 217,
@@ -520,7 +584,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 218,
@@ -529,7 +594,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 219,
@@ -538,7 +604,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 220,
@@ -547,47 +614,56 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1001,
         "nametw": "辮子頭(黑)",
+        "icon": 1001,
         "kind": 1,
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1002,
         "nametw": "辮子頭(金)",
+        "icon": 1002,
         "kind": 1,
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1003,
         "nametw": "辮子頭(白)",
+        "icon": 1003,
         "kind": 1,
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1004,
         "nametw": "中鋒頭髮4",
+        "icon": 1004,
         "kind": 1,
         "position": 0,
         "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1005,
@@ -596,7 +672,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1006,
@@ -605,7 +682,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1007,
@@ -614,7 +692,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1008,
@@ -623,7 +702,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1009,
@@ -632,7 +712,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1010,
@@ -641,7 +722,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1011,
@@ -650,7 +732,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1012,
@@ -659,7 +742,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1013,
@@ -668,7 +752,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1014,
@@ -677,7 +762,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1015,
@@ -686,7 +772,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1016,
@@ -695,7 +782,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1017,
@@ -704,7 +792,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1018,
@@ -713,7 +802,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1019,
@@ -722,7 +812,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1020,
@@ -731,47 +822,56 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1101,
         "nametw": "賽亞頭(紅)",
+        "icon": 1101,
         "kind": 1,
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1102,
         "nametw": "賽亞頭(黑",
+        "icon": 1102,
         "kind": 1,
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1103,
         "nametw": "賽亞頭(金)",
+        "icon": 1103,
         "kind": 1,
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1104,
         "nametw": "前鋒頭髮4",
+        "icon": 1104,
         "kind": 1,
         "position": 1,
         "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1105,
@@ -780,7 +880,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1106,
@@ -789,7 +890,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1107,
@@ -798,7 +900,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1108,
@@ -807,7 +910,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1109,
@@ -816,7 +920,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1110,
@@ -825,17 +930,20 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1111,
         "nametw": "復仇紫",
+        "icon": 1111,
         "kind": 1,
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1112,
@@ -844,7 +952,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1113,
@@ -853,7 +962,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1114,
@@ -862,7 +972,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1115,
@@ -871,7 +982,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1116,
@@ -880,7 +992,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1117,
@@ -889,7 +1002,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1118,
@@ -898,7 +1012,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1119,
@@ -907,7 +1022,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1120,
@@ -916,37 +1032,44 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1201,
         "nametw": "繽紛金",
+        "icon": 1201,
         "kind": 1,
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1202,
         "nametw": "神秘紫",
+        "icon": 1202,
         "kind": 1,
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1203,
         "nametw": "亮眼藍",
+        "icon": 1203,
         "kind": 1,
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1204,
@@ -955,7 +1078,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1205,
@@ -964,7 +1088,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1206,
@@ -973,7 +1098,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1207,
@@ -982,7 +1108,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1208,
@@ -991,7 +1118,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1209,
@@ -1000,7 +1128,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1210,
@@ -1009,7 +1138,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1211,
@@ -1018,17 +1148,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1212,
         "nametw": "黑人頭",
+        "icon": 1212,
         "kind": 1,
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1213,
@@ -1037,7 +1170,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1214,
@@ -1046,7 +1180,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1215,
@@ -1055,7 +1190,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1216,
@@ -1064,7 +1200,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1217,
@@ -1073,7 +1210,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1218,
@@ -1082,7 +1220,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1219,
@@ -1091,7 +1230,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 1220,
@@ -1100,17 +1240,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2001,
         "nametw": "閃電手指虎",
+        "icon": 2001,
         "kind": 2,
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2002,
@@ -1119,7 +1262,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2003,
@@ -1128,7 +1272,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2004,
@@ -1137,7 +1282,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2005,
@@ -1146,7 +1292,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2006,
@@ -1155,7 +1302,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2007,
@@ -1164,7 +1312,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2008,
@@ -1173,7 +1322,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2009,
@@ -1182,7 +1332,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2010,
@@ -1191,7 +1342,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2011,
@@ -1200,7 +1352,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2012,
@@ -1209,7 +1362,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2013,
@@ -1218,7 +1372,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2014,
@@ -1227,7 +1382,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2015,
@@ -1236,7 +1392,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2016,
@@ -1245,7 +1402,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2017,
@@ -1254,7 +1412,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2018,
@@ -1263,7 +1422,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2019,
@@ -1272,7 +1432,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2020,
@@ -1281,17 +1442,20 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2101,
         "nametw": "前鋒手飾1",
+        "icon": 2101,
         "kind": 2,
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2102,
@@ -1300,7 +1464,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2103,
@@ -1309,7 +1474,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2104,
@@ -1318,7 +1484,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2105,
@@ -1327,7 +1494,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2106,
@@ -1336,7 +1504,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2107,
@@ -1345,7 +1514,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2108,
@@ -1354,7 +1524,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2109,
@@ -1363,7 +1534,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2110,
@@ -1372,7 +1544,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2111,
@@ -1381,7 +1554,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2112,
@@ -1390,7 +1564,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2113,
@@ -1399,7 +1574,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2114,
@@ -1408,7 +1584,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2115,
@@ -1417,7 +1594,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2116,
@@ -1426,7 +1604,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2117,
@@ -1435,7 +1614,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2118,
@@ -1444,7 +1624,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2119,
@@ -1453,7 +1634,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2120,
@@ -1462,17 +1644,20 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2201,
-        "nametw": "後衛手飾1",
+        "nametw": "天使手套",
+        "icon": 2201,
         "kind": 2,
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2202,
@@ -1481,7 +1666,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2203,
@@ -1490,7 +1676,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2204,
@@ -1499,7 +1686,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2205,
@@ -1508,7 +1696,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2206,
@@ -1517,7 +1706,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2207,
@@ -1526,7 +1716,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2208,
@@ -1535,7 +1726,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2209,
@@ -1544,7 +1736,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2210,
@@ -1553,7 +1746,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2211,
@@ -1562,7 +1756,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2212,
@@ -1571,7 +1766,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2213,
@@ -1580,7 +1776,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2214,
@@ -1589,7 +1786,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2215,
@@ -1598,7 +1796,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2216,
@@ -1607,7 +1806,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2217,
@@ -1616,7 +1816,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2218,
@@ -1625,7 +1826,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2219,
@@ -1634,7 +1836,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 2220,
@@ -1643,47 +1846,56 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3001,
         "nametw": "幫派夾克(黑)",
+        "icon": 3001,
         "kind": 3,
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3002,
         "nametw": "幫派夾克(牛仔)",
+        "icon": 3002,
         "kind": 3,
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3003,
         "nametw": "幫派夾克(綠)",
+        "icon": 3003,
         "kind": 3,
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3004,
         "nametw": "中鋒衣服4",
+        "icon": 3004,
         "kind": 3,
         "position": 0,
         "avatar": 2002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3005,
@@ -1692,7 +1904,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3006,
@@ -1701,7 +1914,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3007,
@@ -1710,7 +1924,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3008,
@@ -1719,7 +1934,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3009,
@@ -1728,17 +1944,20 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3010,
         "nametw": "中鋒衣服10",
+        "icon": 3010,
         "kind": 3,
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3011,
@@ -1747,7 +1966,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3012,
@@ -1756,7 +1976,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3013,
@@ -1765,7 +1986,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3014,
@@ -1774,7 +1996,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3015,
@@ -1783,7 +2006,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3016,
@@ -1792,7 +2016,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3017,
@@ -1801,7 +2026,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3018,
@@ -1810,7 +2036,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3019,
@@ -1819,7 +2046,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3020,
@@ -1828,47 +2056,56 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3101,
         "nametw": "運動外套(綠藍)",
+        "icon": 3101,
         "kind": 3,
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3102,
         "nametw": "運動外套(黑紅)",
+        "icon": 3102,
         "kind": 3,
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3103,
         "nametw": "運動外套(白紫)",
+        "icon": 3103,
         "kind": 3,
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3104,
         "nametw": "前鋒衣服4",
+        "icon": 3104,
         "kind": 3,
         "position": 1,
         "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3105,
@@ -1877,7 +2114,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3106,
@@ -1886,7 +2124,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3107,
@@ -1895,7 +2134,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3108,
@@ -1904,7 +2144,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3109,
@@ -1913,7 +2154,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3110,
@@ -1922,17 +2164,20 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3111,
         "nametw": "生化衣",
+        "icon": 3111,
         "kind": 3,
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3112,
@@ -1941,7 +2186,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3113,
@@ -1950,7 +2196,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3114,
@@ -1959,7 +2206,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3115,
@@ -1968,7 +2216,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3116,
@@ -1977,7 +2226,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3117,
@@ -1986,7 +2236,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3118,
@@ -1995,7 +2246,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3119,
@@ -2004,7 +2256,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3120,
@@ -2013,37 +2266,44 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3201,
         "nametw": "皮外套(黑)",
+        "icon": 3201,
         "kind": 3,
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3202,
         "nametw": "皮外套(桃紅)",
+        "icon": 3202,
         "kind": 3,
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3203,
         "nametw": "皮外套(白)",
+        "icon": 3203,
         "kind": 3,
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3204,
@@ -2052,7 +2312,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3205,
@@ -2061,7 +2322,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3206,
@@ -2070,7 +2332,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3207,
@@ -2079,7 +2342,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3208,
@@ -2088,7 +2352,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3209,
@@ -2097,7 +2362,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3210,
@@ -2106,7 +2372,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3211,
@@ -2115,17 +2382,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3212,
         "nametw": "酒保套裝",
+        "icon": 3212,
         "kind": 3,
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3213,
@@ -2134,7 +2404,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3214,
@@ -2143,7 +2414,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3215,
@@ -2152,7 +2424,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3216,
@@ -2161,7 +2434,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3217,
@@ -2170,7 +2444,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3218,
@@ -2179,7 +2454,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3219,
@@ -2188,7 +2464,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 3220,
@@ -2197,47 +2474,56 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4001,
         "nametw": "超憋褲(黑)",
+        "icon": 4001,
         "kind": 4,
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4002,
         "nametw": "超憋褲(牛仔)",
+        "icon": 4002,
         "kind": 4,
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4003,
         "nametw": "超憋褲(綠)",
+        "icon": 4003,
         "kind": 4,
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4004,
         "nametw": "中鋒褲子4",
+        "icon": 4004,
         "kind": 4,
         "position": 0,
         "avatar": 5001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4005,
@@ -2246,7 +2532,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4006,
@@ -2255,7 +2542,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4007,
@@ -2264,7 +2552,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4008,
@@ -2273,7 +2562,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4009,
@@ -2282,17 +2572,20 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4010,
         "nametw": "摔角手冠軍褲",
+        "icon": 4010,
         "kind": 4,
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4011,
@@ -2301,7 +2594,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4012,
@@ -2310,7 +2604,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4013,
@@ -2319,7 +2614,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4014,
@@ -2328,7 +2624,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4015,
@@ -2337,7 +2634,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4016,
@@ -2346,7 +2644,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4017,
@@ -2355,7 +2654,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4018,
@@ -2364,7 +2664,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4019,
@@ -2373,7 +2674,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4020,
@@ -2382,47 +2684,56 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4101,
         "nametw": "反摺褲(藍)",
+        "icon": 4101,
         "kind": 4,
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4102,
         "nametw": "反摺褲(黑)",
+        "icon": 4102,
         "kind": 4,
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4103,
         "nametw": "反摺褲(紫)",
+        "icon": 4103,
         "kind": 4,
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4104,
         "nametw": "前鋒褲子4",
+        "icon": 4104,
         "kind": 4,
         "position": 1,
         "avatar": 3001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4105,
@@ -2431,7 +2742,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4106,
@@ -2440,7 +2752,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4107,
@@ -2449,7 +2762,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4108,
@@ -2458,7 +2772,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4109,
@@ -2467,7 +2782,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4110,
@@ -2476,17 +2792,20 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4111,
         "nametw": "生化褲",
+        "icon": 4111,
         "kind": 4,
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4112,
@@ -2495,7 +2814,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4113,
@@ -2504,7 +2824,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4114,
@@ -2513,7 +2834,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4115,
@@ -2522,7 +2844,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4116,
@@ -2531,7 +2854,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4117,
@@ -2540,7 +2864,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4118,
@@ -2549,7 +2874,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4119,
@@ -2558,7 +2884,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4120,
@@ -2567,37 +2894,44 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4201,
         "nametw": "熱褲(珊瑚紅)",
+        "icon": 4201,
         "kind": 4,
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4202,
         "nametw": "熱褲(黃)",
+        "icon": 4202,
         "kind": 4,
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4203,
         "nametw": "熱褲(紅)",
+        "icon": 4203,
         "kind": 4,
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4204,
@@ -2606,7 +2940,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4205,
@@ -2615,7 +2950,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4206,
@@ -2624,7 +2960,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4207,
@@ -2633,7 +2970,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4208,
@@ -2642,7 +2980,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4209,
@@ -2651,7 +2990,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4210,
@@ -2660,7 +3000,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4211,
@@ -2669,17 +3010,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4212,
         "nametw": "酒保短裙",
+        "icon": 4212,
         "kind": 4,
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4213,
@@ -2688,7 +3032,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4214,
@@ -2697,7 +3042,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4215,
@@ -2706,7 +3052,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4216,
@@ -2715,7 +3062,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4217,
@@ -2724,7 +3072,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4218,
@@ -2733,7 +3082,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4219,
@@ -2742,7 +3092,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 4220,
@@ -2751,37 +3102,44 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5001,
         "nametw": "拳擊高筒靴(紅)",
+        "icon": 5001,
         "kind": 5,
         "position": 0,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5002,
         "nametw": "拳擊高筒靴(黃)",
+        "icon": 5002,
         "kind": 5,
         "position": 0,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5003,
         "nametw": "拳擊高筒靴(藍)",
+        "icon": 5003,
         "kind": 5,
         "position": 0,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5004,
@@ -2790,7 +3148,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5005,
@@ -2799,7 +3158,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5006,
@@ -2808,7 +3168,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5007,
@@ -2817,7 +3178,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5008,
@@ -2826,7 +3188,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5009,
@@ -2835,17 +3198,20 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5010,
         "nametw": "印第安摔角靴",
+        "icon": 5010,
         "kind": 5,
         "position": 0,
         "avatar": 10001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5011,
@@ -2854,7 +3220,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5012,
@@ -2863,7 +3230,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5013,
@@ -2872,7 +3240,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5014,
@@ -2881,7 +3250,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5015,
@@ -2890,7 +3260,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5016,
@@ -2899,7 +3270,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5017,
@@ -2908,7 +3280,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5018,
@@ -2917,7 +3290,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5019,
@@ -2926,7 +3300,8 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5020,
@@ -2935,37 +3310,44 @@
         "position": 0,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5101,
         "nametw": "運動鞋(紅)",
+        "icon": 5101,
         "kind": 5,
         "position": 1,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5102,
         "nametw": "運動鞋鐵灰)",
+        "icon": 5102,
         "kind": 5,
         "position": 1,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5103,
         "nametw": "運動鞋(白)",
+        "icon": 5103,
         "kind": 5,
         "position": 1,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5104,
@@ -2974,7 +3356,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5105,
@@ -2983,7 +3366,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5106,
@@ -2992,7 +3376,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5107,
@@ -3001,7 +3386,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5108,
@@ -3010,7 +3396,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5109,
@@ -3019,7 +3406,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5110,
@@ -3028,17 +3416,20 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5111,
         "nametw": "反摺靴",
+        "icon": 5111,
         "kind": 5,
         "position": 1,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5112,
@@ -3047,7 +3438,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5113,
@@ -3056,7 +3448,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5114,
@@ -3065,7 +3458,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5115,
@@ -3074,7 +3468,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5116,
@@ -3083,7 +3478,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5117,
@@ -3092,7 +3488,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5118,
@@ -3101,7 +3498,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5119,
@@ -3110,7 +3508,8 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5120,
@@ -3119,37 +3518,44 @@
         "position": 1,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5201,
         "nametw": "長靴(黑)",
+        "icon": 5201,
         "kind": 5,
         "position": 2,
         "avatar": 1001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5202,
         "nametw": "長靴(桃紅)",
+        "icon": 5202,
         "kind": 5,
         "position": 2,
         "avatar": 1002,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5203,
         "nametw": "長靴(藍)",
+        "icon": 5203,
         "kind": 5,
         "position": 2,
         "avatar": 1003,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5204,
@@ -3158,7 +3564,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5205,
@@ -3167,7 +3574,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5206,
@@ -3176,7 +3584,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5207,
@@ -3185,7 +3594,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5208,
@@ -3194,7 +3604,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5209,
@@ -3203,7 +3614,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5210,
@@ -3212,7 +3624,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5211,
@@ -3221,17 +3634,20 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5212,
         "nametw": "溜冰靴",
+        "icon": 5212,
         "kind": 5,
         "position": 2,
         "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5213,
@@ -3240,7 +3656,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5214,
@@ -3249,7 +3666,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5215,
@@ -3258,7 +3676,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5216,
@@ -3267,7 +3686,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5217,
@@ -3276,7 +3696,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5218,
@@ -3285,7 +3706,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5219,
@@ -3294,7 +3716,8 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 5220,
@@ -3303,27 +3726,32 @@
         "position": 2,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6001,
         "nametw": "鷹眼面具",
+        "icon": 6001,
         "kind": 6,
         "position": 3,
         "avatar": 10001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6002,
         "nametw": "機械右眼",
+        "icon": 6002,
         "kind": 6,
         "position": 3,
         "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6003,
@@ -3332,7 +3760,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6004,
@@ -3341,7 +3770,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6005,
@@ -3350,7 +3780,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6006,
@@ -3359,7 +3790,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6007,
@@ -3368,7 +3800,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6008,
@@ -3377,7 +3810,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6009,
@@ -3386,7 +3820,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6010,
@@ -3395,7 +3830,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6011,
@@ -3404,7 +3840,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6012,
@@ -3413,7 +3850,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6013,
@@ -3422,7 +3860,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6014,
@@ -3431,7 +3870,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6015,
@@ -3440,7 +3880,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6016,
@@ -3449,7 +3890,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6017,
@@ -3458,7 +3900,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6018,
@@ -3467,7 +3910,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6019,
@@ -3476,7 +3920,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 6020,
@@ -3485,7 +3930,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7001,
@@ -3494,7 +3940,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7002,
@@ -3503,7 +3950,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7003,
@@ -3512,7 +3960,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7004,
@@ -3521,7 +3970,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7005,
@@ -3530,7 +3980,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7006,
@@ -3539,7 +3990,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7007,
@@ -3548,7 +4000,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7008,
@@ -3557,7 +4010,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7009,
@@ -3566,7 +4020,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7010,
@@ -3575,7 +4030,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7011,
@@ -3584,7 +4040,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7012,
@@ -3593,7 +4050,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7013,
@@ -3602,7 +4060,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7014,
@@ -3611,7 +4070,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7015,
@@ -3620,7 +4080,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7016,
@@ -3629,7 +4090,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7017,
@@ -3638,7 +4100,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7018,
@@ -3647,7 +4110,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7019,
@@ -3656,7 +4120,8 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     },
     {
         "id": 7020,
@@ -3665,6 +4130,7 @@
         "position": 3,
         "maxstack": 1,
         "usetime": 96,
-        "money": 100
+        "money": 100,
+        "prize": 500
     }
 ]
