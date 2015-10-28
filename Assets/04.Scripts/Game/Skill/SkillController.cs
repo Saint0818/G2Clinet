@@ -53,7 +53,7 @@ public class SkillController : MonoBehaviour {
 	
 	private void judgeSkillUI()
 	{
-		if(executePlayer && executePlayer == GameController.Get.Joysticker && GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 ){
+		if(executePlayer && executePlayer == GameController.Get.Joysticker && GameController.Get.Joysticker.Attribute.ActiveSkills != null && GameController.Get.Joysticker.Attribute.ActiveSkills.Count > 0 ){
 			for(int i=0; i<executePlayer.Attribute.ActiveSkills.Count; i++) {
 				if(executePlayer.Attribute.ActiveSkills[i].ID > 0 && GameController.Get.IsStart)
 				{

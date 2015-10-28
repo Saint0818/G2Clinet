@@ -113,7 +113,7 @@ public class GEAvatar : GEBase {
 		bodyTextureText = "";
 	}
 	
-	void OnEnable(){
+	void OnFocus(){
 		init ();
 		if(Selection.gameObjects.Length > 1) {
 			chooseCount = 2;

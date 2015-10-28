@@ -180,6 +180,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public OnPlayerAction3 OnUIJoystick = null;
 
 	public bool IsJumpBallPlayer = false;
+	public GameObject PlayerRefGameObject;
 
 	public int ShowPos = -1;
 
@@ -403,18 +404,19 @@ public class PlayerBehaviour : MonoBehaviour
 			Destroy(BodyMaterial);
 
 		BodyMaterial = null;
-		Destroy(gameObject);
+		Destroy(PlayerRefGameObject);
 	}
     
     void Awake()
     {
-		LayerMgr.Get.SetLayerAndTag (gameObject, ELayer.Player, ETag.Player);
+		PlayerRefGameObject = gameObject;
+		LayerMgr.Get.SetLayerAndTag (PlayerRefGameObject, ELayer.Player, ETag.Player);
 
-        AnimatorControl = gameObject.GetComponent<Animator>();
-		skillController = gameObject.GetComponent<SkillController>();
-		PlayerRigidbody = gameObject.GetComponent<Rigidbody> ();
+		AnimatorControl = PlayerRefGameObject.GetComponent<Animator>();
+		skillController = PlayerRefGameObject.GetComponent<SkillController>();
+		PlayerRigidbody = PlayerRefGameObject.GetComponent<Rigidbody> ();
 		if (PlayerRigidbody == null)
-			PlayerRigidbody = gameObject.AddComponent<Rigidbody> ();
+			PlayerRigidbody = PlayerRefGameObject.AddComponent<Rigidbody> ();
 
 		PlayerRigidbody.mass = 0.1f;
 		PlayerRigidbody.drag = 10f;
@@ -444,7 +446,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		CrtTimeKey = key;
 		if(Timer == null){
-			Timer = gameObject.AddComponent<Timeline>();
+			Timer = PlayerRefGameObject.AddComponent<Timeline>();
 			Timer.mode = TimelineMode.Global;
 			Timer.globalClockKey = CrtTimeKey.ToString();
 			Timer.recordTransform = false;
@@ -454,9 +456,9 @@ public class PlayerBehaviour : MonoBehaviour
 	public void SetTimerTime(float time)
 	{
 		if(time == 0)
-			gameObject.transform.DOPause();
+			PlayerRefGameObject.transform.DOPause();
 		else
-			gameObject.transform.DOPlay();
+			PlayerRefGameObject.transform.DOPlay();
 	}
 
     public void InitAttr()
@@ -528,7 +530,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (DoubleClick == null) {
 			DoubleClick	= Instantiate(Resources.Load("Effect/DoubleClick")) as GameObject;
 			DoubleClick.name = "DoubleClick";
-			DoubleClick.transform.parent = gameObject.transform;
+			DoubleClick.transform.parent = PlayerRefGameObject.transform;
 			DoubleClick.transform.localPosition = Vector3.zero;
 		} 
 	}
@@ -536,14 +538,14 @@ public class PlayerBehaviour : MonoBehaviour
     public void InitCurve(GameObject animatorCurve)
     {
         GameObject AnimatorCurveCopy = Instantiate(animatorCurve) as GameObject;
-        AnimatorCurveCopy.transform.parent = gameObject.transform;
+		AnimatorCurveCopy.transform.parent = PlayerRefGameObject.transform;
         AnimatorCurveCopy.name = "AniCurve";
         aniCurve = AnimatorCurveCopy.GetComponent<AniCurve>();
     }
 
     public void InitTrigger(GameObject defPoint)
     {
-        SkinnedMeshRenderer render = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer render = PlayerRefGameObject.GetComponentInChildren<SkinnedMeshRenderer>();
         if (render && render.material) 
             BodyMaterial = render.material;
 
@@ -553,7 +555,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             blockCatchTrigger = DummyBall.GetComponent<BlockCatchTrigger>();
             if (blockCatchTrigger == null)
-                blockCatchTrigger = DummyBall.gameObject.AddComponent<BlockCatchTrigger>();
+                blockCatchTrigger = DummyBall.AddComponent<BlockCatchTrigger>();
             
             blockCatchTrigger.SetEnable(false);
         }
@@ -579,7 +581,7 @@ public class PlayerBehaviour : MonoBehaviour
 			BodyHeight = new GameObject();
 		BodyHeight.name = "BodyHeight";
 		BodyHeight.transform.parent = transform;
-		BodyHeight.transform.localPosition = new Vector3(0, gameObject.GetComponent<CapsuleCollider>().height + 0.2f, 0);
+		BodyHeight.transform.localPosition = new Vector3(0, PlayerRefGameObject.transform.GetComponent<CapsuleCollider>().height + 0.2f, 0);
 
         if (obj)
         {
@@ -622,7 +624,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (defPoint != null)
         {
             GameObject DefPointCopy = Instantiate(defPoint, Vector3.zero, Quaternion.identity) as GameObject;
-            DefPointCopy.transform.parent = gameObject.transform;
+            DefPointCopy.transform.parent = PlayerRefGameObject.transform;
             DefPointCopy.name = "DefPoint";
             DefPointCopy.transform.localScale = Vector3.one;
             DefPointCopy.transform.localPosition = Vector3.zero;
@@ -808,7 +810,7 @@ public class PlayerBehaviour : MonoBehaviour
 	public void DashEffectEnable(bool isEnable)
 	{
 		if(dashSmoke == null)
-			dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, gameObject);
+			dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, PlayerRefGameObject);
 
 		if (dashSmoke)
 			dashSmoke.SetActive(isEnable);
@@ -894,7 +896,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (playerDunkCurve != null)
         {
 			dunkCurveTime += Time.deltaTime * Timer.timeScale;
-            Vector3 position = gameObject.transform.position;
+            Vector3 position = PlayerRefGameObject.transform.position;
             position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
 
             if (position.y < 0)
@@ -904,12 +906,12 @@ public class PlayerBehaviour : MonoBehaviour
             {
 				IsAnimatorMove = true;
 				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime);
-				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
-				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
-				gameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
+				PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
             }
 
-			gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
+			PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
 
             if (dunkCurveTime > playerDunkCurve.BlockMomentStartTime && dunkCurveTime <= playerDunkCurve.BlockMomentEndTime)
                 IsCanBlock = true;
@@ -918,7 +920,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             if (dunkCurveTime >= playerDunkCurve.LifeTime)
             {
-				gameObject.transform.DOKill();
+				PlayerRefGameObject.transform.DOKill();
                 isDunk = false;
                 IsCanBlock = false;
 				IsAnimatorMove = false;
@@ -940,21 +942,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
 			layupCurveTime += Time.deltaTime * Timer.timeScale;
             
-            Vector3 position = gameObject.transform.position;
+			Vector3 position = PlayerRefGameObject.transform.position;
             position.y = playerLayupCurve.aniCurve.Evaluate(layupCurveTime);
             
             if (position.y < 0)
                 position.y = 0;
             
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, position.y, gameObject.transform.position.z);
+			PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
             
             if (!isLayupZmove && layupCurveTime >= playerLayupCurve.StartMoveTime)
             {
                 isLayupZmove = true;
 				int add = (Team == 0? -1 : 1);
 				float t = (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime) * 1/Timer.timeScale;
-				gameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, t).SetEase(Ease.Linear);
-				gameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, t).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
             }
             
             if (layupCurveTime >= playerLayupCurve.LifeTime)
@@ -1025,12 +1027,12 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (playerPushCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPushCurve.DirVaule * Timer.timeScale), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * playerPushCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPushCurve.DirVaule * Timer.timeScale), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule));
                         break;
                     case AniCurveDirection.Back:
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
-					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule));
 					break;
 				}
 			}
@@ -1054,16 +1056,16 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				if(GameController.Get.BallOwner != null) {
 					transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-					gameObject.transform.LookAt(new Vector3(GameController.Get.BallOwner.transform.position.x, gameObject.transform.position.y, GameController.Get.BallOwner.transform.position.z));
+					PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.BallOwner.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.BallOwner.transform.position.z));
 					GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
 				} else {
 					if(GameController.Get.Catcher != null) {
 						transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-						gameObject.transform.LookAt(new Vector3(GameController.Get.Catcher.transform.position.x, gameObject.transform.position.y, GameController.Get.Catcher.transform.position.z));
+						PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.Catcher.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.Catcher.transform.position.z));
 						GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
 					} else if(GameController.Get.Shooter != null) {
 						transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), playerStealCurve.LifeTime);
-						gameObject.transform.LookAt(new Vector3(GameController.Get.Shooter.transform.position.x, gameObject.transform.position.y, GameController.Get.Shooter.transform.position.z));
+						PlayerRefGameObject.transform.LookAt(new Vector3(GameController.Get.Shooter.transform.position.x, PlayerRefGameObject.transform.position.y, GameController.Get.Shooter.transform.position.z));
 						GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
 					}
 				}
@@ -1087,12 +1089,12 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (playerFallCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * playerFallCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerFallCurve.DirVaule));
                         break;
                     case AniCurveDirection.Back:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerFallCurve.DirVaule), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * -playerFallCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerFallCurve.DirVaule), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerFallCurve.DirVaule));
                         break;
                 }
             }
@@ -1117,12 +1119,12 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (playerPickCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerPickCurve.DirVaule), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * playerPickCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPickCurve.DirVaule), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPickCurve.DirVaule));
                         break;
                     case AniCurveDirection.Back:
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerPickCurve.DirVaule), 0, 
-                                                                gameObject.transform.position.z + (gameObject.transform.forward.z * -playerPickCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPickCurve.DirVaule), 0, 
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPickCurve.DirVaule));
                         break;
                 }
             }
@@ -1143,13 +1145,13 @@ public class PlayerBehaviour : MonoBehaviour
             blockCurveTime += Time.deltaTime * Timer.timeScale;
 
             if (blockCurveTime < 1f)
-				gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * 0.03f * Timer.timeScale), 
+				PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * 0.03f * Timer.timeScale), 
                 											playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-				                                            gameObject.transform.position.z + (gameObject.transform.forward.z * 0.03f * Timer.timeScale));
+				                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * 0.03f * Timer.timeScale));
             else
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, 
+				PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
                                                             playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-                                                            gameObject.transform.position.z);
+				                                       PlayerRefGameObject.transform.position.z);
 
             if (blockCurveTime >= playerBlockCurve.LifeTime)
             {
@@ -1168,23 +1170,23 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 case AniCurveDirection.Forward:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * playerShootCurve.DirVaule * Timer.timeScale), 
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerShootCurve.DirVaule * Timer.timeScale), 
                                                             playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * playerShootCurve.DirVaule * Timer.timeScale));
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerShootCurve.DirVaule * Timer.timeScale));
                     else
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
                     break;
                 case AniCurveDirection.Back:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
-					gameObject.transform.position = new Vector3(gameObject.transform.position.x + (gameObject.transform.forward.x * -playerShootCurve.DirVaule * Timer.timeScale), 
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerShootCurve.DirVaule * Timer.timeScale), 
                                                             playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-					                                            gameObject.transform.position.z + (gameObject.transform.forward.z * -playerShootCurve.DirVaule * Timer.timeScale));
+					                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerShootCurve.DirVaule * Timer.timeScale));
                     else
-                        gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
                     break;
 
                 default : 
-                    gameObject.transform.position = new Vector3(gameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), gameObject.transform.position.z);
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
                     break;
 
             }
@@ -1233,7 +1235,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationPlayerHight()
     {
-        AnimatorControl.SetFloat("CrtHight", gameObject.transform.localPosition.y);
+		AnimatorControl.SetFloat("CrtHight", PlayerRefGameObject.transform.localPosition.y);
 
 		/*if (isCheckLayerToReset)
         {
@@ -1249,13 +1251,13 @@ public class PlayerBehaviour : MonoBehaviour
         }*/
 
 		//Effect Handel
-		if (gameObject.transform.localPosition.y > 0.5f) {
+		if (PlayerRefGameObject.transform.localPosition.y > 0.5f) {
 			isStartJump = true;
 		}
 
-		if (isStartJump && gameObject.transform.localPosition.y <= 0.1f) {
+		if (isStartJump && PlayerRefGameObject.transform.localPosition.y <= 0.1f) {
 
-			EffectManager.Get.PlayEffect("JumpDownFX", gameObject.transform.position, null, null, 3f);
+			EffectManager.Get.PlayEffect("JumpDownFX", PlayerRefGameObject.transform.position, null, null, 3f);
 
 			isStartJump = false;
 		}
@@ -1267,21 +1269,21 @@ public class PlayerBehaviour : MonoBehaviour
 			return;
 
 		//LayerCheck
-		if (gameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(gameObject, ELayer.Player))
+		if (PlayerRefGameObject.transform.localPosition.y > 0.2f && LayerMgr.Get.CheckLayer(PlayerRefGameObject, ELayer.Player))
 		{
-			LogMgr.Get.AnimationError((int)Team * 3 + Index, "Error Layer: " + gameObject.name + " . crtState : " + crtState);
+			LogMgr.Get.AnimationError((int)Team * 3 + Index, "Error Layer: " + PlayerRefGameObject.name + " . crtState : " + crtState);
 		}
 
 		//IdleAirCheck
-//		if (gameObject.transform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
+//		if (PlayerTransform.localPosition.y > 0.2f && crtState == EPlayerState.Idle && situation != EGameSituation.End)
 //		{
-//			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State : Idle in the Air ");
+//			LogMgr.Get.AnimationError((int)Team * 3 + Index, PlayerGameObject.name + " : Error State : Idle in the Air ");
 //		}
 
 		//Idle ballowner
 		if(crtState == EPlayerState.Idle && IsBallOwner && GameController.Get.Situation != EGameSituation.End)
 		{
-			LogMgr.Get.AnimationError((int)Team * 3 + Index, gameObject.name + " : Error State: Idle BallOWner");
+			LogMgr.Get.AnimationError((int)Team * 3 + Index, PlayerRefGameObject.name + " : Error State: Idle BallOWner");
 		}
 
 	}
@@ -1428,7 +1430,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Vector3 aP1 = data.DefPlayer.transform.position;
                 Vector3 aP2 = CourtMgr.Get.Hood [data.DefPlayer.Team.GetHashCode()].transform.position;
                 result = GetStealPostion(aP1, aP2, data.DefPlayer.Index);
-                if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= GameConst.StealPushDistance)
+				if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
                     if (Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
@@ -1437,8 +1439,8 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     else
                     {
-                        result.x = gameObject.transform.position.x;
-                        result.y = gameObject.transform.position.z;
+						result.x = PlayerRefGameObject.transform.position.x;
+						result.y = PlayerRefGameObject.transform.position.z;
                     }
                 }
                 else
@@ -1450,10 +1452,10 @@ public class PlayerBehaviour : MonoBehaviour
             result.x = data.FollowTarget.position.x;
             result.y = data.FollowTarget.position.z;
 
-            if (Vector2.Distance(result, new Vector2(gameObject.transform.position.x, gameObject.transform.position.z)) <= MoveCheckValue)
+			if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= MoveCheckValue)
             {
-                result.x = gameObject.transform.position.x;
-                result.y = gameObject.transform.position.z;
+				result.x = PlayerRefGameObject.transform.position.x;
+				result.y = PlayerRefGameObject.transform.position.z;
             }
             else
                 resultBool = true;
@@ -1474,7 +1476,7 @@ public class PlayerBehaviour : MonoBehaviour
             GameStart.Get.TestMode != EGameTest.Block)
         {
             bool doMove = GetMoveTarget(ref data, out MoveTarget);
-            float temp = Vector2.Distance(new Vector2(gameObject.transform.position.x, gameObject.transform.position.z), MoveTarget);
+			float temp = Vector2.Distance(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z), MoveTarget);
             setSpeed(0.3f, 0);
 
             if(temp <= MoveCheckValue || !doMove)
@@ -1688,20 +1690,20 @@ public class PlayerBehaviour : MonoBehaviour
 		if (isBlock || isSkillShow)
             return;
 
-        gameObject.transform.LookAt(new Vector3(lookAtX, gameObject.transform.position.y, lookAtZ));
+		PlayerRefGameObject.transform.LookAt(new Vector3(lookAtX, PlayerRefGameObject.transform.position.y, lookAtZ));
 
-//      Debug.Log ("Roatte To .GameObject : " + gameObject.name);
+//      Debug.Log ("Roatte To .GameObject : " + PlayerGameObect.name);
 //        transform.rotation = Quaternion.Lerp(transform.rotation, 
 //                             Quaternion.LookRotation(new Vector3(lookAtX, transform.localPosition.y, lookAtZ) - 
 //            transform.localPosition), time * Time.deltaTime);
 
-//        Vector3 lookAtPos = new Vector3(lookAtX, gameObject.transform.position.y, lookAtZ);
-//        Vector3 relative = gameObject.transform.InverseTransformPoint(lookAtPos);
+//        Vector3 lookAtPos = new Vector3(lookAtX, PlayerTransform.position.y, lookAtZ);
+//        Vector3 relative = PlayerTransform.InverseTransformPoint(lookAtPos);
 //        float mangle = Mathf.Atan2(relative.x, relative.z) * Mathf.Rad2Deg;
 
 //        if ((mangle > 15 && mangle < 180) || (mangle < -15 && mangle > -180))
 //        {
-//            gameObject.transform.DOLookAt(lookAtPos, 0.1f);
+//            PlayerTransform.DOLookAt(lookAtPos, 0.1f);
 //        }
     }
     
@@ -1793,7 +1795,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool CanUseState(EPlayerState state)
     {
-//      Debug.Log ("Check ** " +gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
+//      Debug.Log ("Check ** " +PlayerGameObject.name + ".CrtState : " + crtState + "  : state : " + state);
         switch (state)
         {
             case EPlayerState.Pass0:
@@ -1856,8 +1858,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
 				if (IsBallOwner && !IsIntercept &&!IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
-               	 if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
-                    return true;
+					if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, PlayerRefGameObject.transform.position) < canDunkDis)
+                    	return true;
                 break;
 
             case EPlayerState.Alleyoop:
@@ -2032,7 +2034,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if (AniState(state)) {
 			RotateTo(lookAtPoint.x, lookAtPoint.z);
 			if(GameStart.Get.TestMode == EGameTest.Pass)
-				LogMgr.Get.Log("name:"+gameObject.name + "Rotate");
+				LogMgr.Get.Log("name:"+PlayerRefGameObject.name + "Rotate");
 
 			return true;
 		} else 
@@ -2056,11 +2058,11 @@ public class PlayerBehaviour : MonoBehaviour
 		if(!isUsePassive)
 			isCanCatchBall = true;
 
-		if (LayerMgr.Get.CheckLayer (gameObject, ELayer.Shooter))
-			LayerMgr.Get.SetLayer (gameObject, ELayer.Player);
+		if (LayerMgr.Get.CheckLayer (PlayerRefGameObject, ELayer.Shooter))
+			LayerMgr.Get.SetLayer (PlayerRefGameObject, ELayer.Player);
 
 		if (GameStart.Get.IsDebugAnimation)
-			Debug.Log (gameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
+			Debug.Log (PlayerRefGameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
 
 		DashEffectEnable (false);
         
@@ -2341,8 +2343,8 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				isDunk = false;
 				IsAnimatorMove = false;
-				gameObject.transform.DOKill();
-				gameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DOKill();
+				PlayerRefGameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
 			}
 			SetShooterLayer();
 
@@ -2390,7 +2392,7 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("FallTrigger");
                 isCanCatchBall = false;
-                gameObject.transform.DOLocalMoveY(0, 1f);
+				PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
                 if (OnFall != null)
                     OnFall(this);
                 Result = true;
@@ -2903,7 +2905,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void SetShooterLayer()
     {
         isStartCheckLayer = false;
-        gameObject.layer = LayerMask.NameToLayer("Shooter");
+        PlayerRefGameObject.layer = LayerMask.NameToLayer("Shooter");
         isCheckLayerToReset = true;
     }
 
@@ -2978,7 +2980,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 		case EAnimationEventString.CloneMesh:
 			if (!IsBallOwner)
-				EffectManager.Get.CloneMesh(gameObject, playerDunkCurve.CloneMaterial, 
+				EffectManager.Get.CloneMesh(PlayerRefGameObject, playerDunkCurve.CloneMaterial, 
 				                            playerDunkCurve.CloneDeltaTime, playerDunkCurve.CloneCount);
 			break;
 
@@ -3056,7 +3058,7 @@ public class PlayerBehaviour : MonoBehaviour
 				else 
 				if (crtState == EPlayerState.Layup0) {
 					if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-						LogMgr.Get.Log (gameObject.name + " layup no ball.");
+						LogMgr.Get.Log (PlayerRefGameObject.name + " layup no ball.");
 						GameController.Get.SetBall();
 					}
 				}
@@ -3179,10 +3181,10 @@ public class PlayerBehaviour : MonoBehaviour
 		switch (effectName) 
 		{
 			case "FallDownFX":
-				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position, null, null, 3);
+				EffectManager.Get.PlayEffect(effectName, PlayerRefGameObject.transform.position, null, null, 3);
 				break;
 			case "ShakeFX_0":
-			EffectManager.Get.PlayEffect(effectName, new Vector3(gameObject.transform.position.x, 1.5f, gameObject.transform.position.z), null, null, 0.5f);
+			EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 1.5f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
 				break;
 		}
 	}
@@ -3218,12 +3220,12 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public void ZoomIn(float t) {
-		CameraMgr.Get.SkillShow (gameObject); 
+		CameraMgr.Get.SkillShow (PlayerRefGameObject); 
 		CameraMgr.Get.SetRoomMode (EZoomType.In, t); 
 	}
 
 	public void ZoomOut(float t) {
-		CameraMgr.Get.SkillShow (gameObject);
+		CameraMgr.Get.SkillShow (PlayerRefGameObject);
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
 
@@ -3277,13 +3279,13 @@ public class PlayerBehaviour : MonoBehaviour
 				switch(skillEffectKind) {
 				case 0://show self and rotate camera
 					Invoke("showActiveEffect", skillTime);
-					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						TimerMgr.Get.ChangeTime (item, 0);
 					break;
 				case 1://show self
 					showActiveEffect();
-					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+					LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer","PlayerModel", "(Clone)");
 					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 						if(item != ETimerKind.Player0)
 							TimerMgr.Get.ChangeTime (item, 0);
@@ -3517,7 +3519,7 @@ public class PlayerBehaviour : MonoBehaviour
     
     public bool IsJump
     {
-        get{ return gameObject.transform.localPosition.y > 0.1f;}
+		get{ return PlayerRefGameObject.transform.localPosition.y > 0.1f;}
     }
 
     public bool IsBallOwner
@@ -3681,7 +3683,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnDoubleClickMoment != null)
                     OnDoubleClickMoment(this, crtState);
             }
-//                  EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, gameObject, 1f);
+//                  EffectManager.Get.PlayEffect("DoubleClick01", Vector3.zero, null, PlayerGameObject, 1f);
         }
     }
 
@@ -3696,7 +3698,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	public bool AIing {
-		get { return gameObject.activeSelf && aiTime <= 0; }
+		get { return PlayerRefGameObject.activeSelf && aiTime <= 0; }
 	}
 
     public int TargetPosNum

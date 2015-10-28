@@ -575,7 +575,7 @@ public class GameController : KnightSingleton<GameController>
 
         Joysticker = PlayerList[0];
 
-		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.gameObject);
+		EffectManager.Get.PlayEffect("SelectMe", Vector3.zero, null, Joysticker.PlayerRefGameObject);
 		#if UNITY_EDITOR
         Joysticker.AIActiveHint = GameObject.Find("SelectMe/AI");
 		#else
@@ -586,19 +586,19 @@ public class GameController : KnightSingleton<GameController>
 
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
 
-		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.gameObject);
+		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
 
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
         if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
-			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].gameObject);
-//			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].gameObject);
+			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].PlayerRefGameObject);
+//			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].PlayerRefGameObject);
 		}
 
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
-			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].gameObject);
-//			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].gameObject);
+			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].PlayerRefGameObject);
+//			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].PlayerRefGameObject);
 		}
 		
 		UIGame.Get.InitGameUI();
@@ -1055,7 +1055,7 @@ public class GameController : KnightSingleton<GameController>
 			
 			for(int i = 0; i < PlayerList.Count; i++)
             {
-				if (PlayerList [i].gameObject.activeInHierarchy && 
+				if (PlayerList [i].PlayerRefGameObject.activeInHierarchy && 
                     PlayerList[i].Team == player.Team && PlayerList[i] != player)
                 {
 					PlayerBehaviour npc = PlayerList[i];
@@ -1105,7 +1105,7 @@ public class GameController : KnightSingleton<GameController>
 //            {
 //				if(Random.Range(0, 100) < player.Attr.StealRate)
 //                {
-//					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.gameObject.transform.position)) {
+//					if(player.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerTransform.position)) {
 //						player.CoolDownSteal = Time.time + GameConst.CoolDownStealTime;                              
 ////						waitStealTime = Time.time + GameConst.WaitStealTime;
 //                        mStealCDTimer.StartAgain();
@@ -1134,9 +1134,9 @@ public class GameController : KnightSingleton<GameController>
 						moveData.DefPlayer = player;
 						
 						if (BallOwner != null)
-							moveData.LookTarget = BallOwner.transform;
+							moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
 						else
-							moveData.LookTarget = player.transform;
+							moveData.LookTarget = player.PlayerRefGameObject.transform;
 						
 						moveData.Speedup = speedup;
 						player.DefPlayer.TargetPos = moveData;
@@ -1149,7 +1149,7 @@ public class GameController : KnightSingleton<GameController>
                         float sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 						float distance = Vector2.Distance(
                             new Vector2(mHomePositions[index].x, mHomePositions[index].y * sign), 
-						    new Vector2(player.DefPlayer.transform.position.x, player.DefPlayer.transform.position.z));
+							new Vector2(player.DefPlayer.PlayerRefGameObject.transform.position.x, player.DefPlayer.PlayerRefGameObject.transform.position.z));
 						
 						if(distance <= player.DefPlayer.Attr.DefDistance)
                         {
@@ -1165,9 +1165,9 @@ public class GameController : KnightSingleton<GameController>
 							if(moveData.DefPlayer != null)
                             {
 								if (BallOwner != null)
-									moveData.LookTarget = BallOwner.transform;
+									moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
 								else
-									moveData.LookTarget = player.transform;
+									moveData.LookTarget = player.PlayerRefGameObject.transform;
 								
 								moveData.Speedup = speedup;
 								player.DefPlayer.TargetPos = moveData;
@@ -1180,7 +1180,7 @@ public class GameController : KnightSingleton<GameController>
                                 moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                                 
                                 if (BallOwner != null)
-                                    moveData.LookTarget = BallOwner.transform;
+									moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
                                 else
                                 {
                                     if (player.Team == ETeamKind.Self)
@@ -1202,7 +1202,7 @@ public class GameController : KnightSingleton<GameController>
                             moveData.SetTarget(mHomePositions[index].x, mHomePositions[index].y * sign);
                             
                             if(BallOwner != null)
-                                moveData.LookTarget = BallOwner.transform;
+								moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
                             else
                             {
                                 if (player.Team == ETeamKind.Self)
@@ -1306,7 +1306,7 @@ public class GameController : KnightSingleton<GameController>
 										moveData.SetTarget(tacticalActions[j].x, -tacticalActions[j].z);
 
 									if (BallOwner != null && BallOwner != npc)
-										moveData.LookTarget = BallOwner.transform;  
+										moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;  
 									
 									npc.TargetPos = moveData;
 								}
@@ -1420,68 +1420,63 @@ public class GameController : KnightSingleton<GameController>
 		float angle = 0;
 		int distanceType = 0;
 		if(player.name.Contains("Self")) {
-			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform.position);
+			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.PlayerRefGameObject.transform.position);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		} else {
-			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform.position);
+			angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.PlayerRefGameObject.transform.position);
 			angle = Mathf.Abs(angleByPlayerHoop) - 90;
 		}
 		//Distance
-		if(ShootDistance >= 0 && ShootDistance < 9) {
+		if(ShootDistance >= 0 && ShootDistance < 9)
 			distanceType = 0;
-		} else 
-		if(ShootDistance >= 9 && ShootDistance < 12) {
+		else 
+		if(ShootDistance >= 9 && ShootDistance < 12) 
 			distanceType = 1;
-		} else 
-		if(ShootDistance >= 12) {
+		else 
+		if(ShootDistance >= 12) 
 			distanceType = 2;
-		}
+		
 		//Angle
 		if(angle > 60) {// > 60 degree
-			if(distanceType == 0){
+			if(distanceType == 0)
 				return EBasketDistanceAngle.ShortCenter;
-			}else if (distanceType == 1){
+			else if (distanceType == 1)
 				return EBasketDistanceAngle.MediumCenter;
-			}else if (distanceType == 2){
+			else if (distanceType == 2)
 				return EBasketDistanceAngle.LongCenter;
-			}
 		} else 
 		if(angle <= 60 && angle > 10){// > 10 degree <= 60 degree
 			if(angleByPlayerHoop > 0) {//right
-				if(distanceType == 0){
+				if(distanceType == 0)
 					return EBasketDistanceAngle.ShortRight;
-				}else if (distanceType == 1){
+				else if (distanceType == 1)
 					return EBasketDistanceAngle.MediumRight;
-				}else if (distanceType == 2){
+				else if (distanceType == 2)
 					return EBasketDistanceAngle.LongRight;
-				}
 			} else {//left
-				if(distanceType == 0){
+				if(distanceType == 0)
 					return EBasketDistanceAngle.ShortLeft;
-				}else if (distanceType == 1){
+				else if (distanceType == 1)
 					return EBasketDistanceAngle.MediumLeft;
-				}else if (distanceType == 2){
+				else if (distanceType == 2)
 					return EBasketDistanceAngle.LongLeft;
-				}
 			}
 		} else 
 		if(angle <= 10 && angle >= -30){ // < 10 degree
-			if(angleByPlayerHoop > 0) { // right
-				if(distanceType == 0){
+			if(angleByPlayerHoop > 0){ // right
+				if(distanceType == 0)
 					return EBasketDistanceAngle.ShortRightWing;
-				}else if (distanceType == 1){
+				else if (distanceType == 1)
 					return EBasketDistanceAngle.MediumRightWing;
-				}else if (distanceType == 2){
+				else if (distanceType == 2)
 					return EBasketDistanceAngle.LongRightWing;
-				}
-			} else { //left
-				if(distanceType == 0){
+			} else {//left
+				if(distanceType == 0)
 					return EBasketDistanceAngle.ShortLeftWing;
-				}else if (distanceType == 1){
+				else if (distanceType == 1)
 					return EBasketDistanceAngle.MediumLeftWing;
-				}else if (distanceType == 2){
+				else if (distanceType == 2)
 					return EBasketDistanceAngle.LongLeftWing;
-				}
 			}
 		}
 		return EBasketDistanceAngle.ShortCenter;
@@ -1495,7 +1490,8 @@ public class GameController : KnightSingleton<GameController>
 				if(CourtMgr.Get.DBasketAnimationName.Count > 0 && random < CourtMgr.Get.DBasketAnimationName.Count)
 					BasketAnimationName = CourtMgr.Get.DBasketAnimationName[basketDistanceAngleType][random];
 			}
-		}else if(BasketSituation == EBasketSituation.NoScore){
+		} else 
+		if(BasketSituation == EBasketSituation.NoScore){
 			if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && basketDistanceAngleType < CourtMgr.Get.DBasketAnimationNoneState.Count) {
 				random = Random.Range(0, CourtMgr.Get.DBasketAnimationNoneState[basketDistanceAngleType].Count);
 				if(CourtMgr.Get.DBasketAnimationNoneState.Count > 0 && random < CourtMgr.Get.DBasketAnimationNoneState.Count)
@@ -1503,10 +1499,10 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 
-		if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore) {
+		if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore) 
 			if(string.IsNullOrEmpty(BasketAnimationName))
 				judgeBasketAnimationName(basketDistanceAngleType);
-		}
+		
 	}
 
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
@@ -1515,11 +1511,9 @@ public class GameController : KnightSingleton<GameController>
 		if(ShootDistance >= GameConst.TreePointDistance) {
 			originalRate = player.Attr.PointRate3;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
-		} else {
+		} else 
 			originalRate = player.Attr.PointRate2;
-		}
 
-		
 		randomrate = 0;
 		normalRate = 0;
 		uphandRate = 0;
@@ -1623,7 +1617,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 			player.GameRecord.FG++;
 		
-		player.GameRecord.PushShot(new Vector2(player.transform.position.x, player.transform.position.z), BasketSituation.GetHashCode(), rate);
+		player.GameRecord.PushShot(new Vector2(player.PlayerRefGameObject.transform.position.x, player.PlayerRefGameObject.transform.position.z), BasketSituation.GetHashCode(), rate);
 	}
 
 	public void AddExtraScoreRate(float rate) {
@@ -1639,7 +1633,8 @@ public class GameController : KnightSingleton<GameController>
         if(BallOwner)
         {
             // 有持球者才可以投籃.
-			Vector3 v = CourtMgr.Get.ShootPoint[BallOwner.Team.GetHashCode()].transform.position;
+			Vector3 v = CourtMgr.Get.GetShootPointPosition(BallOwner.Team);
+
 			ShootDistance = GetDis(BallOwner, new Vector2(v.x, v.z));
 
 			if(GameStart.Get.TestMode == EGameTest.Shoot)
@@ -1657,7 +1652,6 @@ public class GameController : KnightSingleton<GameController>
 //				int t = BallOwner.Team.GetHashCode();
                 if(GameStart.Get.TestMode == EGameTest.Dunk)
                 {
-//					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.ShootPoint[t].transform.position);
 					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 					
 					return true;
@@ -1668,7 +1662,6 @@ public class GameController : KnightSingleton<GameController>
                     // 持球者不在灌籃中, 但是搶籃板中 ...
 					if(inTipinDistance(BallOwner))
                     {
-//						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.ShootPoint[t].transform.position);
 						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 						return true;
 					}
@@ -1680,31 +1673,18 @@ public class GameController : KnightSingleton<GameController>
 					if(BallOwner.IsMoving)
                     {
 						if(ShootDistance > GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood[t].transform.position);
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						else if(ShootDistance > 9 && ShootDistance <= GameConst.LongShootDistance)
 						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
                         {
 							if (Random.Range(0, 2) == 0)
-//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.Hood[t].transform.position);
 								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 							else
-//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood[t].transform.position);
 								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 						}
-//                        else if(ShootDistance > 7 && ShootDistance <= 9)
-//                        {
-//							float rate = Random.Range(0, 100);
-//							if(rate < BallOwner.Attr.DunkRate)
-//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
-//							else
-//								BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						}
                         else
                         {
 							float rate = Random.Range(0, 100);
 							if (rate < BallOwner.Attr.DunkRate)
-//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.ShootPoint[t].transform.position);
 								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 							else
                             {
@@ -1719,14 +1699,10 @@ public class GameController : KnightSingleton<GameController>
                     {
                         // 站在原地投籃.
 						if(ShootDistance > GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.Hood[t].transform.position);
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						else if(ShootDistance > 9 && ShootDistance <= GameConst.LongShootDistance)
 						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.Hood[t].transform.position);
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 						else
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.Hood[t].transform.position);
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 					}
 
@@ -1755,9 +1731,9 @@ public class GameController : KnightSingleton<GameController>
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
-				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.gameObject.transform.position);
+				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[0].transform, player.PlayerRefGameObject.transform.position);
 			else 
-				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.gameObject.transform.position);
+				angleByPlayerHoop = MathUtils.FindAngle(CourtMgr.Get.Hood[1].transform, player.PlayerRefGameObject.transform.position);
 
 			if(Mathf.Abs(angleByPlayerHoop) <= 85  && ShootDistance < 5)
 				shootAngle = 80;
@@ -1788,15 +1764,10 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.SetBallState(player.crtState);
 
 			if(BasketSituation == EBasketSituation.AirBall) {
-				//AirBall
-//				#if UNITY_EDITOR
-//				UIHint.Get.ShowHint("AirBall", Color.yellow);
-//				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("Ignore Raycast"), LayerMask.NameToLayer ("RealBall"), true);
 				CourtMgr.Get.RealBallVelocity = GameFunction.GetVelocity(CourtMgr.Get.RealBall.transform.position, 
 				                                                         CourtMgr.Get.BasketAirBall[player.Team.GetHashCode()].transform.position, shootAngle);
-
-			} else 
+			} else
 			if(player.crtState == EPlayerState.TipIn) {
 				if(BasketSituation == EBasketSituation.Swish) {
 					if(CourtMgr.Get.RealBall.transform.position.y > (CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position.y + 0.2f)) {
@@ -1818,9 +1789,6 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}else 
 			if(BasketSituation == EBasketSituation.Swish) {
-//				#if UNITY_EDITOR
-//				UIHint.Get.ShowHint("Swish", Color.yellow);
-//				#endif
 				Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("BasketCollider"), LayerMask.NameToLayer ("RealBall"), true);
 				if(player.GetSkillKind == ESkillKind.LayupSpecial) {
 					CourtMgr.Get.RealBallDoMove(CourtMgr.Get.ShootPoint [player.Team.GetHashCode()].transform.position, 1/ TimerMgr.Get.CrtTime * 0.4f); //0.2
@@ -1915,7 +1883,7 @@ public class GameController : KnightSingleton<GameController>
 		if(Joysticker)
         {
 			if(nearP)
-				return Joysticker.DoPassiveSkill (ESkillSituation.Push0, nearP.transform.position);
+				return Joysticker.DoPassiveSkill (ESkillSituation.Push0, nearP.PlayerRefGameObject.transform.position);
 
             return Joysticker.DoPassiveSkill (ESkillSituation.Push0);
 		}
@@ -1996,7 +1964,7 @@ public class GameController : KnightSingleton<GameController>
 			#if UNITY_EDITOR
 			if(GameStart.Get.TestMode == EGameTest.Pass) {
 				if(BallOwner.IsMoving) {
-					float angle = MathUtils.FindAngle(BallOwner.gameObject.transform, player.gameObject.transform.position);
+					float angle = MathUtils.FindAngle(BallOwner.PlayerRefGameObject.transform, player.PlayerRefGameObject.transform.position);
 					if (angle < 60f && angle > -60f){
 						UIHint.Get.ShowHint("Direct Forward and Angle:" + angle, Color.yellow);
 						result = BallOwner.AniState(EPlayerState.Pass5);
@@ -2017,7 +1985,7 @@ public class GameController : KnightSingleton<GameController>
 							result = BallOwner.AniState(EPlayerState.Pass6);
 					}
 				} else 
-					result = BallOwner.AniState(EPlayerState.Pass0, player.gameObject.transform.position);
+					result = BallOwner.AniState(EPlayerState.Pass0, player.PlayerRefGameObject.transform.position);
 				
 				if(result){
 					Catcher = player;
@@ -2052,14 +2020,14 @@ public class GameController : KnightSingleton<GameController>
 				
 				if(isTee)
 				{
-					if(BallOwner.AniState(EPlayerState.Pass50, player.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass50, player.PlayerRefGameObject.transform.position))
 					{
 						Catcher = player;
 						result = true;
 					}												
 				}else if(IsCanPassAir && !isTee)
 				{
-					if(BallOwner.AniState(EPlayerState.Pass4, player.transform.position))
+					if(BallOwner.AniState(EPlayerState.Pass4, player.PlayerRefGameObject.transform.position))
 					{
 						Catcher = player;
 						result = true;
@@ -2067,16 +2035,16 @@ public class GameController : KnightSingleton<GameController>
 				}
 				else
 				{
-					float dis = Vector3.Distance(BallOwner.transform.position, player.transform.position);
+					float dis = Vector3.Distance(BallOwner.PlayerRefGameObject.transform.position, player.PlayerRefGameObject.transform.position);
 					int disKind = GetEnemyDis(ref player);
 					int rate = UnityEngine.Random.Range(0, 2);
 					if(player.crtState == EPlayerState.Alleyoop) {
 						IsCatcherAlleyoop = true;
-						result = BallOwner.AniState(EPlayerState.Pass0, player.transform.position);
+						result = BallOwner.AniState(EPlayerState.Pass0, player.PlayerRefGameObject.transform.position);
 					} else
 					if(dis <= GameConst.FastPassDistance)
 					{
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, player.transform.position);
+						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass5, player.PlayerRefGameObject.transform.position);
 					}
 					else if(dis <= GameConst.CloseDistance)
 					{
@@ -2084,25 +2052,25 @@ public class GameController : KnightSingleton<GameController>
 						if(disKind == 1)
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
 							}else{ 
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						} else 
 						if(disKind == 2)
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
 							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						}						
 						else
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
 							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						}
 					}else if(dis <= GameConst.MiddleDistance)
@@ -2111,30 +2079,30 @@ public class GameController : KnightSingleton<GameController>
 						if(disKind == 1)
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
 							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						} else 
 							if(disKind == 2)
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
 							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						}						
 						else
 						{
 							if(rate == 1){
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position);
 							}else{
-								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.transform.position);
+								result = BallOwner.DoPassiveSkill(ESkillSituation.Pass2, player.PlayerRefGameObject.transform.position);
 							}
 						}
 					}else{
 						//Far
-						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.transform.position);
+						result = BallOwner.DoPassiveSkill(ESkillSituation.Pass1, player.PlayerRefGameObject.transform.position);
 					}
 					
 					if(result){
@@ -2175,7 +2143,7 @@ public class GameController : KnightSingleton<GameController>
 		int Index = 0;
 		for (int i = 0; i < PlayerList.Count; i++) {
 			if (PlayerList[i].Team != npc.Team) {
-				DisAy[Index] = Vector3.Distance(npc.transform.position, PlayerList[i].transform.position);
+				DisAy[Index] = Vector3.Distance(npc.PlayerRefGameObject.transform.position, PlayerList[i].PlayerRefGameObject.transform.position);
 				Index++;
 			}		
 		}
@@ -2216,7 +2184,7 @@ public class GameController : KnightSingleton<GameController>
         if(BallOwner && BallOwner.Invincible.IsOff() && !IsShooting && !IsDunk)
         {
 //            if(GameFunction.IsInFanArea(player.transform, BallOwner.transform.position, GameConst.StealBallDistance, GameConst.StealFanAngle))
-            if(player.transform.IsInFanArea(BallOwner.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
+			if(player.PlayerRefGameObject.transform.IsInFanArea(BallOwner.PlayerRefGameObject.transform.position, GameConst.StealPushDistance, GameConst.StealFanAngle))
             {
 				int probability = Mathf.RoundToInt(player.Attribute.Steal - BallOwner.Attribute.Dribble);
 
@@ -2229,7 +2197,7 @@ public class GameController : KnightSingleton<GameController>
                     // 特效開啟, 就表示被懲罰的機率增加.
 					addRate = 30;
 
-				if(Vector3.Distance(BallOwner.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
+				if(Vector3.Distance(BallOwner.PlayerRefGameObject.transform.position, CourtMgr.Get.Hood[BallOwner.Team.GetHashCode()].transform.position) <= GameConst.DunkDistance)
                 {
                     // 持球者靠近籃下時, 被抄截的機率增加, 抄截判定的範圍也加大.
 					addRate += 40;
@@ -2239,7 +2207,7 @@ public class GameController : KnightSingleton<GameController>
 //                Debug.LogFormat("probability:{0}, addRate:{1}, addAngle:{2}", probability, addRate, addAngle);
 				
 				if(Random.Range(0, 100) <= (probability + addRate) && 
-                   Mathf.Abs(MathUtils.FindAngle(player.transform, BallOwner.transform.position)) <= 90 + addAngle)
+				   Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, BallOwner.PlayerRefGameObject.transform.position)) <= 90 + addAngle)
                 {
                     // 持球者嘗試撥被抄截的懲罰動作.
 					if(BallOwner.AniState(EPlayerState.GotSteal))
@@ -2287,8 +2255,8 @@ public class GameController : KnightSingleton<GameController>
 		if (StealBtnLiftTime <= 0 && IsStart && Joysticker && CandoBtn) {
 			StealBtnLiftTime = 1f;
             if (BallOwner && BallOwner.Team != Joysticker.Team) {
-				Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z);
-				return Joysticker.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.transform.position);
+				Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z);
+				return Joysticker.DoPassiveSkill(ESkillSituation.Steal0, BallOwner.PlayerRefGameObject.transform.position);
             } else
 				return Joysticker.DoPassiveSkill(ESkillSituation.Steal0);
         } else
@@ -2425,17 +2393,17 @@ public class GameController : KnightSingleton<GameController>
         {
             if (BallOwner)
             {
-                if (Vector3.Distance(Joysticker.transform.position, BallOwner.transform.position) < 5f)
+				if (Vector3.Distance(Joysticker.PlayerRefGameObject.transform.position, BallOwner.PlayerRefGameObject.transform.position) < 5f)
                     player.PlayerRigidbody.AddForce(player.JumpHight * transform.up + player.PlayerRigidbody.velocity.normalized / 2.5f, ForceMode.Force);
                 else
-                    player.PlayerRigidbody.velocity = GameFunction.GetVelocity(player.transform.position, 
-                        new Vector3(BallOwner.transform.position.x, 3, BallOwner.transform.position.z), 70);
+					player.PlayerRigidbody.velocity = GameFunction.GetVelocity(player.PlayerRefGameObject.transform.position, 
+					                                                           new Vector3(BallOwner.PlayerRefGameObject.transform.position.x, 3, BallOwner.PlayerRefGameObject.transform.position.z), 70);
 
                 return true;
             } else  
-            if (Shooter && Vector3.Distance(player.transform.position, CourtMgr.Get.RealBall.transform.position) < 5)
+				if (Shooter && Vector3.Distance(player.PlayerRefGameObject.transform.position, CourtMgr.Get.RealBall.transform.position) < 5)
             {
-                player.PlayerRigidbody.velocity = GameFunction.GetVelocity(player.transform.position, 
+				player.PlayerRigidbody.velocity = GameFunction.GetVelocity(player.PlayerRefGameObject.transform.position, 
                     new Vector3(CourtMgr.Get.RealBall.transform.position.x, 5, CourtMgr.Get.RealBall.transform.position.z), 70);
         
                 return true;
@@ -2462,11 +2430,11 @@ public class GameController : KnightSingleton<GameController>
 					if(IsReboundTime)
 						return Rebound(Joysticker);
 					else
-						return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.transform.position);
+					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, Shooter.PlayerRefGameObject.transform.position);
 	            else
 	            if (BallOwner) {
-					Joysticker.RotateTo(BallOwner.gameObject.transform.position.x, BallOwner.gameObject.transform.position.z); 
-					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, BallOwner.transform.position);
+					Joysticker.RotateTo(BallOwner.PlayerRefGameObject.transform.position.x, BallOwner.PlayerRefGameObject.transform.position.z); 
+					return Joysticker.DoPassiveSkill(ESkillSituation.Block0, BallOwner.PlayerRefGameObject.transform.position);
 				} else {
 					if (!Shooter && Joysticker.InReboundDistance && IsReboundTime && GameStart.Get.TestMode == EGameTest.None)
 						return Rebound(Joysticker);
@@ -2480,7 +2448,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private bool inTipinDistance(PlayerBehaviour player) {
-		return Vector2.Distance(new Vector2(player.transform.position.x, player.transform.position.z), 
+		return Vector2.Distance(new Vector2(player.PlayerRefGameObject.transform.position.x, player.PlayerRefGameObject.transform.position.z), 
 		                        new Vector2(CourtMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.x, 
 		            						CourtMgr.Get.ShootPoint[player.Team.GetHashCode()].transform.position.z)) <= 6;
 	}
@@ -2510,7 +2478,7 @@ public class GameController : KnightSingleton<GameController>
 			if ((player.CheckSkillDistance(tSkill) && player.CheckSkillKind(tSkill)) || GameStart.Get.TestMode == EGameTest.Skill) {
 				player.ActiveSkillUsed = tSkill;
 				player.AttackSkillEffect(tSkill);
-				result = player.ActiveSkill(player.gameObject);
+				result = player.ActiveSkill(player.PlayerRefGameObject);
 				player.IsUseSkill = true;
 			}
 		}
@@ -2594,7 +2562,7 @@ public class GameController : KnightSingleton<GameController>
                     moveData.SetTarget(tacticalActions[i].x, tacticalActions[i].z);
 						
                 if (BallOwner != null)
-                    moveData.LookTarget = BallOwner.transform;
+					moveData.LookTarget = BallOwner.PlayerRefGameObject.transform;
                 else
                 {
                     if (team == ETeamKind.Self || GameStart.Get.CourtMode == ECourtMode.Half)
@@ -2629,8 +2597,8 @@ public class GameController : KnightSingleton<GameController>
 					if (team == ETeamKind.Self)
 						targetZ = -18;
 
-					Vector2 v = new Vector2(someone.transform.position.x, targetZ);
-					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
+					Vector2 v = new Vector2(someone.PlayerRefGameObject.transform.position.x, targetZ);
+					float dis = Vector2.Distance(new Vector2(someone.PlayerRefGameObject.transform.position.x, someone.PlayerRefGameObject.transform.position.z), v);
 					if(dis <= 1.7f)
                     {
 						if(BallOwner)
@@ -2640,7 +2608,7 @@ public class GameController : KnightSingleton<GameController>
                     {
 						moveData.TacticalName = data.FileName;
 //						moveData.Target = new Vector2(someone.transform.position.x, targetZ);
-						moveData.SetTarget(someone.transform.position.x, targetZ);
+						moveData.SetTarget(someone.PlayerRefGameObject.transform.position.x, targetZ);
 						someone.TargetPos = moveData;
 					}
 	            }
@@ -2675,7 +2643,7 @@ public class GameController : KnightSingleton<GameController>
 				if(someone == BallOwner)
                 {
 					Vector2 v = new Vector2(0, -0.2f);
-					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
+					float dis = Vector2.Distance(new Vector2(someone.PlayerRefGameObject.transform.position.x, someone.PlayerRefGameObject.transform.position.z), v);
 					if (dis <= 1.5f) {
 						if (BallOwner)
 							StartCoroutine(AutoTee());
@@ -2735,7 +2703,7 @@ public class GameController : KnightSingleton<GameController>
 				int ran = UnityEngine.Random.Range(0, 2);
 				int count = 0;
 				for (int i = 0; i < PlayerList.Count; i++) {
-					if (PlayerList [i].gameObject.activeInHierarchy && PlayerList [i].Team == BallOwner.Team && 
+					if (PlayerList [i].PlayerRefGameObject.activeInHierarchy && PlayerList [i].Team == BallOwner.Team && 
 					    PlayerList [i] != BallOwner) {
 						if (count == ran) {
 							flag = Pass(PlayerList [i], true);
@@ -2824,7 +2792,7 @@ public class GameController : KnightSingleton<GameController>
                         if(disData[j].Distance == 0)
                         {
                             if(angle)
-                                disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.transform, anpc.transform.position));
+								disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, anpc.PlayerRefGameObject.transform.position));
                             else
                                 disData[j].Distance = GetDis(anpc, player);
                             disData[j].Player = anpc;
@@ -2843,7 +2811,7 @@ public class GameController : KnightSingleton<GameController>
                         if(disData[j].Distance == 0)
                         {
                             if(angle)
-                                disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.transform, anpc.transform.position));
+								disData[j].Distance = Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, anpc.PlayerRefGameObject.transform.position));
                             else
                                 disData[j].Distance = GetDis(anpc, player);
                             disData[j].Player = anpc;
@@ -2891,13 +2859,13 @@ public class GameController : KnightSingleton<GameController>
 						if(kind == 1)
 							blockRate = npc2.Attr.FaketBlockRate;	
 						
-						float angle = MathUtils.FindAngle(npc.transform, PlayerList [i].transform.position);
+						float angle = MathUtils.FindAngle(npc.PlayerRefGameObject.transform, PlayerList [i].PlayerRefGameObject.transform.position);
 						
 						if(GetDis(npc, npc2) <= GameConst.BlockDistance && Mathf.Abs(angle) <= 70)
                         {
 							if(rate < blockRate)
                             {
-								if(npc2.DoPassiveSkill(ESkillSituation.Block0, npc.transform.position)) {
+								if(npc2.DoPassiveSkill(ESkillSituation.Block0, npc.PlayerRefGameObject.transform.position)) {
 									if (kind == 1)
 										npc2.GameRecord.BeFake++;
 
@@ -2982,8 +2950,8 @@ public class GameController : KnightSingleton<GameController>
     {
         if (player1 != null && player2 != null && player1 != player2)
         {
-            Vector3 v1 = player1.transform.position;
-            Vector3 v2 = player2.transform.position;
+			Vector3 v1 = player1.PlayerRefGameObject.transform.position;
+			Vector3 v2 = player2.PlayerRefGameObject.transform.position;
             v1.y = v2.y;
             return Vector3.Distance(v1, v2);
         } else
@@ -2993,7 +2961,7 @@ public class GameController : KnightSingleton<GameController>
 	public float GetDis(PlayerBehaviour someone, Vector3 target)
     {
         if(someone != null && target != Vector3.zero)
-            return Vector3.Distance(someone.transform.position, target);
+			return Vector3.Distance(someone.PlayerRefGameObject.transform.position, target);
 
         return -1;
     }
@@ -3003,7 +2971,7 @@ public class GameController : KnightSingleton<GameController>
         if (player1 != null && target != Vector2.zero)
         {
             Vector3 v1 = new Vector3(target.x, 0, target.y);
-            Vector3 v2 = player1.transform.position;
+			Vector3 v2 = player1.PlayerRefGameObject.transform.position;
             v1.y = v2.y;
             return Vector3.Distance(v1, v2);
         }
@@ -3145,7 +3113,7 @@ public class GameController : KnightSingleton<GameController>
 
 			if(ballHolder != null) {
 				ballHolder.SetActive(true);
-				ballHolder.transform.parent = BallOwner.transform;
+				ballHolder.transform.parent = BallOwner.PlayerRefGameObject.transform;
 				ballHolder.transform.localEulerAngles = Vector3.zero;
 				ballHolder.transform.localScale = Vector3.one;
 				ballHolder.transform.localPosition = BallOwner.BodyHeight.transform.localPosition;
@@ -3198,9 +3166,9 @@ public class GameController : KnightSingleton<GameController>
 			if (PlayerList [i].Team == ETeamKind.Npc){
 				if(p == null){
 					p = PlayerList[i];
-					dis = Vector3.Distance(Joysticker.gameObject.transform.position, PlayerList[i].transform.position);
+					dis = Vector3.Distance(Joysticker.PlayerRefGameObject.transform.position, PlayerList[i].PlayerRefGameObject.transform.position);
 				} else {
-					float temp = Vector3.Distance(Joysticker.gameObject.transform.position, PlayerList[i].transform.position);
+					float temp = Vector3.Distance(Joysticker.PlayerRefGameObject.transform.position, PlayerList[i].PlayerRefGameObject.transform.position);
 					if(dis > temp) {
 						dis = temp;
 						p = PlayerList[i];
@@ -3365,7 +3333,7 @@ public class GameController : KnightSingleton<GameController>
 				if (GameStart.Get.TestMode == EGameTest.Rebound || Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC) {
 					if (SetBall(player)) {
 						player.GameRecord.Rebound++;
-						player.SetAnger(GameConst.AddAnger_Rebound, player.gameObject);
+						player.SetAnger(GameConst.AddAnger_Rebound, player.PlayerRefGameObject);
 
 						if (player == BallOwner && inTipinDistance(player)) {
 							CoolDownPass = Time.time + GameConst.PassCoolDownTime;
@@ -3443,7 +3411,7 @@ public class GameController : KnightSingleton<GameController>
 			case 2:
 				if(!player2.IsDefence && player1.IsDefence)
 				{
-					if(Mathf.Abs(MathUtils.FindAngle(player2.transform, player1.transform.position)) <= GameConst.SlowDownAngle)
+					if(Mathf.Abs(MathUtils.FindAngle(player2.PlayerRefGameObject.transform, player1.PlayerRefGameObject.transform.position)) <= GameConst.SlowDownAngle)
 						player2.SetSlowDown(GameConst.SlowDownTime);
 				}
                 break;
@@ -3499,7 +3467,7 @@ public class GameController : KnightSingleton<GameController>
 							player.AniState(EPlayerState.Alleyoop, CourtMgr.Get.ShootPoint [team].transform.position);
 
 							if ((BallOwner != Joysticker || (BallOwner == Joysticker && Joysticker.AIing)) && Random.Range(0, 100) < BallOwner.Attr.AlleyOopPassRate) {
-								if (BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.transform.position))
+								if (BallOwner.DoPassiveSkill(ESkillSituation.Pass0, player.PlayerRefGameObject.transform.position))
 									Catcher = player;
 							} else
 								UIGame.Get.ShowAlleyoop(true, player.Index);
@@ -3901,10 +3869,10 @@ public class GameController : KnightSingleton<GameController>
         for (int i = 0; i < PlayerList.Count; i++)
         {
 			PlayerBehaviour targetNpc = PlayerList[i];
-			if(targetNpc.gameObject.activeSelf && targetNpc != player && targetNpc.Team == player.Team && 
+			if(targetNpc.PlayerRefGameObject.activeSelf && targetNpc != player && targetNpc.Team == player.Team && 
 			    GetDis(player, targetNpc) <= dis && HasDefPlayer(targetNpc, 1.5f, 40) == 0)
             {
-				float mangle = MathUtils.FindAngle(player.transform, targetNpc.transform.position);
+				float mangle = MathUtils.FindAngle(player.PlayerRefGameObject.transform, targetNpc.PlayerRefGameObject.transform.position);
 	            
                 if (mangle >= 0 && mangle <= angle)
 					return targetNpc;
@@ -3932,13 +3900,13 @@ public class GameController : KnightSingleton<GameController>
 
         for(int i = 0; i < PlayerList.Count; i++)
         {
-			if(PlayerList[i].gameObject.activeInHierarchy && PlayerList[i].Team != player.Team)
+			if(PlayerList[i].PlayerRefGameObject.activeInHierarchy && PlayerList[i].Team != player.Team)
             {
 	            PlayerBehaviour targetNpc = PlayerList[i];
-				float realAngle = MathUtils.FindAngle(player.transform, targetNpc.transform.position);
+				float realAngle = MathUtils.FindAngle(player.PlayerRefGameObject.transform, targetNpc.PlayerRefGameObject.transform.position);
 	            
 //	            if(GetDis(npc, targetNpc) <= dis)
-	            if(MathUtils.Find2DDis(player.transform.position, targetNpc.transform.position) <= dis)
+				if(MathUtils.Find2DDis(player.PlayerRefGameObject.transform.position, targetNpc.PlayerRefGameObject.transform.position) <= dis)
                 {
 	                if(realAngle >= 0 && realAngle <= angle)
                     {
@@ -3992,7 +3960,7 @@ public class GameController : KnightSingleton<GameController>
 
 	    if (p1 != null && p2 != null && p1 != p2)
 		{
-		    float angleBetween = MathUtils.FindAngle(p1.transform, p2.transform.position);
+			float angleBetween = MathUtils.FindAngle(p1.PlayerRefGameObject.transform, p2.PlayerRefGameObject.transform.position);
 
 		    if (GetDis(p1, p2) <= dis)
             {
@@ -4013,7 +3981,7 @@ public class GameController : KnightSingleton<GameController>
 
         for (int i = 0; i < PlayerList.Count; i++)
         {
-			if (PlayerList[i].gameObject.activeInHierarchy)
+			if (PlayerList[i].PlayerRefGameObject.activeInHierarchy)
 			{
 			    PlayerBehaviour npc = PlayerList [i];
 
@@ -4021,7 +3989,7 @@ public class GameController : KnightSingleton<GameController>
                 {
 		            if(PlayerList[i] != self && PlayerList[i].Team == self.Team && 
 //                       GetDis(self, npc) <= dis)
-                       MathUtils.Find2DDis(self.transform.position, npc.transform.position) <= dis)
+					   MathUtils.Find2DDis(self.PlayerRefGameObject.transform.position, npc.PlayerRefGameObject.transform.position) <= dis)
                     {
 		                nearPlayer = npc;
 		                break;
@@ -4059,9 +4027,9 @@ public class GameController : KnightSingleton<GameController>
     /// <returns></returns>
     public bool IsInUpfield(PlayerBehaviour player)
     {
-		if(player.Team == ETeamKind.Self && (player.transform.position.z >= 15.5f && player.transform.position.x <= 1 && player.transform.position.x >= -1))
+		if(player.Team == ETeamKind.Self && (player.PlayerRefGameObject.transform.position.z >= 15.5f && player.PlayerRefGameObject.transform.position.x <= 1 && player.PlayerRefGameObject.transform.position.x >= -1))
             return false;
-        if(player.Team == ETeamKind.Npc && player.transform.position.z <= -15.5f && player.transform.position.x <= 1 && player.transform.position.x >= -1)
+		if(player.Team == ETeamKind.Npc && player.PlayerRefGameObject.transform.position.z <= -15.5f && player.PlayerRefGameObject.transform.position.x <= 1 && player.PlayerRefGameObject.transform.position.x >= -1)
             return false;
 		if(player.IsElbow)
 			return false;
@@ -4073,7 +4041,7 @@ public class GameController : KnightSingleton<GameController>
     {
         if (PlayerList.Count > index)
         {
-            return PlayerList [index].transform.position;       
+			return PlayerList [index].PlayerRefGameObject.transform.position;       
         } else
             return Vector3.zero;
     }
@@ -4217,31 +4185,31 @@ public class GameController : KnightSingleton<GameController>
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = mJumpBallPos[0];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[0];
 				else
-					PlayerList[i].transform.position = mJumpBallPos[3];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[3];
 			}
 			else if(PlayerList[i].Postion == EPlayerPostion.C)
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = mJumpBallPos[1];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[1];
 				else
-					PlayerList[i].transform.position = mJumpBallPos[4];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[4];
 			}
 			else
 			{
 				if(PlayerList[i].Team == ETeamKind.Self)
-					PlayerList[i].transform.position = mJumpBallPos[2];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[2];
 				else
-					PlayerList[i].transform.position = mJumpBallPos[5];
+					PlayerList[i].PlayerRefGameObject.transform.position = mJumpBallPos[5];
 			}
 
 			PlayerList [i].AniState(EPlayerState.Idle);
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
-				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
 			else
-				PlayerList[i].transform.localEulerAngles = Vector3.zero;
+				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = Vector3.zero;
 		}
 
 		ChangeSituation(EGameSituation.Opening);
@@ -4262,9 +4230,9 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[i].Attribute.AILevel = GameConst.SelfAILevel;
 
 			if(PlayerList[i].Team == ETeamKind.Npc)
-				PlayerList[i].transform.localEulerAngles = new Vector3(0, 180, 0);
+				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = new Vector3(0, 180, 0);
 			else
-				PlayerList[i].transform.localEulerAngles = Vector3.zero;
+				PlayerList[i].PlayerRefGameObject.transform.localEulerAngles = Vector3.zero;
 
 			PlayerList[i].InitAttr();
 		}
@@ -4272,7 +4240,7 @@ public class GameController : KnightSingleton<GameController>
 
     public void SetAllPlayerLayer (string layerName){
 		for (int i = 0; i < PlayerList.Count; i++)
-			LayerMgr.Get.ReSetLayerRecursively(PlayerList[i].gameObject, layerName,"PlayerModel", "(Clone)");
+			LayerMgr.Get.ReSetLayerRecursively(PlayerList[i].PlayerRefGameObject, layerName,"PlayerModel", "(Clone)");
 	}
 
 	public void ShowWord (EShowWordType type, int team = 0, GameObject parent = null) {
@@ -4302,26 +4270,26 @@ public class GameController : KnightSingleton<GameController>
 			if(PlayerList[i] && PlayerList[i].Team != player.Team)
             {
 //				if(GameFunction.IsInFanArea(player.transform, PlayerList[i].transform.position, dis, angle))
-				if(player.transform.IsInFanArea(PlayerList[i].transform.position, dis, angle))
+				if(player.PlayerRefGameObject.transform.IsInFanArea(PlayerList[i].PlayerRefGameObject.transform.position, dis, angle))
                 {
 					int rate = Random.Range(0, 100);
 					PlayerBehaviour faller = PlayerList[i];
 					PlayerBehaviour pusher = player;
 
 					if(rate < faller.Attr.StrengthRate){
-						if(faller.AniState(EPlayerState.Fall2, pusher.transform.position)) {
+						if(faller.AniState(EPlayerState.Fall2, pusher.PlayerRefGameObject.transform.position)) {
 							faller.SetAnger(GameConst.DelAnger_Fall2);
-							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
 							pusher.GameRecord.Knock++;
 							faller.GameRecord.BeKnock++;
 						}
 					}
 					else
                     {
-						if(faller.AniState(EPlayerState.Fall1, pusher.transform.position))
+						if(faller.AniState(EPlayerState.Fall1, pusher.PlayerRefGameObject.transform.position))
                         {
 							faller.SetAnger(GameConst.DelAnger_Fall1);
-							pusher.SetAnger(GameConst.AddAnger_Push, faller.gameObject);
+							pusher.SetAnger(GameConst.AddAnger_Push, faller.PlayerRefGameObject);
 							if(faller == Joysticker || pusher == Joysticker)
 								ShowWord(EShowWordType.Punch, 0, pusher.ShowWord);
 						}
