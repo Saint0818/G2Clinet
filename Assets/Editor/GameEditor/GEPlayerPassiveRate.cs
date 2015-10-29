@@ -23,13 +23,17 @@ public class GEPlayerPassiveRate : GEBase {
 	private Dictionary<int, List<TPassiveType>> UpdatePassiveSkills = new Dictionary<int, List<TPassiveType>>();//Skill
 	private List<TChangePassiveRate> passives = new List<TChangePassiveRate>();
 	private SkillController skillController;
-	
+
+	private bool isInstall = false;
 	private string[] options;
 	private int index = 0;
 	private int chooseIndex = 0;
+	
+	private Vector2 scrollPosition = Vector2.zero;
 
 	void OnFocus(){
 		isChange = false;
+		isInstall = false;
 		index = 0;
 		passives.Clear();
 		if(Selection.gameObjects.Length == 1) {
@@ -62,22 +66,54 @@ public class GEPlayerPassiveRate : GEBase {
 			
 			GUILayout.Label(" ");
 			GUILayout.Label(" ");
-			for(int i=0; i<passives.Count; i++) {
-				if(int.Parse(options[chooseIndex]) == passives[i].Kind) {
-					GUILayout.Label("ID:" + passives[i].ID);
-					GUILayout.Label("passives[i].Rate:" + passives[i].Rate);
-					passives[i].Rate = Mathf.RoundToInt(GUILayout.HorizontalSlider((float) passives[i].Rate , 0, 100));
-					GUILayout.Label("====================");
-
+			if(!isInstall && passives.Count == 0) {
+				if(GUILayout.Button("Install All Passive")) {
+					foreach(KeyValuePair<int, TSkillData> tskill in GameData.DSkillData) {
+						if (tskill.Key > 100 && tskill.Key < GameConst.ID_LimitActive) {
+							
+							TPassiveType type = new TPassiveType();
+							TSkill skill = new TSkill();
+							skill.ID = tskill.Value.ID;
+							skill.Lv = 2;
+							type.Tskill = skill;
+							type.Rate = 0;
+							if (UpdatePassiveSkills.ContainsKey(tskill.Value.Kind))
+								UpdatePassiveSkills [tskill.Value.Kind].Add(type);
+							else {
+								List<TPassiveType> pss = new List<TPassiveType>();
+								pss.Add(type);
+								UpdatePassiveSkills.Add(tskill.Value.Kind, pss);
+							}
+						}
+					}
+					skillController.DPassiveSkills = UpdatePassiveSkills;
+					isInstall = true;
 				}
 			}
 
+//			scrollPosition = GUI.BeginScrollView(new Rect(0, 60, 600, 450), scrollPosition, new Rect(0, 60, 560, (passives.Count * 50)));
+			scrollPosition = GUILayout.BeginScrollView(new Vector2(0, 60));
+			for(int i=0; i<passives.Count; i++) {
+				if(int.Parse(options[chooseIndex]) == passives[i].Kind) {
+					GUILayout.Label("ID:" + passives[i].ID);
+					GUILayout.Label("Name:" + GameData.DSkillData[passives[i].ID].Name);
+					GUILayout.Label("AnimationName:" + GameData.DSkillData[passives[i].ID].Animation);
+					GUILayout.Label("Explain:" + GameData.DSkillData[passives[i].ID].Explain);
+					GUILayout.Label("passives[i].Rate:" + passives[i].Rate);
+					passives[i].Rate = Mathf.RoundToInt(GUILayout.HorizontalSlider((float) passives[i].Rate , -1, 100));
+				}
+			}
+			GUILayout.EndScrollView();
+
 			GUI.backgroundColor = Color.red;
 			if(isChange) 
+//				GUI.Label(new Rect(0, 530, 300, 20), "Change Success");
 				GUILayout.Label("Change Success");
 			GUI.backgroundColor = Color.white;
-			if(GUILayout.Button("Change")) {
+//			if(GUI.Button(new Rect(0, 550, 300, 30), "Change")) {
+			if(GUILayout.Button("Change Passive Rate")) {
 				isChange = true;
+				UpdatePassiveSkills.Clear();
 				for(int i=0; i<passives.Count; i++) {
 					TPassiveType type = new TPassiveType();
 					TSkill skill = new TSkill();

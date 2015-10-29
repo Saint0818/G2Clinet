@@ -218,20 +218,20 @@ public class SkillController : MonoBehaviour {
 
 		if(DPassiveSkills.ContainsKey(skillKind)) {
 			for (int i=0; i<DPassiveSkills[skillKind].Count; i++) {
-				if(kind == ESkillKind.Pass) 
+				if(kind == ESkillKind.Pass) {
 					if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Direct == (int)passDirect) 
-						if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate)
+						if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
 							skills.Add(DPassiveSkills[skillKind][i]);
-				else 
+				} else 
 				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
-					if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate) {
+					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate) {
 						if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].Tskill.ID == 412 || DPassiveSkills[skillKind][i].Tskill.ID == 413))//if no def player, don't use 
 							break;
 						
 						skills.Add(DPassiveSkills[skillKind][i]);
 					}
 				} else
-					if(UnityEngine.Random.Range(0, 100) <= DPassiveSkills[skillKind][i].Rate)
+					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
 						skills.Add(DPassiveSkills[skillKind][i]);
 			}
 			//Part 2. Get Passive 
