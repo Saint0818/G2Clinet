@@ -103,10 +103,10 @@ public static class TextConst
 			AddString (205, "CUSTOMIZED PLAYER", "CUSTOMIZED PLAYER");
 			AddString (206, "確定刪除此角色？", "");
 			AddString (207, "確定購買角色欄位？", "");
-			AddString(2000001, "時限內得分超過對手");
-			AddString(2000002, "時限內大量得分");
-			AddString(2000003, "時限內降低失分");
-			AddString(2000004, "時限內攻擊數量達到需求");
+			AddString(2000001, "時間競賽");
+			AddString(2000002, "得分競賽");
+			AddString(2000003, "防守競賽");
+			AddString(2000004, "攻擊競賽");
 			AddString(2000009, "挑戰章節關主");
 
             AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
