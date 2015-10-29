@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c0bc7c3ff602a49da8f1f823de7d7851
-timeCreated: 1443081122
+timeCreated: 1446102599
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -37,6 +37,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
@@ -51,6 +52,7 @@ TextureImporter:
     maxTextureSize: 1024
     textureFormat: 12
     compressionQuality: 50
+    allowsAlphaSplitting: 0
   spriteSheet:
     sprites: []
   spritePackingTag: 
