@@ -94,10 +94,11 @@ public class UIMainStageImpl : MonoBehaviour
     /// 某個小關卡鎖定.
     /// </summary>
     /// <param name="stageID"></param>
-    public void ShowStageLock(int stageID)
+    /// <param name="kindSpriteName"></param>
+    public void ShowStageLock(int stageID, string kindSpriteName)
     {
         if(mStageSmalls.ContainsKey(stageID))
-            mStageSmalls[stageID].ShowLock();
+            mStageSmalls[stageID].ShowLock(kindSpriteName);
         else
             Debug.LogErrorFormat("Stage({0}) don't exist!", stageID);
     }
@@ -110,11 +111,6 @@ public class UIMainStageImpl : MonoBehaviour
         foreach(var chapter in Chapters)
         {
             chapter.Hide();
-        }
-
-        foreach(var stageSmall in mStageSmalls)
-        {
-            stageSmall.Value.ShowLock();
         }
     }
 

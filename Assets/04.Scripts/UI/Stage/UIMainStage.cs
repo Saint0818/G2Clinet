@@ -23,19 +23,6 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
-    /// <summary>
-    /// <para> 這是 Stage.Kind 參數的對照表. [Key:Kind, Value:TextConst Index]</para>
-    /// <para> 目前的規則是對照表找出的數值, 就是關卡的圖片, 也就是該關卡的類型文字(比如:傳統, 計時賽等等). </para>
-    /// </summary>
-    private readonly Dictionary<int, int> mStageKindMapping = new Dictionary<int, int>
-    {
-        {1, 2000001},
-        {2, 2000002},
-        {3, 2000003},
-        {4, 2000004},
-        {9, 2000009}
-    };
-
     private int mCurrentStageID;
 
     private UIMainStageImpl mImpl;
@@ -46,7 +33,6 @@ public class UIMainStage : UIBase
         mImpl = GetComponent<UIMainStageImpl>();
         mImpl.BackListener += goToGameLobby;
         mImpl.Info.StartListener += enterGame;
-//        mImpl.ChapterChangeListener.OnChangeListener += onChapterChange;
     }
 
     [UsedImplicitly]
@@ -70,20 +56,6 @@ public class UIMainStage : UIBase
             chapter.ChapterValue = data.Chapter;
         }
     }
-
-//    private void onChapterChange(int chapterID)
-//    {
-////        Debug.LogFormat("onChapterChange, ChapterID:{0}", chapterID);
-//
-//        if(ChapterTable.Ins.Has(chapterID))
-//        {
-//            ChapterData data = ChapterTable.Ins.Get(chapterID);
-//            mImpl.ChapterNum = data.Chapter;
-//            mImpl.ChapterTitle = data.Name;
-//        }
-//        else
-//            Debug.LogErrorFormat("Can't find ChapterID:{0}", chapterID);
-//    }
 
     public void Show()
     {
@@ -166,50 +138,78 @@ public class UIMainStage : UIBase
     /// </summary>
     private void showMainStages()
     {
+        // 1. 清空全部章節.
         mImpl.HideAllChapters();
-        for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageID; id++)
+
+        // 2. 取出可顯示章節的全部關卡.
+        int maxChapter = StageTable.Ins.MainStageMaxChapter;
+        if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
+            maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;
+        List<StageData> allStageData = new List<StageData>();
+        // 主線關卡是從第一章開始顯示.
+        StageTable.Ins.GetByChapterRange(1, maxChapter, ref allStageData);
+
+        // 3. 設定每一個小關卡.
+        foreach(StageData data in allStageData)
         {
-            StageData stage = StageTable.Ins.GetByID(id);
-            showStage(stage);
+            mImpl.ShowChapter(data.Chapter);
+            if(data.ID <= GameData.Team.Player.NextMainStageID)
+                showStage(data);
+            else
+                showStageLock(data);
         }
+
+//        for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageID; id++)
+//        {
+//            StageData data = StageTable.Ins.GetByID(id);
+//            mImpl.ShowChapter(data.Chapter);
+//            showStage(data);
+//        }
 
         setLastChapterLock();
     }
 
     private void showStage(StageData stageData)
     {
-        if(!stageData.IsValid())
-        {
-            Debug.LogWarningFormat("Stage({0}) don't exist!", stageData.ID);
+        if(!verify(stageData))
             return;
-        }
-
-        if(!mStageKindMapping.ContainsKey(stageData.Kind))
-        {
-            Debug.LogErrorFormat("StageID({0}), Kind({1}) don't exist!", stageData.ID, stageData.Kind);
-            return;
-        }
-
-        int textIndex = mStageKindMapping[stageData.Kind];
-        if(string.IsNullOrEmpty(TextConst.S(textIndex)))
-        {
-            Debug.LogErrorFormat("TextConst({0}) don't exist!", textIndex);
-            return;
-        }
-
-        mImpl.ShowChapter(stageData.Chapter);
 
         UIStageInfo.Data data = new UIStageInfo.Data
         {
             Name = stageData.Name,
             Description = stageData.Explain,
-            KindSpriteName = textIndex.ToString(),
-            KindName = TextConst.S(textIndex),
+            KindSpriteName = stageData.KindTextIndex.ToString(),
+            KindName = TextConst.S(stageData.KindTextIndex),
             RewardSpriteName = "GoldCoin",
             RewardName = "",
             Stamina = stageData.CostValue
         };
         mImpl.ShowStage(stageData.ID, data); 
+    }
+
+    private void showStageLock(StageData stageData)
+    {
+        if(!verify(stageData))
+            return;
+
+        mImpl.ShowStageLock(stageData.ID, stageData.KindTextIndex.ToString());
+    }
+
+    private static bool verify(StageData stageData)
+    {
+        if(!stageData.IsValid())
+        {
+            Debug.LogWarningFormat("Stage({0}) don't exist!", stageData.ID);
+            return false;
+        }
+
+        int textIndex = stageData.KindTextIndex;
+        if(string.IsNullOrEmpty(TextConst.S(textIndex)))
+        {
+            Debug.LogErrorFormat("TextConst({0}) don't exist!", textIndex);
+            return false;
+        }
+        return true;
     }
 
     /// <summary>

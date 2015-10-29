@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 /// <summary>
 /// 記錄關卡的相關資訊.
@@ -25,14 +27,19 @@ public class StageTable
     }
 
     /// <summary>
-    /// key: StageID. 記錄主線內, 全部的小關卡.
+    /// 主線關卡企劃資料中, 目前最大的章節.
+    /// </summary>
+    public int MainStageMaxChapter { get; private set; }
+
+    /// <summary>
+    /// key: StageID. 主線全部小關卡.
     /// </summary>
     private readonly Dictionary<int, StageData> mStageByIDs = new Dictionary<int, StageData>();
 
     /// <summary>
-    /// [ChapterID, [Order, instance]]. 記錄主線內, 全部的小關卡.
+    /// key: 章節, 1: 第一章, 2 第二章. 某個章節的小關卡.
     /// </summary>
-    private readonly Dictionary<int, Dictionary<int, StageData>> mStageByChapterOrders = new Dictionary<int, Dictionary<int, StageData>>();
+    private readonly Dictionary<int, List<StageData>> mStageByChapters = new Dictionary<int, List<StageData>>();
 
     private StageTable() {}
 
@@ -48,16 +55,14 @@ public class StageTable
                 Debug.LogErrorFormat("Stage ID repeat. {0}", stage.ID);
                 continue;
             }
-
-            if(!mStageByChapterOrders.ContainsKey(stage.Chapter))
-                mStageByChapterOrders.Add(stage.Chapter, new Dictionary<int, StageData>());
-            if (mStageByChapterOrders[stage.Chapter].ContainsKey(stage.Order))
-            {
-                Debug.LogErrorFormat("Stage Order repeat. {0}", stage);
-                continue;
-            }
-            mStageByChapterOrders[stage.Chapter].Add(stage.Order, stage);
             mStageByIDs.Add(stage.ID, stage);
+
+            if(!mStageByChapters.ContainsKey(stage.Chapter))
+                mStageByChapters.Add(stage.Chapter, new List<StageData>());
+            mStageByChapters[stage.Chapter].Add(stage);
+
+            if(MainStageMaxChapter < stage.Chapter)
+                MainStageMaxChapter = stage.Chapter;
         }
 
         Debug.Log("[stage parsed finished.] ");
@@ -66,44 +71,28 @@ public class StageTable
     private void clear()
     {
         mStageByIDs.Clear();
-        mStageByChapterOrders.Clear();
-    }
-
-    public bool HasByChapterOrder(int chapter, int order)
-    {
-        if(mStageByChapterOrders.ContainsKey(chapter) && mStageByChapterOrders[chapter].ContainsKey(order))
-            return true;
-
-        return false;
+        mStageByChapters.Clear();
+        MainStageMaxChapter = 0;
     }
 
     private readonly StageData mEmptyStage = new StageData();
-    private readonly List<StageData> mEmptyStages = new List<StageData>();
-    public StageData GetByChapterOrder(int chapter, int order)
-    {
-        if(!mStageByChapterOrders.ContainsKey(chapter) || !mStageByChapterOrders[chapter].ContainsKey(order))
-            return mEmptyStage;
-
-        return mStageByChapterOrders[chapter][order];
-    }
+//    private readonly List<StageData> mEmptyStages = new List<StageData>();
 
     public bool HasByChapter(int chapter)
     {
-        return mStageByChapterOrders.ContainsKey(chapter);
+        return mStageByChapters.ContainsKey(chapter);
     }
 
-    public List<StageData> GetByChapter(int chapter)
+    public void GetByChapterRange(int minChapter, int maxChapter, ref List<StageData> data)
     {
-        mEmptyStages.Clear();
-        if(mStageByChapterOrders.ContainsKey(chapter))
+        Assert.IsTrue(maxChapter >= minChapter, string.Format("range error:[{0}, {1}]", minChapter, maxChapter));
+
+        data.Clear();
+        for(int chapter = minChapter; chapter <= maxChapter; chapter++)
         {
-            foreach(KeyValuePair<int, StageData> pair in mStageByChapterOrders[chapter])
-            {
-                mEmptyStages.Add(pair.Value);
-            }
+            if(mStageByChapters.ContainsKey(chapter))
+                data.AddRange(mStageByChapters[chapter]);
         }
-        
-        return mEmptyStages;
     }
 
     public bool HasByID(int id)
@@ -116,6 +105,7 @@ public class StageTable
         if(mStageByIDs.ContainsKey(id))
             return mStageByIDs[id];
 
+        mEmptyStage.Clear();
         return mEmptyStage;
     }
 }

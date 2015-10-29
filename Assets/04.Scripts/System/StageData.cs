@@ -1,7 +1,10 @@
-﻿using GameEnum;
+﻿using System;
+using System.Collections.Generic;
+using GameEnum;
 using GamePlayEnum;
+using BitConverter = AI.BitConverter;
 
-public struct StageData
+public class StageData
 {
     public int ID;
     public int Chapter;
@@ -15,6 +18,11 @@ public struct StageData
     /// 9.挑戰魔王對手
     /// </summary>
     public int Kind;
+
+    public int KindTextIndex
+    {
+        get { return StageKindMapping[Kind]; }
+    }
      
     public string Hint;
     public int Bit0Num;
@@ -57,6 +65,11 @@ public struct StageData
     public string ExplainEN;
     public string ExplainJP;
 
+    public void Clear()
+    {
+        ID = 0;
+    }
+
     public bool IsValid()
     {
         return ID >= 1;
@@ -64,14 +77,14 @@ public struct StageData
 
     public override string ToString()
     {
-        return string.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);
+        return String.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);
     }
 
     public int[] HintBit
     {
         get
         {
-            return AI.BitConverter.Convert(Hint);
+            return BitConverter.Convert(Hint);
         }
     }
 
@@ -125,4 +138,17 @@ public struct StageData
             }
         }
     }
+
+    /// <summary>
+    /// <para> 這是 Stage.Kind 參數的對照表. [Key:Kind, Value:TextConst Index]</para>
+    /// <para> 目前的規則是對照表找出的數值, 就是關卡的圖片, 也就是該關卡的類型文字(比如:傳統, 計時賽等等). </para>
+    /// </summary>
+    private readonly Dictionary<int, int> StageKindMapping = new Dictionary<int, int>
+    {
+        {1, 2000001},
+        {2, 2000002},
+        {3, 2000003},
+        {4, 2000004},
+        {9, 2000009}
+    };
 }

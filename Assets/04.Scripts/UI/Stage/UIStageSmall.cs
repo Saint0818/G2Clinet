@@ -29,7 +29,6 @@ public class UIStageSmall : MonoBehaviour
         mData = data;
 
         GetComponent<UISprite>().spriteName = OpenSpriteName;
-        KindSprite.gameObject.SetActive(true);
         KindSprite.spriteName = mData.KindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
@@ -39,10 +38,10 @@ public class UIStageSmall : MonoBehaviour
         GetComponent<BoxCollider>().enabled = true;
     }
 
-    public void ShowLock()
+    public void ShowLock(string kindSpriteName)
     {
         GetComponent<UISprite>().spriteName = LockSpriteName;
-        KindSprite.gameObject.SetActive(false);
+        KindSprite.spriteName = kindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
