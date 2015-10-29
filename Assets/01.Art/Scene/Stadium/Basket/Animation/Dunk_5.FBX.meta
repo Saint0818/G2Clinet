@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 946d3e23e7deb404db602702848acebb
-timeCreated: 1445942143
+guid: 6c55f88bd9305a342bb0ac8cc58bac00
+timeCreated: 1446087297
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -8,44 +8,53 @@ ModelImporter:
     100000: Backboard
     100002: BasketGlassA
     100004: BasketGlassB
-    100006: BasketSupport
-    100008: Bone01
-    100010: Bone02
-    100012: Bone03
-    100014: Bone04
-    100016: DummyBackBoard
-    100018: DummyBasketIK
-    100020: DummyBasketRoot
-    100022: DummyHoop
-    100024: DummyNet
-    100026: //RootNode
-    100028: IK Chain
+    100006: BasketHoop
+    100008: BasketSupport
+    100010: Bone01
+    100012: Bone02
+    100014: Bone03
+    100016: Bone04
+    100018: DummyBackBoard
+    100020: DummyBasketIK
+    100022: DummyBasketRoot
+    100024: DummyHoop
+    100026: DummyNet
+    100028: //RootNode
+    100030: BasketHoop001
+    100032: IK Chain
     400000: Backboard
     400002: BasketGlassA
     400004: BasketGlassB
-    400006: BasketSupport
-    400008: Bone01
-    400010: Bone02
-    400012: Bone03
-    400014: Bone04
-    400016: DummyBackBoard
-    400018: DummyBasketIK
-    400020: DummyBasketRoot
-    400022: DummyHoop
-    400024: DummyNet
-    400026: //RootNode
-    400028: IK Chain
+    400006: BasketHoop
+    400008: BasketSupport
+    400010: Bone01
+    400012: Bone02
+    400014: Bone03
+    400016: Bone04
+    400018: DummyBackBoard
+    400020: DummyBasketIK
+    400022: DummyBasketRoot
+    400024: DummyHoop
+    400026: DummyNet
+    400028: //RootNode
+    400030: BasketHoop001
+    400032: IK Chain
+    2300000: BasketHoop001
+    3300000: BasketHoop001
     4300000: BasketSupport
     4300002: Backboard
-    4300004: BasketGlassA
-    4300006: BasketGlassB
-    7400000: Dunk_3
+    4300004: BasketHoop
+    4300006: BasketGlassA
+    4300008: BasketGlassB
+    4300010: BasketHoop001
+    7400000: Dunk_5
     9500000: //RootNode
     11100000: //RootNode
     13700000: Backboard
     13700002: BasketGlassA
     13700004: BasketGlassB
-    13700006: BasketSupport
+    13700006: BasketHoop
+    13700008: BasketSupport
   materials:
     importMaterials: 0
     materialName: 0
@@ -67,10 +76,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dunk_3
+      name: Dunk_5
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -96,14 +105,14 @@ ModelImporter:
         floatParameter: 2
         intParameter: 1
         messageOptions: 0
-      - time: .0044198893
+      - time: .00749041978
         functionName: PlaySound
         data: SD_Dunk
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .00662983442
+      - time: .0122904787
         functionName: PlayShake
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -118,6 +127,8 @@ ModelImporter:
       - path: BasketGlassA
         weight: 1
       - path: BasketGlassB
+        weight: 1
+      - path: BasketHoop
         weight: 1
       - path: BasketSupport
         weight: 1
