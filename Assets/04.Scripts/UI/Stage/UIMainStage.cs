@@ -206,7 +206,8 @@ public class UIMainStage : UIBase
 //            KindSpriteName = "Iconface",
             KindName = TextConst.S(textIndex),
             RewardSpriteName = "GoldCoin",
-            RewardName = ""
+            RewardName = "",
+            Stamina = stageData.CostValue
         };
         mImpl.ShowStage(stageData.ID, data); 
     }

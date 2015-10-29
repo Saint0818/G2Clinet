@@ -1,6 +1,9 @@
 ﻿using JetBrains.Annotations;
 using UnityEngine;
 
+/// <summary>
+/// 關卡資訊視窗.
+/// </summary>
 public class UIStageInfo : MonoBehaviour
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class UIStageInfo : MonoBehaviour
         public string KindName { set; get; }
         public string RewardSpriteName { set; get; }
         public string RewardName { set; get; }
+        public int Stamina { set; get; }
     }
 
     public GameObject Window;
@@ -24,6 +28,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel KindLabel;
     public UISprite RewardSprite;
     public UILabel RewardLabel;
+    public UILabel StaminaLabel;
     public Transform HintParent;
     private UIStageHint2 mHint;
 
@@ -60,6 +65,7 @@ public class UIStageInfo : MonoBehaviour
         KindLabel.text = data.KindName;
         RewardSprite.spriteName = data.RewardSpriteName;
         RewardLabel.text = data.RewardName;
+        StaminaLabel.text = string.Format("{0}", data.Stamina);
     }
 
     public void Hide()
