@@ -176,14 +176,12 @@ public class UIMainStage : UIBase
         }
 
         mImpl.ShowChapter(stageData.Chapter);
-//        mImpl.SetStage(stageData.ID, textIndex.ToString());
-//        mImpl.ShowStage(stageData.ID, "Iconface"); // todo 因為暫時還沒有圖檔, 所以暫時用別的圖片代替.
 
         UIStageInfo.Data data = new UIStageInfo.Data
         {
             Description = stageData.Explain,
-//            KindSpriteName = textIndex.ToString(),
-            KindSpriteName = "Iconface",
+            KindSpriteName = textIndex.ToString(),
+//            KindSpriteName = "Iconface",
             KindName = TextConst.S(textIndex),
             RewardSpriteName = "GoldCoin",
             RewardName = ""

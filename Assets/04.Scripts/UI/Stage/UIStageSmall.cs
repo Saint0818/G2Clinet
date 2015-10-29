@@ -9,8 +9,10 @@ public class UIStageSmall : MonoBehaviour
     [Tooltip("StageTable 裡面的 ID. 控制要顯示哪一個關卡的資訊.")]
     public int StageID;
 
-    private const string LockSpriteName = "Icon_lock";
-//    private const string LockSpriteName = "Iconface";
+    public UISprite KindSprite;
+
+    private const string OpenSpriteName = "StageButton01";
+    private const string LockSpriteName = "StageButton02";
 
     private UIStageInfo.Data mData;
 
@@ -26,11 +28,13 @@ public class UIStageSmall : MonoBehaviour
     {
         mData = data;
 
-        GetComponent<UISprite>().spriteName = mData.KindSpriteName;
+        GetComponent<UISprite>().spriteName = OpenSpriteName;
+        KindSprite.gameObject.SetActive(true);
+        KindSprite.spriteName = mData.KindSpriteName;
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
-        GetComponent<UIButton>().normalSprite = mData.KindSpriteName; 
+        GetComponent<UIButton>().normalSprite = OpenSpriteName; 
 
         GetComponent<BoxCollider>().enabled = true;
     }
@@ -38,6 +42,7 @@ public class UIStageSmall : MonoBehaviour
     public void ShowLock()
     {
         GetComponent<UISprite>().spriteName = LockSpriteName;
+        KindSprite.gameObject.SetActive(false);
 
         // 如果不加上這行, 當我滑鼠滑過圖片時, 圖片會變掉. 我認為這應該是 UIButton 的 Bug. 
         // 目前的解決辦法是以下程式碼.
