@@ -307,8 +307,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
-    normalImportMode: 0
+    splitTangentsAcrossUV: 0
+    normalImportMode: 2
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
