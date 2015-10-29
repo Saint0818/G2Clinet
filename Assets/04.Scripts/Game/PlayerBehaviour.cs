@@ -1433,6 +1433,8 @@ public class PlayerBehaviour : MonoBehaviour
 							break;
 					}
 //					Debug.Log("MoveKind : " + moveKind);
+					if(GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
+						calculateSpeed = GameConst.AttackSpeedup;
 					translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * Timer.timeScale;
 	                transform.Translate(translate); 
 	                transform.position = new Vector3(transform.position.x, 0, transform.position.z);

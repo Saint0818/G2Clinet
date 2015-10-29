@@ -26,7 +26,8 @@ public enum EGameTest {
 	CrossOver,
 	Shoot,
 	AnimationUnit,
-	Skill
+	Skill,
+	PassiveSkill
 }
 
 public struct TPlayerSkillLV {
@@ -568,6 +569,14 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;
+		case EGameTest.PassiveSkill:
+			if (GameData.Team.Player.ID == 0) 
+				GameData.Team.Player.SetID(14);
+			
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
+			SetPlayerAI(false);
+			break;
         }
 
 		for (int i = 0; i < PlayerList.Count; i++)
@@ -734,7 +743,6 @@ public class GameController : KnightSingleton<GameController>
 			{
 				if(GameStart.Get.TestMode != EGameTest.Skill) 
 					UIGame.Get.DoShoot(null, true);
-
 			}
 			
 			if (Input.GetKeyUp (KeyCode.S))
@@ -910,12 +918,12 @@ public class GameController : KnightSingleton<GameController>
 			GUILayout.Label("layup rate:"+ layupRate);
 		}
 
-		if(GameStart.Get.TestMode == EGameTest.Skill) {
-			if (GUI.Button(new Rect(0, 0, 100, 100), "player get Ball")) {
+		if(GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill) {
+			if (GUI.Button(new Rect(Screen.width - 100, 0, 100, 100), "player get Ball")) {
 				SetBall(PlayerList[0]);
 				PlayerList[1].AniState(EPlayerState.Idle);
 			}
-			if (GUI.Button(new Rect(0, 150, 100, 100), "enemy get Ball")) {
+			if (GUI.Button(new Rect(Screen.width - 100, 150, 100, 100), "enemy get Ball")) {
 				SetBall(PlayerList[1]);
 				PlayerList[0].AniState(EPlayerState.Idle);
 			}
@@ -1344,7 +1352,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
-				if(GameStart.Get.TestMode == EGameTest.AnimationUnit || GameStart.Get.TestMode == EGameTest.Skill)
+				if(GameStart.Get.TestMode == EGameTest.AnimationUnit || GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
 					UIGame.UIShow(true);
 				break;
 			case EGameSituation.AttackGamer:

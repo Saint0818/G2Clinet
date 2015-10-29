@@ -230,7 +230,7 @@ public class UISkillFormation : UIBase {
 		gridPassiveCardBase = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList");
 		labelCostValue = GameObject.Find (UIName + "/BottomRight/LabelCost/CostValue").GetComponent<UILabel>();
 		scrollViewItemList = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
-		scrollViewItemList.transform.localPosition = new Vector3(0, 15, 0);
+		scrollViewItemList.transform.localPosition = new Vector3(0, 8, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 		scrollViewItemList.onDragFinished =ItemDragFinish;
 
@@ -303,7 +303,7 @@ public class UISkillFormation : UIBase {
 		}
 		itemPassiveCards.Clear();
 		itemPassiveField.SetActive(true);
-		scrollViewItemList.transform.localPosition = new Vector3(0, 15, 0);
+		scrollViewItemList.transform.localPosition = new Vector3(0, 8, 0);
 		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
 	}
 
@@ -863,6 +863,7 @@ public class UISkillFormation : UIBase {
 				} else
 					skillSortCards[i].SetActive(false);
 			}
+			labelSell.text = "SELLX0";
 		} else {
 			labelSell.text = "SELL";
 			for(int i=0; i<skillSortCards.Count; i++) {
@@ -1054,7 +1055,7 @@ public class UISkillFormation : UIBase {
 
 	public void ItemDragFinish(){
 		if(itemPassiveCards.Count < 5){
-			scrollViewItemList.transform.DOLocalMoveY(15, 0.2f).OnUpdate(UpdateClipOffset);
+			scrollViewItemList.transform.DOLocalMoveY(8, 0.2f).OnUpdate(UpdateClipOffset);
 		}
 	}
 
