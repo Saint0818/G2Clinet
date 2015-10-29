@@ -763,7 +763,7 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (Time.time >= MovePowerTime)
         {
-            MovePowerTime = Time.time + 0.1f;
+            MovePowerTime = Time.time + 0.15f;
             if (isSpeedup)
             {
                 if (MovePower > 0)
