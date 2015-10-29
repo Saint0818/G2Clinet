@@ -14,11 +14,12 @@ public class UIMainLobbyImpl : MonoBehaviour
     public GameObject FullScreenBlock;
     public UILabel MoneyLabel;
     public UILabel DiamondLabel;
-    public UILabel PowerLabel;
+    public UILabel PowerLabel; // 體力.
     public UIInput NameInput;
     public UISprite PlayerIconSprite;
+    public GameObject Settings;
 	public Animator UIAnimator;
-	private bool isEnable;
+//	private bool isEnable;
 
     [UsedImplicitly]
     private void Awake()
@@ -60,18 +61,40 @@ public class UIMainLobbyImpl : MonoBehaviour
         FullScreenBlock.SetActive(enable);
     }
 
-	public bool Enable
-	{
-		set{
-			isEnable = value;
+    public void Show()
+    {
+        PlayEnterAnimation();
+        Settings.SetActive(true);
+    }
 
-			if(isEnable)
-				UIAnimator.SetTrigger("MainLobby_Up");
-			else
-				UIAnimator.SetTrigger("MainLobby_Down");
-		}
-		get{return isEnable;}
-	}
+    public void Hide()
+    {
+        PlayExitAnimation();
+        Settings.SetActive(false);
+    }
+
+//	public bool Enable
+//	{
+//		set{
+//			isEnable = value;
+//
+//			if(isEnable)
+//				UIAnimator.SetTrigger("MainLobby_Up");
+//			else
+//				UIAnimator.SetTrigger("MainLobby_Down");
+//		}
+//		get{return isEnable;}
+//	}
+
+    public void PlayEnterAnimation()
+    {
+        UIAnimator.SetTrigger("MainLobby_Up");
+    }
+
+    public void PlayExitAnimation()
+    {
+        UIAnimator.SetTrigger("MainLobby_Down");
+    }
 
     public void ShowCreateRole()
     {

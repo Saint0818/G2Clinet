@@ -70,6 +70,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 	private int selectIndex = -1;
 	private float delay = 0;
 
+    [UsedImplicitly]
 	private void Update()
 	{
 		if(delay > 0)
@@ -89,7 +90,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				selectIndex = -1;
 				SetAnimator(index, false);
 				UpdateButtonCollider(index, true);
-				UIMainLobby.Get.EnableImpl = true;
+//				UIMainLobby.Get.EnableImpl = true;
+                UIMainLobby.Get.Impl.PlayEnterAnimation();
 				delay = 1;
 			}else{
 				//go
@@ -97,7 +99,8 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					selectIndex = index;
 					SetAnimator(index, true);
 					UpdateButtonCollider(index, false);
-					UIMainLobby.Get.EnableImpl = false;
+//					UIMainLobby.Get.EnableImpl = false;
+                    UIMainLobby.Get.Impl.PlayExitAnimation();
 					delay = 1;
 				}
 			}
