@@ -655,7 +655,7 @@
     },
     {
         "id": 1004,
-        "nametw": "中鋒頭髮4",
+        "nametw": "捲捲頭(棕)",
         "icon": 1004,
         "kind": 1,
         "position": 0,
@@ -863,7 +863,7 @@
     },
     {
         "id": 1104,
-        "nametw": "前鋒頭髮4",
+        "nametw": "山本頭",
         "icon": 1104,
         "kind": 1,
         "position": 1,
@@ -1447,7 +1447,7 @@
     },
     {
         "id": 2101,
-        "nametw": "前鋒手飾1",
+        "nametw": "人造人手套",
         "icon": 2101,
         "kind": 2,
         "position": 1,
@@ -1939,7 +1939,7 @@
     },
     {
         "id": 3009,
-        "nametw": "法力刺青",
+        "nametw": "中鋒衣服9",
         "kind": 3,
         "position": 0,
         "maxstack": 1,
@@ -1949,7 +1949,7 @@
     },
     {
         "id": 3010,
-        "nametw": "中鋒衣服10",
+        "nametw": "法力刺青",
         "icon": 3010,
         "kind": 3,
         "position": 0,
@@ -2097,7 +2097,7 @@
     },
     {
         "id": 3104,
-        "nametw": "前鋒衣服4",
+        "nametw": "全套運動服",
         "icon": 3104,
         "kind": 3,
         "position": 1,
@@ -2515,7 +2515,7 @@
     },
     {
         "id": 4004,
-        "nametw": "中鋒褲子4",
+        "nametw": "緊身褲",
         "icon": 4004,
         "kind": 4,
         "position": 0,
