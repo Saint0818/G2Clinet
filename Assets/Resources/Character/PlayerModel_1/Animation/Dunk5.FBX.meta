@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: df623ae9cf9029843be6abce75b5c4ca
-timeCreated: 1445936456
+guid: c6bb3bd23f8d0614a990e28182e7a383
+timeCreated: 1446099626
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -109,7 +109,7 @@ ModelImporter:
     400098: DummyHand_R
     400100: DummyHead
     400102: //RootNode
-    7400000: Pass1
+    7400000: Dunk5
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -132,10 +132,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Pass1
+      name: Dunk5
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -154,9 +154,23 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .337651253
+      - time: .333333313
         functionName: AnimationEvent
-        data: Passing
+        data: BlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .49999997
+        functionName: AnimationEvent
+        data: DunkBasketStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .560185134
+        functionName: AnimationEvent
+        data: DunkFallBall
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
