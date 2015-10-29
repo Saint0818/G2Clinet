@@ -30,7 +30,8 @@ public enum EAnimatorState
 	Shoot,
 	Steal,
 	Show,
-	BlockCatch
+	BlockCatch,
+	JumpBall
 }
 
 public enum EPlayerState
@@ -261,6 +262,8 @@ public static class StateChecker {
 			ShowStates.Add(EPlayerState.Show202, true);
 			ShowStates.Add(EPlayerState.Show1001, true);
 			ShowStates.Add(EPlayerState.Show1003, true);
+			ShowStates.Add(EPlayerState.Ending0, true);
+			ShowStates.Add(EPlayerState.Ending10, true);
 			
 			PassStates.Add(EPlayerState.Pass0, true);
 			PassStates.Add(EPlayerState.Pass1, true);
@@ -273,6 +276,19 @@ public static class StateChecker {
 			PassStates.Add(EPlayerState.Pass8, true);
 			PassStates.Add(EPlayerState.Pass9, true);
 			PassStates.Add(EPlayerState.Pass50, true);
+
+			LoopStates.Add(EPlayerState.Idle, true);
+			LoopStates.Add(EPlayerState.Run0, true);
+			LoopStates.Add(EPlayerState.Run1, true);
+			LoopStates.Add(EPlayerState.Run2, true);
+			LoopStates.Add(EPlayerState.RunningDefence, true);
+			LoopStates.Add(EPlayerState.Defence0, true);
+			LoopStates.Add(EPlayerState.Defence1, true);
+			LoopStates.Add(EPlayerState.Dribble0, true);
+			LoopStates.Add(EPlayerState.Dribble1, true);
+			LoopStates.Add(EPlayerState.Dribble2, true);
+			LoopStates.Add(EPlayerState.Dribble3, true);
+			LoopStates.Add(EPlayerState.HoldBall, true);
 		}
 	}
 }
@@ -287,6 +303,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 		LoopStates.Add(EAnimatorState.Run,true);
 		LoopStates.Add(EAnimatorState.Defence,true);
 		LoopStates.Add(EAnimatorState.Dribble,true);
+		LoopStates.Add(EAnimatorState.HoldBall,true);
 	}
 
 	public bool IsLoopState(EAnimatorState state)

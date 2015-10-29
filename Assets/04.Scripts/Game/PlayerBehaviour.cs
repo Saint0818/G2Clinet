@@ -84,7 +84,11 @@ public enum EActionTrigger
 	Steal,
 	Show,
 	Shoot,
-	TipIn
+	TipIn,
+	ReleaseDefence,
+	ReleaseDribble,
+	ReleaseRun,
+	ReleaseHoldBall
 }
 
 public enum EBallDirection
@@ -271,6 +275,7 @@ public class PlayerBehaviour : MonoBehaviour
     private readonly StatusTimer mManually = new StatusTimer();
     public EGameSituation situation = EGameSituation.None;
     public EPlayerState crtState = EPlayerState.Idle;
+	public EAnimatorState crtAnimatorState = EAnimatorState.Idle;
     public Transform[] DefPointAy = new Transform[8];
 //    public float WaitMoveTime = 0;
 
@@ -1791,50 +1796,66 @@ public class PlayerBehaviour : MonoBehaviour
     private void AddActionTrigger(EActionTrigger trigger, int index)
     {
 		AnimatorControl.SetInteger("StateNo", index);
+		bool result = false;
+		Debug.Log("******* SetTrigger CrtSate : " + crtState.ToString());
 
 		switch (trigger) {
 			case EActionTrigger.Idle:
 				if(!IsIdle)
-					AnimatorControl.SetTrigger(trigger.ToString());
+					result = true;
 				break;
 			case EActionTrigger.Dribble:
 				if(!IsDribble)
-				{
-					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
-					AnimatorControl.SetTrigger(trigger.ToString());
-				}
-			break;
+					result = true;
+				break;
 			case EActionTrigger.Defence:
 				if(!IsDefence)
-				{
-					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
-					AnimatorControl.SetTrigger(trigger.ToString());
-				}
-			break;
+					result = true;
+				break;
 
 			case EActionTrigger.HoldBall:
 				if(!IsHoldBall)
-				{
-					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
-					AnimatorControl.SetTrigger(trigger.ToString());
-				}
+					result = true;
 				break;
 
 			case EActionTrigger.Run:
-			Debug.Log("CrtSate : " + crtState.ToString() + " IsRun : " + IsRun);
-				
 				if(!IsRun)
-				{
-					AnimatorControl.ResetTrigger(EActionTrigger.Idle.ToString());
-					AnimatorControl.SetTrigger(trigger.ToString());
-				}
+					result = true;
 				break;
 
 			default:
-				AnimatorControl.SetTrigger(trigger.ToString());
+				result = true;
+//				AnimatorControl.SetTrigger(trigger.ToString());
 				break;
 		}
+
+		if (result) {
+			ReleaseTirggerAtDifferentState();
+
+//			if(trigger != EActionTrigger.Idle)
+			AnimatorControl.SetTrigger(trigger.ToString());
+		}
     }
+
+	private void ReleaseTirggerAtDifferentState()
+	{
+		Debug.Log ("crtAnimatorState : " + crtAnimatorState.ToString ());
+		//at loop state
+		switch (crtAnimatorState) {
+			case EAnimatorState.Dribble:
+				AnimatorControl.SetTrigger("ReleaseDribble");
+			break;
+			case EAnimatorState.Defence:
+				AnimatorControl.SetTrigger("ReleaseDefence");
+				break;
+			case EAnimatorState.HoldBall:
+				AnimatorControl.SetTrigger("ReleaseHoldBall");
+				break;
+			case EAnimatorState.Run:
+				AnimatorControl.SetTrigger("ReleaseRun");
+				break;
+		}
+	}
 
     public void DelActionFlag(EActionFlag Flag)
     {
@@ -1896,9 +1917,17 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     private bool IsPassAirMoment = false;
+	private bool IsEndAnimation = true;
+	private bool IsAnimatorSetting = false;
 
     public bool CanUseState(EPlayerState state)
     {
+		if (IsAnimatorSetting)
+			return false;
+
+//		if (!IsLoopState && !IsEndAnimation)
+//			return false;
+		
 //      Debug.Log ("Check ** " +PlayerGameObject.name + ".CrtState : " + crtState + "  : state : " + state);
         switch (state)
         {
@@ -1911,12 +1940,16 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass7:
             case EPlayerState.Pass8:
 			case EPlayerState.Pass9:
-			case EPlayerState.Pass50:
 			if (IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                 {
                     return true;
                 }
                 break;
+
+			case EPlayerState.Pass50:
+				if (IsBallOwner && IsTee && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+					return true;
+			break;
 
             case EPlayerState.Pass4:
 //			if (IsBallOwner && !IsLayup && !IsDunk && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
@@ -1930,7 +1963,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.FakeShoot:
-                if (IsBallOwner && (crtState == EPlayerState.Idle || crtState == EPlayerState.HoldBall || IsDribble))
+                if (IsBallOwner && !IsFakeShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                     return true;
                 break;
 
@@ -1967,17 +2000,17 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (!IsDunk && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
             case EPlayerState.HoldBall:
-                if (IsBallOwner && !IsPass && !IsAllShoot && crtState != EPlayerState.GotSteal)
+                if (IsBallOwner && !IsHoldBall && !IsPass && !IsAllShoot && crtState != EPlayerState.GotSteal)
                     return true;
                 break;
 
             case EPlayerState.Rebound0:
-				if (CanMove && crtState != EPlayerState.Rebound0)
+				if (CanMove && !IsRebound)
 					return true;
 				break;
 
@@ -1987,7 +2020,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.TipIn:
-                if (crtState == EPlayerState.Rebound0 && crtState != EPlayerState.TipIn)
+                if (crtState == EPlayerState.Rebound0 && !IsTipIn)
                     return true;
 
                 break;
@@ -1995,7 +2028,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pick0:
             case EPlayerState.Pick1:
             case EPlayerState.Pick2:
-                if (CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
+                if (CanMove && !IsPickBall && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
@@ -2004,6 +2037,11 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Push1:
             case EPlayerState.Push2:
             case EPlayerState.Push20:
+				if (!IsTee  && !IsPush && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
+			                                            crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
+				return true;
+			break;
+			break;
             case EPlayerState.Steal0:
             case EPlayerState.Steal1:
             case EPlayerState.Steal2:
@@ -2016,7 +2054,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Block0:
             case EPlayerState.Block1:
             case EPlayerState.Block2:
-                if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
+                if (!IsTee && !IsBlock &&  CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence || IsDunk))
                     return true;
                 break;
@@ -2024,7 +2062,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow0:
             case EPlayerState.Elbow1:
             case EPlayerState.Elbow2:
-                if (!IsTee && IsBallOwner && (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.HoldBall))
+                if (!IsTee && !IsElbow && IsBallOwner && (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
 
@@ -2034,7 +2072,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case EPlayerState.KnockDown0:
 			case EPlayerState.KnockDown1:
 
-				if(!IsTee && !IsFall && !isUseSkill)
+				if(!IsTee && !IsFall && !IsKnockDown && !isUseSkill)
 //                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
 //                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
 //                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
@@ -2043,7 +2081,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.GotSteal:
-			if(!IsTee && !IsAllShoot && crtState != state && !IsElbow &&  
+			if(!IsTee && !IsGotSteal && !IsAllShoot && crtState != state && !IsElbow &&  
                    (IsDribble || 
                     crtState == EPlayerState.FakeShoot || 
                     crtState == EPlayerState.HoldBall || 
@@ -2076,27 +2114,31 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
             case EPlayerState.MoveDodge0:
             case EPlayerState.MoveDodge1:
-                if (crtState != state && !IsPass && !IsAllShoot && !IsBlock && !IsFall)
+                if (crtState != state && !IsMoveDodge && !IsPass && !IsAllShoot && !IsBlock && !IsFall)
                     return true;
                 break;
             case EPlayerState.CatchFlat:
             case EPlayerState.CatchFloor:
             case EPlayerState.CatchParabola:
+				if (CanMove && !IsBuff &&!IsCatch && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.InboundsGamer && situation != EGameSituation.InboundsNPC)
+				return true;
+			break;
             case EPlayerState.Intercept0:
             case EPlayerState.Intercept1:
-			if (CanMove && !IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.InboundsGamer && situation != EGameSituation.InboundsNPC)
+			if (CanMove && !IsIntercept &&!IsBallOwner && !IsAllShoot && situation != EGameSituation.GamerPickBall && situation != EGameSituation.NPCPickBall && situation != EGameSituation.InboundsGamer && situation != EGameSituation.InboundsNPC)
                     return true;
                 break;
 
 			case EPlayerState.Buff20:
 			case EPlayerState.Buff21:
-				if(!IsBuff)
+				if(!IsBuff && !IsCatch && !IsPass && !IsAllShoot && !IsSteal && !IsPush)
 					return true;
 				break;
 
             case EPlayerState.Idle:
-                return true;
-//				break;
+				if(!IsIdle)
+                	return true;
+				break;
 
 			case EPlayerState.Show1:
 			case EPlayerState.Show1001:
@@ -2150,6 +2192,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (!CanUseState(state))
             return false;
 
+		IsAnimatorSetting = true;
         bool Result = false;
         int stateNo = 0;
         string curveName = string.Empty;
@@ -2166,7 +2209,7 @@ public class PlayerBehaviour : MonoBehaviour
 			LayerMgr.Get.SetLayer (PlayerRefGameObject, ELayer.Player);
 
 		if (GameStart.Get.IsDebugAnimation)
-			Debug.Log (PlayerRefGameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
+			Debug.LogWarning (PlayerRefGameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
 
 		DashEffectEnable (false);
         
@@ -2919,13 +2962,74 @@ public class PlayerBehaviour : MonoBehaviour
         if (Result)
         {
             crtState = state;
-                        
+
+			if(!IsLoopState)
+				IsEndAnimation = false;
+
+			GetAnimatorSate();
+
             if (crtState == EPlayerState.Idle && NeedResetFlag)
                 ResetFlag();
         }
-
+		IsAnimatorSetting = false;
         return Result;
     }
+
+	private void GetAnimatorSate()
+	{
+		if(IsBuff)
+			crtAnimatorState = EAnimatorState.Buff;
+		else if(IsBlock)
+			crtAnimatorState = EAnimatorState.Block;
+		else if(IsCatch)
+			crtAnimatorState = EAnimatorState.Catch;
+		else if(IsDef)
+			crtAnimatorState = EAnimatorState.Defence;
+		else if(IsDribble)
+			crtAnimatorState = EAnimatorState.Dribble;
+		else if(IsDunk)
+			crtAnimatorState = EAnimatorState.Dunk;
+		else if(IsElbow)
+			crtAnimatorState = EAnimatorState.Elbow;
+		else if(IsFall)
+			crtAnimatorState = EAnimatorState.Fall;
+		else if(IsFakeShoot)
+			crtAnimatorState = EAnimatorState.FakeShoot;
+		else if(IsGotSteal)
+			crtAnimatorState = EAnimatorState.GotSteal;
+		else if(IsHoldBall)
+			crtAnimatorState = EAnimatorState.HoldBall;
+		else if(IsIdle)
+			crtAnimatorState = EAnimatorState.Idle;
+		else if(IsIntercept)
+			crtAnimatorState = EAnimatorState.Intercept;
+		else if(IsKnockDown)
+			crtAnimatorState = EAnimatorState.KnockDown;
+		else if(IsLayup)
+			crtAnimatorState = EAnimatorState.Layup;
+		else if(IsMoveDodge)
+			crtAnimatorState = EAnimatorState.MoveDodge;
+		else if(IsPush)
+			crtAnimatorState = EAnimatorState.Push;
+		else if(IsPickBall)
+			crtAnimatorState = EAnimatorState.Pick;
+		else if(IsPass)
+			crtAnimatorState = EAnimatorState.Pass;
+		else if(IsTipIn)
+			crtAnimatorState = EAnimatorState.TipIn;
+		else if(IsRebound)
+			crtAnimatorState = EAnimatorState.Rebound;
+		else if(IsRun)
+			crtAnimatorState = EAnimatorState.Run;
+		else if(IsShoot)
+			crtAnimatorState = EAnimatorState.Shoot;
+		else if(IsSteal)
+			crtAnimatorState = EAnimatorState.Steal;
+		else if(IsShow)
+			crtAnimatorState = EAnimatorState.Show;
+		else if(IsBlockCatch)
+			crtAnimatorState = EAnimatorState.BlockCatch;
+	}
 	
 	private void DebugAnimationCurve(string curveName)
 	{
@@ -3098,8 +3202,80 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	public void AnimationStart(EAnimatorState state, int stateNo)
+	{
+		if (crtAnimatorState != state) {
+
+						if (state != EAnimatorState.JumpBall) {
+								switch (crtAnimatorState) {
+								case EAnimatorState.Idle:
+										AddActionTrigger (EActionTrigger.Idle, stateNo);
+										break;
+								case EAnimatorState.Run:
+										AddActionTrigger (EActionTrigger.Run, stateNo);
+										break;
+								case EAnimatorState.Dribble:
+										AddActionTrigger (EActionTrigger.Dribble, stateNo);
+										break;
+								case EAnimatorState.Defence:
+										AddActionTrigger (EActionTrigger.Defence, stateNo);
+										break;
+
+								case EAnimatorState.Catch:
+										AddActionTrigger (EActionTrigger.Catch, stateNo);
+										break;
+
+								case EAnimatorState.Elbow:
+									AddActionTrigger (EActionTrigger.Elbow, stateNo);
+									break;
+
+								case EAnimatorState.Shoot:
+										AddActionTrigger (EActionTrigger.Shoot, stateNo);
+										break;
+								case EAnimatorState.Block:
+										AddActionTrigger (EActionTrigger.Block, stateNo);
+										break;
+								case EAnimatorState.Dunk:
+									AddActionTrigger (EActionTrigger.Dunk, stateNo);
+									break;
+								case EAnimatorState.Push:
+								case EAnimatorState.Intercept:
+//						AddActionTrigger(EActionTrigger.Push, stateNo);
+//					break;
+								case EAnimatorState.Fall:
+										AddActionTrigger (EActionTrigger.Fall, stateNo);
+										break;
+								case EAnimatorState.Steal:
+										break;
+								default:
+										Debug.LogError (gameObject.name + ": FixTool PlayerSate : " + crtAnimatorState.ToString () + ", AniSate : " + state.ToString ());
+										break;
+								}
+						}
+//			switch(crtAnimatorState)
+//			{
+//				case EAnimatorState.Run:
+//					AddActionTrigger(EActionTrigger.Run, stateNo);
+//					break;
+//				case EAnimatorState.Idle:
+//					AddActionTrigger(EActionTrigger.Idle, stateNo);
+//					break;
+//				case EAnimatorState.Dribble:
+//					AddActionTrigger(EActionTrigger.Dribble, stateNo);
+//					break;
+//			}
+		} else {
+
+		}
+	}
+
 	public void AnimationEnd(EAnimatorState state)
 	{
+		IsEndAnimation = true;
+
+		if(AnimatorMgr.Get.IsLoopState(state))
+			return;
+
 		switch(state)
 		{
 			case EAnimatorState.BlockCatch:
@@ -3569,6 +3745,11 @@ public class PlayerBehaviour : MonoBehaviour
 		get{ return crtState == EPlayerState.Block0 ||  crtState == EPlayerState.Block1 ||  crtState == EPlayerState.Block2;}
 	}
 
+	public bool IsBlockCatch
+	{
+		get{ return crtState == EPlayerState.BlockCatch;} 
+	}
+
     public bool IsShoot
     {
         get { return StateChecker.ShootStates.ContainsKey(crtState); }
@@ -3606,7 +3787,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsRun
 	{
-		get{ return crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Run2;}
+		get{ return crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Run2 || crtState == EPlayerState.RunningDefence;}
 	}
 
     public bool IsPass
@@ -3626,12 +3807,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDunk
     {
-		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk1 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
+		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Alleyoop || crtState == EPlayerState.Dunk1 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
     }
 
 	public bool IsLayup
 	{
 		get{ return crtState == EPlayerState.Layup0 || crtState == EPlayerState.Layup1 || crtState == EPlayerState.Layup2 || crtState == EPlayerState.Layup3;}
+	}
+
+	public bool IsMoveDodge
+	{
+		get{return crtState == EPlayerState.MoveDodge0 || crtState == EPlayerState.MoveDodge1;}
 	}
 
 	public bool IsSteal
@@ -3684,7 +3870,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsFakeShoot
     {
-        get{ return isFakeShoot;}
+		get{ return crtState == EPlayerState.FakeShoot;}
     }
 
 	public bool IsPush
