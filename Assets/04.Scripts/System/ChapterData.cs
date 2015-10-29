@@ -1,8 +1,12 @@
-using GameEnum;
+﻿using GameEnum;
 
 public struct ChapterData
 {
     public int ID;
+
+    /// <summary>
+    /// 章節. 1: 第一章, 2: 第二章.
+    /// </summary>
     public int Chapter;
     
     public string NameTW;

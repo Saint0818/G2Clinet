@@ -7,7 +7,21 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIStageChapter : MonoBehaviour
 {
+    [Tooltip("章節數值. 1: 第一章, 2: 第二章.")]
     public int Chapter;
+
+    public string ChapterName
+    {
+        set { ChapterNameLabel.text = value; }
+    }
+
+    public int ChapterValue
+    {
+        set { ChapterValueLabel.text = string.Format("CHAPTER.{0}", value); }
+    }
+
+    public UILabel ChapterNameLabel;
+    public UILabel ChapterValueLabel;
     public GameObject Lock;
     public GameObject Open;
 

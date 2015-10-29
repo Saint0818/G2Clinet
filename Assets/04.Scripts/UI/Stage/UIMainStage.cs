@@ -46,22 +46,44 @@ public class UIMainStage : UIBase
         mImpl = GetComponent<UIMainStageImpl>();
         mImpl.BackListener += goToGameLobby;
         mImpl.Info.StartListener += enterGame;
-        mImpl.ChapterChangeListener.OnChangeListener += onChapterChange;
+//        mImpl.ChapterChangeListener.OnChangeListener += onChapterChange;
     }
 
-    private void onChapterChange(int chapterID)
+    [UsedImplicitly]
+    private void Start()
     {
-//        Debug.LogFormat("onChapterChange, ChapterID:{0}", chapterID);
-
-        if(ChapterTable.Ins.Has(chapterID))
-        {
-            ChapterData data = ChapterTable.Ins.Get(chapterID);
-            mImpl.ChapterNum = data.Chapter;
-            mImpl.ChapterTitle = data.Name;
-        }
-        else
-            Debug.LogErrorFormat("Can't find ChapterID:{0}", chapterID);
+        initChapters();
     }
+
+    private void initChapters()
+    {
+        foreach(UIStageChapter chapter in mImpl.Chapters)
+        {
+            if(!ChapterTable.Ins.Has(chapter.Chapter))
+            {
+                Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter.Chapter);
+                continue;
+            }
+
+            ChapterData data = ChapterTable.Ins.Get(chapter.Chapter);
+            chapter.ChapterName = data.Name;
+            chapter.ChapterValue = data.Chapter;
+        }
+    }
+
+//    private void onChapterChange(int chapterID)
+//    {
+////        Debug.LogFormat("onChapterChange, ChapterID:{0}", chapterID);
+//
+//        if(ChapterTable.Ins.Has(chapterID))
+//        {
+//            ChapterData data = ChapterTable.Ins.Get(chapterID);
+//            mImpl.ChapterNum = data.Chapter;
+//            mImpl.ChapterTitle = data.Name;
+//        }
+//        else
+//            Debug.LogErrorFormat("Can't find ChapterID:{0}", chapterID);
+//    }
 
     public void Show()
     {

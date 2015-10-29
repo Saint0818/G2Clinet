@@ -19,11 +19,14 @@ public class UIMainStageImpl : MonoBehaviour
     /// </summary>
     public event CommonDelegateMethods.Action BackListener;
 
-    public UILabel ChapterNumLabel;
-    public UILabel ChapterTitleLabel;
-    public UIStageChapter[] Chapters;
+//    public UILabel ChapterNumLabel;
+//    public UILabel ChapterTitleLabel;
+    /// <summary>
+    /// Index 0: 第一章, Index 2: 第二章.
+    /// </summary>
+    public UIStageChapter[] Chapters; 
     public UIStageInfo Info;
-    public UIChapterChangeListener ChapterChangeListener;
+//    public UIChapterChangeListener ChapterChangeListener;
 
     /// <summary>
     /// key: Chapter.
@@ -119,15 +122,5 @@ public class UIMainStageImpl : MonoBehaviour
     {
         if(BackListener != null)
             BackListener();
-    }
-
-    public int ChapterNum
-    {
-        set { ChapterNumLabel.text = string.Format("CH.{0}", value); }
-    }
-
-    public string ChapterTitle
-    {
-        set { ChapterTitleLabel.text = value; }
     }
 }
