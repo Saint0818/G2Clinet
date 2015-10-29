@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 public class UIStageHint2 : MonoBehaviour
 {
     public GameObject Window;
 
-    public UIStageHintTarget[] Targets;
+    private UIStageHintTarget[] mTargets;
+
+    [UsedImplicitly]
+    private void Awake()
+    {
+        mTargets = GetComponentsInChildren<UIStageHintTarget>();
+    }
 
     public void UpdateUI(int stageID)
     {
@@ -18,8 +25,8 @@ public class UIStageHint2 : MonoBehaviour
         int index = 0;
         if(hintBits.Length > 0 && hintBits[0] > 0)
         {
-            Targets[index].Show();
-            Targets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
+            mTargets[index].Show();
+            mTargets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
                 getText(index + 1, hintBits[0], 8),
                 stageData.Bit0Num.ToString(), "/" + stageData.Bit0Num);
             // 左邊的文字
@@ -36,8 +43,8 @@ public class UIStageHint2 : MonoBehaviour
 //        if(GameController.Get.StageHintBit.Length > 1 && GameController.Get.StageHintBit[1] > 0)
         if(hintBits.Length > 1 && hintBits[1] > 0)
         {
-            Targets[index].Show();
-            Targets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
+            mTargets[index].Show();
+            mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
                 getText(index + 1, hintBits[1], 8),
                 stageData.Bit1Num.ToString(), "/" + stageData.Bit1Num);
 
@@ -51,8 +58,8 @@ public class UIStageHint2 : MonoBehaviour
         
         if(hintBits.Length > 2 && hintBits[2] > 0)
         {
-            Targets[index].Show();
-            Targets[index].UpdateUI(getText(3, hintBits[2], 9),
+            mTargets[index].Show();
+            mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
                 getText(3, hintBits[2], 8),
                 stageData.Bit2Num.ToString(), "/" + stageData.Bit2Num);
 //            gameTargets[index].Self.SetActive(true);
@@ -65,8 +72,8 @@ public class UIStageHint2 : MonoBehaviour
         
         if(hintBits.Length > 3 && hintBits[3] > 0)
         {
-            Targets[index].Show();
-            Targets[index].UpdateUI(getText(3, hintBits[3], 9),
+            mTargets[index].Show();
+            mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
                 getText(3, hintBits[3], 8),
                 hintBits[3].ToString(), "/" + stageData.Bit3Num);
             //            gameTargets[index].Self.SetActive(true);
@@ -87,9 +94,9 @@ public class UIStageHint2 : MonoBehaviour
 
     private void hideAllTargets()
     {
-        for(int i = 0; i < Targets.Length; i++)
+        for(int i = 0; i < mTargets.Length; i++)
         {
-            Targets[i].Hide();
+            mTargets[i].Hide();
         }
     }
 }
