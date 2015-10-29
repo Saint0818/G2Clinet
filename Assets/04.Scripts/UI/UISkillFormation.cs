@@ -612,13 +612,15 @@ public class UISkillFormation : UIBase {
 			if(obj != null) {
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
-			} else 
-				Debug.LogWarning("addItems obj: null");
+			} 
+//			else 
+//				Debug.LogWarning("addItems obj: null");
 
 			checkCostIfMask();
 			return true;
-		} else 
-			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+		} 
+//		else 
+//			UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
 		return false;
 	}
@@ -647,8 +649,9 @@ public class UISkillFormation : UIBase {
 									activeStruct[index].ActiveClear();
 									//Add
 									addItems(uiCards[name], index);
-								} else 
-									UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+								}
+//								else 
+//									UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 							}
 						} else {
 							removeItems(activeStruct[activeFieldLimit - 1].CardID, activeStruct[activeFieldLimit - 1].itemEquipActiveCard);
@@ -659,8 +662,9 @@ public class UISkillFormation : UIBase {
 						if(activeStruct[index].itemEquipActiveCard == null) {
 							if(checkCost(uiCards[name].Cost)) {
 								addItems(uiCards[name], index);
-							} else 
-								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+							} 
+//							else 
+//								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 						} else {
 							if(checkCost(uiCards[name].Cost)) {
 								for (int i=0; i<activeStruct.Length; i++) {
@@ -675,8 +679,9 @@ public class UISkillFormation : UIBase {
 									}
 								}
 								addItems(uiCards[name], index);
-							} else 
-								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
+							} 
+//							else 
+//								UIHint.Get.ShowHint("More than SpaceMax", Color.red);
 
 						}
 						refreshActiveItems();
@@ -1062,8 +1067,9 @@ public class UISkillFormation : UIBase {
 		if(!IsBuyState) {
 			removeItems(uiCards[tempObj.name].CardID, tempObj);
 			refreshCards();
-		} else 
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+		}
+//		else 
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void DoEquipCard (){
@@ -1073,11 +1079,12 @@ public class UISkillFormation : UIBase {
 					if(getActiveFieldNull != -1) {
 						if(addItems(tempUICard, getActiveFieldNull)) 
 							tempUICard.InListCard.SetActive(true);
-					} else 
-						UIHint.Get.ShowHint("Active is Full.", Color.red); 
-				} else {
-					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
-				}
+					} 
+//					else 
+//						UIHint.Get.ShowHint("Active is Full.", Color.red); 
+				} 
+//				else 
+//					UIHint.Get.ShowHint("ActiveID is Same.", Color.red); 
 				refreshActiveItems();
 			} else {
 				if(tempUICard.InListCard.activeInHierarchy) {
@@ -1092,8 +1099,9 @@ public class UISkillFormation : UIBase {
 				}
 			}
 			refreshCards();
-		} else 
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+		} 
+//		else 
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void OnCardDetailInfo (GameObject go){
@@ -1119,9 +1127,9 @@ public class UISkillFormation : UIBase {
 				}
 			}
 		} else {
-			if(uicard.InListCard != null && uicard.InListCard.activeSelf)
-				UIHint.Get.ShowHint("It's Buy State.", Color.red);
-			else {
+			if(!(uicard.InListCard != null && uicard.InListCard.activeSelf))
+//				UIHint.Get.ShowHint("It's Buy State.", Color.red);
+			{
 				if(!uicard.SellSelectCover.activeSelf)
 					addSellCards(go.name);
 				else
@@ -1194,7 +1202,7 @@ public class UISkillFormation : UIBase {
 			UpdateSort();
 		} else {
 			toggleCheckBoxSkill[0].value = (eFilter == EFilter.Active.GetHashCode());
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 		}
 
 	}
@@ -1222,7 +1230,7 @@ public class UISkillFormation : UIBase {
 			UpdateSort();
 		} else {
 			toggleCheckBoxSkill[1].value = (eFilter == EFilter.Passive.GetHashCode());
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 		}
 	}
 
@@ -1247,8 +1255,9 @@ public class UISkillFormation : UIBase {
 	public void DoSort() {
 		if(!IsBuyState) {
 			UISort.UIShow(!UISort.Visible, 0);
-		} else 
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+		} 
+//		else 
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 	}
 
 	public void DoBack() {
@@ -1264,7 +1273,7 @@ public class UISkillFormation : UIBase {
 			if(int.TryParse (obj.name, out index))
 				changePage(index);
 		} else {
-			UIHint.Get.ShowHint("It's Buy State.", Color.red);
+//			UIHint.Get.ShowHint("It's Buy State.", Color.red);
 			for(int i=0; i<toggleDecks.Length; i++) {
 				toggleDecks[i].value = (i == tempPage);
 			}
@@ -1401,9 +1410,9 @@ public class UISkillFormation : UIBase {
 			GameData.Team.Player.Init();
 
 			if(!IsBuyState) {
-				if(!isChangePage)
-					UIHint.Get.ShowHint("Install Success!!", Color.red);	
-				else {
+//				if(!isChangePage)
+//					UIHint.Get.ShowHint("Install Success!!", Color.red);	
+				if(isChangePage) {
 					SendChangeSkillPage();
 				}
 				refreshAfterInstall ();
