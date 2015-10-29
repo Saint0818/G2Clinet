@@ -45,7 +45,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 
 	private bool isInRange (GameObject obj) {
 		return Vector2.Distance(new Vector2(GameController.Get.Joysticker.PlayerRefGameObject.transform.position.x, GameController.Get.Joysticker.PlayerRefGameObject.transform.position.z), 
-		                        new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[executePlayer.PassiveSkillUsed.ID].Distance(executePlayer.PassiveSkillUsed.Lv);
+		                        new Vector2(obj.transform.position.x, obj.transform.position.z)) <= GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
 	}
 
 	public void OnShowEffect (PlayerBehaviour player, bool isPassiveID = true) {

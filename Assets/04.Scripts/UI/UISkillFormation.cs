@@ -276,6 +276,11 @@ public class UISkillFormation : UIBase {
 		for(int i=0; i<skillSortCards.Count; i++) {
 			Destroy(skillSortCards[i]);
 		}
+		removeIndexs = new int[0];
+		addIndexs = new int[0];
+		orderSNs = new int[0];
+		sellIndexs = new int[0];
+
 		activeOriginalSN.Clear();
 		sellNames.Clear();
 		skillPages.Clear();
@@ -877,7 +882,7 @@ public class UISkillFormation : UIBase {
 				sellNames.Add(uiCards[name].CardIndex);
 			sellPrice += GameData.DSkillData[uiCards[name].CardID].Money;
 			labelTotalPrice.text = sellPrice.ToString();
-			labelSell.text = "SELL"+sellNames.Count.ToString();
+			labelSell.text = "SELLX"+sellNames.Count.ToString();
 		}
 	}
 	
@@ -1297,10 +1302,7 @@ public class UISkillFormation : UIBase {
 					}
 				}
 			}
-
-			WWWForm form = new WWWForm();
-			form.AddField("SellIndexs", JsonConvert.SerializeObject(sellIndexs));
-			SendHttp.Get.Command(URLConst.SellSkillcard, waitSellSkillPage, form);
+			SendSellCard();
 		} else 
 			DoCloseSell();
 	}
@@ -1400,6 +1402,12 @@ public class UISkillFormation : UIBase {
 		WWWForm form = new WWWForm();
 		form.AddField("Page", tempPage);
 		SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
+	}
+
+	public void SendSellCard() {
+		WWWForm form = new WWWForm();
+		form.AddField("SellIndexs", JsonConvert.SerializeObject(sellIndexs));
+		SendHttp.Get.Command(URLConst.SellSkillcard, waitSellSkillPage, form);
 	}
 
 	private void waitEquipSkillCard(bool ok, WWW www) {
