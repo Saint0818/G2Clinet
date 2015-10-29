@@ -22,6 +22,7 @@ public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
 	public TSkillCardPage[] SkillCardPages;
+	public int Money;
 }
 
 public struct TActiveStruct {
@@ -1441,8 +1442,10 @@ public class UISkillFormation : UIBase {
 		if (ok) {
 			TEquipSkillCardResult result = JsonConvert.DeserializeObject <TEquipSkillCardResult>(www.text); 
 			GameData.Team.SkillCards = result.SkillCards;
+			GameData.Team.Money = result.Money;
 			GameData.Team.Player.SkillPage = tempPage;
 			setEditState(false);
+			UIMainLobby.Get.UpdateUI();
 		} else {
 			Debug.LogError("text:"+www.text);
 		}
