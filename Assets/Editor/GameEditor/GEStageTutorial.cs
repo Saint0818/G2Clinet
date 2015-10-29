@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using GamePlayStruct;
 
 public class GEStageTutorial : GEBase {
-	private string stageID;
+	private string stageID = "";
 	private static string FileName = "";
 	private static string BackupFileName = "";
 	private Vector2 mScroll = Vector2.zero;
@@ -19,9 +19,9 @@ public class GEStageTutorial : GEBase {
 	}
 
     void OnGUI() {
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Stage ID : ", StyleLabel, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
-		stageID = EditorGUILayout.TextField(stageID, StyleEdit, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
+		stageID = GUILayout.TextField(stageID, StyleEdit, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
 		if (GUILayout.Button("Add", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
 			int id = -1;
 			
@@ -31,10 +31,10 @@ public class GEStageTutorial : GEBase {
 				Debug.Log("ID error.");
 		}
 		
-		EditorGUILayout.EndHorizontal();
+		GUILayout.EndHorizontal();
 		GUILayout.Space(2);
 
-		if(GameData.StageTutorial.Count > 0 ){
+		if (GameData.StageTutorial.Count > 0 ) {
 			StyleLabel.normal.textColor = Color.yellow;
 			GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
 
@@ -43,7 +43,7 @@ public class GEStageTutorial : GEBase {
 			for (int i = 0; i < GameData.StageTutorial.Count; i++) {
 				GUILayout.Space(2);
 				if (GUILayout.Button(GameData.StageTutorial[i].ID.ToString(), StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
-
+					GEGamePlayTutorial.Get.SetStage(GameData.StageTutorial[i].ID);
 				}
 			}
 

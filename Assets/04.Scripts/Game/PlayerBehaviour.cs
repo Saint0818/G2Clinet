@@ -29,10 +29,8 @@ public enum EPlayerPostion
 
 public enum ETeamKind
 {
-//	JumpBall = -1,
     Self = 0,
     Npc = 1
-//	Skiller = 2
 }
 
 public enum EDefPointKind

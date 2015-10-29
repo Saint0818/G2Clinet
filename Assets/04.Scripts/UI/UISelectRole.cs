@@ -621,8 +621,10 @@ public class UISelectRole : UIBase {
 				if(i == 0) {
 					if(GameData.DPlayers.ContainsKey(arraySelectID[i])) {
 						GameData.Team.Player.ID = GameData.DPlayers[arraySelectID[i]].ID;
-						GameData.Team.Player.Name = GameData.PlayerName (arraySelectID[i]);
 						GameData.Team.Player.AILevel = GameData.DPlayers[arraySelectID[i]].AILevel;
+
+						if (GameData.StageID < 0)
+							GameData.Team.Player.Name = GameData.PlayerName (arraySelectID[i]);
 					}
 				} else {
 					if(GameData.DPlayers.ContainsKey(arraySelectID[i])) {

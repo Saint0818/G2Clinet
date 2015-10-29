@@ -78,14 +78,26 @@ namespace GamePlayStruct {
 
 	public struct TGamePlayEvent {
 		public int Kind;
-		public int ToturialID;
-		public int UIKind;
+		public int Value1;
+		public int Value2;
 		public int FinishCondition;
 		public int ConditionOperator;
 		public int ConditionValue;
 		public int NextEventID;
 
 		public TToturialAction[] Actions;
+
+		public TGamePlayEvent(int i) {
+			Kind = 0;
+			Value1 = 0;
+			Value2 = 0;
+			FinishCondition = 0;
+			ConditionOperator = 0;
+			ConditionValue = 0;
+			NextEventID = 0;
+			
+			Actions = new TToturialAction[0];
+		}
 	}
 
 	public struct TStageToturial {

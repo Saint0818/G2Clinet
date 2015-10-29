@@ -104,7 +104,6 @@ public enum EPlayerState
 	Run2,            
 	RunningDefence,
 	Rebound0,
-//	ReboundCatch,
 	Reset,
 	Start,
 	Shoot0,

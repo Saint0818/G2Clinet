@@ -10,6 +10,7 @@ public class GameStart : KnightSingleton<GameStart> {
 	public ECourtMode CourtMode = ECourtMode.Full;
 	public EWinMode WinMode = EWinMode.NoTimeScore;
 	public bool ConnectToServer = false;
+	public bool OpenTutorial = false;
 	public bool IsDebugAnimation = false;
 	public bool IsAutoReplay = false;
 	public bool IsShowPlayerInfo = false;

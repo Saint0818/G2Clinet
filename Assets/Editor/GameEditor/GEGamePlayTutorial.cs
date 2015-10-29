@@ -7,111 +7,143 @@ using Newtonsoft.Json;
 using GamePlayStruct;
 
 public class GEGamePlayTutorial : GEBase {
-	private string stageID;
-	private static string FileName = "";
-	private static string BackupFileName = "";
-	private List<TStageToturial> toturialData = new List<TStageToturial>(0);
+	private static GEGamePlayTutorial instance = null;
+	private int eventIndex = 0;
+	private int stageID;
+	private int actionTeam;
+	private int actionIndex;
+	private int actionMoveKind;
+
+	private List<TGamePlayEvent> eventList = new List<TGamePlayEvent>();
+
+	private string[] eventExplain = {"1.掠過開頭動畫，跳到某個比賽狀態",
+		"2.設定球權給某球員",
+		"3.設定球員狀態",
+		"4.控制球員移動",
+		"5.開啟操作介面",
+		"6.開啟介面教學"};
 
 	private Vector2 mScroll = Vector2.zero;
 
+	public static GEGamePlayTutorial Get
+	{
+		get {
+			if (instance == null) {
+				instance = GEGamePlayTutorial.GetWindow<GEGamePlayTutorial>(true, "Game Play Tutorial");
+				instance.SetStyle();
+			}
 
-	void OnEnable() {
-		FileName = Application.dataPath + "/Resources/GameData/gameplaytutorial.json";
-		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/gameplaytutorial_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
-		OnLoad();
+			return instance;
+		}
+	}
+
+	void OnEnable () { 
+		instance = this;
+	}
+
+	void OnDisable () { 
+		instance = null; 
 	}
 
     void OnGUI() {
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Stage ID : ", StyleLabel, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
-		stageID = EditorGUILayout.TextField(stageID, StyleEdit, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
-		if (GUILayout.Button("Add", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
-			int id = -1;
-			
-			if (int.TryParse(stageID, out id) && id >= GameConst.Default_MainStageID)
-				addTutorial(id);
-			else
-				Debug.Log("ID error.");
-		}
-		
-		EditorGUILayout.EndHorizontal();
-		GUILayout.Space(2);
-
-		if(toturialData.Count > 0 ){
-			StyleLabel.normal.textColor = Color.yellow;
-			GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
-
-			StyleLabel.normal.textColor = Color.white;
-			mScroll = GUILayout.BeginScrollView(mScroll);
-			for (int i = 0; i < toturialData.Count; i++) {
-				GUILayout.Space(2);
-				if (GUILayout.Button(toturialData[i].ID.ToString(), StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
-
-				}
-			}
-
-			GUILayout.EndScrollView ();
-		}
+		showManagerButton();
+		showEvent();
     }
 
-	private void OnLoad() {
-		string text = LoadFile(FileName);
-		if (!string.IsNullOrEmpty(text)) {
-			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject(text, typeof(TStageToturial[]));
-			toturialData.Clear();
-			for (int i = 0; i < data.Length; i++)
-				toturialData.Add(data[i]);
+	private void showManagerButton() {
+		StyleButton.normal.textColor = Color.white;
+		GUILayout.BeginHorizontal();
+		GUILayout.Label("Stage ID : " + stageID.ToString(), StyleLabel, GUILayout.Height(Height_Line));
+		eventIndex = EditorGUILayout.Popup(eventIndex, eventExplain, StyleButton, GUILayout.Width(Weight_Button * 3), GUILayout.Height(Height_Line));
+		if (GUILayout.Button("New Event", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+			TGamePlayEvent e = new TGamePlayEvent(0);
+			e.Kind = eventIndex+1;
+			eventList.Add(e);
 		}
-		/*
-		if (File.Exists(FileName)) {
-			TextAsset tx = Resources.Load("GameData/gameplaytutorial") as TextAsset;
-			if (tx) {
-				TGamePlayToturial[] data = (TGamePlayToturial[])JsonConvert.DeserializeObject(tx.text, typeof(TGamePlayToturial[]));
-				toturialData.Clear();
-				for (int i = 0; i < data.Length; i++)
-					toturialData.Add(data[i]);
-			} 
-		}*/
+		
+		if (GUILayout.Button("Save", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+		}
+		
+		GUILayout.EndHorizontal();
+		GUILayout.Space(2);
 	}
 
-	public void OnSave() {
-		if (toturialData != null && toturialData.Count > 0) {
-			if (FileName != string.Empty) {
-				SaveFile(FileName, JsonConvert.SerializeObject(toturialData.ToArray()));
-				SaveFile(BackupFileName, JsonConvert.SerializeObject(toturialData.ToArray()));
+	private void showEvent() {
+		if (eventList.Count > 0 ) {
+			StyleLabel.normal.textColor = Color.white;
+			mScroll = GUILayout.BeginScrollView(mScroll);
+			for (int i = 0; i < eventList.Count; i++) {
+				GUILayout.Space(2);
+				GUILayout.BeginHorizontal();
+				StyleLabel.normal.textColor = Color.yellow;
+				GUILayout.Label("Event : " + i.ToString(), StyleLabel, GUILayout.Height(Height_Line));
+				StyleButton.normal.textColor = Color.red;
+				if (GUILayout.Button("Delete", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+					eventList.RemoveAt(i);
+				}
+				
+				GUILayout.EndHorizontal();
 
-				Debug.Log(FileName);
-				Debug.Log(BackupFileName);
-			} else
-				Debug.LogError("FileName is empty");
-		} else
-			Debug.LogError("EditIndex error");
+				if (eventList[i].Kind == 3) {
+					GUILayout.Space(2);
+					showPlayerMove(i);
+				}
+			}
+			
+			GUILayout.EndScrollView();
+		}
 	}
 
-	private bool addTutorial(int id) {
-		for (int i = 0; i < toturialData.Count; i++)
-			if (toturialData[i].ID == id) {
-				Debug.LogError("Stage already exists.");
-				return false;
-			}
+	private void showPlayerMove(int i) {
+		StyleButton.normal.textColor = Color.white;
+		GUILayout.BeginHorizontal();
 
-		int index = toturialData.Count;
-		for (int i = 0; i < toturialData.Count; i++)
-			if (id < toturialData[i].ID) {
-				index = i;
-				break;
-			}
+		actionTeam = EditorGUILayout.IntField("Team", actionTeam);
+		actionIndex = EditorGUILayout.IntField("Index", actionIndex);
+		actionMoveKind = EditorGUILayout.IntField("Move Kind", actionMoveKind);
 
-		TStageToturial data = new TStageToturial(0);
-		data.ID = id;
-		toturialData.Insert(index, data);
-		OnSave();
-		return true;
+		if (GUILayout.Button("Add", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+			TGamePlayEvent e = eventList[i];
+			Array.Resize(ref e.Actions, e.Actions.Length+1);
+			e.Actions[e.Actions.Length-1].Team = actionTeam;
+			e.Actions[e.Actions.Length-1].Index = actionIndex;
+			e.Actions[e.Actions.Length-1].MoveKind = actionMoveKind;
+			eventList[i] = e;
+		}
+		
+		GUILayout.EndHorizontal();
+
+		if (eventList[i].Actions != null) {
+			for (int j = 0; j < eventList[i].Actions.Length; j++) {
+				GUILayout.BeginHorizontal();
+				Vector2 v = EditorGUILayout.Vector2Field("(" + (j + 1).ToString() + ")", new Vector2(eventList[i].Actions[j].Action.x, eventList[i].Actions[j].Action.z));
+				eventList[i].Actions[j].Action.x = v.x;
+				eventList[i].Actions[j].Action.z = v.y;
+				
+				if (GUILayout.Button("MoveTo_" + (j + 1).ToString(), GUILayout.Height(32)))
+					GameController.Get.EditSetMove(eventList[i].Actions[j].Action, 0);
+				
+				if (GUILayout.Button("Capture Position_" + (j + 1).ToString(), GUILayout.Height(32))) {
+					Vector3 Res = GameController.Get.EditGetPosition(0);
+					eventList[i].Actions[j].Action.x = Convert.ToSingle(Math.Round(Res.x, 2));
+					eventList[i].Actions[j].Action.z = Convert.ToSingle(Math.Round(Res.z, 2));
+				}      
+
+				eventList[i].Actions[j].Action.Speedup = EditorGUILayout.Toggle("Speedup", eventList[i].Actions[j].Action.Speedup);
+				eventList[i].Actions[j].Action.Shooting = EditorGUILayout.Toggle("Shooting", eventList[i].Actions[j].Action.Shooting);
+				//eventList[i].Actions[j].Action.Catcher = EditorGUILayout.Toggle("Catcher", eventList[i].Actions[j].Action.Catcher);
+
+				GUILayout.EndHorizontal();
+			}
+		}
 	}
 
 	public void SetStage(int id) {
 		if (id >= 0 && GameData.DStageTutorial.ContainsKey(id)) {
-
+			stageID = id;
+			eventList.Clear();
+			for (int i = 0; i < GameData.DStageTutorial[id].Events.Length; i++)
+				eventList.Add(GameData.DStageTutorial[id].Events[i]);
 		}
 	}
 }

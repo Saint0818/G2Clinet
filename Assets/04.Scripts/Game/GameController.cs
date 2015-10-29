@@ -4070,7 +4070,6 @@ public class GameController : KnightSingleton<GameController>
 		if (PlayerList.Count > index)
 		{
 			moveData.Clear();
-//			moveData.Target = ActionPosition;
 			moveData.SetTarget(ActionPosition.x, ActionPosition.y); 
 			PlayerList [index].TargetPos = moveData;
 		}
