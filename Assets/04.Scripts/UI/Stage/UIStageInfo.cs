@@ -14,6 +14,7 @@ public class UIStageInfo : MonoBehaviour
 
     public class Data
     {
+        public string Name { set; get; }
         public string Description { set; get; }
         public string KindSpriteName { set; get; }
         public string KindName { set; get; }
@@ -23,6 +24,7 @@ public class UIStageInfo : MonoBehaviour
     }
 
     public GameObject Window;
+    public UILabel NameLabel; // 關卡名稱.
     public UILabel DescriptionLabel;
     public UISprite KindSprite;
     public UILabel KindLabel;
@@ -60,6 +62,7 @@ public class UIStageInfo : MonoBehaviour
 
     private void updateUI(Data data)
     {
+        NameLabel.text = data.Name;
         DescriptionLabel.text = data.Description;
         KindSprite.spriteName = data.KindSpriteName;
         KindLabel.text = data.KindName;

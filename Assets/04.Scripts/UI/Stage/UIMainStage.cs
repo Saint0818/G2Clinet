@@ -201,9 +201,9 @@ public class UIMainStage : UIBase
 
         UIStageInfo.Data data = new UIStageInfo.Data
         {
+            Name = stageData.Name,
             Description = stageData.Explain,
             KindSpriteName = textIndex.ToString(),
-//            KindSpriteName = "Iconface",
             KindName = TextConst.S(textIndex),
             RewardSpriteName = "GoldCoin",
             RewardName = "",
