@@ -24,6 +24,21 @@
 	public const float AttackSpeedNormal = 5.7f;
 
     /// <summary>
+    /// 每幾秒檢查 MovePower 的數值.(MovePower 就是球員的體力)
+    /// </summary>
+    public const float MovePowerCheckTime = 0.15f;
+
+    /// <summary>
+    /// 球員移動時, 扣的體力值.
+    /// </summary>
+    public const float MovePowerMoving = 1f;
+
+    /// <summary>
+    /// 球員靜止不動時, 體力回復的值.
+    /// </summary>
+    public const float MovePowerRevive = 2.5f;
+
+    /// <summary>
     /// 超過此距離投籃, 會是撥長距離投籃的動作.
     /// </summary>
 	public const float LongShootDistance = 15f;

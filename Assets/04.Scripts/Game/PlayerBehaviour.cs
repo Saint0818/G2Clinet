@@ -368,9 +368,14 @@ public class PlayerBehaviour : MonoBehaviour
 	private bool firstDribble = true;
     private bool isCanCatchBall = true;
     private bool isSpeedup = false;
-    public float MovePower = 0;
-    public float MaxMovePower = 0;
-    private float MovePowerTime = 0;
+
+    /// <summary>
+    /// 移動體力.
+    /// </summary>
+    private float mMovePower = 0;
+    private float mMaxMovePower = 0;
+    private float mMovePowerTime = 0;
+
     private Vector2 MoveTarget;
     private float dis;
     private bool canSpeedup = true;
@@ -759,38 +764,39 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         
-        if (Time.time >= MovePowerTime)
+        if(Time.time >= mMovePowerTime)
         {
-            MovePowerTime = Time.time + 0.15f;
-            if (isSpeedup)
+//            mMovePowerTime = Time.time + 0.15f;
+            mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
+            if(isSpeedup)
             {
-                if (MovePower > 0)
+                if(mMovePower > 0)
                 {
-                    MovePower -= 1;
-                    if (MovePower < 0)
-                        MovePower = 0;
+//                    mMovePower -= 1;
+                    mMovePower -= GameConst.MovePowerMoving;
+                    if (mMovePower < 0)
+                        mMovePower = 0;
 
                     if (this == GameController.Get.Joysticker)
-                        GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+                        GameController.Get.Joysticker.SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
 
-                    if (MovePower == 0)
+                    if (mMovePower == 0)
                         canSpeedup = false;
                 }
-            } else
+            }
+            else if(mMovePower < mMaxMovePower)
             {
-                if (MovePower < MaxMovePower)
-                {
-                    MovePower += 2.5f;
-                    if (MovePower > MaxMovePower)
-                        MovePower = MaxMovePower;
+//                mMovePower += 2.5f;
+                mMovePower += GameConst.MovePowerRevive;
+                if (mMovePower > mMaxMovePower)
+                    mMovePower = mMaxMovePower;
 
-                    if (this == GameController.Get.Joysticker)
-                        GameController.Get.Joysticker.SpeedUpView.fillAmount = MovePower / MaxMovePower;
+                if (this == GameController.Get.Joysticker)
+                    GameController.Get.Joysticker.SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
 
-                    if (MovePower == MaxMovePower)
-                        canSpeedup = true;
-                }
-            }   
+                if (mMovePower == mMaxMovePower)
+                    canSpeedup = true;
+            }
         }
 
         if (IsDefence)
@@ -1379,7 +1385,7 @@ public class PlayerBehaviour : MonoBehaviour
 						moveKind = 0;                      
                     else
                     {
-						if(MovePower == 0)
+						if(mMovePower == 0)
 							moveKind = 2;
 						else
 							moveKind = 1;
@@ -1676,7 +1682,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     
                     isMoving = true;
-                    if(MovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
+                    if(mMovePower > 0 && canSpeedup && this != GameController.Get.Joysticker && !IsTee)
                     {
                         setSpeed(1, 0);
                         transform.position = Vector3.MoveTowards(transform.position, 
@@ -1701,7 +1707,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if(IsBallOwner)
                     {
                         // 持球者移動.
-                        if(data.Speedup && MovePower > 0)
+                        if(data.Speedup && mMovePower > 0)
                         {
                             // 持球者加速移動.(因為球員已經轉身了, 所以往 forward 移動就可以了)
                             setSpeed(1, 0);
@@ -1720,7 +1726,7 @@ public class PlayerBehaviour : MonoBehaviour
                     else
                     {
                         // 未持球者移動.
-                        if(data.Speedup && MovePower > 0)
+                        if(data.Speedup && mMovePower > 0)
                         {
                             setSpeed(1, 0);
                             transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
@@ -3766,8 +3772,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void setMovePower(float value)
     {
-        MaxMovePower = value;
-        MovePower = value;
+        mMaxMovePower = value;
+        mMovePower = value;
     }
 
     private int isTouchPalyer = 0;
