@@ -706,7 +706,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 					else
 						v1 = RealBall.transform.forward * -1;
 
-					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 40);
+					RealBallVelocity = GameFunction.GetVelocity(RealBall.transform.position, v1, 60);
 					mRealBallSFX.SetActive(true);
 				}
 				break;
