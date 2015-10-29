@@ -2588,40 +2588,51 @@ public class GameController : KnightSingleton<GameController>
         }
 	}
 
+    /// <summary>
+    /// 叫某人跑去球的位置(不見得真的會跑過去).
+    /// </summary>
+    /// <param name="someone"></param>
+    /// <param name="team"></param>
+    /// <param name="data"></param>
     private void InboundsBall(PlayerBehaviour someone, ETeamKind team, ref TTacticalData data)
     {
-//		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && someone.WaitMoveTime == 0 && someone.TargetPosNum == 0)
 		if(!IsPassing && (someone.CanMove || someone.CanMoveFirstDribble) && !someone.IsMoving && 
             someone.CantMoveTimer.IsOff() && someone.TargetPosNum == 0)
         {
+            // 不是傳球中, 球員可移動, 球員留在原地(沒有移動), 球員並未移動中.
+            // todo 我認為這種狀態的判斷應該是有多餘的檢查. 比如 CantMoveTimer 沒必要檢查.
             // Debug.LogFormat("InboundsBall, tactical:{0}", tacticalData);
 
             moveData.Clear();
 			if(GameStart.Get.CourtMode == ECourtMode.Full)
             {
+                // 全場跑位.
 				if(someone == BallOwner)
                 {
-					int targetZ = 18;
+                    // 持球者跑到界外區, 然後發球.
+					int targetZ = 18; // todo 魔術數字要拉出來 ...
 					if (team == ETeamKind.Self)
 						targetZ = -18;
 
-					Vector2 v = new Vector2(someone.PlayerRefGameObject.transform.position.x, targetZ);
-					float dis = Vector2.Distance(new Vector2(someone.PlayerRefGameObject.transform.position.x, someone.PlayerRefGameObject.transform.position.z), v);
+					Vector2 v = new Vector2(someone.transform.position.x, targetZ);
+					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
 					if(dis <= 1.7f)
                     {
-						if(BallOwner)
+                        // 已經跑到界外區了, 要執行發球.
+						if(BallOwner) // todo 這個檢查是多餘的.
 							StartCoroutine(AutoTee());
 					}
                     else
                     {
+                        // 要求拿球的人要跑到界外區.
 						moveData.TacticalName = data.FileName;
-//						moveData.Target = new Vector2(someone.transform.position.x, targetZ);
-						moveData.SetTarget(someone.PlayerRefGameObject.transform.position.x, targetZ);
+						moveData.SetTarget(someone.transform.position.x, targetZ);
 						someone.TargetPos = moveData;
 					}
 	            }
                 else if(data.FileName != string.Empty)
                 {
+                    // 沒有拿到球的人. 跑企劃編輯的位置.
 					tacticalActions = data.GetActions(someone.Index);
 	                
 					if(tacticalActions != null)
@@ -2648,10 +2659,12 @@ public class GameController : KnightSingleton<GameController>
 			}
             else
             {
-				if(someone == BallOwner)
+                // 這段是半場的跑位.
+                // todo 這段幾乎都是重複的程式碼...
+                if (someone == BallOwner)
                 {
 					Vector2 v = new Vector2(0, -0.2f);
-					float dis = Vector2.Distance(new Vector2(someone.PlayerRefGameObject.transform.position.x, someone.PlayerRefGameObject.transform.position.z), v);
+					float dis = Vector2.Distance(new Vector2(someone.transform.position.x, someone.transform.position.z), v);
 					if (dis <= 1.5f) {
 						if (BallOwner)
 							StartCoroutine(AutoTee());
@@ -2686,11 +2699,15 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
         
-//        if (someone.WaitMoveTime != 0 && someone == BallOwner)
-        if (someone.CantMoveTimer.IsOn() && someone == BallOwner)
+        // 感覺這段是預防特殊狀況, 當特殊狀況發生時, 強迫持球員做運球.
+        if(someone.CantMoveTimer.IsOn() && someone == BallOwner)
             someone.AniState(EPlayerState.Dribble0);
     }
 
+    /// <summary>
+    /// tee: 準備發球. 用在對方得分後, 換場時的發球.
+    /// </summary>
+    /// <returns></returns>
 	IEnumerator AutoTee()
     {
 		yield return new WaitForSeconds(1);
@@ -2737,39 +2754,6 @@ public class GameController : KnightSingleton<GameController>
 			}
 		}
 	}
-
-//    /// <summary>
-//    /// 找出某隊離球最近的球員.
-//    /// </summary>
-//    /// <param name="team"> 玩家 or 電腦. </param>
-//    /// <returns></returns>
-//    [CanBeNull]
-//    private PlayerBehaviour findNearBallPlayer(ETeamKind team)
-//    {
-//        float nearDis = float.MaxValue;
-//        PlayerBehaviour nearPlayer = null;
-//
-//        Vector2 ballPos = Vector2.zero;
-//        ballPos.Set(CourtMgr.Get.RealBall.transform.position.x, CourtMgr.Get.RealBall.transform.position.z);
-//
-//        foreach(PlayerBehaviour someone in PlayerList)
-//        {
-//            if (someone.Team != team)
-//                continue;
-//
-//            Vector2 someonePos = Vector2.zero;
-//            someonePos.Set(someone.transform.position.x, someone.transform.position.z);
-//
-//            var dis = Vector2.Distance(ballPos, someonePos);
-//            if(dis < nearDis)
-//            {
-//                nearDis = dis;
-//                nearPlayer = someone;
-//            }
-//        }
-//        
-//        return nearPlayer;
-//    }
 
     [CanBeNull]
     private TPlayerDisData[] findPlayerDisData([NotNull]PlayerBehaviour player, bool isSameTeam = false, 
@@ -2914,9 +2898,12 @@ public class GameController : KnightSingleton<GameController>
             doLookAtBall(someone);
     }
 
+    /// <summary>
+    /// 叫球員撿球(不見得真的會去撿球).
+    /// </summary>
+    /// <param name="someone"></param>
     public void DoPickBall([NotNull] PlayerBehaviour someone)
 	{
-//	    if(someone.CanMove && someone.WaitMoveTime == 0)
 	    if(someone.CanMove && someone.CantMoveTimer.IsOff())
 	    {
             // 球員移動到球的位置.
@@ -2924,34 +2911,6 @@ public class GameController : KnightSingleton<GameController>
 	        moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
 	        someone.TargetPos = moveData;
 	    }
-
-	    /*PlayerBehaviour player = null;
-		
-		if(BallOwner == null)
-        {
-            if(findNear)
-            {
-                player = findNearBallPlayer(someone);
-
-				if(player != null && player.CanMove && player.WaitMoveTime == 0)
-                {
-					moveData.Clear();
-					moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
-					player.TargetPos = moveData;
-				}
-                else if(someone.crtState != EPlayerState.Block && someone.AIing)
-                    someone.RotateTo(CourtMgr.Get.RealBall.transform.position.x, 
-                                 CourtMgr.Get.RealBall.transform.position.z);
-            }
-            else if(someone.CanMove && someone.WaitMoveTime == 0)
-            {
-				moveData.Clear();
-				moveData.FollowTarget = CourtMgr.Get.RealBall.transform;
-				someone.TargetPos = moveData;
-            }
-        }
-
-        return player;*/
     }
 	
 	public float GetDis(PlayerBehaviour player1, PlayerBehaviour player2)
