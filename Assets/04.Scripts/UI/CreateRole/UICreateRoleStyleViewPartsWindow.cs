@@ -75,7 +75,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
             var partBtn = btn.GetComponent<UICreateRoleStyleViewPartsWindowButton>();
             partBtn.Name = items[i].Name;
-            partBtn.Icon = items[i].Icon;
+            partBtn.Icon = int.Parse(items[i].Icon);
             partBtn.ItemID = items[i].ID;
             partBtn.Index = i;
             partBtn.ClickListener += onPartSelected;

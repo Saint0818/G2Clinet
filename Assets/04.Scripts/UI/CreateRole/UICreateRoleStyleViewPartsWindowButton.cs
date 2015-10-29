@@ -32,9 +32,9 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
         set { NameLabel.text = value; }
     }
 
-    public string Icon
+    public int Icon
     {
-        set { IconSprite.spriteName = value; }
+        set { IconSprite.spriteName = string.Format("Item_{0}", value); }
     }
 
     public void SetSelected()
