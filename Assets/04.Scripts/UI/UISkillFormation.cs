@@ -106,9 +106,9 @@ public class UISkillFormation : UIBase {
 	private int[] removeIndexs = new int[0]; //From already setted skillCard's index
 	private int[] addIndexs = new int[0];//From skillCards's index in the center area
 	private int[] orderSNs = new int[0];//From activeStruct index
+	private int[] sellIndexs = new int[0];
 
 	//Sell Value
-	private int[] sellIndexs = new int[0];
 	private List<int> sellNames = new List<int>();
 	
 	//Instantiate Object
@@ -1303,11 +1303,12 @@ public class UISkillFormation : UIBase {
 					}
 				}
 			}
-			SendSellCard();
+			UIMessage.Get.ShowMessage(TextConst.S(202), TextConst.S(203), SendSellCard);
+//			SendSellCard();
 		} else 
 			DoCloseSell();
 	}
-	
+
 	public void DoFinish() {
 		List<string> tempNoUpdate = new List<string>();
 		List<string> tempRemoveIndex = new List<string>();
@@ -1380,7 +1381,7 @@ public class UISkillFormation : UIBase {
 		
 		if(addIndexs.Length > 0 || removeIndexs.Length > 0 || flag) {
 			if(isChangePage) {
-				UIMessage.Get.ShowMessage("", TextConst.S(204), SendEquipSkillCard, SendChangeSkillPage);
+				UIMessage.Get.ShowMessage(TextConst.S(202), TextConst.S(204), SendEquipSkillCard, SendChangeSkillPage);
 			} else
 				SendEquipSkillCard(null);
 		} else
@@ -1405,7 +1406,7 @@ public class UISkillFormation : UIBase {
 		SendHttp.Get.Command(URLConst.ChangeSkillPage, waitChangeSkillPage, form);
 	}
 
-	public void SendSellCard() {
+	public void SendSellCard(object obj) {
 		WWWForm form = new WWWForm();
 		form.AddField("SellIndexs", JsonConvert.SerializeObject(sellIndexs));
 		SendHttp.Get.Command(URLConst.SellSkillcard, waitSellSkillPage, form);
