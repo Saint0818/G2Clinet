@@ -661,10 +661,14 @@ public class UIAvatarFitted : UIBase {
 					case 0:
 						if(!backpackItems[i].Equip)
 							backpackItems[i].Enable = true;
+						else
+							backpackItems[i].Enable = false;
 						break;
 					case 1:
 						if(backpackItems[i].Equip)
 							backpackItems[i].Enable = true;
+						else
+							backpackItems[i].Enable = false;
 						break;
 				}
 			}
