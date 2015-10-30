@@ -150,7 +150,7 @@ namespace GamePlayEnum {
 		Punch,
 		Steal
 	}
-
+	//For ActiveSkill 
 	public enum EBallState {
 		CanSteal,
 		CanBlock,

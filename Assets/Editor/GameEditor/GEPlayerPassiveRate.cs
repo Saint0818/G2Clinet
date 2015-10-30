@@ -88,6 +88,7 @@ public class GEPlayerPassiveRate : GEBase {
 					}
 					skillController.DPassiveSkills = UpdatePassiveSkills;
 					isInstall = true;
+					OnFocus();
 				}
 			}
 

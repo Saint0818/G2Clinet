@@ -230,8 +230,8 @@ public class UISkillFormation : UIBase {
 		gridPassiveCardBase = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList");
 		labelCostValue = GameObject.Find (UIName + "/BottomRight/LabelCost/CostValue").GetComponent<UILabel>();
 		scrollViewItemList = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList").GetComponent<UIScrollView>();
-		scrollViewItemList.transform.localPosition = new Vector3(0, 8, 0);
-		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
+		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
+		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
 		scrollViewItemList.onDragFinished =ItemDragFinish;
 
 		toggleCheckBoxSkill[0] = GameObject.Find (UIName + "/MainView/Right/STitle/ActiveCheck").GetComponent<UIToggle>();
@@ -574,6 +574,15 @@ public class UISkillFormation : UIBase {
 		if(t != null)
 			if(GameData.DSkillData.ContainsKey(uicard.CardID))
 				t.gameObject.GetComponent<UILabel>().text = Mathf.Max(GameData.DSkillData[uicard.CardID].Space(uicard.CardLV), 1).ToString();
+
+		t = obj.transform.FindChild("SkillCard");
+		if(t != null)
+			if(GameData.DSkillData.ContainsKey(uicard.CardID))
+				t.gameObject.GetComponent<UISprite>().spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[uicard.CardID].Quality, 1, 3).ToString() + "s";
+
+		t = obj.transform.FindChild("SkillLevel/Levelball");
+		if(t != null) 
+			t.gameObject.GetComponent<UISprite>().spriteName = "Levelball" + Mathf.Clamp(GameData.DSkillData[uicard.CardID].Quality, 1, 3).ToString();
 
 		//no texture
 //		t = obj.transform.FindChild("SkillTexture");
@@ -1054,19 +1063,20 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void ItemDragFinish(){
-		if(itemPassiveCards.Count < 5){
-			scrollViewItemList.transform.DOLocalMoveY(8, 0.2f).OnUpdate(UpdateClipOffset);
+		if(itemPassiveCards.Count < 3){
+			scrollViewItemList.transform.DOLocalMoveY(0, 0.2f).OnUpdate(UpdateClipOffset);
 		}
 	}
 
 	public void UpdateClipOffset(){
-		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
+		scrollViewItemList.DisableSpring();
+		scrollViewItemList.panel.clipOffset = new Vector2(12, - scrollViewItemList.transform.localPosition.y + 10);
 	}
 
 	public void ItemMoveOne(){ 
-		if(itemPassiveCards.Count > 4){
-			scrollViewItemList.transform.DOLocalMoveY(scrollViewItemList.transform.localPosition.y - 75 , 0.2f);
-			scrollViewItemList.panel.clipOffset = new Vector2(12, scrollViewItemList.panel.clipOffset.y + 75);
+		if(itemPassiveCards.Count > 2){
+			scrollViewItemList.transform.DOLocalMoveY(scrollViewItemList.transform.localPosition.y - 5 , 0.2f);
+			scrollViewItemList.panel.clipOffset = new Vector2(12, scrollViewItemList.panel.clipOffset.y);
 		}
 	}
 
