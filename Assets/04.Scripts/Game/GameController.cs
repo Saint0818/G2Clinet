@@ -3654,8 +3654,8 @@ public class GameController : KnightSingleton<GameController>
 				    UIGame.Get.Scores[self] >= GameStart.Get.GameWinValue)
 					return true;
 				else 
-					if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore) && 
-				    UIGame.Get.Scores[enemy] >= GameStart.Get.GameWinValue)
+				if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore) && 
+				    UIGame.Get.Scores[enemy] <= GameStart.Get.GameWinValue)
 				return true;
 				else 
 					if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) && 
