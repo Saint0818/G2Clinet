@@ -3469,33 +3469,35 @@ public class GameController : KnightSingleton<GameController>
 
     private void gameResult()
     {
-        ChangeSituation(EGameSituation.End);
-        AIController.Get.ChangeState(EGameSituation.End);
-
-		UIGame.Get.GameOver();
-		GameRecord.Done = true;
-		SetGameRecord(true);
-		StartCoroutine(playFinish());
-
-		if(UIGame.Get.Scores[0] >= UIGame.Get.Scores[1])
-        {
-			SelfWin ++;
-			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].Team == ETeamKind.Self)
-					PlayerList [i].AniState(EPlayerState.Ending0);
+		if(Situation != EGameSituation.End) {
+			ChangeSituation(EGameSituation.End);
+			AIController.Get.ChangeState(EGameSituation.End);
+			
+			UIGame.Get.GameOver();
+			GameRecord.Done = true;
+			SetGameRecord(true);
+			StartCoroutine(playFinish());
+			
+			if(UIGame.Get.Scores[0] >= UIGame.Get.Scores[1])
+			{
+				SelfWin ++;
+				for (int i = 0; i < PlayerList.Count; i++)
+					if (PlayerList [i].Team == ETeamKind.Self)
+						PlayerList [i].AniState(EPlayerState.Ending0);
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
-
-            endPVE(mCurrentStageID);
-		}
-		else
-		{
-			NpcWin ++;
-			for (int i = 0; i < PlayerList.Count; i++)
-				if (PlayerList [i].Team == ETeamKind.Self)
-					PlayerList [i].AniState (EPlayerState.Ending10);
+				
+				endPVE(mCurrentStageID);
+			}
 			else
-				PlayerList [i].AniState (EPlayerState.Ending0);
+			{
+				NpcWin ++;
+				for (int i = 0; i < PlayerList.Count; i++)
+					if (PlayerList [i].Team == ETeamKind.Self)
+						PlayerList [i].AniState (EPlayerState.Ending10);
+				else
+					PlayerList [i].AniState (EPlayerState.Ending0);
+			}
 		}
     }
 
@@ -3716,7 +3718,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	public bool IsGameVictory (int team) {
-		if(GameStart.Get.WinMode == EWinMode.TimeScore) {
+		if(GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
 			if(GameTime <= 0 && IsScorePass(team)){
 				for(int i=0; i < PlayerList.Count; i++) {
 					if(PlayerList[i].Team.GetHashCode() == team)
@@ -3804,10 +3806,40 @@ public class GameController : KnightSingleton<GameController>
 					Debug.LogWarning ("UIGame.Get.Scores [1] : " + UIGame.Get.Scores [1]);
 					Debug.LogWarning ("UIGame.Get.MaxScores [1] : " + UIGame.Get.MaxScores [1]);
 				}
-				
-				if(IsScorePass(team) && StageBitNum[1] != 0) {
-					gameResult();
-				} else {
+
+				bool flag = true;
+//				if(GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
+//					if(IsTimePass()){
+//						gameResult();
+//						flag = false;
+//					}
+//
+//				}else 
+				if (GameStart.Get.WinMode == EWinMode.None || GameStart.Get.WinMode == EWinMode.TimeNoScore){
+					for(int i=0; i < PlayerList.Count; i++) {
+						if(PlayerList[i].Team.GetHashCode() == team) {
+							if(IsConditionPass(PlayerList[i])) {
+								gameResult();
+								flag = false;
+							}
+						}
+					}
+				}else 
+				if (GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.NoTimeLostScore ||
+				    GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == EWinMode.TimeScore){
+					if(IsScorePass(team)) {
+						for(int i=0; i < PlayerList.Count; i++) {
+							if(PlayerList[i].Team.GetHashCode() == team) {
+								if(IsConditionPass(PlayerList[i])) {
+									gameResult();
+									flag = false;
+								}
+							}
+						}
+					}
+				} 
+
+				if(flag) {
 					if(team == ETeamKind.Self.GetHashCode())
 					{
 						ChangeSituation(EGameSituation.SpecialAction);
