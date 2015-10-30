@@ -1201,6 +1201,9 @@ public class UIGame : UIBase {
 			SetPassButton();
 			spriteForce.fillAmount = 0;
 			dcCount = 0;
+			for(int i=0; i<spriteSkills.Length; i++) {
+				spriteSkills[i].fillAmount = 0;
+			}
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
 			CameraMgr.Get.PlayGameStartCamera ();
