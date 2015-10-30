@@ -1038,6 +1038,8 @@ public class UIAvatarFitted : UIBase {
 		{
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Items = team.Items;
+			GameData.Team.Money = team.Money;
+			UIMainLobby.Get.UpdateUI();
 			ChangeMode(EAvatarMode.Normal);
 			UpdateAvatar();
 		}
