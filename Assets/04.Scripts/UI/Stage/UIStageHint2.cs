@@ -13,6 +13,16 @@ public class UIStageHint2 : MonoBehaviour
         mTargets = GetComponentsInChildren<UIStageHintTarget>();
     }
 
+    public void Show()
+    {
+        Window.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        Window.SetActive(false);
+    }
+
     public void UpdateUI(int stageID)
     {
         if(!StageTable.Ins.HasByID(stageID))
