@@ -32,7 +32,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <summary>
     /// 項目的起點位置, 單位: Pixel.
     /// </summary>
-    private readonly Vector3 mUIStartPos = new Vector3(15, 203, 0);
+    private readonly Vector3 mUIStartPos = new Vector3(8, 265, 0);
 
     /// <summary>
     /// 每個項目的高度間隔, 單位: Pixel.
