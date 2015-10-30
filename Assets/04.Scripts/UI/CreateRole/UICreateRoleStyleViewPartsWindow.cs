@@ -30,7 +30,7 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     private const string PartPath = "Prefab/UI/Items/ItemEquipBtn";
 
     /// <summary>
-    /// 項目的起點位置, 單位: Pixel.
+    /// 換裝物品的起點位置, 單位: Pixel.
     /// </summary>
     private readonly Vector3 mUIStartPos = new Vector3(8, 265, 0);
 
