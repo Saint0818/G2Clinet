@@ -3656,7 +3656,10 @@ public class GameController : KnightSingleton<GameController>
 			if(self == (int) ETeamKind.Npc)
 				enemy = 1;
 
-			if(StageBitNum[1] == 0)
+			if(GameStart.Get.WinMode == EWinMode.TimeNoScore)
+				return (UIGame.Get.Scores[self] >= UIGame.Get.Scores[enemy]);
+			else
+			if(StageBitNum[1] == 0 || GameStart.Get.WinMode == EWinMode.NoneCondition || GameStart.Get.WinMode == EWinMode.TimeNoScoreCondition)
 				return true;
 			else {
 				if ((GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.TimeScore) && 
@@ -3808,7 +3811,7 @@ public class GameController : KnightSingleton<GameController>
 //					}
 //
 //				}else 
-				if (GameStart.Get.WinMode == EWinMode.None || GameStart.Get.WinMode == EWinMode.TimeNoScore){
+				if (GameStart.Get.WinMode == EWinMode.None || GameStart.Get.WinMode == EWinMode.NoneCondition || GameStart.Get.WinMode == EWinMode.TimeNoScoreCondition){
 					for(int i=0; i < PlayerList.Count; i++) {
 						if(PlayerList[i].Team.GetHashCode() == team) {
 							if(IsConditionPass(PlayerList[i])) {

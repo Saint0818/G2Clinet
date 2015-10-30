@@ -195,15 +195,15 @@ public class UIGamePause : UIBase {
 			switch (index) {
 			case 0:
 			case 3:
-				uiSelect.transform.localPosition = new Vector3(0, 150, 0);
+				uiSelect.transform.localPosition = new Vector3(0, 105, 0);
 				break;
 			case 1:
 			case 4:
-				uiSelect.transform.localPosition = new Vector3(270, 150, 0);
+				uiSelect.transform.localPosition = new Vector3(270, 105, 0);
 				break;
 			case 2:
 			case 5:
-				uiSelect.transform.localPosition = new Vector3(-270, 150, 0);
+				uiSelect.transform.localPosition = new Vector3(-270, 105, 0);
 				break;
 			}
 		}

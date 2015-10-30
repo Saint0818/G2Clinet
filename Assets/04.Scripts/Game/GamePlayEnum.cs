@@ -7,11 +7,13 @@ namespace GamePlayEnum {
 	}
 	
 	public enum EWinMode {
-		None = 0,//00
+		None = 0,//000
+		NoneCondition,//001
 		NoTimeScore = 1,//01
 		NoTimeLostScore = 2,//02
 		NoTimeScoreCompare = 3,//03
-		TimeNoScore = 4, //10
+		TimeNoScore = 4, //100
+		TimeNoScoreCondition, //101
 		TimeScore = 5, //11
 		TimeLostScore = 6, //12
 		TimeScoreCompare = 7 //13

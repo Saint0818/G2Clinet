@@ -115,6 +115,10 @@ public class StageData
             return EWinMode.TimeLostScore;
         if(hintBits[0] == 1 && hintBits[1] == 3)
             return EWinMode.TimeScoreCompare;
+		if(hintBits[0] == 0 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
+			return EWinMode.NoneCondition;
+		if(hintBits[0] == 1 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
+			return EWinMode.TimeNoScoreCondition;
 
         return EWinMode.None;
     }

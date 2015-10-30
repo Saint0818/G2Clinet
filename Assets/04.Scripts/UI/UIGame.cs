@@ -1203,6 +1203,8 @@ public class UIGame : UIBase {
 			dcCount = 0;
 			for(int i=0; i<spriteSkills.Length; i++) {
 				spriteSkills[i].fillAmount = 0;
+				uiSkillEnables[i].SetActive(false);
+
 			}
 
 			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
