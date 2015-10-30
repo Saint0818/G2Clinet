@@ -98,7 +98,9 @@ public class StageData
 
     public EWinMode ConvertWinMode()
     {
-        var hintBits = HintBit;
+		var hintBits = HintBit;
+		if(hintBits[0] == 0 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
+			return EWinMode.NoneCondition;
         if(hintBits[0] == 0 && hintBits[1] == 0)
             return EWinMode.None;
         if(hintBits[0] == 0 && hintBits[1] == 1)
@@ -106,7 +108,10 @@ public class StageData
         if(hintBits[0] == 0 && hintBits[1] == 2)
             return EWinMode.NoTimeLostScore;
         if(hintBits[0] == 0 && hintBits[1] == 3)
-            return EWinMode.NoTimeScoreCompare;
+			return EWinMode.NoTimeScoreCompare;
+
+		if(hintBits[0] == 1 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
+			return EWinMode.TimeNoScoreCondition;
         if(hintBits[0] == 1 && hintBits[1] == 0)
             return EWinMode.TimeNoScore;
         if(hintBits[0] == 1 && hintBits[1] == 1)
@@ -115,10 +120,6 @@ public class StageData
             return EWinMode.TimeLostScore;
         if(hintBits[0] == 1 && hintBits[1] == 3)
             return EWinMode.TimeScoreCompare;
-		if(hintBits[0] == 0 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return EWinMode.NoneCondition;
-		if(hintBits[0] == 1 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return EWinMode.TimeNoScoreCondition;
 
         return EWinMode.None;
     }

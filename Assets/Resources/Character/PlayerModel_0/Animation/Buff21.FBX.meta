@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1e83ebf229e266e48920f38e0a5393bc
-timeCreated: 1440745140
+timeCreated: 1446201014
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -120,6 +120,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -150,7 +154,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0
+      - time: .0160642546
         functionName: SkillEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -341,8 +345,10 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

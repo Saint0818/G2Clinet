@@ -707,7 +707,7 @@ public class PlayerBehaviour : MonoBehaviour
 		GameRecord.Init();
 		GameRecord.ID = Attribute.ID;
 
-		if(Index == 0 && Team == ETeamKind.Self)
+		if(Index == 0 && Team == ETeamKind.Self && GameStart.Get.ConnectToServer)
 			Attribute.SetAttribute(GameEnum.ESkillType.Player);
 		else
 			Attribute.SetAttribute(GameEnum.ESkillType.NPC);
@@ -2111,7 +2111,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
 				if (IsBallOwner && !IsIntercept &&!IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
-               	 if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, gameObject.transform.position) < canDunkDis)
+				if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, PlayerRefGameObject.transform.position) < canDunkDis)
                     return true;
                 break;
 
@@ -2556,8 +2556,8 @@ public class PlayerBehaviour : MonoBehaviour
 			{
 				isDunk = false;
 				IsAnimatorMove = false;
-				gameObject.transform.DOKill();
-				gameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
+				PlayerRefGameObject.transform.DOKill();
+				PlayerRefGameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
 			}
 			SetShooterLayer();
 
@@ -2605,7 +2605,7 @@ public class PlayerBehaviour : MonoBehaviour
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("FallTrigger");
                 isCanCatchBall = false;
-                gameObject.transform.DOLocalMoveY(0, 1f);
+				PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
                 if (OnFall != null)
                     OnFall(this);
                 Result = true;
@@ -3185,7 +3185,7 @@ public class PlayerBehaviour : MonoBehaviour
 					else 
 					if (crtState == EPlayerState.Layup0) {
 						if (CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-							LogMgr.Get.Log (gameObject.name + " layup no ball.");
+							LogMgr.Get.Log (PlayerRefGameObject.name + " layup no ball.");
 							GameController.Get.SetBall();
 						}
 					}
@@ -3218,7 +3218,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "PassEnd":
                 OnUI(this);
                 
-                if (!IsBallOwner && gameObject.transform.localPosition.y < 0.2f)
+				if (!IsBallOwner && PlayerRefGameObject.transform.localPosition.y < 0.2f)
                     AniState(EPlayerState.Idle);
                 break;
 
@@ -3273,7 +3273,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case "CloneMesh":
                 if (!IsBallOwner)
-                    EffectManager.Get.CloneMesh(gameObject, playerDunkCurve.CloneMaterial, 
+					EffectManager.Get.CloneMesh(PlayerRefGameObject, playerDunkCurve.CloneMaterial, 
                         playerDunkCurve.CloneDeltaTime, playerDunkCurve.CloneCount);
                 break;
 
@@ -3339,7 +3339,7 @@ public class PlayerBehaviour : MonoBehaviour
                 OnUI(this);
 
 				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-					LogMgr.Get.Log (gameObject.name + " AnimationEnd layup no ball.");
+				LogMgr.Get.Log (PlayerRefGameObject.name + " AnimationEnd layup no ball.");
 					GameController.Get.SetBall();
                 }
 
@@ -3380,10 +3380,10 @@ public class PlayerBehaviour : MonoBehaviour
 		switch (effectName) 
 		{
 			case "FallDownFX":
-				EffectManager.Get.PlayEffect(effectName, gameObject.transform.position, null, null, 3);
+			EffectManager.Get.PlayEffect(effectName, PlayerRefGameObject.transform.position, null, null, 3);
 				break;
 			case "ShakeFX_0":
-			EffectManager.Get.PlayEffect(effectName, new Vector3(gameObject.transform.position.x, 1.5f, gameObject.transform.position.z), null, null, 0.5f);
+			EffectManager.Get.PlayEffect(effectName, new Vector3(PlayerRefGameObject.transform.position.x, 1.5f, PlayerRefGameObject.transform.position.z), null, null, 0.5f);
 				break;
 		}
 	}
