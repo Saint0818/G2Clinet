@@ -2316,7 +2316,7 @@ public class PlayerBehaviour : MonoBehaviour
 				skillKind = ESkillKind.Block0;
                 SetShooterLayer();
                 playerBlockCurve = null;
-				curveName = "Block";
+				curveName = "Block0";
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
 
