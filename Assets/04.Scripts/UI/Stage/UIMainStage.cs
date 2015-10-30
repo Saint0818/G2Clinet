@@ -38,24 +38,24 @@ public class UIMainStage : UIBase
     [UsedImplicitly]
     private void Start()
     {
-        initChapters();
+//        initChapters();
     }
 
-    private void initChapters()
-    {
-        foreach(UIStageChapter chapter in mImpl.Chapters)
-        {
-            if(!ChapterTable.Ins.Has(chapter.Chapter))
-            {
-                Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter.Chapter);
-                continue;
-            }
-
-            ChapterData data = ChapterTable.Ins.Get(chapter.Chapter);
-            chapter.ChapterName = data.Name;
-            chapter.ChapterValue = data.Chapter;
-        }
-    }
+//    private void initChapters()
+//    {
+//        foreach(UIStageChapter chapter in mImpl.Chapters)
+//        {
+//            if(!ChapterTable.Ins.Has(chapter.Chapter))
+//            {
+//                Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter.Chapter);
+//                continue;
+//            }
+//
+//            ChapterData data = ChapterTable.Ins.Get(chapter.Chapter);
+//            chapter.ChapterName = data.Name;
+//            chapter.ChapterValue = data.Chapter;
+//        }
+//    }
 
     public void Show()
     {
@@ -139,7 +139,10 @@ public class UIMainStage : UIBase
     private void showMainStages()
     {
         // 1. 清空全部章節.
-        mImpl.HideAllChapters();
+        mImpl.RemoveAllChapters();
+
+        // for debug.
+//        GameData.Team.Player.NextMainStageID = 0;
 
         // 2. 取出可顯示章節的全部關卡.
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
@@ -152,21 +155,27 @@ public class UIMainStage : UIBase
         // 3. 設定每一個小關卡.
         foreach(StageData data in allStageData)
         {
-            mImpl.ShowChapter(data.Chapter);
+            showChapter(data.Chapter);
+            
             if(data.ID <= GameData.Team.Player.NextMainStageID)
                 showStage(data);
             else
                 showStageLock(data);
         }
 
-//        for(int id = StageTable.MinMainStageID; id <= GameData.Team.Player.NextMainStageID; id++)
-//        {
-//            StageData data = StageTable.Ins.GetByID(id);
-//            mImpl.ShowChapter(data.Chapter);
-//            showStage(data);
-//        }
-
         setLastChapterLock();
+    }
+
+    private void showChapter(int chapter)
+    {
+        if(!ChapterTable.Ins.Has(chapter))
+        {
+            Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter);
+            return;
+        }
+
+        ChapterData data = ChapterTable.Ins.Get(chapter);
+        mImpl.ShowChapter(chapter, data.Name);
     }
 
     private void showStage(StageData stageData)
@@ -184,7 +193,8 @@ public class UIMainStage : UIBase
             RewardName = "",
             Stamina = stageData.CostValue
         };
-        mImpl.ShowStage(stageData.ID, data); 
+        Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
+        mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 
     }
 
     private void showStageLock(StageData stageData)
@@ -192,7 +202,8 @@ public class UIMainStage : UIBase
         if(!verify(stageData))
             return;
 
-        mImpl.ShowStageLock(stageData.ID, stageData.KindTextIndex.ToString());
+        Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
+        mImpl.ShowStageLock(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
     }
 
     private static bool verify(StageData stageData)
@@ -222,8 +233,15 @@ public class UIMainStage : UIBase
             return;
 
         int nextChapter = stageData.Chapter + 1;
+        string nextChapterTitle = "";
+        if(ChapterTable.Ins.Has(nextChapter))
+        {
+            ChapterData chapterData = ChapterTable.Ins.Get(nextChapter);
+            nextChapterTitle = chapterData.Name;
+        }
+
         if(StageTable.Ins.HasByChapter(nextChapter))
-            mImpl.ShowChapterLock(nextChapter);
+            mImpl.ShowChapterLock(nextChapter, nextChapterTitle);
     }
 
     public void Hide()

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using GameEnum;
 using GamePlayEnum;
-using BitConverter = AI.BitConverter;
 
+/// <summary>
+/// 某個小關卡的相關資料.
+/// </summary>
 public class StageData
 {
     public int ID;
@@ -51,6 +53,12 @@ public class StageData
     public int WinValue;
     public int FriendNumber;
 
+    /// <summary>
+    /// 小關卡在章節上的位置.
+    /// </summary>
+    public float PositionX;
+    public float PositionY;
+
     public int PlayerID1;
     public int PlayerID2;
     public int PlayerID3;
@@ -84,7 +92,7 @@ public class StageData
     {
         get
         {
-            return BitConverter.Convert(Hint);
+            return AI.BitConverter.Convert(Hint);
         }
     }
 

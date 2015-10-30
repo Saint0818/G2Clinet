@@ -25,7 +25,7 @@ public class ChapterTable
     }
 
     /// <summary>
-    /// key: ChapterID. 
+    /// key: Chapter Value. 1: 第一章, 2: 第二章.
     /// </summary>
     private readonly Dictionary<int, ChapterData> mChapters = new Dictionary<int, ChapterData>();
 

@@ -85,7 +85,9 @@
         "explaintw": "初次展現身手，在時間內贏過對手",
         "explaincn": "初次展現身手，在時間內贏過對手",
         "explainen": "Traditional contest",
-        "explainjp": "伝統的なコンテスト"
+        "explainjp": "伝統的なコンテスト",
+        "positionx": -380,
+        "positiony": 56
     },
     {
         "id": 102,
@@ -115,7 +117,9 @@
         "explaintw": "趕在時間結束前，達到需求分數",
         "explaincn": "趕在時間結束前，達到需求分數",
         "explainen": "Score contest",
-        "explainjp": "スコアコンテスト"
+        "explainjp": "スコアコンテスト",
+        "positionx": -95,
+        "positiony": -50
     },
     {
         "id": 103,
@@ -145,7 +149,9 @@
         "explaintw": "再加把勁，多得點分數",
         "explaincn": "再加把勁，多得點分數",
         "explainen": "Attack contest",
-        "explainjp": "攻撃コンテスト"
+        "explainjp": "攻撃コンテスト",
+        "positionx": 135,
+        "positiony": 151
     },
     {
         "id": 104,
@@ -174,13 +180,15 @@
         "explaintw": "來顆銷魂的三分球吧",
         "explaincn": "來顆銷魂的三分球吧",
         "explainen": "Off the main challenge section",
-        "explainjp": "主な課題セクションオフ"
+        "explainjp": "主な課題セクションオフ",
+        "positionx": 354,
+        "positiony": -85
     },
     {
         "id": 105,
         "chapter": 2,
         "order": "1",
-        "nametw": "新開端",
+        "nametw": "新的挑戰",
         "kind": "1",
         "hint": "0001",
         "bit0num": 120,
@@ -202,7 +210,9 @@
         "explaintw": "新的階段開始",
         "explaincn": "新的階段開始",
         "explainen": "Traditional contest",
-        "explainjp": "伝統的なコンテスト"
+        "explainjp": "伝統的なコンテスト",
+        "positionx": -430,
+        "positiony": -131
     },
     {
         "id": 106,
@@ -231,7 +241,9 @@
         "explaintw": "顛覆",
         "explaincn": "顛覆",
         "explainen": "Score contest",
-        "explainjp": "スコアコンテスト"
+        "explainjp": "スコアコンテスト",
+        "positionx": -140,
+        "positiony": -20
     },
     {
         "id": 107,
@@ -260,7 +272,9 @@
         "explaintw": "防守再防守",
         "explaincn": "防守再防守",
         "explainen": "Attack contest",
-        "explainjp": "攻撃コンテスト"
+        "explainjp": "攻撃コンテスト",
+        "positionx": 160,
+        "positiony": 126
     },
     {
         "id": 108,
@@ -290,7 +304,9 @@
         "explaintw": "在黑幫競賽裡，對敵人仁慈就是對自己殘忍",
         "explaincn": "在黑幫競賽裡，對敵人仁慈就是對自己殘忍",
         "explainen": "Off the main challenge section",
-        "explainjp": "主な課題セクションオフ"
+        "explainjp": "主な課題セクションオフ",
+        "positionx": 460,
+        "positiony": -20
     },
     {
         "id": 109,
@@ -319,7 +335,9 @@
         "explaintw": "籃球比賽中，激情的灌籃不可或缺",
         "explaincn": "籃球比賽中，激情的灌籃不可或缺",
         "explainen": "Traditional contest",
-        "explainjp": "伝統的なコンテスト"
+        "explainjp": "伝統的なコンテスト",
+        "positionx": -430,
+        "positiony": 133
     },
     {
         "id": 110,
@@ -348,7 +366,9 @@
         "explaintw": "將對手的球奪過來吧",
         "explaincn": "將對手的球奪過來吧",
         "explainen": "Score contest",
-        "explainjp": "スコアコンテスト"
+        "explainjp": "スコアコンテスト",
+        "positionx": -140,
+        "positiony": -20
     },
     {
         "id": 111,
@@ -377,7 +397,9 @@
         "explaintw": "火鍋將是決定戰局的關鍵",
         "explaincn": "火鍋將是決定戰局的關鍵",
         "explainen": "Attack contest",
-        "explainjp": "攻撃コンテスト"
+        "explainjp": "攻撃コンテスト",
+        "positionx": 160,
+        "positiony": -129
     },
     {
         "id": 112,
@@ -408,6 +430,8 @@
         "explaintw": "分數與條件的雙重考驗",
         "explaincn": "分數與條件的雙重考驗",
         "explainen": "Off the main challenge section",
-        "explainjp": "主な課題セクションオフ"
+        "explainjp": "主な課題セクションオフ",
+        "positionx": 460,
+        "positiony": 89
     }
 ]

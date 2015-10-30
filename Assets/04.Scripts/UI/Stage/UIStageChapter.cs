@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -7,23 +8,38 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIStageChapter : MonoBehaviour
 {
-    [Tooltip("章節數值. 1: 第一章, 2: 第二章.")]
-    public int Chapter;
+    /// <summary>
+    /// 章節數值. 1: 第一章, 2: 第二章.
+    /// </summary>
+    public int Chapter
+    {
+        set
+        {
+            mChapter = value;
+            ChapterValueLabel.text = string.Format("CHAPTER.{0}", mChapter);
+        }
+        get { return mChapter; }
+    }
+    private int mChapter;
 
-    public string ChapterName
+    private readonly Vector3 mDefaultStageScale = new Vector3(1.6f, 1.6f, 1);
+
+    public string Title
     {
         set { ChapterNameLabel.text = value; }
-    }
-
-    public int ChapterValue
-    {
-        set { ChapterValueLabel.text = string.Format("CHAPTER.{0}", value); }
     }
 
     public UILabel ChapterNameLabel;
     public UILabel ChapterValueLabel;
     public GameObject Lock;
     public GameObject Open;
+
+    private readonly string StagePath = "Prefab/UI/UIStageSmall";
+
+    /// <summary>
+    /// key: StageID.
+    /// </summary>
+    private readonly Dictionary<int, UIStageSmall> mStages = new Dictionary<int, UIStageSmall>();
 
     [UsedImplicitly]
 	private void Awake()
@@ -42,6 +58,45 @@ public class UIStageChapter : MonoBehaviour
         gameObject.SetActive(true);
         Lock.SetActive(true);
         Open.SetActive(false);
+    }
+
+    /// <summary>
+    /// 顯示某個小關卡.
+    /// </summary>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="data"></param>
+    public void ShowStage(int stageID, Vector3 localPos, UIStageInfo.Data data)
+    {
+        if(!mStages.ContainsKey(stageID))
+            mStages.Add(stageID, createStage(stageID, localPos));
+        mStages[stageID].Show(data);
+    }
+
+    /// <summary>
+    /// 某個小關卡鎖定.
+    /// </summary>
+    /// <param name="stageID"></param>
+    /// <param name="localPos"></param>
+    /// <param name="kindSpriteName"></param>
+    public void ShowStageLock(int stageID, Vector3 localPos, string kindSpriteName)
+    {
+        if(!mStages.ContainsKey(stageID))
+            mStages.Add(stageID, createStage(stageID, localPos));
+        mStages[stageID].ShowLock(kindSpriteName);
+    }
+
+    private UIStageSmall createStage(int stageID, Vector3 localPos)
+    {
+        GameObject obj = Instantiate(Resources.Load<GameObject>(StagePath));
+        obj.transform.parent = Open.transform;
+        obj.transform.localPosition = localPos;
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.localScale = mDefaultStageScale;
+
+        var stage = obj.GetComponent<UIStageSmall>();
+        stage.StageID = stageID;
+        return stage;
     }
 
     public void Hide()

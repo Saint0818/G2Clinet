@@ -16,13 +16,16 @@ public class UIStageSmall : MonoBehaviour
 
     private UIStageInfo.Data mData;
 
-    private UIMainStageImpl mImpl;
-
-    [UsedImplicitly]
-	private void Awake()
+    private UIMainStageImpl Impl
     {
-        mImpl = GetComponentInParent<UIMainStageImpl>();
+        get
+        {
+            if(mImpl == null)
+                mImpl = GetComponentInParent<UIMainStageImpl>();
+            return mImpl;
+        }
     }
+    private UIMainStageImpl mImpl;
 
     public void Show(UIStageInfo.Data data)
     {
@@ -56,6 +59,6 @@ public class UIStageSmall : MonoBehaviour
     [UsedImplicitly]
     private void OnClick()
     {
-        mImpl.Info.Show(StageID, mData);
+        Impl.Info.Show(StageID, mData);
     }
 }
