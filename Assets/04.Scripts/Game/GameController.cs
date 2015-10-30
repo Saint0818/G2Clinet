@@ -3465,8 +3465,9 @@ public class GameController : KnightSingleton<GameController>
 			GameRecord.Done = true;
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
-			
+
 			if (IsGameVictory(0)) {
+
 				SelfWin ++;
 				for (int i = 0; i < PlayerList.Count; i++)
 					if (PlayerList [i].Team == ETeamKind.Self)
@@ -3608,10 +3609,10 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsTimePass() {
 		if (GameStart.Get.TestMode == EGameTest.None && IsStart && GameTime > 0 &&
-		    (GameStart.Get.WinMode == EWinMode.TimeNoScore || 
-		     GameStart.Get.WinMode == EWinMode.TimeScore ||
-		     GameStart.Get.WinMode == EWinMode.TimeLostScore ||
-		     GameStart.Get.WinMode == EWinMode.TimeScoreCompare)) {
+		    (GameStart.Get.WinMode == (int)EWinMode.TimeNoScore || 
+		 	 GameStart.Get.WinMode == (int)EWinMode.TimeScore ||
+			 GameStart.Get.WinMode == (int)EWinMode.TimeLostScore ||
+		 	 GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare)) {
 //			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
 				GameTime -= Time.deltaTime;
 				if(!CourtInstant.TimeInstant[1] && (GameTime < MaxGameTime / 2)){
@@ -3643,19 +3644,21 @@ public class GameController : KnightSingleton<GameController>
 			if(self == (int) ETeamKind.Self)
 				enemy = 1;
 
-			if(GameStart.Get.WinMode == EWinMode.TimeNoScore)
+			if(GameStart.Get.WinMode == (int)EWinMode.TimeNoScore)
 				return (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy]);
 			else
-			if(StageBitNum[1] == 0 || GameStart.Get.WinMode == EWinMode.NoneCondition || GameStart.Get.WinMode == EWinMode.TimeNoScoreCondition)
+				if(StageBitNum[1] == 0 || GameStart.Get.WinMode == (int)EWinMode.NoneCondition || GameStart.Get.WinMode == (int)EWinMode.TimeNoScoreCondition)
 				return true;
 			else {
-				if ((GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.TimeScore) && 
+				if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeScore) && 
 				    UIGame.Get.Scores[self] >= GameStart.Get.GameWinValue)
 					return true;
-			else if ((GameStart.Get.WinMode == EWinMode.NoTimeLostScore || GameStart.Get.WinMode == EWinMode.TimeLostScore) && 
+				else 
+					if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore) && 
 				    UIGame.Get.Scores[enemy] >= GameStart.Get.GameWinValue)
 				return true;
-			else if ((GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) && 
+				else 
+					if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) && 
 			         (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= GameStart.Get.GameWinValue)
 				return true;
 			}
@@ -3701,7 +3704,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	public bool IsGameVictory (int team) {
-		if(GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
+		if(GameStart.Get.WinMode == (int)EWinMode.TimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) {
 			if(GameTime <= 0 && IsScorePass(team)){
 				for(int i=0; i < PlayerList.Count; i++) {
 					if(PlayerList[i].Team.GetHashCode() == team)
@@ -3798,7 +3801,7 @@ public class GameController : KnightSingleton<GameController>
 //					}
 //
 //				}else 
-				if (GameStart.Get.WinMode == EWinMode.None || GameStart.Get.WinMode == EWinMode.NoneCondition || GameStart.Get.WinMode == EWinMode.TimeNoScoreCondition){
+				if (GameStart.Get.WinMode == (int)EWinMode.None || GameStart.Get.WinMode == (int)EWinMode.NoneCondition || GameStart.Get.WinMode == (int)EWinMode.TimeNoScoreCondition){
 					for(int i=0; i < PlayerList.Count; i++) {
 						if(PlayerList[i].Team.GetHashCode() == team) {
 							if(IsConditionPass(PlayerList[i])) {
@@ -3808,8 +3811,8 @@ public class GameController : KnightSingleton<GameController>
 						}
 					}
 				}else 
-				if (GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.NoTimeLostScore ||
-				    GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == EWinMode.TimeScore){
+					if (GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore ||
+					   GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == (int)EWinMode.TimeScore){
 					if(IsScorePass(team)) {
 						for(int i=0; i < PlayerList.Count; i++) {
 							if(PlayerList[i].Team.GetHashCode() == team) {

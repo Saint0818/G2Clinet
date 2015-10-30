@@ -96,32 +96,32 @@ public class StageData
         }
     }
 
-    public EWinMode ConvertWinMode()
+    public int ConvertWinMode()
     {
 		var hintBits = HintBit;
 		if(hintBits[0] == 0 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return EWinMode.NoneCondition;
+			return (int)EWinMode.NoneCondition;
         if(hintBits[0] == 0 && hintBits[1] == 0)
-            return EWinMode.None;
+			return (int)EWinMode.None;
         if(hintBits[0] == 0 && hintBits[1] == 1)
-            return EWinMode.NoTimeScore;
+			return (int)EWinMode.NoTimeScore;
         if(hintBits[0] == 0 && hintBits[1] == 2)
-            return EWinMode.NoTimeLostScore;
+			return (int)EWinMode.NoTimeLostScore;
         if(hintBits[0] == 0 && hintBits[1] == 3)
-			return EWinMode.NoTimeScoreCompare;
+			return (int)EWinMode.NoTimeScoreCompare;
 
 		if(hintBits[0] == 1 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return EWinMode.TimeNoScoreCondition;
+			return (int)EWinMode.TimeNoScoreCondition;
         if(hintBits[0] == 1 && hintBits[1] == 0)
-            return EWinMode.TimeNoScore;
+			return (int)EWinMode.TimeNoScore;
         if(hintBits[0] == 1 && hintBits[1] == 1)
-            return EWinMode.TimeScore;
+			return (int)EWinMode.TimeScore;
         if(hintBits[0] == 1 && hintBits[1] == 2)
-            return EWinMode.TimeLostScore;
+			return (int)EWinMode.TimeLostScore;
         if(hintBits[0] == 1 && hintBits[1] == 3)
-            return EWinMode.TimeScoreCompare;
+			return (int)EWinMode.TimeScoreCompare;
 
-        return EWinMode.None;
+		return (int)EWinMode.None;
     }
 
     public string Name

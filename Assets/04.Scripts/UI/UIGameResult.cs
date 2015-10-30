@@ -71,7 +71,7 @@ public class UIGameResult : UIBase {
 		//Target Score
 		//Lost Score
 		//Score Compare
-		if(GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.TimeScore) {
+		if(GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeScore) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 		} else {
 			uiLimitScore.SetActive(false);

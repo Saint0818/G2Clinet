@@ -321,13 +321,13 @@ public class UIGame : UIBase {
 			uiButtonSkill[i].SetActive(false);
 		}
 
-		if(GameStart.Get.WinMode == EWinMode.NoTimeLostScore || GameStart.Get.WinMode == EWinMode.NoTimeScore || GameStart.Get.WinMode == EWinMode.NoTimeScoreCompare) {
+		if(GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare) {
 			uiLimitTime.SetActive(false);
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
-		} else if(GameStart.Get.WinMode == EWinMode.TimeNoScore) {
+		} else if(GameStart.Get.WinMode == (int)EWinMode.TimeNoScore) {
 			uiLimitScore.SetActive(false);
 			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
-		} else if(GameStart.Get.WinMode == EWinMode.TimeScore || GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
+		} else if(GameStart.Get.WinMode == (int)EWinMode.TimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
 		} else {
