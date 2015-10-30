@@ -83,7 +83,7 @@ namespace GamePlayEnum {
 	
 	public enum ESkillSituation {
 		MoveDodge,
-		Block0,
+		Block,
 		Dunk0,
 		Fall1,
 		Fall2,
@@ -96,7 +96,7 @@ namespace GamePlayEnum {
 		PickBall,
 		Push0,
 		Rebound0,
-		Elbow0,
+		Elbow,
 		Shoot0,
 		Shoot1,
 		Shoot2,
