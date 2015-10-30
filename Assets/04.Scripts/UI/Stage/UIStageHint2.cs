@@ -95,6 +95,52 @@ public class UIStageHint2 : MonoBehaviour
         }
     }
 
+	public void UpdateValue(int stageID)
+	{
+		if(!StageTable.Ins.HasByID(stageID))
+			return;
+		
+		hideAllTargets();
+		
+		StageData stageData = StageTable.Ins.GetByID(stageID);
+		int[] hintBits = stageData.HintBit;
+		int index = 0;
+		if(hintBits.Length > 0 && hintBits[0] > 0)
+		{
+			mTargets[index].Show();
+			mTargets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
+			                         getText(index + 1, hintBits[0], 8),
+			                         GameController.Get.GameTime.ToString(), "/" + stageData.Bit0Num);
+			index++;
+		}
+
+		if(hintBits.Length > 1 && hintBits[1] > 0)
+		{
+			mTargets[index].Show();
+			mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
+			                         getText(index + 1, hintBits[1], 8),
+			                         UIGame.Get.Scores[(int) ETeamKind.Self].ToString(), "/" + stageData.Bit1Num);
+			index++;
+		}
+		
+		if(hintBits.Length > 2 && hintBits[2] > 0)
+		{
+			mTargets[index].Show();
+			mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
+			                         getText(3, hintBits[2], 8),
+			                         getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num);
+			index++;
+		}
+		
+		if(hintBits.Length > 3 && hintBits[3] > 0)
+		{
+			mTargets[index].Show();
+			mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
+			                         getText(3, hintBits[3], 8),
+			                         getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num);
+		}
+	}
+
     private string getText(int index, int value, int id)
     {
 //        return string.Empty;
@@ -109,4 +155,22 @@ public class UIStageHint2 : MonoBehaviour
             mTargets[i].Hide();
         }
     }
+
+	private int getConditionCount(int type){
+		switch (type){
+		case 1://two score
+			return GameController.Get.Joysticker.GameRecord.FGIn;
+		case 2://three score
+			return GameController.Get.Joysticker.GameRecord.FG3In;
+		case 3://dunk
+			return GameController.Get.Joysticker.GameRecord.Dunk;
+		case 4://push
+			return GameController.Get.Joysticker.GameRecord.Push;
+		case 5://steal
+			return GameController.Get.Joysticker.GameRecord.Steal;
+		case 6://block
+			return GameController.Get.Joysticker.GameRecord.Block;
+		}
+		return 0;
+	}
 }

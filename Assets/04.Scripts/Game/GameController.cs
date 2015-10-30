@@ -3716,11 +3716,21 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	public bool IsGameVictory (int team) {
-		if(GameTime <= 0 && IsScorePass(team)){
-			for(int i=0; i < PlayerList.Count; i++) {
-				if(PlayerList[i].Team.GetHashCode() == team)
-					if(IsConditionPass(PlayerList[i]))
-						return true;
+		if(GameStart.Get.WinMode == EWinMode.TimeScore) {
+			if(GameTime <= 0 && IsScorePass(team)){
+				for(int i=0; i < PlayerList.Count; i++) {
+					if(PlayerList[i].Team.GetHashCode() == team)
+						if(IsConditionPass(PlayerList[i]))
+							return true;
+				}
+			}
+		} else {
+			if(IsScorePass(team)){
+				for(int i=0; i < PlayerList.Count; i++) {
+					if(PlayerList[i].Team.GetHashCode() == team)
+						if(IsConditionPass(PlayerList[i]))
+							return true;
+				}
 			}
 		}
 		return false;
@@ -4474,6 +4484,12 @@ public class GameController : KnightSingleton<GameController>
 	public List<PlayerBehaviour> GamePlayers {
 		get {
 			return PlayerList;
+		}
+	}
+
+	public int Stage {
+		get { 
+			return mCurrentStageID;
 		}
 	}
 }
