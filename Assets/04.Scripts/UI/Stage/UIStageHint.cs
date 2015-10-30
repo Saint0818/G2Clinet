@@ -110,7 +110,7 @@ public class UIStageHint : MonoBehaviour
 			mTargets[index].Show();
 			mTargets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
 			                         getText(index + 1, hintBits[0], 8),
-			                         GameController.Get.GameTime.ToString(), "/" + stageData.Bit0Num,
+			                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + stageData.Bit0Num,
 			                         (GameController.Get.GameTime <= 0));
 			index++;
 		}
