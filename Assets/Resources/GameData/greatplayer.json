@@ -163,7 +163,7 @@
         "steal": 30,
         "dribble": 30,
         "pass": 50,
-        "bodytype": "x",
+        "bodytype": 1,
         "body": 2,
         "hair": 11001,
         "aheaddress": 11001,
