@@ -606,7 +606,7 @@ public class UIAvatarFitted : UIBase {
 							backpackItems[i].Position = GameData.DItemData[id].Position;
 							backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
 							backpackItems[i].Name =  GameData.DItemData[id].Name;
-							backpackItems[i].Pic = GameData.DItemData[id].Icon;
+							backpackItems[i].Pic = string.Format("Item_{0}", GameData.DItemData[id].Icon);
 							backpackItems[i].Kind = GameFunction.GetItemKind(id);
 							backpackItems[i].UseKind = GameData.Team.Player.Items[playerItemIndex].UseKind;
 							backpackItems[i].Index = -1;
