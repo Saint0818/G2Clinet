@@ -95,7 +95,7 @@ namespace GamePlayEnum {
 		Pass5,
 		PickBall,
 		Push0,
-		Rebound0,
+		Rebound,
 		Elbow,
 		Shoot0,
 		Shoot1,
