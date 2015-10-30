@@ -1165,7 +1165,6 @@ public class UIGame : UIBase {
 				uiJoystick.gameObject.SetActive(true);
 				UIGameResult.UIShow(false);
 				UIPassiveEffect.UIShow(!UIPassiveEffect.Visible);
-				UIStageHint.Get.ShowTarget(false, 0);
 				UIGamePause.UIShow(false);
 			}
 			break;

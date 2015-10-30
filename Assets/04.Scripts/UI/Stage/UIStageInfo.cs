@@ -32,7 +32,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel RewardLabel;
     public UILabel StaminaLabel;
     public Transform HintParent;
-    private UIStageHint2 mHint;
+    private UIStageHint mHint;
 
     private int mStageID;
 
@@ -41,12 +41,12 @@ public class UIStageInfo : MonoBehaviour
     {
 	    Hide();
 
-        GameObject hintObj = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint2"));
+        GameObject hintObj = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint"));
         hintObj.transform.parent = HintParent;
         hintObj.transform.localPosition = Vector3.zero;
         hintObj.transform.localRotation = Quaternion.identity;
         hintObj.transform.localScale = Vector3.one;
-        mHint = hintObj.GetComponent<UIStageHint2>();
+        mHint = hintObj.GetComponent<UIStageHint>();
     }
 
     public void Show(int stageID, Data data)

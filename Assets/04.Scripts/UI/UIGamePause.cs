@@ -39,7 +39,7 @@ public class UIGamePause : UIBase {
 	private bool isShowOption = false;
 	private bool isMusicOn = false;
 
-	private UIStageHint2 uiStageHint;
+	private UIStageHint uiStageHint;
 
 	public static bool Visible {
 		get {
@@ -80,7 +80,7 @@ public class UIGamePause : UIBase {
 	}
 	
 	protected override void InitCom() {
-		uiStageHint = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint2")).GetComponent<UIStageHint2>();
+		uiStageHint = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint")).GetComponent<UIStageHint>();
 		uiStageHint.transform.parent = GameObject.Find(UIName + "/Center").transform;
 		uiStageHint.transform.localPosition = Vector3.zero;
 		uiStageHint.transform.localRotation = Quaternion.identity;

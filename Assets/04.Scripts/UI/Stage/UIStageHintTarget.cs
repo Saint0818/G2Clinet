@@ -7,6 +7,7 @@ public class UIStageHintTarget : MonoBehaviour
     public UILabel DescLabel;
     public UILabel CurrentLabel;
     public UILabel GoalLabel;
+	public GameObject FinTarget;
 
     [UsedImplicitly]
     private void Awake()
@@ -24,11 +25,12 @@ public class UIStageHintTarget : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateUI(string target, string desc, string current, string max)
+	public void UpdateUI(string target, string desc, string current, string max, bool isFinish = false)
     {
         TargetLabel.text = target;
         DescLabel.text = desc;
         CurrentLabel.text = current;
         GoalLabel.text = max;
+		FinTarget.SetActive(isFinish);
     }
 }
