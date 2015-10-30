@@ -524,7 +524,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case "ActionNoScoreEnd":
 				SetBasketState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
-				SetBallState(EPlayerState.Rebound0);
+				SetBallState(EPlayerState.Rebound);
 				break;
 			case "BasketNetPlay":
 				PlayShoot(team, index);
@@ -679,8 +679,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Steal0:
-			case EPlayerState.Steal1:
-			case EPlayerState.Steal2:
 				GameController.Get.Passer = null;
 				
 //				Vector3 v = RealBall.transform.forward * -1;
@@ -711,9 +709,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				}
 				break;
 			
-			case EPlayerState.Block0: 
-			case EPlayerState.Block1: 
-			case EPlayerState.Block2: 
+			case EPlayerState.Block:
 			case EPlayerState.KnockDown0: 
 			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;
@@ -728,7 +724,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.Dunk0:
-			case EPlayerState.Dunk1:
 				GameController.Get.BallState = EBallState.CanDunkBlock;
 				realBallCollider.enabled = true;
 				RealBallRigidbody.isKinematic = true;
@@ -763,9 +758,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 
 			case EPlayerState.HoldBall:
-			case EPlayerState.Pick0:
-			case EPlayerState.Pick1:
-			case EPlayerState.Pick2:
+			case EPlayerState.PickBall0:
+			case EPlayerState.PickBall2:
 				realBallCollider.enabled = false;
 				if (player)
 				{

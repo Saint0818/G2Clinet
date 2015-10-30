@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerStateMachineBehaviour : StateMachineBehaviour
 {
-    public EAnimatorState state = EAnimatorState.Idle;
+    /*public EAnimatorState state = EAnimatorState.Idle;
     public bool IsLoop = false;
     private bool isStart = false;
     private PlayerBehaviour player;
@@ -138,7 +138,7 @@ public class PlayerStateMachineBehaviour : StateMachineBehaviour
 		{
 			Debug.LogError("player" + player.name);
 		}
-    }
+    }*/
 
 //  override public void OnStateUpdate(Animator animator,AnimatorStateInfo stateInfo ,int stateMachinePathHash)
 //  {

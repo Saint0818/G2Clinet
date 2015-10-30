@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 74b5ec1b5629533448f18944b857927f
-timeCreated: 1445936446
+timeCreated: 1440745166
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -120,10 +120,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -154,16 +150,23 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .100342281
+      - time: .100342289
         functionName: EffectEvent
         data: ShakeFX_0
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .402197778
+      - time: .402197808
         functionName: AnimationEvent
         data: GotStealing
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .999765098
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -322,7 +325,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
@@ -337,10 +340,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

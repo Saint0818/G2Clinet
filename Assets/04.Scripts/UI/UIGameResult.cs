@@ -196,7 +196,7 @@ public class UIGameResult : UIBase {
 		list.Add(string.Format("[0BF9FF]{0}:{1}[-]", "Skill", player.Skill));
 	}
 
-	public void AddDetailString(PlayerAttribute attr, int index) {
+	public void AddDetailString(TPlayerAttribute attr, int index) {
 		if (index >= 0 && index < recordTextList.Length) {
 			recordTextList[index].Add("[FF0000]Attribute-------------[-]");
 			recordTextList[index].Add(string.Format("[FFFFFF]{0}:{1}[-]", "PointRate2", attr.PointRate2));

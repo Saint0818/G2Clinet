@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 717a8833169c97a46823bc63a9eea1a5
-timeCreated: 1445936370
+timeCreated: 1440745142
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -120,10 +120,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -171,6 +167,13 @@ ModelImporter:
       - time: .536096275
         functionName: AnimationEvent
         data: DunkFallBall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .99999994
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -329,7 +332,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
@@ -344,10 +347,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

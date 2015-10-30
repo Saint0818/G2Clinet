@@ -17,7 +17,7 @@ public static class SettingText {
 }
 
 public static class GameData {
-	public static PlayerAttribute[] BaseAttr;
+	public static TPlayerAttribute[] BaseAttr;
     public static TBasketShootPositionData[] BasketShootPosition;
     
     /// <summary>

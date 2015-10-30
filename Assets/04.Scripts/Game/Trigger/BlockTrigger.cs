@@ -33,7 +33,7 @@ public class BlockTrigger : MonoBehaviour {
 							if(faller.IsDunk) {
 								if(faller.IsCanBlock && !faller.IsTee) {
 									GameController.Get.SetBall();
-									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+									CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 									faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 									gameObject.SetActive (false);
 								}
@@ -41,7 +41,7 @@ public class BlockTrigger : MonoBehaviour {
 								if(faller.IsBallOwner)
 								{
 									GameController.Get.SetBall();
-									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+									CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 								}
 								faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 								gameObject.SetActive (false);
@@ -64,14 +64,14 @@ public class BlockTrigger : MonoBehaviour {
 				if(faller && faller.IsDunk) {
 					if(faller.IsCanBlock && !faller.IsTee) {
 						GameController.Get.SetBall();
-						CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+						CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 						faller.AniState(EPlayerState.Fall1);
 						gameObject.SetActive (false);
 					}
 				}
 			} else {
 				blocker.IsPerfectBlockCatch = true;
-				CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+				CourtMgr.Get.SetBallState(EPlayerState.Block, blocker);
 			}
 
 			blocker.GameRecord.Block++;

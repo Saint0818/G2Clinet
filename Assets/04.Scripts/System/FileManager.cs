@@ -482,7 +482,7 @@ public class FileManager : KnightSingleton<FileManager> {
 
 	private void parseBaseAttr (string version, string text, bool isSaveVersion){
 		try {
-			GameData.BaseAttr = (PlayerAttribute[])JsonConvert.DeserializeObject (text, typeof(PlayerAttribute[]));
+			GameData.BaseAttr = (TPlayerAttribute[])JsonConvert.DeserializeObject (text, typeof(TPlayerAttribute[]));
 			
 			if(isSaveVersion)
 				SaveDataVersionAndJson(text, "BaseAttr", version);

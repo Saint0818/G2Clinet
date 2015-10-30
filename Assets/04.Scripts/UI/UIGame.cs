@@ -972,7 +972,7 @@ public class UIGame : UIBase {
 					if(isPressElbowBtn && 
 					   !GameController.Get.Joysticker.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackGamer &&
-					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow0)) {
+					   GameController.Get.Joysticker.CanUseState(EPlayerState.Elbow)) {
 						noAI = GameController.Get.DoElbow ();
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
@@ -1024,7 +1024,7 @@ public class UIGame : UIBase {
 					   !GameController.Get.Joysticker.IsFall && 
 					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
-					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block0)
+					   !GameController.Get.Joysticker.CheckAnimatorSate(EPlayerState.Block)
 					   ) {
 						if(state && GameController.Get.Joysticker.IsFakeShoot && isShootAvailable) 
 							isShootAvailable = false;

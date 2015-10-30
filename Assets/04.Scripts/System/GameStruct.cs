@@ -502,7 +502,7 @@ namespace GameStruct {
 	    }
 	}
 
-	public class PlayerAttribute
+	public class TPlayerAttribute
     {
 		public float PointRate2;
 		public float PointRate3;

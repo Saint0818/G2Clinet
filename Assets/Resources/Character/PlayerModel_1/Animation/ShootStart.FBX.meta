@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b2e90a7dac2348a44b3205aa2bbb221d
-timeCreated: 1445936469
+timeCreated: 1440745174
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -121,10 +121,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -158,6 +154,13 @@ ModelImporter:
       - time: .633833408
         functionName: AnimationEvent
         data: FakeShootBlockMoment
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: FakeShootEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -316,7 +319,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
@@ -331,10 +334,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
