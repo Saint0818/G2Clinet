@@ -3509,21 +3509,14 @@ public class GameController : KnightSingleton<GameController>
         SendHttp.Get.Command(URLConst.PVEEnd, waitEndPVE, form);
     }
 
-    [UsedImplicitly]
-    private class EndPVEInfo
-    {
-        [UsedImplicitly]
-        public int NewNextMainStageSchedule;
-    }
-
     private void waitEndPVE(bool ok, WWW www)
     {
         Debug.LogFormat("waitEndPVE, ok:{0}", ok);
 
         if(ok)
         {
-            var info = JsonConvert.DeserializeObject<EndPVEInfo>(www.text);
-            GameData.Team.Player.NextMainStageID = info.NewNextMainStageSchedule;
+            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
         }
         else
             UIHint.Get.ShowHint("End PVE fail!", Color.red);
