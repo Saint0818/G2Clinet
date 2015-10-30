@@ -32,12 +32,12 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <summary>
     /// 換裝物品的起點位置, 單位: Pixel.
     /// </summary>
-    private readonly Vector3 mUIStartPos = new Vector3(8, 265, 0);
+    private readonly Vector3 mUIStartPos = new Vector3(8, 255, 0);
 
     /// <summary>
     /// 每個項目的高度間隔, 單位: Pixel.
     /// </summary>
-    private const int UIHeightInterval = 100;
+    private const int UIHeightInterval = 120;
 
     private UICreateRole.EEquip mEquip;
 
