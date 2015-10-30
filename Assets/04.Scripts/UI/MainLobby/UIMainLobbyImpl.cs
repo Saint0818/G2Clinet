@@ -18,7 +18,7 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UIInput NameInput;
     public UISprite PlayerIconSprite;
     public GameObject Settings;
-	public Animator UIAnimator;
+//	public Animator UIAnimator;
 //	private bool isEnable;
 
     [UsedImplicitly]
@@ -73,27 +73,14 @@ public class UIMainLobbyImpl : MonoBehaviour
         Settings.SetActive(false);
     }
 
-//	public bool Enable
-//	{
-//		set{
-//			isEnable = value;
-//
-//			if(isEnable)
-//				UIAnimator.SetTrigger("MainLobby_Up");
-//			else
-//				UIAnimator.SetTrigger("MainLobby_Down");
-//		}
-//		get{return isEnable;}
-//	}
-
     public void PlayEnterAnimation()
     {
-        UIAnimator.SetTrigger("MainLobby_Up");
+        GetComponent<Animator>().SetTrigger("MainLobby_Up");
     }
 
     public void PlayExitAnimation()
     {
-        UIAnimator.SetTrigger("MainLobby_Down");
+        GetComponent<Animator>().SetTrigger("MainLobby_Down");
     }
 
     public void ShowCreateRole()
@@ -129,7 +116,6 @@ public class UIMainLobbyImpl : MonoBehaviour
 
     public void ShowStage()
     {
-//        UIStage.UIShow(true);
         UIGameLobby.Get.Show();
         UIMainLobby.Get.Hide();
     }
