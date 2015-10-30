@@ -3466,8 +3466,7 @@ public class GameController : KnightSingleton<GameController>
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
 			
-			if(UIGame.Get.Scores[0] >= UIGame.Get.Scores[1])
-			{
+			if (IsGameVictory(0)) {
 				SelfWin ++;
 				for (int i = 0; i < PlayerList.Count; i++)
 					if (PlayerList [i].Team == ETeamKind.Self)
@@ -3641,11 +3640,11 @@ public class GameController : KnightSingleton<GameController>
         {
 			int self = team;
 			int enemy = 0;
-			if(self == (int) ETeamKind.Npc)
+			if(self == (int) ETeamKind.Self)
 				enemy = 1;
 
 			if(GameStart.Get.WinMode == EWinMode.TimeNoScore)
-				return (UIGame.Get.Scores[self] >= UIGame.Get.Scores[enemy]);
+				return (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy]);
 			else
 			if(StageBitNum[1] == 0 || GameStart.Get.WinMode == EWinMode.NoneCondition || GameStart.Get.WinMode == EWinMode.TimeNoScoreCondition)
 				return true;
