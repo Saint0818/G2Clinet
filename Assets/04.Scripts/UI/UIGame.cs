@@ -321,20 +321,16 @@ public class UIGame : UIBase {
 			uiButtonSkill[i].SetActive(false);
 		}
 
-		if(GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare) {
+		if(GameController.Get.StageHintBit[0] == 0) 
 			uiLimitTime.SetActive(false);
-			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
-		} else if(GameStart.Get.WinMode == (int)EWinMode.TimeNoScore) {
-			uiLimitScore.SetActive(false);
-			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
-		} else if(GameStart.Get.WinMode == (int)EWinMode.TimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) {
-			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
-			labelLimitTime.text = GameStart.Get.GameWinTimeValue.ToString();
-		} else {
-			uiLimitScore.SetActive(false);
-			uiLimitTime.SetActive(false);
-		}
+		else 
+			labelLimitTime.text = GameController.Get.GameTime.ToString();
 
+		if(GameController.Get.StageHintBit[1] == 2)
+			labelLimiteScore.text = GameController.Get.GameWinValue.ToString();
+		else
+			uiLimitScore.SetActive(false);
+		
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
 
@@ -378,8 +374,6 @@ public class UIGame : UIBase {
 	}
 
 	protected override void InitData() {
-		MaxScores[0] = GameStart.Get.GameWinValue;
-		MaxScores[1] = GameStart.Get.GameWinValue;
 		Scores [0] = 0;
 		Scores [1] = 0;
 		labelScores[0].text = "0";

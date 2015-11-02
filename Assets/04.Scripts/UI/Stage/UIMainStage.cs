@@ -136,7 +136,6 @@ public class UIMainStage : UIBase
             var stageData = StageTable.Ins.GetByID(mCurrentStageID);
 
             GameStart.Get.CourtMode = (ECourtMode)stageData.CourtMode;
-            GameStart.Get.WinMode = stageData.WinMode;
 
             if (stageData.WinValue > 0)
                 GameStart.Get.GameWinValue = stageData.WinValue;

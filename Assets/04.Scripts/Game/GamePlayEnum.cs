@@ -5,19 +5,6 @@ namespace GamePlayEnum {
 		Full = 0,
 		Half = 1
 	}
-	
-	public enum EWinMode {
-		None = 0,//000
-		NoneCondition = 8,//001
-		NoTimeScore = 1,//01
-		NoTimeLostScore = 2,//02
-		NoTimeScoreCompare = 3,//03
-		TimeNoScore = 4, //100
-		TimeNoScoreCondition = 9, //101
-		TimeScore = 5, //11
-		TimeLostScore = 6, //12
-		TimeScoreCompare = 7 //13
-	}
 
 	public enum EBasketAnimationTest {
 		Basket0=0,

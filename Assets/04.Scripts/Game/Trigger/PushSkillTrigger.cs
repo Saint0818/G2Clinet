@@ -27,6 +27,8 @@ public class PushSkillTrigger : MonoBehaviour {
 		if(pusher != null) {
 			Debug.LogWarning(" Range:"+InRange);
 			pusher.GameRecord.Push ++;
+			if(pusher == GameController.Get.Joysticker)
+				GameController.Get.IsGameFinish();
 			for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				if(GameController.Get.GamePlayers[i].Team != pusher.Team) {
 					if(GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 

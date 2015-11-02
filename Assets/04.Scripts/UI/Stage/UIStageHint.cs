@@ -35,9 +35,12 @@ public class UIStageHint : MonoBehaviour
         int index = 0;
         if(hintBits.Length > 0 && hintBits[0] > 0)
         {
-            mTargets[index].Show();
-            mTargets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
-                getText(index + 1, hintBits[0], 8),
+			mTargets[index].Show();
+			int value = 0;
+			if(hintBits[0] == 1 || hintBits[0] == 2)
+				value = 1;
+			mTargets[index].UpdateUI(getText(index + 1, value, 9),
+			                         getText(index + 1, value, 8),
                 stageData.Bit0Num.ToString(), "/" + stageData.Bit0Num);
             // 左邊的文字
 //            gameTargets[index].LabelCaption.text = ;
@@ -51,11 +54,11 @@ public class UIStageHint : MonoBehaviour
         }
         
 //        if(GameController.Get.StageHintBit.Length > 1 && GameController.Get.StageHintBit[1] > 0)
-        if(hintBits.Length > 1 && hintBits[1] > 0)
+        if(hintBits.Length > 1 && hintBits[1] > 1)
         {
             mTargets[index].Show();
-            mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
-                getText(index + 1, hintBits[1], 8),
+            mTargets[index].UpdateUI(getText(index + 1, hintBits[1] -1, 9),
+                getText(index + 1, hintBits[1] - 1, 8),
                 stageData.Bit1Num.ToString(), "/" + stageData.Bit1Num);
 
 //            gameTargets[index].Self.SetActive(true);
@@ -108,31 +111,34 @@ public class UIStageHint : MonoBehaviour
 		if(hintBits.Length > 0 && hintBits[0] > 0)
 		{
 			mTargets[index].Show();
-			mTargets[index].UpdateUI(getText(index + 1, hintBits[0], 9),
-			                         getText(index + 1, hintBits[0], 8),
+			int value = 0;
+			if(hintBits[0] == 1 || hintBits[0] == 2)
+				value = 1;
+			mTargets[index].UpdateUI(getText(index + 1, value, 9),
+			                         getText(index + 1, value, 8),
 			                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + stageData.Bit0Num,
 			                         (GameController.Get.GameTime <= 0));
 			index++;
 		}
 
-		if(hintBits.Length > 1 && hintBits[1] > 0)
+		if(hintBits.Length > 1 && hintBits[1] > 1)
 		{
 			mTargets[index].Show();
 			int team = (int) ETeamKind.Self;
 			int score = UIGame.Get.Scores[team];
 			bool isFin = (score >= stageData.Bit1Num);
-			if(hintBits[1] == 2){
+			if(hintBits[1] == 3){
 				team = (int) ETeamKind.Npc;
 				score = UIGame.Get.Scores[team];
 				isFin = (score <= stageData.Bit1Num);
 			} else {
-			if(hintBits[1] == 3)
+			if(hintBits[1] == 4)
 				score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 				isFin = (score >= stageData.Bit1Num);
 			}
 
-			mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
-			                         getText(index + 1, hintBits[1], 8),
+			mTargets[index].UpdateUI(getText(index + 1, hintBits[1] - 1, 9),
+			                         getText(index + 1, hintBits[1] - 1, 8),
 			                         score.ToString(), "/" + stageData.Bit1Num,
 			                         isFin);
 			index++;

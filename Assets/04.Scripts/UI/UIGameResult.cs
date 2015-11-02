@@ -71,7 +71,7 @@ public class UIGameResult : UIBase {
 		//Target Score
 		//Lost Score
 		//Score Compare
-		if(GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeScore) {
+		if (GameController.Get.StageHintBit[1] == 2 ) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 		} else {
 			uiLimitScore.SetActive(false);
@@ -257,7 +257,7 @@ public class UIGameResult : UIBase {
 			buttonResume.SetActive(false);
 			//judge victory or lose
 //			if (record.Score1 > record.Score2) {
-			if (GameController.Get.IsGameVictory((int)ETeamKind.Self)) {
+			if (GameController.Get.IsGameVictory()) {
 				UIWin.SetActive(true);
 				UILose.SetActive(false);
 			} else {

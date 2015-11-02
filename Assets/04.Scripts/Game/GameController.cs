@@ -62,6 +62,7 @@ public class GameController : KnightSingleton<GameController>
 	private bool isPassing = false;
 	public float MaxGameTime = 0;
 	public float GameTime = 0;
+	public int GameWinValue = 0;
     public float CoolDownPass = 0;
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
@@ -252,10 +253,15 @@ public class GameController : KnightSingleton<GameController>
 
         PlayerList.Clear();
 
-		MaxGameTime = GameStart.Get.GameWinTimeValue;
-		GameTime = GameStart.Get.GameWinTimeValue;
-		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
-		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+		if(!GameStart.Get.ConnectToServer) {
+			MaxGameTime = GameStart.Get.GameWinTimeValue;
+			GameTime = GameStart.Get.GameWinTimeValue;
+			UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
+			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+		} else {
+			UIGame.Get.MaxScores[0] = GameWinValue;
+			UIGame.Get.MaxScores[1] = GameWinValue;
+		}
 
 		StateChecker.InitState();
         CreateTeam();
@@ -273,9 +279,9 @@ public class GameController : KnightSingleton<GameController>
 			StageBitNum[2] = stageData.Bit2Num;
 			StageBitNum[3] = stageData.Bit3Num;
 			StageHintBit = stageData.HintBit;
-            GameStart.Get.WinMode = stageData.ConvertWinMode();
-			GameStart.Get.GameWinTimeValue = StageBitNum[0];
-			GameStart.Get.GameWinValue = StageBitNum[1];
+			MaxGameTime = StageBitNum[0];
+			GameTime = StageBitNum[0];
+			GameWinValue = StageBitNum[1];
 		}
 	}
 
@@ -1342,7 +1348,7 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
-				if(GameStart.Get.TestMode == EGameTest.AnimationUnit || GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
+				if(GameStart.Get.TestMode != EGameTest.None)
 					UIGame.UIShow(true);
 				break;
 			case EGameSituation.AttackGamer:
@@ -3466,7 +3472,7 @@ public class GameController : KnightSingleton<GameController>
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
 
-			if (IsGameVictory(0)) {
+			if (IsGameVictory()) {
 
 				SelfWin ++;
 				for (int i = 0; i < PlayerList.Count; i++)
@@ -3554,7 +3560,7 @@ public class GameController : KnightSingleton<GameController>
 //		if(player == Joysticker && GameData.DStageData.ContainsKey(StageID))
 		if(player == Joysticker && StageTable.Ins.HasByID(mCurrentStageID))
         {
-			if(StageHintBit[1] > 0) {
+			if(StageHintBit[1] > 1) {
 				if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1]) ){
 					ShowCourtInstant(2, StageHintBit[1], 0, (int)(StageBitNum[1]));
 					CourtInstant.ScoreInstant[0] = true;
@@ -3608,33 +3614,28 @@ public class GameController : KnightSingleton<GameController>
 	}
 
 	public bool IsTimePass() {
-		if (GameStart.Get.TestMode == EGameTest.None && IsStart && GameTime > 0 &&
-		    (GameStart.Get.WinMode == (int)EWinMode.TimeNoScore || 
-		 	 GameStart.Get.WinMode == (int)EWinMode.TimeScore ||
-			 GameStart.Get.WinMode == (int)EWinMode.TimeLostScore ||
-		 	 GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare)) {
-//			if (Situation == EGameSituation.AttackA || Situation == EGameSituation.AttackB) {
-				GameTime -= Time.deltaTime;
-				if(!CourtInstant.TimeInstant[1] && (GameTime < MaxGameTime / 2)){
-					ShowCourtInstant(1, 1, 1, (int)(MaxGameTime / 2f));
-					CourtInstant.TimeInstant[1] = true;
-				}
+		if (GameStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) {
+			GameTime -= Time.deltaTime;
+			if(!CourtInstant.TimeInstant[1] && (GameTime < MaxGameTime / 2)){
+				ShowCourtInstant(1, 1, 1, (int)(MaxGameTime / 2f));
+				CourtInstant.TimeInstant[1] = true;
+			}
 
-				if(!CourtInstant.TimeInstant[2] && (GameTime < MaxGameTime / 10)) {
-					ShowCourtInstant(1, 1, 2, (int)(MaxGameTime / 10f));
-					CourtInstant.TimeInstant[2] = true;
-				}
+			if(!CourtInstant.TimeInstant[2] && (GameTime < MaxGameTime / 10)) {
+				ShowCourtInstant(1, 1, 2, (int)(MaxGameTime / 10f));
+				CourtInstant.TimeInstant[2] = true;
+			}
 
-				if (GameTime <= 0) {
-					GameTime = 0;
-					return true;
-				}
-//			}
+			if (GameTime <= 0) {
+				GameTime = 0;
+				return true;
+			}
 		}
 
 		return false;
 	}
 
+	//0: no check  1:self > enemy 2:self score 3:enemy score  4:self - enemy
 	public bool IsScorePass(int team)
     {
 		if(StageTable.Ins.HasByID(mCurrentStageID))
@@ -3644,23 +3645,21 @@ public class GameController : KnightSingleton<GameController>
 			if(self == (int) ETeamKind.Self)
 				enemy = 1;
 
-			if(GameStart.Get.WinMode == (int)EWinMode.TimeNoScore)
-				return (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy]);
-			else
-				if(StageBitNum[1] == 0 || GameStart.Get.WinMode == (int)EWinMode.NoneCondition || GameStart.Get.WinMode == (int)EWinMode.TimeNoScoreCondition)
+			if (StageHintBit[1] == 0)
 				return true;
-			else {
-				if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.TimeScore) && 
-				    UIGame.Get.Scores[self] >= GameStart.Get.GameWinValue)
+			else{ 
+				if (StageHintBit[1] == 1 && (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy]))
 					return true;
 				else 
-				if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeLostScore) && 
-				    UIGame.Get.Scores[enemy] <= GameStart.Get.GameWinValue)
-				return true;
+				if (StageHintBit[1] == 2 && UIGame.Get.Scores[self] > GameWinValue)
+					return true;
 				else 
-					if ((GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) && 
-			         (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= GameStart.Get.GameWinValue)
-				return true;
+				if (StageHintBit[1] == 3 && UIGame.Get.Scores[enemy] < GameWinValue)
+					return true;
+				else 
+				if (StageHintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= GameWinValue)
+					return true;
+
 			}
 		}
 		return false;
@@ -3677,7 +3676,6 @@ public class GameController : KnightSingleton<GameController>
 			if(StageHintBit[3] > 0) 
 				if(!checkCountEnough(player, StageHintBit[3], StageBitNum[3]))
 					return false;
-
 			return true;
 		}
 		return false;
@@ -3698,32 +3696,41 @@ public class GameController : KnightSingleton<GameController>
 				return (player.GameRecord.Steal >= count);
 			case 6://block
 				return (player.GameRecord.Block >= count);
+			case 7://elbow
+				return (player.GameRecord.Elbow >= count);
 			}
 		}
 		return false;
 	}
 	
-	public bool IsGameVictory (int team) {
-		if(GameStart.Get.WinMode == (int)EWinMode.TimeLostScore || GameStart.Get.WinMode == (int)EWinMode.TimeScoreCompare) {
-			if(GameTime <= 0 && IsScorePass(team)){
-				for(int i=0; i < PlayerList.Count; i++) {
-					if(PlayerList[i].Team.GetHashCode() == team)
-						if(IsConditionPass(PlayerList[i]))
+	public bool IsGameVictory () {
+		if(StageHintBit[0] == 0 || StageHintBit[0] == 1) {
+			if(IsScorePass(Joysticker.Team.GetHashCode())){
+				if(IsConditionPass(Joysticker))
 							return true;
-				}
 			}
 		} else {
-			if(IsScorePass(team)){
-				for(int i=0; i < PlayerList.Count; i++) {
-					if(PlayerList[i].Team.GetHashCode() == team)
-						if(IsConditionPass(PlayerList[i]))
+			if(GameTime <=0 && IsScorePass(Joysticker.Team.GetHashCode())){
+				if(IsConditionPass(Joysticker))
 							return true;
-				}
 			}
 		}
 		return false;
 	}
 
+	public bool IsGameFinish (){
+		bool flag = false;
+		if (StageHintBit[0] == 0 || StageHintBit[0] == 1) 
+			if (IsScorePass(Joysticker.Team.GetHashCode()))
+				if(IsConditionPass(Joysticker)) 
+					flag = true;
+
+		if(flag)
+			gameResult();
+
+		return flag;
+	}
+	
 	/// <summary>
 	/// Index 			1:Time 2:Score 3:condition1 4:condition2//////
 	/// Value 			now getValue //////
@@ -3793,39 +3800,9 @@ public class GameController : KnightSingleton<GameController>
 					Debug.LogWarning ("UIGame.Get.MaxScores [1] : " + UIGame.Get.MaxScores [1]);
 				}
 
-				bool flag = true;
-//				if(GameStart.Get.WinMode == EWinMode.TimeLostScore || GameStart.Get.WinMode == EWinMode.TimeScoreCompare) {
-//					if(IsTimePass()){
-//						gameResult();
-//						flag = false;
-//					}
-//
-//				}else 
-				if (GameStart.Get.WinMode == (int)EWinMode.None || GameStart.Get.WinMode == (int)EWinMode.NoneCondition || GameStart.Get.WinMode == (int)EWinMode.TimeNoScoreCondition){
-					for(int i=0; i < PlayerList.Count; i++) {
-						if(PlayerList[i].Team.GetHashCode() == team) {
-							if(IsConditionPass(PlayerList[i])) {
-								gameResult();
-								flag = false;
-							}
-						}
-					}
-				}else 
-					if (GameStart.Get.WinMode == (int)EWinMode.NoTimeScore || GameStart.Get.WinMode == (int)EWinMode.NoTimeLostScore ||
-					   GameStart.Get.WinMode == (int)EWinMode.NoTimeScoreCompare || GameStart.Get.WinMode == (int)EWinMode.TimeScore){
-					if(IsScorePass(team)) {
-						for(int i=0; i < PlayerList.Count; i++) {
-							if(PlayerList[i].Team.GetHashCode() == team) {
-								if(IsConditionPass(PlayerList[i])) {
-									gameResult();
-									flag = false;
-								}
-							}
-						}
-					}
-				} 
 
-				if(flag) {
+
+				if(!IsGameFinish ()) {
 					if(team == ETeamKind.Self.GetHashCode())
 					{
 						ChangeSituation(EGameSituation.SpecialAction);
@@ -4155,9 +4132,9 @@ public class GameController : KnightSingleton<GameController>
 		IsStart = false;
 		SetBallOwnerNull();
 
-		GameTime = GameStart.Get.GameWinTimeValue;
-		UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
-		UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+
+		GameTime = MaxGameTime;
+
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		UIPassiveEffect.Get.Reset();
 
@@ -4174,7 +4151,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [i].ResetFlag();
 			PlayerList [i].ResetCurveFlag();
 			PlayerList [i].ResetSkill();
-//			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
+			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)
 			{
@@ -4296,6 +4273,8 @@ public class GameController : KnightSingleton<GameController>
 						pusher.GameRecord.Push++;
 						faller.GameRecord.BePush++;
 					}
+					if(pusher == GameController.Get.Joysticker)
+						GameController.Get.IsGameFinish();
 					CheckConditionText(pusher);
 				}
 

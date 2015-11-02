@@ -3112,9 +3112,13 @@ public class PlayerBehaviour : MonoBehaviour
         switch (animationName)
         {
             case "Stealing":
-                if (OnStealMoment != null)
-                    if (OnStealMoment(this))
+                if (OnStealMoment != null) {
+                    if (OnStealMoment(this)) {
 						GameRecord.Steal++;
+						if(this == GameController.Get.Joysticker)
+							GameController.Get.IsGameFinish();
+					}
+				}
 
                 break;
 
@@ -3514,6 +3518,9 @@ public class PlayerBehaviour : MonoBehaviour
 	public void SetBallEvent () {
 		GameController.Get.SetBall(this);
 		GameRecord.Steal ++;
+		if(this == GameController.Get.Joysticker)
+			GameController.Get.IsGameFinish();
+
 		if(GameController.Get.Catcher != null) 
 			GameController.Get.Catcher = null;
 		if(GameController.Get.Passer != null)

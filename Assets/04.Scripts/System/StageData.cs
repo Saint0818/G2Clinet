@@ -59,7 +59,6 @@ public class StageData
     /// </summary>
     public int LimitEvaluation; 
 
-    public int WinMode;
     public int WinValue;
     public int FriendNumber;
 
@@ -104,34 +103,6 @@ public class StageData
         {
             return AI.BitConverter.Convert(Hint);
         }
-    }
-
-    public int ConvertWinMode()
-    {
-		var hintBits = HintBit;
-		if(hintBits[0] == 0 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return (int)EWinMode.NoneCondition;
-        if(hintBits[0] == 0 && hintBits[1] == 0)
-			return (int)EWinMode.None;
-        if(hintBits[0] == 0 && hintBits[1] == 1)
-			return (int)EWinMode.NoTimeScore;
-        if(hintBits[0] == 0 && hintBits[1] == 2)
-			return (int)EWinMode.NoTimeLostScore;
-        if(hintBits[0] == 0 && hintBits[1] == 3)
-			return (int)EWinMode.NoTimeScoreCompare;
-
-		if(hintBits[0] == 1 && hintBits[1] == 0 && (hintBits[2] > 0 || hintBits[3] > 0))
-			return (int)EWinMode.TimeNoScoreCondition;
-        if(hintBits[0] == 1 && hintBits[1] == 0)
-			return (int)EWinMode.TimeNoScore;
-        if(hintBits[0] == 1 && hintBits[1] == 1)
-			return (int)EWinMode.TimeScore;
-        if(hintBits[0] == 1 && hintBits[1] == 2)
-			return (int)EWinMode.TimeLostScore;
-        if(hintBits[0] == 1 && hintBits[1] == 3)
-			return (int)EWinMode.TimeScoreCompare;
-
-		return (int)EWinMode.None;
     }
 
     public string Name

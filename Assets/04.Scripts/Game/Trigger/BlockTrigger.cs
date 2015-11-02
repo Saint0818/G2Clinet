@@ -75,6 +75,8 @@ public class BlockTrigger : MonoBehaviour {
 			}
 
 			blocker.GameRecord.Block++;
+			if(blocker == GameController.Get.Joysticker)
+				GameController.Get.IsGameFinish();
 			GameController.Get.CheckConditionText(blocker);
 			if(blocker == GameController.Get.Joysticker)
 				GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
