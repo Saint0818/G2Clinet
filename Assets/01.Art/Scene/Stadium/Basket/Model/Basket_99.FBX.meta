@@ -25,6 +25,19 @@ ModelImporter:
     100034: Plane004
     100036: Plane005
     100038: Torus001
+    100040: Backboard
+    100042: BasketGlassA
+    100044: BasketHoop
+    100046: BasketSupport
+    100048: Bone01
+    100050: Bone02
+    100052: Bone03
+    100054: Bone04
+    100056: DummyBackBoard
+    100058: DummyBasketIK
+    100060: DummyBasketRoot
+    100062: DummyHoop
+    100064: DummyNet
     400000: Backboard001
     400002: //RootNode
     400004: BasketGlassA001
@@ -45,6 +58,19 @@ ModelImporter:
     400034: Plane004
     400036: Plane005
     400038: Torus001
+    400040: Backboard
+    400042: BasketGlassA
+    400044: BasketHoop
+    400046: BasketSupport
+    400048: Bone01
+    400050: Bone02
+    400052: Bone03
+    400054: Bone04
+    400056: DummyBackBoard
+    400058: DummyBasketIK
+    400060: DummyBasketRoot
+    400062: DummyHoop
+    400064: DummyNet
     2300000: Backboard001
     2300002: BasketGlassA001
     2300004: Cone001
@@ -104,7 +130,15 @@ ModelImporter:
     4300032: Object010
     4300034: Object011
     4300036: Object012
+    4300038: BasketGlassA
+    4300040: BasketHoop
+    4300042: BasketSupport
+    4300044: Backboard
     9500000: //RootNode
+    13700000: Backboard
+    13700002: BasketGlassA
+    13700004: BasketHoop
+    13700006: BasketSupport
   materials:
     importMaterials: 0
     materialName: 0
