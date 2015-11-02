@@ -3475,7 +3475,7 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
 				
-				endPVE(mCurrentStageID);
+				pveEnd(mCurrentStageID);
 			}
 			else
 			{
@@ -3489,17 +3489,17 @@ public class GameController : KnightSingleton<GameController>
 		}
     }
 
-    private void endPVE(int stageID)
+    private void pveEnd(int stageID)
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
         mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.PVEEnd, waitEndPVE, form);
+        SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
     }
 
-    private void waitEndPVE(bool ok, WWW www)
+    private void waitPVEEnd(bool ok, WWW www)
     {
-        Debug.LogFormat("waitEndPVE, ok:{0}", ok);
+        Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
 
         if(ok)
         {
@@ -3507,7 +3507,7 @@ public class GameController : KnightSingleton<GameController>
             GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
         }
         else
-            UIHint.Get.ShowHint("End PVE fail!", Color.red);
+            UIHint.Get.ShowHint("PVE End fail!", Color.red);
     }
 
     private readonly EPlayerState[] shootInState = { EPlayerState.Show101, EPlayerState.Show102, EPlayerState.Show103, EPlayerState.Show104};
@@ -3747,7 +3747,7 @@ public class GameController : KnightSingleton<GameController>
     
     public void PlusScore(int team, bool isSkill, bool isChangeSituation)
     {
-		if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter != null)
+        if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter != null)
 			team = Shooter.Team.GetHashCode();
 
 		BallState = EBallState.None;

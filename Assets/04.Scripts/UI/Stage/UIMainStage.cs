@@ -72,8 +72,8 @@ public class UIMainStage : UIBase
         {
             StageData stageData = StageTable.Ins.GetByID(stageID);
 
-            if(verifyPlayer(stageData.CostKind, stageData.CostValue))
-                startPVE(stageID);
+            if(verifyPlayer(stageData.CostKind, stageData.CostValue, stageData.LimitLevel))
+                pveStart(stageID);
             else
                 Debug.LogWarningFormat("Player can't enter game!");
         }
@@ -81,15 +81,34 @@ public class UIMainStage : UIBase
             Debug.LogErrorFormat("StageID({0}) don't exist!", stageID);
     }
 
-    private bool verifyPlayer(StageData.ECostKind costKind, int costValue)
+    /// <summary>
+    /// 檢查玩家是否可以進入遊戲.
+    /// </summary>
+    /// <param name="costKind"></param>
+    /// <param name="costValue"></param>
+    /// <param name="level"></param>
+    /// <returns></returns>
+    private bool verifyPlayer(StageData.ECostKind costKind, int costValue, int level)
     {
-        if(costKind == StageData.ECostKind.Stamina)
-            return GameData.Team.Power >= costValue;
+        switch(costKind)
+        {
+            case StageData.ECostKind.Stamina:
+                if(GameData.Team.Power < costValue)
+                    return false;
+                break;
+            case StageData.ECostKind.Activity:
+            case StageData.ECostKind.Challenger:
+            default:
+                throw new NotImplementedException();
+        }
 
-        throw new NotImplementedException();
+        if(GameData.Team.Player.Lv < level)
+            return false;
+
+        return true;
     }
 
-    private void startPVE(int stageID)
+    private void pveStart(int stageID)
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
