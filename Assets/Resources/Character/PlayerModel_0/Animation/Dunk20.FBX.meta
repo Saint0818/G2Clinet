@@ -407,7 +407,7 @@ ModelImporter:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
