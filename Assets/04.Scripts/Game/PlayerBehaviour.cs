@@ -71,11 +71,11 @@ public enum EPlayerState
 	Dribble2,
 	Dribble3,
 	Dunk0,
-	Dunk2 = 611,
-	Dunk4 = 613,
-	Dunk6 = 615,
-	Dunk20 = 15000,
-	Dunk22 = 10600,
+	Dunk2,
+	Dunk4,
+	Dunk6,
+	Dunk20,
+	Dunk22,
 	DunkBasket,
 	Defence0,    
 	Defence1,
@@ -90,10 +90,10 @@ public enum EPlayerState
 	Intercept0,
 	Intercept1,
 	Layup0, 
-	Layup1 = 510, 
-	Layup2 = 511, 
-	Layup3 = 512, 
-	MoveDodge0 = 1100,
+	Layup1, 
+	Layup2, 
+	Layup3, 
+	MoveDodge0,
 	MoveDodge1,
 	PickBall0,
 	PickBall2,
@@ -102,14 +102,14 @@ public enum EPlayerState
 	Pass2,
 	Pass3,
 	Pass4,
-	Pass5 = 1210,
-	Pass6 = 1220,
-	Pass7 = 1230,
-	Pass8 = 1240,
-	Pass9 = 1221,
+	Pass5,
+	Pass6,
+	Pass7,
+	Pass8,
+	Pass9,
 	Pass50,
 	Push0,
-	Push20 = 11700,
+	Push20,
     Run0,            
     Run1,            
     Run2,            
@@ -122,16 +122,16 @@ public enum EPlayerState
 	Shoot1,
 	Shoot2,
 	Shoot3,
-	Shoot4 = 410,
-	Shoot5 = 411,
-	Shoot6 = 412,
-	Shoot7 = 413,
+	Shoot4,
+	Shoot5,
+	Shoot6,
+	Shoot7,
 	Steal0,
-	Steal20 = 11500,
+	Steal20,
 	TipIn,
 	JumpBall,
-	Buff20 = 12100, 
-	Buff21 = 12101,
+	Buff20, 
+	Buff21,
 	Shooting,
 	Show1, 
 	Show101, 
@@ -407,9 +407,9 @@ public class PlayerBehaviour : MonoBehaviour
 	public int ShowPos = -1;
 
 	public string MoveName = "";
-    public float[] DunkHight = new float[2]{3, 5};
+//    public float[] DunkHight = new float[2]{3, 5};
     private const float MoveCheckValue = 1;
-    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
+//    public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 
     private bool stop = false;
@@ -543,8 +543,8 @@ public class PlayerBehaviour : MonoBehaviour
 
 	//Skill
 	private SkillController skillController;
-	private ESkillKind skillKind;
-	private bool isUsePassive = false;
+	private ESkillKind skillKind; // For Shoot and Layup
+	private bool isUsePass = false;
 
 	//Active
 	private bool isUseSkill = false;
@@ -724,7 +724,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	    Attr.PointRate2 = GameData.BaseAttr[Attribute.AILevel].PointRate2 + (Attribute.Point2 * 0.5f);
 	    Attr.PointRate3 = GameData.BaseAttr[Attribute.AILevel].PointRate3 + (Attribute.Point3 * 0.5f);
-	    Attr.StealRate = GameData.BaseAttr[Attribute.AILevel].StealRate + (Attribute.Steal / 10);
+	    Attr.StealRate = GameData.BaseAttr[Attribute.AILevel].StealRate + (Attribute.Steal * 0.1f);
 	    Attr.DunkRate = GameData.BaseAttr[Attribute.AILevel].DunkRate + (Attribute.Dunk * 0.9f);
 	    Attr.TipInRate = GameData.BaseAttr[Attribute.AILevel].TipInRate + (Attribute.Dunk * 0.9f);
 	    Attr.AlleyOopRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopRate + (Attribute.Dunk * 0.6f);
@@ -738,9 +738,9 @@ public class PlayerBehaviour : MonoBehaviour
         Attr.PushingRate = GameData.BaseAttr[Attribute.AILevel].PushingRate + (Attribute.Defence * 1);
 	    Attr.PassRate = GameData.BaseAttr[Attribute.AILevel].PassRate + (Attribute.Pass * 0.7f);
 	    Attr.AlleyOopPassRate = GameData.BaseAttr[Attribute.AILevel].AlleyOopPassRate + (Attribute.Pass * 0.6f);
-	    Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound / 200);
-	    Attr.ReboundHandDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHandDistance + (Attribute.Rebound / 50);
-	    Attr.BlockDistance = GameData.BaseAttr [Attribute.AILevel].BlockDistance + (Attribute.Block / 100);
+	    Attr.ReboundHeadDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHeadDistance + (Attribute.Rebound * 0.005f);
+	    Attr.ReboundHandDistance = GameData.BaseAttr [Attribute.AILevel].ReboundHandDistance + (Attribute.Rebound * 0.02f);
+	    Attr.BlockDistance = GameData.BaseAttr [Attribute.AILevel].BlockDistance + (Attribute.Block * 0.01f);
 	    Attr.DefDistance = GameData.BaseAttr [Attribute.AILevel].DefDistance + (Attribute.Defence * 0.1f);
 	    Attr.SpeedValue = GameData.BaseAttr [Attribute.AILevel].SpeedValue + (Attribute.Speed * 0.002f);
 	    Attr.StaminaValue = GameData.BaseAttr[Attribute.AILevel].StaminaValue + (Attribute.Stamina * 1f);
@@ -2168,7 +2168,7 @@ public class PlayerBehaviour : MonoBehaviour
 			case EPlayerState.KnockDown0:
 			case EPlayerState.KnockDown1:
 
-				if(!IsTee && !IsFall && !isUseSkill)
+				if(!IsTee && !IsFall && !IsUseSkill)
 //                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
 //                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
 //                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
@@ -2292,8 +2292,8 @@ public class PlayerBehaviour : MonoBehaviour
 		PlayerRigidbody.useGravity = true;
 		IsKinematic = false;
 		DribbleTime = 0;
-		isUseSkill = false;
-		if(!isUsePassive)
+		IsUseSkill = false;
+		if(!isUsePass)
 			isCanCatchBall = true;
 
 		if (LayerMgr.Get.CheckLayer (PlayerRefGameObject, ELayer.Shooter))
@@ -2307,7 +2307,6 @@ public class PlayerBehaviour : MonoBehaviour
         switch (state)
         {
             case EPlayerState.Block:
-				skillKind = ESkillKind.Block0;
                 SetShooterLayer();
                 playerBlockCurve = null;
 				curveName = "Block0";
@@ -2406,7 +2405,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
-				skillKind = ESkillKind.Dunk;
                 switch (state)
                 {
                     case EPlayerState.Dunk0:
@@ -2511,7 +2509,6 @@ public class PlayerBehaviour : MonoBehaviour
 			break;
 			
 		case EPlayerState.Elbow:
-				skillKind = ESkillKind.Elbow0;
 				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
                 AnimatorControl.SetTrigger("ElbowTrigger");
@@ -2678,7 +2675,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
 			case EPlayerState.Pass50:
-			skillKind = ESkillKind.Pass;
 			switch (state)
                 {
                     case EPlayerState.Pass0:
@@ -2719,7 +2715,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ClearAnimatorFlag();
 				isCanCatchBall = false;
 				if(stateNo == 5 || stateNo == 6 || stateNo == 7 || stateNo == 8 || stateNo == 9 )
-					isUsePassive = true;
+					isUsePass = true;
                 PlayerRigidbody.mass = 5;
                 AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("PassTrigger");
@@ -2729,7 +2725,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Push0:
 			case EPlayerState.Push20:
-			skillKind = ESkillKind.Push;
 			switch (state){
 					case EPlayerState.Push0:
 						stateNo = 0;
@@ -2758,7 +2753,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.PickBall0:
-				skillKind = ESkillKind.Pick2;
                 ClearAnimatorFlag();
                 AnimatorControl.SetInteger("StateNo", 0);
                 AnimatorControl.SetTrigger("PickTrigger");
@@ -2815,7 +2809,6 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Steal0:
 			case EPlayerState.Steal20:
-				skillKind = ESkillKind.Steal;
 			switch (state)
 				{
 					case EPlayerState.Steal0:
@@ -3020,7 +3013,6 @@ public class PlayerBehaviour : MonoBehaviour
             break;
 
             case EPlayerState.Rebound:
-				skillKind = ESkillKind.Rebound;
                 playerReboundCurve = null;
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
@@ -3050,7 +3042,6 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case EPlayerState.JumpBall:
-				skillKind = ESkillKind.JumpBall;
 				AnimatorControl.SetTrigger("JumpBallTrigger");
 				ClearAnimatorFlag();
 				SetShooterLayer();
@@ -3370,7 +3361,7 @@ public class PlayerBehaviour : MonoBehaviour
 //							AniState(EPlayerState.HoldBall);
 					}
 
-				isUsePassive = false;
+				isUsePass = false;
 				IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
                 PlayerRigidbody.useGravity = true;
@@ -3378,7 +3369,7 @@ public class PlayerBehaviour : MonoBehaviour
                 IsPerfectBlockCatch = false;
                 isRebound = false;
                 isPush = false; 
-				isUseSkill = false;
+				IsUseSkill = false;
                 blockCatchTrigger.enabled = false;
 
                 if (!NeedResetFlag)
@@ -3566,13 +3557,12 @@ public class PlayerBehaviour : MonoBehaviour
 		return skillController.DoPassiveSkill(state, this, v);
 	}
 
-	public bool ActiveSkill(GameObject target = null) {
+	public bool DoActiveSkill(GameObject target = null) {
 		if (CanUseActiveSkill(ActiveSkillUsed)  || GameStart.Get.TestMode == EGameTest.Skill) {
 			GameRecord.Skill++;
 			SetAnger(-Attribute.MaxAngerOne(ActiveSkillUsed.ID));
 
 			if (Attribute.SkillAnimation(ActiveSkillUsed.ID) != "") {
-//				SetInvincible(skillController.ActiveTime[index]);
 				if (target)
 					return AniState((EPlayerState)System.Enum.Parse(typeof(EPlayerState), Attribute.SkillAnimation(ActiveSkillUsed.ID)), target.transform.position);
 				else{
@@ -3592,13 +3582,13 @@ public class PlayerBehaviour : MonoBehaviour
 		skillController.AddSkillAttribute(skillID, kind, value, lifetime);
 	}
 
+	public void CheckSkillValueAdd (TSkill activeSkill) {
+		skillController.CheckSkillValueAdd(this, activeSkill);
+	}
+
 	public void SetAttribute (int kind, float value) {
 		Attribute.AddAttribute(kind, value);
 		initAttr();
-	}
-
-	public void AttackSkillEffect (TSkill activeSkill) {
-		skillController.AddSkillAttribute(this, activeSkill);
 	}
 
 	public bool CheckSkillDistance (TSkill tSkill) {
@@ -3606,7 +3596,7 @@ public class PlayerBehaviour : MonoBehaviour
 		if(skillController.GetActiveSkillTarget(this, tSkill) != null && skillController.GetActiveSkillTarget(this, tSkill).Count > 0)
 			for(int i=0; i<skillController.GetActiveSkillTarget(this, tSkill).Count; i++)
 				if(skillController.CheckSkillDistance(this, tSkill, skillController.GetActiveSkillTarget(this, tSkill)[i])) 
-						result = true;
+					result = true;
 		return result;
 	}
 
@@ -3664,7 +3654,7 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		get
 		{
-			if (isUseSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
+			if (IsUseSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
 				return false;
 			else
             	return true;

@@ -926,18 +926,17 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         return result;
     }
 
-	public void SkillArea(int team, bool isEnable)
-	{
+//	public void SkillArea(int team, bool isEnable)
+//	{
 //		if (team < skillAeraEffect.Length && skillAeraEffect [team] == null) {
 //			if(team == 0)
 //				skillAeraEffect [team] = EffectManager.Get.PlayEffect("SkillAreaFX", Vector3.zero);
 //			else
 //				skillAeraEffect [team] = EffectManager.Get.PlayEffect("SkillAreaFX", Vector3.up * -180);
 //		}
-
-		if(skillAreaEffect [team])
-			skillAreaEffect [team].SetActive(isEnable);
-	}
+//		if(skillAreaEffect [team])
+//			skillAreaEffect [team].SetActive(isEnable);
+//	}
 
     public Vector3 GetHoodPosition(ETeamKind teamKind)
     {

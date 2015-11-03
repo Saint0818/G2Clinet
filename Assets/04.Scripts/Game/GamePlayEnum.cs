@@ -118,11 +118,11 @@ namespace GamePlayEnum {
 		LayupSpecial
 	}
 	
-	public enum EPassDirectState {
-		Forward = 1,
-		Back = 2,
-		Left = 3,
-		Right = 4
+	public static class EPassDirectState {
+		public static int Forward = 1;
+		public static int Back = 2;
+		public static int Left = 3;
+		public static int Right = 4;
 	}
 
 	public enum EDoubleType {
