@@ -1098,43 +1098,40 @@ public class UIGame : UIBase {
 		resetRange ();
 		switch(situation) {
 		case EUISituation.ShowTwo:
-			viewStart.SetActive (true);
 			showViewForceBar(false);
-			uiJoystick.Joystick.isActivated = false;
+			viewPass.SetActive(false);
+			viewStart.SetActive (true);
 			viewTopLeft.SetActive(false);
 			viewBottomRight.SetActive(false);
-			
 			uiJoystick.gameObject.SetActive(false);
-			viewPass.SetActive(false);
 			controlButtonGroup[0].SetActive(false);
 			controlButtonGroup[1].SetActive(false);
-
+			uiJoystick.Joystick.isActivated = false;
 			drawLine.IsShow = false;
 			break;
 		case EUISituation.Opening:
-			uiJoystick.Joystick.isActivated = false;
-			viewTopLeft.SetActive(true);
-			
-			uiJoystick.gameObject.SetActive(true);
 			viewPass.SetActive(true);
+			viewTopLeft.SetActive(true);
+			viewBottomRight.SetActive(true);
+			uiJoystick.gameObject.SetActive(true);
 			controlButtonGroup[0].SetActive(true);
 			controlButtonGroup[1].SetActive(false);
-			viewBottomRight.SetActive(true);
+			uiJoystick.Joystick.isActivated = false;
 			drawLine.IsShow = true;
 			break;
 		case EUISituation.Start:
 			GameController.Get.PlayCount ++;
-			viewStart.SetActive (false);
 			showViewForceBar(true);
-			uiJoystick.Joystick.isActivated = true;
+			viewStart.SetActive (false);
 			viewTopLeft.SetActive(true);
 			uiSpriteFull.SetActive (false);
-
+			viewBottomRight.SetActive(true);
 			uiJoystick.gameObject.SetActive(true);
+			uiJoystick.Joystick.isActivated = true;
+
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
 			controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.AttackGamer);
-			viewBottomRight.SetActive(true);
 			SetPassButton();
 			
 			CourtMgr.Get.SetBallState (EPlayerState.Start);

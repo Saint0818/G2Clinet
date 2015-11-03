@@ -2336,9 +2336,11 @@ public class PlayerBehaviour : MonoBehaviour
 				{
 					case EPlayerState.Buff20:
 						stateNo = 20;
+						StartSkillCamera();
 						break;
 					case EPlayerState.Buff21:
 						stateNo = 21;
+						StartSkillCamera();
 						break;
 				}
 				ClearAnimatorFlag();
@@ -2421,10 +2423,12 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 6;
 						break;
                     case EPlayerState.Dunk20:
-                        stateNo = 20;
+						stateNo = 20;
+						StartSkillCamera();
                         break;
 					case EPlayerState.Dunk22:
 						stateNo = 22;
+						StartSkillCamera();
 						break;
                 }
                 PlayerRigidbody.useGravity = false;
@@ -2732,6 +2736,7 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Push20:
 						stateNo = 20;
+						StartSkillCamera();
 						break;
 				}
 				ClearAnimatorFlag();
@@ -2810,7 +2815,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Steal0:
 			case EPlayerState.Steal20:
-			skillKind = ESkillKind.Steal;
+				skillKind = ESkillKind.Steal;
 			switch (state)
 				{
 					case EPlayerState.Steal0:
@@ -2818,13 +2823,25 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Steal20:
 						stateNo = 20;
+						StartSkillCamera();
+
+						curveName = string.Format("Steal{0}", stateNo);
+						playerStealCurve = null;
+						for (int i = 0; i < aniCurve.Steal.Length; i++)
+							if (aniCurve.Steal [i].Name == curveName)
+							{
+								playerStealCurve = aniCurve.Steal [i];
+								stealCurveTime = 0;
+								isSteal = true;
+								isFindCurve = true;
+							}
 						break;
 				}
-			PlayerRigidbody.mass = 5;
-			ClearAnimatorFlag();
-			AnimatorControl.SetInteger("StateNo", stateNo);
-			AnimatorControl.SetTrigger("StealTrigger");
-			isCanCatchBall = false;
+				PlayerRigidbody.mass = 5;
+				ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
+				AnimatorControl.SetTrigger("StealTrigger");
+				isCanCatchBall = false;
 				GameRecord.StealLaunch++;
                 Result = true;
                 break;
@@ -3337,7 +3354,7 @@ public class PlayerBehaviour : MonoBehaviour
                 OnUI(this);
 
 				if (crtState == EPlayerState.Layup0 && CourtMgr.Get.RealBall.transform.parent == DummyBall.transform) {
-				LogMgr.Get.Log (PlayerRefGameObject.name + " AnimationEnd layup no ball.");
+					LogMgr.Get.Log (PlayerRefGameObject.name + " AnimationEnd layup no ball.");
 					GameController.Get.SetBall();
                 }
 
@@ -3426,12 +3443,47 @@ public class PlayerBehaviour : MonoBehaviour
 		CameraMgr.Get.SetRoomMode (EZoomType.Out, t); 
 	}
 
-	//For Buff Start
+	//All Skill Event From this Function
 	public void SkillEvent (AnimationEvent aniEvent) {
-		float t = aniEvent.floatParameter;
-		int skillEffectKind = aniEvent.intParameter;
-		string cameraAction = aniEvent.stringParameter;
-		if(skillEffectKind < 10) {
+		float skillFloat = aniEvent.floatParameter;
+		int skillInt = aniEvent.intParameter;
+		string skillString = aniEvent.stringParameter;
+
+		switch (skillString) {
+		case "CameraBlur": 
+			CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_0");
+			break;
+		case "SetBallEvent":
+			GameController.Get.SetBall(this);
+			GameRecord.Steal ++;
+			if(this == GameController.Get.Joysticker)
+				GameController.Get.IsGameFinish();
+			
+			if(GameController.Get.Catcher != null) 
+				GameController.Get.Catcher = null;
+			if(GameController.Get.Passer != null)
+				GameController.Get.Passer = null;
+			if(GameController.Get.Shooter != null) 
+				GameController.Get.Shooter = null;
+			break;
+		case "ActiveSkillEnd":
+			if(isSkillShow) {
+				if(OnUIJoystick != null)
+					OnUIJoystick(this, true);
+	
+				isSkillShow = false;
+				UISkillEffect.UIShow(false);
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					TimerMgr.Get.ChangeTime (item, 1);
+			}
+			break;
+		}
+	}
+
+	public void StartSkillCamera (){
+		if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
+			int skillEffectKind = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCamera;
+			float skillTime = GameData.DSkillData[ActiveSkillUsed.ID].ActiveCameraTime;
 			if(this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
 				if(!isSkillShow) {
 					if(OnUIJoystick != null)
@@ -3447,13 +3499,13 @@ public class PlayerBehaviour : MonoBehaviour
 					if(GameController.Get.BallOwner != null  && GameController.Get.BallOwner == GameController.Get.Joysticker)
 						LayerMgr.Get.SetLayerRecursively(CourtMgr.Get.RealBall, "SkillPlayer","RealBall");
 					
-					CameraMgr.Get.SkillShowActive(skillEffectKind, t);
+					CameraMgr.Get.SkillShowActive(skillEffectKind, skillTime);
 					if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
 						UISkillEffect.UIShow(true, skillEffectKind, GameData.DSkillData[ActiveSkillUsed.ID].PictureNo, ActiveSkillUsed.Lv, GameData.DSkillData[ActiveSkillUsed.ID].Name);
 					
 					switch(skillEffectKind) {
 					case 0://show self and rotate camera
-						Invoke("showActiveEffect", t);
+						Invoke("showActiveEffect", skillTime);
 						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer","PlayerModel", "(Clone)");
 						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							TimerMgr.Get.ChangeTime (item, 0);
@@ -3480,73 +3532,22 @@ public class PlayerBehaviour : MonoBehaviour
 					UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
 				showActiveEffect();
 			}
-		} else {
-			CameraMgr.Get.CourtCameraAnimator.SetTrigger(cameraAction);
-		}
-	}
 
-	public void MoveEvent (AnimationEvent aniEvent){
-		float t = aniEvent.floatParameter;
-		int eventKind = aniEvent.intParameter;
-		switch (eventKind) {
-		case 0:
-			if(GameController.Get.BallOwner != null) {
-				transform.DOMove((GameController.Get.BallOwner.transform.position + Vector3.forward * (-2)), t);
-				RotateTo(GameController.Get.BallOwner.transform.position.x, GameController.Get.BallOwner.transform.position.z);
-				GameController.Get.BallOwner.AniState(EPlayerState.GotSteal);
-			} else {
-				if(GameController.Get.Catcher != null) {
-					transform.DOMove((GameController.Get.Catcher.transform.position + Vector3.forward * (-2)), t);
-					RotateTo(GameController.Get.Catcher.transform.position.x, GameController.Get.Catcher.transform.position.z);
-					GameController.Get.Catcher.AniState(EPlayerState.GotSteal);
-				} else if(GameController.Get.Shooter != null) {
-					transform.DOMove((GameController.Get.Shooter.transform.position + Vector3.forward * (-2)), t);
-					RotateTo(GameController.Get.Shooter.transform.position.x, GameController.Get.Shooter.transform.position.z);
-					GameController.Get.Shooter.AniState(EPlayerState.GotSteal);
-				}
-			}
-			break;
 		}
 	}
 	
-	public void SetBallEvent () {
-		GameController.Get.SetBall(this);
-		GameRecord.Steal ++;
-		if(this == GameController.Get.Joysticker)
-			GameController.Get.IsGameFinish();
-
-		if(GameController.Get.Catcher != null) 
-			GameController.Get.Catcher = null;
-		if(GameController.Get.Passer != null)
-			GameController.Get.Passer = null;
-		if(GameController.Get.Shooter != null) 
-			GameController.Get.Shooter = null;
-		
-	}
-	
-	public void StopSkill(){
-		if(isSkillShow) {
-			if(OnUIJoystick != null)
-				OnUIJoystick(this, true);
-
-			isSkillShow = false;
-			UISkillEffect.UIShow(false);
-			foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-				TimerMgr.Get.ChangeTime (item, 1);
-		}
+	public void StopSkill() {
+		TimerMgr.Get.ChangeTime (ETimerKind.Player0, 1);
 	}
 
-	public void showActiveEffect(){
+	public void showActiveEffect() {
 		SkillEffectManager.Get.OnShowEffect(this, false);
 	}
 
     public void ResetMove()
     {
         moveQueue.Clear();
-//        WaitMoveTime = 0;
         CantMoveTimer.Clear();
-
-//        Debug.Log("ResetMove, moveQueue.Clear().");
     }
     
     public void SetAutoFollowTime() {
@@ -3612,7 +3613,6 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool CheckSkillKind (TSkill tSkill) {
 		return skillController.CheckSkillKind(tSkill);
 	}
-
 
 	public TSkill ActiveSkillUsed {
 		get {return skillController.ActiveSkillUsed;}

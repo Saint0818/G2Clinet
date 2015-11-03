@@ -303,8 +303,8 @@ public class UISkillFormation : UIBase {
 		}
 		itemPassiveCards.Clear();
 		itemPassiveField.SetActive(true);
-		scrollViewItemList.transform.localPosition = new Vector3(0, 8, 0);
-		scrollViewItemList.panel.clipOffset = new Vector2(12, 0);
+		scrollViewItemList.transform.localPosition = new Vector3(0, -13, 0);
+		scrollViewItemList.panel.clipOffset = new Vector2(12, 26);
 	}
 
 	private void refreshAfterInstall () {
@@ -505,38 +505,37 @@ public class UISkillFormation : UIBase {
 					uicard.SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
 			}
 
-		t = obj.transform.FindChild("UnavailableMask");
-		if(t != null) {
-			uicard.UnavailableMask = t.gameObject;
-			uicard.UnavailableMask.SetActive(false);
-		}
+			t = obj.transform.FindChild("UnavailableMask");
+			if(t != null) {
+				uicard.UnavailableMask = t.gameObject;
+				uicard.UnavailableMask.SetActive(false);
+			}
 
-		t = obj.transform.FindChild("Selected");
-		if(t != null) {
-			uicard.Selected = t.gameObject;
-			uicard.Selected.SetActive(false);
-		}
+			t = obj.transform.FindChild("Selected");
+			if(t != null) {
+				uicard.Selected = t.gameObject;
+				uicard.Selected.SetActive(false);
+			}
 
-		t = obj.transform.FindChild("InListCard");
-		if(t != null) {
-			uicard.InListCard = t.gameObject;
-			uicard.InListCard.SetActive(isEquip);
-		}
+			t = obj.transform.FindChild("InListCard");
+			if(t != null) {
+				uicard.InListCard = t.gameObject;
+				uicard.InListCard.SetActive(isEquip);
+			}
 
-		t = obj.transform.FindChild("SellSelect");
-		if(t != null) {
-			uicard.SellSelect = t.gameObject;
-			uicard.SellSelect.SetActive(false);
-		}
+			t = obj.transform.FindChild("SellSelect");
+			if(t != null) {
+				uicard.SellSelect = t.gameObject;
+				uicard.SellSelect.SetActive(false);
+			}
 
-		t = obj.transform.FindChild("SellSelect/SellCover");
-		if(t != null)  {
-			uicard.SellSelectCover = t.gameObject;
-			uicard.SellSelectCover.SetActive(false);
-		}
+			t = obj.transform.FindChild("SellSelect/SellCover");
+			if(t != null)  {
+				uicard.SellSelectCover = t.gameObject;
+				uicard.SellSelectCover.SetActive(false);
+			}
 
-
-		uiCards.Add(obj.transform.name, uicard);
+			uiCards.Add(obj.transform.name, uicard);
 
 			return obj;
 		} else

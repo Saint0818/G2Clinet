@@ -3583,7 +3583,7 @@ public class GameController : KnightSingleton<GameController>
 				}
 				if(checkCountEnough(player, StageHintBit[2], (int)(StageBitNum[2] * 0.1f))) {
 					if(!CourtInstant.Condition1Instant[2]) {
-						if(StageBitNum[2] / 10 >= 0){
+						if(StageBitNum[2] * 0.1f >= 0){
 							ShowCourtInstant(3, StageHintBit[2], 2, (int)(StageBitNum[2] * 0.1f));
 							CourtInstant.Condition1Instant[2] = true;
 						}
@@ -4117,8 +4117,6 @@ public class GameController : KnightSingleton<GameController>
 		Shooter = null;
 		IsStart = false;
 		SetBallOwnerNull();
-
-
 		GameTime = MaxGameTime;
 
 		CameraMgr.Get.ShowPlayerInfoCamera (false);

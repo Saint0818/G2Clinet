@@ -8,7 +8,6 @@ public class GameStart : KnightSingleton<GameStart> {
 	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
 	public ECourtMode CourtMode = ECourtMode.Full;
-	public int WinMode = 0;
 	public bool ConnectToServer = false;
 	public bool OpenTutorial = false;
 	public bool IsDebugAnimation = false;
