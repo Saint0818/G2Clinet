@@ -22,38 +22,20 @@ public class UIMainStageImpl : MonoBehaviour
     /// <summary>
     /// Index 0: 第一章, Index 2: 第二章.
     /// </summary>
-//    public UIStageChapter[] Chapters;
     public UIStageInfo Info;
-//    public UIChapterChangeListener ChapterChangeListener;
     public Transform ChapterParent;
 
     private readonly Vector3 mChapterStartPos = new Vector3(-70, 0, 0);
     private readonly string ChapterPath = "Prefab/UI/UIStageChapter";
-    
 
     /// <summary>
     /// key: Chapter.
     /// </summary>
     private readonly Dictionary<int, UIStageChapter> mChapters = new Dictionary<int, UIStageChapter>();
 
-//    /// <summary>
-//    /// key: StageID.
-//    /// </summary>
-//    private readonly Dictionary<int, UIStageSmall> mStageSmalls = new Dictionary<int, UIStageSmall>();
-
     [UsedImplicitly]
     private void Awake()
     {
-//        foreach(var chapter in Chapters)
-//        {
-//            mChapters.Add(chapter.Chapter, chapter);
-//        }
-
-//        var stageSmalls = GetComponentsInChildren<UIStageSmall>();
-//        foreach(var stageSmall in stageSmalls)
-//        {
-//            mStageSmalls.Add(stageSmall.StageID, stageSmall);
-//        }
     }
 
     /// <summary>

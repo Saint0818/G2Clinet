@@ -210,7 +210,8 @@ public class UIMainStage : UIBase
             KindName = TextConst.S(stageData.KindTextIndex),
             RewardSpriteName = "GoldCoin",
             RewardName = "",
-            Stamina = stageData.CostValue
+            Stamina = stageData.CostValue,
+            ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID
         };
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
         mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 

@@ -22,6 +22,7 @@ public class UIStageInfo : MonoBehaviour
         public string RewardSpriteName { set; get; }
         public string RewardName { set; get; }
         public int Stamina { set; get; }
+        public bool ShowCompleted;
     }
 
     public GameObject Window;
@@ -34,6 +35,7 @@ public class UIStageInfo : MonoBehaviour
     public UILabel RewardLabel;
     public UILabel StaminaLabel;
     public Transform HintParent;
+    public GameObject Completed; // 標示是否關卡打過的圖片.
     private UIStageHint mHint;
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
@@ -74,6 +76,7 @@ public class UIStageInfo : MonoBehaviour
         RewardSprite.spriteName = data.RewardSpriteName;
         RewardLabel.text = data.RewardName;
         StaminaLabel.text = string.Format("{0}", data.Stamina);
+        Completed.SetActive(data.ShowCompleted);
     }
 
     public void Hide()
