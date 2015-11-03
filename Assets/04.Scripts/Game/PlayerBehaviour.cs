@@ -412,12 +412,10 @@ public class PlayerBehaviour : MonoBehaviour
     public static string[] AnimatorStates = new string[] {"", "IsRun", "IsDefence", "IsDribble", "IsHoldBall"};
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
 
-//    private Vector2 drag = Vector2.zero;
     private bool stop = false;
     private bool NeedResetFlag = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
-//    private float TimeProactiveRate = 0;
     private float ProactiveTime = 0;
     private int smoothDirection = 0;
     private float animationSpeed = 0;
@@ -433,8 +431,6 @@ public class PlayerBehaviour : MonoBehaviour
 	private GameObject TopPoint;
 	public GameObject CatchBallPoint;
 	private GameObject FingerPoint;
-//    private GameObject pushTrigger;
-//    private GameObject elbowTrigger;
     private GameObject blockTrigger;
 	private GameObject dashSmoke;
     private BlockCatchTrigger blockCatchTrigger;
