@@ -16,16 +16,16 @@ public class GEGMTool : GEBase
 			options = GUILayout.Toolbar(options, optionsTitle);
 			switch (options) {
 				case 0:
-					ItemHandel ();
+					ItemHandle ();
 					break;
 				case 1:
-					SteageHandel ();
+					StageHandle ();
 					break;
 				case 2:
-					BattleHandel ();
+					BattleHandle ();
 					break;
 				case 3:
-					ItemHandel ();
+					ItemHandle ();
 					break;
 			}
 		}
@@ -39,7 +39,7 @@ public class GEGMTool : GEBase
 	private int countprekind = 1;
 	private int position = 0;
 
-	private void ItemHandel()
+	private void ItemHandle()
 	{
 		EditorGUILayout.LabelField(mArea);
 
@@ -252,12 +252,37 @@ public class GEGMTool : GEBase
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
 	}
 
-	private void SteageHandel()
+    private int mNextMainStageID = GameConst.Default_MainStageID;
+	private void StageHandle()
 	{
+        EditorGUILayout.LabelField(mArea);
 
-	}
+        //Add Item
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("NextMainStageID: ");
+        mNextMainStageID = EditorGUILayout.IntField(mNextMainStageID, GUILayout.Width(100));
+        if(GUILayout.Button("設定", GUILayout.Width(200)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("NextMainStageID", mNextMainStageID);
+            SendHttp.Get.Command(URLConst.GMSetNextMainStageID, waitGMSetNextMainStageID, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
 
-	private void BattleHandel()
+    private void waitGMSetNextMainStageID(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
+            UIMainStage.Get.Show();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+    }
+
+    private void BattleHandle()
 	{
 
 	}
