@@ -20,10 +20,6 @@ public class UIGamePause : UIBase {
 	private const string UIName = "UIGamePause";
 
 	private GameObject uiGameResult;
-	private GameObject uiHomeButton;
-	private GameObject uiAwayButton;
-	private GameObject uiButtonRight;
-	private GameObject uiButtonLeft;
 
 	private EPauseType pauseType = EPauseType.Target;
 
@@ -87,11 +83,7 @@ public class UIGamePause : UIBase {
 		uiStageHint.transform.localScale = Vector3.one;
 
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
-		uiHomeButton = GameObject.Find(UIName + "/Center/HomeBtn");
-		uiAwayButton = GameObject.Find(UIName + "/Center/AwayBtn");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
-		uiButtonRight = GameObject.Find(UIName + "/Center/GameResult/ButtonRight");
-		uiButtonLeft = GameObject.Find(UIName + "/Center/GameResult/ButtonLeft");
 
 		viewAISelect = GameObject.Find (UIName + "/AISelect");
 		SetBtnFun (UIName + "/AISelect/ButtonClose", AITimeChange);
@@ -117,8 +109,7 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
 		SetBtnFun(UIName + "/Center/HomeBtn", OnHomeResult);
 		SetBtnFun(UIName + "/Center/AwayBtn", OnAwayResult);
-		SetBtnFun(UIName + "/Center/GameResult/ButtonRight", OnBackToTarget);
-		SetBtnFun(UIName + "/Center/GameResult/ButtonLeft", OnBackToTarget);
+		SetBtnFun(UIName + "/Center/TargetBtn", OnBackToTarget);
 		
 		SetBtnFun(UIName + "/Center/GameResult/PlayerMe/ButtonMe", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
@@ -176,15 +167,10 @@ public class UIGamePause : UIBase {
 
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
-//		UIStageHint.Get.ShowTarget(true, 0);
 		uiStageHint.Show();
 		uiStageHint.UpdateValue(GameController.Get.Stage);
 		UIShow(true);
 		uiGameResult.SetActive(false);
-		uiHomeButton.SetActive(true);
-		uiAwayButton.SetActive(true);
-		uiButtonRight.SetActive(false);
-		uiButtonLeft.SetActive(false);
 	}
 
 	private void setInfo(int index, ref TGameRecord record) {
@@ -258,7 +244,6 @@ public class UIGamePause : UIBase {
 
 	public void OnReturn() {
 		Time.timeScale = 1;
-//		UIStageHint.Get.ShowTarget(false, 0);
 		uiStageHint.Hide();
 		UIShow(false);
 		if (isStage)
@@ -268,7 +253,6 @@ public class UIGamePause : UIBase {
 	}
 	
 	public void OnResume() {
-//		UIStageHint.Get.ShowTarget(false, 0);
 		uiStageHint.Hide();
 		UIShow(false);
 		UIGame.Get.UIState(EUISituation.Continue);
@@ -277,18 +261,12 @@ public class UIGamePause : UIBase {
 	public void OnAgain() {
 		Time.timeScale = GameController.Get.RecordTimeScale;
 		UIGame.Get.UIState(EUISituation.Reset);
-//		UIStageHint.Get.ShowTarget(false, 0);
 		uiStageHint.Hide();
 		UIShow(false);
 	}
 
 	public void OnHomeResult () {
 		pauseType = EPauseType.Home;
-		uiHomeButton.SetActive(false);
-		uiAwayButton.SetActive(false);
-		uiButtonRight.SetActive(false);
-		uiButtonLeft.SetActive(true);
-//		UIStageHint.Get.ShowTarget(false, 0);
 		uiStageHint.Hide();
 		uiGameResult.SetActive(true);
 		setInfo(0, ref gameRecord);
@@ -296,11 +274,6 @@ public class UIGamePause : UIBase {
 
 	public void OnAwayResult () {
 		pauseType = EPauseType.Away;
-		uiHomeButton.SetActive(false);
-		uiAwayButton.SetActive(false);
-		uiButtonRight.SetActive(true);
-		uiButtonLeft.SetActive(false);
-//		UIStageHint.Get.ShowTarget(false, 0);
 		uiStageHint.Hide();
 		uiGameResult.SetActive(true);
 		setInfo(3, ref gameRecord);
@@ -308,11 +281,6 @@ public class UIGamePause : UIBase {
 
 	public void OnBackToTarget (){
 		pauseType = EPauseType.Target;
-		uiHomeButton.SetActive(true);
-		uiAwayButton.SetActive(true);
-		uiButtonRight.SetActive(false);
-		uiButtonLeft.SetActive(false);
-//		UIStageHint.Get.ShowTarget(true, 0);
 		uiStageHint.Show();
 		uiGameResult.SetActive(false);
 	}
@@ -354,20 +322,10 @@ public class UIGamePause : UIBase {
 		GameController.Get.Joysticker.SetManually();
 		viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
 		if(viewAISelect.gameObject.activeInHierarchy){
-			uiHomeButton.SetActive(false);
-			uiAwayButton.SetActive(false);
-			uiButtonRight.SetActive(false);
-			uiButtonLeft.SetActive(false);
-//			UIStageHint.Get.ShowTarget(false, 0);
 			uiStageHint.Hide();
 			uiGameResult.SetActive(false);
 		} else {
 			pauseType = EPauseType.Target;
-			uiHomeButton.SetActive(true);
-			uiAwayButton.SetActive(true);
-			uiButtonRight.SetActive(false);
-			uiButtonLeft.SetActive(false);
-//			UIStageHint.Get.ShowTarget(true, 0);
 			uiStageHint.Show();
 			uiGameResult.SetActive(false);
 		}
