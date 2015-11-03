@@ -204,6 +204,7 @@ public class UIMainStage : UIBase
         UIStageInfo.Data data = new UIStageInfo.Data
         {
             Name = stageData.Name,
+            BgTextureName = stageData.KindTextIndex.ToString(),
             Description = stageData.Explain,
             KindSpriteName = stageData.KindTextIndex.ToString(),
             KindName = TextConst.S(stageData.KindTextIndex),

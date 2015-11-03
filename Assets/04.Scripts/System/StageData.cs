@@ -23,7 +23,7 @@ public class StageData
 
     public int KindTextIndex
     {
-        get { return StageKindMapping[Kind]; }
+        get { return mStageKindMapping[Kind]; }
     }
      
     public string Hint;
@@ -137,7 +137,7 @@ public class StageData
     /// <para> 這是 Stage.Kind 參數的對照表. [Key:Kind, Value:TextConst Index]</para>
     /// <para> 目前的規則是對照表找出的數值, 就是關卡的圖片, 也就是該關卡的類型文字(比如:傳統, 計時賽等等). </para>
     /// </summary>
-    private readonly Dictionary<int, int> StageKindMapping = new Dictionary<int, int>
+    private readonly Dictionary<int, int> mStageKindMapping = new Dictionary<int, int>
     {
         {1, 2000001},
         {2, 2000002},

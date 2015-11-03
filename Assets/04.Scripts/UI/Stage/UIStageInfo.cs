@@ -15,6 +15,7 @@ public class UIStageInfo : MonoBehaviour
     public class Data
     {
         public string Name { set; get; }
+        public string BgTextureName { set; get; } // 大張的背景圖名稱.
         public string Description { set; get; }
         public string KindSpriteName { set; get; }
         public string KindName { set; get; }
@@ -25,6 +26,7 @@ public class UIStageInfo : MonoBehaviour
 
     public GameObject Window;
     public UILabel NameLabel; // 關卡名稱.
+    public UITexture BgTexture; // 背景的大圖片.
     public UILabel DescriptionLabel;
     public UISprite KindSprite;
     public UILabel KindLabel;
@@ -33,6 +35,8 @@ public class UIStageInfo : MonoBehaviour
     public UILabel StaminaLabel;
     public Transform HintParent;
     private UIStageHint mHint;
+
+    private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
 
     private int mStageID;
 
@@ -63,6 +67,7 @@ public class UIStageInfo : MonoBehaviour
     private void updateUI(Data data)
     {
         NameLabel.text = data.Name;
+        BgTexture.mainTexture = Resources.Load<Texture2D>(string.Format(TexturePath, data.BgTextureName));
         DescriptionLabel.text = data.Description;
         KindSprite.spriteName = data.KindSpriteName;
         KindLabel.text = data.KindName;

@@ -17,6 +17,9 @@ public class UIStageChapter : MonoBehaviour
         {
             mChapter = value;
             ChapterValueLabel.text = string.Format("CHAPTER.{0}", mChapter);
+
+            string path = string.Format(TexturePath, value);
+            GetComponent<UITexture>().mainTexture = Resources.Load<Texture2D>(path);
         }
         get { return mChapter; }
     }
@@ -35,6 +38,7 @@ public class UIStageChapter : MonoBehaviour
     public GameObject Open;
 
     private readonly string StagePath = "Prefab/UI/UIStageSmall";
+    private readonly string TexturePath = "Textures/Chapter/Chapter_{0}";
 
     /// <summary>
     /// key: StageID.
