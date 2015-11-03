@@ -305,7 +305,7 @@ public class UIGameResult : UIBase {
 				recordTextList[i] = GameObject.Find(UIName + name).GetComponent<UITextList>();
 				int id = record.PlayerRecords[i].ID;
 				if (GameData.DPlayers.ContainsKey(id)) {
-					GameObject.Find(UIName + faceName).GetComponent<UISprite>().spriteName = GameData.PlayerName (id);
+					GameObject.Find(UIName + faceName).GetComponent<UISprite>().spriteName = GameData.DPlayers[id].Name;
 					if (GameData.DPlayers[id].BodyType >= 0 && GameData.DPlayers[id].BodyType < 3)
 						GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = positionPicName[GameData.DPlayers[id].BodyType];
 				}

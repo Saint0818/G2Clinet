@@ -200,11 +200,4 @@ public static class GameData {
 			return "NiceMarket";
 		}
 	}
-
-	public static string PlayerName(int id) {
-		if (GameData.DPlayers.ContainsKey(id))
-			return DPlayers[id].Name;
-		else
-			return "";
-	}
 }

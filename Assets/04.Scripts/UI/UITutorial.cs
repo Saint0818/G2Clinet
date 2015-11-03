@@ -5,13 +5,24 @@ using UnityEngine;
 public class UITutorial : UIBase {
 	private static UITutorial instance = null;
 	private const string UIName = "UITutorial";
+
 	private int NowMessageIndex = -1;
+	private int clickLayer;
+	private GameObject clickObject;
+
 	private GameObject uiClick;
 	private GameObject uiCenter;
 	private UILabel tutorialMessage;
-
-	private GameObject clickObject;
-	private int clickLayer;
+	private TypewriterEffect writeEffect;
+	private const int manNum = 2;
+	private GameObject[] uiTalk = new GameObject[manNum];
+	private GameObject[] manAnchor = new GameObject[manNum];
+	private GameObject[] talkMan = new GameObject[manNum];
+	private SkinnedMeshRenderer[] manRender = new SkinnedMeshRenderer[manNum];
+	private TAvatar[] manData = new TAvatar[manNum];
+	private int[] manBodyType = new int[manNum];
+	private UILabel[] labelTalk = new UILabel[manNum];
+	private int[] manID = new int[2];
 
 	public static bool Visible
 	{
@@ -50,9 +61,16 @@ public class UITutorial : UIBase {
 	
 	protected override void InitCom() {
 		SetBtnFun (UIName + "/Center/Next", OnTutorial);
-		tutorialMessage = GameObject.Find(UIName + "/Center/Message").GetComponent<UILabel>();
+		tutorialMessage = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<UILabel>();
+		writeEffect = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<TypewriterEffect>();
 		uiClick = GameObject.Find(UIName + "/Click");
 		uiCenter = GameObject.Find(UIName + "/Center");
+
+		for (int i = 0; i < manNum; i++) {
+			uiTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString());
+			manAnchor[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString() + "/Man");
+			labelTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString() + "/Name").GetComponent<UILabel>();
+		}
 	}
 
 	public void ShowTutorial(int no, int line) {
@@ -73,6 +91,56 @@ public class UITutorial : UIBase {
 					uiClick.SetActive(false);
 					tutorialMessage.gameObject.SetActive(true);
 					tutorialMessage.text = tu.Text;
+					writeEffect.ResetToBeginning();
+					manID[0] = tu.TalkL;
+					manID[1] = tu.TalkR;
+					for (int i = 0; i < manNum; i++) {
+						if (talkMan[i] && talkMan[i].name != manID[i].ToString()) {
+							Destroy(talkMan[i]);
+							talkMan[i] = null;
+						}
+
+						if (GameData.DPlayers.ContainsKey(manID[i])) {
+							labelTalk[i].text = GameData.DPlayers[manID[i]].Name;
+							if (!talkMan[i]) {
+								manData[i] = new TAvatar(manID[i]);
+								manBodyType[i] = GameData.DPlayers[manID[i]].BodyType;
+							}
+						} else 
+						if (manID[i] == -1) {
+							labelTalk[i].text = GameData.Team.Player.Name;
+							if (!talkMan[i]) {
+								manData[i] = GameData.Team.Player.Avatar;
+								manBodyType[i] = GameData.Team.Player.BodyType;
+							}
+						}
+
+						if (!talkMan[i] && (GameData.DPlayers.ContainsKey(manID[i]) || manID[i] == -1)) {
+							talkMan[i] = new GameObject(manID[i].ToString());
+							talkMan[i].transform.parent = manAnchor[i].transform;
+							talkMan[i].transform.localPosition = Vector3.zero;
+							talkMan[i].transform.eulerAngles = new Vector3(0, 180, 0);
+							talkMan[i].transform.localScale = new Vector3(300, 300, 300);
+							manRender[i] = null;
+						}
+
+						if (talkMan[i]) {
+							uiTalk[i].SetActive(true);
+							ModelManager.Get.SetAvatar(ref talkMan[i], manData[i], manBodyType[i], EAnimatorType.AvatarControl);
+							LayerMgr.Get.SetLayerAllChildren(talkMan[i], ELayer.TopUI.ToString());
+
+							if (!manRender[i])
+								manRender[i] = talkMan[i].GetComponentInChildren<SkinnedMeshRenderer>();
+
+							if (manRender[i]) {
+								if (i == tu.TalkIndex)
+									manRender[i].material.color = new Color32(150, 150, 150, 255);
+								else
+									manRender[i].material.color = new Color32(75, 75, 75, 255);
+							}
+						} else
+							uiTalk[i].SetActive(false);
+					}
 				} else
 					ShowArrow(tu.UIpath, tu.Offsetx, tu.Offsety);
 			} else {

@@ -4,6 +4,7 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
+        "talkl": 34,
         "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -11,6 +12,9 @@
     {
         "id": 1,
         "line": 2,
+        "talkindex": 1,
+        "talkl": 14,
+        "talkr": -1,
         "texttw": "[f6f6f6]接下來我會一步步引導你融入籃球的美妙世界，只要跟著[66ff66]箭頭指示操作[-]就可以囉！[-]",
         "textcn": "[f6f6f6]接下来我会一步步引导你融入篮球的美妙世界，只要跟着[66ff66]箭头指示操作[-]就可以啰！[-]",
         "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
@@ -18,6 +22,8 @@
     {
         "id": 1,
         "line": 3,
+        "talkindex": 2,
+        "talkl": 24,
         "texttw": "[f6f6f6]點擊[66ff66]關卡挑戰[-]，馬上來打一場球吧！[-]",
         "textcn": "[f6f6f6]点击[66ff66]关卡挑战[-]，马上来打一场球吧！[-]",
         "texten": "[f6f6f6] Click [66ff66] Challenge Stages[-] and start a game immediately! [-]"
@@ -25,13 +31,17 @@
     {
         "id": 1,
         "line": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt",
+        "talkl": 24
     },
     {
         "id": 2,
         "line": 1,
         "title": "第一關",
         "value": 1,
+        "talkindex": 1,
+        "talkl": 24,
+        "talkr": 1,
         "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -39,6 +49,9 @@
     {
         "id": 2,
         "line": 2,
+        "talkindex": 1,
+        "talkl": 24,
+        "talkr": 14,
         "texttw": "[f6f6f6]接下來我會一步步引導你融入籃球的美妙世界，只要跟著[66ff66]箭頭指示操作[-]就可以囉！[-]",
         "textcn": "[f6f6f6]接下来我会一步步引导你融入篮球的美妙世界，只要跟着[66ff66]箭头指示操作[-]就可以啰！[-]",
         "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
@@ -46,6 +59,7 @@
     {
         "id": 2,
         "line": 3,
+        "talkindex": 1,
         "texttw": "[f6f6f6]點擊[66ff66]關卡挑戰[-]，馬上來打一場球吧！[-]",
         "textcn": "[f6f6f6]点击[66ff66]关卡挑战[-]，马上来打一场球吧！[-]",
         "texten": "[f6f6f6] Click [66ff66] Challenge Stages[-] and start a game immediately! [-]"
@@ -62,7 +76,6 @@
         "line": 1,
         "title": "Skill",
         "uiname": "UISkillFormation",
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt",
         "texttw": "[f6f6f6]強大的[ff6060]『技能卡片』[-]將對比賽的結果造成決定性的影響。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -79,7 +92,6 @@
         "line": 1,
         "title": "Avatar",
         "uiname": "UIAvatarFitted",
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt",
         "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]『造型特色』[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"

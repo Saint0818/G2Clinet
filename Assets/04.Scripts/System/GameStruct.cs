@@ -1012,6 +1012,9 @@ namespace GameStruct {
 		public int Value;
 		public int Offsetx;
 		public int Offsety;
+		public int TalkIndex;
+		public int TalkL;
+		public int TalkR;
 		public string UIpath;
 		public string TextTW;
 		public string TextCN;

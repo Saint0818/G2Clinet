@@ -43,10 +43,18 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 	}
 
 	public void SetLayerRecursively(GameObject obj, string layer, string containName1 = "", string containName2= "") {
-		//		obj.layer = LayerMask.NameToLayer(layer);
 		if (obj == null) return;
+
 		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
 			if(trans.name.Contains(containName1) || trans.name.Contains(containName2))
+				trans.gameObject.layer = LayerMask.NameToLayer(layer);
+		}
+	}
+
+	public void SetLayerAllChildren(GameObject obj, string layer) {
+		if (obj == null) return;
+		
+		foreach (Transform trans in obj.GetComponentsInChildren<Transform>(true)) {
 				trans.gameObject.layer = LayerMask.NameToLayer(layer);
 		}
 	}
@@ -59,7 +67,9 @@ public class LayerMgr : KnightSingleton<LayerMgr>
 
 	public void SetLayer(GameObject obj, ELayer layer)
 	{
-		obj.layer = LayerMask.NameToLayer(layer.ToString());
+		if (obj.layer != LayerMask.NameToLayer(layer.ToString())) {
+			obj.layer = LayerMask.NameToLayer(layer.ToString());
+		}
 	}
 
 	public void SetTag(GameObject obj, ETag tag)

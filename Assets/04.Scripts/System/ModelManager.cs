@@ -174,8 +174,6 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if(team == ETeamKind.Npc)
 			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-        // 目前 PlayerAI 必須要依賴 PlayerBehavior 才能做事情, 所以 PlayerAI 加到
-        // GameObject 時, PlayerBehavior 必須要已經存在了.
         res.AddComponent<PlayerAI>();
 
         return playerBehaviour;
