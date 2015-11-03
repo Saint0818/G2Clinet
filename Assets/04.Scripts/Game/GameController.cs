@@ -3815,7 +3815,7 @@ public class GameController : KnightSingleton<GameController>
 					}
 					
 					if (!isSkill && Shooter)
-						Shooter.SetAnger(GameConst.AddAnger_PlusScore, CourtMgr.Get.ShootPoint[0].gameObject);
+						Shooter.SetAnger(GameConst.AddAnger_PlusScore, CourtMgr.Get.ShootPoint[0]);
 				}
 			}
 		}

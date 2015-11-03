@@ -81,7 +81,7 @@ public class UIPassiveEffect : UIBase {
 		if (GameData.DSkillData.ContainsKey(id))
 			name = GameData.DSkillData[id].Name;
 		
-		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.gameObject, null, 0.5f);
+		EffectManager.Get.PlayEffect("PassiveFX", Vector3.zero, player.PlayerRefGameObject, null, 0.5f);
 		
 		for (int i=0; i<recordIndex.Length; i++) {
 			if(!contains(i)) {

@@ -25,6 +25,7 @@ public class CircularSectorMeshRenderer : MonoBehaviour {
 	public float intervalDegree = 5;
 	public float beginOffsetDegree = 0;
 	public float radius = 10;
+	public GameObject RefGameObject;
 	
 	Mesh mesh;
 	MeshFilter meshFilter;
@@ -56,6 +57,7 @@ public class CircularSectorMeshRenderer : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		RefGameObject = gameObject;
 		mesh = new Mesh();
 		meshFilter = (MeshFilter)GetComponent("MeshFilter");
 	}

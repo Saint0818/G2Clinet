@@ -219,7 +219,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				objs.Add(getPlayerHand(executePlayer));				
 				break;
 			case 4://Self Feet
-				objs.Add(executePlayer.gameObject);
+				objs.Add(executePlayer.PlayerRefGameObject);
 				break;
 			case 5://Teammate Body (Chest)
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
@@ -242,7 +242,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			case 8://Teammate Feet
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team == executePlayer.Team && GameController.Get.GamePlayers[i].Index != executePlayer.Index)
-						objs.Add(GameController.Get.GamePlayers[i].gameObject);
+						objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 				} 
 				break;
 			case 9://Emeny Body (Chest)
@@ -270,7 +270,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 			case 19:
 				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 					if(GameController.Get.GamePlayers[i].Team != executePlayer.Team)
-						objs.Add(GameController.Get.GamePlayers[i].gameObject);
+						objs.Add(GameController.Get.GamePlayers[i].PlayerRefGameObject);
 				} 
 				break;
 			case 13:

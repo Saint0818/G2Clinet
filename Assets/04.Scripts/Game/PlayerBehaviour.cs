@@ -826,8 +826,6 @@ public class PlayerBehaviour : MonoBehaviour
         if (obj)
         {
             GameObject obj2 = Instantiate(obj, Vector3.zero, Quaternion.identity) as GameObject;
-//            pushTrigger = obj2.transform.FindChild("Push").gameObject;
-//            elbowTrigger = obj2.transform.FindChild("Elbow").gameObject;
             blockTrigger = obj2.transform.FindChild("Block").gameObject;
 			ShowWord = obj2.transform.FindChild("ShowWord").gameObject;
             
@@ -850,7 +848,7 @@ public class PlayerBehaviour : MonoBehaviour
             obj2.transform.transform.localPosition = Vector3.zero;
             obj2.transform.transform.localScale = Vector3.one;
 
-            Transform t = obj2.transform.FindChild("TriggerFinger").gameObject.transform;
+            Transform t = obj2.transform.FindChild("TriggerFinger");
             if (t)
             {
 				FingerPoint = t.gameObject;
@@ -869,14 +867,14 @@ public class PlayerBehaviour : MonoBehaviour
             DefPointCopy.transform.localScale = Vector3.one;
             DefPointCopy.transform.localPosition = Vector3.zero;
 
-            DefPointAy [EDefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find("Front").gameObject.transform;
-            DefPointAy [EDefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find("Back").gameObject.transform;
-            DefPointAy [EDefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find("Right").gameObject.transform;
-            DefPointAy [EDefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find("Left").gameObject.transform;
-            DefPointAy [EDefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find("FrontSteal").gameObject.transform;
-            DefPointAy [EDefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find("BackSteal").gameObject.transform;
-            DefPointAy [EDefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find("RightSteal").gameObject.transform;
-            DefPointAy [EDefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find("LeftSteal").gameObject.transform;
+            DefPointAy [EDefPointKind.Front.GetHashCode()] = DefPointCopy.transform.Find("Front");
+            DefPointAy [EDefPointKind.Back.GetHashCode()] = DefPointCopy.transform.Find("Back");
+            DefPointAy [EDefPointKind.Right.GetHashCode()] = DefPointCopy.transform.Find("Right");
+            DefPointAy [EDefPointKind.Left.GetHashCode()] = DefPointCopy.transform.Find("Left");
+            DefPointAy [EDefPointKind.FrontSteal.GetHashCode()] = DefPointCopy.transform.Find("FrontSteal");
+            DefPointAy [EDefPointKind.BackSteal.GetHashCode()] = DefPointCopy.transform.Find("BackSteal");
+            DefPointAy [EDefPointKind.RightSteal.GetHashCode()] = DefPointCopy.transform.Find("RightSteal");
+            DefPointAy [EDefPointKind.LeftSteal.GetHashCode()] = DefPointCopy.transform.Find("LeftSteal");
         }
     }
 
@@ -3268,11 +3266,11 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
 			case "BlockCalculateStart":
-                blockTrigger.gameObject.SetActive(true);
+                blockTrigger.SetActive(true);
                 break;
 
             case "BlockCalculateEnd":
-                blockTrigger.gameObject.SetActive(false);
+                blockTrigger.SetActive(false);
                 break;
 
             case "CloneMesh":
@@ -3460,13 +3458,13 @@ public class PlayerBehaviour : MonoBehaviour
 					switch(skillEffectKind) {
 					case 0://show self and rotate camera
 						Invoke("showActiveEffect", t);
-						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer","PlayerModel", "(Clone)");
 						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							TimerMgr.Get.ChangeTime (item, 0);
 						break;
 					case 1://show self
 						showActiveEffect();
-						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.gameObject, "SkillPlayer","PlayerModel", "(Clone)");
+						LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer","PlayerModel", "(Clone)");
 						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
 							if(item != ETimerKind.Player0)
 								TimerMgr.Get.ChangeTime (item, 0);

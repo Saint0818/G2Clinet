@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class CourtMgr : KnightSingleton<CourtMgr>
 {
+	public GameObject RefGameObject;
 	private bool isPve = true;
 	private int attackDirection = 0;
 	private int crtBasketIndex = -1;
@@ -253,6 +254,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
     [UsedImplicitly]
     void Awake()
     {
+		RefGameObject = gameObject;
         mRealBallSFXTimer.TimeUpListener += HideBallSFX;
 
         CheckCollider();
@@ -272,7 +274,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		InitScoreboard ();
 		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
 		SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
-		SkillArrowOfAction.gameObject.SetActive(false);
+		SkillArrowOfAction.SetActive(false);
 		Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
 		if(t != null)
 			textureArrow = t.GetComponent<UITexture>();
@@ -285,7 +287,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			SkillRangeOfAction.transform.localPosition = new Vector3(0, 0.1f, 0);
 		SkillRangeOfAction.transform.localEulerAngles = new Vector3(0 ,euler, 0);
 		SkillRangeOfAction.ChangeValue(degree, dis);
-		SkillRangeOfAction.gameObject.SetActive(isShow);
+		SkillRangeOfAction.RefGameObject.SetActive(isShow);
 	}
 
 	public void ShowArrowOfAction (bool isShow, Transform parent = null, float dis = 0) {
@@ -295,15 +297,15 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		SkillArrowOfAction.transform.localEulerAngles = Vector3.zero;
 		if(textureArrow)
 			textureArrow.SetRect(0, 0, 200 ,dis * 100);
-		SkillArrowOfAction.gameObject.SetActive(isShow);
+		SkillArrowOfAction.SetActive(isShow);
 	}
 
 	public void RangeOfActionPosition (Vector3 position) {
-		SkillRangeOfAction.gameObject.transform.position = new Vector3(position.x, 0.1f, position.z);
+		SkillRangeOfAction.transform.position = new Vector3(position.x, 0.1f, position.z);
 	}
 
 	public void RangeOfActionEuler (float euler) {
-		SkillRangeOfAction.gameObject.transform.localEulerAngles = new Vector3(0 ,euler, 0);
+		SkillRangeOfAction.transform.localEulerAngles = new Vector3(0 ,euler, 0);
 	}
 
 	public void ShowEnd(bool isImmediately = false)
@@ -330,7 +332,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			RealBall.name = "RealBall";
 			realBallCollider = RealBall.GetComponent<SphereCollider> ();
 			RealBallRigidbody = RealBall.GetComponent<Rigidbody> ();
-			Timeline tl = gameObject.AddComponent<Timeline>();
+			Timeline tl = RefGameObject.AddComponent<Timeline>();
 			tl.mode = TimelineMode.Global;
 			tl.globalClockKey = ETimerKind.Ball.ToString();
 			tl.recordTransform = false;
@@ -353,7 +355,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         if (crtCollider == null)
         {
 			crtCollider = Instantiate(Resources.Load("Prefab/Stadium/StadiumCollider")) as GameObject;
-            crtCollider.transform.parent = gameObject.transform;
+			crtCollider.transform.parent = RefGameObject.transform;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
 		}
 
@@ -417,7 +419,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void InitBallShadow()
 	{
-		BallShadow.gameObject.SetActive(true);
+		BallShadow.RefGameObject.SetActive(true);
 		BallShadow.SetTarget(RealBall);
 	}
 
@@ -492,7 +494,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		animRotate[0] = pveBasketAy[0].transform.localEulerAngles;
 		animRotate[1] = pveBasketAy[1].transform.localEulerAngles;
 		
-		crtBasket.transform.parent = gameObject.transform;
+		crtBasket.transform.parent = RefGameObject.transform;
 		crtBasketIndex = basketIndex;
 		
 		BasketHoop[0] = crtBasket.transform.FindChild("Left/BasketballAction");
