@@ -136,7 +136,12 @@ namespace GameStruct {
 		public int SkillPage;// 0 1 2 3 4
 		public int NowStageID;
 
-		public TAvatar Avatar;
+        /// <summary>
+        /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
+        /// </summary>
+        public Dictionary<int, int> StageChallengeNums;
+
+        public TAvatar Avatar;
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
 		public TSkillCardPage[] SkillCardPages;
@@ -182,6 +187,7 @@ namespace GameStruct {
 			Items = new TItem[0];
 
 		    NextMainStageID = StageTable.MinMainStageID;
+            StageChallengeNums = new Dictionary<int, int>();
 		}
 
         public override string ToString()

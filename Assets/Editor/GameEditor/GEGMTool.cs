@@ -255,13 +255,16 @@ public class GEGMTool : GEBase
     private int mNextMainStageID = GameConst.Default_MainStageID;
 	private void StageHandle()
 	{
-        EditorGUILayout.LabelField(mArea);
+	    nextMainStageIDLabel();
+        resetStageChallengeNums();
+	}
 
-        //Add Item
+    private void nextMainStageIDLabel()
+    {
         EditorGUILayout.BeginHorizontal();
         GUILayout.Label("NextMainStageID: ");
         mNextMainStageID = EditorGUILayout.IntField(mNextMainStageID, GUILayout.Width(100));
-        if(GUILayout.Button("設定", GUILayout.Width(200)))
+        if(GUILayout.Button("設定", GUILayout.Width(50)))
         {
             WWWForm form = new WWWForm();
             form.AddField("NextMainStageID", mNextMainStageID);
@@ -272,15 +275,50 @@ public class GEGMTool : GEBase
 
     private void waitGMSetNextMainStageID(bool ok, WWW www)
     {
+        Debug.LogFormat("waitGMSetNextMainStageID, ok:{0}", ok);
+
         if(ok)
         {
             TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
             GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
-            UIMainStage.Get.Hide();
-            UIMainStage.Get.Show();
+            updateUIMainStage();
         }
         else
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+    }
+
+    private void resetStageChallengeNums()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("每日關卡限制: ");
+        if(GUILayout.Button("重置", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            SendHttp.Get.Command(URLConst.GMResetStage, waitGMResetStage, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMResetStage(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMResetStage, ok:{0}", ok);
+
+        if(ok)
+        {
+            GameData.Team.Player.StageChallengeNums.Clear();
+            updateUIMainStage();
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetNextMainStageID);
+    }
+
+    private void updateUIMainStage()
+    {
+        if(UIMainStage.Get.Visible)
+        {
+            UIMainStage.Get.Hide();
+            UIMainStage.Get.Show();
+        }
     }
 
     private void BattleHandle()

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameEnum;
-using GamePlayEnum;
 
 /// <summary>
 /// 某個小關卡的相關資料.
@@ -48,6 +47,11 @@ public class StageData
     /// 進入關卡要消耗的數值.
     /// </summary>
     public int CostValue;
+
+    /// <summary>
+    /// 每日關卡挑戰次數.
+    /// </summary>
+    public int ChallengeNum;
 
     /// <summary>
     /// 進入關卡的等級限制.

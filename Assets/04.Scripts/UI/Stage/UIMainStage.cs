@@ -38,24 +38,9 @@ public class UIMainStage : UIBase
     [UsedImplicitly]
     private void Start()
     {
-//        initChapters();
     }
 
-//    private void initChapters()
-//    {
-//        foreach(UIStageChapter chapter in mImpl.Chapters)
-//        {
-//            if(!ChapterTable.Ins.Has(chapter.Chapter))
-//            {
-//                Debug.LogErrorFormat("Chapter({0}) don't exist!", chapter.Chapter);
-//                continue;
-//            }
-//
-//            ChapterData data = ChapterTable.Ins.Get(chapter.Chapter);
-//            chapter.ChapterName = data.Name;
-//            chapter.ChapterValue = data.Chapter;
-//        }
-//    }
+    public bool Visible { get { return gameObject.activeSelf; } }
 
     public void Show()
     {
@@ -116,21 +101,15 @@ public class UIMainStage : UIBase
         SendHttp.Get.Command(URLConst.PVEStart, waitPVEStart, form);
     }
 
-    [UsedImplicitly]
-    private class PVEInfo
-    {
-        [UsedImplicitly]
-        public int NewPower;
-    }
-
     private void waitPVEStart(bool ok, WWW www)
     {
         Debug.LogFormat("waitPVEStart, ok:{0}", ok);
 
         if(ok)
         {
-            var info = JsonConvert.DeserializeObject<PVEInfo>(www.text);
-            GameData.Team.Power = info.NewPower;
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Power = team.Power;
+            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
 
             GameData.StageID = mCurrentStageID;
             var stageData = StageTable.Ins.GetByID(mCurrentStageID);

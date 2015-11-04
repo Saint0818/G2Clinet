@@ -104,6 +104,7 @@ public static class URLConst {
 	public const string GMAddItem = "gmadditem";
 	public const string GMRemoveItem = "gmremoveitem";
 	public const string GMSetNextMainStageID = "gmsetnextmainstageid";
+	public const string GMResetStage = "gmresetstage";
 	public const string ChangeAvatar = "changeavatar";
 }
 
