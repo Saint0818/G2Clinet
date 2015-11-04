@@ -5,10 +5,16 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
 
+public struct TPlayerInfo
+{
+	public int Kind;
+	public int Value;
+}
+
 public class GEGMTool : GEBase
 {
 	private int options = 0;
-	private string[] optionsTitle = new string[3]{"物品", "關卡", "戰鬥"};
+	private string[] optionsTitle = new string[4]{"物品", "關卡", "戰鬥", "人物資料"};
 	
     void OnGUI()
     {
@@ -25,7 +31,7 @@ public class GEGMTool : GEBase
 					BattleHandle ();
 					break;
 				case 3:
-					ItemHandle ();
+					PlayerInfoHandle ();
 					break;
 			}
 		}
@@ -97,6 +103,75 @@ public class GEGMTool : GEBase
 
 		PrePartAddItem ();
 		LimitPartAddItem();
+	}
+
+	private int playerlv = 0;
+	private bool IsInitPlayerInfo = false;
+	private int[] Masteries = new int[12];
+	private int TotalMasteriesPoint = 0;
+	private int CrtMasteriesPoint = 0;
+
+	private void InitMasteriesPoint()
+	{
+		TotalMasteriesPoint = GameData.Team.MasteriesPoint;
+		int count = 0;
+		
+		for(int i = 0;i < GameData.Team.Player.Masteries.Length;i++){
+			count += GameData.Team.Player.Masteries[i];
+		}
+		
+		CrtMasteriesPoint = GameData.Team.MasteriesPoint - count;
+	}
+
+	private void PlayerInfoHandle()
+	{
+		if (GUILayout.Button ("讀取資料", GUILayout.Width (200))) {
+			playerlv = GameData.Team.Player.Lv;
+			Masteries = GameData.Team.Player.Masteries;
+			InitMasteriesPoint();
+			IsInitPlayerInfo = true; 
+		}
+
+		if (!IsInitPlayerInfo)
+			return;
+
+		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label("天賦點數 : " + CrtMasteriesPoint + "/" + TotalMasteriesPoint); 
+		GUILayout.Label(", 人物等級 : "); 
+		playerlv = EditorGUILayout.IntField (playerlv, GUILayout.Width(100));
+
+		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
+			if(playerlv != GameData.Team.Player.Lv){
+				WWWForm form = new WWWForm();
+				form.AddField("Lv", playerlv);
+				SendHttp.Get.Command(URLConst.GMPlayerInfo, waitGMPlayerInfo, form);
+			}
+			else
+				ShowHint("請設定Player Lv");
+		}
+		EditorGUILayout.EndHorizontal();
+
+		if(Masteries.Length > 0)
+			for (int i = 0; i < Masteries.Length; i++) {
+			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label(string.Format("Masteries{0} : {1}/100", i, Masteries[i])); 
+			if (GUILayout.Button ("+", GUILayout.Width (200))) {
+				if(CrtMasteriesPoint > 0 &&  Masteries[i] < 100)
+				{
+					Masteries[i]+=5;
+					CrtMasteriesPoint-=5;
+				}
+			}
+			if (GUILayout.Button ("-", GUILayout.Width (200))) {
+				if(Masteries[i] > 0)
+				{
+					Masteries[i]-=5;
+					CrtMasteriesPoint+=5;
+				}
+			}
+
+			EditorGUILayout.EndHorizontal();
+		}
 	}
 
 	List<int> itemIds2 = new List<int>();
@@ -250,6 +325,18 @@ public class GEGMTool : GEBase
 		}
 		else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
+	}
+	
+		private void waitGMPlayerInfo(bool ok, WWW www)
+	{
+		if(ok){
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
+			GameData.Team.Player.Lv = team.Player.Lv;
+			GameData.Team.MasteriesPoint = team.MasteriesPoint;
+			InitMasteriesPoint();
+		}else
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMPlayerInfo);
 	}
 
     private int mNextMainStageID = GameConst.Default_MainStageID;
