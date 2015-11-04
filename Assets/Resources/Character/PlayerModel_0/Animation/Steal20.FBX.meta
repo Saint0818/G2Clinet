@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 20fb06e44918a0e45bb088513cfeb168
-timeCreated: 1446617140
+timeCreated: 1446201113
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,7 +154,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .419799387
+      - time: .0120481923
+        functionName: SkillEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1.5
+        intParameter: 0
+        messageOptions: 0
+      - time: .0336505249
+        functionName: MoveEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .75
+        intParameter: 0
+        messageOptions: 0
+      - time: .410708487
         functionName: AnimationEvent
         data: Stealing
         objectReferenceParameter: {instanceID: 0}
@@ -162,15 +176,8 @@ ModelImporter:
         intParameter: 0
         messageOptions: 0
       - time: .483642995
-        functionName: SkillEvent
-        data: SetBallEvent
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .497890294
-        functionName: SkillEvent
-        data: ActiveSkillEnd
+        functionName: SetBallEvent
+        data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

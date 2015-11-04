@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c342a199336c79c4bbb0613be72d4275
-timeCreated: 1446617117
+timeCreated: 1443773119
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -120,10 +120,6 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationImportErrors: 
-    animationImportWarnings: 
-    animationRetargetingWarnings: 
-    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -154,21 +150,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .329870075
+      - time: .329870135
         functionName: AnimationEvent
         data: ElbowCalculateStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .763636291
+      - time: .763636351
         functionName: AnimationEvent
         data: ElbowCalculateEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .999999821
+      - time: 1
         functionName: AnimationEvent
         data: ElbowEnd
         objectReferenceParameter: {instanceID: 0}
@@ -344,10 +340,8 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
-    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
-  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
