@@ -180,6 +180,10 @@ public class UIMainStage : UIBase
         if(!verify(stageData))
             return;
 
+        int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
+        if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
+            dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
+
         UIStageInfo.Data data = new UIStageInfo.Data
         {
             Name = stageData.Name,
@@ -190,7 +194,8 @@ public class UIMainStage : UIBase
             RewardSpriteName = "GoldCoin",
             RewardName = "",
             Stamina = stageData.CostValue,
-            ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID
+            ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
+            DailyCount = dailyCount
         };
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
         mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 

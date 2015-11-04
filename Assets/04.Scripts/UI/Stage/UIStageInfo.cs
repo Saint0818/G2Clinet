@@ -22,7 +22,16 @@ public class UIStageInfo : MonoBehaviour
         public string RewardSpriteName { set; get; }
         public string RewardName { set; get; }
         public int Stamina { set; get; }
+
+        /// <summary>
+        /// 是否要顯示關卡打完的圖示.
+        /// </summary>
         public bool ShowCompleted;
+
+        /// <summary>
+        /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
+        /// </summary>
+        public int DailyCount;
     }
 
     public GameObject Window;
@@ -36,9 +45,16 @@ public class UIStageInfo : MonoBehaviour
     public UILabel StaminaLabel;
     public Transform HintParent;
     public GameObject Completed; // 標示是否關卡打過的圖片.
+    public UIButton StartButton; // 右下角的開始按鈕.
+
+    /// <summary>
+    /// 每日關卡限制的圖片. [0]:最左邊, [1]:中間, [2]:最右邊.
+    /// </summary>
+    public UISprite[] DailyLimits;
     private UIStageHint mHint;
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
+    private readonly Color32 DisableColor = new Color32(69, 69, 69, 255);
 
     private int mStageID;
 
@@ -77,6 +93,16 @@ public class UIStageInfo : MonoBehaviour
         RewardLabel.text = data.RewardName;
         StaminaLabel.text = string.Format("{0}", data.Stamina);
         Completed.SetActive(data.ShowCompleted);
+
+        for(int i = 0; i < DailyLimits.Length; i++)
+        {
+            if(data.DailyCount > i)
+                DailyLimits[i].color = Color.white;
+            else
+                DailyLimits[i].color = DisableColor;
+        }
+
+        StartButton.isEnabled = data.DailyCount > 0;
     }
 
     public void Hide()
