@@ -396,7 +396,7 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.PickBall:{
-				playerState = EPlayerState.PickBall2;
+				playerState = EPlayerState.Pick2;
 				TSkill skill = new TSkill();
 				skill.ID = 1310;
 				skill.Lv = player.PickBall2Lv;

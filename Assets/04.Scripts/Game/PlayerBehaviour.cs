@@ -55,8 +55,9 @@ public enum EAnimatorState
 public enum EPlayerState
 {
 	Alleyoop,
-	Block,  
-	Board, 
+	Block0,  
+	Block1,  
+	Block2, 
 	BlockCatch,
 	BasketAnimationStart,
 	BasketActionEnd,
@@ -71,15 +72,21 @@ public enum EPlayerState
 	Dribble2,
 	Dribble3,
 	Dunk0,
+	Dunk1,
 	Dunk2,
+	Dunk3,
 	Dunk4,
+	Dunk5,
 	Dunk6,
+	Dunk7,
 	Dunk20,
 	Dunk22,
 	DunkBasket,
 	Defence0,    
 	Defence1,
-	Elbow,
+	Elbow0,
+	Elbow1,
+	Elbow2,
 	Fall0,
 	Fall1,
 	Fall2,
@@ -95,8 +102,9 @@ public enum EPlayerState
 	Layup3, 
 	MoveDodge0,
 	MoveDodge1,
-	PickBall0,
-	PickBall2,
+	Pick0,
+	Pick1,
+	Pick2,
 	Pass0,
 	Pass1,
 	Pass2,
@@ -109,6 +117,8 @@ public enum EPlayerState
 	Pass9,
 	Pass50,
 	Push0,
+	Push1,
+	Push2,
 	Push20,
     Run0,            
     Run1,            
@@ -127,6 +137,8 @@ public enum EPlayerState
 	Shoot6,
 	Shoot7,
 	Steal0,
+	Steal1,
+	Steal2,
 	Steal20,
 	TipIn,
 	JumpBall,
@@ -295,13 +307,17 @@ public static class StateChecker {
 			ShootStates.Add(EPlayerState.Shoot7, true);
 			ShootStates.Add(EPlayerState.TipIn, true);
 
-			StopStates.Add(EPlayerState.Block, true);
+			StopStates.Add(EPlayerState.Block0, true);
+			StopStates.Add(EPlayerState.Block1, true);
+			StopStates.Add(EPlayerState.Block2, true);
 			StopStates.Add(EPlayerState.BlockCatch, true);
 			StopStates.Add(EPlayerState.CatchFlat, true);
 			StopStates.Add(EPlayerState.CatchFloor, true);
 			StopStates.Add(EPlayerState.CatchParabola, true);
 			StopStates.Add(EPlayerState.Alleyoop, true);
-			StopStates.Add(EPlayerState.Elbow, true);
+			StopStates.Add(EPlayerState.Elbow0, true);
+			StopStates.Add(EPlayerState.Elbow1, true);
+			StopStates.Add(EPlayerState.Elbow2, true);
 			StopStates.Add(EPlayerState.FakeShoot, true);
 			StopStates.Add(EPlayerState.HoldBall, true);
 			StopStates.Add(EPlayerState.GotSteal, true);
@@ -312,10 +328,15 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Pass4, true);
 			StopStates.Add(EPlayerState.Pass50, true);
 			StopStates.Add(EPlayerState.Push0, true);
+			StopStates.Add(EPlayerState.Push1, true);
+			StopStates.Add(EPlayerState.Push2, true);
 			StopStates.Add(EPlayerState.Push20, true);
-			StopStates.Add(EPlayerState.PickBall0, true);
-			StopStates.Add(EPlayerState.PickBall2, true);
+			StopStates.Add(EPlayerState.Pick0, true);
+			StopStates.Add(EPlayerState.Pick1, true);
+			StopStates.Add(EPlayerState.Pick2, true);
 			StopStates.Add(EPlayerState.Steal0, true);
+			StopStates.Add(EPlayerState.Steal1, true);
+			StopStates.Add(EPlayerState.Steal2, true);
 			StopStates.Add(EPlayerState.Steal20, true);
 			StopStates.Add(EPlayerState.Rebound, true);
 			StopStates.Add(EPlayerState.ReboundCatch, true);
@@ -2069,7 +2090,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             
             case EPlayerState.BlockCatch:
-                if (crtState == EPlayerState.Block && crtState != EPlayerState.BlockCatch) 
+                if (IsBlock && crtState != EPlayerState.BlockCatch) 
                     return true;
                 break;
 
@@ -2099,9 +2120,13 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Dunk0:
+            case EPlayerState.Dunk1:
             case EPlayerState.Dunk2:
+            case EPlayerState.Dunk3:
             case EPlayerState.Dunk4:
+            case EPlayerState.Dunk5:
             case EPlayerState.Dunk6:
+            case EPlayerState.Dunk7:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
 				if (IsBallOwner && !IsIntercept &&!IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
@@ -2135,29 +2160,38 @@ public class PlayerBehaviour : MonoBehaviour
 
                 break;
            
-            case EPlayerState.PickBall0:
-            case EPlayerState.PickBall2:
+            case EPlayerState.Pick0:
+            case EPlayerState.Pick1:
+            case EPlayerState.Pick2:
                 if (CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
 
             case EPlayerState.Push0:
+            case EPlayerState.Push1:
+            case EPlayerState.Push2:
             case EPlayerState.Push20:
             case EPlayerState.Steal0:
+            case EPlayerState.Steal1:
+            case EPlayerState.Steal2:
             case EPlayerState.Steal20:
 			if (!IsTee  && !IsBallOwner && !IsSteal && (crtState == EPlayerState.Idle || IsSteal || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence))
                     return true;
                 break;
 
-            case EPlayerState.Block:
-                if (!IsTee && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
+            case EPlayerState.Block0:
+            case EPlayerState.Block1:
+            case EPlayerState.Block2:
+                if (!IsTee && !IsBlock && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence || IsDunk))
                     return true;
                 break;
 
-            case EPlayerState.Elbow:
+            case EPlayerState.Elbow0:
+            case EPlayerState.Elbow1:
+            case EPlayerState.Elbow2:
                 if (!IsTee && IsBallOwner && (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
@@ -2177,7 +2211,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.GotSteal:
-			if(!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow &&  
+			if(!IsTee && !IsAllShoot && crtState != state && crtState != EPlayerState.Elbow0 &&  
                    (IsDribble || 
                     crtState == EPlayerState.FakeShoot || 
                     crtState == EPlayerState.HoldBall || 
@@ -2306,10 +2340,25 @@ public class PlayerBehaviour : MonoBehaviour
         
         switch (state)
         {
-            case EPlayerState.Block:
+            case EPlayerState.Block0:
+            case EPlayerState.Block1:
+            case EPlayerState.Block2:
+				switch(state)
+				{
+					case EPlayerState.Block0:
+						stateNo = 0;
+						break;
+					case EPlayerState.Block1:
+						stateNo = 1;
+						break;
+					case EPlayerState.Block2:
+						stateNo = 2;
+						break;
+				}
+
                 SetShooterLayer();
                 playerBlockCurve = null;
-				curveName = "Block0";
+			curveName = string.Format("Block{0}", stateNo);
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
 
@@ -2323,6 +2372,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 
                 ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("BlockTrigger");
                 isCanCatchBall = false;
 				GameRecord.BlockLaunch++;
@@ -2400,9 +2450,13 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Alleyoop:
             case EPlayerState.Dunk0:
+            case EPlayerState.Dunk1:
             case EPlayerState.Dunk2:
+            case EPlayerState.Dunk3:
             case EPlayerState.Dunk4:
+            case EPlayerState.Dunk5:
             case EPlayerState.Dunk6:
+            case EPlayerState.Dunk7:
             case EPlayerState.Dunk20:
             case EPlayerState.Dunk22:
                 switch (state)
@@ -2411,14 +2465,26 @@ public class PlayerBehaviour : MonoBehaviour
                     case EPlayerState.Alleyoop:
                         stateNo = 0;
                         break;
+					case EPlayerState.Dunk1:
+						stateNo = 1;
+						break;
                     case EPlayerState.Dunk2:
                         stateNo = 2;
+						break;
+					case EPlayerState.Dunk3:
+						stateNo = 3;
                         break;
                     case EPlayerState.Dunk4:
                         stateNo = 4;
                         break;
+					case EPlayerState.Dunk5:
+						stateNo = 5;
+						break;
 					case EPlayerState.Dunk6:
 						stateNo = 6;
+						break;
+					case EPlayerState.Dunk7:
+						stateNo = 7;
 						break;
                     case EPlayerState.Dunk20:
 						stateNo = 20;
@@ -2508,9 +2574,24 @@ public class PlayerBehaviour : MonoBehaviour
 			Result = true;
 			break;
 			
-		case EPlayerState.Elbow:
+		case EPlayerState.Elbow0:
+		case EPlayerState.Elbow1:
+		case EPlayerState.Elbow2:
+			switch (state)
+			{
+			case EPlayerState.Elbow0:
+				stateNo = 0;
+				break;
+			case EPlayerState.Elbow1:
+				stateNo = 1;
+				break;
+			case EPlayerState.Elbow2:
+				stateNo = 2;
+				break;
+			}
 				PlayerRigidbody.mass = 5;
                 ClearAnimatorFlag();
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("ElbowTrigger");
                 isCanCatchBall = false;
 				GameRecord.ElbowLaunch++;
@@ -2724,10 +2805,18 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Push0:
+            case EPlayerState.Push1:
+            case EPlayerState.Push2:
 			case EPlayerState.Push20:
 			switch (state){
 					case EPlayerState.Push0:
 						stateNo = 0;
+						break;
+					case EPlayerState.Push1:
+						stateNo = 1;
+						break;
+					case EPlayerState.Push2:
+						stateNo = 2;
 						break;
 					case EPlayerState.Push20:
 						stateNo = 20;
@@ -2752,28 +2841,34 @@ public class PlayerBehaviour : MonoBehaviour
                 Result = true;
                 break;
 
-			case EPlayerState.PickBall0:
+			case EPlayerState.Pick0:
+			case EPlayerState.Pick1:
+			case EPlayerState.Pick2:
+				switch (state){
+					case EPlayerState.Pick0:
+						stateNo = 0;
+						break;
+					case EPlayerState.Pick1:
+						stateNo = 1;
+						break;
+					case EPlayerState.Pick2:
+						stateNo = 2;
+						curveName = string.Format("PickBall{0}", stateNo);
+						
+						for (int i = 0; i < aniCurve.PickBall.Length; i++)
+							if (aniCurve.PickBall [i].Name == curveName)
+						{
+							playerPickCurve = aniCurve.PickBall [i];
+							pickCurveTime = 0;
+							isPick = true;
+							isFindCurve = true;
+						}
+						GameRecord.SaveBallLaunch++;
+						break;
+				}
                 ClearAnimatorFlag();
-                AnimatorControl.SetInteger("StateNo", 0);
+				AnimatorControl.SetInteger("StateNo", stateNo);
                 AnimatorControl.SetTrigger("PickTrigger");
-                Result = true;
-                break;
-
-            case EPlayerState.PickBall2:
-                ClearAnimatorFlag();
-				curveName = "PickBall2";
-
-                for (int i = 0; i < aniCurve.PickBall.Length; i++)
-					if (aniCurve.PickBall [i].Name == curveName)
-                    {
-                        playerPickCurve = aniCurve.PickBall [i];
-                        pickCurveTime = 0;
-                        isPick = true;
-						isFindCurve = true;
-                    }
-                AnimatorControl.SetInteger("StateNo", 2);
-                AnimatorControl.SetTrigger("PickTrigger");
-				GameRecord.SaveBallLaunch++;
                 Result = true;
                 break;
 
@@ -2808,11 +2903,19 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Steal0:
+            case EPlayerState.Steal1:
+            case EPlayerState.Steal2:
 			case EPlayerState.Steal20:
 			switch (state)
 				{
 					case EPlayerState.Steal0:
 						stateNo = 0;
+						break;
+					case EPlayerState.Steal1:
+						stateNo = 1;
+						break;
+					case EPlayerState.Steal2:
+						stateNo = 2;
 						break;
 					case EPlayerState.Steal20:
 						stateNo = 20;
@@ -3754,7 +3857,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsBlock
 	{
-		get{ return crtState == EPlayerState.Block;}
+		get{ return crtState == EPlayerState.Block0 || crtState == EPlayerState.Block1 || crtState == EPlayerState.Block2;}
 	}
 
 	public bool IsBlockCatch
@@ -3809,7 +3912,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsPickBall
 	{
-		get{ return crtState == EPlayerState.PickBall0 || crtState == EPlayerState.PickBall2;}
+		get{ return crtState == EPlayerState.Pick0 || crtState == EPlayerState.Pick1 || crtState == EPlayerState.Pick2;}
 	}
 
     public bool IsDribble
@@ -3819,7 +3922,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDunk
     {
-		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
+		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk1 ||crtState == EPlayerState.Dunk3 ||crtState == EPlayerState.Dunk5 ||crtState == EPlayerState.Dunk7 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
     }
 
 	public bool IsLayup
@@ -3834,7 +3937,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsSteal
 	{
-		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal20;}
+		get{ return crtState == EPlayerState.Steal0 || crtState == EPlayerState.Steal1 || crtState == EPlayerState.Steal2 ||crtState == EPlayerState.Steal20;}
 	}
 
 	public bool IsGotSteal 
@@ -3887,7 +3990,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsPush
 	{
-		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push20;}
+		get{ return crtState == EPlayerState.Push0 || crtState == EPlayerState.Push1 || crtState == EPlayerState.Push2 ||crtState == EPlayerState.Push20;}
 	}
 
 	public bool IsIntercept
@@ -3897,7 +4000,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsElbow
 	{
-		get{ return crtState == EPlayerState.Elbow;}
+		get{ return crtState == EPlayerState.Elbow0 || crtState == EPlayerState.Elbow1 || crtState == EPlayerState.Elbow2;}
 	}
 
     private bool isPerfectBlockCatch = false;

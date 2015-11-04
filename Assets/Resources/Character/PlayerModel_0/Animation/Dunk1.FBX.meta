@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d5585b8dcd01546479084c02c2ba06a5
-timeCreated: 1445936369
+timeCreated: 1446617113
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -171,6 +171,13 @@ ModelImporter:
       - time: .528678298
         functionName: AnimationEvent
         data: DunkFallBall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: AnimationEvent
+        data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

@@ -986,7 +986,7 @@ public class UIGame : UIBase {
 					if(isPressElbowBtn && 
 					   !PlayerMe.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackGamer &&
-					   PlayerMe.CanUseState(EPlayerState.Elbow)) {
+					   PlayerMe.CanUseState(EPlayerState.Elbow0)) {
 						noAI = GameController.Get.DoElbow ();
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
@@ -1038,7 +1038,7 @@ public class UIGame : UIBase {
 					   !PlayerMe.IsFall && 
 					   !PlayerMe.CheckAnimatorSate(EPlayerState.MoveDodge0) && 
 					   !PlayerMe.CheckAnimatorSate(EPlayerState.MoveDodge1) && 
-					   !PlayerMe.CheckAnimatorSate(EPlayerState.Block)
+					   !PlayerMe.IsBlock
 					   ) {
 						if(state && PlayerMe.IsFakeShoot && isShootAvailable) 
 							isShootAvailable = false;
