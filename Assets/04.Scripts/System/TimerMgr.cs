@@ -33,6 +33,19 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
 		if(key == ETimerKind.Ball){
 			Timekeeper.instance.Clock(key.ToString()).DOPause();
+
+			if(value == 0)
+			{
+				ballvelocity = CourtMgr.Get.RealBallVelocity;
+				CourtMgr.Get.RealBallRigidbody.isKinematic = true;
+				CourtMgr.Get.RealBall.transform.DOPause();
+			}
+			else
+			{
+				CourtMgr.Get.RealBallRigidbody.isKinematic = false;
+				CourtMgr.Get.RealBallVelocity = ballvelocity;
+				CourtMgr.Get.RealBall.transform.DOPlay();
+			}
 //			LogMgr.Get.Log("DOPause ball");
 		}
 	}
