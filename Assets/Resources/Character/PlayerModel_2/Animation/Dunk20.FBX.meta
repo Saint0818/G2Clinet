@@ -154,13 +154,6 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0120481923
-        functionName: SkillEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1.5
-        intParameter: 0
-        messageOptions: 0
       - time: .0523013175
         functionName: ZoomIn
         data: 
@@ -248,6 +241,13 @@ ModelImporter:
       - time: .999999762
         functionName: AnimationEvent
         data: AnimationEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .827004254
+        functionName: SkillEvent
+        data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
