@@ -47,7 +47,7 @@ public class PushTrigger : MonoBehaviour {
 
 //					gameObject.SetActive(false);
 
-					if (pusher.crtState == EPlayerState.Elbow0) {
+					if (pusher.IsElbow) {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
 					} else {

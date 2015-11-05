@@ -172,6 +172,21 @@ public class GEGMTool : GEBase
 
 			EditorGUILayout.EndHorizontal();
 		}
+
+		EditorGUILayout.BeginHorizontal();
+		if(GUILayout.Button("重置", GUILayout.Width(50))){
+			for(int i = 0;i < Masteries.Length; i++)
+				Masteries[i] = 0;
+
+			InitMasteriesPoint();
+		}
+
+		if (GUILayout.Button ("存檔", GUILayout.Width (200))) {
+			WWWForm form = new WWWForm();
+			form.AddField("Masteries", JsonConvert.SerializeObject(Masteries));
+			SendHttp.Get.Command(URLConst.GMSaveMasteries, waitSaveMasteries, form);
+		}
+		EditorGUILayout.EndHorizontal();
 	}
 
 	List<int> itemIds2 = new List<int>();
@@ -327,7 +342,7 @@ public class GEGMTool : GEBase
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddItem);
 	}
 	
-		private void waitGMPlayerInfo(bool ok, WWW www)
+	private void waitGMPlayerInfo(bool ok, WWW www)
 	{
 		if(ok){
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
@@ -335,6 +350,15 @@ public class GEGMTool : GEBase
 			GameData.Team.Player.Lv = team.Player.Lv;
 			GameData.Team.MasteriesPoint = team.MasteriesPoint;
 			InitMasteriesPoint();
+		}else
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMPlayerInfo);
+	}
+
+	private void waitSaveMasteries(bool ok, WWW www)
+	{
+		if(ok){
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.Player.Masteries = team.Player.Masteries;
 		}else
 			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMPlayerInfo);
 	}
