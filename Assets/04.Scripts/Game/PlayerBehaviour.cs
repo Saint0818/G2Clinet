@@ -3681,6 +3681,21 @@ public class PlayerBehaviour : MonoBehaviour
 		case "CameraBlur": 
 			CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_0");
 			break;
+		case "PushDistancePlayer":
+			if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID)) {
+				GameRecord.Push ++;
+				if(this == GameController.Get.Joysticker)
+					GameController.Get.IsGameFinish();
+				for(int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+					if(GameController.Get.GamePlayers[i].Team != Team) {
+						if(GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers[i].transform.position.x, GameController.Get.GamePlayers[i].transform.position.z), 
+						                             new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData[ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv)) {
+							GameController.Get.GamePlayers[i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
+						}
+					} 
+				}
+			}
+			break;
 		case "SetBallEvent":
 			GameController.Get.SetBall(this);
 			if(this == GameController.Get.Joysticker)
@@ -3802,11 +3817,11 @@ public class PlayerBehaviour : MonoBehaviour
 				   GameData.DSkillData[ActiveSkillUsed.ID].Kind == 180 ) {
 				
 					if(!isSkillShow) {
-					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-						if(item != CrtTimeKey)
-							TimerMgr.Get.ChangeTime (item, 0);
+						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+							if(item != CrtTimeKey)
+								TimerMgr.Get.ChangeTime (item, 0);
 
-					isSkillShow = true;
+						isSkillShow = true;
 					}
 				}
 

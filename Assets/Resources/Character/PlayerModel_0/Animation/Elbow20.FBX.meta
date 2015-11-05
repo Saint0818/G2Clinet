@@ -154,7 +154,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .502645493
+      - time: .327595204
         functionName: SkillEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
@@ -164,6 +164,13 @@ ModelImporter:
       - time: .999999821
         functionName: AnimationEvent
         data: ElbowEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .336575866
+        functionName: SkillEvent
+        data: PushDistancePlayer
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

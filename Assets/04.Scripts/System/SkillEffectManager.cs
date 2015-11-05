@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class TSkillEffect {
+	public PlayerBehaviour SelfPlayer;
 	public int SkillID;
 	public string EffectName;
 	public Vector3 Position;
@@ -22,7 +23,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 		if(skillEffects.Count > 0) {
 			for (int i=0; i<skillEffects.Count; i++) {
 				if (skillEffects [i].DelayTime > 0) {
-					skillEffects [i].DelayTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
+					skillEffects [i].DelayTime -= Time.deltaTime * skillEffects [i].SelfPlayer.Timer.timeScale;  
 					if (skillEffects [i].DelayTime <= 0) 
 						playSkillEffect(i);
 				} else
@@ -94,6 +95,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				for (int i=0; i<objs1.Count; i++) {
 					if((isJudgeDistance && isInRange(objs1[i])) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.SelfPlayer = executePlayer;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect1;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent1 == 1) {
@@ -122,6 +124,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				for (int i=0; i<objs2.Count; i++) {
 					if((isJudgeDistance && isInRange(objs2[i])) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.SelfPlayer = executePlayer;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect2;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent2 == 1) {
@@ -150,6 +153,7 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				for (int i=0; i<objs3.Count; i++) {
 					if((isJudgeDistance && isInRange(objs3[i])) || !isJudgeDistance) {
 						TSkillEffect skillEffect = new TSkillEffect();
+						skillEffect.SelfPlayer = executePlayer;
 						skillEffect.EffectName = "SkillEffect" + GameData.DSkillData[skillID].TargetEffect3;
 						skillEffect.Position = Vector3.zero;
 						if(GameData.DSkillData[skillID].EffectParent3 == 1) {
@@ -186,14 +190,14 @@ public class SkillEffectManager : KnightSingleton<SkillEffectManager> {
 				Debug.Log("Effect not found " + effectName);
 		}
 		
-		if (effectName == "SkillEffect1700" && obj) {
-			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
-			if (ps) {
-				ps.pusher = executePlayer;
-				if(GameData.DSkillData.ContainsKey(executePlayer.ActiveSkillUsed.ID))
-					ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
-			}
-		}
+//		if (effectName == "SkillEffect1700" && obj) {
+//			PushSkillTrigger ps = obj.GetComponent<PushSkillTrigger>();
+//			if (ps) {
+//				ps.pusher = executePlayer;
+//				if(GameData.DSkillData.ContainsKey(executePlayer.ActiveSkillUsed.ID))
+//					ps.InRange = GameData.DSkillData[executePlayer.ActiveSkillUsed.ID].Distance(executePlayer.ActiveSkillUsed.Lv);
+//			}
+//		}
 	}
 
 	private List<GameObject> getSkillEffectPosition (int index, int effectkind, bool isPassive) {
