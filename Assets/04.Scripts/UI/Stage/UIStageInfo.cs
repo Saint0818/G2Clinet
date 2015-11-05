@@ -69,6 +69,7 @@ public class UIStageInfo : MonoBehaviour
         hintObj.transform.localRotation = Quaternion.identity;
 		hintObj.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         mHint = hintObj.GetComponent<UIStageHint>();
+        mHint.SetInterval(70);
     }
 
     public void Show(int stageID, Data data)

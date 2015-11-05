@@ -13,6 +13,34 @@ public class UIStageHint : MonoBehaviour
         mTargets = GetComponentsInChildren<UIStageHintTarget>();
     }
 
+    /// <summary>
+    /// 設定目標的間隔.
+    /// </summary>
+    /// <param name="yInterval"> 單位: Pixel. </param>
+    public void SetInterval(float yInterval)
+    {
+        // 因為介面的配置是左邊有 3 個目標, 右邊有 3 個目標, 所以才有以下的魔術數字 3 和 6.
+        float y = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            var localPos = mTargets[i].transform.localPosition;
+            localPos.y -= y;
+            mTargets[i].transform.localPosition = localPos;
+
+            y -= yInterval;
+        }
+
+        y = 0;
+        for (int i = 3; i < 6; i++)
+        {
+            var localPos = mTargets[i].transform.localPosition;
+            localPos.y -= y;
+            mTargets[i].transform.localPosition = localPos;
+
+            y -= yInterval;
+        }
+    }
+
     public void Show()
     {
         Window.SetActive(true);
@@ -41,31 +69,19 @@ public class UIStageHint : MonoBehaviour
 				value = 1;
 			mTargets[index].UpdateUI(getText(index + 1, value, 9),
 			                         getText(index + 1, value, 8),
-                stageData.Bit0Num.ToString(), "/" + stageData.Bit0Num);
-            // 左邊的文字
-//            gameTargets[index].LabelCaption.text = ;
-            // 中間的文字
-//            gameTargets[index].LabelTargetName.text = ;
-            // 下面的文字.
-//            gameTargets[index].LabelTargetValue.text = "/" + GameController.Get.StageBitNum[0];
-            // 上面的文字.
-//            gameTargets[index].LabelValue.text = GameController.Get.GameTime.ToString();
+//                "/" + stageData.Bit0Num, stageData.Bit0Num.ToString());
+                "", stageData.Bit0Num.ToString());
             index++;
         }
         
-//        if(GameController.Get.StageHintBit.Length > 1 && GameController.Get.StageHintBit[1] > 0)
         if(hintBits.Length > 1 && hintBits[1] > 1)
         {
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(index + 1, hintBits[1] -1, 9),
                 getText(index + 1, hintBits[1] - 1, 8),
-                stageData.Bit1Num.ToString(), "/" + stageData.Bit1Num);
+//                "/" + stageData.Bit1Num, stageData.Bit1Num.ToString());
+                "", stageData.Bit1Num.ToString());
 
-//            gameTargets[index].Self.SetActive(true);
-//            gameTargets[index].LabelCaption.text = getText(index + 1, GameController.Get.StageHintBit[1], 8);
-//            gameTargets[index].LabelTargetName.text = getText(index + 1, GameController.Get.StageHintBit[1], 9);
-//            gameTargets[index].LabelTargetValue.text = "/" + GameController.Get.StageBitNum[1];
-//            gameTargets[index].LabelValue.text = UIGame.Get.Scores[(int)ETeamKind.Self].ToString();
             index++;
         }
         
@@ -74,12 +90,8 @@ public class UIStageHint : MonoBehaviour
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
                 getText(3, hintBits[2], 8),
-                stageData.Bit2Num.ToString(), "/" + stageData.Bit2Num);
-//            gameTargets[index].Self.SetActive(true);
-//            gameTargets[index].LabelCaption.text = getText(3, GameController.Get.StageHintBit[2], 8);
-//            gameTargets[index].LabelTargetName.text = getText(3, GameController.Get.StageHintBit[2], 9);
-//            gameTargets[index].LabelTargetValue.text = "/" + GameController.Get.StageBitNum[2];
-//            gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[2]).ToString();
+//                "/" + stageData.Bit2Num, stageData.Bit2Num.ToString());
+                "", stageData.Bit2Num.ToString());
             index++;
         }
         
@@ -88,13 +100,8 @@ public class UIStageHint : MonoBehaviour
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
                 getText(3, hintBits[3], 8),
-                hintBits[3].ToString(), "/" + stageData.Bit3Num);
-            //            gameTargets[index].Self.SetActive(true);
-            //            gameTargets[index].LabelCaption.text = getText(3, GameController.Get.StageHintBit[3], 8);
-            //            gameTargets[index].LabelTargetName.text = getText(3, GameController.Get.StageHintBit[3], 9);
-            //            gameTargets[index].LabelTargetValue.text = "/" + GameController.Get.StageBitNum[3];
-            //            gameTargets[index].LabelValue.text = getConditionCount(GameController.Get.StageHintBit[3]).ToString();
-            //            index++;
+//                "/" + hintBits[3],  stageData.Bit3Num.ToString());
+                "",  stageData.Bit3Num.ToString());
         }
     }
 
