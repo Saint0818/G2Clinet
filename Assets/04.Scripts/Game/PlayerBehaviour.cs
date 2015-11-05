@@ -58,6 +58,7 @@ public enum EPlayerState
 	Block0,  
 	Block1,  
 	Block2, 
+	Block20, 
 	BlockCatch,
 	BasketAnimationStart,
 	BasketActionEnd,
@@ -80,6 +81,7 @@ public enum EPlayerState
 	Dunk6,
 	Dunk7,
 	Dunk20,
+	Dunk21,
 	Dunk22,
 	DunkBasket,
 	Defence0,    
@@ -87,6 +89,8 @@ public enum EPlayerState
 	Elbow0,
 	Elbow1,
 	Elbow2,
+	Elbow20,
+	Elbow21,
 	Fall0,
 	Fall1,
 	Fall2,
@@ -124,7 +128,8 @@ public enum EPlayerState
     Run1,            
     Run2,            
     RunningDefence,
-	Rebound,
+	Rebound0,
+	Rebound20,
 	ReboundCatch,
 	Reset,
 	Start,
@@ -310,6 +315,7 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Block0, true);
 			StopStates.Add(EPlayerState.Block1, true);
 			StopStates.Add(EPlayerState.Block2, true);
+			StopStates.Add(EPlayerState.Block20, true);
 			StopStates.Add(EPlayerState.BlockCatch, true);
 			StopStates.Add(EPlayerState.CatchFlat, true);
 			StopStates.Add(EPlayerState.CatchFloor, true);
@@ -318,6 +324,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Elbow0, true);
 			StopStates.Add(EPlayerState.Elbow1, true);
 			StopStates.Add(EPlayerState.Elbow2, true);
+			StopStates.Add(EPlayerState.Elbow20, true);
+			StopStates.Add(EPlayerState.Elbow21, true);
 			StopStates.Add(EPlayerState.FakeShoot, true);
 			StopStates.Add(EPlayerState.HoldBall, true);
 			StopStates.Add(EPlayerState.GotSteal, true);
@@ -338,7 +346,8 @@ public static class StateChecker {
 			StopStates.Add(EPlayerState.Steal1, true);
 			StopStates.Add(EPlayerState.Steal2, true);
 			StopStates.Add(EPlayerState.Steal20, true);
-			StopStates.Add(EPlayerState.Rebound, true);
+			StopStates.Add(EPlayerState.Rebound0, true);
+			StopStates.Add(EPlayerState.Rebound20, true);
 			StopStates.Add(EPlayerState.ReboundCatch, true);
 			StopStates.Add(EPlayerState.TipIn, true);
 			StopStates.Add(EPlayerState.Intercept0, true);
@@ -2184,6 +2193,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk7:
             case EPlayerState.Dunk20:
+            case EPlayerState.Dunk21:
             case EPlayerState.Dunk22:
 				if (IsBallOwner && !IsIntercept &&!IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
 				if (Vector3.Distance(CourtMgr.Get.ShootPoint [Team.GetHashCode()].transform.position, PlayerRefGameObject.transform.position) < canDunkDis)
@@ -2200,8 +2210,9 @@ public class PlayerBehaviour : MonoBehaviour
                     return true;
                 break;
 
-            case EPlayerState.Rebound:
-				if (CanMove && crtState != EPlayerState.Rebound)
+            case EPlayerState.Rebound0:
+            case EPlayerState.Rebound20:
+				if (CanMove && !IsRebound)
 					return true;
 				break;
 
@@ -2211,7 +2222,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.TipIn:
-                if (crtState == EPlayerState.Rebound && crtState != EPlayerState.TipIn)
+                if (IsRebound && crtState != EPlayerState.TipIn)
                     return true;
 
                 break;
@@ -2240,6 +2251,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Block0:
             case EPlayerState.Block1:
             case EPlayerState.Block2:
+            case EPlayerState.Block20:
                 if (!IsTee && !IsBlock && CanMove && !IsBallOwner && (crtState == EPlayerState.Idle || IsRun || crtState == EPlayerState.Defence1 ||
                     crtState == EPlayerState.Defence0 || crtState == EPlayerState.RunningDefence || IsDunk))
                     return true;
@@ -2248,6 +2260,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Elbow0:
             case EPlayerState.Elbow1:
             case EPlayerState.Elbow2:
+            case EPlayerState.Elbow20:
+            case EPlayerState.Elbow21:
                 if (!IsTee && IsBallOwner && (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.HoldBall))
                     return true;
                 break;
@@ -2399,6 +2413,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Block0:
             case EPlayerState.Block1:
             case EPlayerState.Block2:
+            case EPlayerState.Block20:
 				switch(state)
 				{
 					case EPlayerState.Block0:
@@ -2407,11 +2422,15 @@ public class PlayerBehaviour : MonoBehaviour
 					case EPlayerState.Block1:
 						stateNo = 1;
 						StartSkillCamera();
-				break;
+						break;
 					case EPlayerState.Block2:
 						stateNo = 2;
 						StartSkillCamera();
-				break;
+						break;
+					case EPlayerState.Block20:
+						stateNo = 20;
+						StartSkillCamera();
+						break;
 				}
 
                 SetShooterLayer();
@@ -2521,6 +2540,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Dunk6:
             case EPlayerState.Dunk7:
             case EPlayerState.Dunk20:
+            case EPlayerState.Dunk21:
             case EPlayerState.Dunk22:
                 switch (state)
                 {
@@ -2553,6 +2573,10 @@ public class PlayerBehaviour : MonoBehaviour
 						stateNo = 20;
 						StartSkillCamera();
                         break;
+					case EPlayerState.Dunk21:
+						stateNo = 21;
+						StartSkillCamera();
+						break;
 					case EPlayerState.Dunk22:
 						stateNo = 22;
 						StartSkillCamera();
@@ -2640,6 +2664,8 @@ public class PlayerBehaviour : MonoBehaviour
 		case EPlayerState.Elbow0:
 		case EPlayerState.Elbow1:
 		case EPlayerState.Elbow2:
+		case EPlayerState.Elbow20:
+		case EPlayerState.Elbow21:
 			switch (state)
 			{
 			case EPlayerState.Elbow0:
@@ -2650,6 +2676,12 @@ public class PlayerBehaviour : MonoBehaviour
 				break;
 			case EPlayerState.Elbow2:
 				stateNo = 2;
+				break;
+			case EPlayerState.Elbow20:
+				stateNo = 20;
+				break;
+			case EPlayerState.Elbow21:
+				stateNo = 21;
 				break;
 			}
 				PlayerRigidbody.mass = 5;
@@ -3178,7 +3210,17 @@ public class PlayerBehaviour : MonoBehaviour
             }
             break;
 
-            case EPlayerState.Rebound:
+            case EPlayerState.Rebound0:
+            case EPlayerState.Rebound20:
+				switch (state)
+				{
+				case EPlayerState.Rebound0:
+					stateNo = 0;
+					break;
+				case EPlayerState.Rebound20:
+					stateNo = 20;
+					break;
+				}
                 playerReboundCurve = null;
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
@@ -3189,7 +3231,7 @@ public class PlayerBehaviour : MonoBehaviour
 				} else
                     reboundMove = Vector3.zero;
 
-				curveName = "Rebound0";
+				curveName = string.Format("Rebound{0}", stateNo);
 
                 for (int i = 0; i < aniCurve.Rebound.Length; i++)
 					if (aniCurve.Rebound [i].Name == curveName)
@@ -3202,6 +3244,7 @@ public class PlayerBehaviour : MonoBehaviour
 
                 ClearAnimatorFlag();
                 SetShooterLayer();
+				AnimatorControl.SetInteger("StateNo", stateNo);
 				AnimatorControl.SetTrigger("ReboundTrigger");
 				GameRecord.ReboundLaunch++;
                 Result = true;
@@ -3955,7 +3998,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsBlock
 	{
-		get{ return crtState == EPlayerState.Block0 || crtState == EPlayerState.Block1 || crtState == EPlayerState.Block2;}
+		get{ return crtState == EPlayerState.Block0 || crtState == EPlayerState.Block1 || crtState == EPlayerState.Block2 || crtState == EPlayerState.Block20;}
 	}
 
 	public bool IsBlockCatch
@@ -4020,7 +4063,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsDunk
     {
-		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk1 ||crtState == EPlayerState.Dunk3 ||crtState == EPlayerState.Dunk5 ||crtState == EPlayerState.Dunk7 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk22;}
+		get{ return crtState == EPlayerState.Dunk0 || crtState == EPlayerState.Dunk1 ||crtState == EPlayerState.Dunk3 ||crtState == EPlayerState.Dunk5 ||crtState == EPlayerState.Dunk7 || crtState == EPlayerState.Dunk2 || crtState == EPlayerState.Dunk4 || crtState == EPlayerState.Dunk6 || crtState == EPlayerState.Dunk20 || crtState == EPlayerState.Dunk21 || crtState == EPlayerState.Dunk22;}
     }
 
 	public bool IsLayup
@@ -4068,7 +4111,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public bool IsRebound
     {
-        get{ return crtState == EPlayerState.Rebound || crtState == EPlayerState.ReboundCatch;}
+		get{ return crtState == EPlayerState.Rebound0 || crtState == EPlayerState.Rebound20 || crtState == EPlayerState.ReboundCatch;}
     }
 
     public bool IsFall
@@ -4098,7 +4141,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsElbow
 	{
-		get{ return crtState == EPlayerState.Elbow0 || crtState == EPlayerState.Elbow1 || crtState == EPlayerState.Elbow2;}
+		get{ return crtState == EPlayerState.Elbow0 || crtState == EPlayerState.Elbow1 || crtState == EPlayerState.Elbow2 || crtState == EPlayerState.Elbow20 || crtState == EPlayerState.Elbow21;}
 	}
 
     private bool isPerfectBlockCatch = false;

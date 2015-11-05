@@ -2332,10 +2332,12 @@ public class GameController : KnightSingleton<GameController>
 				case EPlayerState.Block0:
 				case EPlayerState.Block1:
 				case EPlayerState.Block2:
+				case EPlayerState.Block20:
 				case EPlayerState.BlockCatch:
 					UIDoubleClick.Get.SetData(EDoubleClick.Block, playerindex, 0.7f, null, DoubleBlock, player);
 					return true;
-				case EPlayerState.Rebound:
+				case EPlayerState.Rebound0:
+				case EPlayerState.Rebound20:
 					UIDoubleClick.Get.SetData(EDoubleClick.Rebound, playerindex, 0.75f, DoubleRebound);
 					return true;
 			}
@@ -3286,7 +3288,7 @@ public class GameController : KnightSingleton<GameController>
 					if (GameStart.Get.TestMode == EGameTest.Rebound)
 						Rebound(player);
 					else if(CourtMgr.Get.RealBallState ==  EPlayerState.Steal0 || 
-                            CourtMgr.Get.RealBallState ==  EPlayerState.Rebound)
+					        CourtMgr.Get.RealBallState ==  EPlayerState.Rebound0)
                     {
 						    if(Random.Range(0, 100) < player.Attr.ReboundRate) 
 					    		Rebound(player);
@@ -3304,13 +3306,13 @@ public class GameController : KnightSingleton<GameController>
 						if (player == BallOwner && inTipinDistance(player)) {
 							CoolDownPass = Time.time + GameConst.PassCoolDownTime;
 							if (player == Joysticker)
-								OnDoubleClickMoment(player, EPlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound0);
 							else
 							if (Random.Range(0, 100) < player.Attr.TipInRate)
 								DoShoot();
 							else
 							if (player.Team == Joysticker.Team)
-								OnDoubleClickMoment(player, EPlayerState.Rebound);
+								OnDoubleClickMoment(player, EPlayerState.Rebound0);
 						}
 					}
 				}

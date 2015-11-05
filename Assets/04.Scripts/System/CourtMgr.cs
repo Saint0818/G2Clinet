@@ -526,7 +526,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 				break;
 			case "ActionNoScoreEnd":
 				SetBasketState(EPlayerState.BasketActionNoScoreEnd, BasketHoopDummy[team], team);
-				SetBallState(EPlayerState.Rebound);
+				SetBallState(EPlayerState.Rebound0);
 				break;
 			case "BasketNetPlay":
 				PlayShoot(team, index);
@@ -716,6 +716,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Block0:
 			case EPlayerState.Block1:
 			case EPlayerState.Block2:
+			case EPlayerState.Block20:
 			case EPlayerState.KnockDown0: 
 			case EPlayerState.KnockDown1: 
 				GameController.Get.Shooter = null;

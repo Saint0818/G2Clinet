@@ -986,7 +986,7 @@ public class UIGame : UIBase {
 					if(isPressElbowBtn && 
 					   !PlayerMe.IsFall && 
 					   GameController.Get.Situation == EGameSituation.AttackGamer &&
-					   PlayerMe.CanUseState(EPlayerState.Elbow0)) {
+					   PlayerMe.IsElbow) {
 						noAI = GameController.Get.DoElbow ();
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
