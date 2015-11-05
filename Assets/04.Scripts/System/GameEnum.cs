@@ -63,13 +63,14 @@ namespace GameEnum {
 	}
 
 	public enum ETestActive {
-		Block1 = 11600,
+		Block20 = 11600,
 		Buff20 = 12100,
 		Buff21 = 12150,
-		Elbow1 = 11702,
+		Elbow20 = 11800,
 		Dunk20 = 10700,
 		Dunk22 = 10600,
 		Push20 = 11700,
-		Steal20 = 11500
+		Steal20 = 11500,
+		Rebound20 = 11400
 	}
 }

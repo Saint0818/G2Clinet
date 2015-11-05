@@ -46,6 +46,7 @@ public class TReboundCurve {
 	public string Name = "Curve_Name";
 	public float LifeTime = 1.8f;
 	public AnimationCurve aniCurve = new AnimationCurve();
+	public bool isSkill = false;
 }
 
 [System.Serializable]

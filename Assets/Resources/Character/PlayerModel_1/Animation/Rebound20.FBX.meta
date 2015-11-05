@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 7a5209d3095e763489d8d436553bffcc
-timeCreated: 1446628414
+timeCreated: 1446710807
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,6 +154,20 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: .24999997
+        functionName: SkillEvent
+        data: ActiveSkillEnd
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .259770095
+        functionName: SkillEvent
+        data: SetBallEvent
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: .999999881
         functionName: AnimationEvent
         data: CatchEnd

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: a19bbc81ccd095f43a35a04a157c591d
-timeCreated: 1446693936
+timeCreated: 1446710786
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -155,8 +155,8 @@ ModelImporter:
       curves: []
       events:
       - time: .339285731
-        functionName: AnimationEvent
-        data: ElbowCalculateStart
+        functionName: SkillEvent
+        data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

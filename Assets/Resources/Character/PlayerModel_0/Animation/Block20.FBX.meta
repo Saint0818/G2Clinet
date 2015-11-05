@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2a59ce7ef99acc340ae25515723ca628
-timeCreated: 1446628236
+timeCreated: 1446710740
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,30 +154,9 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0873786211
-        functionName: AnimationEvent
-        data: BlockCalculateStart
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .180480003
-        functionName: AnimationEvent
-        data: BlockCatchMomentStart
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .621700764
-        functionName: AnimationEvent
-        data: BlockCalculateEnd
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .665688992
-        functionName: AnimationEvent
-        data: BlockCatchMomentEnd
+      - time: .420634896
+        functionName: SkillEvent
+        data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

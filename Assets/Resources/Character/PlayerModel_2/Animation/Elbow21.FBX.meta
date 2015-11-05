@@ -155,8 +155,8 @@ ModelImporter:
       curves: []
       events:
       - time: .339285731
-        functionName: AnimationEvent
-        data: ElbowCalculateStart
+        functionName: SkillEvent
+        data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
