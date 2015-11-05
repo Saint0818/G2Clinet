@@ -710,7 +710,7 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void SwitchItem(int sourceIndex, int targetIndex){
-		if(sourceIndex != targetIndex) {
+		if(sourceIndex != targetIndex && sourceIndex != -1 && targetIndex != -1) {
 			TActiveStruct temp = activeStruct[sourceIndex];
 			if(activeStruct[targetIndex].itemEquipActiveCard != null) {
 				activeStruct[sourceIndex].itemEquipActiveCard.transform.SetParent(activeStruct[targetIndex].gridActiveCardBase.transform);

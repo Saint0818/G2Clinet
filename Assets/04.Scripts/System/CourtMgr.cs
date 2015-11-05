@@ -830,6 +830,11 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		RealBall.transform.Translate (pos);
 	}
 
+	public void BlockRealBall (Vector3 vec){
+		RealBallRigidbody.velocity = Vector3.zero;
+		RealBallRigidbody.AddForce(vec * 100, ForceMode.Impulse);
+	}
+
 	public void ResetBasketEntra() {
 		LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, false);
 		GameController.Get.IsReboundTime = false;

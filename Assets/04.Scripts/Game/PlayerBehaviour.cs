@@ -528,7 +528,10 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isCanBlock = false;
     private bool isBlock = false;
     private float blockCurveTime = 0;
-    private TBlockCurve playerBlockCurve;
+	private TBlockCurve playerBlockCurve;
+	private Vector3 skillOriTarget;
+	private Vector3 skillMoveTarget;
+	private Vector3 skillFaceTarget;
 
     //Rebound
     private bool isRebound = false;
@@ -897,7 +900,10 @@ public class PlayerBehaviour : MonoBehaviour
 
     void FixedUpdate()
     {
-		if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
+//		if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
+//			return;
+//		}
+		if (GameController.Get.IsShowSituation) {
 			return;
 		}
 		changePlayerColor ();
@@ -1150,26 +1156,44 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationDunkMove()
     {
-		if (!isDunk || Timer.timeScale == 0)
+//		if (!isDunk || Timer.timeScale == 0)
+//            return;
+		if (!isDunk)
             return;
 
         if (playerDunkCurve != null)
         {
 			dunkCurveTime += Time.deltaTime * Timer.timeScale;
-            Vector3 position = PlayerRefGameObject.transform.position;
-            position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
+            
 
-            if (position.y < 0)
-                position.y = 0; 
-
-			if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime && Timer.timeScale != 0)
-            {
-				IsAnimatorMove = true;
-				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime);
-				PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
-				PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
-				PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
-            }
+//			if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime && Timer.timeScale != 0)
+//            {
+//				IsAnimatorMove = true;
+//				float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime);
+//				PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
+//				PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
+//				PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
+			//            }
+			Vector3 position = PlayerRefGameObject.transform.position;
+			if(Timer.timeScale != 0){ 
+				position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
+				
+				if (position.y < 0)
+					position.y = 0; 
+				if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime) 
+				{ 
+					PlayerRefGameObject.transform.DOPlay(); 
+					IsAnimatorMove = true; 
+					float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime); 
+					PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear); 
+					PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear); 
+					PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0); 
+				} 
+			} 
+			else if(Timer.timeScale == 0) 
+			{ 
+				PlayerRefGameObject.transform.DOPause(); 
+			}
 
 			PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, position.y, PlayerRefGameObject.transform.position.z);
 
@@ -1192,6 +1216,13 @@ public class PlayerBehaviour : MonoBehaviour
 			LogMgr.Get.LogError("playCurve is null");
         }
     }
+
+	public void DunkFall(){
+		PlayerRefGameObject.transform.DOKill();
+		isDunk = false;
+		IsCanBlock = false;
+		IsAnimatorMove = false;
+	}
 
     private void CalculationLayupMove()
     {
@@ -1397,21 +1428,46 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void CalculationBlock()
     {
-        if (!isBlock)
+        if (!isBlock || Timer.timeScale == 0)
             return;
 
         if (playerBlockCurve != null)
         {
             blockCurveTime += Time.deltaTime * Timer.timeScale;
 
-            if (blockCurveTime < 1f)
-				PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * 0.03f * Timer.timeScale), 
-                											playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-				                                       PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * 0.03f * Timer.timeScale));
-            else
-				PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                                                            playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-				                                       PlayerRefGameObject.transform.position.z);
+			if (playerBlockCurve.isSkill) {
+				PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
+				if (blockCurveTime < 1f){
+					if(GameController.Get.BallOwner == null) {
+						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.y, (skillMoveTarget.y - BodyHeight.transform.localPosition.y), blockCurveTime), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
+					} else {
+						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillOriTarget.x + (skillMoveTarget.x - skillOriTarget.x) * 0.8f, blockCurveTime), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.y, skillMoveTarget.y, blockCurveTime), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillOriTarget.z + (skillMoveTarget.z - skillOriTarget.z) * 0.8f, blockCurveTime));
+					}
+				} else
+					if(GameController.Get.BallOwner == null) {
+						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
+						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
+					} else {
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+						                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, skillMoveTarget.y, blockCurveTime), 
+					                                                     PlayerRefGameObject.transform.position.z);
+					}
+					
+			} else {
+				if (blockCurveTime < 1f)
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * 0.03f * Timer.timeScale), 
+					                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * 0.03f * Timer.timeScale));
+				else
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+					                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+					                                                     PlayerRefGameObject.transform.position.z);
+			}
 
             if (blockCurveTime >= playerBlockCurve.LifeTime)
             {
@@ -2350,18 +2406,25 @@ public class PlayerBehaviour : MonoBehaviour
 						break;
 					case EPlayerState.Block1:
 						stateNo = 1;
-						break;
+						StartSkillCamera();
+				break;
 					case EPlayerState.Block2:
 						stateNo = 2;
-						break;
+						StartSkillCamera();
+				break;
 				}
 
                 SetShooterLayer();
                 playerBlockCurve = null;
-			curveName = string.Format("Block{0}", stateNo);
+				curveName = string.Format("Block{0}", stateNo);
 				PlayerRigidbody.useGravity = false;
 				IsKinematic = true;
 
+				skillOriTarget = PlayerRefGameObject.transform.position;
+				if(GameController.Get.BallOwner == null) {
+					skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
+				} else 
+					skillMoveTarget = GameController.Get.BallOwner.transform.position;
                 for (int i = 0; i < aniCurve.Block.Length; i++)
 					if (aniCurve.Block [i].Name == curveName)
 					{
@@ -3569,9 +3632,44 @@ public class PlayerBehaviour : MonoBehaviour
 				UISkillEffect.UIShow(false);
 				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
 					TimerMgr.Get.ChangeTime (item, 1);
+
+				if(isBlock) {
+					if(GameController.Get.BallOwner == null) {
+						CourtMgr.Get.RealBallVelocity = Vector3.zero;
+						skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
+						CourtMgr.Get.BlockRealBall(new Vector3(skillFaceTarget.x,
+						                                       -1,
+						                                       skillFaceTarget.z));
+					} else {
+						PlayerBehaviour p = GameController.Get.BallOwner;
+						GameController.Get.SetBall();
+						CourtMgr.Get.SetBallState(EPlayerState.Block0, p);
+						p.DunkFall();
+						p.DoPassiveSkill(ESkillSituation.KnockDown0);
+					}
+				}
 			}
 			break;
 		}
+	}
+	private Vector3 judgePlayerFace (float angle){
+		if(angle <= 22.5f && angle >= -22.5) //Left
+			return Vector3.forward;
+		else if(angle > 22.5f && angle <= 67.5f) //LeftUp
+			return new Vector3(1, 0, 1);
+		else if(angle < -22.5f && angle >= -67.5f) 
+			return new Vector3(-1, 0, 1);//LeftDown
+		else if(angle > 67.5f && angle <= 112.5f) 
+			return Vector3.right;//Up
+		else if(angle < -67.5f && angle >= -112.5f) 
+			return Vector3.left;//Down
+		else if(angle > 112.5f && angle <= 157.5f) 
+			return new Vector3(1, 0, -1);//Right UP
+		else if(angle < -112.5f && angle >= -157.5f) 
+			return new Vector3(-1, 0, -1);//Right Down
+		else if(angle > 157.5f || angle < -157.5f) 
+			return Vector3.back;//Right 
+		return Vector3.zero;
 	}
 
 	public void StartSkillCamera (){

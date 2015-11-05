@@ -309,7 +309,7 @@ namespace AI
 
         private void doElbow()
         {
-            if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow))
+            if(mPlayer.DoPassiveSkill(ESkillSituation.Elbow0))
             {
                 mPlayer.CoolDownElbow = Time.time + GameConst.PassCoolDownTime;
 //                CourtMgr.Get.ShowBallSFX(GameConst.BallSFXTime);

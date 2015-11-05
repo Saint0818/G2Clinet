@@ -110,7 +110,7 @@ public class SkillController : MonoBehaviour {
 		}
 	}
 
-	//without Active, Acitve is run at the SkillBuff
+	//without Active, Acitve is run at the SkillBuff, SkillBuff have FinishBuff
 	private void updateSkillAttribute() {
 		for (int i = skillAttribute.Count-1; i >= 0; i--) { 
 			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID < GameConst.ID_LimitActive) {
@@ -318,8 +318,8 @@ public class SkillController : MonoBehaviour {
 		              GameController.Get.Situation == EGameSituation.Opening||
 		              GameController.Get.Situation == EGameSituation.JumpBall)) {
 			switch(State) {
-			case ESkillSituation.Block:
-				playerState = getPassiveSkill(ESkillSituation.Block, ESkillKind.Block0, v);
+			case ESkillSituation.Block0:
+				playerState = getPassiveSkill(ESkillSituation.Block0, ESkillKind.Block0, v);
 				Result = player.AniState(playerState, v);
 				break;
 				
@@ -336,8 +336,8 @@ public class SkillController : MonoBehaviour {
 				Result = true;
 				break;
 
-			case ESkillSituation.Elbow:
-				playerState = getPassiveSkill(ESkillSituation.Elbow, ESkillKind.Elbow0);
+			case ESkillSituation.Elbow0:
+				playerState = getPassiveSkill(ESkillSituation.Elbow0, ESkillKind.Elbow0);
 				Result = player.AniState (playerState);
 				break;
 				
@@ -395,7 +395,7 @@ public class SkillController : MonoBehaviour {
 				}
 				break;
 				
-			case ESkillSituation.PickBall:{
+			case ESkillSituation.Pick0:{
 				playerState = EPlayerState.Pick2;
 				TSkill skill = new TSkill();
 				skill.ID = 1310;
