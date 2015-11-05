@@ -42,6 +42,8 @@ public class UIMainLobby : UIBase
         UpdateUI();
 
         Impl.Show();
+
+        ResetCommands.Get.Run();
     }
 
     public void UpdateUI()
@@ -58,6 +60,8 @@ public class UIMainLobby : UIBase
         UI3DMainLobby.Get.Hide();
 
         Impl.Hide();
+
+        ResetCommands.Get.Stop();
 
 //        RemoveUI(UIName);
     }

@@ -66,12 +66,12 @@ public class KnightSingleton<T> : MonoBehaviour where T : KnightSingleton<T>
 	{
 		if(mInst == null)
 			return;
-		
-		GameObject.Destroy(mInst.gameObject);
-		
-		mInst.OnDestroyInst();
-		
-		mInst = null;
+
+	    mInst.OnDestroyInst();
+
+        Destroy(mInst.gameObject);
+
+	    mInst = null;
 	}
 	
 	void OnApplicationQuit()

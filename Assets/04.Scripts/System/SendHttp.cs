@@ -79,7 +79,7 @@ public static class URLConst {
 	public const string SkillUpgrade = "skillupgrade";
 	public const string ChangeSkillEffect = "changeskilleffect";
 	public const string MissionAward = "missionaward";
-	public const string CheckResetToday = "checkresettoday";
+	public const string CheckResetStage = "checkresetstage";
 	public const string GetGymData = "getgymdata";
 	public const string SearchGym = "searchgym";
 	public const string GymStart = "gymstart";
