@@ -81,8 +81,9 @@ namespace GamePlayStruct {
 		public int Value1;
 		public int Value2;
 		public int FinishCondition;
-		public int ConditionOperator;
+		public int ConditionKind;
 		public int ConditionValue;
+		public int ConditionOperator;
 		public int NextEventID;
 
 		public TToturialAction[] Actions;
@@ -92,6 +93,7 @@ namespace GamePlayStruct {
 			Value1 = 0;
 			Value2 = 0;
 			FinishCondition = 0;
+			ConditionKind = 0;
 			ConditionOperator = 0;
 			ConditionValue = 0;
 			NextEventID = 0;

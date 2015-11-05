@@ -6,7 +6,7 @@ using System.IO;
 public class GEBase : EditorWindow {
 	private static Vector2 minWindow = new Vector2(300, 600);
 	protected const float Height_Line = 24;
-	protected const float Weight_Button = 120;
+	protected const float Weight_Button = 80;
 	protected GUIStyle StyleLabel;
 	protected GUIStyle StyleEdit;
 	protected GUIStyle StyleButton;
@@ -32,7 +32,50 @@ public class GEBase : EditorWindow {
 		this.minSize = minWindow;
 	}
 
-	protected void SaveFile(string fileName, string Data) {
+	protected void GUILabel(string text) {
+		GUILabel(text, Color.white);
+	}
+
+	protected virtual void GUILabel(string text, Color color) {
+		StyleLabel.normal.textColor = color;
+		GUILayout.Label(text, StyleLabel, GUILayout.Height(Height_Line));
+		StyleLabel.normal.textColor = Color.white;
+	}
+
+	protected virtual int GUIIntEdit(int input, string title = "") {
+		GUILabel(title);
+		return EditorGUILayout.IntField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+	}
+
+	protected virtual float GUIFloatEdit(float input, string title = "") {
+		GUILabel(title);
+		return EditorGUILayout.FloatField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+	}
+
+	protected virtual bool GUIToggle(bool input, string title = "") {
+		GUILabel(title);
+		return EditorGUILayout.Toggle(input, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+	}
+
+	protected bool GUIButton(string title) {
+		return GUIButton(title, Color.white);
+	}
+
+	protected virtual bool GUIButton(string title, Color color) {
+		StyleButton.normal.textColor = color;
+		bool clicked = GUILayout.Button(title, StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
+		StyleButton.normal.textColor = Color.white;
+		return clicked;
+	}
+
+	protected virtual int GUIPopup(int select, string[] displayOptions, string title = "") {
+		if (!string.IsNullOrEmpty(title))
+			GUILabel(title);
+
+		return EditorGUILayout.Popup(select, displayOptions, StyleButton, GUILayout.Width(Weight_Button * 2), GUILayout.Height(Height_Line));
+	}
+
+	protected static void SaveFile(string fileName, string Data) {
 		if (File.Exists(fileName))
 			File.WriteAllText(fileName, string.Empty);
 		
@@ -46,7 +89,7 @@ public class GEBase : EditorWindow {
 		}
 	}
 	
-	protected string LoadFile(string fileName) {
+	protected static string LoadFile(string fileName) {
 		if (File.Exists(fileName)) {
 			string InData = "";
 			using (FileStream myFile = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite)) {

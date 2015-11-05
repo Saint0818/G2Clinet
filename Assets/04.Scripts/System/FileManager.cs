@@ -619,15 +619,17 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
+	public void LoadStageTutorial(ref TStageToturial[] data) {
+
+	}
+
 	public void ParseStageTutorialData(string version, string text, bool isSaveVersion) {
-		var i = 0;
 		try {
+			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject (text, typeof(TStageToturial[]));
 			GameData.DStageTutorial.Clear();
 			GameData.StageTutorial.Clear();
-
-			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject (text, typeof(TStageToturial[]));
-
-			for (i = 0; i < data.Length; i++) {
+			
+			for (int i = 0; i < data.Length; i++) {
 				int id = data[i].ID;
 				if (!GameData.DStageTutorial.ContainsKey(id)) {
 					GameData.DStageTutorial.Add(id, data[i]);
@@ -635,7 +637,7 @@ public class FileManager : KnightSingleton<FileManager> {
 				} else 
 					Debug.LogError("Stage tutorial key error i : " + i.ToString());
 			}
-			
+
 			if (isSaveVersion)
 				SaveDataVersionAndJson(text, "stagetutorial", version);
 			

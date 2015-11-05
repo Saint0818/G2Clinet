@@ -7,12 +7,18 @@ using Newtonsoft.Json;
 using GamePlayStruct;
 
 public class GEStageTutorial : GEBase {
-	private string stageID = "";
+	public static GEStageTutorial Get = null;
+	private int stageID = 0;
 	private static string FileName = "";
 	private static string BackupFileName = "";
 	private Vector2 mScroll = Vector2.zero;
 
+	void OnDisable () { 
+		Get = null; 
+	}
+
 	void OnEnable() {
+		Get = this;
 		FileName = Application.dataPath + "/Resources/GameData/stagetutorial.json";
 		BackupFileName = Application.dataPath + "/Resources/GameData/Backup/stagetutorial_" + DateTime.Now.ToString("MM-dd-yy") + ".json";
 		OnLoad();
@@ -20,12 +26,12 @@ public class GEStageTutorial : GEBase {
 
     void OnGUI() {
 		GUILayout.BeginHorizontal();
-		GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
-		stageID = GUILayout.TextField(stageID, StyleEdit, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
-		if (GUILayout.Button("Add", StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
+		GUILabel("Stage ID : ", Color.yellow);
+		stageID = GUIIntEdit(stageID, "");
+		if (GUIButton("Add")) {
 			int id = -1;
 			
-			if (int.TryParse(stageID, out id) && id >= GameConst.Default_MainStageID)
+			if (stageID >= GameConst.Default_MainStageID)
 				addTutorial(id);
 			else
 				Debug.Log("ID error.");
@@ -35,15 +41,12 @@ public class GEStageTutorial : GEBase {
 		GUILayout.Space(2);
 
 		if (GameData.StageTutorial.Count > 0 ) {
-			StyleLabel.normal.textColor = Color.yellow;
-			GUILayout.Label("Stage ID : ", StyleLabel, GUILayout.Height(Height_Line));
-
-			StyleLabel.normal.textColor = Color.white;
+			GUILabel("Stage ID : ", Color.yellow);
 			mScroll = GUILayout.BeginScrollView(mScroll);
 			for (int i = 0; i < GameData.StageTutorial.Count; i++) {
 				GUILayout.Space(2);
-				if (GUILayout.Button(GameData.StageTutorial[i].ID.ToString(), StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line))) {
-					GEGamePlayTutorial.Get.SetStage(GameData.StageTutorial[i].ID);
+				if (GUIButton(GameData.StageTutorial[i].ID.ToString())) {
+					GEGamePlayTutorial.Get.SetStage(i);
 				}
 			}
 
@@ -57,11 +60,21 @@ public class GEStageTutorial : GEBase {
 			FileManager.Get.ParseStageTutorialData(BundleVersion.Version.ToString(), text, false);
 	}
 
-	public void OnSave() {
+	public static void OnSave() {
 		if (GameData.StageTutorial != null && GameData.StageTutorial.Count > 0) {
 			if (FileName != string.Empty) {
 				SaveFile(FileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
 				SaveFile(BackupFileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
+
+				GameData.DStageTutorial.Clear();
+				
+				for (int i = 0; i < GameData.StageTutorial.Count; i++) {
+					int id = GameData.StageTutorial[i].ID;
+					if (!GameData.DStageTutorial.ContainsKey(id)) 
+						GameData.DStageTutorial.Add(id, GameData.StageTutorial[i]);
+					else 
+						Debug.LogError("Stage tutorial key error i : " + i.ToString());
+				}
 
 				Debug.Log(FileName);
 				Debug.Log(BackupFileName);
