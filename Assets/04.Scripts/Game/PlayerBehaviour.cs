@@ -1370,7 +1370,7 @@ public class PlayerBehaviour : MonoBehaviour
 		
 		if (playerStealCurve != null)
 		{
-			stealCurveTime += Time.deltaTime * TimerMgr.Get.CrtTime;
+			stealCurveTime += Time.deltaTime * Timer.timeScale;
 			
 			if (stealCurveTime >= playerStealCurve.StartTime)
 			{
@@ -3704,7 +3704,6 @@ public class PlayerBehaviour : MonoBehaviour
 					TimerMgr.Get.ChangeTime (item, 1);
 
 				if(isBlock) {
-//					Debug.Log("GameController.Get.BallState:" + GameController.Get.BallState);
 					if(GameController.Get.BallState == EBallState.CanBlock) {
 						CourtMgr.Get.RealBallVelocity = Vector3.zero;
 						skillFaceTarget = judgePlayerFace(PlayerRefGameObject.transform.eulerAngles.y);
@@ -3715,14 +3714,15 @@ public class PlayerBehaviour : MonoBehaviour
 						PlayerBehaviour p = GameController.Get.BallOwner;
 						GameController.Get.SetBall();
 						CourtMgr.Get.SetBallState(EPlayerState.Block0, p);
-//						p.DunkFall();
 						p.DoPassiveSkill(ESkillSituation.KnockDown0);
 					}
+					GameController.Get.BallState = EBallState.None;
 				}
 			}
 			break;
 		}
 	}
+
 	private Vector3 judgePlayerFace (float angle){
 		if(angle <= 22.5f && angle >= -22.5) //Left
 			return Vector3.forward;
@@ -3800,24 +3800,15 @@ public class PlayerBehaviour : MonoBehaviour
 				   GameData.DSkillData[ActiveSkillUsed.ID].Kind == 170 ||
 				   GameData.DSkillData[ActiveSkillUsed.ID].Kind == 171 ||
 				   GameData.DSkillData[ActiveSkillUsed.ID].Kind == 180 ) {
-					switch(skillEffectKind) {
-					case 0://show self and rotate camera
-						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+				
+					if(!isSkillShow) {
+					foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
+						if(item != CrtTimeKey)
 							TimerMgr.Get.ChangeTime (item, 0);
-						break;
-					case 1://show self
-						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-							if(item != CrtTimeKey)
-								TimerMgr.Get.ChangeTime (item, 0);
-						break;
-					case 2://show all Player
-						GameController.Get.SetAllPlayerLayer("SkillPlayer");
-						foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-							if(item != CrtTimeKey)
-								TimerMgr.Get.ChangeTime (item, 0);
-						break;
+
+					isSkillShow = true;
 					}
-				}  
+				}
 
 				if(GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseSkill)
 					UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
@@ -3948,6 +3939,10 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public bool IsHavePickBall2{
 		get {return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.Pick2);}
+	}
+
+	public bool CanPressButton {
+		get {return (Timer.timeScale ==1 );}
 	}
 	
 	public bool CanMove

@@ -966,7 +966,7 @@ public class UIGame : UIBase {
 	}
 
 	public void UIControllerState (EUIControl controllerState, GameObject go = null, bool state = false) {
-		if (GameController.Get.IsShowSituation)
+		if (GameController.Get.IsShowSituation || !PlayerMe.CanPressButton)
 			return;
 			
 		if (IsPlayerMe && (GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC)) {
