@@ -55,7 +55,7 @@ public class SkillController : MonoBehaviour {
 					UIGame.Get.ShowSkillEnableUI(GameController.Get.IsStart, 
 					                             i, 
 					                             executePlayer.IsAngerFull(executePlayer.Attribute.ActiveSkills[i]), 
-					                             (executePlayer.CheckSkillDistance(executePlayer.Attribute.ActiveSkills[i]) && executePlayer.CheckSkillKind(executePlayer.Attribute.ActiveSkills[i]))
+					                             (checkSkillBaseSituation(executePlayer, executePlayer.Attribute.ActiveSkills[i]) && executePlayer.CheckSkillDistance(executePlayer.Attribute.ActiveSkills[i]) && executePlayer.CheckSkillKind(executePlayer.Attribute.ActiveSkills[i]))
 					                             );
 				}
 			}
