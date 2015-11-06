@@ -359,6 +359,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					break;
 				case EAnimatorState.Rebound:
 					AnimtorStatesType [item].Add(EPlayerState.Rebound0, 0);
+					AnimtorStatesType [item].Add(EPlayerState.Rebound20, 20);
 					break;
 				case EAnimatorState.Defence:
 					AnimtorStatesType [item].Add(EPlayerState.Defence0, 0);
@@ -378,6 +379,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					AnimtorStatesType [item].Add(EPlayerState.Block0, 0);
 					AnimtorStatesType [item].Add(EPlayerState.Block1, 1);
 					AnimtorStatesType [item].Add(EPlayerState.Block2, 2);
+					AnimtorStatesType [item].Add(EPlayerState.Block20, 20);
 					break;
 				case EAnimatorState.Catch:
 					AnimtorStatesType [item].Add(EPlayerState.CatchFlat, 0);
@@ -413,6 +415,8 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					AnimtorStatesType [item].Add(EPlayerState.Elbow0, 0);
 					AnimtorStatesType [item].Add(EPlayerState.Elbow1, 1);
 					AnimtorStatesType [item].Add(EPlayerState.Elbow2, 2);
+					AnimtorStatesType [item].Add(EPlayerState.Elbow20, 20);
+					AnimtorStatesType [item].Add(EPlayerState.Elbow21, 21);
 					break;
 				case EAnimatorState.Layup:
 					AnimtorStatesType [item].Add(EPlayerState.Layup0, 0);
@@ -443,6 +447,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					AnimtorStatesType [item].Add(EPlayerState.Dunk6, 6);
 					AnimtorStatesType [item].Add(EPlayerState.Dunk7, 7);
 					AnimtorStatesType [item].Add(EPlayerState.Dunk20, 20);
+					AnimtorStatesType [item].Add(EPlayerState.Dunk21, 21);
 					AnimtorStatesType [item].Add(EPlayerState.Dunk22, 22);
 					break;
 					
