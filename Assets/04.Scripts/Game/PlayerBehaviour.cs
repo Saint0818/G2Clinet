@@ -2230,8 +2230,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void InitAnimatorCurve(EAnimatorState state, int stateNo)
     {
+		bool isFindCurve = false;
         string curveName = string.Format("{0}{1}", state.ToString(), stateNo);
-        Debug.Log("curveName : " + curveName);
 
         switch (state)
         {
@@ -2241,22 +2241,21 @@ public class PlayerBehaviour : MonoBehaviour
                     playerBlockCurve = null;
                     for (int i = 0; i < aniCurve.Block.Length; i++)
                         if (aniCurve.Block [i].Name == curveName)
-                        {
                             playerBlockCurve = aniCurve.Block [i];
-                        }
                 }
-                blockCurveTime = 0;
+				isFindCurve = playerBlockCurve != null? true : false;
+				blockCurveTime = 0;
                 isBlock = true;
                 break;
             case EAnimatorState.Dunk:
                 if (playerDunkCurve == null || (playerDunkCurve != null && playerDunkCurve.Name != curveName))
                 {
+					playerDunkCurve = null;
                     for (int i = 0; i < aniCurve.Dunk.Length; i++)
                         if (aniCurve.Dunk [i].Name == curveName)
-                        {
                             playerDunkCurve = aniCurve.Dunk [i];
-                        }
                 }
+				isFindCurve = playerDunkCurve != null? true : false;
                 IsAnimatorMove = false;
                 isDunk = true;
                 dunkCurveTime = 0;
@@ -2272,6 +2271,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (curveName == aniCurve.Fall [i].Name)
                             playerFallCurve = aniCurve.Fall [i];
                 }
+				isFindCurve = playerFallCurve != null? true : false;
                 fallCurveTime = 0;
                 isFall = true;
                 break;
@@ -2283,7 +2283,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Push [i].Name == curveName)
                             playerPushCurve = aniCurve.Push [i];
                 }
-
+				isFindCurve = playerPushCurve != null? true : false;
                 pushCurveTime = 0;
                 isPush = true;
                 break;
@@ -2294,10 +2294,9 @@ public class PlayerBehaviour : MonoBehaviour
                     playerPickCurve = null;
                     for (int i = 0; i < aniCurve.PickBall.Length; i++)
                         if (aniCurve.PickBall [i].Name == curveName)
-                        {
                             playerPickCurve = aniCurve.PickBall [i];
-                        }
                 }
+				isFindCurve = playerPickCurve != null? true : false;
                 pickCurveTime = 0;
                 isPick = true;
                 break;
@@ -2309,6 +2308,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Steal [i].Name == curveName)
                             playerStealCurve = aniCurve.Steal [i];
                 }
+				isFindCurve = playerStealCurve != null? true : false;
                 stealCurveTime = 0;
                 isSteal = true;
                 break;
@@ -2319,7 +2319,7 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Shoot [i].Name == curveName)
                             playerShootCurve = aniCurve.Shoot [i];
                 }
-            
+				isFindCurve = playerShootCurve != null? true : false;
                 shootJumpCurveTime = 0;
                 isShootJump = true;
             
@@ -2332,8 +2332,8 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Layup [i].Name == curveName)
                             playerLayupCurve = aniCurve.Layup [i];
                 }
-
-                layupCurveTime = 0;
+				isFindCurve = playerLayupCurve != null? true : false;
+				layupCurveTime = 0;
                 isLayup = true;
                 isLayupZmove = false;
                 break;
@@ -2346,13 +2346,14 @@ public class PlayerBehaviour : MonoBehaviour
                         if (aniCurve.Rebound [i].Name == curveName)
                             playerReboundCurve = aniCurve.Rebound [i];
                 }
+				isFindCurve = playerReboundCurve != null? true : false;
                 reboundCurveTime = 0;
                 isRebound = true;
                 break;
         }
 
-//      if(curveName != string.Empty && !isFindCurve)
-//          DebugAnimationCurve(curveName);
+      if(curveName != string.Empty && !isFindCurve)
+          DebugAnimationCurve(curveName);
     }
 
     private void BlockStateHandle(int stateNo)
@@ -2367,6 +2368,7 @@ public class PlayerBehaviour : MonoBehaviour
                     isDunkBlock = true;
                 break;
         }
+		InitAnimatorCurve (EAnimatorState.Block, stateNo);
         StartSkillCamera(stateNo);
         SetShooterLayer();
         
