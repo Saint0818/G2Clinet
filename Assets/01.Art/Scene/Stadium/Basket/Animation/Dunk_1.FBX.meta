@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 682a423679142b54e8a28311fed875d7
-timeCreated: 1445587506
+timeCreated: 1446801164
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -87,7 +87,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayEffect
+        data: DunkFX
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 2
+        intParameter: 1
+        messageOptions: 0
+      - time: .00749041932
+        functionName: PlaySound
+        data: SD_Dunk
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .0122904778
+        functionName: PlayShake
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
