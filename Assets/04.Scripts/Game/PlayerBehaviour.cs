@@ -655,6 +655,31 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+	public Vector3 FindNearBlockPoint (Vector3 source) {
+		float dis = 0;
+		int kind = EDefPointKind.FrontSteal.GetHashCode();
+		dis = Vector3.Distance(source, DefPointAy[kind].position);
+		float tempDis = Vector3.Distance(source, DefPointAy[EDefPointKind.BackSteal.GetHashCode()].position);
+		if(dis > tempDis)
+		{
+			dis = tempDis;
+			kind = EDefPointKind.BackSteal.GetHashCode();
+		}
+		tempDis = Vector3.Distance(source, DefPointAy[EDefPointKind.RightSteal.GetHashCode()].position);
+		if(dis > tempDis)
+		{
+			dis = tempDis;
+			kind = EDefPointKind.RightSteal.GetHashCode();
+		}
+		tempDis = Vector3.Distance(source, DefPointAy[EDefPointKind.LeftSteal.GetHashCode()].position);
+		if(dis > tempDis)
+		{
+			kind = EDefPointKind.LeftSteal.GetHashCode();
+		}
+
+		return DefPointAy[kind].position;
+	}
+
     void FixedUpdate()
     {
 //      if (Timer.state == TimeState.Paused || GameController.Get.IsShowSituation) {
@@ -1226,24 +1251,22 @@ public class PlayerBehaviour : MonoBehaviour
 						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
 					} else 
 					{
-						if(GameController.Get.GetDis(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z),
-                                                     new Vector2(skillMoveTarget.x, skillMoveTarget.z)) > 2f)
-						{
-							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-							                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
-							                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
-						} else 
-						{
-							PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-							                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-							                                                     PlayerRefGameObject.transform.position.z);
-						}
+						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
+						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
 					}
 				} else
 				{
-					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-					                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
-					                                                     PlayerRefGameObject.transform.position.z);
+					if (GameController.Get.BallOwner == null) {
+						PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+						                                                     PlayerRefGameObject.transform.position.z);
+					} else 
+					{
+						PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
+						                                                     PlayerRefGameObject.transform.position.z);
+					}
 				}   
             } else
             {
@@ -1260,8 +1283,6 @@ public class PlayerBehaviour : MonoBehaviour
             if (blockCurveTime >= playerBlockCurve.LifeTime)
             {
                 isBlock = false;
-                isShootBlock = false;
-                isDunkBlock = false;
                 isCheckLayerToReset = true;
             }
         }
@@ -2368,7 +2389,7 @@ public class PlayerBehaviour : MonoBehaviour
             skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
         } else
         {
-            skillMoveTarget = GameController.Get.BallOwner.transform.position;
+			skillMoveTarget = GameController.Get.BallOwner.FindNearBlockPoint(PlayerRefGameObject.transform.position);
         }
         
         AddTrigger(EAnimatorState.Block, stateNo);
@@ -3230,8 +3251,6 @@ public class PlayerBehaviour : MonoBehaviour
                         } else if (GameController.Get.BallState == EBallState.CanDunkBlock)
                         {
                             PlayerBehaviour p = GameController.Get.BallOwner;
-                            GameController.Get.SetBall();
-                            CourtMgr.Get.SetBallState(EPlayerState.Block0, this);
                             p.DoPassiveSkill(ESkillSituation.KnockDown0);
                         }
                         GameController.Get.BallState = EBallState.None;
