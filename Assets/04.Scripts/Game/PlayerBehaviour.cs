@@ -2601,7 +2601,7 @@ public class PlayerBehaviour : MonoBehaviour
         TAnimatorItem nextState = AnimatorMgr.Get.GetAnimatorStateType(state);
 
         bool Result = false;
-        int stateNo = 0;
+//        int stateNo = 0;
 
         PlayerRigidbody.mass = 0.1f;
         PlayerRigidbody.useGravity = true;
@@ -2714,7 +2714,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (nextState.StateNo == 20)
                     GameRecord.Push ++;
                 InitAnimatorCurve(EAnimatorState.Push, nextState.StateNo);
-                StartSkillCamera(stateNo);
+				StartSkillCamera(nextState.StateNo);
                 AddTrigger(EAnimatorState.Push, nextState.StateNo);
                 GameRecord.PushLaunch++;
                 Result = true;
@@ -2725,7 +2725,7 @@ public class PlayerBehaviour : MonoBehaviour
                     InitAnimatorCurve(EAnimatorState.Pick, nextState.StateNo);
                     GameRecord.SaveBallLaunch++;
                 }
-                AddTrigger(EAnimatorState.Pick, stateNo);
+				AddTrigger(EAnimatorState.Pick, nextState.StateNo);
                 Result = true;
                 break;
             case EAnimatorState.Run:
@@ -2744,7 +2744,7 @@ public class PlayerBehaviour : MonoBehaviour
                     GameRecord.Steal ++;
                     InitAnimatorCurve(EAnimatorState.Steal, nextState.StateNo);
                 }
-                StartSkillCamera(stateNo);
+				StartSkillCamera(nextState.StateNo);
                 PlayerRigidbody.mass = 5;
                 AddTrigger(EAnimatorState.Steal, nextState.StateNo);
                 isCanCatchBall = false;
@@ -2777,7 +2777,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRigidbody.useGravity = false;
                 IsKinematic = true;
             
-                StartSkillCamera(stateNo);
+				StartSkillCamera(nextState.StateNo);
                 skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
                 if (InReboundDistance)
                 {
