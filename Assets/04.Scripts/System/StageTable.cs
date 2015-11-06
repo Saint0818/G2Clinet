@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -46,6 +45,12 @@ public class StageTable
     public void Load(string jsonText)
     {
         clear();
+
+        // 刪除 ["] 字元.
+        jsonText = jsonText.Replace("\"[", "[");
+        jsonText = jsonText.Replace("]\"", "]");
+        jsonText = jsonText.Replace("\"{", "{");
+        jsonText = jsonText.Replace("}\"", "}");
 
         var stages = (StageData[])JsonConvert.DeserializeObject(jsonText, typeof(StageData[]));
         foreach(StageData stage in stages)

@@ -61,7 +61,21 @@ public class StageData
     /// 進入關卡的戰鬥力限制. 因為戰鬥力是根據屬性算出總和數值, 其實非常像 2K 的總評分數, 所以才
     /// 取名為 Evaluation.
     /// </summary>
-    public int LimitEvaluation; 
+    public int LimitEvaluation;
+
+    public int[] Rewards; // 獎勵 ItemID.
+    public int[] RewardRates; // 獎勵機率.
+
+//    public int Reward1; 
+//    public int RewardRate1; 
+//    public int Reward2;
+//    public int RewardRate2;
+//    public int Reward3;
+//    public int RewardRate3;
+//    public int Reward4;
+//    public int RewardRate4;
+//    public int Reward5;
+//    public int RewardRate5;
 
     public int WinValue;
     public int FriendNumber;

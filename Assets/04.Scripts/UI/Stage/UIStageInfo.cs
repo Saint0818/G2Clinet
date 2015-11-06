@@ -19,8 +19,13 @@ public class UIStageInfo : MonoBehaviour
         public string Description { set; get; }
         public string KindSpriteName { set; get; }
         public string KindName { set; get; }
-        public string RewardSpriteName { set; get; }
-        public string RewardName { set; get; }
+
+        /// <summary>
+        /// 顯示在右下角的獎勵.
+        /// </summary>
+        public string[] RewardSpriteNames = {"", "", ""};
+        public string[] RewardNames = { "", "", "" };
+
         public int Stamina { set; get; }
 
         /// <summary>
@@ -40,8 +45,8 @@ public class UIStageInfo : MonoBehaviour
     public UILabel DescriptionLabel;
     public UISprite KindSprite;
     public UILabel KindLabel;
-    public UISprite RewardSprite;
-    public UILabel RewardLabel;
+//    public UISprite RewardSprite;
+//    public UILabel RewardLabel;
     public UILabel StaminaLabel;
     public Transform HintParent;
     public GameObject Completed; // 標示是否關卡打過的圖片.
@@ -53,8 +58,19 @@ public class UIStageInfo : MonoBehaviour
     public UISprite[] DailyLimits;
     private UIStageHint mHint;
 
+    private UIStageRewardIcon[] RewardIcons
+    {
+        get
+        {
+            if(mRewardIcons == null || mRewardIcons.Length == 0)
+                mRewardIcons = GetComponentsInChildren<UIStageRewardIcon>();
+            return mRewardIcons;
+        }
+    }
+    private UIStageRewardIcon[] mRewardIcons;
+
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
-    private readonly Color32 DisableColor = new Color32(69, 69, 69, 255);
+    private readonly Color32 mDisableColor = new Color32(69, 69, 69, 255);
 
     private int mStageID;
 
@@ -90,8 +106,18 @@ public class UIStageInfo : MonoBehaviour
         DescriptionLabel.text = data.Description;
         KindSprite.spriteName = data.KindSpriteName;
         KindLabel.text = data.KindName;
-        RewardSprite.spriteName = data.RewardSpriteName;
-        RewardLabel.text = data.RewardName;
+
+        for(int i = 0; i < RewardIcons.Length; i++)
+        {
+            if(string.IsNullOrEmpty(data.RewardSpriteNames[i]))
+                RewardIcons[i].Hide();
+            else
+            {
+                RewardIcons[i].Show();
+                RewardIcons[i].UpdateUI(data.RewardSpriteNames[i], data.RewardNames[i]);
+            }
+        }
+
         StaminaLabel.text = string.Format("{0}", data.Stamina);
         Completed.SetActive(data.ShowCompleted);
 
@@ -100,7 +126,7 @@ public class UIStageInfo : MonoBehaviour
             if(data.DailyCount > i)
                 DailyLimits[i].color = Color.white;
             else
-                DailyLimits[i].color = DisableColor;
+                DailyLimits[i].color = mDisableColor;
         }
 
         StartButton.isEnabled = data.DailyCount > 0;

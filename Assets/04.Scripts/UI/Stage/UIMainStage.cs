@@ -191,12 +191,17 @@ public class UIMainStage : UIBase
             Description = stageData.Explain,
             KindSpriteName = stageData.KindTextIndex.ToString(),
             KindName = TextConst.S(stageData.KindTextIndex),
-            RewardSpriteName = "GoldCoin",
-            RewardName = "",
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
             DailyCount = dailyCount
         };
+
+        for(int i = 0; i < data.RewardSpriteNames.Length; i++)
+        {
+            if(stageData.Rewards.Length > i && GameData.DItemData.ContainsKey(stageData.Rewards[i]))
+                data.RewardSpriteNames[i] = GameData.DItemData[stageData.Rewards[i]].Icon;
+        }
+
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
         mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 
     }
