@@ -27,144 +27,6 @@ public enum EPlayerPostion
 	G = 2
 }
 
-public enum EAnimatorState
-{
-	Block,
-	Catch,
-	Defence,
-	Dribble,
-	Dunk,
-	Elbow,
-	Fall,
-	FakeShoot,
-	GotSteal,
-	HoldBall,
-	Idle,
-	Intercept,
-	Layup,
-	MoveDodge,
-	Push,
-	Pick,
-	Pass,
-	Rebound,
-	Run,
-	Shoot,
-	Steal
-}
-
-public enum EPlayerState
-{
-	Alleyoop,
-	Block0,  
-	Block1,  
-	Block2, 
-	Block20, 
-	BlockCatch,
-	BasketAnimationStart,
-	BasketActionEnd,
-	BasketActionSwish,
-	BasketActionSwishEnd,
-	BasketActionNoScoreEnd,
-	CatchFlat,
-	CatchParabola,
-	CatchFloor,
-	Dribble0,
-	Dribble1,
-	Dribble2,
-	Dribble3,
-	Dunk0,
-	Dunk1,
-	Dunk2,
-	Dunk3,
-	Dunk4,
-	Dunk5,
-	Dunk6,
-	Dunk7,
-	Dunk20,
-	Dunk21,
-	Dunk22,
-	DunkBasket,
-	Defence0,    
-	Defence1,
-	Elbow0,
-	Elbow1,
-	Elbow2,
-	Elbow20,
-	Elbow21,
-	Fall0,
-	Fall1,
-	Fall2,
-	FakeShoot,
-	GotSteal,
-	HoldBall,
-    Idle,
-	Intercept0,
-	Intercept1,
-	Layup0, 
-	Layup1, 
-	Layup2, 
-	Layup3, 
-	MoveDodge0,
-	MoveDodge1,
-	Pick0,
-	Pick1,
-	Pick2,
-	Pass0,
-	Pass1,
-	Pass2,
-	Pass3,
-	Pass4,
-	Pass5,
-	Pass6,
-	Pass7,
-	Pass8,
-	Pass9,
-	Pass50,
-	Push0,
-	Push1,
-	Push2,
-	Push20,
-    Run0,            
-    Run1,            
-    Run2,            
-    RunningDefence,
-	Rebound0,
-	Rebound20,
-	ReboundCatch,
-	Reset,
-	Start,
-	Shoot0,
-	Shoot1,
-	Shoot2,
-	Shoot3,
-	Shoot4,
-	Shoot5,
-	Shoot6,
-	Shoot7,
-	Steal0,
-	Steal1,
-	Steal2,
-	Steal20,
-	TipIn,
-	JumpBall,
-	Buff20, 
-	Buff21,
-	Shooting,
-	Show1, 
-	Show101, 
-	Show102, 
-	Show103, 
-	Show104, 
-	Show201, 
-	Show202, 
-	Show1001, 
-	Show1003,
-	Ending0,
-	Ending10,
-	KnockDown0,
-	KnockDown1
-}
-
 public enum ETeamKind
 {
     Self = 0,
@@ -288,124 +150,6 @@ public class TSkillAttribute
 	public int Kind;
 	public float Value;
 	public float CDTime;
-}
-
-public static class StateChecker {
-	private static bool isInit = false;
-	public static Dictionary<EPlayerState, bool> StopStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> ShootStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> ShowStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> LoopStates = new Dictionary<EPlayerState, bool>();
-	public static Dictionary<EPlayerState, bool> PassStates = new Dictionary<EPlayerState, bool>();
-
-	public static void InitState() {
-		if (!isInit) {
-			isInit = true;
-
-			ShootStates.Add(EPlayerState.Shoot0, true);
-			ShootStates.Add(EPlayerState.Shoot1, true);
-			ShootStates.Add(EPlayerState.Shoot2, true);
-			ShootStates.Add(EPlayerState.Shoot3, true);
-			ShootStates.Add(EPlayerState.Shoot4, true);
-			ShootStates.Add(EPlayerState.Shoot5, true);
-			ShootStates.Add(EPlayerState.Shoot6, true);
-			ShootStates.Add(EPlayerState.Shoot7, true);
-			ShootStates.Add(EPlayerState.TipIn, true);
-
-			StopStates.Add(EPlayerState.Block0, true);
-			StopStates.Add(EPlayerState.Block1, true);
-			StopStates.Add(EPlayerState.Block2, true);
-			StopStates.Add(EPlayerState.Block20, true);
-			StopStates.Add(EPlayerState.BlockCatch, true);
-			StopStates.Add(EPlayerState.CatchFlat, true);
-			StopStates.Add(EPlayerState.CatchFloor, true);
-			StopStates.Add(EPlayerState.CatchParabola, true);
-			StopStates.Add(EPlayerState.Alleyoop, true);
-			StopStates.Add(EPlayerState.Elbow0, true);
-			StopStates.Add(EPlayerState.Elbow1, true);
-			StopStates.Add(EPlayerState.Elbow2, true);
-			StopStates.Add(EPlayerState.Elbow20, true);
-			StopStates.Add(EPlayerState.Elbow21, true);
-			StopStates.Add(EPlayerState.FakeShoot, true);
-			StopStates.Add(EPlayerState.HoldBall, true);
-			StopStates.Add(EPlayerState.GotSteal, true);
-			StopStates.Add(EPlayerState.Pass0, true);
-			StopStates.Add(EPlayerState.Pass2, true);
-			StopStates.Add(EPlayerState.Pass1, true);
-			StopStates.Add(EPlayerState.Pass3, true);
-			StopStates.Add(EPlayerState.Pass4, true);
-			StopStates.Add(EPlayerState.Pass50, true);
-			StopStates.Add(EPlayerState.Push0, true);
-			StopStates.Add(EPlayerState.Push1, true);
-			StopStates.Add(EPlayerState.Push2, true);
-			StopStates.Add(EPlayerState.Push20, true);
-			StopStates.Add(EPlayerState.Pick0, true);
-			StopStates.Add(EPlayerState.Pick1, true);
-			StopStates.Add(EPlayerState.Pick2, true);
-			StopStates.Add(EPlayerState.Steal0, true);
-			StopStates.Add(EPlayerState.Steal1, true);
-			StopStates.Add(EPlayerState.Steal2, true);
-			StopStates.Add(EPlayerState.Steal20, true);
-			StopStates.Add(EPlayerState.Rebound0, true);
-			StopStates.Add(EPlayerState.Rebound20, true);
-			StopStates.Add(EPlayerState.ReboundCatch, true);
-			StopStates.Add(EPlayerState.TipIn, true);
-			StopStates.Add(EPlayerState.Intercept0, true);
-			StopStates.Add(EPlayerState.Intercept1, true);
-			StopStates.Add(EPlayerState.MoveDodge0, true);
-			StopStates.Add(EPlayerState.MoveDodge1, true);
-			StopStates.Add(EPlayerState.Buff20, true);
-			StopStates.Add(EPlayerState.Buff21, true);
-
-			StopStates.Add(EPlayerState.Show1, true);
-			StopStates.Add(EPlayerState.Show101, true);
-			StopStates.Add(EPlayerState.Show102, true);
-			StopStates.Add(EPlayerState.Show103, true);
-			StopStates.Add(EPlayerState.Show104, true);
-			StopStates.Add(EPlayerState.Show201, true);
-			StopStates.Add(EPlayerState.Show202, true);
-			StopStates.Add(EPlayerState.Show1001, true);
-			StopStates.Add(EPlayerState.Show1003, true);
-			StopStates.Add(EPlayerState.KnockDown0, true);
-			StopStates.Add(EPlayerState.KnockDown1, true);
-
-			StopStates.Add(EPlayerState.Ending0, true);
-			StopStates.Add(EPlayerState.Ending10, true);
-
-			ShowStates.Add(EPlayerState.Show1, true);
-			ShowStates.Add(EPlayerState.Show101, true);
-			ShowStates.Add(EPlayerState.Show102, true);
-			ShowStates.Add(EPlayerState.Show103, true);
-			ShowStates.Add(EPlayerState.Show104, true);
-			ShowStates.Add(EPlayerState.Show201, true);
-			ShowStates.Add(EPlayerState.Show202, true);
-			ShowStates.Add(EPlayerState.Show1001, true);
-			ShowStates.Add(EPlayerState.Show1003, true);
-
-			LoopStates.Add(EPlayerState.Idle,true);
-			LoopStates.Add(EPlayerState.Run0,true);
-			LoopStates.Add(EPlayerState.Run1,true);
-			LoopStates.Add(EPlayerState.Run2,true);
-			LoopStates.Add(EPlayerState.Defence0,true);
-			LoopStates.Add(EPlayerState.Defence1,true);
-			LoopStates.Add(EPlayerState.Dribble0,true);
-			LoopStates.Add(EPlayerState.Dribble1,true);
-			LoopStates.Add(EPlayerState.Dribble2,true);
-			LoopStates.Add(EPlayerState.Dribble3,true);
-
-			PassStates.Add(EPlayerState.Pass0, true);
-			PassStates.Add(EPlayerState.Pass1, true);
-			PassStates.Add(EPlayerState.Pass2, true);
-			PassStates.Add(EPlayerState.Pass3, true);
-			PassStates.Add(EPlayerState.Pass4, true);
-			PassStates.Add(EPlayerState.Pass5, true);
-			PassStates.Add(EPlayerState.Pass6, true);
-			PassStates.Add(EPlayerState.Pass7, true);
-			PassStates.Add(EPlayerState.Pass8, true);
-			PassStates.Add(EPlayerState.Pass9, true);
-			PassStates.Add(EPlayerState.Pass50, true);
-		}
-	}
 }
 
 public class PlayerBehaviour : MonoBehaviour
@@ -2403,15 +2147,408 @@ public class PlayerBehaviour : MonoBehaviour
 			return false;
     }
 
+	private void AddTrigger(EAnimatorState state , int stateNo)
+	{
+		AnimatorControl.SetInteger("StateNo", stateNo);
+		switch(state)
+		{
+			case EAnimatorState.Block:
+			case EAnimatorState.Buff:
+			case EAnimatorState.BlockCatch:
+			case EAnimatorState.Catch:
+			case EAnimatorState.Dunk:
+			case EAnimatorState.End:
+			case EAnimatorState.Elbow:
+			case EAnimatorState.FakeShoot:
+			case EAnimatorState.Fall:
+			case EAnimatorState.KnockDown:
+			case EAnimatorState.Intercept:
+			case EAnimatorState.Pass:
+			case EAnimatorState.Push:
+			case EAnimatorState.Pick:
+			case EAnimatorState.Steal:
+			case EAnimatorState.GotSteal:
+			case EAnimatorState.Shoot:
+			case EAnimatorState.Layup:
+			case EAnimatorState.Rebound:
+			case EAnimatorState.JumpBall:
+			case EAnimatorState.TipIn:
+				ClearAnimatorFlag ();
+				AnimatorControl.SetTrigger(string.Format("{0}Trigger", state.ToString()));
+				break;
+
+			case EAnimatorState.Idle:
+				ClearAnimatorFlag ();
+				break;
+			case EAnimatorState.Defence:
+				ClearAnimatorFlag(EActionFlag.IsDefence);
+				break;
+			case EAnimatorState.Dribble:
+				ClearAnimatorFlag(EActionFlag.IsDribble);
+				break;
+			case EAnimatorState.HoldBall:
+				ClearAnimatorFlag(EActionFlag.IsHoldBall);
+				break;
+			case EAnimatorState.Run:
+				ClearAnimatorFlag(EActionFlag.IsRun);
+				break;
+			case EAnimatorState.MoveDodge:
+			case EAnimatorState.Show:
+				AnimatorControl.SetInteger("StateNo", stateNo);
+				AnimatorControl.SetTrigger(string.Format("{0}Trigger", state.ToString()));
+				break;
+		}
+	}
+
+	private void InitAnimatorCurve(EAnimatorState state , int stateNo)
+	{
+		string curveName = string.Format("{0}{1}", state.ToString(), stateNo);
+		Debug.Log ("curveName : " + curveName);
+
+		switch (state) {
+		case EAnimatorState.Block:
+			if(playerBlockCurve == null || (playerBlockCurve != null && playerBlockCurve.Name != curveName))
+			{
+				playerBlockCurve = null;
+				for (int i = 0; i < aniCurve.Block.Length; i++)
+					if (aniCurve.Block [i].Name == curveName){
+					playerBlockCurve = aniCurve.Block [i];
+				}
+			}
+			blockCurveTime = 0;
+			isBlock = true;
+			break;
+		case EAnimatorState.Dunk:
+			if(playerDunkCurve == null || (playerDunkCurve != null && playerDunkCurve.Name != curveName)){
+				for (int i = 0; i < aniCurve.Dunk.Length; i++)
+					if (aniCurve.Dunk [i].Name == curveName){
+						playerDunkCurve = aniCurve.Dunk [i];
+					}
+			}
+			IsAnimatorMove = false;
+			isDunk = true;
+			dunkCurveTime = 0;
+
+			break;
+
+		case EAnimatorState.Fall:
+			if(playerFallCurve == null || (playerFallCurve != null && playerFallCurve.Name != curveName))
+			{
+				playerFallCurve = null;
+
+				for (int i = 0; i < aniCurve.Fall.Length; i++)
+					if (curveName == aniCurve.Fall [i].Name)
+						playerFallCurve = aniCurve.Fall [i];
+			}
+			fallCurveTime = 0;
+			isFall = true;
+			break;
+		case EAnimatorState.Push:
+			if(playerPushCurve == null || (playerPushCurve != null && playerPushCurve.Name != curveName))
+			{
+				playerPushCurve = null;
+				for (int i = 0; i < aniCurve.Push.Length; i++)
+					if (aniCurve.Push [i].Name == curveName)
+						playerPushCurve = aniCurve.Push [i];
+			}
+
+			pushCurveTime = 0;
+			isPush = true;
+			break;
+
+		case EAnimatorState.Pick:
+			if(playerPickCurve == null || (playerPickCurve != null && playerPickCurve.Name != curveName )){
+				playerPickCurve = null;
+				for (int i = 0; i < aniCurve.PickBall.Length; i++)
+					if (aniCurve.PickBall [i].Name == curveName){
+						playerPickCurve = aniCurve.PickBall [i];
+				}
+			}
+			pickCurveTime = 0;
+			isPick = true;
+			break;
+		case EAnimatorState.Steal:
+			if(playerStealCurve == null || (playerStealCurve != null && playerStealCurve.Name != curveName )){
+				playerStealCurve = null;
+				for (int i = 0; i < aniCurve.Steal.Length; i++)
+					if (aniCurve.Steal [i].Name == curveName)
+						playerStealCurve = aniCurve.Steal [i];
+			}
+			stealCurveTime = 0;
+			isSteal = true;
+			break;
+		case EAnimatorState.Shoot:
+			if(playerShootCurve == null || (playerShootCurve != null && playerShootCurve.Name != curveName )){
+				for (int i = 0; i < aniCurve.Shoot.Length; i++)
+					if (aniCurve.Shoot [i].Name == curveName)
+						playerShootCurve = aniCurve.Shoot [i];
+			}
+			
+			shootJumpCurveTime = 0;
+			isShootJump = true;
+			
+			break;
+		case EAnimatorState.Layup:
+			if(playerLayupCurve == null || (playerLayupCurve != null && playerLayupCurve.Name != curveName )){
+				playerLayupCurve = null;
+				for (int i = 0; i < aniCurve.Layup.Length; i++)
+					if (aniCurve.Layup [i].Name == curveName)
+						playerLayupCurve = aniCurve.Layup [i];
+			}
+
+			layupCurveTime = 0;
+			isLayup = true;
+			isLayupZmove = false;
+			break;
+
+		case EAnimatorState.Rebound:
+			if(playerLayupCurve == null || (playerLayupCurve != null && playerLayupCurve.Name != curveName )){
+				playerReboundCurve = null;
+				for (int i = 0; i < aniCurve.Rebound.Length; i++)
+					if (aniCurve.Rebound [i].Name == curveName)
+						playerReboundCurve = aniCurve.Rebound [i];
+			}
+			reboundCurveTime = 0;
+			isRebound = true;
+			break;
+		}
+
+//		if(curveName != string.Empty && !isFindCurve)
+//			DebugAnimationCurve(curveName);
+	}
+
+	private void BlockStateHandle(int stateNo)
+	{
+		switch(stateNo)
+		{
+		case 20:
+			GameRecord.Block ++;
+			if(GameController.Get.BallState == EBallState.CanBlock)
+				isShootBlock = true;
+			else if (GameController.Get.BallState == EBallState.CanDunkBlock)
+				isDunkBlock = true;
+			break;
+		}
+		StartSkillCamera(stateNo);
+		SetShooterLayer();
+		
+		PlayerRigidbody.useGravity = false;
+		IsKinematic = true;
+		
+		if(GameController.Get.BallOwner == null) {
+			skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
+		} else {
+			skillMoveTarget = GameController.Get.BallOwner.transform.position;
+		}
+		
+		AddTrigger(EAnimatorState.Block, stateNo);
+		isCanCatchBall = false;
+		GameRecord.BlockLaunch++;
+	}
+
+	private void BlockCatchStateHandle(int stateNo)
+	{
+		PlayerRigidbody.useGravity = false;
+		IsKinematic = true;
+		AddTrigger(EAnimatorState.BlockCatch, stateNo);
+		IsPerfectBlockCatch = false;
+		isCanCatchBall = false;
+	}
+
+	public void BuffStateHandle(int stateNo)
+	{
+		StartSkillCamera(stateNo);
+		AddTrigger(EAnimatorState.Buff, stateNo);
+	}
+
+	public void CatchStateHandle(int stateNo)
+	{
+		setSpeed(0, -1);
+		AddTrigger(EAnimatorState.Catch, stateNo);
+	}
+
+	public void DefenceStateHandle(int stateNo)
+	{
+		switch(stateNo)
+		{
+		case 0:
+			PlayerRigidbody.mass = 5;
+			setSpeed(0, -1);
+			break;
+		case 1:
+			setSpeed(1, 1);
+			break;
+		}
+	
+		AddTrigger (EAnimatorState.Defence, stateNo);
+	}
+
+	public void DunkStateHandle(int stateNo)
+	{
+		StartSkillCamera(stateNo);
+		PlayerRigidbody.useGravity = false;
+		IsKinematic = true;
+		AddTrigger (EAnimatorState.Dunk, stateNo);
+		isCanCatchBall = false;
+
+		InitAnimatorCurve (EAnimatorState.Dunk, stateNo);
+
+		SetShooterLayer();
+		CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
+		if (OnDunkJump != null)
+			OnDunkJump(this);
+	}
+
+	public void DribbleStateHandle(int stateNo)
+	{
+		switch (stateNo)
+			{
+			case 0:
+				PlayerRigidbody.mass = 5;
+				break;
+			case 2:
+				DashEffectEnable(true);
+				break;
+			case 3:
+				DashEffectEnable(false);
+				break;
+			}
+			
+			AddTrigger (EAnimatorState.Dribble, stateNo);
+			CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
+			isCanCatchBall = false;
+			IsFirstDribble = false;
+	}
+
+	public void ElbowStateHandle(int stateNo)
+	{
+		switch (stateNo)
+		{
+		case 20:
+		case 21:
+			GameRecord.Elbow ++;
+			break;
+		}
+		StartSkillCamera(stateNo);
+		PlayerRigidbody.mass = 5;
+		AddTrigger (EAnimatorState.Elbow, stateNo);
+		isCanCatchBall = false;
+		GameRecord.ElbowLaunch++;
+	}
+
+	public void FakeShootStateHandle(int stateNo)
+	{
+		if (IsBallOwner)
+		{
+			PlayerRigidbody.mass = 5;
+			AddTrigger(EAnimatorState.FakeShoot, stateNo);
+			isCanCatchBall = false;
+			isFakeShoot = true;
+			GameRecord.Fake++;
+		}
+	}
+
+	public void KnockDownStateHandle(int stateNo)
+	{
+		if(IsBallOwner && (situation != EGameSituation.GamerPickBall || situation != EGameSituation.NPCPickBall))
+		{
+			GameController.Get.SetBall();
+			CourtMgr.Get.SetBallState(EPlayerState.KnockDown0);
+		}
+		if(IsDunk)
+		{
+			isDunk = false;
+			IsAnimatorMove = false;
+			PlayerRefGameObject.transform.DOKill();
+			PlayerRefGameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
+		}
+		SetShooterLayer();
+		
+		isShootJump = false;
+		AddTrigger (EAnimatorState.KnockDown, stateNo);
+		isCanCatchBall = false;
+	}
+
+	public void FallStateHandle(int stateNo)
+	{
+		SetShooterLayer();
+		InitAnimatorCurve (EAnimatorState.Fall, stateNo);
+		isDunk = false;
+		IsAnimatorMove = false;
+		isShootJump = false;
+		AddTrigger(EAnimatorState.Fall, stateNo);
+		isCanCatchBall = false;
+		PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
+		if (OnFall != null)
+			OnFall(this);
+	}
+
+	public void ShootStateHandle(int stateNo)
+	{
+		if (IsBallOwner)
+		{
+			switch (stateNo)
+			{
+				case 0:		
+				case 4:		
+				case 5:		
+				case 6:		
+				case 7:		
+					skillKind = ESkillKind.Shoot;
+					break;
+				case 1:		
+					skillKind = ESkillKind.NearShoot;
+					break;
+				case 2:		
+					skillKind = ESkillKind.UpHand;
+					break;
+				case 3:		
+					skillKind = ESkillKind.DownHand;
+					break;
+			}
+			PlayerRigidbody.useGravity = false;
+			IsKinematic = true;
+			InitAnimatorCurve(EAnimatorState.Shoot, stateNo);
+			SetShooterLayer();
+			AddTrigger(EAnimatorState.Shoot, stateNo);
+			isCanCatchBall = false;
+		}
+	}
+
+	public void LayupStateHandle(int stateNo)
+	{
+		if (IsBallOwner)
+		{
+			switch (stateNo)
+			{
+			case 0:
+				skillKind = ESkillKind.Layup;
+				break;
+			case 1:
+			case 2:
+			case 3:
+				skillKind = ESkillKind.LayupSpecial;
+				break;
+			}
+			PlayerRigidbody.useGravity = false;
+			IsKinematic = true;
+			InitAnimatorCurve(EAnimatorState.Layup, stateNo);
+			SetShooterLayer();
+			AddTrigger(EAnimatorState.Layup, stateNo);
+			isCanCatchBall = false;
+		}
+	}
+
     public bool AniState(EPlayerState state)
     {
         if (!CanUseState(state))
             return false;
 
+		TAnimatorItem nextState = AnimatorMgr.Get.GetAnimatorStateType (state);
+
         bool Result = false;
         int stateNo = 0;
-        string curveName = string.Empty;
-		bool isFindCurve = false;
+
         PlayerRigidbody.mass = 0.1f;
 		PlayerRigidbody.useGravity = true;
 		IsKinematic = false;
@@ -2428,878 +2565,187 @@ public class PlayerBehaviour : MonoBehaviour
 
 		DashEffectEnable (false);
         
-        switch (state)
-        {
-            case EPlayerState.Block0:
-            case EPlayerState.Block1:
-            case EPlayerState.Block2:
-            case EPlayerState.Block20:
-				switch(state)
-				{
-					case EPlayerState.Block0:
-						stateNo = 0;
-						break;
-					case EPlayerState.Block1:
-						stateNo = 1;
-						break;
-					case EPlayerState.Block2:
-						stateNo = 2;
-						break;
-					case EPlayerState.Block20:
-						stateNo = 20;
-						GameRecord.Block ++;
-						if(GameController.Get.BallState == EBallState.CanBlock)
-							isShootBlock = true;
-						else if (GameController.Get.BallState == EBallState.CanDunkBlock)
-							isDunkBlock = true;
-						break;
-				}
-			
-				StartSkillCamera(stateNo);
-				SetShooterLayer();
-                playerBlockCurve = null;
-				curveName = string.Format("Block{0}", stateNo);
-				PlayerRigidbody.useGravity = false;
-				IsKinematic = true;
-
-				if(GameController.Get.BallOwner == null) {
-					skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
-				} else {
-					skillMoveTarget = GameController.Get.BallOwner.transform.position;
-				}
-                for (int i = 0; i < aniCurve.Block.Length; i++)
-					if (aniCurve.Block [i].Name == curveName)
-					{
-                        playerBlockCurve = aniCurve.Block [i];
-						isFindCurve = true;
-						blockCurveTime = 0;
-						isBlock = true;
-					}
-
-                ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("BlockTrigger");
-                isCanCatchBall = false;
-				GameRecord.BlockLaunch++;
-                Result = true;
-                break;
-
-			case EPlayerState.Buff20:
-			case EPlayerState.Buff21:
-				switch (state)
-				{
-					case EPlayerState.Buff20:
-						stateNo = 20;
-						break;
-					case EPlayerState.Buff21:
-						stateNo = 21;
-						break;
-				}
-				StartSkillCamera(stateNo);
-				ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-				AnimatorControl.SetTrigger("BuffTrigger");
+		switch (nextState.Type) {
+			case EAnimatorState.Block:	
+				BlockStateHandle(nextState.StateNo);
+				Result = true;
+			break;
+			case EAnimatorState.BlockCatch:	
+				BlockCatchStateHandle(nextState.StateNo);
 				Result = true;
 				break;
-			
-            case EPlayerState.BlockCatch:
-				PlayerRigidbody.useGravity = false;
-				IsKinematic = true;
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("BlockCatchTrigger");
-                IsPerfectBlockCatch = false;
-                isCanCatchBall = false;
-                Result = true;
-                break;
-
-            case EPlayerState.CatchFlat:
-                AnimatorControl.SetInteger("StateNo", 0);
-                setSpeed(0, -1);
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("CatchTrigger");
-                Result = true;
-                break;
-
-            case EPlayerState.CatchFloor:
-                AnimatorControl.SetInteger("StateNo", 2);
-                setSpeed(0, -1);
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("CatchTrigger");
-                Result = true;
-                break;
-                
-            case EPlayerState.CatchParabola:
-                AnimatorControl.SetInteger("StateNo", 1);
-                setSpeed(0, -1);
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("CatchTrigger");
-                Result = true;
-                break;
-
-            case EPlayerState.Defence0:
-                PlayerRigidbody.mass = 5;
-                ClearAnimatorFlag();
-                setSpeed(0, -1);
-				AnimatorControl.SetInteger("StateNo", 0);
-                AddActionFlag(EActionFlag.IsDefence);
-                Result = true;
-                break;
-
-            case EPlayerState.Defence1:
-                setSpeed(1, 1);
-				AnimatorControl.SetInteger("StateNo", 1);
-                ClearAnimatorFlag(EActionFlag.IsDefence);
-                Result = true;
-                break;
-
-            case EPlayerState.Alleyoop:
-            case EPlayerState.Dunk0:
-            case EPlayerState.Dunk1:
-            case EPlayerState.Dunk2:
-            case EPlayerState.Dunk3:
-            case EPlayerState.Dunk4:
-            case EPlayerState.Dunk5:
-            case EPlayerState.Dunk6:
-            case EPlayerState.Dunk7:
-            case EPlayerState.Dunk20:
-            case EPlayerState.Dunk21:
-            case EPlayerState.Dunk22:
-                switch (state)
-                {
-                    case EPlayerState.Dunk0:
-                    case EPlayerState.Alleyoop:
-                        stateNo = 0;
-                        break;
-					case EPlayerState.Dunk1:
-						stateNo = 1;
-						break;
-                    case EPlayerState.Dunk2:
-                        stateNo = 2;
-						break;
-					case EPlayerState.Dunk3:
-						stateNo = 3;
-                        break;
-                    case EPlayerState.Dunk4:
-                        stateNo = 4;
-                        break;
-					case EPlayerState.Dunk5:
-						stateNo = 5;
-						break;
-					case EPlayerState.Dunk6:
-						stateNo = 6;
-						break;
-					case EPlayerState.Dunk7:
-						stateNo = 7;
-						break;
-                    case EPlayerState.Dunk20:
-						stateNo = 20;
-                        break;
-					case EPlayerState.Dunk21:
-						stateNo = 21;
-						break;
-					case EPlayerState.Dunk22:
-						stateNo = 22;
-						break;
-			}
-				StartSkillCamera(stateNo);
-				PlayerRigidbody.useGravity = false;
-				IsKinematic = true;
-                ClearAnimatorFlag();
-                AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("DunkTrigger");
-                isCanCatchBall = false;
-
-                playerDunkCurve = null;
-
-				curveName = string.Format("Dunk{0}", stateNo);
-
-                for (int i = 0; i < aniCurve.Dunk.Length; i++)
-					if (aniCurve.Dunk [i].Name == curveName)
-                    {
-                        playerDunkCurve = aniCurve.Dunk [i];
-						IsAnimatorMove = false;
-                        isDunk = true;
-                        dunkCurveTime = 0;
-						isFindCurve = true;
-                    }
-                SetShooterLayer();
-
-				CourtMgr.Get.SetBallState(EPlayerState.Dunk0, this);
-				if (OnDunkJump != null)
-					OnDunkJump(this);
-
-                Result = true;
-                break;
-
-            case EPlayerState.Dribble0:
-            case EPlayerState.Dribble1:
-            case EPlayerState.Dribble2:
-            case EPlayerState.Dribble3:
-                if (GameController.Get.BallOwner == this)
-                {
-                    switch (state)
-                    {
-                        case EPlayerState.Dribble0:
-                            PlayerRigidbody.mass = 5;
-                            stateNo = 0;
-                            break;
-                        case EPlayerState.Dribble1:
-                            stateNo = 1;
-                            break;
-                        case EPlayerState.Dribble2:
-                            stateNo = 2;
-							DashEffectEnable(true);
-                            break;
-						case EPlayerState.Dribble3:
-							stateNo = 3;
-							DashEffectEnable(false);
-							break;
-                    }
-                    ClearAnimatorFlag();
-                    AnimatorControl.SetInteger("StateNo", stateNo);
-                    AddActionFlag(EActionFlag.IsDribble);
-                    CourtMgr.Get.SetBallState(EPlayerState.Dribble0, this);
-                    isCanCatchBall = false;
-                    IsFirstDribble = false;
-                    Result = true;
-                }
-                break;
-
-		case EPlayerState.Ending0:
-			switch (state)
-			{
-			case EPlayerState.Ending0:
-				stateNo = 0;
+			case EAnimatorState.Buff:	
+				BuffStateHandle(nextState.StateNo);
+				Result = true;
 				break;
-			case EPlayerState.Ending10:
-				stateNo = 10;
+
+			case EAnimatorState.Catch:
+				CatchStateHandle (nextState.StateNo);
+				Result = true;
 				break;
-			}
-			ClearAnimatorFlag();
-			AnimatorControl.SetInteger("StateNo", stateNo);
-			AnimatorControl.SetTrigger("EndingTrigger");
+
+		case EAnimatorState.Defence:
+			DefenceStateHandle (nextState.StateNo);
 			Result = true;
 			break;
-			
-		case EPlayerState.Elbow0:
-		case EPlayerState.Elbow1:
-		case EPlayerState.Elbow2:
-		case EPlayerState.Elbow20:
-		case EPlayerState.Elbow21:
-			switch (state)
-			{
-			case EPlayerState.Elbow0:
-				stateNo = 0;
-				break;
-			case EPlayerState.Elbow1:
-				stateNo = 1;
-				break;
-			case EPlayerState.Elbow2:
-				stateNo = 2;
-				break;
-			case EPlayerState.Elbow20:
-				stateNo = 20;
-				GameRecord.Elbow ++;
-				break;
-			case EPlayerState.Elbow21:
-				stateNo = 21;
-				GameRecord.Elbow ++;
-				break;
-			}
-				StartSkillCamera(stateNo);
-				PlayerRigidbody.mass = 5;
-                ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("ElbowTrigger");
-                isCanCatchBall = false;
-				GameRecord.ElbowLaunch++;
-                Result = true;
-                break;
 
-            case EPlayerState.FakeShoot:
-                if (IsBallOwner)
-                {
-                    PlayerRigidbody.mass = 5;
-                    ClearAnimatorFlag();
-                    AnimatorControl.SetTrigger("FakeShootTrigger");
-                    isCanCatchBall = false;
-                    isFakeShoot = true;
-					GameRecord.Fake++;
-                    Result = true;
-                }
-                break;
+		case EAnimatorState.Dunk:
+		case EAnimatorState.Alleyoop:
+			DunkStateHandle(nextState.StateNo);
+			Result = true;
+			break;
 
-		case EPlayerState.KnockDown0:
-		case EPlayerState.KnockDown1:
-			switch (state)
-			{
-				case EPlayerState.KnockDown0:
-					stateNo = 0;
-					break;
-				case EPlayerState.KnockDown1:
-					stateNo = 1;
-					break;
-			}
+		case EAnimatorState.Dribble:
+			DribbleStateHandle(nextState.StateNo);
+			Result = true;
+			break;
 
-			if(IsBallOwner && (situation != EGameSituation.GamerPickBall || situation != EGameSituation.NPCPickBall))
-			{
-				GameController.Get.SetBall();
-				CourtMgr.Get.SetBallState(state);
-			}
-			if(IsDunk)
-			{
-				isDunk = false;
-				IsAnimatorMove = false;
-				PlayerRefGameObject.transform.DOKill();
-				PlayerRefGameObject.transform.DOLocalMoveY(0, 0.5f).SetEase(Ease.Linear);
-			}
-			SetShooterLayer();
+		case EAnimatorState.End:
+			AddTrigger (EAnimatorState.End, nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.Elbow:
+			ElbowStateHandle(nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.FakeShoot:
+			FakeShootStateHandle(nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.KnockDown:
+			KnockDownStateHandle(nextState.StateNo);
+			Result = true;
+			break;
 
-			isShootJump = false;
-			ClearAnimatorFlag();
-			AnimatorControl.SetInteger("StateNo", stateNo);
-			AnimatorControl.SetTrigger("KnockDownTrigger");
+		case EAnimatorState.Fall:
+			FallStateHandle(nextState.StateNo);
+			Result = true;
+			break;
+
+		case EAnimatorState.HoldBall:
+			PlayerRigidbody.mass = 5;
+			AddTrigger(EAnimatorState.HoldBall, nextState.StateNo); 
 			isCanCatchBall = false;
-		
 			Result = true;
 			break;
-			
-		case EPlayerState.Fall0:
-		case EPlayerState.Fall1:
-		case EPlayerState.Fall2:
-			switch (state)
-			{
-			case EPlayerState.Fall0:
-				stateNo = 0;
-				break;
-                    case EPlayerState.Fall1:
-                        stateNo = 1;
-                        break;
-                    case EPlayerState.Fall2:
-                        stateNo = 2;
-                        break;
-                }
-				SetShooterLayer();
-                curveName = string.Format("Fall{0}", stateNo);
-                playerFallCurve = null;
-
-                for (int i = 0; i < aniCurve.Fall.Length; i++)
-                    if (curveName == aniCurve.Fall [i].Name)
-                    {
-                        playerFallCurve = aniCurve.Fall [i];
-                        fallCurveTime = 0;
-                        isFall = true;
-						isFindCurve = true;
-                    }
-
-                isDunk = false;
-				IsAnimatorMove = false;
-                isShootJump = false;
-                ClearAnimatorFlag();
-                AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("FallTrigger");
-                isCanCatchBall = false;
-				PlayerRefGameObject.transform.DOLocalMoveY(0, 1f);
-                if (OnFall != null)
-                    OnFall(this);
-                Result = true;
-                break;
-
-            case EPlayerState.HoldBall:
-                PlayerRigidbody.mass = 5;
-                ClearAnimatorFlag();
-                AddActionFlag(EActionFlag.IsHoldBall);
-                isCanCatchBall = false;
-                Result = true;
-                break;
-            
-            case EPlayerState.Idle:
-                PlayerRigidbody.mass = 5;
-                setSpeed(0, -1);
-                ClearAnimatorFlag();
-
-                isMoving = false;
-                Result = true;
-                break;
-
-            case EPlayerState.Intercept0:
-			case EPlayerState.Intercept1:
-				switch(state)
-				{
-					case EPlayerState.Intercept0:
-						stateNo = 1;
-						break;
-					case EPlayerState.Intercept1:
-						stateNo = 2;
-						break;
-				}
-				ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("InterceptTrigger");
-                Result = true;
-                break;
-            
-            case EPlayerState.MoveDodge0:
-                AnimatorControl.SetInteger("StateNo", 0);
-                AnimatorControl.SetTrigger("MoveDodge");
-                OnUICantUse(this);
-                if(moveQueue.Count > 0)
-                {
-                    moveQueue.Dequeue();
-//                    Debug.LogFormat("AniState(), EPlayerState.MoveDodge0, moveQueue.Dequeue()");
-                }
-                Result = true;
-                break;
-
-            case EPlayerState.MoveDodge1:
-                AnimatorControl.SetInteger("StateNo", 1);
-                AnimatorControl.SetTrigger("MoveDodge");
-                OnUICantUse(this);
-                if(moveQueue.Count > 0)
-                {
-                    moveQueue.Dequeue();
-//                    Debug.LogFormat("AniState(), EPlayerState.MoveDodge1, moveQueue.Dequeue()");
-                }
-                Result = true;
-                break;
-
-            case EPlayerState.Pass0:
-            case EPlayerState.Pass1:
-            case EPlayerState.Pass2:
-            case EPlayerState.Pass3:
-            case EPlayerState.Pass4:
-            case EPlayerState.Pass5:
-            case EPlayerState.Pass6:
-            case EPlayerState.Pass7:
-            case EPlayerState.Pass8:
-            case EPlayerState.Pass9:
-			case EPlayerState.Pass50:
-			switch (state)
-                {
-                    case EPlayerState.Pass0:
-                        stateNo = 0;
-                        break;
-                    case EPlayerState.Pass1:
-                        stateNo = 1;
-                        break;
-                    case EPlayerState.Pass2:
-                        stateNo = 2;
-                        break;
-                    case EPlayerState.Pass3:
-                        stateNo = 3;
-                        break;
-                    case EPlayerState.Pass4:
-                        stateNo = 4;
-                        break;
-					case EPlayerState.Pass5:
-						stateNo = 5;
-						break;
-					case EPlayerState.Pass6:
-						stateNo = 6;
-						break;
-					case EPlayerState.Pass7:
-						stateNo = 7;
-						break;
-					case EPlayerState.Pass8:
-						stateNo = 8;
-						break;
-					case EPlayerState.Pass9:
-						stateNo = 9;
-						break;
-					case EPlayerState.Pass50:
-						stateNo = 50;
-						break;
-                }
-
-                ClearAnimatorFlag();
-				isCanCatchBall = false;
-				if(stateNo == 5 || stateNo == 6 || stateNo == 7 || stateNo == 8 || stateNo == 9 )
-					isUsePass = true;
-                PlayerRigidbody.mass = 5;
-                AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("PassTrigger");
-				GameRecord.Pass++;
-                Result = true;
-                break;
-
-            case EPlayerState.Push0:
-            case EPlayerState.Push1:
-            case EPlayerState.Push2:
-			case EPlayerState.Push20:
-			switch (state){
-					case EPlayerState.Push0:
-						stateNo = 0;
-						break;
-					case EPlayerState.Push1:
-						stateNo = 1;
-						break;
-					case EPlayerState.Push2:
-						stateNo = 2;
-						break;
-					case EPlayerState.Push20:
-						stateNo = 20;
-						GameRecord.Push ++;
-						break;
-				}
-				ClearAnimatorFlag();
-				playerPushCurve = null;
-			
-				StartSkillCamera(stateNo);
-				curveName = string.Format("Push{0}", stateNo);
-				for (int i = 0; i < aniCurve.Push.Length; i++)
-					if (aniCurve.Push [i].Name == curveName)
-                    {
-                        playerPushCurve = aniCurve.Push [i];
-                        pushCurveTime = 0;
-                        isPush = true;
-						isFindCurve = true;
-                    }
-				AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("PushTrigger");
-				GameRecord.PushLaunch++;
-                Result = true;
-                break;
-
-			case EPlayerState.Pick0:
-			case EPlayerState.Pick1:
-			case EPlayerState.Pick2:
-				switch (state){
-					case EPlayerState.Pick0:
-						stateNo = 0;
-						break;
-					case EPlayerState.Pick1:
-						stateNo = 1;
-						break;
-					case EPlayerState.Pick2:
-						stateNo = 2;
-						curveName = string.Format("PickBall{0}", stateNo);
-						
-						for (int i = 0; i < aniCurve.PickBall.Length; i++)
-							if (aniCurve.PickBall [i].Name == curveName)
-						{
-							playerPickCurve = aniCurve.PickBall [i];
-							pickCurveTime = 0;
-							isPick = true;
-							isFindCurve = true;
-						}
-						GameRecord.SaveBallLaunch++;
-						break;
-				}
-                ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-                AnimatorControl.SetTrigger("PickTrigger");
-                Result = true;
-                break;
-
-            case EPlayerState.Run0:
-            case EPlayerState.Run1:
-            case EPlayerState.Run2:
-                if (!isJoystick)
-                    setSpeed(1, 1); 
-
-                switch (state)
-                {
-                    case EPlayerState.Run0:
-                        stateNo = 0;
-                        break;
-                    case EPlayerState.Run1:
-                        stateNo = 1;
-						DashEffectEnable(true);
-                        break;
-					case EPlayerState.Run2:
-						stateNo = 2;
-						break;
-                }
-                AnimatorControl.SetInteger("StateNo", stateNo);
-                ClearAnimatorFlag(EActionFlag.IsRun);
-                Result = true;
-                break;
-    
-            case EPlayerState.RunningDefence:
-                setSpeed(1, 1);
-                ClearAnimatorFlag(EActionFlag.IsRun);
-                Result = true;
-                break;
-
-            case EPlayerState.Steal0:
-            case EPlayerState.Steal1:
-            case EPlayerState.Steal2:
-			case EPlayerState.Steal20:
-			switch (state)
-				{
-					case EPlayerState.Steal0:
-						stateNo = 0;
-						break;
-					case EPlayerState.Steal1:
-						stateNo = 1;
-						break;
-					case EPlayerState.Steal2:
-						stateNo = 2;
-						break;
-					case EPlayerState.Steal20:
-						stateNo = 20;
-						GameRecord.Steal ++;
-
-						curveName = string.Format("Steal{0}", stateNo);
-						playerStealCurve = null;
-						for (int i = 0; i < aniCurve.Steal.Length; i++)
-							if (aniCurve.Steal [i].Name == curveName)
-							{
-								playerStealCurve = aniCurve.Steal [i];
-								stealCurveTime = 0;
-								isSteal = true;
-								isFindCurve = true;
-							}
-						break;
-				}
-				StartSkillCamera(stateNo);
-				PlayerRigidbody.mass = 5;
-				ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-				AnimatorControl.SetTrigger("StealTrigger");
-				isCanCatchBall = false;
-				GameRecord.StealLaunch++;
-                Result = true;
-                break;
-
-            case EPlayerState.GotSteal:
-                ClearAnimatorFlag();
-                AnimatorControl.SetTrigger("GotStealTrigger");
-                isCanCatchBall = false;
-                Result = true;
-                break;
-
-            case EPlayerState.Shoot0:
-            case EPlayerState.Shoot1:
-            case EPlayerState.Shoot2:
-            case EPlayerState.Shoot3:
-            case EPlayerState.Shoot4:
-            case EPlayerState.Shoot5:
-            case EPlayerState.Shoot6:
-			case EPlayerState.Shoot7:
-                if (IsBallOwner)
-                {                   
-                    playerShootCurve = null;
-                    
-                    switch (state)
-                    {
-                        case EPlayerState.Shoot0:
-							stateNo = 0;
-							skillKind = ESkillKind.Shoot;
-							break;
-						case EPlayerState.Shoot1:
-                            stateNo = 1;
-							skillKind = ESkillKind.NearShoot;
-                            break;
-                        case EPlayerState.Shoot2:
-                            stateNo = 2;
-							skillKind = ESkillKind.UpHand;
-                            break;
-                        case EPlayerState.Shoot3:
-                            stateNo = 3;
-							skillKind = ESkillKind.DownHand;
-							break;
-						case EPlayerState.Shoot4:
-							stateNo = 4;
-							skillKind = ESkillKind.Shoot;
-							break;
-						case EPlayerState.Shoot5:
-							stateNo = 5;
-							skillKind = ESkillKind.Shoot;
-							break;
-                        case EPlayerState.Shoot6:
-                            stateNo = 6;
-							skillKind = ESkillKind.Shoot;
-							break;
-						case EPlayerState.Shoot7:
-							stateNo = 7;
-							skillKind = ESkillKind.Shoot;
-							break;
-                    }
-                
-					PlayerRigidbody.useGravity = false;
-					IsKinematic = true;
-					
-					curveName = string.Format("Shoot{0}", stateNo);
-					
-                    for (int i = 0; i < aniCurve.Shoot.Length; i++)
-                        if (aniCurve.Shoot [i].Name == curveName)
-                        {
-                            playerShootCurve = aniCurve.Shoot [i];
-                            shootJumpCurveTime = 0;
-                            isShootJump = true;
-							isFindCurve = true;
-                            continue;
-                        }
-                    SetShooterLayer();
-                    ClearAnimatorFlag();
-					AnimatorControl.SetInteger("StateNo", stateNo);
-					AnimatorControl.SetTrigger("ShootTrigger");
-					isCanCatchBall = false;
-                    Result = true;
-                }
-                break;
-
-			case EPlayerState.Show1:
-			case EPlayerState.Show1001:
-			case EPlayerState.Show1003:
-			case EPlayerState.Show101:
-			case EPlayerState.Show102:
-			case EPlayerState.Show103:
-			case EPlayerState.Show104:
-			case EPlayerState.Show201:
-			case EPlayerState.Show202:
-				switch (state)
-				{
-				case EPlayerState.Show1:
-					stateNo = 1;
-					break;
-				case EPlayerState.Show1001:
-					stateNo = 1001;
-					break;
-				case EPlayerState.Show1003:
-					stateNo = 1003;
-					break;
-				case EPlayerState.Show101:
-					stateNo = 101;
-					break;
-				case EPlayerState.Show102:
-					stateNo = 102;
-					break;
-				case EPlayerState.Show103:
-					stateNo = 103;
-					break;
-				case EPlayerState.Show104:
-					stateNo = 103;
-					break;
-				case EPlayerState.Show201:
-					stateNo = 201;
-					break;
-				case EPlayerState.Show202:
-					stateNo = 202;
-					break;
-				}
-
-				AnimatorControl.SetInteger("StateNo", stateNo);
-				AnimatorControl.SetTrigger("ShowTrigger");
-				Result = true;
+		case EAnimatorState.Idle:
+			PlayerRigidbody.mass = 5;
+			setSpeed(0, -1);
+			AddTrigger(EAnimatorState.Idle, nextState.StateNo); 
+			isMoving = false;
+			Result = true;
 			break;
-			
-		case EPlayerState.Layup0:
-		case EPlayerState.Layup1:
-		case EPlayerState.Layup2:
-		case EPlayerState.Layup3:
-			if (IsBallOwner)
+		case EAnimatorState.Intercept:
+			AddTrigger(EAnimatorState.Intercept, nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.MoveDodge:
+			AddTrigger(EAnimatorState.MoveDodge, nextState.StateNo);
+			OnUICantUse(this);
+			if(moveQueue.Count > 0)
+				moveQueue.Dequeue();
+			Result = true;
+			break;
+		case EAnimatorState.Pass:
+			isCanCatchBall = false;
+			AddTrigger(EAnimatorState.Pass, nextState.StateNo);
+			if(nextState.StateNo == 5 || nextState.StateNo == 6 || nextState.StateNo == 7 || nextState.StateNo == 8 || nextState.StateNo == 9 )
+				isUsePass = true;
+			PlayerRigidbody.mass = 5;
+			GameRecord.Pass++;
+			Result = true;
+			break;
+		case EAnimatorState.Push:
+			if(nextState.StateNo == 20)
+				GameRecord.Push ++;
+			InitAnimatorCurve(EAnimatorState.Push, nextState.StateNo);
+			StartSkillCamera(stateNo);
+			AddTrigger(EAnimatorState.Push, nextState.StateNo);
+			GameRecord.PushLaunch++;
+			Result = true;
+			break;
+		case EAnimatorState.Pick:
+			if(nextState.StateNo == 2){
+				InitAnimatorCurve(EAnimatorState.Pick, nextState.StateNo);
+				GameRecord.SaveBallLaunch++;
+			}
+			AddTrigger(EAnimatorState.Pick, stateNo);
+			Result = true;
+			break;
+		case EAnimatorState.Run:
+			if (!isJoystick)
+				setSpeed(1, 1); 
+			if(nextState.StateNo == 1)
 			{
-				playerLayupCurve = null;
-				
-				switch (state)
-				{
-				    case EPlayerState.Layup0:
-					    stateNo = 0;
-					    skillKind = ESkillKind.Layup;
-					    break;
-				    case EPlayerState.Layup1:
-					    stateNo = 1;
-					    skillKind = ESkillKind.LayupSpecial;
-					    break;
-				    case EPlayerState.Layup2:
-					    stateNo = 2;
-					    skillKind = ESkillKind.LayupSpecial;
-					    break;
-				    case EPlayerState.Layup3:
-					    stateNo = 3;
-					    skillKind = ESkillKind.LayupSpecial;
-					    break;
-				}
-
-                PlayerRigidbody.useGravity = false;
-				IsKinematic = true;
-				curveName = string.Format("Layup{0}", stateNo);
-					
-				for (int i = 0; i < aniCurve.Layup.Length; i++)
-					if (aniCurve.Layup [i].Name == curveName)
-				{
-					playerLayupCurve = aniCurve.Layup [i];
-					layupCurveTime = 0;
-					isLayup = true;
-					isLayupZmove = false;
-					isFindCurve = true;
-				}
-				SetShooterLayer();
-				ClearAnimatorFlag();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-				AnimatorControl.SetTrigger("LayupTrigger");
-				isCanCatchBall = false;
-	            Result = true;
-            }
-            break;
-
-            case EPlayerState.Rebound0:
-            case EPlayerState.Rebound20:
-				switch (state)
-				{
-				case EPlayerState.Rebound0:
-					stateNo = 0;
-					break;
-				case EPlayerState.Rebound20:
-					stateNo = 20;
-					GameRecord.Rebound ++;
-					break;
-				}
-                playerReboundCurve = null;
-				PlayerRigidbody.useGravity = false;
-				IsKinematic = true;
-			
-				StartSkillCamera(stateNo);
-				skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
-                if (InReboundDistance) {
-                    reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
-					reboundMove += CourtMgr.Get.RealBallVelocity * 0.3f;
-				} else
-                    reboundMove = Vector3.zero;
-
-				curveName = string.Format("Rebound{0}", stateNo);
-
-                for (int i = 0; i < aniCurve.Rebound.Length; i++)
-					if (aniCurve.Rebound [i].Name == curveName)
-                    {
-                        playerReboundCurve = aniCurve.Rebound [i];
-                        reboundCurveTime = 0;
-                        isRebound = true;
-						isFindCurve = true;
-                    }
-
-                ClearAnimatorFlag();
-                SetShooterLayer();
-				AnimatorControl.SetInteger("StateNo", stateNo);
-				AnimatorControl.SetTrigger("ReboundTrigger");
-				GameRecord.ReboundLaunch++;
-                Result = true;
-                break;
-
-			case EPlayerState.JumpBall:
-				AnimatorControl.SetTrigger("JumpBallTrigger");
-				ClearAnimatorFlag();
-				SetShooterLayer();
-				Result = true;
+				DashEffectEnable(true);
+			}
+			AddTrigger(EAnimatorState.Run, nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.Steal:
+			if(nextState.StateNo == 20)
+			{
+				GameRecord.Steal ++;
+				InitAnimatorCurve(EAnimatorState.Steal, nextState.StateNo);
+			}
+			StartSkillCamera(stateNo);
+			PlayerRigidbody.mass = 5;
+			AddTrigger(EAnimatorState.Steal, nextState.StateNo);
+			isCanCatchBall = false;
+			GameRecord.StealLaunch++;
+			Result = true;
+			break;
+		case EAnimatorState.GotSteal:
+			AddTrigger(EAnimatorState.GotSteal, nextState.StateNo);
+			isCanCatchBall = false;
+			Result = true;
+			break;
+		case EAnimatorState.Shoot:
+			ShootStateHandle(nextState.StateNo);
+			Result = true;
+			break;
+		case EAnimatorState.Show:
+			AddTrigger(EAnimatorState.Show, nextState.StateNo);
+			Result = true;
 			break;
 
-            case EPlayerState.TipIn:
-				ClearAnimatorFlag();
-                SetShooterLayer();
-                AnimatorControl.SetTrigger("TipInTrigger");
-                Result = true;
+		case EAnimatorState.Layup:
+			LayupStateHandle(nextState.StateNo);
+			Result = true;
+			break;
 
-                break;
+		case EAnimatorState.Rebound:
+			if(nextState.StateNo == 20)
+			 GameRecord.Rebound ++;
 
-            case EPlayerState.ReboundCatch:
-                AnimatorControl.SetTrigger("ReboundCatchTrigger");
-                break;
-        }
+			PlayerRigidbody.useGravity = false;
+			IsKinematic = true;
+			
+			StartSkillCamera(stateNo);
+			skillMoveTarget = CourtMgr.Get.RealBall.transform.position;
+			if (InReboundDistance) {
+				reboundMove = CourtMgr.Get.RealBall.transform.position - transform.position;
+				reboundMove += CourtMgr.Get.RealBallVelocity * 0.3f;
+			} else
+				reboundMove = Vector3.zero;
 
-		if(curveName != string.Empty && !isFindCurve)
-			DebugAnimationCurve(curveName);
+			InitAnimatorCurve(EAnimatorState.Rebound, nextState.StateNo);
+			SetShooterLayer();
+			AddTrigger(EAnimatorState.Rebound, nextState.StateNo);
+			GameRecord.ReboundLaunch++;
+			Result = true;
+			break;
+		case EAnimatorState.JumpBall:
+			AddTrigger(EAnimatorState.JumpBall, nextState.StateNo);
+			SetShooterLayer();
+			Result = true;
+			break;
+		case EAnimatorState.TipIn:
+			AddTrigger(EAnimatorState.TipIn, nextState.StateNo);
+			SetShooterLayer();
+			Result = true;
+			break;
+		}
         
         if (Result)
         {
@@ -3311,7 +2757,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         return Result;
     }
-	
+
 	private void DebugAnimationCurve(string curveName)
 	{
 		if(GameStart.Get.IsDebugAnimation)
