@@ -280,8 +280,6 @@ public class PlayerBehaviour : MonoBehaviour
     private TBlockCurve playerBlockCurve;
     private Vector3 skillMoveTarget;
     private Vector3 skillFaceTarget;
-    private bool isShootBlock = false;
-    private bool isDunkBlock = false;
 
     //Rebound
     private bool isRebound = false;
@@ -975,14 +973,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void DunkFall()
-    {
-        PlayerRefGameObject.transform.DOKill();
-        isDunk = false;
-        IsCanBlock = false;
-        IsAnimatorMove = false;
-    }
-
     private void CalculationLayupMove()
     {
         if (!isLayup)
@@ -1228,31 +1218,33 @@ public class PlayerBehaviour : MonoBehaviour
             if (playerBlockCurve.isSkill)
             {
                 PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
-                if (blockCurveTime < 1f)
-                {
-                    if (GameController.Get.BallOwner == null)
-                    {
-                        if (isShootBlock)
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, (skillMoveTarget.y - BodyHeight.transform.localPosition.y), blockCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
-                        }
-                    } else
-                    {
-                        if (isDunkBlock && GameController.Get.GetDis(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z),
-                                                                    new Vector2(skillMoveTarget.x, skillMoveTarget.z)) > 1.5f)
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, skillMoveTarget.y, blockCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
-                        }
-                    }
-                } else
-                {
-                    PlayerRefGameObject.transform.DOMoveY(0, 0.5f);
-                }
-                    
+
+				if (blockCurveTime < 1f) {
+					if (GameController.Get.BallOwner == null) {
+						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
+						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
+					} else 
+					{
+						if(GameController.Get.GetDis(new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z),
+                                                     new Vector2(skillMoveTarget.x, skillMoveTarget.z)) > 2f)
+						{
+							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
+							                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
+							                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
+						} else 
+						{
+							PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+							                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+							                                                     PlayerRefGameObject.transform.position.z);
+						}
+					}
+				} else
+				{
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+					                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+					                                                     PlayerRefGameObject.transform.position.z);
+				}   
             } else
             {
                 if (blockCurveTime < 1f)
@@ -2362,10 +2354,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case 20:
                 GameRecord.Block ++;
-                if (GameController.Get.BallState == EBallState.CanBlock)
-                    isShootBlock = true;
-                else if (GameController.Get.BallState == EBallState.CanDunkBlock)
-                    isDunkBlock = true;
                 break;
         }
 		InitAnimatorCurve (EAnimatorState.Block, stateNo);
@@ -3225,8 +3213,10 @@ public class PlayerBehaviour : MonoBehaviour
     
                     isSkillShow = false;
                     UISkillEffect.UIShow(false);
-                    foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
-                        TimerMgr.Get.ChangeTime(item, 1);
+					aniEvent = new UnityEngine.AnimationEvent();
+					aniEvent.floatParameter = 1;
+					aniEvent.intParameter = 2;
+					TimeScale(aniEvent);
 
                     if (isBlock)
                     {
@@ -3241,7 +3231,7 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             PlayerBehaviour p = GameController.Get.BallOwner;
                             GameController.Get.SetBall();
-                            CourtMgr.Get.SetBallState(EPlayerState.Block0, p);
+                            CourtMgr.Get.SetBallState(EPlayerState.Block0, this);
                             p.DoPassiveSkill(ESkillSituation.KnockDown0);
                         }
                         GameController.Get.BallState = EBallState.None;
@@ -3276,11 +3266,12 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (no < 20)
             return;
-
+	
         if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
         {
             int skillEffectKind = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCamera;
             float skillTime = GameData.DSkillData [ActiveSkillUsed.ID].ActiveCameraTime;
+			AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
             if (this == GameController.Get.Joysticker && GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
             {
                 if (!isSkillShow)
@@ -3307,22 +3298,23 @@ public class PlayerBehaviour : MonoBehaviour
                         case 0://show self and rotate camera
                             Invoke("showActiveEffect", skillTime);
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                            foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-                                TimerMgr.Get.ChangeTime(item, 0);
+							aniEvent.floatParameter = 0;
+							aniEvent.intParameter = 0;
+							TimeScale(aniEvent);   
                             break;
                         case 1://show self
                             showActiveEffect();
                             LayerMgr.Get.SetLayerRecursively(GameController.Get.Joysticker.PlayerRefGameObject, "SkillPlayer", "PlayerModel", "(Clone)");
-                            foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-                                if (item != ETimerKind.Player0)
-                                    TimerMgr.Get.ChangeTime(item, 0);
+							aniEvent.floatParameter = 0;
+							aniEvent.intParameter = 2;
+							TimeScale(aniEvent); 
                             break;
                         case 2://show all Player
                             showActiveEffect();
                             GameController.Get.SetAllPlayerLayer("SkillPlayer");
-                            foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-                                if (item != ETimerKind.Player0)
-                                    TimerMgr.Get.ChangeTime(item, 0);
+							aniEvent.floatParameter = 0;
+							aniEvent.intParameter = 2;
+							TimeScale(aniEvent); 
                             break;
                     }
                 }
@@ -3339,9 +3331,9 @@ public class PlayerBehaviour : MonoBehaviour
                 
                     if (!isSkillShow)
                     {
-                        foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind))) 
-                            if (item != CrtTimeKey)
-                                TimerMgr.Get.ChangeTime(item, 0);
+						aniEvent.floatParameter = 0;
+						aniEvent.intParameter = 2;
+						TimeScale(aniEvent); 
 
                         isSkillShow = true;
                     }
@@ -3357,7 +3349,10 @@ public class PlayerBehaviour : MonoBehaviour
     
     public void StopSkill()
     {
-        TimerMgr.Get.ChangeTime(CrtTimeKey, 1);
+		AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
+		aniEvent.floatParameter = 1;
+		aniEvent.intParameter = 1;
+		TimeScale(aniEvent); 
     }
 
     public void showActiveEffect()

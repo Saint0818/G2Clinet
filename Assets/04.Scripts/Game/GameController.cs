@@ -923,8 +923,11 @@ public class GameController : KnightSingleton<GameController>
 				SetBall(PlayerList[1]);
 				PlayerList[0].AniState(EPlayerState.Idle);
 			}
-			if (GUI.Button(new Rect(Screen.width - 100, 200, 100, 50), "enemy shoot")) {
+			if (GUI.Button(new Rect(Screen.width - 100, 200, 100, 50), "shoot")) {
 				DoShoot();
+			}
+			if (GUI.Button(new Rect(Screen.width - 100, 270, 100, 50), "dunk")) {
+				BallOwner.AniState(EPlayerState.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 			}
 		}
 	}
@@ -1676,7 +1679,6 @@ public class GameController : KnightSingleton<GameController>
                 else
                 {
                     // 持球者不在灌籃和搶籃板狀態.
-
 					if(BallOwner.IsMoving)
                     {
 						if(ShootDistance > GameConst.LongShootDistance)
