@@ -16,10 +16,10 @@ public class GamePlayerTutorial : KnightSingleton<GamePlayerTutorial> {
 	public void BegeingEvent() {
 		for (int i = 0; i < eventList.Count; i++)
 			if (eventList[i].ConditionKind == 0) 
-				HandleEvent(ref eventList[i]);
+				HandleEvent(i);
 	}
 
-	public void HandleEvent(ref TGamePlayEvent e) {
+	public void HandleEvent(int i) {
 
 	}
 }
