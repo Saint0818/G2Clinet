@@ -9,6 +9,10 @@ using GamePlayStruct;
 public class GEGamePlayTutorial : GEBase {
 	private static GEGamePlayTutorial instance = null;
 	private const int spaceCount = 5;
+
+	private int eventIndex = 0;
+	private int conditionIndex = 0;
+	private int conditionValue = 0;
 	private int stageIndex = -1;
 	private int actionTeam;
 	private int actionIndex;
@@ -90,9 +94,6 @@ public class GEGamePlayTutorial : GEBase {
 	private void showManagerButton() {
 		GUILayout.BeginHorizontal();
 		GUILabel("Stage ID : " + GameData.StageTutorial[stageIndex].ID.ToString(), Color.yellow);
-		int eventIndex = 0;
-		int conditionIndex = 0;
-		int conditionValue = 0;
 		eventIndex = GUIPopup(eventIndex, eventExplain, "Kind");
 		conditionIndex = GUIPopup(conditionIndex, conditionExplain, "Condition");
 		conditionValue = GUIIntEdit(conditionValue, "Value");
@@ -123,26 +124,17 @@ public class GEGamePlayTutorial : GEBase {
 				GUILayout.BeginHorizontal();
 				GUILabel(string.Format("Event{0}", i), Color.yellow);
 
-				int eKind = eventList[i].Kind;
-				if (eKind > 0 && eKind <= eventExplain.Length) {
-					eKind = GUIPopup(eKind, eventExplain, "Kind");
-					if (eKind != eventList[i].Kind)
-						eventList[i].Kind = eKind;
-				} else 
-					GUILabel("Kind " + eKind.ToString(), Color.red);
+				if (eventList[i].Kind > 0 && eventList[i].Kind <= eventExplain.Length)
+					eventList[i].Kind = GUIPopup(eventList[i].Kind, eventExplain, "Kind");
+				else 
+					GUILabel("Kind " + eventList[i].Kind.ToString(), Color.red);
 
-				int cKind = eventList[i].ConditionKind;
-				if (cKind >= 0 && cKind < conditionExplain.Length) {
-					cKind = GUIPopup(cKind, conditionExplain, "Condition");
-					if (cKind != eventList[i].ConditionKind) 
-						eventList[i].ConditionKind = cKind;
-				} else 
-					GUILabel("ConditionKind " + cKind.ToString(), Color.red);
+				if (eventList[i].ConditionKind >= 0 && eventList[i].ConditionKind < conditionExplain.Length)
+					eventList[i].ConditionKind = GUIPopup(eventList[i].ConditionKind, conditionExplain, "Condition");
+				else 
+					GUILabel("ConditionKind " + eventList[i].ConditionKind.ToString(), Color.red);
 
-				int v = eventList[i].ConditionValue;
-				v = GUIIntEdit(v, "Value");
-				if (v != eventList[i].ConditionValue) 
-					eventList[i].ConditionValue = v;
+				eventList[i].ConditionValue = GUIIntEdit(eventList[i].ConditionValue, "Value");
 
 				if (GUIButton("Delete", Color.red)) {
 					List<TGamePlayEvent> temp = new List<TGamePlayEvent>(eventList);
@@ -152,17 +144,38 @@ public class GEGamePlayTutorial : GEBase {
 				}
 				
 				GUILayout.EndHorizontal();
+				GUILayout.Space(spaceCount);
 
 				switch (eventList[i].Kind) {
-				case 1:
-					GUILayout.Space(spaceCount);
+				case 1: //event kind
 					GUILayout.BeginHorizontal();
 					eventList[i].Value1 = GUIPopup(eventList[i].Value1, situationExplain, "Situation");
 					GUILayout.EndHorizontal();
 					break;
-				case 3:
-					GUILayout.Space(spaceCount);
+				case 2: //set ball
+					GUILayout.BeginHorizontal();
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "Team");
+					eventList[i].Value2 = GUIIntEdit(eventList[i].Value1, "Index");
+					GUILayout.EndHorizontal();
+					break;
+				case 3: //set player state
+					GUILayout.BeginHorizontal();
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "Team");
+					eventList[i].Value2 = GUIIntEdit(eventList[i].Value1, "Index");
+					GUILayout.EndHorizontal();
+					break;
+				case 4:
 					showPlayerMove(i);
+					break;
+				case 5: //open ui
+					GUILayout.BeginHorizontal();
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "UI Flag");
+					GUILayout.EndHorizontal();
+					break;
+				case 6: //open ui tutorial
+					GUILayout.BeginHorizontal();
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "Tutorial ID");
+					GUILayout.EndHorizontal();
 					break;
 				}
 			}
@@ -207,8 +220,9 @@ public class GEGamePlayTutorial : GEBase {
 					eventList[i].Actions[j].Action.z = Convert.ToSingle(Math.Round(Res.z, 2));
 				}      
 
-				eventList[i].Actions[j].Action.Speedup = GUIToggle(eventList[i].Actions[j].Action.Speedup, "Speedup");
-				eventList[i].Actions[j].Action.Shooting = GUIToggle(eventList[i].Actions[j].Action.Shooting, "Shooting");
+				eventList[i].Actions[j].MoveKind = Convert.ToInt32(GUIToggle(Convert.ToBoolean(eventList[i].Actions[j].MoveKind), "Appear"));
+				eventList[i].Actions[j].Action.Speedup = GUIToggle(eventList[i].Actions[j].Action.Speedup, "Speed up");
+				eventList[i].Actions[j].Action.Shooting = GUIToggle(eventList[i].Actions[j].Action.Shooting, "Shoot");
 				//eventList[i].Actions[j].Action.Catcher = EditorGUILayout.Toggle("Catcher", eventList[i].Actions[j].Action.Catcher);
 
 				if (GUIButton("Delete", Color.red)) {
@@ -224,7 +238,7 @@ public class GEGamePlayTutorial : GEBase {
 	}
 
 	public void SetStage(int index) {
-		if (index >= 0 && index < GameData.StageTutorial.Count && stageIndex != index) {
+		if (index >= 0 && index < GameData.StageTutorial.Length && stageIndex != index) {
 			stageIndex = index;
 			Array.Resize(ref eventList, 0);
 			Array.Resize(ref eventList, GameData.StageTutorial[index].Events.Length);

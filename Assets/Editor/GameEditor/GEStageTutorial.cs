@@ -9,6 +9,7 @@ using GamePlayStruct;
 public class GEStageTutorial : GEBase {
 	public static GEStageTutorial Get = null;
 	private int stageID = 0;
+	private int index = -1;
 	private static string FileName = "";
 	private static string BackupFileName = "";
 	private Vector2 mScroll = Vector2.zero;
@@ -26,27 +27,27 @@ public class GEStageTutorial : GEBase {
 
     void OnGUI() {
 		GUILayout.BeginHorizontal();
-		GUILabel("Stage ID : ", Color.yellow);
-		stageID = GUIIntEdit(stageID, "");
+		GUILabel("Open", Color.yellow);
+		stageID = GUIIntEdit(stageID, "Stage ID : ");
 		if (GUIButton("Add")) {
-			int id = -1;
-			
 			if (stageID >= GameConst.Default_MainStageID)
-				addTutorial(id);
+				addTutorial(stageID);
 			else
-				Debug.Log("ID error.");
+				Debug.LogError("ID error.");
 		}
 		
 		GUILayout.EndHorizontal();
 		GUILayout.Space(2);
 
-		if (GameData.StageTutorial.Count > 0 ) {
-			GUILabel("Stage ID : ", Color.yellow);
+		if (GameData.StageTutorial.Length > 0 ) {
 			mScroll = GUILayout.BeginScrollView(mScroll);
-			for (int i = 0; i < GameData.StageTutorial.Count; i++) {
+			for (int i = 0; i < GameData.StageTutorial.Length; i++) {
 				GUILayout.Space(2);
 				if (GUIButton(GameData.StageTutorial[i].ID.ToString())) {
-					GEGamePlayTutorial.Get.SetStage(i);
+					index = i;
+					EditorApplication.delayCall += openGamePlayTutorial; 
+
+					return;
 				}
 			}
 
@@ -54,21 +55,29 @@ public class GEStageTutorial : GEBase {
 		}
     }
 
+	private void openGamePlayTutorial() {
+		GEGamePlayTutorial.Get.SetStage(index);
+	}
+
 	private void OnLoad() {
 		string text = LoadFile(FileName);
 		if (!string.IsNullOrEmpty(text))
 			FileManager.Get.ParseStageTutorialData(BundleVersion.Version.ToString(), text, false);
+		else {
+			GameData.DStageTutorial.Clear();
+			Array.Resize(ref GameData.StageTutorial, 0);
+		}
 	}
 
 	public static void OnSave() {
-		if (GameData.StageTutorial != null && GameData.StageTutorial.Count > 0) {
+		if (GameData.StageTutorial != null && GameData.StageTutorial.Length > 0) {
 			if (FileName != string.Empty) {
-				SaveFile(FileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
-				SaveFile(BackupFileName, JsonConvert.SerializeObject(GameData.StageTutorial.ToArray()));
+				SaveFile(FileName, JsonConvert.SerializeObject(GameData.StageTutorial));
+				SaveFile(BackupFileName, JsonConvert.SerializeObject(GameData.StageTutorial));
 
 				GameData.DStageTutorial.Clear();
 				
-				for (int i = 0; i < GameData.StageTutorial.Count; i++) {
+				for (int i = 0; i < GameData.StageTutorial.Length; i++) {
 					int id = GameData.StageTutorial[i].ID;
 					if (!GameData.DStageTutorial.ContainsKey(id)) 
 						GameData.DStageTutorial.Add(id, GameData.StageTutorial[i]);
@@ -85,14 +94,14 @@ public class GEStageTutorial : GEBase {
 	}
 
 	private bool addTutorial(int id) {
-		for (int i = 0; i < GameData.StageTutorial.Count; i++)
+		for (int i = 0; i < GameData.StageTutorial.Length; i++)
 			if (GameData.StageTutorial[i].ID == id) {
 				Debug.LogError("Stage already exists.");
 				return false;
 			}
 
-		int index = GameData.StageTutorial.Count;
-		for (int i = 0; i < GameData.StageTutorial.Count; i++)
+		int index = GameData.StageTutorial.Length;
+		for (int i = 0; i < GameData.StageTutorial.Length; i++)
 			if (id < GameData.StageTutorial[i].ID) {
 				index = i;
 				break;
@@ -100,7 +109,10 @@ public class GEStageTutorial : GEBase {
 
 		TStageToturial data = new TStageToturial(0);
 		data.ID = id;
-		GameData.StageTutorial.Insert(index, data);
+
+		List<TStageToturial> temp = new List<TStageToturial>(GameData.StageTutorial);
+		temp.Insert(index, data);
+		GameData.StageTutorial = temp.ToArray();
 		OnSave();
 		return true;
 	}

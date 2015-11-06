@@ -31,7 +31,7 @@ public static class GameData {
 	public static Dictionary<int, int> DTutorialStageStart = new Dictionary<int, int>();
 	public static Dictionary<int, int> DTutorialStageEnd = new Dictionary<int, int>();
 	public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
-	public static List<TStageToturial> StageTutorial = new List<TStageToturial>();
+	public static TStageToturial[] StageTutorial = new TStageToturial[0];
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
 	public static TPreloadEffect[] PreloadEffect;
 

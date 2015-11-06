@@ -1,6 +1,6 @@
 //#define Debug
 #define Release
-
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -627,13 +627,14 @@ public class FileManager : KnightSingleton<FileManager> {
 		try {
 			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject (text, typeof(TStageToturial[]));
 			GameData.DStageTutorial.Clear();
-			GameData.StageTutorial.Clear();
-			
+			Array.Resize(ref GameData.StageTutorial, 0);
+			Array.Resize(ref GameData.StageTutorial, data.Length);
+
 			for (int i = 0; i < data.Length; i++) {
 				int id = data[i].ID;
 				if (!GameData.DStageTutorial.ContainsKey(id)) {
 					GameData.DStageTutorial.Add(id, data[i]);
-					GameData.StageTutorial.Add(data[i]);
+					GameData.StageTutorial[i] = data[i];
 				} else 
 					Debug.LogError("Stage tutorial key error i : " + i.ToString());
 			}

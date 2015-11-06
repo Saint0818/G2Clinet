@@ -282,6 +282,9 @@ public class GameController : KnightSingleton<GameController>
 			MaxGameTime = StageBitNum[0];
 			GameTime = StageBitNum[0];
 			GameWinValue = StageBitNum[1];
+
+			if (GameData.DStageTutorial.ContainsKey(id))
+				GamePlayerTutorial.Get.SetTutorialData(id);
 		}
 	}
 
@@ -312,8 +315,7 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.RealBall.transform.position = new Vector3(0, 5, 13);
 			break;
 		case EGameTest.Edit:
-			CourtMgr.Get.RealBall.SetActive(false);
-			UIGame.UIShow(false);
+			SetBall(PlayerList[0]);
 			break;
 		}
 
@@ -556,6 +558,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));	
 			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
 			PlayerList[0].IsJumpBallPlayer = true;
+			SetPlayerAI(false);
 			break;
 		case EGameTest.CrossOver:
 			Self = new TPlayer(0);
@@ -616,7 +619,6 @@ public class GameController : KnightSingleton<GameController>
 		}
 		
 		UIGame.Get.InitGame(Joysticker);
-		setPassIcon(false);
 
 		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i ++)
@@ -657,26 +659,14 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList[i].GetComponent<PlayerAI>().enabled = enable;
 	}
 
-	private void setPassIcon(bool isShow) {
-//		if(GameStart.Get.TestMode == EGameTest.None) {
-//			for(int i=0; i<3; i++) {
-//				if (i < 2 && selectIcon[i])
-//					selectIcon[i].SetActive(isShow);
-//			}
-//		}
-	}
-
 	void FixedUpdate() {
 		#if UNITY_EDITOR
 		if (Joysticker) {
 			switch(GameStart.Get.TestMode){
 				case EGameTest.Rebound:
-//					if (Input.GetKeyDown (KeyCode.T) && Joysticker != null)
-//						Joysticker.AniState (EPlayerState.ReboundCatch);
-
-					if (Input.GetKeyDown (KeyCode.Z)) {
+					if (Input.GetKeyDown (KeyCode.Z)) 
 						resetTestMode();
-					}
+
 					break;
 
 				case EGameTest.AnimationUnit:
@@ -4003,23 +3993,16 @@ public class GameController : KnightSingleton<GameController>
         return true;
     }
     
-    //Temp
+	#if UNITY_EDITOR
     public Vector3 EditGetPosition(int index)
     {
         if (PlayerList.Count > index)
-        {
 			return PlayerList [index].PlayerRefGameObject.transform.position;       
-        } else
+        else
             return Vector3.zero;
     }
-    
-	public void ResetAll()
-	{
-		for(int i = 0; i < PlayerList.Count; i++)
-			PlayerList[i].ResetFlag();
-	}
 
-    public void EditSetMove(TTacticalAction actionPosition, int index)
+	public void EditSetMove(TTacticalAction actionPosition, int index)
     {
         if (PlayerList.Count > index)
         {
@@ -4031,6 +4014,13 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [index].TargetPos = moveData;
         }
     }
+	#endif
+
+	public void ResetAll()
+	{
+		for(int i = 0; i < PlayerList.Count; i++)
+			PlayerList[i].ResetFlag();
+	}
 
 	public void EditSetMove(Vector2 ActionPosition, int index)
 	{

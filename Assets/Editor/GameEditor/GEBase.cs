@@ -16,17 +16,20 @@ public class GEBase : EditorWindow {
 			StyleLabel = new GUIStyle(EditorStyles.label);
 			StyleLabel.fontSize = 18;
 			StyleLabel.normal.textColor = Color.white;
+			StyleLabel.alignment = TextAnchor.LowerLeft;
 		}
 
 		if (StyleEdit == null) {
-			StyleEdit = new GUIStyle(EditorStyles.textField);
+			StyleEdit = new GUIStyle(EditorStyles.numberField);
 			StyleEdit.fontSize = 16;
 			StyleEdit.normal.textColor = Color.white;
+			StyleEdit.alignment = TextAnchor.LowerLeft;
 		}
 		
 		if (StyleButton == null) {
 			StyleButton = new GUIStyle(EditorStyles.miniButton);
 			StyleButton.fontSize = 16;
+			StyleButton.alignment = TextAnchor.LowerLeft;
 		}
 		
 		this.minSize = minWindow;
@@ -43,17 +46,23 @@ public class GEBase : EditorWindow {
 	}
 
 	protected virtual int GUIIntEdit(int input, string title = "") {
+		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
+		StyleLabel.alignment = TextAnchor.LowerLeft;
 		return EditorGUILayout.IntField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
 	}
 
 	protected virtual float GUIFloatEdit(float input, string title = "") {
+		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
+		StyleLabel.alignment = TextAnchor.LowerLeft;
 		return EditorGUILayout.FloatField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
 	}
 
 	protected virtual bool GUIToggle(bool input, string title = "") {
+		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
+		StyleLabel.alignment = TextAnchor.LowerLeft;
 		return EditorGUILayout.Toggle(input, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
 	}
 
@@ -69,8 +78,11 @@ public class GEBase : EditorWindow {
 	}
 
 	protected virtual int GUIPopup(int select, string[] displayOptions, string title = "") {
-		if (!string.IsNullOrEmpty(title))
+		if (!string.IsNullOrEmpty(title)) {
+			StyleLabel.alignment = TextAnchor.LowerRight;
 			GUILabel(title);
+			StyleLabel.alignment = TextAnchor.LowerLeft;
+		}
 
 		return EditorGUILayout.Popup(select, displayOptions, StyleButton, GUILayout.Width(Weight_Button * 2), GUILayout.Height(Height_Line));
 	}

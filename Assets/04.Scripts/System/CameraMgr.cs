@@ -86,7 +86,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     private GameObject focusStopAeraObj;
     public EZoomType CrtZoom = EZoomType.Normal;
     private GameObject showCamera;
-    public Animator ShowAnimatorControl;
+	private Animator showAnimatorControl;
     public GameObject[] CharacterPos = new GameObject[6];
     public GameObject SkillDCTarget;
     public GameObject DoubleClickDCBorn;
@@ -118,7 +118,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             InitTestTool();
 
             showCamera = Instantiate(Resources.Load("Prefab/Camera/InGameStartShow_0")) as GameObject;
-            ShowAnimatorControl = showCamera.GetComponent<Animator>();
+            showAnimatorControl = showCamera.GetComponent<Animator>();
 
             if (showCamera)
                 for (int i = 0; i < CharacterPos.Length; i++)
@@ -233,9 +233,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     public void ShowCameraEnable(bool isEnable)
     {
         if (isEnable)
-            showCamera.GetComponent<Animator>().SetTrigger("ShowTrigger");
+			showAnimatorControl.SetTrigger("ShowTrigger");
         else
-            showCamera.GetComponent<Animator>().SetTrigger("CloseTrigger");
+			showAnimatorControl.SetTrigger("CloseTrigger");
     }
 
     public Camera CourtCamera
@@ -362,7 +362,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         }
     }
 
-    public void SetFocus(FocusSensor.FocusSensorMode sensorMode, GameObject sensorObj, GameObject ball, bool isReal)
+    public void SetFocus(FocusSensor.FocusSensorMode sensorMode)//, GameObject sensorObj, GameObject ball, bool isReal)
     { 
         switch (sensorMode)
         {

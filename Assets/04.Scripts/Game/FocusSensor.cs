@@ -23,6 +23,6 @@ public class FocusSensor : MonoBehaviour
 	void OnTriggerEnter(Collider c) 
 	{
 		if (c.GetComponent<Collider>().gameObject.CompareTag("RealBall"))
-			CameraMgr.Get.SetFocus (Mode, this.gameObject, c.GetComponent<Collider>().gameObject, true);
+			CameraMgr.Get.SetFocus (Mode);//, this.gameObject, c.GetComponent<Collider>().gameObject, true);
 	}
 }
