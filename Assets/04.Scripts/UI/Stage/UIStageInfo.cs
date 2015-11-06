@@ -37,6 +37,11 @@ public class UIStageInfo : MonoBehaviour
         /// 還可以打幾次關卡, 也就是顯示還可以打幾次.
         /// </summary>
         public int DailyCount;
+
+        /// <summary>
+        /// 開始按鈕可不可以點選.
+        /// </summary>
+        public bool StartEnable;
     }
 
     public GameObject Window;
@@ -45,8 +50,6 @@ public class UIStageInfo : MonoBehaviour
     public UILabel DescriptionLabel;
     public UISprite KindSprite;
     public UILabel KindLabel;
-//    public UISprite RewardSprite;
-//    public UILabel RewardLabel;
     public UILabel StaminaLabel;
     public Transform HintParent;
     public GameObject Completed; // 標示是否關卡打過的圖片.
@@ -129,7 +132,7 @@ public class UIStageInfo : MonoBehaviour
                 DailyLimits[i].color = mDisableColor;
         }
 
-        StartButton.isEnabled = data.DailyCount > 0;
+        StartButton.isEnabled = data.StartEnable;
     }
 
     public void Hide()

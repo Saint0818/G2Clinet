@@ -57,7 +57,7 @@ public class UIMainStage : UIBase
         {
             StageData stageData = StageTable.Ins.GetByID(stageID);
 
-            if(verifyPlayer(stageData.CostKind, stageData.CostValue, stageData.LimitLevel))
+            if(verifyPlayer(stageData))
                 pveStart(stageID);
             else
                 Debug.LogWarningFormat("Player can't enter game!");
@@ -69,16 +69,14 @@ public class UIMainStage : UIBase
     /// <summary>
     /// 檢查玩家是否可以進入遊戲.
     /// </summary>
-    /// <param name="costKind"></param>
-    /// <param name="costValue"></param>
-    /// <param name="level"></param>
+    /// <param name="stageData"></param>
     /// <returns></returns>
-    private bool verifyPlayer(StageData.ECostKind costKind, int costValue, int level)
+    private bool verifyPlayer(StageData stageData)
     {
-        switch(costKind)
+        switch(stageData.CostKind)
         {
             case StageData.ECostKind.Stamina:
-                if(GameData.Team.Power < costValue)
+                if(GameData.Team.Power < stageData.CostValue)
                     return false;
                 break;
             case StageData.ECostKind.Activity:
@@ -87,7 +85,10 @@ public class UIMainStage : UIBase
                 throw new NotImplementedException();
         }
 
-        if(GameData.Team.Player.Lv < level)
+        if(GameData.Team.Player.Lv < stageData.LimitLevel)
+            return false;
+
+        if(findPlayerDailyCount(stageData) <= 0)
             return false;
 
         return true;
@@ -180,10 +181,6 @@ public class UIMainStage : UIBase
         if(!verify(stageData))
             return;
 
-        int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
-        if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
-            dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
-
         UIStageInfo.Data data = new UIStageInfo.Data
         {
             Name = stageData.Name,
@@ -193,7 +190,8 @@ public class UIMainStage : UIBase
             KindName = TextConst.S(stageData.KindTextIndex),
             Stamina = stageData.CostValue,
             ShowCompleted = stageData.ID < GameData.Team.Player.NextMainStageID,
-            DailyCount = dailyCount
+            DailyCount = findPlayerDailyCount(stageData),
+            StartEnable = verifyPlayer(stageData)
         };
 
         for(int i = 0; i < data.RewardSpriteNames.Length; i++)
@@ -204,6 +202,19 @@ public class UIMainStage : UIBase
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
         mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 
+    }
+
+    /// <summary>
+    /// 找出玩家該關卡還可以打幾次.
+    /// </summary>
+    /// <param name="stageData"></param>
+    /// <returns></returns>
+    private int findPlayerDailyCount(StageData stageData)
+    {
+        int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
+        if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
+            dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
+        return dailyCount;
     }
 
     private void showStageLock(StageData stageData)
