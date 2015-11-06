@@ -58,6 +58,7 @@ ModelImporter:
     100100: DummyHand_L
     100102: DummyHand_R
     100104: DummyHead
+    100106: 1_P_11
     400000: //RootNode
     400002: 1_C_11
     400004: Bip01
@@ -111,9 +112,12 @@ ModelImporter:
     400100: DummyHand_L
     400102: DummyHand_R
     400104: DummyHead
+    400106: 1_P_11
     4300000: 1_C_11
+    4300002: 1_P_11
     9500000: //RootNode
     13700000: 1_C_11
+    13700002: 1_P_11
   materials:
     importMaterials: 0
     materialName: 0
@@ -123,6 +127,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
@@ -134,7 +142,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 3
+    meshCompression: 2
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
@@ -166,8 +174,10 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
