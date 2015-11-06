@@ -271,7 +271,10 @@ public class BallTrigger : MonoBehaviour
 							PassEnd();
 						}
 					}
-				}else{
+				} else if(PassKind == 99) {
+					if(!GameController.Get.Catcher.IsAlleyoopState)
+						PassEnd();
+				} else{
 					if ((dis < 8) && Passing)
 					{
 						Passing = false;

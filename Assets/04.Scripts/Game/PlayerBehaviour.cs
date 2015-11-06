@@ -3959,6 +3959,12 @@ public class PlayerBehaviour : MonoBehaviour
 	public bool CanPressButton {
 		get {return (Timer.timeScale ==1 );}
 	}
+
+	public bool IsAlleyoopState {
+		get {
+			return CheckAnimatorSate(EPlayerState.Alleyoop);
+		}
+	}
 	
 	public bool CanMove
 	{
