@@ -81,6 +81,7 @@ public class UIGamePause : UIBase {
 		uiStageHint.transform.localPosition = Vector3.zero;
 		uiStageHint.transform.localRotation = Quaternion.identity;
 		uiStageHint.transform.localScale = Vector3.one;
+		uiStageHint.SetInterval(150, 150);
 
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
