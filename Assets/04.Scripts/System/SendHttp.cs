@@ -66,7 +66,7 @@ public static class URLConst {
 	public const string BuyLuckBox = "buyluckbox";
 	public const string BuyStoreItem = "buystoreitem";
 	public const string PlayerEvo = "playerevo";
-	public const string StageAward = "stageAward";
+	public const string StageReward = "stagereward";
 	public const string BingoItem = "bingoitem";
 	public const string RecordGameStart = "recordgamestart";
 	public const string RecordGameEnd = "recordgameend";

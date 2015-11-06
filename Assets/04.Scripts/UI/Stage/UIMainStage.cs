@@ -264,6 +264,27 @@ public class UIMainStage : UIBase
         Hide();
     }
 
+    private void stageReward(int stageID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("StageID", stageID);
+        mCurrentStageID = stageID;
+        SendHttp.Get.Command(URLConst.StageReward, waitStageReward, form);
+    }
+
+    private void waitStageReward(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitStageReward, ok:{0}", ok);
+
+        if(ok)
+        {
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Items = team.Items;
+        }
+        else
+            UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+    }
+
     public static UIMainStage Get
     {
         get
