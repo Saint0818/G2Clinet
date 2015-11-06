@@ -280,6 +280,7 @@ public class PlayerBehaviour : MonoBehaviour
     private TBlockCurve playerBlockCurve;
     private Vector3 skillMoveTarget;
     private Vector3 skillFaceTarget;
+	private bool isDunkBlock;
 
     //Rebound
     private bool isRebound = false;
@@ -1245,7 +1246,7 @@ public class PlayerBehaviour : MonoBehaviour
                 PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
 
 				if (blockCurveTime < 1f) {
-					if (GameController.Get.BallOwner == null) {
+					if (!isDunkBlock) {
 						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
 						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
 						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
@@ -1257,7 +1258,7 @@ public class PlayerBehaviour : MonoBehaviour
 					}
 				} else
 				{
-					if (GameController.Get.BallOwner == null) {
+					if (!isDunkBlock) {
 						PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
 						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
 						                                                     PlayerRefGameObject.transform.position.z);
@@ -2375,6 +2376,8 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case 20:
                 GameRecord.Block ++;
+				if(GameController.Get.BallState == EBallState.CanDunkBlock)
+					isDunkBlock = true;
                 break;
         }
 		InitAnimatorCurve (EAnimatorState.Block, stateNo);
@@ -3250,8 +3253,8 @@ public class PlayerBehaviour : MonoBehaviour
                                                                skillFaceTarget.z));
                         } else if (GameController.Get.BallState == EBallState.CanDunkBlock)
                         {
-                            PlayerBehaviour p = GameController.Get.BallOwner;
-                            p.DoPassiveSkill(ESkillSituation.KnockDown0);
+                            if(GameController.Get.BallOwner != null)
+								GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
                         }
                         GameController.Get.BallState = EBallState.None;
                     }
