@@ -244,7 +244,7 @@ public class UIDoubleClick : UIBase {
 
 	public void InitDoubleClick(PlayerBehaviour player, int index)
 	{
-		if (index < DoubleClicks.Length && player.DoubleClick) {
+		if (index < DoubleClicks.Length && player != null && player.DoubleClick) {
 			DoubleClicks[index].Init(player.DoubleClick);
 			DoubleClicks[index].Team = (int)player.Team;
 			DoubleClicks[index].Index = index;

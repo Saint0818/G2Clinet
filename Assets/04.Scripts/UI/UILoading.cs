@@ -156,12 +156,6 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (0.2f);
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
-			int rate = UnityEngine.Random.Range(0, 2);
-			if(rate == 0)
-				AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
-			else
-				AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
-
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 
@@ -257,7 +251,7 @@ public class UILoading : UIBase {
 		UIShow(false);
 
 		if (GameStart.Get.TestMode == EGameTest.None)
-			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+			GameController.Get.LoadStage(GameData.StageID);
 		else {
 			CourtMgr.Get.ShowEnd();
 			GameController.Get.InitIngameAnimator();

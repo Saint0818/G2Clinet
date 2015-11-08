@@ -3,11 +3,10 @@ using GamePlayEnum;
 using UnityEngine;
 
 public class GameStart : KnightSingleton<GameStart> {
-	public ESceneTest  SceneMode = ESceneTest.Single;
 	public EGameTest TestMode = EGameTest.None;
 	public EModelTest TestModel = EModelTest.None;
 	public ECameraTest TestCameraMode = ECameraTest.None;
-	public ECourtMode CourtMode = ECourtMode.Full;
+	public int CourtMode = ECourtMode.Full;
 	public bool ConnectToServer = false;
 	public bool OpenTutorial = false;
 	public bool IsDebugAnimation = false;
@@ -30,20 +29,10 @@ public class GameStart : KnightSingleton<GameStart> {
 		#endif
 
 		Time.timeScale = 1;
-
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		SceneMgr.Get.SetDontDestory (gameObject);
-
 		TextConst.Init();
 		GameData.Init();
-
-		switch(SceneMode) {
-		case ESceneTest.Single:
-			SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
-			break;
-		case ESceneTest.Release:
-			SendHttp.Get.CheckServerData(ConnectToServer);
-			break;
-		}
+		SendHttp.Get.CheckServerData(ConnectToServer);
 	}
 }

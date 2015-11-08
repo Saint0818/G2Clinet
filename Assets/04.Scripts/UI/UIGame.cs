@@ -180,6 +180,7 @@ public class UIGame : UIBase {
 	public static void UIShow(bool isShow) {
 		if(isShow)
 			Get.drawLine.IsShow = isShow;
+
 		if(instance)
 			instance.Show(isShow);
 		else

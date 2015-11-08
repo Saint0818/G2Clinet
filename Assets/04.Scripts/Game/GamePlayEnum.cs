@@ -1,9 +1,9 @@
 ﻿using System;
 
 namespace GamePlayEnum {
-	public enum ECourtMode {
-		Full = 0,
-		Half = 1
+	public static class ECourtMode {
+		public const int Full = 0;
+		public const int Half = 1;
 	}
 
 	public enum EBasketAnimationTest {

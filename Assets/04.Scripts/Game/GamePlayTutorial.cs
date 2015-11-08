@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlayStruct;
 
-public class GamePlayerTutorial : KnightSingleton<GamePlayerTutorial> {
+public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	private List<TGamePlayEvent> eventList = new List<TGamePlayEvent>(0);
 
 	public void SetTutorialData(int id) {

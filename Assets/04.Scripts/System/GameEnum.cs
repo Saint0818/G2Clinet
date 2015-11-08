@@ -30,13 +30,6 @@ namespace GameEnum {
 		Stage = 4
 	}
 
-	public enum ESceneTest
-	{
-		Single,
-		Multi,
-		Release
-	}
-
 	public enum EModelTest {
 		None = -1,
 		Center = 0,

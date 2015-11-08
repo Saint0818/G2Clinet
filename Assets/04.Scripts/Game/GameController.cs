@@ -60,14 +60,17 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsReset = false;
 	public bool IsJumpBall = false;
 	private bool isPassing = false;
-	public float MaxGameTime = 0;
-	public float GameTime = 0;
-	public int GameWinValue = 0;
     public float CoolDownPass = 0;
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
     //	private float waitStealTime = 0;
+
+	private int courtMode = ECourtMode.Full;
+	private int friendNumber = 3;
+	private float maxGameTime = 0;
+	public float GameTime = 0;
+	public int GameWinValue = 0;
 
 //    /// <summary>
 //    /// 抄截冷卻時間.
@@ -185,10 +188,7 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		CourtInstant = new TCourtInstant(1);
-		LoadStageBit(GameData.StageID);
-		InitGame();
 		InitAniState();
-		checkStageReasonable ();
     }
 
     void InitAniState()
@@ -253,39 +253,50 @@ public class GameController : KnightSingleton<GameController>
 
         PlayerList.Clear();
 
-		if(!GameStart.Get.ConnectToServer) {
-			MaxGameTime = GameStart.Get.GameWinTimeValue;
-			GameTime = GameStart.Get.GameWinTimeValue;
-			UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
-			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
-		} else {
-			UIGame.Get.MaxScores[0] = GameWinValue;
-			UIGame.Get.MaxScores[1] = GameWinValue;
-		}
-
 		StateChecker.InitState();
         CreateTeam();
 		SetBallOwnerNull (); 
     }
 
-	public void LoadStageBit(int id)
+	public void LoadStage(int id)
     {
 		if(StageTable.Ins.HasByID(id))
         {
             mCurrentStageID = id;
             StageData stageData = StageTable.Ins.GetByID(id);
+			courtMode = stageData.CourtMode;
+			friendNumber =  stageData.FriendNumber;
+			GameWinValue = stageData.WinValue;
+
             StageBitNum[0] = stageData.Bit0Num;
 			StageBitNum[1] = stageData.Bit1Num;
 			StageBitNum[2] = stageData.Bit2Num;
 			StageBitNum[3] = stageData.Bit3Num;
 			StageHintBit = stageData.HintBit;
-			MaxGameTime = StageBitNum[0];
+			maxGameTime = StageBitNum[0];
 			GameTime = StageBitNum[0];
 			GameWinValue = StageBitNum[1];
+			UIGame.Get.MaxScores[0] = GameWinValue;
+			UIGame.Get.MaxScores[1] = GameWinValue;
 
 			if (GameData.DStageTutorial.ContainsKey(id))
-				GamePlayerTutorial.Get.SetTutorialData(id);
+				GamePlayTutorial.Get.SetTutorialData(id);
+		} else {
+			maxGameTime = GameStart.Get.GameWinTimeValue;
+			GameTime = GameStart.Get.GameWinTimeValue;
+			GameWinValue = GameStart.Get.GameWinValue;
+			UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
+			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
 		}
+
+		int rate = UnityEngine.Random.Range(0, 2);
+		if(rate == 0)
+			AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
+		else
+			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
+
+		InitGame();
+		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
 	}
 
 	public void StartGame() {
@@ -608,38 +619,30 @@ public class GameController : KnightSingleton<GameController>
 		if (Joysticker.SpeedUpView)
 			Joysticker.SpeedUpView.enabled = false;
 
-        if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) {
+        if (PlayerList.Count > 1 && PlayerList [1].Team == Joysticker.Team) 
 			passIcon[1] = EffectManager.Get.PlayEffect("PassA", Joysticker.BodyHeight.transform.localPosition, PlayerList [1].PlayerRefGameObject);
-//			selectIcon[0] = EffectManager.Get.PlayEffect("SelectA", Vector3.zero, null, PlayerList [1].PlayerRefGameObject);
-		}
 
-        if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) {
+        if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].PlayerRefGameObject);
-//			selectIcon[1] = EffectManager.Get.PlayEffect("SelectB", Vector3.zero, null, PlayerList [2].PlayerRefGameObject);
-		}
 		
 		UIGame.Get.InitGame(Joysticker);
 
 		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
-        for (int i = 0; i < PlayerList.Count; i ++)
-        {
+        for (int i = 0; i < PlayerList.Count; i ++) {
+			UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
             PlayerList [i].OnShooting = OnShooting;
-//            PlayerList [i].OnPass = OnPass;
             PlayerList [i].OnStealMoment = OnStealMoment;
 			PlayerList [i].OnGotSteal = OnGotSteal;
             PlayerList [i].OnBlockMoment = OnBlockMoment;
 			PlayerList [i].OnDoubleClickMoment = OnDoubleClickMoment;
 			PlayerList [i].OnFakeShootBlockMoment = OnFakeShootBlockMoment;
             PlayerList [i].OnBlockJump = OnBlockJump;
-//			PlayerList [i].OnBlockCatching = OnBlockCatching;
-//			PlayerList [i].OnBlocking = OnBlocking;
             PlayerList [i].OnDunkJump = OnDunkJump;
             PlayerList [i].OnDunkBasket = OnDunkBasket;
 			PlayerList [i].OnOnlyScore = OnOnlyScore;
 			PlayerList [i].OnPickUpBall = OnPickUpBall;
 			PlayerList [i].OnFall = OnFall;
 			PlayerList [i].OnUI = UIGame.Get.OpenUIMask;
-//			PlayerList [i].OnUISkill = UIGame.Get.ShowSkill;
 			PlayerList [i].OnUICantUse = UIGame.Get.UICantUse;
 			PlayerList [i].OnUIAnger = UIGame.Get.SetAngerUI;
         }
@@ -1334,13 +1337,12 @@ public class GameController : KnightSingleton<GameController>
 				UIGamePause.UIShow(true);
 				UIGamePause.UIShow(false);
 				UIDoubleClick.UIShow(true);
-				for(int i = 0; i < PlayerList.Count; i++)
-					UIDoubleClick.Get.InitDoubleClick(PlayerList[i], i);
 				UIPassiveEffect.UIShow(true);
 				UITransition.UIShow(true);
 				UITransition.UIShow(false);
 				UICourtInstant.UIShow(true);
 				UICourtInstant.UIShow(false);
+
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
@@ -3613,13 +3615,13 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsTimePass() {
 		if (GameStart.Get.TestMode == EGameTest.None && Situation != EGameSituation.End && IsStart && GameTime > 0) {
 			GameTime -= Time.deltaTime;
-			if(!CourtInstant.TimeInstant[1] && (GameTime <= MaxGameTime * 0.5f)){
-				ShowCourtInstant(1, 1, 1, (int)(MaxGameTime * 0.5f));
+			if(!CourtInstant.TimeInstant[1] && (GameTime <= maxGameTime * 0.5f)){
+				ShowCourtInstant(1, 1, 1, (int)(maxGameTime * 0.5f));
 				CourtInstant.TimeInstant[1] = true;
 			}
 
-			if(!CourtInstant.TimeInstant[2] && (GameTime <= MaxGameTime * 0.1f)) {
-				ShowCourtInstant(1, 1, 2, (int)(MaxGameTime * 0.1f));
+			if(!CourtInstant.TimeInstant[2] && (GameTime <= maxGameTime * 0.1f)) {
+				ShowCourtInstant(1, 1, 2, (int)(maxGameTime * 0.1f));
 				CourtInstant.TimeInstant[2] = true;
 			}
 
@@ -4116,7 +4118,7 @@ public class GameController : KnightSingleton<GameController>
 		Shooter = null;
 		IsStart = false;
 		SetBallOwnerNull();
-		GameTime = MaxGameTime;
+		GameTime = maxGameTime;
 
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		UIPassiveEffect.Get.Reset();

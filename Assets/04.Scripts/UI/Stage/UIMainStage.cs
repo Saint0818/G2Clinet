@@ -113,16 +113,6 @@ public class UIMainStage : UIBase
             GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
 
             GameData.StageID = mCurrentStageID;
-            var stageData = StageTable.Ins.GetByID(mCurrentStageID);
-
-            GameStart.Get.CourtMode = (ECourtMode)stageData.CourtMode;
-
-            if (stageData.WinValue > 0)
-                GameStart.Get.GameWinValue = stageData.WinValue;
-
-            if (stageData.FriendNumber > 0)
-                GameStart.Get.FriendNumber = stageData.FriendNumber;
-
             SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
             Hide();
