@@ -544,7 +544,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void InitDoubleClick()
     {
-        if (Team == ETeamKind.Self && Index == 0 && DoubleClick == null)
+        if (Team == ETeamKind.Self && DoubleClick == null)
         {
             DoubleClick = Instantiate(Resources.Load("Effect/DoubleClick")) as GameObject;
             DoubleClick.name = "DoubleClick";

@@ -260,6 +260,8 @@ public class GameController : KnightSingleton<GameController>
 
 	public void LoadStage(int id)
     {
+		ECameraSituation situation = ECameraSituation.Show;
+
 		if(StageTable.Ins.HasByID(id))
         {
             mCurrentStageID = id;
@@ -282,6 +284,16 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.DStageTutorial.ContainsKey(id))
 				GamePlayTutorial.Get.SetTutorialData(id);
 		} else {
+			StageHintBit[0] = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
+			StageHintBit[1] = GameStart.Get.GameWinValue > 0 ? 1 : 0;
+			StageHintBit[2] = 0;
+			StageHintBit[3] = 0;
+
+			StageBitNum[0] = GameStart.Get.GameWinTimeValue;
+			StageBitNum[1] = GameStart.Get.GameWinValue;
+			StageBitNum[2] = 0;
+			StageBitNum[3] = 0;
+
 			maxGameTime = GameStart.Get.GameWinTimeValue;
 			GameTime = GameStart.Get.GameWinTimeValue;
 			GameWinValue = GameStart.Get.GameWinValue;
@@ -296,7 +308,7 @@ public class GameController : KnightSingleton<GameController>
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
 		InitGame();
-		CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
+		CameraMgr.Get.SetCameraSituation(situation); 
 	}
 
 	public void StartGame() {
@@ -625,7 +637,7 @@ public class GameController : KnightSingleton<GameController>
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].PlayerRefGameObject);
 		
-		UIGame.Get.InitGame(Joysticker);
+		UIGame.Get.InitJoystickerUI(Joysticker);
 
 		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i ++) {
@@ -1346,8 +1358,8 @@ public class GameController : KnightSingleton<GameController>
 				break;
 			case EGameSituation.Opening:
 			case EGameSituation.JumpBall:
-				if(GameStart.Get.TestMode != EGameTest.None)
-					UIGame.UIShow(true);
+				UIGame.UIShow(true);
+
 				break;
 			case EGameSituation.AttackGamer:
 			case EGameSituation.AttackNPC:

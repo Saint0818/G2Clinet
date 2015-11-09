@@ -342,9 +342,12 @@ public class UIGame : UIBase {
 		UIEventListener.Get (GameObject.Find (UIName + "/BottomRight/ViewDefance/ButtonSteal")).onDragOver = DoStealOut;
 		
 		drawLine = gameObject.AddComponent<DrawLine>();
+		uiScoreBar.SetActive(false);
+		uiAlleyoopA.SetActive(false);
+		uiAlleyoopB.SetActive(false);
 	}
 
-	protected override void InitData() {
+	public void InitUI() {
 		isShowScoreBar = false;
 		Scores [0] = 0;
 		Scores [1] = 0;
@@ -355,9 +358,11 @@ public class UIGame : UIBase {
 		
 		if(GameController.Get.StageHintBit[0] == 0) 
 			uiLimitTime.SetActive(false);
-		else 
+		else {
+			uiLimitTime.SetActive(true);
 			labelLimitTime.text = GameController.Get.GameTime.ToString();
-		
+		}
+
 		if(GameController.Get.StageHintBit[1] == 2)
 			labelLimiteScore.text = GameController.Get.GameWinValue.ToString();
 		else
@@ -407,7 +412,7 @@ public class UIGame : UIBase {
 		CourtMgr.Get.ShowArrowOfAction(false);
 	}
 
-	public void InitGame (PlayerBehaviour p) {
+	public void InitJoystickerUI (PlayerBehaviour p) {
 		PlayerMe = p;
 		for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
@@ -415,6 +420,7 @@ public class UIGame : UIBase {
 				spriteEmptys[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 			}
 		}
+
 		initLine();
 	}
 	
@@ -425,6 +431,7 @@ public class UIGame : UIBase {
 			if (obj)
 				drawLine.AddTarget(uiPassObjectGroup[0], obj);
 		}
+
 		drawLine.Show(true);
 	}
 
@@ -1122,6 +1129,8 @@ public class UIGame : UIBase {
 			break;
 		case EUISituation.Start:
 			GameController.Get.PlayCount ++;
+			InitUI();
+
 			showViewForceBar(true);
 			viewStart.SetActive (false);
 			viewTopLeft.SetActive(true);
@@ -1133,8 +1142,8 @@ public class UIGame : UIBase {
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
 			controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
 			controlButtonGroup[1].SetActive(GameController.Get.Situation != EGameSituation.AttackGamer);
-			SetPassButton();
-			
+
+            SetPassButton();
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
 			drawLine.IsShow = false;
@@ -1192,7 +1201,7 @@ public class UIGame : UIBase {
 			break;
 		case EUISituation.Reset:
 			UIShow(false);
-			InitData ();
+			InitUI ();
 			GameController.Get.Reset();
 			UIPassiveEffect.Get.Reset();
 			CourtMgr.Get.SetScoreboards (0, Scores [0]);
@@ -1298,6 +1307,7 @@ public class UIGame : UIBase {
 	private void showScoreBar(bool isStart){
 		if(isStart)
 			showScoreBarTime = showScoreBarInitTime;
+
 		isShowScoreBar = true;
 		uiScoreBar.SetActive(false);
 		uiScoreBar.SetActive(true);

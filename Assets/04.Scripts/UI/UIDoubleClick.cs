@@ -77,7 +77,11 @@ public struct TDoubleClick
 	
 	public bool Enable
 	{
-		set{ Group.SetActive(value);}
+		set{ 
+			if (Group)
+				Group.SetActive(value);
+		}
+
 		get{ 
 			if(Group && Group.activeSelf)
 				return true;
