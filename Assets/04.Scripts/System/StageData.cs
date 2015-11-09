@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameEnum;
+using JetBrains.Annotations;
 
 /// <summary>
 /// 某個小關卡的相關資料.
@@ -63,19 +64,17 @@ public class StageData
     /// </summary>
     public int LimitEvaluation;
 
+    /// <summary>
+    /// 必給獎勵(ItemID).
+    /// </summary>
+    [CanBeNull]
+    public int[] SurelyRewards;
+
+    /// <summary>
+    /// 亂數獎勵.
+    /// </summary>
     public int[] Rewards; // 獎勵 ItemID.
     public int[] RewardRates; // 獎勵機率.
-
-//    public int Reward1; 
-//    public int RewardRate1; 
-//    public int Reward2;
-//    public int RewardRate2;
-//    public int Reward3;
-//    public int RewardRate3;
-//    public int Reward4;
-//    public int RewardRate4;
-//    public int Reward5;
-//    public int RewardRate5;
 
     public int WinValue;
     public int FriendNumber;

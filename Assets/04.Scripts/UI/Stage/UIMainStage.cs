@@ -114,6 +114,8 @@ public class UIMainStage : UIBase
 
             GameData.StageID = mCurrentStageID;
             SceneMgr.Get.ChangeLevel("SelectRole");
+//            stageSurelyReward(mCurrentStageID);
+
             Hide();
         }
         else
@@ -264,17 +266,49 @@ public class UIMainStage : UIBase
         Hide();
     }
 
-    private void stageReward(int stageID)
+    /// <summary>
+    /// 要求 Server 給必給獎勵.
+    /// </summary>
+    /// <param name="stageID"></param>
+    private void stageSurelyReward(int stageID)
+    {
+        StageData data = StageTable.Ins.GetByID(stageID);
+        if(data.SurelyRewards == null || data.SurelyRewards.Length <= 0)
+        {
+            Debug.LogErrorFormat("StageID:{0}, Surely Reward is empty!", stageID);
+            return;
+        }
+
+        WWWForm form = new WWWForm();
+        form.AddField("StageID", stageID);
+        mCurrentStageID = stageID;
+        SendHttp.Get.Command(URLConst.StageSurelyReward, waitStageSurelyReward, form);
+    }
+
+    private void waitStageSurelyReward(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitStageSurelyReward, ok:{0}", ok);
+
+        if (ok)
+        {
+            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Items = team.Items;
+        }
+        else
+            UIHint.Get.ShowHint("Stage Surely Reward fail!", Color.red);
+    }
+
+    private void stageRandomReward(int stageID)
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
         mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageReward, waitStageReward, form);
+        SendHttp.Get.Command(URLConst.StageRandomRewardStart, waitStageRandomReward, form);
     }
 
-    private void waitStageReward(bool ok, WWW www)
+    private void waitStageRandomReward(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageReward, ok:{0}", ok);
+        Debug.LogFormat("waitStageRandomReward, ok:{0}", ok);
 
         if(ok)
         {
