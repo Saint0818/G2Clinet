@@ -2076,10 +2076,6 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.KnockDown1:
 
                 if (!IsTee && !IsFall && !IsUseSkill)
-//                if (!IsTee && crtState != state && crtState != EPlayerState.Elbow && 
-//                    (crtState == EPlayerState.Dribble0 || crtState == EPlayerState.Dribble1 || crtState == EPlayerState.Dribble2 || crtState == EPlayerState.HoldBall || IsDunk ||
-//                    crtState == EPlayerState.Idle || crtState == EPlayerState.Run0 || crtState == EPlayerState.Run1 || crtState == EPlayerState.Defence0 || crtState == EPlayerState.Defence1 || 
-//                    crtState == EPlayerState.RunningDefence) && Invincible == 0)
                     return true;
                 break;
 
@@ -2201,22 +2197,26 @@ public class PlayerBehaviour : MonoBehaviour
             case EAnimatorState.End:
             case EAnimatorState.Elbow:
             case EAnimatorState.FakeShoot:
-            case EAnimatorState.Fall:
-            case EAnimatorState.KnockDown:
             case EAnimatorState.Intercept:
-            case EAnimatorState.Pass:
             case EAnimatorState.Push:
             case EAnimatorState.Pick:
             case EAnimatorState.Steal:
             case EAnimatorState.GotSteal:
             case EAnimatorState.Shoot:
             case EAnimatorState.Layup:
-            case EAnimatorState.Rebound:
-            case EAnimatorState.JumpBall:
+            case EAnimatorState.Rebound:	
+			case EAnimatorState.JumpBall:
             case EAnimatorState.TipIn:
                 ClearAnimatorFlag();
                 AnimatorControl.SetTrigger(string.Format("{0}Trigger", state.ToString()));
                 break;
+
+			case EAnimatorState.Fall:
+			case EAnimatorState.KnockDown:
+			case EAnimatorState.Pass:
+				ClearAnimatorFlag();
+				AnimatorControl.Play(string.Format("{0}{1}", state.ToString(), stateNo));
+			break;
 
             case EAnimatorState.Idle:
                 ClearAnimatorFlag();
@@ -3226,7 +3226,10 @@ public class PlayerBehaviour : MonoBehaviour
                             if (GameController.Get.GetDis(new Vector2(GameController.Get.GamePlayers [i].transform.position.x, GameController.Get.GamePlayers [i].transform.position.z), 
                                                      new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameData.DSkillData [ActiveSkillUsed.ID].Distance(ActiveSkillUsed.Lv))
                             {
-                                GameController.Get.GamePlayers [i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
+								if( GameController.Get.GamePlayers [i].IsAllShoot)
+                               		GameController.Get.GamePlayers [i].AniState(EPlayerState.KnockDown0, PlayerRefGameObject.transform.position);
+								else
+                                	GameController.Get.GamePlayers [i].AniState(EPlayerState.Fall1, PlayerRefGameObject.transform.position);
                             }
                         } 
                     }
