@@ -254,6 +254,7 @@ public class UILoading : UIBase {
 			GameController.Get.LoadStage(GameData.StageID);
 		else {
 			CourtMgr.Get.ShowEnd();
+			GameController.Get.LoadStage(1);
 			GameController.Get.InitIngameAnimator();
 			GameController.Get.SetBornPositions();
 			GameController.Get.ChangeSituation(EGameSituation.JumpBall);

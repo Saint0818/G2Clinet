@@ -285,7 +285,7 @@ public class GameController : KnightSingleton<GameController>
 				GamePlayTutorial.Get.SetTutorialData(id);
 		} else {
 			StageHintBit[0] = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
-			StageHintBit[1] = GameStart.Get.GameWinValue > 0 ? 1 : 0;
+			StageHintBit[1] = GameStart.Get.GameWinValue > 0 ? 2 : 0;
 			StageHintBit[2] = 0;
 			StageHintBit[3] = 0;
 
@@ -2981,10 +2981,13 @@ public class GameController : KnightSingleton<GameController>
 		if (p != null && Situation != EGameSituation.End) {
 			p.IsChangeColor = true;
 			IsReboundTime = false;
-			if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
-				BallState = EBallState.CanSteal;	
-			else
-				BallState = EBallState.None;
+			if (!p.IsAlleyoopState) 
+			{
+				if(Situation == EGameSituation.AttackGamer || Situation == EGameSituation.AttackNPC)
+					BallState = EBallState.CanSteal;	
+				else
+					BallState = EBallState.None;
+			}
 					
 			if (BallOwner != null) {
                 if (BallOwner.Team != p.Team) {
@@ -3156,6 +3159,11 @@ public class GameController : KnightSingleton<GameController>
 	public void BallOnFloor()
     {
 		CourtMgr.Get.ResetBasketEntra();
+		
+		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) 
+			GameController.Get.BallState = EBallState.CanSteal;
+		else 
+			GameController.Get.BallState = EBallState.None;
         Shooter = null;
 
 		if (GameStart.Get.TestMode == EGameTest.Shoot) {

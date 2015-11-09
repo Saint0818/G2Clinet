@@ -839,10 +839,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void ResetBasketEntra() {
 		LayerMgr.Get.IgnoreLayerCollision(ELayer.IgnoreRaycast, ELayer.RealBall, false);
 		GameController.Get.IsReboundTime = false;
-		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) 
-			GameController.Get.BallState = EBallState.CanSteal;
-		 else 
-			GameController.Get.BallState = EBallState.None;
 
 		for (int i = 0; i < 2; i ++) {
 			BasketAirBall[i].Into = false;
