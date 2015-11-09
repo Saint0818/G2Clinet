@@ -185,6 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
     private bool stop = false;
     private bool NeedResetFlag = false;
+	private bool CanUseTipIn = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
     private float ProactiveTime = 0;
@@ -2025,7 +2026,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.TipIn:
-                if (IsRebound && crtState != EPlayerState.TipIn)
+				if (IsRebound && CanUseTipIn && crtState != EPlayerState.TipIn)
                     return true;
 
                 break;
@@ -3102,6 +3103,13 @@ public class PlayerBehaviour : MonoBehaviour
                 CourtMgr.Get.ShowBallSFX(Attr.PunishTime);
                 break;
 
+			case "TipInStart":
+				CanUseTipIn = true;
+				break;
+			case "TipInEnd":
+				CanUseTipIn = false;
+				break;
+
             case "AnimationEnd":
                 OnUI(this);
 
@@ -3124,6 +3132,7 @@ public class PlayerBehaviour : MonoBehaviour
 //                          AniState(EPlayerState.HoldBall);
                 }
 
+				CanUseTipIn = false;
                 isUsePass = false;
                 IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
