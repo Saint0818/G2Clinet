@@ -67,7 +67,7 @@ public class UIGame : UIBase {
 
 	// GoldFinger
 	private bool isPressA = false;
-
+	 
 	//GameJoystick
 	private GameJoystick uiJoystick = null;
 	private JoystickController joystickController;
@@ -104,6 +104,7 @@ public class UIGame : UIBase {
 	private TweenRotation[] rotate = new TweenRotation[2];
 
 	//TopRight
+	private GameObject viewTopRight;
 	private GameObject viewForceBar;
 	private GameObject[] uiButtonSkill = new GameObject[3];
 	private GameObject[] uiSkillEnables = new GameObject[3];
@@ -302,6 +303,7 @@ public class UIGame : UIBase {
 		rotate[1] = GameObject.Find (UIName + "/Bottom/UIScoreBar/LabelScore2").GetComponent<TweenRotation>();
 		
 		//TopRight
+		viewTopRight = GameObject.Find(UIName + "/TopRight");
 		viewForceBar = GameObject.Find(UIName + "/TopRight/ViewForceBar");
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
@@ -317,6 +319,7 @@ public class UIGame : UIBase {
 			UIEventListener.Get (uiButtonSkill[i]).onPress = DoSkill;
 			UIEventListener.Get (uiButtonSkill[i]).onDragOver = DoSkillOut;
 			uiButtonSkill[i].SetActive(false);
+			uiSkillEnables[i].SetActive(false);
 		}
 
 		buttonShootFX = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot/UI_FX_A_21");
@@ -345,6 +348,8 @@ public class UIGame : UIBase {
 		uiScoreBar.SetActive(false);
 		uiAlleyoopA.SetActive(false);
 		uiAlleyoopB.SetActive(false);
+		uiSpriteFull.SetActive(false);
+		showViewForceBar(false);
 	}
 
 	public void InitUI() {
@@ -355,13 +360,7 @@ public class UIGame : UIBase {
 		labelScores[1].text = "0";
 		spriteForce.fillAmount = 0;
 		spriteForceFirst.fillAmount = 0;
-		
-		if(GameController.Get.StageHintBit[0] == 0) 
-			uiLimitTime.SetActive(false);
-		else {
-			uiLimitTime.SetActive(true);
-			labelLimitTime.text = GameController.Get.GameTime.ToString();
-		}
+		showUITime ();
 
 		if(GameController.Get.StageHintBit[1] == 2)
 			labelLimiteScore.text = GameController.Get.GameWinValue.ToString();
@@ -381,9 +380,13 @@ public class UIGame : UIBase {
 		buttonPassFX.SetActive(false);
 		buttonPassAFX.SetActive(false);
 		buttonPassBFX.SetActive(false);
-
+		if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
+				uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
+			}
+		}
 		ChangeControl(true);
-		showViewForceBar(false);
+		showViewForceBar(true);
 		ShowSkillEnableUI(false);
 		uiJoystick.Joystick.isActivated = false;
 		uiJoystick.Joystick.JoystickPositionOffset = new Vector2(200, UI2D.Get.RootHeight - 145);
@@ -392,6 +395,15 @@ public class UIGame : UIBase {
 
 	protected override void InitText(){
 
+	}
+
+	private void showUITime (){
+		if(GameController.Get.StageHintBit[0] == 0) 
+			uiLimitTime.SetActive(false);
+		else {
+			uiLimitTime.SetActive(true);
+			labelLimitTime.text = GameController.Get.GameTime.ToString();
+		}
 	}
 
 	private void setGameTime () {
@@ -1106,7 +1118,6 @@ public class UIGame : UIBase {
 		resetRange ();
 		switch(situation) {
 		case EUISituation.ShowTwo:
-			showViewForceBar(false);
 			viewPass.SetActive(false);
 			viewStart.SetActive (true);
 			viewTopLeft.SetActive(false);
@@ -1118,6 +1129,7 @@ public class UIGame : UIBase {
 			drawLine.IsShow = false;
 			break;
 		case EUISituation.Opening:
+			showUITime();
 			viewPass.SetActive(true);
 			viewTopLeft.SetActive(true);
 			viewBottomRight.SetActive(true);
@@ -1126,15 +1138,19 @@ public class UIGame : UIBase {
 			controlButtonGroup[1].SetActive(false);
 			uiJoystick.Joystick.isActivated = false;
 			drawLine.IsShow = true;
+			showViewForceBar(true);
+			if(PlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
+					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
+				}
+			}
 			break;
 		case EUISituation.Start:
 			GameController.Get.PlayCount ++;
 			InitUI();
 
-			showViewForceBar(true);
 			viewStart.SetActive (false);
 			viewTopLeft.SetActive(true);
-			uiSpriteFull.SetActive (false);
 			viewBottomRight.SetActive(true);
 			uiJoystick.gameObject.SetActive(true);
 			uiJoystick.Joystick.isActivated = true;
@@ -1147,12 +1163,6 @@ public class UIGame : UIBase {
 			CourtMgr.Get.SetBallState (EPlayerState.Start);
 			GameController.Get.StartGame();
 			drawLine.IsShow = false;
-			
-			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
-				for (int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-					uiButtonSkill[i].SetActive(true);
-				}
-			}
 			break;
 		case EUISituation.Pause:
 			if (!viewStart.activeInHierarchy) {
@@ -1216,7 +1226,6 @@ public class UIGame : UIBase {
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
 				for (int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 					spriteSkills[i].fillAmount = 0;
-					uiButtonSkill[i].SetActive(false);
 					uiSkillEnables[i].SetActive(false);
 				}
 			}
@@ -1269,31 +1278,22 @@ public class UIGame : UIBase {
 
 	private void showViewForceBar (bool isShow){
 		if(!IsPlayerMe) {
-			viewForceBar.SetActive(false);
-			showUIButtonSkill(false);
+			viewTopRight.SetActive(false);
 		} else {
 			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
-				viewForceBar.SetActive(isShow);
-				showUIButtonSkill(isShow);
+				viewTopRight.SetActive(isShow);
 			} else {
-				viewForceBar.SetActive(false);
-				showUIButtonSkill(false);
+				viewTopRight.SetActive(false);
 			}
 		}
-	}
-
-	private void showUIButtonSkill (bool isShow) {
-		if(IsPlayerMe)
-			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++)
-				uiButtonSkill[i].SetActive(((i<PlayerMe.Attribute.ActiveSkills.Count) && isShow));
 	}
 	
 	private void showSkillRefUI (bool isShow) {
 		if(IsPlayerMe) {
 			if(PlayerMe.Attribute.ActiveSkills.Count > 0)
-				viewForceBar.SetActive(isShow);
+				showViewForceBar(isShow);
 			else 
-				viewForceBar.SetActive(false);
+				showViewForceBar(false);
 		}
 	}
 	

@@ -3672,6 +3672,9 @@ public class GameController : KnightSingleton<GameController>
 				else if (StageHintBit[1] == 3 && (UIGame.Get.Scores[enemy] < GameWinValue)) return true;
 				else if (StageHintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= GameWinValue) return true;
 			}
+		} else if(!GameStart.Get.ConnectToServer)
+		{
+			if (StageHintBit[1] == 2 && (UIGame.Get.Scores[team] >= GameWinValue)) return true;
 		}
 		return false;
 	}
@@ -3687,6 +3690,9 @@ public class GameController : KnightSingleton<GameController>
 			if(StageHintBit[3] > 0) 
 				if(!checkCountEnough(player, StageHintBit[3], StageBitNum[3]))
 					return false;
+			return true;
+		} else if(!GameStart.Get.ConnectToServer)
+		{
 			return true;
 		}
 		return false;
@@ -3729,7 +3735,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsGameFinish (){
 		bool flag = false;
-		if (StageHintBit[0] == 0 || StageHintBit[0] == 1) 
+		if (StageHintBit[0] == 0 || StageHintBit[0] == 2) 
 			if (IsScorePass(Joysticker.Team.GetHashCode()))
 				if(IsConditionPass(Joysticker)) 
 					flag = true;

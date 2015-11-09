@@ -1048,6 +1048,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Timer.timeScale == 0)
             return;
+
         if (isRebound && playerReboundCurve != null)
         {
             reboundCurveTime += Time.deltaTime * Timer.timeScale;
@@ -1056,23 +1057,42 @@ public class PlayerBehaviour : MonoBehaviour
                 if (playerReboundCurve.isSkill)
                 {
                     PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
-                    if (reboundCurveTime < 0.7f)
-                    {
-                        if (skillMoveTarget.y > BodyHeight.transform.localPosition.y)
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, (skillMoveTarget.y - BodyHeight.transform.localPosition.y), reboundCurveTime), 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-                        } else
-                        {
-                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-                                                                                 PlayerRefGameObject.transform.position.y, 
-                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-                        }
-                    } else
-                    {
-                        PlayerRefGameObject.transform.DOMoveY(0, 0.5f);
-                    }
+//                    if (reboundCurveTime < 0.7f)
+//                    {
+//                        if (skillMoveTarget.y > BodyHeight.transform.localPosition.y)
+//                        {
+//                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
+//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, (skillMoveTarget.y - BodyHeight.transform.localPosition.y), reboundCurveTime), 
+//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
+//                        } else
+//                        {
+//                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
+//                                                                                 PlayerRefGameObject.transform.position.y, 
+//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
+//                        }
+//                    } else
+//                    {
+//                        PlayerRefGameObject.transform.DOMoveY(0, 0.5f);
+//                    }
+					if (reboundCurveTime < 0.7f) {
+						if (skillMoveTarget.y > BodyHeight.transform.localPosition.y) {
+							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
+							                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+							                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
+						} else 
+						{
+							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
+							                                                     PlayerRefGameObject.transform.position.y, 
+							                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
+						}
+					} else
+					{
+						if (skillMoveTarget.y > BodyHeight.transform.localPosition.y) {
+							PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
+							                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * (skillMoveTarget.y / 3), 
+							                                                     PlayerRefGameObject.transform.position.z);
+						} 
+					}   
                 } else
                 {
                     if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
@@ -2005,7 +2025,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (crtState != EPlayerState.Alleyoop && !IsUseSkill && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -3266,7 +3286,7 @@ public class PlayerBehaviour : MonoBehaviour
                     UISkillEffect.UIShow(false);
 					aniEvent = new UnityEngine.AnimationEvent();
 					aniEvent.floatParameter = 1;
-					aniEvent.intParameter = 2;
+					aniEvent.intParameter = 0;
 					TimeScale(aniEvent);
 
                     if (isBlock)
