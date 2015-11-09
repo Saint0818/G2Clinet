@@ -102,9 +102,9 @@ public class UIGameResult : UIBase {
 		Time.timeScale = 1;
 		UIShow(false);
 		if (isStage)
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			SceneMgr.Get.ChangeLevel("Lobby");
 		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
+			SceneMgr.Get.ChangeLevel ("SelectRole", false);
 	}
 
 	public void OnResume() {

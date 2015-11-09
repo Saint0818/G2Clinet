@@ -32,8 +32,8 @@ public class BlockTrigger : MonoBehaviour {
 
 							if(faller.IsDunk) {
 								if(faller.IsCanBlock && !faller.IsTee) {
-									GameController.Get.SetBall();
-									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
+//									GameController.Get.SetBall();
+//									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
 									faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 									gameObject.SetActive (false);
 								}

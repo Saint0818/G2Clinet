@@ -651,8 +651,8 @@ public class UISelectRole : UIBase {
 		case EUIRoleSituation.BackToSelectMe:
 			if (GameData.StageID > -1) {
 				UIShow(false);
-				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+				if (SceneMgr.Get.CurrentScene != "Lobby")
+					SceneMgr.Get.ChangeLevel("Lobby");
 				else
 					LobbyStart.Get.EnterLobby();
 			} else {
@@ -676,10 +676,10 @@ public class UISelectRole : UIBase {
 			GameData.TeamMembers [1].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [1].Player.SetAvatar ();
 
-			if (SceneMgr.Get.CurrentScene == ESceneName.Court_0)
+			if (SceneMgr.Get.CurrentScene == "Court_0")
 				UILoading.UIShow(true, ELoadingGamePic.Game);
 			else
-				SceneMgr.Get.ChangeLevel (ESceneName.Court_0);
+				SceneMgr.Get.ChangeLevel ("Court_0");
 
 			break;
 		case EUIRoleSituation.ListA: // 1

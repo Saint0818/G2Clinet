@@ -124,12 +124,12 @@ public class JoystickController : MonoBehaviour {
 	void getButton()
 	{
 		switch (SceneMgr.Get.CurrentScene) {
-			case ESceneName.Null:
-			case ESceneName.Lobby:
-			case ESceneName.Main:
+			case "Null":
+			case "Lobby":
+			case "Main":
 				break;
 
-			case ESceneName.SelectRole:
+			case "SelectRole":
 //				SelectRoleFunction();
 				break;
 

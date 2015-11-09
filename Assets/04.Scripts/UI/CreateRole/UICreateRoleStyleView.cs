@@ -167,7 +167,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         form.AddField("Name", SystemInfo.deviceUniqueIdentifier);
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
 
-		if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+		if(SceneMgr.Get.CurrentScene != "Lobby")
 			UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
 
         SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
@@ -187,8 +187,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 			UICreateRole.Get.Hide();
 			UI3DCreateRole.Get.Hide();
 
-			if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			if(SceneMgr.Get.CurrentScene != "Lobby")
+				SceneMgr.Get.ChangeLevel("Lobby");
 			else
 				LobbyStart.Get.EnterLobby();
         } else {

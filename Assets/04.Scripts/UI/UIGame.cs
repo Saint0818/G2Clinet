@@ -1228,7 +1228,7 @@ public class UIGame : UIBase {
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;
 			UIGameResult.UIShow(false);
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel ("SelectRole");
 			break;
 		}
 		AudioMgr.Get.PauseGame();

@@ -248,9 +248,9 @@ public class UIGamePause : UIBase {
 		uiStageHint.Hide();
 		UIShow(false);
 		if (isStage)
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			SceneMgr.Get.ChangeLevel("Lobby");
 		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
+			SceneMgr.Get.ChangeLevel ("SelectRole", false);
 	}
 	
 	public void OnResume() {
@@ -288,7 +288,7 @@ public class UIGamePause : UIBase {
 
 	public void BackMainMenu() {
 		Time.timeScale = 1;
-		SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+		SceneMgr.Get.ChangeLevel("Lobby");
 	}
 
 	public void EffectSwitch(){

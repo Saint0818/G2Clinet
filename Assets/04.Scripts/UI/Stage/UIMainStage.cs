@@ -113,8 +113,7 @@ public class UIMainStage : UIBase
             GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
 
             GameData.StageID = mCurrentStageID;
-            SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
-
+            SceneMgr.Get.ChangeLevel("SelectRole");
             Hide();
         }
         else

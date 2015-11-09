@@ -154,7 +154,7 @@ public class BallTrigger : MonoBehaviour
 				break;
 			case 3:
 				GameController.Get.Catcher.AniState (EPlayerState.CatchFlat, GameController.Get.Passer.transform.position);	
-				PassEnd();
+//				PassEnd();
 				break;
 
 			case 99://Alleyoop

@@ -171,8 +171,8 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
             // 是相同的角色, 直接進入大廳.
             UICreateRole.Get.Hide();
-            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            if (SceneMgr.Get.CurrentScene != "Lobby")
+                SceneMgr.Get.ChangeLevel("Lobby");
             else
                 LobbyStart.Get.EnterLobby();
         }
@@ -214,8 +214,8 @@ public class UICreateRoleFrameView : MonoBehaviour
             GameData.SaveTeam();
 
             UICreateRole.Get.Hide();
-            if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-                SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+            if (SceneMgr.Get.CurrentScene != "Lobby")
+                SceneMgr.Get.ChangeLevel("Lobby");
             else
                 LobbyStart.Get.EnterLobby();
         }
@@ -227,8 +227,8 @@ public class UICreateRoleFrameView : MonoBehaviour
 
         UICreateRole.Get.Hide();
 
-        if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
-            SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+        if(SceneMgr.Get.CurrentScene != "Lobby")
+            SceneMgr.Get.ChangeLevel("Lobby");
         else
             LobbyStart.Get.EnterLobby();
     }

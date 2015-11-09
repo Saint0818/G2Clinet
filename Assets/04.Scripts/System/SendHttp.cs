@@ -330,7 +330,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (connectToServer)
 			checkVersion();
 		else 
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			SceneMgr.Get.ChangeLevel("SelectRole");
 	}
 	
 	private void waitVersion(bool ok, WWW www) {
@@ -378,6 +378,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	    if(GameData.Team.Player.Lv == 0) {
 			UILoading.UIShow(true, GameEnum.ELoadingGamePic.CreateRole);
 	    } else
-	        SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+	        SceneMgr.Get.ChangeLevel("Lobby");
 	}
 }

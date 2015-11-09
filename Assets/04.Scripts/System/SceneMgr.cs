@@ -4,97 +4,108 @@ using UnityEngine;
 
 public enum ESceneName
 {
-	Null = 0,
-	Main = 1,
-	Lobby = 2,
-	SelectRole = 3,
-	Court_0 = 4,
-	Court_1 = 5,
+    Null = 0,
+    Main = 1,
+    Lobby = 2,
+    SelectRole = 3,
+    Court_0 = 4,
+    Court_1 = 5,
 }
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
-	public ESceneName CurrentScene = ESceneName.Main;
-	public ESceneName LoadScene = ESceneName.Main;
+    public string CurrentScene = "Main";
+    public string LoadScene = "Main";
 
-	public delegate void LevelWillBeLoaded();
-	public delegate void LevelWasLoaded();
-	
-	public static event LevelWillBeLoaded OnLevelWillBeLoaded;
-	public static event LevelWasLoaded OnLevelWasLoaded;
-	
-	IEnumerator LoadLevelCoroutine(ESceneName levelToLoad)
-	{
-		if (OnLevelWillBeLoaded != null)
-			OnLevelWillBeLoaded();
-
-		yield return Application.LoadLevelAsync(levelToLoad.ToString());
-			CurrentScene = levelToLoad;
-
-		switch (levelToLoad) {
-			case ESceneName.Lobby:
-				GameData.StageID = -1;
-				UILoading.UIShow(true, ELoadingGamePic.Lobby);
-
-				break;
-            case ESceneName.Court_0:
-			case ESceneName.Court_1:
-				UILoading.UIShow(true, ELoadingGamePic.Game);
-				break;
-
-			case ESceneName.SelectRole:
-				if (GameData.StageID >= 0)
-					UILoading.UIShow(true, ELoadingGamePic.Stage); 
-				else {
-					GameData.StageID = -1;
-	                UILoading.UIShow(true, ELoadingGamePic.SelectRole);
-				}
-
-				break;
-
-			case ESceneName.Null:
-				break;
-		}
-
-		if (OnLevelWasLoaded != null) {
-			OnLevelWasLoaded ();
-		}
-
-		Resources.UnloadUnusedAssets();
-	}
-
-	void Awake()
-	{
-		DontDestroyOnLoad(transform.gameObject);
-	}
-
-    public void ChangeLevel(ESceneName scene, bool isNeedLoading = true)
+    public delegate void LevelWillBeLoaded();
+    public delegate void LevelWasLoaded();
+    
+    public static event LevelWillBeLoaded OnLevelWillBeLoaded;
+    public static event LevelWasLoaded OnLevelWasLoaded;
+    
+    IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
-		if (CurrentScene == ESceneName.Main) {
-			StartCoroutine (LoadLevelCoroutine (scene));
-			LoadScene = scene;
-		}
-		else {
-			if (CurrentScene != scene) {
-				if(isNeedLoading)
-					StartCoroutine(LoadLevelCoroutine(ESceneName.Null));
-				else 
-					StartCoroutine(LoadLevelCoroutine(scene));
+        if (OnLevelWillBeLoaded != null)
+            OnLevelWillBeLoaded();
 
-				LoadScene = scene;
-				OnLevelWasLoaded += WaitLoadScene;
-			}
-		}
+        yield return Application.LoadLevelAsync(levelToLoad.ToString());
+        CurrentScene = levelToLoad;
+
+        switch (levelToLoad)
+        {
+            case "Lobby":
+                GameData.StageID = -1;
+                UILoading.UIShow(true, ELoadingGamePic.Lobby);
+                break;
+
+            case "SelectRole":
+                if (GameData.StageID >= 0)
+                    UILoading.UIShow(true, ELoadingGamePic.Stage);
+                else
+                {
+                    GameData.StageID = -1;
+                    UILoading.UIShow(true, ELoadingGamePic.SelectRole);
+                }
+                break;
+
+            case "Null":
+                break;
+
+            default:
+                //Court:
+                UILoading.UIShow(true, ELoadingGamePic.Game);
+                break;
+        }
+
+        if (OnLevelWasLoaded != null)
+        {
+            OnLevelWasLoaded();
+        }
+
+        Resources.UnloadUnusedAssets();
     }
 
-	public void WaitLoadScene()
-	{
-		StartCoroutine(LoadLevelCoroutine(LoadScene));
-		OnLevelWasLoaded -= WaitLoadScene;
-	}
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
-	public void SetDontDestory(GameObject obj){
-		obj.transform.parent = gameObject.transform;
-	}
+    public void ChangeLevel(int courtNo, bool isNeedLoading = true)
+    {
+        string scene = string.Format("Court_{0}", courtNo);
+        ChangeLevel(scene, isNeedLoading);
+    }
+
+    public void ChangeLevel(string scene, bool isNeedLoading = true)
+    {
+        if (CurrentScene == "Main")
+        {
+            StartCoroutine(LoadLevelCoroutine(scene));
+            LoadScene = scene;
+        } else
+        {
+            if (CurrentScene != scene)
+            {
+                if (isNeedLoading)
+                    StartCoroutine(LoadLevelCoroutine("Null"));
+                else 
+                    StartCoroutine(LoadLevelCoroutine(scene));
+
+                LoadScene = scene;
+                OnLevelWasLoaded += WaitLoadScene;
+            }
+        }
+    }
+
+    public void WaitLoadScene()
+    {
+        StartCoroutine(LoadLevelCoroutine(LoadScene));
+        OnLevelWasLoaded -= WaitLoadScene;
+    }
+
+    public void SetDontDestory(GameObject obj)
+    {
+        obj.transform.parent = gameObject.transform;
+    }
 }
 

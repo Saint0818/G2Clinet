@@ -1946,15 +1946,14 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Pass8:
             case EPlayerState.Pass9:
             case EPlayerState.Pass50:
-                if (IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
+                if (!IsDunk && !IsAlleyoopState && IsBallOwner && !IsPass && !IsPickBall && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                 {
                     return true;
                 }
                 break;
 
             case EPlayerState.Pass4:
-//          if (IsBallOwner && !IsLayup && !IsDunk && (crtState == EPlayerState.Shoot0 || crtState == EPlayerState.Shoot2) && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
-                if (IsBallOwner && !IsLayup && !IsDunk && IsShoot && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
+			if (IsBallOwner && !IsLayup && !IsDunk && !IsAlleyoopState && IsShoot && !GameController.Get.Shooter && IsPassAirMoment && !IsPass)
                     return true;
                 break;
             
