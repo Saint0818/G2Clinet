@@ -18,6 +18,7 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UIInput NameInput;
     public UISprite PlayerIconSprite;
     public GameObject Settings;
+	public UIButton PlayerInfoBtn;
 //	public Animator UIAnimator;
 //	private bool isEnable;
 
