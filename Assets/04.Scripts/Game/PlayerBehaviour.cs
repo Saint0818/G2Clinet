@@ -2436,6 +2436,18 @@ public class PlayerBehaviour : MonoBehaviour
         AddTrigger(EAnimatorState.Defence, stateNo);
     }
 
+	public void AlleyoopStateHandle(int stateNo)
+	{
+		PlayerRigidbody.useGravity = false;
+		IsKinematic = true;
+		AddTrigger(EAnimatorState.Dunk, stateNo);
+		isCanCatchBall = true;
+		InitAnimatorCurve(EAnimatorState.Dunk, stateNo);
+		SetShooterLayer();
+		if (OnDunkJump != null)
+			OnDunkJump(this);
+	}
+
     public void DunkStateHandle(int stateNo)
     {
         StartSkillCamera(stateNo);
@@ -2644,10 +2656,14 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EAnimatorState.Dunk:
+				DunkStateHandle(nextState.StateNo);
+				Result = true;
+				break;
+
             case EAnimatorState.Alleyoop:
-                DunkStateHandle(nextState.StateNo);
-                Result = true;
-                break;
+				AlleyoopStateHandle(nextState.StateNo);
+				Result = true;
+				break;
 
             case EAnimatorState.Dribble:
                 DribbleStateHandle(nextState.StateNo);
