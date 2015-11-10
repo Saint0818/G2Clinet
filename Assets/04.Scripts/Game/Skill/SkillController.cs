@@ -573,13 +573,13 @@ public class SkillController : MonoBehaviour {
 				if(GameController.Get.BallState == EBallState.CanRebound) return true;
 				break;
 			case 150://Steal
-				if(GameController.Get.BallState == EBallState.CanSteal) return true;
+				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanSteal) return true;
 				break;
 			case 160://Block
-				if(GameController.Get.BallState == EBallState.CanBlock) return true;
+				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanBlock) return true;
 				break;
 			case 161:
-				if(GameController.Get.BallState == EBallState.CanDunkBlock) return true;
+				if(GameController.Get.Situation == EGameSituation.AttackNPC && GameController.Get.BallState == EBallState.CanDunkBlock) return true;
 				break;
 			default:
 				return true;

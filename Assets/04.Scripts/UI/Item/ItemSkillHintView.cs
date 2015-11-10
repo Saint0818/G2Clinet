@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class ItemSkillHintView : MonoBehaviour {
+
+	public UILabel SkillName;
+	public UISprite SkillLevel;
+	public UISprite SkillLevelball;
+	public UILabel SkillMaxAnger;
+	public UITexture SkillTexture;
+	public UISprite SkillCard;
+
+
+	public void UpdateUI (string name, string level, string quality, string anger, string maxAnger, string texturename) {
+		SkillName.text = name;
+		SkillLevel.spriteName = "Cardicon" + level;
+		SkillLevelball.spriteName = "Levelball" + quality;
+		SkillMaxAnger.text = anger + "[13CECEFF]" + maxAnger + "[-]";
+//		SkillTexture.mainTexture
+		SkillCard.spriteName = "cardlevel_" + quality + "s";
+	}
+}

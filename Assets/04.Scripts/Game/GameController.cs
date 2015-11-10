@@ -3549,10 +3549,12 @@ public class GameController : KnightSingleton<GameController>
 
     private void pveEnd(int stageID)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
+		if(GameStart.Get.ConnectToServer) {
+			WWWForm form = new WWWForm();
+			form.AddField("StageID", stageID);
+			mCurrentStageID = stageID;
+			SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
+		}
     }
 
     private void waitPVEEnd(bool ok, WWW www)
@@ -3688,12 +3690,12 @@ public class GameController : KnightSingleton<GameController>
 	//0: no check  1:self > enemy 2:self score 3:enemy score  4:self - enemy
 	public bool IsScorePass(int team)
     {
+		int self = team;
+		int enemy = 0;
+		if(self == (int) ETeamKind.Self)
+			enemy = 1;
 		if(StageTable.Ins.HasByID(mCurrentStageID))
         {
-			int self = team;
-			int enemy = 0;
-			if(self == (int) ETeamKind.Self)
-				enemy = 1;
 
 			if (StageHintBit[1] == 0)
 				return true;
@@ -3766,7 +3768,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsGameFinish (){
 		bool flag = false;
-		if (StageHintBit[0] == 0 || StageHintBit[0] == 2) 
+		if (StageHintBit[0] == 0 || StageHintBit[0] == 1 || StageHintBit[1] == 2) 
 			if (IsScorePass(Joysticker.Team.GetHashCode()))
 				if(IsConditionPass(Joysticker)) 
 					flag = true;

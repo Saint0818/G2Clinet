@@ -13,6 +13,13 @@ public class UIStageHint : MonoBehaviour
         mTargets = GetComponentsInChildren<UIStageHintTarget>();
     }
 
+	public void Init () {
+		for (int i=0 ;i<mTargets.Length; i++) {
+			mTargets[i].MoveCurrentLabel(new Vector3(40, -15, 0));
+			mTargets[i].MoveGoalLabel(new Vector3(125, -15, 0));
+		}
+	}
+
     /// <summary>
     /// 設定目標的間隔.
     /// </summary>
@@ -139,6 +146,7 @@ public class UIStageHint : MonoBehaviour
 
 	public void UpdateValue(int stageID)
 	{
+
 		if(StageTable.Ins.HasByID(stageID))
 		{
 			hideAllTargets();
@@ -154,7 +162,7 @@ public class UIStageHint : MonoBehaviour
 					value = 1;
 				mTargets[index].UpdateUI(getText(1, value, 9),
 				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), stageData.Bit0Num.ToString(),
+				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + stageData.Bit0Num.ToString(),
 				                         (GameController.Get.GameTime <= 0));
 				index ++;
 			}
@@ -174,7 +182,7 @@ public class UIStageHint : MonoBehaviour
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
-				
+
 				mTargets[index].UpdateUI(getText(2, hintBits[1] - 1, 9),
 				                         getText(2, hintBits[1] - 1, 8),
 				                         score.ToString(), "/" + stageData.Bit1Num.ToString(),
@@ -188,7 +196,7 @@ public class UIStageHint : MonoBehaviour
 				mTargets[index].Show();
 				mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
 				                         getText(3, hintBits[2], 8),
-				                         getConditionCount(hintBits[2]).ToString(), stageData.Bit2Num.ToString(),
+				                         getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
 				                         isFin);
 				index++;
 			}
@@ -199,7 +207,7 @@ public class UIStageHint : MonoBehaviour
 				mTargets[index].Show();
 				mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
 				                         getText(3, hintBits[3], 8),
-				                         getConditionCount(hintBits[3]).ToString(), stageData.Bit3Num.ToString(),
+				                         getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
 				                         isFin);
 			}
 		} else 
@@ -212,9 +220,10 @@ public class UIStageHint : MonoBehaviour
 				int value = 0;
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
+
 				mTargets[index].UpdateUI(getText(1, value, 9),
 				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), GameController.Get.StageBitNum[0].ToString(),
+				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageBitNum[0].ToString(),
 				                         (GameController.Get.GameTime <= 0));
 				index++;
 			}
@@ -234,10 +243,10 @@ public class UIStageHint : MonoBehaviour
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= GameController.Get.StageBitNum[1]);
 				}
-				
+
 				mTargets[index].UpdateUI(getText(2, hintBits[1] - 1, 9),
 				                         getText(2, hintBits[1] - 1, 8),
-				                         score.ToString(), GameController.Get.StageBitNum[1].ToString(),
+				                         score.ToString(), "/" + GameController.Get.StageBitNum[1].ToString(),
 				                         isFin);
 			}
 		}

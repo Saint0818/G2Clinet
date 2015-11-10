@@ -537,6 +537,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void initSkill()
     {
+		isSkillShow = false;
         skillController.initSkillController(Attribute, this, AnimatorControl);
         skillController.OnAddAttribute += SetAttribute;
 

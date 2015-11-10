@@ -161,6 +161,8 @@ public class UIGame : UIBase {
 	float playerY;
 	Vector2 playerScreenPos;
 
+	private ItemSkillHint skillHint;
+
 	public static UIGame Get {
 		get {
 			if (!instance) 
@@ -297,6 +299,11 @@ public class UIGame : UIBase {
 		
 		//TopRight
 		viewTopRight = GameObject.Find(UIName + "/TopRight");
+		skillHint = Instantiate(Resources.Load<GameObject>("Prefab/UI/Items/ItemSkillHint")).GetComponent<ItemSkillHint>();
+		skillHint.transform.parent = viewTopRight.transform;
+		skillHint.transform.localPosition = new Vector3(-350, -185, 0);
+		skillHint.transform.localScale = Vector3.one;
+
 		viewForceBar = GameObject.Find(UIName + "/TopRight/ViewForceBar");
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
@@ -484,6 +491,15 @@ public class UIGame : UIBase {
 		}
 	}
 
+	private void showSkillHint (bool isShow, int index = 0) {
+		if(isShow)
+			skillHint.Show();
+		else 
+			skillHint.Hide();
+
+		skillHint.UpdateUI(index);
+	}
+
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
 
@@ -629,6 +645,7 @@ public class UIGame : UIBase {
 						resetRange();
 				
 				showRange(EUIRangeType.Skill, state);
+				showSkillHint(state, id);
 			}
 		} else
 			resetRange ();

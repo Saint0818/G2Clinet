@@ -25,6 +25,14 @@ public class UIStageHintTarget : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+	public void MoveCurrentLabel (Vector3 v) {
+		CurrentLabel.gameObject.transform.localPosition = v;
+	}
+
+	public void MoveGoalLabel (Vector3 v) {
+		GoalLabel.gameObject.transform.localPosition = v;
+	}
+
     /// <summary>
     /// 常見都是用 current/max 的方式來顯示; 但這部份剛好相反, 主要的原因是排版會不好看.
     /// </summary>
