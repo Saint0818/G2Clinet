@@ -3712,6 +3712,25 @@ public class GameController : KnightSingleton<GameController>
 		return false;
 	}
 
+	public bool IsScoreFinish
+	{
+		get {
+			if(StageTable.Ins.HasByID(mCurrentStageID))
+			{
+				if (StageHintBit[1] == 0)
+					return true;
+				else{ 
+					if (StageHintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= GameWinValue)) return true;
+					else if (StageHintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= GameWinValue)) return true;
+				}
+			} else if(!GameStart.Get.ConnectToServer)
+			{
+				if (StageHintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= GameWinValue)) return true;
+			}
+			return false;
+		}
+	}
+
 	public bool IsConditionPass (PlayerBehaviour player)
     {
 		if(StageTable.Ins.HasByID(mCurrentStageID))
@@ -3768,8 +3787,8 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsGameFinish (){
 		bool flag = false;
-		if (StageHintBit[0] == 0 || StageHintBit[0] == 1 || StageHintBit[1] == 2) 
-			if (IsScorePass(Joysticker.Team.GetHashCode()))
+		if (StageHintBit[0] == 0 || StageHintBit[0] == 1 ) 
+			if (IsScoreFinish)
 				if(IsConditionPass(Joysticker)) 
 					flag = true;
 
@@ -3847,7 +3866,6 @@ public class GameController : KnightSingleton<GameController>
 					Debug.LogWarning ("UIGame.Get.Scores [1] : " + UIGame.Get.Scores [1]);
 					Debug.LogWarning ("UIGame.Get.MaxScores [1] : " + UIGame.Get.MaxScores [1]);
 				}
-
 				if(!IsGameFinish ()) {
 					if(team == ETeamKind.Self.GetHashCode())
 					{

@@ -3863,6 +3863,10 @@ public class PlayerBehaviour : MonoBehaviour
         set{ firstDribble = value;}
     }
 
+	public int AngerPower {
+		get{ return angerPower;}
+	}
+
     public bool IsAngerFull(TSkill tSkill)
     {
         return Attribute.CheckIfMaxAnger(tSkill.ID, angerPower);
