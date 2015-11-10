@@ -31,6 +31,66 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 	{
 		CrtTime = value;
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
+		if(key == ETimerKind.Player0) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[0].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[0].transform.DOPlay();
+			}
+		}
+		if(key == ETimerKind.Player1) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[1].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[1].transform.DOPlay();
+			}
+		}
+		if(key == ETimerKind.Player2) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[2].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[2].transform.DOPlay();
+			}
+		}
+		if(key == ETimerKind.Player3) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[3].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[3].transform.DOPlay();
+			}
+		}
+		if(key == ETimerKind.Player4) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[4].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[4].transform.DOPlay();
+			}
+		}
+		if(key == ETimerKind.Player5) {
+			if(value == 0)
+			{
+				GameController.Get.GamePlayers[5].transform.DOPause();
+			}
+			else
+			{
+				GameController.Get.GamePlayers[5].transform.DOPlay();
+			}
+		}
 		if(key == ETimerKind.Ball){
 			Timekeeper.instance.Clock(key.ToString()).DOPause();
 

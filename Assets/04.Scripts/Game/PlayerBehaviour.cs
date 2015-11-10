@@ -1129,8 +1129,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationPush()
     {
-        if (!isPush)
-            return;
+		if (!isPush || Timer.timeScale == 0)
+			return;
 
         if (playerPushCurve != null)
         {
@@ -1195,7 +1195,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void CalculationFall()
     {
-        if (!isFall)
+        if (!isFall || Timer.timeScale == 0)
             return;
         
         if (playerFallCurve != null)
