@@ -26,6 +26,7 @@ public class UIMainLobbyImpl : MonoBehaviour
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
+		PlayerInfoBtn.onClick.Add (new EventDelegate (ShowPlayerInfo));
     }
 
     public int Money
@@ -132,6 +133,12 @@ public class UIMainLobbyImpl : MonoBehaviour
         UIEquipment.Get.Show();
         UIMainLobby.Get.Hide();
     }
+	
+	public void ShowPlayerInfo()
+	{
+		UIMainLobby.Get.Hide();
+		UIPlayerInfo.UIShow (true);
+	}
 
     public void ChangePlayerName()
     {

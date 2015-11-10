@@ -147,6 +147,7 @@ namespace GameStruct {
 		public TSkill[] SkillCards;
 		public TSkillCardPage[] SkillCardPages;
 		public TItem[] Items;
+		public TEquipItem[] EquipItems;
 
         /// <summary>
         /// 主線關卡進度(下一個可以打的關卡). 範圍是 101 ~ 2000.
@@ -186,6 +187,7 @@ namespace GameStruct {
 			SkillCards = new TSkill[0];
 			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
+			EquipItems = new TEquipItem[0];
 			Masteries = new int[0];
 		    NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
@@ -949,6 +951,11 @@ namespace GameStruct {
 		public DateTime UseTime;
 	}
 
+	public struct TEquipItem {
+		public int ID;
+		public int[] Inlay;
+	}
+
 	public struct TItemData
     {
 		public int ID;
@@ -962,6 +969,7 @@ namespace GameStruct {
 		public int MaxStack;
 		public int UseTime;
 		public int Money;
+		public int Quality;
 		public string Icon;
 		public string NameTW;
 		public string NameCN;
