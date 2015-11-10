@@ -58,7 +58,7 @@ namespace AI
         {
 //            Debug.LogFormat("PlayerAttackGeneralState.Enter, Player:{0}", mPlayerAI.name);
 
-			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
+			if(mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0) 
 			{
 				if(GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
 				{
@@ -116,7 +116,7 @@ namespace AI
 			if(mPlayer.Attribute.ActiveSkills.Count > 0) 
 			{
 				if(mPlayer.Attribute.ActiveSkills.Count > 0 && 
-                   mSkillJudger.IsMatchCondition() && 
+				   mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
                    mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
 				{
 					GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);

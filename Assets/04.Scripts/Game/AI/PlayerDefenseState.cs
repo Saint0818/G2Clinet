@@ -41,7 +41,7 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
-            if (mPlayer.Attribute.ActiveSkills.Count > 0)
+			if (mSkillJudger != null && mPlayer.Attribute.ActiveSkills.Count > 0)
             {
                 if (GameData.DSkillData.ContainsKey(mPlayer.Attribute.ActiveSkills[0].ID))
                 {
@@ -62,7 +62,7 @@ namespace AI
 
             if(mPlayer.Attribute.ActiveSkills.Count > 0)
             {
-                if(mSkillJudger.IsMatchCondition() && 
+				if(mSkillJudger != null && mSkillJudger.IsMatchCondition() && 
                    mPlayer.CanUseActiveSkill(mPlayer.Attribute.ActiveSkills[0]))
                 {
                     GameController.Get.DoSkill(mPlayer, mPlayer.Attribute.ActiveSkills[0]);

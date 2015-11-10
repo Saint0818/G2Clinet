@@ -312,7 +312,7 @@ public class GameController : KnightSingleton<GameController>
 			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
 	}
 
-	public void StartGame() {
+	public void StartGame(bool jumpBall=true) {
 		IsReset = false;
 		IsJumpBall = false;
 		SetPlayerLevel();
@@ -345,7 +345,9 @@ public class GameController : KnightSingleton<GameController>
 
 		CourtMgr.Get.SetBallState (EPlayerState.Start);
 		ChangeSituation(EGameSituation.JumpBall);
-        AIController.Get.ChangeState(EGameSituation.JumpBall);
+
+		if (jumpBall)
+	        AIController.Get.ChangeState(EGameSituation.JumpBall);
 	}
 
     private PlayerBehaviour FindDefMen(PlayerBehaviour npc)
@@ -673,7 +675,12 @@ public class GameController : KnightSingleton<GameController>
 
 	public void SetPlayerAI(bool enable){
 		for(int i = 0; i < PlayerList.Count; i++)
-			PlayerList[i].GetComponent<PlayerAI>().enabled = enable;
+			PlayerList[i].AI.enabled = enable;
+	}
+
+	public void ClearAutoFollowTime(){
+		for(int i = 0; i < PlayerList.Count; i++)
+			PlayerList[i].ClearAutoFollowTime();
 	}
 
 	void FixedUpdate() {
@@ -4069,7 +4076,7 @@ public class GameController : KnightSingleton<GameController>
 	public void SetPlayerAppear(ref TToturialAction action) {
 		int index = getPlayerIndex(action.Team, action.Index);
 		if (index > -1 && index < PlayerList.Count) {
-			if (action.MoveKind == 0)
+			if (action.MoveKind > 0)
 				SetPlayerAppear(index, action.Action.x, action.Action.z);
 			else 
 				SetPlayerMove(action.Action, index);

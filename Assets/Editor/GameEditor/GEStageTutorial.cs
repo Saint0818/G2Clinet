@@ -30,7 +30,7 @@ public class GEStageTutorial : GEBase {
 		GUILabel("Open", Color.yellow);
 		stageID = GUIIntEdit(stageID, "Stage ID : ");
 		if (GUIButton("Add")) {
-			if (stageID >= GameConst.Default_MainStageID)
+			if (stageID > 0)
 				addTutorial(stageID);
 			else
 				Debug.LogError("ID error.");

@@ -87,7 +87,8 @@ public class UIGame : UIBase {
 	private GameObject[] uiDefenceGroup = new GameObject[2]; // 0:ButtonSteal 1:ButtonBlock
 	private GameObject[] controlButtonGroup= new GameObject[2];// 0:ViewAttack 1:ViewDefence
 	private GameObject[] uiPassObjectGroup = new GameObject[3];// 0:SpriteMe 1:SpriteA 2:SpriteB
-	
+	private GameObject[] uiTutorial = new GameObject[11];//set button for tutorial
+
 	//TopLeft
 	private GameObject viewTopLeft;
 	private GameObject uiLimitTime;
@@ -249,14 +250,6 @@ public class UIGame : UIBase {
 		GameController.Get.onSkillDCComplete += AddForceValue;
 		SetBtnFun (UIName + "/TopLeft/ButtonSpeed", OnSpeed);
 
-		/*
-		#if !UNITY_EDITOR
-		GameObject obj;
-		obj = GameObject.Find (UIName + "/TopLeft/ButtonSpeed");
-		if (obj)
-			obj.SetActive(false);
-		#endif
-		*/
 		//GameJoystick
 		uiJoystick = GameObject.Find (UIName + "/GameJoystick").GetComponent<GameJoystick>();
 		if (uiJoystick)
@@ -350,6 +343,19 @@ public class UIGame : UIBase {
 		uiAlleyoopB.SetActive(false);
 		uiSpriteFull.SetActive(false);
 		showViewForceBar(false);
+
+		//toturial button
+		uiTutorial[0] = uiShoot;
+		uiTutorial[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock");
+		uiTutorial[2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
+		uiTutorial[3] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal");
+		uiTutorial[4] = GameObject.Find (UIName + "/BottomRight/ButtonAttack"); //push
+		uiTutorial[5] = uiPassA;
+		uiTutorial[6] = uiPassB;
+		uiTutorial[7] = uiButtonSkill[0];
+		uiTutorial[8] = uiButtonSkill[1];
+		uiTutorial[9] = uiButtonSkill[2];
+		uiTutorial[10] = joystickController.gameObject;
 	}
 
 	public void InitUI() {
@@ -1392,6 +1398,24 @@ public class UIGame : UIBase {
 			if(buttonAttackFXTime <= 0) {
 				buttonAttackFXTime = 0;
 				buttonAttackFX.SetActive(false);
+			}
+		}
+	}
+
+	public void CloseStartButton() {
+		drawLine.IsShow = false;
+		viewStart.SetActive(false);
+	}
+
+	public void TutorialUI(int flag) {
+		if (flag == 0) {
+			for (int i = 0; i < uiTutorial.Length; i++)
+				uiTutorial[i].SetActive(false);
+		} else {
+			for (int i = 0; i < uiTutorial.Length; i++) {
+				float p = Mathf.Pow(10, i);
+				bool v = flag / p > 0;
+				uiTutorial[i].SetActive(v);
 			}
 		}
 	}

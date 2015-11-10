@@ -255,6 +255,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int MoveIndex = -1;
     public bool isJoystick = false;
     [CanBeNull]
+	public PlayerAI AI = null;
     public PlayerBehaviour DefPlayer = null;
     public float CloseDef = 0;
     public bool AutoFollow = false;

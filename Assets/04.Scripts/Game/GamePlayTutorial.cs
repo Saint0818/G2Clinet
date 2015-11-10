@@ -9,11 +9,14 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 	public void SetTutorialData(int id) {
 		eventList.Clear();
-		TGamePlayEvent[] temp = GameData.DStageTutorial[id].Events;
-		for (int i = temp.Length-1; i >= 0; i--)
-			eventList.Add(temp[i]);
+		if (GameData.ServerVersion == BundleVersion.Version) {
+			TGamePlayEvent[] temp = GameData.DStageTutorial[id].Events;
+			for (int i = temp.Length-1; i >= 0; i--)
+				eventList.Add(temp[i]);
 
-		BegeingEvent();
+			BegeingEvent();
+		} else
+			Debug.LogError("Client and server version are not the same. Do not play tutorial");
 	}
 
 	public void BegeingEvent() {
@@ -31,14 +34,17 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			GameController.Get.SetBornPositions();
 			GameController.Get.ChangeSituation(situation);
 			AIController.Get.ChangeState(situation);
-
 			CameraMgr.Get.ShowPlayerInfoCamera (true);
 			break;
 		case 2: //set ball to player
-			if (!GameController.Get.IsStart)
-				GameController.Get.StartGame();
+			if (!GameController.Get.IsStart) {
+				GameController.Get.IsStart = true;
+				GameController.Get.StartGame(false);
+			}
 
+			UIGame.Get.CloseStartButton();
 			GameController.Get.SetBall(eventList[i].Value1, eventList[i].Value2);
+
 			break;
 		case 3: //set state to player
 
@@ -50,7 +56,20 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 5: //show ui
+			UIGame.Get.TutorialUI(eventList[i].Value1);
+			break;
 
+		case 6: //open ui tutorial
+			UITutorial.Get.ShowTutorial(eventList[i].Value1, 1);
+			break;
+
+		case 7: //turn on / off AI
+			if (eventList[i].Value1 > 0)
+				GameController.Get.SetPlayerAI(true);
+			else {
+				GameController.Get.SetPlayerAI(false);
+				GameController.Get.ClearAutoFollowTime();
+			}
 
 			break;
 		}

@@ -35,7 +35,8 @@ public class GEGamePlayTutorial : GEBase {
 		"3.設定球員狀態",
 		"4.控制球員移動",
 		"5.開啟操作介面",
-		"6.開啟介面教學"
+		"6.開啟介面教學",
+		"7.開關AI"
 	};
 
 	private string[] situationExplain = {
@@ -90,7 +91,9 @@ public class GEGamePlayTutorial : GEBase {
 
 	private void showManagerButton() {
 		GUILayout.BeginHorizontal();
-		GUILabel("Stage ID : " + GameData.StageTutorial[stageIndex].ID.ToString(), Color.yellow);
+		if (stageIndex >= 0 && stageIndex < GameData.StageTutorial.Length)
+			GUILabel("Stage ID : " + GameData.StageTutorial[stageIndex].ID.ToString(), Color.yellow);
+
 		eventIndex = GUIPopup(eventIndex, eventExplain, "Kind");
 		conditionIndex = GUIPopup(conditionIndex, conditionExplain, "Condition");
 		conditionValue = GUIIntEdit(conditionValue, "Value");
@@ -121,7 +124,7 @@ public class GEGamePlayTutorial : GEBase {
 				GUILayout.BeginHorizontal();
 				GUILabel(string.Format("Event{0}", i), Color.yellow);
 
-				if (eventList[i].Kind > 0 && eventList[i].Kind <= eventExplain.Length)
+				if (eventList[i].Kind >= 0 && eventList[i].Kind <= eventExplain.Length)
 					eventList[i].Kind = GUIPopup(eventList[i].Kind, eventExplain, "Kind");
 				else 
 					GUILabel("Kind " + eventList[i].Kind.ToString(), Color.red);
@@ -172,6 +175,11 @@ public class GEGamePlayTutorial : GEBase {
 				case 6: //open ui tutorial
 					GUILayout.BeginHorizontal();
 					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "Tutorial ID");
+					GUILayout.EndHorizontal();
+					break;
+				case 7: //switch AI
+					GUILayout.BeginHorizontal();
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "Turn on AI");
 					GUILayout.EndHorizontal();
 					break;
 				}

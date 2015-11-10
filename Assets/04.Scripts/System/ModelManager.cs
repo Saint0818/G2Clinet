@@ -174,7 +174,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		if(team == ETeamKind.Npc)
 			res.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-        res.AddComponent<PlayerAI>();
+		playerBehaviour.AI = res.AddComponent<PlayerAI>();
 
         return playerBehaviour;
 	}
