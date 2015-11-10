@@ -68,6 +68,7 @@ public static class URLConst {
 	public const string PlayerEvo = "playerevo";
 	public const string StageSurelyReward = "stagesurelyreward";
 	public const string StageRandomRewardStart = "stagerandomrewardstart";
+	public const string StageRandomRewardAgain = "stagerandomrewardagain";
 	public const string BingoItem = "bingoitem";
 	public const string RecordGameStart = "recordgamestart";
 	public const string RecordGameEnd = "recordgameend";
