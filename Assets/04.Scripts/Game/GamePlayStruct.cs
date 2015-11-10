@@ -80,6 +80,7 @@ namespace GamePlayStruct {
 		public int Kind;
 		public int Value1;
 		public int Value2;
+		public int Value3;
 		public int FinishCondition;
 		public int ConditionKind;
 		public int ConditionValue;
@@ -92,6 +93,7 @@ namespace GamePlayStruct {
 			Kind = 0;
 			Value1 = 0;
 			Value2 = 0;
+			Value3 = 0;
 			FinishCondition = 0;
 			ConditionKind = 0;
 			ConditionOperator = 0;

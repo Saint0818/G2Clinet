@@ -21,8 +21,8 @@ public class GEGamePlayTutorial : GEBase {
 	private TGamePlayEvent[] eventList = new TGamePlayEvent[0];
 
 	private string[] conditionExplain = {
-		"0.上個事件結束後",
-		"1.進入球賽",
+		"0.進入球賽",
+		"1.上個事件結束後",
 		"2.時間達到",
 		"3.我方分數達到",
 		"4.對方分數達到"
@@ -39,10 +39,7 @@ public class GEGamePlayTutorial : GEBase {
 	};
 
 	private string[] situationExplain = {
-		"-3.演出",
-		"-2.運鏡",
-		"-1",
-		"0",
+		"0.None",
 		"1.開球",
 		"2.跳球",
 		"3.玩家進攻",
@@ -212,7 +209,7 @@ public class GEGamePlayTutorial : GEBase {
 				eventList[i].Actions[j].Action.z = GUIFloatEdit(eventList[i].Actions[j].Action.z, "Z");
 				
 				if (GUIButton("Move To") && GameController.Visible)
-					GameController.Get.EditSetMove(eventList[i].Actions[j].Action, 0);
+					GameController.Get.SetPlayerMove(eventList[i].Actions[j].Action, 0);
 				
 				if (GUIButton("Get Pos") && GameController.Visible) {
 					Vector3 Res = GameController.Get.EditGetPosition(0);

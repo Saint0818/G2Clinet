@@ -464,9 +464,10 @@ public class UISelectRole : UIBase {
 
 	public void SetEnemyMembers(){
 		if (isStage) {
-            GameData.EnemyMembers[0].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID1);
-            GameData.EnemyMembers[1].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID2);
-            GameData.EnemyMembers[2].Player.SetID(StageTable.Ins.GetByID(GameData.StageID).PlayerID3);
+			int[] ids = StageTable.Ins.GetByID(GameData.StageID).PlayerID;
+			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
+			for (int i = 0; i < num; i ++)
+				GameData.EnemyMembers[i].Player.SetID(ids[i]);
         } else {
 			int index = 0;
 
@@ -651,8 +652,8 @@ public class UISelectRole : UIBase {
 		case EUIRoleSituation.BackToSelectMe:
 			if (GameData.StageID > -1) {
 				UIShow(false);
-				if (SceneMgr.Get.CurrentScene != "Lobby")
-					SceneMgr.Get.ChangeLevel("Lobby");
+				if (SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 				else
 					LobbyStart.Get.EnterLobby();
 			} else {
@@ -676,10 +677,12 @@ public class UISelectRole : UIBase {
 			GameData.TeamMembers [1].Player.SetAttribute (GameEnum.ESkillType.NPC);
 			GameData.TeamMembers [1].Player.SetAvatar ();
 
-			if (SceneMgr.Get.CurrentScene == "Court_0")
+			int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+
+			if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
 				UILoading.UIShow(true, ELoadingGamePic.Game);
 			else
-				SceneMgr.Get.ChangeLevel ("Court_0");
+				SceneMgr.Get.ChangeLevel (courtNo);
 
 			break;
 		case EUIRoleSituation.ListA: // 1

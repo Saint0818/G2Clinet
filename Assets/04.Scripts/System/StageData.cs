@@ -11,6 +11,7 @@ public class StageData
     public int ID;
     public int Chapter;
     public int Order;
+	public int CourtNo;
 
     /// <summary>
     /// 1.傳統
@@ -85,11 +86,7 @@ public class StageData
     public float PositionX;
     public float PositionY;
 
-    public int PlayerID1;
-    public int PlayerID2;
-    public int PlayerID3;
-    public int PlayerID4;
-    public int PlayerID5;
+    public int[] PlayerID;
     public string NameTW;
     public string NameCN;
     public string NameEN;

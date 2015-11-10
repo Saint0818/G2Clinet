@@ -10,7 +10,6 @@ namespace AI
 
         public override void Enter(object extraInfo)
         {
-            CourtMgr.Get.ShowEnd(true);
             GameController.Get.InitIngameAnimator();
             GameController.Get.SetBornPositions();
 

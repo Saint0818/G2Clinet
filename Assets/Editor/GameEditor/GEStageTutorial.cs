@@ -43,12 +43,18 @@ public class GEStageTutorial : GEBase {
 			mScroll = GUILayout.BeginScrollView(mScroll);
 			for (int i = 0; i < GameData.StageTutorial.Length; i++) {
 				GUILayout.Space(2);
+				GUILayout.BeginHorizontal();
 				if (GUIButton(GameData.StageTutorial[i].ID.ToString())) {
 					index = i;
 					EditorApplication.delayCall += openGamePlayTutorial; 
-
-					return;
 				}
+
+				if (GUIButton("Test")) {
+					index = i;
+					EditorApplication.delayCall += onTestStage; 
+				}
+
+				GUILayout.EndHorizontal();
 			}
 
 			GUILayout.EndScrollView ();
@@ -57,6 +63,15 @@ public class GEStageTutorial : GEBase {
 
 	private void openGamePlayTutorial() {
 		GEGamePlayTutorial.Get.SetStage(index);
+	}
+
+	private void onTestStage() {
+		if (GameStart.Visible) {
+			GameData.StageID = GameData.StageTutorial[index].ID;
+			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			this.Close();
+		} else 
+			Debug.LogError("Please run game first.");
 	}
 
 	private void OnLoad() {

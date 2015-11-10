@@ -28,17 +28,12 @@
             }
         }
 
-//        public override void Update()
-//        {
-//        }
-
         public override void HandleMessage(Telegram<EGameMsg> msg)
         {
             if (msg.Msg == EGameMsg.UISkipClickOnGaming)
             {
-                CourtMgr.Get.ShowEnd(true);
-                GameController.Get.InitIngameAnimator();
-                //            GameController.Get.SetBornPositions();
+				GameController.Get.ChangeSituation(EGameSituation.CameraMovement);
+				AIController.Get.ChangeState(EGameSituation.CameraMovement);
             }
         }
     }

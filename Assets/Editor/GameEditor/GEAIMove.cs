@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
@@ -72,7 +72,7 @@ public class GEAIMove : GEBase {
             {
                 for (int i = 0; i < PosAy1.Length; i++)
                 {
-                    GameController.Get.EditSetMove(PosAy1 [i], 0);
+                    GameController.Get.SetPlayerMove(PosAy1 [i], 0);
                 }
             }
 
@@ -80,7 +80,7 @@ public class GEAIMove : GEBase {
             {
                 for (int i = 0; i < PosAy2.Length; i++)
                 {
-                    GameController.Get.EditSetMove(PosAy2 [i], 1);
+                    GameController.Get.SetPlayerMove(PosAy2 [i], 1);
                 }
             }
 
@@ -88,7 +88,7 @@ public class GEAIMove : GEBase {
             {
                 for (int i = 0; i < PosAy3.Length; i++)
                 {
-                    GameController.Get.EditSetMove(PosAy3 [i], 2);
+                    GameController.Get.SetPlayerMove(PosAy3 [i], 2);
                 }
             }
         }
@@ -101,7 +101,7 @@ public class GEAIMove : GEBase {
 			{
 				aa.x = BornAy[i].x;
 				aa.z = BornAy[i].y;
-				GameController.Get.EditSetMove(aa, i);
+				GameController.Get.SetPlayerMove(aa, i);
 			}
 		}
 
@@ -293,7 +293,7 @@ public class GEAIMove : GEBase {
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.EditSetMove(new Vector2(PosAy1 [i].x, PosAy1 [i].z), 0);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy1 [i].x, PosAy1 [i].z), 0);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
@@ -323,7 +323,7 @@ public class GEAIMove : GEBase {
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.EditSetMove(new Vector2(PosAy2 [i].x, PosAy2 [i].z), 1);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy2 [i].x, PosAy2 [i].z), 1);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))
@@ -353,7 +353,7 @@ public class GEAIMove : GEBase {
 
 				if (GUILayout.Button("MoveTo_" + (i + 1).ToString(), GUILayout.Height(32)))
 				{
-					GameController.Get.EditSetMove(new Vector2(PosAy3 [i].x, PosAy3 [i].z), 2);
+					GameController.Get.SetPlayerMove(new Vector2(PosAy3 [i].x, PosAy3 [i].z), 2);
 				}
 
                 if (GUILayout.Button("Capture Position_" + (i + 1).ToString(), GUILayout.Height(32)))

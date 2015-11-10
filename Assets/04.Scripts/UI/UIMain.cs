@@ -96,7 +96,7 @@ public class UIMain : UIBase {
 	}
 
 	public void OnCourt() {
-		SceneMgr.Get.ChangeLevel("Court_0");
+		SceneMgr.Get.ChangeLevel(0);
 	}
 
 	private void waitRec1_2(JSONObject obj) {

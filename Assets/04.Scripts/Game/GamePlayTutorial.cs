@@ -9,17 +9,52 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 	public void SetTutorialData(int id) {
 		eventList.Clear();
-		for (int i = 0; i < GameData.DStageTutorial[id].Events.Length; i++)
-			eventList.Add(GameData.DStageTutorial[id].Events[i]);
+		TGamePlayEvent[] temp = GameData.DStageTutorial[id].Events;
+		for (int i = temp.Length-1; i >= 0; i--)
+			eventList.Add(temp[i]);
+
+		BegeingEvent();
 	}
 
 	public void BegeingEvent() {
-		for (int i = 0; i < eventList.Count; i++)
+		for (int i = eventList.Count-1; i >= 0; i--)
 			if (eventList[i].ConditionKind == 0) 
-				HandleEvent(i);
+				if (HandleEvent(i))
+					eventList.RemoveAt(i);
 	}
 
-	public void HandleEvent(int i) {
+	public bool HandleEvent(int i) {
+		switch (eventList[i].Kind) {
+		case 1: //change situation
+			EGameSituation situation = (EGameSituation)(eventList[i].Value1);
+			GameController.Get.InitIngameAnimator();
+			GameController.Get.SetBornPositions();
+			GameController.Get.ChangeSituation(situation);
+			AIController.Get.ChangeState(situation);
 
+			CameraMgr.Get.ShowPlayerInfoCamera (true);
+			break;
+		case 2: //set ball to player
+			if (!GameController.Get.IsStart)
+				GameController.Get.StartGame();
+
+			GameController.Get.SetBall(eventList[i].Value1, eventList[i].Value2);
+			break;
+		case 3: //set state to player
+
+			break;
+		case 4: //set position to player
+			for (int j = 0; j < eventList[i].Actions.Length; j++) {
+				GameController.Get.SetPlayerAppear(ref eventList[i].Actions[j]); 
+			}
+
+			break;
+		case 5: //show ui
+
+
+			break;
+		}
+
+		return true;
 	}
 }

@@ -187,8 +187,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 			UICreateRole.Get.Hide();
 			UI3DCreateRole.Get.Hide();
 
-			if(SceneMgr.Get.CurrentScene != "Lobby")
-				SceneMgr.Get.ChangeLevel("Lobby");
+			if(SceneMgr.Get.CurrentScene != ESceneName.Lobby)
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else
 				LobbyStart.Get.EnterLobby();
         } else {

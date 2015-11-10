@@ -2,20 +2,19 @@
 using GameEnum;
 using UnityEngine;
 
-public enum ESceneName
+public static class ESceneName
 {
-    Null = 0,
-    Main = 1,
-    Lobby = 2,
-    SelectRole = 3,
-    Court_0 = 4,
-    Court_1 = 5,
+	public const string Null = "Null";
+	public const string Main = "Main";
+	public const string Lobby = "Lobby";
+	public const string SelectRole = "SelectRole";
+	public const string Court = "Court_";
 }
 
 public class SceneMgr : KnightSingleton<SceneMgr>
 {
-    public string CurrentScene = "Main";
-    public string LoadScene = "Main";
+	public string CurrentScene = ESceneName.Main;
+	public string LoadScene = ESceneName.Main;
 
     public delegate void LevelWillBeLoaded();
     public delegate void LevelWasLoaded();
@@ -33,12 +32,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
         switch (levelToLoad)
         {
-            case "Lobby":
+			case ESceneName.Lobby:
                 GameData.StageID = -1;
                 UILoading.UIShow(true, ELoadingGamePic.Lobby);
                 break;
 
-            case "SelectRole":
+			case ESceneName.SelectRole:
                 if (GameData.StageID >= 0)
                     UILoading.UIShow(true, ELoadingGamePic.Stage);
                 else
@@ -46,9 +45,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                     GameData.StageID = -1;
                     UILoading.UIShow(true, ELoadingGamePic.SelectRole);
                 }
-                break;
-
-            case "Null":
                 break;
 
             default:
@@ -72,7 +68,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
     public void ChangeLevel(int courtNo, bool isNeedLoading = true)
     {
-        string scene = string.Format("Court_{0}", courtNo);
+		string scene = ESceneName.Court + courtNo;
         ChangeLevel(scene, isNeedLoading);
     }
 

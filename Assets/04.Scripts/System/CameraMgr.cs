@@ -148,7 +148,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraAnimator.enabled = GameStart.Get.CourtMode != ECourtMode.Half;
     }
 
-    public void SetCourtCamera(ESceneName scene)
+    public void SetCourtCamera(string scene)
     {
         if (cameraFx && cameraFx.name != scene.ToString())
         {
@@ -227,7 +227,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 cameraGroupObj.SetActive(false);
             } else
                 cameraGroupObj.SetActive(true);
-        }
+        } else
+			cameraGroupObj.SetActive(false);
     }
 
     public void ShowCameraEnable(bool isEnable)
@@ -785,4 +786,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         zoomTime = t;
         isStartRoom = true;
     }
+
+	public void ShowEnd() {
+		showCamera.SetActive(false);
+	} 
 }

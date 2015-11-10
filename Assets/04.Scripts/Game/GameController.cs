@@ -258,17 +258,15 @@ public class GameController : KnightSingleton<GameController>
 		SetBallOwnerNull (); 
     }
 
-	public void LoadStage(int id)
-    {
-		ECameraSituation situation = ECameraSituation.Show;
-
-		if(StageTable.Ins.HasByID(id))
-        {
+	public void LoadStage(int id) {
+		int courtNo = 0;
+		if(StageTable.Ins.HasByID(id)) {
             mCurrentStageID = id;
             StageData stageData = StageTable.Ins.GetByID(id);
 			courtMode = stageData.CourtMode;
 			friendNumber =  stageData.FriendNumber;
 			GameWinValue = stageData.WinValue;
+			courtNo = stageData.CourtNo;
 
             StageBitNum[0] = stageData.Bit0Num;
 			StageBitNum[1] = stageData.Bit1Num;
@@ -280,9 +278,6 @@ public class GameController : KnightSingleton<GameController>
 			GameWinValue = StageBitNum[1];
 			UIGame.Get.MaxScores[0] = GameWinValue;
 			UIGame.Get.MaxScores[1] = GameWinValue;
-
-			if (GameData.DStageTutorial.ContainsKey(id))
-				GamePlayTutorial.Get.SetTutorialData(id);
 		} else {
 			StageHintBit[0] = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
 			StageHintBit[1] = GameStart.Get.GameWinValue > 0 ? 2 : 0;
@@ -307,8 +302,14 @@ public class GameController : KnightSingleton<GameController>
 		else
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
+		CameraMgr.Get.SetCourtCamera (ESceneName.Court + courtNo.ToString());
 		InitGame();
-		CameraMgr.Get.SetCameraSituation(situation); 
+		
+		if (GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(id)) 
+			GamePlayTutorial.Get.SetTutorialData(id);
+
+		if (Situation == EGameSituation.None)
+			CameraMgr.Get.SetCameraSituation(ECameraSituation.Show); 
 	}
 
 	public void StartGame() {
@@ -342,6 +343,7 @@ public class GameController : KnightSingleton<GameController>
 			break;
 		}
 
+		CourtMgr.Get.SetBallState (EPlayerState.Start);
 		ChangeSituation(EGameSituation.JumpBall);
         AIController.Get.ChangeState(EGameSituation.JumpBall);
 	}
@@ -1335,11 +1337,17 @@ public class GameController : KnightSingleton<GameController>
 			CourtMgr.Get.Walls[0].SetActive(true);
 			CourtMgr.Get.Walls[1].SetActive(true);
 
-			switch(newSituation)
-            {
+			switch(newSituation) {
 			case EGameSituation.Presentation:
-			case EGameSituation.CameraMovement:
 			case EGameSituation.InitCourt:
+				break;
+			case EGameSituation.CameraMovement:
+				if (oldgs != newSituation) {
+					GameController.Get.InitIngameAnimator();
+					CameraMgr.Get.PlayGameStartCamera();
+					CameraMgr.Get.ShowEnd();
+				}
+
 				break;
 			case EGameSituation.None:
 				UIGame.UIShow(true);
@@ -2974,6 +2982,22 @@ public class GameController : KnightSingleton<GameController>
 		}
 	}
 
+	private int getPlayerIndex(int team, int index) {
+		for (int i = 0; i < PlayerList.Count; i++)
+			if (PlayerList[i].PlayerRefGameObject.activeInHierarchy && PlayerList[i].Team.GetHashCode() == team && PlayerList[i].Index == index)
+				return i;
+
+		return -1;
+	}
+
+	public bool SetBall(int team, int index) {
+		int p = getPlayerIndex(team, index);
+		if (p > -1) 
+			return SetBall(PlayerList[p]);
+		else
+			return false;
+	}
+
     public bool SetBall(PlayerBehaviour p = null)
     {
 		bool result = false;
@@ -4029,11 +4053,10 @@ public class GameController : KnightSingleton<GameController>
         else
             return Vector3.zero;
     }
+	#endif
 
-	public void EditSetMove(TTacticalAction actionPosition, int index)
-    {
-        if (PlayerList.Count > index)
-        {
+	public void SetPlayerMove(TTacticalAction actionPosition, int index) {
+        if (index > -1 && index < PlayerList.Count) {
 			moveData.Clear();
 			moveData.SetTarget(actionPosition.x, actionPosition.z);
 			moveData.Speedup = actionPosition.Speedup;
@@ -4042,7 +4065,22 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList [index].TargetPos = moveData;
         }
     }
-	#endif
+
+	public void SetPlayerAppear(ref TToturialAction action) {
+		int index = getPlayerIndex(action.Team, action.Index);
+		if (index > -1 && index < PlayerList.Count) {
+			if (action.MoveKind == 0)
+				SetPlayerAppear(index, action.Action.x, action.Action.z);
+			else 
+				SetPlayerMove(action.Action, index);
+
+		}
+	}
+
+	public void SetPlayerAppear(int index, float x, float z) {
+		PlayerList [index].ResetMove();
+		PlayerList [index].transform.position = new Vector3(x, PlayerList [index].transform.position.y, z);
+	}
 
 	public void ResetAll()
 	{
@@ -4050,7 +4088,7 @@ public class GameController : KnightSingleton<GameController>
 			PlayerList[i].ResetFlag();
 	}
 
-	public void EditSetMove(Vector2 ActionPosition, int index)
+	public void SetPlayerMove(Vector2 ActionPosition, int index)
 	{
 		if (PlayerList.Count > index)
 		{
@@ -4195,7 +4233,11 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		ChangeSituation(EGameSituation.Opening);
-        AIController.Get.ChangeState(EGameSituation.Opening);
+		AIController.Get.ChangeState(EGameSituation.Opening);
+
+		if (GameData.DStageTutorial.ContainsKey(mCurrentStageID)) {
+			GamePlayTutorial.Get.SetTutorialData(mCurrentStageID);
+        }
     }
 
 	public void SetPlayerLevel(){

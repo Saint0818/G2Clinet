@@ -1230,14 +1230,20 @@ public class UIGame : UIBase {
 				}
 			}
 
-			CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
-			CameraMgr.Get.PlayGameStartCamera ();
-			UIState(EUISituation.Opening);
+			GameController.Get.Reset();
+            //no tutorial
+			if (GameController.Get.Situation == EGameSituation.Opening) {
+				CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
+				CameraMgr.Get.ShowEnd();
+				CameraMgr.Get.PlayGameStartCamera();
+				UIState(EUISituation.Opening);
+			}
+
 			break;
 		case EUISituation.ReSelect:
 			Time.timeScale = 1;
 			UIGameResult.UIShow(false);
-			SceneMgr.Get.ChangeLevel ("SelectRole");
+			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 			break;
 		}
 		AudioMgr.Get.PauseGame();

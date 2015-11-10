@@ -311,7 +311,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public void ShowEnd(bool isImmediately = false)
 	{
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.JumpBall);
-		CameraMgr.Get.SetCourtCamera (ESceneName.Court_0);
 
 		if (isImmediately)
 			CameraMgr.Get.ShowCameraEnable (false);
