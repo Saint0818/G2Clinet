@@ -246,6 +246,10 @@ public class UIDoubleClick : UIBase {
 		BottomRight.SetActive (false);
 	}
 
+	public void Reset (){
+		Combo = 0;
+	}
+
 	public void InitDoubleClick(PlayerBehaviour player, int index)
 	{
 		if (index < DoubleClicks.Length && player != null && player.DoubleClick) {

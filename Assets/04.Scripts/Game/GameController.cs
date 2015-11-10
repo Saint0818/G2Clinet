@@ -4195,6 +4195,7 @@ public class GameController : KnightSingleton<GameController>
 
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		UIPassiveEffect.Get.Reset();
+		UIDoubleClick.Get.Reset();
 
 		if (GameData.Setting.AIChangeTime > 100)
 			Joysticker.SetManually();
