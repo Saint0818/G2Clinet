@@ -127,6 +127,12 @@ public class UIMainLobbyImpl : MonoBehaviour
         UIMainLobby.Get.Hide();
     }
 
+    public void ShowEquipment()
+    {
+        UIEquipment.Get.Show();
+        UIMainLobby.Get.Hide();
+    }
+
     public void ChangePlayerName()
     {
         if(UIInput.current.value.Length <= 0)
