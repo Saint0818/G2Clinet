@@ -110,105 +110,203 @@ public static class TextConst
 			AddString(2000009, "挑戰章節關主");
 
 			//Hint UI
-			AddString (12101, "[ff0000]主動技[-]",  "[ff0000]主动技[-]", 
+			AddString (12101, 
+			           "[ff0000]主動技[-]",  
+			           "[ff0000]主动技[-]", 
 			           "[ff0000]Active Skill[-]");     //SkillKindLabel
-			AddString (12102, "[23A3A3FF]被動技[-]",  "[23A3A3FF]被动技[-]", 
+			AddString (12102, 
+			           "[23A3A3FF]被動技[-]",  
+			           "[23A3A3FF]被动技[-]", 
 			           "[23A3A3FF]Passive Skill[-]");  //SkillKindLabel
 
 			//競賽情報 UI
-            AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
+            AddString (2000011, 
+			           "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
+			           "竞赛进入下半场，请两队把握后半[FF3355]{0}秒[-]的时间。。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");
-			AddString (2000012, "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
+			AddString (2000012, 
+			           "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
+			           "竞赛剩下倒数[FF3355]{0}秒[-]！", 
 			           "Game time last remaining [FF3355] {0} seconds [-] will end the game! ! !");
-			AddString (2000018, "[FFDD33]時間[-][33FFDD]限制[-]", 
+			AddString (2000018, 
+			           "[FFDD33]時間[-][33FFDD]限制[-]", 
+			           "[FFDD33]时间[-] [33FFDD]限制[-]", 
 			           "[FD33] Time [-] [33FFFF] limit [-]");
-			AddString (2000019, "[33FFDD]時間[-]", 
+			AddString (2000019, 
+			           "[33FFDD]時間[-]", 
+			           "[33FFDD]时间[-]", 
 			           "[33FFDD]TIME[-]");
-			AddString (2000100, "[FFDD33]{1}[-][BBFF33]已達成得分目標！！！[-]", 
-			           "[FFDD33] {1} [-] [BBFF33] have reached the target score! ! ! [-]");
-			AddString (2000101, "[FFDD33]{1}[-]已達成一半的得分目標。", 
+			AddString (2000100, 
+			           "[FFDD33]{1}[-][BBFF33]已達成得分目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已达成得分目标！！！[-]", 
+			           "[FFDD33] {1} [-][BBFF33] have reached the target score! ! ! [-]");
+			AddString (2000101, 
+			           "[FFDD33]{1}[-]已達成一半的得分目標。", 
+			           "[FFDD33]{1}[-]已达成一半的得分目标。", 
 			           "[FFDD33]{1}[-] have reached half scoring goals.");
-			AddString (2000102, "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可獲得勝利！！！", 
+			AddString (2000102, 
+			           "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可獲得勝利！！！", 
+			           "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可获得胜利！！！", 
 			           "[FFDD33]{1}[-] as long again to get [FF3355] {0} minutes [-] to win! ! !");
-			AddString (2000108, "[FFDD33]得分[-][33FFDD]須達到[-]", 
+			AddString (2000108, 
+			           "[FFDD33]得分[-][33FFDD]須達到[-]", 
+			           "[FFDD33]得分[-][33FFDD]须达到[-]", 
 			           "[FD33] score [-] [33FFFF] required[-]");
-			AddString (2000109, "[33FFDD]得分[-]", 
+			AddString (2000109, 
+			           "[33FFDD]得分[-]", 
+			           "[33FFDD]得分[-]", 
 			           "[33FFDD]SCORE[-]");
-			AddString (2000201, "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就會輸掉這場競賽。", 
+			AddString (2000201, 
+			           "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就會輸掉這場競賽。", 
+			           "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就会输掉这场竞赛。", 
 			           "[FFDD33] {1} [-] as long to lose [FF3355] {0} minutes [-] will lose the race.");
-			AddString (2000202, "[FFDD33]{1}[-]要守住最後的[FF3355]{0}分[-]啊！！！", 
+			AddString (2000202, 
+			           "[FFDD33]{1}[-]要守住最後的[FF3355]{0}分[-]啊！！！", 
+			           "[FFDD33]{1}[-]要守住最后的[FF3355]{0}分[-]啊！！！", 
 			           "[FFDD33] {1} [-] to hold the final [FF3355] {0} minutes [-] ah! ! !");
-			AddString (2000208, "[FFDD33]失分[-][33FFDD]不超過[-]", 
+			AddString (2000208, 
+			           "[FFDD33]失分[-][33FFDD]不超過[-]", 
+			           "[FFDD33]失分[-][33FFDD]不超过[-]", 
 			           "[FD33] lose points [-] [33FFFF] does not exceed [-]");
-			AddString (2000209, "[33FFDD]失分[-]", 
+			AddString (2000209, 
+			           "[33FFDD]失分[-]", 
+			           "[33FFDD]失分[-]", 
 			           "[33FFDD]LOSE POINTS[-]");	
-			AddString (2000301, "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。", 
+			AddString (2000301, 
+			           "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。", 
 			           "FFDD33] {1} [-] as long again to get [FF3355] {0} minutes [-] can win.");
-			AddString (2000302, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！", 
+			AddString (2000302, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！", 
 			           "[FFDD33] {1} [-] distance wins're just [FF3355] {0} minutes [-]! ! !");
-			AddString (2000308, "[33FFDD]需贏過對手[-]", 
+			AddString (2000308, 
+			           "[33FFDD]需贏過對手[-]", 
+			           "[33FFDD]需贏過對手[-]", 
 			           "[33FFFF]Need to win opponents[-]");
-			AddString (2000309, "[33FFDD]分數[-]", 
+			AddString (2000309, 
+			           "[33FFDD]分數[-]", 
+			           "[33FFDD]分數[-]", 
 			           "[33FFDD]SCORE[-]");
-			AddString (2001000, "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]", 
+			AddString (2001000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] has reached a 2-point goal! ! ! [-]");
-			AddString (2001001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。", 
+			AddString (2001001, 
+			           "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。", 
 			           "[FFDD33] {1} [-] Just then dropped [FF3355] {0} teeth [-] 2-point shot can win.");
-			AddString (2001002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！", 
+			AddString (2001002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！", 
 			           "[FFDD33] {1} [-] distance wins're just [FF3355] {0} teeth [-] 2-point shot! ! !");
-			AddString (2001008, "[FFDD33]2分球[-][33FFDD]數量[-]", 
+			AddString (2001008, 
+			           "[FFDD33]2分球[-][33FFDD]數量[-]", 
+			           "[FFDD33]2分球[-][33FFDD]數量[-]", 
 			           "[33FFDD]The number of[-][FFDD33]2-POINTS[-]");
-			AddString (2001009, "[FFDD33]2分球[-]", 
+			AddString (2001009, 
+			           "[FFDD33]2分球[-]", 
+			           "[FFDD33]2分球[-]", 
 			           "[FFDD33]2-POINTS[-]");	
-			AddString (2002000, "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]", 
+			AddString (2002000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] has reached a 3-point goal! ! ! [-]");
-			AddString (2002001, "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。", 
+			AddString (2002001, 
+			           "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then dropped [FF3355] {0} teeth [-] 3-point shot can win.");
-			AddString (2002002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！", 
+			AddString (2002002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} teeth [-] 3-point shot! ! !");
-			AddString (2002008, "[FFDD33]3分球[-][33FFDD]數量[-]", 
+			AddString (2002008, 
+			           "[FFDD33]3分球[-][33FFDD]數量[-]", 
+			           "[FFDD33]3分球[-][33FFDD]數量[-]", 
 			           "[33FFDD]The number of[-][FFDD33]3-POINTS[-]");
-			AddString (2002009, "[FFDD33]3分球[-]", 
+			AddString (2002009, 
+			           "[FFDD33]3分球[-]", 
+			           "[FFDD33]3分球[-]", 
 			           "[FFDD33]3-POINTS[-]");
-			AddString (2003000, "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]", 
+			AddString (2003000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] dunk goal has been reached! ! ! [-]");
-			AddString (2003001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。", 
+			AddString (2003001, 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] dunk you can win.");
-			AddString (2003002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！", 
+			AddString (2003002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] dunk! ! !");
-			AddString (2003008, "[FFDD33]灌籃[-][33FFDD]成功次數[-]", 
+			AddString (2003008, 
+			           "[FFDD33]灌籃[-][33FFDD]成功次數[-]", 
+			           "[FFDD33]灌籃[-][33FFDD]成功次數[-]", 
 			           "[33FFDD]The number of[-][FFDD33]DUNKS[-]");
-			AddString (2003009, "[FFDD33]灌籃[-]", 
+			AddString (2003009, 
+			           "[FFDD33]灌籃[-]", 
+			           "[FFDD33]灌籃[-]", 
 			           "[FFDD33]DUNKS[-]");
-			AddString (2004000, "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]", 
+			AddString (2004000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] tear down the goal has been reached! ! ! [-]");
-			AddString (2004001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。", 
+			AddString (2004001, 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] down you can win.");
-			AddString (2004002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！", 
+			AddString (2004002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] down! ! !");
-			AddString (2004008, "[FFDD33]推倒[-][33FFDD]成功次數[-]", 
+			AddString (2004008, 
+			           "[FFDD33]推倒[-][33FFDD]成功次數[-]", 
+			           "[FFDD33]推倒[-][33FFDD]成功次數[-]", 
 			           "[33FFDD]The number of[-][FFDD33]PUSHES[-]");
-			AddString (2004009, "[FFDD33]推倒[-]", 
+			AddString (2004009, 
+			           "[FFDD33]推倒[-]", 
+			           "[FFDD33]推倒[-]", 
 			           "[FFDD33]PUSHES[-]");
-			AddString (2005000, "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]", 
+			AddString (2005000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] steals the goal has been reached! ! ! [-]");
-			AddString (2005001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。", 
+			AddString (2005001, 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] steals you can win.");
-			AddString (2005002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！", 
+			AddString (2005002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] steals! ! !");
-			AddString (2005008, "[FFDD33]抄截[-][33FFDD]成功次數[-]", 
+			AddString (2005008, 
+			           "[FFDD33]抄截[-][33FFDD]成功次數[-]", 
+			           "[FFDD33]抄截[-][33FFDD]成功次數[-]", 
 			           "[33FFDD]The number of[-][FFDD33]STEALS[-]");
-			AddString (2005009, "[FFDD33]抄截[-]", 
+			AddString (2005009, 
+			           "[FFDD33]抄截[-]", 
+			           "[FFDD33]抄截[-]", 
 			           "[FFDD33]STEALS[-]");
-			AddString (2006000, "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]", 
+			AddString (2006000, 
+			           "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]", 
+			           "[FFDD33]{1}[-][BBFF33]已達成火鍋目標！！！[-]", 
 			           "[FFDD33] {1} [-] [BBFF33] have reached a hot target! ! ! [-]");
-			AddString (2006001, "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。", 
+			AddString (2006001, 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。", 
+			           "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。", 
 			           "[FFDD33]{1}[-] Just then [FF3355] {0} times [-] BLOCKS you can win.");
-			AddString (2006002, "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！", 
+			AddString (2006002, 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！", 
+			           "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！", 
 			           "[FFDD33]{1}[-] distance wins're just [FF3355] {0} times [-] BLOCKS! ! !");
-			AddString (2006008, "[FFDD33]火鍋[-][33FFDD]成功次數[-]", 
+			AddString (2006008, 
+			           "[FFDD33]火鍋[-][33FFDD]成功次數[-]", 
+			           "[FFDD33]火鍋[-][33FFDD]成功次數[-]", 
 			           "[33FFDD]The number of[-][FFDD33]BLOCKS[-]");
-			AddString (2006009, "[FFDD33]火鍋[-]", 
+			AddString (2006009, 
+			           "[FFDD33]火鍋[-]", 
+			           "[FFDD33]火鍋[-]", 
 			           "[FFDD33]BLOCKS[-]");
 
             
