@@ -402,8 +402,10 @@ public class UIAvatarFitted : UIBase {
 
 	public static void UIShow(bool isShow){
 		if (instance) {
-			if (!isShow)
+			if (!isShow){
 				RemoveUI(UIName);
+				UIPlayerMgr.Get.Disable ();
+			}
 			else
 				instance.Show(isShow);
 		} else
@@ -873,8 +875,7 @@ public class UIAvatarFitted : UIBase {
 							}
 							
 							ItemIdTranslateAvatar();
-							ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-							InitUIPlayer();
+							UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
 						}
 						else
 						{
@@ -884,8 +885,7 @@ public class UIAvatarFitted : UIBase {
 								equip.ID = 0;
 								Equips[kind] = equip;
 								ItemIdTranslateAvatar();
-								ModelManager.Get.SetAvatar(ref avatar, EquipsAvatar, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-								InitUIPlayer();
+								UIPlayerMgr.Get.ChangeAvatar(EquipsAvatar);	
 							}
 						}
 						break;
@@ -1065,18 +1065,7 @@ public class UIAvatarFitted : UIBase {
 
 	protected override void InitData() {
 		UpdateAvatar(true);
-		avatar = new GameObject ();
-		avatar.name = "UIPlayer";
-		ModelManager.Get.SetAvatarByItem(ref avatar, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
-		InitUIPlayer ();
-	}
-
-	private void InitUIPlayer()
-	{
-		avatar.transform.parent = gameObject.transform;
-		avatar.transform.localScale = Vector3.one * 445;
-		avatar.transform.localPosition = new Vector3 (-1160, -633, -2000);
-		changeLayersRecursively (avatar.transform, "UIPlayer");
+		UIPlayerMgr.Get.ShowUIPlayer (EUIPlayerMode.UIAvatarFitted);
 	}
 
 	private void changeLayersRecursively(Transform trans, string name){

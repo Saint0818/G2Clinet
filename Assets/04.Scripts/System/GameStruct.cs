@@ -118,6 +118,7 @@ namespace GameStruct {
         public int ID;
         public string Name;
 		public int Lv;
+		public int Exp;
         public int AILevel;
 		public float Point2; //kind1
 		public float Point3; //kind2
@@ -181,6 +182,7 @@ namespace GameStruct {
 		    AISkillLv = 0;
 			SkillPage = 0;
 			NowStageID = 0;
+			Exp = 0;
 
 			Avatar = new TAvatar(1);
 			ActiveSkills = new List<TSkill>();
@@ -1013,6 +1015,14 @@ namespace GameStruct {
             }
         }
     }
+
+	public struct TExpData
+	{
+		public int Lv;
+		public int LvExp;
+		public int SkillUpgrade;
+		public int SkillExp;
+	}
 
     public struct TPreloadEffect {
 		public string Name;

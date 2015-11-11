@@ -30,6 +30,7 @@ public static class GameData {
 	public static Dictionary<string, int> DTutorialUI = new Dictionary<string, int>();
 	public static Dictionary<int, int> DTutorialStageStart = new Dictionary<int, int>();
 	public static Dictionary<int, int> DTutorialStageEnd = new Dictionary<int, int>();
+	public static Dictionary<int, TExpData> DExpData = new Dictionary<int, TExpData>();
 	public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
 	public static TStageToturial[] StageTutorial = new TStageToturial[0];
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();

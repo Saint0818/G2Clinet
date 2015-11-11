@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
-        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial"
+        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -194,6 +194,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[10] = parsePreloadEffect;
 		downloadCallBack[11] = parseTutorialData;
 		downloadCallBack[12] = ParseStageTutorialData;
+		downloadCallBack[13] = parseExpData;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -542,6 +543,27 @@ public class FileManager : KnightSingleton<FileManager> {
 					GameData.DItemData.Add(data[i].ID, data[i]);
 				else 
 					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].ID);
+			}
+			
+			if(isSaveVersion)
+				SaveDataVersionAndJson(text, "item", version);
+			
+			Debug.Log ("[item parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[item parsed error] " + ex.Message);
+		}
+	}
+
+	private void parseExpData(string version, string text, bool isSaveVersion){
+		try {
+			GameData.DExpData.Clear();
+			
+			TExpData[] data = (TExpData[])JsonConvert.DeserializeObject (text, typeof(TExpData[]));
+			for (int i = 0; i < data.Length; i++) {
+				if(!GameData.DExpData.ContainsKey(data[i].Lv))
+					GameData.DExpData.Add(data[i].Lv, data[i]);
+				else 
+					Debug.LogError("GameData.DItemData is ContainsKey:"+ data[i].Lv);
 			}
 			
 			if(isSaveVersion)

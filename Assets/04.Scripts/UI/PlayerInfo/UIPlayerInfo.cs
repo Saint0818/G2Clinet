@@ -8,7 +8,7 @@ public class PersonalView
 	private UISprite headTex;
 	private UILabel lv;
 	private UILabel name;
-	private UISprite expBar;
+	private UISlider expBar;
 	private UILabel expValue;
 	private UISprite powerBar;
 	private UILabel powerValue;
@@ -26,7 +26,7 @@ public class PersonalView
 			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
 			lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
 			name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
-			expBar = self.transform.FindChild("EXPView/ProgressBar/Foreground").gameObject.GetComponent<UISprite>();
+			expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
 			expValue = self.transform.FindChild("EXPView/ExpLabel").gameObject.GetComponent<UILabel>();
 			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
 			powerValue = self.transform.FindChild("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
@@ -54,7 +54,13 @@ public class PersonalView
 			Avatars [i].InitBtttonFunction (itemHint);
 	}
 
-	public void UpdateAvatarData(TEquipItem[] items)
+	public void Update(TPlayer player)
+	{
+		UpdatePlayerData (player);
+		UpdateAvatarData (player.EquipItems);
+	}
+
+	private void UpdateAvatarData(TEquipItem[] items)
 	{
 		for(int i = 0;i< Avatars.Length;i++)
 		{
@@ -74,10 +80,71 @@ public class PersonalView
 		}
 	}
 
+	private void UpdatePlayerData(TPlayer player)
+	{
+		name.text = player.Name;
+		lv.text = player.Lv.ToString();
 
+		if (GameData.DExpData.ContainsKey (player.Lv + 1)) 
+		{
+			expValue.text = string.Format ("{0}/{1}", player.Exp, GameData.DExpData[player.Lv + 1].LvExp);
+			expBar.value = player.Exp / GameData.DExpData[player.Lv + 1].LvExp;
+		}
+		else{
+			expValue.text = "Max";
+			expBar.value = 1;
+		}
 
+		int count = 0;
+		int average = 0;
+		for (int i = 0; i < player.Masteries.Length; i++)
+			count += player.Masteries[i];
 
+		average = count / player.Masteries.Length;
+		powerValue.text = average.ToString();
+		powerBar.fillAmount = average / 100;
+	}
+}
 
+public class AbilityView
+{
+	private GameObject self;
+	private UIButton skillPointBtn;
+	private TAbilityItem[] Masteries = new TAbilityItem[12];
+	private UIAttributes hexagon;
+
+	public void Init(GameObject obj, GameObject hexgonObj)
+	{
+		self = obj;
+		if(self)
+		{
+			GameObject go;
+			for (int i = 0; i < Masteries.Length; i++) {
+				Masteries[i] = new TAbilityItem();
+				go = self.transform.FindChild(string.Format("AttrGroup/AttrKind{0}", i)).gameObject;
+				Masteries[i].Init(go, i);
+			}
+
+			GameObject hexagonCenter = GameObject.Find("AttributeHexagonCenter").gameObject;
+			hexagon = hexgonObj.GetComponent<UIAttributes>();
+			hexagon.transform.parent = hexagonCenter.transform;
+			hexagon.transform.localPosition = Vector3.zero;
+		}
+	}
+
+	public void UpdateMasteries(int[] indexs)
+	{
+		if(Masteries.Length == indexs.Length){
+			for(int i = 0;i < indexs.Length;i++){
+				Masteries[i].Value.text = indexs[i].ToString();
+			}
+		}
+	}
+
+	public void InitBtttonFunction(EventDelegate skillFunc)
+	{
+		skillPointBtn.onClick.Add (skillFunc);
+	}
 }
 
 [System.Serializable]
@@ -177,22 +244,13 @@ public class UIPlayerInfo : UIBase {
 	private static UIPlayerInfo instance = null;
 	private const string UIName = "UIPlayerInfo";
 	private GameObject[] PageAy = new GameObject[3];
-
+	private UIAttributes hexagon;
 
 	//Page 0
 	private PersonalView personalView = new PersonalView();
-	//part1
-	
-	//part2
-	//	[MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-
-	
-	//part3 
+	private AbilityView abilityView = new AbilityView();
 	
 	//part4
-	public TAbilityItem[] Masteries = new TAbilityItem[12];
-//	public UISprite[] masteriesPic = new UISprite[12];
-//	public UILabel[] masteriesLabel= new UILabel[12];
 	public UIButton SkillUp;
 	public UIButton Back;
 
@@ -209,17 +267,6 @@ public class UIPlayerInfo : UIBase {
 	public void UpdateAvatarModel(TItem[] items)
 	{
 		
-	}
-	
-
-	
-	public void UpdateMasteries(int[] indexs)
-	{
-		if(Masteries.Length == indexs.Length){
-			for(int i = 0;i < indexs.Length;i++){
-				Masteries[i].Value.text = indexs[i].ToString();
-			}
-		}
 	}
 	
 	public void ChangePlayerName()
@@ -251,8 +298,10 @@ public class UIPlayerInfo : UIBase {
 	
 	public static void UIShow(bool isShow){
 		if (instance) {
-			if (!isShow)
+			if (!isShow){
 				RemoveUI(UIName);
+				UIPlayerMgr.Get.Disable ();
+			}
 			else
 				instance.Show(isShow);
 		} else
@@ -266,25 +315,17 @@ public class UIPlayerInfo : UIBase {
 		for (int i = 0; i < PageAy.Length; i++)
 			PageAy[i] = GameObject.Find(string.Format("Page{0}", i));
 
-
-
-		GameObject masteriesObj;
 		GameObject[] itemEquipmentBtns = new GameObject[8];
 		GameObject personalViewObj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
+		GameObject abilityViewObj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
 		for (int i = 0; i < itemEquipmentBtns.Length; i++) {
 			itemEquipmentBtns[i] = Instantiate(Resources.Load ("Prefab/UI/Items/ItemEquipmentBtn")) as GameObject;	
 		}
 
 		personalView.Init(personalViewObj, itemEquipmentBtns);
-
-		for (int i = 0; i < Masteries.Length; i++) {
-			Masteries[i] = new TAbilityItem();
-			masteriesObj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView/AttrGroup/AttrKind{0}", i));
-			Masteries[i].Init(masteriesObj, i);
-		}
-
+		abilityView.Init(abilityViewObj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
+		abilityView.InitBtttonFunction (new EventDelegate (OnUpgradingMasteries));
 		SetBtnFun (UIName + "/Window/BottomLeft/BackBtn", OnReturn);
-		SetBtnFun (UIName + "/Window/Center/View/AbilityView/SkillPointBtn", OnMasteries);
 	}
 
 	public void OnReturn()
@@ -293,9 +334,9 @@ public class UIPlayerInfo : UIBase {
 		UIMainLobby.Get.Show();
 	}
 
-	public void OnMasteries()
+	public void OnUpgradingMasteries()
 	{
-
+		UIMasteries.UIShow (true);
 	}
 
 	public void OnSwitchPage()
@@ -312,8 +353,9 @@ public class UIPlayerInfo : UIBase {
 		switch(index)
 		{
 			case 0:
-				personalView.UpdateAvatarData(GameData.Team.Player.EquipItems);
-				UpdateMasteries(GameData.Team.Player.Masteries);
+				personalView.Update(GameData.Team.Player);
+				abilityView.UpdateMasteries(GameData.Team.Player.Masteries);
+				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo);
 				break;
 			case 1:
 				break;
@@ -321,9 +363,8 @@ public class UIPlayerInfo : UIBase {
 				break;
 		}
 	}
-	
+
 	protected override void OnShow(bool isShow) {
-		
 	}
 
 	public void OnAvatarItemHint()
