@@ -51,6 +51,15 @@ public struct TCourtInstant {
 		Condition1Instant = new bool[3];
 		Condition2Instant = new bool[3];
 	}
+
+	public void ResetValue () {
+		for (int i=0; i<TimeInstant.Length; i++) {
+			TimeInstant[i] = false;
+			ScoreInstant[i] = false;
+			Condition1Instant[i] = false;
+			Condition2Instant[i] = false;
+		}
+	}
 }
 
 public class GameController : KnightSingleton<GameController>
@@ -3613,17 +3622,45 @@ public class GameController : KnightSingleton<GameController>
 		if(player == Joysticker && StageTable.Ins.HasByID(mCurrentStageID))
         {
 			if(StageHintBit[1] > 1) {
-				if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1]) ){
-					ShowCourtInstant(2, StageHintBit[1], 0, (int)(StageBitNum[1]));
-					CourtInstant.ScoreInstant[0] = true;
-				}
-				if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1] * 0.5f) ){
-					ShowCourtInstant(2, StageHintBit[1], 1, (int)(StageBitNum[1] * 0.5f));
-					CourtInstant.ScoreInstant[1] = true;
-				}
-				if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[(int) ETeamKind.Self] >= StageBitNum[1] * 0.9f)) {
-					ShowCourtInstant(2, StageHintBit[1], 2, (int)(StageBitNum[1] * 0.9f));
-					CourtInstant.ScoreInstant[2] = true;
+				if(StageHintBit[1] == 2) { //Player get score
+					if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1]) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 0, (int)(StageBitNum[1]));
+						CourtInstant.ScoreInstant[0] = true;
+					}
+					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (int)(StageBitNum[1] * 0.5f));
+						CourtInstant.ScoreInstant[1] = true;
+					}
+					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
+						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (int)(StageBitNum[1] * 0.9f));
+						CourtInstant.ScoreInstant[2] = true;
+					}
+				} else if(StageHintBit[1] == 3) { //Enemy get score
+					if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1]) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 0, (int)(StageBitNum[1]));
+						CourtInstant.ScoreInstant[0] = true;
+					}
+					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (int)(StageBitNum[1] * 0.5f));
+						CourtInstant.ScoreInstant[1] = true;
+					}
+					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
+						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (int)(StageBitNum[1] * 0.9f));
+						CourtInstant.ScoreInstant[2] = true;
+					}
+				} else if(StageHintBit[1] == 4) { //Player Score - Enemy Score
+					if(!CourtInstant.ScoreInstant[0] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1]) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 0, (int)(StageBitNum[1]));
+						CourtInstant.ScoreInstant[0] = true;
+					}
+					if(!CourtInstant.ScoreInstant[1] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (int)(StageBitNum[1] * 0.5f));
+						CourtInstant.ScoreInstant[1] = true;
+					}
+					if(!CourtInstant.ScoreInstant[2] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.9f)) {
+						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (int)(StageBitNum[1] * 0.9f));
+						CourtInstant.ScoreInstant[2] = true;
+					}
 				}
 			}
 			if(StageHintBit[2] > 0) {
@@ -4210,7 +4247,7 @@ public class GameController : KnightSingleton<GameController>
 		IsStart = false;
 		SetBallOwnerNull();
 		GameTime = maxGameTime;
-
+		CourtInstant.ResetValue();
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
 		UIPassiveEffect.Get.Reset();
 		UIDoubleClick.Get.Reset();

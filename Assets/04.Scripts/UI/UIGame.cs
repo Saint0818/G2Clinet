@@ -503,7 +503,7 @@ public class UIGame : UIBase {
 	private void showRange (EUIRangeType type, bool state) {
 		skillRangeTarget = null;
 
-		if(state && IsPlayerMe) {
+		if(state && IsPlayerMe && !PlayerMe.IsUseSkill) {
 			switch (type){
 			case EUIRangeType.Skill:
 				isShowSkillRange = state;

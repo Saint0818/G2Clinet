@@ -29,6 +29,8 @@ public class UICourtInstant : UIBase {
 		if(isShow) {
 			Get.labelInstant.text = text;
 			Get.Show((!string.IsNullOrEmpty(text)));
+			Get.labelInstant.gameObject.SetActive(false);
+			Get.labelInstant.gameObject.SetActive(true);
 		}else 
 		if(instance) {
 			Get.Show(false);
