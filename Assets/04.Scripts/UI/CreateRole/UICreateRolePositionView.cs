@@ -159,22 +159,22 @@ public class UICreateRolePositionView : MonoBehaviour
             var player = GameData.DPlayers[playerID];
 
             var value = player.Strength + player.Block;
-            mAttributes.SetValue(UIAttributes.EAttribute.StrBlk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / AttributeMax);
 
             value = player.Defence + player.Steal;
-            mAttributes.SetValue(UIAttributes.EAttribute.DefStl, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.DefStl, value / AttributeMax);
 
             value = player.Dribble + player.Pass;
-            mAttributes.SetValue(UIAttributes.EAttribute.DrbPass, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / AttributeMax);
 
             value = player.Speed + player.Stamina;
-            mAttributes.SetValue(UIAttributes.EAttribute.SpdSta, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / AttributeMax);
 
             value = player.Point2 + player.Point3;
-            mAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / AttributeMax);
 
             value = player.Rebound + player.Dunk;
-            mAttributes.SetValue(UIAttributes.EAttribute.RebDnk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / AttributeMax);
         }
         else
             Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);

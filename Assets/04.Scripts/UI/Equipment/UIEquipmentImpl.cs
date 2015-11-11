@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -35,19 +36,23 @@ public class UIEquipmentImpl : MonoBehaviour
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = Vector3.one;
         mAttributes = obj.GetComponent<UIAttributes>();
-
-        mAttributes.SetVisible(true);
-        mAttributes.SetValue(UIAttributes.EAttribute.StrBlk, 0.5f);
-        mAttributes.SetValue(UIAttributes.EAttribute.DefStl, 0.5f);
-        mAttributes.SetValue(UIAttributes.EAttribute.DrbPass, 0.5f);
-        mAttributes.SetValue(UIAttributes.EAttribute.SpdSta, 0.5f);
-        mAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, 0.5f);
-        mAttributes.SetValue(UIAttributes.EAttribute.RebDnk, 0.5f);
     }
 
-    public void Init(int[] playerValues, Item[] items)
-    {
+    private delegate void Action(Dictionary<UIAttributes.EGroup, float> attributes);
 
+    public void Init(Dictionary<UIAttributes.EGroup, float> attributes, Item[] items)
+    {
+        Action setAttr = delegate
+        {
+            mAttributes.SetVisible(true);
+
+            foreach(KeyValuePair<UIAttributes.EGroup, float> pair in attributes)
+            {
+                mAttributes.SetValue(pair.Key, pair.Value);
+            }
+        };
+
+        setAttr(attributes);
     }
 
     public void OnBackClick()

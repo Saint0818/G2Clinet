@@ -113,13 +113,24 @@ namespace GameStruct {
 		}
 	}
 
+    /// <summary>
+    /// 這是對應到 Server 端 Team.Player 的資料結構. 但也用在 NPC 的資料.
+    /// 如果是 Team.Player, 必須要呼叫 Init() 做資料初始化.
+    /// 如果是 NPC, 要呼叫 SetID() 做資料初始化.
+    /// </summary>
     public struct TPlayer {
 		public int RoleIndex;
         public int ID;
         public string Name;
 		public int Lv;
+
 		public int Exp;
+
         public int AILevel;
+
+        /// <summary>
+        /// 球員的能力值(目前主要是表格的數值 + 數值裝的數值)
+        /// </summary>
 		public float Point2; //kind1
 		public float Point3; //kind2
 		public float Speed; //kind3
@@ -132,7 +143,9 @@ namespace GameStruct {
 		public float Steal;	//kind10
 		public float Dribble; //kind11
 		public float Pass; //kind12
+
 		public int BodyType; // 2:後衛, 1:前鋒, 0:中鋒.
+
         public int MaxSkillSpace;
         public int AISkillLv;
 		public int SkillPage;// 0 1 2 3 4
@@ -147,8 +160,17 @@ namespace GameStruct {
 		public List<TSkill> ActiveSkills;
 		public TSkill[] SkillCards;
 		public TSkillCardPage[] SkillCardPages;
+
+        /// <summary>
+        /// 玩家身上的外觀裝備.(Avatar). key: item.kind.
+        /// </summary>
 		public TItem[] Items;
-		public TEquipItem[] EquipItems;
+
+        /// <summary>
+        /// 玩家身上的數值裝備. key: item.kind.
+        /// </summary>
+//		public TEquipItem[] EquipItems;
+		public Dictionary<int, TEquipItem> EquipItems;
 
         /// <summary>
         /// 主線關卡進度(下一個可以打的關卡). 範圍是 101 ~ 2000.
@@ -189,7 +211,8 @@ namespace GameStruct {
 			SkillCards = new TSkill[0];
 			SkillCardPages = new TSkillCardPage[0];
 			Items = new TItem[0];
-			EquipItems = new TEquipItem[0];
+//			EquipItems = new TEquipItem[0];
+            EquipItems = new Dictionary<int, TEquipItem>();
 			Masteries = new int[0];
 		    NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
@@ -208,14 +231,20 @@ namespace GameStruct {
 			SetAvatar();
 		} 
 
+        /// <summary>
+        /// only for npc.
+        /// </summary>
+        /// <param name="id"></param>
 		public void SetID(int id) {
 			ID = id;
 			SetAttribute(ESkillType.NPC);
 			SetAvatar();
 		}
 
-		public void SetAttribute(ESkillType type = ESkillType.Player) {
-			if (ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
+		public void SetAttribute(ESkillType type = ESkillType.Player)
+        {
+			if(ID > 0 && GameData.DPlayers.ContainsKey(ID))
+            {
 				Point2 = GameData.DPlayers[ID].Point2;
 				Point3 = GameData.DPlayers[ID].Point3;
 				Steal = GameData.DPlayers[ID].Steal;
@@ -232,8 +261,66 @@ namespace GameStruct {
 				AILevel = GameData.DPlayers[ID].AILevel;
 			    AISkillLv = GameData.DPlayers[ID].AISkillLv;
 				SetSkill(type);
+
+                addEquipValues();
 			}
 		}
+
+        private void addEquipValues()
+        {
+            foreach(KeyValuePair<int, TEquipItem> pair in EquipItems)
+            {
+                if(!GameData.DItemData.ContainsKey(pair.Value.ID))
+                {
+                    Debug.LogErrorFormat("Can't find ItemData({0})", pair.Value.ID);
+                    continue;
+                }
+
+                TItemData data = GameData.DItemData[pair.Value.ID];
+                for(int i = 0; i < data.AttrKinds.Length; i++)
+                {
+                    switch(data.AttrKinds[i])
+                    {
+                        case EAttributeKind.Point2:
+                            Point2 += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Point3:
+                            Point3 += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Speed:
+                            Speed += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Stamina:
+                            Stamina += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Strength:
+                            Strength += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Dunk:
+                            Dunk += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Rebound:
+                            Rebound += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Block:
+                            Block += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Defence:
+                            Defence += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Steal:
+                            Steal += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Dribble:
+                            Dribble += data.AttrValues[i];
+                            break;
+                        case EAttributeKind.Pass:
+                            Pass += data.AttrValues[i];
+                            break;
+                    }
+                }
+            }
+        }
 
 		public void SetSkill (ESkillType type){
 			if(ActiveSkills == null)
@@ -584,6 +671,9 @@ namespace GameStruct {
 	    }
 	}
 
+    /// <summary>
+    /// 這是直接對應到企劃表格(GreatPlayer)的資料結構.
+    /// </summary>
 	public struct TGreatPlayer {
 		public int ID;
 		public string NameTW;
@@ -953,11 +1043,41 @@ namespace GameStruct {
 		public DateTime UseTime;
 	}
 
-	public struct TEquipItem {
+	public struct TEquipItem
+    {
 		public int ID;
-		public int[] Inlay;
+
+        /// <summary>
+        /// 鑲嵌物品的 ItemID.
+        /// </summary>
+		public int[] InlayItemIDs;
 	}
 
+    public enum EAttributeKind
+    {
+        None = 0,
+        Point2 = 1,
+        Point3 = 2,
+        Speed = 3,
+        Stamina = 4,
+        Strength = 5,
+        Dunk = 6,
+        Rebound = 7,
+        Block = 8,
+        Defence = 9,
+        Steal = 10,
+        Dribble = 11,
+        Pass = 12,
+        V13 = 13, // 13.士氣 (單次）.
+        V14 = 14, // 14.士氣 (時間內+%)時間內獲得到的  士氣都會額外乘上一個％
+        Score = 15, // 15.分數
+        SumScore = 16, // 16.總分數
+        Time = 17 // 17.時間
+    }
+
+    /// <summary>
+    /// 對應到企劃表格 item.json.
+    /// </summary>
 	public struct TItemData
     {
 		public int ID;
@@ -970,7 +1090,31 @@ namespace GameStruct {
 		public int Avatar;
 		public int MaxStack;
 		public int UseTime;
-		public int Money;
+
+        public EAttributeKind[] AttrKinds
+        {
+            get
+            {
+                // https://msdn.microsoft.com/zh-tw/library/ms173224.aspx
+                return mAttrKinds ?? (mAttrKinds = new[] {AttrKind1, AttrKind2, AttrKind3});
+            }
+        }
+
+        public int[] AttrValues
+        {
+            get { return mAttrValues ?? (mAttrValues = new []{AttrValue1, AttrValue2, AttrValue3}); }
+        }
+
+        private EAttributeKind[] mAttrKinds;
+        private int[] mAttrValues;
+        public EAttributeKind AttrKind1;
+        public int AttrValue1;
+        public EAttributeKind AttrKind2;
+        public int AttrValue2;
+        public EAttributeKind AttrKind3;
+        public int AttrValue3;
+
+        public int Money;
 		public int Quality;
 		public string Icon;
 		public string NameTW;

@@ -57,7 +57,7 @@ public class PersonalView
 	public void Update(TPlayer player)
 	{
 		UpdatePlayerData (player);
-		UpdateAvatarData (player.EquipItems);
+//		UpdateAvatarData (player.EquipItems);
 	}
 
 	private void UpdateAvatarData(TEquipItem[] items)
@@ -72,7 +72,7 @@ public class PersonalView
 					Avatars[i].Name = GameData.DItemData[items[i].ID].Name;
 					Avatars[i].Pic = GameData.DItemData[items[i].ID].Icon;
 					Avatars[i].Quality = GameData.DItemData[items[i].ID].Quality;
-					Avatars[i].Starts = items[i].Inlay.Length;
+//					Avatars[i].Starts = items[i].Inlay.Length;
 				}
 			}
 			else

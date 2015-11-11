@@ -537,22 +537,22 @@ public class UISelectRole : UIBase {
 			data = GameData.DPlayers[arraySelectID[0]];
 			
 			var value = data.Strength + data.Block;
-			mUIAttributes.SetValue(UIAttributes.EAttribute.StrBlk, value / MaxValue);
+			mUIAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / MaxValue);
 			
 			value = data.Defence + data.Steal;
-            mUIAttributes.SetValue(UIAttributes.EAttribute.DefStl, value / MaxValue);
+            mUIAttributes.SetValue(UIAttributes.EGroup.DefStl, value / MaxValue);
 			
 			value = data.Dribble + data.Pass;
-            mUIAttributes.SetValue(UIAttributes.EAttribute.DrbPass, value / MaxValue);
+            mUIAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / MaxValue);
 			
 			value = data.Speed + data.Stamina;
-            mUIAttributes.SetValue(UIAttributes.EAttribute.SpdSta, value / MaxValue);
+            mUIAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / MaxValue);
 			
 			value = data.Point2 + data.Point3;
-            mUIAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / MaxValue);
+            mUIAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / MaxValue);
 			
 			value = data.Rebound + data.Dunk;
-            mUIAttributes.SetValue(UIAttributes.EAttribute.RebDnk, value / MaxValue);
+            mUIAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / MaxValue);
 		}
         else
 		    Debug.LogErrorFormat("Can't find Player by ID:{0}", arraySelectID[0]);

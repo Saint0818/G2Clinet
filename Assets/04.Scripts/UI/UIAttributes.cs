@@ -22,7 +22,7 @@ public class UIAttributes : MonoBehaviour
     public GameObject Inside;
 //    public GameObject Outside;
 
-    public enum EAttribute
+    public enum EGroup
     {
         StrBlk = 0,
         DefStl = 1,
@@ -60,7 +60,7 @@ public class UIAttributes : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        foreach(EAttribute attribute in Enum.GetValues(typeof(EAttribute)))
+        foreach(EGroup attribute in Enum.GetValues(typeof(EGroup)))
         {
             mOldValues.Add(attribute, 0);
             mNewValues.Add(attribute, 0);
@@ -144,7 +144,7 @@ public class UIAttributes : MonoBehaviour
     [UsedImplicitly]
 	private void FixedUpdate()
     {
-        foreach(EAttribute attribute in Enum.GetValues(typeof(EAttribute)))
+        foreach(EGroup attribute in Enum.GetValues(typeof(EGroup)))
         {
             float a = Mathf.Round(mOldValues[attribute] * 100.0f) / 100.0f;
             float b = Mathf.Round(mNewValues[attribute] * 100.0f) / 100.0f;
@@ -158,61 +158,61 @@ public class UIAttributes : MonoBehaviour
         }
     }
 
-	private readonly Dictionary<EAttribute, float> mOldValues = new Dictionary<EAttribute, float>();
-	private readonly Dictionary<EAttribute, float> mNewValues = new Dictionary<EAttribute, float>();
+	private readonly Dictionary<EGroup, float> mOldValues = new Dictionary<EGroup, float>();
+	private readonly Dictionary<EGroup, float> mNewValues = new Dictionary<EGroup, float>();
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="attribute"></param>
+    /// <param name="g"></param>
     /// <param name="percent"> 數值範圍: [0, 1]. </param>
     /// <param name="isUpdateMesh"></param>
-	public void SetValue(EAttribute attribute, float percent, bool isUpdateMesh = false)
+	public void SetValue(EGroup g, float percent, bool isUpdateMesh = false)
     {
         percent = Mathf.Clamp01(percent);
 
 		if(!isUpdateMesh)
         {
-			if(mOldValues[attribute] == 0)
+			if(mOldValues[g] == 0)
             {
-				mOldValues[attribute] = percent;
-				mNewValues[attribute] = percent;
-				SetValue(attribute, percent, true);
+				mOldValues[g] = percent;
+				mNewValues[g] = percent;
+				SetValue(g, percent, true);
 			}
             else
-				mNewValues[attribute] = percent;
+				mNewValues[g] = percent;
 		}
         else
         {
-			mOldValues[attribute] = percent;
-			switch(attribute)
+			mOldValues[g] = percent;
+			switch(g)
             {
-			case EAttribute.StrBlk:
+			case EGroup.StrBlk:
 				mCurrentA = new Vector3(mMaxA.x * percent, mMaxA.y * percent, mMaxA.z);
 				updateMesh(Vector3.zero, mCurrentB, mCurrentA, 0);
 				updateMesh(Vector3.zero, mCurrentA, mCurrentF, 5);
 				break;
-			case EAttribute.DefStl:
+			case EGroup.DefStl:
 				mCurrentB = new Vector3(mMaxB.x * percent, mMaxB.y * percent, mMaxB.z);
 				updateMesh(Vector3.zero, mCurrentB, mCurrentA, 0);
 				updateMesh(Vector3.zero, mCurrentC, mCurrentB, 1);
 				break;
-			case EAttribute.DrbPass:
+			case EGroup.DrbPass:
 				mCurrentC = new Vector3(mMaxC.x * percent, mMaxC.y * percent, mMaxC.z);
 				updateMesh(Vector3.zero, mCurrentC, mCurrentB, 1);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				break;
-			case EAttribute.SpdSta:
+			case EGroup.SpdSta:
 				mCurrentD = new Vector3(mMaxD.x * percent, mMaxD.y * percent, mMaxD.z);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				break;
-			case EAttribute.Pt2Pt3:
+			case EGroup.Pt2Pt3:
 				mCurrentE = new Vector3(mMaxE.x * percent, mMaxE.y * percent, mMaxE.z);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				updateMesh(Vector3.zero, mCurrentF, mCurrentE, 4);
 				break;
-			case EAttribute.RebDnk:
+			case EGroup.RebDnk:
 				mCurrentF = new Vector3(mMaxF.x * percent, mMaxF.y * percent, mMaxF.z);
 				updateMesh(Vector3.zero, mCurrentF, mCurrentE, 4);
 				updateMesh(Vector3.zero, mCurrentA, mCurrentF, 5);

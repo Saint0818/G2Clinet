@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -41,6 +40,8 @@ public class UIEquipment : UIBase
     public void Show()
     {
         Show(true);
+
+//        mImpl.Init();
     }
 
     public void Hide()
