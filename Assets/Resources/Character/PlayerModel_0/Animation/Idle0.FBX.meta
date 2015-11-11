@@ -120,6 +120,10 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
     animationCompression: 1
     animationRotationError: 0
     animationPositionError: 0
@@ -165,9 +169,6 @@ ModelImporter:
         weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot/Bip01 L Toe0
         weight: 1
-      - path: Bip01/Bip01 Pelvis/Bip01 L Thigh/Bip01 L Calf/Bip01 L Foot/Bip01 L Toe0/Bip01
-          L Toe0Nub
-        weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh
         weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf
@@ -175,9 +176,6 @@ ModelImporter:
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot
         weight: 1
       - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot/Bip01 R Toe0
-        weight: 1
-      - path: Bip01/Bip01 Pelvis/Bip01 R Thigh/Bip01 R Calf/Bip01 R Foot/Bip01 R Toe0/Bip01
-          R Toe0Nub
         weight: 1
       - path: Bip01/Bip01 Spine
         weight: 1
@@ -200,16 +198,10 @@ ModelImporter:
           L Forearm/Bip01 L Hand/Bip01 L Finger0/Bip01 L Finger01
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
-          L Forearm/Bip01 L Hand/Bip01 L Finger0/Bip01 L Finger01/Bip01 L Finger0Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
           L Forearm/Bip01 L Hand/Bip01 L Finger1
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
           L Forearm/Bip01 L Hand/Bip01 L Finger1/Bip01 L Finger11
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
-          L Forearm/Bip01 L Hand/Bip01 L Finger1/Bip01 L Finger11/Bip01 L Finger1Nub
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
           L Forearm/Bip01 L Hand/Bip01 L Finger2
@@ -218,22 +210,15 @@ ModelImporter:
           L Forearm/Bip01 L Hand/Bip01 L Finger2/Bip01 L Finger21
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
-          L Forearm/Bip01 L Hand/Bip01 L Finger2/Bip01 L Finger21/Bip01 L Finger2Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 L Clavicle/Bip01 L UpperArm/Bip01
           L Forearm/Bip01 L Hand/DummyHand_L
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head
         weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bip01 HeadNub
-        weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/Bone_Hair_1/Bone_Hair_2/Bone_Nub
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 Neck/Bip01 Head/DummyHead
         weight: 1
@@ -254,25 +239,16 @@ ModelImporter:
           R Forearm/Bip01 R Hand/Bip01 R Finger0/Bip01 R Finger01
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
-          R Forearm/Bip01 R Hand/Bip01 R Finger0/Bip01 R Finger01/Bip01 R Finger0Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/Bip01 R Finger1
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/Bip01 R Finger1/Bip01 R Finger11
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
-          R Forearm/Bip01 R Hand/Bip01 R Finger1/Bip01 R Finger11/Bip01 R Finger1Nub
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/Bip01 R Finger2
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21
-        weight: 1
-      - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
-          R Forearm/Bip01 R Hand/Bip01 R Finger2/Bip01 R Finger21/Bip01 R Finger2Nub
         weight: 1
       - path: Bip01/Bip01 Spine/Bip01 Spine1/Bip01 R Clavicle/Bip01 R UpperArm/Bip01
           R Forearm/Bip01 R Hand/DummyHand_R
@@ -319,8 +295,10 @@ ModelImporter:
     legStretch: .0500000007
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
