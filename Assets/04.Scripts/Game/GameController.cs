@@ -3640,11 +3640,11 @@ public class GameController : KnightSingleton<GameController>
 						ShowCourtInstant(2, StageHintBit[1] - 1, 0, (int)(StageBitNum[1]));
 						CourtInstant.ScoreInstant[0] = true;
 					}
-					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
+					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
 						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (int)(StageBitNum[1] * 0.5f));
 						CourtInstant.ScoreInstant[1] = true;
 					}
-					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
+					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
 						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (int)(StageBitNum[1] * 0.9f));
 						CourtInstant.ScoreInstant[2] = true;
 					}
@@ -4263,8 +4263,7 @@ public class GameController : KnightSingleton<GameController>
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
 			PlayerList [i].ResetFlag();
-			PlayerList [i].ResetCurveFlag();
-			PlayerList [i].ResetSkill();
+			PlayerList [i].Reset();
 			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
 
 			if(PlayerList[i].Postion == EPlayerPostion.G)

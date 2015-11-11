@@ -1941,9 +1941,21 @@ public class PlayerBehaviour : MonoBehaviour
             NeedResetFlag = true;
     }
 
-    public void ResetSkill()
+    public void Reset()
     {
         skillController.Reset();
+		isDunk = false;
+		isBlock = false;
+		isLayup = false;
+		isCanBlock = false;
+		isRebound = false;
+		isShootJump = false;
+		isPush = false;
+		isFall = false;
+		UnityEngine.AnimationEvent aniEvent = new UnityEngine.AnimationEvent();
+		aniEvent.floatParameter = 1;
+		aniEvent.intParameter = 0;
+		TimeScale(aniEvent);
     }
 
     public void ClearMoveQueue()
@@ -3922,17 +3934,17 @@ public class PlayerBehaviour : MonoBehaviour
         isTouchPalyer += index;
     }
 
-    public void ResetCurveFlag()
-    {
-        isDunk = false;
-        isBlock = false;
-        isLayup = false;
-        isCanBlock = false;
-        isRebound = false;
-        isShootJump = false;
-        isPush = false;
-        isFall = false;
-    }
+//    public void ResetCurveFlag()
+//    {
+//        isDunk = false;
+//        isBlock = false;
+//        isLayup = false;
+//        isCanBlock = false;
+//        isRebound = false;
+//        isShootJump = false;
+//        isPush = false;
+//        isFall = false;
+//    }
 
     private float GetAngle(Vector3 target)
     {
