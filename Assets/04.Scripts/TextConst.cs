@@ -109,6 +109,13 @@ public static class TextConst
 			AddString(2000004, "攻擊競賽");
 			AddString(2000009, "挑戰章節關主");
 
+			//Hint UI
+			AddString (12101, "[ff0000]主動技[-]",  "[ff0000]主动技[-]", 
+			           "[ff0000]Active Skill[-]");     //SkillKindLabel
+			AddString (12102, "[23A3A3FF]被動技[-]",  "[23A3A3FF]被动技[-]", 
+			           "[23A3A3FF]Passive Skill[-]");  //SkillKindLabel
+
+			//競賽情報 UI
             AddString (2000011, "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。", 
 			           "Competition began entering the second half, half-[FF3355] {0} seconds after both teams hold [-] time.");
 			AddString (2000012, "競賽剩下倒數[FF3355]{0}秒[-]！！！", 
