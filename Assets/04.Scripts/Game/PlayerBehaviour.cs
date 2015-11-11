@@ -3259,7 +3259,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "PushDistancePlayer":
                 if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
                 {
-                    GameRecord.Push ++;
+					GameController.Get.CheckConditionText();
                     if (this == GameController.Get.Joysticker)
                         GameController.Get.IsGameFinish();
                     for (int i=0; i<GameController.Get.GamePlayers.Count; i++)
@@ -3657,6 +3657,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool IsCanCatchBall
     {
         get{ return isCanCatchBall;}
+		set{ isCanCatchBall = value;}
     }
 
     public bool IsCanBlock

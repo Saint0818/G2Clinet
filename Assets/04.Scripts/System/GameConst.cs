@@ -119,6 +119,8 @@
 	public const float CrossTimeX = 0.5f;
 	public const float CrossTimeZ = 1f;
 
+	public const float HintLongPressTime = 0.3f;
+
 	//Score
 	public static string[] AngleScoreRightWing = {"0","3","10"};
 	public static string[] AngleScoreRight = {"0","3","4","6","8","11"};

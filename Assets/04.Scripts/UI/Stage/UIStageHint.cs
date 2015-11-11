@@ -15,8 +15,8 @@ public class UIStageHint : MonoBehaviour
 
 	public void Init () {
 		for (int i=0 ;i<mTargets.Length; i++) {
-			mTargets[i].MoveCurrentLabel(new Vector3(40, -15, 0));
-			mTargets[i].MoveGoalLabel(new Vector3(125, -15, 0));
+			mTargets[i].MoveCurrentLabel();
+			mTargets[i].MoveGoalLabel();
 		}
 	}
 

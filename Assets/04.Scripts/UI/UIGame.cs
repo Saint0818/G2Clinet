@@ -160,8 +160,10 @@ public class UIGame : UIBase {
 	float playerX;
 	float playerY;
 	Vector2 playerScreenPos;
-
+	
 	private ItemSkillHint skillHint;
+	private float skillHintTime;
+	private int skillHintIndex;
 
 	public static UIGame Get {
 		get {
@@ -216,6 +218,14 @@ public class UIGame : UIBase {
 //				}
 //			}
 //		}
+
+		if(skillHintTime > 0) {
+			skillHintTime -= Time.deltaTime;
+			if(skillHintTime <= 0) {
+				skillHint.Show();
+				skillHint.UpdateUI(skillHintIndex);
+			}
+		}
 
 		runForceValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
@@ -492,12 +502,13 @@ public class UIGame : UIBase {
 	}
 
 	private void showSkillHint (bool isShow, int index = 0) {
-		if(isShow)
-			skillHint.Show();
-		else 
+		if(isShow) {
+			skillHintTime = GameConst.HintLongPressTime;
+		} else {
 			skillHint.Hide();
-
-		skillHint.UpdateUI(index);
+			skillHintTime = 0;
+		}
+		skillHintIndex = index;
 	}
 
 	private void showRange (EUIRangeType type, bool state) {

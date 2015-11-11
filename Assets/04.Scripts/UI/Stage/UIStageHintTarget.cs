@@ -25,12 +25,16 @@ public class UIStageHintTarget : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-	public void MoveCurrentLabel (Vector3 v) {
-		CurrentLabel.gameObject.transform.localPosition = v;
+	public void MoveCurrentLabel () {
+		if(DescLabel.localSize.x >= 170)
+			CurrentLabel.gameObject.transform.localPosition = new Vector3(70, -15, 0);
+		else
+			CurrentLabel.gameObject.transform.localPosition = new Vector3(40, -15, 0);
+
 	}
 
-	public void MoveGoalLabel (Vector3 v) {
-		GoalLabel.gameObject.transform.localPosition = v;
+	public void MoveGoalLabel () {
+		GoalLabel.gameObject.transform.localPosition = new Vector3(125, -15, 0);
 	}
 
     /// <summary>
