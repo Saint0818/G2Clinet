@@ -7,7 +7,7 @@ public class UIEquipmentImpl : MonoBehaviour
     public event CommonDelegateMethods.Action OnBackListener;
 
     public Transform HexagonParent;
-    private readonly string mAttriuteHexagonPath = "Prefab/UI/UIAttributeHexagon";
+    
 
     public class Attribute
     {
@@ -29,14 +29,20 @@ public class UIEquipmentImpl : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>(mAttriuteHexagonPath));
+        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.AttriuteHexagon));
         obj.transform.parent = HexagonParent;
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = Vector3.one;
         mAttributes = obj.GetComponent<UIAttributes>();
 
+        mAttributes.SetVisible(true);
+        mAttributes.SetValue(UIAttributes.EAttribute.StrBlk, 0.5f);
+        mAttributes.SetValue(UIAttributes.EAttribute.DefStl, 0.5f);
+        mAttributes.SetValue(UIAttributes.EAttribute.DrbPass, 0.5f);
+        mAttributes.SetValue(UIAttributes.EAttribute.SpdSta, 0.5f);
         mAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, 0.5f);
+        mAttributes.SetValue(UIAttributes.EAttribute.RebDnk, 0.5f);
     }
 
     public void Init(int[] playerValues, Item[] items)

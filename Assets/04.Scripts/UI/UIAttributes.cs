@@ -11,17 +11,16 @@ using UnityEngine;
 /// 使用方法:
 /// <list type="number">
 /// <item> 將 UIAttributeHexagon prefab 拖曳到 NGUI UIRoot 底下. </item>
+/// <item> Call SetVisible() 設定要不要顯示.(預設為不顯示) </item>
 /// <item> Call SetValue() 設定數值. </item>
-/// <item> Call SetVisible() 設定要不要顯示. </item>
-/// <item> Call PlayScale() 播放 Animation. </item>
+/// <item> (Optional) Call PlayScale() 播放 Animation. </item>
 /// </list>
 /// </remarks>
 public class UIAttributes : MonoBehaviour
 {
     public GameObject Root;
     public GameObject Inside;
-    public GameObject Outside;
-    public GameObject Click;
+//    public GameObject Outside;
 
     public enum EAttribute
     {
@@ -70,12 +69,12 @@ public class UIAttributes : MonoBehaviour
         mMaterials[0] = Resources.Load("Materials/TriangleMaterial_Outside") as Material;
         mMaterials[1] = Resources.Load("Materials/TriangleMaterial_Inside") as Material;
 
-        createTriangle(Vector3.zero, mMaxB, mMaxA, 10, mMaterials[0]);
-        createTriangle(Vector3.zero, mMaxC, mMaxB, 11, mMaterials[0]);
-        createTriangle(Vector3.zero, mMaxD, mMaxC, 12, mMaterials[0]);
-        createTriangle(Vector3.zero, mMaxE, mMaxD, 13, mMaterials[0]);
-        createTriangle(Vector3.zero, mMaxF, mMaxE, 14, mMaterials[0]);
-        createTriangle(Vector3.zero, mMaxA, mMaxF, 15, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxB, mMaxA, 10, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxC, mMaxB, 11, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxD, mMaxC, 12, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxE, mMaxD, 13, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxF, mMaxE, 14, mMaterials[0]);
+//        createTriangle(Vector3.zero, mMaxA, mMaxF, 15, mMaterials[0]);
 
         createTriangle(Vector3.zero, mCurrentB, mCurrentA, 0, mMaterials[1]);
         createTriangle(Vector3.zero, mCurrentC, mCurrentB, 1, mMaterials[1]);
@@ -108,11 +107,11 @@ public class UIAttributes : MonoBehaviour
 			mMeshFilters [index].mesh = mesh;
 			obj.transform.parent = Inside.transform;
 		}
-        else
-        {
-			obj.GetComponent<MeshFilter>().mesh = mesh;
-			obj.transform.parent = Outside.transform;
-		}
+//        else
+//        {
+//			obj.GetComponent<MeshFilter>().mesh = mesh;
+//			obj.transform.parent = Outside.transform;
+//		}
 
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localScale = Vector3.one;
@@ -137,9 +136,9 @@ public class UIAttributes : MonoBehaviour
         SetVisible(true);
 
 		Inside.transform.localScale = new Vector3(0,0,0);
-		Outside.transform.localScale = new Vector3(0,0,0);
+//		Outside.transform.localScale = new Vector3(0,0,0);
 		Inside.transform.DOScale(Vector3.one, 0.4f);
-		Outside.transform.DOScale(Vector3.one, 0.4f);
+//		Outside.transform.DOScale(Vector3.one, 0.4f);
 	}
 
     [UsedImplicitly]
@@ -237,12 +236,4 @@ public class UIAttributes : MonoBehaviour
 			mMeshFilters[index].mesh = mesh;
 		}
 	}
-
-    public bool ClickVisible
-    {
-        set
-        {
-            Click.SetActive(value);
-        }
-    }
 }

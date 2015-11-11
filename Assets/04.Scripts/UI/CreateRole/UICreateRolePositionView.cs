@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -17,12 +15,14 @@ public class UICreateRolePositionView : MonoBehaviour
     public UILabel PosDescriptionLabel;
 
     public Animator UIAnimator;
-
-    public UIAttributes Attributes;
+    
     public UIToggle ForwardToggle;
 
     [Tooltip("左下角的前一頁按鈕")]
     public GameObject PreviousButton;
+
+    public Transform HexagonParent;
+    private UIAttributes mAttributes;
 
     private delegate void Action();
 
@@ -41,11 +41,16 @@ public class UICreateRolePositionView : MonoBehaviour
     [UsedImplicitly]
     private void Awake()
     {
+        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.AttriuteHexagon));
+        obj.transform.parent = HexagonParent;
+        obj.transform.localPosition = Vector3.zero;
+        obj.transform.localRotation = Quaternion.identity;
+        obj.transform.localScale = Vector3.one;
+        mAttributes = obj.GetComponent<UIAttributes>();
+
         Hide();
 
         mCurrentPostion = EPlayerPostion.G;
-
-        Attributes.ClickVisible = false;
     }
 
     [UsedImplicitly]
@@ -60,22 +65,6 @@ public class UICreateRolePositionView : MonoBehaviour
         PosNameLabel.text = TextConst.S(UICreateRole.Get.PosInfos[mCurrentPostion].TextIndex);
         PosNameLabel.color = UICreateRole.Get.PosInfos[mCurrentPostion].TextColor;
         PosDescriptionLabel.text = TextConst.S(UICreateRole.Get.PosInfos[mCurrentPostion].DescIndex);
-
-//        switch (mCurrentPostion)
-//        {
-//            case EPlayerPostion.G:
-//                PosDescriptionLabel.text = TextConst.S(18);
-//                break;
-//            case EPlayerPostion.F:
-//                PosDescriptionLabel.text = TextConst.S(19);
-//                break;
-//            case EPlayerPostion.C:
-//                PosDescriptionLabel.text = TextConst.S(20);
-//                break;
-//
-//            default:
-//                throw new InvalidEnumArgumentException(mCurrentPostion.ToString());
-//        }
     }
 
     public void Show(bool showPreviousButton)
@@ -85,7 +74,7 @@ public class UICreateRolePositionView : MonoBehaviour
         UI3DCreateRole.Get.ShowPositionView();
 
         updateUI();
-        Attributes.SetVisible(true);
+        mAttributes.SetVisible(true);
         ForwardToggle.Set(true); // 預設前鋒會被選擇.
 
         PreviousButton.SetActive(showPreviousButton);
@@ -170,22 +159,22 @@ public class UICreateRolePositionView : MonoBehaviour
             var player = GameData.DPlayers[playerID];
 
             var value = player.Strength + player.Block;
-            Attributes.SetValue(UIAttributes.EAttribute.StrBlk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.StrBlk, value / AttributeMax);
 
             value = player.Defence + player.Steal;
-            Attributes.SetValue(UIAttributes.EAttribute.DefStl, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.DefStl, value / AttributeMax);
 
             value = player.Dribble + player.Pass;
-            Attributes.SetValue(UIAttributes.EAttribute.DrbPass, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.DrbPass, value / AttributeMax);
 
             value = player.Speed + player.Stamina;
-            Attributes.SetValue(UIAttributes.EAttribute.SpdSta, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.SpdSta, value / AttributeMax);
 
             value = player.Point2 + player.Point3;
-            Attributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.Pt2Pt3, value / AttributeMax);
 
             value = player.Rebound + player.Dunk;
-            Attributes.SetValue(UIAttributes.EAttribute.RebDnk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EAttribute.RebDnk, value / AttributeMax);
         }
         else
             Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);
