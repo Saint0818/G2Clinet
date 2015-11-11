@@ -2168,7 +2168,7 @@ public class PlayerBehaviour : MonoBehaviour
 
             case EPlayerState.Idle:
                 return true;
-              break;
+//              break;
 
             case EPlayerState.Show1:
             case EPlayerState.Show1001:

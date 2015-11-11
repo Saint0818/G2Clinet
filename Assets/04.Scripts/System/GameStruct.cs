@@ -169,7 +169,6 @@ namespace GameStruct {
         /// <summary>
         /// 玩家身上的數值裝備. key: item.kind.
         /// </summary>
-//		public TEquipItem[] EquipItems;
 		public Dictionary<int, TEquipItem> EquipItems;
 
         /// <summary>
@@ -268,6 +267,9 @@ namespace GameStruct {
 
         private void addEquipValues()
         {
+            if(EquipItems == null)
+                return;
+
             foreach(KeyValuePair<int, TEquipItem> pair in EquipItems)
             {
                 if(!GameData.DItemData.ContainsKey(pair.Value.ID))

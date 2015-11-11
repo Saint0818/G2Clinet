@@ -41,7 +41,29 @@ public class UIEquipment : UIBase
     {
         Show(true);
 
-//        mImpl.Init();
+        if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
+        {
+            Debug.LogErrorFormat("Can't find GreatePlayer({0})", GameData.Team.Player.ID);
+            return;
+        }
+
+        TGreatPlayer basicPlayer = GameData.DPlayers[GameData.Team.Player.ID];
+        Dictionary<EAttributeKind, float> basicAttr = new Dictionary<EAttributeKind, float>
+        {
+            {EAttributeKind.Point2, basicPlayer.Point2},
+            {EAttributeKind.Point3, basicPlayer.Point3},
+            {EAttributeKind.Speed, basicPlayer.Speed},
+            {EAttributeKind.Stamina, basicPlayer.Stamina},
+            {EAttributeKind.Strength, basicPlayer.Strength},
+            {EAttributeKind.Dunk, basicPlayer.Dunk},
+            {EAttributeKind.Rebound, basicPlayer.Rebound},
+            {EAttributeKind.Block, basicPlayer.Block},
+            {EAttributeKind.Defence, basicPlayer.Defence},
+            {EAttributeKind.Steal, basicPlayer.Steal},
+            {EAttributeKind.Dribble, basicPlayer.Dribble},
+            {EAttributeKind.Pass, basicPlayer.Pass},
+        };
+        mImpl.Init(basicAttr, null);
     }
 
     public void Hide()

@@ -31,11 +31,6 @@ public class UICreateRolePositionView : MonoBehaviour
     /// </summary>
     private const float HideAnimationTime = 0.8f;
 
-    /// <summary>
-    /// 屬性全滿的數值.
-    /// </summary>
-    private const float AttributeMax = 200;
-
     private EPlayerPostion mCurrentPostion = EPlayerPostion.G;
 
     [UsedImplicitly]
@@ -159,22 +154,22 @@ public class UICreateRolePositionView : MonoBehaviour
             var player = GameData.DPlayers[playerID];
 
             var value = player.Strength + player.Block;
-            mAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / GameConst.AttributeMax);
 
             value = player.Defence + player.Steal;
-            mAttributes.SetValue(UIAttributes.EGroup.DefStl, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.DefStl, value / GameConst.AttributeMax);
 
             value = player.Dribble + player.Pass;
-            mAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / GameConst.AttributeMax);
 
             value = player.Speed + player.Stamina;
-            mAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / GameConst.AttributeMax);
 
             value = player.Point2 + player.Point3;
-            mAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / GameConst.AttributeMax);
 
             value = player.Rebound + player.Dunk;
-            mAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / GameConst.AttributeMax);
         }
         else
             Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);

@@ -57,11 +57,6 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
     /// <param name="selectedIndex"> 預設哪一個要被選擇. </param>
     public void UpdateData(UICreateRole.EEquip equip, TItemData[] items, int selectedIndex)
     {
-//        foreach(TItemData item in items)
-//        {
-//            Debug.Log(item);
-//        }
-
         mEquip = equip;
 
         clear();
@@ -75,7 +70,12 @@ public class UICreateRoleStyleViewPartsWindow : MonoBehaviour
 
             var partBtn = btn.GetComponent<UICreateRoleStyleViewPartsWindowButton>();
             partBtn.Name = items[i].Name;
-            partBtn.Icon = int.Parse(items[i].Icon);
+
+            int iconValue;
+            if(!int.TryParse(items[i].Icon, out iconValue))
+                Debug.LogErrorFormat("Can't parse Icon to integer, Item:{0}", items[i]);
+            partBtn.Icon = iconValue;
+
             partBtn.ItemID = items[i].ID;
             partBtn.Index = i;
             partBtn.ClickListener += onPartSelected;
