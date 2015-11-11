@@ -1969,8 +1969,6 @@ public class GameController : KnightSingleton<GameController>
             CourtMgr.Get.SetBallState(EPlayerState.DunkBasket);
 			if(GameStart.Get.TestMode == EGameTest.Alleyoop) 
 				UIHint.Get.ShowHint("Alleyoop Score.", Color.yellow);
-			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
-            SetBall();
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
@@ -1978,6 +1976,10 @@ public class GameController : KnightSingleton<GameController>
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
+
+			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
+            SetBall();
+
 
             return true;
         } else
@@ -2258,6 +2260,7 @@ public class GameController : KnightSingleton<GameController>
 						if(player == Joysticker || BallOwner == Joysticker)
 							ShowWord(EShowWordType.Steal, 0, player.ShowWord);
 						CheckConditionText();
+						IsGameFinish ();
 						return true;
 					}
 				}
@@ -3636,8 +3639,10 @@ public class GameController : KnightSingleton<GameController>
 						CourtInstant.ScoreInstant[1] = true;
 					}
 					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
-						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
-						CourtInstant.ScoreInstant[2] = true;
+						if((StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
+							CourtInstant.ScoreInstant[2] = true;
+						}
 					}
 				} else if(StageHintBit[1] == 3) { //Enemy get score
 					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
@@ -3645,8 +3650,10 @@ public class GameController : KnightSingleton<GameController>
 						CourtInstant.ScoreInstant[1] = true;
 					}
 					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
-						ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-						CourtInstant.ScoreInstant[2] = true;
+						if((StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+							CourtInstant.ScoreInstant[2] = true;
+						}
 					}
 				} else if(StageHintBit[1] == 4) { //Player Score - Enemy Score
 					if(!CourtInstant.ScoreInstant[1] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.5f) ){
@@ -3654,8 +3661,10 @@ public class GameController : KnightSingleton<GameController>
 						CourtInstant.ScoreInstant[1] = true;
 					}
 					if(!CourtInstant.ScoreInstant[2] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.9f)) {
-						ShowCourtInstant(2, StageHintBit[1] - 1, 2, StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
-						CourtInstant.ScoreInstant[2] = true;
+						if(StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageHintBit[1] - 1, 2, StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+							CourtInstant.ScoreInstant[2] = true;
+						}
 					}
 				}
 			}

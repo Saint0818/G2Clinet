@@ -131,11 +131,11 @@ public class UIGameResult : UIBase {
 		int pts = player.FGIn * 2 + player.FG3In * 3;
 		float fg = 0;
 		if (player.FG > 0)
-			fg = Mathf.Round(player.FGIn * 100 / player.FG);
+			fg = Mathf.Min(Mathf.Round(player.FGIn * 100 / player.FG), 100);
 
 		float fg3 = 0;
 		if (player.FG3 > 0)
-			fg3 = Mathf.Round(player.FG3In * 100 / player.FG3);
+			fg3 = Mathf.Min(Mathf.Round(player.FG3In * 100 / player.FG3), 100);
 
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/PTS/LabelValue", pts.ToString());
 		SetLabel(UIName + "Center/ViewResult/PlayerMe/GameAttribute/FG/LabelValue", fg.ToString() + "%");

@@ -15,6 +15,7 @@ public enum ELayer
 	TopUI,
 	UI3D,
 	UIPlayer,
+	UIPlayerInfo,
 	//for game play
 	Player,
 	Shooter,

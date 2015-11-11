@@ -227,8 +227,9 @@ public class CameraMgr : KnightSingleton<CameraMgr>
                 cameraGroupObj.SetActive(false);
             } else
                 cameraGroupObj.SetActive(true);
-        } else
-			cameraGroupObj.SetActive(false);
+        } 
+//		else
+//			cameraGroupObj.SetActive(false);
     }
 
     public void ShowCameraEnable(bool isEnable)

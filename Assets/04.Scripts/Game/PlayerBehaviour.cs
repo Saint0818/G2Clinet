@@ -3247,8 +3247,6 @@ public class PlayerBehaviour : MonoBehaviour
     //All Skill Event From this Function
     public void SkillEvent(AnimationEvent aniEvent)
     {
-        float skillFloat = aniEvent.floatParameter;
-        int skillInt = aniEvent.intParameter;
         string skillString = aniEvent.stringParameter;
 
         switch (skillString)
@@ -3280,6 +3278,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case "SetBallEvent":
                 GameController.Get.SetBall(this);
+				GameController.Get.CheckConditionText();
                 if (this == GameController.Get.Joysticker)
                     GameController.Get.IsGameFinish();
             
@@ -3317,7 +3316,10 @@ public class PlayerBehaviour : MonoBehaviour
                             if(GameController.Get.BallOwner != null)
 								GameController.Get.BallOwner.AniState(EPlayerState.KnockDown0);
                         }
-                        GameController.Get.BallState = EBallState.None;
+						GameController.Get.BallState = EBallState.None;
+						GameController.Get.CheckConditionText();
+						if (this == GameController.Get.Joysticker)
+							GameController.Get.IsGameFinish();
                     }
                 }
                 break;

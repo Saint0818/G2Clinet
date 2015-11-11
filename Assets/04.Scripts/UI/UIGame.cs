@@ -106,7 +106,6 @@ public class UIGame : UIBase {
 
 	//TopRight
 	private GameObject viewTopRight;
-	private GameObject viewForceBar;
 	private GameObject[] uiButtonSkill = new GameObject[3];
 	private GameObject[] uiSkillEnables = new GameObject[3];
 	private GameObject[] uiDCs = new GameObject[3];
@@ -314,7 +313,6 @@ public class UIGame : UIBase {
 		skillHint.transform.localPosition = new Vector3(-350, -185, 0);
 		skillHint.transform.localScale = Vector3.one;
 
-		viewForceBar = GameObject.Find(UIName + "/TopRight/ViewForceBar");
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();
 		spriteForceFirst = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForceFrist").GetComponent<UISprite>();
 		uiSpriteFull = GameObject.Find (UIName + "/TopRight/ViewForceBar/ForcebarFull");
@@ -445,6 +443,7 @@ public class UIGame : UIBase {
 		isShowStealRange = false;
 		CourtMgr.Get.ShowRangeOfAction(false);
 		CourtMgr.Get.ShowArrowOfAction(false);
+		showSkillHint(false);
 	}
 
 	public void InitJoystickerUI (PlayerBehaviour p) {
