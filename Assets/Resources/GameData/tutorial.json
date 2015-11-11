@@ -102,5 +102,20 @@
         "texttw": "[f6f6f6]打造出有別於其他人的專屬造型。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+    },
+    {
+        "id": 101,
+        "line": 1,
+        "title": "第一關",
+        "kind": 3,
+        "value": 101,
+        "texttw": "剩下最後十秒，我方發球落後6分，如何逆轉戰局?"
+    },
+    {
+        "id": 101,
+        "line": 2,
+        "kind": 3,
+        "value": 101,
+        "texttw": "出現空擋了，先移動到三分線外。"
     }
 ]

@@ -764,7 +764,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 			case EPlayerState.Start:
 				RealBall.transform.localPosition = new Vector3 (0, 6, 0);
-				RealBallAddForce(Vector3.up * 500);
+				RealBallAddForce(Vector3.up * 1000);
 				break;
 
 			case EPlayerState.HoldBall:

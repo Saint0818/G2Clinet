@@ -55,7 +55,7 @@ public class GEGamePlayTutorial : GEBase {
 	};
 
 	private Vector2 mScroll = Vector2.zero;
-
+	
 	public static GEGamePlayTutorial Get
 	{
 		get {
@@ -67,12 +67,25 @@ public class GEGamePlayTutorial : GEBase {
 			return instance;
 		}
 	}
+	public static bool Visible {
+		get {
+			return instance != null;
+		}
+	}
 
 	void OnEnable () { 
 		instance = this;
 	}
 
 	void OnDisable () {
+		if (!Application.isPlaying && GEStageTutorial.Get == null) {
+			GameObject obj = GameObject.Find("FileManager");
+			if (obj) {
+				DestroyImmediate(obj);
+				obj = null;
+			}
+		}
+
 		stageIndex = -1;
 		instance = null; 
 	}

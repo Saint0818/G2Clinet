@@ -9,12 +9,21 @@ using GamePlayStruct;
 public class GEStageTutorial : GEBase {
 	public static GEStageTutorial Get = null;
 	private int stageID = 0;
+	private int delID = 0;
 	private int index = -1;
 	private static string FileName = "";
 	private static string BackupFileName = "";
 	private Vector2 mScroll = Vector2.zero;
 
-	void OnDisable () { 
+	void OnDisable () {
+		if (!Application.isPlaying && !GEGamePlayTutorial.Visible) {
+			GameObject obj = GameObject.Find("FileManager");
+			if (obj) {
+				DestroyImmediate(obj);
+				obj = null;
+			}
+		}
+
 		Get = null; 
 	}
 
@@ -35,6 +44,13 @@ public class GEStageTutorial : GEBase {
 			else
 				Debug.LogError("ID error.");
 		}
+
+		delID = GUIIntEdit(delID, "DeleteID");
+		if (GUIButton("Del", Color.red)) {
+			if (!delTutorial(delID))
+				Debug.LogError("index error.");
+		}
+
 		
 		GUILayout.EndHorizontal();
 		GUILayout.Space(2);
@@ -130,5 +146,23 @@ public class GEStageTutorial : GEBase {
 		GameData.StageTutorial = temp.ToArray();
 		OnSave();
 		return true;
+	}
+
+	private bool delTutorial(int id) {
+		int index = -1;
+		for (int i = 0; i < GameData.StageTutorial.Length; i++)
+		if (id == GameData.StageTutorial[i].ID) {
+			index = i;
+			break;
+		}
+
+		if (index >= 0 && index < GameData.StageTutorial.Length) {
+			List<TStageToturial> temp = new List<TStageToturial>(GameData.StageTutorial);
+			temp.RemoveAt(index);
+			GameData.StageTutorial = temp.ToArray();
+			OnSave();
+			return true;
+		} else
+			return false;
 	}
 }

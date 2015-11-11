@@ -24,6 +24,11 @@ public class GameStart : KnightSingleton<GameStart> {
 	void Start() {
 		#if UNITY_EDITOR
 		Application.runInBackground = IsDebugAnimation;
+		GameObject obj = GameObject.Find("FileManager");
+		if (obj) {
+			Destroy(obj);
+			obj = null;
+		}
 		#else
 		Application.runInBackground = false;
 		#endif

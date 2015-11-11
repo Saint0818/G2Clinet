@@ -14,6 +14,7 @@ public enum ELayer
 	ScrollVies,
 	TopUI,
 	UI3D,
+	UIPlayer,
 	//for game play
 	Player,
 	Shooter,

@@ -201,6 +201,11 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
     
+	protected override void Init() {
+		if (GameStart.Visible)
+			DontDestroyOnLoad(gameObject);
+	}
+
     private void DoStarDownload(){
 		if (downloadList.Count > 0) {
 			int Count = downloadList.Count;
