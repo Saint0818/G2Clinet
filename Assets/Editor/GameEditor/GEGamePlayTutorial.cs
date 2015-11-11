@@ -182,7 +182,7 @@ public class GEGamePlayTutorial : GEBase {
 					break;
 				case 5: //open ui
 					GUILayout.BeginHorizontal();
-					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "UI Flag");
+					eventList[i].Value1 = GUIIntEdit(eventList[i].Value1, "UI Flag", Weight_Button * 1.5f);
 					GUILayout.EndHorizontal();
 					break;
 				case 6: //open ui tutorial

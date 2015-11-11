@@ -170,7 +170,7 @@ public class UIGamePause : UIBase {
 	public void SetGameRecord(ref TGameRecord record) {
 		gameRecord = record;
 		uiStageHint.Show();
-		uiStageHint.UpdateValue(GameController.Get.Stage);
+		uiStageHint.UpdateValue(GameController.Get.StageData.ID);
 		UIShow(true);
 		uiGameResult.SetActive(false);
 	}

@@ -33,12 +33,12 @@ public class StageTable
     /// <summary>
     /// key: StageID. 主線全部小關卡.
     /// </summary>
-    private readonly Dictionary<int, StageData> mStageByIDs = new Dictionary<int, StageData>();
+    private readonly Dictionary<int, TStageData> mStageByIDs = new Dictionary<int, TStageData>();
 
     /// <summary>
     /// key: 章節, 1: 第一章, 2 第二章. 某個章節的小關卡.
     /// </summary>
-    private readonly Dictionary<int, List<StageData>> mStageByChapters = new Dictionary<int, List<StageData>>();
+    private readonly Dictionary<int, List<TStageData>> mStageByChapters = new Dictionary<int, List<TStageData>>();
 
     private StageTable() {}
 
@@ -52,8 +52,8 @@ public class StageTable
         jsonText = jsonText.Replace("\"{", "{");
         jsonText = jsonText.Replace("}\"", "}");
 
-        var stages = (StageData[])JsonConvert.DeserializeObject(jsonText, typeof(StageData[]));
-        foreach(StageData stage in stages)
+        var stages = (TStageData[])JsonConvert.DeserializeObject(jsonText, typeof(TStageData[]));
+        foreach(TStageData stage in stages)
         {
             if(mStageByIDs.ContainsKey(stage.ID))
             {
@@ -63,7 +63,7 @@ public class StageTable
             mStageByIDs.Add(stage.ID, stage);
 
             if(!mStageByChapters.ContainsKey(stage.Chapter))
-                mStageByChapters.Add(stage.Chapter, new List<StageData>());
+                mStageByChapters.Add(stage.Chapter, new List<TStageData>());
             mStageByChapters[stage.Chapter].Add(stage);
 
             if(MainStageMaxChapter < stage.Chapter)
@@ -80,7 +80,7 @@ public class StageTable
         MainStageMaxChapter = 0;
     }
 
-    private readonly StageData mEmptyStage = new StageData();
+    private readonly TStageData mEmptyStage = new TStageData();
 //    private readonly List<StageData> mEmptyStages = new List<StageData>();
 
     public bool HasByChapter(int chapter)
@@ -88,7 +88,7 @@ public class StageTable
         return mStageByChapters.ContainsKey(chapter);
     }
 
-    public void GetByChapterRange(int minChapter, int maxChapter, ref List<StageData> data)
+    public void GetByChapterRange(int minChapter, int maxChapter, ref List<TStageData> data)
     {
         Assert.IsTrue(maxChapter >= minChapter, string.Format("range error:[{0}, {1}]", minChapter, maxChapter));
 
@@ -105,7 +105,7 @@ public class StageTable
         return mStageByIDs.ContainsKey(id);
     }
 
-    public StageData GetByID(int id)
+    public TStageData GetByID(int id)
     {
         if(mStageByIDs.ContainsKey(id))
             return mStageByIDs[id];

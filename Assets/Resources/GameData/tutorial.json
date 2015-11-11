@@ -4,7 +4,7 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
-        "talkl": 34,
+        "talkl": 14,
         "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -41,7 +41,7 @@
         "value": 1,
         "talkindex": 1,
         "talkl": 24,
-        "talkr": 1,
+        "talkr": -1,
         "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -109,6 +109,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
+        "talkl": 7,
         "texttw": "剩下最後十秒，我方發球落後6分，如何逆轉戰局?"
     },
     {
@@ -116,6 +117,7 @@
         "line": 2,
         "kind": 3,
         "value": 101,
+        "talkl": 7,
         "texttw": "出現空擋了，先移動到三分線外。"
     }
 ]

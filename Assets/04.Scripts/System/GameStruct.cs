@@ -234,10 +234,14 @@ namespace GameStruct {
         /// only for npc.
         /// </summary>
         /// <param name="id"></param>
-		public void SetID(int id) {
+		public bool SetID(int id) {
 			ID = id;
-			SetAttribute(ESkillType.NPC);
-			SetAvatar();
+			if(ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
+				SetAttribute(ESkillType.NPC);
+				SetAvatar();
+				return true;
+			} else
+				return false;
 		}
 
 		public void SetAttribute(ESkillType type = ESkillType.Player)

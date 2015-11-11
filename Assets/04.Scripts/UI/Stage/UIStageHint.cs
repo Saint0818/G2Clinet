@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class UIStageHint : MonoBehaviour
@@ -97,7 +97,7 @@ public class UIStageHint : MonoBehaviour
 
         hideAllTargets();
         
-        StageData stageData = StageTable.Ins.GetByID(stageID);
+        TStageData stageData = StageTable.Ins.GetByID(stageID);
         int[] hintBits = stageData.HintBit;
         int index = 0;
         if(hintBits.Length > 0 && hintBits[0] > 0)
@@ -151,7 +151,7 @@ public class UIStageHint : MonoBehaviour
 		{
 			hideAllTargets();
 			
-			StageData stageData = StageTable.Ins.GetByID(stageID);
+			TStageData stageData = StageTable.Ins.GetByID(stageID);
 			int[] hintBits = stageData.HintBit;
 			int index = 0;
 			if(hintBits.Length > 0 && hintBits[0] > 0)
@@ -212,7 +212,7 @@ public class UIStageHint : MonoBehaviour
 			}
 		} else 
 		{
-			int[] hintBits = GameController.Get.StageHintBit;
+			int[] hintBits = GameController.Get.StageData.HintBit;
 			int index = 0;
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
@@ -223,7 +223,7 @@ public class UIStageHint : MonoBehaviour
 
 				mTargets[index].UpdateUI(getText(1, value, 9),
 				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageBitNum[0].ToString(),
+				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
 				                         (GameController.Get.GameTime <= 0));
 				index++;
 			}
@@ -233,20 +233,20 @@ public class UIStageHint : MonoBehaviour
 				mTargets[index].Show();
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
-				bool isFin = (score >= GameController.Get.StageBitNum[1]);
+				bool isFin = (score >= GameController.Get.StageData.BitNum[1]);
 				if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
-					isFin = (score <= GameController.Get.StageBitNum[1]);
+					isFin = (score <= GameController.Get.StageData.BitNum[1]);
 				} else {
 					if(hintBits[1] == 4)
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
-					isFin = (score >= GameController.Get.StageBitNum[1]);
+					isFin = (score >= GameController.Get.StageData.BitNum[1]);
 				}
 
 				mTargets[index].UpdateUI(getText(2, hintBits[1] - 1, 9),
 				                         getText(2, hintBits[1] - 1, 8),
-				                         score.ToString(), "/" + GameController.Get.StageBitNum[1].ToString(),
+				                         score.ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
 				                         isFin);
 			}
 		}

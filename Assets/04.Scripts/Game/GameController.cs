@@ -73,13 +73,9 @@ public class GameController : KnightSingleton<GameController>
     public float CoolDownCrossover = 0;
     public float ShootDistance = 0;
 	public float StealBtnLiftTime = 1f;
-    //	private float waitStealTime = 0;
 
-	private int courtMode = ECourtMode.Full;
-	private int friendNumber = 3;
 	private float maxGameTime = 0;
 	public float GameTime = 0;
-	public int GameWinValue = 0;
 
 //    /// <summary>
 //    /// 抄截冷卻時間.
@@ -160,10 +156,7 @@ public class GameController : KnightSingleton<GameController>
 
 	//Instant
 	public TCourtInstant CourtInstant;
-
-	private int mCurrentStageID; // 目前打的關卡.(會影響比賽的勝利條件)
-	public int[] StageBitNum = new int[4];
-	public int[] StageHintBit = new int[4];
+	public TStageData StageData = new TStageData();
 
 	//debug value
 	public float RecordTimeScale = 1;
@@ -197,6 +190,7 @@ public class GameController : KnightSingleton<GameController>
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
 		CourtInstant = new TCourtInstant(1);
+		StageData.Clear();
 		InitAniState();
     }
 
@@ -268,41 +262,28 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void LoadStage(int id) {
-		int courtNo = 0;
+		UIGame.Get.InitUI();
+
 		if(StageTable.Ins.HasByID(id)) {
-            mCurrentStageID = id;
-            StageData stageData = StageTable.Ins.GetByID(id);
-			courtMode = stageData.CourtMode;
-			friendNumber =  stageData.FriendNumber;
-			GameWinValue = stageData.WinValue;
-			courtNo = stageData.CourtNo;
-
-            StageBitNum[0] = stageData.Bit0Num;
-			StageBitNum[1] = stageData.Bit1Num;
-			StageBitNum[2] = stageData.Bit2Num;
-			StageBitNum[3] = stageData.Bit3Num;
-			StageHintBit = stageData.HintBit;
-			maxGameTime = StageBitNum[0];
-			GameTime = StageBitNum[0];
-			GameWinValue = StageBitNum[1];
-			UIGame.Get.MaxScores[0] = GameWinValue;
-			UIGame.Get.MaxScores[1] = GameWinValue;
+            StageData = StageTable.Ins.GetByID(id);
+			maxGameTime = StageData.BitNum[0];
+			GameTime = StageData.BitNum[0];
+			UIGame.Get.MaxScores[0] = StageData.WinValue;
+			UIGame.Get.MaxScores[1] = StageData.WinValue;
+			CourtMgr.Get.ChangeBasket(StageData.CourtNo);
 		} else {
-			StageHintBit[0] = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
-			StageHintBit[1] = GameStart.Get.GameWinValue > 0 ? 2 : 0;
-			StageHintBit[2] = 0;
-			StageHintBit[3] = 0;
-
-			StageBitNum[0] = GameStart.Get.GameWinTimeValue;
-			StageBitNum[1] = GameStart.Get.GameWinValue;
-			StageBitNum[2] = 0;
-			StageBitNum[3] = 0;
-
+			StageData.Clear();
+			int a = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
+			int b = GameStart.Get.GameWinValue > 0 ? 2 : 0;
+			StageData.Hint = b.ToString() + a.ToString();
+			StageData.Bit0Num = GameStart.Get.GameWinTimeValue;
+			StageData.Bit1Num = GameStart.Get.GameWinValue;
+			StageData.WinValue = GameStart.Get.GameWinValue;
 			maxGameTime = GameStart.Get.GameWinTimeValue;
 			GameTime = GameStart.Get.GameWinTimeValue;
-			GameWinValue = GameStart.Get.GameWinValue;
 			UIGame.Get.MaxScores[0] = GameStart.Get.GameWinValue;
 			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
+			CourtMgr.Get.ChangeBasket(0);
 		}
 
 		int rate = UnityEngine.Random.Range(0, 2);
@@ -311,7 +292,7 @@ public class GameController : KnightSingleton<GameController>
 		else
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 
-		CameraMgr.Get.SetCourtCamera (ESceneName.Court + courtNo.ToString());
+		CameraMgr.Get.SetCourtCamera (ESceneName.Court + StageData.CourtNo.ToString());
 		InitGame();
 		
 		if (GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(id)) 
@@ -500,30 +481,48 @@ public class GameController : KnightSingleton<GameController>
         switch(GameStart.Get.TestMode)
         {
     	case EGameTest.None:
-			checkPlayerID();
+			if (StageData.FriendKind == 4) {
+				int num = Mathf.Min(StageData.FriendID.Length, GameData.TeamMembers.Length);
+				for (int i = 0; i < num; i++) {
+					if (GameData.TeamMembers[i].Player.SetID(StageData.FriendID[i])) {
+						GameData.TeamMembers[i].Player.Name = GameData.DPlayers[StageData.FriendID[i]].Name;
+						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+					}
+				}
 
-			switch (GameStart.Get.FriendNumber)
-            {
-			    case 1:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-                    break;
-			    case 2:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
-                    break;
+				num = Mathf.Min(StageData.PlayerID.Length, GameData.EnemyMembers.Length);
+				for (int i = 0; i < num; i++) {
+					if (GameData.EnemyMembers[i].Player.SetID(StageData.PlayerID[i])) {
+						GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[StageData.PlayerID[i]].Name;
+						PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[3+i], GameData.EnemyMembers[i].Player));
+					}
+				}
+			} else {
+				checkPlayerID();
 
-                case 3:
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
-                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], GameData.EnemyMembers[2].Player));
-                    break;
-            }
+				switch (GameStart.Get.FriendNumber)
+	            {
+				    case 1:
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
+	                    break;
+				    case 2:
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
+	                    break;
+
+	                case 3:
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
+	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], GameData.EnemyMembers[2].Player));
+	                    break;
+	            }
+			}
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
 			SetBornPositions();
@@ -1177,7 +1176,6 @@ public class GameController : KnightSingleton<GameController>
                     else
                     {
                         // 我不是持球人.
-
                         int index = player.DefPlayer.Postion.GetHashCode();
                         float sign = GameStart.Get.CourtMode == ECourtMode.Full && player.DefPlayer.Team == ETeamKind.Self ? -1 : 1;
 						float distance = Vector2.Distance(
@@ -3549,7 +3547,7 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
 				
-				pveEnd(mCurrentStageID);
+				pveEnd(StageData.ID);
 			}
 			else
 			{
@@ -3568,7 +3566,7 @@ public class GameController : KnightSingleton<GameController>
 		if(GameStart.Get.ConnectToServer) {
 			WWWForm form = new WWWForm();
 			form.AddField("StageID", stageID);
-			mCurrentStageID = stageID;
+			StageData.ID = stageID;
 			SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
 		}
     }
@@ -3613,10 +3611,10 @@ public class GameController : KnightSingleton<GameController>
 
 	private bool checkStageReasonable ()
     {
-		if(StageTable.Ins.HasByID(mCurrentStageID))
+		if(StageTable.Ins.HasByID(StageData.ID))
         {
-			if(StageBitNum[0] == 0 && StageBitNum[2] == 0 && StageBitNum[3] == 0 && 
-			   (StageBitNum[1] == 2 || StageBitNum[1] == 3))
+			if(StageData.BitNum[0] == 0 && StageData.BitNum[2] == 0 && StageData.BitNum[3] == 0 && 
+			   (StageData.BitNum[1] == 2 || StageData.BitNum[1] == 3))
 				return false;
 			else 
 				return true;
@@ -3626,96 +3624,96 @@ public class GameController : KnightSingleton<GameController>
 
 	public void CheckConditionText ()
     {
-		if(StageTable.Ins.HasByID(mCurrentStageID))
+		if(StageTable.Ins.HasByID(StageData.ID))
         {
-			if(StageHintBit[1] > 1) {
-				if(StageHintBit[1] == 2) { //Player get score
-					if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1]) ){
-						ShowCourtInstant(2, StageHintBit[1] - 1, 0, UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]);
+			if(StageData.HintBit[1] > 1) {
+				if(StageData.HintBit[1] == 2) { //Player get score
+					if(!CourtInstant.ScoreInstant[0] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1]) ){
+						ShowCourtInstant(2, StageData.HintBit[1] - 1, 0, UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]);
 						CourtInstant.ScoreInstant[0] = true;
 					}
-					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
+					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageData.HintBit[1] - 1, 1, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
 						CourtInstant.ScoreInstant[1] = true;
 					}
-					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
-						if((StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
+					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.BitNum[1] * 0.9f)) {
+						if((StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageData.HintBit[1] - 1, 2, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Self.GetHashCode()]));
 							CourtInstant.ScoreInstant[2] = true;
 						}
 					}
-				} else if(StageHintBit[1] == 3) { //Enemy get score
-					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageHintBit[1] - 1, 1, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+				} else if(StageData.HintBit[1] == 3) { //Enemy get score
+					if(!CourtInstant.ScoreInstant[1] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.BitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageData.HintBit[1] - 1, 1, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
 						CourtInstant.ScoreInstant[1] = true;
 					}
-					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageBitNum[1] * 0.9f)) {
-						if((StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageHintBit[1] - 1, 2, (StageBitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+					if(!CourtInstant.ScoreInstant[2] && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.BitNum[1] * 0.9f)) {
+						if((StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageData.HintBit[1] - 1, 2, (StageData.BitNum[1] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
 							CourtInstant.ScoreInstant[2] = true;
 						}
 					}
-				} else if(StageHintBit[1] == 4) { //Player Score - Enemy Score
-					if(!CourtInstant.ScoreInstant[1] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.5f) ){
-						ShowCourtInstant(2, StageHintBit[1] - 1, 1, StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+				} else if(StageData.HintBit[1] == 4) { //Player Score - Enemy Score
+					if(!CourtInstant.ScoreInstant[1] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageData.BitNum[1] * 0.5f) ){
+						ShowCourtInstant(2, StageData.HintBit[1] - 1, 1, StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
 						CourtInstant.ScoreInstant[1] = true;
 					}
-					if(!CourtInstant.ScoreInstant[2] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageBitNum[1] * 0.9f)) {
-						if(StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
-							ShowCourtInstant(2, StageHintBit[1] - 1, 2, StageBitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
+					if(!CourtInstant.ScoreInstant[2] && ((UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) >= StageData.BitNum[1] * 0.9f)) {
+						if(StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]) > 0) {
+							ShowCourtInstant(2, StageData.HintBit[1] - 1, 2, StageData.BitNum[1] - (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] - UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()]));
 							CourtInstant.ScoreInstant[2] = true;
 						}
 					}
 				}
 			}
-			if(StageHintBit[2] > 0) {
-				if(checkCountEnough(Joysticker, StageHintBit[2], StageBitNum[2])) {
+			if(StageData.HintBit[2] > 0) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[2], StageData.BitNum[2])) {
 					if(!CourtInstant.Condition1Instant[0]) {
-						if(StageBitNum[2] >= 0){
-							ShowCourtInstant(3, StageHintBit[2], 0, StageBitNum[2]);
+						if(StageData.BitNum[2] >= 0){
+							ShowCourtInstant(3, StageData.HintBit[2], 0, StageData.BitNum[2]);
 							CourtInstant.Condition1Instant[0] = true;
 						} 
 					}
 				}
-				if(checkCountEnough(Joysticker, StageHintBit[2], (int)(StageBitNum[2] * 0.5f))) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.5f))) {
 					if(!CourtInstant.Condition1Instant[1]) {
-						if(StageBitNum[2] * 0.5f >= 0){
-							ShowCourtInstant(3, StageHintBit[2], 1, (int) (StageBitNum[2] * 0.5f));
+						if(StageData.BitNum[2] * 0.5f >= 0){
+							ShowCourtInstant(3, StageData.HintBit[2], 1, (int) (StageData.BitNum[2] * 0.5f));
 							CourtInstant.Condition1Instant[1] = true;
 						} 
 					}
 				}
-				if(checkCountEnough(Joysticker, StageHintBit[2], (int)(StageBitNum[2] * 0.1f))) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[2], (int)(StageData.BitNum[2] * 0.1f))) {
 					if(!CourtInstant.Condition1Instant[2]) {
-						if(StageBitNum[2] * 0.1f >= 0){
-							ShowCourtInstant(3, StageHintBit[2], 2, (int)(StageBitNum[2] * 0.1f));
+						if(StageData.BitNum[2] * 0.1f >= 0){
+							ShowCourtInstant(3, StageData.HintBit[2], 2, (int)(StageData.BitNum[2] * 0.1f));
 							CourtInstant.Condition1Instant[2] = true;
 						}
 					}
 				}
 			}
 
-			if(StageHintBit[3] > 0) {
-				if(checkCountEnough(Joysticker, StageHintBit[3], StageBitNum[3])) {
+			if(StageData.HintBit[3] > 0) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[3], StageData.BitNum[3])) {
 					if(!CourtInstant.Condition2Instant[0]) {
-						if(StageBitNum[3] >= 0){
-							ShowCourtInstant(3, StageHintBit[3], 0,  StageBitNum[3]);
+						if(StageData.BitNum[3] >= 0){
+							ShowCourtInstant(3, StageData.HintBit[3], 0,  StageData.BitNum[3]);
 							CourtInstant.Condition2Instant[0] = true;
 						}
 					}
 				}
-				if(checkCountEnough(Joysticker, StageHintBit[3], (int) (StageBitNum[3] * 0.5f))) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.5f))) {
 					if(!CourtInstant.Condition2Instant[1]) {
-						if(StageBitNum[3] * 0.5f >= 0){
-							ShowCourtInstant(3, StageHintBit[3], 1,  (int) (StageBitNum[3] * 0.5f));
+						if(StageData.BitNum[3] * 0.5f >= 0){
+							ShowCourtInstant(3, StageData.HintBit[3], 1,  (int) (StageData.BitNum[3] * 0.5f));
 							CourtInstant.Condition2Instant[1] = true;
 						}
 					}
 				}
-				if(checkCountEnough(Joysticker, StageHintBit[3], (int) (StageBitNum[3] * 0.1f))) {
+				if(checkCountEnough(Joysticker, StageData.HintBit[3], (int) (StageData.BitNum[3] * 0.1f))) {
 					if(!CourtInstant.Condition2Instant[2]) {
-						if(StageBitNum[3] * 0.1f >= 0){
-							ShowCourtInstant(3, StageHintBit[3], 2, (int) (StageBitNum[3] * 0.1f));
+						if(StageData.BitNum[3] * 0.1f >= 0){
+							ShowCourtInstant(3, StageData.HintBit[3], 2, (int) (StageData.BitNum[3] * 0.1f));
 							CourtInstant.Condition2Instant[2] = true;
 						}
 					}
@@ -3753,20 +3751,20 @@ public class GameController : KnightSingleton<GameController>
 		int enemy = 0;
 		if(self == (int) ETeamKind.Self)
 			enemy = 1;
-		if(StageTable.Ins.HasByID(mCurrentStageID))
+		if(StageTable.Ins.HasByID(StageData.ID))
         {
 
-			if (StageHintBit[1] == 0)
+			if (StageData.HintBit[1] == 0)
 				return true;
 			else{ 
-				if      (StageHintBit[1] == 1 && (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy])) return true;
-				else if (StageHintBit[1] == 2 && (UIGame.Get.Scores[self] >= GameWinValue)) return true;
-				else if (StageHintBit[1] == 3 && (UIGame.Get.Scores[enemy] < GameWinValue)) return true;
-				else if (StageHintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= GameWinValue) return true;
+				if      (StageData.HintBit[1] == 1 && (UIGame.Get.Scores[self] > UIGame.Get.Scores[enemy])) return true;
+				else if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[self] >= StageData.WinValue)) return true;
+				else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[enemy] < StageData.WinValue)) return true;
+				else if (StageData.HintBit[1] == 4 && (UIGame.Get.Scores[self] - UIGame.Get.Scores[enemy]) >= StageData.WinValue) return true;
 			}
 		} else if(!GameStart.Get.ConnectToServer)
 		{
-			if (StageHintBit[1] == 2 && (UIGame.Get.Scores[team] >= GameWinValue)) return true;
+			if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[team] >= StageData.WinValue)) return true;
 		}
 		return false;
 	}
@@ -3774,17 +3772,17 @@ public class GameController : KnightSingleton<GameController>
 	public bool IsScoreFinish
 	{
 		get {
-			if(StageTable.Ins.HasByID(mCurrentStageID))
+			if(StageTable.Ins.HasByID(StageData.ID))
 			{
-				if (StageHintBit[1] == 0)
+				if (StageData.HintBit[1] == 0)
 					return true;
 				else{ 
-					if (StageHintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= GameWinValue)) return true;
-					else if (StageHintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= GameWinValue)) return true;
+					if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.WinValue)) return true;
+					else if (StageData.HintBit[1] == 3 && (UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] >= StageData.WinValue)) return true;
 				}
 			} else if(!GameStart.Get.ConnectToServer)
 			{
-				if (StageHintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= GameWinValue)) return true;
+				if (StageData.HintBit[1] == 2 && (UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] >= StageData.WinValue)) return true;
 			}
 			return false;
 		}
@@ -3792,14 +3790,14 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsConditionPass (PlayerBehaviour player)
     {
-		if(StageTable.Ins.HasByID(mCurrentStageID))
+		if(StageTable.Ins.HasByID(StageData.ID))
         {
-			if(StageHintBit[2] > 0) 
-				if(!checkCountEnough(player, StageHintBit[2], StageBitNum[2]))
+			if(StageData.HintBit[2] > 0) 
+				if(!checkCountEnough(player, StageData.HintBit[2], StageData.BitNum[2]))
 					return false;
 			
-			if(StageHintBit[3] > 0) 
-				if(!checkCountEnough(player, StageHintBit[3], StageBitNum[3]))
+			if(StageData.HintBit[3] > 0) 
+				if(!checkCountEnough(player, StageData.HintBit[3], StageData.BitNum[3]))
 					return false;
 			return true;
 		} else if(!GameStart.Get.ConnectToServer)
@@ -3832,7 +3830,7 @@ public class GameController : KnightSingleton<GameController>
 	}
 	
 	public bool IsGameVictory () {
-		if(StageHintBit[0] == 0 || StageHintBit[0] == 1) {
+		if(StageData.HintBit[0] == 0 || StageData.HintBit[0] == 1) {
 			if(IsScorePass(Joysticker.Team.GetHashCode()))
 				if(IsConditionPass(Joysticker))
 					return true;
@@ -3846,7 +3844,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public bool IsGameFinish (){
 		bool flag = false;
-		if (StageHintBit[0] == 0 || StageHintBit[0] == 1 ) 
+		if (StageData.HintBit[0] == 0 || StageData.HintBit[0] == 1 ) 
 			if (IsScoreFinish)
 				if(IsConditionPass(Joysticker)) 
 					flag = true;
@@ -4322,8 +4320,8 @@ public class GameController : KnightSingleton<GameController>
 		ChangeSituation(EGameSituation.Opening);
 		AIController.Get.ChangeState(EGameSituation.Opening);
 
-		if (GameData.DStageTutorial.ContainsKey(mCurrentStageID)) {
-			GamePlayTutorial.Get.SetTutorialData(mCurrentStageID);
+		if (GameData.DStageTutorial.ContainsKey(StageData.ID)) {
+			GamePlayTutorial.Get.SetTutorialData(StageData.ID);
         }
     }
 
@@ -4621,12 +4619,6 @@ public class GameController : KnightSingleton<GameController>
 	public List<PlayerBehaviour> GamePlayers {
 		get {
 			return PlayerList;
-		}
-	}
-
-	public int Stage {
-		get { 
-			return mCurrentStageID;
 		}
 	}
 }

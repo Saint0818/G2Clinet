@@ -270,14 +270,20 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	{
 		CloneReallBall();
 		CheckCollider();
-		ChangeBasket(2);
+		//ChangeBasket(2);
 		InitScoreboard ();
-		SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
-		SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
-		SkillArrowOfAction.SetActive(false);
-		Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
-		if(t != null)
-			textureArrow = t.GetComponent<UITexture>();
+
+		if (!SkillRangeOfAction)
+			SkillRangeOfAction = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+
+		if (!SkillArrowOfAction) {
+			SkillArrowOfAction = Instantiate(Resources.Load("Effect/SkillArea_Arrow") as GameObject);
+			SkillArrowOfAction.SetActive(false);
+			Transform t = SkillArrowOfAction.transform.FindChild("Scale/SpriteSkillAreaArrow");
+			if(t != null)
+				textureArrow = t.GetComponent<UITexture>();
+		}
+
 		CameraMgr.Get.SetCameraSituation(ECameraSituation.Loading);
 	}
 
@@ -502,15 +508,18 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		BasketHoopDummy[0] = BasketHoop[0].FindChild("DummyHoop");
 		BasketHoopDummy[1] = BasketHoop[1].FindChild("DummyHoop");
 
-		EffectPoint[0] = crtBasket.transform.FindChild("Left/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint").gameObject;
-		EffectPoint[1] = crtBasket.transform.FindChild("Right/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint").gameObject;
+		Transform obj = crtBasket.transform.FindChild("Left/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint");
+		if (obj)
+			EffectPoint[0] = obj.gameObject;
+
+		obj = crtBasket.transform.FindChild("Right/Basket/DummyBasketRoot/Bone01/Bone02/Bone03/Bone04/EffectPoint");
+		if (obj)
+			EffectPoint[1] = obj.gameObject;
 		
 		BasketHoopAnimator[0] = BasketHoop[0].gameObject.GetComponent<Animator>();
 		BasketHoopAnimator[1] = BasketHoop[1].gameObject.GetComponent<Animator>();
 		BasketHoopAnimator[0].gameObject.AddComponent<SelectEvent> ();
 		BasketHoopAnimator[1].gameObject.AddComponent<SelectEvent> ();
-		
-
 
 		InitBasket(BasketHoopAnimator[0].runtimeAnimatorController);
 	}

@@ -55,7 +55,7 @@ public class UIMainStage : UIBase
 
         if(StageTable.Ins.HasByID(stageID))
         {
-            StageData stageData = StageTable.Ins.GetByID(stageID);
+            TStageData stageData = StageTable.Ins.GetByID(stageID);
 
             if(verifyPlayer(stageData))
                 pveStart(stageID);
@@ -71,16 +71,16 @@ public class UIMainStage : UIBase
     /// </summary>
     /// <param name="stageData"></param>
     /// <returns></returns>
-    private bool verifyPlayer(StageData stageData)
+    private bool verifyPlayer(TStageData stageData)
     {
         switch(stageData.CostKind)
         {
-            case StageData.ECostKind.Stamina:
+            case TStageData.ECostKind.Stamina:
                 if(GameData.Team.Power < stageData.CostValue)
                     return false;
                 break;
-            case StageData.ECostKind.Activity:
-            case StageData.ECostKind.Challenger:
+            case TStageData.ECostKind.Activity:
+            case TStageData.ECostKind.Challenger:
             default:
                 throw new NotImplementedException();
         }
@@ -139,12 +139,12 @@ public class UIMainStage : UIBase
         int maxChapter = StageTable.Ins.MainStageMaxChapter;
         if(StageTable.Ins.HasByID(GameData.Team.Player.NextMainStageID))
             maxChapter = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID).Chapter;
-        List<StageData> allStageData = new List<StageData>();
+        List<TStageData> allStageData = new List<TStageData>();
         // 主線關卡是從第一章開始顯示.
         StageTable.Ins.GetByChapterRange(1, maxChapter, ref allStageData);
 
         // 3. 設定每一個小關卡.
-        foreach(StageData data in allStageData)
+        foreach(TStageData data in allStageData)
         {
             showChapter(data.Chapter);
             
@@ -169,7 +169,7 @@ public class UIMainStage : UIBase
         mImpl.ShowChapter(chapter, data.Name);
     }
 
-    private void showStage(StageData stageData)
+    private void showStage(TStageData stageData)
     {
         if(!verify(stageData))
             return;
@@ -202,7 +202,7 @@ public class UIMainStage : UIBase
     /// </summary>
     /// <param name="stageData"></param>
     /// <returns></returns>
-    private int findPlayerDailyCount(StageData stageData)
+    private int findPlayerDailyCount(TStageData stageData)
     {
         int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
         if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
@@ -210,7 +210,7 @@ public class UIMainStage : UIBase
         return dailyCount;
     }
 
-    private void showStageLock(StageData stageData)
+    private void showStageLock(TStageData stageData)
     {
         if(!verify(stageData))
             return;
@@ -219,7 +219,7 @@ public class UIMainStage : UIBase
         mImpl.ShowStageLock(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
     }
 
-    private static bool verify(StageData stageData)
+    private static bool verify(TStageData stageData)
     {
         if(!stageData.IsValid())
         {
@@ -241,7 +241,7 @@ public class UIMainStage : UIBase
     /// </summary>
     private void setLastChapterLock()
     {
-        StageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+        TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
         if(!stageData.IsValid())
             return;
 
@@ -274,7 +274,7 @@ public class UIMainStage : UIBase
     /// <param name="stageID"></param>
     private void stageSurelyReward(int stageID)
     {
-        StageData data = StageTable.Ins.GetByID(stageID);
+        TStageData data = StageTable.Ins.GetByID(stageID);
         if(data.SurelyRewards == null || data.SurelyRewards.Length <= 0)
         {
             Debug.LogErrorFormat("StageID:{0}, Surely Reward is empty!", stageID);

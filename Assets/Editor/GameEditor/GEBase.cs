@@ -45,11 +45,11 @@ public class GEBase : EditorWindow {
 		StyleLabel.normal.textColor = Color.white;
 	}
 
-	protected virtual int GUIIntEdit(int input, string title = "") {
+	protected virtual int GUIIntEdit(int input, string title = "", float width = Weight_Button / 2) {
 		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
 		StyleLabel.alignment = TextAnchor.LowerLeft;
-		return EditorGUILayout.IntField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+		return EditorGUILayout.IntField(input, StyleEdit, GUILayout.Width(width), GUILayout.Height(Height_Line));
 	}
 
 	protected virtual float GUIFloatEdit(float input, string title = "") {

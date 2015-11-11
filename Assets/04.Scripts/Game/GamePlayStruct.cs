@@ -77,6 +77,7 @@ namespace GamePlayStruct {
 	}
 
 	public struct TGamePlayEvent {
+		public int ID;
 		public int Kind;
 		public int Value1;
 		public int Value2;
@@ -90,6 +91,7 @@ namespace GamePlayStruct {
 		public TToturialAction[] Actions;
 
 		public TGamePlayEvent(int i) {
+			ID = 0;
 			Kind = 0;
 			Value1 = 0;
 			Value2 = 0;

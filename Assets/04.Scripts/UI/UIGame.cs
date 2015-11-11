@@ -360,7 +360,7 @@ public class UIGame : UIBase {
 		showViewForceBar(false);
 
 		//toturial button
-		uiTutorial[0] = uiShoot;
+		uiTutorial[0] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot");
 		uiTutorial[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock");
 		uiTutorial[2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
 		uiTutorial[3] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal");
@@ -383,8 +383,8 @@ public class UIGame : UIBase {
 		spriteForceFirst.fillAmount = 0;
 		showUITime ();
 
-		if(GameController.Get.StageHintBit[1] == 2)
-			labelLimiteScore.text = GameController.Get.GameWinValue.ToString();
+		if(GameController.Get.StageData.HintBit[1] == 2)
+			labelLimiteScore.text = GameController.Get.StageData.WinValue.ToString();
 		else
 			uiLimitScore.SetActive(false);
 		
@@ -419,7 +419,7 @@ public class UIGame : UIBase {
 	}
 
 	private void showUITime (){
-		if(GameController.Get.StageHintBit[0] == 0) 
+		if(GameController.Get.StageData.HintBit[0] == 0) 
 			uiLimitTime.SetActive(false);
 		else {
 			uiLimitTime.SetActive(true);
@@ -449,7 +449,7 @@ public class UIGame : UIBase {
 	public void InitJoystickerUI (PlayerBehaviour p) {
 		PlayerMe = p;
 		for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
+			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
 				spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 				spriteEmptys[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 			}
@@ -1438,12 +1438,23 @@ public class UIGame : UIBase {
 		if (flag == 0) {
 			for (int i = 0; i < uiTutorial.Length; i++)
 				uiTutorial[i].SetActive(false);
+
+			viewTopRight.SetActive(false);
 		} else {
 			for (int i = 0; i < uiTutorial.Length; i++) {
 				float p = Mathf.Pow(10, i);
-				bool v = flag / p > 0;
+				bool v = p / flag > 0;
 				uiTutorial[i].SetActive(v);
 			}
+
+			for (int i = 0; i < uiButtonSkill.Length; i++) {
+				if (uiButtonSkill[i].activeInHierarchy) {
+					viewTopRight.SetActive(true);
+					return;
+				}
+			}
+
+			viewTopRight.SetActive(false);
 		}
 	}
 

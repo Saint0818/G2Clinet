@@ -28,9 +28,12 @@ public class UI3DTutorial : UIBase {
 	public static UI3DTutorial Get
 	{
 		get {
-			if (!instance) 
+			if (!instance) {
+				UI3D.UIShow(true);
+				UI3D.Get.ShowCamera(false);
 				instance = Load3DUI(UIName) as UI3DTutorial;
-			
+			}
+
 			return instance;
 		}
 	}
@@ -43,7 +46,6 @@ public class UI3DTutorial : UIBase {
 				instance.Show(isShow);
 		} else
 		if (isShow) {
-			UI3D.UIShow(true);
 			Get.Show(isShow);
 		}
 	}

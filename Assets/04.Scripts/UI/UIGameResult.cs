@@ -78,7 +78,7 @@ public class UIGameResult : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
-		if (GameController.Get.StageHintBit[1] == 2 ) {
+		if (GameController.Get.StageData.HintBit[1] == 2 ) {
 			labelLimiteScore.text = GameStart.Get.GameWinValue.ToString();
 		} else {
 			uiLimitScore.SetActive(false);

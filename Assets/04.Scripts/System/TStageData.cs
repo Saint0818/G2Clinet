@@ -6,12 +6,14 @@ using JetBrains.Annotations;
 /// <summary>
 /// 某個小關卡的相關資料.
 /// </summary>
-public class StageData
+public class TStageData
 {
     public int ID;
     public int Chapter;
     public int Order;
 	public int CourtNo;
+	public int CourtMode;
+	public int FriendKind;
 
     /// <summary>
     /// 1.傳統
@@ -27,12 +29,13 @@ public class StageData
         get { return mStageKindMapping[Kind]; }
     }
      
-    public string Hint;
+    public string Hint = "";
     public int Bit0Num;
     public int Bit1Num;
     public int Bit2Num;
     public int Bit3Num;
-    public int CourtMode;
+	private int[] bitNum = new int[4];
+	private int[] hintBit = new int[0];
 
     public enum ECostKind
     {
@@ -87,6 +90,7 @@ public class StageData
     public float PositionY;
 
     public int[] PlayerID;
+	public int[] FriendID;
     public string NameTW;
     public string NameCN;
     public string NameEN;
@@ -99,6 +103,56 @@ public class StageData
     public void Clear()
     {
         ID = 0;
+		Chapter = 0;
+		Order = 0;
+		CourtNo = 0;
+		FriendKind = 0;
+		Kind = 0;
+		Bit0Num = 0;
+		Bit1Num = 0;
+		Bit2Num = 0;
+		Bit3Num = 0;
+		CostValue = 0;
+		ChallengeNum = 0;
+		LimitLevel = 0;
+		LimitEvaluation = 0;
+		WinValue = 0;
+		FriendNumber = 0;
+		PositionX = 0;
+		PositionY = 0;
+		
+		Hint = "";
+		NameTW = "";
+		NameCN = "";
+		NameEN = "";
+		NameJP = "";
+		ExplainTW = "";
+		ExplainCN = "";
+		ExplainEN = "";
+		ExplainJP = "";
+
+		if (hintBit != null)
+			Array.Resize(ref hintBit, 0);
+
+		if (PlayerID != null)
+			for (int i = 0; i < PlayerID.Length; i++)
+				PlayerID[i] = 0;
+
+		if (FriendID != null)
+			for (int i = 0; i < FriendID.Length; i++)
+				FriendID[i] = 0;
+
+		if (SurelyRewards != null)
+			for (int i = 0; i < SurelyRewards.Length; i++)
+				SurelyRewards[i] = 0;
+
+		if (Rewards != null)
+			for (int i = 0; i < Rewards.Length; i++)
+				Rewards[i] = 0;
+
+		if (RewardRates != null)
+			for (int i = 0; i < RewardRates.Length; i++)
+				RewardRates[i] = 0;
     }
 
     public bool IsValid()
@@ -115,9 +169,33 @@ public class StageData
     {
         get
         {
-            return AI.BitConverter.Convert(Hint);
+			if (hintBit != null) {
+				if (hintBit.Length == 0) {
+					hintBit = AI.BitConverter.Convert(Hint);
+					if (hintBit == null)
+						hintBit = new int[4];
+				}
+
+				if (hintBit.Length < 4)
+					Array.Resize(ref hintBit, 4);
+			} else
+				hintBit = new int[4];
+
+			return hintBit;
         }
     }
+
+	public int[] BitNum
+	{
+		get
+		{
+			bitNum[0] = Bit0Num;
+			bitNum[1] = Bit1Num;
+			bitNum[2] = Bit2Num;
+			bitNum[3] = Bit3Num;
+			return bitNum;
+		}
+	}
 
     public string Name
     {

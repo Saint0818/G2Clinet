@@ -6,6 +6,7 @@ public class UITutorial : UIBase {
 	private static UITutorial instance = null;
 	private const string UIName = "UITutorial";
 
+	public int NextEventID = 0;
 	private int NowMessageIndex = -1;
 	private int clickLayer;
 	private GameObject clickObject;
@@ -46,6 +47,9 @@ public class UITutorial : UIBase {
 				if (Get.clickObject)
 					Get.clickObject.layer = Get.clickLayer;
 
+				if (Get.NextEventID > 0 && GamePlayTutorial.Visible)
+					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
+
 				UI3DTutorial.UIShow(false);
 				RemoveUI(UIName);
 			} else
@@ -70,10 +74,10 @@ public class UITutorial : UIBase {
 
 	public void ShowTutorial(int no, int line) {
 		try {
-			if (GameData.ServerVersion != BundleVersion.Version) {
+			/*if (GameData.ServerVersion != BundleVersion.Version) {
 				UIShow(false);
 				return;
-			}
+			}*/
 
 			NowMessageIndex  = no * 100 + line;
 

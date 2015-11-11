@@ -84,7 +84,12 @@ public class GEStageTutorial : GEBase {
 	private void onTestStage() {
 		if (GameStart.Visible) {
 			GameData.StageID = GameData.StageTutorial[index].ID;
-			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+			TStageData stageData = StageTable.Ins.GetByID(GameData.StageID);
+			if (stageData.FriendKind == 4) {
+				SceneMgr.Get.ChangeLevel(ESceneName.Court + stageData.CourtNo);
+			} else
+				SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
+
 			this.Close();
 		} else 
 			Debug.LogError("Please run game first.");
