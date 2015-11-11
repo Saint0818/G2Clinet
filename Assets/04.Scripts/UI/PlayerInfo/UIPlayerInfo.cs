@@ -125,6 +125,8 @@ public class AbilityView
 				Masteries[i].Init(go, i);
 			}
 
+			skillPointBtn = self.transform.FindChild("SkillPointBtn").gameObject.GetComponent<UIButton>();
+
 			GameObject hexagonCenter = GameObject.Find("AttributeHexagonCenter").gameObject;
 			hexagon = hexgonObj.GetComponent<UIAttributes>();
 			hexagon.transform.parent = hexagonCenter.transform;
@@ -300,7 +302,7 @@ public class UIPlayerInfo : UIBase {
 		if (instance) {
 			if (!isShow){
 				RemoveUI(UIName);
-				UIPlayerMgr.Get.Disable ();
+				UIPlayerMgr.Get.Enable = false;
 			}
 			else
 				instance.Show(isShow);

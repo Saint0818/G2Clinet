@@ -20,6 +20,7 @@ public class UIAttributes : MonoBehaviour
 {
     public GameObject Root;
     public GameObject Inside;
+	private GameObject attributeTitle;
 //    public GameObject Outside;
 
     public enum EGroup
@@ -82,6 +83,8 @@ public class UIAttributes : MonoBehaviour
         createTriangle(Vector3.zero, mCurrentE, mCurrentD, 3, mMaterials[1]);
         createTriangle(Vector3.zero, mCurrentF, mCurrentE, 4, mMaterials[1]);
         createTriangle(Vector3.zero, mCurrentA, mCurrentF, 5, mMaterials[1]);
+		attributeTitle = gameObject.transform.FindChild ("AttributeTitle").gameObject;
+
 
         SetVisible(false);
     }
@@ -235,5 +238,10 @@ public class UIAttributes : MonoBehaviour
             mesh.RecalculateNormals();
 			mMeshFilters[index].mesh = mesh;
 		}
+	}
+
+	public bool EnableTitle
+	{
+		set{ attributeTitle.SetActive(value);}
 	}
 }

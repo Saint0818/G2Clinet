@@ -75,9 +75,9 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		LayerMgr.Get.SetLayerRecursively(avatar, "UIPlayer");
 	}
 
-	public void Disable()
+	public bool Enable
 	{
-		gameObject.SetActive (false);
+		set{gameObject.SetActive (value);}
 	}
 }
 

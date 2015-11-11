@@ -404,7 +404,7 @@ public class UIAvatarFitted : UIBase {
 		if (instance) {
 			if (!isShow){
 				RemoveUI(UIName);
-				UIPlayerMgr.Get.Disable ();
+				UIPlayerMgr.Get.Enable = false;
 			}
 			else
 				instance.Show(isShow);
