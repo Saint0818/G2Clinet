@@ -336,7 +336,7 @@ public class UIPlayerInfo : UIBase {
 
 	public void OnUpgradingMasteries()
 	{
-		UIMasteries.UIShow (true);
+		UIPlayerPotential.UIShow (true);
 	}
 
 	public void OnSwitchPage()

@@ -1,17 +1,12 @@
 ﻿using UnityEngine;
 
-public class UIMasteries : UIBase {
-	private static UIMasteries instance = null;
-	private const string UIName = "UIMasteries";
+public class UIPlayerPotential : UIBase {
+	private static UIPlayerPotential instance = null;
+	private const string UIName = "UIPlayerPotential";
 
 	private void Awake()
 	{
 
-	}
-	
-	public void UpdateAvatarModel(TItem[] items)
-	{
-		
 	}
 	
 	public static bool Visible {
@@ -23,10 +18,10 @@ public class UIMasteries : UIBase {
 		}
 	}
 	
-	public static UIMasteries Get {
+	public static UIPlayerPotential Get {
 		get {
 			if (!instance) 
-				instance = LoadUI(UIName) as UIMasteries;
+				instance = LoadUI(UIName) as UIPlayerPotential;
 			
 			return instance;
 		}
