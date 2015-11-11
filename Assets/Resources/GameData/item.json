@@ -288,6 +288,10 @@
         "namejp": "センターボディ20"
     },
     {
+        "id": 100,
+        "nametw": "前鋒身體"
+    },
+    {
         "id": 101,
         "nametw": "小麥膚色",
         "quality": 1,
@@ -325,6 +329,7 @@
         "quality": 1,
         "kind": 0,
         "position": 1,
+        "avatar": 3,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -572,6 +577,10 @@
         "namejp": "前方ボディ20"
     },
     {
+        "id": 200,
+        "nametw": "後衛身體"
+    },
+    {
         "id": 201,
         "nametw": "小麥膚色",
         "quality": 1,
@@ -703,17 +712,19 @@
     },
     {
         "id": 210,
-        "nametw": "後衛身體10",
+        "nametw": "白皙膚色",
         "quality": 3,
+        "icon": 212,
         "kind": 0,
         "position": 2,
+        "avatar": 12,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "后卫身体10",
-        "nameen": "Guard body 10",
-        "namejp": "ガード本体10"
+        "namecn": "白皙肤色",
+        "nameen": "White color",
+        "namejp": "白色"
     },
     {
         "id": 211,
@@ -731,19 +742,17 @@
     },
     {
         "id": 212,
-        "nametw": "白皙膚色",
+        "nametw": "後衛身體12",
         "quality": 3,
-        "icon": 212,
         "kind": 0,
         "position": 2,
-        "avatar": 12,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "白皙肤色",
-        "nameen": "White color",
-        "namejp": "白色"
+        "namecn": "后卫身体11",
+        "nameen": "Guard body 11",
+        "namejp": "ガード本体11"
     },
     {
         "id": 213,
@@ -856,6 +865,10 @@
         "namecn": "后卫身体20",
         "nameen": "Guard body 20",
         "namejp": "ガード本体20"
+    },
+    {
+        "id": 1000,
+        "nametw": "中鋒頭髮"
     },
     {
         "id": 1001,
@@ -1146,6 +1159,10 @@
         "namejp": "髪のセンター20"
     },
     {
+        "id": 1100,
+        "nametw": "前鋒頭髮"
+    },
+    {
         "id": 1101,
         "nametw": "紅色熱血髮型",
         "quality": 1,
@@ -1281,20 +1298,6 @@
     },
     {
         "id": 1110,
-        "nametw": "前鋒頭髮10",
-        "quality": 3,
-        "kind": 1,
-        "position": 1,
-        "maxstack": 1,
-        "usetime": 96,
-        "money": 100,
-        "prize": 500,
-        "namecn": "前锋头发10",
-        "nameen": "Hair striker 10",
-        "namejp": "髪のストライカー10"
-    },
-    {
-        "id": 1111,
         "nametw": "紫色復仇髮型",
         "quality": 3,
         "icon": 1111,
@@ -1308,6 +1311,20 @@
         "namecn": "紫色复仇发型",
         "nameen": "Revenge purple hair",
         "namejp": "リベンジ紫髪"
+    },
+    {
+        "id": 1111,
+        "nametw": "前鋒頭髮11",
+        "quality": 3,
+        "kind": 1,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 96,
+        "money": 100,
+        "prize": 500,
+        "namecn": "前锋头发12",
+        "nameen": "Hair striker 12",
+        "namejp": "髪のストライカー12"
     },
     {
         "id": 1112,
@@ -1436,6 +1453,10 @@
         "namejp": "髪のストライカー20"
     },
     {
+        "id": 1200,
+        "nametw": "後衛頭髮"
+    },
+    {
         "id": 1201,
         "nametw": "金色柔軟馬尾",
         "quality": 1,
@@ -1489,6 +1510,7 @@
         "quality": 2,
         "kind": 1,
         "position": 2,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -1569,10 +1591,12 @@
     },
     {
         "id": 1210,
-        "nametw": "後衛頭髮10",
+        "nametw": "調酒師紅髮",
         "quality": 3,
+        "icon": 1212,
         "kind": 1,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -1591,25 +1615,23 @@
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "后卫头发11",
-        "nameen": "Guard hair 11",
-        "namejp": "ガード毛11"
+        "namecn": "调酒师红发",
+        "nameen": "Bartender red hair",
+        "namejp": "バーテンダー赤毛"
     },
     {
         "id": 1212,
-        "nametw": "調酒師紅髮",
+        "nametw": "後衛頭髮12",
         "quality": 3,
-        "icon": 1212,
         "kind": 1,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "调酒师红发",
-        "nameen": "Bartender red hair",
-        "namejp": "バーテンダー赤毛"
+        "namecn": "后卫头发13",
+        "nameen": "Guard hair 13",
+        "namejp": "ガード毛13"
     },
     {
         "id": 1213,
@@ -1722,6 +1744,10 @@
         "namecn": "后卫头发20",
         "nameen": "Guard hair 20",
         "namejp": "ガード毛20"
+    },
+    {
+        "id": 2000,
+        "nametw": "中鋒手飾"
     },
     {
         "id": 2001,
@@ -2006,13 +2032,16 @@
         "namejp": "ジュエリーセンター20"
     },
     {
+        "id": 2100,
+        "nametw": "前鋒手飾"
+    },
+    {
         "id": 2101,
-        "nametw": "人造人手套",
+        "nametw": "前鋒手飾1",
         "quality": 1,
-        "icon": 2101,
         "kind": 2,
         "position": 1,
-        "avatar": 11001,
+        "avatar": 5001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -2135,10 +2164,12 @@
     },
     {
         "id": 2110,
-        "nametw": "前鋒手飾10",
+        "nametw": "人造人手套",
         "quality": 3,
+        "icon": 2101,
         "kind": 2,
         "position": 1,
+        "avatar": 11001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -2286,6 +2317,10 @@
         "namecn": "前锋手饰20",
         "nameen": "Forward jewelry 20",
         "namejp": "フォワードジュエリー20"
+    },
+    {
+        "id": 2200,
+        "nametw": "後衛手飾"
     },
     {
         "id": 2201,
@@ -2568,6 +2603,10 @@
         "namecn": "后卫手饰20",
         "nameen": "Defender jewelry 20",
         "namejp": "ディフェンダーの宝石20"
+    },
+    {
+        "id": 3000,
+        "nametw": "中鋒衣服"
     },
     {
         "id": 3001,
@@ -2860,6 +2899,10 @@
         "namejp": "服センタ20"
     },
     {
+        "id": 3100,
+        "nametw": "前鋒衣服"
+    },
+    {
         "id": 3101,
         "nametw": "深藍夜幕風衣",
         "quality": 1,
@@ -2929,6 +2972,7 @@
         "quality": 2,
         "kind": 3,
         "position": 1,
+        "avatar": 5001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -2995,20 +3039,6 @@
     },
     {
         "id": 3110,
-        "nametw": "前鋒衣服10",
-        "quality": 3,
-        "kind": 3,
-        "position": 1,
-        "maxstack": 1,
-        "usetime": 96,
-        "money": 100,
-        "prize": 500,
-        "namecn": "前锋衣服10",
-        "nameen": "Forward clothes 10",
-        "namejp": "フォワード服10"
-    },
-    {
-        "id": 3111,
         "nametw": "生化人鎧甲",
         "quality": 3,
         "icon": 3111,
@@ -3022,6 +3052,20 @@
         "namecn": "生化人铠甲",
         "nameen": "Cyborg armor",
         "namejp": "サイボーグの鎧"
+    },
+    {
+        "id": 3111,
+        "nametw": "前鋒衣服11",
+        "quality": 3,
+        "kind": 3,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 96,
+        "money": 100,
+        "prize": 500,
+        "namecn": "前锋衣服12",
+        "nameen": "12 striker clothes",
+        "namejp": "12ストライカー服"
     },
     {
         "id": 3112,
@@ -3150,6 +3194,10 @@
         "namejp": "20ストライカー服"
     },
     {
+        "id": 3200,
+        "nametw": "後衛衣服"
+    },
+    {
         "id": 3201,
         "nametw": "搖滾騎士夾克",
         "quality": 1,
@@ -3203,6 +3251,7 @@
         "quality": 2,
         "kind": 3,
         "position": 2,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -3283,17 +3332,19 @@
     },
     {
         "id": 3210,
-        "nametw": "後衛衣服10",
+        "nametw": "調酒師襯衫",
         "quality": 3,
+        "icon": 3212,
         "kind": 3,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "后卫衣服10",
-        "nameen": "Guard clothes 10",
-        "namejp": "Guardは10服"
+        "namecn": "调酒师衬衫",
+        "nameen": "Bartender Shirts",
+        "namejp": "バーテンダーシャツ"
     },
     {
         "id": 3211,
@@ -3311,19 +3362,17 @@
     },
     {
         "id": 3212,
-        "nametw": "調酒師襯衫",
+        "nametw": "後衛衣服12",
         "quality": 3,
-        "icon": 3212,
         "kind": 3,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "调酒师衬衫",
-        "nameen": "Bartender Shirts",
-        "namejp": "バーテンダーシャツ"
+        "namecn": "后卫衣服11",
+        "nameen": "Guard clothes 11",
+        "namejp": "Guardは11服"
     },
     {
         "id": 3213,
@@ -3438,6 +3487,10 @@
         "namejp": "Guardは20服"
     },
     {
+        "id": 4000,
+        "nametw": "中鋒褲子"
+    },
+    {
         "id": 4001,
         "nametw": "黑色搖滾短褲",
         "quality": 1,
@@ -3492,7 +3545,7 @@
         "icon": 4004,
         "kind": 4,
         "position": 0,
-        "avatar": 5001,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -3728,6 +3781,10 @@
         "namejp": "パンツ・センター20"
     },
     {
+        "id": 4100,
+        "nametw": "前鋒褲子"
+    },
+    {
         "id": 4101,
         "nametw": "深藍熱身長褲",
         "quality": 1,
@@ -3782,7 +3839,7 @@
         "icon": 4104,
         "kind": 4,
         "position": 1,
-        "avatar": 3001,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -3797,6 +3854,7 @@
         "quality": 2,
         "kind": 4,
         "position": 1,
+        "avatar": 5001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -3863,20 +3921,6 @@
     },
     {
         "id": 4110,
-        "nametw": "前鋒褲子10",
-        "quality": 3,
-        "kind": 4,
-        "position": 1,
-        "maxstack": 1,
-        "usetime": 96,
-        "money": 100,
-        "prize": 500,
-        "namecn": "前锋裤子10",
-        "nameen": "Forward pants 10",
-        "namejp": "フォワードパンツ10"
-    },
-    {
-        "id": 4111,
         "nametw": "生化人緊身褲",
         "quality": 3,
         "icon": 4111,
@@ -3890,6 +3934,20 @@
         "namecn": "生化人紧身裤",
         "nameen": "Cyborg Tights",
         "namejp": "サイボーグタイツ"
+    },
+    {
+        "id": 4111,
+        "nametw": "前鋒褲子11",
+        "quality": 3,
+        "kind": 4,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 96,
+        "money": 100,
+        "prize": 500,
+        "namecn": "前锋裤子12",
+        "nameen": "Forward pants 12",
+        "namejp": "フォワードパンツ12"
     },
     {
         "id": 4112,
@@ -4018,6 +4076,10 @@
         "namejp": "フォワードパンツ20"
     },
     {
+        "id": 4200,
+        "nametw": "後衛褲子"
+    },
+    {
         "id": 4201,
         "nametw": "珊瑚紅色熱褲",
         "quality": 1,
@@ -4071,6 +4133,7 @@
         "quality": 2,
         "kind": 4,
         "position": 2,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -4151,17 +4214,19 @@
     },
     {
         "id": 4210,
-        "nametw": "後衛褲子10",
+        "nametw": "調酒師百褶裙",
         "quality": 3,
+        "icon": 4212,
         "kind": 4,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "后卫裤子10",
-        "nameen": "Defender pants 10",
-        "namejp": "ディフェンダーパンツ10"
+        "namecn": "调酒师百褶裙",
+        "nameen": "Bartender pleated skirt",
+        "namejp": "バーテンダープリーツスカート"
     },
     {
         "id": 4211,
@@ -4179,19 +4244,17 @@
     },
     {
         "id": 4212,
-        "nametw": "調酒師百褶裙",
+        "nametw": "後衛褲子12",
         "quality": 3,
-        "icon": 4212,
         "kind": 4,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "调酒师百褶裙",
-        "nameen": "Bartender pleated skirt",
-        "namejp": "バーテンダープリーツスカート"
+        "namecn": "后卫裤子13",
+        "nameen": "Defender pants 13",
+        "namejp": "ディフェンダーパンツ13"
     },
     {
         "id": 4213,
@@ -4306,6 +4369,10 @@
         "namejp": "ディフェンダーパンツ20"
     },
     {
+        "id": 5000,
+        "nametw": "中鋒鞋"
+    },
+    {
         "id": 5001,
         "nametw": "搖滾高筒靴",
         "quality": 1,
@@ -4359,6 +4426,7 @@
         "quality": 2,
         "kind": 5,
         "position": 0,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -4594,6 +4662,10 @@
         "namejp": "靴・センター20"
     },
     {
+        "id": 5100,
+        "nametw": "前鋒鞋"
+    },
+    {
         "id": 5101,
         "nametw": "火炬紅球鞋",
         "quality": 1,
@@ -4647,6 +4719,7 @@
         "quality": 2,
         "kind": 5,
         "position": 1,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -4661,6 +4734,7 @@
         "quality": 2,
         "kind": 5,
         "position": 1,
+        "avatar": 5001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -4727,20 +4801,6 @@
     },
     {
         "id": 5110,
-        "nametw": "前鋒鞋子10",
-        "quality": 3,
-        "kind": 5,
-        "position": 1,
-        "maxstack": 1,
-        "usetime": 96,
-        "money": 100,
-        "prize": 500,
-        "namecn": "前锋鞋子10",
-        "nameen": "Forward Shoes 10",
-        "namejp": "フォワードシューズ10"
-    },
-    {
-        "id": 5111,
         "nametw": "生化人結構靴",
         "quality": 3,
         "icon": 5111,
@@ -4754,6 +4814,20 @@
         "namecn": "生化人结构靴",
         "nameen": "Biochemical structure Boots",
         "namejp": "生化学的構造のブーツ"
+    },
+    {
+        "id": 5111,
+        "nametw": "前鋒鞋子11",
+        "quality": 3,
+        "kind": 5,
+        "position": 1,
+        "maxstack": 1,
+        "usetime": 96,
+        "money": 100,
+        "prize": 500,
+        "namecn": "前锋鞋子12",
+        "nameen": "Forward Shoes 12",
+        "namejp": "フォワードシューズ12"
     },
     {
         "id": 5112,
@@ -4882,6 +4956,10 @@
         "namejp": "フォワードシューズ20"
     },
     {
+        "id": 5200,
+        "nametw": "後衛鞋"
+    },
+    {
         "id": 5201,
         "nametw": "搖滾騎士長靴",
         "quality": 1,
@@ -4935,6 +5013,7 @@
         "quality": 2,
         "kind": 5,
         "position": 2,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
@@ -5015,17 +5094,19 @@
     },
     {
         "id": 5210,
-        "nametw": "後衛鞋子10",
+        "nametw": "調酒師冰刀",
         "quality": 3,
+        "icon": 5212,
         "kind": 5,
         "position": 2,
+        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "后卫鞋子10",
-        "nameen": "Defender Shoes 10",
-        "namejp": "ディフェンダーシューズ10"
+        "namecn": "调酒师冰刀",
+        "nameen": "Bartender skates",
+        "namejp": "バーテンダースケート"
     },
     {
         "id": 5211,
@@ -5043,19 +5124,17 @@
     },
     {
         "id": 5212,
-        "nametw": "調酒師冰刀",
+        "nametw": "後衛鞋子12",
         "quality": 3,
-        "icon": 5212,
         "kind": 5,
         "position": 2,
-        "avatar": 12001,
         "maxstack": 1,
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "调酒师冰刀",
-        "nameen": "Bartender skates",
-        "namejp": "バーテンダースケート"
+        "namecn": "后卫鞋子11",
+        "nameen": "Defender Shoes 11",
+        "namejp": "ディフェンダーシューズ11"
     },
     {
         "id": 5213,
@@ -5168,6 +5247,10 @@
         "namecn": "后卫鞋子20",
         "nameen": "Defender Shoes 20",
         "namejp": "ディフェンダーシューズ20"
+    },
+    {
+        "id": 6000,
+        "nametw": "頭飾"
     },
     {
         "id": 6001,
@@ -5452,6 +5535,10 @@
         "namecn": "头饰20",
         "nameen": "Headdress 20",
         "namejp": "頭飾り20"
+    },
+    {
+        "id": 7000,
+        "nametw": "背飾"
     },
     {
         "id": 7001,
@@ -5739,7 +5826,9 @@
         "quality": 1,
         "kind": 11,
         "maxstack": 1,
-        "attrkind1": 3
+        "attrkind1": 3,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 11101,
@@ -5747,7 +5836,9 @@
         "quality": 2,
         "kind": 11,
         "maxstack": 1,
-        "attrkind1": 4
+        "attrkind1": 4,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 11201,
@@ -5755,7 +5846,9 @@
         "quality": 3,
         "kind": 11,
         "maxstack": 1,
-        "attrkind1": 5
+        "attrkind1": 5,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 11301,
@@ -5763,7 +5856,11 @@
         "quality": 4,
         "kind": 11,
         "maxstack": 1,
-        "attrkind1": 6
+        "attrkind1": 6,
+        "valuebase1": 4,
+        "attrkind2": 3,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 11401,
@@ -5771,166 +5868,252 @@
         "quality": 5,
         "kind": 11,
         "maxstack": 1,
-        "attrkind1": 7
+        "attrkind1": 7,
+        "valuebase1": 5,
+        "attrkind2": 4,
+        "valuebase2": 2,
+        "attrkind3": 5,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 12001,
         "nametw": "2類數值裝白",
         "quality": 1,
         "kind": 12,
-        "attrkind1": 8
+        "attrkind1": 8,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 12101,
         "nametw": "2類數值裝綠",
         "quality": 2,
         "kind": 12,
-        "attrkind1": 9
+        "attrkind1": 9,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 12201,
         "nametw": "2類數值裝藍",
         "quality": 3,
         "kind": 12,
-        "attrkind1": 10
+        "attrkind1": 10,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 12301,
         "nametw": "2類數值裝紫",
         "quality": 4,
         "kind": 12,
-        "attrkind1": 11
+        "attrkind1": 11,
+        "valuebase1": 4,
+        "attrkind2": 8,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 12401,
         "nametw": "2類數值裝橘",
         "quality": 5,
         "kind": 12,
-        "attrkind1": 12
+        "attrkind1": 12,
+        "valuebase1": 5,
+        "attrkind2": 9,
+        "valuebase2": 2,
+        "attrkind3": 10,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 13001,
         "nametw": "3類數值裝白",
         "quality": 1,
         "kind": 13,
-        "attrkind1": 3
+        "attrkind1": 3,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 13101,
         "nametw": "3類數值裝綠",
         "quality": 2,
-        "attrkind1": 4
+        "attrkind1": 4,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 13201,
         "nametw": "3類數值裝藍",
         "quality": 3,
-        "attrkind1": 5
+        "attrkind1": 5,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 13301,
         "nametw": "3類數值裝紫",
         "quality": 4,
-        "attrkind1": 6
+        "attrkind1": 6,
+        "valuebase1": 4,
+        "attrkind2": 3,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 13401,
         "nametw": "3類數值裝橘",
         "quality": 5,
-        "attrkind1": 7
+        "attrkind1": 7,
+        "valuebase1": 5,
+        "attrkind2": 4,
+        "valuebase2": 2,
+        "attrkind3": 5,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 14001,
         "nametw": "4類數值裝白",
         "quality": 1,
         "kind": 14,
-        "attrkind1": 8
+        "attrkind1": 8,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 14101,
         "nametw": "4類數值裝綠",
         "quality": 2,
-        "attrkind1": 9
+        "attrkind1": 9,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 14201,
         "nametw": "4類數值裝藍",
         "quality": 3,
-        "attrkind1": 10
+        "attrkind1": 10,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 14301,
         "nametw": "4類數值裝紫",
         "quality": 4,
-        "attrkind1": 11
+        "attrkind1": 11,
+        "valuebase1": 4,
+        "attrkind2": 8,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 14401,
         "nametw": "4類數值裝橘",
         "quality": 5,
-        "attrkind1": 12
+        "attrkind1": 12,
+        "valuebase1": 5,
+        "attrkind2": 9,
+        "valuebase2": 2,
+        "attrkind3": 10,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 15001,
         "nametw": "5類數值裝白",
         "quality": 1,
         "kind": 15,
-        "attrkind1": 3
+        "attrkind1": 3,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 15101,
         "nametw": "5類數值裝綠",
         "quality": 2,
-        "attrkind1": 4
+        "attrkind1": 4,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 15201,
         "nametw": "5類數值裝藍",
         "quality": 3,
-        "attrkind1": 5
+        "attrkind1": 5,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 15301,
         "nametw": "5類數值裝紫",
         "quality": 4,
-        "attrkind1": 6
+        "attrkind1": 6,
+        "valuebase1": 4,
+        "attrkind2": 3,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 15401,
         "nametw": "5類數值裝橘",
         "quality": 5,
-        "attrkind1": 7
+        "attrkind1": 7,
+        "valuebase1": 5,
+        "attrkind2": 4,
+        "valuebase2": 2,
+        "attrkind3": 5,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 16001,
         "nametw": "6類數值裝白",
         "quality": 1,
         "kind": 16,
-        "attrkind1": 8
+        "attrkind1": 8,
+        "valuebase1": 1,
+        "materialnum": 1
     },
     {
         "id": 16101,
         "nametw": "6類數值裝綠",
         "quality": 2,
-        "attrkind1": 9
+        "attrkind1": 9,
+        "valuebase1": 2,
+        "materialnum": 2
     },
     {
         "id": 16201,
         "nametw": "6類數值裝藍",
         "quality": 3,
-        "attrkind1": 10
+        "attrkind1": 10,
+        "valuebase1": 3,
+        "materialnum": 3
     },
     {
         "id": 16301,
         "nametw": "6類數值裝紫",
         "quality": 4,
-        "attrkind1": 11
+        "attrkind1": 11,
+        "valuebase1": 4,
+        "attrkind2": 8,
+        "valuebase2": 1,
+        "materialnum": 4
     },
     {
         "id": 16401,
         "nametw": "6類數值裝橘",
         "quality": 5,
-        "attrkind1": 12
+        "attrkind1": 12,
+        "valuebase1": 5,
+        "attrkind2": 9,
+        "valuebase2": 2,
+        "attrkind3": 10,
+        "valuebase3": 3,
+        "materialnum": 4
     },
     {
         "id": 17001,
