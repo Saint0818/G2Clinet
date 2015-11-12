@@ -153,23 +153,12 @@ public class UICreateRolePositionView : MonoBehaviour
         {
             var player = GameData.DPlayers[playerID];
 
-            var value = player.Strength + player.Block;
-            mAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / GameConst.AttributeMax);
-
-            value = player.Defence + player.Steal;
-            mAttributes.SetValue(UIAttributes.EGroup.DefStl, value / GameConst.AttributeMax);
-
-            value = player.Dribble + player.Pass;
-            mAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / GameConst.AttributeMax);
-
-            value = player.Speed + player.Stamina;
-            mAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / GameConst.AttributeMax);
-
-            value = player.Point2 + player.Point3;
-            mAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / GameConst.AttributeMax);
-
-            value = player.Rebound + player.Dunk;
-            mAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Block, player.Block / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Steal, player.Steal / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Point2, player.Point2 / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Dunk, player.Dunk / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Point3, player.Point3 / GameConst.AttributeMax);
+            mAttributes.SetValue(UIAttributes.EGroup.Rebound, player.Rebound / GameConst.AttributeMax);
         }
         else
             Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);

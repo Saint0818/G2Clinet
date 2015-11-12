@@ -146,5 +146,5 @@
     /// <summary>
     /// 屬性全滿的數值.
     /// </summary>
-    public const float AttributeMax = 200;
+    public const float AttributeMax = 100;
 }

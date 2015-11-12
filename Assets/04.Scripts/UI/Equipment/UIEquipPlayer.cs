@@ -60,29 +60,23 @@ public class UIEquipPlayer : MonoBehaviour
     {
         mAttributes.SetVisible(true);
 
-        var value = mImpl.BasicAttr[EAttributeKind.Strength] + mImpl.BasicAttr[EAttributeKind.Block] +
-                    getSumValue(EAttributeKind.Strength) + getSumValue(EAttributeKind.Block);
-        mAttributes.SetValue(UIAttributes.EGroup.StrBlk, value / GameConst.AttributeMax);
+        var value = mImpl.BasicAttr[EAttributeKind.Block] + getSumValue(EAttributeKind.Block);
+        mAttributes.SetValue(UIAttributes.EGroup.Block, value / GameConst.AttributeMax);
 
-        value = mImpl.BasicAttr[EAttributeKind.Defence] + mImpl.BasicAttr[EAttributeKind.Steal] +
-                getSumValue(EAttributeKind.Defence) + getSumValue(EAttributeKind.Steal);
-        mAttributes.SetValue(UIAttributes.EGroup.DefStl, value / GameConst.AttributeMax);
+        value = mImpl.BasicAttr[EAttributeKind.Steal] + getSumValue(EAttributeKind.Steal);
+        mAttributes.SetValue(UIAttributes.EGroup.Steal, value / GameConst.AttributeMax);
 
-        value = mImpl.BasicAttr[EAttributeKind.Dribble] + mImpl.BasicAttr[EAttributeKind.Pass] +
-                getSumValue(EAttributeKind.Dribble) + getSumValue(EAttributeKind.Pass);
-        mAttributes.SetValue(UIAttributes.EGroup.DrbPass, value / GameConst.AttributeMax);
+        value = mImpl.BasicAttr[EAttributeKind.Point2] + getSumValue(EAttributeKind.Point2);
+        mAttributes.SetValue(UIAttributes.EGroup.Point2, value / GameConst.AttributeMax);
 
-        value = mImpl.BasicAttr[EAttributeKind.Speed] + mImpl.BasicAttr[EAttributeKind.Stamina] +
-                getSumValue(EAttributeKind.Speed) + getSumValue(EAttributeKind.Stamina);
-        mAttributes.SetValue(UIAttributes.EGroup.SpdSta, value / GameConst.AttributeMax);
+        value = mImpl.BasicAttr[EAttributeKind.Dunk] + getSumValue(EAttributeKind.Dunk);
+        mAttributes.SetValue(UIAttributes.EGroup.Dunk, value / GameConst.AttributeMax);
 
-        value = mImpl.BasicAttr[EAttributeKind.Point2] + mImpl.BasicAttr[EAttributeKind.Point3] +
-                getSumValue(EAttributeKind.Point2) + getSumValue(EAttributeKind.Point3);
-        mAttributes.SetValue(UIAttributes.EGroup.Pt2Pt3, value / GameConst.AttributeMax);
+        value = mImpl.BasicAttr[EAttributeKind.Point3] + getSumValue(EAttributeKind.Point3);
+        mAttributes.SetValue(UIAttributes.EGroup.Point3, value / GameConst.AttributeMax);
 
-        value = mImpl.BasicAttr[EAttributeKind.Rebound] + mImpl.BasicAttr[EAttributeKind.Dunk] +
-                getSumValue(EAttributeKind.Rebound) + getSumValue(EAttributeKind.Dunk);
-        mAttributes.SetValue(UIAttributes.EGroup.RebDnk, value / GameConst.AttributeMax);
+        value = mImpl.BasicAttr[EAttributeKind.Rebound] + getSumValue(EAttributeKind.Rebound);
+        mAttributes.SetValue(UIAttributes.EGroup.Rebound, value / GameConst.AttributeMax);
     }
 
     private int getSumValue(EAttributeKind kind)

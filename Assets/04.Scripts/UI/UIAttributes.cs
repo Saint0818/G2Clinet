@@ -25,12 +25,12 @@ public class UIAttributes : MonoBehaviour
 
     public enum EGroup
     {
-        StrBlk = 0,
-        DefStl = 1,
-        DrbPass = 2,
-        SpdSta = 3,
-        Pt2Pt3 = 4,
-        RebDnk = 5
+        Block = 0,
+        Steal = 1,
+        Point2 = 2,
+        Dunk = 3,
+        Point3 = 4,
+        Rebound = 5
     }
 
 	private readonly Material[] mMaterials = new Material[2];
@@ -190,32 +190,32 @@ public class UIAttributes : MonoBehaviour
 			mOldValues[g] = percent;
 			switch(g)
             {
-			case EGroup.StrBlk:
+			case EGroup.Block:
 				mCurrentA = new Vector3(mMaxA.x * percent, mMaxA.y * percent, mMaxA.z);
 				updateMesh(Vector3.zero, mCurrentB, mCurrentA, 0);
 				updateMesh(Vector3.zero, mCurrentA, mCurrentF, 5);
 				break;
-			case EGroup.DefStl:
+			case EGroup.Steal:
 				mCurrentB = new Vector3(mMaxB.x * percent, mMaxB.y * percent, mMaxB.z);
 				updateMesh(Vector3.zero, mCurrentB, mCurrentA, 0);
 				updateMesh(Vector3.zero, mCurrentC, mCurrentB, 1);
 				break;
-			case EGroup.DrbPass:
+			case EGroup.Point2:
 				mCurrentC = new Vector3(mMaxC.x * percent, mMaxC.y * percent, mMaxC.z);
 				updateMesh(Vector3.zero, mCurrentC, mCurrentB, 1);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				break;
-			case EGroup.SpdSta:
+			case EGroup.Dunk:
 				mCurrentD = new Vector3(mMaxD.x * percent, mMaxD.y * percent, mMaxD.z);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				break;
-			case EGroup.Pt2Pt3:
+			case EGroup.Point3:
 				mCurrentE = new Vector3(mMaxE.x * percent, mMaxE.y * percent, mMaxE.z);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				updateMesh(Vector3.zero, mCurrentF, mCurrentE, 4);
 				break;
-			case EGroup.RebDnk:
+			case EGroup.Rebound:
 				mCurrentF = new Vector3(mMaxF.x * percent, mMaxF.y * percent, mMaxF.z);
 				updateMesh(Vector3.zero, mCurrentF, mCurrentE, 4);
 				updateMesh(Vector3.zero, mCurrentA, mCurrentF, 5);
