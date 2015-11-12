@@ -90,16 +90,21 @@ public class UI3DTutorial : UIBase {
 			}
 
 			if (talkMan[i]) {
-				ModelManager.Get.SetAvatar(ref talkMan[i], manData[i], manBodyType[i], EAnimatorType.AvatarControl);
+				ModelManager.Get.SetAvatar(ref talkMan[i], manData[i], manBodyType[i], EAnimatorType.TalkControl);
 				LayerMgr.Get.SetLayerAllChildren(talkMan[i], ELayer.UIPlayer.ToString());
 
 				if (!manRender[i])
 					manRender[i] = talkMan[i].GetComponentInChildren<SkinnedMeshRenderer>();
 
 				if (manRender[i]) {
-					if (i == tu.TalkIndex)
+					if (i == tu.TalkIndex) {
 						manRender[i].material.color = new Color32(150, 150, 150, 255);
-					else
+						Animator ani = talkMan[i].GetComponent<Animator>();
+						if (ani) {
+							int no = Random.Range(0, 2) + 1;
+							ani.Play("Talk" + no.ToString());
+						}
+					} else
 						manRender[i].material.color = new Color32(75, 75, 75, 255);
 				}
 			}

@@ -19,7 +19,13 @@ namespace AI
         [CanBeNull]
         public static int[] Convert([NotNull] string bitString)
         {
-			if(!string.IsNullOrEmpty(bitString) && bitString.Length >= MaxBitsNum)
+			if(bitString == null)
+			{
+				Debug.LogError("Parameter is Null");
+				return null;
+			}
+
+			if(bitString.Length >= MaxBitsNum)
             {
                 Debug.LogErrorFormat("Parameter is too long, Length:{0}", bitString.Length);
                 return null;

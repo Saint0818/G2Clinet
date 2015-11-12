@@ -11,7 +11,7 @@ public enum EAnimatorType
 	AnimationControl,
 	AvatarControl,
 	ShowControl,
-	Talk
+	TalkControl
 }
 
 public class ModelManager : KnightSingleton<ModelManager> {

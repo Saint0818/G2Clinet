@@ -169,17 +169,18 @@ public class TStageData
     {
         get
         {
+			int minLength = 4;
 			if (hintBit != null) {
 				if (hintBit.Length == 0) {
 					hintBit = AI.BitConverter.Convert(Hint);
 					if (hintBit == null)
-						hintBit = new int[4];
+						hintBit = new int[minLength];
 				}
 
-				if (hintBit.Length < 4)
-					Array.Resize(ref hintBit, 4);
+				if (hintBit.Length < minLength)
+					Array.Resize(ref hintBit, minLength);
 			} else
-				hintBit = new int[4];
+				hintBit = new int[minLength];
 
 			return hintBit;
         }
