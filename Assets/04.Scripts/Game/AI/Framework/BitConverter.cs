@@ -19,9 +19,9 @@ namespace AI
         [CanBeNull]
         public static int[] Convert([NotNull] string bitString)
         {
-			if(bitString == null)
+			if(string.IsNullOrEmpty(bitString))
 			{
-				Debug.LogError("Parameter is Null");
+				Debug.LogError("Parameter is Null or empty");
 				return null;
 			}
 
