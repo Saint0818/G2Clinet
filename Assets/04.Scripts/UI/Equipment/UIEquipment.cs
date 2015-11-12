@@ -81,7 +81,7 @@ public class UIEquipment : UIBase
             {
                 TItemData item = GameData.DItemData[GameData.Team.Player.EquipItems[kind].ID];
                 uiItem.Name = item.Name;
-                uiItem.Icon = item.Icon;
+                uiItem.Icon = string.Format("Item_{0}", item.Icon);
                 uiItem.Desc = item.Explain;
                 for (int i = 0; i < item.AttrKinds.Length; i++)
                 {

@@ -7,12 +7,26 @@ namespace UI
 {
     public class EquipItem
     {
-        [NotNull]
-        public string Name;
-        [NotNull]
-        public string Icon;
-        [NotNull]
-        public string Desc;
+        public string Name
+        {
+            set { mName = string.IsNullOrEmpty(value) ? string.Empty : value; }
+            get { return mName; }
+        }
+        private string mName;
+
+        public string Icon
+        {
+            set { mIcon = string.IsNullOrEmpty(value) ? string.Empty : value; }
+            get { return mIcon; }
+        }
+        private string mIcon;
+
+        public string Desc
+        {
+            set { mDesc = string.IsNullOrEmpty(value) ? string.Empty : value; }
+            get { return mDesc; }
+        }
+        private string mDesc;
 
         // 道具會影響哪些屬性的數值.
         public Dictionary<EAttributeKind, int> Values = new Dictionary<EAttributeKind, int>();

@@ -1,12 +1,18 @@
-﻿using GameStruct;
+﻿using System.Collections.Generic;
+using GameStruct;
 using UnityEngine;
 using JetBrains.Annotations;
 
+/// <summary>
+/// 負責裝備介面左邊的玩家裝備資訊.
+/// </summary>
 public class UIEquipPlayer : MonoBehaviour
 {
     public Transform HexagonParent;
+    public Transform[] SlotParents;
 
     private UIAttributes mAttributes;
+    private readonly List<UIEquipPartSlot> mPartSlots = new List<UIEquipPartSlot>();
 
     private UIEquipmentImpl mImpl;
 
@@ -21,9 +27,36 @@ public class UIEquipPlayer : MonoBehaviour
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = Vector3.one;
         mAttributes = obj.GetComponent<UIAttributes>();
+
+        foreach(Transform parent in SlotParents)
+        {
+            obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.EquipPartSlot));
+            obj.transform.parent = parent;
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.localRotation = Quaternion.identity;
+            obj.transform.localScale = Vector3.one;
+            mPartSlots.Add(obj.GetComponent<UIEquipPartSlot>());
+        }
     }
 
     public void UpdateUI()
+    {
+        updateAttributes();
+        updateSlots();
+    }
+
+    private void updateSlots()
+    {
+        for(int i = 0; i < mPartSlots.Count; i++)
+        {
+            if(mImpl.Items.Length > i && mImpl.Items[i].IsValid())
+                mPartSlots[i].SetItem(mImpl.Items[i]);
+            else
+                mPartSlots[i].Clear();
+        }
+    }
+
+    private void updateAttributes()
     {
         mAttributes.SetVisible(true);
 
