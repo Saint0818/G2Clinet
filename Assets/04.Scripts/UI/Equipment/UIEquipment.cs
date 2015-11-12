@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
+using UI;
 using UnityEngine;
 
 /// <summary>
@@ -46,7 +46,7 @@ public class UIEquipment : UIBase
 
     private void updateUI()
     {
-        if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
+        if (!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
         {
             Debug.LogErrorFormat("Can't find GreatePlayer({0})", GameData.Team.Player.ID);
             return;
@@ -54,38 +54,38 @@ public class UIEquipment : UIBase
 
         TGreatPlayer basicPlayer = GameData.DPlayers[GameData.Team.Player.ID];
         Dictionary<EAttributeKind, float> basicAttr = new Dictionary<EAttributeKind, float>
-        {
-            {EAttributeKind.Point2, basicPlayer.Point2},
-            {EAttributeKind.Point3, basicPlayer.Point3},
-            {EAttributeKind.Speed, basicPlayer.Speed},
-            {EAttributeKind.Stamina, basicPlayer.Stamina},
-            {EAttributeKind.Strength, basicPlayer.Strength},
-            {EAttributeKind.Dunk, basicPlayer.Dunk},
-            {EAttributeKind.Rebound, basicPlayer.Rebound},
-            {EAttributeKind.Block, basicPlayer.Block},
-            {EAttributeKind.Defence, basicPlayer.Defence},
-            {EAttributeKind.Steal, basicPlayer.Steal},
-            {EAttributeKind.Dribble, basicPlayer.Dribble},
-            {EAttributeKind.Pass, basicPlayer.Pass},
-        };
+    {
+        {EAttributeKind.Point2, basicPlayer.Point2},
+        {EAttributeKind.Point3, basicPlayer.Point3},
+        {EAttributeKind.Speed, basicPlayer.Speed},
+        {EAttributeKind.Stamina, basicPlayer.Stamina},
+        {EAttributeKind.Strength, basicPlayer.Strength},
+        {EAttributeKind.Dunk, basicPlayer.Dunk},
+        {EAttributeKind.Rebound, basicPlayer.Rebound},
+        {EAttributeKind.Block, basicPlayer.Block},
+        {EAttributeKind.Defence, basicPlayer.Defence},
+        {EAttributeKind.Steal, basicPlayer.Steal},
+        {EAttributeKind.Dribble, basicPlayer.Dribble},
+        {EAttributeKind.Pass, basicPlayer.Pass},
+    };
 
         // 和企劃約定, 道具要從 kind = 11 開始逆時針放.
-        List<UIEquipmentImpl.Item> items = new List<UIEquipmentImpl.Item>();
-        for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
+        List<EquipItem> items = new List<EquipItem>();
+        for (int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
         {
-            UIEquipmentImpl.Item uiItem = new UIEquipmentImpl.Item();
+            EquipItem uiItem = new EquipItem();
             items.Add(uiItem);
 
-            if(GameData.Team.Player.EquipItems.ContainsKey(kind) &&
-               GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
+            if (GameData.Team.Player.EquipItems.ContainsKey(kind) &&
+                GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
             {
                 TItemData item = GameData.DItemData[GameData.Team.Player.EquipItems[kind].ID];
                 uiItem.Name = item.Name;
                 uiItem.Icon = item.Icon;
                 uiItem.Desc = item.Explain;
-                for(int i = 0; i < item.AttrKinds.Length; i++)
+                for (int i = 0; i < item.AttrKinds.Length; i++)
                 {
-                    if(item.AttrKinds[i] == EAttributeKind.None)
+                    if (item.AttrKinds[i] == EAttributeKind.None)
                         continue;
 
                     uiItem.Values.Add(item.AttrKinds[i], item.AttrValues[i]);
@@ -110,13 +110,14 @@ public class UIEquipment : UIBase
     {
         get
         {
-            if(!instance)
+            if (!instance)
             {
                 UI2D.UIShow(true);
                 instance = LoadUI(UIName) as UIEquipment;
             }
-			
+
             return instance;
         }
     }
-}
+} // end of the class.
+
