@@ -1681,7 +1681,8 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                     
                     AniState(EPlayerState.Defence0);                          
-                } else
+                }
+                else
                 {
                     // 移動距離很短 or 不移動, 球員又是在進攻狀態.
                     if (!IsBallOwner)
@@ -1718,7 +1719,8 @@ public class PlayerBehaviour : MonoBehaviour
                         
                         if (data.Shooting && AIing)
                             GameController.Get.DoShoot();
-                    } else
+                    }
+                    else
                     {
                         if (data.LookTarget == null)
                         {
@@ -1731,12 +1733,13 @@ public class PlayerBehaviour : MonoBehaviour
                                 else
                                     RotateTo(CourtMgr.Get.ShootPoint [1].transform.position.x, CourtMgr.Get.ShootPoint [1].transform.position.z);
                             }
-                        } else
+                        }
+                        else
                             RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                         
                         if (data.Catcher)
                         {
-                            if ((situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC))
+                            if(situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
                             {
                                 if (GameController.Get.Pass(this, false, false, true))
                                     NeedShooting = data.Shooting;
@@ -1754,15 +1757,17 @@ public class PlayerBehaviour : MonoBehaviour
                     moveQueue.Dequeue();
 //                    Debug.LogFormat("moveTo(), moveQueue.Dequeue()");
                 }
-            } else if ((IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5) && 
-                GameController.Get.BallOwner != null)
+            }
+            else if(IsDefence == false && MoveTurn >= 0 && MoveTurn <= 5 && 
+                    GameController.Get.BallOwner != null)
             {
                 // 這段應該是不做移動, 只做轉身, 然後用 6 個 frame 做轉身.
                 MoveTurn++;
                 RotateTo(MoveTarget.x, MoveTarget.y);
                 if (MoveTurn == 1)
                     moveStartTime = Time.time + GameConst.DefMoveTime;           
-            } else
+            }
+            else
             {
                 if (IsDefence)
                 {
@@ -1780,7 +1785,8 @@ public class PlayerBehaviour : MonoBehaviour
                             AniState(EPlayerState.Defence1);
                         else
                             AniState(EPlayerState.RunningDefence);
-                    } else
+                    }
+                    else
                     {
                         RotateTo(MoveTarget.x, MoveTarget.y);
                         AniState(EPlayerState.Run0);
@@ -1792,16 +1798,18 @@ public class PlayerBehaviour : MonoBehaviour
                         setSpeed(1, 0);
                         transform.position = Vector3.MoveTowards(transform.position, 
                                                 new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                                                Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue);
+                                                Time.deltaTime * GameConst.DefSpeedup * Attr.SpeedValue * Timer.timeScale);
                         isSpeedup = true;
-                    } else
+                    }
+                    else
                     {
                         transform.position = Vector3.MoveTowards(transform.position, 
                             new Vector3(MoveTarget.x, 0, MoveTarget.y), 
-                            Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue);
+                            Time.deltaTime * GameConst.DefSpeedNormal * Attr.SpeedValue * Timer.timeScale);
                         isSpeedup = false;
                     }
-                } else
+                }
+                else
                 {
                     // 進攻移動.
                     RotateTo(MoveTarget.x, MoveTarget.y);                   
@@ -1814,28 +1822,31 @@ public class PlayerBehaviour : MonoBehaviour
                         {
                             // 持球者加速移動.(因為球員已經轉身了, 所以往 forward 移動就可以了)
                             setSpeed(1, 0);
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedup * Attr.SpeedValue * Timer.timeScale);
                             AniState(EPlayerState.Dribble2);
                             isSpeedup = true;
-                        } else
+                        }
+                        else
                         {
                             // 持球者一般移動.
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.BallOwnerSpeedNormal * Attr.SpeedValue * Timer.timeScale);
                             AniState(EPlayerState.Dribble1);
                             isSpeedup = false;
                         }
-                    } else
+                    }
+                    else
                     {
                         // 未持球者移動.
                         if (data.Speedup && mMovePower > 0)
                         {
                             setSpeed(1, 0);
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedup * Attr.SpeedValue * Timer.timeScale);
                             AniState(EPlayerState.Run1);
                             isSpeedup = true;
-                        } else
+                        }
+                        else
                         {
-                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue);
+                            transform.Translate(Vector3.forward * Time.deltaTime * GameConst.AttackSpeedNormal * Attr.SpeedValue * Timer.timeScale);
                             AniState(EPlayerState.Run0);
                             isSpeedup = false;
                         }
