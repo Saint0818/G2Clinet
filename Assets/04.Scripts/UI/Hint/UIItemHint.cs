@@ -66,11 +66,19 @@ public class UIItemHint : UIBase {
 	}
 
 	public void OnShowAvatar () {
+		UIShow(true);
 		hintAvatarView.Show();
+//		uiLabelName.text = ;
+//		uiLabelExplain.text = ;
+//		hintAvatarView.UpdateUI
 	}
 
 	public void OnShowInlay () {
+		UIShow(true);
 		hintInlayView.Show();
+//		uiLabelName.text = ;
+//		uiLabelExplain.text = ;
+//		hintInlayView.UpdateUI
 	}
 
 	public void OnShowSkill(TSkill skill) {
