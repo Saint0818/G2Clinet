@@ -649,7 +649,7 @@ public class GameController : KnightSingleton<GameController>
         if (PlayerList.Count > 2 && PlayerList [2].Team == Joysticker.Team) 
 			passIcon[2] = EffectManager.Get.PlayEffect("PassB", Joysticker.BodyHeight.transform.localPosition, PlayerList [2].PlayerRefGameObject);
 		
-		UIGame.Get.InitJoystickerUI(Joysticker);
+		UIGame.Get.InitPlayerSkillUI(Joysticker);
 
 		Joysticker.OnUIJoystick = UIGame.Get.SetUIJoystick;
         for (int i = 0; i < PlayerList.Count; i ++) {

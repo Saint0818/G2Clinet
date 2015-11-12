@@ -3168,6 +3168,7 @@ public class PlayerBehaviour : MonoBehaviour
 
 				CanUseTipIn = false;
                 isUsePass = false;
+				isCanCatchBall = true;
                 IsPassAirMoment = false;
                 blockTrigger.SetActive(false);
                 PlayerRigidbody.useGravity = true;

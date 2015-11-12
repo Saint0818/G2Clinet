@@ -446,7 +446,7 @@ public class UIGame : UIBase {
 		showSkillHint(false);
 	}
 
-	public void InitJoystickerUI (PlayerBehaviour p) {
+	public void InitPlayerSkillUI (PlayerBehaviour p) {
 		PlayerMe = p;
 		for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
