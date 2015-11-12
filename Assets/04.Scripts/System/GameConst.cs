@@ -11,6 +11,10 @@
 	public const int Default_MainStageID = 101;
 
 	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
+
+	public static int PotentialCount = 6;
+	public static int PreLvPotential = 10;
+	public static int[] PotentialRule = new int[6]{5, 5, 5, 5, 5, 5};
 	
 	public const int ID_LimitActive = 10000;
 

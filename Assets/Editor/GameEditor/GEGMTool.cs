@@ -105,68 +105,113 @@ public class GEGMTool : GEBase
 		LimitPartAddItem();
 	}
 
-	private int playerlv = 0;
-	private bool IsInitPlayerInfo = false;
-	private int[] Masteries = new int[12];
-	private int TotalMasteriesPoint = 0;
-	private int CrtMasteriesPoint = 0;
+	private int AvatarPotential = 0;
+	private int CrtAvatarPotential = 0;
+	private int LvPotential = 0;
+	private int CrtLvPotential = 0;
 
-	private void InitMasteriesPoint()
+	private int playerlv = 0;
+	private int avatarPotential = 0;
+	private bool IsInitPlayerInfo = false;
+	private int useLvPotential = 0;
+	private int useAvatarPotential = 0;
+	private int[] addPotential = new int[GameConst.PotentialCount];
+	private int[] Potential = new int[GameConst.PotentialCount];
+	
+	private void InitPotentialPoint()
 	{
-		TotalMasteriesPoint = GameData.Team.MasteriesPoint;
-		int count = 0;
+		AvatarPotential = GameData.Team.AvatarPotential;
+		avatarPotential = AvatarPotential;
+		LvPotential = GameData.Team.Player.Lv * GameConst.PreLvPotential;
+		CrtAvatarPotential = AvatarPotential;
+
+		if (GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 1) {
+			for(int i = 0;i< GameData.Team.PlayerBank.Length; i++){
+				if(GameData.Team.PlayerBank[i].RoleIndex != GameData.Team.Player.RoleIndex){
+					CrtAvatarPotential -= GetUseAvatarPotentialFromBank(GameData.Team.PlayerBank[i]);
+				}
+			}
+		}
+
+		CrtAvatarPotential -= GetUseAvatarPotential (GameData.Team.Player);
+		CrtLvPotential = GetCurrentLvPotential (GameData.Team.Player);
+	}
+
+	public int GetUseAvatarPotentialFromBank(TPlayerBank player)
+	{
+		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int use = 0;
+
+		for(int i = 0; i < player.Potential.Length; i++){
+			use += player.Potential[i] * GameConst.PotentialRule[i]; 
+		}
+
+		if (use > lvpoint)
+			return use - lvpoint;
+		else
+			return 0;
+	}
+
+	public int GetUseAvatarPotential(TPlayer player)
+	{
+		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int use = 0;
 		
-		for(int i = 0;i < GameData.Team.Player.Masteries.Length;i++){
-			count += GameData.Team.Player.Masteries[i];
+		for(int i = 0; i < player.Potential.Length; i++){
+			use += player.Potential[i] * GameConst.PotentialRule[i]; 
 		}
 		
-		CrtMasteriesPoint = GameData.Team.MasteriesPoint - count;
+		if (use > lvpoint)
+			return use - lvpoint;
+		else
+			return 0;
+	}
+
+	public int GetCurrentLvPotential(TPlayer player)
+	{
+		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int use = 0;
+		
+		for(int i = 0; i < player.Potential.Length; i++){
+			use += player.Potential[i] * GameConst.PotentialRule[i]; 
+		}
+
+		if (lvpoint > use)
+			return lvpoint - use;
+		else
+			return 0;
 	}
 
 	private void PlayerInfoHandle()
 	{
 		if (GUILayout.Button ("讀取資料", GUILayout.Width (200))) {
 			playerlv = GameData.Team.Player.Lv;
-			Masteries = GameData.Team.Player.Masteries;
-			InitMasteriesPoint();
+			Potential = GameData.Team.Player.Potential;
+			InitPotentialPoint();
 			IsInitPlayerInfo = true; 
 		}
 
 		if (!IsInitPlayerInfo)
 			return;
 
-		EditorGUILayout.BeginHorizontal();
-		GUILayout.Label("天賦點數 : " + CrtMasteriesPoint + "/" + TotalMasteriesPoint); 
-		GUILayout.Label(", 人物等級 : "); 
-		playerlv = EditorGUILayout.IntField (playerlv, GUILayout.Width(100));
+		AddPlayeLv ();
+		AddAvatarPotential ();
 
-		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
-			if(playerlv != GameData.Team.Player.Lv){
-				WWWForm form = new WWWForm();
-				form.AddField("Lv", playerlv);
-				SendHttp.Get.Command(URLConst.GMPlayerInfo, waitGMPlayerInfo, form);
-			}
-			else
-				ShowHint("請設定Player Lv");
-		}
-		EditorGUILayout.EndHorizontal();
-
-		if(Masteries.Length > 0)
-			for (int i = 0; i < Masteries.Length; i++) {
+		if(Potential.Length > 0)
+			for (int i = 0; i < Potential.Length; i++) {
 			EditorGUILayout.BeginHorizontal();
-			GUILayout.Label(string.Format("Masteries{0} : {1}/100", i, Masteries[i])); 
+
+			GUILayout.Label(string.Format("Masteries{0} : {1} + {2}/100", i, GameData.Team.Player.Potential[i], addPotential[i])); 
+
 			if (GUILayout.Button ("+", GUILayout.Width (200))) {
-				if(CrtMasteriesPoint > 0 &&  Masteries[i] < 100)
+				if(CrtAvatarPotential > 0 &&  Potential[i] < 100)
 				{
-					Masteries[i]+=5;
-					CrtMasteriesPoint-=5;
-				}
-			}
-			if (GUILayout.Button ("-", GUILayout.Width (200))) {
-				if(Masteries[i] > 0)
-				{
-					Masteries[i]-=5;
-					CrtMasteriesPoint+=5;
+					if(CanUsePotential(i)){
+						addPotential[i]++;
+						CalculateAddPotential();
+					}
+
+
 				}
 			}
 
@@ -174,17 +219,102 @@ public class GEGMTool : GEBase
 		}
 
 		EditorGUILayout.BeginHorizontal();
-		if(GUILayout.Button("重置", GUILayout.Width(50))){
-			for(int i = 0;i < Masteries.Length; i++)
-				Masteries[i] = 0;
+		if(GUILayout.Button("取消配點", GUILayout.Width(50))){
+			for(int i = 0;i < addPotential.Length; i++)
+				addPotential[i] = 0;
+			
+			CalculateAddPotential();
+		}
 
-			InitMasteriesPoint();
+		if(GUILayout.Button("重置", GUILayout.Width(50))){
+//			for(int i = 0;i < Potential.Length; i++)
+//				Potential[i] = 0;
+//
+//			InitPotentialPoint();
 		}
 
 		if (GUILayout.Button ("存檔", GUILayout.Width (200))) {
-			WWWForm form = new WWWForm();
-			form.AddField("Masteries", JsonConvert.SerializeObject(Masteries));
-			SendHttp.Get.Command(URLConst.GMSaveMasteries, waitSaveMasteries, form);
+			if(HaveChange()){
+				WWWForm form = new WWWForm();
+				int[] save = new int[GameConst.PotentialCount];
+
+				for(int i = 0;i< save.Length; i++)
+					save[i] = Potential[i] + addPotential[i];
+
+				form.AddField("Potential", JsonConvert.SerializeObject(save));
+				SendHttp.Get.Command(URLConst.GMSavePotential, waitSaveMasteries, form);
+			}
+
+
+		}
+		EditorGUILayout.EndHorizontal();
+	}
+
+	private bool HaveChange()
+	{
+		for (int i = 0; i< addPotential.Length; i++)
+			if (addPotential [i] > 0)
+				return true;
+
+		return false;
+	}
+
+	private bool CanUsePotential(int index)
+	{
+		return CrtAvatarPotential + CrtLvPotential >= useLvPotential + useAvatarPotential + GameConst.PotentialRule [index];
+	}
+
+	private void CalculateAddPotential()
+	{
+		int count = 0;
+		for (int i = 0; i < addPotential.Length; i++) {
+			count += addPotential[i] * GameConst.PotentialRule[i];
+		}
+
+		if (CrtLvPotential >= count) {
+			useLvPotential = count;
+			useAvatarPotential = 0;
+		}
+		else {
+			useLvPotential = CrtLvPotential;
+			useAvatarPotential = count - CrtLvPotential;
+		}
+	}
+
+	private void AddPlayeLv()
+	{
+		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label(string.Format("等級潛能點 : {0} - {1} / {2}", CrtLvPotential, useLvPotential,LvPotential)); 
+		GUILayout.Label(", 設定人物等級 : "); 
+		playerlv = EditorGUILayout.IntField (playerlv, GUILayout.Width(100));
+		
+		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
+			if(playerlv != GameData.Team.Player.Lv){
+				WWWForm form = new WWWForm();
+				form.AddField("Lv", playerlv);
+				SendHttp.Get.Command(URLConst.GMAddLv, waitGMPlayerInfo, form);
+			}
+			else
+				ShowHint("請設定Player Lv");
+		}
+		EditorGUILayout.EndHorizontal();
+	}
+
+	private void AddAvatarPotential()
+	{
+		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label(string.Format("裝備潛能點 : {0} - {1} / {2}", CrtAvatarPotential, useAvatarPotential, AvatarPotential)); 
+		GUILayout.Label(", 設定裝備潛能點 : "); 
+		avatarPotential = EditorGUILayout.IntField (avatarPotential, GUILayout.Width(100));
+		
+		if (GUILayout.Button ("設定", GUILayout.Width (200))) {
+			if(avatarPotential > 0){
+				WWWForm form = new WWWForm();
+				form.AddField("AvatarPotential", avatarPotential);
+				SendHttp.Get.Command(URLConst.GMAddAvatarPotential, waitGMAddAvatarPotential, form);
+			}
+			else
+				ShowHint("請設定AvatarPotential");
 		}
 		EditorGUILayout.EndHorizontal();
 	}
@@ -348,19 +478,28 @@ public class GEGMTool : GEBase
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
 			GameData.Team.Player.Lv = team.Player.Lv;
-			GameData.Team.MasteriesPoint = team.MasteriesPoint;
-			InitMasteriesPoint();
+			GameData.Team.AvatarPotential = team.AvatarPotential;
+			InitPotentialPoint();
 		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMPlayerInfo);
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddLv);
+	}
+
+	private void waitGMAddAvatarPotential(bool ok, WWW www)
+	{
+		if (ok) {
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.AvatarPotential = team.AvatarPotential;
+			InitPotentialPoint();
+		}
 	}
 
 	private void waitSaveMasteries(bool ok, WWW www)
 	{
 		if(ok){
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Player.Masteries = team.Player.Masteries;
+			GameData.Team.Player.Potential = team.Player.Potential;
 		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMPlayerInfo);
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddLv);
 	}
 
     private int mNextMainStageID = GameConst.Default_MainStageID;

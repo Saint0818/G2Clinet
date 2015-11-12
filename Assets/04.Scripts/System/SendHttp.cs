@@ -105,8 +105,9 @@ public static class URLConst {
 	public const string TeamStarting = "teamstarting";
 	public const string GMAddItem = "gmadditem";
 	public const string GMRemoveItem = "gmremoveitem";
-	public const string GMPlayerInfo = "gmplayerinfo";
-	public const string GMSaveMasteries = "gmsavemasteries";
+	public const string GMAddLv = "gmaddlv";
+	public const string GMAddAvatarPotential = "gmaddavatarpotential";
+	public const string GMSavePotential = "gmsavepotential";
 	public const string GMSetNextMainStageID = "gmsetnextmainstageid";
 	public const string GMResetStage = "gmresetstage";
 	public const string ChangeAvatar = "changeavatar";

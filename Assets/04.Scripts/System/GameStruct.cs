@@ -18,7 +18,7 @@ namespace GameStruct {
 		public int Money;
 		public int Power;
 		public int Diamond;
-		public int MasteriesPoint;
+		public int AvatarPotential;
 
 		public int[] TutorialFlags;
 		public TPlayer Player;
@@ -93,6 +93,7 @@ namespace GameStruct {
         public int Lv;
 		public string Name;
 		public TItem[] Items;
+		public int[] Potential;
 
         public bool IsValid
         {
@@ -150,7 +151,7 @@ namespace GameStruct {
         public int AISkillLv;
 		public int SkillPage;// 0 1 2 3 4
 		public int NowStageID;
-		public int[] Masteries;
+		public int[] Potential;
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
         /// </summary>
@@ -212,7 +213,7 @@ namespace GameStruct {
 			Items = new TItem[0];
 //			EquipItems = new TEquipItem[0];
             EquipItems = new Dictionary<int, TEquipItem>();
-			Masteries = new int[0];
+			Potential = new int[0];
 		    NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
 		}

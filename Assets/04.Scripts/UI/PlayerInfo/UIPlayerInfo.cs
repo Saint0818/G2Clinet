@@ -97,10 +97,10 @@ public class PersonalView
 
 		int count = 0;
 		int average = 0;
-		for (int i = 0; i < player.Masteries.Length; i++)
-			count += player.Masteries[i];
+		for (int i = 0; i < player.Potential.Length; i++)
+			count += player.Potential[i];
 
-		average = count / player.Masteries.Length;
+		average = count / player.Potential.Length;
 		powerValue.text = average.ToString();
 		powerBar.fillAmount = average / 100;
 	}
@@ -356,7 +356,7 @@ public class UIPlayerInfo : UIBase {
 		{
 			case 0:
 				personalView.Update(GameData.Team.Player);
-				abilityView.UpdateMasteries(GameData.Team.Player.Masteries);
+				abilityView.UpdateMasteries(GameData.Team.Player.Potential);
 				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo);
 				break;
 			case 1:
