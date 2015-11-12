@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5975f0939911ced4cba9a6e3c02f7666
-timeCreated: 1447060654
+guid: 52739bd41580f7042b7d8b8a93873ba8
+timeCreated: 1447323438
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -89,7 +89,7 @@ ModelImporter:
     400078: DummyHand_R
     400080: DummyHead
     400082: //RootNode
-    7400000: Talk1
+    7400000: Talk5
     9500000: //RootNode
   materials:
     importMaterials: 0
@@ -112,7 +112,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Talk1
+      name: Talk5
       takeName: Take 001
       firstFrame: 0
       lastFrame: 45
