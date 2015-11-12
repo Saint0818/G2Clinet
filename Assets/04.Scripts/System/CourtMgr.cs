@@ -54,6 +54,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public CircularSectorMeshRenderer SkillRangeOfAction;
 	public GameObject SkillArrowOfAction;
 	private UITexture textureArrow;
+	public Transform[] EndPlayerPosition = new Transform[6];
 
 	public AutoFollowGameObject BallShadow;
 	public GameObject[] CameraHood = new GameObject[2];
@@ -364,6 +365,13 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			crtCollider.transform.parent = RefGameObject.transform;
 			BallShadow = GetGameObjtInCollider(string.Format("{0}/BallShadow", crtCollider.name)).GetComponent<AutoFollowGameObject>();
 		}
+		
+		EndPlayerPosition[0] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/1", crtCollider.name)).transform;
+		EndPlayerPosition[1] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/2", crtCollider.name)).transform;
+		EndPlayerPosition[2] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Win/3", crtCollider.name)).transform;
+		EndPlayerPosition[3] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/4", crtCollider.name)).transform;
+		EndPlayerPosition[4] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/5", crtCollider.name)).transform;
+		EndPlayerPosition[5] = GetGameObjtInCollider(string.Format("{0}/GameFinishPos/Lose/6", crtCollider.name)).transform;
 
 		if (GameStart.Get.CourtMode == ECourtMode.Full) {
 			Walls[0] = GetGameObjtInCollider(string.Format("{0}/Wall/Wall/WallA", crtCollider.name));

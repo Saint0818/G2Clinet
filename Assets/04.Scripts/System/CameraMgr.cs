@@ -60,6 +60,8 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     };
     private Vector3 jumpBallPos = new Vector3(-25f, 8, 0);
     private Vector3 jumpBallRoate = new Vector3(12.5f, 90, 0);
+	private Vector3 endShowPos = new Vector3(-25f, 8, 0);
+	private Vector3 endShowRotate = new Vector3(0, 90, 0);
     private GameObject cameraGroupObj;
     private GameObject cameraRotationObj;
     private GameObject cameraOffsetObj;
@@ -68,8 +70,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 	private Camera cameraPlayerInfo;
     private GameObject cameraSkillCenter;
     private Animator cameraAnimator;
-
-//  private Camera cameraPlayer;
 
     private GameObject focusTargetOne;
     private GameObject focusTargetTwo;
@@ -213,6 +213,14 @@ public class CameraMgr : KnightSingleton<CameraMgr>
 
     public bool IsTee = false;
 
+	public void SetEndShowSituation () {
+		cameraAnimator.SetTrigger("GameWin");
+		cameraPlayerInfo.gameObject.SetActive(false);
+		cameraGroupObj.transform.localPosition = Vector3.zero;
+		cameraRotationObj.transform.localPosition = endShowPos;
+		cameraRotationObj.transform.localEulerAngles = endShowRotate;
+	}
+
     public void SetCameraSituation(ECameraSituation s, bool isTee = false)
     {
         IsTee = isTee;
@@ -228,8 +236,6 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             } else
                 cameraGroupObj.SetActive(true);
         } 
-//		else
-//			cameraGroupObj.SetActive(false);
     }
 
     public void ShowCameraEnable(bool isEnable)
@@ -278,9 +284,11 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         cameraGroupObj.transform.localPosition = Vector3.zero;
         cameraRotationObj.transform.localPosition = jumpBallPos;
         cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
-        setHalfCourtCamera();
-
-        if (focusTargetOne == null)
+		if(cameraPlayerInfo)
+			cameraPlayerInfo.gameObject.SetActive(false);
+		setHalfCourtCamera();
+		
+		if (focusTargetOne == null)
         {
             focusTargetOne = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             focusTargetOne.GetComponent<Collider>().enabled = false;

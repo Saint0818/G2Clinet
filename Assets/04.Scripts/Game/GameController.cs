@@ -1700,7 +1700,7 @@ public class GameController : KnightSingleton<GameController>
                 if(BallOwner.IsRebound)
                 {
                     // 持球者不在灌籃中, 但是搶籃板中 ...
-					if(inTipinDistance(BallOwner))
+					if(inTipinDistance(BallOwner)  && BallOwner.CanUseTipIn)
                     {
 						BallOwner.AniState(EPlayerState.TipIn, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
 						return true;
@@ -3510,11 +3510,43 @@ public class GameController : KnightSingleton<GameController>
 	IEnumerator playFinish() {
 		yield return new WaitForSeconds(2);
 
-		SetGameRecordToUI();
+//		SetGameRecordToUI();
+		setEndShowScene ();
 		if(GameStart.Get.IsAutoReplay){
 			UIGameResult.Get.OnAgain();
 			Invoke("JumpBallForReplay", 1);
 		}
+	}
+
+	private void setEndShowScene () {
+		//Player
+		for (int i=0; i<PlayerList.Count; i++) {
+			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
+				PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
+				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
+			}
+		}
+		if (IsGameVictory()) {
+			SelfWin ++;
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].Team == ETeamKind.Self)
+					PlayerList [i].AniState(EPlayerState.Ending0);
+			else
+				PlayerList [i].AniState(EPlayerState.Ending10);
+			
+			pveEnd(StageData.ID);
+		}
+		else
+		{
+			NpcWin ++;
+			for (int i = 0; i < PlayerList.Count; i++)
+				if (PlayerList [i].Team == ETeamKind.Self)
+					PlayerList [i].AniState (EPlayerState.Ending10);
+			else
+				PlayerList [i].AniState (EPlayerState.Ending0);
+		}
+		CameraMgr.Get.SetEndShowSituation();
+		SetGameRecordToUI();
 	}
 	
 	public void JumpBallForReplay () {
@@ -3538,26 +3570,26 @@ public class GameController : KnightSingleton<GameController>
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
 
-			if (IsGameVictory()) {
-
-				SelfWin ++;
-				for (int i = 0; i < PlayerList.Count; i++)
-					if (PlayerList [i].Team == ETeamKind.Self)
-						PlayerList [i].AniState(EPlayerState.Ending0);
-				else
-					PlayerList [i].AniState(EPlayerState.Ending10);
-				
-				pveEnd(StageData.ID);
-			}
-			else
-			{
-				NpcWin ++;
-				for (int i = 0; i < PlayerList.Count; i++)
-					if (PlayerList [i].Team == ETeamKind.Self)
-						PlayerList [i].AniState (EPlayerState.Ending10);
-				else
-					PlayerList [i].AniState (EPlayerState.Ending0);
-			}
+//			if (IsGameVictory()) {
+//
+//				SelfWin ++;
+////				for (int i = 0; i < PlayerList.Count; i++)
+////					if (PlayerList [i].Team == ETeamKind.Self)
+////						PlayerList [i].AniState(EPlayerState.Ending0);
+////				else
+////					PlayerList [i].AniState(EPlayerState.Ending10);
+//				
+//				pveEnd(StageData.ID);
+//			}
+//			else
+//			{
+//				NpcWin ++;
+////				for (int i = 0; i < PlayerList.Count; i++)
+////					if (PlayerList [i].Team == ETeamKind.Self)
+////						PlayerList [i].AniState (EPlayerState.Ending10);
+////				else
+////					PlayerList [i].AniState (EPlayerState.Ending0);
+//			}
 		}
     }
 

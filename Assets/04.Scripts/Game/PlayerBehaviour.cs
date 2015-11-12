@@ -185,7 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
     private byte[] PlayerActionFlag = {0, 0, 0, 0, 0, 0, 0};
     private bool stop = false;
     private bool NeedResetFlag = false;
-	private bool CanUseTipIn = false;
+	public bool CanUseTipIn = false;
     private int MoveTurn = 0;
     private float moveStartTime = 0;
     private float ProactiveTime = 0;
