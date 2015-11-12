@@ -10,7 +10,7 @@
         "maxstack": 1,
         "usetime": 96,
         "attrkind1": 1,
-        "valuebase1": 10,
+        "attrvalue1": 10,
         "money": 100,
         "prize": 500,
         "namecn": "白皙肤色",
@@ -5827,7 +5827,9 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 3,
-        "valuebase1": 1,
+        "attrvalue1": 22,
+        "attrkind2": 6,
+        "attrvalue2": 44,
         "materialnum": 1
     },
     {
@@ -5837,7 +5839,7 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 4,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -5847,7 +5849,7 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 5,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -5857,9 +5859,9 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 6,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 3,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -5869,11 +5871,11 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 7,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 4,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 5,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -5882,7 +5884,9 @@
         "quality": 1,
         "kind": 12,
         "attrkind1": 8,
-        "valuebase1": 1,
+        "attrvalue1": 17,
+        "attrkind2": 1,
+        "attrvalue2": 37,
         "materialnum": 1
     },
     {
@@ -5891,7 +5895,7 @@
         "quality": 2,
         "kind": 12,
         "attrkind1": 9,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -5900,7 +5904,7 @@
         "quality": 3,
         "kind": 12,
         "attrkind1": 10,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -5909,9 +5913,9 @@
         "quality": 4,
         "kind": 12,
         "attrkind1": 11,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 8,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -5920,11 +5924,11 @@
         "quality": 5,
         "kind": 12,
         "attrkind1": 12,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 9,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 10,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -5933,7 +5937,7 @@
         "quality": 1,
         "kind": 13,
         "attrkind1": 3,
-        "valuebase1": 1,
+        "attrvalue1": 1,
         "materialnum": 1
     },
     {
@@ -5941,7 +5945,7 @@
         "nametw": "3類數值裝綠",
         "quality": 2,
         "attrkind1": 4,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -5949,7 +5953,7 @@
         "nametw": "3類數值裝藍",
         "quality": 3,
         "attrkind1": 5,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -5957,9 +5961,9 @@
         "nametw": "3類數值裝紫",
         "quality": 4,
         "attrkind1": 6,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 3,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -5967,11 +5971,11 @@
         "nametw": "3類數值裝橘",
         "quality": 5,
         "attrkind1": 7,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 4,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 5,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -5980,7 +5984,7 @@
         "quality": 1,
         "kind": 14,
         "attrkind1": 8,
-        "valuebase1": 1,
+        "attrvalue1": 1,
         "materialnum": 1
     },
     {
@@ -5988,7 +5992,7 @@
         "nametw": "4類數值裝綠",
         "quality": 2,
         "attrkind1": 9,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -5996,7 +6000,7 @@
         "nametw": "4類數值裝藍",
         "quality": 3,
         "attrkind1": 10,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -6004,9 +6008,9 @@
         "nametw": "4類數值裝紫",
         "quality": 4,
         "attrkind1": 11,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 8,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -6014,11 +6018,11 @@
         "nametw": "4類數值裝橘",
         "quality": 5,
         "attrkind1": 12,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 9,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 10,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -6027,7 +6031,7 @@
         "quality": 1,
         "kind": 15,
         "attrkind1": 3,
-        "valuebase1": 1,
+        "attrvalue1": 1,
         "materialnum": 1
     },
     {
@@ -6035,7 +6039,7 @@
         "nametw": "5類數值裝綠",
         "quality": 2,
         "attrkind1": 4,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -6043,7 +6047,7 @@
         "nametw": "5類數值裝藍",
         "quality": 3,
         "attrkind1": 5,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -6051,9 +6055,9 @@
         "nametw": "5類數值裝紫",
         "quality": 4,
         "attrkind1": 6,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 3,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -6061,11 +6065,11 @@
         "nametw": "5類數值裝橘",
         "quality": 5,
         "attrkind1": 7,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 4,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 5,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -6074,7 +6078,7 @@
         "quality": 1,
         "kind": 16,
         "attrkind1": 8,
-        "valuebase1": 1,
+        "attrvalue1": 1,
         "materialnum": 1
     },
     {
@@ -6082,7 +6086,7 @@
         "nametw": "6類數值裝綠",
         "quality": 2,
         "attrkind1": 9,
-        "valuebase1": 2,
+        "attrvalue1": 2,
         "materialnum": 2
     },
     {
@@ -6090,7 +6094,7 @@
         "nametw": "6類數值裝藍",
         "quality": 3,
         "attrkind1": 10,
-        "valuebase1": 3,
+        "attrvalue1": 3,
         "materialnum": 3
     },
     {
@@ -6098,9 +6102,9 @@
         "nametw": "6類數值裝紫",
         "quality": 4,
         "attrkind1": 11,
-        "valuebase1": 4,
+        "attrvalue1": 4,
         "attrkind2": 8,
-        "valuebase2": 1,
+        "attrvalue2": 1,
         "materialnum": 4
     },
     {
@@ -6108,11 +6112,11 @@
         "nametw": "6類數值裝橘",
         "quality": 5,
         "attrkind1": 12,
-        "valuebase1": 5,
+        "attrvalue1": 5,
         "attrkind2": 9,
-        "valuebase2": 2,
+        "attrvalue2": 2,
         "attrkind3": 10,
-        "valuebase3": 3,
+        "attrvalue3": 3,
         "materialnum": 4
     },
     {
@@ -6901,12 +6905,12 @@
         "namejp": "奨励自己3ポイント"
     },
     {
-        "id": 32102,
+        "id": 32100,
         "nametw": "自我加速鼓舞",
         "quality": 3,
         "icon": 10001,
         "kind": 21,
-        "avatar": 12102,
+        "avatar": 12100,
         "maxstack": 1,
         "namecn": "自我加速鼓舞",
         "nameen": "Encouraging self-accelerating",

@@ -1098,7 +1098,8 @@ namespace GameStruct {
 		public int ID;
 
         // [0]:Body, [1]:Hair, [2]:AHandDress, [3]:Cloth, [4]:Pants
-        // [5]:Shoes, [6]:MHeadDress, [7]:ZBackEquip
+        // [5]:Shoes, [6]:MHeadDress, [7]:ZBackEquip.
+        // [11] ~ [18] 數值裝備(企劃尚未定義).
         public int Kind;
 
 		public int Position;

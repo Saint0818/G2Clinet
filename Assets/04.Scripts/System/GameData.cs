@@ -21,10 +21,14 @@ public static class GameData {
     public static TBasketShootPositionData[] BasketShootPosition;
     
     /// <summary>
-    /// key: ID
+    /// key: ID.
     /// </summary>
 	public static Dictionary<int, TGreatPlayer> DPlayers = new Dictionary<int, TGreatPlayer> ();
 	public static Dictionary<int, TSkillData> DSkillData = new Dictionary<int, TSkillData>();
+
+    /// <summary>
+    /// Key: ID.
+    /// </summary>
 	public static Dictionary<int, TItemData> DItemData = new Dictionary<int, TItemData>();
 	public static Dictionary<int, TTutorial> DTutorial = new Dictionary<int, TTutorial>();
 	public static Dictionary<string, int> DTutorialUI = new Dictionary<string, int>();

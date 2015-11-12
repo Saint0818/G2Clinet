@@ -41,6 +41,11 @@ public class UIEquipment : UIBase
     {
         Show(true);
 
+        updateUI();
+    }
+
+    private void updateUI()
+    {
         if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
         {
             Debug.LogErrorFormat("Can't find GreatePlayer({0})", GameData.Team.Player.ID);
@@ -63,7 +68,31 @@ public class UIEquipment : UIBase
             {EAttributeKind.Dribble, basicPlayer.Dribble},
             {EAttributeKind.Pass, basicPlayer.Pass},
         };
-        mImpl.Init(basicAttr, null);
+
+        // 和企劃約定, 道具要從 kind = 11 開始逆時針放.
+        List<UIEquipmentImpl.Item> items = new List<UIEquipmentImpl.Item>();
+        for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
+        {
+            UIEquipmentImpl.Item uiItem = new UIEquipmentImpl.Item();
+            items.Add(uiItem);
+
+            if(GameData.Team.Player.EquipItems.ContainsKey(kind) &&
+               GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
+            {
+                TItemData item = GameData.DItemData[GameData.Team.Player.EquipItems[kind].ID];
+                uiItem.Name = item.Name;
+                uiItem.Icon = item.Icon;
+                uiItem.Desc = item.Explain;
+                for(int i = 0; i < item.AttrKinds.Length; i++)
+                {
+                    if(item.AttrKinds[i] == EAttributeKind.None)
+                        continue;
+
+                    uiItem.Values.Add(item.AttrKinds[i], item.AttrValues[i]);
+                }
+            }
+        }
+        mImpl.Init(basicAttr, items.ToArray());
     }
 
     public void Hide()
