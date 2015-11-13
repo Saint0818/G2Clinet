@@ -3529,22 +3529,24 @@ public class GameController : KnightSingleton<GameController>
 		}
 		if (IsGameVictory()) {
 			SelfWin ++;
-			for (int i = 0; i < PlayerList.Count; i++)
+			for (int i = 0; i < PlayerList.Count; i++) {
 				if (PlayerList [i].Team == ETeamKind.Self)
 					PlayerList [i].AniState(EPlayerState.Ending0);
-			else
-				PlayerList [i].AniState(EPlayerState.Ending10);
+				else
+					PlayerList [i].AniState(EPlayerState.Ending10);
+			}
 			
 			pveEnd(StageData.ID);
 		}
 		else
 		{
 			NpcWin ++;
-			for (int i = 0; i < PlayerList.Count; i++)
+			for (int i = 0; i < PlayerList.Count; i++) {
 				if (PlayerList [i].Team == ETeamKind.Self)
 					PlayerList [i].AniState (EPlayerState.Ending10);
-			else
-				PlayerList [i].AniState (EPlayerState.Ending0);
+				else
+					PlayerList [i].AniState (EPlayerState.Ending0);
+			}
 		}
 		CameraMgr.Get.SetEndShowSituation();
 		SetGameRecordToUI();
@@ -4319,6 +4321,7 @@ public class GameController : KnightSingleton<GameController>
 		for(int i = 0; i < PlayerList.Count; i++) 
 		{
 			PlayerList [i].crtState = EPlayerState.Idle;
+			PlayerList [i].AnimatorControl.Play("Idle");
 			PlayerList [i].ResetFlag();
 			PlayerList [i].Reset();
 			PlayerList [i].SetAnger (-PlayerList[i].Attribute.MaxAnger);
