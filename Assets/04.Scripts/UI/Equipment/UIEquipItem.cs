@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class UIEquipItem : MonoBehaviour
 {
+    public event CommonDelegateMethods.Action OnClickListener;
+
     public UISprite Picture;
     public UILabel Text;
     public UILabel Amount;
@@ -33,5 +35,15 @@ public class UIEquipItem : MonoBehaviour
         gameObject.SetActive(true);
         Picture.spriteName = item.Icon;
         Text.text = item.Name;
+    }
+
+    /// <summary>
+    /// NGUI Event.
+    /// </summary>
+    [UsedImplicitly]
+    private void OnClick()
+    {
+        if(OnClickListener != null)
+            OnClickListener();
     }
 }

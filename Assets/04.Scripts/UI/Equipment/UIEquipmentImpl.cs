@@ -26,6 +26,8 @@ public class UIEquipmentImpl : MonoBehaviour
     private void Awake()
     {
         mPlayerInfo = GetComponent<UIEquipPlayer>();
+        mPlayerInfo.OnSlotClickListener += onSlotClick;
+
         mItemDetail = GetComponent<UIEquipDetail>();
         mItemList = GetComponent<UIEquipList>();
     }
@@ -37,6 +39,11 @@ public class UIEquipmentImpl : MonoBehaviour
 
         mPlayerInfo.UpdateUI();
         mItemDetail.Set(items[0]);
+    }
+
+    private void onSlotClick(int index)
+    {
+        mItemDetail.Set(Items[index]);
     }
 
     public void OnBackClick()

@@ -7,7 +7,10 @@ using UI;
 /// </summary>
 public class UIEquipPartSlot : MonoBehaviour
 {
-    public Transform Parent;
+    public Transform UIParent;
+
+    public UIEquipPlayer Parent;
+    public int Index; // 這是第幾個 Slot.
 
     private UIEquipItem mItem;
 
@@ -15,11 +18,12 @@ public class UIEquipPartSlot : MonoBehaviour
 	private void Awake()
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.ItemEquipmentBtn));
-        obj.transform.parent = Parent;
+        obj.transform.parent = UIParent;
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = Vector3.one;
         mItem = obj.GetComponent<UIEquipItem>();
+        mItem.OnClickListener += onItemClick;
     }
 
     public void Clear()
@@ -31,5 +35,10 @@ public class UIEquipPartSlot : MonoBehaviour
     {
         mItem.gameObject.SetActive(true);
         mItem.Set(item);
+    }
+
+    private void onItemClick()
+    {
+        Parent.OnSlotClick(Index);
     }
 }

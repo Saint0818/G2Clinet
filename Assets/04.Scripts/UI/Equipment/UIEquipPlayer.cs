@@ -8,6 +8,8 @@ using JetBrains.Annotations;
 /// </summary>
 public class UIEquipPlayer : MonoBehaviour
 {
+    public event CommonDelegateMethods.Action1 OnSlotClickListener;
+
     public Transform HexagonParent;
     public Transform[] SlotParents;
 
@@ -15,25 +17,27 @@ public class UIEquipPlayer : MonoBehaviour
     private readonly List<UIEquipPartSlot> mPartSlots = new List<UIEquipPartSlot>();
 
     private UIEquipmentImpl mImpl;
-    private UIEquipDetail mDetail;
 
     [UsedImplicitly]
     private void Awake()
     {
         mImpl = GetComponent<UIEquipmentImpl>();
-        mDetail = GetComponent<UIEquipDetail>();
 
         GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.AttriuteHexagon, HexagonParent);
         mAttributes = obj.GetComponent<UIAttributes>();
 
-        foreach(Transform parent in SlotParents)
+        for(int i = 0; i < SlotParents.Length; i++)
         {
+            Transform parent = SlotParents[i];
             obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.EquipPartSlot));
             obj.transform.parent = parent;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localRotation = Quaternion.identity;
             obj.transform.localScale = Vector3.one;
-            mPartSlots.Add(obj.GetComponent<UIEquipPartSlot>());
+            var slot = obj.GetComponent<UIEquipPartSlot>();
+            mPartSlots.Add(slot);
+            slot.Index = i;
+            slot.Parent = this;
         }
     }
 
@@ -89,6 +93,14 @@ public class UIEquipPlayer : MonoBehaviour
 
         return sum;
     }
-} // end of the class.
+
+    public void OnSlotClick(int index)
+    {
+//        Debug.LogFormat("OnSlotClick, index:{0}", index);
+
+        if(OnSlotClickListener != null)
+            OnSlotClickListener(index);
+    }
+} 
 
 
