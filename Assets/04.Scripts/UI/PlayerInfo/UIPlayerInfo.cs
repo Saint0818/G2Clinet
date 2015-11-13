@@ -97,10 +97,14 @@ public class PersonalView
 
 		int count = 0;
 		int average = 0;
-		for (int i = 0; i < player.Potential.Length; i++)
-			count += player.Potential[i];
 
-		average = count / player.Potential.Length;
+		if(player.Potential != null)
+			for (int i = 0; i < player.Potential.Length; i++)
+				count += player.Potential[i];
+
+		if(player.Potential != null)
+			average = count / player.Potential.Length;
+
 		powerValue.text = average.ToString();
 		powerBar.fillAmount = average / 100;
 	}
@@ -139,10 +143,12 @@ public class AbilityView
 	public void UpdateMasteries(int[] indexs)
 	{
 		//TODO: only six
-		for(int i = 0;i < indexs.Length;i++){
-			Masteries[i].Value.text = indexs[i].ToString();
-			hexagon.SetValue((UIAttributes.EGroup)i, GameData.Team.Player.Potential[i] / GameConst.AttributeMax);
-		}
+
+		if(indexs != null)
+			for(int i = 0;i < indexs.Length;i++){
+				Masteries[i].Value.text = indexs[i].ToString();
+				hexagon.SetValue((UIAttributes.EGroup)i, GameData.Team.Player.Potential[i] / GameConst.AttributeMax);
+			}
 	}
 
 	public void InitBtttonFunction(EventDelegate skillFunc)
