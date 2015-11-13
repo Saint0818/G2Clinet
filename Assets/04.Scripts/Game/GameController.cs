@@ -268,6 +268,7 @@ public class GameController : KnightSingleton<GameController>
             StageData = StageTable.Ins.GetByID(id);
 			maxGameTime = StageData.BitNum[0];
 			GameTime = StageData.BitNum[0];
+			StageData.WinValue = StageData.BitNum[1];
 			UIGame.Get.MaxScores[0] = StageData.WinValue;
 			UIGame.Get.MaxScores[1] = StageData.WinValue;
 			CourtMgr.Get.ChangeBasket(StageData.CourtNo);
