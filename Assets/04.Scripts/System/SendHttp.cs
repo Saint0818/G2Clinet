@@ -111,6 +111,7 @@ public static class URLConst {
 	public const string GMSetNextMainStageID = "gmsetnextmainstageid";
 	public const string GMResetStage = "gmresetstage";
 	public const string ChangeAvatar = "changeavatar";
+	public const string Potential = "potential";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {

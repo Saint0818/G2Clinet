@@ -122,24 +122,35 @@ public class GEGMTool : GEBase
 	{
 		AvatarPotential = GameData.Team.AvatarPotential;
 		avatarPotential = AvatarPotential;
-		LvPotential = GameData.Team.Player.Lv * GameConst.PreLvPotential;
-		CrtAvatarPotential = AvatarPotential;
+		LvPotential = GetLvPotential (GameData.Team.Player.Lv);
+		CrtAvatarPotential = GetCrtAvatarPotential();
+		CrtLvPotential = GetCurrentLvPotential (GameData.Team.Player);
+	}
 
+	public int GetLvPotential(int lv)
+	{
+		return (lv - 1) * GameConst.PreLvPotential;
+	}
+
+	public int GetCrtAvatarPotential()
+	{
+		int use = 0;
 		if (GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 1) {
 			for(int i = 0;i< GameData.Team.PlayerBank.Length; i++){
 				if(GameData.Team.PlayerBank[i].RoleIndex != GameData.Team.Player.RoleIndex){
-					CrtAvatarPotential -= GetUseAvatarPotentialFromBank(GameData.Team.PlayerBank[i]);
+					use += GetUseAvatarPotentialFromBank(GameData.Team.PlayerBank[i]);
 				}
 			}
 		}
 
-		CrtAvatarPotential -= GetUseAvatarPotential (GameData.Team.Player);
-		CrtLvPotential = GetCurrentLvPotential (GameData.Team.Player);
+		use += GetUseAvatarPotential (GameData.Team.Player);
+
+		return GameData.Team.AvatarPotential - use;
 	}
 
 	public int GetUseAvatarPotentialFromBank(TPlayerBank player)
 	{
-		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int lvpoint = GetLvPotential (player.Lv);
 		int use = 0;
 
 		for(int i = 0; i < player.Potential.Length; i++){
@@ -154,7 +165,7 @@ public class GEGMTool : GEBase
 
 	public int GetUseAvatarPotential(TPlayer player)
 	{
-		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int lvpoint = GetLvPotential (player.Lv);
 		int use = 0;
 		
 		for(int i = 0; i < player.Potential.Length; i++){
@@ -169,7 +180,7 @@ public class GEGMTool : GEBase
 
 	public int GetCurrentLvPotential(TPlayer player)
 	{
-		int lvpoint = player.Lv * GameConst.PreLvPotential;
+		int lvpoint = GetLvPotential (player.Lv);
 		int use = 0;
 		
 		for(int i = 0; i < player.Potential.Length; i++){
