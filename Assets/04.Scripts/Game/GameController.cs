@@ -145,7 +145,7 @@ public class GameController : KnightSingleton<GameController>
 	public EBasketSituation BasketSituation;
 	public string BasketAnimationName = "BasketballAction_1";
 	private EBasketDistanceAngle basketDistanceAngle = EBasketDistanceAngle.ShortCenter;
-	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
+//	private string[] basketanimationTest = new string[25]{"0","1","2","3","4","5","6","7","8","9","10","11","100","101","102","103","104","105","106","107","108","109","110","111","112"};
    
 	//Effect
     public GameObject[] passIcon = new GameObject[3];

@@ -5,7 +5,7 @@ public class PersonalView
 {
 	private GameObject self;
 	private UIButton changeHeadBtn;
-	private UISprite headTex;
+//	private UISprite headTex;
 	private UILabel lv;
 	private UILabel name;
 	private UISlider expBar;
@@ -13,8 +13,8 @@ public class PersonalView
 	private UISprite powerBar;
 	private UILabel powerValue;
 	private UIButton group;
-	private UILabel groupHead;
-	private UILabel groupBody;
+//	private UILabel groupHead;
+//	private UILabel groupBody;
 	public TValueAvater[] Avatars = new TValueAvater[8];
 
 	public void Init(GameObject obj, GameObject[] itemEquipmentBtn)
@@ -23,7 +23,7 @@ public class PersonalView
 
 		if (self) {
 			changeHeadBtn = self.transform.FindChild("PlayerBt").gameObject.GetComponent<UIButton>();
-			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
+//			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
 			lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
 			name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
 			expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
@@ -31,8 +31,8 @@ public class PersonalView
 			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
 			powerValue = self.transform.FindChild("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
 			group = self.transform.FindChild("PlayerLeague").gameObject.GetComponent<UIButton>();
-			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
-			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
+//			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
+//			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
 			
 			for(int i = 0; i < Avatars.Length; i++){
 				GameObject go = self.transform.FindChild(string.Format("EquipmentView/PartSlot{0}/View", i)).gameObject;

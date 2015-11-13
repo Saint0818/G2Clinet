@@ -11,6 +11,7 @@ public class UIEquipDetail : MonoBehaviour
 {
     public Transform ItemParent;
     public UILabel Desc;
+    public UIButton UpgradeButton;
 
     private UIEquipItem mEquipItem;
 
@@ -23,6 +24,8 @@ public class UIEquipDetail : MonoBehaviour
         mEquipItem.Clear();
 
         mAttrs = GetComponentsInChildren<UIEquipDetailAttr>();
+
+        UpgradeButton.isEnabled = false;
     }
 
     public void Hide()

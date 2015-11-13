@@ -52,7 +52,7 @@ public class UIEquipPlayer : MonoBehaviour
         for(int i = 0; i < mPartSlots.Count; i++)
         {
             if(mImpl.Items.Length > i && mImpl.Items[i].IsValid())
-                mPartSlots[i].SetItem(mImpl.Items[i]);
+                mPartSlots[i].Set(mImpl.Items[i]);
             else
                 mPartSlots[i].Clear();
         }
