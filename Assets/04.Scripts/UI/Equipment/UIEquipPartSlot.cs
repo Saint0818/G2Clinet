@@ -32,12 +32,11 @@ public class UIEquipPartSlot : MonoBehaviour
 
     public void Clear()
     {
-        mItem.gameObject.SetActive(false);
+        mItem.Clear();
     }
 
     public void Set(EquipItem item)
     {
-        mItem.gameObject.SetActive(true);
         mItem.Set(item);
     }
 

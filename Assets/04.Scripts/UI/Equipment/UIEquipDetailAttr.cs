@@ -2,7 +2,7 @@
 using UnityEngine;
 
 /// <summary>
-/// 裝備介面中間的數值.(某一列)
+/// 裝備介面中間的數值.(某一列資訊)
 /// </summary>
 public class UIEquipDetailAttr : MonoBehaviour
 {

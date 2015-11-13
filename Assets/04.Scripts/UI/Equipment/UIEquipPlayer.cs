@@ -6,8 +6,16 @@ using JetBrains.Annotations;
 /// <summary>
 /// 負責裝備介面左邊的玩家裝備資訊.
 /// </summary>
+/// 使用方法:
+/// <list type="number">
+/// <item> Call UpdateUI() 更新介面. </item>
+/// <item> OnSlotClickListener 註冊 Slot 點擊事件. </item>
+/// </list>
 public class UIEquipPlayer : MonoBehaviour
 {
+    /// <summary>
+    /// Slot 被點擊. 參數(int index).
+    /// </summary>
     public event CommonDelegateMethods.Action1 OnSlotClickListener;
 
     public Transform HexagonParent;
@@ -51,8 +59,8 @@ public class UIEquipPlayer : MonoBehaviour
     {
         for(int i = 0; i < mPartSlots.Count; i++)
         {
-            if(mImpl.Items.Length > i && mImpl.Items[i].IsValid())
-                mPartSlots[i].Set(mImpl.Items[i]);
+            if(mImpl.EquipItems.Length > i && mImpl.EquipItems[i].IsValid())
+                mPartSlots[i].Set(mImpl.EquipItems[i]);
             else
                 mPartSlots[i].Clear();
         }
@@ -84,9 +92,9 @@ public class UIEquipPlayer : MonoBehaviour
     private int getSumValue(EAttributeKind kind)
     {
         int sum = 0;
-        for (int i = 0; i < mImpl.Items.Length; i++)
+        for (int i = 0; i < mImpl.EquipItems.Length; i++)
         {
-            sum += mImpl.Items[i].GetValue(kind);
+            sum += mImpl.EquipItems[i].GetValue(kind);
         }
 
 //            Debug.LogFormat("{0}:{1}", kind, sum);

@@ -5,6 +5,9 @@ using JetBrains.Annotations;
 
 namespace UI
 {
+    /// <summary>
+    /// 裝備介面所使用的裝備資料.
+    /// </summary>
     public class EquipItem
     {
         public class AttrKindData
