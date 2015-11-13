@@ -59,7 +59,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         new Vector3(-31f, 0, -1.63f)
     };
     private Vector3 jumpBallPos = new Vector3(-25f, 8, 0);
-    private Vector3 jumpBallRoate = new Vector3(12.5f, 90, 0);
+    private Vector3 jumpBallRotate = new Vector3(12.5f, 90, 0);
 	private Vector3 endShowPos = new Vector3(-25f, 8, 0);
 	private Vector3 endShowRotate = new Vector3(0, 90, 0);
     private GameObject cameraGroupObj;
@@ -191,6 +191,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     public void PlayGameStartCamera()
     {
         cameraAnimator.SetTrigger("InGameStart");
+		ShowCourtCamera(true);
     }
 
     public void FinishGame()
@@ -232,10 +233,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             if (s == ECameraSituation.Show)
             {
                 ShowCameraEnable(true);
-                cameraGroupObj.SetActive(false);
-            } else
-                cameraGroupObj.SetActive(true);
-        } 
+				ShowCourtCamera(false);
+			} else
+				ShowCourtCamera(true);
+		} 
     }
 
     public void ShowCameraEnable(bool isEnable)
@@ -245,6 +246,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         else
 			showAnimatorControl.SetTrigger("CloseTrigger");
     }
+
+	public void ShowCourtCamera (bool isShow) {
+		cameraGroupObj.SetActive(isShow);
+	}
 
     public Camera CourtCamera
     {
@@ -269,9 +274,12 @@ public class CameraMgr : KnightSingleton<CameraMgr>
     {
         if (cameraGroupObj)
         {
-            cameraOffsetObj = cameraGroupObj.transform.FindChild("Offset").gameObject;
-            cameraRotationObj = cameraGroupObj.transform.FindChild("Offset/Rotation").gameObject;
-            cameraFx = cameraRotationObj.transform.GetComponentInChildren<Camera>();
+			if(cameraOffsetObj == null)
+            	cameraOffsetObj = cameraGroupObj.transform.FindChild("Offset").gameObject;
+			if(cameraRotationObj == null)
+            	cameraRotationObj = cameraGroupObj.transform.FindChild("Offset/Rotation").gameObject;
+			if(cameraFx == null)
+            	cameraFx = cameraRotationObj.transform.GetComponentInChildren<Camera>();
 
             if (!cameraOffsetObj.GetComponent<Shake>())
                 mShake = cameraOffsetObj.AddComponent<Shake>();
@@ -281,9 +289,10 @@ public class CameraMgr : KnightSingleton<CameraMgr>
             cameraOffsetPos = cameraGroupObj.transform.position;        
         }
 
-        cameraGroupObj.transform.localPosition = Vector3.zero;
-        cameraRotationObj.transform.localPosition = jumpBallPos;
-        cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
+		cameraRotationObj.transform.localPosition = jumpBallPos;
+		cameraRotationObj.transform.localEulerAngles = jumpBallRotate;
+		cameraGroupObj.transform.localPosition = Vector3.zero;
+		ShowCourtCamera(false);
 		if(cameraPlayerInfo)
 			cameraPlayerInfo.gameObject.SetActive(false);
 		setHalfCourtCamera();
@@ -516,7 +525,7 @@ public class CameraMgr : KnightSingleton<CameraMgr>
         {
             case ECameraSituation.JumpBall:
                 cameraRotationObj.transform.localPosition = jumpBallPos;
-                cameraRotationObj.transform.localEulerAngles = jumpBallRoate;
+                cameraRotationObj.transform.localEulerAngles = jumpBallRotate;
                 break;
             case ECameraSituation.Self:
 

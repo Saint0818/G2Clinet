@@ -1264,13 +1264,8 @@ public class UIGame : UIBase {
 					uiSkillEnables[i].SetActive(false);
 				}
 			}
-
-			GameController.Get.Reset();
-            //no tutorial
+			//no tutorial
 			if (GameController.Get.Situation == EGameSituation.Opening) {
-				CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
-				CameraMgr.Get.ShowEnd();
-				CameraMgr.Get.PlayGameStartCamera();
 				UIState(EUISituation.Opening);
 			}
 

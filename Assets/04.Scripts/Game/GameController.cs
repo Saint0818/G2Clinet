@@ -4303,6 +4303,9 @@ public class GameController : KnightSingleton<GameController>
 		GameTime = maxGameTime;
 		CourtInstant.ResetValue();
 		CameraMgr.Get.ShowPlayerInfoCamera (false);
+		CameraMgr.Get.InitCamera(ECameraSituation.JumpBall);
+		CameraMgr.Get.ShowEnd();
+		CameraMgr.Get.PlayGameStartCamera();
 		UIPassiveEffect.Get.Reset();
 		UIDoubleClick.Get.Reset();
 
