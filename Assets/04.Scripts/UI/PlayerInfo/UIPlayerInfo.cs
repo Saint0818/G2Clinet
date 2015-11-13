@@ -104,6 +104,8 @@ public class PersonalView
 		powerValue.text = average.ToString();
 		powerBar.fillAmount = average / 100;
 	}
+
+	public bool Enable{set{self.SetActive(value);}}
 }
 
 public class AbilityView
@@ -147,6 +149,26 @@ public class AbilityView
 	{
 		skillPointBtn.onClick.Add (skillFunc);
 	}
+
+	public bool Enable{set{self.SetActive(value);}}
+}
+
+public class SkillView
+{
+	private GameObject self;
+
+	public void Init(GameObject go)
+	{
+		if (go) {
+			self = go;			
+		}
+	}
+
+	public bool Enable
+	{
+		set{self.SetActive(value);}
+	}
+
 }
 
 [System.Serializable]
@@ -251,13 +273,14 @@ public class UIPlayerInfo : UIBase {
 	//Page 0
 	private PersonalView personalView = new PersonalView();
 	private AbilityView abilityView = new AbilityView();
-	
+
+	//Page 1
+	private SkillView skillView = new SkillView();
+
 	//part4
 	public UIButton SkillUp;
 	public UIButton Back;
 
-	//Page 1
-	
 	
 	//Page 2
 	
@@ -312,22 +335,30 @@ public class UIPlayerInfo : UIBase {
 	}
 	
 	protected override void InitCom() {
+		GameObject obj;
 
 		//P1
 		for (int i = 0; i < PageAy.Length; i++)
 			PageAy[i] = GameObject.Find(string.Format("Page{0}", i));
 
 		GameObject[] itemEquipmentBtns = new GameObject[8];
-		GameObject personalViewObj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
-		GameObject abilityViewObj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
 		for (int i = 0; i < itemEquipmentBtns.Length; i++) {
 			itemEquipmentBtns[i] = Instantiate(Resources.Load ("Prefab/UI/Items/ItemEquipmentBtn")) as GameObject;	
 		}
 
-		personalView.Init(personalViewObj, itemEquipmentBtns);
-		abilityView.Init(abilityViewObj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
+		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
+		personalView.Init(obj, itemEquipmentBtns);
+
+		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
+		abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
 		abilityView.InitBtttonFunction (new EventDelegate (OnUpgradingMasteries));
 		SetBtnFun (UIName + "/Window/BottomLeft/BackBtn", OnReturn);
+		for (int i = 0; i < 2; i++)
+			SetBtnFun (UIName + string.Format("/Window/Center/View/TopTabs/{0}", i), OnPage);	
+
+		//Skill page
+		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/SkillView"));
+		skillView.Init (obj);
 	}
 
 	public void OnReturn()
@@ -350,6 +381,14 @@ public class UIPlayerInfo : UIBase {
 		UpdatePage (0);
 	}
 
+	public void OnPage()
+	{
+		int index;
+		if (int.TryParse (UIButton.current.name, out index)) {
+			UpdatePage(index);
+		}
+	}
+
 	public void UpdatePage(int index)
 	{
 		switch(index)
@@ -364,6 +403,10 @@ public class UIPlayerInfo : UIBase {
 			case 2:
 				break;
 		}
+
+		personalView.Enable = index == 0? true : false;
+		abilityView.Enable = index == 0? true : false;
+		skillView.Enable = index == 1? true : false;
 	}
 
 	protected override void OnShow(bool isShow) {
