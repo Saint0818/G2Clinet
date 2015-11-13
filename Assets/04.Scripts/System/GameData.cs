@@ -38,6 +38,7 @@ public static class GameData {
 	public static Dictionary<int, TStageToturial> DStageTutorial = new Dictionary<int, TStageToturial>();
 	public static TStageToturial[] StageTutorial = new TStageToturial[0];
 	private static Dictionary<int, Texture2D> cardTextureCache = new Dictionary<int, Texture2D>();
+	private static Dictionary<string, Texture2D> cardItemTextureCache = new Dictionary<string, Texture2D>();
 	public static TPreloadEffect[] PreloadEffect;
 
 	public static float ServerVersion;
@@ -90,6 +91,28 @@ public static class GameData {
 		} else
 		return null;
     }
+
+	public static Texture2D CardItemTexture(int id) {
+		if (GameData.DSkillData.ContainsKey(id)) {
+			if (GameData.DSkillData[id].PictureNo > 0)
+				id = GameData.DSkillData[id].PictureNo;
+			
+			if (cardItemTextureCache.ContainsKey(id.ToString() + "t")) {
+				return cardItemTextureCache [id.ToString() + "t"];
+			}else {
+				string path = "Textures/SkillCards/" + id.ToString() + "t";
+				Texture2D obj = Resources.Load(path) as Texture2D;
+				if (obj) {
+					cardItemTextureCache.Add(id.ToString() + "t", obj);
+					return obj;
+				} else {
+					//download form server
+					return null;
+				}
+			}
+		} else
+			return null;
+	}
 
 	private static void loadGameSetting() {
 		Setting.Language = ELanguage.EN;

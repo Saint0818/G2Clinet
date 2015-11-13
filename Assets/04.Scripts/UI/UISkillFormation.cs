@@ -209,8 +209,8 @@ public class UISkillFormation : UIBase {
 	}
 
 	protected override void InitCom() {
-		itemSkillCard = Resources.Load("Prefab/UI/Items/ItemSkillCard") as GameObject;
-		itemCardEquipped = Resources.Load("Prefab/UI/Items/ItemCardEquipped") as GameObject;
+		itemSkillCard = Resources.Load(UIPrefabPath.ItemSkillCard) as GameObject;
+		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
 		tempPage = GameData.Team.Player.SkillPage;
 
 		for(int i=0; i<toggleDecks.Length; i++) {
@@ -583,11 +583,10 @@ public class UISkillFormation : UIBase {
 		if(t != null) 
 			t.gameObject.GetComponent<UISprite>().spriteName = "Levelball" + Mathf.Clamp(GameData.DSkillData[uicard.CardID].Quality, 1, 3).ToString();
 
-		//no texture
-//		t = obj.transform.FindChild("SkillTexture");
-//		if(t != null)
-//			if(GameData.DSkillData.ContainsKey(iduicard.CardID))
-//				t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardTexture(uicard.CardID);
+		t = obj.transform.FindChild("SkillTexture");
+		if(t != null)
+			if(GameData.DSkillData.ContainsKey(uicard.CardID))
+				t.gameObject.GetComponent<UITexture>().mainTexture = GameData.CardItemTexture(uicard.CardID);
 
 
 		return obj;

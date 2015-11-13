@@ -76,7 +76,7 @@ public class UIGamePause : UIBase {
 	}
 	
 	protected override void InitCom() {
-		uiStageHint = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint")).GetComponent<UIStageHint>();
+		uiStageHint = Instantiate(Resources.Load<GameObject>(UIPrefabPath.UIStageHint)).GetComponent<UIStageHint>();
 		uiStageHint.transform.parent = GameObject.Find(UIName + "/Center").transform;
 		uiStageHint.transform.localPosition = Vector3.zero;
 		uiStageHint.transform.localRotation = Quaternion.identity;

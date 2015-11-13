@@ -308,7 +308,7 @@ public class UIGame : UIBase {
 		
 		//TopRight
 		viewTopRight = GameObject.Find(UIName + "/TopRight");
-		skillHint = Instantiate(Resources.Load<GameObject>("Prefab/UI/Items/ItemSkillHint")).GetComponent<ItemSkillHint>();
+		skillHint = Instantiate(Resources.Load<GameObject>(UIPrefabPath.ItemSkillHint)).GetComponent<ItemSkillHint>();
 		skillHint.transform.parent = viewTopRight.transform;
 		skillHint.transform.localPosition = new Vector3(-350, -185, 0);
 		skillHint.transform.localScale = Vector3.one;
