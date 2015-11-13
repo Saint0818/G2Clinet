@@ -138,10 +138,10 @@ public class AbilityView
 
 	public void UpdateMasteries(int[] indexs)
 	{
-		if(Masteries.Length == indexs.Length){
-			for(int i = 0;i < indexs.Length;i++){
-				Masteries[i].Value.text = indexs[i].ToString();
-			}
+		//TODO: only six
+		for(int i = 0;i < indexs.Length;i++){
+			Masteries[i].Value.text = indexs[i].ToString();
+			hexagon.SetValue((UIAttributes.EGroup)i, GameData.Team.Player.Potential[i] / GameConst.AttributeMax);
 		}
 	}
 
@@ -385,7 +385,8 @@ public class UIPlayerInfo : UIBase {
 	{
 		int index;
 		if (int.TryParse (UIButton.current.name, out index)) {
-			UpdatePage(index);
+			if(index == 0)
+				UpdatePage(index);
 		}
 	}
 

@@ -330,7 +330,7 @@ public class UIPlayerPotential : UIBase {
 	{
 		if (ok) {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Player = team.Player;
+			GameData.Team.Player.Potential = team.Player.Potential;
 			upgradeView.OnCancel();
 			UpdateView();
 		}
