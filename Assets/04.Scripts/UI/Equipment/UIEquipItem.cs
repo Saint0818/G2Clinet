@@ -23,8 +23,14 @@ public class UIEquipItem : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void Set(EquipItem item)
     {
+        gameObject.SetActive(true);
         Picture.spriteName = item.Icon;
         Text.text = item.Name;
     }

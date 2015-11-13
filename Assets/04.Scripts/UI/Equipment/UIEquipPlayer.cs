@@ -15,17 +15,15 @@ public class UIEquipPlayer : MonoBehaviour
     private readonly List<UIEquipPartSlot> mPartSlots = new List<UIEquipPartSlot>();
 
     private UIEquipmentImpl mImpl;
+    private UIEquipDetail mDetail;
 
     [UsedImplicitly]
     private void Awake()
     {
         mImpl = GetComponent<UIEquipmentImpl>();
+        mDetail = GetComponent<UIEquipDetail>();
 
-        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.AttriuteHexagon));
-        obj.transform.parent = HexagonParent;
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
-        obj.transform.localScale = Vector3.one;
+        GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.AttriuteHexagon, HexagonParent);
         mAttributes = obj.GetComponent<UIAttributes>();
 
         foreach(Transform parent in SlotParents)

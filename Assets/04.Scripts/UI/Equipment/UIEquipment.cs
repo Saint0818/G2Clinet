@@ -88,7 +88,12 @@ public class UIEquipment : UIBase
                     if (item.AttrKinds[i] == EAttributeKind.None)
                         continue;
 
-                    uiItem.Values.Add(item.AttrKinds[i], item.AttrValues[i]);
+                    var data = new EquipItem.AttrKindData
+                    {
+                        Icon = string.Format("AttrKind_{0}", item.AttrKinds[i].GetHashCode()),
+                        Value = item.AttrValues[i]
+                    };
+                    uiItem.Values.Add(item.AttrKinds[i], data);
                 }
             }
         }

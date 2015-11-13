@@ -7,6 +7,12 @@ namespace UI
 {
     public class EquipItem
     {
+        public class AttrKindData
+        {
+            public string Icon;
+            public int Value;
+        }
+
         public string Name
         {
             set { mName = string.IsNullOrEmpty(value) ? string.Empty : value; }
@@ -29,7 +35,7 @@ namespace UI
         private string mDesc;
 
         // 道具會影響哪些屬性的數值.
-        public Dictionary<EAttributeKind, int> Values = new Dictionary<EAttributeKind, int>();
+        public Dictionary<EAttributeKind, AttrKindData> Values = new Dictionary<EAttributeKind, AttrKindData>();
 
         // 鑲嵌物品.
         [CanBeNull]
@@ -46,7 +52,7 @@ namespace UI
         {
             int sum = 0;
             if (Values.ContainsKey(kind))
-                sum += Values[kind];
+                sum += Values[kind].Value;
 
             if (Inlays != null)
             {

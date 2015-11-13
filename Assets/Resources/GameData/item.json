@@ -5842,7 +5842,8 @@
         "attrvalue1": 20,
         "attrkind2": 6,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "1類數值裝白:說明"
     },
     {
         "id": 11101,
@@ -5904,7 +5905,8 @@
         "attrvalue1": 20,
         "attrkind2": 1,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "2類數值裝白:說明"
     },
     {
         "id": 12101,
@@ -5961,7 +5963,8 @@
         "attrkind1": 3,
         "attrvalue1": 20,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "3類數值裝白:說明"
     },
     {
         "id": 13101,
@@ -6018,7 +6021,8 @@
         "attrkind1": 8,
         "attrvalue1": 20,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "4類數值裝白:說明"
     },
     {
         "id": 14101,
@@ -6075,7 +6079,8 @@
         "attrkind1": 3,
         "attrvalue1": 20,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "5類數值裝白:說明"
     },
     {
         "id": 15101,
@@ -6132,7 +6137,8 @@
         "attrkind1": 8,
         "attrvalue1": 20,
         "attrvalue2": 20,
-        "materialnum": 1
+        "materialnum": 1,
+        "explaintw": "6類數值裝白:說明"
     },
     {
         "id": 16101,

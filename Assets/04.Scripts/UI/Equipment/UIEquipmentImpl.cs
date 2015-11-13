@@ -36,6 +36,7 @@ public class UIEquipmentImpl : MonoBehaviour
         Items = items;
 
         mPlayerInfo.UpdateUI();
+        mItemDetail.Set(items[0]);
     }
 
     public void OnBackClick()
