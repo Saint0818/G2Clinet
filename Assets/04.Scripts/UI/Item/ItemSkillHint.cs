@@ -25,6 +25,6 @@ public class ItemSkillHint : MonoBehaviour {
 		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].Quality.ToString(),
 		                           GameController.Get.Joysticker.AngerPower.ToString(),
 		                           "/" + GameController.Get.Joysticker.Attribute.MaxAngerOne(GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID).ToString(),
-		                           "");
+		                           GameData.DSkillData[GameController.Get.Joysticker.Attribute.ActiveSkills[index].ID].PictureNo);
 	}
 }

@@ -310,7 +310,7 @@ public class UIGame : UIBase {
 		viewTopRight = GameObject.Find(UIName + "/TopRight");
 		skillHint = Instantiate(Resources.Load<GameObject>(UIPrefabPath.ItemSkillHint)).GetComponent<ItemSkillHint>();
 		skillHint.transform.parent = viewTopRight.transform;
-		skillHint.transform.localPosition = new Vector3(-350, -185, 0);
+		skillHint.transform.localPosition = new Vector3(-300, -185, 0);
 		skillHint.transform.localScale = Vector3.one;
 
 		spriteForce = GameObject.Find (UIName + "/TopRight/ViewForceBar/Forcebar/SpriteForce").GetComponent<UISprite>();

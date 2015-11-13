@@ -11,12 +11,12 @@ public class ItemSkillHintView : MonoBehaviour {
 	public UISprite SkillCard;
 
 
-	public void UpdateUI (string name, string level, string quality, string anger, string maxAnger, string texturename) {
+	public void UpdateUI (string name, string level, string quality, string anger, string maxAnger, int id) {
 		SkillName.text = name;
 		SkillLevel.spriteName = "Cardicon" + level;
 		SkillLevelball.spriteName = "Levelball" + quality;
 		SkillMaxAnger.text = anger + "[13CECEFF]" + maxAnger + "[-]";
-//		SkillTexture.mainTexture
+		SkillTexture.mainTexture = GameData.CardItemTexture(id);
 		SkillCard.spriteName = "cardlevel_" + quality + "s";
 	}
 }
