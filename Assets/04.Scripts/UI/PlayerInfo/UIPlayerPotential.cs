@@ -123,7 +123,7 @@ public class UpgradeView
 	
 	public void UpdatePotential(TPlayer player)
 	{
-		if(player.Potential.Length == AddPotential.Length)
+		if(player.Potential != null && player.Potential.Length == AddPotential.Length)
 		{
 			for(int i = 0;i < player.Potential.Length;i++){
 				upgradeBtns[i].SetValue(player.Potential[i], AddPotential [i]);
@@ -397,10 +397,11 @@ public class UIPlayerPotential : UIBase {
 	{
 		int lvpoint = GetLvPotential (player.Lv);
 		int use = 0;
-		
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
+
+		if(player.Potential != null)
+			for(int i = 0; i < player.Potential.Length; i++){
+				use += player.Potential[i] * GameConst.PotentialRule[i]; 
+			}
 		
 		if (lvpoint > use)
 			return lvpoint - use;
@@ -427,10 +428,11 @@ public class UIPlayerPotential : UIBase {
 	{
 		int lvpoint = GetLvPotential (player.Lv);
 		int use = 0;
-		
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
+
+		if(player.Potential != null)
+			for(int i = 0; i < player.Potential.Length; i++){
+				use += player.Potential[i] * GameConst.PotentialRule[i]; 
+			}
 		
 		if (use > lvpoint)
 			return use - lvpoint;
