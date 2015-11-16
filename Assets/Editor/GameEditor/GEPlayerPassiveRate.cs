@@ -25,20 +25,19 @@ public class GEPlayerPassiveRate : GEBase {
 	private SkillController skillController;
 
 	private bool isInstall = false;
+	private string chooseID = "1";
 	private string[] options;
 	private int index = 0;
 	private int chooseIndex = 0;
 	
 	private Vector2 scrollPosition = Vector2.zero;
 
-	void OnFocus(){
-		isChange = false;
-		isInstall = false;
-		index = 0;
-		passives.Clear();
-		if(Selection.gameObjects.Length == 1) {
+	void OnEnable () {
+		if(GameController.Get.GamePlayers.Count > 0 ){
 			isChoose = true;
-			skillController = Selection.gameObjects[0].GetComponent<SkillController>();
+			GameController.Get.GamePlayers[0].Attribute.SetID(1);
+			GameController.Get.GamePlayers[0].InitAttr();
+			skillController = GameController.Get.GamePlayers[0].GetComponent<SkillController>();
 			if(skillController != null) {
 				options = new string[skillController.DPassiveSkills.Count];
 				foreach (KeyValuePair<int, List<TPassiveType>> types in skillController.DPassiveSkills) {
@@ -55,17 +54,48 @@ public class GEPlayerPassiveRate : GEBase {
 				}
 			} else 
 				isChoose = false;
-		} else
-			isChoose = false;
+		}
 	}
+
+//	void OnFocus(){
+//		isChange = false;
+//		isInstall = false;
+//		index = 0;
+//		passives.Clear();
+//		if(Selection.gameObjects.Length == 1) {
+//			isChoose = true;
+//			skillController = Selection.gameObjects[0].GetComponent<SkillController>();
+//			if(skillController != null) {
+//				options = new string[skillController.DPassiveSkills.Count];
+//				foreach (KeyValuePair<int, List<TPassiveType>> types in skillController.DPassiveSkills) {
+//					options[index] = types.Key.ToString();
+//					index ++;
+//					for (int i=0; i<types.Value.Count; i++){
+//						TChangePassiveRate change = new TChangePassiveRate();
+//						change.Kind  = types.Key;
+//						change.ID = types.Value[i].Tskill.ID;
+//						change.Lv = types.Value[i].Tskill.Lv;
+//						change.Rate = types.Value[i].Rate;
+//						passives.Add(change);
+//					}
+//				}
+//			} else 
+//				isChoose = false;
+//		} else
+//			isChoose = false;
+//	}
 
 	void OnGUI(){
 		if(isChoose) {
 			if(options != null)
 				chooseIndex = EditorGUI.Popup(new Rect(0, 0, 200, 20), "Kind:", chooseIndex, options);
-			
 			GUILayout.Label(" ");
 			GUILayout.Label(" ");
+			chooseID = GUILayout.TextField(chooseID, 10);
+			if(GUILayout.Button("Change normal Rate")) {
+				GameController.Get.GamePlayers[0].Attribute.SetID(int.Parse(chooseID));
+				GameController.Get.GamePlayers[0].InitAttr();
+			}
 			if(!isInstall && passives.Count == 0) {
 				if(GUILayout.Button("Install All Passive")) {
 					foreach(KeyValuePair<int, TSkillData> tskill in GameData.DSkillData) {
@@ -88,7 +118,7 @@ public class GEPlayerPassiveRate : GEBase {
 					}
 					skillController.DPassiveSkills = UpdatePassiveSkills;
 					isInstall = true;
-					OnFocus();
+					OnEnable();
 				}
 			}
 
@@ -108,10 +138,8 @@ public class GEPlayerPassiveRate : GEBase {
 
 			GUI.backgroundColor = Color.red;
 			if(isChange) 
-//				GUI.Label(new Rect(0, 530, 300, 20), "Change Success");
 				GUILayout.Label("Change Success");
 			GUI.backgroundColor = Color.white;
-//			if(GUI.Button(new Rect(0, 550, 300, 30), "Change")) {
 			if(GUILayout.Button("Change Passive Rate")) {
 				isChange = true;
 				UpdatePassiveSkills.Clear();

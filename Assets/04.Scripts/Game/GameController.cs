@@ -4312,7 +4312,7 @@ public class GameController : KnightSingleton<GameController>
 		CameraMgr.Get.PlayGameStartCamera();
 		UIPassiveEffect.Get.Reset();
 		UIDoubleClick.Get.Reset();
-		CourtMgr.Get.SetBallOwnerNull();
+		CourtMgr.Get.SetBallState(EPlayerState.Reset);
 
 		if (GameData.Setting.AIChangeTime > 100)
 			Joysticker.SetManually();
