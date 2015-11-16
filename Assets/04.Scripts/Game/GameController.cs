@@ -3521,6 +3521,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private void setEndShowScene () {
 		//Player
+		SetPlayerAI(false);
 		for (int i=0; i<PlayerList.Count; i++) {
 			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
 				PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
@@ -4301,6 +4302,7 @@ public class GameController : KnightSingleton<GameController>
 		IsPassing = false;
 		Shooter = null;
 		IsStart = false;
+		SetPlayerAI(true);
 		SetBallOwnerNull();
 		GameTime = maxGameTime;
 		CourtInstant.ResetValue();
@@ -4310,6 +4312,7 @@ public class GameController : KnightSingleton<GameController>
 		CameraMgr.Get.PlayGameStartCamera();
 		UIPassiveEffect.Get.Reset();
 		UIDoubleClick.Get.Reset();
+		CourtMgr.Get.SetBallOwnerNull();
 
 		if (GameData.Setting.AIChangeTime > 100)
 			Joysticker.SetManually();

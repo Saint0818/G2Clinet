@@ -747,7 +747,6 @@ public class UIGame : UIBase {
 			newForceValue = anger / max;
 			dcCount += count;
 			baseForceValue = (newForceValue - oldForceValue) / dcCount;
-//			spriteForceFirst.fillAmount = newForceValue;
 			if (newForceValue >= 1) {
 				uiSpriteFull.SetActive (true);
 			} else if (newForceValue <=0 ) {
@@ -761,18 +760,6 @@ public class UIGame : UIBase {
 			spriteForceFirst.gameObject.SetActive(false);
 			spriteForceFirst.gameObject.SetActive(true);
 		}
-//		if(IsPlayerMe) {
-//			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
-//				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-//					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
-//					if(uiButtonSkill[i].activeSelf) {
-//						spriteEmptys[i].fillAmount = PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, anger);
-//						spriteEmptys[i].gameObject.SetActive(false);
-//						spriteEmptys[i].gameObject.SetActive(true);
-//					}
-//				}
-//			}
-//		}
 	}
 
 	private void runSkillValue () {
@@ -781,7 +768,7 @@ public class UIGame : UIBase {
 				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
 					if(uiButtonSkill[i].activeSelf) {
-						spriteEmptys[i].fillAmount = PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
+						spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
 						spriteEmptys[i].gameObject.SetActive(false);
 						spriteEmptys[i].gameObject.SetActive(true);
 					}
@@ -1053,8 +1040,7 @@ public class UIGame : UIBase {
 					//Elbow
 					if(isPressElbowBtn && 
 					   !PlayerMe.IsFall && 
-					   GameController.Get.Situation == EGameSituation.AttackGamer &&
-					   PlayerMe.IsElbow) {
+					   GameController.Get.Situation == EGameSituation.AttackGamer) {
 						noAI = GameController.Get.DoElbow ();
 						if(noAI)
 							UIMaskState(EUIControl.Attack);
