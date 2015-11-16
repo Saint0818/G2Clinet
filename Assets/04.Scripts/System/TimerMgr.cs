@@ -31,7 +31,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 	{
 		CrtTime = value;
 		Timekeeper.instance.Clock(key.ToString()).localTimeScale = CrtTime;
-		if(key == ETimerKind.Player0) {
+		if(GameController.Get.GamePlayers.Count > 1 && key == ETimerKind.Player0) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[0].transform.DOPause();
@@ -41,7 +41,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[0].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Player1) {
+		if(GameController.Get.GamePlayers.Count > 2 && key == ETimerKind.Player1) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[1].transform.DOPause();
@@ -51,7 +51,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[1].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Player2) {
+		if(GameController.Get.GamePlayers.Count > 3 && key == ETimerKind.Player2) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[2].transform.DOPause();
@@ -61,7 +61,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[2].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Player3) {
+		if(GameController.Get.GamePlayers.Count > 4 && key == ETimerKind.Player3) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[3].transform.DOPause();
@@ -71,7 +71,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[3].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Player4) {
+		if(GameController.Get.GamePlayers.Count > 5 && key == ETimerKind.Player4) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[4].transform.DOPause();
@@ -81,7 +81,7 @@ public class TimerMgr : KnightSingleton<TimerMgr>
 				GameController.Get.GamePlayers[4].transform.DOPlay();
 			}
 		}
-		if(key == ETimerKind.Player5) {
+		if(GameController.Get.GamePlayers.Count > 6 && key == ETimerKind.Player5) {
 			if(value == 0)
 			{
 				GameController.Get.GamePlayers[5].transform.DOPause();
