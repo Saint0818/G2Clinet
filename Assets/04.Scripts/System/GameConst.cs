@@ -47,9 +47,12 @@
     /// 超過此距離投籃, 會是撥長距離投籃的動作.
     /// </summary>
 	public const float LongShootDistance = 15f;
-	public const float TreePointDistance = 10.6f;
+	public const float ThreePointDistance = 10.6f;
 	public const float TwoPointDistance = 7;
-	public const float DunkDistance = 7; // 在此距離內, 才會做上籃 or 灌籃.
+	public const float DunkDistance = 7; // 在此距離內, 才會做灌籃.
+	public const float DunkDistanceNoMove = 3; // 在此距離內, 才會做灌籃.
+	public const float LayupDistance = 7;
+	public const float ShortShootDistance = 3;
 	public const float PickBallDistance = 2.5f;
 
     /// <summary>

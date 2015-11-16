@@ -814,7 +814,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
 
-                if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.TreePointDistance)
+                if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.ThreePointDistance)
                 {
                     AutoFollow = false;
                     SetAutoFollowTime();
@@ -1601,7 +1601,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
                     if (Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
-                        Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.TreePointDistance + 3)
+                        Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.ThreePointDistance + 3)
                     {
                         resultBool = true;
                     } else
@@ -1664,7 +1664,7 @@ public class PlayerBehaviour : MonoBehaviour
                             else 
                             if (!doMove)
                                 RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
-                            else if (dis > GameConst.TreePointDistance + 4 && data.DefPlayer.AIing &&
+                            else if (dis > GameConst.ThreePointDistance + 4 && data.DefPlayer.AIing &&
 //                                    (data.DefPlayer.WaitMoveTime == 0 || data.DefPlayer.TargetPosNum > 0))
                                 (data.DefPlayer.CantMoveTimer.IsOff() || data.DefPlayer.TargetPosNum > 0))
                                 RotateTo(MoveTarget.x, MoveTarget.y);
@@ -1776,7 +1776,7 @@ public class PlayerBehaviour : MonoBehaviour
                     {
                         dis = Vector3.Distance(transform.position, CourtMgr.Get.ShootPoint [data.DefPlayer.Team.GetHashCode()].transform.position);
                         
-                        if (dis <= GameConst.TreePointDistance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
+                        if (dis <= GameConst.ThreePointDistance + 4 || Vector3.Distance(transform.position, data.LookTarget.position) <= 1.5f)
                             RotateTo(data.LookTarget.position.x, data.LookTarget.position.z);
                         else
                             RotateTo(MoveTarget.x, MoveTarget.y);

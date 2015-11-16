@@ -193,12 +193,12 @@ namespace AI
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
             // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
-            if(shootPointDis <= GameConst.TreePointDistance + 1 && !hasDefPlayer &&
+            if(shootPointDis <= GameConst.ThreePointDistance + 1 && !hasDefPlayer &&
                mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
-            if(shootPointDis <= GameConst.TreePointDistance + 1 && hasDefPlayer &&
+            if(shootPointDis <= GameConst.ThreePointDistance + 1 && hasDefPlayer &&
                !mPlayer.CheckAnimatorSate(EPlayerState.HoldBall))
             {
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
@@ -254,11 +254,11 @@ namespace AI
                 mRandomizer.AddOrUpdate(EAction.Shoot2, mPlayer.Attr.PointRate2);
 
             // 是否可以投 3 分球.(判斷距離 +1 的目的是確保球員真的在三分線外投籃)
-            if(shootPointDis <= GameConst.TreePointDistance + 1)
+            if(shootPointDis <= GameConst.ThreePointDistance + 1)
                 mRandomizer.AddOrUpdate(EAction.Shoot3, mPlayer.Attr.PointRate3);
 
             // 是否可以做假動作
-            if(shootPointDis <= GameConst.TreePointDistance + 1)
+            if(shootPointDis <= GameConst.ThreePointDistance + 1)
                 mRandomizer.AddOrUpdate(EAction.FakeShoot, GameConst.FakeShootRate);
 
 //            mRandomizer.AddOrUpdate(EAction.Elbow, mPlayer.Attr.ElbowingRate);

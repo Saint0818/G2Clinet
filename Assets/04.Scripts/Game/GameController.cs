@@ -157,6 +157,8 @@ public class GameController : KnightSingleton<GameController>
 	//Instant
 	public TCourtInstant CourtInstant;
 	public TStageData StageData = new TStageData();
+	
+	private WeightedRandomizer<ESkillSituation> shootRandomizer = new WeightedRandomizer<ESkillSituation>();
 
 	//debug value
 	public float RecordTimeScale = 1;
@@ -1549,7 +1551,7 @@ public class GameController : KnightSingleton<GameController>
 	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
 		//Score Rate
 		float originalRate = 0;
-		if(ShootDistance >= GameConst.TreePointDistance) {
+		if(ShootDistance >= GameConst.ThreePointDistance) {
 			originalRate = player.Attr.PointRate3;
 			EffectManager.Get.PlayEffect("ThreeLineEffect", Vector3.zero, null, null, 0);
 		} else 
@@ -1653,7 +1655,7 @@ public class GameController : KnightSingleton<GameController>
 		
 		judgeBasketAnimationName ((int)basketDistanceAngle);
 
-		if (ShootDistance >= GameConst.TreePointDistance)
+		if (ShootDistance >= GameConst.ThreePointDistance)
 			player.GameRecord.FG3++;
 		else
 			player.GameRecord.FG++;
@@ -1694,7 +1696,6 @@ public class GameController : KnightSingleton<GameController>
                 if(GameStart.Get.TestMode == EGameTest.Dunk)
                 {
 					BallOwner.AniState(EPlayerState.Dunk20, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
-					
 					return true;
 				}
 
@@ -1710,40 +1711,75 @@ public class GameController : KnightSingleton<GameController>
                 else
                 {
                     // 持球者不在灌籃和搶籃板狀態.
+					shootRandomizer.Clear();
 					if(BallOwner.IsMoving)
                     {
 						if(ShootDistance > GameConst.LongShootDistance)
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
-                        {
-							if (Random.Range(0, 2) == 0)
-								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-							else
-								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+						else {
+							if(ShootDistance > GameConst.TwoPointDistance && ShootDistance <= GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot2, 50);
+							
+							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LayupDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Layup0, 50);
+							
+							if(ShootDistance <= GameConst.DunkDistance) 
+								if(BallOwner.Attr.DunkRate > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+							
+							if(ShootDistance <= GameConst.ShortShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+
+							BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 						}
-                        else
-                        {
-							float rate = Random.Range(0, 100);
-							if (rate < BallOwner.Attr.DunkRate)
-								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
-							else
-                            {
-								if(HasDefPlayer(BallOwner, 1.5f, 40) == 0)
-									BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-								else
-									BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-							}
-						}
+//						if(ShootDistance > GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
+//                        {
+//							if (Random.Range(0, 2) == 0)
+//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//							else
+//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						}
+//                        else
+//                        {
+//							float rate = Random.Range(0, 100);
+//							if (rate < BallOwner.Attr.DunkRate)
+//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
+//							else
+//                            {
+//								if(HasDefPlayer(BallOwner, 1.5f, 40) == 0)
+//									BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//								else
+//									BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//							}
+//						}
 					}
                     else
                     {
                         // 站在原地投籃.
 						if(ShootDistance > GameConst.LongShootDistance)
 							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-						else
-							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+						else {
+							if(ShootDistance > GameConst.ShortShootDistance && ShootDistance <= GameConst.LongShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot0, 50);
+							
+							if(ShootDistance <= GameConst.DunkDistanceNoMove)
+								if(BallOwner.Attr.DunkRate > 0)
+									shootRandomizer.AddOrUpdate(ESkillSituation.Dunk0, BallOwner.Attr.DunkRate);
+							
+							if(ShootDistance <= GameConst.ShortShootDistance)
+								shootRandomizer.AddOrUpdate(ESkillSituation.Shoot1, 50);
+							
+							BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+						}
+
+//						if(ShootDistance > GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
+//						else
+//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 					}
 
 					return true;
@@ -1943,7 +1979,7 @@ public class GameController : KnightSingleton<GameController>
 		if (player == BallOwner)
 		{
 			player.GameRecord.Dunk++;
-			if (ShootDistance >= GameConst.TreePointDistance)
+			if (ShootDistance >= GameConst.ThreePointDistance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -1971,7 +2007,7 @@ public class GameController : KnightSingleton<GameController>
 
 			player.GameRecord.ShotError++;
 			player.GameRecord.Dunk++;
-			if (ShootDistance >= GameConst.TreePointDistance)
+			if (ShootDistance >= GameConst.ThreePointDistance)
 				player.GameRecord.FG3++;
 			else
 				player.GameRecord.FG++;
@@ -3920,7 +3956,7 @@ public class GameController : KnightSingleton<GameController>
 		BallState = EBallState.None;
 
 		int score = 2;
-		if (ShootDistance >= GameConst.TreePointDistance) {
+		if (ShootDistance >= GameConst.ThreePointDistance) {
 			score = 3;
 			if(!Shooter.IsDunk)
 				ShowWord(EShowWordType.NiceShot, team);
