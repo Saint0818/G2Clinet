@@ -1057,6 +1057,11 @@ namespace GameStruct {
 		public int ID;
 		public int UseKind;
 		public DateTime UseTime;
+
+	    public override string ToString()
+	    {
+	        return string.Format("ID: {0}, UseKind: {1}, UseTime: {2}", ID, UseKind, UseTime);
+	    }
 	}
 
 	public struct TEquipItem
