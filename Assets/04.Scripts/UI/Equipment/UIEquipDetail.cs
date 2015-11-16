@@ -16,7 +16,7 @@ public class UIEquipDetail : MonoBehaviour
     /// <summary>
     /// 呼叫時機: 畫面上方的道具被點擊. 參數(int index)
     /// </summary>
-    public event CommonDelegateMethods.Action1 OnItemClickListener;
+    public event CommonDelegateMethods.Int1 OnItemClickListener;
 
     public Transform ItemParent;
     public UILabel Desc;

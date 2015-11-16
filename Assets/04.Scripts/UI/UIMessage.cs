@@ -8,7 +8,7 @@ public class UIMessage : UIBase {
 	private UIButton YesBtn;
 	private UIButton NoBtn;
 
-	private CommonDelegateMethods.Action3 YesFunc;
+	private CommonDelegateMethods.Object1 YesFunc;
 	private CommonDelegateMethods.Action NoFunc;
     private object mExtraInfo;
 
@@ -65,7 +65,7 @@ public class UIMessage : UIBase {
 		UIShow(false);
 	}
 	
-	public void ShowMessage(string titleStr, string messageStr, CommonDelegateMethods.Action3 yes = null,
+	public void ShowMessage(string titleStr, string messageStr, CommonDelegateMethods.Object1 yes = null,
                             CommonDelegateMethods.Action no = null, object extraInfo = null)
     {
 		YesFunc = yes;

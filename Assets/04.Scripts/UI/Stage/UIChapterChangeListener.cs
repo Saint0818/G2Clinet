@@ -49,7 +49,7 @@ public class UIChapterChangeListener : MonoBehaviour
     /// <para> 呼叫時機: 章節改變時. </para>
     /// <para> int ChapterID: 新章節. </para>
     /// </summary>
-    public event CommonDelegateMethods.Action1 OnChangeListener;
+    public event CommonDelegateMethods.Int1 OnChangeListener;
 
     private int mCurrentChapterID = -1;
 

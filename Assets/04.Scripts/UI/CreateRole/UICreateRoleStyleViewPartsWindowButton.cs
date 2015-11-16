@@ -10,7 +10,7 @@ public class UICreateRoleStyleViewPartsWindowButton : MonoBehaviour
     /// <summary>
     /// value1: Index, value2: ItemID.
     /// </summary>
-    public event CommonDelegateMethods.Action2 ClickListener;
+    public event CommonDelegateMethods.Int2 ClickListener;
 
     public UILabel NameLabel;
     public UISprite IconSprite;

@@ -16,7 +16,7 @@ public class UIEquipPlayer : MonoBehaviour
     /// <summary>
     /// Slot 被點擊. 參數(int index).
     /// </summary>
-    public event CommonDelegateMethods.Action1 OnSlotClickListener;
+    public event CommonDelegateMethods.Int1 OnSlotClickListener;
 
     public Transform HexagonParent;
     public Transform[] SlotParents;

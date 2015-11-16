@@ -295,7 +295,7 @@
         "id": 101,
         "nametw": "小麥膚色",
         "quality": 1,
-        "icon": 101,
+        "icon": 102,
         "kind": 0,
         "position": 1,
         "avatar": 1,
@@ -311,7 +311,7 @@
         "id": 102,
         "nametw": "白皙膚色",
         "quality": 1,
-        "icon": 102,
+        "icon": 101,
         "kind": 0,
         "position": 1,
         "avatar": 2,
@@ -325,7 +325,7 @@
     },
     {
         "id": 103,
-        "nametw": "前鋒身體3",
+        "nametw": "黝黑膚色",
         "quality": 1,
         "icon": 102,
         "kind": 0,
@@ -5905,6 +5905,8 @@
         "attrvalue1": 20,
         "attrkind2": 1,
         "attrvalue2": 20,
+        "attrkind3": 6,
+        "attrvalue3": 9,
         "materialnum": 1,
         "explaintw": "2類數值裝白:說明"
     },
@@ -6023,6 +6025,8 @@
         "kind": 14,
         "attrkind1": 8,
         "attrvalue1": 12,
+        "attrkind2": 2,
+        "attrvalue2": 4,
         "materialnum": 1,
         "explaintw": "4類數值裝白:說明"
     },
@@ -6082,6 +6086,8 @@
         "attrvalue1": 33,
         "attrkind2": 12,
         "attrvalue2": 17,
+        "attrkind3": 2,
+        "attrvalue3": 7,
         "materialnum": 1,
         "explaintw": "5類數值裝白:說明"
     },
@@ -6139,6 +6145,8 @@
         "kind": 16,
         "attrkind1": 2,
         "attrvalue1": 26,
+        "attrkind2": 1,
+        "attrvalue2": 14,
         "materialnum": 1,
         "explaintw": "6類數值裝白:說明"
     },

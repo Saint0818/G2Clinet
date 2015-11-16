@@ -10,7 +10,7 @@ public class UIStageInfo : MonoBehaviour
     /// <para> 呼叫時機: 進入關卡按鈕按下時. </para>
     /// <para> 參數:(int StageID) </para>
     /// </summary>
-    public event CommonDelegateMethods.Action1 StartListener;
+    public event CommonDelegateMethods.Int1 StartListener;
 
     public class Data
     {

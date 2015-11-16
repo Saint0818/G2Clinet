@@ -74,6 +74,9 @@ namespace UI
         }
     }
 
+    /// <summary>
+    /// 某一個鑲嵌物品.
+    /// </summary>
     public class EquipInlay
     {
         public string Icon;
@@ -87,5 +90,5 @@ namespace UI
                 return Values[kind];
             return 0;
         }
-    }
-}
+    } // end of the class.
+} // end of the namespace.
