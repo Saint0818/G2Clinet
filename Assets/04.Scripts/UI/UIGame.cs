@@ -227,6 +227,7 @@ public class UIGame : UIBase {
 		}
 
 		runForceValue ();
+		runSkillValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -451,7 +452,6 @@ public class UIGame : UIBase {
 		for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0 && GameData.DSkillData.ContainsKey(PlayerMe.Attribute.ActiveSkills[i].ID)) {
 				spriteSkills[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
-				spriteEmptys[i].spriteName = GameData.DSkillData[PlayerMe.Attribute.ActiveSkills[i].ID].PictureNo + "s";
 			}
 		}
 
@@ -761,14 +761,29 @@ public class UIGame : UIBase {
 			spriteForceFirst.gameObject.SetActive(false);
 			spriteForceFirst.gameObject.SetActive(true);
 		}
+//		if(IsPlayerMe) {
+//			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
+//				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
+//					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
+//					if(uiButtonSkill[i].activeSelf) {
+//						spriteEmptys[i].fillAmount = PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, anger);
+//						spriteEmptys[i].gameObject.SetActive(false);
+//						spriteEmptys[i].gameObject.SetActive(true);
+//					}
+//				}
+//			}
+//		}
+	}
+
+	private void runSkillValue () {
 		if(IsPlayerMe) {
 			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
 				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
 					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
 					if(uiButtonSkill[i].activeSelf) {
-						spriteSkills[i].fillAmount = PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, anger);
-						spriteSkills[i].gameObject.SetActive(false);
-						spriteSkills[i].gameObject.SetActive(true);
+						spriteEmptys[i].fillAmount = PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
+						spriteEmptys[i].gameObject.SetActive(false);
+						spriteEmptys[i].gameObject.SetActive(true);
 					}
 				}
 			}
@@ -1260,7 +1275,7 @@ public class UIGame : UIBase {
 			dcCount = 0;
 			if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) {
 				for (int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-					spriteSkills[i].fillAmount = 0;
+					spriteEmptys[i].fillAmount = 0;
 					uiSkillEnables[i].SetActive(false);
 				}
 			}
