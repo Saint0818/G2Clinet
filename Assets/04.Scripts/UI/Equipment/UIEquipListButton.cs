@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using UI;
 using UnityEngine;
 
 /// <summary>
-/// 這是 UIEquipList 下的道具.
+/// 這是 UIEquipList 下的道具. 
 /// </summary>
 public class UIEquipListButton : MonoBehaviour
 {
@@ -16,13 +15,22 @@ public class UIEquipListButton : MonoBehaviour
     public UISprite[] Attrs;
     public UILabel[] AttrValues;
 
+    private UIEquipList mParent;
+    private int mIndex;
+
     [UsedImplicitly]
     private void Awake()
     {
 	    
     }
 
-    public void Set(EquipItem item)
+    public void Init(UIEquipList parent, int index)
+    {
+        mParent = parent;
+        mIndex = index;
+    }
+
+    public void Set(UIValueItemData item)
     {
         NameLabel.text = item.Name;
         Icon.spriteName = item.Icon;
@@ -31,7 +39,7 @@ public class UIEquipListButton : MonoBehaviour
         setValues(item.Values);
     }
 
-    private void setValues(Dictionary<EAttributeKind, EquipItem.AttrKindData> itemValues)
+    private void setValues(Dictionary<EAttributeKind, UIValueItemData.AttrKindData> itemValues)
     {
         // clear.
         for(var i = 0; i < Attrs.Length; i++)
@@ -41,7 +49,7 @@ public class UIEquipListButton : MonoBehaviour
         }
 
         int index = 0;
-        foreach(KeyValuePair<EAttributeKind, EquipItem.AttrKindData> pair in itemValues)
+        foreach(KeyValuePair<EAttributeKind, UIValueItemData.AttrKindData> pair in itemValues)
         {
             Attrs[index].gameObject.SetActive(true);
             AttrValues[index].gameObject.SetActive(true);
@@ -50,5 +58,14 @@ public class UIEquipListButton : MonoBehaviour
             AttrValues[index].text = pair.Value.Value.ToString();
             ++index;
         }
+    }
+
+    /// <summary>
+    /// NGUI Event.
+    /// </summary>
+    [UsedImplicitly]
+    private void OnClick()
+    {
+        mParent.NotifyClick(mIndex);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using JetBrains.Annotations;
-using UI;
 using UnityEngine;
 
 /// <summary>
@@ -35,7 +34,7 @@ public class UIEquipItem : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Set(EquipItem item)
+    public void Set(UIValueItemData item)
     {
         gameObject.SetActive(true);
         Picture.spriteName = item.Icon;

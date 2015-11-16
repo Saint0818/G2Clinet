@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using UI;
 using UnityEngine;
 
 /// <summary>
@@ -27,9 +26,14 @@ public class UIEquipDetail : MonoBehaviour
     private UIEquipDetailAttr[] mAttrs;
 
     /// <summary>
-    /// 這是對應到資料表格的參數(UIEquipmentImpl.Init 的參數), 主要是用來確認什麼道具被點到.
+    /// 這是對應到資料表格的參數(UIEquipmentImpl.Init 的參數), 目前 Detail 視窗顯示
+    /// 哪一個道具的資訊.
     /// </summary>
-    private int mIndex; 
+    public int SlotIndex
+    {
+        get { return mSlotIndex; }
+    }
+    private int mSlotIndex; 
 
     [UsedImplicitly]
 	private void Awake()
@@ -43,9 +47,9 @@ public class UIEquipDetail : MonoBehaviour
         UpgradeButton.isEnabled = false;
     }
 
-    public void Set(int index, EquipItem item)
+    public void Set(int slotIndex, UIValueItemData item)
     {
-        mIndex = index;
+        mSlotIndex = slotIndex;
         mEquipItem.Set(item);
         Desc.text = item.Desc;
 
@@ -55,7 +59,7 @@ public class UIEquipDetail : MonoBehaviour
         }
 
         int i = 0;
-        foreach(KeyValuePair<EAttributeKind, EquipItem.AttrKindData> pair in item.Values)
+        foreach(KeyValuePair<EAttributeKind, UIValueItemData.AttrKindData> pair in item.Values)
         {
             mAttrs[i].Set(pair.Value.Icon, pair.Value.Value);
             ++i;
@@ -65,6 +69,6 @@ public class UIEquipDetail : MonoBehaviour
     private void onItemClick()
     {
         if(OnItemClickListener != null)
-            OnItemClickListener(mIndex);
+            OnItemClickListener(mSlotIndex);
     }
 }

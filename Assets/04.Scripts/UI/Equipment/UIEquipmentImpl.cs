@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using UI;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +15,8 @@ using UnityEngine;
 /// <list type="number">
 /// <item> 對 UI 的角度來說, 沒有 kind 之類的概念, 只有順序編號的概念, 所以 index 0 就是某個群組,
 /// index 1 就是另外一個群組. 某個群組是什麼, 全部都交給外部使用的人決定. </item>
+/// <item> Index 目前有 2 個: SlotIndex 和 ListIndex, SlotIndex 就是畫面左邊, 
+/// 球員已裝備的數值裝; ListIndex 是倉庫項目的 Index. </item>
 /// </list>
 [DisallowMultipleComponent]
 public class UIEquipmentImpl : MonoBehaviour
@@ -30,19 +31,20 @@ public class UIEquipmentImpl : MonoBehaviour
         get { return mBasicAttr; }
     }
     private Dictionary<EAttributeKind, float> mBasicAttr = new Dictionary<EAttributeKind, float>();
+
     /// <summary>
     /// 顯示在左邊的裝備. Index 和 ListItems 互相對應, 也就是 EquipItems[0] 和 ListItems[0]
-    /// 是同一個群組的裝備.
+    /// 是同一個群組的裝備. [SlotIndex].
     /// </summary>
-    public EquipItem[] EquipItems { get; private set; }
+    public UIValueItemData[] EquipItems { get; private set; }
 
     /// <summary>
-    /// 顯示在列表的裝備.
+    /// 顯示在列表的裝備. [SlotIndex][ListIndex].
     /// </summary>
-    public List<EquipItem[]> ListItems { get; private set; }
+    public List<UIValueItemData[]> ListItems { get; private set; }
 
     private UIEquipPlayer mPlayerInfo;
-    private UIEquipDetail mItemDetail;
+    private UIEquipDetail mDetail;
     private UIEquipList mEquipList;
 
     [UsedImplicitly]
@@ -51,10 +53,11 @@ public class UIEquipmentImpl : MonoBehaviour
         mPlayerInfo = GetComponent<UIEquipPlayer>();
         mPlayerInfo.OnSlotClickListener += onSlotClick;
 
-        mItemDetail = GetComponent<UIEquipDetail>();
-        mItemDetail.OnItemClickListener += onItemClick;
+        mDetail = GetComponent<UIEquipDetail>();
+        mDetail.OnItemClickListener += onDetailItemClick;
 
         mEquipList = GetComponent<UIEquipList>();
+        mEquipList.OnClickListener += onListItemClick;
     }
 
     /// <summary>
@@ -63,39 +66,54 @@ public class UIEquipmentImpl : MonoBehaviour
     /// <param name="basicAttr"> 球員的基本數值. </param>
     /// <param name="equipItems"> 球員身上的裝備. </param>
     /// <param name="listItems"> 顯示在替換清單的裝備. </param>
-    public void Init(Dictionary<EAttributeKind, float> basicAttr, EquipItem[] equipItems, 
-                     List<EquipItem[]> listItems)
+    public void Init(Dictionary<EAttributeKind, float> basicAttr, UIValueItemData[] equipItems, 
+                     List<UIValueItemData[]> listItems)
     {
         mBasicAttr = new Dictionary<EAttributeKind, float>(basicAttr);
         EquipItems = equipItems;
         ListItems = listItems;
 
         mPlayerInfo.UpdateUI();
-        mItemDetail.Set(0, equipItems[0]); // 預設顯示第一個群組的裝備.
+        mDetail.Set(0, EquipItems[0]); // 預設顯示第一個群組的裝備.
     }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="index"> 群組編號. </param>
-    private void onSlotClick(int index)
+    /// <param name="slotIndex"> 群組編號. </param>
+    private void onSlotClick(int slotIndex)
     {
-        mItemDetail.Set(index, EquipItems[index]);
+        mDetail.Set(slotIndex, EquipItems[slotIndex]);
         mEquipList.Hide();
     }
 
     /// <summary>
     /// 
     /// </summary>
-    /// <param name="index"> 群組編號. </param>
-    private void onItemClick(int index)
+    /// <param name="slotIndex"> 群組編號. </param>
+    private void onDetailItemClick(int slotIndex)
     {
-        mEquipList.Show(ListItems[index]);
+        mEquipList.Show(ListItems[slotIndex], true);
+    }
+
+    private void onListItemClick(int listIndex)
+    {
+//        Debug.LogFormat("onListItemClick, index:{0}", index);
+
+        // 道具交換.
+        UIValueItemData item = EquipItems[mDetail.SlotIndex];
+        EquipItems[mDetail.SlotIndex] = ListItems[mDetail.SlotIndex][listIndex];
+        ListItems[mDetail.SlotIndex][listIndex] = item;
+
+        // 介面刷新.
+        mPlayerInfo.UpdateUI();
+        mDetail.Set(mDetail.SlotIndex, EquipItems[mDetail.SlotIndex]);
+        mEquipList.Show(ListItems[mDetail.SlotIndex], false);
     }
 
     public void OnBackClick()
     {
-        if (OnBackListener != null)
+        if(OnBackListener != null)
             OnBackListener();
     }
 }

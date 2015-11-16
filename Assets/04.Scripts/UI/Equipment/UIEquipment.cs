@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
-using UI;
 using UnityEngine;
 
 /// <summary>
@@ -42,6 +41,13 @@ public class UIEquipment : UIBase
         Show(true);
 
         initUI();
+
+//        Debug.LogFormat("Point2:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Point2));
+//        Debug.LogFormat("Point3:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Point3));
+//        Debug.LogFormat("Dunk:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Dunk));
+//        Debug.LogFormat("Block:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Block));
+//        Debug.LogFormat("Steal:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Steal));
+//        Debug.LogFormat("Rebound:{0}", GameData.Team.Player.GetSumValueItems(EAttributeKind.Rebound));
     }
 
     private void initUI()
@@ -57,9 +63,9 @@ public class UIEquipment : UIBase
     /// 找出倉庫的全部數值裝備.
     /// </summary>
     /// <returns></returns>
-    private List<EquipItem[]> findAllStorageValueItems()
+    private List<UIValueItemData[]> findAllStorageValueItems()
     {
-        List<EquipItem[]> sumItems = new List<EquipItem[]>();
+        List<UIValueItemData[]> sumItems = new List<UIValueItemData[]>();
         for(int kind = 11; kind <= 18; kind++)
         {
             var equipItems = findStorageItemsByKind(kind);
@@ -75,24 +81,27 @@ public class UIEquipment : UIBase
     }
 
     /// <summary>
-    /// 根據 item.kind, 從倉庫找出全部的數值裝備.
+    /// 根據 TItemData.Kind, 從倉庫找出全部的數值裝備.
     /// </summary>
     /// <param name="kind"></param>
     /// <returns></returns>
-    private List<EquipItem> findStorageItemsByKind(int kind)
+    private List<UIValueItemData> findStorageItemsByKind(int kind)
     {
-        List<EquipItem> items = new List<EquipItem>();
-        foreach(TItem item in GameData.Team.Items)
+        List<UIValueItemData> items = new List<UIValueItemData>();
+        for(int i = 0; i < GameData.Team.Items.Length; i++)
         {
-            if(!GameData.DItemData.ContainsKey(item.ID))
+            TItem storageItem = GameData.Team.Items[i];
+            if(!GameData.DItemData.ContainsKey(storageItem.ID))
             {
-                Debug.LogErrorFormat("Can't find ItemData, {0}", item);
+                Debug.LogErrorFormat("Can't find ItemData, {0}", storageItem);
                 continue;
             }
 
-            if(GameData.DItemData[item.ID].Kind == kind)
+            if(GameData.DItemData[storageItem.ID].Kind == kind)
             {
-                items.Add(UIEquipUtility.Convert(GameData.DItemData[item.ID]));
+                UIValueItemData uiItem = UIEquipUtility.Convert(GameData.DItemData[storageItem.ID]);
+                uiItem.StorageIndex = i;
+                items.Add(uiItem);
             }
         }
 
@@ -104,26 +113,19 @@ public class UIEquipment : UIBase
     /// 和企劃約定, 道具要從 kind = 11 開始逆時針放.
     /// </summary>
     /// <returns></returns>
-    private EquipItem[] findPlayerValueItems()
+    private UIValueItemData[] findPlayerValueItems()
     {
-        List<EquipItem> items = new List<EquipItem>();
+        List<UIValueItemData> items = new List<UIValueItemData>();
         for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
         {
-//            if(GameData.Team.Player.EquipItems.ContainsKey(kind) &&
-//               GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
-//            {
-//                TItemData item = GameData.DItemData[GameData.Team.Player.EquipItems[kind].ID];
-//                items.Add(UIEquipUtility.Convert(item));
-//            }
-//            else
-//                items.Add(new EquipItem());
-
-            items.Add(findPlayerValueItemByKind(kind));
+            UIValueItemData item = findPlayerValueItemByKind(kind);
+            item.StorageIndex = -1; // 表示這個裝備目前裝在球員身上, 不在倉庫內.
+            items.Add(item);
         }
         return items.ToArray();
     }
 
-    private EquipItem findPlayerValueItemByKind(int kind)
+    private UIValueItemData findPlayerValueItemByKind(int kind)
     {
         if(GameData.Team.Player.EquipItems.ContainsKey(kind) &&
            GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
@@ -132,7 +134,7 @@ public class UIEquipment : UIBase
             return UIEquipUtility.Convert(item);
         }
             
-        return new EquipItem();
+        return new UIValueItemData();
     }
 
     [CanBeNull]

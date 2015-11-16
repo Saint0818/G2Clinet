@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using JetBrains.Annotations;
-using UI;
 
 /// <summary>
 /// 這是裝備介面中, 左邊的裝備欄位, 欄位可能是空的, 或是有資訊.
@@ -35,7 +34,7 @@ public class UIEquipPartSlot : MonoBehaviour
         mItem.Clear();
     }
 
-    public void Set(EquipItem item)
+    public void Set(UIValueItemData item)
     {
         mItem.Set(item);
     }
