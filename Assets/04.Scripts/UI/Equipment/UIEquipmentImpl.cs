@@ -36,7 +36,7 @@ public class UIEquipmentImpl : MonoBehaviour
     /// 顯示在左邊的裝備. Index 和 ListItems 互相對應, 也就是 EquipItems[0] 和 ListItems[0]
     /// 是同一個群組的裝備. [SlotIndex].
     /// </summary>
-    public UIValueItemData[] EquipItems { get; private set; }
+    public UIValueItemData[] ValueItems { get; private set; }
 
     /// <summary>
     /// 顯示在列表的裝備. [SlotIndex][ListIndex].
@@ -64,17 +64,17 @@ public class UIEquipmentImpl : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="basicAttr"> 球員的基本數值. </param>
-    /// <param name="equipItems"> 球員身上的裝備. </param>
+    /// <param name="valueItems"> 球員身上的裝備. </param>
     /// <param name="listItems"> 顯示在替換清單的裝備. </param>
-    public void Init(Dictionary<EAttributeKind, float> basicAttr, UIValueItemData[] equipItems, 
+    public void Init(Dictionary<EAttributeKind, float> basicAttr, UIValueItemData[] valueItems, 
                      List<UIValueItemData[]> listItems)
     {
         mBasicAttr = new Dictionary<EAttributeKind, float>(basicAttr);
-        EquipItems = equipItems;
+        ValueItems = valueItems;
         ListItems = listItems;
 
         mPlayerInfo.UpdateUI();
-        mDetail.Set(0, EquipItems[0]); // 預設顯示第一個群組的裝備.
+        mDetail.Set(0, ValueItems[0]); // 預設顯示第一個群組的裝備.
     }
 
     /// <summary>
@@ -83,7 +83,7 @@ public class UIEquipmentImpl : MonoBehaviour
     /// <param name="slotIndex"> 群組編號. </param>
     private void onSlotClick(int slotIndex)
     {
-        mDetail.Set(slotIndex, EquipItems[slotIndex]);
+        mDetail.Set(slotIndex, ValueItems[slotIndex]);
         mEquipList.Hide();
     }
 
@@ -101,13 +101,13 @@ public class UIEquipmentImpl : MonoBehaviour
 //        Debug.LogFormat("onListItemClick, index:{0}", index);
 
         // 道具交換.
-        UIValueItemData item = EquipItems[mDetail.SlotIndex];
-        EquipItems[mDetail.SlotIndex] = ListItems[mDetail.SlotIndex][listIndex];
+        UIValueItemData item = ValueItems[mDetail.SlotIndex];
+        ValueItems[mDetail.SlotIndex] = ListItems[mDetail.SlotIndex][listIndex];
         ListItems[mDetail.SlotIndex][listIndex] = item;
 
         // 介面刷新.
         mPlayerInfo.UpdateUI();
-        mDetail.Set(mDetail.SlotIndex, EquipItems[mDetail.SlotIndex]);
+        mDetail.Set(mDetail.SlotIndex, ValueItems[mDetail.SlotIndex]);
         mEquipList.Show(ListItems[mDetail.SlotIndex], false);
     }
 

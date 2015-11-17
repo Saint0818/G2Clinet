@@ -59,8 +59,8 @@ public class UIEquipPlayer : MonoBehaviour
     {
         for(int i = 0; i < mPartSlots.Count; i++)
         {
-            if(mImpl.EquipItems.Length > i && mImpl.EquipItems[i].IsValid())
-                mPartSlots[i].Set(mImpl.EquipItems[i]);
+            if(mImpl.ValueItems.Length > i && mImpl.ValueItems[i].IsValid())
+                mPartSlots[i].Set(mImpl.ValueItems[i]);
             else
                 mPartSlots[i].Clear();
         }
@@ -92,9 +92,9 @@ public class UIEquipPlayer : MonoBehaviour
     private int getSumValue(EAttributeKind kind)
     {
         int sum = 0;
-        for (int i = 0; i < mImpl.EquipItems.Length; i++)
+        for (int i = 0; i < mImpl.ValueItems.Length; i++)
         {
-            sum += mImpl.EquipItems[i].GetValue(kind);
+            sum += mImpl.ValueItems[i].GetValue(kind);
         }
 
 //            Debug.LogFormat("{0}:{1}", kind, sum);

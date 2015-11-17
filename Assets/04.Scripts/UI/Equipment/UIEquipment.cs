@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -26,7 +27,7 @@ public class UIEquipment : UIBase
     private void Awake()
     {
         mImpl = GetComponent<UIEquipmentImpl>();
-        mImpl.OnBackListener += goToMainLobby;
+        mImpl.OnBackListener += changeValueItems;
     }
 
     [UsedImplicitly]
@@ -119,7 +120,7 @@ public class UIEquipment : UIBase
         for(int kind = 11; kind <= 18; kind++) // 11 ~ 18 是數值裝的種類.
         {
             UIValueItemData item = findPlayerValueItemByKind(kind);
-            item.StorageIndex = -1; // 表示這個裝備目前裝在球員身上, 不在倉庫內.
+            item.StorageIndex = -1; // -1 表示這個裝備目前裝在球員身上, 不在倉庫內.
             items.Add(item);
         }
         return items.ToArray();
@@ -127,10 +128,10 @@ public class UIEquipment : UIBase
 
     private UIValueItemData findPlayerValueItemByKind(int kind)
     {
-        if(GameData.Team.Player.EquipItems.ContainsKey(kind) &&
-           GameData.DItemData.ContainsKey(GameData.Team.Player.EquipItems[kind].ID))
+        if(GameData.Team.Player.ValueItems.ContainsKey(kind) &&
+           GameData.DItemData.ContainsKey(GameData.Team.Player.ValueItems[kind].ID))
         {
-            TItemData item = GameData.DItemData[GameData.Team.Player.EquipItems[kind].ID];
+            TItemData item = GameData.DItemData[GameData.Team.Player.ValueItems[kind].ID];
             return UIEquipUtility.Convert(item);
         }
             
@@ -162,6 +163,56 @@ public class UIEquipment : UIBase
             {EAttributeKind.Dribble, basicPlayer.Dribble},
             {EAttributeKind.Pass, basicPlayer.Pass},
         };
+    }
+
+    private void changeValueItems()
+    {
+        if(hasValueItemChanged())
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("ValueItems", JsonConvert.SerializeObject(getServerChangeData()));
+            SendHttp.Get.Command(URLConst.ChangeValueItems, waitChangeValueItems, form);
+        }
+        else
+            goToMainLobby();
+    }
+
+    private int[] getServerChangeData()
+    {
+        int[] changeValueItems = new int[8];
+        for(int i = 0; i < changeValueItems.Length; i++)
+        {
+            changeValueItems[i] = mImpl.ValueItems[i].StorageIndex;
+        }
+        return changeValueItems;
+    }
+
+    private bool hasValueItemChanged()
+    {
+        for(var i = 0; i < mImpl.ValueItems.Length; i++)
+        {
+            if(mImpl.ValueItems[i].StorageIndex != -1)
+                return true;
+        }
+
+        return false;
+    }
+
+    private void waitChangeValueItems(bool ok, WWW www)
+    {
+        if(ok)
+        {
+            TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Player = team.Player;
+            GameData.Team.Items = team.Items;
+            GameData.Team.Player.Init();
+            GameData.SaveTeam();
+
+            goToMainLobby();
+            UIHint.Get.ShowHint("Change Value Items Success!", Color.black);
+        }
+        else
+            UIHint.Get.ShowHint("Change Value Items fail!", Color.red);
     }
 
     public void Hide()

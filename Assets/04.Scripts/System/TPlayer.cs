@@ -60,7 +60,7 @@ namespace GameStruct
         /// <summary>
         /// 玩家身上的數值裝備. key: TItemData.Kind.
         /// </summary>
-        public Dictionary<int, TEquipItem> EquipItems;
+        public Dictionary<int, TEquipItem> ValueItems;
 
         /// <summary>
         /// 主線關卡進度(下一個可以打的關卡). 範圍是 101 ~ 2000.
@@ -102,7 +102,7 @@ namespace GameStruct
             SkillCardPages = new TSkillCardPage[0];
             Items = new TItem[0];
             //			EquipItems = new TEquipItem[0];
-            EquipItems = new Dictionary<int, TEquipItem>();
+            ValueItems = new Dictionary<int, TEquipItem>();
             Potential = new int[0];
             NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
@@ -162,10 +162,10 @@ namespace GameStruct
 
         private void addEquipValues()
         {
-            if(EquipItems == null)
+            if(ValueItems == null)
                 return;
 
-            foreach(KeyValuePair<int, TEquipItem> pair in EquipItems)
+            foreach(KeyValuePair<int, TEquipItem> pair in ValueItems)
             {
                 if(!GameData.DItemData.ContainsKey(pair.Value.ID))
                 {
@@ -511,11 +511,11 @@ namespace GameStruct
                 return GameData.DItemData[itemID].GetSumAttrValue(attrKind);
             };
 
-            if(EquipItems == null)
+            if(ValueItems == null)
                 return 0;
 
             int sum = 0;
-            foreach(KeyValuePair<int, TEquipItem> pair in EquipItems)
+            foreach(KeyValuePair<int, TEquipItem> pair in ValueItems)
             {
                 sum += findSumValue(pair.Value.ID, kind);
 
