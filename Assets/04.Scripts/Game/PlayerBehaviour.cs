@@ -853,7 +853,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void DashEffectEnable(bool isEnable)
     {
         if (dashSmoke == null)
-            dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, PlayerRefGameObject);
+            dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, PlayerRefGameObject, null, 0, true, false);
 
         if (dashSmoke) {
 			dashSmoke.transform.parent = PlayerRefGameObject.transform;

@@ -146,12 +146,16 @@ public class EffectManager : MonoBehaviour
 		return null;
 	}
 
-	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0, bool isNeedPause = true) {
+	public GameObject PlayEffect(string effectName, Vector3 position, GameObject parent = null, GameObject followObj = null, float lifeTime = 0, bool isNeedPause = true, bool isNeedPool = true) {
 		if (GameData.Setting.Effect || IsCheckSpecial(effectName)) {
 			GameObject obj = LoadEffect(effectName);
 			
 			if(obj != null) {
-				GameObject particles = getPooledObject(effectName, obj);
+				GameObject particles = null;
+				if(isNeedPool)
+					particles = getPooledObject(effectName, obj);
+				else
+					particles = Instantiate(obj);
 				particles.transform.position = position;
 				particles.SetActive(true);
 				particles.name = effectName;
