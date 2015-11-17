@@ -1744,28 +1744,6 @@ public class GameController : KnightSingleton<GameController>
 
 							BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 						}
-//						if(ShootDistance > GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
-//                        {
-//							if (Random.Range(0, 2) == 0)
-//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot2, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//							else
-//								BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						}
-//                        else
-//                        {
-//							float rate = Random.Range(0, 100);
-//							if (rate < BallOwner.Attr.DunkRate)
-//								BallOwner.DoPassiveSkill(ESkillSituation.Dunk0, CourtMgr.Get.GetShootPointPosition(BallOwner.Team));
-//							else
-//                            {
-//								if(HasDefPlayer(BallOwner, 1.5f, 40) == 0)
-//									BallOwner.DoPassiveSkill(ESkillSituation.Layup0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//								else
-//									BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//							}
-//						}
 					}
                     else
                     {
@@ -1793,13 +1771,6 @@ public class GameController : KnightSingleton<GameController>
 							
 							BallOwner.DoPassiveSkill(shootRandomizer.GetNext(), CourtMgr.Get.GetHoodPosition(BallOwner.Team), ShootDistance);
 						}
-
-//						if(ShootDistance > GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot3, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						else if(ShootDistance > GameConst.DunkDistance && ShootDistance <= GameConst.LongShootDistance)
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot0, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
-//						else
-//							BallOwner.DoPassiveSkill(ESkillSituation.Shoot1, CourtMgr.Get.GetHoodPosition(BallOwner.Team));
 					}
 
 					return true;
@@ -3901,24 +3872,41 @@ public class GameController : KnightSingleton<GameController>
 
 	private bool checkCountEnough (PlayerBehaviour player, int type, int count) {
 		if(count > 0) {
-			switch (type){
-			case 1://two score
-				return (player.GameRecord.FGIn >= count);
-			case 2://three score
-				return (player.GameRecord.FG3In >= count);
-			case 3://dunk
-				return (player.GameRecord.Dunk >= count);
-			case 4://push
-				return (player.GameRecord.Push >= count);
-			case 5://steal
-				return (player.GameRecord.Steal >= count);
-			case 6://block
-				return (player.GameRecord.Block >= count);
-			case 7://elbow
-				return (player.GameRecord.Elbow >= count);
-			}
+			return (GetSelfTeamCondition(type) >= count);
 		}
 		return false;
+	}
+
+	public int GetSelfTeamCondition (int type) {
+		int count = 0;
+		for(int i=0 ;i<PlayerList.Count; i++) {
+			if(PlayerList[i].Team == ETeamKind.Self) {
+				switch (type){
+				case 1://two score
+					count += PlayerList[i].GameRecord.FGIn;
+					break;
+				case 2://three score
+					count += PlayerList[i].GameRecord.FG3In;
+					break;
+				case 3://dunk
+					count += PlayerList[i].GameRecord.Dunk;
+					break;
+				case 4://push
+					count += PlayerList[i].GameRecord.Push;
+					break;
+				case 5://steal
+					count += PlayerList[i].GameRecord.Steal;
+					break;
+				case 6://block
+					count += PlayerList[i].GameRecord.Block;
+					break;
+				case 7://elbow
+					count += PlayerList[i].GameRecord.Elbow;
+					break;
+				}
+			}
+		}
+		return count;
 	}
 	
 	public bool IsGameVictory () {

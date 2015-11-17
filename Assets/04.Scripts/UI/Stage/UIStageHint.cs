@@ -272,20 +272,20 @@ public class UIStageHint : MonoBehaviour
     }
 
 	private int getConditionCount(int type){
-		switch (type){
-		case 1://two score
-			return GameController.Get.Joysticker.GameRecord.FGIn;
-		case 2://three score
-			return GameController.Get.Joysticker.GameRecord.FG3In;
-		case 3://dunk
-			return GameController.Get.Joysticker.GameRecord.Dunk;
-		case 4://push
-			return GameController.Get.Joysticker.GameRecord.Push;
-		case 5://steal
-			return GameController.Get.Joysticker.GameRecord.Steal;
-		case 6://block
-			return GameController.Get.Joysticker.GameRecord.Block;
-		}
-		return 0;
+//		switch (type){
+//		case 1://two score
+//			return GameController.Get.Joysticker.GameRecord.FGIn;
+//		case 2://three score
+//			return GameController.Get.Joysticker.GameRecord.FG3In;
+//		case 3://dunk
+//			return GameController.Get.Joysticker.GameRecord.Dunk;
+//		case 4://push
+//			return GameController.Get.Joysticker.GameRecord.Push;
+//		case 5://steal
+//			return GameController.Get.Joysticker.GameRecord.Steal;
+//		case 6://block
+//			return GameController.Get.Joysticker.GameRecord.Block;
+//		}
+		return GameController.Get.GetSelfTeamCondition(type);
 	}
 }
