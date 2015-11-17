@@ -855,8 +855,13 @@ public class PlayerBehaviour : MonoBehaviour
         if (dashSmoke == null)
             dashSmoke = EffectManager.Get.PlayEffect("DashSmoke", Vector3.zero, PlayerRefGameObject);
 
-        if (dashSmoke)
+        if (dashSmoke) {
+			dashSmoke.transform.parent = PlayerRefGameObject.transform;
+			dashSmoke.transform.localPosition = Vector3.zero;
+			dashSmoke.transform.localEulerAngles = Vector3.zero;
+			dashSmoke.transform.localScale = Vector3.one;
             dashSmoke.SetActive(isEnable);
+		}
     }
 
     IEnumerator GetCurrentClipLength()
