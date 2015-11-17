@@ -580,7 +580,7 @@ namespace GameStruct {
 	    }
 	}
 
-	public struct TEquipItem
+	public struct TValueItem
     {
 		public int ID;
 

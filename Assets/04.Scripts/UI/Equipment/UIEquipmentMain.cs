@@ -19,7 +19,7 @@ using UnityEngine;
 /// 球員已裝備的數值裝; ListIndex 是倉庫項目的 Index. </item>
 /// </list>
 [DisallowMultipleComponent]
-public class UIEquipmentImpl : MonoBehaviour
+public class UIEquipmentMain : MonoBehaviour
 {
     public event CommonDelegateMethods.Action OnBackListener;
 

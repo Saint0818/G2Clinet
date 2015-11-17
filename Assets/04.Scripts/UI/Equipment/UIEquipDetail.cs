@@ -26,7 +26,7 @@ public class UIEquipDetail : MonoBehaviour
     private UIEquipDetailAttr[] mAttrs;
 
     /// <summary>
-    /// 這是對應到資料表格的參數(UIEquipmentImpl.Init 的參數), 目前 Detail 視窗顯示
+    /// 這是對應到資料表格的參數(UIEquipmentMain.Init 的參數), 目前 Detail 視窗顯示
     /// 哪一個道具的資訊.
     /// </summary>
     public int SlotIndex

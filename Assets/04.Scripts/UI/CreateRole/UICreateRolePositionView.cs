@@ -163,4 +163,27 @@ public class UICreateRolePositionView : MonoBehaviour
         else
             Debug.LogErrorFormat("Can't find Player by ID:{0}", playerID);
     }
+
+//    [Range(0, 1)]
+//    public float Block = 0.1f;
+//    [Range(0, 1)]
+//    public float Steal = 0.1f;
+//    [Range(0, 1)]
+//    public float Point2 = 0.1f;
+//    [Range(0, 1)]
+//    public float Point3 = 0.1f;
+//    [Range(0, 1)]
+//    public float Dunk = 0.1f;
+//    [Range(0, 1)]
+//    public float Rebound = 0.1f;
+//
+//    private void Update()
+//    {
+//        mAttributes.SetValue(UIAttributes.EGroup.Block, Block, true);
+//        mAttributes.SetValue(UIAttributes.EGroup.Steal, Steal, true);
+//        mAttributes.SetValue(UIAttributes.EGroup.Point2, Point2, true);
+//        mAttributes.SetValue(UIAttributes.EGroup.Dunk, Dunk, true);
+//        mAttributes.SetValue(UIAttributes.EGroup.Point3, Point3, true);
+//        mAttributes.SetValue(UIAttributes.EGroup.Rebound, Rebound, true);
+//    }
 }

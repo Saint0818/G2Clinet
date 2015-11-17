@@ -60,7 +60,7 @@ public class PersonalView
 //		UpdateAvatarData (player.EquipItems);
 	}
 
-	private void UpdateAvatarData(TEquipItem[] items)
+	private void UpdateAvatarData(TValueItem[] items)
 	{
 		for(int i = 0;i< Avatars.Length;i++)
 		{

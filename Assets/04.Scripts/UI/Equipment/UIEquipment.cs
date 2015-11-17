@@ -21,13 +21,13 @@ public class UIEquipment : UIBase
     private static UIEquipment instance;
     private const string UIName = "UIEquipment";
 
-    private UIEquipmentImpl mImpl;
+    private UIEquipmentMain mMain;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mImpl = GetComponent<UIEquipmentImpl>();
-        mImpl.OnBackListener += changeValueItems;
+        mMain = GetComponent<UIEquipmentMain>();
+        mMain.OnBackListener += changeValueItems;
     }
 
     [UsedImplicitly]
@@ -57,7 +57,7 @@ public class UIEquipment : UIBase
         if(basicAttr == null)
             return;
 
-        mImpl.Init(basicAttr, findPlayerValueItems(), findAllStorageValueItems());
+        mMain.Init(basicAttr, findPlayerValueItems(), findAllStorageValueItems());
     }
 
     /// <summary>
@@ -182,16 +182,16 @@ public class UIEquipment : UIBase
         int[] changeValueItems = new int[8];
         for(int i = 0; i < changeValueItems.Length; i++)
         {
-            changeValueItems[i] = mImpl.ValueItems[i].StorageIndex;
+            changeValueItems[i] = mMain.ValueItems[i].StorageIndex;
         }
         return changeValueItems;
     }
 
     private bool hasValueItemChanged()
     {
-        for(var i = 0; i < mImpl.ValueItems.Length; i++)
+        for(var i = 0; i < mMain.ValueItems.Length; i++)
         {
-            if(mImpl.ValueItems[i].StorageIndex != -1)
+            if(mMain.ValueItems[i].StorageIndex != -1)
                 return true;
         }
 

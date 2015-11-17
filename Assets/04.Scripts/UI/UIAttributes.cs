@@ -20,23 +20,26 @@ public class UIAttributes : MonoBehaviour
 {
     public GameObject Root;
     public GameObject Inside;
-	private GameObject attributeTitle;
-//    public GameObject Outside;
+	public GameObject Title;
 
     public enum EGroup
     {
         Block = 0,
         Steal = 1,
         Point2 = 2,
-        Dunk = 3,
-        Point3 = 4,
+        Point3 = 3,
+        Dunk = 4,
         Rebound = 5
     }
 
-	private readonly Material[] mMaterials = new Material[2];
-	private readonly int[] mIndices = {0,1,2};
+	private readonly int[] mIndices = {0, 1, 2};
 	private readonly MeshFilter[] mMeshFilters = new MeshFilter[6];
 
+    /*
+          C      B
+       D     []     A
+          E      F
+    */
     // 目前點的位置.
 	private Vector3 mCurrentA = new Vector3(2, 0, 0);
 	private Vector3 mCurrentB = new Vector3(1, Mathf.Sqrt(3), 0);
@@ -53,6 +56,12 @@ public class UIAttributes : MonoBehaviour
 	private readonly Vector3 mMaxE = new Vector3(-1, -Mathf.Sqrt(3), 0);
 	private readonly Vector3 mMaxF = new Vector3(1, -Mathf.Sqrt(3), 0);
 
+    /// <summary>
+    /// value: 百分比, 數值範圍: [0, 1].
+    /// </summary>
+	private readonly Dictionary<EGroup, float> mOldValues = new Dictionary<EGroup, float>();
+    private readonly Dictionary<EGroup, float> mNewValues = new Dictionary<EGroup, float>();
+
     public void SetVisible(bool visible)
     {
         Root.SetActive(visible);
@@ -67,30 +76,19 @@ public class UIAttributes : MonoBehaviour
             mNewValues.Add(attribute, 0);
         }
 
-        mMaterials[0] = Resources.Load("Materials/TriangleMaterial_Outside") as Material;
-        mMaterials[1] = Resources.Load("Materials/TriangleMaterial_Inside") as Material;
+        var mat = Resources.Load("Materials/TriangleMaterial_Inside") as Material;
 
-//        createTriangle(Vector3.zero, mMaxB, mMaxA, 10, mMaterials[0]);
-//        createTriangle(Vector3.zero, mMaxC, mMaxB, 11, mMaterials[0]);
-//        createTriangle(Vector3.zero, mMaxD, mMaxC, 12, mMaterials[0]);
-//        createTriangle(Vector3.zero, mMaxE, mMaxD, 13, mMaterials[0]);
-//        createTriangle(Vector3.zero, mMaxF, mMaxE, 14, mMaterials[0]);
-//        createTriangle(Vector3.zero, mMaxA, mMaxF, 15, mMaterials[0]);
-
-        createTriangle(Vector3.zero, mCurrentB, mCurrentA, 0, mMaterials[1]);
-        createTriangle(Vector3.zero, mCurrentC, mCurrentB, 1, mMaterials[1]);
-        createTriangle(Vector3.zero, mCurrentD, mCurrentC, 2, mMaterials[1]);
-        createTriangle(Vector3.zero, mCurrentE, mCurrentD, 3, mMaterials[1]);
-        createTriangle(Vector3.zero, mCurrentF, mCurrentE, 4, mMaterials[1]);
-        createTriangle(Vector3.zero, mCurrentA, mCurrentF, 5, mMaterials[1]);
-		attributeTitle = gameObject.transform.FindChild ("AttributeTitle").gameObject;
-
-
-        SetVisible(false);
+        createTriangle(Vector3.zero, mCurrentB, mCurrentA, 0, mat);
+        createTriangle(Vector3.zero, mCurrentC, mCurrentB, 1, mat);
+        createTriangle(Vector3.zero, mCurrentD, mCurrentC, 2, mat);
+        createTriangle(Vector3.zero, mCurrentE, mCurrentD, 3, mat);
+        createTriangle(Vector3.zero, mCurrentF, mCurrentE, 4, mat);
+        createTriangle(Vector3.zero, mCurrentA, mCurrentF, 5, mat);
     }
 
 	private void createTriangle(Vector3 v1, Vector3 v2, Vector3 v3, int index, Material ma)
     {
+        // Triangle 要順時針定義才看的見.
 		Vector3[] vertices = {v1, v2, v3};
 	    var mesh = new Mesh
 	    {
@@ -106,15 +104,10 @@ public class UIAttributes : MonoBehaviour
 		obj.AddComponent<MeshCollider>();
 		if(index >= 0 && index < mMeshFilters.Length)
         {
-			mMeshFilters [index] = obj.GetComponent<MeshFilter>();
-			mMeshFilters [index].mesh = mesh;
+			mMeshFilters[index] = obj.GetComponent<MeshFilter>();
+			mMeshFilters[index].mesh = mesh;
 			obj.transform.parent = Inside.transform;
 		}
-//        else
-//        {
-//			obj.GetComponent<MeshFilter>().mesh = mesh;
-//			obj.transform.parent = Outside.transform;
-//		}
 
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localScale = Vector3.one;
@@ -139,30 +132,25 @@ public class UIAttributes : MonoBehaviour
         SetVisible(true);
 
 		Inside.transform.localScale = new Vector3(0,0,0);
-//		Outside.transform.localScale = new Vector3(0,0,0);
 		Inside.transform.DOScale(Vector3.one, 0.4f);
-//		Outside.transform.DOScale(Vector3.one, 0.4f);
 	}
 
     [UsedImplicitly]
 	private void FixedUpdate()
     {
-        foreach(EGroup attribute in Enum.GetValues(typeof(EGroup)))
+        foreach(EGroup g in Enum.GetValues(typeof(EGroup)))
         {
-            float a = Mathf.Round(mOldValues[attribute] * 100.0f) / 100.0f;
-            float b = Mathf.Round(mNewValues[attribute] * 100.0f) / 100.0f;
+            float a = Mathf.Round(mOldValues[g] * 100.0f) / 100.0f;
+            float b = Mathf.Round(mNewValues[g] * 100.0f) / 100.0f;
             if (a != b)
             {
-                if (mOldValues[attribute] >= mNewValues[attribute])
-                    SetValue(attribute, mOldValues[attribute] - 0.01f, true);
-                else if (mOldValues[attribute] <= mNewValues[attribute])
-                    SetValue(attribute, mOldValues[attribute] + 0.01f, true);
+                if(mOldValues[g] >= mNewValues[g])
+                    SetValue(g, mOldValues[g] - 0.01f, true);
+                else if (mOldValues[g] <= mNewValues[g])
+                    SetValue(g, mOldValues[g] + 0.01f, true);
             }
         }
     }
-
-	private readonly Dictionary<EGroup, float> mOldValues = new Dictionary<EGroup, float>();
-	private readonly Dictionary<EGroup, float> mNewValues = new Dictionary<EGroup, float>();
 
     /// <summary>
     /// 
@@ -205,12 +193,12 @@ public class UIAttributes : MonoBehaviour
 				updateMesh(Vector3.zero, mCurrentC, mCurrentB, 1);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				break;
-			case EGroup.Dunk:
+			case EGroup.Point3:
 				mCurrentD = new Vector3(mMaxD.x * percent, mMaxD.y * percent, mMaxD.z);
 				updateMesh(Vector3.zero, mCurrentD, mCurrentC, 2);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				break;
-			case EGroup.Point3:
+			case EGroup.Dunk:
 				mCurrentE = new Vector3(mMaxE.x * percent, mMaxE.y * percent, mMaxE.z);
 				updateMesh(Vector3.zero, mCurrentE, mCurrentD, 3);
 				updateMesh(Vector3.zero, mCurrentF, mCurrentE, 4);
@@ -226,7 +214,7 @@ public class UIAttributes : MonoBehaviour
 
 	private void updateMesh(Vector3 v1, Vector3 v2, Vector3 v3, int index)
     {
-		if (index >= 0 && index < mMeshFilters.Length && mMeshFilters [index] != null)
+		if(index >= 0 && index < mMeshFilters.Length && mMeshFilters[index] != null)
         {
 			Vector3[] vertices = {v1, v2, v3};
             var mesh = new Mesh
@@ -242,6 +230,6 @@ public class UIAttributes : MonoBehaviour
 
 	public bool EnableTitle
 	{
-		set{ attributeTitle.SetActive(value);}
+		set{ Title.SetActive(value);}
 	}
 }
