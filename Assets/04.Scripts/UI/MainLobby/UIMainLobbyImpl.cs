@@ -15,12 +15,10 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UILabel MoneyLabel;
     public UILabel DiamondLabel;
     public UILabel PowerLabel; // 體力.
-    public UIInput NameInput;
     public UISprite PlayerIconSprite;
     public GameObject Settings;
 	public UIButton PlayerInfoBtn;
-//	public Animator UIAnimator;
-//	private bool isEnable;
+    public UILabel NameLabel;
 
     [UsedImplicitly]
     private void Awake()
@@ -46,7 +44,7 @@ public class UIMainLobbyImpl : MonoBehaviour
 
     public string PlayerName
     {
-        set { NameInput.value = value; }
+        set { NameLabel.text = value; }
     }
 
     public string PlayerIcon
