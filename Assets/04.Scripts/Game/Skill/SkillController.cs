@@ -22,6 +22,7 @@ public class SkillController : MonoBehaviour {
 	private int passDirect = EPassDirectState.Forward;
 	private Dictionary<string, List<GameObject>> activeSkillTargets = new Dictionary<string, List<GameObject>>(); // Record TargetKind
 	public Dictionary<int, List<TPassiveType>> DPassiveSkills = new Dictionary<int, List<TPassiveType>>();//Skill
+	public Dictionary<int, List<TPassiveType>> DExtraPassiveSkills = new Dictionary<int, List<TPassiveType>>();//Distance > 0 
 	[HideInInspector]public TSkill ActiveSkillUsed;
 	[HideInInspector]public TSkill PassiveSkillUsed;
 	[HideInInspector]public int MoveDodgeRate = 0;
@@ -103,6 +104,16 @@ public class SkillController : MonoBehaviour {
 							List<TPassiveType> pss = new List<TPassiveType>();
 							pss.Add(type);
 							DPassiveSkills.Add(key, pss);
+						}
+
+						if(attribute.SkillCards[i].ID < GameConst.ID_LimitActive && GameData.DSkillData[attribute.SkillCards[i].ID].Distance(attribute.SkillCards[i].Lv) > 0) {
+							if (DExtraPassiveSkills.ContainsKey(key))
+								DExtraPassiveSkills [key].Add(type);
+							else {
+								List<TPassiveType> pss = new List<TPassiveType>();
+								pss.Add(type);
+								DExtraPassiveSkills.Add(key, pss);
+							}
 						}
 					}
 				}
@@ -239,7 +250,7 @@ public class SkillController : MonoBehaviour {
 		return directState;
 	}
 	
-	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0) {
+	private EPlayerState getPassiveSkill(ESkillSituation situation, ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		EPlayerState playerState = EPlayerState.Idle;
 		try {
 			playerState = (EPlayerState)System.Enum.Parse(typeof(EPlayerState), situation.ToString());
@@ -250,7 +261,7 @@ public class SkillController : MonoBehaviour {
 			playerState = EPlayerState.Pass50;
 		}
 		if(GameController.Get.Situation == EGameSituation.AttackGamer || GameController.Get.Situation == EGameSituation.AttackNPC) {
-			string animationName = randomPassive(kind, v, isHaveDefPlayer);
+			string animationName = randomPassive(kind, v, isHaveDefPlayer, shootDistance);
 			
 			if (animationName != string.Empty) {
 				try {
@@ -266,7 +277,7 @@ public class SkillController : MonoBehaviour {
 			return playerState;
 	}
 	
-	private string randomPassive(ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0) {
+	private string randomPassive(ESkillKind kind, Vector3 v = default(Vector3), int isHaveDefPlayer = 0, float shootDistance = 0) {
 		int skillKind = (int)kind;
 		//Part 1. Get Passive which is choosed. 
 		List<TPassiveType> skills = new List<TPassiveType>();
@@ -281,12 +292,63 @@ public class SkillController : MonoBehaviour {
 						if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
 							skills.Add(DPassiveSkills[skillKind][i]);
 				} else 
-				if(kind == ESkillKind.Shoot || kind == ESkillKind.NearShoot || kind == ESkillKind.UpHand || kind == ESkillKind.DownHand || kind == ESkillKind.Layup) { 
+				if(kind == ESkillKind.UpHand || kind == ESkillKind.DownHand) { 
 					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate) {
-						if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].Tskill.ID == 412 || DPassiveSkills[skillKind][i].Tskill.ID == 413))//if no def player, don't use 
-							break;
-						
 						skills.Add(DPassiveSkills[skillKind][i]);
+					}
+				} else 
+				if(kind == ESkillKind.Layup) {
+					if(shootDistance > GameConst.ShortShootDistance && shootDistance <= GameConst.LayupDistance) {
+						if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate) {
+							skills.Add(DPassiveSkills[skillKind][i]);
+						}
+					} else if(shootDistance > GameConst.LayupDistance) {
+						if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Distance(DPassiveSkills[skillKind][i].Tskill.Lv) + GameConst.LayupDistance > shootDistance) {
+							skills.Add(DPassiveSkills[skillKind][i]);
+						}
+					}
+				} else 
+				if(kind == ESkillKind.NearShoot) {
+					if(shootDistance <= GameConst.ShortShootDistance) {
+						if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate){
+							if(isHaveDefPlayer != 0 && (DPassiveSkills[skillKind][i].Tskill.ID == 412 || DPassiveSkills[skillKind][i].Tskill.ID == 413))//if no def player, don't use 
+								break;
+
+							skills.Add(DPassiveSkills[skillKind][i]);
+						}
+					} else {
+						if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Distance(DPassiveSkills[skillKind][i].Tskill.Lv) + GameConst.ShortShootDistance > shootDistance) {
+							skills.Add(DPassiveSkills[skillKind][i]);
+						}
+					}
+				} else 
+				if(kind == ESkillKind.Shoot) {
+					if(!executePlayer.IsMoving) {
+						if(shootDistance > GameConst.ShortShootDistance && shootDistance <= GameConst.LongShootDistance) {
+							if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
+								skills.Add(DPassiveSkills[skillKind][i]);
+						}
+					}
+				}else
+				if(kind == ESkillKind.Dunk) {
+					if(executePlayer.IsMoving) {
+						if (shootDistance <= GameConst.DunkDistance) {
+							if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
+								skills.Add(DPassiveSkills[skillKind][i]);
+						} else {
+							if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Distance(DPassiveSkills[skillKind][i].Tskill.Lv) + GameConst.DunkDistance > shootDistance) {
+								skills.Add(DPassiveSkills[skillKind][i]);
+							}
+						}
+					} else {
+						if (shootDistance <= GameConst.DunkDistanceNoMove) {
+							if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
+								skills.Add(DPassiveSkills[skillKind][i]);
+						} else {
+							if(GameData.DSkillData[DPassiveSkills[skillKind][i].Tskill.ID].Distance(DPassiveSkills[skillKind][i].Tskill.Lv) + GameConst.DunkDistanceNoMove > shootDistance) {
+								skills.Add(DPassiveSkills[skillKind][i]);
+							}
+						}
 					}
 				} else
 					if(UnityEngine.Random.Range(1, 100) <= DPassiveSkills[skillKind][i].Rate)
@@ -307,7 +369,7 @@ public class SkillController : MonoBehaviour {
 			return string.Empty;
 	}
 
-	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3)) {
+	public bool DoPassiveSkill(ESkillSituation State, PlayerBehaviour player = null, Vector3 v = default(Vector3), float shootDistance = 0) {
 		bool Result = false;
 		EPlayerState playerState = EPlayerState.Idle;
 		
@@ -324,7 +386,7 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Dunk0:
-				playerState = getPassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v);
+				playerState = getPassiveSkill(ESkillSituation.Dunk0, ESkillKind.Dunk, v, 0, shootDistance);
 				Result = player.AniState(playerState, v);
 				break;
 				
@@ -352,7 +414,7 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Layup0:
-				playerState = getPassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup);
+				playerState = getPassiveSkill(ESkillSituation.Layup0, ESkillKind.Layup, Vector3.zero, 0, shootDistance);
 				Result = player.AniState(playerState, v);
 				break;
 				
@@ -450,22 +512,22 @@ public class SkillController : MonoBehaviour {
 				break;
 				
 			case ESkillSituation.Shoot0:
-				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HasDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot0, ESkillKind.Shoot, v, GameController.Get.HasDefPlayer(player, 1.5f, 40), shootDistance);
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot3:
-				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot3, ESkillKind.DownHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40), shootDistance);
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot2:
-				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot2, ESkillKind.UpHand, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40), shootDistance);
 				Result = player.AniState(playerState, v);
 				break;
 				
 			case ESkillSituation.Shoot1:
-				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40));
+				playerState = getPassiveSkill(ESkillSituation.Shoot1, ESkillKind.NearShoot, Vector3.zero, GameController.Get.HasDefPlayer(player, 1.5f, 40), shootDistance);
 				Result = player.AniState(playerState, v );
 				break;
 

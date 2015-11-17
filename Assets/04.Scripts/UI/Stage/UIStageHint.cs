@@ -154,6 +154,10 @@ public class UIStageHint : MonoBehaviour
 			TStageData stageData = StageTable.Ins.GetByID(stageID);
 			int[] hintBits = stageData.HintBit;
 			int index = 0;
+
+			int minute = (int) (GameController.Get.GameTime / 60f);
+			int second = (int) (GameController.Get.GameTime % 60f);
+
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
 				mTargets[index].Show();
@@ -162,7 +166,7 @@ public class UIStageHint : MonoBehaviour
 					value = 1;
 				mTargets[index].UpdateUI(getText(1, value, 9),
 				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + stageData.Bit0Num.ToString(),
+				                         (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
 				                         (GameController.Get.GameTime <= 0));
 				index ++;
 			}

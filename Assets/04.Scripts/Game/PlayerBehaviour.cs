@@ -3478,9 +3478,9 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
     //=====Skill=====
-    public bool DoPassiveSkill(ESkillSituation state, Vector3 v = default(Vector3))
+    public bool DoPassiveSkill(ESkillSituation state, Vector3 v = default(Vector3), float shootDistance = 0)
     {
-        return skillController.DoPassiveSkill(state, this, v);
+        return skillController.DoPassiveSkill(state, this, v, shootDistance);
     }
 
     public bool DoActiveSkill(GameObject target = null)
@@ -3586,8 +3586,21 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get{ return skillKind;}
     }
-                            
-    public bool IsHaveMoveDodge
+
+	public int GetPassiveAniRate (int kind, float shootDistance, float baseDistance)
+	{
+		if(skillController.DExtraPassiveSkills.ContainsKey(kind)) {
+			int rate = 0;
+			for(int i=0; i<skillController.DExtraPassiveSkills[kind].Count; i++) {
+				if((GameData.DSkillData[skillController.DExtraPassiveSkills[kind][i].Tskill.ID].Distance(skillController.DExtraPassiveSkills[kind][i].Tskill.Lv) + baseDistance) >= shootDistance)
+					rate += GameData.DSkillData[skillController.DExtraPassiveSkills[kind][i].Tskill.ID].AniRate(skillController.DExtraPassiveSkills[kind][i].Tskill.Lv);
+			}
+			return rate;
+		} else 
+			return 0;
+	}
+	
+	public bool IsHaveMoveDodge
     {
         get { return skillController.DPassiveSkills.ContainsKey((int)ESkillKind.MoveDodge);}
     }

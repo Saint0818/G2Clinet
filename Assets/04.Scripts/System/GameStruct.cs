@@ -483,6 +483,9 @@ namespace GameStruct {
 		public float valueAdd;
 		public int rate;
 		public int rateAdd;
+		public int AniRateKind;
+		public int aniRate;
+		public int aniRateAdd;
 		public int Direct;
 		public float distance;
 		public float distanceAdd;
@@ -551,6 +554,10 @@ namespace GameStruct {
 
 		public int Rate(int lv) {
 			return rate + lv * rateAdd;
+		}
+
+		public int AniRate(int lv) {
+			return aniRate + lv * aniRateAdd;
 		}
 
 		public float Distance(int lv) {
