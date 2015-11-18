@@ -70,7 +70,7 @@ public class UIMainLobby : UIBase
     {
         WWWForm form = new WWWForm();
         form.AddField("NewPlayerName", UIInput.current.value);
-        SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
+        SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form);
     }
 
     private void waitChangePlayerName(bool ok, WWW www)

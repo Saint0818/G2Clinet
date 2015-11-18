@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GameStruct;
-using UnityEngine;
 using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 負責裝備介面左邊的玩家裝備資訊.

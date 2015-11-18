@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using GamePlayEnum;
 using GameStruct;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
@@ -110,7 +109,7 @@ public class UIMainStage : UIBase
         {
             var team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Power = team.Power;
-            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
+//            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
 
             GameData.StageID = mCurrentStageID;
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);

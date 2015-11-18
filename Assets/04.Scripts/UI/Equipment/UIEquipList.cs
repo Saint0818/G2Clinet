@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 這是裝備介面右邊的道具清單列表, 會列出玩家倉庫內的數值裝備.

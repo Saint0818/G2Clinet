@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 /// <summary>
 /// 這是裝備介面中, 左邊的裝備欄位, 欄位可能是空的, 或是有資訊.
