@@ -3641,8 +3641,12 @@ public class GameController : KnightSingleton<GameController>
         if(ok)
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
-            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
+            GameData.Team.Player = team.Player;
+            GameData.Team.Player.Init();
+//            GameData.Team.Player.NextMainStageID = team.Player.NextMainStageID;
+//            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
+//            GameData.Team.Player.Lv = team.Player.Lv;
+//            GameData.Team.Player.Exp = team.Player.Exp;
         }
         else
             UIHint.Get.ShowHint("PVE End fail!", Color.red);

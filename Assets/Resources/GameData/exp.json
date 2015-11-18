@@ -1,298 +1,278 @@
 [
     {
         "lv": 2,
-        "lvexp": 40,
-        "skillupgrade": 100,
-        "skillexp": 50
+        "lvexp": 10
     },
     {
         "lv": 3,
-        "lvexp": 50,
-        "skillupgrade": 200,
-        "skillexp": 100
+        "lvexp": 15
     },
     {
         "lv": 4,
-        "lvexp": 60,
-        "skillupgrade": 400,
-        "skillexp": 200
+        "lvexp": 20
     },
     {
         "lv": 5,
-        "lvexp": 80,
-        "skillupgrade": 800,
-        "skillexp": 400
+        "lvexp": 25
     },
     {
         "lv": 6,
-        "lvexp": 90,
-        "skillupgrade": 1600,
-        "skillexp": 800
+        "lvexp": 30
     },
     {
         "lv": 7,
-        "lvexp": 100,
-        "skillupgrade": 2400,
-        "skillexp": 1200
+        "lvexp": 35
     },
     {
         "lv": 8,
-        "lvexp": 120,
-        "skillupgrade": 3200,
-        "skillexp": 1600
+        "lvexp": 40
     },
     {
         "lv": 9,
-        "lvexp": 140,
-        "skillupgrade": 4000,
-        "skillexp": 2000
+        "lvexp": 45
     },
     {
         "lv": 10,
-        "lvexp": 160,
-        "skillupgrade": 4800,
-        "skillexp": 2400
+        "lvexp": 50
     },
     {
         "lv": 11,
-        "lvexp": 352,
-        "skillupgrade": 5600,
-        "skillexp": 2800
+        "lvexp": 55
     },
     {
         "lv": 12,
-        "lvexp": 374
+        "lvexp": 60
     },
     {
         "lv": 13,
-        "lvexp": 391
+        "lvexp": 65
     },
     {
         "lv": 14,
-        "lvexp": 432
+        "lvexp": 70
     },
     {
         "lv": 15,
-        "lvexp": 456
+        "lvexp": 75
     },
     {
         "lv": 16,
-        "lvexp": 546
+        "lvexp": 80
     },
     {
         "lv": 17,
-        "lvexp": 598
+        "lvexp": 85
     },
     {
         "lv": 18,
-        "lvexp": 675
+        "lvexp": 90
     },
     {
         "lv": 19,
-        "lvexp": 784
+        "lvexp": 95
     },
     {
         "lv": 20,
-        "lvexp": 868
+        "lvexp": 100
     },
     {
         "lv": 21,
-        "lvexp": 3105
+        "lvexp": 105
     },
     {
         "lv": 22,
-        "lvexp": 4002
+        "lvexp": 110
     },
     {
         "lv": 23,
-        "lvexp": 4320
+        "lvexp": 115
     },
     {
         "lv": 24,
-        "lvexp": 4600
+        "lvexp": 120
     },
     {
         "lv": 25,
-        "lvexp": 4794
+        "lvexp": 125
     },
     {
         "lv": 26,
-        "lvexp": 5184
+        "lvexp": 130
     },
     {
         "lv": 27,
-        "lvexp": 5390
+        "lvexp": 135
     },
     {
         "lv": 28,
-        "lvexp": 5700
+        "lvexp": 140
     },
     {
         "lv": 29,
-        "lvexp": 7080
+        "lvexp": 145
     },
     {
         "lv": 30,
-        "lvexp": 9800
+        "lvexp": 150
     },
     {
         "lv": 31,
-        "lvexp": 10990
+        "lvexp": 155
     },
     {
         "lv": 32,
-        "lvexp": 13520
+        "lvexp": 160
     },
     {
         "lv": 33,
-        "lvexp": 14640
+        "lvexp": 165
     },
     {
         "lv": 34,
-        "lvexp": 18321
+        "lvexp": 170
     },
     {
         "lv": 35,
-        "lvexp": 17460
+        "lvexp": 175
     },
     {
         "lv": 36,
-        "lvexp": 20900
+        "lvexp": 180
     },
     {
         "lv": 37,
-        "lvexp": 21321
+        "lvexp": 185
     },
     {
         "lv": 38,
-        "lvexp": 23426
+        "lvexp": 190
     },
     {
         "lv": 39,
-        "lvexp": 24525
+        "lvexp": 195
     },
     {
         "lv": 40,
-        "lvexp": 26208
+        "lvexp": 200
     },
     {
         "lv": 41,
-        "lvexp": 30550
+        "lvexp": 205
     },
     {
         "lv": 42,
-        "lvexp": 33020
+        "lvexp": 210
     },
     {
         "lv": 43,
-        "lvexp": 37570
+        "lvexp": 215
     },
     {
         "lv": 44,
-        "lvexp": 40300
+        "lvexp": 220
     },
     {
         "lv": 45,
-        "lvexp": 40690
+        "lvexp": 225
     },
     {
         "lv": 46,
-        "lvexp": 47040
+        "lvexp": 230
     },
     {
         "lv": 47,
-        "lvexp": 52640
+        "lvexp": 235
     },
     {
         "lv": 48,
-        "lvexp": 56280
+        "lvexp": 240
     },
     {
         "lv": 49,
-        "lvexp": 56700
+        "lvexp": 245
     },
     {
         "lv": 50,
-        "lvexp": 60340
+        "lvexp": 250
     },
     {
         "lv": 51,
-        "lvexp": 81260
+        "lvexp": 255
     },
     {
         "lv": 52,
-        "lvexp": 86190
+        "lvexp": 260
     },
     {
         "lv": 53,
-        "lvexp": 91120
+        "lvexp": 265
     },
     {
         "lv": 54,
-        "lvexp": 96220
+        "lvexp": 270
     },
     {
         "lv": 55,
-        "lvexp": 101660
+        "lvexp": 275
     },
     {
         "lv": 56,
-        "lvexp": 113400
+        "lvexp": 280
     },
     {
         "lv": 57,
-        "lvexp": 119340
+        "lvexp": 285
     },
     {
         "lv": 58,
-        "lvexp": 125460
+        "lvexp": 290
     },
     {
         "lv": 59,
-        "lvexp": 131760
+        "lvexp": 295
     },
     {
         "lv": 60,
-        "lvexp": 138240
+        "lvexp": 300
     },
     {
         "lv": 61,
-        "lvexp": 177100
+        "lvexp": 305
     },
     {
         "lv": 62,
-        "lvexp": 185460
+        "lvexp": 310
     },
     {
         "lv": 63,
-        "lvexp": 194040
+        "lvexp": 315
     },
     {
         "lv": 64,
-        "lvexp": 202620
+        "lvexp": 320
     },
     {
         "lv": 65,
-        "lvexp": 211640
+        "lvexp": 325
     },
     {
         "lv": 66,
-        "lvexp": 230690
+        "lvexp": 330
     },
     {
         "lv": 67,
-        "lvexp": 240580
+        "lvexp": 335
     },
     {
         "lv": 68,
-        "lvexp": 250470
+        "lvexp": 340
     },
     {
         "lv": 69,
-        "lvexp": 260590
+        "lvexp": 345
     },
     {
         "lv": 70,
-        "lvexp": 270940
+        "lvexp": 350
     }
 ]
