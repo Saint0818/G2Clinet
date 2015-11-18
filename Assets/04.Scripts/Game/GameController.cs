@@ -640,6 +640,7 @@ public class GameController : KnightSingleton<GameController>
 		#endif
 
 		Joysticker.SpeedUpView = GameObject.Find("SelectMe/Speedup").GetComponent<UISprite>();
+		Joysticker.SpeedAnimator = GameObject.Find("SelectMe").GetComponent<Animator>();
 
 		passIcon[0] = EffectManager.Get.PlayEffect("PassMe", Joysticker.BodyHeight.transform.localPosition, Joysticker.PlayerRefGameObject);
 

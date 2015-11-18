@@ -209,6 +209,8 @@ public class PlayerBehaviour : MonoBehaviour
     public GameObject DoubleClick = null;
     public GameObject DummyBall;
     public UISprite SpeedUpView = null;
+	public Animator SpeedAnimator = null;
+	private bool isSpeedStay = true;
     public UISprite AngerView = null;
     public GameObject AngryFull = null;
     public Material BodyMaterial;
@@ -780,6 +782,13 @@ public class PlayerBehaviour : MonoBehaviour
                     if (this == GameController.Get.Joysticker) {
 						SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
 						SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+						if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
+							isSpeedStay = false;
+							SpeedAnimator.SetTrigger("SelectMe");
+						} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
+							isSpeedStay = true;
+							SpeedAnimator.SetTrigger("SelectMeStay");
+						}
 					}
 
                     if (mMovePower == 0)
@@ -795,6 +804,13 @@ public class PlayerBehaviour : MonoBehaviour
                 if (this == GameController.Get.Joysticker) {
 					SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
 					SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+					if(isSpeedStay && SpeedUpView.fillAmount <= 0.2f) {
+						isSpeedStay = false;
+						SpeedAnimator.SetTrigger("SelectMe");
+					} else if (!isSpeedStay && SpeedUpView.fillAmount > 0.2f) {
+						isSpeedStay = true;
+						SpeedAnimator.SetTrigger("SelectMeStay");
+					}
 				}
 
                 if (mMovePower == mMaxMovePower)
