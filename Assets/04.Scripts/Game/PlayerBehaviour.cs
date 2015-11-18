@@ -777,8 +777,10 @@ public class PlayerBehaviour : MonoBehaviour
                     if (mMovePower < 0)
                         mMovePower = 0;
 
-                    if (this == GameController.Get.Joysticker)
-                        GameController.Get.Joysticker.SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+                    if (this == GameController.Get.Joysticker) {
+						SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+						SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+					}
 
                     if (mMovePower == 0)
                         canSpeedup = false;
@@ -790,8 +792,10 @@ public class PlayerBehaviour : MonoBehaviour
                 if (mMovePower > mMaxMovePower)
                     mMovePower = mMaxMovePower;
 
-                if (this == GameController.Get.Joysticker)
-                    GameController.Get.Joysticker.SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+                if (this == GameController.Get.Joysticker) {
+					SpeedUpView.fillAmount = mMovePower / mMaxMovePower;
+					SpeedUpView.color = new Color32(255 ,(byte)(200 * SpeedUpView.fillAmount), (byte)(15 *  SpeedUpView.fillAmount), 255);
+				}
 
                 if (mMovePower == mMaxMovePower)
                     canSpeedup = true;
