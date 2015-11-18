@@ -14,6 +14,8 @@ public class UIPrefabPath
 	public static readonly string ItemSkillCard = "Prefab/UI/Items/ItemSkillCard";
 	public static readonly string ItemCardEquipped = "Prefab/UI/Items/ItemCardEquipped";
 
+    public static readonly string StageChapter = "Prefab/UI/UIStageChapter";
+
     public static GameObject LoadUI(string path, Transform parent)
     {
         return LoadUI(path, parent, Vector3.zero);

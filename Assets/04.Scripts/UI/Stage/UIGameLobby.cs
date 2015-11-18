@@ -46,6 +46,7 @@ public class UIGameLobby : UIBase
 
     private void goToMainStage()
     {
+        UIMainStage.Get.ClearSelectChapter();
         UIMainStage.Get.Show();
         Hide();
     }

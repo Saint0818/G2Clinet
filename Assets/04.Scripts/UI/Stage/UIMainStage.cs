@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
-/// 關卡頁面, 會顯示很多的小關卡.
+/// 關卡介面, 會顯示很多的小關卡.
 /// </summary>
 /// <remarks>
 /// 使用方法:
@@ -14,7 +14,17 @@ using UnityEngine;
 /// <item> 用 Get 取得 instance. </item>
 /// <item> Call Show() 顯示關卡. </item>
 /// <item> Call Hide() 關閉關卡. </item>
+/// <item> Call ClearSelectChapter() 將之前選擇的章節記錄刪除. </item>
+/// <item> (Optional)Visible 用來檢查關卡介面是否顯示. </item>
 /// </list>
+/// 
+/// 實作細節:
+/// <list type="number">
+/// <item> 當關卡介面開啟時, 會根據情況切換到適當的頁面. 如果是從大廳進入關卡介面, 必須顯示
+/// 最新進度的關卡; 如果是遊戲打完進入關卡介面, 則會選擇剛剛遊戲關卡的章節(這麼做是為了玩家方便刷獎勵,
+/// 比如玩家的進度已經到第 9 章, 當他回到第 5 章刷獎勵時, 遊戲打完, 回到關卡介面會顯示第 5 章, 方便玩家刷獎勵). </item>
+/// </list>
+/// <item> 內部用 PlayerPrefs 記錄玩家的關卡章節. </item>
 /// </remarks>
 [DisallowMultipleComponent]
 public class UIMainStage : UIBase
@@ -22,16 +32,18 @@ public class UIMainStage : UIBase
     private static UIMainStage instance;
     private const string UIName = "UIMainStage";
 
+    private const string SelectChapterKey = "StageSelectChapter";
+
     private int mCurrentStageID;
 
-    private UIMainStageImpl mImpl;
+    private UIMainStageImpl mMain;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mImpl = GetComponent<UIMainStageImpl>();
-        mImpl.BackListener += goToGameLobby;
-        mImpl.Info.StartListener += enterGame;
+        mMain = GetComponent<UIMainStageImpl>();
+        mMain.BackListener += goToGameLobby;
+        mMain.Info.StartListener += enterGame;
     }
 
     [UsedImplicitly]
@@ -41,23 +53,35 @@ public class UIMainStage : UIBase
 
     public bool Visible { get { return gameObject.activeSelf; } }
 
+    public void ClearSelectChapter()
+    {
+        if(PlayerPrefs.HasKey(SelectChapterKey))
+            PlayerPrefs.DeleteKey(SelectChapterKey);
+    }
+
+    /// <summary>
+    /// 預設顯示尚未過關關卡所在的章節.
+    /// </summary>
     public void Show()
     {
         Show(true);
 
-        showMainStages();
+        buildMainStages();
     }
 
     private void enterGame(int stageID)
     {
-        Debug.LogFormat("enterGame, StageID:{0}", stageID);
+//        Debug.LogFormat("enterGame, StageID:{0}", stageID);
 
         if(StageTable.Ins.HasByID(stageID))
         {
             TStageData stageData = StageTable.Ins.GetByID(stageID);
 
             if(verifyPlayer(stageData))
+            {
+                PlayerPrefs.SetInt(SelectChapterKey, mMain.CurrentChapter);
                 pveStart(stageID);
+            }
             else
                 Debug.LogWarningFormat("Player can't enter game!");
         }
@@ -126,10 +150,10 @@ public class UIMainStage : UIBase
     /// <summary>
     /// 顯示主線關卡.
     /// </summary>
-    private void showMainStages()
+    private void buildMainStages()
     {
         // 1. 清空全部章節.
-        mImpl.RemoveAllChapters();
+        mMain.RemoveAllChapters();
 
         // for debug.
 //        GameData.Team.Player.NextMainStageID = 0;
@@ -145,18 +169,34 @@ public class UIMainStage : UIBase
         // 3. 設定每一個小關卡.
         foreach(TStageData data in allStageData)
         {
-            showChapter(data.Chapter);
+            addChapter(data.Chapter);
             
             if(data.ID <= GameData.Team.Player.NextMainStageID)
-                showStage(data);
+                addStage(data);
             else
-                showStageLock(data);
+                addLockStage(data);
         }
 
-        setLastChapterLock();
+        addLastLockChapter();
+
+        selectChapter();
     }
 
-    private void showChapter(int chapter)
+    private void selectChapter()
+    {
+        if(PlayerPrefs.HasKey(SelectChapterKey))
+            mMain.SelectChapter(PlayerPrefs.GetInt(SelectChapterKey));
+        else
+        {
+            TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
+            if(stageData.IsValid())
+                mMain.SelectChapter(stageData.Chapter);
+            else
+                mMain.SelectChapter(mMain.ChapterCount);
+        }
+    }
+
+    private void addChapter(int chapter)
     {
         if(!ChapterTable.Ins.Has(chapter))
         {
@@ -165,10 +205,10 @@ public class UIMainStage : UIBase
         }
 
         ChapterData data = ChapterTable.Ins.Get(chapter);
-        mImpl.ShowChapter(chapter, data.Name);
+        mMain.AddChapter(chapter, data.Name);
     }
 
-    private void showStage(TStageData stageData)
+    private void addStage(TStageData stageData)
     {
         if(!verify(stageData))
             return;
@@ -193,7 +233,7 @@ public class UIMainStage : UIBase
         }
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-        mImpl.ShowStage(stageData.Chapter, stageData.ID, localPos, data); 
+        mMain.AddStage(stageData.Chapter, stageData.ID, localPos, data); 
     }
 
     /// <summary>
@@ -209,13 +249,13 @@ public class UIMainStage : UIBase
         return dailyCount;
     }
 
-    private void showStageLock(TStageData stageData)
+    private void addLockStage(TStageData stageData)
     {
         if(!verify(stageData))
             return;
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);
-        mImpl.ShowStageLock(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
+        mMain.AddLockStage(stageData.Chapter, stageData.ID, localPos, stageData.KindTextIndex.ToString());
     }
 
     private static bool verify(TStageData stageData)
@@ -238,7 +278,7 @@ public class UIMainStage : UIBase
     /// <summary>
     /// 根據玩家的進度, 設定下一個章節為 lock 狀態.
     /// </summary>
-    private void setLastChapterLock()
+    private void addLastLockChapter()
     {
         TStageData stageData = StageTable.Ins.GetByID(GameData.Team.Player.NextMainStageID);
         if(!stageData.IsValid())
@@ -253,7 +293,7 @@ public class UIMainStage : UIBase
         }
 
         if(StageTable.Ins.HasByChapter(nextChapter))
-            mImpl.ShowChapterLock(nextChapter, nextChapterTitle);
+            mMain.AddLockChapter(nextChapter, nextChapterTitle);
     }
 
     public void Hide()
