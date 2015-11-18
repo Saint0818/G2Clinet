@@ -53,7 +53,7 @@ public class PersonalView
 	{
 		changeHeadBtn.onClick.Add (changeHeadFunc);
 		group.onClick.Add (groupFunc);
-		playerName.onSubmit.Add(changeName);
+//		playerName.onSubmit.Add(changeName);
 
 		for (int i = 0; i < Avatars.Length; i++)
 			Avatars [i].InitBtttonFunction (itemHint);

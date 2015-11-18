@@ -230,6 +230,8 @@ public class UIAttributes : MonoBehaviour
 
 	public bool EnableTitle
 	{
-		set{ Title.SetActive(value);}
+		set{
+			if(Title)
+				Title.SetActive(value);}
 	}
 }
