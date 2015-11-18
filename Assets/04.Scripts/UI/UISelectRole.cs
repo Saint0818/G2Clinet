@@ -466,8 +466,11 @@ public class UISelectRole : UIBase {
 		if (isStage) {
 			int[] ids = StageTable.Ins.GetByID(GameData.StageID).PlayerID;
 			int num = Mathf.Min(GameData.EnemyMembers.Length, ids.Length);
-			for (int i = 0; i < num; i ++)
+			for (int i = 0; i < num; i ++) {
+				if (GameData.DPlayers.ContainsKey(ids[i])) 
+					GameData.EnemyMembers[i].Player.Name = GameData.DPlayers[ids[i]].Name;
 				GameData.EnemyMembers[i].Player.SetID(ids[i]);
+			}
         } else {
 			int index = 0;
 

@@ -36,7 +36,13 @@ public class BlockTrigger : MonoBehaviour {
 //									CourtMgr.Get.SetBallState(EPlayerState.Block0, blocker);
 									faller.DoPassiveSkill(GamePlayEnum.ESkillSituation.KnockDown0);
 									gameObject.SetActive (false);
-								}
+
+									blocker.GameRecord.Block++;
+									GameController.Get.IsGameFinish();
+									GameController.Get.CheckConditionText();
+									if(blocker == GameController.Get.Joysticker)
+										GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);
+									}
 							} else {
 								if(faller.IsBallOwner)
 								{
@@ -75,8 +81,7 @@ public class BlockTrigger : MonoBehaviour {
 			}
 
 			blocker.GameRecord.Block++;
-			if(blocker == GameController.Get.Joysticker)
-				GameController.Get.IsGameFinish();
+			GameController.Get.IsGameFinish();
 			GameController.Get.CheckConditionText();
 			if(blocker == GameController.Get.Joysticker)
 				GameController.Get.ShowWord(GamePlayEnum.EShowWordType.Block, 0, blocker.ShowWord);

@@ -2925,8 +2925,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (OnStealMoment(this))
                     {
                         GameRecord.Steal++;
-                        if (this == GameController.Get.Joysticker)
-                            GameController.Get.IsGameFinish();
+                        GameController.Get.IsGameFinish();
                     }
                 }
 
@@ -3275,8 +3274,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
                 {
 					GameController.Get.CheckConditionText();
-                    if (this == GameController.Get.Joysticker)
-                        GameController.Get.IsGameFinish();
+                    GameController.Get.IsGameFinish();
                     for (int i=0; i<GameController.Get.GamePlayers.Count; i++)
                     {
                         if (GameController.Get.GamePlayers [i].Team != Team)
@@ -3296,8 +3294,7 @@ public class PlayerBehaviour : MonoBehaviour
             case "SetBallEvent":
                 GameController.Get.SetBall(this);
 				GameController.Get.CheckConditionText();
-                if (this == GameController.Get.Joysticker)
-                    GameController.Get.IsGameFinish();
+                GameController.Get.IsGameFinish();
             
                 if (GameController.Get.Catcher != null) 
                     GameController.Get.Catcher = null;
@@ -3335,8 +3332,7 @@ public class PlayerBehaviour : MonoBehaviour
                         }
 						GameController.Get.BallState = EBallState.None;
 						GameController.Get.CheckConditionText();
-						if (this == GameController.Get.Joysticker)
-							GameController.Get.IsGameFinish();
+						GameController.Get.IsGameFinish();
                     }
                 }
                 break;

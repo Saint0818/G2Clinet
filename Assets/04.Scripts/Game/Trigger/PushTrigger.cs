@@ -54,8 +54,7 @@ public class PushTrigger : MonoBehaviour {
 						pusher.GameRecord.Push++;
 						faller.GameRecord.BePush++;
 					}
-					if(pusher == GameController.Get.Joysticker)
-						GameController.Get.IsGameFinish();
+					GameController.Get.IsGameFinish();
 				}
 			}
 		}
