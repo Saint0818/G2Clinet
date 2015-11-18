@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameEnum;
 using UnityEngine;
 
@@ -92,7 +93,7 @@ namespace GameStruct {
         public int Lv;
 		public string Name;
 		public TItem[] Items;
-		public int[] Potential;
+		public Dictionary<EAttribute, int> Potential;
 
         public bool IsValid
         {
@@ -595,7 +596,23 @@ namespace GameStruct {
 	    }
     }
 
-    public enum EAttributeKind
+	public enum EAttribute
+	{
+		Point2,
+		Point3,
+		Dunk,
+		Rebound,
+		Block,
+		Steal,
+		Speed,
+		Stamina,
+		Strength,
+		Defence,
+		Dribble,
+		Pass
+	}
+
+	public enum EAttributeKind
     {
         None = 0,
         Point2 = 1,

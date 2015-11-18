@@ -116,81 +116,15 @@ public class GEGMTool : GEBase
 	private int useLvPotential = 0;
 	private int useAvatarPotential = 0;
 	private int[] addPotential = new int[GameConst.PotentialCount];
-	private int[] Potential = new int[GameConst.PotentialCount];
+	private Dictionary<EAttribute, int> Potential = new Dictionary<EAttribute, int> ();
 	
 	private void InitPotentialPoint()
 	{
 		AvatarPotential = GameData.Team.AvatarPotential;
 		avatarPotential = AvatarPotential;
-		LvPotential = GetLvPotential (GameData.Team.Player.Lv);
-		CrtAvatarPotential = GetCrtAvatarPotential();
-		CrtLvPotential = GetCurrentLvPotential (GameData.Team.Player);
-	}
-
-	public int GetLvPotential(int lv)
-	{
-		return (lv - 1) * GameConst.PreLvPotential;
-	}
-
-	public int GetCrtAvatarPotential()
-	{
-		int use = 0;
-		if (GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 1) {
-			for(int i = 0;i< GameData.Team.PlayerBank.Length; i++){
-				if(GameData.Team.PlayerBank[i].RoleIndex != GameData.Team.Player.RoleIndex){
-					use += GetUseAvatarPotentialFromBank(GameData.Team.PlayerBank[i]);
-				}
-			}
-		}
-
-		use += GetUseAvatarPotential (GameData.Team.Player);
-
-		return GameData.Team.AvatarPotential - use;
-	}
-
-	public int GetUseAvatarPotentialFromBank(TPlayerBank player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
-
-		if (use > lvpoint)
-			return use - lvpoint;
-		else
-			return 0;
-	}
-
-	public int GetUseAvatarPotential(TPlayer player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-		
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
-		
-		if (use > lvpoint)
-			return use - lvpoint;
-		else
-			return 0;
-	}
-
-	public int GetCurrentLvPotential(TPlayer player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-		
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
-
-		if (lvpoint > use)
-			return lvpoint - use;
-		else
-			return 0;
+		LvPotential = GameFunction.GetLvPotential (GameData.Team.Player.Lv);
+		CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential();
+		CrtLvPotential = GameFunction.GetCurrentLvPotential(GameData.Team.Player);
 	}
 
 	private void PlayerInfoHandle()
@@ -208,25 +142,22 @@ public class GEGMTool : GEBase
 		AddPlayeLv ();
 		AddAvatarPotential ();
 
-		if(Potential.Length > 0)
-			for (int i = 0; i < Potential.Length; i++) {
-			EditorGUILayout.BeginHorizontal();
-
-			GUILayout.Label(string.Format("Masteries{0} : {1} + {2}/100", i, GameData.Team.Player.Potential[i], addPotential[i])); 
-
-			if (GUILayout.Button ("+", GUILayout.Width (200))) {
-				if(CrtAvatarPotential > 0 &&  Potential[i] < 100)
-				{
-					if(CanUsePotential(i)){
-						addPotential[i]++;
-						CalculateAddPotential();
+		if (Potential.Count > 0) {
+			foreach(KeyValuePair<EAttribute, int> item in Potential)
+			{
+				EditorGUILayout.BeginHorizontal();
+				GUILayout.Label(string.Format("{0} : {1} + {2}/100", item.Key.ToString(), item.Value, addPotential[GameFunction.GetAttributeIndex(item.Key)])); 
+				if (GUILayout.Button ("+", GUILayout.Width (200))) {
+					if(CrtAvatarPotential > 0 &&  item.Value < 100)
+					{
+						if(CanUsePotential(GameFunction.GetAttributeIndex(item.Key))){
+							addPotential[GameFunction.GetAttributeIndex(item.Key)]++;
+							CalculateAddPotential();
+						}
 					}
-
-
 				}
+				EditorGUILayout.EndHorizontal();
 			}
-
-			EditorGUILayout.EndHorizontal();
 		}
 
 		EditorGUILayout.BeginHorizontal();
@@ -247,10 +178,8 @@ public class GEGMTool : GEBase
 		if (GUILayout.Button ("存檔", GUILayout.Width (200))) {
 			if(HaveChange()){
 				WWWForm form = new WWWForm();
-				int[] save = new int[GameConst.PotentialCount];
-
-				for(int i = 0;i< save.Length; i++)
-					save[i] = Potential[i] + addPotential[i];
+				Dictionary<EAttribute, int> save = new Dictionary<EAttribute, int>();
+				save = GameFunction.SumAttribute (GameData.Team.Player.Potential, addPotential);
 
 				form.AddField("Potential", JsonConvert.SerializeObject(save));
 				SendHttp.Get.Command(URLConst.GMSavePotential, waitSaveMasteries, form);

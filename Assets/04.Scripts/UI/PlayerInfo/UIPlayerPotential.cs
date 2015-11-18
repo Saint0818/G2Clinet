@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using GameStruct;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public class TUpgradeBtn
 {
@@ -72,7 +73,7 @@ public class UpgradeView
 	private GameObject self;
 	// sort Blk = 0, Stl = 1, 2PT = 2, 3PT = 3, Dnk = 4, Reb = 5
 	private TUpgradeBtn[] upgradeBtns  = new TUpgradeBtn[6];
-	private UIAttributes hexagon;
+	public UIAttributes hexagon;
 	private int[] addRules = new int[6];
 	public int[] AddPotential = new int[6];
 
@@ -123,12 +124,17 @@ public class UpgradeView
 	
 	public void UpdatePotential(TPlayer player)
 	{
-		if(player.Potential != null && player.Potential.Length == AddPotential.Length)
+		hexagon.enabled = true;
+
+		if(player.Potential != null && player.Potential.Count == AddPotential.Length)
 		{
-			for(int i = 0;i < player.Potential.Length;i++){
-				upgradeBtns[i].SetValue(player.Potential[i], AddPotential [i]);
+			int index = 0;
+
+			foreach (var item in GameData.Team.Player.Potential) {
+				index = GameFunction.GetAttributeIndex(item.Key);
+				upgradeBtns[index].SetValue(item.Value, AddPotential [index]);
 			}
-		}	
+		}
 	}
 
 	public void OnAdd()
@@ -137,8 +143,6 @@ public class UpgradeView
 		if (int.TryParse (UIButton.current.name, out index)) {
 			if(CanUsePotential(index)){
 				AddPotential[index]++;
-//				upgradeBtns[index].SetValue(GameData.Team.Player.Potential[index], );
-
 				UIPlayerPotential.Get.UpdateView();
 			}
 		}
@@ -181,6 +185,11 @@ public class UpgradeView
 		
 		CalculateAddPotential();
 		//cancel this time;
+	}
+
+	public void EnableHexagon(bool show)
+	{
+		hexagon.SetVisible (show);
 	}
 
 }
@@ -303,6 +312,8 @@ public class UIPlayerPotential : UIBase {
 	public void OnReturn()
 	{
 		UIShow (false);
+		UIPlayerInfo.Get.UpdatePage (0);
+		UIPlayerInfo.Get.UpdateHexagon(true);
 	}
 
 	public void OnReset()
@@ -317,8 +328,8 @@ public class UIPlayerPotential : UIBase {
 	private bool CanUseReset()
 	{
 		if (GameData.Team.Diamond >= GameConst.PotentialResetPrice) {
-			for(int i = 0; i < GameData.Team.Player.Potential.Length;i++){
-				if(GameData.Team.Player.Potential[i] > 0)
+			foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
+				if(item.Value > 0)
 					return true;
 			}
 		}
@@ -351,15 +362,12 @@ public class UIPlayerPotential : UIBase {
 	public void OnCheck()
 	{
 		WWWForm form = new WWWForm();
-		int[] save = new int[GameConst.PotentialCount];
-		
-		for(int i = 0;i< save.Length; i++)
-			save[i] = GameData.Team.Player.Potential[i] + upgradeView.AddPotential[i];
+		Dictionary<EAttribute, int> save = new Dictionary<EAttribute, int>();
+		save = GameFunction.SumAttribute (GameData.Team.Player.Potential, upgradeView.AddPotential);
 
 		form.AddField("Kind", 1);
 		form.AddField("Potential", JsonConvert.SerializeObject(save));
 		SendHttp.Get.Command(URLConst.Potential, waitPotential, form);
-		//Save potential
 	}
 
 	public void OnCancel()
@@ -373,89 +381,22 @@ public class UIPlayerPotential : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
-		if(isShow)
+		if (isShow) {
 			UpdateView ();
-	}
-
-	public int GetCrtAvatarPotential()
-	{
-		int use = 0;
-		if (GameData.Team.PlayerBank != null && GameData.Team.PlayerBank.Length > 1) {
-			for(int i = 0;i< GameData.Team.PlayerBank.Length; i++){
-				if(GameData.Team.PlayerBank[i].RoleIndex != GameData.Team.Player.RoleIndex){
-					use += GetUseAvatarPotentialFromBank(GameData.Team.PlayerBank[i]);
-				}
-			}
+			upgradeView.EnableHexagon(true);
+			UIPlayerInfo.Get.UpdateHexagon(false);
 		}
-		
-		use += GetUseAvatarPotential (GameData.Team.Player);
-		
-		return GameData.Team.AvatarPotential - use;
-	}
-
-	public int GetCurrentLvPotential(TPlayer player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-
-		if(player.Potential != null)
-			for(int i = 0; i < player.Potential.Length; i++){
-				use += player.Potential[i] * GameConst.PotentialRule[i]; 
-			}
-		
-		if (lvpoint > use)
-			return lvpoint - use;
-		else
-			return 0;
-	}
-
-	public int GetUseAvatarPotentialFromBank(TPlayerBank player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-		
-		for(int i = 0; i < player.Potential.Length; i++){
-			use += player.Potential[i] * GameConst.PotentialRule[i]; 
-		}
-		
-		if (use > lvpoint)
-			return use - lvpoint;
-		else
-			return 0;
-	}
-	
-	public int GetUseAvatarPotential(TPlayer player)
-	{
-		int lvpoint = GetLvPotential (player.Lv);
-		int use = 0;
-
-		if(player.Potential != null)
-			for(int i = 0; i < player.Potential.Length; i++){
-				use += player.Potential[i] * GameConst.PotentialRule[i]; 
-			}
-		
-		if (use > lvpoint)
-			return use - lvpoint;
-		else
-			return 0;
 	}
 
 	public void UpdateView()
 	{
 		upgradeView.UpdatePotential(GameData.Team.Player);
-
-		CrtLvPotential = GetCurrentLvPotential (GameData.Team.Player);
+		GameFunction.UpdateAttrHexagon (upgradeView.hexagon, GameData.Team.Player.Potential, upgradeView.AddPotential);
+		CrtLvPotential = GameFunction.GetCurrentLvPotential (GameData.Team.Player);
 		pointView.SetLvPotential (CrtLvPotential, upgradeView.UseLvPotential);
-
-		CrtAvatarPotential = GetCrtAvatarPotential ();
+		CrtAvatarPotential = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
 		pointView.SetAvatarPotential (CrtAvatarPotential, upgradeView.UseAvatarPotential);
-
 		upgradeView.UpdateBtnSate();
-	}
-
-	public int GetLvPotential(int lv)
-	{
-		return (lv - 1) * GameConst.PreLvPotential;
 	}
 
 

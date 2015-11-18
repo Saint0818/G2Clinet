@@ -9,6 +9,7 @@
 	public const int Max_Money = 1000000;
 	public const int Max_Power = 20;
 	public const int Default_MainStageID = 101;
+	public const int Max_ActiveSkill = 3;
 
 	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
 

@@ -41,7 +41,7 @@ namespace GameStruct
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
         public int NowStageID;
-        public int[] Potential;
+		public Dictionary<EAttribute, int> Potential;
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
         /// </summary>
@@ -103,7 +103,7 @@ namespace GameStruct
             Items = new TItem[0];
             //			EquipItems = new TEquipItem[0];
             ValueItems = new Dictionary<int, TValueItem>();
-            Potential = new int[0];
+			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
         }
@@ -178,40 +178,40 @@ namespace GameStruct
                 {
                     switch(data.AttrKinds[i])
                     {
-                        case EAttributeKind.Point2:
+						case EAttributeKind.Point2:
                             Point2 += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Point3:
+						case EAttributeKind.Point3:
                             Point3 += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Speed:
+						case EAttributeKind.Speed:
                             Speed += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Stamina:
+						case EAttributeKind.Stamina:
                             Stamina += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Strength:
+						case EAttributeKind.Strength:
                             Strength += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Dunk:
+						case EAttributeKind.Dunk:
                             Dunk += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Rebound:
+						case EAttributeKind.Rebound:
                             Rebound += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Block:
+						case EAttributeKind.Block:
                             Block += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Defence:
+						case EAttributeKind.Defence:
                             Defence += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Steal:
+						case EAttributeKind.Steal:
                             Steal += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Dribble:
+						case EAttributeKind.Dribble:
                             Dribble += data.AttrValues[i];
                             break;
-                        case EAttributeKind.Pass:
+						case EAttributeKind.Pass:
                             Pass += data.AttrValues[i];
                             break;
                     }
@@ -498,9 +498,9 @@ namespace GameStruct
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public int GetSumValueItems(EAttributeKind kind)
+		public int GetSumValueItems(EAttributeKind kind)
         {
-            CommonDelegateMethods.RInt1Int1Kind1 findSumValue = delegate(int itemID, EAttributeKind attrKind)
+			CommonDelegateMethods.RInt1Int1Kind1 findSumValue = delegate(int itemID, EAttributeKind attrKind)
             {
                 if(!GameData.DItemData.ContainsKey(itemID))
                 {

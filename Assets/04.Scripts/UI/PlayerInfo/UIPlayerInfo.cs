@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using GameStruct;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PersonalView
 {
 	private GameObject self;
 	private UIButton changeHeadBtn;
-	private UISprite headTex;
+//	private UISprite headTex;
 	private UILabel lv;
 	private UILabel name;
 	private UISlider expBar;
@@ -13,8 +15,9 @@ public class PersonalView
 	private UISprite powerBar;
 	private UILabel powerValue;
 	private UIButton group;
-	private UILabel groupHead;
-	private UILabel groupBody;
+	private UIInput playerName;
+//	private UILabel groupHead;
+//	private UILabel groupBody;
 	public TValueAvater[] Avatars = new TValueAvater[8];
 
 	public void Init(GameObject obj, GameObject[] itemEquipmentBtn)
@@ -22,8 +25,9 @@ public class PersonalView
 		self = obj;
 
 		if (self) {
+			playerName = self.transform.FindChild("PlayerName").gameObject.GetComponent<UIInput>();
 			changeHeadBtn = self.transform.FindChild("PlayerBt").gameObject.GetComponent<UIButton>();
-			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
+//			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
 			lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
 			name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
 			expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
@@ -31,8 +35,8 @@ public class PersonalView
 			powerBar = self.transform.FindChild("CombatView/CombatValue").gameObject.GetComponent<UISprite>();
 			powerValue = self.transform.FindChild("CombatView/CombatLabel").gameObject.GetComponent<UILabel>();
 			group = self.transform.FindChild("PlayerLeague").gameObject.GetComponent<UIButton>();
-			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
-			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
+//			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
+//			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
 			
 			for(int i = 0; i < Avatars.Length; i++){
 				GameObject go = self.transform.FindChild(string.Format("EquipmentView/PartSlot{0}/View", i)).gameObject;
@@ -45,10 +49,11 @@ public class PersonalView
 		}
 	}
 
-	public void InitBtttonFunction(EventDelegate changeHeadFunc, EventDelegate groupFunc, EventDelegate itemHint)
+	public void InitBtttonFunction(EventDelegate changeHeadFunc, EventDelegate groupFunc, EventDelegate itemHint, EventDelegate changeName)
 	{
 		changeHeadBtn.onClick.Add (changeHeadFunc);
 		group.onClick.Add (groupFunc);
+		playerName.onSubmit.Add(changeName);
 
 		for (int i = 0; i < Avatars.Length; i++)
 			Avatars [i].InitBtttonFunction (itemHint);
@@ -98,12 +103,13 @@ public class PersonalView
 		int count = 0;
 		int average = 0;
 
-		if(player.Potential != null)
-			for (int i = 0; i < player.Potential.Length; i++)
-				count += player.Potential[i];
+		if (player.Potential != null)
+			foreach (KeyValuePair<EAttribute, int> item in player.Potential) {
+				count += item.Value;
+		}
 
 		if(player.Potential != null)
-			average = count / player.Potential.Length;
+			average = count / player.Potential.Count;
 
 		powerValue.text = average.ToString();
 		powerBar.fillAmount = average / 100;
@@ -140,15 +146,24 @@ public class AbilityView
 		}
 	}
 
-	public void UpdateMasteries(int[] indexs)
+	public void UpdateAttribute()
 	{
-		//TODO: only six
+		int index = 0;
+		foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
+			index = GameFunction.GetAttributeIndex(item.Key);
+			Masteries[index].Value.text = item.Value.ToString();
 
-		if(indexs != null)
-			for(int i = 0;i < indexs.Length;i++){
-				Masteries[i].Value.text = indexs[i].ToString();
-				hexagon.SetValue((UIAttributes.EGroup)i, GameData.Team.Player.Potential[i] / GameConst.AttributeMax);
-			}
+		}
+
+		GameFunction.UpdateAttrHexagon (hexagon, GameData.Team.Player.Potential);
+//		hexagon.SetValue((UIAttributes.EGroup)index, item.Value / GameConst.AttributeMax);
+	}
+
+
+	
+	public void HexagonEnable(bool enable)
+	{
+		hexagon.SetVisible(enable);
 	}
 
 	public void InitBtttonFunction(EventDelegate skillFunc)
@@ -159,20 +174,199 @@ public class AbilityView
 	public bool Enable{set{self.SetActive(value);}}
 }
 
-public class SkillView
+public class TActiveSkillCard
+{
+	/// <summary>
+	/// 技能卡片結構.
+	/// </summary>
+	/// <remarks>
+	/// 使用方法:必須要有技能卡母物件，方法有二種：1.已存在ＵＩ裡使用find再使用Init() 2.Resource.load必須先實體化再Init()
+	/// 注意：必須先init()才能 initbtttonfunction()，不可再Init使用button.OnClick.Add, 否則會造成無窮迴圈
+	/// </remarks>
+	private GameObject self;
+	private UITexture SkillPic;
+	private UISprite SkillCard;
+	private UISprite SkillLevel;
+	private UILabel SkillName;
+	private UISprite SkillStar;
+	private bool isInit = false;
+	private UIButton btn;
+
+	public void Init(GameObject go, EventDelegate btnFunc = null)
+	{
+		if (!isInit && go) {
+			self = go;
+			SkillPic = go.transform.FindChild("SkillPic").gameObject.GetComponent<UITexture>();
+			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillLevel =  go.transform.FindChild("SkillLevel").gameObject.GetComponent<UISprite>();
+			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
+			SkillStar =  go.transform.FindChild("SkillStar").gameObject.GetComponent<UISprite>();
+			btn = self.GetComponent<UIButton>();
+			isInit = SkillPic && SkillCard && SkillLevel && SkillName && SkillStar && btn;
+
+			if(isInit && btnFunc != null){
+				btn.onClick.Add(btnFunc);
+			}
+
+		}
+	}
+
+	public void Update(int index, TSkill skill)
+	{
+		if(isInit){
+			self.name = index.ToString();
+			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
+			SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
+			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+			SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+
+			if(GameData.DSkillData.ContainsKey(skill.ID)){
+				SkillName.text = GameData.DSkillData[skill.ID].Name;
+			}
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+
+	public bool Enable
+	{
+		set{self.gameObject.SetActive(value);}
+	}
+}
+
+public class TPassiveSkillCard
 {
 	private GameObject self;
+	private UISprite SkillCard;
+	private UISprite SkillLevel;
+	private UILabel SkillName;
+	private UILabel SkillCost;
+	private bool isInit = false;
+	private UIButton btn;
+	private float[] sortY = new float[3]{70, 0, -70};
 
-	public void Init(GameObject go)
+	public void Init(GameObject partent, GameObject go, EventDelegate btnFunc = null)
+	{
+		if (!isInit && go && partent) {
+			go.transform.parent = partent.transform;
+			go.transform.position = Vector3.zero;
+			self = go;
+			SkillCard =  go.transform.FindChild("SkillCard").gameObject.GetComponent<UISprite>();
+			SkillLevel =  go.transform.FindChild("SkillLevel").gameObject.GetComponent<UISprite>();
+			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
+			SkillCost =  go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
+			btn = self.GetComponent<UIButton>();
+			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn;
+			
+			if(isInit && btnFunc != null){
+				btn.onClick.Add(btnFunc);
+			}
+			else
+				Debug.LogError("Init Error : TPassiveSkillCard");
+		}
+	}
+	
+	public void Update(int index, TSkill skill, int sort)
+	{
+		if(isInit){
+			self.name = index.ToString();
+			
+			if(GameData.DSkillData.ContainsKey(skill.ID)){
+				SkillLevel.spriteName = "Levelball" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
+				SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString() + "s";
+				SkillName.text = GameData.DSkillData[skill.ID].Name;
+				SkillCost.text = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1).ToString();;
+			}
+
+			self.transform.localPosition = new Vector3(-350 + sort * 300,sortY[sort % 3 ], 0);
+		}
+		else
+		{
+			Debug.LogError("You needed to Init()");
+		}
+	}
+	
+	public bool Enable
+	{
+		set{self.gameObject.SetActive(value);}
+	}
+}
+
+public class TSkillView
+{
+	private GameObject self;
+	private TActiveSkillCard[] activeSkillCard; 
+	private TPassiveSkillCard[] passiveSkillCard;
+
+	public void Init(GameObject go, TSkill[] skill, GameObject[] active, GameObject[] passive)
 	{
 		if (go) {
-			self = go;			
+			self = go;	
+
+			activeSkillCard = new TActiveSkillCard[active.Length];
+			passiveSkillCard = new TPassiveSkillCard[passive.Length];
+
+			for(int i = 0; i < active.Length; i++){
+				activeSkillCard[i] = new TActiveSkillCard();
+				activeSkillCard[i].Init(active[i], new EventDelegate(OnActiveSkillHint));
+			}
+
+			GameObject passiveParent = self.transform.FindChild("PassiveCard/PassiveList").gameObject;
+
+			for(int i = 0; i < passive.Length; i++){
+				passiveSkillCard[i] = new TPassiveSkillCard();
+				passiveSkillCard[i].Init(passiveParent, passive[i],  new EventDelegate(OnActiveSkillHint)); 
+			}
 		}
 	}
 
 	public bool Enable
 	{
 		set{self.SetActive(value);}
+	}
+
+	public void OnActiveSkillHint()
+	{
+		int index;
+		if (int.TryParse (UIButton.current.name, out index)) {
+			UIItemHint.Get.OnShowSkill(GameData.Team.Player.SkillCards[index]);
+		}
+	}
+
+	public void Update(TSkill[] skill)
+	{
+		int activecount = 0;
+		int passivecount = 0;
+
+		for (int i = 0; i < activeSkillCard.Length; i++) {
+			activeSkillCard[i].Enable = false;		
+		}
+
+		if (passiveSkillCard != null)
+			for (int i = 0; i < passiveSkillCard.Length; i++) {
+				passiveSkillCard[i].Enable = false;
+			}
+
+		for (int i = 0; i < skill.Length; i++) {
+			if(GameFunction.IsActiveSkill(skill[i].ID)){
+				if(activecount < GameConst.Max_ActiveSkill){
+					activeSkillCard[i].Enable = true;
+					activeSkillCard[activecount].Update(i, skill[i]);
+					activecount++;
+				}
+			}else{
+				if(passivecount < passiveSkillCard.Length){
+					passiveSkillCard[passivecount].Enable = true;
+					passiveSkillCard[passivecount].Update(i, skill[i], passivecount);
+					passivecount++;
+				}
+			}
+		}
+
+
+		Debug.Log (skill.Length);
 	}
 
 }
@@ -271,6 +465,11 @@ public class TAbilityItem
 }
 
 public class UIPlayerInfo : UIBase {
+	/// <summary>
+	/// 呼叫時機: 當玩家更改球員名稱時.
+	/// </summary>
+	public event CommonDelegateMethods.Action ChangePlayerNameListener;
+
 	private static UIPlayerInfo instance = null;
 	private const string UIName = "UIPlayerInfo";
 	private GameObject[] PageAy = new GameObject[3];
@@ -281,7 +480,7 @@ public class UIPlayerInfo : UIBase {
 	private AbilityView abilityView = new AbilityView();
 
 	//Page 1
-	private SkillView skillView = new SkillView();
+	private TSkillView skillView = new TSkillView();
 
 	//part4
 	public UIButton SkillUp;
@@ -298,15 +497,6 @@ public class UIPlayerInfo : UIBase {
 	public void UpdateAvatarModel(TItem[] items)
 	{
 		
-	}
-	
-	public void ChangePlayerName()
-	{
-		if(UIInput.current.value.Length <= 0)
-			return;
-		
-		//        if(ChangePlayerNameListener != null)
-		//            ChangePlayerNameListener();
 	}
 	
 	public static bool Visible {
@@ -354,6 +544,8 @@ public class UIPlayerInfo : UIBase {
 
 		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
 		personalView.Init(obj, itemEquipmentBtns);
+		personalView.InitBtttonFunction(new EventDelegate(OnChangehead), new EventDelegate(OnGuild), new EventDelegate(OnAvatarItemHint), new EventDelegate(OnChangePlayerName));
+		ChangePlayerNameListener += changePlayerName;
 
 		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
 		abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
@@ -364,7 +556,24 @@ public class UIPlayerInfo : UIBase {
 
 		//Skill page
 		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/SkillView"));
-		skillView.Init (obj);
+
+		GameObject[] actives = new GameObject[GameConst.Max_ActiveSkill];
+		GameObject[] passives =	new GameObject[GameFunction.GetPassiveSkillCount(GameData.Team.Player.SkillCards)];
+		GameObject clone = Resources.Load ("Prefab/UI/Items/ItemCardEquipped") as GameObject;
+//		GameObject clone = Instantiate() as GameObject;
+
+		for (int i = 0; i < GameConst.Max_ActiveSkill; i++) {
+			actives[i] = obj.transform.FindChild(string.Format("ActiveCard/ActiveCardBase{0}/ItemSkillCard", i)).gameObject;	
+		}
+
+		for (int i = 0; i < passives.Length; i++) {
+			passives[i] = Instantiate(clone);		
+		}
+
+//		Destroy (clone);
+
+		skillView.Init (obj, GameData.Team.SkillCards, actives, passives);
+
 	}
 
 	public void OnReturn()
@@ -376,6 +585,11 @@ public class UIPlayerInfo : UIBase {
 	public void OnUpgradingMasteries()
 	{
 		UIPlayerPotential.UIShow (true);
+	}
+
+	public void UpdateHexagon(bool flag)
+	{
+		abilityView.HexagonEnable (flag);
 	}
 
 	public void OnSwitchPage()
@@ -391,8 +605,7 @@ public class UIPlayerInfo : UIBase {
 	{
 		int index;
 		if (int.TryParse (UIButton.current.name, out index)) {
-			if(index == 0)
-				UpdatePage(index);
+			UpdatePage(index);
 		}
 	}
 
@@ -402,10 +615,12 @@ public class UIPlayerInfo : UIBase {
 		{
 			case 0:
 				personalView.Update(GameData.Team.Player);
-				abilityView.UpdateMasteries(GameData.Team.Player.Potential);
+				abilityView.UpdateAttribute();
 				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo);
 				break;
 			case 1:
+				skillView.Update(GameData.Team.Player.SkillCards);
+
 				break;
 			case 2:
 				break;
@@ -417,6 +632,18 @@ public class UIPlayerInfo : UIBase {
 	}
 
 	protected override void OnShow(bool isShow) {
+		if(isShow)
+			UpdateHexagon (true);
+	}
+
+	public void OnChangehead()
+	{
+
+	}
+
+	public void OnGuild()
+	{
+
 	}
 
 	public void OnAvatarItemHint()
@@ -427,5 +654,34 @@ public class UIPlayerInfo : UIBase {
 			if (index < GameData.Team.Player.Items.Length && GameData.Team.Player.Items [index].ID > 0)
 				Debug.Log ("index : " + index);
 //				UIItemHint.Get.UIShow(GameData.Team.Player.Items [index].ID);
+	}
+
+	public void OnChangePlayerName()
+	{
+		if(UIInput.current.value.Length <= 0)
+			return;
+		
+		if(ChangePlayerNameListener != null)
+			ChangePlayerNameListener();
+	}
+
+	private void changePlayerName()
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("NewPlayerName", UIInput.current.value);
+		SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
+	}
+
+	private void waitChangePlayerName(bool ok, WWW www)
+	{
+		if (ok)
+		{
+			GameData.Team.Player.Name = www.text;
+			UIHint.Get.ShowHint("Change Name Success!", Color.black);
+		}
+		else
+			UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
+
+		personalView.Update (GameData.Team.Player);
 	}
 }
