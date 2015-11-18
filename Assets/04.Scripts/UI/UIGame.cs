@@ -87,7 +87,8 @@ public class UIGame : UIBase {
 	private GameObject[] uiDefenceGroup = new GameObject[2]; // 0:ButtonSteal 1:ButtonBlock
 	private GameObject[] controlButtonGroup= new GameObject[2];// 0:ViewAttack 1:ViewDefence
 	private GameObject[] uiPassObjectGroup = new GameObject[3];// 0:SpriteMe 1:SpriteA 2:SpriteB
-	private GameObject[] uiTutorial = new GameObject[11];//set button for tutorial
+	private GameObject[] uiTutorial = new GameObject[9];//set button for tutorial
+	private GameObject[] uiTutorial2 = new GameObject[2];//set button for tutorial
 
 	//TopLeft
 	private GameObject viewTopLeft;
@@ -361,17 +362,18 @@ public class UIGame : UIBase {
 		showViewForceBar(false);
 
 		//toturial button
+		uiTutorial2[0] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock");
+		uiTutorial2[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal");
+
 		uiTutorial[0] = GameObject.Find(UIName + "/BottomRight/ViewAttack/ButtonShoot");
-		uiTutorial[1] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonBlock");
-		uiTutorial[2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
-		uiTutorial[3] = GameObject.Find(UIName + "/BottomRight/ViewDefance/ButtonSteal");
-		uiTutorial[4] = GameObject.Find (UIName + "/BottomRight/ButtonAttack"); //push
-		uiTutorial[5] = uiPassA;
-		uiTutorial[6] = uiPassB;
-		uiTutorial[7] = uiButtonSkill[0];
-		uiTutorial[8] = uiButtonSkill[1];
-		uiTutorial[9] = uiButtonSkill[2];
-		uiTutorial[10] = joystickController.gameObject;
+		uiTutorial[1] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonPass");
+		uiTutorial[2] = GameObject.Find (UIName + "/BottomRight/ButtonAttack"); //push
+		uiTutorial[3] = uiPassA;
+		uiTutorial[4] = uiPassB;
+		uiTutorial[5] = uiButtonSkill[0];
+		uiTutorial[6] = uiButtonSkill[1];
+		uiTutorial[7] = uiButtonSkill[2];
+		uiTutorial[8] = uiJoystick.gameObject;
 	}
 
 	public void InitUI() {
@@ -1439,20 +1441,29 @@ public class UIGame : UIBase {
 
 			viewTopRight.SetActive(false);
 		} else {
-			for (int i = 0; i < uiTutorial.Length; i++) {
-				float p = Mathf.Pow(10, i);
-				bool v = p / flag > 0;
-				uiTutorial[i].SetActive(v);
-			}
+			int[] temp = AI.BitConverter.Convert(flag.ToString());
 
-			for (int i = 0; i < uiButtonSkill.Length; i++) {
-				if (uiButtonSkill[i].activeInHierarchy) {
-					viewTopRight.SetActive(true);
-					return;
+			if (temp != null) {
+				for (int i = 0; i < uiTutorial.Length; i++) {
+					bool v = i < temp.Length && temp[i] > 0;
+					uiTutorial[i].SetActive(v);
+
+					if (i < uiTutorial2.Length)
+						uiTutorial2[i].SetActive(v);
 				}
-			}
 
-			viewTopRight.SetActive(false);
+				if (uiTutorial[8].activeInHierarchy)
+					uiJoystick.Joystick.isActivated = true;
+
+				for (int i = 0; i < uiButtonSkill.Length; i++) {
+					if (uiButtonSkill[i].activeInHierarchy) {
+						viewTopRight.SetActive(true);
+						return;
+					}
+				}
+
+				viewTopRight.SetActive(false);
+			}
 		}
 	}
 

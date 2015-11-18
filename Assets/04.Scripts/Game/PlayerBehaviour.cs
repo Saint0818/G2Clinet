@@ -256,7 +256,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool isJoystick = false;
     [CanBeNull]
 	public PlayerAI AI = null;
-    public PlayerBehaviour DefPlayer = null;
+    public PlayerBehaviour defencePlayer = null;
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
@@ -814,7 +814,7 @@ public class PlayerBehaviour : MonoBehaviour
                 else
                     ShootPoint = CourtMgr.Get.ShootPoint [0].transform.position;    
 
-                if (Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.ThreePointDistance)
+				if (DefPlayer != null && Vector3.Distance(ShootPoint, DefPlayer.transform.position) <= GameConst.ThreePointDistance)
                 {
                     AutoFollow = false;
                     SetAutoFollowTime();
@@ -1605,7 +1605,7 @@ public class PlayerBehaviour : MonoBehaviour
                 result = GetStealPostion(aP1, aP2, data.DefPlayer.Index);
                 if (Vector2.Distance(result, new Vector2(PlayerRefGameObject.transform.position.x, PlayerRefGameObject.transform.position.z)) <= GameConst.StealPushDistance)
                 {
-                    if (Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
+					if (DefPlayer != null && Math.Abs(GetAngle(data.DefPlayer.transform, this.transform)) >= 30 && 
                         Vector3.Distance(aP2, DefPlayer.transform.position) <= GameConst.ThreePointDistance + 3)
                     {
                         resultBool = true;
@@ -3953,6 +3953,19 @@ public class PlayerBehaviour : MonoBehaviour
                 GameRecord.PushMove(value.Target);
         }
     }
+
+	public PlayerBehaviour DefPlayer {
+		get {
+			if (AI.enabled)
+				return defencePlayer;
+			else
+				return null;
+		}
+
+		set {
+			defencePlayer = value;
+		}
+	}
 
     private void setMovePower(float value)
     {

@@ -7,6 +7,7 @@ using GamePlayStruct;
 public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	private List<TGamePlayEvent> eventList = new List<TGamePlayEvent>(0);
 	public EventDelegate.Callback OnEventEnd = null;
+	private CircularSectorMeshRenderer hintArea = null;
 
 	public void SetTutorialData(int id) {
 		eventList.Clear();
@@ -25,8 +26,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public void BegeingEvent() {
 		for (int i = eventList.Count-1; i >= 0; i--)
 			if (eventList[i].ConditionKind == 0) 
-				if (HandleEvent(i))
-					eventList.RemoveAt(i);
+				HandleEvent(i);
 	}
 
 	public bool HandleEvent(int i) {
@@ -48,6 +48,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			if (!GameController.Get.IsStart) {
 				GameController.Get.IsStart = true;
 				GameController.Get.StartGame(false);
+				CourtMgr.Get.InitScoreboard(true);
 			}
 
 			UIGame.Get.CloseStartButton();
@@ -81,7 +82,21 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			}
 
 			break;
+		case 8:
+			if (!hintArea)
+				hintArea = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
+			else
+				hintArea.gameObject.SetActive(true);
+
+			hintArea.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
+			hintArea.ChangeValue(0, eventList[i].Value3);
+			break;
 		}
+
+		if (eventList[i].NextEventID > 0)
+			CheckNextEvent(eventList[i].NextEventID);
+
+		eventList.Remove(eventList[i]);
 
 		return true;
 	}
