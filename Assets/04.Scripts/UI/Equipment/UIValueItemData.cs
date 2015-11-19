@@ -34,6 +34,16 @@ public class UIValueItemData
     }
     private string mIcon;
 
+    /// <summary>
+    /// 道具的背景圖片.
+    /// </summary>
+    public string Frame
+    {
+        get { return mFrame; }
+        set { mFrame = string.IsNullOrEmpty(value) ? string.Empty : value; }
+    }
+    private string mFrame;
+
     public string Desc
     {
         set { mDesc = string.IsNullOrEmpty(value) ? string.Empty : value; }

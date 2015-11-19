@@ -16,6 +16,7 @@ public class UIEquipItem : MonoBehaviour
     public UISprite Picture;
     public UILabel Text;
     public UILabel Amount;
+    public GameObject[] InlaySlots;
     public GameObject[] Inlays;
 
     [UsedImplicitly]
@@ -23,9 +24,15 @@ public class UIEquipItem : MonoBehaviour
     {
         // 暫時關閉.
 	    Amount.gameObject.SetActive(false);
+
         foreach(GameObject inlay in Inlays)
         {
             inlay.SetActive(false);
+        }
+
+        foreach(GameObject slot in InlaySlots)
+        {
+            slot.SetActive(false);
         }
     }
 
@@ -38,6 +45,11 @@ public class UIEquipItem : MonoBehaviour
     {
         gameObject.SetActive(true);
         Picture.spriteName = item.Icon;
+
+        GetComponent<UISprite>().spriteName = item.Frame;
+        // 我認為這是 NGUI 的問題, 其實我改 UISprite 後, UIButton 的 normal 也應該要改才對.
+        GetComponent<UIButton>().normalSprite = item.Frame;
+
         Text.text = item.Name;
     }
 

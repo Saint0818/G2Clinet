@@ -8,6 +8,7 @@ public class UIEquipUtility
         {
             Name = item.Name,
             Icon = string.Format("Item_{0}", item.Icon),
+            Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain
         };
         for(int i = 0; i < item.AttrKinds.Length; i++)

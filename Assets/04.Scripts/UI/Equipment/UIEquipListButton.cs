@@ -9,6 +9,7 @@ using UnityEngine;
 public class UIEquipListButton : MonoBehaviour
 {
     public UISprite Icon;
+    public UISprite Frame;
     public UILabel AmountLabel;
     public UILabel NameLabel;
 
@@ -34,6 +35,7 @@ public class UIEquipListButton : MonoBehaviour
     {
         NameLabel.text = item.Name;
         Icon.spriteName = item.Icon;
+        Frame.spriteName = item.Frame;
         AmountLabel.text = item.Num.ToString();
 
         setValues(item.Values);
