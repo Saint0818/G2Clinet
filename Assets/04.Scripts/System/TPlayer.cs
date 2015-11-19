@@ -41,6 +41,11 @@ namespace GameStruct
         public int AISkillLv;
         public int SkillPage;// 0 1 2 3 4
         public int NowStageID;
+
+        public int GetPotentialValue(EAttribute attr)
+        {
+            return Potential.ContainsKey(attr) ? Potential[attr] : 0;
+        }
 		public Dictionary<EAttribute, int> Potential;
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
