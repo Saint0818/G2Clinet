@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 55ae2184a8b5d4d01b87e4296dd42f5f
-timeCreated: 1447897846
+guid: 8d76f5fb8791648288e71e8b865610dd
+timeCreated: 1447919818
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -135,7 +135,7 @@ ModelImporter:
       name: Shoot20
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 65
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -154,14 +154,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .351800561
+      - time: .549474955
         functionName: SkillEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .417894453
+      - time: .574871182
         functionName: SkillEvent
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
@@ -329,7 +329,7 @@ ModelImporter:
   tangentSpace:
     normalSmoothAngle: 60
     splitTangentsAcrossUV: 0
-    normalImportMode: 2
+    normalImportMode: 0
     tangentImportMode: 2
   importAnimation: 1
   copyAvatar: 0
