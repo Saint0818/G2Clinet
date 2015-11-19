@@ -56,7 +56,7 @@ public class CircularSectorMeshRenderer : MonoBehaviour {
 	int triangleNumber;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		RefGameObject = gameObject;
 		mesh = new Mesh();
 		meshFilter = (MeshFilter)GetComponent("MeshFilter");

@@ -6,7 +6,7 @@ using System.IO;
 public class GEBase : EditorWindow {
 	private static Vector2 minWindow = new Vector2(300, 600);
 	protected const float Height_Line = 24;
-	protected const float Weight_Button = 80;
+	protected const float Width_Button = 80;
 	protected GUIStyle StyleLabel;
 	protected GUIStyle StyleEdit;
 	protected GUIStyle StyleButton;
@@ -45,7 +45,7 @@ public class GEBase : EditorWindow {
 		StyleLabel.normal.textColor = Color.white;
 	}
 
-	protected virtual int GUIIntEdit(int input, string title = "", float width = Weight_Button / 2) {
+	protected virtual int GUIIntEdit(int input, string title = "", float width = Width_Button / 2) {
 		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
 		StyleLabel.alignment = TextAnchor.LowerLeft;
@@ -56,23 +56,23 @@ public class GEBase : EditorWindow {
 		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
 		StyleLabel.alignment = TextAnchor.LowerLeft;
-		return EditorGUILayout.FloatField(input, StyleEdit, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+		return EditorGUILayout.FloatField(input, StyleEdit, GUILayout.Width(Width_Button), GUILayout.Height(Height_Line));
 	}
 
 	protected virtual bool GUIToggle(bool input, string title = "") {
 		StyleLabel.alignment = TextAnchor.LowerRight;
 		GUILabel(title);
 		StyleLabel.alignment = TextAnchor.LowerLeft;
-		return EditorGUILayout.Toggle(input, GUILayout.Width(Weight_Button / 2), GUILayout.Height(Height_Line));
+		return EditorGUILayout.Toggle(input, GUILayout.Width(Width_Button / 2), GUILayout.Height(Height_Line));
 	}
 
-	protected bool GUIButton(string title) {
-		return GUIButton(title, Color.white);
+	protected bool GUIButton(string title, float width = Width_Button) {
+		return GUIButton(title, Color.white, width);
 	}
 
-	protected virtual bool GUIButton(string title, Color color) {
+	protected virtual bool GUIButton(string title, Color color, float width = Width_Button) {
 		StyleButton.normal.textColor = color;
-		bool clicked = GUILayout.Button(title, StyleButton, GUILayout.Width(Weight_Button), GUILayout.Height(Height_Line));
+		bool clicked = GUILayout.Button(title, StyleButton, GUILayout.Width(width), GUILayout.Height(Height_Line));
 		StyleButton.normal.textColor = Color.white;
 		return clicked;
 	}
@@ -84,7 +84,7 @@ public class GEBase : EditorWindow {
 			StyleLabel.alignment = TextAnchor.LowerLeft;
 		}
 
-		return EditorGUILayout.Popup(select, displayOptions, StyleButton, GUILayout.Width(Weight_Button * 2), GUILayout.Height(Height_Line));
+		return EditorGUILayout.Popup(select, displayOptions, StyleButton, GUILayout.Width(Width_Button * 2), GUILayout.Height(Height_Line));
 	}
 
 	protected static void SaveFile(string fileName, string Data) {

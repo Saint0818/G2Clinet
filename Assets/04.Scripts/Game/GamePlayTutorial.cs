@@ -9,6 +9,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	public EventDelegate.Callback OnEventEnd = null;
 	private CircularSectorMeshRenderer hintArea = null;
 
+	public int NextEventID = 0;
+	public int EventSituation = 0;
+
 	public void SetTutorialData(int id) {
 		eventList.Clear();
 		if (true) {//GameData.ServerVersion == BundleVersion.Version) {
@@ -25,15 +28,28 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 	public void BegeingEvent() {
 		for (int i = eventList.Count-1; i >= 0; i--)
-			if (eventList[i].ConditionKind == 0) 
+			if (eventList[i].ConditionKind == 0) {
 				HandleEvent(i);
+				removeEvent(eventList[i].ID);
+			}
 	}
 
-	public bool HandleEvent(int i) {
-		int nextEventID = 0;
-		
-		if (eventList[i].ConditionKind == 0 || eventList[i].ConditionKind == 1)
-			nextEventID = eventList[i].ConditionValue;
+	public void HandleEvent(int i, GameObject player=null) {
+		int otherEventID = 0;
+
+		switch (eventList[i].ConditionKind) {
+		case 0:
+		case 1:
+			otherEventID = eventList[i].OtherEventID;
+			break;
+		case 2:
+			if (GameController.Visible) {
+				NextEventID = eventList[i].NextEventID;
+				EventSituation = eventList[i].ConditionValue;
+			}
+
+			break;
+		}
 
 		switch (eventList[i].Kind) {
 		case 1: //change situation
@@ -70,7 +86,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 		case 6: //open ui tutorial
 			UITutorial.Get.ShowTutorial(eventList[i].Value1, 1);
-			UITutorial.Get.NextEventID = nextEventID;
+			UITutorial.Get.NextEventID = eventList[i].NextEventID;
 			break;
 
 		case 7: //turn on / off AI
@@ -83,29 +99,76 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 8:
-			if (!hintArea)
-				hintArea = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject).GetComponent<CircularSectorMeshRenderer>();
-			else
+			if (hintArea == null) {
+				GameObject obj = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject);
+				obj.name = "HintArea";
+				obj.transform.parent = gameObject.transform;
+				EventTrigger et = obj.AddComponent<EventTrigger>();
+				et.NextEventID = eventList[i].NextEventID;
+				SphereCollider sc = obj.AddComponent<SphereCollider>();
+				sc.radius = eventList[i].Value3;
+				sc.isTrigger = true;
+				Rigidbody rb = obj.AddComponent<Rigidbody>();
+				rb.isKinematic = true;
+				rb.useGravity = false;
+				hintArea = obj.GetComponent<CircularSectorMeshRenderer>();
+			} else
 				hintArea.gameObject.SetActive(true);
 
 			hintArea.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
-			hintArea.ChangeValue(0, eventList[i].Value3);
+			hintArea.ChangeValue(360, eventList[i].Value3);
+
+			break;
+		case 9:
+			if (player != null) {
+				PlayerBehaviour p = player.GetComponent<PlayerBehaviour>();
+				if (p != null)
+					p.SetAnger(eventList[i].Value1, hintArea.gameObject);
+			}
+
+			hintArea.gameObject.SetActive(false);
+
 			break;
 		}
 
-		if (eventList[i].NextEventID > 0)
-			CheckNextEvent(eventList[i].NextEventID);
-
-		eventList.Remove(eventList[i]);
-
-		return true;
+		if (otherEventID > 0 && otherEventID != eventList[i].ID)
+			CheckNextEvent(otherEventID);
 	}
 
-	public void CheckNextEvent(int eventID) {
-		for (int i = 0; i < eventList.Count; i++)
-			if (eventList[i].ID == eventID) {
-				HandleEvent(i);
+	private void removeEvent(int eventID) {
+		for (int j = 0; j < eventList.Count; j++)
+			if (eventList[j].ID == eventID)
+				eventList.RemoveAt(j);
 				return;
+	}
+
+	public bool CheckNextEvent(int eventID, GameObject player=null) {
+		if (eventID > 0) {
+			for (int i = 0; i < eventList.Count; i++) {
+				if (eventList[i].ID == eventID) {
+					HandleEvent(i, player);
+					removeEvent(eventID);
+					return true;
+				}
 			}
+		}
+
+		return false;
+	}
+
+	public bool CheckSituationEvent(int situation) {
+		if (NextEventID > 0) {
+			for (int i = 0; i < eventList.Count; i++) {
+				if (eventList[i].ID == NextEventID && situation == EventSituation) {
+					HandleEvent(i, null);
+					removeEvent(NextEventID);
+					NextEventID = 0;
+					EventSituation = 0;
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 }

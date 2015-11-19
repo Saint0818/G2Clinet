@@ -290,7 +290,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 
 	public void ShowRangeOfAction (bool isShow, Transform parent = null, float degree = 0 , float dis = 0, float euler = 0){
 		SkillRangeOfAction.transform.parent = parent;
-		LayerMgr.Get.SetLayer(SkillRangeOfAction.gameObject, ELayer.UIPlayerInfo);
+		//LayerMgr.Get.SetLayer(SkillRangeOfAction.gameObject, ELayer.UIPlayerInfo);
 		if(parent)
 			SkillRangeOfAction.transform.localPosition = new Vector3(0, 0.1f, 0);
 		SkillRangeOfAction.transform.localEulerAngles = new Vector3(0 ,euler, 0);

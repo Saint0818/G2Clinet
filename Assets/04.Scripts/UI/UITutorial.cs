@@ -20,10 +20,8 @@ public class UITutorial : UIBase {
 	private UILabel[] labelTalk = new UILabel[manNum];
 	private int[] manID = new int[2];
 
-	public static bool Visible
-	{
-		get
-		{
+	public static bool Visible {
+		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
@@ -31,8 +29,7 @@ public class UITutorial : UIBase {
 		}
 	}
 
-	public static UITutorial Get
-	{
+	public static UITutorial Get {
 		get {
 			if (!instance) 
 				instance = LoadUI(UIName) as UITutorial;
@@ -41,7 +38,7 @@ public class UITutorial : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
+	public static void UIShow(bool isShow) {
 		if (instance) {
 			if (!isShow) { 
 				if (Get.clickObject)
@@ -123,7 +120,7 @@ public class UITutorial : UIBase {
 
         UIEventListener listen = button.GetComponent<UIEventListener>();
         if (listen)
-            Destroy(listen);
+			listen.onClick = null;
 
 		if (clickObject) 
 			clickObject.layer = clickLayer;

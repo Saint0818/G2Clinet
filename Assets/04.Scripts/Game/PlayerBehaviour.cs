@@ -258,7 +258,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool isJoystick = false;
     [CanBeNull]
 	public PlayerAI AI = null;
-    public PlayerBehaviour defencePlayer = null;
+    private PlayerBehaviour defencePlayer = null;
     public float CloseDef = 0;
     public bool AutoFollow = false;
     public bool NeedShooting = false;
@@ -920,7 +920,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     public void SetManually()
     {
-        if (Team == ETeamKind.Self && Index == 0)
+        if (Team == ETeamKind.Self && Index == 0 && AI.enabled)
         {
             if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC ||
                 GameStart.Get.TestMode != EGameTest.None)

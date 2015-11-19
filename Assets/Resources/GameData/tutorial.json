@@ -31,8 +31,7 @@
     {
         "id": 1,
         "line": 4,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt",
-        "talkl": 24
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
     },
     {
         "id": 2,
@@ -104,7 +103,7 @@
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
     {
-        "id": 101,
+        "id": 1011,
         "line": 1,
         "title": "第一關",
         "kind": 3,
@@ -113,11 +112,67 @@
         "texttw": "剩下最後十秒，我方發球落後6分，如何逆轉戰局?"
     },
     {
-        "id": 101,
+        "id": 1011,
         "line": 2,
         "kind": 3,
         "value": 101,
         "talkl": 7,
         "texttw": "出現空擋了，先移動到三分線外。"
+    },
+    {
+        "id": 1012,
+        "line": 1,
+        "title": "第一關",
+        "kind": 3,
+        "value": 101,
+        "talkl": 7,
+        "texttw": "突然充滿能量，士氣達到可以發動技能了。"
+    },
+    {
+        "id": 1012,
+        "line": 2,
+        "kind": 3,
+        "value": 101,
+        "talkl": 7,
+        "texttw": "看我三分神射。"
+    },
+    {
+        "id": 1012,
+        "line": 3,
+        "kind": 3,
+        "value": 101,
+        "uipath": "UI2D/UIGame/TopRight/0"
+    },
+    {
+        "id": 1013,
+        "line": 1,
+        "title": "第一關",
+        "kind": 3,
+        "value": 101,
+        "talkl": 7,
+        "texttw": "時間來不及了，看來只能使用瞬間超球技能。"
+    },
+    {
+        "id": 1013,
+        "line": 2,
+        "kind": 3,
+        "value": 101,
+        "uipath": "UI2D/UIGame/TopRight/1"
+    },
+    {
+        "id": 1014,
+        "line": 1,
+        "title": "第一關",
+        "kind": 3,
+        "value": 101,
+        "talkl": 7,
+        "texttw": "發動終極灌籃絕招結束這場比賽吧。"
+    },
+    {
+        "id": 1014,
+        "line": 2,
+        "kind": 3,
+        "value": 101,
+        "uipath": "UI2D/UIGame/TopRight/2"
     }
 ]

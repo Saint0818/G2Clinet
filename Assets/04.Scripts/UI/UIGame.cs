@@ -1262,6 +1262,9 @@ public class UIGame : UIBase {
 			if (GameController.Get.Situation == EGameSituation.Opening) {
 				UIState(EUISituation.Opening);
 			}
+			
+			if (GameData.DStageTutorial.ContainsKey(GameController.Get.StageData.ID))
+				GamePlayTutorial.Get.SetTutorialData(GameController.Get.StageData.ID);
 
 			break;
 		case EUISituation.ReSelect:
@@ -1437,6 +1440,10 @@ public class UIGame : UIBase {
 			if (temp != null) {
 				for (int i = 0; i < uiTutorial.Length; i++) {
 					bool v = i < temp.Length && temp[i] > 0;
+
+					if (i >= 5 && i <= 7 && v)
+						viewTopRight.SetActive(true);
+
 					uiTutorial[i].SetActive(v);
 
 					if (i < uiTutorial2.Length)
@@ -1446,12 +1453,9 @@ public class UIGame : UIBase {
 				if (uiTutorial[8].activeInHierarchy)
 					uiJoystick.Joystick.isActivated = true;
 
-				for (int i = 0; i < uiButtonSkill.Length; i++) {
-					if (uiButtonSkill[i].activeInHierarchy) {
-						viewTopRight.SetActive(true);
+				for (int i = 0; i < uiButtonSkill.Length; i++)
+					if (uiButtonSkill[i].activeInHierarchy)
 						return;
-					}
-				}
 
 				viewTopRight.SetActive(false);
 			}

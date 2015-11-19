@@ -157,7 +157,7 @@ public class GameController : KnightSingleton<GameController>
 	//Instant
 	public TCourtInstant CourtInstant;
 	public TStageData StageData = new TStageData();
-	
+
 	private WeightedRandomizer<ESkillSituation> shootRandomizer = new WeightedRandomizer<ESkillSituation>();
 
 	//debug value
@@ -1416,7 +1416,10 @@ public class GameController : KnightSingleton<GameController>
 //					PlayerList[i].AniState(EPlayerState.Idle);
 //				CameraMgr.Get.SetCameraSituation(ECameraSituation.Finish);
             	break;
-            }       
+            }
+
+			if (GamePlayTutorial.Visible)
+				GamePlayTutorial.Get.CheckSituationEvent(newSituation.GetHashCode());
         }
     }
     
@@ -4411,10 +4414,6 @@ public class GameController : KnightSingleton<GameController>
 
 		ChangeSituation(EGameSituation.Opening);
 		AIController.Get.ChangeState(EGameSituation.Opening);
-
-		if (GameData.DStageTutorial.ContainsKey(StageData.ID)) {
-			GamePlayTutorial.Get.SetTutorialData(StageData.ID);
-        }
     }
 
 	public void SetPlayerLevel(){
