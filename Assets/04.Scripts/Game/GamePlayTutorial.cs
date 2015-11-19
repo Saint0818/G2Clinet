@@ -111,6 +111,11 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 				Rigidbody rb = obj.AddComponent<Rigidbody>();
 				rb.isKinematic = true;
 				rb.useGravity = false;
+				TweenScale ts = obj.AddComponent<TweenScale>();
+				ts.style = UITweener.Style.PingPong;
+				ts.from = Vector3.one;
+				ts.to = new Vector3(1.2f, 1.2f, 1.2f);
+				ts.duration = 0.2f;
 				hintArea = obj.GetComponent<CircularSectorMeshRenderer>();
 			} else
 				hintArea.gameObject.SetActive(true);

@@ -161,6 +161,7 @@ public class UITutorial : UIBase {
 		Vector3 v;
 		GameObject obj = GameObject.Find(path);
 		if(obj) {
+			UI3DTutorial.UIShow(false);
 			uiCenter.SetActive(false);
 			uiClick.SetActive(true);
 

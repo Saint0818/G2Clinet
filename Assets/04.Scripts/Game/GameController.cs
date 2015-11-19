@@ -4422,10 +4422,6 @@ public class GameController : KnightSingleton<GameController>
 
 		ChangeSituation(EGameSituation.Opening);
 		AIController.Get.ChangeState(EGameSituation.Opening);
-
-		if (GameData.DStageTutorial.ContainsKey(StageData.ID)) {
-			GamePlayTutorial.Get.SetTutorialData(StageData.ID);
-        }
     }
 
 	public void SetPlayerLevel(){
