@@ -3,14 +3,30 @@
 using System.Collections.Generic;
 using GameEnum;
 
+public struct TDirtyWord {
+	public string Text;
+}
+
 public static class TextConst
 {
 	private static bool loaded = false;
 	private static Dictionary<int, string[]> gameText = new Dictionary<int, string[]> ();
+//	public static TDirtyWord[] DirtyWords;
+	public static TTeamName[] TeamNameAy;
 
 	#if OutFile
 	private static StringBuilder sb = new StringBuilder();
 	#endif
+
+	//To
+//	public static bool CheckDirtyWord(string text) {
+//		for (int i = 0; i < TextConst.DirtyWords.Length; i++) {
+//			if (text.Contains(TextConst.DirtyWords[i].Text))
+//				return true;
+//		}
+//		
+//		return false;
+//	}
 	
 	private static void AddString(int key, string textTW, string textCN = "", string textEN = "", string textJP = ""){
 		#if OutFile
@@ -104,6 +120,13 @@ public static class TextConst
 			AddString (206, "確定刪除此角色？", "");
 			AddString (207, "確定購買角色欄位？", "");
 
+			//UINamed
+			AddString(9000000,"更改名稱");
+			AddString(9000001,"請輸入名稱八字字");
+			AddString(9000002,"本次修改需花費");
+			AddString (9000003, "確定修改名稱？", "");
+			AddString (9000004, "非法字元請重新輸入", "");
+			AddString (9000005, "字元長度請介於1-12個字", "");
 
 		}
     }

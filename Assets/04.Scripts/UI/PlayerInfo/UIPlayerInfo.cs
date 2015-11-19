@@ -15,7 +15,7 @@ public class PersonalView
 	private UISprite powerBar;
 	private UILabel powerValue;
 	private UIButton group;
-	private UIInput playerName;
+	private UIButton playerName;
 //	private UILabel groupHead;
 //	private UILabel groupBody;
 	public TValueAvater[] Avatars = new TValueAvater[8];
@@ -25,7 +25,7 @@ public class PersonalView
 		self = obj;
 
 		if (self) {
-			playerName = self.transform.FindChild("PlayerName").gameObject.GetComponent<UIInput>();
+			playerName = self.transform.FindChild("PlayerName").gameObject.GetComponent<UIButton>();
 			changeHeadBtn = self.transform.FindChild("PlayerBt").gameObject.GetComponent<UIButton>();
 //			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
 			lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
@@ -53,7 +53,7 @@ public class PersonalView
 	{
 		changeHeadBtn.onClick.Add (changeHeadFunc);
 		group.onClick.Add (groupFunc);
-//		playerName.onSubmit.Add(changeName);
+		playerName.onClick.Add(changeName);
 
 		for (int i = 0; i < Avatars.Length; i++)
 			Avatars [i].InitBtttonFunction (itemHint);
@@ -268,7 +268,7 @@ public class TPassiveSkillCard
 		}
 	}
 	
-	public void Update(int index, TSkill skill, int sort)
+	public void UpdateView(int index, TSkill skill, int sort)
 	{
 		if(isInit){
 			self.name = index.ToString();
@@ -359,7 +359,7 @@ public class TSkillView
 			}else{
 				if(passivecount < passiveSkillCard.Length){
 					passiveSkillCard[passivecount].Enable = true;
-					passiveSkillCard[passivecount].Update(i, skill[i], passivecount);
+					passiveSkillCard[passivecount].UpdateView(i, skill[i], passivecount);
 					passivecount++;
 				}
 			}
@@ -485,7 +485,6 @@ public class UIPlayerInfo : UIBase {
 	//part4
 	public UIButton SkillUp;
 	public UIButton Back;
-
 	
 	//Page 2
 	
@@ -658,11 +657,7 @@ public class UIPlayerInfo : UIBase {
 
 	public void OnChangePlayerName()
 	{
-		if(UIInput.current.value.Length <= 0)
-			return;
-		
-		if(ChangePlayerNameListener != null)
-			ChangePlayerNameListener();
+		UINamed.UIShow(true);
 	}
 
 	private void changePlayerName()

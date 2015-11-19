@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
-        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp"
+		"createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname" 
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -195,6 +195,9 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[11] = parseTutorialData;
 		downloadCallBack[12] = ParseStageTutorialData;
 		downloadCallBack[13] = parseExpData;
+		downloadCallBack[14] = parseTeamname;
+//		downloadCallBack[15] = parseDirtyWord;
+
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -574,6 +577,34 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.LogError ("[item parsed error] " + ex.Message);
 		}
 	}
+
+	private void parseTeamname(string Version, string text, bool SaveVersion)
+	{
+		try {
+			TextConst.TeamNameAy = (TTeamName[])JsonConvert.DeserializeObject (text, typeof(TTeamName[]));
+			if(SaveVersion)
+				SaveDataVersionAndJson(text, "teamname", Version);
+			
+			Debug.Log ("[Teamname parsed finished.] ");
+		} catch (System.Exception ex) {
+			Debug.LogError ("[Teamname parsed error] " + ex.Message);
+		}
+	}
+
+	//TODO: DirtyWord
+//	private void parseDirtyWord (string Version, string text, bool SaveVersion)
+//	{
+//		try {
+//			TextConst.DirtyWords = (TDirtyWord[])JsonConvert.DeserializeObject (text, typeof(TDirtyWord[]));
+//			
+//			if(SaveVersion)
+//				SaveDataVersionAndJson(text, "dirtyword", Version);
+//			
+//			Debug.Log ("[Dirtyword parsed finished.] ");
+//		} catch (System.Exception ex) {
+//			Debug.LogError ("[Dirtyword parsed error] " + ex.Message);
+//		}
+//	}
 
 	private void parseStageData(string version, string text, bool isSaveVersion)
     {
