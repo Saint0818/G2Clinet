@@ -325,7 +325,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //Active
     private bool isUseSkill = false;
-    private int angerPower = 0;
+    private int angerValue = 0;
 
     //ShowWord
     public GameObject ShowWord;
@@ -370,18 +370,18 @@ public class PlayerBehaviour : MonoBehaviour
                     SkillDCExplosion.Get.BornDC(v, target, CameraMgr.Get.SkillDCTarget, parent);
             }
         }
-        angerPower += value;
-        if (angerPower > Attribute.MaxAnger)
+        angerValue += value;
+        if (angerValue > Attribute.MaxAnger)
         {
-            angerPower = Attribute.MaxAnger;
+            angerValue = Attribute.MaxAnger;
         }
         
-        if (angerPower < 0)
-            angerPower = 0;
+        if (angerValue < 0)
+            angerValue = 0;
         
         if (Team == ETeamKind.Self && Index == 0)
         {
-            OnUIAnger(Attribute.MaxAnger, angerPower, v);
+            OnUIAnger(Attribute.MaxAnger, angerValue, v);
             if (value > 0)
                 GameRecord.AngerAdd += value;
         }
@@ -3925,12 +3925,12 @@ public class PlayerBehaviour : MonoBehaviour
     }
 
 	public int AngerPower {
-		get{ return angerPower;}
+		get{ return angerValue;}
 	}
 
     public bool IsAngerFull(TSkill tSkill)
     {
-        return Attribute.CheckIfMaxAnger(tSkill.ID, angerPower);
+        return Attribute.CheckIfMaxAnger(tSkill.ID, angerValue);
     }
 
     public bool AIing

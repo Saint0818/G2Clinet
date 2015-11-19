@@ -7,6 +7,8 @@ namespace  SkillBuffSpace {
 
 	public struct TBuff {
 		public UISprite SpriteBuff;
+		public GameObject DeBuff;
+		public GameObject Buff;
 		public GameObject Info;
 		public Animator AnimatorInfo;
 		public float LifeTime;
@@ -15,6 +17,8 @@ namespace  SkillBuffSpace {
 		
 		public TBuff(int i){
 			this.SpriteBuff = null;
+			this.DeBuff = null;
+			this.Buff = null;
 			this.Info = null;
 			this.AnimatorInfo = null;
 			this.LifeTime = 0;
@@ -55,6 +59,8 @@ namespace  SkillBuffSpace {
 				buffInfo[i].AnimatorInfo = buffInfo[i].Info.GetComponent<Animator>();
 				buffInfo[i].Info.SetActive(false);
 				buffInfo[i].SpriteBuff = playerInfo.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite").GetComponent<UISprite>();
+				buffInfo[i].Buff = playerInfo.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite/Buff").gameObject;
+				buffInfo[i].DeBuff = playerInfo.transform.FindChild("Scale/Billboard/BuffPos_"+(i+1).ToString()+"/BuffSprite/DeBuff").gameObject;
 			}
 
 			initValue ();
@@ -72,8 +78,8 @@ namespace  SkillBuffSpace {
 						if(buffInfo[i].LifeTime > 0 && buffInfo[i].LifeTime <= 3 && !buffInfo[i].isClose) {
 							buffInfo[i].isClose = true;
 							buffInfo[i].AnimatorInfo.SetTrigger("TimeOut");
-							
 						}
+
 						if(buffInfo[i].LifeTime <= 0) {
 							hideBuff(i);
 						}
@@ -116,7 +122,7 @@ namespace  SkillBuffSpace {
 			} 
 		}
 		
-		public void AddBuff (int skillIndex, float lifeTime) {
+		public void AddBuff (int skillIndex, float lifeTime, float value) {
 			if(buffCount <= 4) {
 				int positionIndex = contains(skillIndex);
 				if(positionIndex != -1) {
@@ -124,6 +130,8 @@ namespace  SkillBuffSpace {
 						buffInfo[positionIndex].Info.SetActive(false);
 					buffInfo[positionIndex].LifeTime = lifeTime;
 					buffInfo[positionIndex].isClose = false;
+					buffInfo[positionIndex].Buff.SetActive((value > 0));
+					buffInfo[positionIndex].DeBuff.SetActive(!(value > 0));
 					addRecord(positionIndex);
 					refreshBuff();
 				} else {
@@ -131,8 +139,10 @@ namespace  SkillBuffSpace {
 						if(!buffInfo[i].Info.activeInHierarchy) {
 							buffInfo[i].LifeTime = lifeTime;
 							buffInfo[i].InfoIndex = skillIndex;
-							buffInfo[i].SpriteBuff.spriteName = skillIndex.ToString() + "s";
+							buffInfo[i].SpriteBuff.spriteName = "AttrKind_" + skillIndex.ToString();
 							buffInfo[i].isClose = false;
+							buffInfo[positionIndex].Buff.SetActive((value > 0));
+							buffInfo[positionIndex].DeBuff.SetActive(!(value > 0));
 							addRecord(i);
 							refreshBuff ();
 							break;

@@ -228,7 +228,6 @@ public class UIGame : UIBase {
 		}
 
 		runForceValue ();
-		runSkillValue ();
 		if (isPressShootBtn && shootBtnTime > 0) {
 			shootBtnTime -= Time.deltaTime;
 			if(shootBtnTime <= 0){
@@ -757,26 +756,15 @@ public class UIGame : UIBase {
 				spriteForce.fillAmount = 0;
 				spriteForceFirst.fillAmount = 0;
 			}
-			spriteForce.gameObject.SetActive(false);
-			spriteForce.gameObject.SetActive(true);
-			spriteForceFirst.gameObject.SetActive(false);
-			spriteForceFirst.gameObject.SetActive(true);
 		}
+		runSkillValue ();
 	}
 
 	private void runSkillValue () {
-		if(IsPlayerMe) {
-			if(PlayerMe.Attribute.ActiveSkills.Count > 0) {
-				for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) {
-					uiButtonSkill[i].SetActive((i < PlayerMe.Attribute.ActiveSkills.Count));
-					if(uiButtonSkill[i].activeSelf) {
-						spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
-						spriteEmptys[i].gameObject.SetActive(false);
-						spriteEmptys[i].gameObject.SetActive(true);
-					}
-				}
-			}
-		}
+		if(IsPlayerMe && PlayerMe.Attribute.ActiveSkills.Count > 0) 
+			for(int i=0; i<PlayerMe.Attribute.ActiveSkills.Count; i++) 
+				if(uiButtonSkill[i].activeSelf)
+					spriteEmptys[i].fillAmount = 1 - PlayerMe.Attribute.MaxAngerPercent(PlayerMe.Attribute.ActiveSkills[i].ID, oldForceValue * PlayerMe.Attribute.MaxAnger);
 	}
 	
 	public void PlusScore(int team, int score) {
@@ -803,6 +791,7 @@ public class UIGame : UIBase {
 	public void AddAllForce (){
 		spriteForce.fillAmount = 1;
 		spriteForceFirst.fillAmount = 1;
+		runSkillValue ();
 	}
 
 	public bool SetUIJoystick(PlayerBehaviour p = null, bool isShow = false){
@@ -829,6 +818,8 @@ public class UIGame : UIBase {
 			dcCount = 0;
 			spriteForce.fillAmount = newForceValue;
 		}
+		
+		runSkillValue ();
 		return true;
 	}
 
