@@ -612,7 +612,10 @@ namespace GameStruct {
 		Pass
 	}
 
-	public enum EAttributeKind
+    /// <summary>
+    /// 道具額外的屬性加成 or 比賽優勢加成.
+    /// </summary>
+	public enum EBonus
     {
         None = 0,
         Point2 = 1,
@@ -651,7 +654,7 @@ namespace GameStruct {
 		public int MaxStack;
 		public int UseTime;
 
-        public EAttributeKind[] AttrKinds
+        public EBonus[] Bonus
         {
             get
             {
@@ -665,13 +668,13 @@ namespace GameStruct {
             get { return mAttrValues ?? (mAttrValues = new []{AttrValue1, AttrValue2, AttrValue3}); }
         }
 
-        private EAttributeKind[] mAttrKinds;
+        private EBonus[] mAttrKinds;
         private int[] mAttrValues;
-        public EAttributeKind AttrKind1;
+        public EBonus AttrKind1;
         public int AttrValue1;
-        public EAttributeKind AttrKind2;
+        public EBonus AttrKind2;
         public int AttrValue2;
-        public EAttributeKind AttrKind3;
+        public EBonus AttrKind3;
         public int AttrValue3;
 
         public int Money;
@@ -696,12 +699,12 @@ namespace GameStruct {
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public int GetSumAttrValue(EAttributeKind kind)
+        public int GetSumAttrValue(EBonus kind)
         {
             int sum = 0;
-            for(var i = 0; i < AttrKinds.Length; i++)
+            for(var i = 0; i < Bonus.Length; i++)
             {
-                if(AttrKinds[i] == kind)
+                if(Bonus[i] == kind)
                     sum += AttrValues[i];
             }
 

@@ -9,9 +9,9 @@ public class UIValueItemInlayData
     public string Icon;
 
     // 道具會影響哪些屬性的數值.
-    public Dictionary<EAttributeKind, int> Values = new Dictionary<EAttributeKind, int>();
+    public Dictionary<EBonus, int> Values = new Dictionary<EBonus, int>();
 
-    public int GetValue(EAttributeKind kind)
+    public int GetValue(EBonus kind)
     {
         if (Values.ContainsKey(kind))
             return Values[kind];

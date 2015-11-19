@@ -52,7 +52,7 @@ public class UIValueItemData
     private string mDesc;
 
     // 道具會影響哪些屬性的數值.
-    public Dictionary<EAttributeKind, AttrKindData> Values = new Dictionary<EAttributeKind, AttrKindData>();
+    public Dictionary<EBonus, AttrKindData> Values = new Dictionary<EBonus, AttrKindData>();
 
     // 鑲嵌物品.
     [CanBeNull]
@@ -65,7 +65,7 @@ public class UIValueItemData
         return String.Format("Name: {0}, Icon: {1}, Desc: {2}", Name, Icon, Desc);
     }
 
-    public int GetValue(EAttributeKind kind)
+    public int GetValue(EBonus kind)
     {
         int sum = 0;
         if (Values.ContainsKey(kind))

@@ -26,11 +26,11 @@ public class UIEquipmentMain : MonoBehaviour
     /// <summary>
     /// 玩家的基本能力數值.
     /// </summary>
-    public Dictionary<EAttributeKind, float> BasicAttr
+    public Dictionary<EBonus, float> BasicAttr
     {
         get { return mBasicAttr; }
     }
-    private Dictionary<EAttributeKind, float> mBasicAttr = new Dictionary<EAttributeKind, float>();
+    private Dictionary<EBonus, float> mBasicAttr = new Dictionary<EBonus, float>();
 
     /// <summary>
     /// 顯示在左邊的裝備. Index 和 ListItems 互相對應, 也就是 EquipItems[0] 和 ListItems[0]
@@ -66,10 +66,10 @@ public class UIEquipmentMain : MonoBehaviour
     /// <param name="basicAttr"> 球員的基本數值. </param>
     /// <param name="valueItems"> 球員身上的裝備. </param>
     /// <param name="listItems"> 顯示在替換清單的裝備. </param>
-    public void Init(Dictionary<EAttributeKind, float> basicAttr, UIValueItemData[] valueItems, 
+    public void Init(Dictionary<EBonus, float> basicAttr, UIValueItemData[] valueItems, 
                      List<UIValueItemData[]> listItems)
     {
-        mBasicAttr = new Dictionary<EAttributeKind, float>(basicAttr);
+        mBasicAttr = new Dictionary<EBonus, float>(basicAttr);
         ValueItems = valueItems;
         ListItems = listItems;
 

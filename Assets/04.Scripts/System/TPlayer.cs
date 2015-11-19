@@ -179,44 +179,44 @@ namespace GameStruct
                 }
 
                 TItemData data = GameData.DItemData[pair.Value.ID];
-                for(int i = 0; i < data.AttrKinds.Length; i++)
+                for(int i = 0; i < data.Bonus.Length; i++)
                 {
-                    switch(data.AttrKinds[i])
+                    switch(data.Bonus[i])
                     {
-						case EAttributeKind.Point2:
+						case EBonus.Point2:
                             Point2 += data.AttrValues[i];
                             break;
-						case EAttributeKind.Point3:
+						case EBonus.Point3:
                             Point3 += data.AttrValues[i];
                             break;
-						case EAttributeKind.Speed:
+						case EBonus.Speed:
                             Speed += data.AttrValues[i];
                             break;
-						case EAttributeKind.Stamina:
+						case EBonus.Stamina:
                             Stamina += data.AttrValues[i];
                             break;
-						case EAttributeKind.Strength:
+						case EBonus.Strength:
                             Strength += data.AttrValues[i];
                             break;
-						case EAttributeKind.Dunk:
+						case EBonus.Dunk:
                             Dunk += data.AttrValues[i];
                             break;
-						case EAttributeKind.Rebound:
+						case EBonus.Rebound:
                             Rebound += data.AttrValues[i];
                             break;
-						case EAttributeKind.Block:
+						case EBonus.Block:
                             Block += data.AttrValues[i];
                             break;
-						case EAttributeKind.Defence:
+						case EBonus.Defence:
                             Defence += data.AttrValues[i];
                             break;
-						case EAttributeKind.Steal:
+						case EBonus.Steal:
                             Steal += data.AttrValues[i];
                             break;
-						case EAttributeKind.Dribble:
+						case EBonus.Dribble:
                             Dribble += data.AttrValues[i];
                             break;
-						case EAttributeKind.Pass:
+						case EBonus.Pass:
                             Pass += data.AttrValues[i];
                             break;
                     }
@@ -503,9 +503,9 @@ namespace GameStruct
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-		public int GetSumValueItems(EAttributeKind kind)
+		public int GetSumValueItems(EBonus kind)
         {
-			CommonDelegateMethods.RInt1Int1Kind1 findSumValue = delegate(int itemID, EAttributeKind attrKind)
+			CommonDelegateMethods.RInt1Int1Kind1 findSumValue = delegate(int itemID, EBonus bonus)
             {
                 if(!GameData.DItemData.ContainsKey(itemID))
                 {
@@ -513,7 +513,7 @@ namespace GameStruct
                     return 0;
                 }
 
-                return GameData.DItemData[itemID].GetSumAttrValue(attrKind);
+                return GameData.DItemData[itemID].GetSumAttrValue(bonus);
             };
 
             if(ValueItems == null)

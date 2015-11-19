@@ -11,17 +11,17 @@ public class UIEquipUtility
             Frame = string.Format("Equipment_{0}", item.Quality),
             Desc = item.Explain
         };
-        for(int i = 0; i < item.AttrKinds.Length; i++)
+        for(int i = 0; i < item.Bonus.Length; i++)
         {
-            if (item.AttrKinds[i] == EAttributeKind.None)
+            if (item.Bonus[i] == EBonus.None)
                 continue;
 
             var data = new UIValueItemData.AttrKindData
             {
-                Icon = string.Format("AttrKind_{0}", item.AttrKinds[i].GetHashCode()),
+                Icon = string.Format("AttrKind_{0}", item.Bonus[i].GetHashCode()),
                 Value = item.AttrValues[i]
             };
-            equipItem.Values.Add(item.AttrKinds[i], data);
+            equipItem.Values.Add(item.Bonus[i], data);
         }
 
         return equipItem;
