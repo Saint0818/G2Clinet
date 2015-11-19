@@ -64,6 +64,7 @@ namespace GameEnum {
 		Dunk22 = 10600,
 		Push20 = 11700,
 		Steal20 = 11500,
-		Rebound20 = 11400
+		Rebound20 = 11400,
+		Shooting20 = 10499
 	}
 }

@@ -22,6 +22,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	public BallTrigger RealBallTrigger;
 	private GameObject mRealBallSFX;
 	public EPlayerState RealBallState;
+	private bool isRealBallInAcitve = false;
     private readonly CountDownTimer mRealBallSFXTimer = new CountDownTimer(1); // 特效顯示的時間. 單位: 秒.
 
     private GameObject crtCollider;
@@ -674,6 +675,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 			case EPlayerState.Shoot5: 
 			case EPlayerState.Shoot6: 
 			case EPlayerState.Shoot7: 
+			case EPlayerState.Shoot20: 
 			case EPlayerState.Layup0: 
 			case EPlayerState.Layup1: 
 			case EPlayerState.Layup2: 
@@ -997,5 +999,10 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         mRealBallSFX.SetActive(false);
         mRealBallSFXTimer.Stop();
     }
+
+	public bool IsRealBallActive  {
+		get {return isRealBallInAcitve;}
+		set {isRealBallInAcitve = value;}
+	}
 }
 

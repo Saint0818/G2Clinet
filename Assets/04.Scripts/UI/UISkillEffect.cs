@@ -36,7 +36,7 @@ public class UISkillEffect : UIBase {
 					if(kind == i) {
 						Get.uiMotion[i].SetActive(false);
 						Get.uiMotion[i].SetActive(true);
-						Get.spriteCardFrame[kind].spriteName = "cardlevel_" + lv.ToString();
+						Get.spriteCardFrame[kind].spriteName = "cardlevel_" + Mathf.Clamp(lv, 1, 3).ToString();
 						Get.textureCardInfo[kind].mainTexture = GameData.CardTexture(picNo);
 						Get.labelCardName[kind].text = name;
 					} else {

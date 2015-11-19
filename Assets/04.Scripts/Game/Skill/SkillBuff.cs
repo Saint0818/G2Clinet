@@ -141,8 +141,8 @@ namespace  SkillBuffSpace {
 							buffInfo[i].InfoIndex = skillIndex;
 							buffInfo[i].SpriteBuff.spriteName = "AttrKind_" + skillIndex.ToString();
 							buffInfo[i].isClose = false;
-							buffInfo[positionIndex].Buff.SetActive((value > 0));
-							buffInfo[positionIndex].DeBuff.SetActive(!(value > 0));
+							buffInfo[i].Buff.SetActive((value > 0));
+							buffInfo[i].DeBuff.SetActive(!(value > 0));
 							addRecord(i);
 							refreshBuff ();
 							break;

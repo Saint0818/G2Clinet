@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 
 public delegate bool OnPlayerAction(PlayerBehaviour player);
 
-public delegate void OnPlayerAction1(PlayerBehaviour player);
+public delegate void OnPlayerAction1(PlayerBehaviour player,bool isActive);
 
 public delegate void OnPlayerAction2(PlayerBehaviour player,bool speedup);
 
@@ -2045,7 +2045,8 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.Shoot4:
             case EPlayerState.Shoot5:
             case EPlayerState.Shoot6:
-            case EPlayerState.Shoot7:
+			case EPlayerState.Shoot7:
+			case EPlayerState.Shoot20:
                 if (IsBallOwner && !IsPickBall && !IsIntercept && !IsAllShoot && (crtState == EPlayerState.HoldBall || IsDribble))
                     return true;
                 break;
@@ -2641,7 +2642,12 @@ public class PlayerBehaviour : MonoBehaviour
                 case 3:     
                     skillKind = ESkillKind.DownHand;
                     break;
+				case 20:
+					RotateTo(CourtMgr.Get.GetHoodPosition(Team).x, CourtMgr.Get.GetHoodPosition(Team).z);
+					break;
             }
+			
+			StartSkillCamera(stateNo);
             PlayerRigidbody.useGravity = false;
             IsKinematic = true;
             InitAnimatorCurve(EAnimatorState.Shoot, stateNo);
@@ -3014,7 +3020,7 @@ public class PlayerBehaviour : MonoBehaviour
                 if (OnShooting != null)
                 {
                     if (crtState != EPlayerState.Pass4)
-                        OnShooting(this);
+                        OnShooting(this, false);
                     else 
                     if (crtState == EPlayerState.Layup0)
                     {
@@ -3264,7 +3270,12 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
             case 3: //Set Default
                 TimerMgr.Get.ChangeTime(ETimerKind.Default, floatParam);
-                break;
+				break;
+			case 4: //Set Other Without Ball
+				foreach (ETimerKind item in Enum.GetValues(typeof(ETimerKind)))
+					if (item != CrtTimeKey && item != ETimerKind.Default && item != ETimerKind.Ball)
+						TimerMgr.Get.ChangeTime(item, floatParam);
+				break;
         }
     }
 
@@ -3290,6 +3301,12 @@ public class PlayerBehaviour : MonoBehaviour
             case "CameraBlur": 
                 CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_0");
                 break;
+			case "Shooting":
+				CourtMgr.Get.IsRealBallActive = true;
+				GameController.Get.BallState = EBallState.None;
+				if (OnShooting != null)
+					OnShooting(this, true);
+				break;
             case "PushDistancePlayer":
                 if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
                 {
@@ -3333,8 +3350,12 @@ public class PlayerBehaviour : MonoBehaviour
                     UISkillEffect.UIShow(false);
 					aniEvent = new UnityEngine.AnimationEvent();
 					aniEvent.floatParameter = 1;
-					aniEvent.intParameter = 0;
+					if(isShootJump)
+						aniEvent.intParameter = 4;
+					else
+						aniEvent.intParameter = 0;
 					TimeScale(aniEvent);
+					
 
                     if (isBlock)
                     {

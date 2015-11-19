@@ -149,6 +149,7 @@ public enum EPlayerState
 	Shoot5,
 	Shoot6,
 	Shoot7,
+	Shoot20,
 	Steal0,
 	Steal1,
 	Steal2,
@@ -212,6 +213,7 @@ public static class StateChecker {
 			ShootStates.Add(EPlayerState.Shoot5, true);
 			ShootStates.Add(EPlayerState.Shoot6, true);
 			ShootStates.Add(EPlayerState.Shoot7, true);
+			ShootStates.Add(EPlayerState.Shoot20, true);
 			ShootStates.Add(EPlayerState.TipIn, true);
 			
 			StopStates.Add(EPlayerState.Block0, true);
@@ -436,6 +438,7 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 					AnimtorStatesType [item].Add(EPlayerState.Shoot5, 5);
 					AnimtorStatesType [item].Add(EPlayerState.Shoot6, 6);
 					AnimtorStatesType [item].Add(EPlayerState.Shoot7, 7);
+					AnimtorStatesType [item].Add(EPlayerState.Shoot20, 20);
 					break;
 				case EAnimatorState.Dunk:
 					AnimtorStatesType [item].Add(EPlayerState.Dunk0, 0);

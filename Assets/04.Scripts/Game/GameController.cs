@@ -1552,7 +1552,7 @@ public class GameController : KnightSingleton<GameController>
 		
 	}
 
-	private void calculationScoreRate(PlayerBehaviour player, EScoreType type) {
+	private void calculationScoreRate(PlayerBehaviour player, EScoreType type, bool isActive = false) {
 		//Score Rate
 		float originalRate = 0;
 		if(ShootDistance >= GameConst.ThreePointDistance) {
@@ -1646,7 +1646,7 @@ public class GameController : KnightSingleton<GameController>
 		}
 
 		
-		if(GameStart.Get.TestMode == EGameTest.AttackA) {
+		if(isActive || GameStart.Get.TestMode == EGameTest.AttackA) {
 			BasketSituation = EBasketSituation.Swish;
 //			BasketSituation = EBasketSituation.Score;
 //			if(BasketSituation == EBasketSituation.Score || BasketSituation == EBasketSituation.NoScore){
@@ -1790,7 +1790,7 @@ public class GameController : KnightSingleton<GameController>
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public void OnShooting([NotNull]PlayerBehaviour player)
+    public void OnShooting([NotNull]PlayerBehaviour player, bool isActive = false)
     {
         if(BallOwner && BallOwner == player)
 		{     
@@ -1798,7 +1798,8 @@ public class GameController : KnightSingleton<GameController>
 			Shooter = player;
 			SetBallOwnerNull();
 			UIGame.Get.SetPassButton();
-			BallState = EBallState.CanBlock;
+			if(!isActive)
+				BallState = EBallState.CanBlock;
 
 			EScoreType scoreType = EScoreType.Normal;
 			if(player.Team == ETeamKind.Self) 
@@ -1810,6 +1811,12 @@ public class GameController : KnightSingleton<GameController>
 				shootAngle = 80;
 			else
 				shootAngle = 50;
+
+			if(isActive) {
+				ShootDistance = 30;
+				shootAngle = 65;
+				scoreType = EScoreType.UpHand;
+			}
 
 			if(player.crtState == EPlayerState.TipIn){
 				scoreType = EScoreType.LayUp;
@@ -1829,7 +1836,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 
 			basketDistanceAngle = judgeShootAngle(player);
-			calculationScoreRate(player, scoreType);
+			calculationScoreRate(player, scoreType, isActive);
 
 			SetBall();
 			CourtMgr.Get.SetBallState(player.crtState);
@@ -3970,7 +3977,8 @@ public class GameController : KnightSingleton<GameController>
         if (GameStart.Get.CourtMode == ECourtMode.Half && Shooter != null)
 			team = Shooter.Team.GetHashCode();
 
-		BallState = EBallState.None;
+		BallState = EBallState.None;	
+		CourtMgr.Get.IsRealBallActive = false;
 
 		int score = 2;
 		if (ShootDistance >= GameConst.ThreePointDistance) {
@@ -4414,6 +4422,10 @@ public class GameController : KnightSingleton<GameController>
 
 		ChangeSituation(EGameSituation.Opening);
 		AIController.Get.ChangeState(EGameSituation.Opening);
+
+		if (GameData.DStageTutorial.ContainsKey(StageData.ID)) {
+			GamePlayTutorial.Get.SetTutorialData(StageData.ID);
+        }
     }
 
 	public void SetPlayerLevel(){
