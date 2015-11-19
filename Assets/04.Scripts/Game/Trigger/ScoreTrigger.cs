@@ -10,15 +10,20 @@ public class ScoreTrigger : MonoBehaviour
 	
 	private Animator animator;
 	private Transform dummyHoop;
-	
-    void OnTriggerEnter(Collider c) {
+
+	void FixedUpdate () {
+		if(CourtMgr.Get.RealBall && Vector3.Distance(transform.position, CourtMgr.Get.RealBall.transform.position) < 0.5f) {
+			shoot ();
+		}
+	}
+
+	private void shoot (){
 		if(!dummyHoop)
 			dummyHoop = CourtMgr.Get.BasketHoopDummy[Team];
 		if(!animator)
 			animator = CourtMgr.Get.BasketHoopAnimator[Team];
 
-		if(c.tag == "RealBall" &&
-		   !GameController.Get.IsDunk && !GameController.Get.IsAlleyoop && !GameController.Get.IsPassing &&
+		if(!GameController.Get.IsDunk && !GameController.Get.IsAlleyoop && !GameController.Get.IsPassing &&
 		   GameController.Get.BasketSituation != EBasketSituation.AirBall) {
 			if (GameController.Visible) {
 				if(IntTrigger == 0 && !Into){
@@ -42,7 +47,7 @@ public class ScoreTrigger : MonoBehaviour
 							if(int.Parse(nameSplit[1]) < 100)
 								GameController.Get.shootTimes ++ ;
 						}
-
+						
 						CourtMgr.Get.SetBasketState(EPlayerState.BasketAnimationStart, dummyHoop, Team);
 						if(animator != null ){
 							if(GameController.Get.BasketAnimationName != string.Empty)
@@ -63,5 +68,11 @@ public class ScoreTrigger : MonoBehaviour
 				}
 			}
 		}
+	}
+
+    void OnTriggerEnter(Collider c) {
+		if(c.CompareTag("RealBall"))
+			shoot();
+
     }
 }
