@@ -46,7 +46,7 @@ public class UIEquipment : UIBase
 
     private void initUI()
     {
-        Dictionary<EBonus, float> basicAttr = findBasicAttr();
+        Dictionary<EAttribute, float> basicAttr = findBasicAttr();
         if(basicAttr == null)
             return;
 
@@ -132,7 +132,7 @@ public class UIEquipment : UIBase
     }
 
     [CanBeNull]
-    private Dictionary<EBonus, float> findBasicAttr()
+    private Dictionary<EAttribute, float> findBasicAttr()
     {
         if(!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
         {
@@ -141,20 +141,20 @@ public class UIEquipment : UIBase
         }
 
         TGreatPlayer basicPlayer = GameData.DPlayers[GameData.Team.Player.ID];
-        return new Dictionary<EBonus, float>
+        return new Dictionary<EAttribute, float>
         {
-            {EBonus.Point2, basicPlayer.Point2 + GameData.Team.Player.GetPotentialValue(EAttribute.Point2)},
-            {EBonus.Point3, basicPlayer.Point3 + GameData.Team.Player.GetPotentialValue(EAttribute.Point3)},
-            {EBonus.Speed, basicPlayer.Speed + GameData.Team.Player.GetPotentialValue(EAttribute.Speed)},
-            {EBonus.Stamina, basicPlayer.Stamina + GameData.Team.Player.GetPotentialValue(EAttribute.Stamina)},
-            {EBonus.Strength, basicPlayer.Strength + GameData.Team.Player.GetPotentialValue(EAttribute.Strength)},
-            {EBonus.Dunk, basicPlayer.Dunk + GameData.Team.Player.GetPotentialValue(EAttribute.Dunk)},
-            {EBonus.Rebound, basicPlayer.Rebound + GameData.Team.Player.GetPotentialValue(EAttribute.Rebound)},
-            {EBonus.Block, basicPlayer.Block + GameData.Team.Player.GetPotentialValue(EAttribute.Block)},
-            {EBonus.Defence, basicPlayer.Defence + GameData.Team.Player.GetPotentialValue(EAttribute.Defence)},
-            {EBonus.Steal, basicPlayer.Steal + GameData.Team.Player.GetPotentialValue(EAttribute.Steal)},
-            {EBonus.Dribble, basicPlayer.Dribble + GameData.Team.Player.GetPotentialValue(EAttribute.Dribble)},
-            {EBonus.Pass, basicPlayer.Pass + GameData.Team.Player.GetPotentialValue(EAttribute.Pass)}
+            {EAttribute.Point2, basicPlayer.Point2 + GameData.Team.Player.GetPotentialValue(EAttribute.Point2)},
+            {EAttribute.Point3, basicPlayer.Point3 + GameData.Team.Player.GetPotentialValue(EAttribute.Point3)},
+            {EAttribute.Speed, basicPlayer.Speed + GameData.Team.Player.GetPotentialValue(EAttribute.Speed)},
+            {EAttribute.Stamina, basicPlayer.Stamina + GameData.Team.Player.GetPotentialValue(EAttribute.Stamina)},
+            {EAttribute.Strength, basicPlayer.Strength + GameData.Team.Player.GetPotentialValue(EAttribute.Strength)},
+            {EAttribute.Dunk, basicPlayer.Dunk + GameData.Team.Player.GetPotentialValue(EAttribute.Dunk)},
+            {EAttribute.Rebound, basicPlayer.Rebound + GameData.Team.Player.GetPotentialValue(EAttribute.Rebound)},
+            {EAttribute.Block, basicPlayer.Block + GameData.Team.Player.GetPotentialValue(EAttribute.Block)},
+            {EAttribute.Defence, basicPlayer.Defence + GameData.Team.Player.GetPotentialValue(EAttribute.Defence)},
+            {EAttribute.Steal, basicPlayer.Steal + GameData.Team.Player.GetPotentialValue(EAttribute.Steal)},
+            {EAttribute.Dribble, basicPlayer.Dribble + GameData.Team.Player.GetPotentialValue(EAttribute.Dribble)},
+            {EAttribute.Pass, basicPlayer.Pass + GameData.Team.Player.GetPotentialValue(EAttribute.Pass)}
         };
     }
 

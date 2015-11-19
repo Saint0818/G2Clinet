@@ -41,7 +41,7 @@ public class UIEquipListButton : MonoBehaviour
         setValues(item.Values);
     }
 
-    private void setValues(Dictionary<EBonus, UIValueItemData.AttrKindData> itemValues)
+    private void setValues(Dictionary<EAttribute, UIValueItemData.AttrKindData> itemValues)
     {
         // clear.
         for(var i = 0; i < Attrs.Length; i++)
@@ -51,7 +51,7 @@ public class UIEquipListButton : MonoBehaviour
         }
 
         int index = 0;
-        foreach(KeyValuePair<EBonus, UIValueItemData.AttrKindData> pair in itemValues)
+        foreach(KeyValuePair<EAttribute, UIValueItemData.AttrKindData> pair in itemValues)
         {
             Attrs[index].gameObject.SetActive(true);
             AttrValues[index].gameObject.SetActive(true);

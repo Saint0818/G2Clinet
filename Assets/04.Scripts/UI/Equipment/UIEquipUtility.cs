@@ -1,4 +1,5 @@
-﻿using GameStruct;
+﻿using System;
+using GameStruct;
 
 public class UIEquipUtility
 {
@@ -21,9 +22,30 @@ public class UIEquipUtility
                 Icon = string.Format("AttrKind_{0}", item.Bonus[i].GetHashCode()),
                 Value = item.AttrValues[i]
             };
-            equipItem.Values.Add(item.Bonus[i], data);
+            equipItem.Values.Add(convert(item.Bonus[i]), data);
         }
 
         return equipItem;
+    }
+
+    private static EAttribute convert(EBonus bonus)
+    {
+        switch(bonus)
+        {
+            case EBonus.Point2: return EAttribute.Point2;
+            case EBonus.Point3: return EAttribute.Point3;
+            case EBonus.Speed: return EAttribute.Speed;
+            case EBonus.Stamina: return EAttribute.Stamina;
+            case EBonus.Strength: return EAttribute.Strength;
+            case EBonus.Dunk: return EAttribute.Dunk;
+            case EBonus.Rebound: return EAttribute.Rebound;
+            case EBonus.Block: return EAttribute.Block;
+            case EBonus.Defence: return EAttribute.Defence;
+            case EBonus.Steal: return EAttribute.Steal;
+            case EBonus.Dribble: return EAttribute.Dribble;
+            case EBonus.Pass: return EAttribute.Pass;
+        }
+
+        throw new NotImplementedException(string.Format("Bouns:{0}", bonus));
     }
 }
