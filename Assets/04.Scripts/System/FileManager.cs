@@ -69,7 +69,7 @@ public class FileManager : KnightSingleton<FileManager> {
 	private static string[] downloadFiles =
 	{
 	    "greatplayer", "tactical", "baseattr", "ballposition", "skill", "item", "stage", "stagechapter",
-		"createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname" 
+        "createroleitem", "aiskilllv", "preloadeffect", "tutorial", "stagetutorial", "exp", "teamname", "textconst"
 	};
 
 	private static DownloadFileText[] downloadCallBack = new DownloadFileText[downloadFiles.Length];
@@ -144,8 +144,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		
 		DownloadFinish ();
 	}
-
-
+	
 //	public static string StringRead(string OpenFileName)
 //	{
 //		string InData = "";
@@ -196,8 +195,7 @@ public class FileManager : KnightSingleton<FileManager> {
 		downloadCallBack[12] = ParseStageTutorialData;
 		downloadCallBack[13] = parseExpData;
 		downloadCallBack[14] = parseTeamname;
-//		downloadCallBack[15] = parseDirtyWord;
-
+		downloadCallBack[15] = ParseTextConst;
 
 		for (int i = 0; i < downloadFiles.Length; i ++) {
 			CallBackFun.Add (downloadFiles[i], downloadCallBack[i]);
@@ -590,22 +588,6 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.LogError ("[Teamname parsed error] " + ex.Message);
 		}
 	}
-
-	//TODO: DirtyWord
-//	private void parseDirtyWord (string Version, string text, bool SaveVersion)
-//	{
-//		try {
-//			TextConst.DirtyWords = (TDirtyWord[])JsonConvert.DeserializeObject (text, typeof(TDirtyWord[]));
-//			
-//			if(SaveVersion)
-//				SaveDataVersionAndJson(text, "dirtyword", Version);
-//			
-//			Debug.Log ("[Dirtyword parsed finished.] ");
-//		} catch (System.Exception ex) {
-//			Debug.LogError ("[Dirtyword parsed error] " + ex.Message);
-//		}
-//	}
-
 	private void parseStageData(string version, string text, bool isSaveVersion)
     {
         StageTable.Ins.Load(text);
@@ -623,15 +605,14 @@ public class FileManager : KnightSingleton<FileManager> {
     }
 
     private void parseTutorialData(string version, string text, bool isSaveVersion) {
-		var i = 0;
 		try {
 			GameData.DTutorial.Clear();
 			GameData.DTutorialUI.Clear();
 			GameData.DTutorialStageStart.Clear();
 			GameData.DTutorialStageEnd.Clear();
 
-			TTutorial[] data = (TTutorial[])JsonConvert.DeserializeObject (text, typeof(TTutorial[]));
-			for (i = 0; i < data.Length; i++) {
+			TTutorial[] data = JsonConvert.DeserializeObject<TTutorial[]>(text);
+			for (int i = 0; i < data.Length; i++) {
 				int id = data[i].ID * 100 + data[i].Line;
 				if (!GameData.DTutorial.ContainsKey(id)) {
 					GameData.DTutorial.Add(id, data[i]);
@@ -677,13 +658,9 @@ public class FileManager : KnightSingleton<FileManager> {
 		}
 	}
 
-	public void LoadStageTutorial(ref TStageToturial[] data) {
-
-	}
-
 	public void ParseStageTutorialData(string version, string text, bool isSaveVersion) {
 		try {
-			TStageToturial[] data = (TStageToturial[])JsonConvert.DeserializeObject (text, typeof(TStageToturial[]));
+			TStageToturial[] data = JsonConvert.DeserializeObject<TStageToturial[]>(text);
 			GameData.DStageTutorial.Clear();
 			Array.Resize(ref GameData.StageTutorial, 0);
 			Array.Resize(ref GameData.StageTutorial, data.Length);
@@ -703,6 +680,20 @@ public class FileManager : KnightSingleton<FileManager> {
 			Debug.Log ("[Stage tutorial parsed finished.] ");
 		} catch (System.Exception ex) {
 			Debug.LogError ("Stage tutorial parsed error : " + ex.Message);
+		}
+	}
+
+	public void ParseTextConst(string version, string text, bool isSaveVersion) {
+		try {
+			TTextConst[] data = JsonConvert.DeserializeObject<TTextConst[]>(text);
+			TextConst.LoadText(ref data);
+			
+			if (isSaveVersion)
+				SaveDataVersionAndJson(text, "textconst", version);
+			
+			Debug.Log ("[Text const parsed finished.]");
+		} catch (System.Exception ex) {
+			Debug.LogError ("Text const parsed error : " + ex.Message);
 		}
 	}
 }

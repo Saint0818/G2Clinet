@@ -1,34 +1,38 @@
 //#define OutFile
-
+using UnityEngine;
 using System.Collections.Generic;
 using GameEnum;
 
-public struct TDirtyWord {
-	public string Text;
+public struct TTextConst {
+	public int ID;
+	public string TW;
+	public string CN;
+	public string JP;
+	public string EN;
+	
+	public string Text {
+		get{
+			switch(GameData.Setting.Language){
+			case ELanguage.TW: return TW;
+			case ELanguage.CN: return CN;
+			case ELanguage.JP: return JP;
+			default: return EN;
+			}
+		}
+	}
 }
 
 public static class TextConst
 {
 	private static bool loaded = false;
-	private static Dictionary<int, string[]> gameText = new Dictionary<int, string[]> ();
-//	public static TDirtyWord[] DirtyWords;
+	private static Dictionary<int, TTextConst> gameText = new Dictionary<int, TTextConst> ();
 	public static TTeamName[] TeamNameAy;
-
+	
 	#if OutFile
 	private static StringBuilder sb = new StringBuilder();
 	#endif
-
-	//To
-//	public static bool CheckDirtyWord(string text) {
-//		for (int i = 0; i < TextConst.DirtyWords.Length; i++) {
-//			if (text.Contains(TextConst.DirtyWords[i].Text))
-//				return true;
-//		}
-//		
-//		return false;
-//	}
 	
-	private static void AddString(int key, string textTW, string textCN = "", string textEN = "", string textJP = ""){
+	private static void AddString(int id, string textTW, string textCN = "", string textEN = "", string textJP = ""){
 		#if OutFile
 		if (!textTW.Contains("\n") && !textEN.Contains("\n")) {
 			sb.Append(key.ToString() + "\t" + textTW.ToString() + "\t" + textEN.ToString());
@@ -48,27 +52,40 @@ public static class TextConst
 		if (textJP == "")
 			textJP = textTW;
 
-		if (gameText.ContainsKey (key)) {
-			gameText[key][ELanguage.EN.GetHashCode()] = textEN;
-			gameText[key][ELanguage.TW.GetHashCode()] = textTW;
-			gameText[key][ELanguage.CN.GetHashCode()] = textCN;
-			gameText[key][ELanguage.JP.GetHashCode()] = textJP;
-		}else{
-			string [] Data = new string[4];
-			Data[ELanguage.EN.GetHashCode()] = textEN;
-			Data[ELanguage.TW.GetHashCode()] = textTW;
-			Data[ELanguage.CN.GetHashCode()] = textCN;
-			Data[ELanguage.JP.GetHashCode()] = textJP;
-			gameText.Add(key, Data);
-		}
+		TTextConst data = new TTextConst();
+		data.ID = id;
+		data.EN = textEN;
+		data.TW = textTW;
+		data.CN = textCN;
+		data.JP = textJP;
+
+		if (gameText.ContainsKey (id)) {
+			gameText[id] = data;
+			Debug.Log("Add the same text " + data.ID.ToString());
+		} else
+			gameText.Add(id, data);
+	}
+
+	public static bool HasText(int id) {
+		return gameText.ContainsKey(id);
 	}
 
 	public static string S (int index){
 		if(gameText.ContainsKey(index))
-			return gameText[index][GameData.Setting.Language.GetHashCode()];
+			return gameText[index].Text;
 		else
 			return "";
 	} 
+
+	public static void LoadText(ref TTextConst[] data) {
+		for (int i = 0; i < data.Length; i ++) {
+			if (gameText.ContainsKey(data[i].ID)) {
+				gameText[data[i].ID] = data[i];
+				Debug.Log("Repeat text " + data[i].ID.ToString());
+			} else
+				gameText.Add(data[i].ID, data[i]);
+		}
+	}
 	
 	public static void Init(){
 		if (!loaded) {
@@ -127,7 +144,6 @@ public static class TextConst
 			AddString (9000003, "確定修改名稱？", "");
 			AddString (9000004, "非法字元請重新輸入", "");
 			AddString (9000005, "字元長度請介於1-12個字", "");
-
 		}
     }
 }

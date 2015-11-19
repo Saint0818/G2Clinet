@@ -797,7 +797,7 @@ public class UIGame : UIBase {
 	public bool SetUIJoystick(PlayerBehaviour p = null, bool isShow = false){
 		if(IsPlayerMe && p == PlayerMe) {
 			if (GameController.Get.IsStart) {
-				uiJoystick.gameObject.SetActive(isShow);
+				//uiJoystick.gameObject.SetActive(isShow);
 				return true;
 			}
 		}
