@@ -17,27 +17,51 @@
     },
     {
         "id": 1003,
-        "explain": "商店按鈕"
+        "explain": "商店按鈕",
+        "tw": "SHOP",
+        "cn": "SHOP",
+        "en": "SHOP",
+        "jp": "SHOP"
     },
     {
         "id": 1004,
-        "explain": "xx功能按鈕"
+        "explain": "xx功能按鈕",
+        "tw": "SOCIAL",
+        "cn": "SOCIAL",
+        "en": "SOCIAL",
+        "jp": "SOCIAL"
     },
     {
         "id": 1005,
-        "explain": "裝備按鈕"
+        "explain": "裝備按鈕",
+        "tw": "EQUIPMENT",
+        "cn": "EQUIPMENT",
+        "en": "EQUIPMENT",
+        "jp": "EQUIPMENT"
     },
     {
         "id": 1006,
-        "explain": "技能按鈕"
+        "explain": "技能按鈕",
+        "tw": "SKILL",
+        "cn": "SKILL",
+        "en": "SKILL",
+        "jp": "SKILL"
     },
     {
         "id": 1007,
-        "explain": "造型按鈕"
+        "explain": "造型按鈕",
+        "tw": "AVATAR",
+        "cn": "AVATAR",
+        "en": "AVATAR",
+        "jp": "AVATAR"
     },
     {
         "id": 1008,
-        "explain": "競賽按鈕"
+        "explain": "競賽按鈕",
+        "tw": "RACE",
+        "cn": "RACE",
+        "en": "RACE",
+        "jp": "RACE"
     },
     {
         "id": 1101,
@@ -54,10 +78,8 @@
     {
         "id": 2001,
         "explain": "創角流程",
-        "tw": "CHARACTER",
-        "cn": "CHARACTER",
-        "en": "CHARACTER",
-        "jp": "CHARACTER"
+        "tw": "創立角色",
+        "en": "CHARACTER"
     },
     {
         "id": 2101,
@@ -108,49 +130,174 @@
     },
     {
         "id": 3001,
-        "explain": "玩家資訊"
+        "explain": "玩家資訊",
+        "tw": "角色資訊"
     },
     {
-        "id": 3090,
+        "id": 3002,
+        "explain": "0/BtnLabel",
+        "tw": "角 色"
+    },
+    {
+        "id": 3003,
+        "explain": "1/BtnLabel",
+        "tw": "技 能"
+    },
+    {
+        "id": 3004,
+        "explain": "PlayerLeague/Label",
+        "tw": "所屬球團"
+    },
+    {
+        "id": 3005,
+        "explain": "ExpLabel/Label",
+        "tw": "EXP",
+        "cn": "EXP",
+        "en": "EXP",
+        "jp": "EXP"
+    },
+    {
+        "id": 3006,
+        "explain": "AttrKind0/KindLabel",
+        "tw": "2PT",
+        "cn": "2PT",
+        "en": "2PT",
+        "jp": "2PT"
+    },
+    {
+        "id": 3007,
+        "explain": "AttrKind1/KindLabel",
+        "tw": "3PT",
+        "cn": "3PT",
+        "en": "3PT",
+        "jp": "3PT"
+    },
+    {
+        "id": 3008,
+        "explain": "AttrKind2/KindLabel",
+        "tw": "DNK",
+        "cn": "DNK",
+        "en": "DNK",
+        "jp": "DNK"
+    },
+    {
+        "id": 3009,
+        "explain": "AttrKind3/KindLabel",
+        "tw": "REB",
+        "cn": "REB",
+        "en": "REB",
+        "jp": "REB"
+    },
+    {
+        "id": 3010,
+        "explain": "AttrKind4/KindLabel",
+        "tw": "BLK",
+        "cn": "BLK",
+        "en": "BLK",
+        "jp": "BLK"
+    },
+    {
+        "id": 3011,
+        "explain": "AttrKind5/KindLabel",
+        "tw": "STL",
+        "cn": "STL",
+        "en": "STL",
+        "jp": "STL"
+    },
+    {
+        "id": 3012,
+        "explain": "AttrKind6/KindLabel",
+        "tw": "STR",
+        "cn": "STR",
+        "en": "STR",
+        "jp": "STR"
+    },
+    {
+        "id": 3013,
+        "explain": "AttrKind7/KindLabel",
+        "tw": "DEF",
+        "cn": "DEF",
+        "en": "DEF",
+        "jp": "DEF"
+    },
+    {
+        "id": 3014,
+        "explain": "AttrKind8/KindLabel",
+        "tw": "DRB",
+        "cn": "DRB",
+        "en": "DRB",
+        "jp": "DRB"
+    },
+    {
+        "id": 3015,
+        "explain": "AttrKind9/KindLabel",
+        "tw": "PAS",
+        "cn": "PAS",
+        "en": "PAS",
+        "jp": "PAS"
+    },
+    {
+        "id": 3016,
+        "explain": "AttrKind10/KindLabel",
+        "tw": "SPD",
+        "cn": "SPD",
+        "en": "SPD",
+        "jp": "SPD"
+    },
+    {
+        "id": 3017,
+        "explain": "AttrKind11/KindLabel",
+        "tw": "STA",
+        "cn": "STA",
+        "en": "STA",
+        "jp": "STA"
+    },
+    {
+        "id": 3018,
+        "explain": "SkillPointBtn/Icon",
+        "tw": "配 點"
+    },
+    {
+        "id": 3021,
         "explain": "屬性六角圖"
     },
     {
-        "id": 3091,
+        "id": 3022,
         "explain": "Attribute1/Label",
         "tw": "BLK",
         "cn": "BLK",
         "en": "BLK"
     },
     {
-        "id": 3092,
+        "id": 3023,
         "explain": "Attribute2/Label",
         "tw": "REB",
         "cn": "REB",
         "en": "REB"
     },
     {
-        "id": 3093,
+        "id": 3024,
         "explain": "Attribute3/Label",
         "tw": "DNK",
         "cn": "DNK",
         "en": "DNK"
     },
     {
-        "id": 3094,
+        "id": 3025,
         "explain": "Attribute4/Label",
         "tw": "3PT",
         "cn": "3PT",
         "en": "3PT"
     },
     {
-        "id": 3095,
+        "id": 3026,
         "explain": "Attribute5/Label",
         "tw": "2PT",
         "cn": "2PT",
         "en": "2PT"
     },
     {
-        "id": 3096,
+        "id": 3027,
         "explain": "Attribute6/Label",
         "tw": "STL",
         "cn": "STL",
@@ -158,15 +305,42 @@
     },
     {
         "id": 3101,
-        "explain": "玩家資訊-技能顯示"
+        "explain": "HeadingLabel",
+        "tw": "[ff0000]主動技[-]"
     },
     {
         "id": 3201,
-        "explain": "玩家資訊-數值投點"
+        "explain": "玩家資訊-潛能成長",
+        "tw": "潛能成長"
+    },
+    {
+        "id": 3202,
+        "explain": "PointView/HeadingLabel",
+        "tw": "潛能點"
+    },
+    {
+        "id": 3203,
+        "explain": "SubheadLabel1",
+        "tw": "升級點數"
+    },
+    {
+        "id": 3204,
+        "explain": "SubheadLabel2",
+        "tw": "造型點數"
+    },
+    {
+        "id": 3205,
+        "explain": "WarningLabel"
+    },
+    {
+        "id": 3206,
+        "explain": "ResetBtn/BtnLabel",
+        "tw": "重置點數"
     },
     {
         "id": 3301,
-        "explain": "屬性說明介面"
+        "explain": "屬性說明介面",
+        "tw": "屬性說明"
     },
     {
         "id": 3302,
@@ -289,6 +463,21 @@
         "tw": "球員區域防守的範圍"
     },
     {
+        "id": 3401,
+        "explain": "更改名稱介面",
+        "tw": "更改名稱"
+    },
+    {
+        "id": 3402,
+        "explain": "WarningLabel",
+        "tw": "本次修改需花費"
+    },
+    {
+        "id": 3403,
+        "explain": "NameLabel",
+        "tw": "字元長度1-12個字"
+    },
+    {
         "id": 4001,
         "explain": "商店介面"
     },
@@ -299,10 +488,8 @@
     {
         "id": 6001,
         "explain": "裝備介面",
-        "tw": "EQUIPMENT",
-        "cn": "EQUIPMENT",
-        "en": "EQUIPMENT",
-        "jp": "EQUIPMENT"
+        "tw": "裝 備",
+        "en": "EQUIPMENT"
     },
     {
         "id": 6002,
@@ -311,6 +498,11 @@
         "cn": "UPGRADE",
         "en": "UPGRADE",
         "jp": "UPGRADE"
+    },
+    {
+        "id": 6003,
+        "explain": "WarningLabel",
+        "tw": "此物品無法合成"
     },
     {
         "id": 6101,
@@ -335,50 +527,295 @@
         "explain": "物品來源hint"
     },
     {
-        "id": 6202,
-        "explain": "SkillKindLabel",
-        "tw": "[ff0000]主動技[-]",
-        "cn": "[ff0000]主动技[-]",
-        "en": "[ff0000]Active Skill[-]"
-    },
-    {
-        "id": 6203,
-        "explain": "SkillKindLabel",
-        "tw": "[23A3A3FF]被動技[-]",
-        "cn": "[23A3A3FF]被动技[-]",
-        "en": "[23A3A3FF]Passive Skill[-]"
-    },
-    {
         "id": 6301,
-        "explain": "下拉選單"
+        "explain": "下拉選單",
+        "tw": "選擇裝備"
+    },
+    {
+        "id": 6302
     },
     {
         "id": 7001,
-        "explain": "技能介面"
+        "explain": "技能介面",
+        "tw": "技 能"
+    },
+    {
+        "id": 7002,
+        "explain": "ActiveCheck/ActiveLabel",
+        "tw": "[ff0000]主動技[-]"
+    },
+    {
+        "id": 7003,
+        "explain": "PassiveCheck/PassiveLabel",
+        "tw": "[23A3A3FF]被動技[-]"
+    },
+    {
+        "id": 7004,
+        "explain": "DecksBtn0/Label",
+        "tw": 1,
+        "cn": 1,
+        "en": 1,
+        "jp": 1
+    },
+    {
+        "id": 7005,
+        "explain": "DecksBtn1",
+        "tw": 2,
+        "cn": 2,
+        "en": 2,
+        "jp": 2
+    },
+    {
+        "id": 7006,
+        "explain": "DecksBtn2",
+        "tw": 3,
+        "cn": 3,
+        "en": 3,
+        "jp": 3
+    },
+    {
+        "id": 7007,
+        "explain": "DecksBtn3",
+        "tw": 4,
+        "cn": 4,
+        "en": 4,
+        "jp": 4
+    },
+    {
+        "id": 7008,
+        "explain": "DecksBtn4",
+        "tw": 5,
+        "cn": 5,
+        "en": 5,
+        "jp": 5
+    },
+    {
+        "id": 7009,
+        "explain": "LabelCost",
+        "tw": "COST",
+        "cn": "COST",
+        "en": "COST",
+        "jp": "COST"
     },
     {
         "id": 7101,
         "explain": "技能sort"
     },
     {
+        "id": 7102,
+        "explain": "LabelCondition",
+        "tw": "排 列"
+    },
+    {
+        "id": 7103,
+        "explain": "LabelFilter",
+        "tw": "篩 選"
+    },
+    {
+        "id": 7104,
+        "explain": "RarityCheck/Label",
+        "tw": "稀有度"
+    },
+    {
+        "id": 7105,
+        "explain": "CostCheck",
+        "tw": "COST",
+        "en": "COST"
+    },
+    {
+        "id": 7106,
+        "explain": "LevelCheck",
+        "tw": "等 級"
+    },
+    {
+        "id": 7107,
+        "explain": "KindCheck",
+        "tw": "種 類"
+    },
+    {
+        "id": 7108,
+        "explain": "AttributeCheck",
+        "tw": "屬 性"
+    },
+    {
+        "id": 7109,
+        "explain": "AvailableCheck",
+        "tw": "未裝備"
+    },
+    {
+        "id": 7110,
+        "explain": "SelectedCheck",
+        "tw": "裝備中"
+    },
+    {
+        "id": 7111,
+        "explain": "ActiveCheck",
+        "tw": "主動技"
+    },
+    {
+        "id": 7112,
+        "explain": "PassiveCheck",
+        "tw": "被動技"
+    },
+    {
+        "id": 7113,
+        "explain": "AllCheck",
+        "tw": "全 部"
+    },
+    {
+        "id": 7201,
+        "explain": "技能卡牌詳細介面"
+    },
+    {
+        "id": 7202,
+        "explain": "LabelSubhead",
+        "tw": "SKILL INFO.",
+        "cn": "SKILL INFO.",
+        "en": "SKILL INFO.",
+        "jp": "SKILL INFO."
+    },
+    {
+        "id": 7203,
+        "explain": "LabelKind1",
+        "tw": "LEVEL",
+        "cn": "LEVEL",
+        "en": "LEVEL",
+        "jp": "LEVEL"
+    },
+    {
+        "id": 7204,
+        "explain": "LabelKind2",
+        "tw": "COST"
+    },
+    {
+        "id": 7205,
+        "explain": "LabelKind3",
+        "tw": "EXP"
+    },
+    {
+        "id": 7206,
+        "explain": "LabelSubhead",
+        "tw": "BUFF ABILITY",
+        "cn": "BUFF ABILITY",
+        "en": "BUFF ABILITY",
+        "jp": "BUFF ABILITY"
+    },
+    {
+        "id": 7207,
+        "explain": "LabelKind1",
+        "tw": "TYPE"
+    },
+    {
+        "id": 7208,
+        "explain": "LabelKind2",
+        "tw": "VALUE"
+    },
+    {
+        "id": 7209,
+        "explain": "LabelKind3",
+        "tw": "TIME"
+    },
+    {
+        "id": 7210,
+        "explain": "LabelSubhead",
+        "tw": "TRIGGER"
+    },
+    {
+        "id": 7211,
+        "explain": "LabelKind1",
+        "tw": "PROBABILITY"
+    },
+    {
+        "id": 7212,
+        "explain": "LabelKind2",
+        "tw": "DISTANCE"
+    },
+    {
+        "id": 7213,
+        "explain": "LabelSubhead",
+        "tw": "EXPLAIN"
+    },
+    {
+        "id": 7214,
+        "explain": "CraftingBtn/Label",
+        "tw": "CRAFTING"
+    },
+    {
+        "id": 7215,
+        "explain": "UpgradeBtn",
+        "tw": "UPGRADE"
+    },
+    {
+        "id": 7216,
+        "explain": "EquipBtn",
+        "tw": "EQUIP"
+    },
+    {
         "id": 8001,
         "explain": "紙娃娃介面",
-        "tw": "AVATAR",
-        "cn": "AVATAR",
-        "en": "AVATAR",
-        "jp": "AVATAR"
+        "tw": "造 型",
+        "en": "AVATAR"
+    },
+    {
+        "id": 8002,
+        "explain": "Prefab/Items/SortBtn",
+        "tw": "SORT",
+        "cn": "SORT",
+        "en": "SORT",
+        "jp": "SORT"
+    },
+    {
+        "id": 8003,
+        "explain": "SellBtn",
+        "tw": "SELL",
+        "cn": "SELL",
+        "en": "SELL",
+        "jp": "SELL"
     },
     {
         "id": 8101,
         "explain": "紙娃娃Sort"
     },
     {
+        "id": 8102,
+        "explain": "LabelCondition",
+        "tw": "排 列"
+    },
+    {
+        "id": 8103,
+        "explain": "LabelFilter",
+        "tw": "篩 選"
+    },
+    {
+        "id": 8104,
+        "explain": "TimelimitCheck",
+        "tw": "時間最久"
+    },
+    {
+        "id": 8105,
+        "explain": "TimelessCheck",
+        "tw": "即將到期"
+    },
+    {
+        "id": 8106,
+        "explain": "AvailableCheck",
+        "tw": "未裝備"
+    },
+    {
+        "id": 8107,
+        "explain": "SelectedCheck",
+        "tw": "裝備中"
+    },
+    {
+        "id": 8108,
+        "explain": "AllCheck",
+        "tw": "全 部"
+    },
+    {
         "id": 9001,
         "explain": "競賽介面",
-        "tw": "GAME LOBBY",
-        "cn": "GAME LOBBY",
-        "en": "GAME LOBBY",
-        "jp": "GAME LOBBY"
+        "tw": "競賽大廳",
+        "en": "GAME LOBBY"
     },
     {
         "id": 9101,
@@ -392,6 +829,7 @@
     {
         "id": 9103,
         "explain": "PvPStageBtn/BtnLabel",
+        "tw": "PVP",
         "en": "PVP"
     },
     {
@@ -404,12 +842,61 @@
         "explain": "章節選擇"
     },
     {
+        "id": 9202,
+        "explain": "LabelTitle",
+        "tw": "MAIN STAGE",
+        "cn": "MAIN STAGE",
+        "en": "MAIN STAGE",
+        "jp": "MAIN STAGE"
+    },
+    {
+        "id": 9203,
+        "explain": "Label",
+        "tw": "請先解鎖前列關卡"
+    },
+    {
         "id": 9301,
         "explain": "關卡詳細資訊"
     },
     {
+        "id": 9302,
+        "explain": "DailyTimes/TimesLabel",
+        "tw": "限制次數"
+    },
+    {
+        "id": 9303,
+        "explain": "ConditionTitle/TitleLabel",
+        "tw": "限制條件"
+    },
+    {
+        "id": 9304,
+        "explain": "Awards/AwardLabel",
+        "tw": "有機率獲得"
+    },
+    {
+        "id": 9305,
+        "explain": "StartButton/StartLabel",
+        "tw": "START",
+        "cn": "START",
+        "en": "START",
+        "jp": "START"
+    },
+    {
+        "id": 9306,
+        "explain": "Completed/FinLabel",
+        "tw": "COMPLETED",
+        "cn": "COMPLETED",
+        "en": "COMPLETED",
+        "jp": "COMPLETED"
+    },
+    {
         "id": 9401,
         "explain": "戰前準備"
+    },
+    {
+        "id": 9402,
+        "explain": "SkipButton/Icon",
+        "tw": "SKIP"
     },
     {
         "id": 9501,
@@ -426,6 +913,46 @@
     {
         "id": 10101,
         "explain": "Loading"
+    },
+    {
+        "id": 10102,
+        "explain": "P1Button/Label",
+        "tw": 1,
+        "cn": 1,
+        "en": 1,
+        "jp": 1
+    },
+    {
+        "id": 10103,
+        "explain": "P2Button/Label",
+        "tw": 2,
+        "cn": 2,
+        "en": 2,
+        "jp": 2
+    },
+    {
+        "id": 10104,
+        "explain": "P3Button/Label",
+        "tw": 3,
+        "cn": 3,
+        "en": 3,
+        "jp": 3
+    },
+    {
+        "id": 10105,
+        "explain": "Next/Icon",
+        "tw": "NEXT",
+        "cn": "NEXT",
+        "en": "NEXT",
+        "jp": "NEXT"
+    },
+    {
+        "id": 10106,
+        "explain": "LoadingPic/UIWord",
+        "tw": "LOADING",
+        "cn": "LOADING",
+        "en": "LOADING",
+        "jp": "LOADING"
     },
     {
         "id": 10201,
@@ -582,10 +1109,10 @@
     {
         "id": 10316,
         "explain": "ButtonAgain/Label",
-        "tw": "RESTART",
-        "cn": "RESTART",
-        "en": "RESTART",
-        "jp": "RESTART"
+        "tw": "AGAIN",
+        "cn": "AGAIN",
+        "en": "AGAIN",
+        "jp": "AGAIN"
     },
     {
         "id": 10317,
@@ -770,6 +1297,126 @@
         "cn": "BLK",
         "en": "BLK",
         "jp": "BLK"
+    },
+    {
+        "id": 10500,
+        "explain": "技能Hint說明"
+    },
+    {
+        "id": 10501,
+        "explain": "1.2分 2-Point（2PT）",
+        "tw": "2PT",
+        "cn": "2PT",
+        "en": "2PT",
+        "jp": "2PT"
+    },
+    {
+        "id": 10502,
+        "explain": "2.3分 3-Point（3PT）",
+        "tw": "3PT",
+        "cn": "3PT",
+        "en": "3PT",
+        "jp": "3PT"
+    },
+    {
+        "id": 10503,
+        "explain": "3.速度 Speed（SPD)  撲球",
+        "tw": "SPD",
+        "cn": "SPD",
+        "en": "SPD",
+        "jp": "SPD"
+    },
+    {
+        "id": 10504,
+        "explain": "4.耐力 Stamina（STA) 跌倒起身",
+        "tw": "STA",
+        "cn": "STA",
+        "en": "STA",
+        "jp": "STA"
+    },
+    {
+        "id": 10505,
+        "explain": "5.力量 Strength（STR）肘擊",
+        "tw": "STR",
+        "cn": "STR",
+        "en": "STR",
+        "jp": "STR"
+    },
+    {
+        "id": 10506,
+        "explain": "6.灌籃 Dunk（DNK）灌籃",
+        "tw": "DNK",
+        "cn": "DNK",
+        "en": "DNK",
+        "jp": "DNK"
+    },
+    {
+        "id": 10507,
+        "explain": "7.籃板 Rebound（REB)搶籃板",
+        "tw": "REB",
+        "cn": "REB",
+        "en": "REB",
+        "jp": "REB"
+    },
+    {
+        "id": 10508,
+        "explain": "8.火鍋 Block（BLK）火鍋",
+        "tw": "BLK",
+        "cn": "BLK",
+        "en": "BLK",
+        "jp": "BLK"
+    },
+    {
+        "id": 10509,
+        "explain": "9.防守 Defence（DEF)  推人",
+        "tw": "DEF",
+        "cn": "DEF",
+        "en": "DEF",
+        "jp": "DEF"
+    },
+    {
+        "id": 10510,
+        "explain": "10.抄截 Steal（STL）抄截",
+        "tw": "STL",
+        "cn": "STL",
+        "en": "STL",
+        "jp": "STL"
+    },
+    {
+        "id": 10511,
+        "explain": "11.控球 Dribble（DRB)  運球過人",
+        "tw": "DRB",
+        "cn": "DRB",
+        "en": "DRB",
+        "jp": "DRB"
+    },
+    {
+        "id": 10512,
+        "explain": "12.傳球 Pass（PAS）傳球",
+        "tw": "PAS",
+        "cn": "PAS",
+        "en": "PAS",
+        "jp": "PAS"
+    },
+    {
+        "id": 10600,
+        "explain": "戰鬥內換場介面"
+    },
+    {
+        "id": 10601,
+        "explain": "HomeOffense/HomeOffenseLabel",
+        "tw": "AWAY OFFENSIVE",
+        "cn": "AWAY OFFENSIVE",
+        "en": "AWAY OFFENSIVE",
+        "jp": "AWAY OFFENSIVE"
+    },
+    {
+        "id": 10602,
+        "explain": "AwayOffense/AwayOffenseLabel",
+        "tw": "HOME OFFENSIVE",
+        "cn": "HOME OFFENSIVE",
+        "en": "HOME OFFENSIVE",
+        "jp": "HOME OFFENSIVE"
     },
     {
         "id": 11001,
