@@ -1,5 +1,37 @@
 [
     {
+        "id": 201,
+        "explain": "確認訊息",
+        "tw": "造 型",
+        "en": "AVATAR"
+    },
+    {
+        "id": 202,
+        "tw": "技能卡",
+        "en": "CARDS"
+    },
+    {
+        "id": 203,
+        "tw": "確定售出？"
+    },
+    {
+        "id": 204,
+        "tw": "牌組變更，是否儲存？"
+    },
+    {
+        "id": 205,
+        "tw": "角 色",
+        "en": "CHARCATER"
+    },
+    {
+        "id": 206,
+        "tw": "確定刪除此角色？"
+    },
+    {
+        "id": 207,
+        "tw": "確定購買角色欄位？"
+    },
+    {
         "id": 501,
         "explain": "警告訊息"
     },
@@ -19,49 +51,37 @@
         "id": 1003,
         "explain": "商店按鈕",
         "tw": "SHOP",
-        "cn": "SHOP",
-        "en": "SHOP",
-        "jp": "SHOP"
+        "en": "SHOP"
     },
     {
         "id": 1004,
         "explain": "xx功能按鈕",
         "tw": "SOCIAL",
-        "cn": "SOCIAL",
-        "en": "SOCIAL",
-        "jp": "SOCIAL"
+        "en": "SOCIAL"
     },
     {
         "id": 1005,
         "explain": "裝備按鈕",
         "tw": "EQUIPMENT",
-        "cn": "EQUIPMENT",
-        "en": "EQUIPMENT",
-        "jp": "EQUIPMENT"
+        "en": "EQUIPMENT"
     },
     {
         "id": 1006,
         "explain": "技能按鈕",
         "tw": "SKILL",
-        "cn": "SKILL",
-        "en": "SKILL",
-        "jp": "SKILL"
+        "en": "SKILL"
     },
     {
         "id": 1007,
         "explain": "造型按鈕",
         "tw": "AVATAR",
-        "cn": "AVATAR",
-        "en": "AVATAR",
-        "jp": "AVATAR"
+        "en": "AVATAR"
     },
     {
         "id": 1008,
         "explain": "競賽按鈕",
         "tw": "RACE",
-        "cn": "RACE",
-        "en": "RACE",
-        "jp": "RACE"
+        "en": "RACE"
     },
     {
         "id": 1101,
@@ -527,6 +547,11 @@
         "explain": "物品來源hint"
     },
     {
+        "id": 6202,
+        "explain": "StartBtn/BtnLabel",
+        "tw": "前往"
+    },
+    {
         "id": 6301,
         "explain": "下拉選單",
         "tw": "選擇裝備"
@@ -751,6 +776,15 @@
         "tw": "EQUIP"
     },
     {
+        "id": 7301,
+        "explain": "技能卡牌戰鬥內Hint"
+    },
+    {
+        "id": 7302,
+        "explain": "LabelMaxAnger",
+        "tw": "士氣值"
+    },
+    {
         "id": 8001,
         "explain": "紙娃娃介面",
         "tw": "造 型",
@@ -888,6 +922,11 @@
         "cn": "COMPLETED",
         "en": "COMPLETED",
         "jp": "COMPLETED"
+    },
+    {
+        "id": 9391,
+        "explain": "Title",
+        "tw": "主線關卡"
     },
     {
         "id": 9401,
