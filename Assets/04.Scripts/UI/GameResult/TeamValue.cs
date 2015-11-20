@@ -3,7 +3,6 @@ using System.Collections;
 using GameStruct;
 
 public class TeamValue : MonoBehaviour {
-	public UISlider[] SliderAttrSelf = new UISlider[7];
 	public UISlider[] SliderAttrNPC = new UISlider[7];
 	public UILabel[] LabelAttrSelf = new UILabel[7];
 	public UILabel[] LabelAttrNPC = new UILabel[7];
@@ -46,8 +45,7 @@ public class TeamValue : MonoBehaviour {
 						valueNPC[i] += record.PlayerRecords[j].Block;
 				}
 			}
-			SliderAttrSelf[i].value = ((float)valueSelf[i] / 20);
-			SliderAttrNPC[i].value = ((float)valueNPC[i] / 20);
+			SliderAttrNPC[i].value = ((float)valueNPC[i] / (float)(valueSelf[i] + valueNPC[i]));
 			LabelAttrSelf[i].text = valueSelf[i].ToString();
 			LabelAttrNPC[i].text = valueNPC[i].ToString();
 		}

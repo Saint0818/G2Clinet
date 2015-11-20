@@ -513,7 +513,18 @@ public class GEGMTool : GEBase
 
     private void BattleHandle()
 	{
+		if(GameController.Visible) {
 
+			if(GUILayout.Button("Self Victory", GUILayout.Width(150)))
+			{
+				GameController.Get.GMGameResult(true);
+			}
+			
+			if(GUILayout.Button("Self Defeat", GUILayout.Width(150)))
+			{
+				GameController.Get.GMGameResult(false);
+			}
+		}
 	}
 
     private void ShowHint(string str)

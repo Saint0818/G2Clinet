@@ -9,12 +9,6 @@ public class UIStageHintTarget : MonoBehaviour
     public UILabel GoalLabel;
 	public GameObject FinTarget;
 
-    [UsedImplicitly]
-    private void Awake()
-    {
-        Hide();
-    }
-
     public void Show()
     {
         gameObject.SetActive(true);
@@ -53,4 +47,8 @@ public class UIStageHintTarget : MonoBehaviour
         GoalLabel.text = max;
 		FinTarget.SetActive(isFinish);
     }
+
+	public void UpdateFin (bool isFinish) {
+		FinTarget.SetActive(isFinish);
+	}
 }

@@ -34,7 +34,7 @@ public class HintSkillView : MonoBehaviour {
 		else 
 			SkillKindLabel.text = TextConst.S(12102);
 		QualityCards.spriteName = "cardlevel_" + skill.Lv.ToString();
-//		SkillItemPic.spriteName = 
+		SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
 		if(GameData.DSkillData.ContainsKey(skill.ID))
 			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star , 1 , 5).ToString();
 		else {

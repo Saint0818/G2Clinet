@@ -1372,6 +1372,8 @@ public class GameController : KnightSingleton<GameController>
 				UIGame.UIShow(false);
 				UIGameResult.UIShow(true);
 				UIGameResult.UIShow(false);
+				UIGameLoseResult.UIShow(true);
+				UIGameLoseResult.UIShow(false);
 				UIGamePause.UIShow(true);
 				UIGamePause.UIShow(false);
 				UIDoubleClick.UIShow(true);
@@ -3548,13 +3550,36 @@ public class GameController : KnightSingleton<GameController>
 
 	IEnumerator playFinish() {
 		yield return new WaitForSeconds(2);
-
-//		SetGameRecordToUI();
 		setEndShowScene ();
 //		if(GameStart.Get.IsAutoReplay){
 //			UIGameResult.Get.OnAgain();
 //			Invoke("JumpBallForReplay", 1);
 //		}
+	}
+	//GM Tools
+	public void GMGameResult (bool isSelfWin) {
+		GameTime = 0;
+		if(isSelfWin) {
+			UIGame.Get.Scores[ETeamKind.Self.GetHashCode()] = 100;
+			Joysticker.GameRecord.FGIn = 10;
+			Joysticker.GameRecord.FG3In = 10;
+			Joysticker.GameRecord.Dunk = 10;
+			Joysticker.GameRecord.Push = 10;
+			Joysticker.GameRecord.Steal = 10;
+			Joysticker.GameRecord.Block = 10;
+			Joysticker.GameRecord.Elbow = 10;
+			Joysticker.GameRecord.Rebound = 10;
+		} else {
+			UIGame.Get.Scores[ETeamKind.Npc.GetHashCode()] = 100;
+			Joysticker.GameRecord.FGIn = 0;
+			Joysticker.GameRecord.FG3In = 0;
+			Joysticker.GameRecord.Dunk = 0;
+			Joysticker.GameRecord.Push = 0;
+			Joysticker.GameRecord.Steal = 0;
+			Joysticker.GameRecord.Block = 0;
+			Joysticker.GameRecord.Elbow = 0;
+		}
+		gameResult();
 	}
 
 	private void setEndShowScene () {
@@ -3566,6 +3591,9 @@ public class GameController : KnightSingleton<GameController>
 				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
 			}
 		}
+
+		CourtMgr.Get.RealBall.transform.position = Vector3.zero;
+
 		if (IsGameVictory()) {
 			SelfWin ++;
 			for (int i = 0; i < PlayerList.Count; i++) {
@@ -3574,9 +3602,10 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState(EPlayerState.Ending10);
 			}
-			
-			SetGameRecordToUI(true);
 			pveEnd(StageData.ID);
+
+			UIGameResult.UIShow(true);
+			UIGameResult.Get.SetGameRecord(ref GameRecord);
 		}
 		else
 		{
@@ -3587,7 +3616,7 @@ public class GameController : KnightSingleton<GameController>
 				else
 					PlayerList [i].AniState (EPlayerState.Ending0);
 			}
-			SetGameRecordToUI(false);
+			UIGameLoseResult.UIShow(true);
 		}
 		CameraMgr.Get.SetEndShowSituation();
 	}
@@ -3595,13 +3624,8 @@ public class GameController : KnightSingleton<GameController>
 	public void JumpBallForReplay () {
 		UIGame.Get.UIState(EUISituation.Start);
 	}
-	
-	public void SetGameRecordToUI(bool isVictory) {
-		UIGameResult.UIShow(true);
-		UIGameResult.Get.SetGameRecord(ref GameRecord, isVictory);
-	}
 
-    private void gameResult()
+	private void gameResult()
     {
 		if(Situation != EGameSituation.End) {
 			ChangeSituation(EGameSituation.End);
@@ -3611,27 +3635,6 @@ public class GameController : KnightSingleton<GameController>
 			GameRecord.Done = true;
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
-
-//			if (IsGameVictory()) {
-//
-//				SelfWin ++;
-////				for (int i = 0; i < PlayerList.Count; i++)
-////					if (PlayerList [i].Team == ETeamKind.Self)
-////						PlayerList [i].AniState(EPlayerState.Ending0);
-////				else
-////					PlayerList [i].AniState(EPlayerState.Ending10);
-//				
-//				pveEnd(StageData.ID);
-//			}
-//			else
-//			{
-//				NpcWin ++;
-////				for (int i = 0; i < PlayerList.Count; i++)
-////					if (PlayerList [i].Team == ETeamKind.Self)
-////						PlayerList [i].AniState (EPlayerState.Ending10);
-////				else
-////					PlayerList [i].AniState (EPlayerState.Ending0);
-//			}
 		}
     }
 
