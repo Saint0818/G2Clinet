@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using GameStruct;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ public class PersonalView
 	private UIButton playerName;
 //	private UILabel groupHead;
 //	private UILabel groupBody;
-	public TValueAvater[] Avatars = new TValueAvater[8];
+	public TValueAvater[] ValueItems = new TValueAvater[8];
 
 	public void Init(GameObject obj, GameObject[] itemEquipmentBtn)
 	{
@@ -38,12 +38,12 @@ public class PersonalView
 //			groupHead = group.transform.FindChild("Label").gameObject.GetComponent<UILabel>();
 //			groupBody = group.transform.FindChild("LeagueID").gameObject.GetComponent<UILabel>();
 			
-			for(int i = 0; i < Avatars.Length; i++){
+			for(int i = 0; i < ValueItems.Length; i++){
 				GameObject go = self.transform.FindChild(string.Format("EquipmentView/PartSlot{0}/View", i)).gameObject;
-				if((Avatars[i] == null || !Avatars[i].IsInit) && itemEquipmentBtn[i] != null)
+				if((ValueItems[i] == null || !ValueItems[i].IsInit) && itemEquipmentBtn[i] != null)
 				{
-					Avatars[i] = new TValueAvater();
-					Avatars[i].Init(itemEquipmentBtn[i], go, i);
+					ValueItems[i] = new TValueAvater();
+					ValueItems[i].Init(itemEquipmentBtn[i], go, i);
 				}
 			}
 		}
@@ -55,33 +55,40 @@ public class PersonalView
 		group.onClick.Add (groupFunc);
 		playerName.onClick.Add(changeName);
 
-		for (int i = 0; i < Avatars.Length; i++)
-			Avatars [i].InitBtttonFunction (itemHint);
+		for (int i = 0; i < ValueItems.Length; i++)
+			ValueItems [i].InitBtttonFunction (itemHint);
 	}
 
 	public void Update(TPlayer player)
 	{
 		UpdatePlayerData (player);
-//		UpdateAvatarData (player.EquipItems);
+		UpdateValueItem ();
 	}
 
-	private void UpdateAvatarData(TValueItem[] items)
+	private void UpdateValueItem()
 	{
-		for(int i = 0;i< Avatars.Length;i++)
-		{
-			if(items != null && i < items.Length)
-			{
-				if(GameData.DItemData.ContainsKey(items[i].ID))
+		int id = 0;
+		int kind = 11;
+
+		for(int i = 0;i< ValueItems.Length;i++)
+			ValueItems[i].Enable = false;
+
+		if (GameData.Team.Player.ValueItems != null) {
+			for(int i = 0 ; i < ValueItems.Length;i++){
+				if(GameData.Team.Player.ValueItems.ContainsKey(kind + i))
 				{
-					Avatars[i].Enable = true;
-					Avatars[i].Name = GameData.DItemData[items[i].ID].Name;
-					Avatars[i].Pic = GameData.DItemData[items[i].ID].Icon;
-					Avatars[i].Quality = GameData.DItemData[items[i].ID].Quality;
-//					Avatars[i].Starts = items[i].Inlay.Length;
+					id = GameData.Team.Player.ValueItems[kind + i].ID;
+					if(id > 0){
+						TItemData data = GameData.DItemData[GameData.Team.Player.ValueItems[kind + i].ID];
+						ValueItems[i].Enable = true;
+						ValueItems[i].Name = data.Name;
+						ValueItems[i].Pic = data.Icon;
+						ValueItems[i].Quality = data.Quality;
+						ValueItems[i].Starts = GameData.Team.Player.ValueItems[kind + i].InlayItemIDs.Length;
+					}
 				}
+
 			}
-			else
-				Avatars[i].Enable = false;
 		}
 	}
 
@@ -122,7 +129,7 @@ public class AbilityView
 {
 	private GameObject self;
 	private UIButton skillPointBtn;
-	private TAbilityItem[] Masteries = new TAbilityItem[12];
+	private TAbilityItem[] abilitys = new TAbilityItem[12];
 	private UIAttributes hexagon;
 
 	public void Init(GameObject obj, GameObject hexgonObj)
@@ -131,10 +138,10 @@ public class AbilityView
 		if(self)
 		{
 			GameObject go;
-			for (int i = 0; i < Masteries.Length; i++) {
-				Masteries[i] = new TAbilityItem();
+			for (int i = 0; i < abilitys.Length; i++) {
+				abilitys[i] = new TAbilityItem();
 				go = self.transform.FindChild(string.Format("AttrGroup/AttrKind{0}", i)).gameObject;
-				Masteries[i].Init(go, i);
+				abilitys[i].Init(go, i);
 			}
 
 			skillPointBtn = self.transform.FindChild("SkillPointBtn").gameObject.GetComponent<UIButton>();
@@ -146,17 +153,68 @@ public class AbilityView
 		}
 	}
 
-	public void UpdateAttribute()
+	public void UpdateView()
 	{
 		int index = 0;
-		foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
-			index = GameFunction.GetAttributeIndex(item.Key);
-			Masteries[index].Value.text = item.Value.ToString();
+        float basic = 0;
+        int add = 0;
 
+        EAttribute kind;
+		for (int i = 0; i < abilitys.Length; i++) {
+            kind = GameFunction.GetAttributeKind(i);
+            basic = 0;
+            if(GameData.Team.Player.Potential.ContainsKey(kind))
+                add = GameData.Team.Player.Potential[kind];
+
+            switch(kind)
+            {
+            case EAttribute.Point2:
+                basic = GameData.Team.Player.Point2;
+                break;
+            case EAttribute.Point3:
+                basic = GameData.Team.Player.Point3;
+                break;
+            case EAttribute.Dunk:
+                basic = GameData.Team.Player.Dunk;
+                break;
+            case EAttribute.Rebound:
+                basic = GameData.Team.Player.Rebound;
+                break;
+            case EAttribute.Block:
+                basic = GameData.Team.Player.Block;
+                break;
+            case EAttribute.Steal:
+                basic = GameData.Team.Player.Steal;
+                break;
+            case EAttribute.Speed:
+                basic = GameData.Team.Player.Speed;
+                break;
+            case EAttribute.Stamina:
+                basic = GameData.Team.Player.Stamina;
+                break;
+            case EAttribute.Strength:
+                basic = GameData.Team.Player.Strength;
+                break;
+            case EAttribute.Defence:
+                basic = GameData.Team.Player.Defence;
+                break;
+            case EAttribute.Dribble:
+                basic = GameData.Team.Player.Dribble;
+                break;
+            case EAttribute.Pass:
+                basic = GameData.Team.Player.Pass;
+                break; 
+            }
+
+            abilitys[i].Value.text = (basic + add).ToString();
 		}
 
-		GameFunction.UpdateAttrHexagon (hexagon, GameData.Team.Player.Potential);
-//		hexagon.SetValue((UIAttributes.EGroup)index, item.Value / GameConst.AttributeMax);
+//		foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
+//			index = GameFunction.GetAttributeIndex(item.Key);
+//			abilitys[index].Value.text = item.Value.ToString();
+//
+//		}
+		GameFunction.UpdateAttrHexagon (hexagon, GameData.Team.Player);
 	}
 
 
@@ -211,7 +269,7 @@ public class TActiveSkillCard
 		}
 	}
 
-	public void Update(int index, TSkill skill)
+	public void UpdateView(int index, TSkill skill)
 	{
 		if(isInit){
 			self.name = index.ToString();
@@ -335,7 +393,7 @@ public class TSkillView
 		}
 	}
 
-	public void Update(TSkill[] skill)
+	public void UpdateView(TSkill[] skill)
 	{
 		int activecount = 0;
 		int passivecount = 0;
@@ -353,7 +411,7 @@ public class TSkillView
 			if(GameFunction.IsActiveSkill(skill[i].ID)){
 				if(activecount < GameConst.Max_ActiveSkill){
 					activeSkillCard[i].Enable = true;
-					activeSkillCard[activecount].Update(i, skill[i]);
+					activeSkillCard[activecount].UpdateView(i, skill[i]);
 					activecount++;
 				}
 			}else{
@@ -415,7 +473,8 @@ public class TValueAvater
 
 	public string Pic
 	{
-		set{pic.spriteName = string.Format("item_{0}", value);}
+
+		set{pic.spriteName = string.Format("Item_{0}", value);}
 	}
 
 	public string Name
@@ -425,7 +484,8 @@ public class TValueAvater
 
 	public int Quality
 	{
-		set{pic.spriteName = string.Format("Equipment_{0:00}", value);}
+
+		set{BG.spriteName = string.Format("Equipment_{0}", value);}
 	}
 
 	public int Starts
@@ -614,11 +674,11 @@ public class UIPlayerInfo : UIBase {
 		{
 			case 0:
 				personalView.Update(GameData.Team.Player);
-				abilityView.UpdateAttribute();
+				abilityView.UpdateView();
 				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo);
 				break;
 			case 1:
-				skillView.Update(GameData.Team.Player.SkillCards);
+				skillView.UpdateView(GameData.Team.Player.SkillCards);
 
 				break;
 			case 2:
