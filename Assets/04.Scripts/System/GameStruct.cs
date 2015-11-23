@@ -677,7 +677,8 @@ namespace GameStruct {
         public EBonus AttrKind3;
         public int AttrValue3;
 
-        public int Money;
+        public int Buy;
+        public int Sell;
 		public int Quality;
 		public string Icon;
 		public string NameTW;

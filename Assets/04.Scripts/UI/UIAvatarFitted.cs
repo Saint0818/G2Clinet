@@ -12,7 +12,7 @@ public struct TItemAvatar
 	public int Kind;
 	public string AbilityKind;
 	public string AbilityValue;
-	public GameObject gameobject;
+	public GameObject Self;
 	public Transform DisablePool;
 	public Transform EnablePool;
 	private bool isEquip;
@@ -28,18 +28,18 @@ public struct TItemAvatar
 	private UILabel name;
 	private UILabel usetime;
 	private UILabel abilityValue;
-	private UILabel price;
 	private UILabel PriceLabel;
-	private UILabel FinishLabel;
+	private UILabel InfoLabel;
 
 	private UISprite pic;
+	private UISprite OutLine;
 	private UIButton equipBtn;
-	private UILabel equipLabel;
+//	private UILabel equipLabel;
 	private UIButton buyBtn;
 	private UISprite TrimBottom;
 	private UISprite SellSelect;
 	private UISprite EquipedIcon;
-	private UISlider timeBar;
+//	private UISlider timeBar;
 	public DateTime EndUseTime;
 	public int UseTotalScenes;
 
@@ -90,14 +90,14 @@ public struct TItemAvatar
 		set{
 			CheckEquipBtnName();
 
-			if(gameobject){
-				gameobject.SetActive(value);
-				gameobject.transform.parent = gameobject.activeSelf? EnablePool : DisablePool;
+			if(Self){
+				Self.SetActive(value);
+				Self.transform.parent = Self.activeSelf? EnablePool : DisablePool;
 			}
 		}
 		get{
-			if(gameobject)
-				return gameobject.activeSelf;
+			if(Self)
+				return Self.activeSelf;
 			else
 			{
 				Debug.LogError("Must be Inited TItemAvatarPart.gameobject");
@@ -111,7 +111,7 @@ public struct TItemAvatar
 		set{
 			isEnableBuy = value;
 			PriceLabel.gameObject.SetActive(isEnableBuy);
-			FinishLabel.gameObject.SetActive(!isEnableBuy);
+			InfoLabel.gameObject.SetActive(!isEnableBuy);
 		}
 
 		get{return isEnableBuy;}
@@ -137,6 +137,11 @@ public struct TItemAvatar
 			else
 				return "";
 		}
+	}
+
+	public int Quality
+	{
+		set{OutLine.spriteName = string.Format("Equipment_{0}", value);}
 	}
 
 //	public bool IsRental
@@ -184,25 +189,25 @@ public struct TItemAvatar
 		{
 			case 2:
 				if(mode == EAvatarMode.Sell){
-					equipLabel.text = "SELL";
+//					equipLabel.text = "SELL";
 				}else{
 					TrimBottom.enabled = true;
-					equipLabel.text = "FETTING";
+//					equipLabel.text = "FETTING";
 				}
 				break;
 			default:
 				if(mode == EAvatarMode.Sell){
-					if(Equip)
-						equipLabel.text = "EQUIPED";
-					else
-						equipLabel.text = "SELL";
+//					if(Equip)
+//						equipLabel.text = "EQUIPED";
+//					else
+//						equipLabel.text = "SELL";
 				}else{
 					TrimBottom.enabled = false;
 					
-					if(Equip)
-						equipLabel.text = "EQUIPED";
-					else
-						equipLabel.text = "EQUIP";
+//					if(Equip)
+//						equipLabel.text = "EQUIPED";
+//					else
+//						equipLabel.text = "EQUIP";
 				}
 			break;
 		}
@@ -225,30 +230,31 @@ public struct TItemAvatar
 	public void Init()
 	{
 		if (!isInit) {
-			if (gameobject) {
+			if (Self) {
 				Mode = EAvatarMode.Normal;
-				name = gameobject.transform.FindChild ("ItemName").gameObject.GetComponent<UILabel> ();
-				usetime = gameobject.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
-				timeBar = usetime.transform.FindChild ("TimeBar").gameObject.GetComponent<UISlider> ();
-				abilityValue = gameobject.transform.FindChild ("BuyBtn/FinishLabel").gameObject.GetComponent<UILabel> ();
-				pic = gameobject.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
-				TrimBottom = gameobject.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
-				SellSelect = gameobject.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
+				name = Self.transform.FindChild ("ItemName").gameObject.GetComponent<UILabel> ();
+				usetime = Self.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
+//				timeBar = usetime.transform.FindChild ("TimeBar").gameObject.GetComponent<UISlider> ();
+				abilityValue = Self.transform.FindChild ("BuyBtn/InfoLabel").gameObject.GetComponent<UILabel> ();
+				pic = Self.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
+				OutLine = Self.transform.FindChild ("ItemPic/OutLine").gameObject.GetComponent<UISprite> ();
+				TrimBottom = Self.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
+				SellSelect = Self.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
 				Selected = false;
-				EquipedIcon = gameobject.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
-				equipBtn = gameobject.transform.FindChild ("EquipBtn").gameObject.GetComponent<UIButton> ();
+				EquipedIcon = Self.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
+				equipBtn = Self.transform.GetComponent<UIButton> ();
 
 				if(equipBtn){
-					equipBtn.name = gameobject.name;
-					equipLabel = equipBtn.transform.FindChild("EquipLabel").gameObject.GetComponent<UILabel>();
+					equipBtn.name = Self.name;
+//					equipLabel = equipBtn.transform.FindChild("EquipLabel").gameObject.GetComponent<UILabel>();
 				}
 
-				buyBtn = gameobject.transform.FindChild ("BuyBtn").gameObject.GetComponent<UIButton> ();
+				buyBtn = Self.transform.FindChild ("BuyBtn").gameObject.GetComponent<UIButton> ();
 
 				if(buyBtn){
-					buyBtn.name = gameobject.name;
+					buyBtn.name = Self.name;
 					PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
-					FinishLabel = buyBtn.transform.FindChild("FinishLabel").gameObject.GetComponent<UILabel>();
+					InfoLabel = buyBtn.transform.FindChild("InfoLabel").gameObject.GetComponent<UILabel>();
 				}
 			}
 		}
@@ -315,11 +321,11 @@ public struct TItemAvatar
 					
 					if(checktime.TotalSeconds > 0)
 					{
-						if(timeBar.enabled == false)
-							timeBar.enabled = true;
+//						if(timeBar.enabled == false)
+//							timeBar.enabled = true;
 						
 						EnableBuy = false;
-						timeBar.value = (float)checktime.TotalSeconds / (float)UseTotalScenes;
+//						timeBar.value = (float)checktime.TotalSeconds / (float)UseTotalScenes;
 						UseTime = checktime;
 					}
 					else{
@@ -327,7 +333,7 @@ public struct TItemAvatar
 					}
 					break;
 				case 2:
-					timeBar.enabled = false;
+//					timeBar.enabled = false;
 					usetime.gameObject.SetActive(false);
 					EnableBuy = true;
 					abilityValue.enabled = false;
@@ -335,7 +341,7 @@ public struct TItemAvatar
 				default:
 					usetime.gameObject.SetActive(false);
 					EnableBuy = false;
-					timeBar.enabled = false;
+//					timeBar.enabled = false;
 					abilityValue.enabled = true;
 					break;
 			}
@@ -509,7 +515,7 @@ public class UIAvatarFitted : UIBase {
 			{
 				int id = backpackItems [i].ID;
 				if(GameData.DItemData.ContainsKey(id))
-					total += GameData.DItemData [id].Money;
+					total += GameData.DItemData [id].Sell;
 			}
 
 		totalPrice = total;
@@ -566,12 +572,12 @@ public class UIAvatarFitted : UIBase {
 	{
 		for(int i = 0; i < backpackItems.Length; i++){
 			//InitCom
-			if(backpackItems[i].gameobject == null){
-				backpackItems[i].gameobject = Instantiate(item) as GameObject;
-				backpackItems[i].gameobject.transform.parent = enablePool;
+			if(backpackItems[i].Self == null){
+				backpackItems[i].Self = Instantiate(item) as GameObject;
+				backpackItems[i].Self.transform.parent = enablePool;
 //					grid.transform;
-				backpackItems[i].gameobject.transform.localScale = Vector3.one;
-				backpackItems[i].gameobject.name = i.ToString();
+				backpackItems[i].Self.transform.localScale = Vector3.one;
+				backpackItems[i].Self.name = i.ToString();
 				backpackItems[i].DisablePool = disableGroup.gameObject.transform;
 				backpackItems[i].EnablePool = enablePool;
 //					grid.gameObject.transform;
@@ -588,6 +594,7 @@ public class UIAvatarFitted : UIBase {
 					backpackItems[i].EndUseTime = GameData.Team.Items[i].UseTime;
 					backpackItems[i].Name =  GameData.DItemData[backpackItems[i].ID].Name;
 					backpackItems[i].Pic = string.Format("Item_{0}", GameData.DItemData[backpackItems[i].ID].Icon);
+					backpackItems[i].Quality = GameData.DItemData[backpackItems[i].ID].Quality;
 					backpackItems[i].Kind = GameFunction.GetItemKind(backpackItems[i].ID);
 					backpackItems[i].UseKind = GameData.Team.Items[i].UseKind;
 					backpackItems[i].Index = i;
@@ -609,6 +616,7 @@ public class UIAvatarFitted : UIBase {
 							backpackItems[i].EndUseTime = GameData.Team.Player.Items[playerItemIndex].UseTime;
 							backpackItems[i].Name =  GameData.DItemData[id].Name;
 							backpackItems[i].Pic = string.Format("Item_{0}", GameData.DItemData[id].Icon);
+							backpackItems[i].Quality = GameData.DItemData[id].Quality;
 							backpackItems[i].Kind = GameFunction.GetItemKind(id);
 							backpackItems[i].UseKind = GameData.Team.Player.Items[playerItemIndex].UseKind;
 							backpackItems[i].Index = -1;
@@ -624,15 +632,22 @@ public class UIAvatarFitted : UIBase {
 
 	private Vector3 GetItemPos(int count)
 	{
-		return new Vector3 (194 * (int)(count / 2), (count % 2 == 0 ? 68 : -151), 0);
+		return new Vector3 (210 * (int)(count / 2), (count % 2 == 0 ? 115 : -120), 0);
 	}
 
 	public void UpdateView()
 	{
 		enableCount = 0;
-
+		int filter = 0;
 		int sort = PlayerPrefs.GetInt(ESave.AvatarSort.ToString());
-		int filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
+
+		if(PlayerPrefs.HasKey(ESave.AvatarFilter.ToString()))
+			filter = PlayerPrefs.GetInt(ESave.AvatarFilter.ToString());
+		else{
+			filter = 2;
+			PlayerPrefs.SetInt(ESave.AvatarFilter.ToString(), 2);
+			PlayerPrefs.Save();
+		}
 
 		for (int i = 0; i < backpackItems.Length; i++) {
 			//ItemVisable
@@ -676,7 +691,7 @@ public class UIAvatarFitted : UIBase {
 			}
 			else
 			{
-				backpackItems[i].gameobject.transform.localPosition = Vector3.zero;
+				backpackItems[i].Self.transform.localPosition = Vector3.zero;
 				backpackItems[i].Enable = false;
 			}
 
@@ -696,14 +711,14 @@ public class UIAvatarFitted : UIBase {
 			case 0:
 				sortlist.Sort((x, y) => { return -x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					sortlist[i].gameobject.transform.localPosition = GetItemPos(count);
+					sortlist[i].Self.transform.localPosition = GetItemPos(count);
 					count++;
 				}
 			break;
 			case 1:
 				sortlist.Sort((x, y) => { return x.EndUseTime.CompareTo(y.EndUseTime); });
 				for(int i = 0; i< sortlist.Count;i++){
-					sortlist[i].gameobject.transform.localPosition = GetItemPos(count);;
+					sortlist[i].Self.transform.localPosition = GetItemPos(count);;
 					count++;
 				}
 				break;
@@ -711,7 +726,7 @@ public class UIAvatarFitted : UIBase {
 				for(int i = 0; i < backpackItems.Length; i++)
 					if(backpackItems[i].Enable)
 					{
-						backpackItems[i].gameobject.transform.localPosition = GetItemPos(count);;
+						backpackItems[i].Self.transform.localPosition = GetItemPos(count);;
 						count++;
 					}
 						break;

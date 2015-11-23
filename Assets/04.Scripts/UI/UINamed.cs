@@ -39,7 +39,7 @@ public class NameView
 		if (GameData.Team.Player.Name != string.Empty)
 			nameLabel.text = GameData.Team.Player.Name;
 		else
-			nameLabel.text = TextConst.S (9000001);
+			UINamed.Get.OnRandomName ();
 	}
 
 	public string Name
@@ -113,10 +113,11 @@ public class UINamed : UIBase {
 
 	protected override void OnShow(bool isShow) {
 		if(isShow){
+			nameView.UpdateView ();
 		}
 	}
 
-	private void OnRandomName()
+	public void OnRandomName()
 	{
 		if (TextConst.TeamNameAy != null && TextConst.TeamNameAy.Length > 0) {
 			int index1 = UnityEngine.Random.Range (0, TextConst.TeamNameAy.Length - 1);
