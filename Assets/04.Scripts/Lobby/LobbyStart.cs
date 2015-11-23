@@ -419,7 +419,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			//WWWForm form = new WWWForm();
 			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			UILoading.UIShow(false);
-			UIMainLobby.Get.Show();
+			if(!SceneMgr.Get.CheckNeedOpenStageUI())
+				UIMainLobby.Get.Show();
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);

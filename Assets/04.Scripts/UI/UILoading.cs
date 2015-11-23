@@ -138,7 +138,8 @@ public class UILoading : UIBase {
 
 			break;
 		case ELoadingGamePic.Lobby:
-			UIMainLobby.Get.Show();
+			if(!SceneMgr.Get.CheckNeedOpenStageUI())
+				UIMainLobby.Get.Show();
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);

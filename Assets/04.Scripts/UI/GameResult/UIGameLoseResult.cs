@@ -48,7 +48,7 @@ public class UIGameLoseResult : UIBase {
 		Time.timeScale = 1;
 		UIShow(false);
 		if (isStage)
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby, true , true);
 		else
 			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
 	}

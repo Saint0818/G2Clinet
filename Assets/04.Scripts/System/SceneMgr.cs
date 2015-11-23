@@ -17,10 +17,12 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	public string LoadScene = ESceneName.Main;
 
     public delegate void LevelWillBeLoaded();
-    public delegate void LevelWasLoaded();
-    
+    public delegate void LevelWaitLoadNextScene();
+	public delegate void LevelWasFinishedDoSomething();
+	
     public static event LevelWillBeLoaded OnLevelWillBeLoaded;
-    public static event LevelWasLoaded OnLevelWasLoaded;
+    public static event LevelWaitLoadNextScene OnLevelWaitLoadNext;
+	public LevelWasFinishedDoSomething OnOpenStae = null;
     
     IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
@@ -53,10 +55,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                 break;
         }
 
-        if (OnLevelWasLoaded != null)
-        {
-            OnLevelWasLoaded();
-        }
+        if (OnLevelWaitLoadNext != null) 
+			OnLevelWaitLoadNext ();
 
         Resources.UnloadUnusedAssets();
     }
@@ -69,7 +69,7 @@ public class SceneMgr : KnightSingleton<SceneMgr>
     public void ChangeLevel(int courtNo, bool isNeedLoading = true)
     {
 		string scene = ESceneName.Court + courtNo;
-        ChangeLevel(scene, isNeedLoading);
+		ChangeLevel(scene, isNeedLoading);
     }
 
     public void ChangeLevel(string scene, bool isNeedLoading = true)
@@ -88,15 +88,40 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                     StartCoroutine(LoadLevelCoroutine(scene));
 
                 LoadScene = scene;
-                OnLevelWasLoaded += WaitLoadScene;
+                OnLevelWaitLoadNext += WaitLoadScene;
             }
         }
     }
 
+	public void ChangeLevel(string scene, bool openstage, bool isNeedLoading)
+	{
+		if (openstage)
+			OnOpenStae = OpenStageUI;
+		ChangeLevel (scene, isNeedLoading);
+	}
+
+	private void OpenStageUI()
+	{
+		UIMainStage.Get.Show ();
+		UIMainLobby.Get.Hide ();
+	}
+
+	public bool CheckNeedOpenStageUI()
+	{
+		if(OnOpenStae != null)
+		{
+			OnOpenStae();
+			OnOpenStae = null;
+			return true;
+		}
+
+		return false;
+	}
+
     public void WaitLoadScene()
     {
         StartCoroutine(LoadLevelCoroutine(LoadScene));
-        OnLevelWasLoaded -= WaitLoadScene;
+        OnLevelWaitLoadNext -= WaitLoadScene;
     }
 
     public void SetDontDestory(GameObject obj)
