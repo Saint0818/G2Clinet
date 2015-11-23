@@ -7,15 +7,12 @@ using SkillBuffSpace;
 using DG.Tweening;
 using G2;
 
-public delegate void OnAddAttributeDelegate(int kind, float value);
-
 public struct TPassiveType {
 	public TSkill Tskill;
 	public int Rate;
 }
 
 public class SkillController : MonoBehaviour {
-	public OnAddAttributeDelegate OnAddAttribute = null;
 
 	private PlayerBehaviour executePlayer;
 	//PassiveSkill key: Kind  value: TSKill
@@ -127,8 +124,7 @@ public class SkillController : MonoBehaviour {
 			if (skillAttribute [i].CDTime > 0 && skillAttribute [i].ID < GameConst.ID_LimitActive) {
 				skillAttribute [i].CDTime -= Time.deltaTime * TimerMgr.Get.CrtTime;  
 				if (skillAttribute [i].CDTime <= 0) {
-					if(OnAddAttribute != null) 
-						OnAddAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
+						executePlayer.SetAttribute(skillAttribute[i].Kind, -skillAttribute[i].Value);
 
 					skillAttribute.RemoveAt(i);
 				}
@@ -148,8 +144,7 @@ public class SkillController : MonoBehaviour {
 	public void FinishBuff (int skillID){
 		int index = findSkillAttribute(skillID);
 		if(index != -1) {
-			if(OnAddAttribute != null) 
-				OnAddAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
+				executePlayer.SetAttribute(skillAttribute[index].Kind, -skillAttribute[index].Value);
 			skillAttribute.RemoveAt(index);
 		}
 	}
@@ -215,8 +210,7 @@ public class SkillController : MonoBehaviour {
 				item.CDTime = lifetime;
 				skillAttribute.Add(item);
 				
-				if(OnAddAttribute != null) 
-					OnAddAttribute(kind, value);
+				executePlayer.SetAttribute(kind, value);
 			} else {
 				float add = 0;
 				skillAttribute[index].CDTime = lifetime;
@@ -227,8 +221,7 @@ public class SkillController : MonoBehaviour {
 						add = value - skillAttribute[index].Value;
 				
 				if (add != 0) {
-					if(OnAddAttribute != null) 
-						OnAddAttribute(kind, add);
+					executePlayer.SetAttribute(kind, add);
 				}
 			}
 		}

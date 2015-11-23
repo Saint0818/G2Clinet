@@ -541,7 +541,6 @@ public class PlayerBehaviour : MonoBehaviour
     {
 		isSkillShow = false;
         skillController.initSkillController(Attribute, this, AnimatorControl);
-        skillController.OnAddAttribute += SetAttribute;
 
         if (Team == ETeamKind.Npc) 
             skillController.HidePlayerName();
