@@ -1047,7 +1047,14 @@ public class UISkillFormation : UIBase {
 			skillInfo.ID = uiCards[go.name].CardID;
 			skillInfo.Name = GameData.DSkillData[uiCards[go.name].CardID].Name;
 			skillInfo.Lv = uiCards[go.name].CardLV.ToString();
-			skillInfo.Info = GameData.DSkillData[uiCards[go.name].CardID].Explain;
+//			skillInfo.Info = GameData.DSkillData[uiCards[go.name].CardID].Explain;
+			skillInfo.Info = string.Format(GameData.DSkillData[uiCards[go.name].CardID].Explain, 
+			                               GameData.DSkillData[uiCards[go.name].CardID].MaxAnger,
+			                               GameData.DSkillData[uiCards[go.name].CardID].AniRate(uiCards[go.name].CardLV),
+			                               GameData.DSkillData[uiCards[go.name].CardID].Distance(uiCards[go.name].CardLV),
+			                               GameData.DSkillData[uiCards[go.name].CardID].AttrKind,
+			                               GameData.DSkillData[uiCards[go.name].CardID].Value(uiCards[go.name].CardLV),
+			                               GameData.DSkillData[uiCards[go.name].CardID].LifeTime(uiCards[go.name].CardLV));
 		} else 
 			Debug.LogWarning("cardId:"+uiCards[go.name].CardID);
 	}

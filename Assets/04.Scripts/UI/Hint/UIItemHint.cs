@@ -86,7 +86,13 @@ public class UIItemHint : UIBase {
 			UIShow(true);
 			hintSkillView.Show();
 			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
-			uiLabelExplain.text = GameData.DSkillData[skill.ID].Explain;
+			uiLabelExplain.text = string.Format(GameData.DSkillData[skill.ID].Explain, 
+			                                    GameData.DSkillData[skill.ID].MaxAnger,
+			                                    GameData.DSkillData[skill.ID].AniRate(skill.Lv),
+			                                    GameData.DSkillData[skill.ID].Distance(skill.Lv),
+			                                    GameData.DSkillData[skill.ID].AttrKind,
+			                                    GameData.DSkillData[skill.ID].Value(skill.Lv),
+			                                    GameData.DSkillData[skill.ID].LifeTime(skill.Lv));
 			hintSkillView.UpdateUI(skill);
 		}
 	}

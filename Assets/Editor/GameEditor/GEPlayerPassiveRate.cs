@@ -21,6 +21,7 @@ public class GEPlayerPassiveRate : GEBase {
 	private bool isChoose = false;
 	private bool isChange = false;
 	private Dictionary<int, List<TPassiveType>> UpdatePassiveSkills = new Dictionary<int, List<TPassiveType>>();//Skill
+	private Dictionary<int, List<TPassiveType>> UpdateDExtraPassiveSkills = new Dictionary<int, List<TPassiveType>>();//Skill
 	private List<TChangePassiveRate> passives = new List<TChangePassiveRate>();
 	private SkillController skillController;
 
@@ -114,22 +115,40 @@ public class GEPlayerPassiveRate : GEBase {
 								pss.Add(type);
 								UpdatePassiveSkills.Add(tskill.Value.Kind, pss);
 							}
+
+							if(tskill.Value.ID < GameConst.ID_LimitActive && GameData.DSkillData[tskill.Value.ID].Distance(2) > 0) {
+								if (UpdateDExtraPassiveSkills.ContainsKey(tskill.Value.Kind))
+									UpdateDExtraPassiveSkills [tskill.Value.Kind].Add(type);
+								else {
+									List<TPassiveType> pss = new List<TPassiveType>();
+									pss.Add(type);
+									UpdateDExtraPassiveSkills.Add(tskill.Value.Kind, pss);
+								}
+							}
 						}
 					}
 					skillController.DPassiveSkills = UpdatePassiveSkills;
+					skillController.DExtraPassiveSkills = UpdateDExtraPassiveSkills;
 					isInstall = true;
 					OnEnable();
 				}
 			}
 
 //			scrollPosition = GUI.BeginScrollView(new Rect(0, 60, 600, 450), scrollPosition, new Rect(0, 60, 560, (passives.Count * 50)));
-			scrollPosition = GUILayout.BeginScrollView(new Vector2(0, 60));
+			scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 			for(int i=0; i<passives.Count; i++) {
 				if(int.Parse(options[chooseIndex]) == passives[i].Kind) {
 					GUILayout.Label("ID:" + passives[i].ID);
 					GUILayout.Label("Name:" + GameData.DSkillData[passives[i].ID].Name);
 					GUILayout.Label("AnimationName:" + GameData.DSkillData[passives[i].ID].Animation);
-					GUILayout.Label("Explain:" + GameData.DSkillData[passives[i].ID].Explain);
+//					GUILayout.Label("Explain:" + GameData.DSkillData[passives[i].ID].Explain);
+					GUILayout.Label("Explain:" + string.Format(GameData.DSkillData[passives[i].ID].Explain, 
+					                                           GameData.DSkillData[passives[i].ID].MaxAnger,
+					                                           GameData.DSkillData[passives[i].ID].AniRate(passives[i].Lv),
+					                                           GameData.DSkillData[passives[i].ID].Distance(passives[i].Lv),
+					                                           GameData.DSkillData[passives[i].ID].AttrKind,
+					                                           GameData.DSkillData[passives[i].ID].Value(passives[i].Lv),
+					                                           GameData.DSkillData[passives[i].ID].LifeTime(passives[i].Lv)));
 					GUILayout.Label("passives[i].Rate:" + passives[i].Rate);
 					passives[i].Rate = Mathf.RoundToInt(GUILayout.HorizontalSlider((float) passives[i].Rate , -1, 100));
 				}

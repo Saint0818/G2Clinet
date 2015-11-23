@@ -45,7 +45,10 @@ public class TeamValue : MonoBehaviour {
 						valueNPC[i] += record.PlayerRecords[j].Block;
 				}
 			}
-			SliderAttrNPC[i].value = ((float)valueNPC[i] / (float)(valueSelf[i] + valueNPC[i]));
+			if(valueSelf[i] == 0 && valueNPC[i] == 0) 
+				SliderAttrNPC[i].value = 0.5f;
+			else 
+				SliderAttrNPC[i].value = ((float)valueNPC[i] / (float)(valueSelf[i] + valueNPC[i]));
 			LabelAttrSelf[i].text = valueSelf[i].ToString();
 			LabelAttrNPC[i].text = valueNPC[i].ToString();
 		}
