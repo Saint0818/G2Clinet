@@ -107,6 +107,11 @@ public class UIGameResult : UIBase {
 		playerValue = GetComponentsInChildren<PlayerValue>();
 		teamValue = GetComponentInChildren<TeamValue>();
 
+		for (int i=0; i<playerStats.PlayerInGameBtn.Length; i++) {
+			playerStats.PlayerInGameBtn[i].name = i.ToString();
+			UIEventListener.Get (playerStats.PlayerInGameBtn[i]).onClick = OnShowPlayerInfo;
+		}
+
 		UIEventListener.Get (uiStatsNext).onClick = OnNext;
 		UIEventListener.Get (uiAwardSkip).onClick = OnReturn;
 		SetBtnFun(UIName + "/Center/BottomView/StatsView/LeftBtn", OnShowAwayStats);
@@ -121,8 +126,8 @@ public class UIGameResult : UIBase {
 
 	}
 
-	private void showTeamStats () {
-		animatorBottomView.SetTrigger("TeamStats");
+	public void OnShowPlayerInfo (GameObject go) {
+
 	}
 
 	public void OnShowHomeStats () {
@@ -156,12 +161,25 @@ public class UIGameResult : UIBase {
 			Time.timeScale = 1;
 			UIShow(false);
 			if (isStage)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby, true , true);
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby, true, true);
 			else
 				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
 		}
 	}
-	
+
+	//Show Stage Hint Check
+	// it's need to get three items, and first items
+	private void showFinish () {
+		isShowFinish = true;
+		finishTime = finishInterval;
+	}
+
+	//Show Team Stats
+	private void showTeamStats () {
+		animatorBottomView.SetTrigger("TeamStats");
+	}
+
+	//Show Award and LuckyThree
 	private void showAward () {
 		if(awardIndex == 0) {
 			showLuckyThree ();
@@ -171,17 +189,17 @@ public class UIGameResult : UIBase {
 		}
 	}
 	
-	public void showLuckyThree () {
+	private void showLuckyThree () {
 		animatorAward.SetTrigger ("AwardViewDown");
-		Invoke("Show3DBasket", 1);
+		Invoke("show3DBasket", 1);
 	}
 
-	public void Show3DBasket () {
+	private void show3DBasket () {
 		UI3DGameResult.UIShow(true);
 	}
 	
 	public void ChooseLucky(int index) {
-		Invoke ("ShowReturnButton", 2);
+		Invoke ("showReturnButton", 2);
 		isChooseLucky = true;
 		if(index == 0) {
 
@@ -192,7 +210,7 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	public void ShowReturnButton () {
+	private void showReturnButton () {
 		uiAwardSkip.SetActive(true);
 	}
 
@@ -201,6 +219,9 @@ public class UIGameResult : UIBase {
 		if(record.Done) {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
+				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
+//				if(i == 1 || i == 2)//need get friend list
+//					playerStats.ShowAddFriendBtn(i);
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
 			}
 		}
@@ -312,11 +333,6 @@ public class UIGameResult : UIBase {
 	{
 		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
 		return TextConst.S(baseValue);
-	}
-
-	private void showFinish () {
-		isShowFinish = true;
-		finishTime = finishInterval;
 	}
 
 	public bool isStage
