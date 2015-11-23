@@ -14,9 +14,7 @@ namespace GameStruct
         public int ID;
         public string Name;
         public int Lv;
-
         public int Exp;
-
         public int AILevel;
 
         /// <summary>
@@ -130,10 +128,10 @@ namespace GameStruct
         /// only for npc.
         /// </summary>
         /// <param name="id"></param>
-        public bool SetID(int id) {
+		public bool SetID(int id, ESkillType type = ESkillType.NPC) {
             ID = id;
             if(ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
-                SetAttribute(ESkillType.NPC);
+				SetAttribute(type);
                 SetAvatar();
                 return true;
             } else
@@ -233,6 +231,7 @@ namespace GameStruct
                     if(GameData.DPlayers.ContainsKey(ID)) {
                         if(SkillCards == null || SkillCards.Length == 0) 
                             SkillCards = new TSkill[14];
+
                         SkillCards[0].ID = GameData.DPlayers[ID].Skill1;
                         SkillCards[0].Lv = GameData.DPlayers[ID].SkillLV1;
                         SkillCards[1].ID = GameData.DPlayers[ID].Skill2;
@@ -275,6 +274,7 @@ namespace GameStruct
                     ActiveSkills.Clear();
                     if(SkillCards == null)
                         SkillCards = new TSkill[0];
+
                     if(SkillCards.Length > 0) {
                         for(int i=0; i<SkillCards.Length; i++) {
                             if(SkillCards[i].ID >= GameConst.ID_LimitActive){
@@ -283,8 +283,8 @@ namespace GameStruct
                             }
                         }
                     }
-                    break;
 
+                    break;
             }
         }
 		
@@ -461,6 +461,15 @@ namespace GameStruct
                 return 100;
             }
         }
+
+		public string FacePicture {
+			get {
+				if (GameData.DPlayers.ContainsKey(ID))
+					return GameData.DPlayers[ID].Name;//"PlayerFace" + GameData.DPlayers[ID].BodyType.ToString();
+				else
+				    return "PlayerFace0";
+			}
+		}
 
         public bool CheckIfMaxAnger (int activeID, int value) {
             if(ActiveSkills.Count > 0) 
