@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "nametw": "白皙膚色",
+        "nametw": "白淨膚色",
         "quality": 1,
         "icon": 1,
         "kind": 0,
@@ -19,7 +19,7 @@
     },
     {
         "id": 2,
-        "nametw": "深棕膚色",
+        "nametw": "黝黑膚色",
         "quality": 1,
         "icon": 2,
         "kind": 0,
@@ -29,7 +29,7 @@
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "深棕肤色",
+        "namecn": "黝黑膚色",
         "nameen": "Dark brown color",
         "namejp": "暗褐色"
     },
@@ -293,7 +293,7 @@
     },
     {
         "id": 101,
-        "nametw": "小麥膚色",
+        "nametw": "白皙膚色",
         "quality": 1,
         "icon": 102,
         "kind": 0,
@@ -303,13 +303,13 @@
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "小麦肤色",
-        "nameen": "Wheat color",
-        "namejp": "小麦の色"
+        "namecn": "白皙肤色",
+        "nameen": "White color",
+        "namejp": "白色"
     },
     {
         "id": 102,
-        "nametw": "白皙膚色",
+        "nametw": "小麥膚色",
         "quality": 1,
         "icon": 101,
         "kind": 0,
@@ -319,9 +319,9 @@
         "usetime": 96,
         "money": 100,
         "prize": 500,
-        "namecn": "白皙肤色",
-        "nameen": "White color",
-        "namejp": "白色"
+        "namecn": "小麦肤色",
+        "nameen": "Wheat color",
+        "namejp": "小麦の色"
     },
     {
         "id": 103,
@@ -6982,7 +6982,7 @@
         "namejp": "奨励自己3ポイント"
     },
     {
-        "id": 32100,
+        "id": 32102,
         "nametw": "自我加速鼓舞",
         "quality": 3,
         "icon": 10001,
