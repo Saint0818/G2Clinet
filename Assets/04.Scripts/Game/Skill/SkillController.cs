@@ -166,35 +166,38 @@ public class SkillController : MonoBehaviour {
 		
 		return -1;
 	}
+
 	//Check TargetKind and Add Value to Player
 	public void CheckSkillValueAdd(PlayerBehaviour player, TSkill tSkill) {
 		if(GameData.DSkillData.ContainsKey(tSkill.ID)) {
 			TSkillData skill = GameData.DSkillData[tSkill.ID];
-			if(tSkill.ID >= GameConst.ID_LimitActive) {
-				if(player.Attribute.ActiveSkills.Count > 0) {
-					if(skill.Kind == 210 && skill.TargetKind == 30) { // BUff & My Teammate
-						for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
-							if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode() && 
-							    (CheckSkillDistance(player, tSkill, GameController.Get.GamePlayers[i].PlayerRefGameObject))) {
-									GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
-									                                                    skill.AttrKind, 
-									                                                    skill.Value(tSkill.Lv), 
-									                                                    skill.LifeTime(tSkill.Lv));
-							}
+			if(player.Attribute.ActiveSkills.Count > 0) {
+				if(skill.TargetKind == 3) { // Buff & My Teammate
+					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
+						if (GameController.Get.GamePlayers[i].Team.GetHashCode() == player.Team.GetHashCode()) {
+								GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
+								                                                    skill.AttrKind, 
+								                                                    skill.Value(tSkill.Lv), 
+								                                                    skill.LifeTime(tSkill.Lv));
 						}
-					} else {
-						player.AddSkillAttribute(skill.ID, 
-						                         skill.AttrKind, 
-						                         skill.Value(tSkill.Lv), 
-						                         skill.LifeTime(tSkill.Lv));
 					}
+				} else if(skill.TargetKind == 5) {
+					for (int i = 0; i < GameController.Get.GamePlayers.Count; i++) {
+						if (GameController.Get.GamePlayers[i].Team.GetHashCode() != player.Team.GetHashCode()) {
+							GameController.Get.GamePlayers[i].AddSkillAttribute(skill.ID, 
+							                                                    skill.AttrKind, 
+							                                                    skill.Value(tSkill.Lv), 
+							                                                    skill.LifeTime(tSkill.Lv));
+						}
+					}
+				} else {
+					player.AddSkillAttribute(skill.ID, 
+					                         skill.AttrKind, 
+					                         skill.Value(tSkill.Lv), 
+					                         skill.LifeTime(tSkill.Lv));
 				}
-			} else {
-				player.AddSkillAttribute(skill.ID, 
-				                         skill.AttrKind, 
-				                         skill.Value(tSkill.Lv), 
-				                         skill.LifeTime(tSkill.Lv));
 			}
+			
 		}
 	}
 	//Add Value to Player
