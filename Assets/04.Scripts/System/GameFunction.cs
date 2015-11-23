@@ -556,6 +556,19 @@ public static class GameFunction
         return (lv - 1) * GameConst.PreLvPotential;
     }
 
+	public static float GetKindFormula(int index, float value)
+	{
+		float result = 0;
+		switch (index)
+		{
+		case 1:
+			result = value * 0.5f;
+			break;
+		case 2:
+			result = value * 0.5f;
+			break;
+		}
+		return result;
+	}
 
-    
 }
