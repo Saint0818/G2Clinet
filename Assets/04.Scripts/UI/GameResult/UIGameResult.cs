@@ -1,6 +1,8 @@
 using GamePlayEnum;
 using GameStruct;
 using UnityEngine;
+using System.Collections.Generic;
+using DG.Tweening;
 
 public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;
@@ -25,12 +27,24 @@ public class UIGameResult : UIBase {
 	private float finishTime = 0;
 
 	//AwardItems
+	private List<ItemAwardGroup> alreadyGetItems;
+	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
+	private int alreadGetBonusID = 3;
+	private int[] awardItemIDs = {1,20410};
+	private int[] bonusItemIDs = {2,3,20412};
+
+	private GameObject awardScrollView;
+	private GameObject uiItem;
 	private int awardIndex;
-	private int awardCount;
+	private int awardMax;
 	private bool isShowAward = false;
 	private float awardGetTime = 0;
 
+	private ItemAwardGroup[] itemAwardGroup = new ItemAwardGroup[3];
+
 	private bool isChooseLucky = false;
+	private int chooseIndex = 0;
+	private int chooseCount = 0;
 
 	public static bool Visible
 	{
@@ -84,10 +98,10 @@ public class UIGameResult : UIBase {
 			if(awardGetTime <= 0) {
 				if(awardIndex == -1) {
 					isShowAward = false;
-					showLuckyThree ();
+					showBonusItem ();
 				} else {
-					//				if(awardIndex > 0)
-					
+					if((awardMax - awardIndex) < awardMax)
+						alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemIDs[(awardMax - awardIndex)]]);
 					awardIndex --;
 				}
 			}
@@ -95,6 +109,7 @@ public class UIGameResult : UIBase {
 	}
 	
 	protected override void InitCom() {
+		uiItem = Resources.Load(UIPrefabPath.ItemAwardGroup) as GameObject;
 		uiStatsNext = GameObject.Find(UIName + "/BottomRight/StatsNextLabel");
 		uiAwardSkip = GameObject.Find(UIName + "/BottomRight/AwardSkipLabel");
 		
@@ -112,10 +127,13 @@ public class UIGameResult : UIBase {
 			UIEventListener.Get (playerStats.PlayerInGameBtn[i]).onClick = OnShowPlayerInfo;
 		}
 
+		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
+
 		UIEventListener.Get (uiStatsNext).onClick = OnNext;
 		UIEventListener.Get (uiAwardSkip).onClick = OnReturn;
 		SetBtnFun(UIName + "/Center/BottomView/StatsView/LeftBtn", OnShowAwayStats);
 		SetBtnFun(UIName + "/Center/BottomView/StatsView/RightBtn", OnShowHomeStats);
+
 	}
 	
 	protected override void InitData() {
@@ -128,6 +146,10 @@ public class UIGameResult : UIBase {
 
 	public void OnShowPlayerInfo (GameObject go) {
 
+	}
+
+	public void OnShowAwardInfo (GameObject go) {
+		
 	}
 
 	public void OnShowHomeStats () {
@@ -166,6 +188,69 @@ public class UIGameResult : UIBase {
 				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
 		}
 	}
+	
+	public void ChooseLucky(int index) {
+		Invoke ("showReturnButton", 2);
+//		chooseIndex = alreadGetBonusID;
+		isChooseLucky = true;
+		if(index == 0) {
+			Invoke("showOneItem", 1);
+		} else if(index == 1) {
+			Invoke("showTwoItem", 1);
+		} else if(index == 2) {
+			Invoke("showThreeItem", 1);
+		}
+	}
+
+	private void showOneItem () {
+		showItem (0);
+	}
+
+	private void showTwoItem () {
+		showItem (1);
+	}
+
+	private void showThreeItem () {
+		showItem (2);
+	}
+
+	private void showItem (int index) {
+		chooseIndex = index;
+		itemAwardGroup[index].gameObject.SetActive(true);
+		if(GameData.DItemData.ContainsKey(alreadGetBonusID))
+			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
+		itemAwardGroup[index].transform.DOLocalMove(new Vector3(0, -100, 0), 1f).OnComplete(MoveItemFin);
+		chooseCount ++ ;
+	}
+
+	public void MoveItemFin () {
+		itemAwardGroup[chooseIndex].Hide();
+		addItemToBack(alreadGetBonusID);
+	}
+
+	private void init () {
+		for (int i=0; i<itemAwardGroup.Length; i++) {
+			itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
+			if(i >= 0 && i < 3) {
+				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+					itemAwardGroup[i].Show(GameData.DItemData[bonusItemIDs[i]]);
+			}
+		}
+		hideThree();
+
+		alreadyGetItems = new List<ItemAwardGroup>();
+		bonusAwardItems = new Dictionary<int, ItemAwardGroup>();
+		awardIndex = awardItemIDs.Length;
+		awardMax = awardItemIDs.Length;
+		for(int i=0; i<awardItemIDs.Length; i++)
+			if(GameData.DItemData.ContainsKey(awardItemIDs[i]))
+				alreadyGetItems.Add(addItemToAward(i, GameData.DItemData[awardItemIDs[i]]));
+
+		for(int i=0; i<bonusItemIDs.Length; i++) {
+			 if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+		}
+	}
 
 	//Show Stage Hint Check
 	// it's need to get three items, and first items
@@ -182,32 +267,65 @@ public class UIGameResult : UIBase {
 	//Show Award and LuckyThree
 	private void showAward () {
 		if(awardIndex == 0) {
-			showLuckyThree ();
+			showBonusItem ();
 		} else {
 			isShowAward = true;
 			awardGetTime = finishInterval;
 		}
 	}
+
+	private void showThree () {
+		for (int i=0; i<itemAwardGroup.Length; i++) {
+			itemAwardGroup[i].gameObject.SetActive(true);
+		}
+	}
+
+	private void hideThree () {
+		for (int i=0; i<itemAwardGroup.Length; i++) {
+			itemAwardGroup[i].gameObject.SetActive(false);
+		}
+	}
+
+	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true) {
+		GameObject obj = Instantiate(uiItem) as GameObject;
+		obj.name = itemData.ID.ToString();
+		if(isNeedAdd) {
+			obj.transform.parent = awardScrollView.transform;
+			obj.transform.localPosition = new Vector3(-450 + (150 * index), 0, 0);
+			obj.transform.localScale = Vector3.one;
+		}
+		obj.SetActive(isNeedAdd);
+
+		UIEventListener.Get(obj).onClick = OnShowAwardInfo;
+		return obj.GetComponent<ItemAwardGroup>();
+	}
+
+	private void addItemToBack (int id) {
+		bonusAwardItems[id].gameObject.name = id.ToString();
+		bonusAwardItems[id].transform.parent = awardScrollView.transform;
+		bonusAwardItems[id].transform.localPosition = new Vector3(-450 + (150 * alreadyGetItems.Count), 0, 0);
+		bonusAwardItems[id].transform.localScale = Vector3.one;
+		if(GameData.DItemData.ContainsKey(id))
+			bonusAwardItems[id].Show(GameData.DItemData[id]);
+
+		bonusAwardItems[id].gameObject.SetActive(true);
+		UIEventListener.Get(bonusAwardItems[id].gameObject).onClick = OnShowAwardInfo;
+		alreadyGetItems.Add(bonusAwardItems[id]);
+	}
+
+	private void showBonusItem () {
+		animatorAward.SetTrigger ("AwardViewDown");
+		Invoke("showLuckyThree", 1);
+	}
 	
 	private void showLuckyThree () {
-		animatorAward.SetTrigger ("AwardViewDown");
+		showThree ();
 		Invoke("show3DBasket", 1);
 	}
 
 	private void show3DBasket () {
+		hideThree ();
 		UI3DGameResult.UIShow(true);
-	}
-	
-	public void ChooseLucky(int index) {
-		Invoke ("showReturnButton", 2);
-		isChooseLucky = true;
-		if(index == 0) {
-
-		} else if(index == 1) {
-
-		} else if(index == 2) {
-
-		}
 	}
 
 	private void showReturnButton () {
@@ -215,6 +333,7 @@ public class UIGameResult : UIBase {
 	}
 
 	public void SetGameRecord(ref TGameRecord record) {
+		init ();
 		teamValue.SetValue(record);
 		if(record.Done) {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
