@@ -50,6 +50,8 @@ namespace GameStruct
         /// </summary>
         public Dictionary<int, int> StageChallengeNums;
 
+		public int[] FlagNums;
+
         public TAvatar Avatar;
         public List<TSkill> ActiveSkills;
         public TSkill[] SkillCards;
@@ -109,6 +111,7 @@ namespace GameStruct
 			Potential = new Dictionary<EAttribute, int> ();
             NextMainStageID = StageTable.MinMainStageID;
             StageChallengeNums = new Dictionary<int, int>();
+			FlagNums = new int[0];
         }
 
         public override string ToString()
@@ -501,6 +504,23 @@ namespace GameStruct
                     break;
             }
         }
+
+		public bool IsHadFlag(int flagID)
+		{
+			if(FlagNums == null)
+			{
+				FlagNums = new int[0];
+				return false;
+			}
+			else
+			{
+				for(int i = 0; i < FlagNums.Length;i++)
+					if(FlagNums[i] == flagID)
+						return true;
+			
+				return false;
+			}
+		}
 
         public int MaxAnger{
             get{
