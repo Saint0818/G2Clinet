@@ -108,19 +108,8 @@ public class PersonalView
 			expBar.value = 1;
 		}
 
-		int count = 0;
-		int average = 0;
-
-		if (player.Potential != null)
-			foreach (KeyValuePair<EAttribute, int> item in player.Potential) {
-				count += item.Value;
-		}
-
-		if(player.Potential != null)
-			average = count / player.Potential.Count;
-
-		powerValue.text = average.ToString();
-		powerBar.fillAmount = average / 100;
+		powerValue.text = player.Power().ToString();
+		powerBar.fillAmount = player.Power() / 100;
 	}
 
 	public bool Enable{set{self.SetActive(value);}}

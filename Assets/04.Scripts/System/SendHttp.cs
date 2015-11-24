@@ -113,6 +113,7 @@ public static class URLConst {
 	public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
 	public const string ChangeValueItems = "changevalueitems";
+	public const string BuyAvatarItem = "buyavataritem";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {

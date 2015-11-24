@@ -34,6 +34,7 @@ public struct TItemAvatar
 	private UISprite pic;
 	private UISprite OutLine;
 	private UIButton equipBtn;
+	private UIButton sellBtn;
 //	private UILabel equipLabel;
 	private UIButton buyBtn;
 	private UISprite TrimBottom;
@@ -48,20 +49,28 @@ public struct TItemAvatar
 		set{
 			mode = value;
 
-			if(mode == EAvatarMode.Sell)
-			{
-				if(!Equip){
-					equipBtn.defaultColor = GColor.Red;
-					equipBtn.hover = GColor.Red;
-				}
-			}
-			else
-			{
-				if(equipBtn){
-					equipBtn.defaultColor = (Equip == true) ? GColor.Equip : Color.white;
-					equipBtn.hover = (Equip == true) ? GColor.Equip : Color.white;
-				}
-			}
+//			if(mode == EAvatarMode.Sell)
+//			{
+//				sellBtn.enabled = true;
+//				buyBtn.enabled = false;
+//			}else
+
+
+
+//			if(mode == EAvatarMode.Sell)
+//			{
+//				if(!Equip){
+//					equipBtn.defaultColor = GColor.Red;
+//					equipBtn.hover = GColor.Red;
+//				}
+//			}
+//			else
+//			{
+//				if(equipBtn){
+//					equipBtn.defaultColor = (Equip == true) ? GColor.Equip : Color.white;
+//					equipBtn.hover = (Equip == true) ? GColor.Equip : Color.white;
+//				}
+//			}
 		}
 		get{return mode;}
 	}
@@ -88,7 +97,7 @@ public struct TItemAvatar
 	public bool Enable
 	{
 		set{
-			CheckEquipBtnName();
+			UpdateBtnUseState();
 
 			if(Self){
 				Self.SetActive(value);
@@ -183,34 +192,12 @@ public struct TItemAvatar
 		get{return currentTime;}
 	}
 
-	public void CheckEquipBtnName()
+	public void UpdateBtnUseState()
 	{
-		switch (UseKind) 
-		{
-			case 2:
-				if(mode == EAvatarMode.Sell){
-//					equipLabel.text = "SELL";
-				}else{
-					TrimBottom.enabled = true;
-//					equipLabel.text = "FETTING";
-				}
-				break;
-			default:
-				if(mode == EAvatarMode.Sell){
-//					if(Equip)
-//						equipLabel.text = "EQUIPED";
-//					else
-//						equipLabel.text = "SELL";
-				}else{
-					TrimBottom.enabled = false;
-					
-//					if(Equip)
-//						equipLabel.text = "EQUIPED";
-//					else
-//						equipLabel.text = "EQUIP";
-				}
-			break;
-		}
+		// 永久性裝備 : -1, 時效性裝備 : 1, 已過期裝備 : 2
+		sellBtn.gameObject.SetActive((mode == EAvatarMode.Sell? true : false));
+		buyBtn.gameObject.SetActive(!sellBtn.gameObject.activeSelf && UseKind != -1);
+		TrimBottom.gameObject.SetActive (UseKind == 2? true : false);
 	}
 
 	public bool Equip
@@ -220,7 +207,7 @@ public struct TItemAvatar
 			EquipedIcon.enabled = isEquip;
 			equipBtn.defaultColor = (isEquip == true) ? GColor.Equip : GColor.White;
 			equipBtn.hover = (isEquip == true) ? GColor.Equip : GColor.White;
-			CheckEquipBtnName();
+			UpdateBtnUseState();
 		}
 		get{
 			return isEquip;
@@ -231,7 +218,6 @@ public struct TItemAvatar
 	{
 		if (!isInit) {
 			if (Self) {
-				Mode = EAvatarMode.Normal;
 				name = Self.transform.FindChild ("ItemName").gameObject.GetComponent<UILabel> ();
 				usetime = Self.transform.FindChild ("DeadlineLabel").gameObject.GetComponent<UILabel> ();
 //				timeBar = usetime.transform.FindChild ("TimeBar").gameObject.GetComponent<UISlider> ();
@@ -239,26 +225,28 @@ public struct TItemAvatar
 				pic = Self.transform.FindChild ("ItemPic").gameObject.GetComponent<UISprite> ();
 				OutLine = Self.transform.FindChild ("ItemPic/OutLine").gameObject.GetComponent<UISprite> ();
 				TrimBottom = Self.transform.FindChild ("TrimBottom").gameObject.GetComponent<UISprite> ();
+				sellBtn = Self.transform.FindChild ("SellBtn").gameObject.GetComponent<UIButton> ();
 				SellSelect = Self.transform.FindChild ("SellSelect").gameObject.GetComponent<UISprite> ();
 				Selected = false;
 				EquipedIcon = Self.transform.FindChild ("EquipedIcon").gameObject.GetComponent<UISprite> ();
 				equipBtn = Self.transform.GetComponent<UIButton> ();
 
-				if(equipBtn){
-					equipBtn.name = Self.name;
-//					equipLabel = equipBtn.transform.FindChild("EquipLabel").gameObject.GetComponent<UILabel>();
-				}
-
 				buyBtn = Self.transform.FindChild ("BuyBtn").gameObject.GetComponent<UIButton> ();
-
+				
 				if(buyBtn){
 					buyBtn.name = Self.name;
 					PriceLabel = buyBtn.transform.FindChild("PriceLabel").gameObject.GetComponent<UILabel>();
 					InfoLabel = buyBtn.transform.FindChild("InfoLabel").gameObject.GetComponent<UILabel>();
 				}
+
+				if(equipBtn && sellBtn){
+					equipBtn.name = Self.name;
+					sellBtn.name = Self.name;
+				}
 			}
 		}
 		isInit = name && usetime && abilityValue && pic;
+		Mode = EAvatarMode.Normal;
 	}
 
 //	public void CheckItemUseKind()
@@ -289,7 +277,7 @@ public struct TItemAvatar
 //		}
 //	}
 
-	public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc)
+	public void InitBtttonFunction(EventDelegate BuyFunc, EventDelegate EquipFunc, EventDelegate SellFunc)
 	{
 		if (isInitBtn)
 			return;
@@ -306,6 +294,10 @@ public struct TItemAvatar
 		else{
 			isInitBtn = false;
 			return;
+		}
+
+		if (sellBtn) {
+			sellBtn.onClick.Add (SellFunc);
 		}
 
 		isInitBtn = true;
@@ -378,6 +370,7 @@ public class UIAvatarFitted : UIBase {
 	private GameObject SellCount;
 	private UILabel TotalPriceLabel;
 	private int totalPrice = 0;
+	private int BuyIndex = 0;
 	
 	private Dictionary<int, TEquip> Equips = new Dictionary<int, TEquip>();
 	private Dictionary<int, TEquip> UnEquips = new Dictionary<int, TEquip>();
@@ -582,7 +575,7 @@ public class UIAvatarFitted : UIBase {
 				backpackItems[i].EnablePool = enablePool;
 //					grid.gameObject.transform;
 				backpackItems[i].Init();
-				backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip));
+				backpackItems[i].InitBtttonFunction(new EventDelegate(OnBuy), new EventDelegate(OnEquip), new EventDelegate(OnSellSelect));
 			}
 
 			//InitData
@@ -735,20 +728,42 @@ public class UIAvatarFitted : UIBase {
 		sortlist.Clear ();
 		enablePool.gameObject.SetActive (false);
 		enablePool.gameObject.SetActive (true);
-//		grid.Reposition ();
-//		grid.gameObject.SetActive (false);
-//		grid.gameObject.SetActive (true);
 		scrollView.ResetPosition ();
 		scrollView.enabled = false;
 		scrollView.enabled = true;
 	}
-
+	
 	public void OnBuy()
 	{
 		int index;
-
+		BuyIndex = -1;
 		if (int.TryParse (UIButton.current.name, out index)) {
-			Debug.Log ("Buy id : " + index);
+			BuyIndex = index;
+			string ask = string.Format(TextConst.S(208), GameData.DItemData[backpackItems[index].ID].Buy, backpackItems[index].Name);
+			UIMessage.Get.ShowMessage(TextConst.S(201), ask, OnYesBuy);
+		}
+	}
+
+	public void OnYesBuy(object obj)
+	{
+		if (BuyIndex != -1) {
+			int from = 0;//0:team.items -1:player.Items
+			int buyIndex = 0;
+			if(backpackItems[BuyIndex].Index == -1)
+			{
+				from = -1;
+				buyIndex = avatarPart;
+				
+			}else
+			{
+				from = 0;
+				buyIndex = BuyIndex;
+			}
+			
+			WWWForm form = new WWWForm();
+			form.AddField("From", from);
+			form.AddField("Index", buyIndex);
+			SendHttp.Get.Command(URLConst.BuyAvatarItem, waitBuyItem, form);
 		}
 	}
 
@@ -835,8 +850,28 @@ public class UIAvatarFitted : UIBase {
 			backpackItems[i].Equip = false;
 	}
 
+	public void OnSellSelect()
+	{
+		if (Mode == EAvatarMode.Sell){
+			int index;
+			if (int.TryParse (UIButton.current.name, out index)) {
+				if(index < backpackItems.Length){
+					if(backpackItems[index].Equip)
+						return;
+					else{
+						backpackItems[index].Selected = !backpackItems[index].Selected;
+						UpdateSellMoney ();
+					}
+				}
+			}
+		}
+	}
+
 	public void OnEquip()
 	{
+		if (Mode == EAvatarMode.Sell)
+			return;
+
 		int index;
 
 		if (enableCount <= 1 && avatarPart < 5 && avatarPart != 2) {
@@ -849,14 +884,14 @@ public class UIAvatarFitted : UIBase {
 			{
 				switch(Mode)
 				{
-					case EAvatarMode.Sell:
-						if(backpackItems[index].Equip)
-							return;
-						else{
-							backpackItems[index].Selected = !backpackItems[index].Selected;
-							UpdateSellMoney ();
-						}
-						break;
+//					case EAvatarMode.Sell:
+//						if(backpackItems[index].Equip)
+//							return;
+//						else{
+//							backpackItems[index].Selected = !backpackItems[index].Selected;
+//							UpdateSellMoney ();
+//						}
+//						break;
 					default:
 						TEquip equip = new TEquip();
 						int kind = GameFunction.GetItemKind(backpackItems[index].ID);
@@ -1058,6 +1093,20 @@ public class UIAvatarFitted : UIBase {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Items = team.Items;
 			GameData.Team.Money = team.Money;
+			UIMainLobby.Get.UpdateUI();
+			ChangeMode(EAvatarMode.Normal);
+			UpdateAvatar();
+		}
+	}
+
+	private void waitBuyItem(bool ok, WWW www)
+	{
+		if(ok)
+		{
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.Items = team.Items;
+			GameData.Team.Player.Items = team.Player.Items;
+			GameData.Team.Diamond = team.Diamond;
 			UIMainLobby.Get.UpdateUI();
 			ChangeMode(EAvatarMode.Normal);
 			UpdateAvatar();

@@ -272,6 +272,11 @@ namespace GameStruct
 				}
 		}
 
+		public float Power()
+		{
+			return (Point2 + Point3 + Speed + Stamina + Strength + Dunk + Rebound + Block + Defence + Steal + Dribble + Pass) / GameConst.AttributeCount;
+		}
+
         public void SetSkill (ESkillType type){
             if(ActiveSkills == null)
                 ActiveSkills = new List<TSkill>();

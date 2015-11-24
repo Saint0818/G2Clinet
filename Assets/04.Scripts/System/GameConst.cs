@@ -156,4 +156,5 @@
     /// 屬性全滿的數值.
     /// </summary>
     public const float AttributeMax = 100;
+    public const float AttributeCount = 12;
 }
