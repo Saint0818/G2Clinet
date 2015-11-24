@@ -571,4 +571,105 @@ public static class GameFunction
 		return result;
 	}
 
+	public static string GetStringExplain (string explain ,int id, int lv) {
+		float six = 0;
+		float seven = 0;
+		float eight = 0;
+		float nine = 0;
+		float ten = 0;
+		float eleven = 0;
+		float value =  GameData.DSkillData[id].Value(lv);
+		switch(GameData.DSkillData[id].AttrKind) {
+		case 1:
+			six = GetAttributeFormula(EPlayerAttributeRate.Point2Rate, value);
+			break;
+		case 2:
+			six = GetAttributeFormula(EPlayerAttributeRate.Point3Rate, value);
+			break;
+		case 5:
+			seven = GetAttributeFormula(EPlayerAttributeRate.ElbowingRate, value);
+			eight = GetAttributeFormula(EPlayerAttributeRate.StrengthRate, value);
+			nine = GetAttributeFormula(EPlayerAttributeRate.BlockPushRate, value);
+			break;
+		case 6:
+			seven = GetAttributeFormula(EPlayerAttributeRate.DunkRate, value);
+			eight = GetAttributeFormula(EPlayerAttributeRate.AlleyOopRate, value);
+			nine = GetAttributeFormula(EPlayerAttributeRate.TipInRate, value);
+			break;
+		case 7:
+			seven = GetAttributeFormula(EPlayerAttributeRate.TipInRate, value);
+			ten = GetAttributeFormula(EPlayerAttributeRate.ReboundHeadDistance, value);
+			eleven = GetAttributeFormula(EPlayerAttributeRate.ReboundHandDistance, value);
+			break;
+		case 8:
+			seven = GetAttributeFormula(EPlayerAttributeRate.BlockRate, value);
+			eight = GetAttributeFormula(EPlayerAttributeRate.FakeBlockrate, value);
+			ten = GetAttributeFormula(EPlayerAttributeRate.BlockDistance, value);
+			break;
+		case 9:
+			seven = GetAttributeFormula(EPlayerAttributeRate.PushingRate, value);
+			eleven = GetAttributeFormula(EPlayerAttributeRate.PushingRate, value);
+			ten = GetAttributeFormula(EPlayerAttributeRate.DefDistance, value);
+			break;
+		case 10:
+			seven = GetAttributeFormula(EPlayerAttributeRate.StealRate, value);
+			break;
+		case 12:
+			six = GetAttributeFormula(EPlayerAttributeRate.PassRate, value);
+			seven = GetAttributeFormula(EPlayerAttributeRate.AlleyOopPassRate, value);
+			break;
+		}
+
+		return string.Format(explain, 
+				             GameData.DSkillData[id].MaxAnger,//0
+				             GameData.DSkillData[id].AniRate(lv),//1
+				             GameData.DSkillData[id].Distance(lv),//2
+				             GameData.DSkillData[id].AttrKind,//3
+				             GameData.DSkillData[id].Value(lv),//4
+				             GameData.DSkillData[id].LifeTime(lv),//5
+		                     six,//6
+		                     seven,//7
+		                     eight,//8
+		                     nine,//9
+		                     ten,//10
+		                     eleven//11
+		                     );
+	}
+
+	public static float GetAttributeFormula (EPlayerAttributeRate attr, float value) {
+		switch (attr) {
+		case EPlayerAttributeRate.Point2Rate:
+		case EPlayerAttributeRate.Point3Rate:
+		case EPlayerAttributeRate.BlockPushRate:
+			return value * 0.5f;
+		case EPlayerAttributeRate.SpeedValue:
+			return value * 0.002f;
+		case EPlayerAttributeRate.StaminaValue:
+		case EPlayerAttributeRate.PushingRate:
+			return value * 1f;
+		case EPlayerAttributeRate.StrengthRate:
+		case EPlayerAttributeRate.DunkRate:
+		case EPlayerAttributeRate.TipInRate:
+		case EPlayerAttributeRate.ReboundRate:
+		case EPlayerAttributeRate.BlockRate:
+			return value * 0.9f;
+		case EPlayerAttributeRate.ElbowingRate:
+			return value * 0.8f;
+		case EPlayerAttributeRate.AlleyOopRate:
+		case EPlayerAttributeRate.AlleyOopPassRate:
+			return value * 0.6f;
+		case EPlayerAttributeRate.ReboundHeadDistance:
+			return value * 0.005f;
+		case EPlayerAttributeRate.ReboundHandDistance:
+			return value * 0.02f;
+		case EPlayerAttributeRate.FakeBlockrate:
+			return (100 - (value / 1.15f));
+		case EPlayerAttributeRate.BlockDistance:
+		case EPlayerAttributeRate.StealRate:
+			return value * 0.1f;
+		case EPlayerAttributeRate.PassRate:
+			return value * 0.7f;
+		}
+		return 0;
+	}
 }

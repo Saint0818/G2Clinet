@@ -101,15 +101,7 @@ public class UISkillInfo : UIBase {
 			Get.sliderDistance.value = skillData.Distance(lv) / 30f;
 			
 			//Explain
-//			Get.labelSkillExplain.text = skillData.Explain;
-			Get.labelSkillExplain.text = string.Format(skillData.Explain, 
-			                                           GameData.DSkillData[info.ID].MaxAnger,//0
-			                                           GameData.DSkillData[info.ID].AniRate(lv),//1
-			                                           GameData.DSkillData[info.ID].Distance(lv),//2
-			                                           GameData.DSkillData[info.ID].AttrKind,//3
-			                                           GameData.DSkillData[info.ID].Value(lv),//4
-			                                           GameData.DSkillData[info.ID].LifeTime(lv),//5
-			                                           GameFunction.GetKindFormula(GameData.DSkillData[info.ID].AttrKind, GameData.DSkillData[info.ID].Value(lv)));
+			Get.labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, info.ID, int.Parse(info.Lv));
 		}
 		if (instance) {
 			if (!isShow)

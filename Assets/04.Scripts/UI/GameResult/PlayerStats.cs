@@ -25,21 +25,8 @@ public class PlayerStats : MonoBehaviour {
 			PlayerName[index].text = name;
 	}
 
-	public void SetPlayerIcon (int index, int position) {
+	public void SetPlayerIcon (int index, string name) {
 		if(index >= 0 && index < 6)
-			PlayerIcon[index].spriteName = getPosition(position) + "s";
-	}
-
-	private string getPosition (int position) {
-		switch (position) {
-		case 0:
-			return "11800";
-		case 1:
-			return "12100";
-		case 2:
-			return "13000";
-		default:
-			return "11800";
-		}
+			PlayerIcon[index].spriteName = name;
 	}
 }

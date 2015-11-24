@@ -159,6 +159,32 @@ namespace GameStruct {
 	    public float PunishTime = GameConst.DefaultPunishTime;
     }
 
+	public enum EPlayerAttributeRate
+	{
+		Point2Rate,
+		Point3Rate,
+		SpeedValue,
+		StaminaValue,
+		JumpBallRate,
+		StrengthRate,
+		BlockPushRate,
+		ElbowingRate,
+		DunkRate,
+		TipInRate,
+		AlleyOopRate,
+		ReboundRate,
+		ReboundHeadDistance,
+		ReboundHandDistance,
+		BlockRate,
+		FakeBlockrate,
+		BlockDistance,
+		DefDistance,
+		PushingRate,
+		StealRate,
+		PassRate,
+		AlleyOopPassRate
+	}
+
 	public struct TAvatar {	
 		public int Body;
 		public int Hair; // Item.Avatar

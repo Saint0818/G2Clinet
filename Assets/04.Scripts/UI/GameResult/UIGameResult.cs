@@ -219,7 +219,7 @@ public class UIGameResult : UIBase {
 		if(record.Done) {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
 				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
-				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.BodyType);
+				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
 //				if(i == 1 || i == 2)//need get friend list
 //					playerStats.ShowAddFriendBtn(i);
 				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
