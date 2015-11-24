@@ -15,6 +15,7 @@ public class UIEquipItem : MonoBehaviour
 
     public UISprite Picture;
     public UILabel Text;
+    public UILabel Amount;
     public GameObject[] InlaySlots;
     public GameObject[] Inlays;
 
@@ -22,6 +23,8 @@ public class UIEquipItem : MonoBehaviour
     private void Awake()
     {
         // 暫時關閉.
+        Amount.gameObject.SetActive(false);
+
         foreach(GameObject inlay in Inlays)
         {
             inlay.SetActive(false);

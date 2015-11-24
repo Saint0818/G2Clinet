@@ -19,6 +19,7 @@ public class UIEquipDetail : MonoBehaviour
 
     public Transform ItemParent;
     public UIButton UpgradeButton;
+    public UILabel Desc;
 
     private UIEquipItem mEquipItem;
 
@@ -50,6 +51,7 @@ public class UIEquipDetail : MonoBehaviour
     {
         mSlotIndex = slotIndex;
         mEquipItem.Set(item);
+        Desc.text = item.Desc;
 
         foreach(UIEquipDetailAttr attr in mAttrs)
         {

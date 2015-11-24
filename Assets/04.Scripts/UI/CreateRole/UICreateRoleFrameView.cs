@@ -17,7 +17,6 @@ public class UICreateRoleFrameView : MonoBehaviour
 {
     public GameObject Window;
     public UICreateRolePlayerSlot[] Slots;
-//    public UIConfirmDialog ConfirmDialog;
 
     public string LockButtonSpriteName;
     public string LockBGSpriteName;
@@ -48,8 +47,6 @@ public class UICreateRoleFrameView : MonoBehaviour
         }
 
         FullScreenBlock.SetActive(false);
-
-//        ConfirmDialog.OnYesListener += onConfirmDelete;
 
         ShowNum = DefaultShowNum;
     }
