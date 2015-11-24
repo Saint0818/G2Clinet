@@ -15,7 +15,10 @@ public class UIMainLobbyImpl : MonoBehaviour
     public UILabel MoneyLabel;
     public UILabel DiamondLabel;
     public UILabel PowerLabel; // 體力.
+
     public UISprite PlayerIconSprite;
+    public UIButton PlayerButton;
+
     public GameObject Settings;
 	public UIButton PlayerInfoBtn;
     public UILabel NameLabel;
@@ -49,7 +52,11 @@ public class UIMainLobbyImpl : MonoBehaviour
 
     public string PlayerIcon
     {
-        set { PlayerIconSprite.spriteName = value; }
+        set
+        {
+            PlayerIconSprite.spriteName = value;
+            PlayerButton.normalSprite = value;
+        }
     }
 
     /// <summary>
