@@ -1,3 +1,4 @@
+﻿using System.Collections;
 using UnityEngine;
 
 public class UIHint : UIBase
@@ -6,6 +7,8 @@ public class UIHint : UIBase
 	private const string UIName = "UIHint";
 //	private float timer = -1;
 	private UILabel mLabel;
+
+    private const float AutoHideTime = 1.8f; // 單位: 秒.
 
 	public static bool Visible
 	{
@@ -40,13 +43,8 @@ public class UIHint : UIBase
 		}
 	}
 
-	protected override void InitCom() {
-//		for (int i = 0; i < LabelHints.Length; i ++) {
-//			LabelHints[i] = GameObject.Find(UIName + "/Message" + i.ToString()).GetComponent<UILabel>();
-//			LabelHints[i].text = "";
-//			LabelHints[i].gameObject.SetActive(false);
-//		}
-
+	protected override void InitCom()
+    {
         mLabel = GameObject.Find(UIName + "/Center/ContentView/UIHintLabel").GetComponent<UILabel>();
 	    mLabel.text = string.Empty;
 
@@ -56,6 +54,20 @@ public class UIHint : UIBase
     public void Hide()
     {
         UIShow(false);
+    }
+
+    protected override void OnShow(bool isShow)
+    {
+        base.OnShow(isShow);
+
+        StartCoroutine(autoHide());
+    }
+
+    private IEnumerator autoHide()
+    {
+        yield return new WaitForSeconds(AutoHideTime);
+
+        Hide();
     }
 
     public void ShowHint(string text, Color color)
