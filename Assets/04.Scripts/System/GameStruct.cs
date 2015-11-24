@@ -12,6 +12,7 @@ namespace GameStruct {
 		public string FBid;
 		public DateTime LoginTime;
 		public DateTime PowerCD;
+		public DateTime LookFriendTime;
 		public DateTime FreeLuckBox;
 	    public int PlayerNum; // 玩家擁有幾位角色.
 
@@ -26,6 +27,7 @@ namespace GameStruct {
 		public TSkill[] SkillCards;
 		public TPlayerBank[] PlayerBank;
 		public TMail[] Mails;
+		public TFriend[] Friends;
 
 		public void Init() {
 			if (Identifier == null)
@@ -105,6 +107,12 @@ namespace GameStruct {
             return string.Format("ID:{0}, Name:{1}, RoleIndex:{2}", ID, Name, RoleIndex);
         }
     }
+
+	public struct TFriend {
+		public string Identifier;
+		public int Kind;
+		public TPlayer Player;
+	}
 
 	public struct TSkillCardPage {
 		public int[] SNs;

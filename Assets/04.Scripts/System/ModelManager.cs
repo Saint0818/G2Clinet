@@ -65,7 +65,7 @@ public class ModelManager : KnightSingleton<ModelManager> {
         }
     }
 
-	public void LoadAllSelectPlayer(int[] id) {
+	public void LoadAllSelectPlayer(ref int[] id) {
 		//load animator
 		for (int i = 0; i < 3; i++) {
 			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()), string.Format("{0}{1}", EAnimatorType.AnimationControl,i));

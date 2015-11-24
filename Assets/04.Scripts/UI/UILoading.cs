@@ -118,7 +118,6 @@ public class UILoading : UIBase {
 		case ELoadingGamePic.SelectRole:
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
-			ModelManager.Get.LoadAllSelectPlayer(GameConst.SelectRoleID);
 
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
@@ -200,11 +199,7 @@ public class UILoading : UIBase {
 	}
 
 	private void loadStage() {
-		UIShow(false);
-		CameraMgr.Get.SetSelectRoleCamera();
-		UISelectRole.UIShow(true);
-		UISelectRole.Get.SelectFriendMode();
-		UI3DSelectRole.UIShow(true);
+		UISelectRole.Get.InitFriend();
 	}
 
 	private void showPage (int page) {

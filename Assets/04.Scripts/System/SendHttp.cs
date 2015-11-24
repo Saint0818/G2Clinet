@@ -20,6 +20,7 @@ public static class URLConst {
 	public const string CheckSession = "checksession";
 	public const string DeviceLogin = "devicelogin";
 	public const string LookPlayerBank = "lookplayerbank";
+	public const string LookFriends = "lookfriends";
 	public const string CreateRole = "createrole";
 	public const string SelectRole = "selectrole";
 	public const string DeleteRole = "deleterole";
@@ -30,18 +31,17 @@ public static class URLConst {
 	public const string SellSkillcard = "sellskillcard";
 	public const string ScenePlayer = "sceneplayer";
 	public const string ChangePlayerName = "changeplayername";
+	public const string PVEStart = "pvestart";
+	public const string PVEEnd = "pveend";
+	public const string GameRecord = "gamerecord";
 
 	public const string LinkFB = "linkfb";
-	public const string TeamName = "teamname";
 	public const string Conference = "conference";
-	public const string GameRecord = "gamerecord";
 	public const string PVPAward = "pvpaward";
 	public const string IsSeePVPList = "isseepvplist";
 	public const string Revenge = "revenge";
 	public const string PVPStart = "pvpstart";
 	public const string PVPEnd = "pvpend";
-	public const string PVEStart = "pvestart";
-	public const string PVEEnd = "pveend";
 	public const string Tutorial = "tutorial";
 	public const string PlayerKind = "playerkind";
 	public const string AutoPower = "autopower";

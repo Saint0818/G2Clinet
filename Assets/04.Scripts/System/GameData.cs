@@ -48,8 +48,9 @@ public static class GameData {
 
 	public static TScenePlayer ScenePlayer;
 	public static TTeam Team;
-	public static TTeam[] TeamMembers = new TTeam[3];
-	public static TTeam[] EnemyMembers = new TTeam[3];
+	public const int Max_GamePlayer = 3;
+	public static TTeam[] TeamMembers = new TTeam[Max_GamePlayer];
+	public static TTeam[] EnemyMembers = new TTeam[Max_GamePlayer];
 	public static TGameSetting Setting;
 
     /// <summary>

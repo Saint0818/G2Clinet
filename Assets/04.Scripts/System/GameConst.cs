@@ -11,8 +11,6 @@
 	public const int Default_MainStageID = 101;
 	public const int Max_ActiveSkill = 3;
 
-	public static int[] SelectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
-
 	public static int PotentialCount = 6;
 	public static int PreLvPotential = 10;
 	public static int PotentialResetPrice = 100;

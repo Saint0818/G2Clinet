@@ -363,14 +363,9 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	private void checkPlayerID() {
-		if (!GameData.DPlayers.ContainsKey(GameData.Team.Player.ID))
-			GameData.Team.Player.SetID(14);
-
-		if (!GameData.DPlayers.ContainsKey(GameData.TeamMembers[0].Player.ID))
-			GameData.TeamMembers[0].Player.SetID(24);
-
-		if (!GameData.DPlayers.ContainsKey(GameData.TeamMembers[1].Player.ID))
-			GameData.TeamMembers[1].Player.SetID(34);
+		for (int i = 0; i < GameData.TeamMembers.Length; i ++)
+			if (!GameData.DPlayers.ContainsKey(GameData.TeamMembers[i].Player.ID))
+				GameData.TeamMembers[i].Player.SetID(14 + i*10);
 
 		for (int i = 0; i < GameData.EnemyMembers.Length; i ++)
 			if (!GameData.DPlayers.ContainsKey(GameData.EnemyMembers[i].Player.ID))
@@ -502,29 +497,12 @@ public class GameController : KnightSingleton<GameController>
 				}
 			} else {
 				checkPlayerID();
+				int num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
+				for (int i = 0; i < num; i++)
+					PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
 
-				switch (GameStart.Get.FriendNumber)
-	            {
-				    case 1:
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-	                    break;
-				    case 2:
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
-	                    break;
-
-	                case 3:
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, mJumpBallPos[3], GameData.EnemyMembers[0].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], GameData.EnemyMembers[1].Player));
-	                    PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Npc, mJumpBallPos[5], GameData.EnemyMembers[2].Player));
-	                    break;
-	            }
+				for (int i = 0; i < num; i++)
+					PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Npc, mJumpBallPos[i+3], GameData.EnemyMembers[i].Player));
 			}
 
 			//1.G(Dribble) 2.C(Rebound) 3.F
@@ -543,25 +521,25 @@ public class GameController : KnightSingleton<GameController>
     	case EGameTest.Shoot:
     	case EGameTest.Dunk:
 		case EGameTest.Rebound:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new GameStruct.TPlayer(0)));	
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.TeamMembers[0].Player));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Npc, mJumpBallPos[4], new TPlayer(0)));	
 			SetBornPositions();
         	UIGame.Get.ChangeControl(true);
 			SetPlayerAI(false);
         	break;
 		case EGameTest.AnimationUnit:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
     	case EGameTest.AttackB:
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Npc, new Vector3(0, 0, 0), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
     	case EGameTest.Block:
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, -8.4f), new GameStruct.TPlayer(0)));
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, -4.52f), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, -8.4f), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, -4.52f), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
@@ -571,30 +549,29 @@ public class GameController : KnightSingleton<GameController>
 			Self.Steal = UnityEngine.Random.Range(20, 100) + 1;			
 
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), Self));
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Npc, new Vector3 (0, 0, 5), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
         	break;
 		case EGameTest.Alleyoop:
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (0, 0, 3), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (0, 0, 3), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			PlayerList[1].IsJumpBallPlayer = true;
 			break;
 		case EGameTest.Pass:
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (-5, 0, -2), new GameStruct.TPlayer(0)));
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, ETeamKind.Self, new Vector3 (5, 0, -2), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Self, new Vector3 (-5, 0, -2), new TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (2, ETeamKind.Self, new Vector3 (5, 0, -2), new TPlayer(0)));
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
     	case EGameTest.Edit:
-			GameData.Team.Player.SetID(34);		
-			GameData.TeamMembers[0].Player.SetID(24);			
-			GameData.TeamMembers[1].Player.SetID(14);
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(0, ETeamKind.Self, mJumpBallPos[0], GameData.Team.Player));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(1, ETeamKind.Self, mJumpBallPos[1], GameData.TeamMembers[0].Player));	
-			PlayerList.Add(ModelManager.Get.CreateGamePlayer(2, ETeamKind.Self, mJumpBallPos[2], GameData.TeamMembers[1].Player));
+			checkPlayerID();
+			int num = Mathf.Min(GameStart.Get.FriendNumber, GameData.Max_GamePlayer);
+			for (int i = 0; i < num; i++)
+				PlayerList.Add(ModelManager.Get.CreateGamePlayer(i, ETeamKind.Self, mJumpBallPos[i], GameData.TeamMembers[i].Player));
+
 			PlayerList[0].IsJumpBallPlayer = true;
 			SetPlayerAI(false);
 			break;
@@ -611,7 +588,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;
@@ -619,7 +596,7 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.ID == 0) 
 				GameData.Team.Player.SetID(14);
 			
-			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new GameStruct.TPlayer(0)));
+			PlayerList.Add (ModelManager.Get.CreateGamePlayer (0, ETeamKind.Self, new Vector3(0, 0, 0), new TPlayer(0)));
 			PlayerList.Add (ModelManager.Get.CreateGamePlayer (1, ETeamKind.Npc, new Vector3 (0, 0, 5), new TPlayer(0)));
 			SetPlayerAI(false);
 			break;

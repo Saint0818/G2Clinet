@@ -193,7 +193,6 @@ public class UIBase: MonoBehaviour
 			if (!string.IsNullOrEmpty(labs[i].text) && int.TryParse(labs[i].text, out id) && TextConst.HasText(id))
 				labs[i].text = TextConst.S(id);
 		}
-
 	}
 
     protected virtual void InitText()

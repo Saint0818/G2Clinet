@@ -86,6 +86,7 @@
         "searchkind": 1,
         "searchvalue": [1,20],
         "friendnumber": 3,
+        "FriendKind": 1,
         "playerid": [10,20,30],
         "namecn": "初试啼声",
         "nameen": "Debut",
