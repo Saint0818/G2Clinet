@@ -39,6 +39,7 @@ public class UIGameResult : UIBase {
 	private int awardMax;
 	private bool isShowAward = false;
 	private float awardGetTime = 0;
+	private float awardGetTimeInterval = 0.5f;
 
 	private ItemAwardGroup[] itemAwardGroup = new ItemAwardGroup[3];
 
@@ -81,8 +82,7 @@ public class UIGameResult : UIBase {
 			if(finishTime <= 0) {
 				if(hintIndex == -1) {
 					isShowFinish = false;
-					animatorBottomView.SetTrigger("Down");
-					uiStatsNext.SetActive(true);
+					Invoke("finishStageHint", 1);
 				} else {
 					if(hintIndex > 0 && hintIndex < mTargets.Length)
 						mTargets[hintCount - hintIndex].UpdateFin(true);
@@ -102,6 +102,8 @@ public class UIGameResult : UIBase {
 				} else {
 					if((awardMax - awardIndex) < awardMax)
 						alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemIDs[(awardMax - awardIndex)]]);
+
+					awardGetTime = awardGetTimeInterval;
 					awardIndex --;
 				}
 			}
@@ -194,11 +196,11 @@ public class UIGameResult : UIBase {
 //		chooseIndex = alreadGetBonusID;
 		isChooseLucky = true;
 		if(index == 0) {
-			Invoke("showOneItem", 1);
+			Invoke("showOneItem", 0.5f);
 		} else if(index == 1) {
-			Invoke("showTwoItem", 1);
+			Invoke("showTwoItem", 0.5f);
 		} else if(index == 2) {
-			Invoke("showThreeItem", 1);
+			Invoke("showThreeItem", 0.5f);
 		}
 	}
 
@@ -219,8 +221,12 @@ public class UIGameResult : UIBase {
 		itemAwardGroup[index].gameObject.SetActive(true);
 		if(GameData.DItemData.ContainsKey(alreadGetBonusID))
 			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
-		itemAwardGroup[index].transform.DOLocalMove(new Vector3(0, -100, 0), 1f).OnComplete(MoveItemFin);
+		Invoke("MoveItem",1);
 		chooseCount ++ ;
+	}
+
+	private void MoveItem () {
+		itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(-300 + (alreadyGetItems.Count * 100), -170, 0), 1f).OnComplete(MoveItemFin);
 	}
 
 	public void MoveItemFin () {
@@ -259,6 +265,10 @@ public class UIGameResult : UIBase {
 		finishTime = finishInterval;
 	}
 
+	private void finishStageHint (){
+		animatorBottomView.SetTrigger("Down");
+		uiStatsNext.SetActive(true);}
+
 	//Show Team Stats
 	private void showTeamStats () {
 		animatorBottomView.SetTrigger("TeamStats");
@@ -270,7 +280,7 @@ public class UIGameResult : UIBase {
 			showBonusItem ();
 		} else {
 			isShowAward = true;
-			awardGetTime = finishInterval;
+			awardGetTime = awardGetTimeInterval;
 		}
 	}
 
