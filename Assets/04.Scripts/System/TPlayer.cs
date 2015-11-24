@@ -160,6 +160,7 @@ namespace GameStruct
                 SetSkill(type);
 
                 addEquipValues();
+				addPotentialValues();
             }
         }
 
@@ -221,6 +222,55 @@ namespace GameStruct
                 }
             }
         }
+
+		public void addPotentialValues()
+		{
+			if (Potential == null)
+				return;
+
+			foreach(KeyValuePair<EAttribute, int> item in Potential)
+			{
+				switch(item.Key)
+				{
+					case EAttribute.Point2:
+						Point2 += item.Value;
+						break;
+					case EAttribute.Point3:
+						Point3 += item.Value;
+						break;
+					case EAttribute.Dunk:
+						Dunk += item.Value;
+						break;
+					case EAttribute.Rebound:
+						Rebound += item.Value;
+						break;
+					case EAttribute.Block:
+						Block += item.Value;
+						break;
+					case EAttribute.Steal:
+						Steal += item.Value;
+						break;
+					case EAttribute.Stamina:
+						Stamina += item.Value;
+						break;
+					case EAttribute.Defence:
+						Defence += item.Value;
+						break;
+					case EAttribute.Dribble:
+						Dribble += item.Value;
+						break;
+					case EAttribute.Pass:
+						Pass += item.Value;
+						break;
+					case EAttribute.Speed:
+						Speed += item.Value;
+						break;
+					case EAttribute.Strength:
+						Strength += item.Value;
+						break;
+					}
+				}
+		}
 
         public void SetSkill (ESkillType type){
             if(ActiveSkills == null)
