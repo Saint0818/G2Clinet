@@ -1,6 +1,7 @@
 using UnityEngine;
 using Newtonsoft.Json;
 using GameEnum;
+using GameStruct;
 
 public class NameView
 {
@@ -157,8 +158,11 @@ public class UINamed : UIBase {
 	{
 		if (ok)
 		{
-			GameData.Team.Player.Name = www.text;
-			UIHint.Get.ShowHint("Change Name Success!", Color.black);
+			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+			GameData.Team.Player.Name = team.Player.Name;
+			GameData.Team.Diamond = team.Diamond;
+			UIMainLobby.Get.UpdateUI();
+//			UIHint.Get.ShowHint("Change Name Success!", Color.black);
 		}
 		else
 			UIHint.Get.ShowHint("Change Player Name fail!", Color.red);

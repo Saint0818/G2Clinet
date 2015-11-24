@@ -7,7 +7,7 @@ public class PersonalView
 {
 	private GameObject self;
 	private UIButton changeHeadBtn;
-//	private UISprite headTex;
+	private UISprite headTex;
 	private UILabel lv;
 	private UILabel name;
 	private UISlider expBar;
@@ -27,7 +27,7 @@ public class PersonalView
 		if (self) {
 			playerName = self.transform.FindChild("PlayerName").gameObject.GetComponent<UIButton>();
 			changeHeadBtn = self.transform.FindChild("PlayerBt").gameObject.GetComponent<UIButton>();
-//			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
+			headTex = changeHeadBtn.transform.FindChild("PlayerIcon").gameObject.GetComponent<UISprite>();
 			lv = changeHeadBtn.transform.FindChild("LevelLabel").gameObject.GetComponent<UILabel>();
 			name = self.transform.FindChild("PlayerName/NameLabel").gameObject.GetComponent<UILabel>();
 			expBar = self.transform.FindChild("EXPView/ProgressBar").gameObject.GetComponent<UISlider>();
@@ -94,6 +94,7 @@ public class PersonalView
 
 	private void UpdatePlayerData(TPlayer player)
 	{
+		headTex.spriteName = player.FacePicture;
 		name.text = player.Name;
 		lv.text = player.Lv.ToString();
 
