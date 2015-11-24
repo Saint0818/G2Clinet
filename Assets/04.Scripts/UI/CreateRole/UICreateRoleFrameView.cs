@@ -261,6 +261,7 @@ public class UICreateRoleFrameView : MonoBehaviour
         {
 			TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
 			GameData.Team.Player = team.Player;
+            GameData.Team.Player.Init();
 
             var data = UICreateRole.Convert(team.PlayerBank);
             if (data != null)
