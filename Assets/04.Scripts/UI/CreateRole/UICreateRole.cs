@@ -25,8 +25,6 @@ public class UICreateRole : UIBase
     private UICreateRolePositionView mPositionView;
     private UICreateRoleStyleView mStyleView;
 
-//    private GameObject mFullScreenBlock;
-
     public void ShowFrameView()
     {
         Show(true);
@@ -95,6 +93,12 @@ public class UICreateRole : UIBase
     [UsedImplicitly]
     private void Awake()
     {
+    }
+
+    protected override void InitCom()
+    {
+        base.InitCom();
+
         mFrameView = GetComponent<UICreateRoleFrameView>();
         mFrameView.Hide();
 
@@ -104,11 +108,8 @@ public class UICreateRole : UIBase
         mStyleView = GetComponent<UICreateRoleStyleView>();
         mStyleView.Hide();
 
-//        mFullScreenBlock = GameObject.Find("Window/FullScreenInvisibleWidget");
-//        mFullScreenBlock.SetActive(false);
-
-		UILoading.UIShow (false);
-		AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
+        UILoading.UIShow(false);
+        AudioMgr.Get.PlayMusic(EMusicType.MU_game0);
     }
 
     /// <summary>
@@ -256,8 +257,8 @@ public class UICreateRole : UIBase
 
     public readonly Dictionary<EPlayerPostion, PosInfo> PosInfos = new Dictionary<EPlayerPostion, PosInfo>
     {
-        {EPlayerPostion.G, new PosInfo {TextIndex = 21, DescIndex = 18, TextColor = new Color32(57, 94, 204, 255)} },
-        {EPlayerPostion.F, new PosInfo {TextIndex = 22, DescIndex = 19, TextColor = new Color32(56, 171, 66, 255)} },
-        {EPlayerPostion.C, new PosInfo {TextIndex = 23, DescIndex = 20, TextColor = new Color32(180, 33, 35, 255)} }
+        {EPlayerPostion.G, new PosInfo {TextIndex = 21, DescIndex = 2105, TextColor = new Color32(57, 94, 204, 255)} },
+        {EPlayerPostion.F, new PosInfo {TextIndex = 22, DescIndex = 2106, TextColor = new Color32(56, 171, 66, 255)} },
+        {EPlayerPostion.C, new PosInfo {TextIndex = 23, DescIndex = 2107, TextColor = new Color32(180, 33, 35, 255)} }
     };
 }

@@ -27,7 +27,6 @@ public class UIEquipList : MonoBehaviour
     [UsedImplicitly]
 	private void Awake()
     {
-	    Hide();
 	}
 
     private void clear()

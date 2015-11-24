@@ -43,8 +43,6 @@ public class UICreateRolePositionView : MonoBehaviour
         obj.transform.localScale = Vector3.one;
         mAttributes = obj.GetComponent<UIAttributes>();
 
-        Hide();
-
         mCurrentPostion = EPlayerPostion.G;
     }
 

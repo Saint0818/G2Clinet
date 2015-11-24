@@ -200,12 +200,13 @@ public class UIEquipment : UIBase
             GameData.Team.Items = team.Items;
             GameData.Team.Player.Init();
             GameData.SaveTeam();
-
-            goToMainLobby();
+            
             UIHint.Get.ShowHint("Change Value Items Success!", Color.black);
         }
         else
             UIHint.Get.ShowHint("Change Value Items fail!", Color.red);
+
+        goToMainLobby();
     }
 
     public void Hide()
