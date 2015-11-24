@@ -133,13 +133,11 @@ public class UIMainStage : UIBase
         {
             var team = JsonConvert.DeserializeObject<TTeam>(www.text);
             GameData.Team.Power = team.Power;
-//            GameData.Team.Player.StageChallengeNums = new Dictionary<int, int>(team.Player.StageChallengeNums);
 
             GameData.StageID = mCurrentStageID;
 			SceneMgr.Get.ChangeLevel(ESceneName.SelectRole);
 
-//            stageSurelyReward(mCurrentStageID);
-//            stageRandomRewardStart(mCurrentStageID);
+//            pveEnd(mCurrentStageID);
 
             Hide();
         }
@@ -307,76 +305,49 @@ public class UIMainStage : UIBase
         Hide();
     }
 
-    /// <summary>
-    /// 要求 Server 給必給獎勵.
-    /// </summary>
-    /// <param name="stageID"></param>
-    private void stageSurelyReward(int stageID)
-    {
-        TStageData data = StageTable.Ins.GetByID(stageID);
-        if(data.SurelyRewards == null || data.SurelyRewards.Length <= 0)
-        {
-            Debug.LogErrorFormat("StageID:{0}, Surely Reward is empty!", stageID);
-            return;
-        }
-
-        WWWForm form = new WWWForm();
-        form.AddField("StageID", stageID);
-        mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageSurelyReward, waitStageSurelyReward, form);
-    }
-
-    private void waitStageSurelyReward(bool ok, WWW www)
-    {
-        Debug.LogFormat("waitStageSurelyReward, ok:{0}", ok);
-
-        if (ok)
-        {
-            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Items = team.Items;
-        }
-        else
-            UIHint.Get.ShowHint("Stage Surely Reward fail!", Color.red);
-    }
-
-    private void stageRandomRewardStart(int stageID)
+    private void stageRewardStart(int stageID)
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
         mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageRandomRewardStart, waitStageRandomRewardStart, form);
+        SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
     }
 
-    private void waitStageRandomRewardStart(bool ok, WWW www)
+    private void waitStageRewardStart(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageRandomRewardStart, ok:{0}", ok);
+        Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
 
         if(ok)
         {
-            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
-            GameData.Team.Items = team.Items;
+            TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text);
 
-//            stageRandomRewardAgain(mCurrentStageID);
+            Debug.Log(reward);
+
+            GameData.Team.Player = reward.Player;
+            GameData.Team.Player.Init();
+            GameData.Team.Items = reward.Items;
+
+//            stageRewardAgain(mCurrentStageID);
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
     }
 
-    private void stageRandomRewardAgain(int stageID)
+    private void stageRewardAgain(int stageID)
     {
         WWWForm form = new WWWForm();
         form.AddField("StageID", stageID);
         mCurrentStageID = stageID;
-        SendHttp.Get.Command(URLConst.StageRandomRewardAgain, waitStageRandomRewardAgain, form);
+        SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain, form);
     }
 
-    private void waitStageRandomRewardAgain(bool ok, WWW www)
+    private void waitStageRewardAgain(bool ok, WWW www)
     {
-        Debug.LogFormat("waitStageRandomRewardAgain, ok:{0}", ok);
+        Debug.LogFormat("waitStageRewardAgain, ok:{0}", ok);
 
         if (ok)
         {
-            var team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            TStageReward team = JsonConvert.DeserializeObject<TStageReward>(www.text);
             GameData.Team.Items = team.Items;
         }
         else
