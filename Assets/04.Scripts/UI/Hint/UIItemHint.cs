@@ -56,7 +56,7 @@ public class UIItemHint : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
-		
+
 	}
 
 	private void hideAll () {
@@ -65,30 +65,27 @@ public class UIItemHint : UIBase {
 		hintSkillView.Hide ();
 	}
 
-	public void OnShowAvatar () {
+	public void OnShow(TItemData itemData) {
+		hideAll ();
 		UIShow(true);
-		hintAvatarView.Show();
-//		uiLabelName.text = ;
-//		uiLabelExplain.text = ;
-//		hintAvatarView.UpdateUI
-	}
-
-	public void OnShowInlay () {
-		UIShow(true);
-		hintInlayView.Show();
-//		uiLabelName.text = ;
-//		uiLabelExplain.text = ;
-//		hintInlayView.UpdateUI
+		if(itemData.Kind == 21) {
+		} else if(itemData.Kind == 19) {
+			hintInlayView.Show();
+			hintInlayView.UpdateUI(itemData);
+		} else {
+			hintAvatarView.Show();
+			hintAvatarView.UpdateUI(itemData);
+		}
+		uiLabelName.text = itemData.Name;
+		uiLabelExplain.text = itemData.Explain;
 	}
 
 	public void OnShowSkill(TSkill skill) {
-		if(GameData.DSkillData.ContainsKey(skill.ID)) {
-			UIShow(true);
-			hintSkillView.Show();
-			uiLabelName.text = GameData.DSkillData[skill.ID].Name;
-			uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);
-			hintSkillView.UpdateUI(skill);
-		}
+		UIShow(true);
+		hintSkillView.Show();
+		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
+		uiLabelExplain.text = GameData.DSkillData[skill.ID].Explain;
+		hintSkillView.UpdateUI(skill);
 	}
 
 	public void OnClose () {

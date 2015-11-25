@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameStruct;
 
 public class HintAvatarView : MonoBehaviour {
 
@@ -27,7 +28,13 @@ public class HintAvatarView : MonoBehaviour {
 		mGameObject.SetActive(false);
 	}
 	
-	public void UpdateUI()
+	public void UpdateUI(TItemData itemData)
 	{
+		QualitySquare.spriteName = "Patch" + itemData.Quality.ToString();
+		ItemPic.spriteName = "Item_" + itemData.Kind;
+		for (int i=0; i<AvatarStars.Length; i++)
+			AvatarStars[i].SetActive((i < itemData.LV));
+
+		AmountLabel.text = "";
 	}
 }

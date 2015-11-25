@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GameStruct;
 
 public class HintInlayView : MonoBehaviour {
 	
@@ -26,7 +27,11 @@ public class HintInlayView : MonoBehaviour {
 		mGameObject.SetActive(false);
 	}
 	
-	public void UpdateUI()
+	public void UpdateUI(TItemData itemData)
 	{
+		QualityOctagon.spriteName = "Equipment_" + itemData.Kind;
+		ItemPic.spriteName = "Item_" + itemData.Kind;
+		
+		AmountLabel.text = "";
 	}
 }

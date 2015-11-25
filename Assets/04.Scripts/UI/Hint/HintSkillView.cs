@@ -8,6 +8,7 @@ public class HintSkillView : MonoBehaviour {
 	public UISprite QualityCards;
 	public UISprite SkillItemPic;
 	public UISprite SkillStar;
+	public UISprite SkillLevel;
 	public UILabel AmountLabel;
 	
 	private GameObject mGameObject;
@@ -30,17 +31,14 @@ public class HintSkillView : MonoBehaviour {
 	public void UpdateUI(TSkill skill)
 	{
 		if(skill.ID >= GameConst.ID_LimitActive)
-			SkillKindLabel.text = TextConst.S(12101);
+			SkillKindLabel.text = TextConst.S(7111);
 		else 
-			SkillKindLabel.text = TextConst.S(12102);
-		QualityCards.spriteName = "cardlevel_" + skill.Lv.ToString();
+			SkillKindLabel.text = TextConst.S(7112);
+
+		SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+		QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
 		SkillItemPic.spriteName = GameData.DSkillData[skill.ID].PictureNo + "s";
-		if(GameData.DSkillData.ContainsKey(skill.ID))
-			SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star , 1 , 5).ToString();
-		else {
-			SkillStar.spriteName = "Staricon1";
-			Debug.LogError("GameData.DSkillData is not ContainKey:" + skill.ID);
-		}
+		SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star , 1, 5).ToString();
 		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();
 	}
 }

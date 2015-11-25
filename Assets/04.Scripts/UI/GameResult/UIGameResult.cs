@@ -29,6 +29,7 @@ public class UIGameResult : UIBase {
 
 	//AwardItems
 	private int alreadGetBonusID = 3;
+	private List<int> awardItemTempIDs;
 	private int[] awardItemIDs;
 	private int[] bonusItemIDs;
 
@@ -118,6 +119,8 @@ public class UIGameResult : UIBase {
 		
 		//Center/BottomView
 		mTargets = GetComponentsInChildren<UIStageHintTarget>();
+		itemAwardGroup = GetComponentsInChildren<ItemAwardGroup>();
+
 
 		animatorAward = gameObject.GetComponent<Animator>();
 		animatorBottomView = GameObject.Find (UIName + "/Center/BottomView").GetComponent<Animator>();
@@ -207,11 +210,11 @@ public class UIGameResult : UIBase {
 	private void chooseItem (int index) {
 		UI3DGameResult.Get.ChooseStart(index);
 		if(index == 0) {
-			Invoke("showOneItem", 0.5f);
+			Invoke("showOneItem", 0.75f);
 		} else if(index == 1) {
-			Invoke("showTwoItem", 0.5f);
+			Invoke("showTwoItem", 0.75f);
 		} else if(index == 2) {
-			Invoke("showThreeItem", 0.5f);
+			Invoke("showThreeItem", 0.75f);
 		}
 	}
 
@@ -478,7 +481,10 @@ public class UIGameResult : UIBase {
 	private void waitStageRewardStart(bool ok, WWW www)
 	{
 		Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
-		
+
+		updateResult(GameData.StageID);
+		Invoke("showFinish", 4);
+
 		if(ok)
 		{
 			var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
@@ -492,11 +498,20 @@ public class UIGameResult : UIBase {
 			GameData.Team.Items = reward.Items;
 
 			
-			updateResult(GameData.StageID);
-			Invoke("showFinish", 5);
+
 			awardItemIDs = reward.SurelyItemIDs;
 			bonusItemIDs = reward.CandidateItemIDs;
 			alreadGetBonusID = reward.RandomItemID;
+
+			for (int i=0; i<awardItemIDs.Length; i++) {
+				awardItemTempIDs.Add(awardItemIDs[i]);
+			}
+
+			if(reward.Money > 0)
+				awardItemTempIDs.Add(-1);
+			if(reward.Exp > 0)
+				awardItemTempIDs.Add(-2);
+
 			init ();
 		}
 		else
