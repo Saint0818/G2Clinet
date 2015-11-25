@@ -24,6 +24,8 @@ public class AwardInlayView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData) {
-
+		QualityOctagon.spriteName = "Patch" + itemData.Quality.ToString();
+		ItemPic.spriteName = "item_" + itemData.Kind;
+		AmountLabel.text = "";
 	}
 }

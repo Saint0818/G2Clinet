@@ -23,6 +23,9 @@ public class AwardAvatarView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData) {
-
+		ItemPic.spriteName = "Item_" + itemData.Quality;
+		for (int i=0; i<AvatarStars.Length; i++)
+			AvatarStars[i].SetActive((i < itemData.LV));
+		AmountLabel.text = "";
 	}
 }

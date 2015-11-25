@@ -63,9 +63,12 @@ public class UI3DGameResult : UIBase {
 		int result = 0;
 		if(int.TryParse(go.name, out result)) {
 			if(!isChoosed[result]) {
-				awardBasket[result].OnChoose();
 				UIGameResult.Get.ChooseLucky(result);
 			}
 		}
+	}
+
+	public void ChooseStart (int index) {
+		awardBasket[index].OnChoose();
 	}
 }

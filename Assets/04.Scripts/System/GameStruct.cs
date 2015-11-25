@@ -709,6 +709,7 @@ namespace GameStruct {
         // [5]:Shoes, [6]:MHeadDress, [7]:ZBackEquip.
         // [11] ~ [18] 數值裝備(企劃尚未定義).
         public int Kind;
+		public int LV;
 
 		public int Position;
 		public int Avatar;

@@ -3,6 +3,7 @@ using GameStruct;
 using UnityEngine;
 using System.Collections.Generic;
 using DG.Tweening;
+using Newtonsoft.Json;
 
 public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;
@@ -27,12 +28,12 @@ public class UIGameResult : UIBase {
 	private float finishTime = 0;
 
 	//AwardItems
+	private int alreadGetBonusID = 3;
+	private int[] awardItemIDs;
+	private int[] bonusItemIDs;
+
 	private List<ItemAwardGroup> alreadyGetItems;
 	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
-	private int alreadGetBonusID = 3;
-	private int[] awardItemIDs = {1,20410};
-	private int[] bonusItemIDs = {2,3,20412};
-
 	private GameObject awardScrollView;
 	private GameObject uiItem;
 	private int awardIndex;
@@ -192,9 +193,19 @@ public class UIGameResult : UIBase {
 	}
 	
 	public void ChooseLucky(int index) {
-		Invoke ("showReturnButton", 2);
-//		chooseIndex = alreadGetBonusID;
-		isChooseLucky = true;
+		chooseIndex = index;
+		if(chooseCount == 0) {
+			Invoke ("showReturnButton", 2);
+			isChooseLucky = true;
+			chooseItem (index);
+		} else {
+
+			stageRewardAgain(GameData.StageID);
+		}
+	}
+
+	private void chooseItem (int index) {
+		UI3DGameResult.Get.ChooseStart(index);
 		if(index == 0) {
 			Invoke("showOneItem", 0.5f);
 		} else if(index == 1) {
@@ -204,17 +215,9 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private void showOneItem () {
-		showItem (0);
-	}
-
-	private void showTwoItem () {
-		showItem (1);
-	}
-
-	private void showThreeItem () {
-		showItem (2);
-	}
+	private void showOneItem () {showItem (0);}
+	private void showTwoItem () {showItem (1);}
+	private void showThreeItem () {showItem (2);}
 
 	private void showItem (int index) {
 		chooseIndex = index;
@@ -343,7 +346,6 @@ public class UIGameResult : UIBase {
 	}
 
 	public void SetGameRecord(ref TGameRecord record) {
-		init ();
 		teamValue.SetValue(record);
 		if(record.Done) {
 			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
@@ -356,9 +358,7 @@ public class UIGameResult : UIBase {
 		}
 		uiStatsNext.SetActive(false);
 		uiAwardSkip.SetActive(false);
-		updateResult(GameData.StageID);
-
-		Invoke("showFinish", 5);
+		stageRewardStart(GameData.StageID);
 	}
 
 	private void updateResult(int stageID)
@@ -462,6 +462,74 @@ public class UIGameResult : UIBase {
 	{
 		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
 		return TextConst.S(baseValue);
+	}
+
+	/// <summary>
+	/// Stages the reward start.
+	/// </summary>
+	/// <param name="stageID">Stage I.</param>
+	private void stageRewardStart(int stageID)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("StageID", stageID);
+		SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+	}
+
+	private void waitStageRewardStart(bool ok, WWW www)
+	{
+		Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
+		
+		if(ok)
+		{
+			TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text);
+			
+			Debug.Log(reward.CandidateItemIDs.Length);
+			Debug.Log(reward.Exp);
+			Debug.Log(reward.Money);
+			Debug.Log(reward.SurelyItemIDs.Length);
+			
+			GameData.Team.Player = reward.Player;
+			GameData.Team.Player.Init();
+			GameData.Team.Items = reward.Items;
+
+			
+			updateResult(GameData.StageID);
+			Invoke("showFinish", 5);
+			awardItemIDs = reward.SurelyItemIDs;
+			bonusItemIDs = reward.CandidateItemIDs;
+			alreadGetBonusID = reward.RandomItemID;
+			init ();
+		}
+		else
+			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+	}
+
+	/// <summary>
+	/// Stages the reward again.
+	/// </summary>
+	/// <param name="stageID">Stage I.</param>
+	private void stageRewardAgain(int stageID)
+	{
+		WWWForm form = new WWWForm();
+		form.AddField("StageID", stageID);
+		SendHttp.Get.Command(URLConst.StageRewardAgain, waitStageRewardAgain, form);
+	}
+	
+	private void waitStageRewardAgain(bool ok, WWW www)
+	{
+		Debug.LogFormat("waitStageRewardAgain, ok:{0}", ok);
+		
+		if (ok)
+		{
+			TStageReward team = JsonConvert.DeserializeObject<TStageReward>(www.text);
+			GameData.Team.Items = team.Items;
+
+			
+			alreadGetBonusID = team.RandomItemID;
+			chooseItem(chooseIndex);
+		}
+		else
+			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
 	}
 
 	public bool isStage
