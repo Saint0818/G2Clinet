@@ -63,10 +63,21 @@ namespace AI
             return mBuilder.ToString();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="symbol"></param>
+        /// <param name="weight"> 必須大於等於 0. </param>
         public void AddOrUpdate(T symbol, float weight)
         {
-            if(weight <= 0)
-                throw new ArgumentException("weight cannot have a zero chance.");
+            if(weight < 0)
+            {
+                Debug.LogWarningFormat("weight must be >= 0. Symbol:{0}, Weight:{1}", symbol, weight);
+                return;
+            }
+
+            if(Math.Abs(weight) < float.Epsilon) // weight == 0
+                return;
 
             WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Value, weight));
             if(existing == null)
@@ -91,7 +102,7 @@ namespace AI
         {
             float sum = mWeights.Sum(weight => weight.Value);
 
-            foreach (var weight in mWeights)
+            foreach(WeightedChance<T> weight in mWeights)
             {
                 mRandomizer.AddOrUpdateWeight(weight.Symbol, weight.Value/sum);
             }

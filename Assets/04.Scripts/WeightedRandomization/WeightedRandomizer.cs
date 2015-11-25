@@ -45,11 +45,14 @@ namespace WeightedRandomization
         /// <param name="weight"> 出現機率, 這必須是 (0, 1] 範圍的數值. </param>
         public void AddOrUpdateWeight(T symbol, float weight)
         {
-            if(weight <= 0)
-                throw new ArgumentException("weighted value cannot have a zero chance.");
+            if(weight < 0 || weight > 1)
+            {
+                Debug.LogWarningFormat("weighted must be [0, 1]. Symbol:{0}, Weight:{1}", symbol, weight);
+                return;
+            }
 
-            if(weight > 1)
-                throw new ArgumentException("weighted value cannot have a 101% chance.");
+            if(Math.Abs(weight) < float.Epsilon) // weight == 0
+                return;
 
             WeightedChance<T> existing = mWeights.FirstOrDefault(x => Equals(x.Symbol, symbol));
             if(existing == null)
