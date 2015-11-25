@@ -483,18 +483,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void InitAttr()
     {
-//      setMovePower(100);
         GameRecord.Init();
         GameRecord.ID = Attribute.ID;
-
-        if (Index == 0 && Team == ETeamKind.Self && GameStart.Get.ConnectToServer)
-            Attribute.SetAttribute(GameEnum.ESkillType.Player);
-        else
-            Attribute.SetAttribute(GameEnum.ESkillType.NPC);
 
         initSkill();
         if (Attr.StaminaValue > 0)
             setMovePower(Attr.StaminaValue);
+
         initAttr();
     }
 

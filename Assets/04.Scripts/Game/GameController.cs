@@ -4213,9 +4213,11 @@ public class GameController : KnightSingleton<GameController>
     }
 	#endif
 
-	public void SetPlayerMove(TTacticalAction actionPosition, int index) {
+	public void SetPlayerMove(TTacticalAction actionPosition, int index, bool clearPath = true) {
         if (index > -1 && index < PlayerList.Count) {
-			moveData.Clear();
+			if (clearPath)
+				moveData.Clear();
+
 			moveData.SetTarget(actionPosition.x, actionPosition.z);
 			moveData.Speedup = actionPosition.Speedup;
 			moveData.Catcher = actionPosition.Catcher;
@@ -4230,7 +4232,7 @@ public class GameController : KnightSingleton<GameController>
 			if (action.MoveKind > 0)
 				SetPlayerAppear(index, action.Action.x, action.Action.z);
 			else 
-				SetPlayerMove(action.Action, index);
+				SetPlayerMove(action.Action, index, false);
 
 		}
 	}

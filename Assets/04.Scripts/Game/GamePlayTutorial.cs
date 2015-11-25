@@ -150,8 +150,20 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		if (eventID > 0) {
 			for (int i = 0; i < eventList.Count; i++) {
 				if (eventList[i].ID == eventID) {
-					HandleEvent(i, player);
-					removeEvent(eventID);
+					bool flag = true;
+
+
+					if (eventList[i].Kind == 8 && eventList[i].ConditionOperator > 0 && player) {
+						PlayerBehaviour p = player.GetComponent<PlayerBehaviour>();
+						if (p && (p.Team.GetHashCode() * 3 + p.Index + 1) != eventList[i].ConditionOperator)
+							flag = false;
+					}
+
+					if (flag) {
+						HandleEvent(i, player);
+						removeEvent(eventID);
+					}
+
 					return true;
 				}
 			}

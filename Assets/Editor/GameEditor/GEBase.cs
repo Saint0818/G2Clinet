@@ -7,11 +7,20 @@ public class GEBase : EditorWindow {
 	private static Vector2 minWindow = new Vector2(300, 600);
 	protected const float Height_Line = 24;
 	protected const float Width_Button = 80;
+	protected GUIStyle StyleLayout;
 	protected GUIStyle StyleLabel;
 	protected GUIStyle StyleEdit;
 	protected GUIStyle StyleButton;
 
 	public virtual void SetStyle() {
+
+		if (StyleLayout == null) {
+			StyleLayout = new GUIStyle(EditorStyles.label);
+			StyleLayout.fontSize = 18;
+			StyleLayout.normal.textColor = Color.white;
+			StyleLayout.alignment = TextAnchor.LowerLeft;
+		}
+
 		if (StyleLabel == null) {
 			StyleLabel = new GUIStyle(EditorStyles.label);
 			StyleLabel.fontSize = 18;

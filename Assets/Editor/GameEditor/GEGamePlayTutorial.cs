@@ -167,17 +167,14 @@ public class GEGamePlayTutorial : GEBase {
 				else 
 					GUILabel("Condition " + events[i].ConditionKind.ToString(), Color.red);
 
-				if (events[i].ConditionKind > 0) {
-					if (events[i].ConditionKind == 2) {
-						events[i].ConditionValue = GUIPopup(events[i].ConditionValue, situationExplain, "Situation");
-						events[i].OtherEventID = GUIIntEdit(events[i].OtherEventID, "OtherID");
-						events[i].NextEventID = GUIIntEdit(events[i].NextEventID, "NextID");
-					} else {
-						events[i].OtherEventID = GUIIntEdit(events[i].OtherEventID, "OtherID");
-						if (events[i].Kind == 6)
-							events[i].NextEventID = GUIIntEdit(events[i].NextEventID, "NextID");
-					}
-				}
+				if (events[i].ConditionKind > 0)
+					events[i].OtherEventID = GUIIntEdit(events[i].OtherEventID, "OtherID");
+
+				if (events[i].ConditionKind == 2)
+					events[i].ConditionValue = GUIPopup(events[i].ConditionValue, situationExplain, "Situation");
+
+				if (events[i].ConditionKind == 2 || events[i].Kind == 6 || events[i].Kind == 8)
+					events[i].NextEventID = GUIIntEdit(events[i].NextEventID, "NextID");
 
 				if (GUIButton("Delete", Color.red)) {
 					List<TGamePlayEvent> temp = new List<TGamePlayEvent>(events);
@@ -189,57 +186,49 @@ public class GEGamePlayTutorial : GEBase {
 				GUILayout.EndHorizontal();
 				GUILayout.Space(spaceCount);
 
+
+				if (events[i].Kind != 4)
+					GUILayout.BeginHorizontal(StyleLayout);
+
 				switch (events[i].Kind) {
 				case 1: //event kind
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIPopup(events[i].Value1, situationExplain, "Situation");
-					GUILayout.EndHorizontal();
 					break;
 				case 2: //set ball
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Team");
 					events[i].Value2 = GUIIntEdit(events[i].Value1, "Index");
-					GUILayout.EndHorizontal();
 					break;
 				case 3: //set player state
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Team");
 					events[i].Value2 = GUIIntEdit(events[i].Value1, "Index");
-					GUILayout.EndHorizontal();
 					break;
 				case 4:
 					showPlayerMove(i);
 					break;
 				case 5: //open ui
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "UI Flag", Width_Button * 1.5f);
-					GUILayout.EndHorizontal();
 					break;
 				case 6: //open ui tutorial
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Tutorial ID", Width_Button);
-					GUILayout.EndHorizontal();
 					break;
 				case 7: //switch AI
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Turn on AI");
-					GUILayout.EndHorizontal();
 					break;
 				case 8: //hint area
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "X");
 					events[i].Value2 = GUIIntEdit(events[i].Value2, "X");
 					events[i].Value3 = GUIIntEdit(events[i].Value3, "Distance");
-					GUILayout.EndHorizontal();
+					events[i].ConditionOperator = GUIIntEdit(events[i].ConditionOperator, "Target");
 					break;
 				case 9: //power
-					GUILayout.BeginHorizontal();
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Power");
-					GUILayout.EndHorizontal();
 					break;
 				}
+
+				if (events[i].Kind != 4)
+					GUILayout.EndHorizontal();
 			}
-			
+
 			GUILayout.EndScrollView();
 		}
 	}
@@ -272,7 +261,7 @@ public class GEGamePlayTutorial : GEBase {
 				events[i].Actions[j].Action.z = GUIFloatEdit(events[i].Actions[j].Action.z, "Z");
 				
 				if (GUIButton("Move To") && GameController.Visible)
-					GameController.Get.SetPlayerMove(events[i].Actions[j].Action, 0);
+					GameController.Get.SetPlayerMove(events[i].Actions[j].Action, 0, false);
 				
 				if (GUIButton("Get Pos") && GameController.Visible) {
 					Vector3 Res = GameController.Get.EditGetPosition(0);

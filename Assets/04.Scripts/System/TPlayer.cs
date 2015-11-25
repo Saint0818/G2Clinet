@@ -134,7 +134,7 @@ namespace GameStruct
             if (Name == null)
                 Name = "";
 			
-            SetAttribute();
+			SetAttribute(ESkillType.Player);
             SetAvatar();
         } 
 
@@ -142,17 +142,17 @@ namespace GameStruct
         /// only for npc.
         /// </summary>
         /// <param name="id"></param>
-		public bool SetID(int id, ESkillType type = ESkillType.NPC) {
+		public bool SetID(int id) {
             ID = id;
             if(ID > 0 && GameData.DPlayers.ContainsKey(ID)) {
-				SetAttribute(type);
+				SetAttribute(ESkillType.NPC);
                 SetAvatar();
                 return true;
             } else
                 return false;
         }
 
-        public void SetAttribute(ESkillType type = ESkillType.Player)
+		public void SetAttribute(ESkillType type)
         {
             if(ID > 0 && GameData.DPlayers.ContainsKey(ID))
             {
@@ -173,8 +173,10 @@ namespace GameStruct
                 AISkillLv = GameData.DPlayers[ID].AISkillLv;
                 SetSkill(type);
 
-                addEquipValues();
-				addPotentialValues();
+				if (type == ESkillType.Player) {
+	                addEquipValues();
+					addPotentialValues();
+				}
             }
         }
 
@@ -297,39 +299,44 @@ namespace GameStruct
 
             switch (type) {
                 case ESkillType.NPC:
-                    if(GameData.DPlayers.ContainsKey(ID)) {
-                        if(SkillCards == null || SkillCards.Length == 0) 
-                            SkillCards = new TSkill[14];
+					if(GameData.DPlayers.ContainsKey(ID)) {
+						TSkill[] temp = new TSkill[14];
 
-                        SkillCards[0].ID = GameData.DPlayers[ID].Skill1;
-                        SkillCards[0].Lv = GameData.DPlayers[ID].SkillLV1;
-                        SkillCards[1].ID = GameData.DPlayers[ID].Skill2;
-                        SkillCards[1].Lv = GameData.DPlayers[ID].SkillLV2;
-                        SkillCards[2].ID = GameData.DPlayers[ID].Skill3;
-                        SkillCards[2].Lv = GameData.DPlayers[ID].SkillLV3;
-                        SkillCards[3].ID = GameData.DPlayers[ID].Skill4;
-                        SkillCards[3].Lv = GameData.DPlayers[ID].SkillLV4;
-                        SkillCards[4].ID = GameData.DPlayers[ID].Skill5;
-                        SkillCards[4].Lv = GameData.DPlayers[ID].SkillLV5;
-                        SkillCards[5].ID = GameData.DPlayers[ID].Skill6;
-                        SkillCards[5].Lv = GameData.DPlayers[ID].SkillLV6;
-                        SkillCards[6].ID = GameData.DPlayers[ID].Skill7;
-                        SkillCards[6].Lv = GameData.DPlayers[ID].SkillLV7;
-                        SkillCards[7].ID = GameData.DPlayers[ID].Skill8;
-                        SkillCards[7].Lv = GameData.DPlayers[ID].SkillLV8;
-                        SkillCards[8].ID = GameData.DPlayers[ID].Skill9;
-                        SkillCards[8].Lv = GameData.DPlayers[ID].SkillLV9;
-                        SkillCards[9].ID = GameData.DPlayers[ID].Skill10;
-                        SkillCards[9].Lv = GameData.DPlayers[ID].SkillLV10;
-                        SkillCards[10].ID = GameData.DPlayers[ID].Skill11;
-                        SkillCards[10].Lv = GameData.DPlayers[ID].SkillLV11;
-                        SkillCards[11].ID = GameData.DPlayers[ID].Skill12;
-                        SkillCards[11].Lv = GameData.DPlayers[ID].SkillLV12;
-                        SkillCards[12].ID = GameData.DPlayers[ID].Skill13;
-                        SkillCards[12].Lv = GameData.DPlayers[ID].SkillLV13;
-                        SkillCards[13].ID = GameData.DPlayers[ID].Skill14;
-                        SkillCards[13].Lv = GameData.DPlayers[ID].SkillLV14;
+						temp[0].ID = GameData.DPlayers[ID].Skill1;
+						temp[0].Lv = GameData.DPlayers[ID].SkillLV1;
+						temp[1].ID = GameData.DPlayers[ID].Skill2;
+						temp[1].Lv = GameData.DPlayers[ID].SkillLV2;
+						temp[2].ID = GameData.DPlayers[ID].Skill3;
+						temp[2].Lv = GameData.DPlayers[ID].SkillLV3;
+						temp[3].ID = GameData.DPlayers[ID].Skill4;
+						temp[3].Lv = GameData.DPlayers[ID].SkillLV4;
+						temp[4].ID = GameData.DPlayers[ID].Skill5;
+						temp[4].Lv = GameData.DPlayers[ID].SkillLV5;
+						temp[5].ID = GameData.DPlayers[ID].Skill6;
+						temp[5].Lv = GameData.DPlayers[ID].SkillLV6;
+						temp[6].ID = GameData.DPlayers[ID].Skill7;
+						temp[6].Lv = GameData.DPlayers[ID].SkillLV7;
+						temp[7].ID = GameData.DPlayers[ID].Skill8;
+						temp[7].Lv = GameData.DPlayers[ID].SkillLV8;
+						temp[8].ID = GameData.DPlayers[ID].Skill9;
+						temp[8].Lv = GameData.DPlayers[ID].SkillLV9;
+						temp[9].ID = GameData.DPlayers[ID].Skill10;
+						temp[9].Lv = GameData.DPlayers[ID].SkillLV10;
+						temp[10].ID = GameData.DPlayers[ID].Skill11;
+						temp[10].Lv = GameData.DPlayers[ID].SkillLV11;
+						temp[11].ID = GameData.DPlayers[ID].Skill12;
+						temp[11].Lv = GameData.DPlayers[ID].SkillLV12;
+						temp[12].ID = GameData.DPlayers[ID].Skill13;
+						temp[12].Lv = GameData.DPlayers[ID].SkillLV13;
+						temp[13].ID = GameData.DPlayers[ID].Skill14;
+						temp[13].Lv = GameData.DPlayers[ID].SkillLV14;
 
+						List<TSkill> tempList = new List<TSkill>();
+						for (int i = 0; i < temp.Length; i ++)
+							if (GameData.DSkillData.ContainsKey(temp[i].ID))
+								tempList.Add(temp[i]);
+
+						SkillCards = tempList.ToArray();
                         ActiveSkills.Clear();
                         for(int i=0; i<SkillCards.Length; i++) {
                             if(SkillCards[i].ID > GameConst.ID_LimitActive && SkillCards[i].ID > 0){
