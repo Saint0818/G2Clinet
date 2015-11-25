@@ -145,7 +145,7 @@ public class AbilityView
 
 	public void UpdateView()
 	{
-		int index = 0;
+//		int index = 0;
         float basic = 0;
         int add = 0;
 

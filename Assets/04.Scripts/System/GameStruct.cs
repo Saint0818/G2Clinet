@@ -715,6 +715,7 @@ namespace GameStruct {
 		public int Avatar;
 		public int MaxStack;
 		public int UseTime;
+		public int Potential;
 
         public EBonus[] Bonus
         {
