@@ -178,6 +178,8 @@ public class UICreateRoleStyleView : MonoBehaviour
         if(ok)
         {
             TTeam team = JsonConvert.DeserializeObject<TTeam>(www.text);
+            GameData.Team.Money = team.Money;
+            GameData.Team.Diamond = team.Diamond;
             GameData.Team.Player = team.Player;
             GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.Items = team.Items;
@@ -191,8 +193,8 @@ public class UICreateRoleStyleView : MonoBehaviour
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else
 				LobbyStart.Get.EnterLobby();
-        } else {
+        }
+        else
 			UIHint.Get.ShowHint("Create Role fail!", Color.red);
-		}
     }
 }

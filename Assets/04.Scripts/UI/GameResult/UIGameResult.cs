@@ -481,13 +481,12 @@ public class UIGameResult : UIBase {
 		
 		if(ok)
 		{
-			TStageReward reward = JsonConvert.DeserializeObject<TStageReward>(www.text);
+			var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
 			
-			Debug.Log(reward.CandidateItemIDs.Length);
-			Debug.Log(reward.Exp);
-			Debug.Log(reward.Money);
-			Debug.Log(reward.SurelyItemIDs.Length);
+			Debug.Log(reward);
 			
+			GameData.Team.Money = reward.Money;
+			GameData.Team.Diamond = reward.Diamond;
 			GameData.Team.Player = reward.Player;
 			GameData.Team.Player.Init();
 			GameData.Team.Items = reward.Items;
@@ -521,11 +520,11 @@ public class UIGameResult : UIBase {
 		
 		if (ok)
 		{
-			TStageReward team = JsonConvert.DeserializeObject<TStageReward>(www.text);
-			GameData.Team.Items = team.Items;
-
+			var reward = JsonConvert.DeserializeObject<TStageRewardAgain>(www.text);
+			GameData.Team.Diamond = reward.Diamond;
+			GameData.Team.Items = reward.Items;
 			
-			alreadGetBonusID = team.RandomItemID;
+			alreadGetBonusID = reward.RandomItemID;
 			chooseItem(chooseIndex);
 		}
 		else
