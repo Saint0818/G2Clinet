@@ -362,7 +362,8 @@ public class UIAvatarFitted : UIBase {
 	{
 		if(backpackItems.Length > 0)
 			for(int i = 0; i < backpackItems.Length; i++)
-				backpackItems[i].UpdateTimeCD();
+				if(backpackItems[i] != null)
+					backpackItems[i].UpdateTimeCD();
 	}
 
 	protected override void InitCom() {

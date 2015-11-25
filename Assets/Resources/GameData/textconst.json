@@ -36,6 +36,16 @@
         "tw": "確認花費{0}鑽石購買{1}？"
     },
     {
+        "id": 209,
+        "explain": "切換語言確認",
+        "tw": "確認變更語言？"
+    },
+    {
+        "id": 210,
+        "explain": "前往創角大廳確認",
+        "tw": "確認前往選擇其他角色？"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。"
@@ -49,10 +59,12 @@
         "tw": "越接近籃下投籃命中率有越多額外加成。"
     },
     {
-        "id": 304
+        "id": 304,
+        "tw": "拖曳移動搖桿到極限，即可開啟加速，可加速至耐力用完為止。"
     },
     {
-        "id": 305
+        "id": 305,
+        "tw": "物品的品質高低分別為白色<[07d200]綠色[-]<[00c2d2]藍色[-]<[b000d2]紫色[-]<[07d200]橘色[-]"
     },
     {
         "id": 306
@@ -839,11 +851,11 @@
     {
         "id": 8004,
         "explain": "GetModeLabel",
-        "tw": "[0}潛能點已取得"
+        "tw": "已取得{0}潛能點"
     },
     {
         "id": 8005,
-        "tw": "+{0}潛能點"
+        "tw": "潛能點+{0} "
     },
     {
         "id": 8101,
@@ -975,6 +987,11 @@
         "id": 9402,
         "explain": "SkipButton/Icon",
         "tw": "  "
+    },
+    {
+        "id": 9403,
+        "explain": "ButtonStart",
+        "tw": "點擊開始"
     },
     {
         "id": 9501,
@@ -1538,10 +1555,179 @@
     },
     {
         "id": 12001,
-        "explain": "設定"
+        "explain": "LabelTitle",
+        "tw": "設 定"
     },
     {
-        "id": 12002
+        "id": 12002,
+        "explain": "0/TabLabel",
+        "tw": "遊 戲"
+    },
+    {
+        "id": 12003,
+        "explain": "1/TabLabel",
+        "tw": "語 言"
+    },
+    {
+        "id": 12004,
+        "explain": "2/TabLabel",
+        "tw": "帳 號"
+    },
+    {
+        "id": 12005,
+        "explain": "3/TabLabel",
+        "tw": "關 於"
+    },
+    {
+        "id": 12006,
+        "explain": "VersionLabel",
+        "tw": "VER{0} "
+    },
+    {
+        "id": 12007,
+        "explain": "SubheadLabel0",
+        "tw": "音 效"
+    },
+    {
+        "id": 12008,
+        "explain": "SubheadLabel1",
+        "tw": "特 效"
+    },
+    {
+        "id": 12009,
+        "explain": "SubheadLabel2",
+        "tw": "AI 設定"
+    },
+    {
+        "id": 12010,
+        "explain": "0/BtnLabel",
+        "tw": "音 樂"
+    },
+    {
+        "id": 12011,
+        "explain": "1/BtnLabel",
+        "tw": "音 效"
+    },
+    {
+        "id": 12012,
+        "explain": "0/BtnLabel",
+        "tw": "特 效"
+    },
+    {
+        "id": 12013,
+        "explain": "WarningLabel",
+        "tw": "目前AI接管時間為：{0}秒"
+    },
+    {
+        "id": 12014,
+        "explain": "0/BtnLabel",
+        "tw": "1s",
+        "cn": "1s",
+        "en": "1s",
+        "jp": "1s"
+    },
+    {
+        "id": 12015,
+        "explain": "1/BtnLabel",
+        "tw": "3s",
+        "cn": "3s",
+        "en": "3s",
+        "jp": "3s"
+    },
+    {
+        "id": 12016,
+        "explain": "2/BtnLabel",
+        "tw": "5s",
+        "cn": "5s",
+        "en": "5s",
+        "jp": "5s"
+    },
+    {
+        "id": 12017,
+        "explain": "3/BtnLabel",
+        "tw": "15s",
+        "cn": "15s",
+        "en": "15s",
+        "jp": "15s"
+    },
+    {
+        "id": 12018,
+        "explain": "4/BtnLabel",
+        "tw": "30s",
+        "cn": "30s",
+        "en": "30s",
+        "jp": "30s"
+    },
+    {
+        "id": 12019,
+        "explain": "5/BtnLabel",
+        "tw": "∞",
+        "cn": "∞",
+        "en": "∞",
+        "jp": "∞"
+    },
+    {
+        "id": 12020,
+        "explain": "SubheadLabel0",
+        "tw": "設定語言"
+    },
+    {
+        "id": 12021,
+        "explain": "0/BtnLabel",
+        "tw": "繁體中文",
+        "cn": "繁體中文",
+        "en": "繁體中文",
+        "jp": "繁體中文"
+    },
+    {
+        "id": 12022,
+        "explain": "1/BtnLabel",
+        "tw": "ENGLISH",
+        "cn": "ENGLISH",
+        "en": "ENGLISH",
+        "jp": "ENGLISH"
+    },
+    {
+        "id": 12023,
+        "tw": "簡體保留"
+    },
+    {
+        "id": 12024,
+        "tw": "日文保留"
+    },
+    {
+        "id": 12025,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12026,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12027,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12028,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12029,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12030,
+        "tw": "語言保留"
+    },
+    {
+        "id": 12031,
+        "explain": "SubheadLabel0",
+        "tw": "切換角色"
+    },
+    {
+        "id": 12032,
+        "explain": "0/BtnLabel",
+        "tw": "選擇其他角色"
     },
     {
         "id": 2000001,
