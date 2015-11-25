@@ -239,12 +239,15 @@ public class UIMainStage : UIBase
     /// </summary>
     /// <param name="stageData"></param>
     /// <returns></returns>
-    private int findPlayerDailyCount(TStageData stageData)
+    private static int findPlayerDailyCount(TStageData stageData)
     {
-        int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
-		if(GameData.Team.Player.StageChallengeNums != null && GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
-            dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
-        return dailyCount;
+//        int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
+//        if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
+//            dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
+//        int dailyCount = stageData.ChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
+//        return dailyCount;
+
+        return stageData.ChallengeNum - GameData.Team.Player.GetStageChallengeNum(stageData.ID);
     }
 
     private void addLockStage(TStageData stageData)
@@ -352,6 +355,13 @@ public class UIMainStage : UIBase
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+    }
+
+    protected override void OnShow(bool isShow)
+    {
+        base.OnShow(isShow);
+
+        mMain.Info.Hide();
     }
 
     public static UIMainStage Get

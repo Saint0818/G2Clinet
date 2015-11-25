@@ -45,6 +45,17 @@ namespace GameStruct
             return Potential.ContainsKey(attr) ? Potential[attr] : 0;
         }
 		public Dictionary<EAttribute, int> Potential;
+
+        public int GetStageChallengeNum(int stageID)
+        {
+            if(StageChallengeNums == null)
+                StageChallengeNums = new Dictionary<int, int>();
+
+            if(!StageChallengeNums.ContainsKey(stageID))
+                StageChallengeNums.Add(stageID, 0);
+
+            return StageChallengeNums[stageID];
+        }
         /// <summary>
         /// 玩家當日的挑戰次數. key: stageID, value: 挑戰次數.
         /// </summary>

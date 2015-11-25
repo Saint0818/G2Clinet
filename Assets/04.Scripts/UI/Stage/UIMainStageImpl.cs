@@ -120,12 +120,6 @@ public class UIMainStageImpl : MonoBehaviour
 
     private UIStageChapter createChapter(int chapter, string title)
     {
-//        GameObject obj = Instantiate(Resources.Load<GameObject>(UIPrefabPath.StageChapter));
-//        obj.transform.parent = ChapterParent;
-//        obj.transform.localPosition = findChapterPos(chapter, obj.GetComponent<UITexture>().width);
-//        obj.transform.localRotation = Quaternion.identity;
-//        obj.transform.localScale = Vector3.one;
-
         GameObject obj = UIPrefabPath.LoadUI(UIPrefabPath.StageChapter, ChapterParent);
         obj.transform.localPosition = findChapterPos(chapter, obj.GetComponent<UITexture>().width);
 

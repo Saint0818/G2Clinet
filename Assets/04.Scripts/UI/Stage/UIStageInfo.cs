@@ -80,8 +80,6 @@ public class UIStageInfo : MonoBehaviour
     [UsedImplicitly]
 	void Awake()
     {
-	    Hide();
-
         GameObject hintObj = Instantiate(Resources.Load<GameObject>("Prefab/UI/UIStageHint"));
         hintObj.transform.parent = HintParent;
         hintObj.transform.localPosition = Vector3.zero;
