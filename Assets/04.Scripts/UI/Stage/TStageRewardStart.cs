@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Text;
 using GameStruct;
 
 /// <summary>
@@ -58,12 +60,26 @@ public class TStageRewardStart
 
     public override string ToString()
     {
-        int surelyNum = 0;
-        if(SurelyItemIDs != null)
-            surelyNum = SurelyItemIDs.Length;
-        int candidateNum = 0;
-        if(CandidateItemIDs != null)
-            candidateNum = CandidateItemIDs.Length;
-        return string.Format("AddMoney: {0}, AddExp: {1}, AddDiamond: {2}, Diamond: {3}, RandomItemID: {4}, SurelyNums:{5}, CandidateNum:{6}", AddMoney, AddExp, AddDiamond, Diamond, RandomItemID, surelyNum, candidateNum);
+        return string.Format("AddMoney: {0}, AddExp: {1}, AddDiamond: {2}, Diamond: {3}, RandomItemID: {4}, " +
+                             "SurelyItemIDs:{5}, CandidateItemIDs:{6}", AddMoney, AddExp, AddDiamond, 
+                             Diamond, RandomItemID, convert(SurelyItemIDs), convert(CandidateItemIDs));
+    }
+
+    private readonly StringBuilder mBuilder = new StringBuilder();
+    private string convert(int[] data)
+    {
+        if(data == null)
+            return String.Empty;
+
+        mBuilder.Length = 0;
+
+        for(var i = 0; i < data.Length; i++)
+        {
+            mBuilder.Append(data[i]);
+            if(i + 1 < data.Length) // 不是最後一個
+                mBuilder.Append(",");
+        }
+
+        return mBuilder.ToString();
     }
 }

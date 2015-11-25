@@ -323,7 +323,7 @@ public class UIMainStage : UIBase
             GameData.Team.Player = team.Player;
             GameData.Team.Player.Init();
 
-            stageRewardStart(mCurrentStageID);
+//            stageRewardStart(mCurrentStageID);
         }
         else
             UIHint.Get.ShowHint("PVE End fail!", Color.red);
@@ -353,7 +353,7 @@ public class UIMainStage : UIBase
             GameData.Team.Player.Init();
             GameData.Team.Items = reward.Items;
 
-            stageRewardAgain(mCurrentStageID);
+//            stageRewardAgain(mCurrentStageID);
         }
         else
             UIHint.Get.ShowHint("Stage Reward fail!", Color.red);

@@ -69,12 +69,6 @@ public class TStageData
     public int LimitEvaluation;
 
     /// <summary>
-    /// 必給獎勵(ItemID).
-    /// </summary>
-    [CanBeNull]
-    public int[] SurelyRewards;
-
-    /// <summary>
     /// 亂數獎勵.
     /// </summary>
     public int[] Rewards; // 獎勵 ItemID.
@@ -141,10 +135,6 @@ public class TStageData
 		if (FriendID != null)
 			for (int i = 0; i < FriendID.Length; i++)
 				FriendID[i] = 0;
-
-		if (SurelyRewards != null)
-			for (int i = 0; i < SurelyRewards.Length; i++)
-				SurelyRewards[i] = 0;
 
 		if (Rewards != null)
 			for (int i = 0; i < Rewards.Length; i++)
