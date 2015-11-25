@@ -27,6 +27,7 @@ public class UISkillInfo : UIBase {
 
 
 	//Left/Explain
+	private UILabel labelSkillExplainSubhead;
 	private UILabel labelSkillExplain;
 
 	//Left/Card
@@ -88,10 +89,13 @@ public class UISkillInfo : UIBase {
 				Get.labelSkillCardName.text = info.Name;
 				Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv;
 				Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
-				if(info.ID >= GameConst.ID_LimitActive)
+				if(info.ID >= GameConst.ID_LimitActive) {
 					Get.spriteSkillKind.spriteName = "ActiveIcon";
-				else 
+					Get.labelSkillInfoKind4.text = TextConst.S(7207);
+				} else {
 					Get.spriteSkillKind.spriteName = "PassiveIcon";
+					Get.labelSkillInfoKind4.text = TextConst.S(7206);
+				}
 				
 				//SkillInfo
 				Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
@@ -99,16 +103,17 @@ public class UISkillInfo : UIBase {
 				Get.labelSkillSpace.text = skillData.Space(lv).ToString();
 				Get.labelSkillExp.text = "0"; //=======
 				Get.sliderSkillExpBar.value = 0; //======
-				Get.labelSkillDemandValue.text = "0";
+				Get.labelSkillDemandValue.text = skillData.Rate(lv).ToString();
 				
 				//Buff Ability
 				int index = 0;
+				Debug.Log("Distance:" + skillData.Distance(lv));
 				if(skillData.Distance(lv) > 0) {
 					Get.buffViews[index].ShowDistance(skillData.Distance(lv));
 					index ++;
 				}
 				
-				if(skillData.LifeTime(lv) > 0) {
+				if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
 					Get.buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(lv), skillData.Value(lv));
 				}
 				
@@ -152,6 +157,7 @@ public class UISkillInfo : UIBase {
 		buffViews = GetComponentsInChildren<BuffView>();
 		
 		//Explain
+		labelSkillExplainSubhead = GameObject.Find (UIName + "/Left/Explain/LabelSubhead").GetComponent<UILabel>();
 		labelSkillExplain = GameObject.Find (UIName + "/Left/Explain/SkillArea/SkillExplain").GetComponent<UILabel>();
 		
 		//Card
@@ -161,7 +167,10 @@ public class UISkillInfo : UIBase {
 		labelSkillCardName = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillName").GetComponent<UILabel>();
 		spriteSkillStar = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillStar").GetComponent<UISprite>();
 		spriteSkillKind = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillKind").GetComponent<UISprite>();
-		
+
+		labelCraft = GameObject.Find (UIName + "/TopRight/CraftingBtn/Label").GetComponent<UILabel>();
+		labelUpgrade = GameObject.Find (UIName + "/TopRight/UpgradeBtn/Label").GetComponent<UILabel>();
+
 		SetBtnFun(UIName + "/Center/BG", OnClose);
 		SetBtnFun(UIName + "/BottomRight/BackBtn", OnClose);
 		SetBtnFun(UIName + "/TopRight/EquipBtn", OnEquip);
@@ -171,58 +180,18 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitData() {
-		labelCraft.text = TextConst.S(7211);
-		labelUpgrade.text = TextConst.S(7212);
-		labelSubhead.text = TextConst.S(7208);
-		labelSkillInfoSubhead.text = TextConst.S(7206);
-		labelSkillInfoKind1.text = TextConst.S(7207);
-		labelSkillInfoKind2.text = TextConst.S(7208);
-		labelSkillInfoKind3.text = TextConst.S(7209);
-		labelSkillInfoKind4.text = TextConst.S(7210);
+		labelSkillInfoSubhead.text = TextConst.S(7202);
+		labelSkillInfoKind1.text = TextConst.S(7203);
+		labelSkillInfoKind2.text = TextConst.S(7204);
+		labelSkillInfoKind3.text = TextConst.S(7205);
+		labelSkillExplainSubhead.text = TextConst.S(7208);
+		labelSubhead.text = TextConst.S(7209);
+		labelCraft.text = TextConst.S(7212);
+		labelUpgrade.text = TextConst.S(7213);
 	}
 	
 	protected override void OnShow(bool isShow) {
 		
-	}
-	private string getKindName (int index) {
-		switch (index) {
-		case 1:
-			return "2PT";
-		case 2:
-			return "3PT";
-		case 3:
-			return "SPD";
-		case 4:
-			return "STA";
-		case 5:
-			return "STR";
-		case 6:
-			return "DNK";
-		case 7:
-			return "REB";
-		case 8:
-			return "BLK";
-		case 9:
-			return "DEF";
-		case 10:
-			return "STL";
-		case 11:
-			return "DRB";
-		case 12:
-			return "PAS";
-		case 13:
-			return "";
-		case 14:
-			return "";
-		case 15:
-			return "";
-		case 16:
-			return "";
-		case 17:
-			return "";
-		default:
-			return "";
-		}
 	}
 
 	private void openCardTurn(bool isRight) {

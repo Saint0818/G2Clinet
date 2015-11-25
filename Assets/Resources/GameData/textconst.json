@@ -170,17 +170,17 @@
     {
         "id": 2105,
         "explain": "中鋒\nSpriteCharacterInfo/Description",
-        "tw": "星際摔角界難見的奇才，卻因下級居民的身份只能打假比賽賺取收入。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。\\n\\n[33FFDD]擁有強壯的體格[-]"
+        "tw": "星際摔角界難見的奇才，卻因下級居民的身份只能打假比賽賺取收入。直到某次比賽中失手打敗對方而欠下巨債，家庭破碎。[33FFDD]擁有強壯的體格[-]"
     },
     {
         "id": 2106,
         "explain": "前鋒\nSpriteCharacterInfo/Description",
-        "tw": "原為前途光明的高階星際軍官，意外失去右臂並接受改造卻失敗了，而後淪為政治犧牲品，同時人生盡毀。\\n\\n[33FFDD]擁有高超的命中率[-]"
+        "tw": "原為前途光明的高階星際軍官，意外失去右臂並接受改造卻失敗了，而後淪為政治犧牲品，同時人生盡毀。[33FFDD]擁有高超的命中率[-]"
     },
     {
         "id": 2107,
         "explain": "後衛\nSpriteCharacterInfo/Description",
-        "tw": "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在星際酒吧練出敏捷的身手。\\n\\n[33FFDD]擁有靈敏的身手[-]"
+        "tw": "貧民窟長大的女孩，為了找尋失蹤的父親，跟照顧年幼的弟妹與母親，身兼多職，在星際酒吧練出敏捷的身手。[33FFDD]擁有靈敏的身手[-]"
     },
     {
         "id": 2201,
@@ -762,43 +762,48 @@
     },
     {
         "id": 7207,
-        "explain": "Explain/LabelSubhead",
-        "tw": "說明"
+        "explain": "LabelKind4",
+        "tw": "所需怒氣"
     },
     {
         "id": 7208,
-        "explain": "BuffAbility/LabelSubhead",
-        "tw": "BUFF"
+        "explain": "LabelSubhead",
+        "tw": "說明"
     },
     {
         "id": 7209,
-        "explain": "AbilityLifeTime/LifeTimeLabel/Label",
-        "tw": "時間"
+        "explain": "LabelSubhead",
+        "tw": "BUFF"
     },
     {
         "id": 7210,
-        "explain": "ItemBuffAbility/AbilityDistance/TitleLabel",
-        "tw": "距離"
+        "explain": "LifeTimeLabel/Label",
+        "tw": "時間"
     },
     {
         "id": 7211,
+        "explain": "TitleLabel",
+        "tw": "距離"
+    },
+    {
+        "id": 7212,
         "explain": "CraftingBtn/Label",
         "tw": "CRAFTING"
     },
     {
-        "id": 7212,
-        "explain": "UpgradeBtn",
+        "id": 7213,
+        "explain": "UpgradeBtn/Label",
         "tw": "UPGRADE"
     },
     {
-        "id": 7213,
-        "explain": "EquipBtn",
-        "tw": "安裝"
+        "id": 7214,
+        "explain": "EquipBtn/Label",
+        "tw": "EQUIP"
     },
     {
-        "id": 7214,
-        "explain": "LabelKind4",
-        "tw": "需求怒氣"
+        "id": 7215,
+        "explain": "EquipBtn/Label",
+        "tw": "UNEQUIP"
     },
     {
         "id": 7301,
@@ -818,7 +823,7 @@
     {
         "id": 8002,
         "explain": "Prefab/Items/SortBtn",
-        "tw": "篩選",
+        "tw": "SORT",
         "cn": "SORT",
         "en": "SORT",
         "jp": "SORT"
@@ -826,10 +831,19 @@
     {
         "id": 8003,
         "explain": "SellBtn",
-        "tw": "販賣",
+        "tw": "SELL",
         "cn": "SELL",
         "en": "SELL",
         "jp": "SELL"
+    },
+    {
+        "id": 8004,
+        "explain": "GetModeLabel",
+        "tw": "[0}潛能點已取得"
+    },
+    {
+        "id": 8005,
+        "tw": "+{0}潛能點"
     },
     {
         "id": 8101,
@@ -1525,6 +1539,9 @@
     {
         "id": 12001,
         "explain": "設定"
+    },
+    {
+        "id": 12002
     },
     {
         "id": 2000001,

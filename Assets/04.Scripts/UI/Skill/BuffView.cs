@@ -13,9 +13,8 @@ public class BuffView : MonoBehaviour {
 	public UILabel LabelAttrKind;
 
 	void Awake () {
-		LabelTime.text = TextConst.S(7209);
-		LabelTitle.text = TextConst.S(7210);
-		KindLabel.text = TextConst.S(3006);
+		LabelTime.text = TextConst.S(7210);
+		LabelTitle.text = TextConst.S(7211);
 		Distance.SetActive(false);
 		LifeTime.SetActive(false);
 	}
@@ -27,6 +26,7 @@ public class BuffView : MonoBehaviour {
 
 	public void ShowTime (int kind, float lifetime, float value) {
 		LifeTime.SetActive(true);
+		KindLabel.text = TextConst.S(3005 + kind);
 		AttrKind.spriteName = "AttrKind_" + kind.ToString();
 		LabelTimeValue.text = lifetime.ToString();
 		LabelAttrKind.text = value.ToString();
