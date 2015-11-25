@@ -73,6 +73,7 @@ public struct TUICard{
 	public GameObject InListCard;
 	public GameObject SellSelect;
 	public GameObject SellSelectCover;
+	public UISprite SkillKind;
 	public int CardIndex;
 	public int CardID;
 	public int CardLV;
@@ -85,6 +86,7 @@ public struct TUICard{
 		SkillLevel = null;
 		SkillName = null;
 		SkillStar = null;
+		SkillKind = null;
 		UnavailableMask = null;
 		Selected = null;
 		InListCard = null;
@@ -533,6 +535,15 @@ public class UISkillFormation : UIBase {
 			if(t != null)  {
 				uicard.SellSelectCover = t.gameObject;
 				uicard.SellSelectCover.SetActive(false);
+			}
+
+			t = obj.transform.FindChild("SkillKind");
+			if(t != null)  {
+				uicard.SkillKind = t.gameObject.GetComponent<UISprite>();
+				if(skill.ID >= GameConst.ID_LimitActive)
+					uicard.SkillKind.spriteName = "ActiveIcon";
+				else 
+					uicard.SkillKind.spriteName = "PassiveIcon";
 			}
 
 			uiCards.Add(obj.transform.name, uicard);

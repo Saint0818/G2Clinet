@@ -6,31 +6,30 @@ public class UISkillInfo : UIBase {
 	private static UISkillInfo instance = null;
 	private const string UIName = "UISkillInfo";
 
-	private UILabel labelEquip;
-	private GameObject btnEquip;
 
-	//SkillInfo
+	//Left/SkillInfo
 	private UISprite spriteSkillQuality;
 	private UISprite spriteSkillLevel;
 	private UILabel labelSkillSpace;
 	private UILabel labelSkillExp;
+	private UILabel labelSkillDemandValue;
 	private UISlider sliderSkillExpBar;
+	private UILabel labelSkillInfoSubhead;
+	private UILabel labelSkillInfoKind1;
+	private UILabel labelSkillInfoKind2;
+	private UILabel labelSkillInfoKind3;
+	private UILabel labelSkillInfoKind4;
 
-	//Buff Ability
-	private UILabel labelSkillAttrKind;
-	private UILabel labelSkillAttrKindValue;
-	private UILabel labelSkillLifeTime;
+	//Left/Buff Ability
+	private GameObject buffAbility;
+	private UILabel labelSubhead;
+	private BuffView[] buffViews;
 
-	//Trigger
-	private UILabel labelSkillRate;
-	private UILabel labelSkillDistance;
-	private UISlider sliderProbability;
-	private UISlider sliderDistance;
 
-	//Explain
+	//Left/Explain
 	private UILabel labelSkillExplain;
 
-	//Card
+	//Left/Card
 	private GameObject btnMedium;
 	private GameObject btnMediumTop;
 	private UISprite spriteSkillCard;
@@ -38,6 +37,13 @@ public class UISkillInfo : UIBase {
 	private UISprite spriteSkillCardLevel;
 	private UILabel labelSkillCardName;
 	private UISprite spriteSkillStar;
+	private UISprite spriteSkillKind;
+
+	//TopRight
+	private UILabel labelEquip;
+	private GameObject btnEquip;
+	private UILabel labelCraft;
+	private UILabel labelUpgrade;
 
 	private bool isAlreadyEquip;
 
@@ -72,36 +78,43 @@ public class UISkillInfo : UIBase {
 			else
 				Get.labelEquip.text = "EQUIP";
 
-			TSkillData skillData = GameData.DSkillData[info.ID];
-			int lv = int.Parse(info.Lv);
-
-			//MediumCard
-			Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
-			Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
-			Get.labelSkillCardName.text = info.Name;
-			Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv;
-			Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
-
-			//SkillInfo
-			Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
-			Get.spriteSkillLevel.spriteName = "Cardicon" + info.Lv;
-			Get.labelSkillSpace.text = skillData.Space(lv).ToString();
-			Get.labelSkillExp.text = "0"; //=======
-			Get.sliderSkillExpBar.value = 0; //======
-
-			//Buff Ability
-			Get.labelSkillAttrKind.text = "[00caff]" + Get.getKindName(skillData.AttrKind);
-			Get.labelSkillAttrKindValue.text  = skillData.Value(lv).ToString();
-			Get.labelSkillLifeTime.text = skillData.LifeTime(lv).ToString();
-
-			//Trigger
-			Get.labelSkillRate.text = skillData.Rate(lv).ToString();
-			Get.labelSkillDistance.text = skillData.Distance(lv).ToString();
-			Get.sliderProbability.value = skillData.Rate(lv) / 100f;
-			Get.sliderDistance.value = skillData.Distance(lv) / 30f;
-			
-			//Explain
-			Get.labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, info.ID, int.Parse(info.Lv));
+			if(GameData.DSkillData.ContainsKey(info.ID)) {
+				TSkillData skillData = GameData.DSkillData[info.ID];
+				int lv = int.Parse(info.Lv);
+				
+				//MediumCard
+				Get.spriteSkillCard.spriteName = "cardlevel_" + Mathf.Clamp(skillData.Quality, 1, 3);
+				Get.textureSkillPic.mainTexture = GameData.CardTexture(info.ID);
+				Get.labelSkillCardName.text = info.Name;
+				Get.spriteSkillCardLevel.spriteName = "Cardicon" + info.Lv;
+				Get.spriteSkillStar.spriteName = "Staricon" + Mathf.Clamp(skillData.Star, 1, 5).ToString();
+				if(info.ID >= GameConst.ID_LimitActive)
+					Get.spriteSkillKind.spriteName = "ActiveIcon";
+				else 
+					Get.spriteSkillKind.spriteName = "PassiveIcon";
+				
+				//SkillInfo
+				Get.spriteSkillQuality.spriteName = "Levelball" + Mathf.Clamp(skillData.Quality, 1, 3);
+				Get.spriteSkillLevel.spriteName = "Cardicon" + info.Lv;
+				Get.labelSkillSpace.text = skillData.Space(lv).ToString();
+				Get.labelSkillExp.text = "0"; //=======
+				Get.sliderSkillExpBar.value = 0; //======
+				Get.labelSkillDemandValue.text = "0";
+				
+				//Buff Ability
+				int index = 0;
+				if(skillData.Distance(lv) > 0) {
+					Get.buffViews[index].ShowDistance(skillData.Distance(lv));
+					index ++;
+				}
+				
+				if(skillData.LifeTime(lv) > 0) {
+					Get.buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(lv), skillData.Value(lv));
+				}
+				
+				//Explain
+				Get.labelSkillExplain.text = GameFunction.GetStringExplain(skillData.Explain, info.ID, int.Parse(info.Lv));
+			}
 		}
 		if (instance) {
 			if (!isShow)
@@ -119,23 +132,24 @@ public class UISkillInfo : UIBase {
 		btnMedium = GameObject.Find (UIName + "/Left/BtnMediumCard");
 		btnMediumTop = GameObject.Find (UIName + "/Left/BtnMediumCard/Top");
 		btnMediumTop.SetActive(false);
+
 		//SkillInfo
 		spriteSkillQuality = GameObject.Find (UIName + "/Left/SkillInfo/SkillQuality").GetComponent<UISprite>();
 		spriteSkillLevel = GameObject.Find (UIName + "/Left/SkillInfo/SkillQuality/SkillLevel").GetComponent<UISprite>();
 		labelSkillSpace = GameObject.Find (UIName + "/Left/SkillInfo/SkillSpace ").GetComponent<UILabel>();
 		labelSkillExp = GameObject.Find (UIName + "/Left/SkillInfo/SkillExp").GetComponent<UILabel>();
+		labelSkillDemandValue = GameObject.Find (UIName + "/Left/SkillInfo/SkillDemandValue").GetComponent<UILabel>();
 		sliderSkillExpBar = GameObject.Find (UIName + "/Left/SkillInfo/SkillExpBar").GetComponent<UISlider>();
+		labelSkillInfoSubhead = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelSubhead").GetComponent<UILabel>();
+		labelSkillInfoKind1 = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelKind1").GetComponent<UILabel>();
+		labelSkillInfoKind2 = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelKind2").GetComponent<UILabel>();
+		labelSkillInfoKind3 = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelKind3").GetComponent<UILabel>();
+		labelSkillInfoKind4 = GameObject.Find (UIName + "/Left/SkillInfo/Labels/LabelKind4").GetComponent<UILabel>();
 		
 		//Buff Ability
-		labelSkillAttrKind = GameObject.Find (UIName + "/Left/BuffAbility/SkillAttrKind").GetComponent<UILabel>();
-		labelSkillAttrKindValue  = GameObject.Find (UIName + "/Left/BuffAbility/SkillAttrKindValue").GetComponent<UILabel>();
-		labelSkillLifeTime = GameObject.Find (UIName + "/Left/BuffAbility/SkillLifeTime").GetComponent<UILabel>();
-		
-		//Trigger
-		labelSkillRate = GameObject.Find (UIName + "/Left/Trigger/SkillRate").GetComponent<UILabel>();
-		labelSkillDistance = GameObject.Find (UIName + "/Left/Trigger/SkillDistance").GetComponent<UILabel>();
-		sliderProbability = GameObject.Find (UIName + "/Left/Trigger/ProbabilityBar").GetComponent<UISlider>();
-		sliderDistance = GameObject.Find (UIName + "/Left/Trigger/DistanceBar").GetComponent<UISlider>();
+		buffAbility = GameObject.Find (UIName + "/Left/BuffAbility");
+		labelSubhead = GameObject.Find (UIName + "/Left/BuffAbility/LabelSubhead").GetComponent<UILabel>();
+		buffViews = GetComponentsInChildren<BuffView>();
 		
 		//Explain
 		labelSkillExplain = GameObject.Find (UIName + "/Left/Explain/SkillArea/SkillExplain").GetComponent<UILabel>();
@@ -146,8 +160,7 @@ public class UISkillInfo : UIBase {
 		spriteSkillCardLevel = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillLevel").GetComponent<UISprite>();
 		labelSkillCardName = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillName").GetComponent<UILabel>();
 		spriteSkillStar = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillStar").GetComponent<UISprite>();
-
-//		UIEventListener.Get(GameObject.Find (UIName + "/FullScreen")).onClick = Close;
+		spriteSkillKind = GameObject.Find (UIName + "/Left/BtnMediumCard/ItemSkillCard/SkillKind").GetComponent<UISprite>();
 		
 		SetBtnFun(UIName + "/Center/BG", OnClose);
 		SetBtnFun(UIName + "/BottomRight/BackBtn", OnClose);
@@ -158,7 +171,14 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitData() {
-		
+		labelCraft.text = TextConst.S(7211);
+		labelUpgrade.text = TextConst.S(7212);
+		labelSubhead.text = TextConst.S(7208);
+		labelSkillInfoSubhead.text = TextConst.S(7206);
+		labelSkillInfoKind1.text = TextConst.S(7207);
+		labelSkillInfoKind2.text = TextConst.S(7208);
+		labelSkillInfoKind3.text = TextConst.S(7209);
+		labelSkillInfoKind4.text = TextConst.S(7210);
 	}
 	
 	protected override void OnShow(bool isShow) {
