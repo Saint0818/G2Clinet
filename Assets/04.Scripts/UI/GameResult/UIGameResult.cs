@@ -29,7 +29,7 @@ public class UIGameResult : UIBase {
 
 	//AwardItems
 	private int alreadGetBonusID = 3;
-	private List<int> awardItemTempIDs;
+	private List<int> awardItemTempIDs = new List<int>();
 	private int[] awardItemIDs;
 	private int[] bonusItemIDs;
 
@@ -48,6 +48,10 @@ public class UIGameResult : UIBase {
 	private bool isChooseLucky = false;
 	private int chooseIndex = 0;
 	private int chooseCount = 0;
+
+	private int tempMoney;
+	private int tempExp;
+	private int tempDia;
 
 	public static bool Visible
 	{
@@ -102,8 +106,16 @@ public class UIGameResult : UIBase {
 					isShowAward = false;
 					showBonusItem ();
 				} else {
-					if((awardMax - awardIndex) < awardMax)
-						alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemIDs[(awardMax - awardIndex)]]);
+					if((awardMax - awardIndex) < awardMax ){
+						if(awardItemTempIDs[(awardMax - awardIndex)] > 0)
+							alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
+						else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
+							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData() , 0 , tempMoney, true);
+						else if(awardItemTempIDs[(awardMax - awardIndex)] == -2) 
+							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 1 , tempExp, true);
+						else if(awardItemTempIDs[(awardMax - awardIndex)] == -3) 
+							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 2 , tempDia, true);
+					}
 
 					awardGetTime = awardGetTimeInterval;
 					awardIndex --;
@@ -225,8 +237,9 @@ public class UIGameResult : UIBase {
 	private void showItem (int index) {
 		chooseIndex = index;
 		itemAwardGroup[index].gameObject.SetActive(true);
-		if(GameData.DItemData.ContainsKey(alreadGetBonusID))
+		if(GameData.DItemData.ContainsKey(alreadGetBonusID))  {
 			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
+		}
 		Invoke("MoveItem",1);
 		chooseCount ++ ;
 	}
@@ -252,11 +265,15 @@ public class UIGameResult : UIBase {
 
 		alreadyGetItems = new List<ItemAwardGroup>();
 		bonusAwardItems = new Dictionary<int, ItemAwardGroup>();
-		awardIndex = awardItemIDs.Length;
-		awardMax = awardItemIDs.Length;
-		for(int i=0; i<awardItemIDs.Length; i++)
-			if(GameData.DItemData.ContainsKey(awardItemIDs[i]))
-				alreadyGetItems.Add(addItemToAward(i, GameData.DItemData[awardItemIDs[i]]));
+		awardIndex = awardItemTempIDs.Count;
+		awardMax = awardItemTempIDs.Count;
+		for(int i=0; i<awardItemTempIDs.Count; i++) {
+			if(GameData.DItemData.ContainsKey(awardItemTempIDs[i])){
+				alreadyGetItems.Add(addItemToAward(i, GameData.DItemData[awardItemTempIDs[i]]));
+			} else {
+				alreadyGetItems.Add(addItemToAward(i, new TItemData(), true, true));	
+			}
+		}
 
 		for(int i=0; i<bonusItemIDs.Length; i++) {
 			 if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
@@ -302,9 +319,15 @@ public class UIGameResult : UIBase {
 		}
 	}
 
-	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true) {
+	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true, bool isOther = false) {
 		GameObject obj = Instantiate(uiItem) as GameObject;
-		obj.name = itemData.ID.ToString();
+
+		if(!isOther) {
+			obj.name = itemData.ID.ToString();
+		} else {
+			obj.name = index.ToString();
+		}
+
 		if(isNeedAdd) {
 			obj.transform.parent = awardScrollView.transform;
 			obj.transform.localPosition = new Vector3(-450 + (150 * index), 0, 0);
@@ -498,8 +521,11 @@ public class UIGameResult : UIBase {
 			GameData.Team.Items = reward.Items;
 
 			
-
-			awardItemIDs = reward.SurelyItemIDs;
+			awardItemTempIDs = new List<int>();
+			if(reward.SurelyItemIDs == null) {
+				awardItemIDs = new int[0];
+			}else
+				awardItemIDs = reward.SurelyItemIDs;
 			bonusItemIDs = reward.CandidateItemIDs;
 			alreadGetBonusID = reward.RandomItemID;
 
@@ -507,10 +533,18 @@ public class UIGameResult : UIBase {
 				awardItemTempIDs.Add(awardItemIDs[i]);
 			}
 
-			if(reward.Money > 0)
+			if(reward.AddMoney > 0) {
 				awardItemTempIDs.Add(-1);
-			if(reward.Exp > 0)
+				tempMoney = reward.AddMoney;
+			}
+			if(reward.AddExp > 0) {
 				awardItemTempIDs.Add(-2);
+				tempExp = reward.AddExp;
+			}
+			if(reward.AddDiamond > 0) {
+				awardItemTempIDs.Add(-3);
+				tempDia = reward.AddDiamond;
+			}
 
 			init ();
 		}

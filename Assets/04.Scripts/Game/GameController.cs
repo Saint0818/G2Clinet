@@ -264,7 +264,6 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void LoadStage(int id) {
-		UIGame.Get.InitUI();
 
 		if(StageTable.Ins.HasByID(id)) {
             StageData = StageTable.Ins.GetByID(id);
@@ -288,6 +287,7 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
 			CourtMgr.Get.ChangeBasket(0);
 		}
+		UIGame.Get.InitUI();
 
 		int rate = UnityEngine.Random.Range(0, 2);
 		if(rate == 0)

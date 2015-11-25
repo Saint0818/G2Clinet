@@ -25,17 +25,33 @@ public class ItemAwardGroup : MonoBehaviour {
 		awardSkillView.Hide ();
 	}
 
-	public void Show(TItemData itemData) {
+	//kind 0:Money 1:EXP 2:Gem  ( Temp )
+	public void Show(TItemData itemData, int kind = 0, int value = 0, bool isOther = false) {
 		Window.SetActive(true);
-		if(itemData.Kind == 21) {
-			awardSkillView.Show ();
-			awardSkillView.UpdateUI(itemData);
-		} else if(itemData.Kind == 19) {
-			awardInlayView.Show ();
-			awardInlayView.UpdateUI(itemData);
+		if(!isOther) {
+			if(itemData.Kind == 21) {
+				awardSkillView.Show ();
+				awardSkillView.UpdateUI(itemData);
+			} else if(itemData.Kind == 19) {
+				awardInlayView.Show ();
+				awardInlayView.UpdateUI(itemData);
+			} else {
+				awardAvatarView.Show ();
+				awardAvatarView.UpdateUI(itemData);
+			}
 		} else {
 			awardAvatarView.Show ();
-			awardAvatarView.UpdateUI(itemData);
+			switch(kind) {
+			case 0:
+				awardAvatarView.UpdateMoney(value);
+				break;
+			case 1:
+				awardAvatarView.UpdateExp(value);
+				break;
+			case 2:
+				awardAvatarView.UpdateGem(value);
+				break;
+			}
 		}
 	}
 }
