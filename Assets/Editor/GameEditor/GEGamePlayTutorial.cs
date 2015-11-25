@@ -236,6 +236,12 @@ public class GEGamePlayTutorial : GEBase {
 	//event 3
 	private void showPlayerMove(int i) {
 		GUILayout.BeginHorizontal();
+		if (GUILayout.Button("Move", GUILayout.Width(200)) && GameController.Visible) {
+			for (int j = 0; j < events[i].Actions.Length; j++)
+			{
+				GameController.Get.SetPlayerMove(events[i].Actions[j].Action, events[i].Actions[j].Team * 3 + events[i].Actions[j].Index);
+			}
+		}
 
 		actionTeam = GUIIntEdit(actionTeam, "Team");
 		actionIndex = GUIIntEdit(actionIndex, "Index");

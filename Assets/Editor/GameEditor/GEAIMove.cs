@@ -66,7 +66,7 @@ public class GEAIMove : GEBase {
         if (GUILayout.Button("Array Setting", GUILayout.Width(200)))
             ResetPositionArraySize();
 
-        if (GUILayout.Button("Move", GUILayout.Width(200)))
+		if (GUILayout.Button("Move", GUILayout.Width(200)) && GameController.Visible)
         {
             if (PosAy1.Length > 0)
             {

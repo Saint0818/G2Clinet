@@ -264,8 +264,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void LoadStage(int id) {
-
-		if(StageTable.Ins.HasByID(id)) {
+		if (StageTable.Ins.HasByID(id)) {
             StageData = StageTable.Ins.GetByID(id);
 			maxGameTime = StageData.BitNum[0];
 			GameTime = StageData.BitNum[0];
@@ -298,7 +297,7 @@ public class GameController : KnightSingleton<GameController>
 		CameraMgr.Get.SetCourtCamera (ESceneName.Court + StageData.CourtNo.ToString());
 		InitGame();
 		
-		if (GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(id)) 
+		if (GameStart.Get.TestMode == EGameTest.None && GameStart.Get.OpenTutorial && GameData.DStageTutorial.ContainsKey(id)) 
 			GamePlayTutorial.Get.SetTutorialData(id);
 
 		if (Situation == EGameSituation.None)
@@ -4215,9 +4214,7 @@ public class GameController : KnightSingleton<GameController>
 
 	public void SetPlayerMove(TTacticalAction actionPosition, int index, bool clearPath = true) {
         if (index > -1 && index < PlayerList.Count) {
-			if (clearPath)
-				moveData.Clear();
-
+			moveData.Clear();
 			moveData.SetTarget(actionPosition.x, actionPosition.z);
 			moveData.Speedup = actionPosition.Speedup;
 			moveData.Catcher = actionPosition.Catcher;
