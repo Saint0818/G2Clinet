@@ -8,18 +8,29 @@ public class UILoading : UIBase {
 	private const string UIName = "UILoading";
 
 	private GameObject windowLoading;
-	private GameObject windowGame;
+	private GameObject windowStage;
 	private GameObject loadingPic;
 	private GameObject buttonNext;
 	private UITexture uiBG;
 	private UITexture uiLoadingProgress;
+	private UILabel labelLoading;
+	private UILabel labelStageTitle;
+	private UILabel labelStageExplain;
+	private UILabel labelTip;
 	private GameObject[] pageOn = new GameObject[3];
 	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
 	private ELoadingGamePic loadingKind;
+	private bool closeAfterFinished = false;
 	private int pageLoading = 0;
+	private float nowProgress;
+	private float toProgress;
 	private float startTimer = 0;
+	private float loadingTimer = 0;
+	private float textCount = 0;
+	private string loadingText = "";
+
 
 	public static bool Visible{
 		get{
@@ -40,15 +51,49 @@ public class UILoading : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint=""){
+	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole){
 		if(isShow) {
-			Get.initLoadingPic(kind, hint);
+			Get.initLoadingPic(kind);
 			Get.Show(true);
 		} else 
-		if(instance) {
-			Get.Show(false);
+		if(instance) { 
+			if (Get.LoadingFinished)
+				Get.Show(false);
+			else
+				Get.closeAfterFinished = true;
 			//RemoveUI(UIName);
 		}
+	}
+
+	void FixedUpdate() {
+		if (!LoadingFinished) {
+			loadingTimer += Time.deltaTime;
+			if (nowProgress < toProgress) {
+				nowProgress += Time.deltaTime;
+				if (nowProgress > toProgress)
+					nowProgress = toProgress;
+
+				uiLoadingProgress.fillAmount = nowProgress;
+			}
+
+			if (loadingTimer >= 0.2f) {
+				loadingTimer = 0;
+				textCount++;
+				loadingText = "";
+				for (int i = 0; i < textCount; i++)
+					loadingText += ".";
+
+				labelLoading.text = TextConst.S(10106) + loadingText;
+
+				if (textCount > 2)
+					textCount = 0;
+			}
+
+			if (closeAfterFinished)
+				UIShow(false);
+		} else 
+		if (!string.IsNullOrEmpty(labelLoading.text))
+			labelLoading.text = "";
 	}
 
 	protected override void OnShow(bool isShow) {
@@ -56,68 +101,76 @@ public class UILoading : UIBase {
 			StartCoroutine(DoLoading(loadingKind));
 	}
 
-	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole, string hint="") {
+	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
 		loadingKind = kind;
 		startTimer = Time.time;
+		closeAfterFinished = false;
+		nowProgress = 0;
+		ProgressValue = 0;
 		if (kind == ELoadingGamePic.Game) {
-			windowGame.SetActive(true);
+			windowStage.SetActive(true);
 			windowLoading.SetActive(false);
+
+			TStageData data = StageTable.Ins.GetByID(GameData.StageID);
+			labelStageTitle.text = data.Name;
+			labelStageExplain.text = data.Explain;
+			labelTip.text = TextConst.S(UnityEngine.Random.Range(301, 303));
 		} else {
-			windowGame.SetActive(false);
+			windowStage.SetActive(false);
 			windowLoading.SetActive(true);
 		}
-		
-		//			if (hint != "")
-		//				Hint.text = hint;
-		//			else
-		//				Hint.text = "";
 	}
 
 	protected override void InitCom() {
+		SetBtnFun(UIName + "/StageInfo/Right/Next", OnNext);
+
+		loadingPic = GameObject.Find (UIName + "/LoadingPic");
+		uiLoadingProgress = GameObject.Find (UIName + "/LoadingPic/UIProgressBar").GetComponent<UITexture>();
+		labelLoading = GameObject.Find (UIName + "/LoadingPic/UIWord").GetComponent<UILabel>();
+		windowLoading = GameObject.Find (UIName + "/WindowLoading");
+		windowStage = GameObject.Find (UIName + "/StageInfo");
+		labelTip = GameObject.Find (UIName + "/StageInfo/Bottom/Tip").GetComponent<UILabel>();
+		labelStageTitle = GameObject.Find (UIName + "/StageInfo/Center/SingalStage/StageNameLabel").GetComponent<UILabel>();
+		labelStageExplain = GameObject.Find (UIName + "/StageInfo/Center/SingalStage/StageExplainLabel").GetComponent<UILabel>();
+		uiBG = GameObject.Find (UIName + "/StageInfo/Center/StageKindTexture").GetComponent<UITexture>();
+		buttonNext = GameObject.Find (UIName + "/StageInfo/Right/Next");
+		buttonNext.SetActive(false);
+		windowStage.SetActive(false);
+		windowLoading.SetActive(false);
+		loadingPic.SetActive(true);
+		/*
 		SetBtnFun(UIName + "/WindowGame/Pages/P1Button", OnChangePage);
 		SetBtnFun(UIName + "/WindowGame/Pages/P2Button", OnChangePage);
 		SetBtnFun(UIName + "/WindowGame/Pages/P3Button", OnChangePage);
-		SetBtnFun(UIName + "/WindowGame/Right/Next", OnNext);
-
-		windowLoading = GameObject.Find (UIName + "/WindowLoading");
-		windowGame = GameObject.Find (UIName + "/WindowGame");
 		pageOn[0] = GameObject.Find (UIName + "/WindowGame/Pages/P1Button/Onpage");
 		pageOn[1] = GameObject.Find (UIName + "/WindowGame/Pages/P2Button/Onpage");
 		pageOn[2] = GameObject.Find (UIName + "/WindowGame/Pages/P3Button/Onpage");
 		viewLoading [0] = GameObject.Find (UIName + "/WindowGame/Loading1"); 
 		viewLoading [1] = GameObject.Find (UIName + "/WindowGame/Loading2"); 
-		viewLoading [2] = GameObject.Find (UIName + "/WindowGame/Loading3"); 
-		buttonNext = GameObject.Find (UIName + "/WindowGame/Right/Next");
-		buttonNext.SetActive(false);
-
-		loadingPic = GameObject.Find (UIName + "/LoadingPic");
-		uiLoadingProgress = GameObject.Find (UIName + "/LoadingPic/UIProgressBar").GetComponent<UITexture>();
-		uiBG = GameObject.Find (UIName + "/WindowGame/BG").GetComponent<UITexture>();
-//		loadingRotation = GameObject.Find (UIName + "/LoadingPic/UILight1").GetComponent<TweenRotation>();
-
-		windowGame.SetActive(false);
-		windowLoading.SetActive(false);
-		loadingPic.SetActive(true);
+		viewLoading [2] = GameObject.Find (UIName + "/WindowGame/Loading3");
+		loadingRotation = GameObject.Find (UIName + "/LoadingPic/UILight1").GetComponent<TweenRotation>();
 		pageOn[1].SetActive(false);
 		pageOn[2].SetActive(false);
 		viewLoading[1].SetActive(false);
 		viewLoading[2].SetActive(false);
-	}
-
-	protected override void InitData() {
-		uiLoadingProgress.fillAmount = 0;
+		*/
 	}
 	
 	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
 		float minWait = 2;
 		float maxWait = 4;
 		float waitTime = 1;
+
+		if (kind != ELoadingGamePic.Login)
+			ProgressValue = 0.3f;
+
 		yield return new WaitForSeconds (1);
 
 		switch (kind) {
 		case ELoadingGamePic.SelectRole:
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
+			ProgressValue = 1;
 
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
@@ -125,11 +178,12 @@ public class UILoading : UIBase {
 
 			break;
 		case ELoadingGamePic.Login:
-
+			ProgressValue = 1;
 			break;
 		case ELoadingGamePic.CreateRole:
 			UICreateRole.Get.ShowPositionView();
 			UI3DCreateRole.Get.PositionView.PlayDropAnimation();
+			ProgressValue = 0.7f;
 
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
@@ -137,6 +191,7 @@ public class UILoading : UIBase {
 
 			break;
 		case ELoadingGamePic.Lobby:
+			ProgressValue = 1;
 			if(!SceneMgr.Get.CheckNeedOpenStageUI())
 				UIMainLobby.Get.Show();
 
@@ -153,9 +208,13 @@ public class UILoading : UIBase {
 			GameController.Get.ChangeSituation(EGameSituation.None);
 			yield return new WaitForSeconds (0.2f);
 			CourtMgr.Get.InitCourtScene ();
+			ProgressValue = 0.7f;
 			yield return new WaitForSeconds (0.2f);
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
+			//GameController.Get.LoadStage(GameData.StageID);
+			//UIGame.UIShow(false);
+			ProgressValue = 1;
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 
@@ -164,15 +223,18 @@ public class UILoading : UIBase {
 
 			break;
 		case ELoadingGamePic.Stage:
+			ProgressValue = 1;
 			loadStage();
 			break;
 		}
+
+		ProgressValue = 1;
 	}
 	
 	public void UpdateProgress (){
 		float b = FileManager.DownlandCount;
 		float a = FileManager.AlreadyDownlandCount;
-		uiLoadingProgress.fillAmount = (float)(a / b);
+		ProgressValue = (float)(a / b);
 	}
 
 	private Texture2D loadTexture(string path) {
@@ -246,9 +308,11 @@ public class UILoading : UIBase {
 	public void OnNext() {
 		UIShow(false);
 
-		if (GameStart.Get.TestMode == EGameTest.None)
+		if (GameStart.Get.TestMode == EGameTest.None) {
+			//UIShow(false);
+			//UIGame.UIShow(true);
 			GameController.Get.LoadStage(GameData.StageID);
-		else {
+		} else {
 			CourtMgr.Get.ShowEnd();
 			GameController.Get.LoadStage(1);
 			GameController.Get.InitIngameAnimator();
@@ -260,10 +324,13 @@ public class UILoading : UIBase {
 	}
 
 	public float ProgressValue{
-		get{return uiLoadingProgress.fillAmount;}
+		get{
+			return uiLoadingProgress.fillAmount;
+		}
+		set{toProgress = value;}
 	}
 
-	public bool DownloadDone{
+	public bool LoadingFinished{
 		get{return uiLoadingProgress.fillAmount >= 1;}
 	}
 }

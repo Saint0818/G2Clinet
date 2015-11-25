@@ -34,6 +34,8 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 
         switch (levelToLoad)
         {
+			case ESceneName.Null:
+			break;
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
                 UILoading.UIShow(true, ELoadingGamePic.Lobby);
@@ -48,7 +50,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
                     UILoading.UIShow(true, ELoadingGamePic.SelectRole);
                 }
                 break;
-
             default:
                 //Court:
                 UILoading.UIShow(true, ELoadingGamePic.Game);

@@ -33,7 +33,10 @@ public static class URLConst {
 	public const string ChangePlayerName = "changeplayername";
 	public const string PVEStart = "pvestart";
 	public const string PVEEnd = "pveend";
+	public const string StageRewardStart = "stagerewardstart";
+	public const string StageRewardAgain = "stagerewardagain";
 	public const string GameRecord = "gamerecord";
+	public const string BuyAvatarItem = "buyavataritem";
 
 	public const string LinkFB = "linkfb";
 	public const string Conference = "conference";
@@ -66,8 +69,6 @@ public static class URLConst {
 	public const string BuyLuckBox = "buyluckbox";
 	public const string BuyStoreItem = "buystoreitem";
 	public const string PlayerEvo = "playerevo";
-	public const string StageRewardStart = "stagerewardstart";
-	public const string StageRewardAgain = "stagerewardagain";
 	public const string BingoItem = "bingoitem";
 	public const string RecordGameStart = "recordgamestart";
 	public const string RecordGameEnd = "recordgameend";
@@ -112,7 +113,6 @@ public static class URLConst {
 	public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
 	public const string ChangeValueItems = "changevalueitems";
-	public const string BuyAvatarItem = "buyavataritem";
 }
 
 public class SendHttp : KnightSingleton<SendHttp> {

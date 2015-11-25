@@ -3,6 +3,11 @@ using Newtonsoft.Json;
 using GameEnum;
 using GameStruct;
 
+public struct TRenameResult {
+	public string Name;
+	public int Diamond;
+}
+
 public class NameView
 {
 	private GameObject self;
@@ -46,18 +51,18 @@ public class NameView
 	public string Name
 	{
 		set{nameInput.value = value;}
-		get{return nameInput.value;}
+		get{return nameLabel.text;}
 	}
 
 	public bool IsChange
 	{
-		get{return GameData.Team.Player.Name != Name? true : false;}
+		get{return GameData.Team.Player.Name != Name;}
 	}
 
 	public bool IsLegal
 	{
 		get{ 
-			if(Name.Length >= 2 && Name.Length <= 26)
+			if(Name.Length >= 2 && Name.Length <= 20)
 			{
 				return true;
 			}
@@ -158,9 +163,9 @@ public class UINamed : UIBase {
 	{
 		if (ok)
 		{
-			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Player.Name = team.Player.Name;
-			GameData.Team.Diamond = team.Diamond;
+			TRenameResult result = JsonConvert.DeserializeObject<TRenameResult>(www.text);
+			GameData.Team.Player.Name = result.Name;
+			GameData.Team.Diamond = result.Diamond;
 			UIMainLobby.Get.UpdateUI();
 //			UIHint.Get.ShowHint("Change Name Success!", Color.black);
 		}

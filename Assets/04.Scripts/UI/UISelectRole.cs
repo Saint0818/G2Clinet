@@ -709,12 +709,14 @@ public class UISelectRole : UIBase {
 	}
 
 	private void waitLookFriends(bool flag, WWW www) {
-		string text = GSocket.Get.OnHttpText(www.text);
-		if (!string.IsNullOrEmpty(text)) {
-			TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
-			GameData.Team.Friends = team.Friends;
-			GameData.Team.LookFriendTime = team.LookFriendTime;
-			InitPlayerList(ref GameData.Team.Friends);
+		if (flag) {
+			string text = GSocket.Get.OnHttpText(www.text);
+			if (!string.IsNullOrEmpty(text)) {
+				TTeam team = JsonConvert.DeserializeObject <TTeam>(text, SendHttp.Get.JsonSetting);
+				GameData.Team.Friends = team.Friends;
+				GameData.Team.LookFriendTime = team.LookFriendTime;
+				InitPlayerList(ref GameData.Team.Friends);
+			}
 		}
 
 		selectFriendMode();
@@ -728,6 +730,8 @@ public class UISelectRole : UIBase {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
 				WWWForm form = new WWWForm();
 				SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form);
+				if (UILoading.Visible)
+					UILoading.Get.ProgressValue = 0.7f;
 			} else {
 				InitPlayerList(ref GameData.Team.Friends);
 				selectFriendMode();

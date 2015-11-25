@@ -505,19 +505,28 @@ public class AnimatorMgr : KnightSingleton<AnimatorMgr>
 		}
 	}
 
+	private TAnimatorItem ani = new TAnimatorItem();
 	public TAnimatorItem GetAnimatorStateType(EPlayerState playerState)
 	{
-		TAnimatorItem ani = new TAnimatorItem();
-		
-		foreach (EAnimatorState item in Enum.GetValues(typeof(EAnimatorState))){
-			if (AnimtorStatesType.ContainsKey (item) && AnimtorStatesType[item].ContainsKey(playerState)){
-				ani.Type = item;
-				ani.StateNo = AnimtorStatesType[item][playerState];
-				continue;
+		try {
+			foreach (EAnimatorState item in Enum.GetValues(typeof(EAnimatorState))){
+				if (AnimtorStatesType.ContainsKey (item) && AnimtorStatesType[item].ContainsKey(playerState)){
+					ani.Type = item;
+					ani.StateNo = AnimtorStatesType[item][playerState];
+					return ani;
+				}
 			}
+
+			Debug.Log("Animator state not found " + playerState.ToString());
+			ani.Type = EAnimatorState.Idle;
+			ani.StateNo = 0;
+			return ani;
+		} catch (Exception e) {
+			Debug.Log(e.Message);
+			ani.Type = EAnimatorState.Idle;
+			ani.StateNo = 0;
+			return ani;
 		}
-		
-		return ani;
 	}
 
 }

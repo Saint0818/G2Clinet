@@ -22,6 +22,7 @@ namespace GameEnum {
 	}
 
 	public enum ELoadingGamePic {
+		Null = -2,
 		SelectRole = -1,
 		Login = 0,
 		CreateRole = 1,

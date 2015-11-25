@@ -22,6 +22,7 @@ namespace GameStruct {
 		public int AvatarPotential;
 
 		public int[] TutorialFlags;
+		public int[] Achievements;
 		public TPlayer Player;
 		public TItem[] Items;
 		public TSkill[] SkillCards;
@@ -74,6 +75,32 @@ namespace GameStruct {
 			
 			if (index >= 0 && index < TutorialFlags.Length)
 				TutorialFlags[index] = -1;
+		}
+
+		public bool HaveAchievement(int id) {
+			if (Achievements != null) {
+				for (int i = 0; i < Achievements.Length; i++) 
+					if (Achievements[i] == id)
+						return true;
+			}
+			
+			return false;
+		}
+		
+		public void AddAchievement(int id) {
+			if (Achievements == null) 
+				Achievements = new int[0];
+			
+			Array.Resize(ref Achievements, Achievements.Length+1);
+			Achievements[Achievements.Length-1] = id;
+		}
+		
+		public void RemoveAchievement(int index) {
+			if (Achievements == null) 
+				Achievements = new int[0];
+			
+			if (index >= 0 && index < Achievements.Length)
+				Achievements[index] = -1;
 		}
     }
 

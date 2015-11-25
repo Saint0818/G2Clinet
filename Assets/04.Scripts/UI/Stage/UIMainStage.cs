@@ -242,7 +242,7 @@ public class UIMainStage : UIBase
     private int findPlayerDailyCount(TStageData stageData)
     {
         int dailyCount = 3; // 目前企劃規定的是, 主線關卡最多只能打 3 次.
-        if(GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
+		if(GameData.Team.Player.StageChallengeNums != null && GameData.Team.Player.StageChallengeNums.ContainsKey(stageData.ID))
             dailyCount = stageData.ChallengeNum - GameData.Team.Player.StageChallengeNums[stageData.ID];
         return dailyCount;
     }

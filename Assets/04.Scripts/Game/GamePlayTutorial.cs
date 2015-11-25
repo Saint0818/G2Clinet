@@ -38,7 +38,6 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		int otherEventID = 0;
 
 		switch (eventList[i].ConditionKind) {
-		case 0:
 		case 1:
 			otherEventID = eventList[i].OtherEventID;
 			break;

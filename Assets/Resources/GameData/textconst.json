@@ -32,6 +32,44 @@
         "tw": "確定購買角色欄位？"
     },
     {
+        "id": 208,
+        "tw": "確認花費{0}鑽石購買{1}？"
+    },
+    {
+        "id": 301,
+        "explain": "小提示文字",
+        "tw": "競賽中只能控制自己角色的移動。"
+    },
+    {
+        "id": 302,
+        "tw": "投籃時的節奏點擊點到Perfect，將可增加投籃命中率，Combo越高增加越多。"
+    },
+    {
+        "id": 303,
+        "tw": "越接近籃下投籃命中率有越多額外加成。"
+    },
+    {
+        "id": 304
+    },
+    {
+        "id": 305
+    },
+    {
+        "id": 306
+    },
+    {
+        "id": 307
+    },
+    {
+        "id": 308
+    },
+    {
+        "id": 309
+    },
+    {
+        "id": 310
+    },
+    {
         "id": 501,
         "explain": "警告訊息"
     },
@@ -365,12 +403,12 @@
     {
         "id": 3302,
         "explain": "AttrKind0/KindLabel",
-        "tw": "兩分球"
+        "tw": "2分球"
     },
     {
         "id": 3303,
         "explain": "AttrKind1/KindLabel",
-        "tw": "三分球"
+        "tw": "3分球"
     },
     {
         "id": 3304,
@@ -693,7 +731,7 @@
     },
     {
         "id": 7202,
-        "explain": "LabelSubhead",
+        "explain": "SkillInfo/LabelSubhead",
         "tw": "SKILL INFO.",
         "cn": "SKILL INFO.",
         "en": "SKILL INFO.",
@@ -719,61 +757,48 @@
     },
     {
         "id": 7206,
-        "explain": "LabelSubhead",
-        "tw": "BUFF ABILITY",
-        "cn": "BUFF ABILITY",
-        "en": "BUFF ABILITY",
-        "jp": "BUFF ABILITY"
+        "explain": "LabelKind4",
+        "tw": "發動機率"
     },
     {
         "id": 7207,
-        "explain": "LabelKind1",
-        "tw": "TYPE"
+        "explain": "Explain/LabelSubhead",
+        "tw": "說明"
     },
     {
         "id": 7208,
-        "explain": "LabelKind2",
-        "tw": "VALUE"
+        "explain": "BuffAbility/LabelSubhead",
+        "tw": "BUFF"
     },
     {
         "id": 7209,
-        "explain": "LabelKind3",
-        "tw": "TIME"
+        "explain": "AbilityLifeTime/LifeTimeLabel/Label",
+        "tw": "時間"
     },
     {
         "id": 7210,
-        "explain": "LabelSubhead",
-        "tw": "TRIGGER"
+        "explain": "ItemBuffAbility/AbilityDistance/TitleLabel",
+        "tw": "距離"
     },
     {
         "id": 7211,
-        "explain": "LabelKind1",
-        "tw": "PROBABILITY"
-    },
-    {
-        "id": 7212,
-        "explain": "LabelKind2",
-        "tw": "DISTANCE"
-    },
-    {
-        "id": 7213,
-        "explain": "LabelSubhead",
-        "tw": "EXPLAIN"
-    },
-    {
-        "id": 7214,
         "explain": "CraftingBtn/Label",
         "tw": "CRAFTING"
     },
     {
-        "id": 7215,
+        "id": 7212,
         "explain": "UpgradeBtn",
         "tw": "UPGRADE"
     },
     {
-        "id": 7216,
+        "id": 7213,
         "explain": "EquipBtn",
-        "tw": "EQUIP"
+        "tw": "安裝"
+    },
+    {
+        "id": 7214,
+        "explain": "LabelKind4",
+        "tw": "需求怒氣"
     },
     {
         "id": 7301,
@@ -793,7 +818,7 @@
     {
         "id": 8002,
         "explain": "Prefab/Items/SortBtn",
-        "tw": "SORT",
+        "tw": "篩選",
         "cn": "SORT",
         "en": "SORT",
         "jp": "SORT"
@@ -801,7 +826,7 @@
     {
         "id": 8003,
         "explain": "SellBtn",
-        "tw": "SELL",
+        "tw": "販賣",
         "cn": "SELL",
         "en": "SELL",
         "jp": "SELL"
@@ -886,7 +911,7 @@
     {
         "id": 9203,
         "explain": "Label",
-        "tw": "請先解鎖前列關卡"
+        "tw": "請先通過前一章節"
     },
     {
         "id": 9301,
@@ -935,7 +960,7 @@
     {
         "id": 9402,
         "explain": "SkipButton/Icon",
-        "tw": "SKIP"
+        "tw": "  "
     },
     {
         "id": 9501,
