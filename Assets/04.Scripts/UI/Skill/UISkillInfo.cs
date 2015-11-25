@@ -107,7 +107,6 @@ public class UISkillInfo : UIBase {
 				
 				//Buff Ability
 				int index = 0;
-				Debug.Log("Distance:" + skillData.Distance(lv));
 				if(skillData.Distance(lv) > 0) {
 					Get.buffViews[index].ShowDistance(skillData.Distance(lv));
 					index ++;
@@ -115,6 +114,12 @@ public class UISkillInfo : UIBase {
 				
 				if(skillData.Kind == 210 || skillData.Kind == 220 || skillData.Kind == 230) {
 					Get.buffViews[index].ShowTime(skillData.AttrKind, skillData.LifeTime(lv), skillData.Value(lv));
+					index ++;
+				}
+
+				if(index == 0)
+				{
+					Get.labelSubhead.gameObject.SetActive(false);
 				}
 				
 				//Explain
