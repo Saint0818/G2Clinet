@@ -5895,17 +5895,25 @@
         "icon": 1001,
         "kind": 11,
         "maxstack": 1,
+        "attrkind1": 4,
+        "attrvalue1": 5,
         "materialnum": 1,
         "explaintw": "α級的舒適棉質頭帶。"
     },
     {
         "id": 11002,
         "nametw": "棉質頭帶β",
+        "attrkind1": 4,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質頭帶。"
     },
     {
         "id": 11003,
         "nametw": "棉質頭帶γ",
+        "attrkind1": 4,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質頭帶。"
     },
     {
@@ -5916,18 +5924,24 @@
         "kind": 11,
         "maxstack": 1,
         "attrkind1": 4,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技頭帶。"
     },
     {
         "id": 11102,
         "nametw": "科技頭帶β",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技頭帶。"
     },
     {
         "id": 11103,
         "nametw": "科技頭帶γ",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技頭帶。"
     },
     {
@@ -5945,11 +5959,17 @@
     {
         "id": 11202,
         "nametw": "太空頭帶β",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來頭帶。"
     },
     {
         "id": 11203,
         "nametw": "太空頭帶γ",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來頭帶。"
     },
     {
@@ -5986,17 +6006,25 @@
         "quality": 1,
         "icon": 1,
         "kind": 12,
+        "attrkind1": 9,
+        "attrvalue1": 5,
         "materialnum": 1,
         "explaintw": "α級的舒適棉質護臂。"
     },
     {
         "id": 12002,
         "nametw": "棉質護臂β",
+        "attrkind1": 9,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質護臂。"
     },
     {
         "id": 12003,
         "nametw": "棉質護臂γ",
+        "attrkind1": 9,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質護臂。"
     },
     {
@@ -6006,18 +6034,24 @@
         "icon": 2,
         "kind": 12,
         "attrkind1": 9,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技護臂。"
     },
     {
         "id": 12102,
         "nametw": "科技護臂β",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技護臂。"
     },
     {
         "id": 12103,
         "nametw": "科技護臂γ",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技護臂。"
     },
     {
@@ -6034,11 +6068,17 @@
     {
         "id": 12202,
         "nametw": "太空頭帶β",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來護臂。"
     },
     {
         "id": 12203,
         "nametw": "太空頭帶γ",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來護臂。"
     },
     {
@@ -6073,17 +6113,25 @@
         "quality": 1,
         "icon": 4001,
         "kind": 13,
+        "attrkind1": 4,
+        "attrvalue1": 5,
         "materialnum": 1,
         "explaintw": "α級的舒適棉質機能褲。"
     },
     {
         "id": 13002,
         "nametw": "棉質機能褲β",
+        "attrkind1": 4,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質機能褲。"
     },
     {
         "id": 13003,
         "nametw": "棉質機能褲γ",
+        "attrkind1": 4,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質機能褲。"
     },
     {
@@ -6093,18 +6141,24 @@
         "icon": 4002,
         "kind": 13,
         "attrkind1": 4,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技機能褲。"
     },
     {
         "id": 13102,
         "nametw": "科技機能褲β",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技機能褲。"
     },
     {
         "id": 13103,
         "nametw": "科技機能褲γ",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技機能褲。"
     },
     {
@@ -6121,11 +6175,17 @@
     {
         "id": 13202,
         "nametw": "太空機能褲β",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來機能褲。"
     },
     {
         "id": 13203,
         "nametw": "太空機能褲γ",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來機能褲。"
     },
     {
@@ -6160,17 +6220,25 @@
         "quality": 1,
         "icon": 5001,
         "kind": 14,
+        "attrkind1": 9,
+        "attrvalue1": 5,
         "materialnum": 1,
         "explaintw": "α級的舒適棉質機能衣。"
     },
     {
         "id": 14002,
         "nametw": "棉質機能衣β",
+        "attrkind1": 9,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質機能衣。"
     },
     {
         "id": 14003,
         "nametw": "棉質機能衣γ",
+        "attrkind1": 9,
+        "attrvalue1": 5,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質機能衣。"
     },
     {
@@ -6180,18 +6248,24 @@
         "icon": 5002,
         "kind": 14,
         "attrkind1": 9,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技機能衣。"
     },
     {
         "id": 14102,
         "nametw": "科技機能衣β",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技機能衣。"
     },
     {
         "id": 14103,
         "nametw": "科技機能衣γ",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技機能衣。"
     },
     {
@@ -6208,11 +6282,17 @@
     {
         "id": 14202,
         "nametw": "太空機能衣β",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來機能衣。"
     },
     {
         "id": 14203,
         "nametw": "太空機能衣γ",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來機能衣。"
     },
     {
@@ -6248,7 +6328,7 @@
         "icon": 2001,
         "kind": 15,
         "attrkind1": 5,
-        "attrvalue1": 33,
+        "attrvalue1": 5,
         "attrkind2": 12,
         "attrvalue2": 17,
         "attrkind3": 2,
@@ -6259,11 +6339,25 @@
     {
         "id": 15002,
         "nametw": "棉質護膝β",
+        "attrkind1": 5,
+        "attrvalue1": 5,
+        "attrkind2": 12,
+        "attrvalue2": 17,
+        "attrkind3": 2,
+        "attrvalue3": 7,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質護膝。"
     },
     {
         "id": 15003,
         "nametw": "棉質護膝γ",
+        "attrkind1": 5,
+        "attrvalue1": 5,
+        "attrkind2": 12,
+        "attrvalue2": 17,
+        "attrkind3": 2,
+        "attrvalue3": 7,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質護膝。"
     },
     {
@@ -6273,18 +6367,24 @@
         "icon": 2101,
         "kind": 15,
         "attrkind1": 4,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技護膝。"
     },
     {
         "id": 15102,
         "nametw": "科技護膝β",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技護膝。"
     },
     {
         "id": 15103,
         "nametw": "科技護膝γ",
+        "attrkind1": 4,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技護膝。"
     },
     {
@@ -6301,11 +6401,17 @@
     {
         "id": 15202,
         "nametw": "太空護膝β",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來護膝。"
     },
     {
         "id": 15203,
         "nametw": "太空護膝γ",
+        "attrkind1": 5,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來護膝。"
     },
     {
@@ -6341,7 +6447,7 @@
         "icon": 6001,
         "kind": 16,
         "attrkind1": 2,
-        "attrvalue1": 26,
+        "attrvalue1": 5,
         "attrkind2": 1,
         "attrvalue2": 14,
         "materialnum": 1,
@@ -6350,11 +6456,21 @@
     {
         "id": 16002,
         "nametw": "棉質腕帶β",
+        "attrkind1": 2,
+        "attrvalue1": 5,
+        "attrkind2": 1,
+        "attrvalue2": 14,
+        "materialnum": 1,
         "explaintw": "β級的舒適棉質腕帶。"
     },
     {
         "id": 16003,
         "nametw": "棉質腕帶γ",
+        "attrkind1": 2,
+        "attrvalue1": 5,
+        "attrkind2": 1,
+        "attrvalue2": 14,
+        "materialnum": 1,
         "explaintw": "γ級的舒適棉質腕帶。"
     },
     {
@@ -6364,18 +6480,24 @@
         "icon": 6002,
         "kind": 16,
         "attrkind1": 9,
-        "attrvalue1": 25,
+        "attrvalue1": 15,
         "materialnum": 2,
         "explaintw": "α級的特殊科技腕帶。"
     },
     {
         "id": 16102,
         "nametw": "科技腕帶β",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "β級的特殊科技腕帶。"
     },
     {
         "id": 16103,
         "nametw": "科技腕帶γ",
+        "attrkind1": 9,
+        "attrvalue1": 15,
+        "materialnum": 2,
         "explaintw": "γ級的特殊科技腕帶。"
     },
     {
@@ -6392,11 +6514,17 @@
     {
         "id": 16202,
         "nametw": "太空腕帶β",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "β級的實用未來腕帶。"
     },
     {
         "id": 16203,
         "nametw": "太空腕帶γ",
+        "attrkind1": 10,
+        "attrvalue1": 30,
+        "materialnum": 3,
         "explaintw": "γ級的實用未來腕帶。"
     },
     {
