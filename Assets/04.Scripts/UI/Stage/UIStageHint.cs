@@ -117,8 +117,8 @@ public class UIStageHint : MonoBehaviour
         if(hintBits.Length > 1 && hintBits[1] > 1)
         {
             mTargets[index].Show();
-            mTargets[index].UpdateUI(getText(index + 1, hintBits[1] -1, 9),
-                getText(index + 1, hintBits[1] - 1, 8),
+            mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
+                getText(index + 1, hintBits[1], 8),
 //                "/" + stageData.Bit1Num, stageData.Bit1Num.ToString());
                 "", stageData.Bit1Num.ToString());
 
@@ -187,8 +187,8 @@ public class UIStageHint : MonoBehaviour
 					isFin = (score >= stageData.Bit1Num);
 				}
 
-				mTargets[index].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                         getText(2, hintBits[1] - 1, 8),
+				mTargets[index].UpdateUI(getText(2, hintBits[1], 9),
+				                         getText(2, hintBits[1], 8),
 				                         score.ToString(), "/" + stageData.Bit1Num.ToString(),
 				                         isFin);
 				index++;
@@ -248,8 +248,8 @@ public class UIStageHint : MonoBehaviour
 					isFin = (score >= GameController.Get.StageData.BitNum[1]);
 				}
 
-				mTargets[index].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                         getText(2, hintBits[1] - 1, 8),
+				mTargets[index].UpdateUI(getText(2, hintBits[1], 9),
+				                         getText(2, hintBits[1], 8),
 				                         score.ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
 				                         isFin);
 			}

@@ -118,23 +118,25 @@ public class UIGameLoseResult : UIBase {
 				hintIndex ++;
 			}
 			
-			if(hintBits.Length > 1 && hintBits[1] > 1)
+			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
-				isFin = (score >= stageData.Bit1Num);
-				if(hintBits[1] == 3){
+
+				isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
+				if(hintBits[1] == 2){
+					isFin = (score >= stageData.Bit1Num);
+				}else if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
 					isFin = (score <= stageData.Bit1Num);
-				} else {
-					if(hintBits[1] == 4)
-						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
+				} else if(hintBits[1] == 4) {
+					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                             getText(2, hintBits[1] - 1, 7),
+				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
+				                             getText(2, hintBits[1], 7),
 				                             score.ToString(), "/" + stageData.Bit1Num.ToString(),
 				                             isFin,
 				                             false);
@@ -200,8 +202,8 @@ public class UIGameLoseResult : UIBase {
 						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				}
-				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                             getText(2, hintBits[1] - 1, 7),
+				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
+				                             getText(2, hintBits[1], 7),
 				                             UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
 				                             isFin,
 				                             false);
