@@ -9,8 +9,9 @@ public class UITutorial : UIBase {
 	public int NextEventID = 0;
 	private int NowMessageIndex = -1;
 	private int clickLayer;
-	private GameObject clickObject;
+	private bool textFinish = false;
 
+	private GameObject clickObject;
 	private GameObject uiClick;
 	private GameObject uiCenter;
 	private UILabel tutorialMessage;
@@ -60,6 +61,7 @@ public class UITutorial : UIBase {
 		SetBtnFun (UIName + "/Center/Next", OnTutorial);
 		tutorialMessage = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<UILabel>();
 		writeEffect = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<TypewriterEffect>();
+		writeEffect.onFinished.Add(new EventDelegate(OnTextFinish));
 		uiClick = GameObject.Find(UIName + "/Click");
 		uiCenter = GameObject.Find(UIName + "/Center");
 
@@ -67,6 +69,10 @@ public class UITutorial : UIBase {
 			uiTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString());
 			labelTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString() + "/Name").GetComponent<UILabel>();
 		}
+
+		tutorialMessage.text = "";
+		string temp = tutorialMessage.processedText;
+		writeEffect.ResetToBeginning();
 	}
 
 	public void ShowTutorial(int no, int line) {
@@ -76,18 +82,24 @@ public class UITutorial : UIBase {
 				return;
 			}*/
 
+			Debug.Log(string.Format("Tutorial no: {0} line: {1}", no, line));
+
 			NowMessageIndex  = no * 100 + line;
 
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
-				UIShow(true);
+				if (!Visible)
+					UIShow(true);
+
 				TTutorial tu = GameData.DTutorial[NowMessageIndex];
 
 				if (string.IsNullOrEmpty(tu.UIpath)) {
 					uiCenter.SetActive(true);
 					uiClick.SetActive(false);
-					tutorialMessage.gameObject.SetActive(true);
 					tutorialMessage.text = tu.Text;
+					string temp = tutorialMessage.processedText;
+					Debug.Log(temp);
 					writeEffect.ResetToBeginning();
+					textFinish = false;
 					manID[0] = tu.TalkL;
 					manID[1] = tu.TalkR;
 					for (int i = 0; i < manNum; i++) {
@@ -137,13 +149,21 @@ public class UITutorial : UIBase {
 			if (team.TutorialFlags != null)
 				GameData.Team.TutorialFlags = team.TutorialFlags;
 		}
-	} 
+	}
+
+	public void OnTextFinish() {
+		textFinish = true;
+	}
 
 	public void OnTutorial() {
 		if(!uiClick.activeInHierarchy){
-			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1))
-				ShowTutorial(NowMessageIndex / 100, NowMessageIndex % 100 + 1);
-			else {
+			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1)) {
+				if (textFinish)
+					ShowTutorial(NowMessageIndex / 100, NowMessageIndex % 100 + 1);
+				else {
+					writeEffect.Finish();
+				}
+			} else {
 				UIShow(false);
 				if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
 					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {

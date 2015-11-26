@@ -755,19 +755,6 @@ public class PlayerBehaviour : MonoBehaviour
                     AniState(EPlayerState.Idle);
             }
         }
-//        else if(aiTime > 0 && Time.time >= aiTime)
-//        {
-//            moveQueue.Clear();
-////            Debug.Log("FixedUpdate(), moveQueue.Clear().");
-//
-//            aiTime = 0;
-//
-//            if (AIActiveHint)
-//                AIActiveHint.SetActive(true);
-//
-//            if (SpeedUpView)
-//                SpeedUpView.enabled = false;
-//        }
 
         if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC)
         {
@@ -783,13 +770,11 @@ public class PlayerBehaviour : MonoBehaviour
         
         if (Time.time >= mMovePowerTime)
         {
-//            mMovePowerTime = Time.time + 0.15f;
             mMovePowerTime = Time.time + GameConst.MovePowerCheckTime;
             if (isSpeedup)
             {
                 if (mMovePower > 0)
                 {
-//                    mMovePower -= 1;
                     mMovePower -= GameConst.MovePowerMoving;
                     if (mMovePower < 0)
                         mMovePower = 0;
@@ -811,7 +796,6 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             } else if (mMovePower < mMaxMovePower)
             {
-//                mMovePower += 2.5f;
                 mMovePower += GameConst.MovePowerRevive;
                 if (mMovePower > mMaxMovePower)
                     mMovePower = mMaxMovePower;
@@ -1493,15 +1477,18 @@ public class PlayerBehaviour : MonoBehaviour
 
         int moveKind = 0;
         float calculateSpeed = 1;
+		moveQueue.Clear();
 
         if (CanMove || stop || HoldBallCanMove)
         {
+			#if UNITY_EDITOR
             if (IsFall && GameStart.Get.IsDebugAnimation)
             {
                 LogMgr.Get.LogError("CanMove : " + CanMove);
                 LogMgr.Get.LogError("stop : " + stop);
                 LogMgr.Get.LogError("HoldBallCanMove : " + HoldBallCanMove);
             }
+			#endif
 
             if (situation == EGameSituation.AttackGamer || situation == EGameSituation.AttackNPC || 
                 GameStart.Get.TestMode != EGameTest.None)
@@ -1539,6 +1526,7 @@ public class PlayerBehaviour : MonoBehaviour
                         case 0://run
                             if (animationSpeed <= MoveMinSpeed)
                                 isSpeedup = false;
+
                             setSpeed(0.3f, 0);
                             if (IsBallOwner)
                             {  
@@ -1583,7 +1571,7 @@ public class PlayerBehaviour : MonoBehaviour
                             calculateSpeed = GameConst.WalkSpeed;
                             break;
                     }
-//                  Debug.Log("MoveKind : " + moveKind);
+
                     if (GameStart.Get.TestMode == EGameTest.Skill || GameStart.Get.TestMode == EGameTest.PassiveSkill)
                         calculateSpeed = GameConst.AttackSpeedup;
                     translate = Vector3.forward * Time.deltaTime * Attr.SpeedValue * calculateSpeed * Timer.timeScale;
@@ -1975,13 +1963,10 @@ public class PlayerBehaviour : MonoBehaviour
             else
                 AniState(EPlayerState.Dribble0);
 
-            if (clearMove)
-            {
+							 //When AI disabled player has to run all path
+            if (clearMove && AI.enabled)
                 moveQueue.Clear();
-//                Debug.Log("ResetFlag(), moveQueue.Clear().");
-            }
 
-//            WaitMoveTime = 0;
             CantMoveTimer.Clear();
             NeedShooting = false;
             isJoystick = false; 
@@ -2009,17 +1994,10 @@ public class PlayerBehaviour : MonoBehaviour
 		TimeScale(aniEvent);
     }
 
-    public void ClearMoveQueue()
-    {
-        moveQueue.Clear();
-//        Debug.Log("ClearMoveQueue()");
-    }
-
     private bool IsPassAirMoment = false;
 
     public bool CanUseState(EPlayerState state)
     {
-//      Debug.Log ("Check ** " +gameObject.name + ".CrtState : " + crtState + "  : state : " + state);
         switch (state)
         {
             case EPlayerState.Pass0:

@@ -2557,7 +2557,6 @@ public class GameController : KnightSingleton<GameController>
         {
             if (Mathf.Abs(move.joystickAxis.y) > 0 || Mathf.Abs(move.joystickAxis.x) > 0)
             {
-                Joysticker.ClearMoveQueue();
 				EPlayerState ps = Joysticker.crtState;
 
 				if(!Joysticker.IsFall)
@@ -3052,6 +3051,7 @@ public class GameController : KnightSingleton<GameController>
 			}
 					
 			if (BallOwner != null) {
+				BallOwner.IsBallOwner = false;
                 if (BallOwner.Team != p.Team) {
 					if (GameStart.Get.CourtMode == ECourtMode.Full) {
 					    if(Situation == EGameSituation.AttackGamer)
@@ -3140,17 +3140,13 @@ public class GameController : KnightSingleton<GameController>
                 }
             }
 
-			if(BallOwner != null)
-				BallOwner.IsBallOwner = false;
-
         	BallOwner = p;
-//			BallOwner.WaitMoveTime = 0;
 			BallOwner.CantMoveTimer.Clear();
 			BallOwner.IsBallOwner = true;
 			result = true;
 			Shooter = null;
 
-			if(ballHolder != null) {
+			if (ballHolder != null) {
 				ballHolder.SetActive(true);
 				ballHolder.transform.parent = BallOwner.PlayerRefGameObject.transform;
 				ballHolder.transform.localEulerAngles = Vector3.zero;
@@ -3170,7 +3166,6 @@ public class GameController : KnightSingleton<GameController>
 
         	if (p) {
 				AudioMgr.Get.PlaySound(SoundType.SD_CatchBall);
-//				p.WaitMoveTime = 0;
 				p.CantMoveTimer.Clear();
 				p.IsFirstDribble = true;
 				CourtMgr.Get.RealBallTrigger.IsAutoRotate = false;

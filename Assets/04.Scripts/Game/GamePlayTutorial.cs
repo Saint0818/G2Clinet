@@ -11,6 +11,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 	public int NextEventID = 0;
 	public int EventSituation = 0;
+	private TToturialAction[] moveActions;
 
 	public void SetTutorialData(int id) {
 		eventList.Clear();
@@ -74,9 +75,8 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 4: //set position to player
-			for (int j = 0; j < eventList[i].Actions.Length; j++) {
-				GameController.Get.SetPlayerAppear(ref eventList[i].Actions[j]); 
-			}
+			moveActions = eventList[i].Actions;
+			StartCoroutine(setPlayerMove(i));
 
 			break;
 		case 5: //show ui
@@ -144,6 +144,18 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 			if (eventList[j].ID == eventID)
 				eventList.RemoveAt(j);
 				return;
+	}
+
+	IEnumerator setPlayerMove(int i) {
+		yield return new WaitForEndOfFrame();
+
+		if (moveActions != null) {
+			for (int j = 0; j < moveActions.Length; j++) {
+				GameController.Get.SetPlayerAppear(ref moveActions[j]); 
+			}
+		}
+
+		moveActions = null;
 	}
 
 	public bool CheckNextEvent(int eventID, GameObject player=null) {
