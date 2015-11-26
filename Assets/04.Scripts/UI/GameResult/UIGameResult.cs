@@ -410,7 +410,7 @@ public class UIGameResult : UIBase {
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                         getText(1, value, 8),
+				                         getText(1, value, 7),
 				                         (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
 				                         false);
 				hintIndex ++;
@@ -419,9 +419,21 @@ public class UIGameResult : UIBase {
 			if(hintBits.Length > 1 && hintBits[1] > 1)
 			{
 				mTargets[hintIndex].Show();
+				int team = (int) ETeamKind.Self;
+				int score = UIGame.Get.Scores[team];
+				bool isFin = (score >= stageData.Bit1Num);
+				if(hintBits[1] == 3){
+					team = (int) ETeamKind.Npc;
+					score = UIGame.Get.Scores[team];
+					isFin = (score <= stageData.Bit1Num);
+				} else {
+					if(hintBits[1] == 4)
+						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
+					isFin = (score >= stageData.Bit1Num);
+				}
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                         getText(2, hintBits[1] - 1, 8),
-				                         UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + stageData.Bit1Num.ToString(),
+				                         getText(2, hintBits[1] - 1, 7),
+				                         score.ToString(), "/" + stageData.Bit1Num.ToString(),
 				                         false);
 				hintIndex++;
 			}
@@ -430,9 +442,9 @@ public class UIGameResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				mTargets[hintIndex].UpdateUI(getText(3, hintBits[2], 9),
-				                         getText(3, hintBits[2], 8),
+				                         getText(3, hintBits[2], 7),
 				                         getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
-				                         false);
+				                             false);
 				hintIndex++;
 			}
 			
@@ -440,9 +452,9 @@ public class UIGameResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				mTargets[hintIndex].UpdateUI(getText(3, hintBits[3], 9),
-				                         getText(3, hintBits[3], 8),
+				                         getText(3, hintBits[3], 7),
 				                         getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
-				                         false);
+				                             false);
 			}
 		} else 
 		{
@@ -456,9 +468,9 @@ public class UIGameResult : UIBase {
 					value = 1;
 				
 				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
-				                         false);
+					                         getText(1, value, 7),
+					                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
+					                         false);
 				hintIndex++;
 			}
 			
@@ -466,9 +478,9 @@ public class UIGameResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1] - 1, 9),
-				                         getText(2, hintBits[1] - 1, 8),
-				                         UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
-				                         false);
+					                         getText(2, hintBits[1] - 1, 7),
+					                         UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
+					                         false);
 			}
 		}
 
@@ -499,17 +511,19 @@ public class UIGameResult : UIBase {
 	/// <param name="stageID">Stage I.</param>
 	private void stageRewardStart(int stageID)
 	{
-		WWWForm form = new WWWForm();
-		form.AddField("StageID", stageID);
-		SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+		updateResult(GameData.StageID);
+		Invoke("showFinish", 4);
+		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
+			WWWForm form = new WWWForm();
+			form.AddField("StageID", stageID);
+			SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+		}
 	}
 
 	private void waitStageRewardStart(bool ok, WWW www)
 	{
 		Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
 
-		updateResult(GameData.StageID);
-		Invoke("showFinish", 4);
 
 		if(ok)
 		{

@@ -34,15 +34,12 @@ public struct TActiveStruct {
 	public int CardID;
 	public int CardSN;
 	public int CardLV;
-	public TActiveStruct (int i){
-		this.itemEquipActiveCard = null;
-		this.spriteActiveFieldIcon = null;
-		this.gridActiveCardBase = null;
-		this.itemActiveSelect = null;
-		this.CardIndex = -1;
-		this.CardID = 0;
-		this.CardSN = -1;
-		this.CardLV = 0;
+	public void Init (string name, int index) {
+		gridActiveCardBase = GameObject.Find (name + "/MainView/Right/ActiveCardBase"+index.ToString());
+		itemActiveSelect = GameObject.Find (name + "/MainView/Right/ActiveCardBase" + index.ToString() + "/ActiveField/Selected");
+		itemActiveSelect.SetActive(false);
+		spriteActiveFieldIcon = GameObject.Find (name + "/MainView/Right/ActiveCardBase" + index.ToString() + "/ActiveField/Icon").GetComponent<UISprite>();
+		spriteActiveFieldIcon.transform.parent.name = index.ToString();
 	}
 	public void ActiveClear () {
 		this.itemEquipActiveCard = null;
@@ -79,24 +76,86 @@ public struct TUICard{
 	public int CardLV;
 	public int Cost;
 	public int CardSN;
-	public TUICard (int i){
-		Self = null;
-		SkillCard = null;
-		SkillPic = null;
-		SkillLevel = null;
-		SkillName = null;
-		SkillStar = null;
-		SkillKind = null;
-		UnavailableMask = null;
-		Selected = null;
-		InListCard = null;
-		SellSelect = null;
-		SellSelectCover = null;
-		CardIndex = -1;
-		CardID = 0;
-		CardLV = 0;
-		Cost = 0;
-		CardSN = -1;
+
+	public void Init (GameObject obj, int index, TSkill skill, bool isEquip) {
+		Self = obj;
+		CardIndex = index;
+		CardID = skill.ID;
+		CardLV = skill.Lv;
+		CardSN = skill.SN;
+		if(GameData.DSkillData.ContainsKey(skill.ID))
+			Cost = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1);
+		
+		Transform t = obj.transform.FindChild("SkillCard");
+		if(t != null) {
+			SkillCard = t.gameObject.GetComponent<UISprite>();
+			SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
+		}
+		
+		t = obj.transform.FindChild("SkillPic");
+		if(t != null){
+			SkillPic = t.gameObject.GetComponent<UITexture>();
+			SkillPic.mainTexture = GameData.CardTexture(skill.ID);
+		}
+		
+		t = obj.transform.FindChild("SkillLevel");
+		if(t != null) {
+			SkillLevel = t.gameObject.GetComponent<UISprite>();
+			SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
+		}
+		
+		t = obj.transform.FindChild("SkillName");
+		if(t != null) {
+			SkillName = t.gameObject.GetComponent<UILabel>();
+			if(GameData.DSkillData.ContainsKey(skill.ID))
+				SkillName.text = GameData.DSkillData[skill.ID].Name;
+		}
+		
+		t = obj.transform.FindChild("SkillStar");
+		if(t != null) {
+			SkillStar = t.gameObject.GetComponent<UISprite>();
+			if(GameData.DSkillData.ContainsKey(skill.ID))
+				SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
+		}
+		
+		t = obj.transform.FindChild("UnavailableMask");
+		if(t != null) {
+			UnavailableMask = t.gameObject;
+			UnavailableMask.SetActive(false);
+		}
+		
+		t = obj.transform.FindChild("Selected");
+		if(t != null) {
+			Selected = t.gameObject;
+			Selected.SetActive(false);
+		}
+		
+		t = obj.transform.FindChild("InListCard");
+		if(t != null) {
+			InListCard = t.gameObject;
+			InListCard.SetActive(isEquip);
+		}
+		
+		t = obj.transform.FindChild("SellSelect");
+		if(t != null) {
+			SellSelect = t.gameObject;
+			SellSelect.SetActive(false);
+		}
+		
+		t = obj.transform.FindChild("SellSelect/SellCover");
+		if(t != null)  {
+			SellSelectCover = t.gameObject;
+			SellSelectCover.SetActive(false);
+		}
+		
+		t = obj.transform.FindChild("SkillKind");
+		if(t != null)  {
+			SkillKind = t.gameObject.GetComponent<UISprite>();
+			if(skill.ID >= GameConst.ID_LimitActive)
+				SkillKind.spriteName = "ActiveIcon";
+			else 
+				SkillKind.spriteName = "PasstiveIcon";
+		}
 	}
 }
 
@@ -223,11 +282,7 @@ public class UISkillFormation : UIBase {
 			toggleDecks[i].gameObject.SetActive((i<2));// it need judge by player level
 		}
 		for(int i=0; i<activeStruct.Length; i++) {
-			activeStruct[i].gridActiveCardBase = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase"+i.ToString());
-			activeStruct[i].itemActiveSelect = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase" + i.ToString() + "/ActiveField/Selected");
-			activeStruct[i].itemActiveSelect.SetActive(false);
-			activeStruct[i].spriteActiveFieldIcon = GameObject.Find (UIName + "/MainView/Right/ActiveCardBase" + i.ToString() + "/ActiveField/Icon").GetComponent<UISprite>();
-			activeStruct[i].spriteActiveFieldIcon.transform.parent.name = i.ToString();
+			activeStruct[i].Init(UIName, i);
 		}
 		gridPassiveCardBase = GameObject.Find (UIName + "/MainView/Right/PassiveCardBase/PassiveList");
 		labelCostValue = GameObject.Find (UIName + "/BottomRight/LabelCost/CostValue").GetComponent<UILabel>();
@@ -465,86 +520,8 @@ public class UISkillFormation : UIBase {
 			drag.restriction = UIDragDropItem.Restriction.PressAndHold;
 			drag.pressAndHoldDelay = 0.5f;
 
-
-			TUICard uicard = new TUICard(1);
-			uicard.Self = obj;
-			uicard.CardID = skill.ID;
-			uicard.CardIndex = skillCardIndex;
-			uicard.CardLV = skill.Lv;
-			uicard.CardSN = skill.SN;
-			if(GameData.DSkillData.ContainsKey(skill.ID))
-				uicard.Cost = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1);
-
-			Transform t = obj.transform.FindChild("SkillCard");
-			if(t != null) {
-				uicard.SkillCard = t.gameObject.GetComponent<UISprite>();
-				uicard.SkillCard .spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString();
-			}
-
-			t = obj.transform.FindChild("SkillPic");
-			if(t != null){
-				uicard.SkillPic = t.gameObject.GetComponent<UITexture>();
-				uicard.SkillPic.mainTexture = GameData.CardTexture(skill.ID);
-			}
-			
-			t = obj.transform.FindChild("SkillLevel");
-			if(t != null) {
-				uicard.SkillLevel = t.gameObject.GetComponent<UISprite>();
-				uicard.SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(skill.Lv, 1, 5).ToString();
-			}
-
-			t = obj.transform.FindChild("SkillName");
-			if(t != null) {
-				uicard.SkillName = t.gameObject.GetComponent<UILabel>();
-				if(GameData.DSkillData.ContainsKey(skill.ID))
-					uicard.SkillName.text = GameData.DSkillData[skill.ID].Name;
-			}
-
-			t = obj.transform.FindChild("SkillStar");
-			if(t != null) {
-				uicard.SkillStar = t.gameObject.GetComponent<UISprite>();
-				if(GameData.DSkillData.ContainsKey(skill.ID))
-					uicard.SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star, 1, GameData.DSkillData[skill.ID].MaxStar).ToString();
-			}
-
-			t = obj.transform.FindChild("UnavailableMask");
-			if(t != null) {
-				uicard.UnavailableMask = t.gameObject;
-				uicard.UnavailableMask.SetActive(false);
-			}
-
-			t = obj.transform.FindChild("Selected");
-			if(t != null) {
-				uicard.Selected = t.gameObject;
-				uicard.Selected.SetActive(false);
-			}
-
-			t = obj.transform.FindChild("InListCard");
-			if(t != null) {
-				uicard.InListCard = t.gameObject;
-				uicard.InListCard.SetActive(isEquip);
-			}
-
-			t = obj.transform.FindChild("SellSelect");
-			if(t != null) {
-				uicard.SellSelect = t.gameObject;
-				uicard.SellSelect.SetActive(false);
-			}
-
-			t = obj.transform.FindChild("SellSelect/SellCover");
-			if(t != null)  {
-				uicard.SellSelectCover = t.gameObject;
-				uicard.SellSelectCover.SetActive(false);
-			}
-
-			t = obj.transform.FindChild("SkillKind");
-			if(t != null)  {
-				uicard.SkillKind = t.gameObject.GetComponent<UISprite>();
-				if(skill.ID >= GameConst.ID_LimitActive)
-					uicard.SkillKind.spriteName = "ActiveIcon";
-				else 
-					uicard.SkillKind.spriteName = "PasstiveIcon";
-			}
+			TUICard uicard = new TUICard();
+			uicard.Init(obj, skillCardIndex, skill, isEquip);
 
 			uiCards.Add(obj.transform.name, uicard);
 
@@ -637,8 +614,6 @@ public class UISkillFormation : UIBase {
 				if(!skillsRecord.Contains (obj.name))
 					skillsRecord.Add(obj.name);
 			} 
-//			else 
-//				Debug.LogWarning("addItems obj: null");
 
 			checkCostIfMask();
 			return true;

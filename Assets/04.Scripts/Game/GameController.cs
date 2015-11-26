@@ -3589,6 +3589,7 @@ public class GameController : KnightSingleton<GameController>
 					PlayerList [i].AniState (EPlayerState.Ending0);
 			}
 			UIGameLoseResult.UIShow(true);
+			UIGameLoseResult.Get.Init();
 		}
 		CameraMgr.Get.SetEndShowSituation();
 	}
