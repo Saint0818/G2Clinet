@@ -188,14 +188,6 @@ public class UISkillInfo : UIBase {
 	}
 	
 	protected override void InitData() {
-		labelSkillInfoSubhead.text = TextConst.S(7202);
-		labelSkillInfoKind1.text = TextConst.S(7203);
-		labelSkillInfoKind2.text = TextConst.S(7204);
-		labelSkillInfoKind3.text = TextConst.S(7205);
-		labelSkillExplainSubhead.text = TextConst.S(7208);
-		labelSubhead.text = TextConst.S(7209);
-		labelCraft.text = TextConst.S(7212);
-		labelUpgrade.text = TextConst.S(7213);
 	}
 	
 	protected override void OnShow(bool isShow) {
