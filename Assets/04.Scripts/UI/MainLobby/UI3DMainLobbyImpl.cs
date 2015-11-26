@@ -91,7 +91,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 				SetAnimator(index, false);
 				UpdateButtonCollider(index, true);
 //				UIMainLobby.Get.EnableImpl = true;
-                UIMainLobby.Get.Impl.PlayEnterAnimation();
+                UIMainLobby.Get.Main.PlayEnterAnimation();
 				delay = 1;
 			}else{
 				//go
@@ -100,7 +100,7 @@ public class UI3DMainLobbyImpl : MonoBehaviour
 					SetAnimator(index, true);
 					UpdateButtonCollider(index, false);
 //					UIMainLobby.Get.EnableImpl = false;
-                    UIMainLobby.Get.Impl.PlayExitAnimation();
+                    UIMainLobby.Get.Main.PlayExitAnimation();
 					delay = 1;
 				}
 			}

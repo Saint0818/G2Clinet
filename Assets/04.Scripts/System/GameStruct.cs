@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameEnum;
 using UnityEngine;
 
@@ -102,6 +103,58 @@ namespace GameStruct {
 			if (index >= 0 && index < Achievements.Length)
 				Achievements[index] = -1;
 		}
+
+        /// <summary>
+        /// 是否玩家身上的數值裝是最強的.
+        /// </summary>
+        /// <returns></returns>
+	    public bool IsPlayerAllBestValueItem()
+        {
+            for(int kind = 11; kind < 19; kind++)
+            {
+                if(IsPlayerBestValueItem(kind))
+                    return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 是否某個數值裝是最強的.
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+	    public bool IsPlayerBestValueItem(int kind)
+        {
+            if(11 <= kind && kind <= 19)
+                return Player.GetValueItemTotalPoints(kind) < getBestValueItemTotalPointsFromStorage(kind);
+
+            return false;
+        }
+
+        /// <summary>
+        /// 從倉庫找出最強的數值裝數值總和.
+        /// </summary>
+        /// <param name="kind"></param>
+        /// <returns></returns>
+        public int getBestValueItemTotalPointsFromStorage(int kind)
+	    {
+            int maxTotalPoint = Int32.MinValue;
+	        for(var i = 0; i < Items.Length; i++)
+	        {
+	            if(!GameData.DItemData.ContainsKey(Items[i].ID))
+                    continue;
+
+	            TItemData item = GameData.DItemData[Items[i].ID];
+                if(item.Kind != kind)
+                    continue;
+
+                if(maxTotalPoint < item.BonusValues.Sum())
+	                maxTotalPoint = item.BonusValues.Sum();
+	        }
+
+	        return maxTotalPoint;
+	    }
     }
 
     public struct TLookUpData
@@ -727,7 +780,7 @@ namespace GameStruct {
             }
         }
 
-        public int[] AttrValues
+        public int[] BonusValues
         {
             get { return mAttrValues ?? (mAttrValues = new []{AttrValue1, AttrValue2, AttrValue3}); }
         }
@@ -764,16 +817,31 @@ namespace GameStruct {
         /// </summary>
         /// <param name="kind"></param>
         /// <returns></returns>
-        public int GetSumAttrValue(EBonus kind)
+        public int GetSumBonusValue(EBonus kind)
         {
             int sum = 0;
             for(var i = 0; i < Bonus.Length; i++)
             {
                 if(Bonus[i] == kind)
-                    sum += AttrValues[i];
+                    sum += BonusValues[i];
             }
 
             return sum;
+        }
+
+        public int GetTotalPoints()
+        {
+            return BonusValues.Sum();
+
+            /*
+            int sum = 0;
+            for(var i = 0; i < BonusValues.Length; i++)
+            {
+                sum += BonusValues[i];
+            }
+
+            return sum;
+            */
         }
 
         public string Name

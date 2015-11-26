@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class UIMainLobbyImpl : MonoBehaviour
+public class UIMainLobbyMain : MonoBehaviour
 {
     /// <summary>
     /// 呼叫時機: 當玩家更改球員名稱時.
@@ -22,6 +22,8 @@ public class UIMainLobbyImpl : MonoBehaviour
     public GameObject Settings;
 	public UIButton PlayerInfoBtn;
     public UILabel NameLabel;
+
+    public GameObject EquipmentNoticeObj;
 
     [UsedImplicitly]
     private void Awake()
@@ -57,6 +59,11 @@ public class UIMainLobbyImpl : MonoBehaviour
             PlayerIconSprite.spriteName = value;
             PlayerButton.normalSprite = value;
         }
+    }
+
+    public bool EquipmentNotice
+    {
+        set { EquipmentNoticeObj.SetActive(value); }
     }
 
     /// <summary>

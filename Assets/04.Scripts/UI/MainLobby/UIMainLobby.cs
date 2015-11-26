@@ -26,13 +26,13 @@ public class UIMainLobby : UIBase
         {2, "Emma"}, // 後衛.
     };
 
-    public UIMainLobbyImpl Impl { get; private set; }
+    public UIMainLobbyMain Main { get; private set; }
 
     [UsedImplicitly]
     private void Awake()
     {
-        Impl = GetComponent<UIMainLobbyImpl>();
-        Impl.ChangePlayerNameListener += changePlayerName;
+        Main = GetComponent<UIMainLobbyMain>();
+        Main.ChangePlayerNameListener += changePlayerName;
     }
 
     public void Show()
@@ -41,25 +41,27 @@ public class UIMainLobby : UIBase
         UI3DMainLobby.Get.Show();
         UpdateUI();
 
-        Impl.Show();
+        Main.Show();
+
+        Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
 
         ResetCommands.Get.Run();
     }
 
     public void UpdateUI()
     {
-        Impl.Money = GameData.Team.Money;
-        Impl.Diamond = GameData.Team.Diamond;
-        Impl.Power = GameData.Team.Power;
-        Impl.PlayerName = GameData.Team.Player.Name;
-        Impl.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
+        Main.Money = GameData.Team.Money;
+        Main.Diamond = GameData.Team.Diamond;
+        Main.Power = GameData.Team.Power;
+        Main.PlayerName = GameData.Team.Player.Name;
+        Main.PlayerIcon = mPlayerIcons[GameData.Team.Player.BodyType];
     }
 
     public void Hide()
     {
         UI3DMainLobby.Get.Hide();
 
-        Impl.Hide();
+        Main.Hide();
 
         ResetCommands.Get.Stop();
 

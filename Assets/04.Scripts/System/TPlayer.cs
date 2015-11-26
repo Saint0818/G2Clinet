@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GameEnum;
 using UnityEngine;
 
@@ -199,40 +200,40 @@ namespace GameStruct
                     switch(data.Bonus[i])
                     {
 						case EBonus.Point2:
-                            Point2 += data.AttrValues[i];
+                            Point2 += data.BonusValues[i];
                             break;
 						case EBonus.Point3:
-                            Point3 += data.AttrValues[i];
+                            Point3 += data.BonusValues[i];
                             break;
 						case EBonus.Speed:
-                            Speed += data.AttrValues[i];
+                            Speed += data.BonusValues[i];
                             break;
 						case EBonus.Stamina:
-                            Stamina += data.AttrValues[i];
+                            Stamina += data.BonusValues[i];
                             break;
 						case EBonus.Strength:
-                            Strength += data.AttrValues[i];
+                            Strength += data.BonusValues[i];
                             break;
 						case EBonus.Dunk:
-                            Dunk += data.AttrValues[i];
+                            Dunk += data.BonusValues[i];
                             break;
 						case EBonus.Rebound:
-                            Rebound += data.AttrValues[i];
+                            Rebound += data.BonusValues[i];
                             break;
 						case EBonus.Block:
-                            Block += data.AttrValues[i];
+                            Block += data.BonusValues[i];
                             break;
 						case EBonus.Defence:
-                            Defence += data.AttrValues[i];
+                            Defence += data.BonusValues[i];
                             break;
 						case EBonus.Steal:
-                            Steal += data.AttrValues[i];
+                            Steal += data.BonusValues[i];
                             break;
 						case EBonus.Dribble:
-                            Dribble += data.AttrValues[i];
+                            Dribble += data.BonusValues[i];
                             break;
 						case EBonus.Pass:
-                            Pass += data.AttrValues[i];
+                            Pass += data.BonusValues[i];
                             break;
                     }
                 }
@@ -615,7 +616,7 @@ namespace GameStruct
                     return 0;
                 }
 
-                return GameData.DItemData[itemID].GetSumAttrValue(bonus);
+                return GameData.DItemData[itemID].GetSumBonusValue(bonus);
             };
 
             if(ValueItems == null)
@@ -637,5 +638,23 @@ namespace GameStruct
 
             return sum;
         }
+
+        /// <summary>
+        /// 某個數值裝的總分.
+        /// </summary>
+        /// <param name="kind"> TItemData.Kind </param>
+        /// <returns></returns>
+        public int GetValueItemTotalPoints(int kind)
+        {
+            if(!ValueItems.ContainsKey(kind))
+                return 0;
+
+            if(!GameData.DItemData.ContainsKey(ValueItems[kind].ID))
+                return 0;
+
+            TItemData item = GameData.DItemData[ValueItems[kind].ID];
+            return item.BonusValues.Sum();
+        }
+
     } // end of the struct.
 } // end of the namespace.

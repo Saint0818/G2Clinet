@@ -20,7 +20,7 @@ public class UIEquipUtility
             var data = new UIValueItemData.AttrKindData
             {
                 Icon = string.Format("AttrKind_{0}", item.Bonus[i].GetHashCode()),
-                Value = item.AttrValues[i]
+                Value = item.BonusValues[i]
             };
             equipItem.Values.Add(convert(item.Bonus[i]), data);
         }
