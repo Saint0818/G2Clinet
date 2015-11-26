@@ -6159,10 +6159,11 @@
     },
     {
         "id": 7011,
-        "nametw": "背飾11",
+        "nametw": "前鋒搖滾吉他",
         "quality": 3,
         "kind": 7,
         "position": 3,
+        "avatar": 14001,
         "maxstack": 1,
         "usetime": 96,
         "potential": 40,
