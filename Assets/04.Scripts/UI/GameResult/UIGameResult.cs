@@ -245,7 +245,7 @@ public class UIGameResult : UIBase {
 	}
 
 	private void MoveItem () {
-		itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(-300 + (alreadyGetItems.Count * 100), -170, 0), 1f).OnComplete(MoveItemFin);
+		itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(Mathf.Min(-300 + (alreadyGetItems.Count * 100), 400), -170, 0), 1f).OnComplete(MoveItemFin);
 	}
 
 	public void MoveItemFin () {
