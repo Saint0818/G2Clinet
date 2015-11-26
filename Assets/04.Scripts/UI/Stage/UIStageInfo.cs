@@ -1,4 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using GameStruct;
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -21,10 +23,10 @@ public class UIStageInfo : MonoBehaviour
         public string KindName { set; get; }
 
         /// <summary>
-        /// 顯示在右下角的獎勵.
+        /// <para> 顯示在右下角的獎勵. </para>
+        /// todo 這邊暫時和遊戲資料耦合, 以後再改.
         /// </summary>
-        public string[] RewardSpriteNames = {"", "", ""};
-        public string[] RewardNames = { "", "", "" };
+        public readonly List<TItemData> RewardItems = new List<TItemData>();
 
         public int Stamina { set; get; }
 
@@ -54,6 +56,7 @@ public class UIStageInfo : MonoBehaviour
     public Transform HintParent;
     public GameObject Completed; // 標示是否關卡打過的圖片.
     public UIButton StartButton; // 右下角的開始按鈕.
+    public Transform[] RewardParents; // 獎勵圖示的位置.
 
     /// <summary>
     /// 每日關卡限制的圖片. [0]:最左邊, [1]:中間, [2]:最右邊.
@@ -61,16 +64,7 @@ public class UIStageInfo : MonoBehaviour
     public UISprite[] DailyLimits;
     private UIStageHint mHint;
 
-    private UIStageRewardIcon[] RewardIcons
-    {
-        get
-        {
-            if(mRewardIcons == null || mRewardIcons.Length == 0)
-                mRewardIcons = GetComponentsInChildren<UIStageRewardIcon>();
-            return mRewardIcons;
-        }
-    }
-    private UIStageRewardIcon[] mRewardIcons;
+    private readonly List<ItemAwardGroup> mRewardIcons = new List<ItemAwardGroup>();
 
     private readonly string TexturePath = "Textures/Stage/StageKind/{0}";
     private readonly Color32 mDisableColor = new Color32(69, 69, 69, 255);
@@ -87,6 +81,12 @@ public class UIStageInfo : MonoBehaviour
 		hintObj.transform.localScale = new Vector3(0.9f, 0.9f, 1);
         mHint = hintObj.GetComponent<UIStageHint>();
         mHint.SetInterval(70);
+
+        for(var i = 0; i < RewardParents.Length; i++)
+        {
+            var obj = UIPrefabPath.LoadUI(UIPrefabPath.ItemAwardGroup, RewardParents[i]);
+            mRewardIcons.Add(obj.GetComponent<ItemAwardGroup>());
+        }
     }
 
     public void Show(int stageID, Data data)
@@ -108,15 +108,12 @@ public class UIStageInfo : MonoBehaviour
         KindSprite.spriteName = data.KindSpriteName;
         KindLabel.text = data.KindName;
 
-        for(int i = 0; i < RewardIcons.Length; i++)
+        for(int i = 0; i < mRewardIcons.Count; i++)
         {
-            if(string.IsNullOrEmpty(data.RewardSpriteNames[i]))
-                RewardIcons[i].Hide();
+            if(data.RewardItems.Count > i)
+                mRewardIcons[i].Show(data.RewardItems[i]);
             else
-            {
-                RewardIcons[i].Show();
-                RewardIcons[i].UpdateUI(data.RewardSpriteNames[i], data.RewardNames[i]);
-            }
+                mRewardIcons[i].Hide();
         }
 
         StaminaLabel.text = string.Format("{0}", data.Stamina);

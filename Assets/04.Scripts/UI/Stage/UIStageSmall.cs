@@ -16,16 +16,16 @@ public class UIStageSmall : MonoBehaviour
 
     private UIStageInfo.Data mData;
 
-    private UIMainStageImpl Impl
+    private UIMainStageMain Main
     {
         get
         {
-            if(mImpl == null)
-                mImpl = GetComponentInParent<UIMainStageImpl>();
-            return mImpl;
+            if(mMain == null)
+                mMain = GetComponentInParent<UIMainStageMain>();
+            return mMain;
         }
     }
-    private UIMainStageImpl mImpl;
+    private UIMainStageMain mMain;
 
     public void Show(UIStageInfo.Data data)
     {
@@ -59,6 +59,6 @@ public class UIStageSmall : MonoBehaviour
     [UsedImplicitly]
     private void OnClick()
     {
-        Impl.Info.Show(StageID, mData);
+        Main.Info.Show(StageID, mData);
     }
 }

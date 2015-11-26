@@ -8,6 +8,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIStageChapter : MonoBehaviour
 {
+    public UILabel LockNameLabel;
+
     /// <summary>
     /// 章節數值. 1: 第一章, 2: 第二章.
     /// </summary>
@@ -48,6 +50,7 @@ public class UIStageChapter : MonoBehaviour
     [UsedImplicitly]
 	private void Awake()
     {
+        LockNameLabel.text = TextConst.S(int.Parse(LockNameLabel.text));
     }
 
     public void Show()

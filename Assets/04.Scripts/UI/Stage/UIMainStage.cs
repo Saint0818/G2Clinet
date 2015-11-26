@@ -36,12 +36,12 @@ public class UIMainStage : UIBase
 
     private int mCurrentStageID;
 
-    private UIMainStageImpl mMain;
+    private UIMainStageMain mMain;
 
     [UsedImplicitly]
     private void Awake()
     {
-        mMain = GetComponent<UIMainStageImpl>();
+        mMain = GetComponent<UIMainStageMain>();
         mMain.BackListener += goToGameLobby;
         mMain.Info.StartListener += enterGame;
     }
@@ -224,10 +224,11 @@ public class UIMainStage : UIBase
             StartEnable = verifyPlayer(stageData)
         };
 
-        for(int i = 0; i < data.RewardSpriteNames.Length; i++)
+        // 和企劃約定好, 僅顯示前 3 個.
+        for(int i = 0; i < 3; i++)
         {
             if(stageData.Rewards.Length > i && GameData.DItemData.ContainsKey(stageData.Rewards[i]))
-                data.RewardSpriteNames[i] = GameData.DItemData[stageData.Rewards[i]].Icon;
+                data.RewardItems.Add(GameData.DItemData[stageData.Rewards[i]]);
         }
 
         Vector3 localPos = new Vector3(stageData.PositionX, stageData.PositionY, 0);

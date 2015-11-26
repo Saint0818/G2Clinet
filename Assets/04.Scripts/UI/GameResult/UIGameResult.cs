@@ -111,11 +111,14 @@ public class UIGameResult : UIBase {
 						if(awardItemTempIDs[(awardMax - awardIndex)] > 0)
 							alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
-							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData() , 0 , tempMoney, true);
+//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData() , 0 , tempMoney, true);
+							alreadyGetItems[awardMax - awardIndex].ShowMoney(tempMoney);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -2) 
-							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 1 , tempExp, true);
+//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 1 , tempExp, true);
+							alreadyGetItems[awardMax - awardIndex].ShowExp(tempExp);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -3) 
-							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 2 , tempDia, true);
+//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 2 , tempDia, true);
+							alreadyGetItems[awardMax - awardIndex].ShowGem(tempDia);
 					}
 
 					awardGetTime = awardGetTimeInterval;

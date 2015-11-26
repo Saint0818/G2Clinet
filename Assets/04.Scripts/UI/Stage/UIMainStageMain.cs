@@ -13,7 +13,7 @@ using UnityEngine;
 /// <item> 向 UIStageInfo 註冊事件. </item>
 /// </list>
 [DisallowMultipleComponent]
-public class UIMainStageImpl : MonoBehaviour
+public class UIMainStageMain : MonoBehaviour
 {
     /// <summary>
     /// 呼叫時機: 返回按鈕按下時.
@@ -23,7 +23,12 @@ public class UIMainStageImpl : MonoBehaviour
     /// <summary>
     /// Index 0: 第一章, Index 2: 第二章.
     /// </summary>
-    public UIStageInfo Info;
+    public UIStageInfo Info
+    {
+        get { return mInfo ?? (mInfo = GetComponent<UIStageInfo>()); }
+    }
+    private UIStageInfo mInfo;
+
     public Transform ChapterParent;
     public UIScrollView ScrollView;
 
