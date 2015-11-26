@@ -103,7 +103,10 @@ public class UISkillInfo : UIBase {
 				Get.labelSkillSpace.text = skillData.Space(lv).ToString();
 				Get.labelSkillExp.text = "0"; //=======
 				Get.sliderSkillExpBar.value = 0; //======
-				Get.labelSkillDemandValue.text = skillData.Rate(lv).ToString();
+				if(info.ID >= GameConst.ID_LimitActive)
+					Get.labelSkillDemandValue.text = skillData.MaxAnger.ToString();
+				else 
+					Get.labelSkillDemandValue.text = skillData.Rate(lv).ToString() + "%";
 				
 				//Buff Ability
 				int index = 0;
