@@ -40,11 +40,14 @@ public class AwardAvatarView : MonoBehaviour {
 	public void UpdateUI (TItemData itemData) {
 		hideAll ();
 		Show ();
-		EquipmentStar.SetActive(true);
 		Item.SetActive(true);
 		ItemPic.spriteName = "Item_" + itemData.Quality;
-		for (int i=0; i<AvatarStars.Length; i++)
-			AvatarStars[i].SetActive((i < itemData.LV));
+		if(itemData.LV > 0) {
+			EquipmentStar.SetActive(true);
+			for (int i=0; i<AvatarStars.Length; i++)
+				AvatarStars[i].SetActive((i < itemData.LV));
+		} else 
+			EquipmentStar.SetActive(false);
 		AmountLabel.text = "";
 	}
 

@@ -93,7 +93,7 @@ public class UISkillInfo : UIBase {
 					Get.spriteSkillKind.spriteName = "ActiveIcon";
 					Get.labelSkillInfoKind4.text = TextConst.S(7207);
 				} else {
-					Get.spriteSkillKind.spriteName = "PassiveIcon";
+					Get.spriteSkillKind.spriteName = "PasstiveIcon";
 					Get.labelSkillInfoKind4.text = TextConst.S(7206);
 				}
 				

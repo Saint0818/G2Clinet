@@ -543,7 +543,7 @@ public class UISkillFormation : UIBase {
 				if(skill.ID >= GameConst.ID_LimitActive)
 					uicard.SkillKind.spriteName = "ActiveIcon";
 				else 
-					uicard.SkillKind.spriteName = "PassiveIcon";
+					uicard.SkillKind.spriteName = "PasstiveIcon";
 			}
 
 			uiCards.Add(obj.transform.name, uicard);

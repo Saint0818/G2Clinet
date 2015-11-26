@@ -83,6 +83,7 @@ public class UIGameResult : UIBase {
 	}
 
 	void FixedUpdate () {
+		//Show StageHint
 		if(isShowFinish && hintIndex >= -1) {
 			finishTime -= Time.deltaTime;
 			if(finishTime <= 0) {
@@ -98,7 +99,7 @@ public class UIGameResult : UIBase {
 				}
 			}
 		}
-
+		//Show Award
 		if(isShowAward && awardIndex >= -1) {
 			awardGetTime -= Time.deltaTime;
 			if(awardGetTime <= 0) {
@@ -132,7 +133,6 @@ public class UIGameResult : UIBase {
 		//Center/BottomView
 		mTargets = GetComponentsInChildren<UIStageHintTarget>();
 		itemAwardGroup = GetComponentsInChildren<ItemAwardGroup>();
-
 
 		animatorAward = gameObject.GetComponent<Animator>();
 		animatorBottomView = GameObject.Find (UIName + "/Center/BottomView").GetComponent<Animator>();
