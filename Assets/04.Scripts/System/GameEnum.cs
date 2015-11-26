@@ -52,8 +52,12 @@ namespace GameEnum {
 		AvatarSort,
 		AvatarFilter,
 		SkillCardCondition,
-		SkillCardFilter
-
+		SkillCardFilter,
+		MusicOn,
+		SoundOn,
+		EffectOn,
+		AIChangeTimeLv,
+		UserLanguage
 	}
 
 	public enum ETestActive {

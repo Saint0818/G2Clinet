@@ -672,4 +672,13 @@ public static class GameFunction
 		}
 		return 0;
 	}
+
+	public static void InitDefaultText(GameObject obj) {
+		UILabel[] labs = obj.GetComponentsInChildren<UILabel>();
+		for (int i = 0; i < labs.Length; i++) {
+			int id = 0;
+			if (!string.IsNullOrEmpty(labs[i].text) && int.TryParse(labs[i].text, out id) && TextConst.HasText(id))
+				labs[i].text = TextConst.S(id);
+		}
+	}
 }

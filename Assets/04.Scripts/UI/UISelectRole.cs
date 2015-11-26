@@ -280,7 +280,7 @@ public class UISelectRole : UIBase {
 		uiCharacterCheck = GameObject.Find(UIName + "/Right/CharacterCheck");
 		uiInfoRange = GameObject.Find(UIName + "/Right/InfoRange");
 		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
-		spriteMusicOn.enabled = AudioMgr.Get.IsMusicOn;
+		spriteMusicOn.enabled = GameData.Setting.Music;
 		labelPlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		spritePlayerBodyPic = GameObject.Find (UIName + "/Right/InfoRange/BodyType/SpriteType").GetComponent<UISprite>();
 		labelsSelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();

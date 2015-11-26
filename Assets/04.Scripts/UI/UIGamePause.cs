@@ -101,9 +101,9 @@ public class UIGamePause : UIBase {
 
 		musicGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelON");
 		musicGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelOff");
-		musicGroup[0].SetActive(AudioMgr.Get.IsMusicOn);
-		musicGroup[1].SetActive(!AudioMgr.Get.IsMusicOn);
-		isMusicOn = AudioMgr.Get.IsMusicOn;
+		musicGroup[0].SetActive(GameData.Setting.Music);
+		musicGroup[1].SetActive(!GameData.Setting.Music);
+		isMusicOn = GameData.Setting.Music;
 
 
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
@@ -331,7 +331,7 @@ public class UIGamePause : UIBase {
 			uiStageHint.Show();
 			uiGameResult.SetActive(false);
 		}
-		PlayerPrefs.SetFloat(SettingText.AITime, GameData.Setting.AIChangeTime);
+		PlayerPrefs.SetInt(SettingText.AITime, GameData.Setting.AIChangeTimeLv);
 	}
 
 	private void initAiTime() {
@@ -353,22 +353,7 @@ public class UIGamePause : UIBase {
 
 	public void changeAIChangeTime(){
 		int level = (int)  Mathf.Round(aiLevelScrollBar.value * 5);
-		float time = 1;
-		if(level == 0) {
-			time = 1;
-		} else if(level == 1) {
-			time = 3;
-		}else if(level == 2) {
-			time = 5;
-		}else if(level == 3) {
-			time = 15;
-		}else if(level == 4) {
-			time = 30;
-		}else if(level == 5) {
-			time = 999999;
-		}
-		GameData.Setting.AIChangeTime = time;
-		
+		GameData.Setting.AIChangeTimeLv = level;
 	}
 
 	public bool isStage

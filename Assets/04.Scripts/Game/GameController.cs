@@ -4347,7 +4347,7 @@ public class GameController : KnightSingleton<GameController>
 		UIDoubleClick.Get.Reset();
 		CourtMgr.Get.SetBallState(EPlayerState.Reset);
 
-		if (GameData.Setting.AIChangeTime > 100)
+		if (GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
 			Joysticker.SetManually();
 		else
 			Joysticker.SetToAI();
@@ -4397,8 +4397,7 @@ public class GameController : KnightSingleton<GameController>
     }
 
 	public void SetPlayerLevel(){
-		GameData.Setting.AIChangeTime = PlayerPrefs.GetFloat(SettingText.AITime, 1);
-		if (GameData.Setting.AIChangeTime > 100)
+		if (GameConst.AITime[GameData.Setting.AIChangeTimeLv] > 100)
 			Joysticker.SetManually();
 		else
 			Joysticker.SetToAI();

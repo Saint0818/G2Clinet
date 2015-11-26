@@ -562,9 +562,11 @@ namespace GameStruct {
 	}
 
 	public struct TGameSetting {
-		public float AIChangeTime;
+		public int AIChangeTimeLv;
 		public ELanguage Language;
 		public bool Effect;
+		public bool Music;
+		public bool Sound;
 	}
 
 	public struct TPlayerPackage {

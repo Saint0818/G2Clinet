@@ -99,8 +99,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
     public void ShowCreateRole()
     {
-        WWWForm form = new WWWForm();
-        SendHttp.Get.Command(URLConst.LookPlayerBank, waitLookPlayerBank, form);
+		UISetting.UIShow (true);
     }
 
     private void waitLookPlayerBank(bool isSuccess, WWW www)

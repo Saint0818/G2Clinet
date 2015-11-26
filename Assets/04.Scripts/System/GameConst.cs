@@ -55,6 +55,7 @@
 	public const float LayupDistance = 7;
 	public const float ShortShootDistance = 3;
 	public const float PickBallDistance = 2.5f;
+	public static float[] AITime = new float[5]{1f, 3f, 5f, 30f, 999999f};
 
     /// <summary>
     /// 推人, 抄球的距離.

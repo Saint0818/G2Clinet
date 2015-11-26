@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameStruct;
+using GameEnum;
+using System;
 
 public struct TPlayerInfo
 {
@@ -14,7 +16,7 @@ public struct TPlayerInfo
 public class GEGMTool : GEBase
 {
 	private int options = 0;
-	private string[] optionsTitle = new string[4]{"物品", "關卡", "戰鬥", "人物資料"};
+	private string[] optionsTitle = new string[5]{"物品", "關卡", "戰鬥", "人物資料","其它"};
 	
     void OnGUI()
     {
@@ -32,6 +34,16 @@ public class GEGMTool : GEBase
 					break;
 				case 3:
 					PlayerInfoHandle ();
+					break;
+				case 4:
+					int i = 0;
+					saveOptions = new string[Enum.GetNames(typeof(ESave)).Length];
+					foreach (ESave item in Enum.GetValues(typeof(ESave)))
+					{
+						saveOptions[i] = item.ToString();
+						i++;
+					}
+					OtherHandle ();
 					break;
 			}
 		}
@@ -186,6 +198,22 @@ public class GEGMTool : GEBase
 			}
 
 
+		}
+		EditorGUILayout.EndHorizontal();
+	}
+	
+	private int deleteSelected = 0;
+	private string[] saveOptions;
+	private void OtherHandle()
+	{
+		if (GUILayout.Button ("刪除玩家all存檔", GUILayout.Width (200))) {
+			PlayerPrefs.DeleteAll();
+		}
+
+		EditorGUILayout.BeginHorizontal();
+		deleteSelected = EditorGUILayout.Popup("刪除玩家single存檔",deleteSelected, saveOptions);
+		if (GUILayout.Button ("刪除", GUILayout.Width (200))) {
+			PlayerPrefs.DeleteKey(saveOptions[deleteSelected]);
 		}
 		EditorGUILayout.EndHorizontal();
 	}

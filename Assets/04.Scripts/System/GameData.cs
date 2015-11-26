@@ -116,65 +116,96 @@ public static class GameData {
 	}
 
 	private static void loadGameSetting() {
-		Setting.Language = ELanguage.EN;
-		if (PlayerPrefs.HasKey (SettingText.Language)) {
-			int temp = Convert.ToInt16(PlayerPrefs.GetString(SettingText.Language));
-
-			switch (temp) {
-			case 0:
-				Setting.Language = ELanguage.EN;
-				break;
-			case 1:
-				Setting.Language = ELanguage.CN;
-				break;
-			case 3:
-				Setting.Language = ELanguage.JP;
-				break;
+		foreach (ESave item in Enum.GetValues(typeof(ESave)))
+		{
+			if(!PlayerPrefs.HasKey (item.ToString ()))
+			{
+				//init
+				switch(item)
+				{
+					case ESave.MusicOn:
+						AudioMgr.Get.MusicOn(true);
+						break;
+					case ESave.SoundOn:
+						AudioMgr.Get.SoundOn(true);
+						break;
+					case ESave.EffectOn:
+						Setting.Effect = true;
+						break;
+					case ESave.AIChangeTimeLv:
+						Setting.AIChangeTimeLv = 0;
+						break;
+					case ESave.UserLanguage: 
+						Setting.Language = ELanguage.TW;
+						#if UNITY_EDITOR
+							#if TW
+							GameData.Setting.Language = ELanguage.TW;
+							#endif
+							
+							#if CN
+							GameData.Setting.Language = ELanguage.CN;
+							#endif
+							
+							#if EN
+							GameData.Setting.Language = ELanguage.EN;
+							#endif
+							
+							#if JP
+							GameData.Setting.Language = ELanguage.JP;
+							#endif
+							
+						#else
+							switch (Application.systemLanguage) {
+							case SystemLanguage.ChineseTraditional:
+							case SystemLanguage.Chinese:
+								GameData.Setting.Language = ELanguage.TW;
+								break;
+							case SystemLanguage.ChineseSimplified:
+								GameData.Setting.Language = ELanguage.CN;
+								break;
+							case SystemLanguage.Japanese:
+								GameData.Setting.Language = ELanguage.JP;
+								break;
+							}
+						#endif
+						break;
+				}
 			}
-		} else {
-			#if UNITY_EDITOR
-				#if TW
-				GameData.Setting.Language = ELanguage.TW;
-				#endif
+			else
+			{
+				int index = PlayerPrefs.GetInt (item.ToString());
 
-				#if CN
-				GameData.Setting.Language = ELanguage.CN;
-				#endif
-				
-				#if EN
-				GameData.Setting.Language = ELanguage.EN;
-				#endif
-
-				#if JP
-				GameData.Setting.Language = ELanguage.JP;
-				#endif
-
-			#else
-			switch (Application.systemLanguage) {
-			case SystemLanguage.ChineseTraditional:
-			case SystemLanguage.Chinese:
-				GameData.Setting.Language = ELanguage.TW;
-				break;
-			case SystemLanguage.ChineseSimplified:
-				GameData.Setting.Language = ELanguage.CN;
-				break;
-			case SystemLanguage.Japanese:
-				GameData.Setting.Language = ELanguage.JP;
-				break;
+				switch(item)
+				{
+					case ESave.MusicOn:
+						AudioMgr.Get.MusicOn (index == 1 ? true : false);
+						break;
+					case ESave.SoundOn:
+						AudioMgr.Get.SoundOn (index == 1 ? true : false);
+						break;
+					case ESave.EffectOn:
+						Setting.Effect = (index == 1 ? true : false);
+						break;
+					case ESave.AIChangeTimeLv:
+						Setting.AIChangeTimeLv = index;
+						break;
+					case ESave.UserLanguage:
+						switch (index) {
+							case 0:
+								Setting.Language = ELanguage.EN;
+								break;
+							case 1:
+								Setting.Language = ELanguage.CN;
+								break;
+							case 3:
+								Setting.Language = ELanguage.JP;
+								break;
+						}
+						break;
+				}
 			}
-			#endif
+
 		}
-
-		GameData.Setting.Language = ELanguage.TW;
-		if(PlayerPrefs.HasKey(SettingText.AITime))
-			Setting.AIChangeTime = PlayerPrefs.GetFloat(SettingText.AITime, 1);
-		else
-			Setting.AIChangeTime = 1;
-
-		if(PlayerPrefs.HasKey(SettingText.Effect))
-			Setting.Effect = Convert.ToBoolean(PlayerPrefs.GetInt(SettingText.Effect, 1));
-		else
-			Setting.Effect = true;
 	}
 
 	public static bool LoadTeamSave() {

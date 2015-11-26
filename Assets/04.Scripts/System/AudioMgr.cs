@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using GameEnum;
 
 public enum SoundType
 {
@@ -28,6 +29,7 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 	public AudioMixerSnapshot Paused;
 	public AudioMixerSnapshot StartST;
 	private bool isMusicOn = false;
+	private bool isSoundOn = false;
 	
 	private Dictionary<string, AudioSource> DAudios = new Dictionary<string, AudioSource> ();
 
@@ -41,19 +43,10 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 					DAudios.Add(loads[i].name, loads[i]);
 			}
 		}
-
-		if (!PlayerPrefs.HasKey ("MusicOn")) {
-			PlayerPrefs.SetInt ("MusicOn", 1);
-			PlayerPrefs.Save ();
-		}
-
-		//KnightZhConverter.Get.Test ();
 	}
 
 	public void StartGame()
 	{
-		MusicOn (PlayerPrefs.GetInt ("MusicOn") == 1 ? true : false);
-
 		AudioMixerSnapshot[] s = new AudioMixerSnapshot[1]{StartST};
 		float[] f = new float[1]{1};
 		MasterMix.TransitionToSnapshots (s, f, 1);
@@ -98,27 +91,44 @@ public class AudioMgr : KnightSingleton<AudioMgr>
 
 	public void MusicOn(bool flag)
 	{
-		IsMusicOn = flag;
-
-		if (IsMusicOn) {
-			PlayerPrefs.SetInt ("MusicOn", 1);
-			if (MasterMix)
-				MasterMix.ClearFloat("masterVol");
-		}
-		else{
-			PlayerPrefs.SetInt ("MusicOn", 0);
-			if (MasterMix)
-				MasterMix.SetFloat ("masterVol", -80);
-		}
-
-		//NGUITools.soundVolume = 0;
+		GameData.Setting.Music = flag;
+		SetMute (AudioValuetype.musicVol, flag);
+		if (flag)
+			PlayerPrefs.SetInt (ESave.MusicOn.ToString(), 1);
+		else
+			PlayerPrefs.SetInt (ESave.MusicOn.ToString(), 0);
 
 		PlayerPrefs.Save ();
 	}
 
-	public bool IsMusicOn {
-		get { return isMusicOn; }
-		set { isMusicOn = value; }
+	public void SoundOn(bool flag)
+	{
+		GameData.Setting.Sound = flag;
+		SetMute (AudioValuetype.soundVol, flag);
+		
+		if (flag)
+			PlayerPrefs.SetInt (ESave.SoundOn.ToString(), 1);
+		else
+			PlayerPrefs.SetInt (ESave.SoundOn.ToString(), 0);
+		
+		NGUITools.soundVolume = flag? 1 : 0;
+		PlayerPrefs.Save ();
+	}
+
+	private enum AudioValuetype
+	{
+		musicVol,
+		soundVol
+	}
+
+	private void SetMute(AudioValuetype type, bool isOn)
+	{
+		if (MasterMix) {
+			if(isOn)
+				MasterMix.ClearFloat(type.ToString());
+			else
+				MasterMix.SetFloat (type.ToString(), -80);
+		}
 	}
 }
 

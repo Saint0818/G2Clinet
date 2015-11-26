@@ -926,7 +926,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isJoystick = true;
 //              aiTime = Time.time + GameData.Setting.AIChangeTime;
-                mManually.StartCounting(GameData.Setting.AIChangeTime);
+                mManually.StartCounting(GameConst.AITime[GameData.Setting.AIChangeTimeLv]);
                 StartCoroutine(GetCurrentClipLength());
 
                 if (AIActiveHint)
