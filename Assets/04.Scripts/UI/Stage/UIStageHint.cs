@@ -114,7 +114,7 @@ public class UIStageHint : MonoBehaviour
             index++;
         }
         
-        if(hintBits.Length > 1 && hintBits[1] > 1)
+        if(hintBits.Length > 1 && hintBits[1] > 0)
         {
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
@@ -171,7 +171,7 @@ public class UIStageHint : MonoBehaviour
 				index ++;
 			}
 			
-			if(hintBits.Length > 1 && hintBits[1] > 1)
+			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[index].Show();
 				int team = (int) ETeamKind.Self;

@@ -30,6 +30,8 @@ public class GameStageTargetLose : MonoBehaviour {
 		IsComplete = isComplete;
 		FinTarget.SetActive(isFinish);
 		LoseTarget.SetActive(isFinish);
+		CurrentLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
+		GoalLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
 	}
 	
 	public void UpdateFin (bool isComplete) {

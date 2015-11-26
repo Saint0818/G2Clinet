@@ -46,6 +46,8 @@ public class UIStageHintTarget : MonoBehaviour
         CurrentLabel.text = current;
         GoalLabel.text = max;
 		FinTarget.SetActive(isFinish);
+		CurrentLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
+		GoalLabel.gameObject.SetActive(!(max.Equals("0") || max.Equals("/0")));
     }
 
 	public void UpdateFin (bool isFinish) {
