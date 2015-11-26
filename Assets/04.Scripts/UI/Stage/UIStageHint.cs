@@ -176,14 +176,15 @@ public class UIStageHint : MonoBehaviour
 				mTargets[index].Show();
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
-				bool isFin = (score >= stageData.Bit1Num);
-				if(hintBits[1] == 3){
+				bool isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
+				if(hintBits[1] == 2){
+					isFin = (score >= stageData.Bit1Num);
+				} else if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
 					isFin = (score <= stageData.Bit1Num);
-				} else {
-					if(hintBits[1] == 4)
-						score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
+				} else if(hintBits[1] == 4){
+					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
 					isFin = (score >= stageData.Bit1Num);
 				}
 
