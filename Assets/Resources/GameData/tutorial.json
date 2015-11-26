@@ -209,19 +209,175 @@
         "line": 5,
         "kind": 3,
         "talkl": 1,
-        "texttw": "[ff6666]紅[-][6666ff]藍[-][66ff66]綠[-]三種投射燈也分別對應[fff400]傳球[-]的三顆按鈕，點擊該顏色的按鈕即可將球傳到該為球員手中。靈活運用[fff400]傳球按鈕[-]來製造最佳的團隊配合吧！"
+        "texttw": "[ff6666]紅[-][6666ff]藍[-][66ff66]綠[-]三種投射燈也分別對應[fff400]傳球[-]的三顆按鈕，點擊該顏色的按鈕即可將球傳到該為球員手中。"
     },
     {
         "id": 1021,
         "line": 6,
         "kind": 3,
-        "talkr": 2,
-        "texttw": "原來如此，我們立即來“團隊合作“一下！！"
+        "talkl": 1,
+        "texttw": "靈活運用[fff400]傳球按鈕[-]來製造最佳的團隊配合吧！"
     },
     {
         "id": 1021,
         "line": 7,
         "kind": 3,
+        "talkr": 2,
+        "texttw": "原來如此，我們立即來搭配一下吧！！"
+    },
+    {
+        "id": 1021,
+        "line": 8,
+        "kind": 3,
         "uipath": "UI2D/UIGame/Center/ViewStart/ButtonStart"
+    },
+    {
+        "id": 1022,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "現在是一個發動[fff400]快攻[-]的大好機會，快叫你的隊友把球傳給你。"
+    },
+    {
+        "id": 1022,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
+    },
+    {
+        "id": 1023,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "趕快把握空檔機會[fff400]灌籃[-]！！！！！"
+    },
+    {
+        "id": 1023,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
+    },
+    {
+        "id": 1024,
+        "line": 1,
+        "kind": 3,
+        "talkr": 2,
+        "texttw": "爽！！"
+    },
+    {
+        "id": 1024,
+        "line": 2,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "幹得好！！只要在靠近籃下的地方投籃，都會有[fff400]機率[-]發動[fff400]灌籃[-]喔。"
+    },
+    {
+        "id": 1024,
+        "line": 3,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "接下來我們來個漂亮的[fff400]抄截[-]嚇嚇他們吧！！"
+    },
+    {
+        "id": 1024,
+        "line": 4,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "你先偷偷靠近他們的持球者吧！！"
+    },
+    {
+        "id": 1025,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "趁他還在發呆，直接[fff400]抄球[-]吧，不用客氣了。"
+    },
+    {
+        "id": 1025,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewDefance/ButtonSteal"
+    },
+    {
+        "id": 1026,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "既然都剛好在籃下了，直接來個[fff400]絕殺灌籃[-]吧！！！"
+    },
+    {
+        "id": 1026,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/TopRight/1"
+    },
+    {
+        "id": 1031,
+        "line": 1,
+        "title": "第三關",
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "經過了兩場的激戰，對手已經被你優秀的得分能力給震懾。"
+    },
+    {
+        "id": 1031,
+        "line": 2,
+        "title": "第三關",
+        "kind": 3,
+        "talkr": 2,
+        "texttw": "哈哈哈！！其實是他們太弱了！！"
+    },
+    {
+        "id": 1031,
+        "line": 3,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "所以接下來要找[fff400]強勁[-]一點的對手來挑戰看看了。"
+    },
+    {
+        "id": 1031,
+        "line": 4,
+        "kind": 3,
+        "talkr": 2,
+        "texttw": "好啊，放馬過來！！"
+    },
+    {
+        "id": 1031,
+        "line": 5,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/Center/ViewStart/ButtonStart"
+    },
+    {
+        "id": 1032,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "在競賽中常常會遇到被對手包夾的狀況"
+    },
+    {
+        "id": 1032,
+        "line": 2,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "這時候，可以使出[fff400]肘擊[-]來保護自己的球，防止對方靠近！！"
+    },
+    {
+        "id": 1032,
+        "line": 3,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
+    },
+    {
+        "id": 1033,
+        "line": 1,
+        "kind": 3,
+        "talkl": 1,
+        "texttw": "這樣是不是少了很多[fff400]阻礙[-]，可以放心的射籃了！！"
+    },
+    {
+        "id": 1033,
+        "line": 2,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
     }
 ]
