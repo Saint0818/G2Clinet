@@ -17,7 +17,7 @@ public class UIEquipUtility
             if (item.Bonus[i] == EBonus.None)
                 continue;
 
-            var data = new UIValueItemData.AttrKindData
+            var data = new UIValueItemData.BonusData
             {
                 Icon = string.Format("AttrKind_{0}", item.Bonus[i].GetHashCode()),
                 Value = item.BonusValues[i]

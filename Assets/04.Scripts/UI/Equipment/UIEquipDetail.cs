@@ -33,7 +33,9 @@ public class UIEquipDetail : MonoBehaviour
     {
         get { return mSlotIndex; }
     }
-    private int mSlotIndex; 
+    private int mSlotIndex;
+
+    private UIEquipmentMain mMain;
 
     [UsedImplicitly]
 	private void Awake()
@@ -43,6 +45,7 @@ public class UIEquipDetail : MonoBehaviour
         mEquipItem.OnClickListener += onItemClick;
 
         mAttrs = GetComponentsInChildren<UIEquipDetailAttr>();
+        mMain = GetComponent<UIEquipmentMain>();
 
         UpgradeButton.isEnabled = false;
     }
@@ -50,7 +53,9 @@ public class UIEquipDetail : MonoBehaviour
     public void Set(int slotIndex, UIValueItemData item)
     {
         mSlotIndex = slotIndex;
-        mEquipItem.Set(item);
+
+        mEquipItem.Set(item, !mMain.IsBestValueItem(mSlotIndex));
+
         Desc.text = item.Desc;
 
         foreach(UIEquipDetailAttr attr in mAttrs)
@@ -59,7 +64,7 @@ public class UIEquipDetail : MonoBehaviour
         }
 
         int i = 0;
-        foreach(KeyValuePair<EAttribute, UIValueItemData.AttrKindData> pair in item.Values)
+        foreach(KeyValuePair<EAttribute, UIValueItemData.BonusData> pair in item.Values)
         {
             mAttrs[i].Set(pair.Value.Icon, pair.Value.Value);
             ++i;

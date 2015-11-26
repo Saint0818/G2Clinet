@@ -16,6 +16,7 @@ public class UIEquipItem : MonoBehaviour
     public UISprite Picture;
     public UILabel Text;
     public UILabel Amount;
+    public GameObject RedPoint;
     public GameObject[] InlaySlots;
     public GameObject[] Inlays;
 
@@ -42,7 +43,12 @@ public class UIEquipItem : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void Set(UIValueItemData item)
+    private bool RedPointVisible
+    {
+        set { RedPoint.SetActive(value); }
+    }
+
+    public void Set(UIValueItemData item, bool showRedPoint)
     {
         gameObject.SetActive(true);
         Picture.spriteName = item.Icon;
@@ -52,6 +58,8 @@ public class UIEquipItem : MonoBehaviour
         GetComponent<UIButton>().normalSprite = item.Frame;
 
         Text.text = item.Name;
+
+        RedPointVisible = showRedPoint;
     }
 
     /// <summary>

@@ -57,12 +57,12 @@ public class UIEquipPlayer : MonoBehaviour
 
     private void updateSlots()
     {
-        for(int i = 0; i < mPartSlots.Count; i++)
+        for(int slotIndex = 0; slotIndex < mPartSlots.Count; slotIndex++)
         {
-            if(mMain.ValueItems.Length > i && mMain.ValueItems[i].IsValid())
-                mPartSlots[i].Set(mMain.ValueItems[i]);
+            if(mMain.ValueItems.Length > slotIndex && mMain.ValueItems[slotIndex].IsValid())
+                mPartSlots[slotIndex].Set(mMain.ValueItems[slotIndex], !mMain.IsBestValueItem(slotIndex));
             else
-                mPartSlots[i].Clear();
+                mPartSlots[slotIndex].Clear();
         }
     }
 
@@ -94,7 +94,7 @@ public class UIEquipPlayer : MonoBehaviour
         int sum = 0;
         for (int i = 0; i < mMain.ValueItems.Length; i++)
         {
-            sum += mMain.ValueItems[i].GetValue(kind);
+            sum += mMain.ValueItems[i].GetSumValue(kind);
         }
 
 //            Debug.LogFormat("{0}:{1}", kind, sum);

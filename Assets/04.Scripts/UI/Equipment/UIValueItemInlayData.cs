@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using GameStruct;
 
 /// <summary>
@@ -13,8 +14,23 @@ public class UIValueItemInlayData
 
     public int GetValue(EAttribute kind)
     {
-        if (Values.ContainsKey(kind))
+        if(Values.ContainsKey(kind))
             return Values[kind];
         return 0;
+    }
+
+    public int GetTotalPoints()
+    {
+        return Values.Sum(pair => pair.Value);
+
+        /*
+        int totalPoints = 0;
+        foreach(KeyValuePair<EAttribute, int> pair in Values)
+        {
+            totalPoints += pair.Value;
+        }
+
+        return totalPoints;
+        */
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameStruct;
 using JetBrains.Annotations;
 
@@ -8,10 +9,10 @@ using JetBrains.Annotations;
 /// </summary>
 public class UIValueItemData
 {
-    public class AttrKindData
+    public class BonusData
     {
-        public string Icon;
-        public int Value;
+        public string Icon; // 數值裝某個屬性的圖片.
+        public int Value; // 數值裝某個屬性的數值.
     }
 
     /// <summary>
@@ -52,7 +53,7 @@ public class UIValueItemData
     private string mDesc;
 
     // 道具會影響哪些屬性的數值.
-    public Dictionary<EAttribute, AttrKindData> Values = new Dictionary<EAttribute, AttrKindData>();
+    public Dictionary<EAttribute, BonusData> Values = new Dictionary<EAttribute, BonusData>();
 
     // 鑲嵌物品.
     [CanBeNull]
@@ -65,21 +66,58 @@ public class UIValueItemData
         return String.Format("Name: {0}, Icon: {1}, Desc: {2}", Name, Icon, Desc);
     }
 
-    public int GetValue(EAttribute kind)
+    /// <summary>
+    /// 某個屬性的總和數值.
+    /// </summary>
+    /// <param name="kind"></param>
+    /// <returns></returns>
+    public int GetSumValue(EAttribute kind)
     {
         int sum = 0;
-        if (Values.ContainsKey(kind))
+        if(Values.ContainsKey(kind))
             sum += Values[kind].Value;
 
-        if (Inlays != null)
+        if(Inlays != null)
         {
-            foreach (UIValueItemInlayData inlay in Inlays)
+            sum += Inlays.Sum(inlay => inlay.GetValue(kind));
+
+            /*
+            foreach(UIValueItemInlayData inlay in Inlays)
             {
                 sum += inlay.GetValue(kind);
             }
+            */
         }
 
         return sum;
+    }
+
+    /// <summary>
+    /// 數值裝總分. (內部會用總分來區別裝備的強弱)
+    /// </summary>
+    /// <returns></returns>
+    public int GetTotalPoints()
+    {
+        int totalPoints = Values.Sum(pair => pair.Value.Value);
+        /*
+        foreach(KeyValuePair<EAttribute, BonusData> pair in Values)
+        {
+            totalPoints += pair.Value.Value;
+        }
+        */
+
+        if (Inlays != null)
+        {
+            totalPoints += Inlays.Sum(inlay => inlay.GetTotalPoints());
+            /*
+            foreach (UIValueItemInlayData inlay in Inlays)
+            {
+                totalPoints += inlay.GetTotalPoints();
+            }
+            */
+        }
+
+        return totalPoints;
     }
 
     public bool IsValid()

@@ -34,9 +34,9 @@ public class UIEquipPartSlot : MonoBehaviour
         mItem.Clear();
     }
 
-    public void Set(UIValueItemData item)
+    public void Set(UIValueItemData item, bool showRedPoint)
     {
-        mItem.Set(item);
+        mItem.Set(item, showRedPoint);
     }
 
     /// <summary>

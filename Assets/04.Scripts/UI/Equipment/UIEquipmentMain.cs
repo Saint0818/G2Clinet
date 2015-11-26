@@ -117,4 +117,34 @@ public class UIEquipmentMain : MonoBehaviour
         if(OnBackListener != null)
             OnBackListener();
     }
+
+    /// <summary>
+    /// slotIndex 上的數值裝備是最強的嗎?
+    /// </summary>
+    /// <param name="slotIndex"></param>
+    /// <returns></returns>
+    public bool IsBestValueItem(int slotIndex)
+    {
+        if(slotIndex < 0 || slotIndex >= ValueItems.Length)
+            return false;
+
+        return ValueItems[slotIndex].GetTotalPoints() >= getBestTotalPointsFromListItems(slotIndex);
+    }
+
+    /// <summary>
+    /// 找出 slotIndex 上最強數值裝的數值總分(總和).
+    /// </summary>
+    /// <param name="slotIndex"></param>
+    /// <returns></returns>
+    private int getBestTotalPointsFromListItems(int slotIndex)
+    {
+        int maxTotalPoints = int.MinValue;
+        foreach(UIValueItemData itemData in ListItems[slotIndex])
+        {
+            if(maxTotalPoints < itemData.GetTotalPoints())
+                maxTotalPoints = itemData.GetTotalPoints();
+        }
+
+        return maxTotalPoints;
+    }
 }
