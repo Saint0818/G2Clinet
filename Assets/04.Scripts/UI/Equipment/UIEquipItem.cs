@@ -24,6 +24,7 @@ public class UIEquipItem : MonoBehaviour
     {
         // 暫時關閉.
         Amount.gameObject.SetActive(false);
+        Text.gameObject.SetActive(false);
 
         foreach(GameObject inlay in Inlays)
         {
