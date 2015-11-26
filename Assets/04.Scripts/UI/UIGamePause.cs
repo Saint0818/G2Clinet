@@ -251,7 +251,7 @@ public class UIGamePause : UIBase {
 		if (isStage)
 			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
+			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 	}
 	
 	public void OnResume() {

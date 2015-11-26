@@ -21,6 +21,7 @@ public class UILoading : UIBase {
 	private GameObject[] viewLoading = new GameObject[3];
 	private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>();
 
+	public static EventDelegate.Callback OpenUI = null;
 	private ELoadingGamePic loadingKind;
 	private bool closeAfterFinished = false;
 	private int pageLoading = 0;
@@ -30,7 +31,6 @@ public class UILoading : UIBase {
 	private float loadingTimer = 0;
 	private float textCount = 0;
 	private string loadingText = "";
-
 
 	public static bool Visible{
 		get{
@@ -49,6 +49,12 @@ public class UILoading : UIBase {
 			
 			return instance;
 		}
+	}
+
+	//Open stage after battle
+	public static void OpenStageUI() {
+		UIMainStage.Get.Show ();
+		UIMainLobby.Get.Hide ();
 	}
 
 	public static void UIShow(bool isShow, ELoadingGamePic kind = ELoadingGamePic.SelectRole){
@@ -98,7 +104,7 @@ public class UILoading : UIBase {
 
 	protected override void OnShow(bool isShow) {
 		if (isShow)
-			StartCoroutine(DoLoading(loadingKind));
+			StartCoroutine(doLoading(loadingKind));
 	}
 
 	private void initLoadingPic(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
@@ -156,7 +162,7 @@ public class UILoading : UIBase {
 		*/
 	}
 	
-	IEnumerator DoLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
+	IEnumerator doLoading(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
 		float minWait = 2;
 		float maxWait = 4;
 		float waitTime = 1;
@@ -187,13 +193,13 @@ public class UILoading : UIBase {
 
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
+
 			UIShow(false);
 
 			break;
 		case ELoadingGamePic.Lobby:
 			ProgressValue = 1;
-			if(!SceneMgr.Get.CheckNeedOpenStageUI())
-				UIMainLobby.Get.Show();
+			UIMainLobby.Get.Show();
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
@@ -201,6 +207,12 @@ public class UILoading : UIBase {
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
+			
+			if (OpenUI != null) {
+				OpenUI();
+				OpenUI = null;
+			}
+
 			UIShow(false);
 
 			break;
@@ -212,8 +224,6 @@ public class UILoading : UIBase {
 			yield return new WaitForSeconds (0.2f);
 			AudioMgr.Get.StartGame();
 			yield return new WaitForSeconds (0.2f);
-			//GameController.Get.LoadStage(GameData.StageID);
-			//UIGame.UIShow(false);
 			ProgressValue = 1;
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
@@ -229,6 +239,23 @@ public class UILoading : UIBase {
 		}
 
 		ProgressValue = 1;
+	}
+
+	IEnumerator loadingGame(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
+		yield return new WaitForEndOfFrame();
+		
+		UIShow(false);
+		if (GameStart.Get.TestMode == EGameTest.None) {
+			GameController.Get.LoadStage(GameData.StageID);
+		} else {
+			CourtMgr.Get.ShowEnd();
+			GameController.Get.LoadStage(1);
+			GameController.Get.InitIngameAnimator();
+			GameController.Get.SetBornPositions();
+			GameController.Get.ChangeSituation(EGameSituation.JumpBall);
+			AIController.Get.ChangeState(EGameSituation.JumpBall);
+			CameraMgr.Get.ShowPlayerInfoCamera (true);
+		}
 	}
 	
 	public void UpdateProgress (){
@@ -306,21 +333,12 @@ public class UILoading : UIBase {
 	}
 
 	public void OnNext() {
-		UIShow(false);
-
-		if (GameStart.Get.TestMode == EGameTest.None) {
-			//UIShow(false);
-			//UIGame.UIShow(true);
-			GameController.Get.LoadStage(GameData.StageID);
-		} else {
-			CourtMgr.Get.ShowEnd();
-			GameController.Get.LoadStage(1);
-			GameController.Get.InitIngameAnimator();
-			GameController.Get.SetBornPositions();
-			GameController.Get.ChangeSituation(EGameSituation.JumpBall);
-			AIController.Get.ChangeState(EGameSituation.JumpBall);
-			CameraMgr.Get.ShowPlayerInfoCamera (true);
-		}
+		nowProgress = 0;
+		uiLoadingProgress.fillAmount = 0;
+		ProgressValue = 1;
+		buttonNext.SetActive(false);
+		loadingPic.SetActive(true);
+		StartCoroutine(loadingGame());
 	}
 
 	public float ProgressValue{

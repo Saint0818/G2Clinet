@@ -22,7 +22,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 	
     public static event LevelWillBeLoaded OnLevelWillBeLoaded;
     public static event LevelWaitLoadNextScene OnLevelWaitLoadNext;
-	public LevelWasFinishedDoSomething OnOpenStae = null;
     
     IEnumerator LoadLevelCoroutine(string levelToLoad)
     {
@@ -93,31 +92,6 @@ public class SceneMgr : KnightSingleton<SceneMgr>
             }
         }
     }
-
-	public void ChangeLevel(string scene, bool openstage, bool isNeedLoading)
-	{
-		if (openstage)
-			OnOpenStae = OpenStageUI;
-		ChangeLevel (scene, isNeedLoading);
-	}
-
-	private void OpenStageUI()
-	{
-		UIMainStage.Get.Show ();
-		UIMainLobby.Get.Hide ();
-	}
-
-	public bool CheckNeedOpenStageUI()
-	{
-		if(OnOpenStae != null)
-		{
-			OnOpenStae();
-			OnOpenStae = null;
-			return true;
-		}
-
-		return false;
-	}
 
     public void WaitLoadScene()
     {

@@ -65,13 +65,15 @@ public class ModelManager : KnightSingleton<ModelManager> {
         }
     }
 
-	public void LoadAllSelectPlayer(ref int[] id) {
+	public void PreloadAnimator() {
 		//load animator
 		for (int i = 0; i < 3; i++) {
 			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()), string.Format("{0}{1}", EAnimatorType.AnimationControl,i));
 			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString()), string.Format("{0}{1}", EAnimatorType.ShowControl,i));
 		}
+	}
 
+	public void LoadAllSelectPlayer(ref int[] id) {
 		for (int i = 0; i < id.Length; i++)
 			if (GameData.DPlayers.ContainsKey(id[i])) {
 				TAvatar avatar = new TAvatar(id[i]);

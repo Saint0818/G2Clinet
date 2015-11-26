@@ -191,6 +191,7 @@ public class GameController : KnightSingleton<GameController>
         AIController.Get.ChangeState(EGameSituation.None);
 		UITransition.Visible = true;
 		EffectManager.Get.LoadGameEffect();
+		ModelManager.Get.PreloadAnimator();
 		CourtInstant = new TCourtInstant(1);
 		StageData.Clear();
 		InitAniState();

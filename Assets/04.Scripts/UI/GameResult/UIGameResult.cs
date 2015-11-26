@@ -203,10 +203,11 @@ public class UIGameResult : UIBase {
 		if(isChooseLucky) {
 			Time.timeScale = 1;
 			UIShow(false);
+			UILoading.OpenUI = UILoading.OpenStageUI;
 			if (isStage)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby, true, true);
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			else
-				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole, false);
+				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
 		}
 	}
 	
@@ -217,7 +218,6 @@ public class UIGameResult : UIBase {
 			isChooseLucky = true;
 			chooseItem (index);
 		} else {
-
 			stageRewardAgain(GameData.StageID);
 		}
 	}

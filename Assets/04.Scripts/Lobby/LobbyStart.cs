@@ -48,11 +48,6 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
 			RootOnlinePlayers = new GameObject();
 			RootOnlinePlayers.name = "OnlinePlayers";
 		}
-
-		if(GameData.Team.Identifier == "")
-			SendHttp.Get.CheckServerData(true);
-		else
-			EnterLobby();
     }
 
     private void sceneMove() {
@@ -411,16 +406,8 @@ public class LobbyStart : KnightSingleton<LobbyStart> {
     {
 		try
         {
-//			UIMain.Visible = true;
-//			ModelManager.Get.PlayerInfoModel.SetActive(true);
-//			if (roleChanged)
-//				createMyPlayer();
-
-			//WWWForm form = new WWWForm();
-			//SendHttp.Get.Command(URLConst.ScenePlayer, waitScenePlayer, form);
 			UILoading.UIShow(false);
-			if(!SceneMgr.Get.CheckNeedOpenStageUI())
-				UIMainLobby.Get.Show();
+			UIMainLobby.Get.Show();
 
 			if (UI3D.Visible)
 				UI3D.Get.ShowCamera(false);
