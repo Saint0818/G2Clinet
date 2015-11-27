@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using GameStruct;
 
@@ -61,11 +61,16 @@ public class UILevelUp : UIBase {
 	}
 
 	public void OnReturn (GameObject go) {
-		UILoading.OpenUI = UILoading.OpenStageUI;
-		if (isStage)
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-		else
-			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+		if(UIGameResult.Get.IsExpUnlock) {
+			UIShow(false);
+			UIAchievement.UIShow(true);
+		} else {
+			UILoading.OpenUI = UILoading.OpenStageUI;
+			if (isStage)
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			else
+				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+		}
 	}
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer){

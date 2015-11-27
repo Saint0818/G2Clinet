@@ -29,7 +29,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 	private GameObject[] pveBasketAy = new GameObject[2];
 	private GameObject[] BuildBasket = new GameObject[2];
 	private GameObject[] BuildDummyAy = new GameObject[2];
-//	private GameObject[] skillAreaEffect = new GameObject[2];
 	private Vector3[] animPos = new Vector3[2];
 	private Vector3[] animRotate = new Vector3[2];
 
@@ -960,18 +959,6 @@ public class CourtMgr : KnightSingleton<CourtMgr>
         result = crtCollider.transform.FindChild(name).gameObject;
         return result;
     }
-
-//	public void SkillArea(int team, bool isEnable)
-//	{
-//		if (team < skillAeraEffect.Length && skillAeraEffect [team] == null) {
-//			if(team == 0)
-//				skillAeraEffect [team] = EffectManager.Get.PlayEffect("SkillAreaFX", Vector3.zero);
-//			else
-//				skillAeraEffect [team] = EffectManager.Get.PlayEffect("SkillAreaFX", Vector3.up * -180);
-//		}
-//		if(skillAreaEffect [team])
-//			skillAreaEffect [team].SetActive(isEnable);
-//	}
 
     public Vector3 GetHoodPosition(ETeamKind teamKind)
     {

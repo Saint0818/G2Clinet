@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json;
+using GameEnum;
 
 public class UIGameResult : UIBase {
 	private static UIGameResult instance = null;
@@ -54,10 +55,11 @@ public class UIGameResult : UIBase {
 	private int tempExp;
 	private int tempDia;
 
-	private bool isGetAward = true;
+	private bool isGetAward = false;
 	private bool isLevelUp = false;
 	private TPlayer beforePlayer;
 	private TPlayer afterPlayer;
+	private bool isExpUnlock = false;
 
 	public static bool Visible
 	{
@@ -218,8 +220,13 @@ public class UIGameResult : UIBase {
 			if(isLevelUp) {
 				UIShow(false);
 				UILevelUp.Get.Show(beforePlayer, afterPlayer);
-			} else
-				backToLobby ();
+			} else {
+//				if(IsExpUnlock) {
+//					UIShow(false);
+//					//Unlock UI
+//				} else
+					backToLobby ();
+			}
 		}
 	}
 
@@ -466,9 +473,9 @@ public class UIGameResult : UIBase {
 					isFin = (score >= stageData.Bit1Num);
 				}
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-				                         getText(2, hintBits[1], 7),
-				                         score.ToString(), "/" + stageData.Bit1Num.ToString(),
-				                         false);
+				                             getText(2, hintBits[1], 7),
+				                         	 score.ToString(), "/" + stageData.Bit1Num.ToString(),
+				                         	 false);
 				hintIndex++;
 			}
 			
@@ -476,8 +483,8 @@ public class UIGameResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				mTargets[hintIndex].UpdateUI(getText(3, hintBits[2], 9),
-				                         getText(3, hintBits[2], 7),
-				                         getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
+				                         	 getText(3, hintBits[2], 7),
+				                         	 getConditionCount(hintBits[2]).ToString(), "/" + stageData.Bit2Num.ToString(),
 				                             false);
 				hintIndex++;
 			}
@@ -486,14 +493,18 @@ public class UIGameResult : UIBase {
 			{
 				mTargets[hintIndex].Show();
 				mTargets[hintIndex].UpdateUI(getText(3, hintBits[3], 9),
-				                         getText(3, hintBits[3], 7),
-				                         getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
+				                         	 getText(3, hintBits[3], 7),
+				                         	 getConditionCount(hintBits[3]).ToString(), "/" + stageData.Bit3Num.ToString(),
 				                             false);
 			}
 		} else 
 		{
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			hintIndex = 0;
+
+			int minute = (int) (GameController.Get.GameTime / 60f);
+			int second = (int) (GameController.Get.GameTime % 60f);
+
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
 				mTargets[hintIndex].Show();
@@ -503,18 +514,33 @@ public class UIGameResult : UIBase {
 				
 				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
 					                         getText(1, value, 7),
-					                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
+				                             (minute * 60 + second).ToString(), "/" + GameController.Get.StageData.Bit0Num.ToString(),
 					                         false);
 				hintIndex++;
 			}
 			
-			if(hintBits.Length > 1 && hintBits[1] > 1)
+			if(hintBits.Length > 1 && hintBits[1] > 0)
 			{
 				mTargets[hintIndex].Show();
+
+				int team = (int) ETeamKind.Self;
+				int score = UIGame.Get.Scores[team];
+				
+				bool isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
+				if(hintBits[1] == 2) {
+					isFin = (score >= GameController.Get.StageData.Bit1Num);
+				} else if(hintBits[1] == 3){
+					team = (int) ETeamKind.Npc;
+					score = UIGame.Get.Scores[team];
+					isFin = (score <= GameController.Get.StageData.Bit1Num);
+				} else if(hintBits[1] == 4) {
+					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
+					isFin = (score >= GameController.Get.StageData.Bit1Num);
+				}
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
-					                         getText(2, hintBits[1], 7),
-					                         UIGame.Get.Scores[ETeamKind.Self.GetHashCode()].ToString(), "/" + GameController.Get.StageData.BitNum[1].ToString(),
-					                         false);
+				                             getText(2, hintBits[1], 7),
+				                             score.ToString(), "/" + GameController.Get.StageData.Bit1Num.ToString(),
+				                             false);
 			}
 		}
 
@@ -537,6 +563,10 @@ public class UIGameResult : UIBase {
 	{
 		int baseValue = 2000000 + (int)(Mathf.Pow(10,index) * value) + id;
 		return TextConst.S(baseValue);
+	}
+
+	public bool IsExpUnlock {
+		get{return isExpUnlock;}
 	}
 
 	/// <summary>
@@ -576,32 +606,23 @@ public class UIGameResult : UIBase {
 					isLevelUp = true;
 					beforePlayer = GameData.Team.Player;
 					afterPlayer = reward.Player;
+					if(GameData.DExpData.ContainsKey(reward.Player.Lv) && GameData.DExpData[reward.Player.Lv].OpenIndex > 0) {
+						PlayerPrefs.SetInt (ESave.LevelUpFlag.ToString(), GameData.DExpData[reward.Player.Lv].UI);
+						isExpUnlock = true;
+					}
 				}
-				
+
 				GameData.Team.Money = reward.Money;
 				GameData.Team.Diamond = reward.Diamond;
-				GameData.Team.Player = reward.Player;
-				GameData.Team.Player.Init();
+				GameData.Team.Player.Exp = reward.Player.Exp;
+				GameData.Team.Player.Lv = reward.Player.Lv;
+				GameData.Team.Player.NextMainStageID = reward.Player.NextMainStageID;
+				GameData.Team.Player.Potential = reward.Player.Potential;
+				GameData.Team.Player.Stamina = reward.Player.Stamina;
+				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
+//				GameData.Team.Player.Init();
 				GameData.Team.Items = reward.Items;
-
-				if(reward.SurelyItemIDs.Length > 0)
-				{
-					for(int i = 0; i < reward.SurelyItemIDs.Length; i++)
-						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind > 0 && GameData.DItemData[reward.SurelyItemIDs[i]].Kind < 8)
-						{
-							if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.SurelyItemIDs[i]].Kind))
-							{
-								GameData.Setting.NewAvatar[GameData.DItemData[reward.SurelyItemIDs[i]].Kind] = reward.SurelyItemIDs[i];
-							}
-						}
-				}
-
-				if(GameData.DItemData.ContainsKey(reward.RandomItemID) && GameData.DItemData[reward.RandomItemID].Kind > 0 && GameData.DItemData[reward.RandomItemID].Kind < 8)
-				{
-					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
-						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
-				}
-
+				
 				isGetAward = true;
 				awardItemTempIDs = new List<int>();
 				if(reward.SurelyItemIDs == null) {

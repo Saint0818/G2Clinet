@@ -90,7 +90,7 @@ public class UIStageHint : MonoBehaviour
     {
         Window.SetActive(false);
     }
-
+	//Stage
     public void UpdateUI(int stageID)
     {
         if(!StageTable.Ins.HasByID(stageID))
@@ -109,18 +109,16 @@ public class UIStageHint : MonoBehaviour
 				value = 1;
 			mTargets[index].UpdateUI(getText(index + 1, value, 9),
 			                         getText(index + 1, value, 8),
-//                "/" + stageData.Bit0Num, stageData.Bit0Num.ToString());
-                "", stageData.Bit0Num.ToString());
-            index++;
+						             "", stageData.Bit0Num.ToString());
+						             index++;
         }
         
         if(hintBits.Length > 1 && hintBits[1] > 0)
         {
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(index + 1, hintBits[1], 9),
-                getText(index + 1, hintBits[1], 8),
-//                "/" + stageData.Bit1Num, stageData.Bit1Num.ToString());
-                "", stageData.Bit1Num.ToString());
+					                 getText(index + 1, hintBits[1], 8),
+					                 "", stageData.Bit1Num.ToString());
 
             index++;
         }
@@ -129,9 +127,8 @@ public class UIStageHint : MonoBehaviour
         {
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
-                getText(3, hintBits[2], 8),
-//                "/" + stageData.Bit2Num, stageData.Bit2Num.ToString());
-                "", stageData.Bit2Num.ToString());
+					                 getText(3, hintBits[2], 8),
+					                 "", stageData.Bit2Num.ToString());
             index++;
         }
         
@@ -139,12 +136,11 @@ public class UIStageHint : MonoBehaviour
         {
             mTargets[index].Show();
             mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
-                getText(3, hintBits[3], 8),
-//                "/" + hintBits[3],  stageData.Bit3Num.ToString());
-                "",  stageData.Bit3Num.ToString());
+					                 getText(3, hintBits[3], 8),
+					                 "",  stageData.Bit3Num.ToString());
         }
     }
-
+	//GamePause
 	public void UpdateValue(int stageID)
 	{
 		if(StageTable.Ins.HasByID(stageID))
@@ -154,7 +150,7 @@ public class UIStageHint : MonoBehaviour
 			TStageData stageData = StageTable.Ins.GetByID(stageID);
 			int[] hintBits = stageData.HintBit;
 			int index = 0;
-
+			bool isFin = false;
 			int minute = (int) (GameController.Get.GameTime / 60f);
 			int second = (int) (GameController.Get.GameTime % 60f);
 
@@ -176,7 +172,7 @@ public class UIStageHint : MonoBehaviour
 				mTargets[index].Show();
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
-				bool isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
+				isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
 				if(hintBits[1] == 2){
 					isFin = (score >= stageData.Bit1Num);
 				} else if(hintBits[1] == 3){
@@ -197,7 +193,7 @@ public class UIStageHint : MonoBehaviour
 			
 			if(hintBits.Length > 2 && hintBits[2] > 0)
 			{
-				bool isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
+				isFin = (getConditionCount(hintBits[2]) >=  stageData.Bit2Num);
 				mTargets[index].Show();
 				mTargets[index].UpdateUI(getText(3, hintBits[2], 9),
 				                         getText(3, hintBits[2], 8),
@@ -208,7 +204,7 @@ public class UIStageHint : MonoBehaviour
 			
 			if(hintBits.Length > 3 && hintBits[3] > 0)
 			{
-				bool isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
+				isFin = (getConditionCount(hintBits[3]) >=  stageData.Bit3Num);
 				mTargets[index].Show();
 				mTargets[index].UpdateUI(getText(3, hintBits[3], 9),
 				                         getText(3, hintBits[3], 8),
@@ -219,6 +215,10 @@ public class UIStageHint : MonoBehaviour
 		{
 			int[] hintBits = GameController.Get.StageData.HintBit;
 			int index = 0;
+			
+			int minute = (int) (GameController.Get.GameTime / 60f);
+			int second = (int) (GameController.Get.GameTime % 60f);
+
 			if(hintBits.Length > 0 && hintBits[0] > 0)
 			{
 				mTargets[index].Show();
@@ -228,7 +228,7 @@ public class UIStageHint : MonoBehaviour
 
 				mTargets[index].UpdateUI(getText(1, value, 9),
 				                         getText(1, value, 8),
-				                         (Mathf.RoundToInt(GameController.Get.GameTime)).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
+				                         (minute * 60 + second).ToString(), "/" + GameController.Get.StageData.BitNum[0].ToString(),
 				                         (GameController.Get.GameTime <= 0));
 				index++;
 			}

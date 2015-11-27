@@ -67,7 +67,8 @@ namespace GameEnum {
 		NewAvatar4,
 		NewAvatar5,
 		NewAvatar6,
-		NewAvatar7
+		NewAvatar7,
+		LevelUpFlag
 	}
 
 	public enum ETestActive {
