@@ -326,6 +326,7 @@ public class UIAvatarFitted : UIBase {
 	private TimeSpan checktime;
 	private GameObject avatar;
 	private string[] btnPaths = new string[avatarPartCount];
+	private GameObject[] notice = new GameObject[avatarPartCount];
 	public EAvatarMode Mode = EAvatarMode.Normal;
 
 	public static bool Visible {
@@ -377,8 +378,10 @@ public class UIAvatarFitted : UIBase {
 		btnPaths [5] = mainBtnPath + "FaceBtn";
 		btnPaths [6] = mainBtnPath + "BacksBtn";
 
-		for(int i = 0; i < btnPaths.Length; i++)
-			SetBtnFunReName (btnPaths[i], DoAvatarTab, i.ToString());
+		for (int i = 0; i < btnPaths.Length; i++) {
+			notice[i] = GameObject.Find(btnPaths [i] + "/New");
+			SetBtnFunReName (btnPaths [i], DoAvatarTab, i.ToString ());
+		}
 
 		SetBtnFun (UIName + "/MainView/BottomLeft/BackBtn", OnReturn);
 		SetBtnFun (UIName + "/MainView/BottomRight/CheckBtn", OnSave);
@@ -429,6 +432,7 @@ public class UIAvatarFitted : UIBase {
 		if (int.TryParse (UIButton.current.name, out index)) {
 			//avatarPart 1:頭髮 2手飾 3上身 4下身 5鞋 6頭飾(共用）7背部(共用)
 			avatarPart = index + 1;
+			GameData.SetAvatarNotice(avatarPart, 0);
 			UpdateAvatar();
 		}
 	}
@@ -442,6 +446,9 @@ public class UIAvatarFitted : UIBase {
 		InitItemsData();
 		InitEquipState();
 		UpdateView();
+
+		for(int i = 0;i< notice.Length;i++)
+			notice[i].SetActive(GameData.AvatarNoticeEnable(i+1));
 	}
 
 	private void UpdateSellMoney()

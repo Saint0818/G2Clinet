@@ -622,6 +622,7 @@ namespace GameStruct
 		public bool Effect;
 		public bool Music;
 		public bool Sound;
+		public Dictionary<int, int> NewAvatar;
 	}
 
 	public struct TPlayerPackage {

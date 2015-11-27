@@ -60,7 +60,14 @@ namespace GameEnum {
 		UserLanguage,
         MoneyChange,
         DiamondChange,
-        PowerChange
+        PowerChange,
+		NewAvatar1,
+		NewAvatar2,
+		NewAvatar3,
+		NewAvatar4,
+		NewAvatar5,
+		NewAvatar6,
+		NewAvatar7
 	}
 
 	public enum ETestActive {

@@ -116,6 +116,12 @@ public static class GameData {
 	}
 
 	private static void loadGameSetting() {
+
+		Setting.NewAvatar = new Dictionary<int, int> ();
+		for (int i = 1; i < 8; i++) {
+			Setting.NewAvatar.Add(i, 0);
+		}
+
 		foreach (ESave item in Enum.GetValues(typeof(ESave)))
 		{
 			if(!PlayerPrefs.HasKey (item.ToString ()))
@@ -169,6 +175,7 @@ public static class GameData {
 							}
 						#endif
 						break;
+
 				}
 			}
 			else
@@ -190,7 +197,8 @@ public static class GameData {
 						Setting.AIChangeTimeLv = index;
 						break;
 					case ESave.UserLanguage:
-						switch (index) {
+						switch (index) 
+						{
 							case 0:
 								Setting.Language = ELanguage.TW;
 								break;
@@ -199,9 +207,29 @@ public static class GameData {
 								break;
 						}
 						break;
+					case ESave.NewAvatar1:
+						Setting.NewAvatar[1] = index;
+						break;
+					case ESave.NewAvatar2:
+						Setting.NewAvatar[2] = index;
+						break;
+					case ESave.NewAvatar3:
+						Setting.NewAvatar[3] = index;
+						break;
+					case ESave.NewAvatar4:
+						Setting.NewAvatar[4] = index;
+						break;
+					case ESave.NewAvatar5:
+						Setting.NewAvatar[5] = index;
+						break;
+					case ESave.NewAvatar6:
+						Setting.NewAvatar[6] = index;
+						break;
+					case ESave.NewAvatar7:
+						Setting.NewAvatar[7] = index;
+						break;
 				}
 			}
-
 		}
 	}
 
@@ -220,6 +248,58 @@ public static class GameData {
 		}
 			
 		return false;
+	}
+
+	public static bool AvatarNoticeEnable() {
+		foreach (KeyValuePair<int, int> item in Setting.NewAvatar) {
+			if(item.Value > 0)
+				return true;
+		}
+		return false;
+	}
+
+	public static bool AvatarNoticeEnable(int avatarKind)
+	{
+		//1: hair 
+		if (Setting.NewAvatar.ContainsKey (avatarKind) && Setting.NewAvatar [avatarKind] > 0)
+			return true;
+		else
+			return false;
+	}
+
+	public static void SetAvatarNotice(int avatarKind, int itemid)
+	{
+		//1: hair 
+		if (Setting.NewAvatar.ContainsKey (avatarKind)){
+			Setting.NewAvatar [avatarKind] = itemid;
+
+			switch (avatarKind) 
+			{
+				case 1:
+					PlayerPrefs.SetInt(ESave.NewAvatar1.ToString(), itemid);
+					break;
+				case 2:
+					PlayerPrefs.SetInt(ESave.NewAvatar2.ToString(), itemid);
+					break;
+				case 3:
+					PlayerPrefs.SetInt(ESave.NewAvatar3.ToString(), itemid);
+					break;
+				case 4:
+					PlayerPrefs.SetInt(ESave.NewAvatar4.ToString(), itemid);
+					break;
+				case 5:
+					PlayerPrefs.SetInt(ESave.NewAvatar5.ToString(), itemid);	
+					break;
+				case 6:
+					PlayerPrefs.SetInt(ESave.NewAvatar6.ToString(), itemid);
+					break;
+				case 7:
+					PlayerPrefs.SetInt(ESave.NewAvatar7.ToString(), itemid);
+					break;
+			}
+
+			PlayerPrefs.Save();
+		}
 	}
 
 	public static void SaveTeam() {

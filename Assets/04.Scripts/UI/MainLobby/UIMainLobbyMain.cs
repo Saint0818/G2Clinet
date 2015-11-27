@@ -32,6 +32,7 @@ public class UIMainLobbyMain : MonoBehaviour
     public UILabel NameLabel;
 
     public GameObject EquipmentNoticeObj;
+    public GameObject AvatarNoticeObj;
 
     [UsedImplicitly]
     private void Awake()
@@ -91,6 +92,11 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         set { EquipmentNoticeObj.SetActive(value); }
     }
+
+	public bool AvatarNotice
+	{
+		set{AvatarNoticeObj.SetActive(value); }
+	}
 
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)

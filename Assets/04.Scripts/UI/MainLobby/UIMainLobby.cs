@@ -64,6 +64,7 @@ public class UIMainLobby : UIBase
         Main.Show();
 
         Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
+		Main.AvatarNotice = GameData.AvatarNoticeEnable ();
 
         playMoneyAnimation(AnimDelay);
         playPowerAnimation(AnimDelay);
