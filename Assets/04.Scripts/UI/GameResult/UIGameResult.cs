@@ -42,7 +42,7 @@ public class UIGameResult : UIBase {
 	private int awardMax;
 	private bool isShowAward = false;
 	private float awardGetTime = 0;
-	private float awardGetTimeInterval = 0.5f;
+	private float awardGetTimeInterval = 0.25f;
 
 	private ItemAwardGroup[] itemAwardGroup = new ItemAwardGroup[3];
 
@@ -391,12 +391,12 @@ public class UIGameResult : UIBase {
 
 	private void showBonusItem () {
 		animatorAward.SetTrigger ("AwardViewDown");
-		Invoke("showLuckyThree", 1);
+		Invoke("showLuckyThree", 0.5f);
 	}
 	
 	private void showLuckyThree () {
 		showThree ();
-		Invoke("show3DBasket", 1);
+		Invoke("show3DBasket", 0.5f);
 	}
 
 	private void show3DBasket () {

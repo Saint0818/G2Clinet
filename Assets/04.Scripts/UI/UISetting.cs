@@ -256,10 +256,11 @@ public class UISetting : UIBase {
 		int index;
 		
 		if (int.TryParse (UIButton.current.name, out index)) {
-			if(index < GameConst.AITime.Length)
+			if(index < GameConst.AITime.Length) {
 				GameData.Setting.AIChangeTimeLv = index;
 				PlayerPrefs.SetInt(ESave.AIChangeTimeLv.ToString(), index);
 				PlayerPrefs.Save();
+			}
 		}
 	}
 
