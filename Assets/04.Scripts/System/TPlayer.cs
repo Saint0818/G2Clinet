@@ -646,14 +646,10 @@ namespace GameStruct
         /// <returns></returns>
         public int GetValueItemTotalPoints(int kind)
         {
-            if(!ValueItems.ContainsKey(kind))
-                return 0;
-
-            if(!GameData.DItemData.ContainsKey(ValueItems[kind].ID))
-                return 0;
-
-            TItemData item = GameData.DItemData[ValueItems[kind].ID];
-            return item.BonusValues.Sum();
+			if(ValueItems != null && ValueItems.ContainsKey(kind) && GameData.DItemData.ContainsKey(ValueItems[kind].ID))
+				return GameData.DItemData[ValueItems[kind].ID].BonusValues.Sum();
+			else
+				return 0;
         }
 
     } // end of the struct.

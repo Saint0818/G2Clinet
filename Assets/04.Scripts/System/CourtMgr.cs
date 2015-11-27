@@ -123,6 +123,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						BasketScoreAnimationStateLeftWing.Add(scoreName[i]);
 				}
 			}
+
+			DBasketAnimationName.Clear();
 			DBasketAnimationName.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceScoreShort, BasketScoreAnimationStateRightWing));
 			DBasketAnimationName.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceScoreMedium, BasketScoreAnimationStateRightWing));
 			DBasketAnimationName.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceScoreLong, BasketScoreAnimationStateRightWing));
@@ -174,6 +176,8 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 						BasketNoScoreAnimationStateLeftWing.Add(noScoreName[i]);
 				}
 			}
+
+			DBasketAnimationNoneState.Clear();
 			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.ShortRightWing, arrayIntersection(GameConst.DistanceNoScoreShort, BasketNoScoreAnimationStateRightWing));
 			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.MediumRightWing, arrayIntersection(GameConst.DistanceNoScoreMedium, BasketNoScoreAnimationStateRightWing));
 			DBasketAnimationNoneState.Add((int)EBasketDistanceAngle.LongRightWing, arrayIntersection(GameConst.DistanceNoScoreLong, BasketNoScoreAnimationStateRightWing));
@@ -192,6 +196,7 @@ public class CourtMgr : KnightSingleton<CourtMgr>
 		}
 
 		//Get Basket Animation InitPosition
+		DBasketShootWorldPosition.Clear();
 		if(GameData.BasketShootPosition != null && GameData.BasketShootPosition.Length > 0) {
 			for(int i=0; i<GameData.BasketShootPosition.Length; i++) {
 				Vector3 position = new Vector3(GameData.BasketShootPosition[i].ShootPositionX, GameData.BasketShootPosition[i].ShootPositionY, GameData.BasketShootPosition[i].ShootPositionZ);

@@ -91,6 +91,8 @@ public class UIGame : UIBase {
 	private GameObject[] uiTutorial2 = new GameObject[2];//set button for tutorial
 
 	//TopLeft
+	private GameObject uiSpeed;
+	private GameObject uiPause;
 	private GameObject viewTopLeft;
 	private GameObject uiLimitTime;
 	private UILabel labelLimitTime;
@@ -290,6 +292,8 @@ public class UIGame : UIBase {
 		uiPassObjectGroup [2] = GameObject.Find (UIName + "/BottomRight/ViewAttack/ViewPass/ButtonObjectB/SpriteB");
 		
 		//TopLeft
+		uiSpeed = GameObject.Find(UIName + "/TopLeft/ButtonSpeed");
+		uiPause = GameObject.Find(UIName + "/TopLeft/ButtonPause");
 		viewTopLeft = GameObject.Find(UIName + "TopLeft");
 		uiLimitTime = GameObject.Find (UIName + "/TopLeft/Countdown");
 		labelLimitTime = GameObject.Find (UIName + "/TopLeft/Countdown/TimeLabel").GetComponent<UILabel>();
@@ -416,6 +420,11 @@ public class UIGame : UIBase {
 		drawLine.IsShow = false;
     }
 
+	public void InitTutorialUI() {
+		uiSpeed.SetActive(false);
+		uiPause.SetActive(false);
+	}
+
 	protected override void InitText(){
 
 	}
@@ -458,14 +467,16 @@ public class UIGame : UIBase {
 
 		initLine();
 	}
+
+	public void ClearLine() {
+		drawLine.ClearTarget();
+	}
 	
 	private void initLine() {
 		drawLine.ClearTarget();
-		if (drawLine.UIs.Length == 0) {
 			GameObject obj = GameObject.Find("PlayerInfoModel/Self0/PassMe");
 			if (obj)
 				drawLine.AddTarget(uiPassObjectGroup[0], obj);
-		}
 
 		drawLine.Show(true);
 	}

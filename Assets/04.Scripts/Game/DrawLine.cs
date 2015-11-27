@@ -35,13 +35,15 @@ public class DrawLine : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (isShow) {
 			for (var i = 0; i < targets.Count; i++) {
-				Vector2 screenPoint = CameraMgr.Get.CourtCamera.WorldToScreenPoint (targets[i].Target.transform.position);
-				line.points2[i*2] = new Vector2(screenPoint.x + OffsetFirst.x, screenPoint.y + OffsetFirst.y);
-				screenPoint = Camera.main.WorldToScreenPoint(targets[i].Source.transform.position);
-				line.points2[i*2 + 1] = new Vector2(screenPoint.x + OffsetSecond.x, screenPoint.y + OffsetSecond.y);
+				if (targets[i].Target && targets[i].Target.activeInHierarchy) {
+					Vector2 screenPoint = CameraMgr.Get.CourtCamera.WorldToScreenPoint (targets[i].Target.transform.position);
+					line.points2[i*2] = new Vector2(screenPoint.x + OffsetFirst.x, screenPoint.y + OffsetFirst.y);
+					screenPoint = Camera.main.WorldToScreenPoint(targets[i].Source.transform.position);
+					line.points2[i*2 + 1] = new Vector2(screenPoint.x + OffsetSecond.x, screenPoint.y + OffsetSecond.y);
+				}
 			}
 		}
 	}
@@ -69,7 +71,6 @@ public class DrawLine : MonoBehaviour {
 		get {return isShow;}
 		set {
 			isShow = value;
-//			line.Draw();
 			line.active = isShow;
 		}
 	}

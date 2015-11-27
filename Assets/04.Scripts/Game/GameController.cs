@@ -251,11 +251,19 @@ public class GameController : KnightSingleton<GameController>
     {
 		IsPassing = false;
 		Shooter = null;
+		BallOwner = null; 
+		Joysticker = null;
+		Catcher = null;
+		Passer = null;
+		pickBallPlayer  = null;
+		ballHolder = null;
+
+		if (UIGame.Visible)
+			UIGame.Get.ClearLine();
+
 		for (var i = 0; i < PlayerList.Count; i ++)
-			if (PlayerList[i]) {
-				Destroy (PlayerList[i]);
-				PlayerList[i] = null;
-			}
+			if (PlayerList[i].PlayerRefGameObject) 
+				Destroy (PlayerList[i].PlayerRefGameObject);
 
         PlayerList.Clear();
 
@@ -287,7 +295,13 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.MaxScores[1] = GameStart.Get.GameWinValue;
 			CourtMgr.Get.ChangeBasket(0);
 		}
+
 		UIGame.Get.InitUI();
+
+		#if !UNITY_EDITOR
+		if (StageData.IsTutorial)
+			UIGame.Get.InitTutorialUI();
+		#endif
 
 		int rate = UnityEngine.Random.Range(0, 2);
 		if(rate == 0)
@@ -3603,6 +3617,7 @@ public class GameController : KnightSingleton<GameController>
 
 	private void gameResult()
     {
+		UITutorial.UIShow(false);
 		if(Situation != EGameSituation.End) {
 			ChangeSituation(EGameSituation.End);
 			AIController.Get.ChangeState(EGameSituation.End);
@@ -3619,8 +3634,11 @@ public class GameController : KnightSingleton<GameController>
 		if(GameStart.Get.ConnectToServer) {
 			WWWForm form = new WWWForm();
 			form.AddField("StageID", stageID);
-			StageData.ID = stageID;
-			SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
+
+			if (StageData.IsTutorial)
+				SendHttp.Get.Command(URLConst.StageTutorial, null, form, false);
+			else
+				SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
 		}
     }
 

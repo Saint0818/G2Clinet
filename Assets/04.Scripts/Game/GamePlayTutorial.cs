@@ -181,7 +181,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public bool CheckTriggerEvent(int eventID, GameObject player=null) {
-		if (eventID > 0) {
+		if (eventID > 0 && GameController.Visible && GameController.Get.IsStart) {
 			for (int i = 0; i < eventList.Count; i++) {
 				if (eventList[i].ID == eventID) {
 					bool flag = true;
@@ -227,7 +227,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	}
 
 	public bool CheckSetBallEvent(PlayerBehaviour player=null) {
-		if (NextEventID > 0 && player) {
+		if (NextEventID > 0 && player && GameController.Visible && GameController.Get.IsStart) {
 			for (int i = 0; i < eventList.Count; i++) {
 				if (eventList[i].ID == NextEventID) {
 					bool flag = true;

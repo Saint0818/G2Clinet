@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using GameEnum;
@@ -636,7 +636,7 @@ public class UISelectRole : UIBase {
 
 			int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
 			if (SceneMgr.Get.CurrentScene == ESceneName.Court + courtNo.ToString())
-				UILoading.UIShow(true, ELoadingGamePic.Game);
+				UILoading.UIShow(true, ELoading.Game);
 			else
 				SceneMgr.Get.ChangeLevel (courtNo);
 

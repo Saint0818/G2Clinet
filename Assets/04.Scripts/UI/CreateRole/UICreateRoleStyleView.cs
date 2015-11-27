@@ -168,7 +168,7 @@ public class UICreateRoleStyleView : MonoBehaviour
         form.AddField("Items", JsonConvert.SerializeObject(equipmentItemIDs));
 
 		if(SceneMgr.Get.CurrentScene != "Lobby")
-			UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+			UILoading.UIShow(true, GameEnum.ELoading.Login);
 
         SendHttp.Get.Command(URLConst.CreateRole, waitCreateRole, form);
     }

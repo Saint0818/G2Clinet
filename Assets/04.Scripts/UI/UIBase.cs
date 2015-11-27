@@ -186,7 +186,7 @@ public class UIBase: MonoBehaviour
     protected virtual void OnShow(bool isShow)
     {
 		if (isShow) {
-			if (GameStart.Get.OpenTutorial && GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
+			if (GameStart.Get.OpenTutorial && GameData.Team.Player.Lv > 0 && GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
 				UITutorial.Get.ShowTutorial(GameData.DTutorialUI[this.name], 1);
 
 			if (this.uiLanguage != GameData.Setting.Language) {

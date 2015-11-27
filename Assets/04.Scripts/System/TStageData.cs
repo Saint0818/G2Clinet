@@ -150,6 +150,10 @@ public class TStageData
         return ID >= 1;
     }
 
+	public bool IsTutorial {
+		get {return Chapter == 0;}
+	}
+
     public override string ToString()
     {
         return String.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);

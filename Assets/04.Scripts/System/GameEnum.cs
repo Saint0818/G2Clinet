@@ -21,7 +21,7 @@ namespace GameEnum {
 		public const string MyGamez = "MyGamez";
 	}
 
-	public enum ELoadingGamePic {
+	public enum ELoading {
 		Null = -2,
 		SelectRole = -1,
 		Login = 0,

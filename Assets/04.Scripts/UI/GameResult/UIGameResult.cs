@@ -84,8 +84,10 @@ public class UIGameResult : UIBase {
 		if (instance)
 			instance.Show(isShow);
 		else
-		if (isShow)
+		if (isShow) {
 			Get.Show(isShow);
+			UITutorial.UIShow(false);
+		}
 	}
 
 	void FixedUpdate () {
@@ -191,12 +193,23 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnNext (GameObject go) {
-		if(SendHttp.Get.CheckNetwork() && isGetAward) {
-			uiStatsNext.SetActive(false);
-			animatorAward.SetTrigger("AwardViewStart");
-			Invoke("showAward", 1);
+		if (GameController.Visible && GameController.Get.StageData.IsTutorial) {
+			if (StageTable.Ins.HasByID(GameController.Get.StageData.ID + 1)) {
+				UIShow(false);
+				GameData.StageID = GameController.Get.StageData.ID + 1;
+				int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+				SceneMgr.Get.CurrentScene = "";
+				SceneMgr.Get.ChangeLevel (courtNo);
+			} else {
+				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+			}
 		} else {
-			backToLobby ();
+			if(SendHttp.Get.CheckNetwork() && isGetAward) {
+				uiStatsNext.SetActive(false);
+				animatorAward.SetTrigger("AwardViewStart");
+				Invoke("showAward", 1);
+			} else 
+				backToLobby ();
 		}
 	}
 
@@ -535,9 +548,13 @@ public class UIGameResult : UIBase {
 		updateResult(GameData.StageID);
 		Invoke("showFinish", 4);
 		if(!string.IsNullOrEmpty(GameData.Team.Identifier)) {
-			WWWForm form = new WWWForm();
-			form.AddField("StageID", stageID);
-			SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+			if (GameController.Visible && GameController.Get.StageData.Chapter == 0)  {
+
+			} else {
+				WWWForm form = new WWWForm();
+				form.AddField("StageID", stageID);
+				SendHttp.Get.Command(URLConst.StageRewardStart, waitStageRewardStart, form);
+			}
 		}
 	}
 

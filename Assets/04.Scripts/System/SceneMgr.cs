@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using GameEnum;
 using UnityEngine;
 
@@ -37,21 +37,21 @@ public class SceneMgr : KnightSingleton<SceneMgr>
 			break;
 			case ESceneName.Lobby:
                 GameData.StageID = -1;
-                UILoading.UIShow(true, ELoadingGamePic.Lobby);
+                UILoading.UIShow(true, ELoading.Lobby);
                 break;
 
 			case ESceneName.SelectRole:
                 if (GameData.StageID >= 0)
-                    UILoading.UIShow(true, ELoadingGamePic.Stage);
+                    UILoading.UIShow(true, ELoading.Stage);
                 else
                 {
                     GameData.StageID = -1;
-                    UILoading.UIShow(true, ELoadingGamePic.SelectRole);
+                    UILoading.UIShow(true, ELoading.SelectRole);
                 }
                 break;
             default:
                 //Court:
-                UILoading.UIShow(true, ELoadingGamePic.Game);
+                UILoading.UIShow(true, ELoading.Game);
                 break;
         }
 

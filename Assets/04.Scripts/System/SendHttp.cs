@@ -35,6 +35,7 @@ public static class URLConst {
 	public const string PVEEnd = "pveend";
 	public const string StageRewardStart = "stagerewardstart";
 	public const string StageRewardAgain = "stagerewardagain";
+	public const string StageTutorial = "stagetutorial";
 	public const string GameRecord = "gamerecord";
 	public const string BuyAvatarItem = "buyavataritem";
 
@@ -327,7 +328,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	private void checkVersion() {
-		UILoading.UIShow(true, GameEnum.ELoadingGamePic.Login);
+		UILoading.UIShow(true, GameEnum.ELoading.Login);
 		WWWForm form = new WWWForm();
 		addLoginInfo(ref form);
 		Command(URLConst.Version, waitVersion, form);
@@ -374,18 +375,17 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
 				}
 				
-				OnCloseLoading();
+				if (GameData.Team.Player.Lv == 0) {
+					GameData.StageID = 1;
+					int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
+					SceneMgr.Get.CurrentScene = "";
+					SceneMgr.Get.ChangeLevel (courtNo);
+				} else
+					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}
 		} else
 			UIHint.Get.ShowHint("Login fail.", Color.red);
-	}
-
-	private void OnCloseLoading() {
-	    if(GameData.Team.Player.Lv == 0) {
-			UILoading.UIShow(true, GameEnum.ELoadingGamePic.CreateRole);
-	    } else
-			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 	}
 }
