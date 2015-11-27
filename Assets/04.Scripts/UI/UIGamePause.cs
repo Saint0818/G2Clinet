@@ -143,26 +143,24 @@ public class UIGamePause : UIBase {
 			basemax = 6;
 		}
 		string positionName = "";
-		for (int i=0; i<gameRecord.PlayerRecords.Length; i++) {
-			if (i>=basemin && i<basemax && GameData.DPlayers.ContainsKey(gameRecord.PlayerRecords[i].ID)) {
-//				GameObject.Find(UIName + "Center/GameResult/PlayerMe/ButtonA/PlayerNameA/SpriteTypeA").GetComponent<UISprite>().spriteName = GameData.PlayerName (gameRecord.PlayerRecords[i + baseid].ID);
-
+		for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+			if (i>=basemin && i<basemax) {
 				switch (i) {
 				case 0:
 				case 3:
-					positionName = "/Center/GameResult/PlayerMe/ButtonMe/PlayerNameMe/SpriteTypeMe";
+					positionName = "/Center/GameResult/PlayerMe/ButtonMe/PlayerFace/MyFace";
 					break;
 				case 1:
 				case 4:
-					positionName = "/Center/GameResult/PlayerA/ButtonA/PlayerNameA/SpriteTypeA";
+					positionName = "/Center/GameResult/PlayerA/ButtonA/PlayerFace/AFace";
 					break;
 				case 2:
 				case 5:
-					positionName = "/Center/GameResult/PlayerB/ButtonB/PlayerNameB/SpriteTypeB";
+					positionName = "/Center/GameResult/PlayerB/ButtonB/PlayerFace/BFace";
 					break;
 				}
-				if (GameData.DPlayers[gameRecord.PlayerRecords[i].ID].BodyType >= 0 && GameData.DPlayers[gameRecord.PlayerRecords[i].ID].BodyType < 3)
-					GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = positionPicName[GameData.DPlayers[gameRecord.PlayerRecords[i].ID].BodyType];
+				if (GameController.Get.GamePlayers[i].Attribute.BodyType >= 0 && GameController.Get.GamePlayers[i].Attribute.BodyType < 3)
+					GameObject.Find(UIName + positionName).GetComponent<UISprite>().spriteName = GameController.Get.GamePlayers[i].Attribute.FacePicture;
 			}
 		}
 	}

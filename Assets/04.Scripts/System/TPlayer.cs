@@ -559,7 +559,8 @@ namespace GameStruct
 		public string FacePicture {
 			get {
 				if (GameData.DPlayers.ContainsKey(ID))
-					return GameData.DPlayers[ID].Name;//"PlayerFace" + GameData.DPlayers[ID].BodyType.ToString();
+//					return GameData.DPlayers[ID].Name;//"PlayerFace" + GameData.DPlayers[ID].BodyType.ToString();
+					return "PlayerFace" + GameData.DPlayers[ID].BodyType.ToString();
 				else
 				    return "PlayerFace0";
 			}

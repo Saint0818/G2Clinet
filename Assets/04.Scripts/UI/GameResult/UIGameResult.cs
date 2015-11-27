@@ -219,6 +219,7 @@ public class UIGameResult : UIBase {
 		if(isChooseLucky) {
 			if(isLevelUp) {
 				UIShow(false);
+				UI3DGameResult.UIShow(false);
 				UILevelUp.Get.Show(beforePlayer, afterPlayer);
 			} else {
 //				if(IsExpUnlock) {
