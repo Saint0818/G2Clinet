@@ -554,15 +554,37 @@
     {
         "id": 3502,
         "explain": "TitleLabel",
-        "tw": "角色升級"
+        "tw": "LEVEL UP"
     },
     {
-        "id": 3503
+        "id": 3503,
+        "explain": "GetPotentialLabel",
+        "tw": "獲得 {0} 潛能點"
     },
     {
         "id": 3504,
-        "explain": "GetPotentialLabel",
-        "tw": "獲得 {0} 潛能點"
+        "explain": "Label0",
+        "tw": "等 級"
+    },
+    {
+        "id": 3505,
+        "explain": "Label1",
+        "tw": "COST"
+    },
+    {
+        "id": 3506,
+        "explain": "Label2",
+        "tw": "體 力"
+    },
+    {
+        "id": 3507,
+        "explain": "AddValueLabel",
+        "tw": "+{0]"
+    },
+    {
+        "id": 3508,
+        "explain": "AddValueLabel",
+        "tw": "[00ffff]體力[-]補滿"
     },
     {
         "id": 4001,

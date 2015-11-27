@@ -1,6 +1,7 @@
 using GamePlayEnum;
 using GameStruct;
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using Newtonsoft.Json;
@@ -52,6 +53,11 @@ public class UIGameResult : UIBase {
 	private int tempMoney;
 	private int tempExp;
 	private int tempDia;
+
+	private bool isGetAward = true;
+	private bool isLevelUp = false;
+	private TPlayer beforePlayer;
+	private TPlayer afterPlayer;
 
 	public static bool Visible
 	{
@@ -111,13 +117,10 @@ public class UIGameResult : UIBase {
 						if(awardItemTempIDs[(awardMax - awardIndex)] > 0)
 							alreadyGetItems[(awardMax - awardIndex)].Show(GameData.DItemData[awardItemTempIDs[(awardMax - awardIndex)]]);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -1) 
-//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData() , 0 , tempMoney, true);
 							alreadyGetItems[awardMax - awardIndex].ShowMoney(tempMoney);
 						else if(awardItemTempIDs[(awardMax - awardIndex)] == -2) 
-//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 1 , tempExp, true);
 							alreadyGetItems[awardMax - awardIndex].ShowExp(tempExp);
-						else if(awardItemTempIDs[(awardMax - awardIndex)] == -3) 
-//							alreadyGetItems[(awardMax - awardIndex)].Show(new TItemData(), 2 , tempDia, true);
+						else if(awardItemTempIDs[(awardMax - awardIndex)] == -3)
 							alreadyGetItems[awardMax - awardIndex].ShowGem(tempDia);
 					}
 
@@ -156,15 +159,8 @@ public class UIGameResult : UIBase {
 		SetBtnFun(UIName + "/Center/BottomView/StatsView/RightBtn", OnShowHomeStats);
 
 	}
-	
-	protected override void InitData() {
 
-	}
-	
-	protected override void OnShow(bool isShow) {
-
-	}
-
+	//Click Event
 	public void OnShowPlayerInfo (GameObject go) {
 
 	}
@@ -194,68 +190,62 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnNext (GameObject go) {
-		uiStatsNext.SetActive(false);
-		animatorAward.SetTrigger("AwardViewStart");
-		Invoke("showAward", 1);
+		if(SendHttp.Get.CheckNetwork() && isGetAward) {
+			uiStatsNext.SetActive(false);
+			animatorAward.SetTrigger("AwardViewStart");
+			Invoke("showAward", 1);
+		} else {
+			backToLobby ();
+		}
 	}
 
 	public void OnReturn(GameObject go) {
 		if(isChooseLucky) {
-			Time.timeScale = 1;
-			UIShow(false);
-			UILoading.OpenUI = UILoading.OpenStageUI;
-			if (isStage)
-				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-			else
-				SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+			if(isLevelUp) {
+				UIShow(false);
+				UILevelUp.Get.Show(beforePlayer, afterPlayer);
+			} else
+				backToLobby ();
 		}
+	}
+
+	private void backToLobby () {
+		Time.timeScale = 1;
+		UIShow(false);
+		UILoading.OpenUI = UILoading.OpenStageUI;
+		if (isStage)
+			SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+		else
+			SceneMgr.Get.ChangeLevel (ESceneName.SelectRole);
+	}
+
+	/*
+	 * 1. SetGameRecord is called form GameController
+	 * 2. StartReward(Server) -> (Server Success)Run init
+	 * 3. Run showFinish (Show Stage Hint Check) -> finishStageHint
+	 * 4. Run showTeamStats (Show Team Stats)
+	 * 5. (Server Success) Run showAward ( Show Award and LuckyThree) -> showBonusItem
+	 *    (Server Fail) Run backToLobby
+	 * 6. Run showLuckyThree 
+	 * 7. (Level Up) Show UILevelUp
+	 * 	  (No Level Up) Run backToLobby
+	 */
+	public void SetGameRecord(ref TGameRecord record) {
+		teamValue.SetValue(record);
+		if(record.Done) {
+			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
+				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
+				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
+				//				if(i == 1 || i == 2)//need get friend list
+				//					playerStats.ShowAddFriendBtn(i);
+				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
+			}
+		}
+		uiStatsNext.SetActive(false);
+		uiAwardSkip.SetActive(false);
+		stageRewardStart(GameData.StageID);
 	}
 	
-	public void ChooseLucky(int index) {
-		chooseIndex = index;
-		if(chooseCount == 0) {
-			Invoke ("showReturnButton", 2);
-			isChooseLucky = true;
-			chooseItem (index);
-		} else {
-			stageRewardAgain(GameData.StageID);
-		}
-	}
-
-	private void chooseItem (int index) {
-		UI3DGameResult.Get.ChooseStart(index);
-		if(index == 0) {
-			Invoke("showOneItem", 0.75f);
-		} else if(index == 1) {
-			Invoke("showTwoItem", 0.75f);
-		} else if(index == 2) {
-			Invoke("showThreeItem", 0.75f);
-		}
-	}
-
-	private void showOneItem () {showItem (0);}
-	private void showTwoItem () {showItem (1);}
-	private void showThreeItem () {showItem (2);}
-
-	private void showItem (int index) {
-		chooseIndex = index;
-		itemAwardGroup[index].gameObject.SetActive(true);
-		if(GameData.DItemData.ContainsKey(alreadGetBonusID))  {
-			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
-		}
-		Invoke("MoveItem",1);
-		chooseCount ++ ;
-	}
-
-	private void MoveItem () {
-		itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(Mathf.Min(-300 + (alreadyGetItems.Count * 100), 400), -170, 0), 1f).OnComplete(MoveItemFin);
-	}
-
-	public void MoveItemFin () {
-		itemAwardGroup[chooseIndex].Hide();
-		addItemToBack(alreadGetBonusID);
-	}
-
 	private void init () {
 		for (int i=0; i<itemAwardGroup.Length; i++) {
 			itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
@@ -265,7 +255,7 @@ public class UIGameResult : UIBase {
 			}
 		}
 		hideThree();
-
+		
 		alreadyGetItems = new List<ItemAwardGroup>();
 		bonusAwardItems = new Dictionary<int, ItemAwardGroup>();
 		awardIndex = awardItemTempIDs.Count;
@@ -277,15 +267,13 @@ public class UIGameResult : UIBase {
 				alreadyGetItems.Add(addItemToAward(i, new TItemData(), true, true));	
 			}
 		}
-
+		
 		for(int i=0; i<bonusItemIDs.Length; i++) {
-			 if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+			if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
 				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
 		}
 	}
 
-	//Show Stage Hint Check
-	// it's need to get three items, and first items
 	private void showFinish () {
 		isShowFinish = true;
 		finishTime = finishInterval;
@@ -293,14 +281,13 @@ public class UIGameResult : UIBase {
 
 	private void finishStageHint (){
 		animatorBottomView.SetTrigger("Down");
-		uiStatsNext.SetActive(true);}
+		uiStatsNext.SetActive(true);
+	}
 
-	//Show Team Stats
 	private void showTeamStats () {
 		animatorBottomView.SetTrigger("TeamStats");
 	}
 
-	//Show Award and LuckyThree
 	private void showAward () {
 		if(awardIndex == 0) {
 			showBonusItem ();
@@ -320,6 +307,53 @@ public class UIGameResult : UIBase {
 		for (int i=0; i<itemAwardGroup.Length; i++) {
 			itemAwardGroup[i].gameObject.SetActive(false);
 		}
+	}
+
+	public void ChooseLucky(int index) {
+		chooseIndex = index;
+		if(chooseCount == 0) {
+			Invoke ("showReturnButton", 2);
+			isChooseLucky = true;
+			chooseItem (index);
+		} else {
+			stageRewardAgain(GameData.StageID);
+		}
+	}
+	
+	private void chooseItem (int index) {
+		UI3DGameResult.Get.ChooseStart(index);
+		if(index == 0) {
+			Invoke("showOneItem", 0.75f);
+		} else if(index == 1) {
+			Invoke("showTwoItem", 0.75f);
+		} else if(index == 2) {
+			Invoke("showThreeItem", 0.75f);
+		}
+	}
+	
+	private void showOneItem () {showItem (0);}
+	private void showTwoItem () {showItem (1);}
+	private void showThreeItem () {showItem (2);}
+	
+	private void showItem (int index) {
+		chooseIndex = index;
+		itemAwardGroup[index].gameObject.SetActive(true);
+		if(GameData.DItemData.ContainsKey(alreadGetBonusID))  {
+			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
+		}
+		Invoke("MoveItem",1);
+		chooseCount ++ ;
+	}
+	
+	private void MoveItem () {
+		if(chooseIndex >= 0 && chooseIndex < itemAwardGroup.Length)
+			itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(Mathf.Min(-300 + (alreadyGetItems.Count * 100), 400), -170, 0), 1f).OnComplete(MoveItemFin);
+	}
+	
+	public void MoveItemFin () {
+		if(chooseIndex >= 0 && chooseIndex < itemAwardGroup.Length)
+			itemAwardGroup[chooseIndex].Hide();
+		addItemToBack(alreadGetBonusID);
 	}
 
 	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true, bool isOther = false) {
@@ -374,22 +408,6 @@ public class UIGameResult : UIBase {
 		uiAwardSkip.SetActive(true);
 	}
 
-	public void SetGameRecord(ref TGameRecord record) {
-		teamValue.SetValue(record);
-		if(record.Done) {
-			for (int i=0; i<GameController.Get.GamePlayers.Count; i++) {
-				playerStats.SetPlayerName(i, GameController.Get.GamePlayers[i].Attribute.Name);
-				playerStats.SetPlayerIcon(i, GameController.Get.GamePlayers[i].Attribute.FacePicture);
-//				if(i == 1 || i == 2)//need get friend list
-//					playerStats.ShowAddFriendBtn(i);
-				playerValue[i].SetValue(GameController.Get.GamePlayers[i].GameRecord);
-			}
-		}
-		uiStatsNext.SetActive(false);
-		uiAwardSkip.SetActive(false);
-		stageRewardStart(GameData.StageID);
-	}
-
 	private void updateResult(int stageID)
 	{
 		if(StageTable.Ins.HasByID(stageID))
@@ -410,9 +428,9 @@ public class UIGameResult : UIBase {
 				if(hintBits[0] == 1 || hintBits[0] == 2)
 					value = 1;
 				mTargets[hintIndex].UpdateUI(getText(1, value, 9),
-				                         getText(1, value, 7),
-				                         (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
-				                         false);
+				                         	 getText(1, value, 7),
+				                         	 (minute * 60 + second).ToString(), "/" + stageData.Bit0Num.ToString(),
+				                         	 false);
 				hintIndex ++;
 			}
 
@@ -525,50 +543,65 @@ public class UIGameResult : UIBase {
 	private void waitStageRewardStart(bool ok, WWW www)
 	{
 		Debug.LogFormat("waitStageRewardStart, ok:{0}", ok);
-
-
 		if(ok)
 		{
-			var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
-			
-			Debug.Log(reward);
-			
-			GameData.Team.Money = reward.Money;
-			GameData.Team.Diamond = reward.Diamond;
-			GameData.Team.Player = reward.Player;
-			GameData.Team.Player.Init();
-			GameData.Team.Items = reward.Items;
-
-			
-			awardItemTempIDs = new List<int>();
-			if(reward.SurelyItemIDs == null) {
-				awardItemIDs = new int[0];
-			}else
-				awardItemIDs = reward.SurelyItemIDs;
-			bonusItemIDs = reward.CandidateItemIDs;
-			alreadGetBonusID = reward.RandomItemID;
-
-			for (int i=0; i<awardItemIDs.Length; i++) {
-				awardItemTempIDs.Add(awardItemIDs[i]);
+			try {
+				var reward = JsonConvert.DeserializeObject<TStageRewardStart>(www.text);
+				
+				Debug.Log(reward);
+				Debug.Log(GameData.Team.Player.Lv);
+				Debug.Log(reward.Player.Lv);
+				Debug.Log(GameData.Team.Player.NextMainStageID);
+				Debug.Log(reward.Player.NextMainStageID);
+				
+				if(GameData.Team.Player.Lv != reward.Player.Lv) {
+					isLevelUp = true;
+					beforePlayer = GameData.Team.Player;
+					afterPlayer = reward.Player;
+				}
+				
+				GameData.Team.Money = reward.Money;
+				GameData.Team.Diamond = reward.Diamond;
+				GameData.Team.Player = reward.Player;
+				GameData.Team.Player.Init();
+				GameData.Team.Items = reward.Items;
+				
+				isGetAward = true;
+				awardItemTempIDs = new List<int>();
+				if(reward.SurelyItemIDs == null) {
+					awardItemIDs = new int[0];
+				}else
+					awardItemIDs = reward.SurelyItemIDs;
+				bonusItemIDs = reward.CandidateItemIDs;
+				alreadGetBonusID = reward.RandomItemID;
+				
+				for (int i=0; i<awardItemIDs.Length; i++) {
+					awardItemTempIDs.Add(awardItemIDs[i]);
+				}
+				
+				if(reward.AddMoney > 0) {
+					awardItemTempIDs.Add(-1);
+					tempMoney = reward.AddMoney;
+				}
+				if(reward.AddExp > 0) {
+					awardItemTempIDs.Add(-2);
+					tempExp = reward.AddExp;
+				}
+				if(reward.AddDiamond > 0) {
+					awardItemTempIDs.Add(-3);
+					tempDia = reward.AddDiamond;
+				}
+				
+				init ();
+			} catch (Exception e) {
+				Debug.Log(e.ToString());
+				isGetAward = false;
 			}
-
-			if(reward.AddMoney > 0) {
-				awardItemTempIDs.Add(-1);
-				tempMoney = reward.AddMoney;
-			}
-			if(reward.AddExp > 0) {
-				awardItemTempIDs.Add(-2);
-				tempExp = reward.AddExp;
-			}
-			if(reward.AddDiamond > 0) {
-				awardItemTempIDs.Add(-3);
-				tempDia = reward.AddDiamond;
-			}
-
-			init ();
 		}
-		else
+		else {
+			isGetAward = false;
 			UIHint.Get.ShowHint("Stage Reward fail!", Color.red);
+		}
 	}
 
 	/// <summary>
