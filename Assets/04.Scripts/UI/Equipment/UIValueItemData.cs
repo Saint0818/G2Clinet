@@ -120,8 +120,8 @@ public class UIValueItemData
         return totalPoints;
     }
 
-    public bool IsValid()
-    {
-        return !String.IsNullOrEmpty(Name);
-    }
+//    public bool IsValid()
+//    {
+//        return !String.IsNullOrEmpty(Name);
+//    }
 }
