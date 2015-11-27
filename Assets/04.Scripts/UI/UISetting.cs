@@ -364,7 +364,7 @@ public class UISetting : UIBase {
 		if (data != null)
 		{
 			UICreateRole.Get.ShowFrameView(data, lookUpData.SelectedRoleIndex, GameData.Team.PlayerNum);
-			UIMainLobby.Get.Hide();
+			UIMainLobby.Get.HideAll();
 		}
 		else
 			Debug.LogError("Data Error!");

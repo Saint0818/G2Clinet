@@ -84,12 +84,16 @@ public class UIMainLobby : UIBase
     public void Hide()
     {
         UI3DMainLobby.Get.Hide();
-
         Main.Hide();
-
         ResetCommands.Get.Stop();
-
 //        RemoveUI(UIName);
+    }
+
+    public void HideAll()
+    {
+        UI3DMainLobby.Get.Hide();
+        Main.HideAll();
+        ResetCommands.Get.Stop();
     }
 
     private void changePlayerName()

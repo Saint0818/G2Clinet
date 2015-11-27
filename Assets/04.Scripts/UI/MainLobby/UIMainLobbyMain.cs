@@ -12,8 +12,12 @@ public class UIMainLobbyMain : MonoBehaviour
     public event CommonDelegateMethods.Action ChangePlayerNameListener;
 
     public GameObject FullScreenBlock;
+
+    public GameObject MoneyObj;
     public UILabel MoneyLabel;
+    public GameObject DiamondObj;
     public UILabel DiamondLabel;
+    public GameObject PowerObj;
     public UILabel PowerLabel; // 體力.
 
     public UISprite PlayerIconSprite;
@@ -101,12 +105,30 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         PlayEnterAnimation();
         Settings.SetActive(true);
+
+        MoneyObj.SetActive(true);
+        DiamondObj.SetActive(true);
+        PowerObj.SetActive(true);
     }
 
     public void Hide()
     {
         PlayExitAnimation();
         Settings.SetActive(false);
+
+        MoneyObj.SetActive(true);
+        DiamondObj.SetActive(true);
+        PowerObj.SetActive(true);
+    }
+
+    public void HideAll()
+    {
+        PlayExitAnimation();
+        Settings.SetActive(false);
+
+        MoneyObj.SetActive(false);
+        DiamondObj.SetActive(false);
+        PowerObj.SetActive(false);
     }
 
     public void PlayEnterAnimation()
