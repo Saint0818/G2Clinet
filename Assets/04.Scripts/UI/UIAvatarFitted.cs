@@ -241,8 +241,9 @@ public class TItemAvatar
 			UseKind = usekind;
 			BackageSort = backageSort; //-1 : player.items else team.items
 
-			BuyInfoLabel.text = string.Format(TextConst.S(8005), GameData.DItemData[id].Potential);
-			getModeLabel.text = string.Format(TextConst.S(8004), GameData.DItemData[id].Potential);
+
+			BuyInfoLabel.text = TextConst.StringFormat(8005, GameData.DItemData[id].Potential);
+			getModeLabel.text = TextConst.StringFormat(8004, GameData.DItemData[id].Potential);
 			getModeLabel.enabled = GameData.DItemData[id].Potential > 0;
 		} else {
 			id = 0;

@@ -192,13 +192,10 @@ public static class GameData {
 					case ESave.UserLanguage:
 						switch (index) {
 							case 0:
-								Setting.Language = ELanguage.EN;
+								Setting.Language = ELanguage.TW;
 								break;
 							case 1:
-								Setting.Language = ELanguage.CN;
-								break;
-							case 3:
-								Setting.Language = ELanguage.JP;
+								Setting.Language = ELanguage.EN;
 								break;
 						}
 						break;

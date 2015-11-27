@@ -75,7 +75,16 @@ public static class TextConst
 			return gameText[index].Text;
 		else
 			return "";
-	} 
+	}
+
+	public static string StringFormat(int stringId, params object[] arguments)
+	{
+		string format = S (stringId);
+		if (format == string.Empty || format == null) {
+			return string.Empty;
+		}else
+			return string.Format(format, arguments);
+	}
 
 	public static void LoadText(ref TTextConst[] data) {
 		for (int i = 0; i < data.Length; i ++) {
@@ -86,7 +95,7 @@ public static class TextConst
 				gameText.Add(data[i].ID, data[i]);
 		}
 	}
-	
+
 	public static void Init(){
 		if (!loaded) {
 			loaded = true;
