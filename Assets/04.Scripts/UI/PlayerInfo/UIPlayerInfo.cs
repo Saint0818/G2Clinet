@@ -121,6 +121,7 @@ public class AbilityView
 	private UIButton skillPointBtn;
 	private TAbilityItem[] abilitys = new TAbilityItem[12];
 	private UIAttributes hexagon;
+	private GameObject RedPoint;
 
 	public void Init(GameObject obj, GameObject hexgonObj)
 	{
@@ -135,6 +136,7 @@ public class AbilityView
 			}
 
 			skillPointBtn = self.transform.FindChild("SkillPointBtn").gameObject.GetComponent<UIButton>();
+			RedPoint = skillPointBtn.transform.FindChild("RedPoint").gameObject;
 
 			GameObject hexagonCenter = GameObject.Find("AttributeHexagonCenter").gameObject;
 			hexagon = hexgonObj.GetComponent<UIAttributes>();
@@ -205,6 +207,7 @@ public class AbilityView
 //			abilitys[index].Value.text = item.Value.ToString();
 //
 //		}
+		RedPoint.SetActive(GameData.PotentialNoticeEnable());
 		GameFunction.UpdateAttrHexagon (hexagon, GameData.Team.Player);
 	}
 

@@ -252,6 +252,18 @@ public static class GameData {
 		return false;
 	}
 
+	public static bool PotentialNoticeEnable() {
+		int ownerlvPoint = ((GameData.Team.Player.Lv - 1) * GameConst.PreLvPotential) - GameFunction.GetCurrentLvPotential (GameData.Team.Player);
+		int ownerAvatarPoint = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
+
+		for(int i = 0; i < GameConst.PotentialRule.Length;i++)
+		{
+			if(ownerlvPoint + ownerAvatarPoint >= GameConst.PotentialRule[i])
+				return true;
+		}
+		return false;
+	}
+
 	public static bool AvatarNoticeEnable() {
 		foreach (KeyValuePair<int, int> item in Setting.NewAvatar) {
 			if(item.Value > 0)

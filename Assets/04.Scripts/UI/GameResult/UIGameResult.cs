@@ -623,7 +623,25 @@ public class UIGameResult : UIBase {
 				GameData.Team.Player.StageChallengeNums = reward.Player.StageChallengeNums;
 //				GameData.Team.Player.Init();
 				GameData.Team.Items = reward.Items;
-				
+
+				if(reward.SurelyItemIDs.Length > 0)
+				{
+					for(int i = 0; i < reward.SurelyItemIDs.Length; i++)
+						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind > 0 && GameData.DItemData[reward.SurelyItemIDs[i]].Kind < 8)
+						{
+							if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.SurelyItemIDs[i]].Kind))
+							{
+								GameData.Setting.NewAvatar[GameData.DItemData[reward.SurelyItemIDs[i]].Kind] = reward.SurelyItemIDs[i];
+							}
+						}
+				}
+
+				if(GameData.DItemData.ContainsKey(reward.RandomItemID) && GameData.DItemData[reward.RandomItemID].Kind > 0 && GameData.DItemData[reward.RandomItemID].Kind < 8)
+				{
+					if(GameData.Setting.NewAvatar.ContainsKey(GameData.DItemData[reward.RandomItemID].Kind))
+						GameData.Setting.NewAvatar[GameData.DItemData[reward.RandomItemID].Kind] = reward.RandomItemID;
+				}
+
 				isGetAward = true;
 				awardItemTempIDs = new List<int>();
 				if(reward.SurelyItemIDs == null) {

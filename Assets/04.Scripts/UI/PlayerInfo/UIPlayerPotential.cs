@@ -158,7 +158,7 @@ public class UpgradeView
 
 	public bool CanUsePotential(int index)
 	{
-		return UIPlayerPotential.Get.CrtAvatarPotential + UIPlayerPotential.Get.CrtLvPotential >= useLvPotential + useAvatarPotential + GameConst.PotentialRule [index];
+		return UIPlayerPotential.Get.CrtAvatarPotential + GameFunction.GetCurrentLvPotential (GameData.Team.Player) >= useLvPotential + useAvatarPotential + GameConst.PotentialRule [index];
 	}
 
 	private void CalculateAddPotential()
