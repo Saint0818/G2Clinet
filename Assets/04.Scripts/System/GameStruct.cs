@@ -931,12 +931,17 @@ namespace GameStruct
         }
     }
 
+    /// <summary>
+    /// 這是 Exp 企劃表格內的某一列資料.
+    /// </summary>
 	public struct TExpData
 	{
 		public int Lv;
 		public int LvExp;
-		public int SkillUpgrade;
-		public int SkillExp;
+		public int OpenIndex;
+		public int UnlockHint;
+		public int UI;
+		public int UnlockName;
 	}
 
     public struct TPreloadEffect {
