@@ -49,7 +49,6 @@ public class UILevelUp : UIBase {
 		labelAfterLevel = GameObject.Find(UIName + "/Window/Center/BottomView/Page0/LevelGroup/AfterLabel").GetComponent<UILabel>();
 		labelGetPotential = GameObject.Find(UIName + "/Window/Center/BottomView/Page0/GetPotentialLabel").GetComponent<UILabel>();
 
-//		SetBtnFun(UIName + "/Window/BottomRight/NextLabel", OnReturn);
 		UIEventListener.Get(GameObject.Find(UIName + "/Window/BottomRight/NextLabel")).onClick = OnReturn;
 	}
 	

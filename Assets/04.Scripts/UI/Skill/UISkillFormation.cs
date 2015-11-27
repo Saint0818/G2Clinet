@@ -638,6 +638,7 @@ public class UISkillFormation : UIBase {
 							if(checkCost(-uiCards[activeStruct[index].itemEquipActiveCard.name].Cost))
 								if(checkCost(uiCards[name].Cost))
 									flag = true;
+
 							if(flag) {
 								if(setCost(-uiCards[activeStruct[index].itemEquipActiveCard.name].Cost)) {
 									if(activeStruct[index].itemEquipActiveCard != null) {
@@ -646,7 +647,6 @@ public class UISkillFormation : UIBase {
 										Destroy(activeStruct[index].itemEquipActiveCard);
 									}
 									activeStruct[index].ActiveClear();
-									//Add
 									addItems(uiCards[name], index);
 								}
 //								else 

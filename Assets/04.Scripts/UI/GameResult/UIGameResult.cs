@@ -95,6 +95,7 @@ public class UIGameResult : UIBase {
 			if(finishTime <= 0) {
 				if(hintIndex == -1) {
 					isShowFinish = false;
+					uiStatsNext.SetActive(true);
 					Invoke("finishStageHint", 1);
 				} else {
 					if(hintIndex > 0 && hintIndex < mTargets.Length)
@@ -281,7 +282,6 @@ public class UIGameResult : UIBase {
 
 	private void finishStageHint (){
 		animatorBottomView.SetTrigger("Down");
-		uiStatsNext.SetActive(true);
 	}
 
 	private void showTeamStats () {
@@ -347,7 +347,7 @@ public class UIGameResult : UIBase {
 	
 	private void MoveItem () {
 		if(chooseIndex >= 0 && chooseIndex < itemAwardGroup.Length)
-			itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(Mathf.Min(-300 + (alreadyGetItems.Count * 100), 400), -170, 0), 1f).OnComplete(MoveItemFin);
+			itemAwardGroup[chooseIndex].transform.DOLocalMove(new Vector3(Mathf.Min(-300 + (alreadyGetItems.Count * 100), 400), -170, 0), 0.5f).OnComplete(MoveItemFin);
 	}
 	
 	public void MoveItemFin () {
@@ -356,6 +356,7 @@ public class UIGameResult : UIBase {
 		addItemToBack(alreadGetBonusID);
 	}
 
+	//isOther:  Because Money,Diamond,Exp are not Item, it will be deleted in the future.
 	private ItemAwardGroup addItemToAward (int index, TItemData itemData, bool isNeedAdd = true, bool isOther = false) {
 		GameObject obj = Instantiate(uiItem) as GameObject;
 
