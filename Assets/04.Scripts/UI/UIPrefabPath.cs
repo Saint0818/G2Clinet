@@ -17,7 +17,6 @@ public class UIPrefabPath
     public static readonly string StageChapter = "Prefab/UI/UIStageChapter";
 
 	public static readonly string ItemAwardGroup = "Prefab/UI/Items/ItemAwardGroup";
-//	public static readonly string ItemResultAwardGroup = "Prefab/UI/Items/ItemResultAwardGroup";
 
     public static GameObject LoadUI(string path, Transform parent)
     {

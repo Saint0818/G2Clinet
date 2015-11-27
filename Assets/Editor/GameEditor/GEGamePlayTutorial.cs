@@ -25,9 +25,10 @@ public class GEGamePlayTutorial : GEBase {
 		"0.進入球賽",
 		"1.事件連結",
 		"2.比賽階段變化",
-		"3.時間達到",
-		"4.我方分數達到",
-		"5.對方分數達到"
+		"3.某球員拿到球",
+		"4.時間達到",
+		"5.我方分數達到",
+		"6.對方分數達到"
 	};
 
 	private string[] eventExplain = {
@@ -170,10 +171,12 @@ public class GEGamePlayTutorial : GEBase {
 				if (events[i].ConditionKind > 0)
 					events[i].OtherEventID = GUIIntEdit(events[i].OtherEventID, "OtherID");
 
-				if (events[i].ConditionKind == 2)
+				if (events[i].ConditionKind == 2) {
 					events[i].ConditionValue = GUIPopup(events[i].ConditionValue, situationExplain, "Situation");
+				}
 
-				if (events[i].ConditionKind == 2 || events[i].Kind == 6 || events[i].Kind == 8)
+				if (events[i].ConditionKind == 2 || events[i].ConditionKind == 3 || 
+				    events[i].Kind == 6 || events[i].Kind == 8)
 					events[i].NextEventID = GUIIntEdit(events[i].NextEventID, "NextID");
 
 				if (GUIButton("Delete", Color.red)) {
@@ -186,9 +189,13 @@ public class GEGamePlayTutorial : GEBase {
 				GUILayout.EndHorizontal();
 				GUILayout.Space(spaceCount);
 
-
 				if (events[i].Kind != 4)
 					GUILayout.BeginHorizontal(StyleLayout);
+
+				if (events[i].ConditionKind == 3) {
+					events[i].ConditionValue = GUIIntEdit(events[i].ConditionValue, "Team");
+					events[i].ConditionValue2 = GUIIntEdit(events[i].ConditionValue2, "Index");
+				}
 
 				switch (events[i].Kind) {
 				case 1: //event kind
@@ -218,7 +225,8 @@ public class GEGamePlayTutorial : GEBase {
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "X");
 					events[i].Value2 = GUIIntEdit(events[i].Value2, "X");
 					events[i].Value3 = GUIIntEdit(events[i].Value3, "Distance");
-					events[i].ConditionOperator = GUIIntEdit(events[i].ConditionOperator, "Target");
+					events[i].ConditionValue = GUIIntEdit(events[i].ConditionValue, "Team");
+					events[i].ConditionValue2 = GUIIntEdit(events[i].ConditionValue2, "PlayerIndex");
 					break;
 				case 9: //power
 					events[i].Value1 = GUIIntEdit(events[i].Value1, "Power");
