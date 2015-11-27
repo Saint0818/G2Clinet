@@ -46,13 +46,18 @@
         "tw": "確認前往選擇其他角色？"
     },
     {
+        "id": 211,
+        "explain": "UIMessage/TitleLabel",
+        "tw": "設 定"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。"
     },
     {
         "id": 302,
-        "tw": "投籃時的節奏點擊點到Perfect，將可增加投籃命中率，Combo越高增加越多。"
+        "tw": "投籃時的節奏點擊點到Perfect，可增加投籃命中率，Combo越高增加越多。"
     },
     {
         "id": 303,
@@ -67,19 +72,42 @@
         "tw": "物品的品質高低分別為白色<[07d200]綠色[-]<[00c2d2]藍色[-]<[b000d2]紫色[-]<[07d200]橘色[-]"
     },
     {
-        "id": 306
+        "id": 306,
+        "tw": "三種體型的人物角色有自己的屬性特色喔！！"
     },
     {
-        "id": 307
+        "id": 401,
+        "explain": "解鎖相關功能"
     },
     {
-        "id": 308
+        "id": 402,
+        "explain": "1.解鎖數值裝",
+        "tw": "知名度達到等級2時解鎖"
     },
     {
-        "id": 309
+        "id": 403,
+        "explain": "2.解鎖Avatar",
+        "tw": "知名度達到等級3時解鎖"
     },
     {
-        "id": 310
+        "id": 404,
+        "explain": "3.解鎖大廳左一按鈕(Shop)",
+        "tw": "功能尚未開放"
+    },
+    {
+        "id": 405,
+        "explain": "4.解鎖大廳左二按鈕(Social)",
+        "tw": "功能尚未開放"
+    },
+    {
+        "id": 452,
+        "explain": "解鎖裝備功能",
+        "tw": "解鎖裝備功能"
+    },
+    {
+        "id": 453,
+        "explain": "解鎖造型功能",
+        "tw": "解鎖造型功能"
     },
     {
         "id": 501,
@@ -100,37 +128,37 @@
     {
         "id": 1003,
         "explain": "商店按鈕",
-        "tw": "SHOP",
+        "tw": "商 店",
         "en": "SHOP"
     },
     {
         "id": 1004,
         "explain": "xx功能按鈕",
-        "tw": "SOCIAL",
+        "tw": "社 群",
         "en": "SOCIAL"
     },
     {
         "id": 1005,
         "explain": "裝備按鈕",
-        "tw": "EQUIPMENT",
+        "tw": "裝 備",
         "en": "EQUIPMENT"
     },
     {
         "id": 1006,
         "explain": "技能按鈕",
-        "tw": "SKILL",
+        "tw": "技 能",
         "en": "SKILL"
     },
     {
         "id": 1007,
         "explain": "造型按鈕",
-        "tw": "AVATAR",
+        "tw": "造 型",
         "en": "AVATAR"
     },
     {
         "id": 1008,
         "explain": "競賽按鈕",
-        "tw": "RACE",
+        "tw": "競 賽",
         "en": "RACE"
     },
     {
@@ -158,7 +186,7 @@
     {
         "id": 2102,
         "explain": "中鋒",
-        "tw": "CENTER",
+        "tw": "中 鋒",
         "cn": "CENTER",
         "en": "CENTER",
         "jp": "CENTER"
@@ -166,7 +194,7 @@
     {
         "id": 2103,
         "explain": "前鋒",
-        "tw": "FORWARD",
+        "tw": "前 鋒",
         "cn": "FORWARD",
         "en": "FORWARD",
         "jp": "FORWARD"
@@ -174,7 +202,7 @@
     {
         "id": 2104,
         "explain": "後衛",
-        "tw": "GUARD",
+        "tw": "後 衛",
         "cn": "GUARD",
         "en": "GUARD",
         "jp": "GUARD"
@@ -579,7 +607,7 @@
     {
         "id": 3507,
         "explain": "AddValueLabel",
-        "tw": "+{0]"
+        "tw": "+{0]",
     },
     {
         "id": 3508,
@@ -644,9 +672,6 @@
         "id": 6301,
         "explain": "下拉選單",
         "tw": "選擇裝備"
-    },
-    {
-        "id": 6302
     },
     {
         "id": 7001,
@@ -839,7 +864,7 @@
     {
         "id": 7212,
         "explain": "CraftingBtn/Label",
-        "tw": "CRAFTING"
+        "tw": "Q"
     },
     {
         "id": 7213,
@@ -874,7 +899,7 @@
     {
         "id": 8002,
         "explain": "Prefab/Items/SortBtn",
-        "tw": "SORT",
+        "tw": "篩 選",
         "cn": "SORT",
         "en": "SORT",
         "jp": "SORT"
@@ -882,7 +907,7 @@
     {
         "id": 8003,
         "explain": "SellBtn",
-        "tw": "SELL",
+        "tw": "販 賣",
         "cn": "SELL",
         "en": "SELL",
         "jp": "SELL"
@@ -1000,7 +1025,7 @@
     {
         "id": 9305,
         "explain": "StartButton/StartLabel",
-        "tw": "START",
+        "tw": "競賽開始",
         "cn": "START",
         "en": "START",
         "jp": "START"
@@ -1025,7 +1050,7 @@
     {
         "id": 9402,
         "explain": "SkipButton/Icon",
-        "tw": "  "
+        "tw": "SKIP"
     },
     {
         "id": 9403,
@@ -1034,7 +1059,43 @@
     },
     {
         "id": 9501,
-        "explain": "隊友選擇"
+        "explain": "選擇隊友",
+        "tw": "選擇隊友"
+    },
+    {
+        "id": 9502,
+        "explain": 0,
+        "tw": "其他玩家"
+    },
+    {
+        "id": 9503,
+        "explain": 1,
+        "tw": "好 友"
+    },
+    {
+        "id": 9504,
+        "explain": 2,
+        "tw": "球 隊"
+    },
+    {
+        "id": 9505,
+        "explain": "PositionLabel",
+        "tw": "C"
+    },
+    {
+        "id": 9506,
+        "explain": "PositionLabel",
+        "tw": "F"
+    },
+    {
+        "id": 9507,
+        "explain": "PositionLabel",
+        "tw": "G"
+    },
+    {
+        "id": 9508,
+        "explain": "GameStart/Label",
+        "tw": "競賽開始"
     },
     {
         "id": 9601,
@@ -1784,18 +1845,6 @@
     {
         "id": 2000004,
         "tw": "攻擊競賽"
-    },
-    {
-        "id": 2000005
-    },
-    {
-        "id": 2000006
-    },
-    {
-        "id": 2000007
-    },
-    {
-        "id": 2000008
     },
     {
         "id": 2000009,
