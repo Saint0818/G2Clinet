@@ -114,7 +114,6 @@ public class UpgradeView
 		hexagon.transform.localPosition = Vector3.zero;
 		hexagon.transform.localScale = Vector3.one;
 		hexagon.EnableTitle = false;
-		GameFunction.InitDefaultText (hexagon.gameObject);
 
 		for (int i = 0; i < AddPotential.Length; i++)
 			AddPotential [i] = 0;

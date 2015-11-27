@@ -16,6 +16,8 @@ public class GameSettingView
 	private UISprite[] musicSp = new UISprite[2];
 	private UISprite[] soundSp = new UISprite[2];
 	private UISprite[] effectSp = new UISprite[2];
+	private UILabel warningLabel;
+	private ELanguage language;
 
 	public void Init(GameObject obj)
 	{
@@ -24,6 +26,7 @@ public class GameSettingView
 			musicBtn = self.transform.FindChild("Music/0").gameObject.GetComponent<UIButton>();
 			soundBtn = self.transform.FindChild("Music/1").gameObject.GetComponent<UIButton>();
 			effectBtn = self.transform.FindChild("Effect/0").gameObject.GetComponent<UIButton>();
+			warningLabel = self.transform.FindChild("GameAI/WarningLabel").gameObject.GetComponent<UILabel>();
 
 			for(int i = 0; i< aiBtns.Length;i++)
 			{
@@ -46,6 +49,7 @@ public class GameSettingView
 				effectSp[i] = effectBtn.transform.FindChild(string.Format("Switch{0}", i)).gameObject.GetComponent<UISprite>();
 			}
 		}
+		language = GameData.Setting.Language;
 	}
 
 	public void InitBtttonFunction(EventDelegate musicFunc, EventDelegate soundFunc, EventDelegate effectFunc, EventDelegate ailvFunc)
@@ -69,6 +73,14 @@ public class GameSettingView
 		for (int i = 0; i< aiBtnsToggle.Length; i++) {
 			aiBtnsToggle[i].Set (i == GameData.Setting.AIChangeTimeLv);
 		}
+
+		string tip = GameData.Setting.AIChangeTimeLv == 5 ? "∞" : GameConst.AITime [GameData.Setting.AIChangeTimeLv].ToString();
+		warningLabel.text = TextConst.StringFormat (12013, tip);
+
+		if (language != GameData.Setting.Language) {
+			UISetting.Get.initDefaultText(self);
+			language = GameData.Setting.Language;
+		}
 	}
 
 	public bool Enable
@@ -83,7 +95,7 @@ public class LanguageView
 	private GameObject self;
 	private UIButton[] lnBtns = new UIButton[2];
 	private UIToggle[] btnsToggle = new UIToggle[2];
-	
+	private ELanguage language;
 	
 	public void Init(GameObject obj)
 	{
@@ -96,6 +108,7 @@ public class LanguageView
 				btnsToggle[i] = lnBtns[i].GetComponent<UIToggle>();
 			}
 		}
+		language = GameData.Setting.Language;
 	}
 	
 	public void InitBtttonFunction(EventDelegate languagesFunc)
@@ -107,9 +120,13 @@ public class LanguageView
 	public void UpdateView()
 	{
 		int index = PlayerPrefs.GetInt(ESave.UserLanguage.ToString(), 0);
-		
 		for(int i = 0; i< btnsToggle.Length;i++)
 			btnsToggle[i].Set(i == index);
+
+		if (language != GameData.Setting.Language) {
+			UISetting.Get.initDefaultText(self);
+			language = GameData.Setting.Language;
+		}
 	}
 
 	public bool Enable
@@ -123,6 +140,7 @@ public class AccountView
 {
 	private GameObject self;
 	private UIButton othterCharacterBtn;
+	private ELanguage language;
 
 	public void Init(GameObject obj)
 	{
@@ -131,6 +149,8 @@ public class AccountView
 
 			othterCharacterBtn = self.transform.FindChild("Account/0").gameObject.GetComponent<UIButton>();
 		}
+
+		language = GameData.Setting.Language;
 	}
 
 	public void InitBtttonFunction(EventDelegate othterCharacterFunc)
@@ -143,6 +163,14 @@ public class AccountView
 		set{self.gameObject.SetActive(value);}
 		get{return self.gameObject.activeSelf;}
 	}
+
+	public void UpdateView()
+	{
+		if (language != GameData.Setting.Language) {
+			UISetting.Get.initDefaultText(self);
+			language = GameData.Setting.Language;
+		}
+	}
 }
 
 public class UISetting : UIBase {
@@ -152,6 +180,8 @@ public class UISetting : UIBase {
 	private GameSettingView gameSetting = new GameSettingView();
 	private LanguageView languageSetting = new LanguageView();
 	private AccountView accountSetting = new AccountView();
+
+	private UILabel version;
 	private bool isMusicOn;
 
 	public static bool Visible {
@@ -195,21 +225,24 @@ public class UISetting : UIBase {
 				case 0:
 					gameSetting.Init(pages[i]);
 					gameSetting.InitBtttonFunction(new EventDelegate(OnMusic), new EventDelegate(OnSound), new EventDelegate(OnEffect), new EventDelegate(OnAILv));
-					gameSetting.UpdateView();
 					break;
 				case 1:
 					languageSetting.Init(pages[i]);
-					languageSetting.InitBtttonFunction(new EventDelegate(OnLanguage));
-					languageSetting.UpdateView();
+					languageSetting.InitBtttonFunction(new EventDelegate(OnLanguage));					
 					break;
 				case 2:
 					accountSetting.Init(pages[i]);
-					accountSetting.InitBtttonFunction(new EventDelegate(OnOtherCharacter));
+					accountSetting.InitBtttonFunction(new EventDelegate(OnOtherCharacter));		
 					break;
 				case 3:
+					pages[i].gameObject.SetActive(false);
+					GameObject.Find(UIName + string.Format("Window/Center/Tabs/{0}", i)).SetActive(false);
 					break;
 			}
 		}
+
+		version = GameObject.Find (UIName + "Window/Center/Pages/VersionLabel").gameObject.GetComponent<UILabel> ();
+		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
 	protected override void InitData() {
@@ -225,6 +258,19 @@ public class UISetting : UIBase {
 
 		for (int i = 0; i < pages.Length; i++) {
 			pages[i].SetActive(index == i);
+		}
+
+		switch (index) 
+		{
+			case 0:
+				gameSetting.UpdateView();	
+				break;
+			case 1:
+				languageSetting.UpdateView();
+				break;
+			case 2:
+				accountSetting.UpdateView();
+				break;
 		}
 	}
 
@@ -256,12 +302,13 @@ public class UISetting : UIBase {
 		int index;
 		
 		if (int.TryParse (UIButton.current.name, out index)) {
-			if(index < GameConst.AITime.Length) {
+			if(index < GameConst.AITime.Length)
 				GameData.Setting.AIChangeTimeLv = index;
 				PlayerPrefs.SetInt(ESave.AIChangeTimeLv.ToString(), index);
 				PlayerPrefs.Save();
-			}
 		}
+
+		gameSetting.UpdateView ();
 	}
 
 	private int languageIndex = 0;

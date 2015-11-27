@@ -196,7 +196,7 @@ public class UIBase: MonoBehaviour
 		}
     }
 
-	private void initDefaultText(GameObject obj) {
+	public void initDefaultText(GameObject obj) {
 		UILabel[] labs = obj.GetComponentsInChildren<UILabel>();
 		for (int i = 0; i < labs.Length; i++) {
 			int id = 0;
