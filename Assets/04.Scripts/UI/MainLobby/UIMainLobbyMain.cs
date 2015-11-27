@@ -19,6 +19,10 @@ public class UIMainLobbyMain : MonoBehaviour
     public UISprite PlayerIconSprite;
     public UIButton PlayerButton;
 
+    public TweenScale MoneyTweenScale;
+    public TweenScale DiamondTweenScale;
+    public TweenScale PowerTweenScale;
+
     public GameObject Settings;
 	public UIButton PlayerInfoBtn;
     public UILabel NameLabel;
@@ -37,14 +41,32 @@ public class UIMainLobbyMain : MonoBehaviour
         set { MoneyLabel.text = value.ToString(); }
     }
 
+    public void PlayMoneyAnimation(float delay = 0)
+    {
+        MoneyTweenScale.delay = delay;
+        MoneyTweenScale.PlayForward();
+    }
+
     public int Diamond
     {
         set { DiamondLabel.text = value.ToString(); }
     }
 
+    public void PlayDiamondAnimation(float delay = 0)
+    {
+        DiamondTweenScale.delay = delay;
+        DiamondTweenScale.PlayForward();
+    }
+
     public int Power
     {
         set { PowerLabel.text = value.ToString(); }
+    }
+
+    public void PlayPowerAnimation(float delay = 0)
+    {
+        PowerTweenScale.delay = delay;
+        PowerTweenScale.PlayForward();
     }
 
     public string PlayerName

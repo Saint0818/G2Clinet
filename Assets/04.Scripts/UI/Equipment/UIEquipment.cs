@@ -199,7 +199,7 @@ public class UIEquipment : UIBase
             GameData.Team.Player = team.Player;
             GameData.Team.Items = team.Items;
             GameData.Team.Player.Init();
-            GameData.SaveTeam();
+//            GameData.SaveTeam();
             
             UIHint.Get.ShowHint("Change Value Items Success!", Color.black);
         }

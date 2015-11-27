@@ -184,7 +184,7 @@ public class UICreateRoleStyleView : MonoBehaviour
             GameData.Team.SkillCards = team.SkillCards;
 			GameData.Team.Items = team.Items;
             GameData.Team.Player.Init();
-            GameData.SaveTeam();
+//            GameData.SaveTeam();
 
 			UICreateRole.Get.Hide();
 			UI3DCreateRole.Get.Hide();

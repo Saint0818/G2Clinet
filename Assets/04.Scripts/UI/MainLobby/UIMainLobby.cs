@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GameEnum;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -28,11 +29,30 @@ public class UIMainLobby : UIBase
 
     public UIMainLobbyMain Main { get; private set; }
 
+    // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
+    private const float AnimDelay = 4f;
+
     [UsedImplicitly]
     private void Awake()
     {
         Main = GetComponent<UIMainLobbyMain>();
         Main.ChangePlayerNameListener += changePlayerName;
+    }
+
+    [UsedImplicitly]
+    private void Start()
+    {
+        GameData.Team.OnMoneyChangeListener += onMoneyChange;
+        GameData.Team.OnDiamondChangeListener += onDiamondChange;
+        GameData.Team.OnPowerChangeListener += onPowerChange;
+    }
+
+    [UsedImplicitly]
+    private void OnDestroy()
+    {
+        GameData.Team.OnMoneyChangeListener -= onMoneyChange;
+        GameData.Team.OnDiamondChangeListener -= onDiamondChange;
+        GameData.Team.OnPowerChangeListener -= onPowerChange;
     }
 
     public void Show()
@@ -44,6 +64,10 @@ public class UIMainLobby : UIBase
         Main.Show();
 
         Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
+
+        playMoneyAnimation(AnimDelay);
+        playPowerAnimation(AnimDelay);
+        playDiamondAnimation(AnimDelay);
 
         ResetCommands.Get.Run();
     }
@@ -86,6 +110,51 @@ public class UIMainLobby : UIBase
             UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
 
         UpdateUI();
+    }
+
+    private void onMoneyChange(int money)
+    {
+        Main.Money = money;
+        playMoneyAnimation();
+    }
+
+    private void onDiamondChange(int diamond)
+    {
+        Main.Diamond = diamond;
+        playDiamondAnimation();
+    }
+
+    private void onPowerChange(int power)
+    {
+        Main.Power = power;
+        playPowerAnimation();
+    }
+
+    private void playMoneyAnimation(float delay = 0)
+    {
+        if(PlayerPrefs.HasKey(ESave.MoneyChange.ToString()))
+        {
+            Main.PlayMoneyAnimation(delay);
+            PlayerPrefs.DeleteKey(ESave.MoneyChange.ToString());
+        }
+    }
+
+    private void playDiamondAnimation(float delay = 0)
+    {
+        if (PlayerPrefs.HasKey(ESave.DiamondChange.ToString()))
+        {
+            Main.PlayDiamondAnimation(delay);
+            PlayerPrefs.DeleteKey(ESave.DiamondChange.ToString());
+        }
+    }
+
+    private void playPowerAnimation(float delay = 0)
+    {
+        if (PlayerPrefs.HasKey(ESave.PowerChange.ToString()))
+        {
+            Main.PlayPowerAnimation(delay);
+            PlayerPrefs.DeleteKey(ESave.PowerChange.ToString());
+        }
     }
 
     public static UIMainLobby Get

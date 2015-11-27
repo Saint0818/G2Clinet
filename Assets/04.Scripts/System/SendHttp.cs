@@ -105,6 +105,9 @@ public static class URLConst {
 	public const string TeamStarting = "teamstarting";
 	public const string GMAddItem = "gmadditem";
 	public const string GMRemoveItem = "gmremoveitem";
+	public const string GMAddMoney = "gmaddmoney";
+	public const string GMAddDiamond = "gmadddiamond";
+	public const string GMAddPower = "gmaddpower";
 	public const string GMAddLv = "gmaddlv";
 	public const string GMAddAvatarPotential = "gmaddavatarpotential";
 	public const string GMSavePotential = "gmsavepotential";

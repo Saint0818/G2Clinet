@@ -57,7 +57,10 @@ namespace GameEnum {
 		SoundOn,
 		EffectOn,
 		AIChangeTimeLv,
-		UserLanguage
+		UserLanguage,
+        MoneyChange,
+        DiamondChange,
+        PowerChange
 	}
 
 	public enum ETestActive {

@@ -24,16 +24,16 @@ public class GEGMTool : GEBase
 			options = GUILayout.Toolbar(options, optionsTitle);
 			switch (options) {
 				case 0:
-					ItemHandle ();
+					ItemHandle();
 					break;
 				case 1:
-					StageHandle ();
+					StageHandle();
 					break;
 				case 2:
-					BattleHandle ();
+					BattleHandle();
 					break;
 				case 3:
-					PlayerInfoHandle ();
+					PlayerInfoHandle();
 					break;
 				case 4:
 					int i = 0;
@@ -43,7 +43,7 @@ public class GEGMTool : GEBase
 						saveOptions[i] = item.ToString();
 						i++;
 					}
-					OtherHandle ();
+					OtherHandle();
 					break;
 			}
 		}
@@ -216,9 +216,97 @@ public class GEGMTool : GEBase
 			PlayerPrefs.DeleteKey(saveOptions[deleteSelected]);
 		}
 		EditorGUILayout.EndHorizontal();
+
+        addMoney();
+	    addDiamond();
+        addPower();
 	}
 
-	private bool HaveChange()
+    private int mAddMoney;
+    private void addMoney()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Add Money");
+        mAddMoney = EditorGUILayout.IntField(mAddMoney, GUILayout.Width(100));
+        if(GUILayout.Button("Add", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("AddMoney", mAddMoney);
+            SendHttp.Get.Command(URLConst.GMAddMoney, waitGMAddMoney, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMAddMoney(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMAddMoney, ok:{0}", ok);
+
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Money = team.Money;
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddMoney);
+    }
+
+    private int mAddDiamond;
+    private void addDiamond()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Add Diamond");
+        mAddDiamond = EditorGUILayout.IntField(mAddDiamond, GUILayout.Width(100));
+        if (GUILayout.Button("Add", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("AddDiamond", mAddDiamond);
+            SendHttp.Get.Command(URLConst.GMAddDiamond, waitGMAddDiamond, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMAddDiamond(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMAddDiamond, ok:{0}", ok);
+
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Diamond = team.Diamond;
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddDiamond);
+    }
+
+    private int mAddPower;
+    private void addPower()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Add Power");
+        mAddPower = EditorGUILayout.IntField(mAddPower, GUILayout.Width(100));
+        if (GUILayout.Button("Add", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("AddPower", mAddPower);
+            SendHttp.Get.Command(URLConst.GMAddPower, waitGMAddPower, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private void waitGMAddPower(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMAddPower, ok:{0}", ok);
+
+        if (ok)
+        {
+            TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
+            GameData.Team.Power = team.Power;
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddPower);
+    }
+
+    private bool HaveChange()
 	{
 		for (int i = 0; i< addPotential.Length; i++)
 			if (addPotential [i] > 0)

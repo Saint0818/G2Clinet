@@ -4,7 +4,8 @@ using System.Linq;
 using GameEnum;
 using UnityEngine;
 
-namespace GameStruct {
+namespace GameStruct
+{
 	public struct TTeam
     {
 		public string Identifier;
@@ -17,10 +18,64 @@ namespace GameStruct {
 		public DateTime FreeLuckBox;
 	    public int PlayerNum; // 玩家擁有幾位角色.
 
-		public int Money;
-		public int Power;
-		public int Diamond;
-		public int AvatarPotential;
+	    public event CommonDelegateMethods.Int1 OnMoneyChangeListener;
+	    public int Money
+	    {
+	        get { return mMoney; }
+	        set
+	        {
+	            if(mMoney == value)
+                    return;
+
+	            mMoney = value;
+
+                PlayerPrefs.SetInt(ESave.MoneyChange.ToString(), 1);
+
+                if(OnMoneyChangeListener != null)
+	                OnMoneyChangeListener(mMoney);
+	        }
+	    }
+        private int mMoney;
+
+        public event CommonDelegateMethods.Int1 OnPowerChangeListener;
+        public int Power
+        {
+            get { return mPower; }
+            set
+            {
+                if(mPower == value)
+                    return;
+
+                mPower = value;
+
+                PlayerPrefs.SetInt(ESave.PowerChange.ToString(), 1);
+
+                if(OnPowerChangeListener != null)
+                    OnPowerChangeListener(mPower);
+            }
+        }
+
+	    private int mPower;
+
+        public event CommonDelegateMethods.Int1 OnDiamondChangeListener;
+        public int Diamond
+        {
+            get { return mDiamond; }
+            set
+            {
+                if(mDiamond == value)
+                    return;
+                mDiamond = value;
+
+                PlayerPrefs.SetInt(ESave.DiamondChange.ToString(), 1);
+
+                if(OnDiamondChangeListener != null)
+                    OnDiamondChangeListener(mDiamond);
+            }
+        }
+	    private int mDiamond;
+
+        public int AvatarPotential;
 
 		public int[] TutorialFlags;
 		public int[] Achievements;
