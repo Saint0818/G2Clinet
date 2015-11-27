@@ -899,6 +899,8 @@ namespace GameStruct {
 		public int TalkIndex;
 		public int TalkL;
 		public int TalkR;
+		public int ActionL;
+		public int ActionR;
 		public string UIpath;
 		public string TextTW;
 		public string TextCN;

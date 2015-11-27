@@ -216,14 +216,6 @@ public class UISetting : UIBase {
 		OnPage ();
 	}
 
-
-	protected override void OnShow(bool isShow) {
-		if(isShow)
-		{
-
-		}
-	}
-
 	public void OnPage()
 	{
 		int index = 0;
@@ -286,15 +278,18 @@ public class UISetting : UIBase {
 	{
 		PlayerPrefs.SetInt (ESave.UserLanguage.ToString(), languageIndex);
 		switch (languageIndex) {
-				case 0:
-					GameData.Setting.Language = ELanguage.TW;
-					
-					break;
-				case 1:
-					GameData.Setting.Language = ELanguage.EN;
-					break;
-			}
+			case 0:
+				GameData.Setting.Language = ELanguage.TW;
+				
+				break;
+			case 1:
+				GameData.Setting.Language = ELanguage.EN;
+				break;
+		}
 		PlayerPrefs.Save ();
+
+		if (UISetting.Visible)
+			UISetting.UIShow(true);
 	}
 
 	public void DoOtherCharacter(object obj)

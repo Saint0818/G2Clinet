@@ -128,8 +128,6 @@ public class UILoading : UIBase {
 	}
 
 	protected override void InitCom() {
-		SetBtnFun(UIName + "/StageInfo/Right/Next", OnNext);
-
 		loadingPic = GameObject.Find (UIName + "/LoadingPic");
 		uiLoadingProgress = GameObject.Find (UIName + "/LoadingPic/UIProgressBar").GetComponent<UITexture>();
 		labelLoading = GameObject.Find (UIName + "/LoadingPic/UIWord").GetComponent<UILabel>();
@@ -218,18 +216,31 @@ public class UILoading : UIBase {
 			break;
 		case ELoadingGamePic.Game:
 			GameController.Get.ChangeSituation(EGameSituation.None);
-			yield return new WaitForSeconds (0.2f);
-			CourtMgr.Get.InitCourtScene ();
-			ProgressValue = 0.7f;
-			yield return new WaitForSeconds (0.2f);
-			AudioMgr.Get.StartGame();
+			ProgressValue = 0.6f;
 			yield return new WaitForSeconds (0.2f);
 			ProgressValue = 1;
+			CourtMgr.Get.InitCourtScene ();
+			AudioMgr.Get.StartGame();
 			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
 			yield return new WaitForSeconds (waitTime);
 
-			buttonNext.SetActive(true);
-			loadingPic.SetActive(false);
+			if (GameStart.Get.TestMode == EGameTest.None) {
+				GameController.Get.LoadStage(GameData.StageID);
+			} else {
+				CourtMgr.Get.ShowEnd();
+				GameController.Get.LoadStage(1);
+				GameController.Get.InitIngameAnimator();
+				GameController.Get.SetBornPositions();
+				GameController.Get.ChangeSituation(EGameSituation.JumpBall);
+                    AIController.Get.ChangeState(EGameSituation.JumpBall);
+                    CameraMgr.Get.ShowPlayerInfoCamera (true);
+			}
+
+			yield return new WaitForSeconds (0.2f);
+
+			UIShow(false);
+			//buttonNext.SetActive(true);
+			//loadingPic.SetActive(false);
 
 			break;
 		case ELoadingGamePic.Stage:
@@ -239,23 +250,6 @@ public class UILoading : UIBase {
 		}
 
 		ProgressValue = 1;
-	}
-
-	IEnumerator loadingGame(ELoadingGamePic kind = ELoadingGamePic.SelectRole) {
-		yield return new WaitForEndOfFrame();
-		
-		UIShow(false);
-		if (GameStart.Get.TestMode == EGameTest.None) {
-			GameController.Get.LoadStage(GameData.StageID);
-		} else {
-			CourtMgr.Get.ShowEnd();
-			GameController.Get.LoadStage(1);
-			GameController.Get.InitIngameAnimator();
-			GameController.Get.SetBornPositions();
-			GameController.Get.ChangeSituation(EGameSituation.JumpBall);
-			AIController.Get.ChangeState(EGameSituation.JumpBall);
-			CameraMgr.Get.ShowPlayerInfoCamera (true);
-		}
 	}
 	
 	public void UpdateProgress (){
@@ -330,15 +324,6 @@ public class UILoading : UIBase {
 			pageLoading = index-1;
 			showPage(pageLoading);
 		}
-	}
-
-	public void OnNext() {
-		nowProgress = 0;
-		uiLoadingProgress.fillAmount = 0;
-		ProgressValue = 1;
-		buttonNext.SetActive(false);
-		loadingPic.SetActive(true);
-		StartCoroutine(loadingGame());
 	}
 
 	public float ProgressValue{

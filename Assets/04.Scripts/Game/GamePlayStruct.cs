@@ -85,7 +85,7 @@ namespace GamePlayStruct {
 		public int FinishCondition;
 		public int ConditionKind;
 		public int ConditionValue;
-		public int ConditionOperator;
+		public int ConditionValue2;
 		public int OtherEventID;
 		public int NextEventID;
 
@@ -100,7 +100,7 @@ namespace GamePlayStruct {
 			FinishCondition = 0;
 			ConditionKind = 0;
 			ConditionValue = 0;
-			ConditionOperator = 0;
+			ConditionValue2 = 0;
 			OtherEventID = 0;
 			NextEventID = 0;
 			

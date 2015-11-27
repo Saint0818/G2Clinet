@@ -82,8 +82,6 @@ public class UITutorial : UIBase {
 				return;
 			}*/
 
-			Debug.Log(string.Format("Tutorial no: {0} line: {1}", no, line));
-
 			NowMessageIndex  = no * 100 + line;
 
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
@@ -91,13 +89,11 @@ public class UITutorial : UIBase {
 					UIShow(true);
 
 				TTutorial tu = GameData.DTutorial[NowMessageIndex];
-
 				if (string.IsNullOrEmpty(tu.UIpath)) {
 					uiCenter.SetActive(true);
 					uiClick.SetActive(false);
 					tutorialMessage.text = tu.Text;
 					string temp = tutorialMessage.processedText;
-					Debug.Log(temp);
 					writeEffect.ResetToBeginning();
 					textFinish = false;
 					manID[0] = tu.TalkL;
@@ -158,7 +154,7 @@ public class UITutorial : UIBase {
 	public void OnTutorial() {
 		if(!uiClick.activeInHierarchy){
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex + 1)) {
-				if (textFinish)
+				if (textFinish || string.IsNullOrEmpty(tutorialMessage.text) || tutorialMessage.text ==" ")
 					ShowTutorial(NowMessageIndex / 100, NowMessageIndex % 100 + 1);
 				else {
 					writeEffect.Finish();

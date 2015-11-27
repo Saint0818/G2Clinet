@@ -10,7 +10,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	private CircularSectorMeshRenderer hintArea = null;
 
 	public int NextEventID = 0;
-	public int EventSituation = 0;
+	public int EventValue = 0;
 	private TToturialAction[] moveActions;
 
 	public void SetTutorialData(int id) {
@@ -45,7 +45,14 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		case 2:
 			if (GameController.Visible) {
 				NextEventID = eventList[i].NextEventID;
-				EventSituation = eventList[i].ConditionValue;
+				EventValue = eventList[i].ConditionValue;
+			}
+
+			break;
+		case 3:
+			if (GameController.Visible) {
+				NextEventID = eventList[i].NextEventID;
+				EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			}
 
 			break;
@@ -121,7 +128,7 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			hintArea.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
 			hintArea.ChangeValue(360, eventList[i].Value3);
-
+			EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			break;
 		case 9:
 			if (player != null) {
@@ -162,20 +169,9 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		if (eventID > 0) {
 			for (int i = 0; i < eventList.Count; i++) {
 				if (eventList[i].ID == eventID) {
-					bool flag = true;
-
-
-					if (eventList[i].Kind == 8 && eventList[i].ConditionOperator > 0 && player) {
-						PlayerBehaviour p = player.GetComponent<PlayerBehaviour>();
-						if (p && (p.Team.GetHashCode() * 3 + p.Index + 1) != eventList[i].ConditionOperator)
-							flag = false;
-					}
-
-					if (flag) {
-						HandleEvent(i, player);
-						removeEvent(eventID);
-					}
-
+					HandleEvent(i, player);
+					removeEvent(eventID);
+					
 					return true;
 				}
 			}
@@ -184,15 +180,72 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 		return false;
 	}
 
+	public bool CheckTriggerEvent(int eventID, GameObject player=null) {
+		if (eventID > 0) {
+			for (int i = 0; i < eventList.Count; i++) {
+				if (eventList[i].ID == eventID) {
+					bool flag = true;
+					
+					//Moving to specific position. Have to check target index.
+					if (EventValue >= 0) {
+						PlayerBehaviour p = player.GetComponent<PlayerBehaviour>();
+						if (p) {
+							int team = EventValue / GameData.Max_GamePlayer;
+							int index = EventValue % GameData.Max_GamePlayer;
+							if (p.Team.GetHashCode() != team || p.Index != index)
+								flag = false;
+						}
+					}
+					
+					if (flag) {
+						HandleEvent(i, player);
+						removeEvent(eventID);
+						
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
+
 	public bool CheckSituationEvent(int situation) {
 		if (NextEventID > 0) {
 			for (int i = 0; i < eventList.Count; i++) {
-				if (eventList[i].ID == NextEventID && situation == EventSituation) {
+				if (eventList[i].ID == NextEventID && situation == EventValue) {
 					HandleEvent(i, null);
 					removeEvent(NextEventID);
 					NextEventID = 0;
-					EventSituation = 0;
+					EventValue = 0;
 					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	public bool CheckSetBallEvent(PlayerBehaviour player=null) {
+		if (NextEventID > 0 && player) {
+			for (int i = 0; i < eventList.Count; i++) {
+				if (eventList[i].ID == NextEventID) {
+					bool flag = true;
+					
+					//Moving to specific position. Have to check target index.
+					if (EventValue >= 0) {
+						int team = EventValue / GameData.Max_GamePlayer;
+						int index = EventValue % GameData.Max_GamePlayer;
+						if (player.Team.GetHashCode() != team || player.Index != index)
+							flag = false;
+					}
+					
+					if (flag) {
+						HandleEvent(i, player.PlayerRefGameObject);
+						removeEvent(NextEventID);
+						
+						return true;
+					}
 				}
 			}
 		}

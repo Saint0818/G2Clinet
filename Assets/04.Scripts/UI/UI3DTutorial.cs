@@ -13,6 +13,7 @@ public class UI3DTutorial : UIBase {
 	private TAvatar[] manData = new TAvatar[manNum];
 	private int[] manBodyType = new int[manNum];
 	private int[] manID = new int[2];
+	private int[] actionNo = new int[2];
 
 	public static bool Visible
 	{
@@ -61,6 +62,8 @@ public class UI3DTutorial : UIBase {
 
 		manID[0] = tu.TalkL;
 		manID[1] = tu.TalkR;
+		actionNo[0] = tu.ActionL;
+		actionNo[1] = tu.ActionR;
 		for (int i = 0; i < manNum; i++) {
 			if (talkMan[i] && talkMan[i].name != manID[i].ToString()) {
 				Destroy(talkMan[i]);
@@ -101,7 +104,10 @@ public class UI3DTutorial : UIBase {
 						manRender[i].material.color = new Color32(150, 150, 150, 255);
 						Animator ani = talkMan[i].GetComponent<Animator>();
 						if (ani) {
-							int no = Random.Range(0, 2) + 1;
+							int no = actionNo[i];
+							if (no == 0)
+								no = Random.Range(0, 2) + 1;
+
 							ani.Play("Talk" + no.ToString());
 						}
 					} else

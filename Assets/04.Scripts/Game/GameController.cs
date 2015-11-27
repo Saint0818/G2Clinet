@@ -3182,7 +3182,10 @@ public class GameController : KnightSingleton<GameController>
 					p.AniState(EPlayerState.Dribble0);
 				else 
 				if(p.IsRun)
-					p.AniState(EPlayerState.Dribble1);        
+					p.AniState(EPlayerState.Dribble1);
+
+				if (GamePlayTutorial.Visible)
+					GamePlayTutorial.Get.CheckSetBallEvent(p);
         	}
     	} else {
 			if(ballHolder != null)				

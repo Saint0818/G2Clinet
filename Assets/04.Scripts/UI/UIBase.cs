@@ -21,6 +21,9 @@ public class UIBase: MonoBehaviour
 	private static Dictionary<string, GameObject> UIResources = new Dictionary<string, GameObject>();
 	private static Dictionary<string, GameObject> UIDictionary = new Dictionary<string, GameObject>();
 
+	private GameEnum.ELanguage uiLanguage;
+	private Dictionary<UILabel, int> labelTextID = new Dictionary<UILabel, int>();
+
 	public static GameObject LoadPrefab(string uiname) {
 		if (UIResources.ContainsKey(uiname))
 			return UIResources[uiname];
@@ -59,6 +62,7 @@ public class UIBase: MonoBehaviour
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
 						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+						ui.uiLanguage = GameData.Setting.Language;
 						ui.initDefaultText(ui.gameObject);
 						ui.InitText();
 						ui.InitCom();
@@ -94,6 +98,7 @@ public class UIBase: MonoBehaviour
 						string UIName = strChars[strChars.Length - 1];                
 						obj2.name = UIName;
 						UIBase ui = obj2.AddComponent(Type.GetType(UIName)) as UIBase;
+						ui.uiLanguage = GameData.Setting.Language;
 						ui.initDefaultText(ui.gameObject);
 						ui.InitText();
 						ui.InitCom();
@@ -183,6 +188,11 @@ public class UIBase: MonoBehaviour
 		if (isShow) {
 			if (GameStart.Get.OpenTutorial && GameData.DTutorialUI.ContainsKey(this.name) && !GameData.Team.HaveTutorialFlag(GameData.DTutorialUI[this.name]))
 				UITutorial.Get.ShowTutorial(GameData.DTutorialUI[this.name], 1);
+
+			if (this.uiLanguage != GameData.Setting.Language) {
+				this.uiLanguage = GameData.Setting.Language;
+				this.initDefaultText(this.gameObject);
+			}
 		}
     }
 
@@ -190,8 +200,14 @@ public class UIBase: MonoBehaviour
 		UILabel[] labs = obj.GetComponentsInChildren<UILabel>();
 		for (int i = 0; i < labs.Length; i++) {
 			int id = 0;
-			if (!string.IsNullOrEmpty(labs[i].text) && int.TryParse(labs[i].text, out id) && TextConst.HasText(id))
+			if (!string.IsNullOrEmpty(labs[i].text) && int.TryParse(labs[i].text, out id) && TextConst.HasText(id)) {
+				if (this.labelTextID != null && !this.labelTextID.ContainsKey(labs[i]))
+					this.labelTextID.Add(labs[i], id);
+
 				labs[i].text = TextConst.S(id);
+			} else
+			if (this.labelTextID != null && this.labelTextID.ContainsKey(labs[i]))
+				labs[i].text = TextConst.S(this.labelTextID[labs[i]]);
 		}
 	}
 

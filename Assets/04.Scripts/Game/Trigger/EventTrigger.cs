@@ -7,8 +7,8 @@ public class EventTrigger : MonoBehaviour {
 
 	private void onTouch(GameObject obj) {
 		timer = 0;
-		GamePlayTutorial.Get.CheckNextEvent(NextEventID, obj);
-		gameObject.SetActive(false);
+		if (GamePlayTutorial.Get.CheckTriggerEvent(NextEventID, obj))
+			gameObject.SetActive(false);
 	}
 
 	void OnTriggerEnter(Collider c) {
