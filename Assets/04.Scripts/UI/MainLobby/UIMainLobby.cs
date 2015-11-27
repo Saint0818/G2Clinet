@@ -30,7 +30,7 @@ public class UIMainLobby : UIBase
     public UIMainLobbyMain Main { get; private set; }
 
     // 目前發現回到大廳的 Loading 頁面實在是太久了, 所以把這個時間拉長.
-    private const float AnimDelay = 4f;
+    private const float AnimDelay = 3f;
 
     [UsedImplicitly]
     private void Awake()
@@ -136,6 +136,7 @@ public class UIMainLobby : UIBase
         {
             Main.PlayMoneyAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.MoneyChange.ToString());
+            PlayerPrefs.Save();
         }
     }
 
@@ -145,6 +146,7 @@ public class UIMainLobby : UIBase
         {
             Main.PlayDiamondAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.DiamondChange.ToString());
+            PlayerPrefs.Save();
         }
     }
 
@@ -154,6 +156,7 @@ public class UIMainLobby : UIBase
         {
             Main.PlayPowerAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.PowerChange.ToString());
+            PlayerPrefs.Save();
         }
     }
 

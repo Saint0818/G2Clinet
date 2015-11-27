@@ -177,10 +177,10 @@ public class UIMainStage : UIBase
 
         addLastLockChapter();
 
-        selectChapter();
+        autoSelectChapter();
     }
 
-    private void selectChapter()
+    private void autoSelectChapter()
     {
         if(PlayerPrefs.HasKey(SelectChapterKey))
             mMain.SelectChapter(PlayerPrefs.GetInt(SelectChapterKey));
@@ -263,12 +263,12 @@ public class UIMainStage : UIBase
             return false;
         }
 
-        int textIndex = stageData.KindTextIndex;
-        if(string.IsNullOrEmpty(TextConst.S(textIndex)))
-        {
-            Debug.LogErrorFormat("TextConst({0}) don't exist!", textIndex);
-            return false;
-        }
+//        int textIndex = stageData.KindTextIndex;
+//        if(string.IsNullOrEmpty(TextConst.S(textIndex)))
+//        {
+//            Debug.LogErrorFormat("TextConst({0}) don't exist!", textIndex);
+//            return false;
+//        }
         return true;
     }
 
