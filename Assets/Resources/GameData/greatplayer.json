@@ -57,7 +57,7 @@
         "pants": 14001,
         "shoes": 14001,
         "mhanddress": 14001,
-        "zbackequip": 14001,
+        "zbackequip": 0,
         "ailevel": 0,
         "skill1": 10499,
         "skilllv1": 5,
@@ -254,7 +254,7 @@
         "defence": 87,
         "steal": 50,
         "dribble": 87,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 2,
         "body": 12,
         "hair": 12001,
@@ -289,7 +289,7 @@
         "defence": 30,
         "steal": 30,
         "dribble": 30,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 1,
         "body": 2,
         "hair": 11001,
@@ -326,7 +326,7 @@
         "defence": 50,
         "steal": 60,
         "dribble": 20,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 0,
         "body": 1,
         "hair": 0,
@@ -357,7 +357,7 @@
         "defence": 87,
         "steal": 50,
         "dribble": 87,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 2,
         "body": 12,
         "hair": 12001,
@@ -387,12 +387,12 @@
         "stamina": 57,
         "strength": 99,
         "dunk": 0,
-        "rebound": 99,
+        "rebound": 999,
         "block": 50,
         "defence": 30,
         "steal": 30,
         "dribble": 30,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 1,
         "body": 2,
         "hair": 11001,
@@ -425,13 +425,13 @@
         "speed": 30,
         "stamina": 40,
         "strength": 78,
-        "dunk": 78,
+        "dunk": 0,
         "rebound": 30,
         "block": 97,
         "defence": 50,
         "steal": 60,
         "dribble": 20,
-        "pass": 0,
+        "pass": 200,
         "bodytype": 0,
         "body": 1,
         "hair": 0,
@@ -444,6 +444,8 @@
         "ailevel": 0,
         "skill1": 11700,
         "skilllv1": 2,
+        "skill2": 698,
+        "skilllv2": 5,
         "namecn": "Raymond",
         "nameen": "Raymond",
         "namejp": "Raymond"
@@ -917,7 +919,7 @@
         "namejp": "Emma"
     },
     {
-        "id": 51,
+        "id": 110,
         "nametw": "教學解說員",
         "point2": 40,
         "point3": 30,
@@ -952,7 +954,7 @@
         "namejp": "Nick"
     },
     {
-        "id": 52,
+        "id": 111,
         "nametw": "後衛2",
         "point2": 40,
         "point3": 30,
@@ -989,7 +991,7 @@
         "namejp": "Hank"
     },
     {
-        "id": 53,
+        "id": 112,
         "nametw": "後衛3",
         "point2": 40,
         "point3": 30,
@@ -1026,7 +1028,7 @@
         "namejp": "Jill"
     },
     {
-        "id": 54,
+        "id": 113,
         "nametw": "後衛4",
         "point2": 40,
         "point3": 30,
@@ -1065,7 +1067,7 @@
         "namejp": "Elvis"
     },
     {
-        "id": 55,
+        "id": 114,
         "nametw": "Emma",
         "point2": 40,
         "point3": 30,
@@ -1104,7 +1106,7 @@
         "namejp": "Raymond"
     },
     {
-        "id": 56,
+        "id": 115,
         "nametw": "後衛6",
         "point2": 40,
         "point3": 30,
@@ -1142,7 +1144,7 @@
         "skilllv8": 2
     },
     {
-        "id": 57,
+        "id": 116,
         "nametw": "後衛7",
         "point2": 40,
         "point3": 30,
@@ -1180,7 +1182,7 @@
         "skilllv8": 2
     },
     {
-        "id": 58,
+        "id": 117,
         "nametw": "後衛8",
         "point2": 40,
         "point3": 30,
@@ -1220,7 +1222,7 @@
         "skilllv9": 2
     },
     {
-        "id": 59,
+        "id": 118,
         "nametw": "後衛9",
         "point2": 40,
         "point3": 30,
@@ -1262,7 +1264,7 @@
         "skilllv10": 3
     },
     {
-        "id": 60,
+        "id": 119,
         "nametw": "Jill",
         "point2": 40,
         "point3": 30,
@@ -1294,7 +1296,7 @@
         "skilllv5": 1
     },
     {
-        "id": 61,
+        "id": 120,
         "nametw": "前鋒1",
         "point2": 46,
         "point3": 36,
@@ -1326,7 +1328,7 @@
         "skilllv5": 1
     },
     {
-        "id": 62,
+        "id": 121,
         "nametw": "前鋒2",
         "point2": 48,
         "point3": 38,
@@ -1360,7 +1362,7 @@
         "skilllv6": 1
     },
     {
-        "id": 63,
+        "id": 122,
         "nametw": "前鋒3",
         "point2": 50,
         "point3": 40,
@@ -1394,7 +1396,7 @@
         "skilllv6": 1
     },
     {
-        "id": 64,
+        "id": 123,
         "nametw": "前鋒4",
         "point2": 52,
         "point3": 42,
@@ -1430,7 +1432,7 @@
         "skilllv7": 1
     },
     {
-        "id": 65,
+        "id": 124,
         "nametw": "Nick",
         "point2": 54,
         "point3": 44,
@@ -1467,7 +1469,7 @@
         "skilllv7": 3
     },
     {
-        "id": 66,
+        "id": 125,
         "nametw": "前鋒6",
         "point2": 56,
         "point3": 46,
@@ -1505,7 +1507,7 @@
         "skilllv8": 3
     },
     {
-        "id": 67,
+        "id": 126,
         "nametw": "前鋒7",
         "point2": 58,
         "point3": 48,
@@ -1543,7 +1545,7 @@
         "skilllv8": 3
     },
     {
-        "id": 68,
+        "id": 127,
         "nametw": "前鋒8",
         "point2": 60,
         "point3": 50,
@@ -1583,7 +1585,7 @@
         "skilllv9": 3
     },
     {
-        "id": 69,
+        "id": 128,
         "nametw": "前鋒9",
         "point2": 62,
         "point3": 52,
@@ -1623,7 +1625,7 @@
         "skilllv9": 3
     },
     {
-        "id": 70,
+        "id": 129,
         "nametw": "Elvis",
         "point2": 64,
         "point3": 54,
@@ -1653,7 +1655,7 @@
         "skilllv4": 1
     },
     {
-        "id": 71,
+        "id": 130,
         "nametw": "中鋒1",
         "point2": 40,
         "point3": 20,
@@ -1683,7 +1685,7 @@
         "skilllv4": 1
     },
     {
-        "id": 72,
+        "id": 131,
         "nametw": "中鋒2",
         "point2": 40,
         "point3": 20,
@@ -1715,7 +1717,7 @@
         "skilllv5": 1
     },
     {
-        "id": 73,
+        "id": 132,
         "nametw": "中鋒3",
         "point2": 40,
         "point3": 20,
@@ -1747,7 +1749,7 @@
         "skilllv5": 1
     },
     {
-        "id": 74,
+        "id": 133,
         "nametw": "中鋒4",
         "point2": 40,
         "point3": 20,
@@ -1779,7 +1781,7 @@
         "skilllv5": 1
     },
     {
-        "id": 75,
+        "id": 134,
         "nametw": "Hank",
         "point2": 40,
         "point3": 20,
@@ -1813,7 +1815,7 @@
         "skilllv6": 3
     },
     {
-        "id": 76,
+        "id": 135,
         "nametw": "中鋒6",
         "point2": 40,
         "point3": 20,
@@ -1847,7 +1849,7 @@
         "skilllv6": 3
     },
     {
-        "id": 77,
+        "id": 136,
         "nametw": "中鋒7",
         "point2": 40,
         "point3": 20,
@@ -1881,7 +1883,7 @@
         "skilllv6": 3
     },
     {
-        "id": 78,
+        "id": 137,
         "nametw": "中鋒8",
         "point2": 40,
         "point3": 20,
@@ -1915,7 +1917,7 @@
         "skilllv6": 3
     },
     {
-        "id": 79,
+        "id": 138,
         "nametw": "中鋒9",
         "point2": 40,
         "point3": 20,
@@ -1949,7 +1951,7 @@
         "skilllv6": 3
     },
     {
-        "id": 80,
+        "id": 139,
         "nametw": "Raymond",
         "point2": 40,
         "point3": 20,
@@ -1981,7 +1983,7 @@
         "skilllv5": 1
     },
     {
-        "id": 101,
+        "id": 110,
         "nametw": "Emma",
         "point2": 40,
         "point3": 30,
@@ -2013,7 +2015,7 @@
         "skilllv5": 1
     },
     {
-        "id": 102,
+        "id": 111,
         "nametw": "Nick",
         "point2": 46,
         "point3": 36,

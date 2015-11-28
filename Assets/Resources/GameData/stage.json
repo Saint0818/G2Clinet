@@ -37,6 +37,7 @@
         "money": 100,
         "rewards": [3001,3002,3101,3201,3212],
         "rewardrates": [10,20,30,100,150],
+        "courtno": 99,
         "friendkind": 4,
         "friendid": [15,14,16],
         "playerid": [35,34,36]
@@ -45,7 +46,7 @@
         "id": 3,
         "chapter": 0,
         "order": 3,
-        "nametw": "搭配練習",
+        "nametw": "對抗是你唯一的生存之道...",
         "kind": 3,
         "hint": "0720",
         "bit2num": 1,
@@ -60,12 +61,14 @@
         "money": 100,
         "rewards": [3001,3002,3101,3201,3212],
         "rewardrates": [10,20,30,100,150],
+        "courtno": 99,
         "friendkind": 4,
         "friendid": [18,17,19],
-        "playerid": [38,37,39]
+        "playerid": [38,37,39],
+        "explaintw": "籃球除了得分，還有更多細節..."
     },
     {
-        "id": 101,
+        "id": 11,
         "chapter": 1,
         "order": 1,
         "nametw": "初試啼聲",
@@ -101,7 +104,7 @@
         "positiony": 56
     },
     {
-        "id": 102,
+        "id": 12,
         "chapter": 1,
         "order": 2,
         "nametw": "時間",
@@ -121,7 +124,6 @@
         "surelyrewardsg": [13101,14101],
         "rewards": [20413,3002,5204,3201,3212],
         "rewardrates": [10,20,30,100,150],
-        "courtno": 99,
         "searchkind": 1,
         "searchvalue": [1,20],
         "friendnumber": 3,
@@ -137,7 +139,7 @@
         "positiony": -50
     },
     {
-        "id": 103,
+        "id": 13,
         "chapter": 1,
         "order": 3,
         "nametw": "得分！得分！",
@@ -172,7 +174,7 @@
         "positiony": 151
     },
     {
-        "id": 104,
+        "id": 14,
         "chapter": 1,
         "order": 4,
         "nametw": "3分球",
@@ -208,7 +210,7 @@
         "positiony": -85
     },
     {
-        "id": 105,
+        "id": 21,
         "chapter": 2,
         "order": 1,
         "nametw": "新的挑戰",
@@ -242,7 +244,7 @@
         "positiony": -131
     },
     {
-        "id": 106,
+        "id": 22,
         "chapter": 2,
         "order": 2,
         "nametw": "防守",
@@ -276,7 +278,7 @@
         "positiony": -20
     },
     {
-        "id": 107,
+        "id": 23,
         "chapter": 2,
         "order": 3,
         "nametw": "防守！防守！",
@@ -310,7 +312,7 @@
         "positiony": 126
     },
     {
-        "id": 108,
+        "id": 24,
         "chapter": 2,
         "order": 4,
         "nametw": "攻擊即防守",
@@ -345,7 +347,7 @@
         "positiony": -20
     },
     {
-        "id": 109,
+        "id": 31,
         "chapter": 3,
         "order": 1,
         "nametw": "灌籃大賽",
@@ -379,7 +381,7 @@
         "positiony": 133
     },
     {
-        "id": 110,
+        "id": 32,
         "chapter": 3,
         "order": 2,
         "nametw": "抄截大賽",
@@ -413,7 +415,7 @@
         "positiony": -20
     },
     {
-        "id": 111,
+        "id": 33,
         "chapter": 3,
         "order": 3,
         "nametw": "火鍋大賽",
@@ -447,7 +449,7 @@
         "positiony": -129
     },
     {
-        "id": 112,
+        "id": 34,
         "chapter": 3,
         "order": 4,
         "nametw": "艱難挑戰",

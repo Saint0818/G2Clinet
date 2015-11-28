@@ -4,34 +4,68 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
-        "talkl": 14,
-        "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texttw": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
+        "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
     {
         "id": 1,
         "line": 2,
         "talkindex": 1,
-        "talkl": 14,
         "talkr": -1,
-        "texttw": "[f6f6f6]接下來我會一步步引導你融入籃球的美妙世界，只要跟著[66ff66]箭頭指示操作[-]就可以囉！[-]",
-        "textcn": "[f6f6f6]接下来我会一步步引导你融入篮球的美妙世界，只要跟着[66ff66]箭头指示操作[-]就可以啰！[-]",
+        "texttw": "啊！！我剛又做了一場精彩的\"籃球夢“...",
+        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢“...",
         "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
     },
     {
         "id": 1,
         "line": 3,
-        "talkindex": 2,
-        "talkl": 24,
-        "texttw": "[f6f6f6]點擊[66ff66]關卡挑戰[-]，馬上來打一場球吧！[-]",
-        "textcn": "[f6f6f6]点击[66ff66]关卡挑战[-]，马上来打一场球吧！[-]",
+        "texttw": "沒辦法，當年的精彩對決已經深烙在我們的腦海中了。",
+        "textcn": "沒辦法，當年的精彩對戰已經深烙在我們的腦海當中了。",
         "texten": "[f6f6f6] Click [66ff66] Challenge Stages[-] and start a game immediately! [-]"
     },
     {
         "id": 1,
         "line": 4,
+        "texttw": "好了好了！！別再拖拖拉拉，我們再不報到就要被迫棄權了喔！！",
+        "textcn": "別再拖拖拉拉的，我們再不報到就要被迫棄權了！！"
+    },
+    {
+        "id": 1,
+        "line": 5,
+        "talkindex": 1,
+        "talkr": -1,
+        "texttw": "好啦，走吧！！",
+        "textcn": "好啦好啦！！"
+    },
+    {
+        "id": 1,
+        "line": 6,
         "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/RaceBt"
+    },
+    {
+        "id": 1,
+        "line": 7,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+    },
+    {
+        "id": 1,
+        "line": 8,
+        "texttw": "確認了解我們這場比賽的獲勝條件之後，可以趕快開始了。"
+    },
+    {
+        "id": 1,
+        "line": 9,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/StartButton"
+    },
+    {
+        "id": 1,
+        "line": 10,
+        "uipath": "UI2D/UISelectRole/Right/GameStart"
+    },
+    {
+        "id": 1,
+        "line": 11
     },
     {
         "id": 2,
@@ -42,7 +76,6 @@
         "talkl": 24,
         "talkr": -1,
         "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
     {
@@ -108,7 +141,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "剩下最後十秒，我方發球落後6分，如何逆轉戰局?"
     },
     {
@@ -116,7 +149,7 @@
         "line": 2,
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "出現空擋了，先移動到三分線外。"
     },
     {
@@ -125,7 +158,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "突然充滿能量，士氣達到可以發動技能了。"
     },
     {
@@ -133,7 +166,7 @@
         "line": 2,
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "看我三分神射。"
     },
     {
@@ -149,7 +182,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "時間來不及了，看來只能使用瞬間超球技能。"
     },
     {
@@ -165,7 +198,7 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "發動終極灌籃絕招結束這場比賽吧。"
     },
     {
@@ -180,49 +213,51 @@
         "line": 1,
         "title": "第二關",
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
+        "actionr": 1,
         "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺球。"
     },
     {
         "id": 1021,
         "line": 2,
         "kind": 3,
-        "talkr": 2,
+        "talkr": 12,
+        "actionr": 1,
         "texttw": "您客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。"
     },
     {
         "id": 1021,
         "line": 3,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "說到團結合作，在混亂的競賽中為了能夠便於分辨敵我，所以我們用了[ff6666]紅[-]、[6666ff]藍[-]、[66ff66]綠[-]三色的投射燈來代表我方球員。"
     },
     {
         "id": 1021,
         "line": 4,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "[ff6666]紅[-]投射燈的球員即代表是[fff400]你自己[-]。"
     },
     {
         "id": 1021,
         "line": 5,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "[ff6666]紅[-][6666ff]藍[-][66ff66]綠[-]三種投射燈也分別對應[fff400]傳球[-]的三顆按鈕，點擊該顏色的按鈕即可將球傳到該為球員手中。"
     },
     {
         "id": 1021,
         "line": 6,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "靈活運用[fff400]傳球按鈕[-]來製造最佳的團隊配合吧！"
     },
     {
         "id": 1021,
         "line": 7,
         "kind": 3,
-        "talkr": 2,
+        "talkr": 12,
         "texttw": "原來如此，我們立即來搭配一下吧！！"
     },
     {
@@ -235,7 +270,7 @@
         "id": 1022,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "現在是一個發動[fff400]快攻[-]的大好機會，快叫你的隊友把球傳給你。"
     },
     {
@@ -248,7 +283,7 @@
         "id": 1023,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "趕快把握空檔機會[fff400]灌籃[-]！！！！！"
     },
     {
@@ -261,35 +296,35 @@
         "id": 1024,
         "line": 1,
         "kind": 3,
-        "talkr": 2,
+        "talkr": 12,
         "texttw": "爽！！"
     },
     {
         "id": 1024,
         "line": 2,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "幹得好！！只要在靠近籃下的地方投籃，都會有[fff400]機率[-]發動[fff400]灌籃[-]喔。"
     },
     {
         "id": 1024,
         "line": 3,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "接下來我們來個漂亮的[fff400]抄截[-]嚇嚇他們吧！！"
     },
     {
         "id": 1024,
         "line": 4,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "你先偷偷靠近他們的持球者吧！！"
     },
     {
         "id": 1025,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "趁他還在發呆，直接[fff400]抄球[-]吧，不用客氣了。"
     },
     {
@@ -302,7 +337,7 @@
         "id": 1026,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "既然都剛好在籃下了，直接來個[fff400]絕殺灌籃[-]吧！！！"
     },
     {
@@ -316,7 +351,7 @@
         "line": 1,
         "title": "第三關",
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "經過了兩場的激戰，對手已經被你優秀的得分能力給震懾。"
     },
     {
@@ -324,21 +359,21 @@
         "line": 2,
         "title": "第三關",
         "kind": 3,
-        "talkr": 2,
+        "talkr": 12,
         "texttw": "哈哈哈！！其實是他們太弱了！！"
     },
     {
         "id": 1031,
         "line": 3,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "所以接下來要找[fff400]強勁[-]一點的對手來挑戰看看了。"
     },
     {
         "id": 1031,
         "line": 4,
         "kind": 3,
-        "talkr": 2,
+        "talkr": 12,
         "texttw": "好啊，放馬過來！！"
     },
     {
@@ -351,19 +386,25 @@
         "id": 1032,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
-        "texttw": "在競賽中常常會遇到被對手包夾的狀況"
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonPass"
     },
     {
         "id": 1032,
         "line": 2,
         "kind": 3,
-        "talkl": 1,
-        "texttw": "這時候，可以使出[fff400]肘擊[-]來保護自己的球，防止對方靠近！！"
+        "talkl": 11,
+        "texttw": "在競賽中常常會遇到被對手包夾的狀況"
     },
     {
         "id": 1032,
         "line": 3,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "這時候，可以使出[fff400]肘擊[-]來保護自己的球，防止對方靠近！！"
+    },
+    {
+        "id": 1032,
+        "line": 4,
         "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
     },
@@ -371,13 +412,40 @@
         "id": 1033,
         "line": 1,
         "kind": 3,
-        "talkl": 1,
+        "talkl": 11,
         "texttw": "這樣是不是少了很多[fff400]阻礙[-]，可以放心的射籃了！！"
     },
     {
         "id": 1033,
         "line": 2,
         "kind": 3,
+        "talkl": 11,
+        "texttw": "趁現在快把球傳給前方隊友！！"
+    },
+    {
+        "id": 1033,
+        "line": 3,
+        "kind": 3,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ViewPass/ButtonObjectB"
+    },
+    {
+        "id": 1034,
+        "line": 1,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "禁區已沒有敵對防守球員，此時可以[fff400]指揮隊友[-]進行射籃了！"
+    },
+    {
+        "id": 1034,
+        "line": 2,
+        "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
+    },
+    {
+        "id": 1034,
+        "line": 3,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "切記，適時的指揮隊友進攻，將可以創造更有效率地得分。"
     }
 ]
