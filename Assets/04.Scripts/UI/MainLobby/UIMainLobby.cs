@@ -93,7 +93,7 @@ public class UIMainLobby : UIBase
         5.解鎖技能介面
         */
 
-        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 1);
+//        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 1);
         foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
         {
             bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
