@@ -622,7 +622,7 @@ public static class GameFunction
 
 		return string.Format(explain, 
 				             GameData.DSkillData[id].MaxAnger,//0
-				             GameData.DSkillData[id].AniRate(lv),//1
+				             GameData.DSkillData[id].Rate(lv),//1
 				             GameData.DSkillData[id].Distance(lv),//2
 				             GameData.DSkillData[id].AttrKind,//3
 				             GameData.DSkillData[id].Value(lv),//4

@@ -25,7 +25,8 @@ public class AwardSkillView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData){
-		SkillItemPic.spriteName = itemData.Icon;
+		if(GameData.DSkillData.ContainsKey(itemData.Avatar))
+			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
 		SkillStar.spriteName = "Staricon" + itemData.LV;
 		AmountLabel.text = "";
 	}

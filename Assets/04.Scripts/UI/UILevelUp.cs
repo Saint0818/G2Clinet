@@ -12,6 +12,8 @@ public class UILevelUp : UIBase {
 	private UILabel labelAfterLevel;
 
 	private UILabel labelGetPotential;
+
+	private int lv;
 	
 	public static bool Visible {
 		get {
@@ -63,7 +65,7 @@ public class UILevelUp : UIBase {
 	public void OnReturn (GameObject go) {
 		if(UIGameResult.Get.IsExpUnlock) {
 			UIShow(false);
-			UIAchievement.UIShow(true);
+			UIAchievement.Get.Show(lv);
 		} else {
 			UILoading.OpenUI = UILoading.OpenStageUI;
 			if (isStage)
@@ -75,6 +77,7 @@ public class UILevelUp : UIBase {
 
 	public void Show (TPlayer beforePlayer, TPlayer afterPlayer){
 		UIShow(true);
+		lv = afterPlayer.Lv;
 		labelLevel.text = afterPlayer.Lv.ToString();
 		labelBeforeLevel.text = beforePlayer.Lv.ToString();
 		labelAfterLevel.text = afterPlayer.Lv.ToString();

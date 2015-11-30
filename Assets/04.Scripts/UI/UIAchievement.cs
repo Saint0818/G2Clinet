@@ -4,6 +4,7 @@ using System.Collections;
 public class UIAchievement : UIBase {
 	private static UIAchievement instance = null;
 	private const string UIName = "UIAchievement";
+	private UILabel descLabel;
 	
 	public static bool Visible {
 		get {
@@ -33,6 +34,7 @@ public class UIAchievement : UIBase {
 	}
 	
 	protected override void InitCom() {
+		descLabel = GameObject.Find(UIName + "/Center/BottomView/StageTargetView/DescLabel").GetComponent<UILabel>();
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/Mask")).onClick = OnReturn;
 	}
 	
@@ -42,6 +44,11 @@ public class UIAchievement : UIBase {
 	
 	protected override void OnShow(bool isShow) {
 		
+	}
+
+	public void Show (int lv){
+		UIShow(true);
+		descLabel.text = TextConst.S(GameData.DExpData[lv].UnlockName);
 	}
 
 	public void OnReturn (GameObject go) {

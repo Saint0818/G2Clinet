@@ -56,10 +56,13 @@ public class UIGameResult : UIBase {
 	private int tempDia;
 
 	private bool isGetAward = false;
+	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
 	private TPlayer beforePlayer;
 	private TPlayer afterPlayer;
 	private bool isExpUnlock = false;
+	public List<int> GetCardLists = new List<int>();
+	public bool IsShowFirstCard = true;
 
 	public static bool Visible
 	{
@@ -116,7 +119,7 @@ public class UIGameResult : UIBase {
 			if(awardGetTime <= 0) {
 				if(awardIndex == -1) {
 					isShowAward = false;
-					showBonusItem ();
+					ShowBonusItem ();
 				} else {
 					if((awardMax - awardIndex) < awardMax ){
 						if(awardItemTempIDs[(awardMax - awardIndex)] > 0)
@@ -311,7 +314,7 @@ public class UIGameResult : UIBase {
 
 	private void showAward () {
 		if(awardIndex == 0) {
-			showBonusItem ();
+			ShowBonusItem ();
 		} else {
 			isShowAward = true;
 			awardGetTime = awardGetTimeInterval;
@@ -331,18 +334,21 @@ public class UIGameResult : UIBase {
 	}
 
 	public void ChooseLucky(int index) {
-		chooseIndex = index;
-		if(chooseCount == 0) {
-			Invoke ("showReturnButton", 2);
-			isChooseLucky = true;
-			chooseItem (index);
-		} else {
-			stageRewardAgain(GameData.StageID);
+		if(isCanChooseLucky) {
+			chooseIndex = index;
+			if(chooseCount == 0) {
+				Invoke ("showReturnButton", 2);
+				isChooseLucky = true;
+				chooseItem (index);
+			} else {
+				stageRewardAgain(GameData.StageID);
+			}
 		}
 	}
 	
 	private void chooseItem (int index) {
 		UI3DGameResult.Get.ChooseStart(index);
+		isCanChooseLucky = false;
 		if(index == 0) {
 			Invoke("showOneItem", 0.75f);
 		} else if(index == 1) {
@@ -375,6 +381,7 @@ public class UIGameResult : UIBase {
 		if(chooseIndex >= 0 && chooseIndex < itemAwardGroup.Length)
 			itemAwardGroup[chooseIndex].Hide();
 		addItemToBack(alreadGetBonusID);
+		isCanChooseLucky = true;
 	}
 
 	//isOther:  Because Money,Diamond,Exp are not Item, it will be deleted in the future.
@@ -409,13 +416,37 @@ public class UIGameResult : UIBase {
 		bonusAwardItems[id].gameObject.SetActive(true);
 		UIEventListener.Get(bonusAwardItems[id].gameObject).onClick = OnShowAwardInfo;
 		alreadyGetItems.Add(bonusAwardItems[id]);
+
+		if(GameData.DItemData[id].Kind == 21) 
+			if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[id].Avatar))
+				showSkillInfo(id);
 	}
 
-	private void showBonusItem () {
+	public void ShowBonusItem () {
+		if(GetCardLists.Count > 0) {
+			showSkillInfo(GetCardLists[0]);
+			GetCardLists.RemoveAt(0);
+		} else {
+			moveBonusItem ();
+		}
+	}
+
+	private void showSkillInfo (int itemID) {
+		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
+		TSkill skill = new TSkill();
+		skill.ID = GameData.DItemData[itemID].Avatar;
+		skill.Lv = GameData.DItemData[itemID].LV;
+//		skill.SN = 
+//		skill.Exp
+		UISkillInfo.UIShow(true, skill, false, false, true);
+	}
+
+	private void moveBonusItem () {
+		IsShowFirstCard = false;
 		animatorAward.SetTrigger ("AwardViewDown");
 		Invoke("showLuckyThree", 0.5f);
 	}
-	
+
 	private void showLuckyThree () {
 		showThree ();
 		Invoke("show3DBasket", 0.5f);
@@ -423,6 +454,7 @@ public class UIGameResult : UIBase {
 
 	private void show3DBasket () {
 		hideThree ();
+		isCanChooseLucky = true;
 		UI3DGameResult.UIShow(true);
 	}
 
@@ -462,16 +494,12 @@ public class UIGameResult : UIBase {
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
 
-				bool isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
 				if(hintBits[1] == 2) {
-					isFin = (score >= stageData.Bit1Num);
 				} else if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
-					isFin = (score <= stageData.Bit1Num);
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
-					isFin = (score >= stageData.Bit1Num);
 				}
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
 				                             getText(2, hintBits[1], 7),
@@ -526,17 +554,13 @@ public class UIGameResult : UIBase {
 
 				int team = (int) ETeamKind.Self;
 				int score = UIGame.Get.Scores[team];
-				
-				bool isFin = (UIGame.Get.Scores[(int) ETeamKind.Self] > UIGame.Get.Scores[(int) ETeamKind.Npc]);
+
 				if(hintBits[1] == 2) {
-					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				} else if(hintBits[1] == 3){
 					team = (int) ETeamKind.Npc;
 					score = UIGame.Get.Scores[team];
-					isFin = (score <= GameController.Get.StageData.Bit1Num);
 				} else if(hintBits[1] == 4) {
 					score = UIGame.Get.Scores[(int) ETeamKind.Self] - UIGame.Get.Scores[(int) ETeamKind.Npc];
-					isFin = (score >= GameController.Get.StageData.Bit1Num);
 				}
 				mTargets[hintIndex].UpdateUI(getText(2, hintBits[1], 9),
 				                             getText(2, hintBits[1], 7),
@@ -600,8 +624,17 @@ public class UIGameResult : UIBase {
 				Debug.Log(reward);
 				Debug.Log(GameData.Team.Player.Lv);
 				Debug.Log(reward.Player.Lv);
-				Debug.Log(GameData.Team.Player.NextMainStageID);
-				Debug.Log(reward.Player.NextMainStageID);
+
+				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0) {
+					for(int i=0; i<reward.SurelyItemIDs.Length; i++) {
+						if(GameData.DItemData[reward.SurelyItemIDs[i]].Kind == 21) {
+							if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[reward.SurelyItemIDs[i]].Avatar)) {
+								GetCardLists.Add(reward.SurelyItemIDs[i]);
+								IsShowFirstCard = true;
+							}
+						}
+					}
+				}
 				
 				if(GameData.Team.Player.Lv != reward.Player.Lv) {
 					isLevelUp = true;
@@ -624,7 +657,7 @@ public class UIGameResult : UIBase {
 //				GameData.Team.Player.Init();
 				GameData.Team.Items = reward.Items;
 
-				if(reward.SurelyItemIDs.Length > 0)
+				if(reward.SurelyItemIDs != null && reward.SurelyItemIDs.Length > 0)
 				{
 					for(int i = 0; i < reward.SurelyItemIDs.Length; i++)
 						if(GameData.DItemData.ContainsKey(reward.SurelyItemIDs[i]) && GameData.DItemData[reward.SurelyItemIDs[i]].Kind > 0 && GameData.DItemData[reward.SurelyItemIDs[i]].Kind < 8)

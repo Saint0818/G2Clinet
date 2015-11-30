@@ -5,19 +5,6 @@ using GameStruct;
 using Newtonsoft.Json;
 using UnityEngine;
 
-public struct TSkillInfo {
-	public int ID;
-	public string Name;
-	public string Lv;
-	public string Info;
-	public TSkillInfo (int i){
-		this.ID = 0;
-		this.Name = "";
-		this.Lv = "";
-		this.Info = "";
-	}
-}
-
 public struct TEquipSkillCardResult {
 	public TSkill[] SkillCards;
 	public TSkill[] PlayerCards;
@@ -175,6 +162,7 @@ public class UISkillFormation : UIBase {
 	//Instantiate Object
 	private GameObject itemSkillCard;
 	private GameObject itemCardEquipped;
+	private GameObject equipEffect;
 
 	//CenterCard
 	private List<int> activeOriginalSN = new List<int>();
@@ -218,7 +206,7 @@ public class UISkillFormation : UIBase {
 	private UIToggle[] toggleDecks = new UIToggle[5];
 
 	//Info
-	private TSkillInfo skillInfo = new TSkillInfo();
+	private TSkill skillInfo = new TSkill();
 	//for InfoEquip temp
 	private TUICard tempUICard;
 	private GameObject tempObj;
@@ -272,6 +260,7 @@ public class UISkillFormation : UIBase {
 	protected override void InitCom() {
 		itemSkillCard = Resources.Load(UIPrefabPath.ItemSkillCard) as GameObject;
 		itemCardEquipped = Resources.Load(UIPrefabPath.ItemCardEquipped) as GameObject;
+		equipEffect = Resources.Load("Effect/UIEquipSkill") as GameObject;
 		tempPage = GameData.Team.Player.SkillPage;
 
 		for(int i=0; i<toggleDecks.Length; i++) {
@@ -325,7 +314,12 @@ public class UISkillFormation : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
-		
+		Debug.Log("UISkillFormaion open");
+		if(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()))
+		{
+			PlayerPrefs.DeleteKey(ESave.NewCardFlag.ToString());
+			PlayerPrefs.Save();
+		}
 	}
 
 	private void refresh(){
@@ -542,6 +536,10 @@ public class UISkillFormation : UIBase {
 		} else 
 			obj.transform.localPosition = new Vector3(12, 110 - 70 * positionIndex, 0);
 		obj.transform.localScale = Vector3.one;
+
+		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
+		uiEquipEffect.transform.parent = obj.transform;
+		uiEquipEffect.transform.localPosition = Vector3.zero;
 
 		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
 
@@ -1031,10 +1029,9 @@ public class UISkillFormation : UIBase {
 	private void setInfo (GameObject go) {
 		if(GameData.DSkillData.ContainsKey(uiCards[go.name].CardID)) {
 			skillInfo.ID = uiCards[go.name].CardID;
-			skillInfo.Name = GameData.DSkillData[uiCards[go.name].CardID].Name;
-			skillInfo.Lv = uiCards[go.name].CardLV.ToString();
-//			skillInfo.Info = GameData.DSkillData[uiCards[go.name].CardID].Explain;
-			skillInfo.Info = GameFunction.GetStringExplain(GameData.DSkillData[uiCards[go.name].CardID].Explain, uiCards[go.name].CardID, uiCards[go.name].CardLV);
+			skillInfo.Lv = uiCards[go.name].CardLV;
+			skillInfo.SN = uiCards[go.name].CardSN;
+//			skillInfo.Exp = 
 		} else 
 			Debug.LogWarning("cardId:"+uiCards[go.name].CardID);
 	}
@@ -1263,11 +1260,6 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoBack() {
-	    if(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()))
-	    {
-	        PlayerPrefs.DeleteKey(ESave.NewCardFlag.ToString());
-            PlayerPrefs.Save();
-	    }
 		UIShow(false);
 		if(UISort.Visible)
 			UISort.UIShow(false);
