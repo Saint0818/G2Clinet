@@ -1263,7 +1263,11 @@ public class UISkillFormation : UIBase {
 	}
 
 	public void DoBack() {
-		PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 0);
+	    if(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()))
+	    {
+	        PlayerPrefs.DeleteKey(ESave.NewCardFlag.ToString());
+            PlayerPrefs.Save();
+	    }
 		UIShow(false);
 		if(UISort.Visible)
 			UISort.UIShow(false);

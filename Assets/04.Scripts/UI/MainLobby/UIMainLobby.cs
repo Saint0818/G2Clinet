@@ -69,9 +69,6 @@ public class UIMainLobby : UIBase
 
         Main.Show();
 
-        Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
-		Main.AvatarNotice = GameData.AvatarNoticeEnable();
-
         playMoneyAnimation(AnimDelay);
         playPowerAnimation(AnimDelay);
         playDiamondAnimation(AnimDelay);
@@ -86,6 +83,8 @@ public class UIMainLobby : UIBase
     /// </summary>
     private void updateButtons()
     {
+        updateRedPoints();
+
         /*
         1.解鎖數值裝
         2.解鎖Avatar
@@ -123,6 +122,16 @@ public class UIMainLobby : UIBase
             PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
             PlayerPrefs.Save();
         }
+    }
+
+    private void updateRedPoints()
+    {
+        Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
+        Main.AvatarNotice = GameData.AvatarNoticeEnable();
+
+//        PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 1);
+//        PlayerPrefs.Save();
+        Main.SkillNotice = PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
     }
 
     private void updateButton(UIMainLobbyButton button, bool isEnable, bool playSFX)

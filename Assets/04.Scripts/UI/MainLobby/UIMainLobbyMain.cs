@@ -32,6 +32,7 @@ public class UIMainLobbyMain : MonoBehaviour
     // 紅點.
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
+    public GameObject SkillNoticeObj;
 
     // 畫面下方的主要功能按鈕.
     public UIMainLobbyButton AvatarButton;
@@ -102,6 +103,11 @@ public class UIMainLobbyMain : MonoBehaviour
 	{
 		set{ AvatarNoticeObj.SetActive(value); }
 	}
+
+    public bool SkillNotice
+    {
+        set { SkillNoticeObj.SetActive(value); }
+    }
 
     /// <summary>
     /// Block 的目的是避免使用者點擊任何 UI 元件.(內部使用, 一般使用者不要使用)
