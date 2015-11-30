@@ -1,5 +1,6 @@
-using GameEnum;
 using UnityEngine;
+using System.Collections;
+using GameEnum;
 
 public class UIUpdateVersion : UIBase {
 	private static UIUpdateVersion instance = null;
@@ -8,7 +9,6 @@ public class UIUpdateVersion : UIBase {
 	private GameObject uiGooglePlay;
 	private GameObject uiAppleStore;
 	private GameObject uiOfficialWebsite;
-	private GameObject uiMyGamez;
 
 	public static bool Visible
 	{
@@ -43,40 +43,29 @@ public class UIUpdateVersion : UIBase {
 	}
 	
 	protected override void InitCom() {
-		SetBtnFun (UIName + "/Window/Background/Download", NiceMarket);
-		SetBtnFun (UIName + "/Window/Background/Googleplay", GooglePaly);
-		SetBtnFun (UIName + "/Window/Background/AppStore", AppStore);
-		SetBtnFun (UIName + "/Window/Background/MyGamez/Offline", OnOffline);
-		SetBtnFun (UIName + "/Window/Background/MyGamez/Quit", OnQuit);
+		SetBtnFun (UIName + "/Background/Download", NiceMarket);
+		SetBtnFun (UIName + "/Background/Googleplay", GooglePaly);
+		SetBtnFun (UIName + "/Background/AppStore", AppStore);
+		SetBtnFun (UIName + "/BottomRight/Announcement", OnAnnouncement);
 
-		uiGooglePlay = GameObject.Find(UIName + "/Window/Background/Googleplay");
-		uiOfficialWebsite = GameObject.Find(UIName + "/Window/Background/Download");
-		uiAppleStore = GameObject.Find(UIName + "/Window/Background/AppStore");
-		uiMyGamez = GameObject.Find(UIName + "/Window/Background/MyGamez");
+		uiGooglePlay = GameObject.Find(UIName + "/Background/Googleplay");
+		uiOfficialWebsite = GameObject.Find(UIName + "/Background/Download");
+		uiAppleStore = GameObject.Find(UIName + "/Background/AppStore");
 
 		uiGooglePlay.SetActive(false);
-		uiOfficialWebsite.SetActive(false);
 		uiAppleStore.SetActive(false);
-		uiMyGamez.SetActive(false);
-
-		if (GameData.OS == EOS.IOS) 
+		uiOfficialWebsite.SetActive(true);
+        
+        /*if (GameData.OS == EOS.IOS) 
 			uiAppleStore.SetActive(true);
-		else 
-		if (GameData.Company == ECompany.MyGamez) {
-			uiMyGamez.SetActive(true);
-		} else {
+		else {
 			uiGooglePlay.SetActive(true);
 			uiOfficialWebsite.SetActive(true);
-		}
+		}*/
 	}
 
 	protected override void InitText(){
-		SetLabel (UIName + "/Window/Background/Title", TextConst.S(14) + GameData.ServerVersion);
-		SetLabel (UIName + "/Window/Background/Googleplay/Label", TextConst.S(20209));
-		SetLabel (UIName + "/Window/Background/Download/Label", TextConst.S(20210));
-		SetLabel (UIName + "/Window/Background/AppStore/Label", TextConst.S(1043));
-		SetLabel (UIName + "/Window/Background/MyGamez/Quit/Label", TextConst.S(1081));
-		SetLabel (UIName + "/Window/Background/MyGamez/Offline/Label", TextConst.S(1082));
+		SetLabel (UIName + "/Background/Title", TextConst.S(12035) + GameData.ServerVersion);
 	}
 
 	public void AppStore(){
@@ -91,12 +80,8 @@ public class UIUpdateVersion : UIBase {
 		Application.OpenURL (URLConst.NiceMarketApk);
 	}
 
-	public void OnOffline(){
-		UIShow(false);
-	}
-
-	public void OnQuit(){
-
+	public void OnAnnouncement(){
+		Application.OpenURL (GameData.UrlAnnouncement);
 	}
 }
 

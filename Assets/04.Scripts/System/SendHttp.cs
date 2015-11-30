@@ -14,7 +14,7 @@ public delegate void TBooleanWWWObj(bool ok, WWW www);
 public static class URLConst {
 	public const string AppStore = "https://itunes.apple.com/tw/app/lan-qiu-hei-bang/id959833713?l=zh&ls=1&mt=8";
 	public const string GooglePlay = "https://play.google.com/store/apps/details?id=com.nicemarket.nbaa";
-	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/BaskClub.apk";
+	public const string NiceMarketApk = "http://nicemarket.com.tw/assets/apk/g2.apk";
 
 	public const string Version = "version";
 	public const string CheckSession = "checksession";
@@ -348,8 +348,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			if (float.TryParse(www.text, out GameData.ServerVersion) && BundleVersion.Version >= GameData.ServerVersion)
 				SendLogin();
 			else {
-				UIHint.Get.ShowHint("Version is different.", Color.red);
-				//UIUpdate.UIShow(true);
+				UILoading.UIShow(false);
+				UIUpdateVersion.UIShow(true);
 			}
 		} else
 			UIHint.Get.ShowHint("Check version fail.", Color.red);
@@ -380,8 +380,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
 					SceneMgr.Get.CurrentScene = "";
 					SceneMgr.Get.ChangeLevel (courtNo);
-				} else
+				} else {
+					UILoading.OpenUI = UILoading.OpenAnnouncement;
 					SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
+				}
 			} catch (Exception e) {
 				Debug.Log(e.ToString());
 			}

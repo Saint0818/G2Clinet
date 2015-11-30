@@ -351,4 +351,13 @@ public static class GameData {
 			return "NiceMarket";
 		}
 	}
+
+	public static string UrlAnnouncement {
+		get {
+			if (Setting.Language == ELanguage.TW || Setting.Language == ELanguage.CN)
+				return "http://nicemarket.com.tw/g2announcement";
+			else
+				return "http://nicemarket.com.tw/g2announcement";
+		}
+	}
 }

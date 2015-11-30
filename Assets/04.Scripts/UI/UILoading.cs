@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GameEnum;
 using UnityEngine;
@@ -55,6 +56,21 @@ public class UILoading : UIBase {
 	public static void OpenStageUI() {
 		UIMainStage.Get.Show ();
 		UIMainLobby.Get.Hide ();
+	}
+
+	public static void OpenAnnouncement() {
+		if (GameData.Team.Player.Lv > 0) {
+			int check = PlayerPrefs.GetInt(ESave.AnnouncementDaily.ToString(), 0);
+			
+			if (check == 0)
+				UIAnnouncement.UIShow(true);
+			else {
+				int day = DateTime.Now.Day;
+				int date = PlayerPrefs.GetInt(ESave.AnnouncementDate.ToString(), -1);
+				if (day != date)
+					UIAnnouncement.UIShow(true);
+			}
+		}
 	}
 
 	public static void UIShow(bool isShow, ELoading kind = ELoading.SelectRole){

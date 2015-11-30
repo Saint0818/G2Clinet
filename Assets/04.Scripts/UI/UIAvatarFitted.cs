@@ -360,7 +360,7 @@ public class UIAvatarFitted : UIBase {
 				Get.Show(isShow);
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(backpackItems.Length > 0)
 			for(int i = 0; i < backpackItems.Length; i++)

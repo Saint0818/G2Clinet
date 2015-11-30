@@ -630,6 +630,8 @@ namespace GameStruct
 	}
 
 	public struct TGameSetting {
+		public int AnnouncementDate;
+		public int AnnouncementDaily;
 		public int AIChangeTimeLv;
 		public ELanguage Language;
 		public bool Effect;
