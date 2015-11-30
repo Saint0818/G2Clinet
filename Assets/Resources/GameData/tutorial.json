@@ -13,8 +13,8 @@
         "line": 2,
         "talkindex": 1,
         "talkr": -1,
-        "texttw": "啊！！我剛又做了一場精彩的\"籃球夢“...",
-        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢“...",
+        "texttw": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
+        "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
         "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
     },
     {
@@ -45,8 +45,7 @@
     },
     {
         "id": 1,
-        "line": 7,
-        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
+        "line": 7
     },
     {
         "id": 1,
