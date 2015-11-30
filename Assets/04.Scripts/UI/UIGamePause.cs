@@ -28,9 +28,9 @@ public class UIGamePause : UIBase {
 	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
 	private TGameRecord gameRecord;
 	private GameObject viewAISelect;
-	private GameObject viewOption;
-	private GameObject[] effectGroup = new GameObject[2];
-	private GameObject[] musicGroup = new GameObject[2];
+//	private GameObject viewOption;
+//	private GameObject[] effectGroup = new GameObject[2];
+//	private GameObject[] musicGroup = new GameObject[2];
 	private UIScrollBar aiLevelScrollBar;
 	private bool isShowOption = false;
 	private bool isMusicOn = false;
@@ -92,17 +92,17 @@ public class UIGamePause : UIBase {
 		aiLevelScrollBar = GameObject.Find (UIName + "/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
 		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
 		viewAISelect.SetActive(false);
-		viewOption = GameObject.Find (UIName + "TopRight/ViewTools/ViewOption");
-		viewOption.SetActive(isShowOption);
-		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
-		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
-		effectGroup [0].SetActive (GameData.Setting.Effect);
-		effectGroup [1].SetActive (!GameData.Setting.Effect);
-
-		musicGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelON");
-		musicGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelOff");
-		musicGroup[0].SetActive(GameData.Setting.Music);
-		musicGroup[1].SetActive(!GameData.Setting.Music);
+//		viewOption = GameObject.Find (UIName + "TopRight/ViewTools/ViewOption");
+//		viewOption.SetActive(isShowOption);
+//		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
+//		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
+//		effectGroup [0].SetActive (GameData.Setting.Effect);
+//		effectGroup [1].SetActive (!GameData.Setting.Effect);
+//
+//		musicGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelON");
+//		musicGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelOff");
+//		musicGroup[0].SetActive(GameData.Setting.Music);
+//		musicGroup[1].SetActive(!GameData.Setting.Music);
 		isMusicOn = GameData.Setting.Music;
 
 
@@ -118,11 +118,11 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
 
 		
-		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
-		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
-		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
-		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
-		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonAITime", AITimeChange);
+//		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
+//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
+//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
+//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
+//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonAITime", AITimeChange);
 		
 		initAiTime();
 	}
@@ -292,8 +292,8 @@ public class UIGamePause : UIBase {
 
 	public void EffectSwitch(){
 		GameData.Setting.Effect = !GameData.Setting.Effect;
-		effectGroup [0].SetActive (GameData.Setting.Effect);
-		effectGroup [1].SetActive (!GameData.Setting.Effect);
+//		effectGroup [0].SetActive (GameData.Setting.Effect);
+//		effectGroup [1].SetActive (!GameData.Setting.Effect);
 		
 		int index = 0;
 		
@@ -308,14 +308,14 @@ public class UIGamePause : UIBase {
 
 	public void OptionSelect(){
 		isShowOption = !isShowOption;
-		viewOption.SetActive(isShowOption);
+//		viewOption.SetActive(isShowOption);
 	}
 
 	public void MusicSwitch(){
 		isMusicOn = !isMusicOn;
 		AudioMgr.Get.MusicOn(isMusicOn);
-		musicGroup[0].SetActive(isMusicOn);
-		musicGroup[1].SetActive(!isMusicOn);
+//		musicGroup[0].SetActive(isMusicOn);
+//		musicGroup[1].SetActive(!isMusicOn);
 	}
 
 	public void AITimeChange (){
