@@ -382,28 +382,28 @@ namespace GameStruct
                             TItemData item = GameData.DItemData[Items[i].ID];
                             switch (item.Kind) {
                                 case 0:
-                                    Avatar.Body = item.Avatar;
+									Avatar.Body = item.Avatar;
                                     break;
                                 case 1:
-                                    Avatar.Hair = item.Avatar;
+									Avatar.Hair = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 2:
-                                    Avatar.MHandDress = item.Avatar;
+									Avatar.MHandDress = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 3:
-                                    Avatar.Cloth = item.Avatar;
+									Avatar.Cloth = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 4:
-                                    Avatar.Pants = item.Avatar;
+									Avatar.Pants = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 5:
-                                    Avatar.Shoes = item.Avatar;
+									Avatar.Shoes = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 6:
-                                    Avatar.AHeadDress = item.Avatar;
+									Avatar.AHeadDress = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 7:
-                                    Avatar.ZBackEquip = item.Avatar;
+									Avatar.ZBackEquip = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                             }
                         }

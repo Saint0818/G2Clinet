@@ -681,4 +681,9 @@ public static class GameFunction
 				labs[i].text = TextConst.S(id);
 		}
 	}
+
+	public static bool CheckItemIsExpired(DateTime usetime)
+	{
+		return DateTime.Compare (usetime, DateTime.UtcNow) < 0;
+	}
 }
