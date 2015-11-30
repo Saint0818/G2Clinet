@@ -14,6 +14,7 @@ public class UITutorial : UIBase {
 	private GameObject clickObject;
 	private GameObject uiClick;
 	private GameObject uiCenter;
+	private UIButton buttonClick;
 	private UILabel tutorialMessage;
 	private TypewriterEffect writeEffect;
 	private const int manNum = 2;
@@ -42,8 +43,8 @@ public class UITutorial : UIBase {
 	public static void UIShow(bool isShow) {
 		if (instance) {
 			if (!isShow) { 
-				if (Get.clickObject)
-					Get.clickObject.layer = Get.clickLayer;
+				//if (Get.clickObject)
+				//	Get.clickObject.layer = Get.clickLayer;
 
 				if (Get.NextEventID > 0 && GamePlayTutorial.Visible)
 					GamePlayTutorial.Get.CheckNextEvent(Get.NextEventID);
@@ -62,9 +63,9 @@ public class UITutorial : UIBase {
 		tutorialMessage = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<UILabel>();
 		writeEffect = GameObject.Find(UIName + "/Center/Message/Text").GetComponent<TypewriterEffect>();
 		writeEffect.onFinished.Add(new EventDelegate(OnTextFinish));
-		uiClick = GameObject.Find(UIName + "/Click");
 		uiCenter = GameObject.Find(UIName + "/Center");
-
+		uiClick = GameObject.Find(UIName + "/Hint/Click");
+		buttonClick = uiClick.GetComponent<UIButton>();
 		for (int i = 0; i < manNum; i++) {
 			uiTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString());
 			labelTalk[i] = GameObject.Find(UIName + "/Center/Talk" + i.ToString() + "/Name").GetComponent<UILabel>();
@@ -112,7 +113,7 @@ public class UITutorial : UIBase {
 
 					UI3DTutorial.Get.ShowTutorial(ref tu);
 				} else
-					ShowArrow(tu.UIpath, tu.Offsetx, tu.Offsety);
+					ShowHint(tu.UIpath, tu.Offsetx, tu.Offsety);
 			} else {
 				Debug.Log(NowMessageIndex.ToString() + " tutorial message index not found.");
 			}
@@ -139,6 +140,11 @@ public class UITutorial : UIBase {
         OnTutorial();
     }
 
+	public void OnClickHint() {
+		uiClick.SetActive(false);
+		OnTutorial();
+	}
+
 	private void waitAddTutorialFlag(bool ok, WWW www) {
 		if (ok) {
 			TTeam team = JsonConvert.DeserializeObject <TTeam>(www.text, SendHttp.Get.JsonSetting); 
@@ -161,7 +167,7 @@ public class UITutorial : UIBase {
 				}
 			} else {
 				UIShow(false);
-				if (GameData.DTutorial.ContainsKey(NowMessageIndex)) {
+				if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
 					if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
 						GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
 						WWWForm form = new WWWForm();
@@ -173,7 +179,7 @@ public class UITutorial : UIBase {
 		}
 	}
 
- 	public GameObject ShowArrow(string path, int offsetx, int offsety) {
+ 	public void ShowHint(string path, int offsetx, int offsety) {
 		Vector3 v;
 		GameObject obj = GameObject.Find(path);
 		if(obj) {
@@ -181,33 +187,46 @@ public class UITutorial : UIBase {
 			uiCenter.SetActive(false);
 			uiClick.SetActive(true);
 
-            UIEventListener.Get(obj).onClick = ButtonClickClose;
+			UIButton btn = obj.GetComponent<UIButton>();
+			if (btn && btn.onClick.Count > 0) {
+				buttonClick.onClick.Clear();
+				buttonClick.onClick.Add(btn.onClick[0]);
+				buttonClick.onClick.Add(new EventDelegate(OnClickHint));
 
-			v = obj.transform.position;
-			v.x += offsetx;
-			v.y += offsety;
-			uiClick.transform.position = v;
-
-			if (clickObject) {
-				clickObject.layer = clickLayer;
+				v = obj.transform.position;
+				v.x += offsetx;
+				v.y += offsety;
+				uiClick.transform.position = v;
 			}
 
-			clickObject = obj;
-			clickLayer = obj.layer;
+			//UIEventListener.Get(obj).onClick = ButtonClickClose;
 
-			LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
-			UIPanel Panel = obj.GetComponent<UIPanel>();
-			if(Panel == null)
-				Panel = obj.AddComponent<UIPanel>();
+			//if (clickObject) {
+			//	clickObject.layer = clickLayer;
+			//}
+
+			//clickObject = obj;
+			//clickLayer = obj.layer;
+
+			//LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
+			//UIPanel Panel = obj.GetComponent<UIPanel>();
+			//if(Panel == null)
+			//	Panel = obj.AddComponent<UIPanel>();
 			
-			Panel.depth = EUIDepth.TutorialButton.GetHashCode();
-			obj.SetActive(false);
-			obj.SetActive(true);
-			return obj;
+			//Panel.depth = EUIDepth.TutorialButton.GetHashCode();
+			//obj.SetActive(false);
+			//obj.SetActive(true);
 		} else {
 			Debug.Log("Button not found " + path);
-			Show(false);
-			return null;
+			UIShow(false);
+			if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
+				if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
+					GameData.Team.AddTutorialFlag(GameData.DTutorial[NowMessageIndex].ID);
+					WWWForm form = new WWWForm();
+					form.AddField("ID", GameData.DTutorial[NowMessageIndex].ID);
+					SendHttp.Get.Command(URLConst.AddTutorialFlag, waitAddTutorialFlag, form, false);
+				}
+			}
 		}
 	}
 }

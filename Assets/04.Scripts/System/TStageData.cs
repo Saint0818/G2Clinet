@@ -154,6 +154,10 @@ public class TStageData
 		get {return Chapter == 0;}
 	}
 
+	public bool IsOnlineFriend {
+		get {FriendKind == 1 || FriendKind == 2;}
+	}
+
     public override string ToString()
     {
         return String.Format("ID: {0}, Chapter: {1}, Order: {2}", ID, Chapter, Order);

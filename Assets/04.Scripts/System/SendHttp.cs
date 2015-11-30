@@ -35,7 +35,7 @@ public static class URLConst {
 	public const string PVEEnd = "pveend";
 	public const string StageRewardStart = "stagerewardstart";
 	public const string StageRewardAgain = "stagerewardagain";
-	public const string StageTutorial = "stagetutorial";
+	public const string AddStageTutorial = "addstagetutorial";
 	public const string GameRecord = "gamerecord";
 	public const string BuyAvatarItem = "buyavataritem";
 
@@ -223,6 +223,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (string.IsNullOrEmpty(www.error)) {
 			if (www.text.Contains("{err:")) {
 				string e = www.text.Substring(6, www.text.Length - 7);
+				Debug.Log(www.url);
 				Debug.Log(e);
 				
 				if (e.Contains("Your data error")) {
@@ -266,10 +267,11 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		} else
 		{
 			Debug.Log(www.url + " : " + www.error);
-			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host"))
+			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host")) {
+				UIWaitingHttp.UIShow(false);
 				UIMessage.Get.ShowMessage(TextConst.S(38), TextConst.S(7));
-			else
-			if (UILoading.Visible) {
+			} else
+			if (SceneMgr.Get.CurrentScene == ESceneName.Main) {
 				if (!versionChecked)
 					checkVersion();
 				else
@@ -375,9 +377,9 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					SendHttp.Get.cookieHeaders.Clear();
 					SendHttp.Get.cookieHeaders.Add("COOKIE", www.responseHeaders ["SET-COOKIE"]);
 				}
-				
-				if (GameData.Team.Player.Lv == 0) {
-					GameData.StageID = 1;
+
+				GameData.StageID = GameData.Team.StageTutorial + 1;
+				if (GameData.Team.Player.Lv == 0 && StageTable.Ins.HasByID(GameData.StageID)) {
 					int courtNo = StageTable.Ins.GetByID(GameData.StageID).CourtNo;
 					SceneMgr.Get.CurrentScene = "";
 					SceneMgr.Get.ChangeLevel (courtNo);

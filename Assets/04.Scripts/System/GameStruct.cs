@@ -17,6 +17,7 @@ namespace GameStruct
 		public DateTime LookFriendTime;
 		public DateTime FreeLuckBox;
 	    public int PlayerNum; // 玩家擁有幾位角色.
+		public int StageTutorial;
 
 	    public event CommonDelegateMethods.Int1 OnMoneyChangeListener;
 	    public int Money

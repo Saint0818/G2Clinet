@@ -657,8 +657,8 @@ public class UIGame : UIBase {
 	}
 	public void DoSkill(GameObject go, bool state){
 		if(PlayerMe.Attribute.ActiveSkills.Count > 0 && go && IsPlayerMe) {
-			int id = 0;
-			if(int.TryParse(go.name, out id)) {
+			int id = -1;
+			if(int.TryParse(go.name, out id) && id >= 0 && id < PlayerMe.Attribute.ActiveSkills.Count) {
 				PlayerMe.ActiveSkillUsed = PlayerMe.Attribute.ActiveSkills[id];
 				if(!state) 
 					if(isShowSkillRange)
@@ -1460,6 +1460,9 @@ public class UIGame : UIBase {
 					if (i < uiTutorial2.Length)
 						uiTutorial2[i].SetActive(v);
 				}
+
+				if (!uiPassObjectGroup[0].activeInHierarchy)
+					ClearLine();
 
 				if (uiTutorial[8].activeInHierarchy)
 					uiJoystick.Joystick.isActivated = true;

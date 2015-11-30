@@ -65,7 +65,7 @@ public class UIUpdateVersion : UIBase {
 	}
 
 	protected override void InitText(){
-		SetLabel (UIName + "/Background/Title", TextConst.S(12035) + GameData.ServerVersion);
+		SetLabel (UIName + "/Background/Title", TextConst.S(604) + GameData.ServerVersion);
 	}
 
 	public void AppStore(){

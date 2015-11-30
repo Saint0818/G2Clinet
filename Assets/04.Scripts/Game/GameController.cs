@@ -281,6 +281,12 @@ public class GameController : KnightSingleton<GameController>
 			UIGame.Get.MaxScores[0] = StageData.WinValue;
 			UIGame.Get.MaxScores[1] = StageData.WinValue;
 			CourtMgr.Get.ChangeBasket(StageData.CourtNo);
+
+			if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
+				GameData.Team.StageTutorial = StageData.ID + 1;
+				WWWForm form = new WWWForm();
+				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
+			}
 		} else {
 			StageData.Clear();
 			int a = GameStart.Get.GameWinTimeValue > 0 ? 1 : 0;
@@ -3635,9 +3641,7 @@ public class GameController : KnightSingleton<GameController>
 			WWWForm form = new WWWForm();
 			form.AddField("StageID", stageID);
 
-			if (StageData.IsTutorial)
-				SendHttp.Get.Command(URLConst.StageTutorial, null, form, false);
-			else
+			if (!StageData.IsTutorial)
 				SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
 		}
     }

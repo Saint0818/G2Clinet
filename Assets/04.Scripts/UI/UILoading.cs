@@ -121,6 +121,10 @@ public class UILoading : UIBase {
 	protected override void OnShow(bool isShow) {
 		if (isShow)
 			StartCoroutine(doLoading(loadingKind));
+		else {
+			nowProgress = 0;
+			ProgressValue = 0;
+		}
 	}
 
 	private void initLoadingPic(ELoading kind = ELoading.SelectRole) {
@@ -219,18 +223,19 @@ public class UILoading : UIBase {
 				UI3D.Get.ShowCamera(false);
 
 			AudioMgr.Get.PlayMusic(EMusicType.MU_game1);
-			waitTime = Mathf.Max(minWait, maxWait - Time.time + startTimer);
-			yield return new WaitForSeconds (waitTime);
 
 			if (GameData.Team.Player.Lv == 0) {
 				UICreateRole.Get.ShowPositionView();
 				UI3DCreateRole.Get.PositionView.PlayDropAnimation();
-				UIMainLobby.Get.Hide ();
+				UIMainLobby.Get.HideAll ();
 			} else 
 			if (OpenUI != null) {
 				OpenUI();
 				OpenUI = null;
 			}
+
+			if (UITutorial.Visible)
+				uiLoadingProgress.fillAmount = 1;
 
 			UIShow(false);
 

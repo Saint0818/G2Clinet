@@ -9,7 +9,6 @@ public enum EUIRoleSituation {
 	ListA = 1,
 	ListB = 2,
 	SelectRole = 3,
-	ControlMusic = 4,
 	ChooseRole = 5,
 	BackToSelectMe = 6,
 	Start = 7,
@@ -20,7 +19,7 @@ public class UISelectRole : UIBase {
 	private static UISelectRole instance = null;
 	private const string UIName = "UISelectRole";
 
-	private static int[] selectRoleID = new int[6]{14, 24, 34, 19, 29, 39};
+	private static int[] selectRoleID = new int[6]{11, 12, 13, 31, 32, 33};
 	private const int MaxValue = 100;
 	private float axisX;
 	private float roleFallTime = 0;
@@ -43,10 +42,14 @@ public class UISelectRole : UIBase {
 	private GameObject uiShowTime;
 	private GameObject uiCharacterCheck;
 	private GameObject uiInfoRange;
+	private GameObject uiPartnerList;
+	private GameObject uiChangPlayerA;
+	private GameObject uiChangPlayerB;
+	private GameObject uiSelectA;
+	private GameObject uiSelectB;
 
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
-	private UISprite spriteMusicOn;
 
 	private UILabel [] labelsSelectABName = new UILabel[2];
 	private UILabel [] labelsSelectAListName = new UILabel[3];
@@ -263,11 +266,12 @@ public class UISelectRole : UIBase {
 				buttonSelectRole[i].SetActive(false);
 		}
 
-		SetBtnFun (UIName + "/Right/MusicSwitch/ButtonMusic", DoControlMusic);
 		SetBtnFun (UIName + "/Right/CharacterCheck", DoChooseRole);
 		SetBtnFun (UIName + "/Left/Back", DoBackToSelectMe);
 		SetBtnFun (UIName + "/Right/GameStart", DoStart);
-		SetBtnFun (UIName + "/Left/SelectCharacter/Back", DoBackToMode);
+		SetBtnFun (UIName + "/Center/ViewLoading/ChangPlayerA", OnChangePlayer);
+		SetBtnFun (UIName + "/Center/ViewLoading/ChangPlayerB", OnChangePlayer);
+
 		GameObject.Find (UIName + "/Left/SelectCharacter/Back").SetActive(false);
 
 		animatorLeft = GameObject.Find (UIName + "/Left").GetComponent<Animator>();
@@ -279,8 +283,6 @@ public class UISelectRole : UIBase {
 		uiShowTime = GameObject.Find(UIName + "/Center/ShowTimeCollider");
 		uiCharacterCheck = GameObject.Find(UIName + "/Right/CharacterCheck");
 		uiInfoRange = GameObject.Find(UIName + "/Right/InfoRange");
-		spriteMusicOn = GameObject.Find (UIName + "/Right/MusicSwitch/ButtonMusic/On").GetComponent<UISprite>();
-		spriteMusicOn.enabled = GameData.Setting.Music;
 		labelPlayerName = GameObject.Find (UIName + "/Right/InfoRange/PlayerName/Label").GetComponent<UILabel>();
 		spritePlayerBodyPic = GameObject.Find (UIName + "/Right/InfoRange/BodyType/SpriteType").GetComponent<UISprite>();
 		labelsSelectABName[0] = GameObject.Find(UIName + "/Center/ViewLoading/SelectA/PlayerNameA/Label").GetComponent<UILabel>();
@@ -308,6 +310,18 @@ public class UISelectRole : UIBase {
         GameObject obj = GameObject.Find("UISelectRole/Right/InfoRange/UIAttributeHexagon");
         mUIAttributes = obj.GetComponent<UIAttributes>();
         mUIAttributes.PlayScale(1.5f); // 1.5 是 try and error 的數值, 看起來效果比較順暢.
+
+		uiPartnerList = GameObject.Find(UIName + "/Center/ViewLoading/PartnerList");
+		uiChangPlayerA = GameObject.Find(UIName + "/Center/ViewLoading/ChangPlayerA");
+		uiChangPlayerB = GameObject.Find(UIName + "/Center/ViewLoading/ChangPlayerB");
+		uiSelectA = GameObject.Find(UIName + "/Center/ViewLoading/SelectA");
+		uiSelectB = GameObject.Find(UIName + "/Center/ViewLoading/SelectB");
+
+		uiPartnerList.SetActive(false);
+		uiChangPlayerA.SetActive(false);
+		uiChangPlayerB.SetActive(false);
+		uiSelectA.SetActive(false);
+		uiSelectB.SetActive(false);
 	}
 
 	protected override void InitData() {
@@ -394,10 +408,6 @@ public class UISelectRole : UIBase {
 			UIState(EUIRoleSituation.BackToSelectMe);
 		}
 	}
-	
-	public void DoControlMusic() {
-		UIState(EUIRoleSituation.ControlMusic);
-	}
 
 	public void DoStart(){
 		UIState(EUIRoleSituation.Start);
@@ -420,6 +430,10 @@ public class UISelectRole : UIBase {
 			doubleClickTime = 1;
 			UIState(EUIRoleSituation.ChooseRole);
 		}
+	}
+
+	public void OnChangePlayer(){
+		UISelectPartner.UIShow(true);
 	}
 
 	public void SelectRole() {
@@ -554,8 +568,15 @@ public class UISelectRole : UIBase {
 	private void UIState(EUIRoleSituation state) {
 		int id = 0;
 
+
 		switch (state) {
-		case EUIRoleSituation.SelectRole:{
+		case EUIRoleSituation.SelectRole:
+			uiSelectA.SetActive(false);
+			uiSelectB.SetActive(false);
+			uiPartnerList.SetActive(false);
+			uiChangPlayerA.SetActive(false);
+			uiChangPlayerB.SetActive(false);
+
 			int roleIndex;
 			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out roleIndex)) {
 				if(selectRoleIndex != roleIndex) {
@@ -577,13 +598,21 @@ public class UISelectRole : UIBase {
 					setTriangleData();
 				}
 			}
-		}
-			break;
-		case EUIRoleSituation.ControlMusic:
-			spriteMusicOn.enabled = !spriteMusicOn.enabled;
-			AudioMgr.Get.MusicOn(spriteMusicOn.enabled);	
+
 			break;
 		case EUIRoleSituation.ChooseRole:
+			uiSelectA.SetActive(true);
+			uiSelectB.SetActive(true);
+			uiPartnerList.SetActive(false);
+			uiChangPlayerA.SetActive(false);
+			uiChangPlayerB.SetActive(false);
+
+			if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
+				uiChangPlayerA.SetActive(true);
+				uiChangPlayerB.SetActive(true);
+			} else
+				uiPartnerList.SetActive(true);
+
 			uiSelect.SetActive(false);
 			arrayAnimator[0].SetTrigger("Idle");
             mUIAttributes.SetVisible(false);
@@ -724,9 +753,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void InitFriend() {
-		int kind = StageTable.Ins.GetByID(GameData.StageID).FriendKind;
-
-		if ((kind == 1 || kind == 2)) {
+		if ((StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend)) {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
 				WWWForm form = new WWWForm();
 				SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form);
@@ -738,6 +765,7 @@ public class UISelectRole : UIBase {
 				UIState(EUIRoleSituation.ChooseRole);
 			}
 		} else {
+			InitPlayerList(ref StageTable.Ins.GetByID(GameData.StageID).FriendID);
 			selectFriendMode();
 			UIState(EUIRoleSituation.ChooseRole);
 		}
