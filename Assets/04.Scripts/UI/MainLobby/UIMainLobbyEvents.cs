@@ -1,0 +1,39 @@
+﻿using UnityEngine;
+
+public class UIMainLobbyEvents : MonoBehaviour
+{
+    public void ShowSettings()
+    {
+        UISetting.UIShow(true);
+    }
+
+    public void ShowAvatarFitted()
+    {
+        UIAvatarFitted.UIShow(true);
+        UIMainLobby.Get.Hide();
+    }
+
+    public void ShowStage()
+    {
+        UIGameLobby.Get.Show();
+        UIMainLobby.Get.Hide();
+    }
+
+    public void ShowSkillFormation()
+    {
+        UISkillFormation.UIShow(true);
+        UIMainLobby.Get.Hide();
+    }
+
+    public void ShowEquipment()
+    {
+        UIEquipment.Get.Show();
+        UIMainLobby.Get.Hide();
+    }
+
+    public void ShowPlayerInfo()
+    {
+        UIMainLobby.Get.Hide();
+        UIPlayerInfo.UIShow(true);
+    }
+}

@@ -1,15 +1,28 @@
 [
     {
+        "lv": 1,
+        "lvexp": 0
+    },
+    {
         "lv": 2,
-        "lvexp": 10
+        "lvexp": 10,
+        "openindex": 5
     },
     {
         "lv": 3,
-        "lvexp": 15
+        "lvexp": 15,
+        "openindex": 1,
+        "unlockhint": 402,
+        "ui": 1,
+        "unlockname": 452
     },
     {
         "lv": 4,
-        "lvexp": 20
+        "lvexp": 20,
+        "openindex": 2,
+        "unlockhint": 403,
+        "ui": 1,
+        "unlockname": 453
     },
     {
         "lv": 5,
@@ -269,10 +282,16 @@
     },
     {
         "lv": 69,
-        "lvexp": 345
+        "lvexp": 345,
+        "openindex": 3,
+        "unlockhint": 404,
+        "ui": 1
     },
     {
         "lv": 70,
-        "lvexp": 350
+        "lvexp": 350,
+        "openindex": 4,
+        "unlockhint": 405,
+        "ui": 1
     }
 ]

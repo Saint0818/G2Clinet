@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using GameEnum;
+using GameStruct;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -55,6 +56,11 @@ public class UIMainLobby : UIBase
         GameData.Team.OnPowerChangeListener -= onPowerChange;
     }
 
+    public bool IsVisible
+    {
+        get { return Main.IsShow; }
+    }
+
     public void Show()
     {
         Show(true);
@@ -64,13 +70,66 @@ public class UIMainLobby : UIBase
         Main.Show();
 
         Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
-		Main.AvatarNotice = GameData.AvatarNoticeEnable ();
+		Main.AvatarNotice = GameData.AvatarNoticeEnable();
 
         playMoneyAnimation(AnimDelay);
         playPowerAnimation(AnimDelay);
         playDiamondAnimation(AnimDelay);
 
+        updateButtons();
+
         ResetCommands.Get.Run();
+    }
+
+    /// <summary>
+    /// 更新大廳下面按鈕的狀態.
+    /// </summary>
+    private void updateButtons()
+    {
+        /*
+        1.解鎖數值裝
+        2.解鎖Avatar
+        3.解鎖大廳左一按鈕(Shop)
+        4.解鎖大廳左二按鈕(Social)
+        5.解鎖技能介面
+        */
+
+        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 1);
+        foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
+        {
+            bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
+            switch(pair.Value.OpenIndex)
+            {
+                case 1:
+                    updateButton(Main.EquipButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    break;
+                case 2:
+                    updateButton(Main.AvatarButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    break;
+                case 3:
+                    updateButton(Main.ShopButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    break;
+                case 4:
+                    updateButton(Main.SocialButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    break;
+                case 5:
+                    updateButton(Main.SkillButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    break;
+            }
+        }
+
+        if(PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
+        {
+            PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+    private void updateButton(UIMainLobbyButton button, bool isEnable, bool playSFX)
+    {
+        button.IsEnable = isEnable;
+        if(playSFX && PlayerPrefs.HasKey(ESave.LevelUpFlag.ToString()))
+            button.PlaySFX();
     }
 
     public void UpdateUI()
@@ -147,7 +206,7 @@ public class UIMainLobby : UIBase
 
     private void playDiamondAnimation(float delay = 0)
     {
-        if (PlayerPrefs.HasKey(ESave.DiamondChange.ToString()))
+        if(PlayerPrefs.HasKey(ESave.DiamondChange.ToString()))
         {
             Main.PlayDiamondAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.DiamondChange.ToString());
@@ -157,7 +216,7 @@ public class UIMainLobby : UIBase
 
     private void playPowerAnimation(float delay = 0)
     {
-        if (PlayerPrefs.HasKey(ESave.PowerChange.ToString()))
+        if(PlayerPrefs.HasKey(ESave.PowerChange.ToString()))
         {
             Main.PlayPowerAnimation(delay);
             PlayerPrefs.DeleteKey(ESave.PowerChange.ToString());

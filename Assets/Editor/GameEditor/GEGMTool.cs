@@ -151,7 +151,7 @@ public class GEGMTool : GEBase
 		if (!IsInitPlayerInfo)
 			return;
 
-		AddPlayeLv ();
+		SetPlayeLv ();
 		AddAvatarPotential ();
 
 		if (Potential.Count > 0) {
@@ -220,6 +220,7 @@ public class GEGMTool : GEBase
         addMoney();
 	    addDiamond();
         addPower();
+        addExp();
 	}
 
     private int mAddMoney;
@@ -306,6 +307,40 @@ public class GEGMTool : GEBase
             Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddPower);
     }
 
+    private int mAddExp;
+    private void addExp()
+    {
+        EditorGUILayout.BeginHorizontal();
+        GUILayout.Label("Add Exp");
+        mAddExp = EditorGUILayout.IntField(mAddExp, GUILayout.Width(100));
+        if (GUILayout.Button("Add", GUILayout.Width(50)))
+        {
+            WWWForm form = new WWWForm();
+            form.AddField("AddExp", mAddExp);
+            SendHttp.Get.Command(URLConst.GMAddExp, waitGMAddExp, form);
+        }
+        EditorGUILayout.EndHorizontal();
+    }
+
+    private class TAddExp
+    {
+        public int Exp;
+        public int Lv;
+    }
+    private void waitGMAddExp(bool ok, WWW www)
+    {
+        Debug.LogFormat("waitGMAddExp, ok:{0}", ok);
+
+        if (ok)
+        {
+            var team = JsonConvert.DeserializeObject<TAddExp>(www.text);
+            GameData.Team.Player.Exp = team.Exp;
+            GameData.Team.Player.Lv = team.Lv;
+        }
+        else
+            Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddPower);
+    }
+
     private bool HaveChange()
 	{
 		for (int i = 0; i< addPotential.Length; i++)
@@ -337,7 +372,7 @@ public class GEGMTool : GEBase
 		}
 	}
 
-	private void AddPlayeLv()
+	private void SetPlayeLv()
 	{
 		EditorGUILayout.BeginHorizontal();
 		GUILayout.Label(string.Format("等級潛能點 : {0} - {1} / {2}", CrtLvPotential, useLvPotential,LvPotential)); 
@@ -348,7 +383,7 @@ public class GEGMTool : GEBase
 			if(playerlv != GameData.Team.Player.Lv){
 				WWWForm form = new WWWForm();
 				form.AddField("Lv", playerlv);
-				SendHttp.Get.Command(URLConst.GMAddLv, waitGMPlayerInfo, form);
+				SendHttp.Get.Command(URLConst.GMSetLv, waitGMPlayerInfo, form);
 			}
 			else
 				ShowHint("請設定Player Lv");
@@ -534,10 +569,14 @@ public class GEGMTool : GEBase
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			ShowHint("PlayerLv Upgrade " + GameData.Team.Player.Lv + " > " + team.Player.Lv);
 			GameData.Team.Player.Lv = team.Player.Lv;
+			GameData.Team.Player.Exp = team.Player.Exp;
 			GameData.Team.AvatarPotential = team.AvatarPotential;
 			InitPotentialPoint();
+
+            if(UIMainLobby.Get.IsVisible)
+                UIMainLobby.Get.Show();
 		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddLv);
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
 	}
 
 	private void waitGMAddAvatarPotential(bool ok, WWW www)
@@ -555,7 +594,7 @@ public class GEGMTool : GEBase
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
 			GameData.Team.Player.Potential = team.Player.Potential;
 		}else
-			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMAddLv);
+			Debug.LogErrorFormat("Protocol:{0}", URLConst.GMSetLv);
 	}
 
     private int mNextMainStageID = GameConst.Default_MainStageID;

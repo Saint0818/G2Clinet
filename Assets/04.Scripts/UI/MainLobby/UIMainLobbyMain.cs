@@ -1,6 +1,4 @@
-﻿using GameStruct;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -28,17 +26,24 @@ public class UIMainLobbyMain : MonoBehaviour
     public TweenScale PowerTweenScale;
 
     public GameObject Settings;
-	public UIButton PlayerInfoBtn;
+
     public UILabel NameLabel;
 
+    // 紅點.
     public GameObject EquipmentNoticeObj;
     public GameObject AvatarNoticeObj;
+
+    // 畫面下方的主要功能按鈕.
+    public UIMainLobbyButton AvatarButton;
+    public UIMainLobbyButton EquipButton;
+    public UIMainLobbyButton SkillButton;
+    public UIMainLobbyButton ShopButton;
+    public UIMainLobbyButton SocialButton;
 
     [UsedImplicitly]
     private void Awake()
     {
         FullScreenBlock.SetActive(false);
-		PlayerInfoBtn.onClick.Add (new EventDelegate (ShowPlayerInfo));
     }
 
     public int Money
@@ -95,7 +100,7 @@ public class UIMainLobbyMain : MonoBehaviour
 
 	public bool AvatarNotice
 	{
-		set{AvatarNoticeObj.SetActive(value); }
+		set{ AvatarNoticeObj.SetActive(value); }
 	}
 
     /// <summary>
@@ -106,6 +111,8 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         FullScreenBlock.SetActive(enable);
     }
+
+    public bool IsShow { get { return Settings.activeSelf; } }
 
     public void Show()
     {
@@ -146,60 +153,6 @@ public class UIMainLobbyMain : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger("MainLobby_Down");
     }
-
-    public void ShowCreateRole()
-    {
-		UISetting.UIShow (true);
-    }
-
-    private void waitLookPlayerBank(bool isSuccess, WWW www)
-    {
-        if (!isSuccess)
-        {
-            Debug.LogErrorFormat("Protocol:{0}, request data fail.", URLConst.LookPlayerBank);
-            return;
-        }
-
-        TLookUpData lookUpData = JsonConvert.DeserializeObject<TLookUpData>(www.text);
-        var data = UICreateRole.Convert(lookUpData.PlayerBanks);
-        if (data != null)
-        {
-            UICreateRole.Get.ShowFrameView(data, lookUpData.SelectedRoleIndex, GameData.Team.PlayerNum);
-            UIMainLobby.Get.Hide();
-        }
-        else
-            Debug.LogError("Data Error!");
-    }
-
-    public void ShowAvatarFitted()
-    {
-        UIAvatarFitted.UIShow(true);
-        UIMainLobby.Get.Hide();
-    }
-
-    public void ShowStage()
-    {
-        UIGameLobby.Get.Show();
-        UIMainLobby.Get.Hide();
-    }
-
-    public void ShowSkillFormation()
-    {
-        UISkillFormation.UIShow(true);
-        UIMainLobby.Get.Hide();
-    }
-
-    public void ShowEquipment()
-    {
-        UIEquipment.Get.Show();
-        UIMainLobby.Get.Hide();
-    }
-	
-	public void ShowPlayerInfo()
-	{
-		UIMainLobby.Get.Hide();
-		UIPlayerInfo.UIShow (true);
-	}
 
     public void ChangePlayerName()
     {

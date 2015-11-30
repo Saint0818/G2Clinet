@@ -109,12 +109,13 @@ public static class URLConst {
 	public const string GMAddMoney = "gmaddmoney";
 	public const string GMAddDiamond = "gmadddiamond";
 	public const string GMAddPower = "gmaddpower";
-	public const string GMAddLv = "gmaddlv";
-	public const string GMAddAvatarPotential = "gmaddavatarpotential";
-	public const string GMSavePotential = "gmsavepotential";
-	public const string GMSetNextMainStageID = "gmsetnextmainstageid";
-	public const string GMResetStage = "gmresetstage";
-	public const string ChangeAvatar = "changeavatar";
+    public const string GMAddExp = "gmaddexp";
+    public const string GMSetLv = "gmsetlv";
+    public const string GMAddAvatarPotential = "gmaddavatarpotential";
+    public const string GMSavePotential = "gmsavepotential";
+    public const string GMSetNextMainStageID = "gmsetnextmainstageid";
+    public const string GMResetStage = "gmresetstage";
+    public const string ChangeAvatar = "changeavatar";
 	public const string Potential = "potential";
 	public const string ChangeValueItems = "changevalueitems";
 }
