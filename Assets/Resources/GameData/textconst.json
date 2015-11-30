@@ -1662,11 +1662,6 @@
         "explain": "大門(Door)"
     },
     {
-        "id": 12001,
-        "explain": "LabelTitle",
-        "tw": "設 定"
-    },
-    {
         "id": 12002,
         "explain": "0/TabLabel",
         "tw": "遊 戲"
@@ -1838,6 +1833,22 @@
         "tw": "選擇其他角色"
     },
     {
+        "id": 12033,
+        "tw": "遊戲公告"
+    },
+    {
+        "id": 12034,
+        "tw": "今天不再出現"
+    },
+    {
+        "id": 12035,
+        "tw": "遊戲更新"
+    },
+    {
+        "id": 12036,
+        "tw": "從官網更新"
+    },
+    {
         "id": 2000001,
         "explain": "競賽情報",
         "tw": "時間競賽"
@@ -1878,7 +1889,7 @@
         "id": 2000018,
         "tw": "[FFDD33]時間[-][33FFDD]限制[-]",
         "cn": "[FFDD33]时间[-] [33FFDD]限制[-]",
-        "en": "[FD33] Time [-] [33FFFF] limit [-]"
+        "en": "[FFDD33] Time [-] [33FFFF] limit [-]"
     },
     {
         "id": 2000019,
@@ -1930,7 +1941,7 @@
         "id": 2000208,
         "tw": "[FFDD33]得分[-][33FFDD]須達到[-]",
         "cn": "[FFDD33]得分[-][33FFDD]须达到[-]",
-        "en": "[FD33] score [-] [33FFFF] required[-]"
+        "en": "[FFDD33] score [-] [33FFFF] required[-]"
     },
     {
         "id": 2000209,
@@ -1958,7 +1969,7 @@
         "id": 2000308,
         "tw": "[FFDD33]失分[-][33FFDD]不超過[-]",
         "cn": "[FFDD33]失分[-][33FFDD]不超过[-]",
-        "en": "[FD33] lose points [-] [33FFFF] does not exceed [-]"
+        "en": "[FFDD33] lose points [-] [33FFFF] does not exceed [-]"
     },
     {
         "id": 2000309,
@@ -1970,7 +1981,7 @@
         "id": 2000401,
         "tw": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
-        "en": "FFDD33] {1} [-] as long again to get [FF3355] {0} minutes [-] can win."
+        "en": "[FFDD33] {1} [-] as long again to get [FF3355] {0} minutes [-] can win."
     },
     {
         "id": 2000402,
