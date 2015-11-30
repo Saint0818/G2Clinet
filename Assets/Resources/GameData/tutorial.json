@@ -45,26 +45,32 @@
     },
     {
         "id": 1,
-        "line": 7
+        "line": 7,
+        "uipath": "UI2D/UIGameLobby/MainView/Center/DragTilt/StageType/MainStageBtn"
     },
     {
         "id": 1,
         "line": 8,
-        "texttw": "確認了解我們這場比賽的獲勝條件之後，可以趕快開始了。"
+        "uipath": "UI2D/UIMainStage/MainView/ChapterView/Center/Chapters/UIGrid/stage101"
     },
     {
         "id": 1,
         "line": 9,
-        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/StartButton"
+        "texttw": "確認了解這場比賽的獲勝條件之後，就可以開始了。"
     },
     {
         "id": 1,
         "line": 10,
+        "uipath": "UI2D/UIMainStage/MainView/StageInfo/Window/Center/StartButton"
+    },
+    {
+        "id": 1,
+        "line": 11,
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
         "id": 1,
-        "line": 11
+        "line": 12
     },
     {
         "id": 2,
