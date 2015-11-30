@@ -14,7 +14,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "白皙肤色",
-        "nameen": "White color",
+        "nameen": "Light",
         "namejp": "白色"
     },
     {
@@ -30,7 +30,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黝黑膚色",
-        "nameen": "Dark brown color",
+        "nameen": "Brown",
         "namejp": "暗褐色"
     },
     {
@@ -151,7 +151,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "红铜肤色",
-        "nameen": "Copper color",
+        "nameen": "Hazelnut",
         "namejp": "銅色"
     },
     {
@@ -322,7 +322,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "白皙肤色",
-        "nameen": "White color",
+        "nameen": "Pale",
         "namejp": "白色"
     },
     {
@@ -338,7 +338,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "小麦肤色",
-        "nameen": "Wheat color",
+        "nameen": "Amber",
         "namejp": "小麦の色"
     },
     {
@@ -354,7 +354,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋身体3",
-        "nameen": "Forward body 3",
+        "nameen": "Dark Brown",
         "namejp": "フォワードボディ3"
     },
     {
@@ -630,7 +630,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "小麦肤色",
-        "nameen": "Wheat color",
+        "nameen": "Amber",
         "namejp": "小麦の色"
     },
     {
@@ -646,7 +646,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "深棕肤色",
-        "nameen": "Dark brown color",
+        "nameen": "Brown",
         "namejp": "暗褐色"
     },
     {
@@ -767,7 +767,7 @@
         "sell": 100,
         "buy": 500,
         "namecn": "白皙肤色",
-        "nameen": "White color",
+        "nameen": "Pale",
         "namejp": "白色"
     },
     {
@@ -938,9 +938,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黑色硬汉编发",
-        "nameen": "Black braided hair hero",
+        "nameen": "Black braided hair",
         "namejp": "黒編みこみヘアヒーロー",
-        "explaintw": "黑色編髮，硬漢風格。"
+        "explaintw": "黑色編髮，硬漢風格。",
+        "explainen": "Tough guy style, black braided hair"
     },
     {
         "id": 1002,
@@ -955,9 +956,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "金色帅气编发",
-        "nameen": "Handsome golden braided hair",
+        "nameen": "Blonde braided hair",
         "namejp": "ハンサムな金色の編組髪",
-        "explaintw": "柔軟金色編髮，更添帥氣。"
+        "explaintw": "柔軟金色編髮，更添帥氣。",
+        "explainen": "Handsome guy style, blonde braided hair"
     },
     {
         "id": 1003,
@@ -972,9 +974,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "白银老爹编发",
-        "nameen": "Silver Daddy braided hair",
+        "nameen": "Silver braided hair",
         "namejp": "シルバーパパが髪を編組",
-        "explaintw": "成熟男人的魅力。"
+        "explaintw": "成熟男人的魅力。",
+        "explainen": "Handsome mature daddy style, silver braided hair"
     },
     {
         "id": 1004,
@@ -990,9 +993,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "棕色卷毛",
-        "nameen": "Curly brown",
+        "nameen": "Curly brown hair",
         "namejp": "カーリーブラウン",
-        "explaintw": "自然捲散發溫柔氣息。"
+        "explaintw": "自然捲散發溫柔氣息。",
+        "explainen": "Natural curly hairstyle, brown hair"
     },
     {
         "id": 1005,
@@ -1252,9 +1256,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "红色热血发型",
-        "nameen": "Red blood hairstyle",
+        "nameen": "Cherry red hair",
         "namejp": "赤血球のヘアスタイル",
-        "explaintw": "有如火焰一般。"
+        "explaintw": "有如火焰一般。",
+        "explainen": "Strong flame-like red hair color"
     },
     {
         "id": 1102,
@@ -1269,9 +1274,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黑色神秘发型",
-        "nameen": "Mysterious black hair",
+        "nameen": "Raven black hair",
         "namejp": "謎の黒髪",
-        "explaintw": "讓人感到猜不透的黑色。"
+        "explaintw": "讓人感到猜不透的黑色。",
+        "explainen": "Pitch black hair color for cool people"
     },
     {
         "id": 1103,
@@ -1286,9 +1292,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "金色酷炫发型",
-        "nameen": "Gold cool hairstyle",
+        "nameen": "Blonde hair",
         "namejp": "ゴールドクールなヘアスタイル",
-        "explaintw": "亮眼的金色，人群中的焦點。"
+        "explaintw": "亮眼的金色，人群中的焦點。",
+        "explainen": "A gold tone for attention seekers"
     },
     {
         "id": 1104,
@@ -1304,9 +1311,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "山本头",
-        "nameen": "Yamamoto head",
+        "nameen": "Low fade hair",
         "namejp": "山本ヘッド",
-        "explaintw": "成熟中帶點復古風情。"
+        "explaintw": "成熟中帶點復古風情。",
+        "explainen": "SOmething a little retro fro tough guys"
     },
     {
         "id": 1105,
@@ -1321,9 +1329,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋头发5",
-        "nameen": "Striker hair 5",
+        "nameen": "Flame blue hair",
         "namejp": "ストライカーの毛5",
-        "explaintw": "俐落的帥勁髮型。"
+        "explaintw": "俐落的帥勁髮型。",
+        "explainen": "Blue hair color for those who want to shine"
     },
     {
         "id": 1106,
@@ -1399,9 +1408,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "紫色复仇发型",
-        "nameen": "Revenge purple hair",
+        "nameen": "Velvet purple hair",
         "namejp": "リベンジ紫髪",
-        "explaintw": "難見的紫色，不一般的氣息。"
+        "explaintw": "難見的紫色，不一般的氣息。",
+        "explainen": "Purpule hair color for those who stand above "
     },
     {
         "id": 1111,
@@ -1572,9 +1582,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "金色柔软马尾",
-        "nameen": "Golden soft ponytail",
+        "nameen": "Blonde ponytail",
         "namejp": "ゴールデンソフトポニーテール",
-        "explaintw": "有如啦啦隊長般耀眼。"
+        "explaintw": "有如啦啦隊長般耀眼。",
+        "explainen": "Bright as a cheerleader"
     },
     {
         "id": 1202,
@@ -1589,9 +1600,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "紫色冷艳马尾",
-        "nameen": "Purple ice horsetail",
+        "nameen": "Velvet purple ponytail",
         "namejp": "パープルアイスつくし",
-        "explaintw": "成熟撫媚的女人專屬。"
+        "explaintw": "成熟撫媚的女人專屬。",
+        "explainen": "A mature killer style"
     },
     {
         "id": 1203,
@@ -1606,9 +1618,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "亮蓝前卫马尾",
-        "nameen": "Bright blue garde horsetail",
+        "nameen": "Flame blue ponytail",
         "namejp": "明るい青前衛スギナ",
-        "explaintw": "前衛的亮眼藍髮。"
+        "explaintw": "前衛的亮眼藍髮。",
+        "explainen": "A dazzling style that will make everyone turn"
     },
     {
         "id": 1204,
@@ -1624,9 +1637,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "后卫头发4",
-        "nameen": "4 guard hair",
+        "nameen": "Golden blonde hair",
         "namejp": "4ガード髪",
-        "explaintw": "金髮辣妹專屬。"
+        "explaintw": "金髮辣妹專屬。",
+        "explainen": "Exclusive for stunning woman"
     },
     {
         "id": 1205,
@@ -1717,9 +1731,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "调酒师红发",
-        "nameen": "Bartender red hair",
+        "nameen": "Scarlett red hair",
         "namejp": "バーテンダー赤毛",
-        "explaintw": "像血腥瑪莉一樣的強烈。"
+        "explaintw": "像血腥瑪莉一樣的強烈。",
+        "explainen": "As red  as a Bloody Mary."
     },
     {
         "id": 1211,
@@ -2025,9 +2040,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "闪电手指虎",
-        "nameen": "Lightning brass knuckles",
+        "nameen": "Knuckle dusters",
         "namejp": "雷ブラスナックル",
-        "explaintw": "衝鋒用，威嚇性大於實用性。"
+        "explaintw": "衝鋒用，威嚇性大於實用性。",
+        "explainen": "Assault with, intimidating than practical."
     },
     {
         "id": 2011,
@@ -2258,9 +2274,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋手饰5",
-        "nameen": "Forward jewelry 5",
+        "nameen": "Gloves",
         "namejp": "フォワードジュエリー5",
-        "explaintw": "手套內部充滿流動能量。"
+        "explaintw": "手套內部充滿流動能量。",
+        "explainen": "Get some extra grip"
     },
     {
         "id": 2106,
@@ -2336,9 +2353,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "人造人手套",
-        "nameen": "Cyborg Gloves",
+        "nameen": "Cyborg gloves",
         "namejp": "サイボーグ手袋",
-        "explaintw": "避免內部電路外露。"
+        "explaintw": "避免內部電路外露。",
+        "explainen": "The ultimate grip for your game"
     },
     {
         "id": 2111,
@@ -2645,9 +2663,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "后卫手饰10",
-        "nameen": "Defender jewelry 10",
+        "nameen": "Bartender gloves",
         "namejp": "ディフェンダーの宝石10",
-        "explaintw": "可愛又便於調酒師工作的手套。"
+        "explaintw": "可愛又便於調酒師工作的手套。",
+        "explainen": "Gloves for those who like to play with style"
     },
     {
         "id": 2211,
@@ -2817,9 +2836,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黑色摇滚夹克",
-        "nameen": "Black Rock Jacket",
+        "nameen": "Black rider jacket",
         "namejp": "ブラックロックジャケット",
-        "explaintw": "搖滾皮衣，個人風格。"
+        "explaintw": "搖滾皮衣，個人風格。",
+        "explainen": "A personal style for a tough guy"
     },
     {
         "id": 3002,
@@ -2836,7 +2856,8 @@
         "namecn": "水洗牛仔夹克",
         "nameen": "Denim jacket",
         "namejp": "デニムのジャケット",
-        "explaintw": "百搭牛仔，久洗不爛。"
+        "explaintw": "百搭牛仔，久洗不爛。",
+        "explainen": "If you're feeling like a cowboy, this is the right one for you"
     },
     {
         "id": 3003,
@@ -2851,9 +2872,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "石绿刚硬夹克",
-        "nameen": "Dan Lvgang hard Jackets",
+        "nameen": "All Purpose Jacket",
         "namejp": "ダンLvgangハードジャケット",
-        "explaintw": "帶點西部風情的夾克。"
+        "explaintw": "帶點西部風情的夾克。",
+        "explainen": "This jacket will fit any kind of situations"
     },
     {
         "id": 3004,
@@ -2869,9 +2891,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "红色排汗衣",
-        "nameen": "Red sweat clothes",
+        "nameen": "Red training shirt",
         "namejp": "レッド汗服",
-        "explaintw": "運動時加速排汗。"
+        "explaintw": "運動時加速排汗。",
+        "explainen": "High permormance T-shirt that will keep you dry "
     },
     {
         "id": 3005,
@@ -2962,9 +2985,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "神秘图腾刺青",
-        "nameen": "Mysterious totem tattoos",
+        "nameen": "Tribal tatto",
         "namejp": "謎のトーテムタトゥー",
-        "explaintw": "來自印地安部落的勇者刺青。"
+        "explaintw": "來自印地安部落的勇者刺青。",
+        "explainen": "For brave man that are ready for battle"
     },
     {
         "id": 3011,
@@ -3134,9 +3158,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "深蓝夜幕风衣",
-        "nameen": "Dark blue windbreaker night",
+        "nameen": "Dark Ble Fleece",
         "namejp": "ダークブルーウインドブレーカーの夜",
-        "explaintw": "讓人隱身於夜色當中。"
+        "explaintw": "讓人隱身於夜色當中。",
+        "explainen": "For those who want to be out of the spotlight."
     },
     {
         "id": 3102,
@@ -3151,9 +3176,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "深红火焰风衣",
-        "nameen": "Crimson Flame Windbreaker",
+        "nameen": "Crimson Flame Fleece",
         "namejp": "クリムゾンフレイムウインドブレーカー",
-        "explaintw": "敵人看到你就畏懼。"
+        "explaintw": "敵人看到你就畏懼。",
+        "explainen": "It will implant fear into your enemies heart."
     },
     {
         "id": 3103,
@@ -3168,9 +3194,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "白紫亮眼风衣",
-        "nameen": "Baizi Liang eye windbreaker",
+        "nameen": "Electric Purple Fleece",
         "namejp": "Baizi梁の目のウインドブレーカー",
-        "explaintw": "高貴神秘的紫色。"
+        "explaintw": "高貴神秘的紫色。",
+        "explainen": "A color suited for those who give it all."
     },
     {
         "id": 3104,
@@ -3186,9 +3213,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "全套运动服",
-        "nameen": "A full Sportswear",
+        "nameen": "Sport Suit ",
         "namejp": "完全なスポーツ",
-        "explaintw": "舒適的運動服。"
+        "explaintw": "舒適的運動服。",
+        "explainen": "For maximum comfort during a game."
     },
     {
         "id": 3105,
@@ -3204,9 +3232,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋衣服5",
-        "nameen": "Striker clothes 5",
+        "nameen": "Elastic Clothes",
         "namejp": "ストライカー服5",
-        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。"
+        "explaintw": "特殊的剪裁搭配導流能量創造出絕佳效果。",
+        "explainen": "Special design to maximize energy."
     },
     {
         "id": 3106,
@@ -3284,7 +3313,8 @@
         "namecn": "生化人铠甲",
         "nameen": "Cyborg armor",
         "namejp": "サイボーグの鎧",
-        "explaintw": "用以保護柔軟的軀幹。"
+        "explaintw": "用以保護柔軟的軀幹。",
+        "explainen": "Extra protection for the body."
     },
     {
         "id": 3111,
@@ -3455,9 +3485,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "摇滚骑士夹克",
-        "nameen": "Rock Knights jacket",
+        "nameen": "Rocker Jacket",
         "namejp": "ロック騎士ジャケット",
-        "explaintw": "短擺皮夾克，微涼適穿。"
+        "explaintw": "短擺皮夾克，微涼適穿。",
+        "explainen": "A comfortable and stylish jacket."
     },
     {
         "id": 3202,
@@ -3472,9 +3503,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "桃粉骑士夹克",
-        "nameen": "Knight peach pink jacket",
+        "nameen": "Pink Leather Jacket",
         "namejp": "ナイトピーチピンクのジャケット",
-        "explaintw": "甜心桃粉色，亮眼登場。"
+        "explaintw": "甜心桃粉色，亮眼登場。",
+        "explainen": "A comfortable and stylish jacket for her."
     },
     {
         "id": 3203,
@@ -3489,9 +3521,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "雪白骑士夹克",
-        "nameen": "White knight jacket",
+        "nameen": "White Leather Jacket",
         "namejp": "白騎士ジャケット",
-        "explaintw": "宛如仙女般的白色。"
+        "explaintw": "宛如仙女般的白色。",
+        "explainen": "A comfortable and stylish faily-like jacket for her."
     },
     {
         "id": 3204,
@@ -3507,9 +3540,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "后卫衣服4",
-        "nameen": "Clothes guard 4",
+        "nameen": "Purple Leather Vest",
         "namejp": "服ガード4",
-        "explaintw": "清涼又帶有神秘的性感。"
+        "explaintw": "清涼又帶有神秘的性感。",
+        "explainen": "Cool and mysterious."
     },
     {
         "id": 3205,
@@ -3600,9 +3634,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "调酒师衬衫",
-        "nameen": "Bartender Shirts",
+        "nameen": "Bartender Shirt",
         "namejp": "バーテンダーシャツ",
-        "explaintw": "酒吧制服。"
+        "explaintw": "酒吧制服。",
+        "explainen": "Comfortable and cool"
     },
     {
         "id": 3211,
@@ -3772,9 +3807,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黑色摇滚短裤",
-        "nameen": "Black Rock Shorts",
+        "nameen": "Black Rocker Shorts",
         "namejp": "ブラックロックショーツ",
-        "explaintw": "搖滾皮褲，個人風格。"
+        "explaintw": "搖滾皮褲，個人風格。",
+        "explainen": "Rock your personal style."
     },
     {
         "id": 4002,
@@ -3789,9 +3825,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "水洗牛仔短裤",
-        "nameen": "Denim shorts",
+        "nameen": "Denim Shorts",
         "namejp": "デニムショートパンツ",
-        "explaintw": "百搭牛仔，久洗不爛。"
+        "explaintw": "百搭牛仔，久洗不爛。",
+        "explainen": "A wild cowboy style."
     },
     {
         "id": 4003,
@@ -3806,9 +3843,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "石绿刚硬短裤",
-        "nameen": "Dan Lvgang hard Shorts",
+        "nameen": "Rider Shorts",
         "namejp": "ダンLvgangハードショーツ",
-        "explaintw": "帶點西部風情的短褲。"
+        "explaintw": "帶點西部風情的短褲。",
+        "explainen": "Very stylish shorts."
     },
     {
         "id": 4004,
@@ -3824,9 +3862,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "紧身裤",
-        "nameen": "Briefs",
+        "nameen": "Leggings",
         "namejp": "ブリーフ",
-        "explaintw": "運動時加速排汗。"
+        "explaintw": "運動時加速排汗。",
+        "explainen": "For maximum comfort on the game."
     },
     {
         "id": 4005,
@@ -3917,9 +3956,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "摔角冠军腰带",
-        "nameen": "Wrestling title belt",
+        "nameen": "Wrestling Belt",
         "namejp": "レスリングのタイトルベルト",
-        "explaintw": "貨真價實，非裝飾品。"
+        "explaintw": "貨真價實，非裝飾品。",
+        "explainen": "No decorations needed for the champ"
     },
     {
         "id": 4011,
@@ -4089,9 +4129,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "深蓝热身长裤",
-        "nameen": "Dark blue warm-up pants",
+        "nameen": "Dark Blue Sportpants",
         "namejp": "ダークブルーウォームアップパンツ",
-        "explaintw": "讓人隱身於夜色當中。"
+        "explaintw": "讓人隱身於夜色當中。",
+        "explainen": "For those who want to be out of the spotlight"
     },
     {
         "id": 4102,
@@ -4106,9 +4147,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黑色热身长裤",
-        "nameen": "Black warm-up pants",
+        "nameen": "Black Sportpants",
         "namejp": "ブラックウォームアップパンツ",
-        "explaintw": "敵人看到你就畏懼。"
+        "explaintw": "敵人看到你就畏懼。",
+        "explainen": "It will implant fear into your enemies heart."
     },
     {
         "id": 4103,
@@ -4123,9 +4165,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "紫色热身长裤",
-        "nameen": "Purple warm-up pants",
+        "nameen": "Purple Sportpants",
         "namejp": "パープルウォームアップパンツ",
-        "explaintw": "高貴神秘的紫色。"
+        "explaintw": "高貴神秘的紫色。",
+        "explainen": "A color suited for those who give it all."
     },
     {
         "id": 4104,
@@ -4141,9 +4184,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋裤子4",
-        "nameen": "Forward 4 pants",
+        "nameen": "Track Suit",
         "namejp": "フォワード4パンツ",
-        "explaintw": "舒服的運動褲。"
+        "explaintw": "舒服的運動褲。",
+        "explainen": "For maximum comfort during a game."
     },
     {
         "id": 4105,
@@ -4161,7 +4205,8 @@
         "namecn": "前锋裤子5",
         "nameen": "Forward pants 5",
         "namejp": "フォワードパンツ5",
-        "explaintw": "帶有流動能量，且包覆性極佳。"
+        "explaintw": "帶有流動能量，且包覆性極佳。",
+        "explainen": "With boosting energy flow and excellent protections."
     },
     {
         "id": 4106,
@@ -4239,7 +4284,8 @@
         "namecn": "生化人紧身裤",
         "nameen": "Cyborg Tights",
         "namejp": "サイボーグタイツ",
-        "explaintw": "高科技纖維，極強保護力。"
+        "explaintw": "高科技纖維，極強保護力。",
+        "explainen": "High-tech fiber and strong protection."
     },
     {
         "id": 4111,
@@ -4410,9 +4456,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "珊瑚红色热裤",
-        "nameen": "Coral red hot pants",
+        "nameen": "Crimson Red Shorts",
         "namejp": "コーラルレッドホットパンツ",
-        "explaintw": "屬於珊瑚的浪漫淡粉紅色。"
+        "explaintw": "屬於珊瑚的浪漫淡粉紅色。",
+        "explainen": "For those who like to stand out."
     },
     {
         "id": 4202,
@@ -4427,9 +4474,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "黄色明亮热裤",
-        "nameen": "The bright yellow shorts",
+        "nameen": "Bright Yellow Shorts",
         "namejp": "明るい黄色のショートパンツ",
-        "explaintw": "撞色搭配，今夏流行。"
+        "explaintw": "撞色搭配，今夏流行。",
+        "explainen": "Your team will never loose sight of you."
     },
     {
         "id": 4203,
@@ -4444,9 +4492,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "红色火焰热裤",
-        "nameen": "Red flame hot pants",
+        "nameen": "Rubty Red Shorts",
         "namejp": "レッド炎ホットパンツ",
-        "explaintw": "熱情的紅色。"
+        "explaintw": "熱情的紅色。",
+        "explainen": "A lot of style for the court."
     },
     {
         "id": 4204,
@@ -4462,9 +4511,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "后卫裤子4",
-        "nameen": "Defender pants 4",
+        "nameen": "Velvet Purple Shorts",
         "namejp": "ディフェンダーパンツ4",
-        "explaintw": "這個配色讓人聯想到某支球隊。"
+        "explaintw": "這個配色讓人聯想到某支球隊。",
+        "explainen": "Reminiscent of you team."
     },
     {
         "id": 4205,
@@ -4555,9 +4605,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "调酒师百褶裙",
-        "nameen": "Bartender pleated skirt",
+        "nameen": "Silver Skirt",
         "namejp": "バーテンダープリーツスカート",
-        "explaintw": "酒吧制服。"
+        "explaintw": "酒吧制服。",
+        "explainen": "Stylish and comfy."
     },
     {
         "id": 4211,
@@ -4727,9 +4778,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "摇滚高筒靴",
-        "nameen": "Rock high boots",
-        "namejp": "高いブーツをロック",
-        "explaintw": "搖滾風情的高筒靴。"
+        "nameen": "Rocker High Boots",
+        "namejp": "5中央シューズ",
+        "explaintw": "搖滾風情的高筒靴。",
+        "explainen": "Rock style high boots."
     },
     {
         "id": 5002,
@@ -4744,9 +4796,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "牛仔高筒靴",
-        "nameen": "Cowboy boots",
-        "namejp": "カウボーイ・ブーツ",
-        "explaintw": "自由自在的高筒靴。"
+        "nameen": "Cowboy Boots",
+        "namejp": "5中央シューズ",
+        "explaintw": "自由自在的高筒靴。",
+        "explainen": "High cut leather boots."
     },
     {
         "id": 5003,
@@ -4761,9 +4814,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "刚硬高筒靴",
-        "nameen": "Rigid high boots",
-        "namejp": "硬質の高いブーツ",
-        "explaintw": "西部風情的高筒靴。"
+        "nameen": "Long High Heels Boots",
+        "namejp": "5中央シューズ",
+        "explaintw": "西部風情的高筒靴。",
+        "explainen": "For those who seek style above anything."
     },
     {
         "id": 5004,
@@ -4779,9 +4833,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "中锋鞋子4",
-        "nameen": "Shoes 4 center",
-        "namejp": "靴4センター",
-        "explaintw": "耐磨耐髒的絕佳配色。"
+        "nameen": "Gray Sneakers",
+        "namejp": "5中央シューズ",
+        "explaintw": "耐磨耐髒的絕佳配色。",
+        "explainen": "Simple and comfy."
     },
     {
         "id": 5005,
@@ -4872,9 +4927,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "印第安摔角靴",
-        "nameen": "Indian wrestling boots",
+        "nameen": "Wrestling Boots",
         "namejp": "インドのレスリングブーツ",
-        "explaintw": "來自鷹神的祝福。"
+        "explaintw": "來自鷹神的祝福。",
+        "explainen": "For those who have a very physical game."
     },
     {
         "id": 5011,
@@ -5044,9 +5100,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "火炬红球鞋",
-        "nameen": "Torch red shoes",
+        "nameen": "Crimson Red Sneakers",
         "namejp": "トーチ赤い靴",
-        "explaintw": "火紅的戰神球鞋。"
+        "explaintw": "火紅的戰神球鞋。",
+        "explainen": "This shoes looke life if they were taken out of hell's flames."
     },
     {
         "id": 5102,
@@ -5061,9 +5118,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "钢铁灰球鞋",
-        "nameen": "Steel gray sneakers",
+        "nameen": "Steal Grey Sneakers",
         "namejp": "スチールグレーのスニーカー",
-        "explaintw": "鋼鐵意志球鞋。"
+        "explaintw": "鋼鐵意志球鞋。",
+        "explainen": "For players with an iron will."
     },
     {
         "id": 5103,
@@ -5078,9 +5136,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "极速白球鞋",
-        "nameen": "Speed ​​white sneakers",
+        "nameen": "Pearl White Sneakers",
         "namejp": "スピードホワイトスニーカー",
-        "explaintw": "閃電極速球鞋。"
+        "explaintw": "閃電極速球鞋。",
+        "explainen": "Classy and elegant."
     },
     {
         "id": 5104,
@@ -5096,9 +5155,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋鞋子4",
-        "nameen": "Forward Shoes 4",
+        "nameen": "Sneakers",
         "namejp": "フォワードシューズ4",
-        "explaintw": "簡單又大方的鞋款。"
+        "explaintw": "簡單又大方的鞋款。",
+        "explainen": "Maximum comfort for the game."
     },
     {
         "id": 5105,
@@ -5114,9 +5174,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "前锋鞋子5",
-        "nameen": "Forward Shoes 5",
+        "nameen": "Flashy Sneakers",
         "namejp": "フォワードシューズ5",
-        "explaintw": "特殊材質製成，提供更佳的機動性。"
+        "explaintw": "特殊材質製成，提供更佳的機動性。",
+        "explainen": "The shoes for those who like to stand out."
     },
     {
         "id": 5106,
@@ -5192,9 +5253,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "生化人结构靴",
-        "nameen": "Biochemical structure Boots",
+        "nameen": "Worker Boots",
         "namejp": "生化学的構造のブーツ",
-        "explaintw": "有增加腳部能力的功能。"
+        "explaintw": "有增加腳部能力的功能。",
+        "explainen": "For the tough ones who like the game."
     },
     {
         "id": 5111,
@@ -5365,9 +5427,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "摇滚骑士长靴",
-        "nameen": "Rock Knight Boots",
+        "nameen": "Rocker Boots",
         "namejp": "ロックナイトブーツ",
-        "explaintw": "搖滾版的過膝長靴。"
+        "explaintw": "搖滾版的過膝長靴。",
+        "explainen": "Bring your style to the game."
     },
     {
         "id": 5202,
@@ -5382,9 +5445,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "桃红骑士长靴",
-        "nameen": "Pink Knight Boots",
+        "nameen": "Pink Rocker Boots",
         "namejp": "ピンクナイトブーツ",
-        "explaintw": "甜心戰士長靴。"
+        "explaintw": "甜心戰士長靴。",
+        "explainen": "Bring your style to the game."
     },
     {
         "id": 5203,
@@ -5399,9 +5463,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "冰蓝骑士长靴",
-        "nameen": "Ice Blue Knight Boots",
+        "nameen": "Ice Blue Rocker Boots",
         "namejp": "アイスブルーナイトブーツ",
-        "explaintw": "冰藍色帥氣長靴。"
+        "explaintw": "冰藍色帥氣長靴。",
+        "explainen": "A freezing style."
     },
     {
         "id": 5204,
@@ -5417,9 +5482,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "后卫鞋子4",
-        "nameen": "Defender Shoes 4",
+        "nameen": "Pink Sneakers",
         "namejp": "ディフェンダーシューズ4",
-        "explaintw": "亮眼的配色容易成為眾人的焦點。"
+        "explaintw": "亮眼的配色容易成為眾人的焦點。",
+        "explainen": "Dazzling but comfy."
     },
     {
         "id": 5205,
@@ -5510,9 +5576,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "调酒师冰刀",
-        "nameen": "Bartender skates",
+        "nameen": "Ice Skates",
         "namejp": "バーテンダースケート",
-        "explaintw": "增加酒吧的服務速度。"
+        "explaintw": "增加酒吧的服務速度。",
+        "explainen": "Glide trough the court."
     },
     {
         "id": 5211,
@@ -5683,9 +5750,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "鹰眼面具",
-        "nameen": "Eagle Eye Mask",
+        "nameen": "Hawk Eye Mask",
         "namejp": "イーグルアイマスク",
-        "explaintw": "印第安鷹神的面具。"
+        "explaintw": "印第安鷹神的面具。",
+        "explainen": "Lock on the hook from a far distance."
     },
     {
         "id": 6002,
@@ -5701,9 +5769,10 @@
         "sell": 100,
         "buy": 500,
         "namecn": "机械右眼",
-        "nameen": "Mechanical eye",
+        "nameen": "Cyborg Eye",
         "namejp": "機械的な目",
-        "explaintw": "有效增加可視範圍。"
+        "explaintw": "有效增加可視範圍。",
+        "explainen": "For those impossible shots."
     },
     {
         "id": 6003,
@@ -6295,11 +6364,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質頭帶。"
+        "nameen": "Headband α",
+        "explaintw": "α級的舒適棉質頭帶。",
+        "explainen": "Grade α Comfy Cotton Headband"
     },
     {
         "id": 11002,
         "nametw": "棉質頭帶β",
+        "quality": 1,
         "attrkind1": 1,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -6307,11 +6379,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質頭帶。"
+        "nameen": "Headband β",
+        "explaintw": "β級的舒適棉質頭帶。",
+        "explainen": "Grade β Comfy Cotton Headband"
     },
     {
         "id": 11003,
         "nametw": "棉質頭帶γ",
+        "quality": 1,
         "attrkind1": 1,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -6319,7 +6394,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質頭帶。"
+        "nameen": "Headband γ",
+        "explaintw": "γ級的舒適棉質頭帶。",
+        "explainen": "Grade γ Comfy Cotton Headband"
     },
     {
         "id": 11101,
@@ -6335,11 +6412,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技頭帶。"
+        "nameen": "Bionic Headband α",
+        "explaintw": "α級的特殊科技頭帶。",
+        "explainen": "Grade α Bionic Performance Headband"
     },
     {
         "id": 11102,
         "nametw": "科技頭帶β",
+        "quality": 2,
         "attrkind1": 1,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -6347,11 +6427,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技頭帶。"
+        "nameen": "Bionic Headband β",
+        "explaintw": "β級的特殊科技頭帶。",
+        "explainen": "Grade β Bionic Performance Headband"
     },
     {
         "id": 11103,
         "nametw": "科技頭帶γ",
+        "quality": 2,
         "attrkind1": 1,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -6359,7 +6442,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技頭帶。"
+        "nameen": "Bionic Headband γ",
+        "explaintw": "γ級的特殊科技頭帶。",
+        "explainen": "Grade γ Bionic Performance Headband"
     },
     {
         "id": 11201,
@@ -6375,11 +6460,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來頭帶。"
+        "nameen": "Space Headband α",
+        "explaintw": "α級的實用未來頭帶。",
+        "explainen": "Grade α Futuristic Space Headband"
     },
     {
         "id": 11202,
         "nametw": "太空頭帶β",
+        "quality": 3,
         "attrkind1": 1,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -6387,11 +6475,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來頭帶。"
+        "nameen": "Space Headband β",
+        "explaintw": "β級的實用未來頭帶。",
+        "explainen": "Grade β Futuristic Space Headband"
     },
     {
         "id": 11203,
         "nametw": "太空頭帶γ",
+        "quality": 3,
         "attrkind1": 1,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -6399,7 +6490,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來頭帶。"
+        "nameen": "Space Headband γ",
+        "explaintw": "γ級的實用未來頭帶。",
+        "explainen": "Grade γ Futuristic Space Headband"
     },
     {
         "id": 11301,
@@ -6504,11 +6597,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質護臂。"
+        "nameen": "Cotton Sleeves α",
+        "explaintw": "α級的舒適棉質護臂。",
+        "explainen": "Grade α Comfy Cotton Sleeves"
     },
     {
         "id": 12002,
         "nametw": "棉質護臂β",
+        "quality": 1,
         "attrkind1": 2,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -6516,11 +6612,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質護臂。"
+        "nameen": "Cotton Sleeves β",
+        "explaintw": "β級的舒適棉質護臂。",
+        "explainen": "Grade β Comfy Cotton Sleeves"
     },
     {
         "id": 12003,
         "nametw": "棉質護臂γ",
+        "quality": 1,
         "attrkind1": 2,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -6528,7 +6627,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質護臂。"
+        "nameen": "Cotton Sleeves γ",
+        "explaintw": "γ級的舒適棉質護臂。",
+        "explainen": "Grade γ Comfy Cotton Sleeves"
     },
     {
         "id": 12101,
@@ -6543,11 +6644,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技護臂。"
+        "nameen": "Bionic Sleeves α",
+        "explaintw": "α級的特殊科技護臂。",
+        "explainen": "Grade α Bionic Performance Sleeves"
     },
     {
         "id": 12102,
         "nametw": "科技護臂β",
+        "quality": 2,
         "attrkind1": 2,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -6555,11 +6659,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技護臂。"
+        "nameen": "Bionic Sleeves β",
+        "explaintw": "β級的特殊科技護臂。",
+        "explainen": "Grade β Bionic Performance Sleeves"
     },
     {
         "id": 12103,
         "nametw": "科技護臂γ",
+        "quality": 2,
         "attrkind1": 2,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -6567,7 +6674,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技護臂。"
+        "nameen": "Bionic Sleeves γ",
+        "explaintw": "γ級的特殊科技護臂。",
+        "explainen": "Grade γ Bionic Performance Sleeves"
     },
     {
         "id": 12201,
@@ -6582,11 +6691,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來護臂。"
+        "nameen": "Space Sleeves α",
+        "explaintw": "α級的實用未來護臂。",
+        "explainen": "Grade α Futuristic Space Sleeves"
     },
     {
         "id": 12202,
         "nametw": "太空護臂β",
+        "quality": 3,
         "attrkind1": 2,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -6594,11 +6706,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來護臂。"
+        "nameen": "Space Sleeves β",
+        "explaintw": "β級的實用未來護臂。",
+        "explainen": "Grade β Futuristic Space Sleeves"
     },
     {
         "id": 12203,
         "nametw": "太空護臂γ",
+        "quality": 3,
         "attrkind1": 2,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -6606,7 +6721,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來護臂。"
+        "nameen": "Space Sleeves γ",
+        "explaintw": "γ級的實用未來護臂。",
+        "explainen": "Grade γ Futuristic Space Sleeves"
     },
     {
         "id": 12301,
@@ -6705,11 +6822,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質機能褲。"
+        "nameen": "Pants α",
+        "explaintw": "α級的舒適棉質機能褲。",
+        "explainen": "Grade α Comfy Cotton Pants"
     },
     {
         "id": 13002,
         "nametw": "棉質機能褲β",
+        "quality": 1,
         "attrkind1": 6,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -6717,11 +6837,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質機能褲。"
+        "nameen": "Pants β",
+        "explaintw": "β級的舒適棉質機能褲。",
+        "explainen": "Grade β Comfy Cotton Pants"
     },
     {
         "id": 13003,
         "nametw": "棉質機能褲γ",
+        "quality": 1,
         "attrkind1": 6,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -6729,7 +6852,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質機能褲。"
+        "nameen": "Pants γ",
+        "explaintw": "γ級的舒適棉質機能褲。",
+        "explainen": "Grade γ Comfy Cotton Pants"
     },
     {
         "id": 13101,
@@ -6744,11 +6869,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技機能褲。"
+        "nameen": "Bionic Pants α",
+        "explaintw": "α級的特殊科技機能褲。",
+        "explainen": "Grade α Bionic Performance Pants"
     },
     {
         "id": 13102,
         "nametw": "科技機能褲β",
+        "quality": 2,
         "attrkind1": 6,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -6756,11 +6884,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技機能褲。"
+        "nameen": "Bionic Pants β",
+        "explaintw": "β級的特殊科技機能褲。",
+        "explainen": "Grade β Bionic Performance Pants"
     },
     {
         "id": 13103,
         "nametw": "科技機能褲γ",
+        "quality": 2,
         "attrkind1": 6,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -6768,7 +6899,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技機能褲。"
+        "nameen": "Bionic Pants",
+        "explaintw": "γ級的特殊科技機能褲。",
+        "explainen": "Grade γ Bionic Performance Pants"
     },
     {
         "id": 13201,
@@ -6783,11 +6916,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來機能褲。"
+        "nameen": "Space Pants α",
+        "explaintw": "α級的實用未來機能褲。",
+        "explainen": "Grade α Futuristic Space Pants"
     },
     {
         "id": 13202,
         "nametw": "太空機能褲β",
+        "quality": 3,
         "attrkind1": 6,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -6795,11 +6931,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來機能褲。"
+        "nameen": "Space Pants β",
+        "explaintw": "β級的實用未來機能褲。",
+        "explainen": "Grade β Futuristic Space Pants"
     },
     {
         "id": 13203,
         "nametw": "太空機能褲γ",
+        "quality": 3,
         "attrkind1": 6,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -6807,7 +6946,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來機能褲。"
+        "nameen": "Space Pants γ",
+        "explaintw": "γ級的實用未來機能褲。",
+        "explainen": "Grade γ Futuristic Space Pants"
     },
     {
         "id": 13301,
@@ -6906,11 +7047,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質機能衣。"
+        "nameen": "Performance Clothes α",
+        "explaintw": "α級的舒適棉質機能衣。",
+        "explainen": "Grade α Comfy Cotton Clothes"
     },
     {
         "id": 14002,
         "nametw": "棉質機能衣β",
+        "quality": 1,
         "attrkind1": 7,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -6918,11 +7062,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質機能衣。"
+        "nameen": "Performance Clothes β",
+        "explaintw": "β級的舒適棉質機能衣。",
+        "explainen": "Grade β Comfy Cotton Clothes"
     },
     {
         "id": 14003,
         "nametw": "棉質機能衣γ",
+        "quality": 1,
         "attrkind1": 7,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -6930,7 +7077,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質機能衣。"
+        "nameen": "Performance Clothes γ",
+        "explaintw": "γ級的舒適棉質機能衣。",
+        "explainen": "Grade γ Comfy Cotton Clothes"
     },
     {
         "id": 14101,
@@ -6945,11 +7094,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技機能衣。"
+        "nameen": "Bionic Performance Clothes α",
+        "explaintw": "α級的特殊科技機能衣。",
+        "explainen": "Grade α Bionic Performance Suit"
     },
     {
         "id": 14102,
         "nametw": "科技機能衣β",
+        "quality": 2,
         "attrkind1": 7,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -6957,11 +7109,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技機能衣。"
+        "nameen": "Bionic Performance Clothes β",
+        "explaintw": "β級的特殊科技機能衣。",
+        "explainen": "Grade β Bionic Performance Suit"
     },
     {
         "id": 14103,
         "nametw": "科技機能衣γ",
+        "quality": 2,
         "attrkind1": 7,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -6969,7 +7124,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技機能衣。"
+        "nameen": "Bionic Performance Clothes γ",
+        "explaintw": "γ級的特殊科技機能衣。",
+        "explainen": "Grade γ Bionic Performance Suit"
     },
     {
         "id": 14201,
@@ -6984,11 +7141,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來機能衣。"
+        "nameen": "Space Performance Clothes α",
+        "explaintw": "α級的實用未來機能衣。",
+        "explainen": "Grade α Futuristic Space Suit"
     },
     {
         "id": 14202,
         "nametw": "太空機能衣β",
+        "quality": 3,
         "attrkind1": 7,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -6996,11 +7156,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來機能衣。"
+        "nameen": "Space Performance Clothes β",
+        "explaintw": "β級的實用未來機能衣。",
+        "explainen": "Grade β Futuristic Space Suit"
     },
     {
         "id": 14203,
         "nametw": "太空機能衣γ",
+        "quality": 3,
         "attrkind1": 7,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -7008,7 +7171,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來機能衣。"
+        "nameen": "Space Performance Clothes γ",
+        "explaintw": "γ級的實用未來機能衣。",
+        "explainen": "Grade γ Futuristic Space Suit"
     },
     {
         "id": 14301,
@@ -7107,11 +7272,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質護膝。"
+        "nameen": "Knee Pads α",
+        "explaintw": "α級的舒適棉質護膝。",
+        "explainen": "Grade a Comfy Cotton Knee Bracelet"
     },
     {
         "id": 15002,
         "nametw": "棉質護膝β",
+        "quality": 1,
         "attrkind1": 8,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -7119,11 +7287,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質護膝。"
+        "nameen": "Knee Pads β",
+        "explaintw": "β級的舒適棉質護膝。",
+        "explainen": "Grade β Comfy Cotton Knee Bracelet"
     },
     {
         "id": 15003,
         "nametw": "棉質護膝γ",
+        "quality": 1,
         "attrkind1": 8,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -7131,7 +7302,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質護膝。"
+        "nameen": "Knee Pads γ",
+        "explaintw": "γ級的舒適棉質護膝。",
+        "explainen": "Grade γ Comfy Cotton Knee Bracelet"
     },
     {
         "id": 15101,
@@ -7146,11 +7319,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技護膝。"
+        "nameen": "Bionic Knee Pads α",
+        "explaintw": "α級的特殊科技護膝。",
+        "explainen": "Grade α Bionic Knee Bracelet"
     },
     {
         "id": 15102,
         "nametw": "科技護膝β",
+        "quality": 2,
         "attrkind1": 8,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -7158,11 +7334,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技護膝。"
+        "nameen": "Bionic Knee Pads β",
+        "explaintw": "β級的特殊科技護膝。",
+        "explainen": "Grade β Bionic Knee Bracelet"
     },
     {
         "id": 15103,
         "nametw": "科技護膝γ",
+        "quality": 2,
         "attrkind1": 8,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -7170,7 +7349,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技護膝。"
+        "nameen": "Bionic Knee Pads γ",
+        "explaintw": "γ級的特殊科技護膝。",
+        "explainen": "Grade Y Bionic Knee Bracelet"
     },
     {
         "id": 15201,
@@ -7185,11 +7366,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來護膝。"
+        "nameen": "Space Knee Pads α",
+        "explaintw": "α級的實用未來護膝。",
+        "explainen": "Grade α Futuristic Knee Bracelet"
     },
     {
         "id": 15202,
         "nametw": "太空護膝β",
+        "quality": 3,
         "attrkind1": 8,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -7197,11 +7381,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來護膝。"
+        "nameen": "Space Knee Pads β",
+        "explaintw": "β級的實用未來護膝。",
+        "explainen": "Grade β Futuristic Knee Bracelet"
     },
     {
         "id": 15203,
         "nametw": "太空護膝γ",
+        "quality": 3,
         "attrkind1": 8,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -7209,7 +7396,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來護膝。"
+        "nameen": "Space Knee Pads γ",
+        "explaintw": "γ級的實用未來護膝。",
+        "explainen": "Grade Y Futuristic Knee Bracelet"
     },
     {
         "id": 15301,
@@ -7308,11 +7497,14 @@
         "attrkind3": 12,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "α級的舒適棉質腕帶。"
+        "nameen": " Wristband α",
+        "explaintw": "α級的舒適棉質腕帶。",
+        "explainen": "Grade α Comfy Wristband"
     },
     {
         "id": 16002,
         "nametw": "棉質腕帶β",
+        "quality": 1,
         "attrkind1": 10,
         "attrvalue1": 10,
         "attrkind2": 9,
@@ -7320,11 +7512,14 @@
         "attrkind3": 5,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "β級的舒適棉質腕帶。"
+        "nameen": " Wristband β",
+        "explaintw": "β級的舒適棉質腕帶。",
+        "explainen": "Grade β Comfy Wristband"
     },
     {
         "id": 16003,
         "nametw": "棉質腕帶γ",
+        "quality": 1,
         "attrkind1": 10,
         "attrvalue1": 10,
         "attrkind2": 3,
@@ -7332,7 +7527,9 @@
         "attrkind3": 4,
         "attrvalue3": 5,
         "materialnum": 1,
-        "explaintw": "γ級的舒適棉質腕帶。"
+        "nameen": " Wristband γ",
+        "explaintw": "γ級的舒適棉質腕帶。",
+        "explainen": "Grade Y Comfy Wristband"
     },
     {
         "id": 16101,
@@ -7347,11 +7544,14 @@
         "attrkind3": 12,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "α級的特殊科技腕帶。"
+        "nameen": "Bionic  Wristband α",
+        "explaintw": "α級的特殊科技腕帶。",
+        "explainen": "Grade α Bionic Wristband"
     },
     {
         "id": 16102,
         "nametw": "科技腕帶β",
+        "quality": 2,
         "attrkind1": 10,
         "attrvalue1": 20,
         "attrkind2": 9,
@@ -7359,11 +7559,14 @@
         "attrkind3": 5,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "β級的特殊科技腕帶。"
+        "nameen": "Bionic  Wristband β",
+        "explaintw": "β級的特殊科技腕帶。",
+        "explainen": "Grade β Bionic Wristband"
     },
     {
         "id": 16103,
         "nametw": "科技腕帶γ",
+        "quality": 2,
         "attrkind1": 10,
         "attrvalue1": 20,
         "attrkind2": 3,
@@ -7371,7 +7574,9 @@
         "attrkind3": 4,
         "attrvalue3": 10,
         "materialnum": 2,
-        "explaintw": "γ級的特殊科技腕帶。"
+        "nameen": "Bionic  Wristband γ",
+        "explaintw": "γ級的特殊科技腕帶。",
+        "explainen": "Grade Y Bionic Wristband"
     },
     {
         "id": 16201,
@@ -7386,11 +7591,14 @@
         "attrkind3": 12,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "α級的實用未來腕帶。"
+        "nameen": "Space  Wristband α",
+        "explaintw": "α級的實用未來腕帶。",
+        "explainen": "Grade α Practical Futuristic Wristband"
     },
     {
         "id": 16202,
         "nametw": "太空腕帶β",
+        "quality": 3,
         "attrkind1": 10,
         "attrvalue1": 30,
         "attrkind2": 9,
@@ -7398,11 +7606,14 @@
         "attrkind3": 5,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "β級的實用未來腕帶。"
+        "nameen": "Space  Wristband β",
+        "explaintw": "β級的實用未來腕帶。",
+        "explainen": "Grade β Practical Futuristic Wristband"
     },
     {
         "id": 16203,
         "nametw": "太空腕帶γ",
+        "quality": 3,
         "attrkind1": 10,
         "attrvalue1": 30,
         "attrkind2": 3,
@@ -7410,7 +7621,9 @@
         "attrkind3": 4,
         "attrvalue3": 15,
         "materialnum": 3,
-        "explaintw": "γ級的實用未來腕帶。"
+        "nameen": "Space  Wristband γ",
+        "explaintw": "γ級的實用未來腕帶。",
+        "explainen": "Grade Y Practical Futuristic Wristband"
     },
     {
         "id": 16301,
