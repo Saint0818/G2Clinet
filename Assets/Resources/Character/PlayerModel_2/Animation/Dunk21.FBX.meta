@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 23fd75fd8dc27ea4eb9e6beb67588a7e
-timeCreated: 1446624791
+timeCreated: 1448861596
 licenseType: Pro
 ModelImporter:
   serializedVersion: 18
@@ -154,84 +154,63 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .0472636819
+      - time: .0650151595
         functionName: ZoonIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .104477614
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
-        messageOptions: 0
-      - time: .213930354
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
-        intParameter: 0
-        messageOptions: 0
-      - time: .231343284
+      - time: .222467542
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .248756215
+      - time: .229678765
+        functionName: AnimationEvent
+        data: DunkBasketStart
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .242839053
         functionName: AnimationEvent
         data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: .400497526
+      - time: .39753896
         functionName: ZoonIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .412935317
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 0
-        messageOptions: 0
-      - time: .470149249
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 0
-        messageOptions: 0
-      - time: .49253732
+      - time: .485633969
         functionName: ZoomOut
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .622657001
+      - time: .500484943
+        functionName: AnimationEvent
+        data: OnlyScore
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .63054657
         functionName: ZoonIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .636815906
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
-        intParameter: 0
-        messageOptions: 0
-      - time: .753946483
+      - time: .745070755
         functionName: ZoonOut
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -241,6 +220,13 @@ ModelImporter:
       - time: .768656731
         functionName: AnimationEvent
         data: DunkFallBall
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .774975777
+        functionName: AnimationEvent
+        data: OnlyScore
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
@@ -257,13 +243,6 @@ ModelImporter:
         data: AnimationEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .74626863
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
         intParameter: 0
         messageOptions: 0
       transformMask:

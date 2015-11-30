@@ -154,28 +154,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .28771916
+      - time: .180313602
         functionName: ZoomIn
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 1
         intParameter: 0
         messageOptions: 0
-      - time: .321766436
+      - time: .312555343
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .100000001
+        floatParameter: .300000012
         intParameter: 0
         messageOptions: 0
-      - time: .362742752
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 1
-        intParameter: 1
-        messageOptions: 0
-      - time: .611987352
+      - time: .401199371
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -187,6 +180,13 @@ ModelImporter:
         data: DunkBasketStart
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .672862291
+        functionName: ZoomOut
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .685682714
@@ -201,13 +201,6 @@ ModelImporter:
         data: ActiveSkillEnd
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: .949880779
-        functionName: ZoomOut
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
       - time: .999999344

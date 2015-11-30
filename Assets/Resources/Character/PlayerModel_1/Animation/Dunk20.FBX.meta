@@ -161,19 +161,12 @@ ModelImporter:
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .170258582
+      - time: .170039579
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: .5
-        intParameter: 1
-        messageOptions: 0
-      - time: .171428472
-        functionName: TimeScale
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 2
+        intParameter: 0
         messageOptions: 0
       - time: .306117535
         functionName: TimeScale
@@ -210,11 +203,11 @@ ModelImporter:
         floatParameter: .100000001
         intParameter: 0
         messageOptions: 0
-      - time: .574903727
+      - time: .573402226
         functionName: TimeScale
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: .5
+        floatParameter: .400000006
         intParameter: 0
         messageOptions: 0
       - time: .678616703

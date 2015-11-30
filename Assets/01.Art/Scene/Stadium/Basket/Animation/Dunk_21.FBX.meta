@@ -91,7 +91,70 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: PlayEffect
+        data: DunkFX
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 2
+        intParameter: 1
+        messageOptions: 0
+      - time: .00350467279
+        functionName: PlaySound
+        data: SD_Dunk
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .00694109872
+        functionName: PlayShake
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .343642592
+        functionName: PlayEffect
+        data: DunkFX
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 2
+        intParameter: 1
+        messageOptions: 0
+      - time: .345933557
+        functionName: PlaySound
+        data: SD_Dunk
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .349370003
+        functionName: PlayShake
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .715922117
+        functionName: PlayEffect
+        data: DunkFX
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 2
+        intParameter: 1
+        messageOptions: 0
+      - time: .720572233
+        functionName: PlaySound
+        data: SD_Dunk
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: .72279495
+        functionName: PlayShake
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
