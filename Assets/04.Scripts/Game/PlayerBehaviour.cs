@@ -974,15 +974,6 @@ public class PlayerBehaviour : MonoBehaviour
         {
             dunkCurveTime += Time.deltaTime * Timer.timeScale;
             
-
-//          if (IsAnimatorMove == false && dunkCurveTime >= playerDunkCurve.StartMoveTime && dunkCurveTime <= playerDunkCurve.ToBasketTime && Timer.timeScale != 0)
-//            {
-//              IsAnimatorMove = true;
-//              float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime);
-//              PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear);
-//              PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
-//              PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0);
-            //            }
             Vector3 position = PlayerRefGameObject.transform.position;
             if (Timer.timeScale != 0)
             { 
@@ -994,7 +985,7 @@ public class PlayerBehaviour : MonoBehaviour
                 { 
                     PlayerRefGameObject.transform.DOPlay(); 
                     IsAnimatorMove = true; 
-                    float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime); 
+					float t = (playerDunkCurve.ToBasketTime - playerDunkCurve.StartMoveTime) * Timer.timeScale; 
                     PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z, t).SetEase(Ease.Linear); 
                     PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear); 
                     PlayerRefGameObject.transform.DORotate(new Vector3(0, Team == 0 ? 0 : 180, 0), playerDunkCurve.ToBasketTime, 0); 
@@ -1047,7 +1038,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 isLayupZmove = true;
                 int add = (Team == 0 ? -1 : 1);
-                float t = (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime) * 1 / Timer.timeScale;
+                float t = (playerLayupCurve.ToBasketTime - playerLayupCurve.StartMoveTime) * 1 * Timer.timeScale;
                 PlayerRefGameObject.transform.DOMoveZ(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.z + add, t).SetEase(Ease.Linear);
                 PlayerRefGameObject.transform.DOMoveX(CourtMgr.Get.DunkPoint [Team.GetHashCode()].transform.position.x, t).SetEase(Ease.Linear);
             }
@@ -1083,23 +1074,6 @@ public class PlayerBehaviour : MonoBehaviour
                 if (playerReboundCurve.isSkill)
                 {
                     PlayerRefGameObject.transform.LookAt(new Vector3(skillMoveTarget.x, PlayerRefGameObject.transform.position.y, skillMoveTarget.z));
-//                    if (reboundCurveTime < 0.7f)
-//                    {
-//                        if (skillMoveTarget.y > BodyHeight.transform.localPosition.y)
-//                        {
-//                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.y, (skillMoveTarget.y - BodyHeight.transform.localPosition.y), reboundCurveTime), 
-//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-//                        } else
-//                        {
-//                            PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-//                                                                                 PlayerRefGameObject.transform.position.y, 
-//                                                                                 Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
-//                        }
-//                    } else
-//                    {
-//                        PlayerRefGameObject.transform.DOMoveY(0, 0.5f);
-//                    }
 					if (reboundCurveTime < 0.7f) {
 						if (skillMoveTarget.y > BodyHeight.transform.localPosition.y) {
 							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
