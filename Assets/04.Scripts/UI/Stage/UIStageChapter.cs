@@ -100,6 +100,7 @@ public class UIStageChapter : MonoBehaviour
         obj.transform.localPosition = localPos;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = mDefaultStageScale;
+        obj.name = string.Format("Stage{0}", stageID);
 
         var stage = obj.GetComponent<UIStageSmall>();
         stage.StageID = stageID;
