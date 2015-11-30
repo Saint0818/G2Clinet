@@ -4495,7 +4495,7 @@ public class GameController : KnightSingleton<GameController>
 						}
 					}
 
-					if (pusher.crtState == EPlayerState.Elbow0) {
+					if (pusher.IsElbow) {
 						pusher.GameRecord.Elbow++;
 						faller.GameRecord.BeElbow++;
 					} else {
