@@ -68,7 +68,8 @@ namespace GameEnum {
 		NewAvatar5,
 		NewAvatar6,
 		NewAvatar7,
-		LevelUpFlag
+		LevelUpFlag, // 1:LevelUp
+		NewCardFlag  // 2:Get New Card
 	}
 
 	public enum ETestActive {

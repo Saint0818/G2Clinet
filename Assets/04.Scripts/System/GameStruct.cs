@@ -159,6 +159,19 @@ namespace GameStruct
 				Achievements[index] = -1;
 		}
 
+		public bool CheckSkillCarkisNew (int id) {
+			if(SkillCards == null)
+				SkillCards = new TSkill[0];
+
+			if(SkillCards.Length > 0) {
+				for (int i=0; i<SkillCards.Length; i++) {
+					if(SkillCards[i].ID == id)
+						return false;
+				}
+			}
+			return true;
+		}
+
         /// <summary>
         /// 是否玩家身上的數值裝是最強的.
         /// </summary>

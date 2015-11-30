@@ -308,6 +308,7 @@ public class UIGamePause : UIBase {
 
 	public void OptionSelect(){
 		isShowOption = !isShowOption;
+		UISetting.UIShow(true);
 //		viewOption.SetActive(isShowOption);
 	}
 

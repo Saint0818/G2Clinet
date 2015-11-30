@@ -3262,11 +3262,12 @@ public class PlayerBehaviour : MonoBehaviour
     public void SkillEvent(AnimationEvent aniEvent)
     {
         string skillString = aniEvent.stringParameter;
+		int skillInt = aniEvent.intParameter;
 
         switch (skillString)
         {
-            case "CameraBlur": 
-                CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_0");
+            case "CameraAction": 
+                CameraMgr.Get.CourtCameraAnimator.SetTrigger("CameraAction_"+skillInt);
                 break;
 			case "Shooting":
 				CourtMgr.Get.IsRealBallActive = true;

@@ -177,6 +177,7 @@ public class UISetting : UIBase {
 	private static UISetting instance = null;
 	private const string UIName = "UISetting";
 	private GameObject[] pages = new GameObject[4];
+	private GameObject[] tabs = new GameObject[4];
 	private GameSettingView gameSetting = new GameSettingView();
 	private LanguageView languageSetting = new LanguageView();
 	private AccountView accountSetting = new AccountView();
@@ -202,21 +203,28 @@ public class UISetting : UIBase {
 		}
 	}
 
-	public static void UIShow(bool isShow){
+	public static void UIShow(bool isShow, bool isMainLobby = true){
 		if (instance) {
 			if (!isShow){
 				RemoveUI(UIName);
 			}
-			else
+			else 
 				instance.Show(isShow);
-		} else
-			if (isShow)
+		} else {
+			if (isShow) {
 				Get.Show(isShow);
+				if(!isMainLobby) 
+					for(int i=0; i<Get.tabs.Length; i++)
+						if(i != 0)
+							Get.tabs[i].SetActive(false);			
+			}
+		}
 	}
 
 	protected override void InitCom() {
 		for (int i = 0; i < pages.Length; i++) {
 			pages[i] = GameObject.Find(UIName + string.Format("Window/Center/Pages/{0}", i));
+			tabs[i] = GameObject.Find(UIName + string.Format("Window/Center/Tabs/{0}", i));
 			SetBtnFun(UIName + string.Format("Window/Center/Tabs/{0}", i), OnPage);
 			SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
 
