@@ -154,7 +154,28 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .549474895
+      - time: .275000006
+        functionName: SkillEvent
+        data: CameraAction
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
+      - time: .28189522
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: .349999994
+        intParameter: 0
+        messageOptions: 0
+      - time: .413482279
+        functionName: TimeScale
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 1
+        intParameter: 0
+        messageOptions: 0
+      - time: .524177253
         functionName: SkillEvent
         data: Shooting
         objectReferenceParameter: {instanceID: 0}
