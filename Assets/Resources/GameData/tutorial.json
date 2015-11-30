@@ -69,10 +69,6 @@
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
-        "id": 1,
-        "line": 12
-    },
-    {
         "id": 2,
         "line": 1,
         "title": "第一關",
@@ -112,7 +108,10 @@
         "id": 3,
         "line": 1,
         "title": "Skill",
+        "kind": 4,
+        "value": 2,
         "uiname": "UISkillFormation",
+        "talkl": 11,
         "texttw": "[f6f6f6]強大的[ff6060]『技能卡片』[-]將對比賽的結果造成決定性的影響。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -120,15 +119,52 @@
     {
         "id": 3,
         "line": 2,
-        "texttw": "[f6f6f6]找出最適合的搭配將對你的旅程有絕佳的幫助。",
+        "kind": 4,
+        "value": 2,
+        "talkl": 11,
+        "texttw": "我們趕快來把技能安裝上去吧。",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+    },
+    {
+        "id": 3,
+        "line": 3,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+    },
+    {
+        "id": 3,
+        "line": 4,
+        "kind": 4,
+        "value": 2,
+        "talkl": 11,
+        "texttw": "技能卡片分為[ff6060]主動技[-]跟[ff6060]被動技[-]，"
+    },
+    {
+        "id": 3,
+        "line": 5,
+        "kind": 4,
+        "value": 2,
+        "talkl": 11,
+        "texttw": "只要將擁有的技能卡片[ff6060]拖曳[-]到[ff6060]右側欄位[-]中即可完成安裝，"
+    },
+    {
+        "id": 3,
+        "line": 6,
+        "kind": 4,
+        "value": 2,
+        "talkl": 11,
+        "texttw": "[f6f6f6]找出最適合的搭配將對你的旅程有絕佳的幫助喔。"
     },
     {
         "id": 4,
         "line": 1,
         "title": "Avatar",
+        "kind": 4,
+        "value": 4,
         "uiname": "UIAvatarFitted",
+        "talkl": 11,
         "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]『造型特色』[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
@@ -136,9 +172,79 @@
     {
         "id": 4,
         "line": 2,
-        "texttw": "[f6f6f6]打造出有別於其他人的專屬造型。",
+        "kind": 4,
+        "value": 4,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/AvatarBt",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+    },
+    {
+        "id": 4,
+        "line": 3,
+        "kind": 4,
+        "value": 4,
+        "talkl": 11,
+        "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則到期即不可再穿。"
+    },
+    {
+        "id": 4,
+        "line": 4,
+        "kind": 4,
+        "value": 4,
+        "texttw": "買下來的造型還可以適度的增加自己的[ff6060]潛能點數[-]喔！！"
+    },
+    {
+        "id": 5,
+        "line": 1,
+        "title": "裝備",
+        "kind": 4,
+        "value": 3,
+        "talkl": 11,
+        "texttw": "良好的配件有助於我們取得更好的成績，"
+    },
+    {
+        "id": 5,
+        "line": 2,
+        "kind": 4,
+        "value": 3,
+        "talkl": 11,
+        "texttw": "快來把我們剛剛獲得的服裝給穿起來吧！！"
+    },
+    {
+        "id": 5,
+        "line": 3,
+        "kind": 4,
+        "value": 3,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/EquipmentBt",
+        "talkl": 11
+    },
+    {
+        "id": 5,
+        "line": 4,
+        "kind": 4,
+        "value": 3,
+        "uipath": "UI2D/UIEquipment/Window/Center/View/CenterPart/UsePartSlot"
+    },
+    {
+        "id": 5,
+        "line": 5,
+        "kind": 4,
+        "value": 3,
+        "talkl": 11,
+        "texttw": "接下來選擇剛剛獲得的服裝即可穿上！！"
+    },
+    {
+        "id": 5,
+        "line": 6,
+        "kind": 4,
+        "value": 3,
+        "talkl": 11,
+        "texttw": "有沒有感覺充滿無比的動力呢？"
+    },
+    {
+        "id": 5,
+        "line": 7,
+        "uipath": "UI2D/UIMainLobby/MainView/BottomLeft/BackBtn"
     },
     {
         "id": 1011,
@@ -452,5 +558,76 @@
         "kind": 3,
         "talkl": 11,
         "texttw": "切記，適時的指揮隊友進攻，將可以創造更有效率地得分。"
+    },
+    {
+        "id": 10101,
+        "line": 1,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "這關必須要達成限定的[fff400]灌籃次數[-]，"
+    },
+    {
+        "id": 10101,
+        "line": 2,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "才可以取得這個關卡的勝利，"
+    },
+    {
+        "id": 10101,
+        "line": 3,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "記得要好好利用剛剛所安裝的技能卡片喔！！"
+    },
+    {
+        "id": 10102,
+        "line": 1,
+        "kind": 3,
+        "talkindex": 1,
+        "talkr": -1,
+        "texttw": "戰況有些膠著，我們要好好把握這次的進攻！！"
+    },
+    {
+        "id": 10102,
+        "line": 2,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "適時的喊話讓士氣提升了不少耶。"
+    },
+    {
+        "id": 10401,
+        "line": 1,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "這場比賽所需要的[fff400]3分球[-]數量比上一場更多，"
+    },
+    {
+        "id": 10401,
+        "line": 2,
+        "kind": 3,
+        "talkindex": 1,
+        "texttw": "上一場就已經打得如此辛苦了，這一場的條件還更嚴苛..."
+    },
+    {
+        "id": 10401,
+        "line": 3,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "別擔心，這次我們的另一個夥伴是一個3分球神射手，"
+    },
+    {
+        "id": 10401,
+        "line": 4,
+        "kind": 3,
+        "talkl": 11,
+        "texttw": "我們把機會做給他吧！！"
+    },
+    {
+        "id": 10401,
+        "line": 5,
+        "kind": 3,
+        "talkindex": 1,
+        "texttw": "好！！就這麼辦！！"
     }
 ]

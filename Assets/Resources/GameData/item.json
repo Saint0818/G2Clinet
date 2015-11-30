@@ -12,7 +12,7 @@
         "attrkind1": 1,
         "attrvalue1": 10,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "白皙肤色",
         "nameen": "Light",
         "namejp": "白色"
@@ -28,7 +28,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黝黑膚色",
         "nameen": "Brown",
         "namejp": "暗褐色"
@@ -42,7 +42,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体3",
         "nameen": "Center body 3",
         "namejp": "センターボディ3"
@@ -57,7 +57,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体4",
         "nameen": "Center body 4",
         "namejp": "センターボディ4"
@@ -72,7 +72,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体5",
         "nameen": "Center body 5",
         "namejp": "センターボディ5"
@@ -87,7 +87,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体6",
         "nameen": "Center body 6",
         "namejp": "センターボディ6"
@@ -102,7 +102,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体7",
         "nameen": "Center body 7",
         "namejp": "センターボディ7"
@@ -117,7 +117,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体8",
         "nameen": "Center body 8",
         "namejp": "センターボディ8"
@@ -132,7 +132,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体9",
         "nameen": "Center body 9",
         "namejp": "センターボディ9"
@@ -149,7 +149,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "红铜肤色",
         "nameen": "Hazelnut",
         "namejp": "銅色"
@@ -164,7 +164,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体11",
         "nameen": "Center body 11",
         "namejp": "センターボディ11"
@@ -179,7 +179,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体12",
         "nameen": "Center body 12",
         "namejp": "センターボディ12"
@@ -194,7 +194,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体13",
         "nameen": "Center body 13",
         "namejp": "センターボディ13"
@@ -209,7 +209,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体14",
         "nameen": "Center body 14",
         "namejp": "センターボディ14"
@@ -224,7 +224,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体15",
         "nameen": "Center body 15",
         "namejp": "センターボディ15"
@@ -239,7 +239,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体16",
         "nameen": "Center body 16",
         "namejp": "センターボディ16"
@@ -254,7 +254,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体17",
         "nameen": "Center body 17",
         "namejp": "センターボディ17"
@@ -269,7 +269,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体18",
         "nameen": "Center body 18",
         "namejp": "センターボディ18"
@@ -284,7 +284,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体19",
         "nameen": "Center body 19",
         "namejp": "センターボディ19"
@@ -299,7 +299,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋身体20",
         "nameen": "Center body 20",
         "namejp": "センターボディ20"
@@ -320,7 +320,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "白皙肤色",
         "nameen": "Pale",
         "namejp": "白色"
@@ -336,7 +336,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "小麦肤色",
         "nameen": "Amber",
         "namejp": "小麦の色"
@@ -352,7 +352,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体3",
         "nameen": "Dark Brown",
         "namejp": "フォワードボディ3"
@@ -367,7 +367,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体4",
         "nameen": "Forward body 4",
         "namejp": "フォワードボディ4"
@@ -382,7 +382,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体5",
         "nameen": "Forward body 5",
         "namejp": "フォワードボディ5"
@@ -397,7 +397,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体6",
         "nameen": "Forward body 6",
         "namejp": "フォワードボディ6"
@@ -412,7 +412,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体7",
         "nameen": "Forward body 7",
         "namejp": "フォワードボディ7"
@@ -427,7 +427,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体8",
         "nameen": "Forward body 8",
         "namejp": "フォワードボディ8"
@@ -442,7 +442,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体9",
         "nameen": "Body Forward 9",
         "namejp": "ボディフォワード9"
@@ -457,7 +457,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体10",
         "nameen": "Forward body 10",
         "namejp": "フォワード本体10"
@@ -472,7 +472,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体11",
         "nameen": "Forward body 11",
         "namejp": "フォワード本体11"
@@ -487,7 +487,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体12",
         "nameen": "Forward body 12",
         "namejp": "フォワードボディ12"
@@ -502,7 +502,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体13",
         "nameen": "Forward body 13",
         "namejp": "フォワード本体13"
@@ -517,7 +517,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体14",
         "nameen": "Forward body 14",
         "namejp": "フォワード本体14"
@@ -532,7 +532,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体15",
         "nameen": "Forward body 15",
         "namejp": "フォワード本体15"
@@ -547,7 +547,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体16",
         "nameen": "Forward body 16",
         "namejp": "フォワード本体16"
@@ -562,7 +562,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体17",
         "nameen": "Forward body 17",
         "namejp": "フォワード本体17"
@@ -577,7 +577,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体18",
         "nameen": "Forward body 18",
         "namejp": "フォワード本体18"
@@ -592,7 +592,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体19",
         "nameen": "Forward body 19",
         "namejp": "フォワード本体19"
@@ -607,7 +607,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋身体20",
         "nameen": "Body forward 20",
         "namejp": "前方ボディ20"
@@ -628,7 +628,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "小麦肤色",
         "nameen": "Amber",
         "namejp": "小麦の色"
@@ -644,7 +644,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "深棕肤色",
         "nameen": "Brown",
         "namejp": "暗褐色"
@@ -658,7 +658,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体3",
         "nameen": "Body guard 3",
         "namejp": "ボディガード3"
@@ -673,7 +673,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体4",
         "nameen": "Guard body 4",
         "namejp": "ガード本体4"
@@ -688,7 +688,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体5",
         "nameen": "Guard body 5",
         "namejp": "ガード本体5"
@@ -703,7 +703,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体6",
         "nameen": "Body guard 6",
         "namejp": "ボディガード6"
@@ -718,7 +718,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体7",
         "nameen": "Body guard 7",
         "namejp": "ボディガード7"
@@ -733,7 +733,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体8",
         "nameen": "Guard body 8",
         "namejp": "ガード本体8"
@@ -748,7 +748,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体9",
         "nameen": "Body guard 9",
         "namejp": "ボディガード9"
@@ -765,7 +765,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "白皙肤色",
         "nameen": "Pale",
         "namejp": "白色"
@@ -780,7 +780,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体11",
         "nameen": "Guard body 11",
         "namejp": "ガード本体11"
@@ -795,7 +795,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体11",
         "nameen": "Guard body 11",
         "namejp": "ガード本体11"
@@ -810,7 +810,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体13",
         "nameen": "Guard body 13",
         "namejp": "ガード本体13"
@@ -825,7 +825,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体14",
         "nameen": "Guard body 14",
         "namejp": "ガード本体14"
@@ -840,7 +840,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体15",
         "nameen": "Guard body 15",
         "namejp": "ガード本体15"
@@ -855,7 +855,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体16",
         "nameen": "Guard body 16",
         "namejp": "ガード本体16"
@@ -870,7 +870,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体17",
         "nameen": "Guard body 17",
         "namejp": "ガード本体17"
@@ -885,7 +885,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体18",
         "nameen": "Guard body 18",
         "namejp": "ガード本体18"
@@ -900,7 +900,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体19",
         "nameen": "Guard body 19",
         "namejp": "ガード本体19"
@@ -915,7 +915,7 @@
         "usetime": 96,
         "potential": 5,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫身体20",
         "nameen": "Guard body 20",
         "namejp": "ガード本体20"
@@ -936,7 +936,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黑色硬汉编发",
         "nameen": "Black braided hair",
         "namejp": "黒編みこみヘアヒーロー",
@@ -954,7 +954,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "金色帅气编发",
         "nameen": "Blonde braided hair",
         "namejp": "ハンサムな金色の編組髪",
@@ -972,7 +972,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "白银老爹编发",
         "nameen": "Silver braided hair",
         "namejp": "シルバーパパが髪を編組",
@@ -991,7 +991,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "棕色卷毛",
         "nameen": "Curly brown hair",
         "namejp": "カーリーブラウン",
@@ -1000,30 +1000,34 @@
     },
     {
         "id": 1005,
-        "nametw": "中鋒頭髮5",
+        "nametw": "白色捲毛",
         "quality": 2,
+        "icon": 1003,
         "kind": 1,
         "position": 0,
+        "avatar": 2002,
         "maxstack": 1,
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发5",
         "nameen": "5 center hair",
         "namejp": "5中央髪"
     },
     {
         "id": 1006,
-        "nametw": "中鋒頭髮6",
+        "nametw": "黑色捲毛",
         "quality": 2,
+        "icon": 1001,
         "kind": 1,
         "position": 0,
+        "avatar": 2003,
         "maxstack": 1,
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发6",
         "nameen": "Hair center 6",
         "namejp": "髪のセンター6"
@@ -1038,7 +1042,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发7",
         "nameen": "Hair center 7",
         "namejp": "髪のセンター7"
@@ -1053,7 +1057,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发8",
         "nameen": "Hair center 8",
         "namejp": "髪のセンター8"
@@ -1068,7 +1072,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发9",
         "nameen": "Hair center 9",
         "namejp": "髪のセンター9"
@@ -1083,7 +1087,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发10",
         "nameen": "Hair center 10",
         "namejp": "毛髪センタ10"
@@ -1098,7 +1102,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发11",
         "nameen": "Hair center 11",
         "namejp": "髪センター11"
@@ -1113,7 +1117,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发12",
         "nameen": "Hair center 12",
         "namejp": "髪のセンター12"
@@ -1128,7 +1132,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发13",
         "nameen": "Hair center 13",
         "namejp": "毛髪センター13"
@@ -1143,7 +1147,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发14",
         "nameen": "Hair center 14",
         "namejp": "ヘアセンター14"
@@ -1158,7 +1162,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发15",
         "nameen": "Hair center 15",
         "namejp": "髪のセンター15"
@@ -1173,7 +1177,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发16",
         "nameen": "Hair center 16",
         "namejp": "毛髪センタ16"
@@ -1188,7 +1192,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发17",
         "nameen": "Hair center 17",
         "namejp": "髪のセンター17"
@@ -1203,7 +1207,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发18",
         "nameen": "Hair center 18",
         "namejp": "髪のセンター18"
@@ -1218,7 +1222,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发19",
         "nameen": "Hair center 19",
         "namejp": "毛髪センタ19"
@@ -1233,7 +1237,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋头发20",
         "nameen": "Hair center 20",
         "namejp": "髪のセンター20"
@@ -1254,7 +1258,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "红色热血发型",
         "nameen": "Cherry red hair",
         "namejp": "赤血球のヘアスタイル",
@@ -1272,7 +1276,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黑色神秘发型",
         "nameen": "Raven black hair",
         "namejp": "謎の黒髪",
@@ -1290,7 +1294,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "金色酷炫发型",
         "nameen": "Blonde hair",
         "namejp": "ゴールドクールなヘアスタイル",
@@ -1309,7 +1313,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "山本头",
         "nameen": "Low fade hair",
         "namejp": "山本ヘッド",
@@ -1327,7 +1331,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发5",
         "nameen": "Flame blue hair",
         "namejp": "ストライカーの毛5",
@@ -1344,7 +1348,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发6",
         "nameen": "6 forward hair",
         "namejp": "6前方髪"
@@ -1359,7 +1363,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发7",
         "nameen": "Striker hair 7",
         "namejp": "ストライカーの毛7"
@@ -1374,7 +1378,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发8",
         "nameen": "8 forward hair",
         "namejp": "8前進髪"
@@ -1389,7 +1393,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发9",
         "nameen": "9 forward hair",
         "namejp": "9前方髪"
@@ -1406,7 +1410,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "紫色复仇发型",
         "nameen": "Velvet purple hair",
         "namejp": "リベンジ紫髪",
@@ -1424,7 +1428,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发12",
         "nameen": "Hair striker 12",
         "namejp": "髪のストライカー12"
@@ -1439,7 +1443,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发12",
         "nameen": "Hair striker 12",
         "namejp": "髪のストライカー12"
@@ -1454,7 +1458,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发13",
         "nameen": "13 striker hair",
         "namejp": "13ストライカーの毛"
@@ -1469,7 +1473,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发14",
         "nameen": "Hair striker 14",
         "namejp": "髪のストライカー14"
@@ -1484,7 +1488,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发15",
         "nameen": "Hair striker 15",
         "namejp": "髪のストライカー15"
@@ -1499,7 +1503,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发16",
         "nameen": "Hair striker 16",
         "namejp": "髪のストライカー16"
@@ -1514,7 +1518,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发17",
         "nameen": "Hair striker 17",
         "namejp": "髪のストライカー17"
@@ -1529,7 +1533,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发18",
         "nameen": "Hair striker 18",
         "namejp": "髪のストライカー18"
@@ -1544,7 +1548,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发19",
         "nameen": "Hair striker 19",
         "namejp": "髪のストライカー19"
@@ -1559,7 +1563,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋头发20",
         "nameen": "Hair striker 20",
         "namejp": "髪のストライカー20"
@@ -1580,7 +1584,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "金色柔软马尾",
         "nameen": "Blonde ponytail",
         "namejp": "ゴールデンソフトポニーテール",
@@ -1598,7 +1602,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "紫色冷艳马尾",
         "nameen": "Velvet purple ponytail",
         "namejp": "パープルアイスつくし",
@@ -1616,7 +1620,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "亮蓝前卫马尾",
         "nameen": "Flame blue ponytail",
         "namejp": "明るい青前衛スギナ",
@@ -1635,7 +1639,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发4",
         "nameen": "Golden blonde hair",
         "namejp": "4ガード髪",
@@ -1652,7 +1656,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发5",
         "nameen": "5 guard hair",
         "namejp": "5ガード髪"
@@ -1667,7 +1671,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发6",
         "nameen": "6 guard hair",
         "namejp": "6ガード髪"
@@ -1682,7 +1686,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发7",
         "nameen": "7 guard hair",
         "namejp": "7ガード髪"
@@ -1697,7 +1701,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发8",
         "nameen": "8 guard hair",
         "namejp": "8ガード髪"
@@ -1712,7 +1716,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发9",
         "nameen": "9 guard hair",
         "namejp": "9ガード髪"
@@ -1729,7 +1733,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "调酒师红发",
         "nameen": "Scarlett red hair",
         "namejp": "バーテンダー赤毛",
@@ -1746,7 +1750,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
         "namejp": "ガード毛13"
@@ -1761,7 +1765,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
         "namejp": "ガード毛13"
@@ -1776,7 +1780,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发13",
         "nameen": "Guard hair 13",
         "namejp": "ガード毛13"
@@ -1791,7 +1795,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发14",
         "nameen": "Guard hair 14",
         "namejp": "ガード毛14"
@@ -1806,7 +1810,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发15",
         "nameen": "Guard hair 15",
         "namejp": "ガード毛15"
@@ -1821,7 +1825,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发16",
         "nameen": "Guard hair 16",
         "namejp": "ガード毛16"
@@ -1836,7 +1840,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发17",
         "nameen": "Guard hair 17",
         "namejp": "ガード毛17"
@@ -1851,7 +1855,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发18",
         "nameen": "Guard hair 18",
         "namejp": "ガード毛18"
@@ -1866,7 +1870,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发19",
         "nameen": "Guard hair 19",
         "namejp": "ガード毛19"
@@ -1881,7 +1885,7 @@
         "usetime": 96,
         "potential": 10,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫头发20",
         "nameen": "Guard hair 20",
         "namejp": "ガード毛20"
@@ -1901,7 +1905,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰1",
         "nameen": "Lightning brass knuckles",
         "namejp": "ジュエリーセンター1"
@@ -1916,7 +1920,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰2",
         "nameen": "Jewelry center 2",
         "namejp": "ジュエリーセンター2"
@@ -1931,7 +1935,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰3",
         "nameen": "Jewelry center 3",
         "namejp": "ジュエリーセンター3"
@@ -1946,7 +1950,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰4",
         "nameen": "Jewelry center 4",
         "namejp": "ジュエリーセンター4"
@@ -1961,7 +1965,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰5",
         "nameen": "Jewelry center 5",
         "namejp": "ジュエリーセンター5"
@@ -1976,7 +1980,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰6",
         "nameen": "Jewelry center 6",
         "namejp": "ジュエリーセンター6"
@@ -1991,7 +1995,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰7",
         "nameen": "Jewelry center 7",
         "namejp": "ジュエリーセンター7"
@@ -2006,7 +2010,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰8",
         "nameen": "Jewelry center 8",
         "namejp": "ジュエリーセンター8"
@@ -2021,7 +2025,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰9",
         "nameen": "Jewelry center 9",
         "namejp": "ジュエリーセンター9"
@@ -2038,7 +2042,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "闪电手指虎",
         "nameen": "Knuckle dusters",
         "namejp": "雷ブラスナックル",
@@ -2055,7 +2059,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰11",
         "nameen": "Jewelry center 11",
         "namejp": "ジュエリーセンター11"
@@ -2070,7 +2074,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰12",
         "nameen": "Jewelry center 12",
         "namejp": "ジュエリーセンター12"
@@ -2085,7 +2089,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰13",
         "nameen": "Jewelry center 13",
         "namejp": "ジュエリーセンター13"
@@ -2100,7 +2104,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰14",
         "nameen": "Jewelry center 14",
         "namejp": "ジュエリーセンター14"
@@ -2115,7 +2119,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰15",
         "nameen": "Jewelry center 15",
         "namejp": "ジュエリーセンター15"
@@ -2130,7 +2134,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰16",
         "nameen": "Jewelry center 16",
         "namejp": "ジュエリーセンター16"
@@ -2145,7 +2149,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰17",
         "nameen": "Jewelry center 17",
         "namejp": "ジュエリーセンター17"
@@ -2160,7 +2164,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰18",
         "nameen": "Jewelry center 18",
         "namejp": "ジュエリーセンター18"
@@ -2175,7 +2179,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰19",
         "nameen": "Jewelry center 19",
         "namejp": "ジュエリーセンター19"
@@ -2190,7 +2194,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "中锋手饰20",
         "nameen": "Jewelry center 20",
         "namejp": "ジュエリーセンター20"
@@ -2210,7 +2214,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰2",
         "nameen": "Forward jewelry 2",
         "namejp": "フォワードジュエリー2"
@@ -2225,7 +2229,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰2",
         "nameen": "Forward jewelry 2",
         "namejp": "フォワードジュエリー2"
@@ -2240,7 +2244,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰3",
         "nameen": "Forward jewelry 3",
         "namejp": "フォワードジュエリー3"
@@ -2255,7 +2259,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰4",
         "nameen": "Forward jewelry 4",
         "namejp": "フォワードジュエリー4"
@@ -2272,7 +2276,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰5",
         "nameen": "Gloves",
         "namejp": "フォワードジュエリー5",
@@ -2289,7 +2293,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰6",
         "nameen": "Forward jewelry 6",
         "namejp": "フォワードジュエリー6"
@@ -2304,7 +2308,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰7",
         "nameen": "Forward jewelry 7",
         "namejp": "フォワードジュエリー7"
@@ -2319,7 +2323,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰8",
         "nameen": "Forward jewelry 8",
         "namejp": "フォワード宝石8"
@@ -2334,7 +2338,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰9",
         "nameen": "Forward jewelry 9",
         "namejp": "フォワードジュエリー9"
@@ -2351,7 +2355,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "人造人手套",
         "nameen": "Cyborg gloves",
         "namejp": "サイボーグ手袋",
@@ -2369,7 +2373,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰11",
         "nameen": "Forward jewelry 11",
         "namejp": "フォワードジュエリー11"
@@ -2384,7 +2388,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰12",
         "nameen": "Forward jewelry 12",
         "namejp": "フォワードジュエリー12"
@@ -2399,7 +2403,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰13",
         "nameen": "Forward jewelry 13",
         "namejp": "フォワードジュエリー13"
@@ -2414,7 +2418,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰14",
         "nameen": "Forward jewelry 14",
         "namejp": "フォワードジュエリー14"
@@ -2429,7 +2433,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰15",
         "nameen": "Forward jewelry 15",
         "namejp": "フォワードジュエリー15"
@@ -2444,7 +2448,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰16",
         "nameen": "Forward jewelry 16",
         "namejp": "フォワードジュエリー16"
@@ -2459,7 +2463,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰17",
         "nameen": "Forward jewelry 17",
         "namejp": "フォワードジュエリー17"
@@ -2474,7 +2478,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰18",
         "nameen": "Forward jewelry 18",
         "namejp": "フォワードジュエリー18"
@@ -2489,7 +2493,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰19",
         "nameen": "Forward jewelry 19",
         "namejp": "フォワードジュエリー19"
@@ -2504,7 +2508,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "前锋手饰20",
         "nameen": "Forward jewelry 20",
         "namejp": "フォワードジュエリー20"
@@ -2524,7 +2528,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰1",
         "nameen": "Angel Gloves",
         "namejp": "エンジェルグローブ"
@@ -2539,7 +2543,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰2",
         "nameen": "Defender jewelry 2",
         "namejp": "ディフェンダー宝石2"
@@ -2554,7 +2558,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰3",
         "nameen": "Defender jewelry 3",
         "namejp": "ディフェンダー宝石3"
@@ -2569,7 +2573,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰4",
         "nameen": "Defender Jewelry 4",
         "namejp": "ディフェンダージュエリー4"
@@ -2584,7 +2588,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰5",
         "nameen": "Defender jewelry 5",
         "namejp": "ディフェンダー宝石5"
@@ -2599,7 +2603,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰6",
         "nameen": "Defender jewelry 6",
         "namejp": "ディフェンダージュエリー6"
@@ -2614,7 +2618,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰7",
         "nameen": "Defender jewelry 7",
         "namejp": "ディフェンダー宝石7"
@@ -2629,7 +2633,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰8",
         "nameen": "Defender jewelry 8",
         "namejp": "ディフェンダー宝石8"
@@ -2644,7 +2648,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰9",
         "nameen": "Defender jewelry 9",
         "namejp": "ディフェンダー宝石9"
@@ -2661,7 +2665,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰10",
         "nameen": "Bartender gloves",
         "namejp": "ディフェンダーの宝石10",
@@ -2678,7 +2682,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰11",
         "nameen": "Defender jewelry 11",
         "namejp": "ディフェンダーの宝石11"
@@ -2693,7 +2697,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰12",
         "nameen": "Defender jewelry 12",
         "namejp": "ディフェンダーの宝石12"
@@ -2708,7 +2712,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰13",
         "nameen": "Defender jewelry 13",
         "namejp": "ディフェンダーの宝石13"
@@ -2723,7 +2727,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰14",
         "nameen": "Defender jewelry 14",
         "namejp": "ディフェンダーの宝石14"
@@ -2738,7 +2742,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰15",
         "nameen": "Defender jewelry 15",
         "namejp": "ディフェンダーの宝石15"
@@ -2753,7 +2757,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰16",
         "nameen": "Defender jewelry 16",
         "namejp": "ディフェンダーの宝石16"
@@ -2768,7 +2772,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰17",
         "nameen": "Defender jewelry 17",
         "namejp": "ディフェンダーの宝石17"
@@ -2783,7 +2787,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰18",
         "nameen": "Defender jewelry 18",
         "namejp": "ディフェンダーの宝石18"
@@ -2798,7 +2802,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰19",
         "nameen": "Defender jewelry 19",
         "namejp": "ディフェンダーの宝石19"
@@ -2813,7 +2817,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 110,
         "namecn": "后卫手饰20",
         "nameen": "Defender jewelry 20",
         "namejp": "ディフェンダーの宝石20"
@@ -2834,7 +2838,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黑色摇滚夹克",
         "nameen": "Black rider jacket",
         "namejp": "ブラックロックジャケット",
@@ -2852,7 +2856,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "水洗牛仔夹克",
         "nameen": "Denim jacket",
         "namejp": "デニムのジャケット",
@@ -2870,7 +2874,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "石绿刚硬夹克",
         "nameen": "All Purpose Jacket",
         "namejp": "ダンLvgangハードジャケット",
@@ -2884,12 +2888,12 @@
         "icon": 3102,
         "kind": 3,
         "position": 0,
-        "avatar": 2002,
+        "avatar": 2001,
         "maxstack": 1,
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "红色排汗衣",
         "nameen": "Red training shirt",
         "namejp": "レッド汗服",
@@ -2898,30 +2902,34 @@
     },
     {
         "id": 3005,
-        "nametw": "中鋒衣服5",
+        "nametw": "綠色排汗衣",
         "quality": 2,
+        "icon": 3003,
         "kind": 3,
         "position": 0,
+        "avatar": 2002,
         "maxstack": 1,
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服5",
         "nameen": "5 center clothes",
         "namejp": "5中央服"
     },
     {
         "id": 3006,
-        "nametw": "中鋒衣服6",
+        "nametw": "紫色排汗衣",
         "quality": 2,
+        "icon": 3001,
         "kind": 3,
         "position": 0,
+        "avatar": 2003,
         "maxstack": 1,
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服6",
         "nameen": "Clothes center 6",
         "namejp": "服センター6"
@@ -2936,7 +2944,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服7",
         "nameen": "Clothes center 7",
         "namejp": "服センター7"
@@ -2951,7 +2959,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服8",
         "nameen": "Clothes center 8",
         "namejp": "服センター8"
@@ -2966,7 +2974,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服9",
         "nameen": "Clothes center 9",
         "namejp": "服センター9"
@@ -2983,7 +2991,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "神秘图腾刺青",
         "nameen": "Tribal tatto",
         "namejp": "謎のトーテムタトゥー",
@@ -3000,7 +3008,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服11",
         "nameen": "Clothes center 11",
         "namejp": "服センター11"
@@ -3015,7 +3023,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服12",
         "nameen": "Clothes center 12",
         "namejp": "服センタ12"
@@ -3030,7 +3038,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服13",
         "nameen": "Clothes center 13",
         "namejp": "服センタ13"
@@ -3045,7 +3053,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服14",
         "nameen": "Clothes center 14",
         "namejp": "服センター14"
@@ -3060,7 +3068,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服15",
         "nameen": "Clothes center 15",
         "namejp": "服センター15"
@@ -3075,7 +3083,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服16",
         "nameen": "Clothes center 16",
         "namejp": "服センタ16"
@@ -3090,7 +3098,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服17",
         "nameen": "Clothes center 17",
         "namejp": "服センター17"
@@ -3105,7 +3113,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服18",
         "nameen": "Clothes center 18",
         "namejp": "服センタ18"
@@ -3120,7 +3128,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服19",
         "nameen": "Clothes center 19",
         "namejp": "服センタ19"
@@ -3135,7 +3143,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋衣服20",
         "nameen": "Clothes center 20",
         "namejp": "服センタ20"
@@ -3156,7 +3164,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "深蓝夜幕风衣",
         "nameen": "Dark Ble Fleece",
         "namejp": "ダークブルーウインドブレーカーの夜",
@@ -3174,7 +3182,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "深红火焰风衣",
         "nameen": "Crimson Flame Fleece",
         "namejp": "クリムゾンフレイムウインドブレーカー",
@@ -3192,7 +3200,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "白紫亮眼风衣",
         "nameen": "Electric Purple Fleece",
         "namejp": "Baizi梁の目のウインドブレーカー",
@@ -3211,7 +3219,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "全套运动服",
         "nameen": "Sport Suit ",
         "namejp": "完全なスポーツ",
@@ -3230,7 +3238,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服5",
         "nameen": "Elastic Clothes",
         "namejp": "ストライカー服5",
@@ -3247,7 +3255,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服6",
         "nameen": "6 forward clothes",
         "namejp": "6前方服"
@@ -3262,7 +3270,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服7",
         "nameen": "Clothes 7 forward",
         "namejp": "服7前進"
@@ -3277,7 +3285,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服8",
         "nameen": "8 forward clothes",
         "namejp": "8前進服"
@@ -3292,7 +3300,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服9",
         "nameen": "9 forward clothes",
         "namejp": "9前方服"
@@ -3309,7 +3317,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "生化人铠甲",
         "nameen": "Cyborg armor",
         "namejp": "サイボーグの鎧",
@@ -3327,7 +3335,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服12",
         "nameen": "12 striker clothes",
         "namejp": "12ストライカー服"
@@ -3342,7 +3350,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服12",
         "nameen": "12 striker clothes",
         "namejp": "12ストライカー服"
@@ -3357,7 +3365,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服13",
         "nameen": "13 striker clothes",
         "namejp": "13ストライカー服"
@@ -3372,7 +3380,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服14",
         "nameen": "14 striker clothes",
         "namejp": "14ストライカー服"
@@ -3387,7 +3395,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服15",
         "nameen": "15 striker clothes",
         "namejp": "15ストライカー服"
@@ -3402,7 +3410,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服16",
         "nameen": "16 striker clothes",
         "namejp": "16ストライカー服"
@@ -3417,7 +3425,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服17",
         "nameen": "17 striker clothes",
         "namejp": "17ストライカー服"
@@ -3432,7 +3440,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服18",
         "nameen": "18 striker clothes",
         "namejp": "18ストライカー服"
@@ -3447,7 +3455,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服19",
         "nameen": "19 striker clothes",
         "namejp": "19ストライカー服"
@@ -3462,7 +3470,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋衣服20",
         "nameen": "20 striker clothes",
         "namejp": "20ストライカー服"
@@ -3483,7 +3491,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "摇滚骑士夹克",
         "nameen": "Rocker Jacket",
         "namejp": "ロック騎士ジャケット",
@@ -3501,7 +3509,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "桃粉骑士夹克",
         "nameen": "Pink Leather Jacket",
         "namejp": "ナイトピーチピンクのジャケット",
@@ -3519,7 +3527,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "雪白骑士夹克",
         "nameen": "White Leather Jacket",
         "namejp": "白騎士ジャケット",
@@ -3538,7 +3546,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服4",
         "nameen": "Purple Leather Vest",
         "namejp": "服ガード4",
@@ -3555,7 +3563,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服5",
         "nameen": "Clothes guard 5",
         "namejp": "服ガード5"
@@ -3570,7 +3578,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服6",
         "nameen": "6 guard clothes",
         "namejp": "6ガード服"
@@ -3585,7 +3593,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服7",
         "nameen": "7 guard clothes",
         "namejp": "7ガード服"
@@ -3600,7 +3608,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服8",
         "nameen": "8 guard clothes",
         "namejp": "8ガード服"
@@ -3615,7 +3623,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服9",
         "nameen": "9 guard clothes",
         "namejp": "9ガード服"
@@ -3632,7 +3640,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "调酒师衬衫",
         "nameen": "Bartender Shirt",
         "namejp": "バーテンダーシャツ",
@@ -3649,7 +3657,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服11",
         "nameen": "Guard clothes 11",
         "namejp": "Guardは11服"
@@ -3664,7 +3672,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服11",
         "nameen": "Guard clothes 11",
         "namejp": "Guardは11服"
@@ -3679,7 +3687,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服13",
         "nameen": "Guard clothes 13",
         "namejp": "Guardは13服"
@@ -3694,7 +3702,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服14",
         "nameen": "Guard clothes 14",
         "namejp": "Guardは14服"
@@ -3709,7 +3717,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服15",
         "nameen": "Guard clothes 15",
         "namejp": "Guardは15服"
@@ -3724,7 +3732,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服16",
         "nameen": "Guard clothes 16",
         "namejp": "Guardは16服"
@@ -3739,7 +3747,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服17",
         "nameen": "Guard clothes 17",
         "namejp": "Guardは17服"
@@ -3754,7 +3762,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服18",
         "nameen": "Guard clothes 18",
         "namejp": "Guardは18服"
@@ -3769,7 +3777,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服19",
         "nameen": "Guard clothes 19",
         "namejp": "Guardは19服"
@@ -3784,7 +3792,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫衣服20",
         "nameen": "Guard clothes 20",
         "namejp": "Guardは20服"
@@ -3805,7 +3813,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黑色摇滚短裤",
         "nameen": "Black Rocker Shorts",
         "namejp": "ブラックロックショーツ",
@@ -3823,7 +3831,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "水洗牛仔短裤",
         "nameen": "Denim Shorts",
         "namejp": "デニムショートパンツ",
@@ -3841,7 +3849,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "石绿刚硬短裤",
         "nameen": "Rider Shorts",
         "namejp": "ダンLvgangハードショーツ",
@@ -3850,7 +3858,7 @@
     },
     {
         "id": 4004,
-        "nametw": "緊身褲",
+        "nametw": "藍色緊身褲",
         "quality": 2,
         "icon": 4004,
         "kind": 4,
@@ -3860,42 +3868,48 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
-        "namecn": "紧身裤",
-        "nameen": "Leggings",
+        "buy": 100,
+        "namecn": "藍色緊身褲",
+        "nameen": "Blue Leggings",
         "namejp": "ブリーフ",
         "explaintw": "運動時加速排汗。",
         "explainen": "For maximum comfort on the game."
     },
     {
         "id": 4005,
-        "nametw": "中鋒褲子5",
+        "nametw": "紫色緊身褲",
         "quality": 2,
+        "icon": 4001,
         "kind": 4,
         "position": 0,
+        "avatar": 2002,
         "maxstack": 1,
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
-        "namecn": "中锋裤子5",
-        "nameen": "5 center Pants",
-        "namejp": "5中央パンツ"
+        "buy": 100,
+        "namecn": "紫色緊身褲",
+        "nameen": "Purple Leggings",
+        "namejp": "5中央パンツ",
+        "explainen": "For maximum comfort on the game."
     },
     {
         "id": 4006,
-        "nametw": "中鋒褲子6",
+        "nametw": "綠色緊身褲",
         "quality": 2,
+        "icon": 4003,
         "kind": 4,
         "position": 0,
+        "avatar": 2003,
         "maxstack": 1,
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
-        "namecn": "中锋裤子6",
-        "nameen": "Pants center 6",
-        "namejp": "パンツ・センター6"
+        "buy": 100,
+        "namecn": "綠色緊身褲",
+        "nameen": "Green Leggings",
+        "namejp": "パンツ・センター6",
+        "explainen": "For maximum comfort on the game."
     },
     {
         "id": 4007,
@@ -3907,7 +3921,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子7",
         "nameen": "Pants center 7",
         "namejp": "パンツセンター7"
@@ -3922,7 +3936,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子8",
         "nameen": "Pants center 8",
         "namejp": "パンツセンター8"
@@ -3937,7 +3951,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子9",
         "nameen": "Pants center 9",
         "namejp": "パンツセンター9"
@@ -3954,7 +3968,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "摔角冠军腰带",
         "nameen": "Wrestling Belt",
         "namejp": "レスリングのタイトルベルト",
@@ -3963,15 +3977,17 @@
     },
     {
         "id": 4011,
-        "nametw": "中鋒褲子11",
+        "nametw": "武鬥燈籠褲",
         "quality": 3,
+        "icon": 4001,
         "kind": 4,
         "position": 0,
+        "avatar": 13001,
         "maxstack": 1,
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子11",
         "nameen": "Pants center 11",
         "namejp": "パンツセンター11"
@@ -3986,7 +4002,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子12",
         "nameen": "Pants center 12",
         "namejp": "パンツ・センター12"
@@ -4001,7 +4017,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子13",
         "nameen": "Pants center 13",
         "namejp": "パンツ・センター13"
@@ -4016,7 +4032,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子14",
         "nameen": "Pants center 14",
         "namejp": "パンツ・センター14"
@@ -4031,7 +4047,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子15",
         "nameen": "Pants center 15",
         "namejp": "パンツ・センター15"
@@ -4046,7 +4062,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子16",
         "nameen": "Pants center 16",
         "namejp": "パンツ・センター16"
@@ -4061,7 +4077,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子17",
         "nameen": "Pants center 17",
         "namejp": "パンツ・センター17"
@@ -4076,7 +4092,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子18",
         "nameen": "Pants center 18",
         "namejp": "パンツ・センター18"
@@ -4091,7 +4107,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子19",
         "nameen": "Pants center 19",
         "namejp": "パンツ・センター19"
@@ -4106,7 +4122,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "中锋裤子20",
         "nameen": "Pants center 20",
         "namejp": "パンツ・センター20"
@@ -4127,7 +4143,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "深蓝热身长裤",
         "nameen": "Dark Blue Sportpants",
         "namejp": "ダークブルーウォームアップパンツ",
@@ -4145,7 +4161,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黑色热身长裤",
         "nameen": "Black Sportpants",
         "namejp": "ブラックウォームアップパンツ",
@@ -4163,7 +4179,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "紫色热身长裤",
         "nameen": "Purple Sportpants",
         "namejp": "パープルウォームアップパンツ",
@@ -4182,7 +4198,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子4",
         "nameen": "Track Suit",
         "namejp": "フォワード4パンツ",
@@ -4201,7 +4217,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子5",
         "nameen": "Forward pants 5",
         "namejp": "フォワードパンツ5",
@@ -4218,7 +4234,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子6",
         "nameen": "Forward pants 6",
         "namejp": "フォワードパンツ6"
@@ -4233,7 +4249,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子7",
         "nameen": "Forward pants 7",
         "namejp": "フォワードパンツ7"
@@ -4248,7 +4264,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子8",
         "nameen": "Forward pants 8",
         "namejp": "フォワードパンツ8"
@@ -4263,7 +4279,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子9",
         "nameen": "Forward pants 9",
         "namejp": "フォワードパンツ9"
@@ -4280,7 +4296,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "生化人紧身裤",
         "nameen": "Cyborg Tights",
         "namejp": "サイボーグタイツ",
@@ -4298,7 +4314,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子12",
         "nameen": "Forward pants 12",
         "namejp": "フォワードパンツ12"
@@ -4313,7 +4329,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子12",
         "nameen": "Forward pants 12",
         "namejp": "フォワードパンツ12"
@@ -4328,7 +4344,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子13",
         "nameen": "Forward pants 13",
         "namejp": "フォワードパンツ13"
@@ -4343,7 +4359,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子14",
         "nameen": "Forward pants 14",
         "namejp": "フォワードパンツ14"
@@ -4358,7 +4374,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子15",
         "nameen": "Forward pants 15",
         "namejp": "フォワードパンツ15"
@@ -4373,7 +4389,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子16",
         "nameen": "Forward pants 16",
         "namejp": "フォワードパンツ16"
@@ -4388,7 +4404,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子17",
         "nameen": "Forward pants 17",
         "namejp": "フォワードパンツ17"
@@ -4403,7 +4419,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子18",
         "nameen": "Forward pants 18",
         "namejp": "フォワードパンツ18"
@@ -4418,7 +4434,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子19",
         "nameen": "Forward pants 19",
         "namejp": "フォワードパンツ19"
@@ -4433,7 +4449,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "前锋裤子20",
         "nameen": "Forward pants 20",
         "namejp": "フォワードパンツ20"
@@ -4454,7 +4470,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "珊瑚红色热裤",
         "nameen": "Crimson Red Shorts",
         "namejp": "コーラルレッドホットパンツ",
@@ -4472,7 +4488,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "黄色明亮热裤",
         "nameen": "Bright Yellow Shorts",
         "namejp": "明るい黄色のショートパンツ",
@@ -4490,7 +4506,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 100,
         "namecn": "红色火焰热裤",
         "nameen": "Rubty Red Shorts",
         "namejp": "レッド炎ホットパンツ",
@@ -4509,7 +4525,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子4",
         "nameen": "Velvet Purple Shorts",
         "namejp": "ディフェンダーパンツ4",
@@ -4526,7 +4542,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子5",
         "nameen": "5 guard pants",
         "namejp": "5ガードパンツ"
@@ -4541,7 +4557,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子6",
         "nameen": "Defender pants 6",
         "namejp": "ディフェンダーパンツ6"
@@ -4556,7 +4572,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子7",
         "nameen": "Defender pants 7",
         "namejp": "ディフェンダーパンツ7"
@@ -4571,7 +4587,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子8",
         "nameen": "8 guard pants",
         "namejp": "8ガードパンツ"
@@ -4586,7 +4602,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子9",
         "nameen": "9 guard pants",
         "namejp": "9ガードパンツ"
@@ -4603,7 +4619,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "调酒师百褶裙",
         "nameen": "Silver Skirt",
         "namejp": "バーテンダープリーツスカート",
@@ -4620,7 +4636,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子11",
         "nameen": "Defender pants 11",
         "namejp": "ディフェンダーパンツ11"
@@ -4635,7 +4651,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子13",
         "nameen": "Defender pants 13",
         "namejp": "ディフェンダーパンツ13"
@@ -4650,7 +4666,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子13",
         "nameen": "Defender pants 13",
         "namejp": "ディフェンダーパンツ13"
@@ -4665,7 +4681,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子14",
         "nameen": "Defender pants 14",
         "namejp": "ディフェンダーパンツ14"
@@ -4680,7 +4696,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子15",
         "nameen": "Defender pants 15",
         "namejp": "ディフェンダーパンツ15"
@@ -4695,7 +4711,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子16",
         "nameen": "Defender pants 16",
         "namejp": "ディフェンダーパンツ16"
@@ -4710,7 +4726,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子17",
         "nameen": "Defender pants 17",
         "namejp": "ディフェンダーパンツ17"
@@ -4725,7 +4741,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子18",
         "nameen": "Defender pants 18",
         "namejp": "ディフェンダーパンツ18"
@@ -4740,7 +4756,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子19",
         "nameen": "Defender pants 19",
         "namejp": "ディフェンダーパンツ19"
@@ -4755,7 +4771,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 100,
         "namecn": "后卫裤子20",
         "nameen": "Defender pants 20",
         "namejp": "ディフェンダーパンツ20"
@@ -4776,7 +4792,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "摇滚高筒靴",
         "nameen": "Rocker High Boots",
         "namejp": "5中央シューズ",
@@ -4794,7 +4810,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "牛仔高筒靴",
         "nameen": "Cowboy Boots",
         "namejp": "5中央シューズ",
@@ -4812,7 +4828,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "刚硬高筒靴",
         "nameen": "Long High Heels Boots",
         "namejp": "5中央シューズ",
@@ -4831,7 +4847,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子4",
         "nameen": "Gray Sneakers",
         "namejp": "5中央シューズ",
@@ -4848,7 +4864,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子5",
         "nameen": "5 center Shoes",
         "namejp": "5中央シューズ"
@@ -4863,7 +4879,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子6",
         "nameen": "6 center Shoes",
         "namejp": "6中央シューズ"
@@ -4878,7 +4894,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子7",
         "nameen": "Shoes center 7",
         "namejp": "靴センター7"
@@ -4893,7 +4909,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子8",
         "nameen": "Shoes center 8",
         "namejp": "靴センター8"
@@ -4908,7 +4924,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子9",
         "nameen": "Shoes center 9",
         "namejp": "靴センター9"
@@ -4925,7 +4941,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "印第安摔角靴",
         "nameen": "Wrestling Boots",
         "namejp": "インドのレスリングブーツ",
@@ -4942,7 +4958,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子11",
         "nameen": "Shoes center 11",
         "namejp": "シューズセンター11"
@@ -4957,7 +4973,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子12",
         "nameen": "Shoes center 12",
         "namejp": "靴・センター12"
@@ -4972,7 +4988,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子13",
         "nameen": "Shoes center 13",
         "namejp": "靴・センター13"
@@ -4987,7 +5003,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子14",
         "nameen": "Shoes center 14",
         "namejp": "靴・センター14"
@@ -5002,7 +5018,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子15",
         "nameen": "Shoes center 15",
         "namejp": "靴・センター15"
@@ -5017,7 +5033,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子16",
         "nameen": "Shoes center 16",
         "namejp": "靴・センター16"
@@ -5032,7 +5048,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子17",
         "nameen": "Shoes center 17",
         "namejp": "靴・センター17"
@@ -5047,7 +5063,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子18",
         "nameen": "Shoes center 18",
         "namejp": "靴・センター18"
@@ -5062,7 +5078,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子19",
         "nameen": "Shoes center 19",
         "namejp": "靴・センター19"
@@ -5077,7 +5093,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "中锋鞋子20",
         "nameen": "Shoes center 20",
         "namejp": "靴・センター20"
@@ -5098,7 +5114,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "火炬红球鞋",
         "nameen": "Crimson Red Sneakers",
         "namejp": "トーチ赤い靴",
@@ -5116,7 +5132,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "钢铁灰球鞋",
         "nameen": "Steal Grey Sneakers",
         "namejp": "スチールグレーのスニーカー",
@@ -5134,7 +5150,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "极速白球鞋",
         "nameen": "Pearl White Sneakers",
         "namejp": "スピードホワイトスニーカー",
@@ -5153,7 +5169,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子4",
         "nameen": "Sneakers",
         "namejp": "フォワードシューズ4",
@@ -5172,7 +5188,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子5",
         "nameen": "Flashy Sneakers",
         "namejp": "フォワードシューズ5",
@@ -5189,7 +5205,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子6",
         "nameen": "6 forward Shoes",
         "namejp": "6前方シューズ"
@@ -5204,7 +5220,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子7",
         "nameen": "Forward shoes 7",
         "namejp": "フォワード靴7"
@@ -5219,7 +5235,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子8",
         "nameen": "Forward Shoes 8",
         "namejp": "フォワードシューズ8"
@@ -5234,7 +5250,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子9",
         "nameen": "Forward Shoes 9",
         "namejp": "フォワードシューズ9"
@@ -5251,7 +5267,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "生化人结构靴",
         "nameen": "Worker Boots",
         "namejp": "生化学的構造のブーツ",
@@ -5269,7 +5285,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子12",
         "nameen": "Forward Shoes 12",
         "namejp": "フォワードシューズ12"
@@ -5284,7 +5300,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子12",
         "nameen": "Forward Shoes 12",
         "namejp": "フォワードシューズ12"
@@ -5299,7 +5315,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子13",
         "nameen": "Forward Shoes 13",
         "namejp": "フォワードシューズ13"
@@ -5314,7 +5330,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子14",
         "nameen": "Forward Shoes 14",
         "namejp": "フォワードシューズ14"
@@ -5329,7 +5345,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子15",
         "nameen": "Forward Shoes 15",
         "namejp": "フォワードシューズ15"
@@ -5344,7 +5360,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子16",
         "nameen": "Forward Shoes 16",
         "namejp": "フォワードシューズ16"
@@ -5359,7 +5375,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子17",
         "nameen": "Forward Shoes 17",
         "namejp": "フォワードシューズ17"
@@ -5374,7 +5390,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子18",
         "nameen": "Forward Shoes 18",
         "namejp": "フォワードシューズ18"
@@ -5389,7 +5405,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子19",
         "nameen": "Forward Shoes 19",
         "namejp": "フォワードシューズ19"
@@ -5404,7 +5420,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "前锋鞋子20",
         "nameen": "Forward Shoes 20",
         "namejp": "フォワードシューズ20"
@@ -5425,7 +5441,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "摇滚骑士长靴",
         "nameen": "Rocker Boots",
         "namejp": "ロックナイトブーツ",
@@ -5443,7 +5459,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "桃红骑士长靴",
         "nameen": "Pink Rocker Boots",
         "namejp": "ピンクナイトブーツ",
@@ -5461,7 +5477,7 @@
         "maxstack": 1,
         "usetime": 96,
         "sell": 0,
-        "buy": 500,
+        "buy": 90,
         "namecn": "冰蓝骑士长靴",
         "nameen": "Ice Blue Rocker Boots",
         "namejp": "アイスブルーナイトブーツ",
@@ -5480,7 +5496,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子4",
         "nameen": "Pink Sneakers",
         "namejp": "ディフェンダーシューズ4",
@@ -5497,7 +5513,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子5",
         "nameen": "5 guard shoes",
         "namejp": "5ガード靴"
@@ -5512,7 +5528,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子6",
         "nameen": "Defender shoes 6",
         "namejp": "ディフェンダーの靴6"
@@ -5527,7 +5543,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子7",
         "nameen": "Defender shoes 7",
         "namejp": "ディフェンダーの靴7"
@@ -5542,7 +5558,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子8",
         "nameen": "8 guard shoes",
         "namejp": "8ガード靴"
@@ -5557,7 +5573,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子9",
         "nameen": "Defender Shoes 9",
         "namejp": "ディフェンダーシューズ9"
@@ -5574,7 +5590,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "调酒师冰刀",
         "nameen": "Ice Skates",
         "namejp": "バーテンダースケート",
@@ -5591,7 +5607,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子11",
         "nameen": "Defender Shoes 11",
         "namejp": "ディフェンダーシューズ11"
@@ -5606,7 +5622,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子11",
         "nameen": "Defender Shoes 11",
         "namejp": "ディフェンダーシューズ11"
@@ -5621,7 +5637,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子13",
         "nameen": "Defender Shoes 13",
         "namejp": "ディフェンダーシューズ13"
@@ -5636,7 +5652,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子14",
         "nameen": "Defender Shoes 14",
         "namejp": "ディフェンダーシューズ14"
@@ -5651,7 +5667,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子15",
         "nameen": "Defender Shoes 15",
         "namejp": "ディフェンダーシューズ15"
@@ -5666,7 +5682,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子16",
         "nameen": "Defender Shoes 16",
         "namejp": "ディフェンダーシューズ16"
@@ -5681,7 +5697,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子17",
         "nameen": "Defender Shoes 17",
         "namejp": "ディフェンダーシューズ17"
@@ -5696,7 +5712,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子18",
         "nameen": "Defender Shoes 18",
         "namejp": "ディフェンダーシューズ18"
@@ -5711,7 +5727,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子19",
         "nameen": "Defender Shoes 19",
         "namejp": "ディフェンダーシューズ19"
@@ -5726,7 +5742,7 @@
         "usetime": 96,
         "potential": 20,
         "sell": 100,
-        "buy": 500,
+        "buy": 90,
         "namecn": "后卫鞋子20",
         "nameen": "Defender Shoes 20",
         "namejp": "ディフェンダーシューズ20"
@@ -5748,7 +5764,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "鹰眼面具",
         "nameen": "Hawk Eye Mask",
         "namejp": "イーグルアイマスク",
@@ -5767,7 +5783,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "机械右眼",
         "nameen": "Cyborg Eye",
         "namejp": "機械的な目",
@@ -5784,7 +5800,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰3",
         "nameen": "Headdress 3",
         "namejp": "ヘッドドレス3"
@@ -5799,7 +5815,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰4",
         "nameen": "Headdress 4",
         "namejp": "ヘッドドレス4"
@@ -5814,7 +5830,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰5",
         "nameen": "Headdress 5",
         "namejp": "ヘッドドレス5"
@@ -5829,7 +5845,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰6",
         "nameen": "Headwear 6",
         "namejp": "ヘッドウェア6"
@@ -5844,7 +5860,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰7",
         "nameen": "Headdress 7",
         "namejp": "ヘッドドレス7"
@@ -5859,7 +5875,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰8",
         "nameen": "Headdress 8",
         "namejp": "ヘッドドレス8"
@@ -5874,7 +5890,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰9",
         "nameen": "Headwear 9",
         "namejp": "ヘッドウェア9"
@@ -5889,7 +5905,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰10",
         "nameen": "Headwear 10",
         "namejp": "帽子10"
@@ -5904,7 +5920,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰11",
         "nameen": "Headdress 11",
         "namejp": "頭飾り11"
@@ -5919,7 +5935,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰12",
         "nameen": "Headdress 12",
         "namejp": "頭飾り12"
@@ -5934,7 +5950,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰13",
         "nameen": "Headdress 13",
         "namejp": "頭飾り13"
@@ -5949,7 +5965,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰14",
         "nameen": "Headdress 14",
         "namejp": "頭飾り14"
@@ -5964,7 +5980,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰15",
         "nameen": "Headdress 15",
         "namejp": "頭飾り15"
@@ -5979,7 +5995,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰16",
         "nameen": "Headdress 16",
         "namejp": "頭飾り16"
@@ -5994,7 +6010,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰17",
         "nameen": "Headdress 17",
         "namejp": "頭飾り17"
@@ -6009,7 +6025,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰18",
         "nameen": "Headdress 18",
         "namejp": "頭飾り18"
@@ -6024,7 +6040,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰19",
         "nameen": "Headdress 19",
         "namejp": "頭飾り19"
@@ -6039,7 +6055,7 @@
         "usetime": 96,
         "potential": 30,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "头饰20",
         "nameen": "Headdress 20",
         "namejp": "頭飾り20"
@@ -6059,7 +6075,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰1",
         "nameen": "Back ornaments 1",
         "namejp": "戻る装飾品1"
@@ -6074,7 +6090,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰2",
         "nameen": "Back ornaments 2",
         "namejp": "戻る装飾品2"
@@ -6089,7 +6105,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰3",
         "nameen": "Back ornaments 3",
         "namejp": "戻る装飾3"
@@ -6104,7 +6120,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰4",
         "nameen": "Back ornaments 4",
         "namejp": "戻るオーナメント4"
@@ -6119,7 +6135,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰5",
         "nameen": "Back decorated 5",
         "namejp": "戻る5装飾"
@@ -6134,7 +6150,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰6",
         "nameen": "Back decorated 6",
         "namejp": "戻る6装飾"
@@ -6149,7 +6165,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰7",
         "nameen": "Back ornaments 7",
         "namejp": "戻る装飾品7"
@@ -6164,7 +6180,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰8",
         "nameen": "Back ornaments 8",
         "namejp": "戻るオーナメント8"
@@ -6179,7 +6195,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰9",
         "nameen": "Back ornaments 9",
         "namejp": "戻る装飾品9"
@@ -6194,7 +6210,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰10",
         "nameen": "Back decorated 10",
         "namejp": "戻る10装飾"
@@ -6210,7 +6226,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰11",
         "nameen": "Back decorated 11",
         "namejp": "戻る11装飾"
@@ -6225,7 +6241,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰12",
         "nameen": "Back decorated 12",
         "namejp": "戻る12装飾"
@@ -6240,7 +6256,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰13",
         "nameen": "Back decorated 13",
         "namejp": "戻る13装飾"
@@ -6255,7 +6271,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰14",
         "nameen": "Back decorated 14",
         "namejp": "戻る14装飾"
@@ -6270,7 +6286,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰15",
         "nameen": "Back decorated 15",
         "namejp": "戻る15装飾"
@@ -6285,7 +6301,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰16",
         "nameen": "Back decorated 16",
         "namejp": "戻る16装飾"
@@ -6300,7 +6316,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰17",
         "nameen": "Back decorated 17",
         "namejp": "戻る17装飾"
@@ -6315,7 +6331,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰18",
         "nameen": "Back decorated 18",
         "namejp": "戻る18装飾"
@@ -6330,7 +6346,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰19",
         "nameen": "Back decorated 19",
         "namejp": "戻る19装飾"
@@ -6345,7 +6361,7 @@
         "usetime": 96,
         "potential": 40,
         "sell": 100,
-        "buy": 500,
+        "buy": 120,
         "namecn": "背饰20",
         "nameen": "Back decorated 20",
         "namejp": "戻る20装飾"
