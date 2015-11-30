@@ -540,6 +540,7 @@ public class UISkillFormation : UIBase {
 		GameObject uiEquipEffect = Instantiate(equipEffect) as GameObject;
 		uiEquipEffect.transform.parent = obj.transform;
 		uiEquipEffect.transform.localPosition = Vector3.zero;
+		uiEquipEffect.transform.localScale = Vector3.one;
 
 		UIEventListener.Get(obj).onClick = OnItemDetailInfo;
 
