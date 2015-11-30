@@ -27,13 +27,6 @@ public class UIGamePause : UIBase {
 
 	private string[] positionPicName = {"L_namecard_CENTER", "L_namecard_FORWARD", "L_namecard_GUARD"};
 	private TGameRecord gameRecord;
-	private GameObject viewAISelect;
-//	private GameObject viewOption;
-//	private GameObject[] effectGroup = new GameObject[2];
-//	private GameObject[] musicGroup = new GameObject[2];
-	private UIScrollBar aiLevelScrollBar;
-	private bool isShowOption = false;
-	private bool isMusicOn = false;
 
 	private UIStageHint uiStageHint;
 
@@ -87,25 +80,6 @@ public class UIGamePause : UIBase {
 		uiGameResult = GameObject.Find(UIName + "/Center/GameResult");
 		uiSelect = GameObject.Find(UIName + "/Center/GameResult/Select");
 
-		viewAISelect = GameObject.Find (UIName + "/AISelect");
-		SetBtnFun (UIName + "/AISelect/ButtonClose", AITimeChange);
-		aiLevelScrollBar = GameObject.Find (UIName + "/AISelect/AIControlScrollBar").GetComponent<UIScrollBar>();
-		aiLevelScrollBar.onChange.Add(new EventDelegate(changeAIChangeTime));
-		viewAISelect.SetActive(false);
-//		viewOption = GameObject.Find (UIName + "TopRight/ViewTools/ViewOption");
-//		viewOption.SetActive(isShowOption);
-//		effectGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelON");
-//		effectGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect/LabelOff");
-//		effectGroup [0].SetActive (GameData.Setting.Effect);
-//		effectGroup [1].SetActive (!GameData.Setting.Effect);
-//
-//		musicGroup[0] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelON");
-//		musicGroup[1] = GameObject.Find (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic/LabelOff");
-//		musicGroup[0].SetActive(GameData.Setting.Music);
-//		musicGroup[1].SetActive(!GameData.Setting.Music);
-		isMusicOn = GameData.Setting.Music;
-
-
 		SetBtnFun(UIName + "/Bottom/ButtonAgain", OnAgain);
 		SetBtnFun(UIName + "/Bottom/ButtonResume", OnResume);
 		SetBtnFun(UIName + "/Bottom/ButtonReturnSelect", OnReturn);
@@ -117,14 +91,7 @@ public class UIGamePause : UIBase {
 		SetBtnFun(UIName + "/Center/GameResult/PlayerA/ButtonA", OnPlayerInfo);
 		SetBtnFun(UIName + "/Center/GameResult/PlayerB/ButtonB", OnPlayerInfo);
 
-		
-//		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
-//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMusic", MusicSwitch);
-//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonMainMenu", BackMainMenu);
-//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonEffect", EffectSwitch);
-//		SetBtnFun (UIName + "/TopRight/ViewTools/ViewOption/ButtonAITime", AITimeChange);
-		
-		initAiTime();
+		SetBtnFun (UIName + "/TopRight/ViewTools/ButtonOption", OptionSelect);
 	}
 	
 	protected override void InitData() {
@@ -285,74 +252,8 @@ public class UIGamePause : UIBase {
 		uiGameResult.SetActive(false);
 	}
 
-	public void BackMainMenu() {
-		Time.timeScale = 1;
-		SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
-	}
-
-	public void EffectSwitch(){
-		GameData.Setting.Effect = !GameData.Setting.Effect;
-//		effectGroup [0].SetActive (GameData.Setting.Effect);
-//		effectGroup [1].SetActive (!GameData.Setting.Effect);
-		
-		int index = 0;
-		
-		if (GameData.Setting.Effect)
-			index = 1;
-		
-		CourtMgr.Get.EffectEnable (GameData.Setting.Effect);
-		
-		PlayerPrefs.SetInt (SettingText.Effect, index);
-		PlayerPrefs.Save ();
-	}
-
 	public void OptionSelect(){
-		isShowOption = !isShowOption;
-		UISetting.UIShow(true);
-//		viewOption.SetActive(isShowOption);
-	}
-
-	public void MusicSwitch(){
-		isMusicOn = !isMusicOn;
-		AudioMgr.Get.MusicOn(isMusicOn);
-//		musicGroup[0].SetActive(isMusicOn);
-//		musicGroup[1].SetActive(!isMusicOn);
-	}
-
-	public void AITimeChange (){
-		GameController.Get.Joysticker.SetManually();
-		viewAISelect.SetActive(!viewAISelect.gameObject.activeInHierarchy);
-		if(viewAISelect.gameObject.activeInHierarchy){
-			uiStageHint.Hide();
-			uiGameResult.SetActive(false);
-		} else {
-			pauseType = EPauseType.Target;
-			uiStageHint.Show();
-			uiGameResult.SetActive(false);
-		}
-		PlayerPrefs.SetInt(SettingText.AITime, GameData.Setting.AIChangeTimeLv);
-	}
-
-	private void initAiTime() {
-		float time = PlayerPrefs.GetFloat(SettingText.AITime);
-		if(time == 1) {
-			aiLevelScrollBar.value = 0;
-		} else if(time == 3) {
-			aiLevelScrollBar.value = 0.2f;
-		}else if(time == 5) {
-			aiLevelScrollBar.value = 0.4f;
-		}else if(time == 15) {
-			aiLevelScrollBar.value = 0.6f;
-		}else if(time == 30) {
-			aiLevelScrollBar.value = 0.8f;
-		}else if(time == 999999) {
-			aiLevelScrollBar.value = 1;
-		} 
-	}
-
-	public void changeAIChangeTime(){
-		int level = (int)  Mathf.Round(aiLevelScrollBar.value * 5);
-		GameData.Setting.AIChangeTimeLv = level;
+		UISetting.UIShow(true, false);
 	}
 
 	public bool isStage

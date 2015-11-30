@@ -303,6 +303,8 @@ public class UISetting : UIBase {
 	{
 		GameData.Setting.Effect = !GameData.Setting.Effect;
 		gameSetting.UpdateView ();
+		if(CourtMgr.Visible)
+			CourtMgr.Get.EffectEnable(GameData.Setting.Effect);
 	}
 
 	public void OnAILv()
@@ -317,6 +319,8 @@ public class UISetting : UIBase {
 		}
 
 		gameSetting.UpdateView ();
+		if(GameController.Visible)
+			GameController.Get.Joysticker.SetManually();
 	}
 
 	private int languageIndex = 0;
