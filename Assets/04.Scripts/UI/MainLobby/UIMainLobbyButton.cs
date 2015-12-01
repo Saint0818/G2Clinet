@@ -5,10 +5,10 @@ using JetBrains.Annotations;
 
 public class UIMainLobbyButton : MonoBehaviour
 {
-    private const float EffectDelayTime = 3f;
+    public UISprite Icon;
 
-    // 球員等級大於等於此數值, 表示此按鈕必須要打開.
-    private int mOpenLv = Int32.MaxValue;
+    private const float EffectDelayTime = 3f;
+    private readonly Color mGrayColor = new Color(50/255f, 50/255f, 50/255f, 1);
 
     private GameObject mEffect;
 
@@ -19,6 +19,9 @@ public class UIMainLobbyButton : MonoBehaviour
             var uiButton = GetComponent<UIButton>();
             if(uiButton)
                 uiButton.isEnabled = value;
+
+            if(Icon)
+                Icon.color = value ? Color.white : mGrayColor;
         }
     }
 
