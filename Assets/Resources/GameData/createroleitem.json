@@ -49,5 +49,47 @@
         "clothg": 3203,
         "pantsg": 4203,
         "shoesg": 5203
+    },
+    {
+        "hairc": 1004,
+        "clothc": 3004,
+        "pantsc": 4004,
+        "shoesc": 5004,
+        "hairf": 1104,
+        "clothf": 3104,
+        "pantsf": 4104,
+        "shoesf": 5104,
+        "hairg": 1204,
+        "clothg": 3204,
+        "pantsg": 4204,
+        "shoesg": 5204
+    },
+    {
+        "hairc": 1005,
+        "clothc": 3005,
+        "pantsc": 4005,
+        "shoesc": 5005,
+        "hairf": 1105,
+        "clothf": 3105,
+        "pantsf": 4105,
+        "shoesf": 5105,
+        "hairg": 1205,
+        "clothg": 3205,
+        "pantsg": 4205,
+        "shoesg": 5205
+    },
+    {
+        "hairc": 1006,
+        "clothc": 3006,
+        "pantsc": 4006,
+        "shoesc": 5006,
+        "hairf": 1106,
+        "clothf": 3106,
+        "pantsf": 4106,
+        "shoesf": 5106,
+        "hairg": 1206,
+        "clothg": 3206,
+        "pantsg": 4206,
+        "shoesg": 5206
     }
 ]

@@ -794,6 +794,51 @@
         "explainjp": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
+        "id": 499,
+        "kind": 40,
+        "quality": 3,
+        "star": 5,
+        "maxstar": 5,
+        "pictureno": 10400,
+        "nametw": "究極後仰神射",
+        "animation": "Shoot20",
+        "space": 1,
+        "spaceadd": -1,
+        "sell": 1,
+        "money": 100,
+        "attrkind": 2,
+        "valuebase": 200,
+        "rate": 999,
+        "rateadd": 999,
+        "distance": 12,
+        "distanceadd": 1,
+        "lifetime": 5,
+        "activecamera": 0,
+        "activecameratime": 1.5,
+        "targetkind": 1,
+        "targetkind1": 15,
+        "targeteffect1": 1010,
+        "effectparent1": 1,
+        "delaytime1": 0.4,
+        "targetkind2": 4,
+        "targeteffect2": 1002,
+        "effectparent2": 0,
+        "delaytime2": 0,
+        "duration2": 0.5,
+        "targetkind3": 14,
+        "targeteffect3": 2006,
+        "effectparent3": 0,
+        "delaytime3": 0,
+        "duration3": 3,
+        "namecn": "究極鷹眼神射",
+        "nameen": "Ultimate Hawk Eye",
+        "namejp": "究極鷹眼神射",
+        "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n\n[F0FF00]發動條件：我方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：100%投籃命中＆降低對手3分命中{6}%[-]",
+        "explaincn": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
+        "explainen": "Launch an ultimate three pointer, once it goes in it demoralize the opposing team and lower their field goal percentage for a short period of time.\n[F0FF00] Criteria:\n[F0FF00] Conditions:\n[F0FF00] Effect: ",
+        "explainjp": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
+    },
+    {
         "id": 510,
         "kind": 50,
         "quality": 1,
@@ -5457,7 +5502,7 @@
         "namejp": "崩壊促進の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的加速衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的加速衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their speed.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their speed.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的加速衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5500,7 +5545,7 @@
         "namejp": "耐久減衰の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的耐力衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的耐力衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的耐力衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5543,7 +5588,7 @@
         "namejp": "電力減衰の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的力量衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的力量衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的力量衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5586,7 +5631,7 @@
         "namejp": "DEAR減衰呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的灌籃衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的灌籃衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的灌籃衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5629,7 +5674,7 @@
         "namejp": "呪いのリバウンドダンピング",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的籃板衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的籃板衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their rebound ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their rebound ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的籃板衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5672,7 +5717,7 @@
         "namejp": "ポット減衰の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的火鍋衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的火鍋衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的火鍋衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5715,7 +5760,7 @@
         "namejp": "守備減衰呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的防守衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的防守衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their strenght defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their strenght defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的防守衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5758,7 +5803,7 @@
         "namejp": "呪いは、減衰を盗みます",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的抄截衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的抄截衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their stiling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their stiling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的抄截衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5801,7 +5846,7 @@
         "namejp": "所持減衰の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的控球衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的控球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their ball handling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their ball handling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的控球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5844,7 +5889,7 @@
         "namejp": "呪いは、減衰を盗みます",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的傳球衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手{3}-{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的傳球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: opponents{3}-{4}duratiom{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponents{3} - {4} duratiom {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的傳球衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {

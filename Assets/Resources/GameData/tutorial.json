@@ -4,7 +4,7 @@
         "line": 1,
         "title": "主介面",
         "uiname": "UIMainLobby",
-        "texttw": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
+        "texttw": "喂喂喂！！比賽快開始了，你還在這幹嘛？",
         "textcn": "偎偎偎！！比賽快開始了，你還在這幹嘛？",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
@@ -13,7 +13,7 @@
         "line": 2,
         "talkindex": 1,
         "talkr": -1,
-        "texttw": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
+        "texttw": "啊！！我剛又做了一場精彩的『籃球夢』...",
         "textcn": "啊！！我剛又做了一場精彩的\"籃球夢\"...",
         "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
     },
@@ -56,7 +56,7 @@
     {
         "id": 1,
         "line": 9,
-        "texttw": "確認了解這場比賽的獲勝條件之後，就可以開始了。"
+        "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。"
     },
     {
         "id": 1,
@@ -69,50 +69,14 @@
         "uipath": "UI2D/UISelectRole/Right/GameStart"
     },
     {
-        "id": 2,
-        "line": 1,
-        "title": "第一關",
-        "value": 1,
-        "talkindex": 1,
-        "talkl": 24,
-        "talkr": -1,
-        "texttw": "[f6f6f6]哈囉～歡迎來到[ff6060]『籃球黑幫』[-]。我是你的球隊經理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
-    },
-    {
-        "id": 2,
-        "line": 2,
-        "talkindex": 1,
-        "talkl": 24,
-        "talkr": 14,
-        "texttw": "[f6f6f6]接下來我會一步步引導你融入籃球的美妙世界，只要跟著[66ff66]箭頭指示操作[-]就可以囉！[-]",
-        "textcn": "[f6f6f6]接下来我会一步步引导你融入篮球的美妙世界，只要跟着[66ff66]箭头指示操作[-]就可以啰！[-]",
-        "texten": "[f6f6f6] Now I will guide you step by step into the wonderful world of basketball, just follow the [66ff66] arrow [-] instructions ! [-]"
-    },
-    {
-        "id": 2,
-        "line": 3,
-        "talkindex": 1,
-        "texttw": "[f6f6f6]點擊[66ff66]關卡挑戰[-]，馬上來打一場球吧！[-]",
-        "textcn": "[f6f6f6]点击[66ff66]关卡挑战[-]，马上来打一场球吧！[-]",
-        "texten": "[f6f6f6] Click [66ff66] Challenge Stages[-] and start a game immediately! [-]"
-    },
-    {
-        "id": 2,
-        "line": 4,
-        "offsetx": -200,
-        "offsety": -575,
-        "uipath": "UI2D/UIGame/GameJoystick"
-    },
-    {
         "id": 3,
         "line": 1,
         "title": "Skill",
         "kind": 4,
         "value": 2,
         "uiname": "UISkillFormation",
-        "talkl": 11,
-        "texttw": "[f6f6f6]強大的[ff6060]『技能卡片』[-]將對比賽的結果造成決定性的影響。",
+        "talkindex": 1,
+        "texttw": "剛剛獲得到一張[ff6060]技能卡片[-]，這是幹嘛的呀？",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
@@ -122,20 +86,36 @@
         "kind": 4,
         "value": 2,
         "talkl": 11,
-        "texttw": "我們趕快來把技能安裝上去吧。",
-        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
-        "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+        "texttw": "[ff6060]技能卡片[-]是運用科技，讓我們能夠獲得超乎常人的能力，"
     },
     {
         "id": 3,
         "line": 3,
         "kind": 4,
         "value": 2,
-        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+        "talkl": 11,
+        "texttw": "如果這個卡片運用得當，將對比賽的結果造成決定性的影響。"
     },
     {
         "id": 3,
         "line": 4,
+        "kind": 4,
+        "value": 2,
+        "talkl": 11,
+        "texttw": "我來教你怎麼安裝它。",
+        "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
+        "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
+    },
+    {
+        "id": 3,
+        "line": 5,
+        "kind": 4,
+        "value": 2,
+        "uipath": "UI2D/UIMainLobby/Bottom/MainMenu/SkillBt"
+    },
+    {
+        "id": 3,
+        "line": 6,
         "kind": 4,
         "value": 2,
         "talkl": 11,
@@ -143,15 +123,15 @@
     },
     {
         "id": 3,
-        "line": 5,
+        "line": 7,
         "kind": 4,
         "value": 2,
         "talkl": 11,
-        "texttw": "只要將擁有的技能卡片[ff6060]拖曳[-]到[ff6060]右側欄位[-]中即可完成安裝，"
+        "texttw": "只要將擁有的技能卡片[ff6060]拖曳[-]到對應的[ff6060]右側欄位[-]中即可完成安裝，"
     },
     {
         "id": 3,
-        "line": 6,
+        "line": 8,
         "kind": 4,
         "value": 2,
         "talkl": 11,
@@ -165,7 +145,7 @@
         "value": 4,
         "uiname": "UIAvatarFitted",
         "talkl": 11,
-        "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]『造型特色』[-]，",
+        "texttw": "[f6f6f6]快來搭配屬於自己的[ff6060]造型特色吧[-]，",
         "textcn": "[f6f6f6]哈啰～欢迎来到[ff6060]『决战篮球』[-]。我是你的球队经理—[66ff66]Jessica～[-]",
         "texten": "[f6f6f6] Hello ~ Welcome to [ff6060] \"Gang of basketballers\" [-]. I'm your team manager - [66ff66] Jessica ~ [-]"
     },
@@ -183,15 +163,29 @@
         "line": 3,
         "kind": 4,
         "value": 4,
-        "talkl": 11,
-        "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則到期即不可再穿。"
+        "uipath": "UI2D/UIAvatarFitted/MainView/Left/MainButton/ClothesBtn"
     },
     {
         "id": 4,
         "line": 4,
         "kind": 4,
         "value": 4,
-        "texttw": "買下來的造型還可以適度的增加自己的[ff6060]潛能點數[-]喔！！"
+        "talkl": 11,
+        "texttw": "造型服裝都有限定的[ff6060]時限[-]，除非把它買下來，否則時間到期就不能再穿了。"
+    },
+    {
+        "id": 4,
+        "line": 5,
+        "kind": 4,
+        "value": 4,
+        "texttw": "而且買新造型還可以增加自己的[ff6060]潛能[-]喔！！"
+    },
+    {
+        "id": 4,
+        "line": 6,
+        "kind": 4,
+        "value": 4,
+        "texttw": "點擊[ff6060]衣服圖示[-]就可以把它穿起來了！！"
     },
     {
         "id": 5,
@@ -208,7 +202,7 @@
         "kind": 4,
         "value": 3,
         "talkl": 11,
-        "texttw": "快來把我們剛剛獲得的服裝給穿起來吧！！"
+        "texttw": "快把我們剛剛獲得的配件給穿起來吧！！"
     },
     {
         "id": 5,
@@ -239,7 +233,7 @@
         "kind": 4,
         "value": 3,
         "talkl": 11,
-        "texttw": "有沒有感覺充滿無比的動力呢？"
+        "texttw": "有沒有感覺自己的能力又更上一層了呢？"
     },
     {
         "id": 5,
@@ -252,8 +246,8 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 11,
-        "texttw": "剩下最後十秒，我方發球落後6分，如何逆轉戰局?"
+        "talkr": 12,
+        "texttw": "只剩下最後的10秒鐘了，我們還落後7分，必須要好好把握這次發球的機會才行。"
     },
     {
         "id": 1011,
@@ -261,31 +255,30 @@
         "kind": 3,
         "value": 101,
         "talkl": 11,
-        "texttw": "出現空擋了，先移動到三分線外。"
+        "texttw": "現在只能靠你的得分能力才有機會扭轉戰局了！！！"
     },
     {
-        "id": 1012,
-        "line": 1,
-        "title": "第一關",
-        "kind": 3,
-        "value": 101,
-        "talkl": 11,
-        "texttw": "突然充滿能量，士氣達到可以發動技能了。"
-    },
-    {
-        "id": 1012,
-        "line": 2,
-        "kind": 3,
-        "value": 101,
-        "talkl": 11,
-        "texttw": "看我三分神射。"
-    },
-    {
-        "id": 1012,
+        "id": 1011,
         "line": 3,
         "kind": 3,
         "value": 101,
-        "uipath": "UI2D/UIGame/TopRight/0"
+        "talkr": 12,
+        "texttw": "好！只能這樣做了...來吧！！！"
+    },
+    {
+        "id": 1012,
+        "line": 1,
+        "kind": 3,
+        "value": 101,
+        "talkr": 12,
+        "texttw": "先來顆神準三分球！！"
+    },
+    {
+        "id": 1012,
+        "line": 2,
+        "kind": 3,
+        "value": 101,
+        "uipath": "UI2D/UIGame/BottomRight/ViewAttack/ButtonShoot"
     },
     {
         "id": 1013,
@@ -293,12 +286,20 @@
         "title": "第一關",
         "kind": 3,
         "value": 101,
-        "talkl": 11,
-        "texttw": "時間來不及了，看來只能使用瞬間超球技能。"
+        "talkr": 12,
+        "texttw": "剛剛的三分球讓我增加滿滿的能量，現在可以使用絕技了！！"
     },
     {
         "id": 1013,
         "line": 2,
+        "kind": 3,
+        "value": 101,
+        "talkr": 12,
+        "texttw": "時間來不及了，看來只能使用瞬間抄球技能。"
+    },
+    {
+        "id": 1013,
+        "line": 3,
         "kind": 3,
         "value": 101,
         "uipath": "UI2D/UIGame/TopRight/1"
@@ -310,11 +311,19 @@
         "kind": 3,
         "value": 101,
         "talkl": 11,
-        "texttw": "發動終極灌籃絕招結束這場比賽吧。"
+        "texttw": "快！！！把握機會！！"
     },
     {
         "id": 1014,
         "line": 2,
+        "kind": 3,
+        "value": 101,
+        "talkr": 12,
+        "texttw": "發動終極灌籃絕招來結束這場比賽吧。"
+    },
+    {
+        "id": 1014,
+        "line": 3,
         "kind": 3,
         "value": 101,
         "uipath": "UI2D/UIGame/TopRight/2"
@@ -326,7 +335,7 @@
         "kind": 3,
         "talkl": 11,
         "actionr": 1,
-        "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺球。"
+        "texttw": "呼，上一場比賽真是好險，多虧你關鍵的絕殺灌籃。"
     },
     {
         "id": 1021,
@@ -334,7 +343,7 @@
         "kind": 3,
         "talkr": 12,
         "actionr": 1,
-        "texttw": "您客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。"
+        "texttw": "妳客氣了，籃球是團隊合作的運動，勝利是靠大家一起取得的。"
     },
     {
         "id": 1021,
@@ -369,7 +378,7 @@
         "line": 7,
         "kind": 3,
         "talkr": 12,
-        "texttw": "原來如此，我們立即來搭配一下吧！！"
+        "texttw": "原來如此，我們立即來試試吧！！"
     },
     {
         "id": 1021,
@@ -448,7 +457,7 @@
         "id": 1026,
         "line": 1,
         "kind": 3,
-        "talkl": 11,
+        "talkr": 12,
         "texttw": "既然都剛好在籃下了，直接來個[fff400]絕殺灌籃[-]吧！！！"
     },
     {
@@ -517,6 +526,13 @@
         "id": 1032,
         "line": 4,
         "kind": 3,
+        "talkr": 12,
+        "texttw": "好，我來試試！！"
+    },
+    {
+        "id": 1032,
+        "line": 5,
+        "kind": 3,
         "uipath": "UI2D/UIGame/BottomRight/ButtonAttack"
     },
     {
@@ -564,21 +580,14 @@
         "line": 1,
         "kind": 3,
         "talkl": 11,
-        "texttw": "這關必須要達成限定的[fff400]灌籃次數[-]，"
+        "texttw": "這場競賽我們必須要達成限定的[fff400]灌籃次數[-]，才可以取得這個關卡的勝利，"
     },
     {
         "id": 10101,
         "line": 2,
         "kind": 3,
         "talkl": 11,
-        "texttw": "才可以取得這個關卡的勝利，"
-    },
-    {
-        "id": 10101,
-        "line": 3,
-        "kind": 3,
-        "talkl": 11,
-        "texttw": "記得要好好利用剛剛所安裝的技能卡片喔！！"
+        "texttw": "條件有點困難，所以要記得要好好利用剛剛所安裝的技能卡片喔！！"
     },
     {
         "id": 10102,
