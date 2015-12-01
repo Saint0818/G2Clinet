@@ -170,7 +170,7 @@ public class UINamed : UIBase {
 //			UIHint.Get.ShowHint("Change Name Success!", Color.black);
 		}
 		else
-			UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
+			UIHint.Get.ShowHint(string.Format("Change Player Name fail! {0}", www.text), Color.red);
 
 		if (UIPlayerInfo.Visible)
 			UIPlayerInfo.Get.UpdatePage (0);

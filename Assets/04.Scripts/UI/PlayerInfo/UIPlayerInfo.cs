@@ -713,12 +713,12 @@ public class UIPlayerInfo : UIBase {
 	{
 		WWWForm form = new WWWForm();
 		form.AddField("NewPlayerName", UIInput.current.value);
-		SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form, true);
+		SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form);
 	}
 
 	private void waitChangePlayerName(bool ok, WWW www)
 	{
-		if (ok)
+		if(ok)
 		{
 			GameData.Team.Player.Name = www.text;
 			UIHint.Get.ShowHint("Change Name Success!", Color.black);

@@ -4,11 +4,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UIMainLobbyMain : MonoBehaviour
 {
-    /// <summary>
-    /// 呼叫時機: 當玩家更改球員名稱時.
-    /// </summary>
-    public event CommonDelegateMethods.Action ChangePlayerNameListener;
-
     public GameObject FullScreenBlock;
 
     public GameObject MoneyObj;
@@ -158,14 +153,5 @@ public class UIMainLobbyMain : MonoBehaviour
     public void PlayExitAnimation()
     {
         GetComponent<Animator>().SetTrigger("MainLobby_Down");
-    }
-
-    public void ChangePlayerName()
-    {
-        if(UIInput.current.value.Length <= 0)
-            return;
-
-        if(ChangePlayerNameListener != null)
-            ChangePlayerNameListener();
     }
 }
