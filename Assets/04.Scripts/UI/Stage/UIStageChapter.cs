@@ -27,7 +27,7 @@ public class UIStageChapter : MonoBehaviour
     }
     private int mChapter;
 
-    private readonly Vector3 mDefaultStageScale = new Vector3(1.6f, 1.6f, 1);
+    private readonly Vector3 mDefaultStageScale = new Vector3(1, 1, 1);
 
     public string Title
     {
