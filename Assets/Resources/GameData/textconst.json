@@ -59,6 +59,21 @@
         "en": "Setting"
     },
     {
+        "id": 230,
+        "explain": "體力不足",
+        "tw": "體力不足"
+    },
+    {
+        "id": 231,
+        "explain": "挑戰次數已用完",
+        "tw": "挑戰次數已用完"
+    },
+    {
+        "id": 232,
+        "explain": "未達挑戰等級",
+        "tw": "未達挑戰等級"
+    },
+    {
         "id": 301,
         "explain": "小提示文字",
         "tw": "競賽中只能控制自己角色的移動。",
@@ -1181,7 +1196,7 @@
         "id": 9102,
         "explain": "MainStageBtn/BtnLabel",
         "tw": "生涯競賽",
-        "en": "TEST"
+        "en": "Dominate The Basketball World"
     },
     {
         "id": 9103,
@@ -1335,8 +1350,7 @@
     },
     {
         "id": 9509,
-        "tw": "戰鬥力 {0:F2} ",
-        "en": "Power"
+        "tw": "戰鬥力 {0:F1} "
     },
     {
         "id": 9601,
@@ -2242,7 +2256,7 @@
         "id": 2000402,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}分[-]！！！",
-        "en": " [FFDD33]{1}[-]Victory Is [FF3355]{0}Points[-] Away！！！"
+        "en": " [FFDD33]{1}[-]Victory Is [FF3355]{0} Points[-] Away！！！"
     },
     {
         "id": 2000407,
@@ -2301,19 +2315,19 @@
         "id": 2002000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成3分球目標！！！[-]",
-        "en": " [FFDD33]{1}[-][BBFF33]Achieved 3 Point Objectives！！！[-]"
+        "en": " [FFDD33]{1}[-] [BBFF33]Achieved 3 Point Objectives！！！[-]"
     },
     {
         "id": 2002001,
         "tw": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]3分球即可獲得勝利。",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0}More[-]3 Point Shots For The Win"
+        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 3 Point Shots For The Win"
     },
     {
         "id": 2002002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]3分球！！！",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0}More[-]3 Point Shots For The Win"
+        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 3 Point Shots For The Win"
     },
     {
         "id": 2002007,
@@ -2324,31 +2338,31 @@
         "id": 2002008,
         "tw": "[FFDD33]3分球[-][33FFDD]數量[-]",
         "cn": "[FFDD33]3分球[-][33FFDD]數量[-]",
-        "en": "[FFDD33]3Point[-] [33FFDD]Field Goals[-]"
+        "en": "[FFDD33]3 Point[-] [33FFDD]Field Goals[-]"
     },
     {
         "id": 2002009,
         "tw": "[FFDD33]3分球[-]",
         "cn": "[FFDD33]3分球[-]",
-        "en": "[FFDD33]3Point[-]"
+        "en": "[FFDD33]3 Point[-]"
     },
     {
         "id": 2003000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成灌籃目標！！！[-]",
-        "en": "[FFDD33]{1}[-][BBFF33]Achieved Dunking Objective！！！[-]"
+        "en": "[FFDD33]{1}[-] [BBFF33]Achieved Dunking Objective！！！[-]"
     },
     {
         "id": 2003001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
-        "en": "[FFDD33]{1}[-]More [FF3355]{0}[-] dunks to obtain victory"
+        "en": "[FFDD33]{1}[-] More [FF3355]{0}[-] dunks to obtain victory"
     },
     {
         "id": 2003002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]灌籃！！！",
-        "en": "[FFDD33]{1}[-]Get [FF3355]{0}[-]More Dunks For The Victory！！！"
+        "en": "[FFDD33]{1}[-] Get [FF3355]{0}[-] More Dunks For The Victory！！！"
     },
     {
         "id": 2003007,
@@ -2371,19 +2385,19 @@
         "id": 2004000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成推倒目標！！！[-]",
-        "en": " [FFDD33]{1}[-][BBFF33]Achieved Shoving Objective！！！[-]"
+        "en": " [FFDD33]{1}[-] [BBFF33]Achieved Shoving Objective！！！[-]"
     },
     {
         "id": 2004001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]推倒即可獲得勝利。",
-        "en": " [FFDD33]{1}[-]Shove [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": " [FFDD33]{1}[-] Shove [FF3355]{0}More Times[-] To Obtain Victory"
     },
     {
         "id": 2004002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]推倒！！！",
-        "en": " [FFDD33]{1}[-]Get [FF3355]{0}More Shoves[-] For The Victory！！！"
+        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Shoves[-] For The Victory！！！"
     },
     {
         "id": 2004007,
@@ -2406,19 +2420,19 @@
         "id": 2005000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成抄截目標！！！[-]",
-        "en": " [FFDD33]{1}[-][BBFF33]Achieved Stealing Objective！！！[-]"
+        "en": " [FFDD33]{1}[-] [BBFF33]Achieved Stealing Objective！！！[-]"
     },
     {
         "id": 2005001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]抄截即獲得勝利。",
-        "en": " [FFDD33]{1}[-]Steal [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": " [FFDD33]{1}[-] Steal [FF3355]{0} More Times[-] To Obtain Victory"
     },
     {
         "id": 2005002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]抄截！！！",
-        "en": " [FFDD33]{1}[-]Get [FF3355]{0}More Steals[-]For The Victory！！！"
+        "en": " [FFDD33]{1}[-] Get [FF3355]{0} More Steals[-]For The Victory！！！"
     },
     {
         "id": 2005007,
@@ -2447,13 +2461,13 @@
         "id": 2006001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]火鍋即可獲得勝利。",
-        "en": " [FFDD33]{1}[-]Block [FF3355]{0}More Times[-] To Obtain Victory"
+        "en": " [FFDD33]{1}[-] Block [FF3355]{0}More Times[-] To Obtain Victory"
     },
     {
         "id": 2006002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}次[-]火鍋！！！",
-        "en": " [FFDD33]{1}[-]Get [FF3355]{0}More Blocks[-] For The Victory！！！"
+        "en": " [FFDD33]{1}[-] Get [FF3355]{0}More Blocks[-] For The Victory！！！"
     },
     {
         "id": 2006007,
