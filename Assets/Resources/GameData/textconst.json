@@ -401,82 +401,82 @@
     {
         "id": 3008,
         "explain": "AttrKind2/KindLabel",
-        "tw": "DNK",
-        "cn": "DNK",
-        "en": "DNK",
-        "jp": "DNK"
-    },
-    {
-        "id": 3009,
-        "explain": "AttrKind3/KindLabel",
-        "tw": "REB",
-        "cn": "REB",
-        "en": "REB",
-        "jp": "REB"
-    },
-    {
-        "id": 3010,
-        "explain": "AttrKind4/KindLabel",
-        "tw": "BLK",
-        "cn": "BLK",
-        "en": "BLK",
-        "jp": "BLK"
-    },
-    {
-        "id": 3011,
-        "explain": "AttrKind5/KindLabel",
-        "tw": "STL",
-        "cn": "STL",
-        "en": "STL",
-        "jp": "STL"
-    },
-    {
-        "id": 3012,
-        "explain": "AttrKind6/KindLabel",
-        "tw": "STR",
-        "cn": "STR",
-        "en": "STR",
-        "jp": "STR"
-    },
-    {
-        "id": 3013,
-        "explain": "AttrKind7/KindLabel",
-        "tw": "DEF",
-        "cn": "DEF",
-        "en": "DEF",
-        "jp": "DEF"
-    },
-    {
-        "id": 3014,
-        "explain": "AttrKind8/KindLabel",
-        "tw": "DRB",
-        "cn": "DRB",
-        "en": "DRB",
-        "jp": "DRB"
-    },
-    {
-        "id": 3015,
-        "explain": "AttrKind9/KindLabel",
-        "tw": "PAS",
-        "cn": "PAS",
-        "en": "PAS",
-        "jp": "PAS"
-    },
-    {
-        "id": 3016,
-        "explain": "AttrKind10/KindLabel",
         "tw": "SPD",
         "cn": "SPD",
         "en": "SPD",
         "jp": "SPD"
     },
     {
-        "id": 3017,
-        "explain": "AttrKind11/KindLabel",
+        "id": 3009,
+        "explain": "AttrKind3/KindLabel",
         "tw": "STA",
         "cn": "STA",
         "en": "STA",
         "jp": "STA"
+    },
+    {
+        "id": 3010,
+        "explain": "AttrKind4/KindLabel",
+        "tw": "STR",
+        "cn": "STR",
+        "en": "STR",
+        "jp": "STR"
+    },
+    {
+        "id": 3011,
+        "explain": "AttrKind5/KindLabel",
+        "tw": "DNK",
+        "cn": "DNK",
+        "en": "DNK",
+        "jp": "DNK"
+    },
+    {
+        "id": 3012,
+        "explain": "AttrKind6/KindLabel",
+        "tw": "REB",
+        "cn": "REB",
+        "en": "REB",
+        "jp": "REB"
+    },
+    {
+        "id": 3013,
+        "explain": "AttrKind7/KindLabel",
+        "tw": "BLK",
+        "cn": "BLK",
+        "en": "BLK",
+        "jp": "BLK"
+    },
+    {
+        "id": 3014,
+        "explain": "AttrKind8/KindLabel",
+        "tw": "DEF",
+        "cn": "DEF",
+        "en": "DEF",
+        "jp": "DEF"
+    },
+    {
+        "id": 3015,
+        "explain": "AttrKind9/KindLabel",
+        "tw": "STL",
+        "cn": "STL",
+        "en": "STL",
+        "jp": "STL"
+    },
+    {
+        "id": 3016,
+        "explain": "AttrKind10/KindLabel",
+        "tw": "DRB",
+        "cn": "DRB",
+        "en": "DRB",
+        "jp": "DRB"
+    },
+    {
+        "id": 3017,
+        "explain": "AttrKind11/KindLabel",
+        "tw": "PAS",
+        "cn": "PAS",
+        "en": "PAS",
+        "jp": "PAS"
     },
     {
         "id": 3018,
@@ -781,7 +781,7 @@
         "id": 3508,
         "explain": "AddValueLabel",
         "tw": "[00ffff]體力[-]補滿",
-        "en": "[00ffff]Stamina[-]Fill Up"
+        "en": "[00ffff]Stamina[-] Fill Up"
     },
     {
         "id": 4001,
@@ -2125,13 +2125,13 @@
         "id": 2000011,
         "tw": "競賽進入下半場，請兩隊把握後半[FF3355]{0}秒[-]的時間。",
         "cn": "赛进入下半场，请两队把握后半[FF3355]{0}秒[-]的时间。",
-        "en": "Game enteres second half, seize your opportunity [FF3355]{0}Seconds[-] left."
+        "en": "Game enteres second half, seize your opportunity [FF3355]{0} Seconds[-] left."
     },
     {
         "id": 2000012,
         "tw": "競賽剩下倒數[FF3355]{0}秒[-]！！！",
         "cn": "竞赛剩下倒数[FF3355]{0}秒[-]！",
-        "en": "Count Down [FF3355]{0}Seconds[-]！！！"
+        "en": "Count Down [FF3355]{0} Seconds[-]！！！"
     },
     {
         "id": 2000017,
@@ -2184,7 +2184,7 @@
         "id": 2000202,
         "tw": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可獲得勝利！！！",
         "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]即可获得胜利！！！",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0}More Points[-]To Win！！！"
+        "en": " [FFDD33]{1}[-]Score [FF3355]{0} More Points[-]To Win！！！"
     },
     {
         "id": 2000207,
@@ -2207,13 +2207,13 @@
         "id": 2000301,
         "tw": "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就會輸掉這場競賽。",
         "cn": "[FFDD33]{1}[-]只要再失[FF3355]{0}分[-]就会输掉这场竞赛。",
-        "en": " [FFDD33]{1}[-]Loose [FF3355]{0}More Points[-] Will Loose The Game"
+        "en": " [FFDD33]{1}[-] Loose [FF3355]{0} More Points[-] Will Loose The Game"
     },
     {
         "id": 2000302,
         "tw": "[FFDD33]{1}[-]要守住最後的[FF3355]{0}分[-]啊！！！",
         "cn": "[FFDD33]{1}[-]要守住最后的[FF3355]{0}分[-]啊！！！",
-        "en": " [FFDD33]{1}[-]Must Stop The Last [FF3355]{0}Points[-]！！！"
+        "en": " [FFDD33]{1}[-] Must Stop The Last [FF3355]{0} Points[-]！！！"
     },
     {
         "id": 2000307,
@@ -2236,7 +2236,7 @@
         "id": 2000401,
         "tw": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再得[FF3355]{0}分[-]就可獲得勝利。",
-        "en": "[FFDD33]{1}[-]Score [FF3355]{0}Points[-] To Obtain Victory"
+        "en": "[FFDD33]{1}[-] Score [FF3355]{0} Points[-] To Obtain Victory"
     },
     {
         "id": 2000402,
@@ -2265,19 +2265,19 @@
         "id": 2001000,
         "tw": "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]",
         "cn": "[FFDD33]{1}[-][BBFF33]已達成2分球目標！！！[-]",
-        "en": " [FFDD33]{1}[-][BBFF33]Achieved 2 Point Objective！！！[-]"
+        "en": " [FFDD33]{1}[-] [BBFF33]Achieved 2 Point Objective！！！[-]"
     },
     {
         "id": 2001001,
         "tw": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。",
         "cn": "[FFDD33]{1}[-]只要再投進[FF3355]{0}顆[-]2分球即可獲得勝利。",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0}More[-] 2 Point Shots For The Win"
+        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 2 Point Shots For The Win"
     },
     {
         "id": 2001002,
         "tw": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！",
         "cn": "[FFDD33]{1}[-]距離獲勝只差[FF3355]{0}顆[-]2分球！！！",
-        "en": " [FFDD33]{1}[-]Score [FF3355]{0}More[-] 2 Point Shots For The Win"
+        "en": " [FFDD33]{1}[-] Score [FF3355]{0} More[-] 2 Point Shots For The Win"
     },
     {
         "id": 2001007,
