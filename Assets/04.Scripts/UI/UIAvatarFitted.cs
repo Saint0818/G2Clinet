@@ -478,13 +478,18 @@ public class UIAvatarFitted : UIBase {
 		bool result = false;
 
 		//檢查是否有過期裝備
-		foreach (KeyValuePair<int, TEquip> item in Equips) {
-			DateTime time = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
-			if(backpackItems[item.Value.BackageSortNoLimit].UseKind == 2 || 
-			   (backpackItems[item.Value.BackageSortNoLimit].UseKind == 1 && DateTime.Compare(time, DateTime.UtcNow) < 0))
+		foreach (KeyValuePair<int, TEquip> item in Equips) 
+		{
+			if(backpackItems[item.Value.BackageSortNoLimit].UseKind == 1)
 			{
-				result = true;
+//				DateTime dt = Convert.ToDateTime(backpackItems[item.Value.BackageSortNoLimit].UseTime.ToString());
+//				int compare = DateTime.Compare(dt, DateTime.UtcNow);
+				int compare = TimeSpan.Compare(TimeSpan.FromTicks(DateTime.UtcNow.Ticks), backpackItems[item.Value.BackageSortNoLimit].UseTime);
+				if(compare < 0)
+					result = true;
 			}
+			else if(backpackItems[item.Value.BackageSortNoLimit].UseKind == 2)
+				result = true;
 		}
 
 
