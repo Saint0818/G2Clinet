@@ -126,6 +126,10 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	private bool versionChecked = false;
 	private int focusCount = 0;
 
+	private string waitingURL;
+	private TBooleanWWWObj waitingCallback = null;
+	private WWWForm waitingForm = null;
+
 	protected override void Init() {
 		JsonSetting.NullValueHandling = NullValueHandling.Ignore;
 		DontDestroyOnLoad(gameObject);
@@ -136,8 +140,8 @@ public class SendHttp : KnightSingleton<SendHttp> {
 
 		} else {
 			focusCount++;
-			if (focusCount > 1 && CheckNetwork()) {
-				if (GameData.Team.Identifier == "" && !UIUpdateVersion.Visible) {
+			if (focusCount > 1 && CheckNetwork(false)) {
+				if (SceneMgr.Get.CurrentScene == ESceneName.Main && !UIUpdateVersion.Visible) {
 					checkVersion ();
 				} else
 				if (GameData.Team.Player.Lv > 0) {
@@ -150,7 +154,11 @@ public class SendHttp : KnightSingleton<SendHttp> {
 	}
 
 	public void Command(string url, TBooleanWWWObj callback, WWWForm form = null, bool waiting = true){
-		if (CheckNetwork()){
+		waitingURL = url;
+		waitingCallback = callback;
+		waitingForm = form;
+
+		if (CheckNetwork(true)){
 			url = FileManager.URL + url;
 			WWW www = null;
 
@@ -202,7 +210,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		www.Dispose();
 	}
 
-	public bool CheckNetwork(){
+	public bool CheckNetwork(bool showWarning){
 		bool internetPossiblyAvailable = false;
 		
 		#if UNITY_EDITOR
@@ -212,11 +220,17 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (Application.internetReachability != NetworkReachability.NotReachable)
 			internetPossiblyAvailable = true;
 		#endif
-		
-		//if (showHint && !internetPossiblyAvailable)
-		//	UIMessage.Get.ShowMessage(TextConst.S(37), TextConst.S(93));
+
+		if (showWarning && !internetPossiblyAvailable && !UIMessage.Visible)
+			UIMessage.Get.ShowMessage(TextConst.S(505), TextConst.S(506), ResentCommond);
 		
 		return internetPossiblyAvailable;
+	}
+
+	public void ResentCommond() {
+		if (waitingCallback != null && CheckNetwork(false)) {
+			Command(waitingURL, waitingCallback, waitingForm);
+		}
 	}
 
 	private bool checkResponse(WWW www){
@@ -225,11 +239,6 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				string e = www.text.Substring(6, www.text.Length - 7);
 				Debug.Log(www.url);
 				Debug.Log(e);
-				
-				if (e.Contains("Your data error")) {
-					UIMessage.Get.ShowMessage(TextConst.S(36), e);
-					return false;
-				}
 				
 				if (UILoading.Visible) {
 					if (!versionChecked)
@@ -269,7 +278,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			Debug.Log(www.url + " : " + www.error);
 			if (www.error == "couldn't connect to host" || www.error.Contains("Couldn't resolve host")) {
 				UIWaitingHttp.UIShow(false);
-				UIMessage.Get.ShowMessage(TextConst.S(38), TextConst.S(7));
+				UIMessage.Get.ShowMessage(TextConst.S(503), TextConst.S(504), checkVersion);
 			} else
 			if (SceneMgr.Get.CurrentScene == ESceneName.Main) {
 				if (!versionChecked)
@@ -321,7 +330,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		if (ok) {
 			TSessionResult result = (TSessionResult)JsonConvert.DeserializeObject(www.text, (typeof(TSessionResult)));
 			GameData.Team.sessionID = result.sessionID;
-			UIMessage.Get.ShowMessage(TextConst.S(36), TextConst.S(39));
+			UIMessage.Get.ShowMessage(TextConst.S(505), TextConst.S(507));
 			
 			if (www.responseHeaders.ContainsKey("SET-COOKIE")) {
 				cookieHeaders.Clear();
@@ -330,7 +339,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 		}
 	}
 
-	private void checkVersion() {
+	public void checkVersion() {
 		UILoading.UIShow(true, GameEnum.ELoading.Login);
 		WWWForm form = new WWWForm();
 		addLoginInfo(ref form);
@@ -354,8 +363,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				UILoading.UIShow(false);
 				UIUpdateVersion.UIShow(true);
 			}
-		} else
-			UIHint.Get.ShowHint("Check version fail.", Color.red);
+		}
 	}
 	
 	private void SendLogin() {

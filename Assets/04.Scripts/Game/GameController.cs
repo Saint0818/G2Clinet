@@ -330,7 +330,7 @@ public class GameController : KnightSingleton<GameController>
 		IsJumpBall = false;
 		SetPlayerLevel();
 
-		if (GameStart.Get.TestMode == EGameTest.None && SendHttp.Get.CheckNetwork()) {
+		if (GameStart.Get.TestMode == EGameTest.None && SendHttp.Get.CheckNetwork(false)) {
 			string str = PlayerPrefs.GetString(SettingText.GameRecord);
 			if (str != "") {
 				WWWForm form = new WWWForm();
@@ -840,7 +840,7 @@ public class GameController : KnightSingleton<GameController>
 
 		if (upload && GameStart.Get.TestMode == EGameTest.None) {
 			string str = JsonConvert.SerializeObject(GameRecord);
-			if (SendHttp.Get.CheckNetwork()) {
+			if (SendHttp.Get.CheckNetwork(false)) {
 				WWWForm form = new WWWForm();
 				form.AddField("GameRecord", str);
 				form.AddField("Start", GameRecord.Start.ToString());

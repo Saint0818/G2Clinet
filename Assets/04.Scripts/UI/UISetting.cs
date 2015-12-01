@@ -227,6 +227,7 @@ public class UISetting : UIBase {
 			tabs[i] = GameObject.Find(UIName + string.Format("Window/Center/Tabs/{0}", i));
 			SetBtnFun(UIName + string.Format("Window/Center/Tabs/{0}", i), OnPage);
 			SetBtnFun(UIName + "Window/Center/NoBtn", OnReturn);
+			SetBtnFun(UIName + "Window/Center/Pages/2/GameNews/0", OnAnnouncement);
 
 			switch(i)
 			{
@@ -281,6 +282,13 @@ public class UISetting : UIBase {
 				break;
 		}
 	}
+
+	public void OnAnnouncement()
+	{
+		UIShow(false);
+		UIAnnouncement.UIShow (true);
+	}
+
 
 	public void OnReturn()
 	{

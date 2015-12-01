@@ -227,7 +227,7 @@ public class UIMainStage : UIBase
         // 和企劃約定好, 僅顯示前 3 個.
         for(int i = 0; i < 3; i++)
         {
-            if(stageData.Rewards.Length > i && GameData.DItemData.ContainsKey(stageData.Rewards[i]))
+			if(stageData.Rewards != null && stageData.Rewards.Length > i && GameData.DItemData.ContainsKey(stageData.Rewards[i]))
                 data.RewardItems.Add(GameData.DItemData[stageData.Rewards[i]]);
         }
 

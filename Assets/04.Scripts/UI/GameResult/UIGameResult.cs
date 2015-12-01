@@ -209,7 +209,7 @@ public class UIGameResult : UIBase {
 				SceneMgr.Get.ChangeLevel(ESceneName.Lobby);
 			}
 		} else {
-			if(SendHttp.Get.CheckNetwork() && isGetAward) {
+			if(SendHttp.Get.CheckNetwork(false) && isGetAward) {
 				uiStatsNext.SetActive(false);
 				animatorAward.SetTrigger("AwardViewStart");
 				Invoke("showAward", 1);

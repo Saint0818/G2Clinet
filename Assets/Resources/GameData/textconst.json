@@ -161,6 +161,32 @@
         "en": "Ability has yet to be unlocked"
     },
     {
+        "id": 503,
+        "explain": "登入錯誤",
+        "tw": "系統",
+        "en": "System"
+    },
+    {
+        "id": 504,
+        "tw": "伺服器維護中，請稍後再嘗試登入。",
+        "en": "Server is maintaining. Please login again later."
+    },
+    {
+        "id": 505,
+        "tw": "網路",
+        "en": "Network"
+    },
+    {
+        "id": 506,
+        "tw": "無法連線，請確認網路暢通。",
+        "en": "Network unavailable. Please check network state."
+    },
+    {
+        "id": 507,
+        "tw": "網路傳輸失敗。",
+        "en": "Network transmission fails."
+    },
+    {
         "id": 601,
         "explain": "版本更新"
     },
@@ -1881,8 +1907,7 @@
     {
         "id": 12006,
         "explain": "VersionLabel",
-        "tw": "VER{0} ",
-        "en": "TEST"
+        "tw": "Version {0} "
     },
     {
         "id": 12007,

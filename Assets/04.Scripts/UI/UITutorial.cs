@@ -141,6 +141,12 @@ public class UITutorial : UIBase {
     }
 
 	public void OnClickHint() {
+		UIEventListener listen = buttonClick.GetComponent<UIEventListener>();
+		if (listen) {
+			listen.onClick = null;
+			listen.onPress = null;
+		}
+
 		uiClick.SetActive(false);
 		OnTutorial();
 	}
@@ -180,44 +186,45 @@ public class UITutorial : UIBase {
 	}
 
  	public void ShowHint(string path, int offsetx, int offsety) {
-		Vector3 v;
+		bool found = false;
 		GameObject obj = GameObject.Find(path);
 		if(obj) {
 			UI3DTutorial.UIShow(false);
 			uiCenter.SetActive(false);
 			uiClick.SetActive(true);
 
+
+			buttonClick.onClick.Clear();
 			UIButton btn = obj.GetComponent<UIButton>();
 			if (btn && btn.onClick.Count > 0) {
-				buttonClick.onClick.Clear();
 				buttonClick.onClick.Add(btn.onClick[0]);
-				buttonClick.onClick.Add(new EventDelegate(OnClickHint));
+				found = true;
+			} else {
+				UIEventListener el = obj.GetComponent<UIEventListener>();
+				if (el) {
+					if (el.onPress != null) {
+						UIEventListener.Get(buttonClick.gameObject).onPress = el.onPress;
+						found = true;
+					}
 
-				v = obj.transform.position;
-				v.x += offsetx;
-				v.y += offsety;
-				uiClick.transform.position = v;
+					if (el.onClick != null) {
+						UIEventListener.Get(buttonClick.gameObject).onClick = el.onClick;
+						found = true;
+					}
+				}
 			}
+		}
 
-			//UIEventListener.Get(obj).onClick = ButtonClickClose;
+		if (found) {
+			buttonClick.onClick.Add(new EventDelegate(OnClickHint));
 
-			//if (clickObject) {
-			//	clickObject.layer = clickLayer;
-			//}
-
-			//clickObject = obj;
-			//clickLayer = obj.layer;
-
-			//LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
-			//UIPanel Panel = obj.GetComponent<UIPanel>();
-			//if(Panel == null)
-			//	Panel = obj.AddComponent<UIPanel>();
-			
-			//Panel.depth = EUIDepth.TutorialButton.GetHashCode();
-			//obj.SetActive(false);
-			//obj.SetActive(true);
+			buttonClick.name = obj.name;
+			Vector3 v = obj.transform.position;
+			v.x += offsetx;
+			v.y += offsety;
+			uiClick.transform.position = v;
 		} else {
-			Debug.Log("Button not found " + path);
+			Debug.Log("Tutorial click event not found " + path);
 			UIShow(false);
 			if (GameData.DTutorial.ContainsKey(NowMessageIndex) && GameData.DTutorial[NowMessageIndex].Kind == 0) {
 				if (!GameData.Team.HaveTutorialFlag(GameData.DTutorial[NowMessageIndex].ID)) {
@@ -228,5 +235,23 @@ public class UITutorial : UIBase {
 				}
 			}
 		}
+
+		//UIEventListener.Get(obj).onClick = ButtonClickClose;
+
+		//if (clickObject) {
+		//	clickObject.layer = clickLayer;
+		//}
+
+		//clickObject = obj;
+		//clickLayer = obj.layer;
+
+		//LayerMgr.Get.SetLayer(obj, ELayer.TopUI);
+		//UIPanel Panel = obj.GetComponent<UIPanel>();
+		//if(Panel == null)
+		//	Panel = obj.AddComponent<UIPanel>();
+		
+		//Panel.depth = EUIDepth.TutorialButton.GetHashCode();
+		//obj.SetActive(false);
+		//obj.SetActive(true);
 	}
 }

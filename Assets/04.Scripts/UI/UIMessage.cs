@@ -24,6 +24,15 @@ public class UIMessage : UIBase {
 			Get.Show(isShow);
 	}
 
+	public static bool Visible {
+		get {
+			if(instance)
+				return instance.gameObject.activeInHierarchy;
+			else
+				return false;
+		}
+	}
+
 	public static UIMessage Get
 	{
 		get {
@@ -45,15 +54,13 @@ public class UIMessage : UIBase {
 		SetBtnFun(ref NoBtn, OnNo);
 	}
 
-	protected override void InitText(){
-		SetLabel (UIName + "/Window/Title", TextConst.S(139));
-		SetLabel (UIName + "/Window/Finish/UILabel", TextConst.S(136));
-	}
-
 	public void OnYes()
     {
 		if(YesFunc != null)
 			YesFunc(mExtraInfo);
+
+		if (YesBtn.onClick.Count > 1)
+			YesBtn.onClick.RemoveAt(0);
 
 		UIShow(false);
 	}
@@ -64,30 +71,27 @@ public class UIMessage : UIBase {
 
 		UIShow(false);
 	}
+
+	public void ShowMessage(string titleStr, string messageStr, EventDelegate.Callback yesEvent) {
+		ShowMessage(titleStr, messageStr);
+
+		YesBtn.onClick.Insert(0, new EventDelegate(yesEvent));
+		NoBtn.gameObject.SetActive(false);
+	}
 	
 	public void ShowMessage(string titleStr, string messageStr, CommonDelegateMethods.Object1 yes = null,
                             CommonDelegateMethods.Action no = null, object extraInfo = null)
-    {
+	{
+		UIShow (true);
+		NoBtn.gameObject.SetActive(true);
+
 		YesFunc = yes;
 		NoFunc = no;
 	    mExtraInfo = extraInfo;
-
-		UIShow (true);
-
-//		if(YesBtn && NoBtn){
-//			NoBtn.enabled = NoFunc == null? false : true;
-//		}
-
 		if (LabelTitle != null)
 			LabelTitle.text = titleStr;
 
 		if (LabelMessage != null)
 			LabelMessage.text = messageStr;
-	}
-
-	protected override void OnShow(bool isShow) {
-		if(isShow){
-
-		}
 	}
 }
