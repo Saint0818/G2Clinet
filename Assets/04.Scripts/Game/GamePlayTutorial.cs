@@ -4,14 +4,28 @@ using System.Collections;
 using System.Collections.Generic;
 using GamePlayStruct;
 
+public class TEventTrigger {
+	public GameObject Item;
+	public EventTrigger eventTrigger;
+	public SphereCollider sphereCollider;
+	public Rigidbody rigidbody;
+	public TweenScale tweenScale;
+	public CircularSectorMeshRenderer circularSectorMeshRenderer;
+}
+
 public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 	private List<TGamePlayEvent> eventList = new List<TGamePlayEvent>(0);
 	public EventDelegate.Callback OnEventEnd = null;
-	private CircularSectorMeshRenderer hintArea = null;
+	private TEventTrigger eventTrigger = new TEventTrigger();
 
 	public int NextEventID = 0;
 	public int EventValue = 0;
 	private TToturialAction[] moveActions;
+
+	void OnDestroy() {
+		if (eventTrigger.Item)
+			Destroy(eventTrigger.Item);
+	}
 
 	public void SetTutorialData(int id) {
 		eventList.Clear();
@@ -105,39 +119,41 @@ public class GamePlayTutorial : KnightSingleton<GamePlayTutorial> {
 
 			break;
 		case 8:
-			if (hintArea == null) {
-				GameObject obj = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject);
-				obj.name = "HintArea";
-				obj.transform.parent = gameObject.transform;
-				EventTrigger et = obj.AddComponent<EventTrigger>();
-				et.NextEventID = eventList[i].NextEventID;
-				SphereCollider sc = obj.AddComponent<SphereCollider>();
-				sc.radius = eventList[i].Value3;
-				sc.isTrigger = true;
-				Rigidbody rb = obj.AddComponent<Rigidbody>();
-				rb.isKinematic = true;
-				rb.useGravity = false;
-				TweenScale ts = obj.AddComponent<TweenScale>();
-				ts.style = UITweener.Style.PingPong;
-				ts.from = Vector3.one;
-				ts.to = new Vector3(1.2f, 1.2f, 1.2f);
-				ts.duration = 0.2f;
-				hintArea = obj.GetComponent<CircularSectorMeshRenderer>();
-			} else
-				hintArea.gameObject.SetActive(true);
+			if (eventTrigger.Item == null) {
+				eventTrigger.Item = Instantiate(Resources.Load("Effect/RangeOfAction") as GameObject);
+				eventTrigger.Item.name = "HintArea";
+				eventTrigger.Item.transform.parent = gameObject.transform;
 
-			hintArea.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
-			hintArea.ChangeValue(360, eventList[i].Value3);
+				eventTrigger.eventTrigger = eventTrigger.Item.AddComponent<EventTrigger>();
+				eventTrigger.sphereCollider = eventTrigger.Item.AddComponent<SphereCollider>();
+				eventTrigger.rigidbody = eventTrigger.Item.AddComponent<Rigidbody>();
+				eventTrigger.tweenScale = eventTrigger.Item.AddComponent<TweenScale>();
+				eventTrigger.circularSectorMeshRenderer = eventTrigger.Item.GetComponent<CircularSectorMeshRenderer>();
+			} else
+				eventTrigger.Item.gameObject.SetActive(true);
+
+			eventTrigger.eventTrigger.NextEventID = eventList[i].NextEventID;
+			eventTrigger.sphereCollider.radius = eventList[i].Value3;
+			eventTrigger.sphereCollider.isTrigger = true;
+			eventTrigger.rigidbody.isKinematic = true;
+			eventTrigger.rigidbody.useGravity = false;
+			eventTrigger.tweenScale.style = UITweener.Style.PingPong;
+			eventTrigger.tweenScale.from = Vector3.one;
+			eventTrigger.tweenScale.to = new Vector3(1.2f, 1.2f, 1.2f);
+			eventTrigger.tweenScale.duration = 0.2f;
+
+			eventTrigger.circularSectorMeshRenderer.transform.position = new Vector3(eventList[i].Value1, 0.1f, eventList[i].Value2);
+			eventTrigger.circularSectorMeshRenderer.ChangeValue(360, eventList[i].Value3);
 			EventValue = eventList[i].ConditionValue * GameData.Max_GamePlayer + eventList[i].ConditionValue2;
 			break;
 		case 9:
 			if (player != null) {
 				PlayerBehaviour p = player.GetComponent<PlayerBehaviour>();
 				if (p != null)
-					p.SetAnger(eventList[i].Value1, hintArea.gameObject);
+					p.SetAnger(eventList[i].Value1, eventTrigger.Item);
 			}
 
-			hintArea.gameObject.SetActive(false);
+			eventTrigger.Item.SetActive(false);
 
 			break;
 		}

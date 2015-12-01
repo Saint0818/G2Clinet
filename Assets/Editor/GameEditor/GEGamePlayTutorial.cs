@@ -286,7 +286,7 @@ public class GEGamePlayTutorial : GEBase {
 				events[i].Actions[j].MoveKind = Convert.ToInt32(GUIToggle(Convert.ToBoolean(events[i].Actions[j].MoveKind), "Appear"));
 				events[i].Actions[j].Action.Speedup = GUIToggle(events[i].Actions[j].Action.Speedup, "Speed up");
 				events[i].Actions[j].Action.Shooting = GUIToggle(events[i].Actions[j].Action.Shooting, "Shoot");
-				//eventList[i].Actions[j].Action.Catcher = EditorGUILayout.Toggle("Catcher", eventList[i].Actions[j].Action.Catcher);
+				events[i].Actions[j].Action.Catcher = GUIToggle(events[i].Actions[j].Action.Catcher, "Catcher");
 
 				if (GUIButton("Delete", Color.red)) {
 					List<TToturialAction> temp = new List<TToturialAction>(events[i].Actions);
