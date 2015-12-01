@@ -34,7 +34,7 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 			camera3d.cullingMask = (1 << LayerMask.NameToLayer ("UIPlayer")); 
 			camera3d.orthographic = true;
 			camera3d.orthographicSize = 2.41f;
-			camera3d.nearClipPlane = 0.3f;
+			camera3d.nearClipPlane = 0.1f;
 			camera3d.farClipPlane = 1000;
 			camera3d.depth = 2;
 			if(camera3d.gameObject.GetComponent<UICamera>() == null)
