@@ -57,6 +57,7 @@ public struct TUICard{
 	public GameObject InListCard;
 	public GameObject SellSelect;
 	public GameObject SellSelectCover;
+	public UISpriteAnimation LightAnimation;
 	public UISprite SkillKind;
 	public int CardIndex;
 	public int CardID;
@@ -115,6 +116,11 @@ public struct TUICard{
 		if(t != null) {
 			Selected = t.gameObject;
 			Selected.SetActive(false);
+		}
+		
+		t = obj.transform.FindChild("InListCard/SpriteAnim/Shine");
+		if(t != null) {
+			LightAnimation = t.GetComponent<UISpriteAnimation>();
 		}
 		
 		t = obj.transform.FindChild("InListCard");
@@ -228,6 +234,9 @@ public class UISkillFormation : UIBase {
 	public bool IsCardActive = false;
 
 
+	private float runShineInternal = 5f;
+	private float runShine = 0;
+
 	public static bool Visible {
 		get {
 			if(instance)
@@ -255,6 +264,16 @@ public class UISkillFormation : UIBase {
 		} else
 			if (isShow)
 				Get.Show(isShow);
+	}
+
+	void FixedUpdate () {
+		if(runShine > 0) {
+			runShine -= Time.deltaTime;
+			if(runShine <= 0) {
+				runShineCard ();
+				runShine = runShineInternal;
+			}
+		}
 	}
 
 	protected override void InitCom() {
@@ -314,12 +333,19 @@ public class UISkillFormation : UIBase {
 	}
 	
 	protected override void OnShow(bool isShow) {
-		Debug.Log("UISkillFormaion open");
 		if(PlayerPrefs.HasKey(ESave.NewCardFlag.ToString()))
 		{
 			PlayerPrefs.DeleteKey(ESave.NewCardFlag.ToString());
 			PlayerPrefs.Save();
 		}
+	}
+
+	private void runShineCard () {
+		if(skillsRecord.Count > 0) 
+			for (int i=0; i<skillsRecord.Count; i++) 
+				if(uiCards.ContainsKey(skillsRecord[i])) 
+					if(uiCards[skillsRecord[i]].InListCard.activeInHierarchy) 
+						uiCards[skillsRecord[i]].LightAnimation.Play();
 	}
 
 	private void refresh(){
@@ -379,6 +405,7 @@ public class UISkillFormation : UIBase {
 
 	private void initCards () {
 //		costSpaceMax = GameData.Team.Player.MaxSkillSpace;
+		runShine = runShineInternal;
 		int index = -1;
 		int actvieIndex = -1;
 		//Already Equiped
