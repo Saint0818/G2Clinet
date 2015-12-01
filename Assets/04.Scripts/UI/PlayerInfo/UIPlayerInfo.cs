@@ -289,6 +289,7 @@ public class TPassiveSkillCard
 	private GameObject self;
 	private UISprite SkillCard;
 	private UISprite SkillLevel;
+	private UITexture SkillTexture;
 	private UILabel SkillName;
 	private UILabel SkillCost;
 	private bool isInit = false;
@@ -305,8 +306,9 @@ public class TPassiveSkillCard
 			SkillLevel =  go.transform.FindChild("SkillLevel").gameObject.GetComponent<UISprite>();
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillCost =  go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
+			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
 			btn = self.GetComponent<UIButton>();
-			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn;
+			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn && SkillTexture;
 			
 			if(isInit && btnFunc != null){
 				btn.onClick.Add(btnFunc);
@@ -326,9 +328,10 @@ public class TPassiveSkillCard
 				SkillCard.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[skill.ID].Quality, 1, 3).ToString() + "s";
 				SkillName.text = GameData.DSkillData[skill.ID].Name;
 				SkillCost.text = Mathf.Max(GameData.DSkillData[skill.ID].Space(skill.Lv), 1).ToString();;
+				SkillTexture.mainTexture = GameData.CardItemTexture(skill.ID);
 			}
 
-			self.transform.localPosition = new Vector3(-350 + sort * 300,sortY[sort % 3 ], 0);
+			self.transform.localPosition = new Vector3(-350 + (int)(sort/3) * 300,sortY[sort % 3], 0);
 		}
 		else
 		{
@@ -400,7 +403,7 @@ public class TSkillView
 		for (int i = 0; i < skill.Length; i++) {
 			if(GameFunction.IsActiveSkill(skill[i].ID)){
 				if(activecount < GameConst.Max_ActiveSkill){
-					activeSkillCard[i].Enable = true;
+					activeSkillCard[activecount].Enable = true;
 					activeSkillCard[activecount].UpdateView(i, skill[i]);
 					activecount++;
 				}
