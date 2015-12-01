@@ -103,11 +103,11 @@
 
     public const int AddAnger_PlusScore = 20;
 	public const int AddAnger_Block = 30;
-	public const int AddAnger_Steal = 10;
+	public const int AddAnger_Steal = 20;
 	public const int AddAnger_Push = 20;
-	public const int AddAnger_Rebound = 10;
-	public const int AddAnger_Perfect = 10;
-	public const int DelAnger_Blocked = -20;
+	public const int AddAnger_Rebound = 20;
+	public const int AddAnger_Perfect = 15;
+	public const int DelAnger_Blocked = -10;
 	public const int DelAnger_Fall1 = -10;
 	public const int DelAnger_Stealed = -10;
 	public const int DelAnger_Fall2 = -5;
