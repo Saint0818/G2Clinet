@@ -203,7 +203,6 @@ public class AbilityView
 		}
 
 		RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
-
 		GameFunction.UpdateAttrHexagon (hexagon, team.Player);
 	}
 

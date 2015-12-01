@@ -409,7 +409,7 @@ public static class GameFunction
                 case EAttribute.Steal:
                     add += basic.Steal;
 
-                    attHexagon.SetValue(UIAttributes.EGroup.Steal, item.Value + add / GameConst.AttributeMax);
+                    attHexagon.SetValue(UIAttributes.EGroup.Steal, (item.Value + add) / GameConst.AttributeMax);
                     break;
             }
         }

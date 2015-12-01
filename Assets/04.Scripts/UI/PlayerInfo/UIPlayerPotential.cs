@@ -55,12 +55,12 @@ public class TUpgradeBtn
 		BaseValueLabel.text = string.Format("{0}[ABFF83FF]+{1}[-]", curt, add);
 	}
 
-	public void DoSave()
-	{
-		curPoint = curPoint + addPoint;
-		addPoint = 0;
-		BaseValueLabel.text = "[FFFFFFFF]" + curPoint + "[-]";
-	}
+//	public void DotSave()
+//	{
+//		curPoint = curPoint + addPoint;
+//		addPoint = 0;
+//		BaseValueLabel.text = "[FFFFFFFF]" + curPoint + "[-]";
+//	}
 
 	public void InitBtttonFunction(EventDelegate addBtnFunc)
 	{
@@ -306,12 +306,12 @@ public class UIPlayerPotential : UIBase {
 	public int ResetPrice
 	{
 		set{resetLabel.text = value.ToString();}
-
 	}
 
 	public void OnReturn()
 	{
 		UIShow (false);
+		UIPlayerInfo.UIShow (true, ref GameData.Team);
 		UIPlayerInfo.Get.UpdatePage (0);
 		UIPlayerInfo.Get.UpdateHexagon(true);
 	}
@@ -351,7 +351,7 @@ public class UIPlayerPotential : UIBase {
 	{
 		if (ok) {
 			TTeam team = (TTeam)JsonConvert.DeserializeObject(www.text, typeof(TTeam));
-			GameData.Team.Player = team.Player;
+			GameData.Team.Player.Potential = team.Player.Potential;
 			GameData.Team.Diamond = team.Diamond;
 			upgradeView.OnCancel();
 			UpdateView();
