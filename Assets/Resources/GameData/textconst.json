@@ -44,19 +44,19 @@
         "id": 209,
         "explain": "切換語言確認",
         "tw": "確認變更語言？",
-        "en": "TEST"
+        "en": "Are you sure you want to switch language?"
     },
     {
         "id": 210,
         "explain": "前往創角大廳確認",
         "tw": "確認前往選擇其他角色？",
-        "en": "TEST"
+        "en": "Are you sure you want to select another character?"
     },
     {
         "id": 211,
         "explain": "UIMessage/TitleLabel",
         "tw": "設 定",
-        "en": "TEST"
+        "en": "Setting"
     },
     {
         "id": 301,
@@ -92,12 +92,12 @@
     {
         "id": 307,
         "tw": "未來的籃球場，三分線與籃筐的距離是11公尺喔！！",
-        "en": "TEST"
+        "en": "In the future, the three point line is 11 meters away formt he basket!"
     },
     {
         "id": 308,
         "tw": "未來的籃球場，罰球線與籃筐的距離是7公尺喔！！",
-        "en": "TEST"
+        "en": "In the future, the free throw line is 7 meters away from the basket!"
     },
     {
         "id": 400,
@@ -107,49 +107,49 @@
         "id": 401,
         "explain": "1.解鎖數值裝",
         "tw": "知名度達到等級2時解鎖",
-        "en": "TEST"
+        "en": "Will unlock when publicity reaches level 2"
     },
     {
         "id": 402,
         "explain": "2.解鎖Avatar",
         "tw": "知名度達到等級3時解鎖",
-        "en": "TEST"
+        "en": "Will unlock when publicity reaches level 3"
     },
     {
         "id": 403,
         "explain": "3.解鎖大廳左一按鈕(Shop)",
         "tw": "功能尚未開放",
-        "en": "TEST"
+        "en": "Function has yet to be unlocked"
     },
     {
         "id": 404,
         "explain": "4.解鎖大廳左二按鈕(Social)",
         "tw": "功能尚未開放",
-        "en": "TEST"
+        "en": "Function has yet to be unlocked"
     },
     {
         "id": 405,
         "explain": "解鎖技能功能",
         "tw": "知名度達到等級1時解鎖",
-        "en": "TEST"
+        "en": "Function will unlock at level 1"
     },
     {
         "id": 451,
         "explain": "解鎖裝備功能",
         "tw": "成功解鎖造型功能",
-        "en": "TEST"
+        "en": "Unlcoked Equipment Function"
     },
     {
         "id": 452,
         "explain": "解鎖造型功能",
         "tw": "成功解鎖造型功能",
-        "en": "TEST"
+        "en": "Unlocked Style Function"
     },
     {
         "id": 455,
         "explain": "解鎖技能功能",
         "tw": "成功解鎖技能功能",
-        "en": "TEST"
+        "en": "Unlocked Ability Function"
     },
     {
         "id": 501,
@@ -198,27 +198,32 @@
     {
         "id": 603,
         "tw": "今天不再出現",
-        "en": "TEST"
+        "en": "Will not show up again today"
     },
     {
         "id": 604,
         "tw": "請更新至最新版本",
-        "en": "TEST"
+        "en": "Please update to the newest version"
     },
     {
         "id": 605,
         "tw": "從官網更新",
-        "en": "TEST"
+        "en": "Please update from the official site"
     },
     {
         "id": 606,
         "tw": "從Google Play更新",
-        "en": "TEST"
+        "en": "Please download update form Google Play"
     },
     {
         "id": 607,
         "tw": "從App Store更新",
-        "en": "TEST"
+        "en": "Please download update from App Store"
+    },
+    {
+        "id": 701,
+        "explain": "連線不穩定時",
+        "tw": "您的資料正送往雲端，除非太陽爆炸，\n否則我們將永久為您保存資料。"
     },
     {
         "id": 1001,
@@ -707,7 +712,8 @@
     {
         "id": 3401,
         "explain": "更改名稱介面",
-        "tw": "更改名稱"
+        "tw": "更改名稱",
+        "en": "Change Name"
     },
     {
         "id": 3402,
@@ -729,43 +735,43 @@
         "id": 3502,
         "explain": "TitleLabel",
         "tw": "LEVEL UP",
-        "en": "TEST"
+        "en": "LEVEL UP"
     },
     {
         "id": 3503,
         "explain": "GetPotentialLabel",
         "tw": "獲得 {0} 潛能點",
-        "en": "TEST"
+        "en": "Received {0} Attribution Points"
     },
     {
         "id": 3504,
         "explain": "Label0",
         "tw": "等 級",
-        "en": "TEST"
+        "en": "Level"
     },
     {
         "id": 3505,
         "explain": "Label1",
         "tw": "COST",
-        "en": "TEST"
+        "en": "Cost"
     },
     {
         "id": 3506,
         "explain": "Label2",
         "tw": "體 力",
-        "en": "TEST"
+        "en": "Stamina"
     },
     {
         "id": 3507,
         "explain": "AddValueLabel",
         "tw": "+{0} ",
-        "en": "TEST"
+        "en": "+{0} "
     },
     {
         "id": 3508,
         "explain": "AddValueLabel",
         "tw": "[00ffff]體力[-]補滿",
-        "en": "TEST"
+        "en": "[00ffff]Stamina[-]Fill Up"
     },
     {
         "id": 4001,
@@ -1007,13 +1013,13 @@
         "id": 7206,
         "explain": "LabelKind4",
         "tw": "發動機率",
-        "en": "TEST"
+        "en": "Percentage of activating Ability"
     },
     {
         "id": 7207,
         "explain": "LabelKind4",
         "tw": "所需怒氣",
-        "en": "TEST"
+        "en": "Required Rage"
     },
     {
         "id": 7208,
@@ -1031,13 +1037,13 @@
         "id": 7210,
         "explain": "LifeTimeLabel/Label",
         "tw": "時間",
-        "en": "TEST"
+        "en": "Time"
     },
     {
         "id": 7211,
         "explain": "TitleLabel",
         "tw": "距離",
-        "en": "TEST"
+        "en": "Distance"
     },
     {
         "id": 7212,
@@ -1098,12 +1104,12 @@
         "id": 8004,
         "explain": "GetModeLabel",
         "tw": "已取得{0}潛能點",
-        "en": "TEST"
+        "en": "Received {0} Attribution Points"
     },
     {
         "id": 8005,
         "tw": "潛能點+{0} ",
-        "en": "TEST"
+        "en": "Attribution Points+{0} "
     },
     {
         "id": 8101,
@@ -1164,18 +1170,19 @@
     {
         "id": 9102,
         "explain": "MainStageBtn/BtnLabel",
-        "tw": "主線關卡"
+        "tw": "生涯競賽",
+        "en": "TEST"
     },
     {
         "id": 9103,
         "explain": "PvPStageBtn/BtnLabel",
-        "tw": "PVP",
+        "tw": "對 戰",
         "en": "PVP"
     },
     {
         "id": 9104,
         "explain": "ChallengeBtn/BtnLabel",
-        "tw": "挑戰",
+        "tw": "挑 戰",
         "en": "Challenge"
     },
     {
@@ -1266,55 +1273,55 @@
         "id": 9403,
         "explain": "ButtonStart",
         "tw": "點擊開始",
-        "en": "Press to START"
+        "en": "Click to start"
     },
     {
         "id": 9501,
         "explain": "選擇隊友",
         "tw": "選擇隊友",
-        "en": "TEST"
+        "en": "Select Teammates"
     },
     {
         "id": 9502,
         "explain": 0,
         "tw": "其他玩家",
-        "en": "TEST"
+        "en": "Other Players"
     },
     {
         "id": 9503,
         "explain": 1,
         "tw": "好 友",
-        "en": "TEST"
+        "en": "Friends"
     },
     {
         "id": 9504,
         "explain": 2,
         "tw": "球 隊",
-        "en": "TEST"
+        "en": "Team"
     },
     {
         "id": 9505,
         "explain": "PositionLabel",
         "tw": "C",
-        "en": "TEST"
+        "en": "C"
     },
     {
         "id": 9506,
         "explain": "PositionLabel",
         "tw": "F",
-        "en": "TEST"
+        "en": "F"
     },
     {
         "id": 9507,
         "explain": "PositionLabel",
         "tw": "G",
-        "en": "TEST"
+        "en": "G"
     },
     {
         "id": 9508,
         "explain": "GameStart/Label",
         "tw": "競賽開始",
-        "en": "TEST"
+        "en": "Start Game"
     },
     {
         "id": 9601,
@@ -1596,9 +1603,7 @@
         "id": 10325,
         "explain": "AISecLabel",
         "tw": "AI Mode",
-        "cn": "AI CONTROL",
-        "en": "AI Mode",
-        "jp": "AI CONTROL"
+        "en": "AI Mode"
     },
     {
         "id": 10401,
@@ -1884,66 +1889,67 @@
         "id": 12002,
         "explain": "0/TabLabel",
         "tw": "遊 戲",
-        "en": "TEST"
+        "en": "Game"
     },
     {
         "id": 12003,
         "explain": "1/TabLabel",
         "tw": "語 言",
-        "en": "TEST"
+        "en": "Languages"
     },
     {
         "id": 12004,
         "explain": "2/TabLabel",
         "tw": "帳 號",
-        "en": "TEST"
+        "en": "Account"
     },
     {
         "id": 12005,
         "explain": "3/TabLabel",
         "tw": "關 於",
-        "en": "TEST"
+        "en": "Info"
     },
     {
         "id": 12006,
         "explain": "VersionLabel",
-        "tw": "Version {0} "
+        "tw": "Version {0} ",
+        "en": "VER{0} "
     },
     {
         "id": 12007,
         "explain": "SubheadLabel0",
         "tw": "音 效",
-        "en": "TEST"
+        "en": "Sound"
     },
     {
         "id": 12008,
         "explain": "SubheadLabel1",
         "tw": "特 效",
-        "en": "TEST"
+        "en": "Effects"
     },
     {
         "id": 12009,
         "explain": "SubheadLabel2",
         "tw": "AI 設定",
-        "en": "TEST"
+        "en": "AI Setting"
     },
     {
         "id": 12010,
         "explain": "0/BtnLabel",
         "tw": "音 樂",
-        "en": "TEST"
+        "en": "Music"
     },
     {
         "id": 12011,
         "explain": "1/BtnLabel",
         "tw": "音 效",
-        "en": "TEST"
+        "en": "Sound"
     },
     {
         "id": 12012,
         "explain": "0/BtnLabel",
         "tw": "特 效",
-        "en": "TEST"
+        "en": "Effects"
     },
     {
         "id": 12013,
@@ -2002,7 +2008,8 @@
     {
         "id": 12020,
         "explain": "SubheadLabel0",
-        "tw": "設定語言"
+        "tw": "設定語言",
+        "en": "Language Setting"
     },
     {
         "id": 12021,
@@ -2056,23 +2063,23 @@
         "id": 12031,
         "explain": "SubheadLabel0",
         "tw": "切換角色",
-        "en": "TEST"
+        "en": "Switch Character"
     },
     {
         "id": 12032,
         "explain": "0/BtnLabel",
         "tw": "選擇其他角色",
-        "en": "TEST"
+        "en": "Select Other Character"
     },
     {
         "id": 12033,
         "tw": "通 知",
-        "en": "TEST"
+        "en": "Notification"
     },
     {
         "id": 12034,
         "tw": "遊戲公告",
-        "en": "TEST"
+        "en": "News"
     },
     {
         "id": 2000001,
@@ -2319,7 +2326,8 @@
     {
         "id": 2003001,
         "tw": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
-        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。"
+        "cn": "[FFDD33]{1}[-]只要再[FF3355]{0}次[-]灌籃即可獲得勝利。",
+        "en": "[FFDD33]{1}[-]More [FF3355]{0}[-] dunks to obtain victory"
     },
     {
         "id": 2003002,
