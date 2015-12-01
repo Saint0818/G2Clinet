@@ -34,6 +34,6 @@ public class UIMainLobbyEvents : MonoBehaviour
     public void ShowPlayerInfo()
     {
         UIMainLobby.Get.Hide();
-        UIPlayerInfo.UIShow(true, GameData.Team);
+        UIPlayerInfo.UIShow(true, ref GameData.Team);
     }
 }

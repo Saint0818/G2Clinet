@@ -433,7 +433,12 @@ public class UISelectRole : UIBase {
 	}
 
 	public void OnChangePlayer(){
+		int index = 1;
+		if (UIButton.current.name == "ChangePlayerB")
+			index = 2;
+
 		UISelectPartner.UIShow(true);
+		UISelectPartner.Get.InitMemberList(ref playerList, index);
 	}
 
 	public void SelectRole() {
@@ -454,7 +459,7 @@ public class UISelectRole : UIBase {
 		}
 	}
 
-	private void setPlayerAvatar(int roleIndex, int index) {
+	public void SetPlayerAvatar(int roleIndex, int index) {
 		if (index >= 0 && index < playerList.Count) {
 			if (GameData.DPlayers.ContainsKey(arrayPlayerData[roleIndex].ID))
 				playerList.Add(arrayPlayerData[roleIndex]);
@@ -495,6 +500,9 @@ public class UISelectRole : UIBase {
 				SetBodyPic(ref spritesSelectABBody[roleIndex - 1], arrayPlayerData[roleIndex].BodyType);
 				break;
 			}
+
+			if (UISelectPartner.Visible)
+				UISelectPartner.Get.InitMemberList(ref playerList, roleIndex);
 		}
 	}
 
@@ -592,9 +600,8 @@ public class UISelectRole : UIBase {
 						break;
 					}
 
-					setPlayerAvatar(0, index);
+					SetPlayerAvatar(0, index);
 					arrayPlayer[0].transform.localEulerAngles = new Vector3(0, 180, 0);
-					
 					setTriangleData();
 				}
 			}
@@ -619,7 +626,7 @@ public class UISelectRole : UIBase {
 			uiShowTime.SetActive(false);
 
 			for(int i = 1; i < arrayPlayerPosition.Length; i++) {
-				setPlayerAvatar(i, 0);
+				SetPlayerAvatar(i, 0);
 				arrayPlayer[i].SetActive(false);
 			}
 
@@ -674,7 +681,7 @@ public class UISelectRole : UIBase {
 		case EUIRoleSituation.ListB: // 2
 			int mIndex;
 			if(int.TryParse(UIButton.current.name[UIButton.current.name.Length - 1].ToString(), out mIndex)) {
-				setPlayerAvatar((int)state, mIndex);
+				SetPlayerAvatar((int)state, mIndex);
 				changeRoleInfo ();
 			}
 

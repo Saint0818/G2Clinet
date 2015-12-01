@@ -183,8 +183,18 @@
     },
     {
         "id": 507,
-        "tw": "網路傳輸失敗。",
-        "en": "Network transmission fails."
+        "tw": "網路傳輸失敗，請再傳送一次。",
+        "en": "Network transmission fails. Please send it again."
+    },
+    {
+        "id": 508,
+        "tw": "資料異常，請再傳送一次。",
+        "en": "Data error. Please send it again."
+    },
+    {
+        "id": 509,
+        "tw": "重送",
+        "en": "Send Again"
     },
     {
         "id": 601,
@@ -1322,6 +1332,11 @@
         "explain": "GameStart/Label",
         "tw": "競賽開始",
         "en": "Start Game"
+    },
+    {
+        "id": 9509,
+        "tw": "戰鬥力 {0:F2} ",
+        "en": "Power"
     },
     {
         "id": 9601,

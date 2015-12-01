@@ -385,16 +385,16 @@ namespace GameStruct
 									Avatar.Body = item.Avatar;
                                     break;
                                 case 1:
-									Avatar.Hair = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+									Avatar.Hair = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 1001 : item.Avatar;
                                     break;
                                 case 2:
 									Avatar.MHandDress = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
                                     break;
                                 case 3:
-									Avatar.Cloth = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+									Avatar.Cloth = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 1001 : item.Avatar;
                                     break;
                                 case 4:
-									Avatar.Pants = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;
+									Avatar.Pants = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 1001 : item.Avatar;
                                     break;
                                 case 5:
 									Avatar.Shoes = GameFunction.CheckItemIsExpired(Items[i].UseTime)? 0 : item.Avatar;

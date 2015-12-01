@@ -6,17 +6,16 @@ public class UIWaitingHttp : UIBase {
 	private GameObject UILoadingHint;
 	private GameObject SpriteLoading;
 	private UILabel labelLoadingHint;
-	private GameObject ButtonSend;
+	private GameObject buttonSend;
+	private GameObject buttonClose;
 	private int resendCount = 0;
 	private float sendedTime = 0;
 	private string waitingURL;
 	private TBooleanWWWObj waitingCallback = null;
 	private WWWForm waitingForm = null;
 
-	public static bool Visible
-	{
-		get
-		{
+	public static bool Visible {
+		get {
 			if(instance)
 				return instance.gameObject.activeInHierarchy;
 			else
@@ -24,12 +23,15 @@ public class UIWaitingHttp : UIBase {
 		}
 	}
 
-	public void ShowResend() {
+	public void ShowResend(string text) {
 		if (waitingCallback != null) {
 			SpriteLoading.SetActive(false);
-			ButtonSend.SetActive(true);
+			buttonSend.SetActive(true);
 			UILoadingHint.SetActive(true);
-			labelLoadingHint.text = TextConst.S(103);
+			labelLoadingHint.text = text;
+			resendCount++;
+			if (resendCount > 3)
+				buttonClose.SetActive(true);
 		}
 	}
 
@@ -45,7 +47,7 @@ public class UIWaitingHttp : UIBase {
 			sendedTime -= Time.deltaTime;
 
 			if (sendedTime <= 0)
-				ShowResend();
+				ShowResend(TextConst.S (507));
 		}
 	}
 
@@ -55,6 +57,7 @@ public class UIWaitingHttp : UIBase {
 		} else 
 		if(instance) {
 			instance.Show(isShow);
+			instance.buttonClose.SetActive(false);
 			instance.waitingCallback = null;
 			instance.waitingForm = null;
 			instance.sendedTime = 0;
@@ -81,23 +84,30 @@ public class UIWaitingHttp : UIBase {
 		SpriteLoading = GameObject.Find(UIName + "/Window/SpriteLoading");
 		labelLoadingHint = GameObject.Find(UIName + "/Window/LoadingHint").GetComponent<UILabel>();
 
-		ButtonSend = GameObject.Find(UIName + "/Window/Send");
+		buttonSend = GameObject.Find(UIName + "/Window/Send");
 		SetBtnFun(UIName + "/Window/Send", OnResend);
-		ButtonSend.SetActive(false);
-	}
-
-	protected override void InitText(){
-		SetLabel (UIName + "/Window/Send/UILabel", TextConst.S(101));
+		buttonSend.SetActive(false);
+		buttonClose = GameObject.Find(UIName + "/TopRight/NoBtn");
+		SetBtnFun(UIName + "/TopRight/NoBtn", OnClose);
+		buttonClose.SetActive(false);
 	}
 
 	public void OnResend() {
 		if (waitingCallback != null) {
-			SendHttp.Get.Command(waitingURL, waitingCallback, waitingForm);
+			if (SendHttp.Get.CheckNetwork(false)) 
+				SendHttp.Get.Command(waitingURL, waitingCallback, waitingForm);
+			else
+				labelLoadingHint.text = TextConst.S (506);
+
 			resendCount ++;
-			if (resendCount >= 5)// && !UIMall.Visible)
-				Show(false);
+			if (resendCount >= 3)
+				buttonClose.SetActive(true);
 		} else
 			UIShow(false);
+	}
+
+	public void OnClose() {
+		UIShow(false);
 	}
 
 	public void SaveProtocol(string url, TBooleanWWWObj callback, WWWForm form = null) {
@@ -108,7 +118,8 @@ public class UIWaitingHttp : UIBase {
 		UIShow(true);
 		SpriteLoading.SetActive(true);
 		UILoadingHint.SetActive(false);
-		ButtonSend.SetActive(false);
+		buttonSend.SetActive(false);
+		buttonClose.SetActive(false);
 		sendedTime = 15;
 
 		if (UILoading.Visible)

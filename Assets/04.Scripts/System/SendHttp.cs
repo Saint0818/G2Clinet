@@ -221,16 +221,17 @@ public class SendHttp : KnightSingleton<SendHttp> {
 			internetPossiblyAvailable = true;
 		#endif
 
-		if (showWarning && !internetPossiblyAvailable && !UIMessage.Visible)
+		if (showWarning && !internetPossiblyAvailable && !UIMessage.Visible) {
+			UIWaitingHttp.Get.SaveProtocol(waitingURL, waitingCallback, waitingForm);
 			UIMessage.Get.ShowMessage(TextConst.S(505), TextConst.S(506), ResentCommond);
+		}
 		
 		return internetPossiblyAvailable;
 	}
 
 	public void ResentCommond() {
-		if (waitingCallback != null && CheckNetwork(false)) {
-			Command(waitingURL, waitingCallback, waitingForm);
-		}
+		UIWaitingHttp.UIShow(true);
+		UIWaitingHttp.Get.ShowResend(TextConst.S(506));
 	}
 
 	private bool checkResponse(WWW www){
@@ -263,7 +264,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 					    e == "You have not created." ||
 					   e.Contains("connect")) {
 					if (UIWaitingHttp.Visible)
-						UIWaitingHttp.Get.ShowResend();
+						UIWaitingHttp.Get.ShowResend(TextConst.S (508));
 				} else
 				if (e == "Fight end." || e == "Receipt error.") {
 					UIWaitingHttp.UIShow(false);
@@ -297,7 +298,7 @@ public class SendHttp : KnightSingleton<SendHttp> {
 				    www.error == "Empty reply from server")
 			{
 				if (UIWaitingHttp.Visible)
-					UIWaitingHttp.Get.ShowResend();
+					UIWaitingHttp.Get.ShowResend(TextConst.S (508));
 			} else 
 			if (www.error.Contains("404 Not Found")){
 				UIWaitingHttp.UIShow(false);

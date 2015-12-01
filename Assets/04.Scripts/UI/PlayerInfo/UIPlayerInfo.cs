@@ -563,7 +563,7 @@ public class UIPlayerInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow, TTeam team){
+	public static void UIShow(bool isShow, ref TTeam team){
 		if(isShow)
 			teamdata = team;
 
@@ -627,7 +627,7 @@ public class UIPlayerInfo : UIBase {
 
 	public void OnReturn()
 	{
-		UIShow (false, teamdata);
+		UIShow (false, ref teamdata);
 		UIMainLobby.Get.Show();
 	}
 
