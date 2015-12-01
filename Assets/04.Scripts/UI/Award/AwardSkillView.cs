@@ -25,9 +25,10 @@ public class AwardSkillView : MonoBehaviour {
 	}
 
 	public void UpdateUI (TItemData itemData){
+		QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Quality, 1, 3).ToString();
 		if(GameData.DSkillData.ContainsKey(itemData.Avatar))
 			SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
-		SkillStar.spriteName = "Staricon" + itemData.LV;
+		SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Star , 1, 5).ToString();
 		AmountLabel.text = "";
 	}
 }

@@ -1142,11 +1142,11 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     case AniCurveDirection.Forward:
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPushCurve.DirVaule * Timer.timeScale), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule));
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule) * Timer.timeScale);
                         break;
                     case AniCurveDirection.Back:
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule));
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule) * Timer.timeScale);
                         break;
                 }
             }
@@ -1207,12 +1207,12 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (playerFallCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerFallCurve.DirVaule), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerFallCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerFallCurve.DirVaule) * Timer.timeScale, 0, 
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerFallCurve.DirVaule) * Timer.timeScale);
                         break;
                     case AniCurveDirection.Back:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerFallCurve.DirVaule), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerFallCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerFallCurve.DirVaule) * Timer.timeScale, 0, 
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerFallCurve.DirVaule) * Timer.timeScale);
                         break;
                 }
             }
@@ -1237,12 +1237,12 @@ public class PlayerBehaviour : MonoBehaviour
                 switch (playerPickCurve.Dir)
                 {
                     case AniCurveDirection.Forward:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPickCurve.DirVaule), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPickCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPickCurve.DirVaule) * Timer.timeScale, 0, 
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPickCurve.DirVaule) * Timer.timeScale);
                         break;
                     case AniCurveDirection.Back:
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPickCurve.DirVaule), 0, 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPickCurve.DirVaule));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPickCurve.DirVaule) * Timer.timeScale, 0, 
+					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPickCurve.DirVaule) * Timer.timeScale);
                         break;
                 }
             }
@@ -1269,24 +1269,24 @@ public class PlayerBehaviour : MonoBehaviour
 				if (blockCurveTime < 1f) {
 					if (!isDunkBlock) {
 						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+						                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
 						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
 					} else 
 					{
 						PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, blockCurveTime), 
-						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
+						                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3)), 
 						                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, blockCurveTime));
 					}
 				} else
 				{
 					if (!isDunkBlock) {
 						PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+						                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
 						                                                     PlayerRefGameObject.transform.position.z);
 					} else 
 					{
 						PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-						                                                     playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3), 
+						                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime) * (skillMoveTarget.y / 3)), 
 						                                                     PlayerRefGameObject.transform.position.z);
 					}
 				}   
@@ -1294,11 +1294,11 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (blockCurveTime < 1f)
                     PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * 0.03f * Timer.timeScale), 
-                                                                         playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+					                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime)), 
                                                                          PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * 0.03f * Timer.timeScale));
                 else
                     PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-                                                                         playerBlockCurve.aniCurve.Evaluate(blockCurveTime), 
+					                                                     Mathf.Max(0, playerBlockCurve.aniCurve.Evaluate(blockCurveTime)), 
                                                                          PlayerRefGameObject.transform.position.z);
             }
 
@@ -1320,22 +1320,24 @@ public class PlayerBehaviour : MonoBehaviour
                 case AniCurveDirection.Forward:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerShootCurve.DirVaule * Timer.timeScale), 
-                                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerShootCurve.DirVaule * Timer.timeScale));
+				                                                             Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), 
+				                                                             PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerShootCurve.DirVaule * Timer.timeScale));
                     else
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
                     break;
                 case AniCurveDirection.Back:
                     if (shootJumpCurveTime >= playerShootCurve.OffsetStartTime && shootJumpCurveTime < playerShootCurve.OffsetEndTime)
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerShootCurve.DirVaule * Timer.timeScale), 
-                                                            playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), 
-                                                           PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerShootCurve.DirVaule * Timer.timeScale));
+					                                                         Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), 
+				                                                             PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerShootCurve.DirVaule * Timer.timeScale));
                     else
-                        PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), PlayerRefGameObject.transform.position.z);
                     break;
 
-                default : 
-                    PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime), PlayerRefGameObject.transform.position.z);
+				default : 
+					Debug.Log(playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime));
+					Debug.Log(Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)));
+					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), PlayerRefGameObject.transform.position.z);
                     break;
 
             }

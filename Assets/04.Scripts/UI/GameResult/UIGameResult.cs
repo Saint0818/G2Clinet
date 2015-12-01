@@ -56,6 +56,7 @@ public class UIGameResult : UIBase {
 	private int tempExp;
 	private int tempDia;
 
+	private bool isHaveReward = false;
 	private bool isGetAward = false;
 	private bool isCanChooseLucky = false;
 	private bool isLevelUp = false;
@@ -176,7 +177,11 @@ public class UIGameResult : UIBase {
 	}
 
 	public void OnShowAwardInfo (GameObject go) {
-		
+		int index = -1;
+		if(int.TryParse(go.name, out index)) {
+			if(GameData.DItemData.ContainsKey(index))
+				UIItemHint.Get.OnShow(GameData.DItemData[index]);
+		}
 	}
 
 	public void OnShowHomeStats () {
@@ -277,7 +282,7 @@ public class UIGameResult : UIBase {
 		for (int i=0; i<itemAwardGroup.Length; i++) {
 			itemAwardGroup[i] = GameObject.Find(UIName + "/ThreeAward/" + i.ToString()).GetComponent<ItemAwardGroup>();
 			if(i >= 0 && i < 3) {
-				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+				if(isHaveReward && GameData.DItemData.ContainsKey(bonusItemIDs[i]))
 					itemAwardGroup[i].Show(GameData.DItemData[bonusItemIDs[i]]);
 			}
 		}
@@ -294,10 +299,12 @@ public class UIGameResult : UIBase {
 				alreadyGetItems.Add(addItemToAward(i, new TItemData(), true, true));	
 			}
 		}
-		
-		for(int i=0; i<bonusItemIDs.Length; i++) {
-			if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
-				bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+
+		if(isHaveReward) {
+			for(int i=0; i<bonusItemIDs.Length; i++) {
+				if(GameData.DItemData.ContainsKey(bonusItemIDs[i]))
+					bonusAwardItems.Add(bonusItemIDs[i], addItemToAward(i, GameData.DItemData[bonusItemIDs[i]], false));
+			}
 		}
 	}
 
@@ -393,7 +400,7 @@ public class UIGameResult : UIBase {
 		if(!isOther) {
 			obj.name = itemData.ID.ToString();
 		} else {
-			obj.name = index.ToString();
+			obj.name = "-1";
 		}
 
 		if(isNeedAdd) {
@@ -449,7 +456,10 @@ public class UIGameResult : UIBase {
 	private void moveBonusItem () {
 		IsShowFirstCard = false;
 		animatorAward.SetTrigger ("AwardViewDown");
-		Invoke("showLuckyThree", 0.5f);
+		if(isHaveReward)
+			Invoke("showLuckyThree", 0.5f);
+		else 
+			showReturnButton ();
 	}
 
 	private void showLuckyThree () {
@@ -692,6 +702,9 @@ public class UIGameResult : UIBase {
 				}else
 					awardItemIDs = reward.SurelyItemIDs;
 				bonusItemIDs = reward.CandidateItemIDs;
+				if(bonusItemIDs != null && bonusItemIDs.Length > 0){
+					isHaveReward = true;
+				}
 				alreadGetBonusID = reward.RandomItemID;
 				
 				for (int i=0; i<awardItemIDs.Length; i++) {

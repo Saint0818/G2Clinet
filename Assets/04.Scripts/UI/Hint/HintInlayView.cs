@@ -29,8 +29,12 @@ public class HintInlayView : MonoBehaviour {
 	
 	public void UpdateUI(TItemData itemData)
 	{
-		QualityOctagon.spriteName = "Equipment_" + itemData.Kind;
-		ItemPic.spriteName = "Item_" + itemData.Kind;
+		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+
+		if(string.IsNullOrEmpty(itemData.Icon))
+			ItemPic.spriteName = "Item_999999";
+		else
+			ItemPic.spriteName = "Item_" + itemData.Icon;
 		
 		AmountLabel.text = "";
 	}

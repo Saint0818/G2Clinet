@@ -69,22 +69,27 @@ public class UIItemHint : UIBase {
 		hideAll ();
 		UIShow(true);
 		if(itemData.Kind == 21) {
+			//For First Get
+			hintSkillView.Show();
+			hintSkillView.UpdateUI(itemData);
+			uiLabelExplain.text = GameFunction.GetStringExplain(itemData.Explain, itemData.Avatar, itemData.LV);
 		} else if(itemData.Kind == 19) {
 			hintInlayView.Show();
 			hintInlayView.UpdateUI(itemData);
+			uiLabelExplain.text = itemData.Explain;
 		} else {
 			hintAvatarView.Show();
 			hintAvatarView.UpdateUI(itemData);
+			uiLabelExplain.text = itemData.Explain;
 		}
 		uiLabelName.text = itemData.Name;
-		uiLabelExplain.text = itemData.Explain;
 	}
-
+	
 	public void OnShowSkill(TSkill skill) {
 		UIShow(true);
 		hintSkillView.Show();
 		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
-		uiLabelExplain.text = GameData.DSkillData[skill.ID].Explain;
+		uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);
 		hintSkillView.UpdateUI(skill);
 	}
 

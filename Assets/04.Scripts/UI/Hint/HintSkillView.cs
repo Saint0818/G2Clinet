@@ -41,4 +41,18 @@ public class HintSkillView : MonoBehaviour {
 		SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[skill.ID].Star , 1, 5).ToString();
 		AmountLabel.text = GameData.Team.Player.GetSkillCount(skill.ID).ToString();
 	}
+
+	public void UpdateUI(TItemData itemData)
+	{
+		if(itemData.Avatar >= GameConst.ID_LimitActive)
+			SkillKindLabel.text = TextConst.S(7111);
+		else 
+			SkillKindLabel.text = TextConst.S(7112);
+		
+		SkillLevel.spriteName = "Cardicon" + Mathf.Clamp(itemData.LV, 1, 5).ToString();
+		QualityCards.spriteName = "cardlevel_" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Quality, 1, 3).ToString();
+		SkillItemPic.spriteName = GameData.DSkillData[itemData.Avatar].PictureNo + "s";
+		SkillStar.spriteName = "Staricon" + Mathf.Clamp(GameData.DSkillData[itemData.Avatar].Star , 1, 5).ToString();
+		AmountLabel.text = GameData.Team.Player.GetSkillCount(itemData.Avatar).ToString();
+	}
 }

@@ -3,13 +3,13 @@ using System.Collections;
 using GameStruct;
 
 public class AwardAvatarView : MonoBehaviour {
-	public GameObject Item;
 	public GameObject EXP;
 	public GameObject Money;
 	public GameObject Gem;
 
 	public GameObject EquipmentStar;
 
+	public UISprite QualitySquare;
 	public UISprite ItemPic;
 	public GameObject[] AvatarStars;
 	public UILabel AmountLabel;
@@ -22,7 +22,7 @@ public class AwardAvatarView : MonoBehaviour {
 	}
 
 	private void hideAll () {
-		Item.SetActive(false);
+		ItemPic.gameObject.SetActive(false);
 		EXP.SetActive(false);
 		Money.SetActive(false);
 		Gem.SetActive(false);
@@ -40,8 +40,13 @@ public class AwardAvatarView : MonoBehaviour {
 	public void UpdateUI (TItemData itemData) {
 		hideAll ();
 		Show ();
-		Item.SetActive(true);
-		ItemPic.spriteName = "Item_" + itemData.Quality;
+		QualitySquare.spriteName = "Equipment_"+ Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+		ItemPic.gameObject.SetActive(true);
+		if(string.IsNullOrEmpty(itemData.Icon))
+			ItemPic.spriteName = "Item_999999";
+		else
+			ItemPic.spriteName = "Item_" + itemData.Icon;
+
 		if(itemData.LV > 0) {
 			EquipmentStar.SetActive(true);
 			for (int i=0; i<AvatarStars.Length; i++)

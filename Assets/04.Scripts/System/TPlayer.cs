@@ -552,7 +552,7 @@ namespace GameStruct
                 //					return maxAnger;
                 //				} else
                 //					return 0;
-                return 100;
+                return 150;
             }
         }
 

@@ -3579,14 +3579,13 @@ public class GameController : KnightSingleton<GameController>
 
 	private void setEndShowScene () {
 		//Player
-		SetPlayerAI(false);
 		for (int i=0; i<PlayerList.Count; i++) {
 			if(i < CourtMgr.Get.EndPlayerPosition.Length) {
 				PlayerList[i].transform.position = CourtMgr.Get.EndPlayerPosition[i].position;
 				PlayerList[i].transform.rotation = CourtMgr.Get.EndPlayerPosition[i].rotation;
 			}
 		}
-
+		SetBallOwnerNull();
 		CourtMgr.Get.RealBall.transform.position = Vector3.zero;
 
 		if (IsGameVictory()) {
@@ -3629,6 +3628,7 @@ public class GameController : KnightSingleton<GameController>
 			AIController.Get.ChangeState(EGameSituation.End);
 			
 			UIGame.Get.GameOver();
+			SetPlayerAI(false);
 			GameRecord.Done = true;
 			SetGameRecord(true);
 			StartCoroutine(playFinish());
