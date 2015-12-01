@@ -71,8 +71,8 @@ public class TStageData
     /// <summary>
     /// 亂數獎勵.
     /// </summary>
-    public int[] Rewards; // 獎勵 ItemID.
-    public int[] RewardRates; // 獎勵機率.
+    [CanBeNull] public int[] Rewards; // 獎勵 ItemID.
+    [CanBeNull] public int[] RewardRates; // 獎勵機率.
 
     public int WinValue;
     public int FriendNumber;
@@ -136,11 +136,11 @@ public class TStageData
 			for (int i = 0; i < FriendID.Length; i++)
 				FriendID[i] = 0;
 
-		if (Rewards != null)
+		if(Rewards != null)
 			for (int i = 0; i < Rewards.Length; i++)
 				Rewards[i] = 0;
 
-		if (RewardRates != null)
+		if(RewardRates != null)
 			for (int i = 0; i < RewardRates.Length; i++)
 				RewardRates[i] = 0;
     }

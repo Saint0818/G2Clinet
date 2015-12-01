@@ -82,8 +82,6 @@ public class UIMainLobby : UIBase
     /// </summary>
     private void updateButtons()
     {
-        updateRedPoints();
-
         /*
         1.解鎖數值裝
         2.解鎖Avatar
@@ -92,17 +90,23 @@ public class UIMainLobby : UIBase
         5.解鎖技能介面
         */
 
+        Main.EquipmentNotice = false;
+        Main.AvatarNotice = false;
+        Main.SkillNotice = false;
+
 //        PlayerPrefs.SetInt(ESave.LevelUpFlag.ToString(), 1);
-        foreach(KeyValuePair<int, TExpData> pair in GameData.DExpData)
+        foreach (KeyValuePair<int, TExpData> pair in GameData.DExpData)
         {
             bool isEnable = GameData.Team.Player.Lv >= pair.Value.Lv;
             switch(pair.Value.OpenIndex)
             {
                 case 1:
                     updateButton(Main.EquipButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    Main.EquipmentNotice = isEnable && !GameData.Team.IsPlayerAllBestValueItem();
                     break;
                 case 2:
                     updateButton(Main.AvatarButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    Main.AvatarNotice = isEnable && GameData.AvatarNoticeEnable();
                     break;
                 case 3:
                     updateButton(Main.ShopButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
@@ -112,6 +116,7 @@ public class UIMainLobby : UIBase
                     break;
                 case 5:
                     updateButton(Main.SkillButton, isEnable, GameData.Team.Player.Lv == pair.Value.Lv);
+                    Main.SkillNotice = isEnable && PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
                     break;
             }
         }
@@ -121,16 +126,6 @@ public class UIMainLobby : UIBase
             PlayerPrefs.DeleteKey(ESave.LevelUpFlag.ToString());
             PlayerPrefs.Save();
         }
-    }
-
-    private void updateRedPoints()
-    {
-        Main.EquipmentNotice = !GameData.Team.IsPlayerAllBestValueItem();
-        Main.AvatarNotice = GameData.AvatarNoticeEnable();
-
-//        PlayerPrefs.SetInt(ESave.NewCardFlag.ToString(), 1);
-//        PlayerPrefs.Save();
-        Main.SkillNotice = PlayerPrefs.HasKey(ESave.NewCardFlag.ToString());
     }
 
     private void updateButton(UIMainLobbyButton button, bool isEnable, bool playSFX)
