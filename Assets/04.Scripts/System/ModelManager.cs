@@ -67,9 +67,13 @@ public class ModelManager : KnightSingleton<ModelManager> {
 
 	public void PreloadAnimator() {
 		//load animator
+		string path;
+
 		for (int i = 0; i < 3; i++) {
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString()), string.Format("{0}{1}", EAnimatorType.AnimationControl,i));
-			loadController(string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString()), string.Format("{0}{1}", EAnimatorType.ShowControl,i));
+			path = string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.AnimationControl.ToString());
+			loadController(path, i, EAnimatorType.AnimationControl);
+			path = string.Format("Character/PlayerModel_{0}/{1}", i, EAnimatorType.ShowControl.ToString());
+			loadController(path, i, EAnimatorType.ShowControl);
 		}
 	}
 
@@ -111,19 +115,42 @@ public class ModelManager : KnightSingleton<ModelManager> {
 		}
 	}
 
-	private RuntimeAnimatorController loadController(string path, string key) {
-		if (controllorCache.ContainsKey(key)) {
-			return controllorCache [key];
-		}else {
-			RuntimeAnimatorController obj = Resources.Load(path) as RuntimeAnimatorController;
-			if (obj) {
-				controllorCache.Add(key, obj);
-				return obj;
-			} else {
-				//download form server
-				return null;
+	private string getAnimatorKey(int bodyNumber, EAnimatorType type)
+	{
+		string key = string.Empty;
+		switch (bodyNumber) {
+		case 0:
+			key = string.Format("{0}Center", type);
+			break;
+		case 1:
+			key = string.Format("{0}Forward", type);
+			break;
+		case 2:
+			key = string.Format("{0}Defender", type);
+			break;
+		}
+
+		return key;
+	}
+
+
+	private RuntimeAnimatorController loadController(string path, int bodyNumber, EAnimatorType type) {
+		string key = getAnimatorKey(bodyNumber, type);
+		if(key != string.Empty){
+			if (controllorCache.ContainsKey(key)) {
+				return controllorCache [key];
+			}else {
+				RuntimeAnimatorController obj = Resources.Load(path) as RuntimeAnimatorController;
+				if (obj) {
+					controllorCache.Add(key, obj);
+					return obj;
+				} else {
+					//download form server
+					return null;
+				}
 			}
 		}
+		return null;
 	}
 
     /// <summary>
@@ -560,8 +587,8 @@ public class ModelManager : KnightSingleton<ModelManager> {
 	}
 
 	public void ChangeAnimator(ref Animator ani,int bodyNumber, EAnimatorType type) {
-		string key = string.Format ("{0}{1}", type, bodyNumber);
-		ani.runtimeAnimatorController = loadController(string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString()), key);
+		string path = string.Format("Character/PlayerModel_{0}/{1}", bodyNumber, type.ToString());
+		ani.runtimeAnimatorController = loadController(path, bodyNumber, type);
 		ani.parameters.Initialize ();
 		ani.applyRootMotion = false;
 	}
