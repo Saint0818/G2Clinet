@@ -37,7 +37,8 @@ public class UIGameResult : UIBase {
 
 	private List<ItemAwardGroup> alreadyGetItems;
 	private Dictionary<int, ItemAwardGroup> bonusAwardItems;
-	private GameObject awardScrollView;
+	private GameObject awardScaleView;
+	private UIScrollView awardScrollView;
 	private GameObject uiItem;
 	private int awardIndex;
 	private int awardMax;
@@ -159,7 +160,8 @@ public class UIGameResult : UIBase {
 			UIEventListener.Get (playerStats.PlayerInGameBtn[i]).onClick = OnShowPlayerInfo;
 		}
 
-		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
+		awardScaleView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView/ScaleView");
+		awardScrollView = GameObject.Find(UIName + "/AwardsView/AwardsList/ScrollView").GetComponent<UIScrollView>();
 
 		UIEventListener.Get (uiStatsNext).onClick = OnNext;
 		UIEventListener.Get (uiAwardSkip).onClick = OnReturn;
@@ -395,7 +397,7 @@ public class UIGameResult : UIBase {
 		}
 
 		if(isNeedAdd) {
-			obj.transform.parent = awardScrollView.transform;
+			obj.transform.parent = awardScaleView.transform;
 			obj.transform.localPosition = new Vector3(-450 + (150 * index), 0, 0);
 			obj.transform.localScale = Vector3.one;
 		}
@@ -407,7 +409,7 @@ public class UIGameResult : UIBase {
 
 	private void addItemToBack (int id) {
 		bonusAwardItems[id].gameObject.name = id.ToString();
-		bonusAwardItems[id].transform.parent = awardScrollView.transform;
+		bonusAwardItems[id].transform.parent = awardScaleView.transform;
 		bonusAwardItems[id].transform.localPosition = new Vector3(-450 + (150 * alreadyGetItems.Count), 0, 0);
 		bonusAwardItems[id].transform.localScale = Vector3.one;
 		if(GameData.DItemData.ContainsKey(id))
@@ -416,6 +418,9 @@ public class UIGameResult : UIBase {
 		bonusAwardItems[id].gameObject.SetActive(true);
 		UIEventListener.Get(bonusAwardItems[id].gameObject).onClick = OnShowAwardInfo;
 		alreadyGetItems.Add(bonusAwardItems[id]);
+
+		if(alreadyGetItems.Count > 7)
+			awardScrollView.MoveRelative(new Vector3(-90 * (alreadyGetItems.Count - 7), 0, 0));
 
 		if(GameData.DItemData[id].Kind == 21) 
 			if(GameData.Team.CheckSkillCarkisNew(GameData.DItemData[id].Avatar))
