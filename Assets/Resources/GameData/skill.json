@@ -753,7 +753,7 @@
         "explainjp": "投籃時有機會發動，利用時間差讓對手防不勝防。\n[F0FF00]觸發時機：於禁區內立定投籃時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
-        "id": 432,
+        "id": 433,
         "kind": 40,
         "quality": 2,
         "star": 4,
@@ -3507,7 +3507,7 @@
         "money": 100,
         "attrkind": 0,
         "valuebase": 0,
-        "maxanger": 120,
+        "maxanger": 100,
         "distance": 11,
         "distanceadd": 2,
         "lifetime": 0,
