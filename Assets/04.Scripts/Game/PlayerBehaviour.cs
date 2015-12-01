@@ -1335,8 +1335,6 @@ public class PlayerBehaviour : MonoBehaviour
                     break;
 
 				default : 
-					Debug.Log(playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime));
-					Debug.Log(Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)));
 					PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, Mathf.Max(0, playerShootCurve.aniCurve.Evaluate(shootJumpCurveTime)), PlayerRefGameObject.transform.position.z);
                     break;
 
@@ -2655,7 +2653,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (!CanUseState(state))
             return false;
 
+
         TAnimatorItem nextState = AnimatorMgr.Get.GetAnimatorStateType(state);
+
+		if(nextState.Type != EAnimatorState.End && GameController.Get.Situation == EGameSituation.End)
+			return false;
 
         bool Result = false;
 //        int stateNo = 0;
@@ -2675,6 +2677,7 @@ public class PlayerBehaviour : MonoBehaviour
             Debug.LogWarning(PlayerRefGameObject.name + ".CrtState : " + crtState + ", NextState : " + state + ", Situation : " + GameController.Get.Situation);
 
         DashEffectEnable(false);
+
         
         switch (nextState.Type)
         {

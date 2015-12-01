@@ -75,7 +75,7 @@ public class UIItemHint : UIBase {
 			//For First Get
 			hintSkillView.Show();
 			hintSkillView.UpdateUI(itemData);
-			uiLabelExplain.text = GameFunction.GetStringExplain(itemData.Explain, itemData.Avatar, itemData.LV);
+			uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[itemData.Avatar].Explain, itemData.Avatar, itemData.LV);
 		} else if(itemData.Kind == 19) {
 			hintInlayView.Show();
 			hintInlayView.UpdateUI(itemData);

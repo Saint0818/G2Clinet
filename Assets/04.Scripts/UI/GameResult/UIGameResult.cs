@@ -47,6 +47,7 @@ public class UIGameResult : UIBase {
 	private float awardGetTimeInterval = 0.25f;
 
 	private ItemAwardGroup[] itemAwardGroup = new ItemAwardGroup[3];
+	private UILabel[] diamondPay = new UILabel[3];
 
 	private bool isChooseLucky = false;
 	private int chooseIndex = 0;
@@ -149,6 +150,10 @@ public class UIGameResult : UIBase {
 		//Center/BottomView
 		mTargets = GetComponentsInChildren<UIStageHintTarget>();
 		itemAwardGroup =  GameObject.Find(UIName + "/ThreeAward").GetComponentsInChildren<ItemAwardGroup>();
+		for(int i=0; i<diamondPay.Length; i++) {
+			diamondPay[i] = GameObject.Find(UIName + "/ShowWords/"+i.ToString()+"/GemLabel").GetComponent<UILabel>();
+			diamondPay[i].gameObject.SetActive(false);
+		}
 
 		animatorAward = gameObject.GetComponent<Animator>();
 		animatorBottomView = GameObject.Find (UIName + "/Center/BottomView").GetComponent<Animator>();
@@ -350,9 +355,13 @@ public class UIGameResult : UIBase {
 				isChooseLucky = true;
 				chooseItem (index);
 			} else {
-				stageRewardAgain(GameData.StageID);
+				PayChooseReward ();
 			}
 		}
+	}
+
+	public void PayChooseReward () {
+		stageRewardAgain(GameData.StageID);
 	}
 	
 	private void chooseItem (int index) {
@@ -370,6 +379,18 @@ public class UIGameResult : UIBase {
 	private void showOneItem () {showItem (0);}
 	private void showTwoItem () {showItem (1);}
 	private void showThreeItem () {showItem (2);}
+
+	private void showPayDiamond (int index) {
+		for(int i=0; i<diamondPay.Length; i++) {
+			if(i != index)
+				diamondPay[i].gameObject.SetActive(true);
+		}
+	}
+
+	private void setPayDiamond (int value) {
+		for(int i=0; i<diamondPay.Length; i++) 
+			diamondPay[i].text = value.ToString();
+	}
 	
 	private void showItem (int index) {
 		chooseIndex = index;
@@ -378,6 +399,13 @@ public class UIGameResult : UIBase {
 			itemAwardGroup[index].Show(GameData.DItemData[alreadGetBonusID]);
 		}
 		Invoke("MoveItem",1);
+		if(chooseCount == 0) {
+			showPayDiamond(index);
+			setPayDiamond(20);
+		} else if (chooseCount == 1) {
+			diamondPay[index].gameObject.SetActive(false);
+			setPayDiamond(40);
+		}
 		chooseCount ++ ;
 	}
 	

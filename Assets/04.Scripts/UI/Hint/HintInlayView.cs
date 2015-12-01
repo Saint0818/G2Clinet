@@ -4,7 +4,8 @@ using GameStruct;
 
 public class HintInlayView : MonoBehaviour {
 	
-	public GameObject[] AttrKinds;
+	public UISprite[] AttrKindsIcon;
+	private UISprite[] attrKindsIcon;
 	public UILabel[] ValueLabels;
 	public UISprite QualityOctagon;
 	public UISprite ItemPic;
@@ -14,8 +15,9 @@ public class HintInlayView : MonoBehaviour {
 	private void Awake()
 	{
 		mGameObject = gameObject;
-		for (int i=0; i<AttrKinds.Length; i++)
-			AttrKinds[i].SetActive(false);
+		for (int i=0; i<AttrKindsIcon.Length; i++){
+			AttrKindsIcon[i].gameObject.SetActive(false);
+		}
 		Hide();
 	}
 	
@@ -32,6 +34,15 @@ public class HintInlayView : MonoBehaviour {
 	public void UpdateUI(TItemData itemData)
 	{
 		QualityOctagon.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+
+		for (int i=0; i<itemData.Bonus.Length; i++) {
+			AttrKindsIcon[i].gameObject.SetActive(true);
+			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
+		}
+		
+		for (int i=0; i<itemData.BonusValues.Length; i++) {
+			ValueLabels[i].text = itemData.BonusValues[i].ToString();
+		}
 
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";

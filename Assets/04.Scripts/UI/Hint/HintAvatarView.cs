@@ -4,7 +4,7 @@ using GameStruct;
 
 public class HintAvatarView : MonoBehaviour {
 
-	public GameObject[] AttrKinds;
+	public UISprite[] AttrKindsIcon;
 	public UILabel[] ValueLabels;
 	public UISprite QualitySquare;
 	public UISprite ItemPic;
@@ -22,8 +22,10 @@ public class HintAvatarView : MonoBehaviour {
 		Money.SetActive(false);
 		EXP.SetActive(false);
 		Gem.SetActive(false);
-		for (int i=0; i<AttrKinds.Length; i++)
-			AttrKinds[i].SetActive(false);
+		
+		for (int i=0; i<AttrKindsIcon.Length; i++){
+			AttrKindsIcon[i].gameObject.SetActive(false);
+		}
 		Hide();
 	}
 	
@@ -40,6 +42,16 @@ public class HintAvatarView : MonoBehaviour {
 	public void UpdateUI(TItemData itemData)
 	{
 		QualitySquare.spriteName = "Patch" + Mathf.Clamp(itemData.Quality, 1, 5).ToString();
+
+		for (int i=0; i<itemData.Bonus.Length; i++) {
+			AttrKindsIcon[i].gameObject.SetActive(true);
+			AttrKindsIcon[i].spriteName = "AttrKind_" + itemData.Bonus[i].GetHashCode();
+		}
+
+		for (int i=0; i<itemData.BonusValues.Length; i++) {
+			ValueLabels[i].text = itemData.BonusValues[i].ToString();
+		}
+
 		if(string.IsNullOrEmpty(itemData.Icon))
 			ItemPic.spriteName = "Item_999999";
 		else
