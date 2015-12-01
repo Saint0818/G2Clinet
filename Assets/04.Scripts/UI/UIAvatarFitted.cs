@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using GameEnum;
 using GameStruct;
@@ -16,7 +16,6 @@ public class TItemAvatar
 	private bool isInitBtn;
 	private bool isRental;
 	private bool isSelect;
-//	private bool isEnableBuy;
 	private EAvatarMode mode;
 	private UILabel name;
 	private UILabel usetime;
@@ -102,18 +101,6 @@ public class TItemAvatar
 		get{return id;}	
 	}
 
-//	public bool EnableBuy
-//	{
-//		set{
-////			isEnableBuy = value;
-////			PriceLabel.gameObject.SetActive(isEnableBuy);
-////			BuyInfoLabel.gameObject.SetActive(isEnableBuy);
-//			buyBtn.enabled = value;
-//		}
-//
-//		get{return buyBtn.enabled;}
-//	}
-
 	public bool Selected
 	{
 		set{
@@ -156,9 +143,6 @@ public class TItemAvatar
 		set{
 			isEquip = value;
 			EquipedIcon.enabled = isEquip;
-//			equipBtn.defaultColor = (isEquip == true) ? GColor.Equip : GColor.White;
-//			equipBtn.hover = (isEquip == true) ? GColor.Equip : GColor.White;
-//			UpdateBtnUseState();
 		}
 		get{
 			return isEquip;
@@ -262,11 +246,9 @@ public class TItemAvatar
 				case 1:
 					TimeSpan checktime;
 					checktime = EndUseTime.ToUniversalTime().Subtract(DateTime.UtcNow);
-//					DateTime.Compare (TeamManager.Team.FreeLuckBox.ToUniversalTime (), DateTime.UtcNow);
 					
 					if(checktime.TotalSeconds > 0)
 					{
-//						EnableBuy = false;
 						UseTime = checktime;
 					}
 					else{
@@ -276,12 +258,10 @@ public class TItemAvatar
 					break;
 				case 2:
 					usetime.gameObject.SetActive(false);
-//					EnableBuy = true;
 					getModeLabel.enabled = false;
 					break;
 				default:
 					usetime.gameObject.SetActive(false);
-//					EnableBuy = false;
 					getModeLabel.enabled = true;
 					break;
 			}
@@ -415,7 +395,6 @@ public class UIAvatarFitted : UIBase {
 		disableGroup.transform.parent = scrollView.transform;
 
 		InitEquips ();
-//		isInit = true;
 	}
 
 	private void InitEquips()
@@ -472,12 +451,7 @@ public class UIAvatarFitted : UIBase {
 
 		for (int i = 0; i < backpackItems.Length; i++)
 			if (backpackItems [i].Selected)
-			{
 				total += backpackItems [i].SellPrice;
-//				int id = backpackItems [i].ID;
-//				if(GameData.DItemData.ContainsKey(id))
-//					total += GameData.DItemData [id].Sell;
-			}
 
 		totalPrice = total;
 		TotalPriceLabel.text = string.Format("Total : {0}", totalPrice);
@@ -1128,7 +1102,7 @@ public class UIAvatarFitted : UIBase {
 
 	protected override void InitData() {
 		UpdateAvatar(true);
-		UIPlayerMgr.Get.ShowUIPlayer (EUIPlayerMode.UIAvatarFitted);
+		UIPlayerMgr.Get.ShowUIPlayer (EUIPlayerMode.UIAvatarFitted, ref GameData.Team);
 	}
 
 	private void changeLayersRecursively(Transform trans, string name){

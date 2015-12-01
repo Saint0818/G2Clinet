@@ -37,6 +37,8 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 			camera3d.nearClipPlane = 0.3f;
 			camera3d.farClipPlane = 1000;
 			camera3d.depth = 2;
+			if(camera3d.gameObject.GetComponent<UICamera>() == null)
+				camera3d.gameObject.AddComponent<UICamera>();
 		}
 	}
 
@@ -45,13 +47,16 @@ public class UIPlayerMgr : KnightSingleton<UIPlayerMgr>
 		if(avatar == null){
 			avatar = new GameObject ();
 			avatar.name = "UIPlayer";
+
+			if(avatar.GetComponent<SpinWithMouse>() == null)
+				avatar.AddComponent<SpinWithMouse>();
 		}
 	}
 
-	public void ShowUIPlayer(EUIPlayerMode mode)
+	public void ShowUIPlayer(EUIPlayerMode mode, ref TTeam team)
 	{
 		gameObject.SetActive (true);
-		ModelManager.Get.SetAvatarByItem(ref avatar, GameData.Team.Player.Items, GameData.Team.Player.BodyType, EAnimatorType.AvatarControl, false);
+		ModelManager.Get.SetAvatarByItem(ref avatar, team.Player.Items, team.Player.BodyType, EAnimatorType.AvatarControl, false);
 		avatar.transform.parent = gameObject.transform;
 		avatar.transform.localScale = Vector3.one;
 

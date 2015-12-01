@@ -252,16 +252,21 @@ public static class GameData {
 		return false;
 	}
 
-	public static bool PotentialNoticeEnable() {
-		int ownerlvPoint = ((GameData.Team.Player.Lv - 1) * GameConst.PreLvPotential) - GameFunction.GetCurrentLvPotential (GameData.Team.Player);
-		int ownerAvatarPoint = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
-
-		for(int i = 0; i < GameConst.PotentialRule.Length;i++)
-		{
-			if(ownerlvPoint + ownerAvatarPoint >= GameConst.PotentialRule[i])
-				return true;
+	public static bool PotentialNoticeEnable(ref TTeam team) {
+		if (team.Identifier != GameData.Team.Identifier)
+			return false;
+		else{
+			int ownerlvPoint = GameFunction.GetCurrentLvPotential (team.Player);
+			int ownerAvatarPoint = GameFunction.GetAllPlayerTotalUseAvatarPotential ();
+			
+			for(int i = 0; i < GameConst.PotentialRule.Length;i++)
+			{
+				if(ownerlvPoint + ownerAvatarPoint >= GameConst.PotentialRule[i])
+					return true;
+			}
+			return false;
 		}
-		return false;
+
 	}
 
 	public static bool AvatarNoticeEnable() {

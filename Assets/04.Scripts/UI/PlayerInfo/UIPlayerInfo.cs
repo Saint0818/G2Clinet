@@ -59,13 +59,13 @@ public class PersonalView
 			ValueItems [i].InitBtttonFunction (itemHint);
 	}
 
-	public void Update(TPlayer player)
+	public void Update(ref TTeam team)
 	{
-		UpdatePlayerData (player);
-		UpdateValueItem ();
+		UpdatePlayerData (team.Player);
+		UpdateValueItem (team.Player);
 	}
 
-	private void UpdateValueItem()
+	private void UpdateValueItem(TPlayer player)
 	{
 		int id = 0;
 		int kind = 11;
@@ -73,18 +73,18 @@ public class PersonalView
 		for(int i = 0;i< ValueItems.Length;i++)
 			ValueItems[i].Enable = false;
 
-		if (GameData.Team.Player.ValueItems != null) {
+		if (player.ValueItems != null) {
 			for(int i = 0 ; i < ValueItems.Length;i++){
-				if(GameData.Team.Player.ValueItems.ContainsKey(kind + i))
+				if(player.ValueItems.ContainsKey(kind + i))
 				{
-					id = GameData.Team.Player.ValueItems[kind + i].ID;
+					id = player.ValueItems[kind + i].ID;
 					if(id > 0){
-						TItemData data = GameData.DItemData[GameData.Team.Player.ValueItems[kind + i].ID];
+						TItemData data = GameData.DItemData[player.ValueItems[kind + i].ID];
 						ValueItems[i].Enable = true;
 						ValueItems[i].Name = data.Name;
 						ValueItems[i].Pic = data.Icon;
 						ValueItems[i].Quality = data.Quality;
-						ValueItems[i].Starts = GameData.Team.Player.ValueItems[kind + i].InlayItemIDs.Length;
+						ValueItems[i].Starts = player.ValueItems[kind + i].InlayItemIDs.Length;
 					}
 				}
 
@@ -146,7 +146,7 @@ public class AbilityView
 		}
 	}
 
-	public void UpdateView()
+	public void UpdateView(ref TTeam team)
 	{
 //		int index = 0;
         float basic = 0;
@@ -156,59 +156,55 @@ public class AbilityView
 		for (int i = 0; i < abilitys.Length; i++) {
             kind = GameFunction.GetAttributeKind(i);
             basic = 0;
-            if(GameData.Team.Player.Potential.ContainsKey(kind))
-                add = GameData.Team.Player.Potential[kind];
+			if(team.Player.Potential.ContainsKey(kind))
+				add = team.Player.Potential[kind];
 
             switch(kind)
             {
             case EAttribute.Point2:
-                basic = GameData.Team.Player.Point2;
+				basic = team.Player.Point2;
                 break;
             case EAttribute.Point3:
-                basic = GameData.Team.Player.Point3;
+				basic = team.Player.Point3;
                 break;
             case EAttribute.Dunk:
-                basic = GameData.Team.Player.Dunk;
+                basic = team.Player.Dunk;
                 break;
             case EAttribute.Rebound:
-                basic = GameData.Team.Player.Rebound;
+                basic = team.Player.Rebound;
                 break;
             case EAttribute.Block:
-                basic = GameData.Team.Player.Block;
+                basic = team.Player.Block;
                 break;
             case EAttribute.Steal:
-                basic = GameData.Team.Player.Steal;
+                basic = team.Player.Steal;
                 break;
             case EAttribute.Speed:
-                basic = GameData.Team.Player.Speed;
+                basic = team.Player.Speed;
                 break;
             case EAttribute.Stamina:
-                basic = GameData.Team.Player.Stamina;
+                basic = team.Player.Stamina;
                 break;
             case EAttribute.Strength:
-                basic = GameData.Team.Player.Strength;
+                basic = team.Player.Strength;
                 break;
             case EAttribute.Defence:
-                basic = GameData.Team.Player.Defence;
+                basic = team.Player.Defence;
                 break;
             case EAttribute.Dribble:
-                basic = GameData.Team.Player.Dribble;
+                basic = team.Player.Dribble;
                 break;
             case EAttribute.Pass:
-                basic = GameData.Team.Player.Pass;
+                basic = team.Player.Pass;
                 break; 
             }
 
             abilitys[i].Value.text = (basic + add).ToString();
 		}
 
-//		foreach (KeyValuePair<EAttribute, int> item in GameData.Team.Player.Potential) {
-//			index = GameFunction.GetAttributeIndex(item.Key);
-//			abilitys[index].Value.text = item.Value.ToString();
-//
-//		}
-		RedPoint.SetActive(GameData.PotentialNoticeEnable());
-		GameFunction.UpdateAttrHexagon (hexagon, GameData.Team.Player);
+		RedPoint.SetActive(GameData.PotentialNoticeEnable(ref team));
+
+		GameFunction.UpdateAttrHexagon (hexagon, team.Player);
 	}
 
 
@@ -416,9 +412,6 @@ public class TSkillView
 				}
 			}
 		}
-
-
-		Debug.Log (skill.Length);
 	}
 
 }
@@ -539,9 +532,9 @@ public class UIPlayerInfo : UIBase {
 	//part4
 	public UIButton SkillUp;
 	public UIButton Back;
-	
+	public static TTeam teamdata;
+
 	//Page 2
-	
 	private void Awake()
 	{
 
@@ -570,7 +563,10 @@ public class UIPlayerInfo : UIBase {
 		}
 	}
 	
-	public static void UIShow(bool isShow){
+	public static void UIShow(bool isShow, TTeam team){
+		if(isShow)
+			teamdata = team;
+
 		if (instance) {
 			if (!isShow){
 				RemoveUI(UIName);
@@ -631,7 +627,7 @@ public class UIPlayerInfo : UIBase {
 
 	public void OnReturn()
 	{
-		UIShow (false);
+		UIShow (false, teamdata);
 		UIMainLobby.Get.Show();
 	}
 
@@ -667,13 +663,12 @@ public class UIPlayerInfo : UIBase {
 		switch(index)
 		{
 			case 0:
-				personalView.Update(GameData.Team.Player);
-				abilityView.UpdateView();
-				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo);
+				personalView.Update(ref teamdata);
+				abilityView.UpdateView(ref teamdata);
+				UIPlayerMgr.Get.ShowUIPlayer(EUIPlayerMode.UIPlayerInfo, ref teamdata);
 				break;
 			case 1:
-				skillView.UpdateView(GameData.Team.Player.SkillCards);
-
+				skillView.UpdateView(teamdata.Player.SkillCards);
 				break;
 			case 2:
 				break;
@@ -731,6 +726,6 @@ public class UIPlayerInfo : UIBase {
 		else
 			UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
 
-		personalView.Update (GameData.Team.Player);
+		personalView.Update (ref GameData.Team);
 	}
 }
