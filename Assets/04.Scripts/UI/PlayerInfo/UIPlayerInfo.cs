@@ -287,6 +287,7 @@ public class TActiveSkillCard
 public class TPassiveSkillCard
 {
 	private GameObject self;
+	private GameObject btnRemove;
 	private UISprite SkillCard;
 	private UISprite SkillLevel;
 	private UITexture SkillTexture;
@@ -307,10 +308,12 @@ public class TPassiveSkillCard
 			SkillName =  go.transform.FindChild("SkillName").gameObject.GetComponent<UILabel>();
 			SkillCost =  go.transform.FindChild("SkillCost").gameObject.GetComponent<UILabel>();
 			SkillTexture = go.transform.FindChild("SkillTexture").gameObject.GetComponent<UITexture>();
+			btnRemove = go.transform.FindChild("BtnRemove").gameObject;
 			btn = self.GetComponent<UIButton>();
 			isInit =  SkillCard && SkillLevel && SkillName && SkillCost && btn && SkillTexture;
 			
 			if(isInit && btnFunc != null){
+				btnRemove.SetActive(false);
 				btn.onClick.Add(btnFunc);
 			}
 			else
