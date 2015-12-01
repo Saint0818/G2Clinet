@@ -140,6 +140,10 @@ public class SkillController : MonoBehaviour {
 	public List<int> GetAllBuff (){
 		return skillBuff.GetAllBuff();
 	}
+
+	public bool IsGetBuff(int id) {
+		return skillBuff.IsHaveBuff(id);
+	}
 	
 	public void FinishBuff (int skillID){
 		int index = findSkillAttribute(skillID);

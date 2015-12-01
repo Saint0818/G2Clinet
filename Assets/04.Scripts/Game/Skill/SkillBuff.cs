@@ -98,6 +98,15 @@ namespace  SkillBuffSpace {
 			return buffIDs;
 		}
 
+		public bool IsHaveBuff (int id) {
+			if(buffInfo.Length > 0)
+				for(int i=0; i<buffInfo.Length; i++)
+					if(buffInfo[i].InfoIndex == id)
+						return true;
+
+			return false;
+		}
+
 		/// <summary>
 		/// All of Buff Count is 4
 		/// Position is from left to right;

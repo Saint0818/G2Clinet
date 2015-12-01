@@ -3660,7 +3660,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanUseActiveSkill(TSkill tSkill)
     {
         if ((CanMove || crtState == EPlayerState.HoldBall) &&
-            !IsUseSkill && IsAngerFull(tSkill))
+            !IsUseSkill && IsAngerFull(tSkill) && !skillController.IsGetBuff(tSkill.ID))
             return true;
 
         return false;
