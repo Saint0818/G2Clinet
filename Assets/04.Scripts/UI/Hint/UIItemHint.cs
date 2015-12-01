@@ -7,6 +7,7 @@ public class UIItemHint : UIBase {
 	private const string UIName = "UIItemHint";
 	
 	private UILabel uiLabelName;
+	private UIScrollView scrollViewExplain;
 	private UILabel uiLabelExplain;
 
 	private HintAvatarView hintAvatarView;
@@ -43,6 +44,7 @@ public class UIItemHint : UIBase {
 	protected override void InitCom() {
 		uiLabelName = GameObject.Find (UIName + "/Window/Center/HintView/NameLabel").GetComponent<UILabel>();
 		uiLabelExplain = GameObject.Find (UIName + "/Window/Center/HintView/Explain/ExplainLabel").GetComponent<UILabel>();
+		scrollViewExplain = GameObject.Find (UIName + "/Window/Center/HintView/Explain").GetComponent<UIScrollView>();
 		hintAvatarView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup0").GetComponent<HintAvatarView>();
 		hintInlayView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup1").GetComponent<HintInlayView>();
 		hintSkillView = GameObject.Find (UIName + "/Window/Center/HintView/ItemGroup2").GetComponent<HintSkillView>();
@@ -67,6 +69,7 @@ public class UIItemHint : UIBase {
 
 	public void OnShow(TItemData itemData) {
 		hideAll ();
+		scrollViewExplain.ResetPosition();
 		UIShow(true);
 		if(itemData.Kind == 21) {
 			//For First Get
@@ -87,6 +90,7 @@ public class UIItemHint : UIBase {
 	
 	public void OnShowSkill(TSkill skill) {
 		UIShow(true);
+		scrollViewExplain.ResetPosition();
 		hintSkillView.Show();
 		uiLabelName.text = GameData.DSkillData[skill.ID].Name;
 		uiLabelExplain.text = GameFunction.GetStringExplain(GameData.DSkillData[skill.ID].Explain, skill.ID, skill.Lv);

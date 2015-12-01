@@ -422,13 +422,17 @@ public class UISkillFormation : UIBase {
 					                 true);
 						skillsOriginal.Add (obj.name);
 					if(GameData.Team.Player.SkillCards[i].ID >= GameConst.ID_LimitActive) {
-						actvieIndex++;
-						addItems(uiCards[obj.name], actvieIndex);
-						activeOriginalSN.Add(uiCards[obj.name].CardSN);
-						skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+						if(!skillActiveCards.ContainsKey(obj.name)) {
+							actvieIndex++;
+							addItems(uiCards[obj.name], actvieIndex);
+							activeOriginalSN.Add(uiCards[obj.name].CardSN);
+							skillActiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+						}
 					} else {
-						addItems(uiCards[obj.name]);
-						skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+						if(!skillPassiveCards.ContainsKey (obj.name)) {
+							addItems(uiCards[obj.name]);
+							skillPassiveCards.Add(obj.name, GameData.Team.Player.SkillCards[i]);
+						}
 					}
 					skillOriginalCards.Add(obj);
 					skillSortCards.Add(obj);
@@ -446,13 +450,20 @@ public class UISkillFormation : UIBase {
 					                 GameData.Team.SkillCards[i],
 					                 gridCardList, 
 					                 false);
-					if(GameData.Team.SkillCards[i].ID >= GameConst.ID_LimitActive) 
-						skillActiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
-					else 
-						skillPassiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
+					if(GameData.Team.SkillCards[i].ID >= GameConst.ID_LimitActive) {
+						if(!skillActiveCards.ContainsKey (obj.name)) {
+							skillActiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
+							skillOriginalCards.Add(obj);
+							skillSortCards.Add(obj);
+						}
+					} else {
+						if(!skillPassiveCards.ContainsKey(obj.name)) {
+							skillPassiveCards.Add(obj.name, GameData.Team.SkillCards[i]);
+							skillOriginalCards.Add(obj);
+							skillSortCards.Add(obj);
+						}
+					}
 
-					skillOriginalCards.Add(obj);
-					skillSortCards.Add(obj);
 				}
 			}
 		}

@@ -148,7 +148,7 @@ public class UIGameResult : UIBase {
 		
 		//Center/BottomView
 		mTargets = GetComponentsInChildren<UIStageHintTarget>();
-		itemAwardGroup = GetComponentsInChildren<ItemAwardGroup>();
+		itemAwardGroup =  GameObject.Find(UIName + "/ThreeAward").GetComponentsInChildren<ItemAwardGroup>();
 
 		animatorAward = gameObject.GetComponent<Animator>();
 		animatorBottomView = GameObject.Find (UIName + "/Center/BottomView").GetComponent<Animator>();

@@ -14,6 +14,8 @@ public class HintInlayView : MonoBehaviour {
 	private void Awake()
 	{
 		mGameObject = gameObject;
+		for (int i=0; i<AttrKinds.Length; i++)
+			AttrKinds[i].SetActive(false);
 		Hide();
 	}
 	

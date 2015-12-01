@@ -22,6 +22,8 @@ public class HintAvatarView : MonoBehaviour {
 		Money.SetActive(false);
 		EXP.SetActive(false);
 		Gem.SetActive(false);
+		for (int i=0; i<AttrKinds.Length; i++)
+			AttrKinds[i].SetActive(false);
 		Hide();
 	}
 	

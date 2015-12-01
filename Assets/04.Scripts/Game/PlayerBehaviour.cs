@@ -977,7 +977,7 @@ public class PlayerBehaviour : MonoBehaviour
             Vector3 position = PlayerRefGameObject.transform.position;
             if (Timer.timeScale != 0)
             { 
-                position.y = playerDunkCurve.aniCurve.Evaluate(dunkCurveTime);
+                position.y = Mathf.Max(0, playerDunkCurve.aniCurve.Evaluate(dunkCurveTime));
                 
                 if (position.y < 0)
                     position.y = 0; 
@@ -1027,7 +1027,7 @@ public class PlayerBehaviour : MonoBehaviour
             layupCurveTime += Time.deltaTime * Timer.timeScale;
             
             Vector3 position = PlayerRefGameObject.transform.position;
-            position.y = playerLayupCurve.aniCurve.Evaluate(layupCurveTime);
+            position.y = Mathf.Max(0, playerLayupCurve.aniCurve.Evaluate(layupCurveTime));
             
             if (position.y < 0)
                 position.y = 0;
@@ -1077,7 +1077,7 @@ public class PlayerBehaviour : MonoBehaviour
 					if (reboundCurveTime < 0.7f) {
 						if (skillMoveTarget.y > BodyHeight.transform.localPosition.y) {
 							PlayerRefGameObject.transform.position = new Vector3(Mathf.Lerp(PlayerRefGameObject.transform.position.x, skillMoveTarget.x, reboundCurveTime), 
-							                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3), 
+							                                                     Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * ((skillMoveTarget.y - BodyHeight.transform.localPosition.y) / 3)), 
 							                                                     Mathf.Lerp(PlayerRefGameObject.transform.position.z, skillMoveTarget.z, reboundCurveTime));
 						} else 
 						{
@@ -1089,7 +1089,7 @@ public class PlayerBehaviour : MonoBehaviour
 					{
 						if (skillMoveTarget.y > BodyHeight.transform.localPosition.y) {
 							PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x, 
-							                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * (skillMoveTarget.y / 3), 
+							                                                     Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime) * (skillMoveTarget.y / 3)), 
 							                                                     PlayerRefGameObject.transform.position.z);
 						} 
 					}   
@@ -1098,11 +1098,11 @@ public class PlayerBehaviour : MonoBehaviour
                     if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
                     {
                         transform.position = new Vector3(transform.position.x + reboundMove.x * Time.deltaTime * 2 * Timer.timeScale, 
-                                                         playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+                                                         Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
                                                          transform.position.z + reboundMove.z * Time.deltaTime * 2 * Timer.timeScale);
                     } else
                         transform.position = new Vector3(transform.position.x + transform.forward.x * 0.05f, 
-                                                         playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+                                                         Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
                                                          transform.position.z + transform.forward.z * 0.05f);
                 }
             } else
@@ -1110,11 +1110,11 @@ public class PlayerBehaviour : MonoBehaviour
                 if (reboundCurveTime < 0.7f && !IsBallOwner && reboundMove != Vector3.zero)
                 {
                     transform.position = new Vector3(transform.position.x, 
-                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
                                                      transform.position.z);
                 } else
                     transform.position = new Vector3(transform.position.x, 
-                                                     playerReboundCurve.aniCurve.Evaluate(reboundCurveTime), 
+					                                 Mathf.Max(0, playerReboundCurve.aniCurve.Evaluate(reboundCurveTime)), 
                                                      transform.position.z);
             }
             
@@ -1142,11 +1142,11 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     case AniCurveDirection.Forward:
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * playerPushCurve.DirVaule * Timer.timeScale), 0, 
-					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule) * Timer.timeScale);
+					                                                         PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * playerPushCurve.DirVaule) * Timer.timeScale);
                         break;
                     case AniCurveDirection.Back:
                         PlayerRefGameObject.transform.position = new Vector3(PlayerRefGameObject.transform.position.x + (PlayerRefGameObject.transform.forward.x * -playerPushCurve.DirVaule * Timer.timeScale), 0, 
-					                                                     PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule) * Timer.timeScale);
+					                                                         PlayerRefGameObject.transform.position.z + (PlayerRefGameObject.transform.forward.z * -playerPushCurve.DirVaule) * Timer.timeScale);
                         break;
                 }
             }
