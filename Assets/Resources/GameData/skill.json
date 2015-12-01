@@ -3061,7 +3061,7 @@
         "namejp": "スコアインセンティブI",
         "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方得分時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3087,7 +3087,7 @@
         "namejp": "スコアインセンティブII",
         "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方得分時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3113,7 +3113,7 @@
         "namejp": "スコアインセンティブIII",
         "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方得分時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3139,7 +3139,7 @@
         "namejp": "スコアインセンティブIV",
         "explaintw": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方得分時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team scores, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team scores[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方進球得分時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方得分時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3165,7 +3165,7 @@
         "namejp": "私は発射を奨励",
         "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方投籃沒進時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3191,7 +3191,7 @@
         "namejp": "インセンティブII発射",
         "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方投籃沒進時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3217,7 +3217,7 @@
         "namejp": "インセンティブ焼成III",
         "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方投籃沒進時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3243,7 +3243,7 @@
         "namejp": "インセンティブIVを発射",
         "explaintw": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n\n[F0FF00]觸發條件：我方投籃沒進時[-]\n[F0FF00]觸發機率：{1}%[-]\n[F0FF00]觸發效果：{3}＋{4}持續{5}秒[-]",
         "explaincn": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]",
-        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4}for{5}seconds[-]",
+        "explainen": "When your team misses, does a battle roar to boost the team's abilities\n[F0FF00]Criteria：When your team misses[-]\n[F0FF00]Chance：{1}%[-]\n[F0FF00]Effect：{3}＋{4} for {5} seconds[-]",
         "explainjp": "當我方投籃沒進時，適時的鼓舞隊友將可帶給我方戰力上的提升。\n[F0FF00]觸發時機：我方投籃沒進時[-]\n[F0FF00]觸發方式：機率觸發[-]"
     },
     {
@@ -3282,7 +3282,7 @@
         "namejp": "究極鷹眼神射",
         "explaintw": "優秀的射手往往可以把握每次的出手機會，百發百中的精準神射，給對手致命一擊。\n\n[F0FF00]發動條件：我方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：100%投籃命中[-]",
         "explaincn": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect:100% shooting accuracy [-]",
+        "explainen": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]",
         "explainjp": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3321,7 +3321,7 @@
         "namejp": "究極鷹眼神射",
         "explaintw": "優秀的射手往往可以把握每次的出手機會，百發百中的精準神射，給對手致命一擊。\n\n[F0FF00]發動條件：我方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：100%投籃命中[-]",
         "explaincn": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect:100% shooting accuracy [-]",
+        "explainen": "An excellent shooter grasp every shoot, give the opponent a fatal blow with a 100% shooting acucuracy godlike ability.\n\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]",
         "explainjp": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3365,7 +3365,7 @@
         "namejp": "究極鷹眼神射",
         "explaintw": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n\n[F0FF00]發動條件：我方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：100%投籃命中＆降低對手3分命中{6}%[-]",
         "explaincn": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "Launch an ultimate three pointer, once it goes in it demoralize the opposing team and lower their field goal percentage for a short period of time.\n[F0FF00] Criteria:\n[F0FF00] Conditions:\n[F0FF00] Effect: ",
+        "explainen": "Launch an ultimate three pointer, once it goes in it demoralize the opposing team and lower their field goal percentage for a short period of time.\n\n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be on shooting range [-]\n[F0FF00] Effect: 100% shooting accuracy [-]",
         "explainjp": "發射百發百中的超大號的三分球，得分後將在時間內造成全體對手投籃命中率大減。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3491,7 +3491,7 @@
         "namejp": "エクストリームダブルダンク",
         "explaintw": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n\n[F0FF00]發動條件：我方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：100%發動2次灌籃[-]",
         "explaincn": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect:100% chance to do a double dunk for 4 points [-]",
+        "explainen": "When energy and position fits the criteria, it makes wild two handed double slam usable and does a double slam for 4 points once activated. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: Be within shooting range [-]\n[F0FF00] Effect: 100% chance to do a double dunk for 4 points [-]",
         "explainjp": "當士氣值達到需求，並且在發動範圍內時，即可點擊發動究極雙灌籃，直接獲得大量分數。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3622,7 +3622,7 @@
         "namejp": "テレポートは、私を盗みます",
         "explaintw": "當士氣值達到需求，並且自身技能範圍有籃板球時，即可直接飛身過去抓下一個漂亮的籃板。\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：必定搶到籃板[-]",
         "explaincn": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect:100% chance of getting the rebound [-]",
+        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]",
         "explainjp": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3669,7 +3669,7 @@
         "namejp": "テレポートは、私を盗みます",
         "explaintw": "當士氣值達到需求，並且自身技能範圍有籃板球時，即可直接飛身過去抓下一個漂亮的籃板。\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：必定搶到籃板[-]",
         "explaincn": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect:100% chance of getting the rebound [-]",
+        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]",
         "explainjp": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3716,7 +3716,7 @@
         "namejp": "テレポートは、私を盗みます",
         "explaintw": "當士氣值達到需求，並且自身技能範圍有籃板球時，即可直接飛身過去抓下一個漂亮的籃板。\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：必定搶到籃板[-]",
         "explaincn": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect:100% chance of getting the rebound [-]",
+        "explainen": "When energy and position fits the criteria, will elevate and snap the rebound. \n[F0FF00] Criteria: Reach morale requirentments and have possesion of the ball [-]\n[F0FF00] Conditions: The rebound is within the character's rebounding zone [-]\n[F0FF00] Effect: 100% chance of getting the rebound [-]",
         "explainjp": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3763,7 +3763,7 @@
         "namejp": "テレポートは、私を盗みます",
         "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去將球抄走[-]",
         "explaincn": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleports and steals the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3857,7 +3857,7 @@
         "namejp": "テレポートは、私を盗みます",
         "explaintw": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去將球抄走[-]",
         "explaincn": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleports and steals the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and steal the basketball. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleports and steals the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方持球者在發動範圍內時，即可瞬移到對手面前，將球搶奪過來。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3889,7 +3889,7 @@
         "namejp": "私は宿敵を撃ちました",
         "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去蓋火鍋[-]",
         "explaincn": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:100% chance of teleporting and blocking the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: 100% chance of teleporting and blocking the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3921,7 +3921,7 @@
         "namejp": "バスターIIシューティング",
         "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去蓋火鍋[-]",
         "explaincn": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:100% chance of teleporting and blocking the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: 100% chance of teleporting and blocking the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的投球。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -3985,7 +3985,7 @@
         "namejp": "私は宿敵をダンク",
         "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去蓋火鍋[-]",
         "explaincn": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleport and blocks the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleport and blocks the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4017,7 +4017,7 @@
         "namejp": "DEAR宿敵II",
         "explaintw": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n\n[F0FF00]發動條件：對方持球＆達到士氣要求[-]\n[F0FF00]發動限制：符合發動範圍[-]\n[F0FF00]發動效果：直接瞬移過去蓋火鍋[-]",
         "explaincn": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect:Teleport and blocks the basketball [-]",
+        "explainen": "When energy and position fits the criteria, will teleport to the front of the opponent and block the shot. \n[F0FF00] Criteria: Opponent has possesion & Has enough energy [-]\n[F0FF00] Conditions: Within the range of stealing the basketball [-]\n[F0FF00] Effect: Teleport and blocks the basketball [-]",
         "explainjp": "當士氣值達到需求，並且對方在發動範圍內進行投籃時，即可瞬移到對手面前破壞對方的灌籃。\n[F0FF00]觸發時機：士氣值達到需求＆符合發動範圍[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4091,7 +4091,7 @@
         "namejp": "私は飛んで衝突",
         "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：將範圍內的敵方球員陣暈並造成掉球[-]",
         "explaincn": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\nF0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]",
+        "explainen": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]",
         "explainjp": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4118,12 +4118,22 @@
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 0,
+        "targetkind1": 4,
+        "targeteffect1": 1700,
+        "effectparent1": 0,
+        "delaytime1": 0.7,
+        "duration1": 1,
+        "targetkind2": 19,
+        "targeteffect2": 1710,
+        "effectparent2": 0,
+        "delaytime2": 0.7,
+        "duration2": 1,
         "namecn": "飞身冲撞 II",
         "nameen": "Tackle II",
         "namejp": "フライング衝突II",
         "explaintw": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：將範圍內的敵方球員陣暈並造成掉球[-]",
         "explaincn": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\nF0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]",
+        "explainen": "When morale requirenments are reached the player will tackle the oponent sending them flying, the opponent will be stunt and loose the ball.\n\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent who are on the range of the attack will loose the ball [-]",
         "explainjp": "當士氣值達到需求，即可飛身衝撞對手，造成作用範圍內的對手掉球或者暈眩倒地。\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4150,6 +4160,16 @@
         "activecamera": 0,
         "activecameratime": 1.5,
         "targetkind": 0,
+        "targetkind1": 4,
+        "targeteffect1": 1700,
+        "effectparent1": 0,
+        "delaytime1": 0.7,
+        "duration1": 1,
+        "targetkind2": 19,
+        "targeteffect2": 1710,
+        "effectparent2": 0,
+        "delaytime2": 0.7,
+        "duration2": 1,
         "namecn": "飞身冲撞 II",
         "nameen": "Tackle II",
         "namejp": "フライング衝突II",
@@ -4353,7 +4373,7 @@
         "namejp": "セルフ2点激励",
         "explaintw": "當士氣值達到需求，施放於自己身上的2分數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身2分球命中率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 2 point shooting ability {3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal 2 point shooting ability {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4467,7 +4487,7 @@
         "namejp": "自己耐久インスピレーション",
         "explaintw": "當士氣值達到需求，施放於自己身上的耐力數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4505,7 +4525,7 @@
         "namejp": "自己感激力",
         "explaintw": "當士氣值達到需求，施放於自己身上的力量數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4543,7 +4563,7 @@
         "namejp": "奨励自己ダンク",
         "explaintw": "當士氣值達到需求，施放於自己身上的灌籃數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal dunking ability.\n \n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal dunking ability.\n \n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4581,7 +4601,7 @@
         "namejp": "自己リバウンドを奨励",
         "explaintw": "當士氣值達到需求，施放於自己身上的籃板數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4619,7 +4639,7 @@
         "namejp": "奨励自己ポット",
         "explaintw": "當士氣值達到需求，施放於自己身上的火鍋數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4657,7 +4677,7 @@
         "namejp": "奨励自己防衛",
         "explaintw": "當士氣值達到需求，施放於自己身上的防守數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal defense ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4695,7 +4715,7 @@
         "namejp": "自己盗みを鼓舞します",
         "explaintw": "當士氣值達到需求，施放於自己身上的抄截數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4733,7 +4753,7 @@
         "namejp": "自己所有を奨励",
         "explaintw": "當士氣值達到需求，施放於自己身上的控球數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4771,7 +4791,7 @@
         "namejp": "自己盗みを鼓舞します",
         "explaintw": "當士氣值達到需求，施放於自己身上的傳球數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：自身{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於自己身上的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the player's personal passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the player's personal passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Personal {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於自己身上的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4814,7 +4834,7 @@
         "namejp": "チームが2点をインスパイア",
         "explaintw": "當士氣值達到需求，施放於我方全隊的2分數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方2分球命中率＋{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 2 point shooting ability {3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's 2 point shooting ability {3}＋{4} Duration {5}Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的2分數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4943,7 +4963,7 @@
         "namejp": "エンデュランスチームを鼓舞",
         "explaintw": "當士氣值達到需求，施放於我方全隊的耐力數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動方式：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's endurance.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的耐力數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -4986,7 +5006,7 @@
         "namejp": "チームの強さをインスパイア",
         "explaintw": "當士氣值達到需求，施放於我方全隊的力量數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's power.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的力量數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5029,7 +5049,7 @@
         "namejp": "DEARは、チームを鼓舞",
         "explaintw": "當士氣值達到需求，施放於我方全隊的灌籃數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's dunking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的灌籃數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5072,7 +5092,7 @@
         "namejp": "チームのリバウンドをインスパイア",
         "explaintw": "當士氣值達到需求，施放於我方全隊的籃板數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's rebounding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的籃板數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5115,7 +5135,7 @@
         "namejp": "ポットは、チームを鼓舞",
         "explaintw": "當士氣值達到需求，施放於我方全隊的火鍋數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's blocking ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的火鍋數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5158,7 +5178,7 @@
         "namejp": "インスピレーションを受けてチームのディフェンス",
         "explaintw": "當士氣值達到需求，施放於我方全隊的防守數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's defense.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's defense.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的防守數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5201,7 +5221,7 @@
         "namejp": "チームの盗みは鼓舞します",
         "explaintw": "當士氣值達到需求，施放於我方全隊的抄截數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's stealing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的抄截數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5244,7 +5264,7 @@
         "namejp": "チームはインスピレーションを得ていました",
         "explaintw": "當士氣值達到需求，施放於我方全隊的控球數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's dribbling ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的控球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5287,7 +5307,7 @@
         "namejp": "チームの盗みは鼓舞します",
         "explaintw": "當士氣值達到需求，施放於我方全隊的傳球數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's passing ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的傳球數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5330,7 +5350,7 @@
         "namejp": "チームの士気を鼓舞します",
         "explaintw": "當士氣值達到需求，施放於我方隊友的士氣數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方隊友的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's spirit.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's spirit.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方隊友的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5373,7 +5393,7 @@
         "namejp": "情熱的なチームの士気",
         "explaintw": "當士氣值達到需求，施放於我方全隊的士氣數值加成\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：我方{3}＋{4}持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於我方全隊的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will boost the team's commanding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's{3}＋{4}Duration{5}Seconds[-]",
+        "explainen": "When morale requirenments are reached it will boost the team's commanding ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Team's {3}＋{4} Duration {5} Seconds[-]",
         "explainjp": "當士氣值達到需求，施放於我方全隊的士氣數值加成\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5416,7 +5436,7 @@
         "namejp": "2点減衰呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手2分球命中率-{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 2 point shooting ability-{6}%duration{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 2 point shooting ability - {6}% duration {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的2分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
@@ -5459,7 +5479,7 @@
         "namejp": "3つ星の減衰の呪い",
         "explaintw": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n\n[F0FF00]發動條件：達到士氣要求[-]\n[F0FF00]發動效果：對手3分球命中率-{6}%持續{5}秒[-]",
         "explaincn": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]",
-        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 3 point shooting ability-{6}%duration{5}seconds[-]",
+        "explainen": "When morale requirenments are reached it will cast a curse in the opponent that will reduce their 2 point shooting ability.\n\n[F0FF00] Criteria: Reach  Morale Requirements [-]\n[F0FF00] Effect: Opponent 3 point shooting ability - {6}% duration {5}seconds[-]",
         "explainjp": "當士氣值達到需求，施放於敵方全隊的3分衰減詛咒\n[F0FF00]觸發時機：士氣值達到需求[-]\n[F0FF00]觸發方式：點擊發動[-]"
     },
     {
