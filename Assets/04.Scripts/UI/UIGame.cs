@@ -1190,8 +1190,11 @@ public class UIGame : UIBase {
 			viewStart.SetActive (false);
 			viewTopLeft.SetActive(true);
 			viewBottomRight.SetActive(true);
-			uiJoystick.gameObject.SetActive(true);
-			uiJoystick.Joystick.isActivated = true;
+
+			if (!GameController.Get.StageData.IsTutorial) {
+				uiJoystick.gameObject.SetActive(true);
+				uiJoystick.Joystick.isActivated = true;
+			}
 
 			viewPass.SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
 			controlButtonGroup[0].SetActive(GameController.Get.Situation == EGameSituation.AttackGamer);
