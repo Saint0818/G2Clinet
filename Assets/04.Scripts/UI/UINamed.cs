@@ -167,6 +167,8 @@ public class UINamed : UIBase {
 			GameData.Team.Player.Name = result.Name;
 			GameData.Team.Diamond = result.Diamond;
 			UIMainLobby.Get.UpdateUI();
+			if(UIPlayerInfo.Visible)
+				UIPlayerInfo.UIShow(true,ref GameData.Team);
 //			UIHint.Get.ShowHint("Change Name Success!", Color.black);
 		}
 		else

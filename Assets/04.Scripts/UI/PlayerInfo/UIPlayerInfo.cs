@@ -519,10 +519,6 @@ public class TAbilityItem
 }
 
 public class UIPlayerInfo : UIBase {
-	/// <summary>
-	/// 呼叫時機: 當玩家更改球員名稱時.
-	/// </summary>
-	public event CommonDelegateMethods.Action ChangePlayerNameListener;
 
 	private static UIPlayerInfo instance = null;
 	private const string UIName = "UIPlayerInfo";
@@ -601,7 +597,6 @@ public class UIPlayerInfo : UIBase {
 		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/PersonalView"));
 		personalView.Init(obj, itemEquipmentBtns);
 		personalView.InitBtttonFunction(new EventDelegate(OnChangehead), new EventDelegate(OnGuild), new EventDelegate(OnAvatarItemHint), new EventDelegate(OnChangePlayerName));
-		ChangePlayerNameListener += changePlayerName;
 
 		obj = GameObject.Find(UIName + string.Format("/Window/Center/View/AbilityView"));
 		abilityView.Init(obj, Instantiate(Resources.Load("Prefab/UI/UIattributeHexagon")) as GameObject);
@@ -710,25 +705,5 @@ public class UIPlayerInfo : UIBase {
 	public void OnChangePlayerName()
 	{
 		UINamed.UIShow(true);
-	}
-
-	private void changePlayerName()
-	{
-		WWWForm form = new WWWForm();
-		form.AddField("NewPlayerName", UIInput.current.value);
-		SendHttp.Get.Command(URLConst.ChangePlayerName, waitChangePlayerName, form);
-	}
-
-	private void waitChangePlayerName(bool ok, WWW www)
-	{
-		if(ok)
-		{
-			GameData.Team.Player.Name = www.text;
-			UIHint.Get.ShowHint("Change Name Success!", Color.black);
-		}
-		else
-			UIHint.Get.ShowHint("Change Player Name fail!", Color.red);
-
-		personalView.Update (ref GameData.Team);
 	}
 }

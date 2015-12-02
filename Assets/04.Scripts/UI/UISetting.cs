@@ -251,7 +251,6 @@ public class UISetting : UIBase {
 		}
 
 		version = GameObject.Find (UIName + "Window/Center/Pages/VersionLabel").gameObject.GetComponent<UILabel> ();
-		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
 	protected override void InitData() {
@@ -281,6 +280,8 @@ public class UISetting : UIBase {
 				accountSetting.UpdateView();
 				break;
 		}
+
+		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
 	public void OnAnnouncement()
@@ -358,6 +359,8 @@ public class UISetting : UIBase {
 
 		if (UISetting.Visible)
 			UISetting.UIShow(true);
+
+		version.text = TextConst.StringFormat (12006, BundleVersion.Version);
 	}
 
 	public void DoOtherCharacter(object obj)
