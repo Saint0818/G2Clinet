@@ -324,7 +324,7 @@ public class PlayerBehaviour : MonoBehaviour
     private bool isUsePass = false;
 
     //Active
-    private bool isUseSkill = false;
+    private bool isUseActiveSkill = false;
     private int angerValue = 0;
 
     //ShowWord
@@ -2044,7 +2044,7 @@ public class PlayerBehaviour : MonoBehaviour
                 break;
 
             case EPlayerState.Alleyoop:
-                if (crtState != EPlayerState.Alleyoop && !IsUseSkill && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
+                if (crtState != EPlayerState.Alleyoop && !IsUseActiveSkill && !IsBallOwner && (GameStart.Get.TestMode == EGameTest.Alleyoop || situation.GetHashCode() == (Team.GetHashCode() + 3)))
                     return true;
 
                 break;
@@ -2115,7 +2115,7 @@ public class PlayerBehaviour : MonoBehaviour
             case EPlayerState.KnockDown0:
             case EPlayerState.KnockDown1:
 
-                if (!IsTee && !IsFall && !IsUseSkill)
+                if (!IsTee && !IsFall && !IsUseActiveSkill)
                     return true;
                 break;
 
@@ -2667,7 +2667,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerRigidbody.useGravity = true;
         IsKinematic = false;
         DribbleTime = 0;
-        IsUseSkill = false;
+        IsUseActiveSkill = false;
         if (!isUsePass)
             isCanCatchBall = true;
 
@@ -3190,7 +3190,7 @@ public class PlayerBehaviour : MonoBehaviour
                 IsPerfectBlockCatch = false;
                 isRebound = false;
                 isPush = false; 
-                IsUseSkill = false;
+                IsUseActiveSkill = false;
                 blockCatchTrigger.enabled = false;
 
                 if (!NeedResetFlag)
@@ -3453,7 +3453,7 @@ public class PlayerBehaviour : MonoBehaviour
                     }
                 }
 
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseSkill)
+                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && !IsUseActiveSkill)
                     UIPassiveEffect.Get.ShowCard(this, ActiveSkillUsed.ID, ActiveSkillUsed.Lv);
                 showActiveEffect();
             }
@@ -3646,7 +3646,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         get
         {
-            if (IsUseSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
+            if (IsUseActiveSkill || StateChecker.StopStates.ContainsKey(crtState) || IsFall || IsShoot || IsDunk || IsLayup)
                 return false;
             else
                 return true;
@@ -3667,7 +3667,7 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanUseActiveSkill(TSkill tSkill)
     {
         if ((CanMove || crtState == EPlayerState.HoldBall) &&
-            !IsUseSkill && IsAngerFull(tSkill) && !skillController.IsGetBuff(tSkill.ID))
+            !IsUseActiveSkill && IsAngerFull(tSkill) && !skillController.IsGetBuff(tSkill.ID))
             return true;
 
         return false;
@@ -3847,10 +3847,10 @@ public class PlayerBehaviour : MonoBehaviour
         get{ return crtState == EPlayerState.KnockDown0 || crtState == EPlayerState.KnockDown1;}
     }
 
-    public bool IsUseSkill //Only ActiveSkill
+    public bool IsUseActiveSkill //Only ActiveSkill
     {
-        get{ return isUseSkill;}
-        set{ isUseSkill = value;}
+        get{ return isUseActiveSkill;}
+        set{ isUseActiveSkill = value;}
     }
 
     private bool isMoving = false;

@@ -12,6 +12,7 @@ namespace  SkillBuffSpace {
 		public GameObject Info;
 		public Animator AnimatorInfo;
 		public float LifeTime;
+		public int ID;
 		public int InfoIndex;
 		public bool isClose;
 		
@@ -22,6 +23,7 @@ namespace  SkillBuffSpace {
 			this.Info = null;
 			this.AnimatorInfo = null;
 			this.LifeTime = 0;
+			this.ID = 0;
 			this.InfoIndex = 0;
 			this.isClose = true;
 		}
@@ -92,7 +94,7 @@ namespace  SkillBuffSpace {
 			List<int> buffIDs = new List<int>();
 			if(recordIndex.Length > 0) {
 				for (int i=0; i<recordIndex.Length; i++) {
-					buffIDs.Add(buffInfo[i].InfoIndex);
+					buffIDs.Add(buffInfo[i].ID);
 				}
 			}
 			return buffIDs;
@@ -101,7 +103,7 @@ namespace  SkillBuffSpace {
 		public bool IsHaveBuff (int id) {
 			if(buffInfo.Length > 0)
 				for(int i=0; i<buffInfo.Length; i++)
-					if(buffInfo[i].InfoIndex == id)
+					if(buffInfo[i].ID == id)
 						return true;
 
 			return false;
@@ -131,9 +133,9 @@ namespace  SkillBuffSpace {
 			} 
 		}
 		
-		public void AddBuff (int skillIndex, float lifeTime, float value) {
+		public void AddBuff (int skillID, int skillKind, float lifeTime, float value) {
 			if(buffCount <= 4) {
-				int positionIndex = contains(skillIndex);
+				int positionIndex = contains(skillKind);
 				if(positionIndex != -1) {
 					if(buffInfo[positionIndex].LifeTime <= 3) 
 						buffInfo[positionIndex].Info.SetActive(false);
@@ -147,8 +149,9 @@ namespace  SkillBuffSpace {
 					for(int i=0; i<buffInfo.Length; i++) {
 						if(!buffInfo[i].Info.activeInHierarchy) {
 							buffInfo[i].LifeTime = lifeTime;
-							buffInfo[i].InfoIndex = skillIndex;
-							buffInfo[i].SpriteBuff.spriteName = "AttrKind_" + skillIndex.ToString();
+							buffInfo[i].ID = skillID;
+							buffInfo[i].InfoIndex = skillKind;
+							buffInfo[i].SpriteBuff.spriteName = "AttrKind_" + skillKind.ToString();
 							buffInfo[i].isClose = false;
 							buffInfo[i].Buff.SetActive((value > 0));
 							buffInfo[i].DeBuff.SetActive(!(value > 0));
@@ -168,6 +171,7 @@ namespace  SkillBuffSpace {
 				buffInfo[i].isClose = true;
 				buffInfo[i].LifeTime = 0;
 				buffInfo[i].InfoIndex = -1;
+				buffInfo[i].ID = -1;
 			}
 		}
 		
@@ -182,16 +186,16 @@ namespace  SkillBuffSpace {
 			}
 		}
 		
-		private int contains (int skillID) {
+		private int contains (int index) {
 			for (int i=0; i<buffInfo.Length; i++) 
-				if(buffInfo[i].InfoIndex == skillID)
+				if(buffInfo[i].InfoIndex == index)
 					return i;
 			return -1;
 		}
 
-		private bool containsSkill (int skillID) {
+		private bool containsSkill (int index) {
 			for (int i=0; i<buffInfo.Length; i++) 
-				if(buffInfo[i].InfoIndex == skillID)
+				if(buffInfo[i].InfoIndex == index)
 					return true;
 
 			return false;

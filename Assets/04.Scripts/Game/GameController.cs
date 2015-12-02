@@ -2014,7 +2014,7 @@ public class GameController : KnightSingleton<GameController>
 			else
 				player.GameRecord.FG++;
 
-			PlusScore(player.Team.GetHashCode(), player.IsUseSkill, true);
+			PlusScore(player.Team.GetHashCode(), player.IsUseActiveSkill, true);
             SetBall();
 
 
@@ -2562,7 +2562,7 @@ public class GameController : KnightSingleton<GameController>
 				player.ActiveSkillUsed = tSkill;
 				player.CheckSkillValueAdd(tSkill);
 				result = player.DoActiveSkill(player.PlayerRefGameObject);
-				player.IsUseSkill = true;
+				player.IsUseActiveSkill = true;
 			}
 		}
 		return result;
@@ -4688,7 +4688,7 @@ public class GameController : KnightSingleton<GameController>
 	public bool CheckOthersUseSkill {
 		get {
 			for (int i=0; i<PlayerList.Count; i++) {
-				if(PlayerList[i].IsUseSkill)
+				if(PlayerList[i].IsUseActiveSkill)
 					return false;
 			}
 			return true;

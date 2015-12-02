@@ -471,6 +471,11 @@ public class UISkillFormation : UIBase {
 		refreshPassiveItems();
 		checkCostIfMask();
 		labelCostValue.text = costSpace + "/" + costSpaceMax;
+
+		if(skillSortCards.Count <= 6)
+			scrollViewCardList.enabled = false;
+		else 
+			scrollViewCardList.enabled = true;
 	}
 
 	private int getActiveFieldNull{

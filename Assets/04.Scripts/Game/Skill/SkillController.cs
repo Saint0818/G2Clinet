@@ -204,7 +204,7 @@ public class SkillController : MonoBehaviour {
 		if (value != 0) {
 			int index = findSkillAttribute(skillID);
 			if(skillID >= GameConst.ID_LimitActive)
-				skillBuff.AddBuff(kind, lifetime, value);
+				skillBuff.AddBuff(skillID, kind, lifetime, value);
 			
 			if (index == -1) {
 				TSkillAttribute item = new TSkillAttribute();
@@ -556,7 +556,7 @@ public class SkillController : MonoBehaviour {
 			if(Result && !playerState.ToString().Equals(State.ToString())){
 				if(GameData.DSkillData.ContainsKey(player.PassiveSkillUsed.ID)) {
 					CheckSkillValueAdd(player, player.PassiveSkillUsed);
-					if(!player.IsUseSkill)
+					if(!player.IsUseActiveSkill)
 						UIPassiveEffect.Get.ShowCard(player, player.PassiveSkillUsed.ID, player.PassiveSkillUsed.Lv);
 					SkillEffectManager.Get.OnShowEffect(player, true);
 					player.GameRecord.PassiveSkill++;
