@@ -281,6 +281,8 @@ public class GameController : KnightSingleton<GameController>
 			if (GameData.Team.Player.Lv == 0 && StageData.IsTutorial) {
 				GameData.Team.StageTutorial = StageData.ID + 1;
 				WWWForm form = new WWWForm();
+				form.AddField("StageID", GameData.Team.StageTutorial);
+				form.AddField("Cause", 0);
 				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
 			}
 		} else {
@@ -3682,6 +3684,9 @@ public class GameController : KnightSingleton<GameController>
 			if (!StageData.IsTutorial)
 				SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
 			else {
+				form.AddField("Cause", 1);
+				SendHttp.Get.Command(URLConst.AddStageTutorial, null, form, false);
+
 				UIGameResult.UIShow(true);
 				UIGameResult.Get.SetGameRecord(ref GameRecord);
 			}

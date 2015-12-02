@@ -348,16 +348,6 @@ public class UIMainStage : UIBase
         Hide();
     }
 
-    private void pveEnd(int stageID)
-    {
-        if (GameStart.Get.ConnectToServer)
-        {
-            WWWForm form = new WWWForm();
-            form.AddField("StageID", stageID);
-            SendHttp.Get.Command(URLConst.PVEEnd, waitPVEEnd, form);
-        }
-    }
-
     private void waitPVEEnd(bool ok, WWW www)
     {
         Debug.LogFormat("waitPVEEnd, ok:{0}", ok);
