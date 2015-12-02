@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System;
 
 public class GEBuildTool : GEBase {
-	public float mVersion = 0.171f;
-    public int mVersionCode = 17;
+	public float mVersion = 0.181f;
+    public int mVersionCode = 18;
     public string mPass = "csharp2014";
     public string mPath;
     public int HeadItemIndex = 51;
