@@ -2283,6 +2283,9 @@ public class GameController : KnightSingleton<GameController>
 				if(Random.Range(0, 100) <= (probability + addRate) && 
 				   Mathf.Abs(MathUtils.FindAngle(player.PlayerRefGameObject.transform, BallOwner.PlayerRefGameObject.transform.position)) <= 90 + addAngle)
                 {
+					if (StageData.IsTutorial)
+						SetBall(player);
+
                     // 持球者嘗試撥被抄截的懲罰動作.
 					if(BallOwner.AniState(EPlayerState.GotSteal))
                     {
@@ -4320,9 +4323,11 @@ public class GameController : KnightSingleton<GameController>
 				}
 			}
 		}
-		
-		SetBall();
-		CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
+
+		if (!StageData.IsTutorial) {
+			SetBall();
+			CourtMgr.Get.SetBallState(EPlayerState.Steal0, player);
+		}
 	}
 	
 	public void Reset()

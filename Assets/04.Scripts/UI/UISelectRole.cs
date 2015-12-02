@@ -51,7 +51,10 @@ public class UISelectRole : UIBase {
 	private UILabel labelPlayerName;
 	private UISprite spritePlayerBodyPic;
 
+
 	private UILabel [] labelsSelectABName = new UILabel[2];
+	private GameObject [] uiSelectAList = new GameObject[3];
+	private GameObject [] uiSelectBList = new GameObject[3];
 	private UILabel [] labelsSelectAListName = new UILabel[3];
 	private UILabel [] labelsSelectBListName = new UILabel[3];
 	private UISprite [] spritesSelectABBody = new UISprite[2];
@@ -294,6 +297,7 @@ public class UISelectRole : UIBase {
 		UIEventListener.Get(GameObject.Find(UIName + "/Center/ShowTimeCollider")).onClick = DoPlayerAnimator;
 
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
+			uiSelectAList[i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString());
 			labelsSelectAListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
 			spritesSelectAListPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/BodyType").GetComponent<UISprite>();
 			spritesSelectAListBigPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListA/UIGrid/" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
@@ -301,6 +305,7 @@ public class UISelectRole : UIBase {
 		}
 
 		for(int i = 0; i < labelsSelectBListName.Length; i++) {
+			uiSelectBList[i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString());
 			labelsSelectBListName [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/PlayerName").GetComponent<UILabel>();
 			spritesSelectBListBigPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/SpriteFace").GetComponent<UISprite>();
 			spritesSelectBListPic [i] = GameObject.Find (UIName + "/Center/ViewLoading/PartnerList/ListB/UIGrid/" + i.ToString() + "/BodyType").GetComponent<UISprite>();
@@ -534,18 +539,22 @@ public class UISelectRole : UIBase {
 	private void changeRoleInfo () {
 		for(int i = 0; i < labelsSelectAListName.Length; i++) {
 			if (i < playerList.Count) {
+				uiSelectAList[i].SetActive(true);
 				labelsSelectAListName [i].text = playerList[i].Name;
 				spritesSelectAListBigPic[i].spriteName = playerList[i].FacePicture;
 				SetBodyPic(ref spritesSelectAListPic[i], playerList[i].BodyType);
-				
+
+				uiSelectBList[i].SetActive(true);
 				labelsSelectBListName [i].text = playerList[i].Name;
 				spritesSelectBListBigPic[i].spriteName = playerList[i].FacePicture;
 				SetBodyPic(ref spritesSelectBListPic[i], playerList[i].BodyType);
 			} else {
+				uiSelectAList[i].SetActive(false);
 				labelsSelectAListName [i].text = "";
 				spritesSelectAListBigPic[i].spriteName = "";
 				spritesSelectAListPic[i].spriteName = "";
-				
+
+				uiSelectBList[i].SetActive(false);
 				labelsSelectBListName [i].text = "";
 				spritesSelectBListBigPic[i].spriteName = "";
 				spritesSelectBListPic[i].spriteName = "";

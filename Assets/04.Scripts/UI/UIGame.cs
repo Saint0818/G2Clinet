@@ -1445,6 +1445,7 @@ public class UIGame : UIBase {
 				uiTutorial[i].SetActive(false);
 
 			viewTopRight.SetActive(false);
+			ClearLine();
 		} else {
 			int[] temp = AI.BitConverter.Convert(flag.ToString());
 
