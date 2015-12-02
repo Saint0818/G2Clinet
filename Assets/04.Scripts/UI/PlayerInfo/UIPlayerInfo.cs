@@ -85,6 +85,7 @@ public class PersonalView
 						ValueItems[i].Pic = data.Icon;
 						ValueItems[i].Quality = data.Quality;
 						ValueItems[i].Starts = player.ValueItems[kind + i].InlayItemIDs.Length;
+						ValueItems[i].ID = player.ValueItems[kind + i].ID;
 					}
 				}
 
@@ -425,6 +426,7 @@ public class TSkillView
 public class TValueAvater
 {
 	public int Index;
+	public int ID;
 	private GameObject self;
 	public UISprite BG;
 	private UISprite pic;
@@ -700,9 +702,9 @@ public class UIPlayerInfo : UIBase {
 	{
 		int index;
 		if (int.TryParse (UIButton.current.name, out index))
-				if (index < GameData.Team.Player.Items.Length && GameData.Team.Player.Items [index].ID > 0)
-					if (GameData.DItemData.ContainsKey (GameData.Team.Player.Items [index].ID))
-						UIItemHint.Get.OnShow (GameData.DItemData [GameData.Team.Player.Items [index].ID]);
+			if (index < GameData.Team.Player.Items.Length && index < personalView.ValueItems.Length)
+				if (personalView.ValueItems[index].ID > 0 && GameData.DItemData.ContainsKey (personalView.ValueItems[index].ID))
+					UIItemHint.Get.OnShow (GameData.DItemData [personalView.ValueItems[index].ID]);
 	}
 
 	public void OnChangePlayerName()
