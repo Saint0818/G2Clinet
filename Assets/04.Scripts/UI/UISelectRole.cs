@@ -774,7 +774,7 @@ public class UISelectRole : UIBase {
 	}
 
 	public void InitFriend() {
-		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend)) {
+		if (StageTable.Ins.GetByID(GameData.StageID).IsOnlineFriend) {
 			if (DateTime.UtcNow > GameData.Team.LookFriendTime) {
 				WWWForm form = new WWWForm();
 				SendHttp.Get.Command(URLConst.LookFriends, waitLookFriends, form);
