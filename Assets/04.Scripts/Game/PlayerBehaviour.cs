@@ -2657,8 +2657,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         TAnimatorItem nextState = AnimatorMgr.Get.GetAnimatorStateType(state);
 
-		if(nextState.Type != EAnimatorState.End && GameController.Get.Situation == EGameSituation.End)
-			return false;
+//		if(nextState.Type != EAnimatorState.End && GameController.Get.Situation == EGameSituation.End)
+//			return false;
 
         bool Result = false;
 //        int stateNo = 0;
@@ -3282,7 +3282,8 @@ public class PlayerBehaviour : MonoBehaviour
 					OnShooting(this, true);
 				break;
             case "PushDistancePlayer":
-                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID))
+                if (GameData.DSkillData.ContainsKey(ActiveSkillUsed.ID) && (GameController.Get.Situation == EGameSituation.AttackGamer || 
+			                                                            	GameController.Get.Situation == EGameSituation.AttackNPC))
                 {
 					GameController.Get.CheckConditionText();
                     GameController.Get.IsGameFinish();
