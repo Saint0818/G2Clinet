@@ -68,7 +68,8 @@
         "line": 9,
         "talkl": 11,
         "actionl": 1,
-        "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。"
+        "texttw": "確認這場比賽的獲勝條件之後，就可以開始比賽了。",
+        "texten": "Checking the mission details ."
     },
     {
         "id": 1,
