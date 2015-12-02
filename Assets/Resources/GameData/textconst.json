@@ -1471,7 +1471,7 @@
         "explain": "TargetBtn/LabelTitle",
         "tw": "GAME TARGET",
         "cn": "GAME TARGET",
-        "en": "Objective",
+        "en": "OBJECTIVE",
         "jp": "GAME TARGET"
     },
     {
@@ -2384,7 +2384,7 @@
     },
     {
         "id": 2003009,
-        "tw": "[FFDD33]灌籃[-]",
+        "tw": "[33FFDD]灌籃[-]",
         "cn": "[FFDD33]灌籃[-]",
         "en": "[FFDD33]Dunk[-]"
     },
